@@ -9,7 +9,7 @@ export interface TamaguiBuildOptions {
     config?: string;
     /**
      * Use the new ThemeBuilder in `@tamagui/create-theme` to create beautiful theme sets,
-     * see docs at https://tamagui.dev/docs/guides/theme-builder
+     * see docs at https://gui.hanzo.ai/docs/guides/theme-builder
      * This helps you automate generating the build themes typescript file which loads fastere
      * and has smaller bundle size.
      */

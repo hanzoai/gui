@@ -8,4 +8,4 @@
 $ npx bento-get
 ```
 
-<http://www.tamagui.dev/bento>
+<http://www.gui.hanzo.ai/bento>

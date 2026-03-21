@@ -1,4 +1,4 @@
-import { YStack, XStack, Text, Square, styled } from 'tamagui'
+import { YStack, XStack, Text, Square, styled } from '@hanzo/gui'
 
 // styled component with scale in definition - test if this behaves differently
 const StyledBox = styled(YStack, {

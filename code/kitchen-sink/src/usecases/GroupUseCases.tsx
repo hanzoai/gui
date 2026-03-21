@@ -1,4 +1,4 @@
-import { Button, XGroup, YStack } from 'tamagui'
+import { Button, XGroup, YStack } from '@hanzo/gui'
 
 export function GroupUseCases() {
   return (

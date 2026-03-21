@@ -16,8 +16,8 @@ export * from './modules/useLocale/index'
 export { usePlatformMethods } from './modules/usePlatformMethods/index'
 export { TextAncestorContext } from './TextAncestorContext'
 
-export * from '@tamagui/react-native-use-pressable'
-export * from '@tamagui/react-native-use-responder-events'
+export * from '@hanzo/gui-react-native-use-pressable'
+export * from '@hanzo/gui-react-native-use-responder-events'
 
 export { colorProps } from './colorProps'
 export { AccessibilityUtil } from './modules/AccessibilityUtil/index'

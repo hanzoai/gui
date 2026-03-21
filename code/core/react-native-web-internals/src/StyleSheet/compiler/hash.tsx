@@ -1,1 +1,1 @@
-export { simpleHash as default } from '@tamagui/simple-hash'
+export { simpleHash as default } from '@hanzo/gui-simple-hash'

@@ -1,4 +1,4 @@
-import { Text, useMedia, YStack } from 'tamagui'
+import { Text, useMedia, YStack } from '@hanzo/gui'
 
 /**
  * Test case for media query regression bug (started in 1.132.17)
@@ -6,7 +6,7 @@ import { Text, useMedia, YStack } from 'tamagui'
  * Bug: On small screens (iPhone), $gtMd styles incorrectly apply when they shouldn't.
  * The $md styles should apply on mobile, NOT the $gtMd styles.
  *
- * Breakpoints (from @tamagui/config):
+ * Breakpoints (from @hanzo/gui-config):
  * - md: maxWidth 1020 (matches when width <= 1020)
  * - gtMd: minWidth 1021 (matches when width > 1020)
  *

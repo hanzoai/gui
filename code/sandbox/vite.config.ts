@@ -1,4 +1,4 @@
-import { tamaguiAliases, tamaguiPlugin } from '@tamagui/vite-plugin'
+import { tamaguiAliases, tamaguiPlugin } from '@hanzo/gui-vite-plugin'
 import { one } from 'one/vite'
 import type { UserConfig } from 'vite'
 

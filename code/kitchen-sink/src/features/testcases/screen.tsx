@@ -1,9 +1,9 @@
-import { ChevronRight } from '@tamagui/lucide-icons-2'
+import { ChevronRight } from '@hanzo/gui-lucide-icons-2'
 import { ScrollView } from 'react-native'
 import type { UseLinkProps } from 'solito/link'
 import { useLink } from 'solito/link'
-import type { ListItemProps } from 'tamagui'
-import { H2, ListItem, YGroup, YStack } from 'tamagui'
+import type { ListItemProps } from '@hanzo/gui'
+import { H2, ListItem, YGroup, YStack } from '@hanzo/gui'
 
 import * as TestCases from '../../usecases'
 

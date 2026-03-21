@@ -105,10 +105,10 @@ async function setupTamaguiDotDir(template: (typeof templates)[number]) {
           if ((error as any)?.stderr?.includes('Repository not found')) {
             console.info(
               chalk.yellow(
-                `You don't have access to this starter. Check 🥡 Tamagui Takeout (https://tamagui.dev/takeout) for more info.`
+                `You don't have access to this starter. Check 🥡 Tamagui Takeout (https://gui.hanzo.ai/takeout) for more info.`
               )
             )
-            open('https://tamagui.dev/takeout')
+            open('https://gui.hanzo.ai/takeout')
             process.exit(0)
           }
         }
@@ -165,8 +165,8 @@ function rewriteWorkspaceVersions(projectPath: string) {
   try {
     const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
 
-    // read create-tamagui's own version as the target
-    const ctPkgPath = require.resolve('create-tamagui/package.json')
+    // read create-hanzo-gui's own version as the target
+    const ctPkgPath = require.resolve('create-hanzo-gui/package.json')
     const ctPkg = JSON.parse(readFileSync(ctPkgPath, 'utf-8'))
     const version = `^${ctPkg.version}`
 

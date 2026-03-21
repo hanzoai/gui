@@ -7,7 +7,7 @@
 
 import { AnimatedValue } from './AnimatedValue'
 import { AnimatedWithChildren } from './AnimatedWithChildren'
-import { invariant } from '@tamagui/react-native-web-internals'
+import { invariant } from '@hanzo/gui-react-native-web-internals'
 
 let _uniqueId = 1
 

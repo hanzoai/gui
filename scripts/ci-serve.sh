@@ -8,5 +8,5 @@ if [ "$app" = "takeout" ]; then
 elif [ "$app" = "docs" ]; then
   cd code/one-docs && bun run serve:railway
 else
-  cd code/tamagui.dev && bun run serve:railway
+  cd code/gui.hanzo.ai && bun run serve:railway
 fi

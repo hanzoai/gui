@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/generate-themes",
+  "name": "@hanzo/gui-generate-themes",
   "version": "2.0.0-rc.29",
   "source": "src/index.ts",
   "files": [
@@ -28,19 +28,19 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build",
+    "build": "hanzo-gui-build",
     "watch": "bun run build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/create-theme": "workspace:*",
-    "@tamagui/theme-builder": "workspace:*",
-    "@tamagui/types": "workspace:*",
+    "@hanzo/gui-create-theme": "workspace:*",
+    "@hanzo/gui-theme-builder": "workspace:*",
+    "@hanzo/gui-types": "workspace:*",
     "esbuild-register": "^3.6.0",
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*"
+    "@hanzo/gui-build": "workspace:*"
   }
 }

@@ -3,15 +3,15 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "tamagui": [
+      "@hanzo/gui": [
         "code/ui/tamagui"
       ],
-      "@tamagui/*": [
+      "@hanzo/gui-*": [
         "code/core/*",
         "code/ui/*",
         "code/packages/*"
       ],
-      "@tamagui/demos": [
+      "@hanzo/gui-demos": [
         "code/demos"
       ]
     },
@@ -320,153 +320,6 @@
     },
     {
       "path": "code/packages/vite-plugin-internal"
-    },
-    {
-      "path": "code/ui/accordion"
-    },
-    {
-      "path": "code/ui/adapt"
-    },
-    {
-      "path": "code/ui/alert-dialog"
-    },
-    {
-      "path": "code/ui/animate-presence"
-    },
-    {
-      "path": "code/ui/animate"
-    },
-    {
-      "path": "code/ui/avatar"
-    },
-    {
-      "path": "code/ui/button"
-    },
-    {
-      "path": "code/ui/card"
-    },
-    {
-      "path": "code/ui/checkbox-headless"
-    },
-    {
-      "path": "code/ui/checkbox"
-    },
-    {
-      "path": "code/ui/collapsible"
-    },
-    {
-      "path": "code/ui/collection"
-    },
-    {
-      "path": "code/ui/dialog"
-    },
-    {
-      "path": "code/ui/dismissable"
-    },
-    {
-      "path": "code/ui/elements"
-    },
-    {
-      "path": "code/ui/focus-scope"
-    },
-    {
-      "path": "code/ui/focusable"
-    },
-    {
-      "path": "code/ui/form"
-    },
-    {
-      "path": "code/ui/group"
-    },
-    {
-      "path": "code/ui/image"
-    },
-    {
-      "path": "code/ui/input"
-    },
-    {
-      "path": "code/ui/label"
-    },
-    {
-      "path": "code/ui/linear-gradient"
-    },
-    {
-      "path": "code/ui/list-item"
-    },
-    {
-      "path": "code/ui/menu"
-    },
-    {
-      "path": "code/ui/popover"
-    },
-    {
-      "path": "code/ui/popper"
-    },
-    {
-      "path": "code/ui/portal"
-    },
-    {
-      "path": "code/ui/progress"
-    },
-    {
-      "path": "code/ui/radio-group"
-    },
-    {
-      "path": "code/ui/radio-headless"
-    },
-    {
-      "path": "code/ui/remove-scroll"
-    },
-    {
-      "path": "code/ui/roving-focus"
-    },
-    {
-      "path": "code/ui/scroll-view"
-    },
-    {
-      "path": "code/ui/select"
-    },
-    {
-      "path": "code/ui/separator"
-    },
-    {
-      "path": "code/ui/shapes"
-    },
-    {
-      "path": "code/ui/sheet"
-    },
-    {
-      "path": "code/ui/slider"
-    },
-    {
-      "path": "code/ui/stacks"
-    },
-    {
-      "path": "code/ui/switch-headless"
-    },
-    {
-      "path": "code/ui/switch"
-    },
-    {
-      "path": "code/ui/tabs"
-    },
-    {
-      "path": "code/ui/tamagui"
-    },
-    {
-      "path": "code/ui/text"
-    },
-    {
-      "path": "code/ui/toast"
-    },
-    {
-      "path": "code/ui/toggle-group"
-    },
-    {
-      "path": "code/ui/tooltip"
-    },
-    {
-      "path": "code/ui/visually-hidden"
     }
   ]
 }

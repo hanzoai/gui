@@ -53,7 +53,7 @@ console.info('✅ Bento dependencies installed')
 // 5. Symlink all node_modules from tamagui to bento to avoid any duplicates
 console.info('🔗 Symlinking all node_modules to avoid duplicates...')
 
-const TAMAGUI_NODE_MODULES = join(REPO_ROOT, 'node_modules')
+const HANZO_GUI_NODE_MODULES = join(REPO_ROOT, 'node_modules')
 const BENTO_NODE_MODULES = join(BENTO_PATH, 'node_modules')
 
 let linkedCount = 0
@@ -97,7 +97,7 @@ function symlinkPackages(sourceDir, targetDir) {
 }
 
 // Symlink everything
-symlinkPackages(TAMAGUI_NODE_MODULES, BENTO_NODE_MODULES)
+symlinkPackages(HANZO_GUI_NODE_MODULES, BENTO_NODE_MODULES)
 
 console.info(`✅ Symlinked ${linkedCount} packages from tamagui to bento`)
 console.info('🎉 Bento setup complete!')

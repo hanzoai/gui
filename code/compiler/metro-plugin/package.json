@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/metro-plugin",
+  "name": "@hanzo/gui-metro-plugin",
   "version": "2.0.0-rc.29",
   "license": "MIT",
   "source": "src/index.ts",
@@ -15,15 +15,15 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build --skip-native",
-    "watch": "tamagui-build --skip-native --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build --skip-native",
+    "watch": "hanzo-gui-build --skip-native --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/static": "workspace:*"
+    "@hanzo/gui-static": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*"
+    "@hanzo/gui-build": "workspace:*"
   }
 }

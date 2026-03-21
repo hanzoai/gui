@@ -1,4 +1,4 @@
-import type { PresenceContextProps } from '@tamagui/web'
+import type { PresenceContextProps } from '@hanzo/gui-web'
 import * as React from 'react'
 
 export const PresenceContext: React.Context<PresenceContextProps | null> =

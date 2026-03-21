@@ -4,9 +4,9 @@ module.exports = (api) => {
     presets: [['babel-preset-expo', { jsxRuntime: 'automatic' }]],
     plugins: [
       [
-        '@tamagui/babel-plugin',
+        '@hanzo/gui-babel-plugin',
         {
-          components: ['tamagui'],
+          components: ['@hanzo/gui'],
           config: './tamagui.config.ts',
           logTimings: true,
           disableExtraction: process.env.NODE_ENV === 'development',

@@ -1,8 +1,8 @@
 import { basename, dirname, extname, join, relative, resolve } from 'node:path'
 // @ts-ignore why
-import { Color, colorLog } from '@tamagui/cli-color'
-import type { CLIResolvedOptions, CLIUserOptions, TamaguiOptions } from '@tamagui/types'
-import type { TamaguiInternalConfig } from '@tamagui/web'
+import { Color, colorLog } from '@hanzo/gui-cli-color'
+import type { CLIResolvedOptions, CLIUserOptions, TamaguiOptions } from '@hanzo/gui-types'
+import type { TamaguiInternalConfig } from '@hanzo/gui-web'
 import esbuild from 'esbuild'
 import * as esbuildWasm from 'esbuild-wasm'
 import * as fsExtra from 'fs-extra'
@@ -27,9 +27,9 @@ import {
 
 const getFilledOptions = (propsIn: Partial<TamaguiOptions>): TamaguiOptions => ({
   // defaults
-  platform: (process.env.TAMAGUI_TARGET as any) || 'web',
+  platform: (process.env.HANZO_GUI_TARGET as any) || 'web',
   config: 'tamagui.config.ts',
-  components: ['tamagui'],
+  components: ['@hanzo/gui'],
   ...(propsIn as Partial<TamaguiOptions>),
 })
 
@@ -184,7 +184,7 @@ export async function loadTamaguiBuildConfigAsync(
 
   return {
     config: 'tamagui.config.ts',
-    components: ['tamagui', '@tamagui/core'],
+    components: ['@hanzo/gui', '@hanzo/gui-core'],
     ...tamaguiOptions,
   } as TamaguiOptions
 }
@@ -221,7 +221,7 @@ export function loadTamaguiBuildConfigSync(
   }
   return {
     config: 'tamagui.config.ts',
-    components: ['tamagui', '@tamagui/core'],
+    components: ['@hanzo/gui', '@hanzo/gui-core'],
     ...tamaguiOptions,
   } as TamaguiOptions
 }
@@ -250,7 +250,7 @@ export function loadTamaguiSync({
   // lets shim require and avoid importing react-native + react-native-web
   // we just need to read the config around them
   process.env.IS_STATIC = 'is_static'
-  process.env.TAMAGUI_IS_SERVER = 'true'
+  process.env.HANZO_GUI_IS_SERVER = 'true'
 
   const { unregister } = registerRequire(props.platform || 'web', {
     proxyWormImports: !!forceExports,
@@ -292,7 +292,7 @@ export function loadTamaguiSync({
       if (!components) {
         throw new Error(`No components loaded`)
       }
-      if (process.env.DEBUG === 'tamagui') {
+      if (process.env.DEBUG === '@hanzo/gui') {
         console.info(`components`, components)
       }
 
@@ -372,8 +372,8 @@ export async function getOptions({
     debug,
     tsconfigPath,
     tamaguiOptions: {
-      platform: (process.env.TAMAGUI_TARGET as any) || 'web',
-      components: ['tamagui'],
+      platform: (process.env.HANZO_GUI_TARGET as any) || 'web',
+      components: ['@hanzo/gui'],
       ...tamaguiOptions,
       config:
         tamaguiOptions?.config ??
@@ -393,7 +393,7 @@ export function resolveWebOrNativeSpecificEntry(entry: string) {
   const resolved = require.resolve(entry, { paths: [workspaceRoot] })
   const ext = extname(resolved)
   const fileName = basename(resolved).replace(ext, '')
-  const specificExt = process.env.TAMAGUI_TARGET === 'web' ? 'web' : 'native'
+  const specificExt = process.env.HANZO_GUI_TARGET === 'web' ? 'web' : 'native'
   const specificFile = join(dirname(resolved), fileName + '.' + specificExt + ext)
   if (fsExtra.existsSync(specificFile)) {
     return specificFile
@@ -443,9 +443,9 @@ export async function esbuildWatchFiles(entry: string, onChanged: () => void) {
     write: false,
 
     alias: {
-      '@react-native/normalize-color': '@tamagui/proxy-worm',
-      'react-native-web': '@tamagui/react-native-web-lite',
-      'react-native': '@tamagui/proxy-worm',
+      '@react-native/normalize-color': '@hanzo/gui-proxy-worm',
+      'react-native-web': '@hanzo/gui-react-native-web-lite',
+      'react-native': '@hanzo/gui-proxy-worm',
     },
 
     plugins: [

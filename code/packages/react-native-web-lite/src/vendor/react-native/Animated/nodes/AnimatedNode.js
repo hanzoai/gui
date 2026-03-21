@@ -10,7 +10,7 @@
 'use strict'
 
 import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
-import { invariant } from '@tamagui/react-native-web-internals'
+import { invariant } from '@hanzo/gui-react-native-web-internals'
 
 const NativeAnimatedAPI = NativeAnimatedHelper.API
 

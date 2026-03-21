@@ -1,10 +1,10 @@
-import { StyleObjectIdentifier, StyleObjectRules } from '@tamagui/helpers'
+import { StyleObjectIdentifier, StyleObjectRules } from '@hanzo/gui-helpers'
 import type { StyleObject } from '../types'
 
 // turns out this is pretty slow, creating a bunch of extra tags...
 
 export function getStyleTags(styles: StyleObject[]) {
-  if (process.env.TAMAGUI_TARGET !== 'native') {
+  if (process.env.HANZO_GUI_TARGET !== 'native') {
     if (styles.length) {
       return (
         <>

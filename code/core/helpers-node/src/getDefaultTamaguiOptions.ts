@@ -1,4 +1,4 @@
-import type { TamaguiOptions } from '@tamagui/types'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 
 import { getDefaultTamaguiConfigPath } from './getTamaguiDefaultPath'
 
@@ -9,7 +9,7 @@ export async function getDefaultTamaguiOptions({
 }): Promise<TamaguiOptions> {
   return {
     platform: 'native',
-    components: ['tamagui'],
+    components: ['@hanzo/gui'],
     config: await getDefaultTamaguiConfigPath({ cwd }),
   }
 }

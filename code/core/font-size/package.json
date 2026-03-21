@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/font-size",
+  "name": "@hanzo/gui-font-size",
   "version": "2.0.0-rc.29",
   "source": "src/index.ts",
   "files": [
@@ -28,15 +28,15 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean"
   },
   "dependencies": {
-    "@tamagui/core": "workspace:*"
+    "@hanzo/gui-core": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

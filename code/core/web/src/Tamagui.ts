@@ -1,4 +1,4 @@
-import * as Helpers from '@tamagui/helpers'
+import * as Helpers from '@hanzo/gui-helpers'
 
 import { getConfig } from './config'
 import { getAllRules, getAllSelectors } from './helpers/insertStyleRule'

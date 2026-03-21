@@ -12,7 +12,7 @@ import { cwd } from 'node:process'
 import open from 'opener'
 import prompts from 'prompts'
 import packageJson from '../package.json'
-import { IS_TEST } from './create-tamagui-constants'
+import { IS_TEST } from './create-hanzo-gui-constants'
 import { tamaguiDuckAsciiArt, tamaguiRainbowAsciiArt } from './helpers/asciiArts'
 import { cloneStarter } from './helpers/cloneStarter'
 import { getProjectName } from './helpers/getProjectName'
@@ -23,7 +23,7 @@ import { validateNpmName } from './helpers/validateNpmPackage'
 let projectPath = ''
 
 if (IS_TEST) {
-  console.info(`🧐 Running create-tamagui in test mode 🧐`)
+  console.info(`🧐 Running create-hanzo-gui in test mode 🧐`)
 }
 
 function exit() {
@@ -104,12 +104,12 @@ async function run() {
         await prompts({
           type: 'confirm',
           name: 'purchased',
-          message: `Have you purchased Takeout on https://tamagui.dev/takeout`,
+          message: `Have you purchased Takeout on https://gui.hanzo.ai/takeout`,
         })
       ).purchased
 
       if (!didPurchase) {
-        open(`https://tamagui.dev/takeout`)
+        open(`https://gui.hanzo.ai/takeout`)
         console.info(
           `\nOpening Takeout website - once you purchase you can restart the create process. Thank you!\n`
         )

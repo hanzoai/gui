@@ -7,10 +7,10 @@
       "tamagui": [
         "../ui/tamagui"
       ],
-      "@tamagui/studio": [
+      "@hanzo/gui-studio": [
         "../studio"
       ],
-      "@tamagui/*": [
+      "@hanzo/gui-*": [
         "../../packages/*"
       ],
       "@components/*": [

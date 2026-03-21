@@ -4,7 +4,7 @@ import path from 'node:path'
 import { temporaryDirectory } from 'tempy'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
-describe('create-tamagui CLI', () => {
+describe('create-hanzo-gui CLI', () => {
   let tempDir: string
   let cli: ChildProcess
   let projectName: string
@@ -128,7 +128,7 @@ describe('create-tamagui CLI', () => {
   })
 })
 
-describe('create-tamagui CLI with --template flag', () => {
+describe('create-hanzo-gui CLI with --template flag', () => {
   let tempDir: string
   let cli: ChildProcess
   let projectName: string

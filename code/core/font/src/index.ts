@@ -1,11 +1,11 @@
-import { isWeb } from '@tamagui/constants'
+import { isWeb } from '@hanzo/gui-constants'
 import {
   createVariables,
   getConfig,
   parseFont,
   registerFontVariables,
-} from '@tamagui/web'
-import type { CreateTamaguiProps } from '@tamagui/web'
+} from '@hanzo/gui-web'
+import type { CreateTamaguiProps } from '@hanzo/gui-web'
 
 export function addFont(props: {
   fontFamilyName: string

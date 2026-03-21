@@ -1,4 +1,4 @@
-export { createThemes } from '@tamagui/theme-builder'
+export { createThemes } from '@hanzo/gui-theme-builder'
 export { themes } from './generated-v5-subtle'
 export type {
   Theme as V5SubtleTheme,

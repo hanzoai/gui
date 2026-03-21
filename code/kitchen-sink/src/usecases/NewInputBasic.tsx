@@ -1,5 +1,5 @@
-import { Input, TextArea } from '@tamagui/input'
-import { YStack } from 'tamagui'
+import { Input, TextArea } from '@hanzo/gui-input'
+import { YStack } from '@hanzo/gui'
 
 export function NewInputBasic() {
   return (

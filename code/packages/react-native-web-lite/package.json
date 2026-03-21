@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/react-native-web-lite",
+  "name": "@hanzo/gui-react-native-web-lite",
   "version": "2.0.0-rc.29",
   "description": "React Native for Web",
   "keywords": [
@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tamagui/tamagui.git",
+    "url": "https://github.com/hanzoai/gui.git",
     "directory": "packages/react-native-web-lite"
   },
   "files": [
@@ -96,22 +96,22 @@
     }
   },
   "scripts": {
-    "build": "tamagui-build --skip-types --skip-native",
-    "watch": "tamagui-build --watch --skip-types --skip-native",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build --skip-types --skip-native",
+    "watch": "hanzo-gui-build --watch --skip-types --skip-native",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/normalize-css-color": "workspace:*",
-    "@tamagui/react-native-use-pressable": "workspace:*",
-    "@tamagui/react-native-use-responder-events": "workspace:*",
-    "@tamagui/react-native-web-internals": "workspace:*",
-    "@tamagui/web": "workspace:*",
+    "@hanzo/gui-normalize-css-color": "workspace:*",
+    "@hanzo/gui-react-native-use-pressable": "workspace:*",
+    "@hanzo/gui-react-native-use-responder-events": "workspace:*",
+    "@hanzo/gui-react-native-web-internals": "workspace:*",
+    "@hanzo/gui-web": "workspace:*",
     "invariant": "^2.2.4",
     "memoize-one": "^6.0.0"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "react": ">=19",
     "react-dom": "*"
   },

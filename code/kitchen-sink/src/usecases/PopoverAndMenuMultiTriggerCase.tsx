@@ -1,4 +1,4 @@
-import { Menu } from '@tamagui/menu'
+import { Menu } from '@hanzo/gui-menu'
 import { memo, useRef } from 'react'
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   View,
   XStack,
   YStack,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 // tracks render count — must be memoized to isolate from parent re-renders
 const RenderCountingPopoverTrigger = memo(function RenderCountingPopoverTrigger({

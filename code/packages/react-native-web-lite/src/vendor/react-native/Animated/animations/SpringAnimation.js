@@ -12,7 +12,7 @@
 import { Animation } from './Animation'
 import { SpringConfig } from '../SpringConfig'
 
-import { invariant } from '@tamagui/react-native-web-internals'
+import { invariant } from '@hanzo/gui-react-native-web-internals'
 
 import { shouldUseNativeDriver } from '../NativeAnimatedHelper'
 

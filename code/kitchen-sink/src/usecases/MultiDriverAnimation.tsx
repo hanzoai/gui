@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Square, YStack, XStack, Text, View } from 'tamagui'
+import { Button, Square, YStack, XStack, Text, View } from '@hanzo/gui'
 
 /**
  * Test case for multi-driver animation config.

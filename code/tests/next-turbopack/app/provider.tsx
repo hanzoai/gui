@@ -1,7 +1,7 @@
 'use client'
 
-import { TamaguiProvider as Provider } from '@tamagui/core'
-import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
+import { TamaguiProvider as Provider } from '@hanzo/gui-core'
+import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
 import { useServerInsertedHTML } from 'next/navigation'
 import { StyleSheet } from 'react-native'
 import config from '../tamagui.config'

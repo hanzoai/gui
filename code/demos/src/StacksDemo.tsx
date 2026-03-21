@@ -1,5 +1,5 @@
 import React from 'react'
-import { XStack, YStack, ZStack } from 'tamagui'
+import { XStack, YStack, ZStack } from '@hanzo/gui'
 
 export function StacksDemo() {
   return (

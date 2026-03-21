@@ -1,4 +1,4 @@
-import { View } from 'tamagui'
+import { View } from '@hanzo/gui'
 
 export function ShorthandVariables() {
   return (

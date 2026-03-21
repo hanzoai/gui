@@ -1,6 +1,6 @@
-import { Menu } from '@tamagui/menu'
+import { Menu } from '@hanzo/gui-menu'
 import React from 'react'
-import { Button, Input, YStack } from 'tamagui'
+import { Button, Input, YStack } from '@hanzo/gui'
 
 /**
  * Menu item focus preservation test case

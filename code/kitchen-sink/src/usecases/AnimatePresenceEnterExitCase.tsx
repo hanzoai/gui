@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react'
-import { AnimatePresence } from '@tamagui/animate-presence'
-import { Button, Circle, Paragraph, Square, Text, XStack, YStack } from 'tamagui'
+import { AnimatePresence } from '@hanzo/gui-animate-presence'
+import { Button, Circle, Paragraph, Square, Text, XStack, YStack } from '@hanzo/gui'
 
 /**
  * Tests that enterStyle/exitStyle actually animate (opacity changes)

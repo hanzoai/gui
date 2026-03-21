@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, useIsomorphicLayoutEffect } from 'tamagui'
-import { useThemeSetting, useRootTheme } from '@tamagui/next-theme'
+import { Button, useIsomorphicLayoutEffect } from '@hanzo/gui'
+import { useThemeSetting, useRootTheme } from '@hanzo/gui-next-theme'
 
 export const SwitchThemeButton = () => {
   const themeSetting = useThemeSetting()

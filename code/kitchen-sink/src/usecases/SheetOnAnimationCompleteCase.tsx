@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { Button, Paragraph, Sheet, YStack } from 'tamagui'
+import { Button, Paragraph, Sheet, YStack } from '@hanzo/gui'
 
 export function SheetOnAnimationCompleteCase() {
   const [open, setOpen] = useState(false)

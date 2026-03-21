@@ -1,5 +1,5 @@
-import { ExternalLink } from '@tamagui/lucide-icons-2'
-import { Anchor, H2, Paragraph, XStack, YStack } from 'tamagui'
+import { ExternalLink } from '@hanzo/gui-lucide-icons-2'
+import { Anchor, H2, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { ToastControl } from 'components/CurrentToast'
 
 export default function TabOneScreen() {
@@ -36,7 +36,7 @@ export default function TabOneScreen() {
           pressStyle={{ bg: '$green4' }}
         >
           <Anchor
-            href="https://tamagui.dev/docs/core/configuration"
+            href="https://gui.hanzo.ai/docs/core/configuration"
             textDecorationLine="none"
             color="$green10"
             fontSize="$5"

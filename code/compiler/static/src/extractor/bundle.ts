@@ -86,7 +86,7 @@ function getESBuildConfig(
     allowOverwrite: true,
     keepNames: true,
     resolveExtensions: [
-      ...(process.env.TAMAGUI_TARGET === 'web'
+      ...(process.env.HANZO_GUI_TARGET === 'web'
         ? ['.web.tsx', '.web.ts', '.web.jsx', '.web.js']
         : ['.native.tsx', '.native.ts', '.native.jsx', '.native.js']),
       '.tsx',
@@ -180,17 +180,17 @@ function getESBuildConfig(
       {
         name: 'external',
         setup(build) {
-          const proxyWormPath = require.resolve('@tamagui/proxy-worm')
+          const proxyWormPath = require.resolve('@hanzo/gui-proxy-worm')
 
-          // only externalize @tamagui/core and @tamagui/web - these are provided at runtime
-          // other @tamagui/* packages (like @tamagui/config/v3) must be bundled in to avoid
+          // only externalize @hanzo/gui-core and @hanzo/gui-web - these are provided at runtime
+          // other @hanzo/gui-* packages (like @hanzo/gui-config/v3) must be bundled in to avoid
           // ESM race conditions when multiple threads require() them concurrently
           build.onResolve({ filter: /^@tamagui\/(core|web)$/ }, (args) => {
             if (args.kind === 'entry-point') {
               return null
             }
             return {
-              path: platform === 'native' ? '@tamagui/core/native' : args.path,
+              path: platform === 'native' ? '@hanzo/gui-core/native' : args.path,
               external: true,
             }
           })
@@ -204,7 +204,7 @@ function getESBuildConfig(
 
           build.onResolve({ filter: /^(react-native|react-native\/.*)$/ }, () => {
             return {
-              path: '@tamagui/react-native-web-lite',
+              path: '@hanzo/gui-react-native-web-lite',
               external: true,
             }
           })

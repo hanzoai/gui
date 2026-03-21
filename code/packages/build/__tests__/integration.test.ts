@@ -26,7 +26,7 @@ const jsMainDistPath = join(jsMainPackagePath, 'dist')
 //   distPath,
 // })
 
-describe('tamagui-build integration test', () => {
+describe('hanzo-gui-build integration test', () => {
   beforeAll(() => {
     // Clean up dist directory before starting
     execSync('rm -rf dist && rm -rf types', { cwd: simplePackagePath })
@@ -124,7 +124,7 @@ describe('tamagui-build integration test', () => {
 
         watchProcess.stdout.on('data', (data) => {
           console.log('Watch process output:', data.toString())
-          if (data.toString().includes('built tamagui-build-test-watch-package')) {
+          if (data.toString().includes('built hanzo-gui-build-test-watch-package')) {
             if (!initialBuildComplete) {
               initialBuildComplete = true
               console.log('Initial build complete, modifying file...')
@@ -171,12 +171,12 @@ describe('tamagui-build integration test', () => {
     // Check for platform-specific content in web output
     expect(webOutput).toContain('salutation = "Hi"')
     expect(webOutput).not.toContain('salutation = "Hey"')
-    expect(webOutput).not.toContain('process.env.TAMAGUI_TARGET')
+    expect(webOutput).not.toContain('process.env.HANZO_GUI_TARGET')
 
     // Check for platform-specific content in native output
     expect(nativeOutput).toContain('salutation = "Hey"')
     expect(nativeOutput).not.toContain('salutation = "Hi"')
-    expect(nativeOutput).not.toContain('process.env.TAMAGUI_TARGET')
+    expect(nativeOutput).not.toContain('process.env.HANZO_GUI_TARGET')
 
     // Check that the common code is present in both outputs
     expect(webOutput).toContain('greet:')

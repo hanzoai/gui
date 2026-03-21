@@ -1,7 +1,7 @@
-import { CheckCircle2 } from '@tamagui/lucide-icons-2'
-import { Toast } from '@tamagui/toast'
+import { CheckCircle2 } from '@hanzo/gui-lucide-icons-2'
+import { Toast } from '@hanzo/gui-toast'
 import React from 'react'
-import { Button, XStack, YStack } from 'tamagui'
+import { Button, XStack, YStack } from '@hanzo/gui'
 
 /**
  *  IMPORTANT NOTE: if you're copy-pasting this demo into your code, make sure to add the ToastProvider and ToastViewport as well.

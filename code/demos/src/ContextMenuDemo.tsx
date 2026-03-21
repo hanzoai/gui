@@ -1,7 +1,7 @@
-import { ContextMenu } from '@tamagui/context-menu'
-import { Calendar, Check, ChevronRight } from '@tamagui/lucide-icons-2'
+import { ContextMenu } from '@hanzo/gui-context-menu'
+import { Calendar, Check, ChevronRight } from '@hanzo/gui-lucide-icons-2'
 import React from 'react'
-import { Text, View, YStack } from 'tamagui'
+import { Text, View, YStack } from '@hanzo/gui'
 
 /**
  * Note: you'll want to use createMenu() to customize further.

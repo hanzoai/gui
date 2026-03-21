@@ -28,7 +28,7 @@ interface CommitInfo {
   date: string
 }
 
-const TAMAGUI_PACKAGES_PATTERN = /^(@tamagui\/|tamagui$)/
+const HANZO_GUI_PACKAGES_PATTERN = /^(@hanzo\/gui-|@hanzo\/gui$)/
 const COMMIT_TYPE_ORDER = [
   'feat',
   'fix',
@@ -113,7 +113,7 @@ function findTamaguiPackages(root: string): PackageInfo[] {
 
         for (const [name, version] of Object.entries(deps)) {
           if (typeof version !== 'string') continue
-          if (!TAMAGUI_PACKAGES_PATTERN.test(name)) continue
+          if (!HANZO_GUI_PACKAGES_PATTERN.test(name)) continue
           // Skip workspace: dependencies
           if (version.startsWith('workspace:')) continue
 
@@ -137,11 +137,11 @@ function findTamaguiPackages(root: string): PackageInfo[] {
 }
 
 /**
- * Get the latest tamagui version from npm
+ * Get the latest @hanzo/gui version from npm
  */
 async function getLatestVersion(): Promise<string> {
   try {
-    const result = execSync('npm view tamagui version', { encoding: 'utf-8' })
+    const result = execSync('npm view @hanzo/gui version', { encoding: 'utf-8' })
     return result.trim()
   } catch (err) {
     throw new Error('Failed to fetch latest tamagui version from npm')

@@ -83,7 +83,7 @@ export function createTamagui<Conf extends CreateTamaguiProps>(
   let foundThemes: DedupedThemes | undefined
   if (configIn.themes) {
     const noThemes = Object.keys(configIn.themes).length === 0
-    if (noThemes && !process.env.TAMAGUI_DID_OUTPUT_CSS) {
+    if (noThemes && !process.env.HANZO_GUI_DID_OUTPUT_CSS) {
       foundThemes = scanAllSheets(noThemes, tokensParsed)
     }
   }
@@ -183,7 +183,7 @@ export function createTamagui<Conf extends CreateTamaguiProps>(
 
   const defaultProps = configIn.defaultProps || {}
   // apply defaultPosition via defaultProps when not static
-  if (process.env.TAMAGUI_TARGET === 'web' && defaultPositionSetting !== 'static') {
+  if (process.env.HANZO_GUI_TARGET === 'web' && defaultPositionSetting !== 'static') {
     defaultProps.View = {
       ...defaultProps.View,
       position: defaultPositionSetting,

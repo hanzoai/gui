@@ -3,8 +3,8 @@
  * Copyright (c) Nicolas Gallagher licensed under the MIT license.
  */
 
-import { isWeb } from '@tamagui/constants'
-import { stylePropsAll, stylePropsUnitless } from '@tamagui/helpers'
+import { isWeb } from '@hanzo/gui-constants'
+import { stylePropsAll, stylePropsUnitless } from '@hanzo/gui-helpers'
 
 // only doing this on web on native it accepts pixel values
 

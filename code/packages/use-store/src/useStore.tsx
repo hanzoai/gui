@@ -674,7 +674,7 @@ function createProxiedStore(storeInfo: StoreInfo) {
 }
 
 const waitForEventLoop =
-  process.env.NODE_ENV === 'test' || process.env.TAMAGUI_TARGET === 'native'
+  process.env.NODE_ENV === 'test' || process.env.HANZO_GUI_TARGET === 'native'
     ? (cb: Function) => cb()
     : queueMicrotask
 

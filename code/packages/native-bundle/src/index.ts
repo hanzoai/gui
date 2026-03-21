@@ -80,15 +80,15 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
     }
   }
 
-  const rnwl = resolvePath('@tamagui/react-native-web-lite')
-  const rnwlDir = resolvePackageDir('@tamagui/react-native-web-lite')
-  const fakeRN = resolvePath('@tamagui/fake-react-native')
+  const rnwl = resolvePath('@hanzo/gui-react-native-web-lite')
+  const rnwlDir = resolvePackageDir('@hanzo/gui-react-native-web-lite')
+  const fakeRN = resolvePath('@hanzo/gui-fake-react-native')
   const entryPath = resolve(cwd, entry)
 
   const defaultDefine = {
-    'process.env.TAMAGUI_TARGET': JSON.stringify('native'),
+    'process.env.HANZO_GUI_TARGET': JSON.stringify('native'),
     'process.env.NODE_ENV': JSON.stringify('production'),
-    'process.env.TAMAGUI_IS_CORE_NODE': JSON.stringify('1'),
+    'process.env.HANZO_GUI_IS_CORE_NODE': JSON.stringify('1'),
   }
 
   // For test bundles, bundle a fake react-native implementation

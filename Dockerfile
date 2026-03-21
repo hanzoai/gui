@@ -17,10 +17,10 @@ ARG GITHUB_APP_CLIENT_ID
 ARG GITHUB_APP_SECRET
 ARG GITHUB_SPONSOR_WEBHOOK_SECRET
 ARG GITHUB_TOKEN
-ARG IS_TAMAGUI_DEV
+ARG IS_HANZO_GUI_DEV
 ARG NEXT_PUBLIC_GITHUB_APP_ID
 ARG NEXT_PUBLIC_GITHUB_AUTH_CLIENT_ID
-ARG NEXT_PUBLIC_IS_TAMAGUI_DEV
+ARG NEXT_PUBLIC_IS_HANZO_GUI_DEV
 ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
 ARG NEXT_PUBLIC_SUPABASE_URL
@@ -36,7 +36,7 @@ ARG TAKEOUT_RENEWAL_COUPON_ID
 ARG URL
 ARG ONE_SERVER_URL
 ARG APP_NAME
-ARG TAMAGUI_PRO_SECRET
+ARG HANZO_GUI_PRO_SECRET
 ARG DEEPSEEK_API_KEY
 ARG BENTO_GITHUB_TOKEN
 ARG BENTO_BRANCH
@@ -44,7 +44,7 @@ ARG BENTO_BRANCH
 # install dependencies (sharp needs libvips for image processing)
 RUN apt-get update && apt-get install -y git bsdmainutils vim-common gh libvips-dev
 
-WORKDIR /root/tamagui
+WORKDIR /root/hanzo-gui
 COPY . .
 
 # init git (allow empty commit if nothing to commit)
@@ -58,7 +58,7 @@ RUN if [ -n "$BENTO_GITHUB_TOKEN" ]; then \
       echo "Cloning bento repository (branch: $BRANCH)..."; \
       unset GITHUB_TOKEN && \
       echo "$BENTO_GITHUB_TOKEN" | gh auth login --with-token && \
-      gh repo clone tamagui/bento -- --branch "$BRANCH" && \
+      gh repo clone hanzoai/bento -- --branch "$BRANCH" && \
       gh auth logout --hostname github.com && \
       echo "✅ Bento repository cloned (branch: $BRANCH)" && \
       echo "REQUIRE_BENTO=true" > /tmp/bento_status; \
@@ -67,7 +67,7 @@ RUN if [ -n "$BENTO_GITHUB_TOKEN" ]; then \
       echo "REQUIRE_BENTO=false" > /tmp/bento_status; \
     fi
 
-WORKDIR /root/tamagui
+WORKDIR /root/hanzo-gui
 
 # Set REQUIRE_BENTO based on whether bento was cloned
 RUN export $(cat /tmp/bento_status)

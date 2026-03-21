@@ -1,5 +1,5 @@
-import { Menu } from '@tamagui/menu'
-import { Button, YStack } from 'tamagui'
+import { Menu } from '@hanzo/gui-menu'
+import { Button, YStack } from '@hanzo/gui'
 
 /**
  * Menu bottom placement test - menu opens below trigger and stays there

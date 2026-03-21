@@ -1,4 +1,4 @@
-import { Button, Dialog, View, YStack } from 'tamagui'
+import { Button, Dialog, View, YStack } from '@hanzo/gui'
 
 /**
  * Test case for issue #3565

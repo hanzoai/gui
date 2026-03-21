@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/tamagui-dev-config",
+  "name": "@hanzo/gui-dev-config",
   "version": "2.0.0-rc.29",
   "source": "src/index.ts",
   "files": [
@@ -34,29 +34,29 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build --skip-types --skip-native",
-    "watch": "tamagui-build --skip-types --skip-native --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build --skip-types --skip-native",
+    "watch": "hanzo-gui-build --skip-types --skip-native --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/animations-css": "workspace:*",
-    "@tamagui/animations-moti": "workspace:*",
-    "@tamagui/animations-motion": "workspace:*",
-    "@tamagui/animations-reanimated": "workspace:*",
-    "@tamagui/colors": "workspace:*",
-    "@tamagui/config": "workspace:*",
-    "@tamagui/core": "workspace:*",
-    "@tamagui/font-cherry-bomb": "workspace:*",
-    "@tamagui/font-inter": "workspace:*",
-    "@tamagui/font-silkscreen": "workspace:*",
-    "@tamagui/shorthands": "workspace:*",
-    "@tamagui/theme-builder": "workspace:*",
-    "@tamagui/themes": "workspace:*",
+    "@hanzo/gui-animations-css": "workspace:*",
+    "@hanzo/gui-animations-moti": "workspace:*",
+    "@hanzo/gui-animations-motion": "workspace:*",
+    "@hanzo/gui-animations-reanimated": "workspace:*",
+    "@hanzo/gui-colors": "workspace:*",
+    "@hanzo/gui-config": "workspace:*",
+    "@hanzo/gui-core": "workspace:*",
+    "@hanzo/gui-font-cherry-bomb": "workspace:*",
+    "@hanzo/gui-font-inter": "workspace:*",
+    "@hanzo/gui-font-silkscreen": "workspace:*",
+    "@hanzo/gui-shorthands": "workspace:*",
+    "@hanzo/gui-theme-builder": "workspace:*",
+    "@hanzo/gui-themes": "workspace:*",
     "color2k": "^2.0.2"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

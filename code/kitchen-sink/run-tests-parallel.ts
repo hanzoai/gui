@@ -87,7 +87,7 @@ async function runDriver(
       NODE_ENV: 'test',
       PORT,
       REUSE_SERVER: 'true',
-      TAMAGUI_TEST_ANIMATION_DRIVER: driver,
+      HANZO_GUI_TEST_ANIMATION_DRIVER: driver,
     },
     stdout: 'pipe',
     stderr: 'pipe',

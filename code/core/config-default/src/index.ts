@@ -1,5 +1,5 @@
-import { shorthands } from '@tamagui/shorthands'
-import { createFont, createTokens } from '@tamagui/web'
+import { shorthands } from '@hanzo/gui-shorthands'
+import { createFont, createTokens } from '@hanzo/gui-web'
 import { animations } from './animations'
 import { animations as animationsNative } from './animations.native'
 

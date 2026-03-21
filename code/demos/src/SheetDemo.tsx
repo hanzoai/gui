@@ -1,8 +1,8 @@
-import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons-2'
-import type { SheetProps } from '@tamagui/sheet'
-import { Sheet } from '@tamagui/sheet'
+import { ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2'
+import type { SheetProps } from '@hanzo/gui-sheet'
+import { Sheet } from '@hanzo/gui-sheet'
 import React, { memo } from 'react'
-import { Button, H2, Input, Paragraph, XStack, YStack } from 'tamagui'
+import { Button, H2, Input, Paragraph, XStack, YStack } from '@hanzo/gui'
 
 const spModes = ['percent', 'constant', 'fit', 'mixed'] as const
 

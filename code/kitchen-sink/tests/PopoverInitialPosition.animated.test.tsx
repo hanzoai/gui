@@ -7,7 +7,7 @@ import { setupPage } from './test-utils'
 // content from being visible at the wrong position.
 
 // native animation driver has a pre-existing initial position bug
-const driverName = process.env.TAMAGUI_TEST_ANIMATION_DRIVER || ''
+const driverName = process.env.HANZO_GUI_TEST_ANIMATION_DRIVER || ''
 test.skip(
   driverName === 'native',
   'native driver has pre-existing initial position issue'

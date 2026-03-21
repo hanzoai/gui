@@ -1,17 +1,17 @@
 import type { NodePath } from '@babel/traverse'
 import type * as t from '@babel/types'
-import type { PseudoStyles, StaticConfig, TamaguiConfig } from '@tamagui/core'
-import type { StyleObject } from '@tamagui/helpers'
-import type { TamaguiOptions } from '@tamagui/types'
+import type { PseudoStyles, StaticConfig, TamaguiConfig } from '@hanzo/gui-core'
+import type { StyleObject } from '@hanzo/gui-helpers'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 import type { ViewStyle } from 'react-native'
 
 import type { LoadedComponents } from './extractor/bundleConfig'
 
 export type TamaguiPlatform = 'native' | 'web'
 
-export type { TamaguiOptions, TamaguiBuildOptions } from '@tamagui/types'
+export type { TamaguiOptions, TamaguiBuildOptions } from '@hanzo/gui-types'
 
-export type { StyleObject } from '@tamagui/helpers'
+export type { StyleObject } from '@hanzo/gui-helpers'
 
 export type ClassNameObject = t.StringLiteral | t.Expression
 

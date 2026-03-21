@@ -1,5 +1,5 @@
-import { Toast, useToastState } from '@tamagui/toast'
-import { YStack } from 'tamagui'
+import { Toast, useToastState } from '@hanzo/gui-toast'
+import { YStack } from '@hanzo/gui'
 
 export const NativeToast = () => {
   const currentToast = useToastState()

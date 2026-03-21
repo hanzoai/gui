@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/floating",
+  "name": "@hanzo/gui-floating",
   "version": "2.0.0-rc.29",
   "source": "src/index.ts",
   "files": [
@@ -28,18 +28,18 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.6",
     "@floating-ui/react-native": "^0.10.7",
-    "@tamagui/use-event": "workspace:*"
+    "@hanzo/gui-use-event": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "react": ">=19",
     "react-native": "0.83.2"
   },

@@ -1,11 +1,11 @@
 {
-  "name": "@tamagui/native-ci",
+  "name": "@hanzo/gui-native-ci",
   "version": "2.0.0-rc.29",
   "description": "Native CI/CD helpers for React Native apps with Expo - fingerprinting, caching, and build optimization",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tamagui/tamagui.git",
+    "url": "https://github.com/hanzoai/gui.git",
     "directory": "code/packages/native-ci"
   },
   "bin": "./dist/cli.mjs",
@@ -33,16 +33,16 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build --skip-native",
+    "build": "hanzo-gui-build --skip-native",
     "watch": "bun run build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
     "@expo/fingerprint": "~0.16.6"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "@types/bun": "^1.1.0",
     "@types/node": "^22.1.0"
   },

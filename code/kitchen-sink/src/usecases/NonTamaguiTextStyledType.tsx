@@ -1,4 +1,4 @@
-import { GetBaseStyles, GetVariantProps, styled } from '@tamagui/web'
+import { GetBaseStyles, GetVariantProps, styled } from '@hanzo/gui-web'
 
 const SomeNonTamaguiTextComponent = (props: {}) => {
   return null

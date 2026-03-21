@@ -4,9 +4,9 @@ import {
   ChevronRight,
   ChevronUp,
   Circle,
-} from '@tamagui/lucide-icons-2'
-import type { TooltipProps } from 'tamagui'
-import { Button, Paragraph, Theme, Tooltip, TooltipGroup, XStack, YStack } from 'tamagui'
+} from '@hanzo/gui-lucide-icons-2'
+import type { TooltipProps } from '@hanzo/gui'
+import { Button, Paragraph, Theme, Tooltip, TooltipGroup, XStack, YStack } from '@hanzo/gui'
 
 export function TooltipDemo() {
   return (

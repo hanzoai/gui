@@ -23,9 +23,9 @@ If you need full react-native-web style support, use react-native-web directly.
 
 ## Setup
 
-`@tamagui/next-plugin` and `@tamagui/vite-plugin` have an option `useReactNativeWebLite` to help automatically set this up.
+`@hanzo/gui-next-plugin` and `@hanzo/gui-vite-plugin` have an option `useReactNativeWebLite` to help automatically set this up.
 
 With webpack, alias the following:
 
 - `react-native-web$` => `react-native-web-lite`
-- `react-native-svg` => `@tamagui/react-native-svg`
+- `react-native-svg` => `@hanzo/gui-react-native-svg`

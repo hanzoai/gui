@@ -1,8 +1,8 @@
-import { isWeb } from '@tamagui/constants'
+import { isWeb } from '@hanzo/gui-constants'
 import { normalizeShadow } from './normalizeShadow'
 
 export function fixStyles(style: Record<string, any>) {
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.HANZO_GUI_TARGET === 'native') {
     if ('elevationAndroid' in style) {
       // @ts-ignore
       style['elevation'] = style.elevationAndroid

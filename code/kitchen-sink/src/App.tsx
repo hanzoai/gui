@@ -1,8 +1,8 @@
-import '@tamagui/core/reset.css'
+import '@hanzo/gui-core/reset.css'
 
-import * as Demos from '@tamagui/demos'
+import * as Demos from '@hanzo/gui-demos'
 import React from 'react'
-import { Separator, Theme, XStack, YStack } from 'tamagui'
+import { Separator, Theme, XStack, YStack } from '@hanzo/gui'
 import { Provider } from './provider'
 import { Sandbox } from './Sandbox'
 import * as TestCases from './usecases/index.web'

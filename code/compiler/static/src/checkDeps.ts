@@ -22,7 +22,7 @@ export type Options = {
 }
 
 // critical packages that must not be duplicated at runtime
-const CRITICAL_PACKAGES = ['@tamagui/web', '@tamagui/core', 'tamagui']
+const CRITICAL_PACKAGES = ['@hanzo/gui-web', '@hanzo/gui-core', '@hanzo/gui']
 
 /**
  * Walks node_modules to find duplicate physical copies of critical tamagui packages.
@@ -92,7 +92,7 @@ function checkDuplicateInstalls(root: string): string {
 
 /**
  * Recursively find all instances of a package in node_modules.
- * Handles both scoped (@tamagui/web) and unscoped (tamagui) packages.
+ * Handles both scoped (@hanzo/gui-web) and unscoped (tamagui) packages.
  */
 function findAllInstances(
   nodeModulesDir: string,
@@ -160,7 +160,7 @@ function checkBunLockDuplicates(lockPath: string): string {
     const duplicates = new Map<string, Set<string>>()
     const criticalSet = new Set(CRITICAL_PACKAGES)
 
-    // match patterns like "@tamagui/web@version" or "tamagui@version" in resolved entries
+    // match patterns like "@hanzo/gui-web@version" or "tamagui@version" in resolved entries
     // bun.lock format: "package@version": ["resolved-url", ...]
     const packagePattern = /["'](@tamagui\/[\w-]+|tamagui)@([^"'\s,]+)["']/g
     let match: RegExpExecArray | null
@@ -187,7 +187,7 @@ function checkYarnLockDuplicates(lockPath: string): string {
     const criticalSet = new Set(CRITICAL_PACKAGES)
 
     // yarn.lock format:
-    //   "@tamagui/web@^1.0.0":
+    //   "@hanzo/gui-web@^1.0.0":
     //     version "1.0.1"
     const entryPattern = /^"?(@tamagui\/[\w-]+|tamagui)@[^":\n]+[":]?\s*$/gm
     const versionPattern = /^\s+version\s+"([^"]+)"/gm
@@ -334,7 +334,7 @@ function checkConfigExists(root: string): string {
     'Tamagui requires a config file (e.g. tamagui.config.ts) that calls createTamagui().',
     'Without it, components will throw "Can\'t find Tamagui configuration" at runtime.',
     '',
-    'See: https://tamagui.dev/docs/core/configuration',
+    'See: https://gui.hanzo.ai/docs/core/configuration',
   ].join('\n')
 }
 

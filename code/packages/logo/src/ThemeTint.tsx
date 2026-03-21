@@ -1,4 +1,4 @@
-import { type ThemeProps, Theme } from '@tamagui/web'
+import { type ThemeProps, Theme } from '@hanzo/gui-web'
 import type { JSX } from 'react/jsx-runtime'
 import { useTint } from './useTint'
 

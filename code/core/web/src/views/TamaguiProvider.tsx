@@ -1,5 +1,5 @@
-import { useIsomorphicLayoutEffect } from '@tamagui/constants'
-import { ClientOnly } from '@tamagui/use-did-finish-ssr'
+import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
+import { ClientOnly } from '@hanzo/gui-use-did-finish-ssr'
 import React, { useEffect } from 'react'
 import { getSetting } from '../config'
 import { ComponentContext } from '../contexts/ComponentContext'
@@ -78,7 +78,7 @@ export function TamaguiProvider({
     <>
       {contents}
 
-      {process.env.TAMAGUI_TARGET !== 'native' && config && !disableInjectCSS && (
+      {process.env.HANZO_GUI_TARGET !== 'native' && config && !disableInjectCSS && (
         <style
           // react 19 feature to hoist style tags to header:
           // https://react.dev/reference/react-dom/components/style

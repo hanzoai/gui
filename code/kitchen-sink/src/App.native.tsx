@@ -1,6 +1,6 @@
 // check launch args for disabling RNGH (for testing without gesture handler)
 import { LaunchArguments } from 'react-native-launch-arguments'
-import { getGestureHandler } from '@tamagui/native'
+import { getGestureHandler } from '@hanzo/gui-native'
 
 interface TestLaunchArgs {
   disableGestureHandler?: boolean
@@ -13,9 +13,9 @@ if (launchArgs.disableGestureHandler) {
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
-import { Toast, ToastViewport, useToastState } from '@tamagui/toast'
+import { Toast, ToastViewport, useToastState } from '@hanzo/gui-toast'
 import { useFonts } from 'expo-font'
-import { YStack } from 'tamagui'
+import { YStack } from '@hanzo/gui'
 import React from 'react'
 import { Appearance, LogBox, useColorScheme } from 'react-native'
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -34,8 +34,8 @@ SplashScreen.hideAsync()
 export default function App() {
   const [mode, setMode] = React.useState<ThemeMode>('system')
   const [loaded] = useFonts({
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+    Inter: require('@hanzo/gui-font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@hanzo/gui-font-inter/otf/Inter-Bold.otf'),
   })
 
   const systemColorScheme = useColorScheme()

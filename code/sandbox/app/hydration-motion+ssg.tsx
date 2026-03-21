@@ -1,4 +1,4 @@
-import { animationsMotion } from '@tamagui/config/v5-motion'
+import { animationsMotion } from '@hanzo/gui-config/v5-motion'
 import { useMemo, useState } from 'react'
 import {
   AnimatePresence,
@@ -7,7 +7,7 @@ import {
   useDidFinishSSR,
   XStack,
   YStack,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 /**
  * SSR Hydration Test Page - Motion Driver

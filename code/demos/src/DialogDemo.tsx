@@ -1,4 +1,4 @@
-import { ChevronDown, X } from '@tamagui/lucide-icons-2'
+import { ChevronDown, X } from '@hanzo/gui-lucide-icons-2'
 import { useState } from 'react'
 import {
   Adapt,
@@ -15,7 +15,7 @@ import {
   View,
   XGroup,
   XStack,
-} from 'tamagui'
+} from '@hanzo/gui'
 import { SelectDemoContents } from './SelectDemo'
 
 type DialogMode = 'plain' | 'adapt' | 'keepMounted'

@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/static-sync",
+  "name": "@hanzo/gui-static-sync",
   "version": "2.0.0-rc.29",
   "license": "MIT",
   "source": "src/index.ts",
@@ -25,18 +25,18 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build --skip-native --bundle",
+    "build": "hanzo-gui-build --skip-native --bundle",
     "watch": "bun run build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
     "@babel/core": "^7.25.2",
-    "@tamagui/static": "workspace:*",
-    "@tamagui/types": "workspace:*",
+    "@hanzo/gui-static": "workspace:*",
+    "@hanzo/gui-types": "workspace:*",
     "synckit": "^0.9.2"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*"
+    "@hanzo/gui-build": "workspace:*"
   }
 }

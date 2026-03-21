@@ -1,5 +1,5 @@
 import React from 'react'
-import type { GetProps, TamaguiElement } from 'tamagui'
+import type { GetProps, TamaguiElement } from '@hanzo/gui'
 import {
   Paragraph,
   Separator,
@@ -11,7 +11,7 @@ import {
   styled,
   useProps,
   withStaticProperties,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 const StyledContext = createStyledContext({
   isInvalid: false,

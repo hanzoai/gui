@@ -1,4 +1,4 @@
-import { themes } from '@tamagui/themes'
+import { themes } from '@hanzo/gui-themes'
 
 import { animations } from './animations'
 import { configWithoutAnimations } from './config'

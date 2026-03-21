@@ -1,5 +1,5 @@
-import type { GenericFont } from '@tamagui/core'
-import { createFont } from '@tamagui/core'
+import type { GenericFont } from '@hanzo/gui-core'
+import { createFont } from '@hanzo/gui-core'
 
 const genericFontSizes = {
   1: 10,

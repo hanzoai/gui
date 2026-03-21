@@ -1,4 +1,4 @@
-import { createAnimations as c2 } from '@tamagui/animations-react-native'
+import { createAnimations as c2 } from '@hanzo/gui-animations-react-native'
 
 export const animationsReactNative = c2({
   '0ms': {

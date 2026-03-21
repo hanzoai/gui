@@ -7,7 +7,7 @@
  * @noflow
  */
 
-import { getCSSStylesAtomic, type StyleObject } from '@tamagui/web'
+import { getCSSStylesAtomic, type StyleObject } from '@hanzo/gui-web'
 import { AccessibilityUtil } from '../AccessibilityUtil/index'
 
 const emptyObject = {}

@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/lucide-icons-2",
+  "name": "@hanzo/gui-lucide-icons-2",
   "version": "2.0.0-rc.29",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "React Native components for Lucide icons - native and web",
@@ -14109,14 +14109,14 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build --skip-sourcemaps",
+    "build": "hanzo-gui-build --skip-sourcemaps",
     "watch": "bun run build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build",
     "generate": "node ./bin/build.cjs"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "camelcase": "^6.0.0",
     "cheerio": "^1.0.0-rc.5",
     "glob": "^13.0.3",
@@ -14127,8 +14127,8 @@
     "uppercamelcase": "^3.0.0"
   },
   "dependencies": {
-    "@tamagui/core": "workspace:*",
-    "@tamagui/helpers-icon": "workspace:*"
+    "@hanzo/gui-core": "workspace:*",
+    "@hanzo/gui-helpers-icon": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=19",

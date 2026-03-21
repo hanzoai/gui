@@ -6,9 +6,9 @@
  * This causes Select items to not trigger onValueChange.
  */
 
-import { Check, ChevronDown } from '@tamagui/lucide-icons-2'
+import { Check, ChevronDown } from '@hanzo/gui-lucide-icons-2'
 import React from 'react'
-import { Adapt, Select, Sheet, Text, YStack } from 'tamagui'
+import { Adapt, Select, Sheet, Text, YStack } from '@hanzo/gui'
 
 const items = [
   { name: 'Apple' },

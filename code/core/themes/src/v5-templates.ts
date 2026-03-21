@@ -1,4 +1,4 @@
-import { PALETTE_BACKGROUND_OFFSET, type BuildTemplates } from '@tamagui/theme-builder'
+import { PALETTE_BACKGROUND_OFFSET, type BuildTemplates } from '@hanzo/gui-theme-builder'
 
 const objectFromEntries = <const T extends readonly (readonly [string, any])[]>(
   entries: T

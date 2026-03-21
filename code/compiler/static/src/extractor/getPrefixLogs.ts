@@ -1,4 +1,4 @@
-import { Color, colorString } from '@tamagui/cli-color'
+import { Color, colorString } from '@hanzo/gui-cli-color'
 import type { TamaguiOptions } from '../types'
 
 export function getPrefixLogs(options?: TamaguiOptions) {

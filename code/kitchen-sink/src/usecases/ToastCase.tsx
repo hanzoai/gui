@@ -1,6 +1,6 @@
-import { Toast, ToastProvider, ToastViewport } from '@tamagui/toast'
+import { Toast, ToastProvider, ToastViewport } from '@hanzo/gui-toast'
 import React from 'react'
-import { Button, YStack } from 'tamagui'
+import { Button, YStack } from '@hanzo/gui'
 
 export function ToastCase() {
   const [count, setCount] = React.useState(0)

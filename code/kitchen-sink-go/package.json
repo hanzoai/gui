@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/kitchen-sink-go",
+  "name": "@hanzo/gui-kitchen-sink-go",
   "version": "2.0.0-rc.29",
   "private": true,
   "main": "index.js",
@@ -12,18 +12,18 @@
     "test": "./run-native-tests.sh"
   },
   "dependencies": {
-    "@tamagui/config": "workspace:*",
-    "@tamagui/core": "workspace:*",
-    "@tamagui/demos": "workspace:*",
-    "@tamagui/kitchen-sink-shared": "workspace:*",
-    "@tamagui/lucide-icons-2": "workspace:*",
-    "@tamagui/metro-plugin": "workspace:*",
-    "@tamagui/toast": "workspace:*",
-    "@tamagui/web": "workspace:*",
+    "@hanzo/gui-config": "workspace:*",
+    "@hanzo/gui-core": "workspace:*",
+    "@hanzo/gui-demos": "workspace:*",
+    "@hanzo/gui-kitchen-sink-shared": "workspace:*",
+    "@hanzo/gui-lucide-icons-2": "workspace:*",
+    "@hanzo/gui-metro-plugin": "workspace:*",
+    "@hanzo/gui-toast": "workspace:*",
+    "@hanzo/gui-web": "workspace:*",
     "expo": "~55.0.6",
     "expo-font": "~55.0.4",
     "react": ">=19",
     "react-native": "0.83.2",
-    "tamagui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   }
 }

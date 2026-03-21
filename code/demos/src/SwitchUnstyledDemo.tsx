@@ -1,6 +1,6 @@
-import { View, styled } from '@tamagui/core'
-import { createSwitch } from '@tamagui/switch'
-import { Label, XStack, YStack } from 'tamagui'
+import { View, styled } from '@hanzo/gui-core'
+import { createSwitch } from '@hanzo/gui-switch'
+import { Label, XStack, YStack } from '@hanzo/gui'
 
 const Frame = styled(View, {
   width: 40,

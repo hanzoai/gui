@@ -1,5 +1,5 @@
 import { useState, type Dispatch, type SetStateAction } from 'react'
-import { isClient } from '@tamagui/constants'
+import { isClient } from '@hanzo/gui-constants'
 
 import type { ColorScheme } from './types'
 

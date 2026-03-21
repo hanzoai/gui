@@ -10,7 +10,7 @@
 
 'use strict'
 
-import { InteractionManager } from '@tamagui/react-native-web-internals'
+import { InteractionManager } from '@hanzo/gui-react-native-web-internals'
 
 /**
  * A simple class for batching up invocations of a low-pri callback. A timeout is set to run the

@@ -1,5 +1,5 @@
 import React from 'react'
-import { AnimatePresence, Button, Square, XStack, YStack, isWeb } from 'tamagui'
+import { AnimatePresence, Button, Square, XStack, YStack, isWeb } from '@hanzo/gui'
 
 import { useIsIntersecting } from './useOnIntersecting'
 

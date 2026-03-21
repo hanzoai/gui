@@ -2,7 +2,7 @@
 
 ## Overview
 
-The motion driver (`@tamagui/animations-motion`) has several issues that need to be fixed. This document tracks the research, bugs, and fixes.
+The motion driver (`@hanzo/gui-animations-motion`) has several issues that need to be fixed. This document tracks the research, bugs, and fixes.
 
 ## Recent Commits (Last 5 Days)
 
@@ -28,7 +28,7 @@ The motion driver (`@tamagui/animations-motion`) has several issues that need to
 
 ### 1. TAMAGUI Logo Jitter Bug
 
-**Component**: `LogoWords.tsx` in `@tamagui/logo`
+**Component**: `LogoWords.tsx` in `@hanzo/gui-logo`
 
 **Symptoms**: Moving mouse left/right fast over the TAMAGUI text causes the dot indicator to jitter erratically.
 
@@ -174,4 +174,4 @@ All tests pass:
 ## Test Files
 
 - `/code/kitchen-sink/tests/TooltipPositionJump.animated.test.tsx` - Existing (passes)
-- `/code/kitchen-sink/tests/TamaguiSiteMotion.test.ts` - Tests against actual tamagui.dev site
+- `/code/kitchen-sink/tests/TamaguiSiteMotion.test.ts` - Tests against actual gui.hanzo.ai site

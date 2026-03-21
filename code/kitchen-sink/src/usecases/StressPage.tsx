@@ -10,11 +10,11 @@
  *   http://localhost:9000/?test=StressPage&profile=true
  *
  * With profile=true:
- *   - sets up @tamagui/timer on globalThis.time so all internal
+ *   - sets up @hanzo/gui-timer on globalThis.time so all internal
  *     getSplitStyles / createComponent checkpoints are captured
  *   - exposes window.__PERF_RESULT__ with wall-clock + breakdown data
  */
-import { timer } from '@tamagui/timer'
+import { timer } from '@hanzo/gui-timer'
 import React from 'react'
 import {
   Button,
@@ -33,14 +33,14 @@ import {
   XStack,
   YStack,
   styled,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 const shouldProfile =
   typeof window !== 'undefined' &&
   new URLSearchParams(window.location.search).get('profile') === 'true'
 
 // set up the timer globally so createComponent/getSplitStyles checkpoints fire
-// (bypasses the broken require('@tamagui/timer') in the built @tamagui/web dist)
+// (bypasses the broken require('@hanzo/gui-timer') in the built @hanzo/gui-web dist)
 if (shouldProfile) {
   const t = timer()
   ;(globalThis as any).time = t.start()

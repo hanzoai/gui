@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Adapt, Button, Dialog, Paragraph, Sheet, YStack } from 'tamagui'
+import { Adapt, Button, Dialog, Paragraph, Sheet, YStack } from '@hanzo/gui'
 
 /**
  * Test case for Sheet with snapPointsMode="fit" adapted from Dialog

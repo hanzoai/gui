@@ -1,6 +1,6 @@
-import { getSize, getSpace } from '@tamagui/get-token'
-import { Moon } from '@tamagui/lucide-icons-2'
-import type { GetProps, SizeTokens } from '@tamagui/web'
+import { getSize, getSpace } from '@hanzo/gui-get-token'
+import { Moon } from '@hanzo/gui-lucide-icons-2'
+import type { GetProps, SizeTokens } from '@hanzo/gui-web'
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   styled,
   useTheme,
   withStaticProperties,
-} from '@tamagui/web'
+} from '@hanzo/gui-web'
 import React from 'react'
 
 export const TestBuildAButton = () => {

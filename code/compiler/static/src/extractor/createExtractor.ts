@@ -1,8 +1,8 @@
 import type { NodePath, TraverseOptions } from '@babel/traverse'
 import traverse from '@babel/traverse'
 import * as t from '@babel/types'
-import { Color, colorLog } from '@tamagui/cli-color'
-import * as reactNativeWebInternals from '@tamagui/react-native-web-internals'
+import { Color, colorLog } from '@hanzo/gui-cli-color'
+import * as reactNativeWebInternals from '@hanzo/gui-react-native-web-internals'
 import {
   StyleObjectIdentifier,
   StyleObjectRules,
@@ -11,7 +11,7 @@ import {
   type SplitStyleProps,
   type StaticConfig,
   type TamaguiComponentState,
-} from '@tamagui/web'
+} from '@hanzo/gui-web'
 import { existsSync, readFileSync } from 'node:fs'
 import { basename, dirname, resolve, relative } from 'node:path'
 import { nodeModuleNameResolver, sys } from 'typescript'
@@ -74,8 +74,8 @@ function isFullyDisabled(props: TamaguiOptions) {
 export function createExtractor(
   { logger = console, platform = 'web' }: ExtractorOptions = { logger: console }
 ) {
-  if (!process.env.TAMAGUI_TARGET) {
-    throw new Error('Please set process.env.TAMAGUI_TARGET to either "web" or "native"')
+  if (!process.env.HANZO_GUI_TARGET) {
+    throw new Error('Please set process.env.HANZO_GUI_TARGET to either "web" or "native"')
   }
 
   const INLINE_EXTRACTABLE = {
@@ -125,7 +125,7 @@ export function createExtractor(
   } as const
 
   const styleProps: SplitStyleProps = {
-    resolveValues: process.env.TAMAGUI_TARGET === 'native' ? 'value' : 'variable',
+    resolveValues: process.env.HANZO_GUI_TARGET === 'native' ? 'value' : 'variable',
     noClass: false,
     isAnimated: false,
   }
@@ -133,7 +133,7 @@ export function createExtractor(
   const shouldAddDebugProp =
     // really basic disable this for next.js because it messes with ssr
     !process.env.npm_package_dependencies_next &&
-    process.env.TAMAGUI_TARGET !== 'native' &&
+    process.env.HANZO_GUI_TARGET !== 'native' &&
     process.env.IDENTIFY_TAGS !== 'false' &&
     (process.env.NODE_ENV === 'development' || process.env.IDENTIFY_TAGS)
 
@@ -444,7 +444,7 @@ export function createExtractor(
         console.warn(
           `Warning: Tamagui didn't find any valid components (DEBUG=tamagui for more)`
         )
-        if (process.env.DEBUG === 'tamagui') {
+        if (process.env.DEBUG === '@hanzo/gui') {
           console.info(`components`, Object.keys(components || []), components)
         }
       }
@@ -2011,7 +2011,7 @@ export function createExtractor(
                         t.identifier('Theme')
                       ),
                     ],
-                    t.stringLiteral('@tamagui/web')
+                    t.stringLiteral('@hanzo/gui-web')
                   )
                 )
               }
@@ -2643,9 +2643,9 @@ export function createExtractor(
 
           if (!(err instanceof BailOptimizationError)) {
             console.error(
-              `@tamagui/static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment TAMAGUI_DEBUG=1`
+              `@hanzo/gui-static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment TAMAGUI_DEBUG=1`
             )
-            if (process.env.TAMAGUI_DEBUG === '1') {
+            if (process.env.HANZO_GUI_DEBUG === '1') {
               console.error(err.stack)
             }
           }

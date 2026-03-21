@@ -122,6 +122,6 @@ describe('transforming actual files', () => {
         })
       ) || {}
 
-    expect(code).toBe('export * from "./modules/tamagui.dev.config.mjs";')
+    expect(code).toBe('export * from "./modules/gui.hanzo.ai.config.mjs";')
   })
 })

@@ -1,7 +1,7 @@
 // web: use color-mix for opacity (CSS-native, works with variables and named colors)
 // animation drivers that need rgba handle their own conversion
 
-import { normalizeCSSColor, rgba } from '@tamagui/normalize-css-color'
+import { normalizeCSSColor, rgba } from '@hanzo/gui-normalize-css-color'
 
 export const normalizeColor = (color?: string | null, opacity?: number) => {
   if (!color) return

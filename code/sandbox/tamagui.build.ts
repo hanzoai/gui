@@ -1,7 +1,7 @@
-import type { TamaguiBuildOptions } from '@tamagui/core'
+import type { TamaguiBuildOptions } from '@hanzo/gui-core'
 
 export default {
-  components: ['tamagui'],
+  components: ['@hanzo/gui'],
   config: './config/tamagui/tamagui.config.ts',
   outputCSS: './app/tamagui.generated.css',
   // enable extraction (CSS optimization with flattening)

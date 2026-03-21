@@ -1,6 +1,6 @@
-import { createCherryBombFont } from '@tamagui/font-cherry-bomb'
-import { createInterFont } from '@tamagui/font-inter'
-import { createSilkscreenFont } from '@tamagui/font-silkscreen'
+import { createCherryBombFont } from '@hanzo/gui-font-cherry-bomb'
+import { createInterFont } from '@hanzo/gui-font-inter'
+import { createSilkscreenFont } from '@hanzo/gui-font-silkscreen'
 import { createGenericFont } from './createGenericFont'
 
 export const cherryBombFont = createCherryBombFont({

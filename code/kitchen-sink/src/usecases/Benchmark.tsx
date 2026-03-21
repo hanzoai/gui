@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, StyleSheet, View } from 'react-native'
-import { View as TamaguiView, Text, styled } from 'tamagui'
+import { View as TamaguiView, Text, styled } from '@hanzo/gui'
 import { ThemeProvider, createBox } from '@shopify/restyle'
 
 const Box = createBox<any>()

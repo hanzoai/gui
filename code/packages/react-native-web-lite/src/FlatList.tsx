@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { invariant, Platform } from '@tamagui/react-native-web-internals'
+import { invariant, Platform } from '@hanzo/gui-react-native-web-internals'
 import memoizeOne from 'memoize-one'
 import React from 'react'
 import { deepDiffer } from './vendor/react-native/deepDiffer'

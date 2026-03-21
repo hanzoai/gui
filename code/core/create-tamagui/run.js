@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const command = require.resolve('create-tamagui')
+const command = require.resolve('create-hanzo-gui')
 const args = process.argv.slice(2)
 
 try {

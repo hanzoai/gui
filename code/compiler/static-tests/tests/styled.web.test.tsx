@@ -7,15 +7,15 @@ import { join } from 'node:path'
 import { extractForWeb } from './lib/extract'
 
 Error.stackTraceLimit = Number.MAX_SAFE_INTEGER
-process.env.TAMAGUI_TARGET = 'web'
+process.env.HANZO_GUI_TARGET = 'web'
 window['React'] = React
 
 describe('styled() tests', () => {
   test('loads dynamic styled() in file and extracts CSS', async () => {
     const output = await extractForWeb(
       dedent`
-      import { MyStack } from '@tamagui/test-design-system'
-      import { styled } from '@tamagui/core'
+      import { MyStack } from '@hanzo/gui-test-design-system'
+      import { styled } from '@hanzo/gui-core'
 
       // not exported
       const InlineStyled = styled(MyStack, {
@@ -41,7 +41,7 @@ describe('styled() tests', () => {
 
   test('extracts to className at call-site', async () => {
     const output = await extractForWeb(`
-      import { MyStack } from '@tamagui/test-design-system'
+      import { MyStack } from '@hanzo/gui-test-design-system'
 
       export function Test() {
         return <MyStack />
@@ -64,7 +64,7 @@ describe('styled() tests', () => {
       writeFileSync(
         componentFile,
         dedent`
-          import { styled, View } from '@tamagui/core'
+          import { styled, View } from '@hanzo/gui-core'
 
           export const MyBox = styled(View, {
             backgroundColor: 'red',
@@ -82,7 +82,7 @@ describe('styled() tests', () => {
 
     test('extracts CSS for styled component imported from another file', async () => {
       const componentSource = dedent`
-        import { styled, View } from '@tamagui/core'
+        import { styled, View } from '@hanzo/gui-core'
 
         export const MyBox = styled(View, {
           backgroundColor: 'red',

@@ -1,6 +1,6 @@
-import { Menu } from '@tamagui/menu'
+import { Menu } from '@hanzo/gui-menu'
 import React from 'react'
-import { Button, Theme, YStack } from 'tamagui'
+import { Button, Theme, YStack } from '@hanzo/gui'
 
 /**
  * Menu Theme Test Case

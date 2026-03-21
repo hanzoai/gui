@@ -1,7 +1,7 @@
 import {
   enable,
   useElementLayout as useTamaguiElementLayout,
-} from '@tamagui/use-element-layout'
+} from '@hanzo/gui-use-element-layout'
 import { type RefObject, useEffect, useMemo } from 'react'
 import type { LayoutEvent } from '../../types'
 

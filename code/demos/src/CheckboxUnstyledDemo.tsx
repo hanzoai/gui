@@ -1,7 +1,7 @@
-import { createCheckbox } from '@tamagui/checkbox'
-import { View, styled } from '@tamagui/core'
-import { Check } from '@tamagui/lucide-icons-2'
-import { Label, XStack, YStack } from 'tamagui'
+import { createCheckbox } from '@hanzo/gui-checkbox'
+import { View, styled } from '@hanzo/gui-core'
+import { Check } from '@hanzo/gui-lucide-icons-2'
+import { Label, XStack, YStack } from '@hanzo/gui'
 
 const Frame = styled(View, {
   borderWidth: 1,

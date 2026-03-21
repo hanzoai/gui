@@ -1,5 +1,5 @@
 import React from 'react'
-import { AnimatePresence, Button, Square, styled } from 'tamagui'
+import { AnimatePresence, Button, Square, styled } from '@hanzo/gui'
 
 function Demo1() {
   return (
@@ -42,8 +42,8 @@ function Demo2() {
 
 //
 
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons-2'
-import { Image, XStack, YStack } from 'tamagui'
+import { ArrowLeft, ArrowRight } from '@hanzo/gui-lucide-icons-2'
+import { Image, XStack, YStack } from '@hanzo/gui'
 
 const GalleryItem = styled(YStack, {
   zIndex: 1,

@@ -1,7 +1,7 @@
-import { isWeb } from '@tamagui/constants'
-import { styled } from '@tamagui/core'
-import type { SizableTextProps } from '@tamagui/text'
-import { SizableText } from '@tamagui/text'
+import { isWeb } from '@hanzo/gui-constants'
+import { styled } from '@hanzo/gui-core'
+import type { SizableTextProps } from '@hanzo/gui-text'
+import { SizableText } from '@hanzo/gui-text'
 import { Linking } from 'react-native'
 
 export interface AnchorExtraProps {

@@ -1,8 +1,8 @@
-import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons-2'
+import { Check, ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2'
 import React from 'react'
 
-import type { FontSizeTokens, SelectProps } from 'tamagui'
-import { Adapt, Label, Select, Sheet, XStack, YStack, getFontSize } from 'tamagui'
+import type { FontSizeTokens, SelectProps } from '@hanzo/gui'
+import { Adapt, Label, Select, Sheet, XStack, YStack, getFontSize } from '@hanzo/gui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
 export function SelectDemo() {

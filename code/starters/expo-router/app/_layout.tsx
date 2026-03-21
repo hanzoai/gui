@@ -7,7 +7,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { Provider } from 'components/Provider'
-import { useTheme } from 'tamagui'
+import { useTheme } from '@hanzo/gui'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -24,8 +24,8 @@ SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
   const [interLoaded, interError] = useFonts({
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+    Inter: require('@hanzo/gui-font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@hanzo/gui-font-inter/otf/Inter-Bold.otf'),
   })
 
   useEffect(() => {

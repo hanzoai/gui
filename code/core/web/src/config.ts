@@ -1,4 +1,4 @@
-import { isWeb } from '@tamagui/constants'
+import { isWeb } from '@hanzo/gui-constants'
 import { MISSING_THEME_MESSAGE } from './constants/constants'
 import type {
   AnimationDriver,
@@ -94,7 +94,7 @@ export const getConfig = () => {
   if (!config) {
     throw new Error(
       process.env.NODE_ENV !== 'production'
-        ? `Missing tamagui config, you either have a duplicate config, or haven't set it up. Be sure createTamagui is called before rendering. Also, make sure all of your tamagui dependencies are on the same version (\`tamagui\`, \`@tamagui/package-name\`, etc.) not just in your package.json, but in your lockfile.`
+        ? `Missing tamagui config, you either have a duplicate config, or haven't set it up. Be sure createTamagui is called before rendering. Also, make sure all of your tamagui dependencies are on the same version (\`tamagui\`, \`@hanzo/gui-package-name\`, etc.) not just in your package.json, but in your lockfile.`
         : 'Err0'
     )
   }

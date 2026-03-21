@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Text, View, XStack, YStack, styled } from 'tamagui'
+import { Text, View, XStack, YStack, styled } from '@hanzo/gui'
 
 /**
  * Test cases for native group press style behaviors:

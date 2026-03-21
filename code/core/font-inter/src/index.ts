@@ -1,8 +1,8 @@
-import type { FillInFont, GenericFont } from '@tamagui/core'
-import { createFont, getVariableValue, isWeb } from '@tamagui/core'
+import type { FillInFont, GenericFont } from '@hanzo/gui-core'
+import { createFont, getVariableValue, isWeb } from '@hanzo/gui-core'
 
 // fix type portability issue?
-export type { GenericFont, FillInFont } from '@tamagui/core'
+export type { GenericFont, FillInFont } from '@hanzo/gui-core'
 
 export const createInterFont = <A extends GenericFont>(
   font: Partial<A> = {},

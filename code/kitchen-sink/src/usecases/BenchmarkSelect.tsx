@@ -1,8 +1,8 @@
 import React from 'react'
-import { SelectDemo } from '@tamagui/demos'
+import { SelectDemo } from '@hanzo/gui-demos'
 
 import { StyleSheet, View } from 'react-native'
-import { Button, ListItem, Text, XStack, YStack } from 'tamagui'
+import { Button, ListItem, Text, XStack, YStack } from '@hanzo/gui'
 
 import { TimedRender } from '../components/TimedRender'
 

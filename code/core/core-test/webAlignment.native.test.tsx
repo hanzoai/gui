@@ -7,7 +7,7 @@
  * The key insight: Users write web props, native runtime maps them to RN props.
  */
 
-import { View, createTamagui, getSplitStyles } from '@tamagui/core'
+import { View, createTamagui, getSplitStyles } from '@hanzo/gui-core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'

@@ -1,5 +1,5 @@
-import { Menu } from '@tamagui/menu'
-import { Button, YStack, Text } from 'tamagui'
+import { Menu } from '@hanzo/gui-menu'
+import { Button, YStack, Text } from '@hanzo/gui'
 
 /**
  * Menu highlight test case

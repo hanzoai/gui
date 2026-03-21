@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { AnimatePresence } from '@tamagui/animate-presence'
-import { Button, Paragraph, Square, XStack, YStack, View } from 'tamagui'
+import { AnimatePresence } from '@hanzo/gui-animate-presence'
+import { Button, Paragraph, Square, XStack, YStack, View } from '@hanzo/gui'
 
 /**
  * EXIT COMPLETION TEST SUITE

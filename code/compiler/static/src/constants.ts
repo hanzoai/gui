@@ -6,7 +6,7 @@ export const CSS_FILE_NAME = '__snack.css'
 export const MEDIA_SEP = '_'
 
 // ensure cache dir
-export const cacheDir = findCacheDir({ name: 'tamagui', create: true })
+export const cacheDir = findCacheDir({ name: 'hanzo-gui', create: true })
 
 export const FAILED_EVAL = Symbol('failed_style_eval')
 

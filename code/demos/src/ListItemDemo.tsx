@@ -1,5 +1,5 @@
-import { ChevronRight, Cloud, Moon, Star, Sun } from '@tamagui/lucide-icons-2'
-import { ListItem, Separator, Theme, XStack, YGroup } from 'tamagui'
+import { ChevronRight, Cloud, Moon, Star, Sun } from '@hanzo/gui-lucide-icons-2'
+import { ListItem, Separator, Theme, XStack, YGroup } from '@hanzo/gui'
 
 export function ListItemDemo() {
   return (

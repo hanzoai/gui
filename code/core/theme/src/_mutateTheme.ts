@@ -1,6 +1,6 @@
-import { isServer } from '@tamagui/constants'
-import { startTransition } from '@tamagui/start-transition'
-import type { ThemeDefinition, ThemeParsed } from '@tamagui/web'
+import { isServer } from '@hanzo/gui-constants'
+import { startTransition } from '@hanzo/gui-start-transition'
+import type { ThemeDefinition, ThemeParsed } from '@hanzo/gui-web'
 import {
   ensureThemeVariable,
   forceUpdateThemes,
@@ -10,7 +10,7 @@ import {
   proxyThemeToParents,
   simpleHash,
   updateConfig,
-} from '@tamagui/web'
+} from '@hanzo/gui-web'
 
 type MutateThemeOptions = {
   mutationType: 'replace' | 'update' | 'add'
@@ -144,7 +144,7 @@ function updateThemeStates() {
 }
 
 function insertThemeCSS(themes: Record<string, PartialTheme>, batch: Batch = false) {
-  if (process.env.TAMAGUI_TARGET !== 'web') {
+  if (process.env.HANZO_GUI_TARGET !== 'web') {
     return []
   }
 

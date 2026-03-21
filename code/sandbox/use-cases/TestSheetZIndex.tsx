@@ -1,0 +1,80 @@
+import { Anchor, Button, Paragraph, Sheet, XStack } from 'tamagui'
+import { ChevronDown } from '@tamagui/lucide-icons-2'
+import { useState } from 'react'
+// import { toast } from '@tamagui/toast'
+
+export default function test() {
+  return <SheetDemo />
+}
+
+function SheetDemo() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <Button
+        size="$6"
+        onPress={() => {
+          setOpen(true)
+          // toast('This toast is covered by the ', {
+          //   description: 'Just showing how toast works...',
+          //   duration: 100_000,
+          // })
+        }}
+      >
+        Open Sheet & Toast
+      </Button>
+
+      <CustomSheet open={open} setOpen={setOpen} />
+    </>
+  )
+}
+
+const CustomSheet = ({ open, setOpen }) => {
+  const [position, setPosition] = useState(0)
+  const [childOpen, setChildOpen] = useState(false)
+
+  return (
+    <>
+      {childOpen && <CustomSheet open={childOpen} setOpen={setChildOpen} />}
+
+      <Sheet
+        modal
+        transition="medium"
+        open={open}
+        onOpenChange={setOpen}
+        snapPoints={[95]}
+        position={position}
+        onPositionChange={setPosition}
+        dismissOnSnapToBottom
+        zIndex={100_000_000}
+      >
+        <Sheet.Overlay
+          transition="lazy"
+          enterStyle={{ opacity: 0 }}
+          exitStyle={{ opacity: 0 }}
+        />
+        <Sheet.Handle bg="$gray8" />
+        <Sheet.Frame items="center" justify="center" gap="$10" bg="rgba(255,0,0,0.5)">
+          <Button
+            size="$6"
+            onPress={() => {
+              setChildOpen(true)
+            }}
+          >
+            Open Child Sheet
+          </Button>
+
+          <Button
+            size="$6"
+            circular
+            icon={ChevronDown}
+            onPress={() => {
+              setOpen(false)
+            }}
+          />
+        </Sheet.Frame>
+      </Sheet>
+    </>
+  )
+}

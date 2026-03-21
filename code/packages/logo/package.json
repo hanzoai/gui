@@ -1,0 +1,58 @@
+{
+  "name": "@tamagui/logo",
+  "version": "2.0.0-rc.29",
+  "source": "src/index.tsx",
+  "files": [
+    "src",
+    "types",
+    "dist",
+    "*.cjs",
+    "icon"
+  ],
+  "type": "module",
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./icon": {
+      "types": "./types/LogoIcon.d.ts",
+      "react-native": "./dist/esm/LogoIcon.native.js",
+      "browser": "./dist/esm/LogoIcon.mjs",
+      "module": "./dist/esm/LogoIcon.mjs",
+      "import": "./dist/esm/LogoIcon.mjs",
+      "require": "./dist/cjs/LogoIcon.cjs",
+      "default": "./dist/cjs/LogoIcon.native.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tamagui-build",
+    "watch": "tamagui-build --watch",
+    "clean": "tamagui-build clean",
+    "clean:build": "tamagui-build clean:build"
+  },
+  "dependencies": {
+    "@tamagui/use-element-layout": "workspace:*",
+    "@tamagui/web": "workspace:*",
+    "tamagui": "workspace:*"
+  },
+  "devDependencies": {
+    "@tamagui/build": "workspace:*",
+    "react": ">=19"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true
+  },
+  "exclude": [
+    "types",
+    "v5.d.ts",
+    "v5.cjs",
+    "v5-css.d.ts",
+    "v5-css.cjs",
+    "v5-rn.d.ts",
+    "v5-rn.cjs",
+    "v5-reanimated.d.ts",
+    "v5-reanimated.cjs",
+    "v5-motion.d.ts",
+    "v5-motion.cjs",
+    "v5-subtle.d.ts",
+    "v5-subtle.cjs",
+    "v4.d.ts",
+    "v4.cjs",
+    "v3.cjs",
+    "v3.d.ts",
+    "v2.d.ts",
+    "v2.cjs",
+    "v2-reanimated.d.ts",
+    "v2-reanimated.js",
+    "v2-native.d.ts",
+    "v2-native.js",
+    "dist",
+    "**/__tests__"
+  ],
+  "references": [
+    {
+      "path": "../animations-css"
+    },
+    {
+      "path": "../animations-moti"
+    },
+    {
+      "path": "../animations-react-native"
+    },
+    {
+      "path": "../colors"
+    },
+    {
+      "path": "../font-inter"
+    },
+    {
+      "path": "../font-silkscreen"
+    },
+    {
+      "path": "../react-native-media-driver"
+    },
+    {
+      "path": "../shorthands"
+    },
+    {
+      "path": "../themes"
+    },
+    {
+      "path": "../web"
+    }
+  ]
+}

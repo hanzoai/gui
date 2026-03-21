@@ -1,0 +1,3 @@
+**/*.d.ts
+**/generated-*.ts
+code/kitchen-sink/src/usecases/CompilerExtraction.native.tsx

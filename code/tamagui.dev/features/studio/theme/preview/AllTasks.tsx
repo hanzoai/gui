@@ -1,0 +1,108 @@
+import { Check } from '@tamagui/lucide-icons-2'
+import type { ListItemProps } from 'tamagui'
+import { H4, ListItem, Paragraph, Spacer, Theme, YStack } from 'tamagui'
+import { AccentTheme } from '../../components/AccentTheme'
+import { useDemoProps } from '../hooks/useDemoProps'
+
+export const AllTasks = () => {
+  const demoProps = useDemoProps()
+
+  return (
+    <YStack
+      {...demoProps.panelProps}
+      {...demoProps.stackOutlineProps}
+      {...demoProps.borderRadiusOuterProps}
+      {...demoProps.elevationProps}
+      {...demoProps.panelPaddingProps}
+      bg="$background"
+    >
+      <YStack borderBottomWidth="$0.25" borderBottomColor="$borderColor" pb="$4">
+        <H4 {...demoProps.headingFontFamilyProps} color="$color">
+          Tasks
+        </H4>
+        <Paragraph {...demoProps.panelDescriptionProps}>
+          Active task for your team
+        </Paragraph>
+      </YStack>
+
+      <YStack flex={1} flexBasis="auto" {...demoProps.gapPropsMd}>
+        <Task>
+          <Paragraph size="$5" lineHeight="$3">
+            Migrate to the new version
+          </Paragraph>
+          <Paragraph color="$color10" size="$2" numberOfLines={1}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum amet
+          </Paragraph>
+        </Task>
+        <Task checked>
+          <Paragraph size="$5" lineHeight="$3" textDecorationLine="line-through">
+            Make a tabs component
+          </Paragraph>
+          <Paragraph
+            textDecorationLine="line-through"
+            color="$color10"
+            size="$2"
+            numberOfLines={1}
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum amet
+          </Paragraph>
+        </Task>
+        <Task checked>
+          <Paragraph size="$5" lineHeight="$3" textDecorationLine="line-through">
+            Implement the design system
+          </Paragraph>
+          <Paragraph
+            textDecorationLine="line-through"
+            color="$color10"
+            size="$2"
+            numberOfLines={1}
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum amet
+          </Paragraph>
+        </Task>
+      </YStack>
+
+      <Spacer size="$2" />
+    </YStack>
+  )
+}
+
+const Task = ({
+  checked,
+  children,
+  ...props
+}: {
+  checked?: boolean
+} & ListItemProps) => {
+  const demoProps = useDemoProps()
+  return (
+    <ListItem
+      px="$2"
+      bg="transparent"
+      icon={
+        <YStack
+          theme="accent"
+          self="flex-start"
+          mt="$1"
+          {...(checked && {
+            bg: '$borderColor',
+          })}
+          borderColor="$borderColor"
+          width="$1"
+          height="$1"
+          justify="center"
+          items="center"
+          flexBasis="auto"
+          {...demoProps.borderRadiusProps}
+        >
+          {checked && <Check size={10} color="$color" />}
+        </YStack>
+      }
+      {...props}
+    >
+      <YStack gap="$1" opacity={checked ? 0.3 : 1} items="flex-start" flex={1}>
+        {children}
+      </YStack>
+    </ListItem>
+  )
+}

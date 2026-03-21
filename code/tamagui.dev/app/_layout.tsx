@@ -1,0 +1,83 @@
+import '@tamagui/core/reset.css'
+import '~/app.css'
+import '~/tamagui.generated.css'
+
+import { LoadProgressBar, Slot } from 'one'
+import { setupPopper } from 'tamagui'
+import { Providers } from '../components/Providers'
+
+setupPopper({
+  // prevents a reflow on mount
+  disableRTL: true,
+})
+
+export default function Layout() {
+  return (
+    <html lang="en-US">
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=5"
+        />
+
+        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <meta name="docsearch:language" content="en" />
+        <meta name="docsearch:version" content="1.0.0,latest" />
+        <meta id="theme-color" name="theme-color" />
+        <meta name="color-scheme" content="light dark" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@tamagui_js" />
+        <meta name="twitter:creator" content="@natebirdman" />
+        <meta name="robots" content="index,follow" />
+
+        <link
+          rel="preload"
+          href="/fonts/berkeley.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
+        <link crossOrigin="anonymous" href="/fonts/berkeley.css" rel="stylesheet" />
+
+        <link
+          rel="preload"
+          href="/fonts/Inter-Regular.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
+        <link crossOrigin="anonymous" href="/fonts/inter-400.css" rel="stylesheet" />
+
+        <link
+          rel="preload"
+          href="/fonts/Inter-ExtraBold.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
+        <link crossOrigin="anonymous" href="/fonts/inter-700.css" rel="stylesheet" />
+
+        <link
+          rel="preload"
+          href="/fonts/slkscr.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
+        <link crossOrigin="anonymous" href="/fonts/silkscreen.css" rel="stylesheet" />
+      </head>
+
+      <body>
+        <LoadProgressBar />
+
+        <Providers>
+          <Slot />
+        </Providers>
+      </body>
+    </html>
+  )
+}

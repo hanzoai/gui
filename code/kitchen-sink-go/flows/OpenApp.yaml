@@ -1,0 +1,20 @@
+appId: host.exp.Exponent
+tag:
+  - util
+---
+# Stop the app first to ensure clean state
+- stopApp
+
+# Open the project URL directly - this launches Expo Go and connects to Metro
+# disableOnboarding=1 skips the Expo Go developer menu dialog
+- openLink: exp://127.0.0.1:8081?disableOnboarding=1
+
+# Dismiss any system dialogs (Apple Account Verification, etc.)
+- tapOn:
+    text: 'Not Now'
+    optional: true
+
+# Wait for app to load (60s timeout for CI where bundle download can be slow)
+- extendedWaitUntil:
+    visible: 'Kitchen Sink'
+    timeout: 60000

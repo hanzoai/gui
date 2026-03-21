@@ -1,0 +1,81 @@
+{
+  "name": "@tamagui/web",
+  "version": "2.0.0-rc.29",
+  "license": "MIT",
+  "author": {
+    "name": "Nate Wienert"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tamagui/tamagui.git",
+    "directory": "packages/web"
+  },
+  "source": "src/index.ts",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    "./reset.css": "./reset.css",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./inject-styles": {
+      "types": "./types/inject-styles.d.ts",
+      "react-native": "./dist/esm/inject-styles.mjs",
+      "browser": "./dist/esm/inject-styles.mjs",
+      "module": "./dist/esm/inject-styles.mjs",
+      "import": "./dist/esm/inject-styles.mjs",
+      "require": "./dist/cjs/inject-styles.cjs",
+      "default": "./dist/cjs/inject-styles.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tamagui-build",
+    "watch": "tamagui-build --watch",
+    "clean": "tamagui-build clean",
+    "clean:build": "tamagui-build clean:build",
+    "test:web": "vitest --typecheck --run"
+  },
+  "dependencies": {
+    "@tamagui/compose-refs": "workspace:*",
+    "@tamagui/constants": "workspace:*",
+    "@tamagui/helpers": "workspace:*",
+    "@tamagui/is-equal-shallow": "workspace:*",
+    "@tamagui/native": "workspace:*",
+    "@tamagui/normalize-css-color": "workspace:*",
+    "@tamagui/timer": "workspace:*",
+    "@tamagui/types": "workspace:*",
+    "@tamagui/use-did-finish-ssr": "workspace:*",
+    "@tamagui/use-event": "workspace:*",
+    "@tamagui/use-force-update": "workspace:*"
+  },
+  "devDependencies": {
+    "@tamagui/build": "workspace:*",
+    "@testing-library/react": "^16.1.0",
+    "csstype": "^3.0.10",
+    "react": ">=19",
+    "react-dom": "*",
+    "react-native": "0.83.2",
+    "typescript": "~5.9.2",
+    "vitest": "4.0.4"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": "*",
+    "react-native": "*"
+  }
+}

@@ -1,0 +1,222 @@
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+} from '@tamagui/lucide-icons-2'
+import { useState } from 'react'
+import type { PopoverProps } from 'tamagui'
+import {
+  Adapt,
+  Button,
+  H1,
+  H2,
+  isWeb,
+  Label,
+  Paragraph,
+  Popover,
+  Sheet,
+  XStack,
+  YStack,
+} from 'tamagui'
+
+export function PopoverCase() {
+  const [shouldAdapt, setShouldAdapt] = useState(false)
+
+  return (
+    <YStack gap="$4" padding="$4" maxWidth={1200} margin="auto">
+      <YStack gap="$2">
+        <H1>Popover Component Tests</H1>
+        <Paragraph>
+          This page contains various Popover components for testing different scenarios.
+        </Paragraph>
+      </YStack>
+
+      <YStack gap="$4">
+        <YStack gap="$2">
+          <h2>Basic Popover Tests</h2>
+          <XStack gap="$2" flex={1} justifyContent="center" alignItems="center">
+            <Demo
+              shouldAdapt={shouldAdapt}
+              placement="left"
+              Icon={ChevronLeft}
+              Name="left-popover"
+              dataTestId="popover-left"
+            />
+            <Demo
+              shouldAdapt={shouldAdapt}
+              placement="bottom"
+              Icon={ChevronDown}
+              Name="bottom-popover"
+              dataTestId="popover-bottom"
+            />
+            <Demo
+              shouldAdapt={shouldAdapt}
+              placement="top"
+              Icon={ChevronUp}
+              Name="top-popover"
+              dataTestId="popover-top"
+            />
+            <Demo
+              shouldAdapt={shouldAdapt}
+              placement="right"
+              Icon={ChevronRight}
+              Name="right-popover"
+              dataTestId="popover-right"
+            />
+          </XStack>
+        </YStack>
+
+        <YStack gap="$2">
+          <H2>Simple Popover Test</H2>
+          <SimplePopoverTest />
+        </YStack>
+
+        {!isWeb && (
+          <Button onPress={() => setShouldAdapt(!shouldAdapt)}>
+            Adapt to Sheet: {`${shouldAdapt}`}
+          </Button>
+        )}
+      </YStack>
+    </YStack>
+  )
+}
+
+function Demo({
+  Icon,
+  Name,
+  shouldAdapt,
+  dataTestId,
+  ...props
+}: PopoverProps & {
+  Icon?: any
+  Name?: string
+  shouldAdapt?: boolean
+  dataTestId?: string
+}) {
+  return (
+    <Popover
+      size="$5"
+      allowFlip
+      stayInFrame
+      offset={15}
+      resize
+      data-testid={dataTestId}
+      {...props}
+    >
+      <Popover.Trigger asChild>
+        <Button icon={Icon} id={`${dataTestId}-trigger`} />
+      </Popover.Trigger>
+
+      {shouldAdapt && (
+        <Adapt when="maxMd" platform="touch">
+          <Sheet modal dismissOnSnapToBottom>
+            <Sheet.Frame padding="$4">
+              <Adapt.Contents />
+            </Sheet.Frame>
+            <Sheet.Overlay backgroundColor="$shadowColor" />
+          </Sheet>
+        </Adapt>
+      )}
+
+      <Popover.Content
+        borderWidth={1}
+        borderColor="$borderColor"
+        transition="100ms"
+        width={300}
+        height={300}
+        enterStyle={{
+          y: -10,
+          opacity: 0,
+        }}
+        exitStyle={{
+          y: -10,
+          opacity: 0,
+        }}
+        elevate
+        id={`${dataTestId}-content`}
+      >
+        <Popover.Arrow borderWidth={1} borderColor="$borderColor" />
+
+        <YStack gap="$3">
+          <XStack gap="$3">
+            <Label size="$3" htmlFor={Name}>
+              Name
+            </Label>
+          </XStack>
+
+          <Popover.Close asChild>
+            <Button
+              size="$3"
+              id={`${dataTestId}-close`}
+              onPress={() => {
+                /* Custom code goes here, does not interfere with popover closure */
+              }}
+            >
+              Submit
+            </Button>
+          </Popover.Close>
+        </YStack>
+      </Popover.Content>
+    </Popover>
+  )
+}
+
+function SimplePopoverTest() {
+  return (
+    <Popover>
+      <Popover.Trigger asChild>
+        <Button id="simple-popover-trigger">Simple Popover</Button>
+      </Popover.Trigger>
+      <Popover.Content id="simple-popover-content">
+        <YStack gap="$2">
+          <Paragraph>This is a simple popover</Paragraph>
+          <Popover.Close asChild>
+            <Button size="$2" id="simple-popover-close">
+              Close
+            </Button>
+          </Popover.Close>
+        </YStack>
+      </Popover.Content>
+    </Popover>
+  )
+}
+
+// test case for animatePosition - verifies position is correct on re-open
+export function PopoverAnimatePositionCase() {
+  return (
+    <YStack padding="$4" gap="$4" alignItems="center">
+      <H1>Popover animatePosition Test</H1>
+      <Paragraph>
+        Tests that popover with animatePosition shows at correct position on re-open
+      </Paragraph>
+
+      <XStack paddingLeft={100}>
+        <Popover offset={10}>
+          <Popover.Trigger asChild>
+            <Button id="animate-position-trigger">Open Popover</Button>
+          </Popover.Trigger>
+          <Popover.Content
+            id="animate-position-content"
+            animatePosition
+            transition="quick"
+            enterStyle={{ y: 5, opacity: 0 }}
+            exitStyle={{ y: 5, opacity: 0 }}
+            elevate
+            padding="$4"
+          >
+            <Popover.Arrow />
+            <YStack gap="$2" width={200}>
+              <Paragraph>Popover with animatePosition</Paragraph>
+              <Popover.Close asChild>
+                <Button size="$2" id="animate-position-close">
+                  Close
+                </Button>
+              </Popover.Close>
+            </YStack>
+          </Popover.Content>
+        </Popover>
+      </XStack>
+    </YStack>
+  )
+}

@@ -1,12 +1,12 @@
 'use client'
 
-import '@tamagui/core/reset.css'
-import '@tamagui/font-inter/css/400.css'
-import '@tamagui/font-inter/css/700.css'
-import '@tamagui/polyfill-dev'
+import '@hanzo/gui-core/reset.css'
+import '@hanzo/gui-font-inter/css/400.css'
+import '@hanzo/gui-font-inter/css/700.css'
+import '@hanzo/gui-polyfill-dev'
 
 import type { ReactNode } from 'react'
-import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
+import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
 import { config } from '@my/ui'
 import { Provider } from 'app/provider'
 

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Keyboard } from 'react-native'
-import { Button, Image, Input, Sheet, Text, XStack, YStack } from 'tamagui'
+import { Button, Image, Input, Sheet, Text, XStack, YStack } from '@hanzo/gui'
 
 const MOCK_URLS = {
   tall: 'https://picsum.photos/400/600',

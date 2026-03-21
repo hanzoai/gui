@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, Square, YStack, Paragraph } from 'tamagui'
-import { AnimatePresence } from '@tamagui/animate-presence'
+import { Button, Square, YStack, Paragraph } from '@hanzo/gui'
+import { AnimatePresence } from '@hanzo/gui-animate-presence'
 
 // test case: animateOnly=[] should complete exit immediately
 // tests the useInsertionEffect fix for the race condition

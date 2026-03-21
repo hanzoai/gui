@@ -1,4 +1,4 @@
-import { Button, Paragraph, Tooltip, TooltipGroup, YStack, XStack } from 'tamagui'
+import { Button, Paragraph, Tooltip, TooltipGroup, YStack, XStack } from '@hanzo/gui'
 import { useState } from 'react'
 
 /**

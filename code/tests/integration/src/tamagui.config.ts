@@ -1,5 +1,5 @@
-import { createTamagui } from 'tamagui'
-import { shorthands } from '@tamagui/shorthands'
+import { createTamagui } from '@hanzo/gui'
+import { shorthands } from '@hanzo/gui-shorthands'
 
 import { animations } from './animations'
 import { fonts } from './fonts'
@@ -20,7 +20,7 @@ const config = createTamagui({
 
 type AppConfig = typeof config
 
-// declare module 'tamagui' {
+// declare module '@hanzo/gui' {
 //   // overrides TamaguiCustomConfig so that custom types
 //   // work everywhere `tamagui` is imported
 //   interface TamaguiCustomConfig extends AppConfig {}

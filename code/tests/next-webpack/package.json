@@ -12,8 +12,8 @@
     "test:clean": "git checkout packages/app/ && git clean -fd packages/app/"
   },
   "dependencies": {
-    "@tamagui/cli": "workspace:*",
-    "tamagui": "workspace:*"
+    "@hanzo/gui-cli": "workspace:*",
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "vitest": "4.0.4"

@@ -10,9 +10,9 @@ const config = getDefaultConfig(__dirname, {
 })
 
 // Enable Tamagui and add nice web support with optimizing compiler + CSS extraction
-const { withTamagui } = require('@tamagui/metro-plugin')
+const { withTamagui } = require('@hanzo/gui-metro-plugin')
 module.exports = withTamagui(config, {
-  components: ['tamagui'],
+  components: ['@hanzo/gui'],
   config: './tamagui.config.ts',
 })
 
@@ -22,7 +22,7 @@ module.exports = config
 
 // REMOVE THIS (just for tamagui internal devs to work in monorepo):
 console.info(`Starting metro`)
-if (process.env.IS_TAMAGUI_DEV && __dirname.includes('tamagui')) {
+if (process.env.IS_HANZO_GUI_DEV && __dirname.includes('tamagui')) {
   console.info('🧑‍💻 using monorepo packages')
   const fs = require('fs')
   const path = require('path')

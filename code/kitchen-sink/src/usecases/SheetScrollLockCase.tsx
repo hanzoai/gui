@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, H2, Paragraph, Sheet, YStack } from 'tamagui'
+import { Button, H2, Paragraph, Sheet, YStack } from '@hanzo/gui'
 
 /**
  * Test case for Sheet scroll lock behavior

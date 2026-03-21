@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/core",
+  "name": "@hanzo/gui-core",
   "version": "2.0.0-rc.29",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tamagui/tamagui.git",
+    "url": "https://github.com/hanzoai/gui.git",
     "directory": "packages/core"
   },
   "source": "src/index.tsx",
@@ -72,24 +72,24 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build",
+    "build": "hanzo-gui-build",
     "afterBuild": "node bundle-native.mjs",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/helpers": "workspace:*",
-    "@tamagui/react-native-media-driver": "workspace:*",
-    "@tamagui/react-native-use-pressable": "workspace:*",
-    "@tamagui/use-element-layout": "workspace:*",
-    "@tamagui/use-event": "workspace:*",
-    "@tamagui/web": "workspace:*"
+    "@hanzo/gui-helpers": "workspace:*",
+    "@hanzo/gui-react-native-media-driver": "workspace:*",
+    "@hanzo/gui-react-native-use-pressable": "workspace:*",
+    "@hanzo/gui-use-element-layout": "workspace:*",
+    "@hanzo/gui-use-event": "workspace:*",
+    "@hanzo/gui-web": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
-    "@tamagui/native-bundle": "workspace:*",
-    "@tamagui/react-native-web-lite": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
+    "@hanzo/gui-native-bundle": "workspace:*",
+    "@hanzo/gui-react-native-web-lite": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",

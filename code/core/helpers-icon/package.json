@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/helpers-icon",
+  "name": "@hanzo/gui-helpers-icon",
   "version": "2.0.0-rc.29",
   "description": "Utilities for icon packages",
   "license": "MIT",
@@ -27,17 +27,17 @@
     }
   },
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/core": "workspace:*",
-    "@tamagui/sizable-context": "workspace:*"
+    "@hanzo/gui-core": "workspace:*",
+    "@hanzo/gui-sizable-context": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "react": ">=19",
     "react-native-svg": "15.15.3"
   },

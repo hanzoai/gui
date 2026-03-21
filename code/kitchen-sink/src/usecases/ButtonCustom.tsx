@@ -1,4 +1,4 @@
-import { Button, styled, type GetProps } from 'tamagui'
+import { Button, styled, type GetProps } from '@hanzo/gui'
 
 type ButtonProps = GetProps<typeof Button>
 

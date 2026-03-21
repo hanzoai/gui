@@ -1,5 +1,5 @@
-import type { SquareProps, ThemeName } from 'tamagui'
-import { Square, XStack, YStack } from 'tamagui'
+import type { SquareProps, ThemeName } from '@hanzo/gui'
+import { Square, XStack, YStack } from '@hanzo/gui'
 
 export function ThemeBuilderDemo() {
   return (

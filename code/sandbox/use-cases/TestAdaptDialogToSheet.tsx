@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Adapt, Button, Dialog, ScrollView, Sheet, SizableText, YStack } from 'tamagui'
+import { Adapt, Button, Dialog, ScrollView, Sheet, SizableText, YStack } from '@hanzo/gui'
 
 export default function TestAdaptDialogToSheet() {
   const [open, setOpen] = useState(false)

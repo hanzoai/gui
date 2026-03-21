@@ -1,4 +1,4 @@
-import { Popover, View, Text, Theme, styled } from 'tamagui'
+import { Popover, View, Text, Theme, styled } from '@hanzo/gui'
 
 export const Content = styled(Popover.Content, {
   padding: 0,

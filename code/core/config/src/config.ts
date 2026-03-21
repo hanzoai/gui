@@ -1,6 +1,6 @@
-import { shorthands } from '@tamagui/shorthands'
-import { themes, tokens } from '@tamagui/themes'
-import type { CreateTamaguiProps } from '@tamagui/web'
+import { shorthands } from '@hanzo/gui-shorthands'
+import { themes, tokens } from '@hanzo/gui-themes'
+import type { CreateTamaguiProps } from '@hanzo/gui-web'
 
 import { fonts } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'

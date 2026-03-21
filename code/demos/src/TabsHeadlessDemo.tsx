@@ -7,9 +7,9 @@ import {
   YStack,
   isWeb,
   styled,
-} from 'tamagui'
-import { createTabs } from '@tamagui/tabs'
-import { getButtonSized } from '@tamagui/get-button-sized'
+} from '@hanzo/gui'
+import { createTabs } from '@hanzo/gui-tabs'
+import { getButtonSized } from '@hanzo/gui-get-button-sized'
 
 const demos = ['horizontal', 'vertical'] as const
 

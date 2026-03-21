@@ -104,7 +104,7 @@ export const CodeAuthScreen = () => {
             </Box>
 
             <Text color={'magenta'}>
-              Retrieve your access token from https://tamagui.dev/account
+              Retrieve your access token from https://gui.hanzo.ai/account
             </Text>
           </Box>
         )}

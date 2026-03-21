@@ -1,7 +1,7 @@
 // via radix
 
-import { composeRefs } from '@tamagui/compose-refs'
-import { isWeb } from '@tamagui/constants'
+import { composeRefs } from '@hanzo/gui-compose-refs'
+import { isWeb } from '@hanzo/gui-constants'
 import type { ReactNode } from 'react'
 import { Children, cloneElement, forwardRef, isValidElement, memo } from 'react'
 import { mergeSlotStyleProps } from '../helpers/mergeSlotStyleProps'

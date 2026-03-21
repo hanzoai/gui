@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Animated, View as RNView, Text as RNText, StyleSheet } from 'react-native'
-import { Button, Paragraph, YStack, XStack } from 'tamagui'
+import { Button, Paragraph, YStack, XStack } from '@hanzo/gui'
 
 /**
  * Test case for raw Animated.Value with Animated.createAnimatedComponent

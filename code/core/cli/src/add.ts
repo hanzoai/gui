@@ -60,10 +60,10 @@ export const installGeneratedPackage = async (type: string, packagesPath?: strin
           chalk.yellow(
             `You don't have access to Tamagui ${
               type === 'font' ? 'fonts' : 'icons'
-            }. Check 🥡 Tamagui Takeout (https://tamagui.dev/takeout) for more info.`
+            }. Check 🥡 Tamagui Takeout (https://gui.hanzo.ai/takeout) for more info.`
           )
         )
-        open('https://tamagui.dev/takeout')
+        open('https://gui.hanzo.ai/takeout')
         process.exit(0)
       }
       throw error

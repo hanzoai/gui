@@ -1,4 +1,4 @@
-import { Button, Popover, styled } from 'tamagui'
+import { Button, Popover, styled } from '@hanzo/gui'
 
 export function PopoverContentStyledPlusAnimations() {
   return (

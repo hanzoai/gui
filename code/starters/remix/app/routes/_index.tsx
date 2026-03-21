@@ -1,5 +1,5 @@
 import type { MetaFunction } from '@remix-run/node'
-import { styled, Text, type ThemeName, View } from 'tamagui'
+import { styled, Text, type ThemeName, View } from '@hanzo/gui'
 import { useState } from 'react'
 
 export const meta: MetaFunction = () => {

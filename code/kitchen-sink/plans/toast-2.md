@@ -2,13 +2,13 @@
 
 ## Overview
 
-Revamp @tamagui/toast to v2, inspired by Sonner's excellent UX. Must be fully cross-platform using Tamagui's animation system - NO CSS cheats.
+Revamp @hanzo/gui-toast to v2, inspired by Sonner's excellent UX. Must be fully cross-platform using Tamagui's animation system - NO CSS cheats.
 
 ## Reference Implementations
 
 - ~/github/sonner - primary inspiration
 - ~/github/base-ui - additional patterns
-- @tamagui/sheet - gesture/drag patterns, resistive pull
+- @hanzo/gui-sheet - gesture/drag patterns, resistive pull
 
 ---
 
@@ -296,7 +296,7 @@ Revamp @tamagui/toast to v2, inspired by Sonner's excellent UX. Must be fully cr
 ### TIMELINE
 
 - **NOW - 8:20**: Fix top position bug, verify tests pass
-- **8:20 - 8:35**: Write clean ToastDemo, verify on tamagui.dev /ui/toast (mobile + safe areas)
+- **8:20 - 8:35**: Write clean ToastDemo, verify on gui.hanzo.ai /ui/toast (mobile + safe areas)
 - **8:35 - 8:45**: Update docs, update version-two blog post
 - **8:45 - 8:55**: Full yarn test, lint, typecheck, sub-agent review
 - **8:55 - 9:00**: Clean commit, push to CI, /alert user
@@ -309,7 +309,7 @@ Revamp @tamagui/toast to v2, inspired by Sonner's excellent UX. Must be fully cr
 
 ### Before 8:35 (Demo Ready)
 
-4. [x] Write clean ToastDemo for tamagui.dev ✅ DONE - code/demos/src/ToastDemo.tsx
+4. [x] Write clean ToastDemo for gui.hanzo.ai ✅ DONE - code/demos/src/ToastDemo.tsx
 5. [x] Verify on yarn dev site at /ui/toast ✅ VERIFIED - page renders, toast works
 6. [x] Mobile web + safe areas check (SSR safe!) ✅ FIXED - use-window-dimensions isClient guard
 7. [ ] Web-only code but use conditionals for future native support

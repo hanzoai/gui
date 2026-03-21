@@ -10,10 +10,10 @@ const outFileWebpack = 'out-webpack.js'
 
 const alias = {
   'react-native$': 'react-native-web',
-  'react-native-reanimated$': '@tamagui/proxy-worm',
-  'react-native-gesture-handler$': '@tamagui/proxy-worm',
-  'react-native-safe-area-context$': '@tamagui/fake-react-native',
-  'react-native-svg': '@tamagui/react-native-svg',
+  'react-native-reanimated$': '@hanzo/gui-proxy-worm',
+  'react-native-gesture-handler$': '@hanzo/gui-proxy-worm',
+  'react-native-safe-area-context$': '@hanzo/gui-fake-react-native',
+  'react-native-svg': '@hanzo/gui-react-native-svg',
 
   'react/jsx-dev-runtime': path.resolve(
     require.resolve('react/jsx-dev-runtime').replace('.web.js', '.js')
@@ -33,13 +33,13 @@ const alias = {
 
 // @ts-ignore
 process.env.NODE_ENV = 'test'
-process.env.TAMAGUI_TARGET = 'web'
+process.env.HANZO_GUI_TARGET = 'web'
 
 const defines = {
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   __DEV__: JSON.stringify(false),
   'process.env.DEBUG': JSON.stringify(process.env.DEBUG ?? ''),
-  'process.env.TAMAGUI_TARGET': JSON.stringify('web'),
+  'process.env.HANZO_GUI_TARGET': JSON.stringify('web'),
 }
 
 async function extractStaticWebpackApp() {
@@ -84,10 +84,10 @@ async function extractStaticWebpackApp() {
               },
             },
             {
-              loader: 'tamagui-loader',
+              loader: '@hanzo/gui-loader',
               options: {
                 config: './tests/lib/tamagui.config.cjs',
-                components: ['@tamagui/sandbox-ui'],
+                components: ['@hanzo/gui-sandbox-ui'],
                 importsWhitelist: ['constants.js'],
               },
             },

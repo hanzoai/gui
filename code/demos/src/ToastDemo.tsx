@@ -1,6 +1,6 @@
-import { Toast, useToastController, useToastState } from '@tamagui/toast'
+import { Toast, useToastController, useToastState } from '@hanzo/gui-toast'
 import React from 'react'
-import { Button, Label, Switch, XStack, YStack } from 'tamagui'
+import { Button, Label, Switch, XStack, YStack } from '@hanzo/gui'
 
 /**
  *  IMPORTANT NOTE: if you're copy-pasting this demo into your code, make sure to add:

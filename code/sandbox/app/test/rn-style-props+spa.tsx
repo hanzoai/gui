@@ -1,4 +1,4 @@
-import { Text, XStack, YStack, Square } from 'tamagui'
+import { Text, XStack, YStack, Square } from '@hanzo/gui'
 
 export default function RNStylePropsTest() {
   return (

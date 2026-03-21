@@ -1,5 +1,5 @@
 import { Link } from 'one'
-import { H1, Paragraph, ScrollView, YStack } from 'tamagui'
+import { H1, Paragraph, ScrollView, YStack } from '@hanzo/gui'
 
 export function HomePage() {
   return (

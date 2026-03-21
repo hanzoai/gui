@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/web",
+  "name": "@hanzo/gui-web",
   "version": "2.0.0-rc.29",
   "license": "MIT",
   "author": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tamagui/tamagui.git",
+    "url": "https://github.com/hanzoai/gui.git",
     "directory": "packages/web"
   },
   "source": "src/index.ts",
@@ -44,27 +44,27 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build",
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build",
     "test:web": "vitest --typecheck --run"
   },
   "dependencies": {
-    "@tamagui/compose-refs": "workspace:*",
-    "@tamagui/constants": "workspace:*",
-    "@tamagui/helpers": "workspace:*",
-    "@tamagui/is-equal-shallow": "workspace:*",
-    "@tamagui/native": "workspace:*",
-    "@tamagui/normalize-css-color": "workspace:*",
-    "@tamagui/timer": "workspace:*",
-    "@tamagui/types": "workspace:*",
-    "@tamagui/use-did-finish-ssr": "workspace:*",
-    "@tamagui/use-event": "workspace:*",
-    "@tamagui/use-force-update": "workspace:*"
+    "@hanzo/gui-compose-refs": "workspace:*",
+    "@hanzo/gui-constants": "workspace:*",
+    "@hanzo/gui-helpers": "workspace:*",
+    "@hanzo/gui-is-equal-shallow": "workspace:*",
+    "@hanzo/gui-native": "workspace:*",
+    "@hanzo/gui-normalize-css-color": "workspace:*",
+    "@hanzo/gui-timer": "workspace:*",
+    "@hanzo/gui-types": "workspace:*",
+    "@hanzo/gui-use-did-finish-ssr": "workspace:*",
+    "@hanzo/gui-use-event": "workspace:*",
+    "@hanzo/gui-use-force-update": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",

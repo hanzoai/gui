@@ -1,12 +1,12 @@
-import { isClient } from '@tamagui/constants'
+import { isClient } from '@hanzo/gui-constants'
 import type {
   FontSizeTokens,
   GenericFont,
   TextProps,
   TextStyle,
   VariantSpreadFunction,
-} from '@tamagui/web'
-import { getTokens, styled, Text } from '@tamagui/web'
+} from '@hanzo/gui-web'
+import { getTokens, styled, Text } from '@hanzo/gui-web'
 
 export const getFontSized: VariantSpreadFunction<TextProps, FontSizeTokens> = (
   sizeTokenIn = '$true',

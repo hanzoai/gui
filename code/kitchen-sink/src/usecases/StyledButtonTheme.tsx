@@ -1,5 +1,5 @@
-import type { GetProps, ButtonProps as TamaguiButtonProps } from 'tamagui'
-import { Button, styled, useTheme, useThemeName } from 'tamagui'
+import type { GetProps, ButtonProps as TamaguiButtonProps } from '@hanzo/gui'
+import { Button, styled, useTheme, useThemeName } from '@hanzo/gui'
 
 const CustomButtonFrame = styled(Button.Frame, {})
 

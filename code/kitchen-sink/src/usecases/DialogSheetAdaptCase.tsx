@@ -9,7 +9,7 @@ import {
   styled,
   XStack,
   YStack,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 const CONTENT_RADIUS = '$6' as const
 

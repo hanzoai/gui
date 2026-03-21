@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom'
 import 'vitest-axe/extend-expect'
 
-import { Checkbox } from '@tamagui/checkbox'
-import { getDefaultTamaguiConfig } from '@tamagui/config-default'
-import { View, TamaguiProvider, createTamagui, getTokenValue } from '@tamagui/core'
+import { Checkbox } from '@hanzo/gui-checkbox'
+import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
+import { View, TamaguiProvider, createTamagui, getTokenValue } from '@hanzo/gui-core'
 import type { RenderResult } from '@testing-library/react'
 import { fireEvent, render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vitest } from 'vitest'

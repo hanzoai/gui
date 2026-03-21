@@ -1,5 +1,5 @@
-import type { ThemeDefinitions } from '@tamagui/create-theme'
-import type { masks } from '@tamagui/theme-builder'
+import type { ThemeDefinitions } from '@hanzo/gui-create-theme'
+import type { masks } from '@hanzo/gui-theme-builder'
 import { maskOptions } from './templates'
 
 type Masks = typeof masks

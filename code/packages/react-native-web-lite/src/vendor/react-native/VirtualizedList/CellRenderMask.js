@@ -8,7 +8,7 @@
  * @format
  */
 
-import { invariant } from '@tamagui/react-native-web-internals'
+import { invariant } from '@hanzo/gui-react-native-web-internals'
 
 export class CellRenderMask {
   constructor(numCells) {

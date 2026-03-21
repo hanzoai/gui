@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Dialog, Paragraph, ScrollView, Sheet, XStack, YStack } from 'tamagui'
+import { Button, Dialog, Paragraph, ScrollView, Sheet, XStack, YStack } from '@hanzo/gui'
 
 /**
  * Test case for Dialog → Sheet adapt on viewport resize

@@ -1,4 +1,4 @@
-import { Square, YStack, Text } from 'tamagui'
+import { Square, YStack, Text } from '@hanzo/gui'
 
 /**
  * Test case for $theme-dark/$theme-light with animation drivers.

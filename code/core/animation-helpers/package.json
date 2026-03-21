@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/animation-helpers",
+  "name": "@hanzo/gui-animation-helpers",
   "version": "2.0.0-rc.29",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
@@ -30,12 +30,12 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*"
+    "@hanzo/gui-build": "workspace:*"
   }
 }

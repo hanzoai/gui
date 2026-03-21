@@ -1,5 +1,5 @@
 {
-  "name": "bento-get",
+  "name": "@hanzo/gui-bento-get",
   "version": "2.0.0-rc.29",
   "license": "MIT",
   "bin": "dist/cli.js",
@@ -28,10 +28,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build --skip-types",
+    "build": "hanzo-gui-build --skip-types",
     "watch": "bun run build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build",
     "local-npm-link": "npm link --local --force"
   },
   "dependencies": {
@@ -56,7 +56,7 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "@types/copy-paste": "^1.1.33",
     "@types/ink": "^2.0.3",
     "@types/react": "~19.1.10"

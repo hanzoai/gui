@@ -1,6 +1,6 @@
 # Component Reference
 
-Quick reference for common Tamagui components. For full API, see https://tamagui.dev/docs/components
+Quick reference for common Tamagui components. For full API, see https://gui.hanzo.ai/docs/components
 
 ## Layout
 

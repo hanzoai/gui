@@ -15,9 +15,9 @@ import {
   redDark,
   yellow,
   yellowDark,
-} from '@tamagui/colors/legacy'
-import type { Variable } from '@tamagui/web'
-import { createTokens } from '@tamagui/web'
+} from '@hanzo/gui-colors/legacy'
+import type { Variable } from '@hanzo/gui-web'
+import { createTokens } from '@hanzo/gui-web'
 
 // should roughly map to button/input etc height at each level
 // fonts should match that height/lineHeight at each stop

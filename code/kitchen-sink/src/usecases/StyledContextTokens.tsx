@@ -1,4 +1,4 @@
-import { View, Text, createStyledContext, styled, useMedia } from 'tamagui'
+import { View, Text, createStyledContext, styled, useMedia } from '@hanzo/gui'
 
 /**
  * Test case for styled context token preservation (issues #3670, #3676)

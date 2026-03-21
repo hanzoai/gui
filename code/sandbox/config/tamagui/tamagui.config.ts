@@ -1,6 +1,6 @@
-import { defaultConfig } from '@tamagui/config/v5'
-import { animationsMotion } from '@tamagui/config/v5-motion'
-import { createTamagui } from 'tamagui'
+import { defaultConfig } from '@hanzo/gui-config/v5'
+import { animationsMotion } from '@hanzo/gui-config/v5-motion'
+import { createTamagui } from '@hanzo/gui'
 
 const customColors = {
   testColor: '#00ff00',
@@ -27,7 +27,7 @@ export const config = createTamagui({
 
 export type Conf = typeof config
 
-declare module 'tamagui' {
+declare module '@hanzo/gui' {
   interface TamaguiCustomConfig extends Conf {}
 
   interface TypeOverride {

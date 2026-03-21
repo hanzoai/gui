@@ -1,6 +1,6 @@
 import type { RefObject } from 'react'
 import { useEffect, useState } from 'react'
-import { isWeb, useEvent } from 'tamagui'
+import { isWeb, useEvent } from '@hanzo/gui'
 
 type DisposeFn = () => void
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Text, View, XStack, YStack, styled } from 'tamagui'
+import { Button, Text, View, XStack, YStack, styled } from '@hanzo/gui'
 
 const TransparentBox = styled(View, {
   width: 100,

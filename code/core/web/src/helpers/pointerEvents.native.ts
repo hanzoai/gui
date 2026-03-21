@@ -5,7 +5,7 @@
  * to match web API for drag scenarios.
  */
 import { useRef } from 'react'
-import { composeEventHandlers } from '@tamagui/helpers'
+import { composeEventHandlers } from '@hanzo/gui-helpers'
 
 export function usePointerEvents(props: any, viewProps: any) {
   const {

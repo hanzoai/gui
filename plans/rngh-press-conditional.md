@@ -2,7 +2,7 @@
 
 ## Goal
 
-Use RNGH for press events when `@tamagui/native/setup-gesture-handler` has been called, otherwise fall back to RN's `usePressability`. Avoid re-parenting by tracking `hasEverHadPressEvents` in stateRef.
+Use RNGH for press events when `@hanzo/gui-native/setup-gesture-handler` has been called, otherwise fall back to RN's `usePressability`. Avoid re-parenting by tracking `hasEverHadPressEvents` in stateRef.
 
 ## Key Points
 
@@ -28,8 +28,8 @@ export type TamaguiComponentStateRef = {
 
 ```typescript
 import React from 'react'
-import { composeEventHandlers } from '@tamagui/helpers'
-import { getGestureHandler } from '@tamagui/native'
+import { composeEventHandlers } from '@hanzo/gui-helpers'
+import { getGestureHandler } from '@hanzo/gui-native'
 import type { TamaguiComponentStateRef } from './types'
 
 // web events not used on native
@@ -123,7 +123,7 @@ export function wrapWithGestureDetector(
 
    ```typescript
    // app entry
-   import '@tamagui/native/setup-gesture-handler'
+   import '@hanzo/gui-native/setup-gesture-handler'
    import { GestureHandlerRootView } from 'react-native-gesture-handler'
    ```
 

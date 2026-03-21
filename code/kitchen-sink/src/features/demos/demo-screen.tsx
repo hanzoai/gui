@@ -1,6 +1,6 @@
-import * as Demos from '@tamagui/demos'
+import * as Demos from '@hanzo/gui-demos'
 import { createParam } from 'solito'
-import { H1, Spacer, YStack } from 'tamagui'
+import { H1, Spacer, YStack } from '@hanzo/gui'
 
 const { useParam } = createParam<{ id: string }>()
 

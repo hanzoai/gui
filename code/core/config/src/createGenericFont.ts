@@ -1,5 +1,5 @@
-import type { GenericFont } from '@tamagui/web'
-import { createFont } from '@tamagui/web'
+import type { GenericFont } from '@hanzo/gui-web'
+import { createFont } from '@hanzo/gui-web'
 
 const genericFontSizes = {
   1: 10,

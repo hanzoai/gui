@@ -1,4 +1,4 @@
-const timer = require('@tamagui/timer').timer()
+const timer = require('@hanzo/gui-timer').timer()
 
 setTimeout(() => {
   timer.print()

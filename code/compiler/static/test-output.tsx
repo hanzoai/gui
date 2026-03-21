@@ -2,7 +2,7 @@ import * as babel from '@babel/core'
 
 async function run() {
   const output = await extractForNative(`
-      import { Text, styled } from 'tamagui'
+      import { Text, styled } from '@hanzo/gui'
       
       const XStack = styled(Text, {
         fontFamily: '$heading',

@@ -1,4 +1,4 @@
-import { Spinner, YStack, H2, SizableText } from 'tamagui'
+import { Spinner, YStack, H2, SizableText } from '@hanzo/gui'
 
 export const SpinnerCustomColors = () => {
   return (

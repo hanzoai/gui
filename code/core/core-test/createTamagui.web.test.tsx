@@ -1,4 +1,4 @@
-process.env.TAMAGUI_TARGET = 'web'
+process.env.HANZO_GUI_TARGET = 'web'
 
 import { describe, expect, test } from 'vitest'
 

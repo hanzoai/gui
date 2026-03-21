@@ -1,4 +1,4 @@
-import { View, styled } from 'tamagui'
+import { View, styled } from '@hanzo/gui'
 
 // reproduces bug where variant's $group-<name>-press opacity
 // doesn't override the base $group-<name>-press opacity

@@ -1,2 +1,2 @@
-export * from './tamagui.dev.config'
+export * from './gui.hanzo.ai.config'
 export * from './media'

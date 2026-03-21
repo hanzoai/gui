@@ -34,7 +34,7 @@ When using `animatePosition` with a shared tooltip (scope pattern) in the motion
 
 ## Files for Reproduction
 
-- `/code/tamagui.dev/features/site/home/PromoLinksRow.tsx` - Original component with the bug
+- `/code/gui.hanzo.ai/features/site/home/PromoLinksRow.tsx` - Original component with the bug
 - `/code/kitchen-sink/src/usecases/TooltipPositionJumpCase.tsx` - Test case
 - `/code/kitchen-sink/scripts/repro-tooltip-jump.ts` - Playwright reproduction script
 
@@ -61,7 +61,7 @@ The motion driver's animation state gets out of sync when:
 
 - Bug is **motion-driver specific** - other drivers (css, native, reanimated) may not have this issue
 - Run kitchen-sink on port 9000: `yarn start:web`
-- Run tamagui.dev on port 8282: `yarn dev --port 8282` (v2 branch)
+- Run gui.hanzo.ai on port 8282: `yarn dev --port 8282` (v2 branch)
 - Animation driver can be changed via URL param or config
 
 ## Playwright Reproduction Results (SUCCESS!)
@@ -107,7 +107,7 @@ When rapidly changing triggers:
 
 ### Debugging Challenge
 
-- tamagui.dev on 8282 uses bundled code, doesn't pick up local changes
+- gui.hanzo.ai on 8282 uses bundled code, doesn't pick up local changes
 - kitchen-sink on 9000 doesn't trigger tooltips in headless mode
 - Need to either fix bundling or find different test approach
 

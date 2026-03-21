@@ -1,6 +1,6 @@
-import type { TamaguiProviderProps } from 'tamagui'
-import { TamaguiProvider } from 'tamagui'
-import { ToastProvider } from '@tamagui/toast'
+import type { TamaguiProviderProps } from '@hanzo/gui'
+import { TamaguiProvider } from '@hanzo/gui'
+import { ToastProvider } from '@hanzo/gui-toast'
 
 import config from '../tamagui.config'
 

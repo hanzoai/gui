@@ -11,7 +11,7 @@
  */
 
 import { useLayoutEffect, useRef, useState } from 'react'
-import { Button, Text, Theme, XStack, YStack, useThemeName } from 'tamagui'
+import { Button, Text, Theme, XStack, YStack, useThemeName } from '@hanzo/gui'
 
 // simple extracted component - static values only
 function SimpleBox() {

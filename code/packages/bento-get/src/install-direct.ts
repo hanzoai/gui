@@ -15,7 +15,7 @@ import { componentsList } from './components.js'
 import type { ComponentSchema } from './components.js'
 import { getMonorepoRoot } from './hooks/useInstallComponent.js'
 
-const apiBase = process.env.API_BASE || 'https://tamagui.dev'
+const apiBase = process.env.API_BASE || 'https://gui.hanzo.ai'
 
 async function main() {
   const componentName = process.argv[2]
@@ -55,7 +55,7 @@ async function main() {
   if (!component.isOSS && !accessToken) {
     console.error('\nThis is a PRO component and requires authentication.')
     console.error('Please run the interactive `npx bento-get` to authenticate,')
-    console.error('or set your token at https://tamagui.dev/account')
+    console.error('or set your token at https://gui.hanzo.ai/account')
     process.exit(1)
   }
 

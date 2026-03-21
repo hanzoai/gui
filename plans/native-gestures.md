@@ -141,7 +141,7 @@ const handleOnChange = useCallback(
 - `code/ui/sheet/src/gestureState.ts` - Global state for RNGH availability
 - `code/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture refs
 
-**Pattern (following @tamagui/portal):**
+**Pattern (following @hanzo/gui-portal):**
 
 ```tsx
 // setupGestureHandler.ts
@@ -313,7 +313,7 @@ function onChange(absoluteX, absoluteY, translationY) {
 
 ```tsx
 // In app entry point (index.js or App.tsx)
-import { setupGestureHandler } from '@tamagui/sheet/setup-gesture-handler'
+import { setupGestureHandler } from '@hanzo/gui-sheet/setup-gesture-handler'
 import {
   Gesture,
   GestureDetector,

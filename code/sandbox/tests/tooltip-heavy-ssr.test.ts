@@ -7,7 +7,7 @@ async function getCenter(page: Page, selector: string) {
 }
 
 test.describe('Tooltip repositioning during heavy SSR hydration', () => {
-  // the core bug: on tamagui.dev, refreshing the page and hovering the
+  // the core bug: on gui.hanzo.ai, refreshing the page and hovering the
   // PromoLinksRow triggers during the ~300ms hydration/animation window
   // causes the tooltip to get stuck on one trigger position. it stays
   // open but never repositions when switching between triggers.
@@ -66,7 +66,7 @@ test.describe('Tooltip repositioning during heavy SSR hydration', () => {
     page,
   }) => {
     // this test interacts RIGHT as hydration completes but while enter
-    // animations are still running (the ~300ms window on tamagui.dev).
+    // animations are still running (the ~300ms window on gui.hanzo.ai).
     // we wait for data-hydrated but NOT for animations to finish.
     await page.goto('/tooltip-heavy-ssr')
     await page.waitForSelector('#tooltip-heavy-ssr-root[data-hydrated="true"]', {

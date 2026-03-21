@@ -1,28 +1,28 @@
-# Plan: RNGH Press Handling via @tamagui/native
+# Plan: RNGH Press Handling via @hanzo/gui-native
 
 ## Goal
 
-Replace RN's JS-thread Pressability with RNGH's native-thread gestures. Use the new `@tamagui/native` getter pattern. Keep web logic separate and smart about avoiding re-parenting.
+Replace RN's JS-thread Pressability with RNGH's native-thread gestures. Use the new `@hanzo/gui-native` getter pattern. Keep web logic separate and smart about avoiding re-parenting.
 
 ## Architecture
 
 ```
-@tamagui/native
+@hanzo/gui-native
 ├── gestureState.ts          # getGestureHandler().isEnabled, .state, .set(), .createPressGesture()
 ├── setup-gesture-handler.ts # calls getGestureHandler().set({ enabled: true, Gesture, GestureDetector })
 
-@tamagui/web (createComponent lives here)
+@hanzo/gui-web (createComponent lives here)
 ├── createComponent.tsx      # imports from ./eventHandling
 ├── eventHandling.ts         # web: getWebEvents, state tracking, DOM events
 └── eventHandling.native.ts  # native: uses getGestureHandler(), wraps with GestureDetector
 
-@tamagui/core
+@hanzo/gui-core
 └── index.tsx                # setupHooks - simplified, eventHandling handles divergence
 ```
 
 ## Key Changes
 
-### 1. Add `createPressGesture` to `@tamagui/native/gestureState.ts`
+### 1. Add `createPressGesture` to `@hanzo/gui-native/gestureState.ts`
 
 ```typescript
 export function getGestureHandler() {
@@ -113,8 +113,8 @@ export function usePressHandling() {
 
 ```typescript
 import React, { useRef } from 'react'
-import { getGestureHandler } from '@tamagui/native'
-import { composeEventHandlers } from '@tamagui/helpers'
+import { getGestureHandler } from '@hanzo/gui-native'
+import { composeEventHandlers } from '@hanzo/gui-helpers'
 
 // fallback to RN's pressability
 const usePressability =
@@ -232,7 +232,7 @@ We removed this
 
 ```typescript
 // App entry
-import '@tamagui/native/setup-gesture-handler'  // calls getGestureHandler().set(...)
+import '@hanzo/gui-native/setup-gesture-handler'  // calls getGestureHandler().set(...)
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export default function App() {
@@ -256,7 +256,7 @@ export default function App() {
 
 | File                                        | Action                                                |
 | ------------------------------------------- | ----------------------------------------------------- |
-| `@tamagui/native/gestureState.ts`           | Add `createPressGesture` method                       |
+| `@hanzo/gui-native/gestureState.ts`           | Add `createPressGesture` method                       |
 | `code/core/web/src/eventHandling.ts`        | Create (web version)                                  |
 | `code/core/web/src/eventHandling.native.ts` | Create (native version)                               |
 | `code/core/web/src/createComponent.tsx`     | Import from eventHandling, remove inline getWebEvents |

@@ -148,14 +148,14 @@ const _sheet = __ReactNativeStyleSheet.create({
     "textAlign": "center"
   }
 });
-import { _withStableStyle } from '@tamagui/core';
+import { _withStableStyle } from '@hanzo/gui-core';
 const __ReactNativeView = require('react-native').View;
 const __ReactNativeText = require('react-native').Text;
 import { Adapt, Anchor, Button, type FontSizeTokens, getFontSize, H1, Label, Paragraph, Select, type SelectProps, Separator, Sheet, toast, XStack, YStack } from '@my/ui';
 import { SwitchRouterButton } from '@my/ui/components/SwitchRouterButton';
 import { SwitchThemeButton } from '@my/ui/components/SwitchThemeButton';
-import { LinearGradient } from '@tamagui/linear-gradient';
-import { Activity, Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons-2';
+import { LinearGradient } from '@hanzo/gui-linear-gradient';
+import { Activity, Check, ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2';
 import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import { useLink } from 'solito/navigation';
@@ -486,8 +486,8 @@ const _cn = "is_View _pos-relative _fd-column _gap-c-space-4";
 import { Adapt, Anchor, Button, type FontSizeTokens, getFontSize, H1, Label, Paragraph, Select, type SelectProps, Separator, Sheet, toast, XStack, YStack } from '@my/ui';
 import { SwitchRouterButton } from '@my/ui/components/SwitchRouterButton';
 import { SwitchThemeButton } from '@my/ui/components/SwitchThemeButton';
-import { LinearGradient } from '@tamagui/linear-gradient';
-import { Activity, Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons-2';
+import { LinearGradient } from '@hanzo/gui-linear-gradient';
+import { Activity, Check, ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2';
 import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import { useLink } from 'solito/navigation';
@@ -849,14 +849,14 @@ const _sheet = __ReactNativeStyleSheet.create({
     "textAlign": "center"
   }
 });
-import { _withStableStyle } from '@tamagui/core';
+import { _withStableStyle } from '@hanzo/gui-core';
 const __ReactNativeView = require('react-native').View;
 const __ReactNativeText = require('react-native').Text;
 import { Adapt, Anchor, Button, type FontSizeTokens, getFontSize, H1, Label, Paragraph, Select, type SelectProps, Separator, Sheet, toast, XStack, YStack } from '@my/ui';
 import { SwitchRouterButton } from '@my/ui/components/SwitchRouterButton';
 import { SwitchThemeButton } from '@my/ui/components/SwitchThemeButton';
-import { LinearGradient } from '@tamagui/linear-gradient';
-import { Activity, Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons-2';
+import { LinearGradient } from '@hanzo/gui-linear-gradient';
+import { Activity, Check, ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2';
 import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import { useLink } from 'solito/navigation';
@@ -1120,8 +1120,8 @@ const _cn = "is_View _pos-relative _fd-column _gap-c-space-4";
 import { Adapt, Anchor, Button, type FontSizeTokens, getFontSize, H1, Label, Paragraph, Select, type SelectProps, Separator, Sheet, toast, XStack, YStack } from '@my/ui';
 import { SwitchRouterButton } from '@my/ui/components/SwitchRouterButton';
 import { SwitchThemeButton } from '@my/ui/components/SwitchThemeButton';
-import { LinearGradient } from '@tamagui/linear-gradient';
-import { Activity, Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons-2';
+import { LinearGradient } from '@hanzo/gui-linear-gradient';
+import { Activity, Check, ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2';
 import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import { useLink } from 'solito/navigation';

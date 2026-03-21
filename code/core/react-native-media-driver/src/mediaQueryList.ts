@@ -1,4 +1,4 @@
-import type { MediaQueryList } from '@tamagui/web'
+import type { MediaQueryList } from '@hanzo/gui-web'
 import { Dimensions } from 'react-native'
 
 import { matchQuery } from './matchQuery'

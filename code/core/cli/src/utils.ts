@@ -1,5 +1,5 @@
-import type { TamaguiOptions, TamaguiProjectInfo } from '@tamagui/static'
-import type { CLIResolvedOptions, CLIUserOptions } from '@tamagui/types'
+import type { TamaguiOptions, TamaguiProjectInfo } from '@hanzo/gui-static'
+import type { CLIResolvedOptions, CLIUserOptions } from '@hanzo/gui-types'
 import chalk from 'chalk'
 import fs, { pathExists, readJSON } from 'fs-extra'
 import { join } from 'node:path'
@@ -30,14 +30,14 @@ export async function getOptions({
 
   const filledOptions = {
     platform: 'native',
-    components: ['tamagui'],
+    components: ['@hanzo/gui'],
     config,
     ...tamaguiOptions,
   } satisfies TamaguiOptions
 
   let finalOptions: TamaguiOptions = filledOptions
   if (loadTamaguiOptions) {
-    const { loadTamaguiBuildConfigSync } = require('@tamagui/static/loadTamagui')
+    const { loadTamaguiBuildConfigSync } = require('@hanzo/gui-static/loadTamagui')
     finalOptions = loadTamaguiBuildConfigSync(filledOptions)
   }
 
@@ -83,9 +83,9 @@ async function getDefaultTamaguiConfigPath() {
 export const loadTamagui = async (
   opts: Partial<TamaguiOptions>
 ): Promise<TamaguiProjectInfo | null> => {
-  const { loadTamagui: loadTamaguiStatic } = require('@tamagui/static/loadTamagui')
+  const { loadTamagui: loadTamaguiStatic } = require('@hanzo/gui-static/loadTamagui')
   const loaded = await loadTamaguiStatic({
-    components: ['tamagui'],
+    components: ['@hanzo/gui'],
     ...opts,
     config: opts.config ?? (await getDefaultTamaguiConfigPath()),
   })

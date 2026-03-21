@@ -25,7 +25,7 @@ const COMMAND_MAP = {
       const options = await getOptions({
         debug: flags['--debug'] ? (flags['--verbose'] ? 'verbose' : true) : false,
       })
-      const { checkDeps } = require('@tamagui/static/checkDeps')
+      const { checkDeps } = require('@hanzo/gui-static/checkDeps')
       await checkDeps(options.paths.root)
     },
   },
@@ -44,8 +44,8 @@ const COMMAND_MAP = {
         debug: flags['--debug'] ? (flags['--verbose'] ? 'verbose' : true) : false,
         loadTamaguiOptions: true,
       })
-      const { loadTamagui } = require('@tamagui/static/loadTamagui')
-      process.env.TAMAGUI_KEEP_THEMES = '1'
+      const { loadTamagui } = require('@hanzo/gui-static/loadTamagui')
+      process.env.HANZO_GUI_KEEP_THEMES = '1'
       await loadTamagui({
         ...options.tamaguiOptions,
         platform: 'web',
@@ -80,8 +80,8 @@ const COMMAND_MAP = {
       const outputPath =
         flags['--output'] || options.tamaguiOptions.outputCSS || './tamagui.generated.css'
 
-      const { loadTamagui } = require('@tamagui/static/loadTamagui')
-      process.env.TAMAGUI_KEEP_THEMES = '1'
+      const { loadTamagui } = require('@hanzo/gui-static/loadTamagui')
+      process.env.HANZO_GUI_KEEP_THEMES = '1'
       await loadTamagui({
         ...options.tamaguiOptions,
         outputCSS: outputPath,
@@ -112,7 +112,7 @@ const COMMAND_MAP = {
         )
       }
 
-      const { generateThemes, writeGeneratedThemes } = require('@tamagui/generate-themes')
+      const { generateThemes, writeGeneratedThemes } = require('@hanzo/gui-generate-themes')
 
       try {
         const generated = await generateThemes(inPath)

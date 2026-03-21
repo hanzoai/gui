@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef } from 'react'
-import { Tooltip, TooltipGroup, YStack, SizableText, XStack } from 'tamagui'
+import { Tooltip, TooltipGroup, YStack, SizableText, XStack } from '@hanzo/gui'
 
-// test case: matches production PromoLinksRow on tamagui.dev
+// test case: matches production PromoLinksRow on gui.hanzo.ai
 // single scoped tooltip with multiple triggers, animatePosition, TooltipGroup
 // rapidly hovering between them should:
 // 1. keep the arrow centered on the tooltip content (no displacement)

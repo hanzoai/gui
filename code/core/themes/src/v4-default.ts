@@ -1,5 +1,5 @@
-import * as Colors from '@tamagui/colors/legacy'
-import { createThemes, defaultComponentThemes } from '@tamagui/theme-builder'
+import * as Colors from '@hanzo/gui-colors/legacy'
+import { createThemes, defaultComponentThemes } from '@hanzo/gui-theme-builder'
 
 /**
  * This is the default config v4 definitions.
@@ -186,6 +186,6 @@ export const themes = generatedThemes
  * So long as you server render your Tamagui CSS, this will save you bundle size:
  */
 // export const themes: TamaguiThemes =
-//   process.env.TAMAGUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
+//   process.env.HANZO_GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
 //     ? {}
 //     : (generatedThemes as any)

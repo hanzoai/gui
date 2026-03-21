@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/font-nohemi",
+  "name": "@hanzo/gui-font-nohemi",
   "version": "2.0.0-rc.29",
   "files": [
     "types",
@@ -26,16 +26,16 @@
     }
   },
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/core": "workspace:*"
+    "@hanzo/gui-core": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "subset-font": "^2.1.0"
   },
   "skipPublishIfUnchanged": false

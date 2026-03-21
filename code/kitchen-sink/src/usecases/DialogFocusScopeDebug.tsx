@@ -1,4 +1,4 @@
-import { Button, Dialog, Input, YStack } from 'tamagui'
+import { Button, Dialog, Input, YStack } from '@hanzo/gui'
 import React from 'react'
 
 export function DialogFocusScopeDebug() {

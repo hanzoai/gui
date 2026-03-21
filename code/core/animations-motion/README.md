@@ -1,4 +1,4 @@
-# @tamagui/animations-motion
+# @hanzo/gui-animations-motion
 
 Motion animation driver for Tamagui, powered by the [Motion](https://motion.dev) library and the Web Animations API (WAAPI).
 
@@ -13,7 +13,7 @@ Motion animation driver for Tamagui, powered by the [Motion](https://motion.dev)
 ## Installation
 
 ```bash
-yarn add @tamagui/animations-motion motion
+yarn add @hanzo/gui-animations-motion motion
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ yarn add @tamagui/animations-motion motion
 Add to your Tamagui configuration:
 
 ```tsx
-import { createAnimations } from '@tamagui/animations-motion'
+import { createAnimations } from '@hanzo/gui-animations-motion'
 import { createTamagui } from 'tamagui'
 
 export default createTamagui({
@@ -69,4 +69,4 @@ export default createTamagui({
 
 ## Documentation
 
-For complete documentation, see the [Tamagui Animations docs](https://tamagui.dev/docs/core/animations).
+For complete documentation, see the [Tamagui Animations docs](https://gui.hanzo.ai/docs/core/animations).

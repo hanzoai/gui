@@ -4,7 +4,7 @@ import {
   isIos,
   isWeb,
   useIsomorphicLayoutEffect,
-} from '@tamagui/constants'
+} from '@hanzo/gui-constants'
 import {
   StyleObjectIdentifier,
   StyleObjectProperty,
@@ -16,7 +16,7 @@ import {
   tokenCategories,
   validPseudoKeys,
   validStyles as validStylesView,
-} from '@tamagui/helpers'
+} from '@hanzo/gui-helpers'
 import React from 'react'
 import { getConfig, getFont, getSetting } from '../config'
 import { isDevTools } from '../constants/isDevTools'
@@ -208,7 +208,7 @@ export const getSplitStyles: StyleSplitter = (
   const shouldDoClasses = acceptsClassName && isWeb && !styleProps.noClass
 
   const rulesToInsert: RulesToInsert =
-    process.env.TAMAGUI_TARGET === 'native' ? (undefined as any) : {}
+    process.env.HANZO_GUI_TARGET === 'native' ? (undefined as any) : {}
   const classNames: ClassNamesObject = {}
 
   let space: SpaceTokens | null = props.space
@@ -354,7 +354,7 @@ export const getSplitStyles: StyleSplitter = (
     // keyInit === 'style' is handled in skipProps
     if (keyInit in skipProps && !noSkip && !isHOC) {
       if (keyInit === 'group') {
-        if (process.env.TAMAGUI_TARGET === 'web') {
+        if (process.env.HANZO_GUI_TARGET === 'web') {
           // add container style
           const identifier = `t_group_${valInit}`
           const containerType = webContainerType || 'inline-size'
@@ -376,7 +376,7 @@ export const getSplitStyles: StyleSplitter = (
     let isValidStyleKeyInit = isValidStyleKey(keyInit, validStyles, accept)
 
     // this is all for partially optimized (not flattened)... maybe worth removing?
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.HANZO_GUI_TARGET === 'web') {
       // react-native-web ignores data-* attributes, fixes passing them to animated views
       if (staticConfig.isReactNative && keyInit.startsWith('data-')) {
         keyInit = keyInit.replace('data-', '')
@@ -386,7 +386,7 @@ export const getSplitStyles: StyleSplitter = (
       }
     }
 
-    if (process.env.TAMAGUI_TARGET === 'native') {
+    if (process.env.HANZO_GUI_TARGET === 'native') {
       if (!isValidStyleKeyInit) {
         if (!isAndroid) {
           // only works in android
@@ -403,7 +403,7 @@ export const getSplitStyles: StyleSplitter = (
       }
     }
 
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.HANZO_GUI_TARGET === 'web') {
       if (!noExpand) {
         /**
          * Copying in the accessibility/prop handling from react-native-web here
@@ -580,7 +580,7 @@ export const getSplitStyles: StyleSplitter = (
 
       if (val == null) return
 
-      if (process.env.TAMAGUI_TARGET === 'native') {
+      if (process.env.HANZO_GUI_TARGET === 'native') {
         if (key === 'pointerEvents') {
           viewProps[key] = val
           return
@@ -589,7 +589,7 @@ export const getSplitStyles: StyleSplitter = (
 
       if (
         (!isHOC && isValidStyleKey(key, validStyles, accept)) ||
-        (process.env.TAMAGUI_TARGET === 'native' && isAndroid && key === 'elevation')
+        (process.env.HANZO_GUI_TARGET === 'native' && isAndroid && key === 'elevation')
       ) {
         mergeStyle(styleState, key, val, 1, false, originalVal)
         return
@@ -855,7 +855,7 @@ export const getSplitStyles: StyleSplitter = (
 
           if (isThemeMedia) {
             if (
-              process.env.TAMAGUI_TARGET === 'native' &&
+              process.env.HANZO_GUI_TARGET === 'native' &&
               isIos &&
               getSetting('fastSchemeChange')
             ) {
@@ -1120,7 +1120,7 @@ export const getSplitStyles: StyleSplitter = (
 
     // add in defaults if not set:
     if (parentSplitStyles) {
-      if (process.env.TAMAGUI_TARGET === 'web') {
+      if (process.env.HANZO_GUI_TARGET === 'web') {
         if (shouldDoClasses) {
           for (const key in parentSplitStyles.classNames) {
             const val = parentSplitStyles.classNames[key]
@@ -1141,7 +1141,7 @@ export const getSplitStyles: StyleSplitter = (
   }
 
   // Button for example uses disableClassName: true but renders to a 'button' element, so needs this
-  if (process.env.TAMAGUI_TARGET === 'web') {
+  if (process.env.HANZO_GUI_TARGET === 'web') {
     const shouldStringifyTransforms =
       !styleProps.noNormalize &&
       !staticConfig.isReactNative &&
@@ -1153,7 +1153,7 @@ export const getSplitStyles: StyleSplitter = (
     }
   }
 
-  if (process.env.TAMAGUI_TARGET === 'web') {
+  if (process.env.HANZO_GUI_TARGET === 'web') {
     if (!styleProps.noMergeStyle && styleState.style && shouldDoClasses) {
       let retainedStyles: ViewStyleWithPseudos | undefined
       let shouldRetain = false
@@ -1265,7 +1265,7 @@ export const getSplitStyles: StyleSplitter = (
   }
 
   // native: swap out the right family based on weight/style
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.HANZO_GUI_TARGET === 'native') {
     // set accessible when tabIndex is 0 (issue #3350)
     if (viewProps.tabIndex === 0) {
       viewProps.accessible ??= true
@@ -1321,7 +1321,7 @@ export const getSplitStyles: StyleSplitter = (
     if (!asChildExceptStyleLike) {
       const style = styleState.style
 
-      if (process.env.TAMAGUI_TARGET === 'web') {
+      if (process.env.HANZO_GUI_TARGET === 'web') {
         // merge className and style back into viewProps:
         // only emit font class if fontFamily was explicitly in props (not from defaults)
         let fontFamily = isText || isInput ? styleState.fontFamily : null
@@ -1610,7 +1610,7 @@ export const useSplitStyles: StyleSplitter = (a, b, c, d, e, f, g, h, i, j, k, l
 
   const res = getSplitStyles(a, b, c, d, e, f, g, h, i, j, k, l, m)
 
-  if (process.env.TAMAGUI_TARGET !== 'native') {
+  if (process.env.HANZO_GUI_TARGET !== 'native') {
     useInsertEffectCompat(() => {
       if (res) {
         insertStyleRules(res.rulesToInsert)
@@ -1622,7 +1622,7 @@ export const useSplitStyles: StyleSplitter = (a, b, c, d, e, f, g, h, i, j, k, l
 }
 
 function addStyleToInsertRules(rulesToInsert: RulesToInsert, styleObject: StyleObject) {
-  if (process.env.TAMAGUI_TARGET === 'web') {
+  if (process.env.HANZO_GUI_TARGET === 'web') {
     const identifier = styleObject[StyleObjectIdentifier]
     if (shouldInsertStyleRules(identifier)) {
       updateRules(identifier, styleObject[StyleObjectRules])
@@ -1631,7 +1631,7 @@ function addStyleToInsertRules(rulesToInsert: RulesToInsert, styleObject: StyleO
   }
 }
 
-const defaultColor = process.env.TAMAGUI_DEFAULT_COLOR || 'rgba(0,0,0,0)'
+const defaultColor = process.env.HANZO_GUI_DEFAULT_COLOR || 'rgba(0,0,0,0)'
 const animatableDefaults = {
   ...Object.fromEntries(
     Object.entries(tokenCategories.color).map(([k, v]) => [k, defaultColor])

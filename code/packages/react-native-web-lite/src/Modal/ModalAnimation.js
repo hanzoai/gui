@@ -8,7 +8,7 @@
  *
  */
 import * as React from 'react'
-import { StyleSheet } from '@tamagui/react-native-web-internals'
+import { StyleSheet } from '@hanzo/gui-react-native-web-internals'
 
 import { createElement } from '../createElement/index'
 

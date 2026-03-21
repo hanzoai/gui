@@ -1,4 +1,4 @@
-import { tokenCategories } from '@tamagui/helpers'
+import { tokenCategories } from '@hanzo/gui-helpers'
 import { getConfig } from '../config'
 import { isVariable } from '../createVariable'
 import type {
@@ -132,7 +132,7 @@ export const getTokenForKey = (
             hasSet = true
           } else {
             if (process.env.NODE_ENV === 'development') {
-              if (process.env.TAMAGUI_DISABLE_MISSING_TOKEN_LOG !== '1') {
+              if (process.env.HANZO_GUI_DISABLE_MISSING_TOKEN_LOG !== '1') {
                 if (!didLogMissingToken) {
                   didLogMissingToken = true
                   console.groupCollapsed(
@@ -150,7 +150,7 @@ export const getTokenForKey = (
                     `You can debug that issue by opening the .mjs and .cjs files and setting a breakpoint at the top of each.`
                   )
                   console.info(
-                    `We only log this warning one time as it's sometimes harmless, to disable this log entirely set process.env.TAMAGUI_DISABLE_MISSING_TOKEN_LOG=1.`
+                    `We only log this warning one time as it's sometimes harmless, to disable this log entirely set process.env.HANZO_GUI_DISABLE_MISSING_TOKEN_LOG=1.`
                   )
                   console.groupEnd()
                 }
@@ -210,14 +210,14 @@ export function resolveVariableValue(
     const get = valOrVar?.get
 
     // shadowColor doesn't support dynamic style
-    if (process.env.TAMAGUI_TARGET !== 'native' || key !== 'shadowColor') {
+    if (process.env.HANZO_GUI_TARGET !== 'native' || key !== 'shadowColor') {
       if (typeof get === 'function') {
         const resolveDynamicFor = resolveValues === 'web' ? 'web' : undefined
         return get(resolveDynamicFor)
       }
     }
 
-    return process.env.TAMAGUI_TARGET === 'native' ? valOrVar.val : valOrVar.variable
+    return process.env.HANZO_GUI_TARGET === 'native' ? valOrVar.val : valOrVar.variable
   }
   return valOrVar
 }

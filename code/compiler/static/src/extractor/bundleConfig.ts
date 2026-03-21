@@ -6,8 +6,8 @@ import { existsSync, readFileSync, unlinkSync } from 'node:fs'
 import { basename, dirname, extname, join, relative, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 // @ts-ignore why
-import { Color, colorLog } from '@tamagui/cli-color'
-import { type StaticConfig, type TamaguiInternalConfig } from '@tamagui/web'
+import { Color, colorLog } from '@hanzo/gui-cli-color'
+import { type StaticConfig, type TamaguiInternalConfig } from '@hanzo/gui-web'
 import esbuild from 'esbuild'
 import * as FS from 'fs-extra'
 import { readFile } from 'node:fs/promises'
@@ -106,8 +106,8 @@ export type TamaguiProjectInfo = {
 }
 
 const external = [
-  '@tamagui/core',
-  '@tamagui/web',
+  '@hanzo/gui-core',
+  '@hanzo/gui-web',
   'react',
   'react-dom',
   'react-native-svg',
@@ -273,7 +273,7 @@ export async function bundleConfig(props: TamaguiOptions) {
     const configFormat = configEntry ? detectModuleFormat(configEntry) : 'cjs'
     const configExt = configFormat === 'esm' ? '.mjs' : '.cjs'
     const configOutPath = join(tmpDir, `tamagui.config${configExt}`)
-    const baseComponents = (props.components || []).filter((x) => x !== '@tamagui/core')
+    const baseComponents = (props.components || []).filter((x) => x !== '@hanzo/gui-core')
     // detect format per component module
     const componentFormats: Array<'esm' | 'cjs'> = baseComponents.map((mod) => {
       try {
@@ -388,7 +388,7 @@ export async function bundleConfig(props: TamaguiOptions) {
 
     // clear specific output file caches so we pick up the fresh (or newly discovered) build
     // only clear the built output files - not all require.cache entries, since that breaks
-    // external requires like @tamagui/config/v3 that are externalized in the bundled CJS
+    // external requires like @hanzo/gui-config/v3 that are externalized in the bundled CJS
     if (hasBundledOnce) {
       try {
         delete require.cache[require.resolve(configOutPath)]
@@ -459,7 +459,7 @@ export async function bundleConfig(props: TamaguiOptions) {
         component.moduleName
 
       if (!component.moduleName) {
-        if (process.env.DEBUG?.includes('tamagui') || process.env.IS_TAMAGUI_DEV) {
+        if (process.env.DEBUG?.includes('tamagui') || process.env.IS_HANZO_GUI_DEV) {
           console.warn(
             `⚠️ no module name found: ${component.moduleName} ${JSON.stringify(
               baseComponents
@@ -536,7 +536,7 @@ export function loadComponentsSync(props: TamaguiOptions, forceExports = false) 
 function getCoreComponentsSync(props: TamaguiOptions) {
   const loaded = loadComponentsInnerSync({
     ...props,
-    components: ['@tamagui/core'],
+    components: ['@hanzo/gui-core'],
   })
 
   if (!loaded) {
@@ -547,7 +547,7 @@ function getCoreComponentsSync(props: TamaguiOptions) {
   return [
     {
       ...loaded[0],
-      moduleName: '@tamagui/core',
+      moduleName: '@hanzo/gui-core',
     },
   ]
 }
@@ -604,15 +604,15 @@ export async function loadComponentsInner(
             },
             alias: {
               'react-native': resolvePackageEntry(
-                '@tamagui/react-native-web-lite',
+                '@hanzo/gui-react-native-web-lite',
                 format
               ),
-              '@tamagui/react-native-web-lite': resolvePackageEntry(
-                '@tamagui/react-native-web-lite',
+              '@hanzo/gui-react-native-web-lite': resolvePackageEntry(
+                '@hanzo/gui-react-native-web-lite',
                 format
               ),
-              '@tamagui/react-native-web-internals': resolvePackageEntry(
-                '@tamagui/react-native-web-internals',
+              '@hanzo/gui-react-native-web-internals': resolvePackageEntry(
+                '@hanzo/gui-react-native-web-internals',
                 format
               ),
             },
@@ -624,7 +624,7 @@ export async function loadComponentsInner(
           })
         }
 
-        if (process.env.DEBUG === 'tamagui') {
+        if (process.env.DEBUG === '@hanzo/gui') {
           console.info(`loadModule`, loadModule, format)
         }
 
@@ -673,7 +673,7 @@ export async function loadComponentsInner(
         try {
           loaded = await attemptLoad({ forceExports: false })
         } catch (err2) {
-          if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
+          if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
             console.info(
               `\nTamagui attempted but failed to dynamically optimize components in:\n  ${name}\n`
             )
@@ -759,15 +759,15 @@ export function loadComponentsInnerSync(
             },
             alias: {
               'react-native': resolvePackageEntry(
-                '@tamagui/react-native-web-lite',
+                '@hanzo/gui-react-native-web-lite',
                 'esm'
               ),
-              '@tamagui/react-native-web-lite': resolvePackageEntry(
-                '@tamagui/react-native-web-lite',
+              '@hanzo/gui-react-native-web-lite': resolvePackageEntry(
+                '@hanzo/gui-react-native-web-lite',
                 'esm'
               ),
-              '@tamagui/react-native-web-internals': resolvePackageEntry(
-                '@tamagui/react-native-web-internals',
+              '@hanzo/gui-react-native-web-internals': resolvePackageEntry(
+                '@hanzo/gui-react-native-web-internals',
                 'esm'
               ),
             },
@@ -779,7 +779,7 @@ export function loadComponentsInnerSync(
           })
         }
 
-        if (process.env.DEBUG === 'tamagui') {
+        if (process.env.DEBUG === '@hanzo/gui') {
           console.info(`loadModule`, loadModule, require.resolve(loadModule))
         }
 
@@ -824,7 +824,7 @@ export function loadComponentsInnerSync(
       try {
         return attemptLoad({ forceExports: false })
       } catch (err) {
-        if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
+        if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
           console.info(
             `\nTamagui attempted but failed to dynamically optimize components in:\n  ${name}\n`
           )
@@ -882,7 +882,7 @@ function getComponentStaticConfigByName(name: string, exported: any) {
       }
     }
   } catch (err) {
-    if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
+    if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
       console.error(
         `Tamagui failed getting components from ${name} (Disable error by setting environment variable TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
       )

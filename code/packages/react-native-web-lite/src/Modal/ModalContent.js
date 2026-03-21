@@ -8,7 +8,7 @@
  *
  */
 import * as React from 'react'
-import { StyleSheet, canUseDOM } from '@tamagui/react-native-web-internals'
+import { StyleSheet, canUseDOM } from '@hanzo/gui-react-native-web-internals'
 
 import { View } from '../View'
 

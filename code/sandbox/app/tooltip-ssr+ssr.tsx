@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Paragraph, Tooltip, TooltipGroup, YStack, XStack, Button } from 'tamagui'
+import { Paragraph, Tooltip, TooltipGroup, YStack, XStack, Button } from '@hanzo/gui'
 
 // matches PromoLinksRow pattern exactly:
 // scoped tooltip, multiple triggers, asChild, nested structure, animatePosition

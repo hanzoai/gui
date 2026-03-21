@@ -4,22 +4,22 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const startersDir = path.join(__dirname, '../../../starters')
-const tamaguiCliPath = require.resolve('@tamagui/cli/dist/index.cjs')
+const tamaguiCliPath = require.resolve('@hanzo/gui-cli/dist/index.cjs')
 
 describe('expo-router starter', () => {
   const dir = path.join(startersDir, 'expo-router')
 
   it('has workspace:* tamagui deps', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
-    expect(pkg.dependencies['@tamagui/config']).toBe('workspace:*')
-    expect(pkg.dependencies['tamagui']).toBe('workspace:*')
-    expect(pkg.devDependencies['@tamagui/babel-plugin']).toBe('workspace:*')
+    expect(pkg.dependencies['@hanzo/gui-config']).toBe('workspace:*')
+    expect(pkg.dependencies['@hanzo/gui']).toBe('workspace:*')
+    expect(pkg.devDependencies['@hanzo/gui-babel-plugin']).toBe('workspace:*')
   })
 
-  it('does not depend on @tamagui/cli', () => {
+  it('does not depend on @hanzo/gui-cli', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
-    expect(pkg.dependencies?.['@tamagui/cli']).toBeUndefined()
-    expect(pkg.devDependencies?.['@tamagui/cli']).toBeUndefined()
+    expect(pkg.dependencies?.['@hanzo/gui-cli']).toBeUndefined()
+    expect(pkg.devDependencies?.['@hanzo/gui-cli']).toBeUndefined()
   })
 
   it('uses vanilla metro config', () => {
@@ -30,10 +30,10 @@ describe('expo-router starter', () => {
 
   it('uses v5 tamagui config', () => {
     const config = fs.readFileSync(path.join(dir, 'tamagui.config.ts'), 'utf-8')
-    expect(config).toContain('@tamagui/config/v5')
+    expect(config).toContain('@hanzo/gui-config/v5')
   })
 
-  // TODO: metro can't resolve @tamagui/menu through workspace symlinks
+  // TODO: metro can't resolve @hanzo/gui-menu through workspace symlinks
   it.skip('builds for web', () => {
     // generate css first, then export
     execSync(
@@ -57,29 +57,29 @@ describe('remix starter', () => {
 
   it('has workspace:* tamagui deps', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
-    expect(pkg.dependencies['@tamagui/config']).toBe('workspace:*')
-    expect(pkg.dependencies['tamagui']).toBe('workspace:*')
-    expect(pkg.devDependencies['@tamagui/vite-plugin']).toBe('workspace:*')
+    expect(pkg.dependencies['@hanzo/gui-config']).toBe('workspace:*')
+    expect(pkg.dependencies['@hanzo/gui']).toBe('workspace:*')
+    expect(pkg.devDependencies['@hanzo/gui-vite-plugin']).toBe('workspace:*')
   })
 
-  it('does not depend on @tamagui/cli or @tamagui/core directly', () => {
+  it('does not depend on @hanzo/gui-cli or @hanzo/gui-core directly', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
-    expect(pkg.dependencies?.['@tamagui/cli']).toBeUndefined()
-    expect(pkg.dependencies?.['@tamagui/core']).toBeUndefined()
+    expect(pkg.dependencies?.['@hanzo/gui-cli']).toBeUndefined()
+    expect(pkg.dependencies?.['@hanzo/gui-core']).toBeUndefined()
   })
 
   it('uses v5 tamagui config', () => {
     const config = fs.readFileSync(path.join(dir, 'tamagui.config.ts'), 'utf-8')
-    expect(config).toContain('@tamagui/config/v5')
+    expect(config).toContain('@hanzo/gui-config/v5')
   })
 
-  it('imports from tamagui not @tamagui/web', () => {
+  it('imports from tamagui not @hanzo/gui-web', () => {
     const root = fs.readFileSync(path.join(dir, 'app/root.tsx'), 'utf-8')
     const index = fs.readFileSync(path.join(dir, 'app/routes/_index.tsx'), 'utf-8')
-    expect(root).toContain("from 'tamagui'")
-    expect(root).not.toContain('@tamagui/web')
-    expect(index).toContain("from 'tamagui'")
-    expect(index).not.toContain('@tamagui/web')
+    expect(root).toContain("from '@hanzo/gui'")
+    expect(root).not.toContain('@hanzo/gui-web')
+    expect(index).toContain("from '@hanzo/gui'")
+    expect(index).not.toContain('@hanzo/gui-web')
   })
 
   it('builds for web', () => {
@@ -98,12 +98,12 @@ describe('workspace version rewriting', () => {
       const fakePkg = {
         name: 'test',
         dependencies: {
-          '@tamagui/config': 'workspace:*',
+          '@hanzo/gui-config': 'workspace:*',
           tamagui: 'workspace:*',
           react: '19.1.0',
         },
         devDependencies: {
-          '@tamagui/vite-plugin': 'workspace:*',
+          '@hanzo/gui-vite-plugin': 'workspace:*',
           typescript: '~5.9.2',
         },
       }
@@ -135,10 +135,10 @@ describe('workspace version rewriting', () => {
       const result = JSON.parse(
         fs.readFileSync(path.join(tmpDir, 'package.json'), 'utf-8')
       )
-      expect(result.dependencies['@tamagui/config']).toBe(version)
-      expect(result.dependencies['tamagui']).toBe(version)
+      expect(result.dependencies['@hanzo/gui-config']).toBe(version)
+      expect(result.dependencies['@hanzo/gui']).toBe(version)
       expect(result.dependencies['react']).toBe('19.1.0')
-      expect(result.devDependencies['@tamagui/vite-plugin']).toBe(version)
+      expect(result.devDependencies['@hanzo/gui-vite-plugin']).toBe(version)
       expect(result.devDependencies['typescript']).toBe('~5.9.2')
     } finally {
       fs.rmSync(tmpDir, { recursive: true, force: true })

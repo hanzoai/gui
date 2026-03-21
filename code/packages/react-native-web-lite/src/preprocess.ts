@@ -4,4 +4,4 @@ export {
   createBoxShadowValue,
   createTextShadowValue,
   createTransformValue,
-} from '@tamagui/react-native-web-internals'
+} from '@hanzo/gui-react-native-web-internals'

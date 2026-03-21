@@ -73,7 +73,7 @@ This plan covers:
 │  50% off! during Takeout 2 beta                │
 │                                                 │
 │  For companies with >$1M revenue, contact us   │
-│  for enterprise pricing: support@tamagui.dev   │
+│  for enterprise pricing: support@gui.hanzo.ai   │
 │                                                 │
 │  [License] [Policies]         [Stripe logo]   │
 └─────────────────────────────────────────────────┘
@@ -95,7 +95,7 @@ This plan covers:
 
 3. **What about companies with significant revenue?**
 
-   > Companies with over $1M in annual revenue should contact us at support@tamagui.dev for enterprise pricing. The standard license is intended for bootstrapped companies, solo developers, and early-stage startups.
+   > Companies with over $1M in annual revenue should contact us at support@gui.hanzo.ai for enterprise pricing. The standard license is intended for bootstrapped companies, solo developers, and early-stage startups.
 
 4. **What support do I get in the base plan?** (UPDATE existing)
    > The base plan includes access to the private #takeout Discord channel. We prioritize responses there over the public Discord, but there is no guaranteed SLA. For guaranteed response times and bug fix commitments, see our Direct and Sponsor support tiers.
@@ -448,7 +448,7 @@ features/pro/
 
 ## Part 5: UI Patterns & Style Guide
 
-Based on analysis of 10+ files across the tamagui.dev codebase, these are the patterns to follow:
+Based on analysis of 10+ files across the gui.hanzo.ai codebase, these are the patterns to follow:
 
 ### Layout Patterns
 
@@ -699,7 +699,7 @@ $10  = 40px  (section separators)
   <XStack bg="$color3" rounded="$4" borderWidth={0.5} borderColor="$color8" p="$3">
     <Paragraph size="$3" color="$color11">
       For companies with over $1M in annual revenue,{' '}
-      <Link href="mailto:support@tamagui.dev">contact us</Link> for enterprise pricing.
+      <Link href="mailto:support@gui.hanzo.ai">contact us</Link> for enterprise pricing.
     </Paragraph>
   </XStack>
 </Theme>

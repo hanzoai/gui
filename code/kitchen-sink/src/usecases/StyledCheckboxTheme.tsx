@@ -1,5 +1,5 @@
-import { Check } from '@tamagui/lucide-icons-2'
-import { Checkbox as TamaguiCheckbox, styled, withStaticProperties } from 'tamagui'
+import { Check } from '@hanzo/gui-lucide-icons-2'
+import { Checkbox as TamaguiCheckbox, styled, withStaticProperties } from '@hanzo/gui'
 
 export const Checkbox = withStaticProperties(
   styled(TamaguiCheckbox, {

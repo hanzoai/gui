@@ -6,13 +6,13 @@ FOR LONG RUNNNING DEBUGGING run `bun run watch` in the background its faster and
 
 keep commits to one line, add a trailing "Fixes #" if associated with a GH issue, and start with a convential commit style - UNLESS its a change that shouldn't go into the changelog, in those cases you can do things like `docs: ` or `site: `.
 
-# Tamagui Testing Guide
+# Hanzo GUI Testing Guide
 
 ## Running Tests
 
 ### Kitchen Sink Tests
 
-The kitchen-sink package contains the main integration tests for Tamagui components. To run these tests:
+The kitchen-sink package contains the main integration tests for Hanzo GUI components. To run these tests:
 
 1. **Start the web server** (in the background):
 
@@ -50,7 +50,7 @@ The kitchen-sink package contains the main integration tests for Tamagui compone
    ```bash
    # Using env var + playwright --project flag
    cd code/kitchen-sink
-   NODE_ENV=test TAMAGUI_TEST_ANIMATION_DRIVER=css npx playwright test --project=animated-css
+   NODE_ENV=test HANZO_GUI_TEST_ANIMATION_DRIVER=css npx playwright test --project=animated-css
 
    # Available projects: animated-css, animated-native, animated-reanimated, animated-motion
    ```
@@ -63,7 +63,7 @@ The kitchen-sink package contains the main integration tests for Tamagui compone
    npx playwright test tests/PopoverFocusScope.test.tsx
 
    # Or with a specific driver
-   NODE_ENV=test TAMAGUI_TEST_ANIMATION_DRIVER=css npx playwright test tests/YourTest.animated.test.tsx --project=animated-css
+   NODE_ENV=test HANZO_GUI_TEST_ANIMATION_DRIVER=css npx playwright test tests/YourTest.animated.test.tsx --project=animated-css
    ```
 
 5. **Debug tests**:
@@ -99,7 +99,7 @@ When writing tests for focus behavior or component interactions:
 
 ## Commit Message Conventions
 
-- Use `site:` prefix (not `fix(site):`) for tamagui.dev changes since they don't go in the changelog
+- Use `site:` prefix (not `fix(site):`) for gui.hanzo.ai changes since they don't go in the changelog
 - Use `ci:` prefix (not `fix(ci):`) for CI/workflow changes since they don't go in the changelog
 - Keep commit messages to a single line
 
@@ -107,9 +107,9 @@ When writing tests for focus behavior or component interactions:
 
 See [docs/using-ios.md](./docs/using-ios.md) for iOS native development and Detox testing tips.
 
-## tamagui.dev API Authentication
+## gui.hanzo.ai API Authentication
 
-When making authenticated API calls from the client side in tamagui.dev, always use the `authFetch` helper:
+When making authenticated API calls from the client side in gui.hanzo.ai, always use the `authFetch` helper:
 
 ```ts
 import { authFetch } from '~/features/api/authFetch'

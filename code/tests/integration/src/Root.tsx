@@ -1,7 +1,7 @@
-import '@tamagui/core/reset.css'
+import '@hanzo/gui-core/reset.css'
 
-import { Text, TamaguiProvider, View } from '@tamagui/core'
-import { LinearGradient } from '@tamagui/linear-gradient'
+import { Text, TamaguiProvider, View } from '@hanzo/gui-core'
+import { LinearGradient } from '@hanzo/gui-linear-gradient'
 
 import config from './tamagui.config'
 

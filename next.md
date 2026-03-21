@@ -1,8 +1,8 @@
 vite 8 monorepo fix:
-- added `tamagui-monorepo-exports-fix` plugin to `@tamagui/vite-plugin`
+- added `tamagui-monorepo-exports-fix` plugin to `@hanzo/gui-vite-plugin`
 - vite 8 (rolldown) resolves workspace subpath imports to filesystem dirs instead of package.json exports
 - see https://github.com/vitejs/vite/issues/11676 and https://github.com/vitejs/vite/issues/20390
-- also adds ssr.optimizeDeps.include for @tamagui/web, @tamagui/core, tamagui to avoid duplicate instances
+- also adds ssr.optimizeDeps.include for @hanzo/gui-web, @hanzo/gui-core, tamagui to avoid duplicate instances
 - only active in monorepos (detected via workspace: protocol in deps)
 - can be removed once vite fixes upstream
 
@@ -10,7 +10,7 @@ vite 8 monorepo fix:
 
 before v2 final:
 
-- // import '@tamagui/native/setup-safe-area'
+- // import '@hanzo/gui-native/setup-safe-area'
 
 - activeStyle / accept not taking shorthands
 
@@ -44,7 +44,7 @@ and cant put another View next to Content and have it show
 
 - Sheet scope prop (like Dialog/Popover/Tooltip have)
 
-- @tamagui/web can just merge into core, .native paths are perfectly fine since we build separate so no need to serapte.
+- @hanzo/gui-web can just merge into core, .native paths are perfectly fine since we build separate so no need to serapte.
 
 - reanimated on native - no transitino can still avoidReRenders just set duration: 0 timing, should be faster
 
@@ -133,7 +133,7 @@ and cant put another View next to Content and have it show
   - note that we create all the style rules before we actually check if should insert
   - refactor: not _super_ simple in that the check may need to happen inside getStylesAtomic for example and it also needs to check the startedUnhydrated, so just need to refactor a bit so we have a "shouldInsert" a the top of getSplitStyles properly set up, then we can maybe pass to getStylesAtomic and anywhere ebfore we actually create the rulestoinsert
 
-- import `tamagui/styled` / `@tamagui/button/styled`
+- import `tamagui/styled` / `@hanzo/gui-button/styled`
   - adds styles, sizing, unstyled prop
     - removing default size based styling, look at this in tooltip!:
 
@@ -266,7 +266,7 @@ v3:
   - need to remove ThemeableStack docs from components mdx, they now are all extensiond YStack instead of ThemeableStack
   - see how much of accessibilityDirectMap we can remove for web
   - `$platform-` prefixes should go away in favor of just `$web`, `$native` etc
-  - @tamagui/cli => tamagui
+  - @hanzo/gui-cli => tamagui
     - `tamagui build` document/announce
     - `tamagui lint` fix check and document/announce
   - tamagui => tamagui
@@ -444,7 +444,7 @@ $gtSm: false,
 - enables Input taking { autofillSelectedStyle: Style }, or any component accepting a style object as a prop
 
 ```tsx
-import { Stack, style } from '@tamagui/core'
+import { Stack, style } from '@hanzo/gui-core'
 
 // make it so style props accepts either a regular style object
 // or something like this (can be exported from core):
@@ -486,7 +486,7 @@ const MyComponent = (props: { accentedStyle?: StackStyle }) => {
 - font weights in css are generating extra variables with "undefined" value if not filled in
 - add defaultSize and defaultFontFamily to createTamagui
 
-- @tamagui/tailwind
+- @hanzo/gui-tailwind
 - pass Size down context (see Group) but really this is just Themes but for individual props (css variable direct support <Theme set={{ size: '$4' }}> ?)
 - `tag` => `as` (keep fallback around as deprecated)
   - `as={['a', { ...props }]}`

@@ -78,7 +78,7 @@ jobs:
 
       - name: Start Metro Bundler
         run: |
-          EXPO_NO_TELEMETRY=true TAMAGUI_PACKAGE_EXPORTS=${{ matrix.package-exports }} bunx expo start --offline &
+          EXPO_NO_TELEMETRY=true HANZO_GUI_PACKAGE_EXPORTS=${{ matrix.package-exports }} bunx expo start --offline &
           echo "Waiting for Metro to start..."
           for i in {1..30}; do
             if curl -s "http://127.0.0.1:8081/" -H "Expo-Platform: ios" > /dev/null 2>&1; then

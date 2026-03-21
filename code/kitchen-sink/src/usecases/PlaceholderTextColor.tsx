@@ -1,4 +1,4 @@
-import { Input, Text, YStack } from 'tamagui'
+import { Input, Text, YStack } from '@hanzo/gui'
 
 export const PlaceholderTextColor = () => (
   <YStack gap="$3" p="$4">

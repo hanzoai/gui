@@ -1,8 +1,8 @@
 import React from 'react'
-import { AnimatePresence } from '@tamagui/animate-presence'
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons-2'
+import { AnimatePresence } from '@hanzo/gui-animate-presence'
+import { ArrowLeft, ArrowRight } from '@hanzo/gui-lucide-icons-2'
 
-import { Button, Image, XStack, YStack, styled } from 'tamagui'
+import { Button, Image, XStack, YStack, styled } from '@hanzo/gui'
 
 // @ts-ignore
 import photo1 from '../../public/photo1.jpg'

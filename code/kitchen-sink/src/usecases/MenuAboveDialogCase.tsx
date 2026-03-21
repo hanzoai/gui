@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, Dialog, Paragraph, YStack, XStack } from 'tamagui'
-import { Menu } from '@tamagui/menu'
+import { Button, Dialog, Paragraph, YStack, XStack } from '@hanzo/gui'
+import { Menu } from '@hanzo/gui-menu'
 
 // tests that Menu renders above Dialog when opened from inside Dialog
 export function MenuAboveDialogCase() {

@@ -1,6 +1,6 @@
 # Tamagui Skill
 
-Official Claude Code skill for [Tamagui](https://tamagui.dev) - the universal React UI framework.
+Official Claude Code skill for [Tamagui](https://gui.hanzo.ai) - the universal React UI framework.
 
 ## Installation
 
@@ -41,6 +41,6 @@ skills/tamagui/
 
 ## Resources
 
-- [Tamagui Docs](https://tamagui.dev)
+- [Tamagui Docs](https://gui.hanzo.ai)
 - [GitHub](https://github.com/tamagui/tamagui)
 - [Discord](https://discord.gg/tamagui)

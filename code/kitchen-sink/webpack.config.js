@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { shouldExclude, TamaguiPlugin } = require('tamagui-loader')
+const { shouldExclude, TamaguiPlugin } = require('@hanzo/gui-loader')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const target = 'web'
@@ -37,7 +37,7 @@ module.exports = {
       'react-dom/client': require.resolve('react-dom/client'),
       'react-dom': require.resolve('react-dom'),
       'react-native$': 'react-native-web',
-      'react-native-svg': '@tamagui/react-native-svg',
+      'react-native-svg': '@hanzo/gui-react-native-svg',
     },
   },
   devServer: {
@@ -62,7 +62,7 @@ module.exports = {
   ],
   module: {
     rules: [
-      // Process react-native-reanimated and @tamagui/animations-reanimated with Babel plugin
+      // Process react-native-reanimated and @hanzo/gui-animations-reanimated with Babel plugin
       // The reanimated babel plugin transforms 'worklet' directives for web
       {
         test: /\.(js|ts)x?$/,
@@ -117,7 +117,7 @@ module.exports = {
   plugins: [
     new TamaguiPlugin({
       config: './src/tamagui.config.ts',
-      components: ['tamagui', '@tamagui/sandbox-ui'],
+      components: ['@hanzo/gui', '@hanzo/gui-sandbox-ui'],
       importsWhitelist: ['constants.js'],
       disableExtraction,
     }),

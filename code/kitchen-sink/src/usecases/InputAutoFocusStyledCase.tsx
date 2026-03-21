@@ -1,6 +1,6 @@
-import { Input } from '@tamagui/input'
+import { Input } from '@hanzo/gui-input'
 import { useState } from 'react'
-import { styled, Button, YStack } from 'tamagui'
+import { styled, Button, YStack } from '@hanzo/gui'
 
 const StyledInput = styled(Input, {
   borderColor: '$blue8',

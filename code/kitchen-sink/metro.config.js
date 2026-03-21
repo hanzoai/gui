@@ -1,6 +1,6 @@
 const { getDefaultConfig } = require('expo/metro-config')
 const path = require('path')
-const { withTamagui } = require('@tamagui/metro-plugin')
+const { withTamagui } = require('@hanzo/gui-metro-plugin')
 // Find the project and workspace directories
 const projectRoot = __dirname
 // This can be replaced with `find-yarn-workspace-root`
@@ -9,7 +9,7 @@ const monorepoRoot = path.resolve(projectRoot, '../..')
 const config = getDefaultConfig(projectRoot)
 
 config.resolver.unstable_enablePackageExports =
-  process.env.TAMAGUI_PACKAGE_EXPORTS !== 'false'
+  process.env.HANZO_GUI_PACKAGE_EXPORTS !== 'false'
 
 // block unnecessary directories from metro file crawling
 config.resolver.blockList = [
@@ -59,6 +59,6 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
 }
 
 module.exports = withTamagui(config, {
-  components: ['tamagui'],
+  components: ['@hanzo/gui'],
   config: './src/tamagui.config.ts',
 })

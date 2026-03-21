@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@tamagui/native/setup-gesture-handler'
+ * import '@hanzo/gui-native/setup-gesture-handler'
  * ```
  *
  * This automatically detects and configures react-native-gesture-handler
@@ -34,7 +34,7 @@ function setup() {
         ScrollView: ScrollView || null,
       })
 
-      // also set on the legacy key for backward compat with @tamagui/sheet
+      // also set on the legacy key for backward compat with @hanzo/gui-sheet
       g.__tamagui_sheet_gesture_state__ = {
         enabled: true,
         Gesture,

@@ -1,5 +1,5 @@
-import { LogoIcon } from '@tamagui/logo'
-import { Square } from 'tamagui'
+import { LogoIcon } from '@hanzo/gui-logo'
+import { Square } from '@hanzo/gui'
 
 export function AnimationsTimingDemo() {
   return (

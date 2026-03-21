@@ -13,7 +13,7 @@ import { NativeAnimatedTurboModule } from './NativeAnimatedTurboModule'
 import { NativeEventEmitter } from '../EventEmitter/NativeEventEmitter'
 import { Platform } from '../Utilities/Platform'
 import { ReactNativeFeatureFlags } from '../ReactNative/ReactNativeFeatureFlags'
-import { invariant } from '@tamagui/react-native-web-internals'
+import { invariant } from '@hanzo/gui-react-native-web-internals'
 import { RCTDeviceEventEmitter } from '../EventEmitter/RCTDeviceEventEmitter'
 
 // TODO T69437152 @petetheheat - Delete this fork when Fabric ships to 100%.

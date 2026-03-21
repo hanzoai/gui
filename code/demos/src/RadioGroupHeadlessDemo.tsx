@@ -1,16 +1,16 @@
 import type {
   RadioGroupContextValue,
   RadioGroupItemContextValue,
-} from '@tamagui/radio-headless'
+} from '@hanzo/gui-radio-headless'
 import {
   useRadioGroup,
   useRadioGroupItem,
   useRadioGroupItemIndicator,
-} from '@tamagui/radio-headless'
-import { RovingFocusGroup } from '@tamagui/roving-focus'
+} from '@hanzo/gui-radio-headless'
+import { RovingFocusGroup } from '@hanzo/gui-roving-focus'
 import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { isWeb, useTheme } from 'tamagui'
+import { isWeb, useTheme } from '@hanzo/gui'
 
 const RadioGroupContext = React.createContext<RadioGroupContextValue>({})
 const RadioGroupItemContext = React.createContext<RadioGroupItemContextValue>({

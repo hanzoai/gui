@@ -4,8 +4,8 @@ import {
   Text,
   usePropsAndStyle,
   type ResolveVariableAs,
-} from '@tamagui/core'
-import { SizableContext } from '@tamagui/sizable-context'
+} from '@hanzo/gui-core'
+import { SizableContext } from '@hanzo/gui-sizable-context'
 
 import type { FC } from 'react'
 import type { IconProps } from './IconProps'
@@ -33,7 +33,7 @@ export function themed(Component: FC<IconProps>, optsIn: Options = {}) {
     defaultThemeColor: process.env.DEFAULT_ICON_THEME_COLOR || '$color',
     defaultStrokeWidth: 2,
     fallbackColor: '#000',
-    resolveValues: (process.env.TAMAGUI_ICON_COLOR_RESOLVE as any) || 'auto',
+    resolveValues: (process.env.HANZO_GUI_ICON_COLOR_RESOLVE as any) || 'auto',
     ...optsIn,
   }
 

@@ -3,7 +3,7 @@
  * Copyright (c) Nicolas Gallagher licensed under the MIT license.
  */
 
-import { isAndroid, isWeb } from '@tamagui/constants'
+import { isAndroid, isWeb } from '@hanzo/gui-constants'
 
 import { getSetting } from '../config'
 import type { PropMappedValue } from '../types'
@@ -17,7 +17,7 @@ const neg1Flex = [
 ] satisfies PropMappedValue
 
 export function expandStyle(key: string, value: any): PropMappedValue {
-  if (process.env.TAMAGUI_TARGET === 'web') {
+  if (process.env.HANZO_GUI_TARGET === 'web') {
     if (key === 'flex') {
       if (value === -1) {
         return neg1Flex
@@ -43,7 +43,7 @@ export function expandStyle(key: string, value: any): PropMappedValue {
     }
   }
 
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.HANZO_GUI_TARGET === 'native') {
     if (isAndroid && key === 'elevationAndroid') {
       return [['elevation', value]]
     }

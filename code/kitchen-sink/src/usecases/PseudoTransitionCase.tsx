@@ -1,4 +1,4 @@
-import { Square, YStack, Text, XStack, View, styled } from 'tamagui'
+import { Square, YStack, Text, XStack, View, styled } from '@hanzo/gui'
 
 /**
  * PSEUDO TRANSITION TEST CASES

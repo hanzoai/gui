@@ -1,4 +1,4 @@
-import { animationsCSS } from '@tamagui/config/v5-css'
+import { animationsCSS } from '@hanzo/gui-config/v5-css'
 import { useMemo, useState } from 'react'
 import {
   AnimatePresence,
@@ -7,7 +7,7 @@ import {
   useDidFinishSSR,
   XStack,
   YStack,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 /**
  * SSR Hydration Test Page - CSS Driver

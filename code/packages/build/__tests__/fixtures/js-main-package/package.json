@@ -5,10 +5,10 @@
   "module": "dist/esm/index.mjs",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "node ../../../tamagui-build.js"
+    "build": "node ../../../hanzo-gui-build.js"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "typescript": "~5.9.2"
   }
 }

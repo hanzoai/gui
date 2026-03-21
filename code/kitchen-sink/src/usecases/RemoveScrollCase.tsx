@@ -1,6 +1,6 @@
 import React from 'react'
-import { Select, H2, Paragraph, YStack } from 'tamagui'
-import { ChevronDown } from '@tamagui/lucide-icons-2'
+import { Select, H2, Paragraph, YStack } from '@hanzo/gui'
+import { ChevronDown } from '@hanzo/gui-lucide-icons-2'
 
 const items = [
   { value: 'apple', label: 'Apple' },

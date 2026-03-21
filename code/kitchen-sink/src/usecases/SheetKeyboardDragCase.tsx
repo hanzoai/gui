@@ -4,8 +4,8 @@ import ActionSheet, {
   type ActionSheetRef,
   ScrollView as ActionScrollView,
 } from 'react-native-actions-sheet'
-import { Button, Input, Sheet, Text, XStack, YStack } from 'tamagui'
-import { getGestureHandler, isKeyboardControllerEnabled } from '@tamagui/native'
+import { Button, Input, Sheet, Text, XStack, YStack } from '@hanzo/gui'
+import { getGestureHandler, isKeyboardControllerEnabled } from '@hanzo/gui-native'
 
 /**
  * Test case for Sheet + Keyboard + Drag interaction

@@ -1,4 +1,4 @@
-import { isAndroid } from '@tamagui/constants'
+import { isAndroid } from '@hanzo/gui-constants'
 import { getVariableValue, isVariable } from '../createVariable'
 import type {
   GetStyleState,
@@ -34,7 +34,7 @@ export const propMapper: PropMapper = (key, value, styleState, disabled, map) =>
 
   setLastFontFamilyToken(null)
 
-  if (!(process.env.TAMAGUI_TARGET === 'native' && isAndroid)) {
+  if (!(process.env.HANZO_GUI_TARGET === 'native' && isAndroid)) {
     // this shouldnt be necessary and handled in the outer loop
     if (key === 'elevationAndroid') return
   }
@@ -81,7 +81,7 @@ export const propMapper: PropMapper = (key, value, styleState, disabled, map) =>
   // on native, parse string backgroundImage/boxShadow/textShadow to RN object format
   // this handles both token-resolved strings and plain strings without tokens
   if (
-    process.env.TAMAGUI_TARGET === 'native' &&
+    process.env.HANZO_GUI_TARGET === 'native' &&
     value != null &&
     typeof value === 'string' &&
     (key === 'backgroundImage' || key === 'boxShadow' || key === 'textShadow')
@@ -146,7 +146,7 @@ const resolveVariants: StyleResolver = (
   if (!variantValue) {
     // variant at key exists, but no matching variant
     // disabling warnings, its fine to pass through, could re-enable later somehoiw
-    if (process.env.TAMAGUI_WARN_ON_MISSING_VARIANT === '1') {
+    if (process.env.HANZO_GUI_WARN_ON_MISSING_VARIANT === '1') {
       // don't warn on missing booleans
       if (typeof value !== 'boolean') {
         const name = staticConfig.componentName || '[UnnamedComponent]'
@@ -166,7 +166,7 @@ const resolveVariants: StyleResolver = (
     if (
       process.env.NODE_ENV === 'development' &&
       debug === 'verbose' &&
-      process.env.TAMAGUI_TARGET !== 'native'
+      process.env.HANZO_GUI_TARGET !== 'native'
     ) {
       console.groupCollapsed('   expanded functional variant', key)
       console.info({ fn, variantValue, extras })

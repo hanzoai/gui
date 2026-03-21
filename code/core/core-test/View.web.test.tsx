@@ -1,11 +1,11 @@
-process.env.TAMAGUI_TARGET = 'web'
+process.env.HANZO_GUI_TARGET = 'web'
 
-import { getDefaultTamaguiConfig } from '@tamagui/config-default'
+import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
-import type { ViewProps } from '@tamagui/core'
-import { View, TamaguiProvider, createTamagui } from '@tamagui/core'
+import type { ViewProps } from '@hanzo/gui-core'
+import { View, TamaguiProvider, createTamagui } from '@hanzo/gui-core'
 
 const conf = createTamagui(getDefaultTamaguiConfig())
 

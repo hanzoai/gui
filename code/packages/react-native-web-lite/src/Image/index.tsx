@@ -13,8 +13,8 @@ import {
   StyleSheet,
   TextAncestorContext,
   createBoxShadowValue,
-} from '@tamagui/react-native-web-internals'
-import { ImageLoader, getAssetByID } from '@tamagui/react-native-web-internals'
+} from '@hanzo/gui-react-native-web-internals'
+import { ImageLoader, getAssetByID } from '@hanzo/gui-react-native-web-internals'
 
 import { createElement } from '../createElement/index'
 import { PixelRatio } from '../PixelRatio/index'

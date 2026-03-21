@@ -1,4 +1,4 @@
-import { useIsomorphicLayoutEffect } from '@tamagui/constants'
+import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
 import React from 'react'
 import { getConfig } from '../config'
 import { ComponentContext } from '../contexts/ComponentContext'

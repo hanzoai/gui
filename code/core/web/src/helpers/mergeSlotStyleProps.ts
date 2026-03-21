@@ -1,5 +1,5 @@
-import { composeRefs } from '@tamagui/compose-refs'
-import { composeEventHandlers } from '@tamagui/helpers'
+import { composeRefs } from '@hanzo/gui-compose-refs'
+import { composeEventHandlers } from '@hanzo/gui-helpers'
 
 const isEventHandler = /^on[A-Z]/
 

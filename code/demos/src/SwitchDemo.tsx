@@ -1,5 +1,5 @@
-import type { SizeTokens } from 'tamagui'
-import { Label, Separator, Switch, Theme, XStack, YStack } from 'tamagui'
+import type { SizeTokens } from '@hanzo/gui'
+import { Label, Separator, Switch, Theme, XStack, YStack } from '@hanzo/gui'
 
 export function SwitchDemo() {
   return (

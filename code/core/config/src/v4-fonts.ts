@@ -1,5 +1,5 @@
-import type { FillInFont, GenericFont } from '@tamagui/core'
-import { createFont, getVariableValue, isWeb } from '@tamagui/core'
+import type { FillInFont, GenericFont } from '@hanzo/gui-core'
+import { createFont, getVariableValue, isWeb } from '@hanzo/gui-core'
 
 export const createSystemFont = <A extends GenericFont>({
   font = {},

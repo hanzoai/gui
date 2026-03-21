@@ -1,5 +1,5 @@
-import * as StaticWorker from '@tamagui/static-worker'
-import type { TamaguiOptions } from '@tamagui/types'
+import * as StaticWorker from '@hanzo/gui-static-worker'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 import type { LoaderContext } from 'webpack'
 import { requireResolve } from './requireResolve'
 
@@ -22,7 +22,7 @@ try {
 
 let index = 0
 
-process.env.TAMAGUI_TARGET = 'web'
+process.env.HANZO_GUI_TARGET = 'web'
 
 export const loader = async function loader(
   this: LoaderContext<TamaguiOptions>,

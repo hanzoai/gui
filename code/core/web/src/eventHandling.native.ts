@@ -2,8 +2,8 @@
  * Native event handling - uses RNGH when available, falls back to usePressability
  */
 
-import { composeEventHandlers } from '@tamagui/helpers'
-import { getGestureHandler } from '@tamagui/native'
+import { composeEventHandlers } from '@hanzo/gui-helpers'
+import { getGestureHandler } from '@hanzo/gui-native'
 import React, { useRef } from 'react'
 import { useMainThreadPressEvents } from './helpers/mainThreadPressEvents'
 import type { StaticConfig, TamaguiComponentStateRef } from './types'

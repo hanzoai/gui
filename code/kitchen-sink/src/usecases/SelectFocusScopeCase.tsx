@@ -1,6 +1,6 @@
 import React from 'react'
-import { Select, Label, YStack, XStack, Button } from 'tamagui'
-import { ChevronDown } from '@tamagui/lucide-icons-2'
+import { Select, Label, YStack, XStack, Button } from '@hanzo/gui'
+import { ChevronDown } from '@hanzo/gui-lucide-icons-2'
 
 // Render value helpers for SSR support
 const fruitsAndVeggiesLabels: Record<string, string> = {
@@ -267,4 +267,4 @@ export function SelectFocusScopeCase() {
 }
 
 // Add missing import
-import { View } from 'tamagui'
+import { View } from '@hanzo/gui'

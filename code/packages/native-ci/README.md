@@ -1,4 +1,4 @@
-# @tamagui/native-ci
+# @hanzo/gui-native-ci
 
 Native CI/CD helpers for React Native apps with Expo. Provides fingerprint-based build caching and Detox test runners for GitHub Actions.
 
@@ -19,29 +19,29 @@ Native CI/CD helpers for React Native apps with Expo. Provides fingerprint-based
 ## Installation
 
 ```bash
-npm install @tamagui/native-ci
+npm install @hanzo/gui-native-ci
 # or
-yarn add @tamagui/native-ci
+yarn add @hanzo/gui-native-ci
 # or
-bun add @tamagui/native-ci
+bun add @hanzo/gui-native-ci
 ```
 
 ## CLI Usage
 
 ```bash
 # Generate fingerprint for a platform
-npx @tamagui/native-ci fingerprint ios
-npx @tamagui/native-ci fingerprint android
+npx @hanzo/gui-native-ci fingerprint ios
+npx @hanzo/gui-native-ci fingerprint android
 
 # Generate pre-fingerprint hash (fast)
-npx @tamagui/native-ci pre-hash yarn.lock app.json
+npx @hanzo/gui-native-ci pre-hash yarn.lock app.json
 
 # Generate cache key
-npx @tamagui/native-ci cache-key ios <fingerprint>
+npx @hanzo/gui-native-ci cache-key ios <fingerprint>
 
 # KV operations (requires env vars)
-npx @tamagui/native-ci kv-get <key>
-npx @tamagui/native-ci kv-set <key> <value>
+npx @hanzo/gui-native-ci kv-get <key>
+npx @hanzo/gui-native-ci kv-set <key> <value>
 ```
 
 ### Options
@@ -62,12 +62,12 @@ Run Detox tests with Metro bundler and proper cleanup:
 
 ```bash
 # iOS
-bun run node_modules/@tamagui/native-ci/src/run-detox-ios.ts \
+bun run node_modules/@hanzo/gui-native-ci/src/run-detox-ios.ts \
   --project-root ./my-app \
   --config ios.sim.debug
 
 # Android
-bun run node_modules/@tamagui/native-ci/src/run-detox-android.ts \
+bun run node_modules/@hanzo/gui-native-ci/src/run-detox-android.ts \
   --project-root ./my-app \
   --config android.emu.ci.debug \
   --headless
@@ -89,7 +89,7 @@ bun run node_modules/@tamagui/native-ci/src/run-detox-android.ts \
 
 ```yaml
 - name: Generate Fingerprint
-  uses: tamagui/tamagui/code/packages/native-ci/actions/fingerprint@main
+  uses: hanzoai/gui/code/packages/native-ci/actions/fingerprint@main
   id: fingerprint
   with:
     platform: ios  # or android
@@ -125,7 +125,7 @@ bun run node_modules/@tamagui/native-ci/src/run-detox-android.ts \
 
 ```yaml
 - name: Run iOS Detox Tests
-  uses: tamagui/tamagui/code/packages/native-ci/actions/test-detox-ios@main
+  uses: hanzoai/gui/code/packages/native-ci/actions/test-detox-ios@main
   with:
     working-directory: ./my-app
     config: ios.sim.debug
@@ -148,7 +148,7 @@ bun run node_modules/@tamagui/native-ci/src/run-detox-android.ts \
 
 ```yaml
 - name: Run Android Detox Tests
-  uses: tamagui/tamagui/code/packages/native-ci/actions/test-detox-android@main
+  uses: hanzoai/gui/code/packages/native-ci/actions/test-detox-android@main
   with:
     working-directory: ./my-app
     config: android.emu.ci.debug
@@ -196,7 +196,7 @@ import {
   // Constants
   METRO_PORT,
   DETOX_SERVER_PORT,
-} from '@tamagui/native-ci'
+} from '@hanzo/gui-native-ci'
 
 // Generate fingerprint
 const { hash } = await generateFingerprint({
@@ -241,7 +241,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Generate Fingerprint
-        uses: tamagui/tamagui/code/packages/native-ci/actions/fingerprint@main
+        uses: hanzoai/gui/code/packages/native-ci/actions/fingerprint@main
         id: fingerprint
         with:
           platform: ios
@@ -282,7 +282,7 @@ jobs:
           key: ${{ needs.build-ios.outputs.cache-key }}
 
       - name: Run Tests
-        uses: tamagui/tamagui/code/packages/native-ci/actions/test-detox-ios@main
+        uses: hanzoai/gui/code/packages/native-ci/actions/test-detox-ios@main
         with:
           working-directory: ./my-app
 ```

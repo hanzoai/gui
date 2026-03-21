@@ -1,5 +1,5 @@
 export * from './ThemeBuilder'
-export * from '@tamagui/create-theme'
+export * from '@hanzo/gui-create-theme'
 
 export { createStudioThemes } from './createStudioThemes'
 export {

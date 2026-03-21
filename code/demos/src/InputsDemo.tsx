@@ -1,5 +1,5 @@
-import type { SizeTokens } from 'tamagui'
-import { Button, Input, TextArea, XStack, YStack } from 'tamagui'
+import type { SizeTokens } from '@hanzo/gui'
+import { Button, Input, TextArea, XStack, YStack } from '@hanzo/gui'
 
 export function InputsDemo() {
   return (

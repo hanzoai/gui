@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { useEvent } from '@tamagui/use-event'
+import { useEvent } from '@hanzo/gui-use-event'
 import type {
   ElementProps,
   FloatingInteractionContext,

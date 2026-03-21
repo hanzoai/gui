@@ -1,4 +1,4 @@
-import { isIos } from '@tamagui/constants'
+import { isIos } from '@hanzo/gui-constants'
 import type { MutableRefObject } from 'react'
 import { getConfig, getSetting } from '../config'
 import { getVariable } from '../createVariable'
@@ -125,7 +125,7 @@ export function getThemeProxied(
           const outVal = getVariable(value)
           const { name, scheme } = curState
 
-          if (process.env.TAMAGUI_TARGET === 'native') {
+          if (process.env.HANZO_GUI_TARGET === 'native') {
             // ios can avoid re-rendering for scheme changes (light↔dark) when using DynamicColorIOS
             // this does NOT work for sub-theme changes (red→blue) or when scheme inverses from parent
             const fastSchemeChange = getSetting('fastSchemeChange')

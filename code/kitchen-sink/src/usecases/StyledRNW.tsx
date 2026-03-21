@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { Input as TamaguiInput, styled, useThemeName } from 'tamagui'
+import { Input as TamaguiInput, styled, useThemeName } from '@hanzo/gui'
 
 export function StyledRNW() {
   return <Input id="styled-rnw-input" aria-label="ok" placeholder="search" />

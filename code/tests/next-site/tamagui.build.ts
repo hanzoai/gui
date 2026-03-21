@@ -1,4 +1,4 @@
-import type { TamaguiBuildOptions } from '@tamagui/core'
+import type { TamaguiBuildOptions } from '@hanzo/gui-core'
 
 const disableExtraction =
   process.env.NODE_ENV === 'development' &&
@@ -6,7 +6,7 @@ const disableExtraction =
 
 export default {
   config: './tamagui.config.ts',
-  components: ['tamagui'],
+  components: ['@hanzo/gui'],
   outputCSS: './public/tamagui.generated.css',
   importsWhitelist: ['constants.js', 'colors.js'],
   disableExtraction,

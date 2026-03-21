@@ -1,14 +1,14 @@
 {
-  "name": "@tamagui/kitchen-sink-shared",
+  "name": "@hanzo/gui-kitchen-sink-shared",
   "version": "2.0.0-rc.29",
   "private": true,
   "main": "src/index.ts",
   "dependencies": {
-    "@tamagui/config": "workspace:*",
-    "@tamagui/demos": "workspace:*",
-    "@tamagui/lucide-icons-2": "workspace:*",
-    "@tamagui/toast": "workspace:*",
-    "tamagui": "workspace:*"
+    "@hanzo/gui-config": "workspace:*",
+    "@hanzo/gui-demos": "workspace:*",
+    "@hanzo/gui-lucide-icons-2": "workspace:*",
+    "@hanzo/gui-toast": "workspace:*",
+    "@hanzo/gui": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=19",

@@ -1,6 +1,6 @@
 import React from 'react'
-import { config } from '@tamagui/config/v3'
-import { addTheme, updateTheme } from '@tamagui/theme'
+import { config } from '@hanzo/gui-config/v3'
+import { addTheme, updateTheme } from '@hanzo/gui-theme'
 
 import {
   Button,
@@ -10,7 +10,7 @@ import {
   YStack,
   getVariableValue,
   useIsomorphicLayoutEffect,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 const colors = config.tokens.color
 const colorKeys = Object.keys(colors)

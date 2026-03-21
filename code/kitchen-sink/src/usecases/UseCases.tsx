@@ -1,5 +1,5 @@
 import React from 'react'
-import '@tamagui/polyfill-dev'
+import '@hanzo/gui-polyfill-dev'
 
 import {
   Button,
@@ -13,11 +13,11 @@ import {
   getMedia,
   styled,
   useThemeName,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 import config from '../tamagui.config'
 
-// import '@tamagui/core/reset.css'
+// import '@hanzo/gui-core/reset.css'
 
 // webpack fix..
 if (typeof require !== 'undefined') {

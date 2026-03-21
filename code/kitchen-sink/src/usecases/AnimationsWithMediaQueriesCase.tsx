@@ -1,4 +1,4 @@
-import { YStack, XStack, Text, Square } from 'tamagui'
+import { YStack, XStack, Text, Square } from '@hanzo/gui'
 
 /**
  * Test case for animated properties with media queries

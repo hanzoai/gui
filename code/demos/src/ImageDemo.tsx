@@ -1,4 +1,4 @@
-import { Image } from '@tamagui/image'
+import { Image } from '@hanzo/gui-image'
 
 export function ImageDemo() {
   return (

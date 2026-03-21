@@ -1,0 +1,11 @@
+import { useClientValue } from '@hanzo/gui-use-did-finish-ssr'
+import { isClient } from '@hanzo/gui'
+
+export const useDisableMotion = () => {
+  return useClientValue(
+    isClient &&
+      (window.matchMedia(`(prefers-reduced-motion: reduce)`)?.matches ||
+        window.location.search?.includes('disable-motion') ||
+        /firefox/i.test(navigator.userAgent || ''))
+  )
+}

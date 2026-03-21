@@ -1,7 +1,7 @@
-import { ChevronRight } from '@tamagui/lucide-icons-2'
-import { Menu } from '@tamagui/menu'
+import { ChevronRight } from '@hanzo/gui-lucide-icons-2'
+import { Menu } from '@hanzo/gui-menu'
 import React from 'react'
-import { Button, H1, Paragraph, styled, Text, YStack } from 'tamagui'
+import { Button, H1, Paragraph, styled, Text, YStack } from '@hanzo/gui'
 
 /**
  * Menu Submenu Styled Test Case

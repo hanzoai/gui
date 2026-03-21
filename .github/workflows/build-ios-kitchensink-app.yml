@@ -3,7 +3,7 @@ env:
   # Relative path from the monorepo root to the app
   test_container_app_path: code/kitchen-sink
   # Package name in the monorepo
-  test_app_package_name: '@tamagui/kitchen-sink'
+  test_app_package_name: '@hanzo/gui-kitchen-sink'
   # Should match the name of "ios/<app_name>.xcworkspace"
   ios_app_name: tamaguikitchensink
   # A unique ID to identify the app on GitHub Actions, this is used as part of cache keys and artifact names, must be unique among all workflows

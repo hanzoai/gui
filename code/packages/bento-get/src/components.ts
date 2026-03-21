@@ -135,7 +135,7 @@ const MISSING_COMPONENTS: Omit<ComponentSchema, 'isOSS'>[] = [
     fileName: 'SlidingPopover',
     category: 'elements',
     categorySection: 'dialogs',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'SlidingPopover', to: '' }],
   },
   {
@@ -160,7 +160,7 @@ const MISSING_COMPONENTS: Omit<ComponentSchema, 'isOSS'>[] = [
     fileName: 'OneTimeCodeInput',
     category: 'forms',
     categorySection: 'inputs',
-    dependencies: ['react-hook-form', '@tamagui/lucide-icons-2'],
+    dependencies: ['react-hook-form', '@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'OneTimeCodeInput', to: '' },
       { file: 'InputWithLabel', to: '' },
@@ -193,7 +193,7 @@ const MISSING_COMPONENTS: Omit<ComponentSchema, 'isOSS'>[] = [
     fileName: 'InputWithLeftIcon',
     category: 'forms',
     categorySection: 'inputs',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'InputWithLeftIcon', to: '' },
       { file: 'inputsParts', to: 'components' },
@@ -205,7 +205,7 @@ const MISSING_COMPONENTS: Omit<ComponentSchema, 'isOSS'>[] = [
     fileName: 'InputWithRightIcon',
     category: 'forms',
     categorySection: 'inputs',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'InputWithRightIcon', to: '' },
       { file: 'inputsParts', to: 'components' },
@@ -217,7 +217,7 @@ const MISSING_COMPONENTS: Omit<ComponentSchema, 'isOSS'>[] = [
     fileName: 'InputBothSideIcons',
     category: 'forms',
     categorySection: 'inputs',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'InputBothSideIcons', to: '' },
       { file: 'inputsParts', to: 'components' },
@@ -250,9 +250,9 @@ const MISSING_COMPONENTS: Omit<ComponentSchema, 'isOSS'>[] = [
     category: 'forms',
     categorySection: 'inputs',
     dependencies: [
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       'awesome-phonenumber',
-      '@tamagui/roving-focus',
+      '@hanzo/gui-roving-focus',
     ],
     moveFilesToFolder: [
       { file: 'PhoneInput', to: '' },
@@ -290,9 +290,9 @@ const MISSING_COMPONENTS: Omit<ComponentSchema, 'isOSS'>[] = [
     category: 'user',
     categorySection: 'events',
     dependencies: [
-      '@tamagui/lucide-icons-2',
-      '@tamagui/get-font-sized',
-      '@tamagui/linear-gradient',
+      '@hanzo/gui-lucide-icons-2',
+      '@hanzo/gui-get-font-sized',
+      '@hanzo/gui-linear-gradient',
     ],
     moveFilesToFolder: [{ file: 'Meeting', to: '' }],
   },
@@ -319,7 +319,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'IconCenterButton',
     category: 'animation',
     categorySection: 'buttons',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: '', to: '' }],
   },
   {
@@ -341,7 +341,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'Fullpage',
     category: 'ecommerce',
     categorySection: 'payment',
-    dependencies: ['@ngneat/falso', '@tamagui/lucide-icons-2'],
+    dependencies: ['@ngneat/falso', '@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'Fullpage', to: '' },
       { file: 'IconCenterButton', to: '../../animation/buttons' },
@@ -356,7 +356,7 @@ export const componentsList: ComponentSchema[] = [
     dependencies: [
       'react-native-reanimated',
       'react-native-gesture-handler',
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       'tamagui/linear-gradient',
     ],
     moveFilesToFolder: [{ file: 'Paywall', to: '' }],
@@ -409,7 +409,7 @@ export const componentsList: ComponentSchema[] = [
     category: 'elements',
     categorySection: 'pickers',
     dependencies: [
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       'expo-document-picker',
       'expo-image-picker',
       'react-dropzone',
@@ -426,7 +426,7 @@ export const componentsList: ComponentSchema[] = [
     category: 'elements',
     categorySection: 'pickers',
     dependencies: [
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       'expo-document-picker',
       'expo-image-picker',
       'react-dropzone',
@@ -452,7 +452,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'CircularAvatarsWithCustomIcons',
     category: 'elements',
     categorySection: 'avatars',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'CircularAvatarsWithCustomIcons', to: '' },
       { file: 'Avatar', to: 'components' },
@@ -473,7 +473,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'RoundedAvatarsWithCustomIcons',
     category: 'elements',
     categorySection: 'avatars',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'RoundedAvatars', to: '' },
       { file: 'Avatar', to: 'components' },
@@ -484,7 +484,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'ButtonsWithLeftIcons',
     category: 'elements',
     categorySection: 'buttons',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'ButtonsWithLeftIcons', to: '' }],
   },
   {
@@ -499,7 +499,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'RoundedButtons',
     category: 'elements',
     categorySection: 'buttons',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'RoundedButtons', to: '' }],
   },
   {
@@ -531,9 +531,9 @@ export const componentsList: ComponentSchema[] = [
     categorySection: 'datepickers',
     dependencies: [
       '@rehookify/datepicker',
-      '@tamagui/lucide-icons-2',
-      '@tamagui/get-font-sized',
-      '@tamagui/web',
+      '@hanzo/gui-lucide-icons-2',
+      '@hanzo/gui-get-font-sized',
+      '@hanzo/gui-web',
     ],
     moveFilesToFolder: [
       { file: 'MultiSelectPicker', to: '' },
@@ -548,9 +548,9 @@ export const componentsList: ComponentSchema[] = [
     category: 'elements',
     categorySection: 'datepickers',
     dependencies: [
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       '@rehookify/datepicker',
-      '@tamagui/linear-gradient',
+      '@hanzo/gui-linear-gradient',
     ],
     bentoDependencies: [
       './common/dateParts',
@@ -569,7 +569,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'Chips',
     category: 'elements',
     categorySection: 'chips',
-    dependencies: ['@tamagui/get-font-sized'],
+    dependencies: ['@hanzo/gui-get-font-sized'],
     moveFilesToFolder: [
       { file: 'Chips', to: '' },
       { file: 'chipsParts', to: 'components' },
@@ -580,7 +580,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'ChipsNoTextColor',
     category: 'elements',
     categorySection: 'chips',
-    dependencies: ['@tamagui/get-font-sized'],
+    dependencies: ['@hanzo/gui-get-font-sized'],
     moveFilesToFolder: [
       { file: 'ChipsNoTextColor', to: '' },
       { file: 'chipsParts', to: 'components' },
@@ -591,7 +591,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'ChipsRounded',
     category: 'elements',
     categorySection: 'chips',
-    dependencies: ['@tamagui/get-font-sized'],
+    dependencies: ['@hanzo/gui-get-font-sized'],
     moveFilesToFolder: [
       { file: 'ChipsRounded', to: '' },
       { file: 'chipsParts', to: 'components' },
@@ -602,7 +602,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'ChipsWithCloseIcon',
     category: 'elements',
     categorySection: 'chips',
-    dependencies: ['@tamagui/get-font-sized'],
+    dependencies: ['@hanzo/gui-get-font-sized'],
     moveFilesToFolder: [
       { file: 'ChipsWithCloseIcon', to: '' },
       { file: 'chipsParts', to: 'components' },
@@ -630,7 +630,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'AlertWithIcon',
     category: 'elements',
     categorySection: 'dialogs',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: '', to: '' }],
   },
   {
@@ -638,7 +638,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'HList',
     category: 'elements',
     categorySection: 'list',
-    dependencies: ['@ngneat/falso', '@tamagui/web'],
+    dependencies: ['@ngneat/falso', '@hanzo/gui-web'],
     moveFilesToFolder: [{ file: 'HList', to: '' }],
   },
   {
@@ -653,7 +653,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'ChatList',
     category: 'elements',
     categorySection: 'list',
-    dependencies: ['@ngneat/falso', '@tamagui/lucide-icons-2'],
+    dependencies: ['@ngneat/falso', '@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'ChatList', to: '' }],
   },
   {
@@ -669,7 +669,7 @@ export const componentsList: ComponentSchema[] = [
     ],
     dependencies: [
       'react-hook-form',
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       'react-native-reanimated',
       'react-native-gesture-handler',
     ],
@@ -693,7 +693,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'List',
     category: 'elements',
     categorySection: 'list',
-    dependencies: ['@ngneat/falso', '@tamagui/lucide-icons-2'],
+    dependencies: ['@ngneat/falso', '@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'List', to: '' }],
   },
 
@@ -705,8 +705,8 @@ export const componentsList: ComponentSchema[] = [
     dependencies: [
       'react-native-reanimated',
       'react-native-svg',
-      '@tamagui/lucide-icons-2',
-      '@tamagui/linear-gradient',
+      '@hanzo/gui-lucide-icons-2',
+      '@hanzo/gui-linear-gradient',
     ],
     moveFilesToFolder: [{ file: 'ScrollProgress', to: '' }],
   },
@@ -728,7 +728,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'CheckboxCards',
     category: 'forms',
     categorySection: 'checkboxes',
-    dependencies: ['@tamagui/lucide-icons-2', '@tamagui/roving-focus'],
+    dependencies: ['@hanzo/gui-lucide-icons-2', '@hanzo/gui-roving-focus'],
     moveFilesToFolder: [
       { file: 'CheckboxCards', to: '' },
       { file: 'checkboxParts', to: 'common' },
@@ -739,7 +739,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'CheckboxList',
     category: 'forms',
     categorySection: 'checkboxes',
-    dependencies: ['@tamagui/lucide-icons-2', '@tamagui/roving-focus'],
+    dependencies: ['@hanzo/gui-lucide-icons-2', '@hanzo/gui-roving-focus'],
     moveFilesToFolder: [
       { file: 'CheckboxList', to: '' },
       { file: 'checkboxParts', to: 'common' },
@@ -750,7 +750,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'GroupedCheckbox',
     category: 'forms',
     categorySection: 'checkboxes',
-    dependencies: ['@tamagui/lucide-icons-2', '@tamagui/roving-focus'],
+    dependencies: ['@hanzo/gui-lucide-icons-2', '@hanzo/gui-roving-focus'],
     moveFilesToFolder: [
       { file: 'GroupedCheckbox', to: '' },
       { file: 'checkboxParts', to: 'common' },
@@ -761,7 +761,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'HorizontalCheckboxes',
     category: 'forms',
     categorySection: 'checkboxes',
-    dependencies: ['@tamagui/lucide-icons-2', '@tamagui/roving-focus'],
+    dependencies: ['@hanzo/gui-lucide-icons-2', '@hanzo/gui-roving-focus'],
     moveFilesToFolder: [
       { file: 'HorizontalCheckboxes', to: '' },
       { file: 'checkboxParts', to: 'common' },
@@ -772,7 +772,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'HorizontalWithDescriptionCheckboxes',
     category: 'forms',
     categorySection: 'checkboxes',
-    dependencies: ['@tamagui/lucide-icons-2', '@tamagui/roving-focus'],
+    dependencies: ['@hanzo/gui-lucide-icons-2', '@hanzo/gui-roving-focus'],
     moveFilesToFolder: [
       { file: 'HorizontalWithDescriptionCheckboxes', to: '' },
       { file: 'checkboxParts', to: 'common' },
@@ -783,7 +783,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'VerticalWithDescriptionCheckboxes',
     category: 'forms',
     categorySection: 'checkboxes',
-    dependencies: ['@tamagui/lucide-icons-2', '@tamagui/roving-focus'],
+    dependencies: ['@hanzo/gui-lucide-icons-2', '@hanzo/gui-roving-focus'],
     moveFilesToFolder: [
       { file: 'VerticalWithDescriptionCheckboxes', to: '' },
       { file: 'checkboxParts', to: 'common' },
@@ -795,12 +795,12 @@ export const componentsList: ComponentSchema[] = [
     category: 'forms',
     categorySection: 'layouts',
     dependencies: [
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       // inputParts dependencies
-      '@tamagui/web',
-      '@tamagui/get-font-sized',
-      '@tamagui/get-token',
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-web',
+      '@hanzo/gui-get-font-sized',
+      '@hanzo/gui-get-token',
+      '@hanzo/gui-lucide-icons-2',
     ],
     moveFilesToFolder: [
       { file: 'SignInScreen', to: '' },
@@ -814,13 +814,13 @@ export const componentsList: ComponentSchema[] = [
     category: 'forms',
     categorySection: 'layouts',
     dependencies: [
-      '@tamagui/linear-gradient',
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-linear-gradient',
+      '@hanzo/gui-lucide-icons-2',
       // inputParts dependencies
-      '@tamagui/web',
-      '@tamagui/get-font-sized',
-      '@tamagui/get-token',
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-web',
+      '@hanzo/gui-get-font-sized',
+      '@hanzo/gui-get-token',
+      '@hanzo/gui-lucide-icons-2',
     ],
     moveFilesToFolder: [
       { file: 'SignInRightImage', to: '' },
@@ -834,12 +834,12 @@ export const componentsList: ComponentSchema[] = [
     category: 'forms',
     categorySection: 'layouts',
     dependencies: [
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       // inputParts dependencies
-      '@tamagui/web',
-      '@tamagui/get-font-sized',
-      '@tamagui/get-token',
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-web',
+      '@hanzo/gui-get-font-sized',
+      '@hanzo/gui-get-token',
+      '@hanzo/gui-lucide-icons-2',
     ],
     moveFilesToFolder: [
       { file: 'SignUpScreen', to: '' },
@@ -867,7 +867,7 @@ export const componentsList: ComponentSchema[] = [
       'zod',
       '@hookform/resolvers/zod',
       'react-hook-form',
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
     ],
     moveFilesToFolder: [
       { file: 'SignupValidatedHookForm', to: '' },
@@ -883,8 +883,8 @@ export const componentsList: ComponentSchema[] = [
     dependencies: [
       'zod',
       '@ts-react/form',
-      '@tamagui/lucide-icons-2',
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
     ],
     moveFilesToFolder: [
       { file: 'SignupValidatedTsForm', to: '' },
@@ -929,7 +929,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'RadioCards',
     category: 'forms',
     categorySection: 'radiogroups',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'RadioCards', to: '' },
       { file: 'radioParts', to: 'components' },
@@ -970,7 +970,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'SwitchCustomIcons',
     category: 'forms',
     categorySection: 'switches',
-    dependencies: ['@tamagui/lucide-icons-2', '@tamagui/core'],
+    dependencies: ['@hanzo/gui-lucide-icons-2', '@hanzo/gui-core'],
     moveFilesToFolder: [
       { file: 'SwitchCustomIcons', to: '' },
       { file: 'switchParts', to: 'common' },
@@ -981,7 +981,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'IconTitleSwitch',
     category: 'forms',
     categorySection: 'switches',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'IconTitleSwitch', to: '' }],
   },
 
@@ -990,7 +990,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'ThemeSwitch',
     category: 'forms',
     categorySection: 'switches',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'ThemeSwitch', to: '' }],
   },
 
@@ -999,7 +999,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'WritePreviewAction',
     category: 'forms',
     categorySection: 'textareas',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'WritePreviewAction', to: '' }],
   },
   {
@@ -1007,7 +1007,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'AvatarNameContentAction',
     category: 'forms',
     categorySection: 'textareas',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'AvatarNameContentAction', to: '' }],
   },
   {
@@ -1022,7 +1022,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'TitleContentMessage',
     category: 'forms',
     categorySection: 'textareas',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [{ file: 'TitleContentMessage', to: '' }],
   },
   {
@@ -1030,7 +1030,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'TopNavBarWithLogo',
     category: 'shells',
     categorySection: 'navbars',
-    dependencies: ['@tamagui/lucide-icons-2'],
+    dependencies: ['@hanzo/gui-lucide-icons-2'],
     moveFilesToFolder: [
       { file: 'TopNavBarWithLogo', to: '' },
       { file: 'Drawer', to: '../common' },
@@ -1042,10 +1042,10 @@ export const componentsList: ComponentSchema[] = [
     category: 'shells',
     categorySection: 'navbars',
     dependencies: [
-      '@tamagui/lucide-icons-2',
+      '@hanzo/gui-lucide-icons-2',
       // Drawer dependencies
-      '@tamagui/focus-scope',
-      '@tamagui/portal',
+      '@hanzo/gui-focus-scope',
+      '@hanzo/gui-portal',
     ],
     moveFilesToFolder: [
       { file: 'TopNavBarWithUnderLineTabs', to: '' },
@@ -1058,11 +1058,11 @@ export const componentsList: ComponentSchema[] = [
     category: 'shells',
     categorySection: 'navbars',
     dependencies: [
-      '@tamagui/lucide-icons-2',
-      '@tamagui/roving-focus',
+      '@hanzo/gui-lucide-icons-2',
+      '@hanzo/gui-roving-focus',
       // Drawer dependencies
-      '@tamagui/focus-scope',
-      '@tamagui/portal',
+      '@hanzo/gui-focus-scope',
+      '@hanzo/gui-portal',
     ],
     moveFilesToFolder: [
       { file: 'FullSideBar', to: '' },
@@ -1096,9 +1096,9 @@ export const componentsList: ComponentSchema[] = [
     category: 'user',
     categorySection: 'preferences',
     dependencies: [
-      '@tamagui/linear-gradient',
-      '@tamagui/lucide-icons-2',
-      '@tamagui/get-font-sized',
+      '@hanzo/gui-linear-gradient',
+      '@hanzo/gui-lucide-icons-2',
+      '@hanzo/gui-get-font-sized',
     ],
     moveFilesToFolder: [{ file: 'EmailPreferences', to: '' }],
   },
@@ -1107,7 +1107,7 @@ export const componentsList: ComponentSchema[] = [
     fileName: 'StatusTracker',
     category: 'user',
     categorySection: 'preferences',
-    dependencies: ['@tamagui/lucide-icons-2', '@tamagui/get-font-sized'],
+    dependencies: ['@hanzo/gui-lucide-icons-2', '@hanzo/gui-get-font-sized'],
     moveFilesToFolder: [{ file: 'StatusTracker', to: '' }],
   },
 

@@ -1,8 +1,8 @@
-import { animationsCSS } from '@tamagui/config/v5-css'
-import { animationsMotion } from '@tamagui/config/v5-motion'
-import { defaultConfig, themes } from '@tamagui/config/v5-subtle'
-import type { CreateTamaguiProps } from '@tamagui/core'
-import { setupDev } from '@tamagui/core'
+import { animationsCSS } from '@hanzo/gui-config/v5-css'
+import { animationsMotion } from '@hanzo/gui-config/v5-motion'
+import { defaultConfig, themes } from '@hanzo/gui-config/v5-subtle'
+import type { CreateTamaguiProps } from '@hanzo/gui-core'
+import { setupDev } from '@hanzo/gui-core'
 import { bodyFont, cherryBombFont, headingFont, monoFont, silkscreenFont } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'
 
@@ -23,7 +23,7 @@ export const animations = {
   css: animationsCSS,
 }
 
-// Use v5 config as base, but with tamagui.dev custom themes
+// Use v5 config as base, but with gui.hanzo.ai custom themes
 export const config = {
   ...defaultConfig,
   themes: process.env.VITE_ENVIRONMENT === 'client' ? ({} as typeof themes) : themes,

@@ -1,12 +1,12 @@
-import { createAnimations as createAnimationsCSS } from '@tamagui/animations-css'
-import { createAnimations as createAnimationsMotion } from '@tamagui/animations-motion'
-import { createAnimations as createAnimationsNative } from '@tamagui/animations-react-native'
-import { createAnimations as createAnimationsReanimated } from '@tamagui/animations-reanimated'
-import { config } from '@tamagui/config/v3'
-import { defaultConfig as configV4, shorthands } from '@tamagui/config/v4'
-import { defaultConfig } from '@tamagui/config/v5'
-import { tamaguiThemes } from '@tamagui/themes/v4'
-import { createTamagui, type CreateTamaguiProps } from 'tamagui'
+import { createAnimations as createAnimationsCSS } from '@hanzo/gui-animations-css'
+import { createAnimations as createAnimationsMotion } from '@hanzo/gui-animations-motion'
+import { createAnimations as createAnimationsNative } from '@hanzo/gui-animations-react-native'
+import { createAnimations as createAnimationsReanimated } from '@hanzo/gui-animations-reanimated'
+import { config } from '@hanzo/gui-config/v3'
+import { defaultConfig as configV4, shorthands } from '@hanzo/gui-config/v4'
+import { defaultConfig } from '@hanzo/gui-config/v5'
+import { tamaguiThemes } from '@hanzo/gui-themes/v4'
+import { createTamagui, type CreateTamaguiProps } from '@hanzo/gui'
 // TODO just move this into this folder
 import { config as tamaguiDevConfig } from '../../packages/tamagui-dev-config/src/index'
 import { themeDev } from '../../packages/tamagui-dev-config/src/theme.dev'
@@ -394,7 +394,7 @@ const tamaConf = createTamagui({
 
 export type Conf = typeof tamaConf
 
-declare module 'tamagui' {
+declare module '@hanzo/gui' {
   interface TamaguiCustomConfig extends Conf {}
 
   interface TypeOverride {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Dialog, View, YStack } from 'tamagui'
+import { Button, Dialog, View, YStack } from '@hanzo/gui'
 
 /**
  * Test case for dialog pointer events unlock timing

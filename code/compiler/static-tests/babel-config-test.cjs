@@ -1,9 +1,9 @@
 module.exports = {
   plugins: [
     [
-      '@tamagui/babel-plugin',
+      '@hanzo/gui-babel-plugin',
       {
-        components: ['tamagui', '@tamagui/test-design-system'],
+        components: ['tamagui', '@hanzo/gui-test-design-system'],
         platform: 'native',
         config: './tests/lib/tamagui.config.cjs',
       },

@@ -1,5 +1,5 @@
-import * as StaticWorker from '@tamagui/static-worker'
-import type { TamaguiOptions } from '@tamagui/types'
+import * as StaticWorker from '@hanzo/gui-static-worker'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 import { existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import type { Compiler, RuleSetRule } from 'webpack'
@@ -24,7 +24,7 @@ export class TamaguiPlugin {
   constructor(
     public options: PluginOptions = {
       platform: 'web',
-      components: ['@tamagui/core'],
+      components: ['@hanzo/gui-core'],
     }
   ) {}
 
@@ -85,7 +85,7 @@ export class TamaguiPlugin {
   get defaultAliases() {
     return Object.fromEntries(
       this.safeResolves([
-        ['@tamagui/core/reset.css', '@tamagui/core/reset.css'],
+        ['@hanzo/gui-core/reset.css', '@hanzo/gui-core/reset.css'],
 
         // fixes https://github.com/kentcdodds/mdx-bundler/issues/143
         // `react/jsx-runtime` and `react/jsx-dev-runtime` will break the build in nextjs 15 + app router
@@ -93,13 +93,13 @@ export class TamaguiPlugin {
         ['react/jsx-dev-runtime.js', 'react/jsx-dev-runtime'],
 
         ...(this.options.useTamaguiSVG
-          ? [['react-native-svg', '@tamagui/react-native-svg'] as [string, string]]
+          ? [['react-native-svg', '@hanzo/gui-react-native-svg'] as [string, string]]
           : ([] as any)),
 
         ...(this.options.useReactNativeWebLite
           ? [
-              ['react-native$', '@tamagui/react-native-web-lite'],
-              ['react-native-web$', '@tamagui/react-native-web-lite'],
+              ['react-native$', '@hanzo/gui-react-native-web-lite'],
+              ['react-native-web$', '@hanzo/gui-react-native-web-lite'],
             ]
           : [
               ['react-native$', 'react-native-web'],
@@ -122,7 +122,7 @@ export class TamaguiPlugin {
 
     // Load Tamagui config asynchronously in worker
     void StaticWorker.loadTamagui({
-      components: ['tamagui'],
+      components: ['@hanzo/gui'],
       platform: 'web',
       ...serializableOptions,
     })
@@ -176,7 +176,7 @@ export class TamaguiPlugin {
             // Here you create a new instance of the plugin you want to add
             const definePlugin = new webpack.NormalModuleReplacementPlugin(
               regex,
-              requireResolve('@tamagui/proxy-worm')
+              requireResolve('@hanzo/gui-proxy-worm')
             )
             // Manually apply the plugin to the compiler
             definePlugin.apply(compiler)
@@ -228,7 +228,7 @@ export class TamaguiPlugin {
         ?.oneOf as any[]) ?? existing
 
     const tamaguiLoader = {
-      loader: requireResolve('tamagui-loader'),
+      loader: requireResolve('@hanzo/gui-loader'),
       options: {
         ...this.options,
         _disableLoadTamagui: true,

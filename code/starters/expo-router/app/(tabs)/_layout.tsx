@@ -1,6 +1,6 @@
 import { Link, Tabs } from 'expo-router'
-import { Button, useTheme } from 'tamagui'
-import { Atom, AudioWaveform } from '@tamagui/lucide-icons-2'
+import { Button, useTheme } from '@hanzo/gui'
+import { Atom, AudioWaveform } from '@hanzo/gui-lucide-icons-2'
 
 export default function TabLayout() {
   const theme = useTheme()

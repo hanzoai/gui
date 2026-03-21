@@ -1,4 +1,4 @@
-import { Button, View, YStack } from 'tamagui'
+import { Button, View, YStack } from '@hanzo/gui'
 
 export default function SSRTestPage() {
   return (

@@ -1,5 +1,5 @@
 // @ts-nocheck - deprecated package, moti dependency intentionally not included
-import { PresenceContext, ResetPresence, usePresence } from '@tamagui/use-presence'
+import { PresenceContext, ResetPresence, usePresence } from '@hanzo/gui-use-presence'
 // we need core for hooks.usePropsTransform
 import {
   getSplitStyles,
@@ -11,7 +11,7 @@ import {
   View,
   type AnimationDriver,
   type UniversalAnimatedNumber,
-} from '@tamagui/core'
+} from '@hanzo/gui-core'
 
 // Helper to resolve dynamic theme values like {dynamic: {dark: "value", light: undefined}}
 const resolveDynamicValue = (value: any, isDark: boolean): any => {

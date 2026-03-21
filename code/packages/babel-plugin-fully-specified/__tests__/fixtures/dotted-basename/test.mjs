@@ -1,1 +1,1 @@
-export * from './modules/tamagui.dev.config'
+export * from './modules/gui.hanzo.ai.config'

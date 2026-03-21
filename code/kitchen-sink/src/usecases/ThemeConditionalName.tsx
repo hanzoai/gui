@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Square, Text, Theme, YStack } from 'tamagui'
+import { Button, Square, Text, Theme, YStack } from '@hanzo/gui'
 
 /**
  * Tests that <Theme name={active ? 'accent' : undefined}> correctly

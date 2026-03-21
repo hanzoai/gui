@@ -12,7 +12,7 @@ import {
   XStack,
   YStack,
   useThemeName,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 import { PopoverDemo } from '../../demos/src/PopoverDemo'
 import { DialogDemo } from '../../demos/src/DialogDemo'

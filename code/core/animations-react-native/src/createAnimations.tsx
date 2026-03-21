@@ -1,6 +1,6 @@
-import { getEffectiveAnimation, normalizeTransition } from '@tamagui/animation-helpers'
-import { isWeb, useIsomorphicLayoutEffect } from '@tamagui/constants'
-import { ResetPresence, usePresence } from '@tamagui/use-presence'
+import { getEffectiveAnimation, normalizeTransition } from '@hanzo/gui-animation-helpers'
+import { isWeb, useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
+import { ResetPresence, usePresence } from '@hanzo/gui-use-presence'
 import type {
   AnimatedNumberStrategy,
   AnimationDriver,
@@ -8,8 +8,8 @@ import type {
   UniversalAnimatedNumber,
   UseAnimatedNumberReaction,
   UseAnimatedNumberStyle,
-} from '@tamagui/web'
-import { useEvent, useThemeWithState } from '@tamagui/web'
+} from '@hanzo/gui-web'
+import { useEvent, useThemeWithState } from '@hanzo/gui-web'
 import React from 'react'
 import { Animated, type Text, type View } from 'react-native'
 

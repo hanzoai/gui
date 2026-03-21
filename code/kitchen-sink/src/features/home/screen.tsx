@@ -1,11 +1,11 @@
-import { ChevronRight } from '@tamagui/lucide-icons-2'
-import { getGestureHandler } from '@tamagui/native'
+import { ChevronRight } from '@hanzo/gui-lucide-icons-2'
+import { getGestureHandler } from '@hanzo/gui-native'
 import { useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import type { UseLinkProps } from 'solito/link'
 import { useLink } from 'solito/link'
-import type { ListItemProps } from 'tamagui'
-import { Button, H1, ListItem, Paragraph, YGroup, YStack } from 'tamagui'
+import type { ListItemProps } from '@hanzo/gui'
+import { Button, H1, ListItem, Paragraph, YGroup, YStack } from '@hanzo/gui'
 import * as TestCases from '../../usecases'
 
 const testCaseNames = Object.keys(TestCases)

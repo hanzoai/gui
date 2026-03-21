@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/next-theme",
+  "name": "@hanzo/gui-next-theme",
   "version": "2.0.0-rc.29",
   "source": "src/index.ts",
   "files": [
@@ -26,17 +26,17 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build --skip-native",
-    "watch": "tamagui-build --skip-native --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build --skip-native",
+    "watch": "hanzo-gui-build --skip-native --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/constants": "workspace:*",
-    "@tamagui/use-event": "workspace:*"
+    "@hanzo/gui-constants": "workspace:*",
+    "@hanzo/gui-use-event": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "next": "16.1.1",
     "react": ">=19"
   },

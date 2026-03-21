@@ -1,5 +1,5 @@
-import { Menu } from '@tamagui/menu'
-import { Button, Text, XStack, YStack } from 'tamagui'
+import { Menu } from '@hanzo/gui-menu'
+import { Button, Text, XStack, YStack } from '@hanzo/gui'
 
 export function MenuMultiTriggerCase() {
   return (

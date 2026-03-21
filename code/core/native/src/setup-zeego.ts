@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@tamagui/native/setup-zeego'
+ * import '@hanzo/gui-native/setup-zeego'
  * ```
  *
  * This automatically detects and configures zeego for use with

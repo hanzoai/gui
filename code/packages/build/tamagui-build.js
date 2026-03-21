@@ -2,16 +2,16 @@
 /* eslint-disable no-console */
 
 /**
- * tamagui-build - build tool for tamagui packages
+ * hanzo-gui-build - build tool for tamagui packages
  *
  * usage:
- *   tamagui-build                     # build js + types
- *   tamagui-build --watch             # watch mode
- *   tamagui-build --skip-types        # js only
- *   tamagui-build --skip-native       # skip native builds
- *   tamagui-build --skip-sourcemaps   # disable js + d.ts sourcemaps
- *   tamagui-build clean               # remove dist/types/node_modules
- *   tamagui-build clean:build         # remove dist/types only
+ *   hanzo-gui-build                     # build js + types
+ *   hanzo-gui-build --watch             # watch mode
+ *   hanzo-gui-build --skip-types        # js only
+ *   hanzo-gui-build --skip-native       # skip native builds
+ *   hanzo-gui-build --skip-sourcemaps   # disable js + d.ts sourcemaps
+ *   hanzo-gui-build clean               # remove dist/types/node_modules
+ *   hanzo-gui-build clean:build         # remove dist/types only
  *
  *   --swap-exports                    # for publishing: swaps exports.types
  *                                     # from ./src/*.ts to ./types/*.d.ts
@@ -19,8 +19,8 @@
  *                                     # then swaps back. exit code preserved.
  *
  *   examples:
- *     tamagui-build --swap-exports -- npm publish
- *     tamagui-build --swap-exports -- pnpm publish --no-git-checks
+ *     hanzo-gui-build --swap-exports -- npm publish
+ *     hanzo-gui-build --swap-exports -- pnpm publish --no-git-checks
  */
 
 const { transform } = require('@babel/core')
@@ -139,7 +139,7 @@ const shouldSkipTypes = shouldSwapExports
 const shouldSkipNative = hasFlag('--skip-native')
 const shouldSkipMJS = hasFlag('--skip-mjs')
 const shouldSkipSourceMaps =
-  hasFlag('--skip-sourcemaps') || getEnvFlag('TAMAGUI_BUILD_SKIP_SOURCEMAPS')
+  hasFlag('--skip-sourcemaps') || getEnvFlag('HANZO_GUI_BUILD_SKIP_SOURCEMAPS')
 // React Compiler is disabled by default - use --react-compiler to enable
 const shouldEnableCompiler = !!(
   hasFlag('--react-compiler') || process.env.REACT_COMPILER
@@ -181,7 +181,7 @@ const pkgModuleJSX = pkg['module:jsx']
 const pkgTypes = Boolean(pkg.types || pkg.typings)
 
 // build config from package.json
-const buildConfig = pkg['tamagui-build'] || {}
+const buildConfig = pkg['hanzo-gui-build'] || {}
 // if bundleOnly is set, only bundle those packages (old behavior)
 // otherwise bundle ALL packages by default (new behavior)
 const bundleOnly = buildConfig.bundleOnly || null
@@ -240,7 +240,7 @@ const getProcessLabel = () => {
 
 const label = getProcessLabel()
 
-process.title = `tamagui-build:${label} ${process.cwd().split('/').pop()}`
+process.title = `hanzo-gui-build:${label} ${process.cwd().split('/').pop()}`
 
 async function clean() {
   try {
@@ -936,7 +936,7 @@ async function esbuildWriteIfChanged(
       ...(platform === 'web' && webEsbuildSettings),
       define: {
         ...(platform && {
-          'process.env.TAMAGUI_TARGET': `"${platform}"`,
+          'process.env.HANZO_GUI_TARGET': `"${platform}"`,
         }),
         ...(env && {
           'process.env.NODE_ENV': `"${env}"`,
@@ -1110,7 +1110,7 @@ async function esbuildWriteIfChanged(
               sourceMap: !shouldSkipSourceMaps,
               plugins: [
                 [
-                  require.resolve('@tamagui/babel-plugin-fully-specified/commonjs'),
+                  require.resolve('@hanzo/gui-babel-plugin-fully-specified/commonjs'),
                   {
                     esExtensionDefault: platform === 'native' ? '.native.cjs' : '.cjs',
                   },
@@ -1170,8 +1170,8 @@ async function esbuildWriteIfChanged(
             plugins: [
               [
                 isESM
-                  ? require.resolve('@tamagui/babel-plugin-fully-specified')
-                  : require.resolve('@tamagui/babel-plugin-fully-specified/commonjs'),
+                  ? require.resolve('@hanzo/gui-babel-plugin-fully-specified')
+                  : require.resolve('@hanzo/gui-babel-plugin-fully-specified/commonjs'),
                 {
                   esExtensionDefault: platform === 'native' ? '.native.js' : '.mjs',
                   esExtensions: platform === 'native' ? ['.js'] : ['.mjs'],

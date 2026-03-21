@@ -1,6 +1,6 @@
 import generate from '@babel/generator'
 import * as t from '@babel/types'
-import { mergeProps } from '@tamagui/web'
+import { mergeProps } from '@hanzo/gui-web'
 import invariant from 'invariant'
 import type { Ternary } from '../types'
 import { forwardFontFamilyName } from './propsToFontFamilyCache'

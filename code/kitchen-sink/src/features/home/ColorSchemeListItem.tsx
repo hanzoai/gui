@@ -1,5 +1,5 @@
-import type { ListItemProps } from 'tamagui'
-import { ListItem, SizableText, View, XStack } from 'tamagui'
+import type { ListItemProps } from '@hanzo/gui'
+import { ListItem, SizableText, View, XStack } from '@hanzo/gui'
 import { Pressable } from 'react-native'
 import { useThemeControl, type ThemeMode } from '../../useKitchenSinkTheme'
 

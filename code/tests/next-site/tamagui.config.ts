@@ -1,5 +1,5 @@
-import { config } from '@tamagui/config/v3'
-import { createTamagui } from 'tamagui'
+import { config } from '@hanzo/gui-config/v3'
+import { createTamagui } from '@hanzo/gui'
 
 // for site responsive demo
 Object.assign(config.media, {
@@ -17,7 +17,7 @@ const tamaConf = createTamagui(config)
 
 export type Conf = typeof tamaConf
 
-declare module 'tamagui' {
+declare module '@hanzo/gui' {
   interface TamaguiCustomConfig extends Conf {}
 
   interface TypeOverride {

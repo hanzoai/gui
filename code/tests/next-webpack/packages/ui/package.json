@@ -16,18 +16,18 @@
     "./components/*": "./src/*.tsx"
   },
   "scripts": {
-    "build": "tamagui-build --skip-types",
-    "watch": "tamagui-build --skip-types --watch"
+    "build": "hanzo-gui-build --skip-types",
+    "watch": "hanzo-gui-build --skip-types --watch"
   },
   "dependencies": {
     "@my/config": "workspace:^",
-    "@tamagui/next-theme": "workspace:*",
-    "@tamagui/toast": "workspace:*",
+    "@hanzo/gui-next-theme": "workspace:*",
+    "@hanzo/gui-toast": "workspace:*",
     "expo-constants": "~55.0.7",
-    "tamagui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

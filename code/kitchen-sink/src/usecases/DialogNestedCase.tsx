@@ -1,4 +1,4 @@
-import { X } from '@tamagui/lucide-icons-2'
+import { X } from '@hanzo/gui-lucide-icons-2'
 import {
   Adapt,
   Button,
@@ -8,7 +8,7 @@ import {
   Unspaced,
   XStack,
   YStack,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 export function DialogNestedCase() {
   return (

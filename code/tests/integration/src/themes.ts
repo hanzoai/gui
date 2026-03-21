@@ -1,18 +1,18 @@
-import type { MaskOptions } from '@tamagui/create-theme'
+import type { MaskOptions } from '@hanzo/gui-create-theme'
 import {
   addChildren,
   applyMask,
   createStrengthenMask,
   createTheme,
   createWeakenMask,
-} from '@tamagui/create-theme'
+} from '@hanzo/gui-create-theme'
 
 import { tokens } from './tokens'
 
 /**
  * This is an advanced setup of themes for *only* light + dark (no colors)
  *
- * For color themes, see the @tamagui/config source code themes.ts file
+ * For color themes, see the @hanzo/gui-config source code themes.ts file
  * which this was based off of, which includes extra steps for color and
  * alternate sub-themes.
  */

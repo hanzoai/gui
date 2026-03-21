@@ -1,5 +1,5 @@
-import type { GetStyleResult } from '@tamagui/web'
-import { View, createTamagui, getSplitStyles } from '@tamagui/core'
+import type { GetStyleResult } from '@hanzo/gui-web'
+import { View, createTamagui, getSplitStyles } from '@hanzo/gui-core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'

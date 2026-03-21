@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react'
-import { AnimatePresence, Popover, YStack, SizableText, XStack, styled } from 'tamagui'
+import { AnimatePresence, Popover, YStack, SizableText, XStack, styled } from '@hanzo/gui'
 
 // mirrors the WebsiteHeader pattern:
 // - controlled open state

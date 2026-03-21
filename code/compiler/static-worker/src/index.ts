@@ -1,22 +1,22 @@
 /**
- * @tamagui/static-worker
+ * @hanzo/gui-static-worker
  *
  * Pure worker-based API for Tamagui static extraction.
  * All operations run in a worker thread for better performance and isolation.
  *
- * This package provides a clean async API that wraps @tamagui/static's worker
+ * This package provides a clean async API that wraps @hanzo/gui-static's worker
  * implementation without exposing any sync/legacy APIs.
  */
 
-import type { TamaguiOptions } from '@tamagui/types'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 import { fileURLToPath } from 'node:url'
 import Piscina from 'piscina'
 
-export type { ExtractedResponse, TamaguiProjectInfo } from '@tamagui/static'
-export type { TamaguiOptions } from '@tamagui/types'
+export type { ExtractedResponse, TamaguiProjectInfo } from '@hanzo/gui-static'
+export type { TamaguiOptions } from '@hanzo/gui-types'
 
 export const getPragmaOptions = async (props: { source: string; path: string }) => {
-  const { default: Static } = await import('@tamagui/static')
+  const { default: Static } = await import('@hanzo/gui-static')
   return Static.getPragmaOptions(props)
 }
 
@@ -25,13 +25,13 @@ const getWorkerPath = () => {
   // Piscina needs the actual file path, not the module resolution
   // Use the CommonJS .js version which works for piscina
   if (typeof import.meta !== 'undefined' && import.meta.url) {
-    const workerPath = fileURLToPath(import.meta.resolve('@tamagui/static/worker'))
+    const workerPath = fileURLToPath(import.meta.resolve('@hanzo/gui-static/worker'))
     // Replace .mjs with .js for CommonJS compatibility
     return workerPath.replace(/\.mjs$/, '.js')
   }
 
   // Fallback for CJS
-  return require.resolve('@tamagui/static/worker').replace(/\.mjs$/, '.js')
+  return require.resolve('@hanzo/gui-static/worker').replace(/\.mjs$/, '.js')
 }
 
 // Use globalThis to share pool across module instances (Vite environments)
@@ -140,7 +140,7 @@ export async function loadTamagui(options: Partial<TamaguiOptions>): Promise<any
     source: '// dummy',
     sourcePath: '__dummy__.tsx',
     options: {
-      components: ['tamagui'],
+      components: ['@hanzo/gui'],
       ...options,
     },
     shouldPrintDebug: false,
@@ -230,7 +230,7 @@ async function recyclePool(options: TamaguiOptions): Promise<void> {
 export async function loadTamaguiBuildConfig(
   tamaguiOptions: Partial<TamaguiOptions> | undefined
 ): Promise<TamaguiOptions> {
-  const { default: Static } = await import('@tamagui/static')
+  const { default: Static } = await import('@hanzo/gui-static')
 
   return Static.loadTamaguiBuildConfigAsync(tamaguiOptions)
 }
@@ -335,7 +335,7 @@ export async function watchTamaguiConfig(
 ): Promise<{ dispose: () => void } | undefined> {
   // For now, we'll use the static package's watcher directly
   // This could be improved to use worker-based watching
-  const { default: Static } = await import('@tamagui/static')
+  const { default: Static } = await import('@hanzo/gui-static')
   const watcher = await Static.watchTamaguiConfig(options)
 
   if (!watcher) {

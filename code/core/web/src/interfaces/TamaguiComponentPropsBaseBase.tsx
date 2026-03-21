@@ -68,13 +68,13 @@ export type TamaguiComponentPropsBaseBase = {
 
   /**
    * Marks this component as a group for use in styling children based on parents named group
-   * See: https://tamagui.dev/docs/intro/props
+   * See: https://gui.hanzo.ai/docs/intro/props
    */
   group?: GroupNames | boolean
 
   /**
    * Works only alongside group, when children of the group are using container based sizing on native you can hide them until parent is measured.
-   * See: https://tamagui.dev/docs/intro/props
+   * See: https://gui.hanzo.ai/docs/intro/props
    */
   untilMeasured?: 'hide' | 'show'
 

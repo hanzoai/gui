@@ -19,7 +19,7 @@ export const templates: Array<{
   {
     title: `${chalk.bold.underline(
       `🥡 ${chalk.magenta('Takeout')} ${chalk.green('Free')}`
-    )} - Full stack starter: https://tamagui.dev/takeout`,
+    )} - Full stack starter: https://gui.hanzo.ai/takeout`,
     value: 'takeout-free',
     type: 'free',
     hidden: false,
@@ -36,7 +36,7 @@ export const templates: Array<{
   {
     title: `${chalk.bold.underline(
       `🥡 ${chalk.magenta('Takeout')} ${chalk.red('Pro')}`
-    )} - Full featured starter: https://tamagui.dev/takeout`,
+    )} - Full featured starter: https://gui.hanzo.ai/takeout`,
     value: `takeout-pro`,
     type: 'premium',
     packageManager: 'yarn',
@@ -53,7 +53,7 @@ export const templates: Array<{
   {
     title: `${chalk.bold.underline(
       `🥡 ${chalk.magenta('Takeout')} ${chalk.yellow('Pro Classic')}`
-    )} - Original Pro starter: https://tamagui.dev/takeout`,
+    )} - Original Pro starter: https://gui.hanzo.ai/takeout`,
     value: `takeout-pro-classic`,
     type: 'premium',
     packageManager: 'yarn',

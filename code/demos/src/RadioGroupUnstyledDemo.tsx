@@ -1,6 +1,6 @@
-import { Label, XStack, YStack, styled } from 'tamagui'
+import { Label, XStack, YStack, styled } from '@hanzo/gui'
 
-import { createRadioGroup } from '@tamagui/radio-group'
+import { createRadioGroup } from '@hanzo/gui-radio-group'
 
 const RADIO_GROUP_ITEM_NAME = 'RadioGroupItem'
 

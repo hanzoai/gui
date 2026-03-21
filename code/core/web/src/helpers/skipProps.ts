@@ -25,11 +25,11 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 // Skip web-only props on native
-if (process.env.TAMAGUI_TARGET === 'native') {
+if (process.env.HANZO_GUI_TARGET === 'native') {
   Object.assign(skipProps, webPropsToSkip)
 }
 
 // Skip native-only props on web
-if (process.env.TAMAGUI_TARGET === 'web') {
+if (process.env.HANZO_GUI_TARGET === 'web') {
   Object.assign(skipProps, nativeOnlyProps)
 }

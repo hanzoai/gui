@@ -58,7 +58,7 @@ runs:
       env:
         DETOX_IOS_APP_PATH: ${{ inputs.app-path }}
       run: |
-        SCRIPT_PATH=$(node -e "console.log(require.resolve('@tamagui/native-ci/src/run-detox-ios.ts'))")
+        SCRIPT_PATH=$(node -e "console.log(require.resolve('@hanzo/gui-native-ci/src/run-detox-ios.ts'))")
         bun run "$SCRIPT_PATH" \
           --project-root "$PWD" \
           --config "${{ inputs.config }}" \

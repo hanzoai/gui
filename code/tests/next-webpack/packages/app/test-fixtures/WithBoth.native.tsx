@@ -1,4 +1,4 @@
-import { View } from '@tamagui/core'
+import { View } from '@hanzo/gui-core'
 
 export function WebOnly() {
   return (

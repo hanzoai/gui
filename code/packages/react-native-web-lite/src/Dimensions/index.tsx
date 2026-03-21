@@ -8,7 +8,7 @@
  * @flow
  */
 
-import { canUseDOM, invariant } from '@tamagui/react-native-web-internals'
+import { canUseDOM, invariant } from '@hanzo/gui-react-native-web-internals'
 
 export type DisplayMetrics = {
   fontScale: number

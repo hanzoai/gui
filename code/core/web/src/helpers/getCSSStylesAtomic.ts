@@ -3,8 +3,8 @@
  * Copyright (c) Nicolas Gallagher licensed under the MIT license.
  */
 
-import type { StyleObject } from '@tamagui/helpers'
-import { cssShorthandLonghands, simpleHash } from '@tamagui/helpers'
+import type { StyleObject } from '@hanzo/gui-helpers'
+import { cssShorthandLonghands, simpleHash } from '@hanzo/gui-helpers'
 import { getConfigMaybe } from '../config'
 import { isMediaKey } from '../hooks/useMedia'
 import type { TamaguiInternalConfig, ViewStyleWithPseudos } from '../types'

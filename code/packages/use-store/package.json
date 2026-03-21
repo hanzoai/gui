@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/use-store",
+  "name": "@hanzo/gui-use-store",
   "version": "2.0.0-rc.29",
   "files": [
     "src",
@@ -27,16 +27,16 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build --skip-types",
-    "watch": "tamagui-build --skip-types --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build --skip-types",
+    "watch": "hanzo-gui-build --skip-types --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/simple-hash": "workspace:*"
+    "@hanzo/gui-simple-hash": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "react": ">=19",
     "vitest": "4.0.4"

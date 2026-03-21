@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 import * as FS from 'fs-extra'
-import type { CLIResolvedOptions } from '@tamagui/types'
+import type { CLIResolvedOptions } from '@hanzo/gui-types'
 
 interface GeneratePromptOptions extends CLIResolvedOptions {
   output?: string
@@ -10,8 +10,8 @@ export async function generatePrompt(options: GeneratePromptOptions) {
   const { paths, output } = options
 
   // Regenerate the config first
-  const { loadTamagui } = require('@tamagui/static/loadTamagui')
-  process.env.TAMAGUI_KEEP_THEMES = '1'
+  const { loadTamagui } = require('@hanzo/gui-static/loadTamagui')
+  process.env.HANZO_GUI_KEEP_THEMES = '1'
   await loadTamagui({
     ...options.tamaguiOptions,
     platform: 'web',

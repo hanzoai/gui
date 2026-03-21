@@ -1,10 +1,10 @@
-# Contributing to `tamagui`
+# Contributing to Hanzo GUI
 
 To set up your development environment you'll need [bun](https://bun.sh) installed, then clone and install:
 
 ```bash
-git clone https://github.com/tamagui/tamagui
-cd tamagui
+git clone https://github.com/hanzoai/gui
+cd gui
 bun install
 ```
 
@@ -18,13 +18,13 @@ bun run watch
 
 We compile out js to `dist` for "0-setup" installs by compiling a .native version of every file, and then in every web file we replace react-native with react-native-web. We also build our types out to ./types/\*.d.ts for a variety of reasons - it means we can't cause type issues for people with stricter configurations using our packages, it means we can track type regressions (the styled() type setup is impossible delicate to explosions of complexity), and it's generally faster for end users.
 
-### Linking tamagui into your existing project
+### Linking hanzo-gui into your existing project
 
-Most package managers have a `link` command that lets you link in the local tamagui to your project, we've built a package we found useful that works with `bun` or `yarn` depending on your configuration:
+Most package managers have a `link` command that lets you link in the local hanzo-gui to your project, we've built a package we found useful that works with `bun` or `yarn` depending on your configuration:
 
 ```bash
 npm i -g lllink
-lllink ~/path/to/tamagui
+lllink ~/path/to/gui
 ```
 
 ### Running native apps
@@ -55,7 +55,7 @@ bun run kitchen-sink:build:ios
 
 ### Running web
 
-You can run `bun run sandbox` or `bun run dev` (the tamagui website).
+You can run `bun run sandbox` or `bun run dev` (the Hanzo GUI website).
 
 ### Local Testing Setup
 

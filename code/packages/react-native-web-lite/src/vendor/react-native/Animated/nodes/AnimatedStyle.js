@@ -13,7 +13,7 @@ import { AnimatedTransform } from './AnimatedTransform'
 import { AnimatedWithChildren } from './AnimatedWithChildren'
 import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
 
-import { StyleSheet } from '@tamagui/react-native-web-internals'
+import { StyleSheet } from '@hanzo/gui-react-native-web-internals'
 
 const flattenStyle = StyleSheet.flatten
 

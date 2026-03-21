@@ -1,7 +1,7 @@
-import { ChevronRight, FilePlus, Settings, Trash2 } from '@tamagui/lucide-icons-2'
-import { Menu } from '@tamagui/menu'
+import { ChevronRight, FilePlus, Settings, Trash2 } from '@hanzo/gui-lucide-icons-2'
+import { Menu } from '@hanzo/gui-menu'
 import React from 'react'
-import { Button, YStack } from 'tamagui'
+import { Button, YStack } from '@hanzo/gui'
 
 /**
  * Menu accessibility test case

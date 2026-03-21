@@ -1,7 +1,7 @@
-import type { LayoutValue } from '@tamagui/use-element-layout'
+import type { LayoutValue } from '@hanzo/gui-use-element-layout'
 import React, { useEffect, useState } from 'react'
-import type { XStackProps } from 'tamagui'
-import { Circle, XStack } from 'tamagui'
+import type { XStackProps } from '@hanzo/gui'
+import { Circle, XStack } from '@hanzo/gui'
 import { useTint } from './useTint'
 
 // T A M A G U I

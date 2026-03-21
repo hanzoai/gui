@@ -1,10 +1,10 @@
 import React from 'react'
-import type { SwitchProps as SwitchHeadlessProps } from '@tamagui/switch-headless'
-import { useSwitch } from '@tamagui/switch-headless'
+import type { SwitchProps as SwitchHeadlessProps } from '@hanzo/gui-switch-headless'
+import { useSwitch } from '@hanzo/gui-switch-headless'
 
 import type { View } from 'react-native'
 import { Animated, Pressable } from 'react-native'
-import { Label, XStack, YStack } from 'tamagui'
+import { Label, XStack, YStack } from '@hanzo/gui'
 
 export function SwitchHeadlessDemo() {
   return (

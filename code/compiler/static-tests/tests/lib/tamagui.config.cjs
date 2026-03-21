@@ -1,6 +1,6 @@
-const { createTamagui } = require('@tamagui/core')
+const { createTamagui } = require('@hanzo/gui-core')
 
-const conf = require('@tamagui/config/v3').config
+const conf = require('@hanzo/gui-config/v3').config
 
 // Add an invalid identifier color token (with hyphen) to test the fix for #3737
 conf.tokens.color['invalid-identifier'] = conf.tokens.color.white0

@@ -4,8 +4,8 @@
 //  */
 
 // import { Platform } from 'react-native'
-// import { Text, View, XStack, YStack, Square, isWeb } from 'tamagui'
-// import { getSafeArea } from '@tamagui/native'
+// import { Text, View, XStack, YStack, Square, isWeb } from '@hanzo/gui'
+// import { getSafeArea } from '@hanzo/gui-native'
 
 // function SafeAreaStatus() {
 //   const safeAreaState = getSafeArea().state

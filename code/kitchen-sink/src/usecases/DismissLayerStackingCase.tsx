@@ -8,14 +8,14 @@ import {
   Tooltip,
   XStack,
   YStack,
-} from 'tamagui'
+} from '@hanzo/gui'
 import { useState, useRef, useEffect } from 'react'
-import { ChevronDown } from '@tamagui/lucide-icons-2'
+import { ChevronDown } from '@hanzo/gui-lucide-icons-2'
 import {
   useHasDismissableLayers,
   useIsInsideDismissable,
   getDismissableLayerCount,
-} from '@tamagui/dismissable'
+} from '@hanzo/gui-dismissable'
 
 // tests that when multiple dismissable layers are open, ESC closes the topmost one
 export function DismissLayerStackingCase() {

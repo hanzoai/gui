@@ -6,7 +6,7 @@ import { setupPage } from './test-utils'
  *
  * Measures render time of a diverse page with ~200+ Tamagui components.
  * Captures both wall-clock render time (performance.mark/measure) and
- * internal @tamagui/timer breakdown (getSplitStyles, createComponent checkpoints).
+ * internal @hanzo/gui-timer breakdown (getSplitStyles, createComponent checkpoints).
  *
  * Run:
  *   npx playwright test tests/StressPagePerf.test.tsx --project=default

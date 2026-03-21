@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { useMergeRefs } from '@tamagui/react-native-web-internals'
+import { useMergeRefs } from '@hanzo/gui-react-native-web-internals'
 import * as React from 'react'
 
 import type { ViewProps } from '../View/index'

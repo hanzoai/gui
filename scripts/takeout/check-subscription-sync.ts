@@ -15,7 +15,7 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
 const GITHUB_ADMIN_TOKEN = process.env.GITHUB_ADMIN_TOKEN
 const TEAM_SLUG = 'early-access'
-const ORG_NAME = 'tamagui'
+const ORG_NAME = 'hanzoai'
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
   console.error('Missing Supabase environment variables')

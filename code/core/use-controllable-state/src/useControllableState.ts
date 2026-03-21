@@ -1,6 +1,6 @@
-import { useEvent } from '@tamagui/use-event'
+import { useEvent } from '@hanzo/gui-use-event'
 import * as React from 'react'
-import { startTransition } from '@tamagui/start-transition'
+import { startTransition } from '@hanzo/gui-start-transition'
 
 // can configure to allow most-recent-wins or prop-wins
 // defaults to prop-wins

@@ -1,4 +1,4 @@
-import { loadTamaguiBuildConfigSync, type TamaguiOptions } from '@tamagui/static'
+import { loadTamaguiBuildConfigSync, type TamaguiOptions } from '@hanzo/gui-static'
 
 export type MetroTamaguiOptions = TamaguiOptions & {
   /**
@@ -29,11 +29,11 @@ type MetroConfigInput = {
  * ```js
  * // metro.config.js
  * const { getDefaultConfig } = require('expo/metro-config')
- * const { withTamagui } = require('@tamagui/metro-plugin')
+ * const { withTamagui } = require('@hanzo/gui-metro-plugin')
  *
  * const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
  * module.exports = withTamagui(config, {
- *   components: ['tamagui'],
+ *   components: ['@hanzo/gui'],
  *   config: './tamagui.config.ts',
  * })
  * ```
@@ -46,7 +46,7 @@ export function withTamagui(
 
   if (cssInterop) {
     console.warn(
-      '[@tamagui/metro-plugin] cssInterop option is deprecated. Use `tamagui generate` to pre-generate CSS instead.'
+      '[@hanzo/gui-metro-plugin] cssInterop option is deprecated. Use `tamagui generate` to pre-generate CSS instead.'
     )
   }
 

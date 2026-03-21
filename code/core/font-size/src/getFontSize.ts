@@ -1,5 +1,5 @@
-import type { FontSizeTokens, FontTokens, Variable } from '@tamagui/core'
-import { getConfig, isVariable } from '@tamagui/core'
+import type { FontSizeTokens, FontTokens, Variable } from '@hanzo/gui-core'
+import { getConfig, isVariable } from '@hanzo/gui-core'
 
 type GetFontSizeOpts = {
   relativeSize?: number

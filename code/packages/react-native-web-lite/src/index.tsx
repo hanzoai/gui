@@ -24,7 +24,7 @@ export {
   useLayoutEffect,
   useMergeRefs,
   usePlatformMethods,
-} from '@tamagui/react-native-web-internals'
+} from '@hanzo/gui-react-native-web-internals'
 export { createElement as unstable_createElement } from './createElement/index'
 export { NativeModules } from './NativeModules/index'
 export { render } from './render/index'

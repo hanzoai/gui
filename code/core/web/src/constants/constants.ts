@@ -9,8 +9,8 @@ export const MISSING_THEME_MESSAGE =
     ? `Can't find Tamagui configuration.
     
 Most of the time this is due to having mis-matched versions of Tamagui dependencies, or bundlers somehow duplicating them.
-First step is to ensure every "tamagui" and "@tamagui/*" dependency is on the same version, we have a CLI tool to help: 
+First step is to ensure every "tamagui" and "@hanzo/gui-*" dependency is on the same version, we have a CLI tool to help: 
 
-  npx @tamagui/cli check
+  npx @hanzo/gui-cli check
 `
     : `Missing theme.`

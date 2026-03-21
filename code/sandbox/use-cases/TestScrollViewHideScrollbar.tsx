@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, XStack } from 'tamagui'
+import { ScrollView, View, Text, XStack } from '@hanzo/gui'
 
 export function TestScrollViewHideScrollbar() {
   return (

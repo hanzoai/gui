@@ -1,4 +1,4 @@
-import type { TextStyle } from '@tamagui/web'
+import type { TextStyle } from '@hanzo/gui-web'
 
 export const shorthands = createShorthands({
   // text

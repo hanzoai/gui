@@ -3,9 +3,9 @@
  * https://github.com/tamagui/tamagui/issues/1859
  */
 
-import { Check, ChevronDown } from '@tamagui/lucide-icons-2'
+import { Check, ChevronDown } from '@hanzo/gui-lucide-icons-2'
 import React from 'react'
-import { Adapt, Button, Select, Sheet, Text, XStack, YStack } from 'tamagui'
+import { Adapt, Button, Select, Sheet, Text, XStack, YStack } from '@hanzo/gui'
 
 const items = [
   { name: 'Apple' },

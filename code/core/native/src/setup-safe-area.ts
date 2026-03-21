@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@tamagui/native/setup-safe-area'
+ * import '@hanzo/gui-native/setup-safe-area'
  * ```
  *
  * This automatically detects and configures react-native-safe-area-context
@@ -26,7 +26,7 @@ import { getSafeArea } from './safeAreaState'
 
 function setup() {
   // only run on native
-  if (process.env.TAMAGUI_TARGET !== 'native') {
+  if (process.env.HANZO_GUI_TARGET !== 'native') {
     return
   }
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import { getSize, getSpace } from '@tamagui/get-token'
-import type { GetProps, SizeTokens } from '@tamagui/web'
+import { getSize, getSpace } from '@hanzo/gui-get-token'
+import type { GetProps, SizeTokens } from '@hanzo/gui-web'
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   styled,
   useTheme,
   withStaticProperties,
-} from '@tamagui/web'
+} from '@hanzo/gui-web'
 
 export const ButtonContext = createStyledContext({
   size: '$md' as SizeTokens,

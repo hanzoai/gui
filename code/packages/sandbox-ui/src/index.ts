@@ -1,7 +1,7 @@
-import { View, ThemeableStack, YStack, styled } from 'tamagui'
+import { View, ThemeableStack, YStack, styled } from '@hanzo/gui'
 
-export * from 'tamagui'
-export * from '@tamagui/toast'
+export * from '@hanzo/gui'
+export * from '@hanzo/gui-toast'
 export * from './SandboxHeading'
 export * from './views'
 

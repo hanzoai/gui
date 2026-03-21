@@ -1,4 +1,4 @@
-import { getDefaultTamaguiConfig } from '@tamagui/config-default'
+import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
 import { expect, test } from 'vitest'
 
 import { createTokens } from '../core/src'

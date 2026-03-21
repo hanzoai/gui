@@ -1,4 +1,4 @@
-import { createReactDOMStyle } from '@tamagui/react-native-web-internals'
+import { createReactDOMStyle } from '@hanzo/gui-react-native-web-internals'
 
 export { createReactDOMStyle }
 export default createReactDOMStyle

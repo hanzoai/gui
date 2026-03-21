@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Paragraph, Tooltip, YStack, XStack } from 'tamagui'
+import { Button, Paragraph, Tooltip, YStack, XStack } from '@hanzo/gui'
 
 /**
  * Test case for validating CSS tooltip animation behavior

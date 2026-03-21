@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 
-import type { TamaguiOptions } from '@tamagui/types'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 import { pathExists, readJSON } from 'fs-extra'
 
 import { getDefaultTamaguiOptions } from './getDefaultTamaguiOptions'

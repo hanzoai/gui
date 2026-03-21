@@ -1,7 +1,7 @@
-import type { TamaguiBuildOptions } from 'tamagui'
+import type { TamaguiBuildOptions } from '@hanzo/gui'
 
 export default {
-  components: ['tamagui'],
+  components: ['@hanzo/gui'],
   config: './tamagui.config.ts',
   outputCSS: './tamagui.generated.css',
 } satisfies TamaguiBuildOptions

@@ -1,4 +1,4 @@
-import { simpleHash } from '@tamagui/helpers'
+import { simpleHash } from '@hanzo/gui-helpers'
 import { getSetting } from '../config'
 import { THEME_CLASSNAME_PREFIX } from '../constants/constants'
 import { variableToString } from '../createVariable'
@@ -18,14 +18,14 @@ export function getThemeCSSRules(props: {
   // Use mutated variable prefix (mt) instead of regular (t) - for dynamic theme mutation
   useMutatedVariables?: boolean
 }): string[] {
-  if (process.env.TAMAGUI_DID_OUTPUT_CSS) {
+  if (process.env.HANZO_GUI_DID_OUTPUT_CSS) {
     // empty - CSS already extracted at build time
-  } else if (process.env.TAMAGUI_TARGET === 'native') {
+  } else if (process.env.HANZO_GUI_TARGET === 'native') {
     // no CSS on native
   } else if (
-    !process.env.TAMAGUI_DOES_SSR_CSS ||
-    process.env.TAMAGUI_DOES_SSR_CSS === 'mutates-themes' ||
-    process.env.TAMAGUI_DOES_SSR_CSS === 'false'
+    !process.env.HANZO_GUI_DOES_SSR_CSS ||
+    process.env.HANZO_GUI_DOES_SSR_CSS === 'mutates-themes' ||
+    process.env.HANZO_GUI_DOES_SSR_CSS === 'false'
   ) {
     const cssRuleSets: string[] = []
     const { config, themeName, theme, names } = props
@@ -46,7 +46,7 @@ export function getThemeCSSRules(props: {
       const variable = theme[themeKey] as Variable
       const value = variableCreator(variable.val).variable
       // Hash themeKey in case it has invalid chars too
-      vars += `--${process.env.TAMAGUI_CSS_VARIABLE_PREFIX || ''}${simpleHash(
+      vars += `--${process.env.HANZO_GUI_CSS_VARIABLE_PREFIX || ''}${simpleHash(
         themeKey,
         40
       )}:${value};`

@@ -9,7 +9,7 @@ const nameToPaths = {}
 export const getNameToPaths = () => nameToPaths
 
 const Module = require('node:module')
-const proxyWorm = require('@tamagui/proxy-worm')
+const proxyWorm = require('@hanzo/gui-proxy-worm')
 
 let isRegistered = false
 let og: any
@@ -43,11 +43,12 @@ export function registerRequire(
 
   const { unregister } = register({
     hookIgnoreNodeModules: false,
-    // don't transform @tamagui packages - they have pre-built dist files
+    // don't transform @hanzo/gui packages - they have pre-built dist files
     hookMatcher: (filename) => {
       if (
+        filename.includes('@hanzo/gui') ||
         filename.includes('@tamagui') ||
-        /\/tamagui\/code\/(core|ui|packages)\//.test(filename)
+        /\/(hanzo\/gui|tamagui)\/code\/(core|ui|packages)\//.test(filename)
       ) {
         return false
       }
@@ -61,7 +62,7 @@ export function registerRequire(
   const tsconfigPatchedResolve = Module._resolveFilename
   Module._resolveFilename = function (request: string, ...args: any[]) {
     // for @tamagui packages, use Node's native resolution (respects exports)
-    if (request.startsWith('@tamagui/')) {
+    if (request.startsWith('@hanzo/gui-')) {
       return originalResolveFilename.call(this, request, ...args)
     }
     // for everything else, use tsconfig-paths resolution
@@ -77,11 +78,11 @@ export function registerRequire(
   Module.prototype.require = tamaguiRequire
 
   function tamaguiRequire(this: any, path: string) {
-    if (path === 'tamagui' && platform === 'native') {
-      return og.apply(this, ['tamagui/native'])
+    if (path === '@hanzo/gui' && platform === 'native') {
+      return og.apply(this, ['@hanzo/gui/native'])
     }
 
-    if (path === '@tamagui/core') {
+    if (path === '@hanzo/gui-core') {
       return requireTamaguiCore(platform, (path) => {
         return og.apply(this, [path])
       })
@@ -100,7 +101,7 @@ export function registerRequire(
     }
 
     if (path === 'react-native-svg') {
-      return og.apply(this, ['@tamagui/react-native-svg'])
+      return og.apply(this, ['@hanzo/gui-react-native-svg'])
     }
 
     if (path === 'react-native/package.json') {
@@ -108,26 +109,26 @@ export function registerRequire(
     }
 
     if (
-      path === '@tamagui/react-native-web-lite' ||
+      path === '@hanzo/gui-react-native-web-lite' ||
       path === 'react-native' ||
       path.startsWith('react-native/')
     ) {
       try {
         return og.apply('react-native')
       } catch {
-        return og.apply(this, ['@tamagui/react-native-web-lite'])
+        return og.apply(this, ['@hanzo/gui-react-native-web-lite'])
       }
     }
 
     if (!whitelisted[path]) {
       if (proxyWormImports && !path.includes('.tamagui-dynamic-eval')) {
-        // allow tamagui and its sub-packages through - they re-export components
+        // allow @hanzo/gui and its sub-packages through - they re-export components
         // with staticConfig needed for dynamic eval optimization.
-        // also allow requires FROM within tamagui packages (relative imports like ./Separator.cjs)
+        // also allow requires FROM within gui packages (relative imports like ./Separator.cjs)
         const callerFile = this?.filename || this?.id || ''
-        const isFromTamaguiPkg =
-          callerFile.includes('@tamagui') || callerFile.includes('node_modules/tamagui/')
-        if (path === 'tamagui' || path.startsWith('@tamagui/') || isFromTamaguiPkg) {
+        const isFromGuiPkg =
+          callerFile.includes('@hanzo/gui') || callerFile.includes('@tamagui') || callerFile.includes('node_modules/@hanzo/')
+        if (path === '@hanzo/gui' || path.startsWith('@hanzo/gui-') || isFromGuiPkg) {
           return og.apply(this, [path])
         }
         return proxyWorm
@@ -162,7 +163,7 @@ export function registerRequire(
       return out
     } catch (err: any) {
       if (
-        !process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD &&
+        !process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD &&
         path.includes('tamagui-dynamic-eval')
       ) {
         // ok, dynamic eval fails
@@ -170,7 +171,7 @@ export function registerRequire(
       }
       if (allowedIgnores[path] || IGNORES === 'true') {
         // ignore
-      } else if (!process.env.TAMAGUI_SHOW_FULL_BUNDLE_ERRORS && !process.env.DEBUG) {
+      } else if (!process.env.HANZO_GUI_SHOW_FULL_BUNDLE_ERRORS && !process.env.DEBUG) {
         if (hasWarnedForModules.has(path)) {
           // ignore
         } else {
@@ -183,7 +184,7 @@ export function registerRequire(
          */
 
         console.warn(
-          `  [tamagui] skipped "${path}" (set TAMAGUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
+          `  [hanzo-gui] skipped "${path}" (set HANZO_GUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
         )
       }
 
@@ -196,7 +197,7 @@ export function registerRequire(
     unregister: () => {
       if (hasWarnedForModules.size) {
         console.info(
-          `  [tamagui] skipped loading ${hasWarnedForModules.size} module, see: https://tamagui.dev/docs/intro/errors#warning-001`
+          `  [hanzo-gui] skipped loading ${hasWarnedForModules.size} module, see: https://gui.hanzo.ai/docs/intro/errors#warning-001`
         )
         hasWarnedForModules.clear()
       }
@@ -208,9 +209,9 @@ export function registerRequire(
   }
 }
 
-const IGNORES = process.env.TAMAGUI_IGNORE_BUNDLE_ERRORS
+const IGNORES = process.env.HANZO_GUI_IGNORE_BUNDLE_ERRORS || process.env.HANZO_GUI_IGNORE_BUNDLE_ERRORS
 const extraIgnores =
-  IGNORES === 'true' ? [] : process.env.TAMAGUI_IGNORE_BUNDLE_ERRORS?.split(',')
+  IGNORES === 'true' ? [] : IGNORES?.split(',')
 
 const knownIgnorableModules = {
   '@gorhom/bottom-sheet': true,
@@ -218,7 +219,7 @@ const knownIgnorableModules = {
   solito: true,
   'expo-linear-gradient': true,
   '@expo/vector-icons': true,
-  'tamagui/linear-gradient': true,
+  '@hanzo/gui/linear-gradient': true,
   // animation libraries not needed for static extraction
   '@emotion/is-prop-valid': true,
   'framer-motion': true,

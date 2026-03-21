@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/font-cherry-bomb",
+  "name": "@hanzo/gui-font-cherry-bomb",
   "version": "2.0.0-rc.29",
   "files": [
     "types",
@@ -29,18 +29,18 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tamagui-build",
+    "build": "hanzo-gui-build",
     "subset": "node -r esbuild-register subset.ts",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/constants": "workspace:*",
-    "@tamagui/core": "workspace:*"
+    "@hanzo/gui-constants": "workspace:*",
+    "@hanzo/gui-core": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "subset-font": "^2.1.0"
   },
   "skipPublishIfUnchanged": false

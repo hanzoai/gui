@@ -1,4 +1,4 @@
-import { Anchor, Paragraph, View, XStack } from 'tamagui'
+import { Anchor, Paragraph, View, XStack } from '@hanzo/gui'
 
 export default function ModalScreen() {
   return (

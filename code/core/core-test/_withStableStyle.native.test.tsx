@@ -1,7 +1,7 @@
-process.env.TAMAGUI_TARGET = 'native'
+process.env.HANZO_GUI_TARGET = 'native'
 
-import { getDefaultTamaguiConfig } from '@tamagui/config-default'
-import { TamaguiProvider, _withStableStyle, createTamagui } from '@tamagui/core'
+import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
+import { TamaguiProvider, _withStableStyle, createTamagui } from '@hanzo/gui-core'
 import { render } from '@testing-library/react-native'
 import { View } from 'react-native'
 import { describe, expect, test, vi } from 'vitest'

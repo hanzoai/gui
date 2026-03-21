@@ -1,4 +1,4 @@
-import { simpleHash } from '@tamagui/simple-hash'
+import { simpleHash } from '@hanzo/gui-simple-hash'
 
 import type { StoreInfo } from './interfaces'
 

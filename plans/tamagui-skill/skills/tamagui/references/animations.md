@@ -6,20 +6,20 @@ Tamagui supports multiple animation drivers. Choose based on your platform:
 
 | Driver | Package | Best For |
 |--------|---------|----------|
-| CSS | `@tamagui/animations-css` | Web-only apps, smallest bundle |
-| React Native | `@tamagui/animations-react-native` | Native apps, basic animations |
-| Reanimated | `@tamagui/animations-reanimated` | Native apps, best performance |
-| Motion | `@tamagui/animations-motion` | Cross-platform spring physics |
+| CSS | `@hanzo/gui-animations-css` | Web-only apps, smallest bundle |
+| React Native | `@hanzo/gui-animations-react-native` | Native apps, basic animations |
+| Reanimated | `@hanzo/gui-animations-reanimated` | Native apps, best performance |
+| Motion | `@hanzo/gui-animations-motion` | Cross-platform spring physics |
 
 ## Configuration
 
 ```tsx
 // v5 config - import driver separately
-import { defaultConfig } from '@tamagui/config/v5'
-import { animations } from '@tamagui/config/v5-css'
-// or: '@tamagui/config/v5-motion'
-// or: '@tamagui/config/v5-rn'
-// or: '@tamagui/config/v5-reanimated'
+import { defaultConfig } from '@hanzo/gui-config/v5'
+import { animations } from '@hanzo/gui-config/v5-css'
+// or: '@hanzo/gui-config/v5-motion'
+// or: '@hanzo/gui-config/v5-rn'
+// or: '@hanzo/gui-config/v5-reanimated'
 
 export const config = createTamagui({
   ...defaultConfig,
@@ -34,7 +34,7 @@ export const config = createTamagui({
 Uses CSS transition strings:
 
 ```tsx
-import { createAnimations } from '@tamagui/animations-css'
+import { createAnimations } from '@hanzo/gui-animations-css'
 
 const animations = createAnimations({
   fast: 'ease-in 150ms',
@@ -49,7 +49,7 @@ const animations = createAnimations({
 Use spring physics config:
 
 ```tsx
-import { createAnimations } from '@tamagui/animations-react-native'
+import { createAnimations } from '@hanzo/gui-animations-react-native'
 
 const animations = createAnimations({
   fast: {

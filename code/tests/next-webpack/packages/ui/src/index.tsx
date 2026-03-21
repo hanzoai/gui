@@ -1,5 +1,5 @@
-export * from 'tamagui'
-export * from '@tamagui/toast'
+export * from '@hanzo/gui'
+export * from '@hanzo/gui-toast'
 export * from './MyComponent'
 export { config } from '@my/config'
 export * from './CustomToast'

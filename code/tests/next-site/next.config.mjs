@@ -1,9 +1,9 @@
-import { withTamagui } from '@tamagui/next-plugin'
+import { withTamagui } from '@hanzo/gui-next-plugin'
 
 Error.stackTraceLimit = Infinity
 
 process.env.IGNORE_TS_CONFIG_PATHS = 'true'
-// process.env.TAMAGUI_ENABLE_DYNAMIC_LOAD = '1'
+// process.env.HANZO_GUI_ENABLE_DYNAMIC_LOAD = '1'
 
 const plugins = [
   withTamagui(
@@ -44,7 +44,7 @@ const plugins = [
   (config) => {
     // for github pages
     if (process.env.IS_TAMAGUI_PROD) {
-      config.assetPrefix = 'https://tamagui.dev'
+      config.assetPrefix = 'https://gui.hanzo.ai'
     } else if (process.env.ON_GITHUB_PAGES) {
       config.basePath = '/tamagui'
       config.assetPrefix = '/tamagui/'
@@ -93,7 +93,7 @@ export default (name, { defaultConfig }) => {
       ignoreBuildErrors: true,
     },
     assetPrefix:
-      process.env.VERCEL_GIT_COMMIT_REF === 'master' ? 'https://tamagui.dev' : undefined,
+      process.env.VERCEL_GIT_COMMIT_REF === 'master' ? 'https://gui.hanzo.ai' : undefined,
 
     // Next.js config
     async redirects() {

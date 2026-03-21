@@ -1,5 +1,5 @@
-import * as StaticWorker from '@tamagui/static-worker'
-import type { TamaguiOptions } from '@tamagui/types'
+import * as StaticWorker from '@hanzo/gui-static-worker'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 
 // use globalThis to share state across vite environments (SSR, client, etc.)
 const LOAD_STATE_KEY = '__tamagui_load_state__'
@@ -73,7 +73,7 @@ export async function ensureFullConfigLoaded(): Promise<void> {
     // load full tamagui config in worker (asynchronous)
     if (!options.disableWatchTamaguiConfig && !options.disable) {
       await StaticWorker.loadTamagui({
-        components: ['tamagui'],
+        components: ['@hanzo/gui'],
         platform: 'web',
         ...options,
       })

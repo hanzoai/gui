@@ -1,6 +1,6 @@
 import { ScrollView } from 'react-native'
 import { createParam } from 'solito'
-import { H1, YStack } from 'tamagui'
+import { H1, YStack } from '@hanzo/gui'
 
 import * as UseCases from '../../usecases'
 

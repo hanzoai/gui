@@ -1,5 +1,5 @@
-import { isWeb } from '@tamagui/constants'
-import { simpleHash } from '@tamagui/helpers'
+import { isWeb } from '@hanzo/gui-constants'
+import { simpleHash } from '@hanzo/gui-helpers'
 import { createVariable, isVariable } from './createVariable'
 import type { Variable } from './types'
 

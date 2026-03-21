@@ -6,11 +6,11 @@ import {
   FilePlus,
   Trash2,
   RefreshCw,
-} from '@tamagui/lucide-icons-2'
-import { Menu } from '@tamagui/menu'
+} from '@hanzo/gui-lucide-icons-2'
+import { Menu } from '@hanzo/gui-menu'
 import React from 'react'
-import { Button, View } from 'tamagui'
-import { isTouchable } from '@tamagui/constants'
+import { Button, View } from '@hanzo/gui'
+import { isTouchable } from '@hanzo/gui-constants'
 
 /**
  * Menu Demo using Tamagui Menu component.

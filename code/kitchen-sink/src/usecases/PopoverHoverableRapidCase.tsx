@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react'
-import { Popover, YStack, SizableText, XStack } from 'tamagui'
+import { Popover, YStack, SizableText, XStack } from '@hanzo/gui'
 
 // test case: rapidly moving across many side-by-side triggers with short restMs
 // should track the hovered trigger, not get "stuck" on a past one

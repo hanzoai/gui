@@ -1,4 +1,4 @@
-import type { ThemeDefinition, ThemeParsed } from '@tamagui/web'
+import type { ThemeDefinition, ThemeParsed } from '@hanzo/gui-web'
 
 import { _mutateTheme } from './_mutateTheme'
 

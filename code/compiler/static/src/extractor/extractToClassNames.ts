@@ -1,7 +1,7 @@
 import generate from '@babel/generator'
 import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
-import { mergeProps, StyleObjectIdentifier, StyleObjectRules } from '@tamagui/web'
+import { mergeProps, StyleObjectIdentifier, StyleObjectRules } from '@hanzo/gui-web'
 import * as path from 'node:path'
 import * as util from 'node:util'
 import { requireTamaguiCore } from '../helpers/requireTamaguiCore'

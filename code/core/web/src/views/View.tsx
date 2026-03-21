@@ -1,4 +1,4 @@
-import { validStyles } from '@tamagui/helpers'
+import { validStyles } from '@hanzo/gui-helpers'
 
 import { createComponent } from '../createComponent'
 import type {

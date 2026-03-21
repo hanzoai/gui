@@ -1,17 +1,17 @@
-import { View, createTamagui } from '@tamagui/core'
+import { View, createTamagui } from '@hanzo/gui-core'
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 import { isColorStyleKey } from '../web/src/helpers/getDynamicVal'
 
 // Set TAMAGUI_TARGET before importing getSplitStyles
-process.env.TAMAGUI_TARGET = 'native'
+process.env.HANZO_GUI_TARGET = 'native'
 
 // Import directly from source so mocks apply
 import { getSplitStyles } from '../web/src/helpers/getSplitStyles'
 
 // Mock modules before imports
 // It's important to include all needed constants, including isAndroid
-vi.mock('@tamagui/constants', async () => {
-  const actual = await vi.importActual('@tamagui/constants')
+vi.mock('@hanzo/gui-constants', async () => {
+  const actual = await vi.importActual('@hanzo/gui-constants')
   return {
     ...actual,
     isIos: true,

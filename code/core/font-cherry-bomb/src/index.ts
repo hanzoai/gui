@@ -1,6 +1,6 @@
-import { isWeb } from '@tamagui/constants'
-import type { FillInFont, GenericFont } from '@tamagui/core'
-import { createFont, getVariableValue } from '@tamagui/core'
+import { isWeb } from '@hanzo/gui-constants'
+import type { FillInFont, GenericFont } from '@hanzo/gui-core'
+import { createFont, getVariableValue } from '@hanzo/gui-core'
 
 export const createCherryBombFont = <A extends GenericFont>(
   font: Partial<A> = {},

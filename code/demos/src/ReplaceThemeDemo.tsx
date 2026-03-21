@@ -1,5 +1,5 @@
 import React from 'react'
-import { addTheme, replaceTheme } from '@tamagui/theme'
+import { addTheme, replaceTheme } from '@hanzo/gui-theme'
 
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   YStack,
   useForceUpdate,
   useIsomorphicLayoutEffect,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 export function ReplaceThemeDemo() {
   const [theme, setTheme] = React.useState<any>()

@@ -1,4 +1,4 @@
-import { currentPlatform } from '@tamagui/constants'
+import { currentPlatform } from '@hanzo/gui-constants'
 
 export function isActivePlatform(key: string) {
   if (!key.startsWith('$platform')) {
@@ -9,6 +9,6 @@ export function isActivePlatform(key: string) {
     // web, ios, android
     platform === currentPlatform ||
     // web, native
-    platform === process.env.TAMAGUI_TARGET
+    platform === process.env.HANZO_GUI_TARGET
   )
 }

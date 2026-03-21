@@ -5,7 +5,7 @@
 Main configuration function:
 
 ```tsx
-import { createTamagui } from '@tamagui/core'
+import { createTamagui } from '@hanzo/gui-core'
 
 const config = createTamagui({
   tokens,
@@ -26,17 +26,17 @@ For most projects, start with a pre-built config:
 
 ```tsx
 // v5 with CSS animations (web)
-import { config } from '@tamagui/config/v5-css'
+import { config } from '@hanzo/gui-config/v5-css'
 
 // v5 with Motion animations (cross-platform)
-import { config } from '@tamagui/config/v5-motion'
+import { config } from '@hanzo/gui-config/v5-motion'
 
 // v5 with Reanimated (best native performance)
-import { config } from '@tamagui/config/v5-reanimated'
+import { config } from '@hanzo/gui-config/v5-reanimated'
 
 // v5 base (no animations, add your own)
-import { defaultConfig } from '@tamagui/config/v5'
-import { animations } from '@tamagui/config/v5-css'
+import { defaultConfig } from '@hanzo/gui-config/v5'
+import { animations } from '@hanzo/gui-config/v5-css'
 
 export default createTamagui({
   ...defaultConfig,
@@ -133,7 +133,7 @@ Usage:
 ## Fonts
 
 ```tsx
-import { createFont } from '@tamagui/core'
+import { createFont } from '@hanzo/gui-core'
 
 const bodyFont = createFont({
   family: 'Inter, system-ui, sans-serif',

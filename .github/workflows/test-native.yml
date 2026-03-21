@@ -102,7 +102,7 @@ jobs:
         if: env.SKIP_IOS_TESTS != 'true'
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@tamagui/kitchen-sink'
+          workspace-focus: '@hanzo/gui-kitchen-sink'
 
       - name: Install tooling
         if: env.SKIP_IOS_TESTS != 'true'
@@ -240,7 +240,7 @@ jobs:
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@tamagui/kitchen-sink'
+          workspace-focus: '@hanzo/gui-kitchen-sink'
 
       - name: Setup Java
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
@@ -315,10 +315,10 @@ jobs:
           "
 
           # Create androidTest directory structure
-          mkdir -p android/app/src/androidTest/java/com/tamagui/tamaguikitchensink
+          mkdir -p android/app/src/androidTest/java/com/hanzoai/guikitchensink
 
           # Create DetoxTest.java
-          cat > android/app/src/androidTest/java/com/tamagui/tamaguikitchensink/DetoxTest.java << 'DETOXTEST'
+          cat > android/app/src/androidTest/java/com/hanzoai/guikitchensink/DetoxTest.java << 'DETOXTEST'
           package com.tamagui.tamaguikitchensink;
 
           import com.wix.detox.Detox;
@@ -488,7 +488,7 @@ jobs:
         if: env.SKIP_ANDROID_TESTS != 'true'
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@tamagui/kitchen-sink'
+          workspace-focus: '@hanzo/gui-kitchen-sink'
 
       - name: Setup Java
         if: env.SKIP_ANDROID_TESTS != 'true'

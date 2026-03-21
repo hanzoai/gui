@@ -1,4 +1,4 @@
-import { TamaguiProvider, Theme, View, createTamagui } from '@tamagui/core'
+import { TamaguiProvider, Theme, View, createTamagui } from '@hanzo/gui-core'
 import { render } from '@testing-library/react-native'
 import { describe, expect, test } from 'vitest'
 import { getDefaultTamaguiConfig } from '../config-default'

@@ -1,4 +1,4 @@
-import { isWeb } from '@tamagui/constants'
+import { isWeb } from '@hanzo/gui-constants'
 import type { MutableRefObject } from 'react'
 import React, { Children, cloneElement, forwardRef, isValidElement, useRef } from 'react'
 import { getSetting } from '../config'

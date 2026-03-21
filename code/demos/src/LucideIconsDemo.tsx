@@ -1,8 +1,8 @@
 import React from 'react'
-import * as LucideIcons from '@tamagui/lucide-icons-2'
+import * as LucideIcons from '@hanzo/gui-lucide-icons-2'
 
 import { ScrollView } from 'react-native'
-import { Input, Paragraph, Spacer, YStack, useDebounceValue } from 'tamagui'
+import { Input, Paragraph, Spacer, YStack, useDebounceValue } from '@hanzo/gui'
 
 import { Grid } from './Grid'
 

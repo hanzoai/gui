@@ -1,4 +1,4 @@
-import { useDidFinishSSR } from '@tamagui/use-did-finish-ssr'
+import { useDidFinishSSR } from '@hanzo/gui-use-did-finish-ssr'
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { getThemeState } from '../hooks/useThemeState'

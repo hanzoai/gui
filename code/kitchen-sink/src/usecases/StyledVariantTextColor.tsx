@@ -1,4 +1,4 @@
-import { Tag, Theme } from '@tamagui/sandbox-ui'
+import { Tag, Theme } from '@hanzo/gui-sandbox-ui'
 
 // test with flattening and without!
 

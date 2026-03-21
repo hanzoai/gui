@@ -1,7 +1,7 @@
 import { dirname, join } from 'node:path'
 
-import { generateThemes, writeGeneratedThemes } from '@tamagui/generate-themes'
-import type { TamaguiOptions } from '@tamagui/types'
+import { generateThemes, writeGeneratedThemes } from '@hanzo/gui-generate-themes'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 import * as FS from 'fs-extra'
 
 import { requireTamaguiCore } from '../helpers/requireTamaguiCore'
@@ -33,7 +33,7 @@ export async function regenerateConfig(
       spaces: 2,
     })
   } catch (err) {
-    if (process.env.DEBUG?.includes('tamagui') || process.env.IS_TAMAGUI_DEV) {
+    if (process.env.DEBUG?.includes('tamagui') || process.env.IS_HANZO_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now
@@ -54,7 +54,7 @@ export function regenerateConfigSync(
       }
     )
   } catch (err) {
-    if (process.env.DEBUG?.includes('tamagui') || process.env.IS_TAMAGUI_DEV) {
+    if (process.env.DEBUG?.includes('tamagui') || process.env.IS_HANZO_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now

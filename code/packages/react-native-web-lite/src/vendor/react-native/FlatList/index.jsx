@@ -11,7 +11,7 @@
 import { View } from '../../../View'
 import { deepDiffer } from '../deepDiffer'
 import { Platform } from '../../../exports/Platform'
-import { invariant, StyleSheet } from '@tamagui/react-native-web-internals'
+import { invariant, StyleSheet } from '@hanzo/gui-react-native-web-internals'
 import * as React from 'react'
 
 import { VirtualizedList } from '../VirtualizedList'

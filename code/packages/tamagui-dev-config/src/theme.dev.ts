@@ -1,7 +1,7 @@
 // ONLY USED BY KITCHEN SINK FOR TESTS
 
-import * as Colors from '@tamagui/colors'
-import { createThemes, defaultComponentThemes } from '@tamagui/theme-builder'
+import * as Colors from '@hanzo/gui-colors'
+import { createThemes, defaultComponentThemes } from '@hanzo/gui-theme-builder'
 import { desaturate } from 'color2k'
 
 const desat = (colors: Record<string, string>, amount: number) => {
@@ -16,7 +16,7 @@ const colorsGreen = desat(Colors.green, 0.2) as typeof Colors.green
 // with color2k:
 
 /**
- * Default themes for the tamagui.dev site
+ * Default themes for the gui.hanzo.ai site
  * If you'd like to create your own themes, use `createThemes`
  */
 
@@ -578,6 +578,6 @@ export type TamaguiThemes = typeof themes
  * So long as you server render your Tamagui CSS, this will save you bundle size:
  */
 export const themeDev: TamaguiThemes =
-  process.env.TAMAGUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
+  process.env.HANZO_GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
     ? ({} as any)
     : (themes as any)

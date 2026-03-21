@@ -1,13 +1,13 @@
-import '@tamagui/core/reset.css'
+import '@hanzo/gui-core/reset.css'
 
 import '../app.css'
 
-import type { ColorScheme } from '@tamagui/next-theme'
-import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
+import type { ColorScheme } from '@hanzo/gui-next-theme'
+import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { TamaguiProvider } from 'tamagui'
+import { TamaguiProvider } from '@hanzo/gui'
 
 import Head from 'next/head'
 import config from '../tamagui.config'

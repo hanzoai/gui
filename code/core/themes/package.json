@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/themes",
+  "name": "@hanzo/gui-themes",
   "version": "2.0.0-rc.29",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "type": "module",
@@ -75,21 +75,21 @@
     "generate:v4": "tamagui generate-themes ./src/v4-default.ts ./src/generated-v4.ts",
     "generate:v4-tamagui": "tamagui generate-themes ./src/v4-tamagui.ts ./src/generated-v4-tamagui.ts",
     "test": "bun run generate",
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/colors": "workspace:*",
-    "@tamagui/create-theme": "workspace:*",
-    "@tamagui/theme-builder": "workspace:*",
-    "@tamagui/web": "workspace:*",
+    "@hanzo/gui-colors": "workspace:*",
+    "@hanzo/gui-create-theme": "workspace:*",
+    "@hanzo/gui-theme-builder": "workspace:*",
+    "@hanzo/gui-web": "workspace:*",
     "color2k": "^2.0.2"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
-    "@tamagui/cli": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
+    "@hanzo/gui-cli": "workspace:*",
     "vitest": "4.0.4"
   }
 }

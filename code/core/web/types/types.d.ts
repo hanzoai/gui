@@ -88,12 +88,12 @@ export type TamaguiComponentPropsBaseBase = {
     theme?: ThemeName | null;
     /**
      * Marks this component as a group for use in styling children based on parents named group
-     * See: https://tamagui.dev/docs/intro/props
+     * See: https://gui.hanzo.ai/docs/intro/props
      */
     group?: GroupNames | boolean;
     /**
      * Works only alongside group, when children of the group are using container based sizing on native you can hide them until parent is measured.
-     * See: https://tamagui.dev/docs/intro/props
+     * See: https://gui.hanzo.ai/docs/intro/props
      */
     untilMeasured?: 'hide' | 'show';
     /**
@@ -604,7 +604,7 @@ export interface GenericTamaguiSettings {
      * By default, Tamagui processes all style props in order of definition on the
      * object. This is a bit strange to most people, but it gets around many
      * annoying issues with specificity. You can see our docs on this here:
-     * https://tamagui.dev/docs/intro/styles#style-order-is-important
+     * https://gui.hanzo.ai/docs/intro/styles#style-order-is-important
      *
      * But this can be confusing in simple cases, like when you do:
      *
@@ -1445,7 +1445,7 @@ interface ExtraBaseProps {
      * Transitions are defined using `createTamagui` typically in a tamagui.config.ts file.
      * Pass a string transition name here and it uses an animation driver to execute it.
      *
-     * See: https://tamagui.dev/docs/core/animations
+     * See: https://gui.hanzo.ai/docs/core/animations
      */
     transition?: TransitionProp | null;
     /**

@@ -1,4 +1,4 @@
-import { webOnlyStylePropsText, webOnlyStylePropsView } from '@tamagui/helpers'
+import { webOnlyStylePropsText, webOnlyStylePropsView } from '@hanzo/gui-helpers'
 
 // pointerEvents is in webOnlyStylePropsView for web CSS, but it's a valid
 // React Native View prop, so we exclude it from the skip list on native.

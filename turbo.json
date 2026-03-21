@@ -3,7 +3,7 @@
   "tasks": {
     "build:js": {
       "cache": false,
-      "inputs": ["package.json", "src/**", "tamagui-build.js"],
+      "inputs": ["package.json", "src/**", "hanzo-gui-build.js"],
       "outputs": ["dist/**"]
     },
     "build": {
@@ -12,7 +12,7 @@
         "tsconfig.json",
         "package.json",
         "src/**/*",
-        "tamagui-build.js",
+        "hanzo-gui-build.js",
         "externalNodePlugin.js"
       ],
       "outputs": [".next/**/*", "dist/**/*", "types/**/*", "**/*.css"]
@@ -40,8 +40,8 @@
       "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
       "outputs": [],
       "env": [
-        "TAMAGUI_TARGET",
-        "TAMAGUI_TEST_ANIMATION_DRIVER",
+        "HANZO_GUI_TARGET",
+        "HANZO_GUI_TEST_ANIMATION_DRIVER",
         "TEST_NATIVE_PLATFORM",
         "DISABLE_NATIVE_TEST",
         "DISABLE_REACT_NATIVE",
@@ -49,8 +49,8 @@
         "NODE_ENV"
       ],
       "passThroughEnv": [
-        "TAMAGUI_TARGET",
-        "TAMAGUI_TEST_ANIMATION_DRIVER",
+        "HANZO_GUI_TARGET",
+        "HANZO_GUI_TEST_ANIMATION_DRIVER",
         "TEST_NATIVE_PLATFORM",
         "DISABLE_NATIVE_TEST",
         "DISABLE_REACT_NATIVE",

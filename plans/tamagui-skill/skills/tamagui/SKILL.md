@@ -4,7 +4,7 @@ description: |
   Universal React UI framework for web and native. Use when building cross-platform apps with Tamagui,
   creating styled components with `styled()`, configuring design tokens/themes, using Tamagui UI components,
   or working with animations. Triggers: "tamagui", "styled()", "$token", "XStack/YStack", "useTheme",
-  "@tamagui/*" imports, "createStyledContext", "variants".
+  "@hanzo/gui-*" imports, "createStyledContext", "variants".
 version: 1.0.0
 ---
 
@@ -39,7 +39,7 @@ This outputs `tamagui-prompt.md` with the project's specific:
 Create components by extending existing ones:
 
 ```tsx
-import { View, Text, styled } from '@tamagui/core'
+import { View, Text, styled } from '@hanzo/gui-core'
 
 const Card = styled(View, {
   padding: '$4',           // use tokens with $
@@ -160,10 +160,10 @@ import { AnimatePresence } from 'tamagui'
 ```
 
 **Animation drivers:**
-- `@tamagui/animations-css` - web only, CSS transitions
-- `@tamagui/animations-react-native` - native Animated API
-- `@tamagui/animations-reanimated` - best native performance
-- `@tamagui/animations-motion` - spring physics
+- `@hanzo/gui-animations-css` - web only, CSS transitions
+- `@hanzo/gui-animations-react-native` - native Animated API
+- `@hanzo/gui-animations-reanimated` - best native performance
+- `@hanzo/gui-animations-motion` - spring physics
 
 CSS driver uses easing strings, others support spring physics.
 
@@ -174,8 +174,8 @@ CSS driver uses easing strings, others support spring physics.
 Use `createStyledContext` for components that share state:
 
 ```tsx
-import { createStyledContext, styled, View, Text } from '@tamagui/core'
-import { withStaticProperties } from '@tamagui/helpers'
+import { createStyledContext, styled, View, Text } from '@hanzo/gui-core'
+import { withStaticProperties } from '@hanzo/gui-helpers'
 
 const CardContext = createStyledContext({ size: 'medium' as 'small' | 'medium' | 'large' })
 
@@ -366,7 +366,7 @@ const dynamicPadding = isPremium ? '$6' : '$4'
 
 ```tsx
 // bad - CSS driver doesn't support spring physics
-import { createAnimations } from '@tamagui/animations-css'
+import { createAnimations } from '@hanzo/gui-animations-css'
 const anims = createAnimations({
   bouncy: { type: 'spring', damping: 10 }  // won't work
 })
@@ -398,7 +398,7 @@ Check if extraction is working:
 ## TypeScript
 
 ```tsx
-import { GetProps, styled, View } from '@tamagui/core'
+import { GetProps, styled, View } from '@hanzo/gui-core'
 
 const MyComponent = styled(View, {
   variants: {
@@ -434,6 +434,6 @@ interface ExtendedProps extends MyComponentProps {
 
 ## Resources
 
-- Docs: https://tamagui.dev
+- Docs: https://gui.hanzo.ai
 - GitHub: https://github.com/tamagui/tamagui
 - Discord: https://discord.gg/tamagui

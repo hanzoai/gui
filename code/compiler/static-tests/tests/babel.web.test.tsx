@@ -8,7 +8,7 @@ window['React'] = React
 test('theme props get extracted properly', async () => {
   const output = await extractForWeb(
     `
-import { View } from '@tamagui/core'
+import { View } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <View theme="green" width={10} bg={props.green ? 'red' : 'blue'} />
@@ -18,7 +18,7 @@ import { View } from '@tamagui/core'
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -29,7 +29,7 @@ import { View } from '@tamagui/core'
 test('theme + media queries + conditionals extract', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <View
@@ -45,7 +45,7 @@ test('theme + media queries + conditionals extract', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -62,7 +62,7 @@ test('theme + media queries + conditionals extract', async () => {
 test('conditional specific after generic style overrides', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <View
@@ -81,7 +81,7 @@ test('conditional specific after generic style overrides', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -93,7 +93,7 @@ test('conditional specific after generic style overrides', async () => {
 test('conditional styles get full base styles merged onto + shorthand', async () => {
   const output = await extractForWeb(
     `
-import { View } from '@tamagui/core'
+import { View } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <View width={10} bg={props.green ? 'red' : 'blue'} />
@@ -103,7 +103,7 @@ import { View } from '@tamagui/core'
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -115,7 +115,7 @@ import { View } from '@tamagui/core'
 test('className + conditional styles get full base styles merged onto + shorthand', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <View width={10} bg={props.green ? 'red' : 'blue'} className={props.className} />
@@ -125,7 +125,7 @@ test('className + conditional styles get full base styles merged onto + shorthan
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -137,7 +137,7 @@ test('font classNames are extracted properly', async () => {
   // one sanity check debug output test
   const output = await extractForWeb(
     `
-    import { Text } from '@tamagui/core'
+    import { Text } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <Text fontFamily="$body" />
@@ -147,7 +147,7 @@ test('font classNames are extracted properly', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -163,7 +163,7 @@ test('ternaries + font families works', async () => {
   // one sanity check debug output test
   const output = await extractForWeb(
     `
-    import { Text } from '@tamagui/core'
+    import { Text } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <Text fontFamily={window ? "$body" : "$heading"} />
@@ -173,7 +173,7 @@ test('ternaries + font families works', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -186,7 +186,7 @@ test('bails from non-deterministic values', async () => {
   // one sanity check debug output test
   const output = await extractForWeb(
     `
-    import { Text } from '@tamagui/core'
+    import { Text } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <Text
@@ -198,7 +198,7 @@ test('bails from non-deterministic values', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -209,7 +209,7 @@ test('bails from non-deterministic values', async () => {
 test('non-flattened works', async () => {
   const output = await extractForWeb(
     `
-    import { Text } from '@tamagui/core'
+    import { Text } from '@hanzo/gui-core'
     export function Test(props) {
       return (
         <Text
@@ -229,7 +229,7 @@ test('non-flattened works', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -240,7 +240,7 @@ test('non-flattened works', async () => {
 test('fontFamily shorthand + styled + flatten works', async () => {
   const output = await extractForWeb(
     `
-    import { MySizableText } from '@tamagui/test-design-system'
+    import { MySizableText } from '@hanzo/gui-test-design-system'
     export function Test(props) {
       return (
         <MySizableText
@@ -257,7 +257,7 @@ test('fontFamily shorthand + styled + flatten works', async () => {
 test('fontFamily shorthand + styled + flatten + ternaries', async () => {
   const output = await extractForWeb(
     `
-    import { MySizableText } from '@tamagui/test-design-system'
+    import { MySizableText } from '@hanzo/gui-test-design-system'
     export function Test(props) {
       return (
         <MySizableText
@@ -275,7 +275,7 @@ test('fontFamily shorthand + styled + flatten + ternaries', async () => {
 test('specific className + ternary', async () => {
   const output = await extractForWeb(
     `
-    import { MySizableText } from '@tamagui/test-design-system'
+    import { MySizableText } from '@hanzo/gui-test-design-system'
     export function Test(props) {
       return (
         <MySizableText
@@ -294,7 +294,7 @@ test('specific className + ternary', async () => {
 test('spread + className', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test(props) {
       return (
@@ -321,7 +321,7 @@ test('spread + className', async () => {
 test('double ternary + spread', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test({ isSettings, isVertical, children }) {
       return (
@@ -346,7 +346,7 @@ test('double ternary + spread', async () => {
 test(`conditional classname keeps base and concats properly`, async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test(props) {
       return (
@@ -368,7 +368,7 @@ test(`conditional classname keeps base and concats properly`, async () => {
 test('flexBasis: 0 with responsive style extracts correctly', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test() {
       return (
@@ -391,7 +391,7 @@ test('flexBasis: 0 with responsive style extracts correctly', async () => {
 test('$group- styles are not flattened', async () => {
   const output = await extractForWeb(
     `
-    import { View, XStack } from '@tamagui/core'
+    import { View, XStack } from '@hanzo/gui-core'
 
     export function Test() {
       return (
@@ -415,7 +415,7 @@ test('$group- styles are not flattened', async () => {
 test('$theme- styles are not flattened', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test() {
       return (
@@ -439,7 +439,7 @@ test('$theme- styles are not flattened', async () => {
 test('$platform-web styles are flattened on web', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test() {
       return (
@@ -463,7 +463,7 @@ test('$platform-web styles are flattened on web', async () => {
 test('conditional spread with runtime variable preserves ternary', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     function usePathname() {
       return '/blog'
@@ -494,7 +494,7 @@ test('conditional spread with runtime variable preserves ternary', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -512,7 +512,7 @@ test('conditional spread with runtime variable preserves ternary', async () => {
 test('conditional spread with local variable preserves ternary', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test({ isActive }) {
       return (
@@ -528,7 +528,7 @@ test('conditional spread with local variable preserves ternary', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -542,7 +542,7 @@ test('conditional spread with local variable preserves ternary', async () => {
 test('conditional spread with hoverStyle preserves ternary', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test({ isActive }) {
       return (
@@ -560,7 +560,7 @@ test('conditional spread with hoverStyle preserves ternary', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -574,7 +574,7 @@ test('conditional spread with hoverStyle preserves ternary', async () => {
 test('Text with hoverStyle and conditional spread preserves ternary', async () => {
   const output = await extractForWeb(
     `// debug
-    import { Text } from '@tamagui/core'
+    import { Text } from '@hanzo/gui-core'
 
     export function Test({ isActive }) {
       return (
@@ -594,7 +594,7 @@ test('Text with hoverStyle and conditional spread preserves ternary', async () =
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -608,7 +608,7 @@ test('Text with hoverStyle and conditional spread preserves ternary', async () =
 test('role attribute is preserved during extraction', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test() {
       return <View role="button" />
@@ -617,7 +617,7 @@ test('role attribute is preserved during extraction', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -631,7 +631,7 @@ test('role attribute is preserved during extraction', async () => {
 test('boxShadow with $variable extracts correctly', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test() {
       return <View boxShadow="0 0 10px $background" />
@@ -640,7 +640,7 @@ test('boxShadow with $variable extracts correctly', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -654,7 +654,7 @@ test('boxShadow with $variable extracts correctly', async () => {
 test.skip('border with $variable extracts correctly', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test() {
       return <View border="1px solid $background" />
@@ -663,7 +663,7 @@ test.skip('border with $variable extracts correctly', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )
@@ -676,7 +676,7 @@ test.skip('border with $variable extracts correctly', async () => {
 test('boxShadow with multiple $variables extracts correctly', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzo/gui-core'
 
     export function Test() {
       return <View boxShadow="0 0 10px $background, 0 0 20px $color" />
@@ -685,7 +685,7 @@ test('boxShadow with multiple $variables extracts correctly', async () => {
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzo/gui-core'],
       },
     }
   )

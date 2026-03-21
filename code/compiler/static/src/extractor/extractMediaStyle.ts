@@ -1,7 +1,7 @@
 import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
-import type { TamaguiInternalConfig } from '@tamagui/core'
-import * as core from '@tamagui/core'
+import type { TamaguiInternalConfig } from '@hanzo/gui-core'
+import * as core from '@hanzo/gui-core'
 import type { ViewStyle } from 'react-native'
 
 import { requireTamaguiCore } from '../helpers/requireTamaguiCore'

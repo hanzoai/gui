@@ -1,4 +1,4 @@
-import type { TamaguiOptions } from '@tamagui/types'
+import type { TamaguiOptions } from '@hanzo/gui-types'
 import { esbuildWatchFiles, generateThemesAndLog, getOptions } from './loadTamagui'
 import { regenerateConfig } from './regenerateConfig'
 

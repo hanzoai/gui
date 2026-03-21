@@ -1,6 +1,6 @@
-import { Button } from '@tamagui/button'
-import { Activity, Airplay } from '@tamagui/lucide-icons-2'
-import { Theme, XGroup, XStack, YStack } from 'tamagui'
+import { Button } from '@hanzo/gui-button'
+import { Activity, Airplay } from '@hanzo/gui-lucide-icons-2'
+import { Theme, XGroup, XStack, YStack } from '@hanzo/gui'
 
 export function ButtonDemo() {
   return (

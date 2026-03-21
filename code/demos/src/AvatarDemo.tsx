@@ -1,4 +1,4 @@
-import { Avatar, XStack } from 'tamagui'
+import { Avatar, XStack } from '@hanzo/gui'
 
 export function AvatarDemo() {
   return (

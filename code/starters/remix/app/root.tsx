@@ -1,6 +1,6 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import type { LinksFunction } from '@remix-run/node'
-import { TamaguiProvider } from 'tamagui'
+import { TamaguiProvider } from '@hanzo/gui'
 import tamaguiConfig from '../tamagui.config'
 
 export const links: LinksFunction = () => [

@@ -4,7 +4,7 @@ import ActionSheet, {
   type ActionSheetRef,
   ScrollView as ActionScrollView,
 } from 'react-native-actions-sheet'
-import { Button, Sheet, Text, YStack } from 'tamagui'
+import { Button, Sheet, Text, YStack } from '@hanzo/gui'
 
 /**
  * Side-by-side comparison of Tamagui Sheet vs react-native-actions-sheet

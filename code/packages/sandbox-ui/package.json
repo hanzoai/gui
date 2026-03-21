@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/sandbox-ui",
+  "name": "@hanzo/gui-sandbox-ui",
   "version": "2.0.0-rc.29",
   "private": true,
   "files": [
@@ -13,23 +13,23 @@
   "module": "dist/esm/index.mjs",
   "types": "./types/index",
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/animations-react-native": "workspace:*",
-    "@tamagui/core": "workspace:*",
-    "@tamagui/lucide-icons-2": "workspace:*",
-    "@tamagui/toast": "workspace:*",
+    "@hanzo/gui-animations-react-native": "workspace:*",
+    "@hanzo/gui-core": "workspace:*",
+    "@hanzo/gui-lucide-icons-2": "workspace:*",
+    "@hanzo/gui-toast": "workspace:*",
     "expo-constants": "~55.0.7",
     "expo-image": "~55.0.6",
     "solito": "^4.3.0",
-    "tamagui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

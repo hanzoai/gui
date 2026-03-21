@@ -17,8 +17,8 @@ import {
   tealDark,
   yellow,
   yellowDark,
-} from '@tamagui/colors'
-import { createThemes, type CreateThemesProps } from '@tamagui/theme-builder'
+} from '@hanzo/gui-colors'
+import { createThemes, type CreateThemesProps } from '@hanzo/gui-theme-builder'
 import { opacify } from './opacify'
 import { v5Templates } from './v5-templates'
 
@@ -187,7 +187,7 @@ export function adjustPalettes<
 }
 
 // component themes removed in v5 - use defaultProps in your config instead
-// see: https://tamagui.dev/docs/core/config-v5#migrating-from-component-themes
+// see: https://gui.hanzo.ai/docs/core/config-v5#migrating-from-component-themes
 
 /** Generate named colors from a palette: ['#fff', ...] -> { name1: '#fff', name2: ... } */
 function paletteToNamedColors<N extends string>(name: N, palette: readonly string[]) {

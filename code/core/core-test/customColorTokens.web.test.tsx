@@ -1,5 +1,5 @@
 import { describe, expect, test, beforeEach } from 'vitest'
-import { createTamagui } from '@tamagui/core'
+import { createTamagui } from '@hanzo/gui-core'
 
 describe('custom color tokens', () => {
   beforeEach(() => {

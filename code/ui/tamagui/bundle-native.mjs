@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { bundleNative } from '@tamagui/native-bundle'
+import { bundleNative } from '@hanzo/gui-native-bundle'
 
 // Bundle for production (native.cjs)
 await bundleNative({

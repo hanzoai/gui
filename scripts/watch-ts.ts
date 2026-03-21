@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process'
 
 let child: ChildProcess
 
-if (process.env.IS_TAMAGUI_DEV) {
+if (process.env.IS_HANZO_GUI_DEV) {
   child = spawn(`yarn`, `typecheck -w`.split(' '), { stdio: 'inherit' })
 
   child.on('close', (code) => {

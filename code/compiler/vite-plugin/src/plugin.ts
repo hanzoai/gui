@@ -1,6 +1,6 @@
-import type { TamaguiOptions, ExtractedResponse } from '@tamagui/static-worker'
-import * as Static from '@tamagui/static-worker'
-import { getPragmaOptions } from '@tamagui/static-worker'
+import type { TamaguiOptions, ExtractedResponse } from '@hanzo/gui-static-worker'
+import * as Static from '@hanzo/gui-static-worker'
+import { getPragmaOptions } from '@hanzo/gui-static-worker'
 import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
@@ -56,9 +56,9 @@ function getPendingExtractions(): Map<string, Promise<CacheEntry | null>> {
 }
 
 type AliasOptions = {
-  /** use @tamagui/react-native-web-lite, 'without-animated' for smaller bundle */
+  /** use @hanzo/gui-react-native-web-lite, 'without-animated' for smaller bundle */
   rnwLite?: boolean | 'without-animated'
-  /** alias react-native-svg to @tamagui/react-native-svg */
+  /** alias react-native-svg to @hanzo/gui-react-native-svg */
   svg?: boolean
 }
 
@@ -74,7 +74,7 @@ export function tamaguiAliases(options: AliasOptions = {}): AliasEntry[] {
   if (options.svg) {
     aliases.push({
       find: 'react-native-svg',
-      replacement: resolve('@tamagui/react-native-svg'),
+      replacement: resolve('@hanzo/gui-react-native-svg'),
     })
   }
 
@@ -82,11 +82,11 @@ export function tamaguiAliases(options: AliasOptions = {}): AliasEntry[] {
     // entry point for main import (may be without-animated variant)
     const rnwl = resolve(
       options.rnwLite === 'without-animated'
-        ? '@tamagui/react-native-web-lite/without-animated'
-        : '@tamagui/react-native-web-lite'
+        ? '@hanzo/gui-react-native-web-lite/without-animated'
+        : '@hanzo/gui-react-native-web-lite'
     )
     // base package path for subpath imports (package directory, not entry file)
-    const rnwlBase = path.dirname(resolve('@tamagui/react-native-web-lite/package.json'))
+    const rnwlBase = path.dirname(resolve('@hanzo/gui-react-native-web-lite/package.json'))
     aliases.push(
       {
         // map deep RNW paths like dist/exports/StyleSheet/preprocess to rnw-lite's flat structure
@@ -104,7 +104,7 @@ export function tamaguiAliases(options: AliasOptions = {}): AliasEntry[] {
       },
       {
         find: 'react-native/package.json',
-        replacement: resolve('@tamagui/react-native-web-lite/package.json'),
+        replacement: resolve('@hanzo/gui-react-native-web-lite/package.json'),
       },
       {
         find: /^react-native-web$/,
@@ -202,7 +202,7 @@ export function tamaguiPlugin({
   }
 
   const basePlugin: Plugin = {
-    name: 'tamagui',
+    name: 'hanzo-gui',
     enforce: 'pre',
 
     configureServer(_server) {
@@ -234,7 +234,7 @@ export function tamaguiPlugin({
       // start watching config if enabled
       if (!options.disableWatchTamaguiConfig) {
         watcher = Static.watchTamaguiConfig({
-          components: ['tamagui'],
+          components: ['@hanzo/gui'],
           config: './src/tamagui.config.ts',
           ...options,
         }).catch((err) => {
@@ -243,13 +243,13 @@ export function tamaguiPlugin({
       }
 
       return {
-        envPrefix: ['TAMAGUI_'],
+        envPrefix: ['HANZO_GUI_'],
 
         environments: {
           client: {
             define: {
-              'process.env.TAMAGUI_IS_CLIENT': JSON.stringify(true),
-              'process.env.TAMAGUI_ENVIRONMENT': '"client"',
+              'process.env.HANZO_GUI_IS_CLIENT': JSON.stringify(true),
+              'process.env.HANZO_GUI_ENVIRONMENT': '"client"',
             },
           },
         },
@@ -264,7 +264,7 @@ export function tamaguiPlugin({
           'process.env.ENABLE_STEPS': JSON.stringify(process.env.ENABLE_STEPS || ''),
           'process.env.IS_STATIC': JSON.stringify(false),
           ...(env.mode === 'production' && {
-            'process.env.TAMAGUI_OPTIMIZE_THEMES': JSON.stringify(true),
+            'process.env.HANZO_GUI_OPTIMIZE_THEMES': JSON.stringify(true),
           }),
         },
         resolve:
@@ -275,10 +275,10 @@ export function tamaguiPlugin({
                 alias: {
                   ...(options.platform !== 'native' && {
                     'react-native/Libraries/Renderer/shims/ReactFabric':
-                      resolve('@tamagui/proxy-worm'),
+                      resolve('@hanzo/gui-proxy-worm'),
                     'react-native/Libraries/Utilities/codegenNativeComponent':
-                      resolve('@tamagui/proxy-worm'),
-                    'react-native-svg': resolve('@tamagui/react-native-svg'),
+                      resolve('@hanzo/gui-proxy-worm'),
+                    'react-native-svg': resolve('@hanzo/gui-react-native-svg'),
                     ...(!options?.useReactNativeWebLite && {
                       'react-native': resolve('react-native-web'),
                     }),
@@ -329,7 +329,7 @@ export function tamaguiPlugin({
 
       if (!shouldExtract) return
 
-      userConf.optimizeDeps.include.push('@tamagui/core/inject-styles')
+      userConf.optimizeDeps.include.push('@hanzo/gui-core/inject-styles')
     },
 
     async configResolved(resolvedConfig) {

@@ -1,7 +1,7 @@
-import { Anchor, Button, Paragraph, Sheet, XStack } from 'tamagui'
-import { ChevronDown } from '@tamagui/lucide-icons-2'
+import { Anchor, Button, Paragraph, Sheet, XStack } from '@hanzo/gui'
+import { ChevronDown } from '@hanzo/gui-lucide-icons-2'
 import { useState } from 'react'
-// import { toast } from '@tamagui/toast'
+// import { toast } from '@hanzo/gui-toast'
 
 export default function test() {
   return <SheetDemo />

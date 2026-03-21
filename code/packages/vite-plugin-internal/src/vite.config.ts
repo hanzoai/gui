@@ -1,4 +1,4 @@
-import { tamaguiPlugin } from '@tamagui/vite-plugin'
+import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
 import { getConfig } from './getConfig'
 
 Error.stackTraceLimit = Number.POSITIVE_INFINITY

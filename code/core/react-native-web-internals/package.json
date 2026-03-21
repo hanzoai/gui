@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/react-native-web-internals",
+  "name": "@hanzo/gui-react-native-web-internals",
   "version": "2.0.0-rc.29",
   "description": "React Native for Web",
   "keywords": [
@@ -30,21 +30,21 @@
     }
   },
   "scripts": {
-    "build": "tamagui-build --skip-native",
-    "watch": "tamagui-build --skip-native --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "build": "hanzo-gui-build --skip-native",
+    "watch": "hanzo-gui-build --skip-native --watch",
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@tamagui/normalize-css-color": "workspace:*",
-    "@tamagui/react-native-use-pressable": "workspace:*",
-    "@tamagui/react-native-use-responder-events": "workspace:*",
-    "@tamagui/simple-hash": "workspace:*",
-    "@tamagui/use-element-layout": "workspace:*",
-    "@tamagui/web": "workspace:*"
+    "@hanzo/gui-normalize-css-color": "workspace:*",
+    "@hanzo/gui-react-native-use-pressable": "workspace:*",
+    "@hanzo/gui-react-native-use-responder-events": "workspace:*",
+    "@hanzo/gui-simple-hash": "workspace:*",
+    "@hanzo/gui-use-element-layout": "workspace:*",
+    "@hanzo/gui-web": "workspace:*"
   },
   "devDependencies": {
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "react": ">=19",
     "react-dom": "*"
   },

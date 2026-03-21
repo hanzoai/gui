@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
-import { Input } from '@tamagui/input'
-import { getDefaultTamaguiConfig } from '@tamagui/config-default'
-import { View, TamaguiProvider, createTamagui } from '@tamagui/core'
+import { Input } from '@hanzo/gui-input'
+import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
+import { View, TamaguiProvider, createTamagui } from '@hanzo/gui-core'
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 

@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { canUseDOM } from '@tamagui/react-native-web-internals'
+import { canUseDOM } from '@hanzo/gui-react-native-web-internals'
 
 import type { DisplayMetrics } from '../Dimensions/index'
 import { Dimensions } from '../Dimensions/index'

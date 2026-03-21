@@ -1,11 +1,11 @@
-import { config } from '@tamagui/tamagui-dev-config'
-import { createTamagui } from 'tamagui'
+import { config } from '@hanzo/gui-dev-config'
+import { createTamagui } from '@hanzo/gui'
 
 const tamaConf = createTamagui(config)
 
 export type Conf = typeof tamaConf
 
-declare module 'tamagui' {
+declare module '@hanzo/gui' {
   interface TamaguiCustomConfig extends Conf {}
 
   interface TypeOverride {

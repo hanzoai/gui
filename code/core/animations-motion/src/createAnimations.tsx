@@ -1,5 +1,5 @@
-import { getEffectiveAnimation, normalizeTransition } from '@tamagui/animation-helpers'
-import { ResetPresence, usePresence } from '@tamagui/use-presence'
+import { getEffectiveAnimation, normalizeTransition } from '@hanzo/gui-animation-helpers'
+import { ResetPresence, usePresence } from '@hanzo/gui-use-presence'
 import {
   type AnimatedNumberStrategy,
   type AnimationDriver,
@@ -15,7 +15,7 @@ import {
   useIsomorphicLayoutEffect,
   useThemeWithState,
   View,
-} from '@tamagui/web'
+} from '@hanzo/gui-web'
 import {
   type AnimationOptions,
   type AnimationPlaybackControlsWithThen,

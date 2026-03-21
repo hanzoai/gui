@@ -1,4 +1,4 @@
-import { createAnimations } from '@tamagui/animations-moti'
+import { createAnimations } from '@hanzo/gui-animations-moti'
 
 export const animations = createAnimations({
   '100ms': {

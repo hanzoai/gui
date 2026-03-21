@@ -1,4 +1,4 @@
-import { config } from '@tamagui/config'
+import { config } from '@hanzo/gui-config'
 import {
   Spacer,
   TamaguiProvider,
@@ -8,7 +8,7 @@ import {
   YStack,
   createTamagui,
   useMedia,
-} from '@tamagui/sandbox-ui'
+} from '@hanzo/gui-sandbox-ui'
 
 import { testColor } from './constants'
 import { baseStyle, nestedStyle } from './extract-spec-constants'

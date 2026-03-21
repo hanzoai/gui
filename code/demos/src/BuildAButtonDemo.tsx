@@ -1,6 +1,6 @@
-import { Drumstick, Hand } from '@tamagui/lucide-icons-2'
-import type { ButtonProps, ThemeName } from 'tamagui'
-import { Button, XStack, YStack } from 'tamagui'
+import { Drumstick, Hand } from '@hanzo/gui-lucide-icons-2'
+import type { ButtonProps, ThemeName } from '@hanzo/gui'
+import { Button, XStack, YStack } from '@hanzo/gui'
 
 const outlined = {
   bg: 'transparent',

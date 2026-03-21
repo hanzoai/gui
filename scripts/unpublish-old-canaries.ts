@@ -12,7 +12,7 @@
  *   bun scripts/unpublish-old-canaries.ts --dry-run --max-age=30
  *   bun scripts/unpublish-old-canaries.ts --yes
  *   bun scripts/unpublish-old-canaries.ts --yes --max-age=60
- *   bun scripts/unpublish-old-canaries.ts --yes --package=@tamagui/lucide-icons-2
+ *   bun scripts/unpublish-old-canaries.ts --yes --package=@hanzo/gui-lucide-icons-2
  */
 
 import { execSync } from 'node:child_process'
@@ -68,7 +68,7 @@ function getReverseTopo(): string[] {
 
     if (!deps.has(pkg)) deps.set(pkg, new Set())
     for (const d of t.dependencies) {
-      // dependency taskIds are like "@tamagui/web#build"
+      // dependency taskIds are like "@hanzo/gui-web#build"
       const depPkg = d.replace(/#.+$/, '')
       if (depPkg !== pkg) {
         deps.get(pkg)!.add(depPkg)

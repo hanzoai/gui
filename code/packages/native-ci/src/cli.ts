@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * CLI for @tamagui/native-ci
+ * CLI for @hanzo/gui-native-ci
  *
  * Provides commands for:
  * - Running native tests (Detox, Maestro)

@@ -1,4 +1,4 @@
-import { TamaguiProvider, View, createTamagui } from '@tamagui/core'
+import { TamaguiProvider, View, createTamagui } from '@hanzo/gui-core'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 

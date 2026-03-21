@@ -1,10 +1,10 @@
-import Static from '@tamagui/static'
+import Static from '@hanzo/gui-static'
 import browserslist from 'browserslist'
 import { lazyPostCSS } from 'next/dist/build/webpack/config/blocks/css/index.js'
 import { getGlobalCssLoader } from 'next/dist/build/webpack/config/blocks/css/loaders/index.js'
 import path from 'node:path'
-import type { PluginOptions as LoaderPluginOptions } from 'tamagui-loader'
-import { TamaguiPlugin } from 'tamagui-loader'
+import type { PluginOptions as LoaderPluginOptions } from '@hanzo/gui-loader'
+import { TamaguiPlugin } from '@hanzo/gui-loader'
 import webpack from 'webpack'
 
 const { loadTamaguiBuildConfigSync } = Static
@@ -30,7 +30,7 @@ export type WithTamaguiProps = LoaderPluginOptions & {
   }) => boolean | string | undefined
   disableThemesBundleOptimize?: boolean
 
-  /** By default we add a Next.js modularizeImports option to tree shake @tamagui/lucide-icons-2, this disables it */
+  /** By default we add a Next.js modularizeImports option to tree shake @hanzo/gui-lucide-icons-2, this disables it */
   disableOptimizeLucideIcons?: boolean
 }
 
@@ -74,18 +74,18 @@ export const withTamagui = (tamaguiOptionsIn?: WithTamaguiProps) => {
 
         const defines = {
           'process.env.IS_STATIC': JSON.stringify(''),
-          'process.env.TAMAGUI_TARGET': '"web"',
-          'process.env.TAMAGUI_IS_SERVER': JSON.stringify(isServer ? 'true' : ''),
-          'process.env.TAMAGUI_ENVIRONMENT': JSON.stringify(isServer ? 'ssr' : 'client'),
+          'process.env.HANZO_GUI_TARGET': '"web"',
+          'process.env.HANZO_GUI_IS_SERVER': JSON.stringify(isServer ? 'true' : ''),
+          'process.env.HANZO_GUI_ENVIRONMENT': JSON.stringify(isServer ? 'ssr' : 'client'),
           __DEV__: JSON.stringify(dev),
-          ...(process.env.TAMAGUI_DOES_SSR_CSS && {
-            'process.env.TAMAGUI_DOES_SSR_CSS': JSON.stringify(
-              process.env.TAMAGUI_DOES_SSR_CSS
+          ...(process.env.HANZO_GUI_DOES_SSR_CSS && {
+            'process.env.HANZO_GUI_DOES_SSR_CSS': JSON.stringify(
+              process.env.HANZO_GUI_DOES_SSR_CSS
             ),
           }),
           ...(tamaguiOptions?.disableThemesBundleOptimize && {
-            'process.env.TAMAGUI_OPTIMIZE_THEMES': JSON.stringify(false),
-            'process.env.TAMAGUI_ENVIRONMENT': JSON.stringify(false),
+            'process.env.HANZO_GUI_OPTIMIZE_THEMES': JSON.stringify(false),
+            'process.env.HANZO_GUI_ENVIRONMENT': JSON.stringify(false),
           }),
         }
 
@@ -167,8 +167,8 @@ export const withTamagui = (tamaguiOptionsIn?: WithTamaguiProps) => {
             console.info(prefix, 'ignoring tsconfig paths')
           }
           if (webpackConfig.resolve.plugins[0]) {
-            delete webpackConfig.resolve.plugins[0].paths['@tamagui/*']
-            // delete webpackConfig.resolve.plugins[0].paths['tamagui']
+            delete webpackConfig.resolve.plugins[0].paths['@hanzo/gui-*']
+            // delete webpackConfig.resolve.plugins[0].paths['@hanzo/gui']
           }
         }
 
@@ -176,7 +176,7 @@ export const withTamagui = (tamaguiOptionsIn?: WithTamaguiProps) => {
         if (!tamaguiOptions.disableOptimizeLucideIcons) {
           nextConfig.experimental ||= {}
           nextConfig.experimental.optimizePackageImports ||= []
-          nextConfig.experimental.optimizePackageImports.push('@tamagui/lucide-icons-2')
+          nextConfig.experimental.optimizePackageImports.push('@hanzo/gui-lucide-icons-2')
         }
 
         /**
@@ -217,7 +217,7 @@ export const withTamagui = (tamaguiOptionsIn?: WithTamaguiProps) => {
             if (
               fullPath.startsWith('moti') ||
               fullPath.startsWith('solito') ||
-              // fullPath === 'tamagui' ||
+              // fullPath === '@hanzo/gui' ||
               fullPath.startsWith('@tamagui') ||
               fullPath === 'react-native-safe-area-context' ||
               fullPath === 'expo-linear-gradient' ||

@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom'
 import 'vitest-axe/extend-expect'
 
-import { Button } from '@tamagui/button'
-import { getDefaultTamaguiConfig } from '@tamagui/config-default'
-import { View, TamaguiProvider, createTamagui } from '@tamagui/core'
+import { Button } from '@hanzo/gui-button'
+import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
+import { View, TamaguiProvider, createTamagui } from '@hanzo/gui-core'
 import type { RenderResult } from '@testing-library/react'
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'

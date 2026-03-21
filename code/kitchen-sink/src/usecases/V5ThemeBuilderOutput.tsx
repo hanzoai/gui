@@ -1,4 +1,4 @@
-import { Button, Card, H2, H3, H4, Paragraph, Text, Theme, XStack, YStack } from 'tamagui'
+import { Button, Card, H2, H3, H4, Paragraph, Text, Theme, XStack, YStack } from '@hanzo/gui'
 
 import { TEST_IDS } from '../constants/test-ids'
 
@@ -19,7 +19,7 @@ export function V5ThemeBuilderOutput() {
       <YStack gap="$2">
         <H2>V5 Theme Builder - Accent Theme Tests</H2>
         <Paragraph color="$color11">
-          Tests documented accent usage patterns from tamagui.dev docs.
+          Tests documented accent usage patterns from gui.hanzo.ai docs.
         </Paragraph>
       </YStack>
 

@@ -10,7 +10,7 @@ export const useIsClientOnly = (): boolean => {
 export function useDidFinishSSR(): boolean {
   const clientOnly = React.useContext(ClientOnlyContext)
 
-  if (clientOnly || process.env.TAMAGUI_TARGET === 'native') {
+  if (clientOnly || process.env.HANZO_GUI_TARGET === 'native') {
     return true
   }
 

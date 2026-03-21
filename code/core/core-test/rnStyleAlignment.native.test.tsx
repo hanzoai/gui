@@ -1,4 +1,4 @@
-import { View, createTamagui, getSplitStyles } from '@tamagui/core'
+import { View, createTamagui, getSplitStyles } from '@hanzo/gui-core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'

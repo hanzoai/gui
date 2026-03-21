@@ -1,6 +1,6 @@
-// copied from @tamagui/themes
+// copied from @hanzo/gui-themes
 
-import type { MaskDefinitions } from '@tamagui/create-theme'
+import type { MaskDefinitions } from '@hanzo/gui-create-theme'
 import {
   combineMasks,
   createIdentityMask,
@@ -9,7 +9,7 @@ import {
   createSoftenMask,
   createStrengthenMask,
   skipMask,
-} from '@tamagui/create-theme'
+} from '@hanzo/gui-create-theme'
 
 export const masks = {
   identity: createIdentityMask(),

@@ -1,6 +1,6 @@
-import * as Demos from '@tamagui/demos'
-import { ArrowLeft } from '@tamagui/lucide-icons-2'
-import { Button, H1, YStack } from 'tamagui'
+import * as Demos from '@hanzo/gui-demos'
+import { ArrowLeft } from '@hanzo/gui-lucide-icons-2'
+import { Button, H1, YStack } from '@hanzo/gui'
 
 export function DemoScreen({
   demoName,

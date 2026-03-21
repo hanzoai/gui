@@ -4,8 +4,8 @@ import {
   extractToNative,
   loadTamagui,
   loadTamaguiBuildConfigSync,
-} from '@tamagui/static'
-import type { CLIResolvedOptions, TamaguiOptions } from '@tamagui/types'
+} from '@hanzo/gui-static'
+import type { CLIResolvedOptions, TamaguiOptions } from '@hanzo/gui-types'
 import chokidar from 'chokidar'
 import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'fs-extra'
 import MicroMatch from 'micromatch'
@@ -241,7 +241,7 @@ export const build = async (
 
         // Build web version from original source
         if (filePlatforms.includes('web')) {
-          process.env.TAMAGUI_TARGET = 'web'
+          process.env.HANZO_GUI_TARGET = 'web'
           const extractor = createExtractor({
             platform: 'web',
           })
@@ -324,7 +324,7 @@ export const build = async (
 
         // Build native version from original source (NOT from the web-optimized version)
         if (filePlatforms.includes('native')) {
-          process.env.TAMAGUI_TARGET = 'native'
+          process.env.HANZO_GUI_TARGET = 'native'
           const nativeTamaguiOptions = {
             ...buildOptions,
             platform: 'native' as const,

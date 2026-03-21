@@ -1,4 +1,4 @@
-import { Button } from 'tamagui'
+import { Button } from '@hanzo/gui'
 
 export function FocusVisibleButtonWithFocusStyle() {
   return (

@@ -11,7 +11,7 @@ export function getConfig(tamaguiPlugin: any) {
   const isNative =
     !process.env.DISABLE_REACT_NATIVE &&
     !process.env.DISABLE_NATIVE_TEST &&
-    process.env.TAMAGUI_TARGET !== 'web'
+    process.env.HANZO_GUI_TARGET !== 'web'
 
   const nativeExtensions =
     process.env.TEST_NATIVE_PLATFORM === 'ios'
@@ -54,7 +54,7 @@ export function getConfig(tamaguiPlugin: any) {
       // react({}),
 
       tamaguiPlugin({
-        components: ['tamagui'],
+        components: ['@hanzo/gui'],
         config: './tamagui.config.ts',
         disableWatchTamaguiConfig: true,
         disable: true,
@@ -69,14 +69,14 @@ export function getConfig(tamaguiPlugin: any) {
                 // 'react-native', breaks because vitest isnt doing .native.js :/
                 conditions: ['react-native', 'require', 'default'],
                 alias: {
-                  '@tamagui/core': '@tamagui/core/native-test',
-                  '@tamagui/web': '@tamagui/core/native-test',
+                  '@hanzo/gui-core': '@hanzo/gui-core/native-test',
+                  '@hanzo/gui-web': '@hanzo/gui-core/native-test',
                 },
                 extensions: nativeExtensions,
               },
 
               optimizeDeps: {
-                include: ['@tamagui/constants', '@tamagui/web', '@tamagui/core'],
+                include: ['@hanzo/gui-constants', '@hanzo/gui-web', '@hanzo/gui-core'],
                 extensions: nativeExtensions,
                 jsx: 'automatic',
               },
@@ -87,7 +87,7 @@ export function getConfig(tamaguiPlugin: any) {
     ].filter(Boolean),
 
     define: {
-      'process.env.TAMAGUI_TARGET': JSON.stringify(process.env.TAMAGUI_TARGET),
+      'process.env.HANZO_GUI_TARGET': JSON.stringify(process.env.HANZO_GUI_TARGET),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       // otherwise react logs Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
       __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })',
@@ -98,15 +98,15 @@ export function getConfig(tamaguiPlugin: any) {
         ? [
             {
               find: /^react-native$/,
-              replacement: '@tamagui/fake-react-native',
+              replacement: '@hanzo/gui-fake-react-native',
             },
             {
               find: /^react-native\//,
-              replacement: '@tamagui/fake-react-native',
+              replacement: '@hanzo/gui-fake-react-native',
             },
           ]
         : {
-            'react-native': '@tamagui/react-native-web-lite',
+            'react-native': '@hanzo/gui-react-native-web-lite',
           },
     },
 

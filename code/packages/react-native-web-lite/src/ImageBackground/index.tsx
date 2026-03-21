@@ -9,7 +9,7 @@
 
 import * as React from 'react'
 import { forwardRef } from 'react'
-import { StyleSheet } from '@tamagui/react-native-web-internals'
+import { StyleSheet } from '@hanzo/gui-react-native-web-internals'
 
 import type { ImageProps } from '../Image/index'
 import { Image } from '../Image/index'

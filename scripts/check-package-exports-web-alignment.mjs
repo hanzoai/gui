@@ -7,7 +7,7 @@ const RUNTIME_KEYS = ['react-native', 'browser', 'module', 'import', 'require', 
 const REQUIRED_KEYS = ['react-native', 'browser', 'default']
 const MAX_REPORT = Number(process.env.EXPORTS_CHECK_MAX_REPORT || 200)
 const SHOULD_FIX = process.argv.includes('--fix')
-const EXCLUDED_PACKAGES = new Set(['@tamagui/vite-plugin-internal'])
+const EXCLUDED_PACKAGES = new Set(['@hanzo/gui-vite-plugin-internal'])
 
 function walkPackageJsonFiles(dir, out = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {

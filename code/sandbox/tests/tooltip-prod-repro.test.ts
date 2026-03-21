@@ -1,12 +1,12 @@
 import { expect, test, type Page } from '@playwright/test'
 
-// test against the real tamagui.dev local server (port 5556)
+// test against the real gui.hanzo.ai local server (port 5556)
 // to reproduce the stuck tooltip repositioning bug
 
-test.describe('Tooltip repositioning on tamagui.dev', () => {
+test.describe('Tooltip repositioning on gui.hanzo.ai', () => {
   test.skip(
     !process.env.TEST_PROD_SITE,
-    'set TEST_PROD_SITE=1 to run against local tamagui.dev on port 5556'
+    'set TEST_PROD_SITE=1 to run against local gui.hanzo.ai on port 5556'
   )
 
   const baseURL = 'http://localhost:5556'

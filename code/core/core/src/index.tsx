@@ -1,14 +1,14 @@
-// re-exports all of @tamagui/web just adds hooks
-export * from '@tamagui/web'
+// re-exports all of @hanzo/gui-web just adds hooks
+export * from '@hanzo/gui-web'
 
-import { createMedia } from '@tamagui/react-native-media-driver'
+import { createMedia } from '@hanzo/gui-react-native-media-driver'
 import {
   createMeasure,
   createMeasureInWindow,
   createMeasureLayout,
   enable,
   useElementLayout,
-} from '@tamagui/use-element-layout'
+} from '@hanzo/gui-use-element-layout'
 import type {
   StackNonStyleProps,
   StackStyleBase,
@@ -20,7 +20,7 @@ import type {
   TextNonStyleProps,
   TextProps,
   TextStylePropsBase,
-} from '@tamagui/web'
+} from '@hanzo/gui-web'
 import {
   TamaguiProvider as WebTamaguiProvider,
   Text as WebText,
@@ -28,7 +28,7 @@ import {
   createTamagui as createTamaguiWeb,
   setupHooks,
   useIsomorphicLayoutEffect,
-} from '@tamagui/web'
+} from '@hanzo/gui-web'
 import { createOptimizedView } from './createOptimizedView'
 import { getBaseViews } from './getBaseViews'
 import type { RNTextProps, RNViewProps } from './reactNativeTypes'
@@ -39,7 +39,7 @@ export {
   registerLayoutNode,
   setOnLayoutStrategy,
   type LayoutEvent,
-} from '@tamagui/use-element-layout'
+} from '@hanzo/gui-use-element-layout'
 
 // adds extra types to View/Stack/Text:
 
@@ -82,7 +82,7 @@ export const TamaguiProvider = (props: TamaguiProviderProps) => {
 
 // automate using the react native media driver
 export const createTamagui: typeof createTamaguiWeb = (conf) => {
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.HANZO_GUI_TARGET === 'native') {
     if (conf.media) {
       conf.media = createMedia(conf.media)
     }
@@ -98,7 +98,7 @@ setupHooks({
   getBaseViews,
 
   setElementProps: (node) => {
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.HANZO_GUI_TARGET === 'web') {
       // web only
       if (node && !node['measure']) {
         node.measure ||= createMeasure(node)
@@ -109,7 +109,7 @@ setupHooks({
   },
 
   usePropsTransform(elementType, propsIn, stateRef, willHydrate) {
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.HANZO_GUI_TARGET === 'web') {
       const isDOM = typeof elementType === 'string'
 
       // replicate react-native-web functionality
@@ -172,7 +172,7 @@ setupHooks({
   },
 
   // attempt at properly fixing RN input, but <Pressable><TextInput /> just doesnt work on RN
-  ...(process.env.TAMAGUI_TARGET === 'native' && {
+  ...(process.env.HANZO_GUI_TARGET === 'native' && {
     useChildren(elementType, children, viewProps) {
       if (process.env.NODE_ENV === 'test') {
         // test mode - just use regular views since optimizations cause weirdness
@@ -261,7 +261,7 @@ export const Text = WebText as any as RNTamaguiText
 //     } as const,
 
 //     // defaultVariants: {
-//     //   unstyled: process.env.TAMAGUI_HEADLESS === '1' ? true : false,
+//     //   unstyled: process.env.HANZO_GUI_HEADLESS === '1' ? true : false,
 //     // },
 //   },
 //   {

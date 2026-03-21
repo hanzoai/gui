@@ -3,10 +3,10 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronUp,
-} from '@tamagui/lucide-icons-2'
+} from '@hanzo/gui-lucide-icons-2'
 import { useState } from 'react'
-import type { PopoverProps } from 'tamagui'
-import { Button, Configuration, Popover, Text, XStack, YStack } from 'tamagui'
+import type { PopoverProps } from '@hanzo/gui'
+import { Button, Configuration, Popover, Text, XStack, YStack } from '@hanzo/gui'
 import { animationsCSS } from '../config/tamagui/animationsCSS'
 import { animationsMotion } from '../config/tamagui/animationMotion'
 

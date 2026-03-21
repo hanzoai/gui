@@ -11,7 +11,7 @@
 
 import { AnimatedInterpolation } from './AnimatedInterpolation'
 import { AnimatedWithChildren } from './AnimatedWithChildren'
-import { InteractionManager } from '@tamagui/react-native-web-internals'
+import { InteractionManager } from '@hanzo/gui-react-native-web-internals'
 import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
 
 const NativeAnimatedAPI = NativeAnimatedHelper.API

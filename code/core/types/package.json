@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/types",
+  "name": "@hanzo/gui-types",
   "version": "2.0.0-rc.29",
   "files": [
     "types.ts"

@@ -1,15 +1,15 @@
-import { shorthands } from '@tamagui/shorthands/v4' // v4 same as v5
-import type { Shorthands } from '@tamagui/shorthands/v4'
-import { themes, tokens } from '@tamagui/themes/v5'
-import type { V5Themes, V5Tokens } from '@tamagui/themes/v5'
-import type { CreateTamaguiProps } from '@tamagui/web'
+import { shorthands } from '@hanzo/gui-shorthands/v4' // v4 same as v5
+import type { Shorthands } from '@hanzo/gui-shorthands/v4'
+import { themes, tokens } from '@hanzo/gui-themes/v5'
+import type { V5Themes, V5Tokens } from '@hanzo/gui-themes/v5'
+import type { CreateTamaguiProps } from '@hanzo/gui-web'
 import { fonts } from './v5-fonts'
 import type { V5Fonts } from './v5-fonts'
 import { media, mediaQueryDefaultActive } from './v5-media'
 import type { V5Media } from './v5-media'
 
-export { shorthands } from '@tamagui/shorthands/v4'
-export { createThemes } from '@tamagui/theme-builder'
+export { shorthands } from '@hanzo/gui-shorthands/v4'
+export { createThemes } from '@hanzo/gui-theme-builder'
 export {
   adjustPalette,
   adjustPalettes,
@@ -31,7 +31,7 @@ export {
   type V5ThemeNames,
   type V5Themes,
   type V5Tokens,
-} from '@tamagui/themes/v5'
+} from '@hanzo/gui-themes/v5'
 export { createSystemFont, fonts } from './v5-fonts'
 export type { V5Fonts } from './v5-fonts'
 export { breakpoints, media, mediaQueryDefaultActive } from './v5-media'

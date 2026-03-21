@@ -22,7 +22,7 @@ const importStyleSheet = template(`
 const __ReactNativeStyleSheet = require('react-native').StyleSheet;
 `)
 
-const importWithStyle = template.ast(`import { _withStableStyle } from '@tamagui/core';`)
+const importWithStyle = template.ast(`import { _withStableStyle } from '@hanzo/gui-core';`)
 
 const extractor = createExtractor({ platform: 'native' })
 
@@ -63,7 +63,7 @@ export function getBabelPlugin() {
 
 export function getBabelParseDefinition(options: TamaguiOptions) {
   return {
-    name: 'tamagui',
+    name: 'hanzo-gui',
 
     visitor: {
       Program: {

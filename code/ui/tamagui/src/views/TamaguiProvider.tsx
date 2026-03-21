@@ -1,7 +1,7 @@
-import type { TamaguiProviderProps } from '@tamagui/core'
-import { TamaguiProvider as OGProvider } from '@tamagui/core'
-import { PortalProvider } from '@tamagui/portal'
-import { ZIndexStackContext } from '@tamagui/z-index-stack'
+import type { TamaguiProviderProps } from '@hanzo/gui-core'
+import { TamaguiProvider as OGProvider } from '@hanzo/gui-core'
+import { PortalProvider } from '@hanzo/gui-portal'
+import { ZIndexStackContext } from '@hanzo/gui-z-index-stack'
 
 export const TamaguiProvider = ({ children, ...props }: TamaguiProviderProps) => {
   return (

@@ -1,5 +1,5 @@
 {
-  "name": "create-tamagui",
+  "name": "create-hanzo-gui",
   "version": "2.0.0-rc.29",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "bin": "./run.js",
@@ -22,10 +22,10 @@
     "build:test": "bun run build",
     "prerelease": "rimraf ./dist/",
     "prepublish": "bun run build",
-    "build": "tamagui-build --skip-types --bundle",
+    "build": "hanzo-gui-build --skip-types --bundle",
     "watch": "bun run build --watch",
-    "clean": "tamagui-build clean",
-    "clean:build": "tamagui-build clean:build"
+    "clean": "hanzo-gui-build clean",
+    "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
     "@expo/package-manager": "^1.1.2",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
-    "@tamagui/build": "workspace:*",
+    "@hanzo/gui-build": "workspace:*",
     "@types/async-retry": "1.4.2",
     "@types/cross-spawn": "^6.0.2",
     "@types/node": "^22.1.0",

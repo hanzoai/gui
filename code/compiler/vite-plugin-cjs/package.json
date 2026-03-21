@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/vite-plugin-cjs",
+  "name": "@hanzo/gui-vite-plugin-cjs",
   "version": "2.0.0-rc.29",
   "license": "MIT",
   "main": "./index.js",
@@ -11,6 +11,6 @@
     "build": "cp -r ../vite-plugin/dist . || true"
   },
   "dependencies": {
-    "@tamagui/vite-plugin": "workspace:*"
+    "@hanzo/gui-vite-plugin": "workspace:*"
   }
 }

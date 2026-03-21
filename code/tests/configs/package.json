@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/configs-test",
+  "name": "@hanzo/gui-configs-test",
   "version": "2.0.0-rc.29",
   "private": true,
   "scripts": {
@@ -7,8 +7,8 @@
     "generate-prompt": "tamagui generate-prompt"
   },
   "dependencies": {
-    "@tamagui/cli": "workspace:*",
-    "@tamagui/config": "workspace:*",
-    "tamagui": "workspace:*"
+    "@hanzo/gui-cli": "workspace:*",
+    "@hanzo/gui-config": "workspace:*",
+    "@hanzo/gui": "workspace:*"
   }
 }

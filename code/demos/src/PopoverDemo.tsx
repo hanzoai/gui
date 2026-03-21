@@ -3,9 +3,9 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronUp,
-} from '@tamagui/lucide-icons-2'
+} from '@hanzo/gui-lucide-icons-2'
 import { useState } from 'react'
-import type { PopoverProps } from 'tamagui'
+import type { PopoverProps } from '@hanzo/gui'
 import {
   Adapt,
   Button,
@@ -17,7 +17,7 @@ import {
   styled,
   XStack,
   YStack,
-} from 'tamagui'
+} from '@hanzo/gui'
 
 export function PopoverDemo() {
   const [shouldAdapt, setShouldAdapt] = useState(true)

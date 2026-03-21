@@ -1,4 +1,4 @@
-import { isAndroid } from '@tamagui/constants'
+import { isAndroid } from '@hanzo/gui-constants'
 import {
   nonAnimatableWebTextProps,
   nonAnimatableWebViewProps,
@@ -93,7 +93,7 @@ export const tokenCategories = {
     // outlineColor is supported on RN 0.77+ (New Architecture)
     outlineColor: true,
     // caretColor is web-only
-    ...(process.env.TAMAGUI_TARGET === 'web' && {
+    ...(process.env.HANZO_GUI_TARGET === 'web' && {
       caretColor: true,
     }),
   },
@@ -160,7 +160,7 @@ export const nonAnimatableStyleProps = {
   ...nonAnimatableTextOnlyProps,
   ...nonAnimatableUnitlessProps,
   // web-only discrete properties (defined in webOnlyStyleProps.ts)
-  ...(process.env.TAMAGUI_TARGET === 'web' && {
+  ...(process.env.HANZO_GUI_TARGET === 'web' && {
     ...nonAnimatableWebViewProps,
     ...nonAnimatableWebTextProps,
   }),
@@ -309,7 +309,7 @@ export const stylePropsView = {
   outlineWidth: true,
 
   // web-only for convenience - tree-shaken on native
-  ...(process.env.TAMAGUI_TARGET === 'web' ? webOnlyStylePropsView : {}),
+  ...(process.env.HANZO_GUI_TARGET === 'web' ? webOnlyStylePropsView : {}),
 }
 
 const stylePropsFont = {
@@ -330,7 +330,7 @@ export const stylePropsTextOnly = {
   verticalAlign: true,
 
   // web-only text props - tree-shaken on native
-  ...(process.env.TAMAGUI_TARGET === 'web' ? webOnlyStylePropsText : {}),
+  ...(process.env.HANZO_GUI_TARGET === 'web' ? webOnlyStylePropsText : {}),
 }
 
 export const stylePropsText = {
@@ -350,7 +350,7 @@ export const validPseudoKeys = {
   focusWithinStyle: true,
 
   // allow some web only ones
-  ...(process.env.TAMAGUI_TARGET === 'web' && {
+  ...(process.env.HANZO_GUI_TARGET === 'web' && {
     focusVisibleStyle: true,
   }),
 }

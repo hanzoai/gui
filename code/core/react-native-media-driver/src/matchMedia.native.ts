@@ -1,4 +1,4 @@
-import type { MatchMedia } from '@tamagui/web'
+import type { MatchMedia } from '@hanzo/gui-web'
 
 import { NativeMediaQueryList } from './mediaQueryList'
 

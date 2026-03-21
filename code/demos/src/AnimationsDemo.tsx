@@ -1,6 +1,6 @@
-import { LogoIcon } from '@tamagui/logo'
-import { Play } from '@tamagui/lucide-icons-2'
-import { Button, isWeb, Square, useControllableState, Image, useEvent } from 'tamagui'
+import { LogoIcon } from '@hanzo/gui-logo'
+import { Play } from '@hanzo/gui-lucide-icons-2'
+import { Button, isWeb, Square, useControllableState, Image, useEvent } from '@hanzo/gui'
 
 export function AnimationsDemo(props) {
   const [positionI, setPositionI] = useControllableState({

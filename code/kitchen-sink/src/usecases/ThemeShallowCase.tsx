@@ -1,4 +1,4 @@
-import { Square, View, Text, Theme, YStack } from 'tamagui'
+import { Square, View, Text, Theme, YStack } from '@hanzo/gui'
 
 import { TEST_IDS } from '../constants/test-ids'
 

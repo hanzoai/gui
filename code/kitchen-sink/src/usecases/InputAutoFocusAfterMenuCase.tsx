@@ -1,6 +1,6 @@
-import { Menu } from '@tamagui/menu'
-import { Input } from '@tamagui/input'
-import { Button, YStack, Text } from 'tamagui'
+import { Menu } from '@hanzo/gui-menu'
+import { Input } from '@hanzo/gui-input'
+import { Button, YStack, Text } from '@hanzo/gui'
 import { useState, useRef } from 'react'
 
 /**

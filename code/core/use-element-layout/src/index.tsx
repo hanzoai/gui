@@ -1,4 +1,4 @@
-import { useIsomorphicLayoutEffect } from '@tamagui/constants'
+import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
 import { createContext, useContext, useId, type ReactNode, type RefObject } from 'react'
 
 const LayoutHandlers = new WeakMap<HTMLElement, Function>()
@@ -11,7 +11,7 @@ const IntersectionState = new WeakMap<HTMLElement, boolean>()
 // see: https://github.com/tamagui/tamagui/pull/2329
 const usePretransformDimensions = () =>
   (globalThis as any).__TAMAGUI_ONLAYOUT_PRETRANSFORM === true ||
-  process.env.TAMAGUI_ONLAYOUT_PRETRANSFORM === '1'
+  process.env.HANZO_GUI_ONLAYOUT_PRETRANSFORM === '1'
 
 let _debugLayout: boolean | undefined
 
@@ -29,7 +29,7 @@ const DisableLayoutContextValues: Record<string, boolean> = {}
 const DisableLayoutContextKey = createContext<string>('')
 
 const ENABLE =
-  process.env.TAMAGUI_TARGET === 'web' && typeof IntersectionObserver !== 'undefined'
+  process.env.HANZO_GUI_TARGET === 'web' && typeof IntersectionObserver !== 'undefined'
 
 // internal testing - advanced helper to turn off layout measurement for extra performance
 // TODO document!
@@ -231,7 +231,7 @@ if (ENABLE) {
     typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame : undefined
 
   // adaptive frame skipping with backoff
-  const userSkipVal = process.env.TAMAGUI_LAYOUT_FRAME_SKIP
+  const userSkipVal = process.env.HANZO_GUI_LAYOUT_FRAME_SKIP
   const BASE_SKIP_FRAMES = userSkipVal ? +userSkipVal : 10
   const MAX_SKIP_FRAMES = 20
   let skipFrames = BASE_SKIP_FRAMES

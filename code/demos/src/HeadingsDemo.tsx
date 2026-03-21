@@ -1,4 +1,4 @@
-import { H1, H2, H3, H4, H5, H6, YStack } from 'tamagui'
+import { H1, H2, H3, H4, H5, H6, YStack } from '@hanzo/gui'
 
 export function HeadingsDemo() {
   return (

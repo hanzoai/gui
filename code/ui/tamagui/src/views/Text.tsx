@@ -1,4 +1,4 @@
-import { Text as TamaguiText, styled } from '@tamagui/core'
+import { Text as TamaguiText, styled } from '@hanzo/gui-core'
 
 export const Text = styled(TamaguiText, {
   variants: {
@@ -10,6 +10,6 @@ export const Text = styled(TamaguiText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.TAMAGUI_HEADLESS === '1',
+    unstyled: process.env.HANZO_GUI_HEADLESS === '1',
   },
 })

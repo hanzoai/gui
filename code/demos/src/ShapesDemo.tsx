@@ -1,4 +1,4 @@
-import { Circle, Square, XStack } from 'tamagui'
+import { Circle, Square, XStack } from '@hanzo/gui'
 
 export function ShapesDemo() {
   return (

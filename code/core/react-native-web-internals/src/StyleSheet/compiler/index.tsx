@@ -8,7 +8,7 @@
  * @flow strict-local
  */
 
-import { simpleHash } from '@tamagui/simple-hash'
+import { simpleHash } from '@hanzo/gui-simple-hash'
 
 import { createReactDOMStyle } from './createReactDOMStyle'
 import { hyphenateStyleName } from './hyphenateStyleName'

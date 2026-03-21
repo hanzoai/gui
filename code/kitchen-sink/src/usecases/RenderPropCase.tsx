@@ -1,5 +1,5 @@
-import { isWeb } from '@tamagui/constants'
-import { Text, View, styled, TamaguiComponentState } from '@tamagui/core'
+import { isWeb } from '@hanzo/gui-constants'
+import { Text, View, styled, TamaguiComponentState } from '@hanzo/gui-core'
 import { forwardRef } from 'react'
 
 // Test: render prop with string in styled()

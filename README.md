@@ -1,17 +1,11 @@
-<div align="center">
-  <picture width="572px">
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/tamagui/tamagui/raw/main/code/tamagui.dev/public/logo-black.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/tamagui/tamagui/raw/main/code/tamagui.dev/public/logo-white.png">
-    <img alt="Shows a black logo in light color mode and a white one in dark color mode." src="https://github.com/tamagui/tamagui/raw/main/code/tamagui.dev/public/social.png">
-  </picture>
-</div>
+# gui
 
 <h3 align="center">
   Style library, design system, composable components, and more.
 </h3>
 
 <h4 align="center">
-  Tamagui is a bunch of libraries for building UIs that share code across React and React Native.
+  Hanzo GUI is a bunch of libraries for building UIs that share code across React and React Native.
 </h4>
 
 <br />
@@ -28,21 +22,21 @@
 <br />
 <br />
 
-- `@tamagui/core` - Universal style library for React.
-- `@tamagui/static` - Optimizing compiler that works with `core` and `tamagui`.
-- `tamagui` - UI kit that adapts to every platform.
+- `@hanzo/style` - Universal style library for React.
+- `@hanzo/ui` - UI kit that adapts to every platform.
+- `@hanzo/static` - Optimizing compiler that works with `style` and `ui`.
 
 <br />
 
-**See [tamagui.dev](https://tamagui.dev) for documentation.**
+**See [gui.hanzo.ai](https://gui.hanzo.ai) for documentation.**
 
-Tamagui lets you share more code between web and native apps without sacrificing the two things that typically suffer when you do: performance and code quality.
+Hanzo GUI lets you share more code between web and native apps without sacrificing the two things that typically suffer when you do: performance and code quality.
 
 It does this with an optimizing compiler that outputs platform-specific optimizations - it turns styled components, even with complex logic or cross-module imports, into a simple `div` alongside atomic CSS on the web, or a View with its style objects hoisted on native.
 
 The entirety of Tamagui works at compile time and runtime, and can be set up gradually, with initial usage as simple as importing it and using the base views and styled function.
 
-We recommend checking out the starters with `npm create tamagui@latest`, they range from a simple learning example to a production-ready monorepo.
+We recommend checking out the starters with `npm create @hanzo/gui@latest`, they range from a simple learning example to a production-ready monorepo.
 
 The compiler optimizes most and ultimately flattens a majority of styled components. In the [~500px² responsive browser section](https://tamagui.dev) of the Tamagui website, 49 of the 55 or so [inline styled components](https://github.com/tamagui/tamagui/blob/main/code/tamagui.dev/components/HeroResponsive.tsx) are flattened to a `div`. The homepage gains nearly 15% on Lighthouse with the compiler on.
 

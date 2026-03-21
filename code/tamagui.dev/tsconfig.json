@@ -1,0 +1,71 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "outDir": "dist",
+    "importHelpers": true,
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "preserveSymlinks": true,
+    "jsx": "react-jsx",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "noEmit": false,
+    "noEmitOnError": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strictNullChecks": true,
+    "target": "es2020",
+    "types": ["node", "react", "vite/client"],
+    "lib": ["dom", "esnext"]
+  },
+  "include": ["**/*", "types/**/*"],
+  "exclude": ["**/test", "**/dist", "**/__tests__", "**/bento-output"],
+  "typeAcquisition": {
+    "enable": true
+  },
+  "references": [
+    {
+      "path": "../core/assert"
+    },
+    {
+      "path": "../core/cli"
+    },
+    {
+      "path": "../core/theme-builder"
+    },
+    {
+      "path": "../core/get-token"
+    },
+    {
+      "path": "../demos"
+    },
+    {
+      "path": "../packages/logo"
+    },
+    {
+      "path": "../packages/tamagui-dev-config"
+    },
+    {
+      "path": "../packages/lucide-icons"
+    },
+    {
+      "path": "../packages/use-store"
+    }
+  ]
+}

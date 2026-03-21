@@ -1,0 +1,14 @@
+appId: host.exp.Exponent
+tags:
+  - component
+---
+- runFlow: OpenApp.yaml
+- scrollUntilVisible:
+    element: 'Sheet'
+    centerElement: true
+- tapOn: 'Sheet'
+- extendedWaitUntil:
+    visible: 'Open'
+    timeout: 5000
+# Test: sheet opens when button tapped
+- tapOn: 'Open'

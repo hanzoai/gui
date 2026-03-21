@@ -1,0 +1,195 @@
+{
+  "name": "@tamagui/native",
+  "version": "2.0.0-rc.29",
+  "description": "Native setup modules for Tamagui - portals, gesture handler, worklets, and more",
+  "type": "module",
+  "sideEffects": [
+    "**/setup-*"
+  ],
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "setup-teleport": [
+        "./types/setup-teleport.d.ts"
+      ],
+      "setup-gesture-handler": [
+        "./types/setup-gesture-handler.d.ts"
+      ],
+      "setup-worklets": [
+        "./types/setup-worklets.d.ts"
+      ],
+      "setup-safe-area": [
+        "./types/setup-safe-area.d.ts"
+      ],
+      "setup-expo-linear-gradient": [
+        "./types/setup-expo-linear-gradient.d.ts"
+      ],
+      "setup-keyboard-controller": [
+        "./types/setup-keyboard-controller.d.ts"
+      ],
+      "setup-zeego": [
+        "./types/setup-zeego.d.ts"
+      ],
+      "setup-burnt": [
+        "./types/setup-burnt.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./setup-teleport": {
+      "types": "./types/setup-teleport.d.ts",
+      "react-native": "./dist/esm/setup-teleport.native.js",
+      "browser": "./dist/esm/setup-teleport.mjs",
+      "module": "./dist/esm/setup-teleport.mjs",
+      "import": "./dist/esm/setup-teleport.mjs",
+      "require": "./dist/cjs/setup-teleport.cjs",
+      "default": "./dist/esm/setup-teleport.mjs"
+    },
+    "./setup-gesture-handler": {
+      "types": "./types/setup-gesture-handler.d.ts",
+      "react-native": "./dist/esm/setup-gesture-handler.native.js",
+      "browser": "./dist/esm/setup-gesture-handler.mjs",
+      "module": "./dist/esm/setup-gesture-handler.mjs",
+      "import": "./dist/esm/setup-gesture-handler.mjs",
+      "require": "./dist/cjs/setup-gesture-handler.cjs",
+      "default": "./dist/esm/setup-gesture-handler.mjs"
+    },
+    "./setup-worklets": {
+      "types": "./types/setup-worklets.d.ts",
+      "react-native": "./dist/esm/setup-worklets.native.js",
+      "browser": "./dist/esm/setup-worklets.mjs",
+      "module": "./dist/esm/setup-worklets.mjs",
+      "import": "./dist/esm/setup-worklets.mjs",
+      "require": "./dist/cjs/setup-worklets.cjs",
+      "default": "./dist/esm/setup-worklets.mjs"
+    },
+    "./setup-safe-area": {
+      "types": "./types/setup-safe-area.d.ts",
+      "react-native": "./dist/esm/setup-safe-area.native.js",
+      "browser": "./dist/esm/setup-safe-area.mjs",
+      "module": "./dist/esm/setup-safe-area.mjs",
+      "import": "./dist/esm/setup-safe-area.mjs",
+      "require": "./dist/cjs/setup-safe-area.cjs",
+      "default": "./dist/esm/setup-safe-area.mjs"
+    },
+    "./setup-expo-linear-gradient": {
+      "types": "./types/setup-expo-linear-gradient.d.ts",
+      "react-native": "./dist/esm/setup-expo-linear-gradient.native.js",
+      "browser": "./dist/esm/setup-expo-linear-gradient.mjs",
+      "module": "./dist/esm/setup-expo-linear-gradient.mjs",
+      "import": "./dist/esm/setup-expo-linear-gradient.mjs",
+      "require": "./dist/cjs/setup-expo-linear-gradient.cjs",
+      "default": "./dist/esm/setup-expo-linear-gradient.mjs"
+    },
+    "./setup-keyboard-controller": {
+      "types": "./types/setup-keyboard-controller.d.ts",
+      "react-native": "./dist/esm/setup-keyboard-controller.native.js",
+      "browser": "./dist/esm/setup-keyboard-controller.mjs",
+      "module": "./dist/esm/setup-keyboard-controller.mjs",
+      "import": "./dist/esm/setup-keyboard-controller.mjs",
+      "require": "./dist/cjs/setup-keyboard-controller.cjs",
+      "default": "./dist/esm/setup-keyboard-controller.mjs"
+    },
+    "./setup-zeego": {
+      "types": "./types/setup-zeego.d.ts",
+      "react-native": "./dist/esm/setup-zeego.native.js",
+      "browser": "./dist/esm/setup-zeego.mjs",
+      "module": "./dist/esm/setup-zeego.mjs",
+      "import": "./dist/esm/setup-zeego.mjs",
+      "require": "./dist/cjs/setup-zeego.cjs",
+      "default": "./dist/esm/setup-zeego.mjs"
+    },
+    "./setup-burnt": {
+      "types": "./types/setup-burnt.d.ts",
+      "react-native": "./dist/esm/setup-burnt.native.js",
+      "browser": "./dist/esm/setup-burnt.mjs",
+      "module": "./dist/esm/setup-burnt.mjs",
+      "import": "./dist/esm/setup-burnt.mjs",
+      "require": "./dist/cjs/setup-burnt.cjs",
+      "default": "./dist/esm/setup-burnt.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tamagui-build",
+    "watch": "tamagui-build --watch",
+    "clean": "tamagui-build clean",
+    "clean:build": "tamagui-build clean:build"
+  },
+  "devDependencies": {
+    "@tamagui/build": "workspace:*",
+    "burnt": "^0.12.2",
+    "react": ">=19",
+    "react-native": "0.83.2",
+    "react-native-gesture-handler": "~2.30.0",
+    "react-native-keyboard-controller": "1.20.7",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-teleport": "^1.0.0",
+    "react-native-worklets-core": "^1.0.0",
+    "zeego": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@react-native-menu/menu": ">=2.0.0",
+    "burnt": ">=0.12.0",
+    "react": "*",
+    "react-native": "*",
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-ios-context-menu": ">=3.0.0",
+    "react-native-ios-utilities": ">=5.0.0",
+    "react-native-keyboard-controller": ">=1.0.0",
+    "react-native-safe-area-context": ">=4.0.0",
+    "react-native-teleport": ">=0.5.0",
+    "react-native-worklets-core": ">=1.0.0",
+    "sf-symbols-typescript": "*",
+    "zeego": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-native-gesture-handler": {
+      "optional": true
+    },
+    "react-native-keyboard-controller": {
+      "optional": true
+    },
+    "react-native-safe-area-context": {
+      "optional": true
+    },
+    "react-native-teleport": {
+      "optional": true
+    },
+    "react-native-worklets-core": {
+      "optional": true
+    },
+    "zeego": {
+      "optional": true
+    },
+    "@react-native-menu/menu": {
+      "optional": true
+    },
+    "react-native-ios-context-menu": {
+      "optional": true
+    },
+    "react-native-ios-utilities": {
+      "optional": true
+    },
+    "burnt": {
+      "optional": true
+    },
+    "sf-symbols-typescript": {
+      "optional": true
+    }
+  }
+}

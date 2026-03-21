@@ -1,0 +1,43 @@
+{
+  "name": "@tamagui/next-site",
+  "version": "2.0.0-rc.29",
+  "private": true,
+  "source": "src",
+  "scripts": {
+    "dev": "./scripts/dev.sh",
+    "clean:build": "tamagui-build clean:build",
+    "ci:build": "bun run next:build && bun run build:bento",
+    "ci:build:no-extract": "DISABLE_EXTRACTION=true bun run ci:build",
+    "ci:build:debug": "DEBUG=tamagui bun run ci:build",
+    "dev:analyze": "ANALYZE=true bun run dev",
+    "dev:next": "bun run next",
+    "test-bak": "./scripts/test.sh",
+    "test:run": "node -r esbuild-register ../../node_modules/.bin/playwright test",
+    "test:dev": "bun run test:run",
+    "test:prod": "RUN_ENV=production bun run test:run",
+    "dev:inspect": "PORT=${PORT:-5005} NODE_OPTIONS='--no-deprecation' NODE_ENV=development node --inspect-brk ../../node_modules/next/dist/bin/next dev",
+    "dev:extract": "DISABLE_EXTRACTION=false bun run dev",
+    "next:build": "NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production next build",
+    "next:export": "NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production next export",
+    "next:start": "NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production next start --port 3333",
+    "watch:site-data": "next-remote-watch ./data",
+    "env:pull": "vc env pull .env.local",
+    "supabase:generate": "npx supabase gen types typescript --local > lib/supabase-types.ts",
+    "stripe:listen": "stripe listen --forward-to localhost:5005/api/stripe/webhook",
+    "clean": "tamagui-build clean"
+  },
+  "dependencies": {
+    "@types/d3-scale": "^4.0.2",
+    "@types/lodash-es": "^4.17.6",
+    "@types/uuid": "^8.3.4",
+    "next": "16.1.1",
+    "react-native": "0.83.2"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.26.0",
+    "@playwright/test": "^1.49.1",
+    "@tamagui/build": "workspace:*",
+    "tamagui-loader": "workspace:*"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "@tamagui/tamagui-dev-config",
+  "version": "2.0.0-rc.29",
+  "source": "src/index.ts",
+  "files": [
+    "src",
+    "types",
+    "dist",
+    "motion.cjs"
+  ],
+  "type": "module",
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./src/index.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./src/index.ts",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./motion": {
+      "types": "./src/animations.motion.ts",
+      "browser": "./dist/esm/animations.motion.mjs",
+      "module": "./dist/esm/animations.motion.mjs",
+      "import": "./dist/esm/animations.motion.mjs",
+      "require": "./dist/cjs/animations.motion.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tamagui-build --skip-types --skip-native",
+    "watch": "tamagui-build --skip-types --skip-native --watch",
+    "clean": "tamagui-build clean",
+    "clean:build": "tamagui-build clean:build"
+  },
+  "dependencies": {
+    "@tamagui/animations-css": "workspace:*",
+    "@tamagui/animations-moti": "workspace:*",
+    "@tamagui/animations-motion": "workspace:*",
+    "@tamagui/animations-reanimated": "workspace:*",
+    "@tamagui/colors": "workspace:*",
+    "@tamagui/config": "workspace:*",
+    "@tamagui/core": "workspace:*",
+    "@tamagui/font-cherry-bomb": "workspace:*",
+    "@tamagui/font-inter": "workspace:*",
+    "@tamagui/font-silkscreen": "workspace:*",
+    "@tamagui/shorthands": "workspace:*",
+    "@tamagui/theme-builder": "workspace:*",
+    "@tamagui/themes": "workspace:*",
+    "color2k": "^2.0.2"
+  },
+  "devDependencies": {
+    "@tamagui/build": "workspace:*",
+    "react": ">=19"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  }
+}

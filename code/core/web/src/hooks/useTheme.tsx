@@ -1,0 +1,48 @@
+import { useRef } from 'react'
+import type { ThemeParsed, ThemeState, UseThemeWithStateProps } from '../types'
+import { getThemeProxied, type ThemeProxied } from './getThemeProxied'
+import { useThemeState } from './useThemeState'
+
+const EMPTY = {}
+
+export const useTheme = () => {
+  'use no memo'
+
+  const [theme] = useThemeWithState(EMPTY)
+  const res = theme
+  return res as ThemeProxied
+}
+
+export type ThemeWithState = [ThemeParsed, ThemeState]
+
+/**
+ * Adds a proxy around themeState that tracks update keys
+ */
+export const useThemeWithState = (
+  props: UseThemeWithStateProps,
+  isRoot = false
+): ThemeWithState => {
+  'use no memo'
+
+  const keys = useRef<Set<string> | null>(null)
+  const schemeKeys = useRef<Set<string> | null>(null)
+  const themeState = useThemeState(props, isRoot, keys, schemeKeys)
+
+  if (process.env.NODE_ENV === 'development') {
+    if (!props.passThrough && !themeState?.theme) {
+      if (process.env.TAMAGUI_DISABLE_NO_THEME_WARNING !== '1') {
+        console.error(
+          `[tamagui] No theme found, this could be due to an invalid theme name (given theme props ${JSON.stringify(
+            props
+          )}).\n\nIf this is intended and you are using Tamagui without any themes, you can disable this warning by setting the environment variable TAMAGUI_DISABLE_NO_THEME_WARNING=1`
+        )
+      }
+    }
+  }
+
+  const themeProxied = props.passThrough
+    ? {}
+    : getThemeProxied(props, themeState, keys, schemeKeys)
+
+  return [themeProxied, themeState]
+}

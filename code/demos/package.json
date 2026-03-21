@@ -1,0 +1,92 @@
+{
+  "name": "@tamagui/demos",
+  "version": "2.0.0-rc.29",
+  "source": "demos/src/index.tsx",
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./src",
+  "exports": {
+    "./package.json": "./package.json",
+    "./photo/*": "./public/*.jpg",
+    ".": {
+      "types": "./src/index.tsx",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./demo/*": {
+      "types": "./types/*.d.ts",
+      "react-native": "./dist/esm/*.native.js",
+      "browser": "./dist/esm/*.mjs",
+      "module": "./dist/esm/*.mjs",
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/cjs/*.cjs",
+      "default": "./dist/esm/*.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tamagui-build --skip-types",
+    "watch": "tamagui-build --skip-types --watch",
+    "clean": "tamagui-build clean",
+    "clean:build": "tamagui-build clean:build"
+  },
+  "dependencies": {
+    "@tamagui/animate-presence": "workspace:*",
+    "@tamagui/avatar": "workspace:*",
+    "@tamagui/button": "workspace:*",
+    "@tamagui/checkbox": "workspace:*",
+    "@tamagui/checkbox-headless": "workspace:*",
+    "@tamagui/colors": "workspace:*",
+    "@tamagui/config": "workspace:*",
+    "@tamagui/context-menu": "workspace:*",
+    "@tamagui/core": "workspace:*",
+    "@tamagui/get-button-sized": "workspace:*",
+    "@tamagui/image": "workspace:*",
+    "@tamagui/input": "workspace:*",
+    "@tamagui/linear-gradient": "workspace:*",
+    "@tamagui/list-item": "workspace:*",
+    "@tamagui/logo": "workspace:*",
+    "@tamagui/lucide-icons-2": "workspace:*",
+    "@tamagui/menu": "workspace:*",
+    "@tamagui/popover": "workspace:*",
+    "@tamagui/progress": "workspace:*",
+    "@tamagui/radio-group": "workspace:*",
+    "@tamagui/radio-headless": "workspace:*",
+    "@tamagui/roving-focus": "workspace:*",
+    "@tamagui/select": "workspace:*",
+    "@tamagui/sheet": "workspace:*",
+    "@tamagui/slider": "workspace:*",
+    "@tamagui/stacks": "workspace:*",
+    "@tamagui/switch": "workspace:*",
+    "@tamagui/switch-headless": "workspace:*",
+    "@tamagui/tabs": "workspace:*",
+    "@tamagui/tamagui-dev-config": "workspace:*",
+    "@tamagui/theme": "workspace:*",
+    "@tamagui/toast": "workspace:*",
+    "tamagui": "workspace:*"
+  },
+  "devDependencies": {
+    "@tamagui/build": "workspace:*",
+    "react": ">=19",
+    "react-native": "0.83.2"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-native": "*"
+  }
+}

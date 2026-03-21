@@ -1,0 +1,186 @@
+name: Test iOS Native (Maestro)
+
+on:
+  push:
+    branches: [main, 'v2-*', rn82]
+  pull_request:
+    branches: [main, 'v*']
+  workflow_dispatch:
+
+env:
+  test_container_app_path: code/kitchen-sink
+  MAESTRO_DRIVER_STARTUP_TIMEOUT: 120000
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-ios-kitchensink-app.yml
+    with:
+      configuration: Debug
+    secrets: inherit
+
+  test:
+    name: Run Maestro Tests (exports=${{ matrix.package-exports }})
+    needs: build
+    runs-on: macos-15
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        package-exports: [true, false]
+    defaults:
+      run:
+        working-directory: ${{ env.test_container_app_path }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_26.0.1.app
+
+      - name: Restore Built App from Cache
+        id: restore-app-cache
+        uses: actions/cache/restore@v4
+        with:
+          key: ${{ needs.build.outputs.built-app-cache-key }}
+          path: ${{ needs.build.outputs.built-app-path }}
+
+      - name: Check Cache Restore
+        if: steps.restore-app-cache.outputs.cache-hit != 'true'
+        run: |
+          echo "::warning::iOS cache not restored (key: ${{ needs.build.outputs.built-app-cache-key }}). This may happen on first run after cache key changes."
+          echo "SKIP_MAESTRO_TESTS=true" >> $GITHUB_ENV
+
+      - name: Install Maestro
+        if: env.SKIP_MAESTRO_TESTS != 'true'
+        env:
+          MAESTRO_VERSION: cli-2.3.0
+        run: |
+          # Pin to specific version via GitHub releases (avoids broken get.maestro.mobile.dev)
+          curl -fsSL "https://github.com/mobile-dev-inc/maestro/releases/download/${MAESTRO_VERSION}/maestro.zip" -o maestro.zip
+          unzip -q maestro.zip
+          mv maestro "$HOME/.maestro"
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      # Install dependencies BEFORE booting simulator to avoid simulator timeout
+      # during potentially long bun install + build:js steps
+      - name: Install Dependencies
+        if: env.SKIP_MAESTRO_TESTS != 'true'
+        uses: ./.github/actions/install
+
+      - name: Boot Simulator & Start Metro (parallel)
+        if: env.SKIP_MAESTRO_TESTS != 'true'
+        working-directory: ${{ github.workspace }}
+        run: |
+          # start Metro in background while simulator boots
+          cd "${{ env.test_container_app_path }}"
+          EXPO_NO_TELEMETRY=true TAMAGUI_PACKAGE_EXPORTS=${{ matrix.package-exports }} bunx expo start --dev-client --offline --reset-cache &
+          cd "${{ github.workspace }}"
+
+          # boot simulator
+          DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries[] | select(.key | contains("iOS")) | .value[] | select(.name == "iPhone 16") | .udid' | head -1)
+          if [ -z "$DEVICE_ID" ]; then
+            echo "iPhone 16 not found, using first available iPhone"
+            DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '.devices | to_entries[] | select(.key | contains("iOS")) | .value[] | select(.name | contains("iPhone")) | .udid' | head -1)
+          fi
+          echo "Booting simulator: $DEVICE_ID"
+          xcrun simctl boot "$DEVICE_ID" || true
+          xcrun simctl bootstatus "$DEVICE_ID" -b
+
+          # install app while waiting for Metro
+          xcrun simctl install booted "${{ needs.build.outputs.built-app-path }}"
+
+          # wait for Metro to be ready
+          echo "Waiting for Metro..."
+          for i in {1..60}; do
+            if curl -s "http://127.0.0.1:8081/" -H "Expo-Platform: ios" > /dev/null 2>&1; then
+              echo "Metro is responding!"
+              break
+            fi
+            sleep 2
+          done
+
+      - name: Pre-warm Bundle
+        if: env.SKIP_MAESTRO_TESTS != 'true'
+        run: |
+          echo "Pre-warming JS bundle (Metro build + cache)..."
+          MANIFEST=$(curl -s "http://127.0.0.1:8081/" -H "Expo-Platform: ios")
+          BUNDLE_URL=$(echo "$MANIFEST" | jq -r '.launchAsset.url')
+          echo "Fetching bundle from: $BUNDLE_URL"
+          curl -s --max-time 900 "$BUNDLE_URL" > /dev/null 2>&1 || echo "Bundle fetch completed (or timed out)"
+          echo "Bundle pre-warm complete"
+
+      - name: Start Simulator Log Collection
+        if: env.SKIP_MAESTRO_TESTS != 'true'
+        run: |
+          # capture simulator device logs in background for debugging app crashes
+          xcrun simctl spawn booted log stream --predicate 'process == "tamaguikitchensink" OR subsystem == "com.tamagui.tamaguikitchensink"' --level debug > /tmp/simulator-app.log 2>&1 &
+          echo $! > /tmp/simlog-pid
+          # also capture broader crash/error logs
+          xcrun simctl spawn booted log stream --predicate 'eventMessage CONTAINS "crash" OR eventMessage CONTAINS "fatal" OR eventMessage CONTAINS "error" OR process == "ReportCrash"' --level error > /tmp/simulator-errors.log 2>&1 &
+          echo $! > /tmp/simlog-errors-pid
+
+      - name: Warm up App (cold start + Hermes bytecode compile)
+        if: env.SKIP_MAESTRO_TESTS != 'true'
+        run: |
+          # WarmUp.yaml does clearState:true for a clean first launch.
+          # Subsequent test flows use OpenApp.yaml (no clearState) so Hermes
+          # bytecode cache persists across launches = much faster restarts.
+          maestro test ./flows/WarmUp.yaml --no-ansi || true
+
+      - name: Run Maestro Tests
+        if: env.SKIP_MAESTRO_TESTS != 'true'
+        run: |
+          # Run tests with one retry for flaky simulator detection
+          for attempt in 1 2; do
+            echo "Test attempt $attempt of 2..."
+            if maestro test ./flows --exclude-tags=util --no-ansi; then
+              echo "Tests passed!"
+              exit 0
+            fi
+            if [ $attempt -lt 2 ]; then
+              echo "Attempt $attempt failed, retrying..."
+              sleep 10
+            fi
+          done
+          echo "All attempts failed"
+          exit 1
+
+      - name: Dump App Logs on Failure
+        if: failure() && env.SKIP_MAESTRO_TESTS != 'true'
+        run: |
+          # stop log collection
+          kill "$(cat /tmp/simlog-pid 2>/dev/null)" 2>/dev/null || true
+          kill "$(cat /tmp/simlog-errors-pid 2>/dev/null)" 2>/dev/null || true
+          echo "::group::Simulator App Logs (last 200 lines)"
+          tail -200 /tmp/simulator-app.log 2>/dev/null || echo "No app logs captured"
+          echo "::endgroup::"
+          echo "::group::Simulator Error Logs (last 100 lines)"
+          tail -100 /tmp/simulator-errors.log 2>/dev/null || echo "No error logs captured"
+          echo "::endgroup::"
+          echo "::group::Metro Bundler Output"
+          # show any metro errors from the background process
+          ps aux | grep -i metro | grep -v grep || echo "Metro process not found"
+          echo "::endgroup::"
+          echo "::group::Crash Reports"
+          find ~/Library/Logs/DiagnosticReports -name "*tamaguikitchensink*" -newer /tmp/simulator-app.log 2>/dev/null | while read f; do
+            echo "=== $f ==="
+            head -50 "$f"
+          done || echo "No crash reports found"
+          echo "::endgroup::"
+
+      - name: Report Test Status
+        if: always() && env.SKIP_MAESTRO_TESTS == 'true'
+        run: |
+          echo "::warning::Maestro tests skipped - cache was not available (will be available on next run)"
+
+      - name: Upload Maestro Artifacts on Failure
+        if: failure() && env.SKIP_MAESTRO_TESTS != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-artifacts-exports-${{ matrix.package-exports }}
+          path: |
+            ~/.maestro/tests/**/*
+            /tmp/simulator-app.log
+            /tmp/simulator-errors.log

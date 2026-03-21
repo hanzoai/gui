@@ -1,0 +1,74 @@
+{
+  "name": "@tamagui/font-inter",
+  "version": "2.0.0-rc.29",
+  "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
+  "files": [
+    "types",
+    "dist",
+    "css",
+    "otf",
+    "woff2"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    "./css/100.css": "./css/100.css",
+    "./css/200.css": "./css/200.css",
+    "./css/300.css": "./css/300.css",
+    "./css/400.css": "./css/400.css",
+    "./css/500.css": "./css/500.css",
+    "./css/600.css": "./css/600.css",
+    "./css/700.css": "./css/700.css",
+    "./css/800.css": "./css/800.css",
+    "./css/900.css": "./css/900.css",
+    "./otf/Inter-Black.otf": "./otf/Inter-Black.otf",
+    "./otf/Inter-BlackItalic.otf": "./otf/Inter-BlackItalic.otf",
+    "./otf/Inter-Bold.otf": "./otf/Inter-Bold.otf",
+    "./otf/Inter-BoldItalic.otf": "./otf/Inter-BoldItalic.otf",
+    "./otf/Inter-ExtraBold.otf": "./otf/Inter-ExtraBold.otf",
+    "./otf/Inter-ExtraBoldItalic.otf": "./otf/Inter-ExtraBoldItalic.otf",
+    "./otf/Inter-ExtraLight.otf": "./otf/Inter-ExtraLight.otf",
+    "./otf/Inter-ExtraLightItalic.otf": "./otf/Inter-ExtraLightItalic.otf",
+    "./otf/Inter-Italic.otf": "./otf/Inter-Italic.otf",
+    "./otf/Inter-Light.otf": "./otf/Inter-Light.otf",
+    "./otf/Inter-LightItalic.otf": "./otf/Inter-LightItalic.otf",
+    "./otf/Inter-Medium.otf": "./otf/Inter-Medium.otf",
+    "./otf/Inter-MediumItalic.otf": "./otf/Inter-MediumItalic.otf",
+    "./otf/Inter-Regular.otf": "./otf/Inter-Regular.otf",
+    "./otf/Inter-SemiBold.otf": "./otf/Inter-SemiBold.otf",
+    "./otf/Inter-SemiBoldItalic.otf": "./otf/Inter-SemiBoldItalic.otf",
+    "./otf/Inter-Thin.otf": "./otf/Inter-Thin.otf",
+    "./otf/Inter-ThinItalic.otf": "./otf/Inter-ThinItalic.otf",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tamagui-build",
+    "subset": "node -r esbuild-register subset.ts",
+    "watch": "tamagui-build --watch",
+    "clean": "tamagui-build clean",
+    "clean:build": "tamagui-build clean:build"
+  },
+  "dependencies": {
+    "@tamagui/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@tamagui/build": "workspace:*",
+    "subset-font": "^2.1.0"
+  },
+  "skipPublishIfUnchanged": false
+}

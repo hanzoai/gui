@@ -1,0 +1,17 @@
+import { _disableMediaTouch } from '../hooks/useMedia'
+
+export function log(...args: any[]) {
+  if (process.env.NODE_ENV === 'production') return
+  _disableMediaTouch(true)
+  try {
+    if (process.env.TAMAGUI_TARGET === 'web') {
+      return console.info(...args)
+    }
+    // react native doesn't log in the cli unless it's log
+    return console.log(...args)
+  } catch (err) {
+    console.error(err)
+  } finally {
+    _disableMediaTouch(false)
+  }
+}

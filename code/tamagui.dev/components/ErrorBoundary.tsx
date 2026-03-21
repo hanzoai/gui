@@ -1,0 +1,43 @@
+import { Component } from 'react'
+import { processError } from '~/features/posthog/errorHandling'
+
+export class ErrorBoundary extends Component<any> {
+  constructor(props) {
+    super(props)
+    this.state.noMessage = props.noMessage
+  }
+  state = { hasError: false, noMessage: false }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error, errorInfo) {
+    processError({
+      error,
+      context: {
+        url: typeof window !== 'undefined' ? window.location.href : undefined,
+        additional: { componentStack: errorInfo?.componentStack },
+      },
+      severity: 'high',
+      tags: { source: 'error_boundary' },
+    })
+  }
+
+  render() {
+    if (this.state.hasError) {
+      if (this.state.noMessage) {
+        return null
+      }
+      return (
+        <div>
+          <h2>Oops, there is an error!</h2>
+          <button type="button" onClick={() => this.setState({ hasError: false })}>
+            Try again?
+          </button>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}

@@ -1,4 +1,4 @@
-import type { CLIResolvedOptions } from '@gui/types';
+import type { CLIResolvedOptions } from '@hanzo/gui-types';
 export type BuildStats = {
     filesProcessed: number;
     optimized: number;

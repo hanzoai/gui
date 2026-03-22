@@ -1,5 +1,5 @@
-import type { GuiOptions, GuiProjectInfo } from '@gui/static';
-import type { CLIResolvedOptions, CLIUserOptions } from '@gui/types';
+import type { GuiOptions, GuiProjectInfo } from '@hanzo/gui-static';
+import type { CLIResolvedOptions, CLIUserOptions } from '@hanzo/gui-types';
 export declare function getOptions({ root, tsconfigPath, guiOptions, host, debug, loadGuiOptions, }?: Partial<CLIUserOptions>): Promise<CLIResolvedOptions>;
 export declare function ensure(condition: boolean, message: string): void;
 export declare const loadGui: (opts: Partial<GuiOptions>) => Promise<GuiProjectInfo | null>;

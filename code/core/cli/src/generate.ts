@@ -14,7 +14,7 @@ export async function generateTypes(options: CLIResolvedOptions) {
 }
 
 export async function getTypes(options: CLIResolvedOptions) {
-  const hanzo-gui = await loadGui(options.guiOptions)
+  const hanzoGui = await loadGui(options.guiOptions)
 
   if (!gui) {
     throw new Error(`No gui config`)

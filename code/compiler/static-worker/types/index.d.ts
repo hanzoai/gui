@@ -1,15 +1,15 @@
 /**
- * @gui/static-worker
+ * @hanzo/gui-static-worker
  *
- * Pure worker-based API for Gui static extraction.
+ * Pure worker-based API for Hanzo GUI static extraction.
  * All operations run in a worker thread for better performance and isolation.
  *
- * This package provides a clean async API that wraps @gui/static's worker
+ * This package provides a clean async API that wraps @hanzo/gui-static's worker
  * implementation without exposing any sync/legacy APIs.
  */
-import type { GuiOptions } from '@gui/types';
-export type { ExtractedResponse, GuiProjectInfo } from '@gui/static';
-export type { GuiOptions } from '@gui/types';
+import type { GuiOptions } from '@hanzo/gui-types';
+export type { ExtractedResponse, GuiProjectInfo } from '@hanzo/gui-static';
+export type { GuiOptions } from '@hanzo/gui-types';
 export declare const getPragmaOptions: (props: {
     source: string;
     path: string;
@@ -18,18 +18,18 @@ export declare const getPragmaOptions: (props: {
     shouldDisable: boolean;
 }>;
 /**
- * Load Gui configuration in worker
+ * Load Hanzo GUI configuration in worker
  * Sends a warmup task to trigger config loading
  * bundleConfig auto-detects if files exist and skips rebuild
  */
 export declare function loadGui(options: Partial<GuiOptions>): Promise<any>;
 /**
- * Load Gui build configuration asynchronously
+ * Load Hanzo GUI build configuration asynchronously
  * Uses esbuild-wasm to avoid EPIPE errors from native esbuild service lifecycle
  */
 export declare function loadGuiBuildConfig(guiOptions: Partial<GuiOptions> | undefined): Promise<GuiOptions>;
 /**
- * Extract Gui components to className-based CSS for web
+ * Extract Hanzo GUI components to className-based CSS for web
  */
 export declare function extractToClassNames(params: {
     source: string | Buffer;
@@ -38,11 +38,11 @@ export declare function extractToClassNames(params: {
     shouldPrintDebug?: boolean | 'verbose';
 }): Promise<any>;
 /**
- * Extract Gui components to React Native StyleSheet format
+ * Extract Hanzo GUI components to React Native StyleSheet format
  */
 export declare function extractToNative(sourceFileName: string, sourceCode: string, options: GuiOptions): Promise<any>;
 /**
- * Watch Gui config for changes and reload when it changes
+ * Watch Hanzo GUI config for changes and reload when it changes
  */
 export declare function watchGuiConfig(options: GuiOptions): Promise<{
     dispose: () => void;

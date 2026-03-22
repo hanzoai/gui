@@ -1,4 +1,4 @@
-import type { GetFinalProps, SizeTokens, StackStyleBase } from '@gui/core';
+import type { GetFinalProps, SizeTokens, StackStyleBase } from '@hanzo/gui-core';
 import type { SvgProps } from 'react-native-svg';
 export interface IconStyleProps extends StackStyleBase {
     size?: number | SizeTokens;

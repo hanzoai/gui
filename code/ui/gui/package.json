@@ -69,7 +69,7 @@
   },
   "scripts": {
     "build": "hanzo-gui-build",
-    "afterBuild": "node bundle-native.mjs",
+    "afterBuild": "echo 'native bundle skipped - UI packages moved to hanzo/ui'",
     "watch": "hanzo-gui-build --watch",
     "clean": "hanzo-gui-build clean",
     "clean:build": "hanzo-gui-build clean:build",

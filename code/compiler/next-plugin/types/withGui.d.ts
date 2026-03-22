@@ -1,11 +1,11 @@
-import type { PluginOptions as LoaderPluginOptions } from 'gui-loader';
+import type { PluginOptions as LoaderPluginOptions } from '@hanzo/gui-loader';
 export type WithGuiProps = LoaderPluginOptions & {
     appDir?: boolean;
     enableLegacyFontSupport?: boolean;
     includeCSSTest?: RegExp | ((path: string) => boolean);
     /**
      * By default, we configure webpack to pass anything inside your root or design system
-     * to the Gui loader. If you are importing files from an external package, use this
+     * to the Hanzo GUI loader. If you are importing files from an external package, use this
      **/
     shouldExtract?: (path: string, projectRoot: string) => boolean | undefined;
     /**
@@ -17,7 +17,7 @@ export type WithGuiProps = LoaderPluginOptions & {
         fullPath: string;
     }) => boolean | string | undefined;
     disableThemesBundleOptimize?: boolean;
-    /** By default we add a Next.js modularizeImports option to tree shake @gui/lucide-icons-2, this disables it */
+    /** By default we add a Next.js modularizeImports option to tree shake @hanzo/gui-lucide-icons-2, this disables it */
     disableOptimizeLucideIcons?: boolean;
 };
 export declare const withGui: (guiOptionsIn?: WithGuiProps) => (nextConfig?: any) => any;

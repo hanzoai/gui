@@ -1,4 +1,4 @@
-import type { ThemeName } from "gui";
+import type { ThemeName } from "@hanzo/gui";
 type ChangeHandler = (next: TintFamily) => void;
 declare const familiesValues: {
 	gui: ThemeName[];

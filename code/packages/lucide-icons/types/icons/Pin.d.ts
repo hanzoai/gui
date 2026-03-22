@@ -1,4 +1,4 @@
-import type { IconProps } from "@gui/helpers-icon";
+import type { IconProps } from "@hanzo/gui-helpers-icon";
 type IconComponent = (propsIn: IconProps) => JSX.Element;
 export declare const Pin: IconComponent;
 export {};

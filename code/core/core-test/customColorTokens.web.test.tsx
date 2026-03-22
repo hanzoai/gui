@@ -35,7 +35,7 @@ describe('custom color tokens', () => {
       },
     }
 
-    const hanzo-gui = createGui(config)
+    const hanzoGui = createGui(config)
 
     // Check that custom colors are available in tokensParsed with correct structure
     expect(gui.tokensParsed.color['$customRed']).toBeDefined()
@@ -107,7 +107,7 @@ describe('custom color tokens', () => {
       },
     }
 
-    const hanzo-gui = createGui(config)
+    const hanzoGui = createGui(config)
 
     // Check token structure
     expect(gui.tokensParsed.color['$customAccent']).toMatchObject({

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import type { CLIResolvedOptions } from '@gui/types';
+import type { CLIResolvedOptions } from '@hanzo/gui-types';
 export declare function generateTypes(options: CLIResolvedOptions): Promise<void>;
 export declare function getTypes(options: CLIResolvedOptions): Promise<{
     [k: string]: (string | undefined)[][];

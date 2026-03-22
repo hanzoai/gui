@@ -1,5 +1,5 @@
 import type { JSX } from "react/jsx-runtime";
-import type { XStackProps } from "gui";
+import type { XStackProps } from "@hanzo/gui";
 type LogoProps = {
 	showWords?: boolean;
 	downscale?: number;

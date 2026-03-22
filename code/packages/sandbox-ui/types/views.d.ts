@@ -1,5 +1,5 @@
-export declare const Tag: import("tamagui").TamaguiComponent<import("@tamagui/web").TamaDefer, import("tamagui").TamaguiTextElement, import("@tamagui/core").RNTamaguiTextNonStyleProps, import("@tamagui/web").TextStylePropsBase, {
+export declare const Tag: import("gui").GuiComponent<import("@gui/web").TamaDefer, import("gui").GuiTextElement, import("@gui/core").RNGuiTextNonStyleProps, import("@gui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
-}, import("@tamagui/web").StaticConfigPublic>;
+}, import("@gui/web").StaticConfigPublic>;
 //# sourceMappingURL=views.d.ts.map

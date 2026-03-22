@@ -1,5 +1,5 @@
-import type { DebugProp, ThemeName, GroupNames, Role, TamaguiComponentState } from '../types';
-export type TamaguiComponentPropsBaseBase = {
+import type { DebugProp, ThemeName, GroupNames, Role, GuiComponentState } from '../types';
+export type GuiComponentPropsBaseBase = {
     target?: string;
     htmlFor?: string;
     /**
@@ -40,7 +40,7 @@ export type TamaguiComponentPropsBaseBase = {
      */
     render?: keyof HTMLElementTagNameMap | (string & {}) | React.ReactElement | ((props: Record<string, any> & {
         ref?: React.Ref<any>;
-    }, state: TamaguiComponentState) => React.ReactElement);
+    }, state: GuiComponentState) => React.ReactElement);
     /**
      * Applies a theme to this element
      */
@@ -82,7 +82,7 @@ export type TamaguiComponentPropsBaseBase = {
     disableClassName?: boolean;
     /**
      * Adds some area outside the typical bounds of the component for touch actions to register.
-     * Tamagui uses Pressable internally so it supports `number | Insets` rather than just `Insets`
+     * Hanzo GUI uses Pressable internally so it supports `number | Insets` rather than just `Insets`
      */
     hitSlop?: number | Insets | null;
 };
@@ -92,4 +92,4 @@ export interface Insets {
     bottom?: number;
     right?: number;
 }
-//# sourceMappingURL=TamaguiComponentPropsBaseBase.d.ts.map
+//# sourceMappingURL=GuiComponentPropsBaseBase.d.ts.map

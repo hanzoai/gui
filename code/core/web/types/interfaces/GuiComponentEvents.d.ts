@@ -1,4 +1,4 @@
-export type TamaguiComponentEvents = {
+export type GuiComponentEvents = {
     cancelable?: boolean | undefined;
     disabled?: any;
     hitSlop?: any;
@@ -16,4 +16,4 @@ export type TamaguiComponentEvents = {
     onFocus?: ((e: any) => void) | undefined;
     onBlur?: ((e: any) => void) | undefined;
 };
-//# sourceMappingURL=TamaguiComponentEvents.d.ts.map
+//# sourceMappingURL=GuiComponentEvents.d.ts.map

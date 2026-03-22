@@ -7,7 +7,7 @@ import { mediaState } from './helpers/mediaState'
 // easy introspection
 // only included in dev mode
 
-export const Hanzo GUI = (() => {
+export const Gui = (() => {
   if (process.env.NODE_ENV === 'development') {
     class GuiManager {
       Helpers = Helpers

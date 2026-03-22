@@ -1,8 +1,8 @@
-import type { TamaguiOptions, TamaguiProjectInfo } from '@tamagui/static';
-import type { CLIResolvedOptions, CLIUserOptions } from '@tamagui/types';
-export declare function getOptions({ root, tsconfigPath, tamaguiOptions, host, debug, loadTamaguiOptions, }?: Partial<CLIUserOptions>): Promise<CLIResolvedOptions>;
+import type { GuiOptions, GuiProjectInfo } from '@gui/static';
+import type { CLIResolvedOptions, CLIUserOptions } from '@gui/types';
+export declare function getOptions({ root, tsconfigPath, guiOptions, host, debug, loadGuiOptions, }?: Partial<CLIUserOptions>): Promise<CLIResolvedOptions>;
 export declare function ensure(condition: boolean, message: string): void;
-export declare const loadTamagui: (opts: Partial<TamaguiOptions>) => Promise<TamaguiProjectInfo | null>;
+export declare const loadGui: (opts: Partial<GuiOptions>) => Promise<GuiProjectInfo | null>;
 export declare function registerDispose(cb: () => void): void;
 export declare function disposeAll(): void;
 //# sourceMappingURL=utils.d.ts.map

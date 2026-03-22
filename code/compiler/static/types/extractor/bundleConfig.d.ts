@@ -1,6 +1,6 @@
-import { type StaticConfig, type TamaguiInternalConfig } from '@tamagui/web';
+import { type StaticConfig, type GuiInternalConfig } from '@gui/web';
 import esbuild from 'esbuild';
-import type { TamaguiOptions } from '../types';
+import type { GuiOptions } from '../types';
 type NameToPaths = {
     [key: string]: Set<string>;
 };
@@ -10,9 +10,9 @@ export type LoadedComponents = {
         staticConfig: StaticConfig;
     }>;
 };
-export type TamaguiProjectInfo = {
+export type GuiProjectInfo = {
     components?: LoadedComponents[];
-    tamaguiConfig?: TamaguiInternalConfig | null;
+    guiConfig?: GuiInternalConfig | null;
     nameToPaths?: NameToPaths;
     cached?: boolean;
 };
@@ -37,13 +37,13 @@ export declare const esbuildOptionsWithPlugins: {
 };
 export type BundledConfig = Exclude<Awaited<ReturnType<typeof bundleConfig>>, undefined>;
 export declare function hasBundledConfigChanged(): boolean;
-export declare const getLoadedConfig: () => TamaguiInternalConfig | null;
-export declare function getBundledConfig(props: TamaguiOptions, rebuild?: boolean): Promise<any>;
-export declare function bundleConfig(props: TamaguiOptions): Promise<any>;
-export declare function writeTamaguiCSS(outputCSS: string, config: TamaguiInternalConfig): Promise<void>;
-export declare function loadComponents(props: TamaguiOptions, forceExports?: boolean): Promise<LoadedComponents[]>;
-export declare function loadComponentsSync(props: TamaguiOptions, forceExports?: boolean): LoadedComponents[];
-export declare function loadComponentsInner(props: TamaguiOptions, forceExports?: boolean): Promise<null | LoadedComponents[]>;
-export declare function loadComponentsInnerSync(props: TamaguiOptions, forceExports?: boolean): null | LoadedComponents[];
+export declare const getLoadedConfig: () => GuiInternalConfig | null;
+export declare function getBundledConfig(props: GuiOptions, rebuild?: boolean): Promise<any>;
+export declare function bundleConfig(props: GuiOptions): Promise<any>;
+export declare function writeGuiCSS(outputCSS: string, config: GuiInternalConfig): Promise<void>;
+export declare function loadComponents(props: GuiOptions, forceExports?: boolean): Promise<LoadedComponents[]>;
+export declare function loadComponentsSync(props: GuiOptions, forceExports?: boolean): LoadedComponents[];
+export declare function loadComponentsInner(props: GuiOptions, forceExports?: boolean): Promise<null | LoadedComponents[]>;
+export declare function loadComponentsInnerSync(props: GuiOptions, forceExports?: boolean): null | LoadedComponents[];
 export {};
 //# sourceMappingURL=bundleConfig.d.ts.map

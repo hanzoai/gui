@@ -1,5 +1,5 @@
 export * from './ThemeBuilder';
-export * from '@tamagui/create-theme';
+export * from '@gui/create-theme';
 export { createStudioThemes } from './createStudioThemes';
 export { createThemes, createV4Themes, createPalettes, createV4ThemeBuilder, type CreateThemesProps, } from './createThemes';
 export { defaultTemplates } from './defaultTemplates';

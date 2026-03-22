@@ -1,4 +1,4 @@
-import { type ThemeProps } from "@tamagui/web";
+import { type ThemeProps } from "@gui/web";
 import type { JSX } from "react/jsx-runtime";
 export declare const ThemeTint: ({ disable, children, ...rest }: ThemeProps & {
 	disable?: boolean;

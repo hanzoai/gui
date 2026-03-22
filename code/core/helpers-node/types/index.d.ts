@@ -1,5 +1,5 @@
-export * from "./readTamaguiOptions";
-export * from "./getTamaguiDefaultPath";
-export * from "./getTamaguiOptions";
+export * from "./readGuiOptions";
+export * from "./getGuiDefaultPath";
+export * from "./getGuiOptions";
 
 //# sourceMappingURL=index.d.ts.map

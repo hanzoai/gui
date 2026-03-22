@@ -1,3 +1,3 @@
-import type { TamaguiOptions } from '../types';
-export declare function getPrefixLogs(options?: TamaguiOptions): string;
+import type { GuiOptions } from '../types';
+export declare function getPrefixLogs(options?: GuiOptions): string;
 //# sourceMappingURL=getPrefixLogs.d.ts.map

@@ -1,4 +1,4 @@
-import type { IconProps } from "@tamagui/helpers-icon";
+import type { IconProps } from "@gui/helpers-icon";
 type IconComponent = (propsIn: IconProps) => JSX.Element;
 export declare const Popsicle: IconComponent;
 export {};

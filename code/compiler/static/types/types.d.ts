@@ -1,13 +1,13 @@
 import type { NodePath } from '@babel/traverse';
 import type * as t from '@babel/types';
-import type { PseudoStyles, StaticConfig, TamaguiConfig } from '@tamagui/core';
-import type { StyleObject } from '@tamagui/helpers';
-import type { TamaguiOptions } from '@tamagui/types';
+import type { PseudoStyles, StaticConfig, GuiConfig } from '@gui/core';
+import type { StyleObject } from '@gui/helpers';
+import type { GuiOptions } from '@gui/types';
 import type { ViewStyle } from 'react-native';
 import type { LoadedComponents } from './extractor/bundleConfig';
-export type TamaguiPlatform = 'native' | 'web';
-export type { TamaguiOptions, TamaguiBuildOptions } from '@tamagui/types';
-export type { StyleObject } from '@tamagui/helpers';
+export type GuiPlatform = 'native' | 'web';
+export type { GuiOptions, GuiBuildOptions } from '@gui/types';
+export type { StyleObject } from '@gui/helpers';
 export type ClassNameObject = t.StringLiteral | t.Expression;
 export interface CacheObject {
     [key: string]: any;
@@ -24,7 +24,7 @@ export interface Logger {
 }
 export type ExtractorOptions = {
     logger?: Logger;
-    platform?: TamaguiPlatform;
+    platform?: GuiPlatform;
 };
 export type ExtractedAttrAttr = {
     type: 'attr';
@@ -44,7 +44,7 @@ export type ExtractedTernaryAttr = {
 };
 export type ExtractedAttr = ExtractedAttrAttr | ExtractedTernaryAttr | ExtractedAttrStyle;
 export type ExtractTagProps = {
-    parserProps: TamaguiOptionsWithFileInfo;
+    parserProps: GuiOptionsWithFileInfo;
     attrs: ExtractedAttr[];
     node: t.JSXOpeningElement;
     attemptEval: (exprNode: t.Node, evalFn?: ((node: t.Node) => any) | undefined) => any;
@@ -56,14 +56,14 @@ export type ExtractTagProps = {
     filePath: string;
     completeProps: Record<string, any>;
     staticConfig: StaticConfig;
-    config: TamaguiConfig;
+    config: GuiConfig;
 };
-export type TamaguiOptionsWithFileInfo = TamaguiOptions & {
+export type GuiOptionsWithFileInfo = GuiOptions & {
     sourcePath?: string;
     allLoadedComponents: LoadedComponents[];
 };
-export type ExtractorParseProps = Omit<TamaguiOptionsWithFileInfo, 'allLoadedComponents'> & {
-    platform: TamaguiPlatform;
+export type ExtractorParseProps = Omit<GuiOptionsWithFileInfo, 'allLoadedComponents'> & {
+    platform: GuiPlatform;
     shouldPrintDebug?: boolean | 'verbose';
     onExtractTag: (props: ExtractTagProps) => void;
     getFlattenedNode?: (props: {

@@ -1,4 +1,4 @@
-import type { CLIResolvedOptions } from '@tamagui/types';
+import type { CLIResolvedOptions } from '@gui/types';
 export type BuildStats = {
     filesProcessed: number;
     optimized: number;

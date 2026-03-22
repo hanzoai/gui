@@ -1,9 +1,9 @@
-import type { TamaguiOptions } from '@tamagui/static-worker';
+import type { GuiOptions } from '@gui/static-worker';
 import type { PluginOption } from 'vite';
 type AliasOptions = {
-    /** use @tamagui/react-native-web-lite, 'without-animated' for smaller bundle */
+    /** use @gui/react-native-web-lite, 'without-animated' for smaller bundle */
     rnwLite?: boolean | 'without-animated';
-    /** alias react-native-svg to @tamagui/react-native-svg */
+    /** alias react-native-svg to @gui/react-native-svg */
     svg?: boolean;
 };
 type AliasEntry = {
@@ -11,11 +11,11 @@ type AliasEntry = {
     replacement: string;
 };
 /**
- * returns vite-compatible aliases for tamagui
+ * returns vite-compatible aliases for gui
  * use this when you need control over alias ordering in your config
  */
-export declare function tamaguiAliases(options?: AliasOptions): AliasEntry[];
-export declare function tamaguiPlugin({ disableResolveConfig, ...tamaguiOptionsIn }?: TamaguiOptions & {
+export declare function guiAliases(options?: AliasOptions): AliasEntry[];
+export declare function guiPlugin({ disableResolveConfig, ...guiOptionsIn }?: GuiOptions & {
     disableResolveConfig?: boolean;
 }): PluginOption;
 export {};

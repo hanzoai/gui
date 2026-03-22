@@ -1,11 +1,11 @@
-import type { PluginOptions as LoaderPluginOptions } from 'tamagui-loader';
-export type WithTamaguiProps = LoaderPluginOptions & {
+import type { PluginOptions as LoaderPluginOptions } from 'gui-loader';
+export type WithGuiProps = LoaderPluginOptions & {
     appDir?: boolean;
     enableLegacyFontSupport?: boolean;
     includeCSSTest?: RegExp | ((path: string) => boolean);
     /**
      * By default, we configure webpack to pass anything inside your root or design system
-     * to the Tamagui loader. If you are importing files from an external package, use this
+     * to the Gui loader. If you are importing files from an external package, use this
      **/
     shouldExtract?: (path: string, projectRoot: string) => boolean | undefined;
     /**
@@ -17,8 +17,8 @@ export type WithTamaguiProps = LoaderPluginOptions & {
         fullPath: string;
     }) => boolean | string | undefined;
     disableThemesBundleOptimize?: boolean;
-    /** By default we add a Next.js modularizeImports option to tree shake @tamagui/lucide-icons-2, this disables it */
+    /** By default we add a Next.js modularizeImports option to tree shake @gui/lucide-icons-2, this disables it */
     disableOptimizeLucideIcons?: boolean;
 };
-export declare const withTamagui: (tamaguiOptionsIn?: WithTamaguiProps) => (nextConfig?: any) => any;
-//# sourceMappingURL=withTamagui.d.ts.map
+export declare const withGui: (guiOptionsIn?: WithGuiProps) => (nextConfig?: any) => any;
+//# sourceMappingURL=withGui.d.ts.map

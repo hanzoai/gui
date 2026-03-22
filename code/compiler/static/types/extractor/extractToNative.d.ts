@@ -1,8 +1,8 @@
 import { type BabelFileResult } from '@babel/core';
-import type { TamaguiOptions } from '../types';
-export declare function extractToNative(sourceFileName: string, sourceCode: string, options: TamaguiOptions): BabelFileResult;
+import type { GuiOptions } from '../types';
+export declare function extractToNative(sourceFileName: string, sourceCode: string, options: GuiOptions): BabelFileResult;
 export declare function getBabelPlugin(): any;
-export declare function getBabelParseDefinition(options: TamaguiOptions): {
+export declare function getBabelParseDefinition(options: GuiOptions): {
     name: string;
     visitor: {
         Program: {

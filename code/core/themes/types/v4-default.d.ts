@@ -268,7 +268,7 @@ export declare const themes: Record<"light_blue" | "light_green" | "light_red" |
 export {};
 /**
  * This is an optional production optimization: themes JS can get to 20Kb or more.
- * Gui has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
- * So long as you server render your Gui CSS, this will save you bundle size:
+ * Hanzo GUI has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
+ * So long as you server render your Hanzo GUI CSS, this will save you bundle size:
  */
 //# sourceMappingURL=v4-default.d.ts.map

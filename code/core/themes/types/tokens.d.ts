@@ -1,4 +1,4 @@
-import type { Variable } from '@gui/web';
+import type { Variable } from '@hanzo/gui-web';
 export declare const size: {
     $0: number;
     '$0.25': number;

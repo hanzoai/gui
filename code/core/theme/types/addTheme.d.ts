@@ -1,4 +1,4 @@
-import type { ThemeDefinition, ThemeParsed } from '@tamagui/web';
+import type { ThemeDefinition, ThemeParsed } from '@gui/web';
 export declare function addTheme(props: {
     name: string;
     theme: Partial<Record<keyof ThemeDefinition, any>>;

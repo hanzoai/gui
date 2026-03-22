@@ -1,4 +1,4 @@
-import type { MediaQueryList } from "@tamagui/web";
+import type { MediaQueryList } from "@gui/web";
 type Orientation = "landscape" | "portrait";
 type Listener = (orientation: Orientation) => void;
 export declare class NativeMediaQueryList implements MediaQueryList {

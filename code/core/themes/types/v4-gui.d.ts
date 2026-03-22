@@ -184,12 +184,12 @@ declare const themes: Record<"light_blue" | "light_gray" | "light_green" | "ligh
     shadow9: string;
     shadow10: string;
 } & Record<string, string>>;
-export type TamaguiThemes = typeof themes;
+export type GuiThemes = typeof themes;
 /**
  * This is an optional production optimization: themes JS can get to 20Kb or more.
- * Tamagui has <1Kb of logic to hydrate themes from CSS, so you can remove the JS.
- * So long as you server render your Tamagui CSS, this will save you bundle size:
+ * Gui has <1Kb of logic to hydrate themes from CSS, so you can remove the JS.
+ * So long as you server render your Gui CSS, this will save you bundle size:
  */
-export declare const tamaguiThemes: TamaguiThemes;
+export declare const guiThemes: GuiThemes;
 export {};
-//# sourceMappingURL=v4-tamagui.d.ts.map
+//# sourceMappingURL=v4-gui.d.ts.map

@@ -1,15 +1,15 @@
 /**
- * @tamagui/static-worker
+ * @gui/static-worker
  *
- * Pure worker-based API for Tamagui static extraction.
+ * Pure worker-based API for Gui static extraction.
  * All operations run in a worker thread for better performance and isolation.
  *
- * This package provides a clean async API that wraps @tamagui/static's worker
+ * This package provides a clean async API that wraps @gui/static's worker
  * implementation without exposing any sync/legacy APIs.
  */
-import type { TamaguiOptions } from '@tamagui/types';
-export type { ExtractedResponse, TamaguiProjectInfo } from '@tamagui/static';
-export type { TamaguiOptions } from '@tamagui/types';
+import type { GuiOptions } from '@gui/types';
+export type { ExtractedResponse, GuiProjectInfo } from '@gui/static';
+export type { GuiOptions } from '@gui/types';
 export declare const getPragmaOptions: (props: {
     source: string;
     path: string;
@@ -18,33 +18,33 @@ export declare const getPragmaOptions: (props: {
     shouldDisable: boolean;
 }>;
 /**
- * Load Tamagui configuration in worker
+ * Load Gui configuration in worker
  * Sends a warmup task to trigger config loading
  * bundleConfig auto-detects if files exist and skips rebuild
  */
-export declare function loadTamagui(options: Partial<TamaguiOptions>): Promise<any>;
+export declare function loadGui(options: Partial<GuiOptions>): Promise<any>;
 /**
- * Load Tamagui build configuration asynchronously
+ * Load Gui build configuration asynchronously
  * Uses esbuild-wasm to avoid EPIPE errors from native esbuild service lifecycle
  */
-export declare function loadTamaguiBuildConfig(tamaguiOptions: Partial<TamaguiOptions> | undefined): Promise<TamaguiOptions>;
+export declare function loadGuiBuildConfig(guiOptions: Partial<GuiOptions> | undefined): Promise<GuiOptions>;
 /**
- * Extract Tamagui components to className-based CSS for web
+ * Extract Gui components to className-based CSS for web
  */
 export declare function extractToClassNames(params: {
     source: string | Buffer;
     sourcePath?: string;
-    options: TamaguiOptions;
+    options: GuiOptions;
     shouldPrintDebug?: boolean | 'verbose';
 }): Promise<any>;
 /**
- * Extract Tamagui components to React Native StyleSheet format
+ * Extract Gui components to React Native StyleSheet format
  */
-export declare function extractToNative(sourceFileName: string, sourceCode: string, options: TamaguiOptions): Promise<any>;
+export declare function extractToNative(sourceFileName: string, sourceCode: string, options: GuiOptions): Promise<any>;
 /**
- * Watch Tamagui config for changes and reload when it changes
+ * Watch Gui config for changes and reload when it changes
  */
-export declare function watchTamaguiConfig(options: TamaguiOptions): Promise<{
+export declare function watchGuiConfig(options: GuiOptions): Promise<{
     dispose: () => void;
 } | undefined>;
 /**

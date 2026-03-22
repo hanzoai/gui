@@ -1,4 +1,4 @@
-export { createThemes } from '@tamagui/theme-builder';
+export { createThemes } from '@gui/theme-builder';
 export { themes } from './generated-v5-subtle';
 export type { Theme as V5SubtleTheme, ThemeNames as V5SubtleThemeNames, Themes as V5SubtleThemes, } from './generated-v5-subtle';
 export { v5Templates } from './v5-templates';

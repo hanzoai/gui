@@ -1,4 +1,4 @@
-export { createThemes } from '@tamagui/theme-builder';
+export { createThemes } from '@gui/theme-builder';
 export { themes } from './generated-v5';
 export type { Theme as V5Theme, ThemeNames as V5ThemeNames, Themes as V5Themes, } from './generated-v5';
 export { v5Templates } from './v5-templates';

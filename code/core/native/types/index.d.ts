@@ -1,19 +1,19 @@
 /**
-* @tamagui/native
+* @hanzo/gui-native
 *
-* Native setup modules for Tamagui. Import these at the top of your app entry point.
+* Native setup modules for Gui. Import these at the top of your app entry point.
 *
 * @example
 * ```tsx
 * // In your app entry (index.js or App.tsx)
-* import '@tamagui/native/setup-teleport'
-* import '@tamagui/native/setup-gesture-handler'
-* import '@tamagui/native/setup-worklets'
-* import '@tamagui/native/setup-safe-area'
-* import '@tamagui/native/expo-linear-gradient'
-* import '@tamagui/native/setup-keyboard-controller'
+* import '@hanzo/gui-native/setup-teleport'
+* import '@hanzo/gui-native/setup-gesture-handler'
+* import '@hanzo/gui-native/setup-worklets'
+* import '@hanzo/gui-native/setup-safe-area'
+* import '@hanzo/gui-native/expo-linear-gradient'
+* import '@hanzo/gui-native/setup-keyboard-controller'
 *
-* // Then use Tamagui components normally
+* // Then use Hanzo GUI components normally
 * // Sheet will automatically use native gestures when available
 * // LinearGradient will use expo-linear-gradient when installed
 * ```

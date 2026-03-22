@@ -1,4 +1,4 @@
-import type { FillInFont, GenericFont } from '@tamagui/core';
+import type { FillInFont, GenericFont } from '@gui/core';
 declare const webSizes: {
     readonly 1: 12;
     readonly 2: 13;

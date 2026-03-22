@@ -15,7 +15,7 @@ import { proxyThemesToParents } from './helpers/proxyThemeToParents'
 import { ensureThemeVariable } from './helpers/themes'
 import { configureMedia } from './hooks/useMedia'
 import { parseFont, registerFontVariables } from './insertFont'
-import { Hanzo GUI } from './Gui'
+import { Gui } from './Gui'
 import type {
   CreateGuiProps,
   DedupedTheme,

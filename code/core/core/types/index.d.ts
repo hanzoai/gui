@@ -1,19 +1,19 @@
-export * from '@tamagui/web';
-import type { StackNonStyleProps, StackStyleBase, TamaDefer, TamaguiComponent, TamaguiElement, TamaguiProviderProps, TamaguiTextElement, TextNonStyleProps, TextProps, TextStylePropsBase } from '@tamagui/web';
-import { createTamagui as createTamaguiWeb } from '@tamagui/web';
+export * from '@gui/web';
+import type { StackNonStyleProps, StackStyleBase, TamaDefer, GuiComponent, GuiElement, GuiProviderProps, GuiTextElement, TextNonStyleProps, TextProps, TextStylePropsBase } from '@gui/web';
+import { createGui as createGuiWeb } from '@gui/web';
 import type { RNTextProps, RNViewProps } from './reactNativeTypes';
-export { LayoutMeasurementController, registerLayoutNode, setOnLayoutStrategy, type LayoutEvent, } from '@tamagui/use-element-layout';
+export { LayoutMeasurementController, registerLayoutNode, setOnLayoutStrategy, type LayoutEvent, } from '@gui/use-element-layout';
 type RNExclusiveViewProps = Omit<RNViewProps, keyof StackNonStyleProps>;
-export interface RNTamaguiViewNonStyleProps extends StackNonStyleProps, RNExclusiveViewProps {
+export interface RNGuiViewNonStyleProps extends StackNonStyleProps, RNExclusiveViewProps {
 }
-type RNTamaguiView = TamaguiComponent<TamaDefer, TamaguiElement, RNTamaguiViewNonStyleProps, StackStyleBase, {}>;
+type RNGuiView = GuiComponent<TamaDefer, GuiElement, RNGuiViewNonStyleProps, StackStyleBase, {}>;
 type RNExclusiveTextProps = Omit<RNTextProps, keyof TextProps>;
-export interface RNTamaguiTextNonStyleProps extends TextNonStyleProps, RNExclusiveTextProps {
+export interface RNGuiTextNonStyleProps extends TextNonStyleProps, RNExclusiveTextProps {
 }
-type RNTamaguiText = TamaguiComponent<TamaDefer, TamaguiTextElement, RNTamaguiTextNonStyleProps, TextStylePropsBase, {}>;
+type RNGuiText = GuiComponent<TamaDefer, GuiTextElement, RNGuiTextNonStyleProps, TextStylePropsBase, {}>;
 export * from './reactNativeTypes';
-export declare const TamaguiProvider: (props: TamaguiProviderProps) => import("react/jsx-runtime").JSX.Element;
-export declare const createTamagui: typeof createTamaguiWeb;
-export declare const View: RNTamaguiView;
-export declare const Text: RNTamaguiText;
+export declare const GuiProvider: (props: GuiProviderProps) => import("react/jsx-runtime").JSX.Element;
+export declare const createGui: typeof createGuiWeb;
+export declare const View: RNGuiView;
+export declare const Text: RNGuiText;
 //# sourceMappingURL=index.d.ts.map

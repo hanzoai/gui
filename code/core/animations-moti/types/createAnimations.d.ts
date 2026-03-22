@@ -1,4 +1,4 @@
-import { type AnimationDriver } from "@tamagui/core";
+import { type AnimationDriver } from "@gui/core";
 import type { TransitionConfig } from "moti";
 export declare function createAnimations<A extends Record<string, TransitionConfig>>(animations: A): AnimationDriver<A>;
 

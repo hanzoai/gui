@@ -1,2 +1,2 @@
-import '@tamagui/polyfill-dev';
+import '@gui/polyfill-dev';
 //# sourceMappingURL=setup.d.ts.map

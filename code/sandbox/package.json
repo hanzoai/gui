@@ -27,7 +27,6 @@
     "@hanzo/gui-demos": "workspace:*",
     "@hanzo/gui-lucide-icons-2": "workspace:*",
     "@hanzo/gui-react-native-media-driver": "workspace:*",
-    "@hanzo/gui-toast": "workspace:*",
     "@vxrn/color-scheme": "^1.12.5",
     "expo": "~55.0.6",
     "one": "1.12.5",

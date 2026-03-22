@@ -1,15 +1,9 @@
-import type { SizableTextProps } from '@gui/text';
+import type { SizableTextProps } from '@hanzo/gui-text';
 export interface AnchorExtraProps {
     href?: string;
     target?: string;
     rel?: string;
 }
 export type AnchorProps = SizableTextProps & AnchorExtraProps;
-export declare const Anchor: import("@gui/core").GuiComponent<Omit<import("@gui/core").GetFinalProps<import("@gui/core").TextNonStyleProps, import("@gui/core").TextStylePropsBase, {
-    unstyled?: boolean | undefined;
-    size?: import("@gui/core").FontSizeTokens | undefined;
-}>, keyof AnchorExtraProps> & AnchorExtraProps, import("@gui/core").GuiTextElement, import("@gui/core").TextNonStyleProps & AnchorExtraProps, import("@gui/core").TextStylePropsBase, {
-    unstyled?: boolean | undefined;
-    size?: import("@gui/core").FontSizeTokens | undefined;
-}, import("@gui/core").StaticConfigPublic>;
+export declare const Anchor: import("@hanzo/gui-core").GuiComponent<Omit<any, keyof AnchorExtraProps> & AnchorExtraProps, any, any, any, any, any>;
 //# sourceMappingURL=Anchor.d.ts.map

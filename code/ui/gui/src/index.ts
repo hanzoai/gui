@@ -17,9 +17,7 @@ export * from './createGui'
 export * from './viewTypes'
 export * from './views/GuiProvider'
 
-export * from './views/Anchor'
 export * from './views/EnsureFlexed'
-export * from './views/Fieldset'
 export * from './views/Text'
 
 // since we overlap with ViewProps and potentially others

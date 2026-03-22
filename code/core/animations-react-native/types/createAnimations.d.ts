@@ -1,4 +1,4 @@
-import type { AnimationDriver, UniversalAnimatedNumber, UseAnimatedNumberReaction, UseAnimatedNumberStyle } from "@gui/web";
+import type { AnimationDriver, UniversalAnimatedNumber, UseAnimatedNumberReaction, UseAnimatedNumberStyle } from "@hanzo/gui-web";
 import { Animated, type Text, type View } from "react-native";
 type AnimationsConfig<A extends object = any> = { [Key in keyof A] : AnimationConfig };
 type SpringConfig = {

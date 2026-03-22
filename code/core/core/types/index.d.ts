@@ -1,8 +1,8 @@
-export * from '@gui/web';
-import type { StackNonStyleProps, StackStyleBase, TamaDefer, GuiComponent, GuiElement, GuiProviderProps, GuiTextElement, TextNonStyleProps, TextProps, TextStylePropsBase } from '@gui/web';
-import { createGui as createGuiWeb } from '@gui/web';
+export * from '@hanzo/gui-web';
+import type { StackNonStyleProps, StackStyleBase, TamaDefer, GuiComponent, GuiElement, GuiProviderProps, GuiTextElement, TextNonStyleProps, TextProps, TextStylePropsBase } from '@hanzo/gui-web';
+import { createGui as createGuiWeb } from '@hanzo/gui-web';
 import type { RNTextProps, RNViewProps } from './reactNativeTypes';
-export { LayoutMeasurementController, registerLayoutNode, setOnLayoutStrategy, type LayoutEvent, } from '@gui/use-element-layout';
+export { LayoutMeasurementController, registerLayoutNode, setOnLayoutStrategy, type LayoutEvent, } from '@hanzo/gui-use-element-layout';
 type RNExclusiveViewProps = Omit<RNViewProps, keyof StackNonStyleProps>;
 export interface RNGuiViewNonStyleProps extends StackNonStyleProps, RNExclusiveViewProps {
 }

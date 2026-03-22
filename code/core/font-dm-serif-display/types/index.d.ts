@@ -1,4 +1,4 @@
-import type { FillInFont, GenericFont } from "@gui/core";
+import type { FillInFont, GenericFont } from "@hanzo/gui-core";
 export declare const createDmSerifDisplayFont: <A extends GenericFont>(font?: Partial<A>, { sizeLineHeight, sizeSize }?: {
 	sizeLineHeight?: (fontSize: number) => number;
 	sizeSize?: (size: number) => number;

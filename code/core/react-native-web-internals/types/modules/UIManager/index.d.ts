@@ -9,7 +9,7 @@
 export declare const UIManager: {
     blur(node: any): void;
     focus(node: any): void;
-    measure(node: any, callback: any): Promise<import("@gui/use-element-layout").LayoutValue | null>;
+    measure(node: any, callback: any): Promise<import("@hanzo/gui-use-element-layout").LayoutValue | null>;
     measureInWindow(node: any, callback: any): Promise<{
         pageX: number;
         pageY: number;

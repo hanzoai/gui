@@ -1,2 +1,2 @@
-export { LinearGradient, type LinearGradientProps } from '@gui/linear-gradient';
+export { LinearGradient, type LinearGradientProps } from '@hanzo/gui-linear-gradient';
 //# sourceMappingURL=linear-gradient.d.ts.map

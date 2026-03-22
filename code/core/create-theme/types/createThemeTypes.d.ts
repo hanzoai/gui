@@ -1,4 +1,4 @@
-import type { Variable } from "@gui/web";
+import type { Variable } from "@hanzo/gui-web";
 export type CreateThemePalette = (string | Variable)[];
 export type ThemeMask = Record<string, string | number>;
 export type MaskOptions = {

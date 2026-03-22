@@ -1,4 +1,4 @@
-import type { FillInFont, GenericFont } from '@gui/core';
+import type { FillInFont, GenericFont } from '@hanzo/gui-core';
 export declare const createSystemFont: <A extends GenericFont>({ font, sizeLineHeight, sizeSize, }?: {
     font?: Partial<A>;
     sizeLineHeight?: (fontSize: number) => number;

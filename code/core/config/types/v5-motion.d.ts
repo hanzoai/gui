@@ -1,4 +1,4 @@
-export declare const animationsMotion: import("@gui/web").AnimationDriver<{
+export declare const animationsMotion: import("@hanzo/gui-web").AnimationDriver<{
     '0ms': {
         duration: number;
     };
@@ -103,7 +103,7 @@ export declare const animationsMotion: import("@gui/web").AnimationDriver<{
         stiffness: number;
     };
 }>;
-export declare const animations: import("@gui/web").AnimationDriver<{
+export declare const animations: import("@hanzo/gui-web").AnimationDriver<{
     '0ms': {
         duration: number;
     };

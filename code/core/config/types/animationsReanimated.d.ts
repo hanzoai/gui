@@ -1,4 +1,4 @@
-export declare const animationsReanimated: import("@gui/web").AnimationDriver<{
+export declare const animationsReanimated: import("@hanzo/gui-web").AnimationDriver<{
     '0ms': {
         type: "timing";
         duration: number;

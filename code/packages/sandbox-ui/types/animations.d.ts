@@ -1,4 +1,4 @@
-export declare const animations: import("@gui/web").AnimationDriver<{
+export declare const animations: import("@hanzo/gui-web").AnimationDriver<{
     bouncy: {
         type: "spring";
         damping: number;

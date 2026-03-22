@@ -1,5 +1,5 @@
 export declare const fonts: {
-    heading: import("@gui/font-inter").FillInFont<{
+    heading: import("@hanzo/gui-font-inter").FillInFont<{
         size: {
             5: number;
             6: number;
@@ -41,7 +41,7 @@ export declare const fonts: {
             };
         };
     }, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
-    body: import("@gui/font-inter").FillInFont<import("@gui/font-inter").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
+    body: import("@hanzo/gui-font-inter").FillInFont<import("@hanzo/gui-font-inter").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
     mono: {
         weight: {
             1: string;
@@ -65,6 +65,6 @@ export declare const fonts: {
             16: number;
         };
     };
-    silkscreen: import("@gui/font-inter").FillInFont<import("@gui/font-inter").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13>;
+    silkscreen: import("@hanzo/gui-font-inter").FillInFont<import("@hanzo/gui-font-inter").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13>;
 };
 //# sourceMappingURL=fonts.d.ts.map

@@ -1,4 +1,4 @@
-export declare const animationsReactNative: import("@gui/web").AnimationDriver<{
+export declare const animationsReactNative: import("@hanzo/gui-web").AnimationDriver<{
     '0ms': {
         type: "timing";
         duration: number;
@@ -109,7 +109,7 @@ export declare const animationsReactNative: import("@gui/web").AnimationDriver<{
         stiffness: number;
     };
 }>;
-export declare const animations: import("@gui/web").AnimationDriver<{
+export declare const animations: import("@hanzo/gui-web").AnimationDriver<{
     '0ms': {
         type: "timing";
         duration: number;

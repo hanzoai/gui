@@ -1,10 +1,10 @@
-export { shorthands } from '@gui/shorthands/v4';
-export { createThemes } from '@gui/theme-builder';
-export { guiThemes, tokens } from '@gui/themes/v4';
+export { shorthands } from '@hanzo/gui-shorthands/v4';
+export { createThemes } from '@hanzo/gui-theme-builder';
+export { guiThemes, tokens } from '@hanzo/gui-themes/v4';
 export { animations } from './v4-animations';
 export { createSystemFont, fonts } from './v4-fonts';
 export { breakpoints, media, mediaQueryDefaultActive } from './v4-media';
-export { defaultThemes as themes } from '@gui/themes/v4';
+export { defaultThemes as themes } from '@hanzo/gui-themes/v4';
 export declare const selectionStyles: (theme: any) => {
     backgroundColor: any;
     color: any;
@@ -29,7 +29,7 @@ export declare const settings: {
     defaultPosition: "relative";
 };
 export declare const defaultConfig: {
-    animations: import("@gui/web").AnimationDriver<{
+    animations: import("@hanzo/gui-web").AnimationDriver<{
         '0ms': string;
         '30ms': string;
         '50ms': string;
@@ -135,7 +135,7 @@ export declare const defaultConfig: {
         t: "top";
         z: "zIndex";
     };
-    themes: import("@gui/themes/types/generated-v4").Themes;
+    themes: import("@hanzo/gui-themes/types/generated-v4").Themes;
     tokens: {
         readonly radius: {
             0: number;
@@ -253,8 +253,8 @@ export declare const defaultConfig: {
         };
     };
     fonts: {
-        body: import("@gui/web").FillInFont<import("@gui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
-        heading: import("@gui/web").FillInFont<import("@gui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
+        body: import("@hanzo/gui-web").FillInFont<import("@hanzo/gui-web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
+        heading: import("@hanzo/gui-web").FillInFont<import("@hanzo/gui-web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
     };
     selectionStyles: (theme: any) => {
         backgroundColor: any;

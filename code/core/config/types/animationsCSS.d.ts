@@ -1,4 +1,4 @@
-export declare const animationsCSS: import("@gui/web").AnimationDriver<{
+export declare const animationsCSS: import("@hanzo/gui-web").AnimationDriver<{
     '0ms': string;
     '30ms': string;
     '50ms': string;

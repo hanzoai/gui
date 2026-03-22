@@ -1,20 +1,8 @@
-export * from 'gui';
-export * from '@gui/toast';
+export * from '@hanzo/gui';
+export * from '@hanzo/gui-toast';
 export * from './SandboxHeading';
 export * from './views';
-export declare const SimpleTest: import("gui").GuiComponent<import("@gui/web").TamaDefer, import("gui").GuiElement, import("@gui/core").RNGuiViewNonStyleProps, import("@gui/web").StackStyleBase, {}, import("@gui/web").StaticConfigPublic>;
-export declare const Test14Component: import("gui").GuiComponent<import("@gui/web").TamaDefer, import("gui").GuiElement, import("@gui/core").RNGuiViewNonStyleProps, import("@gui/web").StackStyleBase, {
-    elevation?: number | import("gui").SizeTokens | undefined;
-    fullbleed?: boolean | undefined;
-    fullscreen?: boolean | undefined;
-}, import("@gui/web").StaticConfigPublic>;
-export declare const TestBorderExtraction: import("gui").GuiComponent<import("@gui/web").TamaDefer, import("gui").GuiElement, import("@gui/core").RNGuiViewNonStyleProps, import("@gui/web").StackStyleBase, {
-    elevation?: number | import("gui").SizeTokens | undefined;
-    transparent?: boolean | undefined;
-    fullscreen?: boolean | undefined;
-    circular?: boolean | undefined;
-    elevate?: boolean | undefined;
-    bordered?: boolean | undefined;
-    chromeless?: boolean | "all" | undefined;
-}, import("@gui/web").StaticConfigPublic>;
+export declare const SimpleTest: import("@hanzo/gui").GuiComponent<import("@hanzo/gui-web").TamaDefer, import("@hanzo/gui").GuiElement, import("@hanzo/gui-core").RNGuiViewNonStyleProps, import("@hanzo/gui-web").StackStyleBase, {}, import("@hanzo/gui-web").StaticConfigPublic>;
+export declare const Test14Component: import("@hanzo/gui").GuiComponent<import("@hanzo/gui-web").TamaDefer, any, any, any, any, any>;
+export declare const TestBorderExtraction: import("@hanzo/gui").GuiComponent<import("@hanzo/gui-web").TamaDefer, any, any, any, any, any>;
 //# sourceMappingURL=index.d.ts.map

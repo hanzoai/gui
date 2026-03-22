@@ -12,7 +12,6 @@
     "test": "HANZO_GUI_TARGET=web vitest --config ../../packages/vite-plugin-internal/src/vite.config.ts --run"
   },
   "devDependencies": {
-    "@hanzo/gui-text": "workspace:*",
     "vitest": "4.0.4"
   }
 }

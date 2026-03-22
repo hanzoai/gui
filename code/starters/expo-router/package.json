@@ -17,7 +17,6 @@
     "@react-navigation/native": "^7.0.14",
     "@hanzo/gui-config": "workspace:*",
     "@hanzo/gui-lucide-icons-2": "workspace:*",
-    "@hanzo/gui-toast": "workspace:*",
     "babel-preset-expo": "~55.0.0",
     "burnt": "^0.12.2",
     "expo": "~55.0.6",

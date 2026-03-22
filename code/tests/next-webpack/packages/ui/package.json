@@ -22,7 +22,6 @@
   "dependencies": {
     "@my/config": "workspace:^",
     "@hanzo/gui-next-theme": "workspace:*",
-    "@hanzo/gui-toast": "workspace:*",
     "expo-constants": "~55.0.7",
     "@hanzo/gui": "workspace:*"
   },

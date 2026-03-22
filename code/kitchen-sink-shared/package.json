@@ -7,7 +7,6 @@
     "@hanzo/gui-config": "workspace:*",
     "@hanzo/gui-demos": "workspace:*",
     "@hanzo/gui-lucide-icons-2": "workspace:*",
-    "@hanzo/gui-toast": "workspace:*",
     "@hanzo/gui": "workspace:*"
   },
   "peerDependencies": {

@@ -17,7 +17,6 @@
     "@hanzo/gui-animations-css": "workspace:*",
     "@hanzo/gui-core": "workspace:*",
     "@hanzo/gui-create-theme": "workspace:*",
-    "@hanzo/gui-linear-gradient": "workspace:*",
     "@hanzo/gui-react-native-svg": "workspace:*",
     "@hanzo/gui-shorthands": "workspace:*",
     "@hanzo/gui-react-native-web-lite": "workspace:*",

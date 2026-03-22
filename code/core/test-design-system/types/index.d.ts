@@ -1,3 +1,3 @@
-export declare const MyStack: import("@gui/core").GuiComponent<import("@gui/core").TamaDefer, import("@gui/core").GuiElement, import("@gui/core").RNGuiViewNonStyleProps, import("@gui/core").StackStyleBase, {}, import("@gui/core").StaticConfigPublic>;
-export declare const MySizableText: import("@gui/core").GuiComponent<import("@gui/core").TamaDefer, import("@gui/core").GuiTextElement, import("@gui/core").RNGuiTextNonStyleProps, import("@gui/core").TextStylePropsBase, {}, import("@gui/core").StaticConfigPublic>;
+export declare const MyStack: import("@hanzo/gui-core").GuiComponent<import("@hanzo/gui-core").TamaDefer, import("@hanzo/gui-core").GuiElement, import("@hanzo/gui-core").RNGuiViewNonStyleProps, import("@hanzo/gui-core").StackStyleBase, {}, import("@hanzo/gui-core").StaticConfigPublic>;
+export declare const MySizableText: import("@hanzo/gui-core").GuiComponent<import("@hanzo/gui-core").TamaDefer, import("@hanzo/gui-core").GuiTextElement, import("@hanzo/gui-core").RNGuiTextNonStyleProps, import("@hanzo/gui-core").TextStylePropsBase, {}, import("@hanzo/gui-core").StaticConfigPublic>;
 //# sourceMappingURL=index.d.ts.map

@@ -1,9 +1,9 @@
-import type { ThemeDefinition } from '@gui/web';
+import type { ThemeDefinition } from '@hanzo/gui-web';
 export declare function replaceTheme({ name, theme, }: {
     name: string;
     theme: Partial<Record<keyof ThemeDefinition, any>>;
 }): {
-    themeRaw: import("@gui/web").ThemeParsed;
+    themeRaw: import("@hanzo/gui-web").ThemeParsed;
     theme: {};
     cssRules: string[];
 } | undefined;

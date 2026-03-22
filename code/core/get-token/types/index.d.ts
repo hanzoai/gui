@@ -1,4 +1,4 @@
-import type { Variable, VariableValGeneric } from '@gui/web';
+import type { Variable, VariableValGeneric } from '@hanzo/gui-web';
 type GetTokenBase = Variable | string | number | undefined | VariableValGeneric;
 type GetTokenOptions = {
     shift?: number;

@@ -1,5 +1,5 @@
-import type { MaskDefinitions, PaletteDefinitions, Template, TemplateDefinitions, ThemeDefinitions } from '@gui/create-theme';
-import type { Narrow } from '@gui/web';
+import type { MaskDefinitions, PaletteDefinitions, Template, TemplateDefinitions, ThemeDefinitions } from '@hanzo/gui-create-theme';
+import type { Narrow } from '@hanzo/gui-web';
 export type ThemeBuilderInternalState = {
     palettes?: PaletteDefinitions;
     templates?: TemplateDefinitions;

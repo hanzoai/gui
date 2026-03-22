@@ -1,4 +1,4 @@
-import { type AnimationDriver } from "@gui/core";
+import { type AnimationDriver } from "@hanzo/gui-core";
 import { type WithSpringConfig, type WithTimingConfig } from "react-native-reanimated";
 /** Spring animation configuration */
 type SpringConfig = {

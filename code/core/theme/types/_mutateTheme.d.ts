@@ -1,4 +1,4 @@
-import type { ThemeDefinition, ThemeParsed } from '@gui/web';
+import type { ThemeDefinition, ThemeParsed } from '@hanzo/gui-web';
 type MutateThemeOptions = {
     mutationType: 'replace' | 'update' | 'add';
     insertCSS?: boolean;

@@ -1,6 +1,6 @@
 name: 'Native CI - Android Detox Tests'
 description: 'Run Detox E2E tests on Android emulator'
-author: 'Tamagui'
+author: 'Gui'
 
 inputs:
   project-root:

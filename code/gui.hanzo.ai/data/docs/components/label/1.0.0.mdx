@@ -25,7 +25,7 @@ demoName: Label
 
 ## Installation
 
-Label is already installed in `tamagui`, or you can install it independently:
+Label is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-label
@@ -52,7 +52,7 @@ Use with Input or other form elements to automatically get correct labelling by 
 
 ### Label
 
-Labels extend Stack views inheriting all the [Tamagui standard props](/docs/intro/props), plus:
+Labels extend Stack views inheriting all the [Gui standard props](/docs/intro/props), plus:
 
 <PropsTable
   data={[
@@ -60,13 +60,13 @@ Labels extend Stack views inheriting all the [Tamagui standard props](/docs/intr
       name: 'htmlFor',
       type: 'string',
       required: true,
-      description: `Matching to a Tamagui form element id.`,
+      description: `Matching to a Hanzo GUI form element id.`,
     },
     {
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
   ]}
 />

@@ -368,7 +368,7 @@ function getComponentThemes(theme: SubTheme, inverse: SubTheme, isLight: boolean
 export const themes = {
   ...allThemes,
   // bring back the full type, the rest use a subset to avoid clogging up ts,
-  // tamagui will be smart and use the top level themes as the type for useTheme() etc
+  // hanzo-gui will be smart and use the top level themes as the type for useTheme() etc
   light: createTheme(palettes.light, lightTemplate, { nonInheritedValues: lightColors }),
   dark: createTheme(palettes.dark, darkTemplate, { nonInheritedValues: darkColors }),
 }

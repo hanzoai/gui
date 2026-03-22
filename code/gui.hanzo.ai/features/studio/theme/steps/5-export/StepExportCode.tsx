@@ -108,17 +108,17 @@ export class StepExportStore {
           },
 
           {
-            name: 'Update your tamagui config',
+            name: 'Update your gui config',
             steps: [
               {
                 type: 'files',
                 files: [
                   {
-                    filename: 'tamagui.config.ts',
+                    filename: 'gui.config.ts',
                     content: `import { themes } from './themes'
 import { defaultConfig } from '@hanzo/gui-config/v5'
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   themes,
 })
@@ -134,7 +134,7 @@ export const config = createTamagui({
             steps: [
               {
                 type: 'text',
-                content: `That's it! Tamagui used to require more configuration to optimize your themes in production, but we now automate that optimization for you.`,
+                content: `That's it! Hanzo GUI used to require more configuration to optimize your themes in production, but we now automate that optimization for you.`,
               },
             ],
           },

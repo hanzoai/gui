@@ -27,7 +27,7 @@ Popovers are a great way to show content that's only visible when trigger is pre
 
 ## Installation
 
-Popover is already installed in `tamagui`, or you can install it independently:
+Popover is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-popover
@@ -207,7 +207,7 @@ Used to display the content of the popover.
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
   ]}
 />
@@ -228,4 +228,4 @@ Must use `Adapt.Contents` inside the `Popover.Sheet.Frame` to insert the content
 
 ### Popover.ScrollView
 
-Must be nested inside Content. Renders as a plain React Native ScrollView. If used alongside `<Adapt />` and Sheet, Tamagui will automatically know to remove this ScrollView when swapping into the Sheet, as the Sheet must use it's own ScrollView that handles special logic for interactions with dragging.
+Must be nested inside Content. Renders as a plain React Native ScrollView. If used alongside `<Adapt />` and Sheet, Hanzo GUI will automatically know to remove this ScrollView when swapping into the Sheet, as the Sheet must use it's own ScrollView that handles special logic for interactions with dragging.

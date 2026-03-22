@@ -67,7 +67,7 @@ export const HeroBelowContent = memo(() => {
             <IconStack>
               <Layers size={16} color="var(--color9)" />
             </IconStack>
-            <TitleLink href="/docs/components/stacks">Tamagui</TitleLink>
+            <TitleLink href="/docs/components/stacks">Gui</TitleLink>
           </XStack>
           <Paragraph opacity={0.7} size="$5">
             All the components you need, cross-platform and composable. Compound Component

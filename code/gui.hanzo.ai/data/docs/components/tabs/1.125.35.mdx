@@ -9,10 +9,10 @@ demoName: Tabs
 
 <Tabs id="type" defaultValue="styled">
   <Tabs.List>
-    <TooltipSimple label="With Tamagui's default styles">
+    <TooltipSimple label="With Hanzo GUI's default styles">
       <Tabs.Tab value="styled">Styled</Tabs.Tab>
     </TooltipSimple>
-    <TooltipSimple label="No dependency on Tamagui's core">
+    <TooltipSimple label="No dependency on Hanzo GUI's core">
       <Tabs.Tab value="headless">Headless</Tabs.Tab>
     </TooltipSimple>
   </Tabs.List>
@@ -40,7 +40,7 @@ Note: Tabs have landed on v1.7 and not fully ready for runtime. Send us your fee
 
 ## Installation
 
-Tabs is already installed in `tamagui`, or you can install it independently:
+Tabs is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-tabs
@@ -159,7 +159,7 @@ The clickable tab button that activates its corresponding content. Extends [Them
     {
       name: 'unstyled',
       type: `boolean`,
-      description: `When true, remove all default tamagui styling`,
+      description: `When true, remove all default gui styling`,
     },
   ]}
 />
@@ -187,7 +187,7 @@ Extends [ThemeableStack](/docs/components/stacks#themeablestack), adding:
     {
       name: 'unstyled',
       type: `boolean`,
-      description: `When true, remove all default tamagui styling`,
+      description: `When true, remove all default gui styling`,
     },
   ]}
 />
@@ -207,7 +207,7 @@ Where each tab's content will be shown. Extends [ThemeableStack](/docs/component
       name: 'forceMount',
       type: 'boolean',
       default: 'false',
-      description: `Used to force mounting when more control is needed. Useful when controlling animation with Tamagui animations`,
+      description: `Used to force mounting when more control is needed. Useful when controlling animation with Hanzo GUI animations`,
     },
   ]}
 />

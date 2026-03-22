@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { setupPage } from './test-utils'
 
-// integration tests for RN 0.82 DOM Node APIs via tamagui component refs
+// integration tests for RN 0.82 DOM Node APIs via hanzo-gui component refs
 // verifies that View/Text/ScrollView/Input refs expose the full DOM node API surface
 
 test.beforeEach(async ({ page }) => {

@@ -77,11 +77,11 @@ export function getGestureHandler() {
 ```typescript
 // web event handling - maps RN-style events to DOM events
 import type {
-  TamaguiComponentEvents,
+  GuiComponentEvents,
   WebOnlyPressEvents,
-} from './interfaces/TamaguiComponentEvents'
+} from './interfaces/GuiComponentEvents'
 
-type EventKeys = keyof (TamaguiComponentEvents & WebOnlyPressEvents)
+type EventKeys = keyof (GuiComponentEvents & WebOnlyPressEvents)
 type EventLikeObject = { [key in EventKeys]?: any }
 
 export function getWebEvents<E extends EventLikeObject>(events: E, webStyle = true) {
@@ -205,7 +205,7 @@ import { getWebEvents, usePressHandling, wrapWithGestureDetector } from './event
 // In the component, after events object is created:
 
 // Line ~1300 - web events attachment stays same
-if (process.env.TAMAGUI_TARGET === 'web' && events && !isReactNative) {
+if (process.env.HANZO_GUI_TARGET === 'web' && events && !isReactNative) {
   Object.assign(viewProps, getWebEvents(events))
 }
 

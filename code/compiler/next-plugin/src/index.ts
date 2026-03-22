@@ -1,1 +1,1 @@
-export * from './withTamagui'
+export * from './withGui'

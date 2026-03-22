@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ScrollView, Text, View, YStack, XStack, Input } from '@hanzo/gui'
 
-// exercises the RN 0.82 DOM Node APIs through tamagui component refs
+// exercises the RN 0.82 DOM Node APIs through hanzo-gui component refs
 // on web these are native DOM APIs, on native they're the new DOM-compatible shim
 
 type Results = Record<string, string>

@@ -27,7 +27,7 @@ if (!STRIPE_KEY) {
 const stripe = new Stripe(STRIPE_KEY, {
   apiVersion: '2020-08-27',
   appInfo: {
-    name: 'Tamagui Free Subscription Granter',
+    name: 'Gui Free Subscription Granter',
     version: '0.1.0',
   },
 })

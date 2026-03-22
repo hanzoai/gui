@@ -1,5 +1,5 @@
 import React from 'react'
-import type { GetProps, TamaguiElement } from '@hanzo/gui'
+import type { GetProps, GuiElement } from '@hanzo/gui'
 import {
   Paragraph,
   Separator,
@@ -80,7 +80,7 @@ const FrameContainer = Frame.styleable((propsIn, ref) => {
   return <Frame ref={ref} {...props} />
 })
 
-const ForwardRefContainer = React.forwardRef<TamaguiElement, GetProps<typeof Frame>>(
+const ForwardRefContainer = React.forwardRef<GuiElement, GetProps<typeof Frame>>(
   (propsIn, ref) => {
     return (
       <View>

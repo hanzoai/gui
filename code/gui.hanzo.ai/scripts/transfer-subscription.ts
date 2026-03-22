@@ -106,7 +106,7 @@ async function getStripeCustomer(userId: string) {
 
 async function addUserToGitHubTeam(username: string) {
   const response = await fetch(
-    `https://api.github.com/orgs/tamagui/teams/early-access/memberships/${username}`,
+    `https://api.github.com/orgs/hanzoai/teams/early-access/memberships/${username}`,
     {
       method: 'PUT',
       headers: {
@@ -125,7 +125,7 @@ async function addUserToGitHubTeam(username: string) {
 
 async function removeUserFromGitHubTeam(username: string) {
   const response = await fetch(
-    `https://api.github.com/orgs/tamagui/teams/early-access/memberships/${username}`,
+    `https://api.github.com/orgs/hanzoai/teams/early-access/memberships/${username}`,
     {
       method: 'DELETE',
       headers: {

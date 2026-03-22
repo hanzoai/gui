@@ -39,7 +39,7 @@ const features = [
   },
   {
     title: 'Native Feel',
-    description: 'Tamagui + Reanimated for smooth 60fps animations.',
+    description: 'Gui + Reanimated for smooth 60fps animations.',
     Icon: Smartphone,
   },
   {

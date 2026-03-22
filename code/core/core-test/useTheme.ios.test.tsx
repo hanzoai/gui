@@ -1,11 +1,11 @@
-import { TamaguiProvider, Theme, View, createTamagui } from '@hanzo/gui-core'
+import { GuiProvider, Theme, View, createGui } from '@hanzo/gui-core'
 import { render } from '@testing-library/react-native'
 import { describe, expect, test } from 'vitest'
-import { getDefaultTamaguiConfig } from '../config-default'
+import { getDefaultGuiConfig } from '../config-default'
 
-const defaultConfig = getDefaultTamaguiConfig('native')
+const defaultConfig = getDefaultGuiConfig('native')
 
-const config = createTamagui({
+const config = createGui({
   ...defaultConfig,
   settings: {
     ...defaultConfig.settings,
@@ -16,11 +16,11 @@ const config = createTamagui({
 describe('useTheme', () => {
   test(`nested non-changing scheme with fast scheme change doesn't de-opt`, () => {
     const tree = render(
-      <TamaguiProvider defaultTheme="light" config={config}>
+      <GuiProvider defaultTheme="light" config={config}>
         <Theme name="light">
           <View backgroundColor="$background" />
         </Theme>
-      </TamaguiProvider>
+      </GuiProvider>
     )
 
     expect(tree.toJSON()).toMatchInlineSnapshot(`
@@ -42,11 +42,11 @@ describe('useTheme', () => {
 
   test(`nested fast scheme change de-opts`, () => {
     const tree = render(
-      <TamaguiProvider defaultTheme="light" config={config}>
+      <GuiProvider defaultTheme="light" config={config}>
         <Theme name="dark">
           <View backgroundColor="$background" />
         </Theme>
-      </TamaguiProvider>
+      </GuiProvider>
     )
 
     expect(tree.toJSON()).toMatchInlineSnapshot(`

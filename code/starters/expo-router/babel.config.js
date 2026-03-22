@@ -7,7 +7,7 @@ module.exports = (api) => {
         '@hanzo/gui-babel-plugin',
         {
           components: ['@hanzo/gui'],
-          config: './tamagui.config.ts',
+          config: './gui.config.ts',
           logTimings: true,
           disableExtraction: process.env.NODE_ENV === 'development',
         },

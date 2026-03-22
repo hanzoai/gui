@@ -8,7 +8,7 @@ const listeners = new Set<ChangeHandler>()
 // T A M A G U I
 // Maps to logo letters - index 3 (A) is the "none" theme position
 const familiesValues = {
-  tamagui: ['yellow', 'yellow', 'yellow', 'gray', 'red', 'green', 'blue'] as ThemeName[],
+  gui: ['yellow', 'yellow', 'yellow', 'gray', 'red', 'green', 'blue'] as ThemeName[],
   xmas: ['red', 'green', 'red', 'green', 'red', 'green', 'red'] as ThemeName[],
   easter: [
     'yellow',
@@ -35,7 +35,7 @@ const familiesValues = {
 
 type Family = keyof typeof familiesValues
 
-const DEFAULT_FAMILY: Family = 'tamagui'
+const DEFAULT_FAMILY: Family = '@hanzo/gui'
 
 const familiesNames = Object.keys(familiesValues) as any as Family[]
 
@@ -53,7 +53,7 @@ export function getTints(): {
 } {
   return {
     name: fam || DEFAULT_FAMILY,
-    tints: families[fam] || families.tamagui,
+    tints: families[fam] || families.gui,
     families,
   }
 }
@@ -85,12 +85,12 @@ export function setTintFamily(next: TintFamily): void {
     const root = document.documentElement.classList
     // remove all season classes
     familiesNames.forEach((s) => {
-      if (s !== 'tamagui') {
+      if (s !== '@hanzo/gui') {
         root.remove(`${s}-season`)
       }
     })
-    // add the new one if not tamagui
-    if (next !== 'tamagui') {
+    // add the new one if not gui
+    if (next !== '@hanzo/gui') {
       root.add(`${next}-season`)
     }
   }

@@ -32,7 +32,7 @@ test.describe('Dialog Nested Stacking', () => {
     await page.waitForTimeout(300)
 
     // Get the z-index values of both dialog portal containers
-    // TamaguiRoot wraps portal content in Theme > span, so z-index is on the inner span
+    // GuiRoot wraps portal content in Theme > span, so z-index is on the inner span
     const zIndexInfo = await page.evaluate(() => {
       const portals = document.querySelectorAll('span[style*="z-index"]')
       const zIndices: number[] = []

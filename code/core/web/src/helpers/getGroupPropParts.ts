@@ -36,7 +36,7 @@ export function getGroupPropParts(groupProp: string): GroupParts {
   if (pseudoCandidate && !isValidPseudo(pseudoCandidate)) {
     if (process.env.NODE_ENV === 'development') {
       console.warn(
-        `Unknown group prop part "${pseudoCandidate}" in "${groupProp}". If this is a media query, ensure it's defined in your tamagui config.`
+        `Unknown group prop part "${pseudoCandidate}" in "${groupProp}". If this is a media query, ensure it's defined in your gui config.`
       )
     }
     pseudoCandidate = undefined

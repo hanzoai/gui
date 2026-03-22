@@ -1,0 +1,287 @@
+import Static from '@hanzo/gui-static'
+import browserslist from 'browserslist'
+import { lazyPostCSS } from 'next/dist/build/webpack/config/blocks/css/index.js'
+import { getGlobalCssLoader } from 'next/dist/build/webpack/config/blocks/css/loaders/index.js'
+import path from 'node:path'
+import type { PluginOptions as LoaderPluginOptions } from '@hanzo/gui-loader'
+import { GuiPlugin } from '@hanzo/gui-loader'
+import webpack from 'webpack'
+
+const { loadGuiBuildConfigSync } = Static
+
+export type WithGuiProps = LoaderPluginOptions & {
+  appDir?: boolean
+  enableLegacyFontSupport?: boolean
+  includeCSSTest?: RegExp | ((path: string) => boolean)
+
+  /**
+   * By default, we configure webpack to pass anything inside your root or design system
+   * to the Hanzo GUI loader. If you are importing files from an external package, use this
+   **/
+  shouldExtract?: (path: string, projectRoot: string) => boolean | undefined
+
+  /**
+   * *Advaned* Config to avoid resolving files on the server.
+   */
+  shouldExcludeFromServer?: (props: {
+    context: string
+    request: string
+    fullPath: string
+  }) => boolean | string | undefined
+  disableThemesBundleOptimize?: boolean
+
+  /** By default we add a Next.js modularizeImports option to tree shake @hanzo/gui-lucide-icons-2, this disables it */
+  disableOptimizeLucideIcons?: boolean
+}
+
+export const withGui = (guiOptionsIn?: WithGuiProps) => {
+  return (nextConfig: any = {}) => {
+    const guiOptions = {
+      ...guiOptionsIn,
+      ...loadGuiBuildConfigSync(guiOptionsIn),
+    }
+    const isAppDir = guiOptions?.appDir || nextConfig.experimental?.appDir
+
+    return {
+      ...nextConfig,
+      transpilePackages: [
+        ...(nextConfig.transpilePackages || []),
+        'expo-linear-gradient',
+      ],
+      webpack: (webpackConfig: any, options: any) => {
+        const { dir, config, dev, isServer } = options
+
+        // @ts-ignore
+        if (typeof globalThis['__DEV__'] === 'undefined') {
+          // @ts-ignore
+          globalThis['__DEV__'] = dev
+        }
+
+        const prefix = `${isServer ? ' ssr ' : ' web '} |`
+        const SEP = path.sep
+
+        if (process.env.ANALYZE === 'true') {
+          Object.assign(webpackConfig.optimization, {
+            concatenateModules: false,
+          })
+        }
+
+        const guiPlugin = new GuiPlugin({
+          platform: 'web',
+          isServer,
+          ...guiOptions,
+        })
+
+        const defines = {
+          'process.env.IS_STATIC': JSON.stringify(''),
+          'process.env.HANZO_GUI_TARGET': '"web"',
+          'process.env.HANZO_GUI_IS_SERVER': JSON.stringify(isServer ? 'true' : ''),
+          'process.env.HANZO_GUI_ENVIRONMENT': JSON.stringify(isServer ? 'ssr' : 'client'),
+          __DEV__: JSON.stringify(dev),
+          ...(process.env.HANZO_GUI_DOES_SSR_CSS && {
+            'process.env.HANZO_GUI_DOES_SSR_CSS': JSON.stringify(
+              process.env.HANZO_GUI_DOES_SSR_CSS
+            ),
+          }),
+          ...(guiOptions?.disableThemesBundleOptimize && {
+            'process.env.HANZO_GUI_OPTIMIZE_THEMES': JSON.stringify(false),
+            'process.env.HANZO_GUI_ENVIRONMENT': JSON.stringify(false),
+          }),
+        }
+
+        /**
+         * Non-server support
+         */
+        const cssRules = webpackConfig.module.rules.find(
+          (rule) =>
+            Array.isArray(rule.oneOf) &&
+            rule.oneOf.some(
+              ({ test }) =>
+                typeof test === 'object' &&
+                typeof test.test === 'function' &&
+                test.test('filename.css')
+            )
+        ).oneOf
+
+        /**
+         * Font Support
+         */
+        if (cssRules) {
+          if (guiOptions.enableLegacyFontSupport) {
+            // fonts support
+            cssRules.unshift({
+              test: /\.(woff(2)?|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/,
+              use: [
+                {
+                  loader: require.resolve('url-loader'),
+                  options: {
+                    limit: nextConfig.inlineFontLimit || 1024,
+                    fallback: require.resolve('file-loader'),
+                    publicPath: `${
+                      nextConfig.assetPrefix || ''
+                    }/_next/static/chunks/fonts/`,
+                    outputPath: `${isServer ? '../' : ''}static/chunks/fonts/`,
+                    name: '[name].[ext]',
+                  },
+                },
+              ],
+            })
+          }
+
+          /**
+           * CSS Support
+           */
+          const cssLoader = getGlobalCssLoader(
+            // @ts-ignore
+            {
+              assetPrefix:
+                nextConfig.assetPrefix ||
+                options.config.assetPrefix ||
+                config.assetPrefix,
+              future: nextConfig.future,
+              experimental: nextConfig.experimental || {},
+              isEdgeRuntime: true,
+              isProduction: !dev,
+              targetWeb: true,
+              isClient: !isServer,
+              isServer,
+              isDevelopment: dev,
+            },
+            // @ts-ignore
+            () => lazyPostCSS(dir, getSupportedBrowsers(dir, dev)),
+            []
+          )
+          if (!isAppDir) {
+            cssRules.unshift({
+              test: guiOptions.includeCSSTest ?? /\.gui\.css$/,
+              sideEffects: true,
+              use: cssLoader,
+            })
+          }
+        }
+
+        webpackConfig.plugins.push(new webpack.DefinePlugin(defines))
+
+        if (process.env.IGNORE_TS_CONFIG_PATHS) {
+          if (process.env.DEBUG) {
+            console.info(prefix, 'ignoring tsconfig paths')
+          }
+          if (webpackConfig.resolve.plugins[0]) {
+            delete webpackConfig.resolve.plugins[0].paths['@hanzo/gui-*']
+            // delete webpackConfig.resolve.plugins[0].paths['@hanzo/gui']
+          }
+        }
+
+        // better shaking for icons:
+        if (!guiOptions.disableOptimizeLucideIcons) {
+          nextConfig.experimental ||= {}
+          nextConfig.experimental.optimizePackageImports ||= []
+          nextConfig.experimental.optimizePackageImports.push('@hanzo/gui-lucide-icons-2')
+        }
+
+        /**
+         * Server react-native compat
+         */
+        if (isServer) {
+          const externalize = (context: string, request: string) => {
+            const fullPath = request[0] === '.' ? path.join(context, request) : request
+
+            if (guiOptions.shouldExcludeFromServer) {
+              const userRes = guiOptions.shouldExcludeFromServer({
+                context,
+                request,
+                fullPath,
+              })
+              if (userRes !== undefined) {
+                return userRes
+              }
+            }
+
+            if (guiPlugin.isInComponentModule(fullPath)) {
+              return false
+            }
+
+            if (fullPath.includes('react-native-web')) {
+              // always inline react-native-web due to errors where next.js resolved the path to esm
+              return false
+            }
+
+            // must inline react-native so we can alias to react-native-web
+            if (
+              fullPath === 'react-native' ||
+              fullPath.startsWith(`react-native${SEP}`)
+            ) {
+              return false
+            }
+
+            if (
+              fullPath.startsWith('moti') ||
+              fullPath.startsWith('solito') ||
+              // fullPath === '@hanzo/gui' ||
+              fullPath.startsWith('@gui') ||
+              fullPath === 'react-native-safe-area-context' ||
+              fullPath === 'expo-linear-gradient' ||
+              fullPath.startsWith('@react-navigation') ||
+              fullPath.startsWith('@gorhom')
+            ) {
+              return
+            }
+
+            if (/^@?react-native-/.test(request)) {
+              return false
+            }
+
+            return true
+          }
+
+          // externalize react native things from bundle
+          webpackConfig.externals = webpackConfig.externals.map((external) => {
+            if (typeof external !== 'function') {
+              return external
+            }
+            // only runs on server
+            return (ctx, cb) => {
+              const isCb = typeof cb === 'function'
+              const res = externalize(ctx.context, ctx.request)
+              if (isCb) {
+                if (typeof res === 'string') {
+                  return cb(null, res)
+                }
+                if (res) {
+                  return external(ctx, cb)
+                }
+                return cb()
+              }
+              return !res
+                ? Promise.resolve(undefined)
+                : typeof res === 'string'
+                  ? Promise.resolve(res)
+                  : external(ctx)
+            }
+          })
+        }
+
+        webpackConfig.plugins.push(guiPlugin)
+
+        if (typeof nextConfig.webpack === 'function') {
+          return nextConfig.webpack(webpackConfig, options)
+        }
+
+        return webpackConfig
+      },
+    }
+  }
+}
+
+function getSupportedBrowsers(dir, isDevelopment) {
+  let browsers
+  try {
+    browsers = browserslist.loadConfig({
+      path: dir,
+      env: isDevelopment ? 'development' : 'production',
+    })
+  } catch {
+    //
+  }
+  return browsers
+}

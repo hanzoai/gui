@@ -1,5 +1,5 @@
 import {
-  createTamagui,
+  createGui,
   normalizeStyle,
   getCSSStylesAtomic,
   StyleObjectRules,
@@ -11,7 +11,7 @@ import { beforeAll, describe, expect, test } from 'vitest'
 import config from '../../../core/config-default'
 
 beforeAll(() => {
-  createTamagui(config.getDefaultTamaguiConfig())
+  createGui(config.getDefaultGuiConfig())
 })
 
 describe('extract-tests', () => {

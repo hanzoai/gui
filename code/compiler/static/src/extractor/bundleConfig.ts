@@ -7,16 +7,16 @@ import { basename, dirname, extname, join, relative, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 // @ts-ignore why
 import { Color, colorLog } from '@hanzo/gui-cli-color'
-import { type StaticConfig, type TamaguiInternalConfig } from '@hanzo/gui-web'
+import { type StaticConfig, type GuiInternalConfig } from '@hanzo/gui-web'
 import esbuild from 'esbuild'
 import * as FS from 'fs-extra'
 import { readFile } from 'node:fs/promises'
 import { registerRequire, setRequireResult } from '../registerRequire'
-import type { TamaguiOptions } from '../types'
+import type { GuiOptions } from '../types'
 import { babelParse } from './babelParse'
-import { esbuildLoaderConfig, esbundleTamaguiConfig } from './bundle'
-import { getTamaguiConfigPathFromOptionsConfig } from './getTamaguiConfigPathFromOptionsConfig'
-import { requireTamaguiCore } from '../helpers/requireTamaguiCore'
+import { esbuildLoaderConfig, esbundleGuiConfig } from './bundle'
+import { getGuiConfigPathFromOptionsConfig } from './getGuiConfigPathFromOptionsConfig'
+import { requireGuiCore } from '../helpers/requireGuiCore'
 import { detectModuleFormat } from './detectModuleFormat'
 
 // track temp files for cleanup on exit
@@ -32,7 +32,7 @@ function getDynamicEvalOutfile(name: string, format: 'esm' | 'cjs', contents: st
     .update(contents)
     .digest('hex')
     .slice(0, 10)
-  return join(process.cwd(), '.tamagui', `dynamic-eval-${hash}-${basename(name)}.${ext}`)
+  return join(process.cwd(), '.gui', `dynamic-eval-${hash}-${basename(name)}.${ext}`)
 }
 
 function getEsbuildStdinLoader(filePath: string): esbuild.Loader {
@@ -98,9 +98,9 @@ export type LoadedComponents = {
   >
 }
 
-export type TamaguiProjectInfo = {
+export type GuiProjectInfo = {
   components?: LoadedComponents[]
-  tamaguiConfig?: TamaguiInternalConfig | null
+  guiConfig?: GuiInternalConfig | null
   nameToPaths?: NameToPaths
   cached?: boolean
 }
@@ -133,7 +133,7 @@ const handleEsmFeaturesPlugin: esbuild.Plugin = {
       }
 
       // skip most node_modules
-      if (args.path.includes('node_modules') && !args.path.includes('@tamagui')) {
+      if (args.path.includes('node_modules') && !args.path.includes('@gui')) {
         return null
       }
 
@@ -163,8 +163,8 @@ const handleEsmFeaturesPlugin: esbuild.Plugin = {
         /^\s*(?:const|let|var|export)\s+[^=]*=\s*await\b/m.test(contents) ||
         /^await\s/m.test(contents)
       ) {
-        if (process.env.DEBUG?.startsWith('tamagui')) {
-          console.info(`[tamagui] stubbing file with top-level await: ${args.path}`)
+        if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
+          console.info(`[hanzo-gui] stubbing file with top-level await: ${args.path}`)
         }
         return {
           contents: `// stubbed - contains top-level await\nmodule.exports = {}`,
@@ -226,11 +226,11 @@ export function hasBundledConfigChanged() {
   return true
 }
 
-let loadedConfig: TamaguiInternalConfig | null = null
+let loadedConfig: GuiInternalConfig | null = null
 
 export const getLoadedConfig = () => loadedConfig
 
-export async function getBundledConfig(props: TamaguiOptions, rebuild = false) {
+export async function getBundledConfig(props: GuiOptions, rebuild = false) {
   if (isBundling) {
     await new Promise((res) => {
       waitForBundle.add(res)
@@ -241,11 +241,11 @@ export async function getBundledConfig(props: TamaguiOptions, rebuild = false) {
   return currentBundle
 }
 
-global.tamaguiLastLoaded ||= 0
+global.guiLastLoaded ||= 0
 
 function updateLastLoaded(config: any) {
-  global.tamaguiLastLoaded = Date.now()
-  global.tamaguiLastBundledConfig = config
+  global.guiLastLoaded = Date.now()
+  global.guiLastBundledConfig = config
 }
 
 let hasBundledOnce = false
@@ -255,24 +255,24 @@ let hasBundledOnce = false
 // that's acceptable - better than nothing
 let hasLoggedBuild = false
 
-export async function bundleConfig(props: TamaguiOptions) {
+export async function bundleConfig(props: GuiOptions) {
   // webpack is calling this a ton for no reason
-  if (global.tamaguiLastBundledConfig && Date.now() - global.tamaguiLastLoaded < 3000) {
+  if (global.guiLastBundledConfig && Date.now() - global.guiLastLoaded < 3000) {
     // just loaded recently
-    return global.tamaguiLastBundledConfig
+    return global.guiLastBundledConfig
   }
 
   try {
     isBundling = true
 
     const configEntry = props.config
-      ? getTamaguiConfigPathFromOptionsConfig(props.config)
+      ? getGuiConfigPathFromOptionsConfig(props.config)
       : ''
-    const tmpDir = join(process.cwd(), '.tamagui')
+    const tmpDir = join(process.cwd(), '.gui')
     // detect module format from config entry point
     const configFormat = configEntry ? detectModuleFormat(configEntry) : 'cjs'
     const configExt = configFormat === 'esm' ? '.mjs' : '.cjs'
-    const configOutPath = join(tmpDir, `tamagui.config${configExt}`)
+    const configOutPath = join(tmpDir, `gui.config${configExt}`)
     const baseComponents = (props.components || []).filter((x) => x !== '@hanzo/gui-core')
     // detect format per component module
     const componentFormats: Array<'esm' | 'cjs'> = baseComponents.map((mod) => {
@@ -297,7 +297,7 @@ export async function bundleConfig(props: TamaguiOptions) {
 
     if (
       process.env.NODE_ENV === 'development' &&
-      process.env.DEBUG?.startsWith('tamagui')
+      process.env.DEBUG?.startsWith('@hanzo/gui')
     ) {
       console.info(`Building config entry`, configEntry)
     }
@@ -336,7 +336,7 @@ export async function bundleConfig(props: TamaguiOptions) {
 
       await Promise.all([
         props.config
-          ? esbundleTamaguiConfig(
+          ? esbundleGuiConfig(
               {
                 entryPoints: [configEntry],
                 external,
@@ -349,7 +349,7 @@ export async function bundleConfig(props: TamaguiOptions) {
             )
           : null,
         ...baseComponents.map((componentModule, i) => {
-          return esbundleTamaguiConfig(
+          return esbundleGuiConfig(
             {
               entryPoints: [componentModule],
               resolvePlatformSpecificEntries: true,
@@ -371,10 +371,10 @@ export async function bundleConfig(props: TamaguiOptions) {
         colorLog(
           Color.FgYellow,
           `
-  ➡ [tamagui] built config, components, prompt (${Date.now() - start}ms)`
+  ➡ [hanzo-gui] built config, components, prompt (${Date.now() - start}ms)`
         )
 
-        if (process.env.DEBUG?.startsWith('tamagui')) {
+        if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
           colorLog(
             Color.Dim,
             `
@@ -427,20 +427,20 @@ export async function bundleConfig(props: TamaguiOptions) {
     // check for ProxyWorm - indicates a module loading error
     if (config._isProxyWorm) {
       throw new Error(
-        `Got a proxied config - likely a module loading error. Set DEBUG=tamagui for details.`
+        `Got a proxied config - likely a module loading error. Set DEBUG=hanzo-gui for details.`
       )
     }
 
     loadedConfig = config
 
     if (!config.parsed) {
-      const { createTamagui } = requireTamaguiCore(props.platform || 'web')
+      const { createGui } = requireGuiCore(props.platform || 'web')
       // need to create it
-      config = createTamagui(config)
+      config = createGui(config)
     }
 
     if (props.outputCSS) {
-      await writeTamaguiCSS(props.outputCSS, config)
+      await writeGuiCSS(props.outputCSS, config)
     }
 
     let components = await loadComponents({
@@ -459,7 +459,7 @@ export async function bundleConfig(props: TamaguiOptions) {
         component.moduleName
 
       if (!component.moduleName) {
-        if (process.env.DEBUG?.includes('tamagui') || process.env.IS_HANZO_GUI_DEV) {
+        if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_HANZO_GUI_DEV) {
           console.warn(
             `⚠️ no module name found: ${component.moduleName} ${JSON.stringify(
               baseComponents
@@ -471,7 +471,7 @@ export async function bundleConfig(props: TamaguiOptions) {
 
     if (
       process.env.NODE_ENV === 'development' &&
-      process.env.DEBUG?.startsWith('tamagui')
+      process.env.DEBUG?.startsWith('@hanzo/gui')
     ) {
       console.info('Loaded components', components)
     }
@@ -479,7 +479,7 @@ export async function bundleConfig(props: TamaguiOptions) {
     const res = {
       components,
       nameToPaths: {},
-      tamaguiConfig: config,
+      guiConfig: config,
     }
 
     currentBundle = res
@@ -488,9 +488,9 @@ export async function bundleConfig(props: TamaguiOptions) {
     return res
   } catch (err: any) {
     console.error(
-      `Error bundling tamagui config: ${err?.message} (run with DEBUG=tamagui to see stack)`
+      `Error bundling gui config: ${err?.message} (run with DEBUG=hanzo-gui to see stack)`
     )
-    if (process.env.DEBUG?.includes('tamagui')) {
+    if (process.env.DEBUG?.includes('@hanzo/gui')) {
       console.error(err.stack)
     }
   } finally {
@@ -500,9 +500,9 @@ export async function bundleConfig(props: TamaguiOptions) {
   }
 }
 
-export async function writeTamaguiCSS(outputCSS: string, config: TamaguiInternalConfig) {
+export async function writeGuiCSS(outputCSS: string, config: GuiInternalConfig) {
   const flush = async () => {
-    colorLog(Color.FgYellow, `  ➡ [tamagui] output css: ${outputCSS}`)
+    colorLog(Color.FgYellow, `  ➡ [hanzo-gui] output css: ${outputCSS}`)
     await FS.writeFile(outputCSS, css)
   }
 
@@ -521,19 +521,19 @@ export async function writeTamaguiCSS(outputCSS: string, config: TamaguiInternal
   }
 }
 
-export async function loadComponents(props: TamaguiOptions, forceExports = false) {
+export async function loadComponents(props: GuiOptions, forceExports = false) {
   const coreComponents = getCoreComponentsSync(props)
   const otherComponents = await loadComponentsInner(props, forceExports)
   return [...coreComponents, ...(otherComponents || [])]
 }
 
-export function loadComponentsSync(props: TamaguiOptions, forceExports = false) {
+export function loadComponentsSync(props: GuiOptions, forceExports = false) {
   const coreComponents = getCoreComponentsSync(props)
   const otherComponents = loadComponentsInnerSync(props, forceExports)
   return [...coreComponents, ...(otherComponents || [])]
 }
 
-function getCoreComponentsSync(props: TamaguiOptions) {
+function getCoreComponentsSync(props: GuiOptions) {
   const loaded = loadComponentsInnerSync({
     ...props,
     components: ['@hanzo/gui-core'],
@@ -553,7 +553,7 @@ function getCoreComponentsSync(props: TamaguiOptions) {
 }
 
 export async function loadComponentsInner(
-  props: TamaguiOptions,
+  props: GuiOptions,
   forceExports = false
 ): Promise<null | LoadedComponents[]> {
   const componentsModules = props.components || []
@@ -666,7 +666,7 @@ export async function loadComponentsInner(
       } catch (err) {
         console.info('babel err', err, writtenContents)
         writtenContents = fileContents
-        if (process.env.DEBUG?.startsWith('tamagui')) {
+        if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
           console.info(`Error parsing babel likely`, err)
         }
 
@@ -675,7 +675,7 @@ export async function loadComponentsInner(
         } catch (err2) {
           if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
             console.info(
-              `\nTamagui attempted but failed to dynamically optimize components in:\n  ${name}\n`
+              `\nGui attempted but failed to dynamically optimize components in:\n  ${name}\n`
             )
             console.info(err2)
             console.info(
@@ -703,7 +703,7 @@ export async function loadComponentsInner(
     cacheComponents[key] = results
     return results
   } catch (err: any) {
-    console.info(`Tamagui error bundling components`, err.message, err.stack)
+    console.info(`Gui error bundling components`, err.message, err.stack)
     return null
   } finally {
     unregister()
@@ -712,7 +712,7 @@ export async function loadComponentsInner(
 
 // sync version - uses cjs format for buildSync (no plugin support)
 export function loadComponentsInnerSync(
-  props: TamaguiOptions,
+  props: GuiOptions,
   forceExports = false
 ): null | LoadedComponents[] {
   const componentsModules = props.components || []
@@ -814,7 +814,7 @@ export function loadComponentsInnerSync(
       } catch (err) {
         console.info('babel err', err, writtenContents)
         writtenContents = fileContents
-        if (process.env.DEBUG?.startsWith('tamagui')) {
+        if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
           console.info(`Error parsing babel likely`, err)
         }
       } finally {
@@ -826,7 +826,7 @@ export function loadComponentsInnerSync(
       } catch (err) {
         if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
           console.info(
-            `\nTamagui attempted but failed to dynamically optimize components in:\n  ${name}\n`
+            `\nGui attempted but failed to dynamically optimize components in:\n  ${name}\n`
           )
           console.info(err)
           console.info(
@@ -846,7 +846,7 @@ export function loadComponentsInnerSync(
     cacheComponents[key] = info
     return info
   } catch (err: any) {
-    console.info(`Tamagui error bundling components`, err.message, err.stack)
+    console.info(`Gui error bundling components`, err.message, err.stack)
     return null
   } finally {
     unregister()
@@ -874,7 +874,7 @@ function getComponentStaticConfigByName(name: string, exported: any) {
     }
 
     for (const key in exported) {
-      const found = getTamaguiComponent(key, exported[key])
+      const found = getGuiComponent(key, exported[key])
       if (found) {
         // remove non-stringifyable
         const { Component, ...sc } = found.staticConfig
@@ -884,7 +884,7 @@ function getComponentStaticConfigByName(name: string, exported: any) {
   } catch (err) {
     if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
       console.error(
-        `Tamagui failed getting components from ${name} (Disable error by setting environment variable TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
+        `Gui failed getting components from ${name} (Disable error by setting environment variable HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
       )
       console.error(err)
     }
@@ -892,7 +892,7 @@ function getComponentStaticConfigByName(name: string, exported: any) {
   return components
 }
 
-function getTamaguiComponent(
+function getGuiComponent(
   name: string,
   Component: any
 ): undefined | { staticConfig: StaticConfig } {

@@ -1,4 +1,4 @@
-import { TamaguiLogo, ThemeTint, ThemeTintAlt } from '@hanzo/gui-logo'
+import { GuiLogo, ThemeTint, ThemeTintAlt } from '@hanzo/gui-logo'
 import {
   Asterisk,
   Box,
@@ -50,8 +50,8 @@ import { OffsetBox } from '~/components/OffsetBox'
 import { Preview } from '~/components/Preview'
 import { ProductCard } from '~/components/ProductCard'
 import { SubTitle } from '~/components/SubTitle'
-import { TamaguiCard } from '~/components/TamaguiCard'
-import { TamaguiExamplesCode } from '~/components/TamaguiExamples'
+import { GuiCard } from '~/components/GuiCard'
+import { GuiExamplesCode } from '~/components/GuiExamples'
 import { UL } from '~/components/UL'
 import { SponsorButton } from '~/features/docs/SponsorButton'
 import { ExternalIcon } from '~/features/icons/ExternalIcon'
@@ -239,8 +239,8 @@ const componentsIn = {
 
   ...Demos,
 
-  TamaguiDemo: () => {
-    return <TamaguiLogo />
+  GuiDemo: () => {
+    return <GuiLogo />
   },
 
   Highlights,
@@ -256,7 +256,7 @@ const componentsIn = {
     <Paragraph render="strong" fontSize="inherit" fontWeight="700" {...props} />
   ),
 
-  TamaguiExamplesCode,
+  GuiExamplesCode,
 
   InstallBanner: ({ name = '' }) => {
     const {
@@ -268,15 +268,15 @@ const componentsIn = {
       setPackageManager,
     } = useBashCommand(`yarn add ${name}`, 'language-bash')
 
-    const { transformedCommand: tamaguiCommand } = useBashCommand(
+    const { transformedCommand: guiCommand } = useBashCommand(
       `npm install @hanzo/gui`,
       'language-bash'
     )
     const { onCopy, hasCopied } = useClipboard(transformedCommand)
-    const tamaguiCmdClip = useClipboard(tamaguiCommand)
+    const guiCmdClip = useClipboard(guiCommand)
 
     const CopyIcon = hasCopied ? Check : Copy
-    const CopyIcon2 = tamaguiCmdClip.hasCopied ? Check : Copy
+    const CopyIcon2 = guiCmdClip.hasCopied ? Check : Copy
 
     return (
       <XStack flexWrap="wrap" items="center" gap="$4">
@@ -335,7 +335,7 @@ const componentsIn = {
                   open: 1200,
                   close: 0,
                 }}
-                label={tamaguiCmdClip.hasCopied ? 'Copied' : 'Copy to clipboard'}
+                label={guiCmdClip.hasCopied ? 'Copied' : 'Copy to clipboard'}
               >
                 <XStack
                   items="center"
@@ -347,9 +347,9 @@ const componentsIn = {
                   bg="$color2"
                   rounded="$3"
                   cursor="pointer"
-                  onPress={tamaguiCmdClip.onCopy}
+                  onPress={guiCmdClip.onCopy}
                 >
-                  <SizableText color="$color11">{tamaguiCommand}</SizableText>
+                  <SizableText color="$color11">{guiCommand}</SizableText>
 
                   <CopyIcon2
                     p="$0.5"
@@ -427,7 +427,7 @@ const componentsIn = {
   IntroParagraph,
 
   Grid: (props) => <XStack flexWrap="wrap" jc="space-between" {...props} />,
-  Card: TamaguiCard,
+  Card: GuiCard,
 
   LogoCard: LogoCard,
   NextJSRouterCard: (props) => {
@@ -726,14 +726,14 @@ const componentsIn = {
           </H4>
           <YStack overflow="hidden" flex={1} flexBasis="auto" opacity={0.85} gap="$4">
             <Paragraph>
-              Tamagui is fully OSS, self-funded and built by{' '}
+              Hanzo GUI is fully OSS, self-funded and built by{' '}
               <a href="https://x.com/natebirdman" target="_blank" rel="noreferrer">
                 me
               </a>
               .
             </Paragraph>
             <Paragraph>
-              My goal is to support Tamagui development with sponsorships that get early
+              My goal is to support Hanzo GUI development with sponsorships that get early
               access to <a href="#sponsors">some really interesting</a> new features.
             </Paragraph>
             <SponsorButton />
@@ -763,7 +763,7 @@ const componentsIn = {
       <YStack gap="$1">
         <ThemeTintAlt offset={2}>
           <IntroParagraph large mt="$4">
-            Tamagui makes styling React on any platform a delight. All of its features
+            Hanzo GUI makes styling React on any platform a delight. All of its features
             work the same on both React Native and React web.
           </IntroParagraph>
 

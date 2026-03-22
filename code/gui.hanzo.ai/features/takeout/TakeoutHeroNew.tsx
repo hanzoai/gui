@@ -132,7 +132,7 @@ export function TakeoutHeroNew({
       {onBuyPress && (
         <XStack gap="$3" position="absolute" items="center" t={30} r="2%" z={10}>
           {/* <ButtonLink
-            href="https://github.com/tamagui/takeout-free"
+            href="https://github.com/hanzoai/takeout-free"
             target="_blank"
             size="$2"
           >
@@ -172,7 +172,7 @@ export function TakeoutHeroNew({
           <YStack gap="$3" maxW={720} mt={-20}>
             <SubTitle size="$8" text="center" $sm={{ size: '$6' }}>
               Takeout makes React Native + web as well-structured, fast, and simple as
-              possible, and funds the OSS development of Tamagui.
+              possible, and funds the OSS development of Gui.
             </SubTitle>
           </YStack>
         </>

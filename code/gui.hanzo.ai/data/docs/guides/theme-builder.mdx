@@ -1,6 +1,6 @@
 ---
-title: Creating Themes with Tamagui
-description: Learn how to create a suite of themes for a Tamagui app
+title: Creating Themes with Hanzo GUI
+description: Learn how to create a suite of themes for a Hanzo GUI app
 demoName: ThemeBuilder
 ---
 
@@ -9,7 +9,7 @@ demoName: ThemeBuilder
 </HeroContainer>
 
 <IntroParagraph>
-  Tamagui themes start simple, but can do some pretty powerful things. To make them easier
+  Hanzo GUI themes start simple, but can do some pretty powerful things. To make them easier
   to generate, we've built a few helpers. You can always just skip themes, or add a single
   basic theme if you prefer. This guide is for users wanting to generate a more complex
   suite of themes.
@@ -259,7 +259,7 @@ Optionally generate themes at build time to reduce bundle size:
 
 ```tsx
 // next.config.js
-withTamagui({
+withGui({
   themeBuilder: {
     input: './themes-input.tsx',
     output: './themes.tsx',

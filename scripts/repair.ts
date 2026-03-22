@@ -37,8 +37,8 @@ async function repair() {
 
       const pkgJson = JSON.parse(fileContents)
 
-      // Only add to core and ui packages that use tamagui-build
-      if (!pkgJson.scripts?.build?.includes('tamagui-build')) {
+      // Only add to core and ui packages that use hanzo-gui-build
+      if (!pkgJson.scripts?.build?.includes('hanzo-gui-build')) {
         return
       }
       if (

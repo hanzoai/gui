@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, X } from '@hanzo/gui-lucide-icons-2'
 import { useStore } from '@hanzo/gui-use-store'
-import type { TamaguiElement } from '@hanzo/gui-web'
+import type { GuiElement } from '@hanzo/gui-web'
 import {
   memo,
   Suspense,
@@ -125,7 +125,7 @@ const ThemeBuilderModal = memo(() => {
   const store = useThemeBuilderStore()
   const { currentSection } = store
   const StepComponent = currentSection?.children ?? Empty
-  const ref = useRef<TamaguiElement>(null)
+  const ref = useRef<GuiElement>(null)
   const [hide, setHide] = useState(false)
   const { gtLg } = useMedia()
   const bannerHeight = useBannerHeight()

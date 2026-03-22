@@ -1,5 +1,5 @@
-// ensure tamagui config is created before any component imports
-import './src/tamagui.config'
+// ensure gui config is created before any component imports
+import './src/gui.config'
 
 // setup native features - just import, no function calls needed
 import '@hanzo/gui-native/setup-zeego'

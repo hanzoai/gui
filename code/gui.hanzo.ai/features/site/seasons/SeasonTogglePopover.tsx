@@ -1,5 +1,5 @@
 import {
-  TamaguiLogo,
+  GuiLogo,
   setTintFamily,
   useTint,
   getTints,
@@ -9,7 +9,7 @@ import { Popover, SizableText, Square, View, XStack, YStack } from '@hanzo/gui'
 
 // colors match the theme families in tints.tsx
 const seasonColors = {
-  tamagui: '#ECD20A', // yellow (default)
+  gui: '#ECD20A', // yellow (default)
   easter: '#ECD20A', // yellow
   xmas: '#ff3333', // red
   lunar: '#ff3333', // red
@@ -19,7 +19,7 @@ const seasonColors = {
 }
 
 export const seasons = {
-  tamagui: '🐤',
+  gui: '🐤',
   easter: '🐣',
   xmas: '🎅🏻',
   lunar: '🧧',
@@ -29,13 +29,13 @@ export const seasons = {
 }
 
 export const seasonLogos = {
-  tamagui: <TamaguiLogo downscale={2} color={seasonColors.tamagui} />,
-  easter: <TamaguiLogo downscale={2} color={seasonColors.easter} />,
-  xmas: <TamaguiLogo downscale={2} color={seasonColors.xmas} />,
-  lunar: <TamaguiLogo downscale={2} color={seasonColors.lunar} />,
-  valentine: <TamaguiLogo downscale={2} color={seasonColors.valentine} />,
-  halloween: <TamaguiLogo downscale={2} color={seasonColors.halloween} />,
-  stpatricks: <TamaguiLogo downscale={2} color={seasonColors.stpatricks} />,
+  gui: <GuiLogo downscale={2} color={seasonColors.gui} />,
+  easter: <GuiLogo downscale={2} color={seasonColors.easter} />,
+  xmas: <GuiLogo downscale={2} color={seasonColors.xmas} />,
+  lunar: <GuiLogo downscale={2} color={seasonColors.lunar} />,
+  valentine: <GuiLogo downscale={2} color={seasonColors.valentine} />,
+  halloween: <GuiLogo downscale={2} color={seasonColors.halloween} />,
+  stpatricks: <GuiLogo downscale={2} color={seasonColors.stpatricks} />,
 }
 
 const seasonKeys = [

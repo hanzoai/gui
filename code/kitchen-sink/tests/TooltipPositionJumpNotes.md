@@ -208,7 +208,7 @@ if (hasTransformWithTranslate && controls.current) {
 
 ## Key Insights
 
-1. **Tamagui converts x/y props to CSS transform**: When you use `x={100}`, Tamagui converts it to `transform: translateX(100px)` before passing to the motion driver.
+1. **Gui converts x/y props to CSS transform**: When you use `x={100}`, Hanzo GUI converts it to `transform: translateX(100px)` before passing to the motion driver.
 
 2. **motion's stop() resets the transform**: When you call `controls.current.stop()`, the element's transform may reset to `matrix(1, 0, 0, 1, 0, 0)`. You MUST read the current position BEFORE calling stop().
 

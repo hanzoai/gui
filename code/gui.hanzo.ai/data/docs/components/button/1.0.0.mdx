@@ -37,7 +37,7 @@ export default () => <Button>Lorem ipsum</Button>
 
 ### Sizing
 
-Sizing buttons provides a unique challenge especially for a compiler, because you need to adjust many different properties - not just on the outer frame, but on the text wrapped inside. Tamagui supports adjusting the padding, border radius, font size and icons sizes all in one with the `size` prop.
+Sizing buttons provides a unique challenge especially for a compiler, because you need to adjust many different properties - not just on the outer frame, but on the text wrapped inside. Hanzo GUI supports adjusting the padding, border radius, font size and icons sizes all in one with the `size` prop.
 
 ```tsx
 import { Button } from '@hanzo/gui'
@@ -49,7 +49,7 @@ Given your theme defines a size `6`, the button will adjust all of the propertie
 
 ### Icon Theming
 
-You can pass icons as either elements or components. If passing components, Tamagui will automatically pass the `size` and `color` prop to them based on your theme.
+You can pass icons as either elements or components. If passing components, Hanzo GUI will automatically pass the `size` and `color` prop to them based on your theme.
 
 You can [use the source of Button itself](https://github.com/hanzoai/gui/blob/v2/code/ui/button/src/Button.tsx) to see in more detail what variants you can override, and how we use this pattern internally to create our Button component.
 
@@ -57,7 +57,7 @@ You can [use the source of Button itself](https://github.com/hanzoai/gui/blob/v2
 
 Button only supports a limited subset of text props directly, and doesn't accept `hoverStyle` text props. If you need more control, you can do a simple customization using some exported helpers.
 
-Please note that this pattern is a bit antithetical to the multiple-components APIs that Tamagui generally prefers. In a future release we hope to fix this, but that change should be easy to migrate to.
+Please note that this pattern is a bit antithetical to the multiple-components APIs that Hanzo GUI generally prefers. In a future release we hope to fix this, but that change should be easy to migrate to.
 
 ```tsx
 import { forwardRef } from 'react'
@@ -65,7 +65,7 @@ import {
   ButtonFrame,
   ButtonText,
   GetProps,
-  ButtonProps as TamaguiButtonProps,
+  ButtonProps as Hanzo GUIButtonProps,
   styled,
   themeable,
   useButton,
@@ -83,7 +83,7 @@ const CustomButtonText = styled(ButtonText, {
 type CustomButtonFrameProps = GetProps<typeof CustomButtonFrame>
 type CustomButtonTextProps = GetProps<typeof CustomButtonText>
 
-export type CustomButtonProps = TamaguiButtonProps &
+export type CustomButtonProps = Hanzo GUIButtonProps &
   CustomButtonFrameProps &
   CustomButtonTextProps
 
@@ -95,7 +95,7 @@ export const Button = CustomButtonFrame.styleable<CustomButtonProps>((propsIn, r
 
 ### Button props
 
-Buttons extend Stack views inheriting all the [Tamagui standard props](/docs/intro/props), plus:
+Buttons extend Stack views inheriting all the [Gui standard props](/docs/intro/props), plus:
 
 <PropsTable
   data={[
@@ -187,7 +187,7 @@ Buttons extend Stack views inheriting all the [Tamagui standard props](/docs/int
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
   ]}
 />

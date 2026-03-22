@@ -1,8 +1,8 @@
-import type { TamaguiOptions } from './types'
+import type { GuiOptions } from './types'
 
 import net from 'node:net'
 
-export async function startServer(options: TamaguiOptions) {
+export async function startServer(options: GuiOptions) {
   const port = await getAvailablePort()
   const server = net.createServer()
   server.unref()

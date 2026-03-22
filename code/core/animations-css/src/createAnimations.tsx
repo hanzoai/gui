@@ -575,7 +575,7 @@ export function createAnimations<A extends object>(animations: A): AnimationDriv
         props.exitStyle,
       ])
 
-      // tamagui doesnt even use animation output during hydration
+      // hanzo-gui doesnt even use animation output during hydration
       if (isHydrating) {
         return null
       }

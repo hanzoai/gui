@@ -26,11 +26,11 @@ The motion driver (`@hanzo/gui-animations-motion`) has several issues that need 
 
 ## Known Bugs
 
-### 1. TAMAGUI Logo Jitter Bug
+### 1. HANZO_GUI Logo Jitter Bug
 
 **Component**: `LogoWords.tsx` in `@hanzo/gui-logo`
 
-**Symptoms**: Moving mouse left/right fast over the TAMAGUI text causes the dot indicator to jitter erratically.
+**Symptoms**: Moving mouse left/right fast over the HANZO_GUI text causes the dot indicator to jitter erratically.
 
 **Relevant Code**:
 
@@ -138,7 +138,7 @@ The fix uses **approach #4: element attribute marker** to distinguish Popper ele
 ### Changes Made
 
 1. **`/code/ui/popper/src/Popper.tsx`**
-   - Added `data-popper-animated="true"` attribute to the outer animated TamaguiView
+   - Added `data-popper-animated="true"` attribute to the outer animated Hanzo GUIView
    - This attribute is only added when `enableAnimationForPositionChange` is true
    - Marker is on the actual animated element (not the inner PopperContentFrame which has `data-placement`)
 
@@ -174,4 +174,4 @@ All tests pass:
 ## Test Files
 
 - `/code/kitchen-sink/tests/TooltipPositionJump.animated.test.tsx` - Existing (passes)
-- `/code/kitchen-sink/tests/TamaguiSiteMotion.test.ts` - Tests against actual gui.hanzo.ai site
+- `/code/kitchen-sink/tests/GuiSiteMotion.test.ts` - Tests against actual gui.hanzo.ai site

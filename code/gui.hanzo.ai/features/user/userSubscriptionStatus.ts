@@ -49,7 +49,7 @@ const calculateSupportTier = (
   const hasSponsor = subscriptions.some(
     (sub) =>
       sub.subscription_items?.some(
-        (item) => item.price?.product?.name === ProductName.TamaguiSupportSponsor
+        (item) => item.price?.product?.name === ProductName.GuiSupportSponsor
       ) &&
       (sub.status === SubscriptionStatus.Active ||
         sub.status === SubscriptionStatus.Trialing)
@@ -60,7 +60,7 @@ const calculateSupportTier = (
   const hasDirect = subscriptions.some(
     (sub) =>
       sub.subscription_items?.some(
-        (item) => item.price?.product?.name === ProductName.TamaguiSupportDirect
+        (item) => item.price?.product?.name === ProductName.GuiSupportDirect
       ) &&
       (sub.status === SubscriptionStatus.Active ||
         sub.status === SubscriptionStatus.Trialing)
@@ -71,7 +71,7 @@ const calculateSupportTier = (
   const supportItem = subscriptions.find((sub) =>
     sub.subscription_items?.some(
       (item) =>
-        item.price?.product?.name === ProductName.TamaguiSupport &&
+        item.price?.product?.name === ProductName.GuiSupport &&
         (sub.status === SubscriptionStatus.Active ||
           sub.status === SubscriptionStatus.Trialing)
     )
@@ -87,7 +87,7 @@ const calculateTeamSeats = (subscriptions: UserContextType['subscriptions']): nu
     subscriptions.find((sub) =>
       sub.subscription_items?.some(
         (item) =>
-          item.price?.product?.name === ProductName.TamaguiProTeamSeats &&
+          item.price?.product?.name === ProductName.GuiProTeamSeats &&
           (sub.status === SubscriptionStatus.Active ||
             sub.status === SubscriptionStatus.Trialing)
       )
@@ -124,27 +124,27 @@ export const userSubscriptionStatus = (
     }
 
   const hasV1Pro =
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiPro) ||
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiProTeamSeats)
+    hasProductAccess(userData.subscriptions, ProductName.GuiPro) ||
+    hasProductAccess(userData.subscriptions, ProductName.GuiProTeamSeats)
 
   const hasV2Pro =
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiProV2) ||
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiProV2Upgrade) ||
+    hasProductAccess(userData.subscriptions, ProductName.GuiProV2) ||
+    hasProductAccess(userData.subscriptions, ProductName.GuiProV2Upgrade) ||
     // V2 support tiers also imply Pro access (support is add-on to Pro license)
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiSupportDirect) ||
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiSupportSponsor)
+    hasProductAccess(userData.subscriptions, ProductName.GuiSupportDirect) ||
+    hasProductAccess(userData.subscriptions, ProductName.GuiSupportSponsor)
 
   const isPro = hasV1Pro || hasV2Pro
 
   const isChat =
     // V1 chat
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiChat) ||
+    hasProductAccess(userData.subscriptions, ProductName.GuiChat) ||
     // V2 Pro includes basic chat support
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiProV2) ||
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiProV2Upgrade) ||
+    hasProductAccess(userData.subscriptions, ProductName.GuiProV2) ||
+    hasProductAccess(userData.subscriptions, ProductName.GuiProV2Upgrade) ||
     // V2 support tiers include chat
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiSupportDirect) ||
-    hasProductAccess(userData.subscriptions, ProductName.TamaguiSupportSponsor)
+    hasProductAccess(userData.subscriptions, ProductName.GuiSupportDirect) ||
+    hasProductAccess(userData.subscriptions, ProductName.GuiSupportSponsor)
 
   const supportTier = calculateSupportTier(userData.subscriptions) || 0
 

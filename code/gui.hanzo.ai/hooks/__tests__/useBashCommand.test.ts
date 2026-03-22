@@ -56,14 +56,14 @@ describe('useBashCommand', () => {
 
     const { result } = renderHook(() =>
       useBashCommand(
-        'npm create tamagui@latest --template remix-starter',
+        'npm create hanzo-gui@latest --template remix-starter',
         'language-bash'
       )
     )
 
     expect(result.current.isCreateCommand).toBe(true)
     expect(result.current.transformedCommand).toBe(
-      'pnpm create tamagui@latest --template remix-starter'
+      'pnpm create hanzo-gui@latest --template remix-starter'
     )
   })
 
@@ -209,7 +209,7 @@ describe('useBashCommand', () => {
     it('recognizes yarn create commands', () => {
       expect(stringIsCreateCommand('yarn create next-app my-next-app')).toBe(true)
       expect(
-        stringIsCreateCommand('yarn create tamagui@latest --template expo-starter')
+        stringIsCreateCommand('yarn create hanzo-gui@latest --template expo-starter')
       ).toBe(true)
     })
 

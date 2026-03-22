@@ -47,12 +47,12 @@ if [ "$ACTION" = "run" ]; then
   load_env_file "$REPO_ROOT/.env" "run"
   load_env_file "$REPO_ROOT/.env.local" "run"
 
-  echo "🚀 Running tamagui-site on http://localhost:3000"
+  echo "🚀 Running hanzo-gui-site on http://localhost:3000"
   # use -it only if we have a tty
   if [ -t 0 ]; then
-    docker run -it --rm -p 3000:3000 $RUN_ARGS tamagui-site
+    docker run -it --rm -p 3000:3000 $RUN_ARGS hanzo-gui-site
   else
-    docker run --rm -p 3000:3000 $RUN_ARGS tamagui-site
+    docker run --rm -p 3000:3000 $RUN_ARGS hanzo-gui-site
   fi
   exit 0
 fi
@@ -76,7 +76,7 @@ if [ ! -f "$PARENT_DOCKERIGNORE" ]; then
 **/.yarn/install-state.gz
 **/dist
 **/.turbo
-**/.tamagui
+**/.gui
 **/.expo
 **/ios
 **/android
@@ -104,11 +104,11 @@ docker build \
   --progress=plain \
   -f "$REPO_NAME/Dockerfile.local" \
   $BUILD_ARGS \
-  -t tamagui-site \
+  -t hanzo-gui-site \
   .
 
 echo ""
 echo "✅ Build complete!"
 echo ""
 echo "Run with: ./scripts/docker-local.sh run"
-echo "Or:       docker run -it -p 3000:3000 --env-file .env tamagui-site"
+echo "Or:       docker run -it -p 3000:3000 --env-file .env hanzo-gui-site"

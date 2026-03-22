@@ -1,6 +1,6 @@
 ---
 title: Image
-description: A pure, lightweight Image component with Tamagui style props
+description: A pure, lightweight Image component with Hanzo GUI style props
 name: image
 component: Image
 package: image
@@ -19,14 +19,14 @@ demoName: Image
   features={[
     'Supports SSR.',
     'Works on native and web.',
-    'Accepts Tamagui style props.',
+    'Accepts Hanzo GUI style props.',
     'Pluggable architecture with createImage for expo-image and more.',
   ]}
 />
 
 ## Installation
 
-Image is already installed in `tamagui`, or you can install it independently:
+Image is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-image
@@ -66,7 +66,7 @@ export const Image = createImage({
 })
 ```
 
-Now you can use all expo-image props alongside Tamagui's unified API:
+Now you can use all expo-image props alongside Hanzo GUI's unified API:
 
 ```tsx
 const blurhash = '|rF?hV%2WCj[ayj[a|j[az...'
@@ -129,7 +129,7 @@ Always provide an `alt` attribute describing the image content. For decorative i
 // meaningful image
 <Image
   src="/team-photo.jpg"
-  alt="The Tamagui team at React Conf 2024"
+  alt="The Hanzo GUI team at React Conf 2024"
   width={400}
   height={300}
 />
@@ -159,7 +159,7 @@ On React Native, use `accessible` and `accessibilityLabel` for screen reader sup
 
 ### Image
 
-Extends View with [Tamagui props](/docs/intro/props), plus:
+Extends View with [Gui props](/docs/intro/props), plus:
 
 <PropsTable
   data={[

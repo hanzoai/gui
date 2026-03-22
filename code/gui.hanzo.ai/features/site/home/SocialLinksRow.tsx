@@ -11,7 +11,7 @@ export const SocialLinksRow = () => {
     <XStack gap="$4" $sm={{ flexDirection: 'column' }}>
       <Link
         asChild
-        href="https://x.com/tamagui_js"
+        href="https://x.com/hanzoai"
         target="_blank"
         rel="noopener noreferrer"
       >

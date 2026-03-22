@@ -1,15 +1,15 @@
 import type { NodePath } from '@babel/traverse'
 import type * as t from '@babel/types'
-import type { PseudoStyles, StaticConfig, TamaguiConfig } from '@hanzo/gui-core'
+import type { PseudoStyles, StaticConfig, GuiConfig } from '@hanzo/gui-core'
 import type { StyleObject } from '@hanzo/gui-helpers'
-import type { TamaguiOptions } from '@hanzo/gui-types'
+import type { GuiOptions } from '@hanzo/gui-types'
 import type { ViewStyle } from 'react-native'
 
 import type { LoadedComponents } from './extractor/bundleConfig'
 
-export type TamaguiPlatform = 'native' | 'web'
+export type GuiPlatform = 'native' | 'web'
 
-export type { TamaguiOptions, TamaguiBuildOptions } from '@hanzo/gui-types'
+export type { GuiOptions, GuiBuildOptions } from '@hanzo/gui-types'
 
 export type { StyleObject } from '@hanzo/gui-helpers'
 
@@ -33,7 +33,7 @@ export interface Logger {
 
 export type ExtractorOptions = {
   logger?: Logger
-  platform?: TamaguiPlatform
+  platform?: GuiPlatform
 }
 
 export type ExtractedAttrAttr = {
@@ -58,7 +58,7 @@ export type ExtractedTernaryAttr = {
 export type ExtractedAttr = ExtractedAttrAttr | ExtractedTernaryAttr | ExtractedAttrStyle
 
 export type ExtractTagProps = {
-  parserProps: TamaguiOptionsWithFileInfo
+  parserProps: GuiOptionsWithFileInfo
   attrs: ExtractedAttr[]
   node: t.JSXOpeningElement
   attemptEval: (exprNode: t.Node, evalFn?: ((node: t.Node) => any) | undefined) => any
@@ -70,19 +70,19 @@ export type ExtractTagProps = {
   filePath: string
   completeProps: Record<string, any>
   staticConfig: StaticConfig
-  config: TamaguiConfig
+  config: GuiConfig
 }
 
-export type TamaguiOptionsWithFileInfo = TamaguiOptions & {
+export type GuiOptionsWithFileInfo = GuiOptions & {
   sourcePath?: string
   allLoadedComponents: LoadedComponents[]
 }
 
 export type ExtractorParseProps = Omit<
-  TamaguiOptionsWithFileInfo,
+  GuiOptionsWithFileInfo,
   'allLoadedComponents'
 > & {
-  platform: TamaguiPlatform
+  platform: GuiPlatform
   shouldPrintDebug?: boolean | 'verbose'
   onExtractTag: (props: ExtractTagProps) => void
   getFlattenedNode?: (props: { isTextView: boolean; tag: string }) => string

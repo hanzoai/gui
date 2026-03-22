@@ -1,6 +1,6 @@
 ---
 title: Metro Guide
-description: How to set up Tamagui with Metro
+description: How to set up Hanzo GUI with Metro
 ---
 
 ## Basic Setup
@@ -15,49 +15,49 @@ module.exports = getDefaultConfig(__dirname)
 
 ## With Metro Plugin (Recommended)
 
-For better dev experience, use `@hanzo/gui-metro-plugin` which loads your Tamagui
+For better dev experience, use `@hanzo/gui-metro-plugin` which loads your Hanzo GUI
 config and watches for changes:
 
 ```bash
 yarn add @hanzo/gui-metro-plugin
 ```
 
-If you have a `tamagui.build.ts` (recommended — see
-[compiler install docs](/docs/intro/compiler-install#configuration-with-tamaguibuildts)),
+If you have a `gui.build.ts` (recommended — see
+[compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
 no options are needed:
 
 ```tsx fileName="metro.config.js"
 const { getDefaultConfig } = require('expo/metro-config')
-const { withTamagui } = require('@hanzo/gui-metro-plugin')
+const { withGui } = require('@hanzo/gui-metro-plugin')
 
 const config = getDefaultConfig(__dirname)
 
-// reads from tamagui.build.ts automatically
-module.exports = withTamagui(config)
+// reads from gui.build.ts automatically
+module.exports = withGui(config)
 ```
 
 Or pass options inline:
 
 ```tsx fileName="metro.config.js"
 const { getDefaultConfig } = require('expo/metro-config')
-const { withTamagui } = require('@hanzo/gui-metro-plugin')
+const { withGui } = require('@hanzo/gui-metro-plugin')
 
 const config = getDefaultConfig(__dirname)
 
-module.exports = withTamagui(config, {
-  components: ['tamagui'],
-  config: './tamagui.config.ts',
+module.exports = withGui(config, {
+  components: ['@hanzo/gui'],
+  config: './gui.config.ts',
 })
 ```
 
 ## Optimized Production Builds
 
-For maximum optimization, use the `tamagui build` command which pre-compiles
+For maximum optimization, use the `gui build` command which pre-compiles
 your components:
 
 ```bash
 # Optimize and build, then restore source files
-tamagui build --target web ./app -- expo export --platform web
+gui build --target web ./app -- expo export --platform web
 ```
 
 The `--` syntax runs the command after optimization, then automatically restores
@@ -67,7 +67,7 @@ your source files. Add this to your `package.json`:
 {
   "scripts": {
     "build:web": "expo export --platform web",
-    "build:web:optimized": "tamagui build --target web ./app -- expo export --platform web"
+    "build:web:optimized": "gui build --target web ./app -- expo export --platform web"
   }
 }
 ```

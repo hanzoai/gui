@@ -232,7 +232,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       </XStack>
       <YStack gap="$4">
         <H1 text="center" color="$color12">
-          Welcome to Tamagui.
+          Welcome to Gui.
         </H1>
         <Paragraph color="$color10" text="center">
           Here's a basic starter to show navigating from one screen to another.
@@ -294,7 +294,7 @@ function SheetDemo() {
             </Anchor>
             <Anchor
               color="$blue10"
-              href="https://github.com/tamagui/tamagui"
+              href="https://github.com/hanzoai/gui"
               target="_blank"
               rel="noreferrer"
             >

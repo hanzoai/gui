@@ -20,7 +20,7 @@ export function useResponderEvents(
   configIn: ResponderSystem.ResponderConfig = emptyObject
 ) {
   const config = getResponderConfigIfDefined(configIn)
-  // tamagui + rnw compat
+  // hanzo-gui + rnw compat
   const node = hostRef?.current?.host || hostRef?.current
 
   // Register and unregister with the Responder System as necessary

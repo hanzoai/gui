@@ -7,7 +7,7 @@ import {
   Header,
   SizableText,
   Square,
-  TamaguiProvider,
+  GuiProvider,
   Theme,
   YStack,
   getMedia,
@@ -15,7 +15,7 @@ import {
   useThemeName,
 } from '@hanzo/gui'
 
-import config from '../tamagui.config'
+import config from '../gui.config'
 
 // import '@hanzo/gui-core/reset.css'
 
@@ -100,7 +100,7 @@ export const Sandbox = () => {
   const [x, setX] = React.useState(0)
 
   return (
-    <TamaguiProvider config={config} defaultTheme={theme}>
+    <GuiProvider config={config} defaultTheme={theme}>
       <link href="/fonts/inter.css" rel="stylesheet" />
       {/* {getStyleElement()} */}
 
@@ -294,7 +294,7 @@ export const Sandbox = () => {
             </XStack> */}
         </div>
       </div>
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 

@@ -1,6 +1,6 @@
 ---
 title: Expo Guide
-description: How to set up Tamagui with Expo
+description: How to set up Hanzo GUI with Expo
 ---
 
 We've created a new template repo for starting an Expo Router app based on
@@ -12,14 +12,14 @@ the Expo starter repo.
 </Notice>
 
 ```bash
-yarn create tamagui@latest --template expo-router
+yarn create gui@latest --template expo-router
 ```
 
 There are also [pre-made community Expo starters](/community).
 
 ## Install
 
-Use this guide to set up Tamagui with Expo Native and Web.
+Use this guide to set up Hanzo GUI with Expo Native and Web.
 
 <Notice theme="blue">
   To support dark mode, update your `app.json` to `app.config.ts` and set
@@ -46,8 +46,8 @@ Add `@hanzo/gui-babel-plugin`:
 yarn add @hanzo/gui-babel-plugin
 ```
 
-If you have a `tamagui.build.ts` (recommended — see
-[compiler install docs](/docs/intro/compiler-install#configuration-with-tamaguibuildts)),
+If you have a `gui.build.ts` (recommended — see
+[compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
 no options are needed:
 
 Update your `babel.config.js` to include the optional `@hanzo/gui-babel-plugin`:
@@ -73,53 +73,53 @@ module.exports = function (api) {
 
 - First, follow the [Metro configuration guide](/docs/guides/metro#web-support) to enable web support.
 
-Add `@hanzo/gui-config` and `tamagui` to your `package.json` and install them. Then create a `tamagui.config.ts`:
+Add `@hanzo/gui-config` and `@hanzo/gui` to your `package.json` and install them. Then create a `gui.config.ts`:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig } from '@hanzo/gui-config/v5'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const tamaguiConfig = createTamagui(defaultConfig)
+export const guiConfig = createGui(defaultConfig)
 
-export default tamaguiConfig
+export default guiConfig
 
-export type Conf = typeof tamaguiConfig
+export type Conf = typeof guiConfig
 
-declare module 'tamagui' {
-  interface TamaguiCustomConfig extends Conf {}
+declare module '@hanzo/gui' {
+  interface GuiCustomConfig extends Conf {}
 }
 ```
 
 Then update `app/_layout.tsx`:
 
 ```tsx showMore fileName="app/_layout.tsx"
-import '../tamagui.generated.css'
+import '../gui.generated.css'
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { Stack } from 'expo-router'
 import { useColorScheme } from 'react-native'
-import { TamaguiProvider } from '@hanzo/gui'
+import { GuiProvider } from '@hanzo/gui'
 
-import { tamaguiConfig } from '../tamagui.config'
+import { guiConfig } from '../gui.config'
 
 export default function RootLayout() {
   const colorScheme = useColorScheme()
 
   return (
     // add this
-    <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme!}>
+    <GuiProvider config={guiConfig} defaultTheme={colorScheme!}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         </Stack>
       </ThemeProvider>
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 ```
 
-### Setup Tamagui
+### Setup Hanzo GUI
 
 From here on out you can follow the [Installation](/docs/intro/installation) and [Configuration](/docs/core/configuration) docs.
 
@@ -135,14 +135,14 @@ Load your fonts so React Native can recognize them. There are several ways to do
 
 <Spacer size="$6" />
 
-<InlineTabs id="font" defaultValue="tamagui">
+<InlineTabs id="font" defaultValue="@hanzo/gui">
 <InlineTabs.List>
-    <InlineTabs.Tab value="tamagui">Tamagui</InlineTabs.Tab>
+    <InlineTabs.Tab value="@hanzo/gui">Gui</InlineTabs.Tab>
     <InlineTabs.Tab value="expo">Expo Google Fonts</InlineTabs.Tab>
 </InlineTabs.List>
 
-<InlineTabs.Content value="tamagui">
-Use the `@hanzo/gui-font-inter` package, a pre-configured version of the Inter font that works with Tamagui:
+<InlineTabs.Content value="@hanzo/gui">
+Use the `@hanzo/gui-font-inter` package, a pre-configured version of the Inter font that works with Hanzo GUI:
 
 Import the `useFonts` hook and load the fonts:
 
@@ -221,7 +221,7 @@ function App() {
 
 ## First time starting Expo
 
-The first time running your project with Tamagui, be sure to clear the cache:
+The first time running your project with Hanzo GUI, be sure to clear the cache:
 
 ```bash
 npx expo start -c

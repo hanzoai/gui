@@ -24,7 +24,7 @@ if (!STRIPE_KEY) {
 const stripe = new Stripe(STRIPE_KEY, {
   apiVersion: '2020-08-27',
   appInfo: {
-    name: 'Tamagui Promo Code Creator',
+    name: 'Hanzo GUI Promo Code Creator',
     version: '0.1.0',
   },
 })

@@ -4,8 +4,8 @@
     // for jumping to things properly in vscode
     "baseUrl": ".",
     "paths": {
-      "tamagui": [
-        "../ui/tamagui"
+      "@hanzo/gui": [
+        "../ui/gui"
       ],
       "@hanzo/gui-studio": [
         "../studio"
@@ -59,7 +59,7 @@
   },
   "include": [
     "next-env.d.ts",
-    "tamagui.config.ts",
+    "gui.config.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",

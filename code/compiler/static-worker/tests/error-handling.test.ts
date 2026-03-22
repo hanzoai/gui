@@ -50,7 +50,7 @@ describe('static-worker error handling', () => {
       const errorMessage = (error as Error).message
 
       // Should include the helpful prefix
-      expect(errorMessage).toContain('[tamagui-extract]')
+      expect(errorMessage).toContain('[gui-extract]')
 
       // Should include the file path
       expect(errorMessage).toContain('InvalidComponent.tsx')

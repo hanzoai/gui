@@ -7,7 +7,7 @@ import { type Plugin, defineConfig } from 'vite'
 export const requireResolve =
   'url' in import.meta ? createRequire(import.meta.url).resolve : require.resolve
 
-export function getConfig(tamaguiPlugin: any) {
+export function getConfig(guiPlugin: any) {
   const isNative =
     !process.env.DISABLE_REACT_NATIVE &&
     !process.env.DISABLE_NATIVE_TEST &&
@@ -53,10 +53,10 @@ export function getConfig(tamaguiPlugin: any) {
       // isNative ? null : reactNative(),
       // react({}),
 
-      tamaguiPlugin({
+      guiPlugin({
         components: ['@hanzo/gui'],
-        config: './tamagui.config.ts',
-        disableWatchTamaguiConfig: true,
+        config: './gui.config.ts',
+        disableWatchGuiConfig: true,
         disable: true,
       }),
 

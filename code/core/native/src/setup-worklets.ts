@@ -1,5 +1,5 @@
 /**
- * Setup worklets for Tamagui native components.
+ * Setup worklets for Hanzo GUI native components.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -22,10 +22,10 @@ import { getWorklets } from './workletsState'
 
 function setup() {
   const g = globalThis as any
-  if (g.__tamagui_native_worklets_setup_complete) {
+  if (g.__gui_native_worklets_setup_complete) {
     return
   }
-  g.__tamagui_native_worklets_setup_complete = true
+  g.__gui_native_worklets_setup_complete = true
 
   try {
     // dynamically require worklets-core

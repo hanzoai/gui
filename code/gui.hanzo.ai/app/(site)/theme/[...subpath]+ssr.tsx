@@ -30,9 +30,9 @@ export default function ThemeLayout() {
   return (
     <>
       <HeadInfo
-        title={`${data.search || 'Tamagui Theme Builder'} - Tamagui Theme`}
+        title={`${data.search || 'Gui Theme Builder'} - Hanzo GUI Theme`}
         description={
-          data.search ? `Tamagui Theme for ${data.search}` : `Tamagui Theme Builder`
+          data.search ? `Gui Theme for ${data.search}` : `Gui Theme Builder`
         }
         openGraph={{
           url: `/api/theme/open-graph?id=${data.id || '0'}`,

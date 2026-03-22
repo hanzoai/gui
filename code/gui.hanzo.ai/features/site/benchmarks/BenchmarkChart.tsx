@@ -2,8 +2,8 @@ import { Paragraph, XStack, YStack } from '@hanzo/gui'
 
 const getBarColor = (name: string) => {
   switch (name) {
-    case 'Tamagui (No Compiler)':
-    case 'Tamagui':
+    case 'Gui (No Compiler)':
+    case 'Gui':
       return '$red9'
     case 'Stitches':
       return '$yellow9'
@@ -47,7 +47,7 @@ export function BenchmarkChart({
                 whiteSpace="nowrap"
                 text="right"
                 my={-3}
-                fontWeight={result.name === 'Tamagui' ? '700' : '400'}
+                fontWeight={result.name === 'Gui' ? '700' : '400'}
               >
                 {result.name}
               </Paragraph>
@@ -55,7 +55,7 @@ export function BenchmarkChart({
             <XStack mr={65} flex={1} items="center">
               <YStack
                 bg={getBarColor(result.name)}
-                opacity={result.name === 'Tamagui' ? 1 : skipOthers ? 1 : 1}
+                opacity={result.name === 'Gui' ? 1 : skipOthers ? 1 : 1}
                 width={width as any}
                 height={20}
                 rounded="$2"

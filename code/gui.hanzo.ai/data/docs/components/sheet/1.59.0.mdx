@@ -30,7 +30,7 @@ demoName: Sheet
 
 ## Installation
 
-Sheet is already installed in `tamagui`, or you can install it independently:
+Sheet is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-sheet
@@ -161,7 +161,7 @@ export const Sheet = createSheet({
 
 Sheets now support rendering to a native iOS sheet, while still rendering any of your React Native content inside of them.
 
-Because Metro doesn't support conditional imports and we don't want to make `tamagui` enforce installing native dependencies in order to get started, there's an install step:
+Because Metro doesn't support conditional imports and we don't want to make `@hanzo/gui` enforce installing native dependencies in order to get started, there's an install step:
 
 ```sh
 yarn add react-native-ios-modal
@@ -266,7 +266,7 @@ Contains every component for the sheet.
       name: 'forceRemoveScrollEnabled',
       type: 'boolean',
       default: 'false',
-      description: `By default. Tamagui uses react-remove-scroll to prevent anything outside the sheet scrolling. This can cause some issues so you can override the behavior with this prop (either true or false).`,
+      description: `By default. Hanzo GUI uses react-remove-scroll to prevent anything outside the sheet scrolling. This can cause some issues so you can override the behavior with this prop (either true or false).`,
     },
     {
       name: 'portalProps',

@@ -1,4 +1,4 @@
-import { LogoWords, setTintFamily, TamaguiLogo, ThemeTint, useTint } from '@hanzo/gui-logo'
+import { LogoWords, setTintFamily, GuiLogo, ThemeTint, useTint } from '@hanzo/gui-logo'
 import { Check, ExternalLink, Figma, LogIn, Menu } from '@hanzo/gui-lucide-icons-2'
 import { isTouchable, useGet, useMedia } from '@hanzo/gui-web'
 import { useFocusEffect, usePathname, useRouter } from 'one'
@@ -267,7 +267,7 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
                   },
                 })}
               >
-                <TamaguiLogo downscale={2.6} />
+                <GuiLogo downscale={2.6} />
               </YStack>
             </SeasonTogglePopover>
             <LogoWords animated />
@@ -951,7 +951,7 @@ const HeaderMenuMoreContents = () => {
 
       <Link
         asChild
-        href="https://www.figma.com/community/file/1326593766534421119/tamagui-v1-2-1"
+        href="https://www.figma.com/community/file/1326593766534421119/hanzo-gui-v1-2-1"
       >
         <HeadAnchor target="_blank" grid>
           Figma{' '}

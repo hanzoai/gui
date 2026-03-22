@@ -1,13 +1,13 @@
 ---
-title: Tamagui v1 Release Candidate
+title: Hanzo GUI v1 Release Candidate
 publishedAt: '2022-12-04'
-description: Tamagui v1 RC is out for faster React Native + Web styling
+description: Hanzo GUI v1 RC is out for faster React Native + Web styling
 by: nate
 poster: banner-rc0.jpg
 ---
 
 <IntroParagraph>
-  Tamagui is an optimizing compiler meets universal style system for React that enables
+  Hanzo GUI is an optimizing compiler meets universal style system for React that enables
   highly performant styles for React Native and web.
 </IntroParagraph>
 
@@ -23,14 +23,14 @@ CSS-in-JS styling while optimal VDOM and CSS is output, besting hand-tuned code.
 The compiler uses logical and VM-based analysis of your code for
 [surprising results](/docs/intro/benchmarks).
 
-> On the Tamagui homepage, the compiler flattens 200+ unique components for a
+> On the Hanzo GUI homepage, the compiler flattens 200+ unique components for a
 > 18% Lighthouse score increase.
 
 This Release Candidate marks API stability and the v1 release will follow
 shortly as we get feedback on any last outstanding bugs. **The V1 blog post will
 cover these changes in far more thorough detail**. Over a thousand bugfixes
 landed during the Beta, alongside major changes all around, including 14 new
-components in `tamagui`.
+components in `@hanzo/gui`.
 
 Here's a very brief overview of changes since Beta:
 
@@ -50,7 +50,7 @@ Here's a very brief overview of changes since Beta:
 - `font.face` configuration - React Native makes loading fonts a bit trickier
   than the web, this option makes it easy to load different fonts by weight or
   style.
-- The `themeShallow` prop - The `theme` prop in Tamagui by default will re-theme
+- The `themeShallow` prop - The `theme` prop in Hanzo GUI by default will re-theme
   all sub-components. Using `themeShallow` _only_ themes that component, not
   children.
 - `loadTheme()` - The `loadTheme` utility function means you can only load the
@@ -59,7 +59,7 @@ Here's a very brief overview of changes since Beta:
 - `updateTheme()` - Using `updateTheme` gives you the ability to dynamically
   modify themes on the fly.
 - `useMediaPropsActive()` - Useful for authoring your own custom components
-  built on Tamagui, easily access the "currently active" set of styles.
+  built on Hanzo GUI, easily access the "currently active" set of styles.
 
 ### Major `@hanzo/gui-static` Updates
 
@@ -67,21 +67,21 @@ Here's a very brief overview of changes since Beta:
   generally handle many more edge cases, with an addition of 20+ dev-time
   console warnings.
 - Performance - During the beta we landed many performance improvements to the
-  optimizing compiler. By default now Tamagui avoids even parsing many more
+  optimizing compiler. By default now Hanzo GUI avoids even parsing many more
   files, and it pre-bundles your `components` and `config`.
 - Better analysis - Previously, `@hanzo/gui-static` only knew how to optimize
   components found in your separated design system package. The compiler now
   analyzes components anywhere in your app, by dynamically loading and reading
   their configuration. This experimental feature is enabled with the environment
-  variable `TAMAGUI_ENABLE_DYNAMIC_LOAD=1`.
-- Vite support - Tamagui supports Vite 3, both with the compiler and without.
+  variable `HANZO_GUI_ENABLE_DYNAMIC_LOAD=1`.
+- Vite support - Hanzo GUI supports Vite 3, both with the compiler and without.
 - Correctness - Most of the work during beta focused on correctness. We've
   increased testing to cover many more areas, and landed a number of important
   correctness fixes alongside the ones in `core`.
 
-### Major `tamagui` updates
+### Major `@hanzo/gui` updates
 
-Tamagui welcomed a flood of new components to the party. These are incredibly
+Hanzo GUI welcomed a flood of new components to the party. These are incredibly
 rich components that follow the Radix model of compound component APIs. They
 have the ability to adapt their appearance completely using `<Adapt />` to
 target media queries and platforms.
@@ -102,7 +102,7 @@ everything before release. Our release script has added many checks and features
 for making sure things go out smoothly.
 
 Testing now covers far more of `core` and `static`, as well as a complete
-integration test that verifies the entire flow of starting a Tamagui app with
+integration test that verifies the entire flow of starting a Hanzo GUI app with
 `npm create hanzo-gui` all the way to Playwright ensuring the final output is
 correct and functional.
 

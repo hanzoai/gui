@@ -149,19 +149,19 @@ export default function Community() {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <XStack py="$2" gap="$4">
               <StarterRepoCard
-                url="https://galaxies.dev/course/react-native-tamagui"
-                name="Universal Apps with Tamagui (Guide)"
+                url="https://galaxies.dev/course/react-native-hanzo-gui"
+                name="Universal Apps with Hanzo GUI (Guide)"
                 author="Simon Grimm"
               />
 
               <StarterRepoCard
-                url="https://github.com/srikanthkh/tamagui-cna"
+                url="https://github.com/srikanthkh/hanzo-gui-cna"
                 name="create-next-app"
                 author="srikanthkh"
               />
 
               <StarterRepoCard
-                url="https://github.com/srikanthkh/tamagui-cra"
+                url="https://github.com/srikanthkh/hanzo-gui-cra"
                 name="create-react-app"
                 author="srikanthkh"
               />
@@ -185,20 +185,20 @@ export default function Community() {
               />
 
               <StarterRepoCard
-                url="https://github.com/ivopr/tamagui-expo"
-                name="Tamagui Expo"
+                url="https://github.com/ivopr/hanzo-gui-expo"
+                name="Hanzo GUI Expo"
                 author="Ivo"
               />
 
               <StarterRepoCard
-                url="https://github.com/dohomi/tamagui-kitchen-sink"
+                url="https://github.com/dohomi/hanzo-gui-kitchen-sink"
                 name="Kitchen Sink with Storybook"
                 author="dohomi"
               />
 
               <StarterRepoCard
-                url="https://github.com/ebg1223/t3-tamagui"
-                name="Tamagui t3"
+                url="https://github.com/ebg1223/t3-hanzo-gui"
+                name="Hanzo GUI t3"
                 author="ebg1223"
               />
             </XStack>

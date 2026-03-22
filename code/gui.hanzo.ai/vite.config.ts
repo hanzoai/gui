@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { createRequire } from 'node:module'
 import { resolve as pathResolve } from 'node:path'
-import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzo/gui-vite-plugin'
 import { one } from 'one/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import type { UserConfig } from 'vite'
@@ -24,7 +24,7 @@ const staticDist = pathResolve(import.meta.dirname, '../compiler/static/dist/ind
 
 if (!existsSync(vitePluginDist) || !existsSync(staticDist)) {
   console.info('')
-  console.info('Building tamagui packages (dist not found)...')
+  console.info('Building hanzo-gui packages (dist not found)...')
   try {
     execSync('bun run build:js', {
       cwd: pathResolve(import.meta.dirname, '../..'),
@@ -62,7 +62,7 @@ const include = [
   '@stripe/stripe-js',
   'swr/mutation',
   'mdx-bundler/client',
-  // core tamagui packages must be pre-bundled together to avoid duplicate instances
+  // core hanzo-gui packages must be pre-bundled together to avoid duplicate instances
   '@hanzo/gui',
   '@hanzo/gui-core',
   '@hanzo/gui-web',
@@ -125,7 +125,7 @@ export default {
       ...(!hasBento
         ? [
             {
-              find: /^@tamagui\/bento\/component\/.+$/,
+              find: /^@gui\/bento\/component\/.+$/,
               replacement: pathResolve(
                 import.meta.dirname,
                 './helpers/dist/bento-component-stub.tsx'
@@ -243,8 +243,8 @@ export const LocationNotification = BentoComponentStub
         }
       },
     },
-    tamaguiPlugin({
-      // see tamagui.build.ts
+    guiPlugin({
+      // see gui.build.ts
       disable: process.env.NODE_ENV !== 'production',
     }),
 

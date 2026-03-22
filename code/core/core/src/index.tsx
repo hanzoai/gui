@@ -13,19 +13,19 @@ import type {
   StackNonStyleProps,
   StackStyleBase,
   TamaDefer,
-  TamaguiComponent,
-  TamaguiElement,
-  TamaguiProviderProps,
-  TamaguiTextElement,
+  GuiComponent,
+  GuiElement,
+  GuiProviderProps,
+  GuiTextElement,
   TextNonStyleProps,
   TextProps,
   TextStylePropsBase,
 } from '@hanzo/gui-web'
 import {
-  TamaguiProvider as WebTamaguiProvider,
+  GuiProvider as WebGuiProvider,
   Text as WebText,
   View as WebView,
-  createTamagui as createTamaguiWeb,
+  createGui as createGuiWeb,
   setupHooks,
   useIsomorphicLayoutEffect,
 } from '@hanzo/gui-web'
@@ -33,7 +33,7 @@ import { createOptimizedView } from './createOptimizedView'
 import { getBaseViews } from './getBaseViews'
 import type { RNTextProps, RNViewProps } from './reactNativeTypes'
 
-// helpful for usage outside of tamagui
+// helpful for usage outside of gui
 export {
   LayoutMeasurementController,
   registerLayoutNode,
@@ -44,25 +44,25 @@ export {
 // adds extra types to View/Stack/Text:
 
 type RNExclusiveViewProps = Omit<RNViewProps, keyof StackNonStyleProps>
-export interface RNTamaguiViewNonStyleProps
+export interface RNGuiViewNonStyleProps
   extends StackNonStyleProps, RNExclusiveViewProps {}
 
-type RNTamaguiView = TamaguiComponent<
+type RNGuiView = GuiComponent<
   TamaDefer,
-  TamaguiElement,
-  RNTamaguiViewNonStyleProps,
+  GuiElement,
+  RNGuiViewNonStyleProps,
   StackStyleBase,
   {}
 >
 
 type RNExclusiveTextProps = Omit<RNTextProps, keyof TextProps>
-export interface RNTamaguiTextNonStyleProps
+export interface RNGuiTextNonStyleProps
   extends TextNonStyleProps, RNExclusiveTextProps {}
 
-type RNTamaguiText = TamaguiComponent<
+type RNGuiText = GuiComponent<
   TamaDefer,
-  TamaguiTextElement,
-  RNTamaguiTextNonStyleProps,
+  GuiTextElement,
+  RNGuiTextNonStyleProps,
   TextStylePropsBase,
   {}
 >
@@ -72,22 +72,22 @@ type RNTamaguiText = TamaguiComponent<
 export * from './reactNativeTypes'
 
 // adds useElementLayout enable
-export const TamaguiProvider = (props: TamaguiProviderProps) => {
+export const GuiProvider = (props: GuiProviderProps) => {
   useIsomorphicLayoutEffect(() => {
     enable()
   }, [])
 
-  return <WebTamaguiProvider {...props} />
+  return <WebGuiProvider {...props} />
 }
 
 // automate using the react native media driver
-export const createTamagui: typeof createTamaguiWeb = (conf) => {
+export const createGui: typeof createGuiWeb = (conf) => {
   if (process.env.HANZO_GUI_TARGET === 'native') {
     if (conf.media) {
       conf.media = createMedia(conf.media)
     }
   }
-  return createTamaguiWeb(conf)
+  return createGuiWeb(conf)
 }
 
 const baseViews = getBaseViews()
@@ -189,8 +189,8 @@ setupHooks({
 
 // overwrite web versions:
 // putting at the end ensures it overwrites in dist/cjs/index.js
-export const View = WebView as any as RNTamaguiView
-export const Text = WebText as any as RNTamaguiText
+export const View = WebView as any as RNGuiView
+export const Text = WebText as any as RNGuiText
 
 // easily test type declaration output and if it gets messy:
 

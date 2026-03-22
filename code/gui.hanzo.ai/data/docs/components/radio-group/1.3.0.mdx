@@ -25,7 +25,7 @@ demoName: RadioGroup
 
 ## Installation
 
-RadioGroup is already installed in `tamagui`, or you can install it independently:
+RadioGroup is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-radio-group
@@ -52,7 +52,7 @@ export default () => (
 
 ### RadioGroup
 
-RadioGroup extend Stack views inheriting all the [Tamagui standard props](/docs/intro/props), plus:
+RadioGroup extend Stack views inheriting all the [Gui standard props](/docs/intro/props), plus:
 
 <PropsTable
   data={[
@@ -122,20 +122,20 @@ RadioGroup extend Stack views inheriting all the [Tamagui standard props](/docs/
       name: 'scaleSize',
       type: 'number',
       default: '0.5',
-      description: `The Tamagui size tokens should map to the height of a button at any given step. This means you want somewhat smaller checkboxes typically.`,
+      description: `The Hanzo GUI size tokens should map to the height of a button at any given step. This means you want somewhat smaller checkboxes typically.`,
     },
     {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />
 
 ### RadioGroup.Indicator
 
-RadioGroup.Indicator appears only when the parent Item is checked. it extends [ThemeableStack](/docs/components/stacks#themeablestack), getting [Tamagui standard props](/docs/intro/props) adding:
+RadioGroup.Indicator appears only when the parent Item is checked. it extends [ThemeableStack](/docs/components/stacks#themeablestack), getting [Gui standard props](/docs/intro/props) adding:
 
 <PropsTable
   data={[
@@ -143,7 +143,7 @@ RadioGroup.Indicator appears only when the parent Item is checked. it extends [T
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
   ]}
 />

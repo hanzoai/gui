@@ -6,7 +6,7 @@ import { Button, Paragraph, Spacer, TooltipSimple, XStack, YStack } from '@hanzo
 import { useClipboard } from '~/hooks/useClipboard'
 
 export const InstallInput = memo(() => {
-  const installScript = `npm create tamagui`
+  const installScript = `npm create hanzo-gui`
   const { onCopy, hasCopied } = useClipboard(`${installScript}@latest`)
 
   return (

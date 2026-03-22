@@ -21,7 +21,7 @@ export function HeadInfo({
     images?: { url: string; width?: number; height?: number }[]
   }
 }) {
-  const fullTitle = title?.includes('Tamagui') ? title : `${title} | Tamagui`
+  const fullTitle = title?.includes('Gui') ? title : `${title} | Gui`
 
   // use provided images or fall back to default
   const images = openGraph?.images ?? [{ url: DEFAULT_OG_IMAGE }]
@@ -74,7 +74,7 @@ export function HeadInfo({
       })}
 
       <meta property="og:locale" content={openGraph?.locale ?? 'en_US'} />
-      <meta property="og:site_name" content={openGraph?.siteName || 'Tamagui'} />
+      <meta property="og:site_name" content={openGraph?.siteName || 'Gui'} />
     </>
   )
 }

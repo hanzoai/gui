@@ -1,17 +1,17 @@
 import path from 'node:path'
 
-// helper for webpack exclude specific to tamagui
+// helper for webpack exclude specific to gui
 
 export const shouldExclude = (filePath: string, projectRoot?: string) => {
   if (
     (projectRoot && filePath.includes(projectRoot) && filePath.endsWith('sx')) ||
-    isTamaguiDistJSX(filePath)
+    isGuiDistJSX(filePath)
   ) {
     return false
   }
   return true
 }
 
-function isTamaguiDistJSX(filePath: string) {
+function isGuiDistJSX(filePath: string) {
   return filePath.includes('/dist/jsx/'.replace(/\//g, path.sep))
 }

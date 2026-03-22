@@ -1,5 +1,5 @@
 /**
- * Setup keyboard controller for Tamagui native components.
+ * Setup keyboard controller for Hanzo GUI native components.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -21,10 +21,10 @@ import { setKeyboardControllerState } from './keyboardControllerState'
 
 function setup() {
   const g = globalThis as any
-  if (g.__tamagui_native_keyboard_controller_setup_complete) {
+  if (g.__gui_native_keyboard_controller_setup_complete) {
     return
   }
-  g.__tamagui_native_keyboard_controller_setup_complete = true
+  g.__gui_native_keyboard_controller_setup_complete = true
 
   try {
     // dynamically require keyboard-controller - it should already be imported by the app

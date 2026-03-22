@@ -31,7 +31,7 @@ test(`variants apply below default props but above parent defaultvariants/props 
   })
 })
 
-// Issue #3669: https://github.com/tamagui/tamagui/issues/3669
+// Issue #3669: https://github.com/hanzoai/gui/issues/3669
 test(`variant chaining: child variant (test2) translates to parent variant (test) and propagates via context`, async ({
   page,
 }) => {

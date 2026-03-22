@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { shouldExclude, TamaguiPlugin } = require('@hanzo/gui-loader')
+const { shouldExclude, GuiPlugin } = require('@hanzo/gui-loader')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const target = 'web'
@@ -115,8 +115,8 @@ module.exports = {
     ],
   },
   plugins: [
-    new TamaguiPlugin({
-      config: './src/tamagui.config.ts',
+    new GuiPlugin({
+      config: './src/gui.config.ts',
       components: ['@hanzo/gui', '@hanzo/gui-sandbox-ui'],
       importsWhitelist: ['constants.js'],
       disableExtraction,

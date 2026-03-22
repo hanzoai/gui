@@ -1,5 +1,5 @@
 /**
- * Setup expo-linear-gradient for Tamagui.
+ * Setup expo-linear-gradient for Gui.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -16,8 +16,8 @@ import { getLinearGradient } from './linearGradientState'
 
 function setup(): void {
   const g = globalThis as any
-  if (g.__tamagui_native_linear_gradient_setup) return
-  g.__tamagui_native_linear_gradient_setup = true
+  if (g.__gui_native_linear_gradient_setup) return
+  g.__gui_native_linear_gradient_setup = true
 
   try {
     const expoLinearGradient = require('expo-linear-gradient')

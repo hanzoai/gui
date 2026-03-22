@@ -27,8 +27,8 @@ import type {
   StylableComponent,
   StyledContext,
   TamaDefer,
-  TamaguiComponent,
-  TamaguiComponentPropsBase,
+  GuiComponent,
+  GuiComponentPropsBase,
   TextStyle,
   TextStylePropsBase,
   ThemeValueByCategory,
@@ -82,7 +82,7 @@ type TextLikeElements =
   | 'u'
   | 'var'
 
-// props that conflict with tamagui style props
+// props that conflict with hanzo-gui style props
 type ConflictingHTMLProps =
   | 'color'
   | 'display'
@@ -202,10 +202,10 @@ export function styledHtml<
 
   const component = createComponent(conf)
 
-  return component as any as TamaguiComponent<
+  return component as any as GuiComponent<
     TamaDefer,
     HTMLElementTagNameMap[Tag],
-    TamaguiComponentPropsBase & HTMLProps,
+    GuiComponentPropsBase & HTMLProps,
     StyleBase,
     VariantProps,
     {}
@@ -213,7 +213,7 @@ export function styledHtml<
 }
 
 /**
- * styled() for creating Tamagui components from other components.
+ * styled() for creating Hanzo GUI components from other components.
  */
 function styled<
   ParentComponent extends StylableComponent,
@@ -276,7 +276,7 @@ function styled<
    * so now pseudos wont be nicely typed inside media queries, but at least we can nest
    */
 
-  type StyledComponent = TamaguiComponent<
+  type StyledComponent = GuiComponent<
     TamaDefer,
     GetRef<ParentComponent>,
     ParentNonStyledProps,
@@ -536,12 +536,12 @@ function styled<
 //   } as const,
 // })
 
-// type X = typeof OneVariant extends TamaguiComponent<any, any, any, infer V> ? V : any
-// type V = typeof Second extends TamaguiComponent<any, any, any, infer V> ? V : any
+// type X = typeof OneVariant extends GuiComponent<any, any, any, infer V> ? V : any
+// type V = typeof Second extends GuiComponent<any, any, any, infer V> ? V : any
 
 // type V2 = VariantDefinitions<typeof OneVariant>
 
-// type R = typeof TwoVariant extends TamaguiComponent<any, any, any, infer V> ? V : any
+// type R = typeof TwoVariant extends GuiComponent<any, any, any, infer V> ? V : any
 
 // type Keys = keyof X | keyof V
 // type Z = {
@@ -571,10 +571,10 @@ type StyledHtmlFactory<Tag extends keyof HTMLElementTagNameMap> = <
     defaultVariants?: GetVariantAcceptedValues<NonNullable<Variants>>
     context?: StyledContext
   }
-) => TamaguiComponent<
+) => GuiComponent<
   TamaDefer,
   HTMLElementTagNameMap[Tag],
-  TamaguiComponentPropsBase & HTMLElementSpecificProps<Tag>,
+  GuiComponentPropsBase & HTMLElementSpecificProps<Tag>,
   HTMLElementStyleBase<Tag>,
   Variants extends undefined
     ? {}

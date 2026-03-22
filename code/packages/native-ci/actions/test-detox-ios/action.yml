@@ -1,6 +1,6 @@
 name: 'Native CI - iOS Detox Tests'
 description: 'Run Detox E2E tests on iOS simulator'
-author: 'Tamagui'
+author: 'Gui'
 
 inputs:
   project-root:

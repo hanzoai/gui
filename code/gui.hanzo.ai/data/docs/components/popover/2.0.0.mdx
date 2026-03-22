@@ -33,7 +33,7 @@ pressed, floating above the current content. They [automatically stack](/ui/z-in
 
 ## Installation
 
-Popover is already installed in `tamagui`, or you can install it independently:
+Popover is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-popover
@@ -214,7 +214,7 @@ Contains every component for the popover.
       name: 'zIndex',
       type: 'number',
       required: false,
-      description: `Override the automatic z-index stacking. By default, Tamagui automatically stacks overlays so later-opened content appears above earlier content. Only set this if you need to override the automatic behavior.`,
+      description: `Override the automatic z-index stacking. By default, Hanzo GUI automatically stacks overlays so later-opened content appears above earlier content. Only set this if you need to override the automatic behavior.`,
     },
   ]}
 />
@@ -289,7 +289,7 @@ Extends PopperContent which extends SizableStack which extends a YStack (see
       required: false,
       type: `boolean`,
       default: false,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
     {
       name: 'trapFocus',
@@ -335,7 +335,7 @@ Trigger will open it.
 ### Sheet (with Adapt)
 
 When used with `Adapt`, you can render a Sheet when that breakpoint is
-active. Import `Sheet` directly from `tamagui` or `@hanzo/gui-sheet`.
+active. Import `Sheet` directly from `@hanzo/gui` or `@hanzo/gui-sheet`.
 
 See [Sheet](/docs/components/sheet) for more props.
 
@@ -389,7 +389,7 @@ management. Can be used to control focus behavior from a parent component.
 ### Popover.ScrollView
 
 Must be nested inside Content. Renders as a plain React Native ScrollView. If
-used alongside `<Adapt />` and Sheet, Tamagui will automatically know to remove
+used alongside `<Adapt />` and Sheet, Hanzo GUI will automatically know to remove
 this ScrollView when swapping into the Sheet, as the Sheet must use its own
 ScrollView that handles special logic for interactions with dragging.
 

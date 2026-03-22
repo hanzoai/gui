@@ -3,10 +3,10 @@ title: Design Systems
 description: Put together your own design system.
 ---
 
-Tamagui allows you to build out your own set of components that are optimized
+Hanzo GUI allows you to build out your own set of components that are optimized
 with the compiler whenever they are used in your app.
 
-By default, if you just use `styled()` in your app, Tamagui **won't** be able to
+By default, if you just use `styled()` in your app, Hanzo GUI **won't** be able to
 optimize those components. This is because the compiler needs to know about
 those components at build-time.
 
@@ -18,11 +18,11 @@ Your design system needs to live in its own npm module, which can be private to
 just your app. That way you can later direct the compiler to look for that
 package.
 
-Design systems can extend from each other. In fact, `tamagui` extends
+Design systems can extend from each other. In fact, `@hanzo/gui` extends
 `@hanzo/gui-core`, which contains simple base-level components.
 
-So, for example, if you'd like to use the Tamagui `XStack`, `YStack`, `Button`
-and `Paragraph` in your design system, you would add `tamagui` to your design
+So, for example, if you'd like to use the Hanzo GUI `XStack`, `YStack`, `Button`
+and `Paragraph` in your design system, you would add `@hanzo/gui` to your design
 system's package.json.
 
 If you want to build more from scratch, then use `@hanzo/gui-core` and only import
@@ -44,8 +44,8 @@ Add package.json:
     "@hanzo/gui-core": "*"
   },
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch"
   },
   "devDependencies": {
     "@hanzo/gui-build": "*"
@@ -84,14 +84,14 @@ There are a few things to note here:
 Check the [configuration](/docs/core/configuration) for more detail on this
 step.
 
-You'll be creating a `tamagui.config.ts` at the root of your app. It will
+You'll be creating a `gui.config.ts` at the root of your app. It will
 contain a full suite of tokens, themes, and fonts exported onto a single named
 `config` export.
 
 ## Step 3: Define and export components
 
 Now, create and export your components. You can re-export components from
-`tamagui` or `@hanzo/gui-core` as well. Let's create a Circle component:
+`@hanzo/gui` or `@hanzo/gui-core` as well. Let's create a Circle component:
 
 `Circle.tsx`:
 
@@ -127,8 +127,8 @@ export * from './Circle'
 
 ## Step 4: Set up your build
 
-Now in your app, add `@ourapp/components` and `tamagui` (since we are extending
-it) to your package.json, and update your tamagui build configuration.
+Now in your app, add `@ourapp/components` and `@hanzo/gui` (since we are extending
+it) to your package.json, and update your gui build configuration.
 
 ### Webpack
 
@@ -136,10 +136,10 @@ In your `webpack.config.js`:
 
 ```js
 {
-  loader: 'tamagui-loader',
+  loader: 'gui-loader',
   options: {
-    config: './tamagui.config.ts',
-    components: ['@ourapp/components', 'tamagui'],
+    config: './gui.config.ts',
+    components: ['@ourapp/components', '@hanzo/gui'],
   },
 }
 ```
@@ -150,9 +150,9 @@ In your `next.config.js`:
 
 ```js
 export default withPlugins([
-  withTamagui({
-    config: './tamagui.config.ts',
-    components: ['@ourapp/components', 'tamagui'],
+  withGui({
+    config: './gui.config.ts',
+    components: ['@ourapp/components', '@hanzo/gui'],
   }),
 ])
 ```
@@ -168,8 +168,8 @@ export default {
       '@hanzo/gui-babel-plugin',
       {
         exclude: /node_modules/,
-        config: './tamagui.config.ts',
-        components: ['@ourapp/components', 'tamagui'],
+        config: './gui.config.ts',
+        components: ['@ourapp/components', '@hanzo/gui'],
       },
     ],
   ],
@@ -178,9 +178,9 @@ export default {
 
 ### Configuration notes
 
-You only need `tamagui` in your `components` array if you extend it, otherwise
+You only need `@hanzo/gui` in your `components` array if you extend it, otherwise
 no need. You can also extend your own base level module so long as they export
-Tamagui `styled` components.
+Hanzo GUI `styled` components.
 
 ## Step 5: Test it out
 
@@ -200,14 +200,14 @@ export default () => <Circle size="$large" />
 When it compiles you should see something like:
 
 ```bash
-tamagui built app.tsx in 16ms (1 optimized, 1 flattened)
+gui built app.tsx in 16ms (1 optimized, 1 flattened)
 ```
 
 To get more information on any extraction, use the `// debug` pragma:
 
 ```tsx
 // debug
-// ^ the above pragma will direct Tamagui to output a lot of information on the extraction
+// ^ the above pragma will direct Hanzo GUI to output a lot of information on the extraction
 import { Circle } from '@ourapp/components'
 
 export default () => <Circle size="$large" />

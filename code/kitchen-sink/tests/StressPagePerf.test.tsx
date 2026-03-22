@@ -4,7 +4,7 @@ import { setupPage } from './test-utils'
 /**
  * Performance profiling test for the StressPage.
  *
- * Measures render time of a diverse page with ~200+ Tamagui components.
+ * Measures render time of a diverse page with ~200+ Hanzo GUI components.
  * Captures both wall-clock render time (performance.mark/measure) and
  * internal @hanzo/gui-timer breakdown (getSplitStyles, createComponent checkpoints).
  *

@@ -3,7 +3,7 @@ title: Theme
 description: Change themes contextually
 ---
 
-Changing themes in Tamagui is as easy as passing their name to the Theme
+Changing themes in Hanzo GUI is as easy as passing their name to the Theme
 component.
 
 ## Usage
@@ -26,20 +26,20 @@ export default () => (
 Themes live one level below tokens. Tokens are your static variables, where
 themes are more dynamic like CSS variables.
 
-You can define themes however you want, but for the `tamagui` UI kit, the
+You can define themes however you want, but for the `@hanzo/gui` UI kit, the
 components default styling will use a set of pre-defined keys. Those keys are:
 
 - `background`, `backgroundHover`,`backgroundPress`, `backgroundFocus`
 - `borderColor`, `borderColorHover`,`borderColorPress`, `borderColorFocus`
 - `shadowColor`
 
-These are optional, as you can always set `unstyled` on any Tamagui component to
+These are optional, as you can always set `unstyled` on any Hanzo GUI component to
 use your own styles.
 
 Here's a simplified theme definition:
 
 ```tsx
-import { createTamagui, createTokens } from '@hanzo/gui'
+import { createGui, createTokens } from '@hanzo/gui'
 
 const tokens = createTokens({
   color: {
@@ -49,7 +49,7 @@ const tokens = createTokens({
   // ... see configuration docs for required tokens
 })
 
-export default createTamagui({
+export default createGui({
   tokens,
   themes: {
     dark: {

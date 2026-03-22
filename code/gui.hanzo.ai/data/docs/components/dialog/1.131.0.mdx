@@ -28,13 +28,13 @@ content. Be sure to open the code example above for a copy-paste implementation.
 
 ## Installation
 
-Dialog is already installed in `tamagui`, or you can install it independently:
+Dialog is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-dialog
 ```
 
-If you aren't using `tamagui` and instead using the `@hanzo/gui-dialog` package
+If you aren't using `@hanzo/gui` and instead using the `@hanzo/gui-dialog` package
 separately, you'll first need to install the `@hanzo/gui-portal` package:
 
 ```bash
@@ -169,7 +169,7 @@ To prevent a dialog from closing when clicking outside:
 ### Dialog
 
 Contains every component for the dialog. Beyond
-[Tamagui Props](/docs/intro/props), adds:
+[Hanzo GUI Props](/docs/intro/props), adds:
 
 <PropsTable
   data={[
@@ -214,12 +214,12 @@ Contains every component for the dialog. Beyond
 
 ### Dialog.Trigger
 
-Just [Tamagui Props](/docs/intro/props).
+Just [Hanzo GUI Props](/docs/intro/props).
 
 ### Dialog.Portal
 
 Renders Dialog into appropriate container. Beyond
-[Tamagui Props](/docs/intro/props), adds:
+[Hanzo GUI Props](/docs/intro/props), adds:
 
 <PropsTable
   data={[
@@ -233,7 +233,7 @@ Renders Dialog into appropriate container. Beyond
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
   ]}
 />
@@ -242,7 +242,7 @@ Renders Dialog into appropriate container. Beyond
 
 Main container for Dialog content, this is where you should apply animations.
 
-Beyond [Tamagui Props](/docs/intro/props), adds:
+Beyond [Hanzo GUI Props](/docs/intro/props), adds:
 
 <PropsTable
   data={[
@@ -256,7 +256,7 @@ Beyond [Tamagui Props](/docs/intro/props), adds:
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
     {
       name: 'disableOutsidePointerEvents',
@@ -269,7 +269,7 @@ Beyond [Tamagui Props](/docs/intro/props), adds:
 
 ### Dialog.Overlay
 
-Displays behind Content. Beyond [Tamagui Props](/docs/intro/props), adds:
+Displays behind Content. Beyond [Hanzo GUI Props](/docs/intro/props), adds:
 
 <PropsTable
   data={[
@@ -309,7 +309,7 @@ your own component and `asChild`.
   ]}
 />
 
-Just [Tamagui Props](/docs/intro/props).
+Just [Hanzo GUI Props](/docs/intro/props).
 
 ### Dialog.FocusScope
 

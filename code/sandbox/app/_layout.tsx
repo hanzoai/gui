@@ -1,14 +1,14 @@
 import { animationsMotion } from '@hanzo/gui-config/v5-motion'
 import { Image } from '@hanzo/gui-image'
 import './_layout.css'
-import './tamagui.generated.css'
+import './gui.generated.css'
 
 // import { Toaster } from '@hanzo/gui-toast'
 import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
 import { LoadProgressBar, SafeAreaView, Slot } from 'one'
-import { Configuration, isWeb, TamaguiProvider, XStack, YStack } from '@hanzo/gui'
+import { Configuration, isWeb, GuiProvider, XStack, YStack } from '@hanzo/gui'
 import { ToggleThemeButton } from '~/components/ToggleThemeButton'
-import config from '~/config/tamagui/tamagui.config'
+import config from '~/config/gui/gui.config'
 import oneBall from '~/public/app-icon.png'
 
 export default function Layout() {
@@ -28,7 +28,7 @@ export default function Layout() {
         <LoadProgressBar />
 
         <SchemeProvider>
-          <TamaguiRootProvider>
+          <GuiRootProvider>
             <YStack bg="$color1" minH="100%" gap="$4" flex={1}>
               <SafeAreaView>
                 {/* <Toaster position="top-center" /> */}
@@ -43,19 +43,19 @@ export default function Layout() {
                 </Configuration>
               </SafeAreaView>
             </YStack>
-          </TamaguiRootProvider>
+          </GuiRootProvider>
         </SchemeProvider>
       </body>
     </html>
   )
 }
 
-const TamaguiRootProvider = ({ children }: { children: React.ReactNode }) => {
+const GuiRootProvider = ({ children }: { children: React.ReactNode }) => {
   const userScheme = useUserScheme()
 
   return (
-    <TamaguiProvider disableInjectCSS config={config} defaultTheme={userScheme.value}>
+    <GuiProvider disableInjectCSS config={config} defaultTheme={userScheme.value}>
       {children}
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }

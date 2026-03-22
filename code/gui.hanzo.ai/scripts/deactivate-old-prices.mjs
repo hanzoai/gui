@@ -21,7 +21,7 @@ const OLD_PRICES = [
 ]
 
 async function deactivateOldPrices() {
-  console.info('Deactivating old Tamagui Pro V2 prices in Stripe...\n')
+  console.info('Deactivating old Hanzo GUI Pro V2 prices in Stripe...\n')
 
   for (const price of OLD_PRICES) {
     try {

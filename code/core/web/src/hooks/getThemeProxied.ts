@@ -113,7 +113,7 @@ export function getThemeProxied(
         ...value,
         get val() {
           // when they touch the actual value we only track it if its a variable (web), its ignored!
-          if (!globalThis.tamaguiAvoidTracking) {
+          if (!globalThis.guiAvoidTracking) {
             // always track .val - not scheme optimized since they're getting raw value
             track(key, false)
           }

@@ -9,8 +9,8 @@
   ],
   "module": "dist/esm",
   "scripts": {
-    "test:web": "DISABLE_REACT_NATIVE=1 TEST_ENVIRONMENT=jsdom TAMAGUI_TARGET=web vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
-    "test:native": "TAMAGUI_TARGET=native vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
+    "test:web": "DISABLE_REACT_NATIVE=1 TEST_ENVIRONMENT=jsdom HANZO_GUI_TARGET=web vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
+    "test:native": "HANZO_GUI_TARGET=native vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
     "test": "bun run test:native"
   },
   "devDependencies": {

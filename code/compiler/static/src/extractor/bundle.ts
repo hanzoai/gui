@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs'
 import esbuild from 'esbuild'
 import * as FS from 'fs-extra'
-import type { TamaguiPlatform } from '../types'
+import type { GuiPlatform } from '../types'
 import { detectModuleFormat } from './detectModuleFormat'
 import { esbuildAliasPlugin } from './esbuildAliasPlugin'
-import { resolveWebOrNativeSpecificEntry } from './loadTamagui'
+import { resolveWebOrNativeSpecificEntry } from './loadGui'
 import { TsconfigPathsPlugin } from './esbuildTsconfigPaths'
 
 export const esbuildLoaderConfig = {
@@ -53,10 +53,10 @@ type Props = Omit<Partial<esbuild.BuildOptions>, 'entryPoints'> & {
 
 function getESBuildConfig(
   { entryPoints, resolvePlatformSpecificEntries, ...options }: Props,
-  platform: TamaguiPlatform,
+  platform: GuiPlatform,
   aliases?: Record<string, string>
 ) {
-  if (process.env.DEBUG?.startsWith('tamagui')) {
+  if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
     console.info(`Building`, entryPoints)
   }
 
@@ -120,7 +120,7 @@ function getESBuildConfig(
             }
 
             // skip most node_modules
-            if (args.path.includes('node_modules') && !args.path.includes('@tamagui')) {
+            if (args.path.includes('node_modules') && !args.path.includes('@gui')) {
               return null
             }
 
@@ -150,8 +150,8 @@ function getESBuildConfig(
               /^\s*(?:const|let|var|export)\s+[^=]*=\s*await\b/m.test(contents) ||
               /^await\s/m.test(contents)
             ) {
-              if (process.env.DEBUG?.startsWith('tamagui')) {
-                console.info(`[tamagui] stubbing file with top-level await: ${args.path}`)
+              if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
+                console.info(`[hanzo-gui] stubbing file with top-level await: ${args.path}`)
               }
               return {
                 contents: `// stubbed - contains top-level await\nmodule.exports = {}`,
@@ -185,7 +185,7 @@ function getESBuildConfig(
           // only externalize @hanzo/gui-core and @hanzo/gui-web - these are provided at runtime
           // other @hanzo/gui-* packages (like @hanzo/gui-config/v3) must be bundled in to avoid
           // ESM race conditions when multiple threads require() them concurrently
-          build.onResolve({ filter: /^@tamagui\/(core|web)$/ }, (args) => {
+          build.onResolve({ filter: /^@gui\/(core|web)$/ }, (args) => {
             if (args.kind === 'entry-point') {
               return null
             }
@@ -255,9 +255,9 @@ function detectEntryFormat(entryPoint: string): esbuild.BuildOptions['format'] {
   }
 }
 
-export async function esbundleTamaguiConfig(
+export async function esbundleGuiConfig(
   props: Props,
-  platform: TamaguiPlatform,
+  platform: GuiPlatform,
   aliases?: Record<string, string>
 ) {
   const config = getESBuildConfig(props, platform, aliases)

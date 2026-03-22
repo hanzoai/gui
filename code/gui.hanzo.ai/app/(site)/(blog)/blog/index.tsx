@@ -2,7 +2,7 @@ import { useLoader } from 'one'
 import { H2, Paragraph, Spacer, XStack } from '@hanzo/gui'
 import { ContainerLarge } from '~/components/Containers'
 import { Link } from '~/components/Link'
-import { TamaguiCard } from '~/components/TamaguiCard'
+import { GuiCard } from '~/components/GuiCard'
 import { authors } from '~/data/authors'
 import { HeadInfo } from '~/components/HeadInfo'
 
@@ -23,7 +23,7 @@ export default function Blog() {
 
   return (
     <>
-      <HeadInfo title="Blog — Tamagui" description="What's up with Tamagui." />
+      <HeadInfo title="Blog — Gui" description="What's up with Gui." />
       <Spacer size="$7" />
       <ContainerLarge mb="$7">
         <H2 size="$8" color="$color9" fontFamily="$silkscreen">
@@ -33,7 +33,7 @@ export default function Blog() {
         <XStack flexWrap="wrap" gap="$4" $md={{ flexDirection: 'column' }}>
           {frontmatters.map((frontmatter) => (
             <Link asChild key={frontmatter.title} href={`/blog/${frontmatter.slug}`}>
-              <TamaguiCard
+              <GuiCard
                 title={frontmatter.title}
                 render="a"
                 width="calc(50% - var(--space-2))"
@@ -63,7 +63,7 @@ export default function Blog() {
                 }
               >
                 {frontmatter.description}
-              </TamaguiCard>
+              </GuiCard>
             </Link>
           ))}
         </XStack>

@@ -4,7 +4,7 @@ import { animations } from './animations'
 import { animations as animationsNative } from './animations.native'
 
 // basic fallback theme just to have compiler load in decent tate
-export function getDefaultTamaguiConfig(platform: 'native' | 'web' = 'web') {
+export function getDefaultGuiConfig(platform: 'native' | 'web' = 'web') {
   const headingFont = createFont({
     family: 'Heading',
     size: {

@@ -26,7 +26,7 @@ demoName: ToggleGroup
 
 ## Installation
 
-ToggleGroup is already installed in `tamagui`, or you can install it independently:
+ToggleGroup is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-toggle-group
@@ -58,7 +58,7 @@ export default () => {
     {
       name: 'asChild',
       type: 'boolean',
-      description: `When true, Tamagui expects a single child element. Instead of rendering its own element, it will pass all props to that child, merging together any event handling props.`,
+      description: `When true, Hanzo GUI expects a single child element. Instead of rendering its own element, it will pass all props to that child, merging together any event handling props.`,
       default: `false`,
     },
     {
@@ -110,7 +110,7 @@ export default () => {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
     {
       name: 'sizeAdjust',
@@ -122,14 +122,14 @@ export default () => {
 
 ### ToggleGroup.Item
 
-`ToggleGroup.Item` extend Stack views inheriting all the [Tamagui standard props](notion://www.notion.so/docs/intro/props), plus:
+`ToggleGroup.Item` extend Stack views inheriting all the [Gui standard props](notion://www.notion.so/docs/intro/props), plus:
 
 <PropsTable
   data={[
     {
       name: 'asChild',
       type: 'boolean',
-      description: `When true, Tamagui expects a single child element. Instead of rendering its own element, it will pass all props to that child, merging together any event handling props.`,
+      description: `When true, Hanzo GUI expects a single child element. Instead of rendering its own element, it will pass all props to that child, merging together any event handling props.`,
       default: `false`,
     },
     {
@@ -147,7 +147,7 @@ export default () => {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />

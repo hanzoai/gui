@@ -4,7 +4,7 @@
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
-    "upgrade:tamagui": "bunx npm-check-updates -u '*tamagui*' '@hanzo/gui-*' && bun install",
+    "upgrade:gui": "bunx npm-check-updates -u '*gui*' '@hanzo/gui-*' && bun install",
     "start": "bunx expo start -c",
     "android": "expo run:android",
     "ios": "expo run:ios",

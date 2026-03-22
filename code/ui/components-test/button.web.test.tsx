@@ -2,21 +2,21 @@ import '@testing-library/jest-dom'
 import 'vitest-axe/extend-expect'
 
 import { Button } from '@hanzo/gui-button'
-import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
-import { View, TamaguiProvider, createTamagui } from '@hanzo/gui-core'
+import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
+import { View, GuiProvider, createGui } from '@hanzo/gui-core'
 import type { RenderResult } from '@testing-library/react'
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-const conf = createTamagui(getDefaultTamaguiConfig())
+const conf = createGui(getDefaultGuiConfig())
 
 function ButtonTest(props: React.ComponentProps<typeof Button>) {
   return (
-    <TamaguiProvider config={conf} defaultTheme="light">
+    <GuiProvider config={conf} defaultTheme="light">
       <View>
         <Button {...props} />
       </View>
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 

@@ -1,4 +1,4 @@
-import type { TransitionProp, PseudoTransitions, TamaguiComponentState } from '../types'
+import type { TransitionProp, PseudoTransitions, GuiComponentState } from '../types'
 
 /**
  * Pseudo state for tracking enter/exit transitions
@@ -22,7 +22,7 @@ export type PseudoState = {
  */
 export function resolveEffectivePseudoTransition(
   prev: PseudoState | undefined,
-  next: TamaguiComponentState,
+  next: GuiComponentState,
   pseudoTransitions: PseudoTransitions | undefined | null,
   baseTransition: TransitionProp | undefined | null
 ): TransitionProp | undefined | null {
@@ -70,9 +70,9 @@ export function resolveEffectivePseudoTransition(
 }
 
 /**
- * Extracts pseudo state from TamaguiComponentState for storage in prevPseudoState
+ * Extracts pseudo state from GuiComponentState for storage in prevPseudoState
  */
-export function extractPseudoState(state: TamaguiComponentState): PseudoState {
+export function extractPseudoState(state: GuiComponentState): PseudoState {
   const groups: PseudoState['groups'] = {}
 
   if (state.group) {

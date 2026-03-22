@@ -1,8 +1,8 @@
-import { View, createTamagui } from '@hanzo/gui-core'
+import { View, createGui } from '@hanzo/gui-core'
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 import { isColorStyleKey } from '../web/src/helpers/getDynamicVal'
 
-// Set TAMAGUI_TARGET before importing getSplitStyles
+// Set HANZO_GUI_TARGET before importing getSplitStyles
 process.env.HANZO_GUI_TARGET = 'native'
 
 // Import directly from source so mocks apply
@@ -37,7 +37,7 @@ const mockGetSetting = vi.fn((key) => {
 vi.spyOn(configModule, 'getSetting').mockImplementation(mockGetSetting)
 
 beforeAll(() => {
-  createTamagui(config.getDefaultTamaguiConfig('native'))
+  createGui(config.getDefaultGuiConfig('native'))
 })
 
 // Helper function to create dynamic color structure for iOS
@@ -167,8 +167,8 @@ describe('getSplitStyles iOS specific', () => {
    * `opacity` are wrapped with {dynamic: {...}}, React Native throws:
    * "TypeError: expected dynamic type 'int/double/bool/string', but had type 'object'"
    *
-   * See: https://github.com/tamagui/tamagui/issues/3096
-   * See: https://github.com/tamagui/tamagui/issues/2980
+   * See: https://github.com/hanzoai/gui/issues/3096
+   * See: https://github.com/hanzoai/gui/issues/2980
    */
   test('non-color properties in $theme-dark/$theme-light should NOT be wrapped with dynamic object', () => {
     // Arrange - opacity is a numeric property, not a color

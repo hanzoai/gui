@@ -1,8 +1,8 @@
 import { defaultConfig } from '@hanzo/gui-config/v5'
 import { animations } from '@hanzo/gui-config/v5-rn'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   animations,
 })
@@ -10,5 +10,5 @@ export const config = createTamagui({
 export type Conf = typeof config
 
 declare module '@hanzo/gui' {
-  interface TamaguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }

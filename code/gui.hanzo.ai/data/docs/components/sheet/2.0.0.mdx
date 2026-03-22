@@ -28,7 +28,7 @@ Sheet is a bottom panel that slides up from the bottom of the screen, commonly u
 
 ## Installation
 
-Sheet is already installed in `tamagui`, or you can install it independently:
+Sheet is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-sheet
@@ -141,7 +141,7 @@ Contains every component for the sheet.
       type: 'boolean',
       default: 'false',
       deprecated: true,
-      description: `@deprecated Use \`disableRemoveScroll\` instead. By default. Tamagui uses react-remove-scroll to prevent anything outside the sheet scrolling. This can cause some issues so you can override the behavior with this prop (either true or false).`,
+      description: `@deprecated Use \`disableRemoveScroll\` instead. By default. Hanzo GUI uses react-remove-scroll to prevent anything outside the sheet scrolling. This can cause some issues so you can override the behavior with this prop (either true or false).`,
     },
     {
       name: 'portalProps',
@@ -200,7 +200,7 @@ For the best gesture experience on iOS and Android, Sheet supports optional inte
 npm install react-native-gesture-handler
 ```
 
-2. Add the setup import to your app entry point (before any Tamagui imports):
+2. Add the setup import to your app entry point (before any Hanzo GUI imports):
 
 ```tsx
 // App.tsx or index.js

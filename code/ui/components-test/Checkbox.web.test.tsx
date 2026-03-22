@@ -2,24 +2,24 @@ import '@testing-library/jest-dom'
 import 'vitest-axe/extend-expect'
 
 import { Checkbox } from '@hanzo/gui-checkbox'
-import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
-import { View, TamaguiProvider, createTamagui, getTokenValue } from '@hanzo/gui-core'
+import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
+import { View, GuiProvider, createGui, getTokenValue } from '@hanzo/gui-core'
 import type { RenderResult } from '@testing-library/react'
 import { fireEvent, render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vitest } from 'vitest'
 import { axe } from 'vitest-axe'
 
-const conf = createTamagui(getDefaultTamaguiConfig())
+const conf = createGui(getDefaultGuiConfig())
 
 function CheckboxTest(props: React.ComponentProps<typeof Checkbox>) {
   return (
-    <TamaguiProvider config={conf} defaultTheme="light">
+    <GuiProvider config={conf} defaultTheme="light">
       <View>
         <Checkbox {...props} aria-label="basic checkbox">
           <Checkbox.Indicator data-testid={INDICATOR_TEST_ID} />
         </Checkbox>
       </View>
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 

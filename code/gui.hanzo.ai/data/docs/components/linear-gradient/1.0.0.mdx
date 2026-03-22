@@ -1,6 +1,6 @@
 ---
 title: Linear Gradient
-description: Linear gradients that work with Tamagui style props
+description: Linear gradients that work with Hanzo GUI style props
 name: html
 component: LinearGradient
 demoName: LinearGradient
@@ -17,14 +17,14 @@ demoName: LinearGradient
 <Highlights
   features={[
     'Works on native and web.',
-    'Accepts Tamagui style props and theme colors.',
+    'Accepts Hanzo GUI style props and theme colors.',
     'Bundles easily with webpack.',
   ]}
 />
 
 ## Installation
 
-LinearGradient is already installed in `tamagui`, or you can install it independently:
+LinearGradient is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-linear-gradient
@@ -34,14 +34,14 @@ To use this package you'll need to add `expo-linear-gradient` to your app. This 
 
 ## Usage
 
-Because LinearGradient requires a more complex to install native package, we've left it out of the `tamagui` export until Metro supports async import. Import it either separately or using the path `/linear-gradient`:
+Because LinearGradient requires a more complex to install native package, we've left it out of the `@hanzo/gui` export until Metro supports async import. Import it either separately or using the path `/linear-gradient`:
 
 ```tsx
 import { LinearGradient } from '@hanzo/gui-linear-gradient'
-import { LinearGradient } from 'tamagui/linear-gradient'
+import { LinearGradient } from 'gui/linear-gradient'
 ```
 
-LinearGradient is a YStack that accepts all Tamagui style props as well as theme colors, that places `expo-linear-gradient` inside it set to absoluteFill.
+LinearGradient is a YStack that accepts all Hanzo GUI style props as well as theme colors, that places `expo-linear-gradient` inside it set to absoluteFill.
 
 ## API Reference
 
@@ -49,7 +49,7 @@ LinearGradient is a YStack that accepts all Tamagui style props as well as theme
 
 See the [expo docs](https://docs.expo.dev/versions/latest/sdk/linear-gradient/) for more complete information.
 
-LinearGradient extends YStack, inheriting [Stack props](/docs/components/stacks) and therefore the [Tamagui standard props](/docs/intro/props), plus:
+LinearGradient extends YStack, inheriting [Stack props](/docs/components/stacks) and therefore the [Gui standard props](/docs/intro/props), plus:
 
 <PropsTable
   data={[

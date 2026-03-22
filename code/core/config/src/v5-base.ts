@@ -2,7 +2,7 @@ import { shorthands } from '@hanzo/gui-shorthands/v4' // v4 same as v5
 import type { Shorthands } from '@hanzo/gui-shorthands/v4'
 import { themes, tokens } from '@hanzo/gui-themes/v5'
 import type { V5Themes, V5Tokens } from '@hanzo/gui-themes/v5'
-import type { CreateTamaguiProps } from '@hanzo/gui-web'
+import type { CreateGuiProps } from '@hanzo/gui-web'
 import { fonts } from './v5-fonts'
 import type { V5Fonts } from './v5-fonts'
 import { media, mediaQueryDefaultActive } from './v5-media'
@@ -54,7 +54,7 @@ export const settings = {
   addThemeClassName: 'html',
   onlyAllowShorthands: true,
   styleCompat: 'react-native',
-} satisfies CreateTamaguiProps['settings']
+} satisfies CreateGuiProps['settings']
 
 export type V5Settings = typeof settings
 

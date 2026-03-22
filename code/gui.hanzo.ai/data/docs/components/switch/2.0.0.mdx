@@ -11,14 +11,14 @@ demoName: Switch
 
 <Tabs id="type" defaultValue="styled">
 <Tabs.List>
-  <TooltipSimple label="With Tamagui's default styles">
+  <TooltipSimple label="With Hanzo GUI's default styles">
     <Tabs.Tab value="styled">Styled</Tabs.Tab>
   </TooltipSimple>
   <TooltipSimple label="No default styles, easy to customize">
     <Tabs.Tab value="unstyled">Unstyled</Tabs.Tab>
   </TooltipSimple>
-  <TooltipSimple label="No dependency on Tamagui's core">
-    <Tabs.Tab value="headless" label="No styles and no dependency on Tamagui's styling">Headless</Tabs.Tab>
+  <TooltipSimple label="No dependency on Hanzo GUI's core">
+    <Tabs.Tab value="headless" label="No styles and no dependency on Hanzo GUI's styling">Headless</Tabs.Tab>
   </TooltipSimple>
 </Tabs.List>
 
@@ -67,7 +67,7 @@ features={[
 
 <Tabs.Content value="styled">
 
-Switch is already installed in `tamagui`, or you can install it independently:
+Switch is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-switch
@@ -77,7 +77,7 @@ npm install @hanzo/gui-switch
 
 <Tabs.Content value="unstyled">
 
-Switch is already installed in `tamagui`, or you can install it independently:
+Switch is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-switch
@@ -192,7 +192,7 @@ function MySwitch({ defaultChecked, onCheckedChange, ...props }) {
 ### Switch
 
 `Switch` extends Stack views inheriting all the
-[Tamagui standard props](/docs/intro/props), plus:
+[Gui standard props](/docs/intro/props), plus:
 
 <PropsTable
   data={[
@@ -235,7 +235,7 @@ function MySwitch({ defaultChecked, onCheckedChange, ...props }) {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, removes all default Tamagui styling.`,
+      description: `When true, removes all default Hanzo GUI styling.`,
     },
     {
       name: 'native',
@@ -263,7 +263,7 @@ function MySwitch({ defaultChecked, onCheckedChange, ...props }) {
 ### Switch.Thumb
 
 `Switch.Thumb` extends Stack views inheriting all the
-[Tamagui standard props](/docs/intro/props), plus:
+[Gui standard props](/docs/intro/props), plus:
 
 <PropsTable
   data={[
@@ -271,7 +271,7 @@ function MySwitch({ defaultChecked, onCheckedChange, ...props }) {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, removes all default Tamagui styling.`,
+      description: `When true, removes all default Hanzo GUI styling.`,
     },
     {
       name: 'activeStyle',

@@ -4,7 +4,7 @@ import { useLoader } from 'one'
 import { useMemo } from 'react'
 import { HeadInfo } from '~/components/HeadInfo'
 import { SubTitle, nbspLastWord } from '~/components/SubTitle'
-import { TamaguiExamples } from '~/components/TamaguiExamples'
+import { GuiExamples } from '~/components/GuiExamples'
 import { DocsPageFrame } from '~/features/docs/DocsPageFrame'
 import { useDocsMenu } from '~/features/docs/useDocsMenu'
 import { components } from '~/features/mdx/MDXComponents'
@@ -54,7 +54,7 @@ export default function DocIntroPage() {
       previous={previous}
     >
       <HeadInfo
-        title={`${frontmatter.title} — Tamagui`}
+        title={`${frontmatter.title} — Gui`}
         description={frontmatter.description ?? ''}
         openGraph={{
           images: [
@@ -71,9 +71,9 @@ export default function DocIntroPage() {
       <HomeH1>{nbspLastWord(frontmatter.title)}</HomeH1>
       <SubTitle>{nbspLastWord(frontmatter.description || '')}</SubTitle>
       <ThemeTint>
-        <TamaguiExamples.Provider value={examples}>
+        <GuiExamples.Provider value={examples}>
           <Component components={components as any} />
-        </TamaguiExamples.Provider>
+        </GuiExamples.Provider>
       </ThemeTint>
     </DocsPageFrame>
   )

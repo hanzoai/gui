@@ -2,7 +2,7 @@
 
 ## Overview
 
-Add `react-native-keyboard-controller` integration to Tamagui following the same pattern as gesture-handler and teleport in `@hanzo/gui-native`. This enables smooth keyboard + sheet coordination where:
+Add `react-native-keyboard-controller` integration to Hanzo GUI following the same pattern as gesture-handler and teleport in `@hanzo/gui-native`. This enables smooth keyboard + sheet coordination where:
 
 1. Dragging sheet down dismisses keyboard FIRST with smooth handoff
 2. Keyboard and sheet animate in sync (60/120 FPS frame-by-frame)
@@ -31,7 +31,7 @@ Following the exact pattern of `setup-gesture-handler.ts`:
 ### 1. State Module (`keyboardControllerState.ts`)
 
 ```typescript
-const GLOBAL_KEY = '__tamagui_native_keyboard_controller_state__'
+const GLOBAL_KEY = '__gui_native_keyboard_controller_state__'
 
 export interface KeyboardControllerState {
   enabled: boolean
@@ -60,8 +60,8 @@ import { setKeyboardControllerState } from './keyboardControllerState'
 
 function setup() {
   const g = globalThis as any
-  if (g.__tamagui_native_keyboard_controller_setup_complete) return
-  g.__tamagui_native_keyboard_controller_setup_complete = true
+  if (g.__gui_native_keyboard_controller_setup_complete) return
+  g.__gui_native_keyboard_controller_setup_complete = true
 
   try {
     const rnkc = require('react-native-keyboard-controller')

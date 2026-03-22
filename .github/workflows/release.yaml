@@ -30,7 +30,7 @@ jobs:
 
       - name: Publish
         # just testing for now so --skip-publish
-        run: bun run release:beta:dirty --ci --tamagui-git-user --skip-publish
+        run: bun run release:beta:dirty --ci --gui-git-user --skip-publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

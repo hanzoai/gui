@@ -1,8 +1,8 @@
 import type { ThemeDefinition } from '@hanzo/gui-theme-builder'
 import { createStore } from '@hanzo/gui-use-store'
-import type { TamaguiInternalConfig, ThemeName } from '@hanzo/gui'
+import type { GuiInternalConfig, ThemeName } from '@hanzo/gui'
 import { isLocal } from '~/features/studio/constants'
-// import { watchTamaguiDirectory } from '../helpers/watchTamaguiDirectory'
+// import { watchGuiDirectory } from '../helpers/watchGuiDirectory'
 import { toastController } from '../ToastProvider'
 import type { Components, DialogTypes, StudioDialogProps } from './types'
 
@@ -32,7 +32,7 @@ export class RootStore {
     })
 
     if (isLocal) {
-      await this.reloadTamaguiConfig()
+      await this.reloadGuiConfig()
     }
   }
 
@@ -46,7 +46,7 @@ export class RootStore {
   dialog: keyof DialogTypes = 'none'
   dialogProps: StudioDialogProps = {}
 
-  config: null | TamaguiInternalConfig = null
+  config: null | GuiInternalConfig = null
   themes: null | ThemesConfig = null
 
   components = {
@@ -55,25 +55,25 @@ export class RootStore {
 
   unwatchPreviousFileWatch?: () => void
 
-  async reloadTamaguiConfig() {
+  async reloadGuiConfig() {
     if (isLocal) {
       console.warn(`⚠️ disabled RootStore for now`)
       return
 
       // const domain = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8081'
       // const [configJson, themesJson] = await Promise.all([
-      //   fetch(`${domain}/api/tamagui.config.json`).then((res) => res.json()),
-      //   fetch(`${domain}/api/tamagui.themes.json`).then((res) => res.json()),
+      //   fetch(`${domain}/api/gui.config.json`).then((res) => res.json()),
+      //   fetch(`${domain}/api/gui.themes.json`).then((res) => res.json()),
       // ])
 
-      // await this.onReloadedTamaguiConfig(configJson)
+      // await this.onReloadedGuiConfig(configJson)
       // this.themes = themesJson
     } else {
       // TODO
       // try {
       //   this.unwatchPreviousFileWatch?.()
-      //   this.unwatchPreviousFileWatch = await watchTamaguiDirectory((data) => {
-      //     this.onReloadedTamaguiConfig(data.config)
+      //   this.unwatchPreviousFileWatch = await watchGuiDirectory((data) => {
+      //     this.onReloadedGuiConfig(data.config)
       //     this.projectName = data.projectName
       //     this.fsReadSucceeded = true
       //   })
@@ -94,8 +94,8 @@ export class RootStore {
     return null
   }
 
-  async onReloadedTamaguiConfig(config: {
-    tamaguiConfig: TamaguiInternalConfig
+  async onReloadedGuiConfig(config: {
+    guiConfig: GuiInternalConfig
     components: Components
   }) {
     toastController.show('Config Updated.', {
@@ -110,12 +110,12 @@ export class RootStore {
 
     // hacky workaround we're generating this wrong need to fix
     // @ts-ignore
-    if (config.tamaguiConfig.config) {
+    if (config.guiConfig.config) {
       // @ts-ignore
-      this.config = config.tamaguiConfig.config
+      this.config = config.guiConfig.config
     } else {
-      const tamaguiConfig = config.tamaguiConfig as TamaguiInternalConfig
-      this.config = tamaguiConfig
+      const guiConfig = config.guiConfig as GuiInternalConfig
+      this.config = guiConfig
     }
   }
 

@@ -1,5 +1,5 @@
 /**
- * Setup gesture handler for Tamagui native components.
+ * Setup gesture handler for Hanzo GUI native components.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -16,10 +16,10 @@ import { getGestureHandler } from './gestureState'
 
 function setup() {
   const g = globalThis as any
-  if (g.__tamagui_native_gesture_setup_complete) {
+  if (g.__gui_native_gesture_setup_complete) {
     return
   }
-  g.__tamagui_native_gesture_setup_complete = true
+  g.__gui_native_gesture_setup_complete = true
 
   try {
     // dynamically require RNGH - it should already be imported by the app
@@ -35,7 +35,7 @@ function setup() {
       })
 
       // also set on the legacy key for backward compat with @hanzo/gui-sheet
-      g.__tamagui_sheet_gesture_state__ = {
+      g.__gui_sheet_gesture_state__ = {
         enabled: true,
         Gesture,
         GestureDetector,

@@ -2,10 +2,10 @@ import {
   createExtractor,
   extractToClassNames,
   extractToNative,
-  loadTamagui,
-  loadTamaguiBuildConfigSync,
+  loadGui,
+  loadGuiBuildConfigSync,
 } from '@hanzo/gui-static'
-import type { CLIResolvedOptions, TamaguiOptions } from '@hanzo/gui-types'
+import type { CLIResolvedOptions, GuiOptions } from '@hanzo/gui-types'
 import chokidar from 'chokidar'
 import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'fs-extra'
 import MicroMatch from 'micromatch'
@@ -78,12 +78,12 @@ export const build = async (
     await mkdir(outputDir, { recursive: true })
   }
 
-  const loadedOptions = loadTamaguiBuildConfigSync(options.tamaguiOptions)
+  const loadedOptions = loadGuiBuildConfigSync(options.guiOptions)
 
   // when running CLI build directly, ignore disable since user explicitly wants to build
   if (loadedOptions.disable) {
     console.warn(
-      `[tamagui] Note: "disable" option in tamagui.build.ts is being ignored for CLI build command`
+      `[hanzo-gui] Note: "disable" option in gui.build.ts is being ignored for CLI build command`
     )
   }
   const buildOptions = {
@@ -97,13 +97,13 @@ export const build = async (
       ? (['web', 'native'] as const)
       : ([options.target] as const)
 
-  // Load tamagui for web first (needed for both targets)
-  const webTamaguiOptions = {
+  // Load hanzo-gui for web first (needed for both targets)
+  const webGuiOptions = {
     ...buildOptions,
     platform: 'web' as const,
-  } satisfies TamaguiOptions
+  } satisfies GuiOptions
 
-  await loadTamagui(webTamaguiOptions)
+  await loadGui(webGuiOptions)
 
   // Collect all files first
   const allFiles: string[] = []
@@ -197,7 +197,7 @@ export const build = async (
   // Track files for restoration (when using --run)
   const trackedFiles: TrackedFile[] = []
   const restoreDir = options.runCommand
-    ? join(tmpdir(), `tamagui-restore-${process.pid}`)
+    ? join(tmpdir(), `gui-restore-${process.pid}`)
     : null
 
   if (restoreDir) {
@@ -325,16 +325,16 @@ export const build = async (
         // Build native version from original source (NOT from the web-optimized version)
         if (filePlatforms.includes('native')) {
           process.env.HANZO_GUI_TARGET = 'native'
-          const nativeTamaguiOptions = {
+          const nativeGuiOptions = {
             ...buildOptions,
             platform: 'native' as const,
-          } satisfies TamaguiOptions
+          } satisfies GuiOptions
 
           // Use the ORIGINAL source, not what was just written to disk
           const nativeOut = extractToNative(
             sourcePath,
             originalSource,
-            nativeTamaguiOptions
+            nativeGuiOptions
           )
 
           if (isDryRun) {

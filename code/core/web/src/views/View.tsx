@@ -5,10 +5,10 @@ import type {
   StackNonStyleProps,
   StackStyle,
   StackStyleBase,
-  TamaguiElement,
+  GuiElement,
 } from '../types'
 
-export type View = TamaguiElement
+export type View = GuiElement
 export type ViewNonStyleProps = StackNonStyleProps
 export type ViewStylePropsBase = StackStyleBase
 export type ViewStyle = StackStyle

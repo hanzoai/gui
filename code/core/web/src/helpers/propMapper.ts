@@ -5,7 +5,7 @@ import type {
   PropMapper,
   SplitStyleProps,
   StyleResolver,
-  TamaguiInternalConfig,
+  GuiInternalConfig,
   Variable,
   VariantSpreadFunction,
 } from '../types'
@@ -217,7 +217,7 @@ const resolveVariants: StyleResolver = (
 
 // handles finding and resolving the fontFamily to the token name
 // this is used as `font_[name]` in className for nice css variable support
-export function getFontFamilyFromNameOrVariable(input: any, conf: TamaguiInternalConfig) {
+export function getFontFamilyFromNameOrVariable(input: any, conf: GuiInternalConfig) {
   if (isVariable(input)) {
     const val = variableToFontNameCache.get(input)
     if (val) return val
@@ -366,7 +366,7 @@ const tokenCats = ['size', 'color', 'radius', 'space', 'zIndex'].map((name) => (
 function getVariantDefinition(
   variant: any,
   value: any,
-  conf: TamaguiInternalConfig,
+  conf: GuiInternalConfig,
   { theme }: Partial<GetStyleState>
 ) {
   if (!variant) return

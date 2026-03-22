@@ -1,10 +1,10 @@
-import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
+import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
 import { expect, test } from 'vitest'
 
 import { createTokens } from '../core/src'
 
 test('snapshot', () => {
-  expect(createTokens(getDefaultTamaguiConfig().tokens)).toMatchSnapshot()
+  expect(createTokens(getDefaultGuiConfig().tokens)).toMatchSnapshot()
 })
 
 test('color name no dot', () => {

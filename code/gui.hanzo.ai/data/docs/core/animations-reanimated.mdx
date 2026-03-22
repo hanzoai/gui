@@ -19,13 +19,13 @@ to complete setup for your platform.
 
 ## Configuration
 
-Add your animations to your [Tamagui config](/docs/core/configuration):
+Add your animations to your [Gui config](/docs/core/configuration):
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-reanimated'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     fast: {
       type: 'spring',
@@ -146,7 +146,7 @@ import { animations } from './animations'
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-reanimated'
-import { YStack, createTamagui } from '@hanzo/gui'
+import { YStack, createGui } from '@hanzo/gui'
 
 const animations = createAnimations({
   bouncy: {
@@ -163,7 +163,7 @@ const animations = createAnimations({
   },
 })
 
-export default createTamagui({
+export default createGui({
   animations,
   // ... rest of config
 })
@@ -182,7 +182,7 @@ export const MyComponent = () => (
 
 ## Zero Re-renders
 
-The Reanimated driver now works with Tamagui to bypasses all internal style
+The Reanimated driver now works with Hanzo GUI to bypasses all internal style
 changes to instead directly hand off to Reanimated worklets.
 
 ## Advanced Features

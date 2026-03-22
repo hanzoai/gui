@@ -1,39 +1,39 @@
 import { dirname, join } from 'node:path'
 
 import { generateThemes, writeGeneratedThemes } from '@hanzo/gui-generate-themes'
-import type { TamaguiOptions } from '@hanzo/gui-types'
+import type { GuiOptions } from '@hanzo/gui-types'
 import * as FS from 'fs-extra'
 
-import { requireTamaguiCore } from '../helpers/requireTamaguiCore'
-import type { TamaguiPlatform } from '../types'
+import { requireGuiCore } from '../helpers/requireGuiCore'
+import type { GuiPlatform } from '../types'
 import type { BundledConfig } from './bundleConfig'
 import { getBundledConfig } from './bundleConfig'
 
-const tamaguiDir = join(process.cwd(), '.tamagui')
-const confFile = join(tamaguiDir, 'tamagui.config.json')
+const guiDir = join(process.cwd(), '.gui')
+const confFile = join(guiDir, 'gui.config.json')
 
 /**
  * Sort of a super-set of bundleConfig(), this code needs some refactoring ideally
  */
 
 export async function regenerateConfig(
-  tamaguiOptions: TamaguiOptions,
+  guiOptions: GuiOptions,
   configIn?: BundledConfig | null,
   rebuild = false
 ) {
   try {
     // this has a side effect of rebuilding config and css!
     // need to improve code here:
-    const config = configIn ?? (await getBundledConfig(tamaguiOptions, rebuild))
+    const config = configIn ?? (await getBundledConfig(guiOptions, rebuild))
     if (!config) return
-    const out = transformConfig(config, tamaguiOptions.platform || 'web')
+    const out = transformConfig(config, guiOptions.platform || 'web')
 
     await FS.ensureDir(dirname(confFile))
     await FS.writeJSON(confFile, out, {
       spaces: 2,
     })
   } catch (err) {
-    if (process.env.DEBUG?.includes('tamagui') || process.env.IS_HANZO_GUI_DEV) {
+    if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_HANZO_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now
@@ -41,35 +41,35 @@ export async function regenerateConfig(
 }
 
 export function regenerateConfigSync(
-  _tamaguiOptions: TamaguiOptions,
+  _guiOptions: GuiOptions,
   config: BundledConfig
 ) {
   try {
     FS.ensureDirSync(dirname(confFile))
     FS.writeJSONSync(
       confFile,
-      transformConfig(config, _tamaguiOptions.platform || 'web'),
+      transformConfig(config, _guiOptions.platform || 'web'),
       {
         spaces: 2,
       }
     )
   } catch (err) {
-    if (process.env.DEBUG?.includes('tamagui') || process.env.IS_HANZO_GUI_DEV) {
+    if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_HANZO_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now
   }
 }
 
-export async function generateTamaguiThemes(
-  tamaguiOptions: TamaguiOptions,
+export async function generateGuiThemes(
+  guiOptions: GuiOptions,
   force = false
 ) {
-  if (!tamaguiOptions.themeBuilder) {
+  if (!guiOptions.themeBuilder) {
     return
   }
 
-  const { input, output } = tamaguiOptions.themeBuilder
+  const { input, output } = guiOptions.themeBuilder
   const inPath = resolveRelativePath(input)
   const outPath = resolveRelativePath(output)
   const generatedOutput = await generateThemes(inPath)
@@ -90,7 +90,7 @@ export async function generateTamaguiThemes(
     })())
 
   if (hasChanged) {
-    await writeGeneratedThemes(tamaguiDir, outPath, generatedOutput)
+    await writeGeneratedThemes(guiDir, outPath, generatedOutput)
   }
 
   return hasChanged
@@ -110,20 +110,20 @@ function cloneDeepSafe(x: any, excludeKeys = {}) {
   )
 }
 
-function transformConfig(config: BundledConfig, platform: TamaguiPlatform) {
+function transformConfig(config: BundledConfig, platform: GuiPlatform) {
   if (!config) {
     return null
   }
 
-  const { getVariableValue } = requireTamaguiCore(platform)
+  const { getVariableValue } = requireGuiCore(platform)
 
   // ensure we don't mangle anything in the original
   const next = cloneDeepSafe(config, {
     validStyles: true,
   }) as BundledConfig
 
-  const { components, nameToPaths, tamaguiConfig } = next
-  const { themes, tokens } = tamaguiConfig
+  const { components, nameToPaths, guiConfig } = next
+  const { themes, tokens } = guiConfig
 
   // reduce down to usable, smaller json
 
@@ -172,12 +172,12 @@ function transformConfig(config: BundledConfig, platform: TamaguiPlatform) {
     shorthands: _shorthands,
     userShorthands,
     ...cleanedConfig
-  } = next.tamaguiConfig
+  } = next.guiConfig
 
   return {
     components,
     nameToPaths,
-    tamaguiConfig: {
+    guiConfig: {
       ...cleanedConfig,
       // Output userShorthands as shorthands (excludes built-ins)
       shorthands: userShorthands,

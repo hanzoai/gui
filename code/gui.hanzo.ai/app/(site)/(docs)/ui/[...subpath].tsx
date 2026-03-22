@@ -84,7 +84,7 @@ export function DocComponentsPage() {
       previous={previous}
     >
       <HeadInfo
-        title={`${frontmatter.title} | Tamagui — React Native UI kit with copy-paste composable components`}
+        title={`${frontmatter.title} | Hanzo GUI — React Native UI kit with copy-paste composable components`}
         description={frontmatter.description || 'UI Kit'}
         openGraph={{
           images: [

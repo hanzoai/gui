@@ -24,7 +24,7 @@ if (visible) {
   const info = await page.evaluate(() => {
     const el = document.getElementById('nav-content')
     if (!el) return null
-    // the PopperContent renders: outer TamaguiView > inner PopperContentFrame
+    // the PopperContent renders: outer GuiView > inner PopperContentFrame
     // nav-content is the PopperContent, which is the inner PopperContentFrame
     // let's walk up the DOM to find the position wrapper
     let node = el

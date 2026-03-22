@@ -24,21 +24,21 @@ console.info('✅ Found ../bento')
 const bentoPackage = JSON.parse(readFileSync(BENTO_PACKAGE_JSON, 'utf-8'))
 const rootPackage = JSON.parse(readFileSync(ROOT_PACKAGE_JSON, 'utf-8'))
 
-// 3. Validate tamagui versions match
-console.info('🔍 Validating tamagui versions...')
-const bentoTamaguiVersion =
-  bentoPackage.dependencies?.tamagui || bentoPackage.devDependencies?.tamagui
-const rootTamaguiVersion =
-  rootPackage.dependencies?.tamagui || rootPackage.devDependencies?.tamagui
+// 3. Validate hanzo-gui versions match
+console.info('🔍 Validating hanzo-gui versions...')
+const bentoGuiVersion =
+  bentoPackage.dependencies?.gui || bentoPackage.devDependencies?.gui
+const rootGuiVersion =
+  rootPackage.dependencies?.gui || rootPackage.devDependencies?.gui
 
 if (
-  bentoTamaguiVersion &&
-  rootTamaguiVersion &&
-  bentoTamaguiVersion !== rootTamaguiVersion
+  bentoGuiVersion &&
+  rootGuiVersion &&
+  bentoGuiVersion !== rootGuiVersion
 ) {
-  console.warn(`⚠️  WARNING: Tamagui version mismatch!`)
-  console.warn(`   Bento: ${bentoTamaguiVersion}`)
-  console.warn(`   Root:  ${rootTamaguiVersion}`)
+  console.warn(`⚠️  WARNING: Hanzo GUI version mismatch!`)
+  console.warn(`   Bento: ${bentoGuiVersion}`)
+  console.warn(`   Root:  ${rootGuiVersion}`)
   console.warn(`   This may cause issues. Consider syncing versions.`)
 }
 
@@ -50,7 +50,7 @@ execSync('bun install', {
 })
 console.info('✅ Bento dependencies installed')
 
-// 5. Symlink all node_modules from tamagui to bento to avoid any duplicates
+// 5. Symlink all node_modules from hanzo-gui to bento to avoid any duplicates
 console.info('🔗 Symlinking all node_modules to avoid duplicates...')
 
 const HANZO_GUI_NODE_MODULES = join(REPO_ROOT, 'node_modules')
@@ -99,5 +99,5 @@ function symlinkPackages(sourceDir, targetDir) {
 // Symlink everything
 symlinkPackages(HANZO_GUI_NODE_MODULES, BENTO_NODE_MODULES)
 
-console.info(`✅ Symlinked ${linkedCount} packages from tamagui to bento`)
+console.info(`✅ Symlinked ${linkedCount} packages from hanzo-gui to bento`)
 console.info('🎉 Bento setup complete!')

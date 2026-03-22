@@ -2,7 +2,7 @@ import { nativeOnlyProps } from './nativeOnlyProps'
 import { webPropsToSkip } from './webPropsToSkip'
 
 /**
- * These are props that dont pass down below Tamagui styled components
+ * These are props that dont pass down below Hanzo GUI styled components
  */
 export const skipProps = {
   untilMeasured: 1,

@@ -4,7 +4,7 @@
     "rootDir": ".",
     "paths": {
       "@hanzo/gui": [
-        "code/ui/tamagui"
+        "code/ui/gui"
       ],
       "@hanzo/gui-*": [
         "code/core/*",
@@ -187,7 +187,7 @@
       "path": "code/core/helpers-node"
     },
     {
-      "path": "code/core/helpers-tamagui"
+      "path": "code/core/helpers-gui"
     },
     {
       "path": "code/core/helpers"

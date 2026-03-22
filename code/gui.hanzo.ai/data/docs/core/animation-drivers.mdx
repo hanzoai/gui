@@ -3,7 +3,7 @@ title: Animation Drivers
 description: Choose and configure animation drivers for your platform
 ---
 
-Tamagui supports four animation drivers, each with different strengths for different use cases:
+Hanzo GUI supports four animation drivers, each with different strengths for different use cases:
 
 <SimpleTable
   headers={['Driver', 'Platform', 'Bundle Impact', 'Performance', 'Spring Physics']}
@@ -35,12 +35,12 @@ You can swap drivers per-platform, or even dynamically load heavier drivers late
 
 The easiest way to get started is with [`@hanzo/gui-config/v5`](/docs/core/config-v5), which provides pre-configured animations for all four drivers with matching keys:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig } from '@hanzo/gui-config/v5'
 import { animations } from '@hanzo/gui-config/v5-css' // or v5-motion, v5-rn, v5-reanimated
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   animations,
 })
@@ -64,9 +64,9 @@ yarn add @hanzo/gui-animations-css
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-css'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     fast: 'ease-in 150ms',
     medium: 'ease-in 300ms',
@@ -97,9 +97,9 @@ yarn add @hanzo/gui-animations-react-native
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-react-native'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     fast: {
       damping: 20,
@@ -144,9 +144,9 @@ Follow the [Reanimated installation guide](https://docs.swmansion.com/react-nati
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-reanimated'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     fast: {
       type: 'spring',
@@ -186,9 +186,9 @@ yarn add @hanzo/gui-animations-motion motion
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-motion'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     '100ms': { duration: 100 },
     '200ms': { duration: 200 },
@@ -215,7 +215,7 @@ Motion uses the Web Animations API (WAAPI) which runs animations on the composit
 
 ## Swapping Drivers
 
-Tamagui provides several ways to use different drivers — at build time per platform, at runtime in specific parts of your app, or dynamically loaded after initial render.
+Hanzo GUI provides several ways to use different drivers — at build time per platform, at runtime in specific parts of your app, or dynamically loaded after initial render.
 
 ### Per-Platform with File Extensions
 
@@ -239,10 +239,10 @@ export const animations = createAnimations({
 })
 ```
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { animations } from './animations'
 
-export default createTamagui({
+export default createGui({
   animations,
   // ...
 })
@@ -275,11 +275,11 @@ This pattern works well with route-based code splitting — the Motion driver is
 
 Configure multiple drivers at the root and select per-component:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { createAnimations as createCSS } from '@hanzo/gui-animations-css'
 import { createAnimations as createSpring } from '@hanzo/gui-animations-motion'
 
-export default createTamagui({
+export default createGui({
   animations: {
     default: createCSS({ bouncy: 'ease-in 200ms' }),
     spring: createSpring({ bouncy: { type: 'spring', damping: 10 } }),

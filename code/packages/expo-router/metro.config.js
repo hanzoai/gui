@@ -9,20 +9,20 @@ const config = getDefaultConfig(__dirname, {
   isCSSEnabled: true,
 })
 
-// Enable Tamagui and add nice web support with optimizing compiler + CSS extraction
-const { withTamagui } = require('@hanzo/gui-metro-plugin')
-module.exports = withTamagui(config, {
+// Enable Hanzo GUI and add nice web support with optimizing compiler + CSS extraction
+const { withGui } = require('@hanzo/gui-metro-plugin')
+module.exports = withGui(config, {
   components: ['@hanzo/gui'],
-  config: './tamagui.config.ts',
+  config: './gui.config.ts',
 })
 
 config.resolver.sourceExts.push('mjs')
 
 module.exports = config
 
-// REMOVE THIS (just for tamagui internal devs to work in monorepo):
+// REMOVE THIS (just for hanzo-gui internal devs to work in monorepo):
 console.info(`Starting metro`)
-if (process.env.IS_HANZO_GUI_DEV && __dirname.includes('tamagui')) {
+if (process.env.IS_HANZO_GUI_DEV && __dirname.includes('@hanzo/gui')) {
   console.info('🧑‍💻 using monorepo packages')
   const fs = require('fs')
   const path = require('path')
@@ -35,13 +35,13 @@ if (process.env.IS_HANZO_GUI_DEV && __dirname.includes('tamagui')) {
   ]
   // have to manually de-deupe
   try {
-    fs.rmSync(path.join(projectRoot, 'node_modules', '@tamagui'), {
+    fs.rmSync(path.join(projectRoot, 'node_modules', '@gui'), {
       recursive: true,
       force: true,
     })
   } catch {}
   // try {
-  //   fs.rmSync(path.join(projectRoot, 'node_modules', 'tamagui'), {
+  //   fs.rmSync(path.join(projectRoot, 'node_modules', '@hanzo/gui'), {
   //     recursive: true,
   //     force: true,
   //   })

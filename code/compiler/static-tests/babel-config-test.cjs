@@ -3,9 +3,9 @@ module.exports = {
     [
       '@hanzo/gui-babel-plugin',
       {
-        components: ['tamagui', '@hanzo/gui-test-design-system'],
+        components: ['@hanzo/gui', '@hanzo/gui-test-design-system'],
         platform: 'native',
-        config: './tests/lib/tamagui.config.cjs',
+        config: './tests/lib/gui.config.cjs',
       },
     ],
     [

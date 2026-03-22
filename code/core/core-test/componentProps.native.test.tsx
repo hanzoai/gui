@@ -1,19 +1,19 @@
-import { TamaguiProvider, View, createTamagui } from '@hanzo/gui-core'
+import { GuiProvider, View, createGui } from '@hanzo/gui-core'
 import { render } from '@testing-library/react-native'
 import { describe, expect, test } from 'vitest'
 
-import { getDefaultTamaguiConfig } from '../config-default'
+import { getDefaultGuiConfig } from '../config-default'
 
-const config = createTamagui(getDefaultTamaguiConfig('native'))
+const config = createGui(getDefaultGuiConfig('native'))
 
 // TODO since upgrade to react-native 76 this stopped working
 
 describe('animation props', () => {
   test.skip(`renders with no props`, () => {
     const tree = render(
-      <TamaguiProvider config={config} defaultTheme="light">
+      <GuiProvider config={config} defaultTheme="light">
         <View />
-      </TamaguiProvider>
+      </GuiProvider>
     )
 
     expect(tree.toJSON()).toMatchInlineSnapshot('<View />')
@@ -22,9 +22,9 @@ describe('animation props', () => {
   // this looks wrong
   test.skip(`renders with animation props`, () => {
     const tree = render(
-      <TamaguiProvider config={config} defaultTheme="light">
+      <GuiProvider config={config} defaultTheme="light">
         <View transition="quick" x={0} />
-      </TamaguiProvider>
+      </GuiProvider>
     )
 
     expect(tree.toJSON()).toMatchInlineSnapshot(`

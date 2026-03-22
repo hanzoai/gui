@@ -11,14 +11,14 @@ demoName: Tabs
 
 <Tabs id="type" defaultValue="styled">
 <Tabs.List>
-  <TooltipSimple label="With Tamagui's default styles">
+  <TooltipSimple label="With Hanzo GUI's default styles">
     <Tabs.Tab value="styled">Styled</Tabs.Tab>
   </TooltipSimple>
   <TooltipSimple label="No default styles, easy to customize">
     <Tabs.Tab value="unstyled">Unstyled</Tabs.Tab>
   </TooltipSimple>
-  <TooltipSimple label="No dependency on Tamagui's core">
-    <Tabs.Tab value="headless" label="No styles and no dependency on Tamagui's styling">Headless</Tabs.Tab>
+  <TooltipSimple label="No dependency on Hanzo GUI's core">
+    <Tabs.Tab value="headless" label="No styles and no dependency on Hanzo GUI's styling">Headless</Tabs.Tab>
   </TooltipSimple>
 </Tabs.List>
 
@@ -63,7 +63,7 @@ demoName: Tabs
 ## Installation
 
 <Tabs.Content value="styled">
-Tabs is already installed in `tamagui`, or you can install it independently:
+Tabs is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-tabs
@@ -72,7 +72,7 @@ npm install @hanzo/gui-tabs
 </Tabs.Content>
 
 <Tabs.Content value="unstyled">
-Tabs is already installed in `tamagui`, or you can install it independently:
+Tabs is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-tabs
@@ -122,7 +122,7 @@ export default () => (
 
 <Tabs.Content value="unstyled">
 
-Use the `createTabs` export to create fully custom tabs that still use the Tamagui styling system. You provide your own styled frame components and get back a fully functional tabs component.
+Use the `createTabs` export to create fully custom tabs that still use the Hanzo GUI styling system. You provide your own styled frame components and get back a fully functional tabs component.
 
 ```tsx template=TabsHeadless
 
@@ -348,7 +348,7 @@ Extends [ThemeableStack](/docs/components/stacks#themeablestack), adding:
     {
       name: 'unstyled',
       type: `boolean`,
-      description: `When true, removes all default Tamagui styling.`,
+      description: `When true, removes all default Hanzo GUI styling.`,
     },
     {
       name: 'activeStyle',
@@ -378,7 +378,7 @@ Where each tab's content will be shown. Extends [ThemeableStack](/docs/component
       name: 'forceMount',
       type: 'boolean',
       default: 'false',
-      description: `Used to force mounting when more control is needed. Useful when controlling animation with Tamagui animations.`,
+      description: `Used to force mounting when more control is needed. Useful when controlling animation with Hanzo GUI animations.`,
     },
   ]}
 />

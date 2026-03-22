@@ -1,7 +1,7 @@
-import type { TamaguiElement } from './types'
+import type { GuiElement } from './types'
 
 /**
- * Narrows a TamaguiElement to an HTMLElement, with optional generic for further casting.
+ * Narrows a GuiElement to an HTMLElement, with optional generic for further casting.
  * Throws if the element is not an instanceof HTMLElement.
  *
  * @example
@@ -11,7 +11,7 @@ import type { TamaguiElement } from './types'
  * ```
  */
 export function getWebElement<T extends HTMLElement = HTMLElement>(
-  element: TamaguiElement | null | undefined
+  element: GuiElement | null | undefined
 ): T {
   if (!element) {
     throw new Error('Element is null or undefined')

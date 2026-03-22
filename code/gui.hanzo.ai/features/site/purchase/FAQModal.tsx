@@ -77,7 +77,7 @@ export const TakeoutFaqModal = () => {
 
                   <Paragraph>
                     We encourage our customers to try the free starter repo with "npm
-                    create tamagui" to get a feel for how Takeout works at the base.
+                    create hanzo-gui" to get a feel for how Takeout works at the base.
                     Takeout is based on that code, just adding many features and
                     refinements.
                   </Paragraph>
@@ -165,7 +165,7 @@ export const TakeoutFaqModal = () => {
                     You will see the full instructions after purchase. You can gain access
                     to the source code repository on GitHub, which allows you to install
                     the starter through the create-hanzo-gui CLI. Simply run `yarn create
-                    tamagui --template=takeout-pro` and follow the steps.
+                    hanzo-gui --template=takeout-pro` and follow the steps.
                   </Paragraph>
                 </YStack>
 
@@ -177,7 +177,7 @@ export const TakeoutFaqModal = () => {
                     You will see the full instructions after purchase. You can gain access
                     to the source code of icon or font packages on GitHub, which allows
                     you to install packages through the `@hanzo/gui-cli` package. Simply
-                    install the cli and run `yarn tamagui add icon` or `yarn tamagui add
+                    install the cli and run `yarn hanzo-gui add icon` or `yarn hanzo-gui add
                     font` and follow the steps to install the packages.
                   </Paragraph>
                 </YStack>

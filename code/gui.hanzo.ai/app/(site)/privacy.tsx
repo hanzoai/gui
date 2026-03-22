@@ -23,7 +23,7 @@ export default function PrivacyPage() {
   return (
     <>
       <HeadInfo
-        title={`${frontmatter.title} | Tamagui`}
+        title={`${frontmatter.title} | Gui`}
         description={frontmatter.description || ''}
       />
 

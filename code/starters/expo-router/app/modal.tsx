@@ -10,7 +10,7 @@ export default function ModalScreen() {
         </Anchor>
         <Anchor
           color="$color12"
-          href="https://github.com/tamagui/tamagui"
+          href="https://github.com/hanzoai/gui"
           target="_blank"
           rel="noreferrer"
         >

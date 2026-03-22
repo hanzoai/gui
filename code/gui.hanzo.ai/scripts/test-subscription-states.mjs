@@ -31,7 +31,7 @@ if (!STRIPE_KEY) {
 const stripe = new Stripe(STRIPE_KEY, {
   apiVersion: '2020-08-27',
   appInfo: {
-    name: 'Tamagui Subscription Test',
+    name: 'Gui Subscription Test',
     version: '0.1.0',
   },
 })

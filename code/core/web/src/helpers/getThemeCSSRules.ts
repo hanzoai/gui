@@ -2,7 +2,7 @@ import { simpleHash } from '@hanzo/gui-helpers'
 import { getSetting } from '../config'
 import { THEME_CLASSNAME_PREFIX } from '../constants/constants'
 import { variableToString } from '../createVariable'
-import type { CreateTamaguiProps, ThemeParsed, Variable } from '../types'
+import type { CreateGuiProps, ThemeParsed, Variable } from '../types'
 import { getOrCreateVariable, getOrCreateMutatedVariable } from './registerCSSVariable'
 import { sortString } from './sortString'
 
@@ -10,7 +10,7 @@ const darkLight = ['dark', 'light']
 const lightDark = ['light', 'dark']
 
 export function getThemeCSSRules(props: {
-  config: CreateTamaguiProps
+  config: CreateGuiProps
   themeName: string
   theme: ThemeParsed
   names: string[]

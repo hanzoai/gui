@@ -176,16 +176,16 @@ const generatedThemes = createThemes({
   },
 })
 
-export type TamaguiThemes = typeof generatedThemes
+export type GuiThemes = typeof generatedThemes
 
 export const themes = generatedThemes
 
 /**
  * This is an optional production optimization: themes JS can get to 20Kb or more.
- * Tamagui has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
- * So long as you server render your Tamagui CSS, this will save you bundle size:
+ * Hanzo GUI has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
+ * So long as you server render your Hanzo GUI CSS, this will save you bundle size:
  */
-// export const themes: TamaguiThemes =
+// export const themes: GuiThemes =
 //   process.env.HANZO_GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
 //     ? {}
 //     : (generatedThemes as any)

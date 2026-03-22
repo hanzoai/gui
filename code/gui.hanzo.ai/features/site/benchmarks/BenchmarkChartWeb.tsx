@@ -6,7 +6,7 @@ export const BenchmarkChartWeb = () => (
     skipOthers
     large
     data={[
-      { name: 'Tamagui', value: 0.02 },
+      { name: 'Gui', value: 0.02 },
       { name: 'react-native-web', value: 0.063 },
       { name: 'Dripsy', value: 0.108 },
     ]}

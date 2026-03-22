@@ -47,13 +47,13 @@ const skipBuild =
   shouldFinish || rePublish || skipAll || process.argv.includes('--skip-build')
 const buildFast = process.argv.includes('--build-fast')
 const dryRun = process.argv.includes('--dry-run')
-const tamaguiGitUser = process.argv.includes('--tamagui-git-user')
+const guiGitUser = process.argv.includes('--gui-git-user')
 const isCI = shouldFinish || rePublish || undocumented || process.argv.includes('--ci')
 const skipFinish =
   rePublish || skipAll || undocumented || process.argv.includes('--skip-finish')
 const forcePublishAll = process.argv.includes('--force-publish-all')
 
-const curVersion = fs.readJSONSync('./code/ui/tamagui/package.json').version
+const curVersion = fs.readJSONSync('./code/ui/gui/package.json').version
 
 async function getLastReleaseRef(): Promise<string | null> {
   // find the most recent baseline: either a v* tag or a canary commit
@@ -307,9 +307,9 @@ async function run() {
     }
 
     // ensure right user
-    if (tamaguiGitUser) {
-      await spawnify(`git config --global user.name 'Tamagui'`)
-      await spawnify(`git config --global user.email 'tamagui@users.noreply.github.com`)
+    if (guiGitUser) {
+      await spawnify(`git config --global user.name 'Gui'`)
+      await spawnify(`git config --global user.email 'gui@users.noreply.github.com`)
     }
 
     // get version
@@ -411,7 +411,7 @@ async function run() {
       if (!skipChecks) {
         console.info('run checks')
         await Promise.all([
-          spawnify(`chmod ug+x ./node_modules/.bin/tamagui`),
+          spawnify(`chmod ug+x ./node_modules/.bin/gui`),
           spawnify(`bun run check`),
           spawnify(`bun run lint`),
         ])
@@ -548,7 +548,7 @@ async function run() {
     }
 
     if (!shouldFinish && !skipPublish) {
-      const tmpDir = `/tmp/tamagui-publish`
+      const tmpDir = `/tmp/gui-publish`
       await ensureDir(tmpDir)
 
       // pack and publish
@@ -765,7 +765,7 @@ if (intoIdx !== -1) {
 
   ;(async () => {
     const packages = await getWorkspacePackages()
-    const tmpDir = `/tmp/tamagui-release-into`
+    const tmpDir = `/tmp/gui-release-into`
     await ensureDir(tmpDir)
 
     let released = 0

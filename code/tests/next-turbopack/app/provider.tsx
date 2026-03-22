@@ -1,12 +1,12 @@
 'use client'
 
-import { TamaguiProvider as Provider } from '@hanzo/gui-core'
+import { GuiProvider as Provider } from '@hanzo/gui-core'
 import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
 import { useServerInsertedHTML } from 'next/navigation'
 import { StyleSheet } from 'react-native'
-import config from '../tamagui.config'
+import config from '../gui.config'
 
-export function TamaguiProvider({ children }: { children: React.ReactNode }) {
+export function GuiProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useRootTheme()
 
   useServerInsertedHTML(() => {
@@ -14,8 +14,8 @@ export function TamaguiProvider({ children }: { children: React.ReactNode }) {
     const rnwStyle = StyleSheet.getSheet()
     return (
       <>
-        {/* Pre-generated CSS from tamagui build */}
-        <link rel="stylesheet" href="/tamagui.generated.css" />
+        {/* Pre-generated CSS from hanzo-gui build */}
+        <link rel="stylesheet" href="/gui.generated.css" />
         <style
           dangerouslySetInnerHTML={{ __html: rnwStyle.textContent }}
           id={rnwStyle.id}

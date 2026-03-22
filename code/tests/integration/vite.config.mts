@@ -1,4 +1,4 @@
-import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzo/gui-vite-plugin'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -7,9 +7,9 @@ export default defineConfig({
   },
   clearScreen: false,
   plugins: [
-    tamaguiPlugin({
-      components: ['tamagui'],
-      config: 'src/tamagui.config.ts',
+    guiPlugin({
+      components: ['@hanzo/gui'],
+      config: 'src/gui.config.ts',
       useReactNativeWebLite: true,
     }),
   ].filter(Boolean),

@@ -19,7 +19,7 @@ export function NativePortal({
   const state = getPortal().state
   if (state.type !== 'teleport') return null
 
-  const { Portal } = (globalThis as any).__tamagui_teleport
+  const { Portal } = (globalThis as any).__gui_teleport
   return <Portal hostName={hostName}>{children}</Portal>
 }
 
@@ -31,7 +31,7 @@ export function NativePortalHost({ name }: NativePortalHostProps): ReactNode {
   const state = getPortal().state
   if (state.type !== 'teleport') return null
 
-  const { PortalHost } = (globalThis as any).__tamagui_teleport
+  const { PortalHost } = (globalThis as any).__gui_teleport
   return <PortalHost name={name} />
 }
 
@@ -43,6 +43,6 @@ export function NativePortalProvider({ children }: NativePortalProviderProps): R
   const state = getPortal().state
   if (state.type !== 'teleport') return <>{children}</>
 
-  const { PortalProvider } = (globalThis as any).__tamagui_teleport
+  const { PortalProvider } = (globalThis as any).__gui_teleport
   return <PortalProvider>{children}</PortalProvider>
 }

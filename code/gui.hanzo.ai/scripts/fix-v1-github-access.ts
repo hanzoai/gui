@@ -9,7 +9,7 @@
  *   npx tsx scripts/fix-v1-github-access.ts --fix        # send invites
  *
  * What this script does:
- * 1. Finds all users with active V1 subscriptions (TamaguiPro, TamaguiProTeamSeats)
+ * 1. Finds all users with active V1 subscriptions (GuiPro, GuiProTeamSeats)
  * 2. Checks their GitHub team membership status
  * 3. Validates GitHub usernames actually exist
  * 4. With --fix: Sends GitHub team invites to valid users who don't have access
@@ -38,8 +38,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
 // V1 Pro product IDs
 const V1_PRO_PRODUCT_IDS = [
-  'prod_RlRd2DVrG0frHe', // TamaguiPro
-  'prod_Rxu0x7jR0nWJSv', // TamaguiProTeamSeats
+  'prod_RlRd2DVrG0frHe', // GuiPro
+  'prod_Rxu0x7jR0nWJSv', // GuiProTeamSeats
 ]
 
 interface UserSubscriptionInfo {
@@ -136,7 +136,7 @@ async function checkGitHubTeamMembership(
   username: string
 ): Promise<{ isMember: boolean; state?: 'active' | 'pending' }> {
   const response = await fetch(
-    `https://api.github.com/orgs/tamagui/teams/early-access/memberships/${username}`,
+    `https://api.github.com/orgs/hanzoai/teams/early-access/memberships/${username}`,
     {
       method: 'GET',
       headers: {
@@ -163,7 +163,7 @@ async function addUserToGitHubTeam(
   username: string
 ): Promise<{ success: boolean; state?: string; error?: string }> {
   const response = await fetch(
-    `https://api.github.com/orgs/tamagui/teams/early-access/memberships/${username}`,
+    `https://api.github.com/orgs/hanzoai/teams/early-access/memberships/${username}`,
     {
       method: 'PUT',
       headers: {

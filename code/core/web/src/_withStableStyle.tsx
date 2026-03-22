@@ -4,7 +4,7 @@ import { useMedia } from './hooks/useMedia'
 import { useTheme } from './hooks/useTheme'
 import { ThemeStateContext } from './hooks/useThemeState'
 
-/** internal: this is for tamagui babel plugin usage only */
+/** internal: this is for hanzo-gui babel plugin usage only */
 
 export const _withStableStyle = (
   Component: any,
@@ -16,7 +16,7 @@ export const _withStableStyle = (
 
       // in monorepo setups (pnpm, etc.) module duplication can cause the
       // ThemeStateContext here to be a different instance than the one in
-      // TamaguiProvider, making the provider invisible. fall back to config
+      // GuiProvider, making the provider invisible. fall back to config
       // themes instead of crashing with "Missing theme".
       const parentId = useContext(ThemeStateContext)
       if (!parentId) {
@@ -27,8 +27,8 @@ export const _withStableStyle = (
           : {}
         if (process.env.NODE_ENV === 'development') {
           console.warn(
-            '[@tamagui] _withStableStyle: no ThemeStateContext found. ' +
-              'This usually means duplicate tamagui instances in a monorepo. ' +
+            '[@gui] _withStableStyle: no ThemeStateContext found. ' +
+              'This usually means duplicate gui instances in a monorepo. ' +
               'Falling back to default theme from config.'
           )
         }

@@ -1,11 +1,11 @@
 import type { Component, JSX, JSXElementConstructor, Ref } from 'react'
 
-import type { TamaguiComponent } from '../types'
+import type { GuiComponent } from '../types'
 
 // gets the ref type of any type of react component
 
 export type GetRef<C> =
-  C extends TamaguiComponent<any, infer Ref>
+  C extends GuiComponent<any, infer Ref>
     ? Ref
     : C extends new (props: any) => Component
       ? InstanceType<C>

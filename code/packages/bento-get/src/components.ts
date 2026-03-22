@@ -357,7 +357,7 @@ export const componentsList: ComponentSchema[] = [
       'react-native-reanimated',
       'react-native-gesture-handler',
       '@hanzo/gui-lucide-icons-2',
-      'tamagui/linear-gradient',
+      'gui/linear-gradient',
     ],
     moveFilesToFolder: [{ file: 'Paywall', to: '' }],
   },

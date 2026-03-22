@@ -3,8 +3,8 @@
   "version": "2.0.0-rc.29",
   "private": true,
   "scripts": {
-    "generate": "tamagui generate",
-    "generate-prompt": "tamagui generate-prompt"
+    "generate": "gui generate",
+    "generate-prompt": "gui generate-prompt"
   },
   "dependencies": {
     "@hanzo/gui-cli": "workspace:*",

@@ -19,7 +19,7 @@
       "path": "../packages/lucide-icons"
     },
     {
-      "path": "../packages/tamagui-dev-config"
+      "path": "../packages/gui-dev-config"
     },
     {
       "path": "../ui/avatar"
@@ -55,7 +55,7 @@
       "path": "../ui/stacks"
     },
     {
-      "path": "../ui/tamagui"
+      "path": "../ui/gui"
     },
     {
       "path": "../ui/toast"

@@ -82,7 +82,7 @@ export const PromoBanner = () => {
                 <Button chromeless size="$2" circular icon={HomeIcon} scaleIcon={1.5} />
               </Link>
 
-              <TooltipSimple label="Tamagui 2 is here! It's a massive new release »">
+              <TooltipSimple label="Gui 2 is here! It's a massive new release »">
                 <Link href="/blog/version-two">
                   <Paragraph
                     size="$2"

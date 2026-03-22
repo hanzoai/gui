@@ -52,7 +52,7 @@ async function check() {
   const GITHUB_ADMIN_TOKEN = process.env.GITHUB_ADMIN_TOKEN
   if (GITHUB_ADMIN_TOKEN) {
     const res = await fetch(
-      `https://api.github.com/orgs/tamagui/teams/early-access/memberships/${userPrivate.github_user_name}`,
+      `https://api.github.com/orgs/hanzoai/teams/early-access/memberships/${userPrivate.github_user_name}`,
       {
         headers: {
           Authorization: `Bearer ${GITHUB_ADMIN_TOKEN}`,

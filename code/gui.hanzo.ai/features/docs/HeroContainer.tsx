@@ -65,7 +65,7 @@ export function HeroContainer({
       $gtMd={{
         mx: smaller ? 0 : '$-4',
       }}
-      id="tamagui-demos-container"
+      id="gui-demos-container"
     >
       <AnimationDriverTogglerContextProvider>
         {demoMultiple ? (

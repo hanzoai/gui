@@ -1,7 +1,7 @@
 import type { EntryContext } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
 import { renderToString } from 'react-dom/server'
-import tamaguiConfig from '../tamagui.config'
+import guiConfig from '../gui.config'
 
 export default function handleRequest(
   request: Request,
@@ -11,13 +11,13 @@ export default function handleRequest(
 ) {
   return new Promise((resolve, reject) => {
     try {
-      const tamaguiCSS = tamaguiConfig.getCSS()
+      const guiCSS = guiConfig.getCSS()
       let markup = renderToString(
         <RemixServer context={remixContext} url={request.url} />
       )
       markup = markup.replace(
         '</head>',
-        `<style id="tamagui">${tamaguiCSS}</style></head>`
+        `<style id="@hanzo/gui">${guiCSS}</style></head>`
       )
 
       responseHeaders.set('Content-Type', 'text/html')

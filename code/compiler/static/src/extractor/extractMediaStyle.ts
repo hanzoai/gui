@@ -1,31 +1,31 @@
 import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
-import type { TamaguiInternalConfig } from '@hanzo/gui-core'
+import type { GuiInternalConfig } from '@hanzo/gui-core'
 import * as core from '@hanzo/gui-core'
 import type { ViewStyle } from 'react-native'
 
-import { requireTamaguiCore } from '../helpers/requireTamaguiCore'
-import type { StyleObject, TamaguiOptionsWithFileInfo, Ternary } from '../types'
+import { requireGuiCore } from '../helpers/requireGuiCore'
+import type { StyleObject, GuiOptionsWithFileInfo, Ternary } from '../types'
 import { isPresent, isValidImport } from './extractHelpers'
 
 export function extractMediaStyle(
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   ternary: Ternary,
   jsxPath: NodePath<t.JSXElement>,
-  tamaguiConfig: TamaguiInternalConfig,
+  guiConfig: GuiInternalConfig,
   sourcePath: string,
   importance = 0,
   shouldPrintDebug: boolean | 'verbose' = false
 ) {
-  const { getCSSStylesAtomic } = requireTamaguiCore('web')
+  const { getCSSStylesAtomic } = requireGuiCore('web')
   const mt = getMediaQueryTernary(props, ternary, jsxPath, sourcePath)
   if (!mt) {
     return null
   }
   const { key } = mt
-  const mq = tamaguiConfig.media[key]
+  const mq = guiConfig.media[key]
   if (!mq) {
-    console.error(`Media query "${key}" not found: ${Object.keys(tamaguiConfig.media)}`)
+    console.error(`Media query "${key}" not found: ${Object.keys(guiConfig.media)}`)
     return null
   }
   const getStyleObj = (styleObj: ViewStyle | null, negate = false) => {
@@ -40,7 +40,7 @@ export function extractMediaStyle(
     return null
   }
   // for now order first strongest
-  const mediaKeys = Object.keys(tamaguiConfig.media)
+  const mediaKeys = Object.keys(guiConfig.media)
   const mediaKeyPrecendence = mediaKeys.reduce((acc, cur, i) => {
     acc[cur] = new Array(importance + 1).fill(':root').join('')
     return acc
@@ -57,7 +57,7 @@ export function extractMediaStyle(
       const mediaStyle = core.createMediaStyle(
         style,
         key,
-        tamaguiConfig.media,
+        guiConfig.media,
         true,
         negate
       )
@@ -85,7 +85,7 @@ export function extractMediaStyle(
 }
 
 function getMediaQueryTernary(
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   ternary: Ternary,
   jsxPath: NodePath<t.JSXElement>,
   sourcePath: string
@@ -134,7 +134,7 @@ function getMediaQueryTernary(
 }
 
 function getMediaInfoFromExpression(
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   test: t.Expression,
   jsxPath: NodePath<t.JSXElement>,
   sourcePath: string,
@@ -173,7 +173,7 @@ function getMediaInfoFromExpression(
 }
 
 export function isValidMediaCall(
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   jsxPath: NodePath<t.JSXElement>,
   init: t.Expression,
   sourcePath: string

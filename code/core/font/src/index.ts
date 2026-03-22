@@ -5,11 +5,11 @@ import {
   parseFont,
   registerFontVariables,
 } from '@hanzo/gui-web'
-import type { CreateTamaguiProps } from '@hanzo/gui-web'
+import type { CreateGuiProps } from '@hanzo/gui-web'
 
 export function addFont(props: {
   fontFamilyName: string
-  fontFamily: CreateTamaguiProps['fonts'][keyof CreateTamaguiProps['fonts']]
+  fontFamily: CreateGuiProps['fonts'][keyof CreateGuiProps['fonts']]
   insertCSS?: boolean
   // TODO make sure to add updateFont
   update?: boolean

@@ -1,12 +1,12 @@
 process.env.HANZO_GUI_TARGET = 'web'
 
 import { describe, expectTypeOf, test } from 'vitest'
-import { createTamagui, type AnimationDriver, type InferTamaguiConfig } from '../core/src'
+import { createGui, type AnimationDriver, type InferGuiConfig } from '../core/src'
 import config from '../config-default'
 
 describe('transition type inference', () => {
-  test('InferTamaguiConfig extracts animation keys from AnimationDriver', () => {
-    const tamaConf = createTamagui(config.getDefaultTamaguiConfig())
+  test('InferGuiConfig extracts animation keys from AnimationDriver', () => {
+    const tamaConf = createGui(config.getDefaultGuiConfig())
 
     // Test that the config type properly infers animation keys
     type ConfigType = typeof tamaConf

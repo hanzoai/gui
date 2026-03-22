@@ -3,66 +3,66 @@ import { MISSING_THEME_MESSAGE } from './constants/constants'
 import type {
   AnimationDriver,
   ConfigListener,
-  GenericTamaguiSettings,
-  TamaguiInternalConfig,
+  GenericGuiSettings,
+  GuiInternalConfig,
   Token,
   Tokens,
   TokensMerged,
 } from './types'
 
-let conf: TamaguiInternalConfig | null
+let conf: GuiInternalConfig | null
 let setConfigCalledByThisInstance = false
 
 const haventCalledErrorMessage =
   process.env.NODE_ENV === 'development'
     ? `
-Haven't called createTamagui yet. ${MISSING_THEME_MESSAGE}
+Haven't called createGui yet. ${MISSING_THEME_MESSAGE}
 `
     : `❌ Error 001`
 
 // helper to get config from module-scoped variable or globalthis fallback
-// this handles vite ssr bundling where multiple copies of tamagui may exist
-const getConfigFromGlobalOrLocal = (): TamaguiInternalConfig | null => {
+// this handles vite ssr bundling where multiple copies of hanzo-gui may exist
+const getConfigFromGlobalOrLocal = (): GuiInternalConfig | null => {
   if (conf) {
     return conf
   }
 
   // fall back to globalthis (for vite ssr bundling scenarios)
-  if (globalThis.__tamaguiConfig) {
-    // defer warning - if createTamagui runs in THIS instance, it's HMR (safe)
+  if (globalThis.__guiConfig) {
+    // defer warning - if createGui runs in THIS instance, it's HMR (safe)
     // if it never runs, it's a true duplicate (warn)
     if (
       process.env.NODE_ENV === 'development' &&
-      !globalThis.__tamaguiHasWarnedGlobalFallback &&
-      !globalThis.__tamaguiPendingCheck
+      !globalThis.__guiHasWarnedGlobalFallback &&
+      !globalThis.__guiPendingCheck
     ) {
-      globalThis.__tamaguiPendingCheck = true
+      globalThis.__guiPendingCheck = true
       setTimeout(() => {
         if (
           !setConfigCalledByThisInstance &&
-          !globalThis.__tamaguiHasWarnedGlobalFallback
+          !globalThis.__guiHasWarnedGlobalFallback
         ) {
-          globalThis.__tamaguiHasWarnedGlobalFallback = true
+          globalThis.__guiHasWarnedGlobalFallback = true
           console.warn(
             `⚠️⚠️⚠️⚠️⚠️
 
-Tamagui: Using global config fallback. This may indicate duplicate tamagui instances (e.g., from Vite SSR bundling). This is handled automatically, but likely causes issues!
+Hanzo GUI: Using global config fallback. This may indicate duplicate gui instances (e.g., from Vite SSR bundling). This is handled automatically, but likely causes issues!
 
 ⚠️⚠️⚠️⚠️⚠️`
           )
         }
-        globalThis.__tamaguiPendingCheck = false
+        globalThis.__guiPendingCheck = false
       }, 500)
     }
-    return globalThis.__tamaguiConfig
+    return globalThis.__guiConfig
   }
 
   return null
 }
 
-export const getSetting = <Key extends keyof GenericTamaguiSettings>(
+export const getSetting = <Key extends keyof GenericGuiSettings>(
   key: Key
-): GenericTamaguiSettings[Key] => {
+): GenericGuiSettings[Key] => {
   const config = getConfigFromGlobalOrLocal()
   if (process.env.NODE_ENV === 'development') {
     if (!config) throw new Error(haventCalledErrorMessage)
@@ -74,10 +74,10 @@ export const getSetting = <Key extends keyof GenericTamaguiSettings>(
   )
 }
 
-export const setConfig = (next: TamaguiInternalConfig) => {
+export const setConfig = (next: GuiInternalConfig) => {
   setConfigCalledByThisInstance = true
   conf = next
-  globalThis.__tamaguiConfig = next
+  globalThis.__guiConfig = next
 }
 
 export const setConfigFont = (name: string, font: any, fontParsed: any) => {
@@ -94,7 +94,7 @@ export const getConfig = () => {
   if (!config) {
     throw new Error(
       process.env.NODE_ENV !== 'production'
-        ? `Missing tamagui config, you either have a duplicate config, or haven't set it up. Be sure createTamagui is called before rendering. Also, make sure all of your tamagui dependencies are on the same version (\`tamagui\`, \`@hanzo/gui-package-name\`, etc.) not just in your package.json, but in your lockfile.`
+        ? `Missing gui config, you either have a duplicate config, or haven't set it up. Be sure createGui is called before rendering. Also, make sure all of your hanzo-gui dependencies are on the same version (\`gui\`, \`@hanzo/gui-package-name\`, etc.) not just in your package.json, but in your lockfile.`
         : 'Err0'
     )
   }
@@ -197,7 +197,7 @@ export function setupDev(conf: DevConfig) {
  *
  * @example
  * ```tsx
- * // import loadAnimationDriver from tamagui
+ * // import loadAnimationDriver from gui
  * // import createAnimations from your preferred driver (e.g. animations-reanimated)
  *
  * const driver = createAnimations({ bouncy: { type: 'spring', damping: 10 } })
@@ -208,7 +208,7 @@ export function loadAnimationDriver(name: string, driver: AnimationDriver) {
   const config = getConfigFromGlobalOrLocal()
   if (!config) {
     if (process.env.NODE_ENV === 'development') {
-      console.warn('loadAnimationDriver called before createTamagui')
+      console.warn('loadAnimationDriver called before createGui')
     }
     return
   }

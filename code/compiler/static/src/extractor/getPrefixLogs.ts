@@ -1,9 +1,9 @@
 import { Color, colorString } from '@hanzo/gui-cli-color'
-import type { TamaguiOptions } from '../types'
+import type { GuiOptions } from '../types'
 
-export function getPrefixLogs(options?: TamaguiOptions) {
+export function getPrefixLogs(options?: GuiOptions) {
   return (
     options?.prefixLogs ??
-    ` 🐥 [tamagui]  ${colorString(Color.FgYellow, options?.platform || 'web')}`
+    ` 🐥 [hanzo-gui]  ${colorString(Color.FgYellow, options?.platform || 'web')}`
   )
 }

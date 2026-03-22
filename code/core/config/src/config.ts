@@ -1,6 +1,6 @@
 import { shorthands } from '@hanzo/gui-shorthands'
 import { themes, tokens } from '@hanzo/gui-themes'
-import type { CreateTamaguiProps } from '@hanzo/gui-web'
+import type { CreateGuiProps } from '@hanzo/gui-web'
 
 import { fonts } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'
@@ -24,4 +24,4 @@ export const configWithoutAnimations = {
     shouldAddPrefersColorThemes: true,
     mediaQueryDefaultActive,
   },
-} satisfies CreateTamaguiProps
+} satisfies CreateGuiProps

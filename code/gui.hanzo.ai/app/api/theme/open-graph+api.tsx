@@ -93,7 +93,7 @@ export async function GET(req: Request) {
           }}
         >
           <div style={{ width: '40px', height: '40px', opacity: 0.9, display: 'flex' }}>
-            <TamaguiLogo size={40} />
+            <GuiLogo size={40} />
           </div>
           <div
             style={{
@@ -102,7 +102,7 @@ export async function GET(req: Request) {
               fontWeight: 500,
             }}
           >
-            Tamagui Theme
+            Hanzo GUI Theme
           </div>
         </div>
 
@@ -329,7 +329,7 @@ export async function GET(req: Request) {
           }}
         >
           <div style={{ width: '40px', height: '40px', opacity: 0.9, display: 'flex' }}>
-            <TamaguiLogo size={40} />
+            <GuiLogo size={40} />
           </div>
           <div
             style={{
@@ -338,7 +338,7 @@ export async function GET(req: Request) {
               fontWeight: 500,
             }}
           >
-            Tamagui Theme
+            Hanzo GUI Theme
           </div>
         </div>
 
@@ -793,7 +793,7 @@ type Theme = {
   is_cached: boolean | null
 }
 
-const TamaguiLogo = ({ size = 64 }: { size?: number }) => (
+const GuiLogo = ({ size = 64 }: { size?: number }) => (
   <svg
     width={size}
     height={size}

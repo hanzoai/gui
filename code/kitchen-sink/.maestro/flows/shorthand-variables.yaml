@@ -1,4 +1,4 @@
-appId: com.tamagui.kitchen-sink
+appId: com.gui.kitchen-sink
 ---
 # Test that shorthand CSS properties with $variables render correctly on native
 - launchApp

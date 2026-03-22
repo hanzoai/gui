@@ -28,7 +28,7 @@ describe('Package.json exports support', () => {
 
   it('should build app package for both web and native targets', () => {
     // build the features directory
-    execSync(`bun tamagui build ./packages/app/features --expect-optimizations 10`, {
+    execSync(`bun hanzo-gui build ./packages/app/features --expect-optimizations 10`, {
       cwd: ROOT_DIR,
       encoding: 'utf-8',
       stdio: 'pipe',
@@ -54,7 +54,7 @@ describe('Package.json exports support', () => {
   it('should recognize imports from path-specific exports during optimization', () => {
     // build just screen.tsx
     execSync(
-      `bun tamagui build ./packages/app/features/home/screen.tsx --expect-optimizations 10`,
+      `bun hanzo-gui build ./packages/app/features/home/screen.tsx --expect-optimizations 10`,
       {
         cwd: ROOT_DIR,
         encoding: 'utf-8',

@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * unpublish old canary versions across all @tamagui packages
+ * unpublish old canary versions across all @gui packages
  *
  * uses turbo's dependency graph to process packages in reverse topological
  * order (roots first, leaves last), so npm's "has dependents" check is

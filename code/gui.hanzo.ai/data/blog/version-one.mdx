@@ -1,5 +1,5 @@
 ---
-title: Tamagui 1.0 🎉
+title: Hanzo GUI 1.0 🎉
 publishedAt: '2022-12-29'
 description: Ship cross-platform React apps in ½ the time with 2x performance.
 by: nate
@@ -12,12 +12,12 @@ poster: banner-one.jpg
 </IntroParagraph>
 
 <IntroParagraph>
-  Tamagui introduces a novel optimizing compiler for React that evaluates your code at
+  Hanzo GUI introduces a novel optimizing compiler for React that evaluates your code at
   build-time, turning heavy JS into flatter trees and much faster CSS. The result is more
   code share %, less dev time, and lighter, faster apps.
 </IntroParagraph>
 
-Tamagui's optimizing compiler makes advanced optimizations using partial
+Hanzo GUI's optimizing compiler makes advanced optimizations using partial
 evaluation, CSS extraction, and ultimately tree-flattening. Where it optimizes,
 things get a lot faster:
 
@@ -28,19 +28,19 @@ things get a lot faster:
 <Spacer />
 <Spacer />
 
-Tamagui comes in three parts:
+Hanzo GUI comes in three parts:
 
-[**Tamagui Core**](#overview-of-tamaguicore) (`@hanzo/gui-core`) is a style
+[**Gui Core**](#overview-of-guicore) (`@hanzo/gui-core`) is a style
 library for React Native and web that supports 100% of the React Native API
 surface in a library that only depends on React. It adds all the
 [goodies of modern style libraries](#overview) into a cohesive package.
 
-[**Tamagui Static**](#overview-of-tamaguistatic) (`@hanzo/gui-static`) is an
+[**Gui Static**](#overview-of-guistatic) (`@hanzo/gui-static`) is an
 optimizing compiler on top of Core, turning even inline styles sprinkled with
 logic into atomic CSS and minimal JS, flattening your view tree for maximum
 performance.
 
-[**Tamagui UI**](#overview-of-tamagui) (`tamagui`) is a component kit built on
+[**Hanzo GUI**](#overview-of-gui) (`@hanzo/gui`) is a component kit built on
 top of the incredibly powerful theme primitives of `core`. That, alongside
 compound-component APIs and complete size control enables a new level of control
 not seen before in a UI kit.
@@ -54,10 +54,10 @@ Lets get familiar with both `@hanzo/gui-core` (the styling library) and
 
 <Spacer />
 <Wide>
-  <TamaguiExamplesCode />
+  <GuiExamplesCode />
 </Wide>
 
-The key to Tamagui's performance gains lie in **view flattening** or
+The key to Hanzo GUI's performance gains lie in **view flattening** or
 tree-flattening: the compiler analyzes code (even across module boundaries) and
 evaluates styled components away using both the AST and Node VM code evaluation.
 It will fully flatten custom styled components (like `<Circle />`) into plain
@@ -144,7 +144,7 @@ For more, see the [configuration](/docs/core/configuration),
 
 ### Design system
 
-Using [createTamagui](/docs/core/configuration) you generate a fully-typed
+Using [createGui](/docs/core/configuration) you generate a fully-typed
 design system with colors, tokens, spacing, sizing, fonts, themes, shorthands,
 animations, and more.
 
@@ -155,7 +155,7 @@ a ton of time over rolling these yourself.
 Here's a stripped down configuration:
 
 ```tsx
-import { createFont, createTamagui, createTokens } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { createFont, createGui, createTokens } from '@hanzo/gui' // or '@hanzo/gui-core'
 
 const interFont = createFont({
   family: 'Inter, Helvetica, Arial, sans-serif',
@@ -173,7 +173,7 @@ const tokens = createTokens({
   color: { white: '#fff', black: '#000' },
 })
 
-export default createTamagui({
+export default createGui({
   fonts: {
     heading: interFont,
     body: interFont,
@@ -215,11 +215,11 @@ greatest in React and React Native.
 
 ### Compatibility
 
-Across all of Tamagui, we've bumped support to the latest versions. Due to
+Across all of Hanzo GUI, we've bumped support to the latest versions. Due to
 improvements in react-native-web 18, we were also able to dramatically simplify
 setup, no longer having to patch the library to support classnames.
 
-Tamagui supports React Native 0.70, React 18, React Native Web 18. It's the only
+Hanzo GUI supports React Native 0.70, React 18, React Native Web 18. It's the only
 Native UI library that fully supports concurrent mode on the web as well.
 
 ### Big gains for web-only use cases
@@ -263,7 +263,7 @@ Some of the more interesting improvements are:
 
 #### `useTheme`
 
-The `useTheme` hook is used by every Tamagui component, and is smart about
+The `useTheme` hook is used by every Hanzo GUI component, and is smart about
 re-renders by tracking which keys are accessed by your styles to only re-render
 when their values change. But it wasn't as smart about memory usage and avoiding
 work up front, and was also re-parenting the React tree too often.
@@ -323,7 +323,7 @@ const bodyFontMandarin = createFont({
   // ... per-font design tokens
 })
 
-export const config = createTamagui({
+export const config = createGui({
   fonts: {
     body: bodyFontEn,
     body_mandarin: bodyFontMandarin,
@@ -351,13 +351,13 @@ way to do it involved naming your font family differently per-weight. On the web
 you'd have `Helvetica` and just change `font-weight`, but on Native you set the
 family from `Helvetica` to `Helvetica Bold` instead of the weight.
 
-Tamagui added support for this through
+Hanzo GUI added support for this through
 [the `face` option on font configurations]().
 
 ### The `themeShallow` prop
 
-The `theme` prop in Tamagui by default will re-theme all sub-component. Tamagui
-now supports the boolean `themeShallow` prop on any Tamagui component, which
+The `theme` prop in Hanzo GUI by default will re-theme all sub-component. Hanzo GUI
+now supports the boolean `themeShallow` prop on any Hanzo GUI component, which
 will _only_ theme that exact component, leaving all children components with the
 same theme as their parent.
 
@@ -381,12 +381,12 @@ styles.
 
 #### The `useMediaPropsActive` hook
 
-This hook is useful for authoring your own custom components built on Tamagui.
-The Tamagui UI kit makes use of this hook extensively. Tamagui has a philosophy
+This hook is useful for authoring your own custom components built on Hanzo GUI.
+The Hanzo GUI kit makes use of this hook extensively. Hanzo GUI has a philosophy
 that everything Just Works™️ at runtime as well as compile-time. The
 compile-time side just makes it all a lot faster. By working fully at runtime,
 it means you have more flexiblity (no need to use any plugins at all), but also
-lots of power. For example, if Tamagui didn't work fully runtime, you couldn't
+lots of power. For example, if Hanzo GUI didn't work fully runtime, you couldn't
 support animations with your design system at all.
 
 The `useMediaPropsActive` is an important part of that functionality, making it
@@ -455,28 +455,28 @@ your files, and it only needs to look for a few areas - namely JSX elements and
 
 During the beta we landed many performance improvements bringing average parse
 time down to below 6ms for a longer file on a modern laptop. By default now
-Tamagui avoids parsing many more files through quick heuristics. It's now also
+Hanzo GUI avoids parsing many more files through quick heuristics. It's now also
 fully thread-safe, uses more caching, and has been fine-tuned for memory usage.
 
 ### Coverage
 
-Previously, Tamagui Static only knew how to optimize components found in your
+Previously, Hanzo GUI Static only knew how to optimize components found in your
 separated design system package. But it's both common and desirable to have
 one-off `styled()` definitions that are just used for small areas of your app
 that live alongside those areas, outside your design system.
 
 The compiler now supports analyzing components outside of just your design
 system, allowing for even less friction when writing apps. It means you can put
-your `styled()` definitions _anywhere_ without worrying, and Tamagui Static will
+your `styled()` definitions _anywhere_ without worrying, and Hanzo GUI Static will
 load and optimize those components as it discovers them.
 
 ### Vite support
 
-Tamagui now fully works [with Vite 3 and 4](/docs/guides/vite), both with the
+Hanzo GUI now fully works [with Vite 3 and 4](/docs/guides/vite), both with the
 compiler and without. A simple `vite.config.js` would look like this:
 
 ```tsx
-import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzo/gui-vite-plugin'
 import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vite'
 
@@ -484,9 +484,9 @@ export default defineConfig({
   clearScreen: false,
   plugins: [
     react(),
-    tamaguiPlugin({
-      components: ['tamagui'],
-      config: 'tamagui.config.ts',
+    guiPlugin({
+      components: ['@hanzo/gui'],
+      config: 'gui.config.ts',
     }),
   ],
 })
@@ -500,9 +500,9 @@ alongside the ones in `core`.
 
 ---
 
-## Overview of Tamagui
+## Overview of Hanzo GUI
 
-Tamagui UI is a suite of React components and hooks that adapt nicely to both
+Hanzo GUI is a suite of React components and hooks that adapt nicely to both
 Native and Web.
 
 - Every component works on Native and Web and adapts properly to each platform.
@@ -518,7 +518,7 @@ Native and Web.
 
 ---
 
-## What's new in Tamagui
+## What's new in Hanzo GUI
 
 ### A whole lot of new components 🎁
 
@@ -529,7 +529,7 @@ visuals and behavior.
 We owe thanks to both [Radix](https://www.radix-ui.com) and
 [Floating UI](https://floating-ui.com) for making these much easier to build.
 
-Like the existing components in Tamagui, every new component is sizable,
+Like the existing components in Hanzo GUI, every new component is sizable,
 themeable, and able to be automatically styled using your design system.
 
 The new components are:
@@ -540,14 +540,14 @@ The new components are:
   <SheetDemo />
 </HeroContainer>
 
-This was an excellent test of the unified animation drivers on Tamagui, and
+This was an excellent test of the unified animation drivers on Hanzo GUI, and
 unified interaction primitives of React Native, and we're happy with how it's
 turned out.
 
 Internally, we've come up with some helpers for each animation driver to support
 a consistent API for taking a number value and interpolating it with some style
 properties. Each driver handles this quite differently on the surface, but the
-Tamagui drivers now give a consistent interface across them all.
+Hanzo GUI drivers now give a consistent interface across them all.
 
 #### Select
 
@@ -680,8 +680,8 @@ children styles.
 
 #### ScrollView
 
-Tamagui [now exports ScrollView](/docs/components/scroll-view), the exact same
-as React Native ScrollView but with all Tamagui props supported.
+Hanzo GUI [now exports ScrollView](/docs/components/scroll-view), the exact same
+as React Native ScrollView but with all Hanzo GUI props supported.
 
 ---
 
@@ -692,16 +692,16 @@ as React Native ScrollView but with all Tamagui props supported.
 #### The Kitchen Sink
 
 The monorepo now includes `code/kitchen-sink`, a native app that demos every
-component that comes in Tamagui. This has helped us quickly iterate and improve
+component that comes in Hanzo GUI. This has helped us quickly iterate and improve
 components and their correctness across Android and iOS. Android especially
 received a wide variety of fixes during the betas.
 
 #### Starter repos
 
-`create-tamagui` underwent some big improvements that will set it up to be much
+`create-hanzo-gui` underwent some big improvements that will set it up to be much
 more useful going forward. We moved starters into the monorepo, which was tricky
 but lets us iterate much more rapidly on them and test them e2e for each
-release. We're using a custom `~/.tamagui` home directory and git clone that
+release. We're using a custom `~/.gui` home directory and git clone that
 gives us a much smoother upgrade experience, especially in future versions. The
 `starer-free` starter repo has had extensive polish as well, simplifying the
 setup, removing the need for watch commands, and properly building to production
@@ -728,7 +728,7 @@ work when the environment variable `ENABLE_RSC` is set.
 #### Vite Plugin + Vite Compiler
 
 We've landed Vite support. Check out [the Vite guide](/docs/guides/vite) for how
-to install Tamagui with Vite.
+to install Hanzo GUI with Vite.
 
 #### react-native-web-lite
 
@@ -738,8 +738,8 @@ strips out a few deprecated areas.
 
 #### Concurrent Mode Support
 
-We've updated Tamagui's base React version to be 18, and landed a large amount
-of fixes relating to concurrent mode. Every feature in Tamagui now fully
+We've updated Hanzo GUI's base React version to be 18, and landed a large amount
+of fixes relating to concurrent mode. Every feature in Hanzo GUI now fully
 supports concurrent mode, and with `react-native-web-lite`, so does every
 feature in the React Native API surface for web.
 
@@ -752,7 +752,7 @@ preferences.
 #### `@hanzo/gui-theme-base` upgrades
 
 The default theme package now includes `_active` sub-themes, paving the way for
-a consistent way to style all active states across every component in `tamagui`.
+a consistent way to style all active states across every component in `@hanzo/gui`.
 
 It also now includes theme values for `color1` => `color12` as part of each
 theme. This gives you granular access outside of the more specific color values
@@ -760,7 +760,7 @@ like `background`, or `borderColor`.
 
 #### Usage in production
 
-Tamagui now has several apps in production in both app stores. One larger one
+Hanzo GUI now has several apps in production in both app stores. One larger one
 built by a household name company is currently under NDA, but we can announce
 soon. We're proud of how active the Discord has become with users building high
 quality apps!
@@ -770,7 +770,7 @@ quality apps!
 #### Correctness
 
 More than any other section in this release, the biggest amount of effort for
-1.0 went into correctness. Tamagui has steadily landed fixes across every
+1.0 went into correctness. Hanzo GUI has steadily landed fixes across every
 feature and component since Beta, and the difference between early this year and
 now is astounding, with a ton of edge cases handled automatically now.
 
@@ -797,7 +797,7 @@ full CI/CD, stricter linting in general, and a few big integration tests.
 
 ## Going forward
 
-Tamagui is stable and free of all blocking bugs across every feature, but
+Hanzo GUI is stable and free of all blocking bugs across every feature, but
 there's a so much more to go to make every part of it simpler, lighter, faster,
 and more correct both in types and behavior.
 
@@ -814,7 +814,7 @@ There are many exciting features on the table as well, including:
 - Improving dynamic inline evaluation.
 - Container queries.
 - Descendent styling ala `a:hover p`.
-- `tamagui build` - build to plain css and JS for compatibility with any
+- `gui build` - build to plain css and JS for compatibility with any
   bundler.
 - Adding the `native` prop for platform-specific output on Select, Dialog,
   Popover, Sheet and more.
@@ -832,9 +832,9 @@ There are many exciting features on the table as well, including:
 
 ## Sponsors
 
-<IntroParagraph>Tamagui is fully funded by GitHub Sponsors.</IntroParagraph>
+<IntroParagraph>Gui is fully funded by GitHub Sponsors.</IntroParagraph>
 
-I love working on Tamagui, and there's a wealth of concrete and interesting ways
+I love working on Hanzo GUI, and there's a wealth of concrete and interesting ways
 for it to mature. The motivation is to take things slowly, do them right, and
 stay fully OSS.
 
@@ -873,7 +873,7 @@ stay fully OSS.
   />
   <Image linked resizeMode="contain" width={420} height={350} src="/screen-studio.webp" />
 </XStack>
-<Aside>The Tamagui Studio, early beta</Aside>
+<Aside>The Hanzo GUI Studio, early beta</Aside>
 <Spacer />
 
 Docs can run alongside Studio in the future as part of a suite of tools for your
@@ -904,7 +904,7 @@ Early sponsors have made a huge difference: I owe a large thank you to
 [QuestPortal](https://www.questportal.com) and [BeatGig](https://beatgig.com),
 the first corporate sponsors ❤️.
 
-Tamagui draws inspiration and small areas of code from some incredible other
+Hanzo GUI draws inspiration and small areas of code from some incredible other
 libraries: [Radix](https://www.radix-ui.com/) provided much of the compound
 component APIs, [Floating UI](https://floating-ui.com/) handles all of the
 floating elements positioning, [Moti](https://moti.fyi) which served as a start

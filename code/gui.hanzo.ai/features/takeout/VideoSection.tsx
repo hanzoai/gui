@@ -98,7 +98,7 @@ export const VideoSection = () => {
                 color={isDark ? '#666' : '#888'}
                 letterSpacing={2}
               >
-                TAMAGUI
+                HANZO_GUI
               </SizableText>
             </YStack>
 

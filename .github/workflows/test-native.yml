@@ -154,7 +154,7 @@ jobs:
       - name: Run iOS Detox Tests
         if: env.SKIP_IOS_TESTS != 'true'
         env:
-          DETOX_IOS_APP_PATH: build/Build/Products/Debug-iphonesimulator/tamaguikitchensink.app
+          DETOX_IOS_APP_PATH: build/Build/Products/Debug-iphonesimulator/guikitchensink.app
         run: |
           bun run ../packages/native-ci/src/run-detox-ios.ts --project-root "$PWD" --record-logs failing --retries 1 ${{ matrix.test_files }}
 
@@ -216,10 +216,10 @@ jobs:
           KV_STORE_REDIS_REST_URL: ${{ secrets.KV_STORE_REDIS_REST_URL }}
           KV_STORE_REDIS_REST_TOKEN: ${{ secrets.KV_STORE_REDIS_REST_TOKEN }}
         run: |
-          FINGERPRINT_FROM_CACHE=$(curl -s "$KV_STORE_REDIS_REST_URL/get/android-tamaguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN" | jq -r '.result')
+          FINGERPRINT_FROM_CACHE=$(curl -s "$KV_STORE_REDIS_REST_URL/get/android-guikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN" | jq -r '.result')
 
           if [ "$FINGERPRINT_FROM_CACHE" != "null" ]; then
-            curl -s -X POST "$KV_STORE_REDIS_REST_URL/EXPIRE/android-tamaguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}/2592000" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN"
+            curl -s -X POST "$KV_STORE_REDIS_REST_URL/EXPIRE/android-guikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}/2592000" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN"
             echo "Fingerprint from cache: $FINGERPRINT_FROM_CACHE"
             echo "fingerprint=$FINGERPRINT_FROM_CACHE" >> $GITHUB_OUTPUT
           else
@@ -319,7 +319,7 @@ jobs:
 
           # Create DetoxTest.java
           cat > android/app/src/androidTest/java/com/hanzoai/guikitchensink/DetoxTest.java << 'DETOXTEST'
-          package com.tamagui.tamaguikitchensink;
+          package com.gui.guikitchensink;
 
           import com.wix.detox.Detox;
           import com.wix.detox.config.DetoxConfig;
@@ -394,7 +394,7 @@ jobs:
           KV_STORE_REDIS_REST_URL: ${{ secrets.KV_STORE_REDIS_REST_URL }}
           KV_STORE_REDIS_REST_TOKEN: ${{ secrets.KV_STORE_REDIS_REST_TOKEN }}
         run: |
-          curl -s -X POST "$KV_STORE_REDIS_REST_URL/SETEX/android-tamaguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}/2592000/${{ steps.calculate-fingerprint.outputs.fingerprint }}" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN"
+          curl -s -X POST "$KV_STORE_REDIS_REST_URL/SETEX/android-guikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}/2592000/${{ steps.calculate-fingerprint.outputs.fingerprint }}" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN"
 
       - name: Check If Build Already Exists (with new fingerprint)
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}

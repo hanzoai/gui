@@ -4,12 +4,12 @@ import config from '../config-default'
 import {
   StyleObjectIdentifier,
   StyleObjectRules,
-  createTamagui,
+  createGui,
   getCSSStylesAtomic,
 } from '../core/src'
 
 beforeAll(() => {
-  createTamagui(config.getDefaultTamaguiConfig())
+  createGui(config.getDefaultGuiConfig())
 })
 
 test(`should expand webkit user-select`, () => {

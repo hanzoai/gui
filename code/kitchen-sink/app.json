@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "tamagui-kitchen-sink",
-    "slug": "tamagui-kitchen-sink",
-    "scheme": "tamagui-kitchen-sink",
+    "name": "gui-kitchen-sink",
+    "slug": "gui-kitchen-sink",
+    "scheme": "gui-kitchen-sink",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,10 +18,10 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tamagui.tamaguikitchensink"
+      "bundleIdentifier": "com.gui.guikitchensink"
     },
     "android": {
-      "package": "com.tamagui.tamaguikitchensink",
+      "package": "com.gui.guikitchensink",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

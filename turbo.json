@@ -63,13 +63,13 @@
       "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
       "outputs": [],
       "env": [
-        "TAMAGUI_TARGET",
-        "TAMAGUI_TEST_ANIMATION_DRIVER",
+        "HANZO_GUI_TARGET",
+        "HANZO_GUI_TEST_ANIMATION_DRIVER",
         "NODE_ENV"
       ],
       "passThroughEnv": [
-        "TAMAGUI_TARGET",
-        "TAMAGUI_TEST_ANIMATION_DRIVER",
+        "HANZO_GUI_TARGET",
+        "HANZO_GUI_TEST_ANIMATION_DRIVER",
         "NODE_ENV"
       ]
     },

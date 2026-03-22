@@ -25,7 +25,7 @@ export type Options = {
 const CRITICAL_PACKAGES = ['@hanzo/gui-web', '@hanzo/gui-core', '@hanzo/gui']
 
 /**
- * Walks node_modules to find duplicate physical copies of critical tamagui packages.
+ * Walks node_modules to find duplicate physical copies of critical hanzo-gui packages.
  * Detects nested node_modules that would cause multiple runtime instances.
  */
 function checkDuplicateInstalls(root: string): string {
@@ -60,7 +60,7 @@ function checkDuplicateInstalls(root: string): string {
   if (duplicates.size === 0) return ''
 
   const lines: string[] = [
-    'Found duplicate tamagui installations in node_modules:',
+    'Found duplicate gui installations in node_modules:',
     '',
     'This causes multiple runtime instances, which breaks theme/config detection.',
     '',
@@ -92,7 +92,7 @@ function checkDuplicateInstalls(root: string): string {
 
 /**
  * Recursively find all instances of a package in node_modules.
- * Handles both scoped (@hanzo/gui-web) and unscoped (tamagui) packages.
+ * Handles both scoped (@hanzo/gui-web) and unscoped (gui) packages.
  */
 function findAllInstances(
   nodeModulesDir: string,
@@ -139,7 +139,7 @@ function findAllInstances(
 }
 
 /**
- * Checks lockfile for multiple resolved versions of tamagui packages.
+ * Checks lockfile for multiple resolved versions of hanzo-gui packages.
  * Supports bun.lock, yarn.lock, and package-lock.json.
  */
 function checkLockfileDuplicates(root: string): string {
@@ -160,9 +160,9 @@ function checkBunLockDuplicates(lockPath: string): string {
     const duplicates = new Map<string, Set<string>>()
     const criticalSet = new Set(CRITICAL_PACKAGES)
 
-    // match patterns like "@hanzo/gui-web@version" or "tamagui@version" in resolved entries
+    // match patterns like "@hanzo/gui-web@version" or "gui@version" in resolved entries
     // bun.lock format: "package@version": ["resolved-url", ...]
-    const packagePattern = /["'](@tamagui\/[\w-]+|tamagui)@([^"'\s,]+)["']/g
+    const packagePattern = /["'](@gui\/[\w-]+|gui)@([^"'\s,]+)["']/g
     let match: RegExpExecArray | null
     while ((match = packagePattern.exec(content)) !== null) {
       const name = match[1]
@@ -189,7 +189,7 @@ function checkYarnLockDuplicates(lockPath: string): string {
     // yarn.lock format:
     //   "@hanzo/gui-web@^1.0.0":
     //     version "1.0.1"
-    const entryPattern = /^"?(@tamagui\/[\w-]+|tamagui)@[^":\n]+[":]?\s*$/gm
+    const entryPattern = /^"?(@gui\/[\w-]+|gui)@[^":\n]+[":]?\s*$/gm
     const versionPattern = /^\s+version\s+"([^"]+)"/gm
 
     let entryMatch: RegExpExecArray | null
@@ -260,21 +260,21 @@ function formatLockfileDuplicates(
   lines.push(
     'Multiple versions cause duplicate runtime instances, breaking config/theme detection.'
   )
-  lines.push('Fix: ensure all tamagui packages use the same version range, then dedupe.')
+  lines.push('Fix: ensure all hanzo-gui packages use the same version range, then dedupe.')
 
   return lines.join('\n')
 }
 
 /**
- * Checks that a tamagui config file exists in common locations.
+ * Checks that a gui config file exists in common locations.
  */
 function checkConfigExists(root: string): string {
   const configNames = [
-    'tamagui.config.ts',
-    'tamagui.config.tsx',
-    'tamagui.config.js',
-    'tamagui.config.mjs',
-    'tamagui.config.cjs',
+    'gui.config.ts',
+    'gui.config.tsx',
+    'gui.config.js',
+    'gui.config.mjs',
+    'gui.config.cjs',
   ]
 
   const searchDirs = [root, join(root, 'src'), join(root, 'app'), join(root, 'config')]
@@ -287,12 +287,12 @@ function checkConfigExists(root: string): string {
     }
   }
 
-  // check if tamagui.build.ts references a config path
+  // check if gui.build.ts references a config path
   const buildConfigNames = [
-    'tamagui.build.ts',
-    'tamagui.build.js',
-    'tamagui.build.mjs',
-    'tamagui.build.cjs',
+    'gui.build.ts',
+    'gui.build.js',
+    'gui.build.mjs',
+    'gui.build.cjs',
   ]
   for (const name of buildConfigNames) {
     const buildPath = join(root, name)
@@ -308,13 +308,13 @@ function checkConfigExists(root: string): string {
     }
   }
 
-  // also check if there's a tamagui config referenced in package.json
+  // also check if there's a gui config referenced in package.json
   const pkgJsonPath = join(root, 'package.json')
   if (existsSync(pkgJsonPath)) {
     try {
       const pkg = JSON.parse(readFileSync(pkgJsonPath, 'utf8'))
-      if (pkg.tamagui?.config) {
-        const configPath = join(root, pkg.tamagui.config)
+      if (pkg.gui?.config) {
+        const configPath = join(root, pkg.gui.config)
         if (existsSync(configPath)) return ''
       }
     } catch {}
@@ -329,10 +329,10 @@ function checkConfigExists(root: string): string {
   }
 
   return [
-    'No tamagui.config file found.',
+    'No gui.config file found.',
     '',
-    'Tamagui requires a config file (e.g. tamagui.config.ts) that calls createTamagui().',
-    'Without it, components will throw "Can\'t find Tamagui configuration" at runtime.',
+    'Gui requires a config file (e.g. gui.config.ts) that calls createGui().',
+    'Without it, components will throw "Can\'t find Hanzo GUI configuration" at runtime.',
     '',
     'See: https://gui.hanzo.ai/docs/core/configuration',
   ].join('\n')
@@ -358,7 +358,7 @@ export async function checkDeps(root: string) {
   if (configSummary) issues.push(configSummary)
 
   if (issues.length === 0) {
-    console.info(`Tamagui dependencies look good ✅`)
+    console.info(`Gui dependencies look good ✅`)
     process.exit(0)
   }
 

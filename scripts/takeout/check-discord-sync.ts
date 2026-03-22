@@ -20,13 +20,13 @@ const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN
 
 // Discord IDs from features/discord/helpers.ts
 const TAKEOUT_ROLE_ID = '1131082605052301403'
-const TAMAGUI_DISCORD_GUILD_ID = '909986013848412191'
+const HANZO_GUI_DISCORD_GUILD_ID = '909986013848412191'
 
 // Products that grant early-access
 const EARLY_ACCESS_PRODUCT_IDS = [
-  'prod_RlRd2DVrG0frHe', // Tamagui Pro
+  'prod_RlRd2DVrG0frHe', // Hanzo GUI Pro
   'prod_NzLEazaqBgoKnC', // Takeout Stack
-  'prod_Rxu0x7jR0nWJSv', // Tamagui Pro Team Seats
+  'prod_Rxu0x7jR0nWJSv', // Hanzo GUI Pro Team Seats
 ]
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY || !STRIPE_SECRET_KEY || !DISCORD_BOT_TOKEN) {
@@ -99,7 +99,7 @@ async function getUsersWithTakeoutRole() {
 
   try {
     // Get all members with the takeout role
-    const members = await discordClient.api.guilds.getMembers(TAMAGUI_DISCORD_GUILD_ID, {
+    const members = await discordClient.api.guilds.getMembers(HANZO_GUI_DISCORD_GUILD_ID, {
       limit: 1000,
     })
 

@@ -3,7 +3,7 @@ import React from 'react'
 
 import type { FontSizeTokens, SelectProps } from '@hanzo/gui'
 import { Adapt, Label, Select, Sheet, XStack, YStack, getFontSize } from '@hanzo/gui'
-import { LinearGradient } from 'tamagui/linear-gradient'
+import { LinearGradient } from 'gui/linear-gradient'
 
 export function SelectDemo() {
   return (

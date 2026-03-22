@@ -16,10 +16,10 @@ import type {
   AnimationDriverKeys,
   AnimationsConfig,
   AnimationsConfigObject,
-  CreateTamaguiConfig,
+  CreateGuiConfig,
   TransitionKeys,
   TypeOverride,
-  TamaguiComponentPropsBaseBase,
+  GuiComponentPropsBaseBase,
 } from './types'
 
 // =============================================================================
@@ -66,12 +66,12 @@ describe('AnimationsConfig types', () => {
 })
 
 // =============================================================================
-// Test: CreateTamaguiConfig preserves animation shape
+// Test: CreateGuiConfig preserves animation shape
 // =============================================================================
 
-describe('CreateTamaguiConfig animation types', () => {
-  test('CreateTamaguiConfig.animations accepts single driver', () => {
-    type Config = CreateTamaguiConfig<any, any, any, any, MockCSSAnimations, any>
+describe('CreateGuiConfig animation types', () => {
+  test('CreateGuiConfig.animations accepts single driver', () => {
+    type Config = CreateGuiConfig<any, any, any, any, MockCSSAnimations, any>
     type Animations = Config['animations']
 
     // Should be a union of AnimationDriver<E> | AnimationsConfigObject
@@ -79,8 +79,8 @@ describe('CreateTamaguiConfig animation types', () => {
     const _driver: Animations = {} as MockCSSDriver
   })
 
-  test('CreateTamaguiConfig.animations accepts multi-driver object', () => {
-    type Config = CreateTamaguiConfig<any, any, any, any, MockCSSAnimations, any>
+  test('CreateGuiConfig.animations accepts multi-driver object', () => {
+    type Config = CreateGuiConfig<any, any, any, any, MockCSSAnimations, any>
     type Animations = Config['animations']
 
     // Multi-driver object should also be assignable
@@ -140,19 +140,19 @@ describe('AnimationDriverKeys inference', () => {
 // =============================================================================
 
 describe('animatedBy prop', () => {
-  test('animatedBy exists on TamaguiComponentPropsBaseBase', () => {
-    type Props = TamaguiComponentPropsBaseBase
+  test('animatedBy exists on GuiComponentPropsBaseBase', () => {
+    type Props = GuiComponentPropsBaseBase
     expectTypeOf<Props>().toHaveProperty('animatedBy')
   })
 
   test('animatedBy accepts null', () => {
-    type Props = TamaguiComponentPropsBaseBase
+    type Props = GuiComponentPropsBaseBase
     type AnimatedBy = Props['animatedBy']
     expectTypeOf<null>().toMatchTypeOf<AnimatedBy>()
   })
 
   test('animatedBy accepts "default"', () => {
-    type Props = TamaguiComponentPropsBaseBase
+    type Props = GuiComponentPropsBaseBase
     type AnimatedBy = NonNullable<Props['animatedBy']>
     expectTypeOf<'default'>().toMatchTypeOf<AnimatedBy>()
   })
@@ -164,12 +164,12 @@ describe('animatedBy prop', () => {
    * The animatedBy prop should accept: 'default' | 'css' | null
    *
    * The type flow is:
-   * 1. CreateTamaguiProps.animations accepts multi-driver object
-   * 2. InferTamaguiConfig extracts driver keys via ExtractAnimationDriverKeys
-   * 3. TamaguiInternalConfig stores keys in AnimDriverKeys generic param
-   * 4. TamaguiCustomConfig extends the inferred config type
-   * 5. TamaguiConfig merges with TamaguiCustomConfig
-   * 6. InferredAnimationDriverKeys reads from TamaguiConfig['animationDriverKeys']
+   * 1. CreateGuiProps.animations accepts multi-driver object
+   * 2. InferGuiConfig extracts driver keys via ExtractAnimationDriverKeys
+   * 3. GuiInternalConfig stores keys in AnimDriverKeys generic param
+   * 4. GuiCustomConfig extends the inferred config type
+   * 5. GuiConfig merges with GuiCustomConfig
+   * 6. InferredAnimationDriverKeys reads from GuiConfig['animationDriverKeys']
    * 7. AnimationDriverKeys combines inferred + TypeOverride
    * 8. animatedBy uses AnimationDriverKeys
    */
@@ -217,11 +217,11 @@ describe('Type regression scenarios', () => {
    * Expected animatedBy values: 'default' | 'spring' | 'physics'
    * Expected transition values: keys from default driver's animations
    *
-   * FIXED: CreateTamaguiConfig.animations now accepts AnimationsConfigObject
+   * FIXED: CreateGuiConfig.animations now accepts AnimationsConfigObject
    * which preserves the multi-driver shape for type inference.
    */
-  test('multiple drivers config scenario - CreateTamaguiConfig accepts it', () => {
-    type Config = CreateTamaguiConfig<any, any, any, any, MockCSSAnimations, any>
+  test('multiple drivers config scenario - CreateGuiConfig accepts it', () => {
+    type Config = CreateGuiConfig<any, any, any, any, MockCSSAnimations, any>
     type Animations = Config['animations']
 
     // Multi-driver config is now accepted
@@ -258,7 +258,7 @@ describe('Type regression scenarios', () => {
    */
   test('combined multiple drivers and override', () => {
     // All keys should be available from both sources
-    // Note: actual inference depends on user's TamaguiConfig setup
+    // Note: actual inference depends on user's GuiConfig setup
     expectTypeOf<'default'>().toMatchTypeOf<AnimationDriverKeys>()
   })
 })
@@ -309,7 +309,7 @@ describe('ExtractAnimationDriverKeys helper', () => {
 /**
  * SUMMARY OF APPLIED TYPE FIXES:
  *
- * 1. CreateTamaguiConfig (line ~737):
+ * 1. CreateGuiConfig (line ~737):
  *    FIXED: Changed from `animations: AnimationDriver<E>`
  *    To: `animations: AnimationDriver<E> | AnimationsConfigObject`
  *    This preserves the multi-driver object shape for type inference.

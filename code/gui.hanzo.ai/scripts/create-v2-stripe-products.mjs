@@ -14,14 +14,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 })
 
 async function createV2Products() {
-  console.info('Creating Tamagui Pro V2 products in Stripe...\n')
+  console.info('Creating Hanzo GUI Pro V2 products in Stripe...\n')
 
   // 1. Create the V2 Pro License product
-  console.info('Creating product: Tamagui Pro V2...')
+  console.info('Creating product: Hanzo GUI Pro V2...')
   const product = await stripe.products.create({
-    name: 'Tamagui Pro V2',
+    name: 'Hanzo GUI Pro V2',
     description:
-      'Per-project license for Tamagui Pro. Includes all templates (v1 Takeout, v2 Takeout, Takeout Static), Bento components, 1 year of updates, unlimited team members, and basic chat support. Lifetime rights to downloaded code.',
+      'Per-project license for Hanzo GUI Pro. Includes all templates (v1 Takeout, v2 Takeout, Takeout Static), Bento components, 1 year of updates, unlimited team members, and basic chat support. Lifetime rights to downloaded code.',
     metadata: {
       version: 'v2',
       type: 'license',

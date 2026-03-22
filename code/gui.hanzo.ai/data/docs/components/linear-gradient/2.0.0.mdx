@@ -1,6 +1,6 @@
 ---
 title: Linear Gradient
-description: Linear gradients that work with Tamagui style props
+description: Linear gradients that work with Hanzo GUI style props
 name: linear-gradient
 component: LinearGradient
 package: linear-gradient
@@ -18,14 +18,14 @@ demoName: LinearGradient
 <Highlights
   features={[
     'Works on native and web.',
-    'Accepts Tamagui style props and theme colors.',
+    'Accepts Hanzo GUI style props and theme colors.',
     'Bundles easily with webpack.',
   ]}
 />
 
 ## Installation
 
-LinearGradient is already installed in `tamagui`, or you can install it independently:
+LinearGradient is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-linear-gradient
@@ -43,7 +43,7 @@ npm install expo-linear-gradient
 
 #### Step 2: Import the setup module
 
-In your app's entry file (index.js or App.tsx), before any Tamagui imports:
+In your app's entry file (index.js or App.tsx), before any Hanzo GUI imports:
 
 ```tsx
 import '@hanzo/gui-native/setup-expo-linear-gradient'
@@ -57,14 +57,14 @@ If you don't set up expo-linear-gradient, LinearGradient will log a warning on n
 
 ## Usage
 
-Because LinearGradient requires a native package, it is not included in the main `tamagui` export. Import it either separately or using the path `/linear-gradient`:
+Because LinearGradient requires a native package, it is not included in the main `@hanzo/gui` export. Import it either separately or using the path `/linear-gradient`:
 
 ```tsx
 import { LinearGradient } from '@hanzo/gui-linear-gradient'
-import { LinearGradient } from 'tamagui/linear-gradient'
+import { LinearGradient } from 'gui/linear-gradient'
 ```
 
-LinearGradient is a YStack that accepts all Tamagui style props as well as theme colors. It places `expo-linear-gradient` inside set to `absoluteFill`.
+LinearGradient is a YStack that accepts all Hanzo GUI style props as well as theme colors. It places `expo-linear-gradient` inside set to `absoluteFill`.
 
 ## API Reference
 
@@ -84,7 +84,7 @@ Use `<LinearGradient>` for precise color stop control.
 
 ---
 
-LinearGradient extends YStack, inheriting [Stack props](/docs/components/stacks) and therefore the [Tamagui standard props](/docs/intro/props), plus:
+LinearGradient extends YStack, inheriting [Stack props](/docs/components/stacks) and therefore the [Gui standard props](/docs/intro/props), plus:
 
 <PropsTable
   data={[

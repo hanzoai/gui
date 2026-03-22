@@ -11,7 +11,7 @@
     "dev:clean": "one dev --clean",
     "clean": "one clean",
     "serve": "one serve --port 8081",
-    "build": "tamagui generate-css || true",
+    "build": "gui generate-css || true",
     "build:prod": "one build",
     "prod": "bun run build:prod && bun run serve",
     "serve:railway": "one serve --host 0.0.0.0",

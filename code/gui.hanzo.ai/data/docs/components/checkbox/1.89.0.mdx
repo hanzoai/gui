@@ -11,14 +11,14 @@ demoName: Checkbox
 
 <Tabs id="type" defaultValue="styled">
 <Tabs.List>
-  <TooltipSimple label="With Tamagui's default styles">
+  <TooltipSimple label="With Hanzo GUI's default styles">
     <Tabs.Tab value="styled">Styled</Tabs.Tab>
   </TooltipSimple>
   <TooltipSimple label="No default styles, easy to customize">
     <Tabs.Tab value="unstyled">Unstyled</Tabs.Tab>
   </TooltipSimple>
-  <TooltipSimple label="No dependency on Tamagui's core">
-    <Tabs.Tab value="headless" label="No styles and no dependency on Tamagui's styling">Headless</Tabs.Tab>
+  <TooltipSimple label="No dependency on Hanzo GUI's core">
+    <Tabs.Tab value="headless" label="No styles and no dependency on Hanzo GUI's styling">Headless</Tabs.Tab>
   </TooltipSimple>
 </Tabs.List>
 
@@ -63,7 +63,7 @@ features={[
 ## Installation
 
 <Tabs.Content value="styled">
-Checkbox is already installed in `tamagui`, or you can install it independently:
+Checkbox is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-checkbox
@@ -72,7 +72,7 @@ npm install @hanzo/gui-checkbox
 </Tabs.Content>
 
 <Tabs.Content value="unstyled">
-Checkbox is already installed in `tamagui`, or you can install it independently:
+Checkbox is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-checkbox
@@ -115,7 +115,7 @@ export default () => (
 <Tabs.Content value="unstyled">
 
 Use the `createCheckbox` export to create a fully custom checkbox that still
-uses the Tamagui styling system. This is similar to setting `unstyled`, but goes
+uses the Hanzo GUI styling system. This is similar to setting `unstyled`, but goes
 a bit further. It doesn't add any types for `size` or `unstyled`, and it won't
 automatically apply the `active` theme. It does pass the `checked` prop down as
 indicated in the types of `createCheckbox`.
@@ -200,13 +200,13 @@ Using the `useCheckbox` API, you can make your own Checkbox from scratch.
       name: 'scaleSize',
       type: 'number',
       default: '0.5',
-      description: `The Tamagui size tokens should map to the height of a button at any given step. This means you want somewhat smaller checkboxes typically.`,
+      description: `The Hanzo GUI size tokens should map to the height of a button at any given step. This means you want somewhat smaller checkboxes typically.`,
     },
     {
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
   ]}
 />

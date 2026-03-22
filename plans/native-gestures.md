@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Sheet + Sheet.ScrollView gesture coordination on native iOS has fundamental limitations because Tamagui uses React Native's built-in `PanResponder`, while iOS's `UIScrollView` gesture recognizers fire BEFORE the RN responder system can claim the gesture.
+Sheet + Sheet.ScrollView gesture coordination on native iOS has fundamental limitations because Hanzo GUI uses React Native's built-in `PanResponder`, while iOS's `UIScrollView` gesture recognizers fire BEFORE the RN responder system can claim the gesture.
 
 This causes:
 
@@ -149,7 +149,7 @@ export type GestureHandlerState = {
   enabled: boolean
   GestureDetector: typeof GestureDetector | null
   Gesture: typeof Gesture | null
-  // Note: We DON'T require Reanimated - use Tamagui's animation driver
+  // Note: We DON'T require Reanimated - use Hanzo GUI's animation driver
 }
 
 let state: GestureHandlerState = { enabled: false, GestureDetector: null, Gesture: null }
@@ -159,8 +159,8 @@ export function setupGestureHandler(config: {
   Gesture: typeof Gesture
 }): void {
   const g = globalThis as any
-  if (g.__tamagui_gesture_handler_setup) return
-  g.__tamagui_gesture_handler_setup = true
+  if (g.__gui_gesture_handler_setup) return
+  g.__gui_gesture_handler_setup = true
 
   state = {
     enabled: true,
@@ -416,7 +416,7 @@ describe('Sheet with RNGH', () => {
 
 ### Why Not Use Reanimated?
 
-- Tamagui has its own animation driver system
+- Hanzo GUI has its own animation driver system
 - Don't want to force Reanimated as a dependency
 - `Gesture.Pan()` with `runOnJS(true)` works fine for our use case
 - The key is `simultaneousWithExternalGesture`, not worklets

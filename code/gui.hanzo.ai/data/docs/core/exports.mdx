@@ -26,7 +26,7 @@ Let's take a quick look through some of the useful other exports in
 
 ### getConfig
 
-The exported `getConfig` will return your fully parsed Tamagui config. This is
+The exported `getConfig` will return your fully parsed Hanzo GUI config. This is
 safer than importing it directly as it avoids circular imports. In general you
 want to use `useTheme` to access themes, and
 `getTokens`/`getToken`/`getTokenValue` for tokens, but for other parts of the
@@ -38,31 +38,31 @@ config this can be useful.
 type insertFont = (name: string, fontIn: GenericFont) => ParsedFont
 ```
 
-Will add a new font after initial createTamagui call. Where `GenericFont` is the
-same as a font passed to createTamagui, and `ParsedFont` is the font with the
+Will add a new font after initial createGui call. Where `GenericFont` is the
+same as a font passed to createGui, and `ParsedFont` is the font with the
 subkeys prefixed with `$` and turned into variable objects.
 
 ### updateFont
 
 The same as insertFont, but will update an existing font.
 
-### isTamaguiComponent
+### isGuiComponent
 
 ```tsx
-type isTamaguiComponent = (component: any, name?: string) => boolean
+type isGuiComponent = (component: any, name?: string) => boolean
 ```
 
-If no name given, true if a Tamagui component, if name given ensures it's the
-specific named Tamagui component.
+If no name given, true if a Hanzo GUI component, if name given ensures it's the
+specific named Hanzo GUI component.
 
-### isTamaguiElement
+### isGuiElement
 
 ```tsx
-type isTamaguiElement = (child: any, name?: string) => boolean
+type isGuiElement = (child: any, name?: string) => boolean
 ```
 
-If no name given, true if a Tamagui ReactElement, if name given ensures it's the
-specific named Tamagui component element.
+If no name given, true if a Hanzo GUI ReactElement, if name given ensures it's the
+specific named Hanzo GUI component element.
 
 ### getTokens
 
@@ -70,7 +70,7 @@ specific named Tamagui component element.
 ;() => TokensParsed
 ```
 
-Returns the parsed Tamagui config object of all your tokens, can be used at
+Returns the parsed Hanzo GUI config object of all your tokens, can be used at
 runtime to get values from tokens. If you are looking to get a single token
 value, prefer `getToken` or `getTokenValue`.
 
@@ -119,7 +119,7 @@ type getVariable = (value: Variable) => string
 ```
 
 If given a `Variable` - which comes from a parsed theme or token returned from
-`createTamagui`, `useTheme` or `getTokens` (read more
+`createGui`, `useTheme` or `getTokens` (read more
 [on the useTheme docs](/docs/core/use-theme)).
 
 Calling `getVariable(useTheme().color)` returns `var(--color)` on the web, and
@@ -128,7 +128,7 @@ Calling `getVariable(useTheme().color)` returns `var(--color)` on the web, and
 ### setOnLayoutStrategy
 
 This is a low-level utility to control `onLayout` performance. By default,
-Tamagui `onLayout` on the web uses the `"async"` strategy (see below), which
+Hanzo GUI `onLayout` on the web uses the `"async"` strategy (see below), which
 gives a good balance of accuracy and performance. For extremely accurate to
 native `onLayout`, you can use `"sync"`, but it can cause performance issues in
 typical usage.
@@ -217,7 +217,7 @@ function MyButton(props) {
     // 'auto' (default) resolves to optimized value on all platforms (CSS variable on web, DynamicColor on iOS, not optimized on android)
     // 'value' resolves to the raw theme/token string on all platforms (the same as useTheme()[name].val)
     resolveValues: 'value',
-    // pass a Tamagui component to resolve any custom variants:
+    // pass a Hanzo GUI component to resolve any custom variants:
     forComponent: CustomComponent,
   })
 }
@@ -293,7 +293,7 @@ function MyInput(props, forwardedRef) {
 
 ### getWebElement
 
-A runtime utility that narrows a `TamaguiElement` to an `HTMLElement`. Throws if
+A runtime utility that narrows a `GuiElement` to an `HTMLElement`. Throws if
 the element is not an HTMLElement. Useful for platform-specific code where you
 know you're on web.
 
@@ -325,7 +325,7 @@ hydration done. On server it's always false.
 ### ClientOnly
 
 A component that opts its children out of SSR. When wrapped in `ClientOnly`,
-Tamagui avoids double-renders in various places which results in faster
+Hanzo GUI avoids double-renders in various places which results in faster
 client-side rendering.
 
 ```tsx
@@ -348,7 +348,7 @@ import { ClientOnly } from '@hanzo/gui' // or '@hanzo/gui-core'
 
 ### GetProps
 
-Fetches the type of props for a Tamagui component:
+Fetches the type of props for a Hanzo GUI component:
 
 ```tsx
 import { View, GetProps, styled } from '@hanzo/gui-core'
@@ -360,7 +360,7 @@ type XProps = GetProps<typeof X>
 
 ### GetRef
 
-Fetches the type of a ref for a Tamagui component, or any React component:
+Fetches the type of a ref for a Hanzo GUI component, or any React component:
 
 ```tsx
 import { View, GetRef, styled } from '@hanzo/gui-core'

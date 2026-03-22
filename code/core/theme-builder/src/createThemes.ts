@@ -203,7 +203,7 @@ export const getLastBuilder = () => lastBuilder
 
 /**
  * V4 version of createThemes - uses v4 theme ordering for backwards compatibility.
- * Use this for v4 themes (like v4-tamagui.ts).
+ * Use this for v4 themes (like v4-gui.ts).
  */
 export function createV4Themes<
   Extra extends ExtraThemeValuesByScheme = ExtraThemeValuesByScheme,
@@ -616,7 +616,7 @@ export function createPalettes(palettes: BuildPalettes): SimplePaletteDefinition
  * - Children and grandChildren themes are added FIRST
  * - Accent theme is added LAST with avoidNestingWithin for children themes
  *
- * Use this for v4 themes (like v4-tamagui.ts). The default createSimpleThemeBuilder
+ * Use this for v4 themes (like v4-gui.ts). The default createSimpleThemeBuilder
  * now uses v5 ordering.
  */
 export function createV4ThemeBuilder<

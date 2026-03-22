@@ -1,7 +1,7 @@
 /**
  * @hanzo/gui-native
  *
- * Native setup modules for Tamagui. Import these at the top of your app entry point.
+ * Native setup modules for Gui. Import these at the top of your app entry point.
  *
  * @example
  * ```tsx
@@ -13,7 +13,7 @@
  * import '@hanzo/gui-native/expo-linear-gradient'
  * import '@hanzo/gui-native/setup-keyboard-controller'
  *
- * // Then use Tamagui components normally
+ * // Then use Hanzo GUI components normally
  * // Sheet will automatically use native gestures when available
  * // LinearGradient will use expo-linear-gradient when installed
  * ```

@@ -17,9 +17,9 @@ import {
 import { PopoverDemo } from '../../demos/src/PopoverDemo'
 import { DialogDemo } from '../../demos/src/DialogDemo'
 import { TestPopoverTransformOrigin } from '../use-cases/TestPopoverTransformOrigin'
-import { animationsMotion } from '../config/tamagui/animationMotion'
-import { animationsCSS } from '../config/tamagui/animationsCSS'
-import { animationsNative } from '../config/tamagui/animationNative'
+import { animationsMotion } from '../config/gui/animationMotion'
+import { animationsCSS } from '../config/gui/animationsCSS'
+import { animationsNative } from '../config/gui/animationNative'
 
 const delayColors = ['red', 'green', 'blue', 'purple'] as const
 

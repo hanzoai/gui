@@ -49,8 +49,8 @@ export default apiRoute(async (req) => {
   const supportSubscriptions = allUserSubscriptions.filter((sub) =>
     sub.subscription_items?.some(
       (item) =>
-        item.price?.product?.name === ProductName.TamaguiSupport ||
-        item.price?.product?.name === ProductName.TamaguiChat
+        item.price?.product?.name === ProductName.GuiSupport ||
+        item.price?.product?.name === ProductName.GuiChat
     )
   )
 
@@ -69,14 +69,14 @@ export default apiRoute(async (req) => {
   supportSubscriptions.forEach((supportSub) => {
     const supportItems = supportSub.subscription_items?.filter(
       (item) =>
-        item.price?.product?.name === ProductName.TamaguiSupport ||
-        item.price?.product?.name === ProductName.TamaguiChat
+        item.price?.product?.name === ProductName.GuiSupport ||
+        item.price?.product?.name === ProductName.GuiChat
     )
 
     if (supportItems?.length) {
       // Check for chat support (base 2 invites)
       const chatItem = supportItems.find(
-        (item) => item.price?.product?.name === ProductName.TamaguiChat
+        (item) => item.price?.product?.name === ProductName.GuiChat
       )
       if (chatItem) {
         hasChat = true
@@ -85,7 +85,7 @@ export default apiRoute(async (req) => {
 
       // Check for support tiers (4 additional invites per tier)
       const tierItem = supportItems.find(
-        (item) => item.price?.product?.name === ProductName.TamaguiSupport
+        (item) => item.price?.product?.name === ProductName.GuiSupport
       )
       if (tierItem) {
         // Use subscription's quantity field to determine tier level
@@ -188,7 +188,7 @@ export default apiRoute(async (req) => {
 
     // Create welcome message based on subscription type
     await discordClient.api.channels.createMessage(discordChannel.id, {
-      content: `Welcome to your private support channel! The Tamagui team is here to help with any questions or issues you have.`,
+      content: `Welcome to your private support channel! The Hanzo GUI team is here to help with any questions or issues you have.`,
     })
 
     discordChannelId = discordChannel.id

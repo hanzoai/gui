@@ -1,18 +1,18 @@
 /**
  * Web Alignment Tests - Web Platform
  *
- * These tests verify that Tamagui v2 uses web-standard props exclusively.
+ * These tests verify that Hanzo GUI v2 uses web-standard props exclusively.
  * RN-specific accessibility props are no longer converted - use aria-* directly.
  */
 
-import { View, Text, createTamagui } from '@hanzo/gui-core'
+import { View, Text, createGui } from '@hanzo/gui-core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
 import { simplifiedGetSplitStyles } from './utils'
 
 beforeAll(() => {
-  createTamagui(config.getDefaultTamaguiConfig())
+  createGui(config.getDefaultGuiConfig())
 })
 
 describe('Web Alignment - Accessibility Props', () => {

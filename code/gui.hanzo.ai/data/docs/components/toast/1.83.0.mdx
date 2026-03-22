@@ -20,14 +20,14 @@ demoName: Toast
     `Automatically closes`,
     `Pause closing on hover, focus, window blur and mobile touch`,
     `Supports closing via swipe gesture`,
-    `Easily animatable with Tamagui's animation drivers`,
+    `Easily animatable with Hanzo GUI's animation drivers`,
     `Native toasts included for Android, iOS and web (notification API)`,
   ]}
 />
 
 ## Installation
 
-Note that `@hanzo/gui-toast` is the only UI package not included by default in `tamagui`. The reason for this is that Metro would force you to install the native `burnt` dependency, and that would mean `tamagui` wouldn't work with Expo Go and would require a native install step no matter if you used Toast or not. This is due to a limitation in Metro.
+Note that `@hanzo/gui-toast` is the only UI package not included by default in `@hanzo/gui`. The reason for this is that Metro would force you to install the native `burnt` dependency, and that would mean `@hanzo/gui` wouldn't work with Expo Go and would require a native install step no matter if you used Toast or not. This is due to a limitation in Metro.
 
 To install toast:
 
@@ -153,13 +153,13 @@ The portal for toasts to be directed to. Should be used inside [ToastProvider](#
       name: 'portalToRoot',
       type: 'boolean | number',
       default: 'false',
-      description: `When true, uses a portal to render at the very top of the root TamaguiProvider.`,
+      description: `When true, uses a portal to render at the very top of the root GuiProvider.`,
     },
     {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />
@@ -259,7 +259,7 @@ Contains the Title, Description, Action and Close component. Should be used insi
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />
@@ -274,7 +274,7 @@ Should be used inside [Toast](#toast). Extends [SizableText](/docs/components/te
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />
@@ -289,7 +289,7 @@ Should be used inside [Toast](#toast). Extends [SizableText](/docs/components/te
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />

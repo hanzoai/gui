@@ -79,14 +79,14 @@ export default function AcceptInvitePage() {
                 You already have access
               </H2>
               <Paragraph textAlign="center" color="$color11">
-                Your GitHub account is already a member of the Tamagui team.
+                Your GitHub account is already a member of the Hanzo GUI team.
               </Paragraph>
               <Button
                 size="$4"
                 theme="green"
                 onPress={() =>
                   window.open(
-                    'https://github.com/tamagui/takeout2',
+                    'https://github.com/hanzoai/takeout2',
                     '_blank',
                     'noopener,noreferrer'
                   )
@@ -100,7 +100,7 @@ export default function AcceptInvitePage() {
           {status === 'pending' && (
             <>
               <H2 size="$7" textAlign="center">
-                Invited to Tamagui GitHub
+                Invited to Hanzo GUI GitHub
               </H2>
               <Paragraph textAlign="center" color="$color11">
                 The invite should be in your inbox now.
@@ -110,7 +110,7 @@ export default function AcceptInvitePage() {
                 theme="accent"
                 onPress={() =>
                   window.open(
-                    'https://github.com/orgs/tamagui/invitation',
+                    'https://github.com/orgs/hanzoai/invitation',
                     '_blank',
                     'noopener,noreferrer'
                   )

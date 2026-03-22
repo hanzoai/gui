@@ -264,7 +264,7 @@ async function getReactNativeVersion(): Promise<string> {
   return kitchenSinkJson.dependencies['react-native'] || '^0.79.2'
 }
 
-async function fixTamaguiDependencies(
+async function fixGuiDependencies(
   pkg: Package,
   report: MissingDepReport
 ): Promise<void> {
@@ -272,16 +272,16 @@ async function fixTamaguiDependencies(
   const packageJson = JSON.parse(await readFile(jsonPath, { encoding: 'utf-8' }))
 
   // Only fix @hanzo/gui-* packages
-  const tamaguiDeps = report.missingDeps.filter((dep) => dep.startsWith('@hanzo/gui-'))
+  const guiDeps = report.missingDeps.filter((dep) => dep.startsWith('@hanzo/gui-'))
 
-  if (tamaguiDeps.length === 0) {
+  if (guiDeps.length === 0) {
     return
   }
 
   // Add missing @hanzo/gui-* packages to dependencies with workspace:* version
   packageJson.dependencies = packageJson.dependencies || {}
 
-  for (const dep of tamaguiDeps) {
+  for (const dep of guiDeps) {
     packageJson.dependencies[dep] = 'workspace:*'
   }
 
@@ -289,7 +289,7 @@ async function fixTamaguiDependencies(
     encoding: 'utf-8',
   })
 
-  console.info(`   Added ${tamaguiDeps.length} @hanzo/gui-* dependencies to ${pkg.name}`)
+  console.info(`   Added ${guiDeps.length} @hanzo/gui-* dependencies to ${pkg.name}`)
 }
 
 interface DependencyInfo {
@@ -391,7 +391,7 @@ async function fixAllDependencies(
         delete packageJson.devDependencies[dep]
         changesCount++
       } else {
-        // Fix @hanzo/gui-* packages and "tamagui" with workspace:*
+        // Fix @hanzo/gui-* packages and "@hanzo/gui" with workspace:*
         packageJson.dependencies[dep] = 'workspace:*'
         changesCount++
       }
@@ -424,7 +424,7 @@ async function fixAllDependencies(
 
 async function main() {
   const args = process.argv.slice(2)
-  const fixTamagui = args.includes('--fix-tamagui')
+  const fixGui = args.includes('--fix-gui')
   const fixAll = args.includes('--fix')
 
   console.info('Analyzing package dependencies...\n')
@@ -521,7 +521,7 @@ async function main() {
 
     // Exit with code 1 since there are still missing dependencies
     process.exit(1)
-  } else if (fixTamagui) {
+  } else if (fixGui) {
     console.info('Fixing @hanzo/gui-* dependencies...\n')
 
     await pMap(
@@ -529,7 +529,7 @@ async function main() {
       async (report) => {
         const pkg = packages.find((p) => p.name === report.packageName)
         if (pkg) {
-          await fixTamaguiDependencies(pkg, report)
+          await fixGuiDependencies(pkg, report)
         }
       },
       { concurrency: 3 }
@@ -592,9 +592,9 @@ async function main() {
     'Note: This may include false positives for built-in modules, type-only imports, or monorepo packages.'
   )
 
-  if (!fixTamagui && !fixAll) {
+  if (!fixGui && !fixAll) {
     console.info(
-      '\nUse --fix-tamagui to automatically add missing @hanzo/gui-* dependencies'
+      '\nUse --fix-gui to automatically add missing @hanzo/gui-* dependencies'
     )
     console.info('Use --fix to automatically fix all dependencies')
     // Exit with code 1 to indicate missing dependencies were found

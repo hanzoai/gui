@@ -1,9 +1,9 @@
 ---
-title: Tamagui Props
+title: Hanzo GUI Props
 description: All the base props
 ---
 
-Tamagui supports a superset of the React Native props. Start with:
+Hanzo GUI supports a superset of the React Native props. Start with:
 
 - [View](https://reactnative.dev/docs/view-style-props), or
 - [Text](https://reactnative.dev/docs/text-style-props)
@@ -11,11 +11,11 @@ Tamagui supports a superset of the React Native props. Start with:
 From there, we add [style props](/docs/intro/styles) directly onto the same
 object.
 
-Finally, there are a few non-style props Tamagui adds:
+Finally, there are a few non-style props Hanzo GUI adds:
 
 ## Event Props
 
-All Tamagui View-based components have Pressable-like functionality built in. You don't need to wrap in `Pressable` or `TouchableOpacity` - add event handlers directly:
+All Hanzo GUI View-based components have Pressable-like functionality built in. You don't need to wrap in `Pressable` or `TouchableOpacity` - add event handlers directly:
 
 ```tsx
 <View
@@ -202,7 +202,7 @@ Use these events alongside style states like `pressStyle`, `hoverStyle`, and `fo
       type: 'string',
       description: (
         <span>
-          Apply a transition animation as defined in your createTamagui configuration. See the{' '}
+          Apply a transition animation as defined in your createGui configuration. See the{' '}
           <a href="/docs/core/animations">Animations documentation</a> for more details on configuring animation drivers.
         </span>
       ),
@@ -323,11 +323,11 @@ Use these events alongside style states like `pressStyle`, `hoverStyle`, and `fo
       name: 'space',
       required: false,
       deprecated: true,
-      type: "boolean | string | TamaguiConfig['space']",
+      type: "boolean | string | GuiConfig['space']",
       description: (
         <span>
           Use gap instead -
-          Spacing is built into Tamagui and can accept a number or Token.space value. This will
+          Spacing is built into Hanzo GUI and can accept a number or Token.space value. This will
           filter out any nullish child elements and insert a spacer components between the remaining
           elements.
         </span>
@@ -353,7 +353,7 @@ Use these events alongside style states like `pressStyle`, `hoverStyle`, and `fo
       type: `boolean | 'verbose' | 'break'`,
       description: (
         <span>
-          When set Tamagui will output a variety of helpful information on how it parsed and
+          When set Hanzo GUI will output a variety of helpful information on how it parsed and
           applied styling. Verbose will output more information, and break will hit a debugger at
           the start of render in development mode.
         </span>
@@ -410,7 +410,7 @@ Use these events alongside style states like `pressStyle`, `hoverStyle`, and `fo
       type: `boolean | 'except-style' | 'except-style-web' | 'web'`,
       description: (
         <span>
-          When true, Tamagui expects a single child element. Instead of rendering its own element, it will pass all props to that child, merging together any event handling props. When "except-style", the same behavior except Tamagui won't pass styles down from the parent, only non-style props.
+          When true, Hanzo GUI expects a single child element. Instead of rendering its own element, it will pass all props to that child, merging together any event handling props. When "except-style", the same behavior except Hanzo GUI won't pass styles down from the parent, only non-style props.
         </span>
       ),
     },
@@ -431,7 +431,7 @@ Use these events alongside style states like `pressStyle`, `hoverStyle`, and `fo
 
 ## Event Handlers
 
-Tamagui supports all React Native events on all platforms. On web, we also support all standard DOM event handlers:
+Hanzo GUI supports all React Native events on all platforms. On web, we also support all standard DOM event handlers:
 
 ### Cross-Platform Events
 

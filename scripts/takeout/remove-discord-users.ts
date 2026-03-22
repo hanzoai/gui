@@ -16,7 +16,7 @@ const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN
 
 // Discord IDs from features/discord/helpers.ts
 const TAKEOUT_ROLE_ID = '1131082605052301403'
-const TAMAGUI_DISCORD_GUILD_ID = '909986013848412191'
+const HANZO_GUI_DISCORD_GUILD_ID = '909986013848412191'
 const DELAY_MS = 1000 // Rate limiting - 1 second between removals
 
 if (!DISCORD_BOT_TOKEN) {
@@ -52,7 +52,7 @@ async function removeRoleFromUser(
 
   try {
     await discordClient.api.guilds.removeRoleFromMember(
-      TAMAGUI_DISCORD_GUILD_ID,
+      HANZO_GUI_DISCORD_GUILD_ID,
       userId,
       TAKEOUT_ROLE_ID
     )

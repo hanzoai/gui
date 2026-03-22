@@ -6,7 +6,7 @@ import {
   getDiscordClient,
   TAKEOUT_GENERAL_CHANNEL,
   TAKEOUT_ROLE_ID,
-  TAMAGUI_DISCORD_GUILD_ID,
+  HANZO_GUI_DISCORD_GUILD_ID,
 } from '~/features/discord/helpers'
 import { ensureSubscription } from '../../../helpers/ensureSubscription'
 
@@ -36,7 +36,7 @@ export default apiRoute(async (req) => {
   }
 
   /**
-   * Try to get team subscription to get the total_seats for Tamagui Pro Team Seats plan.
+   * Try to get team subscription to get the total_seats for Hanzo GUI Pro Team Seats plan.
    * In such case, the user should have more Discord seats given by the team subscription.
    *
    * TODO: Ideally, each team seat user would have their own pool of Discord seats.
@@ -115,7 +115,7 @@ export default apiRoute(async (req) => {
 
   if (hasDiscordPrivateChannels && !discordChannelId) {
     // Pro users get access to the general channel
-    const channels = await discordClient.api.guilds.getChannels(TAMAGUI_DISCORD_GUILD_ID)
+    const channels = await discordClient.api.guilds.getChannels(HANZO_GUI_DISCORD_GUILD_ID)
     const generalChannel = channels.find((c: any) => c.name === TAKEOUT_GENERAL_CHANNEL)
 
     if (generalChannel) {
@@ -131,7 +131,7 @@ export default apiRoute(async (req) => {
     await Promise.allSettled(
       discordInvites.data.map((inv) =>
         discordClient.api.guilds.removeRoleFromMember(
-          TAMAGUI_DISCORD_GUILD_ID,
+          HANZO_GUI_DISCORD_GUILD_ID,
           inv.discord_user_id,
           TAKEOUT_ROLE_ID
         )
@@ -184,7 +184,7 @@ export default apiRoute(async (req) => {
     })
 
     await discordClient.api.guilds.addRoleToMember(
-      TAMAGUI_DISCORD_GUILD_ID,
+      HANZO_GUI_DISCORD_GUILD_ID,
       userDiscordId,
       TAKEOUT_ROLE_ID
     )

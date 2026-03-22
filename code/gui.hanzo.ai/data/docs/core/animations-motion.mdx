@@ -16,13 +16,13 @@ yarn add @hanzo/gui-animations-motion motion
 
 ## Configuration
 
-Add your animations to your [Tamagui config](/docs/core/configuration):
+Add your animations to your [Gui config](/docs/core/configuration):
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-motion'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     '75ms': { duration: 75 },
     '100ms': { duration: 100 },
@@ -93,7 +93,7 @@ internally.
 
 ### Zero Re-renders
 
-The Motion driver now works with Tamagui to bypasses all internal style changes
+The Motion driver now works with Hanzo GUI to bypasses all internal style changes
 to instead directly hand off directly to Motion.
 
 ### WAAPI Performance

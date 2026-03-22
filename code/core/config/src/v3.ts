@@ -1,6 +1,6 @@
 import { tokens, themes as themesIn } from '@hanzo/gui-themes/v3-themes'
 import { animations } from './v3-animations'
-import type { CreateTamaguiProps } from '@hanzo/gui-web'
+import type { CreateGuiProps } from '@hanzo/gui-web'
 
 import { fonts } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'
@@ -116,4 +116,4 @@ export const config = {
     fastSchemeChange: true,
     shouldAddPrefersColorThemes: true,
   },
-} satisfies CreateTamaguiProps
+} satisfies CreateGuiProps

@@ -19,7 +19,7 @@ The v2 Input uses web-standard HTML APIs as the primary interface, with automati
 
 ## Installation
 
-Input is already installed in `tamagui`, or you can install it independently:
+Input is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-input
@@ -156,7 +156,7 @@ For handling form submission on enter:
 
 ## Styling
 
-Input accepts all Tamagui style props and supports the `size` prop for consistent scaling:
+Input accepts all Hanzo GUI style props and supports the `size` prop for consistent scaling:
 
 ```tsx
 <Input
@@ -259,7 +259,7 @@ The v1 props still work but are deprecated. We recommend updating to the web-sta
 
 ### Input Props
 
-Accepts all HTML `<input>` attributes plus Tamagui style props.
+Accepts all HTML `<input>` attributes plus Hanzo GUI style props.
 
 <PropsTable
   data={[
@@ -285,13 +285,13 @@ Accepts all HTML `<input>` attributes plus Tamagui style props.
       name: 'placeholderTextColor',
       required: false,
       type: 'ColorTokens',
-      description: 'Color of placeholder text. Accepts Tamagui color tokens.',
+      description: 'Color of placeholder text. Accepts Hanzo GUI color tokens.',
     },
     {
       name: 'selectionColor',
       required: false,
       type: 'ColorTokens',
-      description: 'Color of text selection. Accepts Tamagui color tokens.',
+      description: 'Color of text selection. Accepts Hanzo GUI color tokens.',
     },
     {
       name: 'onSubmitEditing',

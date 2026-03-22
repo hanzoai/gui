@@ -1,7 +1,7 @@
-import type { TamaguiOptions } from '@hanzo/gui-static'
+import type { GuiOptions } from '@hanzo/gui-static'
 import type { LoaderContext } from 'webpack'
 
-export default function loader(this: LoaderContext<TamaguiOptions>) {
+export default function loader(this: LoaderContext<GuiOptions>) {
   this.async()
   const options = { ...this.getOptions() }
   let out = Buffer.from(options.cssData, 'base64').toString('utf-8')

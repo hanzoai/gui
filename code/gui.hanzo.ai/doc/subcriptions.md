@@ -1,8 +1,8 @@
-# 📋 Tamagui Subscription Documentation
+# 📋 Hanzo GUI Subscription Documentation
 
 ## Overview
 
-This document provides a comprehensive guide to the Tamagui subscription system, covering all subscription plans, database architecture, payment flows, and implementation details.
+This document provides a comprehensive guide to the Hanzo GUI subscription system, covering all subscription plans, database architecture, payment flows, and implementation details.
 
 ## 1. 💳 Current Subscription Plans
 
@@ -416,4 +416,4 @@ This tool allows developers to impersonate any user for testing subscription flo
 
 - **`/api/stripe/webhook`**: Handle all Stripe webhook events for subscription lifecycle
 
-This documentation provides a complete overview of the Tamagui subscription system architecture and implementation details for team members to understand and maintain the codebase effectively.
+This documentation provides a complete overview of the Hanzo GUI subscription system architecture and implementation details for team members to understand and maintain the codebase effectively.

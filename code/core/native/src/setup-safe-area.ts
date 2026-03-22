@@ -1,5 +1,5 @@
 /**
- * Setup react-native-safe-area-context for Tamagui native components.
+ * Setup react-native-safe-area-context for Hanzo GUI native components.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -9,7 +9,7 @@
  * ```
  *
  * This automatically detects and configures react-native-safe-area-context
- * for use with Tamagui components that need safe area awareness.
+ * for use with Hanzo GUI components that need safe area awareness.
  *
  * Note: You must still wrap your app with SafeAreaProvider yourself:
  * ```tsx
@@ -31,10 +31,10 @@ function setup() {
   }
 
   const g = globalThis as any
-  if (g.__tamagui_native_safe_area_setup_complete) {
+  if (g.__gui_native_safe_area_setup_complete) {
     return
   }
-  g.__tamagui_native_safe_area_setup_complete = true
+  g.__gui_native_safe_area_setup_complete = true
 
   try {
     const safeAreaContext = require('react-native-safe-area-context')

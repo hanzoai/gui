@@ -9,8 +9,8 @@ export function getOppositeScheme(scheme: string) {
  * "TypeError: expected dynamic type 'int/double/bool/string', but had type 'object'"
  *
  * See: https://reactnative.dev/docs/dynamiccolorios
- * See: https://github.com/tamagui/tamagui/issues/3096
- * See: https://github.com/tamagui/tamagui/issues/2980
+ * See: https://github.com/hanzoai/gui/issues/3096
+ * See: https://github.com/hanzoai/gui/issues/2980
  */
 const colorStyleKeys: Record<string, boolean> = {
   backgroundColor: true,

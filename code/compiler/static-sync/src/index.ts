@@ -1,7 +1,7 @@
 /**
  * @hanzo/gui-static-sync
  *
- * Synchronous API for Tamagui static extraction using synckit.
+ * Synchronous API for Hanzo GUI static extraction using synckit.
  * Wraps @hanzo/gui-static's worker implementation to provide sync APIs
  * required by Babel plugins which cannot use async functions.
  *
@@ -9,12 +9,12 @@
  */
 
 import type { BabelFileResult } from '@babel/core'
-import type { TamaguiOptions } from '@hanzo/gui-types'
+import type { GuiOptions } from '@hanzo/gui-types'
 import { createSyncFn } from 'synckit'
 import { fileURLToPath } from 'node:url'
 
-export type { ExtractedResponse, TamaguiProjectInfo } from '@hanzo/gui-static'
-export type { TamaguiOptions } from '@hanzo/gui-types'
+export type { ExtractedResponse, GuiProjectInfo } from '@hanzo/gui-static'
+export type { GuiOptions } from '@hanzo/gui-types'
 
 // Resolve worker path - works for both CJS and ESM
 const getWorkerPath = () => {
@@ -41,12 +41,12 @@ export const getPragmaOptions = (props: { source: string; path: string }) => {
 }
 
 /**
- * Extract Tamagui components to className-based CSS for web (synchronous)
+ * Extract Hanzo GUI components to className-based CSS for web (synchronous)
  */
 export function extractToClassNamesSync(params: {
   source: string | Buffer
   sourcePath?: string
-  options: TamaguiOptions
+  options: GuiOptions
   shouldPrintDebug?: boolean | 'verbose'
 }): any {
   const { source, sourcePath = '', options, shouldPrintDebug = false } = params
@@ -67,7 +67,7 @@ export function extractToClassNamesSync(params: {
 
   if (!result.success) {
     const errorMessage = [
-      `[tamagui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
+      `[gui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',
@@ -82,12 +82,12 @@ export function extractToClassNamesSync(params: {
 }
 
 /**
- * Extract Tamagui components to React Native StyleSheet format (synchronous)
+ * Extract Hanzo GUI components to React Native StyleSheet format (synchronous)
  */
 export function extractToNativeSync(
   sourceFileName: string,
   sourceCode: string,
-  options: TamaguiOptions
+  options: GuiOptions
 ): BabelFileResult {
   const task = {
     type: 'extractToNative',
@@ -100,7 +100,7 @@ export function extractToNativeSync(
 
   if (!result.success) {
     const errorMessage = [
-      `[tamagui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
+      `[gui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',

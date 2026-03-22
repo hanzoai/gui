@@ -62,7 +62,7 @@ export const useTint = (
   disableTintTheme: boolean
   name: string
   families: {
-    tamagui: string[]
+    gui: string[]
     xmas: string[]
     easter: string[]
     halloween: string[]

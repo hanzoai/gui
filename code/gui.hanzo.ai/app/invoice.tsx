@@ -8,7 +8,7 @@ export default function InvoicePage() {
       <YStack p={40}>
         <XStack justify="space-between" items="center">
           <H2>Invoice</H2>
-          <H2 color="$color9">Tamagui LLC</H2>
+          <H2 color="$color9">Gui LLC</H2>
         </XStack>
         <YStack mt={20}>
           <Text fontWeight="bold">Invoice number: FE9BF9FB-DRAFT</Text>
@@ -16,7 +16,7 @@ export default function InvoicePage() {
         </YStack>
         <XStack justify="space-between" mt={20}>
           <YStack width="48%">
-            <Text fontWeight="bold">Tamagui LLC</Text>
+            <Text fontWeight="bold">Gui LLC</Text>
             <Text>348 Awakea Rd</Text>
             <Text>Kailua, Hawaii 96734</Text>
             <Text>United States</Text>
@@ -159,7 +159,7 @@ export default function InvoicePage() {
 //       </YStack>
 //       <Container py="$6">
 //         <YStack gap="$6">
-//           <H1>Invoice: Tamagui</H1>
+//           <H1>Invoice: Gui</H1>
 
 //           <DT>
 //             <DT.Row>
@@ -184,7 +184,7 @@ export default function InvoicePage() {
 //             <H3>Company</H3>
 //             <DT.Row>
 //               <DT.Col bold>Name:</DT.Col>
-//               <DT.Col>Tamagui LLC</DT.Col>
+//               <DT.Col>Gui LLC</DT.Col>
 //             </DT.Row>
 //             <DT.Row>
 //               <DT.Col bold>Address:</DT.Col>
@@ -227,7 +227,7 @@ export default function InvoicePage() {
 //                       <Check />
 //                     </Checkbox.Indicator>
 //                   </Checkbox>
-//                   Tamagui Takeout
+//                   Hanzo GUI Takeout
 //                 </XStack>
 //                 <XStack gap="$2">
 //                   <Checkbox>
@@ -235,7 +235,7 @@ export default function InvoicePage() {
 //                       <Check />
 //                     </Checkbox.Indicator>
 //                   </Checkbox>
-//                   Tamagui Bento
+//                   Hanzo GUI Bento
 //                 </XStack>
 //               </DT.Col>
 //             </DT.Row>

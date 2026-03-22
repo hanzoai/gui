@@ -6,7 +6,7 @@ import {
   ListItem,
   Paragraph,
   Popover,
-  Separator as TamaguiSeparator,
+  Separator as GuiSeparator,
   styled,
   withStaticProperties,
 } from '@hanzo/gui'
@@ -27,7 +27,7 @@ const Title = styled(H6, {
   opacity: 0.5,
 })
 
-const Separator = styled(TamaguiSeparator, { width: '100%', py: '$1' })
+const Separator = styled(GuiSeparator, { width: '100%', py: '$1' })
 
 export const AddDropdown = withStaticProperties(
   function AddDropdown({ children, ...props }: PopoverProps) {

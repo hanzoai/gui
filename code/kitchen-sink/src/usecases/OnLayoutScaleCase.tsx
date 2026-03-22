@@ -15,9 +15,9 @@ import { Button, Square, Text, YStack } from '@hanzo/gui'
  * - getBoundingClientRect() returns width: 50, height: 50 (transformed)
  * - offsetWidth/offsetHeight return 100, 100 (pre-transform, expected)
  *
- * enable TAMAGUI_ONLAYOUT_PRETRANSFORM=1 to test the fix
+ * enable HANZO_GUI_ONLAYOUT_PRETRANSFORM=1 to test the fix
  *
- * see: https://github.com/tamagui/tamagui/pull/2329
+ * see: https://github.com/hanzoai/gui/pull/2329
  */
 export function OnLayoutScaleCase() {
   const [layoutWithoutScale, setLayoutWithoutScale] = useState<LayoutRectangle | null>(

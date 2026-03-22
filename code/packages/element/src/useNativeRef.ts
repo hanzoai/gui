@@ -1,7 +1,7 @@
 import { useComposedRefs } from '@hanzo/gui-compose-refs'
 import * as React from 'react'
 import type { TextInput } from 'react-native'
-import type { TamaguiNativeElement } from './types'
+import type { GuiNativeElement } from './types'
 
 /**
  * Creates a ref for native-only code that properly types to View.
@@ -14,7 +14,7 @@ import type { TamaguiNativeElement } from './types'
  * ```
  */
 export function useNativeRef(forwardedRef?: React.ForwardedRef<any>) {
-  const ref = React.useRef<TamaguiNativeElement>(null)
+  const ref = React.useRef<GuiNativeElement>(null)
   const composedRef = useComposedRefs(ref, forwardedRef as any)
   return { ref, composedRef }
 }

@@ -26,9 +26,9 @@
       "types": "./types/checkDeps.d.ts",
       "default": "./dist/checkDeps.cjs"
     },
-    "./loadTamagui": {
-      "types": "./types/extractor/loadTamagui.d.ts",
-      "default": "./dist/extractor/loadTamagui.cjs"
+    "./loadGui": {
+      "types": "./types/extractor/loadGui.d.ts",
+      "default": "./dist/extractor/loadGui.cjs"
     }
   },
   "publishConfig": {

@@ -6,7 +6,7 @@ import {
   Text,
   StyleObjectProperty,
   StyleObjectValue,
-  createTamagui,
+  createGui,
   styled,
   getConfig,
 } from '../web/src'
@@ -25,7 +25,7 @@ let lightTheme: any
 
 beforeAll(() => {
   // @ts-ignore
-  createTamagui(config.getDefaultTamaguiConfig())
+  createGui(config.getDefaultGuiConfig())
   lightTheme = getConfig().themes.light
 })
 

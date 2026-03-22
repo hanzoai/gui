@@ -112,7 +112,7 @@ export const ChatScreen = () => {
                   <ChatMessage
                     message={message.content}
                     isUser={authUserId === message.userId}
-                    avatarSrc={`https://i.pravatar.cc/300?u=tamagui-user-${message.userId}`}
+                    avatarSrc={`https://i.pravatar.cc/300?u=gui-user-${message.userId}`}
                     includeAvatar={isLastFromUser}
                   />
                   {/* this is nice to separate diff groups but commenting out for now: */}

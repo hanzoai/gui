@@ -1,30 +1,30 @@
 process.env.HANZO_GUI_TARGET = 'native'
 
-import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
-import { TamaguiProvider, _withStableStyle, createTamagui } from '@hanzo/gui-core'
+import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
+import { GuiProvider, _withStableStyle, createGui } from '@hanzo/gui-core'
 import { render } from '@testing-library/react-native'
 import { View } from 'react-native'
 import { describe, expect, test, vi } from 'vitest'
 
-const defaultConfig = getDefaultTamaguiConfig('native')
-const config = createTamagui(defaultConfig)
+const defaultConfig = getDefaultGuiConfig('native')
+const config = createGui(defaultConfig)
 
 describe('_withStableStyle', () => {
-  test('renders correctly with TamaguiProvider', () => {
+  test('renders correctly with GuiProvider', () => {
     const Wrapped = _withStableStyle(View, (theme) => [
       { width: 100, height: 100, backgroundColor: theme.background?.get?.() ?? 'red' },
     ])
 
     const tree = render(
-      <TamaguiProvider defaultTheme="light" config={config}>
+      <GuiProvider defaultTheme="light" config={config}>
         <Wrapped />
-      </TamaguiProvider>
+      </GuiProvider>
     )
 
     expect(tree.toJSON()).toBeTruthy()
   })
 
-  test('does not crash without TamaguiProvider (graceful fallback)', () => {
+  test('does not crash without GuiProvider (graceful fallback)', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const Wrapped = _withStableStyle(View, () => [{ width: 50, height: 50 }])
@@ -36,7 +36,7 @@ describe('_withStableStyle', () => {
     warnSpy.mockRestore()
   })
 
-  test('theme values resolve correctly under TamaguiProvider', () => {
+  test('theme values resolve correctly under GuiProvider', () => {
     let resolvedBg: any = null
 
     const Wrapped = _withStableStyle(View, (theme) => {
@@ -45,9 +45,9 @@ describe('_withStableStyle', () => {
     })
 
     render(
-      <TamaguiProvider defaultTheme="light" config={config}>
+      <GuiProvider defaultTheme="light" config={config}>
         <Wrapped />
-      </TamaguiProvider>
+      </GuiProvider>
     )
 
     expect(resolvedBg).toBeTruthy()
@@ -62,9 +62,9 @@ describe('_withStableStyle', () => {
     })
 
     render(
-      <TamaguiProvider defaultTheme="light" config={config}>
+      <GuiProvider defaultTheme="light" config={config}>
         <Wrapped _expressions={[true, false, 42]} />
-      </TamaguiProvider>
+      </GuiProvider>
     )
 
     expect(receivedExpressions).toEqual([true, false, 42])

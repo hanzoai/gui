@@ -1,13 +1,13 @@
 ---
-title: Developing with Tamagui
+title: Developing with Hanzo GUI
 description: Tips and tricks
 ---
 
-Tamagui includes many helpful tools for debugging UI.
+Hanzo GUI includes many helpful tools for debugging UI.
 
 ### Debugging
 
-Tamagui has several ways of giving you more insight into what's happening at
+Hanzo GUI has several ways of giving you more insight into what's happening at
 compile-time.
 
 #### Visualizer
@@ -44,7 +44,7 @@ sure to check the built file in `dist/jsx`.
 
 #### Debug Prop
 
-Adding `debug` to any Tamagui component outputs detailed information about
+Adding `debug` to any Hanzo GUI component outputs detailed information about
 what's happening at runtime. Use it like so:
 
 ```tsx
@@ -62,20 +62,20 @@ information.
 
 #### DEBUG Environment Variable
 
-If you set `DEBUG=tamagui` before your build command, you get the full
+If you set `DEBUG=gui` before your build command, you get the full
 debug output of every file built. This is useful for seeing everything that's
 happening across every file and is especially helpful for diagnosing production
 issues.
 
 ### Runtime introspection
 
-In development mode, Tamagui sets the variable `Tamagui` onto `globalThis` with
+In development mode, Hanzo GUI sets the variable `Gui` onto `globalThis` with
 a lot of helpful internals, including your entire parsed config from
-`tamagui.config.ts`.
+`gui.config.ts`.
 
 Beyond your config, you have:
 
-- **allSelectors**: All the selectors inserted by Tamagui (before runtime).
+- **allSelectors**: All the selectors inserted by Hanzo GUI (before runtime).
 
 #### Inspecting Components
 
@@ -96,7 +96,7 @@ console.log(Circle.staticConfig) // lots of helpful information
 
 ### Classes generated
 
-Tamagui generates helpful CSS classes. For components created with `styled()`
+Hanzo GUI generates helpful CSS classes. For components created with `styled()`
 where a `name` is set like this:
 
 ```tsx
@@ -106,8 +106,8 @@ const MyButton = styled(View, {
 })
 ```
 
-Tamagui adds the classname `is_MyButton`. This is a useful escape hatch for
-attaching CSS to any extra component. All the default Tamagui components have
+Hanzo GUI adds the classname `is_MyButton`. This is a useful escape hatch for
+attaching CSS to any extra component. All the default Hanzo GUI components have
 their name set.
 
 For components that extend a Text-based component, a further classname is set of

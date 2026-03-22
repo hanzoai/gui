@@ -10,19 +10,19 @@ export async function generatePrompt(options: GeneratePromptOptions) {
   const { paths, output } = options
 
   // Regenerate the config first
-  const { loadTamagui } = require('@hanzo/gui-static/loadTamagui')
+  const { loadGui } = require('@hanzo/gui-static/loadGui')
   process.env.HANZO_GUI_KEEP_THEMES = '1'
-  await loadTamagui({
-    ...options.tamaguiOptions,
+  await loadGui({
+    ...options.guiOptions,
     platform: 'web',
   })
 
   // Read the generated config
-  const configPath = join(paths.dotDir, 'tamagui.config.json')
+  const configPath = join(paths.dotDir, 'gui.config.json')
 
   if (!FS.existsSync(configPath)) {
     throw new Error(
-      `Config file not found at ${configPath}. Please run 'tamagui generate' first.`
+      `Config file not found at ${configPath}. Please run 'gui generate' first.`
     )
   }
 
@@ -32,7 +32,7 @@ export async function generatePrompt(options: GeneratePromptOptions) {
   const markdown = generateMarkdown(config)
 
   // Write to file
-  const outputPath = output || join(process.cwd(), 'tamagui-prompt.md')
+  const outputPath = output || join(process.cwd(), 'gui-prompt.md')
   await FS.writeFile(outputPath, markdown, 'utf-8')
 
   console.info(`\n  ✓ Generated prompt file at ${outputPath}\n`)
@@ -42,13 +42,13 @@ function generateMarkdown(config: any): string {
   const sections: string[] = []
 
   // Header
-  sections.push('# Tamagui Configuration\n\n')
+  sections.push('# Hanzo GUI Configuration\n\n')
   sections.push(
-    'This document provides an overview of the Tamagui configuration for this project.\n\n'
+    'This document provides an overview of the Hanzo GUI configuration for this project.\n\n'
   )
 
   // Get shorthands for use throughout the document
-  const shorthands = config.tamaguiConfig?.shorthands || {}
+  const shorthands = config.guiConfig?.shorthands || {}
   const reverseShorthands: Record<string, string> = {}
   for (const [short, full] of Object.entries(shorthands)) {
     reverseShorthands[full as string] = short
@@ -56,7 +56,7 @@ function generateMarkdown(config: any): string {
 
   // Helper function to get the correct property name based on settings
   const getPropName = (fullProp: string): string => {
-    const settings = config.tamaguiConfig?.settings || {}
+    const settings = config.guiConfig?.settings || {}
     if (settings.onlyAllowShorthands && reverseShorthands[fullProp]) {
       return reverseShorthands[fullProp]
     }
@@ -64,11 +64,11 @@ function generateMarkdown(config: any): string {
   }
 
   // Settings (moved to top)
-  const settings = config.tamaguiConfig?.settings || {}
+  const settings = config.guiConfig?.settings || {}
   if (Object.keys(settings).length > 0) {
     sections.push('## Configuration Settings\n\n')
     sections.push(
-      '**IMPORTANT:** These settings affect how you write Tamagui code in this project.\n\n'
+      '**IMPORTANT:** These settings affect how you write Hanzo GUI code in this project.\n\n'
     )
 
     if (settings.defaultFont) {
@@ -121,7 +121,7 @@ function generateMarkdown(config: any): string {
     }
 
     // Check for strictness settings (common patterns)
-    const configString = JSON.stringify(config.tamaguiConfig)
+    const configString = JSON.stringify(config.guiConfig)
     if (configString.includes('semi-strict-web')) {
       sections.push('### Mode: `semi-strict-web`\n\n')
       sections.push('This configuration uses semi-strict-web mode, which:\n')
@@ -209,7 +209,7 @@ function generateMarkdown(config: any): string {
   // Themes
   sections.push('## Themes\n\n')
 
-  const themes = config.tamaguiConfig?.themes || {}
+  const themes = config.guiConfig?.themes || {}
   const themeNames = Object.keys(themes).sort()
 
   // Parse and hierarchically organize themes
@@ -364,7 +364,7 @@ function generateMarkdown(config: any): string {
     'Tokens are design system values that can be referenced using the `$` prefix.\n\n'
   )
 
-  const tokens = config.tamaguiConfig?.tokens || {}
+  const tokens = config.guiConfig?.tokens || {}
 
   // Space tokens
   if (tokens.space) {
@@ -478,11 +478,11 @@ function generateMarkdown(config: any): string {
   sections.push('```\n\n')
 
   // Media queries
-  if (config.tamaguiConfig?.media) {
+  if (config.guiConfig?.media) {
     sections.push('## Media Queries\n\n')
     sections.push('Available responsive breakpoints:\n\n')
 
-    const media = config.tamaguiConfig.media
+    const media = config.guiConfig.media
     const mediaEntries = Object.entries(media).sort(([a], [b]) => a.localeCompare(b))
 
     for (const [name, query] of mediaEntries) {
@@ -516,22 +516,22 @@ function generateMarkdown(config: any): string {
   }
 
   // Fonts
-  if (config.tamaguiConfig?.fonts) {
+  if (config.guiConfig?.fonts) {
     sections.push('## Fonts\n\n')
     sections.push('Available font families:\n\n')
 
-    const fonts = config.tamaguiConfig.fonts
+    const fonts = config.guiConfig.fonts
     const fontNames = Object.keys(fonts).sort()
     sections.push(fontNames.map((name) => `- ${name}`).join('\n'))
     sections.push('\n\n')
   }
 
   // Animations
-  if (config.tamaguiConfig?.animations) {
+  if (config.guiConfig?.animations) {
     sections.push('## Animations\n\n')
     sections.push('Available animation presets:\n\n')
 
-    const animations = config.tamaguiConfig.animations
+    const animations = config.guiConfig.animations
     if (animations.animations) {
       const animationNames = Object.keys(animations.animations).sort()
       sections.push(animationNames.map((name) => `- ${name}`).join('\n'))

@@ -26,7 +26,7 @@ demoName: Slider
 
 ## Installation
 
-Slider is already installed in `tamagui`, or you can install it independently:
+Slider is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-slider
@@ -70,20 +70,20 @@ export default () => (
 
 ## Vertical Slider on iOS
 
-When using a vertical slider on iOS, you need to pass safe area insets to `TamaguiProvider` for proper pointer position calculation. Without this, the slider thumb may not track your finger correctly due to iOS safe area offsets.
+When using a vertical slider on iOS, you need to pass safe area insets to `GuiProvider` for proper pointer position calculation. Without this, the slider thumb may not track your finger correctly due to iOS safe area offsets.
 
 ```tsx
-import { TamaguiProvider } from '@hanzo/gui'
+import { GuiProvider } from '@hanzo/gui'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { config } from './tamagui.config'
+import { config } from './gui.config'
 
 function App() {
   const insets = useSafeAreaInsets()
 
   return (
-    <TamaguiProvider config={config} insets={insets}>
+    <GuiProvider config={config} insets={insets}>
       {/* Your app content */}
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 ```

@@ -1,5 +1,5 @@
 /**
- * Setup burnt for Tamagui native toasts.
+ * Setup burnt for Hanzo GUI native toasts.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -16,8 +16,8 @@ import { getBurnt } from './burntState'
 
 function setup(): void {
   const g = globalThis as any
-  if (g.__tamagui_native_burnt_setup) return
-  g.__tamagui_native_burnt_setup = true
+  if (g.__gui_native_burnt_setup) return
+  g.__gui_native_burnt_setup = true
 
   try {
     const Burnt = require('burnt') as typeof import('burnt')

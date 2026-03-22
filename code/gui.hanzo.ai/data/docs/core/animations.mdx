@@ -22,7 +22,7 @@ description: Swap out animation drivers per-platform or at runtime
   ]}
 />
 
-Add animations to Tamagui with an animation driver. Animation drivers are designed to be swappable, so you can use lightweight CSS animations or other web-focused animation libraries on the web, while using larger but more advanced libraries like Reanimated on native - all without having to change a line outside of configuration.
+Add animations to Hanzo GUI with an animation driver. Animation drivers are designed to be swappable, so you can use lightweight CSS animations or other web-focused animation libraries on the web, while using larger but more advanced libraries like Reanimated on native - all without having to change a line outside of configuration.
 
 For this guide, we'll use the React Native driver as an example, but you can choose from several [Animation Drivers](/docs/core/animation-drivers). For mount and unmount animations, see [AnimatePresence](/docs/core/animate-presence).
 
@@ -32,13 +32,13 @@ For this guide, we'll use the React Native driver as an example, but you can cho
 yarn add @hanzo/gui-animations-react-native
 ```
 
-Then add it to your [Tamagui config](/docs/core/configuration):
+Then add it to your [Gui config](/docs/core/configuration):
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-react-native'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     bouncy: {
       damping: 10,

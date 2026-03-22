@@ -1,19 +1,19 @@
 import '@testing-library/jest-dom'
 import { Input } from '@hanzo/gui-input'
-import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
-import { View, TamaguiProvider, createTamagui } from '@hanzo/gui-core'
+import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
+import { View, GuiProvider, createGui } from '@hanzo/gui-core'
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-const conf = createTamagui(getDefaultTamaguiConfig())
+const conf = createGui(getDefaultGuiConfig())
 
 function InputTest(props: React.ComponentProps<typeof Input>) {
   return (
-    <TamaguiProvider config={conf} defaultTheme="light">
+    <GuiProvider config={conf} defaultTheme="light">
       <View>
         <Input {...props} />
       </View>
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 

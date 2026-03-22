@@ -1,6 +1,6 @@
 /**
  * Test case for issue #1859: Select not working after remount
- * https://github.com/tamagui/tamagui/issues/1859
+ * https://github.com/hanzoai/gui/issues/1859
  */
 
 import { Check, ChevronDown } from '@hanzo/gui-lucide-icons-2'

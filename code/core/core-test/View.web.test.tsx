@@ -1,22 +1,22 @@
 process.env.HANZO_GUI_TARGET = 'web'
 
-import { getDefaultTamaguiConfig } from '@hanzo/gui-config-default'
+import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
 import type { ViewProps } from '@hanzo/gui-core'
-import { View, TamaguiProvider, createTamagui } from '@hanzo/gui-core'
+import { View, GuiProvider, createGui } from '@hanzo/gui-core'
 
-const conf = createTamagui(getDefaultTamaguiConfig())
+const conf = createGui(getDefaultGuiConfig())
 
 const TestViewRenders = ({
   renderCount,
   ...props
 }: ViewProps & { renderCount: { current: number } }) => {
   return (
-    <TamaguiProvider config={conf} defaultTheme="light">
+    <GuiProvider config={conf} defaultTheme="light">
       <View data-test-renders={renderCount} {...props} />
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 

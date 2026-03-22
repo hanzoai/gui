@@ -6,7 +6,7 @@ name: native
 
 # Native Integrations
 
-Tamagui components work great out of the box, but several offer optional native
+Hanzo GUI components work great out of the box, but several offer optional native
 integrations for improved performance and platform-native UX. All native
 integrations are opt-in - components work without them, just with slightly
 different behavior.
@@ -14,7 +14,7 @@ different behavior.
 ## @hanzo/gui-native Package
 
 The `@hanzo/gui-native` package provides setup utilities for native integrations.
-Import the setup modules at your app's entry point, before any Tamagui imports.
+Import the setup modules at your app's entry point, before any Hanzo GUI imports.
 
 ```bash
 npm install @hanzo/gui-native
@@ -34,7 +34,7 @@ npm install react-native-teleport
 ```
 
 ```tsx
-// App.tsx - before any Tamagui imports
+// App.tsx - before any Hanzo GUI imports
 import '@hanzo/gui-native/setup-teleport'
 ```
 
@@ -53,7 +53,7 @@ npm install react-native-gesture-handler
 ```
 
 ```tsx
-// App.tsx - before any Tamagui imports
+// App.tsx - before any Hanzo GUI imports
 import '@hanzo/gui-native/setup-gesture-handler'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -79,7 +79,7 @@ npm install zeego @react-native-menu/menu react-native-ios-context-menu react-na
 ```
 
 ```tsx
-// App.tsx - before any Tamagui imports
+// App.tsx - before any Hanzo GUI imports
 import '@hanzo/gui-native/setup-zeego'
 ```
 
@@ -107,7 +107,7 @@ npm install burnt
 ```
 
 ```tsx
-// App.tsx - before any Tamagui imports
+// App.tsx - before any Hanzo GUI imports
 import '@hanzo/gui-native/setup-burnt'
 ```
 
@@ -130,7 +130,7 @@ npm install expo-linear-gradient
 ```
 
 ```tsx
-// App.tsx - before any Tamagui imports
+// App.tsx - before any Hanzo GUI imports
 import '@hanzo/gui-native/setup-expo-linear-gradient'
 ```
 

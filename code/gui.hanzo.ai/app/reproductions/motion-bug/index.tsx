@@ -22,7 +22,7 @@ export default function MotionBugReproPage() {
   return (
     <>
       <HeadInfo
-        title="Motion Bug Reproduction - Tamagui"
+        title="Motion Bug Reproduction - Gui"
         description="Reproduction page for motion animation driver bug"
       />
 

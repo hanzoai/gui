@@ -1,4 +1,4 @@
-import { TamaguiLogo } from '@hanzo/gui-logo'
+import { GuiLogo } from '@hanzo/gui-logo'
 import { memo } from 'react'
 import { H4, Paragraph, Spacer, VisuallyHidden, XStack, YStack } from '@hanzo/gui'
 
@@ -22,10 +22,10 @@ export const Footer = memo(() => {
           >
             <Link href="/" aria-label="Homepage">
               <VisuallyHidden>homepage</VisuallyHidden>
-              <TamaguiLogo showWords downscale={1} />
+              <GuiLogo showWords downscale={1} />
             </Link>
             <Paragraph size="$3" opacity={0.25}>
-              built with Tamagui
+              built with Gui
             </Paragraph>
           </YStack>
 
@@ -94,7 +94,7 @@ export const Footer = memo(() => {
             </XStack>
             <XStack gap="$1" items="center">
               <ParagraphLink
-                href="https://www.figma.com/community/file/1326593766534421119/tamagui-v1-2-1"
+                href="https://www.figma.com/community/file/1326593766534421119/hanzo-gui-v1-2-1"
                 target="_blank"
               >
                 Figma
@@ -102,7 +102,7 @@ export const Footer = memo(() => {
               <ExternalIcon />
             </XStack>
             <XStack gap="$1" items="center">
-              <ParagraphLink href="https://x.com/tamagui_js" target="_blank">
+              <ParagraphLink href="https://x.com/hanzoai" target="_blank">
                 X
               </ParagraphLink>
               <ExternalIcon />

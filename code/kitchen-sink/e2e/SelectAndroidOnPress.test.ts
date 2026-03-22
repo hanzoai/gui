@@ -1,6 +1,6 @@
 /**
  * Detox E2E Test for issue #3436: Select onValueChange not firing on Android physical devices
- * https://github.com/tamagui/tamagui/issues/3436
+ * https://github.com/hanzoai/gui/issues/3436
  *
  * The bug: On physical Android devices, tapping a Select.Item does not trigger onValueChange.
  * Console logging shows onPressIn and onPressOut fire, but onPress never does.

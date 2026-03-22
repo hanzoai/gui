@@ -191,7 +191,7 @@ const HeroContents = memo(function HeroContents() {
           gap="$2"
           $xxs={{ items: 'center', flexWrap: 'wrap', gap: 0 }}
         >
-          <Link target="_blank" href="https://x.com/tamagui_js">
+          <Link target="_blank" href="https://x.com/hanzoai">
             <TooltipSimple placement="top" delay={0} restMs={25} label="X">
               <YStack p="$5" $sm={{ p: '$3' }} opacity={0.65} hoverStyle={{ opacity: 1 }}>
                 <VisuallyHidden>

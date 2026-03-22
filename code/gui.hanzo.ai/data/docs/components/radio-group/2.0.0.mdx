@@ -11,14 +11,14 @@ demoName: RadioGroup
 
 <Tabs id="type" defaultValue="styled">
 <Tabs.List>
-  <TooltipSimple label="With Tamagui's default styles">
+  <TooltipSimple label="With Hanzo GUI's default styles">
     <Tabs.Tab value="styled">Styled</Tabs.Tab>
   </TooltipSimple>
   <TooltipSimple label="No default styles, easy to customize">
     <Tabs.Tab value="unstyled">Unstyled</Tabs.Tab>
   </TooltipSimple>
-  <TooltipSimple label="No dependency on Tamagui's core">
-    <Tabs.Tab value="headless" label="No styles and no dependency on Tamagui's styling">Headless</Tabs.Tab>
+  <TooltipSimple label="No dependency on Hanzo GUI's core">
+    <Tabs.Tab value="headless" label="No styles and no dependency on Hanzo GUI's styling">Headless</Tabs.Tab>
   </TooltipSimple>
 </Tabs.List>
 
@@ -62,7 +62,7 @@ demoName: RadioGroup
 ## Installation
 
 <Tabs.Content value="styled">
-RadioGroup is already installed in `tamagui`, or you can install it independently:
+RadioGroup is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-radio-group
@@ -71,7 +71,7 @@ npm install @hanzo/gui-radio-group
 </Tabs.Content>
 
 <Tabs.Content value="unstyled">
-RadioGroup is already installed in `tamagui`, or you can install it independently:
+RadioGroup is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-radio-group
@@ -112,7 +112,7 @@ export default () => (
 
 <Tabs.Content value="unstyled">
 
-Use the `createRadioGroup` export to create a fully custom radio group that still uses the Tamagui styling system. You provide your own styled components and get back a fully functional radio group component.
+Use the `createRadioGroup` export to create a fully custom radio group that still uses the Hanzo GUI styling system. You provide your own styled components and get back a fully functional radio group component.
 
 ```tsx
 import { createRadioGroup, RadioGroupContext } from '@hanzo/gui-radio-group'
@@ -257,7 +257,7 @@ function App() {
 
 <Tabs.Content value="styled">
 
-RadioGroup extends Stack views inheriting all the [Tamagui standard props](/docs/intro/props), plus:
+RadioGroup extends Stack views inheriting all the [Gui standard props](/docs/intro/props), plus:
 
 </Tabs.Content>
 <Tabs.Content value="unstyled">
@@ -356,20 +356,20 @@ The `useRadioGroup` hook accepts these options:
       name: 'scaleSize',
       type: 'number',
       default: '0.5',
-      description: `Scale factor for the radio item size. Tamagui size tokens map to button heights, so you typically want smaller radio buttons.`,
+      description: `Scale factor for the radio item size. Hanzo GUI size tokens map to button heights, so you typically want smaller radio buttons.`,
     },
     {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, removes all default Tamagui styling.`,
+      description: `When true, removes all default Hanzo GUI styling.`,
     },
   ]}
 />
 
 ### RadioGroup.Indicator
 
-RadioGroup.Indicator appears only when the parent Item is checked. It extends [ThemeableStack](/docs/components/stacks#themeablestack), getting [Tamagui standard props](/docs/intro/props) adding:
+RadioGroup.Indicator appears only when the parent Item is checked. It extends [ThemeableStack](/docs/components/stacks#themeablestack), getting [Gui standard props](/docs/intro/props) adding:
 
 <PropsTable
   data={[
@@ -377,7 +377,7 @@ RadioGroup.Indicator appears only when the parent Item is checked. It extends [T
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
   ]}
 />

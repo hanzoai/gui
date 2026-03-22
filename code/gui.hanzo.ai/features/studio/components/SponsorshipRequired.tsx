@@ -8,9 +8,9 @@ export const SponsorshipRequired = () => {
     <ErrorContainer>
       <H2 text="center">This feature is only accessible for sponsors.</H2>
       <Paragraph text="center">
-        You are not a tamagui sponsor. Sponsor the project to access Studio.
+        You are not a hanzo-gui sponsor. Sponsor the project to access Studio.
       </Paragraph>
-      {/* <ButtonLink href="https://github.com/sponsors/natew">Sponsor Tamagui</ButtonLink> */}
+      {/* <ButtonLink href="https://github.com/sponsors/natew">Sponsor Gui</ButtonLink> */}
     </ErrorContainer>
   )
 }
@@ -23,7 +23,7 @@ export const SponsorshipTooLow = () => {
         You are a sponsor, but your tier doesn&apos;t include Studio access. Please get a
         tier that includes Studio.
       </Paragraph>
-      {/* <ButtonLink href="https://github.com/sponsors/natew">Sponsor Tamagui</ButtonLink> */}
+      {/* <ButtonLink href="https://github.com/sponsors/natew">Sponsor Gui</ButtonLink> */}
     </ErrorContainer>
   )
 }

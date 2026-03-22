@@ -105,7 +105,7 @@ export async function ensureAppInstalled(opts: {
 
   const appPath =
     process.env.DETOX_IOS_APP_PATH ||
-    'ios/build/Build/Products/Debug-iphonesimulator/tamaguikitchensink.app'
+    'ios/build/Build/Products/Debug-iphonesimulator/guikitchensink.app'
   const fullAppPath = join(projectRoot, appPath)
 
   if (!existsSync(fullAppPath)) {
@@ -302,7 +302,7 @@ export async function ensureIOSApp(config: string = 'ios.sim.debug'): Promise<vo
   // Check if app binary exists (use the path from detoxrc)
   const appPath =
     process.env.DETOX_IOS_APP_PATH ||
-    'ios/build/Build/Products/Debug-iphonesimulator/tamaguikitchensink.app'
+    'ios/build/Build/Products/Debug-iphonesimulator/guikitchensink.app'
   const fullAppPath = join(projectRoot, appPath)
   const appExists = existsSync(fullAppPath)
 
@@ -381,8 +381,8 @@ async function buildIOSApp(
     'ios',
     'Pods',
     'Target Support Files',
-    'Pods-tamaguikitchensink',
-    'Pods-tamaguikitchensink.debug.xcconfig'
+    'Pods-guikitchensink',
+    'Pods-guikitchensink.debug.xcconfig'
   )
   if (!existsSync(podConfigPath)) {
     console.info('Installing CocoaPods dependencies...')

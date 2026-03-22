@@ -20,14 +20,14 @@ demoName: Toast
     `Automatically closes`,
     `Pause closing on hover, focus, window blur and mobile touch`,
     `Supports closing via swipe gesture`,
-    `Easily animatable with Tamagui's animation drivers`,
+    `Easily animatable with Hanzo GUI's animation drivers`,
     `Native toasts included for Android, iOS and web (notification API)`,
   ]}
 />
 
 ## Installation
 
-Toast is included by default in `tamagui`. If you're using it standalone:
+Toast is included by default in `@hanzo/gui`. If you're using it standalone:
 
 ```bash
 yarn add @hanzo/gui-toast
@@ -42,7 +42,7 @@ yarn add burnt
 ```
 
 ```tsx
-// App.tsx - before any Tamagui imports
+// App.tsx - before any Hanzo GUI imports
 import '@hanzo/gui-native/setup-burnt'
 ```
 
@@ -162,13 +162,13 @@ The portal for toasts to be directed to. Should be used inside [ToastProvider](#
       name: 'portalToRoot',
       type: 'boolean | number',
       default: 'false',
-      description: `When true, uses a portal to render at the very top of the root TamaguiProvider.`,
+      description: `When true, uses a portal to render at the very top of the root GuiProvider.`,
     },
     {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />
@@ -268,7 +268,7 @@ Contains the Title, Description, Action and Close component. Should be used insi
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />
@@ -283,7 +283,7 @@ Should be used inside [Toast](#toast). Extends [SizableText](/docs/components/te
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />
@@ -298,7 +298,7 @@ Should be used inside [Toast](#toast). Extends [SizableText](/docs/components/te
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default tamagui styling.`,
+      description: `When true, remove all default gui styling.`,
     },
   ]}
 />

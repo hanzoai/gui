@@ -1,4 +1,4 @@
-import { withTamagui } from '@hanzo/gui-next-plugin'
+import { withGui } from '@hanzo/gui-next-plugin'
 
 Error.stackTraceLimit = Infinity
 
@@ -6,8 +6,8 @@ process.env.IGNORE_TS_CONFIG_PATHS = 'true'
 // process.env.HANZO_GUI_ENABLE_DYNAMIC_LOAD = '1'
 
 const plugins = [
-  withTamagui(
-    // see tamagui.build.ts for details
+  withGui(
+    // see gui.build.ts for details
   ),
   (config) => {
     return {
@@ -43,11 +43,11 @@ const plugins = [
   },
   (config) => {
     // for github pages
-    if (process.env.IS_TAMAGUI_PROD) {
+    if (process.env.IS_HANZO_GUI_PROD) {
       config.assetPrefix = 'https://gui.hanzo.ai'
     } else if (process.env.ON_GITHUB_PAGES) {
-      config.basePath = '/tamagui'
-      config.assetPrefix = '/tamagui/'
+      config.basePath = '/gui'
+      config.assetPrefix = '/gui/'
     }
     return config
   },

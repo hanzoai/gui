@@ -8,11 +8,11 @@ import { setupPage } from './test-utils'
  * - onLayout reports transformed dimensions (getBoundingClientRect behavior)
  * - a 200x200 element with scale(0.5) reports 100x100
  *
- * with __TAMAGUI_ONLAYOUT_PRETRANSFORM = true:
+ * with __HANZO_GUI_ONLAYOUT_PRETRANSFORM = true:
  * - onLayout should report pre-transform dimensions (matching RN behavior)
  * - a 200x200 element with scale(0.5) should report 200x200
  *
- * see: https://github.com/tamagui/tamagui/pull/2329
+ * see: https://github.com/hanzoai/gui/pull/2329
  */
 
 test.describe('onLayout with CSS scale', () => {
@@ -38,7 +38,7 @@ test.describe('onLayout with CSS scale', () => {
   }) => {
     // ensure flag is OFF
     await page.evaluate(() => {
-      ;(globalThis as any).__TAMAGUI_ONLAYOUT_PRETRANSFORM = false
+      ;(globalThis as any).__HANZO_GUI_ONLAYOUT_PRETRANSFORM = false
     })
 
     // trigger relayout to pick up the flag change
@@ -57,7 +57,7 @@ test.describe('onLayout with CSS scale', () => {
   }) => {
     // enable the flag
     await page.evaluate(() => {
-      ;(globalThis as any).__TAMAGUI_ONLAYOUT_PRETRANSFORM = true
+      ;(globalThis as any).__HANZO_GUI_ONLAYOUT_PRETRANSFORM = true
     })
 
     // trigger relayout to pick up the flag change
@@ -74,7 +74,7 @@ test.describe('onLayout with CSS scale', () => {
   test('both boxes report same dimensions with flag enabled', async ({ page }) => {
     // enable the flag
     await page.evaluate(() => {
-      ;(globalThis as any).__TAMAGUI_ONLAYOUT_PRETRANSFORM = true
+      ;(globalThis as any).__HANZO_GUI_ONLAYOUT_PRETRANSFORM = true
     })
 
     // trigger relayout

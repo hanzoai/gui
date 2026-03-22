@@ -15,10 +15,10 @@ Use RNGH for press events when `@hanzo/gui-native/setup-gesture-handler` has bee
 
 ### 1. `code/core/web/src/types.tsx`
 
-Add to `TamaguiComponentStateRef` (around line 535):
+Add to `GuiComponentStateRef` (around line 535):
 
 ```typescript
-export type TamaguiComponentStateRef = {
+export type GuiComponentStateRef = {
   // ... existing fields ...
   hasEverHadPressEvents?: boolean // <-- add this
 }
@@ -30,7 +30,7 @@ export type TamaguiComponentStateRef = {
 import React from 'react'
 import { composeEventHandlers } from '@hanzo/gui-helpers'
 import { getGestureHandler } from '@hanzo/gui-native'
-import type { TamaguiComponentStateRef } from './types'
+import type { GuiComponentStateRef } from './types'
 
 // web events not used on native
 export function getWebEvents() {
@@ -45,7 +45,7 @@ const dontComposePressabilityKeys: Record<string, boolean> = {
 export function usePressHandling(
   events: any,
   viewProps: any,
-  stateRef: { current: TamaguiComponentStateRef }
+  stateRef: { current: GuiComponentStateRef }
 ) {
   const hasPressEvents =
     events?.onPress || events?.onPressIn || events?.onPressOut || events?.onLongPress
@@ -94,7 +94,7 @@ export function usePressHandling(
 export function wrapWithGestureDetector(
   content: any,
   gesture: any,
-  stateRef: { current: TamaguiComponentStateRef }
+  stateRef: { current: GuiComponentStateRef }
 ) {
   const gh = getGestureHandler()
   const { GestureDetector, Gesture } = gh.state

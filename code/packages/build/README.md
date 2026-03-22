@@ -17,7 +17,7 @@ Some details on how it works:
 - strips bare imports that esbuild leaves behind, respecting the `sideEffects` field in package.json
 - outputs `.native.js` and regular `.js` files for all output files, so React Native always loads separate files from web. In the `native` specific files,
   - swc is sued to transform to es5
-  - `process.env.TAMAGUI_TARGET` is defined `native` (otherwise `web`)
+  - `process.env.HANZO_GUI_TARGET` is defined `native` (otherwise `web`)
 - on non-native files:
   - on web, imports of `react-native` are transformed to `react-native-web`
 
@@ -31,9 +31,9 @@ It assumes your package.json looks something like this:
   "module": "dist/esm",
   "type": "module",
   "scripts": {
-    "build": "tamagui-build",
-    "watch": "tamagui-build --watch",
-    "clean": "tamagui-build clean"
+    "build": "hanzo-gui-build",
+    "watch": "hanzo-gui-build --watch",
+    "clean": "hanzo-gui-build clean"
   },
   "exports": {
     "./package.json": "./package.json",
@@ -51,7 +51,7 @@ It assumes your package.json looks something like this:
   "devDependencies": {
     "@hanzo/gui-build": "latest"
   },
-  "tamagui": {
+  "@hanzo/gui": {
     "build": {
       "skipEnvToMeta": true,
       "bundle.native": "./src/index.ts",
@@ -67,10 +67,10 @@ It assumes your package.json looks something like this:
 
 ### Use
 
-- `tamagui-build` - builds `src` folder to `dist` and `types` folders
+- `hanzo-gui-build` - builds `src` folder to `dist` and `types` folders
   - normal builds clear `dist` and `types` first, so stale transformed files don't hang around
   - intermediary `.js` files are removed after `.mjs` / `.cjs` postprocessing, so published output stays lean
-  - `tamagui build .` second argument sets baseUrl to tsc
+  - `gui build .` second argument sets baseUrl to tsc
   - `--bundle-modules` - inline node_modules
   - `--declaration-root` - sets tsc flag `--declarationDir ./`
   - `--ignore-base-url` - if not set, tsc is passed `--baseUrl .`
@@ -78,7 +78,7 @@ It assumes your package.json looks something like this:
   - `--skip-native` - don't output native files
   - `--skip-sourcemaps` - don't output js or declaration sourcemaps
   - `--swap-exports` - swaps `exports.types` from `./src/*.ts` to `./types/*.d.ts` for publishing. if a command is given after `--`, runs it then swaps back. exit code is preserved.
-    - `tamagui-build --swap-exports` - build and swap, stays swapped (for manual publish)
-    - `tamagui-build --swap-exports -- npm publish` - build, swap, publish, swap back
-- `tamagui-build --watch` - watches for changes and does the above
-- `tamagui-build clean` - cleans dist, types, node_modules folders
+    - `hanzo-gui-build --swap-exports` - build and swap, stays swapped (for manual publish)
+    - `hanzo-gui-build --swap-exports -- npm publish` - build, swap, publish, swap back
+- `hanzo-gui-build --watch` - watches for changes and does the above
+- `hanzo-gui-build clean` - cleans dist, types, node_modules folders

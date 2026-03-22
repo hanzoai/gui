@@ -4,7 +4,7 @@ import type { CLIResolvedOptions } from '@hanzo/gui-types'
 import fs from 'fs-extra'
 import { Project } from 'ts-morph'
 
-import { loadTamagui } from './utils'
+import { loadGui } from './utils'
 
 export async function generateTypes(options: CLIResolvedOptions) {
   const types = await getTypes(options)
@@ -14,13 +14,13 @@ export async function generateTypes(options: CLIResolvedOptions) {
 }
 
 export async function getTypes(options: CLIResolvedOptions) {
-  const tamagui = await loadTamagui(options.tamaguiOptions)
+  const hanzo-gui = await loadGui(options.guiOptions)
 
-  if (!tamagui) {
-    throw new Error(`No tamagui config`)
+  if (!gui) {
+    throw new Error(`No gui config`)
   }
 
-  const nameToPaths = tamagui.nameToPaths || []
+  const nameToPaths = gui.nameToPaths || []
   const uniqueViewExportingPaths = new Set(
     Object.keys(nameToPaths).map((name) => {
       return `${[...nameToPaths[name]][0]}.ts*`

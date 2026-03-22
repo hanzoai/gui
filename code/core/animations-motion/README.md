@@ -1,6 +1,6 @@
 # @hanzo/gui-animations-motion
 
-Motion animation driver for Tamagui, powered by the [Motion](https://motion.dev) library and the Web Animations API (WAAPI).
+Motion animation driver for Hanzo GUI, powered by the [Motion](https://motion.dev) library and the Web Animations API (WAAPI).
 
 ## Features
 
@@ -18,13 +18,13 @@ yarn add @hanzo/gui-animations-motion motion
 
 ## Usage
 
-Add to your Tamagui configuration:
+Add to your Hanzo GUI configuration:
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-motion'
-import { createTamagui } from 'tamagui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     bouncy: {
       type: 'spring',
@@ -69,4 +69,4 @@ export default createTamagui({
 
 ## Documentation
 
-For complete documentation, see the [Tamagui Animations docs](https://gui.hanzo.ai/docs/core/animations).
+For complete documentation, see the [Gui Animations docs](https://gui.hanzo.ai/docs/core/animations).

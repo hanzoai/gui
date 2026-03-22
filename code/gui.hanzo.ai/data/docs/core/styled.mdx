@@ -4,7 +4,7 @@ description: Extend and build custom and optimizable components
 ---
 
 <Notice theme="green">
-  If you're looking for a full list of style properties accepted by Tamagui, see the
+  If you're looking for a full list of style properties accepted by Hanzo GUI, see the
   [Styles page](/docs/intro/styles).
 </Notice>
 
@@ -17,7 +17,7 @@ export const RoundedSquare = styled(View, {
   borderRadius: 20,
 })
 
-// helper to get props for any TamaguiComponent
+// helper to get props for any Hanzo GUIComponent
 export type RoundedSquareProps = GetProps<typeof RoundedSquare>
 ```
 
@@ -29,7 +29,7 @@ Usage:
 
 You can pass any prop that is supported by the component you are wrapping in styled.
 
-One really important and useful thing to note about Tamagui style properties: the order is important! [Read more here](/docs/intro/styles#order-is-important)
+One really important and useful thing to note about Hanzo GUI style properties: the order is important! [Read more here](/docs/intro/styles#order-is-important)
 
 ## Variants
 
@@ -83,11 +83,11 @@ To learn more about how to use them and all the special types, [see the docs on 
 
 ### Non-working React Native views
 
-You can assume all "utility" views in React Native are not supported: Pressable, TouchableOpacity, and others. They have specific logic for handling events that conflicts with Tamagui. We could support these in the future, but we don't plan on it - you can get all of Pressable functionality for the most part within Tamagui itself, and if you need something outside of it, you can use Pressable directly.
+You can assume all "utility" views in React Native are not supported: Pressable, TouchableOpacity, and others. They have specific logic for handling events that conflicts with Hanzo GUI. We could support these in the future, but we don't plan on it - you can get all of Pressable functionality for the most part within Hanzo GUI itself, and if you need something outside of it, you can use Pressable directly.
 
 ## Using on the web
 
-The `styled()` function supports Tamagui views, React Native views, and any other React component that accepts a `style` prop. If you wrap an external component that Tamagui doesn't recognize, Tamagui will assume it only supports the `style` prop and not optimize it.
+The `styled()` function supports Hanzo GUI views, React Native views, and any other React component that accepts a `style` prop. If you wrap an external component that Hanzo GUI doesn't recognize, Hanzo GUI will assume it only supports the `style` prop and not optimize it.
 
 If it does accept `className`, you can opt-in to className, CSS media queries, and compile-time optimization by adding `acceptsClassName`:
 
@@ -95,7 +95,7 @@ If it does accept `className`, you can opt-in to className, CSS media queries, a
 import { SomeCustomComponent } from 'some-library'
 import { styled } from '@hanzo/gui' // or '@hanzo/gui-core'
 
-export const TamaguiCustomComponent = styled(SomeCustomComponent, {
+export const Hanzo GUICustomComponent = styled(SomeCustomComponent, {
   acceptsClassName: true,
 })
 ```
@@ -125,11 +125,11 @@ const Nav = styled(View, {
 })
 ```
 
-This is the recommended approach for semantic HTML and accessibility. String render props are optimized by the Tamagui compiler.
+This is the recommended approach for semantic HTML and accessibility. String render props are optimized by the Hanzo GUI compiler.
 
 ### JSX Element
 
-Pass a JSX element to clone with Tamagui's computed props:
+Pass a JSX element to clone with Hanzo GUI's computed props:
 
 ```tsx
 <Stack
@@ -141,7 +141,7 @@ Pass a JSX element to clone with Tamagui's computed props:
 </Stack>
 ```
 
-The JSX element's props are merged with Tamagui's computed styles, classNames, and event handlers. This is useful when you need to pass element-specific props like `href` or `target`.
+The JSX element's props are merged with Hanzo GUI's computed styles, classNames, and event handlers. This is useful when you need to pass element-specific props like `href` or `target`.
 
 <Notice theme="yellow">
   JSX element render props are not optimized by the compiler - they will cause a deopt.
@@ -152,9 +152,9 @@ The JSX element's props are merged with Tamagui's computed styles, classNames, a
 For full control, pass a render function that receives props and component state:
 
 ```tsx
-import { TamaguiComponentState } from '@hanzo/gui-core'
+import { GuiComponentState } from '@hanzo/gui-core'
 ;<Stack
-  render={(props, state: TamaguiComponentState) => (
+  render={(props, state: GuiComponentState) => (
     <CustomButton {...props} isHovered={state.hover} isPressed={state.press} />
   )}
   padding="$4"
@@ -195,7 +195,7 @@ const Box = styled(View, {
 
 Any component created with `styled()` has a new static property on it called `.styleable()`.
 
-If you want a functional component that renders a Tamagui-styled component inside of it to _also_ be able to be `styled()`, you need to wrap it with `styleable`. This is a mouthful, let's see an example:
+If you want a functional component that renders a Hanzo GUI-styled component inside of it to _also_ be able to be `styled()`, you need to wrap it with `styleable`. This is a mouthful, let's see an example:
 
 ```tsx
 // 1. you create a `styled` component as usual:
@@ -213,7 +213,7 @@ const StyledHigherOrderStyledText = styled(HigherOrderStyledText, {
 })
 ```
 
-The above code will generally cause weird issues, because Tamagui can't know that it needs to just forward some props down. Instead, Tamagui tries to "resolve" all the style props from `StyledHigherOrderStyledText` before passing them down to `HigherOrderStyledText`. But that causes problems, because now `HigherOrderStyledText` will merge things differently than you'd expect.
+The above code will generally cause weird issues, because Hanzo GUI can't know that it needs to just forward some props down. Instead, Hanzo GUI tries to "resolve" all the style props from `StyledHigherOrderStyledText` before passing them down to `HigherOrderStyledText`. But that causes problems, because now `HigherOrderStyledText` will merge things differently than you'd expect.
 
 The way to fix this is to add `.styleable()` around your `HigherOrderStyledText`. You'll also want to forward the ref, which is forwarded for you:
 
@@ -234,7 +234,7 @@ const StyledHigherOrderStyledText = styled(HigherOrderStyledText, {
 
 Now your component will handle everything properly, even if a theme is changed on `HigherOrderStyledText`, it will be applied.
 
-A final note: you must pass all Tamagui style props given to `HigherOrderStyledText` down to a single `StyledText`, at least if you want everything to work fully correctly.
+A final note: you must pass all Hanzo GUI style props given to `HigherOrderStyledText` down to a single `StyledText`, at least if you want everything to work fully correctly.
 
 And if you'd like to add new props on top of the existing props, you can pass them in for the first generic type argument of styleable:
 
@@ -273,7 +273,7 @@ const StyledSVG = styled(
 
 Now your StyledSVG will properly type the `fill` property to accept token and theme values and will pass the resolved colors to the SVG component.
 
-You can also use `accept` to take in Tamagui style objects and output React Native style objects. This is useful for things like the `contentContainerStyle` prop on `ScrollView`, which expects a style object:
+You can also use `accept` to take in Hanzo GUI style objects and output React Native style objects. This is useful for things like the `contentContainerStyle` prop on `ScrollView`, which expects a style object:
 
 ```tsx
 const MyScrollView = styled(

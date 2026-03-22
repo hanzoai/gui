@@ -7,12 +7,12 @@ import ActionSheet, {
 import { Button, Sheet, Text, YStack } from '@hanzo/gui'
 
 /**
- * Side-by-side comparison of Tamagui Sheet vs react-native-actions-sheet
+ * Side-by-side comparison of Hanzo GUI Sheet vs react-native-actions-sheet
  * to verify gesture smoothness
  */
 export function ActionsSheetComparison() {
-  const [tamaguiOpen, setTamaguiOpen] = useState(false)
-  const [tamaguiPosition, setTamaguiPosition] = useState(0)
+  const [guiOpen, setGuiOpen] = useState(false)
+  const [guiPosition, setGuiPosition] = useState(0)
   const actionsSheetRef = useRef<ActionSheetRef>(null)
 
   return (
@@ -22,7 +22,7 @@ export function ActionsSheetComparison() {
       </Text>
 
       <Text fontSize="$3" color="$gray11">
-        Compare gesture smoothness between Tamagui Sheet and react-native-actions-sheet
+        Compare gesture smoothness between Hanzo GUI Sheet and react-native-actions-sheet
       </Text>
 
       <YStack gap="$3">
@@ -30,8 +30,8 @@ export function ActionsSheetComparison() {
           Open Actions Sheet (Reference)
         </Button>
 
-        <Button onPress={() => setTamaguiOpen(true)} theme="green" size="$5">
-          Open Tamagui Sheet
+        <Button onPress={() => setGuiOpen(true)} theme="green" size="$5">
+          Open Hanzo GUI Sheet
         </Button>
       </YStack>
 
@@ -45,15 +45,15 @@ export function ActionsSheetComparison() {
         </Text>
       </YStack>
 
-      {/* Tamagui Sheet */}
+      {/* Hanzo GUI Sheet */}
       <Sheet
         modal
-        open={tamaguiOpen}
-        onOpenChange={setTamaguiOpen}
+        open={guiOpen}
+        onOpenChange={setGuiOpen}
         snapPoints={[85, 50]}
         snapPointsMode="percent"
-        position={tamaguiPosition}
-        onPositionChange={setTamaguiPosition}
+        position={guiPosition}
+        onPositionChange={setGuiPosition}
         dismissOnSnapToBottom
         zIndex={100000}
       >
@@ -63,9 +63,9 @@ export function ActionsSheetComparison() {
           <Sheet.ScrollView>
             <YStack gap="$3" padding="$4">
               <Text fontSize="$5" fontWeight="bold">
-                Tamagui Sheet
+                Hanzo GUI Sheet
               </Text>
-              <Text color="$gray11">Position: {tamaguiPosition}</Text>
+              <Text color="$gray11">Position: {guiPosition}</Text>
 
               {Array.from({ length: 30 }).map((_, i) => (
                 <YStack
@@ -80,7 +80,7 @@ export function ActionsSheetComparison() {
                 </YStack>
               ))}
 
-              <Button onPress={() => setTamaguiOpen(false)} marginTop="$4">
+              <Button onPress={() => setGuiOpen(false)} marginTop="$4">
                 Close
               </Button>
             </YStack>

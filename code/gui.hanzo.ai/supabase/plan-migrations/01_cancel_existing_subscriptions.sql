@@ -1,6 +1,6 @@
 -- This file cancels all active and trialing subscriptions.
 -- It is used to cancel the old Takeout and Bento subscriptions
--- in preparation for migrating to the new Tamagui subscription models.
+-- in preparation for migrating to the new Hanzo GUI subscription models.
 UPDATE subscriptions
 SET status = 'canceled',
     canceled_at = NOW(),

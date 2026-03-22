@@ -1,6 +1,6 @@
 ---
 title: Webpack Guide
-description: How to set up Tamagui with Webpack
+description: How to set up Hanzo GUI with Webpack
 ---
 
 First, install [Webpack and webpack-cli](https://webpack.js.org/guides/installation/):
@@ -9,35 +9,35 @@ First, install [Webpack and webpack-cli](https://webpack.js.org/guides/installat
 yarn add -D webpack webpack-cli
 ```
 
-Then install the Tamagui plugin:
+Then install the Hanzo GUI plugin:
 
 ```bash
-yarn add -D tamagui-loader
+yarn add -D gui-loader
 ```
 
 ### Configuration
 
-Add the plugin to your `webpack.config.js`. If you have a `tamagui.build.ts`
+Add the plugin to your `webpack.config.js`. If you have a `gui.build.ts`
 (recommended — see
-[compiler install docs](/docs/intro/compiler-install#configuration-with-tamaguibuildts)),
+[compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
 no options are needed:
 
 ```tsx fileName="webpack.config.js"
-const { TamaguiPlugin } = require('tamagui-loader')
+const { GuiPlugin } = require('gui-loader')
 
-// reads from tamagui.build.ts automatically
-config.plugins.push(new TamaguiPlugin())
+// reads from gui.build.ts automatically
+config.plugins.push(new GuiPlugin())
 ```
 
 Or pass options inline:
 
 ```tsx fileName="webpack.config.js"
-const { TamaguiPlugin } = require('tamagui-loader')
+const { GuiPlugin } = require('gui-loader')
 
 config.plugins.push(
-  new TamaguiPlugin({
-    config: './src/tamagui.config.ts',
-    components: ['tamagui'],
+  new GuiPlugin({
+    config: './src/gui.config.ts',
+    components: ['@hanzo/gui'],
   })
 )
 ```

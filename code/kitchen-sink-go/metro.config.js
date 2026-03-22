@@ -11,7 +11,7 @@ config.resolver.unstable_enablePackageExports =
 
 // block unnecessary directories from metro file crawling
 config.resolver.blockList = [
-  /code\/tamagui\.dev\//,
+  /code\/gui\.dev\//,
   /code\/.*\/__tests__\//,
   /code\/.*\/\.maestro\//,
 ]
@@ -22,5 +22,5 @@ config.resolver.nodeModulesPaths = [
   path.resolve(monorepoRoot, 'node_modules'),
 ]
 
-// no withTamagui, no unstable_conditionNames - pure vanilla
+// no withGui, no unstable_conditionNames - pure vanilla
 module.exports = config

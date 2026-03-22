@@ -1,4 +1,4 @@
-import { tamaguiAliases, tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiAliases, guiPlugin } from '@hanzo/gui-vite-plugin'
 import { one } from 'one/vite'
 import type { UserConfig } from 'vite'
 
@@ -11,7 +11,7 @@ export default {
 
   ...(useRNWLite && {
     resolve: {
-      alias: tamaguiAliases({ rnwLite: true }),
+      alias: guiAliases({ rnwLite: true }),
     },
   }),
 
@@ -60,8 +60,8 @@ export default {
       // },
     }),
 
-    tamaguiPlugin({
-      // see tamagui.build.ts for options
+    guiPlugin({
+      // see gui.build.ts for options
       fixVite8SymlinkExportResolutions: true,
     }),
   ],

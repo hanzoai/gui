@@ -4,7 +4,7 @@ description: Modern config and themes with @hanzo/gui-config/v5
 ---
 
 <IntroParagraph>
-  The recommended Tamagui configuration gives you a complete design system, flexible theme
+  The recommended Hanzo GUI configuration gives you a complete design system, flexible theme
   generation, Tailwind aligned shorthands, multiple animation drivers, and easy
   customization.
 </IntroParagraph>
@@ -55,12 +55,12 @@ npm install @hanzo/gui-config
 
 To restore v4 behavior while using v5:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig } from '@hanzo/gui-config/v5'
 import { animations } from '@hanzo/gui-config/v5-css'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   animations,
   settings: {
@@ -81,12 +81,12 @@ Update media query names in your code: `$2xl` → `$xxl`, `$2xs` → `$xxs`,
 V5 provides separate entry points for different animation drivers, so you only
 bundle what you need:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig } from '@hanzo/gui-config/v5'
 import { animations } from '@hanzo/gui-config/v5-css'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   animations,
 })
@@ -109,13 +109,13 @@ Available animation drivers:
 For apps targeting both web and native, you can use different animation drivers
 per platform:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig } from '@hanzo/gui-config/v5'
 import { animations as animationsCSS } from '@hanzo/gui-config/v5-css'
 import { animations as animationsReanimated } from '@hanzo/gui-config/v5-reanimated'
-import { createTamagui, isWeb } from '@hanzo/gui'
+import { createGui, isWeb } from '@hanzo/gui'
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   animations: isWeb ? animationsCSS : animationsReanimated,
 })
@@ -175,10 +175,10 @@ The `createV5Theme` function lets you customize the default v5 themes. The
 easiest way to add or change colors is using `@hanzo/gui-colors` which provides
 Radix color palettes:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { createV5Theme, defaultChildrenThemes, defaultConfig } from '@hanzo/gui-config/v5'
 import { cyan, cyanDark, amber, amberDark } from '@hanzo/gui-colors'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
 const themes = createV5Theme({
   childrenThemes: {
@@ -190,7 +190,7 @@ const themes = createV5Theme({
   },
 })
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   themes,
 })
@@ -198,7 +198,7 @@ export const config = createTamagui({
 
 Or use only the colors you need:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { createV5Theme } from '@hanzo/gui-config/v5'
 import { blue, blueDark, gray, grayDark } from '@hanzo/gui-colors'
 
@@ -258,7 +258,7 @@ The `getTheme` option lets you add computed colors to every generated theme. It
 receives each theme's palette and scheme, so your custom values automatically
 adapt to every color and light/dark variant:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { createV5Theme, opacify } from '@hanzo/gui-config/v5'
 
 const themes = createV5Theme({
@@ -281,11 +281,11 @@ This is how v5 generates its built-in opacity tokens (`background01`,
 
 For a more muted look, use the subtle variant which has desaturated colors:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig, themes } from '@hanzo/gui-config/v5-subtle'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   themes,
 })
@@ -296,7 +296,7 @@ export const config = createTamagui({
 Use `adjustPalette` to transform colors with a callback function. The callback
 receives each color's HSL values and its 1-based index (1-12):
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import {
   adjustPalette,
   adjustPalettes,
@@ -473,7 +473,7 @@ V5 keeps component themes because they solve a hard problem — how do you chang
 the theme of an entire area (like from `dark` to `dark_green`) but have the
 components inside it still keep their relative shades?
 
-One of the great things in Tamagui is being able to set component themes, and
+One of the great things in Hanzo GUI is being able to set component themes, and
 sub-themes, and have an entire area of your UI re-theme and look perfect.
 
 We'd exported just having the ability to set a default theme, like "surface1 =>
@@ -697,18 +697,18 @@ default), only the short forms are available in types.
 
 ## Tree Shaking Themes
 
-**Production Optimization** - Theme JS can grow to 20KB or more. Since Tamagui can hydrate themes from CSS variables, you can remove the themes JS from your client bundle for better Lighthouse scores.
+**Production Optimization** - Theme JS can grow to 20KB or more. Since Hanzo GUI can hydrate themes from CSS variables, you can remove the themes JS from your client bundle for better Lighthouse scores.
 
-This works because Tamagui generates CSS variables for all theme values. On the
+This works because Hanzo GUI generates CSS variables for all theme values. On the
 client, it reads these from the DOM instead of needing the JS object.
 
 ### Setup
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig, themes } from '@hanzo/gui-config/v5'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const config = createTamagui({
+export const config = createGui({
   ...defaultConfig,
   // only load themes on server - client hydrates from CSS
   // for non-One Vite apps, use import.meta.env.SSR instead

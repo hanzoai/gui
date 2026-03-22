@@ -14,7 +14,7 @@ export function getPragmaOptions({ source, path }: { source: string; path: strin
     }
     pragma =
       trimmed
-        .match(/(\/\/|\/\*)\s?!?\s?(tamagui-ignore|debug|debug-verbose)(\n|\s|$).*/)?.[2]
+        .match(/(\/\/|\/\*)\s?!?\s?(gui-ignore|debug|debug-verbose)(\n|\s|$).*/)?.[2]
         .trim() || ''
     if (pragma) {
       pragma = pragma.replace('!', '').trim()
@@ -23,7 +23,7 @@ export function getPragmaOptions({ source, path }: { source: string; path: strin
   }
 
   switch (pragma) {
-    case 'tamagui-ignore':
+    case 'gui-ignore':
       shouldDisable = true
       break
 
@@ -42,11 +42,11 @@ export function getPragmaOptions({ source, path }: { source: string; path: strin
     }
   }
 
-  if (process.env.DEBUG?.includes('tamagui')) {
+  if (process.env.DEBUG?.includes('@hanzo/gui')) {
     shouldPrintDebug ||= true
   }
 
-  if (process.env.DEBUG?.includes('tamagui-verbose')) {
+  if (process.env.DEBUG?.includes('gui-verbose')) {
     shouldPrintDebug = 'verbose'
   }
 

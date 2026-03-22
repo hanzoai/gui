@@ -1,8 +1,8 @@
 vite 8 monorepo fix:
-- added `tamagui-monorepo-exports-fix` plugin to `@hanzo/gui-vite-plugin`
+- added `hanzo-gui-exports-fix` plugin to `@hanzo/gui-vite-plugin`
 - vite 8 (rolldown) resolves workspace subpath imports to filesystem dirs instead of package.json exports
 - see https://github.com/vitejs/vite/issues/11676 and https://github.com/vitejs/vite/issues/20390
-- also adds ssr.optimizeDeps.include for @hanzo/gui-web, @hanzo/gui-core, tamagui to avoid duplicate instances
+- also adds ssr.optimizeDeps.include for @hanzo/gui-web, @hanzo/gui-core, gui to avoid duplicate instances
 - only active in monorepos (detected via workspace: protocol in deps)
 - can be removed once vite fixes upstream
 
@@ -32,7 +32,7 @@ and cant put another View next to Content and have it show
 
 - RN animation driver perf: remove useMemo, diff style in layout effect only (not render) for concurrent mode safety. compute diff in render (pure, read-only), apply + update refs in effect. only create/update Animated.Values for changed keys instead of re-processing all keys every render.
 
-- /Users/n8/tamagui/code/core/web/src/helpers/defaultAnimationDriver.tsx
+- /Users/n8/gui/code/core/web/src/helpers/defaultAnimationDriver.tsx
 
   - should just be native on native, css on web? use platfomr extensions
 
@@ -70,7 +70,7 @@ and cant put another View next to Content and have it show
   - ensure onlyAllowShorthands changes types properly
   - tooltip: expects zIndex but shorthand overrides and doesn't work
   - small bug, circular prop https://x.com/flexbox_/status/1907415294047379748
-  - fix toggle / multiple https://github.com/tamagui/tamagui/pull/3362
+  - fix toggle / multiple https://github.com/hanzoai/gui/pull/3362
   - seems <Switch checked defaultChecked> isnt showing in the checked position
 
 - option for compiler to optimize $theme-, $platform-, $group- media values (currently bails from optimization)
@@ -91,7 +91,7 @@ and cant put another View next to Content and have it show
 
   - styleable shouldn't probably do anything with presence because the child should expect to handle that, at least need to double check taht
 
-- bug: if you name a file `polyfill-native.ts` tamagui-build doesnt output the .native files properly
+- bug: if you name a file `polyfill-native.ts` hanzo-gui-build doesnt output the .native files properly
 
 - When using <Adapt.Contents /> inside an Adapt when="maxMd" it seems to hide the children before fully closed
 
@@ -125,7 +125,7 @@ and cant put another View next to Content and have it show
 
 ---
 
-- MCP works w your local tamagui config?
+- MCP works w your local gui config?
 
 - perf: could avoid even creating style rules, easy / big win:
 
@@ -133,7 +133,7 @@ and cant put another View next to Content and have it show
   - note that we create all the style rules before we actually check if should insert
   - refactor: not _super_ simple in that the check may need to happen inside getStylesAtomic for example and it also needs to check the startedUnhydrated, so just need to refactor a bit so we have a "shouldInsert" a the top of getSplitStyles properly set up, then we can maybe pass to getStylesAtomic and anywhere ebfore we actually create the rulestoinsert
 
-- import `tamagui/styled` / `@hanzo/gui-button/styled`
+- import `gui/styled` / `@hanzo/gui-button/styled`
   - adds styles, sizing, unstyled prop
     - removing default size based styling, look at this in tooltip!:
 
@@ -153,14 +153,14 @@ const padding = !props.unstyled
 
 animations improvements:
 
-- make tamagui package work in some simple way
+- make gui package work in some simple way
 
-  - probably making tamagui + tamagui/ui both work is fine
+  - probably making gui + gui/ui both work is fine
 
 - react-native-web-lite
 
   - tree shakeable, smaller, fixes things like data- attributes not passing
-  - shares core style logic with tamagui for smaller bundles used together
+  - shares core style logic with gui for smaller bundles used together
   - outstanding bug? https://discord.com/channels/909986013848412191/1354817119233118288/1354839267771285546
 
 - docs on reprop context on ios new arch
@@ -188,7 +188,7 @@ animations improvements:
 
 - popover bring back dismissable - document dismissable etc
 
-- escape on tamagui sheet doesn't close in general keyboard accessibility
+- escape on gui sheet doesn't close in general keyboard accessibility
 
   - check radix sheet and compare and improve
 
@@ -266,10 +266,10 @@ v3:
   - need to remove ThemeableStack docs from components mdx, they now are all extensiond YStack instead of ThemeableStack
   - see how much of accessibilityDirectMap we can remove for web
   - `$platform-` prefixes should go away in favor of just `$web`, `$native` etc
-  - @hanzo/gui-cli => tamagui
-    - `tamagui build` document/announce
-    - `tamagui lint` fix check and document/announce
-  - tamagui => tamagui
+  - @hanzo/gui-cli => gui
+    - `gui build` document/announce
+    - `gui lint` fix check and document/announce
+  - gui => gui
     - note many are headless
   - Cleanup Select/ListItem
     - v2-3 ListItem simplification esp for performance of Select
@@ -309,7 +309,7 @@ createCore<CustomTypes>({
 
 - run over components and review for removing some assumptions about `size`
 - disableInjectCSS should maybe just be automated better or defaulted on
-- flat vs style mode, style moves all tamagui styles into `style` besides the other psuedos like hover, enter, etc
+- flat vs style mode, style moves all gui styles into `style` besides the other psuedos like hover, enter, etc
 - no react-native deps across the ui kit on web
 - html.div, styled('div'), styled(html.div)
 - `<Theme values={{}} />` dynamic override
@@ -329,7 +329,7 @@ createCore<CustomTypes>({
 
 - button media queries break due to useStyle hook
 - algolia creds
-- uniswap/tamagui fixes, see uniswap section
+- uniswap/gui fixes, see uniswap section
   - the platform-web type issues should be relatively easy
   - fix customization https://discord.com/channels/909986013848412191/1206456825583632384/1274853294195605525
 
@@ -386,7 +386,7 @@ $gtSm: false,
   - checkbox should have a default indicator probably with a simple svg check we inline
 - move from useMedia match.addListener to addEventListener
 - media query height taking into account the "safe height" is important
-- https://linear.app/uniswap/issue/EXT-925/tamagui-error-breaking-the-extension
+- https://linear.app/uniswap/issue/EXT-925/gui-error-breaking-the-extension
 - document Popover.Anchor (implemented, needs docs)
 - Sometimes press getting stuck still on uniswap moonpay flow
 - Text vertical align issue: https://github.com/Uniswap/universe/pull/6730
@@ -484,7 +484,7 @@ const MyComponent = (props: { accentedStyle?: StackStyle }) => {
 - Switch unstyled - make it so it doesn't do any theme stuff
 
 - font weights in css are generating extra variables with "undefined" value if not filled in
-- add defaultSize and defaultFontFamily to createTamagui
+- add defaultSize and defaultFontFamily to createGui
 
 - @hanzo/gui-tailwind
 - pass Size down context (see Group) but really this is just Themes but for individual props (css variable direct support <Theme set={{ size: '$4' }}> ?)

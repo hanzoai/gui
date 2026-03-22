@@ -96,13 +96,13 @@ async function getActiveStripeSubscriptions() {
   })
 
   // Products that grant early-access team membership:
-  // - Tamagui Pro (includes takeout access)
+  // - Hanzo GUI Pro (includes takeout access)
   // - Takeout Stack (includes unistack repo access)
   const takeoutProducts = products.data.filter(
     (p) =>
       p.name.toLowerCase().includes('takeout') ||
-      p.name.toLowerCase().includes('tamagui pro') ||
-      p.id === 'prod_RlRd2DVrG0frHe' || // Tamagui Pro
+      p.name.toLowerCase().includes('gui pro') ||
+      p.id === 'prod_RlRd2DVrG0frHe' || // Hanzo GUI Pro
       p.id === 'prod_NzLEazaqBgoKnC' || // Takeout Stack
       p.metadata?.type === 'repo' ||
       p.metadata?.includes_takeout === 'true' ||

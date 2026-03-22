@@ -1,6 +1,6 @@
-# 📦 Stripe Local Testing Guide (Tamagui Dev Environment)
+# 📦 Stripe Local Testing Guide (Gui Dev Environment)
 
-This document explains how to properly test Stripe subscriptions in the local development environment for Tamagui, including webhook configuration, database caveats, and reset operations.
+This document explains how to properly test Stripe subscriptions in the local development environment for Hanzo GUI, including webhook configuration, database caveats, and reset operations.
 
 ---
 
@@ -38,7 +38,7 @@ NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
 
 ## 3. How Subscription Flows Work
 
-The Tamagui site handles Stripe subscriptions in the following way:
+The Hanzo GUI site handles Stripe subscriptions in the following way:
 
 ### 💳 Subscription API Endpoints
 
@@ -108,7 +108,7 @@ This script will:
 
 ## 7. How "Pro Plan" Status is Determined
 
-A user is considered to be on the "Pro" plan if they have an active or trialing subscription named **"Tamagui Pro"**.
+A user is considered to be on the "Pro" plan if they have an active or trialing subscription named **"Hanzo GUI Pro"**.
 
 This status is determined by checking the `subscriptions` table in Supabase.
 

@@ -14,7 +14,7 @@ import {
 import { useClipboard } from './hooks'
 import { useReplaceTokens } from './hooks/useReplaceTokens'
 import useTokenMapper from './hooks/useTokenMapper'
-import { useUserTamaguiConfig } from './hooks/useUserTamaguiConfig'
+import { useUserGuiConfig } from './hooks/useUserGuiConfig'
 interface Props {
   code: string
   isLoading?: boolean
@@ -179,9 +179,9 @@ function CopyCodeButton({ onCopy, hasCopied, oneTabLayout = false }) {
 }
 
 function CustomizationEnabledBanner() {
-  const userTamaguiConfig = useUserTamaguiConfig()
+  const userGuiConfig = useUserGuiConfig()
 
-  if (!userTamaguiConfig) return null
+  if (!userGuiConfig) return null
   return (
     <YStack mt="$3" ml="$3">
       <Theme name="green">

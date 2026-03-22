@@ -3,7 +3,7 @@ import React from 'react'
 import type { LoaderProps } from 'one'
 import { useLoader } from 'one'
 import { HeadInfo } from '~/components/HeadInfo'
-import { TamaguiExamples } from '~/components/TamaguiExamples'
+import { GuiExamples } from '~/components/GuiExamples'
 import { BlogSlugPage } from '~/features/site/blog/BlogSlugPage'
 import { getOgUrl } from '~/features/site/getOgUrl'
 
@@ -52,7 +52,7 @@ export default function BlogSlug() {
       <HeadInfo
         {...data.frontmatter}
         title={`${data.frontmatter.title}: ${(data.frontmatter.description ?? '')
-          .replace(/tamagui\s+/i, '')
+          .replace(/gui\s+/i, '')
           .trim()
           .replace(/^./, (c) => c.toLowerCase())}`}
         description={data.frontmatter.description ?? ''}
@@ -73,9 +73,9 @@ export default function BlogSlug() {
         }}
       />
 
-      <TamaguiExamples.Provider value={data.examples}>
+      <GuiExamples.Provider value={data.examples}>
         <BlogSlugPage Component={Component} {...data} />
-      </TamaguiExamples.Provider>
+      </GuiExamples.Provider>
     </>
   )
 }

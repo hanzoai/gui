@@ -1,9 +1,9 @@
 ---
 title: One Guide
-description: How to set up Tamagui with One
+description: How to set up Hanzo GUI with One
 ---
 
-[One](https://onestack.dev) is a React framework for web, iOS, and Android built on Vite. It offers seamless cross-platform development and integrates well with Tamagui.
+[One](https://onestack.dev) is a React framework for web, iOS, and Android built on Vite. It offers seamless cross-platform development and integrates well with Hanzo GUI.
 
 ## Install
 
@@ -13,7 +13,7 @@ First, create a new One project:
 npx one
 ```
 
-Add Tamagui and its dependencies:
+Add Hanzo GUI and its dependencies:
 
 ```bash
 yarn add @hanzo/gui @hanzo/gui-config
@@ -21,21 +21,21 @@ yarn add @hanzo/gui @hanzo/gui-config
 
 ## Configuration
 
-Create a `tamagui.config.ts` file in your project root:
+Create a `gui.config.ts` file in your project root:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig } from '@hanzo/gui-config/v5'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-const tamaguiConfig = createTamagui(defaultConfig)
+const guiConfig = createGui(defaultConfig)
 
-export default tamaguiConfig
+export default guiConfig
 
 // this is important!
-export type Conf = typeof tamaguiConfig
+export type Conf = typeof guiConfig
 
-declare module 'tamagui' {
-  interface TamaguiCustomConfig extends Conf {}
+declare module '@hanzo/gui' {
+  interface GuiCustomConfig extends Conf {}
 }
 ```
 
@@ -43,7 +43,7 @@ Update your `vite.config.ts`:
 
 ```tsx fileName="vite.config.ts"
 import { one } from 'one/vite'
-import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzo/gui-vite-plugin'
 import type { UserConfig } from 'vite'
 
 export default {
@@ -53,9 +53,9 @@ export default {
         defaultRenderMode: 'ssg',
       },
     }),
-    tamaguiPlugin({
-      config: './tamagui.config.ts',
-      components: ['tamagui'],
+    guiPlugin({
+      config: './gui.config.ts',
+      components: ['@hanzo/gui'],
     }),
   ],
 
@@ -74,27 +74,27 @@ export default {
 } satisfies UserConfig
 ```
 
-## Setup Tamagui Provider
+## Setup Hanzo GUI Provider
 
 Update your root layout file (typically `app/_layout.tsx`):
 
 ```tsx fileName="app/_layout.tsx"
-import { TamaguiProvider } from '@hanzo/gui'
+import { GuiProvider } from '@hanzo/gui'
 import { Slot } from 'one'
-import config from '../tamagui.config'
+import config from '../gui.config'
 
 export default function Layout() {
   return (
-    <TamaguiProvider config={config}>
+    <GuiProvider config={config}>
       <Slot />
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 ```
 
 ## Usage
 
-Now you can use Tamagui components in your One app:
+Now you can use Hanzo GUI components in your One app:
 
 ```tsx fileName="app/index.tsx"
 import { Button, Text, YStack } from '@hanzo/gui'
@@ -102,7 +102,7 @@ import { Button, Text, YStack } from '@hanzo/gui'
 export default function Home() {
   return (
     <YStack f={1} jc="center" ai="center" p="$4" gap="$4">
-      <Text fontSize="$6">Welcome to Tamagui with One!</Text>
+      <Text fontSize="$6">Welcome to Hanzo GUI with One!</Text>
       <Button>Click me</Button>
     </YStack>
   )
@@ -111,46 +111,46 @@ export default function Home() {
 
 ## Themes
 
-To support light and dark modes, use One's built-in color scheme support along with Tamagui's theming system. Update your root layout:
+To support light and dark modes, use One's built-in color scheme support along with Hanzo GUI's theming system. Update your root layout:
 
 ```tsx fileName="app/_layout.tsx"
-import { TamaguiProvider, Theme } from '@hanzo/gui'
+import { GuiProvider, Theme } from '@hanzo/gui'
 import { Slot } from 'one'
 import { useColorScheme } from 'react-native'
-import config from '../tamagui.config'
+import config from '../gui.config'
 
 export default function Layout() {
   const colorScheme = useColorScheme()
 
   return (
-    <TamaguiProvider config={config} defaultTheme={colorScheme}>
+    <GuiProvider config={config} defaultTheme={colorScheme}>
       <Theme name={colorScheme}>
         <Slot />
       </Theme>
-    </TamaguiProvider>
+    </GuiProvider>
   )
 }
 ```
 
 ## Performance
 
-For better performance, use the `outputCSS` option in the Tamagui Vite plugin:
+For better performance, use the `outputCSS` option in the Hanzo GUI Vite plugin:
 
 ```tsx fileName="vite.config.ts"
-tamaguiPlugin({
-  config: './tamagui.config.ts',
-  components: ['tamagui'],
-  outputCSS: process.env.NODE_ENV === 'production' ? './public/tamagui.generated.css' : null,
+guiPlugin({
+  config: './gui.config.ts',
+  components: ['@hanzo/gui'],
+  outputCSS: process.env.NODE_ENV === 'production' ? './public/gui.generated.css' : null,
 })
 ```
 
 Then import the CSS in your root layout:
 
 ```tsx fileName="app/_layout.tsx"
-import '../public/tamagui.generated.css'
+import '../public/gui.generated.css'
 // ... rest of your imports and component
 ```
 
 ## Next Steps
 
-You now have Tamagui set up with [One](https://onestack.dev). Start building your cross-platform app using Tamagui's styling system and One's seamless development experience.
+You now have Hanzo GUI set up with [One](https://onestack.dev). Start building your cross-platform app using Hanzo GUI's styling system and One's seamless development experience.

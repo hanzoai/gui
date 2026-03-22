@@ -1,5 +1,5 @@
 import { YStack } from '@hanzo/gui'
-import { TamaguiIconSvg } from './TamaguiLogoSvg'
+import { GuiIconSvg } from './GuiLogoSvg'
 import type { JSX } from 'react/jsx-runtime'
 
 export const LogoIcon = ({
@@ -20,8 +20,8 @@ export const LogoIcon = ({
         scaleX: -1,
       }}
     >
-      <TamaguiIconSvg
-        className="tamagui-icon"
+      <GuiIconSvg
+        className="gui-icon"
         width={450 / 8 / downscale}
         height={420 / 8 / downscale}
         color={color}

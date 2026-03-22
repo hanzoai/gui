@@ -34,7 +34,7 @@ export async function extractForWeb(
     options: {
       platform: 'web',
       components: ['@hanzo/gui', '@hanzo/gui-core', '@hanzo/gui-test-design-system'],
-      config: './tests/lib/tamagui.config.cjs',
+      config: './tests/lib/gui.config.cjs',
       ...opts?.options,
     },
   })

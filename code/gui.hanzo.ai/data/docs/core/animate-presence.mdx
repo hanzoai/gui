@@ -3,9 +3,9 @@ title: AnimatePresence
 description: Animate components as they mount and unmount
 ---
 
-AnimatePresence animates direct children before they unmount. It is inspired by and forked from [Framer Motion](https://github.com/framer/motion), but works with any animation driver in Tamagui.
+AnimatePresence animates direct children before they unmount. It is inspired by and forked from [Framer Motion](https://github.com/framer/motion), but works with any animation driver in Hanzo GUI.
 
-To use with `@hanzo/gui-core`, install and import `@hanzo/gui-animate-presence`. It's already bundled and exported from `tamagui`.
+To use with `@hanzo/gui-core`, install and import `@hanzo/gui-animate-presence`. It's already bundled and exported from `@hanzo/gui`.
 
 ## Basic Usage
 
@@ -39,12 +39,12 @@ export const MyComponent = ({ isVisible }) => (
 ```
 
 <Notice theme="blue">
-  Note you don't even need to set `opacity` on the base style. Tamagui knows to normalize
+  Note you don't even need to set `opacity` on the base style. Hanzo GUI knows to normalize
   styles like opacity and scale to 1 (and y to 0) if it's not defined on the base styles
   but is defined on `enterStyle` or `exitStyle`.
 </Notice>
 
-Wrap one or more Tamagui components with AnimatePresence. The child components will animate on enter and exit.
+Wrap one or more Hanzo GUI components with AnimatePresence. The child components will animate on enter and exit.
 
 <Notice theme="blue">
   Animated child components must each have a unique key prop so AnimatePresence can track
@@ -203,7 +203,7 @@ export function Demo() {
 
 ### AnimatePresence Props
 
-- **`children`** - One or more Tamagui components with unique `key` props
+- **`children`** - One or more Hanzo GUI components with unique `key` props
 - **`initial`** - If `false`, children entering on initial mount won't animate (default: `true`)
 - **`custom`** - Pass data to children's variants for dynamic exit animations
 - **`exitBeforeEnter`** - If `true`, only one child renders at a time (default: `false`)

@@ -23,7 +23,7 @@ import { View } from '@hanzo/gui-core'
     }
   )
 
-  expect(output?.js).toContain(`<_TamaguiTheme name="green"><div className={`)
+  expect(output?.js).toContain(`<_GuiTheme name="green"><div className={`)
 })
 
 test('theme + media queries + conditionals extract', async () => {
@@ -364,7 +364,7 @@ test(`conditional classname keeps base and concats properly`, async () => {
   expect(output?.js).toMatchSnapshot()
 })
 
-// https://github.com/tamagui/tamagui/issues/3608
+// https://github.com/hanzoai/gui/issues/3608
 test('flexBasis: 0 with responsive style extracts correctly', async () => {
   const output = await extractForWeb(
     `

@@ -49,7 +49,7 @@ export interface BundleOptions {
 }
 
 /**
- * Bundle a Tamagui package for React Native using Vite
+ * Bundle a Hanzo GUI package for React Native using Vite
  */
 export async function bundleNative(options: BundleOptions): Promise<void> {
   const {
@@ -116,7 +116,7 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
     build: {
       lib: {
         entry: entryPath,
-        name: 'TamaguiNativeBundle',
+        name: 'GuiNativeBundle',
         fileName: () => fileName,
         formats: ['cjs'],
       },

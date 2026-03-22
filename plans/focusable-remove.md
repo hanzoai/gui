@@ -2,7 +2,7 @@
 
 ## Summary
 
-Remove the React Native `focusable` prop from Tamagui v2 in favor of the web-standard `tabIndex`. This simplifies the API and aligns with web conventions.
+Remove the React Native `focusable` prop from Hanzo GUI v2 in favor of the web-standard `tabIndex`. This simplifies the API and aligns with web conventions.
 
 ## Semantic Mapping
 
@@ -14,7 +14,7 @@ Remove the React Native `focusable` prop from Tamagui v2 in favor of the web-sta
 
 ### Core (remove type + forwarding)
 
-1. **`code/core/web/src/interfaces/TamaguiComponentEvents.tsx:8`**
+1. **`code/core/web/src/interfaces/GuiComponentEvents.tsx:8`**
    - Remove `focusable?: any` from type
 
 2. **`code/core/react-native-web-internals/src/modules/forwardedProps/index.tsx:68`**

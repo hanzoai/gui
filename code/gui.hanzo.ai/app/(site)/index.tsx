@@ -26,7 +26,7 @@ export async function loader() {
   return getCompilationExamples()
 }
 
-export default function TamaguiHomePage() {
+export default function GuiHomePage() {
   const { compilationExamples, animationCode } = useLoader(loader)
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function TamaguiHomePage() {
   return (
     <>
       <HeadInfo
-        title="Tamagui"
+        title="Gui"
         description="React Native style library and UI kit with the best web performance"
       />
 

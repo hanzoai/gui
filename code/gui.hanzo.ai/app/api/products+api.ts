@@ -10,28 +10,28 @@ export default apiRoute(async () => {
       supabaseAdmin
         .from('products')
         .select('*, prices(*)')
-        .eq('name', ProductName.TamaguiPro)
+        .eq('name', ProductName.GuiPro)
         .single(),
       supabaseAdmin
         .from('products')
         .select('*, prices(*)')
-        .eq('name', ProductName.TamaguiSupport)
+        .eq('name', ProductName.GuiSupport)
         .single(),
       // V2 Products
       supabaseAdmin
         .from('products')
         .select('*, prices(*)')
-        .eq('name', ProductName.TamaguiProV2)
+        .eq('name', ProductName.GuiProV2)
         .single(),
       supabaseAdmin
         .from('products')
         .select('*, prices(*)')
-        .eq('name', ProductName.TamaguiSupportDirect)
+        .eq('name', ProductName.GuiSupportDirect)
         .single(),
       supabaseAdmin
         .from('products')
         .select('*, prices(*)')
-        .eq('name', ProductName.TamaguiSupportSponsor)
+        .eq('name', ProductName.GuiSupportSponsor)
         .single(),
     ])
 

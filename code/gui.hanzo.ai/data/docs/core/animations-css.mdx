@@ -3,7 +3,7 @@ title: CSS Driver
 description: Lightweight CSS transition-based animations
 ---
 
-The `@hanzo/gui-animations-css` package works with the Tamagui compiler and
+The `@hanzo/gui-animations-css` package works with the Hanzo GUI compiler and
 runtime to provide simple ways to share typed animations across all your
 components.
 
@@ -15,13 +15,13 @@ yarn add @hanzo/gui-animations-css
 
 ## Configuration
 
-Add it to your [Tamagui config](/docs/core/configuration):
+Add it to your [Gui config](/docs/core/configuration):
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-css'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export default createTamagui({
+export default createGui({
   animations: createAnimations({
     fast: 'ease-in 150ms',
     medium: 'ease-in 300ms',
@@ -89,14 +89,14 @@ The delay (in milliseconds) is applied as CSS `transition-delay`.
 
 ```tsx
 import { createAnimations } from '@hanzo/gui-animations-css'
-import { YStack, createTamagui } from '@hanzo/gui'
+import { YStack, createGui } from '@hanzo/gui'
 
 const animations = createAnimations({
   quick: 'ease-out 150ms',
   bouncy: 'cubic-bezier(0.68, -0.55, 0.265, 1.55) 400ms',
 })
 
-export default createTamagui({
+export default createGui({
   animations,
   // ... rest of config
 })

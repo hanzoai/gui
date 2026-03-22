@@ -1,8 +1,8 @@
-import { loadTamaguiBuildConfigSync, type TamaguiOptions } from '@hanzo/gui-static'
+import { loadGuiBuildConfigSync, type GuiOptions } from '@hanzo/gui-static'
 
-export type MetroTamaguiOptions = TamaguiOptions & {
+export type MetroGuiOptions = GuiOptions & {
   /**
-   * @deprecated CSS interop is no longer supported. Use `tamagui generate` instead.
+   * @deprecated CSS interop is no longer supported. Use `gui generate` instead.
    */
   cssInterop?: boolean
 }
@@ -16,43 +16,43 @@ type MetroConfigInput = {
 }
 
 /**
- * Configure Metro for Tamagui.
+ * Configure Metro for Gui.
  *
  * This is now a simplified wrapper that just ensures CSS is enabled and
- * loads your Tamagui config. For CSS generation, use the CLI:
+ * loads your Hanzo GUI config. For CSS generation, use the CLI:
  *
- * 1. Create a `tamagui.build.ts` with `outputCSS` option
- * 2. Run `tamagui generate` before your build
+ * 1. Create a `gui.build.ts` with `outputCSS` option
+ * 2. Run `gui generate` before your build
  * 3. Import the generated CSS in your app's layout
  *
  * @example
  * ```js
  * // metro.config.js
  * const { getDefaultConfig } = require('expo/metro-config')
- * const { withTamagui } = require('@hanzo/gui-metro-plugin')
+ * const { withGui } = require('@hanzo/gui-metro-plugin')
  *
  * const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
- * module.exports = withTamagui(config, {
+ * module.exports = withGui(config, {
  *   components: ['@hanzo/gui'],
- *   config: './tamagui.config.ts',
+ *   config: './gui.config.ts',
  * })
  * ```
  */
-export function withTamagui(
+export function withGui(
   metroConfig: MetroConfigInput,
-  optionsIn?: MetroTamaguiOptions
+  optionsIn?: MetroGuiOptions
 ): MetroConfigInput {
-  const { cssInterop, ...tamaguiOptionsIn } = optionsIn || {}
+  const { cssInterop, ...guiOptionsIn } = optionsIn || {}
 
   if (cssInterop) {
     console.warn(
-      '[@hanzo/gui-metro-plugin] cssInterop option is deprecated. Use `tamagui generate` to pre-generate CSS instead.'
+      '[@hanzo/gui-metro-plugin] cssInterop option is deprecated. Use `gui generate` to pre-generate CSS instead.'
     )
   }
 
   const options = {
-    ...tamaguiOptionsIn,
-    ...loadTamaguiBuildConfigSync(tamaguiOptionsIn),
+    ...guiOptionsIn,
+    ...loadGuiBuildConfigSync(guiOptionsIn),
   }
 
   // Ensure CSS files can be resolved
@@ -61,10 +61,10 @@ export function withTamagui(
     sourceExts: [...new Set([...(metroConfig.resolver?.sourceExts || []), 'css'])],
   }
 
-  // Store tamagui options for potential use by other tools
+  // Store hanzo-gui options for potential use by other tools
   metroConfig.transformer = {
     ...metroConfig.transformer,
-    tamagui: options,
+    gui: options,
   }
 
   return metroConfig

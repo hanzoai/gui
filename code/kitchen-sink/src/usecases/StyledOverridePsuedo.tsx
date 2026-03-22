@@ -1,4 +1,4 @@
-import { Input, TamaguiProvider, YStack, styled } from '@hanzo/gui'
+import { Input, GuiProvider, YStack, styled } from '@hanzo/gui'
 
 const TransparentInput = styled(Input, {
   borderColor: 'red',

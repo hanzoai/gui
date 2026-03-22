@@ -53,7 +53,7 @@ export default function ResponsiveDemo() {
 
   return (
     <>
-      <title>Tamagui — Responsive Demo</title>
+      <title>Gui — Responsive Demo</title>
       <YStack
         maxH="100vh"
         overflow="hidden"

@@ -6,7 +6,7 @@ import { composeEventHandlers } from '@hanzo/gui-helpers'
 import { getGestureHandler } from '@hanzo/gui-native'
 import React, { useRef } from 'react'
 import { useMainThreadPressEvents } from './helpers/mainThreadPressEvents'
-import type { StaticConfig, TamaguiComponentStateRef } from './types'
+import type { StaticConfig, GuiComponentStateRef } from './types'
 
 // web events not used on native
 export function getWebEvents() {
@@ -16,7 +16,7 @@ export function getWebEvents() {
 export function useEvents(
   events: any,
   viewProps: any,
-  stateRef: { current: TamaguiComponentStateRef },
+  stateRef: { current: GuiComponentStateRef },
   staticConfig: StaticConfig,
   isHOC?: boolean,
   isInsideNativeMenu?: boolean
@@ -154,7 +154,7 @@ export function useEvents(
 export function wrapWithGestureDetector(
   content: any,
   gesture: any,
-  stateRef: { current: TamaguiComponentStateRef },
+  stateRef: { current: GuiComponentStateRef },
   isHOC?: boolean
 ) {
   // Skip wrapping for HOC components - they may return null which crashes GestureDetector

@@ -1,6 +1,6 @@
 /**
  * Test case for issue #3436: Select onValueChange not firing on Android physical devices
- * https://github.com/tamagui/tamagui/issues/3436
+ * https://github.com/hanzoai/gui/issues/3436
  *
  * The bug: onPressIn and onPressOut fire, but onPress never does on physical Android devices.
  * This causes Select items to not trigger onValueChange.

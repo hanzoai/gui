@@ -1,13 +1,13 @@
 ---
 title: Server Rendering
-description: Advanced SSR, hydration, and client-only rendering in Tamagui
+description: Advanced SSR, hydration, and client-only rendering in Hanzo GUI
 ---
 
-Tamagui takes a unique approach to server-side rendering that goes beyond typical SSR solutions, ensuring perfect hydration with zero flickering even when using spring animations.
+Hanzo GUI takes a unique approach to server-side rendering that goes beyond typical SSR solutions, ensuring perfect hydration with zero flickering even when using spring animations.
 
 ## How It Works
 
-Unlike other libraries that simply render default values and re-render on the client, Tamagui uses a three-phase approach:
+Unlike other libraries that simply render default values and re-render on the client, Hanzo GUI uses a three-phase approach:
 
 1. **Server**: Renders with proper CSS media queries for everything, including components using spring animation drivers (which normally require hard-coded values)
 2. **Client (first render)**: Renders with CSS to match the server output perfectly
@@ -24,9 +24,9 @@ You can opt out of SSR entirely or for specific parts of your app.
 For single-page applications that don't need SSR, disable it entirely in your config:
 
 ```tsx
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const config = createTamagui({
+export const config = createGui({
   // ... other config
   settings: {
     disableSSR: true, // Automatically wraps app with <ClientOnly enabled>
@@ -81,7 +81,7 @@ function MyApp() {
 
 ## useMedia and SSR
 
-The `useMedia` hook automatically leverages Tamagui's smart SSR rendering. During server render, it returns appropriate defaults that match CSS media queries, then updates after hydration without flickering.
+The `useMedia` hook automatically leverages Hanzo GUI's smart SSR rendering. During server render, it returns appropriate defaults that match CSS media queries, then updates after hydration without flickering.
 
 ```tsx
 import { useMedia } from '@hanzo/gui'

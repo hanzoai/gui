@@ -13,7 +13,7 @@ if (!STRIPE_KEY) {
 const stripe = new Stripe(STRIPE_KEY, {
   apiVersion: '2020-08-27',
   appInfo: {
-    name: 'Tamagui Payment Investigator',
+    name: 'Gui Payment Investigator',
     version: '0.1.0',
   },
 })

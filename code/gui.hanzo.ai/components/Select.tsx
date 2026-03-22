@@ -1,13 +1,13 @@
 import { LinearGradient } from '@hanzo/gui-linear-gradient'
 import { ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2'
 import type { SelectItemProps, SelectProps, SelectTriggerProps } from '@hanzo/gui'
-import { Select as TamaguiSelect, YStack, useProps, withStaticProperties } from '@hanzo/gui'
+import { Select as GuiSelect, YStack, useProps, withStaticProperties } from '@hanzo/gui'
 
 export const SelectItem = ({ children, index, ...props }: SelectItemProps) => {
   return (
-    <TamaguiSelect.Item index={index + 1} borderColor="transparent" {...props}>
-      <TamaguiSelect.ItemText>{children}</TamaguiSelect.ItemText>
-    </TamaguiSelect.Item>
+    <GuiSelect.Item index={index + 1} borderColor="transparent" {...props}>
+      <GuiSelect.ItemText>{children}</GuiSelect.ItemText>
+    </GuiSelect.Item>
   )
 }
 
@@ -49,13 +49,13 @@ const SelectComponent = (
     renderValue,
   } as SelectProps
   return (
-    <TamaguiSelect {...selectProps} zIndex={1_000_000}>
-      <TamaguiSelect.Trigger iconAfter={ChevronDown} {...selectTriggerProps}>
-        <TamaguiSelect.Value placeholder={placeholder} />
-      </TamaguiSelect.Trigger>
+    <GuiSelect {...selectProps} zIndex={1_000_000}>
+      <GuiSelect.Trigger iconAfter={ChevronDown} {...selectTriggerProps}>
+        <GuiSelect.Value placeholder={placeholder} />
+      </GuiSelect.Trigger>
 
-      <TamaguiSelect.Content>
-        <TamaguiSelect.ScrollUpButton
+      <GuiSelect.Content>
+        <GuiSelect.ScrollUpButton
           items="center"
           justify="center"
           position="relative"
@@ -72,9 +72,9 @@ const SelectComponent = (
             colors={['$background', '$background0']}
             rounded="$4"
           />
-        </TamaguiSelect.ScrollUpButton>
+        </GuiSelect.ScrollUpButton>
 
-        <TamaguiSelect.Viewport
+        <GuiSelect.Viewport
           opacity={1}
           y={0}
           enterStyle={{
@@ -91,9 +91,9 @@ const SelectComponent = (
           borderColor="$borderColor"
         >
           {children}
-        </TamaguiSelect.Viewport>
+        </GuiSelect.Viewport>
 
-        <TamaguiSelect.ScrollDownButton
+        <GuiSelect.ScrollDownButton
           items="center"
           justify="center"
           position="relative"
@@ -110,15 +110,15 @@ const SelectComponent = (
             colors={['$background0', '$background']}
             rounded="$4"
           />
-        </TamaguiSelect.ScrollDownButton>
-      </TamaguiSelect.Content>
-    </TamaguiSelect>
+        </GuiSelect.ScrollDownButton>
+      </GuiSelect.Content>
+    </GuiSelect>
   )
 }
 
 export const Select = withStaticProperties(SelectComponent, {
   Item: SelectItem,
-  ItemText: TamaguiSelect.ItemText,
-  Group: TamaguiSelect.Group,
-  Label: TamaguiSelect.Label,
+  ItemText: GuiSelect.ItemText,
+  Group: GuiSelect.Group,
+  Label: GuiSelect.Label,
 })

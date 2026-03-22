@@ -7,7 +7,7 @@ import type { StyleObject } from '@hanzo/gui-helpers'
 import { cssShorthandLonghands, simpleHash } from '@hanzo/gui-helpers'
 import { getConfigMaybe } from '../config'
 import { isMediaKey } from '../hooks/useMedia'
-import type { TamaguiInternalConfig, ViewStyleWithPseudos } from '../types'
+import type { GuiInternalConfig, ViewStyleWithPseudos } from '../types'
 import { defaultOffset } from './defaultOffset'
 import { normalizeColor } from './normalizeColor'
 import { normalizeValueWithProperty } from './normalizeValueWithProperty'
@@ -60,7 +60,7 @@ export const getStyleAtomic = (
   return out
 }
 
-let conf: TamaguiInternalConfig | null = null
+let conf: GuiInternalConfig | null = null
 
 // this could be cached for performance?
 const getStyleObject = (

@@ -22,7 +22,7 @@ export const POST: Endpoint = async (req) => {
     key: process.env.HANZO_GUI_PRO_SECRET,
   }
 
-  const response = await fetch('https://start.chat/api/tamagui-pro', {
+  const response = await fetch('https://start.chat/api/gui-pro', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

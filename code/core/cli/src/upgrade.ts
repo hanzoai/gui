@@ -94,9 +94,9 @@ function findPackageJsonFiles(root: string): string[] {
 }
 
 /**
- * Find all tamagui packages in the workspace
+ * Find all hanzo-gui packages in the workspace
  */
-function findTamaguiPackages(root: string): PackageInfo[] {
+function findGuiPackages(root: string): PackageInfo[] {
   const packageJsonFiles = findPackageJsonFiles(root)
   const packages: PackageInfo[] = []
 
@@ -144,7 +144,7 @@ async function getLatestVersion(): Promise<string> {
     const result = execSync('npm view @hanzo/gui version', { encoding: 'utf-8' })
     return result.trim()
   } catch (err) {
-    throw new Error('Failed to fetch latest tamagui version from npm')
+    throw new Error('Failed to fetch latest hanzo-gui version from npm')
   }
 }
 
@@ -289,11 +289,11 @@ async function getChangelogFromGitHub(
 ): Promise<string | null> {
   try {
     const response = await fetch(
-      `https://api.github.com/repos/tamagui/tamagui/releases/tags/v${toVersion}`,
+      `https://api.github.com/repos/hanzoai/gui/releases/tags/v${toVersion}`,
       {
         headers: {
           Accept: 'application/vnd.github.v3+json',
-          'User-Agent': 'tamagui-cli',
+          'User-Agent': 'gui-cli',
         },
       }
     )
@@ -401,7 +401,7 @@ function formatChangelog(commits: CommitInfo[]): string {
  */
 function displayPackageSummary(packages: PackageInfo[]): void {
   console.log('')
-  console.log(chalk.bold('Found Tamagui packages:'))
+  console.log(chalk.bold('Found Hanzo GUI packages:'))
   console.log('')
 
   // Group by file path
@@ -490,14 +490,14 @@ export async function upgrade(options: UpgradeOptions = {}): Promise<void> {
   const root = process.cwd()
 
   console.log('')
-  console.log(chalk.bold.blue('Tamagui Upgrade'))
+  console.log(chalk.bold.blue('Gui Upgrade'))
   console.log('')
 
-  // Find tamagui packages
-  const packages = findTamaguiPackages(root)
+  // Find hanzo-gui packages
+  const packages = findGuiPackages(root)
 
   if (packages.length === 0 && !changelogOnly) {
-    console.log(chalk.yellow('No Tamagui packages found in this workspace.'))
+    console.log(chalk.yellow('No Hanzo GUI packages found in this workspace.'))
     return
   }
 
@@ -562,7 +562,7 @@ export async function upgrade(options: UpgradeOptions = {}): Promise<void> {
       } else {
         console.log(
           chalk.gray(
-            '  No changelog available. Check https://github.com/tamagui/tamagui/releases'
+            '  No changelog available. Check https://github.com/hanzoai/gui/releases'
           )
         )
       }

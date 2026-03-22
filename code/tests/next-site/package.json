@@ -8,7 +8,7 @@
     "clean:build": "hanzo-gui-build clean:build",
     "ci:build": "bun run next:build && bun run build:bento",
     "ci:build:no-extract": "DISABLE_EXTRACTION=true bun run ci:build",
-    "ci:build:debug": "DEBUG=tamagui bun run ci:build",
+    "ci:build:debug": "DEBUG=gui bun run ci:build",
     "dev:analyze": "ANALYZE=true bun run dev",
     "dev:next": "bun run next",
     "test-bak": "./scripts/test.sh",

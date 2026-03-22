@@ -20,7 +20,7 @@ type Options = {
   resolveValues?: ResolveVariableAs
 }
 
-// check if props contain media queries ($sm, $md, etc) or other complex tamagui features
+// check if props contain media queries ($sm, $md, etc) or other complex hanzo-gui features
 function needsFullStyleResolution(props: IconProps): boolean {
   for (const key in props) {
     if (key[0] === '$') return true

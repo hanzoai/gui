@@ -40,8 +40,8 @@ import type {
   SplitStyleProps,
   StaticConfig,
   StyleObject,
-  TamaguiComponentState,
-  TamaguiInternalConfig,
+  GuiComponentState,
+  GuiInternalConfig,
   TextStyle,
   ThemeParsed,
   ViewStyleWithPseudos,
@@ -76,7 +76,7 @@ export type SplitStyles = ReturnType<typeof getSplitStyles>
 
 export type SplitStyleResult = ReturnType<typeof getSplitStyles>
 
-let conf: TamaguiInternalConfig
+let conf: GuiInternalConfig
 
 // WeakMap to track original token values for style objects
 // Used to preserve '$8' style tokens instead of resolved 'var(--t-space-8)'
@@ -88,7 +88,7 @@ type StyleSplitter = (
   staticConfig: StaticConfig,
   theme: ThemeParsed,
   themeName: string,
-  componentState: TamaguiComponentState,
+  componentState: GuiComponentState,
   styleProps: SplitStyleProps,
   parentSplitStyles?: GetStyleResult | null,
   context?: ComponentContextI,
@@ -875,8 +875,8 @@ export const getSplitStyles: StyleSplitter = (
 
                 // Only color properties support DynamicColorIOS - non-color properties
                 // like opacity, dimensions, etc. will crash if wrapped with {dynamic: {...}}
-                // See: https://github.com/tamagui/tamagui/issues/3096
-                // See: https://github.com/tamagui/tamagui/issues/2980
+                // See: https://github.com/hanzoai/gui/issues/3096
+                // See: https://github.com/hanzoai/gui/issues/2980
                 if (!isColorStyleKey(subKey)) {
                   // non-color properties require re-render to update
                   dynamicThemeAccess = true

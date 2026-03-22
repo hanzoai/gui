@@ -1,6 +1,6 @@
 /**
  * Test for issue #1859: Select not working when mounted, unmounted, and mounted again
- * https://github.com/tamagui/tamagui/issues/1859
+ * https://github.com/hanzoai/gui/issues/1859
  *
  * Using Detox for more reliable cross-platform native testing.
  */

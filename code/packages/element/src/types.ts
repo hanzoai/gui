@@ -28,7 +28,7 @@ type MeasureLayoutOnSuccessCallback = (
  * On web these are added at runtime to HTMLElements.
  * On native these exist on View already.
  */
-export interface TamaguiElementMethods {
+export interface GuiElementMethods {
   measure(callback: MeasureOnSuccessCallback): void
   measureInWindow(callback: MeasureInWindowOnSuccessCallback): void
   measureLayout(
@@ -40,17 +40,17 @@ export interface TamaguiElementMethods {
   blur(): void
 }
 
-export type TamaguiElement = (HTMLElement & TamaguiElementMethods) | View
+export type GuiElement = (HTMLElement & GuiElementMethods) | View
 
 /**
- * Web-specific element type that extends HTMLElement with Tamagui methods.
+ * Web-specific element type that extends HTMLElement with Hanzo GUI methods.
  * Use this when you need an HTMLElement ref in web-only code.
  */
-export type TamaguiWebElement<T extends HTMLElement = HTMLElement> = T &
-  TamaguiElementMethods
+export type GuiWebElement<T extends HTMLElement = HTMLElement> = T &
+  GuiElementMethods
 
 /**
  * Native-specific element type (View).
  * Use this when you need a View ref in native-only code.
  */
-export type TamaguiNativeElement = View
+export type GuiNativeElement = View

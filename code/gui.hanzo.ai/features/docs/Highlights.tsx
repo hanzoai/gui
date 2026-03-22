@@ -63,7 +63,7 @@ export function Highlights({ features, disableLinks, disableTitle, large }: any)
               href={`https://github.com/hanzoai/gui/tree/${sourceVersion ? `v${sourceVersion}` : 'main'}/code/ui/${
                 frontmatter.package
                   ? `${frontmatter.package}/src/${frontmatter.component}.tsx`
-                  : `tamagui/src/views/${frontmatter.component}.tsx`
+                  : `gui/src/views/${frontmatter.component}.tsx`
               }`}
               target="_blank"
             >
@@ -74,7 +74,7 @@ export function Highlights({ features, disableLinks, disableTitle, large }: any)
                 </YStack>
               </XStack>
             </Link>
-            <Link href={`https://www.npmjs.com/package/tamagui`} target="_blank">
+            <Link href={`https://www.npmjs.com/package/gui`} target="_blank">
               <XStack items="center" gap="$1">
                 <SizableText size="$3">View on npm</SizableText>
                 <YStack opacity={0.5} ml="$0.5">

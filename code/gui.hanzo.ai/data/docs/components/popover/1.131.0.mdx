@@ -34,7 +34,7 @@ above for a copy-paste implementation.
 
 ## Installation
 
-Popover is already installed in `tamagui`, or you can install it independently:
+Popover is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-popover
@@ -42,7 +42,7 @@ npm install @hanzo/gui-popover
 
 ### PortalProvider
 
-_Only_ if you are not using `tamagui` and installing popover independently -
+_Only_ if you are not using `@hanzo/gui` and installing popover independently -
 you'll need to set up the portal for it with the `@hanzo/gui-portal` package:
 
 ```bash
@@ -283,7 +283,7 @@ Used to display the content of the popover.
       required: false,
       type: `boolean`,
       default: false,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
     {
       name: 'trapFocus',
@@ -313,7 +313,7 @@ Used to display the content of the popover.
       name: 'lazyMount',
       required: false,
       type: `boolean`,
-      description: `Removes all default Tamagui styles.`,
+      description: `Removes all default Hanzo GUI styles.`,
     },
   ]}
 />
@@ -383,6 +383,6 @@ management. Can be used to control focus behavior from a parent component.
 ### Popover.ScrollView
 
 Must be nested inside Content. Renders as a plain React Native ScrollView. If
-used alongside `<Adapt />` and Sheet, Tamagui will automatically know to remove
+used alongside `<Adapt />` and Sheet, Hanzo GUI will automatically know to remove
 this ScrollView when swapping into the Sheet, as the Sheet must use its own
 ScrollView that handles special logic for interactions with dragging.

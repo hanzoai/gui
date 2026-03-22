@@ -491,10 +491,10 @@ const documentEventsBubblePhase = [
   'selectionchange',
 ]
 
-const isTamaguiResponderActive = Symbol()
+const isGuiResponderActive = Symbol()
 
 export function attachListeners() {
-  if (canUseDOM && !window[isTamaguiResponderActive]) {
+  if (canUseDOM && !window[isGuiResponderActive]) {
     window.addEventListener('blur', eventListener)
     documentEventsBubblePhase.forEach((eventType) => {
       document.addEventListener(eventType, eventListener)
@@ -502,7 +502,7 @@ export function attachListeners() {
     documentEventsCapturePhase.forEach((eventType) => {
       document.addEventListener(eventType, eventListener, true)
     })
-    window[isTamaguiResponderActive] = true
+    window[isGuiResponderActive] = true
   }
 }
 

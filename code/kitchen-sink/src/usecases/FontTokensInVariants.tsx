@@ -1,6 +1,6 @@
-import { Text as TamaguiText, styled } from '@hanzo/gui'
+import { Text as GuiText, styled } from '@hanzo/gui'
 
-export const FontTokensInVariants = styled(TamaguiText, {
+export const FontTokensInVariants = styled(GuiText, {
   borderRadius: 100_000_000,
 
   variants: {

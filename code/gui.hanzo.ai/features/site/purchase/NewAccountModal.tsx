@@ -231,7 +231,7 @@ export const AccountView = () => {
 
   const proTeamSubscription = activeSubscriptions?.find((sub) =>
     sub.subscription_items?.some(
-      (item) => item.price?.product?.name === ProductName.TamaguiProTeamSeats
+      (item) => item.price?.product?.name === ProductName.GuiProTeamSeats
     )
   ) as Subscription
 
@@ -250,12 +250,12 @@ export const AccountView = () => {
     : (activeSubscriptions?.find((sub) =>
         sub.subscription_items?.some(
           (item) =>
-            item.price?.product?.name === ProductName.TamaguiPro ||
-            item.price?.product?.name === ProductName.TamaguiProV2 ||
-            item.price?.product?.name === ProductName.TamaguiProV2Upgrade ||
+            item.price?.product?.name === ProductName.GuiPro ||
+            item.price?.product?.name === ProductName.GuiProV2 ||
+            item.price?.product?.name === ProductName.GuiProV2Upgrade ||
             // V2 support tiers also imply Pro access
-            item.price?.product?.name === ProductName.TamaguiSupportDirect ||
-            item.price?.product?.name === ProductName.TamaguiSupportSponsor
+            item.price?.product?.name === ProductName.GuiSupportDirect ||
+            item.price?.product?.name === ProductName.GuiSupportSponsor
         )
       ) as Subscription)
 
@@ -265,11 +265,11 @@ export const AccountView = () => {
       sub.subscription_items?.some(
         (item) =>
           // V1 support products
-          item.price?.product?.name === ProductName.TamaguiSupport ||
-          item.price?.product?.name === ProductName.TamaguiChat ||
+          item.price?.product?.name === ProductName.GuiSupport ||
+          item.price?.product?.name === ProductName.GuiChat ||
           // V2 support products
-          item.price?.product?.name === ProductName.TamaguiSupportDirect ||
-          item.price?.product?.name === ProductName.TamaguiSupportSponsor
+          item.price?.product?.name === ProductName.GuiSupportDirect ||
+          item.price?.product?.name === ProductName.GuiSupportSponsor
       )
     )
     .sort((a, b) => new Date(a.created).getTime() - new Date(b.created).getTime())
@@ -671,11 +671,11 @@ const DiscordPanel = ({
     const supportItems = subscription?.subscription_items?.filter((item) => {
       return (
         // V1 support products
-        item.price?.product?.name === ProductName.TamaguiSupport ||
-        item.price?.product?.name === ProductName.TamaguiChat ||
+        item.price?.product?.name === ProductName.GuiSupport ||
+        item.price?.product?.name === ProductName.GuiChat ||
         // V2 support products
-        item.price?.product?.name === ProductName.TamaguiSupportDirect ||
-        item.price?.product?.name === ProductName.TamaguiSupportSponsor
+        item.price?.product?.name === ProductName.GuiSupportDirect ||
+        item.price?.product?.name === ProductName.GuiSupportSponsor
       )
     })
 
@@ -685,16 +685,16 @@ const DiscordPanel = ({
 
     // Check for chat support (V1 only - V2 Pro includes chat by default)
     const chatItem = supportItems.find(
-      (item) => item.price?.product?.name === ProductName.TamaguiChat
+      (item) => item.price?.product?.name === ProductName.GuiChat
     )
     const hasChat = !!chatItem
 
     // Check for support tier (V1 or V2)
     const tierItem = supportItems.find(
       (item) =>
-        item.price?.product?.name === ProductName.TamaguiSupport ||
-        item.price?.product?.name === ProductName.TamaguiSupportDirect ||
-        item.price?.product?.name === ProductName.TamaguiSupportSponsor
+        item.price?.product?.name === ProductName.GuiSupport ||
+        item.price?.product?.name === ProductName.GuiSupportDirect ||
+        item.price?.product?.name === ProductName.GuiSupportSponsor
     )
 
     let hasTier = false
@@ -921,12 +921,12 @@ const DiscordPanel = ({
 
       {apiType === 'channel' ? (
         <Paragraph color="$color9">
-          Join the #takeout-general channel to discuss Tamagui with other Pro users.
+          Join the #takeout-general channel to discuss Hanzo GUI with other Pro users.
         </Paragraph>
       ) : (
         <Paragraph color="$color9">
           Get access to your private support channel where you can directly communicate
-          with the Tamagui team.
+          with the Hanzo GUI team.
         </Paragraph>
       )}
 
@@ -1129,10 +1129,10 @@ const PlanTab = ({
   // Check if this is a V2 Pro subscription (V2 no need for team seats)
   const isV2Pro = subscription?.subscription_items?.some(
     (item) =>
-      item.price?.product?.name === ProductName.TamaguiProV2 ||
-      item.price?.product?.name === ProductName.TamaguiProV2Upgrade ||
-      item.price?.product?.name === ProductName.TamaguiSupportDirect ||
-      item.price?.product?.name === ProductName.TamaguiSupportSponsor
+      item.price?.product?.name === ProductName.GuiProV2 ||
+      item.price?.product?.name === ProductName.GuiProV2Upgrade ||
+      item.price?.product?.name === ProductName.GuiSupportDirect ||
+      item.price?.product?.name === ProductName.GuiSupportSponsor
   )
 
   // V2 users need to set up a project after purchase
@@ -1152,7 +1152,7 @@ const PlanTab = ({
     return <ProjectSetupForm onComplete={() => refreshProjects()} />
   }
 
-  const handleTakeoutAccess = (repoUrl = 'https://github.com/tamagui/takeout') => {
+  const handleTakeoutAccess = (repoUrl = 'https://github.com/hanzoai/takeout') => {
     // Just open the repo URL directly - invite handling is done via "Resend Invite" button
     window.open(repoUrl, '_blank', 'noopener,noreferrer')
   }
@@ -1237,7 +1237,7 @@ const PlanTab = ({
               if (!subscription) {
                 paymentModal.show = true
               } else {
-                handleTakeoutAccess('https://github.com/tamagui/takeout2')
+                handleTakeoutAccess('https://github.com/hanzoai/takeout2')
               }
             }}
             secondAction={
@@ -1245,7 +1245,7 @@ const PlanTab = ({
                 ? {
                     label: 'Pro Classic',
                     onPress: () =>
-                      handleTakeoutAccess('https://github.com/tamagui/takeout'),
+                      handleTakeoutAccess('https://github.com/hanzoai/takeout'),
                   }
                 : null
             }
@@ -1279,7 +1279,7 @@ const PlanTab = ({
           {supportSubscription && (
             <ServiceCard
               title="Private Support"
-              description="Access your private Discord support channel with priority responses from the Tamagui team."
+              description="Access your private Discord support channel with priority responses from the Hanzo GUI team."
               actionLabel="Manage Support"
               onAction={() => {
                 setShowSupportAccess(true)
@@ -1402,10 +1402,10 @@ const ChatAccessCard = () => {
           return
         }
         if (chatAccess.data?.success) {
-          window.open(`https://start.chat/tamagui/q0upl90r4xd`)
+          window.open(`https://start.chat/gui/q0upl90r4xd`)
           return
         }
-        window.open(`https://start.chat/tamagui`)
+        window.open(`https://start.chat/gui`)
       }}
       secondAction={
         chatAccess.isLoading || chatAccess.data?.success
@@ -1593,7 +1593,7 @@ const V2RenewalCard = ({ subscription }: { subscription: Subscription }) => {
           </Paragraph>
           <YStack gap="$1" pl="$2">
             <Paragraph color="$purple10">
-              • Takeout 2 - Tamagui 2, One 1, and Zero stack
+              • Takeout 2 - Hanzo GUI 2, One 1, and Zero stack
             </Paragraph>
             <Paragraph color="$purple10">
               • Takeout Static - Web-only starter with 100 Lighthouse
@@ -1837,7 +1837,7 @@ const ManageTab = ({
                       const price = item.price
                       const product = price?.product
                       const qty =
-                        product?.name === ProductName.TamaguiProTeamSeats
+                        product?.name === ProductName.GuiProTeamSeats
                           ? (teamData?.subscription.total_seats ?? 1)
                           : (subscription.quantity ?? 1)
                       const total = (price?.unit_amount || 0) * qty
@@ -2149,7 +2149,7 @@ const TeamTab = ({
       <YStack gap="$4">
         <H3>No Team Subscription</H3>
         <Paragraph color="$color10">
-          Purchase team seats to invite team members to your Tamagui Pro subscription.
+          Purchase team seats to invite team members to your Hanzo GUI Pro subscription.
         </Paragraph>
         <Button
           theme="accent"
@@ -2209,7 +2209,7 @@ const TeamTab = ({
             ) : searchQuery.length > 0 ? (
               <YStack gap={0}>
                 <Paragraph color="$color10">No results found</Paragraph>
-                <Paragraph color="$color10">User is not a member of Tamagui</Paragraph>
+                <Paragraph color="$color10">User is not a member of Hanzo GUI</Paragraph>
               </YStack>
             ) : null}
           </YStack>

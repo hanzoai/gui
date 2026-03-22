@@ -71,7 +71,7 @@ const features: Feature[] = [
   {
     feature: 'Style Compiler',
     description: 'Styles extracted at build time, not computed at runtime',
-    takeout: 'Tamagui',
+    takeout: 'Gui',
     others: 'Runtime only',
   },
   {

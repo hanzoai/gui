@@ -17,7 +17,7 @@ marked.setOptions({
 })
 
 const home = homedir()
-const tamaguiDir = path.join(home, '.tamagui')
+const guiDir = path.join(home, '.gui')
 
 export const generatedPackageTypes = ['font', 'icon'] as const
 export const installGeneratedPackage = async (type: string, packagesPath?: string) => {
@@ -29,25 +29,25 @@ export const installGeneratedPackage = async (type: string, packagesPath?: strin
       } Supported types: ${generatedPackageTypes.join(', ')}`
     )
   }
-  const repoName = type === 'font' ? 'tamagui-google-fonts' : 'tamagui-iconify'
-  console.info(`Setting up ${chalk.blueBright(tamaguiDir)}...`)
+  const repoName = type === 'font' ? 'gui-google-fonts' : 'gui-iconify'
+  console.info(`Setting up ${chalk.blueBright(guiDir)}...`)
 
-  await ensureDir(tamaguiDir)
-  const tempDir = path.join(tamaguiDir, repoName)
+  await ensureDir(guiDir)
+  const tempDir = path.join(guiDir, repoName)
   if (existsSync(tempDir)) {
     rmSync(tempDir, { recursive: true })
   }
   try {
-    process.chdir(tamaguiDir)
+    process.chdir(guiDir)
     try {
       console.info('Attempting to clone with SSH')
       execSync(
-        `git clone -n --depth=1  --branch generated --filter=tree:0 git@github.com:tamagui/${repoName}.git`
+        `git clone -n --depth=1  --branch generated --filter=tree:0 git@github.com:gui/${repoName}.git`
       )
     } catch (error) {
       console.info('SSH failed - Attempting to c  lone with HTTPS')
       execSync(
-        `git clone -n --depth=1 --branch generated --filter=tree:0 https://github.com/tamagui/${repoName}`
+        `git clone -n --depth=1 --branch generated --filter=tree:0 https://github.com/hanzoai/${repoName}`
       )
     }
 
@@ -58,9 +58,9 @@ export const installGeneratedPackage = async (type: string, packagesPath?: strin
       if ((error as any)?.stderr.includes('Repository not found')) {
         console.info(
           chalk.yellow(
-            `You don't have access to Tamagui ${
+            `You don't have access to Hanzo GUI ${
               type === 'font' ? 'fonts' : 'icons'
-            }. Check 🥡 Tamagui Takeout (https://gui.hanzo.ai/takeout) for more info.`
+            }. Check 🥡 Hanzo GUI Takeout (https://gui.hanzo.ai/takeout) for more info.`
           )
         )
         open('https://gui.hanzo.ai/takeout')
@@ -71,7 +71,7 @@ export const installGeneratedPackage = async (type: string, packagesPath?: strin
   }
 
   const meta = JSON.parse(
-    await readFile(path.join(tamaguiDir, repoName, `meta`, `data.json`)).then((r) =>
+    await readFile(path.join(guiDir, repoName, `meta`, `data.json`)).then((r) =>
       r.toString()
     )
   )

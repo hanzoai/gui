@@ -152,7 +152,7 @@ variants, if you wanted to have a `pad` property that accepted all the keys from
 `tokens.size`, you'd have to write this:
 
 ```tsx
-// in your tamagui.config.ts:
+// in your gui.config.ts:
 const tokens = createTokens({
   size: {
     sm: 10,
@@ -163,7 +163,7 @@ const tokens = createTokens({
   // ... see configuration docs for required tokens
 })
 
-export default createTamagui({
+export default createGui({
   tokens
 })
 
@@ -195,7 +195,7 @@ require always updating every component every time you change the tokens.
 Spread variants solve this problem. Instead, we can write:
 
 ```tsx
-// in your tamagui.config.ts:
+// in your gui.config.ts:
 const tokens = createTokens({
   size: {
     sm: 10,
@@ -206,7 +206,7 @@ const tokens = createTokens({
   // ... see configuration docs for required tokens
 })
 
-export default createTamagui({
+export default createGui({
   tokens
 })
 
@@ -274,7 +274,7 @@ given to the property (`"$lg"`), and the second is an object with
     {
       name: 'tokens',
       type: 'TokensParsed',
-      description: `All your tokens given to createTamagui, ensuring the keys all start with "$".`,
+      description: `All your tokens given to createGui, ensuring the keys all start with "$".`,
     },
     {
       name: 'props',
@@ -294,7 +294,7 @@ given to the property (`"$lg"`), and the second is an object with
     {
       name: 'fonts',
       type: 'string',
-      description: `All your fonts passed to createTamagui.`,
+      description: `All your fonts passed to createGui.`,
     },
     {
       name: 'context',
@@ -346,7 +346,7 @@ export const MyView = styled(View, {
 })
 ```
 
-Tamagui also provides a few types of other variant definition patterns that work
+Hanzo GUI also provides a few types of other variant definition patterns that work
 with tokens or types.
 
 ### defaultVariants
@@ -382,7 +382,7 @@ const Square = styled(View, {
 
 ### Variants and Pseudos, Media Queries
 
-Variants have the full power of the Tamagui styling system, including pseudo and
+Variants have the full power of the Hanzo GUI styling system, including pseudo and
 media styles:
 
 ```tsx

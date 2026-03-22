@@ -1,7 +1,7 @@
 import { mergeSlotStyleProps } from './mergeSlotStyleProps'
 
 /**
- * Merges props from a render element with viewProps from Tamagui.
+ * Merges props from a render element with viewProps from Gui.
  * viewProps takes precedence, elementProps provides fallbacks.
  * Style/className are merged, refs and event handlers are composed.
  */

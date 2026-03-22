@@ -6,7 +6,7 @@ import * as t from '@babel/types'
 import findRoot from 'find-root'
 
 import { memoize } from '../helpers/memoize'
-import type { ExtractedAttr, TamaguiOptionsWithFileInfo, Ternary } from '../types'
+import type { ExtractedAttr, GuiOptionsWithFileInfo, Ternary } from '../types'
 
 // import { astToLiteral } from './literalToAst'
 
@@ -98,7 +98,7 @@ export function findComponentName(scope) {
 }
 
 export function isValidThemeHook(
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   jsxPath: NodePath<t.JSXElement>,
   n: t.MemberExpression,
   sourcePath?: string
@@ -122,7 +122,7 @@ export function isValidThemeHook(
 }
 
 export const isInsideComponentPackage = (
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   moduleName: string
 ) => {
   return getValidComponentsPaths(props).some((path) => {
@@ -131,7 +131,7 @@ export const isInsideComponentPackage = (
 }
 
 export const isComponentPackage = (
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   srcName: string
 ) => {
   return getValidComponentsPaths(props).some((path) => {
@@ -140,7 +140,7 @@ export const isComponentPackage = (
 }
 
 export function getValidComponent(
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   moduleName: string,
   componentName: string
 ) {
@@ -161,7 +161,7 @@ export function getValidComponent(
   return null
 }
 
-export const isValidModule = (props: TamaguiOptionsWithFileInfo, moduleName: string) => {
+export const isValidModule = (props: GuiOptionsWithFileInfo, moduleName: string) => {
   if (typeof moduleName !== 'string') {
     throw new Error(`No module name`)
   }
@@ -175,7 +175,7 @@ export const isValidModule = (props: TamaguiOptionsWithFileInfo, moduleName: str
 }
 
 export const getValidImport = (
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   moduleName: string,
   componentName?: string
 ) => {
@@ -187,7 +187,7 @@ export const getValidImport = (
 }
 
 export const isValidImport = (
-  props: TamaguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   moduleName: string,
   componentName?: string
 ) => {
@@ -197,12 +197,12 @@ export const isValidImport = (
   return Boolean(getValidImport(props, moduleName, componentName))
 }
 
-const getValidComponentPackages = memoize((props: TamaguiOptionsWithFileInfo) => {
-  // just always look for `tamagui` and `@hanzo/gui-core`
+const getValidComponentPackages = memoize((props: GuiOptionsWithFileInfo) => {
+  // just always look for `gui` and `@hanzo/gui-core`
   return [...new Set(['@hanzo/gui-core', '@hanzo/gui', ...(props.components || [])])]
 })
 
-export const getValidComponentsPaths = memoize((props: TamaguiOptionsWithFileInfo) => {
+export const getValidComponentsPaths = memoize((props: GuiOptionsWithFileInfo) => {
   return getValidComponentPackages(props).flatMap((pkg) => {
     const root = findRoot(pkg)
     const based = basename(root)

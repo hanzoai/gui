@@ -8,7 +8,7 @@ description: Easy config and themes with @hanzo/gui-config/v4
   helper function for generating your own theme suite called `createThemes`.
 </IntroParagraph>
 
-Tamagui is incredibly customizable, but if you want to get started faster and
+Hanzo GUI is incredibly customizable, but if you want to get started faster and
 enjoy using a configuration that is standardized and has been tested in many
 apps, we recommend our `@hanzo/gui-config` package.
 
@@ -20,17 +20,17 @@ npm install @hanzo/gui-config
 
 Using the new `defaultConfig` is the easiest way to start:
 
-```tsx fileName="tamagui.config.ts"
+```tsx fileName="gui.config.ts"
 import { defaultConfig } from '@hanzo/gui-config/v4'
-import { createTamagui } from '@hanzo/gui'
+import { createGui } from '@hanzo/gui'
 
-export const config = createTamagui(defaultConfig)
+export const config = createGui(defaultConfig)
 
 type CustomConfig = typeof config
 
 // ensure types work
-declare module 'tamagui' {
-  interface TamaguiCustomConfig extends CustomConfig {}
+declare module '@hanzo/gui' {
+  interface GuiCustomConfig extends CustomConfig {}
 }
 ```
 
@@ -49,7 +49,7 @@ into your app and customize to your taste.
 We recommend adding `settings.styleCompat` to the default config, setting it to
 be "react-native". This will align the default flexBasis of `flex` to be `0`,
 not `auto`, matching the default in React Native. This setting will become the
-default in the upcoming Tamagui v2 release. We left it out of Config v4 because
+default in the upcoming Hanzo GUI v2 release. We left it out of Config v4 because
 we wanted an easier transition for existing users, but if you are a new user, we
 recommend this setting.
 
@@ -216,17 +216,17 @@ const generatedThemes = createThemes({
   },
 })
 
-export type TamaguiThemes = typeof generatedThemes
+export type Hanzo GUIThemes = typeof generatedThemes
 
 /**
  * This is an optional production optimization: themes JS can get to 20Kb or more.
- * Tamagui has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
- * So long as you server render your Tamagui CSS, this will save you bundle size:
+ * Hanzo GUI has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
+ * So long as you server render your Hanzo GUI CSS, this will save you bundle size:
  */
-export const themes: TamaguiThemes =
+export const themes: Hanzo GUIThemes =
   // we define this in our bundler plugins, but you can also use your framework/bundlers
   // built in environment variables to ensure this is shaken away on client js bundles
-  process.env.TAMAGUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
+  process.env.HANZO_GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
     ? {}
     : (generatedThemes as any)
 ```
@@ -246,7 +246,7 @@ So what have we done?
   success, or warning state. That's why we default to setting `green`, `yellow`,
   and `red`. Of course, you can swap these out for whatever you like.
 - We also are setting `componentThemes` to `defaultComponentThemes`, which will
-  generate for us default styling for the Tamagui UI components. If you prefer
+  generate for us default styling for the Hanzo GUI components. If you prefer
   to not have default component themes, you can leave this out.
 - You can use the `getTheme` callback to customize any generated theme. See the
   [theme-builder guide](/docs/guides/theme-builder#customizing-themes-with-gettheme)
@@ -304,7 +304,7 @@ The new media queries in v4 are also more simplified and aligned to Tailwind:
 On the server, only xs and 2xs default to `true` to align generally give you a
 [mobile-first design](https://en.wikipedia.org/wiki/Responsive_web_design)
 setup, but of course you can change that. This only really affects `useMedia()`,
-as Tamagui generates proper SSR-safe CSS for media queries on the server for any
+as Hanzo GUI generates proper SSR-safe CSS for media queries on the server for any
 style properties.
 
 #### Shorthands
@@ -422,9 +422,9 @@ export const radius = {
 
 Note that `color` tokens aren't defined, instead we are just using themes.
 
-Also note that the "true" value on tokens is the "default" - Tamagui UI for now
+Also note that the "true" value on tokens is the "default" - Hanzo GUI for now
 uses defaults to determine how to size various things out of the box. This isn't
-mandatory, and in version 2 of Tamagui we are working on a more clear solution.
+mandatory, and in version 2 of Hanzo GUI we are working on a more clear solution.
 
 #### Fonts
 

@@ -1,5 +1,5 @@
 import { isWeb } from '@hanzo/gui-constants'
-import type { CreateTamaguiProps, Variable } from '../types'
+import type { CreateGuiProps, Variable } from '../types'
 import { getVariableVariable, isVariable } from '../createVariable'
 import { autoVariables, registerCSSVariable, variableToCSS } from './registerCSSVariable'
 import { getThemeCSSRules } from './getThemeCSSRules'
@@ -171,7 +171,7 @@ export function buildCSSRuleSets(
  */
 export function createThemeCSS(
   dedupedThemes: Array<{ names: string[]; theme: any }>,
-  configIn: CreateTamaguiProps
+  configIn: CreateGuiProps
 ): string[] {
   if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
     let themeRuleSets: string[] = []

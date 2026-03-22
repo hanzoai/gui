@@ -1,6 +1,6 @@
 import {
   enable,
-  useElementLayout as useTamaguiElementLayout,
+  useElementLayout as useGuiElementLayout,
 } from '@hanzo/gui-use-element-layout'
 import { type RefObject, useEffect, useMemo } from 'react'
 import type { LayoutEvent } from '../../types'
@@ -9,7 +9,7 @@ export function useElementLayout(
   ref: RefObject<any>,
   onLayout?: ((e: LayoutEvent) => void) | null
 ) {
-  // translates to tamagui style
+  // translates to hanzo-gui style
   const wrappedRef = useMemo(() => {
     return {
       current: {
@@ -24,5 +24,5 @@ export function useElementLayout(
     enable()
   }, [])
 
-  return useTamaguiElementLayout(wrappedRef, onLayout)
+  return useGuiElementLayout(wrappedRef, onLayout)
 }

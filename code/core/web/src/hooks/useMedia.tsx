@@ -16,7 +16,7 @@ import type {
   GetStyleState,
   IsMediaType,
   MediaQueryState,
-  TamaguiInternalConfig,
+  GuiInternalConfig,
   UseMediaState,
   WidthHeight,
 } from '../types'
@@ -59,7 +59,7 @@ const dispose = new Set<Function>()
 
 let mediaVersion = 0
 
-export const configureMedia = (config: TamaguiInternalConfig) => {
+export const configureMedia = (config: GuiInternalConfig) => {
   const { media } = config
   const mediaQueryDefaultActive = getSetting('mediaQueryDefaultActive')
   if (!media) return

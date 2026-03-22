@@ -6,12 +6,12 @@ import template from '@babel/template'
 import * as t from '@babel/types'
 import { basename } from 'node:path'
 import { getPragmaOptions } from '../getPragmaOptions'
-import type { TamaguiOptions } from '../types'
+import type { GuiOptions } from '../types'
 import { createExtractor } from './createExtractor'
 import { createLogger } from './createLogger'
 import { isSimpleSpread } from './extractHelpers'
 import { literalToAst } from './literalToAst'
-import { loadTamaguiBuildConfigSync } from './loadTamagui'
+import { loadGuiBuildConfigSync } from './loadGui'
 
 const importNativeView = template(`
 const __ReactNativeView = require('react-native').View;
@@ -26,12 +26,12 @@ const importWithStyle = template.ast(`import { _withStableStyle } from '@hanzo/g
 
 const extractor = createExtractor({ platform: 'native' })
 
-let tamaguiBuildOptionsLoaded: TamaguiOptions | null
+let guiBuildOptionsLoaded: GuiOptions | null
 
 export function extractToNative(
   sourceFileName: string,
   sourceCode: string,
-  options: TamaguiOptions
+  options: GuiOptions
 ): BabelFileResult {
   const ast = parse(sourceCode, {
     sourceType: 'module',
@@ -55,13 +55,13 @@ export function extractToNative(
 }
 
 export function getBabelPlugin() {
-  return declare((api, options: TamaguiOptions) => {
+  return declare((api, options: GuiOptions) => {
     api.assertVersion(7)
     return getBabelParseDefinition(options)
   })
 }
 
-export function getBabelParseDefinition(options: TamaguiOptions) {
+export function getBabelParseDefinition(options: GuiOptions) {
   return {
     name: 'hanzo-gui',
 
@@ -106,16 +106,16 @@ export function getBabelParseDefinition(options: TamaguiOptions) {
           }
 
           if (!options.config && !options.components) {
-            // if no config/components given try and load from the tamagui.build.ts file
-            tamaguiBuildOptionsLoaded ||= loadTamaguiBuildConfigSync({})
+            // if no config/components given try and load from the gui.build.ts file
+            guiBuildOptionsLoaded ||= loadGuiBuildConfigSync({})
           }
 
           const finalOptions = {
             // @ts-ignore just in case they leave it out
             platform: 'native',
-            ...tamaguiBuildOptionsLoaded,
+            ...guiBuildOptionsLoaded,
             ...options,
-          } satisfies TamaguiOptions
+          } satisfies GuiOptions
 
           const printLog = createLogger(sourcePath, finalOptions)
 
@@ -393,7 +393,7 @@ export function getBabelParseDefinition(options: TamaguiOptions) {
               if (message.includes('Unexpected return value from visitor method')) {
                 message = 'Unexpected return value from visitor method'
               }
-              console.warn('Error in Tamagui parse, skipping', message, err.stack)
+              console.warn('Error in Hanzo GUI parse, skipping', message, err.stack)
               return
             }
           }
@@ -440,7 +440,7 @@ function assertValidTag(node: t.JSXOpeningElement) {
   if (node.attributes.find((x) => x.type === 'JSXAttribute' && x.name.name === 'style')) {
     // we can just deopt here instead and log warning
     // need to make onExtractTag have a special catch error or similar
-    if (process.env.DEBUG?.startsWith('tamagui')) {
+    if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
       console.warn('⚠️ Cannot pass style attribute to extracted style')
     }
   }

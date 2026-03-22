@@ -30,7 +30,7 @@ import { getStyleTags } from './helpers/wrapStyleTags'
 import { useComponentState } from './hooks/useComponentState'
 import { setMediaShouldUpdate, useMedia } from './hooks/useMedia'
 import { useThemeWithState } from './hooks/useTheme'
-import type { TamaguiComponentEvents } from './interfaces/TamaguiComponentEvents'
+import type { GuiComponentEvents } from './interfaces/GuiComponentEvents'
 import { hooks } from './setupHooks'
 import type {
   AllGroupContexts,
@@ -42,10 +42,10 @@ import type {
   SingleGroupContext,
   StaticConfig,
   StyleableOptions,
-  TamaguiComponent,
-  TamaguiComponentState,
-  TamaguiElement,
-  TamaguiInternalConfig,
+  GuiComponent,
+  GuiComponentState,
+  GuiElement,
+  GuiInternalConfig,
   TextProps,
   UseAnimationHook,
   UseAnimationProps,
@@ -57,14 +57,14 @@ import { getThemedChildren } from './views/Theme'
 import type { ViewProps } from './views/View'
 
 /**
- * All things that need one-time setup after createTamagui is called
+ * All things that need one-time setup after createGui is called
  */
 let time: any
 
 let debugKeyListeners: Set<Function> | undefined
 let startVisualizer: Function | undefined
 
-type ComponentSetState = React.Dispatch<React.SetStateAction<TamaguiComponentState>>
+type ComponentSetState = React.Dispatch<React.SetStateAction<GuiComponentState>>
 
 export const componentSetStates = new Set<ComponentSetState>()
 const avoidReRenderKeys = new Set([
@@ -122,8 +122,8 @@ if (process.env.HANZO_GUI_TARGET !== 'native' && typeof window !== 'undefined') 
     startVisualizer = () => {
       const devVisualizerConfig = devConfig?.visualizer
 
-      if (devVisualizerConfig && !globalThis.__tamaguiDevVisualizer) {
-        globalThis.__tamaguiDevVisualizer = true
+      if (devVisualizerConfig && !globalThis.__guiDevVisualizer) {
+        globalThis.__guiDevVisualizer = true
 
         debugKeyListeners = new Set()
         let tm
@@ -226,11 +226,11 @@ if (isWeb && typeof document !== 'undefined') {
 
 export function createComponent<
   ComponentPropTypes extends Record<string, any> = {},
-  Ref extends TamaguiElement = TamaguiElement,
+  Ref extends GuiElement = GuiElement,
   BaseProps = never,
   BaseStyles extends object = never,
 >(staticConfig: StaticConfig) {
-  let config: TamaguiInternalConfig | null = null
+  let config: GuiInternalConfig | null = null
 
   const { Component, isText, isHOC } = staticConfig
 
@@ -304,7 +304,7 @@ export function createComponent<
     if (process.env.NODE_ENV === 'development' && !time && (globalThis as any).time) {
       time = (globalThis as any).time
     }
-    if (process.env.NODE_ENV === 'development' && time) time`non-tamagui time (ignore)`
+    if (process.env.NODE_ENV === 'development' && time) time`non-gui time (ignore)`
 
     // React inserts default props after your props for some reason...
     // order important so we do loops, you can't just spread because JS does weird things
@@ -949,12 +949,12 @@ export function createComponent<
       // @ts-ignore  for next/link compat etc
       onClick,
       theme: _themeProp,
-      ...nonTamaguiProps
+      ...nonGuiProps
     } = viewPropsIn || {}
 
     // these can ultimately be for DOM, react-native-web views, or animated views
     // so the type is pretty loose
-    let viewProps = nonTamaguiProps
+    let viewProps = nonGuiProps
 
     if (props.forceStyle) {
       viewProps.forceStyle = props.forceStyle
@@ -1054,8 +1054,8 @@ export function createComponent<
       groupContext && // avoids onLayout if we don't need it
       props.containerType !== 'normal'
     ) {
-      nonTamaguiProps.onLayout = composeEventHandlers(
-        nonTamaguiProps.onLayout,
+      nonGuiProps.onLayout = composeEventHandlers(
+        nonGuiProps.onLayout,
         (e: LayoutEvent) => {
           // one off update here
           const layout = e.nativeEvent.layout
@@ -1076,14 +1076,14 @@ export function createComponent<
     viewProps =
       hooks.usePropsTransform?.(
         elementType,
-        nonTamaguiProps,
+        nonGuiProps,
         stateRef,
         stateRef.current.willHydrate
-      ) || nonTamaguiProps
+      ) || nonGuiProps
 
     if (!stateRef.current.composedRef) {
-      stateRef.current.composedRef = composeRefs<TamaguiElement>(
-        (x) => (stateRef.current.host = x as TamaguiElement),
+      stateRef.current.composedRef = composeRefs<GuiElement>(
+        (x) => (stateRef.current.host = x as GuiElement),
         forwardedRef,
         setElementProps,
         animatedRef
@@ -1273,7 +1273,7 @@ export function createComponent<
       })
     }
 
-    const events: TamaguiComponentEvents | null = shouldAttach
+    const events: GuiComponentEvents | null = shouldAttach
       ? {
           onPressOut: attachPress
             ? (e) => {
@@ -1697,7 +1697,7 @@ export function createComponent<
     component.displayName = staticConfig.componentName
   }
 
-  type ComponentType = TamaguiComponent<
+  type ComponentType = GuiComponent<
     ComponentPropTypes,
     Ref,
     BaseProps,

@@ -8,7 +8,7 @@ let tempDir: string
 
 beforeEach(() => {
   clearFormatCache()
-  tempDir = mkdtempSync(join(tmpdir(), 'tamagui-detect-'))
+  tempDir = mkdtempSync(join(tmpdir(), 'gui-detect-'))
 })
 
 afterEach(() => {

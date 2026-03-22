@@ -1,6 +1,6 @@
 ---
 title: The Frontend Trilemma
-description: Why Tamagui uses an optimizing compiler
+description: Why Hanzo GUI uses an optimizing compiler
 ---
 
 <IntroParagraph>
@@ -41,7 +41,7 @@ but it's not _technically_ impossible. We can imagine a few ways to get closer:
 
 This document goes over how we can achieve the last one. The first one is doable
 (and Expo is [working on as much](https://expo.github.io/router/docs/)), and the
-second one [Tamagui UI](/docs/components/stacks) is working towards slowly.
+second one [Hanzo GUI](/docs/components/stacks) is working towards slowly.
 
 **The idea is to make another "bump" towards properly native-experience apps
 with shared code, much like how React Native Web made one:**
@@ -59,11 +59,11 @@ with shared code, much like how React Native Web made one:**
 
 This can be done especially on the web by reducing JS bundle size by a large %
 and greatly increasing render performance with reduced tree depth, logic,
-objects, and hooks. The Tamagui Compiler does this using partial evaluation,
+objects, and hooks. The Hanzo GUI Compiler does this using partial evaluation,
 static extraction and hoisting, code elimination, and tree-flattening.
 
 You can
-[skip to the technical details without the backstory](#how-tamagui-helps) from
+[skip to the technical details without the backstory](#how-gui-helps) from
 here if you'd like.
 
 <Table heading="Choose your journey">
@@ -121,7 +121,7 @@ well-optimized, goes from 95 or so down to 80ish with the compiler off).
 With all your media queries, interactive styles, themes, animations, and dynamic
 styles in JS, it's hard to make ambitious apps that don't feel janky.
 
-### How Tamagui Helps
+### How Hanzo GUI Helps
 
 `@hanzo/gui-static` is an optimizing compiler for React Native with four main
 features:
@@ -143,7 +143,7 @@ primitives used on the web.
 
 Here's what it does, in code:
 
-<TamaguiExamplesCode />
+<GuiExamplesCode />
 
 See [more examples on the homepage](/).
 
@@ -214,6 +214,6 @@ still feeling native:
   </TableCol>
 </Table>
 
-Tamagui makes React faster, but mostly makes _making_ React faster.
+Hanzo GUI makes React faster, but mostly makes _making_ React faster.
 
-Give Tamagui a try with `npm create hanzo-gui@latest`.
+Give Hanzo GUI a try with `npm create hanzo-gui@latest`.

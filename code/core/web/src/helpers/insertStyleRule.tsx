@@ -8,7 +8,7 @@ import type {
   TokensParsed,
 } from '../types'
 
-// only cache tamagui styles
+// only cache hanzo-gui styles
 // TODO merge totalSelectorsInserted and allSelectors?
 const scannedCache = new WeakMap<CSSStyleSheet, string>()
 const totalSelectorsInserted = new Map<string, number>()
@@ -101,8 +101,8 @@ function updateSheetStyles(
     return
   }
 
-  const firstSelector = getTamaguiSelector(rules[0], collectThemes)?.[0]
-  const lastSelector = getTamaguiSelector(rules[rules.length - 1], collectThemes)?.[0]
+  const firstSelector = getGuiSelector(rules[0], collectThemes)?.[0]
+  const lastSelector = getGuiSelector(rules[rules.length - 1], collectThemes)?.[0]
   const cacheKey = `${rules.length}${firstSelector}${lastSelector}`
   const lastScanned = scannedCache.get(sheet)
 
@@ -127,7 +127,7 @@ function updateSheetStyles(
     const rule = rules[i]
     if (!(rule instanceof CSSStyleRule)) continue
 
-    const response = getTamaguiSelector(rule, collectThemes)
+    const response = getGuiSelector(rule, collectThemes)
 
     if (response) {
       // reset to 0 on any success as eg every other theme scan we get empty
@@ -135,7 +135,7 @@ function updateSheetStyles(
     } else {
       fails++
       if (fails > bailAfter) {
-        // conservatively bail out of non-tamagui sheets
+        // conservatively bail out of non-gui sheets
         return
       }
       continue
@@ -249,9 +249,9 @@ function addThemesFromCSS(cssStyleRule: CSSStyleRule, tokens?: TokensParsed) {
   } satisfies DedupedTheme
 }
 
-const tamaguiSelectorRegex = /\.tm_xxt/
+const guiSelectorRegex = /\.tm_xxt/
 
-function getTamaguiSelector(
+function getGuiSelector(
   rule: CSSRule | null,
   collectThemes = false
 ): readonly [string, CSSStyleRule] | [string, CSSStyleRule, true] | undefined {
@@ -259,21 +259,21 @@ function getTamaguiSelector(
     const text = rule.selectorText
 
     // only matches t_ starting selector chains
-    if (text[0] === ':' && text[1] === 'r' && tamaguiSelectorRegex.test(text)) {
-      const id = getIdentifierFromTamaguiSelector(
+    if (text[0] === ':' && text[1] === 'r' && guiSelectorRegex.test(text)) {
+      const id = getIdentifierFromGuiSelector(
         // next.js minifies it so its in front
-        text.replace(tamaguiSelectorRegex, '')
+        text.replace(guiSelectorRegex, '')
       )
       return collectThemes ? [id, rule, true] : [id, rule]
     }
   } else if (rule instanceof CSSMediaRule) {
-    // tamagui only ever inserts 1 rule per media
+    // hanzo-gui only ever inserts 1 rule per media
     if (rule.cssRules.length > 1) return
-    return getTamaguiSelector(rule.cssRules[0])
+    return getGuiSelector(rule.cssRules[0])
   }
 }
 
-const getIdentifierFromTamaguiSelector = (selector: string) => {
+const getIdentifierFromGuiSelector = (selector: string) => {
   const dotIndex = selector.indexOf(':')
   if (dotIndex > -1) {
     return selector.slice(7, dotIndex)
@@ -305,7 +305,7 @@ export function insertStyleRules(rulesToInsert: RulesToInsert) {
 
   if (!sheet && document.head) {
     const styleTag = document.createElement('style')
-    styleTag.id = '_tamagui-styles'
+    styleTag.id = '_gui-styles'
     if (nonce) {
       styleTag.nonce = nonce
     }
@@ -342,7 +342,7 @@ export function insertStyleRules(rulesToInsert: RulesToInsert) {
 
 // The way browser or next.js work you end up with CSS being removed *after* the new CSS loads for the upcoming page
 // this causes many bugs. We defaulted to "2" here for safety, meaning we sacrificed some performance
-// setting TAMAGUI_INSERT_SELECTOR_TRIES=1 will be faster so long as you are concatting your CSS together
+// setting HANZO_GUI_INSERT_SELECTOR_TRIES=1 will be faster so long as you are concatting your CSS together
 
 const maxToInsert = process.env.HANZO_GUI_INSERT_SELECTOR_TRIES
   ? +process.env.HANZO_GUI_INSERT_SELECTOR_TRIES

@@ -1,12 +1,12 @@
 import { config } from '@hanzo/gui-config'
 import {
   Spacer,
-  TamaguiProvider,
+  GuiProvider,
   Test14Component,
   Text,
   XStack,
   YStack,
-  createTamagui,
+  createGui,
   useMedia,
 } from '@hanzo/gui-sandbox-ui'
 
@@ -21,12 +21,12 @@ type TestProps = {
   altConditional?: boolean
 }
 
-const tamaguiConfig = createTamagui(config)
+const guiConfig = createGui(config)
 
 export const Provider = (props) => (
-  <TamaguiProvider defaultTheme="dark" config={tamaguiConfig}>
+  <GuiProvider defaultTheme="dark" config={guiConfig}>
     {props.children}
-  </TamaguiProvider>
+  </GuiProvider>
 )
 
 const child = <Text>hello world</Text>

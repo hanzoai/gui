@@ -1,10 +1,10 @@
 import { memo } from 'react'
-import { type SwitchProps, Switch as TamaguiSwitch, Theme } from '@hanzo/gui'
+import { type SwitchProps, Switch as GuiSwitch, Theme } from '@hanzo/gui'
 
 export const Switch = memo((props: SwitchProps) => {
   return (
     <Theme name={props.checked ? 'accent' : 'gray'}>
-      <TamaguiSwitch
+      <GuiSwitch
         transition={[
           'bouncy',
           {
@@ -19,7 +19,7 @@ export const Switch = memo((props: SwitchProps) => {
         size="$3"
         {...props}
       >
-        <TamaguiSwitch.Thumb
+        <GuiSwitch.Thumb
           transition={[
             'quickest',
             {
@@ -34,7 +34,7 @@ export const Switch = memo((props: SwitchProps) => {
           alignItems="center"
           justifyContent="center"
         />
-      </TamaguiSwitch>
+      </GuiSwitch>
     </Theme>
   )
 })

@@ -1,8 +1,8 @@
 import { register } from 'esbuild-register/dist/node'
 
 import { esbuildIgnoreFilesRegex } from './extractor/bundle'
-import { requireTamaguiCore } from './helpers/requireTamaguiCore'
-import type { TamaguiPlatform } from './types'
+import { requireGuiCore } from './helpers/requireGuiCore'
+import type { GuiPlatform } from './types'
 
 const nameToPaths = {}
 
@@ -24,7 +24,7 @@ export function setRequireResult(name: string, result: any) {
 }
 
 export function registerRequire(
-  platform: TamaguiPlatform,
+  platform: GuiPlatform,
   { proxyWormImports } = {
     proxyWormImports: false,
   }
@@ -32,13 +32,13 @@ export function registerRequire(
   // already registered
   if (isRegistered) {
     return {
-      tamaguiRequire: require,
+      guiRequire: require,
       unregister: () => {},
     }
   }
 
   // capture original resolve BEFORE esbuild-register patches it
-  // so we can use Node's native exports resolution for @tamagui packages
+  // so we can use Node's native exports resolution for @gui packages
   const originalResolveFilename = Module._resolveFilename
 
   const { unregister } = register({
@@ -47,8 +47,8 @@ export function registerRequire(
     hookMatcher: (filename) => {
       if (
         filename.includes('@hanzo/gui') ||
-        filename.includes('@tamagui') ||
-        /\/(hanzo\/gui|tamagui)\/code\/(core|ui|packages)\//.test(filename)
+        filename.includes('@gui') ||
+        /\/(hanzo\/gui|gui)\/code\/(core|ui|packages)\//.test(filename)
       ) {
         return false
       }
@@ -58,10 +58,10 @@ export function registerRequire(
 
   // esbuild-register's registerTsconfigPaths replaces Module._resolveFilename
   // but tsconfig paths resolution bypasses Node's package exports
-  // we need to restore Node's native resolution for @tamagui packages
+  // we need to restore Node's native resolution for @gui packages
   const tsconfigPatchedResolve = Module._resolveFilename
   Module._resolveFilename = function (request: string, ...args: any[]) {
-    // for @tamagui packages, use Node's native resolution (respects exports)
+    // for @gui packages, use Node's native resolution (respects exports)
     if (request.startsWith('@hanzo/gui-')) {
       return originalResolveFilename.call(this, request, ...args)
     }
@@ -75,15 +75,15 @@ export function registerRequire(
 
   isRegistered = true
 
-  Module.prototype.require = tamaguiRequire
+  Module.prototype.require = guiRequire
 
-  function tamaguiRequire(this: any, path: string) {
+  function guiRequire(this: any, path: string) {
     if (path === '@hanzo/gui' && platform === 'native') {
       return og.apply(this, ['@hanzo/gui/native'])
     }
 
     if (path === '@hanzo/gui-core') {
-      return requireTamaguiCore(platform, (path) => {
+      return requireGuiCore(platform, (path) => {
         return og.apply(this, [path])
       })
     }
@@ -121,13 +121,13 @@ export function registerRequire(
     }
 
     if (!whitelisted[path]) {
-      if (proxyWormImports && !path.includes('.tamagui-dynamic-eval')) {
+      if (proxyWormImports && !path.includes('.gui-dynamic-eval')) {
         // allow @hanzo/gui and its sub-packages through - they re-export components
         // with staticConfig needed for dynamic eval optimization.
         // also allow requires FROM within gui packages (relative imports like ./Separator.cjs)
         const callerFile = this?.filename || this?.id || ''
         const isFromGuiPkg =
-          callerFile.includes('@hanzo/gui') || callerFile.includes('@tamagui') || callerFile.includes('node_modules/@hanzo/')
+          callerFile.includes('@hanzo/gui') || callerFile.includes('@gui') || callerFile.includes('node_modules/@hanzo/')
         if (path === '@hanzo/gui' || path.startsWith('@hanzo/gui-') || isFromGuiPkg) {
           return og.apply(this, [path])
         }
@@ -164,7 +164,7 @@ export function registerRequire(
     } catch (err: any) {
       if (
         !process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD &&
-        path.includes('tamagui-dynamic-eval')
+        path.includes('gui-dynamic-eval')
       ) {
         // ok, dynamic eval fails
         return
@@ -193,7 +193,7 @@ export function registerRequire(
   }
 
   return {
-    tamaguiRequire,
+    guiRequire,
     unregister: () => {
       if (hasWarnedForModules.size) {
         console.info(

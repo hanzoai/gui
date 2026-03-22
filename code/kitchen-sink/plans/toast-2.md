@@ -2,7 +2,7 @@
 
 ## Overview
 
-Revamp @hanzo/gui-toast to v2, inspired by Sonner's excellent UX. Must be fully cross-platform using Tamagui's animation system - NO CSS cheats.
+Revamp @hanzo/gui-toast to v2, inspired by Sonner's excellent UX. Must be fully cross-platform using Hanzo GUI's animation system - NO CSS cheats.
 
 ## Reference Implementations
 
@@ -222,7 +222,7 @@ Revamp @hanzo/gui-toast to v2, inspired by Sonner's excellent UX. Must be fully 
 - [x] enterStyle: opacity 0, y: ±10, scale: 0.95 (subtle)
 - [x] exitStyle: opacity 0, x/y: ±30 for swipe, ±10 for normal, scale: 0.95
 - [x] AnimatePresence for mount/unmount
-- [x] transition: 'quick' (Tamagui animation)
+- [x] transition: 'quick' (Gui animation)
 - [x] Disable animation while dragging
 
 ### Keyboard Support

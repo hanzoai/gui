@@ -22,7 +22,7 @@ import { ContainerBento } from '~/components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'
 import { BentoPageFrame } from '~/features/bento/BentoPageFrame'
 import { useBentoStore } from '~/features/bento/BentoStore'
-import { DropTamaguiConfig } from '~/features/bento/DropTamaguiConfig'
+import { DropGuiConfig } from '~/features/bento/DropGuiConfig'
 import { useSubscriptionModal } from '~/features/site/purchase/useSubscriptionModal'
 
 export const generateStaticParams = async () => {
@@ -53,7 +53,7 @@ export default function BentoPage() {
   return (
     <CurrentRouteProvider section={section} part={part}>
       <HeadInfo
-        title={`${section} / ${part} - Tamagui Bento`}
+        title={`${section} / ${part} - Hanzo GUI Bento`}
         description={`Copy-paste ${section} ${part} component for React Native and Web`}
         openGraph={{
           images: [{ url: '/bento/social.png' }],
@@ -179,7 +179,7 @@ export const DetailHeader = (props: { children: string }) => {
             $sm={{ y: 0, mt: 0, mb: 40, items: 'center' }}
           >
             <XStack gap="$4">
-              <DropTamaguiConfig />
+              <DropGuiConfig />
 
               <Button
                 icon={bentoStore.disableTint ? Paintbrush : CircleDashed}

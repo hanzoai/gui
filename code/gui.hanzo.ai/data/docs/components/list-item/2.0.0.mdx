@@ -27,7 +27,7 @@ demoName: ListItem
 
 ## Installation
 
-ListItem is already installed in `tamagui`, or you can install it independently:
+ListItem is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 npm install @hanzo/gui-list-item
@@ -171,23 +171,23 @@ The `color` prop passed to `Apply` will be inherited by icons within children.
 
 ## Customization
 
-For customization, Tamagui exports the building blocks: `ListItem.Frame`, `ListItem.Text`, `ListItem.Title`, `ListItem.Subtitle`, and `ListItem.Icon`.
+For customization, Hanzo GUI exports the building blocks: `ListItem.Frame`, `ListItem.Text`, `ListItem.Title`, `ListItem.Subtitle`, and `ListItem.Icon`.
 
 ```tsx
-import { YStack, ListItem as TamaguiListItem } from '@hanzo/gui'
+import { YStack, ListItem as Hanzo GUIListItem } from '@hanzo/gui'
 import { GetProps, styled } from '@hanzo/gui-web'
 
-const CustomFrame = styled(TamaguiListItem.Frame, {
+const CustomFrame = styled(GuiListItem.Frame, {
   padding: '$5',
   backgroundColor: '$backgroundHover',
 })
 
-const CustomTitle = styled(TamaguiListItem.Title, {
+const CustomTitle = styled(GuiListItem.Title, {
   color: '$red10',
   fontWeight: 'bold',
 })
 
-const CustomSubtitle = styled(TamaguiListItem.Subtitle, {
+const CustomSubtitle = styled(GuiListItem.Subtitle, {
   color: '$gray10',
   fontStyle: 'italic',
 })
@@ -202,11 +202,11 @@ export const MyAdvancedListItem = ({
 }) => {
   return (
     <CustomFrame {...frameProps}>
-      {icon && <TamaguiListItem.Icon>{icon}</TamaguiListItem.Icon>}
+      {icon && <GuiListItem.Icon>{icon}</GuiListItem.Icon>}
       <YStack flex={1} justify="center">
         {title && <CustomTitle>{title}</CustomTitle>}
         {subTitle && <CustomSubtitle>{subTitle}</CustomSubtitle>}
-        {children && <TamaguiListItem.Text>{children}</TamaguiListItem.Text>}
+        {children && <GuiListItem.Text>{children}</GuiListItem.Text>}
       </YStack>
       {/* iconAfter could go here */}
     </CustomFrame>
@@ -218,7 +218,7 @@ export const MyAdvancedListItem = ({
 
 ### ListItem
 
-ListItems extend Stack views, inheriting all the [Tamagui standard props](/docs/intro/props), plus:
+ListItems extend Stack views, inheriting all the [Gui standard props](/docs/intro/props), plus:
 
 <PropsTable
   data={[
@@ -288,7 +288,7 @@ ListItems extend Stack views, inheriting all the [Tamagui standard props](/docs/
       required: false,
       type: 'boolean',
       description:
-        'Removes all default Tamagui styles (padding, background, etc.). Default is `false` unless `TAMAGUI_HEADLESS` is set.',
+        'Removes all default Hanzo GUI styles (padding, background, etc.). Default is `false` unless `HANZO_GUI_HEADLESS` is set.',
     },
     {
       name: '// Styling Text',

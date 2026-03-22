@@ -7,7 +7,7 @@ module.exports = (api) => {
         '@hanzo/gui-babel-plugin',
         {
           components: ['@hanzo/gui', '@hanzo/gui-sandbox-ui'],
-          config: './src/tamagui.config.ts',
+          config: './src/gui.config.ts',
         },
       ],
       'react-native-reanimated/plugin',

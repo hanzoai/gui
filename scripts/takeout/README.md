@@ -2,20 +2,20 @@
 
 ## Overview
 
-These scripts help manage the sync between Stripe subscriptions and GitHub team access for Tamagui's takeout products (Tamagui Pro, Takeout Stack, Team Seats).
+These scripts help manage the sync between Stripe subscriptions and GitHub team access for Hanzo GUI's takeout products (Hanzo GUI Pro, Takeout Stack, Team Seats).
 
 ## How It Works
 
-1. **Customers subscribe** to Tamagui Pro or Takeout Stack in Stripe
+1. **Customers subscribe** to Hanzo GUI Pro or Takeout Stack in Stripe
 2. **Webhook creates claim** in database with `team_slug: 'early-access'`
 3. **User claims access** via the website, which adds them to GitHub `early-access` team
 4. **Subscription cancels** → webhook marks claim as unclaimed and removes from GitHub team
 
 ## Products That Grant Early Access
 
-- **Tamagui Pro** (`prod_RlRd2DVrG0frHe`) - includes takeout access
+- **Hanzo GUI Pro** (`prod_RlRd2DVrG0frHe`) - includes takeout access
 - **Takeout Stack** (`prod_NzLEazaqBgoKnC`) - standalone takeout
-- **Tamagui Pro Team Seats** (`prod_Rxu0x7jR0nWJSv`) - team subscriptions
+- **Hanzo GUI Pro Team Seats** (`prod_Rxu0x7jR0nWJSv`) - team subscriptions
 
 ## Available Scripts
 

@@ -32,7 +32,7 @@ ContextMenu displays a menu triggered by right-click on web or long-press on mob
 
 ## Installation
 
-ContextMenu is already installed in `tamagui`, or you can install it independently:
+ContextMenu is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
 yarn add @hanzo/gui-context-menu
@@ -192,20 +192,20 @@ Contains every component for the ContextMenu.
       name: 'unstyled',
       required: false,
       type: 'boolean',
-      description: 'Removes all default Tamagui styles.',
+      description: 'Removes all default Hanzo GUI styles.',
     },
   ]}
 />
 
 #### Allowing Native Context Menu
 
-You can call `event.preventDefault()` in `onOpenChange` to prevent the Tamagui menu from opening and allow the native browser context menu to appear instead:
+You can call `event.preventDefault()` in `onOpenChange` to prevent the Hanzo GUI menu from opening and allow the native browser context menu to appear instead:
 
 ```tsx
 <ContextMenu
   onOpenChange={(open, event) => {
     if (someCondition) {
-      // prevent Tamagui menu, let native context menu show
+      // prevent Hanzo GUI menu, let native context menu show
       event?.preventDefault()
     }
   }}

@@ -1,12 +1,12 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
-import { View, Text, createStyledContext, createTamagui, styled } from '../core/src'
+import { View, Text, createStyledContext, createGui, styled } from '../core/src'
 // Stack was removed in v2 - use View instead (same props)
 import { simplifiedGetSplitStyles } from './utils'
 
 beforeAll(() => {
-  createTamagui(config.getDefaultTamaguiConfig())
+  createGui(config.getDefaultGuiConfig())
 })
 
 /**

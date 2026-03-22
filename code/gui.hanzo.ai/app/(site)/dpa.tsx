@@ -23,7 +23,7 @@ export default function DPAPage() {
   return (
     <>
       <HeadInfo
-        title={`${frontmatter.title} | Tamagui`}
+        title={`${frontmatter.title} | Gui`}
         description={frontmatter.description || ''}
       />
 

@@ -59,7 +59,7 @@
       "path": "../packages/logo"
     },
     {
-      "path": "../packages/tamagui-dev-config"
+      "path": "../packages/gui-dev-config"
     },
     {
       "path": "../packages/lucide-icons"

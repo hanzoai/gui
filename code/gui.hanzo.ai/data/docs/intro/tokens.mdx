@@ -1,6 +1,6 @@
 ---
 title: Tokens
-description: Understanding the default Tamagui token scale
+description: Understanding the default Hanzo GUI token scale
 ---
 
 <Notice theme="blue">
@@ -10,9 +10,9 @@ description: Understanding the default Tamagui token scale
 
 ### Understanding the size scale
 
-Most design systems use exponential scaling (2, 4, 8, 16, etc.). A lot of people ask why Tamagui doesn't.
+Most design systems use exponential scaling (2, 4, 8, 16, etc.). A lot of people ask why Hanzo GUI doesn't.
 
-Tamagui adopts a hybrid of more gradual increases below 10, before going exponential after 10. This hybrid approach is motivated by allowing designs to have a much more usable range of components.
+Hanzo GUI adopts a hybrid of more gradual increases below 10, before going exponential after 10. This hybrid approach is motivated by allowing designs to have a much more usable range of components.
 
 #### Aligning all the keys
 
@@ -20,14 +20,14 @@ We align every token group and font group to use the same 1-16 keys so that a si
 
 #### Quantum scale ($0.25, $0.5, $0.75)
 
-The natural scale starts at 1, but Tamagui has three exponentially decreasing tokens below 1 for all token groups, with 0.25 often rounding to 1.
+The natural scale starts at 1, but Hanzo GUI has three exponentially decreasing tokens below 1 for all token groups, with 0.25 often rounding to 1.
 
 #### Natural scale ($1-$10)
 
-For sizes 1 to 10, Tamagui increases more gradually. This yields a nice variety of sizes, with $2 being a great tiny UI, $4 is "average", $5 and $6 give you two very usable emphasized sizes, and 7 and above are great for more occasional CTA/hero type things.
+For sizes 1 to 10, Hanzo GUI increases more gradually. This yields a nice variety of sizes, with $2 being a great tiny UI, $4 is "average", $5 and $6 give you two very usable emphasized sizes, and 7 and above are great for more occasional CTA/hero type things.
 
 #### Super-natural scale
 
-Tamagui switches to an exponential scale from sizes 11 to 16 so you still get some nice chunky sizes.
+Hanzo GUI switches to an exponential scale from sizes 11 to 16 so you still get some nice chunky sizes.
 
 <TokensDemo />

@@ -22,7 +22,7 @@ export const SponsorButton = (props: { tiny?: boolean }) => {
       rounded="$10"
       circular={props.tiny ? true : false}
       chromeless={props.tiny ? true : false}
-      aria-label="Support OSS development of Tamagui"
+      aria-label="Support OSS development of Gui"
     >
       <Button.Text fontFamily="$silkscreen">{props.tiny ? '' : 'Sponsor'}</Button.Text>
     </Button>
@@ -31,7 +31,7 @@ export const SponsorButton = (props: { tiny?: boolean }) => {
     <Link target="_blank" href="https://github.com/sponsors/natew">
       <YStack>
         {props.tiny ? (
-          <TooltipSimple delay={0} restMs={25} label="Support OSS development of Tamagui">
+          <TooltipSimple delay={0} restMs={25} label="Support OSS development of Gui">
             {el}
           </TooltipSimple>
         ) : (

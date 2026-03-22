@@ -1,10 +1,10 @@
-import { View, createTamagui, getSplitStyles } from '@hanzo/gui-core'
+import { View, createGui, getSplitStyles } from '@hanzo/gui-core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
 
 beforeAll(() => {
-  createTamagui(config.getDefaultTamaguiConfig('native'))
+  createGui(config.getDefaultGuiConfig('native'))
 })
 
 function getSplitStylesFor(props: Record<string, any>, Component = View) {

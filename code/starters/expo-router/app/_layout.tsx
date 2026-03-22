@@ -1,4 +1,4 @@
-import '../tamagui.generated.css'
+import '../gui.generated.css'
 
 import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
@@ -67,7 +67,7 @@ function RootLayoutNav() {
         <Stack.Screen
           name="modal"
           options={{
-            title: 'Tamagui + Expo',
+            title: 'Gui + Expo',
             presentation: 'modal',
             animation: 'slide_from_right',
             gestureEnabled: true,

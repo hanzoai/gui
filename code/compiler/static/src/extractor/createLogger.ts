@@ -1,9 +1,9 @@
 import { basename } from 'node:path'
 
-import type { TamaguiOptions } from '../types'
+import type { GuiOptions } from '../types'
 import { getPrefixLogs } from './getPrefixLogs'
 
-export function createLogger(sourcePath: string, options: TamaguiOptions) {
+export function createLogger(sourcePath: string, options: GuiOptions) {
   const shouldLogTiming = options.logTimings ?? true
   const start = Date.now()
   const mem =

@@ -1,6 +1,6 @@
 import { apiRoute } from '~/features/api/apiRoute'
 import { ensureAuth } from '~/features/api/ensureAuth'
-import { getDiscordClient, TAMAGUI_DISCORD_GUILD_ID } from '~/features/discord/helpers'
+import { getDiscordClient, HANZO_GUI_DISCORD_GUILD_ID } from '~/features/discord/helpers'
 
 export default apiRoute(async (req) => {
   await ensureAuth({ req })
@@ -14,7 +14,7 @@ export default apiRoute(async (req) => {
 
   const discordClient = await getDiscordClient()
   const results = await discordClient.api.guilds.searchForMembers(
-    TAMAGUI_DISCORD_GUILD_ID,
+    HANZO_GUI_DISCORD_GUILD_ID,
     {
       query: query,
       limit: 5,

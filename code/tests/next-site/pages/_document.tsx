@@ -1,6 +1,6 @@
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
 import { StyleSheet } from 'react-native'
-import Tamagui from '../tamagui.config'
+import Hanzo GUI from '../gui.config'
 
 export default class Document extends NextDocument {
   static async getInitialProps({ renderPage }) {
@@ -19,7 +19,7 @@ export default class Document extends NextDocument {
           />
           <style
             dangerouslySetInnerHTML={{
-              __html: Tamagui.getCSS(),
+              __html: Gui.getCSS(),
             }}
           />
         </>

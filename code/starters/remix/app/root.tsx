@@ -1,7 +1,7 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import type { LinksFunction } from '@remix-run/node'
-import { TamaguiProvider } from '@hanzo/gui'
-import tamaguiConfig from '../tamagui.config'
+import { GuiProvider } from '@hanzo/gui'
+import guiConfig from '../gui.config'
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -26,9 +26,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <TamaguiProvider config={tamaguiConfig} defaultTheme="dark">
+        <GuiProvider config={guiConfig} defaultTheme="dark">
           {children}
-        </TamaguiProvider>
+        </GuiProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

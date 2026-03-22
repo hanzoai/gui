@@ -16,7 +16,7 @@ body:
       required: false
   - type: textarea
     attributes:
-      label: Tamagui Version
+      label: Hanzo GUI Version
       render: markdown
     validations:
       required: true
@@ -32,9 +32,9 @@ body:
       render: markdown
       description: |
         - If you don't include reproduction, we will close the issue.
-        - The easiest way to reproduce is using the starter free repo: https://github.com/tamagui/starter-free
+        - The easiest way to reproduce is using the starter free repo: https://github.com/hanzoai/starter-free
         - Clone that repo and push your reproduction as a new commit.
-        - For simpler bugs you can fork [this CodeSandbox](https://codesandbox.io/p/github/tamagui/starter-free) to reproduce the issue.
+        - For simpler bugs you can fork [this CodeSandbox](https://codesandbox.io/p/github/gui/starter-free) to reproduce the issue.
     validations:
       required: true
   - type: textarea

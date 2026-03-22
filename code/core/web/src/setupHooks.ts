@@ -1,4 +1,4 @@
-import type { TamaguiComponentStateRef } from './types'
+import type { GuiComponentStateRef } from './types'
 
 export const hooks: InternalHooks = {}
 
@@ -11,7 +11,7 @@ type InternalHooks = {
   usePropsTransform?: (
     elementType: any,
     props: Record<string, any>,
-    stateRef: { current: TamaguiComponentStateRef },
+    stateRef: { current: GuiComponentStateRef },
     willHydrate?: boolean
   ) => any
 

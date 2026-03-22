@@ -305,7 +305,7 @@ export function createAnimations<A extends AnimationsConfig>(
           // for now just support one transform key
           if (!val) continue
           if (typeof val === 'string') {
-            console.warn(`Warning: Tamagui can't animate string transforms yet!`)
+            console.warn(`Warning: Hanzo GUI can't animate string transforms yet!`)
             continue
           }
 
@@ -489,7 +489,7 @@ export function createAnimations<A extends AnimationsConfig>(
         }
       }, args)
 
-      // avoidReRenders: receive style changes imperatively from tamagui
+      // avoidReRenders: receive style changes imperatively from gui
       // and update Animated.Values directly without React re-renders
       // reuses the same update() + runner pattern as the useMemo path
       useStyleEmitter?.((nextStyle) => {

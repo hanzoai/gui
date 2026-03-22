@@ -1,4 +1,4 @@
-import { TamaguiLogo } from '@hanzo/gui-logo'
+import { GuiLogo } from '@hanzo/gui-logo'
 import { H1, Paragraph, Square, XStack, YStack } from '@hanzo/gui'
 
 import { useDemoProps } from '~/features/studio/theme/hooks/useDemoProps'
@@ -32,7 +32,7 @@ export const Header = () => {
             bg: 'red',
           }}
         >
-          <TamaguiLogo scale={1.5} />
+          <GuiLogo scale={1.5} />
         </Square>
       </YStack>
     </XStack>

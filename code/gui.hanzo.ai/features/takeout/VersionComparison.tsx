@@ -115,7 +115,7 @@ const features = [
   { feature: 'Support', v1: 'Chat', v2: 'Chat', v2free: false },
   { feature: 'Private GitHub', v1: true, v2: true, v2free: false },
   { feature: 'Native Apps', v1: true, v2: true, v2free: true },
-  { feature: 'Tamagui UI', v1: true, v2: true, v2free: true },
+  { feature: 'Hanzo GUI', v1: true, v2: true, v2free: true },
 ]
 
 export function VersionComparison() {
@@ -243,7 +243,7 @@ export function VersionComparison() {
               </Button>
             </ThemeTintAlt>
           </Link>
-          <Link href="https://github.com/tamagui/takeout-free" target="_blank">
+          <Link href="https://github.com/hanzoai/takeout-free" target="_blank">
             <Button
               size="$4"
               bg="$color3"

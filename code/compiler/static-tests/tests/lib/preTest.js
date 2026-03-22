@@ -86,7 +86,7 @@ async function extractStaticWebpackApp() {
             {
               loader: '@hanzo/gui-loader',
               options: {
-                config: './tests/lib/tamagui.config.cjs',
+                config: './tests/lib/gui.config.cjs',
                 components: ['@hanzo/gui-sandbox-ui'],
                 importsWhitelist: ['constants.js'],
               },
@@ -125,7 +125,7 @@ export async function preTest() {
     return
   }
   // clear cached config so webpack builds with its own components list
-  rmSync(path.join(process.cwd(), '.tamagui'), { recursive: true, force: true })
+  rmSync(path.join(process.cwd(), '.gui'), { recursive: true, force: true })
   await extractStaticWebpackApp()
   process.env.IS_STATIC = undefined
 }

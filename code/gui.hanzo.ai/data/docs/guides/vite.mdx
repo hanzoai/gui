@@ -1,9 +1,9 @@
 ---
 title: Vite Guide
-description: How to set up Tamagui with Vite
+description: How to set up Hanzo GUI with Vite
 ---
 
-Tamagui now has two plugins for Vite: one that sets up everything you need to get going, and a second that adds CSS compilation. Both are included in the `@hanzo/gui-vite-plugin` package.
+Hanzo GUI now has two plugins for Vite: one that sets up everything you need to get going, and a second that adds CSS compilation. Both are included in the `@hanzo/gui-vite-plugin` package.
 
 ## Install
 
@@ -31,17 +31,17 @@ yarn add @hanzo/gui-vite-plugin
 
 ### Configuration
 
-Update your `vite.config.ts`. If you have a `tamagui.build.ts` (recommended —
-see [compiler install docs](/docs/intro/compiler-install#configuration-with-tamaguibuildts)),
+Update your `vite.config.ts`. If you have a `gui.build.ts` (recommended —
+see [compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
 no options are needed:
 
 ```tsx fileName="vite.config.ts"
-import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzo/gui-vite-plugin'
 
 export default {
   plugins: [
-    // reads from tamagui.build.ts automatically
-    tamaguiPlugin(),
+    // reads from gui.build.ts automatically
+    guiPlugin(),
   ].filter(Boolean),
 }
 ```
@@ -49,13 +49,13 @@ export default {
 Or pass options inline:
 
 ```tsx fileName="vite.config.ts"
-import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzo/gui-vite-plugin'
 
 export default {
   plugins: [
-    tamaguiPlugin({
-      config: 'src/tamagui.config.ts',
-      components: ['tamagui'],
+    guiPlugin({
+      config: 'src/gui.config.ts',
+      components: ['@hanzo/gui'],
       disableExtraction: true,
     }),
   ].filter(Boolean),
@@ -94,20 +94,20 @@ config.optimizeDeps.esbuildOptions = {
 }
 ```
 
-### Custom Aliases with tamaguiAliases
+### Custom Aliases with guiAliases
 
-For advanced use cases where you need more control over alias ordering in your Vite config, you can use the `tamaguiAliases` helper function:
+For advanced use cases where you need more control over alias ordering in your Vite config, you can use the `guiAliases` helper function:
 
 ```tsx fileName="vite.config.ts"
-import { tamaguiAliases } from '@hanzo/gui-vite-plugin'
+import { guiAliases } from '@hanzo/gui-vite-plugin'
 
 export default {
   resolve: {
     alias: [
       // your custom aliases first
       { find: '@app', replacement: '/src' },
-      // then tamagui aliases
-      ...tamaguiAliases({
+      // then gui aliases
+      ...guiAliases({
         // use @hanzo/gui-react-native-web-lite for smaller bundle
         rnwLite: true,
         // or 'without-animated' for even smaller bundle (no Animated API)
@@ -120,4 +120,4 @@ export default {
 }
 ```
 
-This is useful when you need to ensure specific alias resolution order or when using a custom Vite setup without the full `tamaguiPlugin`.
+This is useful when you need to ensure specific alias resolution order or when using a custom Vite setup without the full `guiPlugin`.

@@ -145,7 +145,7 @@ export function TakeoutCTA() {
         </YStack>
 
         <XStack gap="$4" mt="$2" flexWrap="wrap" justify="center" z={1}>
-          <Link href="https://github.com/tamagui/takeout" target="_blank">
+          <Link href="https://github.com/hanzoai/takeout" target="_blank">
             <PrimaryButton>
               <XStack gap="$2.5" items="center">
                 <GithubIcon width={20} height={20} color="white" />

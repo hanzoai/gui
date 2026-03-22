@@ -1,4 +1,4 @@
-import { TamaguiLogo } from '@hanzo/gui-logo'
+import { GuiLogo } from '@hanzo/gui-logo'
 import { useDidFinishSSR } from '@hanzo/gui-use-did-finish-ssr'
 import { H2, H3, Paragraph, styled, View, XStack, YStack } from '@hanzo/gui'
 
@@ -158,13 +158,13 @@ const Badge = styled(YStack, {
 
 const techStack = [
   {
-    name: 'Tamagui',
+    name: 'Gui',
     badge: 'UI System',
     description:
       'The best universal style system. A smart optimizing compiler unlocks write once, run everywhere styles with platform-native performance, and a ton of components.',
     url: 'https://gui.hanzo.ai',
     highlight: 'v2 RC1 Released',
-    Logo: TamaguiLogo,
+    Logo: GuiLogo,
     color: '$yellow10',
     bgColor: 'rgba(236, 210, 10, 0.1)',
     glowColor: 'var(--yellow7)',

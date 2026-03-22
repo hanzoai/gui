@@ -1,15 +1,15 @@
 ---
-title: Tamagui Compiler
+title: Hanzo GUI Compiler
 description: Adding the compiler to your apps
 ---
 
 <IntroParagraph>
-  The Tamagui Compiler significantly improves performance of both web and native
+  The Hanzo GUI Compiler significantly improves performance of both web and native
   applications through partial analysis and view flattening.
 </IntroParagraph>
 
 See the [Benchmarks](/docs/intro/benchmarks) or a more
-[in-depth background](/docs/intro/why-a-compiler). Note that Tamagui features
+[in-depth background](/docs/intro/why-a-compiler). Note that Hanzo GUI features
 work at compile-time and runtime, so installing the compiler is optional, and in
 fact we recommend only setting it up once you're ready for production.
 
@@ -20,51 +20,51 @@ The end result is less abstraction - like a `div` on web, or plain React Native
 
 <br />
 <br />
-<TamaguiExamplesCode />
+<GuiExamplesCode />
 
 <Notice theme="blue">
-  The compiler generates built versions of your components and config into a `.tamagui`
+  The compiler generates built versions of your components and config into a `.gui`
   directory. You'll want to add that directory to your `.gitignore`.
 </Notice>
 
-## Configuration with tamagui.build.ts
+## Configuration with gui.build.ts
 
-We recommend creating a `tamagui.build.ts` file in your project root as the
+We recommend creating a `gui.build.ts` file in your project root as the
 single source of truth for your compiler configuration. All bundler plugins and
 the CLI automatically read from this file, so you only need to define your
 options once.
 
-This file lets the Tamagui CLI read your config and perform operations like
+This file lets the Hanzo GUI CLI read your config and perform operations like
 generating CSS, pre-compiling components, and verifying optimizations — while
 also sharing that same configuration with whichever bundler plugin you use.
 Without it, you'd need to duplicate options across your metro, babel, vite,
 or webpack configs.
 
-```ts fileName="tamagui.build.ts"
-import type { TamaguiBuildOptions } from '@hanzo/gui'
+```ts fileName="gui.build.ts"
+import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
-  config: './tamagui.config.ts',
-  components: ['tamagui'],
-  outputCSS: './public/tamagui.generated.css',
+  config: './gui.config.ts',
+  components: ['@hanzo/gui'],
+  outputCSS: './public/gui.generated.css',
   // optional:
   importsWhitelist: ['constants.js', 'colors.js'],
   disableExtraction: process.env.NODE_ENV === 'development',
-} satisfies TamaguiBuildOptions
+} satisfies GuiBuildOptions
 ```
 
 With this file in place, your bundler plugins can be configured with no options
-at all — they'll pick up everything from `tamagui.build.ts`:
+at all — they'll pick up everything from `gui.build.ts`:
 
 ```tsx
-// vite: tamaguiPlugin()
-// webpack: new TamaguiPlugin()
-// metro: withTamagui(config)
-// all read from tamagui.build.ts automatically
+// vite: guiPlugin()
+// webpack: new GuiPlugin()
+// metro: withGui(config)
+// all read from gui.build.ts automatically
 ```
 
 You can still pass options directly to a plugin, and they'll be merged with
-(and override) the options from `tamagui.build.ts`.
+(and override) the options from `gui.build.ts`.
 
 ## Install
 
@@ -81,16 +81,16 @@ We have a full example of a plain Webpack or Vite setup in the simple starter
 accessible through `npm create hanzo-gui@latest`, which shows a complete
 configuration with more detail.
 
-Add `tamagui-loader` and set up your `webpack.config.js`.
+Add `gui-loader` and set up your `webpack.config.js`.
 
 You can set it up more manually like so:
 
 ```js
-const { shouldExclude } = require('tamagui-loader')
+const { shouldExclude } = require('gui-loader')
 
-const tamaguiOptions = {
-  config: './tamagui.config.ts',
-  components: ['tamagui'],
+const guiOptions = {
+  config: './gui.config.ts',
+  components: ['@hanzo/gui'],
   importsWhitelist: ['constants.js', 'colors.js'],
   logTimings: true,
   disableExtraction: process.env.NODE_ENV === 'development',
@@ -114,7 +114,7 @@ module.exports = {
         test: /\.[jt]sx?$/,
         // you'll likely want to adjust this helper function,
         // but it serves as a decent start that you can copy/paste from
-        exclude: (path) => shouldExclude(path, __dirname, tamaguiOptions),
+        exclude: (path) => shouldExclude(path, __dirname, guiOptions),
         use: [
           // optionally thread-loader for significantly faster compile!
           'thread-loader',
@@ -125,8 +125,8 @@ module.exports = {
           },
 
           {
-            loader: 'tamagui-loader',
-            options: tamaguiOptions,
+            loader: 'gui-loader',
+            options: guiOptions,
           },
         ],
       },
@@ -135,16 +135,16 @@ module.exports = {
 }
 ```
 
-Or you can use the TamaguiPlugin which automates some of this setup for you.
-If you have a `tamagui.build.ts`, you can pass no options:
+Or you can use the GuiPlugin which automates some of this setup for you.
+If you have a `gui.build.ts`, you can pass no options:
 
 ```tsx
-const { TamaguiPlugin } = require('tamagui-loader')
+const { GuiPlugin } = require('gui-loader')
 
 module.exports = {
   plugins: [
-    // reads from tamagui.build.ts automatically
-    new TamaguiPlugin(),
+    // reads from gui.build.ts automatically
+    new GuiPlugin(),
   ],
 }
 ```
@@ -152,13 +152,13 @@ module.exports = {
 Or pass options inline to override:
 
 ```tsx
-const { TamaguiPlugin } = require('tamagui-loader')
+const { GuiPlugin } = require('gui-loader')
 
 module.exports = {
   plugins: [
-    new TamaguiPlugin({
-      config: './tamagui.config.ts',
-      components: ['tamagui'],
+    new GuiPlugin({
+      config: './gui.config.ts',
+      components: ['@hanzo/gui'],
       importsWhitelist: ['constants.js', 'colors.js'],
       logTimings: true,
       disableExtraction: process.env.NODE_ENV === 'development',
@@ -169,7 +169,7 @@ module.exports = {
 
 Some notes on the options:
 
-- _importsWhitelist_: Tamagui takes a conservative approach to partial
+- _importsWhitelist_: Hanzo GUI takes a conservative approach to partial
   evaluation, this field whitelists (matching against both .ts and .js) files to
   allow files that import them to read and use their values during compilation.
   Typically colors and constants files.
@@ -185,15 +185,15 @@ See the [Vite guide](/docs/guides/vite) for more complete setup.
 </Notice>
 
 Add `@hanzo/gui-vite-plugin` and update your `vite.config.ts`. If you have a
-`tamagui.build.ts`, no options are needed:
+`gui.build.ts`, no options are needed:
 
 ```tsx
-import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzo/gui-vite-plugin'
 
 export default defineConfig({
   plugins: [
-    // reads from tamagui.build.ts automatically
-    tamaguiPlugin(),
+    // reads from gui.build.ts automatically
+    guiPlugin(),
   ],
 })
 ```
@@ -201,13 +201,13 @@ export default defineConfig({
 Or pass options inline:
 
 ```tsx
-import { tamaguiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzo/gui-vite-plugin'
 
 export default defineConfig({
   plugins: [
-    tamaguiPlugin({
-      config: 'src/tamagui.config.ts',
-      components: ['tamagui'],
+    guiPlugin({
+      config: 'src/gui.config.ts',
+      components: ['@hanzo/gui'],
       disableExtraction: true,
     }),
   ],
@@ -219,32 +219,32 @@ export default defineConfig({
 See the [guide](/docs/guides/next-js) for more complete setup.
 
 Next.js with Turbopack (the default) works best with the CLI approach — create a
-`tamagui.build.ts` and use `tamagui build` to optimize production builds. No
+`gui.build.ts` and use `gui build` to optimize production builds. No
 bundler plugin needed.
 
 For older Webpack-based Next.js setups, add `@hanzo/gui-next-plugin` and configure
 your `next.config.js`:
 
 ```js
-const { withTamagui } = require('@hanzo/gui-next-plugin')
+const { withGui } = require('@hanzo/gui-next-plugin')
 
 module.exports = function (name, { defaultConfig }) {
-  const tamaguiPlugin = withTamagui({
-    // reads from tamagui.build.ts automatically, or pass inline:
-    config: './tamagui.config.ts',
-    components: ['tamagui'],
+  const guiPlugin = withGui({
+    // reads from gui.build.ts automatically, or pass inline:
+    config: './gui.config.ts',
+    components: ['@hanzo/gui'],
     disableExtraction: process.env.NODE_ENV === 'development',
     excludeReactNativeWebExports: ['Switch', 'ProgressBar', 'Picker'],
   })
   return {
     ...defaultConfig,
-    ...tamaguiPlugin(defaultConfig),
+    ...guiPlugin(defaultConfig),
   }
 }
 ```
 
 Note: If running into issues, the environment variable `IGNORE_TS_CONFIG_PATHS`
-to "true" can fix issues with Tamagui being resolved incorrectly.
+to "true" can fix issues with Hanzo GUI being resolved incorrectly.
 
 See the [Next.js Guide](/docs/guides/next-js) for more details on setting up
 your app.
@@ -252,7 +252,7 @@ your app.
 ### Babel / Metro
 
 Note that the `@hanzo/gui-babel-plugin` is completely optional, and on native
-Tamagui doesn't optimize as much as on web, so leaving it out is actually
+Hanzo GUI doesn't optimize as much as on web, so leaving it out is actually
 recommended to start. If later on you feel the need for a bit more speed, you
 can try adding it.
 
@@ -260,13 +260,13 @@ can try adding it.
 yarn add @hanzo/gui-babel-plugin
 ```
 
-Add to your `babel.config.js`. With a `tamagui.build.ts`, you can pass no
+Add to your `babel.config.js`. With a `gui.build.ts`, you can pass no
 options:
 
 ```js
 module.exports = {
   plugins: [
-    // reads from tamagui.build.ts automatically
+    // reads from gui.build.ts automatically
     '@hanzo/gui-babel-plugin',
   ],
 }
@@ -280,8 +280,8 @@ module.exports = {
     [
       '@hanzo/gui-babel-plugin',
       {
-        components: ['tamagui'],
-        config: './tamagui.config.ts',
+        components: ['@hanzo/gui'],
+        config: './gui.config.ts',
         importsWhitelist: ['constants.js', 'colors.js'],
         logTimings: true,
         disableExtraction: process.env.NODE_ENV === 'development',
@@ -298,7 +298,7 @@ Expo. It's as simple as adding the babel plugin.
 
 ### CLI-Based In-Place Compilation
 
-For bundlers that don't have a Tamagui plugin yet (like Turbopack), or if you
+For bundlers that don't have a Hanzo GUI plugin yet (like Turbopack), or if you
 prefer a simple setup, you can use `@hanzo/gui-cli` to pre-compile your components
 in-place before your build step.
 
@@ -320,15 +320,15 @@ For complete CLI documentation including all available commands, see the
 yarn add -D @hanzo/gui-cli
 ```
 
-2. Create a `tamagui.build.ts` if you haven't already (see
-   [above](#configuration-with-tamaguibuildts)).
+2. Create a `gui.build.ts` if you haven't already (see
+   [above](#configuration-with-guibuildts)).
 
 3. Add a build script to your `package.json`:
 
 ```json
 {
   "scripts": {
-    "build": "tamagui build ./src -- next build"
+    "build": "gui build ./src -- next build"
   }
 }
 ```
@@ -371,7 +371,7 @@ The `--expect-optimizations` flag ensures your build is actually optimizing comp
 ```json
 {
   "scripts": {
-    "build": "tamagui build --target web --expect-optimizations 10 ./src -- next build"
+    "build": "gui build --target web --expect-optimizations 10 ./src -- next build"
   }
 }
 ```
@@ -416,7 +416,7 @@ import { Button } from '@my/ui/components/Button'
 
 #### Integration Examples
 
-This works with **any build tool** - just run `tamagui build` before your build
+This works with **any build tool** - just run `gui build` before your build
 command. Here are some examples:
 
 **Next.js with Turbopack** (Turbopack doesn't support plugins yet):
@@ -425,7 +425,7 @@ command. Here are some examples:
 {
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "tamagui build --target web ./src -- next build"
+    "build": "gui build --target web ./src -- next build"
   }
 }
 ```
@@ -435,7 +435,7 @@ command. Here are some examples:
 ```json
 {
   "scripts": {
-    "build": "tamagui build --target web ./src -- vite build"
+    "build": "gui build --target web ./src -- vite build"
   }
 }
 ```
@@ -445,8 +445,8 @@ command. Here are some examples:
 ```json
 {
   "scripts": {
-    "build:ios": "tamagui build --target native ./src -- eas build --platform ios",
-    "build:android": "tamagui build --target native ./src -- eas build --platform android"
+    "build:ios": "gui build --target native ./src -- eas build --platform ios",
+    "build:android": "gui build --target native ./src -- eas build --platform android"
   }
 }
 ```
@@ -459,7 +459,7 @@ source files in-place, use `--output`:
 ```json
 {
   "scripts": {
-    "build": "tamagui build --target web --output ./dist ./src && next build"
+    "build": "gui build --target web --output ./dist ./src && next build"
   }
 }
 ```
@@ -476,8 +476,8 @@ automatically pick up these files via platform-specific resolution:
 ```json
 {
   "scripts": {
-    "prebuild:native": "tamagui build --target native --output-around ./src",
-    "prebuild:web": "tamagui build --target web --output-around ./src"
+    "prebuild:native": "gui build --target native --output-around ./src",
+    "prebuild:web": "gui build --target web --output-around ./src"
   }
 }
 ```
@@ -485,7 +485,7 @@ automatically pick up these files via platform-specific resolution:
 This transforms `Button.tsx` → creates `Button.native.tsx` or `Button.web.tsx`
 alongside it. Metro/Expo uses `.native.tsx` on native, and web bundlers use `.web.tsx`.
 
-The Tamagui CLI optimizes your components in-place (or to an output directory),
+The Hanzo GUI CLI optimizes your components in-place (or to an output directory),
 then your bundler processes the already-optimized files.
 
 **Learn more:** See the [CLI Guide](/docs/guides/cli) for documentation on all
@@ -502,17 +502,17 @@ All compiler plugins accept the same options:
       required: false,
       type: 'string',
       typeSimple: 'enum',
-      default: "'./tamagui.config.ts'",
+      default: "'./gui.config.ts'",
       description:
-        'Relative path to your tamagui.config.ts file which should export default the result from createTamagui. Can be set in tamagui.build.ts instead.',
+        'Relative path to your gui.config.ts file which should export default the result from createGui. Can be set in gui.build.ts instead.',
     },
     {
       name: 'components',
       required: false,
       type: 'string[]',
       typeSimple: 'enum',
-      default: "['tamagui']",
-      description: `Array of npm modules containing Tamagui components which you'll be using in your app. For example:  if you are using the base Tamagui components. This directs the compiler to load and optimize.`,
+      default: "['@hanzo/gui']",
+      description: `Array of npm modules containing Hanzo GUI components which you'll be using in your app. For example:  if you are using the base Hanzo GUI components. This directs the compiler to load and optimize.`,
     },
     {
       name: 'importsWhitelist',
@@ -528,7 +528,7 @@ All compiler plugins accept the same options:
       typeSimple: 'enum',
       default: 'true',
       description:
-        'Tamagui outputs information for each file it compiles on how long it took to run, how many components it optimized, and how many it flattened. Set to false to disable these logs.',
+        'Gui outputs information for each file it compiles on how long it took to run, how many components it optimized, and how many it flattened. Set to false to disable these logs.',
     },
     {
       name: 'disable',
@@ -545,7 +545,7 @@ All compiler plugins accept the same options:
       typeSimple: 'enum',
       default: 'false',
       description:
-        'Disable extraction to CSS completely, instead fully relying on runtime. Setting this to true speed up development as generally your app will hot reload the Tamagui configuration itself.',
+        'Disable extraction to CSS completely, instead fully relying on runtime. Setting this to true speed up development as generally your app will hot reload the Hanzo GUI configuration itself.',
     },
     {
       name: 'disableDebugAttr',
@@ -579,14 +579,14 @@ All compiler plugins accept the same options:
       type: 'string',
       typeSimple: 'enum',
       description:
-        'Path to output extracted CSS. When set, the compiler automatically sets TAMAGUI_DID_OUTPUT_CSS which tree-shakes all runtime CSS generation code from your bundle (~6KB gzipped savings).',
+        'Path to output extracted CSS. When set, the compiler automatically sets HANZO_GUI_DID_OUTPUT_CSS which tree-shakes all runtime CSS generation code from your bundle (~6KB gzipped savings).',
     },
   ]}
 />
 
 ### Dynamic Evaluation
 
-By default the Tamagui compiler only optimizes `styled` expressions found in the
+By default the Hanzo GUI compiler only optimizes `styled` expressions found in the
 modules defined by your `components` config. This means if you do an inline
 `styled()` inside your actual app directory, it will default to runtime style
 insertion.
@@ -596,7 +596,7 @@ components there, you'll get a very high hit rate of compiled styles being used
 and runtime generation being skipped, as atomic styles with your design system
 tokens will be mostly pre-generated.
 
-Tamagui has _experimental_ support for loading any component, even if it occurs
+Hanzo GUI has _experimental_ support for loading any component, even if it occurs
 somewhere outside your configured components modules. This is called "dynamic
 loading", for now. You can enable it with the setting `enableDynamicEvaluation`
 as seen above in the props table.
@@ -607,7 +607,7 @@ of the defined component directories, it will run the following:
 1. First, read the file and use a custom `babel` transform to _force_ all
    top-level variables to be exported.
 2. Then, run `esbuild` and bundle the entire file to a temporary file in the
-   same directory, something like `.tamagui-dynamic-eval-ComponentName.js`
+   same directory, something like `.gui-dynamic-eval-ComponentName.js`
 3. Now, read the file in and load all new definitions found.
 4. Finally, continue with optimization, using the newly optimized component.
 
@@ -627,7 +627,7 @@ You can disable the compiler optimizations for an entire file with a comment at
 the top of your file:
 
 ```tsx
-// tamagui-ignore
+// gui-ignore
 ```
 
 You can disable the compiler optimization for a single component with the

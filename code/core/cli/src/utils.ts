@@ -1,4 +1,4 @@
-import type { TamaguiOptions, TamaguiProjectInfo } from '@hanzo/gui-static'
+import type { GuiOptions, GuiProjectInfo } from '@hanzo/gui-static'
 import type { CLIResolvedOptions, CLIUserOptions } from '@hanzo/gui-types'
 import chalk from 'chalk'
 import fs, { pathExists, readJSON } from 'fs-extra'
@@ -7,22 +7,22 @@ import { join } from 'node:path'
 export async function getOptions({
   root = process.cwd(),
   tsconfigPath = 'tsconfig.json',
-  tamaguiOptions,
+  guiOptions,
   host,
   debug,
-  loadTamaguiOptions,
+  loadGuiOptions,
 }: Partial<CLIUserOptions> = {}): Promise<CLIResolvedOptions> {
-  const dotDir = join(root, '.tamagui')
+  const dotDir = join(root, '.gui')
   let pkgJson = {}
   let config = ''
   try {
-    config = await getDefaultTamaguiConfigPath()
+    config = await getDefaultGuiConfigPath()
     pkgJson = await readJSON(join(root, 'package.json'))
   } catch {
-    if (loadTamaguiOptions) {
+    if (loadGuiOptions) {
       console.warn(
         chalk.yellow(
-          `Warning: no tamagui.config.ts found in ${root}. Commands that need a config may fail.`
+          `Warning: no gui.config.ts found in ${root}. Commands that need a config may fail.`
         )
       )
     }
@@ -32,13 +32,13 @@ export async function getOptions({
     platform: 'native',
     components: ['@hanzo/gui'],
     config,
-    ...tamaguiOptions,
-  } satisfies TamaguiOptions
+    ...guiOptions,
+  } satisfies GuiOptions
 
-  let finalOptions: TamaguiOptions = filledOptions
-  if (loadTamaguiOptions) {
-    const { loadTamaguiBuildConfigSync } = require('@hanzo/gui-static/loadTamagui')
-    finalOptions = loadTamaguiBuildConfigSync(filledOptions)
+  let finalOptions: GuiOptions = filledOptions
+  if (loadGuiOptions) {
+    const { loadGuiBuildConfigSync } = require('@hanzo/gui-static/loadGui')
+    finalOptions = loadGuiBuildConfigSync(filledOptions)
   }
 
   return {
@@ -48,11 +48,11 @@ export async function getOptions({
     pkgJson,
     debug,
     tsconfigPath,
-    tamaguiOptions: finalOptions,
+    guiOptions: finalOptions,
     paths: {
       root,
       dotDir,
-      conf: join(dotDir, 'tamagui.config.json'),
+      conf: join(dotDir, 'gui.config.json'),
       types: join(dotDir, 'types.json'),
     },
   }
@@ -65,29 +65,29 @@ export function ensure(condition: boolean, message: string) {
   }
 }
 
-const defaultPaths = ['tamagui.config.ts', join('src', 'tamagui.config.ts')]
+const defaultPaths = ['gui.config.ts', join('src', 'gui.config.ts')]
 let cachedPath = ''
 
-async function getDefaultTamaguiConfigPath() {
+async function getDefaultGuiConfigPath() {
   if (cachedPath) return cachedPath
   const existingPaths = await Promise.all(defaultPaths.map((path) => pathExists(path)))
   const existing = existingPaths.findIndex((x) => !!x)
   const found = defaultPaths[existing]
   if (!found) {
-    throw new Error(`No found tamagui.config.ts`)
+    throw new Error(`No found gui.config.ts`)
   }
   cachedPath = found
   return found
 }
 
-export const loadTamagui = async (
-  opts: Partial<TamaguiOptions>
-): Promise<TamaguiProjectInfo | null> => {
-  const { loadTamagui: loadTamaguiStatic } = require('@hanzo/gui-static/loadTamagui')
-  const loaded = await loadTamaguiStatic({
+export const loadGui = async (
+  opts: Partial<GuiOptions>
+): Promise<GuiProjectInfo | null> => {
+  const { loadGui: loadGuiStatic } = require('@hanzo/gui-static/loadGui')
+  const loaded = await loadGuiStatic({
     components: ['@hanzo/gui'],
     ...opts,
-    config: opts.config ?? (await getDefaultTamaguiConfigPath()),
+    config: opts.config ?? (await getDefaultGuiConfigPath()),
   })
   return loaded
 }

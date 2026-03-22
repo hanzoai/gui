@@ -25,7 +25,7 @@ export function TestComponent() {
 
   return (
     <YStack flex={1} justifyContent="center" alignItems="center" gap="$4" padding="$4" backgroundColor="$background">
-      <Text color="$color12" fontSize="$8" fontWeight="bold">Tamagui + Turbopack</Text>
+      <Text color="$color12" fontSize="$8" fontWeight="bold">Gui + Turbopack</Text>
       <Text color="$color10">Count: {count}</Text>
       <Button onPress={() => setCount(c => c + 1)}>
         <Text color="white">Increment</Text>
@@ -43,13 +43,13 @@ function reset() {
   if (existsSync(CSS)) unlinkSync(CSS)
 }
 
-describe('Turbopack + Tamagui CLI optimization', () => {
+describe('Turbopack + Hanzo GUI CLI optimization', () => {
   beforeEach(() => reset())
   afterEach(() => reset())
   afterAll(() => reset())
 
   it('CLI optimization flattens Text to span with className', () => {
-    execSync(`bun tamagui build --target web ./src/TestComponent.tsx`, {
+    execSync(`bun hanzo-gui build --target web ./src/TestComponent.tsx`, {
       cwd: ROOT,
       stdio: 'pipe',
     })
@@ -68,7 +68,7 @@ describe('Turbopack + Tamagui CLI optimization', () => {
   })
 
   it('CLI generates atomic CSS file', () => {
-    execSync(`bun tamagui build --target web ./src/TestComponent.tsx`, {
+    execSync(`bun hanzo-gui build --target web ./src/TestComponent.tsx`, {
       cwd: ROOT,
       stdio: 'pipe',
     })
@@ -86,7 +86,7 @@ describe('Turbopack + Tamagui CLI optimization', () => {
   })
 
   it('prod build works after CLI optimization', () => {
-    execSync(`bunx tamagui build --target web ./src/TestComponent.tsx`, {
+    execSync(`bunx hanzo-gui build --target web ./src/TestComponent.tsx`, {
       cwd: ROOT,
       stdio: 'pipe',
     })
@@ -100,7 +100,7 @@ describe('Turbopack + Tamagui CLI optimization', () => {
 
   it('reset properly restores original file', () => {
     // Optimize
-    execSync(`bun tamagui build --target web ./src/TestComponent.tsx`, {
+    execSync(`bun hanzo-gui build --target web ./src/TestComponent.tsx`, {
       cwd: ROOT,
       stdio: 'pipe',
     })

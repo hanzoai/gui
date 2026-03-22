@@ -10,7 +10,7 @@ import {
   type PseudoStyles,
   type SplitStyleProps,
   type StaticConfig,
-  type TamaguiComponentState,
+  type GuiComponentState,
 } from '@hanzo/gui-web'
 import { existsSync, readFileSync } from 'node:fs'
 import { basename, dirname, resolve, relative } from 'node:path'
@@ -18,17 +18,17 @@ import { nodeModuleNameResolver, sys } from 'typescript'
 import type { ViewStyle } from 'react-native'
 
 import { FAILED_EVAL } from '../constants'
-import { requireTamaguiCore } from '../helpers/requireTamaguiCore'
+import { requireGuiCore } from '../helpers/requireGuiCore'
 import type {
   ExtractedAttr,
   ExtractedAttrStyle,
   ExtractorOptions,
   ExtractorParseProps,
-  TamaguiOptions,
-  TamaguiOptionsWithFileInfo,
+  GuiOptions,
+  GuiOptionsWithFileInfo,
   Ternary,
 } from '../types'
-import type { LoadedComponents, TamaguiProjectInfo } from './bundleConfig'
+import type { LoadedComponents, GuiProjectInfo } from './bundleConfig'
 import { createEvaluator, createSafeEvaluator } from './createEvaluator'
 import { evaluateAstNode } from './evaluateAstNode'
 import {
@@ -44,7 +44,7 @@ import {
 import { findTopmostFunction } from './findTopmostFunction'
 import { cleanupBeforeExit, getStaticBindingsForScope } from './getStaticBindingsForScope'
 import { literalToAst } from './literalToAst'
-import { loadTamagui, loadTamaguiSync } from './loadTamagui'
+import { loadGui, loadGuiSync } from './loadGui'
 import { logLines } from './logLines'
 import { normalizeTernaries } from './normalizeTernaries'
 import { setPropsToFontFamily } from './propsToFontFamilyCache'
@@ -67,7 +67,7 @@ type FileOrPath = NodePath<t.Program> | t.File
 
 let hasLoggedBaseInfo = false
 
-function isFullyDisabled(props: TamaguiOptions) {
+function isFullyDisabled(props: GuiOptions) {
   return props.disableExtraction && props.disableDebugAttr
 }
 
@@ -113,7 +113,7 @@ export function createExtractor(
     }),
   }
 
-  const componentState: TamaguiComponentState = {
+  const componentState: GuiComponentState = {
     focus: false,
     focusVisible: false,
     focusWithin: false,
@@ -137,7 +137,7 @@ export function createExtractor(
     process.env.IDENTIFY_TAGS !== 'false' &&
     (process.env.NODE_ENV === 'development' || process.env.IDENTIFY_TAGS)
 
-  let projectInfo: TamaguiProjectInfo | null = null
+  let projectInfo: GuiProjectInfo | null = null
 
   // cache of dynamically discovered styled components, keyed by absolute file path
   // persists across files within the same worker/extractor instance
@@ -216,21 +216,21 @@ export function createExtractor(
     }
   }
 
-  // we load tamagui delayed because we need to set some global/env stuff before importing
+  // we load hanzo-gui delayed because we need to set some global/env stuff before importing
   // otherwise we'd import `rnw` and cause it to evaluate react-native-web which causes errors
 
-  function loadSync(props: TamaguiOptions) {
+  function loadSync(props: GuiOptions) {
     if (isFullyDisabled(props)) {
       return null
     }
-    return (projectInfo ||= loadTamaguiSync(props))
+    return (projectInfo ||= loadGuiSync(props))
   }
 
-  async function load(props: TamaguiOptions) {
+  async function load(props: GuiOptions) {
     if (isFullyDisabled(props)) {
       return null
     }
-    return (projectInfo ||= await loadTamagui(props))
+    return (projectInfo ||= await loadGui(props))
   }
 
   return {
@@ -238,10 +238,10 @@ export function createExtractor(
       logger,
     },
     cleanupBeforeExit,
-    loadTamagui: load,
-    loadTamaguiSync: loadSync,
-    getTamagui() {
-      return projectInfo?.tamaguiConfig
+    loadGui: load,
+    loadGuiSync: loadSync,
+    getGui() {
+      return projectInfo?.guiConfig
     },
     parseSync: (f: FileOrPath, props: ExtractorParseProps) => {
       globalThis.expo ||= {} // expo-modules-core checks this and avoids loading "native" modules if exists
@@ -256,12 +256,12 @@ export function createExtractor(
   }
 
   function parseWithConfig(
-    { components, tamaguiConfig }: TamaguiProjectInfo,
+    { components, guiConfig }: GuiProjectInfo,
     fileOrPath: FileOrPath,
     options: ExtractorParseProps
   ) {
     const {
-      config = 'tamagui.config.ts',
+      config = 'gui.config.ts',
       importsWhitelist = ['constants.js'],
       evaluateVars = true,
       sourcePath = '',
@@ -287,7 +287,7 @@ export function createExtractor(
       styledCheckCache.delete(sourcePath)
     }
 
-    if (sourcePath.includes('.tamagui-dynamic-eval')) {
+    if (sourcePath.includes('.gui-dynamic-eval')) {
       return null
     }
 
@@ -299,7 +299,7 @@ export function createExtractor(
       proxyThemeVariables,
       getDefaultProps,
       pseudoDescriptors,
-    } = requireTamaguiCore(platform)
+    } = requireGuiCore(platform)
 
     let shouldPrintDebug = options.shouldPrintDebug || false
 
@@ -330,7 +330,7 @@ export function createExtractor(
 
     function isValidStyleKey(name: string, staticConfig: StaticConfig) {
       if (!projectInfo) {
-        throw new Error(`Tamagui extractor not loaded yet`)
+        throw new Error(`Gui extractor not loaded yet`)
       }
       if (platform === 'native' && name[0] === '$' && mediaQueryConfig[name.slice(1)]) {
         return false
@@ -354,7 +354,7 @@ export function createExtractor(
         pseudoDescriptors[name] ||
         // don't disable variants or else you lose many things flattening
         staticConfig.variants?.[name] ||
-        projectInfo?.tamaguiConfig?.shorthands[name]
+        projectInfo?.guiConfig?.shorthands[name]
       )
     }
 
@@ -365,7 +365,7 @@ export function createExtractor(
     const isTargetingHTML = platform === 'web'
     const ogDebug = shouldPrintDebug
     const tm = timer()
-    const propsWithFileInfo: TamaguiOptionsWithFileInfo = {
+    const propsWithFileInfo: GuiOptionsWithFileInfo = {
       ...options,
       sourcePath,
       allLoadedComponents: components ? [...components] : [],
@@ -383,7 +383,7 @@ export function createExtractor(
           ].join(' ')
         )
       }
-      if (process.env.DEBUG?.startsWith('tamagui')) {
+      if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
         logger.info(
           [
             'loaded:',
@@ -393,14 +393,14 @@ export function createExtractor(
       }
     }
 
-    tm.mark('load-tamagui', !!shouldPrintDebug)
+    tm.mark('load-gui', !!shouldPrintDebug)
 
     if (!isFullyDisabled(options)) {
-      if (!tamaguiConfig?.themes) {
+      if (!guiConfig?.themes) {
         console.error(
-          `⛔️ Error: Missing "themes" in your tamagui.config file:
+          `⛔️ Error: Missing "themes" in your gui.config file:
 
-            You may not need the compiler! Remember you can run Tamagui with no configuration at all.
+            You may not need the compiler! Remember you can run Hanzo GUI with no configuration at all.
 
             You may have not "export default" your config (you can also "export const config").
             
@@ -409,17 +409,17 @@ export function createExtractor(
               - or search your lockfile for mis-matches.
           `
         )
-        console.info(`  Got config:`, tamaguiConfig)
+        console.info(`  Got config:`, guiConfig)
         process.exit(0)
       }
     }
 
-    const firstThemeName = Object.keys(tamaguiConfig?.themes || {})[0]
-    const firstTheme = tamaguiConfig?.themes[firstThemeName] || {}
+    const firstThemeName = Object.keys(guiConfig?.themes || {})[0]
+    const firstTheme = guiConfig?.themes[firstThemeName] || {}
 
     if (!firstTheme || typeof firstTheme !== 'object') {
       const err = `Missing theme ${firstThemeName}, an error occurred when importing your config`
-      console.info(err, `Got config:`, tamaguiConfig)
+      console.info(err, `Got config:`, guiConfig)
       console.info(`Looking for theme:`, firstThemeName)
       throw new Error(err)
     }
@@ -442,7 +442,7 @@ export function createExtractor(
     if (!isFullyDisabled(options)) {
       if (Object.keys(components || []).length === 0) {
         console.warn(
-          `Warning: Tamagui didn't find any valid components (DEBUG=tamagui for more)`
+          `Warning: Hanzo GUI didn't find any valid components (DEBUG=hanzo-gui for more)`
         )
         if (process.env.DEBUG === '@hanzo/gui') {
           console.info(`components`, Object.keys(components || []), components)
@@ -486,7 +486,7 @@ export function createExtractor(
 
       if (extractStyledDefinitions && enableDynamicEvaluation) {
         // check all imports for `styled`, not just valid packages
-        // styled( is basically guaranteed to be tamagui regardless of source
+        // styled( is basically guaranteed to be hanzo-gui regardless of source
         if (node.specifiers.some((specifier) => specifier.local.name === 'styled')) {
           doesUseValidImport = true
           // don't break - need to collect all import declarations for the styled() handler
@@ -654,7 +654,7 @@ export function createExtractor(
               )
             }
 
-            const out = loadTamaguiSync({
+            const out = loadGuiSync({
               forceExports: true,
               components: [sourcePath],
               cacheKey: version,
@@ -683,14 +683,14 @@ export function createExtractor(
               if (foundNames) {
                 colorLog(
                   Color.FgYellow,
-                  `      | Tamagui found dynamic components: ${foundNames}`
+                  `      | Hanzo GUI found dynamic components: ${foundNames}`
                 )
               }
             }
           } catch (err: any) {
             if (shouldPrintDebug) {
               logger.info(
-                `skip optimize styled(${variableName}), unable to pre-process (DEBUG=tamagui for more)`
+                `skip optimize styled(${variableName}), unable to pre-process (DEBUG=hanzo-gui for more)`
               )
             }
           }
@@ -894,7 +894,7 @@ export function createExtractor(
           return
         }
 
-        // validate its a proper import from tamagui (or internally inside tamagui)
+        // validate its a proper import from hanzo-gui (or internally inside gui)
         const binding = traversePath.scope.getBinding(node.name.name)
         let moduleName = ''
         let dynamicComponent: { staticConfig: any } | null = null
@@ -918,7 +918,7 @@ export function createExtractor(
                     // proactively load the file
                     dynamicLoadingInProgress.add(resolved)
                     try {
-                      const out = loadTamaguiSync({
+                      const out = loadGuiSync({
                         forceExports: true,
                         components: [resolved],
                       })
@@ -970,7 +970,7 @@ export function createExtractor(
           getValidComponent(propsWithFileInfo, moduleName, node.name.name)
         if (!component || !component.staticConfig) {
           if (shouldPrintDebug) {
-            logger.info(`\n - No Tamagui conf for: ${node.name.name}\n`)
+            logger.info(`\n - No Hanzo GUI conf for: ${node.name.name}\n`)
           }
           return
         }
@@ -1103,7 +1103,7 @@ export function createExtractor(
               : []),
 
             // when using a non-CSS driver, de-opt on enterStyle/exitStyle
-            ...(tamaguiConfig?.animations.isReactNative
+            ...(guiConfig?.animations.isReactNative
               ? ['enterStyle', 'exitStyle']
               : []),
           ])
@@ -1175,7 +1175,7 @@ export function createExtractor(
             style: {},
             theme: defaultTheme,
             viewProps: defaultProps,
-            conf: tamaguiConfig!,
+            conf: guiConfig!,
             props: defaultProps,
             componentState,
             styleProps: {
@@ -1287,9 +1287,9 @@ export function createExtractor(
 
             const name = attribute.name.name
 
-            // in tamagui style is handled at the end of the style loop so its not as simple as just
+            // in hanzo-gui style is handled at the end of the style loop so its not as simple as just
             // adding this as a "style" property
-            // its not used often when using tamagui so not optimizing it for now
+            // its not used often when using hanzo-gui so not optimizing it for now
             if (name === 'style') {
               shouldDeopt = true
               return null
@@ -1896,7 +1896,7 @@ export function createExtractor(
             if (!isValidStyleKey(key, staticConfig)) {
               return []
             }
-            const name = tamaguiConfig?.shorthands[key] || key
+            const name = guiConfig?.shorthands[key] || key
             if (value === undefined) {
               logger.warn(
                 `⚠️ Error evaluating default style for component, prop ${key} ${value}`
@@ -2007,7 +2007,7 @@ export function createExtractor(
                   t.importDeclaration(
                     [
                       t.importSpecifier(
-                        t.identifier('_TamaguiTheme'),
+                        t.identifier('_GuiTheme'),
                         t.identifier('Theme')
                       ),
                     ],
@@ -2018,10 +2018,10 @@ export function createExtractor(
 
               traversePath.replaceWith(
                 t.jsxElement(
-                  t.jsxOpeningElement(t.jsxIdentifier('_TamaguiTheme'), [
+                  t.jsxOpeningElement(t.jsxIdentifier('_GuiTheme'), [
                     t.jsxAttribute(t.jsxIdentifier('name'), themeVal.value),
                   ]),
-                  t.jsxClosingElement(t.jsxIdentifier('_TamaguiTheme')),
+                  t.jsxClosingElement(t.jsxIdentifier('_GuiTheme')),
                   [traversePath.node]
                 )
               )
@@ -2179,7 +2179,7 @@ export function createExtractor(
 
             let key = Object.keys(cur.value)[0]
             const value = cur.value[key]
-            const fullKey = tamaguiConfig?.shorthands[key]
+            const fullKey = guiConfig?.shorthands[key]
             // expand shorthands
             if (fullKey) {
               cur.value = { [fullKey]: value }
@@ -2607,7 +2607,7 @@ export function createExtractor(
             node,
             lineNumbers,
             filePath,
-            config: tamaguiConfig!,
+            config: guiConfig!,
             flatNodeName,
             attemptEval,
             jsxPath: traversePath,
@@ -2643,7 +2643,7 @@ export function createExtractor(
 
           if (!(err instanceof BailOptimizationError)) {
             console.error(
-              `@hanzo/gui-static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment TAMAGUI_DEBUG=1`
+              `@hanzo/gui-static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment HANZO_GUI_DEBUG=1`
             )
             if (process.env.HANZO_GUI_DEBUG === '1') {
               console.error(err.stack)

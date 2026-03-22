@@ -1,6 +1,6 @@
-import type { TamaguiOptions } from '@tamagui/types';
+import type { GuiOptions } from '@gui/types';
 import type { Compiler, RuleSetRule } from 'webpack';
-export type PluginOptions = TamaguiOptions & {
+export type PluginOptions = GuiOptions & {
     isServer?: boolean;
     exclude?: RuleSetRule['exclude'];
     test?: RuleSetRule['test'];
@@ -9,9 +9,9 @@ export type PluginOptions = TamaguiOptions & {
     disableModuleJSXEntry?: boolean;
     disableWatchConfig?: boolean;
     disableAliases?: boolean;
-    useTamaguiSVG?: boolean;
+    useGuiSVG?: boolean;
 };
-export declare class TamaguiPlugin {
+export declare class GuiPlugin {
     options: PluginOptions;
     pluginName: string;
     constructor(options?: PluginOptions);
@@ -22,4 +22,4 @@ export declare class TamaguiPlugin {
     get defaultAliases(): any;
     apply(compiler: Compiler): void;
 }
-//# sourceMappingURL=TamaguiPlugin.d.ts.map
+//# sourceMappingURL=GuiPlugin.d.ts.map

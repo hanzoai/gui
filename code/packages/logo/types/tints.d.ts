@@ -1,7 +1,7 @@
-import type { ThemeName } from "tamagui";
+import type { ThemeName } from "gui";
 type ChangeHandler = (next: TintFamily) => void;
 declare const familiesValues: {
-	tamagui: ThemeName[];
+	gui: ThemeName[];
 	xmas: ThemeName[];
 	easter: ThemeName[];
 	halloween: ThemeName[];

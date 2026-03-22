@@ -1,6 +1,6 @@
 import type React from 'react';
-import type { TamaguiComponentState } from '../types';
-export type RenderProp<Props = Record<string, any>> = string | React.ReactElement | ((props: Props, state: TamaguiComponentState) => React.ReactElement);
+import type { GuiComponentState } from '../types';
+export type RenderProp<Props = Record<string, any>> = string | React.ReactElement | ((props: Props, state: GuiComponentState) => React.ReactElement);
 /**
  * Evaluates a render prop and returns the element to render.
  *
@@ -9,5 +9,5 @@ export type RenderProp<Props = Record<string, any>> = string | React.ReactElemen
  * @param state - Component state for render functions
  * @param defaultElement - Fallback element if render prop is not provided
  */
-export declare function evaluateRenderProp(render: RenderProp | undefined, props: Record<string, any>, state: TamaguiComponentState, defaultElement: React.ReactElement<any>): React.ReactElement;
+export declare function evaluateRenderProp(render: RenderProp | undefined, props: Record<string, any>, state: GuiComponentState, defaultElement: React.ReactElement<any>): React.ReactElement;
 //# sourceMappingURL=useRenderElement.d.ts.map

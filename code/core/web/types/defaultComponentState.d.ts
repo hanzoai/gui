@@ -1,5 +1,5 @@
-import type { TamaguiComponentState } from './types';
-export declare const defaultComponentState: TamaguiComponentState;
-export declare const defaultComponentStateMounted: TamaguiComponentState;
-export declare const defaultComponentStateShouldEnter: TamaguiComponentState;
+import type { GuiComponentState } from './types';
+export declare const defaultComponentState: GuiComponentState;
+export declare const defaultComponentStateMounted: GuiComponentState;
+export declare const defaultComponentStateShouldEnter: GuiComponentState;
 //# sourceMappingURL=defaultComponentState.d.ts.map

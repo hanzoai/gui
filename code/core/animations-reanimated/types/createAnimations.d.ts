@@ -1,4 +1,4 @@
-import { type AnimationDriver } from "@tamagui/core";
+import { type AnimationDriver } from "@gui/core";
 import { type WithSpringConfig, type WithTimingConfig } from "react-native-reanimated";
 /** Spring animation configuration */
 type SpringConfig = {
@@ -15,7 +15,7 @@ export type TransitionConfig = SpringConfig | TimingConfig;
 /** Options for createAnimations (reserved for future use) */
 export type CreateAnimationsOptions = {};
 /**
-* Create a Reanimated-based animation driver for Tamagui.
+* Create a Reanimated-based animation driver for Gui.
 *
 * This is a native Reanimated implementation without Moti dependency.
 * It provides smooth spring and timing animations with full support for:

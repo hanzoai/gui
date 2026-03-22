@@ -1,3 +1,3 @@
-import type { TamaguiOptions } from '../types';
-export declare function createLogger(sourcePath: string, options: TamaguiOptions): (res: any) => void;
+import type { GuiOptions } from '../types';
+export declare function createLogger(sourcePath: string, options: GuiOptions): (res: any) => void;
 //# sourceMappingURL=createLogger.d.ts.map

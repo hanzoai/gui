@@ -1,4 +1,4 @@
-import type { Template } from '@tamagui/create-theme';
+import type { Template } from '@gui/create-theme';
 import { defaultTemplates } from './defaultTemplates';
 import { type ThemeBuilder } from './ThemeBuilder';
 import type { BuildPalettes, BuildTemplates } from './types';
@@ -72,7 +72,7 @@ export declare function createThemes<Extra extends ExtraThemeValuesByScheme = Ex
 export declare const getLastBuilder: () => ThemeBuilder<import("./ThemeBuilder").ThemeBuilderInternalState, Record<string, string>> | null;
 /**
  * V4 version of createThemes - uses v4 theme ordering for backwards compatibility.
- * Use this for v4 themes (like v4-tamagui.ts).
+ * Use this for v4 themes (like v4-gui.ts).
  */
 export declare function createV4Themes<Extra extends ExtraThemeValuesByScheme = ExtraThemeValuesByScheme, SubThemes extends SimpleThemesDefinition = SimpleThemesDefinition, ComponentThemes extends SimpleThemesDefinition | false = SimpleThemesDefinition, GrandChildrenThemes extends SimpleThemesDefinition | undefined = undefined, Accent extends BaseThemeDefinition<Extra> | undefined = undefined, Templates extends BuildTemplates = typeof defaultTemplates, GetThemeReturn extends Record<string, string | number> = Record<string, string>>(props: CreateThemesProps<Accent, GrandChildrenThemes, Extra, SubThemes, ComponentThemes, Templates, GetThemeReturn>): Record<"light" | "dark" | ((Accent extends undefined ? false : true) extends infer T ? T extends (Accent extends undefined ? false : true) ? T extends true ? "light_accent" | "dark_accent" : never : never : never) | (keyof SubThemes extends string ? `light_${(GrandChildrenThemes extends undefined ? undefined : Record<keyof GrandChildrenThemes, any>) extends infer T_1 ? T_1 extends (GrandChildrenThemes extends undefined ? undefined : Record<keyof GrandChildrenThemes, any>) ? T_1 extends undefined ? string & keyof SubThemes : NamesWithChildrenNames<string & keyof SubThemes, keyof T_1> : never : never}` | `dark_${(GrandChildrenThemes extends undefined ? undefined : Record<keyof GrandChildrenThemes, any>) extends infer T_2 ? T_2 extends (GrandChildrenThemes extends undefined ? undefined : Record<keyof GrandChildrenThemes, any>) ? T_2 extends undefined ? string & keyof SubThemes : NamesWithChildrenNames<string & keyof SubThemes, keyof T_2> : never : never}` : never), { [ThemeKey in "colorTransparent" | "color" | "colorHover" | "colorPress" | "colorFocus" | "placeholderColor" | "outlineColor" | "accentBackground" | "accentColor" | "background0" | "background02" | "background04" | "background06" | "background08" | "color1" | "color2" | "color3" | "color4" | "color5" | "color6" | "color7" | "color8" | "color9" | "color10" | "color11" | "color12" | "color0" | "color02" | "color04" | "color06" | "color08" | "background" | "backgroundHover" | "backgroundPress" | "backgroundFocus" | "borderColor" | "borderColorHover" | "borderColorPress" | "borderColorFocus" | keyof Extra["dark"] | ((Accent extends undefined ? false : true) extends infer T_3 ? T_3 extends (Accent extends undefined ? false : true) ? T_3 extends true ? "accent0" | "accent2" | "accent1" | "accent3" | "accent4" | "accent5" | "accent6" | "accent7" | "accent8" | "accent9" | "accent10" | "accent11" | "accent12" : never : never : never)]: string; } & GetThemeReturn>;
 type NamesWithChildrenNames<ParentNames extends string, ChildNames> = ParentNames | (ChildNames extends string ? `${ParentNames}_${ChildNames}` : never);
@@ -111,7 +111,7 @@ export declare function createPalettes(palettes: BuildPalettes): SimplePaletteDe
  * - Children and grandChildren themes are added FIRST
  * - Accent theme is added LAST with avoidNestingWithin for children themes
  *
- * Use this for v4 themes (like v4-tamagui.ts). The default createSimpleThemeBuilder
+ * Use this for v4 themes (like v4-gui.ts). The default createSimpleThemeBuilder
  * now uses v5 ordering.
  */
 export declare function createV4ThemeBuilder<Extra extends ExtraThemeValuesByScheme, Templates extends BuildTemplates, Palettes extends SimplePaletteDefinitions, ChildrenThemes extends Record<string, {

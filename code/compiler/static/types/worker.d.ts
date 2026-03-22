@@ -1,22 +1,22 @@
 /**
- * Worker thread implementation for Tamagui extraction
+ * Worker thread implementation for Gui extraction
  * Used by both piscina (async) and synckit (sync for babel)
  */
 import type { BabelFileResult } from '@babel/core';
 import type { ExtractedResponse } from './extractor/extractToClassNames';
-import type { TamaguiOptions } from './types';
+import type { GuiOptions } from './types';
 export interface ExtractToClassNamesTask {
     type: 'extractToClassNames';
     source: string;
     sourcePath: string;
-    options: TamaguiOptions;
+    options: GuiOptions;
     shouldPrintDebug: boolean | 'verbose';
 }
 export interface ExtractToNativeTask {
     type: 'extractToNative';
     sourceFileName: string;
     sourceCode: string;
-    options: TamaguiOptions;
+    options: GuiOptions;
 }
 export interface ClearCacheTask {
     type: 'clearCache';

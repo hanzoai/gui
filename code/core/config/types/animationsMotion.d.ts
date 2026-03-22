@@ -1,4 +1,4 @@
-export declare const animationsMotion: import("@tamagui/web").AnimationDriver<{
+export declare const animationsMotion: import("@gui/web").AnimationDriver<{
     '0ms': {
         duration: number;
     };

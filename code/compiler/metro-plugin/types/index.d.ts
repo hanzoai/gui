@@ -1,7 +1,7 @@
-import { type TamaguiOptions } from '@tamagui/static';
-export type MetroTamaguiOptions = TamaguiOptions & {
+import { type GuiOptions } from '@gui/static';
+export type MetroGuiOptions = GuiOptions & {
     /**
-     * @deprecated CSS interop is no longer supported. Use `tamagui generate` instead.
+     * @deprecated CSS interop is no longer supported. Use `gui generate` instead.
      */
     cssInterop?: boolean;
 };
@@ -12,28 +12,28 @@ type MetroConfigInput = {
     [key: string]: any;
 };
 /**
- * Configure Metro for Tamagui.
+ * Configure Metro for Gui.
  *
  * This is now a simplified wrapper that just ensures CSS is enabled and
- * loads your Tamagui config. For CSS generation, use the CLI:
+ * loads your Gui config. For CSS generation, use the CLI:
  *
- * 1. Create a `tamagui.build.ts` with `outputCSS` option
- * 2. Run `tamagui generate` before your build
+ * 1. Create a `gui.build.ts` with `outputCSS` option
+ * 2. Run `gui generate` before your build
  * 3. Import the generated CSS in your app's layout
  *
  * @example
  * ```js
  * // metro.config.js
  * const { getDefaultConfig } = require('expo/metro-config')
- * const { withTamagui } = require('@tamagui/metro-plugin')
+ * const { withGui } = require('@gui/metro-plugin')
  *
  * const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
- * module.exports = withTamagui(config, {
- *   components: ['tamagui'],
- *   config: './tamagui.config.ts',
+ * module.exports = withGui(config, {
+ *   components: ['gui'],
+ *   config: './gui.config.ts',
  * })
  * ```
  */
-export declare function withTamagui(metroConfig: MetroConfigInput, optionsIn?: MetroTamaguiOptions): MetroConfigInput;
+export declare function withGui(metroConfig: MetroConfigInput, optionsIn?: MetroGuiOptions): MetroConfigInput;
 export {};
 //# sourceMappingURL=index.d.ts.map

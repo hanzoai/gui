@@ -5,7 +5,7 @@
  * supports: backgroundImage (linear-gradient), boxShadow, textShadow
  * filter has no RN object equivalent, returns undefined (falls back to string)
  *
- * only called inside process.env.TAMAGUI_TARGET === 'native' checks,
+ * only called inside process.env.HANZO_GUI_TARGET === 'native' checks,
  * so this code is dead-code-eliminated on web builds.
  */
 type TokenMap = Map<string, any>;

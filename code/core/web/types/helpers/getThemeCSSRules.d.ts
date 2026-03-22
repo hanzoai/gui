@@ -1,6 +1,6 @@
-import type { CreateTamaguiProps, ThemeParsed } from '../types';
+import type { CreateGuiProps, ThemeParsed } from '../types';
 export declare function getThemeCSSRules(props: {
-    config: CreateTamaguiProps;
+    config: CreateGuiProps;
     themeName: string;
     theme: ThemeParsed;
     names: string[];

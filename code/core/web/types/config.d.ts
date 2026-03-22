@@ -1,9 +1,9 @@
-import type { AnimationDriver, GenericTamaguiSettings, TamaguiInternalConfig, Token, Tokens, TokensMerged } from './types';
-export declare const getSetting: <Key extends keyof GenericTamaguiSettings>(key: Key) => GenericTamaguiSettings[Key];
-export declare const setConfig: (next: TamaguiInternalConfig) => void;
+import type { AnimationDriver, GenericGuiSettings, GuiInternalConfig, Token, Tokens, TokensMerged } from './types';
+export declare const getSetting: <Key extends keyof GenericGuiSettings>(key: Key) => GenericGuiSettings[Key];
+export declare const setConfig: (next: GuiInternalConfig) => void;
 export declare const setConfigFont: (name: string, font: any, fontParsed: any) => void;
-export declare const getConfig: () => TamaguiInternalConfig;
-export declare const getConfigMaybe: () => TamaguiInternalConfig | null;
+export declare const getConfig: () => GuiInternalConfig;
+export declare const getConfigMaybe: () => GuiInternalConfig | null;
 export declare function setTokens(_: TokensMerged): void;
 export declare const getTokens: ({ prefixed, }?: {
     /**
@@ -60,7 +60,7 @@ export declare function setupDev(conf: DevConfig): void;
  *
  * @example
  * ```tsx
- * // import loadAnimationDriver from tamagui
+ * // import loadAnimationDriver from gui
  * // import createAnimations from your preferred driver (e.g. animations-reanimated)
  *
  * const driver = createAnimations({ bouncy: { type: 'spring', damping: 10 } })

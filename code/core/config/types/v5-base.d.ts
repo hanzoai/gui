@@ -1,10 +1,10 @@
-import type { Shorthands } from '@tamagui/shorthands/v4';
-import type { V5Themes, V5Tokens } from '@tamagui/themes/v5';
+import type { Shorthands } from '@gui/shorthands/v4';
+import type { V5Themes, V5Tokens } from '@gui/themes/v5';
 import type { V5Fonts } from './v5-fonts';
 import type { V5Media } from './v5-media';
-export { shorthands } from '@tamagui/shorthands/v4';
-export { createThemes } from '@tamagui/theme-builder';
-export { adjustPalette, adjustPalettes, createV5Theme, defaultChildrenThemes, defaultDarkPalette, defaultLightPalette, hslToString, interpolateColor, opacify, parseHSL, tokens, type AdjustFn, type HSL, type PaletteAdjustments, type V5Theme, type V5ThemeNames, type V5Themes, type V5Tokens, } from '@tamagui/themes/v5';
+export { shorthands } from '@gui/shorthands/v4';
+export { createThemes } from '@gui/theme-builder';
+export { adjustPalette, adjustPalettes, createV5Theme, defaultChildrenThemes, defaultDarkPalette, defaultLightPalette, hslToString, interpolateColor, opacify, parseHSL, tokens, type AdjustFn, type HSL, type PaletteAdjustments, type V5Theme, type V5ThemeNames, type V5Themes, type V5Tokens, } from '@gui/themes/v5';
 export { createSystemFont, fonts } from './v5-fonts';
 export type { V5Fonts } from './v5-fonts';
 export { breakpoints, media, mediaQueryDefaultActive } from './v5-media';

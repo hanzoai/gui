@@ -1,4 +1,4 @@
-import type { Template } from '@tamagui/create-theme';
+import type { Template } from '@gui/create-theme';
 export type GetThemeFn<ThemeType extends Record<string, string | number>> = (props: {
     name: string;
     theme: Record<string, string>;

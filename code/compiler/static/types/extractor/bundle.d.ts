@@ -1,5 +1,5 @@
 import esbuild from 'esbuild';
-import type { TamaguiPlatform } from '../types';
+import type { GuiPlatform } from '../types';
 export declare const esbuildLoaderConfig: {
     readonly '.js': "jsx";
     readonly '.png': "dataurl";
@@ -34,7 +34,7 @@ type Props = Omit<Partial<esbuild.BuildOptions>, 'entryPoints'> & {
     entryPoints: string[];
     resolvePlatformSpecificEntries?: boolean;
 };
-export declare function esbundleTamaguiConfig(props: Props, platform: TamaguiPlatform, aliases?: Record<string, string>): Promise<esbuild.BuildResult<{
+export declare function esbundleGuiConfig(props: Props, platform: GuiPlatform, aliases?: Record<string, string>): Promise<esbuild.BuildResult<{
     outfile: string;
     bundle?: boolean;
     splitting?: boolean;

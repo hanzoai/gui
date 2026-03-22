@@ -1,8 +1,8 @@
-import type { ComponentContextI, DebugProp, GetStyleState, IsMediaType, TamaguiInternalConfig, UseMediaState, WidthHeight } from '../types';
+import type { ComponentContextI, DebugProp, GetStyleState, IsMediaType, GuiInternalConfig, UseMediaState, WidthHeight } from '../types';
 export declare const isMediaKey: (key: string) => boolean;
 export declare const getMediaKey: (key: string) => IsMediaType;
 export declare const getMediaKeyImportance: (key: string) => number;
-export declare const configureMedia: (config: TamaguiInternalConfig) => void;
+export declare const configureMedia: (config: GuiInternalConfig) => void;
 export declare function setupMediaListeners(): void;
 export declare function updateMediaListeners(): void;
 type MediaState = {

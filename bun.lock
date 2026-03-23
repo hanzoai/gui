@@ -430,8 +430,8 @@
         "@hanzo/gui-animations-reanimated": "workspace:*",
         "@hanzo/gui-colors": "workspace:*",
         "@hanzo/gui-core": "workspace:*",
-        "@hanzo/gui-font-inter": "workspace:*",
-        "@hanzo/gui-font-silkscreen": "workspace:*",
+        "@hanzo/gui-font-geist-mono": "workspace:*",
+        "@hanzo/gui-font-geist-sans": "workspace:*",
         "@hanzo/gui-react-native-media-driver": "workspace:*",
         "@hanzo/gui-shorthands": "workspace:*",
         "@hanzo/gui-theme-builder": "workspace:*",
@@ -660,6 +660,26 @@
     },
     "code/core/font-fira-mono": {
       "name": "@hanzo/gui-font-fira-mono",
+      "version": "2.0.0-rc.29",
+      "dependencies": {
+        "@hanzo/gui-core": "workspace:*",
+      },
+      "devDependencies": {
+        "@hanzo/gui-build": "workspace:*",
+      },
+    },
+    "code/core/font-geist-mono": {
+      "name": "@hanzo/gui-font-geist-mono",
+      "version": "2.0.0-rc.29",
+      "dependencies": {
+        "@hanzo/gui-core": "workspace:*",
+      },
+      "devDependencies": {
+        "@hanzo/gui-build": "workspace:*",
+      },
+    },
+    "code/core/font-geist-sans": {
+      "name": "@hanzo/gui-font-geist-sans",
       "version": "2.0.0-rc.29",
       "dependencies": {
         "@hanzo/gui-core": "workspace:*",
@@ -2801,6 +2821,10 @@
 
     "@hanzo/gui-font-fira-mono": ["@hanzo/gui-font-fira-mono@workspace:code/core/font-fira-mono"],
 
+    "@hanzo/gui-font-geist-mono": ["@hanzo/gui-font-geist-mono@workspace:code/core/font-geist-mono"],
+
+    "@hanzo/gui-font-geist-sans": ["@hanzo/gui-font-geist-sans@workspace:code/core/font-geist-sans"],
+
     "@hanzo/gui-font-glusp": ["@hanzo/gui-font-glusp@workspace:code/core/font-glusp"],
 
     "@hanzo/gui-font-inter": ["@hanzo/gui-font-inter@workspace:code/core/font-inter"],
@@ -3413,7 +3437,7 @@
 
     "@oxc-parser/binding-win32-x64-msvc": ["@oxc-parser/binding-win32-x64-msvc@0.112.0", "", { "os": "win32", "cpu": "x64" }, "sha512-oGHluohzmVFAuQrkEnl1OXAxMz2aYmimxUqIgKXpBgbr7PvFv0doELB273sX+5V3fKeggohKg1A2Qq21W9Z9cQ=="],
 
-    "@oxc-project/types": ["@oxc-project/types@0.112.0", "", {}, "sha512-m6RebKHIRsax2iCwVpYW2ErQwa4ywHJrE4sCK3/8JK8ZZAWOKXaRJFl/uP51gaVyyXlaS4+chU1nSCdzYf6QqQ=="],
+    "@oxc-project/types": ["@oxc-project/types@0.120.0", "", {}, "sha512-k1YNu55DuvAip/MGE1FTsIuU3FUCn6v/ujG9V7Nq5Df/kX2CWb13hhwD0lmJGMGqE+bE1MXvv9SZVnMzEXlWcg=="],
 
     "@oxc-resolver/binding-android-arm-eabi": ["@oxc-resolver/binding-android-arm-eabi@11.19.1", "", { "os": "android", "cpu": "arm" }, "sha512-aUs47y+xyXHUKlbhqHUjBABjvycq6YSD7bpxSW7vplUmdzAlJ93yXY6ZR0c1o1x5A/QKbENCvs3+NlY8IpIVzg=="],
 
@@ -8947,6 +8971,8 @@
 
     "ora/is-unicode-supported": ["is-unicode-supported@0.1.0", "", {}, "sha512-knxG2q4UC3u8stRGyAVJCOdxFmv5DZiRcdlIaAQXAbSfJya+OhopNotLQrstBhququ4ZpuKbDc/8S6mgXgPFPw=="],
 
+    "oxc-parser/@oxc-project/types": ["@oxc-project/types@0.112.0", "", {}, "sha512-m6RebKHIRsax2iCwVpYW2ErQwa4ywHJrE4sCK3/8JK8ZZAWOKXaRJFl/uP51gaVyyXlaS4+chU1nSCdzYf6QqQ=="],
+
     "p-locate/p-limit": ["p-limit@3.1.0", "", { "dependencies": { "yocto-queue": "^0.1.0" } }, "sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ=="],
 
     "p-retry/@types/retry": ["@types/retry@0.12.0", "", {}, "sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA=="],
@@ -9110,8 +9136,6 @@
     "retext-stringify/unified": ["unified@11.0.5", "", { "dependencies": { "@types/unist": "^3.0.0", "bail": "^2.0.0", "devlop": "^1.0.0", "extend": "^3.0.0", "is-plain-obj": "^4.0.0", "trough": "^2.0.0", "vfile": "^6.0.0" } }, "sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA=="],
 
     "rimraf/glob": ["glob@10.5.0", "", { "dependencies": { "foreground-child": "^3.1.0", "jackspeak": "^3.1.2", "minimatch": "^9.0.4", "minipass": "^7.1.2", "package-json-from-dist": "^1.0.0", "path-scurry": "^1.11.1" }, "bin": { "glob": "dist/esm/bin.mjs" } }, "sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg=="],
-
-    "rolldown/@oxc-project/types": ["@oxc-project/types@0.120.0", "", {}, "sha512-k1YNu55DuvAip/MGE1FTsIuU3FUCn6v/ujG9V7Nq5Df/kX2CWb13hhwD0lmJGMGqE+bE1MXvv9SZVnMzEXlWcg=="],
 
     "rollup-plugin-visualizer/open": ["open@8.4.2", "", { "dependencies": { "define-lazy-prop": "^2.0.0", "is-docker": "^2.1.1", "is-wsl": "^2.2.0" } }, "sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ=="],
 

@@ -253,8 +253,8 @@ export declare const defaultConfig: {
         };
     };
     fonts: {
-        body: import("@hanzo/gui-web").FillInFont<import("@hanzo/gui-web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
-        heading: import("@hanzo/gui-web").FillInFont<import("@hanzo/gui-web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
+        body: import("@hanzo/gui-web").FillInFont<import("@hanzo/gui-web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+        heading: import("@hanzo/gui-web").FillInFont<import("@hanzo/gui-web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
     };
     selectionStyles: (theme: any) => {
         backgroundColor: any;

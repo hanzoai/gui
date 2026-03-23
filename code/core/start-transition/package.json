@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui-start-transition",
-  "version": "2.0.0-rc.29",
+  "version": "2.0.0",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [

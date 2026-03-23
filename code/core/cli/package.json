@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui-cli",
-  "version": "2.0.0-rc.29",
+  "version": "2.0.0",
   "bin": {
     "hgui": "./dist/index.cjs",
     "hanzo-gui": "./dist/index.cjs"

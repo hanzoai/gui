@@ -75,8 +75,8 @@ export const createSystemFont = <A extends GenericFont>({
   )
   return createFont({
     family: isWeb
-      ? '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
-      : 'System',
+      ? '"Geist Sans", "Geist", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+      : 'Geist',
     lineHeight: Object.fromEntries(
       Object.entries(size).map(([k, v]) => [k, sizeLineHeight(getVariableValue(v))])
     ),

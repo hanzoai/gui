@@ -115,13 +115,13 @@
     "@hanzo/gui-animations-reanimated": "workspace:*",
     "@hanzo/gui-colors": "workspace:*",
     "@hanzo/gui-core": "workspace:*",
-    "@hanzo/gui-font-inter": "workspace:*",
-    "@hanzo/gui-font-silkscreen": "workspace:*",
     "@hanzo/gui-react-native-media-driver": "workspace:*",
     "@hanzo/gui-shorthands": "workspace:*",
     "@hanzo/gui-theme-builder": "workspace:*",
     "@hanzo/gui-themes": "workspace:*",
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzo/gui-web": "workspace:*",
+    "@hanzo/gui-font-geist-sans": "workspace:*",
+    "@hanzo/gui-font-geist-mono": "workspace:*"
   },
   "devDependencies": {
     "@hanzo/gui-build": "workspace:*"

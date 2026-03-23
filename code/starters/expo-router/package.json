@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui-expo-router-starter",
-  "version": "2.0.0-rc.29",
+  "version": "2.0.0",
   "private": true,
   "main": "expo-router/entry",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui-vite-plugin-internal",
-  "version": "2.0.0-rc.29",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "main": "./dist/cjs/vite.config.js",

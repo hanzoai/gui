@@ -1,5 +1,5 @@
-import { isWeb } from '@hanzo/gui-constants'
-import { simpleHash } from '@hanzo/gui-helpers'
+import { isWeb } from '@hanzogui/constants'
+import { simpleHash } from '@hanzogui/helpers'
 import { createVariable, isVariable } from './createVariable'
 import type { Variable } from './types'
 

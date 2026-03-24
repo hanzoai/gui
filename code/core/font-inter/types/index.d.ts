@@ -1,5 +1,5 @@
-import type { FillInFont, GenericFont } from "@hanzo/gui-core";
-export type { GenericFont, FillInFont } from "@hanzo/gui-core";
+import type { FillInFont, GenericFont } from "@hanzogui/core";
+export type { GenericFont, FillInFont } from "@hanzogui/core";
 export declare const createInterFont: <A extends GenericFont>(font?: Partial<A>, { sizeLineHeight, sizeSize }?: {
 	sizeLineHeight?: (fontSize: number) => number;
 	sizeSize?: (size: number) => number;

@@ -1,7 +1,7 @@
 import { YStack } from '@hanzo/gui'
 
 import { Showcase } from '~/components/bento-showcase/_Showcase'
-import * as Navbars from '@hanzo/gui-bento/component/shells/navbars'
+import * as Navbars from '@hanzogui/bento/component/shells/navbars'
 import {
   type BentoShowcaseContext,
   BentoShowcaseProvider,

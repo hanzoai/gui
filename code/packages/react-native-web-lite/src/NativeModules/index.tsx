@@ -7,7 +7,7 @@
  * @noflow
  */
 
-import { UIManager } from '@hanzo/gui-react-native-web-internals'
+import { UIManager } from '@hanzogui/react-native-web-internals'
 
 // NativeModules shim
 export const NativeModules = {

@@ -1,7 +1,7 @@
 'use client'
 
-import { View, Text, styled } from '@hanzo/gui-core'
-import { useThemeSetting } from '@hanzo/gui-next-theme'
+import { View, Text, styled } from '@hanzogui/core'
+import { useThemeSetting } from '@hanzogui/next-theme'
 import { useEffect, useState } from 'react'
 
 const XStack = styled(View, { flexDirection: 'row' })

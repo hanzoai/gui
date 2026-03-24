@@ -1,4 +1,4 @@
-import type { BuildPalette } from '@hanzo/gui-theme-builder'
+import type { BuildPalette } from '@hanzogui/theme-builder'
 
 const defaultBasePaletteAnchors: BuildPalette['anchors'] = [
   {

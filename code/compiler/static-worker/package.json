@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-static-worker",
+  "name": "@hanzogui/static-worker",
   "version": "2.0.0",
   "license": "MIT",
   "source": "src/index.ts",
@@ -35,12 +35,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@hanzo/gui-static": "workspace:*",
-    "@hanzo/gui-types": "workspace:*",
+    "@hanzogui/static": "workspace:*",
+    "@hanzogui/types": "workspace:*",
     "piscina": "^4.7.0"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "vitest": "4.0.4"
   }
 }

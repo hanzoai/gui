@@ -1,4 +1,4 @@
-import type { GuiOptions } from '@hanzo/gui-types'
+import type { GuiOptions } from '@hanzogui/types'
 import { esbuildWatchFiles, generateThemesAndLog, getOptions } from './loadGui'
 import { regenerateConfig } from './regenerateConfig'
 

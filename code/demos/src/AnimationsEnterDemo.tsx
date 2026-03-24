@@ -1,5 +1,5 @@
 import React from 'react'
-import { LogoIcon } from '@hanzo/gui-logo'
+import { LogoIcon } from '@hanzogui/logo'
 
 import { Button, Square, YStack, isWeb } from '@hanzo/gui'
 

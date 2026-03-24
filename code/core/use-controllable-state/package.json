@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-use-controllable-state",
+  "name": "@hanzogui/use-controllable-state",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
@@ -35,11 +35,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-start-transition": "workspace:*",
-    "@hanzo/gui-use-event": "workspace:*"
+    "@hanzogui/start-transition": "workspace:*",
+    "@hanzogui/use-event": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

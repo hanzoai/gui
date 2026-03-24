@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Layouts from '@hanzo/gui-bento/component/forms/layouts'
+import * as Layouts from '@hanzogui/bento/component/forms/layouts'
 
 import {
   Showcase,

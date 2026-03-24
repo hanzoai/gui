@@ -1,8 +1,8 @@
 import type { NodePath, TraverseOptions } from '@babel/traverse'
 import traverse from '@babel/traverse'
 import * as t from '@babel/types'
-import { Color, colorLog } from '@hanzo/gui-cli-color'
-import * as reactNativeWebInternals from '@hanzo/gui-react-native-web-internals'
+import { Color, colorLog } from '@hanzogui/cli-color'
+import * as reactNativeWebInternals from '@hanzogui/react-native-web-internals'
 import {
   StyleObjectIdentifier,
   StyleObjectRules,
@@ -11,7 +11,7 @@ import {
   type SplitStyleProps,
   type StaticConfig,
   type GuiComponentState,
-} from '@hanzo/gui-web'
+} from '@hanzogui/web'
 import { existsSync, readFileSync } from 'node:fs'
 import { basename, dirname, resolve, relative } from 'node:path'
 import { nodeModuleNameResolver, sys } from 'typescript'
@@ -2011,7 +2011,7 @@ export function createExtractor(
                         t.identifier('Theme')
                       ),
                     ],
-                    t.stringLiteral('@hanzo/gui-web')
+                    t.stringLiteral('@hanzogui/web')
                   )
                 )
               }
@@ -2643,7 +2643,7 @@ export function createExtractor(
 
           if (!(err instanceof BailOptimizationError)) {
             console.error(
-              `@hanzo/gui-static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment HANZO_GUI_DEBUG=1`
+              `@hanzogui/static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment HANZO_GUI_DEBUG=1`
             )
             if (process.env.HANZO_GUI_DEBUG === '1') {
               console.error(err.stack)

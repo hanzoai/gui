@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
-import { useEvent } from '@hanzo/gui-use-event'
+import { useEvent } from '@hanzogui/use-event'
 import type { ElementProps, FloatingInteractionContext, UseTypeaheadProps } from './types'
 import { clearTimeoutIfSet, stopEvent } from './utils'
 

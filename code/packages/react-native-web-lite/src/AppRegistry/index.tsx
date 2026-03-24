@@ -11,7 +11,7 @@
 
 import type { ComponentType, ReactNode } from 'react'
 import { unmountComponentAtNode } from 'react-dom'
-import { invariant } from '@hanzo/gui-react-native-web-internals'
+import { invariant } from '@hanzogui/react-native-web-internals'
 
 import { renderApplication, getApplication } from './renderApplication'
 

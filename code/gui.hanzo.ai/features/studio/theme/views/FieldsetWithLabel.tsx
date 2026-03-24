@@ -1,4 +1,4 @@
-import { Info } from '@hanzo/gui-lucide-icons-2'
+import { Info } from '@hanzogui/lucide-icons-2'
 import { useRef, useState } from 'react'
 import { Button, Heading, Input, Paragraph, TooltipSimple, XStack, YStack } from '@hanzo/gui'
 

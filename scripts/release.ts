@@ -627,7 +627,7 @@ async function run() {
       console.info(`✅ Published\n`)
 
       // for canary releases, point the canary dist-tag to the latest version for skipped packages
-      // so `npm install @hanzo/gui-lucide-icons-2@canary` still resolves
+      // so `npm install @hanzogui/lucide-icons-2@canary` still resolves
       const isCanaryVersion = /^\d+\.\d+\.\d+-\d+$/.test(version)
       if ((canary || isCanaryVersion) && skippedPackages.length > 0) {
         console.info(

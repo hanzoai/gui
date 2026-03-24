@@ -3,7 +3,7 @@ import {
   type BuildPalette,
   PALETTE_BACKGROUND_OFFSET,
   getThemeSuitePalettes,
-} from '@hanzo/gui-theme-builder'
+} from '@hanzogui/theme-builder'
 
 export const ColorThemeIndicator = ({
   primary,

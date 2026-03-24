@@ -9,7 +9,7 @@ animation library that comes built into React Native and React Native Web.
 ## Installation
 
 ```bash
-yarn add @hanzo/gui-animations-react-native
+yarn add @hanzogui/animations-react-native
 ```
 
 ## Configuration
@@ -17,7 +17,7 @@ yarn add @hanzo/gui-animations-react-native
 Add it to your [Gui config](/docs/core/configuration):
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-react-native'
+import { createAnimations } from '@hanzogui/animations-react-native'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({
@@ -99,7 +99,7 @@ extensions:
 
 ```tsx
 // animations.ts (web)
-import { createAnimations } from '@hanzo/gui-animations-css'
+import { createAnimations } from '@hanzogui/animations-css'
 
 export const animations = createAnimations({
   quick: 'ease-out 150ms',
@@ -108,7 +108,7 @@ export const animations = createAnimations({
 
 ```tsx
 // animations.native.ts (native)
-import { createAnimations } from '@hanzo/gui-animations-react-native'
+import { createAnimations } from '@hanzogui/animations-react-native'
 
 export const animations = createAnimations({
   quick: {
@@ -129,7 +129,7 @@ Your bundler will automatically pick the right file based on the platform.
 ## Example
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-react-native'
+import { createAnimations } from '@hanzogui/animations-react-native'
 import { YStack, createGui } from '@hanzo/gui'
 
 const animations = createAnimations({

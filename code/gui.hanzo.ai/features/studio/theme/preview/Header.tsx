@@ -1,4 +1,4 @@
-import { GuiLogo } from '@hanzo/gui-logo'
+import { GuiLogo } from '@hanzogui/logo'
 import { H1, Paragraph, Square, XStack, YStack } from '@hanzo/gui'
 
 import { useDemoProps } from '~/features/studio/theme/hooks/useDemoProps'

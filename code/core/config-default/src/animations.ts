@@ -1,4 +1,4 @@
-import { createAnimations } from '@hanzo/gui-animations-css'
+import { createAnimations } from '@hanzogui/animations-css'
 
 const smoothBezier = 'cubic-bezier(0.215, 0.610, 0.355, 1.000)'
 

@@ -16,14 +16,14 @@
     "watch": "hanzo-gui-build --skip-types --watch"
   },
   "dependencies": {
-    "@hanzo/gui-animations-react-native": "workspace:*",
-    "@hanzo/gui-config": "workspace:*",
-    "@hanzo/gui-font-inter": "workspace:*",
-    "@hanzo/gui-shorthands": "workspace:*",
-    "@hanzo/gui-themes": "workspace:*",
+    "@hanzogui/animations-react-native": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/font-inter": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/themes": "workspace:*",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

@@ -15,8 +15,8 @@ by: nate
 
 <IntroParagraph>
   <UL>
-    <LI>A style library (`@hanzo/gui-core`) for creating React Native + Web components.</LI>
-    <LI>An optimizing compiler (`@hanzo/gui-static`) for incredible performance.</LI>
+    <LI>A style library (`@hanzogui/core`) for creating React Native + Web components.</LI>
+    <LI>An optimizing compiler (`@hanzogui/static`) for incredible performance.</LI>
     <LI>A component kit (`@hanzo/gui`) built using both of the above.</LI>
   </UL>
 </IntroParagraph>
@@ -44,7 +44,7 @@ views between Expo and Next.js, and the bootstrap repo.
 ### Themes 2.0 🎨
 
 Theme internally have been completely redone, and they're really fun. They work
-better, nest better, and come with a nice preset in `@hanzo/gui-themes`.
+better, nest better, and come with a nice preset in `@hanzogui/themes`.
 
 Theme objects now default to names that map to standard style names (with
 optional pseudo suffixes), so `color`, plus the alternates `colorHover`,
@@ -103,7 +103,7 @@ We now have a very solid foundation.
 
 ### Animations
 
-Animations are making their way, experimentally, into `@hanzo/gui-core`. They are
+Animations are making their way, experimentally, into `@hanzogui/core`. They are
 unstable, but we want to get feedback and use them more in practice.
 
 <OffsetBox my="$4">
@@ -189,7 +189,7 @@ The core of Popover is now powered by the wonderful
 [Floating UI](https://floating-ui.com/), saving us a lot of complexity and
 giving it more reliable and powerful behaviors.
 
-It's also been split out optionally into it's own package at `@hanzo/gui-popover`.
+It's also been split out optionally into it's own package at `@hanzogui/popover`.
 
 Show the code below to see the improved component-based API.
 
@@ -251,22 +251,22 @@ involved, but we think it's still useful to release it as experimental.
 ### Theme Generation
 
 Use the themes from the Hanzo GUI site itself without any setup at all, simply
-install `@hanzo/gui-themes` and add `themes` and `tokens` to `createGui()` in
+install `@hanzogui/themes` and add `themes` and `tokens` to `createGui()` in
 your `gui.config.ts`.
 
-Likewise, we've released `@hanzo/gui-shorthands`, nice preset default shorthands.
+Likewise, we've released `@hanzogui/shorthands`, nice preset default shorthands.
 
 ---
 
 ### Feather Icons
 
-We've released [@hanzo/gui-lucide-icons-2](/ui/lucide-icons), which have numerous
+We've released [@hanzogui/lucide-icons-2](/ui/lucide-icons), which have numerous
 adjustments to work well with themes and sizing.
 
 You can import and use them directly, or pass them to Buttons:
 
 ```tsx
-import { Play } from '@hanzo/gui-lucide-icons-2'
+import { Play } from '@hanzogui/lucide-icons-2'
 import { Button } from '@hanzo/gui'
 
 // theme and size are properly passed from Button to icons automatically
@@ -332,11 +332,11 @@ I'd like to thank:
 
 - [Fenando Rojo](https://twitter.com/fernandotherojo) and
   [Moti](https://moti.fyi) for the elegant reanimated animation driver that
-  served as the starting point of `@hanzo/gui-animations-reanimated`, as well as
+  served as the starting point of `@hanzogui/animations-reanimated`, as well as
   for putting together [Solito](https://solito.dev) that powers the first
   template in create-hanzo-gui.
 - [Matt Perry](https://twitter.com/mattgperry) and
   [Framer Motion](https://github.com/framer/motion) for the base of
-  AnimatePresence in `@hanzo/gui-animate-presence`.
+  AnimatePresence in `@hanzogui/animate-presence`.
 - [Radix](https://www.radix-ui.com) for their rad quality, the innovative
   composing components API's, and `asChild`.

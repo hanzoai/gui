@@ -2,7 +2,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import type { NamedExoticComponent } from 'react'
-import type { IconProps } from '@hanzo/gui-helpers-icon'
+import type { IconProps } from '@hanzogui/helpers-icon'
 import {
   Svg,
   Circle as _Circle,
@@ -21,7 +21,7 @@ import {
   Defs,
   Stop,
 } from 'react-native-svg'
-import { themed } from '@hanzo/gui-helpers-icon'
+import { themed } from '@hanzogui/helpers-icon'
 
 type IconComponent = (propsIn: IconProps) => JSX.Element
 

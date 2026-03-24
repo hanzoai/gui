@@ -4,7 +4,7 @@ import type {
   SizeTokens,
   StackStyleBase,
   ThemeTokens,
-} from '@hanzo/gui-core'
+} from '@hanzogui/core'
 import type { SvgProps } from 'react-native-svg'
 
 export interface IconStyleProps extends StackStyleBase {

@@ -1,4 +1,4 @@
-import { Toast, useToastController, useToastState } from '@hanzo/gui-toast'
+import { Toast, useToastController, useToastState } from '@hanzogui/toast'
 import React from 'react'
 import { Button, Label, Switch, XStack, YStack } from '@hanzo/gui'
 

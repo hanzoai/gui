@@ -1,7 +1,7 @@
 // ONLY USED BY KITCHEN SINK FOR TESTS
 
-import * as Colors from '@hanzo/gui-colors'
-import { createThemes, defaultComponentThemes } from '@hanzo/gui-theme-builder'
+import * as Colors from '@hanzogui/colors'
+import { createThemes, defaultComponentThemes } from '@hanzogui/theme-builder'
 import { desaturate } from 'color2k'
 
 const desat = (colors: Record<string, string>, amount: number) => {

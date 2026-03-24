@@ -5,7 +5,7 @@ description: Animate components as they mount and unmount
 
 AnimatePresence animates direct children before they unmount. It is inspired by and forked from [Framer Motion](https://github.com/framer/motion), but works with any animation driver in Hanzo GUI.
 
-To use with `@hanzo/gui-core`, install and import `@hanzo/gui-animate-presence`. It's already bundled and exported from `@hanzo/gui`.
+To use with `@hanzogui/core`, install and import `@hanzogui/animate-presence`. It's already bundled and exported from `@hanzo/gui`.
 
 ## Basic Usage
 
@@ -109,8 +109,8 @@ This works with all four animation drivers (CSS, React Native, Reanimated, Motio
 AnimatePresence takes a `custom` prop that allows you to update a variant of the animated child before it runs its exit animation. This is useful for animating a child out of the screen in a different direction before it unmounts, as shown in the example above:
 
 ```tsx
-import { AnimatePresence } from '@hanzo/gui-animate-presence'
-import { ArrowLeft, ArrowRight } from '@hanzo/gui-lucide-icons-2'
+import { AnimatePresence } from '@hanzogui/animate-presence'
+import { ArrowLeft, ArrowRight } from '@hanzogui/lucide-icons-2'
 import { useState } from 'react'
 import { Button, Image, XStack, YStack, styled } from '@hanzo/gui'
 

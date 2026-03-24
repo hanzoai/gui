@@ -1,4 +1,4 @@
-import { concatClassName } from '@hanzo/gui-static'
+import { concatClassName } from '@hanzogui/static'
 import { expect, test } from 'vitest'
 
 test(`concatClassName - leave regular`, () => {

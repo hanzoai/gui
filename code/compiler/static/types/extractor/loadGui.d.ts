@@ -1,4 +1,4 @@
-import type { CLIResolvedOptions, CLIUserOptions, GuiOptions } from '@hanzo/gui-types';
+import type { CLIResolvedOptions, CLIUserOptions, GuiOptions } from '@hanzogui/types';
 import { type GuiProjectInfo } from './bundleConfig';
 export declare function loadGui(propsIn: Partial<GuiOptions>): Promise<GuiProjectInfo | null>;
 export declare const generateThemesAndLog: (options: GuiOptions, force?: boolean) => Promise<void>;

@@ -1,4 +1,4 @@
-import type { MatchMedia } from '@hanzo/gui-web'
+import type { MatchMedia } from '@hanzogui/web'
 
 import { NativeMediaQueryList } from './mediaQueryList'
 

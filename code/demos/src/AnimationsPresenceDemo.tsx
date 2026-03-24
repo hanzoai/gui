@@ -1,6 +1,6 @@
 import React from 'react'
-import { AnimatePresence } from '@hanzo/gui-animate-presence'
-import { ArrowLeft, ArrowRight } from '@hanzo/gui-lucide-icons-2'
+import { AnimatePresence } from '@hanzogui/animate-presence'
+import { ArrowLeft, ArrowRight } from '@hanzogui/lucide-icons-2'
 
 import { Button, Image, XStack, YStack, styled } from '@hanzo/gui'
 

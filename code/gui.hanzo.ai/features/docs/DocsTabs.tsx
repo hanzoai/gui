@@ -1,4 +1,4 @@
-import { useStore, useStoreSelector } from '@hanzo/gui-use-store'
+import { useStore, useStoreSelector } from '@hanzogui/use-store'
 import { forwardRef } from 'react'
 import type { TabsProps, TabsTabProps } from '@hanzo/gui'
 import { Paragraph, Tabs, XStack, styled, withStaticProperties } from '@hanzo/gui'

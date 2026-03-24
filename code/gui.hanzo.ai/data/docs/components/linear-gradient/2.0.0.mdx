@@ -28,7 +28,7 @@ demoName: LinearGradient
 LinearGradient is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-linear-gradient
+npm install @hanzogui/linear-gradient
 ```
 
 ### Native Setup
@@ -46,7 +46,7 @@ npm install expo-linear-gradient
 In your app's entry file (index.js or App.tsx), before any Hanzo GUI imports:
 
 ```tsx
-import '@hanzo/gui-native/setup-expo-linear-gradient'
+import '@hanzogui/native/setup-expo-linear-gradient'
 ```
 
 That's it! LinearGradient will automatically detect and use expo-linear-gradient when available.
@@ -60,7 +60,7 @@ If you don't set up expo-linear-gradient, LinearGradient will log a warning on n
 Because LinearGradient requires a native package, it is not included in the main `@hanzo/gui` export. Import it either separately or using the path `/linear-gradient`:
 
 ```tsx
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
+import { LinearGradient } from '@hanzogui/linear-gradient'
 import { LinearGradient } from 'gui/linear-gradient'
 ```
 

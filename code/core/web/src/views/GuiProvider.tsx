@@ -1,5 +1,5 @@
-import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
-import { ClientOnly } from '@hanzo/gui-use-did-finish-ssr'
+import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
+import { ClientOnly } from '@hanzogui/use-did-finish-ssr'
 import React, { useEffect } from 'react'
 import { getSetting } from '../config'
 import { ComponentContext } from '../contexts/ComponentContext'

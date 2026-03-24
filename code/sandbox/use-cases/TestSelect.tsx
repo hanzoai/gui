@@ -1,4 +1,4 @@
-import { Check, ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2'
+import { Check, ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2'
 import React from 'react'
 
 import type { FontSizeTokens, SelectProps } from '@hanzo/gui'

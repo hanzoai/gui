@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-vite-plugin-internal",
+  "name": "@hanzogui/vite-plugin-internal",
   "version": "2.0.0",
   "private": true,
   "type": "module",
@@ -22,11 +22,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-vite-plugin": "workspace:*"
+    "@hanzogui/vite-plugin": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
-    "@hanzo/gui-config-default": "workspace:*",
+    "@hanzogui/build": "workspace:*",
+    "@hanzogui/config-default": "workspace:*",
     "happy-dom": "^10.11.2",
     "react": ">=19",
     "vitest": "4.0.4",

@@ -1,4 +1,4 @@
-import type { GuiBuildOptions } from '@hanzo/gui-core'
+import type { GuiBuildOptions } from '@hanzogui/core'
 
 const disableExtraction =
   process.env.NODE_ENV === 'development' &&

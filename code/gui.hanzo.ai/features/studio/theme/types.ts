@@ -1,4 +1,4 @@
-import type { ThemeSuiteItem } from '@hanzo/gui-theme-builder'
+import type { ThemeSuiteItem } from '@hanzogui/theme-builder'
 
 type Component = (props?: any) => any
 

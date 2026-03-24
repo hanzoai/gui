@@ -1,4 +1,4 @@
-import { setTintIndex } from '@hanzo/gui-logo'
+import { setTintIndex } from '@hanzogui/logo'
 import { useLoader } from 'one'
 import { useEffect } from 'react'
 import { Button, YStack } from '@hanzo/gui'

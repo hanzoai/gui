@@ -1,4 +1,4 @@
-import { ThemeTint, useTint } from '@hanzo/gui-logo'
+import { ThemeTint, useTint } from '@hanzogui/logo'
 import { memo, useEffect, useState } from 'react'
 import type { ColorTokens, ThemeName } from '@hanzo/gui'
 import { YStack, isClient, useDidFinishSSR, useTheme } from '@hanzo/gui'

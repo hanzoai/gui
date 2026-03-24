@@ -1,4 +1,4 @@
-import type { Variable } from '@hanzo/gui-web'
+import type { Variable } from '@hanzogui/web'
 
 export type CreateThemePalette = (string | Variable)[]
 

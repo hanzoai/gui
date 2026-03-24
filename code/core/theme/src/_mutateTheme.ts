@@ -1,6 +1,6 @@
-import { isServer } from '@hanzo/gui-constants'
-import { startTransition } from '@hanzo/gui-start-transition'
-import type { ThemeDefinition, ThemeParsed } from '@hanzo/gui-web'
+import { isServer } from '@hanzogui/constants'
+import { startTransition } from '@hanzogui/start-transition'
+import type { ThemeDefinition, ThemeParsed } from '@hanzogui/web'
 import {
   ensureThemeVariable,
   forceUpdateThemes,
@@ -10,7 +10,7 @@ import {
   proxyThemeToParents,
   simpleHash,
   updateConfig,
-} from '@hanzo/gui-web'
+} from '@hanzogui/web'
 
 type MutateThemeOptions = {
   mutationType: 'replace' | 'update' | 'add'

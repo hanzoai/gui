@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom'
 import 'vitest-axe/extend-expect'
 
-import { Checkbox } from '@hanzo/gui-checkbox'
-import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
-import { View, GuiProvider, createGui, getTokenValue } from '@hanzo/gui-core'
+import { Checkbox } from '@hanzogui/checkbox'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
+import { View, GuiProvider, createGui, getTokenValue } from '@hanzogui/core'
 import type { RenderResult } from '@testing-library/react'
 import { fireEvent, render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vitest } from 'vitest'

@@ -1,4 +1,4 @@
-import type { StyleObject } from '@hanzo/gui-helpers'
+import type { StyleObject } from '@hanzogui/helpers'
 import type { Properties } from 'csstype'
 import type {
   CSSProperties,
@@ -412,7 +412,7 @@ export interface WebOnlyPressEvents {
   onPointerCancel?: DivAttributes['onPointerCancel']
 }
 
-export type { MediaStyleObject, StyleObject } from '@hanzo/gui-helpers'
+export type { MediaStyleObject, StyleObject } from '@hanzogui/helpers'
 
 type FontFamilies = FontTokens extends `$${infer Token}` ? Token : never
 

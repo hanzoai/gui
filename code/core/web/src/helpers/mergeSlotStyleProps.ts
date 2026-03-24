@@ -1,5 +1,5 @@
-import { composeRefs } from '@hanzo/gui-compose-refs'
-import { composeEventHandlers } from '@hanzo/gui-helpers'
+import { composeRefs } from '@hanzogui/compose-refs'
+import { composeEventHandlers } from '@hanzogui/helpers'
 
 const isEventHandler = /^on[A-Z]/
 

@@ -1,4 +1,4 @@
-import { Check, CheckCircle } from '@hanzo/gui-lucide-icons-2'
+import { Check, CheckCircle } from '@hanzogui/lucide-icons-2'
 import type { CheckboxProps, RadioGroupItemProps } from '@hanzo/gui'
 import {
   Button,

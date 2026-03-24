@@ -13,7 +13,7 @@
 import { AnimatedValue } from './nodes/AnimatedValue'
 import { NativeAnimatedHelper } from './NativeAnimatedHelper'
 
-import { invariant } from '@hanzo/gui-react-native-web-internals'
+import { invariant } from '@hanzogui/react-native-web-internals'
 
 import { shouldUseNativeDriver } from './NativeAnimatedHelper'
 

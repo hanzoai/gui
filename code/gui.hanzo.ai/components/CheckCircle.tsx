@@ -1,4 +1,4 @@
-import { Check } from '@hanzo/gui-lucide-icons-2'
+import { Check } from '@hanzogui/lucide-icons-2'
 import { YStack } from '@hanzo/gui'
 
 export const CheckCircle = () => (

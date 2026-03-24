@@ -11,14 +11,14 @@ export declare function isValidThemeHook(props: GuiOptionsWithFileInfo, jsxPath:
 export declare const isInsideComponentPackage: (props: GuiOptionsWithFileInfo, moduleName: string) => any;
 export declare const isComponentPackage: (props: GuiOptionsWithFileInfo, srcName: string) => any;
 export declare function getValidComponent(props: GuiOptionsWithFileInfo, moduleName: string, componentName: string): false | {
-    staticConfig: import("@hanzo/gui-web").StaticConfig;
+    staticConfig: import("@hanzogui/web").StaticConfig;
 } | null;
 export declare const isValidModule: (props: GuiOptionsWithFileInfo, moduleName: string) => {
     isLocal: boolean;
     isValid: any;
 };
 export declare const getValidImport: (props: GuiOptionsWithFileInfo, moduleName: string, componentName?: string) => {
-    staticConfig: import("@hanzo/gui-web").StaticConfig;
+    staticConfig: import("@hanzogui/web").StaticConfig;
 } | null;
 export declare const isValidImport: (props: GuiOptionsWithFileInfo, moduleName: string, componentName?: string) => any;
 export declare const getValidComponentsPaths: {

@@ -4,14 +4,14 @@ import {
   ArrowLeftRight,
   ArrowRight,
   ArrowUpDown,
-} from '@hanzo/gui-lucide-icons-2'
+} from '@hanzogui/lucide-icons-2'
 import {
   type BuildPalette,
   type BuildThemeAnchor,
   PALETTE_BACKGROUND_OFFSET,
   getThemeSuitePalettes,
-} from '@hanzo/gui-theme-builder'
-import { Store, getStore, useStore } from '@hanzo/gui-use-store'
+} from '@hanzogui/theme-builder'
+import { Store, getStore, useStore } from '@hanzogui/use-store'
 import { parseToHsla } from 'color2k'
 import { memo } from 'react'
 import {

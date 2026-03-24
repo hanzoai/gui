@@ -1,6 +1,6 @@
-import { shorthands } from '@hanzo/gui-shorthands'
-import { themes, tokens } from '@hanzo/gui-themes'
-import type { CreateGuiProps } from '@hanzo/gui-web'
+import { shorthands } from '@hanzogui/shorthands'
+import { themes, tokens } from '@hanzogui/themes'
+import type { CreateGuiProps } from '@hanzogui/web'
 
 import { fonts } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'

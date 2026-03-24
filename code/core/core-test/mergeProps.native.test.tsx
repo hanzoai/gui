@@ -1,4 +1,4 @@
-import { createGui, mergeProps } from '@hanzo/gui-core'
+import { createGui, mergeProps } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { InteractionManager } from '@hanzo/gui-react-native-web-internals'
+import { InteractionManager } from '@hanzogui/react-native-web-internals'
 import TouchHistoryMath from '../TouchHistoryMath/index'
 
 const currentCentroidXOfTouchesChangedAfter =

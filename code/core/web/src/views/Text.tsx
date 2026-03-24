@@ -1,4 +1,4 @@
-import { stylePropsTextOnly, validStyles } from '@hanzo/gui-helpers'
+import { stylePropsTextOnly, validStyles } from '@hanzogui/helpers'
 
 import { createComponent } from '../createComponent'
 import type {

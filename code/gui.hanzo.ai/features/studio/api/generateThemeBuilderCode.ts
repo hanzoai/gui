@@ -1,5 +1,5 @@
-import { createPalettes, PALETTE_BACKGROUND_OFFSET } from '@hanzo/gui-theme-builder'
-import type { BuildThemeSuiteProps } from '@hanzo/gui-themes'
+import { createPalettes, PALETTE_BACKGROUND_OFFSET } from '@hanzogui/theme-builder'
+import type { BuildThemeSuiteProps } from '@hanzogui/themes'
 
 type GenerateThemeBuilderCodeProps = BuildThemeSuiteProps & {
   includeComponentThemes: boolean
@@ -37,8 +37,8 @@ export async function generateThemeBuilderCode({
     ? `\n  componentThemes: v5ComponentThemes,`
     : `\n  componentThemes: false,`
 
-  return `import { createV5Theme, defaultChildrenThemes } from '@hanzo/gui-config/v5'${includeComponentThemes ? `\nimport { v5ComponentThemes } from '@hanzo/gui-themes/v5'` : ``}
-import { yellow, yellowDark, red, redDark, green, greenDark } from '@hanzo/gui-colors'
+  return `import { createV5Theme, defaultChildrenThemes } from '@hanzogui/config/v5'${includeComponentThemes ? `\nimport { v5ComponentThemes } from '@hanzogui/themes/v5'` : ``}
+import { yellow, yellowDark, red, redDark, green, greenDark } from '@hanzogui/colors'
 
 const darkPalette = ${arrayToJS(darkPalette)}
 const lightPalette = ${arrayToJS(lightPalette)}

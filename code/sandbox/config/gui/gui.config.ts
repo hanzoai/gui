@@ -1,5 +1,5 @@
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animationsMotion } from '@hanzo/gui-config/v5-motion'
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animationsMotion } from '@hanzogui/config/v5-motion'
 import { createGui } from '@hanzo/gui'
 
 const customColors = {

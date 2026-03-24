@@ -1,4 +1,4 @@
-import { Box, Brush, MessageCircle } from '@hanzo/gui-lucide-icons-2'
+import { Box, Brush, MessageCircle } from '@hanzogui/lucide-icons-2'
 import { styled, YStack } from '@hanzo/gui'
 import { BentoIcon } from '../../icons/BentoIcon'
 import { TakeoutIcon } from '../../icons/TakeoutIcon'

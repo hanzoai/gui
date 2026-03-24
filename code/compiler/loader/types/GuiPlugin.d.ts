@@ -1,4 +1,4 @@
-import type { GuiOptions } from '@hanzo/gui-types';
+import type { GuiOptions } from '@hanzogui/types';
 import type { Compiler, RuleSetRule } from 'webpack';
 export type PluginOptions = GuiOptions & {
     isServer?: boolean;

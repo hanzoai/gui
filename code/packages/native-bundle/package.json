@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-native-bundle",
+  "name": "@hanzogui/native-bundle",
   "version": "2.0.0",
   "description": "Vite-based bundler for creating native CommonJS bundles for Hanzo GUI packages",
   "license": "MIT",

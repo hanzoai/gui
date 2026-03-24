@@ -1,5 +1,5 @@
-import { isIos } from '@hanzo/gui-constants'
-import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
+import { isIos } from '@hanzogui/constants'
+import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import {
   createContext,
   useCallback,

@@ -9,7 +9,7 @@
  */
 
 import * as React from 'react'
-import { StyleSheet } from '@hanzo/gui-react-native-web-internals'
+import { StyleSheet } from '@hanzogui/react-native-web-internals'
 
 import type { ViewProps } from '../View/index'
 import { View } from '../View/index'

@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Slide from '@hanzo/gui-bento/component/animation/slide'
+import * as Slide from '@hanzogui/bento/component/animation/slide'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

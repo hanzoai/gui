@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-react-native-web-lite",
+  "name": "@hanzogui/react-native-web-lite",
   "version": "2.0.0",
   "description": "React Native for Web",
   "keywords": [
@@ -102,16 +102,16 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-normalize-css-color": "workspace:*",
-    "@hanzo/gui-react-native-use-pressable": "workspace:*",
-    "@hanzo/gui-react-native-use-responder-events": "workspace:*",
-    "@hanzo/gui-react-native-web-internals": "workspace:*",
-    "@hanzo/gui-web": "workspace:*",
+    "@hanzogui/normalize-css-color": "workspace:*",
+    "@hanzogui/react-native-use-pressable": "workspace:*",
+    "@hanzogui/react-native-use-responder-events": "workspace:*",
+    "@hanzogui/react-native-web-internals": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "invariant": "^2.2.4",
     "memoize-one": "^6.0.0"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-dom": "*"
   },

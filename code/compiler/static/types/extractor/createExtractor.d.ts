@@ -12,7 +12,7 @@ export declare function createExtractor({ logger, platform }?: ExtractorOptions)
     cleanupBeforeExit: typeof cleanupBeforeExit;
     loadGui: (props: GuiOptions) => Promise<GuiProjectInfo | null>;
     loadGuiSync: (props: GuiOptions) => GuiProjectInfo | null;
-    getGui(): import("@hanzo/gui-web").GuiInternalConfig | null | undefined;
+    getGui(): import("@hanzogui/web").GuiInternalConfig | null | undefined;
     parseSync: (f: FileOrPath, props: ExtractorParseProps) => {
         styled: number;
         flattened: number;

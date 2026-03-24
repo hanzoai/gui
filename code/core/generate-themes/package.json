@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-generate-themes",
+  "name": "@hanzogui/generate-themes",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
@@ -34,13 +34,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-create-theme": "workspace:*",
-    "@hanzo/gui-theme-builder": "workspace:*",
-    "@hanzo/gui-types": "workspace:*",
+    "@hanzogui/create-theme": "workspace:*",
+    "@hanzogui/theme-builder": "workspace:*",
+    "@hanzogui/types": "workspace:*",
     "esbuild-register": "^3.6.0",
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

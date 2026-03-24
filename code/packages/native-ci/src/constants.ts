@@ -1,5 +1,5 @@
 /**
- * Constants for @hanzo/gui-native-ci
+ * Constants for @hanzogui/native-ci
  */
 
 // Metro bundler configuration

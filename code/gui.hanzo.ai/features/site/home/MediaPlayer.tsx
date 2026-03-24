@@ -1,5 +1,5 @@
-import { Image } from '@hanzo/gui-image'
-import { FastForward, Pause, Rewind } from '@hanzo/gui-lucide-icons-2'
+import { Image } from '@hanzogui/image'
+import { FastForward, Pause, Rewind } from '@hanzogui/lucide-icons-2'
 import { memo } from 'react'
 import type { ThemeName, YStackProps } from '@hanzo/gui'
 import { Button, Paragraph, Separator, Square, Theme, XStack, YStack } from '@hanzo/gui'

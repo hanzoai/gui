@@ -1,7 +1,7 @@
 'use client'
 
-import { CheckCircle, Minus, Plus, XCircle } from '@hanzo/gui-lucide-icons-2'
-import { useObserve } from '@hanzo/gui-use-store'
+import { CheckCircle, Minus, Plus, XCircle } from '@hanzogui/lucide-icons-2'
+import { useObserve } from '@hanzogui/use-store'
 import { getContrast, readableColor } from 'color2k'
 import React, { memo } from 'react'
 import {

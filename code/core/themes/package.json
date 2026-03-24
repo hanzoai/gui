@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-themes",
+  "name": "@hanzogui/themes",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "type": "module",
@@ -81,15 +81,15 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-colors": "workspace:*",
-    "@hanzo/gui-create-theme": "workspace:*",
-    "@hanzo/gui-theme-builder": "workspace:*",
-    "@hanzo/gui-web": "workspace:*",
+    "@hanzogui/colors": "workspace:*",
+    "@hanzogui/create-theme": "workspace:*",
+    "@hanzogui/theme-builder": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "color2k": "^2.0.2"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
-    "@hanzo/gui-cli": "workspace:*",
+    "@hanzogui/build": "workspace:*",
+    "@hanzogui/cli": "workspace:*",
     "vitest": "4.0.4"
   }
 }

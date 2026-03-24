@@ -1,4 +1,4 @@
-import { createAnimations } from '@hanzo/gui-animations-reanimated'
+import { createAnimations } from '@hanzogui/animations-reanimated'
 
 export const animationsReanimated = createAnimations({
   '0ms': {

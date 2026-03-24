@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as RadioGroups from '@hanzo/gui-bento/component/forms/radiogroups'
+import * as RadioGroups from '@hanzogui/bento/component/forms/radiogroups'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

@@ -1,5 +1,5 @@
 export declare const fonts: {
-    heading: import("@hanzo/gui-font-geist-sans").FillInFont<{
+    heading: import("@hanzogui/font-geist-sans").FillInFont<{
         size: {
             5: number;
             6: number;
@@ -41,7 +41,7 @@ export declare const fonts: {
             };
         };
     }, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
-    body: import("@hanzo/gui-font-geist-sans").FillInFont<import("@hanzo/gui-font-geist-sans").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
-    mono: import("@hanzo/gui-font-geist-sans").FillInFont<import("@hanzo/gui-font-geist-sans").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+    body: import("@hanzogui/font-geist-sans").FillInFont<import("@hanzogui/font-geist-sans").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+    mono: import("@hanzogui/font-geist-sans").FillInFont<import("@hanzogui/font-geist-sans").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
 };
 //# sourceMappingURL=fonts.d.ts.map

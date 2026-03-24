@@ -1,5 +1,5 @@
-import { ThemeTint, useTint } from '@hanzo/gui-logo'
-import { FastForward } from '@hanzo/gui-lucide-icons-2'
+import { ThemeTint, useTint } from '@hanzogui/logo'
+import { FastForward } from '@hanzogui/lucide-icons-2'
 import { memo, useState } from 'react'
 import { Button, Heading, Paragraph, ScrollView, XGroup, XStack, YStack } from '@hanzo/gui'
 

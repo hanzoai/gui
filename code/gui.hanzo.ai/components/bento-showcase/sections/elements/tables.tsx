@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Tables from '@hanzo/gui-bento/component/elements/tables'
+import * as Tables from '@hanzogui/bento/component/elements/tables'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

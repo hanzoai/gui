@@ -1,4 +1,4 @@
-import { isWeb } from '@hanzo/gui-constants'
+import { isWeb } from '@hanzogui/constants'
 import { normalizeShadow } from './normalizeShadow'
 
 export function fixStyles(style: Record<string, any>) {

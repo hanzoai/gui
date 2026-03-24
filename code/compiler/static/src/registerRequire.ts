@@ -9,7 +9,7 @@ const nameToPaths = {}
 export const getNameToPaths = () => nameToPaths
 
 const Module = require('node:module')
-const proxyWorm = require('@hanzo/gui-proxy-worm')
+const proxyWorm = require('@hanzogui/proxy-worm')
 
 let isRegistered = false
 let og: any
@@ -62,7 +62,7 @@ export function registerRequire(
   const tsconfigPatchedResolve = Module._resolveFilename
   Module._resolveFilename = function (request: string, ...args: any[]) {
     // for @gui packages, use Node's native resolution (respects exports)
-    if (request.startsWith('@hanzo/gui-')) {
+    if (request.startsWith('@hanzogui/')) {
       return originalResolveFilename.call(this, request, ...args)
     }
     // for everything else, use tsconfig-paths resolution
@@ -82,7 +82,7 @@ export function registerRequire(
       return og.apply(this, ['@hanzo/gui/native'])
     }
 
-    if (path === '@hanzo/gui-core') {
+    if (path === '@hanzogui/core') {
       return requireGuiCore(platform, (path) => {
         return og.apply(this, [path])
       })
@@ -101,7 +101,7 @@ export function registerRequire(
     }
 
     if (path === 'react-native-svg') {
-      return og.apply(this, ['@hanzo/gui-react-native-svg'])
+      return og.apply(this, ['@hanzogui/react-native-svg'])
     }
 
     if (path === 'react-native/package.json') {
@@ -109,14 +109,14 @@ export function registerRequire(
     }
 
     if (
-      path === '@hanzo/gui-react-native-web-lite' ||
+      path === '@hanzogui/react-native-web-lite' ||
       path === 'react-native' ||
       path.startsWith('react-native/')
     ) {
       try {
         return og.apply('react-native')
       } catch {
-        return og.apply(this, ['@hanzo/gui-react-native-web-lite'])
+        return og.apply(this, ['@hanzogui/react-native-web-lite'])
       }
     }
 
@@ -128,7 +128,7 @@ export function registerRequire(
         const callerFile = this?.filename || this?.id || ''
         const isFromGuiPkg =
           callerFile.includes('@hanzo/gui') || callerFile.includes('@gui') || callerFile.includes('node_modules/@hanzo/')
-        if (path === '@hanzo/gui' || path.startsWith('@hanzo/gui-') || isFromGuiPkg) {
+        if (path === '@hanzo/gui' || path.startsWith('@hanzogui/') || isFromGuiPkg) {
           return og.apply(this, [path])
         }
         return proxyWorm

@@ -1,15 +1,15 @@
 /**
- * @hanzo/gui-static-worker
+ * @hanzogui/static-worker
  *
  * Pure worker-based API for Hanzo GUI static extraction.
  * All operations run in a worker thread for better performance and isolation.
  *
- * This package provides a clean async API that wraps @hanzo/gui-static's worker
+ * This package provides a clean async API that wraps @hanzogui/static's worker
  * implementation without exposing any sync/legacy APIs.
  */
-import type { GuiOptions } from '@hanzo/gui-types';
-export type { ExtractedResponse, GuiProjectInfo } from '@hanzo/gui-static';
-export type { GuiOptions } from '@hanzo/gui-types';
+import type { GuiOptions } from '@hanzogui/types';
+export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static';
+export type { GuiOptions } from '@hanzogui/types';
 export declare const getPragmaOptions: (props: {
     source: string;
     path: string;

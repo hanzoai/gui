@@ -1,5 +1,5 @@
-import * as Colors from '@hanzo/gui-colors/legacy'
-import { createThemes, defaultComponentThemes } from '@hanzo/gui-theme-builder'
+import * as Colors from '@hanzogui/colors/legacy'
+import { createThemes, defaultComponentThemes } from '@hanzogui/theme-builder'
 
 /**
  * This is the default config v4 definitions.

@@ -1,4 +1,4 @@
-import { CheckboxWithLabel, SelectDemoContents, SwitchWithLabel } from '@hanzo/gui-demos'
+import { CheckboxWithLabel, SelectDemoContents, SwitchWithLabel } from '@hanzogui/demos'
 import { Button, H4, RadioGroup, Separator, Spacer, XStack, YStack } from '@hanzo/gui'
 import { AccentTheme } from '../../components/AccentTheme'
 import { useDemoProps } from '../hooks/useDemoProps'

@@ -102,7 +102,7 @@ jobs:
         if: env.SKIP_IOS_TESTS != 'true'
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@hanzo/gui-kitchen-sink'
+          workspace-focus: '@hanzogui/kitchen-sink'
 
       - name: Install tooling
         if: env.SKIP_IOS_TESTS != 'true'
@@ -240,7 +240,7 @@ jobs:
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@hanzo/gui-kitchen-sink'
+          workspace-focus: '@hanzogui/kitchen-sink'
 
       - name: Setup Java
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
@@ -488,7 +488,7 @@ jobs:
         if: env.SKIP_ANDROID_TESTS != 'true'
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@hanzo/gui-kitchen-sink'
+          workspace-focus: '@hanzogui/kitchen-sink'
 
       - name: Setup Java
         if: env.SKIP_ANDROID_TESTS != 'true'

@@ -1,4 +1,4 @@
-import type { ThemeDefinition, ThemeParsed } from '@hanzo/gui-web';
+import type { ThemeDefinition, ThemeParsed } from '@hanzogui/web';
 export declare function addTheme(props: {
     name: string;
     theme: Partial<Record<keyof ThemeDefinition, any>>;

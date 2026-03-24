@@ -1,4 +1,4 @@
-import { Minus, Plus } from '@hanzo/gui-lucide-icons-2'
+import { Minus, Plus } from '@hanzogui/lucide-icons-2'
 import type { SizeTokens } from '@hanzo/gui'
 import { Button, Theme, YGroup } from '@hanzo/gui'
 import { useContainerDim } from './hooks/useContainerDim'

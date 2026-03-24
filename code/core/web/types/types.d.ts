@@ -1,4 +1,4 @@
-import type { StyleObject } from '@hanzo/gui-helpers';
+import type { StyleObject } from '@hanzogui/helpers';
 import type { Properties } from 'csstype';
 import type { CSSProperties, ComponentType, Context, ForwardRefExoticComponent, ForwardRefRenderFunction, FunctionComponent, HTMLAttributes, ProviderExoticComponent, ReactNode, RefAttributes, RefObject } from 'react';
 import type { PressableProps, Text as RNText, TextStyle as RNTextStyle, TextProps as ReactTextProps, View, ViewProps, ViewStyle } from 'react-native';
@@ -178,7 +178,7 @@ export interface WebOnlyPressEvents {
     onPointerUp?: DivAttributes['onPointerUp'];
     onPointerCancel?: DivAttributes['onPointerCancel'];
 }
-export type { MediaStyleObject, StyleObject } from '@hanzo/gui-helpers';
+export type { MediaStyleObject, StyleObject } from '@hanzogui/helpers';
 type FontFamilies = FontTokens extends `$${infer Token}` ? Token : never;
 export type LanguageContextType = Partial<{
     [key in FontFamilies]: FontLanguages | 'default';

@@ -1,5 +1,5 @@
-import type { GenericFont } from '@hanzo/gui-core'
-import { createFont, isWeb } from '@hanzo/gui-core'
+import type { GenericFont } from '@hanzogui/core'
+import { createFont, isWeb } from '@hanzogui/core'
 
 export const createMunroFont = <A extends GenericFont>(font: Partial<A> = {}): A => {
   return createFont({

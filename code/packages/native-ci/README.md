@@ -1,4 +1,4 @@
-# @hanzo/gui-native-ci
+# @hanzogui/native-ci
 
 Native CI/CD helpers for React Native apps with Expo. Provides fingerprint-based build caching and Detox test runners for GitHub Actions.
 
@@ -19,29 +19,29 @@ Native CI/CD helpers for React Native apps with Expo. Provides fingerprint-based
 ## Installation
 
 ```bash
-npm install @hanzo/gui-native-ci
+npm install @hanzogui/native-ci
 # or
-yarn add @hanzo/gui-native-ci
+yarn add @hanzogui/native-ci
 # or
-bun add @hanzo/gui-native-ci
+bun add @hanzogui/native-ci
 ```
 
 ## CLI Usage
 
 ```bash
 # Generate fingerprint for a platform
-npx @hanzo/gui-native-ci fingerprint ios
-npx @hanzo/gui-native-ci fingerprint android
+npx @hanzogui/native-ci fingerprint ios
+npx @hanzogui/native-ci fingerprint android
 
 # Generate pre-fingerprint hash (fast)
-npx @hanzo/gui-native-ci pre-hash yarn.lock app.json
+npx @hanzogui/native-ci pre-hash yarn.lock app.json
 
 # Generate cache key
-npx @hanzo/gui-native-ci cache-key ios <fingerprint>
+npx @hanzogui/native-ci cache-key ios <fingerprint>
 
 # KV operations (requires env vars)
-npx @hanzo/gui-native-ci kv-get <key>
-npx @hanzo/gui-native-ci kv-set <key> <value>
+npx @hanzogui/native-ci kv-get <key>
+npx @hanzogui/native-ci kv-set <key> <value>
 ```
 
 ### Options
@@ -62,12 +62,12 @@ Run Detox tests with Metro bundler and proper cleanup:
 
 ```bash
 # iOS
-bun run node_modules/@hanzo/gui-native-ci/src/run-detox-ios.ts \
+bun run node_modules/@hanzogui/native-ci/src/run-detox-ios.ts \
   --project-root ./my-app \
   --config ios.sim.debug
 
 # Android
-bun run node_modules/@hanzo/gui-native-ci/src/run-detox-android.ts \
+bun run node_modules/@hanzogui/native-ci/src/run-detox-android.ts \
   --project-root ./my-app \
   --config android.emu.ci.debug \
   --headless
@@ -196,7 +196,7 @@ import {
   // Constants
   METRO_PORT,
   DETOX_SERVER_PORT,
-} from '@hanzo/gui-native-ci'
+} from '@hanzogui/native-ci'
 
 // Generate fingerprint
 const { hash } = await generateFingerprint({

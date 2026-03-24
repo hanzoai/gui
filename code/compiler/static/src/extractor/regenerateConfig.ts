@@ -1,7 +1,7 @@
 import { dirname, join } from 'node:path'
 
-import { generateThemes, writeGeneratedThemes } from '@hanzo/gui-generate-themes'
-import type { GuiOptions } from '@hanzo/gui-types'
+import { generateThemes, writeGeneratedThemes } from '@hanzogui/generate-themes'
+import type { GuiOptions } from '@hanzogui/types'
 import * as FS from 'fs-extra'
 
 import { requireGuiCore } from '../helpers/requireGuiCore'

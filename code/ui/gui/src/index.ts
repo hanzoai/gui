@@ -1,16 +1,16 @@
 import './setup'
 
-export * from '@hanzo/gui-compose-refs'
-export * from '@hanzo/gui-create-context'
-export * from '@hanzo/gui-font-size'
-export * from '@hanzo/gui-react-native-media-driver'
-export * from '@hanzo/gui-helpers'
-export * from '@hanzo/gui-theme'
-export * from '@hanzo/gui-use-controllable-state'
-export * from '@hanzo/gui-use-debounce'
-export * from '@hanzo/gui-use-force-update'
-export * from '@hanzo/gui-element'
-export * from '@hanzo/gui-use-window-dimensions'
+export * from '@hanzogui/compose-refs'
+export * from '@hanzogui/create-context'
+export * from '@hanzogui/font-size'
+export * from '@hanzogui/react-native-media-driver'
+export * from '@hanzogui/helpers'
+export * from '@hanzogui/theme'
+export * from '@hanzogui/use-controllable-state'
+export * from '@hanzogui/use-debounce'
+export * from '@hanzogui/use-force-update'
+export * from '@hanzogui/element'
+export * from '@hanzogui/use-window-dimensions'
 
 export * from './createGui'
 
@@ -89,7 +89,7 @@ export type {
   ZIndexTokens,
   ViewStyle,
   TextStyle,
-} from '@hanzo/gui-core'
+} from '@hanzogui/core'
 
 export {
   ClientOnly,
@@ -154,4 +154,4 @@ export {
   useThemeName,
   variableToString,
   withStaticProperties,
-} from '@hanzo/gui-core'
+} from '@hanzogui/core'

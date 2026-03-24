@@ -1,4 +1,4 @@
-import { ChevronRight } from '@hanzo/gui-lucide-icons-2'
+import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import type { Href } from 'one'
 import { ScrollView } from 'react-native'
 import {

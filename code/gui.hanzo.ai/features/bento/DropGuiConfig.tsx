@@ -1,4 +1,4 @@
-import { Paintbrush, X } from '@hanzo/gui-lucide-icons-2'
+import { Paintbrush, X } from '@hanzogui/lucide-icons-2'
 import React, { useEffect, useState } from 'react'
 import {
   Button,
@@ -194,7 +194,7 @@ export const DropGuiConfig = () => {
                         </React.Fragment>,
                         <React.Fragment key="">
                           If not using a compiler plugin, run generate —{' '}
-                          <Code>npx @hanzo/gui-cli generate</Code>
+                          <Code>npx @hanzogui/cli generate</Code>
                         </React.Fragment>,
                         <React.Fragment key="">
                           Drop the generated <Code>.hanzoai/gui.config.json</Code> on

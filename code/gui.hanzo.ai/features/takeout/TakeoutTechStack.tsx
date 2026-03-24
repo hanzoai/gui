@@ -1,5 +1,5 @@
-import { GuiLogo } from '@hanzo/gui-logo'
-import { useDidFinishSSR } from '@hanzo/gui-use-did-finish-ssr'
+import { GuiLogo } from '@hanzogui/logo'
+import { useDidFinishSSR } from '@hanzogui/use-did-finish-ssr'
 import { H2, H3, Paragraph, styled, View, XStack, YStack } from '@hanzo/gui'
 
 import { Card3D } from '~/components/Card3D'

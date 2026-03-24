@@ -5,7 +5,7 @@ import {
   StyleObjectRules,
   StyleObjectProperty,
   StyleObjectValue,
-} from '@hanzo/gui-core'
+} from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../../../core/config-default'

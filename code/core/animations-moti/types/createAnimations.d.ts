@@ -1,4 +1,4 @@
-import { type AnimationDriver } from "@hanzo/gui-core";
+import { type AnimationDriver } from "@hanzogui/core";
 import type { TransitionConfig } from "moti";
 export declare function createAnimations<A extends Record<string, TransitionConfig>>(animations: A): AnimationDriver<A>;
 

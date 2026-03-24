@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-bento-get",
+  "name": "@hanzogui/bento-get",
   "version": "2.0.0",
   "license": "MIT",
   "bin": "dist/cli.js",
@@ -56,7 +56,7 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "@types/copy-paste": "^1.1.33",
     "@types/ink": "^2.0.3",
     "@types/react": "~19.1.10"

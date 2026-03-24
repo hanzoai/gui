@@ -1,4 +1,4 @@
-import { config } from '@hanzo/gui-config/v3'
+import { config } from '@hanzogui/config/v3'
 import { createGui } from '@hanzo/gui'
 
 // for site responsive demo

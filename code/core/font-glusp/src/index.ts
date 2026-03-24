@@ -1,5 +1,5 @@
-import type { GenericFont } from '@hanzo/gui-web'
-import { createFont } from '@hanzo/gui-web'
+import type { GenericFont } from '@hanzogui/web'
+import { createFont } from '@hanzogui/web'
 
 export const createGluspFont = <A extends GenericFont>(font: Partial<A> = {}): A => {
   return createFont({

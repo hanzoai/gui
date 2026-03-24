@@ -1,6 +1,6 @@
-import { Image, type ImageProps } from '@hanzo/gui-image'
-import { ArrowLeft, ArrowRight, X } from '@hanzo/gui-lucide-icons-2'
-import { createUseStore } from '@hanzo/gui-use-store'
+import { Image, type ImageProps } from '@hanzogui/image'
+import { ArrowLeft, ArrowRight, X } from '@hanzogui/lucide-icons-2'
+import { createUseStore } from '@hanzogui/use-store'
 import { useEffect } from 'react'
 import type { ViewProps } from '@hanzo/gui'
 import {

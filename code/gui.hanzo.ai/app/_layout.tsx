@@ -1,4 +1,4 @@
-import '@hanzo/gui-core/reset.css'
+import '@hanzogui/core/reset.css'
 import '~/app.css'
 import '~/gui.generated.css'
 

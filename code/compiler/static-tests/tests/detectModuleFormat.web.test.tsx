@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { clearFormatCache, detectModuleFormat } from '@hanzo/gui-static'
+import { clearFormatCache, detectModuleFormat } from '@hanzogui/static'
 
 let tempDir: string
 

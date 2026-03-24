@@ -1,6 +1,6 @@
-import { AnimatePresence } from '@hanzo/gui-animate-presence'
+import { AnimatePresence } from '@hanzogui/animate-presence'
 import { useIsIntersecting } from '~/hooks/useOnIntersecting'
-import { useTint } from '@hanzo/gui-logo'
+import { useTint } from '@hanzogui/logo'
 import { Link } from '~/components/Link'
 import { memo, useEffect, useRef, useState } from 'react'
 import type { Heading, TextProps } from '@hanzo/gui'

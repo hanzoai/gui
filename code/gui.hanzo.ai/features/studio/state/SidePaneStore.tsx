@@ -1,4 +1,4 @@
-import { createStore } from '@hanzo/gui-use-store'
+import { createStore } from '@hanzogui/use-store'
 import type { ConfigSubPane } from './types'
 
 export class SidePaneStore {

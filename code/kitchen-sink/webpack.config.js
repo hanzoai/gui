@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { shouldExclude, GuiPlugin } = require('@hanzo/gui-loader')
+const { shouldExclude, GuiPlugin } = require('@hanzogui/loader')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const target = 'web'
@@ -37,7 +37,7 @@ module.exports = {
       'react-dom/client': require.resolve('react-dom/client'),
       'react-dom': require.resolve('react-dom'),
       'react-native$': 'react-native-web',
-      'react-native-svg': '@hanzo/gui-react-native-svg',
+      'react-native-svg': '@hanzogui/react-native-svg',
     },
   },
   devServer: {
@@ -62,7 +62,7 @@ module.exports = {
   ],
   module: {
     rules: [
-      // Process react-native-reanimated and @hanzo/gui-animations-reanimated with Babel plugin
+      // Process react-native-reanimated and @hanzogui/animations-reanimated with Babel plugin
       // The reanimated babel plugin transforms 'worklet' directives for web
       {
         test: /\.(js|ts)x?$/,
@@ -117,7 +117,7 @@ module.exports = {
   plugins: [
     new GuiPlugin({
       config: './src/gui.config.ts',
-      components: ['@hanzo/gui', '@hanzo/gui-sandbox-ui'],
+      components: ['@hanzo/gui', '@hanzogui/sandbox-ui'],
       importsWhitelist: ['constants.js'],
       disableExtraction,
     }),

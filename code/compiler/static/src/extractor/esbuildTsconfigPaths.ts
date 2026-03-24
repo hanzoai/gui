@@ -26,7 +26,7 @@ export function TsconfigPathsPlugin(): Plugin {
     setup({ onResolve }) {
       onResolve({ filter: /.*/ }, (args) => {
         // skip @gui packages - they should be externalized, not resolved via tsconfig
-        if (args.path.startsWith('@hanzo/gui-')) {
+        if (args.path.startsWith('@hanzogui/')) {
           return null
         }
 

@@ -1,6 +1,6 @@
 import type { ButtonProps } from '@hanzo/gui'
 
-import { getTokenRelative } from '@hanzo/gui-get-token'
+import { getTokenRelative } from '@hanzogui/get-token'
 import { accentTokenName } from '~/features/studio/accentThemeName'
 import type { DemoOptions } from '../theme/demoOptions'
 

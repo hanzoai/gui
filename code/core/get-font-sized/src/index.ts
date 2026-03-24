@@ -1,12 +1,12 @@
-import { isClient } from '@hanzo/gui-constants'
+import { isClient } from '@hanzogui/constants'
 import type {
   FontSizeTokens,
   GenericFont,
   TextProps,
   TextStyle,
   VariantSpreadFunction,
-} from '@hanzo/gui-web'
-import { getTokens, styled, Text } from '@hanzo/gui-web'
+} from '@hanzogui/web'
+import { getTokens, styled, Text } from '@hanzogui/web'
 
 export const getFontSized: VariantSpreadFunction<TextProps, FontSizeTokens> = (
   sizeTokenIn = '$true',

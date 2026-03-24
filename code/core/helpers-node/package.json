@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-helpers-node",
+  "name": "@hanzogui/helpers-node",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
@@ -20,10 +20,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-types": "workspace:*"
+    "@hanzogui/types": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "fs-extra": "^11.2.0"
   }
 }

@@ -1,7 +1,7 @@
 import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
 
-const importConcatPkg = '@hanzo/gui-helpers'
+const importConcatPkg = '@hanzogui/helpers'
 
 export function ensureImportingConcat(path: NodePath<t.Program>) {
   const bodyPath = path.get('body')

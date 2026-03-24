@@ -1,4 +1,4 @@
-import { createAnimations as c1 } from '@hanzo/gui-animations-css'
+import { createAnimations as c1 } from '@hanzogui/animations-css'
 
 const easeOut = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
 const bouncy = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'

@@ -1,9 +1,9 @@
 /**
- * Type declarations for @hanzo/gui-bento
+ * Type declarations for @hanzogui/bento
  * These are stub declarations since bento is an external repository
  */
 
-declare module '@hanzo/gui-bento' {
+declare module '@hanzogui/bento' {
   export const CurrentRouteProvider: React.ComponentType<any>
   export const Components: Record<string, any>
   export const Data: {
@@ -22,15 +22,15 @@ declare module '@hanzo/gui-bento' {
   export const useCurrentRouteParams: () => { section?: string; part?: string }
 }
 
-declare module '@hanzo/gui-bento/raw' {
-  export * from '@hanzo/gui-bento'
+declare module '@hanzogui/bento/raw' {
+  export * from '@hanzogui/bento'
 }
 
-declare module '@hanzo/gui-bento/provider' {
+declare module '@hanzogui/bento/provider' {
   export const useCurrentRouteParams: () => { section?: string; part?: string }
 }
 
-declare module '@hanzo/gui-bento/data' {
+declare module '@hanzogui/bento/data' {
   export const listingData: {
     sections: Array<{
       sectionName: string
@@ -44,7 +44,7 @@ declare module '@hanzo/gui-bento/data' {
 }
 
 // Wildcard module for all bento components - exports any component
-declare module '@hanzo/gui-bento/component/*' {
+declare module '@hanzogui/bento/component/*' {
   const components: any
   export = components
 }

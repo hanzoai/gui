@@ -12,7 +12,7 @@
     "test:clean": "git checkout packages/app/ && git clean -fd packages/app/"
   },
   "dependencies": {
-    "@hanzo/gui-cli": "workspace:*",
+    "@hanzogui/cli": "workspace:*",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {

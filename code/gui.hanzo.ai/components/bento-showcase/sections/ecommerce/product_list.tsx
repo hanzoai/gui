@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as ProductList from '@hanzo/gui-bento/component/ecommerce/product_list'
+import * as ProductList from '@hanzogui/bento/component/ecommerce/product_list'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

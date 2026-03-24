@@ -1,7 +1,7 @@
 import generate from '@babel/generator'
 import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
-import { mergeProps, StyleObjectIdentifier, StyleObjectRules } from '@hanzo/gui-web'
+import { mergeProps, StyleObjectIdentifier, StyleObjectRules } from '@hanzogui/web'
 import * as path from 'node:path'
 import * as util from 'node:util'
 import { requireGuiCore } from '../helpers/requireGuiCore'

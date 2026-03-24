@@ -1,5 +1,5 @@
-import * as StaticWorker from '@hanzo/gui-static-worker'
-import type { GuiOptions } from '@hanzo/gui-types'
+import * as StaticWorker from '@hanzogui/static-worker'
+import type { GuiOptions } from '@hanzogui/types'
 import { existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import type { Compiler, RuleSetRule } from 'webpack'
@@ -24,7 +24,7 @@ export class GuiPlugin {
   constructor(
     public options: PluginOptions = {
       platform: 'web',
-      components: ['@hanzo/gui-core'],
+      components: ['@hanzogui/core'],
     }
   ) {}
 
@@ -85,7 +85,7 @@ export class GuiPlugin {
   get defaultAliases() {
     return Object.fromEntries(
       this.safeResolves([
-        ['@hanzo/gui-core/reset.css', '@hanzo/gui-core/reset.css'],
+        ['@hanzogui/core/reset.css', '@hanzogui/core/reset.css'],
 
         // fixes https://github.com/kentcdodds/mdx-bundler/issues/143
         // `react/jsx-runtime` and `react/jsx-dev-runtime` will break the build in nextjs 15 + app router
@@ -93,13 +93,13 @@ export class GuiPlugin {
         ['react/jsx-dev-runtime.js', 'react/jsx-dev-runtime'],
 
         ...(this.options.useGuiSVG
-          ? [['react-native-svg', '@hanzo/gui-react-native-svg'] as [string, string]]
+          ? [['react-native-svg', '@hanzogui/react-native-svg'] as [string, string]]
           : ([] as any)),
 
         ...(this.options.useReactNativeWebLite
           ? [
-              ['react-native$', '@hanzo/gui-react-native-web-lite'],
-              ['react-native-web$', '@hanzo/gui-react-native-web-lite'],
+              ['react-native$', '@hanzogui/react-native-web-lite'],
+              ['react-native-web$', '@hanzogui/react-native-web-lite'],
             ]
           : [
               ['react-native$', 'react-native-web'],
@@ -176,7 +176,7 @@ export class GuiPlugin {
             // Here you create a new instance of the plugin you want to add
             const definePlugin = new webpack.NormalModuleReplacementPlugin(
               regex,
-              requireResolve('@hanzo/gui-proxy-worm')
+              requireResolve('@hanzogui/proxy-worm')
             )
             // Manually apply the plugin to the compiler
             definePlugin.apply(compiler)
@@ -228,7 +228,7 @@ export class GuiPlugin {
         ?.oneOf as any[]) ?? existing
 
     const guiLoader = {
-      loader: requireResolve('@hanzo/gui-loader'),
+      loader: requireResolve('@hanzogui/loader'),
       options: {
         ...this.options,
         _disableLoadGui: true,

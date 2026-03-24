@@ -61,7 +61,7 @@ runs:
         pre-emulator-launch-script: |
           adb start-server
         script: |
-          SCRIPT_PATH=$(node -e "console.log(require.resolve('@hanzo/gui-native-ci/src/run-detox-android.ts'))")
+          SCRIPT_PATH=$(node -e "console.log(require.resolve('@hanzogui/native-ci/src/run-detox-android.ts'))")
           bun run "$SCRIPT_PATH" \
             --headless \
             --project-root "$PWD" \

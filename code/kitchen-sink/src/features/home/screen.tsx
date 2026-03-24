@@ -1,5 +1,5 @@
-import { ChevronRight } from '@hanzo/gui-lucide-icons-2'
-import { getGestureHandler } from '@hanzo/gui-native'
+import { ChevronRight } from '@hanzogui/lucide-icons-2'
+import { getGestureHandler } from '@hanzogui/native'
 import { useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import type { UseLinkProps } from 'solito/link'

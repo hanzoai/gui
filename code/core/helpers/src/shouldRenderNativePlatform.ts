@@ -1,4 +1,4 @@
-import { currentPlatform } from '@hanzo/gui-constants'
+import { currentPlatform } from '@hanzogui/constants'
 
 // these types and helpers are to be used on the components that support the `native` prop
 // some usage examples are:

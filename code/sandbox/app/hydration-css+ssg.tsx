@@ -1,4 +1,4 @@
-import { animationsCSS } from '@hanzo/gui-config/v5-css'
+import { animationsCSS } from '@hanzogui/config/v5-css'
 import { useMemo, useState } from 'react'
 import {
   AnimatePresence,

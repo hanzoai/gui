@@ -1,7 +1,7 @@
 import React from 'react'
-import type { CheckboxProps as CheckboxHeadlessProps } from '@hanzo/gui-checkbox-headless'
-import { useCheckbox } from '@hanzo/gui-checkbox-headless'
-import { Check, Minus } from '@hanzo/gui-lucide-icons-2'
+import type { CheckboxProps as CheckboxHeadlessProps } from '@hanzogui/checkbox-headless'
+import { useCheckbox } from '@hanzogui/checkbox-headless'
+import { Check, Minus } from '@hanzogui/lucide-icons-2'
 
 import type { View } from 'react-native'
 import { Pressable } from 'react-native'

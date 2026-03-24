@@ -1,5 +1,5 @@
 import React from 'react'
-import { addTheme, replaceTheme } from '@hanzo/gui-theme'
+import { addTheme, replaceTheme } from '@hanzogui/theme'
 
 import {
   Button,

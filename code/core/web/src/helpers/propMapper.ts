@@ -1,4 +1,4 @@
-import { isAndroid } from '@hanzo/gui-constants'
+import { isAndroid } from '@hanzogui/constants'
 import { getVariableValue, isVariable } from '../createVariable'
 import type {
   GetStyleState,

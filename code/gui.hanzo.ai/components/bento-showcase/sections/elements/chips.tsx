@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Chips from '@hanzo/gui-bento/component/elements/chips'
+import * as Chips from '@hanzogui/bento/component/elements/chips'
 import {
   Showcase,
   WithSize,

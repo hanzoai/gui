@@ -1,4 +1,4 @@
-import { Bell, Boxes, ChevronRight, Cog, Workflow } from '@hanzo/gui-lucide-icons-2'
+import { Bell, Boxes, ChevronRight, Cog, Workflow } from '@hanzogui/lucide-icons-2'
 import { Avatar, H4, ListItem, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { useDemoProps } from '~/features/studio/theme/hooks/useDemoProps'
 

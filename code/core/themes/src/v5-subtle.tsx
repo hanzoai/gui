@@ -1,4 +1,4 @@
-export { createThemes } from '@hanzo/gui-theme-builder'
+export { createThemes } from '@hanzogui/theme-builder'
 export { themes } from './generated-v5-subtle'
 export type {
   Theme as V5SubtleTheme,

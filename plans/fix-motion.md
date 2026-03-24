@@ -2,7 +2,7 @@
 
 ## Overview
 
-The motion driver (`@hanzo/gui-animations-motion`) has several issues that need to be fixed. This document tracks the research, bugs, and fixes.
+The motion driver (`@hanzogui/animations-motion`) has several issues that need to be fixed. This document tracks the research, bugs, and fixes.
 
 ## Recent Commits (Last 5 Days)
 
@@ -28,7 +28,7 @@ The motion driver (`@hanzo/gui-animations-motion`) has several issues that need 
 
 ### 1. HANZO_GUI Logo Jitter Bug
 
-**Component**: `LogoWords.tsx` in `@hanzo/gui-logo`
+**Component**: `LogoWords.tsx` in `@hanzogui/logo`
 
 **Symptoms**: Moving mouse left/right fast over the HANZO_GUI text causes the dot indicator to jitter erratically.
 

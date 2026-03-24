@@ -15,11 +15,11 @@ module.exports = getDefaultConfig(__dirname)
 
 ## With Metro Plugin (Recommended)
 
-For better dev experience, use `@hanzo/gui-metro-plugin` which loads your Hanzo GUI
+For better dev experience, use `@hanzogui/metro-plugin` which loads your Hanzo GUI
 config and watches for changes:
 
 ```bash
-yarn add @hanzo/gui-metro-plugin
+yarn add @hanzogui/metro-plugin
 ```
 
 If you have a `gui.build.ts` (recommended — see
@@ -28,7 +28,7 @@ no options are needed:
 
 ```tsx fileName="metro.config.js"
 const { getDefaultConfig } = require('expo/metro-config')
-const { withGui } = require('@hanzo/gui-metro-plugin')
+const { withGui } = require('@hanzogui/metro-plugin')
 
 const config = getDefaultConfig(__dirname)
 
@@ -40,7 +40,7 @@ Or pass options inline:
 
 ```tsx fileName="metro.config.js"
 const { getDefaultConfig } = require('expo/metro-config')
-const { withGui } = require('@hanzo/gui-metro-plugin')
+const { withGui } = require('@hanzogui/metro-plugin')
 
 const config = getDefaultConfig(__dirname)
 

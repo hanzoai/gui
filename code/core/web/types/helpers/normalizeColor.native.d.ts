@@ -1,4 +1,4 @@
-export { rgba } from '@hanzo/gui-normalize-css-color';
+export { rgba } from '@hanzogui/normalize-css-color';
 export declare const normalizeColor: (color?: string | null, opacity?: number) => string | undefined;
 export declare const getRgba: (color: string) => {
     r: number;

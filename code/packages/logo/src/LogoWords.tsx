@@ -1,4 +1,4 @@
-import type { LayoutValue } from '@hanzo/gui-use-element-layout'
+import type { LayoutValue } from '@hanzogui/use-element-layout'
 import React, { useEffect, useState } from 'react'
 import type { XStackProps } from '@hanzo/gui'
 import { Circle, XStack } from '@hanzo/gui'

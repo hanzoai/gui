@@ -1,4 +1,4 @@
-import type { PresenceContextProps, UsePresenceResult } from '@hanzo/gui-web'
+import type { PresenceContextProps, UsePresenceResult } from '@hanzogui/web'
 import * as React from 'react'
 
 import { PresenceContext } from './PresenceContext'

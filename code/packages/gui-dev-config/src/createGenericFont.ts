@@ -1,5 +1,5 @@
-import type { GenericFont } from '@hanzo/gui-core'
-import { createFont } from '@hanzo/gui-core'
+import type { GenericFont } from '@hanzogui/core'
+import { createFont } from '@hanzogui/core'
 
 const genericFontSizes = {
   1: 10,

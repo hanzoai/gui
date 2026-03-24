@@ -30,7 +30,7 @@ demoName: ListItem
 ListItem is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-list-item
+npm install @hanzogui/list-item
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ Basic usage involves providing children or using the `title` and `subTitle` prop
 
 ```tsx
 import { ListItem, Separator, YGroup } from '@hanzo/gui'
-import { ChevronRight } from '@hanzo/gui-lucide-icons-2' // Example icon
+import { ChevronRight } from '@hanzogui/lucide-icons-2' // Example icon
 
 export default () => (
   <YGroup
@@ -82,7 +82,7 @@ Use the `title` and `subTitle` props for a structured layout. These props accept
 
 ```tsx
 import { ListItem, Avatar } from '@hanzo/gui'
-import { User } from '@hanzo/gui-lucide-icons-2'
+import { User } from '@hanzogui/lucide-icons-2'
 
 export default () => (
   <ListItem
@@ -110,7 +110,7 @@ Icons can be passed to `icon` (before content) or `iconAfter` (after content) pr
 
 ```tsx
 import { ListItem } from '@hanzo/gui'
-import { Star, Settings } from '@hanzo/gui-lucide-icons-2'
+import { Star, Settings } from '@hanzogui/lucide-icons-2'
 
 export default () => (
   <>
@@ -151,7 +151,7 @@ Use `ListItem.Apply` to pass `color`, `size`, and `variant` to multiple children
 
 ```tsx
 import { ListItem, YGroup } from '@hanzo/gui'
-import { Trash } from '@hanzo/gui-lucide-icons-2'
+import { Trash } from '@hanzogui/lucide-icons-2'
 
 export default () => (
   <YGroup>
@@ -175,7 +175,7 @@ For customization, Hanzo GUI exports the building blocks: `ListItem.Frame`, `Lis
 
 ```tsx
 import { YStack, ListItem as Hanzo GUIListItem } from '@hanzo/gui'
-import { GetProps, styled } from '@hanzo/gui-web'
+import { GetProps, styled } from '@hanzogui/web'
 
 const CustomFrame = styled(GuiListItem.Frame, {
   padding: '$5',

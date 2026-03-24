@@ -1,4 +1,4 @@
-import { defaultConfig } from '@hanzo/gui-config/v5'
+import { defaultConfig } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui(defaultConfig)

@@ -1,9 +1,9 @@
-import type { GuiOptions } from '@hanzo/gui-static-worker';
+import type { GuiOptions } from '@hanzogui/static-worker';
 import type { PluginOption } from 'vite';
 type AliasOptions = {
-    /** use @hanzo/gui-react-native-web-lite, 'without-animated' for smaller bundle */
+    /** use @hanzogui/react-native-web-lite, 'without-animated' for smaller bundle */
     rnwLite?: boolean | 'without-animated';
-    /** alias react-native-svg to @hanzo/gui-react-native-svg */
+    /** alias react-native-svg to @hanzogui/react-native-svg */
     svg?: boolean;
 };
 type AliasEntry = {

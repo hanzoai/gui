@@ -13,7 +13,7 @@ import { AnimatedNode } from './AnimatedNode'
 import { AnimatedStyle } from './AnimatedStyle'
 import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
 
-import { invariant } from '@hanzo/gui-react-native-web-internals'
+import { invariant } from '@hanzogui/react-native-web-internals'
 
 class AnimatedProps extends AnimatedNode {
   constructor(props, callback) {

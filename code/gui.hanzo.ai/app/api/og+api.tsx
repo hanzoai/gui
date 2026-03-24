@@ -1,4 +1,4 @@
-import * as colors from '@hanzo/gui-colors'
+import * as colors from '@hanzogui/colors'
 import type { ReactElement } from 'react'
 import { getURL } from 'one'
 import { apiRoute } from '~/features/api/apiRoute'

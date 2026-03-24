@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-component-helpers",
+  "name": "@hanzogui/component-helpers",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
@@ -34,11 +34,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-helpers": "workspace:*",
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-native": "0.83.2",
     "vitest": "4.0.4"

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-calc",
+  "name": "@hanzogui/calc",
   "version": "2.0.0",
   "files": [
     "src",
@@ -33,9 +33,9 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-core": "workspace:*"
+    "@hanzogui/core": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

@@ -7,9 +7,9 @@
  * 2. Export the generated code and replace this file's contents
  * 3. Run: yarn start:web and open http://localhost:9000/?test=V5ThemeBuilderOutput&generatedV5=true
  */
-import { createV5Theme, defaultChildrenThemes } from '@hanzo/gui-config/v5'
-import { v5ComponentThemes } from '@hanzo/gui-themes/v5'
-import { yellow, yellowDark, red, redDark, green, greenDark } from '@hanzo/gui-colors'
+import { createV5Theme, defaultChildrenThemes } from '@hanzogui/config/v5'
+import { v5ComponentThemes } from '@hanzogui/themes/v5'
+import { yellow, yellowDark, red, redDark, green, greenDark } from '@hanzogui/colors'
 
 const darkPalette = [
   'hsla(0, 15%, 1%, 1)',

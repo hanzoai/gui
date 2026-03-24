@@ -1,14 +1,14 @@
-// re-exports all of @hanzo/gui-web just adds hooks
-export * from '@hanzo/gui-web'
+// re-exports all of @hanzogui/web just adds hooks
+export * from '@hanzogui/web'
 
-import { createMedia } from '@hanzo/gui-react-native-media-driver'
+import { createMedia } from '@hanzogui/react-native-media-driver'
 import {
   createMeasure,
   createMeasureInWindow,
   createMeasureLayout,
   enable,
   useElementLayout,
-} from '@hanzo/gui-use-element-layout'
+} from '@hanzogui/use-element-layout'
 import type {
   StackNonStyleProps,
   StackStyleBase,
@@ -20,7 +20,7 @@ import type {
   TextNonStyleProps,
   TextProps,
   TextStylePropsBase,
-} from '@hanzo/gui-web'
+} from '@hanzogui/web'
 import {
   GuiProvider as WebGuiProvider,
   Text as WebText,
@@ -28,7 +28,7 @@ import {
   createGui as createGuiWeb,
   setupHooks,
   useIsomorphicLayoutEffect,
-} from '@hanzo/gui-web'
+} from '@hanzogui/web'
 import { createOptimizedView } from './createOptimizedView'
 import { getBaseViews } from './getBaseViews'
 import type { RNTextProps, RNViewProps } from './reactNativeTypes'
@@ -39,7 +39,7 @@ export {
   registerLayoutNode,
   setOnLayoutStrategy,
   type LayoutEvent,
-} from '@hanzo/gui-use-element-layout'
+} from '@hanzogui/use-element-layout'
 
 // adds extra types to View/Stack/Text:
 

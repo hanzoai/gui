@@ -1,6 +1,6 @@
 const { getDefaultConfig } = require('expo/metro-config')
 const path = require('path')
-const { withGui } = require('@hanzo/gui-metro-plugin')
+const { withGui } = require('@hanzogui/metro-plugin')
 // Find the project and workspace directories
 const projectRoot = __dirname
 // This can be replaced with `find-yarn-workspace-root`

@@ -34,7 +34,7 @@ demoName: Toast
 Run the following command:
 
 ```
-yarn add @hanzo/gui-toast burnt
+yarn add @hanzogui/toast burnt
 ```
 
 then, rebuild your React Native app. React Native requires sub-dependencies with native dependencies always be hoisted to your apps package.json and Toast relies on the amazing [Burnt](https://github.com/nandorojo/burnt) library by Fernando Rojo to provide its native functionality.
@@ -44,8 +44,8 @@ then, rebuild your React Native app. React Native requires sub-dependencies with
 To display the toast natively, you should either pass an array of native platforms (`native: ["ios", "web"]`), a single platform or `true` for all platforms.
 
 ```tsx
-import { Button } from '@hanzo/gui' // or '@hanzo/gui-button'
-import { Toast, ToastProvider, useToast } from '@hanzo/gui-toast'
+import { Button } from '@hanzo/gui' // or '@hanzogui/button'
+import { Toast, ToastProvider, useToast } from '@hanzogui/toast'
 
 export default () => (
   <ToastProvider native={['mobile']}>

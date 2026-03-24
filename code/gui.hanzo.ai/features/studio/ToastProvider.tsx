@@ -1,16 +1,16 @@
-import type { ToastProps } from '@hanzo/gui-toast'
+import type { ToastProps } from '@hanzogui/toast'
 import {
   Toast,
   ToastProvider as ToastProviderOG,
   ToastViewport,
   useToastController,
   useToastState,
-} from '@hanzo/gui-toast'
+} from '@hanzogui/toast'
 import { Theme, YStack } from '@hanzo/gui'
 
 export let toastController: ReturnType<typeof useToastController>
 
-// this feels weird but it works... TODO: might want to add some variation of this to @hanzo/gui-toast cause useToastController can be a bit cumbersome to use outside react
+// this feels weird but it works... TODO: might want to add some variation of this to @hanzogui/toast cause useToastController can be a bit cumbersome to use outside react
 const ToastImportHandler = () => {
   toastController = useToastController()
   return null
@@ -58,6 +58,6 @@ const ToastHandler = () => {
   )
 }
 
-declare module '@hanzo/gui-toast' {
+declare module '@hanzogui/toast' {
   interface CustomData extends ToastProps {}
 }

@@ -33,11 +33,11 @@ You can swap drivers per-platform, or even dynamically load heavier drivers late
 
 ## Using Config v5
 
-The easiest way to get started is with [`@hanzo/gui-config/v5`](/docs/core/config-v5), which provides pre-configured animations for all four drivers with matching keys:
+The easiest way to get started is with [`@hanzogui/config/v5`](/docs/core/config-v5), which provides pre-configured animations for all four drivers with matching keys:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animations } from '@hanzo/gui-config/v5-css' // or v5-motion, v5-rn, v5-reanimated
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animations } from '@hanzogui/config/v5-css' // or v5-motion, v5-rn, v5-reanimated
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
@@ -57,13 +57,13 @@ The lightest bundle size, but lacks spring physics (easing curves only). Best fo
 ### Installation
 
 ```bash
-yarn add @hanzo/gui-animations-css
+yarn add @hanzogui/animations-css
 ```
 
 ### Configuration
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-css'
+import { createAnimations } from '@hanzogui/animations-css'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({
@@ -90,13 +90,13 @@ Uses React Native's built-in Animated API. No extra bundle on native, but requir
 ### Installation
 
 ```bash
-yarn add @hanzo/gui-animations-react-native
+yarn add @hanzogui/animations-react-native
 ```
 
 ### Configuration
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-react-native'
+import { createAnimations } from '@hanzogui/animations-react-native'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({
@@ -135,7 +135,7 @@ Supports both native and web with advanced features, but has a larger bundle siz
 ### Installation
 
 ```bash
-yarn add @hanzo/gui-animations-reanimated react-native-reanimated
+yarn add @hanzogui/animations-reanimated react-native-reanimated
 ```
 
 Follow the [Reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/) to complete setup.
@@ -143,7 +143,7 @@ Follow the [Reanimated installation guide](https://docs.swmansion.com/react-nati
 ### Configuration
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-reanimated'
+import { createAnimations } from '@hanzogui/animations-reanimated'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({
@@ -179,13 +179,13 @@ Off-thread performance via WAAPI with excellent spring physics and a medium bund
 ### Installation
 
 ```bash
-yarn add @hanzo/gui-animations-motion motion
+yarn add @hanzogui/animations-motion motion
 ```
 
 ### Configuration
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({
@@ -223,7 +223,7 @@ Use `.native.ts` and `.ts` file extensions to bundle different drivers per platf
 
 ```tsx fileName="animations.ts"
 // web
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 
 export const animations = createAnimations({
   bouncy: { type: 'spring', damping: 10, stiffness: 100 },
@@ -232,7 +232,7 @@ export const animations = createAnimations({
 
 ```tsx fileName="animations.native.ts"
 // native
-import { createAnimations } from '@hanzo/gui-animations-reanimated'
+import { createAnimations } from '@hanzogui/animations-reanimated'
 
 export const animations = createAnimations({
   bouncy: { type: 'spring', damping: 10, stiffness: 100 },
@@ -254,7 +254,7 @@ Use the `<Configuration>` component to swap the animation driver for a subtree. 
 
 ```tsx fileName="app/_layout.tsx"
 import { Configuration, Slot } from '@hanzo/gui'
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 
 const motionDriver = createAnimations({
   bouncy: { type: 'spring', damping: 10, stiffness: 100 },
@@ -276,8 +276,8 @@ This pattern works well with route-based code splitting — the Motion driver is
 Configure multiple drivers at the root and select per-component:
 
 ```tsx fileName="gui.config.ts"
-import { createAnimations as createCSS } from '@hanzo/gui-animations-css'
-import { createAnimations as createSpring } from '@hanzo/gui-animations-motion'
+import { createAnimations as createCSS } from '@hanzogui/animations-css'
+import { createAnimations as createSpring } from '@hanzogui/animations-motion'
 
 export default createGui({
   animations: {
@@ -298,7 +298,7 @@ Add drivers at runtime after app initialization:
 
 ```tsx
 import { loadAnimationDriver } from '@hanzo/gui'
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 
 // call this after some condition (user auth, route change, etc.)
 const driver = createAnimations({ bouncy: { type: 'spring', damping: 10 } })

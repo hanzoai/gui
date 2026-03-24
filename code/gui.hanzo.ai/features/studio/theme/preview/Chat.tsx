@@ -1,4 +1,4 @@
-import { Info, Send } from '@hanzo/gui-lucide-icons-2'
+import { Info, Send } from '@hanzogui/lucide-icons-2'
 import React, { memo, useState } from 'react'
 import {
   Avatar,

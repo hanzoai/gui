@@ -1,5 +1,5 @@
-import { ThemeTint } from '@hanzo/gui-logo'
-import { Check, Copy } from '@hanzo/gui-lucide-icons-2'
+import { ThemeTint } from '@hanzogui/logo'
+import { Check, Copy } from '@hanzogui/lucide-icons-2'
 import { memo } from 'react'
 import { Button, Paragraph, Spacer, TooltipSimple, XStack, YStack } from '@hanzo/gui'
 

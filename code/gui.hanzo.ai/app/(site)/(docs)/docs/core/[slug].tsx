@@ -1,4 +1,4 @@
-import { ThemeTint } from '@hanzo/gui-logo'
+import { ThemeTint } from '@hanzogui/logo'
 import { getMDXComponent } from 'mdx-bundler/client'
 import { useMemo } from 'react'
 import { useLoader } from 'one'

@@ -1,9 +1,9 @@
 import { throttle } from '@github/mini-throttle'
-import { Image } from '@hanzo/gui-image'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
-import { useTint } from '@hanzo/gui-logo'
-import { ChevronLeft, ChevronRight, Lock, MapPin, Star } from '@hanzo/gui-lucide-icons-2'
-import { demoMedia } from '@hanzo/gui-dev-config'
+import { Image } from '@hanzogui/image'
+import { LinearGradient } from '@hanzogui/linear-gradient'
+import { useTint } from '@hanzogui/logo'
+import { ChevronLeft, ChevronRight, Lock, MapPin, Star } from '@hanzogui/lucide-icons-2'
+import { demoMedia } from '@hanzogui/dev-config'
 import {
   memo,
   startTransition,

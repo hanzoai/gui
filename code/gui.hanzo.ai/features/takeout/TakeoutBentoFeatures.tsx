@@ -1,4 +1,4 @@
-import { ThemeTintAlt } from '@hanzo/gui-logo'
+import { ThemeTintAlt } from '@hanzogui/logo'
 import {
   Cloud,
   Code,
@@ -8,8 +8,8 @@ import {
   Smartphone,
   Terminal,
   Zap,
-} from '@hanzo/gui-lucide-icons-2'
-import { useDidFinishSSR } from '@hanzo/gui-use-did-finish-ssr'
+} from '@hanzogui/lucide-icons-2'
+import { useDidFinishSSR } from '@hanzogui/use-did-finish-ssr'
 import { H2, H3, Paragraph, styled, useThemeName, XStack, YStack } from '@hanzo/gui'
 import { useHoverGlow } from '~/components/HoverGlow'
 import { SubTitle } from '../../components/SubTitle'

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-test-design-system",
+  "name": "@hanzogui/test-design-system",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [],
@@ -19,9 +19,9 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-core": "workspace:*"
+    "@hanzogui/core": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

@@ -1,4 +1,4 @@
-import { isClient } from '@hanzo/gui-constants'
+import { isClient } from '@hanzogui/constants'
 import { initialValue } from './initialValue'
 import type { WindowSize, WindowSizeListener } from './types'
 

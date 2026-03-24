@@ -1,6 +1,6 @@
-import { ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2'
-import type { SheetProps } from '@hanzo/gui-sheet'
-import { Sheet } from '@hanzo/gui-sheet'
+import { ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2'
+import type { SheetProps } from '@hanzogui/sheet'
+import { Sheet } from '@hanzogui/sheet'
 import React from 'react'
 import { Button, H2, Input, Paragraph, XStack, YStack } from '@hanzo/gui'
 

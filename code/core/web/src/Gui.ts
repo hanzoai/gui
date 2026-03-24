@@ -1,4 +1,4 @@
-import * as Helpers from '@hanzo/gui-helpers'
+import * as Helpers from '@hanzogui/helpers'
 
 import { getConfig } from './config'
 import { getAllRules, getAllSelectors } from './helpers/insertStyleRule'

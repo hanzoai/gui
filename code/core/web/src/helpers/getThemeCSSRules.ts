@@ -1,4 +1,4 @@
-import { simpleHash } from '@hanzo/gui-helpers'
+import { simpleHash } from '@hanzogui/helpers'
 import { getSetting } from '../config'
 import { THEME_CLASSNAME_PREFIX } from '../constants/constants'
 import { variableToString } from '../createVariable'

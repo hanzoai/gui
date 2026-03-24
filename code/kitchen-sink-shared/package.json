@@ -1,12 +1,12 @@
 {
-  "name": "@hanzo/gui-kitchen-sink-shared",
+  "name": "@hanzogui/kitchen-sink-shared",
   "version": "2.0.0",
   "private": true,
   "main": "src/index.ts",
   "dependencies": {
-    "@hanzo/gui-config": "workspace:*",
-    "@hanzo/gui-demos": "workspace:*",
-    "@hanzo/gui-lucide-icons-2": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/demos": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzo/gui": "workspace:*"
   },
   "peerDependencies": {

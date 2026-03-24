@@ -9,7 +9,7 @@
  */
 'use strict'
 
-import { invariant } from '@hanzo/gui-react-native-web-internals'
+import { invariant } from '@hanzogui/react-native-web-internals'
 
 /**
  * EventSubscriptionVendor stores a set of EventSubscriptions that are

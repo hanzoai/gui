@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, ToggleGroup, XGroup, YStack, Text } from '@hanzo/gui'
-import { AlignLeft, AlignCenter, AlignRight } from '@hanzo/gui-lucide-icons-2'
+import { AlignLeft, AlignCenter, AlignRight } from '@hanzogui/lucide-icons-2'
 
 /**
  * Tests two patterns of combining ToggleGroup + XGroup:

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-helpers",
+  "name": "@hanzogui/helpers",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
@@ -35,11 +35,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-constants": "workspace:*",
-    "@hanzo/gui-simple-hash": "workspace:*"
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/simple-hash": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

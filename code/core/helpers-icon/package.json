@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-helpers-icon",
+  "name": "@hanzogui/helpers-icon",
   "version": "2.0.0",
   "description": "Utilities for icon packages",
   "license": "MIT",
@@ -33,11 +33,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-core": "workspace:*",
-    "@hanzo/gui-sizable-context": "workspace:*"
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/sizable-context": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-native-svg": "15.15.3"
   },

@@ -1,4 +1,4 @@
-import type { MaskDefinitions, MaskOptions } from '@hanzo/gui-create-theme'
+import type { MaskDefinitions, MaskOptions } from '@hanzogui/create-theme'
 import {
   combineMasks,
   createIdentityMask,
@@ -7,7 +7,7 @@ import {
   createSoftenMask,
   createStrengthenMask,
   skipMask,
-} from '@hanzo/gui-create-theme'
+} from '@hanzogui/create-theme'
 
 const shadows = {
   shadowColor: 0,

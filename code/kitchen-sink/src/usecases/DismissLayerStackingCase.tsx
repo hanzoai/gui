@@ -10,12 +10,12 @@ import {
   YStack,
 } from '@hanzo/gui'
 import { useState, useRef, useEffect } from 'react'
-import { ChevronDown } from '@hanzo/gui-lucide-icons-2'
+import { ChevronDown } from '@hanzogui/lucide-icons-2'
 import {
   useHasDismissableLayers,
   useIsInsideDismissable,
   getDismissableLayerCount,
-} from '@hanzo/gui-dismissable'
+} from '@hanzogui/dismissable'
 
 // tests that when multiple dismissable layers are open, ESC closes the topmost one
 export function DismissLayerStackingCase() {

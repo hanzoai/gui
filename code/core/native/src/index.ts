@@ -1,17 +1,17 @@
 /**
- * @hanzo/gui-native
+ * @hanzogui/native
  *
  * Native setup modules for Gui. Import these at the top of your app entry point.
  *
  * @example
  * ```tsx
  * // In your app entry (index.js or App.tsx)
- * import '@hanzo/gui-native/setup-teleport'
- * import '@hanzo/gui-native/setup-gesture-handler'
- * import '@hanzo/gui-native/setup-worklets'
- * import '@hanzo/gui-native/setup-safe-area'
- * import '@hanzo/gui-native/expo-linear-gradient'
- * import '@hanzo/gui-native/setup-keyboard-controller'
+ * import '@hanzogui/native/setup-teleport'
+ * import '@hanzogui/native/setup-gesture-handler'
+ * import '@hanzogui/native/setup-worklets'
+ * import '@hanzogui/native/setup-safe-area'
+ * import '@hanzogui/native/expo-linear-gradient'
+ * import '@hanzogui/native/setup-keyboard-controller'
  *
  * // Then use Hanzo GUI components normally
  * // Sheet will automatically use native gestures when available

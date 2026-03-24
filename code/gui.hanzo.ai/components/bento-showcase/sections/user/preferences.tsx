@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Preferences from '@hanzo/gui-bento/component/user/preferences'
+import * as Preferences from '@hanzogui/bento/component/user/preferences'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

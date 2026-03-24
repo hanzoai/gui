@@ -1,4 +1,4 @@
-import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
+import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import { useId } from 'react'
 import { getSetting } from '../config'
 import { THEME_CLASSNAME_PREFIX } from '../constants/constants'

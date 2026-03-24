@@ -10,7 +10,7 @@
 
 import { AnimatedValue } from './AnimatedValue'
 import { AnimatedWithChildren } from './AnimatedWithChildren'
-import { normalizeColor } from '@hanzo/gui-react-native-web-internals'
+import { normalizeColor } from '@hanzogui/react-native-web-internals'
 import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
 
 const NativeAnimatedAPI = NativeAnimatedHelper.API

@@ -1,4 +1,4 @@
-import { useClientValue } from '@hanzo/gui-core'
+import { useClientValue } from '@hanzogui/core'
 
 export const useOfflineMode = () => {
   return useClientValue(() => window.location.search?.includes(`offline`))

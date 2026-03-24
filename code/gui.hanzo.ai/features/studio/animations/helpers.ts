@@ -17,7 +17,7 @@ export const animationTypesInfo = {
 }
 
 export const generateAnimationConfig = (animations: { [key: string]: any }) => {
-  return `import { createAnimations } from '@hanzo/gui-animations-react-native'
+  return `import { createAnimations } from '@hanzogui/animations-react-native'
 
 const animations = createAnimations(${JSON.stringify(animations, null, 2)})
 `

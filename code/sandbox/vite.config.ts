@@ -1,4 +1,4 @@
-import { guiAliases, guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiAliases, guiPlugin } from '@hanzogui/vite-plugin'
 import { one } from 'one/vite'
 import type { UserConfig } from 'vite'
 

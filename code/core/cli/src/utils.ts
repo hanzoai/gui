@@ -1,5 +1,5 @@
-import type { GuiOptions, GuiProjectInfo } from '@hanzo/gui-static'
-import type { CLIResolvedOptions, CLIUserOptions } from '@hanzo/gui-types'
+import type { GuiOptions, GuiProjectInfo } from '@hanzogui/static'
+import type { CLIResolvedOptions, CLIUserOptions } from '@hanzogui/types'
 import chalk from 'chalk'
 import fs, { pathExists, readJSON } from 'fs-extra'
 import { join } from 'node:path'
@@ -37,7 +37,7 @@ export async function getOptions({
 
   let finalOptions: GuiOptions = filledOptions
   if (loadGuiOptions) {
-    const { loadGuiBuildConfigSync } = require('@hanzo/gui-static/loadGui')
+    const { loadGuiBuildConfigSync } = require('@hanzogui/static/loadGui')
     finalOptions = loadGuiBuildConfigSync(filledOptions)
   }
 
@@ -83,7 +83,7 @@ async function getDefaultGuiConfigPath() {
 export const loadGui = async (
   opts: Partial<GuiOptions>
 ): Promise<GuiProjectInfo | null> => {
-  const { loadGui: loadGuiStatic } = require('@hanzo/gui-static/loadGui')
+  const { loadGui: loadGuiStatic } = require('@hanzogui/static/loadGui')
   const loaded = await loadGuiStatic({
     components: ['@hanzo/gui'],
     ...opts,

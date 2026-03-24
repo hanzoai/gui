@@ -22,7 +22,7 @@ export type Options = {
 }
 
 // critical packages that must not be duplicated at runtime
-const CRITICAL_PACKAGES = ['@hanzo/gui-web', '@hanzo/gui-core', '@hanzo/gui']
+const CRITICAL_PACKAGES = ['@hanzogui/web', '@hanzogui/core', '@hanzo/gui']
 
 /**
  * Walks node_modules to find duplicate physical copies of critical hanzo-gui packages.
@@ -92,7 +92,7 @@ function checkDuplicateInstalls(root: string): string {
 
 /**
  * Recursively find all instances of a package in node_modules.
- * Handles both scoped (@hanzo/gui-web) and unscoped (gui) packages.
+ * Handles both scoped (@hanzogui/web) and unscoped (gui) packages.
  */
 function findAllInstances(
   nodeModulesDir: string,
@@ -160,7 +160,7 @@ function checkBunLockDuplicates(lockPath: string): string {
     const duplicates = new Map<string, Set<string>>()
     const criticalSet = new Set(CRITICAL_PACKAGES)
 
-    // match patterns like "@hanzo/gui-web@version" or "gui@version" in resolved entries
+    // match patterns like "@hanzogui/web@version" or "gui@version" in resolved entries
     // bun.lock format: "package@version": ["resolved-url", ...]
     const packagePattern = /["'](@gui\/[\w-]+|gui)@([^"'\s,]+)["']/g
     let match: RegExpExecArray | null
@@ -187,7 +187,7 @@ function checkYarnLockDuplicates(lockPath: string): string {
     const criticalSet = new Set(CRITICAL_PACKAGES)
 
     // yarn.lock format:
-    //   "@hanzo/gui-web@^1.0.0":
+    //   "@hanzogui/web@^1.0.0":
     //     version "1.0.1"
     const entryPattern = /^"?(@gui\/[\w-]+|gui)@[^":\n]+[":]?\s*$/gm
     const versionPattern = /^\s+version\s+"([^"]+)"/gm

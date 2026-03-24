@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-core-test",
+  "name": "@hanzogui/core-test",
   "version": "2.0.0",
   "private": true,
   "license": "MIT",
@@ -17,7 +17,7 @@
     "test:update": "bun run test:native --update && bun run test:web --update"
   },
   "devDependencies": {
-    "@hanzo/gui-core": "workspace:*",
+    "@hanzogui/core": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "@testing-library/react-native": "^12.9.0",
     "csstype": "^3.0.10",

@@ -44,4 +44,4 @@ export const listingData = {
 
 // kind of cheating exporting this just so bento landing page avoids importing all of bento
 // @ts-expect-error - bento component wildcard import
-export { Calendar } from '@hanzo/gui-bento/component/elements/datepickers'
+export { Calendar } from '@hanzogui/bento/component/elements/datepickers'

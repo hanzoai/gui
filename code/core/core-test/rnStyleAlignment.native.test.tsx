@@ -1,4 +1,4 @@
-import { View, createGui, getSplitStyles } from '@hanzo/gui-core'
+import { View, createGui, getSplitStyles } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'

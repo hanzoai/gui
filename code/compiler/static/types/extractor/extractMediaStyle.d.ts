@@ -1,7 +1,7 @@
 import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import type { GuiInternalConfig } from '@hanzo/gui-core';
-import * as core from '@hanzo/gui-core';
+import type { GuiInternalConfig } from '@hanzogui/core';
+import * as core from '@hanzogui/core';
 import type { GuiOptionsWithFileInfo, Ternary } from '../types';
 export declare function extractMediaStyle(props: GuiOptionsWithFileInfo, ternary: Ternary, jsxPath: NodePath<t.JSXElement>, guiConfig: GuiInternalConfig, sourcePath: string, importance?: number, shouldPrintDebug?: boolean | 'verbose'): {
     mediaStyles: core.StyleObject[];

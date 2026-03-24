@@ -1,8 +1,8 @@
 import { basename, dirname, extname, join, relative, resolve } from 'node:path'
 // @ts-ignore why
-import { Color, colorLog } from '@hanzo/gui-cli-color'
-import type { CLIResolvedOptions, CLIUserOptions, GuiOptions } from '@hanzo/gui-types'
-import type { GuiInternalConfig } from '@hanzo/gui-web'
+import { Color, colorLog } from '@hanzogui/cli-color'
+import type { CLIResolvedOptions, CLIUserOptions, GuiOptions } from '@hanzogui/types'
+import type { GuiInternalConfig } from '@hanzogui/web'
 import esbuild from 'esbuild'
 import * as esbuildWasm from 'esbuild-wasm'
 import * as fsExtra from 'fs-extra'
@@ -184,7 +184,7 @@ export async function loadGuiBuildConfigAsync(
 
   return {
     config: 'gui.config.ts',
-    components: ['@hanzo/gui', '@hanzo/gui-core'],
+    components: ['@hanzo/gui', '@hanzogui/core'],
     ...guiOptions,
   } as GuiOptions
 }
@@ -221,7 +221,7 @@ export function loadGuiBuildConfigSync(
   }
   return {
     config: 'gui.config.ts',
-    components: ['@hanzo/gui', '@hanzo/gui-core'],
+    components: ['@hanzo/gui', '@hanzogui/core'],
     ...guiOptions,
   } as GuiOptions
 }
@@ -443,9 +443,9 @@ export async function esbuildWatchFiles(entry: string, onChanged: () => void) {
     write: false,
 
     alias: {
-      '@react-native/normalize-color': '@hanzo/gui-proxy-worm',
-      'react-native-web': '@hanzo/gui-react-native-web-lite',
-      'react-native': '@hanzo/gui-proxy-worm',
+      '@react-native/normalize-color': '@hanzogui/proxy-worm',
+      'react-native-web': '@hanzogui/react-native-web-lite',
+      'react-native': '@hanzogui/proxy-worm',
     },
 
     plugins: [

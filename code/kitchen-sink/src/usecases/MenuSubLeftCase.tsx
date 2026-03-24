@@ -1,5 +1,5 @@
-import { ChevronLeft } from '@hanzo/gui-lucide-icons-2'
-import { Menu } from '@hanzo/gui-menu'
+import { ChevronLeft } from '@hanzogui/lucide-icons-2'
+import { Menu } from '@hanzogui/menu'
 import React from 'react'
 import { Button, H1, Paragraph, Text, XStack, YStack } from '@hanzo/gui'
 

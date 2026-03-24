@@ -33,13 +33,13 @@ demoName: Sheet
 Sheet is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-sheet
+npm install @hanzogui/sheet
 ```
 
 ## Anatomy
 
 ```tsx
-import { Sheet } from '@hanzo/gui' // or '@hanzo/gui-sheet'
+import { Sheet } from '@hanzo/gui' // or '@hanzogui/sheet'
 
 export default () => (
   <Sheet>
@@ -61,8 +61,8 @@ Using the `createSheet` export, you can create a fully custom sheet without usin
 Here's an example:
 
 ```tsx
-import { Stack, styled } from '@hanzo/gui-core'
-import { createSheet } from '@hanzo/gui-sheet'
+import { Stack, styled } from '@hanzogui/core'
+import { createSheet } from '@hanzogui/sheet'
 
 const Handle = styled(Stack, {
   variants: {
@@ -119,7 +119,7 @@ pod install
 And set it up as follows:
 
 ```tsx
-import { Sheet, setupNativeSheet } from '@hanzo/gui-sheet'
+import { Sheet, setupNativeSheet } from '@hanzogui/sheet'
 import { ModalView } from 'react-native-ios-modal'
 
 setupNativeSheet('ios', ModalView)

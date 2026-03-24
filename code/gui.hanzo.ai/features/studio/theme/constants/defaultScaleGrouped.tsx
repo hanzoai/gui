@@ -1,4 +1,4 @@
-import { defaultTemplates } from '@hanzo/gui-theme-builder'
+import { defaultTemplates } from '@hanzogui/theme-builder'
 
 const base = defaultTemplates.light_base
 

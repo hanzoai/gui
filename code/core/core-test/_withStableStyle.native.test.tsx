@@ -1,7 +1,7 @@
 process.env.HANZO_GUI_TARGET = 'native'
 
-import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
-import { GuiProvider, _withStableStyle, createGui } from '@hanzo/gui-core'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
+import { GuiProvider, _withStableStyle, createGui } from '@hanzogui/core'
 import { render } from '@testing-library/react-native'
 import { View } from 'react-native'
 import { describe, expect, test, vi } from 'vitest'

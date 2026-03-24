@@ -1,4 +1,4 @@
-import { Check as CheckIcon } from '@hanzo/gui-lucide-icons-2'
+import { Check as CheckIcon } from '@hanzogui/lucide-icons-2'
 import { memo, useState } from 'react'
 import {
   Button,

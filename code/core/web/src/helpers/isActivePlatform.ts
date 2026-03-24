@@ -1,4 +1,4 @@
-import { currentPlatform } from '@hanzo/gui-constants'
+import { currentPlatform } from '@hanzogui/constants'
 
 export function isActivePlatform(key: string) {
   if (!key.startsWith('$platform')) {

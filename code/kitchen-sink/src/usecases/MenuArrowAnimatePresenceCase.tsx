@@ -3,7 +3,7 @@
  * Issue: Arrow has opacity: 0 applied with Motion driver when wrapped in AnimatePresence
  * Works with CSS driver but not Motion driver
  */
-import { Menu } from '@hanzo/gui-menu'
+import { Menu } from '@hanzogui/menu'
 import { AnimatePresence, Button, Paragraph, Popover, YStack } from '@hanzo/gui'
 
 // Reproduce the pattern from ~/chat where arrow is wrapped in AnimatePresence

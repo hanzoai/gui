@@ -15,7 +15,7 @@ export type AnimationConfig = {
  * 3. Array with config: ['bouncy', { delay: 100, x: 'quick' }]
  * 4. Object with enter/exit: { enter: 'bouncy', exit: 'quick', default: 'slow' }
  *
- * Note: Uses `any` to be compatible with the TransitionProp type from @hanzo/gui-web
+ * Note: Uses `any` to be compatible with the TransitionProp type from @hanzogui/web
  * which has more complex union types.
  */
 export type TransitionPropInput = any

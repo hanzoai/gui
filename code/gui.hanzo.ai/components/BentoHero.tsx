@@ -1,6 +1,6 @@
 // @ts-expect-error - bento component wildcard import
-import { LocationNotification } from '@hanzo/gui-bento/component/user/preferences/LocationNotification'
-import { ThemeTint, ThemeTintAlt } from '@hanzo/gui-logo'
+import { LocationNotification } from '@hanzogui/bento/component/user/preferences/LocationNotification'
+import { ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
 import { Button, Paragraph, Spacer, Theme, XStack, YStack } from '@hanzo/gui'
 import { BentoLogo } from '../features/bento/BentoLogo'
 import { LoadCherryBomb } from '../features/site/fonts/LoadFonts'

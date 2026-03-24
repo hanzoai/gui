@@ -1,4 +1,4 @@
-import { Text, styled } from '@hanzo/gui-core'
+import { Text, styled } from '@hanzogui/core'
 
 export const SandboxHeading = styled(Text, {
   render: 'h1',

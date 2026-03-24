@@ -65,7 +65,7 @@ demoName: RadioGroup
 RadioGroup is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-radio-group
+npm install @hanzogui/radio-group
 ````
 
 </Tabs.Content>
@@ -74,17 +74,17 @@ npm install @hanzo/gui-radio-group
 RadioGroup is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-radio-group
+npm install @hanzogui/radio-group
 ```
 
 </Tabs.Content>
 
 <Tabs.Content value="headless">
 
-To use the headless radio group, import from the `@hanzo/gui-radio-headless` package. This package has no dependency on `@hanzo/gui-core` and provides hooks for building custom radio groups with any styling solution.
+To use the headless radio group, import from the `@hanzogui/radio-headless` package. This package has no dependency on `@hanzogui/core` and provides hooks for building custom radio groups with any styling solution.
 
 ```bash
-npm install @hanzo/gui-radio-headless
+npm install @hanzogui/radio-headless
 ```
 
 </Tabs.Content>
@@ -115,7 +115,7 @@ export default () => (
 Use the `createRadioGroup` export to create a fully custom radio group that still uses the Hanzo GUI styling system. You provide your own styled components and get back a fully functional radio group component.
 
 ```tsx
-import { createRadioGroup, RadioGroupContext } from '@hanzo/gui-radio-group'
+import { createRadioGroup, RadioGroupContext } from '@hanzogui/radio-group'
 import { styled, View } from '@hanzo/gui'
 
 const CustomFrame = styled(View, {
@@ -143,7 +143,7 @@ export const CustomRadioGroup = createRadioGroup({
 
 <Tabs.Content value="headless">
 
-The `@hanzo/gui-radio-headless` package provides three hooks for building custom radio groups:
+The `@hanzogui/radio-headless` package provides three hooks for building custom radio groups:
 
 - `useRadioGroup` - for the container/group
 - `useRadioGroupItem` - for individual radio items
@@ -158,7 +158,7 @@ import {
   useRadioGroupItemIndicator,
   RadioGroupContextValue,
   RadioGroupItemContextValue,
-} from '@hanzo/gui-radio-headless'
+} from '@hanzogui/radio-headless'
 import { createContext, useContext } from 'react'
 
 // Create contexts for the group and item

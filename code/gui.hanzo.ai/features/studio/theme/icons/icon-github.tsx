@@ -1,5 +1,5 @@
-import { themed } from '@hanzo/gui-helpers-icon'
-import { Path, Svg } from '@hanzo/gui-react-native-svg'
+import { themed } from '@hanzogui/helpers-icon'
+import { Path, Svg } from '@hanzogui/react-native-svg'
 import { memo } from 'react'
 const IconGithub = (_props) => {
   const { size, ...props } = _props

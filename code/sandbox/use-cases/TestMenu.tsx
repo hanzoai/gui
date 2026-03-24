@@ -6,11 +6,11 @@ import {
   FilePlus,
   Trash2,
   RefreshCw,
-} from '@hanzo/gui-lucide-icons-2'
-import { Menu } from '@hanzo/gui-menu'
+} from '@hanzogui/lucide-icons-2'
+import { Menu } from '@hanzogui/menu'
 import React from 'react'
 import { Button, View } from '@hanzo/gui'
-import { isTouchable } from '@hanzo/gui-constants'
+import { isTouchable } from '@hanzogui/constants'
 
 /**
  * Menu Demo using Hanzo GUI Menu component.

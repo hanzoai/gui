@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Dialogs from '@hanzo/gui-bento/component/elements/dialogs'
+import * as Dialogs from '@hanzogui/bento/component/elements/dialogs'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

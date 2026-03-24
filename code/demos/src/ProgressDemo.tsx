@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Paragraph, Progress, Slider, Theme, XStack, YStack } from '@hanzo/gui'
-import { Play, RotateCcw } from '@hanzo/gui-lucide-icons-2'
+import { Play, RotateCcw } from '@hanzogui/lucide-icons-2'
 
 export function ProgressDemo() {
   const [key, setKey] = React.useState(0)

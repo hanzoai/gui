@@ -1,6 +1,6 @@
-import { isServer, isWeb } from '@hanzo/gui-constants'
-import { useCreateShallowSetState } from '@hanzo/gui-is-equal-shallow'
-import { useDidFinishSSR, useIsClientOnly } from '@hanzo/gui-use-did-finish-ssr'
+import { isServer, isWeb } from '@hanzogui/constants'
+import { useCreateShallowSetState } from '@hanzogui/is-equal-shallow'
+import { useDidFinishSSR, useIsClientOnly } from '@hanzogui/use-did-finish-ssr'
 import { useRef, useState } from 'react'
 import { getSetting } from '../config'
 import {

@@ -1,6 +1,6 @@
-import type { GuiOptions, ExtractedResponse } from '@hanzo/gui-static-worker'
-import * as Static from '@hanzo/gui-static-worker'
-import { getPragmaOptions } from '@hanzo/gui-static-worker'
+import type { GuiOptions, ExtractedResponse } from '@hanzogui/static-worker'
+import * as Static from '@hanzogui/static-worker'
+import { getPragmaOptions } from '@hanzogui/static-worker'
 import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
@@ -56,9 +56,9 @@ function getPendingExtractions(): Map<string, Promise<CacheEntry | null>> {
 }
 
 type AliasOptions = {
-  /** use @hanzo/gui-react-native-web-lite, 'without-animated' for smaller bundle */
+  /** use @hanzogui/react-native-web-lite, 'without-animated' for smaller bundle */
   rnwLite?: boolean | 'without-animated'
-  /** alias react-native-svg to @hanzo/gui-react-native-svg */
+  /** alias react-native-svg to @hanzogui/react-native-svg */
   svg?: boolean
 }
 
@@ -74,7 +74,7 @@ export function guiAliases(options: AliasOptions = {}): AliasEntry[] {
   if (options.svg) {
     aliases.push({
       find: 'react-native-svg',
-      replacement: resolve('@hanzo/gui-react-native-svg'),
+      replacement: resolve('@hanzogui/react-native-svg'),
     })
   }
 
@@ -82,11 +82,11 @@ export function guiAliases(options: AliasOptions = {}): AliasEntry[] {
     // entry point for main import (may be without-animated variant)
     const rnwl = resolve(
       options.rnwLite === 'without-animated'
-        ? '@hanzo/gui-react-native-web-lite/without-animated'
-        : '@hanzo/gui-react-native-web-lite'
+        ? '@hanzogui/react-native-web-lite/without-animated'
+        : '@hanzogui/react-native-web-lite'
     )
     // base package path for subpath imports (package directory, not entry file)
-    const rnwlBase = path.dirname(resolve('@hanzo/gui-react-native-web-lite/package.json'))
+    const rnwlBase = path.dirname(resolve('@hanzogui/react-native-web-lite/package.json'))
     aliases.push(
       {
         // map deep RNW paths like dist/exports/StyleSheet/preprocess to rnw-lite's flat structure
@@ -104,7 +104,7 @@ export function guiAliases(options: AliasOptions = {}): AliasEntry[] {
       },
       {
         find: 'react-native/package.json',
-        replacement: resolve('@hanzo/gui-react-native-web-lite/package.json'),
+        replacement: resolve('@hanzogui/react-native-web-lite/package.json'),
       },
       {
         find: /^react-native-web$/,
@@ -275,10 +275,10 @@ export function guiPlugin({
                 alias: {
                   ...(options.platform !== 'native' && {
                     'react-native/Libraries/Renderer/shims/ReactFabric':
-                      resolve('@hanzo/gui-proxy-worm'),
+                      resolve('@hanzogui/proxy-worm'),
                     'react-native/Libraries/Utilities/codegenNativeComponent':
-                      resolve('@hanzo/gui-proxy-worm'),
-                    'react-native-svg': resolve('@hanzo/gui-react-native-svg'),
+                      resolve('@hanzogui/proxy-worm'),
+                    'react-native-svg': resolve('@hanzogui/react-native-svg'),
                     ...(!options?.useReactNativeWebLite && {
                       'react-native': resolve('react-native-web'),
                     }),
@@ -329,7 +329,7 @@ export function guiPlugin({
 
       if (!shouldExtract) return
 
-      userConf.optimizeDeps.include.push('@hanzo/gui-core/inject-styles')
+      userConf.optimizeDeps.include.push('@hanzogui/core/inject-styles')
     },
 
     async configResolved(resolvedConfig) {

@@ -1,4 +1,4 @@
-import { mergeIfNotShallowEqual } from '@hanzo/gui-is-equal-shallow'
+import { mergeIfNotShallowEqual } from '@hanzogui/is-equal-shallow'
 import { getMediaState } from '../hooks/useMedia'
 import type { ComponentSetStateShallow, DisposeFn, AllGroupContexts } from '../types'
 

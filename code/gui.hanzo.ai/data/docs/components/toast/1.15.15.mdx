@@ -34,7 +34,7 @@ demoName: Toast
 Run the following command:
 
 ```bash
-yarn add @hanzo/gui-toast burnt
+yarn add @hanzogui/toast burnt
 ```
 
 Then, if targeting native, rebuild your React Native app. React Native requires sub-dependencies with native dependencies always be hoisted to your apps package.json and Toast relies on the amazing [Burnt](https://github.com/nandorojo/burnt) library by Fernando Rojo to provide its native functionality.
@@ -439,7 +439,7 @@ toastState.myPreset // or toastState.customData.myPreset
 To add TypeScript auto-completion for your custom fields, you can use TS module augmentation:
 
 ```ts
-declare module '@hanzo/gui-toast' {
+declare module '@hanzogui/toast' {
   interface CustomData {
     myPreset: 'error' | 'success' | 'warning'
   }

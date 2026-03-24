@@ -35,7 +35,7 @@ ContextMenu displays a menu triggered by right-click on web or long-press on mob
 ContextMenu is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-yarn add @hanzo/gui-context-menu
+yarn add @hanzogui/context-menu
 ```
 
 If you want to use native menus, add these dependencies:
@@ -51,7 +51,7 @@ yarn add sf-symbols-typescript
 Then add the setup import at your app entry point:
 
 ```tsx
-import '@hanzo/gui-native/setup-zeego'
+import '@hanzogui/native/setup-zeego'
 ```
 
 <Notice theme="yellow">
@@ -63,7 +63,7 @@ import '@hanzo/gui-native/setup-zeego'
 Import all parts and piece them together.
 
 ```jsx
-import { ContextMenu } from '@hanzo/gui' // or '@hanzo/gui-context-menu'
+import { ContextMenu } from '@hanzo/gui' // or '@hanzogui/context-menu'
 
 export default () => (
   <ContextMenu>
@@ -459,7 +459,7 @@ On iOS, it renders the native
 ### ContextMenu.ItemImage
 
 A component to render an item image. For native menus, it only works on iOS. It
-takes the same properties as `@hanzo/gui-image`.
+takes the same properties as `@hanzogui/image`.
 
 ### ContextMenu.ItemSubtitle
 

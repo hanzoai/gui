@@ -1,5 +1,5 @@
-import { CheckCircle2 } from '@hanzo/gui-lucide-icons-2'
-import { Toast } from '@hanzo/gui-toast'
+import { CheckCircle2 } from '@hanzogui/lucide-icons-2'
+import { Toast } from '@hanzogui/toast'
 import React from 'react'
 import { Button, XStack, YStack } from '@hanzo/gui'
 

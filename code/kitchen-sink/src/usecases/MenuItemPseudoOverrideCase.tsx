@@ -1,4 +1,4 @@
-import { Menu } from '@hanzo/gui-menu'
+import { Menu } from '@hanzogui/menu'
 import { Button, styled, YStack } from '@hanzo/gui'
 
 // the actual pattern the user is using - styled() with styles object

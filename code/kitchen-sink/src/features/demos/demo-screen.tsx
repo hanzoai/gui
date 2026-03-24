@@ -1,4 +1,4 @@
-import * as Demos from '@hanzo/gui-demos'
+import * as Demos from '@hanzogui/demos'
 import { createParam } from 'solito'
 import { H1, Spacer, YStack } from '@hanzo/gui'
 

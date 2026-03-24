@@ -1,6 +1,6 @@
 ---
 title: 'Config v5'
-description: Modern config and themes with @hanzo/gui-config/v5
+description: Modern config and themes with @hanzogui/config/v5
 ---
 
 <IntroParagraph>
@@ -16,7 +16,7 @@ Migration from v4 is straightforward - see
 First install the config package:
 
 ```bash
-npm install @hanzo/gui-config
+npm install @hanzogui/config
 ```
 
 ### Changes from v4
@@ -56,8 +56,8 @@ npm install @hanzo/gui-config
 To restore v4 behavior while using v5:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animations } from '@hanzo/gui-config/v5-css'
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animations } from '@hanzogui/config/v5-css'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
@@ -82,8 +82,8 @@ V5 provides separate entry points for different animation drivers, so you only
 bundle what you need:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animations } from '@hanzo/gui-config/v5-css'
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animations } from '@hanzogui/config/v5-css'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
@@ -94,13 +94,13 @@ export const config = createGui({
 
 Available animation drivers:
 
-- **`@hanzo/gui-config/v5-css`** - CSS animations (smallest bundle, great for web)
-- **`@hanzo/gui-config/v5-motion`** - Motion animations (spring physics, smooth)
-- **`@hanzo/gui-config/v5-rn`** - React Native Animated API
-- **`@hanzo/gui-config/v5-reanimated`** - Reanimated (best native performance)
+- **`@hanzogui/config/v5-css`** - CSS animations (smallest bundle, great for web)
+- **`@hanzogui/config/v5-motion`** - Motion animations (spring physics, smooth)
+- **`@hanzogui/config/v5-rn`** - React Native Animated API
+- **`@hanzogui/config/v5-reanimated`** - Reanimated (best native performance)
 
 <Notice>
-  The base `@hanzo/gui-config/v5` export includes no animations. Import animations
+  The base `@hanzogui/config/v5` export includes no animations. Import animations
   separately from one of the driver entry points above.
 </Notice>
 
@@ -110,9 +110,9 @@ For apps targeting both web and native, you can use different animation drivers
 per platform:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animations as animationsCSS } from '@hanzo/gui-config/v5-css'
-import { animations as animationsReanimated } from '@hanzo/gui-config/v5-reanimated'
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animations as animationsCSS } from '@hanzogui/config/v5-css'
+import { animations as animationsReanimated } from '@hanzogui/config/v5-reanimated'
 import { createGui, isWeb } from '@hanzo/gui'
 
 export const config = createGui({
@@ -172,12 +172,12 @@ All v5 animation drivers include these preset animations:
 ## Customizing Themes with createV5Theme
 
 The `createV5Theme` function lets you customize the default v5 themes. The
-easiest way to add or change colors is using `@hanzo/gui-colors` which provides
+easiest way to add or change colors is using `@hanzogui/colors` which provides
 Radix color palettes:
 
 ```tsx fileName="gui.config.ts"
-import { createV5Theme, defaultChildrenThemes, defaultConfig } from '@hanzo/gui-config/v5'
-import { cyan, cyanDark, amber, amberDark } from '@hanzo/gui-colors'
+import { createV5Theme, defaultChildrenThemes, defaultConfig } from '@hanzogui/config/v5'
+import { cyan, cyanDark, amber, amberDark } from '@hanzogui/colors'
 import { createGui } from '@hanzo/gui'
 
 const themes = createV5Theme({
@@ -199,8 +199,8 @@ export const config = createGui({
 Or use only the colors you need:
 
 ```tsx fileName="gui.config.ts"
-import { createV5Theme } from '@hanzo/gui-config/v5'
-import { blue, blueDark, gray, grayDark } from '@hanzo/gui-colors'
+import { createV5Theme } from '@hanzogui/config/v5'
+import { blue, blueDark, gray, grayDark } from '@hanzogui/colors'
 
 // minimal theme with just blue and gray
 const themes = createV5Theme({
@@ -219,7 +219,7 @@ const themes = createV5Theme({
       name: 'childrenThemes',
       type: 'Record<string, { light: ColorObject, dark: ColorObject }>',
       description:
-        'Color themes to include. Use defaultChildrenThemes to include defaults, or pass only the colors you need. Works directly with @hanzo/gui-colors.',
+        'Color themes to include. Use defaultChildrenThemes to include defaults, or pass only the colors you need. Works directly with @hanzogui/colors.',
     },
     {
       name: 'darkPalette',
@@ -259,7 +259,7 @@ receives each theme's palette and scheme, so your custom values automatically
 adapt to every color and light/dark variant:
 
 ```tsx fileName="gui.config.ts"
-import { createV5Theme, opacify } from '@hanzo/gui-config/v5'
+import { createV5Theme, opacify } from '@hanzogui/config/v5'
 
 const themes = createV5Theme({
   getTheme: ({ palette, scheme }) => {
@@ -282,7 +282,7 @@ This is how v5 generates its built-in opacity tokens (`background01`,
 For a more muted look, use the subtle variant which has desaturated colors:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig, themes } from '@hanzo/gui-config/v5-subtle'
+import { defaultConfig, themes } from '@hanzogui/config/v5-subtle'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
@@ -302,7 +302,7 @@ import {
   adjustPalettes,
   defaultChildrenThemes,
   createV5Theme,
-} from '@hanzo/gui-config/v5'
+} from '@hanzogui/config/v5'
 
 // adjust a single palette - desaturate and lighten
 const mutedBlue = adjustPalette(blue, (hsl, i) => ({
@@ -705,7 +705,7 @@ client, it reads these from the DOM instead of needing the JS object.
 ### Setup
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig, themes } from '@hanzo/gui-config/v5'
+import { defaultConfig, themes } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
@@ -728,7 +728,7 @@ export const config = createGui({
 
 1. **Add animations import** - v5 doesn't bundle animations:
    ```tsx
-   import { animations } from '@hanzo/gui-config/v5-css'
+   import { animations } from '@hanzogui/config/v5-css'
    ```
 2. **Update media query names** - `2xl` → `xxl`, `2xs` → `xxs`, `max2Xl` →
    `max-xxl`

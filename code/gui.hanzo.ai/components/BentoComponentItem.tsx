@@ -21,9 +21,9 @@ import {
   Table,
   TextCursorInput,
   ToggleRight,
-} from '@hanzo/gui-lucide-icons-2'
+} from '@hanzogui/lucide-icons-2'
 import { H4, H5, Image, YStack } from '@hanzo/gui'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
+import { LinearGradient } from '@hanzogui/linear-gradient'
 import { Link } from '~/components/Link'
 import ComponentPreview from './ComponentPreview'
 

@@ -1,5 +1,5 @@
 import { View, Text, XStack, styled } from '@hanzo/gui'
-import { Star } from '@hanzo/gui-lucide-icons-2'
+import { Star } from '@hanzogui/lucide-icons-2'
 
 const GroupContainer = styled(View, {
   group: 'testy',

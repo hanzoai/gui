@@ -1,4 +1,4 @@
-import type { MaskOptions } from '@hanzo/gui-create-theme'
+import type { MaskOptions } from '@hanzogui/create-theme'
 import {
   addChildren,
   applyMask,
@@ -6,7 +6,7 @@ import {
   createTheme,
   createWeakenMask,
   skipMask,
-} from '@hanzo/gui-create-theme'
+} from '@hanzogui/create-theme'
 
 import { colorTokens, darkColors, lightColors } from './tokens'
 
@@ -98,7 +98,7 @@ const template = {
   ...toSkip,
   // the background, color, etc keys here work like generics - they make it so you
   // can publish components for others to use without mandating a specific color scale
-  // the @hanzo/gui-button Button component looks for `$background`, so you set the
+  // the @hanzogui/button Button component looks for `$background`, so you set the
   // dark_red_Button theme to have a stronger background than the dark_red theme.
   background: 2,
   backgroundHover: 3,

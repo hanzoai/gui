@@ -4,7 +4,7 @@ import {
   useTint,
   getTints,
   type TintFamily,
-} from '@hanzo/gui-logo'
+} from '@hanzogui/logo'
 import { Popover, SizableText, Square, View, XStack, YStack } from '@hanzo/gui'
 
 // colors match the theme families in tints.tsx

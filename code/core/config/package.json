@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-config",
+  "name": "@hanzogui/config",
   "version": "2.0.0",
   "type": "module",
   "sideEffects": false,
@@ -109,28 +109,28 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-animations-css": "workspace:*",
-    "@hanzo/gui-animations-motion": "workspace:*",
-    "@hanzo/gui-animations-react-native": "workspace:*",
-    "@hanzo/gui-animations-reanimated": "workspace:*",
-    "@hanzo/gui-colors": "workspace:*",
-    "@hanzo/gui-core": "workspace:*",
-    "@hanzo/gui-react-native-media-driver": "workspace:*",
-    "@hanzo/gui-shorthands": "workspace:*",
-    "@hanzo/gui-theme-builder": "workspace:*",
-    "@hanzo/gui-themes": "workspace:*",
-    "@hanzo/gui-web": "workspace:*",
-    "@hanzo/gui-font-geist-sans": "workspace:*",
-    "@hanzo/gui-font-geist-mono": "workspace:*"
+    "@hanzogui/animations-css": "workspace:*",
+    "@hanzogui/animations-motion": "workspace:*",
+    "@hanzogui/animations-react-native": "workspace:*",
+    "@hanzogui/animations-reanimated": "workspace:*",
+    "@hanzogui/colors": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/react-native-media-driver": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/theme-builder": "workspace:*",
+    "@hanzogui/themes": "workspace:*",
+    "@hanzogui/web": "workspace:*",
+    "@hanzogui/font-geist-sans": "workspace:*",
+    "@hanzogui/font-geist-mono": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   },
   "peerDependencies": {
-    "@hanzo/gui-animations-moti": "*"
+    "@hanzogui/animations-moti": "*"
   },
   "peerDependenciesMeta": {
-    "@hanzo/gui-animations-moti": {
+    "@hanzogui/animations-moti": {
       "optional": true
     }
   }

@@ -1,5 +1,5 @@
-import { type ResolveVariableAs } from '@hanzo/gui-core';
-import { SizableContext } from '@hanzo/gui-sizable-context';
+import { type ResolveVariableAs } from '@hanzogui/core';
+import { SizableContext } from '@hanzogui/sizable-context';
 import type { FC } from 'react';
 import type { IconProps } from './IconProps';
 export { SizableContext };

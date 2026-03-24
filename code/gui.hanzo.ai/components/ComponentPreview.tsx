@@ -8,7 +8,7 @@ import {
   ShoppingCart,
   Upload,
   User,
-} from '@hanzo/gui-lucide-icons-2'
+} from '@hanzogui/lucide-icons-2'
 
 import {
   Avatar,

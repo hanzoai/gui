@@ -1,4 +1,4 @@
-import { useTint } from '@hanzo/gui-logo'
+import { useTint } from '@hanzogui/logo'
 import { H1, Theme, type ThemeProps, XStack, YStack } from '@hanzo/gui'
 import { useFontLoaded } from '~/features/site/fonts/LoadFonts'
 

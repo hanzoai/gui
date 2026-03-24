@@ -1,5 +1,5 @@
-import { ThemeTintAlt } from '@hanzo/gui-logo'
-import { ChevronRight } from '@hanzo/gui-lucide-icons-2'
+import { ThemeTintAlt } from '@hanzogui/logo'
+import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import { Card, H3, Paragraph, View, YStack } from '@hanzo/gui'
 import type { Href } from 'one'
 import { BentoIcon } from '~/features/icons/BentoIcon'

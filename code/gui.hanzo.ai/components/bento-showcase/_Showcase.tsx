@@ -1,5 +1,5 @@
-import { Code, Eye, Info, Link, Lock, Minus, Plus } from '@hanzo/gui-lucide-icons-2'
-import { useToastController } from '@hanzo/gui-toast'
+import { Code, Eye, Info, Link, Lock, Minus, Plus } from '@hanzogui/lucide-icons-2'
+import { useToastController } from '@hanzogui/toast'
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import type { SizeTokens, ThemeName } from '@hanzo/gui'
 
@@ -23,9 +23,9 @@ import {
   useIsomorphicLayoutEffect,
 } from '@hanzo/gui'
 // @ts-ignore - bento component wildcard import
-import { useCurrentRouteParams } from '@hanzo/gui-bento'
+import { useCurrentRouteParams } from '@hanzogui/bento'
 // @ts-ignore - bento component wildcard import
-import { useGroupMedia } from '@hanzo/gui-bento/component/hooks/useGroupMedia'
+import { useGroupMedia } from '@hanzogui/bento/component/hooks/useGroupMedia'
 import { CodeWindow } from './CodeWindow'
 // import { ThemeButton } from './ThemeButton'
 import { authFetch } from '~/features/api/authFetch'

@@ -1,5 +1,5 @@
-import type { FillInFont, GenericFont } from '@hanzo/gui-core'
-import { createFont, getVariableValue, isWeb } from '@hanzo/gui-core'
+import type { FillInFont, GenericFont } from '@hanzogui/core'
+import { createFont, getVariableValue, isWeb } from '@hanzogui/core'
 
 const LINE_HEIGHT = 1.2
 

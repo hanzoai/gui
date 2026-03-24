@@ -24,7 +24,7 @@ export default () => {
         pos="absolute"
         b={20}
         l={20}
-        icon={require('@hanzo/gui-lucide-icons-2').Play}
+        icon={require('@hanzogui/lucide-icons-2').Play}
         size="$6"
         circular
         onPress={() => setPositionI(i => (i + 1) % positions.length)}
@@ -75,7 +75,7 @@ export const compilationCode = [
         {
           name: 'app.tsx',
           language: 'tsx',
-          code: `import { View, Text, styled } from '@hanzo/gui-core'
+          code: `import { View, Text, styled } from '@hanzogui/core'
 import { Heading } from './Heading'
 
 const App = (props) => (

@@ -1,9 +1,9 @@
-import '@hanzo/gui-core/reset.css'
+import '@hanzogui/core/reset.css'
 
 import '../app.css'
 
-import type { ColorScheme } from '@hanzo/gui-next-theme'
-import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
+import type { ColorScheme } from '@hanzogui/next-theme'
+import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'

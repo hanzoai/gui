@@ -17,8 +17,8 @@ import {
   tealDark,
   yellow,
   yellowDark,
-} from '@hanzo/gui-colors'
-import { createThemes, type CreateThemesProps } from '@hanzo/gui-theme-builder'
+} from '@hanzogui/colors'
+import { createThemes, type CreateThemesProps } from '@hanzogui/theme-builder'
 import { opacify } from './opacify'
 import { v5Templates } from './v5-templates'
 

@@ -10,7 +10,7 @@ animations off-thread and provides smooth spring and timing animations.
 ## Installation
 
 ```bash
-yarn add @hanzo/gui-animations-reanimated react-native-reanimated
+yarn add @hanzogui/animations-reanimated react-native-reanimated
 ```
 
 Follow the
@@ -22,7 +22,7 @@ to complete setup for your platform.
 Add your animations to your [Gui config](/docs/core/configuration):
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-reanimated'
+import { createAnimations } from '@hanzogui/animations-reanimated'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({
@@ -112,7 +112,7 @@ You can use Reanimated on native and a lighter driver on web:
 
 ```tsx
 // animations.native.ts
-import { createAnimations } from '@hanzo/gui-animations-reanimated'
+import { createAnimations } from '@hanzogui/animations-reanimated'
 
 export const animations = createAnimations({
   bouncy: {
@@ -125,7 +125,7 @@ export const animations = createAnimations({
 
 ```tsx
 // animations.ts (web)
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 
 export const animations = createAnimations({
   bouncy: {
@@ -145,7 +145,7 @@ import { animations } from './animations'
 ## Example
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-reanimated'
+import { createAnimations } from '@hanzogui/animations-reanimated'
 import { YStack, createGui } from '@hanzo/gui'
 
 const animations = createAnimations({

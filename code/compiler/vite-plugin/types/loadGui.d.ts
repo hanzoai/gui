@@ -1,4 +1,4 @@
-import type { GuiOptions } from '@hanzo/gui-types';
+import type { GuiOptions } from '@hanzogui/types';
 export declare function getGuiOptions(): GuiOptions | null;
 export declare function getLoadPromise(): Promise<GuiOptions> | null;
 /**

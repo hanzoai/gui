@@ -1,5 +1,5 @@
-import type { GetStyleResult } from '@hanzo/gui-web'
-import { View, createGui, getSplitStyles } from '@hanzo/gui-core'
+import type { GetStyleResult } from '@hanzogui/web'
+import { View, createGui, getSplitStyles } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'

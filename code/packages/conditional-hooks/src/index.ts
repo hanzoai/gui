@@ -1,4 +1,4 @@
-import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
+import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import {
   useCallback,
   useContext,

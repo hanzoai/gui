@@ -2,7 +2,7 @@
 
 //  ‼️🚨
 
-import { Moon, Sun, SunMoon } from '@hanzo/gui-lucide-icons-2'
+import { Moon, Sun, SunMoon } from '@hanzogui/lucide-icons-2'
 import { useSystemScheme, useUserScheme } from '@vxrn/color-scheme'
 import { useState } from 'react'
 import { Appearance } from 'react-native'

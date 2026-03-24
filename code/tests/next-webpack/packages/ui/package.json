@@ -21,12 +21,12 @@
   },
   "dependencies": {
     "@my/config": "workspace:^",
-    "@hanzo/gui-next-theme": "workspace:*",
+    "@hanzogui/next-theme": "workspace:*",
     "expo-constants": "~55.0.7",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

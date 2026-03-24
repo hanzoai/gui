@@ -1,6 +1,6 @@
 import type { GuiProviderProps } from '@hanzo/gui'
 import { GuiProvider } from '@hanzo/gui'
-import { ToastProvider } from '@hanzo/gui-toast'
+import { ToastProvider } from '@hanzogui/toast'
 
 import config from '../gui.config'
 

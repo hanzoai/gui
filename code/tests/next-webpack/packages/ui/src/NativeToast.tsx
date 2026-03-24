@@ -1,4 +1,4 @@
-import { Toast, useToastState } from '@hanzo/gui-toast'
+import { Toast, useToastState } from '@hanzogui/toast'
 import { YStack } from '@hanzo/gui'
 
 export const NativeToast = () => {

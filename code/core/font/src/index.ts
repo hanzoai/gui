@@ -1,11 +1,11 @@
-import { isWeb } from '@hanzo/gui-constants'
+import { isWeb } from '@hanzogui/constants'
 import {
   createVariables,
   getConfig,
   parseFont,
   registerFontVariables,
-} from '@hanzo/gui-web'
-import type { CreateGuiProps } from '@hanzo/gui-web'
+} from '@hanzogui/web'
+import type { CreateGuiProps } from '@hanzogui/web'
 
 export function addFont(props: {
   fontFamilyName: string

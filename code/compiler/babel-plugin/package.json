@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-babel-plugin",
+  "name": "@hanzogui/babel-plugin",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
@@ -27,10 +27,10 @@
     "@babel/helper-plugin-utils": "^7.24.8",
     "@babel/template": "^7.25.0",
     "@babel/traverse": "^7.25.4",
-    "@hanzo/gui-static-sync": "workspace:*"
+    "@hanzogui/static-sync": "workspace:*"
   },
   "devDependencies": {
     "@babel/types": "^7.25.4",
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

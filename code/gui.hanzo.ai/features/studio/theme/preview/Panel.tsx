@@ -1,4 +1,4 @@
-import { MoreVertical } from '@hanzo/gui-lucide-icons-2'
+import { MoreVertical } from '@hanzogui/lucide-icons-2'
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import type { YStackProps } from '@hanzo/gui'
 import {

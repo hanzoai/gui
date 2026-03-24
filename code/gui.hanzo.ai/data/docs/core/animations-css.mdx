@@ -3,14 +3,14 @@ title: CSS Driver
 description: Lightweight CSS transition-based animations
 ---
 
-The `@hanzo/gui-animations-css` package works with the Hanzo GUI compiler and
+The `@hanzogui/animations-css` package works with the Hanzo GUI compiler and
 runtime to provide simple ways to share typed animations across all your
 components.
 
 ## Installation
 
 ```bash
-yarn add @hanzo/gui-animations-css
+yarn add @hanzogui/animations-css
 ```
 
 ## Configuration
@@ -18,7 +18,7 @@ yarn add @hanzo/gui-animations-css
 Add it to your [Gui config](/docs/core/configuration):
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-css'
+import { createAnimations } from '@hanzogui/animations-css'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({
@@ -88,7 +88,7 @@ The delay (in milliseconds) is applied as CSS `transition-delay`.
 ## Example
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-css'
+import { createAnimations } from '@hanzogui/animations-css'
 import { YStack, createGui } from '@hanzo/gui'
 
 const animations = createAnimations({

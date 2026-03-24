@@ -30,21 +30,21 @@ Popovers are a great way to show content that's only visible when trigger is pre
 Popover is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-popover
+npm install @hanzogui/popover
 ```
 
 ### PortalProvider
 
-When rendering into root of app instead of inline, you'll first need to install the `@hanzo/gui-portal` package:
+When rendering into root of app instead of inline, you'll first need to install the `@hanzogui/portal` package:
 
 ```bash
-npm install @hanzo/gui-portal
+npm install @hanzogui/portal
 ```
 
 Then add `PortalProvider` to the root of your app:
 
 ```tsx fileName="App.tsx"
-import { PortalProvider } from '@hanzo/gui-portal'
+import { PortalProvider } from '@hanzogui/portal'
 import YourApp from './components/YourApp'
 
 function App() {
@@ -72,7 +72,7 @@ export default App
 ## Anatomy
 
 ```tsx
-import { Popover, Adapt } from '@hanzo/gui' // or '@hanzo/gui-popover'
+import { Popover, Adapt } from '@hanzo/gui' // or '@hanzogui/popover'
 
 export default () => (
   <Popover>

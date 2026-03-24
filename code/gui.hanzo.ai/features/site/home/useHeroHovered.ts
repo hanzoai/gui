@@ -1,4 +1,4 @@
-import { useTint } from '@hanzo/gui-logo'
+import { useTint } from '@hanzogui/logo'
 import { useCallback, useEffect } from 'react'
 import { useForceUpdate } from '@hanzo/gui'
 

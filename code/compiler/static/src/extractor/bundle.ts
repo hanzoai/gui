@@ -180,17 +180,17 @@ function getESBuildConfig(
       {
         name: 'external',
         setup(build) {
-          const proxyWormPath = require.resolve('@hanzo/gui-proxy-worm')
+          const proxyWormPath = require.resolve('@hanzogui/proxy-worm')
 
-          // only externalize @hanzo/gui-core and @hanzo/gui-web - these are provided at runtime
-          // other @hanzo/gui-* packages (like @hanzo/gui-config/v3) must be bundled in to avoid
+          // only externalize @hanzogui/core and @hanzogui/web - these are provided at runtime
+          // other @hanzogui/* packages (like @hanzogui/config/v3) must be bundled in to avoid
           // ESM race conditions when multiple threads require() them concurrently
           build.onResolve({ filter: /^@gui\/(core|web)$/ }, (args) => {
             if (args.kind === 'entry-point') {
               return null
             }
             return {
-              path: platform === 'native' ? '@hanzo/gui-core/native' : args.path,
+              path: platform === 'native' ? '@hanzogui/core/native' : args.path,
               external: true,
             }
           })
@@ -204,7 +204,7 @@ function getESBuildConfig(
 
           build.onResolve({ filter: /^(react-native|react-native\/.*)$/ }, () => {
             return {
-              path: '@hanzo/gui-react-native-web-lite',
+              path: '@hanzogui/react-native-web-lite',
               external: true,
             }
           })

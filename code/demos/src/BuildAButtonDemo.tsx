@@ -1,4 +1,4 @@
-import { Drumstick, Hand } from '@hanzo/gui-lucide-icons-2'
+import { Drumstick, Hand } from '@hanzogui/lucide-icons-2'
 import type { ButtonProps, ThemeName } from '@hanzo/gui'
 import { Button, XStack, YStack } from '@hanzo/gui'
 

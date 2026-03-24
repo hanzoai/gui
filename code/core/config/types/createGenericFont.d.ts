@@ -1,4 +1,4 @@
-import type { GenericFont } from '@hanzo/gui-web';
+import type { GenericFont } from '@hanzogui/web';
 declare const genericFontSizes: {
     readonly 1: 10;
     readonly 2: 11;

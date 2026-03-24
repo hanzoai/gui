@@ -10,7 +10,7 @@
 
 'use strict'
 
-import { invariant } from '@hanzo/gui-react-native-web-internals'
+import { invariant } from '@hanzogui/react-native-web-internals'
 
 /**
  * A Utility class for calculating viewable items based on current metrics like scroll position and

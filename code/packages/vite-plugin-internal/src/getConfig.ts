@@ -69,14 +69,14 @@ export function getConfig(guiPlugin: any) {
                 // 'react-native', breaks because vitest isnt doing .native.js :/
                 conditions: ['react-native', 'require', 'default'],
                 alias: {
-                  '@hanzo/gui-core': '@hanzo/gui-core/native-test',
-                  '@hanzo/gui-web': '@hanzo/gui-core/native-test',
+                  '@hanzogui/core': '@hanzogui/core/native-test',
+                  '@hanzogui/web': '@hanzogui/core/native-test',
                 },
                 extensions: nativeExtensions,
               },
 
               optimizeDeps: {
-                include: ['@hanzo/gui-constants', '@hanzo/gui-web', '@hanzo/gui-core'],
+                include: ['@hanzogui/constants', '@hanzogui/web', '@hanzogui/core'],
                 extensions: nativeExtensions,
                 jsx: 'automatic',
               },
@@ -98,15 +98,15 @@ export function getConfig(guiPlugin: any) {
         ? [
             {
               find: /^react-native$/,
-              replacement: '@hanzo/gui-fake-react-native',
+              replacement: '@hanzogui/fake-react-native',
             },
             {
               find: /^react-native\//,
-              replacement: '@hanzo/gui-fake-react-native',
+              replacement: '@hanzogui/fake-react-native',
             },
           ]
         : {
-            'react-native': '@hanzo/gui-react-native-web-lite',
+            'react-native': '@hanzogui/react-native-web-lite',
           },
     },
 

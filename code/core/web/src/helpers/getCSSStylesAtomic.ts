@@ -3,8 +3,8 @@
  * Copyright (c) Nicolas Gallagher licensed under the MIT license.
  */
 
-import type { StyleObject } from '@hanzo/gui-helpers'
-import { cssShorthandLonghands, simpleHash } from '@hanzo/gui-helpers'
+import type { StyleObject } from '@hanzogui/helpers'
+import { cssShorthandLonghands, simpleHash } from '@hanzogui/helpers'
 import { getConfigMaybe } from '../config'
 import { isMediaKey } from '../hooks/useMedia'
 import type { GuiInternalConfig, ViewStyleWithPseudos } from '../types'

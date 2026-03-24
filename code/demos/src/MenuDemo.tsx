@@ -6,8 +6,8 @@ import {
   FilePlus,
   RefreshCw,
   Trash2,
-} from '@hanzo/gui-lucide-icons-2'
-import { Menu } from '@hanzo/gui-menu'
+} from '@hanzogui/lucide-icons-2'
+import { Menu } from '@hanzogui/menu'
 import React from 'react'
 import { Button } from '@hanzo/gui'
 

@@ -1,5 +1,5 @@
-import type { Variable, VariableValGeneric } from '@hanzo/gui-web'
-import { getTokens, isVariable } from '@hanzo/gui-web'
+import type { Variable, VariableValGeneric } from '@hanzogui/web'
+import { getTokens, isVariable } from '@hanzogui/web'
 
 // technically number | undefined just for compat with the generic VariableVal
 type GetTokenBase = Variable | string | number | undefined | VariableValGeneric

@@ -10,10 +10,10 @@ const outFileWebpack = 'out-webpack.js'
 
 const alias = {
   'react-native$': 'react-native-web',
-  'react-native-reanimated$': '@hanzo/gui-proxy-worm',
-  'react-native-gesture-handler$': '@hanzo/gui-proxy-worm',
-  'react-native-safe-area-context$': '@hanzo/gui-fake-react-native',
-  'react-native-svg': '@hanzo/gui-react-native-svg',
+  'react-native-reanimated$': '@hanzogui/proxy-worm',
+  'react-native-gesture-handler$': '@hanzogui/proxy-worm',
+  'react-native-safe-area-context$': '@hanzogui/fake-react-native',
+  'react-native-svg': '@hanzogui/react-native-svg',
 
   'react/jsx-dev-runtime': path.resolve(
     require.resolve('react/jsx-dev-runtime').replace('.web.js', '.js')
@@ -84,10 +84,10 @@ async function extractStaticWebpackApp() {
               },
             },
             {
-              loader: '@hanzo/gui-loader',
+              loader: '@hanzogui/loader',
               options: {
                 config: './tests/lib/gui.config.cjs',
-                components: ['@hanzo/gui-sandbox-ui'],
+                components: ['@hanzogui/sandbox-ui'],
                 importsWhitelist: ['constants.js'],
               },
             },

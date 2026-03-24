@@ -1,5 +1,5 @@
-import { Configuration } from '@hanzo/gui-web'
-import { animationsMotion } from '@hanzo/gui-config/v5-motion'
+import { Configuration } from '@hanzogui/web'
+import { animationsMotion } from '@hanzogui/config/v5-motion'
 import { Slot } from 'one'
 import { Header } from '~/features/site/header/Header'
 

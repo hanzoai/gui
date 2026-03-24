@@ -36,7 +36,7 @@ pressed, floating above the current content. They [automatically stack](/ui/z-in
 Popover is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-popover
+npm install @hanzogui/popover
 ```
 
 <Notice theme="blue">
@@ -48,7 +48,7 @@ npm install @hanzo/gui-popover
 ## Anatomy
 
 ```tsx
-import { Popover, Adapt, Sheet } from '@hanzo/gui' // or '@hanzo/gui-popover'
+import { Popover, Adapt, Sheet } from '@hanzo/gui' // or '@hanzogui/popover'
 
 export default () => (
   <Popover>
@@ -335,7 +335,7 @@ Trigger will open it.
 ### Sheet (with Adapt)
 
 When used with `Adapt`, you can render a Sheet when that breakpoint is
-active. Import `Sheet` directly from `@hanzo/gui` or `@hanzo/gui-sheet`.
+active. Import `Sheet` directly from `@hanzo/gui` or `@hanzogui/sheet`.
 
 See [Sheet](/docs/components/sheet) for more props.
 
@@ -402,7 +402,7 @@ import {
   closeOpenPopovers,
   closeLastOpenedPopover,
   hasOpenPopovers,
-} from '@hanzo/gui-popover'
+} from '@hanzogui/popover'
 ```
 
 ### closeOpenPopovers

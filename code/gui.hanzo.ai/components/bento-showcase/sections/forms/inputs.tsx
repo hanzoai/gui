@@ -1,6 +1,6 @@
 import { View, YStack } from '@hanzo/gui'
 
-import * as Inputs from '@hanzo/gui-bento/component/forms/inputs'
+import * as Inputs from '@hanzogui/bento/component/forms/inputs'
 import { Showcase, WithSize } from '~/components/bento-showcase/_Showcase'
 import {
   type BentoShowcaseContext,

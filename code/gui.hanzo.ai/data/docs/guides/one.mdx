@@ -16,7 +16,7 @@ npx one
 Add Hanzo GUI and its dependencies:
 
 ```bash
-yarn add @hanzo/gui @hanzo/gui-config
+yarn add @hanzo/gui @hanzogui/config
 ```
 
 ## Configuration
@@ -24,7 +24,7 @@ yarn add @hanzo/gui @hanzo/gui-config
 Create a `gui.config.ts` file in your project root:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v5'
+import { defaultConfig } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 
 const guiConfig = createGui(defaultConfig)
@@ -43,7 +43,7 @@ Update your `vite.config.ts`:
 
 ```tsx fileName="vite.config.ts"
 import { one } from 'one/vite'
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 import type { UserConfig } from 'vite'
 
 export default {
@@ -65,7 +65,7 @@ export default {
   },
 
   optimizeDeps: {
-    include: ['@hanzo/gui-core', '@hanzo/gui-config'],
+    include: ['@hanzogui/core', '@hanzogui/config'],
   },
 
   build: {

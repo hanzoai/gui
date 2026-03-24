@@ -1,4 +1,4 @@
-import type { Template } from '@hanzo/gui-create-theme';
+import type { Template } from '@hanzogui/create-theme';
 import { defaultTemplates } from './defaultTemplates';
 import { type ThemeBuilder } from './ThemeBuilder';
 import type { BuildPalettes, BuildTemplates } from './types';

@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Payment from '@hanzo/gui-bento/component/ecommerce/payment'
+import * as Payment from '@hanzogui/bento/component/ecommerce/payment'
 import { Showcase } from '~/components/bento-showcase/_Showcase'
 import {
   type BentoShowcaseContext,

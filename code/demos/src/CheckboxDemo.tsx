@@ -1,4 +1,4 @@
-import { Check as CheckIcon } from '@hanzo/gui-lucide-icons-2'
+import { Check as CheckIcon } from '@hanzogui/lucide-icons-2'
 import type { CheckboxProps } from '@hanzo/gui'
 import { Checkbox, Label, Theme, XStack, YStack } from '@hanzo/gui'
 

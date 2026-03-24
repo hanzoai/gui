@@ -1,4 +1,4 @@
-import { createAnimations } from '@hanzo/gui-animations-react-native'
+import { createAnimations } from '@hanzogui/animations-react-native'
 
 export const animations = createAnimations({
   bouncy: {

@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import { createRequire } from 'node:module'
 import { resolve as pathResolve } from 'node:path'
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 import { one } from 'one/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import type { UserConfig } from 'vite'
@@ -64,8 +64,8 @@ const include = [
   'mdx-bundler/client',
   // core hanzo-gui packages must be pre-bundled together to avoid duplicate instances
   '@hanzo/gui',
-  '@hanzo/gui-core',
-  '@hanzo/gui-web',
+  '@hanzogui/core',
+  '@hanzogui/web',
   // existing
   '@ai-sdk/deepseek',
   'secure-json-parse',
@@ -89,19 +89,19 @@ const include = [
   'glob',
   'reading-time',
   'unified',
-  '@hanzo/gui-get-font-sized',
-  '@hanzo/gui-linear-gradient',
-  '@hanzo/gui-lucide-icons-2',
+  '@hanzogui/get-font-sized',
+  '@hanzogui/linear-gradient',
+  '@hanzogui/lucide-icons-2',
   '@rehookify/datepicker',
-  '@hanzo/gui-get-token',
-  '@hanzo/gui-roving-focus',
+  '@hanzogui/get-token',
+  '@hanzogui/roving-focus',
   'react-native-safe-area-context',
   '@hookform/resolvers/zod',
   'react-native-reanimated',
-  '@hanzo/gui-react-native-svg',
+  '@hanzogui/react-native-svg',
   'react-native-gesture-handler',
   '@tanstack/react-table',
-  '@hanzo/gui-focus-scope',
+  '@hanzogui/focus-scope',
   'react-dropzone',
 ]
 
@@ -136,11 +136,11 @@ export default {
       // Standard string-based aliases
       {
         find: 'react-native-svg',
-        replacement: '@hanzo/gui-react-native-svg',
+        replacement: '@hanzogui/react-native-svg',
       },
       // {
       //   find: 'react-native-web',
-      //   replacement: resolve('@hanzo/gui-react-native-web-lite'),
+      //   replacement: resolve('@hanzogui/react-native-web-lite'),
       // },
       // bugfix docsearch/react, weird
       {
@@ -149,24 +149,24 @@ export default {
       },
       {
         find: 'react-native/Libraries/Core/ReactNativeVersion',
-        replacement: resolve('@hanzo/gui-proxy-worm'),
+        replacement: resolve('@hanzogui/proxy-worm'),
       },
       // Bento paths (conditional based on bento availability)
       ...(hasBento
         ? [
             {
-              find: '@hanzo/gui-bento/raw',
+              find: '@hanzogui/bento/raw',
               replacement: pathResolve(import.meta.dirname, '../../../bento/src/index'),
             },
             {
-              find: '@hanzo/gui-bento/provider',
+              find: '@hanzogui/bento/provider',
               replacement: pathResolve(
                 import.meta.dirname,
                 '../../../bento/src/components/provider/CurrentRouteProvider'
               ),
             },
             {
-              find: '@hanzo/gui-bento/component',
+              find: '@hanzogui/bento/component',
               replacement: pathResolve(
                 import.meta.dirname,
                 '../../../bento/src/components'
@@ -176,11 +176,11 @@ export default {
         : []),
       // Always provide these aliases - they point to proxy files that work with or without bento
       {
-        find: '@hanzo/gui-bento/data',
+        find: '@hanzogui/bento/data',
         replacement: pathResolve(import.meta.dirname, './helpers/dist/bento-proxy-data'),
       },
       {
-        find: '@hanzo/gui-bento',
+        find: '@hanzogui/bento',
         replacement: pathResolve(import.meta.dirname, './helpers/dist/bento-proxy'),
       },
     ],
@@ -211,8 +211,8 @@ export default {
       name: 'stub-bento-components',
       enforce: 'pre', // Run before other plugins including alias resolution
       resolveId(id: string) {
-        // Intercept imports from @hanzo/gui-bento/component/*
-        if (id.startsWith('@hanzo/gui-bento/component/')) {
+        // Intercept imports from @hanzogui/bento/component/*
+        if (id.startsWith('@hanzogui/bento/component/')) {
           // Return a virtual module ID
           return '\0bento-component-stub:' + id
         }

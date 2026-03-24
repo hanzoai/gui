@@ -3,7 +3,7 @@ export interface DemoItem {
   key: string
 }
 
-// demo registry - key is the prefix used to look up {key}Demo from @hanzo/gui-demos
+// demo registry - key is the prefix used to look up {key}Demo from @hanzogui/demos
 // titles here are what Maestro flows match on, so keep them exact
 export const demos: DemoItem[] = [
   { title: 'Stacks', key: 'Stacks' },

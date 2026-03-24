@@ -1,4 +1,4 @@
-import { useTint } from '@hanzo/gui-logo'
+import { useTint } from '@hanzogui/logo'
 import { useBentoStore } from './BentoStore'
 import { useThemeBuilderStore } from '../studio/theme/store/ThemeBuilderStore'
 

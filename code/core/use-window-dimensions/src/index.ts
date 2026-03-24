@@ -1,5 +1,5 @@
 import React from 'react'
-import { isWeb } from '@hanzo/gui-constants'
+import { isWeb } from '@hanzogui/constants'
 
 import { getWindowSize, subscribe } from './helpers'
 import type { WindowSize } from './types'

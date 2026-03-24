@@ -1,6 +1,6 @@
-import '@hanzo/gui-core/reset.css'
+import '@hanzogui/core/reset.css'
 
-import * as Demos from '@hanzo/gui-demos'
+import * as Demos from '@hanzogui/demos'
 import React from 'react'
 import { Separator, Theme, XStack, YStack } from '@hanzo/gui'
 import { Provider } from './provider'

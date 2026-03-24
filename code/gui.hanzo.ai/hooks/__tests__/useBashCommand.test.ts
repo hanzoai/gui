@@ -35,7 +35,7 @@ describe('useBashCommand', () => {
 
     const { result } = renderHook(() =>
       useBashCommand(
-        'npm install @hanzo/gui-core @hanzo/gui-animations-react-native',
+        'npm install @hanzogui/core @hanzogui/animations-react-native',
         'language-bash'
       )
     )
@@ -43,7 +43,7 @@ describe('useBashCommand', () => {
     await waitFor(() => {
       expect(result.current.isInstallCommand).toBe(true)
       expect(result.current.transformedCommand).toBe(
-        'yarn add @hanzo/gui-core @hanzo/gui-animations-react-native'
+        'yarn add @hanzogui/core @hanzogui/animations-react-native'
       )
     })
   })

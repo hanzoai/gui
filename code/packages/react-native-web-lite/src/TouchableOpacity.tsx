@@ -16,7 +16,7 @@ import {
   StyleSheet,
   useMergeRefs,
   usePressEvents,
-} from '@hanzo/gui-react-native-web-internals'
+} from '@hanzogui/react-native-web-internals'
 
 import { View } from './View'
 

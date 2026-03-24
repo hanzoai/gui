@@ -1,4 +1,4 @@
-import { Store, useStore } from '@hanzo/gui-use-store'
+import { Store, useStore } from '@hanzogui/use-store'
 import { ScrollView, XStack, YStack, styled } from '@hanzo/gui'
 
 import { ToggleButton } from './ToggleButton'

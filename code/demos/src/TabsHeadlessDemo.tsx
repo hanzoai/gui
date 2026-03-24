@@ -8,8 +8,8 @@ import {
   isWeb,
   styled,
 } from '@hanzo/gui'
-import { createTabs } from '@hanzo/gui-tabs'
-import { getButtonSized } from '@hanzo/gui-get-button-sized'
+import { createTabs } from '@hanzogui/tabs'
+import { getButtonSized } from '@hanzogui/get-button-sized'
 
 const demos = ['horizontal', 'vertical'] as const
 

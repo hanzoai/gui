@@ -1,4 +1,4 @@
-import type { GuiOptions } from '@hanzo/gui-types';
+import type { GuiOptions } from '@hanzogui/types';
 import type { BundledConfig } from './bundleConfig';
 /**
  * Sort of a super-set of bundleConfig(), this code needs some refactoring ideally

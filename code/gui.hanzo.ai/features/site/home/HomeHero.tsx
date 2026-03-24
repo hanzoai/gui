@@ -1,4 +1,4 @@
-import { ThemeTintAlt } from '@hanzo/gui-logo'
+import { ThemeTintAlt } from '@hanzogui/logo'
 import { memo } from 'react'
 import {
   Button,

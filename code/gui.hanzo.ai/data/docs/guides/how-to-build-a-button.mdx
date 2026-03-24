@@ -51,7 +51,7 @@ To the point, here is the final code we'll end up with for our Button, ready to
 copy and paste right into your app:
 
 ```tsx
-import { getSize, getSpace } from '@hanzo/gui-get-token'
+import { getSize, getSpace } from '@hanzogui/get-token'
 import {
   GetProps,
   SizeTokens,
@@ -61,7 +61,7 @@ import {
   styled,
   useTheme,
   withStaticProperties,
-} from '@hanzo/gui-web'
+} from '@hanzogui/web'
 import { cloneElement, isValidElement, useContext } from 'react'
 
 export const ButtonContext = createStyledContext({
@@ -203,7 +203,7 @@ We start with the assumption that we have a design system set up with tokens
 that use keys `sm`, `md`, and `lg` and a few themes:
 
 ```tsx
-import { createGui, createTokens } from '@hanzo/gui-core'
+import { createGui, createTokens } from '@hanzogui/core'
 
 export default createGui({
   tokens: createTokens({
@@ -252,7 +252,7 @@ With that in mind, we can create the outer frame of the button fairly simply,
 like so:
 
 ```tsx
-import { View, styled } from '@hanzo/gui-core'
+import { View, styled } from '@hanzogui/core'
 
 const ButtonFrame = styled(View, {
   // the name indicates to use the sub-theme `Button`
@@ -300,7 +300,7 @@ when hovered or pressed.
 Next we'll want a Text component to go inside:
 
 ```tsx
-import { Text, styled } from '@hanzo/gui-core'
+import { Text, styled } from '@hanzogui/core'
 
 export const ButtonText = styled(Text, {
   name: 'ButtonText',
@@ -366,7 +366,7 @@ also working even if we add new sizes to our design system in the future, we can
 use the handy Hanzo GUI [Spread Variants](/docs/core/variants#spread-variants):
 
 ```tsx
-import { View, styled } from '@hanzo/gui-core'
+import { View, styled } from '@hanzogui/core'
 
 const ButtonFrame = styled(View, {
   name: 'Button',
@@ -431,7 +431,7 @@ awkward. Since Hanzo GUI uses this pattern internally for many components, we've
 made a small helper:
 
 ```tsx
-import { withStaticProperties } from '@hanzo/gui-core'
+import { withStaticProperties } from '@hanzogui/core'
 
 export const Button = withStaticProperties(ButtonFrame, {
   Text: ButtonText,
@@ -492,7 +492,7 @@ the existing `styled` function to re-style each piece, before re-exporting it
 again:
 
 ```tsx
-import { withStaticProperties } from '@hanzo/gui-core'
+import { withStaticProperties } from '@hanzogui/core'
 
 import { Button } from './OurButton'
 
@@ -535,7 +535,7 @@ keeping the compound API:
 
 ```tsx
 import { createContext } from 'react'
-import { SizeTokens, GetProps, withStaticProperties } from '@hanzo/gui-core'
+import { SizeTokens, GetProps, withStaticProperties } from '@hanzogui/core'
 import { Button } from './OurButton'
 
 const SizeContext = createContext<SizeTokens>('$md')
@@ -583,7 +583,7 @@ Finally we get to use `createStyledContext`. We just change from `createContext`
 to:
 
 ```tsx
-import { createStyledContext } from '@hanzo/gui-core'
+import { createStyledContext } from '@hanzogui/core'
 
 export const ButtonContext = createStyledContext({
   size: '$md' as SizeTokens,
@@ -599,7 +599,7 @@ And now, bringing back the full example, we add an extra property to each
 `styled` component, `context`:
 
 ```tsx
-import { View, styled, createStyledContext } from '@hanzo/gui-core'
+import { View, styled, createStyledContext } from '@hanzogui/core'
 
 export const ButtonContext = createStyledContext({
   size: '$md' as SizeTokens,
@@ -702,7 +702,7 @@ functional component. It will still work nicely with the Hanzo GUI themes and
 sizes, showing how you can use them together with external React components.
 
 ```tsx
-import { getTokens, useTheme } from '@hanzo/gui-core'
+import { getTokens, useTheme } from '@hanzogui/core'
 import * as React from 'react'
 
 const ButtonIcon = (props: { children: React.ReactNode }) => {

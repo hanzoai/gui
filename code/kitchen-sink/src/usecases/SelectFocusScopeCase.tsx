@@ -1,6 +1,6 @@
 import React from 'react'
 import { Select, Label, YStack, XStack, Button } from '@hanzo/gui'
-import { ChevronDown } from '@hanzo/gui-lucide-icons-2'
+import { ChevronDown } from '@hanzogui/lucide-icons-2'
 
 // Render value helpers for SSR support
 const fruitsAndVeggiesLabels: Record<string, string> = {

@@ -1,4 +1,4 @@
-import { setDisableTintTheme } from '@hanzo/gui-logo'
+import { setDisableTintTheme } from '@hanzogui/logo'
 import { useEffect } from 'react'
 import { useBentoStore } from '~/features/bento/BentoStore'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'

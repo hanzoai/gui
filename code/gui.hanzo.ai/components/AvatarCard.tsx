@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { ChevronRight } from '@hanzo/gui-lucide-icons-2'
+import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import { Avatar, Card, H5, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { Link } from '~/components/Link'
-import { ThemeTintAlt } from '@hanzo/gui-logo'
+import { ThemeTintAlt } from '@hanzogui/logo'
 
 export function AvatarCard({ title, subtitle, img, link, colorOffset, ...props }) {
   const [isHovered, setHovered] = useState(false)

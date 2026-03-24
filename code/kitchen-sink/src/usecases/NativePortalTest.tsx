@@ -3,10 +3,10 @@
  * Tests that Portal/Sheet/Popover work correctly when using teleport
  */
 
-import { Check, ChevronDown } from '@hanzo/gui-lucide-icons-2'
+import { Check, ChevronDown } from '@hanzogui/lucide-icons-2'
 import React from 'react'
 import { Adapt, Button, Popover, Select, Sheet, Text, XStack, YStack } from '@hanzo/gui'
-import { getPortal } from '@hanzo/gui-native'
+import { getPortal } from '@hanzogui/native'
 
 const items = [{ name: 'Apple' }, { name: 'Pear' }, { name: 'Blackberry' }]
 

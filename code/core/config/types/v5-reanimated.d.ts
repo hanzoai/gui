@@ -1,4 +1,4 @@
-export declare const animationsReanimated: import("@hanzo/gui-web").AnimationDriver<{
+export declare const animationsReanimated: import("@hanzogui/web").AnimationDriver<{
     '0ms': {
         type: "timing";
         duration: number;
@@ -99,7 +99,7 @@ export declare const animationsReanimated: import("@hanzo/gui-web").AnimationDri
         stiffness: number;
     };
 }>;
-export declare const animations: import("@hanzo/gui-web").AnimationDriver<{
+export declare const animations: import("@hanzogui/web").AnimationDriver<{
     '0ms': {
         type: "timing";
         duration: number;

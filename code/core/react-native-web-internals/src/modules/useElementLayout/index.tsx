@@ -1,7 +1,7 @@
 import {
   enable,
   useElementLayout as useGuiElementLayout,
-} from '@hanzo/gui-use-element-layout'
+} from '@hanzogui/use-element-layout'
 import { type RefObject, useEffect, useMemo } from 'react'
 import type { LayoutEvent } from '../../types'
 

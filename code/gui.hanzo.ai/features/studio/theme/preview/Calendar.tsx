@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from '@hanzo/gui-lucide-icons-2'
+import { ChevronLeft, ChevronRight } from '@hanzogui/lucide-icons-2'
 import type React from 'react'
 import { Button, H4, SizableText, XStack, YStack } from '@hanzo/gui'
 import { useDemoProps } from '../hooks/useDemoProps'

@@ -1,5 +1,5 @@
-import { View, styled } from '@hanzo/gui-core'
-import { createSwitch } from '@hanzo/gui-switch'
+import { View, styled } from '@hanzogui/core'
+import { createSwitch } from '@hanzogui/switch'
 import { Label, XStack, YStack } from '@hanzo/gui'
 
 const Frame = styled(View, {

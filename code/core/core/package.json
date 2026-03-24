@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-core",
+  "name": "@hanzogui/core",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
@@ -79,17 +79,17 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-helpers": "workspace:*",
-    "@hanzo/gui-react-native-media-driver": "workspace:*",
-    "@hanzo/gui-react-native-use-pressable": "workspace:*",
-    "@hanzo/gui-use-element-layout": "workspace:*",
-    "@hanzo/gui-use-event": "workspace:*",
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/react-native-media-driver": "workspace:*",
+    "@hanzogui/react-native-use-pressable": "workspace:*",
+    "@hanzogui/use-element-layout": "workspace:*",
+    "@hanzogui/use-event": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
-    "@hanzo/gui-native-bundle": "workspace:*",
-    "@hanzo/gui-react-native-web-lite": "workspace:*",
+    "@hanzogui/build": "workspace:*",
+    "@hanzogui/native-bundle": "workspace:*",
+    "@hanzogui/react-native-web-lite": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",

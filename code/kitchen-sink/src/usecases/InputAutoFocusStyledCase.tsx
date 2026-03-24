@@ -1,4 +1,4 @@
-import { Input } from '@hanzo/gui-input'
+import { Input } from '@hanzogui/input'
 import { useState } from 'react'
 import { styled, Button, YStack } from '@hanzo/gui'
 

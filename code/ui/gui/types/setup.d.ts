@@ -1,2 +1,2 @@
-import '@hanzo/gui-polyfill-dev';
+import '@hanzogui/polyfill-dev';
 //# sourceMappingURL=setup.d.ts.map

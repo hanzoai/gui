@@ -1,4 +1,4 @@
-import { createAnimations } from '@hanzo/gui-animations-css'
+import { createAnimations } from '@hanzogui/animations-css'
 
 export const animations = createAnimations({
   '100ms': 'ease-in 100ms',

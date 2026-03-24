@@ -11,13 +11,13 @@ integrations for improved performance and platform-native UX. All native
 integrations are opt-in - components work without them, just with slightly
 different behavior.
 
-## @hanzo/gui-native Package
+## @hanzogui/native Package
 
-The `@hanzo/gui-native` package provides setup utilities for native integrations.
+The `@hanzogui/native` package provides setup utilities for native integrations.
 Import the setup modules at your app's entry point, before any Hanzo GUI imports.
 
 ```bash
-npm install @hanzo/gui-native
+npm install @hanzogui/native
 ```
 
 ## Portal
@@ -35,7 +35,7 @@ npm install react-native-teleport
 
 ```tsx
 // App.tsx - before any Hanzo GUI imports
-import '@hanzo/gui-native/setup-teleport'
+import '@hanzogui/native/setup-teleport'
 ```
 
 See [Portal docs](/docs/components/portal) for full details.
@@ -54,7 +54,7 @@ npm install react-native-gesture-handler
 
 ```tsx
 // App.tsx - before any Hanzo GUI imports
-import '@hanzo/gui-native/setup-gesture-handler'
+import '@hanzogui/native/setup-gesture-handler'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export default function App() {
@@ -80,7 +80,7 @@ npm install zeego @react-native-menu/menu react-native-ios-context-menu react-na
 
 ```tsx
 // App.tsx - before any Hanzo GUI imports
-import '@hanzo/gui-native/setup-zeego'
+import '@hanzogui/native/setup-zeego'
 ```
 
 Then use the `native` prop:
@@ -108,7 +108,7 @@ npm install burnt
 
 ```tsx
 // App.tsx - before any Hanzo GUI imports
-import '@hanzo/gui-native/setup-burnt'
+import '@hanzogui/native/setup-burnt'
 ```
 
 Then use the `native` prop on ToastProvider:
@@ -131,7 +131,7 @@ npm install expo-linear-gradient
 
 ```tsx
 // App.tsx - before any Hanzo GUI imports
-import '@hanzo/gui-native/setup-expo-linear-gradient'
+import '@hanzogui/native/setup-expo-linear-gradient'
 ```
 
 See [LinearGradient docs](/docs/components/linear-gradient) for full details.

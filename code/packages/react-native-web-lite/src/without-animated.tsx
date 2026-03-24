@@ -25,7 +25,7 @@ export {
   useLayoutEffect,
   useMergeRefs,
   usePlatformMethods,
-} from '@hanzo/gui-react-native-web-internals'
+} from '@hanzogui/react-native-web-internals'
 export { render } from './render/index'
 export { NativeModules } from './NativeModules/index'
 
@@ -88,7 +88,7 @@ export { useLocaleContext } from './useLocaleContext/index'
 export { useWindowDimensions } from './useWindowDimensions/index'
 
 // // useful internals
-export * from '@hanzo/gui-react-native-web-internals'
+export * from '@hanzogui/react-native-web-internals'
 
 export function requireNativeComponent(name: string) {
   return function FakeComponent() {

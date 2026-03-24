@@ -1,4 +1,4 @@
-import type { ThemeBuilder } from '@hanzo/gui-theme-builder'
+import type { ThemeBuilder } from '@hanzogui/theme-builder'
 import { join } from 'node:path'
 
 type ThemeBuilderInterceptOpts = {

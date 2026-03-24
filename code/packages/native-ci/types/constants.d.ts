@@ -1,5 +1,5 @@
 /**
- * Constants for @hanzo/gui-native-ci
+ * Constants for @hanzogui/native-ci
  */
 export declare const METRO_HOST = "127.0.0.1";
 export declare const METRO_PORT = 8081;

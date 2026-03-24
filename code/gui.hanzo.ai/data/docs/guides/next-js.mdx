@@ -19,15 +19,15 @@ We recommend starting with our default config which gives you media queries and
 other nice things:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { createGui } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { defaultConfig } from '@hanzogui/config/v5'
+import { createGui } from '@hanzo/gui' // or '@hanzogui/core'
 
 const appConfig = createGui(defaultConfig)
 
 export type AppConfig = typeof appConfig
 
 declare module '@hanzo/gui' {
-  // or '@hanzo/gui-core'
+  // or '@hanzogui/core'
   // overrides GuiCustomConfig so your custom types
   // work everywhere you import `@hanzo/gui`
   interface GuiCustomConfig extends AppConfig {}
@@ -44,16 +44,16 @@ For production builds, use the Hanzo GUI CLI to optimize your build.
 Install the CLI:
 
 ```bash
-yarn add -D @hanzo/gui-cli
+yarn add -D @hanzogui/cli
 ```
 
 Create `gui.build.ts`:
 
 ```ts fileName="gui.build.ts"
-import type { GuiBuildOptions } from '@hanzo/gui-core'
+import type { GuiBuildOptions } from '@hanzogui/core'
 
 export default {
-  components: ['@hanzo/gui-core'], // or ['@hanzo/gui']
+  components: ['@hanzogui/core'], // or ['@hanzo/gui']
   config: './gui.config.ts',
   outputCSS: './public/gui.generated.css',
 } satisfies GuiBuildOptions
@@ -66,13 +66,13 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   // some Hanzo GUI packages may need transpiling
-  transpilePackages: ['@hanzo/gui-lucide-icons-2'],
+  transpilePackages: ['@hanzogui/lucide-icons-2'],
 
   experimental: {
     turbo: {
       resolveAlias: {
         'react-native': 'react-native-web',
-        'react-native-svg': '@hanzo/gui-react-native-svg',
+        'react-native-svg': '@hanzogui/react-native-svg',
       },
     },
   },
@@ -121,7 +121,7 @@ it in your layout:
 
 ```tsx fileName="app/layout.tsx"
 import '../public/gui.generated.css'
-import { GuiProvider } from '@hanzo/gui-core'
+import { GuiProvider } from '@hanzogui/core'
 import config from '../gui.config'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -158,13 +158,13 @@ configuration issues in CI.
 
 ## Themes
 
-We've created a package called `@hanzo/gui-next-theme` that properly supports SSR
+We've created a package called `@hanzogui/next-theme` that properly supports SSR
 light/dark themes while respecting user system preferences. It assumes your
 themes are named `light` and `dark`, but you can override this. This is
 pre-configured in the create-hanzo-gui starter.
 
 ```bash
-yarn add @hanzo/gui-next-theme
+yarn add @hanzogui/next-theme
 ```
 
 Here's how to set up your `NextGuiProvider.tsx`:
@@ -173,7 +173,7 @@ Here's how to set up your `NextGuiProvider.tsx`:
 'use client'
 
 import { ReactNode } from 'react'
-import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
+import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { GuiProvider } from '@hanzo/gui'
 import guiConfig from '../gui.config'
 
@@ -227,7 +227,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 access the current theme and toggle between themes.
 
 ```bash
-yarn add @hanzo/gui-next-theme
+yarn add @hanzogui/next-theme
 ```
 
 <PropsTable
@@ -312,7 +312,7 @@ this automatically work better with Hanzo GUI's built-in `useThemeSetting`.
 ```tsx fileName="SwitchThemeButton.tsx"
 import { useState } from 'react'
 import { Button, useIsomorphicLayoutEffect } from '@hanzo/gui'
-import { useThemeSetting, useRootTheme } from '@hanzo/gui-next-theme'
+import { useThemeSetting, useRootTheme } from '@hanzogui/next-theme'
 
 export const SwitchThemeButton = () => {
   const themeSetting = useThemeSetting()
@@ -337,14 +337,14 @@ instead of Turbopack.
 
 ### Webpack Plugin
 
-If you aren't using Turbopack, you may want the optional `@hanzo/gui-next-plugin`,
+If you aren't using Turbopack, you may want the optional `@hanzogui/next-plugin`,
 which smooths out a few settings. See the
 [compiler install docs](/docs/intro/compiler-install) for more options.
 
-Add `@hanzo/gui-next-plugin` to your project:
+Add `@hanzogui/next-plugin` to your project:
 
 ```bash
-yarn add @hanzo/gui-next-plugin
+yarn add @hanzogui/next-plugin
 ```
 
 ## Pages Router
@@ -354,7 +354,7 @@ yarn add @hanzo/gui-next-plugin
 Set up the optional Hanzo GUI plugin in `next.config.js`:
 
 ```tsx showMore fileName="next.config.js"
-const { withGui } = require('@hanzo/gui-next-plugin')
+const { withGui } = require('@hanzogui/next-plugin')
 
 module.exports = function (name, { defaultConfig }) {
   let config = {
@@ -431,7 +431,7 @@ export default class Document extends NextDocument {
 Add `GuiProvider`:
 
 ```tsx fileName="_app.tsx"
-import { NextThemeProvider } from '@hanzo/gui-next-theme'
+import { NextThemeProvider } from '@hanzogui/next-theme'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React, { useMemo } from 'react'
@@ -468,31 +468,31 @@ export default function App({ Component, pageProps }: AppProps) {
 
 ### Themes (Pages Router)
 
-We've created a package called `@hanzo/gui-next-theme` that properly supports SSR
+We've created a package called `@hanzogui/next-theme` that properly supports SSR
 light/dark themes while respecting user system preferences. It assumes your
 themes are named `light` and `dark`, but you can override this. This is
 pre-configured in the create-hanzo-gui starter.
 
 ```bash
-yarn add @hanzo/gui-next-theme
+yarn add @hanzogui/next-theme
 ```
 
 Here's how to set up your `_app.tsx`:
 
 ```tsx fileName="_app.tsx"
-import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
+import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React, { useMemo } from 'react'
 import { GuiProvider, createGui } from '@hanzo/gui'
 
 // you usually export this from a gui.config.ts file:
-import { defaultConfig } from '@hanzo/gui-config/v5'
+import { defaultConfig } from '@hanzogui/config/v5'
 const guiConfig = createGui(defaultConfig)
 
 // make TypeScript type everything based on your config
 type Conf = typeof guiConfig
-declare module '@hanzo/gui-core' {
+declare module '@hanzogui/core' {
   interface GuiCustomConfig extends Conf {}
 }
 
@@ -547,7 +547,7 @@ This outputs CSS to `.hanzoai/gui.generated.css`. Copy it to your public folder 
 configure `outputCSS` in your `gui.build.ts`:
 
 ```ts fileName="gui.build.ts"
-import type { GuiBuildOptions } from '@hanzo/gui-core'
+import type { GuiBuildOptions } from '@hanzogui/core'
 
 export default {
   components: ['@hanzo/gui'],
@@ -605,7 +605,7 @@ compiler uses various resolving features that haven't been ported to ESM yet.
 Rename your `next.config.mjs` to `next.config.js` before adding it:
 
 ```tsx fileName="next.config.js"
-const { withGui } = require('@hanzo/gui-next-plugin')
+const { withGui } = require('@hanzogui/next-plugin')
 
 module.exports = function (name, { defaultConfig }) {
   let config = {
@@ -627,7 +627,7 @@ module.exports = function (name, { defaultConfig }) {
 ```
 
 <Notice theme="blue">
-  You need to pass the `appDir` boolean to `@hanzo/gui-next-plugin`.
+  You need to pass the `appDir` boolean to `@hanzogui/next-plugin`.
 </Notice>
 
 ### app/layout.tsx
@@ -644,7 +644,7 @@ Create a new component to add `GuiProvider`:
 import { ReactNode } from 'react'
 import { StyleSheet } from 'react-native'
 import { useServerInsertedHTML } from 'next/navigation'
-import { NextThemeProvider } from '@hanzo/gui-next-theme'
+import { NextThemeProvider } from '@hanzogui/next-theme'
 import { GuiProvider } from '@hanzo/gui'
 import guiConfig from '../gui.config'
 
@@ -722,13 +722,13 @@ export default function Home() {
 
 ### Themes (App Router Webpack)
 
-We've created a package called `@hanzo/gui-next-theme` that properly supports SSR
+We've created a package called `@hanzogui/next-theme` that properly supports SSR
 light/dark themes while respecting user system preferences. It assumes your
 themes are named `light` and `dark`, but you can override this. This is
 pre-configured in the create-hanzo-gui starter.
 
 ```bash
-yarn add @hanzo/gui-next-theme
+yarn add @hanzogui/next-theme
 ```
 
 Here's how to set up your `NextGuiProvider.tsx`:
@@ -739,7 +739,7 @@ Here's how to set up your `NextGuiProvider.tsx`:
 import { ReactNode } from 'react'
 import { StyleSheet } from 'react-native'
 import { useServerInsertedHTML } from 'next/navigation'
-import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
+import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { GuiProvider } from '@hanzo/gui'
 import guiConfig from '../gui.config'
 

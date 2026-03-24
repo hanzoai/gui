@@ -5,7 +5,7 @@ import type { GuiPlatform } from '../types'
 export function requireGuiCore(
   platform: GuiPlatform,
   ogRequire: Function = require
-): typeof import('@hanzo/gui-core') {
+): typeof import('@hanzogui/core') {
   if (!platform) {
     throw new Error(`No platform given to requireGuiCore`)
   }
@@ -17,7 +17,7 @@ export function requireGuiCore(
   process.env.HANZO_GUI_KEEP_THEMES ||= '1'
 
   const exported = ogRequire(
-    platform === 'native' ? '@hanzo/gui-core/native' : '@hanzo/gui-core'
+    platform === 'native' ? '@hanzogui/core/native' : '@hanzogui/core'
   )
 
   // restore back

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-metro-plugin",
+  "name": "@hanzogui/metro-plugin",
   "version": "2.0.0",
   "license": "MIT",
   "source": "src/index.ts",
@@ -21,9 +21,9 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-static": "workspace:*"
+    "@hanzogui/static": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

@@ -1,5 +1,5 @@
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
-import { Check, ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2'
+import { LinearGradient } from '@hanzogui/linear-gradient'
+import { Check, ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2'
 import { type Href, router, useParams, usePathname } from 'one'
 import React from 'react'
 import { Adapt, Select, Sheet, YStack } from '@hanzo/gui'

@@ -11,7 +11,7 @@ import {
   createMeasure,
   createMeasureInWindow,
   createMeasureLayout,
-} from '@hanzo/gui-use-element-layout'
+} from '@hanzogui/use-element-layout'
 import type { GenericStyleProp } from '../../types'
 import { useStable } from '../useStable/index'
 

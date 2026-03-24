@@ -1,7 +1,7 @@
-import '@hanzo/gui-core/reset.css'
+import '@hanzogui/core/reset.css'
 
-import { Text, GuiProvider, View } from '@hanzo/gui-core'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
+import { Text, GuiProvider, View } from '@hanzogui/core'
+import { LinearGradient } from '@hanzogui/linear-gradient'
 
 import config from './gui.config'
 

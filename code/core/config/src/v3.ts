@@ -1,6 +1,6 @@
-import { tokens, themes as themesIn } from '@hanzo/gui-themes/v3-themes'
+import { tokens, themes as themesIn } from '@hanzogui/themes/v3-themes'
 import { animations } from './v3-animations'
-import type { CreateGuiProps } from '@hanzo/gui-web'
+import type { CreateGuiProps } from '@hanzogui/web'
 
 import { fonts } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'
@@ -8,7 +8,7 @@ import { media, mediaQueryDefaultActive } from './media'
 // fix vite - react native uses global which it doesn't provide
 globalThis['global'] ||= globalThis
 
-// v3 shorthands (inlined from deprecated @hanzo/gui-shorthands/v2)
+// v3 shorthands (inlined from deprecated @hanzogui/shorthands/v2)
 export const shorthands = {
   ussel: 'userSelect',
   cur: 'cursor',
@@ -86,7 +86,7 @@ export const shorthands = {
 } as const
 
 export { animations } from './v3-animations'
-export { tokens, themes } from '@hanzo/gui-themes/v3-themes'
+export { tokens, themes } from '@hanzogui/themes/v3-themes'
 export { fonts } from './fonts'
 export { media, mediaQueryDefaultActive } from './media'
 

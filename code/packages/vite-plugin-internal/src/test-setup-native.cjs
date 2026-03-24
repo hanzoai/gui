@@ -13,7 +13,7 @@ Module.prototype.require = function (id) {
   }
   // Redirect all other react-native requires to fake-react-native
   if (id === 'react-native' || id.startsWith('react-native/')) {
-    return originalRequire.call(this, '@hanzo/gui-fake-react-native')
+    return originalRequire.call(this, '@hanzogui/fake-react-native')
   }
   return originalRequire.apply(this, arguments)
 }

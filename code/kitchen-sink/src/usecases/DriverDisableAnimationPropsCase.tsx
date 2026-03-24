@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, styled } from '@hanzo/gui-web'
+import { View, styled } from '@hanzogui/web'
 
 const AnimatedBox = styled(View, {
   width: 100,

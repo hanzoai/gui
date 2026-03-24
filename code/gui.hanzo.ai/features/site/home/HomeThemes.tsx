@@ -1,4 +1,4 @@
-import { onTintChange, setTintIndex, useTints } from '@hanzo/gui-logo'
+import { onTintChange, setTintIndex, useTints } from '@hanzogui/logo'
 import { useIsIntersecting } from '~/hooks/useOnIntersecting'
 import type { SetStateAction } from 'react'
 import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'

@@ -1,4 +1,4 @@
-import { DialogDemo, SelectDemo, SheetDemo } from '@hanzo/gui-demos'
+import { DialogDemo, SelectDemo, SheetDemo } from '@hanzogui/demos'
 
 global.shouldDebugMoti = true
 

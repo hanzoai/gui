@@ -1,4 +1,4 @@
-import { animationsMotion } from '@hanzo/gui-config/v5-motion'
+import { animationsMotion } from '@hanzogui/config/v5-motion'
 import { useMemo, useState } from 'react'
 import {
   AnimatePresence,

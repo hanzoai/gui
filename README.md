@@ -11,16 +11,16 @@
 <br />
 
 <div align="center">
-  <img alt="NPM downloads" src="https://img.shields.io/npm/dw/@hanzo/gui-core?logo=npm&label=NPM%20downloads&cacheSeconds=3600"/>
+  <img alt="NPM downloads" src="https://img.shields.io/npm/dw/@hanzogui/core?logo=npm&label=NPM%20downloads&cacheSeconds=3600"/>
   <img alt="Commits per month" src="https://img.shields.io/github/commit-activity/m/hanzoai/gui?label=Commits&logo=git" />
 </div>
 
 <br />
 <br />
 
-- `@hanzo/gui-web` - Universal style library for React.
+- `@hanzogui/web` - Universal style library for React.
 - `@hanzo/gui` - UI kit that adapts to every platform.
-- `@hanzo/gui-static` - Optimizing compiler that works with `gui-web` and `gui`.
+- `@hanzogui/static` - Optimizing compiler that works with `gui-web` and `gui`.
 
 <br />
 

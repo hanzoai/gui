@@ -80,9 +80,9 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
     }
   }
 
-  const rnwl = resolvePath('@hanzo/gui-react-native-web-lite')
-  const rnwlDir = resolvePackageDir('@hanzo/gui-react-native-web-lite')
-  const fakeRN = resolvePath('@hanzo/gui-fake-react-native')
+  const rnwl = resolvePath('@hanzogui/react-native-web-lite')
+  const rnwlDir = resolvePackageDir('@hanzogui/react-native-web-lite')
+  const fakeRN = resolvePath('@hanzogui/fake-react-native')
   const entryPath = resolve(cwd, entry)
 
   const defaultDefine = {

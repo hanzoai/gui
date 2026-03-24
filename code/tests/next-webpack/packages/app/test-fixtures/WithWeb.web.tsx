@@ -1,4 +1,4 @@
-import { View } from '@hanzo/gui-core'
+import { View } from '@hanzogui/core'
 
 export function Web() {
   return (

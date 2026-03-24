@@ -70,8 +70,8 @@ export function CurrentRouteProvider({ children }: { children: React.ReactNode; 
     // Generate bento-proxy.ts using alias that works in both dev and build
     writeFileSync(
       proxyPath,
-      `export * from '@hanzo/gui-bento/raw'
-export { useCurrentRouteParams, CurrentRouteProvider } from '@hanzo/gui-bento/provider'
+      `export * from '@hanzogui/bento/raw'
+export { useCurrentRouteParams, CurrentRouteProvider } from '@hanzogui/bento/provider'
 export * as Data from '../../components/bento-showcase/data'
 export * as Sections from '../../components/bento-showcase/sections'
 `

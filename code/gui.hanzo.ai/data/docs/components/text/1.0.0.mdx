@@ -28,7 +28,7 @@ demoName: Text
 Text is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-text
+npm install @hanzogui/text
 ```
 
 ## Usage
@@ -74,7 +74,7 @@ export default () => (
 
 Hanzo GUI lets you define font sizing, spacing, line height, letter spacing and other properties with `createFont`, of which you can have many different configurations. We've found a nice pattern is to "align" all your keys across these sub-objects.
 
-SizableText adds a `size` property thats defined using a [spread variant](/docs/core/styled#spread-variants) which looks for a matching key on each of these properties (using `@hanzo/gui-get-font-sized`):
+SizableText adds a `size` property thats defined using a [spread variant](/docs/core/styled#spread-variants) which looks for a matching key on each of these properties (using `@hanzogui/get-font-sized`):
 
 - color
 - fontStyle

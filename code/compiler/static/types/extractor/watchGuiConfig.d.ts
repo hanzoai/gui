@@ -1,4 +1,4 @@
-import type { GuiOptions } from '@hanzo/gui-types';
+import type { GuiOptions } from '@hanzogui/types';
 export declare function watchGuiConfig(guiOptions: GuiOptions): Promise<{
     dispose(): void;
 } | undefined>;

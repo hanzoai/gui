@@ -14,8 +14,8 @@ describe('styled() tests', () => {
   test('loads dynamic styled() in file and extracts CSS', async () => {
     const output = await extractForWeb(
       dedent`
-      import { MyStack } from '@hanzo/gui-test-design-system'
-      import { styled } from '@hanzo/gui-core'
+      import { MyStack } from '@hanzogui/test-design-system'
+      import { styled } from '@hanzogui/core'
 
       // not exported
       const InlineStyled = styled(MyStack, {
@@ -41,7 +41,7 @@ describe('styled() tests', () => {
 
   test('extracts to className at call-site', async () => {
     const output = await extractForWeb(`
-      import { MyStack } from '@hanzo/gui-test-design-system'
+      import { MyStack } from '@hanzogui/test-design-system'
 
       export function Test() {
         return <MyStack />
@@ -64,7 +64,7 @@ describe('styled() tests', () => {
       writeFileSync(
         componentFile,
         dedent`
-          import { styled, View } from '@hanzo/gui-core'
+          import { styled, View } from '@hanzogui/core'
 
           export const MyBox = styled(View, {
             backgroundColor: 'red',
@@ -82,7 +82,7 @@ describe('styled() tests', () => {
 
     test('extracts CSS for styled component imported from another file', async () => {
       const componentSource = dedent`
-        import { styled, View } from '@hanzo/gui-core'
+        import { styled, View } from '@hanzogui/core'
 
         export const MyBox = styled(View, {
           backgroundColor: 'red',

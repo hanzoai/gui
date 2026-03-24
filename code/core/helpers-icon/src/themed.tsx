@@ -4,8 +4,8 @@ import {
   Text,
   usePropsAndStyle,
   type ResolveVariableAs,
-} from '@hanzo/gui-core'
-import { SizableContext } from '@hanzo/gui-sizable-context'
+} from '@hanzogui/core'
+import { SizableContext } from '@hanzogui/sizable-context'
 
 import type { FC } from 'react'
 import type { IconProps } from './IconProps'

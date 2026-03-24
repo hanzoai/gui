@@ -1,4 +1,4 @@
-import { addTheme } from '@hanzo/gui-theme'
+import { addTheme } from '@hanzogui/theme'
 import React from 'react'
 
 import { Button, H3, Theme, View, YStack } from '@hanzo/gui'

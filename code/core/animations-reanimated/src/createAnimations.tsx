@@ -1,4 +1,4 @@
-import { normalizeTransition, getEffectiveAnimation } from '@hanzo/gui-animation-helpers'
+import { normalizeTransition, getEffectiveAnimation } from '@hanzogui/animation-helpers'
 import {
   getSplitStyles,
   hooks,
@@ -12,8 +12,8 @@ import {
   View,
   type AnimationDriver,
   type UniversalAnimatedNumber,
-} from '@hanzo/gui-core'
-import { ResetPresence, usePresence } from '@hanzo/gui-use-presence'
+} from '@hanzogui/core'
+import { ResetPresence, usePresence } from '@hanzogui/use-presence'
 import React, { forwardRef, useMemo, useRef } from 'react'
 import type { SharedValue } from 'react-native-reanimated'
 import Animated_, {

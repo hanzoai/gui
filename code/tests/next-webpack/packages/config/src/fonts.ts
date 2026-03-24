@@ -1,4 +1,4 @@
-import { createInterFont } from '@hanzo/gui-font-inter'
+import { createInterFont } from '@hanzogui/font-inter'
 
 export const headingFont = createInterFont({
   size: {

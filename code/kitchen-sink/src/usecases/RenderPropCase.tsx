@@ -1,5 +1,5 @@
-import { isWeb } from '@hanzo/gui-constants'
-import { Text, View, styled, GuiComponentState } from '@hanzo/gui-core'
+import { isWeb } from '@hanzogui/constants'
+import { Text, View, styled, GuiComponentState } from '@hanzogui/core'
 import { forwardRef } from 'react'
 
 // Test: render prop with string in styled()

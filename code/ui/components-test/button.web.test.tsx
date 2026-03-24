@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom'
 import 'vitest-axe/extend-expect'
 
-import { Button } from '@hanzo/gui-button'
-import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
-import { View, GuiProvider, createGui } from '@hanzo/gui-core'
+import { Button } from '@hanzogui/button'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
+import { View, GuiProvider, createGui } from '@hanzogui/core'
 import type { RenderResult } from '@testing-library/react'
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'

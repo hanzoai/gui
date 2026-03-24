@@ -1,5 +1,5 @@
 import React from 'react'
-import { HomeScreen, DemoScreen, Provider } from '@hanzo/gui-kitchen-sink-shared'
+import { HomeScreen, DemoScreen, Provider } from '@hanzogui/kitchen-sink-shared'
 
 export function App() {
   const [currentDemo, setCurrentDemo] = React.useState<string | null>(null)

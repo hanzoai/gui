@@ -1,5 +1,5 @@
 import React from 'react'
-import '@hanzo/gui-polyfill-dev'
+import '@hanzogui/polyfill-dev'
 
 import {
   Button,
@@ -17,7 +17,7 @@ import {
 
 import config from '../gui.config'
 
-// import '@hanzo/gui-core/reset.css'
+// import '@hanzogui/core/reset.css'
 
 // webpack fix..
 if (typeof require !== 'undefined') {

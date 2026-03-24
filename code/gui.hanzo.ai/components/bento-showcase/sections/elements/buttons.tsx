@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Buttons from '@hanzo/gui-bento/component/elements/buttons'
+import * as Buttons from '@hanzogui/bento/component/elements/buttons'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

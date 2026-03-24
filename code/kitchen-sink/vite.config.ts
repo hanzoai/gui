@@ -1,4 +1,4 @@
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 // @ts-ignore vite types require moduleResolution bundler
 import { defineConfig } from 'vite'
 
@@ -6,7 +6,7 @@ export default defineConfig({
   clearScreen: true,
   plugins: [
     // guiPlugin({
-    //   components: ['@hanzo/gui-sandbox-ui', '@hanzo/gui'],
+    //   components: ['@hanzogui/sandbox-ui', '@hanzo/gui'],
     //   config: 'src/gui.config.ts',
     //   optimize: process.env.EXTRACT === '1',
     // }),

@@ -1,7 +1,7 @@
 import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
-import type { GuiInternalConfig } from '@hanzo/gui-core'
-import * as core from '@hanzo/gui-core'
+import type { GuiInternalConfig } from '@hanzogui/core'
+import * as core from '@hanzogui/core'
 import type { ViewStyle } from 'react-native'
 
 import { requireGuiCore } from '../helpers/requireGuiCore'

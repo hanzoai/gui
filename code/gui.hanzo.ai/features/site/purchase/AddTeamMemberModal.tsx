@@ -1,8 +1,8 @@
 import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import type { Appearance, StripeError } from '@stripe/stripe-js'
-import { X } from '@hanzo/gui-lucide-icons-2'
-import { createStore, createUseStore } from '@hanzo/gui-use-store'
+import { X } from '@hanzogui/lucide-icons-2'
+import { createStore, createUseStore } from '@hanzogui/use-store'
 import { useState } from 'react'
 import { z } from 'zod'
 import {

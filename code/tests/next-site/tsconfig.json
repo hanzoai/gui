@@ -7,10 +7,10 @@
       "@hanzo/gui": [
         "../ui/gui"
       ],
-      "@hanzo/gui-studio": [
+      "@hanzogui/studio": [
         "../studio"
       ],
-      "@hanzo/gui-*": [
+      "@hanzogui/*": [
         "../../packages/*"
       ],
       "@components/*": [

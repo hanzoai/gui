@@ -5,8 +5,8 @@ import {
   FileCode2,
   Paintbrush,
   TerminalSquare,
-} from '@hanzo/gui-lucide-icons-2'
-import { useStore } from '@hanzo/gui-use-store'
+} from '@hanzogui/lucide-icons-2'
+import { useStore } from '@hanzogui/use-store'
 import { forwardRef, useEffect, useId, useRef, useState } from 'react'
 import {
   AnimatePresence,
@@ -18,7 +18,7 @@ import {
   YStack,
   useEvent,
 } from '@hanzo/gui'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
+import { LinearGradient } from '@hanzogui/linear-gradient'
 import { ErrorBoundary } from '~/components/ErrorBoundary'
 import { Pre } from '~/components/Pre'
 import { RovingTabs } from '~/components/RovingTabs'

@@ -16,13 +16,13 @@ yarn add @hanzo/gui
 
 ## Setup
 
-The package `@hanzo/gui` is a superset of `@hanzo/gui-core`, so if you've already installed core you can change all the references to `@hanzo/gui`.
+The package `@hanzo/gui` is a superset of `@hanzogui/core`, so if you've already installed core you can change all the references to `@hanzo/gui`.
 
 You'll need to add a provider to the root of your app (unlike core, where that is optional), as it will set up the root portal for components like dialogs and popovers.
 
 ```tsx
 import { createGui, GuiProvider, View } from '@hanzo/gui'
-import { defaultConfig } from '@hanzo/gui-config/v5' // for quick config install this
+import { defaultConfig } from '@hanzogui/config/v5' // for quick config install this
 
 const config = createGui(defaultConfig)
 

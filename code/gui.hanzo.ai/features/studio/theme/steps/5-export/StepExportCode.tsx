@@ -1,6 +1,6 @@
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
-import { Copy, Download } from '@hanzo/gui-lucide-icons-2'
-import { useStore } from '@hanzo/gui-use-store'
+import { LinearGradient } from '@hanzogui/linear-gradient'
+import { Copy, Download } from '@hanzogui/lucide-icons-2'
+import { useStore } from '@hanzogui/use-store'
 import { useEffect } from 'react'
 import {
   Button,
@@ -116,7 +116,7 @@ export class StepExportStore {
                   {
                     filename: 'gui.config.ts',
                     content: `import { themes } from './themes'
-import { defaultConfig } from '@hanzo/gui-config/v5'
+import { defaultConfig } from '@hanzogui/config/v5'
 
 export const config = createGui({
   ...defaultConfig,

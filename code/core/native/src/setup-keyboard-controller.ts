@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@hanzo/gui-native/setup-keyboard-controller'
+ * import '@hanzogui/native/setup-keyboard-controller'
  * ```
  *
  * This automatically detects and configures react-native-keyboard-controller

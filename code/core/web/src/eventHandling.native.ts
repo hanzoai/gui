@@ -2,8 +2,8 @@
  * Native event handling - uses RNGH when available, falls back to usePressability
  */
 
-import { composeEventHandlers } from '@hanzo/gui-helpers'
-import { getGestureHandler } from '@hanzo/gui-native'
+import { composeEventHandlers } from '@hanzogui/helpers'
+import { getGestureHandler } from '@hanzogui/native'
 import React, { useRef } from 'react'
 import { useMainThreadPressEvents } from './helpers/mainThreadPressEvents'
 import type { StaticConfig, GuiComponentStateRef } from './types'

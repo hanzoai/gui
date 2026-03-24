@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { mkdtempSync, readFileSync, rmSync, writeFileSync, existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { clearFormatCache, detectModuleFormat } from '@hanzo/gui-static'
+import { clearFormatCache, detectModuleFormat } from '@hanzogui/static'
 import esbuild from 'esbuild'
 
 let tempDir: string
@@ -17,7 +17,7 @@ afterEach(() => {
 })
 
 const componentSource = `
-import { styled, View } from '@hanzo/gui-core'
+import { styled, View } from '@hanzogui/core'
 export const MyButton = styled(View, {
   name: 'MyButton',
   backgroundColor: 'red',
@@ -82,7 +82,7 @@ describe('esbuild format based on detected module type', () => {
     writeFileSync(
       srcFile,
       `
-      import { styled, View } from '@hanzo/gui-core'
+      import { styled, View } from '@hanzogui/core'
       export const Box = styled(View, { name: 'Box' })
     `
     )
@@ -112,7 +112,7 @@ describe('esbuild format based on detected module type', () => {
     writeFileSync(
       srcFile,
       `
-      const { styled, View } = require('@hanzo/gui-core')
+      const { styled, View } = require('@hanzogui/core')
       exports.Box = styled(View, { name: 'Box' })
     `
     )

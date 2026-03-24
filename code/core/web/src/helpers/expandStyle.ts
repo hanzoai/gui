@@ -3,7 +3,7 @@
  * Copyright (c) Nicolas Gallagher licensed under the MIT license.
  */
 
-import { isAndroid, isWeb } from '@hanzo/gui-constants'
+import { isAndroid, isWeb } from '@hanzogui/constants'
 
 import { getSetting } from '../config'
 import type { PropMappedValue } from '../types'

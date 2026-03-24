@@ -1,6 +1,6 @@
-import { createCheckbox } from '@hanzo/gui-checkbox'
-import { View, styled } from '@hanzo/gui-core'
-import { Check } from '@hanzo/gui-lucide-icons-2'
+import { createCheckbox } from '@hanzogui/checkbox'
+import { View, styled } from '@hanzogui/core'
+import { Check } from '@hanzogui/lucide-icons-2'
 import { Label, XStack, YStack } from '@hanzo/gui'
 
 const Frame = styled(View, {

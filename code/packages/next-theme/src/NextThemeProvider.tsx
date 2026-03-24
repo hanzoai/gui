@@ -1,5 +1,5 @@
-import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
-import { useEvent } from '@hanzo/gui-use-event'
+import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
+import { useEvent } from '@hanzogui/use-event'
 import Script from 'next/script'
 import * as React from 'react'
 import { memo, useEffect, useMemo, useState } from 'react'

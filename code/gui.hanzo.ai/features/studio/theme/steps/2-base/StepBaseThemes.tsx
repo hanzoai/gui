@@ -3,10 +3,10 @@ import {
   ArrowLeftRight,
   ArrowRight,
   ArrowUpDown,
-} from '@hanzo/gui-lucide-icons-2'
-import type { BuildPalette, BuildThemeAnchor } from '@hanzo/gui-theme-builder'
-import { getThemeSuitePalettes, PALETTE_BACKGROUND_OFFSET } from '@hanzo/gui-theme-builder'
-import { getStore, Store, useStore } from '@hanzo/gui-use-store'
+} from '@hanzogui/lucide-icons-2'
+import type { BuildPalette, BuildThemeAnchor } from '@hanzogui/theme-builder'
+import { getThemeSuitePalettes, PALETTE_BACKGROUND_OFFSET } from '@hanzogui/theme-builder'
+import { getStore, Store, useStore } from '@hanzogui/use-store'
 import { parseToHsla } from 'color2k'
 import { memo, useState } from 'react'
 import {

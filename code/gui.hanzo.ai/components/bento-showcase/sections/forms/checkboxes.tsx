@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Checkboxes from '@hanzo/gui-bento/component/forms/checkboxes'
+import * as Checkboxes from '@hanzogui/bento/component/forms/checkboxes'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

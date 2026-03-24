@@ -24,24 +24,24 @@ Hanzo GUI 2 takes advantage of new style features in React Native 0.81+ includin
 To install from scratch:
 
 ```bash
-yarn add @hanzo/gui-core
+yarn add @hanzogui/core
 ```
 
 Core is just the style library. If you plan to use our full UI kit, you can
-avoid installing `@hanzo/gui-core` and instead:
+avoid installing `@hanzogui/core` and instead:
 
 ```bash
 yarn add @hanzo/gui
 ```
 
 The `@hanzo/gui` package is a superset of core, so anywhere the docs reference
-`@hanzo/gui-core`, you can replace it with `@hanzo/gui`.
+`@hanzogui/core`, you can replace it with `@hanzo/gui`.
 
 Next, you'll want to set up your [configuration](/docs/core/configuration) and
 provide it with `GuiProvider`:
 
 ```tsx fileName="App.tsx"
-import { GuiProvider, View } from '@hanzo/gui-core'
+import { GuiProvider, View } from '@hanzogui/core'
 import config from './gui.config' // your configuration
 
 export default function App() {
@@ -53,17 +53,17 @@ export default function App() {
 }
 ```
 
-We have a recommended preset configuration called `@hanzo/gui-config`:
+We have a recommended preset configuration called `@hanzogui/config`:
 
 ```bash
-yarn add @hanzo/gui-config
+yarn add @hanzogui/config
 ```
 
 You can use it like so:
 
 ```tsx fileName="App.tsx"
-import { GuiProvider, createGui } from '@hanzo/gui-core'
-import { defaultConfig } from '@hanzo/gui-config/v5'
+import { GuiProvider, createGui } from '@hanzogui/core'
+import { defaultConfig } from '@hanzogui/config/v5'
 
 // you usually export this from a gui.config.ts file
 const config = createGui(defaultConfig)
@@ -71,7 +71,7 @@ const config = createGui(defaultConfig)
 type Conf = typeof config
 
 // make imports typed
-declare module '@hanzo/gui-core' {
+declare module '@hanzogui/core' {
   interface GuiCustomConfig extends Conf {}
 }
 

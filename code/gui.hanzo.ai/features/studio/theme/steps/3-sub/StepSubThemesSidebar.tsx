@@ -1,4 +1,4 @@
-import { useStore } from '@hanzo/gui-use-store'
+import { useStore } from '@hanzogui/use-store'
 import type { ThemeName } from '@hanzo/gui'
 import {
   Separator,

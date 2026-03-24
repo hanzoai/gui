@@ -1,4 +1,4 @@
-import { isIos } from '@hanzo/gui-constants'
+import { isIos } from '@hanzogui/constants'
 import type { MutableRefObject } from 'react'
 import { getConfig, getSetting } from '../config'
 import { getVariable } from '../createVariable'

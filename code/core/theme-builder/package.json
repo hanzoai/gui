@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-theme-builder",
+  "name": "@hanzogui/theme-builder",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
@@ -37,12 +37,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@hanzo/gui-create-theme": "workspace:*",
-    "@hanzo/gui-web": "workspace:*",
+    "@hanzogui/create-theme": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "color2k": "^2.0.2"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "vitest": "4.0.4"
   }
 }

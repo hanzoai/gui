@@ -1,7 +1,7 @@
 [time console output screenshot](./screen.png)!
 
 ```tsx
-import { timer } from '@hanzo/gui-timer'
+import { timer } from '@hanzogui/timer'
 
 const t = timer()
 

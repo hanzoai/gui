@@ -1,6 +1,6 @@
 import { H2, Paragraph, styled, XStack, YStack } from '@hanzo/gui'
-import { ThemeTintAlt } from '@hanzo/gui-logo'
-import { ArrowRight } from '@hanzo/gui-lucide-icons-2'
+import { ThemeTintAlt } from '@hanzogui/logo'
+import { ArrowRight } from '@hanzogui/lucide-icons-2'
 
 import { Link } from '~/components/Link'
 import { GithubIcon } from '~/features/icons/GithubIcon'

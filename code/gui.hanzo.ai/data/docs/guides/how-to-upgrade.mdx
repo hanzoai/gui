@@ -17,7 +17,7 @@ Upgrade these first before proceeding.
 
 ## 1. Update Dependencies
 
-Bump all `@hanzo/gui-*` and `@hanzo/gui` packages to `^2.0.0`:
+Bump all `@hanzogui/*` and `@hanzo/gui` packages to `^2.0.0`:
 
 ```bash
 # if using npm/yarn/pnpm, update all gui packages
@@ -26,8 +26,8 @@ npx hanzo-gui check
 
 ### Removed packages
 
-- `@hanzo/gui-animations-moti` -- use `@hanzo/gui-animations-reanimated` (same API)
-- `@hanzo/gui-image-next` -- use `Image` from `@hanzo/gui` directly
+- `@hanzogui/animations-moti` -- use `@hanzogui/animations-reanimated` (same API)
+- `@hanzogui/image-next` -- use `Image` from `@hanzo/gui` directly
 
 ### Add resolutions
 
@@ -35,8 +35,8 @@ In monorepos, you may want to add resolutions to avoid duplicate copies of core 
 
 ```json
 "resolutions": {
-  "@hanzo/gui-core": "^2.0.0",
-  "@hanzo/gui-web": "^2.0.0",
+  "@hanzogui/core": "^2.0.0",
+  "@hanzogui/web": "^2.0.0",
   "@hanzo/gui": "^2.0.0"
 }
 ```
@@ -51,25 +51,25 @@ Config v5 is mostly a superset of v5, but some media query names changed and som
 
 ```tsx
 // before
-import { defaultConfig } from '@hanzo/gui-config/v4'
+import { defaultConfig } from '@hanzogui/config/v4'
 
 // after
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animations } from '@hanzo/gui-config/v5-css' // animations are now separate
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animations } from '@hanzogui/config/v5-css' // animations are now separate
 ```
 
 Animations are no longer bundled with the config. Choose your driver:
 
-- `@hanzo/gui-config/v5-css` -- CSS transitions (smallest bundle, web-only)
-- `@hanzo/gui-config/v5-rn` -- React Native Animated API
-- `@hanzo/gui-config/v5-reanimated` -- Reanimated (best native performance)
-- `@hanzo/gui-config/v5-motion` -- Motion (Web Animations API, experimental)
+- `@hanzogui/config/v5-css` -- CSS transitions (smallest bundle, web-only)
+- `@hanzogui/config/v5-rn` -- React Native Animated API
+- `@hanzogui/config/v5-reanimated` -- Reanimated (best native performance)
+- `@hanzogui/config/v5-motion` -- Motion (Web Animations API, experimental)
 
 ### Add animations to config
 
 ```tsx
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animations } from '@hanzo/gui-config/v5-css'
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animations } from '@hanzogui/config/v5-css'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
@@ -148,17 +148,17 @@ Breakpoint values now match Tailwind CSS: 640, 768, 1024, 1280, 1536.
 
 ### Colors and themes
 
-Colors have been updated to Radix Colors v3 with slightly different values. Legacy colors are available at `@hanzo/gui-colors/legacy`.
+Colors have been updated to Radix Colors v3 with slightly different values. Legacy colors are available at `@hanzogui/colors/legacy`.
 
 v5 adds new color themes: `orange`, `pink`, `purple`, `teal`, `gray`, `neutral`.
 
 ```tsx
 // before (v1) - manual theme-builder
-import { createThemes, defaultComponentThemes } from '@hanzo/gui-theme-builder'
+import { createThemes, defaultComponentThemes } from '@hanzogui/theme-builder'
 const themes = createThemes({ ... })
 
 // after (v2) - simplified
-import { createV5Theme, defaultChildrenThemes } from '@hanzo/gui-themes/v5'
+import { createV5Theme, defaultChildrenThemes } from '@hanzogui/themes/v5'
 const themes = createV5Theme({
   childrenThemes: {
     ...defaultChildrenThemes,
@@ -427,7 +427,7 @@ Image now uses web-standard `src` instead of React Native's `source`:
 
 ## 7. Removed APIs
 
-- `<Spacer />` removed from core -- import from `@hanzo/gui-spacer`
+- `<Spacer />` removed from core -- import from `@hanzogui/spacer`
 - `composeEventHandlers` -- compose manually: `(val) => { a(val); b?.(val) }`
 - `useTheme(props)` -- use `<Theme>` component instead
 - `ThemeableStack` -- use `View`
@@ -435,9 +435,9 @@ Image now uses web-standard `src` instead of React Native's `source`:
 - `selectable` prop -- use `select="text"`
 - `animatePresence` prop (inline) -- wrap with `<AnimatePresence>` component
 - `scrollbarWidth` prop -- use CSS
-- `isWindowDefined` -- use `isBrowser` from `@hanzo/gui-constants`
-- `useTheme` from `@hanzo/gui-next-theme` -- renamed to `useThemeSetting`
-- `@hanzo/gui-react-native-use-responder-events` -- use pointer events (`onPointerDown`, etc.)
+- `isWindowDefined` -- use `isBrowser` from `@hanzogui/constants`
+- `useTheme` from `@hanzogui/next-theme` -- renamed to `useThemeSetting`
+- `@hanzogui/react-native-use-responder-events` -- use pointer events (`onPointerDown`, etc.)
 
 ## 8. Native Setup
 
@@ -445,19 +445,19 @@ v2 requires explicit setup imports for native features. Add these at the top of 
 
 ```tsx
 // portals (Sheet, Dialog, Popover, Select, Toast)
-import '@hanzo/gui-native/setup-teleport'
+import '@hanzogui/native/setup-teleport'
 
 // LinearGradient
-import '@hanzo/gui-native/setup-expo-linear-gradient'
+import '@hanzogui/native/setup-expo-linear-gradient'
 
 // Toast (burnt)
-import '@hanzo/gui-native/setup-burnt'
+import '@hanzogui/native/setup-burnt'
 
 // Menu (zeego)
-import '@hanzo/gui-native/setup-zeego'
+import '@hanzogui/native/setup-zeego'
 
 // for smoother Sheet on native:
-import '@hanzo/gui-native/setup-gesture-handler'
+import '@hanzogui/native/setup-gesture-handler'
 ```
 
 ### Expo Router entry point
@@ -466,7 +466,7 @@ With Expo Router, these setup imports must run **before** `expo-router/entry`. C
 
 ```js
 // index.js (at project root)
-import '@hanzo/gui-native/setup-zeego'
+import '@hanzogui/native/setup-zeego'
 // add other setup imports here as needed
 
 import 'expo-router/entry'
@@ -489,7 +489,7 @@ Not much has changed, but there's some nice improvements you can make:
 ### Vite
 
 ```tsx
-import { guiAliases, guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiAliases, guiPlugin } from '@hanzogui/vite-plugin'
 
 export default {
   plugins: [guiPlugin()],
@@ -538,7 +538,7 @@ module.exports = {
   turbopack: {
     resolveAlias: {
       'react-native': 'react-native-web',
-      'react-native-svg': '@hanzo/gui-react-native-svg',
+      'react-native-svg': '@hanzogui/react-native-svg',
       'react-native-safe-area-context': './shims/react-native-safe-area-context.js',
     },
     resolveExtensions: [
@@ -607,17 +607,17 @@ While not required for migration, these v2 features can improve your app:
 - **Multiple animation drivers** via `animatedBy` prop
 - **`transition` delay and enter/exit control** -- `transition={{ enter: 'lazy', exit: 'quick' }}`
 - **Menu and ContextMenu** -- new components with native platform rendering
-- **Headless components** -- `@hanzo/gui-switch-headless`, `@hanzo/gui-checkbox-headless`, etc.
+- **Headless components** -- `@hanzogui/switch-headless`, `@hanzogui/checkbox-headless`, etc.
 - **CLI commands** -- `gui build`, `gui generate`, `gui generate-prompt`, `gui check`
 - **~32% smaller core bundle** (37KB to 25KB gzipped)
 
 ## Migration Checklist
 
 - [ ] Upgrade React 19+, React Native 0.81+, TypeScript 5+
-- [ ] Bump all `@hanzo/gui-*` packages to `^2.0.0`
-- [ ] Add package resolutions for `@hanzo/gui-core`, `@hanzo/gui-web`, `@hanzo/gui`
-- [ ] Update config from `@hanzo/gui-config/v4` to `@hanzo/gui-config/v5`
-- [ ] Import animations separately (`@hanzo/gui-config/v5-css` or other driver)
+- [ ] Bump all `@hanzogui/*` packages to `^2.0.0`
+- [ ] Add package resolutions for `@hanzogui/core`, `@hanzogui/web`, `@hanzo/gui`
+- [ ] Update config from `@hanzogui/config/v4` to `@hanzogui/config/v5`
+- [ ] Import animations separately (`@hanzogui/config/v5-css` or other driver)
 - [ ] Add `declare module '@hanzo/gui'` type augmentation
 - [ ] Move root-level settings into `settings` object
 - [ ] Rename `animation` prop to `transition` everywhere
@@ -635,8 +635,8 @@ While not required for migration, these v2 features can improve your app:
 - [ ] Update Tabs (`activationMode` default changed, `Trigger` to `Tab`)
 - [ ] Replace `Popover.Sheet.*` with standalone `Sheet.*`
 - [ ] Update Toast from `ToastProvider` wrapper to `Toaster` sibling
-- [ ] Import `Spacer` from `@hanzo/gui-spacer` if used
-- [ ] Replace `@hanzo/gui-animations-moti` with `@hanzo/gui-animations-reanimated`
+- [ ] Import `Spacer` from `@hanzogui/spacer` if used
+- [ ] Replace `@hanzogui/animations-moti` with `@hanzogui/animations-reanimated`
 - [ ] Add native setup imports (portals, LinearGradient, Toast, Menu)
 - [ ] Review flex/position defaults (add `position="relative"` where needed)
 - [ ] Update build config (Metro package exports, Vite aliases, CSS generation)

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-use-event",
+  "name": "@hanzogui/use-event",
   "version": "2.0.0",
   "files": [
     "src",
@@ -34,7 +34,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

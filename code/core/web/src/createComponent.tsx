@@ -1,8 +1,8 @@
-import { composeRefs } from '@hanzo/gui-compose-refs'
-import { isClient, isServer, isWeb, useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
-import { NativeMenuContext } from '@hanzo/gui-native'
-import { composeEventHandlers } from '@hanzo/gui-helpers'
-import { isEqualShallow } from '@hanzo/gui-is-equal-shallow'
+import { composeRefs } from '@hanzogui/compose-refs'
+import { isClient, isServer, isWeb, useIsomorphicLayoutEffect } from '@hanzogui/constants'
+import { NativeMenuContext } from '@hanzogui/native'
+import { composeEventHandlers } from '@hanzogui/helpers'
+import { isEqualShallow } from '@hanzogui/is-equal-shallow'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { devConfig, getConfig } from './config'
 import { isDevTools } from './constants/isDevTools'
@@ -296,7 +296,7 @@ export function createComponent<
       debugProp === 'profile' &&
       !time
     ) {
-      const timer = require('@hanzo/gui-timer').timer()
+      const timer = require('@hanzogui/timer').timer()
       time = timer.start()
       globalThis['time'] = time
     }

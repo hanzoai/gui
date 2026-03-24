@@ -1,5 +1,5 @@
-import { ThemeTint } from '@hanzo/gui-logo'
-import { Timer, Waves } from '@hanzo/gui-lucide-icons-2'
+import { ThemeTint } from '@hanzogui/logo'
+import { Timer, Waves } from '@hanzogui/lucide-icons-2'
 import type { ReactNode } from 'react'
 import {
   Configuration,

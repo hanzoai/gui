@@ -7,7 +7,7 @@
  * controls whether the pressability events are actually applied.
  */
 
-import { composeEventHandlers } from '@hanzo/gui-helpers'
+import { composeEventHandlers } from '@hanzogui/helpers'
 
 const dontComposePressabilityKeys: Record<string, boolean> = {
   onBlur: true,

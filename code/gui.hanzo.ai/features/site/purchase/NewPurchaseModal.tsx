@@ -1,5 +1,5 @@
 import type { StripeError } from '@stripe/stripe-js'
-import { X } from '@hanzo/gui-lucide-icons-2'
+import { X } from '@hanzogui/lucide-icons-2'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import type { TabsProps } from '@hanzo/gui'
 import {

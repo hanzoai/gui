@@ -9,7 +9,7 @@
  */
 
 import { View } from '../../../View'
-import { StyleSheet, invariant } from '@hanzo/gui-react-native-web-internals'
+import { StyleSheet, invariant } from '@hanzogui/react-native-web-internals'
 import { VirtualizedListCellContextProvider } from './VirtualizedListContext'
 import * as React from 'react'
 

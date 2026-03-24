@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-cli",
+  "name": "@hanzogui/cli",
   "version": "2.0.0",
   "bin": {
     "hgui": "./dist/index.cjs",
@@ -26,11 +26,11 @@
     "test:web": "bun run test"
   },
   "dependencies": {
-    "@hanzo/gui-create-theme": "workspace:*",
-    "@hanzo/gui-generate-themes": "workspace:*",
-    "@hanzo/gui-static": "workspace:*",
-    "@hanzo/gui-types": "workspace:*",
-    "@hanzo/gui-vite-plugin": "workspace:*",
+    "@hanzogui/create-theme": "workspace:*",
+    "@hanzogui/generate-themes": "workspace:*",
+    "@hanzogui/static": "workspace:*",
+    "@hanzogui/types": "workspace:*",
+    "@hanzogui/vite-plugin": "workspace:*",
     "arg": "^5.0.2",
     "chalk": "^4.1.2",
     "change-case": "^4.1.2",
@@ -49,7 +49,7 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "@types/chokidar": "^2.1.3",
     "@types/marked": "^5.0.0",
     "vitest": "4.0.4"

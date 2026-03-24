@@ -56,7 +56,7 @@ In comparison to other solutions, Hanzo GUI is especially strong at:
   drivers, plus many new deeper native integration tests with both Detox and
   Maestro.
 - Released
-  [`@hanzo/gui-build`](https://github.com/hanzoai/gui/blob/v2/code/packages/build/README.md),
+  [`@hanzogui/build`](https://github.com/hanzoai/gui/blob/v2/code/packages/build/README.md),
   which makes it trivial to publish npm packages that support CommonJS and
   ESModules, native and web without requiring any configuration at all when
   importing - whether it's Metro, Node, Vite, or otherwise.
@@ -111,9 +111,9 @@ across both ecosystems. The smaller breakpoints (`$xxxs`, `$xxs`, `$xs`) are
 designed for container queries where you need finer control below 640px.
 
 **Easy customization** - The new `createV5Theme` helper lets you add or override
-color themes with minimal boilerplate, working directly with `@hanzo/gui-colors`.
+color themes with minimal boilerplate, working directly with `@hanzogui/colors`.
 
-**Subtle variant** - Import from `@hanzo/gui-config/v5-subtle` for a more muted,
+**Subtle variant** - Import from `@hanzogui/config/v5-subtle` for a more muted,
 desaturated color palette. Or use `adjustPalette` and `adjustPalettes` to create
 your own custom color transformations.
 
@@ -255,11 +255,11 @@ animations run entirely on the UI thread without triggering React re-renders,
 giving you much better performance for complex animations on both web and
 native.
 
-The Moti driver (`@hanzo/gui-animations-moti`) is now deprecated in favor of the
+The Moti driver (`@hanzogui/animations-moti`) is now deprecated in favor of the
 [Reanimated driver](/docs/core/animations-reanimated)
-(`@hanzo/gui-animations-reanimated`). This removes a dependency and fixes some
-compatibility issues. If you're using `@hanzo/gui-animations-moti`, switch to
-`@hanzo/gui-animations-reanimated` - the API is the same.
+(`@hanzogui/animations-reanimated`). This removes a dependency and fixes some
+compatibility issues. If you're using `@hanzogui/animations-moti`, switch to
+`@hanzogui/animations-reanimated` - the API is the same.
 
 #### Swap Animation Drivers Inline
 
@@ -429,10 +429,10 @@ variants:
 
 - **Styled** - Full Hanzo GUI components with default styles
 - **Unstyled** - Uses a `createX` factory allowing fully custom styling
-- **Headless** - Zero dependency on `@hanzo/gui-core`, just hooks
+- **Headless** - Zero dependency on `@hanzogui/core`, just hooks
 
-The headless packages (`@hanzo/gui-switch-headless`, `@hanzo/gui-checkbox-headless`,
-`@hanzo/gui-radio-headless`, `@hanzo/gui-tabs-headless`) provide hooks like
+The headless packages (`@hanzogui/switch-headless`, `@hanzogui/checkbox-headless`,
+`@hanzogui/radio-headless`, `@hanzogui/tabs-headless`) provide hooks like
 `useSwitch`, `useCheckbox`, `useRadioGroup`, and `useTabs` that handle all the
 state management, accessibility, and keyboard navigation - letting you bring
 your own styling solution.
@@ -441,10 +441,10 @@ This makes Hanzo GUI components usable even if you're not using Hanzo GUI for
 styling. For now it's a subset, but we plan to continue expanding headless
 exports throughout v2.
 
-#### @hanzo/gui-react-native-web-lite
+#### @hanzogui/react-native-web-lite
 
 React Native Web has slowed down development and has various issues in modern JS
-projects. We built `@hanzo/gui-react-native-web-lite` by translating
+projects. We built `@hanzogui/react-native-web-lite` by translating
 `react-native-web` to TypeScript, moving to a modern ESModule setup, and
 enabling tree shaking.
 
@@ -493,8 +493,8 @@ need tooltips or popovers.
 
 ### New Colors
 
-`@hanzo/gui-colors` has been updated to Radix v3, old colors are available at
-`@hanzo/gui-colors/legacy`. See the [Colors docs](/docs/intro/colors) for full
+`@hanzogui/colors` has been updated to Radix v3, old colors are available at
+`@hanzogui/colors/legacy`. See the [Colors docs](/docs/intro/colors) for full
 details.
 
 ### Compiler Improvements
@@ -517,7 +517,7 @@ would break. This also added lots of overhead.
 In v2 you can now add `react-native-teleport`, then import:
 
 ```tsx
-import '@hanzo/gui-native/setup-teleport'
+import '@hanzogui/native/setup-teleport'
 ```
 
 Now all components that portal work better and faster. See the
@@ -531,7 +531,7 @@ like component scoping.
 `react-native-gesture-handler` and add the setup import before any Hanzo GUI
 imports.
 
-See the [`@hanzo/gui-native` docs](/ui/native) or
+See the [`@hanzogui/native` docs](/ui/native) or
 [Sheet docs](/docs/components/sheet) for full details.
 
 ### Cross-Platform Pointer Events
@@ -567,7 +567,7 @@ Hanzo GUI config better.
 
 ### Smaller Bundle Size
 
-The `@hanzo/gui-core` bundle has been reduced by ~32% (from ~37KB to ~25KB
+The `@hanzogui/core` bundle has been reduced by ~32% (from ~37KB to ~25KB
 gzipped). This was achieved through several optimizations to color parsing,
 expensive gesture handling, and automatically trimming optional theme generation
 code.
@@ -576,7 +576,7 @@ code.
 
 - **Shadow colors** output opacities using `color-mix()` which may break
   snapshot tests or any code testing the expected parsed format.
-- **Removed `@hanzo/gui-react-native-use-responder-events`.** If you were using
+- **Removed `@hanzogui/react-native-use-responder-events`.** If you were using
   `onResponderGrant`, `onResponderMove`, `onResponderRelease`, or
   `onResponderTerminate` props on web, switch to standard pointer events
   (`onPointerDown`, `onPointerMove`, `onPointerUp`) or touch events. On native,
@@ -612,14 +612,14 @@ code.
   `showScrollIndicator`, `disablePassBorderRadius`, `forceUseItem`. Children now
   control their own sizing - apply size/responsive props directly to child
   components. Add `<Separator />` manually between items when needed.
-- Moved `<Spacer />` from core to `@hanzo/gui-spacer`.
+- Moved `<Spacer />` from core to `@hanzogui/spacer`.
 - Moved all settings on `createGui` to the `settings` object.
 - Native portals no longer auto-import React internals hack. If you want native
   portals for better context preservation, add
-  `import '@hanzo/gui-native/setup-teleport'` at app startup. See
+  `import '@hanzogui/native/setup-teleport'` at app startup. See
   [Portal docs](/docs/components/portal).
 - LinearGradient on native now requires setup import. Add
-  `import '@hanzo/gui-native/setup-expo-linear-gradient'` at app startup. See
+  `import '@hanzogui/native/setup-expo-linear-gradient'` at app startup. See
   [LinearGradient docs](/docs/components/linear-gradient).
 - Removed React Native accessibility props in favor of web-standard props:
   - `accessibilityLabel` → `aria-label`

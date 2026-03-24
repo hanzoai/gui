@@ -1,4 +1,4 @@
-// import { useTheme } from '@hanzo/gui-core'
+// import { useTheme } from '@hanzogui/core'
 // import { SafeAreaView, ScrollView } from 'react-native'
 
 // import Box from './components/Box'

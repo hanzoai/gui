@@ -1,4 +1,4 @@
-import { GetBaseStyles, GetVariantProps, styled } from '@hanzo/gui-web'
+import { GetBaseStyles, GetVariantProps, styled } from '@hanzogui/web'
 
 const SomeNonGuiTextComponent = (props: {}) => {
   return null

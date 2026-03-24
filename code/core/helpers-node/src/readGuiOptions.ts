@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 
-import type { GuiOptions } from '@hanzo/gui-types'
+import type { GuiOptions } from '@hanzogui/types'
 import { pathExists, readJSON } from 'fs-extra'
 
 import { getDefaultGuiOptions } from './getDefaultGuiOptions'

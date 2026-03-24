@@ -1,4 +1,4 @@
-import type { FillInFont, GenericFont } from '@hanzo/gui-core';
+import type { FillInFont, GenericFont } from '@hanzogui/core';
 declare const webSizes: {
     readonly 1: 12;
     readonly 2: 13;

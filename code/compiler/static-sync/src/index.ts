@@ -1,32 +1,32 @@
 /**
- * @hanzo/gui-static-sync
+ * @hanzogui/static-sync
  *
  * Synchronous API for Hanzo GUI static extraction using synckit.
- * Wraps @hanzo/gui-static's worker implementation to provide sync APIs
+ * Wraps @hanzogui/static's worker implementation to provide sync APIs
  * required by Babel plugins which cannot use async functions.
  *
  * This package uses synckit to convert async worker calls into synchronous ones.
  */
 
 import type { BabelFileResult } from '@babel/core'
-import type { GuiOptions } from '@hanzo/gui-types'
+import type { GuiOptions } from '@hanzogui/types'
 import { createSyncFn } from 'synckit'
 import { fileURLToPath } from 'node:url'
 
-export type { ExtractedResponse, GuiProjectInfo } from '@hanzo/gui-static'
-export type { GuiOptions } from '@hanzo/gui-types'
+export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
+export type { GuiOptions } from '@hanzogui/types'
 
 // Resolve worker path - works for both CJS and ESM
 const getWorkerPath = () => {
   // Use the CommonJS .js version which works for synckit
   if (typeof import.meta !== 'undefined' && import.meta.url) {
-    const workerPath = fileURLToPath(import.meta.resolve('@hanzo/gui-static/worker'))
+    const workerPath = fileURLToPath(import.meta.resolve('@hanzogui/static/worker'))
     // Replace .mjs with .js for CommonJS compatibility
     return workerPath.replace(/\.mjs$/, '.js')
   }
 
   // Fallback for CJS
-  return require.resolve('@hanzo/gui-static/worker').replace(/\.mjs$/, '.js')
+  return require.resolve('@hanzogui/static/worker').replace(/\.mjs$/, '.js')
 }
 
 // Create sync function that calls the worker's runTask function
@@ -36,7 +36,7 @@ const runTaskSync = createSyncFn(getWorkerPath(), {
 
 export const getPragmaOptions = (props: { source: string; path: string }) => {
   // This doesn't need worker, just use static directly
-  const { default: Static } = require('@hanzo/gui-static')
+  const { default: Static } = require('@hanzogui/static')
   return Static.getPragmaOptions(props)
 }
 
@@ -119,6 +119,6 @@ export function extractToNativeSync(
  */
 export function getBabelPlugin() {
   // We need to wrap the babel plugin to use sync extraction
-  const { default: Static } = require('@hanzo/gui-static')
+  const { default: Static } = require('@hanzogui/static')
   return Static.getBabelPlugin()
 }

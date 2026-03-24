@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as MicroInter from '@hanzo/gui-bento/component/animation/microinteractions'
+import * as MicroInter from '@hanzogui/bento/component/animation/microinteractions'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

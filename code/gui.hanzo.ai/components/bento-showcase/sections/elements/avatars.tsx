@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Avatars from '@hanzo/gui-bento/component/elements/avatars'
+import * as Avatars from '@hanzogui/bento/component/elements/avatars'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

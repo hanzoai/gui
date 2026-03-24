@@ -1,4 +1,4 @@
-import type { GenericFont } from "@hanzo/gui-core";
+import type { GenericFont } from "@hanzogui/core";
 export declare const createFiraMonoFont: <A extends GenericFont<keyof typeof size>>(font?: Partial<A>) => A;
 declare const size: {
 	readonly 1: 10;

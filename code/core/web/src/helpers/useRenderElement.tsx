@@ -1,6 +1,6 @@
 import type React from 'react'
 import { cloneElement, createElement, isValidElement } from 'react'
-import { composeRefs } from '@hanzo/gui-compose-refs'
+import { composeRefs } from '@hanzogui/compose-refs'
 import type { GuiComponentState } from '../types'
 import { mergeSlotStyleProps } from './mergeSlotStyleProps'
 

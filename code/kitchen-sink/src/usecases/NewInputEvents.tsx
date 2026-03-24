@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input } from '@hanzo/gui-input'
+import { Input } from '@hanzogui/input'
 import { Text, YStack } from '@hanzo/gui'
 
 export function NewInputEvents() {

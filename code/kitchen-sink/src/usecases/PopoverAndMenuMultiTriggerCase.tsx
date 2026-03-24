@@ -1,4 +1,4 @@
-import { Menu } from '@hanzo/gui-menu'
+import { Menu } from '@hanzogui/menu'
 import { memo, useRef } from 'react'
 import {
   Button,

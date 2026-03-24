@@ -1,10 +1,10 @@
-import Static from '@hanzo/gui-static'
+import Static from '@hanzogui/static'
 import browserslist from 'browserslist'
 import { lazyPostCSS } from 'next/dist/build/webpack/config/blocks/css/index.js'
 import { getGlobalCssLoader } from 'next/dist/build/webpack/config/blocks/css/loaders/index.js'
 import path from 'node:path'
-import type { PluginOptions as LoaderPluginOptions } from '@hanzo/gui-loader'
-import { GuiPlugin } from '@hanzo/gui-loader'
+import type { PluginOptions as LoaderPluginOptions } from '@hanzogui/loader'
+import { GuiPlugin } from '@hanzogui/loader'
 import webpack from 'webpack'
 
 const { loadGuiBuildConfigSync } = Static
@@ -30,7 +30,7 @@ export type WithGuiProps = LoaderPluginOptions & {
   }) => boolean | string | undefined
   disableThemesBundleOptimize?: boolean
 
-  /** By default we add a Next.js modularizeImports option to tree shake @hanzo/gui-lucide-icons-2, this disables it */
+  /** By default we add a Next.js modularizeImports option to tree shake @hanzogui/lucide-icons-2, this disables it */
   disableOptimizeLucideIcons?: boolean
 }
 
@@ -167,7 +167,7 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
             console.info(prefix, 'ignoring tsconfig paths')
           }
           if (webpackConfig.resolve.plugins[0]) {
-            delete webpackConfig.resolve.plugins[0].paths['@hanzo/gui-*']
+            delete webpackConfig.resolve.plugins[0].paths['@hanzogui/*']
             // delete webpackConfig.resolve.plugins[0].paths['@hanzo/gui']
           }
         }
@@ -176,7 +176,7 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
         if (!guiOptions.disableOptimizeLucideIcons) {
           nextConfig.experimental ||= {}
           nextConfig.experimental.optimizePackageImports ||= []
-          nextConfig.experimental.optimizePackageImports.push('@hanzo/gui-lucide-icons-2')
+          nextConfig.experimental.optimizePackageImports.push('@hanzogui/lucide-icons-2')
         }
 
         /**

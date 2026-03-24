@@ -2,13 +2,13 @@
 
 ## Overview
 
-Revamp @hanzo/gui-toast to v2, inspired by Sonner's excellent UX. Must be fully cross-platform using Hanzo GUI's animation system - NO CSS cheats.
+Revamp @hanzogui/toast to v2, inspired by Sonner's excellent UX. Must be fully cross-platform using Hanzo GUI's animation system - NO CSS cheats.
 
 ## Reference Implementations
 
 - ~/github/sonner - primary inspiration
 - ~/github/base-ui - additional patterns
-- @hanzo/gui-sheet - gesture/drag patterns, resistive pull
+- @hanzogui/sheet - gesture/drag patterns, resistive pull
 
 ---
 

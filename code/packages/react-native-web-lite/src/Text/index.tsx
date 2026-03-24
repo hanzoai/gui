@@ -18,7 +18,7 @@ import {
   useMergeRefs,
   usePlatformMethods,
   useResponderEvents,
-} from '@hanzo/gui-react-native-web-internals'
+} from '@hanzogui/react-native-web-internals'
 import * as React from 'react'
 
 import { useCreateElement } from '../createElement/index'

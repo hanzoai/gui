@@ -45,7 +45,7 @@ When `disableSSR` is true:
 For fine-grained control, wrap specific parts of your tree:
 
 ```tsx
-import { ClientOnly } from '@hanzo/gui-use-did-finish-ssr'
+import { ClientOnly } from '@hanzogui/use-did-finish-ssr'
 
 function MyComponent() {
   return (
@@ -100,7 +100,7 @@ function ResponsiveComponent() {
 Returns `true` when hydration is complete:
 
 ```tsx
-import { useDidFinishSSR } from '@hanzo/gui-use-did-finish-ssr'
+import { useDidFinishSSR } from '@hanzogui/use-did-finish-ssr'
 
 function MyComponent() {
   const isClient = useDidFinishSSR()
@@ -120,7 +120,7 @@ function MyComponent() {
 Checks if you're in a client-only context:
 
 ```tsx
-import { useIsClientOnly } from '@hanzo/gui-use-did-finish-ssr'
+import { useIsClientOnly } from '@hanzogui/use-did-finish-ssr'
 
 function MyComponent() {
   const isClientOnly = useIsClientOnly()
@@ -139,7 +139,7 @@ function MyComponent() {
 Returns `undefined` during SSR, your value after hydration:
 
 ```tsx
-import { useClientValue } from '@hanzo/gui-use-did-finish-ssr'
+import { useClientValue } from '@hanzogui/use-did-finish-ssr'
 
 function WindowInfo() {
   const width = useClientValue(() => window.innerWidth)
@@ -204,7 +204,7 @@ import {
   useDidFinishSSR, // Hook for hydration state
   useIsClientOnly, // Hook for client-only context
   useClientValue, // Hook for client-only values
-} from '@hanzo/gui-use-did-finish-ssr'
+} from '@hanzogui/use-did-finish-ssr'
 ```
 
 ## See Also

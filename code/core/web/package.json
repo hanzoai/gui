@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-web",
+  "name": "@hanzogui/web",
   "version": "2.0.0",
   "license": "MIT",
   "author": {
@@ -51,20 +51,20 @@
     "test:web": "vitest --typecheck --run"
   },
   "dependencies": {
-    "@hanzo/gui-compose-refs": "workspace:*",
-    "@hanzo/gui-constants": "workspace:*",
-    "@hanzo/gui-helpers": "workspace:*",
-    "@hanzo/gui-is-equal-shallow": "workspace:*",
-    "@hanzo/gui-native": "workspace:*",
-    "@hanzo/gui-normalize-css-color": "workspace:*",
-    "@hanzo/gui-timer": "workspace:*",
-    "@hanzo/gui-types": "workspace:*",
-    "@hanzo/gui-use-did-finish-ssr": "workspace:*",
-    "@hanzo/gui-use-event": "workspace:*",
-    "@hanzo/gui-use-force-update": "workspace:*"
+    "@hanzogui/compose-refs": "workspace:*",
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/is-equal-shallow": "workspace:*",
+    "@hanzogui/native": "workspace:*",
+    "@hanzogui/normalize-css-color": "workspace:*",
+    "@hanzogui/timer": "workspace:*",
+    "@hanzogui/types": "workspace:*",
+    "@hanzogui/use-did-finish-ssr": "workspace:*",
+    "@hanzogui/use-event": "workspace:*",
+    "@hanzogui/use-force-update": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",

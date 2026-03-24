@@ -1,10 +1,10 @@
-import { getVariableVariable, isWeb } from '@hanzo/gui-core'
+import { getVariableVariable, isWeb } from '@hanzogui/core'
 import type {
   FontLineHeightTokens,
   FontSizeTokens,
   SizeTokens,
   SpaceTokens,
-} from '@hanzo/gui-core'
+} from '@hanzogui/core'
 
 // unused code - not exported could be used for cross compat calc() functions
 

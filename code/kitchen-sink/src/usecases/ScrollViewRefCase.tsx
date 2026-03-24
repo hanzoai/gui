@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { ScrollView, type ScrollView as ScrollViewType } from '@hanzo/gui-scroll-view'
+import { ScrollView, type ScrollView as ScrollViewType } from '@hanzogui/scroll-view'
 import { Button, Text, YStack } from '@hanzo/gui'
 
 export function ScrollViewRefCase() {

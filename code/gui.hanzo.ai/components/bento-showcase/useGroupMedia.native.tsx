@@ -1,4 +1,4 @@
-import type { UseMediaState } from '@hanzo/gui-web'
+import type { UseMediaState } from '@hanzogui/web'
 import { useMedia } from '@hanzo/gui'
 
 export const useGroupMedia = (name: string): UseMediaState => {

@@ -10,13 +10,13 @@ import {
 export { getAllFrontmatter, getAllVersionsFromPath }
 export { getCompilationExamples } from './getCompilationExamples'
 
-// Resolve @hanzo/gui-demos package location
+// Resolve @hanzogui/demos package location
 // require.resolve gives us dist/cjs/index.js, so go up 3 levels to get package root
 const requireFn =
   typeof require === 'undefined' ? createRequire(import.meta.url) : require
 let demosPath = ''
 try {
-  const demosPackagePath = requireFn.resolve('@hanzo/gui-demos')
+  const demosPackagePath = requireFn.resolve('@hanzogui/demos')
   demosPath = path.join(demosPackagePath, '..', '..', '..')
 } catch {
   // may fail in SSG worker context where node_modules aren't fully accessible

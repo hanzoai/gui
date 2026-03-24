@@ -4,7 +4,7 @@ description: |
   Universal React UI framework for web and native. Use when building cross-platform apps with Hanzo GUI,
   creating styled components with `styled()`, configuring design tokens/themes, using Hanzo GUI components,
   or working with animations. Triggers: "@hanzo/gui", "styled()", "$token", "XStack/YStack", "useTheme",
-  "@hanzo/gui-*" imports, "createStyledContext", "variants".
+  "@hanzogui/*" imports, "createStyledContext", "variants".
 version: 1.0.0
 ---
 
@@ -39,7 +39,7 @@ This outputs `gui-prompt.md` with the project's specific:
 Create components by extending existing ones:
 
 ```tsx
-import { View, Text, styled } from '@hanzo/gui-core'
+import { View, Text, styled } from '@hanzogui/core'
 
 const Card = styled(View, {
   padding: '$4',           // use tokens with $
@@ -160,10 +160,10 @@ import { AnimatePresence } from '@hanzo/gui'
 ```
 
 **Animation drivers:**
-- `@hanzo/gui-animations-css` - web only, CSS transitions
-- `@hanzo/gui-animations-react-native` - native Animated API
-- `@hanzo/gui-animations-reanimated` - best native performance
-- `@hanzo/gui-animations-motion` - spring physics
+- `@hanzogui/animations-css` - web only, CSS transitions
+- `@hanzogui/animations-react-native` - native Animated API
+- `@hanzogui/animations-reanimated` - best native performance
+- `@hanzogui/animations-motion` - spring physics
 
 CSS driver uses easing strings, others support spring physics.
 
@@ -174,8 +174,8 @@ CSS driver uses easing strings, others support spring physics.
 Use `createStyledContext` for components that share state:
 
 ```tsx
-import { createStyledContext, styled, View, Text } from '@hanzo/gui-core'
-import { withStaticProperties } from '@hanzo/gui-helpers'
+import { createStyledContext, styled, View, Text } from '@hanzogui/core'
+import { withStaticProperties } from '@hanzogui/helpers'
 
 const CardContext = createStyledContext({ size: 'medium' as 'small' | 'medium' | 'large' })
 
@@ -366,7 +366,7 @@ const dynamicPadding = isPremium ? '$6' : '$4'
 
 ```tsx
 // bad - CSS driver doesn't support spring physics
-import { createAnimations } from '@hanzo/gui-animations-css'
+import { createAnimations } from '@hanzogui/animations-css'
 const anims = createAnimations({
   bouncy: { type: 'spring', damping: 10 }  // won't work
 })
@@ -398,7 +398,7 @@ Check if extraction is working:
 ## TypeScript
 
 ```tsx
-import { GetProps, styled, View } from '@hanzo/gui-core'
+import { GetProps, styled, View } from '@hanzogui/core'
 
 const MyComponent = styled(View, {
   variants: {

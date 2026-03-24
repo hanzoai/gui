@@ -30,12 +30,12 @@ things get a lot faster:
 
 Hanzo GUI comes in three parts:
 
-[**Gui Core**](#overview-of-guicore) (`@hanzo/gui-core`) is a style
+[**Gui Core**](#overview-of-guicore) (`@hanzogui/core`) is a style
 library for React Native and web that supports 100% of the React Native API
 surface in a library that only depends on React. It adds all the
 [goodies of modern style libraries](#overview) into a cohesive package.
 
-[**Gui Static**](#overview-of-guistatic) (`@hanzo/gui-static`) is an
+[**Gui Static**](#overview-of-guistatic) (`@hanzogui/static`) is an
 optimizing compiler on top of Core, turning even inline styles sprinkled with
 logic into atomic CSS and minimal JS, flattening your view tree for maximum
 performance.
@@ -49,8 +49,8 @@ not seen before in a UI kit.
 
 ## Overview
 
-Lets get familiar with both `@hanzo/gui-core` (the styling library) and
-`@hanzo/gui-static` (the compiler), and how the latter optimizes the former.
+Lets get familiar with both `@hanzogui/core` (the styling library) and
+`@hanzogui/static` (the compiler), and how the latter optimizes the former.
 
 <Spacer />
 <Wide>
@@ -71,7 +71,7 @@ old `<div />` (or `<View />` on native).
 
 ---
 
-## Overview of `@hanzo/gui-core`
+## Overview of `@hanzogui/core`
 
 **Core is a complete cross-platform style library**. It allows creating typed
 design systems that work with a `styled` factory on both React Native and web:
@@ -81,7 +81,7 @@ design systems that work with a `styled` factory on both React Native and web:
 - Works **100% the same across Native and Web**.
 - **Works completely at runtime**, no compiler necessary, but optimizes away at
   compile-time.
-- Size of 22Kb `@hanzo/gui-web` to 31Kb `@hanzo/gui-core` (gzip, excluding react).
+- Size of 22Kb `@hanzogui/web` to 31Kb `@hanzogui/core` (gzip, excluding react).
 - SSR, React Server Component, Concurrent mode support for 100% of the features.
 - Custom typed design systems.
 - Powerful typed variants, including functional variants.
@@ -102,7 +102,7 @@ CSS and CSS-in-JS systems as they largely exist today.
 Here's an example of the `styled` function with a few variants:
 
 ```tsx
-import { Stack, styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { Stack, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 export const Circle = styled(Stack, {
   // access your tokens and theme values easily with $ props
@@ -155,7 +155,7 @@ a ton of time over rolling these yourself.
 Here's a stripped down configuration:
 
 ```tsx
-import { createFont, createGui, createTokens } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { createFont, createGui, createTokens } from '@hanzo/gui' // or '@hanzogui/core'
 
 const interFont = createFont({
   family: 'Inter, Helvetica, Arial, sans-serif',
@@ -207,7 +207,7 @@ animations, and more.
 
 ---
 
-## What's new in `@hanzo/gui-core`
+## What's new in `@hanzogui/core`
 
 Over a thousand bugfixes since beta with large performance and memory
 improvements, much higher test coverage, and compatibility with the latest and
@@ -229,7 +229,7 @@ to bundle all of `react-native-web` in your app, not to mention the always
 tricky problem of configuring your bundler to alias `react-native` to
 `react-native-web`.
 
-For 1.0, we've made the difficult steps to get `@hanzo/gui-core` to have no
+For 1.0, we've made the difficult steps to get `@hanzogui/core` to have no
 dependency at all on `react-native` (and therefore no need to setup anything in
 your bundler), while still maintaining 100% compatibility with the React Native
 APIs.
@@ -288,7 +288,7 @@ styles and converting them into CSS. In profiling and reading over the code, we
 found this to be a large bottleneck to performance as it would iterate over
 objects many times, and generate many intermediate objects in the process.
 
-`@hanzo/gui-core` is now entirely dependency-free and generates it's own styles.
+`@hanzogui/core` is now entirely dependency-free and generates it's own styles.
 In total, de-coupling saved us 4-5 loops over the generated style objects
 per-component.
 
@@ -335,7 +335,7 @@ Then you can change the family to Mandarin at any point in your React tree, with
 types working as expected:
 
 ```tsx
-import { FontLanguage, Text } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { FontLanguage, Text } from '@hanzo/gui' // or '@hanzogui/core'
 
 export default () => (
   <FontLanguage body="mandarin">
@@ -394,7 +394,7 @@ easy to properly access the "currently active" set of styles given the current
 screen size. Here's an example:
 
 ```tsx
-import { Stack, StackProps, useMediaPropsActive } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { Stack, StackProps, useMediaPropsActive } from '@hanzo/gui' // or '@hanzogui/core'
 
 const CustomWidget = (props: StackProps) => {
   const activeProps = useMediaPropsActive(props)
@@ -416,7 +416,7 @@ export default () => (
 
 ---
 
-## Overview of `@hanzo/gui-static`
+## Overview of `@hanzogui/static`
 
 [Static](/docs/intro/why-a-compiler) is a babel and node-based optimizing
 compiler, specifically for frontend React code. It supports web and native
@@ -444,7 +444,7 @@ For more information on how it works and why it's important, read our
 
 ---
 
-## What's new in `@hanzo/gui-static`
+## What's new in `@hanzogui/static`
 
 ### Performance
 
@@ -476,7 +476,7 @@ Hanzo GUI now fully works [with Vite 3 and 4](/docs/guides/vite), both with the
 compiler and without. A simple `vite.config.js` would look like this:
 
 ```tsx
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vite'
 
@@ -711,9 +711,9 @@ across all features for web, iOS and Android.
 
 #### React Native Animation Driver
 
-We added a new animation driver, `@hanzo/gui-animations-react-native` that works
+We added a new animation driver, `@hanzogui/animations-react-native` that works
 with the built-in Animation API of React Native. This is in addition to the
-existing `@hanzo/gui-animations-css` and `@hanzo/gui-animations-reanimated` drivers.
+existing `@hanzogui/animations-css` and `@hanzogui/animations-reanimated` drivers.
 The advantages of this driver are that you pay no extra cost for spring
 animations on the web when you're already using `react-native-web`, and a
 simpler setup compared to Reanimated.
@@ -743,13 +743,13 @@ of fixes relating to concurrent mode. Every feature in Hanzo GUI now fully
 supports concurrent mode, and with `react-native-web-lite`, so does every
 feature in the React Native API surface for web.
 
-#### `@hanzo/gui-next-theme`
+#### `@hanzogui/next-theme`
 
 See the [Next.js guide](/docs/guides/next-js) for more on how to use this
 helpful library that automatically handles light/dark/system color scheme
 preferences.
 
-#### `@hanzo/gui-theme-base` upgrades
+#### `@hanzogui/theme-base` upgrades
 
 The default theme package now includes `_active` sub-themes, paving the way for
 a consistent way to style all active states across every component in `@hanzo/gui`.

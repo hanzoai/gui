@@ -1,4 +1,4 @@
-import { createFont } from '@hanzo/gui-core'
+import { createFont } from '@hanzogui/core'
 
 export const fonts = {
   body: createFont({

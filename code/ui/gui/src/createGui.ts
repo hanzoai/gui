@@ -1,4 +1,4 @@
-import { createGui as createGuiCore } from '@hanzo/gui-core'
+import { createGui as createGuiCore } from '@hanzogui/core'
 
 /**
  * Adds some helpful validation at dev time only for `gui` specifically

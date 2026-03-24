@@ -1,4 +1,4 @@
-import { createThemes, type CreateThemesProps } from '@hanzo/gui-theme-builder';
+import { createThemes, type CreateThemesProps } from '@hanzogui/theme-builder';
 import { v5Templates } from './v5-templates';
 export declare const V5_BG_OFFSET: number;
 export { interpolateColor, opacify } from './opacify';

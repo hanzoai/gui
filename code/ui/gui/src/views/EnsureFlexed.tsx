@@ -1,4 +1,4 @@
-import { Text, styled } from '@hanzo/gui-core'
+import { Text, styled } from '@hanzogui/core'
 
 // expands flex elements when they should push a far as they "want" naturally
 

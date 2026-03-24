@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import type { CLIResolvedOptions } from '@hanzo/gui-types'
+import type { CLIResolvedOptions } from '@hanzogui/types'
 import fs from 'fs-extra'
 import { Project } from 'ts-morph'
 

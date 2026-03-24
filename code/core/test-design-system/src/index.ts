@@ -1,4 +1,4 @@
-import { View, styled, Text } from '@hanzo/gui-core'
+import { View, styled, Text } from '@hanzogui/core'
 
 export const MyStack = styled(View, {
   backgroundColor: 'green',

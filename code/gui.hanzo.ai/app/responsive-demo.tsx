@@ -1,9 +1,9 @@
 // @ts-nocheck responsive props
-import img1 from '@hanzo/gui-demos/photo/photo1'
-import img2 from '@hanzo/gui-demos/photo/photo2'
-import img3 from '@hanzo/gui-demos/photo/photo3'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
-import { MapPin, Star } from '@hanzo/gui-lucide-icons-2'
+import img1 from '@hanzogui/demos/photo/photo1'
+import img2 from '@hanzogui/demos/photo/photo2'
+import img3 from '@hanzogui/demos/photo/photo3'
+import { LinearGradient } from '@hanzogui/linear-gradient'
+import { MapPin, Star } from '@hanzogui/lucide-icons-2'
 import { H3, H4, H5, Image, Paragraph, Spacer, Theme, XStack, YStack } from '@hanzo/gui'
 
 export default function ResponsiveDemo() {

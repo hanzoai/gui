@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-static-sync",
+  "name": "@hanzogui/static-sync",
   "version": "2.0.0",
   "license": "MIT",
   "source": "src/index.ts",
@@ -32,11 +32,11 @@
   },
   "dependencies": {
     "@babel/core": "^7.25.2",
-    "@hanzo/gui-static": "workspace:*",
-    "@hanzo/gui-types": "workspace:*",
+    "@hanzogui/static": "workspace:*",
+    "@hanzogui/types": "workspace:*",
     "synckit": "^0.9.2"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

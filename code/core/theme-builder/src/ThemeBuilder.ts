@@ -5,15 +5,15 @@ import type {
   TemplateDefinitions,
   ThemeDefinitions,
   ThemeUsingMask,
-} from '@hanzo/gui-create-theme'
+} from '@hanzogui/create-theme'
 import {
   applyMask,
   createMask,
   createThemeWithPalettes,
   objectEntries,
   objectFromEntries,
-} from '@hanzo/gui-create-theme'
-import type { Narrow } from '@hanzo/gui-web'
+} from '@hanzogui/create-theme'
+import type { Narrow } from '@hanzogui/web'
 import type { GetThemeFn } from './types'
 
 export type ThemeBuilderInternalState = {

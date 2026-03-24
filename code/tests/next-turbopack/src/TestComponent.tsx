@@ -1,4 +1,4 @@
-import { View, Text, styled } from '@hanzo/gui-core'
+import { View, Text, styled } from '@hanzogui/core'
 import { useState } from 'react'
 
 const YStack = styled(View, { flexDirection: 'column' })

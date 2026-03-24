@@ -1,4 +1,4 @@
-import { config } from '@hanzo/gui-config'
+import { config } from '@hanzogui/config'
 import {
   Spacer,
   GuiProvider,
@@ -8,7 +8,7 @@ import {
   YStack,
   createGui,
   useMedia,
-} from '@hanzo/gui-sandbox-ui'
+} from '@hanzogui/sandbox-ui'
 
 import { testColor } from './constants'
 import { baseStyle, nestedStyle } from './extract-spec-constants'

@@ -42,7 +42,7 @@ function Demo2() {
 
 //
 
-import { ArrowLeft, ArrowRight } from '@hanzo/gui-lucide-icons-2'
+import { ArrowLeft, ArrowRight } from '@hanzogui/lucide-icons-2'
 import { Image, XStack, YStack } from '@hanzo/gui'
 
 const GalleryItem = styled(YStack, {

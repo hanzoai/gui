@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-animations-motion",
+  "name": "@hanzogui/animations-motion",
   "version": "2.0.0",
   "license": "MIT",
   "source": "src/index.ts",
@@ -38,13 +38,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-animation-helpers": "workspace:*",
-    "@hanzo/gui-use-presence": "workspace:*",
-    "@hanzo/gui-web": "workspace:*",
+    "@hanzogui/animation-helpers": "workspace:*",
+    "@hanzogui/use-presence": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "motion": ">=12.35.1"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

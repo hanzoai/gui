@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Switches from '@hanzo/gui-bento/component/forms/switches'
+import * as Switches from '@hanzogui/bento/component/forms/switches'
 import {
   Showcase,
   WithSize,

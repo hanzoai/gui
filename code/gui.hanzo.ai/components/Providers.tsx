@@ -1,4 +1,4 @@
-import { InitialPathContext, SeasonProvider } from '@hanzo/gui-logo'
+import { InitialPathContext, SeasonProvider } from '@hanzogui/logo'
 import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
 import { GuiProvider } from '@hanzo/gui'
 import tamaConf from '~/config/gui.config'

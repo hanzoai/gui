@@ -1,6 +1,6 @@
 import * as babel from '@babel/core'
-import type { ExtractToClassNamesProps } from '@hanzo/gui-static'
-import { createExtractor, extractToClassNames } from '@hanzo/gui-static'
+import type { ExtractToClassNamesProps } from '@hanzogui/static'
+import { createExtractor, extractToClassNames } from '@hanzogui/static'
 
 export async function extractForNative(code: string) {
   const out = await babel.transformAsync(code, {
@@ -33,7 +33,7 @@ export async function extractForWeb(
     ...opts,
     options: {
       platform: 'web',
-      components: ['@hanzo/gui', '@hanzo/gui-core', '@hanzo/gui-test-design-system'],
+      components: ['@hanzo/gui', '@hanzogui/core', '@hanzogui/test-design-system'],
       config: './tests/lib/gui.config.cjs',
       ...opts?.options,
     },

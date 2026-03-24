@@ -1,4 +1,4 @@
-import { Text as GuiText, styled } from '@hanzo/gui-core'
+import { Text as GuiText, styled } from '@hanzogui/core'
 
 export const Text = styled(GuiText, {
   variants: {

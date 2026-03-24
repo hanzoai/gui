@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-vite-plugin",
+  "name": "@hanzogui/vite-plugin",
   "version": "2.0.0",
   "license": "MIT",
   "files": [
@@ -32,19 +32,19 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-fake-react-native": "workspace:*",
-    "@hanzo/gui-proxy-worm": "workspace:*",
-    "@hanzo/gui-react-native-svg": "workspace:*",
-    "@hanzo/gui-react-native-web-lite": "workspace:*",
-    "@hanzo/gui-static-worker": "workspace:*",
-    "@hanzo/gui-types": "workspace:*",
+    "@hanzogui/fake-react-native": "workspace:*",
+    "@hanzogui/proxy-worm": "workspace:*",
+    "@hanzogui/react-native-svg": "workspace:*",
+    "@hanzogui/react-native-web-lite": "workspace:*",
+    "@hanzogui/static-worker": "workspace:*",
+    "@hanzogui/types": "workspace:*",
     "esm-resolve": "^1.0.8",
     "fs-extra": "^11.2.0",
     "outdent": "^0.8.0",
     "react-native-web": "^0.21.0"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "vite": "^8.0.0"
   },
   "peerDependencies": {

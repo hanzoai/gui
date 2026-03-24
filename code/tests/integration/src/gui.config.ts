@@ -1,5 +1,5 @@
 import { createGui } from '@hanzo/gui'
-import { shorthands } from '@hanzo/gui-shorthands'
+import { shorthands } from '@hanzogui/shorthands'
 
 import { animations } from './animations'
 import { fonts } from './fonts'

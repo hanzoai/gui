@@ -1,4 +1,4 @@
-import { withGui } from '@hanzo/gui-next-plugin'
+import { withGui } from '@hanzogui/next-plugin'
 
 Error.stackTraceLimit = Infinity
 

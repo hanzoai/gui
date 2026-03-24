@@ -1,4 +1,4 @@
-import { CheckCircle, XCircle } from '@hanzo/gui-lucide-icons-2'
+import { CheckCircle, XCircle } from '@hanzogui/lucide-icons-2'
 import { getContrast } from 'color2k'
 import { memo } from 'react'
 import {

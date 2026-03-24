@@ -1,4 +1,4 @@
-export * from '@hanzo/gui-simple-hash';
+export * from '@hanzogui/simple-hash';
 export * from './clamp';
 export * from './composeEventHandlers';
 export * from './types';

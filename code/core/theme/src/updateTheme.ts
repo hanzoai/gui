@@ -1,4 +1,4 @@
-import type { ThemeDefinition, ThemeName } from '@hanzo/gui-web'
+import type { ThemeDefinition, ThemeName } from '@hanzogui/web'
 
 import { _mutateTheme } from './_mutateTheme'
 

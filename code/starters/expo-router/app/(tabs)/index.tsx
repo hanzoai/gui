@@ -1,4 +1,4 @@
-import { ExternalLink } from '@hanzo/gui-lucide-icons-2'
+import { ExternalLink } from '@hanzogui/lucide-icons-2'
 import { Anchor, H2, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { ToastControl } from 'components/CurrentToast'
 

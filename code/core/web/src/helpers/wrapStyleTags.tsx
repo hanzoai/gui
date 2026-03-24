@@ -1,4 +1,4 @@
-import { StyleObjectIdentifier, StyleObjectRules } from '@hanzo/gui-helpers'
+import { StyleObjectIdentifier, StyleObjectRules } from '@hanzogui/helpers'
 import type { StyleObject } from '../types'
 
 // turns out this is pretty slow, creating a bunch of extra tags...

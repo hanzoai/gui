@@ -7,7 +7,7 @@
  * @format
  */
 
-import { Platform } from '@hanzo/gui-react-native-web-internals'
+import { Platform } from '@hanzogui/react-native-web-internals'
 import { AnimatedImplementation } from './AnimatedImplementation'
 import { AnimatedMock } from './AnimatedMock'
 import { FlatList } from './components/AnimatedFlatList'

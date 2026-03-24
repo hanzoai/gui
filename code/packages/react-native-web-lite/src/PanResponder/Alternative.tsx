@@ -51,7 +51,7 @@
 
 'use strict'
 
-import { InteractionManager } from '@hanzo/gui-react-native-web-internals'
+import { InteractionManager } from '@hanzogui/react-native-web-internals'
 
 import TouchHistoryMath from '../vendor/react-native/TouchHistoryMath/index'
 

@@ -1,5 +1,5 @@
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animations } from '@hanzo/gui-config/v5-rn'
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animations } from '@hanzogui/config/v5-rn'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({

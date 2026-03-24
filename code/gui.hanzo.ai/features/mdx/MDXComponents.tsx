@@ -1,4 +1,4 @@
-import { GuiLogo, ThemeTint, ThemeTintAlt } from '@hanzo/gui-logo'
+import { GuiLogo, ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
 import {
   Asterisk,
   Box,
@@ -8,7 +8,7 @@ import {
   Copy,
   File,
   Link as LinkIcon,
-} from '@hanzo/gui-lucide-icons-2'
+} from '@hanzogui/lucide-icons-2'
 import type { Href } from 'one'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
@@ -36,7 +36,7 @@ import {
   YStack,
   styled,
 } from '@hanzo/gui'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
+import { LinearGradient } from '@hanzogui/linear-gradient'
 import { Code, CodeInline } from '~/components/Code'
 import { CustomTabs } from '~/components/CustomTabs'
 import { DataTable } from '~/components/DataTable'
@@ -773,7 +773,7 @@ const componentsIn = {
                 {/* @ts-ignore */}
                 <Link fontSize="inherit" href="/docs/core/configuration">
                   <CodeInline>
-                    <span style={{ color: 'var(--color12)' }}>@hanzo/gui-core</span>
+                    <span style={{ color: 'var(--color12)' }}>@hanzogui/core</span>
                   </CodeInline>
                 </Link>
                 &nbsp; is the base style library, it expands on the React Native style API
@@ -789,7 +789,7 @@ const componentsIn = {
                 {/* @ts-ignore */}
                 <Link fontSize="inherit" href="/docs/intro/compiler-install">
                   <CodeInline>
-                    <span style={{ color: 'var(--color12)' }}>@hanzo/gui-static</span>
+                    <span style={{ color: 'var(--color12)' }}>@hanzogui/static</span>
                   </CodeInline>
                 </Link>{' '}
                 is an optimizing compiler that{' '}

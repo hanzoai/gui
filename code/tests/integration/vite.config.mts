@@ -1,4 +1,4 @@
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 import { defineConfig } from 'vite'
 
 export default defineConfig({

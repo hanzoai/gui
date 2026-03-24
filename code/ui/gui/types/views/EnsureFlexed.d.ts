@@ -1,2 +1,2 @@
-export declare const EnsureFlexed: import("@hanzo/gui-core").GuiComponent<import("@hanzo/gui-core").TamaDefer, import("@hanzo/gui-core").GuiTextElement, import("@hanzo/gui-core").RNGuiTextNonStyleProps, import("@hanzo/gui-core").TextStylePropsBase, {}, import("@hanzo/gui-core").StaticConfigPublic>;
+export declare const EnsureFlexed: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").RNGuiTextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {}, import("@hanzogui/core").StaticConfigPublic>;
 //# sourceMappingURL=EnsureFlexed.d.ts.map

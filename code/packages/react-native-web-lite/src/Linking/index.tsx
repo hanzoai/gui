@@ -8,7 +8,7 @@
  * @flow
  */
 
-import { canUseDOM, invariant } from '@hanzo/gui-react-native-web-internals'
+import { canUseDOM, invariant } from '@hanzogui/react-native-web-internals'
 
 const initialURL = canUseDOM ? window.location.href : ''
 

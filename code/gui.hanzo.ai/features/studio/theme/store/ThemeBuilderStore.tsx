@@ -4,8 +4,8 @@ import {
   getThemeSuitePalettes,
   type TemplateStrategy,
   type ThemeSuiteItem,
-} from '@hanzo/gui-theme-builder'
-import { createStore, createUseStore } from '@hanzo/gui-use-store'
+} from '@hanzogui/theme-builder'
+import { createStore, createUseStore } from '@hanzogui/use-store'
 import { getAccessToken } from '~/features/auth/useSupabaseClient'
 import { toastController } from '~/features/studio/ToastProvider'
 import { demoOptions, optionValues } from '~/features/studio/theme/demoOptions'

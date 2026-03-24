@@ -1,5 +1,5 @@
-import { animations } from '@hanzo/gui-dev-config'
-import type { AnimationDriver } from '@hanzo/gui-web'
+import { animations } from '@hanzogui/dev-config'
+import type { AnimationDriver } from '@hanzogui/web'
 import { createContext, useContext, useMemo, useState } from 'react'
 
 const ANIMATION_DRIVERS = ['css', 'motion'] as const

@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { ScrollView as RNScrollView } from 'react-native'
 import { Button, Sheet, Text, YStack } from '@hanzo/gui'
-import { getGestureHandler } from '@hanzo/gui-native'
+import { getGestureHandler } from '@hanzogui/native'
 
 /**
  * Test case for Sheet + ScrollView drag interaction

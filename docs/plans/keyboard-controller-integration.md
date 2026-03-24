@@ -2,7 +2,7 @@
 
 ## Overview
 
-Add `react-native-keyboard-controller` integration to Hanzo GUI following the same pattern as gesture-handler and teleport in `@hanzo/gui-native`. This enables smooth keyboard + sheet coordination where:
+Add `react-native-keyboard-controller` integration to Hanzo GUI following the same pattern as gesture-handler and teleport in `@hanzogui/native`. This enables smooth keyboard + sheet coordination where:
 
 1. Dragging sheet down dismisses keyboard FIRST with smooth handoff
 2. Keyboard and sheet animate in sync (60/120 FPS frame-by-frame)
@@ -101,7 +101,7 @@ setup()
 
 ### 4. Package.json Updates
 
-Add to `@hanzo/gui-native/package.json`:
+Add to `@hanzogui/native/package.json`:
 
 ```json
 {
@@ -135,7 +135,7 @@ Add to `@hanzo/gui-native/package.json`:
 New hook: `useKeyboardControllerSheet.ts`
 
 ```typescript
-import { isKeyboardControllerEnabled, getKeyboardControllerState } from '@hanzo/gui-native'
+import { isKeyboardControllerEnabled, getKeyboardControllerState } from '@hanzogui/native'
 import { useSharedValue } from 'react-native-reanimated'
 
 export function useKeyboardControllerSheet({

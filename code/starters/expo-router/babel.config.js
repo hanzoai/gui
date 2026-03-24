@@ -4,7 +4,7 @@ module.exports = (api) => {
     presets: [['babel-preset-expo', { jsxRuntime: 'automatic' }]],
     plugins: [
       [
-        '@hanzo/gui-babel-plugin',
+        '@hanzogui/babel-plugin',
         {
           components: ['@hanzo/gui'],
           config: './gui.config.ts',

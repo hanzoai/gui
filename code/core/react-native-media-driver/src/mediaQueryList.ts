@@ -1,4 +1,4 @@
-import type { MediaQueryList } from '@hanzo/gui-web'
+import type { MediaQueryList } from '@hanzogui/web'
 import { Dimensions } from 'react-native'
 
 import { matchQuery } from './matchQuery'

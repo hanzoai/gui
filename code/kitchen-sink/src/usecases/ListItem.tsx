@@ -1,5 +1,5 @@
 import { H5, ListItem, Separator, View, Theme } from '@hanzo/gui'
-import { ChevronRight, Star, Trash } from '@hanzo/gui-lucide-icons-2'
+import { ChevronRight, Star, Trash } from '@hanzogui/lucide-icons-2'
 
 export const ThemedListItem = () => (
   <View gap="$4">

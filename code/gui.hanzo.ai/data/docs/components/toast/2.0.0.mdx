@@ -30,7 +30,7 @@ demoName: Toast
 Toast is included by default in `@hanzo/gui`. If you're using it standalone:
 
 ```bash
-yarn add @hanzo/gui-toast
+yarn add @hanzogui/toast
 ```
 
 ### Native Toast Setup
@@ -43,7 +43,7 @@ yarn add burnt
 
 ```tsx
 // App.tsx - before any Hanzo GUI imports
-import '@hanzo/gui-native/setup-burnt'
+import '@hanzogui/native/setup-burnt'
 ```
 
 Then rebuild your React Native app. Without this setup, toasts will still work but the `native` prop will have no effect on mobile.
@@ -454,7 +454,7 @@ toastState.myPreset // or toastState.customData.myPreset
 To add TypeScript auto-completion for your custom fields, you can use TS module augmentation:
 
 ```ts
-declare module '@hanzo/gui-toast' {
+declare module '@hanzogui/toast' {
   interface CustomData {
     myPreset: 'error' | 'success' | 'warning'
   }

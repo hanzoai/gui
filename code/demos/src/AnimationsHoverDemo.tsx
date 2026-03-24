@@ -1,4 +1,4 @@
-import { LogoIcon } from '@hanzo/gui-logo'
+import { LogoIcon } from '@hanzogui/logo'
 import { Square } from '@hanzo/gui'
 
 export function AnimationsHoverDemo() {

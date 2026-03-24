@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Accordion, Button, Paragraph, TooltipSimple, XStack, YStack } from '@hanzo/gui'
-import { ChevronDown, ChevronsDownUp, ChevronsUpDown } from '@hanzo/gui-lucide-icons-2'
+import { ChevronDown, ChevronsDownUp, ChevronsUpDown } from '@hanzogui/lucide-icons-2'
 import { DocsRouteNavItem } from './DocsRouteNavItem'
 import { docsRoutes } from './docsRoutes'
 import { useDocsMenu } from './useDocsMenu'

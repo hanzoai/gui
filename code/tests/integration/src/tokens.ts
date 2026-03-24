@@ -1,4 +1,4 @@
-import { createTokens } from '@hanzo/gui-core'
+import { createTokens } from '@hanzogui/core'
 
 const size = {
   0: 0,

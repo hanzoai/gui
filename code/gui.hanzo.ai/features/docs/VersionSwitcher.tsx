@@ -1,9 +1,9 @@
 import React, { ElementType } from 'react'
-import { Check, ChevronDown, ChevronUp } from '@hanzo/gui-lucide-icons-2'
+import { Check, ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2'
 
 import type { FontSizeTokens, SelectProps } from '@hanzo/gui'
 import { Adapt, Label, Select, Sheet, XStack, YStack, getFontSize } from '@hanzo/gui'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
+import { LinearGradient } from '@hanzogui/linear-gradient'
 import { type Href, usePathname, useRouter } from 'one'
 
 export function VersionSwitcher({ versions }: { versions: { name: string }[] }) {

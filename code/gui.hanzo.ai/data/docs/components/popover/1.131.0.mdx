@@ -37,22 +37,22 @@ above for a copy-paste implementation.
 Popover is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-popover
+npm install @hanzogui/popover
 ```
 
 ### PortalProvider
 
 _Only_ if you are not using `@hanzo/gui` and installing popover independently -
-you'll need to set up the portal for it with the `@hanzo/gui-portal` package:
+you'll need to set up the portal for it with the `@hanzogui/portal` package:
 
 ```bash
-npm install @hanzo/gui-portal
+npm install @hanzogui/portal
 ```
 
 Then add `PortalProvider` to the root of your app:
 
 ```tsx fileName="App.tsx"
-import { PortalProvider } from '@hanzo/gui-portal'
+import { PortalProvider } from '@hanzogui/portal'
 import YourApp from './components/YourApp'
 
 function App() {
@@ -80,7 +80,7 @@ export default App
 ## Anatomy
 
 ```tsx
-import { Popover, Adapt } from '@hanzo/gui' // or '@hanzo/gui-popover'
+import { Popover, Adapt } from '@hanzo/gui' // or '@hanzogui/popover'
 
 export default () => (
   <Popover>

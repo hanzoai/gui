@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Button, XStack, YStack, SizableText } from '@hanzo/gui'
-import { Trash2 } from '@hanzo/gui-lucide-icons-2'
+import { Trash2 } from '@hanzogui/lucide-icons-2'
 import type { BuildTheme } from '../../types'
 
 type BuildThemeItemProps = {

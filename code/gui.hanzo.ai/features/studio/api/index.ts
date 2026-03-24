@@ -1,3 +1,3 @@
-export { createStudioThemes } from '@hanzo/gui-theme-builder'
+export { createStudioThemes } from '@hanzogui/theme-builder'
 export * from './generateThemeBuilderCode'
 export * from './exportDemoComponent'

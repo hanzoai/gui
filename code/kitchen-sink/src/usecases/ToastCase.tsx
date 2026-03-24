@@ -1,4 +1,4 @@
-import { Toast, ToastProvider, ToastViewport } from '@hanzo/gui-toast'
+import { Toast, ToastProvider, ToastViewport } from '@hanzogui/toast'
 import React from 'react'
 import { Button, YStack } from '@hanzo/gui'
 

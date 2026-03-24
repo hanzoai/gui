@@ -1,4 +1,4 @@
-import { ThemeTintAlt, useTint } from '@hanzo/gui-logo'
+import { ThemeTintAlt, useTint } from '@hanzogui/logo'
 import {
   ArrowLeft,
   ArrowRight,
@@ -15,8 +15,8 @@ import {
   Sun,
   Trash2,
   Zap,
-} from '@hanzo/gui-lucide-icons-2'
-import { Menu } from '@hanzo/gui-menu'
+} from '@hanzogui/lucide-icons-2'
+import { Menu } from '@hanzogui/menu'
 import { useUserScheme } from '@vxrn/color-scheme'
 import { useEffect, useState } from 'react'
 import {

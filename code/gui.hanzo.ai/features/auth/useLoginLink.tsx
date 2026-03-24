@@ -1,4 +1,4 @@
-import { useToastController } from '@hanzo/gui-toast'
+import { useToastController } from '@hanzogui/toast'
 import { useUser } from '../user/useUser'
 import { useSupabaseClient } from './useSupabaseClient'
 

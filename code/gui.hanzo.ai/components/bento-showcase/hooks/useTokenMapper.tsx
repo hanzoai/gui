@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 
-import type { Tokens } from '@hanzo/gui-core'
-import { getTokens } from '@hanzo/gui-core'
+import type { Tokens } from '@hanzogui/core'
+import { getTokens } from '@hanzogui/core'
 import { useUserGuiConfig } from './useUserGuiConfig'
 
 type MergedToken = Tokens & { userMatch: Tokens }

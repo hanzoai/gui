@@ -1,6 +1,6 @@
 import React from 'react'
-import type { SwitchProps as SwitchHeadlessProps } from '@hanzo/gui-switch-headless'
-import { useSwitch } from '@hanzo/gui-switch-headless'
+import type { SwitchProps as SwitchHeadlessProps } from '@hanzogui/switch-headless'
+import { useSwitch } from '@hanzogui/switch-headless'
 
 import type { View } from 'react-native'
 import { Animated, Pressable } from 'react-native'

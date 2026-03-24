@@ -1,4 +1,4 @@
-import { getOrCreateStore } from '@hanzo/gui-use-store'
+import { getOrCreateStore } from '@hanzogui/use-store'
 import type { Procedure, ProcedureArgs, ProcedureResults } from '../api/types'
 import { toastController } from '../ToastProvider'
 

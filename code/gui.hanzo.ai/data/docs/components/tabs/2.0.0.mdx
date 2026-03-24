@@ -66,7 +66,7 @@ demoName: Tabs
 Tabs is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-tabs
+npm install @hanzogui/tabs
 ````
 
 </Tabs.Content>
@@ -75,17 +75,17 @@ npm install @hanzo/gui-tabs
 Tabs is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-tabs
+npm install @hanzogui/tabs
 ```
 
 </Tabs.Content>
 
 <Tabs.Content value="headless">
 
-To use the headless tabs, import from the `@hanzo/gui-tabs-headless` package. This package has no dependency on `@hanzo/gui-core` and provides hooks for building custom tab interfaces with any styling solution.
+To use the headless tabs, import from the `@hanzogui/tabs-headless` package. This package has no dependency on `@hanzogui/core` and provides hooks for building custom tab interfaces with any styling solution.
 
 ```bash
-npm install @hanzo/gui-tabs-headless
+npm install @hanzogui/tabs-headless
 ```
 
 </Tabs.Content>
@@ -135,7 +135,7 @@ Use the `createTabs` export to create fully custom tabs that still use the Hanzo
 The `useTabs` hook provides all the state and accessibility props needed to build custom tabs with any styling solution.
 
 ```tsx
-import { useTabs } from '@hanzo/gui-tabs-headless'
+import { useTabs } from '@hanzogui/tabs-headless'
 
 function MyTabs() {
   const { tabsProps, listProps, getTabProps, getContentProps, value } = useTabs({
@@ -162,7 +162,7 @@ function MyTabs() {
 For more complex use cases, you can use the context-based hooks:
 
 ```tsx
-import { useTabs, TabsProvider, useTab, useTabContent } from '@hanzo/gui-tabs-headless'
+import { useTabs, TabsProvider, useTab, useTabContent } from '@hanzogui/tabs-headless'
 
 function Tabs({ children, ...props }) {
   const { contextValue, tabsProps } = useTabs(props)

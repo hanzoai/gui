@@ -1,4 +1,4 @@
-import { isServer, isWeb } from '@hanzo/gui-constants'
+import { isServer, isWeb } from '@hanzogui/constants'
 import { useRef, useSyncExternalStore } from 'react'
 import { getSetting } from '../config'
 import { resetMediaStyleCache } from '../helpers/createMediaStyle'

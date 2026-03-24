@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-next-site",
+  "name": "@hanzogui/next-site",
   "version": "2.0.0",
   "private": true,
   "source": "src",
@@ -37,7 +37,7 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.26.0",
     "@playwright/test": "^1.49.1",
-    "@hanzo/gui-build": "workspace:*",
-    "@hanzo/gui-loader": "workspace:*"
+    "@hanzogui/build": "workspace:*",
+    "@hanzogui/loader": "workspace:*"
   }
 }

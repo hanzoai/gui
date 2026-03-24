@@ -1,6 +1,6 @@
-import { isWeb } from '@hanzo/gui-constants'
-import type { FillInFont, GenericFont } from '@hanzo/gui-core'
-import { createFont, getVariableValue } from '@hanzo/gui-core'
+import { isWeb } from '@hanzogui/constants'
+import type { FillInFont, GenericFont } from '@hanzogui/core'
+import { createFont, getVariableValue } from '@hanzogui/core'
 
 export const createCherryBombFont = <A extends GenericFont>(
   font: Partial<A> = {},

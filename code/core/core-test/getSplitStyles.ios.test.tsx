@@ -1,4 +1,4 @@
-import { View, createGui } from '@hanzo/gui-core'
+import { View, createGui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 import { isColorStyleKey } from '../web/src/helpers/getDynamicVal'
 
@@ -10,8 +10,8 @@ import { getSplitStyles } from '../web/src/helpers/getSplitStyles'
 
 // Mock modules before imports
 // It's important to include all needed constants, including isAndroid
-vi.mock('@hanzo/gui-constants', async () => {
-  const actual = await vi.importActual('@hanzo/gui-constants')
+vi.mock('@hanzogui/constants', async () => {
+  const actual = await vi.importActual('@hanzogui/constants')
   return {
     ...actual,
     isIos: true,

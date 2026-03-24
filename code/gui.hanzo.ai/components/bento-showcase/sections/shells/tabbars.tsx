@@ -1,7 +1,7 @@
 import { YStack } from '@hanzo/gui'
 
 import { Showcase } from '~/components/bento-showcase/_Showcase'
-import * as TabBars from '@hanzo/gui-bento/component/shells/tabbars'
+import * as TabBars from '@hanzogui/bento/component/shells/tabbars'
 import {
   type BentoShowcaseContext,
   BentoShowcaseProvider,

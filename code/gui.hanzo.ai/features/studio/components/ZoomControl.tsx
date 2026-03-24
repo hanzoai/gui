@@ -1,4 +1,4 @@
-import { RefreshCw, ZoomIn, ZoomOut } from '@hanzo/gui-lucide-icons-2'
+import { RefreshCw, ZoomIn, ZoomOut } from '@hanzogui/lucide-icons-2'
 import type { Dispatch, SetStateAction } from 'react'
 import { Button, Group, SizableText, XStack } from '@hanzo/gui'
 

@@ -11,7 +11,7 @@ styled component like the base
 Here's how that looks in practice:
 
 ```tsx
-import { View, styled } from '@hanzo/gui-core'
+import { View, styled } from '@hanzogui/core'
 
 const StyledView = styled(View, {
   padding: 10,
@@ -545,7 +545,7 @@ is really important for two reasons:
 Let's see how it lets us control overriding styles:
 
 ```tsx
-import { View, ViewProps } from '@hanzo/gui-core'
+import { View, ViewProps } from '@hanzogui/core'
 
 export default (props: ViewProps) => <View background="red" {...props} width={200} />
 ```

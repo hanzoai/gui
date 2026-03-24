@@ -1,5 +1,5 @@
 // via radix-ui
-import { useCallbackRef } from '@hanzo/gui-use-callback-ref'
+import { useCallbackRef } from '@hanzogui/use-callback-ref'
 import React from 'react'
 
 /**

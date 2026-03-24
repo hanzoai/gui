@@ -1,5 +1,5 @@
-import type { ColorTokens, UnionableString, Variable } from '@hanzo/gui-web'
-import { getVariable, useTheme } from '@hanzo/gui-web'
+import type { ColorTokens, UnionableString, Variable } from '@hanzogui/web'
+import { getVariable, useTheme } from '@hanzogui/web'
 import type { TextStyle } from 'react-native'
 
 export const useCurrentColor = (colorProp: ColorProp) => {

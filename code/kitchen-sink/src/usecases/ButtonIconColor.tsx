@@ -1,4 +1,4 @@
-import { Moon } from '@hanzo/gui-lucide-icons-2'
+import { Moon } from '@hanzogui/lucide-icons-2'
 import { Button, ListItem, Theme, YStack } from '@hanzo/gui'
 
 export function ButtonIconColor() {

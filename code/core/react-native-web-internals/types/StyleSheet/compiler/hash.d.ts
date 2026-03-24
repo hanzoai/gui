@@ -1,2 +1,2 @@
-export { simpleHash as default } from '@hanzo/gui-simple-hash';
+export { simpleHash as default } from '@hanzogui/simple-hash';
 //# sourceMappingURL=hash.d.ts.map

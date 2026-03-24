@@ -1,4 +1,4 @@
-import type { Template } from '@hanzo/gui-create-theme';
+import type { Template } from '@hanzogui/create-theme';
 export type GetThemeFn<ThemeType extends Record<string, string | number>> = (props: {
     name: string;
     theme: Record<string, string>;

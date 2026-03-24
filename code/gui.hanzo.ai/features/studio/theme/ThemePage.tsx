@@ -1,6 +1,6 @@
-import { ChevronLeft, ChevronRight, X } from '@hanzo/gui-lucide-icons-2'
-import { useStore } from '@hanzo/gui-use-store'
-import type { GuiElement } from '@hanzo/gui-web'
+import { ChevronLeft, ChevronRight, X } from '@hanzogui/lucide-icons-2'
+import { useStore } from '@hanzogui/use-store'
+import type { GuiElement } from '@hanzogui/web'
 import {
   memo,
   Suspense,

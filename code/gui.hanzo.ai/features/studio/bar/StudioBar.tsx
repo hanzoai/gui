@@ -1,5 +1,5 @@
-import { LogoIcon } from '@hanzo/gui-logo'
-import { Moon, Sun, X } from '@hanzo/gui-lucide-icons-2'
+import { LogoIcon } from '@hanzogui/logo'
+import { Moon, Sun, X } from '@hanzogui/lucide-icons-2'
 import { memo } from 'react'
 import {
   Button,

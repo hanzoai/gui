@@ -114,7 +114,7 @@ async function publishPackage(pkg: PackageInfo, tmpDir: string): Promise<'publis
 }
 
 async function main() {
-  console.log(`Publishing @hanzo/gui-* packages`)
+  console.log(`Publishing @hanzogui/* packages`)
   console.log(`Version: ${VERSION}`)
   console.log(`Tag: ${DIST_TAG}`)
   console.log(`Dry run: ${DRY_RUN}`)

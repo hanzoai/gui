@@ -9,17 +9,17 @@ animations, shorthands, and settings.
 First, create a `gui.config.ts` file.
 
 <Notice theme="blue">
-  We recommend starting with [`@hanzo/gui-config/v5`](/docs/core/config-v5), our preset
+  We recommend starting with [`@hanzogui/config/v5`](/docs/core/config-v5), our preset
   configuration with sensible defaults, Tailwind-aligned shorthands, and a complete theme
   system.
 </Notice>
 
 ```bash
-npm install @hanzo/gui-config
+npm install @hanzogui/config
 ```
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v5'
+import { defaultConfig } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
@@ -112,7 +112,7 @@ declare module '@hanzo/gui' {
 
 <Notice theme="green">
   In this guide we import everything from `@hanzo/gui`, but if you are using the lower-level
-  style library only, you can change the imports in this guide out for `@hanzo/gui-core`,
+  style library only, you can change the imports in this guide out for `@hanzogui/core`,
   which is a strict subset.
 </Notice>
 
@@ -383,7 +383,7 @@ To optimize a bit more so you share a single CSS file between all pages, you can
 use one of our bundler plugins' `outputCSS` setting, like so:
 
 ```tsx fileName=vite.config.ts
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 export default {
   plugins: [
@@ -413,7 +413,7 @@ export default {
 And then run:
 
 ```bash
-npx @hanzo/gui-cli generate
+npx @hanzogui/cli generate
 ```
 
 See the [CLI Guide](/docs/guides/cli#generate) for more information on the
@@ -489,8 +489,8 @@ import { useFonts } from 'expo-font'
 
 function App() {
   const [loaded] = useFonts({
-    Inter: require('@hanzo/gui-font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@hanzo/gui-font-inter/otf/Inter-Bold.otf'),
+    Inter: require('@hanzogui/font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@hanzogui/font-inter/otf/Inter-Bold.otf'),
   })
 
   useEffect(() => {
@@ -632,13 +632,13 @@ For more full docs on media queries, see the
 
 Hanzo GUI supports four animation drivers that can be swapped out per-platform:
 
-- [`@hanzo/gui-animations-css`](/docs/core/animations-css) - CSS transition based
+- [`@hanzogui/animations-css`](/docs/core/animations-css) - CSS transition based
   animations (lightest)
-- [`@hanzo/gui-animations-react-native`](/docs/core/animations-react-native) -
+- [`@hanzogui/animations-react-native`](/docs/core/animations-react-native) -
   React Native Animated
-- [`@hanzo/gui-animations-reanimated`](/docs/core/animations-reanimated) -
+- [`@hanzogui/animations-reanimated`](/docs/core/animations-reanimated) -
   Reanimated for advanced animations
-- [`@hanzo/gui-animations-motion`](/docs/core/animations-motion) - Motion with
+- [`@hanzogui/animations-motion`](/docs/core/animations-motion) - Motion with
   WAAPI for web
 
 See the [Animations documentation](/docs/core/animations) for a full comparison
@@ -647,7 +647,7 @@ and guide on choosing the right driver.
 Add `animations` to `createGui`:
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-react-native'
+import { createAnimations } from '@hanzogui/animations-react-native'
 
 // pass this exported `animations` to your `createGui` call:
 export const animations = createAnimations({
@@ -859,7 +859,7 @@ client, it reads these from the DOM instead of needing the JS object.
 ### Setup
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig, themes } from '@hanzo/gui-config/v5'
+import { defaultConfig, themes } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui({

@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@hanzo/gui-native/setup-worklets'
+ * import '@hanzogui/native/setup-worklets'
  * ```
  *
  * This automatically detects and configures react-native-worklets-core

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-get-button-sized",
+  "name": "@hanzogui/get-button-sized",
   "version": "2.0.0",
   "files": [
     "src",
@@ -33,11 +33,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-get-token": "workspace:*",
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzogui/get-token": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

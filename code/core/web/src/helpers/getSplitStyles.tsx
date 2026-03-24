@@ -4,7 +4,7 @@ import {
   isIos,
   isWeb,
   useIsomorphicLayoutEffect,
-} from '@hanzo/gui-constants'
+} from '@hanzogui/constants'
 import {
   StyleObjectIdentifier,
   StyleObjectProperty,
@@ -16,7 +16,7 @@ import {
   tokenCategories,
   validPseudoKeys,
   validStyles as validStylesView,
-} from '@hanzo/gui-helpers'
+} from '@hanzogui/helpers'
 import React from 'react'
 import { getConfig, getFont, getSetting } from '../config'
 import { isDevTools } from '../constants/isDevTools'

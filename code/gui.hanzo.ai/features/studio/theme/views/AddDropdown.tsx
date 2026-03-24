@@ -1,4 +1,4 @@
-import { Plus } from '@hanzo/gui-lucide-icons-2'
+import { Plus } from '@hanzogui/lucide-icons-2'
 import type { ListItemProps, PopoverProps } from '@hanzo/gui'
 import {
   Button,

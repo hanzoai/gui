@@ -17,7 +17,7 @@ describe('generateThemeBuilderCode', () => {
 
     // Should use v5 API
     expect(code).toContain('import { createV5Theme')
-    expect(code).toContain("from '@hanzo/gui-config/v5'")
+    expect(code).toContain("from '@hanzogui/config/v5'")
     expect(code).toContain('createV5Theme({')
   })
 
@@ -60,7 +60,7 @@ describe('generateThemeBuilderCode', () => {
 
     // Should import Radix colors
     expect(code).toContain(
-      "import { yellow, yellowDark, red, redDark, green, greenDark } from '@hanzo/gui-colors'"
+      "import { yellow, yellowDark, red, redDark, green, greenDark } from '@hanzogui/colors'"
     )
 
     // Should include semantic themes

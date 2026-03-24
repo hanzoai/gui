@@ -1,4 +1,4 @@
-import { getDocsSection } from '@hanzo/gui-logo'
+import { getDocsSection } from '@hanzogui/logo'
 import { usePathname, useRouter } from 'one'
 import React, { startTransition, useEffect } from 'react'
 import { allNotPending } from './docsRoutes'

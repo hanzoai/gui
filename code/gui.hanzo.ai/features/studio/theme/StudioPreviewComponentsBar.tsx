@@ -1,4 +1,4 @@
-import { Heading } from '@hanzo/gui-lucide-icons-2'
+import { Heading } from '@hanzogui/lucide-icons-2'
 import { memo, useState } from 'react'
 import {
   Label,

@@ -1,5 +1,5 @@
-import type { ThemeDefinition } from '@hanzo/gui-theme-builder'
-import { createStore } from '@hanzo/gui-use-store'
+import type { ThemeDefinition } from '@hanzogui/theme-builder'
+import { createStore } from '@hanzogui/use-store'
 import type { GuiInternalConfig, ThemeName } from '@hanzo/gui'
 import { isLocal } from '~/features/studio/constants'
 // import { watchGuiDirectory } from '../helpers/watchGuiDirectory'

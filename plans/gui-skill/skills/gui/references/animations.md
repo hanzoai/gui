@@ -6,20 +6,20 @@ Hanzo GUI supports multiple animation drivers. Choose based on your platform:
 
 | Driver | Package | Best For |
 |--------|---------|----------|
-| CSS | `@hanzo/gui-animations-css` | Web-only apps, smallest bundle |
-| React Native | `@hanzo/gui-animations-react-native` | Native apps, basic animations |
-| Reanimated | `@hanzo/gui-animations-reanimated` | Native apps, best performance |
-| Motion | `@hanzo/gui-animations-motion` | Cross-platform spring physics |
+| CSS | `@hanzogui/animations-css` | Web-only apps, smallest bundle |
+| React Native | `@hanzogui/animations-react-native` | Native apps, basic animations |
+| Reanimated | `@hanzogui/animations-reanimated` | Native apps, best performance |
+| Motion | `@hanzogui/animations-motion` | Cross-platform spring physics |
 
 ## Configuration
 
 ```tsx
 // v5 config - import driver separately
-import { defaultConfig } from '@hanzo/gui-config/v5'
-import { animations } from '@hanzo/gui-config/v5-css'
-// or: '@hanzo/gui-config/v5-motion'
-// or: '@hanzo/gui-config/v5-rn'
-// or: '@hanzo/gui-config/v5-reanimated'
+import { defaultConfig } from '@hanzogui/config/v5'
+import { animations } from '@hanzogui/config/v5-css'
+// or: '@hanzogui/config/v5-motion'
+// or: '@hanzogui/config/v5-rn'
+// or: '@hanzogui/config/v5-reanimated'
 
 export const config = createGui({
   ...defaultConfig,
@@ -34,7 +34,7 @@ export const config = createGui({
 Uses CSS transition strings:
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-css'
+import { createAnimations } from '@hanzogui/animations-css'
 
 const animations = createAnimations({
   fast: 'ease-in 150ms',
@@ -49,7 +49,7 @@ const animations = createAnimations({
 Use spring physics config:
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-react-native'
+import { createAnimations } from '@hanzogui/animations-react-native'
 
 const animations = createAnimations({
   fast: {

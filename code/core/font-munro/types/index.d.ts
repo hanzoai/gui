@@ -1,4 +1,4 @@
-import type { GenericFont } from "@hanzo/gui-core";
+import type { GenericFont } from "@hanzogui/core";
 export declare const createMunroFont: <A extends GenericFont>(font?: Partial<A>) => A;
 
 //# sourceMappingURL=index.d.ts.map

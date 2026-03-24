@@ -36,7 +36,7 @@ For native support, run `yarn add burnt` to add `burnt`, then rebuild your React
 ## Anatomy
 
 ```tsx
-import { Toast, ToastProvider, ToastViewport } from '@hanzo/gui' // or '@hanzo/gui-toast'
+import { Toast, ToastProvider, ToastViewport } from '@hanzo/gui' // or '@hanzogui/toast'
 
 export default () => (
   <ToastProvider>
@@ -131,8 +131,8 @@ export default () => {
 ### Using `createToast`
 
 ```tsx
-import { Button } from '@hanzo/gui' // or '@hanzo/gui-button'
-import { Toast, ToastProvider, createToast } from '@hanzo/gui' // or '@hanzo/gui-toast'
+import { Button } from '@hanzo/gui' // or '@hanzogui/button'
+import { Toast, ToastProvider, createToast } from '@hanzo/gui' // or '@hanzogui/toast'
 
 export const { ImperativeToastProvider, useToast } = createToast()
 

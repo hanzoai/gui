@@ -40,17 +40,17 @@ yarn dlx create-expo-app -t expo-template-blank-typescript
 
 The following steps are optional but useful for many apps. They enable the optimizing compiler, Reanimated, and support for `process.env.XYZ` environment variables.
 
-Add `@hanzo/gui-babel-plugin`:
+Add `@hanzogui/babel-plugin`:
 
 ```bash
-yarn add @hanzo/gui-babel-plugin
+yarn add @hanzogui/babel-plugin
 ```
 
 If you have a `gui.build.ts` (recommended — see
 [compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
 no options are needed:
 
-Update your `babel.config.js` to include the optional `@hanzo/gui-babel-plugin`:
+Update your `babel.config.js` to include the optional `@hanzogui/babel-plugin`:
 
 ```js fileName="babel.config.js"
 module.exports = function (api) {
@@ -58,7 +58,7 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      '@hanzo/gui-babel-plugin',
+      '@hanzogui/babel-plugin',
     ],
   }
 }
@@ -73,10 +73,10 @@ module.exports = function (api) {
 
 - First, follow the [Metro configuration guide](/docs/guides/metro#web-support) to enable web support.
 
-Add `@hanzo/gui-config` and `@hanzo/gui` to your `package.json` and install them. Then create a `gui.config.ts`:
+Add `@hanzogui/config` and `@hanzo/gui` to your `package.json` and install them. Then create a `gui.config.ts`:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v5'
+import { defaultConfig } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 
 export const guiConfig = createGui(defaultConfig)
@@ -142,7 +142,7 @@ Load your fonts so React Native can recognize them. There are several ways to do
 </InlineTabs.List>
 
 <InlineTabs.Content value="@hanzo/gui">
-Use the `@hanzo/gui-font-inter` package, a pre-configured version of the Inter font that works with Hanzo GUI:
+Use the `@hanzogui/font-inter` package, a pre-configured version of the Inter font that works with Hanzo GUI:
 
 Import the `useFonts` hook and load the fonts:
 
@@ -151,8 +151,8 @@ import { useFonts } from 'expo-font'
 
 function App() {
   const [loaded] = useFonts({
-    Inter: require('@hanzo/gui-font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@hanzo/gui-font-inter/otf/Inter-Bold.otf'),
+    Inter: require('@hanzogui/font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@hanzogui/font-inter/otf/Inter-Bold.otf'),
   })
 
   useEffect(() => {

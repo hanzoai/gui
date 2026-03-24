@@ -1,5 +1,5 @@
-import { createGeistSansFont } from '@hanzo/gui-font-geist-sans'
-import { createGeistMonoFont } from '@hanzo/gui-font-geist-mono'
+import { createGeistSansFont } from '@hanzogui/font-geist-sans'
+import { createGeistMonoFont } from '@hanzogui/font-geist-mono'
 
 const headingFont = createGeistSansFont(
   {

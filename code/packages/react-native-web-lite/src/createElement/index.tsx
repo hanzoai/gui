@@ -12,13 +12,13 @@ import {
   LocaleProvider,
   createDOMProps,
   stylesFromProps,
-} from '@hanzo/gui-react-native-web-internals'
+} from '@hanzogui/react-native-web-internals'
 import {
   type StyleObject,
   getStyleTags,
   insertStyleRules,
   useDidFinishSSR,
-} from '@hanzo/gui-web'
+} from '@hanzogui/web'
 import React, { useInsertionEffect, useMemo } from 'react'
 
 // SSR safe create element

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-native-ci",
+  "name": "@hanzogui/native-ci",
   "version": "2.0.0",
   "description": "Native CI/CD helpers for React Native apps with Expo - fingerprinting, caching, and build optimization",
   "license": "MIT",
@@ -42,7 +42,7 @@
     "@expo/fingerprint": "~0.16.6"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "@types/bun": "^1.1.0",
     "@types/node": "^22.1.0"
   },

@@ -1,4 +1,4 @@
-import { X } from '@hanzo/gui-lucide-icons-2'
+import { X } from '@hanzogui/lucide-icons-2'
 import {
   Adapt,
   Button,

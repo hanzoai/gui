@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-react-native-media-driver",
+  "name": "@hanzogui/react-native-media-driver",
   "version": "2.0.0",
   "license": "MIT",
   "source": "src/index.ts",
@@ -35,10 +35,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react-native": "0.83.2"
   },
   "peerDependencies": {

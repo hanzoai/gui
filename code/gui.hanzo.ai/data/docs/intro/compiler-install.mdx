@@ -68,13 +68,13 @@ You can still pass options directly to a plugin, and they'll be merged with
 
 ## Install
 
-There are plugins for a variety of bundlers, or you can use the `@hanzo/gui-cli`
+There are plugins for a variety of bundlers, or you can use the `@hanzogui/cli`
 to compile in-place:
 
 ### Webpack
 
 ```bash
-yarn add @hanzo/gui-loader
+yarn add @hanzogui/loader
 ```
 
 We have a full example of a plain Webpack or Vite setup in the simple starter
@@ -105,7 +105,7 @@ module.exports = {
       // Resolve react-native to react-native-web
       'react-native$': require.resolve('react-native-web'),
       // optional, for lighter svg icons on web
-      'react-native-svg': require.resolve('@hanzo/gui-react-native-svg'),
+      'react-native-svg': require.resolve('@hanzogui/react-native-svg'),
     },
   },
   module: {
@@ -181,14 +181,14 @@ Some notes on the options:
 See the [Vite guide](/docs/guides/vite) for more complete setup.
 
 <Notice theme="yellow">
-  `@hanzo/gui-vite-plugin` is ESM-only. Your project must have `"type": "module"` in its `package.json` (or use `.mjs`/`.mts` config files).
+  `@hanzogui/vite-plugin` is ESM-only. Your project must have `"type": "module"` in its `package.json` (or use `.mjs`/`.mts` config files).
 </Notice>
 
-Add `@hanzo/gui-vite-plugin` and update your `vite.config.ts`. If you have a
+Add `@hanzogui/vite-plugin` and update your `vite.config.ts`. If you have a
 `gui.build.ts`, no options are needed:
 
 ```tsx
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 export default defineConfig({
   plugins: [
@@ -201,7 +201,7 @@ export default defineConfig({
 Or pass options inline:
 
 ```tsx
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 export default defineConfig({
   plugins: [
@@ -222,11 +222,11 @@ Next.js with Turbopack (the default) works best with the CLI approach — create
 `gui.build.ts` and use `gui build` to optimize production builds. No
 bundler plugin needed.
 
-For older Webpack-based Next.js setups, add `@hanzo/gui-next-plugin` and configure
+For older Webpack-based Next.js setups, add `@hanzogui/next-plugin` and configure
 your `next.config.js`:
 
 ```js
-const { withGui } = require('@hanzo/gui-next-plugin')
+const { withGui } = require('@hanzogui/next-plugin')
 
 module.exports = function (name, { defaultConfig }) {
   const guiPlugin = withGui({
@@ -251,13 +251,13 @@ your app.
 
 ### Babel / Metro
 
-Note that the `@hanzo/gui-babel-plugin` is completely optional, and on native
+Note that the `@hanzogui/babel-plugin` is completely optional, and on native
 Hanzo GUI doesn't optimize as much as on web, so leaving it out is actually
 recommended to start. If later on you feel the need for a bit more speed, you
 can try adding it.
 
 ```bash
-yarn add @hanzo/gui-babel-plugin
+yarn add @hanzogui/babel-plugin
 ```
 
 Add to your `babel.config.js`. With a `gui.build.ts`, you can pass no
@@ -267,7 +267,7 @@ options:
 module.exports = {
   plugins: [
     // reads from gui.build.ts automatically
-    '@hanzo/gui-babel-plugin',
+    '@hanzogui/babel-plugin',
   ],
 }
 ```
@@ -278,7 +278,7 @@ Or pass options inline:
 module.exports = {
   plugins: [
     [
-      '@hanzo/gui-babel-plugin',
+      '@hanzogui/babel-plugin',
       {
         components: ['@hanzo/gui'],
         config: './gui.config.ts',
@@ -299,7 +299,7 @@ Expo. It's as simple as adding the babel plugin.
 ### CLI-Based In-Place Compilation
 
 For bundlers that don't have a Hanzo GUI plugin yet (like Turbopack), or if you
-prefer a simple setup, you can use `@hanzo/gui-cli` to pre-compile your components
+prefer a simple setup, you can use `@hanzogui/cli` to pre-compile your components
 in-place before your build step.
 
 This approach is meant for **production builds only** and should run in your
@@ -317,7 +317,7 @@ For complete CLI documentation including all available commands, see the
 1. Install:
 
 ```bash
-yarn add -D @hanzo/gui-cli
+yarn add -D @hanzogui/cli
 ```
 
 2. Create a `gui.build.ts` if you haven't already (see
@@ -634,7 +634,7 @@ You can disable the compiler optimization for a single component with the
 boolean property `disableOptimization`:
 
 ```tsx
-import { View } from '@hanzo/gui-core'
+import { View } from '@hanzogui/core'
 
 export default () => <View disableOptimization />
 ```

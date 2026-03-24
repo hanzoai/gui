@@ -1,5 +1,5 @@
-import { ChevronRight, FilePlus, Settings, Trash2 } from '@hanzo/gui-lucide-icons-2'
-import { Menu } from '@hanzo/gui-menu'
+import { ChevronRight, FilePlus, Settings, Trash2 } from '@hanzogui/lucide-icons-2'
+import { Menu } from '@hanzogui/menu'
 import React from 'react'
 import { Button, YStack } from '@hanzo/gui'
 

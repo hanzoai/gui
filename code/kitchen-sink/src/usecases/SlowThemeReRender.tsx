@@ -1,5 +1,5 @@
 import React from 'react'
-import { View as GuiView, Theme } from '@hanzo/gui-core'
+import { View as GuiView, Theme } from '@hanzogui/core'
 
 import { Button, View as RNView } from 'react-native'
 

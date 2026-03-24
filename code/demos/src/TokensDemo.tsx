@@ -1,5 +1,5 @@
-import type { Tokens } from '@hanzo/gui-core'
-import { getConfig } from '@hanzo/gui-core'
+import type { Tokens } from '@hanzogui/core'
+import { getConfig } from '@hanzogui/core'
 import React from 'react'
 import { Button, H2, H3, H4, Square, XGroup, XStack, YStack } from '@hanzo/gui'
 

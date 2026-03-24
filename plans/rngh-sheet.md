@@ -54,16 +54,16 @@ When sheet is at middle position and user does FAST swipe up:
 
 Like gorhom/bottom-sheet and react-native-actions-sheet, we need synchronous native-thread control. Instead of requiring full Reanimated, we can use the lighter `react-native-worklets-core` package.
 
-**New Architecture** - `@hanzo/gui-native` package:
+**New Architecture** - `@hanzogui/native` package:
 
 ```tsx
 // Entry points (side-effect imports only, no setup() functions):
-import '@hanzo/gui-native/setup-gesture-handler' // RNGH
-import '@hanzo/gui-native/setup-worklets' // react-native-worklets-core
+import '@hanzogui/native/setup-gesture-handler' // RNGH
+import '@hanzogui/native/setup-worklets' // react-native-worklets-core
 
 // In your app:
-import '@hanzo/gui-native/setup-gesture-handler'
-import '@hanzo/gui-native/setup-worklets'
+import '@hanzogui/native/setup-gesture-handler'
+import '@hanzogui/native/setup-worklets'
 // That's it! Sheet will automatically use worklets when available
 ```
 
@@ -146,7 +146,7 @@ if (wasAtTop !== nowAtTop) {
 
 ### Remaining Work
 
-- [ ] Move setup to @hanzo/gui-native-gestures package
+- [ ] Move setup to @hanzogui/native-gestures package
 - [ ] Write docs and blog post
 - [ ] Test web sheets haven't regressed
 - [ ] Run release dry-run
@@ -182,7 +182,7 @@ This happened because the app imports RNGH at the top (`import 'react-native-ges
 ```tsx
 // OLD (broken):
 import 'react-native-gesture-handler'
-import { setupGestureHandler } from '@hanzo/gui-sheet/setup-gesture-handler'
+import { setupGestureHandler } from '@hanzogui/sheet/setup-gesture-handler'
 setupGestureHandler() // ❌ tries to require RNGH again, double registration
 
 // NEW (fixed):
@@ -191,7 +191,7 @@ import {
   GestureDetector,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler'
-import { setupGestureHandler } from '@hanzo/gui-sheet/setup-gesture-handler'
+import { setupGestureHandler } from '@hanzogui/sheet/setup-gesture-handler'
 setupGestureHandler({ Gesture, GestureDetector }) // ✅ uses already-imported refs
 ```
 
@@ -594,14 +594,14 @@ yarn detox test -c ios.sim.debug tests/SheetScrollableDrag.detox.test.ts
 
 ### Architecture Decisions
 
-1. **Setup via @hanzo/gui-native** - Follows portal pattern, side-effect imports only
+1. **Setup via @hanzogui/native** - Follows portal pattern, side-effect imports only
 2. **Optional peer dep** - RNGH is optional, clean fallback to PanResponder
 3. **No RNGH on web** - Web always uses PanResponder (works fine)
 4. **ScrollBridge for coordination** - Centralized state between pan and scroll
 
 ### Files Changed
 
-- `code/ui/sheet/src/gestureState.ts` - Re-exports from @hanzo/gui-native
+- `code/ui/sheet/src/gestureState.ts` - Re-exports from @hanzogui/native
 - `code/ui/sheet/src/useGestureHandlerPan.tsx` - Pan gesture with scroll coordination
 - `code/ui/sheet/src/SheetScrollView.tsx` - RNGH ScrollView with simultaneousHandlers
 - `code/ui/sheet/src/GestureDetectorWrapper.tsx` - Conditional gesture wrapper

@@ -1,5 +1,5 @@
-import type { FillInFont, GenericFont } from '@hanzo/gui-core';
-export type { GenericFont, FillInFont } from '@hanzo/gui-core';
+import type { FillInFont, GenericFont } from '@hanzogui/core';
+export type { GenericFont, FillInFont } from '@hanzogui/core';
 declare const defaultSizes: {
     readonly 1: 11;
     readonly 2: 12;

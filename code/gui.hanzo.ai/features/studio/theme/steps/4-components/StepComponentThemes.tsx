@@ -1,4 +1,4 @@
-import { useStoreSelector } from '@hanzo/gui-use-store'
+import { useStoreSelector } from '@hanzogui/use-store'
 import { memo, useEffect } from 'react'
 import {
   Button,

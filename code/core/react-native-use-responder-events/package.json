@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-react-native-use-responder-events",
+  "name": "@hanzogui/react-native-use-responder-events",
   "version": "2.0.0",
   "files": [
     "src",
@@ -33,7 +33,7 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

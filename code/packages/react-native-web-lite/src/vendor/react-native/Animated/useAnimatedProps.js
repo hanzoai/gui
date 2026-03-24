@@ -16,7 +16,7 @@ import { useRefEffect } from '../Utilities/useRefEffect'
 import { NativeAnimatedHelper } from './NativeAnimatedHelper'
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react'
 
-import { useLayoutEffect } from '@hanzo/gui-react-native-web-internals'
+import { useLayoutEffect } from '@hanzogui/react-native-web-internals'
 
 // ReducedProps type removed
 

@@ -1,4 +1,4 @@
-# @hanzo/gui-animations-motion
+# @hanzogui/animations-motion
 
 Motion animation driver for Hanzo GUI, powered by the [Motion](https://motion.dev) library and the Web Animations API (WAAPI).
 
@@ -13,7 +13,7 @@ Motion animation driver for Hanzo GUI, powered by the [Motion](https://motion.de
 ## Installation
 
 ```bash
-yarn add @hanzo/gui-animations-motion motion
+yarn add @hanzogui/animations-motion motion
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ yarn add @hanzo/gui-animations-motion motion
 Add to your Hanzo GUI configuration:
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({

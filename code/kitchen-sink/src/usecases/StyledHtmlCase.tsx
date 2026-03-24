@@ -1,4 +1,4 @@
-import { styled } from '@hanzo/gui-core'
+import { styled } from '@hanzogui/core'
 
 // Test: styled.a() with proper href typing
 const StyledAnchor = styled.a({

@@ -1,4 +1,4 @@
-import type { PluginOptions as LoaderPluginOptions } from '@hanzo/gui-loader';
+import type { PluginOptions as LoaderPluginOptions } from '@hanzogui/loader';
 export type WithGuiProps = LoaderPluginOptions & {
     appDir?: boolean;
     enableLegacyFontSupport?: boolean;
@@ -17,7 +17,7 @@ export type WithGuiProps = LoaderPluginOptions & {
         fullPath: string;
     }) => boolean | string | undefined;
     disableThemesBundleOptimize?: boolean;
-    /** By default we add a Next.js modularizeImports option to tree shake @hanzo/gui-lucide-icons-2, this disables it */
+    /** By default we add a Next.js modularizeImports option to tree shake @hanzogui/lucide-icons-2, this disables it */
     disableOptimizeLucideIcons?: boolean;
 };
 export declare const withGui: (guiOptionsIn?: WithGuiProps) => (nextConfig?: any) => any;

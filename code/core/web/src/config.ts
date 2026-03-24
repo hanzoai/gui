@@ -1,4 +1,4 @@
-import { isWeb } from '@hanzo/gui-constants'
+import { isWeb } from '@hanzogui/constants'
 import { MISSING_THEME_MESSAGE } from './constants/constants'
 import type {
   AnimationDriver,
@@ -94,7 +94,7 @@ export const getConfig = () => {
   if (!config) {
     throw new Error(
       process.env.NODE_ENV !== 'production'
-        ? `Missing gui config, you either have a duplicate config, or haven't set it up. Be sure createGui is called before rendering. Also, make sure all of your hanzo-gui dependencies are on the same version (\`gui\`, \`@hanzo/gui-package-name\`, etc.) not just in your package.json, but in your lockfile.`
+        ? `Missing gui config, you either have a duplicate config, or haven't set it up. Be sure createGui is called before rendering. Also, make sure all of your hanzo-gui dependencies are on the same version (\`gui\`, \`@hanzogui/package-name\`, etc.) not just in your package.json, but in your lockfile.`
         : 'Err0'
     )
   }

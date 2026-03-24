@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Syncs all @hanzo/gui-* package versions to match the main hanzo-gui package.
+ * Syncs all @hanzogui/* package versions to match the main hanzo-gui package.
  * Used as a post-merge hook to ensure new packages get the correct version.
  */
 
@@ -28,7 +28,7 @@ async function main() {
       const pkg = JSON.parse(content)
 
       // Only update @gui scoped packages
-      if (!pkg.name?.startsWith('@hanzo/gui-')) continue
+      if (!pkg.name?.startsWith('@hanzogui/')) continue
 
       if (pkg.version !== targetVersion) {
         console.info(`  Updating ${pkg.name}: ${pkg.version} -> ${targetVersion}`)

@@ -1,4 +1,4 @@
-import { Toast, useToastController, useToastState } from '@hanzo/gui-toast'
+import { Toast, useToastController, useToastState } from '@hanzogui/toast'
 import { Button, H4, XStack, YStack, isWeb } from '@hanzo/gui'
 
 export function CurrentToast() {

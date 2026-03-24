@@ -4,11 +4,11 @@ description: Helpful functions and constants
 ---
 
 Let's take a quick look through some of the useful other exports in
-`@hanzo/gui-core`.
+`@hanzogui/core`.
 
 ## Constants
 
-[Constants are re-exported from @hanzo/gui-constants](https://github.com/hanzoai/gui/blob/main/code/core/constants/src/constants.ts):
+[Constants are re-exported from @hanzogui/constants](https://github.com/hanzoai/gui/blob/main/code/core/constants/src/constants.ts):
 
 - `isWeb` - True if targeting the web. Will be true both for SSR and client.
 - `isBrowser` - `typeof window !== 'undefined'`
@@ -246,7 +246,7 @@ need to access `HTMLElement`-specific properties like `selectionStart` on
 inputs, this avoids needing `any` casts.
 
 ```tsx
-import { useWebRef } from '@hanzo/gui' // or '@hanzo/gui-element'
+import { useWebRef } from '@hanzo/gui' // or '@hanzogui/element'
 
 // In your .tsx (web) file:
 function MyInput(props, forwardedRef) {
@@ -268,7 +268,7 @@ ref for React Native that also composes with a forwarded ref. Pairs with
 `useWebRef` for cross-platform component development.
 
 ```tsx
-import { useNativeRef } from '@hanzo/gui' // or '@hanzo/gui-element'
+import { useNativeRef } from '@hanzo/gui' // or '@hanzogui/element'
 
 // In your .native.tsx file:
 function MyComponent(props, forwardedRef) {
@@ -282,7 +282,7 @@ function MyComponent(props, forwardedRef) {
 For input components, use `useNativeInputRef` which types to `TextInput`:
 
 ```tsx
-import { useNativeInputRef } from '@hanzo/gui' // or '@hanzo/gui-element'
+import { useNativeInputRef } from '@hanzo/gui' // or '@hanzogui/element'
 
 function MyInput(props, forwardedRef) {
   const { ref, composedRef } = useNativeInputRef(forwardedRef)
@@ -298,7 +298,7 @@ the element is not an HTMLElement. Useful for platform-specific code where you
 know you're on web.
 
 ```tsx
-import { getWebElement } from '@hanzo/gui' // or '@hanzo/gui-element'
+import { getWebElement } from '@hanzo/gui' // or '@hanzogui/element'
 
 // Narrows to HTMLElement
 const el = getWebElement(ref.current)
@@ -329,7 +329,7 @@ Hanzo GUI avoids double-renders in various places which results in faster
 client-side rendering.
 
 ```tsx
-import { ClientOnly } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { ClientOnly } from '@hanzo/gui' // or '@hanzogui/core'
 
 // Children will render only on the client, skipping SSR entirely
 <ClientOnly>
@@ -351,7 +351,7 @@ import { ClientOnly } from '@hanzo/gui' // or '@hanzo/gui-core'
 Fetches the type of props for a Hanzo GUI component:
 
 ```tsx
-import { View, GetProps, styled } from '@hanzo/gui-core'
+import { View, GetProps, styled } from '@hanzogui/core'
 
 const X = styled(View, {})
 
@@ -363,7 +363,7 @@ type XProps = GetProps<typeof X>
 Fetches the type of a ref for a Hanzo GUI component, or any React component:
 
 ```tsx
-import { View, GetRef, styled } from '@hanzo/gui-core'
+import { View, GetRef, styled } from '@hanzogui/core'
 
 const X = styled(View, {})
 

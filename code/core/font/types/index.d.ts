@@ -1,11 +1,11 @@
-import type { CreateGuiProps } from '@hanzo/gui-web';
+import type { CreateGuiProps } from '@hanzogui/web';
 export declare function addFont(props: {
     fontFamilyName: string;
     fontFamily: CreateGuiProps['fonts'][keyof CreateGuiProps['fonts']];
     insertCSS?: boolean;
     update?: boolean;
 }): {
-    fontFamily: import("@hanzo/gui-web").GenericFont<string | number | symbol>;
+    fontFamily: import("@hanzogui/web").GenericFont<string | number | symbol>;
     fontFamilyToken?: undefined;
     fontDeclaration?: undefined;
 } | {

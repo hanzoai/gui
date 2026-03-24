@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as DatePickers from '@hanzo/gui-bento/component/elements/datepickers'
+import * as DatePickers from '@hanzogui/bento/component/elements/datepickers'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

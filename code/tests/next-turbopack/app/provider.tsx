@@ -1,7 +1,7 @@
 'use client'
 
-import { GuiProvider as Provider } from '@hanzo/gui-core'
-import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
+import { GuiProvider as Provider } from '@hanzogui/core'
+import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { useServerInsertedHTML } from 'next/navigation'
 import { StyleSheet } from 'react-native'
 import config from '../gui.config'

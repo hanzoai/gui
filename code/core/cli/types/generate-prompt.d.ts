@@ -1,4 +1,4 @@
-import type { CLIResolvedOptions } from '@hanzo/gui-types';
+import type { CLIResolvedOptions } from '@hanzogui/types';
 interface GeneratePromptOptions extends CLIResolvedOptions {
     output?: string;
 }

@@ -1,4 +1,4 @@
-import { ChevronRight } from '@hanzo/gui-lucide-icons-2'
+import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import { ScrollView } from 'react-native'
 import { H1, ListItem, YGroup, YStack } from '@hanzo/gui'
 import { demos } from './demos'

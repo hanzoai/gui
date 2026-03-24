@@ -1,4 +1,4 @@
-import { StyleObjectIdentifier, StyleObjectRules } from '@hanzo/gui-helpers'
+import { StyleObjectIdentifier, StyleObjectRules } from '@hanzogui/helpers'
 import { createVariable } from '../createVariable'
 import type {
   DedupedTheme,

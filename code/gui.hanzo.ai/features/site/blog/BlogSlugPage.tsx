@@ -1,5 +1,5 @@
-import { ThemeTint } from '@hanzo/gui-logo'
-import { ArrowLeft } from '@hanzo/gui-lucide-icons-2'
+import { ThemeTint } from '@hanzogui/logo'
+import { ArrowLeft } from '@hanzogui/lucide-icons-2'
 import type { Frontmatter } from '@vxrn/mdx'
 import {
   Button,
@@ -13,7 +13,7 @@ import {
   XStack,
   YStack,
 } from '@hanzo/gui'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
+import { LinearGradient } from '@hanzogui/linear-gradient'
 import { usePathname } from 'one'
 import { Container } from '~/components/Containers'
 import { Link } from '~/components/Link'

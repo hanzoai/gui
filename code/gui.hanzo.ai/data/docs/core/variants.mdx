@@ -11,7 +11,7 @@ that expand into groups of styles. Variants do just that. Before explaining more
 on why and how they work, an example:
 
 ```tsx
-import { View, styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { View, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 export const Circle = styled(View, {
   borderRadius: 100_000_000,
@@ -101,7 +101,7 @@ prop will be typed to accept true or false, and when true it will apply its
 styles.
 
 ```tsx
-import { View, styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { View, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 export const MyView = styled(View, {
   variants: {
@@ -126,7 +126,7 @@ You can use a pseudo Typescript syntax for other variants:
 - `:number` - Accepts a `number`
 
 ```tsx
-import { View, styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { View, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 export const ColorfulView = styled(View, {
   variants: {
@@ -310,7 +310,7 @@ Much like a dynamic variant, except it lets you use it alongside the other typed
 variants you need. Use '...' and it will grab all variants that don't match:
 
 ```tsx
-import { View, styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { View, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 export const ColorfulView = styled(View, {
   variants: {
@@ -335,7 +335,7 @@ If you need more complex types, or simply prefer a shorter syntax, you can use a
 single function instead of using the object syntax for variants:
 
 ```tsx
-import { View, styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { View, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 export const MyView = styled(View, {
   variants: {

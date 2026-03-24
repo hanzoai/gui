@@ -1,4 +1,4 @@
-import { Input, TextArea } from '@hanzo/gui-input'
+import { Input, TextArea } from '@hanzogui/input'
 import { YStack } from '@hanzo/gui'
 
 export function NewInputBasic() {

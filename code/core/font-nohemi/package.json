@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-font-nohemi",
+  "name": "@hanzogui/font-nohemi",
   "version": "2.0.0",
   "files": [
     "types",
@@ -32,10 +32,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-core": "workspace:*"
+    "@hanzogui/core": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "subset-font": "^2.1.0"
   },
   "skipPublishIfUnchanged": false

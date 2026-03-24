@@ -1,6 +1,6 @@
 import React from 'react'
-import { config } from '@hanzo/gui-config/v3'
-import { addTheme, updateTheme } from '@hanzo/gui-theme'
+import { config } from '@hanzogui/config/v3'
+import { addTheme, updateTheme } from '@hanzogui/theme'
 
 import {
   Button,

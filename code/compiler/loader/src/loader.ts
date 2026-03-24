@@ -1,5 +1,5 @@
-import * as StaticWorker from '@hanzo/gui-static-worker'
-import type { GuiOptions } from '@hanzo/gui-types'
+import * as StaticWorker from '@hanzogui/static-worker'
+import type { GuiOptions } from '@hanzogui/types'
 import type { LoaderContext } from 'webpack'
 import { requireResolve } from './requireResolve'
 

@@ -1,4 +1,4 @@
-import { GuiProvider, Theme, View, createGui } from '@hanzo/gui-core'
+import { GuiProvider, Theme, View, createGui } from '@hanzogui/core'
 import { render } from '@testing-library/react-native'
 import { describe, expect, test } from 'vitest'
 import { getDefaultGuiConfig } from '../config-default'

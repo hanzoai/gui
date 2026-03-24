@@ -1,5 +1,5 @@
-import type { FillInFont, GenericFont } from '@hanzo/gui-core'
-import { createFont, getVariableValue } from '@hanzo/gui-core'
+import type { FillInFont, GenericFont } from '@hanzogui/core'
+import { createFont, getVariableValue } from '@hanzogui/core'
 
 const isWeb = process.env.HANZO_GUI_TARGET === 'web'
 const isNative = process.env.HANZO_GUI_TARGET === 'native'

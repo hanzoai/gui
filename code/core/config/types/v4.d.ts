@@ -1,10 +1,10 @@
-export { shorthands } from '@hanzo/gui-shorthands/v4';
-export { createThemes } from '@hanzo/gui-theme-builder';
-export { guiThemes, tokens } from '@hanzo/gui-themes/v4';
+export { shorthands } from '@hanzogui/shorthands/v4';
+export { createThemes } from '@hanzogui/theme-builder';
+export { guiThemes, tokens } from '@hanzogui/themes/v4';
 export { animations } from './v4-animations';
 export { createSystemFont, fonts } from './v4-fonts';
 export { breakpoints, media, mediaQueryDefaultActive } from './v4-media';
-export { defaultThemes as themes } from '@hanzo/gui-themes/v4';
+export { defaultThemes as themes } from '@hanzogui/themes/v4';
 export declare const selectionStyles: (theme: any) => {
     backgroundColor: any;
     color: any;
@@ -29,7 +29,7 @@ export declare const settings: {
     defaultPosition: "relative";
 };
 export declare const defaultConfig: {
-    animations: import("@hanzo/gui-web").AnimationDriver<{
+    animations: import("@hanzogui/web").AnimationDriver<{
         '0ms': string;
         '30ms': string;
         '50ms': string;
@@ -135,7 +135,7 @@ export declare const defaultConfig: {
         t: "top";
         z: "zIndex";
     };
-    themes: import("@hanzo/gui-themes/types/generated-v4").Themes;
+    themes: import("@hanzogui/themes/types/generated-v4").Themes;
     tokens: {
         readonly radius: {
             0: number;
@@ -253,8 +253,8 @@ export declare const defaultConfig: {
         };
     };
     fonts: {
-        body: import("@hanzo/gui-web").FillInFont<import("@hanzo/gui-web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
-        heading: import("@hanzo/gui-web").FillInFont<import("@hanzo/gui-web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+        body: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+        heading: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
     };
     selectionStyles: (theme: any) => {
         backgroundColor: any;

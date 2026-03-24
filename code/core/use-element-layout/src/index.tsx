@@ -1,4 +1,4 @@
-import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
+import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import { createContext, useContext, useId, type ReactNode, type RefObject } from 'react'
 
 const LayoutHandlers = new WeakMap<HTMLElement, Function>()

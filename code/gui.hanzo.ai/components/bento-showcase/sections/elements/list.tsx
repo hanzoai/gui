@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as Lists from '@hanzo/gui-bento/component/elements/list'
+import * as Lists from '@hanzogui/bento/component/elements/list'
 import {
   Hint,
   Showcase,

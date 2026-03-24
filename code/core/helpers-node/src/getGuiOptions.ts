@@ -4,6 +4,6 @@ export async function getGuiOptions({
   cwd = '.',
 }: {
   cwd?: string
-}): Promise<import('@hanzo/gui-types/types').GuiOptions> {
+}): Promise<import('@hanzogui/types/types').GuiOptions> {
   return (await readGuiOptions({ cwd })).options
 }

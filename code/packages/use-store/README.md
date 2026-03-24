@@ -1,4 +1,4 @@
-# @hanzo/gui-use-store
+# @hanzogui/use-store
 
 Simplish reactive classes in react. It doesn't do granular deep object reaction, just the top level set.
 
@@ -8,7 +8,7 @@ import {
   createStoreInstance,
   useStore,
   useGlobalStore,
-} from '@hanzo/gui-use-store'
+} from '@hanzogui/use-store'
 
 class X {
   y = 0

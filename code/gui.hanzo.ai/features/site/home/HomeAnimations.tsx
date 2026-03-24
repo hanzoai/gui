@@ -1,5 +1,5 @@
-import { LogoIcon, useTint } from '@hanzo/gui-logo'
-import { ArrowDown, Play } from '@hanzo/gui-lucide-icons-2'
+import { LogoIcon, useTint } from '@hanzogui/logo'
+import { ArrowDown, Play } from '@hanzogui/lucide-icons-2'
 import React, { memo, useEffect, useRef, useState } from 'react'
 import {
   Button,

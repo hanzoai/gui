@@ -1,5 +1,5 @@
-import { createStudioThemes } from '@hanzo/gui-theme-builder'
-import type { BuildThemeSuiteProps } from '@hanzo/gui-themes'
+import { createStudioThemes } from '@hanzogui/theme-builder'
+import type { BuildThemeSuiteProps } from '@hanzogui/themes'
 import type { ThemeName } from '@hanzo/gui'
 import { debounce, mutateThemes } from '@hanzo/gui'
 

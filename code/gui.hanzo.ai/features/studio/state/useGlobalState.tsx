@@ -1,4 +1,4 @@
-import { useGlobalStore } from '@hanzo/gui-use-store'
+import { useGlobalStore } from '@hanzogui/use-store'
 
 import type { AnimationsStore } from './AnimationsStore'
 import { animationsStore } from './AnimationsStore'

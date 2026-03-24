@@ -1,4 +1,4 @@
-import { Check, LogOut, Menu } from '@hanzo/gui-lucide-icons-2'
+import { Check, LogOut, Menu } from '@hanzogui/lucide-icons-2'
 import {
   Button,
   Checkbox,

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-use-escape-keydown",
+  "name": "@hanzogui/use-escape-keydown",
   "version": "2.0.0",
   "files": [
     "src",
@@ -33,10 +33,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-use-callback-ref": "workspace:*"
+    "@hanzogui/use-callback-ref": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

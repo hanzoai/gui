@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-code-to-html",
+  "name": "@hanzogui/code-to-html",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
@@ -31,6 +31,6 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

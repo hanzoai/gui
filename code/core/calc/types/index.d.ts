@@ -1,4 +1,4 @@
-import type { FontLineHeightTokens, FontSizeTokens, SizeTokens, SpaceTokens } from "@hanzo/gui-core";
+import type { FontLineHeightTokens, FontSizeTokens, SizeTokens, SpaceTokens } from "@hanzogui/core";
 /**
 * Simple calc() that handles native + web
 *   on web: outputs a calc() string

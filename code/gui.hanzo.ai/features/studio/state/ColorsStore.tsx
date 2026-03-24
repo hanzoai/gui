@@ -1,4 +1,4 @@
-import { createStore } from '@hanzo/gui-use-store'
+import { createStore } from '@hanzogui/use-store'
 import { keyBy, uniqueId } from 'lodash-es'
 import { cssColorNames } from '../colors/cssColorNames'
 import { hexToColor, randomIntegerInRange } from '~/features/studio/colors/helpers'

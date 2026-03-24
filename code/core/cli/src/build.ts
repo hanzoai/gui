@@ -4,8 +4,8 @@ import {
   extractToNative,
   loadGui,
   loadGuiBuildConfigSync,
-} from '@hanzo/gui-static'
-import type { CLIResolvedOptions, GuiOptions } from '@hanzo/gui-types'
+} from '@hanzogui/static'
+import type { CLIResolvedOptions, GuiOptions } from '@hanzogui/types'
 import chokidar from 'chokidar'
 import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'fs-extra'
 import MicroMatch from 'micromatch'

@@ -9,12 +9,12 @@
 
 'use strict'
 
-import { usePressEvents } from '@hanzo/gui-react-native-use-pressable'
-import type { PressResponderConfig } from '@hanzo/gui-react-native-use-pressable'
+import { usePressEvents } from '@hanzogui/react-native-use-pressable'
+import type { PressResponderConfig } from '@hanzogui/react-native-use-pressable'
 import * as React from 'react'
 import { forwardRef, memo, useMemo, useRef, useState } from 'react'
-import { StyleSheet } from '@hanzo/gui-react-native-web-internals'
-import { useHover, useMergeRefs } from '@hanzo/gui-react-native-web-internals'
+import { StyleSheet } from '@hanzogui/react-native-web-internals'
+import { useHover, useMergeRefs } from '@hanzogui/react-native-web-internals'
 
 import type { ViewProps } from '../View/index'
 import { View } from '../View/index'

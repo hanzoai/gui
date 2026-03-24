@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-conditional-hooks",
+  "name": "@hanzogui/conditional-hooks",
   "version": "2.0.0",
   "files": [
     "src",
@@ -33,10 +33,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-constants": "workspace:*"
+    "@hanzogui/constants": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

@@ -1,4 +1,4 @@
-import { useTint } from '@hanzo/gui-logo'
+import { useTint } from '@hanzogui/logo'
 import { useRef, useState } from 'react'
 import { Button, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { Link } from '~/components/Link'

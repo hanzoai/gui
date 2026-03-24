@@ -1,4 +1,4 @@
-import { ClientOnly } from '@hanzo/gui-use-did-finish-ssr'
+import { ClientOnly } from '@hanzogui/use-did-finish-ssr'
 import React from 'react'
 import { ComponentContext } from '../contexts/ComponentContext'
 import type { AnimationDriver } from '../types'

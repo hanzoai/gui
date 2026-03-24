@@ -3,12 +3,12 @@ title: Vite Guide
 description: How to set up Hanzo GUI with Vite
 ---
 
-Hanzo GUI now has two plugins for Vite: one that sets up everything you need to get going, and a second that adds CSS compilation. Both are included in the `@hanzo/gui-vite-plugin` package.
+Hanzo GUI now has two plugins for Vite: one that sets up everything you need to get going, and a second that adds CSS compilation. Both are included in the `@hanzogui/vite-plugin` package.
 
 ## Install
 
 <Notice theme="yellow">
-  `@hanzo/gui-vite-plugin` is ESM-only. Your project must have `"type": "module"` in its
+  `@hanzogui/vite-plugin` is ESM-only. Your project must have `"type": "module"` in its
   `package.json` (or use `.mjs`/`.mts` config files). CJS (`require()`) is not supported.
 </Notice>
 
@@ -23,10 +23,10 @@ Create a new [Vite](https://vitejs.dev/guide/#scaffolding-your-first-vite-projec
 npm create vite@latest
 ```
 
-Add `@hanzo/gui-vite-plugin`:
+Add `@hanzogui/vite-plugin`:
 
 ```bash
-yarn add @hanzo/gui-vite-plugin
+yarn add @hanzogui/vite-plugin
 ```
 
 ### Configuration
@@ -36,7 +36,7 @@ see [compiler install docs](/docs/intro/compiler-install#configuration-with-guib
 no options are needed:
 
 ```tsx fileName="vite.config.ts"
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 export default {
   plugins: [
@@ -49,7 +49,7 @@ export default {
 Or pass options inline:
 
 ```tsx fileName="vite.config.ts"
-import { guiPlugin } from '@hanzo/gui-vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 export default {
   plugins: [
@@ -99,7 +99,7 @@ config.optimizeDeps.esbuildOptions = {
 For advanced use cases where you need more control over alias ordering in your Vite config, you can use the `guiAliases` helper function:
 
 ```tsx fileName="vite.config.ts"
-import { guiAliases } from '@hanzo/gui-vite-plugin'
+import { guiAliases } from '@hanzogui/vite-plugin'
 
 export default {
   resolve: {
@@ -108,11 +108,11 @@ export default {
       { find: '@app', replacement: '/src' },
       // then gui aliases
       ...guiAliases({
-        // use @hanzo/gui-react-native-web-lite for smaller bundle
+        // use @hanzogui/react-native-web-lite for smaller bundle
         rnwLite: true,
         // or 'without-animated' for even smaller bundle (no Animated API)
         // rnwLite: 'without-animated',
-        // alias react-native-svg to @hanzo/gui-react-native-svg
+        // alias react-native-svg to @hanzogui/react-native-svg
         svg: true,
       }),
     ],

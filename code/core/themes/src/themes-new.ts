@@ -1,6 +1,6 @@
-import { createThemeBuilder } from '@hanzo/gui-theme-builder'
+import { createThemeBuilder } from '@hanzogui/theme-builder'
 import { componentThemeDefinitions } from './componentThemeDefinitions'
-import { masks } from '@hanzo/gui-theme-builder'
+import { masks } from '@hanzogui/theme-builder'
 import { palettes } from './palettes'
 import { shadows } from './shadows'
 import { maskOptions, templates } from './templates'

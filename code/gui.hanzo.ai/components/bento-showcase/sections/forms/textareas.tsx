@@ -1,6 +1,6 @@
 import { YStack } from '@hanzo/gui'
 
-import * as TextAreas from '@hanzo/gui-bento/component/forms/textareas'
+import * as TextAreas from '@hanzogui/bento/component/forms/textareas'
 import {
   Showcase,
   ShowcaseChildWrapper as Wrapper,

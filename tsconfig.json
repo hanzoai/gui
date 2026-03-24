@@ -6,12 +6,12 @@
       "@hanzo/gui": [
         "code/ui/gui"
       ],
-      "@hanzo/gui-*": [
+      "@hanzogui/*": [
         "code/core/*",
         "code/ui/*",
         "code/packages/*"
       ],
-      "@hanzo/gui-demos": [
+      "@hanzogui/demos": [
         "code/demos"
       ]
     },

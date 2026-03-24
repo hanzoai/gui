@@ -34,12 +34,12 @@ components in `@hanzo/gui`.
 
 Here's a very brief overview of changes since Beta:
 
-### Major `@hanzo/gui-core` Updates
+### Major `@hanzogui/core` Updates
 
 - Easier install - no need to configure bundler at all to start, compiler
   optional too
 - React 0.69, React 18, React Native Web 18, and Expo 47 support
-- No `react-native` dependency in `@hanzo/gui-core` - 🔥 huge for web-only use
+- No `react-native` dependency in `@hanzogui/core` - 🔥 huge for web-only use
   cases
 - Bundle size reduction of ~12Kb
 - Performance - Nearly halved render time, even bigger gains in themes and media
@@ -61,7 +61,7 @@ Here's a very brief overview of changes since Beta:
 - `useMediaPropsActive()` - Useful for authoring your own custom components
   built on Hanzo GUI, easily access the "currently active" set of styles.
 
-### Major `@hanzo/gui-static` Updates
+### Major `@hanzogui/static` Updates
 
 - Install - The Webpack plugin and Vite plugin are easier to configure and
   generally handle many more edge cases, with an addition of 20+ dev-time
@@ -69,7 +69,7 @@ Here's a very brief overview of changes since Beta:
 - Performance - During the beta we landed many performance improvements to the
   optimizing compiler. By default now Hanzo GUI avoids even parsing many more
   files, and it pre-bundles your `components` and `config`.
-- Better analysis - Previously, `@hanzo/gui-static` only knew how to optimize
+- Better analysis - Previously, `@hanzogui/static` only knew how to optimize
   components found in your separated design system package. The compiler now
   analyzes components anywhere in your app, by dynamically loading and reading
   their configuration. This experimental feature is enabled with the environment

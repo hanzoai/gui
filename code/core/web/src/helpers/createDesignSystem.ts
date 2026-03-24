@@ -1,4 +1,4 @@
-import { isWeb } from '@hanzo/gui-constants'
+import { isWeb } from '@hanzogui/constants'
 import type { CreateGuiProps, Variable } from '../types'
 import { getVariableVariable, isVariable } from '../createVariable'
 import { autoVariables, registerCSSVariable, variableToCSS } from './registerCSSVariable'

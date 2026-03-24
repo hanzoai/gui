@@ -1,4 +1,4 @@
-import { useTint } from '@hanzo/gui-logo'
+import { useTint } from '@hanzogui/logo'
 import { memo, useMemo, useState } from 'react'
 import { AnimatePresence, YStack, isClient } from '@hanzo/gui'
 

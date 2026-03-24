@@ -1,7 +1,7 @@
 // native stub - animations-motion only works on web (uses framer-motion/motion library)
-// on native, use @hanzo/gui-animations-react-native or @hanzo/gui-animations-reanimated
+// on native, use @hanzogui/animations-react-native or @hanzogui/animations-reanimated
 
-import type { AnimationDriver } from '@hanzo/gui-web'
+import type { AnimationDriver } from '@hanzogui/web'
 
 let hasWarnedOnce = false
 
@@ -12,7 +12,7 @@ export function createAnimations<A extends Record<string, any>>(
     if (!hasWarnedOnce) {
       hasWarnedOnce = true
       console.warn(
-        '[@hanzo/gui-animations-motion] This animation driver only works on web. On native, use @hanzo/gui-animations-react-native or @hanzo/gui-animations-reanimated instead.'
+        '[@hanzogui/animations-motion] This animation driver only works on web. On native, use @hanzogui/animations-react-native or @hanzogui/animations-reanimated instead.'
       )
     }
   }

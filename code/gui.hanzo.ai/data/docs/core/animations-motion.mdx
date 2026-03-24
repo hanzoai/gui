@@ -11,7 +11,7 @@ GPU-accelerated animations.
 ## Installation
 
 ```bash
-yarn add @hanzo/gui-animations-motion motion
+yarn add @hanzogui/animations-motion motion
 ```
 
 ## Configuration
@@ -19,7 +19,7 @@ yarn add @hanzo/gui-animations-motion motion
 Add your animations to your [Gui config](/docs/core/configuration):
 
 ```tsx
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 import { createGui } from '@hanzo/gui'
 
 export default createGui({
@@ -108,7 +108,7 @@ For cross-platform apps, use Motion on web and Reanimated on native:
 
 ```tsx
 // animations.ts (web)
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 
 export const animations = createAnimations({
   bouncy: {
@@ -121,7 +121,7 @@ export const animations = createAnimations({
 
 ```tsx
 // animations.native.ts
-import { createAnimations } from '@hanzo/gui-animations-reanimated'
+import { createAnimations } from '@hanzogui/animations-reanimated'
 
 export const animations = createAnimations({
   bouncy: {

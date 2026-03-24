@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-shorthands",
+  "name": "@hanzogui/shorthands",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
@@ -48,9 +48,9 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

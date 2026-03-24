@@ -8,7 +8,7 @@
  * @flow
  */
 
-import { dismissKeyboard } from '@hanzo/gui-react-native-web-internals'
+import { dismissKeyboard } from '@hanzogui/react-native-web-internals'
 
 export const Keyboard = {
   addListener(): {

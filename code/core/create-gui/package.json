@@ -1,5 +1,5 @@
 {
-  "name": "create-hanzo-gui",
+  "name": "create-hanzogui",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "bin": "./run.js",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "@types/async-retry": "1.4.2",
     "@types/cross-spawn": "^6.0.2",
     "@types/node": "^22.1.0",

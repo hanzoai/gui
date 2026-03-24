@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-theme",
+  "name": "@hanzogui/theme",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
@@ -34,12 +34,12 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-constants": "workspace:*",
-    "@hanzo/gui-start-transition": "workspace:*",
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/start-transition": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

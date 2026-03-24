@@ -1,4 +1,4 @@
-import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
 import { expect, test } from 'vitest'
 
 import { createTokens } from '../core/src'

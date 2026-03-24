@@ -1,4 +1,4 @@
-import { GuiProvider, View, createGui } from '@hanzo/gui-core'
+import { GuiProvider, View, createGui } from '@hanzogui/core'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 

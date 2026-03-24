@@ -1,4 +1,4 @@
-import { createAnimations } from '@hanzo/gui-animations-motion'
+import { createAnimations } from '@hanzogui/animations-motion'
 
 export const animationsMotion = createAnimations({
   '0ms': {

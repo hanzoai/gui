@@ -19,7 +19,7 @@ the styled component names and even the file numbers and components they are in
 development mode.
 
 ```tsx
-import { setupDev } from '@hanzo/gui-core'
+import { setupDev } from '@hanzogui/core'
 
 setupDev({
   // can just be true as well for defaulting to key: Alt + delay: 800
@@ -37,7 +37,7 @@ pipeline, add `// debug` to the top of any file. Adding `// debug-verbose` will
 show even more information, including more granular timings.
 
 If you're developing in your design system package that is built with
-@hanzo/gui-build, esbuild will strip this banner. You can try using `//! debug`
+@hanzogui/build, esbuild will strip this banner. You can try using `//! debug`
 (esbuild only preserves comments at the top that start with `//!`), but still
 occasionally esbuild will insert a helper above the comment, breaking it, so be
 sure to check the built file in `dist/jsx`.

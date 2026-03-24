@@ -1,5 +1,5 @@
 import type { Provider } from '@supabase/auth-js'
-import { LogoIcon } from '@hanzo/gui-logo'
+import { LogoIcon } from '@hanzogui/logo'
 import type { FormEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { Button, Input, Paragraph, Separator, Spinner, XStack, YStack } from '@hanzo/gui'

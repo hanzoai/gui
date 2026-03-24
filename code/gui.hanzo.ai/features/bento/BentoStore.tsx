@@ -1,4 +1,4 @@
-import { createUseStore } from '@hanzo/gui-use-store'
+import { createUseStore } from '@hanzogui/use-store'
 
 class BentoStore {
   heroVisible = true

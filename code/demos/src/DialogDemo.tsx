@@ -1,4 +1,4 @@
-import { ChevronDown, X } from '@hanzo/gui-lucide-icons-2'
+import { ChevronDown, X } from '@hanzogui/lucide-icons-2'
 import { useState } from 'react'
 import {
   Adapt,

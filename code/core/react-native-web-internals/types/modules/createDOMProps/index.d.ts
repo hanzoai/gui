@@ -6,7 +6,7 @@
  *
  * @noflow
  */
-import { type StyleObject } from '@hanzo/gui-web';
+import { type StyleObject } from '@hanzogui/web';
 export declare const stylesFromProps: WeakMap<any, StyleObject[]>;
 export declare const createDOMProps: (elementType: any, props: any, options?: any) => any;
 //# sourceMappingURL=index.d.ts.map

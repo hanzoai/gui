@@ -7,4 +7,4 @@
  * @flow strict
  */
 
-export { useLocaleContext } from '@hanzo/gui-react-native-web-internals'
+export { useLocaleContext } from '@hanzogui/react-native-web-internals'

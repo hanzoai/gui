@@ -1,4 +1,4 @@
-import { Activity, Airplay } from '@hanzo/gui-lucide-icons-2'
+import { Activity, Airplay } from '@hanzogui/lucide-icons-2'
 import { Button, Group, ListItem, Separator, XGroup, YGroup, YStack } from '@hanzo/gui'
 
 export function GroupDemo() {

@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@hanzo/gui-native/setup-burnt'
+ * import '@hanzogui/native/setup-burnt'
  * ```
  *
  * This automatically detects and configures burnt for use with

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useEvent } from '@hanzo/gui-use-event'
+import { useEvent } from '@hanzogui/use-event'
 
 import type {
   Delay,

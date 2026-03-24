@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@hanzo/gui-native/setup-teleport'
+ * import '@hanzogui/native/setup-teleport'
  * ```
  *
  * This automatically detects and configures react-native-teleport for portals.

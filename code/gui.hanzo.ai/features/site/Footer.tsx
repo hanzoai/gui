@@ -1,4 +1,4 @@
-import { GuiLogo } from '@hanzo/gui-logo'
+import { GuiLogo } from '@hanzogui/logo'
 import { memo } from 'react'
 import { H4, Paragraph, Spacer, VisuallyHidden, XStack, YStack } from '@hanzo/gui'
 

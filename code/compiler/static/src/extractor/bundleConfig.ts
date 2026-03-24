@@ -6,8 +6,8 @@ import { existsSync, readFileSync, unlinkSync } from 'node:fs'
 import { basename, dirname, extname, join, relative, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 // @ts-ignore why
-import { Color, colorLog } from '@hanzo/gui-cli-color'
-import { type StaticConfig, type GuiInternalConfig } from '@hanzo/gui-web'
+import { Color, colorLog } from '@hanzogui/cli-color'
+import { type StaticConfig, type GuiInternalConfig } from '@hanzogui/web'
 import esbuild from 'esbuild'
 import * as FS from 'fs-extra'
 import { readFile } from 'node:fs/promises'
@@ -106,8 +106,8 @@ export type GuiProjectInfo = {
 }
 
 const external = [
-  '@hanzo/gui-core',
-  '@hanzo/gui-web',
+  '@hanzogui/core',
+  '@hanzogui/web',
   'react',
   'react-dom',
   'react-native-svg',
@@ -273,7 +273,7 @@ export async function bundleConfig(props: GuiOptions) {
     const configFormat = configEntry ? detectModuleFormat(configEntry) : 'cjs'
     const configExt = configFormat === 'esm' ? '.mjs' : '.cjs'
     const configOutPath = join(tmpDir, `gui.config${configExt}`)
-    const baseComponents = (props.components || []).filter((x) => x !== '@hanzo/gui-core')
+    const baseComponents = (props.components || []).filter((x) => x !== '@hanzogui/core')
     // detect format per component module
     const componentFormats: Array<'esm' | 'cjs'> = baseComponents.map((mod) => {
       try {
@@ -388,7 +388,7 @@ export async function bundleConfig(props: GuiOptions) {
 
     // clear specific output file caches so we pick up the fresh (or newly discovered) build
     // only clear the built output files - not all require.cache entries, since that breaks
-    // external requires like @hanzo/gui-config/v3 that are externalized in the bundled CJS
+    // external requires like @hanzogui/config/v3 that are externalized in the bundled CJS
     if (hasBundledOnce) {
       try {
         delete require.cache[require.resolve(configOutPath)]
@@ -536,7 +536,7 @@ export function loadComponentsSync(props: GuiOptions, forceExports = false) {
 function getCoreComponentsSync(props: GuiOptions) {
   const loaded = loadComponentsInnerSync({
     ...props,
-    components: ['@hanzo/gui-core'],
+    components: ['@hanzogui/core'],
   })
 
   if (!loaded) {
@@ -547,7 +547,7 @@ function getCoreComponentsSync(props: GuiOptions) {
   return [
     {
       ...loaded[0],
-      moduleName: '@hanzo/gui-core',
+      moduleName: '@hanzogui/core',
     },
   ]
 }
@@ -604,15 +604,15 @@ export async function loadComponentsInner(
             },
             alias: {
               'react-native': resolvePackageEntry(
-                '@hanzo/gui-react-native-web-lite',
+                '@hanzogui/react-native-web-lite',
                 format
               ),
-              '@hanzo/gui-react-native-web-lite': resolvePackageEntry(
-                '@hanzo/gui-react-native-web-lite',
+              '@hanzogui/react-native-web-lite': resolvePackageEntry(
+                '@hanzogui/react-native-web-lite',
                 format
               ),
-              '@hanzo/gui-react-native-web-internals': resolvePackageEntry(
-                '@hanzo/gui-react-native-web-internals',
+              '@hanzogui/react-native-web-internals': resolvePackageEntry(
+                '@hanzogui/react-native-web-internals',
                 format
               ),
             },
@@ -759,15 +759,15 @@ export function loadComponentsInnerSync(
             },
             alias: {
               'react-native': resolvePackageEntry(
-                '@hanzo/gui-react-native-web-lite',
+                '@hanzogui/react-native-web-lite',
                 'esm'
               ),
-              '@hanzo/gui-react-native-web-lite': resolvePackageEntry(
-                '@hanzo/gui-react-native-web-lite',
+              '@hanzogui/react-native-web-lite': resolvePackageEntry(
+                '@hanzogui/react-native-web-lite',
                 'esm'
               ),
-              '@hanzo/gui-react-native-web-internals': resolvePackageEntry(
-                '@hanzo/gui-react-native-web-internals',
+              '@hanzogui/react-native-web-internals': resolvePackageEntry(
+                '@hanzogui/react-native-web-internals',
                 'esm'
               ),
             },

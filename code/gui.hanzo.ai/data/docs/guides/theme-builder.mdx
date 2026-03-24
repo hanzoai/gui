@@ -32,7 +32,7 @@ We've also released [Theme](/theme), a free visual tool to create themes.
 The simplest way to get a complete theme suite. Call it with no arguments for production-ready defaults, or pass options to customize.
 
 ```tsx
-import { createV5Theme } from '@hanzo/gui-themes/v5'
+import { createV5Theme } from '@hanzogui/themes/v5'
 
 // zero-config - includes light, dark, accent, and color themes
 export const themes = createV5Theme()
@@ -41,8 +41,8 @@ export const themes = createV5Theme()
 ### Customizing
 
 ```tsx
-import { createV5Theme, defaultChildrenThemes } from '@hanzo/gui-themes/v5'
-import { orange, orangeDark } from '@hanzo/gui-colors'
+import { createV5Theme, defaultChildrenThemes } from '@hanzogui/themes/v5'
+import { orange, orangeDark } from '@hanzogui/colors'
 
 export const themes = createV5Theme({
   // override base palettes
@@ -76,7 +76,7 @@ More control over structure while still getting automatic palette interpolation 
 ### Quick Start
 
 ```tsx
-import { createThemes } from '@hanzo/gui-theme-builder'
+import { createThemes } from '@hanzogui/theme-builder'
 
 export const themes = createThemes({
   base: {
@@ -91,8 +91,8 @@ export const themes = createThemes({
 ### Full Example
 
 ```tsx
-import { createThemes, defaultComponentThemes } from '@hanzo/gui-theme-builder'
-import * as Colors from '@hanzo/gui-colors'
+import { createThemes, defaultComponentThemes } from '@hanzogui/theme-builder'
+import * as Colors from '@hanzogui/colors'
 
 export const themes = createThemes({
   componentThemes: defaultComponentThemes,
@@ -231,7 +231,7 @@ Parameters: `name`, `theme`, `scheme` ('light'|'dark'), `level` (1=base, 2=child
 The low-level API that powers `createThemes`. Use this when you need complete control over palette structure, template definitions, and theme hierarchy.
 
 ```tsx
-import { createThemeBuilder } from '@hanzo/gui-theme-builder'
+import { createThemeBuilder } from '@hanzogui/theme-builder'
 
 const themesBuilder = createThemeBuilder()
   .addPalettes({
@@ -267,7 +267,7 @@ withGui({
 })
 ```
 
-Or use the CLI: `npx @hanzo/gui-cli generate-themes ./src/themes-in.ts ./src/themes-out.ts`
+Or use the CLI: `npx @hanzogui/cli generate-themes ./src/themes-in.ts ./src/themes-out.ts`
 
 ---
 

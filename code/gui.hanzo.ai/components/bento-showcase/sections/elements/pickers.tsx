@@ -1,6 +1,6 @@
 import { XStack, YStack, styled } from '@hanzo/gui'
 
-import * as Pickers from '@hanzo/gui-bento/component/elements/pickers'
+import * as Pickers from '@hanzogui/bento/component/elements/pickers'
 import { Showcase } from '~/components/bento-showcase/_Showcase'
 import {
   type BentoShowcaseContext,

@@ -15,9 +15,9 @@ import {
   redDark,
   yellow,
   yellowDark,
-} from '@hanzo/gui-colors/legacy'
-import { createThemeBuilder, objectFromEntries } from '@hanzo/gui-theme-builder'
-import { createTokens } from '@hanzo/gui-web'
+} from '@hanzogui/colors/legacy'
+import { createThemeBuilder, objectFromEntries } from '@hanzogui/theme-builder'
+import { createTokens } from '@hanzogui/web'
 import { objectKeys, postfixObjKeys } from './utils'
 import { tokens as v3Tokens } from './v3-tokens'
 
@@ -274,7 +274,7 @@ const getTemplates = () => {
       color075: -4,
       // the background, color, etc keys here work like generics - they make it so you
       // can publish components for others to use without mandating a specific color scale
-      // the @hanzo/gui-button Button component looks for `$background`, so you set the
+      // the @hanzogui/button Button component looks for `$background`, so you set the
       // dark_red_Button theme to have a stronger background than the dark_red theme.
       background: bgIndex,
       backgroundHover: bgIndex + lighten, // always lighten on hover no matter the scheme

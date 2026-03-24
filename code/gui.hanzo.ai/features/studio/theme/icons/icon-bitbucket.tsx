@@ -1,6 +1,6 @@
-import { themed } from '@hanzo/gui-helpers-icon'
+import { themed } from '@hanzogui/helpers-icon'
 import { memo } from 'react'
-import { Path, Svg } from '@hanzo/gui-react-native-svg'
+import { Path, Svg } from '@hanzogui/react-native-svg'
 const IconBitbucket = (_props) => {
   const { size, ...props } = _props
   return (

@@ -1,6 +1,6 @@
 import { GroupContext, debounce } from '@hanzo/gui'
 import { useContext, useEffect, useRef, useState } from 'react'
-import { mergeIfNotShallowEqual } from '@hanzo/gui-web'
+import { mergeIfNotShallowEqual } from '@hanzogui/web'
 import { usePhoneScale } from './usePhoneScale'
 
 export type Dim = {

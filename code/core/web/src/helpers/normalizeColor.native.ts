@@ -1,6 +1,6 @@
-import { normalizeCSSColor, rgba } from '@hanzo/gui-normalize-css-color'
+import { normalizeCSSColor, rgba } from '@hanzogui/normalize-css-color'
 
-export { rgba } from '@hanzo/gui-normalize-css-color'
+export { rgba } from '@hanzogui/normalize-css-color'
 
 export const normalizeColor = (color?: string | null, opacity?: number) => {
   if (!color) return

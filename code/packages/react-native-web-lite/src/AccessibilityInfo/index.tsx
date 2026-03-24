@@ -6,7 +6,7 @@
  *
  * @flow
  */
-import { canUseDOM } from '@hanzo/gui-react-native-web-internals'
+import { canUseDOM } from '@hanzogui/react-native-web-internals'
 
 function isScreenReaderEnabled(): Promise<unknown> {
   return new Promise((resolve, reject) => {

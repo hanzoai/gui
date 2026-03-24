@@ -1,4 +1,4 @@
-import type { FillInFont, GenericFont } from "@hanzo/gui-core";
+import type { FillInFont, GenericFont } from "@hanzogui/core";
 export declare const createDmSansFont: <A extends GenericFont>(font?: Partial<A>, { sizeLineHeight, sizeSize }?: {
 	sizeLineHeight?: (fontSize: number) => number;
 	sizeSize?: (size: number) => number;

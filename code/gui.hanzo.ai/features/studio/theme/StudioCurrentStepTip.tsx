@@ -1,4 +1,4 @@
-import { Lightbulb, X } from '@hanzo/gui-lucide-icons-2'
+import { Lightbulb, X } from '@hanzogui/lucide-icons-2'
 import { useEffect, useState } from 'react'
 import { Button, Popover, Theme } from '@hanzo/gui'
 

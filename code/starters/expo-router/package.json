@@ -1,10 +1,10 @@
 {
-  "name": "@hanzo/gui-expo-router-starter",
+  "name": "@hanzogui/expo-router-starter",
   "version": "2.0.0",
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
-    "upgrade:gui": "bunx npm-check-updates -u '*gui*' '@hanzo/gui-*' && bun install",
+    "upgrade:gui": "bunx npm-check-updates -u '*gui*' '@hanzogui/*' && bun install",
     "start": "bunx expo start -c",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@react-navigation/native": "^7.0.14",
-    "@hanzo/gui-config": "workspace:*",
-    "@hanzo/gui-lucide-icons-2": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
     "babel-preset-expo": "~55.0.0",
     "burnt": "^0.12.2",
     "expo": "~55.0.6",
@@ -44,7 +44,7 @@
     "@expo/metro-config": "~55.0.9",
     "@expo/metro-runtime": "~55.0.0",
     "@playwright/test": "^1.49.1",
-    "@hanzo/gui-babel-plugin": "workspace:*",
+    "@hanzogui/babel-plugin": "workspace:*",
     "@types/react": "~19.1.10",
     "@types/react-native": "^0.73.0",
     "serve": "^14.2.5",

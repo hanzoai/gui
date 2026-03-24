@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-react-native-web-internals",
+  "name": "@hanzogui/react-native-web-internals",
   "version": "2.0.0",
   "description": "React Native for Web",
   "keywords": [
@@ -36,15 +36,15 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-normalize-css-color": "workspace:*",
-    "@hanzo/gui-react-native-use-pressable": "workspace:*",
-    "@hanzo/gui-react-native-use-responder-events": "workspace:*",
-    "@hanzo/gui-simple-hash": "workspace:*",
-    "@hanzo/gui-use-element-layout": "workspace:*",
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzogui/normalize-css-color": "workspace:*",
+    "@hanzogui/react-native-use-pressable": "workspace:*",
+    "@hanzogui/react-native-use-responder-events": "workspace:*",
+    "@hanzogui/simple-hash": "workspace:*",
+    "@hanzogui/use-element-layout": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-dom": "*"
   },

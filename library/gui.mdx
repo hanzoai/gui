@@ -1,9 +1,9 @@
-Hanzo GUI is a style library `@hanzo/gui-core`, and a separate UI kit `@hanzo/gui`. It
-also has an optional optimizing compiler `@hanzo/gui-static` that generally you
-only use through it's bundler plugins like `@hanzo/gui-vite-plugin` or
-`@hanzo/gui-babel-plugin` for Metro.
+Hanzo GUI is a style library `@hanzogui/core`, and a separate UI kit `@hanzo/gui`. It
+also has an optional optimizing compiler `@hanzogui/static` that generally you
+only use through it's bundler plugins like `@hanzogui/vite-plugin` or
+`@hanzogui/babel-plugin` for Metro.
 
-Note `@hanzo/gui` is a superset of `@hanzo/gui-core`, so you can use that in general
+Note `@hanzo/gui` is a superset of `@hanzogui/core`, so you can use that in general
 for code generation.
 
 For the core style library you can do inline styles:
@@ -41,7 +41,7 @@ For more on styled, there's a doc `styled.mdx` you can look up. Variants
 generally can do a lot:
 
 ```tsx
-import { View, styled } from '@hanzo/gui-core'
+import { View, styled } from '@hanzogui/core'
 
 export const RoundedSquare = styled(View, {
   borderRadius: 20,
@@ -84,7 +84,7 @@ you define things, there's a readme in the docs called `configuration.mdx` you
 can look up for more on this:
 
 ```tsx
-import { createGui, getConfig } from '@hanzo/gui-core'
+import { createGui, getConfig } from '@hanzogui/core'
 
 export const config = createGui({
   // act like CSS variables at your root
@@ -133,9 +133,9 @@ export const config = createGui({
 // in other files use this:
 console.log(`config is`, getConfig())
 
-// get typescript types on @hanzo/gui-core imports:
+// get typescript types on @hanzogui/core imports:
 type AppConfig = typeof config
-declare module '@hanzo/gui-core' {
+declare module '@hanzogui/core' {
   interface GuiCustomConfig extends AppConfig {}
 }
 ```
@@ -204,13 +204,13 @@ Hanzo GUI themes are special and can do a lot, just know that you can generate
 them a few ways.
 
 Simply just like above, or using our new `createThemes` from
-`@hanzo/gui-config/v5`.
+`@hanzogui/config/v5`.
 
 It's done like this:
 
 ```tsx fileName=themes.ts
-import * as Colors from '@hanzo/gui-colors'
-import { createThemes, defaultComponentThemes } from '@hanzo/gui-config/v5'
+import * as Colors from '@hanzogui/colors'
+import { createThemes, defaultComponentThemes } from '@hanzogui/config/v5'
 
 const darkPalette = [
   '#050505',

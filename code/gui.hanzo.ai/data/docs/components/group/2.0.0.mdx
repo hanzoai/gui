@@ -29,7 +29,7 @@ demoName: Group
 Group is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-group
+npm install @hanzogui/group
 ```
 
 ## Usage
@@ -61,7 +61,7 @@ export default () => (
 In v2, children control their own sizing. Apply size props directly to the child components. For responsive sizing, use media queries on the children:
 
 ```tsx
-import { Activity, Airplay } from '@hanzo/gui-lucide-icons-2'
+import { Activity, Airplay } from '@hanzogui/lucide-icons-2'
 import { Button, XGroup } from '@hanzo/gui'
 
 export default () => (
@@ -164,7 +164,7 @@ export default () => (
 For full control, use the `useGroupItem` hook directly in your custom component:
 
 ```tsx
-import { useGroupItem } from '@hanzo/gui-group'
+import { useGroupItem } from '@hanzogui/group'
 
 function MyItem({ children, forcePlacement }) {
   const groupItemProps = useGroupItem({ disabled: false }, forcePlacement)

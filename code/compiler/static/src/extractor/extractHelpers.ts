@@ -198,8 +198,8 @@ export const isValidImport = (
 }
 
 const getValidComponentPackages = memoize((props: GuiOptionsWithFileInfo) => {
-  // just always look for `gui` and `@hanzo/gui-core`
-  return [...new Set(['@hanzo/gui-core', '@hanzo/gui', ...(props.components || [])])]
+  // just always look for `gui` and `@hanzogui/core`
+  return [...new Set(['@hanzogui/core', '@hanzo/gui', ...(props.components || [])])]
 })
 
 export const getValidComponentsPaths = memoize((props: GuiOptionsWithFileInfo) => {

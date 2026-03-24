@@ -128,7 +128,7 @@ export default function InvoicePage() {
   )
 }
 
-// import { Check, Container } from '@hanzo/gui-lucide-icons-2'
+// import { Check, Container } from '@hanzogui/lucide-icons-2'
 // import { memo, useState } from 'react'
 // import {
 //   Checkbox,

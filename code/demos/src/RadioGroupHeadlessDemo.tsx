@@ -1,13 +1,13 @@
 import type {
   RadioGroupContextValue,
   RadioGroupItemContextValue,
-} from '@hanzo/gui-radio-headless'
+} from '@hanzogui/radio-headless'
 import {
   useRadioGroup,
   useRadioGroupItem,
   useRadioGroupItemIndicator,
-} from '@hanzo/gui-radio-headless'
-import { RovingFocusGroup } from '@hanzo/gui-roving-focus'
+} from '@hanzogui/radio-headless'
+import { RovingFocusGroup } from '@hanzogui/roving-focus'
 import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { isWeb, useTheme } from '@hanzo/gui'

@@ -1,10 +1,10 @@
-## @hanzo/gui-build
+## @hanzogui/build
 
 A small, opinionated build script for libraries that target both React Native and React web.
 
 Path-specific extensions are the only way to support both ESM and CJS properly in modern Node and across all bundlers. Some bundlers used to be flexible and configure this for you, but we found this was the only way to achieve "no config" packages that target native and web. This is even more true as React Native is now supporting package.json exports with an experimental flag.
 
-We wanted to build packages so we didn't have to deal with all this fuss. `@hanzo/gui-build` will build every input file out to both `.native` and `.web` output files to make this work. It then adds path-specific imports to the files that are reachable via package.json exports, but leaves plain `.js` files for older bundlers that don't support it (Metro without the experimental exports flag). It also does a few small re-writes to ensure everyting works without needing bundler configuration. This means it supports basically every possible setup - Metro in either mode, Vite, and older and newer Node versions.
+We wanted to build packages so we didn't have to deal with all this fuss. `@hanzogui/build` will build every input file out to both `.native` and `.web` output files to make this work. It then adds path-specific imports to the files that are reachable via package.json exports, but leaves plain `.js` files for older bundlers that don't support it (Metro without the experimental exports flag). It also does a few small re-writes to ensure everyting works without needing bundler configuration. This means it supports basically every possible setup - Metro in either mode, Vite, and older and newer Node versions.
 
 Some details on how it works:
 
@@ -49,7 +49,7 @@ It assumes your package.json looks something like this:
     }
   },
   "devDependencies": {
-    "@hanzo/gui-build": "latest"
+    "@hanzogui/build": "latest"
   },
   "@hanzo/gui": {
     "build": {
@@ -63,7 +63,7 @@ It assumes your package.json looks something like this:
 
 ### Install
 
-`npx @hanzo/gui-build` or install and use the CLI:
+`npx @hanzogui/build` or install and use the CLI:
 
 ### Use
 

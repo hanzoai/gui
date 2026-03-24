@@ -9,7 +9,7 @@
 
 'use strict'
 
-import { Platform, invariant } from '@hanzo/gui-react-native-web-internals'
+import { Platform, invariant } from '@hanzogui/react-native-web-internals'
 import { RCTDeviceEventEmitter } from './RCTDeviceEventEmitter'
 
 /**

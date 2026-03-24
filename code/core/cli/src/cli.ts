@@ -25,7 +25,7 @@ const COMMAND_MAP = {
       const options = await getOptions({
         debug: flags['--debug'] ? (flags['--verbose'] ? 'verbose' : true) : false,
       })
-      const { checkDeps } = require('@hanzo/gui-static/checkDeps')
+      const { checkDeps } = require('@hanzogui/static/checkDeps')
       await checkDeps(options.paths.root)
     },
   },
@@ -44,7 +44,7 @@ const COMMAND_MAP = {
         debug: flags['--debug'] ? (flags['--verbose'] ? 'verbose' : true) : false,
         loadGuiOptions: true,
       })
-      const { loadGui } = require('@hanzo/gui-static/loadGui')
+      const { loadGui } = require('@hanzogui/static/loadGui')
       process.env.HANZO_GUI_KEEP_THEMES = '1'
       await loadGui({
         ...options.guiOptions,
@@ -80,7 +80,7 @@ const COMMAND_MAP = {
       const outputPath =
         flags['--output'] || options.guiOptions.outputCSS || './gui.generated.css'
 
-      const { loadGui } = require('@hanzo/gui-static/loadGui')
+      const { loadGui } = require('@hanzogui/static/loadGui')
       process.env.HANZO_GUI_KEEP_THEMES = '1'
       await loadGui({
         ...options.guiOptions,
@@ -112,7 +112,7 @@ const COMMAND_MAP = {
         )
       }
 
-      const { generateThemes, writeGeneratedThemes } = require('@hanzo/gui-generate-themes')
+      const { generateThemes, writeGeneratedThemes } = require('@hanzogui/generate-themes')
 
       try {
         const generated = await generateThemes(inPath)

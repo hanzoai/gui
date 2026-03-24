@@ -1,5 +1,5 @@
-import { isWeb } from '@hanzo/gui-core'
-import { XStack } from '@hanzo/gui-stacks'
+import { isWeb } from '@hanzogui/core'
+import { XStack } from '@hanzogui/stacks'
 import React from 'react'
 
 export type GridProps = {

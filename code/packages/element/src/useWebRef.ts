@@ -1,4 +1,4 @@
-import { useComposedRefs } from '@hanzo/gui-compose-refs'
+import { useComposedRefs } from '@hanzogui/compose-refs'
 import * as React from 'react'
 import type { GuiElement } from './types'
 

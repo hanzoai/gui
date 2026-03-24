@@ -1,5 +1,5 @@
-import { Menu } from '@hanzo/gui-menu'
-import { Input } from '@hanzo/gui-input'
+import { Menu } from '@hanzogui/menu'
+import { Input } from '@hanzogui/input'
 import { Button, YStack, Text } from '@hanzo/gui'
 import { useState, useRef } from 'react'
 

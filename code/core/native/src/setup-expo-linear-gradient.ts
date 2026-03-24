@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@hanzo/gui-native/setup-expo-linear-gradient'
+ * import '@hanzogui/native/setup-expo-linear-gradient'
  * ```
  *
  * This automatically detects and configures expo-linear-gradient.

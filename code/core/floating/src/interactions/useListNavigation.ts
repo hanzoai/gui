@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { useEvent } from '@hanzo/gui-use-event'
+import { useEvent } from '@hanzogui/use-event'
 import type {
   ElementProps,
   FloatingInteractionContext,

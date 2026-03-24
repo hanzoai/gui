@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
-import { Input } from '@hanzo/gui-input'
-import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
-import { View, GuiProvider, createGui } from '@hanzo/gui-core'
+import { Input } from '@hanzogui/input'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
+import { View, GuiProvider, createGui } from '@hanzogui/core'
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 

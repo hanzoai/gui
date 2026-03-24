@@ -1,4 +1,4 @@
-import { useObserve } from '@hanzo/gui-use-store'
+import { useObserve } from '@hanzogui/use-store'
 import { useEffect } from 'react'
 
 import { isLocal } from '~/features/studio/constants'

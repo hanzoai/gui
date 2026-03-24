@@ -1,13 +1,13 @@
 'use client'
 
-import '@hanzo/gui-core/reset.css'
-import '@hanzo/gui-font-inter/css/400.css'
-import '@hanzo/gui-font-inter/css/700.css'
-import '@hanzo/gui-polyfill-dev'
+import '@hanzogui/core/reset.css'
+import '@hanzogui/font-inter/css/400.css'
+import '@hanzogui/font-inter/css/700.css'
+import '@hanzogui/polyfill-dev'
 
 import type { ReactNode } from 'react'
 import { useServerInsertedHTML } from 'next/navigation'
-import { NextThemeProvider, useRootTheme } from '@hanzo/gui-next-theme'
+import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { config } from '@my/ui'
 import { Provider } from 'app/provider'
 import { StyleSheet } from 'react-native'

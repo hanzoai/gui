@@ -1,13 +1,13 @@
 import type { NodePath } from '@babel/traverse';
 import type * as t from '@babel/types';
-import type { PseudoStyles, StaticConfig, GuiConfig } from '@hanzo/gui-core';
-import type { StyleObject } from '@hanzo/gui-helpers';
-import type { GuiOptions } from '@hanzo/gui-types';
+import type { PseudoStyles, StaticConfig, GuiConfig } from '@hanzogui/core';
+import type { StyleObject } from '@hanzogui/helpers';
+import type { GuiOptions } from '@hanzogui/types';
 import type { ViewStyle } from 'react-native';
 import type { LoadedComponents } from './extractor/bundleConfig';
 export type GuiPlatform = 'native' | 'web';
-export type { GuiOptions, GuiBuildOptions } from '@hanzo/gui-types';
-export type { StyleObject } from '@hanzo/gui-helpers';
+export type { GuiOptions, GuiBuildOptions } from '@hanzogui/types';
+export type { StyleObject } from '@hanzogui/helpers';
 export type ClassNameObject = t.StringLiteral | t.Expression;
 export interface CacheObject {
     [key: string]: any;

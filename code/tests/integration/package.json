@@ -14,17 +14,17 @@
     "prod": "NODE_ENV=production webpack --json=dist/compilation-stats.json"
   },
   "dependencies": {
-    "@hanzo/gui-animations-css": "workspace:*",
-    "@hanzo/gui-core": "workspace:*",
-    "@hanzo/gui-create-theme": "workspace:*",
-    "@hanzo/gui-react-native-svg": "workspace:*",
-    "@hanzo/gui-shorthands": "workspace:*",
-    "@hanzo/gui-react-native-web-lite": "workspace:*",
+    "@hanzogui/animations-css": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/create-theme": "workspace:*",
+    "@hanzogui/react-native-svg": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/react-native-web-lite": "workspace:*",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
-    "@hanzo/gui-vite-plugin": "workspace:*",
+    "@hanzogui/vite-plugin": "workspace:*",
     "async-retry": "1.3.1",
     "react-dom": "*",
     "vite": "^8.0.0",

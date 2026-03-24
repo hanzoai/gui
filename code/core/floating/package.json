@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-floating",
+  "name": "@hanzogui/floating",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
@@ -36,10 +36,10 @@
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.6",
     "@floating-ui/react-native": "^0.10.7",
-    "@hanzo/gui-use-event": "workspace:*"
+    "@hanzogui/use-event": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-native": "0.83.2"
   },

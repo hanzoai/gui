@@ -5,7 +5,7 @@
  * RN-specific accessibility props are no longer converted - use aria-* directly.
  */
 
-import { View, Text, createGui } from '@hanzo/gui-core'
+import { View, Text, createGui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'

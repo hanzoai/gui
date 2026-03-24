@@ -1,4 +1,4 @@
-import { View, styled } from '@hanzo/gui-core'
+import { View, styled } from '@hanzogui/core'
 
 export const VisuallyHidden = styled(View, {
   position: 'absolute',

@@ -1,4 +1,4 @@
-import { type StaticConfig, type GuiInternalConfig } from '@hanzo/gui-web';
+import { type StaticConfig, type GuiInternalConfig } from '@hanzogui/web';
 import esbuild from 'esbuild';
 import type { GuiOptions } from '../types';
 type NameToPaths = {

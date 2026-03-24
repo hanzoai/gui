@@ -1,5 +1,5 @@
-import { ThemeTintAlt } from '@hanzo/gui-logo'
-import { Check, X } from '@hanzo/gui-lucide-icons-2'
+import { ThemeTintAlt } from '@hanzogui/logo'
+import { Check, X } from '@hanzogui/lucide-icons-2'
 import {
   Button,
   H3,

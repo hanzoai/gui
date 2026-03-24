@@ -31,20 +31,20 @@ content. Be sure to open the code example above for a copy-paste implementation.
 Dialog is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-npm install @hanzo/gui-dialog
+npm install @hanzogui/dialog
 ```
 
-If you aren't using `@hanzo/gui` and instead using the `@hanzo/gui-dialog` package
-separately, you'll first need to install the `@hanzo/gui-portal` package:
+If you aren't using `@hanzo/gui` and instead using the `@hanzogui/dialog` package
+separately, you'll first need to install the `@hanzogui/portal` package:
 
 ```bash
-npm install @hanzo/gui-portal
+npm install @hanzogui/portal
 ```
 
 Then add `PortalProvider` to the root of your app:
 
 ```tsx fileName="App.tsx"
-import { PortalProvider } from '@hanzo/gui-portal'
+import { PortalProvider } from '@hanzogui/portal'
 import YourApp from './components/YourApp'
 
 function App() {
@@ -61,7 +61,7 @@ export default App
 ## Anatomy
 
 ```tsx
-import { Dialog } from '@hanzo/gui' // or '@hanzo/gui-dialog'
+import { Dialog } from '@hanzo/gui' // or '@hanzogui/dialog'
 
 export default () => (
   <Dialog>
@@ -366,7 +366,7 @@ Must use `Adapt.Contents` inside the `Dialog.Sheet.Frame` to insert the contents
 given to `Dialog.Content`
 
 ```tsx
-import { Dialog } from '@hanzo/gui' // or '@hanzo/gui-dialog'
+import { Dialog } from '@hanzo/gui' // or '@hanzogui/dialog'
 
 export default () => (
   <Dialog>

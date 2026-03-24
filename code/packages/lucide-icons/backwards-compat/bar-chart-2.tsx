@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import type { NamedExoticComponent } from 'react'
-import type { IconProps } from '@hanzo/gui-helpers-icon'
+import type { IconProps } from '@hanzogui/helpers-icon'
 import { Svg, Line } from 'react-native-svg'
-import { themed } from '@hanzo/gui-helpers-icon'
+import { themed } from '@hanzogui/helpers-icon'
 
 const Icon = (props) => {
   const { color = 'black', size = 24, ...otherProps } = props

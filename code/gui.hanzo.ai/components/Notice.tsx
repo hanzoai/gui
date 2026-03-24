@@ -1,5 +1,5 @@
 import { H3, Paragraph, XStack, YStack, styled } from '@hanzo/gui'
-import { AlertTriangle, Info, CheckCircle } from '@hanzo/gui-lucide-icons-2'
+import { AlertTriangle, Info, CheckCircle } from '@hanzogui/lucide-icons-2'
 
 import { unwrapText } from '~/helpers/unwrapText'
 

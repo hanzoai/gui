@@ -1,4 +1,4 @@
-import { Image } from '@hanzo/gui-image'
+import { Image } from '@hanzogui/image'
 
 export function WebNativeImageDemo() {
   return <Image src="https://picsum.photos/200/300" width={200} height={300} />

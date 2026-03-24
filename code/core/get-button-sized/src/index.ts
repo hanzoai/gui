@@ -1,5 +1,5 @@
-import { getSpace } from '@hanzo/gui-get-token'
-import type { SizeTokens, VariantSpreadExtras } from '@hanzo/gui-web'
+import { getSpace } from '@hanzogui/get-token'
+import type { SizeTokens, VariantSpreadExtras } from '@hanzogui/web'
 
 export const getButtonSized = (
   val: SizeTokens | number,

@@ -1,5 +1,5 @@
-import { ContextMenu } from '@hanzo/gui-context-menu'
-import { Calendar, Check, ChevronRight } from '@hanzo/gui-lucide-icons-2'
+import { ContextMenu } from '@hanzogui/context-menu'
+import { Calendar, Check, ChevronRight } from '@hanzogui/lucide-icons-2'
 import React from 'react'
 import { Text, View, YStack } from '@hanzo/gui'
 

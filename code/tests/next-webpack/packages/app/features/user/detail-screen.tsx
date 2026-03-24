@@ -1,5 +1,5 @@
 import { Button, Paragraph, YStack } from '@my/ui'
-import { ChevronLeft } from '@hanzo/gui-lucide-icons-2'
+import { ChevronLeft } from '@hanzogui/lucide-icons-2'
 import { useRouter } from 'solito/navigation'
 
 export function UserDetailScreen({ id }: { id: string }) {

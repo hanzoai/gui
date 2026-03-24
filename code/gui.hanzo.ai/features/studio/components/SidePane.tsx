@@ -1,5 +1,5 @@
-import { ArrowLeft, X } from '@hanzo/gui-lucide-icons-2'
-import { useStore } from '@hanzo/gui-use-store'
+import { ArrowLeft, X } from '@hanzogui/lucide-icons-2'
+import { useStore } from '@hanzogui/use-store'
 import type React from 'react'
 import { memo, useEffect } from 'react'
 import { Button, H4, PortalHost, ScrollView, Spacer, XStack, YStack } from '@hanzo/gui'

@@ -1,5 +1,5 @@
-import type { FillInFont, GenericFont } from '@hanzo/gui-core'
-import { createFont, isWeb } from '@hanzo/gui-core'
+import type { FillInFont, GenericFont } from '@hanzogui/core'
+import { createFont, isWeb } from '@hanzogui/core'
 
 export const createSilkscreenFont = <A extends GenericFont>(
   font: Partial<A> = {}

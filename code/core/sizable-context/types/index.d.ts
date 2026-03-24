@@ -1,5 +1,5 @@
-import { type SizeTokens } from '@hanzo/gui-core';
-export declare const SizableContext: import("@hanzo/gui-core").StyledContext<{
+import { type SizeTokens } from '@hanzogui/core';
+export declare const SizableContext: import("@hanzogui/core").StyledContext<{
     size: SizeTokens | undefined;
 }>;
 //# sourceMappingURL=index.d.ts.map

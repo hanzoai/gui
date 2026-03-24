@@ -1,4 +1,4 @@
-import * as Helpers from '@hanzo/gui-helpers';
+import * as Helpers from '@hanzogui/helpers';
 export declare const Gui: {
     Helpers: typeof Helpers;
     get mediaState(): {

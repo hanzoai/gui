@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-font-silkscreen",
+  "name": "@hanzogui/font-silkscreen",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "files": [
@@ -36,10 +36,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-core": "workspace:*"
+    "@hanzogui/core": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   },
   "skipPublishIfUnchanged": false
 }

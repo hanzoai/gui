@@ -1,4 +1,4 @@
-import { AlertCircle, Copy, File } from '@hanzo/gui-lucide-icons-2'
+import { AlertCircle, Copy, File } from '@hanzogui/lucide-icons-2'
 import { lazy, useEffect, useMemo, useState } from 'react'
 import {
   Button,

@@ -4,12 +4,12 @@ import {
   hasAnimation as hasNormalizedAnimation,
   getEffectiveAnimation,
   getAnimationConfigsForKeys,
-} from '@hanzo/gui-animation-helpers'
-import { useIsomorphicLayoutEffect } from '@hanzo/gui-constants'
-import { ResetPresence, usePresence } from '@hanzo/gui-use-presence'
-import type { AnimationDriver, UniversalAnimatedNumber } from '@hanzo/gui-web'
-import { transformsToString } from '@hanzo/gui-web'
-import React, { useState } from 'react' // import { animate } from '@hanzo/gui-cubic-bezier-animator'
+} from '@hanzogui/animation-helpers'
+import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
+import { ResetPresence, usePresence } from '@hanzogui/use-presence'
+import type { AnimationDriver, UniversalAnimatedNumber } from '@hanzogui/web'
+import { transformsToString } from '@hanzogui/web'
+import React, { useState } from 'react' // import { animate } from '@hanzogui/cubic-bezier-animator'
 
 const EXTRACT_MS_REGEX = /(\d+(?:\.\d+)?)\s*ms/
 const EXTRACT_S_REGEX = /(\d+(?:\.\d+)?)\s*s/

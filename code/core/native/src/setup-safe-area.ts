@@ -5,7 +5,7 @@
  *
  * @example
  * ```tsx
- * import '@hanzo/gui-native/setup-safe-area'
+ * import '@hanzogui/native/setup-safe-area'
  * ```
  *
  * This automatically detects and configures react-native-safe-area-context

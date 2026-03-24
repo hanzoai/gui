@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-logo",
+  "name": "@hanzogui/logo",
   "version": "2.0.0",
   "source": "src/index.tsx",
   "files": [
@@ -44,12 +44,12 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-use-element-layout": "workspace:*",
-    "@hanzo/gui-web": "workspace:*",
+    "@hanzogui/use-element-layout": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

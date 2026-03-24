@@ -20,7 +20,7 @@ const tokens = createTokens({
 After you pass that into `createGui`, you can access your tokens from anywhere using `getTokens`:
 
 ```tsx
-import { getTokens } from '@hanzo/gui-core'
+import { getTokens } from '@hanzogui/core'
 
 getTokens().size.small
 ```
@@ -125,7 +125,7 @@ export default () => (
 This, like all token values, works the same with `styled`:
 
 ```tsx
-import { styled, View } from '@hanzo/gui-core'
+import { styled, View } from '@hanzogui/core'
 
 export const MyView = styled(View, {
   width: '$icon.small',
@@ -135,7 +135,7 @@ export const MyView = styled(View, {
 When creating custom tokens, you can use the `px` helper to ensure values get proper pixel units on web while remaining as raw numbers on native:
 
 ```tsx
-import { createTokens, px } from '@hanzo/gui-core'
+import { createTokens, px } from '@hanzogui/core'
 
 const tokens = createTokens({
   customSize: {

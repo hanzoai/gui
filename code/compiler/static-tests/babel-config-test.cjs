@@ -1,9 +1,9 @@
 module.exports = {
   plugins: [
     [
-      '@hanzo/gui-babel-plugin',
+      '@hanzogui/babel-plugin',
       {
-        components: ['@hanzo/gui', '@hanzo/gui-test-design-system'],
+        components: ['@hanzo/gui', '@hanzogui/test-design-system'],
         platform: 'native',
         config: './tests/lib/gui.config.cjs',
       },

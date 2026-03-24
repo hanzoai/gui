@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 import * as FS from 'fs-extra'
-import type { CLIResolvedOptions } from '@hanzo/gui-types'
+import type { CLIResolvedOptions } from '@hanzogui/types'
 
 interface GeneratePromptOptions extends CLIResolvedOptions {
   output?: string
@@ -10,7 +10,7 @@ export async function generatePrompt(options: GeneratePromptOptions) {
   const { paths, output } = options
 
   // Regenerate the config first
-  const { loadGui } = require('@hanzo/gui-static/loadGui')
+  const { loadGui } = require('@hanzogui/static/loadGui')
   process.env.HANZO_GUI_KEEP_THEMES = '1'
   await loadGui({
     ...options.guiOptions,

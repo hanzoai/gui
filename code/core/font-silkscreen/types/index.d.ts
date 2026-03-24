@@ -1,4 +1,4 @@
-import type { FillInFont, GenericFont } from "@hanzo/gui-core";
+import type { FillInFont, GenericFont } from "@hanzogui/core";
 export declare const createSilkscreenFont: <A extends GenericFont>(font?: Partial<A>) => FillInFont<A, keyof typeof size>;
 declare const size: {
 	readonly 1: 11;

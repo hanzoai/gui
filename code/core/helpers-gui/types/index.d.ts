@@ -1,4 +1,4 @@
-export * from '@hanzo/gui-helpers';
+export * from '@hanzogui/helpers';
 export * from './prevent';
 export * from './useCurrentColor';
 export * from './useGetThemedIcon';

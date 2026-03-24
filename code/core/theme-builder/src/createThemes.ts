@@ -1,5 +1,5 @@
 import { parseToHsla } from 'color2k'
-import type { Template } from '@hanzo/gui-create-theme'
+import type { Template } from '@hanzogui/create-theme'
 import { defaultComponentThemes } from './defaultComponentThemes'
 import { defaultTemplates } from './defaultTemplates'
 import { getThemeSuitePalettes, PALETTE_BACKGROUND_OFFSET } from './getThemeSuitePalettes'

@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-kitchen-sink-go",
+  "name": "@hanzogui/kitchen-sink-go",
   "version": "2.0.0",
   "private": true,
   "main": "index.js",
@@ -12,13 +12,13 @@
     "test": "./run-native-tests.sh"
   },
   "dependencies": {
-    "@hanzo/gui-config": "workspace:*",
-    "@hanzo/gui-core": "workspace:*",
-    "@hanzo/gui-demos": "workspace:*",
-    "@hanzo/gui-kitchen-sink-shared": "workspace:*",
-    "@hanzo/gui-lucide-icons-2": "workspace:*",
-    "@hanzo/gui-metro-plugin": "workspace:*",
-    "@hanzo/gui-web": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/demos": "workspace:*",
+    "@hanzogui/kitchen-sink-shared": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/metro-plugin": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "expo": "~55.0.6",
     "expo-font": "~55.0.4",
     "react": ">=19",

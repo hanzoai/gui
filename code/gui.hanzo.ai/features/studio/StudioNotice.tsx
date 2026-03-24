@@ -1,5 +1,5 @@
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
-import { Check, ChevronLeft, ChevronRight, Lightbulb } from '@hanzo/gui-lucide-icons-2'
+import { LinearGradient } from '@hanzogui/linear-gradient'
+import { Check, ChevronLeft, ChevronRight, Lightbulb } from '@hanzogui/lucide-icons-2'
 import type React from 'react'
 import { useRef, useState } from 'react'
 import type { ScrollViewProps, XStackProps } from '@hanzo/gui'

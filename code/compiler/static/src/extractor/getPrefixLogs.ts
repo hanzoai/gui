@@ -1,4 +1,4 @@
-import { Color, colorString } from '@hanzo/gui-cli-color'
+import { Color, colorString } from '@hanzogui/cli-color'
 import type { GuiOptions } from '../types'
 
 export function getPrefixLogs(options?: GuiOptions) {

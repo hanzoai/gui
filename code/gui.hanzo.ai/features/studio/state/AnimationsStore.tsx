@@ -1,4 +1,4 @@
-import { createStore } from '@hanzo/gui-use-store'
+import { createStore } from '@hanzogui/use-store'
 import { snakeCase } from 'lodash-es'
 import { animationTypesInfo } from '../animations/helpers'
 import { rootStore } from './RootStore'

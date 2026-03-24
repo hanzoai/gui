@@ -1,5 +1,5 @@
 import React from 'react'
-import { addTheme, updateTheme } from '@hanzo/gui-theme'
+import { addTheme, updateTheme } from '@hanzogui/theme'
 import { Button, Square, Text, Theme, YStack, useIsomorphicLayoutEffect } from '@hanzo/gui'
 
 import { TEST_IDS } from '../constants/test-ids'

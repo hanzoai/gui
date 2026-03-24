@@ -1,4 +1,4 @@
-import { validStyles } from '@hanzo/gui-helpers'
+import { validStyles } from '@hanzogui/helpers'
 
 import { createComponent } from '../createComponent'
 import type {

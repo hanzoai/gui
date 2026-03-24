@@ -1110,7 +1110,7 @@ async function esbuildWriteIfChanged(
               sourceMap: !shouldSkipSourceMaps,
               plugins: [
                 [
-                  require.resolve('@hanzo/gui-babel-plugin-fully-specified/commonjs'),
+                  require.resolve('@hanzogui/babel-plugin-fully-specified/commonjs'),
                   {
                     esExtensionDefault: platform === 'native' ? '.native.cjs' : '.cjs',
                   },
@@ -1170,8 +1170,8 @@ async function esbuildWriteIfChanged(
             plugins: [
               [
                 isESM
-                  ? require.resolve('@hanzo/gui-babel-plugin-fully-specified')
-                  : require.resolve('@hanzo/gui-babel-plugin-fully-specified/commonjs'),
+                  ? require.resolve('@hanzogui/babel-plugin-fully-specified')
+                  : require.resolve('@hanzogui/babel-plugin-fully-specified/commonjs'),
                 {
                   esExtensionDefault: platform === 'native' ? '.native.js' : '.mjs',
                   esExtensions: platform === 'native' ? ['.js'] : ['.mjs'],

@@ -1,4 +1,4 @@
-import type { MediaQueryList } from "@hanzo/gui-web";
+import type { MediaQueryList } from "@hanzogui/web";
 type Orientation = "landscape" | "portrait";
 type Listener = (orientation: Orientation) => void;
 export declare class NativeMediaQueryList implements MediaQueryList {

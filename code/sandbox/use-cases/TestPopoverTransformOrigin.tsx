@@ -3,7 +3,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronUp,
-} from '@hanzo/gui-lucide-icons-2'
+} from '@hanzogui/lucide-icons-2'
 import { useState } from 'react'
 import type { PopoverProps } from '@hanzo/gui'
 import { Button, Configuration, Popover, Text, XStack, YStack } from '@hanzo/gui'

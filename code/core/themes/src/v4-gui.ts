@@ -1,5 +1,5 @@
-import * as Colors from '@hanzo/gui-colors/legacy'
-import { createV4Themes, defaultComponentThemes } from '@hanzo/gui-theme-builder'
+import * as Colors from '@hanzogui/colors/legacy'
+import { createV4Themes, defaultComponentThemes } from '@hanzogui/theme-builder'
 import { desaturate } from 'color2k'
 
 const desat = (colors: Record<string, string>, amount: number) => {

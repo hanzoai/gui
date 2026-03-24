@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-build",
+  "name": "@hanzogui/build",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "bin": {
@@ -17,7 +17,7 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-typescript": "^7.26.0",
     "@swc/core": "^1.14.0",
-    "@hanzo/gui-babel-plugin-fully-specified": "workspace:*",
+    "@hanzogui/babel-plugin-fully-specified": "workspace:*",
     "@types/fs-extra": "^9.0.13",
     "baseline-browser-mapping": "^2.9.15",
     "chokidar": "^3.5.2",

@@ -1,4 +1,4 @@
-import '@hanzo/gui-polyfill-dev'
+import '@hanzogui/polyfill-dev'
 
 import * as React from 'react'
 

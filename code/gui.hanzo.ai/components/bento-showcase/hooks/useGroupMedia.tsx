@@ -1,5 +1,5 @@
-import type { UseMediaState, WidthHeight } from '@hanzo/gui-web'
-import { GroupContext, mediaKeyMatch, mergeIfNotShallowEqual } from '@hanzo/gui-web'
+import type { UseMediaState, WidthHeight } from '@hanzogui/web'
+import { GroupContext, mediaKeyMatch, mergeIfNotShallowEqual } from '@hanzogui/web'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 export const useGroupMedia = (name: string): UseMediaState => {

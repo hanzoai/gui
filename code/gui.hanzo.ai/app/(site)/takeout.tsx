@@ -1,4 +1,4 @@
-import { ThemeTint, ThemeTintAlt } from '@hanzo/gui-logo'
+import { ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
 import { Image, YStack } from '@hanzo/gui'
 import { ContainerLarge } from '~/components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'

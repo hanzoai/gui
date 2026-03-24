@@ -1,5 +1,5 @@
-import { ThemeTintAlt } from '@hanzo/gui-logo'
-import { Check, Copy, ExternalLink } from '@hanzo/gui-lucide-icons-2'
+import { ThemeTintAlt } from '@hanzogui/logo'
+import { Check, Copy, ExternalLink } from '@hanzogui/lucide-icons-2'
 import { Suspense, lazy } from 'react'
 import {
   Button,

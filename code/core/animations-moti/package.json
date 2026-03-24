@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-animations-moti",
+  "name": "@hanzogui/animations-moti",
   "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
@@ -39,11 +39,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-core": "workspace:*",
-    "@hanzo/gui-use-presence": "workspace:*"
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/use-presence": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-native": "0.83.2",
     "react-native-reanimated": "~4.2.2"

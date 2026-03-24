@@ -4,7 +4,7 @@ import { SizableText, XStack } from '@hanzo/gui'
 import { AnimatePresence, Tabs, YStack } from '@hanzo/gui'
 import { Code } from './Code'
 import { useBashCommand, PACKAGE_MANAGERS } from '~/hooks/useBashCommand'
-import { Image } from '@hanzo/gui-image'
+import { Image } from '@hanzogui/image'
 import { ScrollView } from 'react-native'
 
 export function RovingTabs({ className, children, code, size, ...rest }) {

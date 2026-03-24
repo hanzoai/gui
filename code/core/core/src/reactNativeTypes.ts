@@ -1,1 +1,1 @@
-export type { RNTextProps, RNViewProps } from '@hanzo/gui-web'
+export type { RNTextProps, RNViewProps } from '@hanzogui/web'

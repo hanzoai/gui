@@ -8,13 +8,13 @@ import {
   Trash2,
   Users,
   X,
-} from '@hanzo/gui-lucide-icons-2'
+} from '@hanzogui/lucide-icons-2'
 import type {
   APIGuildMember,
   RESTGetAPIGuildMembersSearchResult,
 } from 'discord-api-types/v10'
 import { router } from 'one'
-import { useToastController } from '@hanzo/gui-toast'
+import { useToastController } from '@hanzogui/toast'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { processError } from '~/features/posthog/errorHandling'
 import useSWR, { mutate } from 'swr'

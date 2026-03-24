@@ -1,4 +1,4 @@
-import { ChevronDown } from '@hanzo/gui-lucide-icons-2'
+import { ChevronDown } from '@hanzogui/lucide-icons-2'
 import { Accordion, Paragraph, Square } from '@hanzo/gui'
 
 export function AccordionDemo() {

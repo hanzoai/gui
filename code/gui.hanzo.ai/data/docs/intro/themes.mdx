@@ -92,7 +92,7 @@ Every Hanzo GUI `styled()` component looks for its own specific theme if you pas
 it the `name` property. For example:
 
 ```tsx
-import { View, styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { View, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 const Circle = styled(View, {
   name: 'Circle',
@@ -133,7 +133,7 @@ completely.
 ### Styling Hanzo GUI components
 
 Hanzo GUI comes in two parts: a core library and a full UI kit. The core library
-(`@hanzo/gui-core`) is flexible and doesn't have many rules. But the full UI kit
+(`@hanzogui/core`) is flexible and doesn't have many rules. But the full UI kit
 (`@hanzo/gui`) has some standard ways of doing things. This helps make everything
 work well together.
 
@@ -218,7 +218,7 @@ If you are building a component with more than one sub-components, you can
 follow this pattern:
 
 ```tsx
-import { GetProps, View, Text, styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { GetProps, View, Text, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 const ButtonFrame = styled(View, {
   name: 'Button',
@@ -393,7 +393,7 @@ export const allThemes = {
 ## Dynamic Themes
 
 Sometimes you want to defer loading themes, or change existing theme values at
-runtime. Hanzo GUI exports three helpers for this in the package `@hanzo/gui-theme`
+runtime. Hanzo GUI exports three helpers for this in the package `@hanzogui/theme`
 which exports `addTheme`, `updateTheme`, and `replaceTheme`.
 
 ### addTheme
@@ -448,7 +448,7 @@ somewhat advanced optimization and not necessary to do right away.
 import { themes as themesIn } from './your-themes-file'
 
 // We leave this value empty for production client side bundles to save on bundle size.
-// The `@hanzo/gui-next-plugin` sets HANZO_GUI_IS_SERVER automatically.
+// The `@hanzogui/next-plugin` sets HANZO_GUI_IS_SERVER automatically.
 // If you pass an empty themes object Hanzo GUI will try to hydrate by scanning CSS in browser environments.
 // It typically takes low single-digit ms to scan and can save significantly on JS size.
 

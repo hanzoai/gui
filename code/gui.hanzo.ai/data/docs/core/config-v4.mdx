@@ -1,6 +1,6 @@
 ---
 title: Quick Config
-description: Easy config and themes with @hanzo/gui-config/v4
+description: Easy config and themes with @hanzogui/config/v4
 ---
 
 <IntroParagraph>
@@ -10,18 +10,18 @@ description: Easy config and themes with @hanzo/gui-config/v4
 
 Hanzo GUI is incredibly customizable, but if you want to get started faster and
 enjoy using a configuration that is standardized and has been tested in many
-apps, we recommend our `@hanzo/gui-config` package.
+apps, we recommend our `@hanzogui/config` package.
 
 First you'll want to add it:
 
 ```bash
-npm install @hanzo/gui-config
+npm install @hanzogui/config
 ```
 
 Using the new `defaultConfig` is the easiest way to start:
 
 ```tsx fileName="gui.config.ts"
-import { defaultConfig } from '@hanzo/gui-config/v4'
+import { defaultConfig } from '@hanzogui/config/v4'
 import { createGui } from '@hanzo/gui'
 
 export const config = createGui(defaultConfig)
@@ -70,8 +70,8 @@ It's easiest to get a feel for both createThemes and the default themes by readi
 the source for how `defaultThemes` are defined:
 
 ```tsx fileName=themes.ts
-import * as Colors from '@hanzo/gui-colors'
-import { createThemes, defaultComponentThemes } from '@hanzo/gui-config/v4'
+import * as Colors from '@hanzogui/colors'
+import { createThemes, defaultComponentThemes } from '@hanzogui/config/v4'
 
 const darkPalette = [
   '#050505',

@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { invariant } from '@hanzo/gui-react-native-web-internals'
+import { invariant } from '@hanzogui/react-native-web-internals'
 import EventEmitter from '../vendor/react-native/emitter/_EventEmitter'
 import type { Task } from './TaskQueue'
 import { TaskQueue } from './TaskQueue'

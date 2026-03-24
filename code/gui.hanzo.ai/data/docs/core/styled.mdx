@@ -11,7 +11,7 @@ description: Extend and build custom and optimizable components
 Create a new component by extending an existing one:
 
 ```tsx
-import { GetProps, View, styled } from '@hanzo/gui-core'
+import { GetProps, View, styled } from '@hanzogui/core'
 
 export const RoundedSquare = styled(View, {
   borderRadius: 20,
@@ -36,7 +36,7 @@ One really important and useful thing to note about Hanzo GUI style properties: 
 Let's add some variants:
 
 ```tsx
-import { View, styled } from '@hanzo/gui-core'
+import { View, styled } from '@hanzogui/core'
 
 export const RoundedSquare = styled(View, {
   borderRadius: 20,
@@ -93,7 +93,7 @@ If it does accept `className`, you can opt-in to className, CSS media queries, a
 
 ```tsx
 import { SomeCustomComponent } from 'some-library'
-import { styled } from '@hanzo/gui' // or '@hanzo/gui-core'
+import { styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 export const Hanzo GUICustomComponent = styled(SomeCustomComponent, {
   acceptsClassName: true,
@@ -152,7 +152,7 @@ The JSX element's props are merged with Hanzo GUI's computed styles, classNames,
 For full control, pass a render function that receives props and component state:
 
 ```tsx
-import { GuiComponentState } from '@hanzo/gui-core'
+import { GuiComponentState } from '@hanzogui/core'
 ;<Stack
   render={(props, state: GuiComponentState) => (
     <CustomButton {...props} isHovered={state.hover} isPressed={state.press} />
@@ -239,7 +239,7 @@ A final note: you must pass all Hanzo GUI style props given to `HigherOrderStyle
 And if you'd like to add new props on top of the existing props, you can pass them in for the first generic type argument of styleable:
 
 ```tsx
-import { View, ViewProps } from '@hanzo/gui-core'
+import { View, ViewProps } from '@hanzogui/core'
 
 type ExtraProps = {
   someCustomProp: boolean

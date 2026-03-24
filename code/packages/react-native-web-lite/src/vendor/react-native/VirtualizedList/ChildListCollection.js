@@ -8,7 +8,7 @@
  * @format
  */
 
-import { invariant } from '@hanzo/gui-react-native-web-internals'
+import { invariant } from '@hanzogui/react-native-web-internals'
 
 class ChildListCollection {
   _cellKeyToChildren = new Map()

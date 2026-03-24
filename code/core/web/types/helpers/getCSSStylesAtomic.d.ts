@@ -2,7 +2,7 @@
  * Some parts adapted from react-native-web
  * Copyright (c) Nicolas Gallagher licensed under the MIT license.
  */
-import type { StyleObject } from '@hanzo/gui-helpers';
+import type { StyleObject } from '@hanzogui/helpers';
 import type { ViewStyleWithPseudos } from '../types';
 import type { PseudoDescriptor } from './pseudoDescriptors';
 export declare function getCSSStylesAtomic(style: ViewStyleWithPseudos): StyleObject[];

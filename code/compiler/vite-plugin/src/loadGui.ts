@@ -1,5 +1,5 @@
-import * as StaticWorker from '@hanzo/gui-static-worker'
-import type { GuiOptions } from '@hanzo/gui-types'
+import * as StaticWorker from '@hanzogui/static-worker'
+import type { GuiOptions } from '@hanzogui/types'
 
 // use globalThis to share state across vite environments (SSR, client, etc.)
 const LOAD_STATE_KEY = '__gui_load_state__'

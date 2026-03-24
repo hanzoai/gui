@@ -1,5 +1,5 @@
 /**
- * @hanzo/gui-native-ci
+ * @hanzogui/native-ci
  *
  * Native CI/CD helpers for React Native apps with Expo.
  * Provides fingerprint-based build caching and Detox test runners for GitHub Actions.

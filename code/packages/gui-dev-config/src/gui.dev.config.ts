@@ -1,8 +1,8 @@
-import { animationsCSS } from '@hanzo/gui-config/v5-css'
-import { animationsMotion } from '@hanzo/gui-config/v5-motion'
-import { defaultConfig, themes } from '@hanzo/gui-config/v5-subtle'
-import type { CreateGuiProps } from '@hanzo/gui-core'
-import { setupDev } from '@hanzo/gui-core'
+import { animationsCSS } from '@hanzogui/config/v5-css'
+import { animationsMotion } from '@hanzogui/config/v5-motion'
+import { defaultConfig, themes } from '@hanzogui/config/v5-subtle'
+import type { CreateGuiProps } from '@hanzogui/core'
+import { setupDev } from '@hanzogui/core'
 import { bodyFont, cherryBombFont, headingFont, monoFont, silkscreenFont } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'
 

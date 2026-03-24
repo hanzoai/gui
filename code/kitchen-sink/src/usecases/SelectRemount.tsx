@@ -3,7 +3,7 @@
  * https://github.com/hanzoai/gui/issues/1859
  */
 
-import { Check, ChevronDown } from '@hanzo/gui-lucide-icons-2'
+import { Check, ChevronDown } from '@hanzogui/lucide-icons-2'
 import React from 'react'
 import { Adapt, Button, Select, Sheet, Text, XStack, YStack } from '@hanzo/gui'
 

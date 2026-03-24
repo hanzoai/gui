@@ -1,5 +1,5 @@
 import { describe, expect, test, beforeEach } from 'vitest'
-import { createGui } from '@hanzo/gui-core'
+import { createGui } from '@hanzogui/core'
 
 describe('custom color tokens', () => {
   beforeEach(() => {

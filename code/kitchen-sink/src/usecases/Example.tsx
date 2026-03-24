@@ -1,5 +1,5 @@
-import { View } from '@hanzo/gui-core'
-import { Heading } from '@hanzo/gui-sandbox-ui'
+import { View } from '@hanzogui/core'
+import { Heading } from '@hanzogui/sandbox-ui'
 
 // for copy/paste easily to site examples
 

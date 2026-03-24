@@ -1,6 +1,6 @@
 import { Paragraph, XStack, YStack } from '@hanzo/gui'
 
-import { Pencil } from '@hanzo/gui-lucide-icons-2'
+import { Pencil } from '@hanzogui/lucide-icons-2'
 import { CheckCircle } from './CheckCircle'
 
 export const Features = ({ items, size, large, soon, ...props }: any) => {

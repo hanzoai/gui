@@ -1,4 +1,4 @@
-import { getTints, useTint } from '@hanzo/gui-logo'
+import { getTints, useTint } from '@hanzogui/logo'
 import { useEffect, useMemo, useRef } from 'react'
 import type { LayoutRectangle } from 'react-native'
 import type { GetProps } from '@hanzo/gui'

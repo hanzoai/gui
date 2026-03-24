@@ -1,4 +1,4 @@
-import { type GuiOptions } from '@hanzo/gui-static';
+import { type GuiOptions } from '@hanzogui/static';
 export type MetroGuiOptions = GuiOptions & {
     /**
      * @deprecated CSS interop is no longer supported. Use `gui generate` instead.
@@ -25,7 +25,7 @@ type MetroConfigInput = {
  * ```js
  * // metro.config.js
  * const { getDefaultConfig } = require('expo/metro-config')
- * const { withGui } = require('@hanzo/gui-metro-plugin')
+ * const { withGui } = require('@hanzogui/metro-plugin')
  *
  * const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
  * module.exports = withGui(config, {

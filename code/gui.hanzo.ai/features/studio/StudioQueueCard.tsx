@@ -1,4 +1,4 @@
-import { LogoIcon } from '@hanzo/gui-logo'
+import { LogoIcon } from '@hanzogui/logo'
 import { useEffect, useState } from 'react'
 import { Paragraph, Spacer, Spinner, XStack, YStack, composeRefs } from '@hanzo/gui'
 import { useHoverGlow } from '~/components/HoverGlow'

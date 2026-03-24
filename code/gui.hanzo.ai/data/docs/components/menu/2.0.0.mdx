@@ -30,7 +30,7 @@ Menu displays a list of actions or options in a floating panel triggered by a bu
 Menu is already installed in `@hanzo/gui`, or you can install it independently:
 
 ```bash
-yarn add @hanzo/gui-menu
+yarn add @hanzogui/menu
 ```
 
 If you want to use native menus, add these dependencies:
@@ -46,7 +46,7 @@ yarn add sf-symbols-typescript
 Then add the setup import at your app entry point:
 
 ```tsx
-import '@hanzo/gui-native/setup-zeego'
+import '@hanzogui/native/setup-zeego'
 ```
 
 <Notice theme="yellow">
@@ -58,7 +58,7 @@ import '@hanzo/gui-native/setup-zeego'
 Import all parts and piece them together.
 
 ```jsx
-import { Menu } from '@hanzo/gui' // or '@hanzo/gui-menu'
+import { Menu } from '@hanzo/gui' // or '@hanzogui/menu'
 
 export default () => (
   <Menu>
@@ -443,7 +443,7 @@ On iOS, it renders the native
 ### Menu.ItemImage
 
 A component to render an item image. For native menus, it only works on iOS. It
-takes the same props as `@hanzo/gui-image`.
+takes the same props as `@hanzogui/image`.
 
 ### Menu.ItemSubtitle
 

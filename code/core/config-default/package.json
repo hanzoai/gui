@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-config-default",
+  "name": "@hanzogui/config-default",
   "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
@@ -19,13 +19,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzo/gui-animations-css": "workspace:*",
-    "@hanzo/gui-animations-react-native": "workspace:*",
-    "@hanzo/gui-core": "workspace:*",
-    "@hanzo/gui-shorthands": "workspace:*",
-    "@hanzo/gui-web": "workspace:*"
+    "@hanzogui/animations-css": "workspace:*",
+    "@hanzogui/animations-react-native": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzo/gui-build": "workspace:*"
+    "@hanzogui/build": "workspace:*"
   }
 }

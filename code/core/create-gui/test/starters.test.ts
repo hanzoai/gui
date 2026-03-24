@@ -4,22 +4,22 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const startersDir = path.join(__dirname, '../../../starters')
-const guiCliPath = require.resolve('@hanzo/gui-cli/dist/index.cjs')
+const guiCliPath = require.resolve('@hanzogui/cli/dist/index.cjs')
 
 describe('expo-router starter', () => {
   const dir = path.join(startersDir, 'expo-router')
 
   it('has workspace:* hanzo-gui deps', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
-    expect(pkg.dependencies['@hanzo/gui-config']).toBe('workspace:*')
+    expect(pkg.dependencies['@hanzogui/config']).toBe('workspace:*')
     expect(pkg.dependencies['@hanzo/gui']).toBe('workspace:*')
-    expect(pkg.devDependencies['@hanzo/gui-babel-plugin']).toBe('workspace:*')
+    expect(pkg.devDependencies['@hanzogui/babel-plugin']).toBe('workspace:*')
   })
 
-  it('does not depend on @hanzo/gui-cli', () => {
+  it('does not depend on @hanzogui/cli', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
-    expect(pkg.dependencies?.['@hanzo/gui-cli']).toBeUndefined()
-    expect(pkg.devDependencies?.['@hanzo/gui-cli']).toBeUndefined()
+    expect(pkg.dependencies?.['@hanzogui/cli']).toBeUndefined()
+    expect(pkg.devDependencies?.['@hanzogui/cli']).toBeUndefined()
   })
 
   it('uses vanilla metro config', () => {
@@ -30,10 +30,10 @@ describe('expo-router starter', () => {
 
   it('uses v5 gui config', () => {
     const config = fs.readFileSync(path.join(dir, 'gui.config.ts'), 'utf-8')
-    expect(config).toContain('@hanzo/gui-config/v5')
+    expect(config).toContain('@hanzogui/config/v5')
   })
 
-  // TODO: metro can't resolve @hanzo/gui-menu through workspace symlinks
+  // TODO: metro can't resolve @hanzogui/menu through workspace symlinks
   it.skip('builds for web', () => {
     // generate css first, then export
     execSync(
@@ -57,29 +57,29 @@ describe('remix starter', () => {
 
   it('has workspace:* hanzo-gui deps', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
-    expect(pkg.dependencies['@hanzo/gui-config']).toBe('workspace:*')
+    expect(pkg.dependencies['@hanzogui/config']).toBe('workspace:*')
     expect(pkg.dependencies['@hanzo/gui']).toBe('workspace:*')
-    expect(pkg.devDependencies['@hanzo/gui-vite-plugin']).toBe('workspace:*')
+    expect(pkg.devDependencies['@hanzogui/vite-plugin']).toBe('workspace:*')
   })
 
-  it('does not depend on @hanzo/gui-cli or @hanzo/gui-core directly', () => {
+  it('does not depend on @hanzogui/cli or @hanzogui/core directly', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
-    expect(pkg.dependencies?.['@hanzo/gui-cli']).toBeUndefined()
-    expect(pkg.dependencies?.['@hanzo/gui-core']).toBeUndefined()
+    expect(pkg.dependencies?.['@hanzogui/cli']).toBeUndefined()
+    expect(pkg.dependencies?.['@hanzogui/core']).toBeUndefined()
   })
 
   it('uses v5 gui config', () => {
     const config = fs.readFileSync(path.join(dir, 'gui.config.ts'), 'utf-8')
-    expect(config).toContain('@hanzo/gui-config/v5')
+    expect(config).toContain('@hanzogui/config/v5')
   })
 
-  it('imports from hanzo-gui not @hanzo/gui-web', () => {
+  it('imports from hanzo-gui not @hanzogui/web', () => {
     const root = fs.readFileSync(path.join(dir, 'app/root.tsx'), 'utf-8')
     const index = fs.readFileSync(path.join(dir, 'app/routes/_index.tsx'), 'utf-8')
     expect(root).toContain("from '@hanzo/gui'")
-    expect(root).not.toContain('@hanzo/gui-web')
+    expect(root).not.toContain('@hanzogui/web')
     expect(index).toContain("from '@hanzo/gui'")
-    expect(index).not.toContain('@hanzo/gui-web')
+    expect(index).not.toContain('@hanzogui/web')
   })
 
   it('builds for web', () => {
@@ -98,12 +98,12 @@ describe('workspace version rewriting', () => {
       const fakePkg = {
         name: 'test',
         dependencies: {
-          '@hanzo/gui-config': 'workspace:*',
+          '@hanzogui/config': 'workspace:*',
           gui: 'workspace:*',
           react: '19.1.0',
         },
         devDependencies: {
-          '@hanzo/gui-vite-plugin': 'workspace:*',
+          '@hanzogui/vite-plugin': 'workspace:*',
           typescript: '~5.9.2',
         },
       }
@@ -135,10 +135,10 @@ describe('workspace version rewriting', () => {
       const result = JSON.parse(
         fs.readFileSync(path.join(tmpDir, 'package.json'), 'utf-8')
       )
-      expect(result.dependencies['@hanzo/gui-config']).toBe(version)
+      expect(result.dependencies['@hanzogui/config']).toBe(version)
       expect(result.dependencies['@hanzo/gui']).toBe(version)
       expect(result.dependencies['react']).toBe('19.1.0')
-      expect(result.devDependencies['@hanzo/gui-vite-plugin']).toBe(version)
+      expect(result.devDependencies['@hanzogui/vite-plugin']).toBe(version)
       expect(result.devDependencies['typescript']).toBe('~5.9.2')
     } finally {
       fs.rmSync(tmpDir, { recursive: true, force: true })

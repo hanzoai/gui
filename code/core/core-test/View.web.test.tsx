@@ -1,11 +1,11 @@
 process.env.HANZO_GUI_TARGET = 'web'
 
-import { getDefaultGuiConfig } from '@hanzo/gui-config-default'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
-import type { ViewProps } from '@hanzo/gui-core'
-import { View, GuiProvider, createGui } from '@hanzo/gui-core'
+import type { ViewProps } from '@hanzogui/core'
+import { View, GuiProvider, createGui } from '@hanzogui/core'
 
 const conf = createGui(getDefaultGuiConfig())
 

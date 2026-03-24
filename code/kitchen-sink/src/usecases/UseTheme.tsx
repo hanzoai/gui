@@ -1,4 +1,4 @@
-import { Text, useTheme } from '@hanzo/gui-core'
+import { Text, useTheme } from '@hanzogui/core'
 import { YStack } from '@hanzo/gui'
 
 export function UseTheme() {

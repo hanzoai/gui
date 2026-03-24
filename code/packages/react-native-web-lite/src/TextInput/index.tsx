@@ -9,7 +9,7 @@
  */
 
 import * as React from 'react'
-import { StyleSheet } from '@hanzo/gui-react-native-web-internals'
+import { StyleSheet } from '@hanzogui/react-native-web-internals'
 import {
   TextInputState,
   forwardedProps,
@@ -20,7 +20,7 @@ import {
   useMergeRefs,
   usePlatformMethods,
   useResponderEvents,
-} from '@hanzo/gui-react-native-web-internals'
+} from '@hanzogui/react-native-web-internals'
 
 import { useCreateElement } from '../createElement/index'
 import type { PlatformMethods } from '../types'

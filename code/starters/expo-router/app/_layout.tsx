@@ -24,8 +24,8 @@ SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
   const [interLoaded, interError] = useFonts({
-    Inter: require('@hanzo/gui-font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@hanzo/gui-font-inter/otf/Inter-Bold.otf'),
+    Inter: require('@hanzogui/font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@hanzogui/font-inter/otf/Inter-Bold.otf'),
   })
 
   useEffect(() => {

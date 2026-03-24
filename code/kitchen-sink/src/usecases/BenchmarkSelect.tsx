@@ -1,5 +1,5 @@
 import React from 'react'
-import { SelectDemo } from '@hanzo/gui-demos'
+import { SelectDemo } from '@hanzogui/demos'
 
 import { StyleSheet, View } from 'react-native'
 import { Button, ListItem, Text, XStack, YStack } from '@hanzo/gui'

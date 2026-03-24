@@ -1,5 +1,5 @@
 import { XStack } from '@hanzo/gui'
-import { LinearGradient } from '@hanzo/gui-linear-gradient'
+import { LinearGradient } from '@hanzogui/linear-gradient'
 
 export function LinearGradientDemo() {
   return (

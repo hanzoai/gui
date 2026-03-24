@@ -1,4 +1,4 @@
-import { tokenCategories } from '@hanzo/gui-helpers'
+import { tokenCategories } from '@hanzogui/helpers'
 import { getConfig } from '../config'
 import { isVariable } from '../createVariable'
 import type {

@@ -1,4 +1,4 @@
-import { Heart } from '@hanzo/gui-lucide-icons-2'
+import { Heart } from '@hanzogui/lucide-icons-2'
 import { Button, TooltipSimple, YStack } from '@hanzo/gui'
 
 import { Link } from '~/components/Link'

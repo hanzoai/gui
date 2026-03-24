@@ -1,4 +1,4 @@
-import { SandboxHeading, View } from '@hanzo/gui-sandbox-ui'
+import { SandboxHeading, View } from '@hanzogui/sandbox-ui'
 
 export const CodeExamplesInput = (props) => (
   <View px="$2" width={550} $gtSm={{ px: '$6' }}>

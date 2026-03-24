@@ -24,7 +24,7 @@ demoName: Text
 />
 
 <Notice theme="green">
-  The base `Text` component is already included in `@hanzo/gui-core` (and `@hanzo/gui`). This
+  The base `Text` component is already included in `@hanzogui/core` (and `@hanzo/gui`). This
   package is optional and adds `SizableText` and `Paragraph`, which extend `Text` with the
   `size` prop and theme-aware defaults.
 </Notice>
@@ -34,7 +34,7 @@ demoName: Text
 If you're using `@hanzo/gui`, `SizableText` and `Paragraph` are already included. Otherwise, install independently:
 
 ```bash
-npm install @hanzo/gui-text
+npm install @hanzogui/text
 ```
 
 ## Usage
@@ -80,7 +80,7 @@ export default () => (
 
 Hanzo GUI lets you define font sizing, spacing, line height, letter spacing and other properties with `createFont`, of which you can have many different configurations. We've found a nice pattern is to "align" all your keys across these sub-objects.
 
-SizableText adds a `size` property that is defined using a [spread variant](/docs/core/styled#spread-variants) which looks for a matching key on each of these properties (using `@hanzo/gui-get-font-sized`):
+SizableText adds a `size` property that is defined using a [spread variant](/docs/core/styled#spread-variants) which looks for a matching key on each of these properties (using `@hanzogui/get-font-sized`):
 
 - color
 - fontStyle
@@ -122,10 +122,10 @@ export const Paragraph = styled(SizableText, {
 
 ## Inline Text Elements
 
-For semantic inline text styling, `@hanzo/gui-text` exports `Strong`, `Em`, and `Span`:
+For semantic inline text styling, `@hanzogui/text` exports `Strong`, `Em`, and `Span`:
 
 ```tsx
-import { Strong, Em, Span, Paragraph } from '@hanzo/gui-text'
+import { Strong, Em, Span, Paragraph } from '@hanzogui/text'
 
 export default () => (
   <Paragraph>

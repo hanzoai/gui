@@ -1,4 +1,4 @@
-import { createStore, createUseStore } from '@hanzo/gui-use-store'
+import { createStore, createUseStore } from '@hanzogui/use-store'
 import type { PromoConfig } from './promoConfig'
 
 // re-export pricing constants so existing imports keep working

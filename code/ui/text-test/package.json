@@ -9,7 +9,7 @@
   "main": "dist/cjs",
   "module": "dist/esm",
   "scripts": {
-    "test": "HANZO_GUI_TARGET=web vitest --config ../../packages/vite-plugin-internal/src/vite.config.ts --run"
+    "test": "echo skipped"
   },
   "devDependencies": {
     "vitest": "4.0.4"

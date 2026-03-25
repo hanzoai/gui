@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/floating",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -36,10 +36,10 @@
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.6",
     "@floating-ui/react-native": "^0.10.7",
-    "@hanzogui/use-event": "workspace:*"
+    "@hanzogui/use-event": "2.0.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
+    "@hanzogui/build": "2.0.0",
     "react": ">=19",
     "react-native": "0.83.2"
   },

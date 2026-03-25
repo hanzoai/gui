@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-size",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -33,10 +33,10 @@
     "clean": "hanzo-gui-build clean"
   },
   "dependencies": {
-    "@hanzogui/core": "workspace:*"
+    "@hanzogui/core": "2.0.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
+    "@hanzogui/build": "2.0.0",
     "react": ">=19"
   },
   "peerDependencies": {

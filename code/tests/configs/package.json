@@ -1,14 +1,14 @@
 {
   "name": "@hanzogui/configs-test",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "generate": "gui generate",
     "generate-prompt": "gui generate-prompt"
   },
   "dependencies": {
-    "@hanzogui/cli": "workspace:*",
-    "@hanzogui/config": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "@hanzogui/cli": "2.0.0",
+    "@hanzogui/config": "2.0.0",
+    "@hanzo/gui": "2.0.0"
   }
 }

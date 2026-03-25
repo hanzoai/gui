@@ -1,2 +1,2 @@
-export * from './gui.hanzo.ai.config'
+export * from './gui.dev.config'
 export * from './media'

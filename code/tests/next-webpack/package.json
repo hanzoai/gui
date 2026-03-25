@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@hanzogui/cli": "2.0.4",
-    "@hanzo/gui": "2.0.0"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "vitest": "4.0.4"

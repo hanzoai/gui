@@ -28,14 +28,9 @@ const rootPackage = JSON.parse(readFileSync(ROOT_PACKAGE_JSON, 'utf-8'))
 console.info('🔍 Validating hanzo-gui versions...')
 const bentoGuiVersion =
   bentoPackage.dependencies?.gui || bentoPackage.devDependencies?.gui
-const rootGuiVersion =
-  rootPackage.dependencies?.gui || rootPackage.devDependencies?.gui
+const rootGuiVersion = rootPackage.dependencies?.gui || rootPackage.devDependencies?.gui
 
-if (
-  bentoGuiVersion &&
-  rootGuiVersion &&
-  bentoGuiVersion !== rootGuiVersion
-) {
+if (bentoGuiVersion && rootGuiVersion && bentoGuiVersion !== rootGuiVersion) {
   console.warn(`⚠️  WARNING: Hanzo GUI version mismatch!`)
   console.warn(`   Bento: ${bentoGuiVersion}`)
   console.warn(`   Root:  ${rootGuiVersion}`)

@@ -127,7 +127,9 @@ export function registerRequire(
         // also allow requires FROM within gui packages (relative imports like ./Separator.cjs)
         const callerFile = this?.filename || this?.id || ''
         const isFromGuiPkg =
-          callerFile.includes('@hanzo/gui') || callerFile.includes('@gui') || callerFile.includes('node_modules/@hanzo/')
+          callerFile.includes('@hanzo/gui') ||
+          callerFile.includes('@gui') ||
+          callerFile.includes('node_modules/@hanzo/')
         if (path === '@hanzo/gui' || path.startsWith('@hanzogui/') || isFromGuiPkg) {
           return og.apply(this, [path])
         }
@@ -209,9 +211,9 @@ export function registerRequire(
   }
 }
 
-const IGNORES = process.env.HANZO_GUI_IGNORE_BUNDLE_ERRORS || process.env.HANZO_GUI_IGNORE_BUNDLE_ERRORS
-const extraIgnores =
-  IGNORES === 'true' ? [] : IGNORES?.split(',')
+const IGNORES =
+  process.env.HANZO_GUI_IGNORE_BUNDLE_ERRORS || process.env.HANZO_GUI_IGNORE_BUNDLE_ERRORS
+const extraIgnores = IGNORES === 'true' ? [] : IGNORES?.split(',')
 
 const knownIgnorableModules = {
   '@gorhom/bottom-sheet': true,

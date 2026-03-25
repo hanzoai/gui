@@ -260,7 +260,9 @@ function formatLockfileDuplicates(
   lines.push(
     'Multiple versions cause duplicate runtime instances, breaking config/theme detection.'
   )
-  lines.push('Fix: ensure all hanzo-gui packages use the same version range, then dedupe.')
+  lines.push(
+    'Fix: ensure all hanzo-gui packages use the same version range, then dedupe.'
+  )
 
   return lines.join('\n')
 }

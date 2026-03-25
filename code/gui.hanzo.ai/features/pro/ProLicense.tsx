@@ -10,8 +10,8 @@ export const ProLicense = () => {
       <H3>Overview</H3>
       <Paragraph>
         Hanzo GUI Pro V2 License grants you a non-exclusive, perpetual license to use
-        Hanzo GUI Pro features for one project. Your license includes lifetime rights to all
-        code and assets you download during your license period.
+        Hanzo GUI Pro features for one project. Your license includes lifetime rights to
+        all code and assets you download during your license period.
       </Paragraph>
 
       <H3>Project License Scope</H3>
@@ -25,7 +25,8 @@ export const ProLicense = () => {
       </Paragraph>
       <Paragraph>
         You must specify your project name and domain at the time of purchase. If you need
-        to use Hanzo GUI Pro for additional projects, you must purchase additional licenses.
+        to use Hanzo GUI Pro for additional projects, you must purchase additional
+        licenses.
       </Paragraph>
 
       <H3>What's Included</H3>
@@ -69,9 +70,9 @@ export const ProLicense = () => {
       <H3>Team Members</H3>
       <Paragraph>
         Your license includes unlimited team members at no additional cost. All team
-        members must be added through your project dashboard on gui.hanzo.ai to gain access
-        to the private repositories. Team members may only use the code for the licensed
-        project.
+        members must be added through your project dashboard on gui.hanzo.ai to gain
+        access to the private repositories. Team members may only use the code for the
+        licensed project.
       </Paragraph>
 
       <H3>Sales Policy</H3>
@@ -120,7 +121,9 @@ export const ProLicense = () => {
             Project is the web domain and mobile applications specified at the time of
             purchase.
           </Li>
-          <Li>Team Member is any individual added to the project team on gui.hanzo.ai.</Li>
+          <Li>
+            Team Member is any individual added to the project team on gui.hanzo.ai.
+          </Li>
           <Li>
             License Period is the time during which you have access to updates (initial
             year plus any upgrade subscription periods).
@@ -140,8 +143,7 @@ export const ProLicense = () => {
       </Paragraph>
 
       <Paragraph>
-        For any further questions{' '}
-        <a href="mailto:support@hanzo.ai">send us an email</a>.
+        For any further questions <a href="mailto:support@hanzo.ai">send us an email</a>.
       </Paragraph>
     </YStack>
   )

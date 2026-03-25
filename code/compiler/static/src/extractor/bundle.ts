@@ -151,7 +151,9 @@ function getESBuildConfig(
               /^await\s/m.test(contents)
             ) {
               if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
-                console.info(`[hanzo-gui] stubbing file with top-level await: ${args.path}`)
+                console.info(
+                  `[hanzo-gui] stubbing file with top-level await: ${args.path}`
+                )
               }
               return {
                 contents: `// stubbed - contains top-level await\nmodule.exports = {}`,

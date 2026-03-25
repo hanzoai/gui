@@ -528,8 +528,7 @@ export type GuiTextElement = (HTMLElement & GuiElementMethods) | RNText
  * const ref = useRef<GuiWebElement<HTMLInputElement>>(null)
  * // ref.current has both HTMLInputElement props and GuiElementMethods
  */
-export type GuiWebElement<T extends HTMLElement = HTMLElement> = T &
-  GuiElementMethods
+export type GuiWebElement<T extends HTMLElement = HTMLElement> = T & GuiElementMethods
 
 export type DebugProp = boolean | 'break' | 'verbose' | 'visualize' | 'profile'
 
@@ -1557,10 +1556,7 @@ type WebOnlySizeValue =
   | 'max-content'
   | 'min-content'
 
-type UserAllowedStyleValuesSetting = Exclude<
-  GuiSettings['allowedStyleValues'],
-  undefined
->
+type UserAllowedStyleValuesSetting = Exclude<GuiSettings['allowedStyleValues'], undefined>
 
 export type GetThemeValueSettingForCategory<
   Cat extends keyof AllowedStyleValuesSettingPerCategory,
@@ -1590,8 +1586,7 @@ export type GetThemeValueFallbackFor<
 export type ThemeValueFallback =
   // for backwards compat with overriding the type we make this either UnionableString
   // or never if they don't define any UserAllowedStyleValuesSetting
-  | (GuiSettings extends { allowedStyleValues: any } ? never : UnionableString)
-  | Variable
+  (GuiSettings extends { allowedStyleValues: any } ? never : UnionableString) | Variable
 
 export type AllowedValueSettingSpace = GetThemeValueSettingForCategory<'space'>
 export type AllowedValueSettingSize = GetThemeValueSettingForCategory<'size'>
@@ -1716,18 +1711,14 @@ export type NonSpecificTokens =
 
 export type Token =
   | NonSpecificTokens
-  | (GuiSettings extends { autocompleteSpecificTokens: false }
-      ? never
-      : SpecificTokens)
+  | (GuiSettings extends { autocompleteSpecificTokens: false } ? never : SpecificTokens)
 
 export type ColorStyleProp = ThemeValueFallbackColor | ColorTokens
 
 // fonts
 type DefaultFont = GuiSettings['defaultFont']
 
-export type Fonts = DefaultFont extends string
-  ? GuiConfig['fonts'][DefaultFont]
-  : never
+export type Fonts = DefaultFont extends string ? GuiConfig['fonts'][DefaultFont] : never
 
 export type Font = ParseFont<Fonts>
 

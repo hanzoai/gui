@@ -40,19 +40,12 @@ export async function regenerateConfig(
   }
 }
 
-export function regenerateConfigSync(
-  _guiOptions: GuiOptions,
-  config: BundledConfig
-) {
+export function regenerateConfigSync(_guiOptions: GuiOptions, config: BundledConfig) {
   try {
     FS.ensureDirSync(dirname(confFile))
-    FS.writeJSONSync(
-      confFile,
-      transformConfig(config, _guiOptions.platform || 'web'),
-      {
-        spaces: 2,
-      }
-    )
+    FS.writeJSONSync(confFile, transformConfig(config, _guiOptions.platform || 'web'), {
+      spaces: 2,
+    })
   } catch (err) {
     if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_HANZO_GUI_DEV) {
       console.warn('regenerateConfig error', err)
@@ -61,10 +54,7 @@ export function regenerateConfigSync(
   }
 }
 
-export async function generateGuiThemes(
-  guiOptions: GuiOptions,
-  force = false
-) {
+export async function generateGuiThemes(guiOptions: GuiOptions, force = false) {
   if (!guiOptions.themeBuilder) {
     return
   }

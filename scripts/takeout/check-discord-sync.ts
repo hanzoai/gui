@@ -99,9 +99,12 @@ async function getUsersWithTakeoutRole() {
 
   try {
     // Get all members with the takeout role
-    const members = await discordClient.api.guilds.getMembers(HANZO_GUI_DISCORD_GUILD_ID, {
-      limit: 1000,
-    })
+    const members = await discordClient.api.guilds.getMembers(
+      HANZO_GUI_DISCORD_GUILD_ID,
+      {
+        limit: 1000,
+      }
+    )
 
     const membersWithRole = members.filter((member) =>
       member.roles.includes(TAKEOUT_ROLE_ID)

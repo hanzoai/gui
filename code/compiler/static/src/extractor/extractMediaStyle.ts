@@ -54,13 +54,7 @@ export function extractMediaStyle(
     const styles = getCSSStylesAtomic(styleObj as any)
 
     const singleMediaStyles = styles.map((style) => {
-      const mediaStyle = core.createMediaStyle(
-        style,
-        key,
-        guiConfig.media,
-        true,
-        negate
-      )
+      const mediaStyle = core.createMediaStyle(style, key, guiConfig.media, true, negate)
       const className = `.${mediaStyle[core.StyleObjectIdentifier]}`
       return {
         ...mediaStyle,

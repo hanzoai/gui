@@ -11,6 +11,10 @@ export * from '@hanzogui/use-debounce'
 export * from '@hanzogui/use-force-update'
 export * from '@hanzogui/element'
 export * from '@hanzogui/use-window-dimensions'
+export * from '@hanzogui/dialog'
+export * from '@hanzogui/adapt'
+export * from '@hanzogui/sheet'
+export * from '@hanzogui/visually-hidden'
 
 export * from './createGui'
 

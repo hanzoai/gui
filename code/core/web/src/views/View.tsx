@@ -1,12 +1,7 @@
 import { validStyles } from '@hanzogui/helpers'
 
 import { createComponent } from '../createComponent'
-import type {
-  StackNonStyleProps,
-  StackStyle,
-  StackStyleBase,
-  GuiElement,
-} from '../types'
+import type { StackNonStyleProps, StackStyle, StackStyleBase, GuiElement } from '../types'
 
 export type View = GuiElement
 export type ViewNonStyleProps = StackNonStyleProps

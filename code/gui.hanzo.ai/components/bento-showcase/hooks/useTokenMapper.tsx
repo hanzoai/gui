@@ -32,10 +32,7 @@ const useTokenMapper = () => {
         try {
           return JSON.parse(userGuiConfig)?.guiConfig?.tokens
         } catch (error) {
-          console.error(
-            'Failed to parse user gui config for tokens:',
-            userGuiConfig
-          )
+          console.error('Failed to parse user gui config for tokens:', userGuiConfig)
           return null
         }
       })()

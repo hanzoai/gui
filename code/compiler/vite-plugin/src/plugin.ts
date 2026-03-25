@@ -478,10 +478,7 @@ export function guiPlugin({
             })
           } catch (err) {
             if (process.env.DEBUG_HANZO_GUI_CACHE) {
-              console.info(
-                `[gui-cache] ERROR extracting ${id.split('/').pop()}:`,
-                err
-              )
+              console.info(`[gui-cache] ERROR extracting ${id.split('/').pop()}:`, err)
             }
             console.error(err instanceof Error ? err.message : String(err))
             return null
@@ -489,9 +486,7 @@ export function guiPlugin({
 
           if (!extracted) {
             if (process.env.DEBUG_HANZO_GUI_CACHE) {
-              console.info(
-                `[gui-cache] no extraction result for ${id.split('/').pop()}`
-              )
+              console.info(`[gui-cache] no extraction result for ${id.split('/').pop()}`)
             }
             return null
           }

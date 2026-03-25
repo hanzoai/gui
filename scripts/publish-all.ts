@@ -55,7 +55,10 @@ async function isPublished(name: string, version: string): Promise<boolean> {
   }
 }
 
-async function publishPackage(pkg: PackageInfo, tmpDir: string): Promise<'published' | 'skipped' | 'failed'> {
+async function publishPackage(
+  pkg: PackageInfo,
+  tmpDir: string
+): Promise<'published' | 'skipped' | 'failed'> {
   // Check if already published
   if (await isPublished(pkg.name, VERSION)) {
     console.log(`SKIP: ${pkg.name}@${VERSION} (already published)`)
@@ -78,7 +81,12 @@ async function publishPackage(pkg: PackageInfo, tmpDir: string): Promise<'publis
   // Fix package.json: set version and replace workspace:* refs
   const pkgJson = await fs.readJSON(path.join(tmpPkg, 'package.json'))
   pkgJson.version = VERSION
-  for (const field of ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies']) {
+  for (const field of [
+    'dependencies',
+    'devDependencies',
+    'optionalDependencies',
+    'peerDependencies',
+  ]) {
     if (!pkgJson[field]) continue
     for (const dep of Object.keys(pkgJson[field])) {
       if (pkgJson[field][dep].startsWith('workspace:')) {
@@ -90,11 +98,15 @@ async function publishPackage(pkg: PackageInfo, tmpDir: string): Promise<'publis
 
   try {
     // Pack
-    const { stdout: packOut } = await exec(`npm pack --pack-destination ${tmpDir}`, { cwd: tmpPkg })
+    const { stdout: packOut } = await exec(`npm pack --pack-destination ${tmpDir}`, {
+      cwd: tmpPkg,
+    })
     const tgzFile = packOut.trim().split('\n').pop()!
 
     // Publish
-    await exec(`npm publish ${path.join(tmpDir, tgzFile)} --access public --tag ${DIST_TAG}`)
+    await exec(
+      `npm publish ${path.join(tmpDir, tgzFile)} --access public --tag ${DIST_TAG}`
+    )
     console.log(`OK: ${pkg.name}@${VERSION}`)
 
     // Cleanup tgz
@@ -102,7 +114,10 @@ async function publishPackage(pkg: PackageInfo, tmpDir: string): Promise<'publis
     return 'published'
   } catch (err: any) {
     // Check if it's a "already published" error
-    if (err.stderr?.includes('EPUBLISHCONFLICT') || err.stderr?.includes('cannot publish over')) {
+    if (
+      err.stderr?.includes('EPUBLISHCONFLICT') ||
+      err.stderr?.includes('cannot publish over')
+    ) {
       console.log(`SKIP: ${pkg.name}@${VERSION} (conflict/already exists)`)
       return 'skipped'
     }
@@ -131,11 +146,9 @@ async function main() {
     console.log(`Found ${packages.length} publishable packages\n`)
 
     // Publish with concurrency
-    const results = await pMap(
-      packages,
-      (pkg) => publishPackage(pkg, tmpDir),
-      { concurrency: 10 }
-    )
+    const results = await pMap(packages, (pkg) => publishPackage(pkg, tmpDir), {
+      concurrency: 10,
+    })
 
     const published = results.filter((r) => r === 'published').length
     const skipped = results.filter((r) => r === 'skipped').length

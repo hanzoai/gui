@@ -38,10 +38,7 @@ const getConfigFromGlobalOrLocal = (): GuiInternalConfig | null => {
     ) {
       globalThis.__guiPendingCheck = true
       setTimeout(() => {
-        if (
-          !setConfigCalledByThisInstance &&
-          !globalThis.__guiHasWarnedGlobalFallback
-        ) {
+        if (!setConfigCalledByThisInstance && !globalThis.__guiHasWarnedGlobalFallback) {
           globalThis.__guiHasWarnedGlobalFallback = true
           console.warn(
             `⚠️⚠️⚠️⚠️⚠️

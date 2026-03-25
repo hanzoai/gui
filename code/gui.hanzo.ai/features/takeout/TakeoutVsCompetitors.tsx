@@ -1,6 +1,14 @@
 import { ThemeTintAlt } from '@hanzogui/logo'
 import { Check, X } from '@hanzogui/lucide-icons-2'
-import { H3, Paragraph, SizableText, XStack, YStack, styled, useThemeName } from '@hanzo/gui'
+import {
+  H3,
+  Paragraph,
+  SizableText,
+  XStack,
+  YStack,
+  styled,
+  useThemeName,
+} from '@hanzo/gui'
 
 const FeatureLabel = styled(SizableText, {
   size: '$3',

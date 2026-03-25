@@ -264,10 +264,7 @@ async function getReactNativeVersion(): Promise<string> {
   return kitchenSinkJson.dependencies['react-native'] || '^0.79.2'
 }
 
-async function fixGuiDependencies(
-  pkg: Package,
-  report: MissingDepReport
-): Promise<void> {
+async function fixGuiDependencies(pkg: Package, report: MissingDepReport): Promise<void> {
   const jsonPath = join(process.cwd(), pkg.location, 'package.json')
   const packageJson = JSON.parse(await readFile(jsonPath, { encoding: 'utf-8' }))
 
@@ -593,9 +590,7 @@ async function main() {
   )
 
   if (!fixGui && !fixAll) {
-    console.info(
-      '\nUse --fix-gui to automatically add missing @hanzogui/* dependencies'
-    )
+    console.info('\nUse --fix-gui to automatically add missing @hanzogui/* dependencies')
     console.info('Use --fix to automatically fix all dependencies')
     // Exit with code 1 to indicate missing dependencies were found
     process.exit(1)

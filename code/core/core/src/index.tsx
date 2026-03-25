@@ -56,8 +56,7 @@ type RNGuiView = GuiComponent<
 >
 
 type RNExclusiveTextProps = Omit<RNTextProps, keyof TextProps>
-export interface RNGuiTextNonStyleProps
-  extends TextNonStyleProps, RNExclusiveTextProps {}
+export interface RNGuiTextNonStyleProps extends TextNonStyleProps, RNExclusiveTextProps {}
 
 type RNGuiText = GuiComponent<
   TamaDefer,

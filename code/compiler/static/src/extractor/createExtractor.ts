@@ -1103,9 +1103,7 @@ export function createExtractor(
               : []),
 
             // when using a non-CSS driver, de-opt on enterStyle/exitStyle
-            ...(guiConfig?.animations.isReactNative
-              ? ['enterStyle', 'exitStyle']
-              : []),
+            ...(guiConfig?.animations.isReactNative ? ['enterStyle', 'exitStyle'] : []),
           ])
 
           const inlineWhenUnflattened = new Set(staticConfig.inlineWhenUnflattened || [])
@@ -2005,12 +2003,7 @@ export function createExtractor(
                 hasImportedTheme = true
                 programPath.node.body.push(
                   t.importDeclaration(
-                    [
-                      t.importSpecifier(
-                        t.identifier('_GuiTheme'),
-                        t.identifier('Theme')
-                      ),
-                    ],
+                    [t.importSpecifier(t.identifier('_GuiTheme'), t.identifier('Theme'))],
                     t.stringLiteral('@hanzogui/web')
                   )
                 )

@@ -152,7 +152,9 @@ ${chalk.bold(chalk.red(`Please pick a different project name 🥸`))}`
       process.exit(1)
     }
     console.info()
-    console.info(`Creating a new hanzo-gui app ${chalk.blueBright(resolvedProjectPath)}...`)
+    console.info(
+      `Creating a new hanzo-gui app ${chalk.blueBright(resolvedProjectPath)}...`
+    )
     fs.mkdirSync(resolvedProjectPath)
     console.info(chalk.green(`${projectName} folder created.`))
 
@@ -162,7 +164,10 @@ ${chalk.bold(chalk.red(`Please pick a different project name 🥸`))}`
       // space
       console.info()
     } catch (e) {
-      console.error(`[hanzo-gui] Failed to copy example into ${resolvedProjectPath}\n\n`, e)
+      console.error(
+        `[hanzo-gui] Failed to copy example into ${resolvedProjectPath}\n\n`,
+        e
+      )
       process.exit(1)
     }
 

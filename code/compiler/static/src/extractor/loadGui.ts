@@ -192,9 +192,7 @@ export async function loadGuiBuildConfigAsync(
 /**
  * @deprecated Use loadGuiBuildConfigAsync instead to avoid EPIPE errors
  */
-export function loadGuiBuildConfigSync(
-  guiOptions: Partial<GuiOptions> | undefined
-) {
+export function loadGuiBuildConfigSync(guiOptions: Partial<GuiOptions> | undefined) {
   const buildFilePath = guiOptions?.buildFile ?? './gui.build.ts'
   if (fsExtra.existsSync(buildFilePath)) {
     const registered = registerRequire('web')
@@ -376,8 +374,7 @@ export async function getOptions({
       components: ['@hanzo/gui'],
       ...guiOptions,
       config:
-        guiOptions?.config ??
-        (await getDefaultGuiConfigPath(root, guiOptions?.config)),
+        guiOptions?.config ?? (await getDefaultGuiConfigPath(root, guiOptions?.config)),
     },
     paths: {
       root,

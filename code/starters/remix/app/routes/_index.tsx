@@ -105,9 +105,9 @@ export default function Index() {
         </Text>
         <Text>
           Hanzo GUI provides a powerful and flexible way to style your React components.
-          With Gui, you can leverage themes to create a consistent look and feel
-          across your application. Theming in Hanzo GUI is highly customizable, allowing you
-          to define colors, spacing, typography, and more. You can easily switch between
+          With Gui, you can leverage themes to create a consistent look and feel across
+          your application. Theming in Hanzo GUI is highly customizable, allowing you to
+          define colors, spacing, typography, and more. You can easily switch between
           light and dark themes, or create your own custom themes to match your brand.
         </Text>
       </Section>
@@ -142,9 +142,9 @@ export default function Index() {
         <Text>
           One of the standout features of Hanzo GUI is its ability to seamlessly port your
           components to React Native. This means you can write your components once and
-          run them on both web and mobile platforms. Gui&apos;s styling system is
-          designed to work with React Native out of the box, so you can take advantage of
-          native performance and capabilities without having to rewrite your components.
+          run them on both web and mobile platforms. Gui&apos;s styling system is designed
+          to work with React Native out of the box, so you can take advantage of native
+          performance and capabilities without having to rewrite your components.
         </Text>
       </Section>
       <View

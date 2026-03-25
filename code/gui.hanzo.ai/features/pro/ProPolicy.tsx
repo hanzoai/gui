@@ -8,8 +8,8 @@ export const ProPolicy = () => {
       <H3>Delivery</H3>
 
       <Paragraph>
-        Hanzo GUI LLC will deliver to you access to the Takeout Github repo, Bento copy and
-        paste the code for all the examples on the /bento main page, and the Theme AI
+        Hanzo GUI LLC will deliver to you access to the Takeout Github repo, Bento copy
+        and paste the code for all the examples on the /bento main page, and the Theme AI
         builder.
       </Paragraph>
 
@@ -24,8 +24,7 @@ export const ProPolicy = () => {
       <Separator />
 
       <Paragraph>
-        For any further questions{' '}
-        <a href="mailto:support@hanzo.ai">send us an email</a>.
+        For any further questions <a href="mailto:support@hanzo.ai">send us an email</a>.
       </Paragraph>
     </YStack>
   )

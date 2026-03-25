@@ -6,7 +6,15 @@ import {
   Circle,
 } from '@hanzogui/lucide-icons-2'
 import type { TooltipProps } from '@hanzo/gui'
-import { Button, Paragraph, Theme, Tooltip, TooltipGroup, XStack, YStack } from '@hanzo/gui'
+import {
+  Button,
+  Paragraph,
+  Theme,
+  Tooltip,
+  TooltipGroup,
+  XStack,
+  YStack,
+} from '@hanzo/gui'
 
 export function TooltipDemo() {
   return (

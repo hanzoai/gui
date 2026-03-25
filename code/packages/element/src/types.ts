@@ -46,8 +46,7 @@ export type GuiElement = (HTMLElement & GuiElementMethods) | View
  * Web-specific element type that extends HTMLElement with Hanzo GUI methods.
  * Use this when you need an HTMLElement ref in web-only code.
  */
-export type GuiWebElement<T extends HTMLElement = HTMLElement> = T &
-  GuiElementMethods
+export type GuiWebElement<T extends HTMLElement = HTMLElement> = T & GuiElementMethods
 
 /**
  * Native-specific element type (View).

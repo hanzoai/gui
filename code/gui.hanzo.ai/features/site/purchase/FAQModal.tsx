@@ -177,8 +177,8 @@ export const TakeoutFaqModal = () => {
                     You will see the full instructions after purchase. You can gain access
                     to the source code of icon or font packages on GitHub, which allows
                     you to install packages through the `@hanzogui/cli` package. Simply
-                    install the cli and run `yarn hanzo-gui add icon` or `yarn hanzo-gui add
-                    font` and follow the steps to install the packages.
+                    install the cli and run `yarn hanzo-gui add icon` or `yarn hanzo-gui
+                    add font` and follow the steps to install the packages.
                   </Paragraph>
                 </YStack>
 

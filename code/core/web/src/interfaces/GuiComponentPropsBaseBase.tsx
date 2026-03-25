@@ -1,10 +1,4 @@
-import type {
-  DebugProp,
-  ThemeName,
-  GroupNames,
-  Role,
-  GuiComponentState,
-} from '../types'
+import type { DebugProp, ThemeName, GroupNames, Role, GuiComponentState } from '../types'
 
 export type GuiComponentPropsBaseBase = {
   target?: string

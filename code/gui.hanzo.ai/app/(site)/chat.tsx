@@ -56,8 +56,8 @@ export const ChatPage = () => {
         <Separator my="$5" />
 
         <Paragraph fontFamily="$mono" size="$7" lineHeight="$8" color="$color11">
-          Hanzo GUI Chat is in early beta, so we don't yet guarantee uptime and results, but
-          we appreciate your patience and feedback as we iterate on the model.
+          Hanzo GUI Chat is in early beta, so we don't yet guarantee uptime and results,
+          but we appreciate your patience and feedback as we iterate on the model.
         </Paragraph>
 
         <Spacer my="$6" />

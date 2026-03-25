@@ -1,4 +1,15 @@
-import { Button, Card, H2, H3, H4, Paragraph, Text, Theme, XStack, YStack } from '@hanzo/gui'
+import {
+  Button,
+  Card,
+  H2,
+  H3,
+  H4,
+  Paragraph,
+  Text,
+  Theme,
+  XStack,
+  YStack,
+} from '@hanzo/gui'
 
 import { TEST_IDS } from '../constants/test-ids'
 

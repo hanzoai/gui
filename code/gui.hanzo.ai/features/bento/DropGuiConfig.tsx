@@ -172,9 +172,8 @@ export const DropGuiConfig = () => {
                 {!config.storageItem && (
                   <>
                     <Paragraph size="$4">
-                      Drag and drop your{' '}
-                      <CodeInline>.hanzoai/gui.config.json</CodeInline> here to
-                      customize the code we generate to your design system!
+                      Drag and drop your <CodeInline>.hanzoai/gui.config.json</CodeInline>{' '}
+                      here to customize the code we generate to your design system!
                     </Paragraph>
                     <Paragraph size="$4">
                       If you have a compiler plugin installed, this is done for you
@@ -187,18 +186,18 @@ export const DropGuiConfig = () => {
                     <Features
                       items={[
                         <React.Fragment key="">
-                          Create a <CodeInline>gui.build.ts</CodeInline> at the root
-                          of your app and move your build configuration into it as a
-                          default export. All of the bundler plugins load from this file
-                          on startup.
+                          Create a <CodeInline>gui.build.ts</CodeInline> at the root of
+                          your app and move your build configuration into it as a default
+                          export. All of the bundler plugins load from this file on
+                          startup.
                         </React.Fragment>,
                         <React.Fragment key="">
                           If not using a compiler plugin, run generate —{' '}
                           <Code>npx @hanzogui/cli generate</Code>
                         </React.Fragment>,
                         <React.Fragment key="">
-                          Drop the generated <Code>.hanzoai/gui.config.json</Code> on
-                          this window.
+                          Drop the generated <Code>.hanzoai/gui.config.json</Code> on this
+                          window.
                         </React.Fragment>,
                       ]}
                     />

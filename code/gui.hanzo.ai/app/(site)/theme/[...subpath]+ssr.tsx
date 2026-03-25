@@ -31,9 +31,7 @@ export default function ThemeLayout() {
     <>
       <HeadInfo
         title={`${data.search || 'Gui Theme Builder'} - Hanzo GUI Theme`}
-        description={
-          data.search ? `Gui Theme for ${data.search}` : `Gui Theme Builder`
-        }
+        description={data.search ? `Gui Theme for ${data.search}` : `Gui Theme Builder`}
         openGraph={{
           url: `/api/theme/open-graph?id=${data.id || '0'}`,
           images: [

@@ -112,7 +112,10 @@ const COMMAND_MAP = {
         )
       }
 
-      const { generateThemes, writeGeneratedThemes } = require('@hanzogui/generate-themes')
+      const {
+        generateThemes,
+        writeGeneratedThemes,
+      } = require('@hanzogui/generate-themes')
 
       try {
         const generated = await generateThemes(inPath)

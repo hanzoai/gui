@@ -119,11 +119,14 @@ describe('Platform-specific file optimization', () => {
 
   describe('WithNative.tsx + WithNative.native.tsx', () => {
     it('should optimize base file for web only and .native.tsx for native', () => {
-      execSync('bun hanzo-gui build ./packages/app/test-fixtures --include "WithNative*"', {
-        cwd: ROOT_DIR,
-        encoding: 'utf-8',
-        stdio: 'pipe',
-      })
+      execSync(
+        'bun hanzo-gui build ./packages/app/test-fixtures --include "WithNative*"',
+        {
+          cwd: ROOT_DIR,
+          encoding: 'utf-8',
+          stdio: 'pipe',
+        }
+      )
 
       // Base file should only get web optimization
       const baseContent = readFileSync(join(FIXTURES_DIR, 'WithNative.tsx'), 'utf-8')

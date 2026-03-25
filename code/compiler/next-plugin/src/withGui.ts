@@ -76,7 +76,9 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
           'process.env.IS_STATIC': JSON.stringify(''),
           'process.env.HANZO_GUI_TARGET': '"web"',
           'process.env.HANZO_GUI_IS_SERVER': JSON.stringify(isServer ? 'true' : ''),
-          'process.env.HANZO_GUI_ENVIRONMENT': JSON.stringify(isServer ? 'ssr' : 'client'),
+          'process.env.HANZO_GUI_ENVIRONMENT': JSON.stringify(
+            isServer ? 'ssr' : 'client'
+          ),
           __DEV__: JSON.stringify(dev),
           ...(process.env.HANZO_GUI_DOES_SSR_CSS && {
             'process.env.HANZO_GUI_DOES_SSR_CSS': JSON.stringify(

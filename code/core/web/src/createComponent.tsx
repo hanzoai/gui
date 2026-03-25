@@ -1539,7 +1539,12 @@ export function createComponent<
     }
 
     // Text components set inText context for children so nested Text can inherit styles
-    if (process.env.HANZO_GUI_TARGET === 'web' && !asChild && isText && !hasTextAncestor) {
+    if (
+      process.env.HANZO_GUI_TARGET === 'web' &&
+      !asChild &&
+      isText &&
+      !hasTextAncestor
+    ) {
       content = (
         <ComponentContext.Provider {...componentContext} inText={true}>
           {content}
@@ -1697,13 +1702,7 @@ export function createComponent<
     component.displayName = staticConfig.componentName
   }
 
-  type ComponentType = GuiComponent<
-    ComponentPropTypes,
-    Ref,
-    BaseProps,
-    BaseStyles,
-    {}
-  >
+  type ComponentType = GuiComponent<ComponentPropTypes, Ref, BaseProps, BaseStyles, {}>
 
   let res: ComponentType = component as any
 

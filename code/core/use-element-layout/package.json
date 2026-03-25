@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/use-element-layout",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "files": [
     "src",
@@ -34,11 +34,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/constants": "2.0.2",
-    "@hanzogui/is-equal-shallow": "2.0.2"
+    "@hanzogui/constants": "2.0.4",
+    "@hanzogui/is-equal-shallow": "2.0.4"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.2",
+    "@hanzogui/build": "2.0.4",
     "react": ">=19"
   },
   "peerDependencies": {

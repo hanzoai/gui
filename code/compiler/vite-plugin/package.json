@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "MIT",
   "files": [
     "src",
@@ -32,19 +32,19 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/fake-react-native": "2.0.2",
-    "@hanzogui/proxy-worm": "2.0.2",
-    "@hanzogui/react-native-svg": "2.0.2",
-    "@hanzogui/react-native-web-lite": "2.0.2",
-    "@hanzogui/static-worker": "2.0.2",
-    "@hanzogui/types": "2.0.2",
+    "@hanzogui/fake-react-native": "2.0.4",
+    "@hanzogui/proxy-worm": "2.0.4",
+    "@hanzogui/react-native-svg": "2.0.4",
+    "@hanzogui/react-native-web-lite": "2.0.4",
+    "@hanzogui/static-worker": "2.0.4",
+    "@hanzogui/types": "2.0.4",
     "esm-resolve": "^1.0.8",
     "fs-extra": "^11.2.0",
     "outdent": "^0.8.0",
     "react-native-web": "^0.21.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.2",
+    "@hanzogui/build": "2.0.4",
     "vite": "^8.0.0"
   },
   "peerDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-dm-sans",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "files": [
     "types",
     "dist",
@@ -31,10 +31,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "2.0.2"
+    "@hanzogui/core": "2.0.4"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.2",
+    "@hanzogui/build": "2.0.4",
     "subset-font": "^2.1.0"
   },
   "skipPublishIfUnchanged": false

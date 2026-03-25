@@ -64,10 +64,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "2.0.4"
+    "@hanzogui/core": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "subset-font": "^2.1.0"
   },
   "skipPublishIfUnchanged": false

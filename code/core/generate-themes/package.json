@@ -34,13 +34,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/create-theme": "2.0.4",
-    "@hanzogui/theme-builder": "2.0.4",
-    "@hanzogui/types": "2.0.4",
+    "@hanzogui/create-theme": "workspace:*",
+    "@hanzogui/theme-builder": "workspace:*",
+    "@hanzogui/types": "workspace:*",
     "esbuild-register": "^3.6.0",
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4"
+    "@hanzogui/build": "workspace:*"
   }
 }

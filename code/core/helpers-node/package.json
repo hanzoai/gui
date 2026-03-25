@@ -20,10 +20,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/types": "2.0.4"
+    "@hanzogui/types": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "fs-extra": "^11.2.0"
   }
 }

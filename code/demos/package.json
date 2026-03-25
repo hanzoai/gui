@@ -46,18 +46,18 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/colors": "2.0.4",
-    "@hanzogui/config": "2.0.4",
-    "@hanzogui/core": "2.0.4",
-    "@hanzogui/get-button-sized": "2.0.4",
-    "@hanzogui/logo": "2.0.4",
-    "@hanzogui/lucide-icons-2": "2.0.4",
-    "@hanzogui/dev-config": "2.0.4",
-    "@hanzogui/theme": "2.0.4",
+    "@hanzogui/colors": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/get-button-sized": "workspace:*",
+    "@hanzogui/logo": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/dev-config": "workspace:*",
+    "@hanzogui/theme": "workspace:*",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-native": "0.83.2"
   },

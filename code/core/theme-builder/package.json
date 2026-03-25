@@ -37,12 +37,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@hanzogui/create-theme": "2.0.4",
-    "@hanzogui/web": "2.0.4",
+    "@hanzogui/create-theme": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "color2k": "^2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "vitest": "4.0.4"
   }
 }

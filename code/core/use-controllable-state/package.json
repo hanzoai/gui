@@ -35,11 +35,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/start-transition": "2.0.4",
-    "@hanzogui/use-event": "2.0.4"
+    "@hanzogui/start-transition": "workspace:*",
+    "@hanzogui/use-event": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

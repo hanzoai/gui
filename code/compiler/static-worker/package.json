@@ -35,12 +35,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@hanzogui/static": "2.0.4",
-    "@hanzogui/types": "2.0.4",
+    "@hanzogui/static": "workspace:*",
+    "@hanzogui/types": "workspace:*",
     "piscina": "^4.7.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "vitest": "4.0.4"
   }
 }

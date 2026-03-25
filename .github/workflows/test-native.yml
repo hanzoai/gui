@@ -179,7 +179,7 @@ jobs:
     name: Build Android App
     # Only run on main/v* branches (not PRs)
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/v') || github.ref == 'refs/heads/rn82'
-    runs-on: hanzo-build-linux-amd64
+    runs-on: ubuntu-latest  # TODO: hanzo-build-linux-amd64 when ARC runners are deployed
     timeout-minutes: 45
     outputs:
       android-cache-key: ${{ steps.final-cache-key.outputs.cache_key }}
@@ -446,7 +446,7 @@ jobs:
     needs: build-android
     # Only run on main/v* branches (not PRs)
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/v') || github.ref == 'refs/heads/rn82'
-    runs-on: hanzo-build-linux-amd64
+    runs-on: ubuntu-latest  # TODO: hanzo-build-linux-amd64 when ARC runners are deployed
     timeout-minutes: 45
     # Android emulator in CI is flaky with window focus issues - don't block on failures
     continue-on-error: true

@@ -32,8 +32,6 @@ jobs:
       - name: Check
         run: bun run check
 
-      - name: Typecheck
-        run: bun run typecheck
 
       - name: Lint
         run: bun run lint

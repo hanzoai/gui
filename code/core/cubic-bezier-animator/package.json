@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/cubic-bezier-animator",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "source": "src/index.tsx",
   "files": [
     "src",
@@ -34,6 +34,6 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*"
+    "@hanzogui/build": "2.0.0"
   }
 }

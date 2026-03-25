@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/generate-themes",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -34,13 +34,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/create-theme": "workspace:*",
-    "@hanzogui/theme-builder": "workspace:*",
-    "@hanzogui/types": "workspace:*",
+    "@hanzogui/create-theme": "2.0.0",
+    "@hanzogui/theme-builder": "2.0.0",
+    "@hanzogui/types": "2.0.0",
     "esbuild-register": "^3.6.0",
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*"
+    "@hanzogui/build": "2.0.0"
   }
 }

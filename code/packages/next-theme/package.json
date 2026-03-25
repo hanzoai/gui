@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/next-theme",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -32,11 +32,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/constants": "2.0.2",
-    "@hanzogui/use-event": "2.0.2"
+    "@hanzogui/constants": "2.0.4",
+    "@hanzogui/use-event": "2.0.4"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.2",
+    "@hanzogui/build": "2.0.4",
     "next": "16.1.1",
     "react": ">=19"
   },

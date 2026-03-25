@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/start-transition",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
@@ -35,7 +35,7 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.2",
+    "@hanzogui/build": "2.0.4",
     "react": ">=19"
   },
   "peerDependencies": {

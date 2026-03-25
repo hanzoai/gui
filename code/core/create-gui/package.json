@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
-    "@hanzogui/build": "2.0.1",
+    "@hanzogui/build": "2.0.2",
     "@types/async-retry": "1.4.2",
     "@types/cross-spawn": "^6.0.2",
     "@types/node": "^22.1.0",

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/lucide-icons-2",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "React Native components for Lucide icons - native and web",
   "license": "MIT",
@@ -14116,7 +14116,7 @@
     "generate": "node ./bin/build.cjs"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.1",
+    "@hanzogui/build": "2.0.2",
     "camelcase": "^6.0.0",
     "cheerio": "^1.0.0-rc.5",
     "glob": "^13.0.3",
@@ -14127,8 +14127,8 @@
     "uppercamelcase": "^3.0.0"
   },
   "dependencies": {
-    "@hanzogui/core": "2.0.1",
-    "@hanzogui/helpers-icon": "2.0.1"
+    "@hanzogui/core": "2.0.2",
+    "@hanzogui/helpers-icon": "2.0.2"
   },
   "peerDependencies": {
     "react": ">=19",

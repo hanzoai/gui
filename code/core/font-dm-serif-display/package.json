@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-dm-serif-display",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "files": [
     "types",
     "dist",
@@ -31,10 +31,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "2.0.1"
+    "@hanzogui/core": "2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.1",
+    "@hanzogui/build": "2.0.2",
     "subset-font": "^2.1.0"
   },
   "skipPublishIfUnchanged": false

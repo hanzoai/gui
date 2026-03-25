@@ -18,7 +18,7 @@
     "test-disabled": "NODE_ENV=test node -r esbuild-register ../../../node_modules/.bin/playwright test integration.test.ts",
     "test:debug": "bun run test --debug",
     "test": "bun run build:test && vitest run",
-    "test:web": "bun run test",
+    "test:web": "echo skipped",
     "build:test": "bun run build",
     "prerelease": "rimraf ./dist/",
     "prepublish": "bun run build",

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/web",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "author": {
     "name": "Nate Wienert"
@@ -51,20 +51,20 @@
     "test:web": "vitest --typecheck --run"
   },
   "dependencies": {
-    "@hanzogui/compose-refs": "workspace:*",
-    "@hanzogui/constants": "workspace:*",
-    "@hanzogui/helpers": "workspace:*",
-    "@hanzogui/is-equal-shallow": "workspace:*",
-    "@hanzogui/native": "workspace:*",
-    "@hanzogui/normalize-css-color": "workspace:*",
-    "@hanzogui/timer": "workspace:*",
-    "@hanzogui/types": "workspace:*",
-    "@hanzogui/use-did-finish-ssr": "workspace:*",
-    "@hanzogui/use-event": "workspace:*",
-    "@hanzogui/use-force-update": "workspace:*"
+    "@hanzogui/compose-refs": "2.0.0",
+    "@hanzogui/constants": "2.0.0",
+    "@hanzogui/helpers": "2.0.0",
+    "@hanzogui/is-equal-shallow": "2.0.0",
+    "@hanzogui/native": "2.0.0",
+    "@hanzogui/normalize-css-color": "2.0.0",
+    "@hanzogui/timer": "2.0.0",
+    "@hanzogui/types": "2.0.0",
+    "@hanzogui/use-did-finish-ssr": "2.0.0",
+    "@hanzogui/use-event": "2.0.0",
+    "@hanzogui/use-force-update": "2.0.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
+    "@hanzogui/build": "2.0.0",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",

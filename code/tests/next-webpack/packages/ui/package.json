@@ -20,13 +20,13 @@
     "watch": "hanzo-gui-build --skip-types --watch"
   },
   "dependencies": {
-    "@my/config": "workspace:^",
-    "@hanzogui/next-theme": "workspace:*",
+    "@my/config": "2.0.0",
+    "@hanzogui/next-theme": "2.0.0",
     "expo-constants": "~55.0.7",
-    "@hanzo/gui": "workspace:*"
+    "@hanzo/gui": "2.0.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
+    "@hanzogui/build": "2.0.0",
     "react": ">=19"
   },
   "peerDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/demos",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "source": "demos/src/index.tsx",
   "files": [
     "src",
@@ -46,18 +46,18 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/colors": "workspace:*",
-    "@hanzogui/config": "workspace:*",
-    "@hanzogui/core": "workspace:*",
-    "@hanzogui/get-button-sized": "workspace:*",
-    "@hanzogui/logo": "workspace:*",
-    "@hanzogui/lucide-icons-2": "workspace:*",
-    "@hanzogui/dev-config": "workspace:*",
-    "@hanzogui/theme": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "@hanzogui/colors": "2.0.0",
+    "@hanzogui/config": "2.0.0",
+    "@hanzogui/core": "2.0.0",
+    "@hanzogui/get-button-sized": "2.0.0",
+    "@hanzogui/logo": "2.0.0",
+    "@hanzogui/lucide-icons-2": "2.0.0",
+    "@hanzogui/dev-config": "2.0.0",
+    "@hanzogui/theme": "2.0.0",
+    "@hanzo/gui": "2.0.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
+    "@hanzogui/build": "2.0.0",
     "react": ">=19",
     "react-native": "0.83.2"
   },

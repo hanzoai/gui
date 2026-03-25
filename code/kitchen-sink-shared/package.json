@@ -7,7 +7,7 @@
     "@hanzogui/config": "2.0.4",
     "@hanzogui/demos": "2.0.4",
     "@hanzogui/lucide-icons-2": "2.0.4",
-    "@hanzo/gui": "2.0.0"
+    "@hanzo/gui": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=19",

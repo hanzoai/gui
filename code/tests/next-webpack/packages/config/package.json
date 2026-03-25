@@ -21,7 +21,7 @@
     "@hanzogui/font-inter": "2.0.4",
     "@hanzogui/shorthands": "2.0.4",
     "@hanzogui/themes": "2.0.4",
-    "@hanzo/gui": "2.0.0"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "2.0.4"

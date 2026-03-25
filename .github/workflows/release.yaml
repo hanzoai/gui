@@ -10,7 +10,7 @@ on:
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-latest  # TODO: hanzo-build-linux-amd64 when ARC runners are deployed
+    runs-on: hanzo-build-linux-amd64
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
 
   tagged-release:
     name: Tagged Release
-    runs-on: ubuntu-latest  # TODO: hanzo-build-linux-amd64 when ARC runners are deployed
+    runs-on: hanzo-build-linux-amd64
     # needs: release
 
     steps:

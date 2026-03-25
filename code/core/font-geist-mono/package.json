@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-geist-mono",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "files": [
     "types",
     "dist"
@@ -23,10 +23,10 @@
     "clean": "hanzo-gui-build clean"
   },
   "dependencies": {
-    "@hanzogui/core": "2.0.1"
+    "@hanzogui/core": "2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.1"
+    "@hanzogui/build": "2.0.2"
   },
   "publishConfig": {
     "access": "public"

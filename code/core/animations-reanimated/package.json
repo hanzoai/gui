@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/animations-reanimated",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
@@ -34,12 +34,12 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animation-helpers": "2.0.1",
-    "@hanzogui/core": "2.0.1",
-    "@hanzogui/use-presence": "2.0.1"
+    "@hanzogui/animation-helpers": "2.0.2",
+    "@hanzogui/core": "2.0.2",
+    "@hanzogui/use-presence": "2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.1",
+    "@hanzogui/build": "2.0.2",
     "react": ">=19",
     "react-native": "0.83.2",
     "react-native-reanimated": "~4.2.2"

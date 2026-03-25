@@ -16,7 +16,7 @@
     "build:target-native": "HANZO_GUI_TARGET=native node ../../../hanzo-gui-build.js"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.1",
+    "@hanzogui/build": "2.0.2",
     "typescript": "~5.9.2"
   }
 }

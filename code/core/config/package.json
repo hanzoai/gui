@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/config",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "type": "module",
   "sideEffects": false,
   "main": "dist/cjs",
@@ -109,22 +109,22 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animations-css": "2.0.1",
-    "@hanzogui/animations-motion": "2.0.1",
-    "@hanzogui/animations-react-native": "2.0.1",
-    "@hanzogui/animations-reanimated": "2.0.1",
-    "@hanzogui/colors": "2.0.1",
-    "@hanzogui/core": "2.0.1",
-    "@hanzogui/react-native-media-driver": "2.0.1",
-    "@hanzogui/shorthands": "2.0.1",
-    "@hanzogui/theme-builder": "2.0.1",
-    "@hanzogui/themes": "2.0.1",
-    "@hanzogui/web": "2.0.1",
-    "@hanzogui/font-geist-sans": "2.0.1",
-    "@hanzogui/font-geist-mono": "2.0.1"
+    "@hanzogui/animations-css": "2.0.2",
+    "@hanzogui/animations-motion": "2.0.2",
+    "@hanzogui/animations-react-native": "2.0.2",
+    "@hanzogui/animations-reanimated": "2.0.2",
+    "@hanzogui/colors": "2.0.2",
+    "@hanzogui/core": "2.0.2",
+    "@hanzogui/react-native-media-driver": "2.0.2",
+    "@hanzogui/shorthands": "2.0.2",
+    "@hanzogui/theme-builder": "2.0.2",
+    "@hanzogui/themes": "2.0.2",
+    "@hanzogui/web": "2.0.2",
+    "@hanzogui/font-geist-sans": "2.0.2",
+    "@hanzogui/font-geist-mono": "2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.1"
+    "@hanzogui/build": "2.0.2"
   },
   "peerDependencies": {
     "@hanzogui/animations-moti": "*"

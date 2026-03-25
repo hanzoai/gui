@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/animations-motion",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
@@ -38,13 +38,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animation-helpers": "2.0.1",
-    "@hanzogui/use-presence": "2.0.1",
-    "@hanzogui/web": "2.0.1",
+    "@hanzogui/animation-helpers": "2.0.2",
+    "@hanzogui/use-presence": "2.0.2",
+    "@hanzogui/web": "2.0.2",
     "motion": ">=12.35.1"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.1",
+    "@hanzogui/build": "2.0.2",
     "react": ">=19"
   },
   "peerDependencies": {

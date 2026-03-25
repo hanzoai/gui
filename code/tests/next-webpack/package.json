@@ -12,7 +12,7 @@
     "test:clean": "git checkout packages/app/ && git clean -fd packages/app/"
   },
   "dependencies": {
-    "@hanzogui/cli": "2.0.1",
+    "@hanzogui/cli": "2.0.2",
     "@hanzo/gui": "2.0.0"
   },
   "devDependencies": {

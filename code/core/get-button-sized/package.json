@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/get-button-sized",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "files": [
     "src",
     "types",
@@ -33,11 +33,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/get-token": "2.0.1",
-    "@hanzogui/web": "2.0.1"
+    "@hanzogui/get-token": "2.0.2",
+    "@hanzogui/web": "2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.1",
+    "@hanzogui/build": "2.0.2",
     "react": ">=19"
   },
   "peerDependencies": {

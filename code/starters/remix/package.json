@@ -15,7 +15,7 @@
     "@remix-run/node": "^2.12.1",
     "@remix-run/react": "^2.12.1",
     "@remix-run/serve": "^2.12.1",
-    "@hanzogui/config": "2.0.4",
+    "@hanzogui/config": "workspace:*",
     "isbot": "^4.1.0",
     "react": ">=19",
     "react-dom": "*",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@remix-run/dev": "^2.12.1",
-    "@hanzogui/vite-plugin": "2.0.4",
+    "@hanzogui/vite-plugin": "workspace:*",
     "@types/react": "~19.1.10",
     "@types/react-dom": "~19.1.7",
     "typescript": "~5.9.2",

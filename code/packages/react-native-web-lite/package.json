@@ -102,16 +102,16 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/normalize-css-color": "2.0.4",
-    "@hanzogui/react-native-use-pressable": "2.0.4",
-    "@hanzogui/react-native-use-responder-events": "2.0.4",
-    "@hanzogui/react-native-web-internals": "2.0.4",
-    "@hanzogui/web": "2.0.4",
+    "@hanzogui/normalize-css-color": "workspace:*",
+    "@hanzogui/react-native-use-pressable": "workspace:*",
+    "@hanzogui/react-native-use-responder-events": "workspace:*",
+    "@hanzogui/react-native-web-internals": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "invariant": "^2.2.4",
     "memoize-one": "^6.0.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-dom": "*"
   },

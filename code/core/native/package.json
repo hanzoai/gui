@@ -131,7 +131,7 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "burnt": "^0.12.2",
     "react": ">=19",
     "react-native": "0.83.2",

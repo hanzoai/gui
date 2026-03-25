@@ -79,17 +79,17 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/helpers": "2.0.4",
-    "@hanzogui/react-native-media-driver": "2.0.4",
-    "@hanzogui/react-native-use-pressable": "2.0.4",
-    "@hanzogui/use-element-layout": "2.0.4",
-    "@hanzogui/use-event": "2.0.4",
-    "@hanzogui/web": "2.0.4"
+    "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/react-native-media-driver": "workspace:*",
+    "@hanzogui/react-native-use-pressable": "workspace:*",
+    "@hanzogui/use-element-layout": "workspace:*",
+    "@hanzogui/use-event": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
-    "@hanzogui/native-bundle": "2.0.4",
-    "@hanzogui/react-native-web-lite": "2.0.4",
+    "@hanzogui/build": "workspace:*",
+    "@hanzogui/native-bundle": "workspace:*",
+    "@hanzogui/react-native-web-lite": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",

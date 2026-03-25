@@ -44,12 +44,12 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/use-element-layout": "2.0.4",
-    "@hanzogui/web": "2.0.4",
+    "@hanzogui/use-element-layout": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

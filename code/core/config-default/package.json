@@ -19,13 +19,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animations-css": "2.0.4",
-    "@hanzogui/animations-react-native": "2.0.4",
-    "@hanzogui/core": "2.0.4",
-    "@hanzogui/shorthands": "2.0.4",
-    "@hanzogui/web": "2.0.4"
+    "@hanzogui/animations-css": "workspace:*",
+    "@hanzogui/animations-react-native": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4"
+    "@hanzogui/build": "workspace:*"
   }
 }

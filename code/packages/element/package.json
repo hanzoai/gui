@@ -33,10 +33,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/compose-refs": "2.0.4"
+    "@hanzogui/compose-refs": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4"
+    "@hanzogui/build": "workspace:*"
   },
   "peerDependencies": {
     "react": "*",

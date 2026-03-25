@@ -11,6 +11,6 @@
     "build": "cp -r ../vite-plugin/dist . || true"
   },
   "dependencies": {
-    "@hanzogui/vite-plugin": "2.0.4"
+    "@hanzogui/vite-plugin": "workspace:*"
   }
 }

@@ -36,14 +36,14 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animation-helpers": "2.0.4",
-    "@hanzogui/constants": "2.0.4",
-    "@hanzogui/cubic-bezier-animator": "2.0.4",
-    "@hanzogui/use-presence": "2.0.4",
-    "@hanzogui/web": "2.0.4"
+    "@hanzogui/animation-helpers": "workspace:*",
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/cubic-bezier-animator": "workspace:*",
+    "@hanzogui/use-presence": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-dom": "*"
   },

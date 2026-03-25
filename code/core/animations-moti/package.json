@@ -39,11 +39,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "2.0.4",
-    "@hanzogui/use-presence": "2.0.4"
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/use-presence": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-native": "0.83.2",
     "react-native-reanimated": "~4.2.2"

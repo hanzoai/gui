@@ -32,19 +32,19 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/fake-react-native": "2.0.4",
-    "@hanzogui/proxy-worm": "2.0.4",
-    "@hanzogui/react-native-svg": "2.0.4",
-    "@hanzogui/react-native-web-lite": "2.0.4",
-    "@hanzogui/static-worker": "2.0.4",
-    "@hanzogui/types": "2.0.4",
+    "@hanzogui/fake-react-native": "workspace:*",
+    "@hanzogui/proxy-worm": "workspace:*",
+    "@hanzogui/react-native-svg": "workspace:*",
+    "@hanzogui/react-native-web-lite": "workspace:*",
+    "@hanzogui/static-worker": "workspace:*",
+    "@hanzogui/types": "workspace:*",
     "esm-resolve": "^1.0.8",
     "fs-extra": "^11.2.0",
     "outdent": "^0.8.0",
     "react-native-web": "^0.21.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "vite": "^8.0.0"
   },
   "peerDependencies": {

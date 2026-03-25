@@ -36,10 +36,10 @@
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.6",
     "@floating-ui/react-native": "^0.10.7",
-    "@hanzogui/use-event": "2.0.4"
+    "@hanzogui/use-event": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-native": "0.83.2"
   },

@@ -34,11 +34,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/constants": "2.0.4",
-    "@hanzogui/is-equal-shallow": "2.0.4"
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/is-equal-shallow": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

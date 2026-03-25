@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/react-native-web-lite",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "React Native for Web",
   "keywords": [
     "react",
@@ -102,16 +102,16 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/normalize-css-color": "2.0.2",
-    "@hanzogui/react-native-use-pressable": "2.0.2",
-    "@hanzogui/react-native-use-responder-events": "2.0.2",
-    "@hanzogui/react-native-web-internals": "2.0.2",
-    "@hanzogui/web": "2.0.2",
+    "@hanzogui/normalize-css-color": "2.0.4",
+    "@hanzogui/react-native-use-pressable": "2.0.4",
+    "@hanzogui/react-native-use-responder-events": "2.0.4",
+    "@hanzogui/react-native-web-internals": "2.0.4",
+    "@hanzogui/web": "2.0.4",
     "invariant": "^2.2.4",
     "memoize-one": "^6.0.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.2",
+    "@hanzogui/build": "2.0.4",
     "react": ">=19",
     "react-dom": "*"
   },

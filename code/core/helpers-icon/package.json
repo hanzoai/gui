@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/helpers-icon",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Utilities for icon packages",
   "license": "MIT",
   "source": "src/index.ts",
@@ -33,11 +33,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "2.0.2",
-    "@hanzogui/sizable-context": "2.0.2"
+    "@hanzogui/core": "2.0.4",
+    "@hanzogui/sizable-context": "2.0.4"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.2",
+    "@hanzogui/build": "2.0.4",
     "react": ">=19",
     "react-native-svg": "15.15.3"
   },

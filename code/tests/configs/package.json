@@ -1,14 +1,14 @@
 {
   "name": "@hanzogui/configs-test",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "private": true,
   "scripts": {
     "generate": "gui generate",
     "generate-prompt": "gui generate-prompt"
   },
   "dependencies": {
-    "@hanzogui/cli": "2.0.2",
-    "@hanzogui/config": "2.0.2",
+    "@hanzogui/cli": "2.0.4",
+    "@hanzogui/config": "2.0.4",
     "@hanzo/gui": "2.0.0"
   }
 }

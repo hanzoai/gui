@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/animations-react-native",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
   "source": "src/index.ts",
@@ -38,13 +38,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animation-helpers": "2.0.0",
-    "@hanzogui/constants": "2.0.0",
-    "@hanzogui/use-presence": "2.0.0",
-    "@hanzogui/web": "2.0.0"
+    "@hanzogui/animation-helpers": "2.0.1",
+    "@hanzogui/constants": "2.0.1",
+    "@hanzogui/use-presence": "2.0.1",
+    "@hanzogui/web": "2.0.1"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.0",
+    "@hanzogui/build": "2.0.1",
     "react": ">=19",
     "react-native": "0.83.2"
   },

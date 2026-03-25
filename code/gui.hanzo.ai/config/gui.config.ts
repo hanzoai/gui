@@ -1,9 +1,9 @@
 import { createGui } from '@hanzo/gui'
 import { config } from '@hanzogui/dev-config'
 
-const tamaConf = createGui(config)
+const guiConf = createGui(config)
 
-export type Conf = typeof tamaConf
+export type Conf = typeof guiConf
 
 declare module '@hanzo/gui' {
   interface GuiCustomConfig extends Conf {}
@@ -13,4 +13,4 @@ declare module '@hanzo/gui' {
   }
 }
 
-export default tamaConf
+export default guiConf

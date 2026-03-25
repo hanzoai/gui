@@ -109,22 +109,22 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animations-css": "2.0.4",
-    "@hanzogui/animations-motion": "2.0.4",
-    "@hanzogui/animations-react-native": "2.0.4",
-    "@hanzogui/animations-reanimated": "2.0.4",
-    "@hanzogui/colors": "2.0.4",
-    "@hanzogui/core": "2.0.4",
-    "@hanzogui/react-native-media-driver": "2.0.4",
-    "@hanzogui/shorthands": "2.0.4",
-    "@hanzogui/theme-builder": "2.0.4",
-    "@hanzogui/themes": "2.0.4",
-    "@hanzogui/web": "2.0.4",
-    "@hanzogui/font-geist-sans": "2.0.4",
-    "@hanzogui/font-geist-mono": "2.0.4"
+    "@hanzogui/animations-css": "workspace:*",
+    "@hanzogui/animations-motion": "workspace:*",
+    "@hanzogui/animations-react-native": "workspace:*",
+    "@hanzogui/animations-reanimated": "workspace:*",
+    "@hanzogui/colors": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/react-native-media-driver": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/theme-builder": "workspace:*",
+    "@hanzogui/themes": "workspace:*",
+    "@hanzogui/web": "workspace:*",
+    "@hanzogui/font-geist-sans": "workspace:*",
+    "@hanzogui/font-geist-mono": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4"
+    "@hanzogui/build": "workspace:*"
   },
   "peerDependencies": {
     "@hanzogui/animations-moti": "*"

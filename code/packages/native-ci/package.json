@@ -42,7 +42,7 @@
     "@expo/fingerprint": "~0.16.6"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "@types/bun": "^1.1.0",
     "@types/node": "^22.1.0"
   },

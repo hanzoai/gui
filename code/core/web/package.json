@@ -51,20 +51,20 @@
     "test:web": "vitest --typecheck --run"
   },
   "dependencies": {
-    "@hanzogui/compose-refs": "2.0.4",
-    "@hanzogui/constants": "2.0.4",
-    "@hanzogui/helpers": "2.0.4",
-    "@hanzogui/is-equal-shallow": "2.0.4",
-    "@hanzogui/native": "2.0.4",
-    "@hanzogui/normalize-css-color": "2.0.4",
-    "@hanzogui/timer": "2.0.4",
-    "@hanzogui/types": "2.0.4",
-    "@hanzogui/use-did-finish-ssr": "2.0.4",
-    "@hanzogui/use-event": "2.0.4",
-    "@hanzogui/use-force-update": "2.0.4"
+    "@hanzogui/compose-refs": "workspace:*",
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/is-equal-shallow": "workspace:*",
+    "@hanzogui/native": "workspace:*",
+    "@hanzogui/normalize-css-color": "workspace:*",
+    "@hanzogui/timer": "workspace:*",
+    "@hanzogui/types": "workspace:*",
+    "@hanzogui/use-did-finish-ssr": "workspace:*",
+    "@hanzogui/use-event": "workspace:*",
+    "@hanzogui/use-force-update": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",

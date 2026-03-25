@@ -27,11 +27,11 @@
     "test:web": "bun run test"
   },
   "dependencies": {
-    "@hanzogui/create-theme": "2.0.4",
-    "@hanzogui/generate-themes": "2.0.4",
-    "@hanzogui/static": "2.0.4",
-    "@hanzogui/types": "2.0.4",
-    "@hanzogui/vite-plugin": "2.0.4",
+    "@hanzogui/create-theme": "workspace:*",
+    "@hanzogui/generate-themes": "workspace:*",
+    "@hanzogui/static": "workspace:*",
+    "@hanzogui/types": "workspace:*",
+    "@hanzogui/vite-plugin": "workspace:*",
     "arg": "^5.0.2",
     "chalk": "^4.1.2",
     "change-case": "^4.1.2",
@@ -50,7 +50,7 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4",
+    "@hanzogui/build": "workspace:*",
     "@types/chokidar": "^2.1.3",
     "@types/marked": "^5.0.0",
     "vitest": "4.0.4"

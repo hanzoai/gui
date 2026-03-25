@@ -7,8 +7,8 @@
     "generate-prompt": "gui generate-prompt"
   },
   "dependencies": {
-    "@hanzogui/cli": "2.0.4",
-    "@hanzogui/config": "2.0.4",
+    "@hanzogui/cli": "workspace:*",
+    "@hanzogui/config": "workspace:*",
     "@hanzo/gui": "workspace:*"
   }
 }

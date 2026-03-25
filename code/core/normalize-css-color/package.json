@@ -39,6 +39,6 @@
     "@react-native/normalize-color": "^2.1.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "2.0.4"
+    "@hanzogui/build": "workspace:*"
   }
 }

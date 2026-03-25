@@ -20,7 +20,7 @@
     "watch": "hanzo-gui-build --skip-types --watch"
   },
   "dependencies": {
-    "@my/config": "2.0.0",
+    "@my/config": "workspace:*",
     "@hanzogui/next-theme": "workspace:*",
     "expo-constants": "~55.0.7",
     "@hanzo/gui": "workspace:*"

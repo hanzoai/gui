@@ -9,7 +9,7 @@
     "test": "echo skipped - needs full Next.js setup",
     "test:web": "echo skipped",
     "test:unit": "echo skipped",
-    "test:clean": "git checkout packages/app/ && git clean -fd packages/app/"
+    "test:clean": "echo skipped"
   },
   "dependencies": {
     "@hanzogui/cli": "workspace:*",

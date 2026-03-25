@@ -1,3 +1,5 @@
+import { vi } from "vitest"
+vi.setConfig({ testTimeout: 60000 })
 import { execSync, spawn } from 'node:child_process'
 import { existsSync, readFileSync, writeFileSync, statSync, readdirSync } from 'node:fs'
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'

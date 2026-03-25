@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   checks:
-    runs-on: hanzo-build-linux-amd64
+    runs-on: ubuntu-latest  # TODO: hanzo-build-linux-amd64 when ARC runners are deployed
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
         run: bun run lint
 
   unit-tests:
-    runs-on: hanzo-build-linux-amd64
+    runs-on: ubuntu-latest  # TODO: hanzo-build-linux-amd64 when ARC runners are deployed
     env:
       NODE_OPTIONS: '--max-old-space-size=6144'
     steps:
@@ -67,7 +67,7 @@ jobs:
         run: bun turbo run test:web --filter='!@hanzogui/kitchen-sink' --concurrency=1
 
   changes:
-    runs-on: hanzo-build-linux-amd64
+    runs-on: ubuntu-latest  # TODO: hanzo-build-linux-amd64 when ARC runners are deployed
     outputs:
       integration-relevant: ${{ steps.filter.outputs.integration-relevant }}
     steps:
@@ -91,7 +91,7 @@ jobs:
   integration-tests:
     needs: changes
     if: needs.changes.outputs.integration-relevant == 'true'
-    runs-on: hanzo-build-linux-amd64
+    runs-on: ubuntu-latest  # TODO: hanzo-build-linux-amd64 when ARC runners are deployed
     strategy:
       fail-fast: false
       matrix:

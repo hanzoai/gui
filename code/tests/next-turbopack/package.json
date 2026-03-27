@@ -13,9 +13,9 @@
     "test:clean": "git checkout src/ public/ && git clean -fd src/"
   },
   "dependencies": {
-    "@hanzogui/config": "workspace:*",
-    "@hanzogui/core": "workspace:*",
-    "@hanzogui/next-theme": "workspace:*",
+    "@hanzogui/config": "3.0.0",
+    "@hanzogui/core": "3.0.0",
+    "@hanzogui/next-theme": "3.0.0",
     "next": "16.1.1",
     "react": ">=19",
     "react-dom": "*",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
-    "@hanzogui/cli": "workspace:*",
+    "@hanzogui/cli": "3.0.0",
     "@types/node": "^22.1.0",
     "@types/react": "~19.1.10",
     "vitest": "4.0.4"

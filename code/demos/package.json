@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/demos",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "source": "demos/src/index.tsx",
   "files": [
     "src",
@@ -54,7 +54,7 @@
     "@hanzogui/lucide-icons-2": "3.0.0",
     "@hanzogui/dev-config": "3.0.0",
     "@hanzogui/theme": "3.0.0",
-    "@hanzo/gui": "workspace:*"
+    "@hanzo/gui": "3.0.0"
   },
   "devDependencies": {
     "@hanzogui/build": "3.0.0",

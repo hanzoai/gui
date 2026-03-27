@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/cli",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "bin": {
     "gui": "./dist/index.cjs",
     "hgui": "./dist/index.cjs",

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/configs-test",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "private": true,
   "scripts": {
     "generate": "gui generate",
@@ -9,6 +9,6 @@
   "dependencies": {
     "@hanzogui/cli": "3.0.0",
     "@hanzogui/config": "3.0.0",
-    "@hanzo/gui": "workspace:*"
+    "@hanzo/gui": "3.0.0"
   }
 }

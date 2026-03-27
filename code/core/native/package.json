@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Native setup modules for Hanzo GUI - portals, gesture handler, worklets, and more",
   "type": "module",
   "sideEffects": [

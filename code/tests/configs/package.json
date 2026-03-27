@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/configs-test",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": true,
   "scripts": {
     "generate": "gui generate",

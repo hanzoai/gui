@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/colors",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
   "type": "module",
@@ -46,6 +46,6 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.0"
+    "@hanzogui/build": "3.0.1"
   }
 }

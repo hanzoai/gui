@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/code-to-html",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -31,6 +31,6 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.0"
+    "@hanzogui/build": "3.0.1"
   }
 }

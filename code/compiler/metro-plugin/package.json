@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/metro-plugin",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
@@ -21,9 +21,9 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/static": "3.0.0"
+    "@hanzogui/static": "3.0.1"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.0"
+    "@hanzogui/build": "3.0.1"
   }
 }

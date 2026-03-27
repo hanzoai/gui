@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "Native setup modules for Hanzo GUI - portals, gesture handler, worklets, and more",
   "type": "module",
   "sideEffects": [
@@ -131,7 +131,7 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
+    "@hanzogui/build": "3.0.0",
     "burnt": "^0.12.2",
     "react": ">=19",
     "react-native": "0.83.2",

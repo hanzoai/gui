@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-geist-sans",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "files": [
     "types",
     "dist"
@@ -23,10 +23,10 @@
     "clean": "hanzo-gui-build clean"
   },
   "dependencies": {
-    "@hanzogui/core": "workspace:*"
+    "@hanzogui/core": "3.0.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*"
+    "@hanzogui/build": "3.0.0"
   },
   "publishConfig": {
     "access": "public"

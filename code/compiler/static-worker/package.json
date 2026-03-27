@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/static-worker",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
@@ -35,12 +35,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@hanzogui/static": "workspace:*",
-    "@hanzogui/types": "workspace:*",
+    "@hanzogui/static": "3.0.0",
+    "@hanzogui/types": "3.0.0",
     "piscina": "^4.7.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
+    "@hanzogui/build": "3.0.0",
     "vitest": "4.0.4"
   }
 }

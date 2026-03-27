@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/expo-router-starter",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@react-navigation/native": "^7.0.14",
-    "@hanzogui/config": "workspace:*",
-    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/config": "3.0.0",
+    "@hanzogui/lucide-icons-2": "3.0.0",
     "babel-preset-expo": "~55.0.0",
     "burnt": "^0.12.2",
     "expo": "~55.0.6",
@@ -44,7 +44,7 @@
     "@expo/metro-config": "~55.0.9",
     "@expo/metro-runtime": "~55.0.0",
     "@playwright/test": "^1.49.1",
-    "@hanzogui/babel-plugin": "workspace:*",
+    "@hanzogui/babel-plugin": "3.0.0",
     "@types/react": "~19.1.10",
     "@types/react-native": "^0.73.0",
     "serve": "^14.2.5",

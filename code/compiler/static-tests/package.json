@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/static-tests",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "private": true,
   "license": "MIT",
   "module": "dist/esm/index.js",
@@ -28,8 +28,8 @@
   "devDependencies": {
     "@babel/plugin-syntax-typescript": "^7.25.4",
     "@babel/types": "^7.25.4",
-    "@hanzogui/sandbox-ui": "workspace:*",
-    "@hanzogui/test-design-system": "workspace:*",
+    "@hanzogui/sandbox-ui": "3.0.0",
+    "@hanzogui/test-design-system": "3.0.0",
     "@testing-library/react": "^16.1.0",
     "@types/babel__generator": "^7.6.4",
     "@types/babel__traverse": "^7.18.2",

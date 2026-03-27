@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/core-test",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "private": true,
   "license": "MIT",
   "author": {
@@ -17,7 +17,7 @@
     "test:update": "bun run test:native --update && bun run test:web --update"
   },
   "devDependencies": {
-    "@hanzogui/core": "3.0.0",
+    "@hanzogui/core": "3.0.1",
     "@testing-library/react": "^16.1.0",
     "@testing-library/react-native": "^12.9.0",
     "csstype": "^3.0.10",

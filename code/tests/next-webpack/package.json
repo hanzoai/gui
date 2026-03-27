@@ -12,7 +12,7 @@
     "test:clean": "echo skipped"
   },
   "dependencies": {
-    "@hanzogui/cli": "3.0.0",
+    "@hanzogui/cli": "3.0.1",
     "@hanzo/gui": "3.0.0"
   },
   "devDependencies": {

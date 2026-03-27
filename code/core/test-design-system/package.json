@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/test-design-system",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "source": "src/index.ts",
   "files": [],
   "sideEffects": [
@@ -19,9 +19,9 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "3.0.0"
+    "@hanzogui/core": "3.0.1"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.0"
+    "@hanzogui/build": "3.0.1"
   }
 }

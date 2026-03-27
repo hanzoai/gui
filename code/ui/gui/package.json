@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
@@ -133,7 +133,6 @@
     "@hanzogui/focusable": "2.0.5",
     "@hanzogui/focus-scope": "2.0.5",
     "@hanzogui/focus-guard": "2.0.5",
-    "@hanzogui/dismiss": "2.0.5",
     "@hanzogui/dismissable": "2.0.5",
     "@hanzogui/collection": "2.0.5",
     "@hanzogui/remove-scroll": "2.0.5",

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/theme-builder",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -37,12 +37,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@hanzogui/create-theme": "workspace:*",
-    "@hanzogui/web": "workspace:*",
+    "@hanzogui/create-theme": "3.0.0",
+    "@hanzogui/web": "3.0.0",
     "color2k": "^2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
+    "@hanzogui/build": "3.0.0",
     "vitest": "4.0.4"
   }
 }

@@ -1,7 +1,6 @@
 {
   "name": "@hanzogui/next-site",
-  "version": "3.0.2",
-  "private": true,
+  "version": "3.0.6",
   "source": "src",
   "scripts": {
     "dev": "./scripts/dev.sh",
@@ -37,7 +36,7 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.26.0",
     "@playwright/test": "^1.49.1",
-    "@hanzogui/build": "3.0.1",
-    "@hanzogui/loader": "3.0.1"
+    "@hanzogui/build": "3.0.6",
+    "@hanzogui/loader": "3.0.6"
   }
 }

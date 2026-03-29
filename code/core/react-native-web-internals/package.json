@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/react-native-web-internals",
-  "version": "3.0.2",
+  "version": "3.0.6",
   "description": "React Native for Web",
   "keywords": [
     "react",
@@ -36,15 +36,15 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/normalize-css-color": "3.0.1",
-    "@hanzogui/react-native-use-pressable": "3.0.1",
-    "@hanzogui/react-native-use-responder-events": "3.0.1",
-    "@hanzogui/simple-hash": "3.0.1",
-    "@hanzogui/use-element-layout": "3.0.1",
-    "@hanzogui/web": "3.0.1"
+    "@hanzogui/normalize-css-color": "3.0.6",
+    "@hanzogui/react-native-use-pressable": "3.0.6",
+    "@hanzogui/react-native-use-responder-events": "3.0.6",
+    "@hanzogui/simple-hash": "3.0.6",
+    "@hanzogui/use-element-layout": "3.0.6",
+    "@hanzogui/web": "3.0.6"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.1",
+    "@hanzogui/build": "3.0.6",
     "react": ">=19",
     "react-dom": "*"
   },

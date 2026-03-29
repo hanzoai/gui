@@ -1,7 +1,6 @@
 {
-  "name": "@my/config",
-  "version": "2.0.0",
-  "private": true,
+  "name": "@hanzogui/next-webpack-test-config",
+  "version": "3.0.6",
   "files": [
     "types",
     "dist"
@@ -16,14 +15,14 @@
     "watch": "hanzo-gui-build --skip-types --watch"
   },
   "dependencies": {
-    "@hanzogui/animations-react-native": "3.0.1",
-    "@hanzogui/config": "3.0.1",
-    "@hanzogui/font-inter": "3.0.1",
-    "@hanzogui/shorthands": "3.0.1",
-    "@hanzogui/themes": "3.0.1",
-    "@hanzo/gui": "3.0.0"
+    "@hanzogui/animations-react-native": "3.0.6",
+    "@hanzogui/config": "3.0.6",
+    "@hanzogui/font-inter": "3.0.6",
+    "@hanzogui/shorthands": "3.0.6",
+    "@hanzogui/themes": "3.0.6",
+    "@hanzo/gui": "3.0.6"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.1"
+    "@hanzogui/build": "3.0.6"
   }
 }

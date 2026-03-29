@@ -1,7 +1,6 @@
 {
   "name": "@hanzogui/kitchen-sink-go",
-  "version": "3.0.2",
-  "private": true,
+  "version": "3.0.6",
   "main": "index.js",
   "scripts": {
     "start": "expo start --port 8082",
@@ -12,17 +11,17 @@
     "test": "./run-native-tests.sh"
   },
   "dependencies": {
-    "@hanzogui/config": "3.0.1",
-    "@hanzogui/core": "3.0.1",
-    "@hanzogui/demos": "3.0.1",
-    "@hanzogui/kitchen-sink-shared": "3.0.1",
-    "@hanzogui/lucide-icons-2": "3.0.1",
-    "@hanzogui/metro-plugin": "3.0.1",
-    "@hanzogui/web": "3.0.1",
+    "@hanzogui/config": "3.0.6",
+    "@hanzogui/core": "3.0.6",
+    "@hanzogui/demos": "3.0.6",
+    "@hanzogui/kitchen-sink-shared": "3.0.6",
+    "@hanzogui/lucide-icons-2": "3.0.6",
+    "@hanzogui/metro-plugin": "3.0.6",
+    "@hanzogui/web": "3.0.6",
     "expo": "~55.0.6",
     "expo-font": "~55.0.4",
     "react": ">=19",
     "react-native": "0.83.2",
-    "@hanzo/gui": "3.0.0"
+    "@hanzo/gui": "3.0.6"
   }
 }

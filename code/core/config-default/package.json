@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/config-default",
-  "version": "3.0.2",
+  "version": "3.0.6",
   "source": "src/index.ts",
   "files": [
     "types",
@@ -19,13 +19,13 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animations-css": "3.0.1",
-    "@hanzogui/animations-react-native": "3.0.1",
-    "@hanzogui/core": "3.0.1",
-    "@hanzogui/shorthands": "3.0.1",
-    "@hanzogui/web": "3.0.1"
+    "@hanzogui/animations-css": "3.0.6",
+    "@hanzogui/animations-react-native": "3.0.6",
+    "@hanzogui/core": "3.0.6",
+    "@hanzogui/shorthands": "3.0.6",
+    "@hanzogui/web": "3.0.6"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.1"
+    "@hanzogui/build": "3.0.6"
   }
 }

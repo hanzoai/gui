@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/themes",
-  "version": "3.0.2",
+  "version": "3.0.6",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "type": "module",
   "sideEffects": false,
@@ -81,15 +81,15 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/colors": "3.0.1",
-    "@hanzogui/create-theme": "3.0.1",
-    "@hanzogui/theme-builder": "3.0.1",
-    "@hanzogui/web": "3.0.1",
+    "@hanzogui/colors": "3.0.6",
+    "@hanzogui/create-theme": "3.0.6",
+    "@hanzogui/theme-builder": "3.0.6",
+    "@hanzogui/web": "3.0.6",
     "color2k": "^2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.1",
-    "@hanzogui/cli": "3.0.1",
+    "@hanzogui/build": "3.0.6",
+    "@hanzogui/cli": "3.0.6",
     "vitest": "4.0.4"
   }
 }

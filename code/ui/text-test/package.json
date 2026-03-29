@@ -1,7 +1,6 @@
 {
   "name": "@hanzogui/text-test",
-  "version": "3.0.2",
-  "private": true,
+  "version": "3.0.6",
   "type": "module",
   "sideEffects": [
     "*.css"

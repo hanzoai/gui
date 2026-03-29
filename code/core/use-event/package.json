@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/use-event",
-  "version": "3.0.2",
+  "version": "3.0.6",
   "files": [
     "src",
     "types",
@@ -34,7 +34,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@hanzogui/build": "3.0.1",
+    "@hanzogui/build": "3.0.6",
     "react": ">=19"
   },
   "peerDependencies": {

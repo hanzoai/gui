@@ -1,7 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin-internal",
-  "version": "3.0.2",
-  "private": true,
+  "version": "3.0.6",
   "type": "module",
   "main": "./dist/cjs/vite.config.js",
   "module": "./dist/esm/vite.config.js",
@@ -22,11 +21,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/vite-plugin": "3.0.1"
+    "@hanzogui/vite-plugin": "3.0.6"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.1",
-    "@hanzogui/config-default": "3.0.1",
+    "@hanzogui/build": "3.0.6",
+    "@hanzogui/config-default": "3.0.6",
     "happy-dom": "^10.11.2",
     "react": ">=19",
     "vitest": "4.0.4",

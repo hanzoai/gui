@@ -1,7 +1,6 @@
 {
   "name": "@hanzogui/core-test",
-  "version": "3.0.2",
-  "private": true,
+  "version": "3.0.6",
   "license": "MIT",
   "author": {
     "name": "Nate Wienert"
@@ -17,7 +16,7 @@
     "test:update": "bun run test:native --update && bun run test:web --update"
   },
   "devDependencies": {
-    "@hanzogui/core": "3.0.1",
+    "@hanzogui/core": "3.0.6",
     "@testing-library/react": "^16.1.0",
     "@testing-library/react-native": "^12.9.0",
     "csstype": "^3.0.10",

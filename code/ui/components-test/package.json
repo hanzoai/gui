@@ -1,7 +1,6 @@
 {
   "name": "@hanzogui/components-test",
-  "version": "3.0.2",
-  "private": true,
+  "version": "3.0.6",
   "license": "MIT",
   "type": "module",
   "sideEffects": [

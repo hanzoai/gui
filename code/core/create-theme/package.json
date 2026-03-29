@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/create-theme",
-  "version": "3.0.2",
+  "version": "3.0.6",
   "files": [
     "src",
     "types",
@@ -34,9 +34,9 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/web": "3.0.1"
+    "@hanzogui/web": "3.0.6"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.1"
+    "@hanzogui/build": "3.0.6"
   }
 }

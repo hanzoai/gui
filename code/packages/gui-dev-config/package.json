@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/dev-config",
-  "version": "3.0.2",
+  "version": "3.0.6",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -40,23 +40,23 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animations-css": "3.0.1",
-    "@hanzogui/animations-moti": "3.0.1",
-    "@hanzogui/animations-motion": "3.0.1",
-    "@hanzogui/animations-reanimated": "3.0.1",
-    "@hanzogui/colors": "3.0.1",
-    "@hanzogui/config": "3.0.1",
-    "@hanzogui/core": "3.0.1",
-    "@hanzogui/font-cherry-bomb": "3.0.1",
-    "@hanzogui/font-inter": "3.0.1",
-    "@hanzogui/font-silkscreen": "3.0.1",
-    "@hanzogui/shorthands": "3.0.1",
-    "@hanzogui/theme-builder": "3.0.1",
-    "@hanzogui/themes": "3.0.1",
+    "@hanzogui/animations-css": "3.0.6",
+    "@hanzogui/animations-moti": "3.0.6",
+    "@hanzogui/animations-motion": "3.0.6",
+    "@hanzogui/animations-reanimated": "3.0.6",
+    "@hanzogui/colors": "3.0.6",
+    "@hanzogui/config": "3.0.6",
+    "@hanzogui/core": "3.0.6",
+    "@hanzogui/font-cherry-bomb": "3.0.6",
+    "@hanzogui/font-inter": "3.0.6",
+    "@hanzogui/font-silkscreen": "3.0.6",
+    "@hanzogui/shorthands": "3.0.6",
+    "@hanzogui/theme-builder": "3.0.6",
+    "@hanzogui/themes": "3.0.6",
     "color2k": "^2.0.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.1",
+    "@hanzogui/build": "3.0.6",
     "react": ">=19"
   },
   "peerDependencies": {

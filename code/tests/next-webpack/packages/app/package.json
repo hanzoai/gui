@@ -1,25 +1,24 @@
 {
-  "name": "app",
-  "version": "2.0.0",
-  "private": true,
+  "name": "@hanzogui/next-webpack-test-app",
+  "version": "3.0.6",
   "sideEffects": [
     "*.css"
   ],
   "main": "index.ts",
   "dependencies": {
-    "@my/ui": "3.0.0",
     "@react-navigation/native": "^7.0.14",
-    "@hanzogui/animations-react-native": "3.0.1",
-    "@hanzogui/colors": "3.0.1",
-    "@hanzogui/font-inter": "3.0.1",
-    "@hanzogui/lucide-icons-2": "3.0.1",
-    "@hanzogui/shorthands": "3.0.1",
-    "@hanzogui/themes": "3.0.1",
+    "@hanzogui/animations-react-native": "3.0.6",
+    "@hanzogui/colors": "3.0.6",
+    "@hanzogui/font-inter": "3.0.6",
+    "@hanzogui/lucide-icons-2": "3.0.6",
+    "@hanzogui/shorthands": "3.0.6",
+    "@hanzogui/themes": "3.0.6",
     "burnt": "^0.12.2",
     "expo-constants": "~55.0.7",
     "expo-linking": "~55.0.7",
     "react-native-safe-area-context": "~5.7.0",
-    "solito": "^4.3.0"
+    "solito": "^4.3.0",
+    "@hanzogui/next-webpack-test-ui": "3.0.6"
   },
   "devDependencies": {
     "@types/react": "~19.1.10",

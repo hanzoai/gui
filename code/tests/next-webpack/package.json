@@ -1,7 +1,6 @@
 {
-  "name": "next15-plus-cli-optimize",
-  "version": "2.0.0",
-  "private": true,
+  "name": "@hanzogui/next-webpack-test",
+  "version": "3.0.6",
   "workspaces": [
     "./packages/*"
   ],
@@ -12,8 +11,8 @@
     "test:clean": "echo skipped"
   },
   "dependencies": {
-    "@hanzogui/cli": "3.0.1",
-    "@hanzo/gui": "3.0.0"
+    "@hanzogui/cli": "3.0.6",
+    "@hanzo/gui": "3.0.6"
   },
   "devDependencies": {
     "vitest": "4.0.4"

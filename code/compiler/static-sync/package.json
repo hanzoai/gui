@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/static-sync",
-  "version": "3.0.2",
+  "version": "3.0.6",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
@@ -32,11 +32,11 @@
   },
   "dependencies": {
     "@babel/core": "^7.25.2",
-    "@hanzogui/static": "3.0.1",
-    "@hanzogui/types": "3.0.1",
+    "@hanzogui/static": "3.0.6",
+    "@hanzogui/types": "3.0.6",
     "synckit": "^0.9.2"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.1"
+    "@hanzogui/build": "3.0.6"
   }
 }

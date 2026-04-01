@@ -47,4 +47,3 @@ export * from '@hanzogui/elements'
 
 // Additional exports (ported from tamagui, missing in earlier builds)
 export { Anchor, type AnchorProps } from './views/Anchor'
-export * from '@hanzogui/use-window-dimensions'

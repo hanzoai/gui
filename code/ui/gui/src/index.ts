@@ -6,6 +6,9 @@ export * from '@hanzogui/core'
 // Stack components
 export * from '@hanzogui/stacks'
 
+// Shape primitives (Square, Circle)
+export * from '@hanzogui/shapes'
+
 // UI Components
 export * from '@hanzogui/spacer'
 export * from '@hanzogui/animate-presence'
@@ -41,3 +44,7 @@ export * from '@hanzogui/toast'
 export * from '@hanzogui/visually-hidden'
 export * from '@hanzogui/focusable'
 export * from '@hanzogui/elements'
+
+// Additional exports (ported from tamagui, missing in earlier builds)
+export { Anchor, type AnchorProps } from './views/Anchor'
+export * from '@hanzogui/use-window-dimensions'

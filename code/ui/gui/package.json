@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
@@ -95,6 +95,7 @@
     "@hanzogui/use-force-update": "3.0.6",
     "@hanzogui/use-window-dimensions": "3.0.6",
     "@hanzogui/font-size": "3.0.6",
+    "@hanzogui/shapes": "3.0.2",
     "@hanzogui/stacks": "3.0.2",
     "@hanzogui/web": "3.0.6",
     "@hanzogui/spacer": "3.0.2",

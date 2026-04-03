@@ -1,4 +1,4 @@
-process.env.HANZO_GUI_TARGET = 'web'
+process.env.GUI_TARGET = 'web'
 
 import { describe, expectTypeOf, test } from 'vitest'
 import { createGui, type AnimationDriver, type InferGuiConfig } from '../core/src'

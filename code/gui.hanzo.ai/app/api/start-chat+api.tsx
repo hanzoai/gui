@@ -19,7 +19,7 @@ export const POST: Endpoint = async (req) => {
   const requestBody = {
     action: 'add',
     email,
-    key: process.env.HANZO_GUI_PRO_SECRET,
+    key: process.env.GUI_PRO_SECRET,
   }
 
   const response = await fetch('https://start.chat/api/gui-pro', {

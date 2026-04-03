@@ -241,7 +241,7 @@ export const build = async (
 
         // Build web version from original source
         if (filePlatforms.includes('web')) {
-          process.env.HANZO_GUI_TARGET = 'web'
+          process.env.GUI_TARGET = 'web'
           const extractor = createExtractor({
             platform: 'web',
           })
@@ -324,7 +324,7 @@ export const build = async (
 
         // Build native version from original source (NOT from the web-optimized version)
         if (filePlatforms.includes('native')) {
-          process.env.HANZO_GUI_TARGET = 'native'
+          process.env.GUI_TARGET = 'native'
           const nativeGuiOptions = {
             ...buildOptions,
             platform: 'native' as const,

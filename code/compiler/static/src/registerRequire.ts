@@ -165,7 +165,7 @@ export function registerRequire(
       return out
     } catch (err: any) {
       if (
-        !process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD &&
+        !process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD &&
         path.includes('gui-dynamic-eval')
       ) {
         // ok, dynamic eval fails
@@ -173,7 +173,7 @@ export function registerRequire(
       }
       if (allowedIgnores[path] || IGNORES === 'true') {
         // ignore
-      } else if (!process.env.HANZO_GUI_SHOW_FULL_BUNDLE_ERRORS && !process.env.DEBUG) {
+      } else if (!process.env.GUI_SHOW_FULL_BUNDLE_ERRORS && !process.env.DEBUG) {
         if (hasWarnedForModules.has(path)) {
           // ignore
         } else {
@@ -186,7 +186,7 @@ export function registerRequire(
          */
 
         console.warn(
-          `  [hanzo-gui] skipped "${path}" (set HANZO_GUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
+          `  [hanzo-gui] skipped "${path}" (set GUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
         )
       }
 
@@ -212,7 +212,7 @@ export function registerRequire(
 }
 
 const IGNORES =
-  process.env.HANZO_GUI_IGNORE_BUNDLE_ERRORS || process.env.HANZO_GUI_IGNORE_BUNDLE_ERRORS
+  process.env.GUI_IGNORE_BUNDLE_ERRORS || process.env.GUI_IGNORE_BUNDLE_ERRORS
 const extraIgnores = IGNORES === 'true' ? [] : IGNORES?.split(',')
 
 const knownIgnorableModules = {

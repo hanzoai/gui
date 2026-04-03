@@ -22,7 +22,7 @@ try {
 
 let index = 0
 
-process.env.HANZO_GUI_TARGET = 'web'
+process.env.GUI_TARGET = 'web'
 
 export const loader = async function loader(
   this: LoaderContext<GuiOptions>,

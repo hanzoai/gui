@@ -16,18 +16,18 @@ export const breakpoints = {
   xxl: 1536,
 }
 
-const mediaQueryForceNonOverlap = process.env.HANZO_GUI_TARGET === 'native' ? 1 : 0.02
+const mediaQueryForceNonOverlap = process.env.GUI_TARGET === 'native' ? 1 : 0.02
 
 export const media = {
   // always true on native
   touchable:
-    process.env.HANZO_GUI_TARGET === 'native'
+    process.env.GUI_TARGET === 'native'
       ? ({ minWidth: 0 } as never)
       : { pointer: 'coarse' },
 
   // always false on native (can't hover on touch)
   hoverable:
-    process.env.HANZO_GUI_TARGET === 'native'
+    process.env.GUI_TARGET === 'native'
       ? ({ maxWidth: 0 } as never)
       : { hover: 'hover' },
 
@@ -77,8 +77,8 @@ export const media = {
 export type V5Media = typeof media
 
 export const mediaQueryDefaultActive = {
-  touchable: process.env.HANZO_GUI_TARGET === 'native',
-  hoverable: process.env.HANZO_GUI_TARGET !== 'native',
+  touchable: process.env.GUI_TARGET === 'native',
+  hoverable: process.env.GUI_TARGET !== 'native',
   // Max queries
   'max-xxl': true,
   'max-xl': true,

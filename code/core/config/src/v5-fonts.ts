@@ -1,8 +1,8 @@
 import type { FillInFont, GenericFont } from '@hanzogui/core'
 import { createFont, getVariableValue } from '@hanzogui/core'
 
-const isWeb = process.env.HANZO_GUI_TARGET === 'web'
-const isNative = process.env.HANZO_GUI_TARGET === 'native'
+const isWeb = process.env.GUI_TARGET === 'web'
+const isNative = process.env.GUI_TARGET === 'native'
 
 // web sizes
 const webSizes = {

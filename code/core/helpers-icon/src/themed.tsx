@@ -33,7 +33,7 @@ export function themed(Component: FC<IconProps>, optsIn: Options = {}) {
     defaultThemeColor: process.env.DEFAULT_ICON_THEME_COLOR || '$color',
     defaultStrokeWidth: 2,
     fallbackColor: '#000',
-    resolveValues: (process.env.HANZO_GUI_ICON_COLOR_RESOLVE as any) || 'auto',
+    resolveValues: (process.env.GUI_ICON_COLOR_RESOLVE as any) || 'auto',
     ...optsIn,
   }
 

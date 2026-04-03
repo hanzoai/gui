@@ -119,7 +119,7 @@ export const userSubscriptionStatus = (
       chat: false,
       supportTier: 0,
       teamSeats: 0,
-      couponCodes: { previouslySubscribed: 'HANZO_GUI_PRO_RENEWAL' },
+      couponCodes: { previouslySubscribed: 'GUI_PRO_RENEWAL' },
       isDeveloper: false,
     }
 

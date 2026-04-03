@@ -103,10 +103,10 @@ export type Themes = typeof builtThemes
 
 // the process.env conditional here is optional but saves web client-side bundle
 // size by leaving out themes JS. hanzo-gui automatically hydrates themes from CSS
-// back into JS for you, and the bundler plugins set HANZO_GUI_ENVIRONMENT. so
+// back into JS for you, and the bundler plugins set GUI_ENVIRONMENT. so
 // long as you are using the Vite, Next, Webpack plugins this should just work,
 // but if not you can just export builtThemes directly as themes:
 export const themes: Themes =
-  process.env.HANZO_GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
+  process.env.GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
     ? ({} as any)
     : (builtThemes as any)

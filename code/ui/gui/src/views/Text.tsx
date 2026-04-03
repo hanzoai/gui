@@ -10,6 +10,6 @@ export const Text = styled(GuiText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZO_GUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })

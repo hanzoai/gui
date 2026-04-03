@@ -7,7 +7,7 @@ import { join } from 'node:path'
 import { extractForWeb } from './lib/extract'
 
 Error.stackTraceLimit = Number.MAX_SAFE_INTEGER
-process.env.HANZO_GUI_TARGET = 'web'
+process.env.GUI_TARGET = 'web'
 window['React'] = React
 
 describe('styled() tests', () => {

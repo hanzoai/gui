@@ -21,7 +21,7 @@ const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN!
 
 const TAKEOUT_ROLE_ID = '1131082605052301403'
-const HANZO_GUI_DISCORD_GUILD_ID = '909986013848412191'
+const GUI_DISCORD_GUILD_ID = '909986013848412191'
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   console.error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
@@ -144,7 +144,7 @@ async function main() {
       console.info(`Removing role from discord:${inv.discord_user_id}...`)
       try {
         await api.guilds.removeRoleFromMember(
-          HANZO_GUI_DISCORD_GUILD_ID,
+          GUI_DISCORD_GUILD_ID,
           inv.discord_user_id,
           TAKEOUT_ROLE_ID
         )

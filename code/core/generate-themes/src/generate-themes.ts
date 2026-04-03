@@ -20,9 +20,9 @@ export async function generateThemes(inputFile: string) {
     purgeCache(inputFilePath)
   }
 
-  let og = process.env.HANZO_GUI_KEEP_THEMES
-  process.env.HANZO_GUI_KEEP_THEMES = '1'
-  process.env.HANZO_GUI_RUN_THEMEBUILDER = '1'
+  let og = process.env.GUI_KEEP_THEMES
+  process.env.GUI_KEEP_THEMES = '1'
+  process.env.GUI_RUN_THEMEBUILDER = '1'
 
   try {
     const requiredThemes = require(inputFilePath)
@@ -40,7 +40,7 @@ export async function generateThemes(inputFile: string) {
   } catch (err) {
     console.warn(` ⚠️ Error running theme builder:\n`, err?.['stack'] || err)
   } finally {
-    process.env.HANZO_GUI_KEEP_THEMES = og
+    process.env.GUI_KEEP_THEMES = og
   }
 }
 

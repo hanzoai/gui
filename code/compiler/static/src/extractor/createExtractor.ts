@@ -74,8 +74,8 @@ function isFullyDisabled(props: GuiOptions) {
 export function createExtractor(
   { logger = console, platform = 'web' }: ExtractorOptions = { logger: console }
 ) {
-  if (!process.env.HANZO_GUI_TARGET) {
-    throw new Error('Please set process.env.HANZO_GUI_TARGET to either "web" or "native"')
+  if (!process.env.GUI_TARGET) {
+    throw new Error('Please set process.env.GUI_TARGET to either "web" or "native"')
   }
 
   const INLINE_EXTRACTABLE = {
@@ -125,7 +125,7 @@ export function createExtractor(
   } as const
 
   const styleProps: SplitStyleProps = {
-    resolveValues: process.env.HANZO_GUI_TARGET === 'native' ? 'value' : 'variable',
+    resolveValues: process.env.GUI_TARGET === 'native' ? 'value' : 'variable',
     noClass: false,
     isAnimated: false,
   }
@@ -133,7 +133,7 @@ export function createExtractor(
   const shouldAddDebugProp =
     // really basic disable this for next.js because it messes with ssr
     !process.env.npm_package_dependencies_next &&
-    process.env.HANZO_GUI_TARGET !== 'native' &&
+    process.env.GUI_TARGET !== 'native' &&
     process.env.IDENTIFY_TAGS !== 'false' &&
     (process.env.NODE_ENV === 'development' || process.env.IDENTIFY_TAGS)
 
@@ -2636,9 +2636,9 @@ export function createExtractor(
 
           if (!(err instanceof BailOptimizationError)) {
             console.error(
-              `@hanzogui/static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment HANZO_GUI_DEBUG=1`
+              `@hanzogui/static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment GUI_DEBUG=1`
             )
-            if (process.env.HANZO_GUI_DEBUG === '1') {
+            if (process.env.GUI_DEBUG === '1') {
               console.error(err.stack)
             }
           }

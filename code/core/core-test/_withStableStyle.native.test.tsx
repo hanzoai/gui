@@ -1,4 +1,4 @@
-process.env.HANZO_GUI_TARGET = 'native'
+process.env.GUI_TARGET = 'native'
 
 import { getDefaultGuiConfig } from '@hanzogui/config-default'
 import { GuiProvider, _withStableStyle, createGui } from '@hanzogui/core'

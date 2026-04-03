@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 import { extractForNative } from './lib/extract'
 
 Error.stackTraceLimit = Number.Infinity
-process.env.HANZO_GUI_TARGET = 'native'
+process.env.GUI_TARGET = 'native'
 
 window['React'] = React
 

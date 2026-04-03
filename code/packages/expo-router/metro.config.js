@@ -22,7 +22,7 @@ module.exports = config
 
 // REMOVE THIS (just for hanzo-gui internal devs to work in monorepo):
 console.info(`Starting metro`)
-if (process.env.IS_HANZO_GUI_DEV && __dirname.includes('@hanzo/gui')) {
+if (process.env.IS_GUI_DEV && __dirname.includes('@hanzo/gui')) {
   console.info('🧑‍💻 using monorepo packages')
   const fs = require('fs')
   const path = require('path')

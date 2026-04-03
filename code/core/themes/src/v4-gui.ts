@@ -282,6 +282,6 @@ export type GuiThemes = typeof themes
  * So long as you server render your Hanzo GUI CSS, this will save you bundle size:
  */
 export const guiThemes: GuiThemes =
-  process.env.HANZO_GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
+  process.env.GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
     ? ({} as any)
     : (themes as any)

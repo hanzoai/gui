@@ -4,7 +4,7 @@ export function log(...args: any[]) {
   if (process.env.NODE_ENV === 'production') return
   _disableMediaTouch(true)
   try {
-    if (process.env.HANZO_GUI_TARGET === 'web') {
+    if (process.env.GUI_TARGET === 'web') {
       return console.info(...args)
     }
     // react native doesn't log in the cli unless it's log

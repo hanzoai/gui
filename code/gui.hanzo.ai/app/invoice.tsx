@@ -227,7 +227,7 @@ export default function InvoicePage() {
 //                       <Check />
 //                     </Checkbox.Indicator>
 //                   </Checkbox>
-//                   Hanzo GUI Takeout
+//                   GUI Takeout
 //                 </XStack>
 //                 <XStack gap="$2">
 //                   <Checkbox>
@@ -235,7 +235,7 @@ export default function InvoicePage() {
 //                       <Check />
 //                     </Checkbox.Indicator>
 //                   </Checkbox>
-//                   Hanzo GUI Bento
+//                   GUI Bento
 //                 </XStack>
 //               </DT.Col>
 //             </DT.Row>

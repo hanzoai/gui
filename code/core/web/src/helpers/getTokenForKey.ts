@@ -139,8 +139,8 @@ export const getTokenForKey = (
                     `[hanzo-gui] Warning: missing token ${key} in category ${cat} - ${value} (open for details)`
                   )
                   console.info(
-                    `Note: this could just be due to you not setting all the theme tokens Hanzo GUI expects, which is harmless, but
-                    it also often can be because you have a duplicated Hanzo GUI in your bundle, which can cause tricky bugs.`
+                    `Note: this could just be due to you not setting all the theme tokens GUI expects, which is harmless, but
+                    it also often can be because you have a duplicated GUI in your bundle, which can cause tricky bugs.`
                   )
                   console.info(
                     `To see if you have duplicated dependencies, in Chrome DevTools hit CMD+P and type GuiProvider.

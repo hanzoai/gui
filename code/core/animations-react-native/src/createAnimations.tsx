@@ -305,7 +305,7 @@ export function createAnimations<A extends AnimationsConfig>(
           // for now just support one transform key
           if (!val) continue
           if (typeof val === 'string') {
-            console.warn(`Warning: Hanzo GUI can't animate string transforms yet!`)
+            console.warn(`Warning: GUI can't animate string transforms yet!`)
             continue
           }
 

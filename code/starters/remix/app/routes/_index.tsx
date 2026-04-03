@@ -7,7 +7,7 @@ export const meta: MetaFunction = () => {
     { title: 'Gui with Remix' },
     {
       name: 'description',
-      content: 'A demo showcasing Hanzo GUI working with Remix.',
+      content: 'A demo showcasing GUI working with Remix.',
     },
   ]
 }
@@ -76,7 +76,7 @@ export default function Index() {
             fontSize: 32,
           }}
         >
-          Welcome to Hanzo GUI with Remix
+          Welcome to GUI with Remix
         </Text>
       </View>
       <Section>
@@ -90,7 +90,7 @@ export default function Index() {
           Introduction
         </Text>
         <Text>
-          This is a demo page to showcase how Hanzo GUI works seamlessly with Remix.
+          This is a demo page to showcase how GUI works seamlessly with Remix.
         </Text>
       </Section>
       <Section>
@@ -104,9 +104,9 @@ export default function Index() {
           Features
         </Text>
         <Text>
-          Hanzo GUI provides a powerful and flexible way to style your React components.
+          GUI provides a powerful and flexible way to style your React components.
           With Gui, you can leverage themes to create a consistent look and feel across
-          your application. Theming in Hanzo GUI is highly customizable, allowing you to
+          your application. Theming in GUI is highly customizable, allowing you to
           define colors, spacing, typography, and more. You can easily switch between
           light and dark themes, or create your own custom themes to match your brand.
         </Text>
@@ -140,7 +140,7 @@ export default function Index() {
           Go Native
         </Text>
         <Text>
-          One of the standout features of Hanzo GUI is its ability to seamlessly port your
+          One of the standout features of GUI is its ability to seamlessly port your
           components to React Native. This means you can write your components once and
           run them on both web and mobile platforms. Gui&apos;s styling system is designed
           to work with React Native out of the box, so you can take advantage of native
@@ -161,7 +161,7 @@ export default function Index() {
             fontSize: '$3',
           }}
         >
-          &copy; {new Date().getFullYear()} Hanzo GUI with Remix.
+          &copy; {new Date().getFullYear()} GUI with Remix.
         </Text>
       </View>
     </View>

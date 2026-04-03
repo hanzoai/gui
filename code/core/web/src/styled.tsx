@@ -213,7 +213,7 @@ export function styledHtml<
 }
 
 /**
- * styled() for creating Hanzo GUI components from other components.
+ * styled() for creating GUI components from other components.
  */
 function styled<
   ParentComponent extends StylableComponent,

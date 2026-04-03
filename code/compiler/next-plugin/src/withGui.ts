@@ -16,7 +16,7 @@ export type WithGuiProps = LoaderPluginOptions & {
 
   /**
    * By default, we configure webpack to pass anything inside your root or design system
-   * to the Hanzo GUI loader. If you are importing files from an external package, use this
+   * to the GUI loader. If you are importing files from an external package, use this
    **/
   shouldExtract?: (path: string, projectRoot: string) => boolean | undefined
 

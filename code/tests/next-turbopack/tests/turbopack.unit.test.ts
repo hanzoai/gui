@@ -43,7 +43,7 @@ function reset() {
   if (existsSync(CSS)) unlinkSync(CSS)
 }
 
-describe('Turbopack + Hanzo GUI CLI optimization', () => {
+describe('Turbopack + GUI CLI optimization', () => {
   beforeEach(() => reset())
   afterEach(() => reset())
   afterAll(() => reset())

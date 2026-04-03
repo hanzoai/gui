@@ -7,7 +7,7 @@ export default () => {
     <>
       <HeadInfo
         title="Theme Builder"
-        description="Create custom Hanzo GUI themes with the visual theme builder"
+        description="Create custom GUI themes with the visual theme builder"
       />
       <ThemePageUpdater
         id={0}

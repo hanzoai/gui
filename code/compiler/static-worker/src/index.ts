@@ -1,7 +1,7 @@
 /**
  * @hanzogui/static-worker
  *
- * Pure worker-based API for Hanzo GUI static extraction.
+ * Pure worker-based API for GUI static extraction.
  * All operations run in a worker thread for better performance and isolation.
  *
  * This package provides a clean async API that wraps @hanzogui/static's worker
@@ -126,7 +126,7 @@ function getPool(): Piscina {
 }
 
 /**
- * Load Hanzo GUI configuration in worker
+ * Load GUI configuration in worker
  * Sends a warmup task to trigger config loading
  * bundleConfig auto-detects if files exist and skips rebuild
  */
@@ -150,7 +150,7 @@ export async function loadGui(options: Partial<GuiOptions>): Promise<any> {
     await pool.run(task, { name: 'runTask' })
     return { success: true }
   } catch (error) {
-    console.error('[static-worker] Error loading Hanzo GUI config:', error)
+    console.error('[static-worker] Error loading GUI config:', error)
     throw error
   }
 }
@@ -224,7 +224,7 @@ async function recyclePool(options: GuiOptions): Promise<void> {
 }
 
 /**
- * Load Hanzo GUI build configuration asynchronously
+ * Load GUI build configuration asynchronously
  * Uses esbuild-wasm to avoid EPIPE errors from native esbuild service lifecycle
  */
 export async function loadGuiBuildConfig(
@@ -236,7 +236,7 @@ export async function loadGuiBuildConfig(
 }
 
 /**
- * Extract Hanzo GUI components to className-based CSS for web
+ * Extract GUI components to className-based CSS for web
  */
 export async function extractToClassNames(params: {
   source: string | Buffer
@@ -286,7 +286,7 @@ export async function extractToClassNames(params: {
 }
 
 /**
- * Extract Hanzo GUI components to React Native StyleSheet format
+ * Extract GUI components to React Native StyleSheet format
  */
 export async function extractToNative(
   sourceFileName: string,
@@ -328,7 +328,7 @@ export async function extractToNative(
 }
 
 /**
- * Watch Hanzo GUI config for changes and reload when it changes
+ * Watch GUI config for changes and reload when it changes
  */
 export async function watchGuiConfig(
   options: GuiOptions

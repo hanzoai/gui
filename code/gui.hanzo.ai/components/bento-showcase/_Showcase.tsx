@@ -217,7 +217,7 @@ const ShowcaseView = forwardRef<any, Props>(
                 <Image src="/avatar_pro.png" width={56} height={56} />
 
                 <Text fontSize="$6" fontFamily="$mono" fontWeight="bold">
-                  Hanzo GUI Pro
+                  GUI Pro
                 </Text>
 
                 <Text

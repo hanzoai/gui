@@ -36,8 +36,8 @@ async function getV1Users() {
   const v1Subs = subscriptions.filter((sub) =>
     sub.subscription_items?.some(
       (item) =>
-        item.price?.product?.name === 'Hanzo GUI Pro' ||
-        item.price?.product?.name === 'Hanzo GUI Pro Team Seats'
+        item.price?.product?.name === 'GUI Pro' ||
+        item.price?.product?.name === 'GUI Pro Team Seats'
     )
   )
 

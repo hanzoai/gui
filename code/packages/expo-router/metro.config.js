@@ -9,7 +9,7 @@ const config = getDefaultConfig(__dirname, {
   isCSSEnabled: true,
 })
 
-// Enable Hanzo GUI and add nice web support with optimizing compiler + CSS extraction
+// Enable GUI and add nice web support with optimizing compiler + CSS extraction
 const { withGui } = require('@hanzogui/metro-plugin')
 module.exports = withGui(config, {
   components: ['@hanzo/gui'],

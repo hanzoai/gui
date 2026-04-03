@@ -931,7 +931,7 @@ export const StripePaymentModal = (props: StripePaymentModalProps) => {
 
             <XStack justify="space-between">
               <Paragraph fontFamily="$mono" lineHeight="$6">
-                Hanzo GUI Pro V2 License
+                GUI Pro V2 License
               </Paragraph>
               <YStack items="flex-end">
                 {hasAnyDiscount && (

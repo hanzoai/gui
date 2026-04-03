@@ -1,5 +1,5 @@
 /**
- * Setup react-native-safe-area-context for Hanzo GUI native components.
+ * Setup react-native-safe-area-context for GUI native components.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -9,7 +9,7 @@
  * ```
  *
  * This automatically detects and configures react-native-safe-area-context
- * for use with Hanzo GUI components that need safe area awareness.
+ * for use with GUI components that need safe area awareness.
  *
  * Note: You must still wrap your app with SafeAreaProvider yourself:
  * ```tsx

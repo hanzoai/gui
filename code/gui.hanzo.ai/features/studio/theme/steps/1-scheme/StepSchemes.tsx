@@ -50,7 +50,7 @@ export function StepSchemes() {
       <Spacer flex={1} />
 
       <StudioNotice>
-        Hanzo GUI auto-generates media queries on the web using prefers-color-scheme.
+        GUI auto-generates media queries on the web using prefers-color-scheme.
       </StudioNotice>
     </YStack>
   )

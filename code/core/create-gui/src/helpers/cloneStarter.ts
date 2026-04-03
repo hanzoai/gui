@@ -105,7 +105,7 @@ async function setupGuiDotDir(template: (typeof templates)[number]) {
           if ((error as any)?.stderr?.includes('Repository not found')) {
             console.info(
               chalk.yellow(
-                `You don't have access to this starter. Check 🥡 Hanzo GUI Takeout (https://gui.hanzo.ai/takeout) for more info.`
+                `You don't have access to this starter. Check 🥡 GUI Takeout (https://gui.hanzo.ai/takeout) for more info.`
               )
             )
             open('https://gui.hanzo.ai/takeout')
@@ -118,7 +118,7 @@ async function setupGuiDotDir(template: (typeof templates)[number]) {
   } else {
     if (!(await pathExists(join(targetGitDir, '.git')))) {
       console.error(
-        `Corrupt Hanzo GUI directory, please delete ${targetGitDir} and re-run`
+        `Corrupt GUI directory, please delete ${targetGitDir} and re-run`
       )
       process.exit(1)
     }

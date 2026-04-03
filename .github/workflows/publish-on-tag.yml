@@ -1,0 +1,47 @@
+name: Publish on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    name: Build + Publish to NPM
+    runs-on: hanzo-build-linux-amd64
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Build
+        run: bun run build
+
+      - name: Configure npm
+        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @hanzo/gui
+        working-directory: code/ui/gui
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Publishing @hanzo/gui@$VERSION"
+          if npm view "@hanzo/gui@$VERSION" version 2>/dev/null; then
+            echo "Already published — skipping"
+          else
+            npm publish --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

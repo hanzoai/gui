@@ -243,13 +243,13 @@ export function guiPlugin({
       }
 
       return {
-        envPrefix: ['HANZO_GUI_'],
+        envPrefix: ['GUI_'],
 
         environments: {
           client: {
             define: {
-              'process.env.HANZO_GUI_IS_CLIENT': JSON.stringify(true),
-              'process.env.HANZO_GUI_ENVIRONMENT': '"client"',
+              'process.env.GUI_IS_CLIENT': JSON.stringify(true),
+              'process.env.GUI_ENVIRONMENT': '"client"',
             },
           },
         },
@@ -264,7 +264,7 @@ export function guiPlugin({
           'process.env.ENABLE_STEPS': JSON.stringify(process.env.ENABLE_STEPS || ''),
           'process.env.IS_STATIC': JSON.stringify(false),
           ...(env.mode === 'production' && {
-            'process.env.HANZO_GUI_OPTIMIZE_THEMES': JSON.stringify(true),
+            'process.env.GUI_OPTIMIZE_THEMES': JSON.stringify(true),
           }),
         },
         resolve:
@@ -437,7 +437,7 @@ export function guiPlugin({
         // check cache first
         const cached = memoryCache[cacheKey]
         if (cached) {
-          if (process.env.DEBUG_HANZO_GUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
               `[gui-cache] HIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
             )
@@ -448,7 +448,7 @@ export function guiPlugin({
         // check if another request is already extracting this file
         const pendingExtraction = pending.get(cacheKey)
         if (pendingExtraction) {
-          if (process.env.DEBUG_HANZO_GUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
               `[gui-cache] WAIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
             )
@@ -460,7 +460,7 @@ export function guiPlugin({
           return
         }
 
-        if (process.env.DEBUG_HANZO_GUI_CACHE) {
+        if (process.env.DEBUG_GUI_CACHE) {
           console.info(
             `[gui-cache] EXTRACT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
           )
@@ -477,7 +477,7 @@ export function guiPlugin({
               shouldPrintDebug,
             })
           } catch (err) {
-            if (process.env.DEBUG_HANZO_GUI_CACHE) {
+            if (process.env.DEBUG_GUI_CACHE) {
               console.info(`[gui-cache] ERROR extracting ${id.split('/').pop()}:`, err)
             }
             console.error(err instanceof Error ? err.message : String(err))
@@ -485,7 +485,7 @@ export function guiPlugin({
           }
 
           if (!extracted) {
-            if (process.env.DEBUG_HANZO_GUI_CACHE) {
+            if (process.env.DEBUG_GUI_CACHE) {
               console.info(`[gui-cache] no extraction result for ${id.split('/').pop()}`)
             }
             return null
@@ -525,7 +525,7 @@ export function guiPlugin({
           }
           memoryCache[cacheKey] = cacheEntry
 
-          if (process.env.DEBUG_HANZO_GUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
               `[gui-cache] WRITE key=${cacheKey.slice(0, 8)} cacheSize=${Object.keys(memoryCache).length}`
             )

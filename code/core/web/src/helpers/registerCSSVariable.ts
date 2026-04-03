@@ -2,14 +2,14 @@ import { createCSSVariable, getVariableValue } from '../createVariable'
 import type { Variable, VariableVal } from '../types'
 
 export const registerCSSVariable = (v: Variable | VariableVal) => {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
+  if (!process.env.GUI_DID_OUTPUT_CSS) {
     tokensValueToVariable.set(getVariableValue(v), v)
   }
 }
 
 export const variableToCSS = (v: Variable, unitless = false) => {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
-    return `--${process.env.HANZO_GUI_CSS_VARIABLE_PREFIX || ''}${createCSSVariable(
+  if (!process.env.GUI_DID_OUTPUT_CSS) {
+    return `--${process.env.GUI_CSS_VARIABLE_PREFIX || ''}${createCSSVariable(
       v.name,
       false
     )}:${!unitless && typeof v.val === 'number' ? `${v.val}px` : v.val}`

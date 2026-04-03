@@ -78,7 +78,7 @@ export function GuiProvider({
     <>
       {contents}
 
-      {process.env.HANZO_GUI_TARGET !== 'native' && config && !disableInjectCSS && (
+      {process.env.GUI_TARGET !== 'native' && config && !disableInjectCSS && (
         <style
           // react 19 feature to hoist style tags to header:
           // https://react.dev/reference/react-dom/components/style

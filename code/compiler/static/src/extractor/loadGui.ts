@@ -27,7 +27,7 @@ import {
 
 const getFilledOptions = (propsIn: Partial<GuiOptions>): GuiOptions => ({
   // defaults
-  platform: (process.env.HANZO_GUI_TARGET as any) || 'web',
+  platform: (process.env.GUI_TARGET as any) || 'web',
   config: 'gui.config.ts',
   components: ['@hanzo/gui'],
   ...(propsIn as Partial<GuiOptions>),
@@ -248,7 +248,7 @@ export function loadGuiSync({
   // lets shim require and avoid importing react-native + react-native-web
   // we just need to read the config around them
   process.env.IS_STATIC = 'is_static'
-  process.env.HANZO_GUI_IS_SERVER = 'true'
+  process.env.GUI_IS_SERVER = 'true'
 
   const { unregister } = registerRequire(props.platform || 'web', {
     proxyWormImports: !!forceExports,
@@ -370,7 +370,7 @@ export async function getOptions({
     debug,
     tsconfigPath,
     guiOptions: {
-      platform: (process.env.HANZO_GUI_TARGET as any) || 'web',
+      platform: (process.env.GUI_TARGET as any) || 'web',
       components: ['@hanzo/gui'],
       ...guiOptions,
       config:
@@ -390,7 +390,7 @@ export function resolveWebOrNativeSpecificEntry(entry: string) {
   const resolved = require.resolve(entry, { paths: [workspaceRoot] })
   const ext = extname(resolved)
   const fileName = basename(resolved).replace(ext, '')
-  const specificExt = process.env.HANZO_GUI_TARGET === 'web' ? 'web' : 'native'
+  const specificExt = process.env.GUI_TARGET === 'web' ? 'web' : 'native'
   const specificFile = join(dirname(resolved), fileName + '.' + specificExt + ext)
   if (fsExtra.existsSync(specificFile)) {
     return specificFile

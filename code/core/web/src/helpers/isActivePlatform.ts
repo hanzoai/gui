@@ -9,6 +9,6 @@ export function isActivePlatform(key: string) {
     // web, ios, android
     platform === currentPlatform ||
     // web, native
-    platform === process.env.HANZO_GUI_TARGET
+    platform === process.env.GUI_TARGET
   )
 }

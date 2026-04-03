@@ -33,7 +33,7 @@ export async function setupPage(
   const animationDriver =
     searchParams.animationDriver ??
     (testInfo.project?.metadata as any)?.animationDriver ??
-    process.env.HANZO_GUI_TEST_ANIMATION_DRIVER ??
+    process.env.GUI_TEST_ANIMATION_DRIVER ??
     'native'
 
   const params = new URLSearchParams({

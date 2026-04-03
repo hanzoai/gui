@@ -14,8 +14,8 @@
     "build:ignore-base-url": "node ../../../hanzo-gui-build.js --ignore-base-url",
     "build:watch": "node ../../../hanzo-gui-build.js --watch",
     "build:minify": "MINIFY=true node ../../../hanzo-gui-build.js",
-    "build:target-web": "HANZO_GUI_TARGET=web node ../../../hanzo-gui-build.js",
-    "build:target-native": "HANZO_GUI_TARGET=native node ../../../hanzo-gui-build.js"
+    "build:target-web": "GUI_TARGET=web node ../../../hanzo-gui-build.js",
+    "build:target-native": "GUI_TARGET=native node ../../../hanzo-gui-build.js"
   },
   "devDependencies": {
     "@hanzogui/build": "3.0.6",

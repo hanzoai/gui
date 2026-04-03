@@ -26,7 +26,7 @@ import { getSafeArea } from './safeAreaState'
 
 function setup() {
   // only run on native
-  if (process.env.HANZO_GUI_TARGET !== 'native') {
+  if (process.env.GUI_TARGET !== 'native') {
     return
   }
 

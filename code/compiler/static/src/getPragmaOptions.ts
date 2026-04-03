@@ -36,8 +36,8 @@ export function getPragmaOptions({ source, path }: { source: string; path: strin
       break
   }
 
-  if (process.env.HANZO_GUI_DEBUG_FILE) {
-    if (path.includes(process.env.HANZO_GUI_DEBUG_FILE)) {
+  if (process.env.GUI_DEBUG_FILE) {
+    if (path.includes(process.env.GUI_DEBUG_FILE)) {
       shouldPrintDebug = 'verbose'
     }
   }

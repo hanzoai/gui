@@ -83,7 +83,7 @@ export function createGui<Conf extends CreateGuiProps>(
   let foundThemes: DedupedThemes | undefined
   if (configIn.themes) {
     const noThemes = Object.keys(configIn.themes).length === 0
-    if (noThemes && !process.env.HANZO_GUI_DID_OUTPUT_CSS) {
+    if (noThemes && !process.env.GUI_DID_OUTPUT_CSS) {
       foundThemes = scanAllSheets(noThemes, tokensParsed)
     }
   }
@@ -137,7 +137,7 @@ export function createGui<Conf extends CreateGuiProps>(
       }
     }
 
-    // CSS generation (tree-shaken when HANZO_GUI_DID_OUTPUT_CSS is set)
+    // CSS generation (tree-shaken when GUI_DID_OUTPUT_CSS is set)
     const declarations = createTokenCSS(tokens as any, shouldTokenCategoryHaveUnits)
     const fontDeclarations = createFontCSS(fontsParsed, registerFontVariables)
     const cssRuleSets = buildCSSRuleSets(declarations, fontDeclarations)
@@ -183,7 +183,7 @@ export function createGui<Conf extends CreateGuiProps>(
 
   const defaultProps = configIn.defaultProps || {}
   // apply defaultPosition via defaultProps when not static
-  if (process.env.HANZO_GUI_TARGET === 'web' && defaultPositionSetting !== 'static') {
+  if (process.env.GUI_TARGET === 'web' && defaultPositionSetting !== 'static') {
     defaultProps.View = {
       ...defaultProps.View,
       position: defaultPositionSetting,

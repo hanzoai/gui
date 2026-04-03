@@ -5,7 +5,7 @@ import { removeUserFromTeam } from '../github/helpers'
 import {
   getDiscordClient,
   TAKEOUT_ROLE_ID,
-  HANZO_GUI_DISCORD_GUILD_ID,
+  GUI_DISCORD_GUILD_ID,
 } from '../discord/helpers'
 import type { Database, Json } from '../supabase/types'
 
@@ -116,7 +116,7 @@ async function unclaimDiscordAccess(subscriptionId: string) {
       discordInvites.map((inv) =>
         discordClient.api.guilds
           .removeRoleFromMember(
-            HANZO_GUI_DISCORD_GUILD_ID,
+            GUI_DISCORD_GUILD_ID,
             inv.discord_user_id,
             TAKEOUT_ROLE_ID
           )

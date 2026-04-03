@@ -28,7 +28,7 @@ interface CommitInfo {
   date: string
 }
 
-const HANZO_GUI_PACKAGES_PATTERN = /^(@hanzo\/gui-|@hanzo\/gui$)/
+const GUI_PACKAGES_PATTERN = /^(@hanzo\/gui-|@hanzo\/gui$)/
 const COMMIT_TYPE_ORDER = [
   'feat',
   'fix',
@@ -113,7 +113,7 @@ function findGuiPackages(root: string): PackageInfo[] {
 
         for (const [name, version] of Object.entries(deps)) {
           if (typeof version !== 'string') continue
-          if (!HANZO_GUI_PACKAGES_PATTERN.test(name)) continue
+          if (!GUI_PACKAGES_PATTERN.test(name)) continue
           // Skip workspace: dependencies
           if (version.startsWith('workspace:')) continue
 

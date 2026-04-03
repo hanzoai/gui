@@ -21,14 +21,14 @@ function getInlineScript() {
   if (season !== '@hanzo/gui') {
     document.documentElement.classList.add(season + '-season');
   }
-  window.__HANZO_GUI_SEASON__ = season;
+  window.__GUI_SEASON__ = season;
 })();`
 }
 
 // syncs the tint family with the value computed by the inline script
 function useSeasonSync() {
   useEffect(() => {
-    const computed = (window as any).__HANZO_GUI_SEASON__ as TintFamily | undefined
+    const computed = (window as any).__GUI_SEASON__ as TintFamily | undefined
     if (computed) {
       setTintFamily(computed)
     }

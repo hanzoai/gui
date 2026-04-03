@@ -86,9 +86,9 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
   const entryPath = resolve(cwd, entry)
 
   const defaultDefine = {
-    'process.env.HANZO_GUI_TARGET': JSON.stringify('native'),
+    'process.env.GUI_TARGET': JSON.stringify('native'),
     'process.env.NODE_ENV': JSON.stringify('production'),
-    'process.env.HANZO_GUI_IS_CORE_NODE': JSON.stringify('1'),
+    'process.env.GUI_IS_CORE_NODE': JSON.stringify('1'),
   }
 
   // For test bundles, bundle a fake react-native implementation

@@ -6,7 +6,7 @@ import {
   getDiscordClient,
   TAKEOUT_GENERAL_CHANNEL,
   TAKEOUT_ROLE_ID,
-  HANZO_GUI_DISCORD_GUILD_ID,
+  GUI_DISCORD_GUILD_ID,
 } from '~/features/discord/helpers'
 import { ensureSubscription } from '../../../helpers/ensureSubscription'
 
@@ -116,7 +116,7 @@ export default apiRoute(async (req) => {
   if (hasDiscordPrivateChannels && !discordChannelId) {
     // Pro users get access to the general channel
     const channels = await discordClient.api.guilds.getChannels(
-      HANZO_GUI_DISCORD_GUILD_ID
+      GUI_DISCORD_GUILD_ID
     )
     const generalChannel = channels.find((c: any) => c.name === TAKEOUT_GENERAL_CHANNEL)
 
@@ -133,7 +133,7 @@ export default apiRoute(async (req) => {
     await Promise.allSettled(
       discordInvites.data.map((inv) =>
         discordClient.api.guilds.removeRoleFromMember(
-          HANZO_GUI_DISCORD_GUILD_ID,
+          GUI_DISCORD_GUILD_ID,
           inv.discord_user_id,
           TAKEOUT_ROLE_ID
         )
@@ -186,7 +186,7 @@ export default apiRoute(async (req) => {
     })
 
     await discordClient.api.guilds.addRoleToMember(
-      HANZO_GUI_DISCORD_GUILD_ID,
+      GUI_DISCORD_GUILD_ID,
       userDiscordId,
       TAKEOUT_ROLE_ID
     )

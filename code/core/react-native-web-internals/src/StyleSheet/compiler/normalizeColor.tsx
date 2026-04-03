@@ -27,7 +27,7 @@ export const normalizeColor = (color?: number | string, opacity = 1): void | str
     return `rgba(${r},${g},${b},${alpha})`
   }
 
-  if (process.env.HANZO_GUI_TARGET === 'web') {
+  if (process.env.GUI_TARGET === 'web') {
     if (typeof color === 'string') {
       return color
     }

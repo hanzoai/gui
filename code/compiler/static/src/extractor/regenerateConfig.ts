@@ -33,7 +33,7 @@ export async function regenerateConfig(
       spaces: 2,
     })
   } catch (err) {
-    if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_HANZO_GUI_DEV) {
+    if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now
@@ -47,7 +47,7 @@ export function regenerateConfigSync(_guiOptions: GuiOptions, config: BundledCon
       spaces: 2,
     })
   } catch (err) {
-    if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_HANZO_GUI_DEV) {
+    if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now

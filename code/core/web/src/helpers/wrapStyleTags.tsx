@@ -4,7 +4,7 @@ import type { StyleObject } from '../types'
 // turns out this is pretty slow, creating a bunch of extra tags...
 
 export function getStyleTags(styles: StyleObject[]) {
-  if (process.env.HANZO_GUI_TARGET !== 'native') {
+  if (process.env.GUI_TARGET !== 'native') {
     if (styles.length) {
       return (
         <>

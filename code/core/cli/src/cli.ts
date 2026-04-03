@@ -45,7 +45,7 @@ const COMMAND_MAP = {
         loadGuiOptions: true,
       })
       const { loadGui } = require('@hanzogui/static/loadGui')
-      process.env.HANZO_GUI_KEEP_THEMES = '1'
+      process.env.GUI_KEEP_THEMES = '1'
       await loadGui({
         ...options.guiOptions,
         platform: 'web',
@@ -81,7 +81,7 @@ const COMMAND_MAP = {
         flags['--output'] || options.guiOptions.outputCSS || './gui.generated.css'
 
       const { loadGui } = require('@hanzogui/static/loadGui')
-      process.env.HANZO_GUI_KEEP_THEMES = '1'
+      process.env.GUI_KEEP_THEMES = '1'
       await loadGui({
         ...options.guiOptions,
         outputCSS: outputPath,

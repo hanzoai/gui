@@ -125,7 +125,7 @@ export function getThemeProxied(
           const outVal = getVariable(value)
           const { name, scheme } = curState
 
-          if (process.env.HANZO_GUI_TARGET === 'native') {
+          if (process.env.GUI_TARGET === 'native') {
             // ios can avoid re-rendering for scheme changes (light↔dark) when using DynamicColorIOS
             // this does NOT work for sub-theme changes (red→blue) or when scheme inverses from parent
             const fastSchemeChange = getSetting('fastSchemeChange')

@@ -1,4 +1,4 @@
-process.env.HANZO_GUI_TARGET = 'web'
+process.env.GUI_TARGET = 'web'
 
 import { getDefaultGuiConfig } from '@hanzogui/config-default'
 import { render } from '@testing-library/react'

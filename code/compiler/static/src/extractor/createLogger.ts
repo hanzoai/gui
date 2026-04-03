@@ -7,7 +7,7 @@ export function createLogger(sourcePath: string, options: GuiOptions) {
   const shouldLogTiming = options.logTimings ?? true
   const start = Date.now()
   const mem =
-    process.env.HANZO_GUI_SHOW_MEMORY_USAGE && shouldLogTiming
+    process.env.GUI_SHOW_MEMORY_USAGE && shouldLogTiming
       ? process.memoryUsage()
       : null
 

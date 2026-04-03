@@ -139,7 +139,7 @@ const shouldSkipTypes = shouldSwapExports
 const shouldSkipNative = hasFlag('--skip-native')
 const shouldSkipMJS = hasFlag('--skip-mjs')
 const shouldSkipSourceMaps =
-  hasFlag('--skip-sourcemaps') || getEnvFlag('HANZO_GUI_BUILD_SKIP_SOURCEMAPS')
+  hasFlag('--skip-sourcemaps') || getEnvFlag('GUI_BUILD_SKIP_SOURCEMAPS')
 // React Compiler is disabled by default - use --react-compiler to enable
 const shouldEnableCompiler = !!(
   hasFlag('--react-compiler') || process.env.REACT_COMPILER
@@ -936,7 +936,7 @@ async function esbuildWriteIfChanged(
       ...(platform === 'web' && webEsbuildSettings),
       define: {
         ...(platform && {
-          'process.env.HANZO_GUI_TARGET': `"${platform}"`,
+          'process.env.GUI_TARGET': `"${platform}"`,
         }),
         ...(env && {
           'process.env.NODE_ENV': `"${env}"`,

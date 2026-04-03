@@ -81,7 +81,7 @@ export const GuiProvider = (props: GuiProviderProps) => {
 
 // automate using the react native media driver
 export const createGui: typeof createGuiWeb = (conf) => {
-  if (process.env.HANZO_GUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     if (conf.media) {
       conf.media = createMedia(conf.media)
     }
@@ -97,7 +97,7 @@ setupHooks({
   getBaseViews,
 
   setElementProps: (node) => {
-    if (process.env.HANZO_GUI_TARGET === 'web') {
+    if (process.env.GUI_TARGET === 'web') {
       // web only
       if (node && !node['measure']) {
         node.measure ||= createMeasure(node)
@@ -108,7 +108,7 @@ setupHooks({
   },
 
   usePropsTransform(elementType, propsIn, stateRef, willHydrate) {
-    if (process.env.HANZO_GUI_TARGET === 'web') {
+    if (process.env.GUI_TARGET === 'web') {
       const isDOM = typeof elementType === 'string'
 
       // replicate react-native-web functionality
@@ -171,7 +171,7 @@ setupHooks({
   },
 
   // attempt at properly fixing RN input, but <Pressable><TextInput /> just doesnt work on RN
-  ...(process.env.HANZO_GUI_TARGET === 'native' && {
+  ...(process.env.GUI_TARGET === 'native' && {
     useChildren(elementType, children, viewProps) {
       if (process.env.NODE_ENV === 'test') {
         // test mode - just use regular views since optimizations cause weirdness
@@ -260,7 +260,7 @@ export const Text = WebText as any as RNGuiText
 //     } as const,
 
 //     // defaultVariants: {
-//     //   unstyled: process.env.HANZO_GUI_HEADLESS === '1' ? true : false,
+//     //   unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
 //     // },
 //   },
 //   {

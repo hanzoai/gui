@@ -6,7 +6,7 @@ import {
   DEFAULT_ROLE_ID,
   getDiscordClient,
   TAKEOUT_ROLE_ID,
-  HANZO_GUI_DISCORD_GUILD_ID,
+  GUI_DISCORD_GUILD_ID,
 } from '~/features/discord/helpers'
 import {
   getActiveSubscriptions,
@@ -158,7 +158,7 @@ export default apiRoute(async (req) => {
     let supportCategory
     try {
       supportCategory = await discordClient.api.guilds.createChannel(
-        HANZO_GUI_DISCORD_GUILD_ID,
+        GUI_DISCORD_GUILD_ID,
         {
           name: 'TAKEOUT-SUPPORT',
           type: 4, // 4 is category type
@@ -177,7 +177,7 @@ export default apiRoute(async (req) => {
     const topic = `${topicParts.join(' + ')} - Created at ${subscription.created} - ID: ${subscription.id}`
 
     const discordChannel = await discordClient.api.guilds.createChannel(
-      HANZO_GUI_DISCORD_GUILD_ID,
+      GUI_DISCORD_GUILD_ID,
       {
         name: channelName,
         parent_id: supportCategory.id,
@@ -206,7 +206,7 @@ export default apiRoute(async (req) => {
     await Promise.allSettled(
       discordInvites.data.map((inv) =>
         discordClient.api.guilds.removeRoleFromMember(
-          HANZO_GUI_DISCORD_GUILD_ID,
+          GUI_DISCORD_GUILD_ID,
           inv.discord_user_id,
           TAKEOUT_ROLE_ID
         )
@@ -277,7 +277,7 @@ export default apiRoute(async (req) => {
     })
 
     await discordClient.api.guilds.addRoleToMember(
-      HANZO_GUI_DISCORD_GUILD_ID,
+      GUI_DISCORD_GUILD_ID,
       userDiscordId,
       TAKEOUT_ROLE_ID
     )

@@ -459,7 +459,7 @@ export async function bundleConfig(props: GuiOptions) {
         component.moduleName
 
       if (!component.moduleName) {
-        if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_HANZO_GUI_DEV) {
+        if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_GUI_DEV) {
           console.warn(
             `⚠️ no module name found: ${component.moduleName} ${JSON.stringify(
               baseComponents
@@ -673,7 +673,7 @@ export async function loadComponentsInner(
         try {
           loaded = await attemptLoad({ forceExports: false })
         } catch (err2) {
-          if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
+          if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
             console.info(
               `\nGui attempted but failed to dynamically optimize components in:\n  ${name}\n`
             )
@@ -824,7 +824,7 @@ export function loadComponentsInnerSync(
       try {
         return attemptLoad({ forceExports: false })
       } catch (err) {
-        if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
+        if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
           console.info(
             `\nGui attempted but failed to dynamically optimize components in:\n  ${name}\n`
           )
@@ -882,9 +882,9 @@ function getComponentStaticConfigByName(name: string, exported: any) {
       }
     }
   } catch (err) {
-    if (process.env.HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD) {
+    if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
       console.error(
-        `Gui failed getting components from ${name} (Disable error by setting environment variable HANZO_GUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
+        `Gui failed getting components from ${name} (Disable error by setting environment variable GUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
       )
       console.error(err)
     }

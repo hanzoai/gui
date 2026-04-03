@@ -2,7 +2,7 @@ import { createVariables } from './createVariables'
 import type { CreateTokens, Variable } from './types'
 
 export function createTokens<T extends CreateTokens>(tokens: T): MakeTokens<T> {
-  return createVariables(tokens, process.env.HANZO_GUI_TOKEN_PREFIX ?? 't') as any
+  return createVariables(tokens, process.env.GUI_TOKEN_PREFIX ?? 't') as any
 }
 
 type NormalizeTokens<A, Type = A[keyof A]> = {

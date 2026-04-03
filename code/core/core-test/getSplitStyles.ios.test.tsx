@@ -2,8 +2,8 @@ import { View, createGui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 import { isColorStyleKey } from '../web/src/helpers/getDynamicVal'
 
-// Set HANZO_GUI_TARGET before importing getSplitStyles
-process.env.HANZO_GUI_TARGET = 'native'
+// Set GUI_TARGET before importing getSplitStyles
+process.env.GUI_TARGET = 'native'
 
 // Import directly from source so mocks apply
 import { getSplitStyles } from '../web/src/helpers/getSplitStyles'

@@ -17,7 +17,7 @@ const neg1Flex = [
 ] satisfies PropMappedValue
 
 export function expandStyle(key: string, value: any): PropMappedValue {
-  if (process.env.HANZO_GUI_TARGET === 'web') {
+  if (process.env.GUI_TARGET === 'web') {
     if (key === 'flex') {
       if (value === -1) {
         return neg1Flex
@@ -43,7 +43,7 @@ export function expandStyle(key: string, value: any): PropMappedValue {
     }
   }
 
-  if (process.env.HANZO_GUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     if (isAndroid && key === 'elevationAndroid') {
       return [['elevation', value]]
     }

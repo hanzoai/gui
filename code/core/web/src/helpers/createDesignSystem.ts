@@ -49,7 +49,7 @@ export function createTokenCSS(
   tokens: Record<string, Record<string, Variable>>,
   shouldTokenCategoryHaveUnits: (category: string) => boolean
 ): string[] {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
+  if (!process.env.GUI_DID_OUTPUT_CSS) {
     const declarations: string[] = []
     const sortedTokenKeys = Object.keys(tokens).sort()
 
@@ -83,7 +83,7 @@ export function createFontCSS(
   string,
   { name: string; declarations: string[]; language?: string; fontParsed: any }
 > {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
+  if (!process.env.GUI_DID_OUTPUT_CSS) {
     const fontDeclarations: Record<
       string,
       { name: string; declarations: string[]; language?: string; fontParsed: any }
@@ -120,7 +120,7 @@ export function buildCSSRuleSets(
   >,
   defaultFontToken: string = '$true'
 ): string[] {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
+  if (!process.env.GUI_DID_OUTPUT_CSS) {
     const cssRuleSets: string[] = []
     const sep = ' '
 
@@ -173,7 +173,7 @@ export function createThemeCSS(
   dedupedThemes: Array<{ names: string[]; theme: any }>,
   configIn: CreateGuiProps
 ): string[] {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
+  if (!process.env.GUI_DID_OUTPUT_CSS) {
     let themeRuleSets: string[] = []
 
     if (isWeb) {
@@ -205,7 +205,7 @@ export function getCSS(
   } = {},
   lastIndex: { value: number }
 ): string {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS && process.env.HANZO_GUI_TARGET === 'web') {
+  if (!process.env.GUI_DID_OUTPUT_CSS && process.env.GUI_TARGET === 'web') {
     const { separator = '\n', sinceLastCall, exclude } = opts
 
     if (sinceLastCall && lastIndex.value >= 0) {

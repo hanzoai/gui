@@ -17,7 +17,7 @@ const allRules: Record<string, string> = {}
 
 export const getAllSelectors = () => allSelectors
 export const getAllRules = () => {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
+  if (!process.env.GUI_DID_OUTPUT_CSS) {
     // Sort by identifier to ensure deterministic CSS output order
     const sortedKeys = Object.keys(allRules).sort()
     return sortedKeys.map((key) => allRules[key])
@@ -41,9 +41,9 @@ export function scanAllSheets(
   collectThemes = false,
   tokens?: TokensParsed
 ): DedupedThemes | undefined {
-  if (!process.env.HANZO_GUI_DID_OUTPUT_CSS) {
+  if (!process.env.GUI_DID_OUTPUT_CSS) {
     if (process.env.NODE_ENV === 'test') return
-    if (process.env.HANZO_GUI_TARGET !== 'web') return
+    if (process.env.GUI_TARGET !== 'web') return
 
     let themes: DedupedThemes | undefined
 
@@ -80,7 +80,7 @@ function trackInsertedStyle(id: string) {
   return next
 }
 
-const bailAfterEnv = process.env.HANZO_GUI_BAIL_AFTER_SCANNING_X_CSS_RULES
+const bailAfterEnv = process.env.GUI_BAIL_AFTER_SCANNING_X_CSS_RULES
 const bailAfter = bailAfterEnv ? +bailAfterEnv : 8000
 
 function updateSheetStyles(
@@ -198,8 +198,8 @@ function addThemesFromCSS(cssStyleRule: CSSStyleRule, tokens?: TokensParsed) {
     if (sepI === -1) continue
     const varIndex = rule.indexOf('--')
     let key = rule.slice(varIndex === -1 ? 0 : varIndex + 2, sepI)
-    if (process.env.HANZO_GUI_CSS_VARIABLE_PREFIX) {
-      key = key.replace(process.env.HANZO_GUI_CSS_VARIABLE_PREFIX, '')
+    if (process.env.GUI_CSS_VARIABLE_PREFIX) {
+      key = key.replace(process.env.GUI_CSS_VARIABLE_PREFIX, '')
     }
     const val = rule.slice(sepI + 2)
     let value: string
@@ -301,7 +301,7 @@ export function setNonce(_: string) {
 }
 
 export function insertStyleRules(rulesToInsert: RulesToInsert) {
-  if (process.env.HANZO_GUI_TARGET !== 'web') return
+  if (process.env.GUI_TARGET !== 'web') return
 
   if (!sheet && document.head) {
     const styleTag = document.createElement('style')
@@ -342,10 +342,10 @@ export function insertStyleRules(rulesToInsert: RulesToInsert) {
 
 // The way browser or next.js work you end up with CSS being removed *after* the new CSS loads for the upcoming page
 // this causes many bugs. We defaulted to "2" here for safety, meaning we sacrificed some performance
-// setting HANZO_GUI_INSERT_SELECTOR_TRIES=1 will be faster so long as you are concatting your CSS together
+// setting GUI_INSERT_SELECTOR_TRIES=1 will be faster so long as you are concatting your CSS together
 
-const maxToInsert = process.env.HANZO_GUI_INSERT_SELECTOR_TRIES
-  ? +process.env.HANZO_GUI_INSERT_SELECTOR_TRIES
+const maxToInsert = process.env.GUI_INSERT_SELECTOR_TRIES
+  ? +process.env.GUI_INSERT_SELECTOR_TRIES
   : 1
 
 export function shouldInsertStyleRules(identifier: string) {
@@ -354,9 +354,9 @@ export function shouldInsertStyleRules(identifier: string) {
   }
   const total = totalSelectorsInserted.get(identifier) || 0
   if (process.env.NODE_ENV === 'development') {
-    if (total > +(process.env.HANZO_GUI_STYLE_INSERTION_WARNING_LIMIT || 10)) {
+    if (total > +(process.env.GUI_STYLE_INSERTION_WARNING_LIMIT || 10)) {
       console.warn(
-        `Warning: inserting many CSS rules, you may be animating something and generating many CSS insertions, which can degrade performance. Instead, try using the "disableClassName" property on elements that change styles often. To disable this warning set HANZO_GUI_STYLE_INSERTION_WARNING_LIMIT from 50000 to something higher`
+        `Warning: inserting many CSS rules, you may be animating something and generating many CSS insertions, which can degrade performance. Instead, try using the "disableClassName" property on elements that change styles often. To disable this warning set GUI_STYLE_INSERTION_WARNING_LIMIT from 50000 to something higher`
       )
     }
   }

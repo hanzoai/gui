@@ -118,7 +118,7 @@ describe('generateThemeBuilderCode', () => {
 
     expect(code).toContain('export type Themes = typeof builtThemes')
     expect(code).toContain('export const themes: Themes =')
-    expect(code).toContain("process.env.HANZO_GUI_ENVIRONMENT === 'client'")
+    expect(code).toContain("process.env.GUI_ENVIRONMENT === 'client'")
   })
 
   it('generates valid palette arrays with 12 colors', async () => {

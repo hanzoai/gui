@@ -15,7 +15,7 @@ import { Button, Square, Text, YStack } from '@hanzo/gui'
  * - getBoundingClientRect() returns width: 50, height: 50 (transformed)
  * - offsetWidth/offsetHeight return 100, 100 (pre-transform, expected)
  *
- * enable HANZO_GUI_ONLAYOUT_PRETRANSFORM=1 to test the fix
+ * enable GUI_ONLAYOUT_PRETRANSFORM=1 to test the fix
  *
  * see: https://github.com/hanzoai/gui/pull/2329
  */

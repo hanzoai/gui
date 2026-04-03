@@ -33,7 +33,7 @@ export function evaluateRenderProp(
   if (typeof render === 'string') {
     // on native, ignore lowercase tags (html/jsx elements like "div", "span")
     if (
-      process.env.HANZO_GUI_TARGET === 'native' &&
+      process.env.GUI_TARGET === 'native' &&
       render[0] === render[0].toLowerCase()
     ) {
       return defaultElement

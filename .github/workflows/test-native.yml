@@ -49,7 +49,7 @@ jobs:
         working-directory: ${{ env.test_container_app_path }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -58,7 +58,7 @@ jobs:
 
       - name: Restore Built App from Cache
         id: restore-ios-cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           key: ${{ needs.build-ios.outputs.built-app-cache-key }}
           path: ${{ needs.build-ios.outputs.built-app-path }}
@@ -165,7 +165,7 @@ jobs:
 
       - name: Upload Detox Artifacts on Failure
         if: failure() && env.SKIP_IOS_TESTS != 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: detox-artifacts-ios-${{ strategy.job-index }}
           path: ${{ env.test_container_app_path }}/e2e/artifacts/
@@ -197,7 +197,7 @@ jobs:
           df -h /
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -230,7 +230,7 @@ jobs:
       - name: Check if Android folder is already cached
         id: android-cache-check
         if: ${{ steps.get-fingerprint-from-cache.outputs.fingerprint != 'null' }}
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: code/kitchen-sink/android
           key: android-detox-${{ env.android_cache_version }}-${{ steps.get-fingerprint-from-cache.outputs.fingerprint }}
@@ -399,7 +399,7 @@ jobs:
       - name: Check If Build Already Exists (with new fingerprint)
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
         id: android-cache-check-new
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: code/kitchen-sink/android
           key: android-detox-${{ env.android_cache_version }}-${{ steps.calculate-fingerprint.outputs.fingerprint }}
@@ -407,7 +407,7 @@ jobs:
 
       - name: Cache Gradle
         if: ${{ !steps.android-cache-check.outputs.cache-hit && !steps.android-cache-check-new.outputs.cache-hit }}
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.gradle/caches
@@ -427,7 +427,7 @@ jobs:
 
       - name: Cache Android Folder
         if: ${{ !steps.android-cache-check.outputs.cache-hit && !steps.android-cache-check-new.outputs.cache-hit }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: code/kitchen-sink/android
           key: android-detox-${{ env.android_cache_version }}-${{ steps.calculate-fingerprint.outputs.fingerprint }}
@@ -461,7 +461,7 @@ jobs:
         working-directory: ${{ env.test_container_app_path }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -473,7 +473,7 @@ jobs:
 
       - name: Restore Android Folder from Cache
         id: restore-android-cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           key: ${{ needs.build-android.outputs.android-cache-key }}
           path: ${{ needs.build-android.outputs.android-path }}
@@ -566,7 +566,7 @@ jobs:
 
       - name: Upload Detox Artifacts on Failure
         if: env.ANDROID_TESTS_FAILED == 'true' && env.SKIP_ANDROID_TESTS != 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: detox-artifacts-android-attempt-${{ matrix.attempt }}
           path: ${{ env.test_container_app_path }}/e2e/artifacts/

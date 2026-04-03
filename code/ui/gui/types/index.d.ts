@@ -36,5 +36,8 @@ export * from '@hanzogui/toast';
 export * from '@hanzogui/visually-hidden';
 export * from '@hanzogui/focusable';
 export * from '@hanzogui/elements';
+export { createThemes, createThemeBuilder } from '@hanzogui/theme-builder';
+export { shorthands } from '@hanzogui/shorthands';
+export { getDefaultGuiConfig } from '@hanzogui/config-default';
 export { Anchor, type AnchorProps } from './views/Anchor';
 //# sourceMappingURL=index.d.ts.map

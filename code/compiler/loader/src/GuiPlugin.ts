@@ -120,7 +120,7 @@ export class GuiPlugin {
       }
     }
 
-    // Load Hanzo GUI config asynchronously in worker
+    // Load GUI config asynchronously in worker
     void StaticWorker.loadGui({
       components: ['@hanzo/gui'],
       platform: 'web',

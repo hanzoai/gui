@@ -50,9 +50,9 @@ export default apiRoute(async (req) => {
 
   // All valid Pro product IDs (V1 and V2) that grant GitHub access
   const validProProductIds = [
-    'prod_RlRd2DVrG0frHe', // V1 Hanzo GUI Pro
-    'prod_Rxu0x7jR0nWJSv', // V1 Hanzo GUI Pro Team Seats
-    'prod_TneqayKPO32G63', // V2 Hanzo GUI Pro V2 License/Upgrade
+    'prod_RlRd2DVrG0frHe', // V1 GUI Pro
+    'prod_Rxu0x7jR0nWJSv', // V1 GUI Pro Team Seats
+    'prod_TneqayKPO32G63', // V2 GUI Pro V2 License/Upgrade
     'prod_TsDjQ6tmdFy7M6', // V2 Support Direct
     'prod_TsDjG5QpL21tT1', // V2 Support Sponsor
   ]

@@ -726,14 +726,14 @@ const componentsIn = {
           </H4>
           <YStack overflow="hidden" flex={1} flexBasis="auto" opacity={0.85} gap="$4">
             <Paragraph>
-              Hanzo GUI is fully OSS, self-funded and built by{' '}
+              GUI is fully OSS, self-funded and built by{' '}
               <a href="https://x.com/natebirdman" target="_blank" rel="noreferrer">
                 me
               </a>
               .
             </Paragraph>
             <Paragraph>
-              My goal is to support Hanzo GUI development with sponsorships that get early
+              My goal is to support GUI development with sponsorships that get early
               access to <a href="#sponsors">some really interesting</a> new features.
             </Paragraph>
             <SponsorButton />
@@ -763,7 +763,7 @@ const componentsIn = {
       <YStack gap="$1">
         <ThemeTintAlt offset={2}>
           <IntroParagraph large mt="$4">
-            Hanzo GUI makes styling React on any platform a delight. All of its features
+            GUI makes styling React on any platform a delight. All of its features
             work the same on both React Native and React web.
           </IntroParagraph>
 

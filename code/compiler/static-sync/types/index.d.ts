@@ -1,7 +1,7 @@
 /**
  * @hanzogui/static-sync
  *
- * Synchronous API for Hanzo GUI static extraction using synckit.
+ * Synchronous API for GUI static extraction using synckit.
  * Wraps @hanzogui/static's worker implementation to provide sync APIs
  * required by Babel plugins which cannot use async functions.
  *
@@ -16,7 +16,7 @@ export declare const getPragmaOptions: (props: {
     path: string;
 }) => any;
 /**
- * Extract Hanzo GUI components to className-based CSS for web (synchronous)
+ * Extract GUI components to className-based CSS for web (synchronous)
  */
 export declare function extractToClassNamesSync(params: {
     source: string | Buffer;
@@ -25,7 +25,7 @@ export declare function extractToClassNamesSync(params: {
     shouldPrintDebug?: boolean | 'verbose';
 }): any;
 /**
- * Extract Hanzo GUI components to React Native StyleSheet format (synchronous)
+ * Extract GUI components to React Native StyleSheet format (synchronous)
  */
 export declare function extractToNativeSync(sourceFileName: string, sourceCode: string, options: GuiOptions): BabelFileResult;
 /**

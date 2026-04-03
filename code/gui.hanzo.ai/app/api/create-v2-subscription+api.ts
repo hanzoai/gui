@@ -162,7 +162,7 @@ export default apiRoute(async (req) => {
           customer: stripeCustomerId,
           amount: parityAdjustedPrice,
           currency: 'usd',
-          description: `Hanzo GUI Pro V2 License (${parityDiscountPercent}% parity discount for ${countryCode})`,
+          description: `GUI Pro V2 License (${parityDiscountPercent}% parity discount for ${countryCode})`,
           metadata: {
             version: 'v2',
             parity_discount: String(parityDiscountPercent),

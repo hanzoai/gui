@@ -26,7 +26,7 @@ export default function TakeoutPageNew() {
       <ThemeNameEffect colorKey="$color2" />
       <LoadCherryBomb />
       <HeadInfo
-        title="Hanzo GUI Takeout"
+        title="GUI Takeout"
         description="Ship apps everywhere - iOS, Android, and web with one codebase"
         openGraph={{
           url: '/takeout',

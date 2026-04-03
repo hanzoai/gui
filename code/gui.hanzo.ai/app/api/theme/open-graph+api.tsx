@@ -102,7 +102,7 @@ export async function GET(req: Request) {
               fontWeight: 500,
             }}
           >
-            Hanzo GUI Theme
+            GUI Theme
           </div>
         </div>
 
@@ -338,7 +338,7 @@ export async function GET(req: Request) {
               fontWeight: 500,
             }}
           >
-            Hanzo GUI Theme
+            GUI Theme
           </div>
         </div>
 

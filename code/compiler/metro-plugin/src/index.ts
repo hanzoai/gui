@@ -19,7 +19,7 @@ type MetroConfigInput = {
  * Configure Metro for Gui.
  *
  * This is now a simplified wrapper that just ensures CSS is enabled and
- * loads your Hanzo GUI config. For CSS generation, use the CLI:
+ * loads your GUI config. For CSS generation, use the CLI:
  *
  * 1. Create a `gui.build.ts` with `outputCSS` option
  * 2. Run `gui generate` before your build

@@ -921,12 +921,12 @@ const DiscordPanel = ({
 
       {apiType === 'channel' ? (
         <Paragraph color="$color9">
-          Join the #takeout-general channel to discuss Hanzo GUI with other Pro users.
+          Join the #takeout-general channel to discuss GUI with other Pro users.
         </Paragraph>
       ) : (
         <Paragraph color="$color9">
           Get access to your private support channel where you can directly communicate
-          with the Hanzo GUI team.
+          with the GUI team.
         </Paragraph>
       )}
 
@@ -1279,7 +1279,7 @@ const PlanTab = ({
           {supportSubscription && (
             <ServiceCard
               title="Private Support"
-              description="Access your private Discord support channel with priority responses from the Hanzo GUI team."
+              description="Access your private Discord support channel with priority responses from the GUI team."
               actionLabel="Manage Support"
               onAction={() => {
                 setShowSupportAccess(true)
@@ -1593,7 +1593,7 @@ const V2RenewalCard = ({ subscription }: { subscription: Subscription }) => {
           </Paragraph>
           <YStack gap="$1" pl="$2">
             <Paragraph color="$purple10">
-              • Takeout 2 - Hanzo GUI 2, One 1, and Zero stack
+              • Takeout 2 - GUI 2, One 1, and Zero stack
             </Paragraph>
             <Paragraph color="$purple10">
               • Takeout Static - Web-only starter with 100 Lighthouse
@@ -2149,7 +2149,7 @@ const TeamTab = ({
       <YStack gap="$4">
         <H3>No Team Subscription</H3>
         <Paragraph color="$color10">
-          Purchase team seats to invite team members to your Hanzo GUI Pro subscription.
+          Purchase team seats to invite team members to your GUI Pro subscription.
         </Paragraph>
         <Button
           theme="accent"
@@ -2209,7 +2209,7 @@ const TeamTab = ({
             ) : searchQuery.length > 0 ? (
               <YStack gap={0}>
                 <Paragraph color="$color10">No results found</Paragraph>
-                <Paragraph color="$color10">User is not a member of Hanzo GUI</Paragraph>
+                <Paragraph color="$color10">User is not a member of GUI</Paragraph>
               </YStack>
             ) : null}
           </YStack>

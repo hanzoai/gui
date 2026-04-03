@@ -115,7 +115,7 @@ const features = [
   { feature: 'Support', v1: 'Chat', v2: 'Chat', v2free: false },
   { feature: 'Private GitHub', v1: true, v2: true, v2free: false },
   { feature: 'Native Apps', v1: true, v2: true, v2free: true },
-  { feature: 'Hanzo GUI', v1: true, v2: true, v2free: true },
+  { feature: 'GUI', v1: true, v2: true, v2free: true },
 ]
 
 export function VersionComparison() {

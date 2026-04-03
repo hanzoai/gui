@@ -53,7 +53,7 @@ export default function BentoPage() {
   return (
     <CurrentRouteProvider section={section} part={part}>
       <HeadInfo
-        title={`${section} / ${part} - Hanzo GUI Bento`}
+        title={`${section} / ${part} - GUI Bento`}
         description={`Copy-paste ${section} ${part} component for React Native and Web`}
         openGraph={{
           images: [{ url: '/bento/social.png' }],

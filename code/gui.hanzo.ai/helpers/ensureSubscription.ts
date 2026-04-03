@@ -58,7 +58,7 @@ export async function ensureSubscription(
   if (!subscriptionData) {
     throw Response.json(
       {
-        message: 'the provided subscription does not include the Hanzo GUI Pro',
+        message: 'the provided subscription does not include the GUI Pro',
       },
       {
         status: 401,

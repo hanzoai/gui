@@ -238,7 +238,7 @@ export function guiPlugin({
           config: './src/gui.config.ts',
           ...options,
         }).catch((err) => {
-          console.error(` [Hanzo GUI] Error watching config: ${err}`)
+          console.error(` [GUI] Error watching config: ${err}`)
         })
       }
 

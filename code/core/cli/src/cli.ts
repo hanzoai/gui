@@ -151,7 +151,7 @@ const COMMAND_MAP = {
 
   build: {
     shorthands: ['b'],
-    description: `Use to pre-build a Hanzo GUI component directory. Use -- to run a command after optimization, then auto-restore files.`,
+    description: `Use to pre-build a GUI component directory. Use -- to run a command after optimization, then auto-restore files.`,
     flags: {
       '--help': Boolean,
       '--debug': Boolean,
@@ -253,7 +253,7 @@ const COMMAND_MAP = {
 
   'generate-prompt': {
     shorthands: [],
-    description: `Generate an LLM-friendly markdown file from your Hanzo GUI config`,
+    description: `Generate an LLM-friendly markdown file from your GUI config`,
     flags: {
       '--help': Boolean,
       '--debug': Boolean,

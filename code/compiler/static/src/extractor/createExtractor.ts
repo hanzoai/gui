@@ -400,7 +400,7 @@ export function createExtractor(
         console.error(
           `⛔️ Error: Missing "themes" in your gui.config file:
 
-            You may not need the compiler! Remember you can run Hanzo GUI with no configuration at all.
+            You may not need the compiler! Remember you can run GUI with no configuration at all.
 
             You may have not "export default" your config (you can also "export const config").
             
@@ -442,7 +442,7 @@ export function createExtractor(
     if (!isFullyDisabled(options)) {
       if (Object.keys(components || []).length === 0) {
         console.warn(
-          `Warning: Hanzo GUI didn't find any valid components (DEBUG=hanzo-gui for more)`
+          `Warning: GUI didn't find any valid components (DEBUG=hanzo-gui for more)`
         )
         if (process.env.DEBUG === '@hanzo/gui') {
           console.info(`components`, Object.keys(components || []), components)
@@ -683,7 +683,7 @@ export function createExtractor(
               if (foundNames) {
                 colorLog(
                   Color.FgYellow,
-                  `      | Hanzo GUI found dynamic components: ${foundNames}`
+                  `      | GUI found dynamic components: ${foundNames}`
                 )
               }
             }
@@ -970,7 +970,7 @@ export function createExtractor(
           getValidComponent(propsWithFileInfo, moduleName, node.name.name)
         if (!component || !component.staticConfig) {
           if (shouldPrintDebug) {
-            logger.info(`\n - No Hanzo GUI conf for: ${node.name.name}\n`)
+            logger.info(`\n - No GUI conf for: ${node.name.name}\n`)
           }
           return
         }

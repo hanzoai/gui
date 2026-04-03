@@ -16,8 +16,8 @@ export default function BentoPage() {
       <LoadCherryBomb />
 
       <HeadInfo
-        title="Copy-paste UI for React Native and Web - Hanzo GUI Bento"
-        description="Hanzo GUI Bento - Copy-paste components and screens for React and React Native"
+        title="Copy-paste UI for React Native and Web - GUI Bento"
+        description="GUI Bento - Copy-paste components and screens for React and React Native"
         openGraph={{
           url: '/bento',
           images: [

@@ -49,7 +49,7 @@ export interface BundleOptions {
 }
 
 /**
- * Bundle a Hanzo GUI package for React Native using Vite
+ * Bundle a GUI package for React Native using Vite
  */
 export async function bundleNative(options: BundleOptions): Promise<void> {
   const {

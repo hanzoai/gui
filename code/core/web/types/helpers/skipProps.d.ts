@@ -1,5 +1,5 @@
 /**
- * These are props that dont pass down below Hanzo GUI styled components
+ * These are props that dont pass down below GUI styled components
  */
 export declare const skipProps: {
     untilMeasured: number;

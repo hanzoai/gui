@@ -121,7 +121,7 @@ export const UpgradeToProPopover = (props: PopoverProps) => {
                   size="$5"
                   text="center"
                 >
-                  Hanzo GUI Pro
+                  GUI Pro
                 </H5>
               )}
 

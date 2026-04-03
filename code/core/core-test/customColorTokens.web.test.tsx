@@ -3,7 +3,7 @@ import { createGui } from '@hanzogui/core'
 
 describe('custom color tokens', () => {
   beforeEach(() => {
-    // Clear any global Hanzo GUI configuration between tests
+    // Clear any global GUI configuration between tests
     if (globalThis.__guiConfig) {
       delete globalThis.__guiConfig
     }

@@ -1,7 +1,7 @@
 /**
  * @hanzogui/static-worker
  *
- * Pure worker-based API for Hanzo GUI static extraction.
+ * Pure worker-based API for GUI static extraction.
  * All operations run in a worker thread for better performance and isolation.
  *
  * This package provides a clean async API that wraps @hanzogui/static's worker
@@ -18,18 +18,18 @@ export declare const getPragmaOptions: (props: {
     shouldDisable: boolean;
 }>;
 /**
- * Load Hanzo GUI configuration in worker
+ * Load GUI configuration in worker
  * Sends a warmup task to trigger config loading
  * bundleConfig auto-detects if files exist and skips rebuild
  */
 export declare function loadGui(options: Partial<GuiOptions>): Promise<any>;
 /**
- * Load Hanzo GUI build configuration asynchronously
+ * Load GUI build configuration asynchronously
  * Uses esbuild-wasm to avoid EPIPE errors from native esbuild service lifecycle
  */
 export declare function loadGuiBuildConfig(guiOptions: Partial<GuiOptions> | undefined): Promise<GuiOptions>;
 /**
- * Extract Hanzo GUI components to className-based CSS for web
+ * Extract GUI components to className-based CSS for web
  */
 export declare function extractToClassNames(params: {
     source: string | Buffer;
@@ -38,11 +38,11 @@ export declare function extractToClassNames(params: {
     shouldPrintDebug?: boolean | 'verbose';
 }): Promise<any>;
 /**
- * Extract Hanzo GUI components to React Native StyleSheet format
+ * Extract GUI components to React Native StyleSheet format
  */
 export declare function extractToNative(sourceFileName: string, sourceCode: string, options: GuiOptions): Promise<any>;
 /**
- * Watch Hanzo GUI config for changes and reload when it changes
+ * Watch GUI config for changes and reload when it changes
  */
 export declare function watchGuiConfig(options: GuiOptions): Promise<{
     dispose: () => void;

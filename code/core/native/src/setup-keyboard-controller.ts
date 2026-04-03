@@ -1,5 +1,5 @@
 /**
- * Setup keyboard controller for Hanzo GUI native components.
+ * Setup keyboard controller for GUI native components.
  *
  * Simply import this module at the top of your app entry point:
  *

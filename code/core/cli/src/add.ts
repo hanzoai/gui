@@ -58,9 +58,9 @@ export const installGeneratedPackage = async (type: string, packagesPath?: strin
       if ((error as any)?.stderr.includes('Repository not found')) {
         console.info(
           chalk.yellow(
-            `You don't have access to Hanzo GUI ${
+            `You don't have access to GUI ${
               type === 'font' ? 'fonts' : 'icons'
-            }. Check 🥡 Hanzo GUI Takeout (https://gui.hanzo.ai/takeout) for more info.`
+            }. Check 🥡 GUI Takeout (https://gui.hanzo.ai/takeout) for more info.`
           )
         )
         open('https://gui.hanzo.ai/takeout')

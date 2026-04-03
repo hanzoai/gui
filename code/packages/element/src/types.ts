@@ -43,7 +43,7 @@ export interface GuiElementMethods {
 export type GuiElement = (HTMLElement & GuiElementMethods) | View
 
 /**
- * Web-specific element type that extends HTMLElement with Hanzo GUI methods.
+ * Web-specific element type that extends HTMLElement with GUI methods.
  * Use this when you need an HTMLElement ref in web-only code.
  */
 export type GuiWebElement<T extends HTMLElement = HTMLElement> = T & GuiElementMethods

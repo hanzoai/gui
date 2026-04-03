@@ -45,5 +45,10 @@ export * from '@hanzogui/visually-hidden'
 export * from '@hanzogui/focusable'
 export * from '@hanzogui/elements'
 
+// Config utilities — needed by consumer brand configs
+export { createThemes, createThemeBuilder } from '@hanzogui/theme-builder'
+export { shorthands } from '@hanzogui/shorthands'
+export { getDefaultGuiConfig } from '@hanzogui/config-default'
+
 // Additional exports (ported from tamagui, missing in earlier builds)
 export { Anchor, type AnchorProps } from './views/Anchor'

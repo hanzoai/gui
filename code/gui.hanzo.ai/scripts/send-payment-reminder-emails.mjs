@@ -128,7 +128,7 @@ function buildEmailHtml(name, daysUntilExpiry, isApology) {
   <ul>
     <li><strong>Gui 2</strong> - Better in every way: new components, re-written docs, easier install and setup, thousands of new tests. <strong><a href="https://gui.hanzo.ai/blog/version-two">Read the announcement &rarr;</a></strong></li>
     <li><strong>One v1</strong> - One is now stable and works seamlessly with Metro, plus has more features than your favorite web framework. <strong><a href="https://onestack.dev/blog/version-one-rc1">Read about One &rarr;</a></strong></li>
-    <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. Hanzo GUI 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://gui.hanzo.ai/takeout">More info</a></strong> | <strong><a href="https://takeout.gui.hanzo.ai">Demo</a></strong></li>
+    <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. GUI 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://gui.hanzo.ai/takeout">More info</a></strong> | <strong><a href="https://takeout.gui.hanzo.ai">Demo</a></strong></li>
     <li><strong>Takeout Static</strong> - A new simplified web-only starter with MDX blog/docs and 100 Lighthouse.</li>
     <li><strong>Bento Components</strong> - Rewritten for v2 with new components and more polish, updated libraries.</li>
     <li><strong>Unlimited Team Members</strong> - Share access with your whole team.</li>
@@ -138,7 +138,7 @@ function buildEmailHtml(name, daysUntilExpiry, isApology) {
   <p>Questions? Just reply to this email or reach out at <a href="mailto:support@gui.hanzo.ai">support@gui.hanzo.ai</a>.</p>
 
   <div class="footer">
-    <p>Thanks for being part of Gui!<br><strong>- Nate & the Hanzo GUI Team</strong></p>
+    <p>Thanks for being part of Gui!<br><strong>- Nate & the GUI Team</strong></p>
   </div>
 </body>
 </html>

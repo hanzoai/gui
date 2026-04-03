@@ -82,7 +82,7 @@ export type GuiComponentPropsBaseBase = {
     disableClassName?: boolean;
     /**
      * Adds some area outside the typical bounds of the component for touch actions to register.
-     * Hanzo GUI uses Pressable internally so it supports `number | Insets` rather than just `Insets`
+     * GUI uses Pressable internally so it supports `number | Insets` rather than just `Insets`
      */
     hitSlop?: number | Insets | null;
 };

@@ -30,7 +30,7 @@ export declare function styledHtml<Tag extends keyof HTMLElementTagNameMap, Vari
     context?: StyledContext;
 }): GuiComponent<TamaDefer, HTMLElementTagNameMap[Tag], GuiComponentPropsBase & HTMLElementSpecificProps<Tag>, HTMLElementStyleBase<Tag>, Variants extends undefined ? {} : AreVariantsUndefined<NonNullable<Variants>> extends true ? {} : GetVariantAcceptedValues<NonNullable<Variants>>, {}>;
 /**
- * styled() for creating Hanzo GUI components from other components.
+ * styled() for creating GUI components from other components.
  */
 declare function styled<ParentComponent extends StylableComponent, StyledConfig extends StaticConfigPublic, Variants extends VariantDefinitions<ParentComponent, StyledConfig>>(ComponentIn: ParentComponent, options?: Partial<InferStyledProps<ParentComponent, StyledConfig>> & {
     name?: string;

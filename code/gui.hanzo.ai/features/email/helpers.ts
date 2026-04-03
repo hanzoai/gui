@@ -115,7 +115,7 @@ const whatYouGetSection = `
   <ul>
     <li><strong>Gui 2</strong> - Better in every way: new components, re-written docs, easier install and setup, thousands of new tests. <strong><a href="https://gui.hanzo.ai/blog/version-two">Read the announcement &rarr;</a></strong></li>
     <li><strong>One v1</strong> - One is now stable and works seamlessly with Metro, plus has more features than your favorite web framework. <strong><a href="https://onestack.dev/blog/version-one-rc1">Read about One &rarr;</a></strong></li>
-    <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. Hanzo GUI 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://gui.hanzo.ai/takeout">More info</a></strong> | <strong><a href="https://takeout.gui.hanzo.ai">Demo</a></strong></li>
+    <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. GUI 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://gui.hanzo.ai/takeout">More info</a></strong> | <strong><a href="https://takeout.gui.hanzo.ai">Demo</a></strong></li>
     <li><strong>Takeout Static</strong> - A new simplified web-only starter with MDX blog/docs and 100 Lighthouse.</li>
     <li><strong>Bento Components</strong> - Rewritten for v2 with new components and more polish, updated libraries. Includes access to the private <a href="https://github.com/hanzoai/bento">Bento source repo</a>.</li>
     <li><strong>Unlimited Team Members</strong> - Share access with your whole team.</li>
@@ -145,7 +145,7 @@ const emailCTAs = `
 // shared footer
 const emailFooter = `
   <div class="footer">
-    <p>Thanks for being part of Gui!<br><strong>- Nate & the Hanzo GUI Team</strong></p>
+    <p>Thanks for being part of Gui!<br><strong>- Nate & the GUI Team</strong></p>
   </div>
 `
 
@@ -190,14 +190,14 @@ export function sendV1UpgradeEmail(
 <body>
   <h1>Hey ${args.name}! 👋</h1>
 
-  <p>Thank you for being a Hanzo GUI Pro subscriber - we really appreciate your support!</p>
+  <p>Thank you for being a GUI Pro subscriber - we really appreciate your support!</p>
 
   <p>We're excited to announce <strong>Takeout 2</strong> is here, and it's the realization of years of effort to make a more realtime, responsive and Rails-like starter for React Native + Web.</p>
 
   <h2>What's New in Takeout 2</h2>
 
   <ul>
-    <li><strong>Takeout 2</strong> - Featuring Hanzo GUI 2, One 1, and Zero, it's a stack we poured effort into for years with way more refinement, great deployment / IaC options, and tons of scripts, helpers, hooks and UI in the box. Gets a >95 Lighthouse on a beautiful landing page that seamlessly transitions into a fully-loaded app experience.</li>
+    <li><strong>Takeout 2</strong> - Featuring GUI 2, One 1, and Zero, it's a stack we poured effort into for years with way more refinement, great deployment / IaC options, and tons of scripts, helpers, hooks and UI in the box. Gets a >95 Lighthouse on a beautiful landing page that seamlessly transitions into a fully-loaded app experience.</li>
     <li><strong>Takeout Static</strong> - A nice simplified web-only starter with Vercel deploy, MDX blog and docs, and 100 Lighthouse.</li>
     <li><strong>Unlimited Team Members</strong> - No more per-seat pricing, instead per-project with friendly pricing.</li>
   </ul>
@@ -230,7 +230,7 @@ export function sendV1UpgradeEmail(
   <p>If you have any questions or need help, just reply to this email or reach out at <a href="mailto:support@hanzo.ai">support@hanzo.ai</a>.</p>
 
   <div class="footer">
-    <p>Thanks for being part of the Hanzo GUI family!<br><strong>- Nate & the Hanzo GUI Team</strong></p>
+    <p>Thanks for being part of the GUI family!<br><strong>- Nate & the GUI Team</strong></p>
   </div>
 </body>
 </html>
@@ -268,7 +268,7 @@ export function sendV2RenewalEnabledEmail(email: string, args: { name: string })
 
   <p>Hey ${args.name},</p>
 
-  <p>You've successfully enabled automatic V2 renewal for your Hanzo GUI Pro subscription.</p>
+  <p>You've successfully enabled automatic V2 renewal for your GUI Pro subscription.</p>
 
   <h2>What happens next?</h2>
 
@@ -276,7 +276,7 @@ export function sendV2RenewalEnabledEmail(email: string, args: { name: string })
 
   <p>You'll get access to:</p>
   <ul>
-    <li><strong>Takeout 2</strong> - The complete React Native + Web starter with Hanzo GUI 2, One 1, and Zero</li>
+    <li><strong>Takeout 2</strong> - The complete React Native + Web starter with GUI 2, One 1, and Zero</li>
     <li><strong>Takeout Static</strong> - Web-only starter with 100 Lighthouse score</li>
     <li><strong>Bento Components</strong> - Full source repo access</li>
     <li><strong>Unlimited Team Members</strong> - No per-seat pricing</li>
@@ -288,7 +288,7 @@ export function sendV2RenewalEnabledEmail(email: string, args: { name: string })
   <p>If you have any questions, just reply to this email or reach out at <a href="mailto:support@hanzo.ai">support@hanzo.ai</a>.</p>
 
   <div class="footer">
-    <p>Thanks for your continued support!<br><strong>- Nate & the Hanzo GUI Team</strong></p>
+    <p>Thanks for your continued support!<br><strong>- Nate & the GUI Team</strong></p>
   </div>
 </body>
 </html>

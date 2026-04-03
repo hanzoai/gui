@@ -158,7 +158,7 @@ export function SponsorCarousel() {
             Our Sponsors
           </H2>
           <Paragraph text="center" color="$color10" size="$5" mt="$2">
-            Sponsors who made Hanzo GUI possible
+            Sponsors who made GUI possible
           </Paragraph>
         </YStack>
         <XStack flexWrap="wrap" justify="center" gap="$6" px="$6" maxW={1200}>

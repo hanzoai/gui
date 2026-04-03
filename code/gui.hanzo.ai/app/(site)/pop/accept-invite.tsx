@@ -79,7 +79,7 @@ export default function AcceptInvitePage() {
                 You already have access
               </H2>
               <Paragraph textAlign="center" color="$color11">
-                Your GitHub account is already a member of the Hanzo GUI team.
+                Your GitHub account is already a member of the GUI team.
               </Paragraph>
               <Button
                 size="$4"
@@ -100,7 +100,7 @@ export default function AcceptInvitePage() {
           {status === 'pending' && (
             <>
               <H2 size="$7" textAlign="center">
-                Invited to Hanzo GUI GitHub
+                Invited to GUI GitHub
               </H2>
               <Paragraph textAlign="center" color="$color11">
                 The invite should be in your inbox now.

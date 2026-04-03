@@ -17,7 +17,7 @@ export const ChatPage = () => {
         </Paragraph>
 
         <H1 fontFamily="$mono" size="$12">
-          Hanzo GUI Chat
+          GUI Chat
         </H1>
 
         <Paragraph fontFamily="$mono" size="$10">
@@ -49,14 +49,14 @@ export const ChatPage = () => {
         </Paragraph>
 
         <Paragraph fontFamily="$mono" size="$7" lineHeight="$8" color="$color11">
-          Hanzo GUI Chat has access to a wide variety of tools, including vector and fuzzy
+          GUI Chat has access to a wide variety of tools, including vector and fuzzy
           search, and three specific sub-tools that work together for code generation.
         </Paragraph>
 
         <Separator my="$5" />
 
         <Paragraph fontFamily="$mono" size="$7" lineHeight="$8" color="$color11">
-          Hanzo GUI Chat is in early beta, so we don't yet guarantee uptime and results,
+          GUI Chat is in early beta, so we don't yet guarantee uptime and results,
           but we appreciate your patience and feedback as we iterate on the model.
         </Paragraph>
 

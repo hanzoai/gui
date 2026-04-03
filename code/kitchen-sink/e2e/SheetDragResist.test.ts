@@ -136,7 +136,7 @@ describe('SheetDragResist', () => {
      * Expected: When ScrollView has content that fits (not scrollable), dragging
      * down should move the sheet to the next snap point.
      *
-     * NOTE: These tests document a DETOX LIMITATION, not a Hanzo GUI bug.
+     * NOTE: These tests document a DETOX LIMITATION, not a GUI bug.
      * Detox's swipe() doesn't trigger RNGH gestures when ScrollView content
      * is non-scrollable. The feature has been MANUALLY VERIFIED to work.
      * - Manual test via XcodeBuildMCP: swiping down moves sheet from position 0 to 1 ✓
@@ -330,7 +330,7 @@ describe('SheetDragResist', () => {
      *
      * RESULT: This test ALSO FAILS, confirming that Detox's swipe() cannot
      * trigger RNGH gestures when content is non-scrollable. This is a Detox
-     * limitation, not a bug in either Hanzo GUI or actions-sheet.
+     * limitation, not a bug in either GUI or actions-sheet.
      */
     it.skip('should drag actions-sheet DOWN with non-scrollable content', async () => {
       if (isAndroid()) return

@@ -1,5 +1,5 @@
 /**
- * Worker thread implementation for Hanzo GUI extraction
+ * Worker thread implementation for GUI extraction
  * Used by both piscina (async) and synckit (sync for babel)
  */
 

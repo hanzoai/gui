@@ -36,7 +36,7 @@ export default apiRoute(async (req) => {
   }
 
   /**
-   * Try to get team subscription to get the total_seats for Hanzo GUI Pro Team Seats plan.
+   * Try to get team subscription to get the total_seats for GUI Pro Team Seats plan.
    * In such case, the user should have more Discord seats given by the team subscription.
    *
    * TODO: Ideally, each team seat user would have their own pool of Discord seats.

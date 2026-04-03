@@ -34,7 +34,7 @@ export const useThemeWithState = (
         console.error(
           `[hanzo-gui] No theme found, this could be due to an invalid theme name (given theme props ${JSON.stringify(
             props
-          )}).\n\nIf this is intended and you are using Hanzo GUI without any themes, you can disable this warning by setting the environment variable GUI_DISABLE_NO_THEME_WARNING=1`
+          )}).\n\nIf this is intended and you are using GUI without any themes, you can disable this warning by setting the environment variable GUI_DISABLE_NO_THEME_WARNING=1`
         )
       }
     }

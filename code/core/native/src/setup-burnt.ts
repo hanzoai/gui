@@ -1,5 +1,5 @@
 /**
- * Setup burnt for Hanzo GUI native toasts.
+ * Setup burnt for GUI native toasts.
  *
  * Simply import this module at the top of your app entry point:
  *

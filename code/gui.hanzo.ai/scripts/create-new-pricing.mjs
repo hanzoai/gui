@@ -16,11 +16,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2020-08-27',
 })
 
-// existing product id for Hanzo GUI Pro V2
+// existing product id for GUI Pro V2
 const PRODUCT_ID = 'prod_TneqayKPO32G63'
 
 async function createNewPricing() {
-  console.info('Creating new Hanzo GUI Pro V2 pricing in Stripe...\n')
+  console.info('Creating new GUI Pro V2 pricing in Stripe...\n')
 
   // 1. Create the $400 one-time license price
   console.info('Creating price: $400 one-time license...')

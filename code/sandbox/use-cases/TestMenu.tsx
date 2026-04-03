@@ -13,7 +13,7 @@ import { Button, View } from '@hanzo/gui'
 import { isTouchable } from '@hanzogui/constants'
 
 /**
- * Menu Demo using Hanzo GUI Menu component.
+ * Menu Demo using GUI Menu component.
  * Automatically uses native menus on iOS/Android, web menus on web.
  * No configuration needed - it just works!
  */

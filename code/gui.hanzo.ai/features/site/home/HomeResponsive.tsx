@@ -391,7 +391,7 @@ export const Safari = memo(
             Github
           </Tab>
           <Tab borderColor="var(--pink7)" active>
-            Hanzo GUI - React Native & Web UI kits
+            GUI - React Native & Web UI kits
           </Tab>
           <Tab borderColor="var(--yellow7)" borderTopRightRadius={0}>
             @natebirdman

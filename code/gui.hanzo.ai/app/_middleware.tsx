@@ -33,9 +33,9 @@ function getLlmsTxt() {
   }
 
   const docsDir = path.join(process.cwd(), 'data/docs')
-  let combined = '# Hanzo GUI Complete Documentation\n\n'
+  let combined = '# GUI Complete Documentation\n\n'
   combined +=
-    '> Hanzo GUI is a complete UI solution for React Native and Web, with a fully-featured UI kit, styling engine, and optimizing compiler.\n\n'
+    '> GUI is a complete UI solution for React Native and Web, with a fully-featured UI kit, styling engine, and optimizing compiler.\n\n'
 
   const allFiles = getAllMdxFiles(docsDir)
 

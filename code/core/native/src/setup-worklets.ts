@@ -1,5 +1,5 @@
 /**
- * Setup worklets for Hanzo GUI native components.
+ * Setup worklets for GUI native components.
  *
  * Simply import this module at the top of your app entry point:
  *

@@ -4,18 +4,18 @@ import { YStack, H1, Paragraph, H3, styled } from '@hanzo/gui'
 export const ProLicense = () => {
   return (
     <YStack gap="$4" p="$4">
-      <H1 $sm={{ size: '$8' }}>Hanzo GUI Pro V2 License Agreement</H1>
+      <H1 $sm={{ size: '$8' }}>GUI Pro V2 License Agreement</H1>
       <Link href="/pro-policy">Policy Agreement</Link>
 
       <H3>Overview</H3>
       <Paragraph>
-        Hanzo GUI Pro V2 License grants you a non-exclusive, perpetual license to use
-        Hanzo GUI Pro features for one project. Your license includes lifetime rights to
+        GUI Pro V2 License grants you a non-exclusive, perpetual license to use
+        GUI Pro features for one project. Your license includes lifetime rights to
         all code and assets you download during your license period.
       </Paragraph>
 
       <H3>Project License Scope</H3>
-      <Paragraph>Each Hanzo GUI Pro V2 License covers one project, defined as:</Paragraph>
+      <Paragraph>Each GUI Pro V2 License covers one project, defined as:</Paragraph>
       <Paragraph render="span">
         <Ul>
           <Li>One public web domain (e.g., myapp.com)</Li>
@@ -25,7 +25,7 @@ export const ProLicense = () => {
       </Paragraph>
       <Paragraph>
         You must specify your project name and domain at the time of purchase. If you need
-        to use Hanzo GUI Pro for additional projects, you must purchase additional
+        to use GUI Pro for additional projects, you must purchase additional
         licenses.
       </Paragraph>
 
@@ -114,7 +114,7 @@ export const ProLicense = () => {
       <Paragraph render="span">
         <Ul>
           <Li>
-            Licensee is a person or business entity who has purchased a Hanzo GUI Pro V2
+            Licensee is a person or business entity who has purchased a GUI Pro V2
             license.
           </Li>
           <Li>
@@ -133,11 +133,11 @@ export const ProLicense = () => {
 
       <H3>Liability</H3>
       <Paragraph>
-        Hanzo GUI LLC's liability to you for costs, damages, or other losses arising from
+        GUI LLC's liability to you for costs, damages, or other losses arising from
         your use of the Pro features — including third-party claims against you — is
-        limited to the amount paid for your license. Hanzo GUI LLC may not be held liable
+        limited to the amount paid for your license. GUI LLC may not be held liable
         for any consequential damages related to your use of the Pro features. The
-        ownership of the Pro features remains with the Hanzo GUI LLC development team. You
+        ownership of the Pro features remains with the GUI LLC development team. You
         are required to abide by the licensing terms to avoid termination in case of
         non-compliance with the agreed terms.
       </Paragraph>

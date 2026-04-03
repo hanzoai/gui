@@ -72,7 +72,7 @@ export const DropGuiConfig = () => {
 
   return (
     <>
-      <TooltipSimple label="Upload your Hanzo GUI Config">
+      <TooltipSimple label="Upload your GUI Config">
         <Theme name={config ? 'green' : 'accent'}>
           <Button
             self="flex-end"

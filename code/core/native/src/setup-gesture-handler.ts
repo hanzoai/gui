@@ -1,5 +1,5 @@
 /**
- * Setup gesture handler for Hanzo GUI native components.
+ * Setup gesture handler for GUI native components.
  *
  * Simply import this module at the top of your app entry point:
  *

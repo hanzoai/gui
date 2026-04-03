@@ -401,7 +401,7 @@ function formatChangelog(commits: CommitInfo[]): string {
  */
 function displayPackageSummary(packages: PackageInfo[]): void {
   console.log('')
-  console.log(chalk.bold('Found Hanzo GUI packages:'))
+  console.log(chalk.bold('Found GUI packages:'))
   console.log('')
 
   // Group by file path
@@ -497,7 +497,7 @@ export async function upgrade(options: UpgradeOptions = {}): Promise<void> {
   const packages = findGuiPackages(root)
 
   if (packages.length === 0 && !changelogOnly) {
-    console.log(chalk.yellow('No Hanzo GUI packages found in this workspace.'))
+    console.log(chalk.yellow('No GUI packages found in this workspace.'))
     return
   }
 

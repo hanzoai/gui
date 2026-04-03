@@ -150,7 +150,7 @@ export default function Community() {
             <XStack py="$2" gap="$4">
               <StarterRepoCard
                 url="https://galaxies.dev/course/react-native-hanzo-gui"
-                name="Universal Apps with Hanzo GUI (Guide)"
+                name="Universal Apps with GUI (Guide)"
                 author="Simon Grimm"
               />
 
@@ -186,7 +186,7 @@ export default function Community() {
 
               <StarterRepoCard
                 url="https://github.com/ivopr/hanzo-gui-expo"
-                name="Hanzo GUI Expo"
+                name="GUI Expo"
                 author="Ivo"
               />
 
@@ -198,7 +198,7 @@ export default function Community() {
 
               <StarterRepoCard
                 url="https://github.com/ebg1223/t3-hanzo-gui"
-                name="Hanzo GUI t3"
+                name="GUI t3"
                 author="ebg1223"
               />
             </XStack>

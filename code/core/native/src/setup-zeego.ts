@@ -1,5 +1,5 @@
 /**
- * Setup zeego for Hanzo GUI native menus.
+ * Setup zeego for GUI native menus.
  *
  * Simply import this module at the top of your app entry point:
  *

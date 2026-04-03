@@ -134,7 +134,7 @@ export const config = createGui({
             steps: [
               {
                 type: 'text',
-                content: `That's it! Hanzo GUI used to require more configuration to optimize your themes in production, but we now automate that optimization for you.`,
+                content: `That's it! GUI used to require more configuration to optimize your themes in production, but we now automate that optimization for you.`,
               },
             ],
           },

@@ -34,5 +34,5 @@ export function updateTemplate(templateUrl: string, ignoredPatterns: string[] = 
 }
 
 function guiLog(message) {
-  return `${chalk.green('[Hanzo GUI]')} ${message}`
+  return `${chalk.green('[GUI]')} ${message}`
 }

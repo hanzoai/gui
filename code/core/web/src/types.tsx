@@ -341,7 +341,7 @@ export type GuiComponentPropsBaseBase = {
 
   /**
    * Adds some area outside the typical bounds of the component for touch actions to register.
-   * Hanzo GUI uses Pressable internally so it supports `number | Insets` rather than just `Insets`
+   * GUI uses Pressable internally so it supports `number | Insets` rather than just `Insets`
    */
   hitSlop?: number | Insets | null
 
@@ -513,7 +513,7 @@ export interface GuiElementMethods {
 
 /**
  * Cross-platform element ref type. On web, includes GuiElementMethods
- * (measure, focus, blur) which Hanzo GUI adds at runtime. On native, View
+ * (measure, focus, blur) which GUI adds at runtime. On native, View
  * already has these via NativeMethods.
  */
 export type GuiElement = (HTMLElement & GuiElementMethods) | View
@@ -1074,16 +1074,16 @@ type AutocompleteSpecificTokensSetting = boolean | 'except-special'
 export interface GenericGuiSettings {
   /**
    * When true, flexBasis will be set to 0 when flex is positive. This will be
-   * the default in v2 of Hanzo GUI alongside an alternative mode for web compat.
+   * the default in v2 of GUI alongside an alternative mode for web compat.
    */
   styleCompat?: 'react-native' | 'legacy'
 
   // TODO
   /**
-   * When true, Hanzo GUI will always prefer a more specific style prop over a
+   * When true, GUI will always prefer a more specific style prop over a
    * less specific one.
    *
-   * By default, Hanzo GUI processes all style props in order of definition on the
+   * By default, GUI processes all style props in order of definition on the
    * object. This is a bit strange to most people, but it gets around many
    * annoying issues with specificity. You can see our docs on this here:
    * https://gui.hanzo.ai/docs/intro/styles#style-order-is-important
@@ -1134,12 +1134,12 @@ export interface GenericGuiSettings {
   autocompleteSpecificTokens?: AutocompleteSpecificTokensSetting
 
   /**
-   * On iOS, this enables a mode where Hanzo GUI returns color values using
+   * On iOS, this enables a mode where GUI returns color values using
    * `DynamicColorIOS` This is a React Native built in feature, you can read the
    * docs here: https://reactnative.dev/docs/dynamiccolorios
    *
    * We're working to make this enabled by default without any setting, but
-   * Hanzo GUI themes support inversing and/or changing to light/dark at any point
+   * GUI themes support inversing and/or changing to light/dark at any point
    * in the tree. We haven't implemented support for either of these cases when
    * combined with this feature.
    *
@@ -1188,7 +1188,7 @@ export interface GenericGuiSettings {
   /**
    * If building a non-server rendered app, set this to true.
    *
-   * For SSR compatibility on the web, Hanzo GUI will render once with the settings
+   * For SSR compatibility on the web, GUI will render once with the settings
    * from `mediaQueryDefaultActive` set for all media queries. Then, it will render
    * again after the initial render using the proper media query values. This is so that
    * hydration will match perfectly with the server.
@@ -1218,7 +1218,7 @@ export interface GenericGuiSettings {
   /**
    * If you want to style your <body> tag to use theme CSS variables on web, you
    * must place the theme className onto the body element or above. This will do so.
-   * If disabled, Hanzo GUI will place the className onto the element rendered by
+   * If disabled, GUI will place the className onto the element rendered by
    * the GuiProvider
    *
    * @default html
@@ -1226,7 +1226,7 @@ export interface GenericGuiSettings {
   addThemeClassName?: 'body' | 'html' | false
 
   /**
-   * Sets the default position value for all Hanzo GUI components.
+   * Sets the default position value for all GUI components.
    * @default 'static'
    */
   defaultPosition?: 'static' | 'relative'
@@ -2802,7 +2802,7 @@ export type StaticConfigPublic = {
   validStyles?: { [key: string]: boolean }
 
   /**
-   * Accept Hanzo GUI tokens for these props (key for the prop key, val for the token category)
+   * Accept GUI tokens for these props (key for the prop key, val for the token category)
    */
   accept?: {
     [key: string]: keyof Tokens | 'style' | 'textStyle'
@@ -2830,9 +2830,9 @@ export type StaticConfigPublic = {
   isReactNative?: boolean
 
   /**
-   * By default if styled() doesn't recognize a parent Hanzo GUI component or specific react-native views,
+   * By default if styled() doesn't recognize a parent GUI component or specific react-native views,
    * it will assume the passed in component only accepts style={} for react-native compatibility.
-   * Setting `acceptsClassName: true` indicates Hanzo GUI can pass in className props.
+   * Setting `acceptsClassName: true` indicates GUI can pass in className props.
    */
   acceptsClassName?: boolean
 

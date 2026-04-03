@@ -188,7 +188,7 @@ export default apiRoute(async (req) => {
 
     // Create welcome message based on subscription type
     await discordClient.api.channels.createMessage(discordChannel.id, {
-      content: `Welcome to your private support channel! The Hanzo GUI team is here to help with any questions or issues you have.`,
+      content: `Welcome to your private support channel! The GUI team is here to help with any questions or issues you have.`,
     })
 
     discordChannelId = discordChannel.id

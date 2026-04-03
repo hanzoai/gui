@@ -160,7 +160,7 @@ export default apiRoute(async (req) => {
 
   const fullPrompt = `
 Help generate themes that contain two light + dark color palettes. The new
-Hanzo GUI palette system generates base and accent palettes in dark and light.
+GUI palette system generates base and accent palettes in dark and light.
 Each palette has 12 items, from index 1 to 12, to save space you can leave
 out indices and we spread between.
 

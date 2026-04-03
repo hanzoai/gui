@@ -393,7 +393,7 @@ export function getBabelParseDefinition(options: GuiOptions) {
               if (message.includes('Unexpected return value from visitor method')) {
                 message = 'Unexpected return value from visitor method'
               }
-              console.warn('Error in Hanzo GUI parse, skipping', message, err.stack)
+              console.warn('Error in GUI parse, skipping', message, err.stack)
               return
             }
           }

@@ -1,7 +1,7 @@
 /**
  * Web Alignment Tests - Web Platform
  *
- * These tests verify that Hanzo GUI v2 uses web-standard props exclusively.
+ * These tests verify that GUI v2 uses web-standard props exclusively.
  * RN-specific accessibility props are no longer converted - use aria-* directly.
  */
 

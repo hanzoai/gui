@@ -43,7 +43,7 @@ const getConfigFromGlobalOrLocal = (): GuiInternalConfig | null => {
           console.warn(
             `⚠️⚠️⚠️⚠️⚠️
 
-Hanzo GUI: Using global config fallback. This may indicate duplicate gui instances (e.g., from Vite SSR bundling). This is handled automatically, but likely causes issues!
+GUI: Using global config fallback. This may indicate duplicate gui instances (e.g., from Vite SSR bundling). This is handled automatically, but likely causes issues!
 
 ⚠️⚠️⚠️⚠️⚠️`
           )

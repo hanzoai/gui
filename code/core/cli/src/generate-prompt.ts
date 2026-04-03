@@ -42,9 +42,9 @@ function generateMarkdown(config: any): string {
   const sections: string[] = []
 
   // Header
-  sections.push('# Hanzo GUI Configuration\n\n')
+  sections.push('# GUI Configuration\n\n')
   sections.push(
-    'This document provides an overview of the Hanzo GUI configuration for this project.\n\n'
+    'This document provides an overview of the GUI configuration for this project.\n\n'
   )
 
   // Get shorthands for use throughout the document
@@ -68,7 +68,7 @@ function generateMarkdown(config: any): string {
   if (Object.keys(settings).length > 0) {
     sections.push('## Configuration Settings\n\n')
     sections.push(
-      '**IMPORTANT:** These settings affect how you write Hanzo GUI code in this project.\n\n'
+      '**IMPORTANT:** These settings affect how you write GUI code in this project.\n\n'
     )
 
     if (settings.defaultFont) {

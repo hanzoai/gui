@@ -34,7 +34,7 @@ Received: ${Object.keys(tokenSet).join(', ')}
 
 Expected: ${sizeTokenKeys.join(', ')}
 
-Hanzo GUI expects a "true" key that is the same value as your default size. This is so 
+GUI expects a "true" key that is the same value as your default size. This is so 
 it can size things up or down from the defaults without assuming which keys you use.
 
 Please define a "true" or "$true" key on your size and space tokens like so (example):

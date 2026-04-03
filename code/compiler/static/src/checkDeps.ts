@@ -334,7 +334,7 @@ function checkConfigExists(root: string): string {
     'No gui.config file found.',
     '',
     'Gui requires a config file (e.g. gui.config.ts) that calls createGui().',
-    'Without it, components will throw "Can\'t find Hanzo GUI configuration" at runtime.',
+    'Without it, components will throw "Can\'t find GUI configuration" at runtime.',
     '',
     'See: https://gui.hanzo.ai/docs/core/configuration',
   ].join('\n')

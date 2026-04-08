@@ -23,6 +23,7 @@ import { isDevTools } from '../constants/isDevTools'
 import {
   getMediaImportanceIfMoreImportant,
   getMediaKey,
+  getMediaKeyImportance,
   mediaKeyMatch,
 } from '../hooks/useMedia'
 import { mediaState as globalMediaState, mediaQueryConfig } from './mediaState'
@@ -58,7 +59,7 @@ import {
 } from './getDynamicVal'
 import { getGroupPropParts } from './getGroupPropParts'
 import { insertStyleRules, shouldInsertStyleRules, updateRules } from './insertStyleRule'
-import { isActivePlatform } from './isActivePlatform'
+import { isActivePlatform, getPlatformSpecificityBump } from './isActivePlatform'
 import { isActiveTheme } from './isActiveTheme'
 import { log } from './log'
 import { normalizeValueWithProperty } from './normalizeValueWithProperty'
@@ -67,6 +68,7 @@ import {
   type PseudoDescriptorKey,
   pseudoDescriptors,
   pseudoPriorities,
+  defaultMediaImportance,
 } from './pseudoDescriptors'
 import { skipProps } from './skipProps'
 import { sortString } from './sortString'
@@ -359,7 +361,7 @@ export const getSplitStyles: StyleSplitter = (
           const identifier = `t_group_${valInit}`
           const containerType = webContainerType || 'inline-size'
           const containerCSS = [
-            'continer',
+            'container',
             undefined,
             identifier,
             undefined,
@@ -370,7 +372,17 @@ export const getSplitStyles: StyleSplitter = (
           addStyleToInsertRules(rulesToInsert, containerCSS)
         }
       }
-      continue
+      // transition prop is skipped when it's a named animation (e.g. 'quick')
+      // but raw CSS values (from $platform-web) should pass through as style
+      if (
+        keyInit === 'transition' &&
+        typeof valInit === 'string' &&
+        !driver?.animations?.[valInit]
+      ) {
+        // not a known animation name, treat as raw CSS
+      } else {
+        continue
+      }
     }
 
     let isValidStyleKeyInit = isValidStyleKey(keyInit, validStyles, accept)
@@ -543,7 +555,14 @@ export const getSplitStyles: StyleSplitter = (
 
     // after shouldPassThrough
     if (!noSkip) {
-      if (keyInit in skipProps) {
+      if (
+        keyInit in skipProps &&
+        !(
+          keyInit === 'transition' &&
+          typeof valInit === 'string' &&
+          !driver?.animations?.[valInit]
+        )
+      ) {
         if (process.env.NODE_ENV === 'development' && debug === 'verbose') {
           console.groupEnd()
         }
@@ -999,6 +1018,12 @@ export const getSplitStyles: StyleSplitter = (
               }
               importanceBump = priority
             }
+          } else if (isPlatformMedia) {
+            // Platform styles use specificity-based importance bumps so that more
+            // specific platform selectors reliably win over broader ones regardless
+            // of prop declaration order (e.g. $platform-tv always overrides
+            // $platform-native for the same property, even if tv is listed first).
+            importanceBump = getPlatformSpecificityBump(mediaKeyShort)
           }
 
           const mediaOriginalValues = styleOriginalValues.get(mediaStyle)
@@ -1012,6 +1037,14 @@ export const getSplitStyles: StyleSplitter = (
           }
 
           function mergeMediaStyle(key: string, val: any, originalVal?: any) {
+            // on native, non-style keys from media queries (like numberOfLines)
+            // need to go to viewProps, not style
+            if (process.env.TAMAGUI_TARGET === 'native') {
+              if (!isValidStyleKey(key, validStyles, accept)) {
+                viewProps[key] = val
+                return
+              }
+            }
             styleState.style ||= {}
             const didMerge = mergeMediaByImportance(
               styleState,
@@ -1033,17 +1066,64 @@ export const getSplitStyles: StyleSplitter = (
               continue
             }
             if (subKey[0] === '$') {
-              if (!isActivePlatform(subKey)) continue
-              if (!isActiveTheme(subKey, themeName)) continue
-              const subOriginalValues = styleOriginalValues.get(
-                mediaStyle[subKey] as object
-              )
-              for (const subSubKey in mediaStyle[subKey]) {
-                mergeMediaStyle(
-                  subSubKey,
-                  mediaStyle[subKey][subSubKey],
+              const subMediaType = getMediaKey(subKey)
+              if (subMediaType === 'platform') {
+                if (!isActivePlatform(subKey)) continue
+              } else if (subMediaType === 'theme') {
+                if (!isActiveTheme(subKey, themeName)) continue
+              } else if (subMediaType === true) {
+                // regular media query nested inside platform/theme/media
+                const subKeyShort = subKey.slice(1)
+                if (!mediaState[subKeyShort]) continue
+              }
+
+              const nestedVal = mediaStyle[subKey] as Record<string, any>
+              const subOriginalValues = styleOriginalValues.get(nestedVal)
+
+              // Nested styles are more specific than their outer context because
+              // they require both conditions to be true. Calculate an importance
+              // that is the sum of both the outer and inner importances so that:
+              //   1) nested always beats non-nested
+              //   2) $xs={{ $platform-android: ... }} and
+              //      $platform-android={{ $xs: ... }} produce identical importance
+              //      (last-declared wins for the same property)
+              const isSizeMediaKey = !!mediaState[mediaKeyShort]
+              const outerBase = isSizeMediaKey
+                ? getMediaKeyImportance(mediaKeyShort)
+                : defaultMediaImportance
+
+              let innerBase: number
+              if (subMediaType === 'platform') {
+                innerBase =
+                  defaultMediaImportance + getPlatformSpecificityBump(subKey.slice(1))
+              } else if (subMediaType === true) {
+                innerBase = getMediaKeyImportance(subKey.slice(1))
+              } else {
+                innerBase = defaultMediaImportance
+              }
+
+              const nestedImportance = outerBase + importanceBump + innerBase + 1
+
+              for (const subSubKey in nestedVal) {
+                // expand shorthands — getSubStyle doesn't expand keys
+                // inside nested $ objects (they pass through propMapper as-is)
+                const expandedKey = shorthands[subSubKey] || subSubKey
+                const { usedKeys } = styleState
+                if (usedKeys[expandedKey] && usedKeys[expandedKey] > nestedImportance) {
+                  continue
+                }
+                styleState.style ||= {}
+                mergeStyle(
+                  styleState,
+                  expandedKey,
+                  nestedVal[subSubKey],
+                  nestedImportance,
+                  false,
                   subOriginalValues?.[subSubKey]
                 )
+                if (expandedKey === 'fontFamily') {
+                  styleState.fontFamily = nestedVal[subSubKey] as string
+                }
               }
             } else {
               mergeMediaStyle(subKey, mediaStyle[subKey], mediaOriginalValues?.[subKey])
@@ -1514,6 +1594,14 @@ export const getSubStyle = (
           styleOut['transition'] = `all ${animationConfig}${important}`
         }
       }
+      // not a known animation name, pass through as raw CSS
+      if (
+        !styleOut['transition'] &&
+        typeof val === 'string' &&
+        !driver?.animations?.[val]
+      ) {
+        styleOut['transition'] = val
+      }
       continue
     }
 
@@ -1703,7 +1791,20 @@ function mergeMediaByImportance(
     isSizeMedia
   )
   if (importanceBump) {
-    importance = (importance || 0) + importanceBump
+    // With a specificity bump, the effective importance is always
+    // defaultMediaImportance + bump. This lets higher-specificity styles
+    // (e.g. $platform-tv > $platform-native) override lower-specificity ones
+    // regardless of prop declaration order, even when getMediaImportanceIfMoreImportant
+    // returns null (meaning the same base importance was already applied).
+    //
+    // We must re-check `usedKeys[key]` here (rather than relying on the null
+    // returned by getMediaImportanceIfMoreImportant) because that function only
+    // compares against `defaultMediaImportance`, which equals our base before
+    // the bump. We need to compare against the *bumped* value to correctly
+    // allow a more-specific style to win.
+    const bumpedImportance = defaultMediaImportance + importanceBump
+    importance =
+      !usedKeys[key] || bumpedImportance > usedKeys[key] ? bumpedImportance : null
   }
   if (process.env.NODE_ENV === 'development' && debugProp === 'verbose') {
     log(

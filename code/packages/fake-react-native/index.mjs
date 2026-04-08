@@ -46,5 +46,17 @@ export const Easing = proxy.Easing
 export const Appearance = proxy.Appearance
 export const findNodeHandle = proxy.findNodeHandle
 export const unstable_batchedUpdates = proxy.unstable_batchedUpdates
+export const Touchable = proxy.Touchable
+export const TurboModuleRegistry = proxy.TurboModuleRegistry
+export const NativeEventEmitter = proxy.NativeEventEmitter
+export const processColor = proxy.processColor
+export const PanResponder = proxy.PanResponder
+export const PixelRatio = proxy.PixelRatio
+export const AppRegistry = proxy.AppRegistry
+export const NativeModules = proxy.NativeModules
+export const Linking = proxy.Linking
+export const Alert = proxy.Alert
+export const AppState = proxy.AppState
+export const LogBox = proxy.LogBox
 
 export default proxy

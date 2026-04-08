@@ -1701,7 +1701,7 @@
     },
     "code/packages/fake-react-native": {
       "name": "@hanzogui/fake-react-native",
-      "version": "3.0.6",
+      "version": "3.0.7",
     },
     "code/packages/gui-dev-config": {
       "name": "@hanzogui/dev-config",
@@ -2182,7 +2182,7 @@
     },
     "code/ui/gui": {
       "name": "@hanzo/gui",
-      "version": "3.0.7",
+      "version": "4.3.0",
       "dependencies": {
         "@hanzogui/accordion": "3.0.2",
         "@hanzogui/adapt": "3.0.2",
@@ -8083,6 +8083,8 @@
 
     "@grpc/proto-loader/yargs": ["yargs@17.7.2", "", { "dependencies": { "cliui": "^8.0.1", "escalade": "^3.1.1", "get-caller-file": "^2.0.5", "require-directory": "^2.1.1", "string-width": "^4.2.3", "y18n": "^5.0.5", "yargs-parser": "^21.1.1" } }, "sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w=="],
 
+    "@hanzo/gui/@hanzogui/fake-react-native": ["@hanzogui/fake-react-native@3.0.6", "", {}, "sha512-J+RCh0LWXUNlSc+Xu3+ZX/NYBxzDTjCPQIpjx5x6RbVLqRRLVeeogGs2BY6YaSzx2lkGbNNhUiOGCwxaKhOh/g=="],
+
     "@hanzogui/accordion/@hanzogui/collection": ["@hanzogui/collection@3.0.1", "", { "dependencies": { "@hanzogui/compose-refs": "3.0.0", "@hanzogui/constants": "3.0.0", "@hanzogui/core": "3.0.0", "@hanzogui/create-context": "3.0.0", "@hanzogui/polyfill-dev": "3.0.0", "@hanzogui/stacks": "3.0.0", "@hanzogui/use-controllable-state": "3.0.0" }, "peerDependencies": { "react": ">=19" } }, "sha512-mVFXLFUqvSyzHO9xrm31QCjWs8jeo+SBwUrIlIdX+J5V4OfTQLfkZzadGyPFQxwIDejeB4N6/BodiVHRqbqFBg=="],
 
     "@hanzogui/accordion/@hanzogui/compose-refs": ["@hanzogui/compose-refs@3.0.1", "", { "peerDependencies": { "react": ">=19" } }, "sha512-91/e4LZSr3y4klE0wBi+eo7vpAPPXk3iMuyhP8V7RUF9uvORJP+GWg7Ft4mNR5Cjlxj7jB+adjM9L4i0pNaAOA=="],
@@ -8759,6 +8761,8 @@
 
     "@hanzogui/stacks/@hanzogui/web": ["@hanzogui/web@3.0.1", "", { "dependencies": { "@hanzogui/compose-refs": "3.0.0", "@hanzogui/constants": "3.0.0", "@hanzogui/helpers": "3.0.0", "@hanzogui/is-equal-shallow": "3.0.0", "@hanzogui/native": "3.0.0", "@hanzogui/normalize-css-color": "3.0.0", "@hanzogui/timer": "3.0.0", "@hanzogui/types": "3.0.0", "@hanzogui/use-did-finish-ssr": "3.0.0", "@hanzogui/use-event": "3.0.0", "@hanzogui/use-force-update": "3.0.0" }, "peerDependencies": { "react": ">=19", "react-dom": "*", "react-native": "*" } }, "sha512-j90WDtcVsoZRYtsISjhHUJ/BSS98udO3Zuo7/foDXLC/3ct1Ed7Qwrs/af+a38E5JhjYOZOz5gO5PkpaNtZdFg=="],
 
+    "@hanzogui/static/@hanzogui/fake-react-native": ["@hanzogui/fake-react-native@3.0.6", "", {}, "sha512-J+RCh0LWXUNlSc+Xu3+ZX/NYBxzDTjCPQIpjx5x6RbVLqRRLVeeogGs2BY6YaSzx2lkGbNNhUiOGCwxaKhOh/g=="],
+
     "@hanzogui/switch/@hanzogui/compose-refs": ["@hanzogui/compose-refs@3.0.1", "", { "peerDependencies": { "react": ">=19" } }, "sha512-91/e4LZSr3y4klE0wBi+eo7vpAPPXk3iMuyhP8V7RUF9uvORJP+GWg7Ft4mNR5Cjlxj7jB+adjM9L4i0pNaAOA=="],
 
     "@hanzogui/switch/@hanzogui/constants": ["@hanzogui/constants@3.0.1", "", { "peerDependencies": { "react": ">=19", "react-native": "*" } }, "sha512-+4bSwhyHW1XI4cNAciH+6GODOvREpIt2APFzYalpjJzybULhmmss6kUAJJuLDTnNZIrrBpqRzLs6ly+5I+QEOQ=="],
@@ -8912,6 +8916,8 @@
     "@hanzogui/tooltip/@hanzogui/use-controllable-state": ["@hanzogui/use-controllable-state@3.0.1", "", { "dependencies": { "@hanzogui/start-transition": "3.0.0", "@hanzogui/use-event": "3.0.0" }, "peerDependencies": { "react": ">=19" } }, "sha512-V8sGRLCVrrgePNEjtgVZoaxLItVH/oha7rtsClhLIuW+VVZNvD9eo5WvlonNBFYPCmzMtLnFcgo5dLFrlBZk+w=="],
 
     "@hanzogui/visually-hidden/@hanzogui/web": ["@hanzogui/web@3.0.1", "", { "dependencies": { "@hanzogui/compose-refs": "3.0.0", "@hanzogui/constants": "3.0.0", "@hanzogui/helpers": "3.0.0", "@hanzogui/is-equal-shallow": "3.0.0", "@hanzogui/native": "3.0.0", "@hanzogui/normalize-css-color": "3.0.0", "@hanzogui/timer": "3.0.0", "@hanzogui/types": "3.0.0", "@hanzogui/use-did-finish-ssr": "3.0.0", "@hanzogui/use-event": "3.0.0", "@hanzogui/use-force-update": "3.0.0" }, "peerDependencies": { "react": ">=19", "react-dom": "*", "react-native": "*" } }, "sha512-j90WDtcVsoZRYtsISjhHUJ/BSS98udO3Zuo7/foDXLC/3ct1Ed7Qwrs/af+a38E5JhjYOZOz5gO5PkpaNtZdFg=="],
+
+    "@hanzogui/vite-plugin/@hanzogui/fake-react-native": ["@hanzogui/fake-react-native@3.0.6", "", {}, "sha512-J+RCh0LWXUNlSc+Xu3+ZX/NYBxzDTjCPQIpjx5x6RbVLqRRLVeeogGs2BY6YaSzx2lkGbNNhUiOGCwxaKhOh/g=="],
 
     "@inkjs/ui/chalk": ["chalk@5.6.2", "", {}, "sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA=="],
 

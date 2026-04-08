@@ -12,7 +12,7 @@
   "module": "dist/esm/index.mjs",
   "types": "./types/index",
   "scripts": {
-    "build": "echo skipped",
+    "build": "true",
     "watch": "hanzo-gui-build --watch",
     "clean": "hanzo-gui-build clean",
     "clean:build": "hanzo-gui-build clean:build"

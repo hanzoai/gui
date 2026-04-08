@@ -1,43 +1,37 @@
-const emtpyComponent = () => null
+const emptyComponent = () => null
 
 function proxyWorm() {
-  return new Proxy(
-    {
-      StyleSheet: {
-        create() {},
-      },
-      Platform: {
-        OS: 'web',
-      },
-      Image: emtpyComponent,
-      View: emtpyComponent,
-      Text: emtpyComponent,
-      TextInput: emtpyComponent,
-      ScrollView: emtpyComponent,
-      Dimensions: {
-        addEventListener(cb) {},
-      },
-      Appearance: {
-        getColorScheme: () => 'light',
-        addChangeListener: () => {},
-        removeChangeListener: () => {},
-      },
-      addPoolingTo() {},
+  // Target MUST be a function for the apply trap to work.
+  // Without this, codegenNativeComponent() throws "proxy is not a function".
+  const target = Object.assign(function() { return emptyComponent }, {
+    StyleSheet: { create(s) { return s }, flatten(s) { return s } },
+    Platform: { OS: 'web', select: (o) => o.web ?? o.default },
+    Image: emptyComponent,
+    View: emptyComponent,
+    Text: emptyComponent,
+    TextInput: emptyComponent,
+    ScrollView: emptyComponent,
+    Dimensions: { addEventListener() {}, get() { return { width: 0, height: 0 } } },
+    Appearance: {
+      getColorScheme: () => 'light',
+      addChangeListener: () => {},
+      removeChangeListener: () => {},
     },
-    {
-      get(target, key) {
-        return Reflect.get(target, key) || proxyWorm()
-      },
-      apply() {
-        return proxyWorm()
-      },
-    }
-  )
+    addPoolingTo() {},
+  })
+
+  return new Proxy(target, {
+    get(target, key) {
+      return Reflect.get(target, key) || proxyWorm()
+    },
+    apply() {
+      return proxyWorm()
+    },
+  })
 }
 
 const proxy = proxyWorm()
 
-// Named exports that can be tree-shaken
 export const Platform = proxy.Platform
 export const StyleSheet = proxy.StyleSheet
 export const Image = proxy.Image
@@ -53,5 +47,4 @@ export const Appearance = proxy.Appearance
 export const findNodeHandle = proxy.findNodeHandle
 export const unstable_batchedUpdates = proxy.unstable_batchedUpdates
 
-// Default export
 export default proxy

@@ -24,7 +24,7 @@
     "expo-constants": "~55.0.7",
     "expo-image": "~55.0.6",
     "solito": "^4.3.0",
-    "@hanzo/gui": "3.0.6"
+    "@hanzo/gui": "4.3.0"
   },
   "devDependencies": {
     "@hanzogui/build": "3.0.6",

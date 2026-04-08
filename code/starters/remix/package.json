@@ -18,7 +18,7 @@
     "isbot": "^4.1.0",
     "react": ">=19",
     "react-dom": "*",
-    "@hanzo/gui": "3.0.6"
+    "@hanzo/gui": "4.3.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.12.1",

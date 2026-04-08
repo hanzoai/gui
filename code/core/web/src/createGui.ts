@@ -46,6 +46,13 @@ function shouldTokenCategoryHaveUnits(category: string): boolean {
   return UNIT_CATEGORIES.has(category)
 }
 
+// code optimizers were causing issues by not calling both of these as esbuild had compiled them
+// pulling them into a single initializeGuiConfig to prevent that
+function initializeGuiConfig(config: GuiInternalConfig) {
+  setConfig(config)
+  configureMedia(config)
+}
+
 export function createGui<Conf extends CreateGuiProps>(
   configIn: Conf
 ): InferGuiConfig<Conf> {
@@ -244,16 +251,17 @@ export function createGui<Conf extends CreateGuiProps>(
     // .spacer-sm + ._dsp_contents._dsp-sm-hidden { margin-left: -var(--${}) }
   }
 
-  setConfig(config)
-  configureMedia(config)
+  initializeGuiConfig(config)
 
-  if (process.env.NODE_ENV === 'development') {
-    if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
-      console.info('Gui config:', config)
-    }
-    if (!globalThis['Gui']) {
-      globalThis['Gui'] = Gui
-    }
+  if (process.env.NODE_ENV !== 'development') {
+    return config as any
+  }
+
+  if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
+    console.info('Gui config:', config)
+  }
+  if (!globalThis['Gui']) {
+    globalThis['Gui'] = Gui
   }
 
   return config as any

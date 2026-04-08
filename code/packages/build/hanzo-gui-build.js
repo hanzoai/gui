@@ -31,6 +31,7 @@ const createExternalPlugin = require('./externalNodePlugin')
 const debounce = require('lodash.debounce')
 const { basename, dirname } = require('node:path')
 const { es5Plugin } = require('./esbuild-es5')
+const { transformSync: oxcTransformSync } = require('oxc-transform')
 const ts = require('typescript')
 const path = require('node:path')
 const childProcess = require('node:child_process')
@@ -63,6 +64,31 @@ async function writeIfUnchanged(filePath, contents) {
     await FSE.chmod(filePath, 0o755).catch(() => {})
   }
   return true
+}
+
+function dceGuiTarget(contents, { format, jsx, platform }) {
+  if (!contents.includes('process.env.GUI_TARGET')) {
+    return contents
+  }
+
+  const result = oxcTransformSync(`gui-target.${jsx === 'preserve' ? 'jsx' : 'js'}`, contents, {
+    lang: jsx === 'preserve' ? 'jsx' : 'js',
+    jsx: jsx === 'preserve' ? 'preserve' : undefined,
+    sourceType: format === 'cjs' ? 'commonjs' : 'module',
+    define: {
+      'process.env.GUI_TARGET': JSON.stringify(platform),
+    },
+  })
+
+  if (result.errors?.length) {
+    throw new Error(
+      `Failed to DCE GUI_TARGET for ${platform}: ${result.errors
+        .map((error) => error.message)
+        .join('\n')}`
+    )
+  }
+
+  return result.code || contents
 }
 
 function hasFlag(flag) {
@@ -923,7 +949,9 @@ async function esbuildWriteIfChanged(
       format: isESM ? 'esm' : 'cjs',
 
       treeShaking: true,
-      minifySyntax: true,
+      // We only want GUI_TARGET dead-code elimination during normal builds.
+      // Syntax minification can legally rewrite statements into comma expressions.
+      minifySyntax: false,
       write: false,
 
       color: true,

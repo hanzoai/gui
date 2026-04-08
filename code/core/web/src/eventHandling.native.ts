@@ -1,5 +1,5 @@
 /**
- * Native event handling - uses RNGH when available, falls back to usePressability
+ * Native event handling - uses RNGH when available, falls back to responder system
  */
 
 import { composeEventHandlers } from '@hanzogui/helpers'
@@ -72,7 +72,17 @@ export function useEvents(
   // HOC components may return null which crashes GestureDetector (it tries to access
   // _internalInstanceHandle on a null native view). By passing events down, the inner
   // component handles gesture detection at its own level.
-  if (isHOC) {
+  //
+  // Composite component special case - when styled() wraps a non-Tamagui component
+  // (e.g. React.forwardRef), the elementType becomes that composite component.
+  // GestureDetector/responder wrapping around a composite component breaks during
+  // re-renders triggered by pressStyle state changes (the gesture/responder loses
+  // attachment to the native view through the composite layers). Pass events as props
+  // so they flow through to the inner native View.
+  const isCompositeComponent =
+    !isHOC && staticConfig.Component && typeof staticConfig.Component !== 'string'
+
+  if (isHOC || isCompositeComponent) {
     if (events) {
       const { onPressIn, onPressOut, onPress, onLongPress, delayLongPress } = events
       Object.assign(viewProps, {
@@ -83,7 +93,7 @@ export function useEvents(
         delayLongPress,
       })
     }
-    // HOCs don't use gesture handler at this level
+    // HOCs and composite components don't use gesture handler at this level
     return null
   }
 
@@ -144,8 +154,7 @@ export function useEvents(
     return null
   }
 
-  // fallback - use usePressability when RNGH not enabled
-  // split into separate file to avoid deep import warnings
+  // fallback - direct responder system when RNGH not enabled
   useMainThreadPressEvents(events, viewProps, hasPressEvents)
 
   return null
@@ -155,11 +164,12 @@ export function wrapWithGestureDetector(
   content: any,
   gesture: any,
   stateRef: { current: GuiComponentStateRef },
-  isHOC?: boolean
+  isHOC?: boolean,
+  isCompositeComponent?: boolean
 ) {
-  // Skip wrapping for HOC components - they may return null which crashes GestureDetector
-  // (GestureDetector tries to access _internalInstanceHandle on a null native view)
-  if (isHOC) {
+  // Skip wrapping for HOC and composite components - they pass press events
+  // to the inner component via props instead of using GestureDetector
+  if (isHOC || isCompositeComponent) {
     return content
   }
 

@@ -2,6 +2,7 @@
 export * from '@hanzogui/web'
 
 import { createMedia } from '@hanzogui/react-native-media-driver'
+import { isWeb } from '@hanzogui/constants'
 import {
   createMeasure,
   createMeasureInWindow,
@@ -81,7 +82,7 @@ export const GuiProvider = (props: GuiProviderProps) => {
 
 // automate using the react native media driver
 export const createGui: typeof createGuiWeb = (conf) => {
-  if (process.env.GUI_TARGET === 'native') {
+  if (!isWeb) {
     if (conf.media) {
       conf.media = createMedia(conf.media)
     }

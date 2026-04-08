@@ -802,7 +802,7 @@ export declare const config: {
         };
     }, "size" | "color" | "space" | "radius" | "zIndex">;
     fonts: {
-        heading: import("@hanzogui/web").FillInFont<{
+        heading: import("@hanzogui/font-geist-sans").FillInFont<{
             size: {
                 5: number;
                 6: number;
@@ -844,8 +844,8 @@ export declare const config: {
                 };
             };
         }, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
-        body: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
-        mono: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+        body: import("@hanzogui/font-geist-sans").FillInFont<import("@hanzogui/font-geist-sans").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+        mono: import("@hanzogui/font-geist-sans").FillInFont<import("@hanzogui/font-geist-sans").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
     };
     selectionStyles: (theme: Record<string, string>) => {
         backgroundColor: string;

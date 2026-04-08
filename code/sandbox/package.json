@@ -36,7 +36,7 @@
     "react-native-screens": "~4.23.0",
     "react-native-svg": "15.15.3",
     "react-native-web": "^0.21.0",
-    "@hanzo/gui": "3.0.6"
+    "@hanzo/gui": "4.3.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

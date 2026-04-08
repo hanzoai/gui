@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/helpers-icon",
-  "version": "3.0.6",
+  "version": "4.3.1",
   "description": "Utilities for icon packages",
   "license": "MIT",
   "source": "src/index.ts",

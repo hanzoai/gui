@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin-internal",
-  "version": "3.0.6",
+  "version": "4.3.1",
   "type": "module",
   "main": "./dist/cjs/vite.config.js",
   "module": "./dist/esm/vite.config.js",

@@ -89,9 +89,7 @@ export default function Index() {
         >
           Introduction
         </Text>
-        <Text>
-          This is a demo page to showcase how GUI works seamlessly with Remix.
-        </Text>
+        <Text>This is a demo page to showcase how GUI works seamlessly with Remix.</Text>
       </Section>
       <Section>
         <Text
@@ -104,11 +102,11 @@ export default function Index() {
           Features
         </Text>
         <Text>
-          GUI provides a powerful and flexible way to style your React components.
-          With Gui, you can leverage themes to create a consistent look and feel across
-          your application. Theming in GUI is highly customizable, allowing you to
-          define colors, spacing, typography, and more. You can easily switch between
-          light and dark themes, or create your own custom themes to match your brand.
+          GUI provides a powerful and flexible way to style your React components. With
+          Gui, you can leverage themes to create a consistent look and feel across your
+          application. Theming in GUI is highly customizable, allowing you to define
+          colors, spacing, typography, and more. You can easily switch between light and
+          dark themes, or create your own custom themes to match your brand.
         </Text>
       </Section>
       <Section>

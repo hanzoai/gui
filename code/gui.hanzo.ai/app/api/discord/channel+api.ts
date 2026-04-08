@@ -115,9 +115,7 @@ export default apiRoute(async (req) => {
 
   if (hasDiscordPrivateChannels && !discordChannelId) {
     // Pro users get access to the general channel
-    const channels = await discordClient.api.guilds.getChannels(
-      GUI_DISCORD_GUILD_ID
-    )
+    const channels = await discordClient.api.guilds.getChannels(GUI_DISCORD_GUILD_ID)
     const generalChannel = channels.find((c: any) => c.name === TAKEOUT_GENERAL_CHANNEL)
 
     if (generalChannel) {

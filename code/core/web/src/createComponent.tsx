@@ -286,9 +286,7 @@ export function createComponent<
     // direct press events instead — GestureDetector consumes touches before they
     // reach MenuView's native handler, preventing the menu from opening
     const isInsideNativeMenu =
-      process.env.GUI_TARGET === 'native'
-        ? React.useContext(NativeMenuContext)
-        : false
+      process.env.GUI_TARGET === 'native' ? React.useContext(NativeMenuContext) : false
 
     if (
       !process.env.GUI_IS_CORE_NODE &&
@@ -1546,12 +1544,7 @@ export function createComponent<
     }
 
     // Text components set inText context for children so nested Text can inherit styles
-    if (
-      process.env.GUI_TARGET === 'web' &&
-      !asChild &&
-      isText &&
-      !hasTextAncestor
-    ) {
+    if (process.env.GUI_TARGET === 'web' && !asChild && isText && !hasTextAncestor) {
       content = (
         <ComponentContext.Provider {...componentContext} inText={true}>
           {content}

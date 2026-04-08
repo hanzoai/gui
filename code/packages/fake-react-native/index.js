@@ -1,71 +1,37 @@
-const React = require('react')
-
-// Create mock RN components that render as simple divs/spans for testing
-// react-test-renderer will serialize these properly
-const createMockComponent = (name) => {
-  const Component = React.forwardRef((props, ref) => {
-    const { children, style, ...rest } = props
-    // Return a "View" element that react-test-renderer understands
-    return React.createElement(name, { ...rest, style, ref }, children)
-  })
-  Component.displayName = name
-  return Component
-}
-
-// For components that don't need to render (like Image)
-const emtpyComponent = () => null
-
-// Mock usePressability for testing - returns empty event handlers
-const usePressabilityMock = () => ({})
+const emptyComponent = () => null
 
 function proxyWorm() {
-  return new Proxy(
-    {
-      StyleSheet: {
-        create() {},
-      },
-      Platform: {
-        OS: 'web',
-      },
-      Image: emtpyComponent,
-      View: createMockComponent('View'),
-      Text: createMockComponent('Text'),
-      TextInput: createMockComponent('TextInput'),
-      ScrollView: createMockComponent('ScrollView'),
-      Dimensions: {
-        get: () => ({ width: 1024, height: 768 }),
-        addEventListener: () => ({ remove: () => {} }),
-      },
-      Appearance: {
-        getColorScheme: () => 'light',
-        addChangeListener: () => {},
-        removeChangeListener: () => {},
-      },
-      addPoolingTo() {},
-      // Libraries/Pressability/usePressability mock
-      Libraries: {
-        Pressability: {
-          usePressability: {
-            default: usePressabilityMock,
-          },
-        },
-      },
+  // Target MUST be a function for the apply trap to work.
+  // Without this, codegenNativeComponent() throws "proxy is not a function".
+  const target = Object.assign(function() { return emptyComponent }, {
+    StyleSheet: { create(s) { return s }, flatten(s) { return s } },
+    Platform: { OS: 'web', select: (o) => o.web ?? o.default },
+    Image: emptyComponent,
+    View: emptyComponent,
+    Text: emptyComponent,
+    TextInput: emptyComponent,
+    ScrollView: emptyComponent,
+    Dimensions: { addEventListener() {}, get() { return { width: 0, height: 0 } } },
+    Appearance: {
+      getColorScheme: () => 'light',
+      addChangeListener: () => {},
+      removeChangeListener: () => {},
     },
-    {
-      get(target, key) {
-        return Reflect.get(target, key) || proxyWorm()
-      },
-      apply() {
-        return proxyWorm()
-      },
-    }
-  )
+    addPoolingTo() {},
+  })
+
+  return new Proxy(target, {
+    get(target, key) {
+      return Reflect.get(target, key) || proxyWorm()
+    },
+    apply() {
+      return proxyWorm()
+    },
+  })
 }
 
 const proxy = proxyWorm()
 
-module.exports = proxy
-module.exports.default = proxy
 module.exports.Platform = proxy.Platform
 module.exports.StyleSheet = proxy.StyleSheet
 module.exports.Image = proxy.Image
@@ -74,4 +40,11 @@ module.exports.Text = proxy.Text
 module.exports.TextInput = proxy.TextInput
 module.exports.ScrollView = proxy.ScrollView
 module.exports.Dimensions = proxy.Dimensions
+module.exports.Pressable = proxy.Pressable
+module.exports.Animated = proxy.Animated
+module.exports.Easing = proxy.Easing
 module.exports.Appearance = proxy.Appearance
+module.exports.findNodeHandle = proxy.findNodeHandle
+module.exports.unstable_batchedUpdates = proxy.unstable_batchedUpdates
+
+module.exports = proxy; module.exports.default = proxy

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/next-theme",
-  "version": "3.0.6",
+  "version": "4.3.1",
   "source": "src/index.ts",
   "files": [
     "src",

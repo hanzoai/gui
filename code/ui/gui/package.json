@@ -78,6 +78,7 @@
   },
   "dependencies": {
     "@hanzogui/compose-refs": "3.0.6",
+    "@hanzogui/config-default": "3.0.6",
     "@hanzogui/constants": "3.0.6",
     "@hanzogui/core": "3.0.6",
     "@hanzogui/create-context": "3.0.6",
@@ -95,6 +96,7 @@
     "@hanzogui/use-force-update": "3.0.6",
     "@hanzogui/use-window-dimensions": "3.0.6",
     "@hanzogui/font-size": "3.0.6",
+    "@hanzogui/shorthands": "3.0.6",
     "@hanzogui/shapes": "3.0.2",
     "@hanzogui/stacks": "3.0.2",
     "@hanzogui/web": "3.0.6",
@@ -147,7 +149,8 @@
     "@hanzogui/checkbox-headless": "3.0.2",
     "@hanzogui/radio-headless": "3.0.2",
     "@hanzogui/switch-headless": "3.0.2",
-    "@hanzogui/tabs-headless": "3.0.2"
+    "@hanzogui/tabs-headless": "3.0.2",
+    "@hanzogui/theme-builder": "3.0.6"
   },
   "devDependencies": {
     "@hanzogui/build": "3.0.6",

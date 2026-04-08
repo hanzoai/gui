@@ -6,7 +6,7 @@
     "@hanzogui/config": "3.0.6",
     "@hanzogui/demos": "3.0.6",
     "@hanzogui/lucide-icons-2": "3.0.6",
-    "@hanzo/gui": "3.0.6"
+    "@hanzo/gui": "4.3.0"
   },
   "peerDependencies": {
     "react": ">=19",

@@ -20,7 +20,7 @@
     "@hanzogui/font-inter": "3.0.6",
     "@hanzogui/shorthands": "3.0.6",
     "@hanzogui/themes": "3.0.6",
-    "@hanzo/gui": "3.0.6"
+    "@hanzo/gui": "4.3.0"
   },
   "devDependencies": {
     "@hanzogui/build": "3.0.6"

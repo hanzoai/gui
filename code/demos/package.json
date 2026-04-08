@@ -54,7 +54,7 @@
     "@hanzogui/lucide-icons-2": "3.0.6",
     "@hanzogui/dev-config": "3.0.6",
     "@hanzogui/theme": "3.0.6",
-    "@hanzo/gui": "3.0.6"
+    "@hanzo/gui": "4.3.0"
   },
   "devDependencies": {
     "@hanzogui/build": "3.0.6",

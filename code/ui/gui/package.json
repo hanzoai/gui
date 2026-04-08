@@ -83,7 +83,7 @@
     "@hanzogui/core": "3.0.6",
     "@hanzogui/create-context": "3.0.6",
     "@hanzogui/element": "3.0.6",
-    "@hanzogui/fake-react-native": "3.0.6",
+    "@hanzogui/fake-react-native": "3.0.7",
     "@hanzogui/get-button-sized": "3.0.6",
     "@hanzogui/get-font-sized": "3.0.6",
     "@hanzogui/get-token": "3.0.6",

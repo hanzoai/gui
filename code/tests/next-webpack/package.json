@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@hanzogui/cli": "3.0.6",
-    "@hanzo/gui": "3.0.6"
+    "@hanzo/gui": "4.3.0"
   },
   "devDependencies": {
     "vitest": "4.0.4"

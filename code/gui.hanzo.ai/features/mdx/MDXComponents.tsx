@@ -763,8 +763,8 @@ const componentsIn = {
       <YStack gap="$1">
         <ThemeTintAlt offset={2}>
           <IntroParagraph large mt="$4">
-            GUI makes styling React on any platform a delight. All of its features
-            work the same on both React Native and React web.
+            GUI makes styling React on any platform a delight. All of its features work
+            the same on both React Native and React web.
           </IntroParagraph>
 
           <UL mt="$4" pl="$4" gap="$2">

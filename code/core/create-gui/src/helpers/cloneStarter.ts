@@ -117,9 +117,7 @@ async function setupGuiDotDir(template: (typeof templates)[number]) {
     }
   } else {
     if (!(await pathExists(join(targetGitDir, '.git')))) {
-      console.error(
-        `Corrupt GUI directory, please delete ${targetGitDir} and re-run`
-      )
+      console.error(`Corrupt GUI directory, please delete ${targetGitDir} and re-run`)
       process.exit(1)
     }
   }

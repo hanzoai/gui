@@ -27,9 +27,7 @@ export const media = {
 
   // always false on native (can't hover on touch)
   hoverable:
-    process.env.GUI_TARGET === 'native'
-      ? ({ maxWidth: 0 } as never)
-      : { hover: 'hover' },
+    process.env.GUI_TARGET === 'native' ? ({ maxWidth: 0 } as never) : { hover: 'hover' },
 
   // Max-width queries (desktop-first, ordered large-to-small so smaller wins)
   'max-xxl': { maxWidth: breakpoints.xxl - mediaQueryForceNonOverlap },

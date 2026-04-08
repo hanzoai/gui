@@ -8,8 +8,8 @@ export const ProPolicy = () => {
       <H3>Delivery</H3>
 
       <Paragraph>
-        GUI LLC will deliver to you access to the Takeout Github repo, Bento copy
-        and paste the code for all the examples on the /bento main page, and the Theme AI
+        GUI LLC will deliver to you access to the Takeout Github repo, Bento copy and
+        paste the code for all the examples on the /bento main page, and the Theme AI
         builder.
       </Paragraph>
 

@@ -32,7 +32,7 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/fake-react-native": "3.0.7",
+    "@hanzogui/fake-react-native": "4.3.1",
     "@hanzogui/proxy-worm": "3.0.6",
     "@hanzogui/react-native-svg": "3.0.6",
     "@hanzogui/react-native-web-lite": "3.0.6",

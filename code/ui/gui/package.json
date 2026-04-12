@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
@@ -83,7 +83,7 @@
     "@hanzogui/core": "3.0.6",
     "@hanzogui/create-context": "3.0.6",
     "@hanzogui/element": "3.0.6",
-    "@hanzogui/fake-react-native": "3.0.7",
+    "@hanzogui/fake-react-native": "4.3.1",
     "@hanzogui/get-button-sized": "3.0.6",
     "@hanzogui/get-font-sized": "3.0.6",
     "@hanzogui/get-token": "3.0.6",

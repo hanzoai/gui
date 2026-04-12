@@ -53,7 +53,7 @@
     "@hanzogui/cli-color": "3.0.6",
     "@hanzogui/config-default": "3.0.6",
     "@hanzogui/core": "3.0.6",
-    "@hanzogui/fake-react-native": "3.0.7",
+    "@hanzogui/fake-react-native": "4.3.1",
     "@hanzogui/generate-themes": "3.0.6",
     "@hanzogui/helpers": "3.0.6",
     "@hanzogui/helpers-node": "3.0.6",

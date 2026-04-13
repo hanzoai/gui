@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/helpers",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
   "files": [
@@ -35,11 +35,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/constants": "3.0.6",
-    "@hanzogui/simple-hash": "3.0.6"
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/simple-hash": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

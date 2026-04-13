@@ -5,7 +5,7 @@ import type { StaticConfig, GuiComponentStateRef } from './types';
 export declare function getWebEvents(): {};
 export declare function useEvents(events: any, viewProps: any, stateRef: {
     current: GuiComponentStateRef;
-}, staticConfig: StaticConfig, isHOC?: boolean, isInsideNativeMenu?: boolean): any;
+}, staticConfig: StaticConfig, isHOC?: boolean, isInsideNativeMenu?: boolean, debugName?: string | null): any;
 export declare function wrapWithGestureDetector(content: any, gesture: any, stateRef: {
     current: GuiComponentStateRef;
 }, isHOC?: boolean, isCompositeComponent?: boolean): any;

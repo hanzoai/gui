@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/helpers-node",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -20,10 +20,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/types": "3.0.6"
+    "@hanzogui/types": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
+    "@hanzogui/build": "workspace:*",
     "fs-extra": "^11.2.0"
   }
 }

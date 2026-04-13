@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin-internal",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "type": "module",
   "main": "./dist/cjs/vite.config.js",
   "module": "./dist/esm/vite.config.js",
@@ -21,11 +21,11 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/vite-plugin": "3.0.6"
+    "@hanzogui/vite-plugin": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
-    "@hanzogui/config-default": "3.0.6",
+    "@hanzogui/build": "workspace:*",
+    "@hanzogui/config-default": "workspace:*",
     "happy-dom": "^10.11.2",
     "react": ">=19",
     "vitest": "4.0.4",

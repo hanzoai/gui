@@ -23,6 +23,36 @@ export function setRequireResult(name: string, result: any) {
   compiled[name] = result
 }
 
+function getStaticExtractionStub(path: string) {
+  switch (path) {
+    case 'expo-constants':
+      return {
+        __esModule: true,
+        default: {
+          executionEnvironment: null,
+        },
+        ExecutionEnvironment: {
+          Bare: 'bare',
+          Standalone: 'standalone',
+          StoreClient: 'storeClient',
+        },
+      }
+    case 'expo-updates':
+      return {
+        __esModule: true,
+        default: {
+          isEnabled: false,
+          isUsingEmbeddedAssets: true,
+        },
+        checkForUpdateAsync: async () => ({ isAvailable: false }),
+        fetchUpdateAsync: async () => ({ isNew: false }),
+        reloadAsync: async () => {},
+      }
+    default:
+      return null
+  }
+}
+
 export function registerRequire(
   platform: GuiPlatform,
   { proxyWormImports } = {
@@ -78,6 +108,11 @@ export function registerRequire(
   Module.prototype.require = guiRequire
 
   function guiRequire(this: any, path: string) {
+    const staticExtractionStub = getStaticExtractionStub(path)
+    if (staticExtractionStub) {
+      return staticExtractionStub
+    }
+
     if (path === '@hanzo/gui' && platform === 'native') {
       return og.apply(this, ['@hanzo/gui/native'])
     }
@@ -130,7 +165,19 @@ export function registerRequire(
           callerFile.includes('@hanzo/gui') ||
           callerFile.includes('@gui') ||
           callerFile.includes('node_modules/@hanzo/')
-        if (path === '@hanzo/gui' || path.startsWith('@hanzogui/') || isFromGuiPkg) {
+        const isFromStaticLoader =
+          !callerFile ||
+          callerFile === '.' ||
+          callerFile === '[eval]' ||
+          callerFile.endsWith('/[eval]') ||
+          callerFile.includes('/code/compiler/static/') ||
+          callerFile.includes('/.gui/')
+        if (
+          path === '@hanzo/gui' ||
+          path.startsWith('@hanzogui/') ||
+          isFromGuiPkg ||
+          isFromStaticLoader
+        ) {
           return og.apply(this, [path])
         }
         return proxyWorm

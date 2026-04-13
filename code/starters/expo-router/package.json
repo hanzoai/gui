@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/expo-router-starter",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "main": "expo-router/entry",
   "scripts": {
     "upgrade:gui": "bunx npm-check-updates -u '*gui*' '@hanzogui/*' && bun install",
@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@react-navigation/native": "^7.0.14",
-    "@hanzogui/config": "3.0.6",
-    "@hanzogui/lucide-icons-2": "3.0.6",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
     "babel-preset-expo": "~55.0.0",
     "burnt": "^0.12.2",
     "expo": "~55.0.6",
@@ -43,7 +43,7 @@
     "@expo/metro-config": "~55.0.9",
     "@expo/metro-runtime": "~55.0.0",
     "@playwright/test": "^1.49.1",
-    "@hanzogui/babel-plugin": "3.0.6",
+    "@hanzogui/babel-plugin": "workspace:*",
     "@types/react": "~19.1.10",
     "@types/react-native": "^0.73.0",
     "serve": "^14.2.5",

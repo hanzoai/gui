@@ -286,7 +286,9 @@ export function createComponent<
     // direct press events instead — GestureDetector consumes touches before they
     // reach MenuView's native handler, preventing the menu from opening
     const isInsideNativeMenu =
-      process.env.GUI_TARGET === 'native' ? React.useContext(NativeMenuContext) : false
+      process.env.GUI_TARGET === 'native'
+        ? React.useContext(NativeMenuContext)
+        : false
 
     if (
       !process.env.GUI_IS_CORE_NODE &&
@@ -302,7 +304,7 @@ export function createComponent<
     if (process.env.NODE_ENV === 'development' && !time && (globalThis as any).time) {
       time = (globalThis as any).time
     }
-    if (process.env.NODE_ENV === 'development' && time) time`non-gui time (ignore)`
+    if (process.env.NODE_ENV === 'development' && time) time`non-tamagui time (ignore)`
 
     // React inserts default props after your props for some reason...
     // order important so we do loops, you can't just spread because JS does weird things
@@ -1208,6 +1210,7 @@ export function createComponent<
     const runtimePressStyle = !disabled && noClass && pseudos?.pressStyle
     const runtimeFocusStyle = !disabled && noClass && pseudos?.focusStyle
     const runtimeFocusVisibleStyle = !disabled && noClass && pseudos?.focusVisibleStyle
+
     const attachFocus = Boolean(
       runtimePressStyle ||
       runtimeFocusStyle ||
@@ -1326,11 +1329,19 @@ export function createComponent<
                 }
               }
             : undefined,
+
           onPress: attachPress
             ? (e) => {
                 unPress()
-                // @ts-ignore
-                isWeb && onClick?.(e)
+                if (process.env.GUI_TARGET === 'web') {
+                  // @ts-ignore
+                  onClick?.(e)
+                  // matches RN pressable behavior - only when an explicit press
+                  // handler is set, so pressStyle alone doesn't swallow clicks
+                  if (onPress || onClick) {
+                    e.stopPropagation()
+                  }
+                }
                 onPress?.(e)
                 if (process.env.GUI_TARGET === 'web') {
                   onLongPress?.(e)
@@ -1403,11 +1414,33 @@ export function createComponent<
       log(`events`, { events, attachHover, attachPress })
     }
 
+    const propsWithHref = props as typeof props & { href?: unknown }
+    const propsInWithHref = propsIn as typeof propsIn & { href?: unknown }
+
+    const pressDebugDetail =
+      props.testID ??
+      propsIn.testID ??
+      props.accessibilityLabel ??
+      propsIn.accessibilityLabel ??
+      (typeof propsWithHref.href === 'string' ? propsWithHref.href : null) ??
+      (typeof propsInWithHref.href === 'string' ? propsInWithHref.href : null)
+
+    const pressDebugName =
+      [componentName, pressDebugDetail].filter(Boolean).join(':') || null
+
     // EVENTS native - handles focus/blur, input special cases, and RNGH press handling
     // Skip gesture setup for HOC components - they may return null which crashes GestureDetector
     const pressGesture =
       process.env.GUI_TARGET === 'native'
-        ? useEvents(events, viewProps, stateRef, staticConfig, isHOC, isInsideNativeMenu)
+        ? useEvents(
+            events,
+            viewProps,
+            stateRef,
+            staticConfig,
+            isHOC,
+            isInsideNativeMenu,
+            pressDebugName
+          )
         : null
 
     if (process.env.NODE_ENV === 'development' && time) time`hooks`
@@ -1702,7 +1735,13 @@ export function createComponent<
     component.displayName = staticConfig.componentName
   }
 
-  type ComponentType = GuiComponent<ComponentPropTypes, Ref, BaseProps, BaseStyles, {}>
+  type ComponentType = GuiComponent<
+    ComponentPropTypes,
+    Ref,
+    BaseProps,
+    BaseStyles,
+    {}
+  >
 
   let res: ComponentType = component as any
 
@@ -1732,7 +1771,7 @@ export function createComponent<
 
     out = options?.disableTheme ? out : themeable(out, extendedConfig, true)
 
-    if (extendedConfig.memo || process.env.GUI_MEMOIZE_STYLEABLE) {
+    if (extendedConfig.memo || process.env.TAMAGUI_MEMOIZE_STYLEABLE) {
       out = React.memo(out)
     }
 

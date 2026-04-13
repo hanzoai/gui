@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/test-next-turbopack",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "scripts": {
     "dev": "next dev --turbopack --port 3456",
     "next-build": "next build",
@@ -12,9 +12,9 @@
     "test:clean": "git checkout src/ public/ && git clean -fd src/"
   },
   "dependencies": {
-    "@hanzogui/config": "3.0.6",
-    "@hanzogui/core": "3.0.6",
-    "@hanzogui/next-theme": "3.0.6",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/next-theme": "workspace:*",
     "next": "16.1.1",
     "react": ">=19",
     "react-dom": "*",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
-    "@hanzogui/cli": "3.0.6",
+    "@hanzogui/cli": "workspace:*",
     "@types/node": "^22.1.0",
     "@types/react": "~19.1.10",
     "vitest": "4.0.4"

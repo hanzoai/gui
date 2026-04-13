@@ -16,6 +16,7 @@ import type { GuiOptions } from '../types'
 import { babelParse } from './babelParse'
 import { esbuildLoaderConfig, esbundleGuiConfig } from './bundle'
 import { getGuiConfigPathFromOptionsConfig } from './getGuiConfigPathFromOptionsConfig'
+import { hasTopLevelAwait } from './hasTopLevelAwait'
 import { requireGuiCore } from '../helpers/requireGuiCore'
 import { detectModuleFormat } from './detectModuleFormat'
 
@@ -159,15 +160,14 @@ const handleEsmFeaturesPlugin: esbuild.Plugin = {
       }
 
       // stub files with top-level await - they're typically runtime-only
-      if (
-        /^\s*(?:const|let|var|export)\s+[^=]*=\s*await\b/m.test(contents) ||
-        /^await\s/m.test(contents)
-      ) {
+      if (hasTopLevelAwait(contents, args.path)) {
         if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
           console.info(`[hanzo-gui] stubbing file with top-level await: ${args.path}`)
         }
         return {
-          contents: `// stubbed - contains top-level await\nmodule.exports = {}`,
+          // Keep this as an ESM-shaped stub so esbuild doesn't inline a top-level
+          // `module.exports = {}` into the parent bundle and wipe its exports.
+          contents: `// stubbed - contains top-level await\nexport default {}`,
           loader: 'js',
         }
       }

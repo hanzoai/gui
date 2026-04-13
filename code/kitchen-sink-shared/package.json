@@ -6,7 +6,7 @@
     "@hanzogui/config": "workspace:*",
     "@hanzogui/demos": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
-    "@hanzo/gui": "4.3.0"
+    "@hanzo/gui": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=19",

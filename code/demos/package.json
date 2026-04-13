@@ -54,7 +54,7 @@
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/dev-config": "workspace:*",
     "@hanzogui/theme": "workspace:*",
-    "@hanzo/gui": "4.3.0"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

@@ -21,7 +21,7 @@
   "dependencies": {
     "@hanzogui/next-theme": "workspace:*",
     "expo-constants": "~55.0.7",
-    "@hanzo/gui": "4.3.0",
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/next-webpack-test-config": "workspace:*"
   },
   "devDependencies": {

@@ -215,15 +215,6 @@ export function guiPlugin({
       })
     },
 
-    async transform(code, id) {
-      if (id.includes('expo-linear-gradient')) {
-        return transformWithEsbuild(code, id, {
-          loader: 'jsx',
-          jsx: 'automatic',
-        })
-      }
-    },
-
     async config(_, env) {
       const options = await ensureLoaded()
 

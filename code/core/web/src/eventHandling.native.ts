@@ -19,7 +19,8 @@ export function useEvents(
   stateRef: { current: GuiComponentStateRef },
   staticConfig: StaticConfig,
   isHOC?: boolean,
-  isInsideNativeMenu?: boolean
+  isInsideNativeMenu?: boolean,
+  debugName?: string | null
 ) {
   // focus/blur events always attached directly
   if (events) {
@@ -34,6 +35,9 @@ export function useEvents(
   const hasPressEvents =
     // its stable and always on if you have in/out/regular
     events?.onPress
+  const hasAnyPressCallbacks = Boolean(
+    events?.onPress || events?.onPressIn || events?.onPressOut || events?.onLongPress
+  )
 
   const gh = getGestureHandler()
 
@@ -137,6 +141,7 @@ export function useEvents(
           gestureRef.current = manual
         } else {
           gestureRef.current = gh.createPressGesture({
+            debugName,
             onPressIn: (e: any) => callbacksRef.current.onPressIn?.(e),
             onPressOut: (e: any) => callbacksRef.current.onPressOut?.(e),
             onPress: (e: any) => callbacksRef.current.onPress?.(e),
@@ -148,14 +153,21 @@ export function useEvents(
       }
       // TODO update viewProps.hitSlop / events.delayLongPress!
 
+      // Claim responder to block parent RN Pressable/TouchableOpacity from firing.
+      // RNGH handles the actual press, but we need to tell the responder system
+      // that we're handling this touch to prevent it bubbling to parent pressables.
+      if (hasPressEvents) {
+        viewProps.onStartShouldSetResponder = () => true
+        viewProps.onResponderTerminationRequest = () => false
+      }
+
       return gestureRef.current
     }
 
     return null
   }
 
-  // fallback - direct responder system when RNGH not enabled
-  useMainThreadPressEvents(events, viewProps, hasPressEvents)
+  useMainThreadPressEvents(events, viewProps, hasPressEvents, debugName)
 
   return null
 }

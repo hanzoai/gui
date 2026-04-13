@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sandbox",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "type": "module",
   "scripts": {
     "dev": "one dev",
@@ -20,12 +20,12 @@
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.3.1",
-    "@hanzogui/animations-css": "3.0.6",
-    "@hanzogui/animations-motion": "3.0.6",
-    "@hanzogui/colors": "3.0.6",
-    "@hanzogui/demos": "3.0.6",
-    "@hanzogui/lucide-icons-2": "3.0.6",
-    "@hanzogui/react-native-media-driver": "3.0.6",
+    "@hanzogui/animations-css": "workspace:*",
+    "@hanzogui/animations-motion": "workspace:*",
+    "@hanzogui/colors": "workspace:*",
+    "@hanzogui/demos": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/react-native-media-driver": "workspace:*",
     "@vxrn/color-scheme": "^1.12.5",
     "expo": "~55.0.6",
     "one": "1.12.5",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@playwright/test": "^1.49.1",
     "@react-native-community/cli": "15.1.3",
-    "@hanzogui/vite-plugin": "3.0.6",
+    "@hanzogui/vite-plugin": "workspace:*",
     "@types/react": "~19.1.10",
     "vite": "^8.0.0",
     "wait-port": "^0.3.0",

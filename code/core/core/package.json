@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/core",
-  "version": "4.3.2",
+  "version": "4.4.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
   "author": {
@@ -79,17 +79,17 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/helpers": "3.0.6",
-    "@hanzogui/react-native-media-driver": "3.0.6",
-    "@hanzogui/react-native-use-pressable": "3.0.6",
-    "@hanzogui/use-element-layout": "3.0.6",
-    "@hanzogui/use-event": "3.0.6",
-    "@hanzogui/web": "3.0.6"
+    "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/react-native-media-driver": "workspace:*",
+    "@hanzogui/react-native-use-pressable": "workspace:*",
+    "@hanzogui/use-element-layout": "workspace:*",
+    "@hanzogui/use-event": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
-    "@hanzogui/native-bundle": "3.0.6",
-    "@hanzogui/react-native-web-lite": "3.0.6",
+    "@hanzogui/build": "workspace:*",
+    "@hanzogui/native-bundle": "workspace:*",
+    "@hanzogui/react-native-web-lite": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",

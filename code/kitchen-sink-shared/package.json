@@ -1,11 +1,11 @@
 {
   "name": "@hanzogui/kitchen-sink-shared",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "main": "src/index.ts",
   "dependencies": {
-    "@hanzogui/config": "3.0.6",
-    "@hanzogui/demos": "3.0.6",
-    "@hanzogui/lucide-icons-2": "3.0.6",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/demos": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzo/gui": "4.3.0"
   },
   "peerDependencies": {

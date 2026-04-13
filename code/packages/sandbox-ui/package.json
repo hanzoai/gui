@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sandbox-ui",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "files": [
     "types",
     "dist"
@@ -18,16 +18,16 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/animations-react-native": "3.0.6",
-    "@hanzogui/core": "3.0.6",
-    "@hanzogui/lucide-icons-2": "3.0.6",
+    "@hanzogui/animations-react-native": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
     "expo-constants": "~55.0.7",
     "expo-image": "~55.0.6",
     "solito": "^4.3.0",
     "@hanzo/gui": "4.3.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

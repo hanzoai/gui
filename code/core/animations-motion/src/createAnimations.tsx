@@ -66,6 +66,27 @@ type TransitionAnimationOptions = AnimationOptions & {
 
 const MotionValueStrategy = new WeakMap<MotionValue, AnimatedNumberStrategy>()
 
+// pending setValue onFinish callbacks, keyed by motion value. setValue stores
+// the callback here; the change handler in the animated component's useEffect
+// consumes it by chaining to the DOM-level animate() controls so onFinish
+// fires when the *visible* animation actually completes.
+const PendingMotionOnFinish = new WeakMap<MotionValue, () => void>()
+
+function settlePendingMotionOnFinish(
+  mv: MotionValue,
+  controls: AnimationPlaybackControlsWithThen
+) {
+  const onFinish = PendingMotionOnFinish.get(mv)
+  if (!onFinish) return
+  PendingMotionOnFinish.delete(mv)
+  // chain to the DOM animation's completion. settle on both resolve and
+  // reject — a rejection means the animation was cancelled by a later
+  // setValue, and the caller still needs a completion signal. use the
+  // real Promise interface (.then().catch()) because framer-motion types
+  // the .then() callbacks as VoidFunction with no error arg.
+  controls.then(() => onFinish()).catch(() => onFinish())
+}
+
 type AnimationProps = {
   doAnimate?: Record<string, unknown>
   dontAnimate?: Record<string, unknown>
@@ -501,25 +522,44 @@ export function createAnimations<A extends Record<string, AnimationConfig>>(
           },
           setValue(next, config = { type: 'spring' }, onFinish) {
             if (config.type === 'direct') {
-              MotionValueStrategy.set(motionValue, {
-                type: 'direct',
-              })
+              MotionValueStrategy.set(motionValue, { type: 'direct' })
               motionValue.set(next)
               onFinish?.()
-            } else {
-              MotionValueStrategy.set(motionValue, config)
-
-              if (onFinish) {
-                const unsubscribe = motionValue.on('change', (value) => {
-                  if (Math.abs(value - next) < 0.01) {
-                    unsubscribe()
-                    onFinish()
-                  }
-                })
-              }
-
-              motionValue.set(next)
+              return
             }
+
+            MotionValueStrategy.set(motionValue, config)
+
+            // we intentionally DO NOT animate the motion value itself here
+            // (via framer-motion's imperative animate(motionValue, next)).
+            // doing so drives the JS value over time, which fires a 'change'
+            // event per frame, and each change event kicks off a new DOM
+            // animate(node, ...) that cancels the previous one — the DOM
+            // never reaches the target (double-animation stall).
+            //
+            // instead we jump the motion value to `next` synchronously. the
+            // animated component's change handler receives a single change
+            // event, computes the final webStyle, and drives the visible
+            // animation via DOM animate(node, webStyle, springConfig). that
+            // DOM animation is the real timing source.
+            //
+            // to make `onFinish` resolve when the VISIBLE animation finishes
+            // (not synchronously on the change event), we stash it in
+            // PendingMotionOnFinish here and the change handler chains it to
+            // the DOM animate() controls.
+            if (onFinish) {
+              // if a previous setValue is still pending on this motion value,
+              // fire it now — the new setValue will cancel the prior DOM
+              // animation, and the caller is still owed a completion signal.
+              const prior = PendingMotionOnFinish.get(motionValue)
+              if (prior) {
+                PendingMotionOnFinish.delete(motionValue)
+                prior()
+              }
+              PendingMotionOnFinish.set(motionValue, onFinish)
+            }
+
+            motionValue.set(next)
           },
           stop() {
             motionValue.stop()
@@ -856,7 +896,8 @@ function createMotionView(defaultTag: string) {
                     ? { type: 'tween', duration: 0 }
                     : { type: 'spring', ...(animationConfig as any) }
 
-              animate(node, webStyle as any, motionAnimationConfig)
+              const controls = animate(node, webStyle as any, motionAnimationConfig)
+              settlePendingMotionOnFinish(mv, controls)
             }
           })
         )
@@ -887,7 +928,8 @@ function createMotionView(defaultTag: string) {
                     ...(animationConfig as any),
                   }
 
-          animate(node, webStyle as any, motionAnimationConfig)
+          const controls = animate(node, webStyle as any, motionAnimationConfig)
+          settlePendingMotionOnFinish(animatedStyle.motionValue!, controls)
         }
       })
     }, [animatedStyle])

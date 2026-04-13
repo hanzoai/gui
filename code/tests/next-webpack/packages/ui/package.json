@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/next-webpack-test-ui",
-  "version": "3.0.6",
+  "version": "4.4.0",
   "files": [
     "types",
     "dist"
@@ -19,13 +19,13 @@
     "watch": "hanzo-gui-build --skip-types --watch"
   },
   "dependencies": {
-    "@hanzogui/next-theme": "3.0.6",
+    "@hanzogui/next-theme": "workspace:*",
     "expo-constants": "~55.0.7",
     "@hanzo/gui": "4.3.0",
-    "@hanzogui/next-webpack-test-config": "3.0.6"
+    "@hanzogui/next-webpack-test-config": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

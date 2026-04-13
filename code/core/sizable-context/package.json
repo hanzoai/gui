@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sizable-context",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "description": "Sizable context for Hanzo GUI components",
   "license": "MIT",
   "source": "src/index.ts",
@@ -36,10 +36,10 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "3.0.6"
+    "@hanzogui/core": "workspace:*"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

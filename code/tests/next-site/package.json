@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/next-site",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "source": "src",
   "scripts": {
     "dev": "./scripts/dev.sh",
@@ -36,7 +36,7 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.26.0",
     "@playwright/test": "^1.49.1",
-    "@hanzogui/build": "3.0.6",
-    "@hanzogui/loader": "3.0.6"
+    "@hanzogui/build": "workspace:*",
+    "@hanzogui/loader": "workspace:*"
   }
 }

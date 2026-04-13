@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/logo",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "source": "src/index.tsx",
   "files": [
     "src",
@@ -44,12 +44,12 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/use-element-layout": "3.0.6",
-    "@hanzogui/web": "3.0.6",
+    "@hanzogui/use-element-layout": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "@hanzo/gui": "4.3.0"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

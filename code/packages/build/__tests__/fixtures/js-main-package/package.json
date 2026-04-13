@@ -8,7 +8,7 @@
     "build": "node ../../../hanzo-gui-build.js"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
+    "@hanzogui/build": "workspace:*",
     "typescript": "~5.9.2"
   }
 }

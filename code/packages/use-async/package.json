@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/use-async",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "files": [
     "src",
     "types",
@@ -33,7 +33,7 @@
     "clean:build": "hanzo-gui-build clean:build"
   },
   "devDependencies": {
-    "@hanzogui/build": "3.0.6",
+    "@hanzogui/build": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {

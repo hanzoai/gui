@@ -16,8 +16,8 @@ if [ -n "$(git status --porcelain)" ]; then
 fi
 
 # Build first
-echo "Building..."
-pnpm build
+# echo "Building..."
+# pnpm build
 
 # Bump version
 npm version "$VERSION" --no-git-tag-version

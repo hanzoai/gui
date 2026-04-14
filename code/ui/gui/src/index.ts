@@ -50,5 +50,10 @@ export { createThemes, createThemeBuilder } from '@hanzogui/theme-builder'
 export { shorthands } from '@hanzogui/shorthands'
 export { getDefaultGuiConfig } from '@hanzogui/config-default'
 
+// Explicit re-exports that get lost in the export * chain through
+// @hanzogui/core → @hanzogui/web in some tsc resolution contexts.
+export { Theme } from '@hanzogui/web'
+export type { ThemeName } from '@hanzogui/web'
+
 // Additional exports (ported from tamagui, missing in earlier builds)
 export { Anchor, type AnchorProps } from './views/Anchor'

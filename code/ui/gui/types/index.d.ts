@@ -39,5 +39,7 @@ export * from '@hanzogui/elements';
 export { createThemes, createThemeBuilder } from '@hanzogui/theme-builder';
 export { shorthands } from '@hanzogui/shorthands';
 export { getDefaultGuiConfig } from '@hanzogui/config-default';
+export { Theme } from '@hanzogui/web';
+export type { ThemeName } from '@hanzogui/web';
 export { Anchor, type AnchorProps } from './views/Anchor';
 //# sourceMappingURL=index.d.ts.map

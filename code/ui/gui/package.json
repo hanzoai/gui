@@ -69,6 +69,7 @@
   },
   "scripts": {
     "build": "hanzo-gui-build",
+    "build:all": "cd ../../.. && npx turbo run build --filter=@hanzo/gui --force",
     "afterBuild": "echo 'native bundle skipped - UI packages moved to hanzo/ui'",
     "watch": "hanzo-gui-build --watch",
     "clean": "hanzo-gui-build clean",

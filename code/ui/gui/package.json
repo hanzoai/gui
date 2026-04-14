@@ -74,7 +74,8 @@
     "clean": "hanzo-gui-build clean",
     "clean:build": "hanzo-gui-build clean:build",
     "check": "bun run check-circular-deps",
-    "check-circular-deps": "npx madge --circular ./src/index.ts"
+    "check-circular-deps": "npx madge --circular ./src/index.ts",
+    "pub": "./scripts/publish.sh"
   },
   "dependencies": {
     "@hanzogui/compose-refs": "workspace:*",

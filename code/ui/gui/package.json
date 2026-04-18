@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui",
-  "version": "4.4.0",
+  "version": "4.7.2",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
@@ -69,12 +69,14 @@
   },
   "scripts": {
     "build": "hanzo-gui-build",
+    "build:all": "cd ../../.. && npx turbo run build --filter=@hanzo/gui --force",
     "afterBuild": "echo 'native bundle skipped - UI packages moved to hanzo/ui'",
     "watch": "hanzo-gui-build --watch",
     "clean": "hanzo-gui-build clean",
     "clean:build": "hanzo-gui-build clean:build",
     "check": "bun run check-circular-deps",
-    "check-circular-deps": "npx madge --circular ./src/index.ts"
+    "check-circular-deps": "npx madge --circular ./src/index.ts",
+    "pub": "./scripts/publish.sh"
   },
   "dependencies": {
     "@hanzogui/compose-refs": "workspace:*",

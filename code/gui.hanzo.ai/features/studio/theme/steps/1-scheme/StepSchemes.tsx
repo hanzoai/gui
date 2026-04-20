@@ -1,5 +1,5 @@
 import { Check } from '@hanzogui/lucide-icons-2'
-import { Checkbox, H4, Label, Paragraph, Spacer, XStack, YStack } from '@hanzo/gui'
+import { Checkbox, H4, Label, Paragraph, Spacer, XStack, YStack } from 'hanzogui'
 
 import { useRootStore } from '../../../state/useGlobalState'
 import { StudioNotice } from '~/features/studio/StudioNotice'

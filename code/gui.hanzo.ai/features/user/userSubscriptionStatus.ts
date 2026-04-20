@@ -49,7 +49,7 @@ const calculateSupportTier = (
   const hasSponsor = subscriptions.some(
     (sub) =>
       sub.subscription_items?.some(
-        (item) => item.price?.product?.name === ProductName.GuiSupportSponsor
+        (item) => item.price?.product?.name === ProductName.HanzoguiSupportSponsor
       ) &&
       (sub.status === SubscriptionStatus.Active ||
         sub.status === SubscriptionStatus.Trialing)
@@ -60,7 +60,7 @@ const calculateSupportTier = (
   const hasDirect = subscriptions.some(
     (sub) =>
       sub.subscription_items?.some(
-        (item) => item.price?.product?.name === ProductName.GuiSupportDirect
+        (item) => item.price?.product?.name === ProductName.HanzoguiSupportDirect
       ) &&
       (sub.status === SubscriptionStatus.Active ||
         sub.status === SubscriptionStatus.Trialing)
@@ -71,7 +71,7 @@ const calculateSupportTier = (
   const supportItem = subscriptions.find((sub) =>
     sub.subscription_items?.some(
       (item) =>
-        item.price?.product?.name === ProductName.GuiSupport &&
+        item.price?.product?.name === ProductName.HanzoguiSupport &&
         (sub.status === SubscriptionStatus.Active ||
           sub.status === SubscriptionStatus.Trialing)
     )
@@ -87,7 +87,7 @@ const calculateTeamSeats = (subscriptions: UserContextType['subscriptions']): nu
     subscriptions.find((sub) =>
       sub.subscription_items?.some(
         (item) =>
-          item.price?.product?.name === ProductName.GuiProTeamSeats &&
+          item.price?.product?.name === ProductName.HanzoguiProTeamSeats &&
           (sub.status === SubscriptionStatus.Active ||
             sub.status === SubscriptionStatus.Trialing)
       )
@@ -124,27 +124,27 @@ export const userSubscriptionStatus = (
     }
 
   const hasV1Pro =
-    hasProductAccess(userData.subscriptions, ProductName.GuiPro) ||
-    hasProductAccess(userData.subscriptions, ProductName.GuiProTeamSeats)
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiPro) ||
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiProTeamSeats)
 
   const hasV2Pro =
-    hasProductAccess(userData.subscriptions, ProductName.GuiProV2) ||
-    hasProductAccess(userData.subscriptions, ProductName.GuiProV2Upgrade) ||
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiProV2) ||
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiProV2Upgrade) ||
     // V2 support tiers also imply Pro access (support is add-on to Pro license)
-    hasProductAccess(userData.subscriptions, ProductName.GuiSupportDirect) ||
-    hasProductAccess(userData.subscriptions, ProductName.GuiSupportSponsor)
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiSupportDirect) ||
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiSupportSponsor)
 
   const isPro = hasV1Pro || hasV2Pro
 
   const isChat =
     // V1 chat
-    hasProductAccess(userData.subscriptions, ProductName.GuiChat) ||
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiChat) ||
     // V2 Pro includes basic chat support
-    hasProductAccess(userData.subscriptions, ProductName.GuiProV2) ||
-    hasProductAccess(userData.subscriptions, ProductName.GuiProV2Upgrade) ||
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiProV2) ||
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiProV2Upgrade) ||
     // V2 support tiers include chat
-    hasProductAccess(userData.subscriptions, ProductName.GuiSupportDirect) ||
-    hasProductAccess(userData.subscriptions, ProductName.GuiSupportSponsor)
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiSupportDirect) ||
+    hasProductAccess(userData.subscriptions, ProductName.HanzoguiSupportSponsor)
 
   const supportTier = calculateSupportTier(userData.subscriptions) || 0
 

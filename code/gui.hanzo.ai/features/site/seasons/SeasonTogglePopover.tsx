@@ -1,11 +1,11 @@
 import {
-  GuiLogo,
+  HanzoguiLogo,
   setTintFamily,
   useTint,
   getTints,
   type TintFamily,
 } from '@hanzogui/logo'
-import { Popover, SizableText, Square, View, XStack, YStack } from '@hanzo/gui'
+import { Popover, SizableText, Square, View, XStack, YStack } from 'hanzogui'
 
 // colors match the theme families in tints.tsx
 const seasonColors = {
@@ -29,13 +29,13 @@ export const seasons = {
 }
 
 export const seasonLogos = {
-  gui: <GuiLogo downscale={2} color={seasonColors.gui} />,
-  easter: <GuiLogo downscale={2} color={seasonColors.easter} />,
-  xmas: <GuiLogo downscale={2} color={seasonColors.xmas} />,
-  lunar: <GuiLogo downscale={2} color={seasonColors.lunar} />,
-  valentine: <GuiLogo downscale={2} color={seasonColors.valentine} />,
-  halloween: <GuiLogo downscale={2} color={seasonColors.halloween} />,
-  stpatricks: <GuiLogo downscale={2} color={seasonColors.stpatricks} />,
+  gui: <HanzoguiLogo downscale={2} color={seasonColors.gui} />,
+  easter: <HanzoguiLogo downscale={2} color={seasonColors.easter} />,
+  xmas: <HanzoguiLogo downscale={2} color={seasonColors.xmas} />,
+  lunar: <HanzoguiLogo downscale={2} color={seasonColors.lunar} />,
+  valentine: <HanzoguiLogo downscale={2} color={seasonColors.valentine} />,
+  halloween: <HanzoguiLogo downscale={2} color={seasonColors.halloween} />,
+  stpatricks: <HanzoguiLogo downscale={2} color={seasonColors.stpatricks} />,
 }
 
 const seasonKeys = [

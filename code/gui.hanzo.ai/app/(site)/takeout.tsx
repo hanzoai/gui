@@ -1,5 +1,5 @@
 import { ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
-import { Image, YStack } from '@hanzo/gui'
+import { Image, YStack } from 'hanzogui'
 import { ContainerLarge } from '~/components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'
 import { Footer } from '~/features/site/Footer'

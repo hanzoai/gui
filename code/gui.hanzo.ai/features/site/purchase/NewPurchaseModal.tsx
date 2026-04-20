@@ -1,7 +1,7 @@
 import type { StripeError } from '@stripe/stripe-js'
 import { X } from '@hanzogui/lucide-icons-2'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import type { TabsProps } from '@hanzo/gui'
+import type { TabsProps } from 'hanzogui'
 import {
   Button,
   Dialog,
@@ -19,7 +19,7 @@ import {
   Unspaced,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { useUser } from '~/features/user/useUser'
 import { useParityDiscount } from '~/hooks/useParityDiscount'
 import { ProductName } from '~/shared/types/subscription'
@@ -74,8 +74,8 @@ export function PurchaseModalContents() {
       userData?.subscriptions?.some((sub) =>
         sub.subscription_items?.some(
           (item) =>
-            (item.price?.product?.name === ProductName.GuiBento ||
-              item.price?.product?.name === ProductName.GuiTakeoutStack) &&
+            (item.price?.product?.name === ProductName.HanzoguiBento ||
+              item.price?.product?.name === ProductName.HanzoguiTakeoutStack) &&
             sub.ended_at &&
             new Date(sub.ended_at) < new Date()
         )

@@ -1,4 +1,4 @@
-import { H5, ListItem, SizableText, Theme, XStack, YStack, styled } from '@hanzo/gui'
+import { H5, ListItem, SizableText, Theme, XStack, YStack, styled } from 'hanzogui'
 
 import type { Palette, Scale } from '../state/types'
 import { colorToHex } from './helpers'

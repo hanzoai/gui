@@ -1,16 +1,16 @@
 import type { getCompilationExamples } from '~/features/mdx/getMDXBySlug'
 import { createContext, useContext } from 'react'
-import { Spacer } from '@hanzo/gui'
+import { Spacer } from 'hanzogui'
 import { HeroContainer } from '~/features/docs/HeroContainer'
 import { HomeExamples } from '~/features/site/home/HomeExamples'
 
-export const GuiExamples = createContext<ReturnType<
+export const HanzoguiExamples = createContext<ReturnType<
   typeof getCompilationExamples
 > | null>(null)
 
-export function GuiExamplesCode() {
+export function HanzoguiExamplesCode() {
   try {
-    const examples = useContext(GuiExamples)
+    const examples = useContext(HanzoguiExamples)
     return (
       <HeroContainer noScroll noPad>
         <Spacer />

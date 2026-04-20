@@ -1,6 +1,6 @@
 import { LogoIcon } from '@hanzogui/logo'
 import { useEffect, useState } from 'react'
-import { Paragraph, Spacer, Spinner, XStack, YStack, composeRefs } from '@hanzo/gui'
+import { Paragraph, Spacer, Spinner, XStack, YStack, composeRefs } from 'hanzogui'
 import { useHoverGlow } from '~/components/HoverGlow'
 
 export const StudioQueueCard = ({ teamId }: { teamId: number }) => {

@@ -1,6 +1,6 @@
 import { router, useLinkTo, type LinkProps as OneLinkProps } from 'one'
-import type { ButtonProps, ViewProps } from '@hanzo/gui'
-import { Button, Paragraph, Text } from '@hanzo/gui'
+import type { ButtonProps, ViewProps } from 'hanzogui'
+import { Button, Paragraph, Text } from 'hanzogui'
 
 export type LinkProps = ViewProps &
   OneLinkProps<any> & {

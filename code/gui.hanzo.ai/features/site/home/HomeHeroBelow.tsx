@@ -1,7 +1,7 @@
 import { ChevronRight, Code, Cpu, Layers } from '@hanzogui/lucide-icons-2'
 import { memo } from 'react'
-import type { YStackProps } from '@hanzo/gui'
-import { H3, Paragraph, XStack, YStack } from '@hanzo/gui'
+import type { YStackProps } from 'hanzogui'
+import { H3, Paragraph, XStack, YStack } from 'hanzogui'
 import { Link } from '~/components/Link'
 
 import { CodeInline } from '~/components/Code'

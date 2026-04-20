@@ -1,5 +1,5 @@
-import { GuiLogo } from '@hanzogui/logo'
-import { H1, Paragraph, Square, XStack, YStack } from '@hanzo/gui'
+import { HanzoguiLogo } from '@hanzogui/logo'
+import { H1, Paragraph, Square, XStack, YStack } from 'hanzogui'
 
 import { useDemoProps } from '~/features/studio/theme/hooks/useDemoProps'
 import { useThemeBuilderStore } from '../store/ThemeBuilderStore'
@@ -32,7 +32,7 @@ export const Header = () => {
             bg: 'red',
           }}
         >
-          <GuiLogo scale={1.5} />
+          <HanzoguiLogo scale={1.5} />
         </Square>
       </YStack>
     </XStack>

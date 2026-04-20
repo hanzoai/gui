@@ -1,4 +1,4 @@
-import { GuiLogo, ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
+import { HanzoguiLogo, ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
 import {
   Asterisk,
   Box,
@@ -12,7 +12,7 @@ import {
 import type { Href } from 'one'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
-import type { ImageProps, XStackProps } from '@hanzo/gui'
+import type { ImageProps, XStackProps } from 'hanzogui'
 import {
   Adapt,
   Button,
@@ -35,7 +35,7 @@ import {
   XStack,
   YStack,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { Code, CodeInline } from '~/components/Code'
 import { CustomTabs } from '~/components/CustomTabs'
@@ -50,8 +50,8 @@ import { OffsetBox } from '~/components/OffsetBox'
 import { Preview } from '~/components/Preview'
 import { ProductCard } from '~/components/ProductCard'
 import { SubTitle } from '~/components/SubTitle'
-import { GuiCard } from '~/components/GuiCard'
-import { GuiExamplesCode } from '~/components/GuiExamples'
+import { HanzoguiCard } from '~/components/HanzoguiCard'
+import { HanzoguiExamplesCode } from '~/components/HanzoguiExamples'
 import { UL } from '~/components/UL'
 import { SponsorButton } from '~/features/docs/SponsorButton'
 import { ExternalIcon } from '~/features/icons/ExternalIcon'
@@ -71,7 +71,7 @@ import { PropsTable } from '../docs/PropsTable'
 import { VersionSwitcher } from '../docs/VersionSwitcher'
 import * as Demos from '../docs/demos'
 import { ExampleAnimations } from '../site/home/HomeAnimations'
-import { TabsTabProps } from '@hanzo/gui'
+import { TabsTabProps } from 'hanzogui'
 import { Tab } from '~/components/RovingTabs'
 import { SimpleTable } from './SimpleTable'
 
@@ -239,8 +239,8 @@ const componentsIn = {
 
   ...Demos,
 
-  GuiDemo: () => {
-    return <GuiLogo />
+  HanzoguiDemo: () => {
+    return <HanzoguiLogo />
   },
 
   Highlights,
@@ -256,7 +256,7 @@ const componentsIn = {
     <Paragraph render="strong" fontSize="inherit" fontWeight="700" {...props} />
   ),
 
-  GuiExamplesCode,
+  HanzoguiExamplesCode,
 
   InstallBanner: ({ name = '' }) => {
     const {
@@ -269,7 +269,7 @@ const componentsIn = {
     } = useBashCommand(`yarn add ${name}`, 'language-bash')
 
     const { transformedCommand: guiCommand } = useBashCommand(
-      `npm install @hanzo/gui`,
+      `npm install hanzogui`,
       'language-bash'
     )
     const { onCopy, hasCopied } = useClipboard(transformedCommand)
@@ -427,7 +427,7 @@ const componentsIn = {
   IntroParagraph,
 
   Grid: (props) => <XStack flexWrap="wrap" jc="space-between" {...props} />,
-  Card: GuiCard,
+  Card: HanzoguiCard,
 
   LogoCard: LogoCard,
   NextJSRouterCard: (props) => {

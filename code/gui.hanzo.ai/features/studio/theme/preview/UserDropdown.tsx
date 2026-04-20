@@ -1,5 +1,5 @@
 import { Bell, Boxes, ChevronRight, Cog, Workflow } from '@hanzogui/lucide-icons-2'
-import { Avatar, H4, ListItem, Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Avatar, H4, ListItem, Paragraph, XStack, YStack } from 'hanzogui'
 import { useDemoProps } from '~/features/studio/theme/hooks/useDemoProps'
 
 export const UserDropdown = () => {

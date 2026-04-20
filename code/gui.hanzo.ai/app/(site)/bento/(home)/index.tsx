@@ -1,6 +1,6 @@
 import { Globe, Leaf, Puzzle } from '@hanzogui/lucide-icons-2'
 import { useStore } from '@hanzogui/use-store'
-import { Circle, H4, Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Circle, H4, Paragraph, XStack, YStack } from 'hanzogui'
 import { BentoStore, ComponentSection } from '~/components/BentoComponentSection'
 import { ContainerLarge } from '~/components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'

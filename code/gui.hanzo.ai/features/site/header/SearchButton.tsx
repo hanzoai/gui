@@ -1,7 +1,7 @@
 import { Search as SearchIcon } from '@hanzogui/lucide-icons-2'
 import { memo, useContext, useEffect, useRef } from 'react'
-import type { GetProps } from '@hanzo/gui'
-import { Button, SizableText, TooltipSimple } from '@hanzo/gui'
+import type { GetProps } from 'hanzogui'
+import { Button, SizableText, TooltipSimple } from 'hanzogui'
 
 import { SearchContext } from '~/features/site/search/SearchContext'
 

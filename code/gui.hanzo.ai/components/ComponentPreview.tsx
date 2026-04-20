@@ -22,8 +22,8 @@ import {
   View,
   XStack,
   ZStack,
-} from '@hanzo/gui'
-import { CardFrame, Text, YStack } from '@hanzo/gui'
+} from 'hanzogui'
+import { CardFrame, Text, YStack } from 'hanzogui'
 import { BentoIcon } from '~/features/icons/BentoIcon'
 
 const Chip = styled(View, {

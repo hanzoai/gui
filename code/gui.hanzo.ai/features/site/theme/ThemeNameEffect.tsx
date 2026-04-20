@@ -1,7 +1,7 @@
 import { ThemeTint, useTint } from '@hanzogui/logo'
 import { memo, useEffect, useState } from 'react'
-import type { ColorTokens, ThemeName } from '@hanzo/gui'
-import { YStack, isClient, useDidFinishSSR, useTheme } from '@hanzo/gui'
+import type { ColorTokens, ThemeName } from 'hanzogui'
+import { YStack, isClient, useDidFinishSSR, useTheme } from 'hanzogui'
 
 type Props = {
   colorKey?: ColorTokens

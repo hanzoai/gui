@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, H4, Label, Paragraph, RadioGroup, XStack, YStack } from '@hanzo/gui'
+import { Button, H4, Label, Paragraph, RadioGroup, XStack, YStack } from 'hanzogui'
 import { AccentTheme } from '../../components/AccentTheme'
 import { useDemoProps } from '../hooks/useDemoProps'
 const options = [

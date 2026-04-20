@@ -1,6 +1,6 @@
 import { useTint } from '@hanzogui/logo'
 import { useRef, useState } from 'react'
-import { Button, Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Button, Paragraph, XStack, YStack } from 'hanzogui'
 import { Link } from '~/components/Link'
 
 import { ContainerLarge } from '~/components/Containers'

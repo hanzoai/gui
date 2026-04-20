@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 import { forwardRef } from 'react'
 
 export const BentoIcon = forwardRef(

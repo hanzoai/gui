@@ -1,4 +1,4 @@
-import { Button, type ButtonProps } from '@hanzo/gui'
+import { Button, type ButtonProps } from 'hanzogui'
 import { AddEvenBrandIcon } from '~/features/icons/AddEvenBrandIcon'
 
 export const ConsultingButton = (props: ButtonProps) => {

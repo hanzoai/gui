@@ -10,7 +10,7 @@ import {
   Zap,
 } from '@hanzogui/lucide-icons-2'
 import { useDidFinishSSR } from '@hanzogui/use-did-finish-ssr'
-import { H2, H3, Paragraph, styled, useThemeName, XStack, YStack } from '@hanzo/gui'
+import { H2, H3, Paragraph, styled, useThemeName, XStack, YStack } from 'hanzogui'
 import { useHoverGlow } from '~/components/HoverGlow'
 import { SubTitle } from '../../components/SubTitle'
 

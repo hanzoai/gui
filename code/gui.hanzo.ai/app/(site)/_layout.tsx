@@ -1,7 +1,7 @@
 import { ToastViewport } from '@hanzogui/toast'
 import { lazy, Suspense } from 'react'
 import { LoadProgressBar, Slot, usePathname } from 'one'
-import { Theme, YStack } from '@hanzo/gui'
+import { Theme, YStack } from 'hanzogui'
 import { PromoBanner } from '~/components/PromoBanner'
 import { Footer } from '~/features/site/Footer'
 import { Header } from '~/features/site/header/Header'

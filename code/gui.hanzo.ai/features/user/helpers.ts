@@ -184,11 +184,11 @@ function checkAccessToProduct(
 ) {
   // Valid Pro products that grant access
   const validProProducts = [
-    ProductName.GuiPro,
-    ProductName.GuiProV2,
-    ProductName.GuiProV2Upgrade,
-    ProductName.GuiSupportDirect,
-    ProductName.GuiSupportSponsor,
+    ProductName.HanzoguiPro,
+    ProductName.HanzoguiProV2,
+    ProductName.HanzoguiProV2Upgrade,
+    ProductName.HanzoguiSupportDirect,
+    ProductName.HanzoguiSupportSponsor,
   ]
 
   const hasActiveSubscription = subscriptions.some(
@@ -253,7 +253,7 @@ async function checkBentoAccess(userId: string): Promise<boolean> {
 
   // check for direct Bento product ownership
   const hasBentoOwnership = result.data.some(
-    (ownership) => ownership.prices?.products?.name === ProductName.GuiBento
+    (ownership) => ownership.prices?.products?.name === ProductName.HanzoguiBento
   )
 
   if (hasBentoOwnership) {
@@ -265,7 +265,7 @@ async function checkBentoAccess(userId: string): Promise<boolean> {
     const productMetadata = ownership.prices?.metadata as Record<string, any> | null
     const productName = ownership.prices?.products?.name
     // only count as bento if it's a bento product with lifetime flag
-    return productMetadata?.is_lifetime === '1' && productName === ProductName.GuiBento
+    return productMetadata?.is_lifetime === '1' && productName === ProductName.HanzoguiBento
   })
 
   return hasLifetimeBento

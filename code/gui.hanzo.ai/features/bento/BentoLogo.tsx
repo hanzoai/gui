@@ -1,5 +1,5 @@
 import { useTint } from '@hanzogui/logo'
-import { H1, Theme, type ThemeProps, XStack, YStack } from '@hanzo/gui'
+import { H1, Theme, type ThemeProps, XStack, YStack } from 'hanzogui'
 import { useFontLoaded } from '~/features/site/fonts/LoadFonts'
 
 const offsetAdjust = 1

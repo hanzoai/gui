@@ -1,5 +1,5 @@
-import type { StaticConfig, ThemeParsed } from '@hanzo/gui'
-import { Theme } from '@hanzo/gui'
+import type { StaticConfig, ThemeParsed } from 'hanzogui'
+import { Theme } from 'hanzogui'
 
 export type ConfigSubPane =
   | 'settings'

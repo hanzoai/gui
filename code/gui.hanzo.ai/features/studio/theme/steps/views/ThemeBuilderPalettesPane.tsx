@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { YStack, XStack, H4, Paragraph, Button } from '@hanzo/gui'
+import { YStack, XStack, H4, Paragraph, Button } from 'hanzogui'
 import { useThemeBuilderStore } from '../../store/ThemeBuilderStore'
 import { ColorThemeIndicator } from '../../views/ColorThemeIndicator'
 

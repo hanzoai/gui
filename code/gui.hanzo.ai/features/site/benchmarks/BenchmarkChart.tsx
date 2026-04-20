@@ -1,4 +1,4 @@
-import { Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, XStack, YStack } from 'hanzogui'
 
 const getBarColor = (name: string) => {
   switch (name) {

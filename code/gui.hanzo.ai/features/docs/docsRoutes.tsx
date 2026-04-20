@@ -118,7 +118,7 @@ export const docsRoutes = [
 
   {
     section: 'ui',
-    // title: '@hanzo/gui',
+    // title: 'hanzogui',
     pages: [
       { title: 'Install', route: '/ui/intro' },
       { title: 'Stacks', route: '/ui/stacks' },

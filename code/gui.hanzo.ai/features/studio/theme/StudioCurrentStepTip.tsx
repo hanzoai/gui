@@ -1,6 +1,6 @@
 import { Lightbulb, X } from '@hanzogui/lucide-icons-2'
 import { useEffect, useState } from 'react'
-import { Button, Popover, Theme } from '@hanzo/gui'
+import { Button, Popover, Theme } from 'hanzogui'
 
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 

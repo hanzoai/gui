@@ -1,5 +1,5 @@
 import { useStore } from '@hanzogui/use-store'
-import type { ThemeName } from '@hanzo/gui'
+import type { ThemeName } from 'hanzogui'
 import {
   Separator,
   SizableText,
@@ -8,7 +8,7 @@ import {
   XStack,
   YStack,
   useThemeName,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { StudioProcedureStore } from '../../callApi'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'

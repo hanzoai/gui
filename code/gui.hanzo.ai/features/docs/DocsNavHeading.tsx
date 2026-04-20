@@ -1,4 +1,4 @@
-import { H4, styled } from '@hanzo/gui'
+import { H4, styled } from 'hanzogui'
 
 export const DocsNavHeading = styled(H4, {
   fontFamily: '$mono',

@@ -1,7 +1,7 @@
 import { listingData } from './bento-showcase/data'
 import { useStore } from '@hanzogui/use-store'
 import { useMemo, useRef, useState } from 'react'
-import { H3, ScrollView, Spacer, XStack, YStack } from '@hanzo/gui'
+import { H3, ScrollView, Spacer, XStack, YStack } from 'hanzogui'
 import { ContainerLarge } from '~/components/Containers'
 import { ComponentItem } from './BentoComponentItem'
 

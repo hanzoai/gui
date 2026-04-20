@@ -1,6 +1,6 @@
 import { Minus, Plus } from '@hanzogui/lucide-icons-2'
-import type { SizeTokens } from '@hanzo/gui'
-import { Button, Theme, YGroup } from '@hanzo/gui'
+import type { SizeTokens } from 'hanzogui'
+import { Button, Theme, YGroup } from 'hanzogui'
 import { useContainerDim } from './hooks/useContainerDim'
 
 export const SizeController = YGroup.styleable<{

@@ -9,7 +9,7 @@ import {
   Theme,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { Link } from '~/components/Link'
 import { BentoButton } from '../site/BentoButton'

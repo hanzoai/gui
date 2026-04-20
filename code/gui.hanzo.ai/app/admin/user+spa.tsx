@@ -1,4 +1,4 @@
-import { H1 } from '@hanzo/gui'
+import { H1 } from 'hanzogui'
 import { ContainerLarge } from '~/components/Containers'
 
 export default function AdminUserPage() {

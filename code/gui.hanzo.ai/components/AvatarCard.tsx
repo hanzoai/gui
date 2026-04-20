@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
-import { Avatar, Card, H5, Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Avatar, Card, H5, Paragraph, XStack, YStack } from 'hanzogui'
 import { Link } from '~/components/Link'
 import { ThemeTintAlt } from '@hanzogui/logo'
 

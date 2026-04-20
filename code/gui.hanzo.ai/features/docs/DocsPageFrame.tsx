@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from '@hanzogui/lucide-icons-2'
 import type { Href } from 'one'
 import type { ReactNode } from 'react'
-import { Paragraph, View, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, View, XStack, YStack } from 'hanzogui'
 import { Container } from '~/components/Containers'
 import { Link } from '~/components/Link'
 import { DocsQuickNav, type Heading } from './DocsQuickNav'

@@ -49,8 +49,8 @@ export default apiRoute(async (req) => {
   const supportSubscriptions = allUserSubscriptions.filter((sub) =>
     sub.subscription_items?.some(
       (item) =>
-        item.price?.product?.name === ProductName.GuiSupport ||
-        item.price?.product?.name === ProductName.GuiChat
+        item.price?.product?.name === ProductName.HanzoguiSupport ||
+        item.price?.product?.name === ProductName.HanzoguiChat
     )
   )
 
@@ -69,14 +69,14 @@ export default apiRoute(async (req) => {
   supportSubscriptions.forEach((supportSub) => {
     const supportItems = supportSub.subscription_items?.filter(
       (item) =>
-        item.price?.product?.name === ProductName.GuiSupport ||
-        item.price?.product?.name === ProductName.GuiChat
+        item.price?.product?.name === ProductName.HanzoguiSupport ||
+        item.price?.product?.name === ProductName.HanzoguiChat
     )
 
     if (supportItems?.length) {
       // Check for chat support (base 2 invites)
       const chatItem = supportItems.find(
-        (item) => item.price?.product?.name === ProductName.GuiChat
+        (item) => item.price?.product?.name === ProductName.HanzoguiChat
       )
       if (chatItem) {
         hasChat = true
@@ -85,7 +85,7 @@ export default apiRoute(async (req) => {
 
       // Check for support tiers (4 additional invites per tier)
       const tierItem = supportItems.find(
-        (item) => item.price?.product?.name === ProductName.GuiSupport
+        (item) => item.price?.product?.name === ProductName.HanzoguiSupport
       )
       if (tierItem) {
         // Use subscription's quantity field to determine tier level

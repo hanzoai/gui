@@ -1,6 +1,6 @@
 import { Masonry } from 'masonic'
 import { memo } from 'react'
-import { XStack, YStack, styled, useThemeName } from '@hanzo/gui'
+import { XStack, YStack, styled, useThemeName } from 'hanzogui'
 import { StudioPaletteBar } from '~/features/studio/StudioPaletteBar'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { AllTasks } from './preview/AllTasks'

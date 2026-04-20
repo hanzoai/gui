@@ -10,7 +10,7 @@ import {
   ScrollView,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { AccentTheme } from '../../components/AccentTheme'
 import { useDemoProps } from '../hooks/useDemoProps'
 

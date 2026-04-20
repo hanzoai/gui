@@ -1,5 +1,5 @@
 import type { Href } from 'one'
-import { H2, Paragraph, XStack, YStack } from '@hanzo/gui'
+import { H2, Paragraph, XStack, YStack } from 'hanzogui'
 import { Link } from '../../../components/Link'
 import { purchaseModal } from '../purchase/purchaseModalStore'
 

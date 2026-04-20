@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getVariableValue, useTheme, useThemeName } from '@hanzo/gui'
+import { getVariableValue, useTheme, useThemeName } from 'hanzogui'
 import type { VictoryThemeDefinition } from 'victory'
 import { useDemoProps } from '../hooks/useDemoProps'
 

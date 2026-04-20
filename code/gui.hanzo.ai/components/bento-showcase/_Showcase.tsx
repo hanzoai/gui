@@ -1,7 +1,7 @@
 import { Code, Eye, Info, Link, Lock, Minus, Plus } from '@hanzogui/lucide-icons-2'
 import { useToastController } from '@hanzogui/toast'
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
-import type { SizeTokens, ThemeName } from '@hanzo/gui'
+import type { SizeTokens, ThemeName } from 'hanzogui'
 
 import useSWR from 'swr'
 import {
@@ -21,7 +21,7 @@ import {
   createStyledContext,
   useEvent,
   useIsomorphicLayoutEffect,
-} from '@hanzo/gui'
+} from 'hanzogui'
 // @ts-ignore - bento component wildcard import
 import { useCurrentRouteParams } from '@hanzogui/bento'
 // @ts-ignore - bento component wildcard import

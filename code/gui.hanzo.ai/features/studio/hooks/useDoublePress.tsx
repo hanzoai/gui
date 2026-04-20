@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import type { GestureResponderEvent } from 'react-native'
-import { useEvent } from '@hanzo/gui'
+import { useEvent } from 'hanzogui'
 
 export const useDoublePress = ({
   onSinglePress,

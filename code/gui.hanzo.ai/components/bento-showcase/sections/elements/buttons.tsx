@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import * as Buttons from '@hanzogui/bento/component/elements/buttons'
 import {

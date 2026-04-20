@@ -2,8 +2,8 @@ import rangeParser from 'parse-numeric-range'
 import React from 'react'
 import { refractor } from 'refractor'
 import tsx from 'refractor/lang/tsx'
-import type { GetProps } from '@hanzo/gui'
-import { YStack } from '@hanzo/gui'
+import type { GetProps } from 'hanzogui'
+import { YStack } from 'hanzogui'
 import { toHtml } from 'hast-util-to-html'
 import parse from 'rehype-parse'
 import { unified } from 'unified'
@@ -176,7 +176,7 @@ const highlightWord = (code) => {
   return hast['children']
 }
 
-import { Paragraph, styled } from '@hanzo/gui'
+import { Paragraph, styled } from 'hanzogui'
 
 const Code = styled(Paragraph, {
   name: 'Code',

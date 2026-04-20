@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { ProLicense } from '~/features/pro/ProLicense'
 

@@ -21,8 +21,8 @@ type TestUserType = 'new' | 'v1' | 'v2'
  *
  * Creates/resets a test user with the specified subscription state:
  * - new: clean user with no subscriptions
- * - v1: user with V1 GuiPro subscription (should see upgrade card)
- * - v2: user with V2 GuiProV2 subscription (normal account state)
+ * - v1: user with V1 HanzoguiPro subscription (should see upgrade card)
+ * - v2: user with V2 HanzoguiProV2 subscription (normal account state)
  *
  * Sets session cookies and redirects to /account
  */

@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
-import type { TabLayout, TabsTabProps, YStackProps } from '@hanzo/gui'
-import { AnimatePresence, Circle, Tabs, YStack } from '@hanzo/gui'
+import type { TabLayout, TabsTabProps, YStackProps } from 'hanzogui'
+import { AnimatePresence, Circle, Tabs, YStack } from 'hanzogui'
 
 export const BarTabs = memo(function HeaderTabs({
   currentTab,

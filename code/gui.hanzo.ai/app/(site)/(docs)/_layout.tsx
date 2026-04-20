@@ -1,6 +1,6 @@
 import { Slot } from 'one'
 import { ScrollView } from 'react-native'
-import { View, XStack, YStack } from '@hanzo/gui'
+import { View, XStack, YStack } from 'hanzogui'
 import { DocsMenuContents } from '~/features/docs/DocsMenuContents'
 import { Footer } from '~/features/site/Footer'
 import { ThemeNameEffect } from '~/features/site/theme/ThemeNameEffect'

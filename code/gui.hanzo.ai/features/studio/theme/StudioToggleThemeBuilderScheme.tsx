@@ -1,4 +1,4 @@
-import { Button, XGroup } from '@hanzo/gui'
+import { Button, XGroup } from 'hanzogui'
 
 import { useRootStore } from '../state/useGlobalState'
 

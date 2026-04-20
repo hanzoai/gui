@@ -1,4 +1,4 @@
-import { Button, type ButtonProps } from '@hanzo/gui'
+import { Button, type ButtonProps } from 'hanzogui'
 import { TakeoutIcon } from '../icons/TakeoutIcon'
 
 export const TakeoutButton = (props: ButtonProps) => {

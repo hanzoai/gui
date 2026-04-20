@@ -1,5 +1,5 @@
 import { Check, CheckCircle } from '@hanzogui/lucide-icons-2'
-import type { CheckboxProps, RadioGroupItemProps } from '@hanzo/gui'
+import type { CheckboxProps, RadioGroupItemProps } from 'hanzogui'
 import {
   Button,
   Checkbox,
@@ -11,7 +11,7 @@ import {
   YStack,
   isClient,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import type { Database } from '~/features/supabase/types'
 import { getTakeoutPriceInfo } from './getProductInfo'
 

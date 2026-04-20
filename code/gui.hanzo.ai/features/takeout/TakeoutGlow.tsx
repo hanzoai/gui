@@ -1,6 +1,6 @@
 import { useTint } from '@hanzogui/logo'
 import { memo, useMemo } from 'react'
-import { AnimatePresence, YStack } from '@hanzo/gui'
+import { AnimatePresence, YStack } from 'hanzogui'
 import { useScrollPosition } from './useScrollProgress'
 
 const glowPositions = [

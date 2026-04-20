@@ -1,4 +1,4 @@
-import { Paragraph, Spacer, styled, YStack } from '@hanzo/gui'
+import { Paragraph, Spacer, styled, YStack } from 'hanzogui'
 import { Link } from '../../../components/Link'
 import { P } from './BigP'
 

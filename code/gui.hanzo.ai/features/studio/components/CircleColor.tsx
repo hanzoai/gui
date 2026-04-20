@@ -1,6 +1,6 @@
-import type { CircleProps } from '@hanzo/gui'
-import { Circle, useProps } from '@hanzo/gui'
-import { YStack } from '@hanzo/gui'
+import type { CircleProps } from 'hanzogui'
+import { Circle, useProps } from 'hanzogui'
+import { YStack } from 'hanzogui'
 
 import { Checkerboard } from './Checkerboard'
 

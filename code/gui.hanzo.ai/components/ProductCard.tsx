@@ -1,6 +1,6 @@
 import { ThemeTintAlt } from '@hanzogui/logo'
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
-import { Card, H3, Paragraph, View, YStack } from '@hanzo/gui'
+import { Card, H3, Paragraph, View, YStack } from 'hanzogui'
 import type { Href } from 'one'
 import { BentoIcon } from '~/features/icons/BentoIcon'
 import { TakeoutIcon } from '~/features/icons/TakeoutIcon'

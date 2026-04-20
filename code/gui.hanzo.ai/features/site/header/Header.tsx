@@ -1,4 +1,4 @@
-import { LogoWords, setTintFamily, GuiLogo, ThemeTint, useTint } from '@hanzogui/logo'
+import { LogoWords, setTintFamily, HanzoguiLogo, ThemeTint, useTint } from '@hanzogui/logo'
 import { Check, ExternalLink, Figma, LogIn, Menu } from '@hanzogui/lucide-icons-2'
 import { isTouchable, useGet, useMedia } from '@hanzogui/web'
 import { useFocusEffect, usePathname, useRouter } from 'one'
@@ -25,7 +25,7 @@ import {
   XStack,
   YStack,
   type PopoverProps,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { Link } from '~/components/Link'
 import { useBannerHeight } from '~/components/PromoBanner'
 import { GithubIcon } from '~/features/icons/GithubIcon'
@@ -267,7 +267,7 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
                   },
                 })}
               >
-                <GuiLogo downscale={2.6} />
+                <HanzoguiLogo downscale={2.6} />
               </YStack>
             </SeasonTogglePopover>
             <LogoWords animated />

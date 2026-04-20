@@ -1,6 +1,6 @@
 import type { Href } from 'one'
 import type { ReactNode } from 'react'
-import { Paragraph, ScrollView, styled, Text, useMedia, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, ScrollView, styled, Text, useMedia, XStack, YStack } from 'hanzogui'
 import { Link } from '~/components/Link'
 
 const TableFrame = styled(YStack, {

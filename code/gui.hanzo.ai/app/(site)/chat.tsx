@@ -1,4 +1,4 @@
-import { H1, Paragraph, Separator, Spacer } from '@hanzo/gui'
+import { H1, Paragraph, Separator, Spacer } from 'hanzogui'
 import { Container } from '../../components/Containers'
 import { HeadInfo } from '../../components/HeadInfo'
 import { Link } from '../../components/Link'

@@ -13,7 +13,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import type { YStackProps } from '@hanzo/gui'
+import type { YStackProps } from 'hanzogui'
 import {
   Button,
   Circle,
@@ -31,7 +31,7 @@ import {
   useGet,
   useIsomorphicLayoutEffect,
   useMedia,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { Container, ContainerLarge } from '~/components/Containers'
 import { useTransitionState } from '~/hooks/useTransitionState'
 import favicon from '~/public/favicon.svg'

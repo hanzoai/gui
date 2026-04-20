@@ -1,5 +1,5 @@
 import { ThemeTint } from '@hanzogui/logo'
-import { Theme } from '@hanzo/gui'
+import { Theme } from 'hanzogui'
 import { getMDXComponent } from 'mdx-bundler/client'
 import React, { memo } from 'react'
 import type { LoaderProps } from 'one'

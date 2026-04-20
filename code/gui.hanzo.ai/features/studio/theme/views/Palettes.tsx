@@ -1,6 +1,6 @@
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from '@hanzogui/lucide-icons-2'
 import { type BuildPalette, getThemeSuitePalettes } from '@hanzogui/theme-builder'
-import { Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, XStack, YStack } from 'hanzogui'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { StudioPaletteBar } from '../../StudioPaletteBar'
 

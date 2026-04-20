@@ -1,4 +1,4 @@
-import { H1, YStack } from '@hanzo/gui'
+import { H1, YStack } from 'hanzogui'
 import { useFontLoaded } from '~/features/site/fonts/LoadFonts'
 import { useDisableMotion } from '~/hooks/useDisableMotion'
 

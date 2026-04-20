@@ -1,5 +1,5 @@
 import { readableColor } from 'color2k'
-import { Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, XStack, YStack } from 'hanzogui'
 
 import { Checkerboard } from './components/Checkerboard'
 

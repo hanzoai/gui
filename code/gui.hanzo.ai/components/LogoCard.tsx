@@ -1,7 +1,7 @@
 import { ThemeTintAlt } from '@hanzogui/logo'
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import { useState } from 'react'
-import { Avatar, Card, H5, Paragraph, View, XStack, YStack } from '@hanzo/gui'
+import { Avatar, Card, H5, Paragraph, View, XStack, YStack } from 'hanzogui'
 
 export function LogoCard({ title, subtitle, img, icon, link, colorOffset, ...props }) {
   const [isHovered, setHovered] = useState(false)

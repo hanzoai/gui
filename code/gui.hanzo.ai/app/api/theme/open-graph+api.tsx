@@ -93,7 +93,7 @@ export async function GET(req: Request) {
           }}
         >
           <div style={{ width: '40px', height: '40px', opacity: 0.9, display: 'flex' }}>
-            <GuiLogo size={40} />
+            <HanzoguiLogo size={40} />
           </div>
           <div
             style={{
@@ -329,7 +329,7 @@ export async function GET(req: Request) {
           }}
         >
           <div style={{ width: '40px', height: '40px', opacity: 0.9, display: 'flex' }}>
-            <GuiLogo size={40} />
+            <HanzoguiLogo size={40} />
           </div>
           <div
             style={{
@@ -793,7 +793,7 @@ type Theme = {
   is_cached: boolean | null
 }
 
-const GuiLogo = ({ size = 64 }: { size?: number }) => (
+const HanzoguiLogo = ({ size = 64 }: { size?: number }) => (
   <svg
     width={size}
     height={size}

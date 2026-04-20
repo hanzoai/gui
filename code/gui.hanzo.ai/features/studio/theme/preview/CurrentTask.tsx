@@ -1,4 +1,4 @@
-import type { XStackProps } from '@hanzo/gui'
+import type { XStackProps } from 'hanzogui'
 import {
   Avatar,
   H4,
@@ -9,7 +9,7 @@ import {
   Spacer,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { accentTokenName } from '../../accentThemeName'
 import { useDemoProps } from '../hooks/useDemoProps'

@@ -11,7 +11,7 @@ import {
   YStack,
   useControllableState,
   useEvent,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { ContainerLarge } from '~/components/Containers'
 import { Link } from '~/components/Link'
 import { useIsIntersecting } from '~/hooks/useOnIntersecting'

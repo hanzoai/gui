@@ -1,4 +1,4 @@
-import { H1, H3, Paragraph, Separator, YStack } from '@hanzo/gui'
+import { H1, H3, Paragraph, Separator, YStack } from 'hanzogui'
 
 export const ProPolicy = () => {
   return (

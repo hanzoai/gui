@@ -12,7 +12,7 @@ import {
   XGroup,
   XStack,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { optionValues } from './demoOptions'
 

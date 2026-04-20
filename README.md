@@ -19,8 +19,8 @@
 <br />
 
 - `@hanzogui/web` - Universal style library for React.
-- `@hanzo/gui` - UI kit that adapts to every platform.
-- `@hanzogui/static` - Optimizing compiler that works with `gui-web` and `gui`.
+- `hanzogui` - UI kit that adapts to every platform.
+- `@hanzogui/static` - Optimizing compiler that works with `@hanzogui/web` and `hanzogui`.
 
 <br />
 
@@ -32,9 +32,9 @@ It does this with an optimizing compiler that outputs platform-specific optimiza
 
 The entirety of Hanzo GUI works at compile time and runtime, and can be set up gradually, with initial usage as simple as importing it and using the base views and styled function.
 
-We recommend checking out the starters with `npm create hanzo-gui@latest`, they range from a simple learning example to a production-ready monorepo.
+We recommend checking out the starters with `npm create hanzogui@latest`, they range from a simple learning example to a production-ready monorepo.
 
-The compiler optimizes most and ultimately flattens a majority of styled components. In the [~500px² responsive browser section](https://gui.hanzo.ai) of the Hanzo GUI website, 49 of the 55 or so [inline styled components](https://github.com/hanzoai/gui/blob/main/code/gui.hanzo.ai/components/HeroResponsive.tsx) are flattened to a `div`. The homepage gains nearly 15% on Lighthouse with the compiler on.
+The compiler optimizes most styled components by flattening them to plain `div`s (web) or `View`s (native) at build time. Real-world apps see double-digit Lighthouse improvements.
 
 [Learn more on the website](https://gui.hanzo.ai/docs/intro/introduction).
 

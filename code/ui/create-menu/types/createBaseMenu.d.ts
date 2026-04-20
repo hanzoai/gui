@@ -1,0 +1,298 @@
+import { Dismissable as DismissableLayer } from '@hanzogui/dismissable';
+import { FocusScope } from '@hanzogui/focus-scope';
+import type { PopperContentProps } from '@hanzogui/popper';
+import * as PopperPrimitive from '@hanzogui/popper';
+import type { RovingFocusGroupProps } from '@hanzogui/roving-focus';
+import type { TextProps } from '@hanzogui/web';
+import { type ViewProps, View } from '@hanzogui/web';
+import type { HanzoguiElement } from '@hanzogui/web/types';
+import * as React from 'react';
+import type { Image, ImageProps } from 'react-native';
+import { MenuPredefined } from './MenuPredefined';
+type Direction = 'ltr' | 'rtl';
+type ScopedProps<P> = P & {
+    scope?: string;
+};
+interface MenuBaseProps extends PopperPrimitive.PopperProps {
+    children?: React.ReactNode;
+    open?: boolean;
+    onOpenChange?(open: boolean): void;
+    dir?: Direction;
+    modal?: boolean;
+    native?: boolean;
+}
+type PopperAnchorProps = React.ComponentPropsWithoutRef<typeof PopperPrimitive.PopperAnchor>;
+interface MenuAnchorProps extends PopperAnchorProps {
+}
+interface MenuPortalProps {
+    children?: React.ReactNode;
+    /**
+     * Used to force mounting when more control is needed. Useful when
+     * controlling animation with React animation libraries.
+     */
+    forceMount?: boolean;
+    zIndex?: number;
+}
+/**
+ * We purposefully don't union MenuRootContent and MenuSubContent props here because
+ * they have conflicting prop types. We agreed that we would allow MenuSubContent to
+ * accept props that it would just ignore.
+ */
+interface MenuContentProps extends MenuRootContentTypeProps {
+    /**
+     * Used to force mounting when more control is needed. Useful when
+     * controlling animation with React animation libraries.
+     */
+    forceMount?: boolean;
+}
+interface MenuRootContentTypeProps extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> {
+}
+type MenuContentImplElement = React.ElementRef<typeof PopperPrimitive.PopperContent>;
+type FocusScopeProps = React.ComponentPropsWithoutRef<typeof FocusScope>;
+type DismissableLayerProps = React.ComponentPropsWithoutRef<typeof DismissableLayer>;
+type MenuContentImplPrivateProps = {
+    onOpenAutoFocus?: FocusScopeProps['onMountAutoFocus'];
+    onDismiss?: DismissableLayerProps['onDismiss'];
+    disableOutsidePointerEvents?: DismissableLayerProps['disableOutsidePointerEvents'];
+    /**
+     * Whether scrolling outside the `MenuContent` should be prevented
+     * (default: `false`)
+     */
+    disableOutsideScroll?: boolean;
+    /**
+     * Whether focus should be trapped within the `MenuContent`
+     * (default: false)
+     */
+    trapFocus?: FocusScopeProps['trapped'];
+    /**
+     * Whether to disable dismissing the menu when the user scrolls outside of it
+     * (default: false, meaning scroll will dismiss on web)
+     */
+    disableDismissOnScroll?: boolean;
+};
+interface MenuContentImplProps extends MenuContentImplPrivateProps, Omit<PopperContentProps, 'dir' | 'onPlaced'> {
+    /**
+     * Event handler called when auto-focusing on close.
+     * Can be prevented.
+     */
+    onCloseAutoFocus?: FocusScopeProps['onUnmountAutoFocus'];
+    /**
+     * Whether keyboard navigation should loop around
+     * @defaultValue false
+     */
+    loop?: RovingFocusGroupProps['loop'];
+    onEntryFocus?: RovingFocusGroupProps['onEntryFocus'];
+    onEscapeKeyDown?: DismissableLayerProps['onEscapeKeyDown'];
+    onPointerDownOutside?: DismissableLayerProps['onPointerDownOutside'];
+    onFocusOutside?: DismissableLayerProps['onFocusOutside'];
+    onInteractOutside?: DismissableLayerProps['onInteractOutside'];
+}
+interface MenuGroupProps extends ViewProps {
+}
+interface MenuLabelProps extends ViewProps {
+}
+interface MenuItemProps extends Omit<MenuItemImplProps, 'onSelect'> {
+    onSelect?: (event: Event) => void;
+    unstyled?: boolean;
+    /**
+     * Prevents the menu from closing when this item is selected.
+     * Useful for toggle items or multi-select scenarios.
+     */
+    preventCloseOnSelect?: boolean;
+}
+interface MenuItemImplProps extends ViewProps {
+    disabled?: boolean;
+    textValue?: string;
+    unstyled?: boolean;
+}
+interface MenuItemTitleProps extends TextProps {
+}
+interface MenuItemSubTitleProps extends TextProps {
+}
+type MenuItemIconProps = ViewProps;
+type CheckedState = boolean | 'indeterminate';
+interface MenuCheckboxItemProps extends MenuItemProps {
+    checked?: CheckedState;
+    onCheckedChange?: (checked: boolean) => void;
+}
+interface MenuRadioGroupProps extends MenuGroupProps {
+    value?: string;
+    onValueChange?: (value: string) => void;
+}
+interface MenuRadioItemProps extends MenuItemProps {
+    value: string;
+}
+type PrimitiveSpanProps = React.ComponentPropsWithoutRef<typeof View>;
+interface MenuItemIndicatorProps extends PrimitiveSpanProps {
+    /**
+     * Used to force mounting when more control is needed. Useful when
+     * controlling animation with React animation libraries.
+     */
+    forceMount?: boolean;
+}
+interface MenuSeparatorProps extends ViewProps {
+}
+type PopperArrowProps = React.ComponentPropsWithoutRef<typeof PopperPrimitive.PopperArrow>;
+interface MenuArrowProps extends PopperArrowProps {
+    unstyled?: boolean;
+}
+export interface MenuSubProps extends PopperPrimitive.PopperProps {
+    children?: React.ReactNode;
+    open?: boolean;
+    onOpenChange?(open: boolean): void;
+}
+interface MenuSubTriggerProps extends MenuItemImplProps {
+}
+export type MenuSubContentElement = MenuContentImplElement;
+export interface MenuSubContentProps extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps | 'onCloseAutoFocus' | 'onEntryFocus' | 'side' | 'align'> {
+    /**
+     * Used to force mounting when more control is needed. Useful when
+     * controlling animation with React animation libraries.
+     */
+    forceMount?: boolean;
+}
+export type CreateBaseMenuProps = {
+    Item?: typeof MenuPredefined.MenuItem;
+    MenuGroup?: typeof MenuPredefined.MenuGroup;
+    Title?: typeof MenuPredefined.Title;
+    SubTitle?: typeof MenuPredefined.SubTitle;
+    Image?: React.ElementType;
+    Icon?: typeof MenuPredefined.MenuIcon;
+    Indicator?: typeof MenuPredefined.MenuIndicator;
+    Separator?: typeof MenuPredefined.MenuSeparator;
+    Label?: typeof MenuPredefined.MenuLabel;
+};
+export declare function createBaseMenu({ Item: _Item, Title: _Title, SubTitle: _SubTitle, Image: _Image, Icon: _Icon, Indicator: _Indicator, Separator: _Separator, MenuGroup: _MenuGroup, Label: _Label, }: CreateBaseMenuProps): {
+    Menu: {
+        (props: ScopedProps<MenuBaseProps>): import("react/jsx-runtime").JSX.Element;
+        displayName: string;
+    } & {
+        Anchor: {
+            (props: MenuAnchorProps): import("react/jsx-runtime").JSX.Element;
+            displayName: string;
+        };
+        Portal: {
+            (props: ScopedProps<MenuPortalProps>): import("react/jsx-runtime").JSX.Element;
+            displayName: string;
+        };
+        Content: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            size?: import("@hanzogui/web").SizeTokens | undefined;
+            unstyled?: boolean | undefined;
+            elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
+            fullscreen?: boolean | undefined;
+        }>, keyof MenuContentProps> & MenuContentProps & {
+            scope?: string;
+        }, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & MenuContentProps & {
+            scope?: string;
+        }, import("@hanzogui/web").StackStyleBase, {
+            size?: import("@hanzogui/web").SizeTokens | undefined;
+            unstyled?: boolean | undefined;
+            elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
+            fullscreen?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        Group: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }>, keyof MenuGroupProps> & MenuGroupProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuGroupProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        Label: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+            unstyled?: boolean | undefined;
+            size?: import("@hanzogui/web").FontSizeTokens | undefined;
+        }>, keyof MenuLabelProps> & MenuLabelProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuLabelProps, import("@hanzogui/web").TextStylePropsBase, {
+            unstyled?: boolean | undefined;
+            size?: import("@hanzogui/web").FontSizeTokens | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        Item: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }>, "scope" | keyof MenuItemProps> & MenuItemProps & {
+            scope?: string;
+        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuItemProps & {
+            scope?: string;
+        }, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        CheckboxItem: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }>, "scope" | keyof MenuCheckboxItemProps> & MenuCheckboxItemProps & {
+            scope?: string;
+        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuCheckboxItemProps & {
+            scope?: string;
+        }, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        RadioGroup: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }>, "scope" | keyof MenuRadioGroupProps> & MenuRadioGroupProps & {
+            scope?: string;
+        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuRadioGroupProps & {
+            scope?: string;
+        }, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        RadioItem: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }>, "scope" | keyof MenuRadioItemProps> & MenuRadioItemProps & {
+            scope?: string;
+        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuRadioItemProps & {
+            scope?: string;
+        }, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        ItemIndicator: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }>, "scope" | keyof MenuItemIndicatorProps> & MenuItemIndicatorProps & {
+            scope?: string;
+        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuItemIndicatorProps & {
+            scope?: string;
+        }, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        Separator: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }>, keyof MenuSeparatorProps> & MenuSeparatorProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuSeparatorProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        Arrow: React.ForwardRefExoticComponent<MenuArrowProps & React.RefAttributes<HanzoguiElement>>;
+        Sub: React.FC<ScopedProps<MenuSubProps>>;
+        SubTrigger: React.ForwardRefExoticComponent<MenuSubTriggerProps & {
+            scope?: string;
+        } & React.RefAttributes<HanzoguiElement>>;
+        SubContent: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            size?: import("@hanzogui/web").SizeTokens | undefined;
+            unstyled?: boolean | undefined;
+            elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
+            fullscreen?: boolean | undefined;
+        }>, keyof MenuSubContentProps> & MenuSubContentProps & {
+            scope?: string;
+        }, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & MenuSubContentProps & {
+            scope?: string;
+        }, import("@hanzogui/web").StackStyleBase, {
+            size?: import("@hanzogui/web").SizeTokens | undefined;
+            unstyled?: boolean | undefined;
+            elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
+            fullscreen?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        ItemTitle: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+            unstyled?: boolean | undefined;
+            size?: import("@hanzogui/web").FontSizeTokens | undefined;
+        }>, keyof MenuItemTitleProps> & MenuItemTitleProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuItemTitleProps, import("@hanzogui/web").TextStylePropsBase, {
+            unstyled?: boolean | undefined;
+            size?: import("@hanzogui/web").FontSizeTokens | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        ItemSubtitle: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+            unstyled?: boolean | undefined;
+            size?: import("@hanzogui/web").FontSizeTokens | undefined;
+        }>, keyof MenuItemSubTitleProps> & MenuItemSubTitleProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuItemSubTitleProps, import("@hanzogui/web").TextStylePropsBase, {
+            unstyled?: boolean | undefined;
+            size?: import("@hanzogui/web").FontSizeTokens | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+        ItemImage: React.ForwardRefExoticComponent<ImageProps & React.RefAttributes<Image>>;
+        ItemIcon: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }>, `$${string}` | `$${number}` | import("@hanzogui/web").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | keyof import("@hanzogui/web").StackStyleBase | keyof import("@hanzogui/web").StackNonStyleProps | keyof import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>>> & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, import("@hanzogui/web").StackStyleBase, {
+            unstyled?: boolean | undefined;
+        }, import("@hanzogui/web").StaticConfigPublic>;
+    };
+};
+export type { MenuAnchorProps, MenuArrowProps, MenuCheckboxItemProps, MenuContentProps, MenuGroupProps, MenuItemIconProps, MenuItemIndicatorProps, MenuItemProps, MenuItemSubTitleProps, MenuItemTitleProps, MenuLabelProps, MenuPortalProps, MenuBaseProps as MenuProps, MenuRadioGroupProps, MenuRadioItemProps, MenuSeparatorProps, MenuSubTriggerProps, };
+//# sourceMappingURL=createBaseMenu.d.ts.map

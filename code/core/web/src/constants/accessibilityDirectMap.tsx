@@ -1,6 +1,6 @@
 // v2: RN accessibility props are no longer converted
 // Users should use web-standard aria-* props directly (aria-label, role, etc.)
-// See https://gui.hanzo.ai/docs/intro/version-two for migration guide
+// See https://hanzogui.dev/docs/intro/version-two for migration guide
 
 export const accessibilityDirectMap: Record<string, string> = {}
 

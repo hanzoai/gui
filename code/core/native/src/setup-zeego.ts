@@ -1,5 +1,5 @@
 /**
- * Setup zeego for GUI native menus.
+ * Setup zeego for Hanzogui native menus.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -16,8 +16,8 @@ import { getZeego } from './zeegoState'
 
 function setup(): void {
   const g = globalThis as any
-  if (g.__gui_native_zeego_setup) return
-  g.__gui_native_zeego_setup = true
+  if (g.__hanzogui_native_zeego_setup) return
+  g.__hanzogui_native_zeego_setup = true
 
   try {
     const DropdownMenu = require('zeego/dropdown-menu')

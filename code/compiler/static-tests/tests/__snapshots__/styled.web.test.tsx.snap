@@ -2,7 +2,7 @@
 
 exports[`styled() tests > extracts to className at call-site 1`] = `
 "const _cn = "is_View _bg-green";
-import { MyStack } from '@tamagui/test-design-system';
+import { MyStack } from '@hanzogui/test-design-system';
 export function Test() {
   return <div className={_cn} />;
 }"

@@ -1,6 +1,7 @@
 {
   "name": "@hanzogui/sandbox-ui",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
+  "private": true,
   "files": [
     "types",
     "dist"
@@ -12,19 +13,20 @@
   "module": "dist/esm/index.mjs",
   "types": "./types/index",
   "scripts": {
-    "build": "true",
-    "watch": "hanzo-gui-build --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/animations-react-native": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/toast": "workspace:*",
     "expo-constants": "~55.0.7",
     "expo-image": "~55.0.6",
     "solito": "^4.3.0",
-    "@hanzo/gui": "workspace:*"
+    "hanzogui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

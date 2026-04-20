@@ -20,9 +20,9 @@ export async function generateThemes(inputFile: string) {
     purgeCache(inputFilePath)
   }
 
-  let og = process.env.GUI_KEEP_THEMES
-  process.env.GUI_KEEP_THEMES = '1'
-  process.env.GUI_RUN_THEMEBUILDER = '1'
+  let og = process.env.TAMAGUI_KEEP_THEMES
+  process.env.TAMAGUI_KEEP_THEMES = '1'
+  process.env.TAMAGUI_RUN_THEMEBUILDER = '1'
 
   try {
     const requiredThemes = require(inputFilePath)
@@ -40,7 +40,7 @@ export async function generateThemes(inputFile: string) {
   } catch (err) {
     console.warn(` ⚠️ Error running theme builder:\n`, err?.['stack'] || err)
   } finally {
-    process.env.GUI_KEEP_THEMES = og
+    process.env.TAMAGUI_KEEP_THEMES = og
   }
 }
 

@@ -4,7 +4,7 @@ import { debugLog } from '../commands/index.js'
 
 import type { AppContextType } from '../data/AppContext.js'
 
-const apiBase = process.env.API_BASE || 'https://gui.hanzo.ai'
+const apiBase = process.env.API_BASE || 'https://hanzogui.dev'
 const ACCESS_TOKEN_URL = `${apiBase}/account`
 
 export const handleGlobalKeyPress = (

@@ -8,7 +8,7 @@ import {
   styled,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const TABS = ['Tab A', 'Tab B', 'Tab C', 'Tab D', 'Tab E']
 

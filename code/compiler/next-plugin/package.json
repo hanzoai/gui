@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/next-plugin",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
   "source": "src/index.ts",
@@ -29,10 +29,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzo-gui-build --skip-native",
-    "watch": "hanzo-gui-build --skip-native --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@babel/preset-react": "^7.24.7",
@@ -45,7 +45,7 @@
     "esbuild-loader": "^4.2.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "@hanzogui/loader": "workspace:*",
+    "hanzogui-loader": "workspace:*",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {

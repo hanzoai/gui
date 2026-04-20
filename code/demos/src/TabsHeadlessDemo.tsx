@@ -7,7 +7,7 @@ import {
   YStack,
   isWeb,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { createTabs } from '@hanzogui/tabs'
 import { getButtonSized } from '@hanzogui/get-button-sized'
 

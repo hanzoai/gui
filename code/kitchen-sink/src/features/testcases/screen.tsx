@@ -2,8 +2,8 @@ import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import { ScrollView } from 'react-native'
 import type { UseLinkProps } from 'solito/link'
 import { useLink } from 'solito/link'
-import type { ListItemProps } from '@hanzo/gui'
-import { H2, ListItem, YGroup, YStack } from '@hanzo/gui'
+import type { ListItemProps } from 'hanzogui'
+import { H2, ListItem, YGroup, YStack } from 'hanzogui'
 
 import * as TestCases from '../../usecases'
 

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import type { LayoutChangeEvent, LayoutRectangle } from 'react-native'
-import { Button, Square, Text, YStack } from '@hanzo/gui'
+import { Button, Square, Text, YStack } from 'hanzogui'
 
 /**
  * test case for onLayout with CSS scale transform.
@@ -15,7 +15,7 @@ import { Button, Square, Text, YStack } from '@hanzo/gui'
  * - getBoundingClientRect() returns width: 50, height: 50 (transformed)
  * - offsetWidth/offsetHeight return 100, 100 (pre-transform, expected)
  *
- * enable GUI_ONLAYOUT_PRETRANSFORM=1 to test the fix
+ * enable TAMAGUI_ONLAYOUT_PRETRANSFORM=1 to test the fix
  *
  * see: https://github.com/hanzoai/gui/pull/2329
  */

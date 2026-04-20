@@ -5,7 +5,7 @@ import { Check, Minus } from '@hanzogui/lucide-icons-2'
 
 import type { View } from 'react-native'
 import { Pressable } from 'react-native'
-import { Label, XStack, YStack } from '@hanzo/gui'
+import { Label, XStack, YStack } from 'hanzogui'
 
 export function CheckboxHeadlessDemo() {
   return (

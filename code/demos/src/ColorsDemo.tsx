@@ -10,7 +10,7 @@ import {
   yellow,
   yellowDark,
 } from '@hanzogui/colors'
-import { H2, Paragraph, Separator, Square, XStack, YStack } from '@hanzo/gui'
+import { H2, Paragraph, Separator, Square, XStack, YStack } from 'hanzogui'
 
 const colorGroups = ['gray', 'blue', 'green', 'yellow', 'red'] as const
 

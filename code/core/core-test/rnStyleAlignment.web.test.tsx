@@ -1,11 +1,11 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
-import { View, createGui, StyleObjectValue } from '../web/src'
+import { View, createHanzogui, StyleObjectValue } from '../web/src'
 import { simplifiedGetSplitStyles } from './utils'
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig())
+  createHanzogui(config.getDefaultHanzoguiConfig())
 })
 
 // Helper to get style value from either style (no plugin) or rulesToInsert (with plugin)
@@ -13,11 +13,11 @@ function getStyleValue(
   styles: ReturnType<typeof simplifiedGetSplitStyles>,
   prop: string
 ): string | undefined {
-  // Check style first (when not using hanzo-gui plugin/CSS extraction)
+  // Check style first (when not using hanzogui plugin/CSS extraction)
   if (styles.style?.[prop] !== undefined) {
     return styles.style[prop] as string
   }
-  // Check rulesToInsert (when using hanzo-gui plugin with CSS extraction)
+  // Check rulesToInsert (when using hanzogui plugin with CSS extraction)
   if (styles.rulesToInsert) {
     const rule = Object.values(styles.rulesToInsert).find(
       (r: any) => r[0] === prop

@@ -1,6 +1,7 @@
 {
   "name": "@hanzogui/text-test",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
+  "private": true,
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -8,9 +9,10 @@
   "main": "dist/cjs",
   "module": "dist/esm",
   "scripts": {
-    "test": "echo skipped"
+    "test": "TAMAGUI_TARGET=web vitest --config ../../packages/vite-plugin-internal/src/vite.config.ts --run"
   },
   "devDependencies": {
+    "@hanzogui/text": "workspace:*",
     "vitest": "4.0.4"
   }
 }

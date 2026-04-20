@@ -1,0 +1,15 @@
+import type { GetProps } from '@hanzogui/web';
+export declare const Circle: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
+    size?: number | import("@hanzogui/web").SizeTokens | undefined;
+    transparent?: boolean | undefined;
+    fullscreen?: boolean | undefined;
+    circular?: boolean | undefined;
+    elevate?: boolean | undefined;
+    bordered?: boolean | undefined;
+    chromeless?: boolean | "all" | undefined;
+}, import("@hanzogui/web").StaticConfigPublic & {
+    memo: true;
+}>;
+export type CircleProps = GetProps<typeof Circle>;
+//# sourceMappingURL=Circle.d.ts.map

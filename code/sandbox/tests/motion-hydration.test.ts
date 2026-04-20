@@ -7,7 +7,7 @@ import { expect, test } from '@playwright/test'
  * They should render at their final position immediately without any
  * "flying across the page" effect.
  *
- * This regression was seen on gui.hanzo.ai with HomeGlow components
+ * This regression was seen on hanzogui.dev with HomeGlow components
  * animating from top-left to their final positions on hydration.
  */
 test.describe('Motion Hydration', () => {

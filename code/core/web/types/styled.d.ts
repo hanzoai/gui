@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, FormHTMLAttributes, HTMLAttributes, InputHTMLAttributes, LabelHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttributes } from 'react';
 import type { GetRef } from './interfaces/GetRef';
-import type { GetBaseStyles, GetNonStyledProps, GetStaticConfig, GetStyledVariants, GetVariantValues, InferStyleProps, InferStyledProps, StackStyle, StaticConfigPublic, StylableComponent, StyledContext, TamaDefer, GuiComponent, GuiComponentPropsBase, TextStyle, TextStylePropsBase, ThemeValueByCategory, VariantDefinitions, VariantSpreadFunction } from './types';
+import type { GetBaseStyles, GetNonStyledProps, GetStaticConfig, GetStyledVariants, GetVariantValues, InferStyleProps, InferStyledProps, StackStyle, StaticConfigPublic, StylableComponent, StyledContext, TamaDefer, HanzoguiComponent, HanzoguiComponentPropsBase, TextStyle, TextStylePropsBase, ThemeValueByCategory, VariantDefinitions, VariantSpreadFunction } from './types';
 type AreVariantsUndefined<Variants> = Required<Variants> extends {
     _isEmpty: 1;
 } ? true : false;
@@ -28,9 +28,9 @@ export declare function styledHtml<Tag extends keyof HTMLElementTagNameMap, Vari
     variants?: Variants;
     defaultVariants?: GetVariantAcceptedValues<NonNullable<Variants>>;
     context?: StyledContext;
-}): GuiComponent<TamaDefer, HTMLElementTagNameMap[Tag], GuiComponentPropsBase & HTMLElementSpecificProps<Tag>, HTMLElementStyleBase<Tag>, Variants extends undefined ? {} : AreVariantsUndefined<NonNullable<Variants>> extends true ? {} : GetVariantAcceptedValues<NonNullable<Variants>>, {}>;
+}): HanzoguiComponent<TamaDefer, HTMLElementTagNameMap[Tag], HanzoguiComponentPropsBase & HTMLElementSpecificProps<Tag>, HTMLElementStyleBase<Tag>, Variants extends undefined ? {} : AreVariantsUndefined<NonNullable<Variants>> extends true ? {} : GetVariantAcceptedValues<NonNullable<Variants>>, {}>;
 /**
- * styled() for creating GUI components from other components.
+ * styled() for creating Hanzogui components from other components.
  */
 declare function styled<ParentComponent extends StylableComponent, StyledConfig extends StaticConfigPublic, Variants extends VariantDefinitions<ParentComponent, StyledConfig>>(ComponentIn: ParentComponent, options?: Partial<InferStyledProps<ParentComponent, StyledConfig>> & {
     name?: string;
@@ -38,13 +38,13 @@ declare function styled<ParentComponent extends StylableComponent, StyledConfig 
     defaultVariants?: GetVariantAcceptedValues<Variants>;
     context?: StyledContext;
     render?: string | React.ReactElement;
-}, config?: StyledConfig): GuiComponent<TamaDefer, GetRef<ParentComponent>, GetNonStyledProps<ParentComponent>, StyledConfig["accept"] extends Record<string, any> ? GetBaseStyles<ParentComponent, StyledConfig> & (StyledConfig["accept"] extends Record<string, any> ? { [Key in keyof StyledConfig["accept"]]?: (Key extends keyof GetBaseStyles<ParentComponent, StyledConfig> ? GetBaseStyles<ParentComponent, StyledConfig>[Key] : never) | (StyledConfig["accept"][Key] extends "style" ? Partial<InferStyleProps<ParentComponent, StyledConfig>> : StyledConfig["accept"][Key] extends "textStyle" ? Partial<InferStyleProps<GuiComponent<import("./types").TextProps, import("./types").GuiTextElement, import("./types").TextNonStyleProps, TextStylePropsBase, {}>, StyledConfig>> : ThemeValueByCategory<StyledConfig["accept"][Key]>) | undefined; } : {}) : GetBaseStyles<ParentComponent, StyledConfig>, AreVariantsUndefined<Variants> extends true ? GetStyledVariants<ParentComponent> : AreVariantsUndefined<GetStyledVariants<ParentComponent>> extends true ? Omit<AreVariantsUndefined<Variants> extends true ? {} : GetVariantAcceptedValues<Variants>, "_isEmpty"> : { [Key_1 in Exclude<keyof GetStyledVariants<ParentComponent>, "_isEmpty"> | Exclude<keyof (AreVariantsUndefined<Variants> extends true ? {} : GetVariantAcceptedValues<Variants>), "_isEmpty">]?: (Key_1 extends keyof GetStyledVariants<ParentComponent> ? GetStyledVariants<ParentComponent>[Key_1] : undefined) | (Key_1 extends keyof (AreVariantsUndefined<Variants> extends true ? {} : GetVariantAcceptedValues<Variants>) ? (AreVariantsUndefined<Variants> extends true ? {} : GetVariantAcceptedValues<Variants>)[Key_1] : undefined) | undefined; }, GetStaticConfig<ParentComponent, StyledConfig>>;
+}, config?: StyledConfig): HanzoguiComponent<TamaDefer, GetRef<ParentComponent>, GetNonStyledProps<ParentComponent>, StyledConfig["accept"] extends Record<string, any> ? GetBaseStyles<ParentComponent, StyledConfig> & (StyledConfig["accept"] extends Record<string, any> ? { [Key in keyof StyledConfig["accept"]]?: (Key extends keyof GetBaseStyles<ParentComponent, StyledConfig> ? GetBaseStyles<ParentComponent, StyledConfig>[Key] : never) | (StyledConfig["accept"][Key] extends "style" ? Partial<InferStyleProps<ParentComponent, StyledConfig>> : StyledConfig["accept"][Key] extends "textStyle" ? Partial<InferStyleProps<HanzoguiComponent<import("./types").TextProps, import("./types").HanzoguiTextElement, import("./types").TextNonStyleProps, TextStylePropsBase, {}>, StyledConfig>> : ThemeValueByCategory<StyledConfig["accept"][Key]>) | undefined; } : {}) : GetBaseStyles<ParentComponent, StyledConfig>, AreVariantsUndefined<Variants> extends true ? GetStyledVariants<ParentComponent> : AreVariantsUndefined<GetStyledVariants<ParentComponent>> extends true ? Omit<AreVariantsUndefined<Variants> extends true ? {} : GetVariantAcceptedValues<Variants>, "_isEmpty"> : { [Key_1 in Exclude<keyof GetStyledVariants<ParentComponent>, "_isEmpty"> | Exclude<keyof (AreVariantsUndefined<Variants> extends true ? {} : GetVariantAcceptedValues<Variants>), "_isEmpty">]?: (Key_1 extends keyof GetStyledVariants<ParentComponent> ? GetStyledVariants<ParentComponent>[Key_1] : undefined) | (Key_1 extends keyof (AreVariantsUndefined<Variants> extends true ? {} : GetVariantAcceptedValues<Variants>) ? (AreVariantsUndefined<Variants> extends true ? {} : GetVariantAcceptedValues<Variants>)[Key_1] : undefined) | undefined; }, GetStaticConfig<ParentComponent, StyledConfig>>;
 type StyledHtmlFactory<Tag extends keyof HTMLElementTagNameMap> = <Variants extends VariantDefinitions<any, any> | undefined = undefined>(options?: Partial<HTMLElementStyleBase<Tag>> & {
     name?: string;
     variants?: Variants;
     defaultVariants?: GetVariantAcceptedValues<NonNullable<Variants>>;
     context?: StyledContext;
-}) => GuiComponent<TamaDefer, HTMLElementTagNameMap[Tag], GuiComponentPropsBase & HTMLElementSpecificProps<Tag>, HTMLElementStyleBase<Tag>, Variants extends undefined ? {} : AreVariantsUndefined<NonNullable<Variants>> extends true ? {} : GetVariantAcceptedValues<NonNullable<Variants>>, {}>;
+}) => HanzoguiComponent<TamaDefer, HTMLElementTagNameMap[Tag], HanzoguiComponentPropsBase & HTMLElementSpecificProps<Tag>, HTMLElementStyleBase<Tag>, Variants extends undefined ? {} : AreVariantsUndefined<NonNullable<Variants>> extends true ? {} : GetVariantAcceptedValues<NonNullable<Variants>>, {}>;
 type StyledHtmlFactories = {
     [K in keyof HTMLElementTagNameMap]: StyledHtmlFactory<K>;
 };

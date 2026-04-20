@@ -1,4 +1,4 @@
-import { Button, Popover, styled } from '@hanzo/gui'
+import { Button, Popover, styled } from 'hanzogui'
 
 export function PopoverContentStyledPlusAnimations() {
   return (

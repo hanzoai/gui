@@ -1,11 +1,11 @@
-import { GuiProvider, Theme, View, createGui } from '@hanzogui/core'
+import { HanzoguiProvider, Theme, View, createHanzogui } from '@hanzogui/core'
 import { render } from '@testing-library/react-native'
 import { describe, expect, test } from 'vitest'
-import { getDefaultGuiConfig } from '../config-default'
+import { getDefaultHanzoguiConfig } from '../config-default'
 
-const defaultConfig = getDefaultGuiConfig('native')
+const defaultConfig = getDefaultHanzoguiConfig('native')
 
-const config = createGui({
+const config = createHanzogui({
   ...defaultConfig,
   settings: {
     ...defaultConfig.settings,
@@ -16,11 +16,11 @@ const config = createGui({
 describe('useTheme', () => {
   test(`nested non-changing scheme with fast scheme change doesn't de-opt`, () => {
     const tree = render(
-      <GuiProvider defaultTheme="light" config={config}>
+      <HanzoguiProvider defaultTheme="light" config={config}>
         <Theme name="light">
           <View backgroundColor="$background" />
         </Theme>
-      </GuiProvider>
+      </HanzoguiProvider>
     )
 
     expect(tree.toJSON()).toMatchInlineSnapshot(`
@@ -42,11 +42,11 @@ describe('useTheme', () => {
 
   test(`nested fast scheme change de-opts`, () => {
     const tree = render(
-      <GuiProvider defaultTheme="light" config={config}>
+      <HanzoguiProvider defaultTheme="light" config={config}>
         <Theme name="dark">
           <View backgroundColor="$background" />
         </Theme>
-      </GuiProvider>
+      </HanzoguiProvider>
     )
 
     expect(tree.toJSON()).toMatchInlineSnapshot(`

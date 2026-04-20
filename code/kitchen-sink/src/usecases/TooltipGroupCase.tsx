@@ -1,12 +1,4 @@
-import {
-  Button,
-  Paragraph,
-  Tooltip,
-  TooltipGroup,
-  XStack,
-  YStack,
-  Text,
-} from '@hanzo/gui'
+import { Button, Paragraph, Tooltip, TooltipGroup, XStack, YStack, Text } from 'hanzogui'
 
 /**
  * Test case for TooltipGroup behavior

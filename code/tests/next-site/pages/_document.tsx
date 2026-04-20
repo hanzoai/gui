@@ -1,6 +1,6 @@
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
 import { StyleSheet } from 'react-native'
-import GuiConfig from '../gui.config'
+import Hanzogui from '../hanzogui.config'
 
 export default class Document extends NextDocument {
   static async getInitialProps({ renderPage }) {
@@ -19,7 +19,7 @@ export default class Document extends NextDocument {
           />
           <style
             dangerouslySetInnerHTML={{
-              __html: Gui.getCSS(),
+              __html: Hanzogui.getCSS(),
             }}
           />
         </>

@@ -4,7 +4,7 @@ import type { CLIResolvedOptions } from '@hanzogui/types'
 import fs from 'fs-extra'
 import { Project } from 'ts-morph'
 
-import { loadGui } from './utils'
+import { loadHanzogui } from './utils'
 
 export async function generateTypes(options: CLIResolvedOptions) {
   const types = await getTypes(options)
@@ -14,13 +14,13 @@ export async function generateTypes(options: CLIResolvedOptions) {
 }
 
 export async function getTypes(options: CLIResolvedOptions) {
-  const hanzoGui = await loadGui(options.guiOptions)
+  const hanzogui = await loadHanzogui(options.hanzoguiOptions)
 
-  if (!hanzoGui) {
-    throw new Error(`No gui config`)
+  if (!hanzogui) {
+    throw new Error(`No hanzogui config`)
   }
 
-  const nameToPaths = hanzoGui.nameToPaths || []
+  const nameToPaths = hanzogui.nameToPaths || []
   const uniqueViewExportingPaths = new Set(
     Object.keys(nameToPaths).map((name) => {
       return `${[...nameToPaths[name]][0]}.ts*`

@@ -15,7 +15,7 @@ export type TransitionConfig = SpringConfig | TimingConfig;
 /** Options for createAnimations (reserved for future use) */
 export type CreateAnimationsOptions = {};
 /**
-* Create a Reanimated-based animation driver for Gui.
+* Create a Reanimated-based animation driver for Hanzogui.
 *
 * This is a native Reanimated implementation without Moti dependency.
 * It provides smooth spring and timing animations with full support for:

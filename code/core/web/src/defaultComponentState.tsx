@@ -1,6 +1,6 @@
-import type { GuiComponentState } from './types'
+import type { HanzoguiComponentState } from './types'
 
-export const defaultComponentState: GuiComponentState = {
+export const defaultComponentState: HanzoguiComponentState = {
   hover: false,
   press: false,
   pressIn: false,
@@ -11,12 +11,12 @@ export const defaultComponentState: GuiComponentState = {
   disabled: false,
 }
 
-export const defaultComponentStateMounted: GuiComponentState = {
+export const defaultComponentStateMounted: HanzoguiComponentState = {
   ...defaultComponentState,
   unmounted: false,
 }
 
-export const defaultComponentStateShouldEnter: GuiComponentState = {
+export const defaultComponentStateShouldEnter: HanzoguiComponentState = {
   ...defaultComponentState,
   unmounted: 'should-enter',
 }

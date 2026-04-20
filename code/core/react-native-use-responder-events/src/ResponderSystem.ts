@@ -491,10 +491,10 @@ const documentEventsBubblePhase = [
   'selectionchange',
 ]
 
-const isGuiResponderActive = Symbol()
+const isHanzoguiResponderActive = Symbol()
 
 export function attachListeners() {
-  if (canUseDOM && !window[isGuiResponderActive]) {
+  if (canUseDOM && !window[isHanzoguiResponderActive]) {
     window.addEventListener('blur', eventListener)
     documentEventsBubblePhase.forEach((eventType) => {
       document.addEventListener(eventType, eventListener)
@@ -502,7 +502,7 @@ export function attachListeners() {
     documentEventsCapturePhase.forEach((eventType) => {
       document.addEventListener(eventType, eventListener, true)
     })
-    window[isGuiResponderActive] = true
+    window[isHanzoguiResponderActive] = true
   }
 }
 

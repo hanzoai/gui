@@ -14,6 +14,7 @@
 
 import { by, device, element, expect, waitFor } from 'detox'
 import { navigateToTestCase } from './utils/navigation'
+import { safeLaunchApp, safeReloadApp } from './utils/detox'
 
 // only run on iOS - RNGH gesture handling differs on Android
 const isAndroid = () => device.getPlatform() === 'android'
@@ -21,13 +22,13 @@ const isAndroid = () => device.getPlatform() === 'android'
 describe('SheetDragResist', () => {
   beforeAll(async () => {
     if (isAndroid()) return
-    await device.launchApp({ newInstance: true })
+    await safeLaunchApp({ newInstance: true })
   })
 
   beforeEach(async () => {
     if (isAndroid()) return
     // reload between tests for clean state
-    await device.reloadReactNative()
+    await safeReloadApp()
     await navigateToSheetDragResistCase()
     // disable sync AFTER navigation to avoid hang on spring animations during tests
     await device.disableSynchronization()
@@ -136,7 +137,7 @@ describe('SheetDragResist', () => {
      * Expected: When ScrollView has content that fits (not scrollable), dragging
      * down should move the sheet to the next snap point.
      *
-     * NOTE: These tests document a DETOX LIMITATION, not a GUI bug.
+     * NOTE: These tests document a DETOX LIMITATION, not a Hanzogui bug.
      * Detox's swipe() doesn't trigger RNGH gestures when ScrollView content
      * is non-scrollable. The feature has been MANUALLY VERIFIED to work.
      * - Manual test via XcodeBuildMCP: swiping down moves sheet from position 0 to 1 ✓
@@ -330,7 +331,7 @@ describe('SheetDragResist', () => {
      *
      * RESULT: This test ALSO FAILS, confirming that Detox's swipe() cannot
      * trigger RNGH gestures when content is non-scrollable. This is a Detox
-     * limitation, not a bug in either GUI or actions-sheet.
+     * limitation, not a bug in either Hanzogui or actions-sheet.
      */
     it.skip('should drag actions-sheet DOWN with non-scrollable content', async () => {
       if (isAndroid()) return

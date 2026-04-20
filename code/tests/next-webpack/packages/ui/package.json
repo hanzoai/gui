@@ -1,6 +1,7 @@
 {
-  "name": "@hanzogui/next-webpack-test-ui",
-  "version": "4.4.0",
+  "name": "@my/ui",
+  "version": "2.0.0-rc.0-1769885482630",
+  "private": true,
   "files": [
     "types",
     "dist"
@@ -15,14 +16,15 @@
     "./components/*": "./src/*.tsx"
   },
   "scripts": {
-    "build": "hanzo-gui-build --skip-types",
-    "watch": "hanzo-gui-build --skip-types --watch"
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch"
   },
   "dependencies": {
+    "@my/config": "workspace:^",
     "@hanzogui/next-theme": "workspace:*",
+    "@hanzogui/toast": "workspace:*",
     "expo-constants": "~55.0.7",
-    "@hanzo/gui": "workspace:*",
-    "@hanzogui/next-webpack-test-config": "workspace:*"
+    "hanzogui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Input } from '@hanzogui/input'
-import { Text, YStack } from '@hanzo/gui'
+import { Text, YStack } from 'hanzogui'
 
 export function NewInputEvents() {
   const [value, setValue] = useState('')

@@ -1,5 +1,5 @@
 /**
- * Setup gesture handler for Tamagui native components.
+ * Setup gesture handler for Hanzogui native components.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -20,7 +20,7 @@
 import { getGestureHandler } from './gestureState'
 
 export interface GestureHandlerConfig {
-  /** use RNGH for press events on Tamagui components (default: true) */
+  /** use RNGH for press events on Hanzogui components (default: true) */
   pressEvents?: boolean
   /** use RNGH for Sheet drag gestures (default: true) */
   sheet?: boolean
@@ -44,8 +44,8 @@ export function setupGestureHandler(config?: GestureHandlerConfig): void {
   }
 
   // allow re-running setup to change config
-  const isFirstRun = !g.__tamagui_native_gesture_setup_complete
-  g.__tamagui_native_gesture_setup_complete = true
+  const isFirstRun = !g.__hanzogui_native_gesture_setup_complete
+  g.__hanzogui_native_gesture_setup_complete = true
 
   try {
     // dynamically require RNGH - it should already be imported by the app
@@ -62,7 +62,7 @@ export function setupGestureHandler(config?: GestureHandlerConfig): void {
       })
 
       // sheet state - only enable if sheet is true
-      g.__tamagui_sheet_gesture_state__ = {
+      g.__hanzogui_sheet_gesture_state__ = {
         enabled: currentConfig.sheet !== false,
         Gesture,
         GestureDetector,

@@ -11,7 +11,7 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
   const addThemeClassName = getSetting('addThemeClassName')
 
   // ensure theme is attached to root body node as well to work with modals by default
-  if (process.env.GUI_TARGET === 'web') {
+  if (process.env.TAMAGUI_TARGET === 'web') {
     useIsomorphicLayoutEffect(() => {
       if (addThemeClassName === false) return
       const cn = `${THEME_CLASSNAME_PREFIX}${props.defaultTheme}`

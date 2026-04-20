@@ -23,7 +23,7 @@ import { View } from '@hanzogui/core'
     }
   )
 
-  expect(output?.js).toContain(`<_GuiTheme name="green"><div className={`)
+  expect(output?.js).toContain(`<_HanzoguiTheme name="green"><div className={`)
 })
 
 test('theme + media queries + conditionals extract', async () => {
@@ -462,7 +462,7 @@ test('$platform-web styles are flattened on web', async () => {
 test('$platform-web transition property is preserved', async () => {
   const output = await extractForWeb(
     `
-    import { View } from '@tamagui/core'
+    import { View } from '@hanzogui/core'
 
     export function Test() {
       return (
@@ -655,7 +655,7 @@ test('role attribute is preserved during extraction', async () => {
 test('ternary with mixed theme-token and non-token values preserves all props', async () => {
   const output = await extractForWeb(
     `
-    import { Text } from '@tamagui/core'
+    import { Text } from '@hanzogui/core'
     export function Test({ isActive, label }) {
       return (
         <Text
@@ -671,7 +671,7 @@ test('ternary with mixed theme-token and non-token values preserves all props', 
     {
       options: {
         platform: 'web',
-        components: ['@tamagui/core'],
+        components: ['@hanzogui/core'],
       },
     }
   )

@@ -1,4 +1,4 @@
-import { Anchor, Button, Paragraph, Sheet, XStack } from '@hanzo/gui'
+import { Anchor, Button, Paragraph, Sheet, XStack } from 'hanzogui'
 import { ChevronDown } from '@hanzogui/lucide-icons-2'
 import { useState } from 'react'
 // import { toast } from '@hanzogui/toast'

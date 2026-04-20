@@ -1,13 +1,14 @@
 {
   "name": "@hanzogui/kitchen-sink-go",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "start": "expo start --port 8082",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "test:native:maestro": "bun run ../packages/native-ci/src/cli.ts test maestro --project-root .",
-    "test:native": "GUI_PACKAGE_EXPORTS=true bun run test:native:maestro && GUI_PACKAGE_EXPORTS=false bun run test:native:maestro",
+    "test:native": "TAMAGUI_PACKAGE_EXPORTS=true bun run test:native:maestro && TAMAGUI_PACKAGE_EXPORTS=false bun run test:native:maestro",
     "test": "./run-native-tests.sh"
   },
   "dependencies": {
@@ -17,11 +18,12 @@
     "@hanzogui/kitchen-sink-shared": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/metro-plugin": "workspace:*",
+    "@hanzogui/toast": "workspace:*",
     "@hanzogui/web": "workspace:*",
     "expo": "~55.0.6",
     "expo-font": "~55.0.4",
     "react": ">=19",
     "react-native": "0.83.2",
-    "@hanzo/gui": "workspace:*"
+    "hanzogui": "workspace:*"
   }
 }

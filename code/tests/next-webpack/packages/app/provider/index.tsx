@@ -1,8 +1,8 @@
 import { useColorScheme } from 'react-native'
 import {
   CustomToast,
-  GuiProvider,
-  type GuiProviderProps,
+  HanzoguiProvider,
+  type HanzoguiProviderProps,
   ToastProvider,
   config,
   isWeb,
@@ -13,12 +13,12 @@ export function Provider({
   children,
   defaultTheme = 'light',
   ...rest
-}: Omit<GuiProviderProps, 'config'> & { defaultTheme?: string }) {
+}: Omit<HanzoguiProviderProps, 'config'> & { defaultTheme?: string }) {
   const colorScheme = useColorScheme()
   const theme = defaultTheme || (colorScheme === 'dark' ? 'dark' : 'light')
 
   return (
-    <GuiProvider config={config} defaultTheme={theme} {...rest}>
+    <HanzoguiProvider config={config} defaultTheme={theme} {...rest}>
       <ToastProvider
         swipeDirection="horizontal"
         duration={6000}
@@ -28,6 +28,6 @@ export function Provider({
         <CustomToast />
         <ToastViewport />
       </ToastProvider>
-    </GuiProvider>
+    </HanzoguiProvider>
   )
 }

@@ -19,7 +19,7 @@
       "path": "../packages/lucide-icons"
     },
     {
-      "path": "../packages/gui-dev-config"
+      "path": "../packages/hanzogui-dev-config"
     },
     {
       "path": "../ui/avatar"
@@ -55,7 +55,7 @@
       "path": "../ui/stacks"
     },
     {
-      "path": "../ui/gui"
+      "path": "../ui/hanzogui"
     },
     {
       "path": "../ui/toast"

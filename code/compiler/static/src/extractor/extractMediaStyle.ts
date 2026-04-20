@@ -1,31 +1,31 @@
 import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
-import type { GuiInternalConfig } from '@hanzogui/core'
+import type { HanzoguiInternalConfig } from '@hanzogui/core'
 import * as core from '@hanzogui/core'
 import type { ViewStyle } from 'react-native'
 
-import { requireGuiCore } from '../helpers/requireGuiCore'
-import type { StyleObject, GuiOptionsWithFileInfo, Ternary } from '../types'
+import { requireHanzoguiCore } from '../helpers/requireHanzoguiCore'
+import type { StyleObject, HanzoguiOptionsWithFileInfo, Ternary } from '../types'
 import { isPresent, isValidImport } from './extractHelpers'
 
 export function extractMediaStyle(
-  props: GuiOptionsWithFileInfo,
+  props: HanzoguiOptionsWithFileInfo,
   ternary: Ternary,
   jsxPath: NodePath<t.JSXElement>,
-  guiConfig: GuiInternalConfig,
+  hanzoguiConfig: HanzoguiInternalConfig,
   sourcePath: string,
   importance = 0,
   shouldPrintDebug: boolean | 'verbose' = false
 ) {
-  const { getCSSStylesAtomic } = requireGuiCore('web')
+  const { getCSSStylesAtomic } = requireHanzoguiCore('web')
   const mt = getMediaQueryTernary(props, ternary, jsxPath, sourcePath)
   if (!mt) {
     return null
   }
   const { key } = mt
-  const mq = guiConfig.media[key]
+  const mq = hanzoguiConfig.media[key]
   if (!mq) {
-    console.error(`Media query "${key}" not found: ${Object.keys(guiConfig.media)}`)
+    console.error(`Media query "${key}" not found: ${Object.keys(hanzoguiConfig.media)}`)
     return null
   }
   const getStyleObj = (styleObj: ViewStyle | null, negate = false) => {
@@ -40,7 +40,7 @@ export function extractMediaStyle(
     return null
   }
   // for now order first strongest
-  const mediaKeys = Object.keys(guiConfig.media)
+  const mediaKeys = Object.keys(hanzoguiConfig.media)
   const mediaKeyPrecendence = mediaKeys.reduce((acc, cur, i) => {
     acc[cur] = new Array(importance + 1).fill(':root').join('')
     return acc
@@ -54,7 +54,13 @@ export function extractMediaStyle(
     const styles = getCSSStylesAtomic(styleObj as any)
 
     const singleMediaStyles = styles.map((style) => {
-      const mediaStyle = core.createMediaStyle(style, key, guiConfig.media, true, negate)
+      const mediaStyle = core.createMediaStyle(
+        style,
+        key,
+        hanzoguiConfig.media,
+        true,
+        negate
+      )
       const className = `.${mediaStyle[core.StyleObjectIdentifier]}`
       return {
         ...mediaStyle,
@@ -79,7 +85,7 @@ export function extractMediaStyle(
 }
 
 function getMediaQueryTernary(
-  props: GuiOptionsWithFileInfo,
+  props: HanzoguiOptionsWithFileInfo,
   ternary: Ternary,
   jsxPath: NodePath<t.JSXElement>,
   sourcePath: string
@@ -128,7 +134,7 @@ function getMediaQueryTernary(
 }
 
 function getMediaInfoFromExpression(
-  props: GuiOptionsWithFileInfo,
+  props: HanzoguiOptionsWithFileInfo,
   test: t.Expression,
   jsxPath: NodePath<t.JSXElement>,
   sourcePath: string,
@@ -167,7 +173,7 @@ function getMediaInfoFromExpression(
 }
 
 export function isValidMediaCall(
-  props: GuiOptionsWithFileInfo,
+  props: HanzoguiOptionsWithFileInfo,
   jsxPath: NodePath<t.JSXElement>,
   init: t.Expression,
   sourcePath: string

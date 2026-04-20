@@ -8,7 +8,7 @@ import {
   Tooltip,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { useState, useRef, useEffect } from 'react'
 import { ChevronDown } from '@hanzogui/lucide-icons-2'
 import {

@@ -6,7 +6,7 @@ export const shorthands = {
   ussel: 'userSelect',
   cur: 'cursor',
 
-  // gui
+  // hanzogui
   pe: 'pointerEvents',
 
   // text

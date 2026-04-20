@@ -2,7 +2,7 @@ import type { AnimationDriver } from '../types'
 
 const noAnimationDriver = (method: string): any => {
   console.warn(
-    `No animation driver configured. To use ${method}, you must pass \`animations\` to createGui. See: https://gui.hanzo.ai/docs/core/animations`
+    `No animation driver configured. To use ${method}, you must pass \`animations\` to createHanzogui. See: https://hanzogui.dev/docs/core/animations`
   )
 }
 

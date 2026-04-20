@@ -1,3 +1,3 @@
-import type { GuiOptions } from './types';
-export declare function startServer(options: GuiOptions): Promise<void>;
+import type { HanzoguiOptions } from './types';
+export declare function startServer(options: HanzoguiOptions): Promise<void>;
 //# sourceMappingURL=server.d.ts.map

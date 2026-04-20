@@ -1,6 +1,6 @@
-import { type StaticConfig, type GuiInternalConfig } from '@hanzogui/web';
+import { type StaticConfig, type HanzoguiInternalConfig } from '@hanzogui/web';
 import esbuild from 'esbuild';
-import type { GuiOptions } from '../types';
+import type { HanzoguiOptions } from '../types';
 type NameToPaths = {
     [key: string]: Set<string>;
 };
@@ -10,9 +10,9 @@ export type LoadedComponents = {
         staticConfig: StaticConfig;
     }>;
 };
-export type GuiProjectInfo = {
+export type HanzoguiProjectInfo = {
     components?: LoadedComponents[];
-    guiConfig?: GuiInternalConfig | null;
+    hanzoguiConfig?: HanzoguiInternalConfig | null;
     nameToPaths?: NameToPaths;
     cached?: boolean;
 };
@@ -37,13 +37,13 @@ export declare const esbuildOptionsWithPlugins: {
 };
 export type BundledConfig = Exclude<Awaited<ReturnType<typeof bundleConfig>>, undefined>;
 export declare function hasBundledConfigChanged(): boolean;
-export declare const getLoadedConfig: () => GuiInternalConfig | null;
-export declare function getBundledConfig(props: GuiOptions, rebuild?: boolean): Promise<any>;
-export declare function bundleConfig(props: GuiOptions): Promise<any>;
-export declare function writeGuiCSS(outputCSS: string, config: GuiInternalConfig): Promise<void>;
-export declare function loadComponents(props: GuiOptions, forceExports?: boolean): Promise<LoadedComponents[]>;
-export declare function loadComponentsSync(props: GuiOptions, forceExports?: boolean): LoadedComponents[];
-export declare function loadComponentsInner(props: GuiOptions, forceExports?: boolean): Promise<null | LoadedComponents[]>;
-export declare function loadComponentsInnerSync(props: GuiOptions, forceExports?: boolean): null | LoadedComponents[];
+export declare const getLoadedConfig: () => HanzoguiInternalConfig | null;
+export declare function getBundledConfig(props: HanzoguiOptions, rebuild?: boolean): Promise<any>;
+export declare function bundleConfig(props: HanzoguiOptions): Promise<any>;
+export declare function writeHanzoguiCSS(outputCSS: string, config: HanzoguiInternalConfig): Promise<void>;
+export declare function loadComponents(props: HanzoguiOptions, forceExports?: boolean): Promise<LoadedComponents[]>;
+export declare function loadComponentsSync(props: HanzoguiOptions, forceExports?: boolean): LoadedComponents[];
+export declare function loadComponentsInner(props: HanzoguiOptions, forceExports?: boolean): Promise<null | LoadedComponents[]>;
+export declare function loadComponentsInnerSync(props: HanzoguiOptions, forceExports?: boolean): null | LoadedComponents[];
 export {};
 //# sourceMappingURL=bundleConfig.d.ts.map

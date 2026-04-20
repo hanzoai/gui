@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/themes",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "type": "module",
   "sideEffects": false,
@@ -69,16 +69,16 @@
   },
   "scripts": {
     "generate": "bun run generate:v5 & bun run generate:v5-subtle",
-    "generate:v5": "gui generate-themes ./src/v5-themes.ts ./src/generated-v5.ts",
-    "generate:v5-subtle": "gui generate-themes ./src/v5-themes-subtle.ts ./src/generated-v5-subtle.ts",
-    "generate:v3": "gui generate-themes ./src/v3-themes.ts ./src/generated-v3.ts",
-    "generate:v4": "gui generate-themes ./src/v4-default.ts ./src/generated-v4.ts",
-    "generate:v4-gui": "gui generate-themes ./src/v4-gui.ts ./src/generated-v4-gui.ts",
+    "generate:v5": "hanzogui generate-themes ./src/v5-themes.ts ./src/generated-v5.ts",
+    "generate:v5-subtle": "hanzogui generate-themes ./src/v5-themes-subtle.ts ./src/generated-v5-subtle.ts",
+    "generate:v3": "hanzogui generate-themes ./src/v3-themes.ts ./src/generated-v3.ts",
+    "generate:v4": "hanzogui generate-themes ./src/v4-default.ts ./src/generated-v4.ts",
+    "generate:v4-hanzogui": "hanzogui generate-themes ./src/v4-hanzogui.ts ./src/generated-v4-hanzogui.ts",
     "test": "bun run generate",
-    "build": "hanzo-gui-build",
-    "watch": "hanzo-gui-build --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/colors": "workspace:*",

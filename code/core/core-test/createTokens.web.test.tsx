@@ -1,10 +1,10 @@
-import { getDefaultGuiConfig } from '@hanzogui/config-default'
+import { getDefaultHanzoguiConfig } from '@hanzogui/config-default'
 import { expect, test } from 'vitest'
 
 import { createTokens } from '../core/src'
 
 test('snapshot', () => {
-  expect(createTokens(getDefaultGuiConfig().tokens)).toMatchSnapshot()
+  expect(createTokens(getDefaultHanzoguiConfig().tokens)).toMatchSnapshot()
 })
 
 test('color name no dot', () => {

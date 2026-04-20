@@ -1,4 +1,4 @@
-import { Anchor, Paragraph, View, XStack } from '@hanzo/gui'
+import { Anchor, Paragraph, View, XStack } from 'hanzogui'
 
 export default function ModalScreen() {
   return (

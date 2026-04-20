@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
-import { Button, Paragraph, Sheet, YStack, XStack } from '@hanzo/gui'
+import { Button, Paragraph, Sheet, YStack, XStack } from 'hanzogui'
 
 /**
  * Test case for Sheet animation configurations

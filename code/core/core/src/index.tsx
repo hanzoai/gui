@@ -14,19 +14,19 @@ import type {
   StackNonStyleProps,
   StackStyleBase,
   TamaDefer,
-  GuiComponent,
-  GuiElement,
-  GuiProviderProps,
-  GuiTextElement,
+  HanzoguiComponent,
+  HanzoguiElement,
+  HanzoguiProviderProps,
+  HanzoguiTextElement,
   TextNonStyleProps,
   TextProps,
   TextStylePropsBase,
 } from '@hanzogui/web'
 import {
-  GuiProvider as WebGuiProvider,
+  HanzoguiProvider as WebHanzoguiProvider,
   Text as WebText,
   View as WebView,
-  createGui as createGuiWeb,
+  createHanzogui as createHanzoguiWeb,
   setupHooks,
   useIsomorphicLayoutEffect,
 } from '@hanzogui/web'
@@ -34,7 +34,7 @@ import { createOptimizedView } from './createOptimizedView'
 import { getBaseViews } from './getBaseViews'
 import type { RNTextProps, RNViewProps } from './reactNativeTypes'
 
-// helpful for usage outside of gui
+// helpful for usage outside of hanzogui
 export {
   LayoutMeasurementController,
   registerLayoutNode,
@@ -45,24 +45,25 @@ export {
 // adds extra types to View/Stack/Text:
 
 type RNExclusiveViewProps = Omit<RNViewProps, keyof StackNonStyleProps>
-export interface RNGuiViewNonStyleProps
+export interface RNHanzoguiViewNonStyleProps
   extends StackNonStyleProps, RNExclusiveViewProps {}
 
-type RNGuiView = GuiComponent<
+type RNHanzoguiView = HanzoguiComponent<
   TamaDefer,
-  GuiElement,
-  RNGuiViewNonStyleProps,
+  HanzoguiElement,
+  RNHanzoguiViewNonStyleProps,
   StackStyleBase,
   {}
 >
 
 type RNExclusiveTextProps = Omit<RNTextProps, keyof TextProps>
-export interface RNGuiTextNonStyleProps extends TextNonStyleProps, RNExclusiveTextProps {}
+export interface RNHanzoguiTextNonStyleProps
+  extends TextNonStyleProps, RNExclusiveTextProps {}
 
-type RNGuiText = GuiComponent<
+type RNHanzoguiText = HanzoguiComponent<
   TamaDefer,
-  GuiTextElement,
-  RNGuiTextNonStyleProps,
+  HanzoguiTextElement,
+  RNHanzoguiTextNonStyleProps,
   TextStylePropsBase,
   {}
 >
@@ -72,22 +73,22 @@ type RNGuiText = GuiComponent<
 export * from './reactNativeTypes'
 
 // adds useElementLayout enable
-export const GuiProvider = (props: GuiProviderProps) => {
+export const HanzoguiProvider = (props: HanzoguiProviderProps) => {
   useIsomorphicLayoutEffect(() => {
     enable()
   }, [])
 
-  return <WebGuiProvider {...props} />
+  return <WebHanzoguiProvider {...props} />
 }
 
 // automate using the react native media driver
-export const createGui: typeof createGuiWeb = (conf) => {
+export const createHanzogui: typeof createHanzoguiWeb = (conf) => {
   if (!isWeb) {
     if (conf.media) {
       conf.media = createMedia(conf.media)
     }
   }
-  return createGuiWeb(conf)
+  return createHanzoguiWeb(conf)
 }
 
 const baseViews = getBaseViews()
@@ -98,7 +99,7 @@ setupHooks({
   getBaseViews,
 
   setElementProps: (node) => {
-    if (process.env.GUI_TARGET === 'web') {
+    if (process.env.TAMAGUI_TARGET === 'web') {
       // web only
       if (node && !node['measure']) {
         node.measure ||= createMeasure(node)
@@ -109,7 +110,7 @@ setupHooks({
   },
 
   usePropsTransform(elementType, propsIn, stateRef, willHydrate) {
-    if (process.env.GUI_TARGET === 'web') {
+    if (process.env.TAMAGUI_TARGET === 'web') {
       const isDOM = typeof elementType === 'string'
 
       // replicate react-native-web functionality
@@ -172,7 +173,7 @@ setupHooks({
   },
 
   // attempt at properly fixing RN input, but <Pressable><TextInput /> just doesnt work on RN
-  ...(process.env.GUI_TARGET === 'native' && {
+  ...(process.env.TAMAGUI_TARGET === 'native' && {
     useChildren(elementType, children, viewProps) {
       if (process.env.NODE_ENV === 'test') {
         // test mode - just use regular views since optimizations cause weirdness
@@ -189,8 +190,8 @@ setupHooks({
 
 // overwrite web versions:
 // putting at the end ensures it overwrites in dist/cjs/index.js
-export const View = WebView as any as RNGuiView
-export const Text = WebText as any as RNGuiText
+export const View = WebView as any as RNHanzoguiView
+export const Text = WebText as any as RNHanzoguiText
 
 // easily test type declaration output and if it gets messy:
 
@@ -261,7 +262,7 @@ export const Text = WebText as any as RNGuiText
 //     } as const,
 
 //     // defaultVariants: {
-//     //   unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
+//     //   unstyled: process.env.HANZOGUI_HEADLESS === '1' ? true : false,
 //     // },
 //   },
 //   {

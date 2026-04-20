@@ -11,7 +11,7 @@
  * The nested style should only apply when BOTH conditions are true.
  */
 
-import { View, createTamagui } from '@tamagui/core'
+import { View, createHanzogui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 // Set TAMAGUI_TARGET before importing getSplitStyles
@@ -20,9 +20,9 @@ process.env.TAMAGUI_TARGET = 'native'
 // Import directly from source so mocks apply
 import { getSplitStyles } from '../web/src/helpers/getSplitStyles'
 
-// Mock @tamagui/constants to simulate Android environment
-vi.mock('@tamagui/constants', async () => {
-  const actual = await vi.importActual('@tamagui/constants')
+// Mock @hanzogui/constants to simulate Android environment
+vi.mock('@hanzogui/constants', async () => {
+  const actual = await vi.importActual('@hanzogui/constants')
   return {
     ...actual,
     isAndroid: true,
@@ -37,7 +37,7 @@ vi.mock('@tamagui/constants', async () => {
 import config from '../config-default'
 
 beforeAll(() => {
-  createTamagui(config.getDefaultTamaguiConfig('native'))
+  createHanzogui(config.getDefaultHanzoguiConfig('native'))
 })
 
 function getSplitStylesFor(

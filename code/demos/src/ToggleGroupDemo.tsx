@@ -1,5 +1,5 @@
 import { AlignCenter, AlignLeft, AlignRight } from '@hanzogui/lucide-icons-2'
-import { Label, ToggleGroup, XGroup, YGroup, XStack, YStack } from '@hanzo/gui'
+import { Label, ToggleGroup, XGroup, YGroup, XStack, YStack } from 'hanzogui'
 
 export function ToggleGroupDemo() {
   return (

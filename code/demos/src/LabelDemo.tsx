@@ -1,4 +1,4 @@
-import { Input, Label, Switch, XStack, YStack } from '@hanzo/gui'
+import { Input, Label, Switch, XStack, YStack } from 'hanzogui'
 
 export function LabelDemo() {
   return (

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/configs-test",
-  "version": "2.0.0-rc.41-1776626066745",
+  "version": "2.0.0-rc.41-hanzoai.1",
   "private": true,
   "scripts": {
     "generate": "hanzogui generate",

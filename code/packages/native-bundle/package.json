@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native-bundle",
-  "version": "2.0.0-rc.41-1776626066745",
+  "version": "2.0.0-rc.41-hanzoai.1",
   "description": "Vite-based bundler for creating native CommonJS bundles for Hanzogui packages",
   "license": "MIT",
   "author": {

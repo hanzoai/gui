@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from '@hanzogui/lucide-icons-2'
 import type React from 'react'
-import { Button, H4, SizableText, XStack, YStack } from '@hanzo/gui'
+import { Button, H4, SizableText, XStack, YStack } from 'hanzogui'
 import { useDemoProps } from '../hooks/useDemoProps'
 const weekdays = [
   'sunday',

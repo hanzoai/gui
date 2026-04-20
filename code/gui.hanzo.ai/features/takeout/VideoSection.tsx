@@ -1,4 +1,4 @@
-import { H2, SizableText, Theme, XStack, YStack, useThemeName } from '@hanzo/gui'
+import { H2, SizableText, Theme, XStack, YStack, useThemeName } from 'hanzogui'
 import { HighlightText } from './HighlightText'
 
 export const VideoSection = () => {

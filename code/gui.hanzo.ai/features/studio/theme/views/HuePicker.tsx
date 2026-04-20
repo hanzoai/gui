@@ -1,6 +1,6 @@
 import { hsla } from 'color2k'
 import { memo, useState } from 'react'
-import { Slider, View, XGroup, XStack, YStack, useDebounce, useEvent } from '@hanzo/gui'
+import { Slider, View, XGroup, XStack, YStack, useDebounce, useEvent } from 'hanzogui'
 
 export const HuePicker = memo(
   ({ value = 0, onChange }: { value: number; onChange: (next: number) => void }) => {

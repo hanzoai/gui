@@ -1,4 +1,4 @@
-import { Paragraph, styled } from '@hanzo/gui'
+import { Paragraph, styled } from 'hanzogui'
 
 export const HighlightText = styled(Paragraph, {
   fontSize: 32,

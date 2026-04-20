@@ -1,6 +1,6 @@
 import { useSearchParams } from 'one'
 import { useEffect, useState } from 'react'
-import { Button, H2, Paragraph, Spinner, YStack } from '@hanzo/gui'
+import { Button, H2, Paragraph, Spinner, YStack } from 'hanzogui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { Link } from '~/components/Link'
 import { authFetch } from '~/features/api/authFetch'

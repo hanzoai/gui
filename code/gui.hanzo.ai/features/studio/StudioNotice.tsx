@@ -2,7 +2,7 @@ import { LinearGradient } from '@hanzogui/linear-gradient'
 import { Check, ChevronLeft, ChevronRight, Lightbulb } from '@hanzogui/lucide-icons-2'
 import type React from 'react'
 import { useRef, useState } from 'react'
-import type { ScrollViewProps, XStackProps } from '@hanzo/gui'
+import type { ScrollViewProps, XStackProps } from 'hanzogui'
 import {
   AnimatePresence,
   Button,
@@ -13,7 +13,7 @@ import {
   XStack,
   YStack,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 type PanelProps = XStackProps & {
   title?: React.ReactNode

@@ -21,11 +21,11 @@ export const hasProAccess = async (userId: string) => {
 
   // check for current subscription-based access (active or trialing)
   const validProProducts = [
-    ProductName.GuiPro,
-    ProductName.GuiProV2,
-    ProductName.GuiProV2Upgrade,
-    ProductName.GuiSupportDirect,
-    ProductName.GuiSupportSponsor,
+    ProductName.HanzoguiPro,
+    ProductName.HanzoguiProV2,
+    ProductName.HanzoguiProV2Upgrade,
+    ProductName.HanzoguiSupportDirect,
+    ProductName.HanzoguiSupportSponsor,
   ]
 
   const hasSubscriptionAccess = subscriptions?.some((subscription) => {
@@ -66,7 +66,7 @@ const hasLegacyAccess = async (userId: string) => {
 
   // check for direct Bento product ownership (legacy)
   const hasDirectBentoAccess = result.data.some(
-    (ownership) => ownership.prices?.products?.name === ProductName.GuiBento
+    (ownership) => ownership.prices?.products?.name === ProductName.HanzoguiBento
   )
 
   if (hasDirectBentoAccess) {

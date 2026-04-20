@@ -11,7 +11,7 @@ import {
   XStack,
   YStack,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { ErrorBoundary } from '~/components/ErrorBoundary'
 import { ButtonLink, Link } from '~/components/Link'

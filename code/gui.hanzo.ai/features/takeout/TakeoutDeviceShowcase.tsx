@@ -1,6 +1,6 @@
 import { Image } from '@hanzogui/image'
 import { ThemeTintAlt } from '@hanzogui/logo'
-import { H2, Paragraph, styled, Theme, XStack, YStack } from '@hanzo/gui'
+import { H2, Paragraph, styled, Theme, XStack, YStack } from 'hanzogui'
 
 const HighlightText = styled(Paragraph, {
   fontSize: 32,

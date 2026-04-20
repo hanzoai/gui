@@ -40,7 +40,7 @@ import {
   VisuallyHidden,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { authFetch } from '~/features/api/authFetch'
 import { ADMIN_EMAILS } from '~/features/api/isAdmin'
 import type { UserContextType } from '~/features/auth/types'
@@ -231,7 +231,7 @@ export const AccountView = () => {
 
   const proTeamSubscription = activeSubscriptions?.find((sub) =>
     sub.subscription_items?.some(
-      (item) => item.price?.product?.name === ProductName.GuiProTeamSeats
+      (item) => item.price?.product?.name === ProductName.HanzoguiProTeamSeats
     )
   ) as Subscription
 
@@ -250,12 +250,12 @@ export const AccountView = () => {
     : (activeSubscriptions?.find((sub) =>
         sub.subscription_items?.some(
           (item) =>
-            item.price?.product?.name === ProductName.GuiPro ||
-            item.price?.product?.name === ProductName.GuiProV2 ||
-            item.price?.product?.name === ProductName.GuiProV2Upgrade ||
+            item.price?.product?.name === ProductName.HanzoguiPro ||
+            item.price?.product?.name === ProductName.HanzoguiProV2 ||
+            item.price?.product?.name === ProductName.HanzoguiProV2Upgrade ||
             // V2 support tiers also imply Pro access
-            item.price?.product?.name === ProductName.GuiSupportDirect ||
-            item.price?.product?.name === ProductName.GuiSupportSponsor
+            item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
+            item.price?.product?.name === ProductName.HanzoguiSupportSponsor
         )
       ) as Subscription)
 
@@ -265,11 +265,11 @@ export const AccountView = () => {
       sub.subscription_items?.some(
         (item) =>
           // V1 support products
-          item.price?.product?.name === ProductName.GuiSupport ||
-          item.price?.product?.name === ProductName.GuiChat ||
+          item.price?.product?.name === ProductName.HanzoguiSupport ||
+          item.price?.product?.name === ProductName.HanzoguiChat ||
           // V2 support products
-          item.price?.product?.name === ProductName.GuiSupportDirect ||
-          item.price?.product?.name === ProductName.GuiSupportSponsor
+          item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
+          item.price?.product?.name === ProductName.HanzoguiSupportSponsor
       )
     )
     .sort((a, b) => new Date(a.created).getTime() - new Date(b.created).getTime())
@@ -671,11 +671,11 @@ const DiscordPanel = ({
     const supportItems = subscription?.subscription_items?.filter((item) => {
       return (
         // V1 support products
-        item.price?.product?.name === ProductName.GuiSupport ||
-        item.price?.product?.name === ProductName.GuiChat ||
+        item.price?.product?.name === ProductName.HanzoguiSupport ||
+        item.price?.product?.name === ProductName.HanzoguiChat ||
         // V2 support products
-        item.price?.product?.name === ProductName.GuiSupportDirect ||
-        item.price?.product?.name === ProductName.GuiSupportSponsor
+        item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
+        item.price?.product?.name === ProductName.HanzoguiSupportSponsor
       )
     })
 
@@ -685,16 +685,16 @@ const DiscordPanel = ({
 
     // Check for chat support (V1 only - V2 Pro includes chat by default)
     const chatItem = supportItems.find(
-      (item) => item.price?.product?.name === ProductName.GuiChat
+      (item) => item.price?.product?.name === ProductName.HanzoguiChat
     )
     const hasChat = !!chatItem
 
     // Check for support tier (V1 or V2)
     const tierItem = supportItems.find(
       (item) =>
-        item.price?.product?.name === ProductName.GuiSupport ||
-        item.price?.product?.name === ProductName.GuiSupportDirect ||
-        item.price?.product?.name === ProductName.GuiSupportSponsor
+        item.price?.product?.name === ProductName.HanzoguiSupport ||
+        item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
+        item.price?.product?.name === ProductName.HanzoguiSupportSponsor
     )
 
     let hasTier = false
@@ -1129,10 +1129,10 @@ const PlanTab = ({
   // Check if this is a V2 Pro subscription (V2 no need for team seats)
   const isV2Pro = subscription?.subscription_items?.some(
     (item) =>
-      item.price?.product?.name === ProductName.GuiProV2 ||
-      item.price?.product?.name === ProductName.GuiProV2Upgrade ||
-      item.price?.product?.name === ProductName.GuiSupportDirect ||
-      item.price?.product?.name === ProductName.GuiSupportSponsor
+      item.price?.product?.name === ProductName.HanzoguiProV2 ||
+      item.price?.product?.name === ProductName.HanzoguiProV2Upgrade ||
+      item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
+      item.price?.product?.name === ProductName.HanzoguiSupportSponsor
   )
 
   // V2 users need to set up a project after purchase
@@ -1837,7 +1837,7 @@ const ManageTab = ({
                       const price = item.price
                       const product = price?.product
                       const qty =
-                        product?.name === ProductName.GuiProTeamSeats
+                        product?.name === ProductName.HanzoguiProTeamSeats
                           ? (teamData?.subscription.total_seats ?? 1)
                           : (subscription.quantity ?? 1)
                       const total = (price?.unit_amount || 0) * qty

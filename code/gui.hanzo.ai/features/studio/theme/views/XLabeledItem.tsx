@@ -1,4 +1,4 @@
-import { Label, XStack } from '@hanzo/gui'
+import { Label, XStack } from 'hanzogui'
 
 export const XLabeledItem = ({ label, children }: { label: any; children: any }) => {
   return (

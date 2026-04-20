@@ -8,7 +8,7 @@ import {
   VisuallyHidden,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { Features } from '~/components/Features'
 import { Link } from '~/components/Link'
 import { FrontmatterContext } from './FrontmatterContext'

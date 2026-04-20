@@ -8,7 +8,7 @@ import {
   YStack,
   styled,
   useThemeName,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const FeatureLabel = styled(SizableText, {
   size: '$3',

@@ -1,7 +1,7 @@
 import type React from 'react'
 import { memo } from 'react'
-import type { YStackProps } from '@hanzo/gui'
-import { H4, H5, ScrollView, Spacer, XStack, YStack, styled } from '@hanzo/gui'
+import type { YStackProps } from 'hanzogui'
+import { H4, H5, ScrollView, Spacer, XStack, YStack, styled } from 'hanzogui'
 
 import { sidebarWidth } from '../constants'
 

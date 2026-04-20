@@ -1,8 +1,8 @@
 import { getTints, useTint } from '@hanzogui/logo'
 import { useEffect, useMemo, useRef } from 'react'
 import type { LayoutRectangle } from 'react-native'
-import type { GetProps } from '@hanzo/gui'
-import { XStack, YStack, styled } from '@hanzo/gui'
+import type { GetProps } from 'hanzogui'
+import { XStack, YStack, styled } from 'hanzogui'
 import { useOnIntersecting } from '~/hooks/useOnIntersecting'
 
 type Props = SectionProps & { themed?: boolean; index: number }

@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import * as Dialogs from '@hanzogui/bento/component/elements/dialogs'
 import {

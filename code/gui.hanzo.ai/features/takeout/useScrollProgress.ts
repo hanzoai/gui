@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { isClient } from '@hanzo/gui'
+import { isClient } from 'hanzogui'
 
 export const heroHeight = 1050
 

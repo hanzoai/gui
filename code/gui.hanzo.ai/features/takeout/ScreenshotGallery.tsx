@@ -1,6 +1,6 @@
 import { Image } from '@hanzogui/image'
 import { ThemeTintAlt } from '@hanzogui/logo'
-import { H2, Paragraph, styled, XStack, YStack } from '@hanzo/gui'
+import { H2, Paragraph, styled, XStack, YStack } from 'hanzogui'
 import { SubTitle } from '../../components/SubTitle'
 import { HighlightText } from './HighlightText'
 import { TakeoutGalleryDialog, useGalleryStore } from './TakeoutGallery'

@@ -1,6 +1,6 @@
 import { useSearchParams } from 'one'
 import { useEffect, useState } from 'react'
-import { Button, H1, Paragraph, Spinner, YStack } from '@hanzo/gui'
+import { Button, H1, Paragraph, Spinner, YStack } from 'hanzogui'
 import { Container } from '../../../components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'
 import { Link } from '~/components/Link'

@@ -9,7 +9,7 @@ import {
   TooltipSimple,
   XGroup,
   XStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { Link } from '~/components/Link'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import type { ThemeSuiteItemData } from '~/features/studio/theme/types'

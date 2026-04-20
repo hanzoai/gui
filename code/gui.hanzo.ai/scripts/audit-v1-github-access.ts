@@ -9,7 +9,7 @@
  *   npx tsx scripts/audit-v1-github-access.ts --fix     # actually send invites
  *
  * What this script does:
- * 1. Finds all users with active V1 subscriptions (GuiPro, GuiProTeamSeats)
+ * 1. Finds all users with active V1 subscriptions (HanzoguiPro, HanzoguiProTeamSeats)
  * 2. Checks their GitHub team membership status
  * 3. With --fix: Sends GitHub team invites to users who don't have access
  */
@@ -37,8 +37,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
 // V1 Pro product IDs
 const V1_PRO_PRODUCT_IDS = [
-  'prod_RlRd2DVrG0frHe', // GuiPro
-  'prod_Rxu0x7jR0nWJSv', // GuiProTeamSeats
+  'prod_RlRd2DVrG0frHe', // HanzoguiPro
+  'prod_Rxu0x7jR0nWJSv', // HanzoguiProTeamSeats
 ]
 
 interface UserSubscriptionInfo {

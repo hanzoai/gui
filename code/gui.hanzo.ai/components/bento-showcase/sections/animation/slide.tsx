@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import * as Slide from '@hanzogui/bento/component/animation/slide'
 import {

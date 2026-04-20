@@ -1,5 +1,5 @@
 import { Slot } from 'one'
-import { Theme, YStack } from '@hanzo/gui'
+import { Theme, YStack } from 'hanzogui'
 import { useBentoTheme } from '~/features/bento/useBentoTheme'
 import { Footer } from '~/features/site/Footer'
 import { ThemeNameEffect } from '~/features/site/theme/ThemeNameEffect'

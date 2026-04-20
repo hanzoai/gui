@@ -10,7 +10,7 @@ import {
   XStack,
   YGroup,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { Select } from '../../../../../components/Select'
 import {

@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import * as Walkthrough from '@hanzogui/bento/component/panels/walkthrough'
 import { Showcase } from '~/components/bento-showcase/_Showcase'

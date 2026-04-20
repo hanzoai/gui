@@ -14,7 +14,7 @@ import {
   XStack,
   YStack,
   ZStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { Canvas } from '../components/Canvas'
 import { colorsStore } from '../state/ColorsStore'

@@ -1,4 +1,4 @@
-import { H3, H4, ListItem, ScrollView, XStack, YStack } from '@hanzo/gui'
+import { H3, H4, ListItem, ScrollView, XStack, YStack } from 'hanzogui'
 
 export function DataTable({
   title = '',

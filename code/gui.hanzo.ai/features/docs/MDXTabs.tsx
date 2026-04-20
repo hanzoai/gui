@@ -1,7 +1,7 @@
 import { useStore, useStoreSelector } from '@hanzogui/use-store'
 import { forwardRef } from 'react'
-import type { TabsProps, TabsTabProps } from '@hanzo/gui'
-import { Paragraph, Tabs, XStack, styled, withStaticProperties } from '@hanzo/gui'
+import type { TabsProps, TabsTabProps } from 'hanzogui'
+import { Paragraph, Tabs, XStack, styled, withStaticProperties } from 'hanzogui'
 import { type Href, useLocalSearchParams, useRouter } from 'one'
 
 class TabsStore {

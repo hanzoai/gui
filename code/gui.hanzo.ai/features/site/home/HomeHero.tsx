@@ -13,7 +13,7 @@ import {
   XStack,
   YStack,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { ContainerLarge } from '~/components/Containers'
 import { Link } from '~/components/Link'
 import { DiscordIcon } from '~/features/icons/DiscordIcon'

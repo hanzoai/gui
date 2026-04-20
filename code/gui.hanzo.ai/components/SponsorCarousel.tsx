@@ -1,4 +1,4 @@
-import { H2, H5, Paragraph, styled, XStack, YStack, Image } from '@hanzo/gui'
+import { H2, H5, Paragraph, styled, XStack, YStack, Image } from 'hanzogui'
 import { Link } from '~/components/Link'
 
 const sponsors = [

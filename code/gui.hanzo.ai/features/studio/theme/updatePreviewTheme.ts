@@ -1,7 +1,7 @@
 import { createStudioThemes } from '@hanzogui/theme-builder'
 import type { BuildThemeSuiteProps } from '@hanzogui/themes'
-import type { ThemeName } from '@hanzo/gui'
-import { debounce, mutateThemes } from '@hanzo/gui'
+import type { ThemeName } from 'hanzogui'
+import { debounce, mutateThemes } from 'hanzogui'
 
 const STUDIO_INTERNAL_THEME_NAME = 'studiodemointernal'
 

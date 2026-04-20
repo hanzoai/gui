@@ -1,7 +1,7 @@
 import { throttle as throttleFn } from '@github/mini-throttle'
 import type { CSSProperties, DetailedHTMLProps, HTMLAttributes } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useIsomorphicLayoutEffect } from '@hanzo/gui'
+import { useIsomorphicLayoutEffect } from 'hanzogui'
 
 type Bounds = { width: number; height: number; left: number; top: number }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { toHsla, toRgba } from 'color2k'
-import { Button, Input, Label, Paragraph, XStack, YStack, styled } from '@hanzo/gui'
+import { Button, Input, Label, Paragraph, XStack, YStack, styled } from 'hanzogui'
 import { SidebarPanel } from '../components/Sidebar'
 import { useGlobalState } from '../state/useGlobalState'
 import { getColor, colorToHex } from './helpers'

@@ -1,5 +1,5 @@
 import { Suspense, use } from 'react'
-import { Spinner, View } from '@hanzo/gui'
+import { Spinner, View } from 'hanzogui'
 import type { ComponentType } from 'react'
 
 const cached: any = {}

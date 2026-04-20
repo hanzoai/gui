@@ -1,7 +1,7 @@
 import { setTintIndex } from '@hanzogui/logo'
 import { useLoader } from 'one'
 import { useEffect } from 'react'
-import { Button, YStack } from '@hanzo/gui'
+import { Button, YStack } from 'hanzogui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { HomeAnimations } from '~/features/site/home/HomeAnimations'
 import { HomeCommunity } from '~/features/site/home/HomeCommunity'
@@ -27,7 +27,7 @@ export async function loader() {
   return getCompilationExamples()
 }
 
-export default function GuiHomePage() {
+export default function HanzoguiHomePage() {
   const { compilationExamples, animationCode } = useLoader(loader)
 
   useEffect(() => {

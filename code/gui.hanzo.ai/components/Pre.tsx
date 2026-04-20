@@ -1,4 +1,4 @@
-import { YStack, styled } from '@hanzo/gui'
+import { YStack, styled } from 'hanzogui'
 
 export const Pre = styled(YStack, {
   overflow: 'visible',

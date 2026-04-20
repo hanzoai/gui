@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useEvent } from '@hanzo/gui'
+import { useEvent } from 'hanzogui'
 
 export const copyToClipboard = (text: string) => {
   return navigator.clipboard.writeText(text)

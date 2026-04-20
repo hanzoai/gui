@@ -1,6 +1,6 @@
 import { useRouter } from 'one'
 import { useEffect } from 'react'
-import { Spinner, YStack } from '@hanzo/gui'
+import { Spinner, YStack } from 'hanzogui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { accountModal } from '~/features/site/purchase/accountModalStore'
 import { useUser } from '~/features/user/useUser'

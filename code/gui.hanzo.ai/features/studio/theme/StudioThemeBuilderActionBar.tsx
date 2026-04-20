@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { XStack } from '@hanzo/gui'
+import { XStack } from 'hanzogui'
 
 import { ThemeSwitch } from '../bar/StudioBar'
 import { StudioThemeBuilderSettingsDropdown } from './StudioThemeBuilderSettingsDropdown'

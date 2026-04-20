@@ -4,7 +4,7 @@
 // import { scaleLinear } from 'd3-scale'
 // import React, { useState } from 'react'
 // import { DraggableCore } from 'react-draggable'
-// import { YStack } from '@hanzo/gui'
+// import { YStack } from 'hanzogui'
 
 // function round(num: number, step: number) {
 //   return Math.round(num * (1 / step)) / (1 / step)

@@ -1,4 +1,4 @@
-import { H2, Paragraph, styled, XStack, YStack } from '@hanzo/gui'
+import { H2, Paragraph, styled, XStack, YStack } from 'hanzogui'
 import { ThemeTintAlt } from '@hanzogui/logo'
 import { ArrowRight } from '@hanzogui/lucide-icons-2'
 

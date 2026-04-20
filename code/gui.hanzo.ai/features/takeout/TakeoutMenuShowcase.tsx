@@ -38,7 +38,7 @@ import {
   View,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { Card3D } from '../../components/Card3D'
 import { SubTitle } from '../../components/SubTitle'

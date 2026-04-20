@@ -1,6 +1,6 @@
 import { MoreVertical } from '@hanzogui/lucide-icons-2'
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import type { YStackProps } from '@hanzo/gui'
+import type { YStackProps } from 'hanzogui'
 import {
   Adapt,
   Button,
@@ -12,7 +12,7 @@ import {
   Theme,
   YGroup,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { accentThemeName } from '../../accentThemeName'
 import { useHasAccent } from '../../hooks/useHasAccent'
 import { useThemeBuilderStore } from '../store/ThemeBuilderStore'

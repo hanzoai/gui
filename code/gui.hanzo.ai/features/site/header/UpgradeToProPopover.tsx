@@ -10,7 +10,7 @@ import {
   Theme,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { sendEvent } from '../../analytics/sendEvent'
 import { useSubscriptionModal } from '../purchase/useSubscriptionModal'
 import { PromoCards } from './PromoCards'

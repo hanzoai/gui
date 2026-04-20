@@ -16,7 +16,7 @@ import {
   Theme,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { themeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { toastController } from '../../../ToastProvider'
@@ -114,11 +114,11 @@ export class StepExportStore {
                 type: 'files',
                 files: [
                   {
-                    filename: 'gui.config.ts',
+                    filename: 'hanzogui.config.ts',
                     content: `import { themes } from './themes'
 import { defaultConfig } from '@hanzogui/config/v5'
 
-export const config = createGui({
+export const config = createHanzogui({
   ...defaultConfig,
   themes,
 })

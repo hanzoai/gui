@@ -1,4 +1,4 @@
-import { Button, styled } from '@hanzo/gui'
+import { Button, styled } from 'hanzogui'
 
 export const ToggleButton = styled(Button, {
   size: '$2.5',

@@ -1,5 +1,5 @@
-import type { CircleProps } from '@hanzo/gui'
-import { Circle, YStack } from '@hanzo/gui'
+import type { CircleProps } from 'hanzogui'
+import { Circle, YStack } from 'hanzogui'
 
 export const ActiveCircle = (props: CircleProps & { isActive?: boolean }) => {
   const { isActive, bg, opacity, ...rest } = props

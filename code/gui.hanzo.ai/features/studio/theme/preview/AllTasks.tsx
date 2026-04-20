@@ -1,6 +1,6 @@
 import { Check } from '@hanzogui/lucide-icons-2'
-import type { ListItemProps } from '@hanzo/gui'
-import { H4, ListItem, Paragraph, Spacer, Theme, YStack } from '@hanzo/gui'
+import type { ListItemProps } from 'hanzogui'
+import { H4, ListItem, Paragraph, Spacer, Theme, YStack } from 'hanzogui'
 import { AccentTheme } from '../../components/AccentTheme'
 import { useDemoProps } from '../hooks/useDemoProps'
 

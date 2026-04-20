@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import { Showcase } from '~/components/bento-showcase/_Showcase'
 import * as Navbars from '@hanzogui/bento/component/shells/navbars'

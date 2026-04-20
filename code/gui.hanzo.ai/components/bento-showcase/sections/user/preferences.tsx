@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import * as Preferences from '@hanzogui/bento/component/user/preferences'
 import {

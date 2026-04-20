@@ -1,4 +1,4 @@
-import { EnsureFlexed, H4, Paragraph, YStack } from '@hanzo/gui'
+import { EnsureFlexed, H4, Paragraph, YStack } from 'hanzogui'
 
 import { ContainerLarge } from '~/components/Containers'
 import { Grid } from '~/components/Grid'

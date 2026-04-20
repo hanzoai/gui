@@ -2,7 +2,7 @@ import { Image, type ImageProps } from '@hanzogui/image'
 import { ArrowLeft, ArrowRight, X } from '@hanzogui/lucide-icons-2'
 import { createUseStore } from '@hanzogui/use-store'
 import { useEffect } from 'react'
-import type { ViewProps } from '@hanzo/gui'
+import type { ViewProps } from 'hanzogui'
 import {
   AnimatePresence,
   Button,
@@ -14,7 +14,7 @@ import {
   XStack,
   YStack,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const androidImages = [
   '/takeout/starter-screenshots/android-001.jpg',

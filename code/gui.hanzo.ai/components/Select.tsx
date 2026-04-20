@@ -1,13 +1,13 @@
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2'
-import type { SelectItemProps, SelectProps, SelectTriggerProps } from '@hanzo/gui'
-import { Select as GuiSelect, YStack, useProps, withStaticProperties } from '@hanzo/gui'
+import type { SelectItemProps, SelectProps, SelectTriggerProps } from 'hanzogui'
+import { Select as HanzoguiSelect, YStack, useProps, withStaticProperties } from 'hanzogui'
 
 export const SelectItem = ({ children, index, ...props }: SelectItemProps) => {
   return (
-    <GuiSelect.Item index={index + 1} borderColor="transparent" {...props}>
-      <GuiSelect.ItemText>{children}</GuiSelect.ItemText>
-    </GuiSelect.Item>
+    <HanzoguiSelect.Item index={index + 1} borderColor="transparent" {...props}>
+      <HanzoguiSelect.ItemText>{children}</HanzoguiSelect.ItemText>
+    </HanzoguiSelect.Item>
   )
 }
 
@@ -49,13 +49,13 @@ const SelectComponent = (
     renderValue,
   } as SelectProps
   return (
-    <GuiSelect {...selectProps} zIndex={1_000_000}>
-      <GuiSelect.Trigger iconAfter={ChevronDown} {...selectTriggerProps}>
-        <GuiSelect.Value placeholder={placeholder} />
-      </GuiSelect.Trigger>
+    <HanzoguiSelect {...selectProps} zIndex={1_000_000}>
+      <HanzoguiSelect.Trigger iconAfter={ChevronDown} {...selectTriggerProps}>
+        <HanzoguiSelect.Value placeholder={placeholder} />
+      </HanzoguiSelect.Trigger>
 
-      <GuiSelect.Content>
-        <GuiSelect.ScrollUpButton
+      <HanzoguiSelect.Content>
+        <HanzoguiSelect.ScrollUpButton
           items="center"
           justify="center"
           position="relative"
@@ -72,9 +72,9 @@ const SelectComponent = (
             colors={['$background', '$background0']}
             rounded="$4"
           />
-        </GuiSelect.ScrollUpButton>
+        </HanzoguiSelect.ScrollUpButton>
 
-        <GuiSelect.Viewport
+        <HanzoguiSelect.Viewport
           opacity={1}
           y={0}
           enterStyle={{
@@ -91,9 +91,9 @@ const SelectComponent = (
           borderColor="$borderColor"
         >
           {children}
-        </GuiSelect.Viewport>
+        </HanzoguiSelect.Viewport>
 
-        <GuiSelect.ScrollDownButton
+        <HanzoguiSelect.ScrollDownButton
           items="center"
           justify="center"
           position="relative"
@@ -110,15 +110,15 @@ const SelectComponent = (
             colors={['$background0', '$background']}
             rounded="$4"
           />
-        </GuiSelect.ScrollDownButton>
-      </GuiSelect.Content>
-    </GuiSelect>
+        </HanzoguiSelect.ScrollDownButton>
+      </HanzoguiSelect.Content>
+    </HanzoguiSelect>
   )
 }
 
 export const Select = withStaticProperties(SelectComponent, {
   Item: SelectItem,
-  ItemText: GuiSelect.ItemText,
-  Group: GuiSelect.Group,
-  Label: GuiSelect.Label,
+  ItemText: HanzoguiSelect.ItemText,
+  Group: HanzoguiSelect.Group,
+  Label: HanzoguiSelect.Label,
 })

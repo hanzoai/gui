@@ -1,4 +1,4 @@
-import type { TextProps, YStackProps } from '@hanzo/gui'
+import type { TextProps, YStackProps } from 'hanzogui'
 
 export const optionValues = {
   inverseAccent: [false, true],

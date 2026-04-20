@@ -2,19 +2,19 @@ import { useState, useEffect, useMemo } from 'react'
 
 import type { Tokens } from '@hanzogui/core'
 import { getTokens } from '@hanzogui/core'
-import { useUserGuiConfig } from './useUserGuiConfig'
+import { useUserHanzoguiConfig } from './useUserHanzoguiConfig'
 
 type MergedToken = Tokens & { userMatch: Tokens }
 
 const useTokenMapper = () => {
-  const userGuiConfig = useUserGuiConfig()
+  const userHanzoguiConfig = useUserHanzoguiConfig()
   const [mappedTokens, setMappedTokens] = useState<Tokens | null>(null)
   const bentoTokens = getTokens()
 
   useEffect(() => {
-    if (bentoTokens && userGuiConfig) {
+    if (bentoTokens && userHanzoguiConfig) {
       try {
-        const userTokensConfig = JSON.parse(userGuiConfig).guiConfig.tokens
+        const userTokensConfig = JSON.parse(userHanzoguiConfig).guiConfig.tokens
         const mapped = mapBentoTokensToUserTokens(
           bentoTokens,
           userTokensConfig
@@ -25,14 +25,14 @@ const useTokenMapper = () => {
         setMappedTokens(null)
       }
     }
-  }, [bentoTokens, userGuiConfig])
+  }, [bentoTokens, userHanzoguiConfig])
 
-  const userTokens = userGuiConfig
+  const userTokens = userHanzoguiConfig
     ? (() => {
         try {
-          return JSON.parse(userGuiConfig)?.guiConfig?.tokens
+          return JSON.parse(userHanzoguiConfig)?.guiConfig?.tokens
         } catch (error) {
-          console.error('Failed to parse user gui config for tokens:', userGuiConfig)
+          console.error('Failed to parse user gui config for tokens:', userHanzoguiConfig)
           return null
         }
       })()

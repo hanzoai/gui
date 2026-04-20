@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import * as Chips from '@hanzogui/bento/component/elements/chips'
 import {

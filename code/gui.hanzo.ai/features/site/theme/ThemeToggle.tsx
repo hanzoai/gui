@@ -2,8 +2,8 @@ import { Moon, Sun, SunMoon } from '@hanzogui/lucide-icons-2'
 import { useSystemScheme, useUserScheme } from '@vxrn/color-scheme'
 import { memo, useEffect, useState } from 'react'
 import { Appearance } from 'react-native'
-import type { ButtonProps } from '@hanzo/gui'
-import { Button, isWeb, TooltipSimple } from '@hanzo/gui'
+import type { ButtonProps } from 'hanzogui'
+import { Button, isWeb, TooltipSimple } from 'hanzogui'
 
 export const ThemeToggle = memo((props: ButtonProps) => {
   const { onPress, Icon, setting } = useToggleTheme()

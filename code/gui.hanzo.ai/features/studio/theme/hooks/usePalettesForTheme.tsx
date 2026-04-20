@@ -1,4 +1,4 @@
-import { useThemeName } from '@hanzo/gui'
+import { useThemeName } from 'hanzogui'
 
 import { themeBuilderStore } from '../store/ThemeBuilderStore'
 import type { BuildTheme } from '../types'

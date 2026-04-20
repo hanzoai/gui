@@ -1,6 +1,6 @@
 import type { MutableRefObject } from 'react'
 import { startTransition, useEffect, useState } from 'react'
-import { isWeb, useEvent } from '@hanzo/gui'
+import { isWeb, useEvent } from 'hanzogui'
 
 type DisposeFn = () => void
 

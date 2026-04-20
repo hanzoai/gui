@@ -1,8 +1,8 @@
-import { H3, Paragraph, XStack } from '@hanzo/gui'
+import { H3, Paragraph, XStack } from 'hanzogui'
 
 import { Card } from './Card'
 
-export function GuiCard({ children, title, subTitle, ...props }) {
+export function HanzoguiCard({ children, title, subTitle, ...props }) {
   return (
     <Card
       p="$4"

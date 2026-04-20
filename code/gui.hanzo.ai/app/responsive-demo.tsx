@@ -4,7 +4,7 @@ import img2 from '@hanzogui/demos/photo/photo2'
 import img3 from '@hanzogui/demos/photo/photo3'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { MapPin, Star } from '@hanzogui/lucide-icons-2'
-import { H3, H4, H5, Image, Paragraph, Spacer, Theme, XStack, YStack } from '@hanzo/gui'
+import { H3, H4, H5, Image, Paragraph, Spacer, Theme, XStack, YStack } from 'hanzogui'
 
 export default function ResponsiveDemo() {
   const header = (

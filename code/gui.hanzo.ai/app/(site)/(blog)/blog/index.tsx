@@ -1,8 +1,8 @@
 import { useLoader } from 'one'
-import { H2, Paragraph, Spacer, XStack } from '@hanzo/gui'
+import { H2, Paragraph, Spacer, XStack } from 'hanzogui'
 import { ContainerLarge } from '~/components/Containers'
 import { Link } from '~/components/Link'
-import { GuiCard } from '~/components/GuiCard'
+import { HanzoguiCard } from '~/components/HanzoguiCard'
 import { authors } from '~/data/authors'
 import { HeadInfo } from '~/components/HeadInfo'
 
@@ -33,7 +33,7 @@ export default function Blog() {
         <XStack flexWrap="wrap" gap="$4" $md={{ flexDirection: 'column' }}>
           {frontmatters.map((frontmatter) => (
             <Link asChild key={frontmatter.title} href={`/blog/${frontmatter.slug}`}>
-              <GuiCard
+              <HanzoguiCard
                 title={frontmatter.title}
                 render="a"
                 width="calc(50% - var(--space-2))"
@@ -63,7 +63,7 @@ export default function Blog() {
                 }
               >
                 {frontmatter.description}
-              </GuiCard>
+              </HanzoguiCard>
             </Link>
           ))}
         </XStack>

@@ -1,4 +1,4 @@
-import { Paragraph, Separator, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, Separator, XStack, YStack } from 'hanzogui'
 
 const PaletteExample = ({
   showIndices,

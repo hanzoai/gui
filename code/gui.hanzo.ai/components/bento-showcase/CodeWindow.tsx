@@ -10,11 +10,11 @@ import {
   Theme,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { useClipboard } from './hooks'
 import { useReplaceTokens } from './hooks/useReplaceTokens'
 import useTokenMapper from './hooks/useTokenMapper'
-import { useUserGuiConfig } from './hooks/useUserGuiConfig'
+import { useUserHanzoguiConfig } from './hooks/useUserHanzoguiConfig'
 interface Props {
   code: string
   isLoading?: boolean
@@ -179,9 +179,9 @@ function CopyCodeButton({ onCopy, hasCopied, oneTabLayout = false }) {
 }
 
 function CustomizationEnabledBanner() {
-  const userGuiConfig = useUserGuiConfig()
+  const userHanzoguiConfig = useUserHanzoguiConfig()
 
-  if (!userGuiConfig) return null
+  if (!userHanzoguiConfig) return null
   return (
     <YStack mt="$3" ml="$3">
       <Theme name="green">

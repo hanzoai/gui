@@ -1,15 +1,15 @@
 import { Plus } from '@hanzogui/lucide-icons-2'
-import type { ListItemProps, PopoverProps } from '@hanzo/gui'
+import type { ListItemProps, PopoverProps } from 'hanzogui'
 import {
   Button,
   H6,
   ListItem,
   Paragraph,
   Popover,
-  Separator as GuiSeparator,
+  Separator as HanzoguiSeparator,
   styled,
   withStaticProperties,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const Item = ({ children, ...props }: ListItemProps) => (
   <ListItem minW={190} size="$5" iconAfter={Plus} {...props}>
@@ -27,7 +27,7 @@ const Title = styled(H6, {
   opacity: 0.5,
 })
 
-const Separator = styled(GuiSeparator, { width: '100%', py: '$1' })
+const Separator = styled(HanzoguiSeparator, { width: '100%', py: '$1' })
 
 export const AddDropdown = withStaticProperties(
   function AddDropdown({ children, ...props }: PopoverProps) {

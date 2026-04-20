@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import * as DatePickers from '@hanzogui/bento/component/elements/datepickers'
 import {

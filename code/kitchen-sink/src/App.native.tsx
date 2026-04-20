@@ -4,6 +4,8 @@ import { getGestureHandler } from '@hanzogui/native'
 
 interface TestLaunchArgs {
   disableGestureHandler?: boolean
+  initialTestCase?: string
+  directUseCase?: string
 }
 
 const launchArgs = LaunchArguments.value<TestLaunchArgs>()
@@ -13,13 +15,12 @@ if (launchArgs.disableGestureHandler) {
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
-import { Toast, ToastViewport, useToastState } from '@hanzogui/toast'
 import { useFonts } from 'expo-font'
-import { YStack } from '@hanzo/gui'
 import React from 'react'
 import { Appearance, LogBox, useColorScheme } from 'react-native'
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { PortalProvider } from 'react-native-teleport'
+import { H1 } from 'hanzogui'
 import { Navigation } from './Navigation'
 import { Provider } from './provider'
 import { ThemeContext, type ThemeMode } from './useKitchenSinkTheme'
@@ -40,13 +41,17 @@ export default function App() {
 
   const systemColorScheme = useColorScheme()
 
-  // Resolved theme based on mode (useColorScheme can return null on RN 0.83+)
-  const resolvedTheme = (mode === 'system' ? systemColorScheme : mode) || 'light'
+  // Resolved theme based on mode
+  // useColorScheme can return null (RN 0.83+) or 'unspecified' (after setColorScheme('unspecified'))
+  const scheme = mode === 'system' ? systemColorScheme : mode
+  const resolvedTheme = (scheme && scheme !== 'unspecified' ? scheme : null) || 'light'
 
   // Update Appearance when mode changes (for native components)
   React.useEffect(() => {
     if (mode === 'system') {
-      Appearance.setColorScheme(null as any) // Follow system
+      // RN 0.83+ Kotlin conversion makes setColorScheme non-null on Android
+      // pass 'unspecified' to follow system
+      Appearance.setColorScheme('unspecified' as any)
     } else {
       Appearance.setColorScheme(mode)
     }
@@ -64,6 +69,8 @@ export default function App() {
     return null
   }
 
+  const DirectUseCase = getDirectUseCaseComponent(launchArgs.directUseCase)
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <KeyboardProvider>
@@ -71,8 +78,11 @@ export default function App() {
           <SafeAreaProvider>
             <ThemeContext.Provider value={themeContext}>
               <Provider defaultTheme={resolvedTheme as any}>
-                <Navigation />
-                <SafeToastViewport />
+                {DirectUseCase ? (
+                  <DirectUseCase />
+                ) : (
+                  <Navigation initialTestCase={launchArgs.initialTestCase} />
+                )}
               </Provider>
             </ThemeContext.Provider>
           </SafeAreaProvider>
@@ -82,40 +92,17 @@ export default function App() {
   )
 }
 
-const CurrentToast = () => {
-  const currentToast = useToastState()
-
-  if (!currentToast || currentToast.isHandledNatively) {
+function getDirectUseCaseComponent(name?: string): React.ComponentType | null {
+  if (!name) {
     return null
   }
 
-  return (
-    <Toast
-      key={currentToast.id}
-      duration={currentToast.duration}
-      viewportName={currentToast.viewportName}
-      enterStyle={{ opacity: 0, scale: 0.5, y: -25 }}
-      exitStyle={{ opacity: 0, scale: 1, y: -20 }}
-      y={0}
-      opacity={1}
-      scale={1}
-    >
-      <YStack py="$1.5" px="$2">
-        <Toast.Title lineHeight="$1">{currentToast.title}</Toast.Title>
-        {!!currentToast.message && (
-          <Toast.Description>{currentToast.message}</Toast.Description>
-        )}
-      </YStack>
-    </Toast>
-  )
-}
+  const useCases = require('./usecases') as Record<
+    string,
+    React.ComponentType | undefined
+  >
 
-const SafeToastViewport = () => {
-  const { top } = useSafeAreaInsets()
   return (
-    <>
-      <CurrentToast />
-      <ToastViewport top={top} left={0} right={0} />
-    </>
+    useCases[name] || (() => <H1 testID="direct-usecase-not-found">Not found: {name}</H1>)
   )
 }

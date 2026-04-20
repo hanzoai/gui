@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Paragraph, Progress, Slider, Theme, XStack, YStack } from '@hanzo/gui'
+import { Button, Paragraph, Progress, Slider, Theme, XStack, YStack } from 'hanzogui'
 import { Play, RotateCcw } from '@hanzogui/lucide-icons-2'
 
 export function ProgressDemo() {

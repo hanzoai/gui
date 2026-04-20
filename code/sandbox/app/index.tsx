@@ -1,5 +1,5 @@
 import { Link } from 'one'
-import { H4, ListItem, Paragraph, ScrollView, XStack, YStack } from '@hanzo/gui'
+import { H4, ListItem, Paragraph, ScrollView, XStack, YStack } from 'hanzogui'
 import { AllTests } from '~/components/allComponents'
 import { getUrlFromPath } from '~/utils/getFromPath'
 

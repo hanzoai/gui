@@ -5,14 +5,14 @@ export function createGlobalState<T extends { enabled: boolean }>(
   get: () => T
   set: (next: T) => void
 } {
-  const GLOBAL_KEY = `__gui_${key}__`
+  const GLOBAL_KEY = `__hanzogui_${key}__`
 
-  type GuiGlobal = typeof globalThis & {
+  type HanzoguiGlobal = typeof globalThis & {
     [GLOBAL_KEY]?: T
   }
 
   function getGlobalState(): T {
-    const g = globalThis as GuiGlobal
+    const g = globalThis as HanzoguiGlobal
     if (!g[GLOBAL_KEY]) {
       // reset on module load so reloadReactNative gets a clean state
       // (globalThis persists across reloads but module scope re-evaluates)
@@ -22,7 +22,7 @@ export function createGlobalState<T extends { enabled: boolean }>(
   }
 
   function setGlobalState(newState: T): void {
-    ;(globalThis as GuiGlobal)[GLOBAL_KEY] = newState
+    ;(globalThis as HanzoguiGlobal)[GLOBAL_KEY] = newState
   }
 
   return {

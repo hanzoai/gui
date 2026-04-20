@@ -11,7 +11,7 @@ describe('static-worker error handling', () => {
   test('provides helpful error message with file path when extraction fails', async () => {
     const sourcePath = path.join(__dirname, 'fixtures', 'InvalidComponent.tsx')
     const source = `
-      import { SizableText } from '@hanzo/gui'
+      import { SizableText } from 'hanzogui'
 
       export function CodeInline({ children }: { children: any }) {
         return (
@@ -35,7 +35,7 @@ describe('static-worker error handling', () => {
         source,
         sourcePath,
         options: {
-          components: ['@hanzo/gui'],
+          components: ['hanzogui'],
           config: './does-not-exist.ts',
         },
         shouldPrintDebug: false,
@@ -50,7 +50,7 @@ describe('static-worker error handling', () => {
       const errorMessage = (error as Error).message
 
       // Should include the helpful prefix
-      expect(errorMessage).toContain('[gui-extract]')
+      expect(errorMessage).toContain('[hanzogui-extract]')
 
       // Should include the file path
       expect(errorMessage).toContain('InvalidComponent.tsx')
@@ -63,7 +63,7 @@ describe('static-worker error handling', () => {
   test('returns null for node_modules files', async () => {
     const sourcePath = '/node_modules/some-package/index.tsx'
     const source = `
-      import { Text } from '@hanzo/gui'
+      import { Text } from 'hanzogui'
       export const Component = () => <Text>Hello</Text>
     `
 
@@ -71,7 +71,7 @@ describe('static-worker error handling', () => {
       source,
       sourcePath,
       options: {
-        components: ['@hanzo/gui'],
+        components: ['hanzogui'],
       },
       shouldPrintDebug: false,
     })
@@ -82,13 +82,13 @@ describe('static-worker error handling', () => {
 
   test('properly cleans up worker pool', async () => {
     // Trigger pool creation by running extraction
-    const source = `import { Text } from '@hanzo/gui'; export const X = () => <Text>Hi</Text>`
+    const source = `import { Text } from 'hanzogui'; export const X = () => <Text>Hi</Text>`
 
     await Worker.extractToClassNames({
       source,
       sourcePath: '/node_modules/test.tsx', // Will be skipped, but creates pool
       options: {
-        components: ['@hanzo/gui'],
+        components: ['hanzogui'],
       },
       shouldPrintDebug: false,
     })
@@ -111,9 +111,9 @@ describe('static-worker error handling', () => {
 
     // Create the pool
     await Worker.extractToClassNames({
-      source: 'import { Text } from "@hanzo/gui"',
+      source: 'import { Text } from "hanzogui"',
       sourcePath: '/node_modules/test.tsx',
-      options: { components: ['@hanzo/gui'] },
+      options: { components: ['hanzogui'] },
     })
 
     // This should not throw even if there's a race condition

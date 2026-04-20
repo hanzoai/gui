@@ -1,9 +1,9 @@
-import { View, createGui } from '@hanzogui/core'
+import { View, createHanzogui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 import { isColorStyleKey } from '../web/src/helpers/getDynamicVal'
 
-// Set GUI_TARGET before importing getSplitStyles
-process.env.GUI_TARGET = 'native'
+// Set TAMAGUI_TARGET before importing getSplitStyles
+process.env.TAMAGUI_TARGET = 'native'
 
 // Import directly from source so mocks apply
 import { getSplitStyles } from '../web/src/helpers/getSplitStyles'
@@ -37,7 +37,7 @@ const mockGetSetting = vi.fn((key) => {
 vi.spyOn(configModule, 'getSetting').mockImplementation(mockGetSetting)
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig('native'))
+  createHanzogui(config.getDefaultHanzoguiConfig('native'))
 })
 
 // Helper function to create dynamic color structure for iOS

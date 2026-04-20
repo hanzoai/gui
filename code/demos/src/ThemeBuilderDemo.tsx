@@ -1,5 +1,5 @@
-import type { SquareProps, ThemeName } from '@hanzo/gui'
-import { Square, XStack, YStack } from '@hanzo/gui'
+import type { SquareProps, ThemeName } from 'hanzogui'
+import { Square, XStack, YStack } from 'hanzogui'
 
 export function ThemeBuilderDemo() {
   return (

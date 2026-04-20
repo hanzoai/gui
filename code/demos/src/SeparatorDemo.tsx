@@ -1,9 +1,9 @@
-import { Paragraph, Separator, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, Separator, XStack, YStack } from 'hanzogui'
 
 export function SeparatorDemo() {
   return (
     <YStack width="100%" maxW={300} mx={16}>
-      <Paragraph fontWeight="800">Gui</Paragraph>
+      <Paragraph fontWeight="800">Hanzogui</Paragraph>
       <Paragraph>A cross-platform component library.</Paragraph>
       <Separator my={15} />
       <XStack height={20} items="center">

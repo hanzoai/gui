@@ -1,5 +1,5 @@
 import { useParams } from 'one'
-import { H1, YStack } from '@hanzo/gui'
+import { H1, YStack } from 'hanzogui'
 // import { AllBento } from '~/components/allComponents'
 
 export function generateStaticParams() {

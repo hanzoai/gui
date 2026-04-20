@@ -9,7 +9,7 @@ import {
   View,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const SharedPopoverTrigger = memo(function SharedPopoverTrigger({
   scope,

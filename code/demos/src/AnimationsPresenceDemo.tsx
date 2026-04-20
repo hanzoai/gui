@@ -2,7 +2,7 @@ import React from 'react'
 import { AnimatePresence } from '@hanzogui/animate-presence'
 import { ArrowLeft, ArrowRight } from '@hanzogui/lucide-icons-2'
 
-import { Button, Image, XStack, YStack, styled } from '@hanzo/gui'
+import { Button, Image, XStack, YStack, styled } from 'hanzogui'
 
 // @ts-ignore
 import photo1 from '../../public/photo1.jpg'

@@ -1,4 +1,4 @@
-import { Button, Theme, XStack, YStack } from '@hanzo/gui'
+import { Button, Theme, XStack, YStack } from 'hanzogui'
 
 export const ButtonInverse = () => (
   <YStack gap="$4">

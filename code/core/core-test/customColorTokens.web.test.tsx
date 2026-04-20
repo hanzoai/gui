@@ -1,11 +1,11 @@
 import { describe, expect, test, beforeEach } from 'vitest'
-import { createGui } from '@hanzogui/core'
+import { createHanzogui } from '@hanzogui/core'
 
 describe('custom color tokens', () => {
   beforeEach(() => {
-    // Clear any global GUI configuration between tests
-    if (globalThis.__guiConfig) {
-      delete globalThis.__guiConfig
+    // Clear any global Hanzogui configuration between tests
+    if (globalThis.__hanzoguiConfig) {
+      delete globalThis.__hanzoguiConfig
     }
   })
   test('automatically merges custom color tokens into themes', () => {
@@ -35,11 +35,11 @@ describe('custom color tokens', () => {
       },
     }
 
-    const hanzoGui = createGui(config)
+    const hanzogui = createHanzogui(config)
 
     // Check that custom colors are available in tokensParsed with correct structure
-    expect(hanzoGui.tokensParsed.color['$customRed']).toBeDefined()
-    expect(hanzoGui.tokensParsed.color['$customRed']).toMatchObject({
+    expect(hanzogui.tokensParsed.color['$customRed']).toBeDefined()
+    expect(hanzogui.tokensParsed.color['$customRed']).toMatchObject({
       isVar: true,
       key: '$customRed',
       name: 'c-color-customRed',
@@ -47,7 +47,7 @@ describe('custom color tokens', () => {
       variable: 'var(--c-color-customRed)',
     })
 
-    expect(hanzoGui.tokensParsed.color['$customBlue']).toMatchObject({
+    expect(hanzogui.tokensParsed.color['$customBlue']).toMatchObject({
       isVar: true,
       key: '$customBlue',
       name: 'c-color-customBlue',
@@ -55,7 +55,7 @@ describe('custom color tokens', () => {
       variable: 'var(--c-color-customBlue)',
     })
 
-    expect(hanzoGui.tokensParsed.color['$customGreen']).toMatchObject({
+    expect(hanzogui.tokensParsed.color['$customGreen']).toMatchObject({
       isVar: true,
       key: '$customGreen',
       name: 'c-color-customGreen',
@@ -64,8 +64,8 @@ describe('custom color tokens', () => {
     })
 
     // Check that custom colors are automatically added to themes
-    const lightTheme = hanzoGui.themeConfig.themes.light
-    const darkTheme = hanzoGui.themeConfig.themes.dark
+    const lightTheme = hanzogui.themeConfig.themes.light
+    const darkTheme = hanzogui.themeConfig.themes.dark
 
     expect(lightTheme.customRed).toBeDefined()
     expect(lightTheme.customRed.val).toBe('#ff0000')
@@ -107,10 +107,10 @@ describe('custom color tokens', () => {
       },
     }
 
-    const hanzoGui = createGui(config)
+    const hanzogui = createHanzogui(config)
 
     // Check token structure
-    expect(hanzoGui.tokensParsed.color['$customAccent']).toMatchObject({
+    expect(hanzogui.tokensParsed.color['$customAccent']).toMatchObject({
       isVar: true,
       key: '$customAccent',
       name: 'c-color-customAccent',
@@ -119,9 +119,9 @@ describe('custom color tokens', () => {
     })
 
     // All themes should have the custom color
-    expect(hanzoGui.themeConfig.themes.light.customAccent.val).toBe('#ff00ff')
-    expect(hanzoGui.themeConfig.themes.dark.customAccent.val).toBe('#ff00ff')
-    expect(hanzoGui.themeConfig.themes.light_blue.customAccent.val).toBe('#ff00ff')
-    expect(hanzoGui.themeConfig.themes.dark_blue.customAccent.val).toBe('#ff00ff')
+    expect(hanzogui.themeConfig.themes.light.customAccent.val).toBe('#ff00ff')
+    expect(hanzogui.themeConfig.themes.dark.customAccent.val).toBe('#ff00ff')
+    expect(hanzogui.themeConfig.themes.light_blue.customAccent.val).toBe('#ff00ff')
+    expect(hanzogui.themeConfig.themes.dark_blue.customAccent.val).toBe('#ff00ff')
   })
 })

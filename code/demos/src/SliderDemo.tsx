@@ -1,5 +1,5 @@
-import type { SliderProps } from '@hanzo/gui'
-import { Slider, Theme, XStack } from '@hanzo/gui'
+import type { SliderProps } from 'hanzogui'
+import { Slider, Theme, XStack } from 'hanzogui'
 
 export function SliderDemo() {
   return (

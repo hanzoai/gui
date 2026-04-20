@@ -5,7 +5,7 @@ import {
   ThemeableStack,
   createStyledContext,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 // Reproduce GitHub issue #3676 - Context Values Not Accessible in Children Styles
 // Parent component style properties like `color` cannot be accessed by child components

@@ -1,4 +1,4 @@
-import { Adapt, Button, Dialog, Input, Label, Sheet, XStack, YStack } from '@hanzo/gui'
+import { Adapt, Button, Dialog, Input, Label, Sheet, XStack, YStack } from 'hanzogui'
 
 export function DialogScopedCase() {
   const shouldAdapt = window.location.search.includes('adapt=true')

@@ -1,4 +1,4 @@
-process.env.GUI_TARGET = 'web'
+process.env.TAMAGUI_TARGET = 'web'
 
 import { describe, expectTypeOf, test } from 'vitest'
 import type { StackStyleBase } from '../web/src'

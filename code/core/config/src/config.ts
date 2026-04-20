@@ -1,6 +1,6 @@
 import { shorthands } from '@hanzogui/shorthands'
 import { themes, tokens } from '@hanzogui/themes'
-import type { CreateGuiProps } from '@hanzogui/web'
+import type { CreateHanzoguiProps } from '@hanzogui/web'
 
 import { fonts } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'
@@ -24,4 +24,4 @@ export const configWithoutAnimations = {
     shouldAddPrefersColorThemes: true,
     mediaQueryDefaultActive,
   },
-} satisfies CreateGuiProps
+} satisfies CreateHanzoguiProps

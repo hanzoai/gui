@@ -5,7 +5,7 @@ import type {
   PropMapper,
   SplitStyleProps,
   StyleResolver,
-  GuiInternalConfig,
+  HanzoguiInternalConfig,
   Variable,
   VariantSpreadFunction,
 } from '../types'
@@ -34,7 +34,7 @@ export const propMapper: PropMapper = (key, value, styleState, disabled, map) =>
 
   setLastFontFamilyToken(null)
 
-  if (!(process.env.GUI_TARGET === 'native' && isAndroid)) {
+  if (!(process.env.TAMAGUI_TARGET === 'native' && isAndroid)) {
     // this shouldnt be necessary and handled in the outer loop
     if (key === 'elevationAndroid') return
   }
@@ -81,7 +81,7 @@ export const propMapper: PropMapper = (key, value, styleState, disabled, map) =>
   // on native, parse string backgroundImage/boxShadow/textShadow to RN object format
   // this handles both token-resolved strings and plain strings without tokens
   if (
-    process.env.GUI_TARGET === 'native' &&
+    process.env.TAMAGUI_TARGET === 'native' &&
     value != null &&
     typeof value === 'string' &&
     (key === 'backgroundImage' || key === 'boxShadow' || key === 'textShadow')
@@ -146,7 +146,7 @@ const resolveVariants: StyleResolver = (
   if (!variantValue) {
     // variant at key exists, but no matching variant
     // disabling warnings, its fine to pass through, could re-enable later somehoiw
-    if (process.env.GUI_WARN_ON_MISSING_VARIANT === '1') {
+    if (process.env.TAMAGUI_WARN_ON_MISSING_VARIANT === '1') {
       // don't warn on missing booleans
       if (typeof value !== 'boolean') {
         const name = staticConfig.componentName || '[UnnamedComponent]'
@@ -166,7 +166,7 @@ const resolveVariants: StyleResolver = (
     if (
       process.env.NODE_ENV === 'development' &&
       debug === 'verbose' &&
-      process.env.GUI_TARGET !== 'native'
+      process.env.TAMAGUI_TARGET !== 'native'
     ) {
       console.groupCollapsed('   expanded functional variant', key)
       console.info({ fn, variantValue, extras })
@@ -217,7 +217,7 @@ const resolveVariants: StyleResolver = (
 
 // handles finding and resolving the fontFamily to the token name
 // this is used as `font_[name]` in className for nice css variable support
-export function getFontFamilyFromNameOrVariable(input: any, conf: GuiInternalConfig) {
+export function getFontFamilyFromNameOrVariable(input: any, conf: HanzoguiInternalConfig) {
   if (isVariable(input)) {
     const val = variableToFontNameCache.get(input)
     if (val) return val
@@ -366,7 +366,7 @@ const tokenCats = ['size', 'color', 'radius', 'space', 'zIndex'].map((name) => (
 function getVariantDefinition(
   variant: any,
   value: any,
-  conf: GuiInternalConfig,
+  conf: HanzoguiInternalConfig,
   { theme }: Partial<GetStyleState>
 ) {
   if (!variant) return

@@ -12,7 +12,7 @@ export const getDefaultProps = (
   const name =
     propsComponentName ||
     staticConfig?.componentName ||
-    // important: this is how we end up getting the defaultProps we set in createGui
+    // important: this is how we end up getting the defaultProps we set in createHanzogui
     (staticConfig.isText ? 'Text' : 'View')
 
   const userDefaultProps = conf?.defaultProps?.[name]

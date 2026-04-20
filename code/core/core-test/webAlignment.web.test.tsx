@@ -1,18 +1,18 @@
 /**
  * Web Alignment Tests - Web Platform
  *
- * These tests verify that GUI v2 uses web-standard props exclusively.
+ * These tests verify that Hanzogui v2 uses web-standard props exclusively.
  * RN-specific accessibility props are no longer converted - use aria-* directly.
  */
 
-import { View, Text, createGui } from '@hanzogui/core'
+import { View, Text, createHanzogui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
 import { simplifiedGetSplitStyles } from './utils'
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig())
+  createHanzogui(config.getDefaultHanzoguiConfig())
 })
 
 describe('Web Alignment - Accessibility Props', () => {

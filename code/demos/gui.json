@@ -1,4 +1,0 @@
-{
-  "config": "./src/gui.config.ts",
-  "components": ["@hanzo/gui"]
-}

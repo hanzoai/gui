@@ -1,5 +1,5 @@
 /**
- * Worker thread implementation for GUI extraction
+ * Worker thread implementation for Hanzogui extraction
  * Used by both piscina (async) and synckit (sync for babel)
  */
 
@@ -8,7 +8,7 @@ import { createExtractor } from './extractor/createExtractor'
 import type { ExtractedResponse } from './extractor/extractToClassNames'
 import { extractToClassNames as extractToClassNamesImpl } from './extractor/extractToClassNames'
 import { extractToNative as extractToNativeImpl } from './extractor/extractToNative'
-import type { GuiOptions } from './types'
+import type { HanzoguiOptions } from './types'
 
 // Create extractors lazily to avoid loading unused ones
 let webExtractor: ReturnType<typeof createExtractor> | null = null
@@ -35,7 +35,7 @@ export interface ExtractToClassNamesTask {
   type: 'extractToClassNames'
   source: string
   sourcePath: string
-  options: GuiOptions
+  options: HanzoguiOptions
   shouldPrintDebug: boolean | 'verbose'
 }
 
@@ -43,7 +43,7 @@ export interface ExtractToNativeTask {
   type: 'extractToNative'
   sourceFileName: string
   sourceCode: string
-  options: GuiOptions
+  options: HanzoguiOptions
 }
 
 export interface ClearCacheTask {
@@ -68,14 +68,14 @@ export async function runTask(task: WorkerTask): Promise<WorkerResult> {
       // only skip if both extraction AND debug attrs are disabled (fully disabled)
       const isFullyDisabled =
         task.options.disableExtraction && task.options.disableDebugAttr
-      if (!isFullyDisabled && !task.options['_disableLoadGui']) {
+      if (!isFullyDisabled && !task.options['_disableLoadHanzogui']) {
         const cacheKey = JSON.stringify({
           config: task.options.config,
           components: task.options.components,
         })
 
         if (!configCache.has(cacheKey)) {
-          configCache.set(cacheKey, getWebExtractor().loadGui(task.options))
+          configCache.set(cacheKey, getWebExtractor().loadHanzogui(task.options))
         }
 
         await configCache.get(cacheKey)
@@ -100,7 +100,7 @@ export async function runTask(task: WorkerTask): Promise<WorkerResult> {
       })
 
       if (!configCache.has(cacheKey)) {
-        configCache.set(cacheKey, getNativeExtractor().loadGui(task.options))
+        configCache.set(cacheKey, getNativeExtractor().loadHanzogui(task.options))
       }
 
       await configCache.get(cacheKey)

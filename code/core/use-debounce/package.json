@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/use-debounce",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "files": [
     "src",
@@ -28,10 +28,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzo-gui-build",
-    "watch": "hanzo-gui-build --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

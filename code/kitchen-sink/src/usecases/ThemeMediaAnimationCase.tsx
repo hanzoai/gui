@@ -1,4 +1,4 @@
-import { Square, YStack, Text } from '@hanzo/gui'
+import { Square, YStack, Text } from 'hanzogui'
 
 /**
  * Test case for $theme-dark/$theme-light with animation drivers.

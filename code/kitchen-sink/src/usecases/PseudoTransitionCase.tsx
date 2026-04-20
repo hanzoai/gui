@@ -1,4 +1,4 @@
-import { Square, YStack, Text, XStack, View, styled } from '@hanzo/gui'
+import { Square, YStack, Text, XStack, View, styled } from 'hanzogui'
 
 /**
  * PSEUDO TRANSITION TEST CASES

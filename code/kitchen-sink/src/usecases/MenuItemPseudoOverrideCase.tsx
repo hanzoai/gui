@@ -1,5 +1,5 @@
 import { Menu } from '@hanzogui/menu'
-import { Button, styled, YStack } from '@hanzo/gui'
+import { Button, styled, YStack } from 'hanzogui'
 
 // the actual pattern the user is using - styled() with styles object
 // this creates a styled component where the pseudo styles should override the variant defaults

@@ -2,8 +2,8 @@ import React from 'react'
 // import { SolitoImage } from 'solito/image'
 import type { LinkProps } from 'solito/link'
 import { LinkCore } from 'solito/link'
-import type { AnchorProps } from '@hanzo/gui'
-import { Anchor, styled } from '@hanzo/gui'
+import type { AnchorProps } from 'hanzogui'
+import { Anchor, styled } from 'hanzogui'
 
 const StyledTextLink = styled(Anchor, {
   name: 'TextLink',

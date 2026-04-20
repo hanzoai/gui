@@ -232,7 +232,7 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       </XStack>
       <YStack gap="$4">
         <H1 text="center" color="$color12">
-          Welcome to Gui.
+          Welcome to Hanzogui.
         </H1>
         <Paragraph color="$color10" text="center">
           Here's a basic starter to show navigating from one screen to another.

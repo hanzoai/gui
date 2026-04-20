@@ -1,6 +1,6 @@
 import { tokens, themes as themesIn } from '@hanzogui/themes/v3-themes'
 import { animations } from './v3-animations'
-import type { CreateGuiProps } from '@hanzogui/web'
+import type { CreateHanzoguiProps } from '@hanzogui/web'
 
 import { fonts } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'
@@ -100,7 +100,7 @@ export const selectionStyles = (theme) =>
 
 // tree shake away themes in production
 const themes =
-  process.env.GUI_OPTIMIZE_THEMES === 'true' ? ({} as typeof themesIn) : themesIn
+  process.env.TAMAGUI_OPTIMIZE_THEMES === 'true' ? ({} as typeof themesIn) : themesIn
 
 export const config = {
   animations,
@@ -116,4 +116,4 @@ export const config = {
     fastSchemeChange: true,
     shouldAddPrefersColorThemes: true,
   },
-} satisfies CreateGuiProps
+} satisfies CreateHanzoguiProps

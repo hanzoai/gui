@@ -1,7 +1,7 @@
 import type { EntryContext } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
 import { renderToString } from 'react-dom/server'
-import guiConfig from '../gui.config'
+import hanzoguiConfig from '../hanzogui.config'
 
 export default function handleRequest(
   request: Request,
@@ -11,13 +11,13 @@ export default function handleRequest(
 ) {
   return new Promise((resolve, reject) => {
     try {
-      const guiCSS = guiConfig.getCSS()
+      const hanzoguiCSS = hanzoguiConfig.getCSS()
       let markup = renderToString(
         <RemixServer context={remixContext} url={request.url} />
       )
       markup = markup.replace(
         '</head>',
-        `<style id="@hanzo/gui">${guiCSS}</style></head>`
+        `<style id="hanzogui">${hanzoguiCSS}</style></head>`
       )
 
       responseHeaders.set('Content-Type', 'text/html')

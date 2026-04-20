@@ -3,7 +3,7 @@ import { mediaObjectToString } from './mediaObjectToString'
 import type { IsMediaType, MediaQueries, MediaStyleObject, StyleObject } from '../types'
 import { getGroupPropParts, type GroupParts } from './getGroupPropParts'
 
-// TODO have this be used by extractMediaStyle in hanzo-gui static
+// TODO have this be used by extractMediaStyle in hanzogui static
 // not synced to static/constants for now
 export const MEDIA_SEP = '_'
 

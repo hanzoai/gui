@@ -1,5 +1,5 @@
 /**
- * Stress page for profiling GUI component render performance.
+ * Stress page for profiling Hanzogui component render performance.
  *
  * Renders a diverse set of components to simulate a realistic page:
  * styled components with defaults + variants, token values, theme tokens,
@@ -33,7 +33,7 @@ import {
   XStack,
   YStack,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const shouldProfile =
   typeof window !== 'undefined' &&

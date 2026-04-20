@@ -16,8 +16,8 @@ test('static export hydrates without Missing theme error', async ({ page }) => {
   await expect(page.getByText('Something went wrong')).not.toBeVisible()
   await expect(page.getByText('Missing theme')).not.toBeVisible()
 
-  // verify hanzo-gui rendered with theme - the heading should be visible
-  const heading = page.getByText('Gui + Expo')
+  // verify hanzogui rendered with theme - the heading should be visible
+  const heading = page.getByText('Hanzogui + Expo')
   await expect(heading).toBeVisible()
 
   // verify no page errors related to missing theme

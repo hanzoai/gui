@@ -1,5 +1,5 @@
 import React from 'react'
-import type { GetProps, GuiElement } from '@hanzo/gui'
+import type { GetProps, HanzoguiElement } from 'hanzogui'
 import {
   Paragraph,
   Separator,
@@ -11,7 +11,7 @@ import {
   styled,
   useProps,
   withStaticProperties,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const StyledContext = createStyledContext({
   isInvalid: false,
@@ -80,7 +80,7 @@ const FrameContainer = Frame.styleable((propsIn, ref) => {
   return <Frame ref={ref} {...props} />
 })
 
-const ForwardRefContainer = React.forwardRef<GuiElement, GetProps<typeof Frame>>(
+const ForwardRefContainer = React.forwardRef<HanzoguiElement, GetProps<typeof Frame>>(
   (propsIn, ref) => {
     return (
       <View>

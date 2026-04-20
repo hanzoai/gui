@@ -1,21 +1,21 @@
 {
-  "name": "hanzo-gui-build-test-simple-tpackage",
-  "version": "2.0.0",
+  "name": "hanzogui-build-test-simple-tpackage",
+  "version": "2.0.0-rc.0-1769885482630",
   "main": "dist/cjs",
   "module": "dist/esm",
   "module:jsx": "dist/jsx",
   "types": "dist/types/index.d.ts",
   "scripts": {
-    "build": "node ../../../hanzo-gui-build.js",
-    "build:bundle": "node ../../../hanzo-gui-build.js --bundle",
-    "build:skip-mjs": "node ../../../hanzo-gui-build.js --skip-mjs",
-    "build:skip-sourcemaps": "node ../../../hanzo-gui-build.js --skip-sourcemaps",
-    "build:declaration-root": "node ../../../hanzo-gui-build.js --declaration-root",
-    "build:ignore-base-url": "node ../../../hanzo-gui-build.js --ignore-base-url",
-    "build:watch": "node ../../../hanzo-gui-build.js --watch",
-    "build:minify": "MINIFY=true node ../../../hanzo-gui-build.js",
-    "build:target-web": "GUI_TARGET=web node ../../../hanzo-gui-build.js",
-    "build:target-native": "GUI_TARGET=native node ../../../hanzo-gui-build.js"
+    "build": "node ../../../hanzogui-build.js",
+    "build:bundle": "node ../../../hanzogui-build.js --bundle",
+    "build:skip-mjs": "node ../../../hanzogui-build.js --skip-mjs",
+    "build:skip-sourcemaps": "node ../../../hanzogui-build.js --skip-sourcemaps",
+    "build:declaration-root": "node ../../../hanzogui-build.js --declaration-root",
+    "build:ignore-base-url": "node ../../../hanzogui-build.js --ignore-base-url",
+    "build:watch": "node ../../../hanzogui-build.js --watch",
+    "build:minify": "MINIFY=true node ../../../hanzogui-build.js",
+    "build:target-web": "TAMAGUI_TARGET=web node ../../../hanzogui-build.js",
+    "build:target-native": "TAMAGUI_TARGET=native node ../../../hanzogui-build.js"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

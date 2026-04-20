@@ -1,7 +1,7 @@
-import type { CreateGuiProps } from '@hanzogui/web';
+import type { CreateHanzoguiProps } from '@hanzogui/web';
 export declare function addFont(props: {
     fontFamilyName: string;
-    fontFamily: CreateGuiProps['fonts'][keyof CreateGuiProps['fonts']];
+    fontFamily: CreateHanzoguiProps['fonts'][keyof CreateHanzoguiProps['fonts']];
     insertCSS?: boolean;
     update?: boolean;
 }): {

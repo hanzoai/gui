@@ -6,7 +6,7 @@ let lastSize: WindowSize = initialValue
 let docEl: HTMLElement | null = null
 
 export function getWindowSize(): WindowSize {
-  if (process.env.GUI_TARGET !== 'web') {
+  if (process.env.TAMAGUI_TARGET !== 'web') {
     return initialValue
   }
 
@@ -42,7 +42,7 @@ if (
 ) {
   let lastUpdate = Date.now()
   let tm: ReturnType<typeof setTimeout> | undefined
-  const USER_MAX_MS = process.env.GUI_USE_WINDOW_DIMENSIONS_MAX_UPDATE_MS
+  const USER_MAX_MS = process.env.TAMAGUI_USE_WINDOW_DIMENSIONS_MAX_UPDATE_MS
   const updateMaxMs = USER_MAX_MS ? +USER_MAX_MS : 100
 
   function flushUpdate() {

@@ -1,5 +1,5 @@
 import { Menu } from '@hanzogui/menu'
-import { Button, YStack, Text } from '@hanzo/gui'
+import { Button, YStack, Text } from 'hanzogui'
 
 /**
  * Menu highlight test case

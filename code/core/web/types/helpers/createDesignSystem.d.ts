@@ -1,4 +1,4 @@
-import type { CreateGuiProps, Variable } from '../types';
+import type { CreateHanzoguiProps, Variable } from '../types';
 type ThemeConfig = {
     cssRuleSets: string[];
     getThemeRulesSets: () => string[];
@@ -33,7 +33,7 @@ export declare function buildCSSRuleSets(declarations: string[], fontDeclaration
 export declare function createThemeCSS(dedupedThemes: Array<{
     names: string[];
     theme: any;
-}>, configIn: CreateGuiProps): string[];
+}>, configIn: CreateHanzoguiProps): string[];
 /**
  * Gets all generated CSS - design system + runtime styles
  */

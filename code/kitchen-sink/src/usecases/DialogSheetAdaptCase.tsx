@@ -9,7 +9,7 @@ import {
   styled,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const CONTENT_RADIUS = '$6' as const
 

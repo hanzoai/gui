@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { useDidFinishSSR, type ThemeName } from '@hanzo/gui'
+import { useDidFinishSSR, type ThemeName } from 'hanzogui'
 import { getTints, setNextTintFamily, useTints } from './tints'
 
 let current = 3
@@ -62,7 +62,7 @@ export const useTint = (
   disableTintTheme: boolean
   name: string
   families: {
-    gui: string[]
+    hanzogui: string[]
     xmas: string[]
     easter: string[]
     halloween: string[]

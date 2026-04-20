@@ -1,13 +1,14 @@
 {
   "name": "@hanzogui/next-site",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
+  "private": true,
   "source": "src",
   "scripts": {
     "dev": "./scripts/dev.sh",
-    "clean:build": "hanzo-gui-build clean:build",
+    "clean:build": "hanzogui-build clean:build",
     "ci:build": "bun run next:build && bun run build:bento",
     "ci:build:no-extract": "DISABLE_EXTRACTION=true bun run ci:build",
-    "ci:build:debug": "DEBUG=gui bun run ci:build",
+    "ci:build:debug": "DEBUG=hanzogui bun run ci:build",
     "dev:analyze": "ANALYZE=true bun run dev",
     "dev:next": "bun run next",
     "test-bak": "./scripts/test.sh",
@@ -23,7 +24,7 @@
     "env:pull": "vc env pull .env.local",
     "supabase:generate": "npx supabase gen types typescript --local > lib/supabase-types.ts",
     "stripe:listen": "stripe listen --forward-to localhost:5005/api/stripe/webhook",
-    "clean": "hanzo-gui-build clean"
+    "clean": "hanzogui-build clean"
   },
   "dependencies": {
     "@types/d3-scale": "^4.0.2",
@@ -37,6 +38,6 @@
     "@babel/preset-typescript": "^7.26.0",
     "@playwright/test": "^1.49.1",
     "@hanzogui/build": "workspace:*",
-    "@hanzogui/loader": "workspace:*"
+    "hanzogui-loader": "workspace:*"
   }
 }

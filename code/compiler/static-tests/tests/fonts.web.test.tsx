@@ -9,7 +9,7 @@ window['React'] = React
 test('font family across media queries', async () => {
   const output = await extractForWeb(
     `
-    import { H2 } from '@hanzo/gui'
+    import { H2 } from 'hanzogui'
     export function Test(props) {
       return (
         <H2
@@ -30,7 +30,7 @@ test('font family across media queries', async () => {
   `,
     {
       options: {
-        components: ['@hanzo/gui'],
+        components: ['hanzogui'],
       },
     }
   )

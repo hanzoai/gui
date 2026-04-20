@@ -1,7 +1,7 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import type { LinksFunction } from '@remix-run/node'
-import { GuiProvider } from '@hanzo/gui'
-import guiConfig from '../gui.config'
+import { HanzoguiProvider } from 'hanzogui'
+import hanzoguiConfig from '../hanzogui.config'
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -26,9 +26,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <GuiProvider config={guiConfig} defaultTheme="dark">
+        <HanzoguiProvider config={hanzoguiConfig} defaultTheme="dark">
           {children}
-        </GuiProvider>
+        </HanzoguiProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -1,13 +1,13 @@
 import type { MetaFunction } from '@remix-run/node'
-import { styled, Text, type ThemeName, View } from '@hanzo/gui'
+import { styled, Text, type ThemeName, View } from 'hanzogui'
 import { useState } from 'react'
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Gui with Remix' },
+    { title: 'Hanzogui with Remix' },
     {
       name: 'description',
-      content: 'A demo showcasing GUI working with Remix.',
+      content: 'A demo showcasing Hanzogui working with Remix.',
     },
   ]
 }
@@ -76,7 +76,7 @@ export default function Index() {
             fontSize: 32,
           }}
         >
-          Welcome to GUI with Remix
+          Welcome to Hanzogui with Remix
         </Text>
       </View>
       <Section>
@@ -89,7 +89,9 @@ export default function Index() {
         >
           Introduction
         </Text>
-        <Text>This is a demo page to showcase how GUI works seamlessly with Remix.</Text>
+        <Text>
+          This is a demo page to showcase how Hanzogui works seamlessly with Remix.
+        </Text>
       </Section>
       <Section>
         <Text
@@ -102,11 +104,11 @@ export default function Index() {
           Features
         </Text>
         <Text>
-          GUI provides a powerful and flexible way to style your React components. With
-          Gui, you can leverage themes to create a consistent look and feel across your
-          application. Theming in GUI is highly customizable, allowing you to define
-          colors, spacing, typography, and more. You can easily switch between light and
-          dark themes, or create your own custom themes to match your brand.
+          Hanzogui provides a powerful and flexible way to style your React components.
+          With Hanzogui, you can leverage themes to create a consistent look and feel
+          across your application. Theming in Hanzogui is highly customizable, allowing you
+          to define colors, spacing, typography, and more. You can easily switch between
+          light and dark themes, or create your own custom themes to match your brand.
         </Text>
       </Section>
       <Section>
@@ -120,7 +122,7 @@ export default function Index() {
           Works with themes
         </Text>
         <Text>
-          Gui&apos;s styling system is designed to work with Remix out of the box.
+          Hanzogui&apos;s styling system is designed to work with Remix out of the box.
           Server-render initial styles and themes.
         </Text>
         <ButtonOuter onPress={toggleTheme} theme="accent">
@@ -138,11 +140,11 @@ export default function Index() {
           Go Native
         </Text>
         <Text>
-          One of the standout features of GUI is its ability to seamlessly port your
+          One of the standout features of Hanzogui is its ability to seamlessly port your
           components to React Native. This means you can write your components once and
-          run them on both web and mobile platforms. Gui&apos;s styling system is designed
-          to work with React Native out of the box, so you can take advantage of native
-          performance and capabilities without having to rewrite your components.
+          run them on both web and mobile platforms. Hanzogui&apos;s styling system is
+          designed to work with React Native out of the box, so you can take advantage of
+          native performance and capabilities without having to rewrite your components.
         </Text>
       </Section>
       <View
@@ -159,7 +161,7 @@ export default function Index() {
             fontSize: '$3',
           }}
         >
-          &copy; {new Date().getFullYear()} GUI with Remix.
+          &copy; {new Date().getFullYear()} Hanzogui with Remix.
         </Text>
       </View>
     </View>

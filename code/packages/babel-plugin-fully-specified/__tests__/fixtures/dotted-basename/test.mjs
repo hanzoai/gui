@@ -1,1 +1,1 @@
-export * from './modules/gui.hanzo.ai.config'
+export * from './modules/hanzogui.dev.config'

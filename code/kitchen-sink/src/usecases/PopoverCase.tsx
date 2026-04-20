@@ -5,7 +5,7 @@ import {
   ChevronUp,
 } from '@hanzogui/lucide-icons-2'
 import { useState } from 'react'
-import type { PopoverProps } from '@hanzo/gui'
+import type { PopoverProps } from 'hanzogui'
 import {
   Adapt,
   Button,
@@ -18,7 +18,7 @@ import {
   Sheet,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 export function PopoverCase() {
   const [shouldAdapt, setShouldAdapt] = useState(false)

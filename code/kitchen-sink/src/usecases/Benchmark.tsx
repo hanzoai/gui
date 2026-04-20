@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, StyleSheet, View } from 'react-native'
-import { View as GuiView, Text, styled } from '@hanzo/gui'
+import { View as HanzoguiView, Text, styled } from 'hanzogui'
 import { ThemeProvider, createBox } from '@shopify/restyle'
 
 const Box = createBox<any>()
@@ -10,7 +10,7 @@ import { TimedRender } from '../components/TimedRender'
 export const Benchmark = () => {
   return (
     <>
-      <GuiView
+      <HanzoguiView
         // debug="verbose"
         style={[{ backgroundColor: 'red', width: 100, height: 100 }]}
       />
@@ -29,7 +29,7 @@ const BenchStyled = () => {
   )
 }
 
-const StyledView = styled(GuiView, {
+const StyledView = styled(HanzoguiView, {
   backgroundColor: 'red',
   paddingTop: 5,
   paddingBottom: 5,
@@ -56,7 +56,7 @@ const iterArr = new Array(1000).fill(0)
 
 const BenchTama = () => {
   return (
-    <BenchmarkFrame name="@hanzo/gui">
+    <BenchmarkFrame name="hanzogui">
       <View style={{ flexDirection: 'row' }}>
         {iterArr.map((_, i) => (
           <StyledView key={i} />

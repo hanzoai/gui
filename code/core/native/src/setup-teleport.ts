@@ -1,5 +1,5 @@
 /**
- * Setup native portal support for Gui.
+ * Setup native portal support for Hanzogui.
  *
  * Simply import this module at the top of your app entry point:
  *
@@ -16,14 +16,14 @@ import { getPortal } from './portalState'
 
 function setup(): void {
   const g = globalThis as any
-  if (g.__gui_native_portal_setup) return
-  g.__gui_native_portal_setup = true
+  if (g.__hanzogui_native_portal_setup) return
+  g.__hanzogui_native_portal_setup = true
 
   // try teleport first (preferred)
   try {
     const teleport = require('react-native-teleport')
     if (teleport?.Portal && teleport?.PortalHost && teleport?.PortalProvider) {
-      g.__gui_teleport = teleport
+      g.__hanzogui_teleport = teleport
       getPortal().set({ enabled: true, type: 'teleport' })
       return
     }

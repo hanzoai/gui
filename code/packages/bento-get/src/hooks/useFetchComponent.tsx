@@ -43,7 +43,7 @@ export const useFetchComponent = () => {
       fileName: installState.installingComponent?.fileName,
     })
 
-  const apiBase = process.env.API_BASE || 'https://gui.hanzo.ai'
+  const apiBase = process.env.API_BASE || 'https://hanzogui.dev'
   const codePath = query ? `${apiBase}/api/bento/cli/v2/code-download?${query}` : apiBase
 
   const { data, error, isLoading } = useSWR(

@@ -1,6 +1,6 @@
 import { LogoIcon } from '@hanzogui/logo'
 import { Play } from '@hanzogui/lucide-icons-2'
-import { Button, isWeb, Square, useControllableState, Image, useEvent } from '@hanzo/gui'
+import { Button, isWeb, Square, useControllableState, Image, useEvent } from 'hanzogui'
 
 export function AnimationsDemo(props) {
   const [positionI, setPositionI] = useControllableState({

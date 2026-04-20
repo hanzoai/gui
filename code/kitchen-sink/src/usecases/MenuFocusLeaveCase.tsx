@@ -1,7 +1,7 @@
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import { Menu } from '@hanzogui/menu'
 import React from 'react'
-import { Button, Text, YStack } from '@hanzo/gui'
+import { Button, Text, YStack } from 'hanzogui'
 
 /**
  * Test case for menu focus leave behavior

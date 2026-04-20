@@ -1,11 +1,13 @@
 {
-  "name": "@hanzogui/next-webpack-test-app",
-  "version": "4.4.0",
+  "name": "app",
+  "version": "2.0.0-rc.0-1769885482630",
+  "private": true,
   "sideEffects": [
     "*.css"
   ],
   "main": "index.ts",
   "dependencies": {
+    "@my/ui": "workspace:^",
     "@react-navigation/native": "^7.0.14",
     "@hanzogui/animations-react-native": "workspace:*",
     "@hanzogui/colors": "workspace:*",
@@ -17,8 +19,7 @@
     "expo-constants": "~55.0.7",
     "expo-linking": "~55.0.7",
     "react-native-safe-area-context": "~5.7.0",
-    "solito": "^4.3.0",
-    "@hanzogui/next-webpack-test-ui": "workspace:*"
+    "solito": "^4.3.0"
   },
   "devDependencies": {
     "@types/react": "~19.1.10",

@@ -1,17 +1,17 @@
-export interface GuiBuildOptions {
+export interface HanzoguiBuildOptions {
   /**
-   * module paths you want to compile with gui (for example ['gui'])
+   * module paths you want to compile with hanzogui (for example ['hanzogui'])
    * */
   components?: string[]
 
   /**
-   * relative path to your gui.config.ts
+   * relative path to your hanzogui.config.ts
    */
   config?: string
 
   /**
-   * Use the new ThemeBuilder in `@gui/create-theme` to create beautiful theme sets,
-   * see docs at https://gui.hanzo.ai/docs/guides/theme-builder
+   * Use the new ThemeBuilder in `@hanzogui/create-theme` to create beautiful theme sets,
+   * see docs at https://hanzogui.dev/docs/guides/theme-builder
    * This helps you automate generating the build themes typescript file which loads fastere
    * and has smaller bundle size.
    */
@@ -32,11 +32,11 @@ export interface GuiBuildOptions {
   useCSSNesting?: boolean
 
   /**
-   * Gui can follow imports and evaluate them when parsing styles, leading to
+   * Hanzogui can follow imports and evaluate them when parsing styles, leading to
    * higher percent of flattened / optimized views. We normalize this to be the
    * full path of the file, always ending in ".js".
    *
-   * So to have Gui partially evaluate "app/src/constants.tsx" you can put
+   * So to have Hanzogui partially evaluate "app/src/constants.tsx" you can put
    * ["app/src/constants.js"].
    */
   importsWhitelist?: string[]
@@ -67,14 +67,14 @@ export interface GuiBuildOptions {
   prefixLogs?: string
 
   /**
-   * (Advanced) Enables Gui to try and evaluate components outside the `components` option.
-   * When true, Gui will bundle and load components as its running across every file,
+   * (Advanced) Enables Hanzogui to try and evaluate components outside the `components` option.
+   * When true, Hanzogui will bundle and load components as its running across every file,
    * if it loads them successfully it will perform all optimiziations inline.
    */
   enableDynamicEvaluation?: boolean
 
   /**
-   * Completely disable gui for these files
+   * Completely disable hanzogui for these files
    */
   disable?: boolean | string[]
 
@@ -106,12 +106,12 @@ export interface GuiBuildOptions {
   disableExtractVariables?: boolean | 'theme'
 
   /**
-   * (Advanced) Disables the initial build and attempts to load from the .gui directory
+   * (Advanced) Disables the initial build and attempts to load from the .hanzogui directory
    */
   disableInitialBuild?: boolean
 
   /**
-   * If you have a gui.build.ts file that describes your compiler setup, you can set it here
+   * If you have a hanzogui.build.ts file that describes your compiler setup, you can set it here
    */
   buildFile?: string
 
@@ -127,7 +127,7 @@ export interface GuiBuildOptions {
    * Set to 'without-animated' to exclude animated components.
    */
   useReactNativeWebLite?: boolean | 'without-animated'
-  disableWatchGuiConfig?: boolean
+  disableWatchHanzoguiConfig?: boolean
 
   /**
    * (Experimental) Flatten theme access on native for better performance
@@ -135,7 +135,7 @@ export interface GuiBuildOptions {
   experimentalFlattenThemesOnNative?: boolean
 }
 
-export interface GuiOptions extends GuiBuildOptions {
+export interface HanzoguiOptions extends HanzoguiBuildOptions {
   platform?: 'native' | 'web'
 }
 
@@ -145,9 +145,9 @@ export type CLIUserOptions = {
   root?: string
   host?: string
   tsconfigPath?: string
-  guiOptions: Partial<GuiOptions>
+  hanzoguiOptions: Partial<HanzoguiOptions>
   debug?: boolean | 'verbose'
-  loadGuiOptions?: boolean
+  loadHanzoguiOptions?: boolean
 }
 
 export type CLIResolvedOptions = {
@@ -157,7 +157,7 @@ export type CLIResolvedOptions = {
   mode: 'development' | 'production'
   debug?: CLIUserOptions['debug']
   tsconfigPath: string
-  guiOptions: GuiOptions
+  hanzoguiOptions: HanzoguiOptions
   pkgJson: {
     name?: string
     main?: string

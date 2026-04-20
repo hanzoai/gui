@@ -2,13 +2,13 @@
 
 **Research date:** 2026-03-01
 **Motion repo:** `~/github/motion` at commit `8f6ad46d8` (v12.29.2)
-**Gui animations-motion:** v2.0.0-rc.21, depends on `motion ^12.34.2`
+**Hanzogui animations-motion:** v2.0.0-rc.21, depends on `motion ^12.34.2`
 
 ---
 
 ## Executive Summary
 
-**Motion.dev DOES handle WAAPI mid-flight interruption natively** — and has done so since `framer-motion@11.0.17` (released 2024-03-20). The mechanism is deeply baked into the library's architecture. The Hanzo GUI workaround in `createAnimations.tsx` (lines 333–405) is redundant for standard WAAPI-accelerated properties (`opacity`, `transform`, `clipPath`, `filter`), and **partially incorrect** in its reasoning: it manually does `commitStyles()` + `cancel()` + constructs a keyframe array, which is exactly what motion already does internally — but motion's version also correctly samples velocity for smooth spring continuation.
+**Motion.dev DOES handle WAAPI mid-flight interruption natively** — and has done so since `framer-motion@11.0.17` (released 2024-03-20). The mechanism is deeply baked into the library's architecture. The Hanzogui workaround in `createAnimations.tsx` (lines 333–405) is redundant for standard WAAPI-accelerated properties (`opacity`, `transform`, `clipPath`, `filter`), and **partially incorrect** in its reasoning: it manually does `commitStyles()` + `cancel()` + constructs a keyframe array, which is exactly what motion already does internally — but motion's version also correctly samples velocity for smooth spring continuation.
 
 ---
 
@@ -16,7 +16,7 @@
 
 ### Step 1: `animate(element, diff, options)` is called
 
-Hanzo GUI calls `animate(scope.current, fixedDiff, animationOptions)` in `flushAnimation()`. This goes through:
+Hanzogui calls `animate(scope.current, fixedDiff, animationOptions)` in `flushAnimation()`. This goes through:
 
 ```
 createScopedAnimate() -> scopedAnimate() -> animateSubject() -> animateTarget()
@@ -172,7 +172,7 @@ The key PR that established the core fix is `#2575` (merged as commit `3c45b2f79
 
 ---
 
-## 3. What the Hanzo GUI Workaround Does (and Why It's Redundant)
+## 3. What the Hanzogui Workaround Does (and Why It's Redundant)
 
 The workaround in `createAnimations.tsx` lines 333–405:
 
@@ -206,7 +206,7 @@ if (isRunning && refs.current.controls && fixedDiff.transform && (isPopperElemen
 
 **Why the workaround comment says motion doesn't handle this:**
 
-The comment was written when the workaround was introduced. At that time, motion's handling may have been insufficient for the **specific Hanzo GUI usage pattern**: Hanzo GUI calls `animate(htmlElement, {transform: ...}, options)` using `useAnimate()`'s scope rather than using `motion.div` with variant props. This path goes through `animateTarget` which uses per-property `MotionValue` objects tracked in the VisualElement's store.
+The comment was written when the workaround was introduced. At that time, motion's handling may have been insufficient for the **specific Hanzogui usage pattern**: Hanzogui calls `animate(htmlElement, {transform: ...}, options)` using `useAnimate()`'s scope rather than using `motion.div` with variant props. This path goes through `animateTarget` which uses per-property `MotionValue` objects tracked in the VisualElement's store.
 
 The key question is: does the VisualElement persist across calls? If `createDOMVisualElement` is called on the same element on each `animate()` call, it reuses the same VisualElement (due to `visualElementStore` WeakMap check at line 137 of `subject.ts`). This means the MotionValues ARE persistent across animation calls, so motion's interruption handling DOES apply.
 
@@ -216,7 +216,7 @@ The key question is: does the VisualElement persist across calls? If `createDOMV
 
 ## 4. Important Caveat: The `useAnimate()` API Path
 
-There is one subtlety specific to Hanzo GUI's usage. Hanzo GUI uses `useAnimate()` which returns a `scope` and calls `animate(scope.current, ...)`. When `scope.current` is an `HTMLElement`:
+There is one subtlety specific to Hanzogui's usage. Hanzogui uses `useAnimate()` which returns a `scope` and calls `animate(scope.current, ...)`. When `scope.current` is an `HTMLElement`:
 
 - `animateSubject()` calls `resolveSubjects()` to get the element
 - Checks if a VisualElement exists in `visualElementStore` for this element
@@ -239,7 +239,7 @@ The commit `b6841817b` (January 7, 2026) specifically fixes the case where:
 
 The fix adds `this.startedAt = time.now()` when the animation starts, then uses `time.now() - this.startedAt` (wall-clock elapsed time) instead of WAAPI's `currentTime` for the sampling calculation.
 
-This was released in `motion@12.24.11`. The Hanzo GUI package depends on `motion ^12.34.2`, which includes this fix.
+This was released in `motion@12.24.11`. The Hanzogui package depends on `motion ^12.34.2`, which includes this fix.
 
 ---
 
@@ -252,13 +252,13 @@ This was released in `motion@12.24.11`. The Hanzo GUI package depends on `motion
 1. `motion >= 11.0.21` is used (for spring type animations, needed the extra `type/ease/times` preservation in resolved object)
 2. The element's VisualElement persists between calls (it does, via `visualElementStore`)
 
-The current Hanzo GUI package depends on `motion ^12.34.2`, which is well past both fix points.
+The current Hanzogui package depends on `motion ^12.34.2`, which is well past both fix points.
 
 ### What motion does better than the workaround
 
-Motion's native handling is superior to the Hanzo GUI workaround in two key ways:
+Motion's native handling is superior to the Hanzogui workaround in two key ways:
 
-1. **Velocity preservation:** Motion's `NativeAnimationExtended.updateMotionValue()` double-samples the JS equivalent of the animation to calculate velocity, which gets passed as `velocity: value.getVelocity()` to the next animation. This enables smooth spring continuation that respects the current motion direction and speed. The Hanzo GUI workaround does NOT preserve velocity.
+1. **Velocity preservation:** Motion's `NativeAnimationExtended.updateMotionValue()` double-samples the JS equivalent of the animation to calculate velocity, which gets passed as `velocity: value.getVelocity()` to the next animation. This enables smooth spring continuation that respects the current motion direction and speed. The Hanzogui workaround does NOT preserve velocity.
 
 2. **Value precision:** Motion reads the value from its internal MotionValue (which tracks the exact animated value) rather than parsing `node.style.transform` back from a CSS string. This avoids potential floating-point conversion issues.
 

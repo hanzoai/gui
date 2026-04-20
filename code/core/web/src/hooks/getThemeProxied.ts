@@ -113,7 +113,7 @@ export function getThemeProxied(
         ...value,
         get val() {
           // when they touch the actual value we only track it if its a variable (web), its ignored!
-          if (!globalThis.guiAvoidTracking) {
+          if (!globalThis.hanzoguiAvoidTracking) {
             // always track .val - not scheme optimized since they're getting raw value
             track(key, false)
           }
@@ -125,7 +125,7 @@ export function getThemeProxied(
           const outVal = getVariable(value)
           const { name, scheme } = curState
 
-          if (process.env.GUI_TARGET === 'native') {
+          if (process.env.TAMAGUI_TARGET === 'native') {
             // ios can avoid re-rendering for scheme changes (light↔dark) when using DynamicColorIOS
             // this does NOT work for sub-theme changes (red→blue) or when scheme inverses from parent
             const fastSchemeChange = getSetting('fastSchemeChange')

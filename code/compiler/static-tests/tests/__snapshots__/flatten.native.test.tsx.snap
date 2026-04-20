@@ -29,11 +29,11 @@ const _sheet = __ReactNativeStyleSheet.create({
     "backgroundColor": "blue"
   }
 });
-import { _withStableStyle } from '@tamagui/core';
+import { _withStableStyle } from '@hanzogui/core';
 const __ReactNativeView = require('react-native').View;
 const __ReactNativeText = require('react-native').Text;
-import { YStack } from 'tamagui';
-import { useMedia } from 'tamagui';
+import { YStack } from 'hanzogui';
+import { useMedia } from 'hanzogui';
 export function Test(isLoading) {
   const media = useMedia();
   return <_ReactNativeViewStyled0 _expressions={[!!media.sm, !!(media.sm && isLoading), !!(media.sm && !isLoading)]} />;
@@ -42,10 +42,10 @@ const _ReactNativeViewStyled0 = _withStableStyle(__ReactNativeView, (theme, _exp
 `;
 
 exports[`flatten-tests > work with experimentalFlattenThemesOnNative + ternary 1`] = `
-"import { _withStableStyle } from '@tamagui/core';
+"import { _withStableStyle } from '@hanzogui/core';
 const __ReactNativeView = require('react-native').View;
 const __ReactNativeText = require('react-native').Text;
-import { View } from 'tamagui';
+import { View } from 'hanzogui';
 export function Test() {
   return <_ReactNativeViewStyled0 _expressions={[!!showBackground]} />;
 }
@@ -70,10 +70,10 @@ const _sheet = __ReactNativeStyleSheet.create({
     }]
   }
 });
-import { _withStableStyle } from '@tamagui/core';
+import { _withStableStyle } from '@hanzogui/core';
 const __ReactNativeView = require('react-native').View;
 const __ReactNativeText = require('react-native').Text;
-import { YStack } from 'tamagui';
+import { YStack } from 'hanzogui';
 export function Test(isLoading) {
   return <_ReactNativeViewStyled0 />;
 }

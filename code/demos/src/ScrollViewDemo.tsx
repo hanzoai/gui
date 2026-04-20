@@ -1,4 +1,4 @@
-import { Circle, ScrollView, Square, XStack } from '@hanzo/gui'
+import { Circle, ScrollView, Square, XStack } from 'hanzogui'
 
 export function ScrollViewDemo() {
   return (

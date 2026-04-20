@@ -1,5 +1,5 @@
 import { Menu } from '@hanzogui/menu'
-import { Button, YStack } from '@hanzo/gui'
+import { Button, YStack } from 'hanzogui'
 
 export function MenuAsChildPositionCase() {
   return (

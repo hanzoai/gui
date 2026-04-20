@@ -1,8 +1,8 @@
 /**
  * Web event handling - maps RN-style events to DOM events
  */
-import type { GuiComponentEvents } from './interfaces/GuiComponentEvents';
-type EventKeys = keyof GuiComponentEvents;
+import type { HanzoguiComponentEvents } from './interfaces/HanzoguiComponentEvents';
+type EventKeys = keyof HanzoguiComponentEvents;
 type EventLikeObject = {
     [key in EventKeys]?: any;
 };

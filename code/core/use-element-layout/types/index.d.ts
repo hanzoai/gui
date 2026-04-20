@@ -3,7 +3,7 @@ export declare const LayoutMeasurementController: ({ disable, children }: {
 	disable: boolean;
 	children: ReactNode;
 }) => ReactNode;
-type GuiComponentStatePartial = {
+type HanzoguiComponentStatePartial = {
 	host?: any;
 };
 type LayoutMeasurementStrategy = "off" | "sync" | "async";
@@ -26,7 +26,7 @@ export type LayoutEvent = {
 export declare function enable(): void;
 export declare const getElementLayoutEvent: (nodeRect: DOMRectReadOnly, parentRect: DOMRectReadOnly, node?: HTMLElement) => LayoutEvent;
 export declare function registerLayoutNode(node: HTMLElement, onChange: () => void, disableKey?: string): () => void;
-export declare function useElementLayout(ref: RefObject<GuiComponentStatePartial>, onLayout?: ((e: LayoutEvent) => void) | null): void;
+export declare function useElementLayout(ref: RefObject<HanzoguiComponentStatePartial>, onLayout?: ((e: LayoutEvent) => void) | null): void;
 export declare const getBoundingClientRectAsync: (node: HTMLElement | null) => Promise<DOMRectReadOnly | false>;
 export declare const measureNode: (node: HTMLElement, relativeTo?: HTMLElement | null) => Promise<null | LayoutValue>;
 type MeasureInWindowCb = (x: number, y: number, width: number, height: number) => void;

@@ -9,11 +9,11 @@ import {
 } from '@hanzogui/lucide-icons-2'
 import { Menu } from '@hanzogui/menu'
 import React from 'react'
-import { Button, View } from '@hanzo/gui'
+import { Button, View } from 'hanzogui'
 import { isTouchable } from '@hanzogui/constants'
 
 /**
- * Menu Demo using GUI Menu component.
+ * Menu Demo using Hanzogui Menu component.
  * Automatically uses native menus on iOS/Android, web menus on web.
  * No configuration needed - it just works!
  */

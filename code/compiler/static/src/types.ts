@@ -1,15 +1,15 @@
 import type { NodePath } from '@babel/traverse'
 import type * as t from '@babel/types'
-import type { PseudoStyles, StaticConfig, GuiConfig } from '@hanzogui/core'
+import type { PseudoStyles, StaticConfig, HanzoguiConfig } from '@hanzogui/core'
 import type { StyleObject } from '@hanzogui/helpers'
-import type { GuiOptions } from '@hanzogui/types'
+import type { HanzoguiOptions } from '@hanzogui/types'
 import type { ViewStyle } from 'react-native'
 
 import type { LoadedComponents } from './extractor/bundleConfig'
 
-export type GuiPlatform = 'native' | 'web'
+export type HanzoguiPlatform = 'native' | 'web'
 
-export type { GuiOptions, GuiBuildOptions } from '@hanzogui/types'
+export type { HanzoguiOptions, HanzoguiBuildOptions } from '@hanzogui/types'
 
 export type { StyleObject } from '@hanzogui/helpers'
 
@@ -33,7 +33,7 @@ export interface Logger {
 
 export type ExtractorOptions = {
   logger?: Logger
-  platform?: GuiPlatform
+  platform?: HanzoguiPlatform
 }
 
 export type ExtractedAttrAttr = {
@@ -58,7 +58,7 @@ export type ExtractedTernaryAttr = {
 export type ExtractedAttr = ExtractedAttrAttr | ExtractedTernaryAttr | ExtractedAttrStyle
 
 export type ExtractTagProps = {
-  parserProps: GuiOptionsWithFileInfo
+  parserProps: HanzoguiOptionsWithFileInfo
   attrs: ExtractedAttr[]
   node: t.JSXOpeningElement
   attemptEval: (exprNode: t.Node, evalFn?: ((node: t.Node) => any) | undefined) => any
@@ -70,16 +70,19 @@ export type ExtractTagProps = {
   filePath: string
   completeProps: Record<string, any>
   staticConfig: StaticConfig
-  config: GuiConfig
+  config: HanzoguiConfig
 }
 
-export type GuiOptionsWithFileInfo = GuiOptions & {
+export type HanzoguiOptionsWithFileInfo = HanzoguiOptions & {
   sourcePath?: string
   allLoadedComponents: LoadedComponents[]
 }
 
-export type ExtractorParseProps = Omit<GuiOptionsWithFileInfo, 'allLoadedComponents'> & {
-  platform: GuiPlatform
+export type ExtractorParseProps = Omit<
+  HanzoguiOptionsWithFileInfo,
+  'allLoadedComponents'
+> & {
+  platform: HanzoguiPlatform
   shouldPrintDebug?: boolean | 'verbose'
   onExtractTag: (props: ExtractTagProps) => void
   getFlattenedNode?: (props: { isTextView: boolean; tag: string }) => string

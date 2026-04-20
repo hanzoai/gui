@@ -1,5 +1,5 @@
 import { memo, useCallback, useRef, useState, useMemo } from 'react'
-import { Button, Text, View, XStack, YStack, ScrollView } from '@hanzo/gui'
+import { Button, Text, View, XStack, YStack, ScrollView } from 'hanzogui'
 
 type Stats = {
   totalCallbacks: number

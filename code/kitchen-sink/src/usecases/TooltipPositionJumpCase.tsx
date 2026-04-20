@@ -6,13 +6,13 @@ import {
   XStack,
   YStack,
   SizableText,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { useState } from 'react'
 
 /**
  * Test case for tooltip position jump bug
  *
- * CRITICAL: This must match the PromoLinksRow pattern from gui.hanzo.ai:
+ * CRITICAL: This must match the PromoLinksRow pattern from hanzogui.dev:
  * - Single Tooltip with scope
  * - Multiple Tooltip.Triggers with same scope
  * - animatePosition on Tooltip.Content

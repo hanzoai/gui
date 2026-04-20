@@ -22,7 +22,7 @@ export function updateTemplate(templateUrl: string, ignoredPatterns: string[] = 
   } catch (error) {
     if (error instanceof Error && error.message.includes('unresolved conflict')) {
       console.info(
-        guiLog(
+        hanzoguiLog(
           "We've merged the latest changes. Please resolve the conflicts and commit the merge."
         )
       )
@@ -33,6 +33,6 @@ export function updateTemplate(templateUrl: string, ignoredPatterns: string[] = 
   execSync(`git reset HEAD ${ignoredPatterns.join(' ')}`)
 }
 
-function guiLog(message) {
-  return `${chalk.green('[GUI]')} ${message}`
+function hanzoguiLog(message) {
+  return `${chalk.green('[Hanzogui]')} ${message}`
 }

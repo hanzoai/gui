@@ -1,7 +1,7 @@
 /**
  * @hanzogui/static-sync
  *
- * Synchronous API for GUI static extraction using synckit.
+ * Synchronous API for Hanzogui static extraction using synckit.
  * Wraps @hanzogui/static's worker implementation to provide sync APIs
  * required by Babel plugins which cannot use async functions.
  *
@@ -9,12 +9,12 @@
  */
 
 import type { BabelFileResult } from '@babel/core'
-import type { GuiOptions } from '@hanzogui/types'
+import type { HanzoguiOptions } from '@hanzogui/types'
 import { createSyncFn } from 'synckit'
 import { fileURLToPath } from 'node:url'
 
-export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
-export type { GuiOptions } from '@hanzogui/types'
+export type { ExtractedResponse, HanzoguiProjectInfo } from '@hanzogui/static'
+export type { HanzoguiOptions } from '@hanzogui/types'
 
 // Resolve worker path - works for both CJS and ESM
 const getWorkerPath = () => {
@@ -41,12 +41,12 @@ export const getPragmaOptions = (props: { source: string; path: string }) => {
 }
 
 /**
- * Extract GUI components to className-based CSS for web (synchronous)
+ * Extract Hanzogui components to className-based CSS for web (synchronous)
  */
 export function extractToClassNamesSync(params: {
   source: string | Buffer
   sourcePath?: string
-  options: GuiOptions
+  options: HanzoguiOptions
   shouldPrintDebug?: boolean | 'verbose'
 }): any {
   const { source, sourcePath = '', options, shouldPrintDebug = false } = params
@@ -67,7 +67,7 @@ export function extractToClassNamesSync(params: {
 
   if (!result.success) {
     const errorMessage = [
-      `[gui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
+      `[hanzogui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',
@@ -82,12 +82,12 @@ export function extractToClassNamesSync(params: {
 }
 
 /**
- * Extract GUI components to React Native StyleSheet format (synchronous)
+ * Extract Hanzogui components to React Native StyleSheet format (synchronous)
  */
 export function extractToNativeSync(
   sourceFileName: string,
   sourceCode: string,
-  options: GuiOptions
+  options: HanzoguiOptions
 ): BabelFileResult {
   const task = {
     type: 'extractToNative',
@@ -100,7 +100,7 @@ export function extractToNativeSync(
 
   if (!result.success) {
     const errorMessage = [
-      `[gui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
+      `[hanzogui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { Button, Paragraph, Sheet, YStack } from '@hanzo/gui'
+import { Button, Paragraph, Sheet, YStack } from 'hanzogui'
 
 export function SheetOnAnimationCompleteCase() {
   const [open, setOpen] = useState(false)

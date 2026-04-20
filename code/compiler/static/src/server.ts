@@ -1,8 +1,8 @@
-import type { GuiOptions } from './types'
+import type { HanzoguiOptions } from './types'
 
 import net from 'node:net'
 
-export async function startServer(options: GuiOptions) {
+export async function startServer(options: HanzoguiOptions) {
   const port = await getAvailablePort()
   const server = net.createServer()
   server.unref()

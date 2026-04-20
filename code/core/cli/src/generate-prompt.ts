@@ -10,19 +10,19 @@ export async function generatePrompt(options: GeneratePromptOptions) {
   const { paths, output } = options
 
   // Regenerate the config first
-  const { loadGui } = require('@hanzogui/static/loadGui')
-  process.env.GUI_KEEP_THEMES = '1'
-  await loadGui({
-    ...options.guiOptions,
+  const { loadHanzogui } = require('@hanzogui/static/loadHanzogui')
+  process.env.TAMAGUI_KEEP_THEMES = '1'
+  await loadHanzogui({
+    ...options.hanzoguiOptions,
     platform: 'web',
   })
 
   // Read the generated config
-  const configPath = join(paths.dotDir, 'gui.config.json')
+  const configPath = join(paths.dotDir, 'hanzogui.config.json')
 
   if (!FS.existsSync(configPath)) {
     throw new Error(
-      `Config file not found at ${configPath}. Please run 'gui generate' first.`
+      `Config file not found at ${configPath}. Please run 'hanzogui generate' first.`
     )
   }
 
@@ -32,7 +32,7 @@ export async function generatePrompt(options: GeneratePromptOptions) {
   const markdown = generateMarkdown(config)
 
   // Write to file
-  const outputPath = output || join(process.cwd(), 'gui-prompt.md')
+  const outputPath = output || join(process.cwd(), 'hanzogui-prompt.md')
   await FS.writeFile(outputPath, markdown, 'utf-8')
 
   console.info(`\n  ✓ Generated prompt file at ${outputPath}\n`)
@@ -42,13 +42,13 @@ function generateMarkdown(config: any): string {
   const sections: string[] = []
 
   // Header
-  sections.push('# GUI Configuration\n\n')
+  sections.push('# Hanzogui Configuration\n\n')
   sections.push(
-    'This document provides an overview of the GUI configuration for this project.\n\n'
+    'This document provides an overview of the Hanzogui configuration for this project.\n\n'
   )
 
   // Get shorthands for use throughout the document
-  const shorthands = config.guiConfig?.shorthands || {}
+  const shorthands = config.hanzoguiConfig?.shorthands || {}
   const reverseShorthands: Record<string, string> = {}
   for (const [short, full] of Object.entries(shorthands)) {
     reverseShorthands[full as string] = short
@@ -56,7 +56,7 @@ function generateMarkdown(config: any): string {
 
   // Helper function to get the correct property name based on settings
   const getPropName = (fullProp: string): string => {
-    const settings = config.guiConfig?.settings || {}
+    const settings = config.hanzoguiConfig?.settings || {}
     if (settings.onlyAllowShorthands && reverseShorthands[fullProp]) {
       return reverseShorthands[fullProp]
     }
@@ -64,11 +64,11 @@ function generateMarkdown(config: any): string {
   }
 
   // Settings (moved to top)
-  const settings = config.guiConfig?.settings || {}
+  const settings = config.hanzoguiConfig?.settings || {}
   if (Object.keys(settings).length > 0) {
     sections.push('## Configuration Settings\n\n')
     sections.push(
-      '**IMPORTANT:** These settings affect how you write GUI code in this project.\n\n'
+      '**IMPORTANT:** These settings affect how you write Hanzogui code in this project.\n\n'
     )
 
     if (settings.defaultFont) {
@@ -121,7 +121,7 @@ function generateMarkdown(config: any): string {
     }
 
     // Check for strictness settings (common patterns)
-    const configString = JSON.stringify(config.guiConfig)
+    const configString = JSON.stringify(config.hanzoguiConfig)
     if (configString.includes('semi-strict-web')) {
       sections.push('### Mode: `semi-strict-web`\n\n')
       sections.push('This configuration uses semi-strict-web mode, which:\n')
@@ -209,7 +209,7 @@ function generateMarkdown(config: any): string {
   // Themes
   sections.push('## Themes\n\n')
 
-  const themes = config.guiConfig?.themes || {}
+  const themes = config.hanzoguiConfig?.themes || {}
   const themeNames = Object.keys(themes).sort()
 
   // Parse and hierarchically organize themes
@@ -364,7 +364,7 @@ function generateMarkdown(config: any): string {
     'Tokens are design system values that can be referenced using the `$` prefix.\n\n'
   )
 
-  const tokens = config.guiConfig?.tokens || {}
+  const tokens = config.hanzoguiConfig?.tokens || {}
 
   // Space tokens
   if (tokens.space) {
@@ -478,11 +478,11 @@ function generateMarkdown(config: any): string {
   sections.push('```\n\n')
 
   // Media queries
-  if (config.guiConfig?.media) {
+  if (config.hanzoguiConfig?.media) {
     sections.push('## Media Queries\n\n')
     sections.push('Available responsive breakpoints:\n\n')
 
-    const media = config.guiConfig.media
+    const media = config.hanzoguiConfig.media
     const mediaEntries = Object.entries(media).sort(([a], [b]) => a.localeCompare(b))
 
     for (const [name, query] of mediaEntries) {
@@ -516,22 +516,22 @@ function generateMarkdown(config: any): string {
   }
 
   // Fonts
-  if (config.guiConfig?.fonts) {
+  if (config.hanzoguiConfig?.fonts) {
     sections.push('## Fonts\n\n')
     sections.push('Available font families:\n\n')
 
-    const fonts = config.guiConfig.fonts
+    const fonts = config.hanzoguiConfig.fonts
     const fontNames = Object.keys(fonts).sort()
     sections.push(fontNames.map((name) => `- ${name}`).join('\n'))
     sections.push('\n\n')
   }
 
   // Animations
-  if (config.guiConfig?.animations) {
+  if (config.hanzoguiConfig?.animations) {
     sections.push('## Animations\n\n')
     sections.push('Available animation presets:\n\n')
 
-    const animations = config.guiConfig.animations
+    const animations = config.hanzoguiConfig.animations
     if (animations.animations) {
       const animationNames = Object.keys(animations.animations).sort()
       sections.push(animationNames.map((name) => `- ${name}`).join('\n'))

@@ -1,6 +1,6 @@
 import { Check as CheckIcon } from '@hanzogui/lucide-icons-2'
-import type { CheckboxProps } from '@hanzo/gui'
-import { Checkbox, Label, Theme, XStack, YStack } from '@hanzo/gui'
+import type { CheckboxProps } from 'hanzogui'
+import { Checkbox, Label, Theme, XStack, YStack } from 'hanzogui'
 
 export function CheckboxDemo() {
   return (

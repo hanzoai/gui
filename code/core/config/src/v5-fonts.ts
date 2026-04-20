@@ -1,8 +1,8 @@
 import type { FillInFont, GenericFont } from '@hanzogui/core'
 import { createFont, getVariableValue } from '@hanzogui/core'
 
-const isWeb = process.env.GUI_TARGET === 'web'
-const isNative = process.env.GUI_TARGET === 'native'
+const isWeb = process.env.TAMAGUI_TARGET === 'web'
+const isNative = process.env.TAMAGUI_TARGET === 'native'
 
 // web sizes
 const webSizes = {
@@ -75,8 +75,8 @@ export const createSystemFont = <A extends GenericFont>({
   )
   return createFont({
     family: isWeb
-      ? '"Geist Sans", "Geist", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
-      : 'Geist',
+      ? '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+      : 'System',
     lineHeight: Object.fromEntries(
       Object.entries(size).map(([k, v]) => [k, sizeLineHeight(getVariableValue(v))])
     ),

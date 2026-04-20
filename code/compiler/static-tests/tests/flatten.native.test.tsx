@@ -4,15 +4,15 @@ import { describe, expect, test } from 'vitest'
 import { extractForNative } from './lib/extract'
 
 Error.stackTraceLimit = Number.Infinity
-process.env.GUI_TARGET = 'native'
+process.env.TAMAGUI_TARGET = 'native'
 
 window['React'] = React
 
 describe('flatten-tests', () => {
   test(`flattened without extra attributes`, async () => {
     const output = await extractForNative(`
-      import { YStack } from '@hanzo/gui'
-      import { useMedia } from '@hanzo/gui'
+      import { YStack } from 'hanzogui'
+      import { useMedia } from 'hanzogui'
 
       export function Test(isLoading) {
         const media = useMedia()
@@ -32,8 +32,8 @@ describe('flatten-tests', () => {
 
   test('flattened media queries', async () => {
     const output = await extractForNative(`
-      import { YStack } from '@hanzo/gui'
-      import { useMedia } from '@hanzo/gui'
+      import { YStack } from 'hanzogui'
+      import { useMedia } from 'hanzogui'
 
       export function Test(isLoading) {
         const media = useMedia()
@@ -101,7 +101,7 @@ describe('flatten-tests', () => {
 
   test(`work with experimentalFlattenThemesOnNative`, async () => {
     const output = await extractForNative(`
-      import { YStack } from '@hanzo/gui'
+      import { YStack } from 'hanzogui'
 
       export function Test(isLoading) {
         return (
@@ -120,7 +120,7 @@ describe('flatten-tests', () => {
 
   test(`work with experimentalFlattenThemesOnNative + ternary`, async () => {
     const output = await extractForNative(`
-      import { View } from '@hanzo/gui'
+      import { View } from 'hanzogui'
 
       export function Test() {
         return (
@@ -134,7 +134,7 @@ describe('flatten-tests', () => {
 
   test(`allow invalid identifier`, async () => {
     const output = await extractForNative(`
-        import { View } from '@hanzo/gui'
+        import { View } from 'hanzogui'
         export function Test() {
           return (
             <View backgroundColor='$invalid-identifier' />
@@ -148,7 +148,7 @@ describe('flatten-tests', () => {
   // TODO make this work:
   // test.skip(`keeps style object a single object case 2`, async () => {
   //   const output = await extractForNative(`
-  //     import { View } from '@hanzo/gui'
+  //     import { View } from 'hanzogui'
 
   //     export function Test() {
   //       return (

@@ -1,7 +1,7 @@
 import { createCheckbox } from '@hanzogui/checkbox'
 import { View, styled } from '@hanzogui/core'
 import { Check } from '@hanzogui/lucide-icons-2'
-import { Label, XStack, YStack } from '@hanzo/gui'
+import { Label, XStack, YStack } from 'hanzogui'
 
 const Frame = styled(View, {
   borderWidth: 1,

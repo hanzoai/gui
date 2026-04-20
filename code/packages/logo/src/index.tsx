@@ -1,4 +1,4 @@
-export * from './GuiLogo'
+export * from './HanzoguiLogo'
 export * from './LogoWords'
 export * from './LogoIcon'
 export * from './tints'

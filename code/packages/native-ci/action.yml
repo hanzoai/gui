@@ -1,6 +1,6 @@
 name: 'Native CI - Fingerprint Cache'
 description: 'Generate Expo fingerprints and manage native build caching'
-author: 'Gui'
+author: 'Hanzogui'
 
 inputs:
   platform:

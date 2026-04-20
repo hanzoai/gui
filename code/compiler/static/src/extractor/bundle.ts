@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs'
 import esbuild from 'esbuild'
 import * as FS from 'fs-extra'
-import type { GuiPlatform } from '../types'
+import type { HanzoguiPlatform } from '../types'
 import { detectModuleFormat } from './detectModuleFormat'
 import { esbuildAliasPlugin } from './esbuildAliasPlugin'
 import { hasTopLevelAwait } from './hasTopLevelAwait'
-import { resolveWebOrNativeSpecificEntry } from './loadGui'
+import { resolveWebOrNativeSpecificEntry } from './loadHanzogui'
 import { TsconfigPathsPlugin } from './esbuildTsconfigPaths'
 
 export const esbuildLoaderConfig = {
@@ -54,10 +54,10 @@ type Props = Omit<Partial<esbuild.BuildOptions>, 'entryPoints'> & {
 
 function getESBuildConfig(
   { entryPoints, resolvePlatformSpecificEntries, ...options }: Props,
-  platform: GuiPlatform,
+  platform: HanzoguiPlatform,
   aliases?: Record<string, string>
 ) {
-  if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
+  if (process.env.DEBUG?.startsWith('hanzogui')) {
     console.info(`Building`, entryPoints)
   }
 
@@ -87,7 +87,7 @@ function getESBuildConfig(
     allowOverwrite: true,
     keepNames: true,
     resolveExtensions: [
-      ...(process.env.GUI_TARGET === 'web'
+      ...(process.env.TAMAGUI_TARGET === 'web'
         ? ['.web.tsx', '.web.ts', '.web.jsx', '.web.js']
         : ['.native.tsx', '.native.ts', '.native.jsx', '.native.js']),
       '.tsx',
@@ -121,7 +121,7 @@ function getESBuildConfig(
             }
 
             // skip most node_modules
-            if (args.path.includes('node_modules') && !args.path.includes('@gui')) {
+            if (args.path.includes('node_modules') && !args.path.includes('@hanzogui')) {
               return null
             }
 
@@ -148,10 +148,8 @@ function getESBuildConfig(
 
             // stub files with top-level await - they're typically runtime-only
             if (hasTopLevelAwait(contents, args.path)) {
-              if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
-                console.info(
-                  `[hanzo-gui] stubbing file with top-level await: ${args.path}`
-                )
+              if (process.env.DEBUG?.startsWith('hanzogui')) {
+                console.info(`[hanzogui] stubbing file with top-level await: ${args.path}`)
               }
               return {
                 // Keep this as an ESM-shaped stub so esbuild doesn't inline a
@@ -187,7 +185,7 @@ function getESBuildConfig(
           // only externalize @hanzogui/core and @hanzogui/web - these are provided at runtime
           // other @hanzogui/* packages (like @hanzogui/config/v3) must be bundled in to avoid
           // ESM race conditions when multiple threads require() them concurrently
-          build.onResolve({ filter: /^@gui\/(core|web)$/ }, (args) => {
+          build.onResolve({ filter: /^@hanzogui\/(core|web)$/ }, (args) => {
             if (args.kind === 'entry-point') {
               return null
             }
@@ -257,9 +255,9 @@ function detectEntryFormat(entryPoint: string): esbuild.BuildOptions['format'] {
   }
 }
 
-export async function esbundleGuiConfig(
+export async function esbundleHanzoguiConfig(
   props: Props,
-  platform: GuiPlatform,
+  platform: HanzoguiPlatform,
   aliases?: Record<string, string>
 ) {
   const config = getESBuildConfig(props, platform, aliases)

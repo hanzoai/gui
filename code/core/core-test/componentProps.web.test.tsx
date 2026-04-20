@@ -1,17 +1,17 @@
-import { GuiProvider, View, createGui } from '@hanzogui/core'
+import { HanzoguiProvider, View, createHanzogui } from '@hanzogui/core'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
-import { getDefaultGuiConfig } from '../config-default'
+import { getDefaultHanzoguiConfig } from '../config-default'
 
-const config = createGui(getDefaultGuiConfig('web'))
+const config = createHanzogui(getDefaultHanzoguiConfig('web'))
 
 describe('animation props', () => {
   test(`renders with animation props`, () => {
     const tree = render(
-      <GuiProvider config={config} defaultTheme="light">
+      <HanzoguiProvider config={config} defaultTheme="light">
         <View id="test-id" transition="quick" x={0} backgroundColor="red" margin={200} />
-      </GuiProvider>
+      </HanzoguiProvider>
     )
 
     expect(tree.asFragment()).toMatchInlineSnapshot(`

@@ -1,14 +1,14 @@
 import { animationsMotion } from '@hanzogui/config/v5-motion'
 import { Image } from '@hanzogui/image'
 import './_layout.css'
-import './gui.generated.css'
+import './hanzogui.generated.css'
 
 // import { Toaster } from '@hanzogui/toast'
 import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
 import { LoadProgressBar, SafeAreaView, Slot } from 'one'
-import { Configuration, isWeb, GuiProvider, XStack, YStack } from '@hanzo/gui'
+import { Configuration, isWeb, HanzoguiProvider, XStack, YStack } from 'hanzogui'
 import { ToggleThemeButton } from '~/components/ToggleThemeButton'
-import config from '~/config/gui/gui.config'
+import config from '~/config/hanzogui/hanzogui.config'
 import oneBall from '~/public/app-icon.png'
 
 export default function Layout() {
@@ -28,7 +28,7 @@ export default function Layout() {
         <LoadProgressBar />
 
         <SchemeProvider>
-          <GuiRootProvider>
+          <HanzoguiRootProvider>
             <YStack bg="$color1" minH="100%" gap="$4" flex={1}>
               <SafeAreaView>
                 {/* <Toaster position="top-center" /> */}
@@ -43,19 +43,19 @@ export default function Layout() {
                 </Configuration>
               </SafeAreaView>
             </YStack>
-          </GuiRootProvider>
+          </HanzoguiRootProvider>
         </SchemeProvider>
       </body>
     </html>
   )
 }
 
-const GuiRootProvider = ({ children }: { children: React.ReactNode }) => {
+const HanzoguiRootProvider = ({ children }: { children: React.ReactNode }) => {
   const userScheme = useUserScheme()
 
   return (
-    <GuiProvider disableInjectCSS config={config} defaultTheme={userScheme.value}>
+    <HanzoguiProvider disableInjectCSS config={config} defaultTheme={userScheme.value}>
       {children}
-    </GuiProvider>
+    </HanzoguiProvider>
   )
 }

@@ -1,5 +1,5 @@
 import {
-  createGui,
+  createHanzogui,
   normalizeStyle,
   getCSSStylesAtomic,
   StyleObjectRules,
@@ -11,7 +11,7 @@ import { beforeAll, describe, expect, test } from 'vitest'
 import config from '../../../core/config-default'
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig())
+  createHanzogui(config.getDefaultHanzoguiConfig())
 })
 
 describe('extract-tests', () => {

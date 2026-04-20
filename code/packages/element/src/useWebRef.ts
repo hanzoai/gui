@@ -1,11 +1,11 @@
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import * as React from 'react'
-import type { GuiElement } from './types'
+import type { HanzoguiElement } from './types'
 
 /**
  * Creates a ref for web-only code that properly types to HTMLElement.
  * Useful when you need to access HTMLElement-specific properties (like selectionStart)
- * that aren't available on the cross-platform GuiElement type.
+ * that aren't available on the cross-platform HanzoguiElement type.
  *
  * @example
  * ```tsx
@@ -14,7 +14,7 @@ import type { GuiElement } from './types'
  * // composedRef is for passing to components
  * ```
  */
-export function useWebRef<T extends GuiElement | HTMLElement>(
+export function useWebRef<T extends HanzoguiElement | HTMLElement>(
   forwardedRef?: React.ForwardedRef<any>
 ) {
   const ref = React.useRef<T>(null)

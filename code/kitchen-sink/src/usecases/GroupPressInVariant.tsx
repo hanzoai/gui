@@ -1,4 +1,4 @@
-import { Text, YStack, styled } from '@hanzo/gui'
+import { Text, YStack, styled } from 'hanzogui'
 
 // Issue #3613: $group-press not applied when in variant
 // This tests that $group-press works inside variants

@@ -7,7 +7,7 @@ import {
   StyleObjectRules,
   StyleObjectValue,
   Text,
-  createGui,
+  createHanzogui,
   styled,
 } from '../web/src'
 import { getGroupPropParts } from '../web/src/helpers/getGroupPropParts'
@@ -16,7 +16,7 @@ import { defaultComponentState } from '../web/src/defaultComponentState'
 import { simplifiedGetSplitStyles } from './utils'
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig())
+  createHanzogui(config.getDefaultHanzoguiConfig())
 })
 
 describe('getSplitStyles', () => {
@@ -724,8 +724,8 @@ describe('getSplitStyles - pseudo prop merging', () => {
 describe('getSplitStyles - kebab-case media keys', () => {
   beforeAll(() => {
     // reconfigure with kebab-case media keys like v5 config uses
-    const baseConfig = config.getDefaultGuiConfig()
-    createGui({
+    const baseConfig = config.getDefaultHanzoguiConfig()
+    createHanzogui({
       ...baseConfig,
       media: {
         ...baseConfig.media,

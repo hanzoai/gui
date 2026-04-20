@@ -1,5 +1,5 @@
-import type { SizeTokens } from '@hanzo/gui'
-import { Label, RadioGroup, Theme, XStack, YStack } from '@hanzo/gui'
+import type { SizeTokens } from 'hanzogui'
+import { Label, RadioGroup, Theme, XStack, YStack } from 'hanzogui'
 
 export function RadioGroupDemo() {
   return (

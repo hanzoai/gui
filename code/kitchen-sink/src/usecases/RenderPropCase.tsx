@@ -1,5 +1,5 @@
 import { isWeb } from '@hanzogui/constants'
-import { Text, View, styled, GuiComponentState } from '@hanzogui/core'
+import { Text, View, styled, HanzoguiComponentState } from '@hanzogui/core'
 import { forwardRef } from 'react'
 
 // Test: render prop with string in styled()
@@ -228,7 +228,7 @@ export function RenderPropCase() {
       {isWeb ? (
         <View
           data-testid="function-render-with-state"
-          render={(props, state: GuiComponentState) => (
+          render={(props, state: HanzoguiComponentState) => (
             <button
               {...props}
               data-hover={state.hover ? 'true' : 'false'}
@@ -245,7 +245,7 @@ export function RenderPropCase() {
       ) : (
         <View
           testID="function-render-with-state"
-          render={(props, state: GuiComponentState) => (
+          render={(props, state: HanzoguiComponentState) => (
             <View
               {...props}
               aria-description={`hover:${state.hover},press:${state.press}`}

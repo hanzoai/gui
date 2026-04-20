@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/react-native-web-lite",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "description": "React Native for Web",
   "keywords": [
     "react",
@@ -96,10 +96,10 @@
     }
   },
   "scripts": {
-    "build": "hanzo-gui-build --skip-types --skip-native",
-    "watch": "hanzo-gui-build --watch --skip-types --skip-native",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "build": "hanzogui-build --skip-types --skip-native",
+    "watch": "hanzogui-build --watch --skip-types --skip-native",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/normalize-css-color": "workspace:*",

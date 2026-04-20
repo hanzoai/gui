@@ -1,0 +1,16 @@
+import type { SizeTokens } from '@hanzogui/core'
+import { createStyledContext } from '@hanzogui/core'
+
+export const CheckboxStyledContext = createStyledContext<{
+  size: SizeTokens
+  scaleIcon: number
+  unstyled?: boolean
+  active?: boolean
+  disabled?: boolean
+}>({
+  size: '$true' as SizeTokens,
+  scaleIcon: 1,
+  unstyled: process.env.HANZOGUI_HEADLESS === '1',
+  active: false,
+  disabled: false,
+})

@@ -10,7 +10,7 @@ import type { PxValue, TokenCategories, Variable } from './types'
  */
 
 function constructCSSVariableName(name: string) {
-  return `var(--${process.env.GUI_CSS_VARIABLE_PREFIX || ''}${name})`
+  return `var(--${process.env.TAMAGUI_CSS_VARIABLE_PREFIX || ''}${name})`
 }
 
 type VariableIn<A = any> = Pick<Variable<A>, 'key' | 'name' | 'val'>

@@ -13,6 +13,21 @@ let externalPressDebugId = 0
 
 type PressOwnerSource = 'internal' | 'external' | null
 
+function getEventPointerId(e: any): number | null {
+  const pointerId =
+    e?.pointerId ??
+    e?.pointer?.id ??
+    e?.event?.pointerId ??
+    e?.event?.pointer?.id ??
+    e?.nativeEvent?.pointerId ??
+    e?.nativeEvent?.id ??
+    e?.event?.nativeEvent?.pointerId ??
+    e?.event?.nativeEvent?.id ??
+    null
+
+  return pointerId == null || Number.isNaN(pointerId) ? null : Number(pointerId)
+}
+
 /**
  * Global press coordination - ensures only innermost pressable fires press events,
  * matching RN Pressable/responder system semantics where deepest component wins.
@@ -23,6 +38,7 @@ const pressState = {
   owner: null as object | null,
   ownerId: null as number | null,
   ownerSource: null as PressOwnerSource,
+  ownerPointerId: null as number | null,
   timestamp: 0,
 }
 
@@ -57,6 +73,7 @@ function resetPressOwner() {
   pressState.owner = null
   pressState.ownerId = null
   pressState.ownerSource = null
+  pressState.ownerPointerId = null
   pressState.timestamp = 0
 }
 
@@ -74,8 +91,6 @@ export function claimExternalPressOwnership(
 
   const token = {}
   const ownerId = ++externalPressDebugId
-  const previousOwnerId = pressState.ownerId
-  const previousOwnerSource = pressState.ownerSource
 
   pressState.owner = token
   pressState.ownerId = ownerId
@@ -92,7 +107,6 @@ export function releaseExternalPressOwnership(
   if (!token || pressState.owner !== token) {
     return
   }
-
   resetPressOwner()
 }
 
@@ -121,6 +135,9 @@ export function getGestureHandler(): GestureHandlerAccessor {
       // unique token for this gesture instance - used to track ownership
       const myToken = {}
       const myDebugId = ++pressGestureDebugId
+      let didLongPress = false
+      let didPressIn = false
+      let pressInTimer: ReturnType<typeof setTimeout> | null = null
 
       // Grace period for child gestures to steal ownership from parent.
       // RNGH fires parent before child, but we want innermost to win.
@@ -130,21 +147,24 @@ export function getGestureHandler(): GestureHandlerAccessor {
         ? +process.env.TAMAGUI_RNGH_PRESS_DELAY
         : 24
 
-      const tryClaimOwnership = () => {
+      const tryClaimOwnership = (e: any) => {
         const now = Date.now()
         resetStaleOwner(now, config.debugName)
 
-        // within grace period, last claimer wins (child fires after parent)
-        const withinGrace = now - pressState.timestamp < GRACE_PERIOD_MS
-        const previousOwnerId = pressState.ownerId
-        const previousOwnerSource = pressState.ownerSource
+        const currentPointerId = getEventPointerId(e)
+        const isSameTouchPointer =
+          currentPointerId == null ||
+          pressState.ownerPointerId == null ||
+          pressState.ownerPointerId === currentPointerId
+
         if (
           pressState.owner === null ||
-          (withinGrace && pressState.ownerSource !== 'external')
+          (pressState.ownerSource === 'internal' && isSameTouchPointer)
         ) {
           pressState.owner = myToken
           pressState.ownerId = myDebugId
           pressState.ownerSource = 'internal'
+          pressState.ownerPointerId = currentPointerId
           pressState.timestamp = now
         }
         return pressState.owner === myToken
@@ -153,9 +173,32 @@ export function getGestureHandler(): GestureHandlerAccessor {
       const isOwner = () => pressState.owner === myToken
 
       const releaseOwnership = () => {
+        if (pressInTimer) {
+          clearTimeout(pressInTimer)
+          pressInTimer = null
+        }
         if (pressState.owner === myToken) {
           resetPressOwner()
         }
+      }
+
+      const firePressIn = (e: any) => {
+        if (!didPressIn && isOwner()) {
+          didPressIn = true
+          config.onPressIn?.(e)
+        }
+      }
+
+      const schedulePressIn = (e: any) => {
+        if (pressInTimer) {
+          clearTimeout(pressInTimer)
+        }
+        pressInTimer = setTimeout(() => {
+          pressInTimer = null
+          if (isOwner()) {
+            firePressIn(e)
+          }
+        }, GRACE_PERIOD_MS + 1)
       }
 
       // Tap gesture for regular presses
@@ -163,24 +206,31 @@ export function getGestureHandler(): GestureHandlerAccessor {
       const tap = Gesture.Tap()
         .runOnJS(true)
         .maxDuration(10000) // allow very long presses
-        .onBegin((e: any) => {
-          tryClaimOwnership()
-          // defer onPressIn until after grace period to ensure we're the final owner
-          setTimeout(() => {
-            if (isOwner()) {
-              config.onPressIn?.(e)
-            }
-          }, GRACE_PERIOD_MS + 1)
+        .onBegin((e: unknown) => {
+          didLongPress = false
+          didPressIn = false
+          tryClaimOwnership(e)
+          // Defer onPressIn until after the grace window so child pressables
+          // can steal ownership, but flush it on tap end for very fast taps.
+          schedulePressIn(e)
         })
-        .onEnd((e: any) => {
-          if (isOwner()) {
+        .onEnd((e: unknown) => {
+          if (isOwner() && !didLongPress) {
+            firePressIn(e)
             config.onPress?.(e)
           }
         })
-        .onFinalize((e: any) => {
+        .onFinalize((e: unknown) => {
           if (isOwner()) {
             config.onPressOut?.(e)
             releaseOwnership()
+          } else if (didPressIn) {
+            // we already fired onPressIn but lost ownership before finalize
+            // (e.g. finger dragged onto a sibling pressable and that one
+            // claimed ownership). fire onPressOut so callers can clear their
+            // press state — otherwise pressStyle stays stuck on this view.
+            didPressIn = false
+            config.onPressOut?.(e)
           }
         })
 
@@ -193,23 +243,11 @@ export function getGestureHandler(): GestureHandlerAccessor {
       const longPress = Gesture.LongPress()
         .runOnJS(true)
         .minDuration(longPressDuration)
-        .onBegin((e: any) => {
-          tryClaimOwnership()
-          setTimeout(() => {
-            if (isOwner()) {
-              config.onPressIn?.(e)
-            }
-          }, GRACE_PERIOD_MS + 1)
-        })
         .onStart((e: any) => {
+          didLongPress = true
           if (isOwner()) {
+            firePressIn(e)
             config.onLongPress?.(e)
-          }
-        })
-        .onFinalize((e: any) => {
-          if (isOwner()) {
-            config.onPressOut?.(e)
-            releaseOwnership()
           }
         })
 

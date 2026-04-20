@@ -5,7 +5,7 @@
 
 import { Check, ChevronDown } from '@hanzogui/lucide-icons-2'
 import React from 'react'
-import { Adapt, Button, Select, Sheet, Text, XStack, YStack } from '@hanzo/gui'
+import { Adapt, Button, Select, Sheet, Text, XStack, YStack } from 'hanzogui'
 
 const items = [
   { name: 'Apple' },

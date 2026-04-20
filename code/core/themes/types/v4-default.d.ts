@@ -131,7 +131,7 @@ declare const generatedThemes: Record<"light_blue" | "light_green" | "light_red"
     accent6: string;
     accent11: string;
 } & Record<string, string>>;
-export type GuiThemes = typeof generatedThemes;
+export type HanzoguiThemes = typeof generatedThemes;
 export declare const themes: Record<"light_blue" | "light_green" | "light_red" | "light_yellow" | "dark_blue" | "dark_green" | "dark_red" | "dark_yellow" | "light" | "dark" | "light_accent" | "dark_accent" | "light_black" | "light_white" | "light_blue_accent" | "light_green_accent" | "light_red_accent" | "light_yellow_accent" | "light_black_accent" | "light_white_accent" | "dark_black" | "dark_white" | "dark_blue_accent" | "dark_green_accent" | "dark_red_accent" | "dark_yellow_accent" | "dark_black_accent" | "dark_white_accent", {
     yellow1: string;
     yellow2: string;
@@ -268,7 +268,7 @@ export declare const themes: Record<"light_blue" | "light_green" | "light_red" |
 export {};
 /**
  * This is an optional production optimization: themes JS can get to 20Kb or more.
- * GUI has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
- * So long as you server render your GUI CSS, this will save you bundle size:
+ * Hanzogui has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
+ * So long as you server render your Hanzogui CSS, this will save you bundle size:
  */
 //# sourceMappingURL=v4-default.d.ts.map

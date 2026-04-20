@@ -1,17 +1,17 @@
 import { useColorScheme } from 'react-native'
-import { GuiProvider, type GuiProviderProps } from '@hanzo/gui'
+import { HanzoguiProvider, type HanzoguiProviderProps } from 'hanzogui'
 import { ToastProvider, ToastViewport } from '@hanzogui/toast'
 import { CurrentToast } from './CurrentToast'
-import { config } from '../gui.config'
+import { config } from '../hanzogui.config'
 
 export function Provider({
   children,
   ...rest
-}: Omit<GuiProviderProps, 'config' | 'defaultTheme'>) {
+}: Omit<HanzoguiProviderProps, 'config' | 'defaultTheme'>) {
   const colorScheme = useColorScheme()
 
   return (
-    <GuiProvider
+    <HanzoguiProvider
       config={config}
       defaultTheme={colorScheme === 'dark' ? 'dark' : 'light'}
       {...rest}
@@ -28,6 +28,6 @@ export function Provider({
         <CurrentToast />
         <ToastViewport top="$8" left={0} right={0} />
       </ToastProvider>
-    </GuiProvider>
+    </HanzoguiProvider>
   )
 }

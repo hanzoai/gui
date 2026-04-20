@@ -1,10 +1,10 @@
-import { View, createGui, getSplitStyles } from '@hanzogui/core'
+import { View, createHanzogui, getSplitStyles } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig('native'))
+  createHanzogui(config.getDefaultHanzoguiConfig('native'))
 })
 
 function getSplitStylesFor(props: Record<string, any>, Component = View) {

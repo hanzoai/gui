@@ -1,4 +1,4 @@
-import { Button, Square, Theme, YStack, Text } from '@hanzo/gui'
+import { Button, Square, Theme, YStack, Text } from 'hanzogui'
 
 import { TEST_IDS } from '../constants/test-ids'
 

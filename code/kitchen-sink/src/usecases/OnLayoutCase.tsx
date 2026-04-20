@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import { Button, Text, View, XStack, YStack } from '@hanzo/gui'
+import { Button, Text, View, XStack, YStack } from 'hanzogui'
 
 type LayoutEvent = any
 

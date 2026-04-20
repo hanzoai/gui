@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence } from '@hanzogui/animate-presence'
-import { Button, Square, XStack, YStack, Paragraph } from '@hanzo/gui'
+import { Button, Square, XStack, YStack, Paragraph } from 'hanzogui'
 
 /**
  * Test case for clicking to close while enter animation is still playing.

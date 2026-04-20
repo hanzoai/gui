@@ -4,7 +4,7 @@ exports[`Text with hoverStyle and conditional spread preserves ternary 1`] = `
 "const _cn2 = "is_Text _cur-pointer _col-0hover-color12";
 const _cn = "is_Text _cur-pointer _fow-800 _col-color12";
 // debug
-import { Text } from '@tamagui/core';
+import { Text } from '@hanzogui/core';
 export function Test({
   isActive
 }) {
@@ -19,7 +19,7 @@ exports[`bails from non-deterministic values 1`] = `undefined`;
 exports[`className + conditional styles get full base styles merged onto + shorthand 1`] = `
 "const _cn2 = "_w-10px _bg-red";
 const _cn = "_w-10px _bg-blue";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test(props) {
   return <div className={!props.green ? _cn : props.green ? _cn2 : props.className + " " + "is_View _w-10px"} />;
 }"
@@ -32,7 +32,7 @@ exports[`className + conditional styles get full base styles merged onto + short
 `;
 
 exports[`conditional classname keeps base and concats properly 1`] = `
-"import { View } from '@tamagui/core';
+"import { View } from '@hanzogui/core';
 export function Test(props) {
   return <div className={(isEnabled ? '' : 'disable-all-pointer-events') + " " + "is_View _fg-1 _fs-1 _fb-0px"}>
           {props.child}
@@ -52,7 +52,7 @@ const _cn4 = "is_View _bbrr-2px _bblr-2px _btlr-7px _pt-t-space-2 _pr-t-space-2 
 const _cn3 = "is_View _btlr-7px _pt-t-space-2 _pr-t-space-2 _pb-t-space-2 _pl-t-space-2 _btrr-10px _mr-2px";
 const _cn2 = "is_View _pt-t-space-2 _pr-t-space-2 _pb-t-space-2 _pl-t-space-2 _btrr-10px _mr-1px";
 const _cn = "is_View _pt-t-space-2 _pr-t-space-2 _pb-t-space-2 _pl-t-space-2 _btrr-10px _mr-1px";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test(props) {
   return <div className={!!floating && floating2 ? _cn : !floating && !floating2 ? _cn2 : !!floating && floating2 ? _cn3 : !floating && floating2 ? _cn4 : !floating && floating2 ? _cn5 : floating && !floating2 ? _cn6 : !floating && floating2 ? _cn7 : floating && floating2 ? _cn8 : !floating ? _cn9 : floating ? _cn0 : _cn1} />;
 }"
@@ -80,7 +80,7 @@ exports[`conditional specific after generic style overrides 2`] = `
 exports[`conditional spread with hoverStyle preserves ternary 1`] = `
 "const _cn2 = "is_View _bg-red _cur-pointer _bg-0hover-green";
 const _cn = "is_View _cur-pointer _bg-blue";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test({
   isActive
 }) {
@@ -91,7 +91,7 @@ export function Test({
 exports[`conditional spread with local variable preserves ternary 1`] = `
 "const _cn2 = "is_View _bg-red";
 const _cn = "is_View _bg-blue";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test({
   isActive
 }) {
@@ -102,7 +102,7 @@ export function Test({
 exports[`conditional spread with runtime variable preserves ternary 1`] = `
 "const _cn2 = "is_View _bg-red";
 const _cn = "is_View _bg-blue";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 function usePathname() {
   return '/blog';
 }
@@ -125,7 +125,7 @@ exports[`conditional styles get full base styles merged onto + shorthand 1`] = `
 "const _cn3 = "is_View _w-10px";
 const _cn2 = "is_View _w-10px _bg-red";
 const _cn = "is_View _w-10px _bg-blue";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test(props) {
   return <div className={!props.green ? _cn : props.green ? _cn2 : _cn3} />;
 }"
@@ -145,7 +145,7 @@ const _cn4 = "is_View _fg-unset _fs-1 _fb-0px _ai-flex-start _fd-column";
 const _cn3 = "is_View _ai-flex-start _fd-column";
 const _cn2 = "is_View _fg-5 _fs-1 _fb-0px _ai-flex-start _fd-column";
 const _cn = "is_View _ai-flex-start _fd-column";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test({
   isSettings,
   isVertical,
@@ -159,7 +159,7 @@ export function Test({
 
 exports[`flexBasis: 0 with responsive style extracts correctly 1`] = `
 "const _cn = "is_View _fb-1px _fb-_gtXs_0px";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test() {
   return <div className={_cn} />;
 }"
@@ -173,7 +173,7 @@ exports[`flexBasis: 0 with responsive style extracts correctly 2`] = `
 exports[`font_body class is present in BOTH ternary branches 1`] = `
 "const _cn2 = "is_Text font_body _dsp-inline _bxs-border-box _ww-break-word _ws-pre-wrap _mt-0px _mr-0px _mb-0px _ml-0px _ff-f-family ";
 const _cn = "is_Text font_body _dsp-inline _bxs-border-box _ww-break-word _ws-pre-wrap _mt-0px _mr-0px _mb-0px _ml-0px _ff-f-family _fow-800 ";
-import { Text } from '@tamagui/core';
+import { Text } from '@hanzogui/core';
 export function Test({
   isActive
 }) {
@@ -188,7 +188,7 @@ exports[`fontFamily shorthand + styled + flatten + ternaries 1`] = `undefined`;
 exports[`fontFamily shorthand + styled + flatten works 1`] = `undefined`;
 
 exports[`non-flattened works 1`] = `
-"import { Text } from '@tamagui/core';
+"import { Text } from '@hanzogui/core';
 export function Test(props) {
   return <Text textAlign={inMenu ? props.hello : 'right'} width="100%" hoverStyle={{
     o: 0.85
@@ -204,7 +204,7 @@ exports[`specific className + ternary 1`] = `undefined`;
 exports[`spread + className 1`] = `
 "const _cn2 = "is_View _bg-00035 _pt-2px _pb-2px _t-0px ease-in-out-top";
 const _cn = "is_View ease-in-out-top _pt-2px _pb-2px _bg-fff35 _t--14px";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test(props) {
   return <div className={props.conditional ? _cn : _cn2}>
           {child}
@@ -216,7 +216,7 @@ exports[`ternaries + font families works 1`] = `
 "const _cn3 = "is_Text";
 const _cn2 = "is_Text font_body _ff-f-family";
 const _cn = "is_Text font_heading _ff-f-family";
-import { Text } from '@tamagui/core';
+import { Text } from '@hanzogui/core';
 export function Test(props) {
   return <span className={!window ? _cn : window ? _cn2 : _cn3} />;
 }"
@@ -228,7 +228,7 @@ exports[`ternary with mixed theme-token and non-token values preserves all props
 "const _cn3 = "is_Text _fos-f-size-3";
 const _cn2 = "is_Text _fos-f-size-3 _col-color12 _fow-600";
 const _cn = "is_Text _fos-f-size-3 _col-color11 _fow-400";
-import { Text } from '@tamagui/core';
+import { Text } from '@hanzogui/core';
 export function Test({
   isActive,
   label
@@ -250,11 +250,11 @@ exports[`ternary with mixed theme-token and non-token values preserves all props
 exports[`theme + media queries + conditionals extract 1`] = `
 "const _cn2 = "is_View _fd-_sm_column";
 const _cn = "is_View _fd-_sm_column _fd-column";
-import { View } from '@tamagui/core';
+import { View } from '@hanzogui/core';
 export function Test(props) {
-  return <_TamaguiTheme name="surface1"><div className={onlyDemo ? _cn : _cn2} /></_TamaguiTheme>;
+  return <_HanzoguiTheme name="surface1"><div className={onlyDemo ? _cn : _cn2} /></_HanzoguiTheme>;
 }
-import { Theme as _TamaguiTheme } from "@tamagui/web";"
+import { Theme as _HanzoguiTheme } from "@hanzogui/web";"
 `;
 
 exports[`theme + media queries + conditionals extract 2`] = `

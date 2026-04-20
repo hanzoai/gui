@@ -1,5 +1,5 @@
 import React from 'react'
-import type { ViewProps, TabLayout, TabsTabProps } from '@hanzo/gui'
+import type { ViewProps, TabLayout, TabsTabProps } from 'hanzogui'
 import {
   AnimatePresence,
   Button,
@@ -9,7 +9,7 @@ import {
   XStack,
   YStack,
   styled,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const demos = ['background', 'underline'] as const
 const demosTitle: Record<(typeof demos)[number], string> = {
@@ -108,6 +108,7 @@ const TabsAdvancedBackground = () => {
           />
         )}
       </AnimatePresence>
+
       <AnimatePresence>
         {activeAt && (
           <TabsRovingIndicator
@@ -120,6 +121,7 @@ const TabsAdvancedBackground = () => {
           />
         )}
       </AnimatePresence>
+
       <YStack position="relative">
         <Tabs.List
           loop={false}
@@ -129,7 +131,6 @@ const TabsAdvancedBackground = () => {
         >
           <Tabs.Tab
             unstyled
-            paddingVertical="$2"
             paddingHorizontal="$3"
             value="tab1"
             onInteraction={handleOnInteraction}
@@ -138,7 +139,6 @@ const TabsAdvancedBackground = () => {
           </Tabs.Tab>
           <Tabs.Tab
             unstyled
-            paddingVertical="$2"
             paddingHorizontal="$3"
             value="tab2"
             onInteraction={handleOnInteraction}
@@ -147,7 +147,6 @@ const TabsAdvancedBackground = () => {
           </Tabs.Tab>
           <Tabs.Tab
             unstyled
-            paddingVertical="$2"
             paddingHorizontal="$3"
             value="tab3"
             onInteraction={handleOnInteraction}
@@ -260,34 +259,37 @@ const TabsAdvancedUnderline = () => {
           <Tabs.Tab
             unstyled
             paddingHorizontal="$3"
-            paddingVertical="$2"
             value="tab1"
             onInteraction={handleOnInteraction}
           >
-            <SizableText>Profile</SizableText>
+            <SizableText select="none" cursor="default">
+              Profile
+            </SizableText>
           </Tabs.Tab>
           <Tabs.Tab
             unstyled
             paddingHorizontal="$3"
-            paddingVertical="$2"
             value="tab2"
             onInteraction={handleOnInteraction}
           >
-            <SizableText>Connections</SizableText>
+            <SizableText select="none" cursor="default">
+              Connections
+            </SizableText>
           </Tabs.Tab>
           <Tabs.Tab
             unstyled
             paddingHorizontal="$3"
-            paddingVertical="$2"
             value="tab3"
             onInteraction={handleOnInteraction}
           >
-            <SizableText>Notifications</SizableText>
+            <SizableText select="none" cursor="default">
+              Notifications
+            </SizableText>
           </Tabs.Tab>
         </Tabs.List>
       </YStack>
 
-      <AnimatePresence exitBeforeEnter custom={{ direction }} initial={false}>
+      <AnimatePresence mode="wait" custom={{ direction }} initial={false}>
         <AnimatedYStack key={currentTab}>
           <Tabs.Content
             value={currentTab}
@@ -318,7 +320,7 @@ const TabsRovingIndicator = ({ active, ...props }: { active?: boolean } & ViewPr
         opacity: 0,
       }}
       {...(active && {
-        backgroundColor: '$color8',
+        backgroundColor: '$color5',
         opacity: 0.6,
       })}
       {...props}

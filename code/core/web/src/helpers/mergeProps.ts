@@ -102,7 +102,7 @@ function mergeProp(
 ) {
   let val = props[key]
 
-  // one special case - we merge hanzo-gui style sub-objects
+  // one special case - we merge hanzogui style sub-objects
   if (
     defaultProps &&
     key in defaultProps &&

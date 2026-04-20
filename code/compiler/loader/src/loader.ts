@@ -1,5 +1,5 @@
 import * as StaticWorker from '@hanzogui/static-worker'
-import type { GuiOptions } from '@hanzogui/types'
+import type { HanzoguiOptions } from '@hanzogui/types'
 import type { LoaderContext } from 'webpack'
 import { requireResolve } from './requireResolve'
 
@@ -22,10 +22,10 @@ try {
 
 let index = 0
 
-process.env.GUI_TARGET = 'web'
+process.env.TAMAGUI_TARGET = 'web'
 
 export const loader = async function loader(
-  this: LoaderContext<GuiOptions>,
+  this: LoaderContext<HanzoguiOptions>,
   sourceIn: Buffer | string
 ) {
   this.cacheable(true)
@@ -39,7 +39,7 @@ export const loader = async function loader(
   const source = sourceIn.toString()
 
   try {
-    const options: GuiOptions = {
+    const options: HanzoguiOptions = {
       // @ts-ignore
       platform: 'web',
       ...this.getOptions(),
@@ -62,7 +62,7 @@ export const loader = async function loader(
       return callback(null, source)
     }
 
-    const cssPath = `${sourcePath}.${index++}.gui.css`
+    const cssPath = `${sourcePath}.${index++}.hanzogui.css`
 
     // Filter out non-serializable properties before passing to worker
     const serializableOptions = { ...options }
@@ -96,7 +96,7 @@ export const loader = async function loader(
   } catch (err) {
     const message = err instanceof Error ? `${err.message}\n${err.stack}` : String(err)
 
-    console.error('Gui Webpack Loader Error:\n', `  ${message}\n`)
+    console.error('Hanzogui Webpack Loader Error:\n', `  ${message}\n`)
 
     if (message.includes('Cannot create proxy')) {
       console.info(

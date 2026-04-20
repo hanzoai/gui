@@ -1,9 +1,9 @@
-import type { GuiComponentStateRef } from './types';
+import type { HanzoguiComponentStateRef } from './types';
 export declare const hooks: InternalHooks;
 export declare function setupHooks(next: InternalHooks): void;
 type InternalHooks = {
     usePropsTransform?: (elementType: any, props: Record<string, any>, stateRef: {
-        current: GuiComponentStateRef;
+        current: HanzoguiComponentStateRef;
     }, willHydrate?: boolean) => any;
     setElementProps?: (node?: any) => void;
     useChildren?: (elementType: any, children: any, viewProps: Record<string, any>) => any;

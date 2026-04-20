@@ -1,19 +1,19 @@
 import '@testing-library/jest-dom'
 import { Input } from '@hanzogui/input'
-import { getDefaultGuiConfig } from '@hanzogui/config-default'
-import { View, GuiProvider, createGui } from '@hanzogui/core'
+import { getDefaultHanzoguiConfig } from '@hanzogui/config-default'
+import { View, HanzoguiProvider, createHanzogui } from '@hanzogui/core'
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-const conf = createGui(getDefaultGuiConfig())
+const conf = createHanzogui(getDefaultHanzoguiConfig())
 
 function InputTest(props: React.ComponentProps<typeof Input>) {
   return (
-    <GuiProvider config={conf} defaultTheme="light">
+    <HanzoguiProvider config={conf} defaultTheme="light">
       <View>
         <Input {...props} />
       </View>
-    </GuiProvider>
+    </HanzoguiProvider>
   )
 }
 

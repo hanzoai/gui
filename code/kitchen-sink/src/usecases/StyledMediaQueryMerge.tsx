@@ -1,4 +1,4 @@
-import { XStack, YStack, styled, Text } from '@hanzo/gui'
+import { XStack, YStack, styled, Text } from 'hanzogui'
 
 // Test styled component with media queries in definition
 const ContainerWithMedia = styled(XStack, {

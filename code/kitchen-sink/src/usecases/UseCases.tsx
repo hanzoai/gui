@@ -7,15 +7,15 @@ import {
   Header,
   SizableText,
   Square,
-  GuiProvider,
+  HanzoguiProvider,
   Theme,
   YStack,
   getMedia,
   styled,
   useThemeName,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
-import config from '../gui.config'
+import config from '../hanzogui.config'
 
 // import '@hanzogui/core/reset.css'
 
@@ -100,7 +100,7 @@ export const Sandbox = () => {
   const [x, setX] = React.useState(0)
 
   return (
-    <GuiProvider config={config} defaultTheme={theme}>
+    <HanzoguiProvider config={config} defaultTheme={theme}>
       <link href="/fonts/inter.css" rel="stylesheet" />
       {/* {getStyleElement()} */}
 
@@ -294,7 +294,7 @@ export const Sandbox = () => {
             </XStack> */}
         </div>
       </div>
-    </GuiProvider>
+    </HanzoguiProvider>
   )
 }
 

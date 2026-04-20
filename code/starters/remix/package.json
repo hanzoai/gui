@@ -1,5 +1,6 @@
 {
   "name": "@hanzogui/remix-starter",
+  "private": true,
   "type": "module",
   "sideEffects": false,
   "scripts": {
@@ -8,7 +9,7 @@
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc",
     "prod": "bun run build:web && bun run start",
-    "upgrade:gui": "bunx npm-check-updates -u '*gui*' '@hanzogui/*' && bun install"
+    "upgrade:hanzogui": "bunx npm-check-updates -u '*hanzogui*' '@hanzogui/*' && bun install"
   },
   "dependencies": {
     "@remix-run/node": "^2.12.1",
@@ -18,7 +19,7 @@
     "isbot": "^4.1.0",
     "react": ">=19",
     "react-dom": "*",
-    "@hanzo/gui": "workspace:*"
+    "hanzogui": "workspace:*"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.12.1",
@@ -26,12 +27,12 @@
     "@types/react": "~19.1.10",
     "@types/react-dom": "~19.1.7",
     "typescript": "~5.9.2",
-    "vite": "^8.0.0",
+    "vite": "^8.0.3",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "engines": {
     "node": ">=20.0.0"
   },
   "packageManager": "bun@1.3.9",
-  "version": "4.4.0"
+  "version": "2.0.0-rc.41-1776626066745"
 }

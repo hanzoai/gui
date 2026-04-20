@@ -1,4 +1,4 @@
-import { Paragraph, Text, Tooltip, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, Text, Tooltip, XStack, YStack } from 'hanzogui'
 
 export function TooltipTriggerInlineCase() {
   return (

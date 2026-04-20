@@ -1,6 +1,6 @@
 import { Button } from '@hanzogui/button'
 import { Activity, Airplay } from '@hanzogui/lucide-icons-2'
-import { Theme, XGroup, XStack, YStack } from '@hanzo/gui'
+import { Theme, XGroup, XStack, YStack } from 'hanzogui'
 
 export function ButtonDemo() {
   return (

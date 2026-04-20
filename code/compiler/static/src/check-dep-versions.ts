@@ -575,11 +575,7 @@ function check(path: string): {
   dependencies: Dependencies
 } {
   const options: Options = {
-    includeDepPattern: [
-      '@hanzo/gui',
-      'react-native-web-lite',
-      'react-native-web-internals',
-    ],
+    includeDepPattern: ['hanzogui', 'react-native-web-lite', 'react-native-web-internals'],
   }
 
   if (

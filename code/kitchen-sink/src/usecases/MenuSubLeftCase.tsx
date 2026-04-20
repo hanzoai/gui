@@ -1,7 +1,7 @@
 import { ChevronLeft } from '@hanzogui/lucide-icons-2'
 import { Menu } from '@hanzogui/menu'
 import React from 'react'
-import { Button, H1, Paragraph, Text, XStack, YStack } from '@hanzo/gui'
+import { Button, H1, Paragraph, Text, XStack, YStack } from 'hanzogui'
 
 /**
  * Menu Submenu Left Side Test Case

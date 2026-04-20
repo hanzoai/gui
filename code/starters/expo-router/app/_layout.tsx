@@ -1,4 +1,4 @@
-import '../gui.generated.css'
+import '../hanzogui.generated.css'
 
 import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
@@ -7,7 +7,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { Provider } from 'components/Provider'
-import { useTheme } from '@hanzo/gui'
+import { useTheme } from 'hanzogui'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -67,7 +67,7 @@ function RootLayoutNav() {
         <Stack.Screen
           name="modal"
           options={{
-            title: 'Gui + Expo',
+            title: 'Hanzogui + Expo',
             presentation: 'modal',
             animation: 'slide_from_right',
             gestureEnabled: true,

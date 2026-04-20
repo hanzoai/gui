@@ -1,7 +1,11 @@
-import { createGeistSansFont } from '@hanzogui/font-geist-sans'
-import { createGeistMonoFont } from '@hanzogui/font-geist-mono'
+import { createInterFont } from '@hanzogui/font-inter'
+import { createSilkscreenFont } from '@hanzogui/font-silkscreen'
 
-const headingFont = createGeistSansFont(
+import { createGenericFont } from './createGenericFont'
+
+const silkscreenFont = createSilkscreenFont()
+
+const headingFont = createInterFont(
   {
     size: {
       5: 13,
@@ -32,16 +36,17 @@ const headingFont = createGeistSansFont(
       14: -3,
       15: -4,
     },
+    // for native
     face: {
-      700: { normal: 'GeistBold' },
-      800: { normal: 'GeistBold' },
-      900: { normal: 'GeistBold' },
+      700: { normal: 'InterBold' },
+      800: { normal: 'InterBold' },
+      900: { normal: 'InterBold' },
     },
   },
   { sizeLineHeight: (size) => Math.round(size * 1.1 + (size < 30 ? 10 : 5)) }
 )
 
-const bodyFont = createGeistSansFont(
+const bodyFont = createInterFont(
   {
     weight: {
       1: '400',
@@ -53,14 +58,33 @@ const bodyFont = createGeistSansFont(
   }
 )
 
-const monoFont = createGeistMonoFont(
+const monoFont = createGenericFont(
+  `"ui-monospace", "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace`,
   {
     weight: {
       1: '500',
     },
+    size: {
+      1: 11,
+      2: 12,
+      3: 13,
+      4: 14,
+      5: 16,
+      6: 18,
+      7: 20,
+      8: 22,
+      9: 30,
+      10: 42,
+      11: 52,
+      12: 62,
+      13: 72,
+      14: 92,
+      15: 114,
+      16: 124,
+    },
   },
   {
-    sizeLineHeight: (x) => Math.round(x * 1.5),
+    sizeLineHeight: (x) => x * 1.5,
   }
 )
 
@@ -68,4 +92,5 @@ export const fonts = {
   heading: headingFont,
   body: bodyFont,
   mono: monoFont,
+  silkscreen: silkscreenFont,
 }

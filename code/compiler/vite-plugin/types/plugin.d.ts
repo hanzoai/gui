@@ -1,4 +1,4 @@
-import type { GuiOptions } from '@hanzogui/static-worker';
+import type { HanzoguiOptions } from '@hanzogui/static-worker';
 import type { PluginOption } from 'vite';
 type AliasOptions = {
     /** use @hanzogui/react-native-web-lite, 'without-animated' for smaller bundle */
@@ -11,11 +11,11 @@ type AliasEntry = {
     replacement: string;
 };
 /**
- * returns vite-compatible aliases for gui
+ * returns vite-compatible aliases for hanzogui
  * use this when you need control over alias ordering in your config
  */
-export declare function guiAliases(options?: AliasOptions): AliasEntry[];
-export declare function guiPlugin({ disableResolveConfig, ...guiOptionsIn }?: GuiOptions & {
+export declare function hanzoguiAliases(options?: AliasOptions): AliasEntry[];
+export declare function hanzoguiPlugin({ disableResolveConfig, ...hanzoguiOptionsIn }?: HanzoguiOptions & {
     disableResolveConfig?: boolean;
 }): PluginOption;
 export {};

@@ -1,5 +1,5 @@
 import { Toast, useToastController, useToastState } from '@hanzogui/toast'
-import { Button, H4, XStack, YStack, isWeb } from '@hanzo/gui'
+import { Button, H4, XStack, YStack, isWeb } from 'hanzogui'
 
 export function CurrentToast() {
   const currentToast = useToastState()

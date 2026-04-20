@@ -1,6 +1,6 @@
 name: 'Native CI - Fingerprint'
 description: 'Generate Expo fingerprint with 2-level caching (pre-hash + full fingerprint)'
-author: 'Gui'
+author: 'Hanzogui'
 
 inputs:
   platform:

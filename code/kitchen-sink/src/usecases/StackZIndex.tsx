@@ -1,4 +1,4 @@
-import { Button, Dialog, Popover, YStack } from '@hanzo/gui'
+import { Button, Dialog, Popover, YStack } from 'hanzogui'
 
 export function StackZIndex() {
   return (

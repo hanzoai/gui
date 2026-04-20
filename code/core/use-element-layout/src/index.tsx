@@ -10,8 +10,8 @@ const IntersectionState = new WeakMap<HTMLElement, boolean>()
 // can be set via env var at build time or runtime global for testing
 // see: https://github.com/hanzoai/gui/pull/2329
 const usePretransformDimensions = () =>
-  (globalThis as any).__GUI_ONLAYOUT_PRETRANSFORM === true ||
-  process.env.GUI_ONLAYOUT_PRETRANSFORM === '1'
+  (globalThis as any).__TAMAGUI_ONLAYOUT_PRETRANSFORM === true ||
+  process.env.TAMAGUI_ONLAYOUT_PRETRANSFORM === '1'
 
 let _debugLayout: boolean | undefined
 
@@ -29,7 +29,7 @@ const DisableLayoutContextValues: Record<string, boolean> = {}
 const DisableLayoutContextKey = createContext<string>('')
 
 const ENABLE =
-  process.env.GUI_TARGET === 'web' && typeof IntersectionObserver !== 'undefined'
+  process.env.TAMAGUI_TARGET === 'web' && typeof IntersectionObserver !== 'undefined'
 
 // internal testing - advanced helper to turn off layout measurement for extra performance
 // TODO document!
@@ -57,7 +57,7 @@ export const LayoutMeasurementController = ({
 // Single persistent IntersectionObserver for visibility tracking
 let globalIntersectionObserver: IntersectionObserver | null = null
 
-type GuiComponentStatePartial = {
+type HanzoguiComponentStatePartial = {
   host?: any
 }
 
@@ -231,7 +231,7 @@ if (ENABLE) {
     typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame : undefined
 
   // adaptive frame skipping with backoff
-  const userSkipVal = process.env.GUI_LAYOUT_FRAME_SKIP
+  const userSkipVal = process.env.TAMAGUI_LAYOUT_FRAME_SKIP
   const BASE_SKIP_FRAMES = userSkipVal ? +userSkipVal : 10
   const MAX_SKIP_FRAMES = 20
   let skipFrames = BASE_SKIP_FRAMES
@@ -396,7 +396,7 @@ function cleanupNode(node: HTMLElement) {
 const PrevHostNode = new WeakMap<object, HTMLElement | undefined>()
 
 export function useElementLayout(
-  ref: RefObject<GuiComponentStatePartial>,
+  ref: RefObject<HanzoguiComponentStatePartial>,
   onLayout?: ((e: LayoutEvent) => void) | null
 ): void {
   const disableKey = useContext(DisableLayoutContextKey)

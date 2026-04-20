@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Square, YStack, Paragraph } from '@hanzo/gui'
+import { Button, Square, YStack, Paragraph } from 'hanzogui'
 import { AnimatePresence } from '@hanzogui/animate-presence'
 
 // test case: animateOnly=[] should complete exit immediately

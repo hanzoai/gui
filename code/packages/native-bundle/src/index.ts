@@ -49,7 +49,7 @@ export interface BundleOptions {
 }
 
 /**
- * Bundle a GUI package for React Native using Vite
+ * Bundle a Hanzogui package for React Native using Vite
  */
 export async function bundleNative(options: BundleOptions): Promise<void> {
   const {
@@ -86,9 +86,9 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
   const entryPath = resolve(cwd, entry)
 
   const defaultDefine = {
-    'process.env.GUI_TARGET': JSON.stringify('native'),
+    'process.env.TAMAGUI_TARGET': JSON.stringify('native'),
     'process.env.NODE_ENV': JSON.stringify('production'),
-    'process.env.GUI_IS_CORE_NODE': JSON.stringify('1'),
+    'process.env.TAMAGUI_IS_CORE_NODE': JSON.stringify('1'),
   }
 
   // For test bundles, bundle a fake react-native implementation
@@ -125,7 +125,7 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
     build: {
       lib: {
         entry: entryPath,
-        name: 'GuiNativeBundle',
+        name: 'HanzoguiNativeBundle',
         fileName: () => fileName,
         formats: ['cjs'],
       },

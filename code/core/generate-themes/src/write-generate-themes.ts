@@ -3,7 +3,7 @@ import * as fs from 'fs-extra'
 import type { generateThemes } from './generate-themes'
 
 export async function writeGeneratedThemes(
-  guiDotDir: string,
+  hanzoguiDotDir: string,
   outPath: string,
   generatedOutput: Awaited<ReturnType<typeof generateThemes>>
 ) {
@@ -11,7 +11,7 @@ export async function writeGeneratedThemes(
 
   const { generated } = generatedOutput
 
-  if (process.env.DEBUG === '@hanzo/gui') {
+  if (process.env.DEBUG === 'hanzogui') {
     console.info(`Generated themes:`, JSON.stringify(generatedOutput, null, 2))
   }
 

@@ -1,7 +1,7 @@
-import type { GuiOptions } from '@hanzogui/static'
+import type { HanzoguiOptions } from '@hanzogui/static'
 import type { LoaderContext } from 'webpack'
 
-export default function loader(this: LoaderContext<GuiOptions>) {
+export default function loader(this: LoaderContext<HanzoguiOptions>) {
   this.async()
   const options = { ...this.getOptions() }
   let out = Buffer.from(options.cssData, 'base64').toString('utf-8')

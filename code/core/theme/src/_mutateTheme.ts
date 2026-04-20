@@ -144,7 +144,7 @@ function updateThemeStates() {
 }
 
 function insertThemeCSS(themes: Record<string, PartialTheme>, batch: Batch = false) {
-  if (process.env.GUI_TARGET !== 'web') {
+  if (process.env.TAMAGUI_TARGET !== 'web') {
     return []
   }
 

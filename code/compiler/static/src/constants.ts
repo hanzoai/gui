@@ -6,9 +6,9 @@ export const CSS_FILE_NAME = '__snack.css'
 export const MEDIA_SEP = '_'
 
 // ensure cache dir
-export const cacheDir = findCacheDir({ name: 'hanzo-gui', create: true })
+export const cacheDir = findCacheDir({ name: 'hanzogui', create: true })
 
 export const FAILED_EVAL = Symbol('failed_style_eval')
 
 export const SHOULD_DEBUG =
-  process.env.DEBUG === '*' || process.env.DEBUG?.startsWith('@hanzo/gui')
+  process.env.DEBUG === '*' || process.env.DEBUG?.startsWith('hanzogui')

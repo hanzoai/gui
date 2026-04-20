@@ -1,4 +1,4 @@
-import { YStack, XStack, Text, Square, styled } from '@hanzo/gui'
+import { YStack, XStack, Text, Square, styled } from 'hanzogui'
 
 /**
  * Test case for transform media query merging bug

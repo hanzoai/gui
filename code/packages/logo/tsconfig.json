@@ -7,7 +7,7 @@
   },
   "references": [
     {
-      "path": "../../ui/gui"
+      "path": "../../ui/hanzogui"
     }
   ],
   "exclude": [

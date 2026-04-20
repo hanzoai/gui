@@ -1,8 +1,8 @@
-import type { ComponentContextI, StaticConfig, GuiComponentState, GuiComponentStateRef, GuiInternalConfig, TextProps } from '../types';
+import type { ComponentContextI, StaticConfig, HanzoguiComponentState, HanzoguiComponentStateRef, HanzoguiInternalConfig, TextProps } from '../types';
 import type { ViewProps } from '../views/View';
-export declare const useComponentState: (props: ViewProps | TextProps | Record<string, any>, animationDriver: ComponentContextI["animationDriver"], staticConfig: StaticConfig, config: GuiInternalConfig) => {
+export declare const useComponentState: (props: ViewProps | TextProps | Record<string, any>, animationDriver: ComponentContextI["animationDriver"], staticConfig: StaticConfig, config: HanzoguiInternalConfig) => {
     startedUnhydrated: boolean;
-    curStateRef: GuiComponentStateRef;
+    curStateRef: HanzoguiComponentStateRef;
     disabled: any;
     groupName: string | undefined;
     hasAnimationProp: boolean;
@@ -12,11 +12,11 @@ export declare const useComponentState: (props: ViewProps | TextProps | Record<s
     isHydrated: boolean;
     presence: import("../types").UsePresenceResult | null;
     presenceState: import("../types").PresenceContextProps | null | undefined;
-    setState: import("react").Dispatch<import("react").SetStateAction<GuiComponentState>>;
-    setStateShallow: import("react").Dispatch<import("react").SetStateAction<Partial<GuiComponentState>>>;
+    setState: import("react").Dispatch<import("react").SetStateAction<HanzoguiComponentState>>;
+    setStateShallow: import("react").Dispatch<import("react").SetStateAction<Partial<HanzoguiComponentState>>>;
     noClass: boolean;
-    state: GuiComponentState;
-    stateRef: import("react").RefObject<GuiComponentStateRef>;
+    state: HanzoguiComponentState;
+    stateRef: import("react").RefObject<HanzoguiComponentStateRef>;
     inputStyle: "css" | "value";
     outputStyle: "css" | "inline";
     willBeAnimated: boolean;

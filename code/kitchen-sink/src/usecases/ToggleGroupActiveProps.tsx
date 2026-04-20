@@ -1,5 +1,5 @@
 import React from 'react'
-import { SizableText, ToggleGroup, YStack, useToggleGroupItem } from '@hanzo/gui'
+import { SizableText, ToggleGroup, YStack, useToggleGroupItem } from 'hanzogui'
 
 // Issue #3485: ToggleGroup active prop passed to children
 // Children of ToggleGroup.Item can access active state via useToggleGroupItem hook

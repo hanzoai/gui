@@ -1,12 +1,12 @@
 import { config } from '@hanzogui/config'
 import {
   Spacer,
-  GuiProvider,
+  HanzoguiProvider,
   Test14Component,
   Text,
   XStack,
   YStack,
-  createGui,
+  createHanzogui,
   useMedia,
 } from '@hanzogui/sandbox-ui'
 
@@ -21,12 +21,12 @@ type TestProps = {
   altConditional?: boolean
 }
 
-const guiConfig = createGui(config)
+const hanzoguiConfig = createHanzogui(config)
 
 export const Provider = (props) => (
-  <GuiProvider defaultTheme="dark" config={guiConfig}>
+  <HanzoguiProvider defaultTheme="dark" config={hanzoguiConfig}>
     {props.children}
-  </GuiProvider>
+  </HanzoguiProvider>
 )
 
 const child = <Text>hello world</Text>

@@ -1,6 +1,6 @@
 import { Menu } from '@hanzogui/menu'
 import React from 'react'
-import { Button, Theme, YStack } from '@hanzo/gui'
+import { Button, Theme, YStack } from 'hanzogui'
 
 /**
  * Menu Theme Test Case

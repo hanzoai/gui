@@ -1,7 +1,7 @@
-import type { GuiElement } from './types'
+import type { HanzoguiElement } from './types'
 
 /**
- * Narrows a GuiElement to an HTMLElement, with optional generic for further casting.
+ * Narrows a HanzoguiElement to an HTMLElement, with optional generic for further casting.
  * Throws if the element is not an instanceof HTMLElement.
  *
  * @example
@@ -11,7 +11,7 @@ import type { GuiElement } from './types'
  * ```
  */
 export function getWebElement<T extends HTMLElement = HTMLElement>(
-  element: GuiElement | null | undefined
+  element: HanzoguiElement | null | undefined
 ): T {
   if (!element) {
     throw new Error('Element is null or undefined')

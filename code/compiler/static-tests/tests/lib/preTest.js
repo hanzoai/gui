@@ -33,13 +33,13 @@ const alias = {
 
 // @ts-ignore
 process.env.NODE_ENV = 'test'
-process.env.GUI_TARGET = 'web'
+process.env.TAMAGUI_TARGET = 'web'
 
 const defines = {
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   __DEV__: JSON.stringify(false),
   'process.env.DEBUG': JSON.stringify(process.env.DEBUG ?? ''),
-  'process.env.GUI_TARGET': JSON.stringify('web'),
+  'process.env.TAMAGUI_TARGET': JSON.stringify('web'),
 }
 
 async function extractStaticWebpackApp() {
@@ -84,9 +84,9 @@ async function extractStaticWebpackApp() {
               },
             },
             {
-              loader: '@hanzogui/loader',
+              loader: 'hanzogui-loader',
               options: {
-                config: './tests/lib/gui.config.cjs',
+                config: './tests/lib/hanzogui.config.cjs',
                 components: ['@hanzogui/sandbox-ui'],
                 importsWhitelist: ['constants.js'],
               },
@@ -125,7 +125,7 @@ export async function preTest() {
     return
   }
   // clear cached config so webpack builds with its own components list
-  rmSync(path.join(process.cwd(), '.gui'), { recursive: true, force: true })
+  rmSync(path.join(process.cwd(), '.hanzogui'), { recursive: true, force: true })
   await extractStaticWebpackApp()
   process.env.IS_STATIC = undefined
 }

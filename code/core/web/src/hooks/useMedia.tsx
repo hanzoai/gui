@@ -16,7 +16,7 @@ import type {
   GetStyleState,
   IsMediaType,
   MediaQueryState,
-  GuiInternalConfig,
+  HanzoguiInternalConfig,
   UseMediaState,
   WidthHeight,
 } from '../types'
@@ -59,7 +59,7 @@ const dispose = new Set<Function>()
 
 let mediaVersion = 0
 
-export const configureMedia = (config: GuiInternalConfig) => {
+export const configureMedia = (config: HanzoguiInternalConfig) => {
   const { media } = config
   const mediaQueryDefaultActive = getSetting('mediaQueryDefaultActive')
   if (!media) return

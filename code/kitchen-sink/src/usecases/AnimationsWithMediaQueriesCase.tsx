@@ -1,4 +1,4 @@
-import { YStack, XStack, Text, Square } from '@hanzo/gui'
+import { YStack, XStack, Text, Square } from 'hanzogui'
 
 /**
  * Test case for animated properties with media queries

@@ -9,7 +9,7 @@ function getInlineScript() {
   var d = new Date();
   var m = d.getMonth();
   var day = d.getDate();
-  var season = '@hanzo/gui';
+  var season = 'hanzogui';
 
   if (m === 11 && day >= 14) season = 'xmas';
   else if (m === 9 && day >= 20) season = 'halloween';
@@ -18,17 +18,17 @@ function getInlineScript() {
   else if (m === 1 && day >= 7 && day <= 14) season = 'valentine';
   else if (m === 0 && day >= 20 || m === 1 && day <= 12) season = 'lunar';
 
-  if (season !== '@hanzo/gui') {
+  if (season !== 'hanzogui') {
     document.documentElement.classList.add(season + '-season');
   }
-  window.__GUI_SEASON__ = season;
+  window.__TAMAGUI_SEASON__ = season;
 })();`
 }
 
 // syncs the tint family with the value computed by the inline script
 function useSeasonSync() {
   useEffect(() => {
-    const computed = (window as any).__GUI_SEASON__ as TintFamily | undefined
+    const computed = (window as any).__TAMAGUI_SEASON__ as TintFamily | undefined
     if (computed) {
       setTintFamily(computed)
     }

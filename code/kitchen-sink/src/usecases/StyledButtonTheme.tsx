@@ -1,5 +1,5 @@
-import type { GetProps, ButtonProps as GuiButtonProps } from '@hanzo/gui'
-import { Button, styled, useTheme, useThemeName } from '@hanzo/gui'
+import type { GetProps, ButtonProps as HanzoguiButtonProps } from 'hanzogui'
+import { Button, styled, useTheme, useThemeName } from 'hanzogui'
 
 const CustomButtonFrame = styled(Button.Frame, {})
 
@@ -10,7 +10,7 @@ const CustomButtonText = styled(Button.Text, {
 type CustomButtonFrameProps = GetProps<typeof CustomButtonFrame>
 type CustomButtonTextProps = GetProps<typeof CustomButtonText>
 
-export type CustomButtonProps = GuiButtonProps &
+export type CustomButtonProps = HanzoguiButtonProps &
   CustomButtonFrameProps &
   CustomButtonTextProps
 
@@ -36,7 +36,7 @@ const CustomButtonText2 = styled(Button.Text, {
 type CustomButtonFrameProps2 = GetProps<typeof CustomButtonFrame>
 type CustomButtonTextProps2 = GetProps<typeof CustomButtonText>
 
-export type CustomButtonProps2 = GuiButtonProps &
+export type CustomButtonProps2 = HanzoguiButtonProps &
   CustomButtonFrameProps2 &
   CustomButtonTextProps2
 

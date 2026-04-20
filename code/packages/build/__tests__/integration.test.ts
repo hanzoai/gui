@@ -1,5 +1,3 @@
-import { vi } from "vitest"
-vi.setConfig({ testTimeout: 60000 })
 import { execSync, spawn } from 'node:child_process'
 import { existsSync, readFileSync, writeFileSync, statSync, readdirSync } from 'node:fs'
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
@@ -28,7 +26,7 @@ const jsMainDistPath = join(jsMainPackagePath, 'dist')
 //   distPath,
 // })
 
-describe('hanzo-gui-build integration test', () => {
+describe('hanzogui-build integration test', () => {
   beforeAll(() => {
     // Clean up dist directory before starting
     execSync('rm -rf dist && rm -rf types', { cwd: simplePackagePath })
@@ -126,7 +124,7 @@ describe('hanzo-gui-build integration test', () => {
 
         watchProcess.stdout.on('data', (data) => {
           console.log('Watch process output:', data.toString())
-          if (data.toString().includes('built hanzo-gui-build-test-watch-package')) {
+          if (data.toString().includes('built hanzogui-build-test-watch-package')) {
             if (!initialBuildComplete) {
               initialBuildComplete = true
               console.log('Initial build complete, modifying file...')
@@ -173,16 +171,34 @@ describe('hanzo-gui-build integration test', () => {
     // Check for platform-specific content in web output
     expect(webOutput).toContain('salutation = "Hi"')
     expect(webOutput).not.toContain('salutation = "Hey"')
-    expect(webOutput).not.toContain('process.env.GUI_TARGET')
+    expect(webOutput).not.toContain('process.env.TAMAGUI_TARGET')
 
     // Check for platform-specific content in native output
     expect(nativeOutput).toContain('salutation = "Hey"')
     expect(nativeOutput).not.toContain('salutation = "Hi"')
-    expect(nativeOutput).not.toContain('process.env.GUI_TARGET')
+    expect(nativeOutput).not.toContain('process.env.TAMAGUI_TARGET')
 
     // Check that the common code is present in both outputs
     expect(webOutput).toContain('greet:')
     expect(nativeOutput).toContain('greet:')
+  })
+
+  it('should keep side-effectful native statements outside dev-only guards', async () => {
+    execSync('bun run build', { cwd: simplePackagePath })
+
+    const nativeOutputPath = join(distPath, 'esm', 'index.native.js')
+    const nativeOutput = await readFile(nativeOutputPath, 'utf-8')
+
+    expect(nativeOutput).toContain('runNativeSideEffect(items);')
+    expect(nativeOutput).toContain('native-only-marker')
+    expect(nativeOutput).toContain('native-logical-marker')
+    expect(nativeOutput).not.toContain('if (runNativeSideEffect(')
+    expect(nativeOutput).not.toContain('if (false)')
+    expect(nativeOutput).not.toContain('if (true)')
+    expect(nativeOutput).not.toContain('runNativeSideEffect(items), process.env.NODE_ENV')
+    expect(nativeOutput).not.toContain('web-only-marker')
+    expect(nativeOutput).not.toContain('web-logical-marker')
+    expect(nativeOutput).not.toContain('&& items.push(')
   })
 
   it('should minify the output when MINIFY=true is set', () => {
@@ -190,6 +206,8 @@ describe('hanzo-gui-build integration test', () => {
     execSync('bun run build', { cwd: simplePackagePath })
     const originalCjsSize = statSync(distCjsFilePath).size
     const originalEsmSize = statSync(distEsmFilePath).size
+    const originalCjsOutput = readFileSync(distCjsFilePath, 'utf-8')
+    const originalEsmOutput = readFileSync(distEsmFilePath, 'utf-8')
 
     // Clean up the output
     execSync('rm -rf dist && rm -rf types', { cwd: simplePackagePath })
@@ -216,8 +234,12 @@ describe('hanzo-gui-build integration test', () => {
     expect(esmOutput).not.toMatch(/^\s+$/m) // No lines with only whitespace
 
     // Check that the number of lines is reduced
-    expect(cjsOutput.split('\n').length).toBeLessThan(originalCjsSize > 0 ? 40 : 32)
-    expect(esmOutput.split('\n').length).toBeLessThan(originalEsmSize > 0 ? 40 : 32)
+    expect(cjsOutput.split('\n').length).toBeLessThanOrEqual(
+      originalCjsOutput.split('\n').length
+    )
+    expect(esmOutput.split('\n').length).toBeLessThanOrEqual(
+      originalEsmOutput.split('\n').length
+    )
   })
 
   it('should clean stale outputs before building', () => {

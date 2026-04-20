@@ -1,6 +1,6 @@
 export { shorthands } from '@hanzogui/shorthands/v4';
 export { createThemes } from '@hanzogui/theme-builder';
-export { guiThemes, tokens } from '@hanzogui/themes/v4';
+export { hanzoguiThemes, tokens } from '@hanzogui/themes/v4';
 export { animations } from './v4-animations';
 export { createSystemFont, fonts } from './v4-fonts';
 export { breakpoints, media, mediaQueryDefaultActive } from './v4-media';
@@ -253,8 +253,8 @@ export declare const defaultConfig: {
         };
     };
     fonts: {
-        body: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
-        heading: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+        body: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
+        heading: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
     };
     selectionStyles: (theme: any) => {
         backgroundColor: any;

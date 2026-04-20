@@ -1,4 +1,4 @@
-import { Anchor, Button } from '@hanzo/gui'
+import { Anchor, Button } from 'hanzogui'
 
 export const SwitchRouterButton = ({ pagesMode = false }: { pagesMode?: boolean }) => {
   return (

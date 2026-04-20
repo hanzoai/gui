@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/config",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "type": "module",
   "sideEffects": false,
   "main": "dist/cjs",
@@ -103,10 +103,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzo-gui-build",
-    "watch": "hanzo-gui-build --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/animations-css": "workspace:*",
@@ -115,19 +115,19 @@
     "@hanzogui/animations-reanimated": "workspace:*",
     "@hanzogui/colors": "workspace:*",
     "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-inter": "workspace:*",
+    "@hanzogui/font-silkscreen": "workspace:*",
     "@hanzogui/react-native-media-driver": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",
     "@hanzogui/theme-builder": "workspace:*",
     "@hanzogui/themes": "workspace:*",
-    "@hanzogui/web": "workspace:*",
-    "@hanzogui/font-geist-sans": "workspace:*",
-    "@hanzogui/font-geist-mono": "workspace:*"
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
   },
   "peerDependencies": {
-    "@hanzogui/animations-moti": "3.0.6"
+    "@hanzogui/animations-moti": "*"
   },
   "peerDependenciesMeta": {
     "@hanzogui/animations-moti": {

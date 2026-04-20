@@ -89,7 +89,7 @@ bun run node_modules/@hanzogui/native-ci/src/run-detox-android.ts \
 
 ```yaml
 - name: Generate Fingerprint
-  uses: hanzoai/gui/code/packages/native-ci/actions/fingerprint@main
+  uses: hanzogui/hanzogui/code/packages/native-ci/actions/fingerprint@main
   id: fingerprint
   with:
     platform: ios  # or android
@@ -125,7 +125,7 @@ bun run node_modules/@hanzogui/native-ci/src/run-detox-android.ts \
 
 ```yaml
 - name: Run iOS Detox Tests
-  uses: hanzoai/gui/code/packages/native-ci/actions/test-detox-ios@main
+  uses: hanzogui/hanzogui/code/packages/native-ci/actions/test-detox-ios@main
   with:
     working-directory: ./my-app
     config: ios.sim.debug
@@ -148,7 +148,7 @@ bun run node_modules/@hanzogui/native-ci/src/run-detox-android.ts \
 
 ```yaml
 - name: Run Android Detox Tests
-  uses: hanzoai/gui/code/packages/native-ci/actions/test-detox-android@main
+  uses: hanzogui/hanzogui/code/packages/native-ci/actions/test-detox-android@main
   with:
     working-directory: ./my-app
     config: android.emu.ci.debug
@@ -241,7 +241,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Generate Fingerprint
-        uses: hanzoai/gui/code/packages/native-ci/actions/fingerprint@main
+        uses: hanzogui/hanzogui/code/packages/native-ci/actions/fingerprint@main
         id: fingerprint
         with:
           platform: ios
@@ -282,7 +282,7 @@ jobs:
           key: ${{ needs.build-ios.outputs.cache-key }}
 
       - name: Run Tests
-        uses: hanzoai/gui/code/packages/native-ci/actions/test-detox-ios@main
+        uses: hanzogui/hanzogui/code/packages/native-ci/actions/test-detox-ios@main
         with:
           working-directory: ./my-app
 ```

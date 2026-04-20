@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Button, Paragraph, Square, XStack, YStack, View } from '@hanzo/gui'
+import { Button, Paragraph, Square, XStack, YStack, View } from 'hanzogui'
 
 /**
  * Test case for verifying animation values through console logging

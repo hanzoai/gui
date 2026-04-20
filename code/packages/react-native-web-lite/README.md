@@ -6,7 +6,7 @@ A tree-shakeable fork of react-native-web that replaces the style engine with si
 
 This package keeps **all** the API surfaces of react-native-web, but makes them fully tree-shakeable by replacing the style engine with a simple inline style system.
 
-This is ideal if you're using an alternative style engine (like Hanzo GUI, StyleX, etc.) and just want react-native API compatibility for non-style concerns.
+This is ideal if you're using an alternative style engine (like Hanzogui, StyleX, etc.) and just want react-native API compatibility for non-style concerns.
 
 ## Trade-offs
 

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "gui-kitchen-sink",
-    "slug": "gui-kitchen-sink",
-    "scheme": "gui-kitchen-sink",
+    "name": "hanzogui-kitchen-sink",
+    "slug": "hanzogui-kitchen-sink",
+    "scheme": "hanzogui-kitchen-sink",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,10 +18,10 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gui.guikitchensink"
+      "bundleIdentifier": "com.hanzogui.hanzoguikitchensink"
     },
     "android": {
-      "package": "com.gui.guikitchensink",
+      "package": "com.hanzogui.hanzoguikitchensink",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

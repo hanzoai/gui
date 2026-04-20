@@ -1,7 +1,7 @@
 import { ContextMenu } from '@hanzogui/context-menu'
 import { Calendar, Check, ChevronRight } from '@hanzogui/lucide-icons-2'
 import React from 'react'
-import { Text, View, YStack } from '@hanzo/gui'
+import { Text, View, YStack } from 'hanzogui'
 
 /**
  * Note: you'll want to use createMenu() to customize further.

@@ -4,12 +4,12 @@ import config from '../config-default'
 import {
   StyleObjectIdentifier,
   StyleObjectRules,
-  createGui,
+  createHanzogui,
   getCSSStylesAtomic,
 } from '../core/src'
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig())
+  createHanzogui(config.getDefaultHanzoguiConfig())
 })
 
 test(`should expand webkit user-select`, () => {

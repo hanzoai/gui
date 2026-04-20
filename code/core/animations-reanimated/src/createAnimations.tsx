@@ -220,7 +220,7 @@ const canAnimateProperty = (
 // =============================================================================
 
 /**
- * Create a Gui-compatible animated component for web
+ * Create a Hanzogui-compatible animated component for web
  * Supports data- attributes, className, and proper style handling
  */
 function createWebAnimatedComponent(defaultTag: 'div' | 'span') {
@@ -357,7 +357,7 @@ function getStyleKeys(style: Record<string, unknown>): Set<string> {
 // =============================================================================
 
 /**
- * Create a Reanimated-based animation driver for Gui.
+ * Create a Reanimated-based animation driver for Hanzogui.
  *
  * This is a native Reanimated implementation without Moti dependency.
  * It provides smooth spring and timing animations with full support for:

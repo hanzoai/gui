@@ -1,13 +1,13 @@
 import type React from 'react'
 import { cloneElement, createElement, isValidElement } from 'react'
 import { composeRefs } from '@hanzogui/compose-refs'
-import type { GuiComponentState } from '../types'
+import type { HanzoguiComponentState } from '../types'
 import { mergeSlotStyleProps } from './mergeSlotStyleProps'
 
 export type RenderProp<Props = Record<string, any>> =
   | string
   | React.ReactElement
-  | ((props: Props, state: GuiComponentState) => React.ReactElement)
+  | ((props: Props, state: HanzoguiComponentState) => React.ReactElement)
 
 /**
  * Evaluates a render prop and returns the element to render.
@@ -20,7 +20,7 @@ export type RenderProp<Props = Record<string, any>> =
 export function evaluateRenderProp(
   render: RenderProp | undefined,
   props: Record<string, any>,
-  state: GuiComponentState,
+  state: HanzoguiComponentState,
   defaultElement: React.ReactElement<any>
 ): React.ReactElement {
   if (!render) {
@@ -32,7 +32,10 @@ export function evaluateRenderProp(
   // String tag - swap element type, reuse props from defaultElement
   if (typeof render === 'string') {
     // on native, ignore lowercase tags (html/jsx elements like "div", "span")
-    if (process.env.GUI_TARGET === 'native' && render[0] === render[0].toLowerCase()) {
+    if (
+      process.env.TAMAGUI_TARGET === 'native' &&
+      render[0] === render[0].toLowerCase()
+    ) {
       return defaultElement
     }
     return createElement(render, props, defaultChildren)

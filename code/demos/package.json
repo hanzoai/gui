@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/demos",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "source": "demos/src/index.tsx",
   "files": [
     "src",
@@ -40,21 +40,45 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzo-gui-build --skip-types",
-    "watch": "hanzo-gui-build --skip-types --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzogui/animate-presence": "workspace:*",
+    "@hanzogui/avatar": "workspace:*",
+    "@hanzogui/button": "workspace:*",
+    "@hanzogui/checkbox": "workspace:*",
+    "@hanzogui/checkbox-headless": "workspace:*",
     "@hanzogui/colors": "workspace:*",
     "@hanzogui/config": "workspace:*",
+    "@hanzogui/context-menu": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/get-button-sized": "workspace:*",
+    "@hanzogui/image": "workspace:*",
+    "@hanzogui/input": "workspace:*",
+    "@hanzogui/linear-gradient": "workspace:*",
+    "@hanzogui/list-item": "workspace:*",
     "@hanzogui/logo": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
-    "@hanzogui/dev-config": "workspace:*",
+    "@hanzogui/menu": "workspace:*",
+    "@hanzogui/popover": "workspace:*",
+    "@hanzogui/progress": "workspace:*",
+    "@hanzogui/radio-group": "workspace:*",
+    "@hanzogui/radio-headless": "workspace:*",
+    "@hanzogui/roving-focus": "workspace:*",
+    "@hanzogui/select": "workspace:*",
+    "@hanzogui/sheet": "workspace:*",
+    "@hanzogui/slider": "workspace:*",
+    "@hanzogui/stacks": "workspace:*",
+    "@hanzogui/switch": "workspace:*",
+    "@hanzogui/switch-headless": "workspace:*",
+    "@hanzogui/tabs": "workspace:*",
+    "@hanzogui/hanzogui-dev-config": "workspace:*",
     "@hanzogui/theme": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "@hanzogui/toast": "workspace:*",
+    "hanzogui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

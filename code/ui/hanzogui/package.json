@@ -1,0 +1,159 @@
+{
+  "name": "hanzogui",
+  "version": "2.0.0-rc.41-1776626066745",
+  "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
+  "description": "Style and UI for React (web and native) meet an optimizing compiler",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanzoai/gui.git",
+    "directory": "code/ui/hanzogui"
+  },
+  "source": "src/index.ts",
+  "type": "module",
+  "sideEffects": [
+    "setup.js"
+  ],
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./react-native-web": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/react-native-web.native.js",
+      "browser": "./dist/esm/react-native-web.mjs",
+      "module": "./dist/esm/react-native-web.mjs",
+      "import": "./dist/esm/react-native-web.mjs",
+      "require": "./dist/cjs/react-native-web.cjs",
+      "default": "./dist/esm/react-native-web.mjs"
+    },
+    "./web": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./native": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/native.cjs",
+      "require": "./dist/native.cjs",
+      "default": "./dist/native.cjs"
+    },
+    "./native-test": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/test.native.js",
+      "require": "./dist/test.cjs",
+      "default": "./dist/test.cjs"
+    },
+    "./linear-gradient": {
+      "types": "./types/linear-gradient.d.ts",
+      "react-native": "./dist/esm/linear-gradient.native.js",
+      "browser": "./dist/esm/linear-gradient.mjs",
+      "module": "./dist/esm/linear-gradient.mjs",
+      "import": "./dist/esm/linear-gradient.mjs",
+      "require": "./dist/cjs/linear-gradient.cjs",
+      "default": "./dist/esm/linear-gradient.mjs"
+    }
+  },
+  "scripts": {
+    "build": "hanzogui-build",
+    "afterBuild": "node bundle-native.mjs",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build",
+    "check": "bun run check-circular-deps",
+    "check-circular-deps": "npx madge --circular ./src/index.ts"
+  },
+  "dependencies": {
+    "@hanzogui/accordion": "workspace:*",
+    "@hanzogui/adapt": "workspace:*",
+    "@hanzogui/alert-dialog": "workspace:*",
+    "@hanzogui/animate": "workspace:*",
+    "@hanzogui/animate-presence": "workspace:*",
+    "@hanzogui/avatar": "workspace:*",
+    "@hanzogui/button": "workspace:*",
+    "@hanzogui/card": "workspace:*",
+    "@hanzogui/checkbox": "workspace:*",
+    "@hanzogui/collapsible": "workspace:*",
+    "@hanzogui/compose-refs": "workspace:*",
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/context-menu": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/create-context": "workspace:*",
+    "@hanzogui/create-menu": "workspace:*",
+    "@hanzogui/dialog": "workspace:*",
+    "@hanzogui/element": "workspace:*",
+    "@hanzogui/elements": "workspace:*",
+    "@hanzogui/fake-react-native": "workspace:*",
+    "@hanzogui/focusable": "workspace:*",
+    "@hanzogui/form": "workspace:*",
+    "@hanzogui/get-button-sized": "workspace:*",
+    "@hanzogui/get-font-sized": "workspace:*",
+    "@hanzogui/get-token": "workspace:*",
+    "@hanzogui/group": "workspace:*",
+    "@hanzogui/component-helpers": "workspace:*",
+    "@hanzogui/image": "workspace:*",
+    "@hanzogui/input": "workspace:*",
+    "@hanzogui/label": "workspace:*",
+    "@hanzogui/linear-gradient": "workspace:*",
+    "@hanzogui/list-item": "workspace:*",
+    "@hanzogui/menu": "workspace:*",
+    "@hanzogui/polyfill-dev": "workspace:*",
+    "@hanzogui/popover": "workspace:*",
+    "@hanzogui/popper": "workspace:*",
+    "@hanzogui/portal": "workspace:*",
+    "@hanzogui/progress": "workspace:*",
+    "@hanzogui/radio-group": "workspace:*",
+    "@hanzogui/react-native-media-driver": "workspace:*",
+    "@hanzogui/scroll-view": "workspace:*",
+    "@hanzogui/select": "workspace:*",
+    "@hanzogui/separator": "workspace:*",
+    "@hanzogui/shapes": "workspace:*",
+    "@hanzogui/sheet": "workspace:*",
+    "@hanzogui/slider": "workspace:*",
+    "@hanzogui/spacer": "workspace:*",
+    "@hanzogui/spinner": "workspace:*",
+    "@hanzogui/stacks": "workspace:*",
+    "@hanzogui/switch": "workspace:*",
+    "@hanzogui/tabs": "workspace:*",
+    "@hanzogui/text": "workspace:*",
+    "@hanzogui/theme": "workspace:*",
+    "@hanzogui/toast": "workspace:*",
+    "@hanzogui/toggle-group": "workspace:*",
+    "@hanzogui/tooltip": "workspace:*",
+    "@hanzogui/use-controllable-state": "workspace:*",
+    "@hanzogui/use-debounce": "workspace:*",
+    "@hanzogui/use-force-update": "workspace:*",
+    "@hanzogui/use-window-dimensions": "workspace:*",
+    "@hanzogui/visually-hidden": "workspace:*",
+    "@hanzogui/font-size": "workspace:*",
+    "@hanzogui/z-index-stack": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "react": ">=19",
+    "react-native": "0.83.2",
+    "react-native-web": "^0.21.0"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-native": "*"
+  },
+  "alsoPublishAs_disabled": [
+    "@hanzogui/ui"
+  ],
+  "module:jsx": "dist/jsx",
+  "removeSideEffects": true
+}

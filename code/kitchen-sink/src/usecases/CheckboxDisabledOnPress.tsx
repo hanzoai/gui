@@ -1,6 +1,6 @@
 import { Check as CheckIcon } from '@hanzogui/lucide-icons-2'
 import { useState } from 'react'
-import { Checkbox, Label, Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Checkbox, Label, Paragraph, XStack, YStack } from 'hanzogui'
 
 /**
  * Test case for issue #3267

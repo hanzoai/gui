@@ -53,7 +53,11 @@ const skipFinish =
   rePublish || skipAll || undocumented || process.argv.includes('--skip-finish')
 const forcePublishAll = process.argv.includes('--force-publish-all')
 
-const curVersion = fs.readJSONSync('./code/ui/gui/package.json').version
+// --tag <name> overrides the publish dist-tag (canary/latest) with any custom value
+const tagFlagIndex = process.argv.indexOf('--tag')
+const customTag = tagFlagIndex >= 0 ? process.argv[tagFlagIndex + 1] : null
+
+const curVersion = fs.readJSONSync('./code/ui/hanzogui/package.json').version
 
 async function getLastReleaseRef(): Promise<string | null> {
   // find the most recent baseline: either a v* tag or a canary commit
@@ -562,7 +566,7 @@ async function run() {
         packagesToPublish,
         async ({ name, cwd }) => {
           const isCanaryVersion = /^\d+\.\d+\.\d+-\d+$/.test(version)
-          const publishTag = canary || isCanaryVersion ? 'canary' : 'latest'
+          const publishTag = customTag || (canary || isCanaryVersion ? 'canary' : 'latest')
           const publishOptions = [publishTag && `--tag ${publishTag}`]
             .filter(Boolean)
             .join(' ')

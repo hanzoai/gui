@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-geist-mono",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-hanzoai.1",
   "files": [
     "types",
     "dist"

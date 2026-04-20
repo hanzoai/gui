@@ -1,2 +1,2 @@
-export * from './withGui';
+export * from './withHanzogui';
 //# sourceMappingURL=index.d.ts.map

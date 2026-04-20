@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Text, Theme, YStack } from '@hanzo/gui'
+import { Button, Text, Theme, YStack } from 'hanzogui'
 
 /**
  * Basic theme change test - no animations involved.

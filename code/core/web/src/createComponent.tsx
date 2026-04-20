@@ -30,7 +30,7 @@ import { getStyleTags } from './helpers/wrapStyleTags'
 import { useComponentState } from './hooks/useComponentState'
 import { setMediaShouldUpdate, useMedia } from './hooks/useMedia'
 import { useThemeWithState } from './hooks/useTheme'
-import type { GuiComponentEvents } from './interfaces/GuiComponentEvents'
+import type { HanzoguiComponentEvents } from './interfaces/HanzoguiComponentEvents'
 import { hooks } from './setupHooks'
 import type {
   AllGroupContexts,
@@ -42,10 +42,10 @@ import type {
   SingleGroupContext,
   StaticConfig,
   StyleableOptions,
-  GuiComponent,
-  GuiComponentState,
-  GuiElement,
-  GuiInternalConfig,
+  HanzoguiComponent,
+  HanzoguiComponentState,
+  HanzoguiElement,
+  HanzoguiInternalConfig,
   TextProps,
   UseAnimationHook,
   UseAnimationProps,
@@ -57,14 +57,14 @@ import { getThemedChildren } from './views/Theme'
 import type { ViewProps } from './views/View'
 
 /**
- * All things that need one-time setup after createGui is called
+ * All things that need one-time setup after createHanzogui is called
  */
 let time: any
 
 let debugKeyListeners: Set<Function> | undefined
 let startVisualizer: Function | undefined
 
-type ComponentSetState = React.Dispatch<React.SetStateAction<GuiComponentState>>
+type ComponentSetState = React.Dispatch<React.SetStateAction<HanzoguiComponentState>>
 
 export const componentSetStates = new Set<ComponentSetState>()
 const avoidReRenderKeys = new Set([
@@ -78,7 +78,7 @@ const avoidReRenderKeys = new Set([
   'group',
 ])
 
-if (process.env.GUI_TARGET !== 'native' && typeof window !== 'undefined') {
+if (process.env.TAMAGUI_TARGET !== 'native' && typeof window !== 'undefined') {
   const cancelPresses = () => {
     // clear all press downs
     componentSetStates.forEach((setState) =>
@@ -122,8 +122,8 @@ if (process.env.GUI_TARGET !== 'native' && typeof window !== 'undefined') {
     startVisualizer = () => {
       const devVisualizerConfig = devConfig?.visualizer
 
-      if (devVisualizerConfig && !globalThis.__guiDevVisualizer) {
-        globalThis.__guiDevVisualizer = true
+      if (devVisualizerConfig && !globalThis.__hanzoguiDevVisualizer) {
+        globalThis.__hanzoguiDevVisualizer = true
 
         debugKeyListeners = new Set()
         let tm
@@ -226,11 +226,11 @@ if (isWeb && typeof document !== 'undefined') {
 
 export function createComponent<
   ComponentPropTypes extends Record<string, any> = {},
-  Ref extends GuiElement = GuiElement,
+  Ref extends HanzoguiElement = HanzoguiElement,
   BaseProps = never,
   BaseStyles extends object = never,
 >(staticConfig: StaticConfig) {
-  let config: GuiInternalConfig | null = null
+  let config: HanzoguiInternalConfig | null = null
 
   const { Component, isText, isHOC } = staticConfig
 
@@ -248,7 +248,7 @@ export function createComponent<
       }
     }
 
-    if (process.env.GUI_TARGET === 'native') {
+    if (process.env.TAMAGUI_TARGET === 'native') {
       // todo this could be moved to a cleaner location
       if (!hasSetupBaseViews) {
         hasSetupBaseViews = true
@@ -286,12 +286,12 @@ export function createComponent<
     // direct press events instead — GestureDetector consumes touches before they
     // reach MenuView's native handler, preventing the menu from opening
     const isInsideNativeMenu =
-      process.env.GUI_TARGET === 'native'
+      process.env.TAMAGUI_TARGET === 'native'
         ? React.useContext(NativeMenuContext)
         : false
 
     if (
-      !process.env.GUI_IS_CORE_NODE &&
+      !process.env.TAMAGUI_IS_CORE_NODE &&
       process.env.NODE_ENV === 'development' &&
       debugProp === 'profile' &&
       !time
@@ -304,7 +304,7 @@ export function createComponent<
     if (process.env.NODE_ENV === 'development' && !time && (globalThis as any).time) {
       time = (globalThis as any).time
     }
-    if (process.env.NODE_ENV === 'development' && time) time`non-tamagui time (ignore)`
+    if (process.env.NODE_ENV === 'development' && time) time`non-hanzogui time (ignore)`
 
     // React inserts default props after your props for some reason...
     // order important so we do loops, you can't just spread because JS does weird things
@@ -528,7 +528,7 @@ export function createComponent<
 
     // internal use only
     const disableThemeProp =
-      process.env.GUI_TARGET === 'native' ? false : props['data-disable-theme']
+      process.env.TAMAGUI_TARGET === 'native' ? false : props['data-disable-theme']
 
     const disableTheme = disableThemeProp || isHOC
 
@@ -552,7 +552,7 @@ export function createComponent<
     // even when using raw colors (not tokens) since isListeningToTheme is set after useSplitStyles
     themeStateProps.needsUpdate = () => !!stateRef.current.isListeningToTheme
     // on native we optimize theme changes if fastSchemeChange is enabled, otherwise deopt
-    if (process.env.GUI_TARGET === 'native') {
+    if (process.env.TAMAGUI_TARGET === 'native') {
       themeStateProps.deopt = willBeAnimated
     }
 
@@ -949,12 +949,12 @@ export function createComponent<
       // @ts-ignore  for next/link compat etc
       onClick,
       theme: _themeProp,
-      ...nonGuiProps
+      ...nonHanzoguiProps
     } = viewPropsIn || {}
 
     // these can ultimately be for DOM, react-native-web views, or animated views
     // so the type is pretty loose
-    let viewProps = nonGuiProps
+    let viewProps = nonHanzoguiProps
 
     if (props.forceStyle) {
       viewProps.forceStyle = props.forceStyle
@@ -1054,8 +1054,8 @@ export function createComponent<
       groupContext && // avoids onLayout if we don't need it
       props.containerType !== 'normal'
     ) {
-      nonGuiProps.onLayout = composeEventHandlers(
-        nonGuiProps.onLayout,
+      nonHanzoguiProps.onLayout = composeEventHandlers(
+        nonHanzoguiProps.onLayout,
         (e: LayoutEvent) => {
           // one off update here
           const layout = e.nativeEvent.layout
@@ -1076,14 +1076,14 @@ export function createComponent<
     viewProps =
       hooks.usePropsTransform?.(
         elementType,
-        nonGuiProps,
+        nonHanzoguiProps,
         stateRef,
         stateRef.current.willHydrate
-      ) || nonGuiProps
+      ) || nonHanzoguiProps
 
     if (!stateRef.current.composedRef) {
-      stateRef.current.composedRef = composeRefs<GuiElement>(
-        (x) => (stateRef.current.host = x as GuiElement),
+      stateRef.current.composedRef = composeRefs<HanzoguiElement>(
+        (x) => (stateRef.current.host = x as HanzoguiElement),
         forwardedRef,
         setElementProps,
         animatedRef
@@ -1274,7 +1274,7 @@ export function createComponent<
       })
     }
 
-    const events: GuiComponentEvents | null = shouldAttach
+    const events: HanzoguiComponentEvents | null = shouldAttach
       ? {
           onPressOut: attachPress
             ? (e) => {
@@ -1333,7 +1333,7 @@ export function createComponent<
           onPress: attachPress
             ? (e) => {
                 unPress()
-                if (process.env.GUI_TARGET === 'web') {
+                if (process.env.TAMAGUI_TARGET === 'web') {
                   // @ts-ignore
                   onClick?.(e)
                   // matches RN pressable behavior - only when an explicit press
@@ -1343,12 +1343,12 @@ export function createComponent<
                   }
                 }
                 onPress?.(e)
-                if (process.env.GUI_TARGET === 'web') {
+                if (process.env.TAMAGUI_TARGET === 'web') {
                   onLongPress?.(e)
                 }
               }
             : undefined,
-          ...(process.env.GUI_TARGET === 'native' &&
+          ...(process.env.TAMAGUI_TARGET === 'native' &&
             attachPress &&
             onLongPress && {
               onLongPress: (e) => {
@@ -1390,7 +1390,7 @@ export function createComponent<
         }
       : null
 
-    if (process.env.GUI_TARGET === 'native' && events && !asChild) {
+    if (process.env.TAMAGUI_TARGET === 'native' && events && !asChild) {
       // replicating TouchableWithoutFeedback
       Object.assign(events, {
         cancelable: !viewProps.rejectResponderTermination,
@@ -1404,7 +1404,7 @@ export function createComponent<
       })
     }
 
-    if (process.env.GUI_TARGET === 'web' && events && !isReactNative) {
+    if (process.env.TAMAGUI_TARGET === 'web' && events && !isReactNative) {
       Object.assign(viewProps, getWebEvents(events))
     }
 
@@ -1431,7 +1431,7 @@ export function createComponent<
     // EVENTS native - handles focus/blur, input special cases, and RNGH press handling
     // Skip gesture setup for HOC components - they may return null which crashes GestureDetector
     const pressGesture =
-      process.env.GUI_TARGET === 'native'
+      process.env.TAMAGUI_TARGET === 'native'
         ? useEvents(
             events,
             viewProps,
@@ -1448,7 +1448,7 @@ export function createComponent<
     if (asChild) {
       elementType = Slot
       // on native this is already merged into viewProps in useEvents
-      if (process.env.GUI_TARGET === 'web') {
+      if (process.env.TAMAGUI_TARGET === 'web') {
         const webStyleEvents = asChild === 'web' || asChild === 'except-style-web'
         const passEvents = getWebEvents(
           {
@@ -1522,7 +1522,7 @@ export function createComponent<
 
     // wrap with GestureDetector for RNGH press handling (native only, no-op on web)
     // Skip for HOC and composite components - they pass press events to inner component instead
-    if (process.env.GUI_TARGET === 'native') {
+    if (process.env.TAMAGUI_TARGET === 'native') {
       const isCompositeComponent = !isHOC && Component && typeof Component !== 'string'
       content = wrapWithGestureDetector(
         content,
@@ -1577,7 +1577,7 @@ export function createComponent<
     }
 
     // Text components set inText context for children so nested Text can inherit styles
-    if (process.env.GUI_TARGET === 'web' && !asChild && isText && !hasTextAncestor) {
+    if (process.env.TAMAGUI_TARGET === 'web' && !asChild && isText && !hasTextAncestor) {
       content = (
         <ComponentContext.Provider {...componentContext} inText={true}>
           {content}
@@ -1594,7 +1594,7 @@ export function createComponent<
 
     if (process.env.NODE_ENV === 'development' && time) time`themed-children`
 
-    if (process.env.GUI_TARGET === 'web') {
+    if (process.env.TAMAGUI_TARGET === 'web') {
       if (isReactNative && !asChild) {
         content = (
           <span
@@ -1628,7 +1628,7 @@ export function createComponent<
 
     // SSR style support - for non compiled styles we render them inline until client takes over
     // on client we then switch over to our global sheet insert, because rendering inline is expensive
-    if (process.env.GUI_TARGET === 'web' && startedUnhydrated && splitStyles) {
+    if (process.env.TAMAGUI_TARGET === 'web' && startedUnhydrated && splitStyles) {
       content = (
         <>
           {content}
@@ -1735,7 +1735,7 @@ export function createComponent<
     component.displayName = staticConfig.componentName
   }
 
-  type ComponentType = GuiComponent<
+  type ComponentType = HanzoguiComponent<
     ComponentPropTypes,
     Ref,
     BaseProps,
@@ -1831,7 +1831,7 @@ const getCustomRender = (
 
 // avoid passing web-only elements to native
 function getRenderElementForPlatform(potential: ReactElement) {
-  if (process.env.GUI_TARGET === 'native') {
+  if (process.env.TAMAGUI_TARGET === 'native') {
     if (isHTMLElement(potential)) {
       return
     }

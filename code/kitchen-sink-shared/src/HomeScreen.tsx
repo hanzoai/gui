@@ -1,6 +1,6 @@
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import { ScrollView } from 'react-native'
-import { H1, ListItem, YGroup, YStack } from '@hanzo/gui'
+import { H1, ListItem, YGroup, YStack } from 'hanzogui'
 import { demos } from './demos'
 
 export function HomeScreen({ onSelect }: { onSelect: (demoName: string) => void }) {

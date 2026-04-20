@@ -1,4 +1,4 @@
-import { AlertDialog, Button, XStack, YStack } from '@hanzo/gui'
+import { AlertDialog, Button, XStack, YStack } from 'hanzogui'
 
 export function AlertDialogDemo() {
   return (

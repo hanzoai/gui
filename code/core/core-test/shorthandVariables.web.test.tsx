@@ -1,11 +1,17 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
-import { View, createGui, styled, StyleObjectValue, StyleObjectRules } from '../web/src'
+import {
+  View,
+  createHanzogui,
+  styled,
+  StyleObjectValue,
+  StyleObjectRules,
+} from '../web/src'
 import { simplifiedGetSplitStyles } from './utils'
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig())
+  createHanzogui(config.getDefaultHanzoguiConfig())
 })
 
 // helper to get style value from either style object or rulesToInsert

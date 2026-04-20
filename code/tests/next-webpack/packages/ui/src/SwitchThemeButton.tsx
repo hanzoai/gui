@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, useIsomorphicLayoutEffect } from '@hanzo/gui'
+import { Button, useIsomorphicLayoutEffect } from 'hanzogui'
 import { useThemeSetting, useRootTheme } from '@hanzogui/next-theme'
 
 export const SwitchThemeButton = () => {

@@ -1,5 +1,5 @@
 import { LogoIcon } from '@hanzogui/logo'
-import { Square } from '@hanzo/gui'
+import { Square } from 'hanzogui'
 
 export function AnimationsTimingDemo() {
   return (

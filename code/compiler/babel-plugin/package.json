@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/babel-plugin",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
   "source": "src/index.ts",
@@ -16,10 +16,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzo-gui-build --skip-native",
-    "watch": "hanzo-gui-build --skip-native --watch",
-    "clean": "node ../../../node_modules/.bin/hanzo-gui-build clean",
-    "clean:build": "node ../../../node_modules/.bin/hanzo-gui-build clean:build"
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "node ../../../node_modules/.bin/hanzogui-build clean",
+    "clean:build": "node ../../../node_modules/.bin/hanzogui-build clean:build"
   },
   "dependencies": {
     "@babel/core": "^7.25.2",

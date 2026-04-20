@@ -9,7 +9,7 @@ let tempDir: string
 
 beforeEach(() => {
   clearFormatCache()
-  tempDir = mkdtempSync(join(tmpdir(), 'gui-moduleformat-'))
+  tempDir = mkdtempSync(join(tmpdir(), 'hanzogui-moduleformat-'))
 })
 
 afterEach(() => {

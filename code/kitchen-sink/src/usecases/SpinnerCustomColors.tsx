@@ -1,4 +1,4 @@
-import { Spinner, YStack, H2, SizableText } from '@hanzo/gui'
+import { Spinner, YStack, H2, SizableText } from 'hanzogui'
 
 export const SpinnerCustomColors = () => {
   return (

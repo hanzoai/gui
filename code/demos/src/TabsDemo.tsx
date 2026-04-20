@@ -1,5 +1,5 @@
 import React from 'react'
-import type { TabsContentProps } from '@hanzo/gui'
+import type { TabsContentProps } from 'hanzogui'
 import {
   Button,
   H5,
@@ -10,7 +10,7 @@ import {
   YStack,
   isWeb,
   useWindowDimensions,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 const demos = ['horizontal', 'vertical'] as const
 const demosTitle: Record<(typeof demos)[number], string> = {

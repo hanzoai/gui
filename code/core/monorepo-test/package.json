@@ -1,6 +1,7 @@
 {
   "name": "@hanzogui/monorepo-test",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
+  "private": true,
   "license": "MIT",
   "author": {
     "name": "Nate Wienert"

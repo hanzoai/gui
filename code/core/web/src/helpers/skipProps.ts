@@ -2,7 +2,7 @@ import { nativeOnlyProps } from './nativeOnlyProps'
 import { webPropsToSkip } from './webPropsToSkip'
 
 /**
- * These are props that dont pass down below GUI styled components
+ * These are props that dont pass down below Hanzogui styled components
  */
 export const skipProps = {
   untilMeasured: 1,
@@ -25,11 +25,11 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 // Skip web-only props on native
-if (process.env.GUI_TARGET === 'native') {
+if (process.env.TAMAGUI_TARGET === 'native') {
   Object.assign(skipProps, webPropsToSkip)
 }
 
 // Skip native-only props on web
-if (process.env.GUI_TARGET === 'web') {
+if (process.env.TAMAGUI_TARGET === 'web') {
   Object.assign(skipProps, nativeOnlyProps)
 }

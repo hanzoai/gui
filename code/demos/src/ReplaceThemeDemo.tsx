@@ -9,7 +9,7 @@ import {
   YStack,
   useForceUpdate,
   useIsomorphicLayoutEffect,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 export function ReplaceThemeDemo() {
   const [theme, setTheme] = React.useState<any>()

@@ -1,4 +1,4 @@
-import { Button, Dialog, Input, Label, XStack, YStack } from '@hanzo/gui'
+import { Button, Dialog, Input, Label, XStack, YStack } from 'hanzogui'
 
 export function DialogFocusScopeCase() {
   return (

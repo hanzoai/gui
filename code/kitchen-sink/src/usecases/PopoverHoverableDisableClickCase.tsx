@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Popover, YStack, SizableText, XStack } from '@hanzo/gui'
+import { Popover, YStack, SizableText, XStack } from 'hanzogui'
 
 /**
  * Tests the disablePressTrigger prop on Popover.Trigger.

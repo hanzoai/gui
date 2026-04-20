@@ -1,10 +1,10 @@
-import type { AllGroupContexts, AnimationDriver, ComponentContextI, DebugProp, GetStyleResult, GetStyleState, SplitStyleProps, StaticConfig, GuiComponentState, TextStyle, ThemeParsed } from '../types';
+import type { AllGroupContexts, AnimationDriver, ComponentContextI, DebugProp, GetStyleResult, GetStyleState, SplitStyleProps, StaticConfig, HanzoguiComponentState, TextStyle, ThemeParsed } from '../types';
 export type SplitStyles = ReturnType<typeof getSplitStyles>;
 export type SplitStyleResult = ReturnType<typeof getSplitStyles>;
 export declare const styleOriginalValues: WeakMap<object, Record<string, any>>;
 type StyleSplitter = (props: {
     [key: string]: any;
-}, staticConfig: StaticConfig, theme: ThemeParsed, themeName: string, componentState: GuiComponentState, styleProps: SplitStyleProps, parentSplitStyles?: GetStyleResult | null, context?: ComponentContextI, groupContext?: AllGroupContexts | null, elementType?: string, startedUnhydrated?: boolean, debug?: DebugProp, animationDriver?: AnimationDriver | null) => null | GetStyleResult;
+}, staticConfig: StaticConfig, theme: ThemeParsed, themeName: string, componentState: HanzoguiComponentState, styleProps: SplitStyleProps, parentSplitStyles?: GetStyleResult | null, context?: ComponentContextI, groupContext?: AllGroupContexts | null, elementType?: string, startedUnhydrated?: boolean, debug?: DebugProp, animationDriver?: AnimationDriver | null) => null | GetStyleResult;
 export declare const PROP_SPLIT = "-";
 export declare const getSplitStyles: StyleSplitter;
 export declare const getSubStyle: (styleState: GetStyleState, subKey: string, styleIn: object, avoidMergeTransform?: boolean) => TextStyle;

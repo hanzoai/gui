@@ -1,5 +1,5 @@
 import React from 'react'
-import { Popover, Button, Input, Label, YStack, XStack, TextArea } from '@hanzo/gui'
+import { Popover, Button, Input, Label, YStack, XStack, TextArea } from 'hanzogui'
 import { ChevronDown } from '@hanzogui/lucide-icons-2'
 
 export function PopoverFocusScopeCase() {

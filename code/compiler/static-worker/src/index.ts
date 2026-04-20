@@ -1,19 +1,19 @@
 /**
  * @hanzogui/static-worker
  *
- * Pure worker-based API for GUI static extraction.
+ * Pure worker-based API for Hanzogui static extraction.
  * All operations run in a worker thread for better performance and isolation.
  *
  * This package provides a clean async API that wraps @hanzogui/static's worker
  * implementation without exposing any sync/legacy APIs.
  */
 
-import type { GuiOptions } from '@hanzogui/types'
+import type { HanzoguiOptions } from '@hanzogui/types'
 import { fileURLToPath } from 'node:url'
 import Piscina from 'piscina'
 
-export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
-export type { GuiOptions } from '@hanzogui/types'
+export type { ExtractedResponse, HanzoguiProjectInfo } from '@hanzogui/static'
+export type { HanzoguiOptions } from '@hanzogui/types'
 
 export const getPragmaOptions = async (props: { source: string; path: string }) => {
   const { default: Static } = await import('@hanzogui/static')
@@ -35,10 +35,10 @@ const getWorkerPath = () => {
 }
 
 // Use globalThis to share pool across module instances (Vite environments)
-const POOL_KEY = '__gui_piscina_pool__'
-const CLOSING_KEY = '__gui_piscina_closing__'
-const TASK_COUNT_KEY = '__gui_piscina_task_count__'
-const RECYCLING_KEY = '__gui_piscina_recycling__'
+const POOL_KEY = '__hanzogui_piscina_pool__'
+const CLOSING_KEY = '__hanzogui_piscina_closing__'
+const TASK_COUNT_KEY = '__hanzogui_piscina_task_count__'
+const RECYCLING_KEY = '__hanzogui_piscina_recycling__'
 
 // recycle worker after this many tasks to prevent RSS bloat from V8 memory fragmentation
 // Node.js worker threads don't release memory properly - see https://github.com/nodejs/node/issues/51868
@@ -107,7 +107,7 @@ function createPool(): Piscina {
       err && typeof err === 'object' && 'message' in err ? String(err.message) : ''
     // Suppress termination errors (can still occur during explicit close/destroy)
     if (message.includes('Terminating worker thread')) return
-    console.error('[hanzo-gui] Worker pool error:', err)
+    console.error('[hanzogui] Worker pool error:', err)
   })
 
   return pool
@@ -126,11 +126,11 @@ function getPool(): Piscina {
 }
 
 /**
- * Load GUI configuration in worker
+ * Load Hanzogui configuration in worker
  * Sends a warmup task to trigger config loading
  * bundleConfig auto-detects if files exist and skips rebuild
  */
-export async function loadGui(options: Partial<GuiOptions>): Promise<any> {
+export async function loadHanzogui(options: Partial<HanzoguiOptions>): Promise<any> {
   const pool = getPool()
 
   // use extractToClassNames with a dummy request to trigger config loading
@@ -140,7 +140,7 @@ export async function loadGui(options: Partial<GuiOptions>): Promise<any> {
     source: '// dummy',
     sourcePath: '__dummy__.tsx',
     options: {
-      components: ['@hanzo/gui'],
+      components: ['hanzogui'],
       ...options,
     },
     shouldPrintDebug: false,
@@ -150,7 +150,7 @@ export async function loadGui(options: Partial<GuiOptions>): Promise<any> {
     await pool.run(task, { name: 'runTask' })
     return { success: true }
   } catch (error) {
-    console.error('[static-worker] Error loading GUI config:', error)
+    console.error('[static-worker] Error loading Hanzogui config:', error)
     throw error
   }
 }
@@ -160,7 +160,7 @@ export async function loadGui(options: Partial<GuiOptions>): Promise<any> {
  * Creates new pool, swaps immediately, then destroys old pool
  * V8 doesn't return memory to OS, so we need to restart the worker periodically
  */
-async function recyclePool(options: GuiOptions): Promise<void> {
+async function recyclePool(options: HanzoguiOptions): Promise<void> {
   if (isClosing() || isRecycling()) return
 
   const oldPool = getSharedPool()
@@ -217,31 +217,31 @@ async function recyclePool(options: GuiOptions): Promise<void> {
       process.stdout.write = originalStdout
     })
 
-    console.log(`  ♻️  [hanzo-gui] recycled worker pool (${Date.now() - start}ms)`)
+    console.log(`  ♻️  [hanzogui] recycled worker pool (${Date.now() - start}ms)`)
   } finally {
     setRecycling(false)
   }
 }
 
 /**
- * Load GUI build configuration asynchronously
+ * Load Hanzogui build configuration asynchronously
  * Uses esbuild-wasm to avoid EPIPE errors from native esbuild service lifecycle
  */
-export async function loadGuiBuildConfig(
-  guiOptions: Partial<GuiOptions> | undefined
-): Promise<GuiOptions> {
+export async function loadHanzoguiBuildConfig(
+  hanzoguiOptions: Partial<HanzoguiOptions> | undefined
+): Promise<HanzoguiOptions> {
   const { default: Static } = await import('@hanzogui/static')
 
-  return Static.loadGuiBuildConfigAsync(guiOptions)
+  return Static.loadHanzoguiBuildConfigAsync(hanzoguiOptions)
 }
 
 /**
- * Extract GUI components to className-based CSS for web
+ * Extract Hanzogui components to className-based CSS for web
  */
 export async function extractToClassNames(params: {
   source: string | Buffer
   sourcePath?: string
-  options: GuiOptions
+  options: HanzoguiOptions
   shouldPrintDebug?: boolean | 'verbose'
 }): Promise<any> {
   const { source, sourcePath = '', options, shouldPrintDebug = false } = params
@@ -263,7 +263,7 @@ export async function extractToClassNames(params: {
 
   if (!result.success) {
     const errorMessage = [
-      `[gui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
+      `[hanzogui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',
@@ -286,12 +286,12 @@ export async function extractToClassNames(params: {
 }
 
 /**
- * Extract GUI components to React Native StyleSheet format
+ * Extract Hanzogui components to React Native StyleSheet format
  */
 export async function extractToNative(
   sourceFileName: string,
   sourceCode: string,
-  options: GuiOptions
+  options: HanzoguiOptions
 ): Promise<any> {
   const task = {
     type: 'extractToNative',
@@ -305,7 +305,7 @@ export async function extractToNative(
 
   if (!result.success) {
     const errorMessage = [
-      `[gui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
+      `[hanzogui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',
@@ -328,15 +328,15 @@ export async function extractToNative(
 }
 
 /**
- * Watch GUI config for changes and reload when it changes
+ * Watch Hanzogui config for changes and reload when it changes
  */
-export async function watchGuiConfig(
-  options: GuiOptions
+export async function watchHanzoguiConfig(
+  options: HanzoguiOptions
 ): Promise<{ dispose: () => void } | undefined> {
   // For now, we'll use the static package's watcher directly
   // This could be improved to use worker-based watching
   const { default: Static } = await import('@hanzogui/static')
-  const watcher = await Static.watchGuiConfig(options)
+  const watcher = await Static.watchHanzoguiConfig(options)
 
   if (!watcher) {
     return

@@ -1,4 +1,4 @@
-import { Text, useMedia, YStack, XStack } from '@hanzo/gui'
+import { Text, useMedia, YStack, XStack } from 'hanzogui'
 
 /**
  * Test case for v5 media queries

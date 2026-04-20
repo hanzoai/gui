@@ -1,6 +1,6 @@
-import type { CreateGuiProps, ThemeParsed } from '../types';
+import type { CreateHanzoguiProps, ThemeParsed } from '../types';
 export declare function getThemeCSSRules(props: {
-    config: CreateGuiProps;
+    config: CreateHanzoguiProps;
     themeName: string;
     theme: ThemeParsed;
     names: string[];

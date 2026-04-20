@@ -4,7 +4,7 @@ import ActionSheet, {
   type ActionSheetRef,
   ScrollView as ActionScrollView,
 } from 'react-native-actions-sheet'
-import { Button, Input, Sheet, Text, XStack, YStack } from '@hanzo/gui'
+import { Button, Input, Sheet, Text, XStack, YStack } from 'hanzogui'
 import { getGestureHandler, isKeyboardControllerEnabled } from '@hanzogui/native'
 
 /**

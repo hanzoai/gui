@@ -58,7 +58,7 @@
       "path": "../../packages/react-native-svg"
     },
     {
-      "path": "../../ui/gui"
+      "path": "../../ui/hanzogui"
     }
   ]
 }

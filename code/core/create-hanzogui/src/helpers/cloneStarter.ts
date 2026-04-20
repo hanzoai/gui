@@ -1,0 +1,221 @@
+import { execSync } from 'node:child_process'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { homedir } from 'node:os'
+import { join } from 'node:path'
+import chalk from 'chalk'
+import { copy, ensureDir, pathExists, remove } from 'fs-extra'
+import { rimraf } from 'rimraf'
+import type { templates } from '../templates'
+
+const open = require('opener')
+
+const exec = (cmd: string, options?: Parameters<typeof execSync>[1]) => {
+  console.info(`$ `, cmd)
+  return execSync(cmd, {
+    stdio: process.env.DEBUG ? 'inherit' : 'ignore',
+    ...options,
+  })
+}
+
+const hanzoguiDir = join(homedir(), '.hanzogui-repo-cache')
+let targetGitDir = ''
+
+export const cloneStarter = async (
+  template: (typeof templates)[number],
+  resolvedProjectPath: string,
+  projectName: string
+) => {
+  targetGitDir = join(hanzoguiDir, 'hanzogui', template.repo.url.split('/').at(-1)!)
+
+  console.info()
+  await setupHanzoguiDotDir(template)
+  const starterDir = join(targetGitDir, ...template.repo.dir)
+  console.info()
+  console.info(
+    `Copying starter from ${starterDir} into ${chalk.blueBright(projectName)}...`
+  )
+  console.info()
+
+  // if (!(await pathExists(starterDir))) {
+  //   console.error(`Missing template for ${template.value} in ${starterDir}`)
+  //   process.exit(1)
+  // }
+  await copy(starterDir, resolvedProjectPath)
+  await rimraf(`${resolvedProjectPath}/.git`)
+
+  // rewrite workspace:* versions to real published versions
+  rewriteWorkspaceVersions(resolvedProjectPath)
+
+  console.info(chalk.green(`${projectName} created!`))
+  console.info()
+}
+
+async function setupHanzoguiDotDir(template: (typeof templates)[number]) {
+  console.info(`Setting up ${chalk.blueBright(targetGitDir)}...`)
+
+  if (process.env.GITHUB_HEAD_REF) {
+    try {
+      execSync(`git switch -c ${process.env.GITHUB_HEAD_REF}`, {
+        cwd: targetGitDir,
+        stdio: 'ignore',
+      })
+    } catch {
+      // re-tries branch already exists
+    }
+  }
+
+  const branch = template.repo.branch
+
+  await ensureDir(hanzoguiDir)
+
+  const isInSubDir = template.repo.dir.length > 0
+  const sourceGitRepo = template.repo.url
+  const sourceGitRepoSshFallback = template.repo.sshFallback
+
+  if (!(await pathExists(targetGitDir))) {
+    console.info(`Cloning hanzogui base directory`)
+    console.info()
+
+    const cmd = `git clone --branch ${branch} ${
+      isInSubDir ? '--depth 1 --sparse --filter=blob:none ' : ''
+    }${sourceGitRepo} "${targetGitDir}"`
+
+    try {
+      try {
+        console.info(`$ ${cmd}`)
+        console.info()
+        exec(cmd)
+      } catch (error) {
+        if (cmd.includes('https://')) {
+          console.info(`https failed - trying with ssh now...`)
+          const sshCmd = cmd.replace(sourceGitRepo, sourceGitRepoSshFallback)
+          console.info(`$ ${sshCmd}`)
+          console.info()
+          exec(sshCmd)
+        } else {
+          throw error
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        if (
+          template.value === 'takeout-pro' ||
+          template.value === 'takeout-pro-classic'
+        ) {
+          if ((error as any)?.stderr?.includes('Repository not found')) {
+            console.info(
+              chalk.yellow(
+                `You don't have access to this starter. Check 🥡 Hanzogui Takeout (https://hanzogui.dev/takeout) for more info.`
+              )
+            )
+            open('https://hanzogui.dev/takeout')
+            process.exit(0)
+          }
+        }
+      }
+      throw error
+    }
+  } else {
+    if (!(await pathExists(join(targetGitDir, '.git')))) {
+      console.error(`Corrupt Hanzogui directory, please delete ${targetGitDir} and re-run`)
+      process.exit(1)
+    }
+  }
+
+  if (isInSubDir) {
+    const cmd = `git sparse-checkout set code/starters`
+    exec(cmd, { cwd: targetGitDir })
+    console.info()
+  }
+
+  try {
+    const remoteName = getDefaultRemoteName()
+    if (await pathExists(join(targetGitDir, '.git'))) {
+      const cmd2 = `git pull --rebase --allow-unrelated-histories --depth 1 ${remoteName} ${branch}`
+
+      // this can fail with "could not parse commit" but if you re-run it generally works
+      try {
+        exec(cmd2, {
+          cwd: targetGitDir,
+        })
+      } catch {
+        // so lets just retry on first failure at least
+        exec(cmd2, {
+          cwd: targetGitDir,
+        })
+      }
+      console.info()
+    } else {
+      console.warn(
+        `Warning: ${targetGitDir} is not a git repository. Skipping pull operation.`
+      )
+    }
+  } catch (err: any) {
+    await remove(targetGitDir)
+    console.info(`Error updating: ${err.message} ${err.stack}`)
+    console.info(
+      `We removed the old template cache, so re-running may fix. If not, please file an issue: https://github.com/hanzoai/gui/issues/new?assignees=&labels=&template=bug_report.md&title=`
+    )
+    process.exit(1)
+  }
+}
+
+function rewriteWorkspaceVersions(projectPath: string) {
+  const pkgPath = join(projectPath, 'package.json')
+  try {
+    const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
+
+    // if the copied project is itself a workspace root (e.g. takeout-pro copies
+    // the whole monorepo, packages/* included), leave `workspace:*` alone —
+    // bun/yarn/pnpm resolve it natively against the local packages. rewriting
+    // would point at versions that don't exist on npm.
+    if (pkg.workspaces) {
+      return
+    }
+
+    // read create-hanzogui's own version as the target
+    const ctPkgPath = require.resolve('create-hanzogui/package.json')
+    const ctPkg = JSON.parse(readFileSync(ctPkgPath, 'utf-8'))
+    const version = `^${ctPkg.version}`
+
+    let changed = false
+    for (const field of ['dependencies', 'devDependencies'] as const) {
+      const deps = pkg[field]
+      if (!deps) continue
+      for (const [key, val] of Object.entries(deps)) {
+        if (val === 'workspace:*') {
+          deps[key] = version
+          changed = true
+        }
+      }
+    }
+
+    if (changed) {
+      writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
+      console.info(chalk.dim(`  Rewrote workspace:* → ${version}`))
+    }
+  } catch {
+    // non-fatal, user can fix manually
+  }
+}
+
+// Get the default remote name
+const getDefaultRemoteName = () => {
+  try {
+    if (!pathExists(join(targetGitDir, '.git'))) {
+      console.warn(
+        'Warning: Not in a git repository. Using default remote name "origin".'
+      )
+      return 'origin'
+    }
+    const remotes = execSync('git remote', { cwd: targetGitDir })
+      .toString()
+      .trim()
+      .split('\n')
+    return remotes[0] || 'origin'
+  } catch (error) {
+    console.warn('Error getting default remote name:', error)
+    console.warn('Using default remote name "origin".')
+    return 'origin'
+  }
+}

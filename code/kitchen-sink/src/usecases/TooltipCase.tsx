@@ -1,4 +1,4 @@
-import { Button, Paragraph, Tooltip, TooltipSimple, YStack } from '@hanzo/gui'
+import { Button, Paragraph, Tooltip, TooltipSimple, YStack } from 'hanzogui'
 
 export function TooltipCase() {
   return (

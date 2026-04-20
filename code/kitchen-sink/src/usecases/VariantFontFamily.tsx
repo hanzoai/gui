@@ -1,4 +1,4 @@
-import { Text, styled } from '@hanzo/gui'
+import { Text, styled } from 'hanzogui'
 
 export const Heading = styled(Text, {
   name: 'Heading',

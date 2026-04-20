@@ -1,4 +1,4 @@
-import { guiPlugin } from '@hanzogui/vite-plugin'
+import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -7,9 +7,9 @@ export default defineConfig({
   },
   clearScreen: false,
   plugins: [
-    guiPlugin({
-      components: ['@hanzo/gui'],
-      config: 'src/gui.config.ts',
+    hanzoguiPlugin({
+      components: ['hanzogui'],
+      config: 'src/hanzogui.config.ts',
       useReactNativeWebLite: true,
     }),
   ].filter(Boolean),

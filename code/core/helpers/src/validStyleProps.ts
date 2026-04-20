@@ -93,7 +93,7 @@ export const tokenCategories = {
     // outlineColor is supported on RN 0.77+ (New Architecture)
     outlineColor: true,
     // caretColor is web-only
-    ...(process.env.GUI_TARGET === 'web' && {
+    ...(process.env.TAMAGUI_TARGET === 'web' && {
       caretColor: true,
     }),
   },
@@ -160,7 +160,7 @@ export const nonAnimatableStyleProps = {
   ...nonAnimatableTextOnlyProps,
   ...nonAnimatableUnitlessProps,
   // web-only discrete properties (defined in webOnlyStyleProps.ts)
-  ...(process.env.GUI_TARGET === 'web' && {
+  ...(process.env.TAMAGUI_TARGET === 'web' && {
     ...nonAnimatableWebViewProps,
     ...nonAnimatableWebTextProps,
   }),
@@ -309,7 +309,7 @@ export const stylePropsView = {
   outlineWidth: true,
 
   // web-only for convenience - tree-shaken on native
-  ...(process.env.GUI_TARGET === 'web' ? webOnlyStylePropsView : {}),
+  ...(process.env.TAMAGUI_TARGET === 'web' ? webOnlyStylePropsView : {}),
 }
 
 const stylePropsFont = {
@@ -330,7 +330,7 @@ export const stylePropsTextOnly = {
   verticalAlign: true,
 
   // web-only text props - tree-shaken on native
-  ...(process.env.GUI_TARGET === 'web' ? webOnlyStylePropsText : {}),
+  ...(process.env.TAMAGUI_TARGET === 'web' ? webOnlyStylePropsText : {}),
 }
 
 export const stylePropsText = {
@@ -350,7 +350,7 @@ export const validPseudoKeys = {
   focusWithinStyle: true,
 
   // allow some web only ones
-  ...(process.env.GUI_TARGET === 'web' && {
+  ...(process.env.TAMAGUI_TARGET === 'web' && {
     focusVisibleStyle: true,
   }),
 }

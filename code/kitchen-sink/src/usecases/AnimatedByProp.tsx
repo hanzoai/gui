@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Square, YStack } from '@hanzo/gui'
+import { Button, Square, YStack } from 'hanzogui'
 
 /**
  * Test case for the animatedBy prop.

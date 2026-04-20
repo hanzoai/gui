@@ -6,7 +6,7 @@ import * as t from '@babel/types'
 import esbuild from 'esbuild'
 
 import { FAILED_EVAL } from '../constants'
-import type { GuiOptionsWithFileInfo } from '../types'
+import type { HanzoguiOptionsWithFileInfo } from '../types'
 import { evaluateAstNode } from './evaluateAstNode'
 
 export function createEvaluator({
@@ -16,7 +16,7 @@ export function createEvaluator({
   traversePath,
   shouldPrintDebug,
 }: {
-  props: GuiOptionsWithFileInfo
+  props: HanzoguiOptionsWithFileInfo
   staticNamespace: Record<string, any>
   sourcePath?: string
   traversePath?: NodePath<t.JSXElement>

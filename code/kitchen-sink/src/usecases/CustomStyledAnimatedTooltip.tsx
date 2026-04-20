@@ -1,13 +1,13 @@
 import {
   View,
-  Tooltip as GuiTooltip,
+  Tooltip as HanzoguiTooltip,
   Text,
   Theme,
   styled,
   withStaticProperties,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
-const StyledTooltip = styled(GuiTooltip, {
+const StyledTooltip = styled(HanzoguiTooltip, {
   delay: 0,
   restMs: 0,
   allowFlip: true,
@@ -18,8 +18,8 @@ const StyledTooltip = styled(GuiTooltip, {
 })
 
 export const Tooltip = withStaticProperties(StyledTooltip, {
-  ...GuiTooltip,
-  Content: styled(GuiTooltip.Content, {
+  ...HanzoguiTooltip,
+  Content: styled(HanzoguiTooltip.Content, {
     padding: 0,
     px: 8,
     zIndex: 1_000_000,

@@ -1,1 +1,1 @@
-export * from './withGui'
+export * from './withHanzogui'

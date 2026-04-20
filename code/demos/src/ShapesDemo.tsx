@@ -1,4 +1,4 @@
-import { Circle, Square, XStack } from '@hanzo/gui'
+import { Circle, Square, XStack } from 'hanzogui'
 
 export function ShapesDemo() {
   return (

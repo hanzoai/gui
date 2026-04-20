@@ -1,16 +1,16 @@
 import { Check } from '@hanzogui/lucide-icons-2'
-import { Checkbox as GuiCheckbox, styled, withStaticProperties } from '@hanzo/gui'
+import { Checkbox as HanzoguiCheckbox, styled, withStaticProperties } from 'hanzogui'
 
 export const Checkbox = withStaticProperties(
-  styled(GuiCheckbox, {
+  styled(HanzoguiCheckbox, {
     theme: 'green',
   }),
   {
     Indicator() {
       return (
-        <GuiCheckbox.Indicator>
+        <HanzoguiCheckbox.Indicator>
           <Check color="$color12" />
-        </GuiCheckbox.Indicator>
+        </HanzoguiCheckbox.Indicator>
       )
     },
   }

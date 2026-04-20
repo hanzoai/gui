@@ -1,5 +1,5 @@
 import { Input, TextArea } from '@hanzogui/input'
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 export function NewInputBasic() {
   return (

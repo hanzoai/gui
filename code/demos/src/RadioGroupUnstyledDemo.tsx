@@ -1,4 +1,4 @@
-import { Label, XStack, YStack, styled } from '@hanzo/gui'
+import { Label, XStack, YStack, styled } from 'hanzogui'
 
 import { createRadioGroup } from '@hanzogui/radio-group'
 

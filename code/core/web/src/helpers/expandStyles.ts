@@ -2,7 +2,7 @@ import { isWeb } from '@hanzogui/constants'
 import { normalizeShadow } from './normalizeShadow'
 
 export function fixStyles(style: Record<string, any>) {
-  if (process.env.GUI_TARGET === 'native') {
+  if (process.env.TAMAGUI_TARGET === 'native') {
     if ('elevationAndroid' in style) {
       // @ts-ignore
       style['elevation'] = style.elevationAndroid

@@ -1,5 +1,5 @@
 import React from 'react'
-import { AnimatePresence, Button, Square, XStack, YStack, isWeb } from '@hanzo/gui'
+import { AnimatePresence, Button, Square, XStack, YStack, isWeb } from 'hanzogui'
 
 import { useIsIntersecting } from './useOnIntersecting'
 

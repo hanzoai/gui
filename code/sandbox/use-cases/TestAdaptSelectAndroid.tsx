@@ -1,7 +1,7 @@
 import { Check, ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2'
 import React from 'react'
-import type { FontSizeTokens, SelectProps } from '@hanzo/gui'
-import { Adapt, Select, Sheet, YStack, getFontSize } from '@hanzo/gui'
+import type { FontSizeTokens, SelectProps } from 'hanzogui'
+import { Adapt, Select, Sheet, YStack, getFontSize } from 'hanzogui'
 
 // Helper to get item label from value - used by renderValue for SSR
 const getItemLabel = (value: string) =>

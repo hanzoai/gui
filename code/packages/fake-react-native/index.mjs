@@ -1,32 +1,21 @@
-const emptyComponent = () => null
+const emtpyComponent = () => null
 
 function proxyWorm() {
-  // Target MUST be a function for the apply trap to work.
-  // Without this, codegenNativeComponent() throws "proxy is not a function".
-  const target = Object.assign(
-    function () {
-      return emptyComponent
-    },
+  return new Proxy(
     {
       StyleSheet: {
-        create(s) {
-          return s
-        },
-        flatten(s) {
-          return s
-        },
+        create() {},
       },
-      Platform: { OS: 'web', select: (o) => o.web ?? o.default },
-      Image: emptyComponent,
-      View: emptyComponent,
-      Text: emptyComponent,
-      TextInput: emptyComponent,
-      ScrollView: emptyComponent,
+      Platform: {
+        OS: 'web',
+      },
+      Image: emtpyComponent,
+      View: emtpyComponent,
+      Text: emtpyComponent,
+      TextInput: emtpyComponent,
+      ScrollView: emtpyComponent,
       Dimensions: {
-        addEventListener() {},
-        get() {
-          return { width: 0, height: 0 }
-        },
+        addEventListener(cb) {},
       },
       Appearance: {
         getColorScheme: () => 'light',
@@ -34,21 +23,21 @@ function proxyWorm() {
         removeChangeListener: () => {},
       },
       addPoolingTo() {},
+    },
+    {
+      get(target, key) {
+        return Reflect.get(target, key) || proxyWorm()
+      },
+      apply() {
+        return proxyWorm()
+      },
     }
   )
-
-  return new Proxy(target, {
-    get(target, key) {
-      return Reflect.get(target, key) || proxyWorm()
-    },
-    apply() {
-      return proxyWorm()
-    },
-  })
 }
 
 const proxy = proxyWorm()
 
+// Named exports that can be tree-shaken
 export const Platform = proxy.Platform
 export const StyleSheet = proxy.StyleSheet
 export const Image = proxy.Image
@@ -63,17 +52,6 @@ export const Easing = proxy.Easing
 export const Appearance = proxy.Appearance
 export const findNodeHandle = proxy.findNodeHandle
 export const unstable_batchedUpdates = proxy.unstable_batchedUpdates
-export const Touchable = proxy.Touchable
-export const TurboModuleRegistry = proxy.TurboModuleRegistry
-export const NativeEventEmitter = proxy.NativeEventEmitter
-export const processColor = proxy.processColor
-export const PanResponder = proxy.PanResponder
-export const PixelRatio = proxy.PixelRatio
-export const AppRegistry = proxy.AppRegistry
-export const NativeModules = proxy.NativeModules
-export const Linking = proxy.Linking
-export const Alert = proxy.Alert
-export const AppState = proxy.AppState
-export const LogBox = proxy.LogBox
 
+// Default export
 export default proxy

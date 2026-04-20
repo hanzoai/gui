@@ -1,4 +1,4 @@
-import { styled, View, Text, YStack } from '@hanzo/gui'
+import { styled, View, Text, YStack } from 'hanzogui'
 
 // styled() with boxShadow containing embedded $token
 // if web imports are picked up on native, this resolves to var(--shadowColor)

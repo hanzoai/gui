@@ -8,9 +8,9 @@ import {
   XStack,
   Button,
   useDidFinishSSR,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
-// simulates gui.hanzo.ai homepage during hydration:
+// simulates hanzogui.dev homepage during hydration:
 // - multiple elements with enter animations (glows, hero content)
 // - PromoLinksRow tooltip pattern with scoped multi-trigger
 // - heavy re-rendering from animation effects
@@ -72,7 +72,7 @@ function HydrationRerenderer() {
   const didHydrate = useDidFinishSSR()
 
   React.useEffect(() => {
-    // simulate state updates that happen during hydration on gui.hanzo.ai
+    // simulate state updates that happen during hydration on hanzogui.dev
     // (theme detection, tint changes, layout measurements, etc.)
     const timers = [
       setTimeout(() => setCount(1), 10),

@@ -15,7 +15,7 @@ import {
   View,
   XGroup,
   XStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { SelectDemoContents } from './SelectDemo'
 
 type DialogMode = 'plain' | 'adapt' | 'keepMounted'

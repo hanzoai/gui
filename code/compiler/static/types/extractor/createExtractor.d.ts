@@ -1,7 +1,7 @@
 import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import type { ExtractorOptions, ExtractorParseProps, GuiOptions } from '../types';
-import type { GuiProjectInfo } from './bundleConfig';
+import type { ExtractorOptions, ExtractorParseProps, HanzoguiOptions } from '../types';
+import type { HanzoguiProjectInfo } from './bundleConfig';
 import { cleanupBeforeExit } from './getStaticBindingsForScope';
 export type Extractor = ReturnType<typeof createExtractor>;
 type FileOrPath = NodePath<t.Program> | t.File;
@@ -10,9 +10,9 @@ export declare function createExtractor({ logger, platform }?: ExtractorOptions)
         logger: import("../types").Logger;
     };
     cleanupBeforeExit: typeof cleanupBeforeExit;
-    loadGui: (props: GuiOptions) => Promise<GuiProjectInfo | null>;
-    loadGuiSync: (props: GuiOptions) => GuiProjectInfo | null;
-    getGui(): import("@hanzogui/web").GuiInternalConfig | null | undefined;
+    loadHanzogui: (props: HanzoguiOptions) => Promise<HanzoguiProjectInfo | null>;
+    loadHanzoguiSync: (props: HanzoguiOptions) => HanzoguiProjectInfo | null;
+    getHanzogui(): import("@hanzogui/web").HanzoguiInternalConfig | null | undefined;
     parseSync: (f: FileOrPath, props: ExtractorParseProps) => {
         styled: number;
         flattened: number;

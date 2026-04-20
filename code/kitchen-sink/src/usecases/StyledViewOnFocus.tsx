@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, styled } from '@hanzo/gui'
+import { View, styled } from 'hanzogui'
 
 const StyledView = styled(View, {
   borderColor: 'red',

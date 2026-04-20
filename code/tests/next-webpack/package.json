@@ -1,18 +1,19 @@
 {
-  "name": "@hanzogui/next-webpack-test",
-  "version": "4.4.0",
+  "name": "next15-plus-cli-optimize",
+  "version": "2.0.0-rc.41-1776626066745",
+  "private": true,
   "workspaces": [
     "./packages/*"
   ],
   "scripts": {
-    "test": "echo skipped - needs full Next.js setup",
-    "test:web": "echo skipped",
-    "test:unit": "echo skipped",
-    "test:clean": "echo skipped"
+    "test": "vitest run",
+    "test:web": "vitest run",
+    "test:unit": "vitest run",
+    "test:clean": "git checkout packages/app/ && git clean -fd packages/app/"
   },
   "dependencies": {
     "@hanzogui/cli": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "hanzogui": "workspace:*"
   },
   "devDependencies": {
     "vitest": "4.0.4"

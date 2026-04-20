@@ -1,5 +1,5 @@
-import type { SizeTokens } from '@hanzo/gui'
-import { Button, Theme, XStack, YStack } from '@hanzo/gui'
+import type { SizeTokens } from 'hanzogui'
+import { Button, Theme, XStack, YStack } from 'hanzogui'
 import { Input, TextArea } from '@hanzogui/input'
 
 export function NewInputsDemo() {

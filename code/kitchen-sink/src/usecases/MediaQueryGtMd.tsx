@@ -1,4 +1,4 @@
-import { Text, useMedia, YStack } from '@hanzo/gui'
+import { Text, useMedia, YStack } from 'hanzogui'
 
 /**
  * Test case for media query regression bug (started in 1.132.17)

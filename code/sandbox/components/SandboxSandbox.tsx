@@ -12,14 +12,14 @@ import {
   XStack,
   YStack,
   useThemeName,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { PopoverDemo } from '../../demos/src/PopoverDemo'
 import { DialogDemo } from '../../demos/src/DialogDemo'
 import { TestPopoverTransformOrigin } from '../use-cases/TestPopoverTransformOrigin'
-import { animationsMotion } from '../config/gui/animationMotion'
-import { animationsCSS } from '../config/gui/animationsCSS'
-import { animationsNative } from '../config/gui/animationNative'
+import { animationsMotion } from '../config/hanzogui/animationMotion'
+import { animationsCSS } from '../config/hanzogui/animationsCSS'
+import { animationsNative } from '../config/hanzogui/animationNative'
 
 const delayColors = ['red', 'green', 'blue', 'purple'] as const
 

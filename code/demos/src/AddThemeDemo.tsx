@@ -1,7 +1,7 @@
 import { addTheme } from '@hanzogui/theme'
 import React from 'react'
 
-import { Button, H3, Theme, View, YStack } from '@hanzo/gui'
+import { Button, H3, Theme, View, YStack } from 'hanzogui'
 
 export function AddThemeDemo() {
   const [theme, setTheme] = React.useState<any>()

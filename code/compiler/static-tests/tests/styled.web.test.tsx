@@ -7,7 +7,7 @@ import { join } from 'node:path'
 import { extractForWeb } from './lib/extract'
 
 Error.stackTraceLimit = Number.MAX_SAFE_INTEGER
-process.env.GUI_TARGET = 'web'
+process.env.TAMAGUI_TARGET = 'web'
 window['React'] = React
 
 describe('styled() tests', () => {

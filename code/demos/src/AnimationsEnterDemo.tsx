@@ -1,7 +1,7 @@
 import React from 'react'
 import { LogoIcon } from '@hanzogui/logo'
 
-import { Button, Square, YStack, isWeb } from '@hanzo/gui'
+import { Button, Square, YStack, isWeb } from 'hanzogui'
 
 import { useIsIntersecting } from './useOnIntersecting'
 

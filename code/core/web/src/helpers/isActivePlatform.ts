@@ -5,11 +5,11 @@ import { currentPlatform, isAndroid, isIos, isTV } from '@hanzogui/constants'
  * platform selectors reliably override more general ones regardless of the order
  * props are declared.
  *
- * Cascade (low -> high importance):
- *   $platform-native / $platform-web         -> bump 0  (widest)
- *   $platform-android / $platform-ios        -> bump 1  (OS-specific)
- *   $platform-tv                             -> bump 2  (TV subset of Android/iOS)
- *   $platform-androidtv / $platform-tvos     -> bump 3  (most specific)
+ * Cascade (low → high importance):
+ *   $platform-native / $platform-web         → bump 0  (widest)
+ *   $platform-android / $platform-ios        → bump 1  (OS-specific)
+ *   $platform-tv                             → bump 2  (TV subset of Android/iOS)
+ *   $platform-androidtv / $platform-tvos     → bump 3  (most specific)
  *
  * @param mediaKeyShort - Platform media key without the leading '$' (e.g. 'platform-tv', 'platform-androidtv')
  */
@@ -31,8 +31,8 @@ export function isActivePlatform(key: string) {
     platform === currentPlatform ||
     // native matches all non-web platforms (iOS, Android, tvOS, Android TV)
     (platform === 'native' && currentPlatform !== 'web') ||
-    // GUI_TARGET fallback (web or native build target)
-    platform === process.env.GUI_TARGET ||
+    // TAMAGUI_TARGET fallback (web or native build target)
+    platform === process.env.TAMAGUI_TARGET ||
     // tv matches both Android TV and tvOS
     (platform === 'tv' && isTV) ||
     // androidtv matches Android TV specifically

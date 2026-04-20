@@ -1,6 +1,6 @@
 import * as Demos from '@hanzogui/demos'
 import { createParam } from 'solito'
-import { H1, Spacer, YStack } from '@hanzo/gui'
+import { H1, Spacer, YStack } from 'hanzogui'
 
 const { useParam } = createParam<{ id: string }>()
 
@@ -61,10 +61,9 @@ export function DemoScreen() {
       items="center"
       bg="$background"
       gap="$4"
+      p="$4"
     >
-      <YStack minW={200} maxW={600} items="center" p="$10" rounded="$6">
-        <DemoComponent />
-      </YStack>
+      <DemoComponent />
     </YStack>
   )
 }

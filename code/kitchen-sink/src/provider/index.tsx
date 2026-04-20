@@ -1,18 +1,18 @@
-import type { GuiProviderProps } from '@hanzo/gui'
-import { GuiProvider } from '@hanzo/gui'
-import { ToastProvider } from '@hanzogui/toast'
+import type { HanzoguiProviderProps } from 'hanzogui'
+import { HanzoguiProvider } from 'hanzogui'
 
-import config from '../gui.config'
+import config from '../hanzogui.config'
+import { useInsets } from './useInsets'
 
 export function Provider({
   children,
   ...rest
-}: Omit<Partial<GuiProviderProps>, 'config'>) {
+}: Omit<Partial<HanzoguiProviderProps>, 'config'>) {
+  const insets = useInsets()
+
   return (
-    <GuiProvider config={config} defaultTheme="light" {...rest}>
-      <ToastProvider swipeDirection="horizontal" duration={5000}>
-        {children}
-      </ToastProvider>
-    </GuiProvider>
+    <HanzoguiProvider config={config} defaultTheme="light" insets={insets} {...rest}>
+      {children}
+    </HanzoguiProvider>
   )
 }

@@ -5,8 +5,9 @@
 import { composeEventHandlers } from '@hanzogui/helpers'
 import { getGestureHandler } from '@hanzogui/native'
 import React, { useRef } from 'react'
+import { Platform, View } from 'react-native'
 import { useMainThreadPressEvents } from './helpers/mainThreadPressEvents'
-import type { StaticConfig, GuiComponentStateRef } from './types'
+import type { StaticConfig, HanzoguiComponentStateRef } from './types'
 
 // web events not used on native
 export function getWebEvents() {
@@ -16,7 +17,7 @@ export function getWebEvents() {
 export function useEvents(
   events: any,
   viewProps: any,
-  stateRef: { current: GuiComponentStateRef },
+  stateRef: { current: HanzoguiComponentStateRef },
   staticConfig: StaticConfig,
   isHOC?: boolean,
   isInsideNativeMenu?: boolean,
@@ -77,7 +78,7 @@ export function useEvents(
   // _internalInstanceHandle on a null native view). By passing events down, the inner
   // component handles gesture detection at its own level.
   //
-  // Composite component special case - when styled() wraps a non-Tamagui component
+  // Composite component special case - when styled() wraps a non-Hanzogui component
   // (e.g. React.forwardRef), the elementType becomes that composite component.
   // GestureDetector/responder wrapping around a composite component breaks during
   // re-renders triggered by pressStyle state changes (the gesture/responder loses
@@ -153,14 +154,6 @@ export function useEvents(
       }
       // TODO update viewProps.hitSlop / events.delayLongPress!
 
-      // Claim responder to block parent RN Pressable/TouchableOpacity from firing.
-      // RNGH handles the actual press, but we need to tell the responder system
-      // that we're handling this touch to prevent it bubbling to parent pressables.
-      if (hasPressEvents) {
-        viewProps.onStartShouldSetResponder = () => true
-        viewProps.onResponderTerminationRequest = () => false
-      }
-
       return gestureRef.current
     }
 
@@ -175,7 +168,7 @@ export function useEvents(
 export function wrapWithGestureDetector(
   content: any,
   gesture: any,
-  stateRef: { current: GuiComponentStateRef },
+  stateRef: { current: HanzoguiComponentStateRef },
   isHOC?: boolean,
   isCompositeComponent?: boolean
 ) {
@@ -202,5 +195,33 @@ export function wrapWithGestureDetector(
     return content
   }
 
-  return React.createElement(GestureDetector, { gesture: gestureToUse }, content)
+  const detector = React.createElement(
+    GestureDetector,
+    { gesture: gestureToUse },
+    content
+  )
+
+  // wrap in a responder-claiming View OUTSIDE the GestureDetector.
+  // this blocks parent RN Pressable/TouchableOpacity from firing when
+  // a press lands on this component, without causing the RNGH deadlock
+  // that happens when responder claims are applied to a view inside
+  // the gesture-managed subtree (RNGH intercepts UIManager.setJSResponder
+  // globally — when the claimant is one of its own gesture targets it
+  // creates a coordination conflict, especially at scale on first mount).
+  return React.createElement(
+    View,
+    {
+      collapsable: false,
+      // display: contents keeps the wrapper transparent to layout (new arch /
+      // Fabric) so it doesn't become an extra flex child and shift siblings.
+      style: responderWrapperStyle,
+      onStartShouldSetResponder: responderClaim,
+      onResponderTerminationRequest: responderDeny,
+    },
+    detector
+  )
 }
+
+const responderClaim = () => true
+const responderDeny = () => false
+const responderWrapperStyle = { display: 'contents' } as const

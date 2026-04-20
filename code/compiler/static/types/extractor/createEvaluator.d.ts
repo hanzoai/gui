@@ -1,8 +1,8 @@
 import type { NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import type { GuiOptionsWithFileInfo } from '../types';
+import type { HanzoguiOptionsWithFileInfo } from '../types';
 export declare function createEvaluator({ props, staticNamespace, sourcePath, traversePath, shouldPrintDebug, }: {
-    props: GuiOptionsWithFileInfo;
+    props: HanzoguiOptionsWithFileInfo;
     staticNamespace: Record<string, any>;
     sourcePath?: string;
     traversePath?: NodePath<t.JSXElement>;

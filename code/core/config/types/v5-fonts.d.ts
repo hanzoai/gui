@@ -24,8 +24,8 @@ export declare const createSystemFont: <A extends GenericFont>({ font, sizeLineH
     sizeSize?: (size: number) => number;
 }) => FillInFont<A, keyof typeof webSizes>;
 export declare const fonts: {
-    body: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
-    heading: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 13 | 4 | 7 | 8 | 12 | 14 | "true" | 11>;
+    body: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
+    heading: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
 };
 export type V5Fonts = typeof fonts;
 export {};

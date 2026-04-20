@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "license": "MIT",
   "files": [
     "src",
@@ -26,10 +26,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzo-gui-build --skip-native",
-    "watch": "hanzo-gui-build --skip-native --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/fake-react-native": "workspace:*",
@@ -45,12 +45,14 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "vite": "^8.0.0"
+    "vite": "^8.0.3"
   },
   "peerDependencies": {
-    "vite": "*"
+    "vite": "*8.0.3"
   },
-  "hanzo-gui-build": {
-    "skipEnvToMeta": true
+  "hanzogui": {
+    "build": {
+      "skipEnvToMeta": true
+    }
   }
 }

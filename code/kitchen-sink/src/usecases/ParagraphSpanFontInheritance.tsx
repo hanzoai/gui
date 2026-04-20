@@ -1,4 +1,4 @@
-import { Paragraph, SizableText, Span, Text } from '@hanzo/gui'
+import { Paragraph, SizableText, Span, Text } from 'hanzogui'
 
 // Test case: Span inside Paragraph should inherit fontFamily
 // Issue: When Span is nested inside Paragraph with fontFamily="$mono",

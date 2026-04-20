@@ -1,4 +1,4 @@
-import { H1, Label, Text, styled } from '@hanzo/gui'
+import { H1, Label, Text, styled } from 'hanzogui'
 
 const X1 = styled(Label, {
   name: 'MyLabel',

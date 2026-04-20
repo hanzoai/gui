@@ -1,5 +1,5 @@
 import React from "react";
-import { type ThemeName } from "@hanzo/gui";
+import { type ThemeName } from "hanzogui";
 export declare const onTintChange: (listener: (cur: number) => void) => () => void;
 export declare const setTintIndex: (next: number) => void;
 export declare const setDisableTintTheme: (disable: boolean) => void;
@@ -19,7 +19,7 @@ export declare const useTint: (altOffset?: number) => {
 	disableTintTheme: boolean;
 	name: string;
 	families: {
-		gui: string[];
+		hanzogui: string[];
 		xmas: string[];
 		easter: string[];
 		halloween: string[];

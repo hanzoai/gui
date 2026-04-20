@@ -1,6 +1,6 @@
 /**
  * Tests compiler extraction with theme functionality and performance.
- * Runs hanzo-gui build to generate .native.tsx before testing.
+ * Runs hanzogui build to generate .native.tsx before testing.
  */
 
 import * as assert from 'assert'
@@ -9,6 +9,7 @@ import { unlinkSync, existsSync } from 'fs'
 import { by, device, element, expect, waitFor } from 'detox'
 import { navigateToTestCase } from './utils/navigation'
 import { getDominantColor, isBlueish, formatRGB } from './utils/colors'
+import { safeLaunchApp, safeReloadApp } from './utils/detox'
 
 const SOURCE_FILE = 'src/usecases/CompilerExtraction.tsx'
 const NATIVE_FILE = 'src/usecases/CompilerExtraction.native.tsx'
@@ -21,19 +22,19 @@ describe('CompilerExtraction', () => {
       unlinkSync(NATIVE_FILE)
     }
 
-    // run hanzo-gui build to generate optimized .native.tsx
-    console.log('Running hanzo-gui build...')
+    // run hanzogui build to generate optimized .native.tsx
+    console.log('Running hanzogui build...')
     execSync(
-      `npx hanzo-gui build ${SOURCE_FILE} --target native --output-around --expect-optimizations ${EXPECTED_OPTIMIZATIONS}`,
+      `npx hanzogui build ${SOURCE_FILE} --target native --output-around --expect-optimizations ${EXPECTED_OPTIMIZATIONS}`,
       { stdio: 'inherit' }
     )
     console.log('Build complete, .native.tsx generated')
 
-    await device.launchApp({ newInstance: true })
+    await safeLaunchApp({ newInstance: true })
   })
 
   it('should render and respond to theme changes', async () => {
-    await device.reloadReactNative()
+    await safeReloadApp()
     await navigateToTestCase('CompilerExtraction', 'compiler-extraction-root')
     await new Promise((r) => setTimeout(r, 300))
 
@@ -88,7 +89,7 @@ describe('CompilerExtraction', () => {
   })
 
   it('should benchmark optimized vs non-optimized (best of 3)', async () => {
-    await device.reloadReactNative()
+    await safeReloadApp()
     await navigateToTestCase('CompilerExtraction', 'compiler-extraction-root')
     await new Promise((r) => setTimeout(r, 300))
 

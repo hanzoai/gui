@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { ScrollView as RNScrollView } from 'react-native'
-import { Button, Sheet, Text, YStack } from '@hanzo/gui'
+import { Button, Sheet, Text, YStack } from 'hanzogui'
 import { getGestureHandler } from '@hanzogui/native'
 
 /**

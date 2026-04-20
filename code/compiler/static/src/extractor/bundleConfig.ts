@@ -7,17 +7,17 @@ import { basename, dirname, extname, join, relative, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 // @ts-ignore why
 import { Color, colorLog } from '@hanzogui/cli-color'
-import { type StaticConfig, type GuiInternalConfig } from '@hanzogui/web'
+import { type StaticConfig, type HanzoguiInternalConfig } from '@hanzogui/web'
 import esbuild from 'esbuild'
 import * as FS from 'fs-extra'
 import { readFile } from 'node:fs/promises'
 import { registerRequire, setRequireResult } from '../registerRequire'
-import type { GuiOptions } from '../types'
+import type { HanzoguiOptions } from '../types'
 import { babelParse } from './babelParse'
-import { esbuildLoaderConfig, esbundleGuiConfig } from './bundle'
-import { getGuiConfigPathFromOptionsConfig } from './getGuiConfigPathFromOptionsConfig'
+import { esbuildLoaderConfig, esbundleHanzoguiConfig } from './bundle'
+import { getHanzoguiConfigPathFromOptionsConfig } from './getHanzoguiConfigPathFromOptionsConfig'
 import { hasTopLevelAwait } from './hasTopLevelAwait'
-import { requireGuiCore } from '../helpers/requireGuiCore'
+import { requireHanzoguiCore } from '../helpers/requireHanzoguiCore'
 import { detectModuleFormat } from './detectModuleFormat'
 
 // track temp files for cleanup on exit
@@ -33,7 +33,7 @@ function getDynamicEvalOutfile(name: string, format: 'esm' | 'cjs', contents: st
     .update(contents)
     .digest('hex')
     .slice(0, 10)
-  return join(process.cwd(), '.gui', `dynamic-eval-${hash}-${basename(name)}.${ext}`)
+  return join(process.cwd(), '.hanzogui', `dynamic-eval-${hash}-${basename(name)}.${ext}`)
 }
 
 function getEsbuildStdinLoader(filePath: string): esbuild.Loader {
@@ -99,9 +99,9 @@ export type LoadedComponents = {
   >
 }
 
-export type GuiProjectInfo = {
+export type HanzoguiProjectInfo = {
   components?: LoadedComponents[]
-  guiConfig?: GuiInternalConfig | null
+  hanzoguiConfig?: HanzoguiInternalConfig | null
   nameToPaths?: NameToPaths
   cached?: boolean
 }
@@ -134,7 +134,7 @@ const handleEsmFeaturesPlugin: esbuild.Plugin = {
       }
 
       // skip most node_modules
-      if (args.path.includes('node_modules') && !args.path.includes('@gui')) {
+      if (args.path.includes('node_modules') && !args.path.includes('@hanzogui')) {
         return null
       }
 
@@ -161,8 +161,8 @@ const handleEsmFeaturesPlugin: esbuild.Plugin = {
 
       // stub files with top-level await - they're typically runtime-only
       if (hasTopLevelAwait(contents, args.path)) {
-        if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
-          console.info(`[hanzo-gui] stubbing file with top-level await: ${args.path}`)
+        if (process.env.DEBUG?.startsWith('hanzogui')) {
+          console.info(`[hanzogui] stubbing file with top-level await: ${args.path}`)
         }
         return {
           // Keep this as an ESM-shaped stub so esbuild doesn't inline a top-level
@@ -226,11 +226,11 @@ export function hasBundledConfigChanged() {
   return true
 }
 
-let loadedConfig: GuiInternalConfig | null = null
+let loadedConfig: HanzoguiInternalConfig | null = null
 
 export const getLoadedConfig = () => loadedConfig
 
-export async function getBundledConfig(props: GuiOptions, rebuild = false) {
+export async function getBundledConfig(props: HanzoguiOptions, rebuild = false) {
   if (isBundling) {
     await new Promise((res) => {
       waitForBundle.add(res)
@@ -241,11 +241,11 @@ export async function getBundledConfig(props: GuiOptions, rebuild = false) {
   return currentBundle
 }
 
-global.guiLastLoaded ||= 0
+global.hanzoguiLastLoaded ||= 0
 
 function updateLastLoaded(config: any) {
-  global.guiLastLoaded = Date.now()
-  global.guiLastBundledConfig = config
+  global.hanzoguiLastLoaded = Date.now()
+  global.hanzoguiLastBundledConfig = config
 }
 
 let hasBundledOnce = false
@@ -255,24 +255,24 @@ let hasBundledOnce = false
 // that's acceptable - better than nothing
 let hasLoggedBuild = false
 
-export async function bundleConfig(props: GuiOptions) {
+export async function bundleConfig(props: HanzoguiOptions) {
   // webpack is calling this a ton for no reason
-  if (global.guiLastBundledConfig && Date.now() - global.guiLastLoaded < 3000) {
+  if (global.hanzoguiLastBundledConfig && Date.now() - global.hanzoguiLastLoaded < 3000) {
     // just loaded recently
-    return global.guiLastBundledConfig
+    return global.hanzoguiLastBundledConfig
   }
 
   try {
     isBundling = true
 
     const configEntry = props.config
-      ? getGuiConfigPathFromOptionsConfig(props.config)
+      ? getHanzoguiConfigPathFromOptionsConfig(props.config)
       : ''
-    const tmpDir = join(process.cwd(), '.gui')
+    const tmpDir = join(process.cwd(), '.hanzogui')
     // detect module format from config entry point
     const configFormat = configEntry ? detectModuleFormat(configEntry) : 'cjs'
     const configExt = configFormat === 'esm' ? '.mjs' : '.cjs'
-    const configOutPath = join(tmpDir, `gui.config${configExt}`)
+    const configOutPath = join(tmpDir, `hanzogui.config${configExt}`)
     const baseComponents = (props.components || []).filter((x) => x !== '@hanzogui/core')
     // detect format per component module
     const componentFormats: Array<'esm' | 'cjs'> = baseComponents.map((mod) => {
@@ -297,7 +297,7 @@ export async function bundleConfig(props: GuiOptions) {
 
     if (
       process.env.NODE_ENV === 'development' &&
-      process.env.DEBUG?.startsWith('@hanzo/gui')
+      process.env.DEBUG?.startsWith('hanzogui')
     ) {
       console.info(`Building config entry`, configEntry)
     }
@@ -336,7 +336,7 @@ export async function bundleConfig(props: GuiOptions) {
 
       await Promise.all([
         props.config
-          ? esbundleGuiConfig(
+          ? esbundleHanzoguiConfig(
               {
                 entryPoints: [configEntry],
                 external,
@@ -349,7 +349,7 @@ export async function bundleConfig(props: GuiOptions) {
             )
           : null,
         ...baseComponents.map((componentModule, i) => {
-          return esbundleGuiConfig(
+          return esbundleHanzoguiConfig(
             {
               entryPoints: [componentModule],
               resolvePlatformSpecificEntries: true,
@@ -371,10 +371,10 @@ export async function bundleConfig(props: GuiOptions) {
         colorLog(
           Color.FgYellow,
           `
-  ➡ [hanzo-gui] built config, components, prompt (${Date.now() - start}ms)`
+  ➡ [hanzogui] built config, components, prompt (${Date.now() - start}ms)`
         )
 
-        if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
+        if (process.env.DEBUG?.startsWith('hanzogui')) {
           colorLog(
             Color.Dim,
             `
@@ -427,20 +427,20 @@ export async function bundleConfig(props: GuiOptions) {
     // check for ProxyWorm - indicates a module loading error
     if (config._isProxyWorm) {
       throw new Error(
-        `Got a proxied config - likely a module loading error. Set DEBUG=hanzo-gui for details.`
+        `Got a proxied config - likely a module loading error. Set DEBUG=hanzogui for details.`
       )
     }
 
     loadedConfig = config
 
     if (!config.parsed) {
-      const { createGui } = requireGuiCore(props.platform || 'web')
+      const { createHanzogui } = requireHanzoguiCore(props.platform || 'web')
       // need to create it
-      config = createGui(config)
+      config = createHanzogui(config)
     }
 
     if (props.outputCSS) {
-      await writeGuiCSS(props.outputCSS, config)
+      await writeHanzoguiCSS(props.outputCSS, config)
     }
 
     let components = await loadComponents({
@@ -459,7 +459,7 @@ export async function bundleConfig(props: GuiOptions) {
         component.moduleName
 
       if (!component.moduleName) {
-        if (process.env.DEBUG?.includes('@hanzo/gui') || process.env.IS_GUI_DEV) {
+        if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_TAMAGUI_DEV) {
           console.warn(
             `⚠️ no module name found: ${component.moduleName} ${JSON.stringify(
               baseComponents
@@ -471,7 +471,7 @@ export async function bundleConfig(props: GuiOptions) {
 
     if (
       process.env.NODE_ENV === 'development' &&
-      process.env.DEBUG?.startsWith('@hanzo/gui')
+      process.env.DEBUG?.startsWith('hanzogui')
     ) {
       console.info('Loaded components', components)
     }
@@ -479,7 +479,7 @@ export async function bundleConfig(props: GuiOptions) {
     const res = {
       components,
       nameToPaths: {},
-      guiConfig: config,
+      hanzoguiConfig: config,
     }
 
     currentBundle = res
@@ -488,9 +488,9 @@ export async function bundleConfig(props: GuiOptions) {
     return res
   } catch (err: any) {
     console.error(
-      `Error bundling gui config: ${err?.message} (run with DEBUG=hanzo-gui to see stack)`
+      `Error bundling hanzogui config: ${err?.message} (run with DEBUG=hanzogui to see stack)`
     )
-    if (process.env.DEBUG?.includes('@hanzo/gui')) {
+    if (process.env.DEBUG?.includes('hanzogui')) {
       console.error(err.stack)
     }
   } finally {
@@ -500,9 +500,9 @@ export async function bundleConfig(props: GuiOptions) {
   }
 }
 
-export async function writeGuiCSS(outputCSS: string, config: GuiInternalConfig) {
+export async function writeHanzoguiCSS(outputCSS: string, config: HanzoguiInternalConfig) {
   const flush = async () => {
-    colorLog(Color.FgYellow, `  ➡ [hanzo-gui] output css: ${outputCSS}`)
+    colorLog(Color.FgYellow, `  ➡ [hanzogui] output css: ${outputCSS}`)
     await FS.writeFile(outputCSS, css)
   }
 
@@ -521,19 +521,19 @@ export async function writeGuiCSS(outputCSS: string, config: GuiInternalConfig) 
   }
 }
 
-export async function loadComponents(props: GuiOptions, forceExports = false) {
+export async function loadComponents(props: HanzoguiOptions, forceExports = false) {
   const coreComponents = getCoreComponentsSync(props)
   const otherComponents = await loadComponentsInner(props, forceExports)
   return [...coreComponents, ...(otherComponents || [])]
 }
 
-export function loadComponentsSync(props: GuiOptions, forceExports = false) {
+export function loadComponentsSync(props: HanzoguiOptions, forceExports = false) {
   const coreComponents = getCoreComponentsSync(props)
   const otherComponents = loadComponentsInnerSync(props, forceExports)
   return [...coreComponents, ...(otherComponents || [])]
 }
 
-function getCoreComponentsSync(props: GuiOptions) {
+function getCoreComponentsSync(props: HanzoguiOptions) {
   const loaded = loadComponentsInnerSync({
     ...props,
     components: ['@hanzogui/core'],
@@ -553,7 +553,7 @@ function getCoreComponentsSync(props: GuiOptions) {
 }
 
 export async function loadComponentsInner(
-  props: GuiOptions,
+  props: HanzoguiOptions,
   forceExports = false
 ): Promise<null | LoadedComponents[]> {
   const componentsModules = props.components || []
@@ -624,7 +624,7 @@ export async function loadComponentsInner(
           })
         }
 
-        if (process.env.DEBUG === '@hanzo/gui') {
+        if (process.env.DEBUG === 'hanzogui') {
           console.info(`loadModule`, loadModule, format)
         }
 
@@ -666,16 +666,16 @@ export async function loadComponentsInner(
       } catch (err) {
         console.info('babel err', err, writtenContents)
         writtenContents = fileContents
-        if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
+        if (process.env.DEBUG?.startsWith('hanzogui')) {
           console.info(`Error parsing babel likely`, err)
         }
 
         try {
           loaded = await attemptLoad({ forceExports: false })
         } catch (err2) {
-          if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
+          if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
             console.info(
-              `\nGui attempted but failed to dynamically optimize components in:\n  ${name}\n`
+              `\nHanzogui attempted but failed to dynamically optimize components in:\n  ${name}\n`
             )
             console.info(err2)
             console.info(
@@ -703,7 +703,7 @@ export async function loadComponentsInner(
     cacheComponents[key] = results
     return results
   } catch (err: any) {
-    console.info(`Gui error bundling components`, err.message, err.stack)
+    console.info(`Hanzogui error bundling components`, err.message, err.stack)
     return null
   } finally {
     unregister()
@@ -712,7 +712,7 @@ export async function loadComponentsInner(
 
 // sync version - uses cjs format for buildSync (no plugin support)
 export function loadComponentsInnerSync(
-  props: GuiOptions,
+  props: HanzoguiOptions,
   forceExports = false
 ): null | LoadedComponents[] {
   const componentsModules = props.components || []
@@ -779,7 +779,7 @@ export function loadComponentsInnerSync(
           })
         }
 
-        if (process.env.DEBUG === '@hanzo/gui') {
+        if (process.env.DEBUG === 'hanzogui') {
           console.info(`loadModule`, loadModule, require.resolve(loadModule))
         }
 
@@ -814,7 +814,7 @@ export function loadComponentsInnerSync(
       } catch (err) {
         console.info('babel err', err, writtenContents)
         writtenContents = fileContents
-        if (process.env.DEBUG?.startsWith('@hanzo/gui')) {
+        if (process.env.DEBUG?.startsWith('hanzogui')) {
           console.info(`Error parsing babel likely`, err)
         }
       } finally {
@@ -824,9 +824,9 @@ export function loadComponentsInnerSync(
       try {
         return attemptLoad({ forceExports: false })
       } catch (err) {
-        if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
+        if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
           console.info(
-            `\nGui attempted but failed to dynamically optimize components in:\n  ${name}\n`
+            `\nHanzogui attempted but failed to dynamically optimize components in:\n  ${name}\n`
           )
           console.info(err)
           console.info(
@@ -846,7 +846,7 @@ export function loadComponentsInnerSync(
     cacheComponents[key] = info
     return info
   } catch (err: any) {
-    console.info(`Gui error bundling components`, err.message, err.stack)
+    console.info(`Hanzogui error bundling components`, err.message, err.stack)
     return null
   } finally {
     unregister()
@@ -874,7 +874,7 @@ function getComponentStaticConfigByName(name: string, exported: any) {
     }
 
     for (const key in exported) {
-      const found = getGuiComponent(key, exported[key])
+      const found = getHanzoguiComponent(key, exported[key])
       if (found) {
         // remove non-stringifyable
         const { Component, ...sc } = found.staticConfig
@@ -882,9 +882,9 @@ function getComponentStaticConfigByName(name: string, exported: any) {
       }
     }
   } catch (err) {
-    if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
+    if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
       console.error(
-        `Gui failed getting components from ${name} (Disable error by setting environment variable GUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
+        `Hanzogui failed getting components from ${name} (Disable error by setting environment variable TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
       )
       console.error(err)
     }
@@ -892,7 +892,7 @@ function getComponentStaticConfigByName(name: string, exported: any) {
   return components
 }
 
-function getGuiComponent(
+function getHanzoguiComponent(
   name: string,
   Component: any
 ): undefined | { staticConfig: StaticConfig } {

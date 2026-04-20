@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
-import { AnimatePresence, YStack, isClient, useDidFinishSSR } from '@hanzo/gui'
+import { AnimatePresence, YStack, isClient, useDidFinishSSR } from 'hanzogui'
 
 /**
  * Test case for motion hydration regression.
- * This mimics the HomeGlow pattern on gui.hanzo.ai:
+ * This mimics the HomeGlow pattern on hanzogui.dev:
  * - AnimatePresence wrapping animated elements
  * - enterStyle for initial state
  * - transition for animations

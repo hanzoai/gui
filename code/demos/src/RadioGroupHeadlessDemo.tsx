@@ -10,7 +10,7 @@ import {
 import { RovingFocusGroup } from '@hanzogui/roving-focus'
 import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { isWeb, useTheme } from '@hanzo/gui'
+import { isWeb, useTheme } from 'hanzogui'
 
 const RadioGroupContext = React.createContext<RadioGroupContextValue>({})
 const RadioGroupItemContext = React.createContext<RadioGroupItemContextValue>({

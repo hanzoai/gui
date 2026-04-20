@@ -1,6 +1,6 @@
 import { View, styled } from '@hanzogui/core'
 import { createSwitch } from '@hanzogui/switch'
-import { Label, XStack, YStack } from '@hanzo/gui'
+import { Label, XStack, YStack } from 'hanzogui'
 
 const Frame = styled(View, {
   width: 40,

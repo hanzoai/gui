@@ -16,7 +16,7 @@
  *   - $platform-web should NOT apply
  */
 
-import { View, createTamagui } from '@tamagui/core'
+import { View, createHanzogui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 // Set TAMAGUI_TARGET before importing getSplitStyles
@@ -25,12 +25,12 @@ process.env.TAMAGUI_TARGET = 'native'
 // Import directly from source so mocks apply
 import { getSplitStyles } from '../web/src/helpers/getSplitStyles'
 
-// Mock @tamagui/constants to simulate tvOS environment:
+// Mock @hanzogui/constants to simulate tvOS environment:
 // - isIos: true (Platform.OS === 'ios')
 // - isTV: true (Platform.isTV === true)
 // - isAndroid: false
-vi.mock('@tamagui/constants', async () => {
-  const actual = await vi.importActual('@tamagui/constants')
+vi.mock('@hanzogui/constants', async () => {
+  const actual = await vi.importActual('@hanzogui/constants')
   return {
     ...actual,
     isIos: true,
@@ -45,7 +45,7 @@ vi.mock('@tamagui/constants', async () => {
 import config from '../config-default'
 
 beforeAll(() => {
-  createTamagui(config.getDefaultTamaguiConfig('native'))
+  createHanzogui(config.getDefaultHanzoguiConfig('native'))
 })
 
 function getSplitStylesFor(props: Record<string, any>, Component = View) {

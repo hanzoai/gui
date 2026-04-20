@@ -4,8 +4,8 @@ import * as t from '@babel/types'
 import { mergeProps, StyleObjectIdentifier, StyleObjectRules } from '@hanzogui/web'
 import * as path from 'node:path'
 import * as util from 'node:util'
-import { requireGuiCore } from '../helpers/requireGuiCore'
-import type { StyleObject, GuiOptions, Ternary } from '../types'
+import { requireHanzoguiCore } from '../helpers/requireHanzoguiCore'
+import type { StyleObject, HanzoguiOptions, Ternary } from '../types'
 import { babelParse } from './babelParse'
 import type { Extractor } from './createExtractor'
 import { createLogger } from './createLogger'
@@ -37,7 +37,7 @@ export type ExtractToClassNamesProps = {
   extractor: Extractor
   source: string | Buffer
   sourcePath?: string
-  options: GuiOptions
+  options: HanzoguiOptions
   shouldPrintDebug: boolean | 'verbose'
 }
 
@@ -55,7 +55,7 @@ export async function extractToClassNames({
   shouldPrintDebug,
 }: ExtractToClassNamesProps): Promise<ExtractedResponse | null> {
   const tm = timer()
-  const { getCSSStylesAtomic, createMediaStyle } = requireGuiCore('web')
+  const { getCSSStylesAtomic, createMediaStyle } = requireHanzoguiCore('web')
 
   if (sourcePath.includes('node_modules')) {
     return null
@@ -78,9 +78,9 @@ export async function extractToClassNames({
     console.warn(`${sourcePath.slice(0, 100)} - bad filename.`)
   }
 
-  if (!options.disableExtraction && !options['_disableLoadGui']) {
+  if (!options.disableExtraction && !options['_disableLoadHanzogui']) {
     // dont include loading in timing of parsing (one time cost)
-    await extractor.loadGui(options)
+    await extractor.loadHanzogui(options)
   }
 
   const printLog = createLogger(sourcePath, options)
@@ -98,7 +98,7 @@ export async function extractToClassNames({
   tm.mark(`babel-parse`, shouldPrintDebug === 'verbose')
 
   const cssMap = new Map<string, { css: string; commentTexts: string[] }>()
-  const guiConfig = extractor.getGui()!
+  const hanzoguiConfig = extractor.getHanzogui()!
 
   const res = await extractor.parse(ast, {
     shouldPrintDebug,
@@ -208,7 +208,7 @@ export async function extractToClassNames({
             const mediaStyle = createMediaStyle(
               style,
               mediaName,
-              extractor.getGui()!.media,
+              extractor.getHanzogui()!.media,
               mediaType,
               false,
               mediaStylesSeen
@@ -218,11 +218,11 @@ export async function extractToClassNames({
             continue
           }
 
-          if (mediaName in guiConfig.media) {
+          if (mediaName in hanzoguiConfig.media) {
             const mediaStyle = createMediaStyle(
               style,
               mediaName,
-              extractor.getGui()!.media,
+              extractor.getHanzogui()!.media,
               true,
               false,
               mediaStylesSeen
@@ -284,7 +284,7 @@ export async function extractToClassNames({
             parserProps,
             attr.value,
             jsxPath,
-            extractor.getGui()!,
+            extractor.getHanzogui()!,
             sourcePath || '',
             mediaStylesSeen++,
             shouldPrintDebug

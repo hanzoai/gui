@@ -1,6 +1,6 @@
 const { getDefaultConfig } = require('expo/metro-config')
 const path = require('path')
-const { withGui } = require('@hanzogui/metro-plugin')
+const { withHanzogui } = require('@hanzogui/metro-plugin')
 // Find the project and workspace directories
 const projectRoot = __dirname
 // This can be replaced with `find-yarn-workspace-root`
@@ -9,11 +9,11 @@ const monorepoRoot = path.resolve(projectRoot, '../..')
 const config = getDefaultConfig(projectRoot)
 
 config.resolver.unstable_enablePackageExports =
-  process.env.GUI_PACKAGE_EXPORTS !== 'false'
+  process.env.TAMAGUI_PACKAGE_EXPORTS !== 'false'
 
 // block unnecessary directories from metro file crawling
 config.resolver.blockList = [
-  /code\/gui\.dev\//,
+  /code\/hanzogui\.dev\//,
   /code\/.*\/__tests__\//,
   /code\/.*\/\.maestro\//,
 ]
@@ -58,7 +58,7 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   }
 }
 
-module.exports = withGui(config, {
-  components: ['@hanzo/gui'],
-  config: './src/gui.config.ts',
+module.exports = withHanzogui(config, {
+  components: ['hanzogui'],
+  config: './src/hanzogui.config.ts',
 })

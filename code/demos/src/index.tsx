@@ -1,5 +1,5 @@
-// Include gui config types for proper type checking
-import type {} from './gui.config'
+// Include hanzogui config types for proper type checking
+import type {} from './hanzogui.config'
 
 export * from './AccordionDemo'
 export * from './AddThemeDemo'
@@ -57,6 +57,7 @@ export * from './TextDemo'
 export * from './ThemeInverseDemo'
 export * from './ToastDemo'
 export * from './ToastDuplicateDemo'
+export * from './ToastV1Demo'
 export * from './ToggleGroupDemo'
 export * from './TokensDemo'
 export * from './TooltipDemo'

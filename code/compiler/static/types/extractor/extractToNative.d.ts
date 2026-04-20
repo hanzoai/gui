@@ -1,8 +1,8 @@
 import { type BabelFileResult } from '@babel/core';
-import type { GuiOptions } from '../types';
-export declare function extractToNative(sourceFileName: string, sourceCode: string, options: GuiOptions): BabelFileResult;
+import type { HanzoguiOptions } from '../types';
+export declare function extractToNative(sourceFileName: string, sourceCode: string, options: HanzoguiOptions): BabelFileResult;
 export declare function getBabelPlugin(): any;
-export declare function getBabelParseDefinition(options: GuiOptions): {
+export declare function getBabelParseDefinition(options: HanzoguiOptions): {
     name: string;
     visitor: {
         Program: {

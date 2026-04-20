@@ -2,7 +2,7 @@ import React from 'react'
 import { SelectDemo } from '@hanzogui/demos'
 
 import { StyleSheet, View } from 'react-native'
-import { Button, ListItem, Text, XStack, YStack } from '@hanzo/gui'
+import { Button, ListItem, Text, XStack, YStack } from 'hanzogui'
 
 import { TimedRender } from '../components/TimedRender'
 

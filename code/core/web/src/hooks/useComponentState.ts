@@ -13,9 +13,9 @@ import { log } from '../helpers/log'
 import type {
   ComponentContextI,
   StaticConfig,
-  GuiComponentState,
-  GuiComponentStateRef,
-  GuiInternalConfig,
+  HanzoguiComponentState,
+  HanzoguiComponentStateRef,
+  HanzoguiInternalConfig,
   TextProps,
   UseAnimationHook,
 } from '../types'
@@ -25,7 +25,7 @@ export const useComponentState = (
   props: ViewProps | TextProps | Record<string, any>,
   animationDriver: ComponentContextI['animationDriver'],
   staticConfig: StaticConfig,
-  config: GuiInternalConfig
+  config: HanzoguiInternalConfig
 ) => {
   'use no memo'
 
@@ -38,9 +38,9 @@ export const useComponentState = (
 
   const { isHOC } = staticConfig
 
-  const stateRef = useRef<GuiComponentStateRef>(
+  const stateRef = useRef<HanzoguiComponentStateRef>(
     // performance: avoid creating object every render
-    undefined as unknown as GuiComponentStateRef
+    undefined as unknown as HanzoguiComponentStateRef
   )
 
   if (!stateRef.current) {
@@ -132,7 +132,7 @@ export const useComponentState = (
   }
 
   // HOOK
-  const states = useState<GuiComponentState>(initialState)
+  const states = useState<HanzoguiComponentState>(initialState)
 
   const state = props.forceStyle ? { ...states[0], [props.forceStyle]: true } : states[0]
   const setState = states[1]

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Text, View, XStack, YStack, styled } from '@hanzo/gui'
+import { Text, View, XStack, YStack, styled } from 'hanzogui'
 
 /**
  * Test cases for native group press style behaviors:

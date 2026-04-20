@@ -126,7 +126,7 @@ Looked for theme${props.name ? ` "${props.name}"` : ''}${props.componentName ? `
 
     // check if this is a scheme-only change (light↔dark) where DynamicColorIOS handles it
     const isSchemeOnlyChange =
-      process.env.GUI_TARGET === 'native' &&
+      process.env.TAMAGUI_TARGET === 'native' &&
       isIos &&
       getSetting('fastSchemeChange') &&
       local &&
@@ -268,7 +268,7 @@ const getNextState = (
 
   if (process.env.NODE_ENV === 'development' && debug === 'verbose') {
     const message = ` · useTheme(${id}) getNextState => ${name} needsUpdate ${needsUpdate} shouldRerender ${shouldRerender}`
-    if (process.env.GUI_TARGET === 'native') {
+    if (process.env.TAMAGUI_TARGET === 'native') {
       console.info(message)
     } else {
       console.groupCollapsed(message)

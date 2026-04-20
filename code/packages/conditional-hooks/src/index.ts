@@ -22,11 +22,11 @@ import {
  * bailing out on the entire function.
  *
  * Use these ONLY for platform-specific code paths where the condition
- * is a compile-time constant (like process.env.GUI_TARGET) that
+ * is a compile-time constant (like process.env.TAMAGUI_TARGET) that
  * gets tree-shaken in platform-specific builds.
  *
  * Example:
- *   if (process.env.GUI_TARGET === 'web') {
+ *   if (process.env.TAMAGUI_TARGET === 'web') {
  *     conditionalEffect(() => { ... }, [])
  *   }
  */

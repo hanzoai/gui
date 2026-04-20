@@ -1,4 +1,4 @@
-import { Text, View } from '@hanzo/gui'
+import { Text, View } from 'hanzogui'
 
 export default function TabTwoScreen() {
   return (

@@ -20,7 +20,7 @@ type Options = {
   resolveValues?: ResolveVariableAs
 }
 
-// check if props contain media queries ($sm, $md, etc) or other complex hanzo-gui features
+// check if props contain media queries ($sm, $md, etc) or other complex hanzogui features
 function needsFullStyleResolution(props: IconProps): boolean {
   for (const key in props) {
     if (key[0] === '$') return true
@@ -33,7 +33,7 @@ export function themed(Component: FC<IconProps>, optsIn: Options = {}) {
     defaultThemeColor: process.env.DEFAULT_ICON_THEME_COLOR || '$color',
     defaultStrokeWidth: 2,
     fallbackColor: '#000',
-    resolveValues: (process.env.GUI_ICON_COLOR_RESOLVE as any) || 'auto',
+    resolveValues: (process.env.TAMAGUI_ICON_COLOR_RESOLVE as any) || 'auto',
     ...optsIn,
   }
 

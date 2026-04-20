@@ -1,4 +1,4 @@
-import type { TransitionProp, PseudoTransitions, GuiComponentState } from '../types';
+import type { TransitionProp, PseudoTransitions, HanzoguiComponentState } from '../types';
 /**
  * Pseudo state for tracking enter/exit transitions
  */
@@ -21,9 +21,9 @@ export type PseudoState = {
  * - Enter hover: Uses hover's transition (fast snap)
  * - Exit hover: Uses base transition (slow fade)
  */
-export declare function resolveEffectivePseudoTransition(prev: PseudoState | undefined, next: GuiComponentState, pseudoTransitions: PseudoTransitions | undefined | null, baseTransition: TransitionProp | undefined | null): TransitionProp | undefined | null;
+export declare function resolveEffectivePseudoTransition(prev: PseudoState | undefined, next: HanzoguiComponentState, pseudoTransitions: PseudoTransitions | undefined | null, baseTransition: TransitionProp | undefined | null): TransitionProp | undefined | null;
 /**
- * Extracts pseudo state from GuiComponentState for storage in prevPseudoState
+ * Extracts pseudo state from HanzoguiComponentState for storage in prevPseudoState
  */
-export declare function extractPseudoState(state: GuiComponentState): PseudoState;
+export declare function extractPseudoState(state: HanzoguiComponentState): PseudoState;
 //# sourceMappingURL=pseudoTransitions.d.ts.map

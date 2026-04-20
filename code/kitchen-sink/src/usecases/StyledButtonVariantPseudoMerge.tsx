@@ -1,4 +1,4 @@
-import { Button, Theme, YStack, styled } from '@hanzo/gui'
+import { Button, Theme, YStack, styled } from 'hanzogui'
 
 const StyledButton = styled(Button, {
   pressStyle: {

@@ -1,9 +1,9 @@
-import type { AnimationDriver, GenericGuiSettings, GuiInternalConfig, Token, Tokens, TokensMerged } from './types';
-export declare const getSetting: <Key extends keyof GenericGuiSettings>(key: Key) => GenericGuiSettings[Key];
-export declare const setConfig: (next: GuiInternalConfig) => void;
+import type { AnimationDriver, GenericHanzoguiSettings, HanzoguiInternalConfig, Token, Tokens, TokensMerged } from './types';
+export declare const getSetting: <Key extends keyof GenericHanzoguiSettings>(key: Key) => GenericHanzoguiSettings[Key];
+export declare const setConfig: (next: HanzoguiInternalConfig) => void;
 export declare const setConfigFont: (name: string, font: any, fontParsed: any) => void;
-export declare const getConfig: () => GuiInternalConfig;
-export declare const getConfigMaybe: () => GuiInternalConfig | null;
+export declare const getConfig: () => HanzoguiInternalConfig;
+export declare const getConfigMaybe: () => HanzoguiInternalConfig | null;
 export declare function setTokens(_: TokensMerged): void;
 export declare const getTokens: ({ prefixed, }?: {
     /**
@@ -60,7 +60,7 @@ export declare function setupDev(conf: DevConfig): void;
  *
  * @example
  * ```tsx
- * // import loadAnimationDriver from gui
+ * // import loadAnimationDriver from hanzogui
  * // import createAnimations from your preferred driver (e.g. animations-reanimated)
  *
  * const driver = createAnimations({ bouncy: { type: 'spring', damping: 10 } })

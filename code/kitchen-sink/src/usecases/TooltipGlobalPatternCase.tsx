@@ -1,4 +1,4 @@
-import { Button, Paragraph, Tooltip, TooltipGroup, YStack, XStack } from '@hanzo/gui'
+import { Button, Paragraph, Tooltip, TooltipGroup, YStack, XStack } from 'hanzogui'
 import { useState } from 'react'
 
 /**

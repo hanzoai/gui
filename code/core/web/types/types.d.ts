@@ -16,7 +16,7 @@ export type StyledContext<Props extends Record<string, any> = any> = Context<Pro
     }>;
     useStyledContext: (scope?: string) => Props;
 };
-export type GuiComponentState = {
+export type HanzoguiComponentState = {
     unmounted: boolean | 'should-enter';
     disabled?: boolean;
     hover?: boolean;
@@ -33,7 +33,7 @@ export type GuiComponentState = {
     hasDynGroupChildren?: boolean;
 };
 export type Role = 'alert' | 'alertdialog' | 'application' | 'article' | 'banner' | 'button' | 'cell' | 'checkbox' | 'columnheader' | 'combobox' | 'complementary' | 'contentinfo' | 'definition' | 'dialog' | 'directory' | 'document' | 'feed' | 'figure' | 'form' | 'grid' | 'group' | 'heading' | 'img' | 'link' | 'list' | 'listitem' | 'log' | 'main' | 'marquee' | 'math' | 'menu' | 'menubar' | 'menuitem' | 'meter' | 'navigation' | 'none' | 'note' | 'option' | 'presentation' | 'progressbar' | 'radio' | 'radiogroup' | 'region' | 'row' | 'rowgroup' | 'rowheader' | 'scrollbar' | 'searchbox' | 'separator' | 'slider' | 'spinbutton' | 'status' | 'summary' | 'switch' | 'tab' | 'table' | 'tablist' | 'tabpanel' | 'term' | 'timer' | 'toolbar' | 'tooltip' | 'tree' | 'treegrid' | 'treeitem';
-export type GuiComponentPropsBaseBase = {
+export type HanzoguiComponentPropsBaseBase = {
     target?: string;
     htmlFor?: string;
     /**
@@ -81,19 +81,19 @@ export type GuiComponentPropsBaseBase = {
      */
     render?: keyof HTMLElementTagNameMap | (string & {}) | React.ReactElement | ((props: Record<string, any> & {
         ref?: React.Ref<any>;
-    }, state: GuiComponentState) => React.ReactElement);
+    }, state: HanzoguiComponentState) => React.ReactElement);
     /**
      * Applies a theme to this element
      */
     theme?: ThemeName | null;
     /**
      * Marks this component as a group for use in styling children based on parents named group
-     * See: https://gui.hanzo.ai/docs/intro/props
+     * See: https://hanzogui.dev/docs/intro/props
      */
     group?: GroupNames | boolean;
     /**
      * Works only alongside group, when children of the group are using container based sizing on native you can hide them until parent is measured.
-     * See: https://gui.hanzo.ai/docs/intro/props
+     * See: https://hanzogui.dev/docs/intro/props
      */
     untilMeasured?: 'hide' | 'show';
     /**
@@ -123,7 +123,7 @@ export type GuiComponentPropsBaseBase = {
     disableClassName?: boolean;
     /**
      * Adds some area outside the typical bounds of the component for touch actions to register.
-     * GUI uses Pressable internally so it supports `number | Insets` rather than just `Insets`
+     * Hanzogui uses Pressable internally so it supports `number | Insets` rather than just `Insets`
      */
     hitSlop?: number | Insets | null;
     /**
@@ -189,9 +189,9 @@ export type FontLanguageProps = LanguageContextType & {
 export type ThemeProviderProps = {
     className?: string;
     defaultTheme: string | null | undefined;
-    /** @deprecated moved to createGui({ settings: { disableRootThemeClass } }) */
+    /** @deprecated moved to createHanzogui({ settings: { disableRootThemeClass } }) */
     disableRootThemeClass?: boolean;
-    /** @deprecated moved to createGui({ settings: { themeClassNameOnRoot } }) */
+    /** @deprecated moved to createHanzogui({ settings: { themeClassNameOnRoot } }) */
     themeClassNameOnRoot?: boolean;
     children?: any;
     reset?: boolean;
@@ -224,7 +224,7 @@ export interface PxValue {
 }
 export type ColorScheme = 'light' | 'dark';
 export type IsMediaType = boolean | 'platform' | 'theme' | 'group';
-export type MaybeGuiComponent<A = any> = GuiComponent<A> | React.FC<A>;
+export type MaybeHanzoguiComponent<A = any> = HanzoguiComponent<A> | React.FC<A>;
 type MeasureOnSuccessCallback = (x: number, y: number, width: number, height: number, pageX: number, pageY: number) => void;
 type MeasureInWindowOnSuccessCallback = (x: number, y: number, width: number, height: number) => void;
 type MeasureLayoutOnSuccessCallback = (left: number, top: number, width: number, height: number) => void;
@@ -233,7 +233,7 @@ type MeasureLayoutOnSuccessCallback = (left: number, top: number, width: number,
  * On web these are added at runtime to HTMLElements.
  * On native these exist on View already.
  */
-export interface GuiElementMethods {
+export interface HanzoguiElementMethods {
     measure(callback: MeasureOnSuccessCallback): void;
     measureInWindow(callback: MeasureInWindowOnSuccessCallback): void;
     measureLayout(relativeToNativeNode: View | HTMLElement, onSuccess: MeasureLayoutOnSuccessCallback, onFail?: () => void): void;
@@ -241,24 +241,24 @@ export interface GuiElementMethods {
     blur(): void;
 }
 /**
- * Cross-platform element ref type. On web, includes GuiElementMethods
- * (measure, focus, blur) which GUI adds at runtime. On native, View
+ * Cross-platform element ref type. On web, includes HanzoguiElementMethods
+ * (measure, focus, blur) which Hanzogui adds at runtime. On native, View
  * already has these via NativeMethods.
  */
-export type GuiElement = (HTMLElement & GuiElementMethods) | View;
-export type GuiTextElement = (HTMLElement & GuiElementMethods) | RNText;
+export type HanzoguiElement = (HTMLElement & HanzoguiElementMethods) | View;
+export type HanzoguiTextElement = (HTMLElement & HanzoguiElementMethods) | RNText;
 /**
  * Web-specific element type for platform-specific .tsx files.
  * Use when you need HTMLElement subtype properties (e.g., selectionStart on HTMLInputElement)
- * that aren't on the cross-platform GuiElement type.
+ * that aren't on the cross-platform HanzoguiElement type.
  *
  * @example
- * const ref = useRef<GuiWebElement<HTMLInputElement>>(null)
- * // ref.current has both HTMLInputElement props and GuiElementMethods
+ * const ref = useRef<HanzoguiWebElement<HTMLInputElement>>(null)
+ * // ref.current has both HTMLInputElement props and HanzoguiElementMethods
  */
-export type GuiWebElement<T extends HTMLElement = HTMLElement> = T & GuiElementMethods;
+export type HanzoguiWebElement<T extends HTMLElement = HTMLElement> = T & HanzoguiElementMethods;
 export type DebugProp = boolean | 'break' | 'verbose' | 'visualize' | 'profile';
-export interface GuiComponentPropsBase extends GuiComponentPropsBaseBase, WebOnlyPressEvents {
+export interface HanzoguiComponentPropsBase extends HanzoguiComponentPropsBaseBase, WebOnlyPressEvents {
 }
 /**
  * For static / studio
@@ -272,14 +272,14 @@ export type LoadedComponents = {
         staticConfig: StaticConfig;
     }>;
 };
-export type GuiProjectInfo = {
+export type HanzoguiProjectInfo = {
     components: LoadedComponents[];
-    guiConfig: GuiInternalConfig;
+    hanzoguiConfig: HanzoguiInternalConfig;
     nameToPaths: NameToPaths;
 };
 export type DivAttributes = HTMLAttributes<HTMLDivElement>;
 export type ReactComponentWithRef<Props, Ref> = ForwardRefExoticComponent<Props & RefAttributes<Ref>>;
-export type ComponentSetStateShallow = React.Dispatch<React.SetStateAction<Partial<GuiComponentState>>>;
+export type ComponentSetStateShallow = React.Dispatch<React.SetStateAction<Partial<HanzoguiComponentState>>>;
 export type ComponentContextI = {
     disableSSR?: boolean;
     inText: boolean;
@@ -295,10 +295,10 @@ export type ComponentContextI = {
         left: number;
     } | null;
 };
-export type GuiComponentStateRef = {
+export type HanzoguiComponentStateRef = {
     startedUnhydrated: boolean;
-    host?: GuiElement;
-    composedRef?: (x: GuiElement) => void;
+    host?: HanzoguiElement;
+    composedRef?: (x: HanzoguiElement) => void;
     willHydrate?: boolean;
     hasMeasured?: boolean;
     hasAnimated?: boolean;
@@ -312,7 +312,7 @@ export type GuiComponentStateRef = {
     useStyleListener?: UseStyleListener;
     updateStyleListener?: () => void;
     group?: ComponentGroupEmitter;
-    nextState?: GuiComponentState;
+    nextState?: HanzoguiComponentState;
     nextMedia?: UseMediaState;
     mediaEmitCleanup?: () => void;
     prevPseudoState?: {
@@ -351,7 +351,7 @@ export type SingleGroupContext = {
 export type AllGroupContexts = {
     [GroupName: string]: SingleGroupContext;
 };
-export type PseudoGroupState = Pick<GuiComponentState, 'disabled' | 'hover' | 'press' | 'pressIn' | 'focus' | 'focusVisible' | 'focusWithin'>;
+export type PseudoGroupState = Pick<HanzoguiComponentState, 'disabled' | 'hover' | 'press' | 'pressIn' | 'focus' | 'focusVisible' | 'focusWithin'>;
 export type LayoutEvent = {
     nativeEvent: {
         layout: LayoutValue;
@@ -368,7 +368,7 @@ type LayoutValue = {
     top: number;
 };
 export type DisposeFn = () => void;
-export type ConfigListener = (conf: GuiInternalConfig) => void;
+export type ConfigListener = (conf: HanzoguiInternalConfig) => void;
 export type VariableVal = number | string | Variable | VariableValGeneric | PxValue;
 export type VariableColorVal = string | Variable;
 type GenericKey = string;
@@ -415,7 +415,7 @@ type TokenifyRecord<A extends object> = {
     [Key in keyof A]: CoerceToVariable<A[Key]>;
 };
 type CoerceToVariable<A> = A extends Variable ? A : Variable<A>;
-export type GuiBaseTheme = {
+export type HanzoguiBaseTheme = {
     background: VariableColorVal;
     backgroundHover: VariableColorVal;
     backgroundPress: VariableColorVal;
@@ -438,7 +438,7 @@ export type VariableValGeneric = {
 };
 type GenericTokens = CreateTokens;
 type GenericThemes = {
-    [key: string]: Partial<GuiBaseTheme> & {
+    [key: string]: Partial<HanzoguiBaseTheme> & {
         [key: string]: VariableVal;
     };
 };
@@ -457,17 +457,17 @@ type GenericAnimations = {
         [key: string]: any;
     } | any[];
 };
-export interface GuiCustomConfig {
+export interface HanzoguiCustomConfig {
 }
-export interface GuiConfig extends Omit<GenericGuiConfig, keyof GuiCustomConfig>, GuiCustomConfig {
+export interface HanzoguiConfig extends Omit<GenericHanzoguiConfig, keyof HanzoguiCustomConfig>, HanzoguiCustomConfig {
 }
-export type OnlyAllowShorthandsSetting = GuiConfig['settings'] extends {
+export type OnlyAllowShorthandsSetting = HanzoguiConfig['settings'] extends {
     onlyAllowShorthands: infer X;
 } ? X : false;
-export type OnlyShorthandStylePropsSetting = GuiConfig['settings'] extends {
+export type OnlyShorthandStylePropsSetting = HanzoguiConfig['settings'] extends {
     onlyShorthandStyleProps: infer X;
 } ? X : false;
-export type CreateGuiConfig<A extends GenericTokens, B extends GenericThemes, C extends GenericShorthands = GenericShorthands, D extends GenericMedia = GenericMedia, E extends GenericAnimations = GenericAnimations, F extends GenericFonts = GenericFonts, H extends GenericGuiSettings = GenericGuiSettings, AnimDriverKeys extends string = string> = {
+export type CreateHanzoguiConfig<A extends GenericTokens, B extends GenericThemes, C extends GenericShorthands = GenericShorthands, D extends GenericMedia = GenericMedia, E extends GenericAnimations = GenericAnimations, F extends GenericFonts = GenericFonts, H extends GenericHanzoguiSettings = GenericHanzoguiSettings, AnimDriverKeys extends string = string> = {
     fonts: RemoveLanguagePostfixes<F>;
     fontLanguages: GetLanguagePostfixes<F> extends never ? string[] : GetLanguagePostfixes<F>[];
     tokens: A;
@@ -509,7 +509,7 @@ type EmptyShorthands = {};
 type EmptyMedia = {};
 type EmptyAnimations = {};
 type EmptyFonts = {};
-type EmptyGuiSettings = {
+type EmptyHanzoguiSettings = {
     allowedStyleValues: false;
     autocompleteSpecificTokens: 'except-special';
 };
@@ -519,17 +519,17 @@ type ExtractAnimationConfig<E> = E extends AnimationDriver<infer Config> ? Confi
 type ExtractAnimationDriverKeys<E> = E extends AnimationDriver<any> ? 'default' : E extends {
     default: AnimationDriver<any>;
 } ? Extract<keyof E, string> : 'default';
-export type InferGuiConfig<Conf> = Conf extends ConfProps<infer A, infer B, infer C, infer D, infer E, infer F, infer H> ? GuiInternalConfig<A extends GenericTokens ? A : EmptyTokens, B extends GenericThemes ? B : EmptyThemes, C extends GenericShorthands ? C : EmptyShorthands, D extends GenericMedia ? D : EmptyMedia, ExtractAnimationConfig<E>, F extends GenericFonts ? F : EmptyFonts, H extends GenericGuiSettings ? H : EmptyGuiSettings, ExtractAnimationDriverKeys<E>> : unknown;
-export type GenericGuiConfig = CreateGuiConfig<GenericTokens, GenericThemes, GenericShorthands, GenericMedia, GenericAnimations, GenericFonts>;
+export type InferHanzoguiConfig<Conf> = Conf extends ConfProps<infer A, infer B, infer C, infer D, infer E, infer F, infer H> ? HanzoguiInternalConfig<A extends GenericTokens ? A : EmptyTokens, B extends GenericThemes ? B : EmptyThemes, C extends GenericShorthands ? C : EmptyShorthands, D extends GenericMedia ? D : EmptyMedia, ExtractAnimationConfig<E>, F extends GenericFonts ? F : EmptyFonts, H extends GenericHanzoguiSettings ? H : EmptyHanzoguiSettings, ExtractAnimationDriverKeys<E>> : unknown;
+export type GenericHanzoguiConfig = CreateHanzoguiConfig<GenericTokens, GenericThemes, GenericShorthands, GenericMedia, GenericAnimations, GenericFonts>;
 type NonSubThemeNames<A extends string | number> = A extends `${string}_${string}` ? never : A;
-type BaseThemeDefinitions = GuiConfig['themes'][NonSubThemeNames<keyof GuiConfig['themes']>];
-type GenericThemeDefinition = GuiConfig['themes'][keyof GuiConfig['themes']];
+type BaseThemeDefinitions = HanzoguiConfig['themes'][NonSubThemeNames<keyof HanzoguiConfig['themes']>];
+type GenericThemeDefinition = HanzoguiConfig['themes'][keyof HanzoguiConfig['themes']];
 export type ThemeDefinition = BaseThemeDefinitions extends never ? GenericThemeDefinition : BaseThemeDefinitions;
 export type ThemeKeys = keyof ThemeDefinition;
 export type ThemeParsed = {
     [key in ThemeKeys]: CoerceToVariable<ThemeDefinition[key]>;
 };
-export type Tokens = GuiConfig['tokens'];
+export type Tokens = HanzoguiConfig['tokens'];
 export type TokensParsed = {
     [Key in keyof Required<Tokens>]: TokenPrefixed<Tokens[Key]>;
 };
@@ -540,9 +540,9 @@ type TokenPrefixed<A extends {
 };
 type Ensure$Prefix<A extends string | number | symbol> = A extends string | number | boolean ? A extends `$${string | number}` ? A : `$${A}` : never;
 export type TokensMerged = TokensParsed & Tokens;
-export type Shorthands = GuiConfig['shorthands'];
-export type Media = GuiConfig['media'];
-export type Themes = GuiConfig['themes'];
+export type Shorthands = HanzoguiConfig['shorthands'];
+export type Media = HanzoguiConfig['media'];
+export type Themes = HanzoguiConfig['themes'];
 export type ThemeName = Exclude<GetAltThemeNames<keyof Themes>, number>;
 export type ThemeTokens = `$${ThemeKeys}`;
 type GetAnimationsFromDriver<T> = T extends {
@@ -554,10 +554,10 @@ type GetAnimationsFromMultiDriver<T> = T extends {
     [key: string]: infer D;
 } ? GetAnimationsFromDriver<D> : never;
 type ExtractDriver<T> = Extract<T, AnimationDriver<any>>;
-type InferredTransitionKeys = ExtractDriver<GuiConfig['animations']> extends AnimationDriver<any> ? GetAnimationsFromDriver<ExtractDriver<GuiConfig['animations']>> : GetAnimationsFromMultiDriver<GuiConfig['animations']>;
+type InferredTransitionKeys = ExtractDriver<HanzoguiConfig['animations']> extends AnimationDriver<any> ? GetAnimationsFromDriver<ExtractDriver<HanzoguiConfig['animations']>> : GetAnimationsFromMultiDriver<HanzoguiConfig['animations']>;
 export type TransitionKeys = InferredTransitionKeys;
-export type AnimationDriverKeys = 'default' | Extract<Exclude<GuiConfig['animationDriverKeys'], undefined>, string> | (ReturnType<TypeOverride['animationDrivers']> extends 1 ? never : ReturnType<TypeOverride['animationDrivers']>);
-export type FontLanguages = ArrayIntersection<GuiConfig['fontLanguages']>;
+export type AnimationDriverKeys = 'default' | Extract<Exclude<HanzoguiConfig['animationDriverKeys'], undefined>, string> | (ReturnType<TypeOverride['animationDrivers']> extends 1 ? never : ReturnType<TypeOverride['animationDrivers']>);
+export type FontLanguages = ArrayIntersection<HanzoguiConfig['fontLanguages']>;
 export interface ThemeProps {
     className?: string;
     name?: Exclude<ThemeName, number> | null;
@@ -591,20 +591,20 @@ type AllowedStyleValuesSettingPerCategory = {
 };
 type AllowedStyleValuesSetting = AllowedValueSettingBase | AllowedStyleValuesSettingPerCategory;
 type AutocompleteSpecificTokensSetting = boolean | 'except-special';
-export interface GenericGuiSettings {
+export interface GenericHanzoguiSettings {
     /**
      * When true, flexBasis will be set to 0 when flex is positive. This will be
-     * the default in v2 of GUI alongside an alternative mode for web compat.
+     * the default in v2 of Hanzogui alongside an alternative mode for web compat.
      */
     styleCompat?: 'react-native' | 'legacy';
     /**
-     * When true, GUI will always prefer a more specific style prop over a
+     * When true, Hanzogui will always prefer a more specific style prop over a
      * less specific one.
      *
-     * By default, GUI processes all style props in order of definition on the
+     * By default, Hanzogui processes all style props in order of definition on the
      * object. This is a bit strange to most people, but it gets around many
      * annoying issues with specificity. You can see our docs on this here:
-     * https://gui.hanzo.ai/docs/intro/styles#style-order-is-important
+     * https://hanzogui.dev/docs/intro/styles#style-order-is-important
      *
      * But this can be confusing in simple cases, like when you do:
      *
@@ -648,12 +648,12 @@ export interface GenericGuiSettings {
      */
     autocompleteSpecificTokens?: AutocompleteSpecificTokensSetting;
     /**
-     * On iOS, this enables a mode where GUI returns color values using
+     * On iOS, this enables a mode where Hanzogui returns color values using
      * `DynamicColorIOS` This is a React Native built in feature, you can read the
      * docs here: https://reactnative.dev/docs/dynamiccolorios
      *
      * We're working to make this enabled by default without any setting, but
-     * GUI themes support inversing and/or changing to light/dark at any point
+     * Hanzogui themes support inversing and/or changing to light/dark at any point
      * in the tree. We haven't implemented support for either of these cases when
      * combined with this feature.
      *
@@ -690,7 +690,7 @@ export interface GenericGuiSettings {
     /**
      * If building a non-server rendered app, set this to true.
      *
-     * For SSR compatibility on the web, GUI will render once with the settings
+     * For SSR compatibility on the web, Hanzogui will render once with the settings
      * from `mediaQueryDefaultActive` set for all media queries. Then, it will render
      * again after the initial render using the proper media query values. This is so that
      * hydration will match perfectly with the server.
@@ -705,7 +705,7 @@ export interface GenericGuiSettings {
     disableSSR?: boolean;
     /**
      * For the first render, determines which media queries are true, this only
-     * affects things on native or on web if you disableSSR, as otherwise Gui
+     * affects things on native or on web if you disableSSR, as otherwise Hanzogui
      * relies on CSS to avoid the need for re-rendering on first render.
      */
     mediaQueryDefaultActive?: Record<string, boolean>;
@@ -717,14 +717,14 @@ export interface GenericGuiSettings {
     /**
      * If you want to style your <body> tag to use theme CSS variables on web, you
      * must place the theme className onto the body element or above. This will do so.
-     * If disabled, GUI will place the className onto the element rendered by
-     * the GuiProvider
+     * If disabled, Hanzogui will place the className onto the element rendered by
+     * the HanzoguiProvider
      *
      * @default html
      */
     addThemeClassName?: 'body' | 'html' | false;
     /**
-     * Sets the default position value for all GUI components.
+     * Sets the default position value for all Hanzogui components.
      * @default 'static'
      */
     defaultPosition?: 'static' | 'relative';
@@ -751,7 +751,7 @@ export interface GenericGuiSettings {
      */
     onlyShorthandStyleProps?: boolean;
 }
-export type GuiSettings = GuiConfig['settings'];
+export type HanzoguiSettings = HanzoguiConfig['settings'];
 export type BaseStyleProps = {
     [Key in keyof TextStylePropsBase]?: TextStyle[Key] | GetThemeValueForKey<Key>;
 } & {
@@ -766,10 +766,10 @@ export type AnimationsConfigObject = {
     default: AnimationDriver<any>;
     [key: string]: AnimationDriver<any>;
 };
-export type CreateGuiProps = {
+export type CreateHanzoguiProps = {
     reactNative?: any;
     shorthands?: CreateShorthands;
-    media?: GenericGuiConfig['media'];
+    media?: GenericHanzoguiConfig['media'];
     /**
      * Animation driver(s) configuration.
      * Can be a single driver or an object of named drivers (must include 'default').
@@ -780,14 +780,14 @@ export type CreateGuiProps = {
      * animations: { default: cssDriver, spring: motiDriver }
      */
     animations?: AnimationsConfig;
-    fonts?: GenericGuiConfig['fonts'];
-    tokens?: GenericGuiConfig['tokens'];
+    fonts?: GenericHanzoguiConfig['fonts'];
+    tokens?: GenericHanzoguiConfig['tokens'];
     themes?: {
         [key: string]: {
             [key: string]: string | number | Variable;
         };
     };
-    settings?: Partial<GenericGuiSettings>;
+    settings?: Partial<GenericHanzoguiSettings>;
     /**
      * Web-only: define text-selection CSS
      */
@@ -805,7 +805,7 @@ export type GetCSS = (opts?: {
     exclude?: 'themes' | 'design-system' | null;
     sinceLastCall?: boolean;
 }) => string;
-export type GuiInternalConfig<A extends GenericTokens = GenericTokens, B extends GenericThemes = GenericThemes, C extends GenericShorthands = GenericShorthands, D extends GenericMedia = GenericMedia, E extends GenericAnimations = GenericAnimations, F extends GenericFonts = GenericFonts, G extends GenericGuiSettings = GenericGuiSettings, AnimDriverKeys extends string = string> = Omit<CreateGuiProps, keyof GenericGuiConfig> & Omit<CreateGuiConfig<A, B, C, D, E, F, G, AnimDriverKeys>, 'tokens'> & {
+export type HanzoguiInternalConfig<A extends GenericTokens = GenericTokens, B extends GenericThemes = GenericThemes, C extends GenericShorthands = GenericShorthands, D extends GenericMedia = GenericMedia, E extends GenericAnimations = GenericAnimations, F extends GenericFonts = GenericFonts, G extends GenericHanzoguiSettings = GenericHanzoguiSettings, AnimDriverKeys extends string = string> = Omit<CreateHanzoguiProps, keyof GenericHanzoguiConfig> & Omit<CreateHanzoguiConfig<A, B, C, D, E, F, G, AnimDriverKeys>, 'tokens'> & {
     tokens: Tokenify<A>;
     tokensParsed: Tokenify<A>;
     themeConfig: any;
@@ -818,12 +818,12 @@ export type GuiInternalConfig<A extends GenericTokens = GenericTokens, B extends
     reactNative?: any;
     fontSizeTokens: Set<string>;
     specificTokens: Record<string, Variable>;
-    settings: Omit<GenericGuiSettings, keyof G> & G;
+    settings: Omit<GenericHanzoguiSettings, keyof G> & G;
     defaultFont?: string;
     defaultFontToken: `${string}`;
     animationDrivers?: Record<string, AnimationDriver>;
 };
-export type GetAnimationKeys<A extends GenericGuiConfig> = keyof A['animations'];
+export type GetAnimationKeys<A extends GenericHanzoguiConfig> = keyof A['animations'];
 export type UnionableString = string & {};
 export type UnionableNumber = number & {};
 type GenericFontKey = string | number | symbol;
@@ -952,10 +952,10 @@ type SomewhatSpecificSpaceValue = 'auto' | PercentString | RemString | Unionable
 type VariableString = `var(${string})`;
 export type SomewhatSpecificColorValue = CSSColorNames | 'transparent' | (`rgba(${string})` & {}) | (`rgb(${string})` & {}) | (`hsl(${string})` & {}) | (`hsla(${string})` & {}) | (`#${string}` & {});
 type WebOnlySizeValue = `${number}vw` | `${number}dvw` | `${number}lvw` | `${number}svw` | `${number}vh` | `${number}dvh` | `${number}lvh` | `${number}svh` | `calc(${string})` | `min(${string})` | `max(${string})` | 'max-content' | 'min-content';
-type UserAllowedStyleValuesSetting = Exclude<GuiSettings['allowedStyleValues'], undefined>;
+type UserAllowedStyleValuesSetting = Exclude<HanzoguiSettings['allowedStyleValues'], undefined>;
 export type GetThemeValueSettingForCategory<Cat extends keyof AllowedStyleValuesSettingPerCategory> = UserAllowedStyleValuesSetting extends AllowedValueSettingBase | undefined ? UserAllowedStyleValuesSetting : UserAllowedStyleValuesSetting extends AllowedStyleValuesSettingPerCategory ? UserAllowedStyleValuesSetting[Cat] : true;
 export type GetThemeValueFallbackFor<Setting, StrictValue, SomewhatStrictValue, LooseValue, WebOnlyValue> = Setting extends 'strict' ? StrictValue : Setting extends 'strict-web' ? StrictValue | WebOnlyValue : Setting extends 'somewhat-strict' ? SomewhatStrictValue : Setting extends 'somewhat-strict-web' ? SomewhatStrictValue | WebOnlyValue : LooseValue;
-export type ThemeValueFallback = (GuiSettings extends {
+export type ThemeValueFallback = (HanzoguiSettings extends {
     allowedStyleValues: any;
 } ? never : UnionableString) | Variable;
 export type AllowedValueSettingSpace = GetThemeValueSettingForCategory<'space'>;
@@ -972,7 +972,7 @@ export type ThemeValueFallbackRadius = ThemeValueFallback | GetThemeValueFallbac
 export type ThemeValueFallbackZIndex = ThemeValueFallback | GetThemeValueFallbackFor<AllowedValueSettingZIndex, never, UnionableNumber, UnionableNumber, WebStyleValueUniversal>;
 export type GetTokenString<A> = A extends `$${string}` ? A : A extends string | number ? `$${A}` : `$${string}`;
 export type SpecificTokens<Record = Tokens, RK extends keyof Record = keyof Record> = RK extends string ? `$${RK}.${keyof Record[RK] extends string | number ? keyof Record[RK] extends `$${infer X}` ? X : keyof Record[RK] : never}` : never;
-export type SpecificTokensSpecial = GuiSettings extends {
+export type SpecificTokensSpecial = HanzoguiSettings extends {
     autocompleteSpecificTokens: infer Val;
 } ? Val extends 'except-special' | undefined ? never : SpecificTokens : SpecificTokens;
 export type SizeTokens = SpecificTokensSpecial | ThemeValueFallbackSize | GetTokenString<keyof Tokens['size']>;
@@ -981,15 +981,15 @@ export type ColorTokens = SpecificTokensSpecial | GetTokenString<keyof Tokens['c
 export type ZIndexTokens = SpecificTokensSpecial | GetTokenString<keyof Tokens['zIndex']> | ThemeValueFallbackZIndex | number;
 export type RadiusTokens = SpecificTokensSpecial | GetTokenString<keyof Tokens['radius']> | ThemeValueFallbackRadius | number | RemString;
 export type NonSpecificTokens = GetTokenString<keyof Tokens['radius']> | GetTokenString<keyof Tokens['zIndex']> | GetTokenString<keyof Tokens['color']> | GetTokenString<keyof Tokens['space']> | GetTokenString<keyof Tokens['size']>;
-export type Token = NonSpecificTokens | (GuiSettings extends {
+export type Token = NonSpecificTokens | (HanzoguiSettings extends {
     autocompleteSpecificTokens: false;
 } ? never : SpecificTokens);
 export type ColorStyleProp = ThemeValueFallbackColor | ColorTokens;
-type DefaultFont = GuiSettings['defaultFont'];
-export type Fonts = DefaultFont extends string ? GuiConfig['fonts'][DefaultFont] : never;
+type DefaultFont = HanzoguiSettings['defaultFont'];
+export type Fonts = DefaultFont extends string ? HanzoguiConfig['fonts'][DefaultFont] : never;
 export type Font = ParseFont<Fonts>;
-export type GetTokenFontKeysFor<A extends 'size' | 'weight' | 'letterSpacing' | 'family' | 'lineHeight' | 'transform' | 'style' | 'color'> = keyof GuiConfig['fonts']['body'][A];
-export type FontTokens = GetTokenString<keyof GuiConfig['fonts']>;
+export type GetTokenFontKeysFor<A extends 'size' | 'weight' | 'letterSpacing' | 'family' | 'lineHeight' | 'transform' | 'style' | 'color'> = keyof HanzoguiConfig['fonts']['body'][A];
+export type FontTokens = GetTokenString<keyof HanzoguiConfig['fonts']>;
 export type FontFamilyTokens = GetTokenString<GetTokenFontKeysFor<'family'>>;
 export type FontSizeTokens = GetTokenString<GetTokenFontKeysFor<'size'>> | number | RemString;
 export type FontLineHeightTokens = `$${GetTokenFontKeysFor<'lineHeight'>}` | number | RemString;
@@ -1023,7 +1023,7 @@ export type ThemeValueGet<K extends string | number | symbol> = K extends 'theme
     width: SpaceTokens;
     height: SpaceTokens;
 } : SpaceTokens : K extends ColorKeys ? ColorTokens | ThemeValueFallbackColor : K extends ZIndexKeys ? ZIndexTokens : K extends LineHeightKeys ? FontLineHeightTokens : K extends FontWeightKeys ? FontWeightTokens : K extends FontLetterSpacingKeys ? FontLetterSpacingTokens : K extends OpacityKeys ? SpecificTokens | ThemeValueFallback : never;
-export type GetThemeValueForKey<K extends string | symbol | number> = ThemeValueGet<K> | ThemeValueFallback | (GuiSettings extends {
+export type GetThemeValueForKey<K extends string | symbol | number> = ThemeValueGet<K> | ThemeValueFallback | (HanzoguiSettings extends {
     autocompleteSpecificTokens: infer Val;
 } ? Val extends true | undefined ? SpecificTokens : never : never);
 export type WithThemeValues<T extends object> = {
@@ -1031,8 +1031,8 @@ export type WithThemeValues<T extends object> = {
 };
 export type NarrowShorthands = Narrow<Shorthands>;
 export type Longhands = NarrowShorthands[keyof NarrowShorthands];
-type OnlyAllowShorthands = GuiConfig['settings']['onlyAllowShorthands'];
-type OnlyShorthandStyleProps = GuiConfig['settings']['onlyShorthandStyleProps'];
+type OnlyAllowShorthands = HanzoguiConfig['settings']['onlyAllowShorthands'];
+type OnlyShorthandStyleProps = HanzoguiConfig['settings']['onlyShorthandStyleProps'];
 type ShorthandLonghandProps = 'borderWidth' | 'borderStyle' | 'borderColor' | 'outlineWidth' | 'outlineStyle' | 'outlineColor' | 'outlineOffset' | 'shadowColor' | 'shadowOffset' | 'shadowOpacity' | 'shadowRadius';
 export type WithShorthands<StyleProps> = {
     [Key in keyof Shorthands]?: Shorthands[Key] extends keyof StyleProps ? StyleProps[Shorthands[Key]] | null : undefined;
@@ -1446,10 +1446,10 @@ export interface ExtendBaseTextProps {
 }
 interface ExtraBaseProps {
     /**
-     * Transitions are defined using `createGui` typically in a gui.config.ts file.
+     * Transitions are defined using `createHanzogui` typically in a hanzogui.config.ts file.
      * Pass a string transition name here and it uses an animation driver to execute it.
      *
-     * See: https://gui.hanzo.ai/docs/core/animations
+     * See: https://hanzogui.dev/docs/core/animations
      */
     transition?: TransitionProp | null;
     /**
@@ -1488,11 +1488,11 @@ export interface TextStylePropsBase extends Omit<RNTextStyle, keyof ExtendedBase
     textShadow?: string;
 }
 type LooseCombinedObjects<A extends object, B extends object> = A | B | (A & B);
-export interface StackNonStyleProps extends Omit<ViewProps, 'hitSlop' | 'pointerEvents' | 'display' | 'children' | keyof GuiComponentPropsBaseBase | RNOnlyProps | keyof ExtendBaseStackProps | 'style' | 'onFocus' | 'onBlur' | 'onPointerCancel' | 'onPointerDown' | 'onPointerMove' | 'onPointerUp'>, ExtendBaseStackProps, GuiComponentPropsBase {
+export interface StackNonStyleProps extends Omit<ViewProps, 'hitSlop' | 'pointerEvents' | 'display' | 'children' | keyof HanzoguiComponentPropsBaseBase | RNOnlyProps | keyof ExtendBaseStackProps | 'style' | 'onFocus' | 'onBlur' | 'onPointerCancel' | 'onPointerDown' | 'onPointerMove' | 'onPointerUp'>, ExtendBaseStackProps, HanzoguiComponentPropsBase {
     style?: StyleProp<LooseCombinedObjects<React.CSSProperties, ViewStyle>>;
 }
 export type StackStyle = WithThemeShorthandsPseudosMedia<StackStyleBase>;
-export interface TextNonStyleProps extends Omit<ReactTextProps, 'children' | keyof WebOnlyPressEvents | RNOnlyProps | keyof ExtendBaseTextProps | 'style'>, ExtendBaseTextProps, GuiComponentPropsBase {
+export interface TextNonStyleProps extends Omit<ReactTextProps, 'children' | keyof WebOnlyPressEvents | RNOnlyProps | keyof ExtendBaseTextProps | 'style'>, ExtendBaseTextProps, HanzoguiComponentPropsBase {
     style?: StyleProp<LooseCombinedObjects<React.CSSProperties, RNTextStyle>>;
 }
 export type TextStyle = WithThemeShorthandsPseudosMedia<TextStylePropsBase>;
@@ -1507,9 +1507,9 @@ export type StyleableOptions = {
     disableTheme?: boolean;
     staticConfig?: Partial<StaticConfig>;
 };
-export type Styleable<Props, Ref, NonStyledProps, BaseStyles extends object, VariantProps, ParentStaticProperties> = <CustomProps extends object | void = void, MergedProps = CustomProps extends void ? Props : Omit<Props, keyof CustomProps> & CustomProps, FunctionDef extends ForwardRefRenderFunction<Ref, MergedProps> = ForwardRefRenderFunction<Ref, MergedProps>>(a: FunctionDef, options?: StyleableOptions) => GuiComponent<MergedProps, Ref, NonStyledProps & CustomProps, BaseStyles, VariantProps, ParentStaticProperties>;
+export type Styleable<Props, Ref, NonStyledProps, BaseStyles extends object, VariantProps, ParentStaticProperties> = <CustomProps extends object | void = void, MergedProps = CustomProps extends void ? Props : Omit<Props, keyof CustomProps> & CustomProps, FunctionDef extends ForwardRefRenderFunction<Ref, MergedProps> = ForwardRefRenderFunction<Ref, MergedProps>>(a: FunctionDef, options?: StyleableOptions) => HanzoguiComponent<MergedProps, Ref, NonStyledProps & CustomProps, BaseStyles, VariantProps, ParentStaticProperties>;
 export type GetFinalProps<NonStyleProps, StylePropsBase, Variants> = Omit<NonStyleProps, keyof StylePropsBase | keyof Variants> & (StylePropsBase extends object ? WithThemeShorthandsPseudosMedia<StylePropsBase, Variants> : {});
-export type GuiComponent<Props = any, Ref = any, NonStyledProps = {}, BaseStyles extends object = {}, Variants = {}, ParentStaticProperties = {}> = ForwardRefExoticComponent<(Props extends TamaDefer ? GetFinalProps<NonStyledProps, BaseStyles, Variants> : Props) & RefAttributes<Ref>> & StaticComponentObject<Props, Ref, NonStyledProps, BaseStyles, Variants, ParentStaticProperties> & Omit<ParentStaticProperties, 'staticConfig' | 'styleable'> & {
+export type HanzoguiComponent<Props = any, Ref = any, NonStyledProps = {}, BaseStyles extends object = {}, Variants = {}, ParentStaticProperties = {}> = ForwardRefExoticComponent<(Props extends TamaDefer ? GetFinalProps<NonStyledProps, BaseStyles, Variants> : Props) & RefAttributes<Ref>> & StaticComponentObject<Props, Ref, NonStyledProps, BaseStyles, Variants, ParentStaticProperties> & Omit<ParentStaticProperties, 'staticConfig' | 'styleable'> & {
     __tama: [Props, Ref, NonStyledProps, BaseStyles, Variants, ParentStaticProperties];
 };
 export type InferGenericComponentProps<A> = A extends ComponentType<infer Props> ? Props : A extends ForwardRefExoticComponent<infer P> ? P : A extends ReactComponentWithRef<infer P, any> ? P : A extends new (props: infer Props) => any ? Props : {};
@@ -1530,7 +1530,7 @@ export type GetProps<A extends StylableComponent> = A extends {
 } ? Props extends TamaDefer ? GetFinalProps<NonStyledProps, BaseStyles, VariantProps> : Props : InferGenericComponentProps<A>;
 export type GetNonStyledProps<A extends StylableComponent> = A extends {
     __tama: [any, any, infer B, any, any, any];
-} ? B : GuiComponentPropsBaseBase & GetProps<A>;
+} ? B : HanzoguiComponentPropsBaseBase & GetProps<A>;
 export type GetBaseStyles<A, B> = A extends {
     __tama: [any, any, any, infer C, any, any];
 } ? C : B extends {
@@ -1548,9 +1548,9 @@ export type StaticComponentObject<Props, Ref, NonStyledProps, BaseStyles extends
     staticConfig: StaticConfig;
     styleable: Styleable<Props extends TamaDefer ? GetFinalProps<NonStyledProps, BaseStyles, VariantProps> : Props, Ref, NonStyledProps, BaseStyles, VariantProps, ParentStaticProperties>;
 };
-export type GuiComponentExpectingVariants<Props = {}, Variants extends object = {}> = GuiComponent<Props, any, any, any, Variants>;
-export type GuiProviderProps = Omit<ThemeProviderProps, 'children'> & {
-    config?: GuiInternalConfig;
+export type HanzoguiComponentExpectingVariants<Props = {}, Variants extends object = {}> = HanzoguiComponent<Props, any, any, any, Variants>;
+export type HanzoguiProviderProps = Omit<ThemeProviderProps, 'children'> & {
+    config?: HanzoguiInternalConfig;
     disableInjectCSS?: boolean;
     children?: ReactNode;
     insets?: {
@@ -1571,8 +1571,8 @@ export type GetStyleState = {
     context?: ComponentContextI;
     viewProps: Record<string, any>;
     styleProps: SplitStyleProps;
-    componentState: GuiComponentState;
-    conf: GuiInternalConfig;
+    componentState: HanzoguiComponentState;
+    conf: HanzoguiInternalConfig;
     avoidMergeTransform?: boolean;
     fontFamily?: string;
     debug?: DebugProp;
@@ -1614,7 +1614,7 @@ export type StaticConfigPublic = {
         [key: string]: boolean;
     };
     /**
-     * Accept GUI tokens for these props (key for the prop key, val for the token category)
+     * Accept Hanzogui tokens for these props (key for the prop key, val for the token category)
      */
     accept?: {
         [key: string]: keyof Tokens | 'style' | 'textStyle';
@@ -1637,9 +1637,9 @@ export type StaticConfigPublic = {
      */
     isReactNative?: boolean;
     /**
-     * By default if styled() doesn't recognize a parent GUI component or specific react-native views,
+     * By default if styled() doesn't recognize a parent Hanzogui component or specific react-native views,
      * it will assume the passed in component only accepts style={} for react-native compatibility.
-     * Setting `acceptsClassName: true` indicates GUI can pass in className props.
+     * Setting `acceptsClassName: true` indicates Hanzogui can pass in className props.
      */
     acceptsClassName?: boolean;
     /**
@@ -1687,9 +1687,9 @@ export type ViewStyleWithPseudos = TextStyle | (TextStyle & {
  *   variants
  * --------------------------------------------
  */
-export type StylableComponent = GuiComponent | ComponentType<any> | ForwardRefExoticComponent<any> | ReactComponentWithRef<any, any> | (new (props: any) => any);
+export type StylableComponent = HanzoguiComponent | ComponentType<any> | ForwardRefExoticComponent<any> | ReactComponentWithRef<any, any> | (new (props: any) => any);
 export type SpreadKeys = '...fontSize' | '...fontStyle' | '...fontTransform' | '...lineHeight' | '...letterSpacing' | '...size' | '...space' | '...color' | '...zIndex' | '...theme' | '...radius';
-export type VariantDefinitions<Parent extends StylableComponent = GuiComponent, StaticConfig extends StaticConfigPublic = Parent extends {
+export type VariantDefinitions<Parent extends StylableComponent = HanzoguiComponent, StaticConfig extends StaticConfigPublic = Parent extends {
     __tama: [any, any, any, any, any, infer S];
 } ? S : {}, MyProps extends object = Partial<GetVariantProps<Parent, StaticConfig['isText'] extends true ? true : StaticConfig['isInput'] extends true ? true : false>>, Val = any> = VariantDefinitionFromProps<MyProps, Val> & {
     _isEmpty?: 1;
@@ -1716,7 +1716,7 @@ export type VariantDefinitionFromProps<MyProps, Val> = MyProps extends object ? 
 export type GenericStackVariants = VariantDefinitionFromProps<StackNonStyleProps & StackStyle, any>;
 export type GenericTextVariants = VariantDefinitionFromProps<TextProps, any>;
 export type VariantSpreadExtras<Props> = {
-    fonts: GuiConfig['fonts'];
+    fonts: HanzoguiConfig['fonts'];
     tokens: TokensParsed;
     theme: Themes extends {
         [key: string]: infer B;
@@ -1809,7 +1809,7 @@ export type UniversalAnimatedNumber<A> = {
 };
 export type UseAnimatedNumberReaction<V extends UniversalAnimatedNumber<any> = UniversalAnimatedNumber<any>> = (opts: {
     value: V;
-    hostRef: RefObject<GuiElement>;
+    hostRef: RefObject<HanzoguiElement>;
 }, onValue: (current: number) => void) => void;
 export type UseAnimatedNumberStyle<V extends UniversalAnimatedNumber<any> = UniversalAnimatedNumber<any>> = (val: V, getStyle: (current: any) => any) => any;
 export type UseAnimatedNumbersStyle<V extends UniversalAnimatedNumber<any> = UniversalAnimatedNumber<any>> = (vals: V[], getStyle: (...currentValues: any[]) => any) => any;
@@ -1839,7 +1839,7 @@ export type AnimationDriver<A extends AnimationConfig = AnimationConfig> = {
     View?: any;
     Text?: any;
 };
-export type UseAnimationProps = GuiComponentPropsBase & Record<string, any>;
+export type UseAnimationProps = HanzoguiComponentPropsBase & Record<string, any>;
 type UseStyleListener = (nextStyle: Record<string, unknown>, effectiveTransition?: TransitionProp | null) => void;
 export type UseStyleEmitter = (cb: UseStyleListener) => void;
 export type UseAnimationHook = (props: {
@@ -1848,13 +1848,13 @@ export type UseAnimationHook = (props: {
     presence?: UsePresenceResult | null;
     staticConfig: StaticConfig;
     styleProps: SplitStyleProps;
-    componentState: GuiComponentState;
+    componentState: HanzoguiComponentState;
     useStyleEmitter?: UseStyleEmitter;
     theme: ThemeParsed;
     themeName: string;
     pseudos: WithPseudoProps<ViewStyle> | null;
     stateRef: {
-        current: GuiComponentStateRef;
+        current: HanzoguiComponentStateRef;
     };
     onDidAnimate?: any;
     delay?: number;
@@ -1882,7 +1882,7 @@ export type GetStyleResult = {
     effectiveTransition?: TransitionProp | null;
 };
 export type ClassNamesObject = Record<string, string>;
-export type ModifyGuiComponentStyleProps<Comp extends GuiComponent, ChangedProps extends object> = Comp extends GuiComponent<infer A, infer B, infer C, infer D, infer E> ? A extends object ? GuiComponent<Omit<A, keyof ChangedProps> & ChangedProps, B, C, D, E> : never : never;
+export type ModifyHanzoguiComponentStyleProps<Comp extends HanzoguiComponent, ChangedProps extends object> = Comp extends HanzoguiComponent<infer A, infer B, infer C, infer D, infer E> ? A extends object ? HanzoguiComponent<Omit<A, keyof ChangedProps> & ChangedProps, B, C, D, E> : never : never;
 /**
  * Narrow copied from ts-toolbelt
  * https://github.com/millsp/ts-toolbelt/blob/master/sources/Function/Narrow.ts

@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
-import { Button, Sheet, Text, YStack, Paragraph } from '@hanzo/gui'
+import { Button, Sheet, Text, YStack, Paragraph } from 'hanzogui'
 
 /**
  * Web test case for Sheet drag resistance behavior

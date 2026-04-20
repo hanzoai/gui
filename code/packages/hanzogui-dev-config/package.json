@@ -1,0 +1,65 @@
+{
+  "name": "@hanzogui/hanzogui-dev-config",
+  "version": "2.0.0-rc.41-1776626066745",
+  "source": "src/index.ts",
+  "files": [
+    "src",
+    "types",
+    "dist",
+    "motion.cjs"
+  ],
+  "type": "module",
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./src/index.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./src/index.ts",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./motion": {
+      "types": "./src/animations.motion.ts",
+      "browser": "./dist/esm/animations.motion.mjs",
+      "module": "./dist/esm/animations.motion.mjs",
+      "import": "./dist/esm/animations.motion.mjs",
+      "require": "./dist/cjs/animations.motion.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "hanzogui-build --skip-types --skip-native",
+    "watch": "hanzogui-build --skip-types --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/animations-css": "workspace:*",
+    "@hanzogui/animations-moti": "workspace:*",
+    "@hanzogui/animations-motion": "workspace:*",
+    "@hanzogui/animations-reanimated": "workspace:*",
+    "@hanzogui/colors": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-cherry-bomb": "workspace:*",
+    "@hanzogui/font-inter": "workspace:*",
+    "@hanzogui/font-silkscreen": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/theme-builder": "workspace:*",
+    "@hanzogui/themes": "workspace:*",
+    "color2k": "^2.0.2"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "react": ">=19"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  }
+}

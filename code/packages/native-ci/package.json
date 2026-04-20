@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native-ci",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "description": "Native CI/CD helpers for React Native apps with Expo - fingerprinting, caching, and build optimization",
   "license": "MIT",
   "repository": {
@@ -33,10 +33,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzo-gui-build --skip-native",
+    "build": "hanzogui-build --skip-native",
     "watch": "bun run build --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@expo/fingerprint": "~0.16.6"

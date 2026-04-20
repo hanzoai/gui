@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { Input as GuiInput, styled, useThemeName } from '@hanzo/gui'
+import { Input as HanzoguiInput, styled, useThemeName } from 'hanzogui'
 
 export function StyledRNW() {
   return <Input id="styled-rnw-input" aria-label="ok" placeholder="search" />
@@ -7,7 +7,7 @@ export function StyledRNW() {
 
 // Input accepts text styles at runtime via validStyles but TS doesn't know
 const TextInput = styled(
-  GuiInput,
+  HanzoguiInput,
   {
     fontSize: 16,
     fontFamily: '$silkscreen',
@@ -41,7 +41,7 @@ const TextInput = styled(
   }
 )
 
-export const Input = GuiInput.styleable(function MyInput({ ...props }, ref) {
+export const Input = HanzoguiInput.styleable(function MyInput({ ...props }, ref) {
   const parentTheme = useThemeName()
 
   return (

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/static-sync",
-  "version": "4.4.0",
+  "version": "2.0.0-rc.41-1776626066745",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
@@ -25,10 +25,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzo-gui-build --skip-native --bundle",
+    "build": "hanzogui-build --skip-native --bundle",
     "watch": "bun run build --watch",
-    "clean": "hanzo-gui-build clean",
-    "clean:build": "hanzo-gui-build clean:build"
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@babel/core": "^7.25.2",

@@ -1,4 +1,4 @@
-import { Button } from '@hanzo/gui'
+import { Button } from 'hanzogui'
 
 export function FocusVisibleButtonPointer() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, StyleSheet, Text, View } from 'react-native'
-import { Button, TooltipSimple } from '@hanzo/gui'
+import { Button, TooltipSimple } from 'hanzogui'
 
 export function ZIndex() {
   return <TooltipInModal />

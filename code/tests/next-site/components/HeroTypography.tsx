@@ -1,16 +1,7 @@
 import { AnimatePresence } from '@hanzogui/animate-presence'
 import { memo, useEffect, useRef, useState } from 'react'
-import type { Heading, TextProps } from '@hanzo/gui'
-import {
-  Button,
-  Card,
-  H1,
-  H2,
-  Paragraph,
-  XStack,
-  YStack,
-  useDidFinishSSR,
-} from '@hanzo/gui'
+import type { Heading, TextProps } from 'hanzogui'
+import { Button, Card, H1, H2, Paragraph, XStack, YStack, useDidFinishSSR } from 'hanzogui'
 
 const families = ['silkscreen', 'mono', 'heading']
 

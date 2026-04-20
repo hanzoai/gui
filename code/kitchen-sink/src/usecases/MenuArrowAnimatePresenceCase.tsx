@@ -4,7 +4,7 @@
  * Works with CSS driver but not Motion driver
  */
 import { Menu } from '@hanzogui/menu'
-import { AnimatePresence, Button, Paragraph, Popover, YStack } from '@hanzo/gui'
+import { AnimatePresence, Button, Paragraph, Popover, YStack } from 'hanzogui'
 
 // Reproduce the pattern from ~/chat where arrow is wrapped in AnimatePresence
 const PopoverWithAnimatePresenceArrow = () => {

@@ -1,11 +1,11 @@
 import type { GetStyleResult } from '@hanzogui/web'
-import { View, createGui, getSplitStyles } from '@hanzogui/core'
+import { View, createHanzogui, getSplitStyles } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
 
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig('native'))
+  createHanzogui(config.getDefaultHanzoguiConfig('native'))
 })
 
 describe('shorthand variables - native', () => {

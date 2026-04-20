@@ -28,7 +28,7 @@ interface CommitInfo {
   date: string
 }
 
-const GUI_PACKAGES_PATTERN = /^(@hanzo\/gui-|@hanzo\/gui$)/
+const TAMAGUI_PACKAGES_PATTERN = /^(@hanzogui\/|hanzogui$)/
 const COMMIT_TYPE_ORDER = [
   'feat',
   'fix',
@@ -94,9 +94,9 @@ function findPackageJsonFiles(root: string): string[] {
 }
 
 /**
- * Find all hanzo-gui packages in the workspace
+ * Find all hanzogui packages in the workspace
  */
-function findGuiPackages(root: string): PackageInfo[] {
+function findHanzoguiPackages(root: string): PackageInfo[] {
   const packageJsonFiles = findPackageJsonFiles(root)
   const packages: PackageInfo[] = []
 
@@ -113,7 +113,7 @@ function findGuiPackages(root: string): PackageInfo[] {
 
         for (const [name, version] of Object.entries(deps)) {
           if (typeof version !== 'string') continue
-          if (!GUI_PACKAGES_PATTERN.test(name)) continue
+          if (!TAMAGUI_PACKAGES_PATTERN.test(name)) continue
           // Skip workspace: dependencies
           if (version.startsWith('workspace:')) continue
 
@@ -137,14 +137,14 @@ function findGuiPackages(root: string): PackageInfo[] {
 }
 
 /**
- * Get the latest @hanzo/gui version from npm
+ * Get the latest hanzogui version from npm
  */
 async function getLatestVersion(): Promise<string> {
   try {
-    const result = execSync('npm view @hanzo/gui version', { encoding: 'utf-8' })
+    const result = execSync('npm view hanzogui version', { encoding: 'utf-8' })
     return result.trim()
   } catch (err) {
-    throw new Error('Failed to fetch latest hanzo-gui version from npm')
+    throw new Error('Failed to fetch latest hanzogui version from npm')
   }
 }
 
@@ -289,11 +289,11 @@ async function getChangelogFromGitHub(
 ): Promise<string | null> {
   try {
     const response = await fetch(
-      `https://api.github.com/repos/hanzoai/gui/releases/tags/v${toVersion}`,
+      `https://api.github.com/repos/hanzogui/hanzogui/releases/tags/v${toVersion}`,
       {
         headers: {
           Accept: 'application/vnd.github.v3+json',
-          'User-Agent': 'gui-cli',
+          'User-Agent': 'hanzogui-cli',
         },
       }
     )
@@ -401,7 +401,7 @@ function formatChangelog(commits: CommitInfo[]): string {
  */
 function displayPackageSummary(packages: PackageInfo[]): void {
   console.log('')
-  console.log(chalk.bold('Found GUI packages:'))
+  console.log(chalk.bold('Found Hanzogui packages:'))
   console.log('')
 
   // Group by file path
@@ -490,14 +490,14 @@ export async function upgrade(options: UpgradeOptions = {}): Promise<void> {
   const root = process.cwd()
 
   console.log('')
-  console.log(chalk.bold.blue('Gui Upgrade'))
+  console.log(chalk.bold.blue('Hanzogui Upgrade'))
   console.log('')
 
-  // Find hanzo-gui packages
-  const packages = findGuiPackages(root)
+  // Find hanzogui packages
+  const packages = findHanzoguiPackages(root)
 
   if (packages.length === 0 && !changelogOnly) {
-    console.log(chalk.yellow('No GUI packages found in this workspace.'))
+    console.log(chalk.yellow('No Hanzogui packages found in this workspace.'))
     return
   }
 

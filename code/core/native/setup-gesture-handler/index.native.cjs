@@ -1,2 +1,2 @@
-// compat with hanzo-gui static compiler
+// compat with hanzogui static compiler
 Object.assign(module.exports, require('../dist/cjs/setup-gesture-handler.native.js'))

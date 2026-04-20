@@ -11,11 +11,11 @@ function worm(root = false) {
         //  dev warning in debug mode
         if (
           process.env.NODE_ENV === 'development' &&
-          process.env.DEBUG?.startsWith('@hanzo/gui')
+          process.env.DEBUG?.startsWith('hanzogui')
         ) {
           console.warn(`
 
-This has been excluded via Gui!
+This has been excluded via Hanzogui!
 Check "excludeReactNativeWebExports" setting and include it to fix.
 
 ${new Error().stack}

@@ -1,4 +1,4 @@
-export declare function getDefaultGuiConfig(platform?: 'native' | 'web'): {
+export declare function getDefaultHanzoguiConfig(platform?: 'native' | 'web'): {
     animations: import("@hanzogui/web").AnimationDriver<{
         '100ms': {
             type: "timing";

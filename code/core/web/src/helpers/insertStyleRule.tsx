@@ -8,7 +8,7 @@ import type {
   TokensParsed,
 } from '../types'
 
-// only cache hanzo-gui styles
+// only cache hanzogui styles
 // TODO merge totalSelectorsInserted and allSelectors?
 const scannedCache = new WeakMap<CSSStyleSheet, string>()
 const totalSelectorsInserted = new Map<string, number>()
@@ -17,7 +17,7 @@ const allRules: Record<string, string> = {}
 
 export const getAllSelectors = () => allSelectors
 export const getAllRules = () => {
-  if (!process.env.GUI_DID_OUTPUT_CSS) {
+  if (!process.env.TAMAGUI_DID_OUTPUT_CSS) {
     // Sort by identifier to ensure deterministic CSS output order
     const sortedKeys = Object.keys(allRules).sort()
     return sortedKeys.map((key) => allRules[key])
@@ -41,9 +41,9 @@ export function scanAllSheets(
   collectThemes = false,
   tokens?: TokensParsed
 ): DedupedThemes | undefined {
-  if (!process.env.GUI_DID_OUTPUT_CSS) {
+  if (!process.env.TAMAGUI_DID_OUTPUT_CSS) {
     if (process.env.NODE_ENV === 'test') return
-    if (process.env.GUI_TARGET !== 'web') return
+    if (process.env.TAMAGUI_TARGET !== 'web') return
 
     let themes: DedupedThemes | undefined
 
@@ -80,7 +80,7 @@ function trackInsertedStyle(id: string) {
   return next
 }
 
-const bailAfterEnv = process.env.GUI_BAIL_AFTER_SCANNING_X_CSS_RULES
+const bailAfterEnv = process.env.TAMAGUI_BAIL_AFTER_SCANNING_X_CSS_RULES
 const bailAfter = bailAfterEnv ? +bailAfterEnv : 8000
 
 function updateSheetStyles(
@@ -101,8 +101,8 @@ function updateSheetStyles(
     return
   }
 
-  const firstSelector = getGuiSelector(rules[0], collectThemes)?.[0]
-  const lastSelector = getGuiSelector(rules[rules.length - 1], collectThemes)?.[0]
+  const firstSelector = getHanzoguiSelector(rules[0], collectThemes)?.[0]
+  const lastSelector = getHanzoguiSelector(rules[rules.length - 1], collectThemes)?.[0]
   const cacheKey = `${rules.length}${firstSelector}${lastSelector}`
   const lastScanned = scannedCache.get(sheet)
 
@@ -127,7 +127,7 @@ function updateSheetStyles(
     const rule = rules[i]
     if (!(rule instanceof CSSStyleRule)) continue
 
-    const response = getGuiSelector(rule, collectThemes)
+    const response = getHanzoguiSelector(rule, collectThemes)
 
     if (response) {
       // reset to 0 on any success as eg every other theme scan we get empty
@@ -135,7 +135,7 @@ function updateSheetStyles(
     } else {
       fails++
       if (fails > bailAfter) {
-        // conservatively bail out of non-gui sheets
+        // conservatively bail out of non-hanzogui sheets
         return
       }
       continue
@@ -198,8 +198,8 @@ function addThemesFromCSS(cssStyleRule: CSSStyleRule, tokens?: TokensParsed) {
     if (sepI === -1) continue
     const varIndex = rule.indexOf('--')
     let key = rule.slice(varIndex === -1 ? 0 : varIndex + 2, sepI)
-    if (process.env.GUI_CSS_VARIABLE_PREFIX) {
-      key = key.replace(process.env.GUI_CSS_VARIABLE_PREFIX, '')
+    if (process.env.TAMAGUI_CSS_VARIABLE_PREFIX) {
+      key = key.replace(process.env.TAMAGUI_CSS_VARIABLE_PREFIX, '')
     }
     const val = rule.slice(sepI + 2)
     let value: string
@@ -249,9 +249,9 @@ function addThemesFromCSS(cssStyleRule: CSSStyleRule, tokens?: TokensParsed) {
   } satisfies DedupedTheme
 }
 
-const guiSelectorRegex = /\.tm_xxt/
+const hanzoguiSelectorRegex = /\.tm_xxt/
 
-function getGuiSelector(
+function getHanzoguiSelector(
   rule: CSSRule | null,
   collectThemes = false
 ): readonly [string, CSSStyleRule] | [string, CSSStyleRule, true] | undefined {
@@ -259,21 +259,21 @@ function getGuiSelector(
     const text = rule.selectorText
 
     // only matches t_ starting selector chains
-    if (text[0] === ':' && text[1] === 'r' && guiSelectorRegex.test(text)) {
-      const id = getIdentifierFromGuiSelector(
+    if (text[0] === ':' && text[1] === 'r' && hanzoguiSelectorRegex.test(text)) {
+      const id = getIdentifierFromHanzoguiSelector(
         // next.js minifies it so its in front
-        text.replace(guiSelectorRegex, '')
+        text.replace(hanzoguiSelectorRegex, '')
       )
       return collectThemes ? [id, rule, true] : [id, rule]
     }
   } else if (rule instanceof CSSMediaRule) {
-    // hanzo-gui only ever inserts 1 rule per media
+    // hanzogui only ever inserts 1 rule per media
     if (rule.cssRules.length > 1) return
-    return getGuiSelector(rule.cssRules[0])
+    return getHanzoguiSelector(rule.cssRules[0])
   }
 }
 
-const getIdentifierFromGuiSelector = (selector: string) => {
+const getIdentifierFromHanzoguiSelector = (selector: string) => {
   const dotIndex = selector.indexOf(':')
   if (dotIndex > -1) {
     return selector.slice(7, dotIndex)
@@ -301,11 +301,11 @@ export function setNonce(_: string) {
 }
 
 export function insertStyleRules(rulesToInsert: RulesToInsert) {
-  if (process.env.GUI_TARGET !== 'web') return
+  if (process.env.TAMAGUI_TARGET !== 'web') return
 
   if (!sheet && document.head) {
     const styleTag = document.createElement('style')
-    styleTag.id = '_gui-styles'
+    styleTag.id = '_hanzogui-styles'
     if (nonce) {
       styleTag.nonce = nonce
     }
@@ -342,10 +342,10 @@ export function insertStyleRules(rulesToInsert: RulesToInsert) {
 
 // The way browser or next.js work you end up with CSS being removed *after* the new CSS loads for the upcoming page
 // this causes many bugs. We defaulted to "2" here for safety, meaning we sacrificed some performance
-// setting GUI_INSERT_SELECTOR_TRIES=1 will be faster so long as you are concatting your CSS together
+// setting TAMAGUI_INSERT_SELECTOR_TRIES=1 will be faster so long as you are concatting your CSS together
 
-const maxToInsert = process.env.GUI_INSERT_SELECTOR_TRIES
-  ? +process.env.GUI_INSERT_SELECTOR_TRIES
+const maxToInsert = process.env.TAMAGUI_INSERT_SELECTOR_TRIES
+  ? +process.env.TAMAGUI_INSERT_SELECTOR_TRIES
   : 1
 
 export function shouldInsertStyleRules(identifier: string) {
@@ -354,9 +354,9 @@ export function shouldInsertStyleRules(identifier: string) {
   }
   const total = totalSelectorsInserted.get(identifier) || 0
   if (process.env.NODE_ENV === 'development') {
-    if (total > +(process.env.GUI_STYLE_INSERTION_WARNING_LIMIT || 10)) {
+    if (total > +(process.env.TAMAGUI_STYLE_INSERTION_WARNING_LIMIT || 10)) {
       console.warn(
-        `Warning: inserting many CSS rules, you may be animating something and generating many CSS insertions, which can degrade performance. Instead, try using the "disableClassName" property on elements that change styles often. To disable this warning set GUI_STYLE_INSERTION_WARNING_LIMIT from 50000 to something higher`
+        `Warning: inserting many CSS rules, you may be animating something and generating many CSS insertions, which can degrade performance. Instead, try using the "disableClassName" property on elements that change styles often. To disable this warning set TAMAGUI_STYLE_INSERTION_WARNING_LIMIT from 50000 to something higher`
       )
     }
   }

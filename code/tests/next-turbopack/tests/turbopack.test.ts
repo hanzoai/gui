@@ -25,7 +25,7 @@ export function TestComponent() {
 
   return (
     <YStack flex={1} justifyContent="center" alignItems="center" gap="$4" padding="$4" backgroundColor="$background">
-      <Text color="$color12" fontSize="$8" fontWeight="bold">Gui + Turbopack</Text>
+      <Text color="$color12" fontSize="$8" fontWeight="bold">Hanzogui + Turbopack</Text>
       <Text color="$color10">Count: {count}</Text>
       <Button onPress={() => setCount(c => c + 1)}>
         <Text color="white">Increment</Text>
@@ -43,13 +43,13 @@ function reset() {
   if (existsSync(CSS)) unlinkSync(CSS)
 }
 
-describe('Turbopack + GUI CLI optimization', () => {
+describe('Turbopack + Hanzogui CLI optimization', () => {
   beforeEach(() => reset())
   afterEach(() => reset())
   afterAll(() => reset())
 
   it('CLI optimization flattens Text to span with className', () => {
-    execSync(`npx hanzo-gui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
+    execSync(`npx hanzogui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
 
     const optimized = readFileSync(SRC, 'utf-8')
 
@@ -65,7 +65,7 @@ describe('Turbopack + GUI CLI optimization', () => {
   })
 
   it('CLI generates atomic CSS file', () => {
-    execSync(`npx hanzo-gui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
+    execSync(`npx hanzogui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
 
     expect(existsSync(CSS)).toBe(true)
     const css = readFileSync(CSS, 'utf-8')
@@ -80,7 +80,7 @@ describe('Turbopack + GUI CLI optimization', () => {
   })
 
   it('prod build works after CLI optimization', () => {
-    execSync(`npx hanzo-gui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
+    execSync(`npx hanzogui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
     const result = execSync(`bun run next-build`, {
       cwd: ROOT,
       encoding: 'utf-8',
@@ -91,7 +91,7 @@ describe('Turbopack + GUI CLI optimization', () => {
 
   it('reset properly restores original file', () => {
     // Optimize
-    execSync(`npx hanzo-gui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
+    execSync(`npx hanzogui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
     expect(existsSync(CSS)).toBe(true)
     expect(readFileSync(SRC, 'utf-8')).toContain('.css')
 

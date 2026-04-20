@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Paragraph, Sheet, YStack } from '@hanzo/gui'
+import { Button, Paragraph, Sheet, YStack } from 'hanzogui'
 
 /**
  * Test case for Sheet drag/swipe interactions

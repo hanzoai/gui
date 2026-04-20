@@ -1,5 +1,5 @@
 import { memo, useRef, useState } from 'react'
-import { Button, Paragraph, Popover, XStack, YStack, Text, View } from '@hanzo/gui'
+import { Button, Paragraph, Popover, XStack, YStack, Text, View } from 'hanzogui'
 
 /**
  * Test case for Popover trigger render isolation

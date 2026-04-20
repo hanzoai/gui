@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { shouldExclude, GuiPlugin } = require('@hanzogui/loader')
+const { shouldExclude, HanzoguiPlugin } = require('hanzogui-loader')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const target = 'web'
@@ -50,7 +50,7 @@ module.exports = {
       directory: path.join(__dirname, 'public'),
     },
     compress: true,
-    port: process.env.PORT || 9000,
+    port: process.env.PORT || 7979,
   },
   ignoreWarnings: [
     // suppress react-native-worklets critical dependency warning
@@ -115,9 +115,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new GuiPlugin({
-      config: './src/gui.config.ts',
-      components: ['@hanzo/gui', '@hanzogui/sandbox-ui'],
+    new HanzoguiPlugin({
+      config: './src/hanzogui.config.ts',
+      components: ['hanzogui', '@hanzogui/sandbox-ui'],
       importsWhitelist: ['constants.js'],
       disableExtraction,
     }),

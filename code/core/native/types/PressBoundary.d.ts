@@ -3,7 +3,7 @@ import { View, type ViewProps } from "react-native";
 export interface PressBoundaryProps extends ViewProps {
 	enabled?: boolean;
 	/**
-	* Alias for enabling the boundary. The behavior is limited to Tamagui's
+	* Alias for enabling the boundary. The behavior is limited to Hanzogui's
 	* shared press ownership and does not patch arbitrary RN bubbling.
 	*/
 	stopPropagation?: boolean;

@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, XStack } from '@hanzo/gui'
+import { ScrollView, View, Text, XStack } from 'hanzogui'
 
 export function TestScrollViewHideScrollbar() {
   return (

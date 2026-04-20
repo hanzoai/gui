@@ -1,4 +1,4 @@
-import { Button, Dialog, View, YStack } from '@hanzo/gui'
+import { Button, Dialog, View, YStack } from 'hanzogui'
 
 /**
  * Test case for issue #3565

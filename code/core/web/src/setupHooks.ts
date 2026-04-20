@@ -1,4 +1,4 @@
-import type { GuiComponentStateRef } from './types'
+import type { HanzoguiComponentStateRef } from './types'
 
 export const hooks: InternalHooks = {}
 
@@ -11,7 +11,7 @@ type InternalHooks = {
   usePropsTransform?: (
     elementType: any,
     props: Record<string, any>,
-    stateRef: { current: GuiComponentStateRef },
+    stateRef: { current: HanzoguiComponentStateRef },
     willHydrate?: boolean
   ) => any
 

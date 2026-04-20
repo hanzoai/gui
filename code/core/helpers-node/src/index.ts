@@ -1,3 +1,3 @@
-export * from './readGuiOptions'
-export * from './getGuiDefaultPath'
-export * from './getGuiOptions'
+export * from './readHanzoguiOptions'
+export * from './getHanzoguiDefaultPath'
+export * from './getHanzoguiOptions'

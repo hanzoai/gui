@@ -17,7 +17,7 @@ test(`ensures unitless variables in CSS don't add px suffix`, () => {
 })
 
 test(`custom prefix is added to css variable`, () => {
-  process.env.GUI_CSS_VARIABLE_PREFIX = 'custom-'
+  process.env.TAMAGUI_CSS_VARIABLE_PREFIX = 'custom-'
 
   expect(
     variableToCSS(

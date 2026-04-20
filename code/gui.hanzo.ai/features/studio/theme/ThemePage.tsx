@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, X } from '@hanzogui/lucide-icons-2'
 import { useStore } from '@hanzogui/use-store'
-import type { GuiElement } from '@hanzogui/web'
+import type { HanzoguiElement } from '@hanzogui/web'
 import {
   memo,
   Suspense,
@@ -22,7 +22,7 @@ import {
   View,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { ThemeNameEffectNoTheme } from '~/features/site/theme/ThemeNameEffect'
 import { Dialogs } from '~/features/studio/components/Dialogs'
 import { StudioAIBar } from '~/features/studio/theme/StudioAIBar'
@@ -125,7 +125,7 @@ const ThemeBuilderModal = memo(() => {
   const store = useThemeBuilderStore()
   const { currentSection } = store
   const StepComponent = currentSection?.children ?? Empty
-  const ref = useRef<GuiElement>(null)
+  const ref = useRef<HanzoguiElement>(null)
   const [hide, setHide] = useState(false)
   const { gtLg } = useMedia()
   const bannerHeight = useBannerHeight()

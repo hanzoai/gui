@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Accordion, Button, Paragraph, TooltipSimple, XStack, YStack } from '@hanzo/gui'
+import { Accordion, Button, Paragraph, TooltipSimple, XStack, YStack } from 'hanzogui'
 import { ChevronDown, ChevronsDownUp, ChevronsUpDown } from '@hanzogui/lucide-icons-2'
 import { DocsRouteNavItem } from './DocsRouteNavItem'
 import { docsRoutes } from './docsRoutes'

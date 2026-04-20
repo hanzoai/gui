@@ -1,6 +1,6 @@
 import { setTintIndex } from '@hanzogui/logo'
 import { useEffect } from 'react'
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { HomeCommunity } from '~/features/site/home/HomeCommunity'
 import { HomeFeaturesGrid } from '~/features/site/home/HomeFeaturesGrid'

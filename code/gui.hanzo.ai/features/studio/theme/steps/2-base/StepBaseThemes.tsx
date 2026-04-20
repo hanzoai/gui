@@ -21,7 +21,7 @@ import {
   View,
   XStack,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { useDoublePress } from '~/features/studio/hooks/useDoublePress'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { Select, SelectItem } from '../../../../../components/Select'

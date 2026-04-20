@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import type { GuiElement, ViewProps } from '@hanzo/gui'
-import { isWeb, View, withStaticProperties } from '@hanzo/gui'
+import type { HanzoguiElement, ViewProps } from 'hanzogui'
+import { isWeb, View, withStaticProperties } from 'hanzogui'
 
 // 3D Card Context - shared hover state between container and items
 const MouseEnterContext = createContext<
@@ -34,8 +34,8 @@ const Card3DContainer = ({
   centered = false,
   ...rest
 }: Card3DContainerProps) => {
-  const [_containerRef, setContainerRef] = useState<GuiElement | null>(null)
-  const [perspectiveRef, setPerspectiveRef] = useState<GuiElement | null>(null)
+  const [_containerRef, setContainerRef] = useState<HanzoguiElement | null>(null)
+  const [perspectiveRef, setPerspectiveRef] = useState<HanzoguiElement | null>(null)
   const [isMouseEntered, setIsMouseEntered] = useState(false)
 
   const containerRef = _containerRef as unknown as HTMLDivElement
@@ -114,7 +114,7 @@ export type Card3DItemProps = {
 
 const Card3DItem = View.styleable<Card3DItemProps>(
   ({ translateZ = 0, children, ...rest }, forwardedRef) => {
-    const [ref, setRef] = useState<GuiElement | null>(null)
+    const [ref, setRef] = useState<HanzoguiElement | null>(null)
     const [isMouseEntered] = useMouseEnter()
 
     useEffect(() => {

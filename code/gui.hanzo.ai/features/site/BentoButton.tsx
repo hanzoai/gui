@@ -1,6 +1,6 @@
-import { Button, type ButtonProps } from '@hanzo/gui'
+import { Button, type ButtonProps } from 'hanzogui'
 import { BentoIcon } from '../icons/BentoIcon'
-import { Span } from '@hanzo/gui'
+import { Span } from 'hanzogui'
 
 export const BentoButton = (props: ButtonProps) => {
   return (

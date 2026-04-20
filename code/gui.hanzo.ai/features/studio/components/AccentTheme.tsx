@@ -1,5 +1,5 @@
-import type { ThemeProps } from '@hanzo/gui'
-import { Theme, useThemeName } from '@hanzo/gui'
+import type { ThemeProps } from 'hanzogui'
+import { Theme, useThemeName } from 'hanzogui'
 
 import { accentThemeName } from '../accentThemeName'
 import { useHasAccent } from '../hooks/useHasAccent'

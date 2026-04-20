@@ -1,5 +1,5 @@
-import type { CardProps } from '@hanzo/gui'
-import { Card, H4, Paragraph, XStack, YStack } from '@hanzo/gui'
+import type { CardProps } from 'hanzogui'
+import { Card, H4, Paragraph, XStack, YStack } from 'hanzogui'
 import { useDemoProps } from '../hooks/useDemoProps'
 
 export const Overview1 = () => {

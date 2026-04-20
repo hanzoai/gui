@@ -1,4 +1,4 @@
-import { XStack, YStack, styled } from '@hanzo/gui'
+import { XStack, YStack, styled } from 'hanzogui'
 
 import * as Pickers from '@hanzogui/bento/component/elements/pickers'
 import { Showcase } from '~/components/bento-showcase/_Showcase'

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Paragraph, Theme, Tooltip, TooltipGroup, XGroup } from '@hanzo/gui'
+import { Paragraph, Theme, Tooltip, TooltipGroup, XGroup } from 'hanzogui'
 import { Link } from '~/components/Link'
 import { BentoButton } from '../BentoButton'
 import { ConsultingButton } from '../ConsultingButton'

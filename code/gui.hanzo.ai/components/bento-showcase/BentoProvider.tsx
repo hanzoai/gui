@@ -1,4 +1,4 @@
-import { createContext } from '@hanzo/gui'
+import { createContext } from 'hanzogui'
 
 export type BentoShowcaseContext = {
   showAppropriateModal: () => void

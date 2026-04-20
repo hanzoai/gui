@@ -1,4 +1,4 @@
-import { H1, H2, H3, styled } from '@hanzo/gui'
+import { H1, H2, H3, styled } from 'hanzogui'
 
 export const HomeH1 = styled(H1, {
   fontFamily: '$mono',

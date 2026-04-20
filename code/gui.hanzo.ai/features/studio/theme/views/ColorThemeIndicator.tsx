@@ -1,4 +1,4 @@
-import { Circle, YStack, useThemeName } from '@hanzo/gui'
+import { Circle, YStack, useThemeName } from 'hanzogui'
 import {
   type BuildPalette,
   PALETTE_BACKGROUND_OFFSET,

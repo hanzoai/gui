@@ -1,4 +1,4 @@
-import { EnsureFlexed, YStack } from '@hanzo/gui'
+import { EnsureFlexed, YStack } from 'hanzogui'
 
 import { ContainerLarge } from '~/components/Containers'
 import { SocialLinksRow } from './SocialLinksRow'

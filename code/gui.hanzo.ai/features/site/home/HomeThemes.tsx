@@ -2,7 +2,7 @@ import { onTintChange, setTintIndex, useTints } from '@hanzogui/logo'
 import { useIsIntersecting } from '~/hooks/useOnIntersecting'
 import type { SetStateAction } from 'react'
 import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import type { ThemeName } from '@hanzo/gui'
+import type { ThemeName } from 'hanzogui'
 import {
   Theme,
   XGroup,
@@ -12,7 +12,7 @@ import {
   useDebounce,
   useEvent,
   useGet,
-} from '@hanzo/gui'
+} from 'hanzogui'
 
 import { ActiveCircle } from '~/components/ActiveCircle'
 import { ContainerLarge } from '~/components/Containers'

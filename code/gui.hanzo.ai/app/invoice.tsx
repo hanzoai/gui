@@ -1,4 +1,4 @@
-import { YStack, XStack, Text, H2, Spacer } from '@hanzo/gui'
+import { YStack, XStack, Text, H2, Spacer } from 'hanzogui'
 
 export const mode = 'spa'
 
@@ -142,7 +142,7 @@ export default function InvoicePage() {
 //   styled,
 //   useDidFinishSSR,
 //   withStaticProperties,
-// } from '@hanzo/gui'
+// } from 'hanzogui'
 // import { ThemeToggle } from '~/features/site/theme/ThemeToggle'
 
 // export default memo(() => {

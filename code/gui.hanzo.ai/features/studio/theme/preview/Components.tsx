@@ -1,5 +1,5 @@
 import { CheckboxWithLabel, SelectDemoContents, SwitchWithLabel } from '@hanzogui/demos'
-import { Button, H4, RadioGroup, Separator, Spacer, XStack, YStack } from '@hanzo/gui'
+import { Button, H4, RadioGroup, Separator, Spacer, XStack, YStack } from 'hanzogui'
 import { AccentTheme } from '../../components/AccentTheme'
 import { useDemoProps } from '../hooks/useDemoProps'
 import { RadioGroupItemWithLabel } from '../views/RadioGroupItemWithLabel'

@@ -63,7 +63,7 @@ const include = [
   'swr/mutation',
   'mdx-bundler/client',
   // core hanzo-gui packages must be pre-bundled together to avoid duplicate instances
-  '@hanzo/gui',
+  'hanzogui',
   '@hanzogui/core',
   '@hanzogui/web',
   // existing
@@ -222,7 +222,7 @@ export default {
         if (id.startsWith('\0bento-component-stub:')) {
           // Return stub component code
           return `
-import { YStack, Paragraph } from '@hanzo/gui'
+import { YStack, Paragraph } from 'hanzogui'
 
 export default function BentoComponentStub() {
   if (process.env.NODE_ENV === 'production') {
@@ -244,7 +244,7 @@ export const LocationNotification = BentoComponentStub
       },
     },
     guiPlugin({
-      // see gui.build.ts
+      // see hanzogui.build.ts
       disable: process.env.NODE_ENV !== 'production',
     }),
 

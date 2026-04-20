@@ -1,4 +1,4 @@
-import { YStack } from '@hanzo/gui'
+import { YStack } from 'hanzogui'
 
 import * as MicroInter from '@hanzogui/bento/component/animation/microinteractions'
 import {

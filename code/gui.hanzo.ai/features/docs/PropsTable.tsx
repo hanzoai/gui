@@ -1,4 +1,4 @@
-import { H3, H4, ListItem, Paragraph, Separator, View, XStack, YStack } from '@hanzo/gui'
+import { H3, H4, ListItem, Paragraph, Separator, View, XStack, YStack } from 'hanzogui'
 
 import { Code } from '~/components/Code'
 

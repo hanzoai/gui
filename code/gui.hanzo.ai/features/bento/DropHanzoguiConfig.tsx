@@ -9,14 +9,14 @@ import {
   Theme,
   TooltipSimple,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import { Features } from '~/components/Features'
 import { Code, CodeInline } from '~/components/Code'
 import { useLocalStorageWatcher } from '~/hooks/useLocalStorageWatcher'
 
-export const DropGuiConfig = () => {
+export const DropHanzoguiConfig = () => {
   const [show, setShow] = useState(false)
-  const config = useLocalStorageWatcher('userGuiConfig', '')
+  const config = useLocalStorageWatcher('userHanzoguiConfig', '')
   const [dragging, setDragging] = useState(false)
 
   useEffect(() => {
@@ -172,7 +172,7 @@ export const DropGuiConfig = () => {
                 {!config.storageItem && (
                   <>
                     <Paragraph size="$4">
-                      Drag and drop your <CodeInline>.hanzoai/gui.config.json</CodeInline>{' '}
+                      Drag and drop your <CodeInline>.hanzoai/hanzogui.config.json</CodeInline>{' '}
                       here to customize the code we generate to your design system!
                     </Paragraph>
                     <Paragraph size="$4">
@@ -180,13 +180,13 @@ export const DropGuiConfig = () => {
                       automatically. If not, use the CLI.
                     </Paragraph>
                     <Paragraph size="$4">
-                      But first, set up a <CodeInline>gui.build.ts</CodeInline>:
+                      But first, set up a <CodeInline>hanzogui.build.ts</CodeInline>:
                     </Paragraph>
 
                     <Features
                       items={[
                         <React.Fragment key="">
-                          Create a <CodeInline>gui.build.ts</CodeInline> at the root of
+                          Create a <CodeInline>hanzogui.build.ts</CodeInline> at the root of
                           your app and move your build configuration into it as a default
                           export. All of the bundler plugins load from this file on
                           startup.
@@ -196,7 +196,7 @@ export const DropGuiConfig = () => {
                           <Code>npx @hanzogui/cli generate</Code>
                         </React.Fragment>,
                         <React.Fragment key="">
-                          Drop the generated <Code>.hanzoai/gui.config.json</Code> on this
+                          Drop the generated <Code>.hanzoai/hanzogui.config.json</Code> on this
                           window.
                         </React.Fragment>,
                       ]}

@@ -1,8 +1,8 @@
 import { Image } from '@hanzogui/image'
 import { FastForward, Pause, Rewind } from '@hanzogui/lucide-icons-2'
 import { memo } from 'react'
-import type { ThemeName, YStackProps } from '@hanzo/gui'
-import { Button, Paragraph, Separator, Square, Theme, XStack, YStack } from '@hanzo/gui'
+import type { ThemeName, YStackProps } from 'hanzogui'
+import { Button, Paragraph, Separator, Square, Theme, XStack, YStack } from 'hanzogui'
 
 import image from './mj.jpg'
 

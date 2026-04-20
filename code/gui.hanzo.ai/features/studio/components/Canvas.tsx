@@ -1,7 +1,7 @@
 'use client'
 
-import type { YStackProps } from '@hanzo/gui'
-import { EnsureFlexed, YStack, styled } from '@hanzo/gui'
+import type { YStackProps } from 'hanzogui'
+import { EnsureFlexed, YStack, styled } from 'hanzogui'
 
 import { sidebarWidth } from '../constants'
 

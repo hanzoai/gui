@@ -9,7 +9,7 @@ import {
   Popover,
   YGroup,
   YStack,
-} from '@hanzo/gui'
+} from 'hanzogui'
 import type { ThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { weakKey } from '~/helpers/weakKey'

@@ -731,7 +731,7 @@ async function run() {
             await spawnify(`git pull --rebase origin ${currentBranch}`, { cwd })
           }
 
-          await spawnify(`git push origin head`, { cwd })
+          await spawnify(`git push origin HEAD`, { cwd })
           if (!canary) {
             await spawnify(`git push origin ${gitTag}`, { cwd })
           }

@@ -52,6 +52,7 @@ const isCI = shouldFinish || rePublish || undocumented || process.argv.includes(
 const skipFinish =
   rePublish || skipAll || undocumented || process.argv.includes('--skip-finish')
 const forcePublishAll = process.argv.includes('--force-publish-all')
+const fromFeatureBranch = process.argv.includes('--from-feature-branch')
 
 // --tag <name> overrides the publish dist-tag (canary/latest) with any custom value
 const tagFlagIndex = process.argv.indexOf('--tag')
@@ -235,13 +236,13 @@ async function run() {
     let version = curVersion
 
     // ensure we are up to date
-    // ensure we are on main (skip branch check for canary releases)
+    // ensure we are on main (skip branch check for canary releases or --from-feature-branch)
     if (!canary && !rePublish) {
-      if (!isMain) {
+      if (!fromFeatureBranch && !isMain) {
         throw new Error(`Not on main`)
       }
     }
-    if (!dirty && !rePublish && !shouldFinish && !canary) {
+    if (!dirty && !rePublish && !shouldFinish && !canary && !fromFeatureBranch) {
       await spawnify(`git pull --rebase origin main`)
     }
 
@@ -566,7 +567,8 @@ async function run() {
         packagesToPublish,
         async ({ name, cwd }) => {
           const isCanaryVersion = /^\d+\.\d+\.\d+-\d+$/.test(version)
-          const publishTag = customTag || (canary || isCanaryVersion ? 'canary' : 'latest')
+          const publishTag =
+            customTag || (canary || isCanaryVersion ? 'canary' : 'latest')
           const publishOptions = [publishTag && `--tag ${publishTag}`]
             .filter(Boolean)
             .join(' ')

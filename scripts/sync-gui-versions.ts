@@ -19,7 +19,7 @@ async function main() {
   // Find all package.json files across the workspace, excluding node_modules
   const glob = new Glob('code/**/package.json')
   const packagePaths = Array.from(glob.scanSync('.')).filter(
-    (p) => !p.includes('node_modules'),
+    (p) => !p.includes('node_modules')
   )
 
   let updated = 0

@@ -26,11 +26,18 @@ async function main() {
 
   for (const pkgPath of packagePaths) {
     try {
+      // skip test fixtures — they're intentionally pinned to their own versions
+      if (pkgPath.includes('__tests__/fixtures/')) continue
+
       const content = await readFile(pkgPath, 'utf8')
       const pkg = JSON.parse(content)
 
-      // Only update @gui scoped packages
-      if (!pkg.name?.startsWith('@hanzogui/')) continue
+      // match all hanzogui packages: bare `hanzogui`, bare `hanzogui-*`, scoped `@hanzogui/*`
+      const isHanzoguiPkg =
+        pkg.name === 'hanzogui' ||
+        pkg.name?.startsWith('hanzogui-') ||
+        pkg.name?.startsWith('@hanzogui/')
+      if (!isHanzoguiPkg) continue
 
       if (pkg.version !== targetVersion) {
         console.info(`  Updating ${pkg.name}: ${pkg.version} -> ${targetVersion}`)

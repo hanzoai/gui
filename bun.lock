@@ -45,7 +45,7 @@
     },
     "code/compiler/loader": {
       "name": "hanzogui-loader",
-      "version": "2.0.0-rc.41-hanzoai.5",
+      "version": "102.0.0-rc.41-hanzoai.1",
       "dependencies": {
         "@hanzogui/cli-color": "workspace:*",
         "@hanzogui/core": "workspace:*",

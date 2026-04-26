@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/switch",
-  "version": "2.0.0-rc.41-hanzoai.5",
+  "version": "102.0.0-rc.41-hanzoai.1",
   "source": "src/index.ts",
   "files": [
     "src",

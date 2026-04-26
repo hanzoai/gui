@@ -53,6 +53,7 @@ const skipFinish =
   rePublish || skipAll || undocumented || process.argv.includes('--skip-finish')
 const forcePublishAll = process.argv.includes('--force-publish-all')
 const fromFeatureBranch = process.argv.includes('--from-feature-branch')
+const noClean = process.argv.includes('--no-clean')
 
 // --tag <name> overrides the publish dist-tag (canary/latest) with any custom value
 const tagFlagIndex = process.argv.indexOf('--tag')
@@ -107,6 +108,10 @@ const currentRCNumber = rcMatch ? Number.parseInt(rcMatch[2], 10) : 0
 
 const nextVersion = (() => {
   if (rePublish) {
+    return curVersion
+  }
+
+  if (skipVersion) {
     return curVersion
   }
 
@@ -560,6 +565,9 @@ async function run() {
 
     if (!shouldFinish && !skipPublish) {
       const tmpDir = `/tmp/gui-publish`
+      if (!noClean) {
+        await fs.remove(tmpDir)
+      }
       await ensureDir(tmpDir)
 
       // pack and publish

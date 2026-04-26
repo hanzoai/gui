@@ -7,7 +7,7 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { Glob } from 'bun'
 
-const ROOT_PACKAGE = 'code/ui/gui/package.json'
+const ROOT_PACKAGE = 'code/ui/hanzogui/package.json'
 
 async function main() {
   // Get the canonical version from the main hanzo-gui package
@@ -16,9 +16,11 @@ async function main() {
 
   console.info(`Target version: ${targetVersion}`)
 
-  // Find all package.json files in code/ui and code/core
-  const glob = new Glob('code/{ui,core}/*/package.json')
-  const packagePaths = Array.from(glob.scanSync('.'))
+  // Find all package.json files across the workspace, excluding node_modules
+  const glob = new Glob('code/**/package.json')
+  const packagePaths = Array.from(glob.scanSync('.')).filter(
+    (p) => !p.includes('node_modules'),
+  )
 
   let updated = 0
 

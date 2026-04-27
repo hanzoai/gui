@@ -29,6 +29,7 @@ import { Timer } from '@hanzogui/lucide-icons-2/icons/Timer'
 import { Upload } from '@hanzogui/lucide-icons-2/icons/Upload'
 import { Users } from '@hanzogui/lucide-icons-2/icons/Users'
 import { Workflow } from '@hanzogui/lucide-icons-2/icons/Workflow'
+import { Zap } from '@hanzogui/lucide-icons-2/icons/Zap'
 import type { Namespace } from './lib/api'
 
 const APP_VERSION = (import.meta as any).env?.VITE_APP_VERSION ?? '2.45.3'
@@ -50,13 +51,14 @@ function buildSidebarConfig(ns?: string): SidebarConfig {
           { to: ent ? `${ent}/batches` : '/namespaces', icon: Activity, label: 'Batch', disabled: !ns },
           { to: ent ? `${ent}/deployments` : '/namespaces', icon: Rocket, label: 'Deployments', disabled: !ns },
           { to: ent ? `${ent}/task-queues` : '/namespaces', icon: ListChecks, label: 'Task Queues', disabled: !ns },
+          { to: ent ? `${ent}/activities` : '/namespaces', icon: Zap, label: 'Activities', disabled: !ns },
           { to: ent ? `${ent}/workers` : '/namespaces', icon: Users, label: 'Workers', disabled: !ns },
           { to: ent ? `${ent}/nexus` : '/namespaces', icon: Network, label: 'Nexus', disabled: !ns },
         ],
       },
       {
         items: [
-          { to: '/archive', icon: Archive, label: 'Archive', disabled: true },
+          { to: '/archive', icon: Archive, label: 'Archive' },
           { to: '/import', icon: Upload, label: 'Import', disabled: true },
           { href: 'https://docs.hanzo.ai/tasks', icon: BookOpen, label: 'Docs' },
         ],

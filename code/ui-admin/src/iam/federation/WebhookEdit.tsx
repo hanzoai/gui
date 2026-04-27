@@ -25,7 +25,7 @@ import {
 import { Save } from '@hanzogui/lucide-icons-2/icons/Save'
 import { Loading, ErrorState } from '../../primitives/Empty'
 import { useFetch, apiPost, apiDelete } from '../../data/useFetch'
-import { Field } from './Field'
+import { LabelRow } from './LabelRow'
 import { SelectInline } from './LdapEdit'
 import type { IamItemResponse, Webhook, WebhookHeader } from './types'
 
@@ -117,26 +117,26 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
         </XStack>
         <Separator />
         <YStack gap="$4" p="$5">
-          <Field label="Organization">
+          <LabelRowlabel="Organization">
             <Input
               value={draft.organization}
               onChangeText={(v: string) => update('organization', v)}
             />
-          </Field>
-          <Field label="Name">
+          </LabelRow>
+          <LabelRowlabel="Name">
             <Input value={draft.name} onChangeText={(v: string) => update('name', v)} />
-          </Field>
-          <Field label="URL">
+          </LabelRow>
+          <LabelRowlabel="URL">
             <Input value={draft.url} onChangeText={(v: string) => update('url', v)} />
-          </Field>
-          <Field label="Method">
+          </LabelRow>
+          <LabelRowlabel="Method">
             <SelectInline
               value={draft.method}
               options={['POST', 'GET', 'PUT', 'DELETE'].map((m) => ({ value: m, label: m }))}
               onChange={(v) => update('method', v as Webhook['method'])}
             />
-          </Field>
-          <Field label="Content type">
+          </LabelRow>
+          <LabelRowlabel="Content type">
             <SelectInline
               value={draft.contentType}
               options={[
@@ -148,14 +148,14 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
               ]}
               onChange={(v) => update('contentType', v as Webhook['contentType'])}
             />
-          </Field>
-          <Field label="Headers" align="start">
+          </LabelRow>
+          <LabelRowlabel="Headers" align="start">
             <HeaderEditor
               headers={draft.headers}
               onChange={(next) => update('headers', next)}
             />
-          </Field>
-          <Field label="Events" align="start">
+          </LabelRow>
+          <LabelRowlabel="Events" align="start">
             <TextArea
               minH={80}
               value={draft.events.join('\n')}
@@ -172,8 +172,8 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
             <Text mt="$1" fontSize="$1" color="$placeholderColor">
               One event per line.
             </Text>
-          </Field>
-          <Field label="Signing secret">
+          </LabelRow>
+          <LabelRowlabel="Signing secret">
             <Input
               secureTextEntry
               autoComplete="off"
@@ -184,8 +184,8 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
             <Text mt="$1.5" fontSize="$1" color="$placeholderColor">
               Write-only. The secret is hashed server-side and never returned.
             </Text>
-          </Field>
-          <Field label="User-extended payload">
+          </LabelRow>
+          <LabelRowlabel="User-extended payload">
             <Switch
               size="$2"
               checked={draft.isUserExtended}
@@ -193,8 +193,8 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
             >
               <Switch.Thumb />
             </Switch>
-          </Field>
-          <Field label="Single org only">
+          </LabelRow>
+          <LabelRowlabel="Single org only">
             <Switch
               size="$2"
               checked={draft.singleOrgOnly}
@@ -202,8 +202,8 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
             >
               <Switch.Thumb />
             </Switch>
-          </Field>
-          <Field label="Enabled">
+          </LabelRow>
+          <LabelRowlabel="Enabled">
             <Switch
               size="$2"
               checked={draft.isEnabled}
@@ -211,10 +211,10 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
             >
               <Switch.Thumb />
             </Switch>
-          </Field>
-          <Field label="Preview" align="start">
+          </LabelRow>
+          <LabelRowlabel="Preview" align="start">
             <TextArea minH={220} value={previewText} editable={false} />
-          </Field>
+          </LabelRow>
         </YStack>
       </Card>
       {saveError ? <ErrorState error={saveError} /> : null}

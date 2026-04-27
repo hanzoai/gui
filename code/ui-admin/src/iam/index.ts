@@ -8,3 +8,4 @@
 export * from './identity'
 export * from './federation'
 export * from './resources'
+export * from './system'

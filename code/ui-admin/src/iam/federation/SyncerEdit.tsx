@@ -9,7 +9,7 @@ import { Button, Card, H3, Input, Separator, Switch, Text, TextArea, XStack, YSt
 import { Save } from '@hanzogui/lucide-icons-2/icons/Save'
 import { Loading, ErrorState } from '../../primitives/Empty'
 import { useFetch, apiPost, apiDelete } from '../../data/useFetch'
-import { Field } from './Field'
+import { LabelRow } from './LabelRow'
 import { SelectInline } from './LdapEdit'
 import type { IamItemResponse, Syncer, SyncerType } from './types'
 
@@ -138,21 +138,21 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
         </XStack>
         <Separator />
         <YStack gap="$4" p="$5">
-          <Field label="Organization">
+          <LabelRowlabel="Organization">
             <Input value={draft.organization} onChangeText={(v: string) => update('organization', v)} />
-          </Field>
-          <Field label="Name">
+          </LabelRow>
+          <LabelRowlabel="Name">
             <Input value={draft.name} onChangeText={(v: string) => update('name', v)} />
-          </Field>
-          <Field label="Type">
+          </LabelRow>
+          <LabelRowlabel="Type">
             <SelectInline
               value={draft.type}
               options={SYNCER_TYPES.map((t) => ({ value: t, label: t }))}
               onChange={(v) => update('type', v as SyncerType)}
             />
-          </Field>
+          </LabelRow>
           {!isNonDb && draft.type !== 'Active Directory' && (
-            <Field label="Database type">
+            <LabelRowlabel="Database type">
               <SelectInline
                 value={draft.databaseType || 'mysql'}
                 options={[
@@ -164,25 +164,25 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
                 ]}
                 onChange={(v) => update('databaseType', v as Syncer['databaseType'])}
               />
-            </Field>
+            </LabelRow>
           )}
-          <Field label="Host">
+          <LabelRowlabel="Host">
             <Input value={draft.host} onChangeText={(v: string) => update('host', v)} />
-          </Field>
+          </LabelRow>
           {!isNonDb && (
-            <Field label="Port">
+            <LabelRowlabel="Port">
               <Input
                 width={160}
                 keyboardType="numeric"
                 value={String(draft.port)}
                 onChangeText={(v: string) => update('port', Number.parseInt(v, 10) || 0)}
               />
-            </Field>
+            </LabelRow>
           )}
-          <Field label="User">
+          <LabelRowlabel="User">
             <Input value={draft.user} onChangeText={(v: string) => update('user', v)} />
-          </Field>
-          <Field label="Password">
+          </LabelRow>
+          <LabelRowlabel="Password">
             <Input
               secureTextEntry
               autoComplete="off"
@@ -193,21 +193,21 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
             <Text mt="$1.5" fontSize="$1" color="$placeholderColor">
               Leave empty to keep the current password.
             </Text>
-          </Field>
+          </LabelRow>
           {!isNonDb && (
-            <Field label="Database">
+            <LabelRowlabel="Database">
               <Input
                 value={draft.database}
                 onChangeText={(v: string) => update('database', v)}
               />
-            </Field>
+            </LabelRow>
           )}
           {!isNonDb && (
-            <Field label="Table">
+            <LabelRowlabel="Table">
               <Input value={draft.table} onChangeText={(v: string) => update('table', v)} />
-            </Field>
+            </LabelRow>
           )}
-          <Field label="Sync interval">
+          <LabelRowlabel="Sync interval">
             <Input
               width={160}
               keyboardType="numeric"
@@ -216,8 +216,8 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
                 update('syncInterval', Math.max(0, Number.parseInt(v, 10) || 0))
               }
             />
-          </Field>
-          <Field label="SSH" align="start">
+          </LabelRow>
+          <LabelRowlabel="SSH" align="start">
             <YStack gap="$2">
               <SelectInline
                 value={draft.sshType || ''}
@@ -266,8 +266,8 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
                 </YStack>
               ) : null}
             </YStack>
-          </Field>
-          <Field label="Test connection">
+          </LabelRow>
+          <LabelRowlabel="Test connection">
             <XStack gap="$2" items="center">
               <Button size="$3" disabled={testing === 'pending'} onPress={testConnection}>
                 {testing === 'pending' ? 'Testing…' : 'Test'}
@@ -278,27 +278,27 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
                 </Text>
               ) : null}
             </XStack>
-          </Field>
-          <Field label="Affiliation table">
+          </LabelRow>
+          <LabelRowlabel="Affiliation table">
             <Input
               value={draft.affiliationTable}
               onChangeText={(v: string) => update('affiliationTable', v)}
             />
-          </Field>
-          <Field label="Avatar base URL">
+          </LabelRow>
+          <LabelRowlabel="Avatar base URL">
             <Input
               value={draft.avatarBaseUrl}
               onChangeText={(v: string) => update('avatarBaseUrl', v)}
             />
-          </Field>
-          <Field label="Error text" align="start">
+          </LabelRow>
+          <LabelRowlabel="Error text" align="start">
             <TextArea
               minH={120}
               value={draft.errorText || ''}
               onChangeText={(v: string) => update('errorText', v)}
             />
-          </Field>
-          <Field label="Read-only">
+          </LabelRow>
+          <LabelRowlabel="Read-only">
             <Switch
               size="$2"
               checked={draft.isReadOnly}
@@ -306,8 +306,8 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
             >
               <Switch.Thumb />
             </Switch>
-          </Field>
-          <Field label="Enabled">
+          </LabelRow>
+          <LabelRowlabel="Enabled">
             <Switch
               size="$2"
               checked={draft.isEnabled}
@@ -315,7 +315,7 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
             >
               <Switch.Thumb />
             </Switch>
-          </Field>
+          </LabelRow>
         </YStack>
       </Card>
       {saveError ? <ErrorState error={saveError} /> : null}

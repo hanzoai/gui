@@ -7,7 +7,7 @@
 import { useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Text, XStack, YStack } from 'hanzogui'
-import { Empty, useFetch } from '@hanzo/admin'
+import { Empty, useFetch } from '@hanzogui/admin'
 
 interface HistoryEvent {
   eventId: string

@@ -1,7 +1,7 @@
 {
-  "name": "@hanzo/admin",
+  "name": "@hanzogui/admin",
   "version": "0.3.0",
-  "description": "Composable admin shell + primitives + data hooks for Hanzo admin surfaces. Pure Tamagui via @hanzo/gui v7. One way to build admin UI across tasks, kms, commerce, console.",
+  "description": "Composable admin shell + primitives + data hooks for Hanzo admin surfaces. Pure Tamagui via the hanzogui umbrella. One way to build admin UI across tasks, kms, commerce, console.",
   "type": "module",
   "source": "src/index.ts",
   "scripts": {

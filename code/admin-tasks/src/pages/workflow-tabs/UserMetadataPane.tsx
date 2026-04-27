@@ -4,7 +4,7 @@
 // a forward-pointing hint.
 
 import { Card, Text, YStack } from 'hanzogui'
-import { Alert, Empty } from '@hanzo/admin'
+import { Alert, Empty } from '@hanzogui/admin'
 import type { WorkflowExecution } from '../../lib/api'
 
 export function UserMetadataPane({ wf }: { wf: WorkflowExecution }) {

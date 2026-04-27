@@ -52,7 +52,7 @@ function SupportLink({
   title: string
   hint: string
   // Permissive — see @hanzogui/admin's IconComponent: lucide-icons-2 ships
-  // strict Tamagui-typed `color`, but the runtime accepts any CSS string.
+  // strict Hanzo-GUI-typed `color`, but the runtime accepts any CSS string.
   icon: React.ComponentType<any>
 }) {
   return (

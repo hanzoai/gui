@@ -65,9 +65,16 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
     setSaving(true)
     setSaveError(undefined)
     try {
-      const payload: Ldap = passwordEdit
+      // Omit the password field when the user didn't type a new one so
+      // the server keeps the stored bind password. Sending `''` would
+      // wipe the credential, which is what upstream Casdoor does — that
+      // regression is closed here.
+      const payload: Ldap | Omit<Ldap, 'password'> = passwordEdit
         ? { ...draft, password: passwordEdit }
-        : { ...draft, password: '' }
+        : (() => {
+            const { password: _omit, ...rest } = draft
+            return rest
+          })()
       await apiPost<IamItemResponse<Ldap>>(url, payload)
       setPasswordEdit('')
       await mutate()

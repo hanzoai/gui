@@ -35,7 +35,41 @@ export interface WorkflowExecution {
   historyLength?: number
   input?: unknown
   result?: unknown
-  memo?: unknown
+  memo?: Record<string, unknown> | null
+  searchAttrs?: Record<string, unknown> | null
+  // Forward-compat: engine doesn't yet emit these. The UI surfaces an
+  // empty state until the worker SDK runtime ships and starts recording
+  // activity attempts, parent links, and nexus links.
+  pendingActivities?: PendingActivity[] | null
+  pendingNexusOperations?: PendingNexusOperation[] | null
+  parentExecution?: ExecutionRef | null
+  rootExecution?: ExecutionRef | null
+  userMetadata?: { summary?: string; details?: string } | null
+}
+
+export interface ExecutionRef {
+  workflowId: string
+  runId: string
+}
+
+export interface PendingActivity {
+  activityId: string
+  activityType?: { name: string } | string
+  state?: string
+  attempt?: number
+  maximumAttempts?: number
+  scheduledTime?: string
+  lastStartedTime?: string
+  scheduleToCloseTimeout?: string
+  lastFailure?: { message?: string } | null
+}
+
+export interface PendingNexusOperation {
+  endpoint: string
+  service: string
+  operation: string
+  state?: string
+  scheduledEventId?: number
 }
 
 export interface WorkflowsResponse {

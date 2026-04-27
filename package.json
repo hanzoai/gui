@@ -17,7 +17,9 @@
     "./code/sandbox",
     "./code/packages/**/*",
     "./code/gui.hanzo.ai",
-    "./code/ui/**/*"
+    "./code/ui/**/*",
+    "./code/ui-admin",
+    "./code/admin-tasks"
   ],
   "scripts": {
     "postinstall": "bun ./scripts/postinstall.ts",

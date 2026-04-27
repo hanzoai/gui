@@ -31,4 +31,4 @@ export {
   type MfaVerifyPayload,
   type SignupPayload,
 } from './types'
-export { isEmail, isPhoneShape, inIframe, readCsrfToken, scorePassword } from './util'
+export { isEmail, isPhoneShape, inIframe, scorePassword } from './util'

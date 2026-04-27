@@ -68,9 +68,15 @@ export function Login({
     return 'username'
   }, [username])
 
+  // When the application configures a captcha, the user MUST solve it
+  // before we let them submit. Skipping this check (or letting an
+  // unmounted widget pass) defeats the rate-limit / bot-mitigation
+  // contract the server expects.
+  const captchaRequired = !!captcha && captcha.type !== 'none'
   const canSubmit =
     username.trim().length > 0 &&
-    (mode === 'Password' ? password.length > 0 : code.length > 0)
+    (mode === 'Password' ? password.length > 0 : code.length > 0) &&
+    (!captchaRequired || captchaToken !== null)
 
   const submit = async (e?: FormEvent) => {
     if (e) e.preventDefault()

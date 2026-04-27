@@ -75,6 +75,8 @@ export interface SignupPayload {
   invitationCode?: string
   language?: string
   csrfToken?: string
+  captchaType?: string
+  captchaToken?: string
   // Anything from the dynamic signup items.
   extra?: Record<string, string | string[]>
 }
@@ -88,6 +90,8 @@ export interface ForgetPayload {
   // 'email' or 'phone' — which channel the user verified through.
   verifyType: 'email' | 'phone'
   csrfToken?: string
+  captchaType?: string
+  captchaToken?: string
 }
 
 // MfaSetupPayload — POSTed to /v1/iam/mfa/setup/initiate to begin

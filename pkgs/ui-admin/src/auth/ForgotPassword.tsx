@@ -11,11 +11,17 @@
 //   - the password field is `secureTextEntry` and `autoComplete="new-password"`.
 //   - CSRF token is echoed.
 
-import { useState, type FormEvent } from 'react'
+import {
+  useEffect,
+  useState,
+  type ComponentType,
+  type FormEvent,
+} from 'react'
 import { Eye } from '@hanzogui/lucide-icons-2/icons/Eye'
 import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
 import { Button, Input, Label, Paragraph, Text, XStack, YStack } from 'hanzogui'
-import type { AuthApplication, ForgetPayload } from './types'
+import { Captcha } from './Captcha'
+import type { AuthApplication, CaptchaConfig, ForgetPayload } from './types'
 import { readCsrfToken, scorePassword } from './util'
 
 type Step = 'username' | 'code' | 'password' | 'done'
@@ -30,6 +36,12 @@ export interface ForgotPasswordProps {
   }) => Promise<void>
   onResetPassword: (payload: ForgetPayload) => Promise<void>
   onBackToLogin?: () => void
+  captcha?: CaptchaConfig
+  CaptchaWidget?: ComponentType<{
+    siteKey: string
+    onToken: (token: string) => void
+    onError?: (msg: string) => void
+  }>
 }
 
 export function ForgotPassword({
@@ -38,6 +50,8 @@ export function ForgotPassword({
   onVerifyCode,
   onResetPassword,
   onBackToLogin,
+  captcha,
+  CaptchaWidget,
 }: ForgotPasswordProps) {
   const [step, setStep] = useState<Step>('username')
   const [username, setUsername] = useState('')
@@ -48,12 +62,29 @@ export function ForgotPassword({
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const [captchaProviderType, setCaptchaProviderType] = useState<
+    CaptchaConfig['type']
+  >(captcha?.type ?? 'none')
   const [csrfToken] = useState(() => readCsrfToken())
+
+  useEffect(() => {
+    setCaptchaProviderType(captcha?.type ?? 'none')
+  }, [captcha?.type])
 
   const score = scorePassword(newPassword)
 
+  // The username step initiates a verification challenge; we gate it on
+  // the captcha when configured so a bot can't enumerate accounts via
+  // /resolve-user. The code + password steps already require a fresh
+  // server-issued code, so they don't re-gate.
+  const captchaRequired = !!captcha && captcha.type !== 'none'
+  const canStepSubmit =
+    step !== 'username' || !captchaRequired || captchaToken !== null
+
   const submit = async (e?: FormEvent) => {
     if (e) e.preventDefault()
+    if (!canStepSubmit) return
     setError(null)
     setSubmitting(true)
     try {
@@ -74,6 +105,8 @@ export function ForgotPassword({
           code,
           verifyType,
           csrfToken: csrfToken || undefined,
+          captchaType: captchaToken ? captchaProviderType : undefined,
+          captchaToken: captchaToken || undefined,
         }
         await onResetPassword(payload)
         setStep('done')
@@ -120,6 +153,16 @@ export function ForgotPassword({
               onChangeText={setUsername}
               autoCapitalize="none"
             />
+            {captcha && captcha.type !== 'none' ? (
+              <Captcha
+                config={captcha}
+                Widget={CaptchaWidget}
+                onToken={(t, providerType) => {
+                  setCaptchaToken(t)
+                  setCaptchaProviderType(providerType)
+                }}
+              />
+            ) : null}
           </YStack>
         ) : null}
 
@@ -196,7 +239,12 @@ export function ForgotPassword({
           </Paragraph>
         ) : null}
 
-        <Button size="$4" theme="blue" disabled={submitting} onPress={() => void submit()}>
+        <Button
+          size="$4"
+          theme="blue"
+          disabled={submitting || !canStepSubmit}
+          onPress={() => void submit()}
+        >
           {step === 'username'
             ? 'Continue'
             : step === 'code'

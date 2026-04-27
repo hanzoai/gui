@@ -35,7 +35,7 @@ import {
   SavedViewsRail,
   useFetch,
   type SavedView,
-} from '@hanzogui/admin'
+} from '@hanzo/admin'
 import type { WorkflowExecution } from '../lib/api'
 import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
 import { useTaskEvents } from '../lib/events'

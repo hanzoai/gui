@@ -1,4 +1,4 @@
-// App shell — wires the @hanzogui/admin chrome (AdminApp + Sidebar +
+// App shell — wires the @hanzo/admin chrome (AdminApp + Sidebar +
 // TopBar) with tasks-specific config: the nav items, the brand mark,
 // and the namespace switcher backed by /v1/tasks/namespaces.
 //
@@ -16,7 +16,7 @@ import {
   TopBar,
   useFetch,
   type SidebarConfig,
-} from '@hanzogui/admin'
+} from '@hanzo/admin'
 import { Activity } from '@hanzogui/lucide-icons-2/icons/Activity'
 import { Archive } from '@hanzogui/lucide-icons-2/icons/Archive'
 import { BookOpen } from '@hanzogui/lucide-icons-2/icons/BookOpen'

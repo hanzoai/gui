@@ -5,7 +5,7 @@
 // than implying a scrollable archive that does not exist.
 
 import { H2, XStack, YStack } from 'hanzogui'
-import { Alert, Empty } from '@hanzogui/admin'
+import { Alert, Empty } from '@hanzo/admin'
 
 export function ArchivalPage() {
   return (

@@ -1,7 +1,7 @@
 {
-  "name": "@hanzogui/admin",
-  "version": "0.2.0",
-  "description": "Composable admin shell + primitives + data hooks for Hanzo admin surfaces. Pure Tamagui via the hanzogui umbrella. One way to build admin UI across tasks, kms, commerce, console.",
+  "name": "@hanzo/admin",
+  "version": "0.3.0",
+  "description": "Composable admin shell + primitives + data hooks for Hanzo admin surfaces. Pure Tamagui via @hanzo/gui v7. One way to build admin UI across tasks, kms, commerce, console.",
   "type": "module",
   "source": "src/index.ts",
   "scripts": {
@@ -36,8 +36,8 @@
   ],
   "sideEffects": false,
   "peerDependencies": {
-    "hanzogui": ">=102.0.0-rc.41-hanzoai.1",
     "@hanzogui/lucide-icons-2": ">=7.0.0",
+    "hanzogui": ">=7.0.0",
     "react": ">=19",
     "react-router-dom": ">=7"
   },

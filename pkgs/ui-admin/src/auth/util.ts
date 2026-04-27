@@ -41,3 +41,33 @@ export function inIframe(): boolean {
     return true
   }
 }
+
+// maskEmail — display-only obfuscation. Keeps the first character of
+// the local part + `***` + the domain. Used wherever the UI surfaces
+// a user identifier the requester didn't already type (e.g. the
+// "we sent a code to ..." line in password reset). Without masking,
+// any anonymous client could enumerate accounts by submitting a
+// username and harvesting the verified contact. Empty/null/no-`@`
+// returns ''. The backend re-validates; if a server returns garbage
+// we render nothing rather than echo it raw.
+export function maskEmail(email: string | undefined | null): string {
+  if (!email) return ''
+  const at = email.lastIndexOf('@')
+  if (at < 1) return ''
+  const local = email.slice(0, at)
+  const domain = email.slice(at + 1)
+  if (!domain.includes('.')) return ''
+  const head = local.charAt(0)
+  return `${head}***@${domain}`
+}
+
+// maskPhone — display-only obfuscation. Keeps the last 4 digits;
+// everything else collapses to `***-***-`. Empty/null returns ''.
+// Phones with fewer than 4 digits return '' rather than expose the
+// whole number.
+export function maskPhone(phone: string | undefined | null): string {
+  if (!phone) return ''
+  const digits = phone.replace(/\D/g, '')
+  if (digits.length < 4) return ''
+  return `***-***-${digits.slice(-4)}`
+}

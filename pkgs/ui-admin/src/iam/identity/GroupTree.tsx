@@ -3,6 +3,14 @@
 // hanzogui. We render an indented list of recursive `<TreeNode>`
 // components — same affordances (expand/collapse, select, add child,
 // delete) without the framework dependency.
+//
+// Cycle handling: the backend builds the tree from `parentId`
+// pointers; a malformed or compromised response can produce a self-
+// referential cycle (a → b → a) that would blow the JS stack on
+// recursive render. We pass a `visited` set down through the
+// recursion and refuse to descend into a node whose key we've
+// already seen on the path. A 100-level depth cap is the second
+// line of defence (real org trees never go that deep).
 
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -18,12 +26,19 @@ import { useFetch, apiPost, apiDelete } from '../../data'
 import type { Group, IamListResponse } from './types'
 import { iamUrl, listQuery } from './api'
 
+// MAX_DEPTH — defence-in-depth alongside cycle detection. A real
+// IAM group tree never goes 100 levels; anything deeper is server
+// corruption or a probe. Stop rendering, surface a one-line marker.
+const MAX_DEPTH = 100
+
 interface RouteParams {
   orgName: string
   [key: string]: string | undefined
 }
 
-function TreeNode({
+// Exported so the cycle/depth-cap behaviour can be unit-tested
+// without booting the react-router + IAM API stack.
+export function TreeNode({
   node,
   depth,
   expanded,
@@ -33,6 +48,7 @@ function TreeNode({
   onAddChild,
   onDelete,
   orgName,
+  visited,
 }: {
   node: Group
   depth: number
@@ -43,11 +59,48 @@ function TreeNode({
   onAddChild: (parent: Group) => void
   onDelete: (g: Group) => void
   orgName: string
+  visited: ReadonlySet<string>
 }) {
   const key = `${node.owner}/${node.name}`
   const isOpen = expanded.has(key)
   const isSelected = selected === key
   const children = node.children ?? []
+
+  // Cycle: this key already appears on the current path. Render an
+  // inline marker and stop — never recurse, never crash the page.
+  if (visited.has(key)) {
+    return (
+      <Text
+        py="$1.5"
+        pl={`${12 + depth * 18}px` as never}
+        color="$placeholderColor"
+        fontSize="$2"
+      >
+        cycle detected
+      </Text>
+    )
+  }
+
+  // Depth cap: the recursion exceeded what any real tree can be.
+  // Stop here. If a server keeps producing depth-101 trees, the
+  // operator notices the marker.
+  if (depth >= MAX_DEPTH) {
+    return (
+      <Text
+        py="$1.5"
+        pl={`${12 + depth * 18}px` as never}
+        color="$placeholderColor"
+        fontSize="$2"
+      >
+        tree truncated
+      </Text>
+    )
+  }
+
+  // New Set per descent so siblings don't see each other in `visited`.
+  // Only nodes on the current path (root → this node) belong there.
+  const childVisited = new Set(visited)
+  childVisited.add(key)
 
   return (
     <YStack>
@@ -62,7 +115,7 @@ function TreeNode({
             ? ('rgba(59,130,246,0.06)' as never)
             : ('transparent' as never)
         }
-        hoverStyle={{ background: 'rgba(255,255,255,0.04)' as never }}
+        hoverStyle={{ background: 'rgba(255,255,255,0.04)' }}
         pl={`${12 + depth * 18}px` as never}
       >
         <Button
@@ -126,6 +179,7 @@ function TreeNode({
               onAddChild={onAddChild}
               onDelete={onDelete}
               orgName={orgName}
+              visited={childVisited}
             />
           ))}
         </YStack>
@@ -244,6 +298,7 @@ export function GroupTree() {
               onAddChild={(p) => onAddChild(p)}
               onDelete={onDelete}
               orgName={orgName ?? ''}
+              visited={new Set<string>()}
             />
           ))}
         </YStack>

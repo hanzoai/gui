@@ -3,7 +3,7 @@
 
 import { useCallback } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Card, H1, H2, H3, Text, XStack, YStack } from 'hanzogui'
+import { Card, H1, H3, Text, XStack, YStack } from 'hanzogui'
 import { ChevronLeft } from '@hanzogui/lucide-icons-2'
 import {
   Alert,
@@ -11,6 +11,7 @@ import {
   Empty,
   ErrorState,
   LoadingState,
+  SummaryCard,
   formatTimestamp,
   useFetch,
 } from '@hanzogui/admin'
@@ -151,38 +152,6 @@ export function TaskQueueDetailPage() {
         </Card>
       )}
     </YStack>
-  )
-}
-
-function SummaryCard({
-  label,
-  value,
-  accent,
-}: {
-  label: string
-  value: number
-  accent?: 'success' | 'muted'
-}) {
-  const color =
-    accent === 'success' ? '#86efac' : accent === 'muted' ? '#7e8794' : '#f2f2f2'
-  return (
-    <Card
-      p="$4"
-      bg="$background"
-      borderColor="$borderColor"
-      borderWidth={1}
-      flexBasis={200}
-      flexGrow={1}
-    >
-      <YStack gap="$1">
-        <Text fontSize="$1" color="$placeholderColor" fontWeight="600" letterSpacing={0.4}>
-          {label.toUpperCase()}
-        </Text>
-        <H2 size="$8" fontWeight="600" color={color as never}>
-          {value}
-        </H2>
-      </YStack>
-    </Card>
   )
 }
 

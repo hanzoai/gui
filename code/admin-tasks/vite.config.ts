@@ -45,6 +45,24 @@ export default defineConfig({
     alias: {
       'react-native': 'react-native-web',
     },
+    // Force every workspace package to resolve `hanzogui` and the
+    // @hanzogui/* primitives from THIS app's node_modules, not from
+    // a sibling workspace's nested copy. Without dedupe the dev server
+    // serves two parallel hanzogui module graphs (one for admin-tasks,
+    // one for @hanzogui/admin), each with its own TamaguiProvider
+    // context — children rendered through the @hanzogui/admin Sidebar
+    // don't see the provider mounted in admin-tasks's main.tsx, throw
+    // "Can't find Hanzogui configuration", page goes blank.
+    dedupe: [
+      'react',
+      'react-dom',
+      'react-native-web',
+      'hanzogui',
+      '@hanzogui/core',
+      '@hanzogui/web',
+      '@hanzogui/themes',
+      '@hanzogui/use-element-layout',
+    ],
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-native-web', 'hanzogui'],

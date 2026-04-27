@@ -1,12 +1,10 @@
-// Workflow detail — Summary | Call stack | History tabs.
-//
-// Summary: type, status, task queue, history events, started, closed.
-// Call stack: queries the worker via __stack_trace; shows 501 banner
-//             if engine doesn't yet implement that opcode.
-// History:   pointer to /history page; the actual timeline lives there.
+// Workflow detail — eleven tabs, one shell. The route enumerates each
+// tab as its own URL so deep links work and the Tabs component is
+// driven by the active tab prop. Engine-gated tabs render an honest
+// empty state with a forward-pointing hint instead of inventing rows.
 
 import { useState } from 'react'
-import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -22,18 +20,18 @@ import { History } from '@hanzogui/lucide-icons-2/icons/History'
 import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
 import { Alert, Badge, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
+import type { WorkflowExecution } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
+import { JsonPane } from './workflow-tabs/JsonPane'
+import { NexusLinksPane } from './workflow-tabs/NexusLinksPane'
+import { PendingActivitiesPane } from './workflow-tabs/PendingActivitiesPane'
+import { QueriesPane } from './workflow-tabs/QueriesPane'
+import { RelationshipsPane } from './workflow-tabs/RelationshipsPane'
+import { UserMetadataPane } from './workflow-tabs/UserMetadataPane'
+import { WorkersPane } from './workflow-tabs/WorkersPane'
 
 interface DescribeResp {
-  workflowExecutionInfo: {
-    execution: { workflowId: string; runId: string }
-    type: { name: string }
-    startTime?: string
-    closeTime?: string
-    status: string
-    historyLength?: string
-    taskQueue?: string
-  }
+  workflowExecutionInfo: WorkflowExecution
   executionConfig?: {
     taskQueue?: { name: string }
     workflowRunTimeout?: string
@@ -41,9 +39,37 @@ interface DescribeResp {
   }
 }
 
-export function WorkflowDetailPage() {
+export type WorkflowTab =
+  | 'summary'
+  | 'call-stack'
+  | 'history'
+  | 'pending-activities'
+  | 'workers'
+  | 'query'
+  | 'memo'
+  | 'search-attributes'
+  | 'user-metadata'
+  | 'relationships'
+  | 'nexus-links'
+
+const TABS: Array<{ value: WorkflowTab; label: string }> = [
+  { value: 'summary', label: 'Summary' },
+  { value: 'call-stack', label: 'Call stack' },
+  { value: 'history', label: 'History' },
+  { value: 'pending-activities', label: 'Pending activities' },
+  { value: 'workers', label: 'Workers' },
+  { value: 'query', label: 'Queries' },
+  { value: 'memo', label: 'Memo' },
+  { value: 'search-attributes', label: 'Search attributes' },
+  { value: 'user-metadata', label: 'User metadata' },
+  { value: 'relationships', label: 'Relationships' },
+  { value: 'nexus-links', label: 'Nexus links' },
+]
+
+export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = {}) {
   const { ns, workflowId } = useParams()
   const [sp] = useSearchParams()
+  const navigate = useNavigate()
   const runId = sp.get('runId') ?? ''
   const namespace = ns!
   const qs = new URLSearchParams({
@@ -62,8 +88,18 @@ export function WorkflowDetailPage() {
   if (error) return <ErrorState error={error as Error} />
   if (isLoading || !data) return <LoadingState />
 
-  const info = data.workflowExecutionInfo
+  const wf = data.workflowExecutionInfo
   const runQs = runId ? `?runId=${encodeURIComponent(runId)}` : ''
+  const taskQueue = wf.taskQueue ?? data.executionConfig?.taskQueue?.name
+  const isRunning = wf.status === 'WORKFLOW_EXECUTION_STATUS_RUNNING'
+
+  const baseHref = `/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(wf.execution.workflowId)}`
+
+  const onTabChange = (v: string) => {
+    const next = v as WorkflowTab
+    const path = next === 'summary' ? baseHref : `${baseHref}/${next}`
+    navigate(`${path}${runQs}`, { replace: false })
+  }
 
   return (
     <YStack gap="$5">
@@ -82,16 +118,17 @@ export function WorkflowDetailPage() {
       <XStack items="flex-start" justify="space-between" gap="$3">
         <YStack gap="$1" flex={1}>
           <H1 size="$7" color="$color" fontWeight="600">
-            {info.execution.workflowId}
+            {wf.execution.workflowId}
           </H1>
-          <Text fontFamily={'ui-monospace, SFMono-Regular, monospace' as never} fontSize="$2" color="$placeholderColor">
-            {info.execution.runId}
+          <Text
+            fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
+            fontSize="$2"
+            color="$placeholderColor"
+          >
+            {wf.execution.runId}
           </Text>
         </YStack>
-        <Link
-          to={`/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(info.execution.workflowId)}/history${runQs}`}
-          style={{ textDecoration: 'none' }}
-        >
+        <Link to={`${baseHref}/history${runQs}`} style={{ textDecoration: 'none' }}>
           <Button size="$2" borderWidth={1} borderColor="$borderColor">
             <XStack items="center" gap="$1.5">
               <History size={14} />
@@ -101,99 +138,118 @@ export function WorkflowDetailPage() {
         </Link>
       </XStack>
 
-      <Tabs defaultValue="summary" orientation="horizontal" flexDirection="column">
+      <Tabs
+        value={tab}
+        onValueChange={onTabChange}
+        orientation="horizontal"
+        flexDirection="column"
+      >
         <Tabs.List
           borderBottomWidth={1}
           borderBottomColor="$borderColor"
           gap="$2"
           self="flex-start"
+          flexWrap="wrap"
         >
-          <TabTrigger value="summary">Summary</TabTrigger>
-          <TabTrigger value="call-stack">Call stack</TabTrigger>
-          <TabTrigger value="history">History</TabTrigger>
+          {TABS.map((t) => (
+            <TabTrigger key={t.value} value={t.value} active={t.value === tab}>
+              {t.label}
+            </TabTrigger>
+          ))}
         </Tabs.List>
 
         <Tabs.Content value="summary" mt="$4">
-          <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
-            <YStack gap="$3">
-              <Field label="Type">{info.type.name}</Field>
-              <Field label="Status">
-                <Badge variant={statusVariant(info.status)}>{shortStatus(info.status)}</Badge>
-              </Field>
-              <Field label="Task queue">
-                {info.taskQueue ? (
-                  <Link
-                    to={`/namespaces/${encodeURIComponent(namespace)}/task-queues/${encodeURIComponent(info.taskQueue)}`}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <Text fontSize="$2" color={'#86efac' as never}>
-                      {info.taskQueue}
-                    </Text>
-                  </Link>
-                ) : (
-                  <Text fontSize="$2" color="$color">
-                    {data.executionConfig?.taskQueue?.name ?? '—'}
-                  </Text>
-                )}
-              </Field>
-              <Field label="History events">
-                <Text fontSize="$2" color="$color">
-                  {info.historyLength ?? '—'}
-                </Text>
-              </Field>
-              <Field label="Started">
-                <Text fontSize="$2" color="$color">
-                  {info.startTime ? new Date(info.startTime).toLocaleString() : '—'}
-                </Text>
-              </Field>
-              <Field label="Closed">
-                <Text fontSize="$2" color="$color">
-                  {info.closeTime ? new Date(info.closeTime).toLocaleString() : 'running'}
-                </Text>
-              </Field>
-            </YStack>
-          </Card>
+          <SummaryPane
+            wf={wf}
+            namespace={namespace}
+            taskQueue={taskQueue}
+            baseHref={baseHref}
+            runQs={runQs}
+          />
         </Tabs.Content>
 
         <Tabs.Content value="call-stack" mt="$4">
           <CallStackPane
             ns={namespace}
-            workflowId={info.execution.workflowId}
-            runId={info.execution.runId}
-            running={info.status === 'WORKFLOW_EXECUTION_STATUS_RUNNING'}
+            workflowId={wf.execution.workflowId}
+            runId={wf.execution.runId}
+            running={isRunning}
           />
         </Tabs.Content>
 
         <Tabs.Content value="history" mt="$4">
-          <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
-            <YStack gap="$3">
-              <Text fontSize="$2" color="$placeholderColor">
-                The full event timeline lives on its own page so it can paginate
-                large histories without crowding the summary.
-              </Text>
-              <Link
-                to={`/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(info.execution.workflowId)}/history${runQs}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <XStack items="center" gap="$1.5">
-                  <History size={14} color="#86efac" />
-                  <Text fontSize="$2" color={'#86efac' as never}>
-                    Open full history
-                  </Text>
-                </XStack>
-              </Link>
-            </YStack>
-          </Card>
+          <HistoryRedirectPane baseHref={baseHref} runQs={runQs} />
+        </Tabs.Content>
+
+        <Tabs.Content value="pending-activities" mt="$4">
+          <PendingActivitiesPane wf={wf} />
+        </Tabs.Content>
+
+        <Tabs.Content value="workers" mt="$4">
+          <WorkersPane ns={namespace} taskQueue={taskQueue} />
+        </Tabs.Content>
+
+        <Tabs.Content value="query" mt="$4">
+          <QueriesPane
+            ns={namespace}
+            workflowId={wf.execution.workflowId}
+            runId={wf.execution.runId}
+            running={isRunning}
+          />
+        </Tabs.Content>
+
+        <Tabs.Content value="memo" mt="$4">
+          <JsonPane
+            data={wf.memo}
+            emptyTitle="No memo on this workflow"
+            emptyHint="Memo is a free-form key/value bag attached at Start. The engine surfaces it verbatim once the worker SDK records it."
+          />
+        </Tabs.Content>
+
+        <Tabs.Content value="search-attributes" mt="$4">
+          <JsonPane
+            data={wf.searchAttrs}
+            emptyTitle="No search attributes"
+            emptyHint="Search attributes power the visibility filter language. The engine doesn't yet index them — they will appear here verbatim once recorded."
+          />
+        </Tabs.Content>
+
+        <Tabs.Content value="user-metadata" mt="$4">
+          <UserMetadataPane wf={wf} />
+        </Tabs.Content>
+
+        <Tabs.Content value="relationships" mt="$4">
+          <RelationshipsPane ns={namespace} wf={wf} />
+        </Tabs.Content>
+
+        <Tabs.Content value="nexus-links" mt="$4">
+          <NexusLinksPane ns={namespace} wf={wf} />
         </Tabs.Content>
       </Tabs>
     </YStack>
   )
 }
 
-function TabTrigger({ value, children }: { value: string; children: React.ReactNode }) {
+function TabTrigger({
+  value,
+  active,
+  children,
+}: {
+  value: string
+  active: boolean
+  children: React.ReactNode
+}) {
   return (
-    <Tabs.Tab value={value} px="$3" py="$2" unstyled bg="transparent">
-      <Text fontSize="$2" color="$color">
+    <Tabs.Tab
+      value={value}
+      px="$3"
+      py="$2"
+      unstyled
+      bg="transparent"
+      borderBottomWidth={2}
+      borderBottomColor={active ? ('#86efac' as never) : ('transparent' as never)}
+    >
+      <Text fontSize="$2" color={active ? '$color' : '$placeholderColor'}>
         {children}
       </Text>
     </Tabs.Tab>
@@ -208,6 +264,90 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       </Text>
       <YStack flex={1}>{children}</YStack>
     </XStack>
+  )
+}
+
+function SummaryPane({
+  wf,
+  namespace,
+  taskQueue,
+  baseHref,
+  runQs,
+}: {
+  wf: WorkflowExecution
+  namespace: string
+  taskQueue?: string
+  baseHref: string
+  runQs: string
+}) {
+  return (
+    <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
+      <YStack gap="$3">
+        <Field label="Type">{wf.type.name}</Field>
+        <Field label="Status">
+          <Badge variant={statusVariant(wf.status)}>{shortStatus(wf.status)}</Badge>
+        </Field>
+        <Field label="Task queue">
+          {taskQueue ? (
+            <Link
+              to={`/namespaces/${encodeURIComponent(namespace)}/task-queues/${encodeURIComponent(taskQueue)}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <Text fontSize="$2" color={'#86efac' as never}>
+                {taskQueue}
+              </Text>
+            </Link>
+          ) : (
+            <Text fontSize="$2" color="$color">
+              —
+            </Text>
+          )}
+        </Field>
+        <Field label="History events">
+          <Text fontSize="$2" color="$color">
+            {wf.historyLength ?? '—'}
+          </Text>
+        </Field>
+        <Field label="Started">
+          <Text fontSize="$2" color="$color">
+            {wf.startTime ? new Date(wf.startTime).toLocaleString() : '—'}
+          </Text>
+        </Field>
+        <Field label="Closed">
+          <Text fontSize="$2" color="$color">
+            {wf.closeTime ? new Date(wf.closeTime).toLocaleString() : 'running'}
+          </Text>
+        </Field>
+        <Field label="Full history">
+          <Link to={`${baseHref}/history${runQs}`} style={{ textDecoration: 'none' }}>
+            <Text fontSize="$2" color={'#86efac' as never}>
+              Open full history
+            </Text>
+          </Link>
+        </Field>
+      </YStack>
+    </Card>
+  )
+}
+
+function HistoryRedirectPane({ baseHref, runQs }: { baseHref: string; runQs: string }) {
+  return (
+    <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
+      <YStack gap="$3">
+        <Text fontSize="$2" color="$placeholderColor">
+          The full event timeline lives on its own page so it can paginate
+          large histories without crowding the summary.
+        </Text>
+        <Link to={`${baseHref}/history${runQs}`} style={{ textDecoration: 'none' }}>
+          <XStack items="center" gap="$1.5">
+            <History size={14} color="#86efac" />
+            <Text fontSize="$2" color={'#86efac' as never}>
+              Open full history
+            </Text>
+          </XStack>
+        </Link>
+      </YStack>
+    </Card>
   )
 }
 
@@ -285,7 +425,11 @@ function CallStackPane({
       ) : stack !== null ? (
         stack ? (
           <Card p="$3" bg="$background" borderColor="$borderColor" borderWidth={1}>
-            <Text fontFamily={'ui-monospace, SFMono-Regular, monospace' as never} fontSize="$1" color="$color">
+            <Text
+              fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
+              fontSize="$1"
+              color="$color"
+            >
               {stack}
             </Text>
           </Card>

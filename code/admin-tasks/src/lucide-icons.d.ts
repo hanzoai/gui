@@ -9,6 +9,7 @@
 
 declare module '@hanzogui/lucide-icons-2/icons/Activity'  { export const Activity: any }
 declare module '@hanzogui/lucide-icons-2/icons/Archive'  { export const Archive: any }
+declare module '@hanzogui/lucide-icons-2/icons/ArrowUpRight'  { export const ArrowUpRight: any }
 declare module '@hanzogui/lucide-icons-2/icons/BookOpen'  { export const BookOpen: any }
 declare module '@hanzogui/lucide-icons-2/icons/Check'  { export const Check: any }
 declare module '@hanzogui/lucide-icons-2/icons/ChevronDown'  { export const ChevronDown: any }
@@ -39,3 +40,4 @@ declare module '@hanzogui/lucide-icons-2/icons/Upload'  { export const Upload: a
 declare module '@hanzogui/lucide-icons-2/icons/User'  { export const User: any }
 declare module '@hanzogui/lucide-icons-2/icons/Users'  { export const Users: any }
 declare module '@hanzogui/lucide-icons-2/icons/Workflow'  { export const Workflow: any }
+declare module '@hanzogui/lucide-icons-2/icons/Zap'  { export const Zap: any }

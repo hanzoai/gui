@@ -3,7 +3,7 @@
 
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { Card, H1, Text, XStack, YStack } from 'hanzogui'
-import { ChevronLeft } from '@hanzogui/lucide-icons-2'
+import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
 import { Badge, Empty, ErrorState, LoadingState, formatTimestamp, useFetch } from '@hanzogui/admin'
 
 interface HistoryEvent {

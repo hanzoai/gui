@@ -4,7 +4,7 @@
 import { useCallback } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Card, H1, H3, Text, XStack, YStack } from 'hanzogui'
-import { ChevronLeft } from '@hanzogui/lucide-icons-2'
+import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
 import {
   Alert,
   Badge,

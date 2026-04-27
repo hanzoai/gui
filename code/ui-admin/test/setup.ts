@@ -36,3 +36,25 @@ if (typeof globalThis.localStorage === 'undefined' || typeof (globalThis.localSt
     value: shim,
   })
 }
+
+// jsdom omits `window.matchMedia`. Hanzo GUI's `<Select>` (via
+// @hanzogui/select) reads it at module-load to wire responsive
+// triggers — without a shim every test that imports a component
+// touching Select crashes at "matchMedia is not a function".
+if (typeof globalThis.matchMedia !== 'function') {
+  Object.defineProperty(globalThis, 'matchMedia', {
+    configurable: true,
+    writable: true,
+    value: (query: string): MediaQueryList =>
+      ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: () => {},
+        removeListener: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => false,
+      }) as MediaQueryList,
+  })
+}

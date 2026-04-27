@@ -68,28 +68,29 @@ vi.mock('hanzogui', () => {
   }
 })
 
-// Lucide icons — render nothing.
-const iconStub = () => () => null
-vi.mock('@hanzogui/lucide-icons-2/icons/Plus', () => ({ Plus: iconStub() }))
-vi.mock('@hanzogui/lucide-icons-2/icons/Pencil', () => ({ Pencil: iconStub() }))
-vi.mock('@hanzogui/lucide-icons-2/icons/Trash2', () => ({ Trash2: iconStub() }))
+// Lucide icons — render nothing. Each factory is self-contained
+// because vi.mock hoists; closure over a top-level helper is not
+// allowed.
+vi.mock('@hanzogui/lucide-icons-2/icons/Plus', () => ({ Plus: () => null }))
+vi.mock('@hanzogui/lucide-icons-2/icons/Pencil', () => ({ Pencil: () => null }))
+vi.mock('@hanzogui/lucide-icons-2/icons/Trash2', () => ({ Trash2: () => null }))
 vi.mock('@hanzogui/lucide-icons-2/icons/ChevronLeft', () => ({
-  ChevronLeft: iconStub(),
+  ChevronLeft: () => null,
 }))
 vi.mock('@hanzogui/lucide-icons-2/icons/ChevronRight', () => ({
-  ChevronRight: iconStub(),
+  ChevronRight: () => null,
 }))
 vi.mock('@hanzogui/lucide-icons-2/icons/AlertTriangle', () => ({
-  AlertTriangle: iconStub(),
+  AlertTriangle: () => null,
 }))
 vi.mock('@hanzogui/lucide-icons-2/icons/CheckCircle2', () => ({
-  CheckCircle2: iconStub(),
+  CheckCircle2: () => null,
 }))
-vi.mock('@hanzogui/lucide-icons-2/icons/Search', () => ({ Search: iconStub() }))
+vi.mock('@hanzogui/lucide-icons-2/icons/Search', () => ({ Search: () => null }))
 vi.mock('@hanzogui/lucide-icons-2/icons/HelpCircle', () => ({
-  HelpCircle: iconStub(),
+  HelpCircle: () => null,
 }))
-vi.mock('@hanzogui/lucide-icons-2/icons/Check', () => ({ Check: iconStub() }))
+vi.mock('@hanzogui/lucide-icons-2/icons/Check', () => ({ Check: () => null }))
 
 // ---- Now import the pages -----------------------------------------------
 

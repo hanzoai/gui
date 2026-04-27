@@ -93,7 +93,7 @@ export function ToggleField({
         disabled={disabled}
         size="$3"
       >
-        <Switch.Thumb animation="quick" />
+        <Switch.Thumb />
       </Switch>
       {hint ? (
         <Paragraph color="$placeholderColor" fontSize="$2">

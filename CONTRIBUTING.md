@@ -64,7 +64,7 @@ You can run `bun run sandbox` or `bun run dev` (the Hanzo GUI website).
 Install browser binaries before first run:
 
 ```bash
-cd code/kitchen-sink
+cd apps/kitchen-sink
 bun run test:web:setup   # installs chromium
 bun run start:web        # start dev server (background)
 bun run test:web         # run all web tests
@@ -86,7 +86,7 @@ The `run-detox.sh` script will automatically:
 - Build the app if the binary is missing or outdated
 
 ```bash
-cd code/kitchen-sink
+cd apps/kitchen-sink
 bun run detox:run:ios                              # run all iOS tests
 bun run detox:run:ios "Sheet"                      # filter by test name
 DETOX_DEVICE="iPhone 16 Pro" bun run detox:run:ios # override simulator device
@@ -100,11 +100,11 @@ npx detox clean-framework-cache && npx detox build-framework-cache
 
 ### Fixing libraries
 
-All compiler and CSS generation tests live in `code/compiler/static-tests`.
+All compiler and CSS generation tests live in `pkgs/compiler/static-tests`.
 
-There are many native tests in `code/kitchen-sink/tests`.
+There are many native tests in `apps/kitchen-sink/tests`.
 
-A variety of core tests live in `code/core/core-test`.
+A variety of core tests live in `pkgs/core/core-test`.
 
 Before submitting a PR, please check everything works across every combination of environments.
 

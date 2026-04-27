@@ -1,8 +1,14 @@
 // Barrel for the IAM system bucket — admin-facing pages and
 // runtime helpers. End-user auth flows live one level up at
 // `@hanzogui/admin/auth`.
+//
+// Note: shared envelope types (`ListResponse`, `ItemResponse`,
+// `ActionResponse`) are re-exported from `iam/resources` to avoid
+// duplicate exports through the iam barrel; type aliases in this
+// bucket are namespaced (`SystemApplication`, `SystemMfaProps`)
+// for the same reason — both shapes overlap with the auth bucket
+// and we want exactly one canonical definition per public name.
 
-export { Conf as ConfModule } from './Conf'
 export {
   DefaultApplication,
   ThemeDefault,
@@ -18,22 +24,18 @@ export { ManagementPage, type ManagementPageProps } from './ManagementPage'
 export { Setting, type SettingPreferences, type SettingProps } from './Setting'
 export { SystemInfo, type SystemInfoProps } from './SystemInfo'
 export {
-  type ActionResponse,
-  type Application,
+  type Application as SystemApplication,
   type CaptchaKind,
-  type ItemResponse,
-  type ListResponse,
-  type MfaProps,
+  type MfaProps as SystemMfaProps,
   type PrometheusInfo,
   type RuntimeConfig,
-  type SignupItem,
+  type SignupItem as SystemSignupItem,
   type SystemInfo as SystemInfoData,
   type VersionInfo,
 } from './types'
 export {
   getFriendlyFileSize,
   getProgressColor,
-  readCsrfToken,
   readRuntimeConfigCookie,
 } from './util'
 

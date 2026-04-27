@@ -130,36 +130,36 @@ export function InvitationEdit({
         </XStack>
         <Separator />
         <YStack gap="$4" p="$5">
-          <LabelRowlabel="Organization">
+          <LabelRow label="Organization">
             <Input
               value={draft.owner}
               disabled={isPlanCreated}
               onChangeText={(v: string) => update('owner', v)}
             />
           </LabelRow>
-          <LabelRowlabel="Name">
+          <LabelRow label="Name">
             <Input
               value={draft.name}
               disabled={isPlanCreated}
               onChangeText={(v: string) => update('name', v)}
             />
           </LabelRow>
-          <LabelRowlabel="Display name">
+          <LabelRow label="Display name">
             <Input
               value={draft.displayName}
               onChangeText={(v: string) => update('displayName', v)}
             />
           </LabelRow>
-          <LabelRowlabel="Code">
+          <LabelRow label="Code">
             <Input value={draft.code} onChangeText={(v: string) => update('code', v)} />
           </LabelRow>
-          <LabelRowlabel="Default code">
+          <LabelRow label="Default code">
             <Input
               value={draft.defaultCode}
               onChangeText={(v: string) => update('defaultCode', v)}
             />
           </LabelRow>
-          <LabelRowlabel="">
+          <LabelRow label="">
             <XStack gap="$2" items="center">
               <Button size="$2" variant="outlined" onPress={copySignupLink}>
                 <Copy size={12} /> Copy signup link
@@ -171,7 +171,7 @@ export function InvitationEdit({
               ) : null}
             </XStack>
           </LabelRow>
-          <LabelRowlabel="Send" align="start">
+          <LabelRow label="Send" align="start">
             <YStack gap="$2">
               <TextArea
                 minH={80}
@@ -190,7 +190,7 @@ export function InvitationEdit({
               </XStack>
             </YStack>
           </LabelRow>
-          <LabelRowlabel="Quota">
+          <LabelRow label="Quota">
             <Input
               width={120}
               keyboardType="numeric"
@@ -198,7 +198,7 @@ export function InvitationEdit({
               onChangeText={(v: string) => update('quota', Number.parseInt(v, 10) || 0)}
             />
           </LabelRow>
-          <LabelRowlabel="Used count">
+          <LabelRow label="Used count">
             <Input
               width={120}
               keyboardType="numeric"
@@ -206,13 +206,13 @@ export function InvitationEdit({
               onChangeText={(v: string) => update('usedCount', Number.parseInt(v, 10) || 0)}
             />
           </LabelRow>
-          <LabelRowlabel="Application">
+          <LabelRow label="Application">
             <Input
               value={draft.application}
               onChangeText={(v: string) => update('application', v)}
             />
           </LabelRow>
-          <LabelRowlabel="State">
+          <LabelRow label="State">
             <SelectInline
               value={draft.state}
               options={[
@@ -223,7 +223,7 @@ export function InvitationEdit({
             />
           </LabelRow>
           {(['username', 'email', 'phone'] as const).map((k) => (
-            <LabelRowkey={k} label={k[0].toUpperCase() + k.slice(1)}>
+            <LabelRow key={k} label={k[0].toUpperCase() + k.slice(1)}>
               <Input
                 value={draft[k] ?? ''}
                 onChangeText={(v: string) => update(k, v)}

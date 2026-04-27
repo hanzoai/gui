@@ -104,10 +104,10 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
         </XStack>
         <Separator />
         <YStack gap="$4" p="$5">
-          <LabelRowlabel="Organization">
+          <LabelRow label="Organization">
             <Input value={draft.owner} onChangeText={(v: string) => update('owner', v)} />
           </LabelRow>
-          <LabelRowlabel="ID">
+          <LabelRow label="ID">
             <Input value={draft.id} disabled opacity={0.6} />
           </LabelRow>
           {(
@@ -119,14 +119,14 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
               ['Admin', 'username'],
             ] as Array<[string, keyof Ldap]>
           ).map(([label, key]) => (
-            <LabelRowkey={String(key)} label={label}>
+            <LabelRow key={String(key)} label={label}>
               <Input
                 value={String(draft[key] ?? '')}
                 onChangeText={(v: string) => update(key, v as never)}
               />
             </LabelRow>
           ))}
-          <LabelRowlabel="Server port">
+          <LabelRow label="Server port">
             <Input
               keyboardType="numeric"
               width={160}
@@ -134,7 +134,7 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
               onChangeText={(v: string) => update('port', clampPort(v))}
             />
           </LabelRow>
-          <LabelRowlabel="Enable SSL">
+          <LabelRow label="Enable SSL">
             <Switch
               size="$2"
               checked={draft.enableSsl}
@@ -143,7 +143,7 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
               <Switch.Thumb />
             </Switch>
           </LabelRow>
-          <LabelRowlabel="Allow self-signed certificate">
+          <LabelRow label="Allow self-signed certificate">
             <Switch
               size="$2"
               checked={draft.allowSelfSignedCert}
@@ -152,7 +152,7 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
               <Switch.Thumb />
             </Switch>
           </LabelRow>
-          <LabelRowlabel="Admin Password">
+          <LabelRow label="Admin Password">
             <Input
               secureTextEntry
               autoComplete="off"
@@ -164,14 +164,14 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
               Leave empty to keep the current password.
             </Text>
           </LabelRow>
-          <LabelRowlabel="Password type">
+          <LabelRow label="Password type">
             <SelectInline
               value={draft.passwordType}
               options={PASSWORD_TYPES.map((t) => ({ value: t, label: t }))}
               onChange={(v) => update('passwordType', v as Ldap['passwordType'])}
             />
           </LabelRow>
-          <LabelRowlabel="Auto Sync">
+          <LabelRow label="Auto Sync">
             <XStack gap="$2" items="center">
               <Input
                 keyboardType="numeric"

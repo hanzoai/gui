@@ -44,6 +44,8 @@ declare module '@hanzogui/lucide-icons-2/icons/User'  { export const User: any }
 declare module '@hanzogui/lucide-icons-2/icons/Users'  { export const Users: any }
 declare module '@hanzogui/lucide-icons-2/icons/Workflow'  { export const Workflow: any }
 declare module '@hanzogui/lucide-icons-2/icons/Eye'  { export const Eye: any }
+declare module '@hanzogui/lucide-icons-2/icons/EyeOff'  { export const EyeOff: any }
+declare module '@hanzogui/lucide-icons-2/icons/Lock'  { export const Lock: any }
 declare module '@hanzogui/lucide-icons-2/icons/Pencil'  { export const Pencil: any }
 declare module '@hanzogui/lucide-icons-2/icons/Send'  { export const Send: any }
 declare module '@hanzogui/lucide-icons-2/icons/Trash2'  { export const Trash2: any }

@@ -117,26 +117,26 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
         </XStack>
         <Separator />
         <YStack gap="$4" p="$5">
-          <LabelRowlabel="Organization">
+          <LabelRow label="Organization">
             <Input
               value={draft.organization}
               onChangeText={(v: string) => update('organization', v)}
             />
           </LabelRow>
-          <LabelRowlabel="Name">
+          <LabelRow label="Name">
             <Input value={draft.name} onChangeText={(v: string) => update('name', v)} />
           </LabelRow>
-          <LabelRowlabel="URL">
+          <LabelRow label="URL">
             <Input value={draft.url} onChangeText={(v: string) => update('url', v)} />
           </LabelRow>
-          <LabelRowlabel="Method">
+          <LabelRow label="Method">
             <SelectInline
               value={draft.method}
               options={['POST', 'GET', 'PUT', 'DELETE'].map((m) => ({ value: m, label: m }))}
               onChange={(v) => update('method', v as Webhook['method'])}
             />
           </LabelRow>
-          <LabelRowlabel="Content type">
+          <LabelRow label="Content type">
             <SelectInline
               value={draft.contentType}
               options={[
@@ -149,13 +149,13 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
               onChange={(v) => update('contentType', v as Webhook['contentType'])}
             />
           </LabelRow>
-          <LabelRowlabel="Headers" align="start">
+          <LabelRow label="Headers" align="start">
             <HeaderEditor
               headers={draft.headers}
               onChange={(next) => update('headers', next)}
             />
           </LabelRow>
-          <LabelRowlabel="Events" align="start">
+          <LabelRow label="Events" align="start">
             <TextArea
               minH={80}
               value={draft.events.join('\n')}
@@ -173,7 +173,7 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
               One event per line.
             </Text>
           </LabelRow>
-          <LabelRowlabel="Signing secret">
+          <LabelRow label="Signing secret">
             <Input
               secureTextEntry
               autoComplete="off"
@@ -185,7 +185,7 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
               Write-only. The secret is hashed server-side and never returned.
             </Text>
           </LabelRow>
-          <LabelRowlabel="User-extended payload">
+          <LabelRow label="User-extended payload">
             <Switch
               size="$2"
               checked={draft.isUserExtended}
@@ -194,7 +194,7 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
               <Switch.Thumb />
             </Switch>
           </LabelRow>
-          <LabelRowlabel="Single org only">
+          <LabelRow label="Single org only">
             <Switch
               size="$2"
               checked={draft.singleOrgOnly}
@@ -203,7 +203,7 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
               <Switch.Thumb />
             </Switch>
           </LabelRow>
-          <LabelRowlabel="Enabled">
+          <LabelRow label="Enabled">
             <Switch
               size="$2"
               checked={draft.isEnabled}
@@ -212,7 +212,7 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
               <Switch.Thumb />
             </Switch>
           </LabelRow>
-          <LabelRowlabel="Preview" align="start">
+          <LabelRow label="Preview" align="start">
             <TextArea minH={220} value={previewText} editable={false} />
           </LabelRow>
         </YStack>

@@ -5,7 +5,8 @@
 // Original at `~/work/hanzo/iam/web/src/auth/SignupPage.tsx`.
 
 import { useMemo, useState } from 'react'
-import { Eye, EyeOff } from '@hanzogui/lucide-icons-2/icons'
+import { Eye } from '@hanzogui/lucide-icons-2/icons/Eye'
+import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
 import { Input, Paragraph, Text, XStack, YStack } from 'hanzogui'
 import type { AuthApplication, AuthSignupItem, SignupPayload } from './types'
 import { isEmail, isPhoneShape, readCsrfToken, scorePassword } from './util'

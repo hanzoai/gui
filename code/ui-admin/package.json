@@ -30,7 +30,8 @@
     "./shell": "./src/shell/index.ts",
     "./primitives": "./src/primitives/index.ts",
     "./data": "./src/data/index.ts",
-    "./iam": "./src/iam/index.ts"
+    "./iam": "./src/iam/index.ts",
+    "./auth": "./src/auth/index.ts"
   },
   "files": [
     "src"

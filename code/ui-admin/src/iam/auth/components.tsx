@@ -1,11 +1,12 @@
 // Local form primitives for the IAM auth bucket. Mirrors the shape
 // of `iam/identity/Field.tsx` but lives in this bucket so the auth
 // surface doesn't reach into a sibling bucket. Tiny — vertical label
-// + control + error/hint. Anything more (Select, Switch toggles)
-// renders inline with hanzogui primitives.
+// + control + error/hint. Selects use hanzogui's `Select`; we never
+// fall back to native HTML `<select>`.
 
 import type { ReactNode } from 'react'
-import { Input, Label, Paragraph, Switch, Text, YStack } from 'hanzogui'
+import { Input, Label, Paragraph, Select, Switch, Text, YStack } from 'hanzogui'
+import { ChevronDown } from '@hanzogui/lucide-icons-2/icons/ChevronDown'
 
 export interface FieldProps {
   id: string
@@ -103,9 +104,6 @@ export function ToggleField({
   )
 }
 
-// SelectField — Casdoor uses Ant Design `<Select>` ubiquitously. We
-// render a native select for accessibility + zero-deps. Wrap with
-// XStack/YStack at the call site if more layout is needed.
 export interface SelectFieldProps {
   id: string
   label: string
@@ -114,6 +112,7 @@ export interface SelectFieldProps {
   options: Array<{ value: string; label: string }>
   hint?: string
   disabled?: boolean
+  placeholder?: string
 }
 
 export function SelectField({
@@ -124,33 +123,36 @@ export function SelectField({
   options,
   hint,
   disabled,
+  placeholder = 'Select…',
 }: SelectFieldProps) {
   return (
     <YStack gap="$2">
       <Label htmlFor={id}>{label}</Label>
-      {/* Native select keeps a11y and avoids portal/zIndex issues. The
-          minimal styling matches the Input border tokens. */}
-      <select
+      <Select
         id={id}
         value={value}
-        disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
-        style={{
-          width: '100%',
-          padding: '8px 12px',
-          background: 'rgba(255,255,255,0.02)',
-          border: '1px solid rgba(255,255,255,0.12)',
-          borderRadius: 6,
-          color: '#f2f2f2',
-          fontSize: 14,
-        }}
+        onValueChange={onChange}
+        disablePreventBodyScroll
       >
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
+        <Select.Trigger
+          size="$3"
+          iconAfter={ChevronDown as never}
+          disabled={disabled}
+        >
+          <Select.Value placeholder={placeholder} />
+        </Select.Trigger>
+        <Select.Content>
+          <Select.Viewport>
+            <Select.Group>
+              {options.map((o, i) => (
+                <Select.Item key={o.value} index={i} value={o.value}>
+                  <Select.ItemText>{o.label}</Select.ItemText>
+                </Select.Item>
+              ))}
+            </Select.Group>
+          </Select.Viewport>
+        </Select.Content>
+      </Select>
       {hint ? (
         <Paragraph color="$placeholderColor" fontSize="$2">
           {hint}

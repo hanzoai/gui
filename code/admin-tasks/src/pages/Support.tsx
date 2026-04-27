@@ -51,7 +51,7 @@ function SupportLink({
   href: string
   title: string
   hint: string
-  // Permissive — see @hanzo/admin's IconComponent: lucide-icons-2 ships
+  // Permissive — see @hanzogui/admin's IconComponent: lucide-icons-2 ships
   // strict Tamagui-typed `color`, but the runtime accepts any CSS string.
   icon: React.ComponentType<any>
 }) {

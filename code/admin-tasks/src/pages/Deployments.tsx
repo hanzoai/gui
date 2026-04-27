@@ -10,7 +10,7 @@ import {
   LoadingState,
   formatTimestamp,
   useFetch,
-} from '@hanzo/admin'
+} from '@hanzogui/admin'
 import type { Deployment } from '../lib/api'
 
 const COLUMNS = [

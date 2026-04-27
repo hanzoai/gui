@@ -28,10 +28,10 @@
       },
     },
     "code/admin-tasks": {
-      "name": "@hanzo/admin-tasks",
-      "version": "0.4.0",
+      "name": "@hanzo/tasks",
+      "version": "2.49.0",
       "dependencies": {
-        "@hanzo/admin": "workspace:*",
+        "@hanzogui/admin": "workspace:*",
         "@hanzogui/config": "workspace:*",
         "@hanzogui/lucide-icons-2": "workspace:*",
         "hanzogui": "workspace:*",
@@ -2252,7 +2252,7 @@
       },
     },
     "code/ui-admin": {
-      "name": "@hanzo/admin",
+      "name": "@hanzogui/admin",
       "version": "0.3.0",
       "devDependencies": {
         "@testing-library/react": "^16.3.2",
@@ -4103,13 +4103,13 @@
 
     "@grpc/proto-loader": ["@grpc/proto-loader@0.8.0", "", { "dependencies": { "lodash.camelcase": "^4.3.0", "long": "^5.0.0", "protobufjs": "^7.5.3", "yargs": "^17.7.2" }, "bin": { "proto-loader-gen-types": "build/bin/proto-loader-gen-types.js" } }, "sha512-rc1hOQtjIWGxcxpb9aHAfLpIctjEnsDehj0DAiVfBlmT84uvR0uUtN2hEi/ecvWVjXUGf5qPF4qEgiLOx1YIMQ=="],
 
-    "@hanzo/admin": ["@hanzo/admin@workspace:code/ui-admin"],
-
-    "@hanzo/admin-tasks": ["@hanzo/admin-tasks@workspace:code/admin-tasks"],
+    "@hanzo/tasks": ["@hanzo/tasks@workspace:code/admin-tasks"],
 
     "@hanzogui/accordion": ["@hanzogui/accordion@workspace:code/ui/accordion"],
 
     "@hanzogui/adapt": ["@hanzogui/adapt@workspace:code/ui/adapt"],
+
+    "@hanzogui/admin": ["@hanzogui/admin@workspace:code/ui-admin"],
 
     "@hanzogui/alert-dialog": ["@hanzogui/alert-dialog@workspace:code/ui/alert-dialog"],
 

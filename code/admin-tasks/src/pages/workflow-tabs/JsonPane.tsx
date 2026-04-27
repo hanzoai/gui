@@ -4,7 +4,7 @@
 // "empty memo attributes" copy.
 
 import { Card, Text, YStack } from 'hanzogui'
-import { Empty } from '@hanzo/admin'
+import { Empty } from '@hanzogui/admin'
 
 export function JsonPane({
   data,

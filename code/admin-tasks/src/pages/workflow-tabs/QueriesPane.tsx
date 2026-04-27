@@ -8,7 +8,7 @@
 import { useState } from 'react'
 import { Button, Card, Input, Spinner, Text, TextArea, XStack, YStack } from 'hanzogui'
 import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
-import { Alert } from '@hanzo/admin'
+import { Alert } from '@hanzogui/admin'
 import { ApiError, apiPost } from '../../lib/api'
 
 export function QueriesPane({

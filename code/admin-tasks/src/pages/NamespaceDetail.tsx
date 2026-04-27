@@ -27,7 +27,7 @@ import {
   LoadingState,
   humanTTL,
   useFetch,
-} from '@hanzo/admin'
+} from '@hanzogui/admin'
 import type { Identity, Namespace } from '../lib/api'
 
 export function NamespaceDetailPage() {

@@ -6,7 +6,7 @@
 import { Link } from 'react-router-dom'
 import { Text, XStack, YStack } from 'hanzogui'
 import { ListChecks } from '@hanzogui/lucide-icons-2/icons/ListChecks'
-import { Alert, Empty } from '@hanzo/admin'
+import { Alert, Empty } from '@hanzogui/admin'
 
 export function WorkersPane({
   ns,

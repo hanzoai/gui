@@ -1,9 +1,9 @@
 {
-  "name": "@hanzo/admin-tasks",
+  "name": "@hanzo/tasks",
   "private": true,
-  "version": "0.4.0",
+  "version": "2.49.0",
   "type": "module",
-  "description": "Hanzo Tasks admin app — namespaces, workflows, schedules, batches, deployments, task queues, workers, nexus. Composed from @hanzo/admin primitives. Ships as a Vite SPA at tasks.hanzo.ai.",
+  "description": "Hanzo Tasks SPA — namespaces, workflows, schedules, batches, deployments, task queues, workers, nexus. Composed from @hanzogui/admin chrome. Ships as a Vite SPA at tasks.hanzo.ai and embedded in tasksd.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@hanzo/admin": "workspace:*",
+    "@hanzogui/admin": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "hanzogui": "workspace:*",

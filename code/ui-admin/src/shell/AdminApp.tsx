@@ -5,7 +5,7 @@
 //
 // For most apps, the call site looks like this:
 //
-//   import { AdminApp } from '@hanzo/admin/shell'
+//   import { AdminApp } from '@hanzogui/admin/shell'
 //   import { Outlet } from 'react-router-dom'
 //
 //   function App() {

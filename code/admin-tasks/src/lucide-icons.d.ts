@@ -8,9 +8,11 @@
 // regenerate when adding icons.
 
 declare module '@hanzogui/lucide-icons-2/icons/Activity'  { export const Activity: any }
+declare module '@hanzogui/lucide-icons-2/icons/AlertTriangle'  { export const AlertTriangle: any }
 declare module '@hanzogui/lucide-icons-2/icons/Archive'  { export const Archive: any }
 declare module '@hanzogui/lucide-icons-2/icons/ArrowUpRight'  { export const ArrowUpRight: any }
 declare module '@hanzogui/lucide-icons-2/icons/BookOpen'  { export const BookOpen: any }
+declare module '@hanzogui/lucide-icons-2/icons/Calendar'  { export const Calendar: any }
 declare module '@hanzogui/lucide-icons-2/icons/Check'  { export const Check: any }
 declare module '@hanzogui/lucide-icons-2/icons/ChevronDown'  { export const ChevronDown: any }
 declare module '@hanzogui/lucide-icons-2/icons/ChevronLeft'  { export const ChevronLeft: any }
@@ -18,6 +20,7 @@ declare module '@hanzogui/lucide-icons-2/icons/ChevronRight'  { export const Che
 declare module '@hanzogui/lucide-icons-2/icons/Circle'  { export const Circle: any }
 declare module '@hanzogui/lucide-icons-2/icons/Clock'  { export const Clock: any }
 declare module '@hanzogui/lucide-icons-2/icons/Copy'  { export const Copy: any }
+declare module '@hanzogui/lucide-icons-2/icons/GitBranch'  { export const GitBranch: any }
 declare module '@hanzogui/lucide-icons-2/icons/ExternalLink'  { export const ExternalLink: any }
 declare module '@hanzogui/lucide-icons-2/icons/Github'  { export const Github: any }
 declare module '@hanzogui/lucide-icons-2/icons/Globe'  { export const Globe: any }

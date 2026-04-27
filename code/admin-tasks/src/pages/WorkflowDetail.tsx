@@ -22,6 +22,7 @@ import { Alert, Badge, ErrorState, LoadingState, useFetch } from '@hanzogui/admi
 import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
 import type { WorkflowExecution } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
+import { HistoryStrip } from './workflow-tabs/HistoryStrip'
 import { JsonPane } from './workflow-tabs/JsonPane'
 import { NexusLinksPane } from './workflow-tabs/NexusLinksPane'
 import { PendingActivitiesPane } from './workflow-tabs/PendingActivitiesPane'
@@ -52,18 +53,39 @@ export type WorkflowTab =
   | 'relationships'
   | 'nexus-links'
 
-const TABS: Array<{ value: WorkflowTab; label: string }> = [
+interface TabSpec {
+  value: WorkflowTab
+  label: string
+  // Returns the count badge content. Undefined means no badge.
+  // Zero is rendered (matches upstream Workers '0' / Pending '0').
+  count?: (wf: WorkflowExecution) => number | undefined
+}
+
+const TABS: TabSpec[] = [
   { value: 'summary', label: 'Summary' },
   { value: 'call-stack', label: 'Call stack' },
-  { value: 'history', label: 'History' },
-  { value: 'pending-activities', label: 'Pending activities' },
-  { value: 'workers', label: 'Workers' },
+  { value: 'history', label: 'History', count: (wf) => wf.historyLength ?? 0 },
+  {
+    value: 'pending-activities',
+    label: 'Pending activities',
+    count: (wf) => wf.pendingActivities?.length ?? 0,
+  },
+  { value: 'workers', label: 'Workers', count: () => 0 },
   { value: 'query', label: 'Queries' },
   { value: 'memo', label: 'Memo' },
   { value: 'search-attributes', label: 'Search attributes' },
   { value: 'user-metadata', label: 'User metadata' },
-  { value: 'relationships', label: 'Relationships' },
-  { value: 'nexus-links', label: 'Nexus links' },
+  {
+    value: 'relationships',
+    label: 'Relationships',
+    count: (wf) =>
+      (wf.parentExecution ? 1 : 0) + (wf.rootExecution ? 1 : 0),
+  },
+  {
+    value: 'nexus-links',
+    label: 'Nexus links',
+    count: (wf) => wf.pendingNexusOperations?.length ?? 0,
+  },
 ]
 
 export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = {}) {
@@ -138,6 +160,12 @@ export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = 
         </Link>
       </XStack>
 
+      <HistoryStrip
+        ns={namespace}
+        workflowId={wf.execution.workflowId}
+        runId={wf.execution.runId}
+      />
+
       <Tabs
         value={tab}
         onValueChange={onTabChange}
@@ -152,7 +180,12 @@ export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = 
           flexWrap="wrap"
         >
           {TABS.map((t) => (
-            <TabTrigger key={t.value} value={t.value} active={t.value === tab}>
+            <TabTrigger
+              key={t.value}
+              value={t.value}
+              active={t.value === tab}
+              count={t.count ? t.count(wf) : undefined}
+            >
               {t.label}
             </TabTrigger>
           ))}
@@ -233,10 +266,12 @@ export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = 
 function TabTrigger({
   value,
   active,
+  count,
   children,
 }: {
   value: string
   active: boolean
+  count?: number
   children: React.ReactNode
 }) {
   return (
@@ -249,9 +284,14 @@ function TabTrigger({
       borderBottomWidth={2}
       borderBottomColor={active ? ('#86efac' as never) : ('transparent' as never)}
     >
-      <Text fontSize="$2" color={active ? '$color' : '$placeholderColor'}>
-        {children}
-      </Text>
+      <XStack items="center" gap="$1.5">
+        <Text fontSize="$2" color={active ? '$color' : '$placeholderColor'}>
+          {children}
+        </Text>
+        {count !== undefined ? (
+          <Badge variant="muted">{count}</Badge>
+        ) : null}
+      </XStack>
     </Tabs.Tab>
   )
 }
@@ -280,52 +320,127 @@ function SummaryPane({
   baseHref: string
   runQs: string
 }) {
+  const isRunning = wf.status === 'WORKFLOW_EXECUTION_STATUS_RUNNING'
   return (
-    <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
-      <YStack gap="$3">
-        <Field label="Type">{wf.type.name}</Field>
-        <Field label="Status">
-          <Badge variant={statusVariant(wf.status)}>{shortStatus(wf.status)}</Badge>
-        </Field>
-        <Field label="Task queue">
-          {taskQueue ? (
-            <Link
-              to={`/namespaces/${encodeURIComponent(namespace)}/task-queues/${encodeURIComponent(taskQueue)}`}
-              style={{ textDecoration: 'none' }}
-            >
+    <YStack gap="$4">
+      <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
+        <YStack gap="$3">
+          <Field label="Type">{wf.type.name}</Field>
+          <Field label="Status">
+            <Badge variant={statusVariant(wf.status)}>{shortStatus(wf.status)}</Badge>
+          </Field>
+          <Field label="Task queue">
+            {taskQueue ? (
+              <Link
+                to={`/namespaces/${encodeURIComponent(namespace)}/task-queues/${encodeURIComponent(taskQueue)}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <Text fontSize="$2" color={'#86efac' as never}>
+                  {taskQueue}
+                </Text>
+              </Link>
+            ) : (
+              <Text fontSize="$2" color="$color">
+                —
+              </Text>
+            )}
+          </Field>
+          <Field label="History events">
+            <Text fontSize="$2" color="$color">
+              {wf.historyLength ?? '—'}
+            </Text>
+          </Field>
+          <Field label="Started">
+            <Text fontSize="$2" color="$color">
+              {wf.startTime ? new Date(wf.startTime).toLocaleString() : '—'}
+            </Text>
+          </Field>
+          <Field label="Closed">
+            <Text fontSize="$2" color="$color">
+              {wf.closeTime ? new Date(wf.closeTime).toLocaleString() : 'running'}
+            </Text>
+          </Field>
+          <Field label="Full history">
+            <Link to={`${baseHref}/history${runQs}`} style={{ textDecoration: 'none' }}>
               <Text fontSize="$2" color={'#86efac' as never}>
-                {taskQueue}
+                Open full history
               </Text>
             </Link>
-          ) : (
-            <Text fontSize="$2" color="$color">
-              —
-            </Text>
-          )}
-        </Field>
-        <Field label="History events">
-          <Text fontSize="$2" color="$color">
-            {wf.historyLength ?? '—'}
+          </Field>
+        </YStack>
+      </Card>
+
+      <XStack gap="$4" flexWrap="wrap">
+        <PayloadPanel
+          title="Input"
+          data={wf.input}
+          emptyText="No input"
+          flex={1}
+          minW={320}
+        />
+        <PayloadPanel
+          title="Result"
+          data={wf.result}
+          emptyText={isRunning ? 'Workflow still running' : 'No result'}
+          flex={1}
+          minW={320}
+        />
+      </XStack>
+    </YStack>
+  )
+}
+
+function PayloadPanel({
+  title,
+  data,
+  emptyText,
+  flex,
+  minW,
+}: {
+  title: string
+  data: unknown
+  emptyText: string
+  flex?: number
+  minW?: number
+}) {
+  const present =
+    data !== null &&
+    data !== undefined &&
+    !(typeof data === 'object' && Object.keys(data as object).length === 0)
+  return (
+    <Card
+      p="$4"
+      bg="$background"
+      borderColor="$borderColor"
+      borderWidth={1}
+      flex={flex}
+      minW={minW}
+      gap="$2"
+    >
+      <Text fontSize="$1" color="$placeholderColor" fontWeight="600" letterSpacing={0.4}>
+        {title.toUpperCase()}
+      </Text>
+      {present ? (
+        <YStack
+          bg={'rgba(255,255,255,0.02)' as never}
+          p="$2"
+          rounded="$2"
+          borderWidth={1}
+          borderColor="$borderColor"
+        >
+          <Text
+            fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
+            fontSize="$1"
+            color="$color"
+          >
+            {JSON.stringify(data, null, 2)}
           </Text>
-        </Field>
-        <Field label="Started">
-          <Text fontSize="$2" color="$color">
-            {wf.startTime ? new Date(wf.startTime).toLocaleString() : '—'}
-          </Text>
-        </Field>
-        <Field label="Closed">
-          <Text fontSize="$2" color="$color">
-            {wf.closeTime ? new Date(wf.closeTime).toLocaleString() : 'running'}
-          </Text>
-        </Field>
-        <Field label="Full history">
-          <Link to={`${baseHref}/history${runQs}`} style={{ textDecoration: 'none' }}>
-            <Text fontSize="$2" color={'#86efac' as never}>
-              Open full history
-            </Text>
-          </Link>
-        </Field>
-      </YStack>
+        </YStack>
+      ) : (
+        <Text fontSize="$2" color="$placeholderColor">
+          {emptyText}
+        </Text>
+      )}
     </Card>
   )
 }

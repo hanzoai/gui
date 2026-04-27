@@ -5,7 +5,6 @@ import { useCallback, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   Button,
-  Card,
   Dialog,
   H2,
   Input,
@@ -14,7 +13,14 @@ import {
   YStack,
 } from 'hanzogui'
 import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
-import { Alert, Badge, Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
+import {
+  Alert,
+  Badge,
+  DataTable,
+  ErrorState,
+  LoadingState,
+  useFetch,
+} from '@hanzogui/admin'
 import type { BatchOperation } from '../lib/api'
 import { apiPost } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
@@ -54,87 +60,49 @@ export function BatchesPage() {
         <StartBatchButton ns={namespace} onCreated={() => void mutate()} />
       </XStack>
 
-      {rows.length === 0 ? (
-        <Empty
-          title={`No batch operations in ${namespace}`}
-          hint="Bulk terminate / cancel / signal across many workflow executions."
-        />
-      ) : (
-        <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
-          <XStack
-            bg={'rgba(255,255,255,0.03)' as never}
-            px="$4"
-            py="$2.5"
-            borderBottomWidth={1}
-            borderBottomColor="$borderColor"
+      <DataTable
+        columns={BATCH_COLUMNS}
+        rows={rows}
+        rowKey={(b) => b.batchId}
+        renderRow={(b) => [
+          <Badge key="state" variant={b.state.endsWith('COMPLETED') ? 'success' : 'muted'}>
+            {b.state.replace('BATCH_OPERATION_STATE_', '').toLowerCase()}
+          </Badge>,
+          <Text
+            key="id"
+            fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
+            fontSize="$1"
+            color="$color"
+            numberOfLines={1}
           >
-            <HeaderCell flex={2}>Batch ID</HeaderCell>
-            <HeaderCell flex={1}>Operation</HeaderCell>
-            <HeaderCell flex={2}>Reason</HeaderCell>
-            <HeaderCell flex={1}>State</HeaderCell>
-            <HeaderCell flex={1}>Progress</HeaderCell>
-            <HeaderCell flex={2}>Started</HeaderCell>
-          </XStack>
-          {rows.map((b, i) => (
-            <XStack
-              key={b.batchId}
-              px="$4"
-              py="$2.5"
-              borderBottomWidth={i === rows.length - 1 ? 0 : 1}
-              borderBottomColor="$borderColor"
-              items="center"
-            >
-              <YStack flex={2} px="$2">
-                <Text
-                  fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
-                  fontSize="$1"
-                  color="$color"
-                >
-                  {b.batchId}
-                </Text>
-              </YStack>
-              <YStack flex={1} px="$2">
-                <Text fontSize="$2" color="$color">
-                  {b.operation.replace('BATCH_OPERATION_TYPE_', '').toLowerCase()}
-                </Text>
-              </YStack>
-              <YStack flex={2} px="$2">
-                <Text fontSize="$2" color="$placeholderColor" numberOfLines={1}>
-                  {b.reason || '—'}
-                </Text>
-              </YStack>
-              <YStack flex={1} px="$2">
-                <Badge variant={b.state.endsWith('COMPLETED') ? 'success' : 'muted'}>
-                  {b.state.replace('BATCH_OPERATION_STATE_', '').toLowerCase()}
-                </Badge>
-              </YStack>
-              <YStack flex={1} px="$2">
-                <Text fontSize="$2" color="$placeholderColor">
-                  {b.completeOperationCount} / {b.totalOperationCount || '—'}
-                </Text>
-              </YStack>
-              <YStack flex={2} px="$2">
-                <Text fontSize="$2" color="$placeholderColor">
-                  {new Date(b.startTime).toLocaleString()}
-                </Text>
-              </YStack>
-            </XStack>
-          ))}
-        </Card>
-      )}
+            {b.batchId}
+          </Text>,
+          <Text key="op" fontSize="$2" color="$color">
+            {b.operation.replace('BATCH_OPERATION_TYPE_', '').toLowerCase()}
+          </Text>,
+          <Text key="start" fontSize="$2" color="$placeholderColor">
+            {new Date(b.startTime).toLocaleString()}
+          </Text>,
+          <Text key="close" fontSize="$2" color="$placeholderColor">
+            {b.closeTime ? new Date(b.closeTime).toLocaleString() : '—'}
+          </Text>,
+        ]}
+        emptyState={{
+          title: `No batch operations in ${namespace}`,
+          hint: 'Bulk terminate / cancel / signal across many workflow executions.',
+        }}
+      />
     </YStack>
   )
 }
 
-function HeaderCell({ children, flex }: { children: React.ReactNode; flex: number }) {
-  return (
-    <YStack flex={flex} px="$2">
-      <Text fontSize="$1" fontWeight="500" color="$placeholderColor">
-        {children}
-      </Text>
-    </YStack>
-  )
-}
+const BATCH_COLUMNS = [
+  { key: 'status', label: 'Status', flex: 1 },
+  { key: 'jobId', label: 'Job ID', flex: 2 },
+  { key: 'operation', label: 'Operation', flex: 1 },
+  { key: 'start', label: 'Start', flex: 2 },
+  { key: 'close', label: 'Close', flex: 2 },
+]
 
 function StartBatchButton({ ns, onCreated }: { ns: string; onCreated: () => void }) {
   const [open, setOpen] = useState(false)

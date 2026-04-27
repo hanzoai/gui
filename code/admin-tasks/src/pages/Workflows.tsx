@@ -2,9 +2,9 @@
 //
 // Header band:  "N Workflows" + refresh + last-fetched stamp + Start CTA.
 // Filter band:  query input.
-// Body:         table when populated, empty state when not.
+// Body:         saved-views rail (left) + table when populated, empty state when not (right).
 
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   Button,
@@ -17,10 +17,25 @@ import {
   XStack,
   YStack,
 } from 'hanzogui'
+import { Activity } from '@hanzogui/lucide-icons-2/icons/Activity'
+import { AlertTriangle } from '@hanzogui/lucide-icons-2/icons/AlertTriangle'
+import { Calendar } from '@hanzogui/lucide-icons-2/icons/Calendar'
+import { Clock } from '@hanzogui/lucide-icons-2/icons/Clock'
+import { GitBranch } from '@hanzogui/lucide-icons-2/icons/GitBranch'
+import { Layers } from '@hanzogui/lucide-icons-2/icons/Layers'
 import { Play } from '@hanzogui/lucide-icons-2/icons/Play'
 import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
 import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
-import { Alert, Badge, Empty, ErrorState, formatTimestamp, useFetch } from '@hanzogui/admin'
+import {
+  Alert,
+  Badge,
+  Empty,
+  ErrorState,
+  formatTimestamp,
+  SavedViewsRail,
+  useFetch,
+  type SavedView,
+} from '@hanzogui/admin'
 import type { WorkflowExecution } from '../lib/api'
 import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
@@ -29,11 +44,62 @@ interface WorkflowsResp {
   executions?: WorkflowExecution[]
 }
 
+// System views mirror upstream temporalio/ui (see
+// $lib/stores/saved-queries.ts). Each preset sets the visibility query.
+// `today` and `last-hour` are recomputed per render so the bound is fresh.
+function buildSystemViews(): SavedView[] {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const lastHour = new Date()
+  lastHour.setHours(lastHour.getHours() - 1)
+  lastHour.setSeconds(0, 0)
+  return [
+    { id: 'all', label: 'All Workflows', query: '', icon: Layers },
+    {
+      id: 'task-failures',
+      label: 'Task Failures',
+      query: 'WorkflowTaskFailureCount > 0',
+      icon: AlertTriangle,
+    },
+    {
+      id: 'running',
+      label: 'Running',
+      query: 'ExecutionStatus="Running"',
+      icon: Activity,
+    },
+    {
+      id: 'parent-workflows',
+      label: 'Parent Workflows',
+      query: 'ParentWorkflowId is null',
+      icon: GitBranch,
+    },
+    {
+      id: 'today',
+      label: 'Today',
+      query: `StartTime >= "${today.toISOString()}"`,
+      icon: Calendar,
+    },
+    {
+      id: 'last-hour',
+      label: 'Last Hour',
+      query: `StartTime >= "${lastHour.toISOString()}"`,
+      icon: Clock,
+    },
+  ]
+}
+
 export function WorkflowsPage() {
   const { ns } = useParams()
   const namespace = ns!
+  const systemViews = useMemo(buildSystemViews, [])
+  const [activeViewId, setActiveViewId] = useState<string>('all')
   const [query, setQuery] = useState('')
   const [fetchedAt, setFetchedAt] = useState<Date>(new Date())
+
+  const onSelectView = useCallback((view: SavedView) => {
+    setActiveViewId(view.id)
+    setQuery(view.query)
+  }, [])
 
   const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/workflows?query=${encodeURIComponent(query)}&pageSize=50`
   const { data, error, isLoading, isValidating, mutate } = useFetch<WorkflowsResp>(url)
@@ -106,54 +172,65 @@ export function WorkflowsPage() {
           maxW={520}
           placeholder='WorkflowType="MyWorkflow" OR WorkflowId STARTS_WITH "abc"'
           value={query}
-          onChangeText={setQuery}
+          onChangeText={(v: string) => {
+            setQuery(v)
+            // Free-text edits drop the active system view.
+            setActiveViewId('')
+          }}
         />
         <Text fontSize="$1" color="$placeholderColor">
           List view
         </Text>
       </XStack>
 
-      {/* Body */}
-      <YStack flex={1} p="$6" gap="$4">
-        {error ? (
-          <ErrorState error={error as Error} />
-        ) : isLoading ? (
-          <YStack gap="$3">
-            <YStack height={36} bg="$borderColor" rounded="$2" opacity={0.5} />
-            <YStack height={120} bg="$borderColor" rounded="$2" opacity={0.3} />
-          </YStack>
-        ) : rows.length === 0 ? (
-          <Empty
-            title={`No workflows in ${namespace}`}
-            hint="Start one with the button above, or run a worker that registers a workflow type."
-          />
-        ) : (
-          <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
-            <XStack
-              bg={'rgba(255,255,255,0.03)' as never}
-              px="$4"
-              py="$2.5"
-              borderBottomWidth={1}
-              borderBottomColor="$borderColor"
-            >
-              <HeaderCell flex={1.2}>Status</HeaderCell>
-              <HeaderCell flex={3}>Workflow ID</HeaderCell>
-              <HeaderCell flex={1.5}>Run ID</HeaderCell>
-              <HeaderCell flex={2}>Type</HeaderCell>
-              <HeaderCell flex={2}>Start</HeaderCell>
-              <HeaderCell flex={2}>End</HeaderCell>
-            </XStack>
-            {rows.map((wf, i) => (
-              <WorkflowRow
-                key={`${wf.execution.workflowId}-${wf.execution.runId}`}
-                wf={wf}
-                ns={namespace}
-                last={i === rows.length - 1}
-              />
-            ))}
-          </Card>
-        )}
-      </YStack>
+      {/* Body — saved views rail (left) + table (right) */}
+      <XStack flex={1}>
+        <SavedViewsRail
+          views={systemViews}
+          activeId={activeViewId}
+          onSelect={onSelectView}
+        />
+        <YStack flex={1} p="$6" gap="$4">
+          {error ? (
+            <ErrorState error={error as Error} />
+          ) : isLoading ? (
+            <YStack gap="$3">
+              <YStack height={36} bg="$borderColor" rounded="$2" opacity={0.5} />
+              <YStack height={120} bg="$borderColor" rounded="$2" opacity={0.3} />
+            </YStack>
+          ) : rows.length === 0 ? (
+            <Empty
+              title={`No workflows in ${namespace}`}
+              hint="Start one with the button above, or run a worker that registers a workflow type."
+            />
+          ) : (
+            <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
+              <XStack
+                bg={'rgba(255,255,255,0.03)' as never}
+                px="$4"
+                py="$2.5"
+                borderBottomWidth={1}
+                borderBottomColor="$borderColor"
+              >
+                <HeaderCell flex={1.2}>Status</HeaderCell>
+                <HeaderCell flex={3}>Workflow ID</HeaderCell>
+                <HeaderCell flex={1.5}>Run ID</HeaderCell>
+                <HeaderCell flex={2}>Type</HeaderCell>
+                <HeaderCell flex={2}>Start</HeaderCell>
+                <HeaderCell flex={2}>End</HeaderCell>
+              </XStack>
+              {rows.map((wf, i) => (
+                <WorkflowRow
+                  key={`${wf.execution.workflowId}-${wf.execution.runId}`}
+                  wf={wf}
+                  ns={namespace}
+                  last={i === rows.length - 1}
+                />
+              ))}
+            </Card>
+          )}
+        </YStack>
+      </XStack>
     </YStack>
   )
 }

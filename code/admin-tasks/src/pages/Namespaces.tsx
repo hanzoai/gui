@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { Card, H2, Text, XStack, YStack } from 'hanzogui'
 import { ChevronRight } from '@hanzogui/lucide-icons-2/icons/ChevronRight'
-import { Badge, Empty, ErrorState, LoadingState, humanTTL, useFetch } from '@hanzogui/admin'
+import { Badge, Empty, ErrorState, LoadingState, humanTTL, useFetch } from '@hanzo/admin'
 import type { Namespace } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
 

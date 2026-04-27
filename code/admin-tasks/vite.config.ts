@@ -5,10 +5,11 @@ import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 
 // Hanzo Tasks admin app.
 //
-// Lives inside the gui workspace so hanzogui umbrella + @hanzogui/core
-// + @hanzogui/admin all resolve via workspace:* — that's what lets the
-// static extractor's bundled-config worker re-resolve those imports
-// when it copies hanzogui.config.ts into the .hanzogui temp dir.
+// Lives inside the gui workspace so the @hanzo/gui umbrella +
+// @hanzogui/core + @hanzo/admin all resolve cleanly — @hanzo/gui from
+// npm, @hanzo/admin via workspace:*. That's what lets the static
+// extractor's bundled-config worker re-resolve those imports when it
+// copies hanzogui.config.ts into the .hanzogui temp dir.
 //
 // Build target: a Vite SPA served from tasks.hanzo.ai. The base path
 // /_/tasks/ matches what tasksd's Go server strips before delegating
@@ -18,7 +19,7 @@ import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 // Static extractor MUST stay enabled. Without the resolved theme CSS,
 // runtime getThemeProxied() throws "Missing theme" and renders blank.
 
-const APP_VERSION = process.env.VITE_APP_VERSION ?? '2.45.3'
+const APP_VERSION = process.env.VITE_APP_VERSION ?? '2.49.0'
 
 export default defineConfig({
   plugins: [
@@ -44,15 +45,19 @@ export default defineConfig({
   resolve: {
     alias: {
       'react-native': 'react-native-web',
+      // Stop transitive react-native-svg from pulling fabric/codegen
+      // native components (which try to import paths that don't exist
+      // on react-native-web). Hanzo's shim is web-safe.
+      'react-native-svg': '@hanzogui/react-native-svg',
     },
-    // Force every workspace package to resolve `hanzogui` and the
+    // Force every workspace package to resolve `@hanzo/gui` and the
     // @hanzogui/* primitives from THIS app's node_modules, not from
     // a sibling workspace's nested copy. Without dedupe the dev server
-    // serves two parallel hanzogui module graphs (one for admin-tasks,
-    // one for @hanzogui/admin), each with its own TamaguiProvider
-    // context — children rendered through the @hanzogui/admin Sidebar
-    // don't see the provider mounted in admin-tasks's main.tsx, throw
-    // "Can't find Hanzogui configuration", page goes blank.
+    // serves two parallel module graphs (one for admin-tasks, one
+    // for @hanzo/admin), each with its own TamaguiProvider context
+    // — children rendered through the @hanzo/admin Sidebar don't see
+    // the provider mounted in admin-tasks's main.tsx, throw "Can't
+    // find Hanzogui configuration", page goes blank.
     dedupe: [
       'react',
       'react-dom',
@@ -66,7 +71,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     // Force ALL hanzogui packages through ONE pre-bundled ESM module
-    // graph. Without this, the umbrella `hanzogui` and direct
+    // graph. Without this, the @hanzo/gui umbrella and direct
     // `@hanzogui/core` imports (e.g. via @hanzogui/lucide-icons-2 →
     // @hanzogui/helpers-icon → @hanzogui/core's Text) end up as
     // separate module instances. Each has its own React Context for

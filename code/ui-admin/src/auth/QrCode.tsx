@@ -15,33 +15,26 @@
 // Original at `~/work/hanzo/iam/web/src/QrCodePage.tsx`.
 
 import type { ComponentType } from 'react'
-import { Card, Paragraph, YStack, Image } from 'hanzogui'
+import { Card, Image, Paragraph, YStack } from 'hanzogui'
 
 export interface QrCodeProps {
-  // Server-rendered data URL. When set, we render this and ignore
-  // `value` / `Renderer`.
   dataUrl?: string
-  // The string to encode (`otpauth://...`, `payment://...`).
   value?: string
-  // Custom QR renderer. Receives the value to encode and the
-  // requested size in pixels.
   Renderer?: ComponentType<{ value: string; size: number }>
   size?: number
-  // Brand label rendered above the QR — typically the provider name.
   label?: string
 }
 
 export function QrCode({ dataUrl, value, Renderer, size = 200, label }: QrCodeProps) {
   return (
-    <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1} items="center">
+    <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
       <YStack gap="$3" items="center">
         {label ? <Paragraph color="$placeholderColor">{label}</Paragraph> : null}
         {dataUrl ? (
           <Image
-            source={{ uri: dataUrl, width: size, height: size } as never}
+            source={{ uri: dataUrl, width: size, height: size }}
             width={size}
             height={size}
-            alt="QR code"
           />
         ) : Renderer && value ? (
           <Renderer value={value} size={size} />

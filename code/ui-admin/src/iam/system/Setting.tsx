@@ -10,7 +10,7 @@
 // label, control, and short description.
 
 import { useState } from 'react'
-import { Card, H3, H4, Input, Paragraph, Switch, Text, XStack, YStack } from 'hanzogui'
+import { Button, Card, H3, H4, Input, Paragraph, Switch, Text, XStack, YStack } from 'hanzogui'
 
 export interface SettingPreferences {
   // Two-letter language code: `en`, `zh`, `de`, etc. Empty = follow
@@ -105,21 +105,14 @@ export function Setting({ initial, onSave }: SettingProps) {
       </Card>
 
       <XStack gap="$3" items="center">
-        <Text
-          tag="button"
-          {...({ type: 'button' } as never)}
-          px="$4"
-          py="$2"
-          rounded="$2"
-          bg={'#3b82f6' as never}
-          color="#ffffff"
-          opacity={saving ? 0.5 : 1}
-          onPress={() => void onSubmit()}
+        <Button
+          size="$3"
+          theme="blue"
           disabled={saving}
-          cursor={saving ? 'progress' : 'pointer'}
+          onPress={() => void onSubmit()}
         >
           {saving ? 'Saving…' : 'Save'}
-        </Text>
+        </Button>
         {savedAt !== null ? (
           <Paragraph color="#86efac" fontSize="$2">
             Saved.

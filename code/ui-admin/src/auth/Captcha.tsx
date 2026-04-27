@@ -16,21 +16,17 @@
 
 import type { ComponentType } from 'react'
 import { useState } from 'react'
-import { Card, H4, Input, Paragraph, XStack, YStack, Image } from 'hanzogui'
+import { Button, Card, Image, Input, Label, Paragraph, XStack, YStack } from 'hanzogui'
 import type { CaptchaConfig } from './types'
 
 export interface CaptchaProps {
   config: CaptchaConfig
-  // For provider-rendered captchas. The widget is responsible for
-  // the iframe + script tag injection.
   Widget?: ComponentType<{
     siteKey: string
     onToken: (token: string) => void
     onError?: (msg: string) => void
   }>
   onToken: (token: string, providerType: CaptchaConfig['type']) => void
-  // Optional: a "refresh image" callback for the Default captcha
-  // mode. The host app should rotate the imageUrl when called.
   onRefreshImage?: () => void
 }
 
@@ -43,33 +39,33 @@ export function Captcha({ config, Widget, onToken, onRefreshImage }: CaptchaProp
     return (
       <Card p="$3" bg="$background" borderColor="$borderColor" borderWidth={1}>
         <YStack gap="$2">
-          <H4 size="$3">Verify you're human</H4>
+          <Label htmlFor="captcha-input">Verify you're human</Label>
           <XStack items="center" gap="$2">
             {config.imageUrl ? (
               <Image
-                source={{ uri: config.imageUrl, width: 120, height: 40 } as never}
+                source={{ uri: config.imageUrl, width: 120, height: 40 }}
                 width={120}
                 height={40}
-                alt="Captcha"
-                {...({ onClick: onRefreshImage } as never)}
-                cursor={onRefreshImage ? 'pointer' : 'default'}
+                onPress={onRefreshImage}
               />
             ) : (
               <Paragraph color="$placeholderColor">Loading…</Paragraph>
             )}
             <Input
+              id="captcha-input"
               flex={1}
               value={text}
               onChangeText={setText}
               placeholder="Code"
               autoCapitalize="none"
-              {...({ autoComplete: 'off', spellCheck: false } as never)}
-              onKeyPress={(e) => {
-                if (e.nativeEvent.key === 'Enter' && text) {
-                  onToken(text, 'Default')
-                }
-              }}
             />
+            <Button
+              size="$2"
+              onPress={() => text && onToken(text, 'Default')}
+              disabled={!text}
+            >
+              OK
+            </Button>
           </XStack>
         </YStack>
       </Card>

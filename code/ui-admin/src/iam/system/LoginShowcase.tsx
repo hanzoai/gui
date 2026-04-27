@@ -20,11 +20,11 @@ export function LoginShowcase({ application }: LoginShowcaseProps) {
     <YStack
       flex={1}
       items="center"
-      content="center"
+      justify="center"
       p="$6"
       bg={'rgba(0,0,0,0.30)' as never}
     >
-      <YStack gap="$3" maxWidth={520}>
+      <YStack gap="$3" maxW={520}>
         <H1 size="$10" fontWeight="700">
           {displayName}
         </H1>

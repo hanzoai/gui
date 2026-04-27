@@ -50,7 +50,7 @@ export function EntryPage({
 
   if (account.kind === 'loading') {
     return (
-      <YStack flex={1} items="center" content="center" p="$6">
+      <YStack flex={1} items="center" justify="center" p="$6">
         <Paragraph color="$placeholderColor">Loading…</Paragraph>
       </YStack>
     )

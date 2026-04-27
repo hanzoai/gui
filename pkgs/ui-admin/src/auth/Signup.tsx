@@ -4,11 +4,23 @@
 //
 // Original at `~/work/hanzo/iam/web/src/auth/SignupPage.tsx`.
 
-import { useMemo, useState, type FormEvent } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type ComponentType,
+  type FormEvent,
+} from 'react'
 import { Eye } from '@hanzogui/lucide-icons-2/icons/Eye'
 import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
 import { Button, Input, Label, Paragraph, Text, XStack, YStack } from 'hanzogui'
-import type { AuthApplication, AuthSignupItem, SignupPayload } from './types'
+import { Captcha } from './Captcha'
+import type {
+  AuthApplication,
+  AuthSignupItem,
+  CaptchaConfig,
+  SignupPayload,
+} from './types'
 import { isEmail, isPhoneShape, readCsrfToken, scorePassword } from './util'
 
 export interface SignupProps {
@@ -17,6 +29,12 @@ export interface SignupProps {
   onLogin?: () => void
   invitationCode?: string
   error?: string | null
+  captcha?: CaptchaConfig
+  CaptchaWidget?: ComponentType<{
+    siteKey: string
+    onToken: (token: string) => void
+    onError?: (msg: string) => void
+  }>
 }
 
 interface FieldRowProps {
@@ -79,6 +97,8 @@ export function Signup({
   onLogin,
   invitationCode,
   error,
+  captcha,
+  CaptchaWidget,
 }: SignupProps) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -86,16 +106,29 @@ export function Signup({
   const [extra, setExtra] = useState<Record<string, string>>({})
   const [showPassword, setShowPassword] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const [captchaProviderType, setCaptchaProviderType] = useState<
+    CaptchaConfig['type']
+  >(captcha?.type ?? 'none')
   const [csrfToken] = useState(() => readCsrfToken())
+
+  useEffect(() => {
+    setCaptchaProviderType(captcha?.type ?? 'none')
+  }, [captcha?.type])
 
   const score = scorePassword(password)
   const isEmailValue = isEmail(emailOrPhone)
   const isPhoneValue = isPhoneShape(emailOrPhone)
 
+  // When the application configures a captcha, the user MUST solve it
+  // before we let them submit. Skipping this check defeats the
+  // bot-mitigation contract the server expects.
+  const captchaRequired = !!captcha && captcha.type !== 'none'
   const canSubmit =
     username.trim().length > 0 &&
     password.length >= 8 &&
     (isEmailValue || isPhoneValue) &&
+    (!captchaRequired || captchaToken !== null) &&
     !submitting
 
   const dynamicItems = useMemo(
@@ -125,6 +158,8 @@ export function Signup({
         phone: isPhoneValue ? emailOrPhone : undefined,
         invitationCode,
         csrfToken: csrfToken || undefined,
+        captchaType: captchaToken ? captchaProviderType : undefined,
+        captchaToken: captchaToken || undefined,
         extra,
       }
       await onSubmit(payload)
@@ -204,6 +239,17 @@ export function Signup({
             onChange={(v) => setExtra((current) => ({ ...current, [item.name]: v }))}
           />
         ))}
+
+        {captcha && captcha.type !== 'none' ? (
+          <Captcha
+            config={captcha}
+            Widget={CaptchaWidget}
+            onToken={(t, providerType) => {
+              setCaptchaToken(t)
+              setCaptchaProviderType(providerType)
+            }}
+          />
+        ) : null}
 
         {error ? (
           <Paragraph color="#fca5a5" fontSize="$2">

@@ -1,0 +1,33 @@
+{
+  "name": "@hanzogui/admin-tasks",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Hanzo Tasks admin app — namespaces, workflows, schedules, batches, deployments, task queues, workers, nexus. Composed from @hanzogui/admin primitives, ships as a Vite SPA at tasks.hanzo.ai.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hanzogui/admin": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "hanzogui": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-native-web": "^0.21.0",
+    "react-router-dom": "^7.0.2"
+  },
+  "devDependencies": {
+    "@hanzogui/vite-plugin": "workspace:*",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "rollup-plugin-visualizer": "^7.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^8.0.3",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

@@ -4,7 +4,7 @@ const path = require('path')
 const glob = require('glob')
 
 const root = path.join(__dirname, '..')
-const files = glob.sync('code/**/package.json', {
+const files = glob.sync('pkgs/**/package.json', {
   ignore: ['**/node_modules/**', '**/.next/**', '**/dist/**'],
   cwd: root,
   absolute: true,

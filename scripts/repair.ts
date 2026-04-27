@@ -42,8 +42,8 @@ async function repair() {
         return
       }
       if (
-        !pkg.location.startsWith('code/core/') &&
-        !pkg.location.startsWith('code/ui/')
+        !pkg.location.startsWith('pkgs/core/') &&
+        !pkg.location.startsWith('pkgs/ui/')
       ) {
         return
       }

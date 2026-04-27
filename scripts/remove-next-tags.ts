@@ -14,7 +14,7 @@ import { Glob, $ } from 'bun'
 const DRY_RUN = process.argv.includes('--dry-run')
 
 async function collectPackages(): Promise<string[]> {
-  const glob = new Glob('code/**/package.json')
+  const glob = new Glob('pkgs/**/package.json')
   const paths = Array.from(glob.scanSync('.')).filter(
     (p) => !p.includes('node_modules') && !p.includes('__tests__/fixtures/'),
   )

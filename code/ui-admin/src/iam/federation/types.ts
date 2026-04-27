@@ -167,17 +167,7 @@ export interface Verification {
   isUsed: boolean
 }
 
-// Standard envelope returned by every IAM list endpoint. `data2`
-// holds the unfiltered total used for pagination.
-export interface IamListResponse<T> {
-  status: 'ok' | 'error'
-  msg?: string
-  data: T[]
-  data2: number
-}
-
-export interface IamItemResponse<T> {
-  status: 'ok' | 'error'
-  msg?: string
-  data: T
-}
+// IAM envelope shapes are shared with the identity bucket — see
+// `iam/identity/types.ts`. Re-exported here so federation pages
+// don't reach across buckets, but defined once.
+export type { IamListResponse, IamItemResponse } from '../identity/types'

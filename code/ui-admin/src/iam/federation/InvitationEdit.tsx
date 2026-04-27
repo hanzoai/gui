@@ -18,7 +18,7 @@ import { Save } from '@hanzogui/lucide-icons-2/icons/Save'
 import { Send } from '@hanzogui/lucide-icons-2/icons/Send'
 import { Loading, ErrorState } from '../../primitives/Empty'
 import { useFetch, apiPost, apiDelete } from '../../data/useFetch'
-import { Field } from './Field'
+import { LabelRow } from './LabelRow'
 import { SelectInline } from './LdapEdit'
 import type { IamItemResponse, Invitation } from './types'
 
@@ -130,36 +130,36 @@ export function InvitationEdit({
         </XStack>
         <Separator />
         <YStack gap="$4" p="$5">
-          <Field label="Organization">
+          <LabelRowlabel="Organization">
             <Input
               value={draft.owner}
               disabled={isPlanCreated}
               onChangeText={(v: string) => update('owner', v)}
             />
-          </Field>
-          <Field label="Name">
+          </LabelRow>
+          <LabelRowlabel="Name">
             <Input
               value={draft.name}
               disabled={isPlanCreated}
               onChangeText={(v: string) => update('name', v)}
             />
-          </Field>
-          <Field label="Display name">
+          </LabelRow>
+          <LabelRowlabel="Display name">
             <Input
               value={draft.displayName}
               onChangeText={(v: string) => update('displayName', v)}
             />
-          </Field>
-          <Field label="Code">
+          </LabelRow>
+          <LabelRowlabel="Code">
             <Input value={draft.code} onChangeText={(v: string) => update('code', v)} />
-          </Field>
-          <Field label="Default code">
+          </LabelRow>
+          <LabelRowlabel="Default code">
             <Input
               value={draft.defaultCode}
               onChangeText={(v: string) => update('defaultCode', v)}
             />
-          </Field>
-          <Field label="">
+          </LabelRow>
+          <LabelRowlabel="">
             <XStack gap="$2" items="center">
               <Button size="$2" variant="outlined" onPress={copySignupLink}>
                 <Copy size={12} /> Copy signup link
@@ -170,8 +170,8 @@ export function InvitationEdit({
                 </Text>
               ) : null}
             </XStack>
-          </Field>
-          <Field label="Send" align="start">
+          </LabelRow>
+          <LabelRowlabel="Send" align="start">
             <YStack gap="$2">
               <TextArea
                 minH={80}
@@ -189,30 +189,30 @@ export function InvitationEdit({
                 </Button>
               </XStack>
             </YStack>
-          </Field>
-          <Field label="Quota">
+          </LabelRow>
+          <LabelRowlabel="Quota">
             <Input
               width={120}
               keyboardType="numeric"
               value={String(draft.quota)}
               onChangeText={(v: string) => update('quota', Number.parseInt(v, 10) || 0)}
             />
-          </Field>
-          <Field label="Used count">
+          </LabelRow>
+          <LabelRowlabel="Used count">
             <Input
               width={120}
               keyboardType="numeric"
               value={String(draft.usedCount)}
               onChangeText={(v: string) => update('usedCount', Number.parseInt(v, 10) || 0)}
             />
-          </Field>
-          <Field label="Application">
+          </LabelRow>
+          <LabelRowlabel="Application">
             <Input
               value={draft.application}
               onChangeText={(v: string) => update('application', v)}
             />
-          </Field>
-          <Field label="State">
+          </LabelRow>
+          <LabelRowlabel="State">
             <SelectInline
               value={draft.state}
               options={[
@@ -221,14 +221,14 @@ export function InvitationEdit({
               ]}
               onChange={(v) => update('state', v as Invitation['state'])}
             />
-          </Field>
+          </LabelRow>
           {(['username', 'email', 'phone'] as const).map((k) => (
-            <Field key={k} label={k[0].toUpperCase() + k.slice(1)}>
+            <LabelRowkey={k} label={k[0].toUpperCase() + k.slice(1)}>
               <Input
                 value={draft[k] ?? ''}
                 onChangeText={(v: string) => update(k, v)}
               />
-            </Field>
+            </LabelRow>
           ))}
         </YStack>
       </Card>

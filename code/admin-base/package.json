@@ -1,0 +1,31 @@
+{
+  "name": "@hanzo/base-ui",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "description": "Hanzo Base admin SPA — collections, records, logs, settings. Composed from @hanzogui/admin chrome. Embedded in based via //go:embed against dist/.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hanzogui/admin": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "hanzogui": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-native-web": "^0.21.0",
+    "react-router-dom": "^7.0.2"
+  },
+  "devDependencies": {
+    "@hanzogui/vite-plugin": "workspace:*",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^8.0.3"
+  }
+}

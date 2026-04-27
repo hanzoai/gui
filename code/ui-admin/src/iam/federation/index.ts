@@ -27,6 +27,7 @@ export type {
   WebhookHeader,
   Invitation,
   Verification,
-  IamListResponse,
-  IamItemResponse,
 } from './types'
+// `IamListResponse` / `IamItemResponse` already ship from the
+// identity bucket — both buckets share the IAM envelope shape, and
+// the rule of one says we re-export them in one place only.

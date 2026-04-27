@@ -6,7 +6,7 @@
 import { Link } from 'react-router-dom'
 import { Text, XStack, YStack } from 'hanzogui'
 import { Network } from '@hanzogui/lucide-icons-2/icons/Network'
-import { Alert, Empty } from '@hanzo/admin'
+import { Alert, Empty } from '@hanzogui/admin'
 import type { PendingNexusOperation, WorkflowExecution } from '../../lib/api'
 
 export function NexusLinksPane({

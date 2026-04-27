@@ -5,7 +5,7 @@
 // starts emitting wf.pendingActivities, this pane already binds it.
 
 import { Card, Text, XStack, YStack } from 'hanzogui'
-import { Alert, Badge, Empty } from '@hanzo/admin'
+import { Alert, Badge, Empty } from '@hanzogui/admin'
 import type { PendingActivity, WorkflowExecution } from '../../lib/api'
 
 export function PendingActivitiesPane({ wf }: { wf: WorkflowExecution }) {

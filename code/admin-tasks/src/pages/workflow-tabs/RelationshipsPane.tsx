@@ -7,7 +7,7 @@
 import { Link } from 'react-router-dom'
 import { Card, Text, XStack, YStack } from 'hanzogui'
 import { ArrowUpRight } from '@hanzogui/lucide-icons-2/icons/ArrowUpRight'
-import { Alert, Empty } from '@hanzo/admin'
+import { Alert, Empty } from '@hanzogui/admin'
 import type { ExecutionRef, WorkflowExecution } from '../../lib/api'
 
 export function RelationshipsPane({

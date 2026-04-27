@@ -3,7 +3,8 @@
 
 import { useState } from 'react'
 import { Button, Text, XStack } from 'hanzogui'
-import { Check, Copy } from '@hanzogui/lucide-icons-2'
+import { Check } from '@hanzogui/lucide-icons-2/icons/Check'
+import { Copy } from '@hanzogui/lucide-icons-2/icons/Copy'
 
 export interface CopyFieldProps {
   value: string

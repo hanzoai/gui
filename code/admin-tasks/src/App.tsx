@@ -17,20 +17,18 @@ import {
   useFetch,
   type SidebarConfig,
 } from '@hanzogui/admin'
-import {
-  Activity,
-  Archive,
-  BookOpen,
-  Heart,
-  Layers,
-  ListChecks,
-  Network,
-  Rocket,
-  Timer,
-  Upload,
-  Users,
-  Workflow,
-} from '@hanzogui/lucide-icons-2'
+import { Activity } from '@hanzogui/lucide-icons-2/icons/Activity'
+import { Archive } from '@hanzogui/lucide-icons-2/icons/Archive'
+import { BookOpen } from '@hanzogui/lucide-icons-2/icons/BookOpen'
+import { Heart } from '@hanzogui/lucide-icons-2/icons/Heart'
+import { Layers } from '@hanzogui/lucide-icons-2/icons/Layers'
+import { ListChecks } from '@hanzogui/lucide-icons-2/icons/ListChecks'
+import { Network } from '@hanzogui/lucide-icons-2/icons/Network'
+import { Rocket } from '@hanzogui/lucide-icons-2/icons/Rocket'
+import { Timer } from '@hanzogui/lucide-icons-2/icons/Timer'
+import { Upload } from '@hanzogui/lucide-icons-2/icons/Upload'
+import { Users } from '@hanzogui/lucide-icons-2/icons/Users'
+import { Workflow } from '@hanzogui/lucide-icons-2/icons/Workflow'
 import type { Namespace } from './lib/api'
 
 const APP_VERSION = (import.meta as any).env?.VITE_APP_VERSION ?? '2.45.3'

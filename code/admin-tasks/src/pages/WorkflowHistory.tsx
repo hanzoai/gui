@@ -12,7 +12,8 @@ import {
   XStack,
   YStack,
 } from 'hanzogui'
-import { ChevronLeft, Circle } from '@hanzogui/lucide-icons-2'
+import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
+import { Circle } from '@hanzogui/lucide-icons-2/icons/Circle'
 import {
   Alert,
   Badge,

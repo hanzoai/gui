@@ -1,12 +1,10 @@
 // Support — 4 cards (GitHub, Docs, Issue, Health).
 
 import { Card, H2, Text, XStack, YStack } from 'hanzogui'
-import {
-  BookOpen,
-  ExternalLink,
-  Github,
-  MessageSquare,
-} from '@hanzogui/lucide-icons-2'
+import { BookOpen } from '@hanzogui/lucide-icons-2/icons/BookOpen'
+import { ExternalLink } from '@hanzogui/lucide-icons-2/icons/ExternalLink'
+import { Github } from '@hanzogui/lucide-icons-2/icons/Github'
+import { MessageSquare } from '@hanzogui/lucide-icons-2/icons/MessageSquare'
 
 export function SupportPage() {
   return (

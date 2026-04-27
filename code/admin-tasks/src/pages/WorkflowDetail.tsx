@@ -17,11 +17,9 @@ import {
   XStack,
   YStack,
 } from 'hanzogui'
-import {
-  ChevronLeft,
-  History,
-  RefreshCw,
-} from '@hanzogui/lucide-icons-2'
+import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
+import { History } from '@hanzogui/lucide-icons-2/icons/History'
+import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
 import { Alert, Badge, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
 import { useTaskEvents } from '../lib/events'

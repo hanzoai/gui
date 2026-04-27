@@ -13,7 +13,7 @@ import {
   XStack,
   YStack,
 } from 'hanzogui'
-import { Plus } from '@hanzogui/lucide-icons-2'
+import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
 import { Alert, Badge, Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import type { BatchOperation } from '../lib/api'
 import { apiPost } from '../lib/api'

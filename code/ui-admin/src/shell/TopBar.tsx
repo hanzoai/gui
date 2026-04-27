@@ -11,15 +11,13 @@ import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Popover, Text, XStack, YStack } from 'hanzogui'
-import {
-  ChevronDown,
-  Clock,
-  ExternalLink,
-  LogOut,
-  Moon,
-  Sun,
-  User,
-} from '@hanzogui/lucide-icons-2'
+import { ChevronDown } from '@hanzogui/lucide-icons-2/icons/ChevronDown'
+import { Clock } from '@hanzogui/lucide-icons-2/icons/Clock'
+import { ExternalLink } from '@hanzogui/lucide-icons-2/icons/ExternalLink'
+import { LogOut } from '@hanzogui/lucide-icons-2/icons/LogOut'
+import { Moon } from '@hanzogui/lucide-icons-2/icons/Moon'
+import { Sun } from '@hanzogui/lucide-icons-2/icons/Sun'
+import { User } from '@hanzogui/lucide-icons-2/icons/User'
 import { getTz, setTz, type Tz } from '../data/tz'
 
 // `TopBar` accepts either an explicit `right` slot, or a `themeStorageKey`

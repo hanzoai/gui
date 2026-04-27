@@ -25,14 +25,14 @@ export interface ManagementPageProps {
 export function ManagementPage({ account, sidebar, topBar, children }: ManagementPageProps) {
   if (account === undefined) {
     return (
-      <YStack flex={1} items="center" content="center" p="$6">
+      <YStack flex={1} items="center" justify="center" p="$6">
         <Paragraph color="$placeholderColor">Loading…</Paragraph>
       </YStack>
     )
   }
   if (account === null) {
     return (
-      <YStack flex={1} items="center" content="center" p="$6" gap="$2">
+      <YStack flex={1} items="center" justify="center" p="$6" gap="$2">
         <Paragraph fontSize="$5">403 Unauthorized</Paragraph>
         <Paragraph color="$placeholderColor">Sign in to access the admin console.</Paragraph>
       </YStack>

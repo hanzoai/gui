@@ -8,7 +8,7 @@
 // This is the @hanzo/gui v7 port: stacked cards, no Antd.
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Card, H4, Paragraph, Text, XStack, YStack } from 'hanzogui'
+import { Anchor, Card, H4, Paragraph, Text, XStack, YStack } from 'hanzogui'
 import type { PrometheusInfo, SystemInfo as SystemInfoData, VersionInfo } from './types'
 import { getFriendlyFileSize, getProgressColor } from './util'
 
@@ -219,21 +219,21 @@ export function SystemInfo({
             Identity & Access Management (IAM) / Single-Sign-On (SSO) platform with web UI
             supporting OAuth 2.0, OIDC, SAML, and CAS.
           </Paragraph>
-          <Text fontSize="$2">
-            Version:{' '}
+          <XStack gap="$1" items="center">
+            <Text fontSize="$2">Version:</Text>
             {repoUrl ? (
-              <Text
-                tag="a"
+              <Anchor
                 href={`${repoUrl}/releases/tag/${version.version}`}
                 color="#60a5fa"
-                {...({ target: '_blank', rel: 'noreferrer' } as never)}
+                target="_blank"
+                rel="noreferrer"
               >
                 {versionText}
-              </Text>
+              </Anchor>
             ) : (
-              <Text>{versionText}</Text>
+              <Text fontSize="$2">{versionText}</Text>
             )}
-          </Text>
+          </XStack>
         </YStack>
       </Card>
     </YStack>

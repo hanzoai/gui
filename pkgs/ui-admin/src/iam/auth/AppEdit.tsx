@@ -85,6 +85,11 @@ export function AppEdit() {
     useFetch<IamItemResponse<IamApplication>>(url)
 
   const [draft, setDraft] = useState<IamApplication | null>(null)
+  // Write-only — the OAuth client secret is held here and never
+  // hydrated from the server. An empty string means "leave the stored
+  // value alone"; any non-empty string is sent on save and then
+  // cleared. Same pattern as ProviderEdit / WebhookEdit.
+  const [clientSecretEdit, setClientSecretEdit] = useState('')
   const [saving, setSaving] = useState(false)
   const [saveErr, setSaveErr] = useState<string | null>(null)
 
@@ -117,10 +122,18 @@ export function AppEdit() {
     setSaving(true)
     setSaveErr(null)
     try {
+      const payload: IamApplication | Omit<IamApplication, 'clientSecret'> =
+        clientSecretEdit
+          ? { ...draft, clientSecret: clientSecretEdit }
+          : (() => {
+              const { clientSecret: _omit, ...rest } = draft
+              return rest
+            })()
       await apiPost(
         authUrl(`applications/${draft.owner}/${draft.name}`),
-        draft,
+        payload,
       )
+      setClientSecretEdit('')
       await mutate()
     } catch (e) {
       setSaveErr(e instanceof Error ? e.message : String(e))
@@ -255,10 +268,11 @@ export function AppEdit() {
         <Field
           id="app-secret"
           label="Client secret"
-          value={draft.clientSecret ?? ''}
-          onChangeText={(v) => set('clientSecret', v)}
+          value={clientSecretEdit}
+          onChangeText={setClientSecretEdit}
+          placeholder={draft.clientSecret ? '••••••••' : 'Set client secret'}
           type="password"
-          hint="Stored encrypted at rest. Rotate via KMS when compromised."
+          hint="Leave empty to keep the current secret. Stored encrypted at rest; rotate via KMS when compromised."
         />
         <Field
           id="app-cert"

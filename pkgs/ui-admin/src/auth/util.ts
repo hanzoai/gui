@@ -1,15 +1,6 @@
-// Shared helpers for the auth bucket. Read-only on cookies — no form
-// component sets `document.cookie` directly. CSRF tokens are issued
-// by the backend on first GET; we echo them back as a hidden form
-// field, never as a custom header (which would dodge SameSite).
-
-export function readCsrfToken(): string {
-  if (typeof document === 'undefined') return ''
-  const all = document.cookie || ''
-  const match = all.split('; ').find((c) => c.startsWith('csrf_token='))
-  if (!match) return ''
-  return decodeURIComponent(match.slice('csrf_token='.length))
-}
+// Shared helpers for the auth bucket. CSRF wiring lives in
+// `data/csrf` — the only place that parses the cookie. The header is
+// attached automatically by `apiPost`/`apiDelete`.
 
 // validateEmail — narrow check matching the upstream regex. Not a
 // security boundary; the backend always re-validates.

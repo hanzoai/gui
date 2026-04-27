@@ -17,4 +17,5 @@ export {
   type FetchState,
   type FetchOptions,
 } from './useFetch'
+export { readCsrfToken, CSRF_HEADER } from './csrf'
 export { useEvents, type UseEventsOptions } from './useEvents'

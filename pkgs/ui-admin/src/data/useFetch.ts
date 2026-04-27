@@ -9,6 +9,7 @@
 // at the consumer level — don't reinvent it here.
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { CSRF_HEADER, readCsrfToken } from './csrf'
 
 export class ApiError extends Error {
   constructor(public status: number, public body: unknown, message?: string) {
@@ -117,12 +118,19 @@ export async function apiDelete<T = unknown>(url: string): Promise<T> {
 }
 
 async function apiSend<T>(method: string, url: string, payload: unknown): Promise<T> {
+  // Double-submit CSRF: the cookie value is echoed in the
+  // X-CSRF-Token header. The backend rejects mutating requests where
+  // the header is missing or doesn't match the cookie. Empty token
+  // (fresh tab, no GET yet) still attaches the header — the backend
+  // will 403 and the page reloads to acquire one.
+  const headers: Record<string, string> = { Accept: 'application/json' }
+  if (payload !== undefined) headers['Content-Type'] = 'application/json'
+  headers[CSRF_HEADER] = readCsrfToken()
+
   const res = await fetch(url, {
     method,
-    headers:
-      payload === undefined
-        ? { Accept: 'application/json' }
-        : { 'Content-Type': 'application/json', Accept: 'application/json' },
+    headers,
+    credentials: 'same-origin',
     body: payload === undefined ? undefined : JSON.stringify(payload),
   })
   const body: unknown = await res.json().catch(() => null)

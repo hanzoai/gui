@@ -7,9 +7,9 @@
 // Original at `~/work/hanzo/iam/web/src/auth/ForgetPage.tsx`.
 //
 // Security:
-//   - never display the masked email/phone in the URL.
 //   - the password field is `secureTextEntry` and `autoComplete="new-password"`.
-//   - CSRF token is echoed.
+//   - CSRF protection lives in `apiPost`/`apiDelete` via the
+//     `X-CSRF-Token` header. No body-echoed token, no hidden field.
 
 import {
   useEffect,
@@ -22,7 +22,7 @@ import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
 import { Button, Input, Label, Paragraph, Text, XStack, YStack } from 'hanzogui'
 import { Captcha } from './Captcha'
 import type { AuthApplication, CaptchaConfig, ForgetPayload } from './types'
-import { readCsrfToken, scorePassword } from './util'
+import { scorePassword } from './util'
 
 type Step = 'username' | 'code' | 'password' | 'done'
 
@@ -66,7 +66,6 @@ export function ForgotPassword({
   const [captchaProviderType, setCaptchaProviderType] = useState<
     CaptchaConfig['type']
   >(captcha?.type ?? 'none')
-  const [csrfToken] = useState(() => readCsrfToken())
 
   useEffect(() => {
     setCaptchaProviderType(captcha?.type ?? 'none')
@@ -104,7 +103,6 @@ export function ForgotPassword({
           newPassword,
           code,
           verifyType,
-          csrfToken: csrfToken || undefined,
           captchaType: captchaToken ? captchaProviderType : undefined,
           captchaToken: captchaToken || undefined,
         }
@@ -138,7 +136,6 @@ export function ForgotPassword({
 
   return (
     <form onSubmit={submit} autoComplete="on" noValidate>
-      <input type="hidden" name="csrfToken" value={csrfToken} readOnly />
       <YStack gap="$3" width="100%" maxW={400}>
         <Text fontSize="$8" fontWeight="700">
           Reset your password

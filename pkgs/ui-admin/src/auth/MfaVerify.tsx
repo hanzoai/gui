@@ -7,7 +7,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Button, Card, Input, Label, Paragraph, Switch, Text, XStack, YStack } from 'hanzogui'
 import type { MfaVerifyPayload } from './types'
-import { readCsrfToken } from './util'
 
 export interface MfaVerifyProps {
   available: Array<'app' | 'sms' | 'email' | 'recovery'>
@@ -34,7 +33,6 @@ export function MfaVerify({
   const [passcode, setPasscode] = useState('')
   const [remember, setRemember] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [csrfToken] = useState(() => readCsrfToken())
 
   useEffect(() => {
     setPasscode('')
@@ -49,7 +47,6 @@ export function MfaVerify({
         mfaType,
         passcode,
         enableMfaRemember: remember,
-        csrfToken: csrfToken || undefined,
       })
     } finally {
       setSubmitting(false)
@@ -58,7 +55,6 @@ export function MfaVerify({
 
   return (
     <form onSubmit={submit} autoComplete="on" noValidate>
-      <input type="hidden" name="csrfToken" value={csrfToken} readOnly />
       <YStack gap="$3" width="100%" maxW={400}>
         <Text fontSize="$8" fontWeight="700">
           Verify it's you

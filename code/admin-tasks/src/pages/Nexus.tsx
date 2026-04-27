@@ -3,7 +3,7 @@
 import { useParams } from 'react-router-dom'
 import { Card, H2, Text, XStack, YStack } from 'hanzogui'
 import { Network } from '@hanzogui/lucide-icons-2/icons/Network'
-import { Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
+import { Empty, ErrorState, LoadingState, useFetch } from '@hanzo/admin'
 import type { NexusEndpoint } from '../lib/api'
 
 export function NexusPage() {

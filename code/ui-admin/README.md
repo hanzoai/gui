@@ -1,8 +1,8 @@
-# `@hanzogui/admin`
+# `@hanzo/admin`
 
 Composable admin shell, primitives, and data hooks for every Hanzo admin
-surface. Pure Tamagui via the `hanzogui` umbrella. One way to build admin
-UI across `tasks`, `kms`, `commerce`, `console`.
+surface. Pure Tamagui via `@hanzo/gui` v7. One way to build admin UI
+across `tasks`, `kms`, `commerce`, `console`.
 
 ## Why this exists
 
@@ -14,7 +14,7 @@ Every Hanzo admin app needs the same chrome:
 - a tiny `useFetch` hook + SSE event subscription
 - consistent timestamp formatting, retention TTL display, status badge colours
 
-`@hanzo/tasks-ui` shipped these inline. As we add `kms`, `commerce`,
+`@hanzo/admin-tasks` shipped these inline. As we add `kms`, `commerce`,
 `console`, etc., copy-pasting that chrome would violate the zen of Hanzo
 ("one and only one way to do everything"). This package factors the
 shared surface into one place. Each admin app then owns only its routes
@@ -22,7 +22,7 @@ shared surface into one place. Each admin app then owns only its routes
 
 ## Surface map
 
-### `@hanzogui/admin/shell` — chrome
+### `@hanzo/admin/shell` — chrome
 
 | Export                   | Role                                                                            |
 | ------------------------ | ------------------------------------------------------------------------------- |
@@ -35,7 +35,7 @@ shared surface into one place. Each admin app then owns only its routes
 | `AccountChip`            | Round initials button with identity / sign-out popover                          |
 | `PageShell`              | 1280-wide centred padded column for non-edge-to-edge routes                     |
 
-### `@hanzogui/admin/primitives` — small UI atoms
+### `@hanzo/admin/primitives` — small UI atoms
 
 | Export                                       | Role                                                  |
 | -------------------------------------------- | ----------------------------------------------------- |
@@ -46,7 +46,7 @@ shared surface into one place. Each admin app then owns only its routes
 | `BrandMark` / `HanzoMark`                    | 28×28 brand chip slot + the canonical Hanzo H mark    |
 | `SummaryCard`                                | Stat card for detail pages (count + label + accent)   |
 
-### `@hanzogui/admin/data` — transport-agnostic data layer
+### `@hanzo/admin/data` — transport-agnostic data layer
 
 | Export                       | Role                                                        |
 | ---------------------------- | ----------------------------------------------------------- |
@@ -71,7 +71,7 @@ page.
 ```tsx
 // commerce-ui/src/App.tsx
 import { Outlet, useParams } from 'react-router-dom'
-import { AdminApp, Sidebar, TopBar, NamespaceSwitcher, HanzoMark } from '@hanzogui/admin'
+import { AdminApp, Sidebar, TopBar, NamespaceSwitcher, HanzoMark } from '@hanzo/admin'
 import { Box, Receipt, Users } from '@hanzogui/lucide-icons-2'
 
 const sidebar = {
@@ -102,9 +102,9 @@ export default function App() {
 - Everything ships as TypeScript source. Vite parses it directly. No
   `hanzogui-build` step required because we don't publish prebuilt
   artifacts — each consuming app's bundler handles it.
-- Peer dependencies: `hanzogui`, `@hanzogui/lucide-icons-2`, `react`,
-  `react-router-dom`. The consumer pins the versions; this package
-  doesn't.
+- Peer dependencies: `@hanzo/gui` (>=7), `@hanzogui/lucide-icons-2`,
+  `react`, `react-router-dom`. The consumer pins the versions; this
+  package doesn't.
 - No HTML / CSS DOM primitives. Tamagui only.
 - Strict TypeScript. `noUnusedLocals` / `noUnusedParameters` on.
 - Same colour palette across surfaces — variants come from
@@ -135,12 +135,21 @@ generation-counter cancellation + `ApiError` surfacing, and `getTz` /
 
 ## Changelog
 
+### 0.3.0
+
+- Renamed `@hanzogui/admin` → `@hanzo/admin` to align with the canonical
+  `@hanzo/gui` v7 npm package (Hanzo's Tamagui 2.x build). The local
+  102.x `hanzogui` umbrella fork is gone — only `@hanzogui/*` deep
+  packages (lucide-icons-2, config, vite-plugin, core, web, themes)
+  remain as canonical published deep-imports.
+- Peer dep `hanzogui` → `@hanzo/gui >= 7.0.0`.
+
 ### 0.2.0
 
 - Removed the `patterns/` layer (`<ListPage>`, `<DetailPage>`). Lists
   are not the unit of reuse; primitives are.
 - Split `getTz` / `setTz` out of `data/format` into `data/tz`. The
   shared `TZ_KEY` constant is now exported.
-- Consumers must import `SummaryCard` from `@hanzogui/admin` — no
+- Consumers must import `SummaryCard` from `@hanzo/admin` — no
   more inline copies.
 - Added vitest harness and 6 unit tests.

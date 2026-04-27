@@ -4,7 +4,7 @@
 
 import { useParams } from 'react-router-dom'
 import { H2, Text, XStack, YStack } from 'hanzogui'
-import { Alert, Empty } from '@hanzogui/admin'
+import { Alert, Empty } from '@hanzo/admin'
 
 export function ActivitiesPage() {
   const { ns } = useParams()

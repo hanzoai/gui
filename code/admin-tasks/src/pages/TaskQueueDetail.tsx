@@ -14,7 +14,7 @@ import {
   SummaryCard,
   formatTimestamp,
   useFetch,
-} from '@hanzogui/admin'
+} from '@hanzo/admin'
 import type { WorkflowExecution } from '../lib/api'
 import { shortStatus, statusVariant } from '../lib/api'
 import { useTaskEvents } from '../lib/events'

@@ -1,19 +1,20 @@
-# `@hanzogui/admin-tasks`
+# `@hanzo/admin-tasks`
 
-The Hanzo Tasks admin UI. Vite SPA, Tamagui via `hanzogui`, composed from
-`@hanzogui/admin` chrome + transport-agnostic data hooks. Ships standalone
-to `tasks.hanzo.ai`.
+The Hanzo Tasks admin UI. Vite SPA, Tamagui via `@hanzo/gui` v7, composed
+from `@hanzo/admin` chrome + transport-agnostic data hooks. Ships
+standalone to `tasks.hanzo.ai`.
 
 ## Why this lives in `gui`
 
-This app consumes `hanzogui`, `@hanzogui/core`, and `@hanzogui/admin`
-through `workspace:*`. That's the only place the static extractor's
-bundled-config worker can re-resolve those imports when it copies
-`hanzogui.config.ts` into `.hanzogui/hanzogui.config.mjs` at build time.
-Outside the workspace pnpm hoisting can't reach the temp file and the
-extractor crashes on `cannot find @hanzogui/core`. Inside, every dep
-resolves through the root `node_modules` and the extractor emits the
-theme CSS layer cleanly.
+This app resolves `@hanzo/gui` from npm (^7.0.0, the canonical published
+Hanzo Tamagui 2.x build) and `@hanzo/admin` through `workspace:*`. Living
+inside the gui workspace lets the static extractor's bundled-config worker
+re-resolve `@hanzogui/core`, `@hanzogui/web`, `@hanzogui/themes` (the deep
+published packages) when it copies `hanzogui.config.ts` into
+`.hanzogui/hanzogui.config.mjs` at build time. Outside the workspace pnpm
+hoisting can't reach the temp file and the extractor crashes on
+`cannot find @hanzogui/core`. Inside, every dep resolves through the root
+`node_modules` and the extractor emits the theme CSS layer cleanly.
 
 ## Relationship to the binary form factor
 
@@ -23,7 +24,7 @@ at `~/work/hanzo/tasks/ui/`. It's the lean, single-binary deployment
 target — anyone running `tasksd start` gets the embedded UI for free,
 no Node.js required.
 
-`@hanzogui/admin-tasks` is a different deployment target: the cloud
+`@hanzo/admin-tasks` is a different deployment target: the cloud
 SPA at `tasks.hanzo.ai`. Same backend (`/v1/tasks/*`), Tamagui chrome,
 and the bigger surface for namespaces / batches / deployments / nexus
 that we want first-class on the web.
@@ -66,13 +67,13 @@ removed style-prop arguments AND the dropped runtime style code.
 
 | Path | Role |
 |---|---|
-| `package.json` | bun workspace manifest pinning `workspace:*` for every hanzogui dep |
+| `package.json` | bun workspace manifest — `@hanzo/gui` from npm, `@hanzo/admin` via `workspace:*` |
 | `tsconfig.json` | strict TS, bundler resolution, JSX react-jsx |
 | `vite.config.ts` | Vite 8 + `@vitejs/plugin-react` + `hanzoguiPlugin`; aliases `react-native` → `react-native-web`; proxies `/v1/tasks` → `127.0.0.1:7243`; serves under `/_/tasks/` to match tasksd's path |
 | `hanzogui.config.ts` | extends `@hanzogui/config`'s v5 default — clean, no runtime spread |
 | `index.html` | SPA shell, dark `<body>`, Inter font preconnect |
 | `src/main.tsx` | React root, BrowserRouter at basename `/_/tasks` |
-| `src/App.tsx` | wires `@hanzogui/admin` chrome with tasks-specific nav config |
+| `src/App.tsx` | wires `@hanzo/admin` chrome with tasks-specific nav config |
 | `src/pages/*` | one file per route (Workflows, Schedules, Batches, …) |
 | `src/lib/api.ts` | fetch wrapper, `ApiError`, response types for `/v1/tasks/*` |
 | `src/lib/events.ts` | SSE subscription against `/v1/tasks/events` |
@@ -92,7 +93,11 @@ removed style-prop arguments AND the dropped runtime style code.
 
 - Strict TypeScript. `noUnusedLocals` / `noUnusedParameters` on.
 - No HTML / CSS DOM primitives. Tamagui only.
-- All hanzogui deps via `workspace:*`. Never pin a version on a
-  package that lives in this repo.
+- `@hanzo/gui` from npm (canonical Hanzo Tamagui 2.x build); `@hanzo/admin`
+  via `workspace:*`. Never pin a version on a package that lives in this
+  repo.
 - Extractor stays enabled. If a Tamagui type widening breaks the
   build, fix the type — don't disable extraction.
+- Versioning tracks upstream `temporalio/ui` major.minor. Don't bump
+  majors for internal UI rewrites — that's how we ended up at v3.x.x
+  for what should have been v2.49.x.

@@ -2,11 +2,9 @@ export {
   formatTimestamp,
   humanTTL,
   badgeColors,
-  getTz,
-  setTz,
-  type Tz,
   type StatusVariant,
 } from './format'
+export { getTz, setTz, TZ_KEY, type Tz } from './tz'
 export {
   useFetch,
   apiPost,

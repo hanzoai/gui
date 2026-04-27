@@ -37,9 +37,3 @@ export {
   type ErrorBoundaryProps,
 } from './ErrorBoundary'
 export { SummaryCard, type SummaryCardProps } from './SummaryCard'
-
-// PageShell logically belongs to ./shell (it's chrome) but a few IAM
-// pages import it from ./primitives. Re-export here so both barrels
-// resolve it — keeps consumer ergonomics simple without forcing every
-// page through ./shell.
-export { PageShell, type PageShellProps } from '../shell/PageShell'

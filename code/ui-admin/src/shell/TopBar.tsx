@@ -20,7 +20,7 @@ import {
   Sun,
   User,
 } from '@hanzogui/lucide-icons-2'
-import { getTz, setTz, type Tz } from '../data/format'
+import { getTz, setTz, type Tz } from '../data/tz'
 
 // `TopBar` accepts either an explicit `right` slot, or a `themeStorageKey`
 // to use the default chrome (clock + theme + account). The discriminated

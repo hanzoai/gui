@@ -1,9 +1,9 @@
 // Realtime event tail for tasks. Thin wrapper over `useEvents` from
-// @hanzo/admin that pins the SSE URL to /v1/tasks/events and adds
+// @hanzogui/admin that pins the SSE URL to /v1/tasks/events and adds
 // the namespace-scoping filter the tasks server emits.
 
 import { useCallback } from 'react'
-import { useEvents } from '@hanzo/admin'
+import { useEvents } from '@hanzogui/admin'
 
 export type EventKind =
   | 'workflow.started'

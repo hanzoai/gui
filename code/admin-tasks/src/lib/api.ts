@@ -1,11 +1,11 @@
 // Tasks-specific API surface. Transport (apiPost / apiDelete /
-// ApiError / useFetch) lives in @hanzo/admin. This file only owns
+// ApiError / useFetch) lives in @hanzogui/admin. This file only owns
 // the wire-shape types that match pkg/tasks/types.go JSON tags.
 //
 // There is no /api/ prefix and no v2 — append-only opcode evolution
 // behind /v1.
 
-export { ApiError, apiPost, apiDelete } from '@hanzo/admin'
+export { ApiError, apiPost, apiDelete } from '@hanzogui/admin'
 
 // ── shape types — match pkg/tasks/types.go JSON tags exactly ────────
 
@@ -131,7 +131,7 @@ export interface Identity {
 // statusVariant maps WORKFLOW_EXECUTION_STATUS_* constants to the
 // admin Badge variant enum. Tasks-specific because Workflow status
 // strings are tasks-specific.
-import type { StatusVariant } from '@hanzo/admin'
+import type { StatusVariant } from '@hanzogui/admin'
 
 export function statusVariant(s: string): StatusVariant {
   switch (s) {

@@ -20,7 +20,7 @@ import {
   ErrorState,
   LoadingState,
   useFetch,
-} from '@hanzo/admin'
+} from '@hanzogui/admin'
 import type { BatchOperation } from '../lib/api'
 import { apiPost } from '../lib/api'
 import { useTaskEvents } from '../lib/events'

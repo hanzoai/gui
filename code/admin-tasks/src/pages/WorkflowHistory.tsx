@@ -22,7 +22,7 @@ import {
   LoadingState,
   formatTimestamp,
   useFetch,
-} from '@hanzo/admin'
+} from '@hanzogui/admin'
 import { useTaskEvents } from '../lib/events'
 
 interface HistoryEvent {

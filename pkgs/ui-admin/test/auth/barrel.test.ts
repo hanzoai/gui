@@ -17,6 +17,8 @@ describe('auth barrel', () => {
     expect(typeof Auth.isEmail).toBe('function')
     expect(typeof Auth.isPhoneShape).toBe('function')
     expect(typeof Auth.inIframe).toBe('function')
+    expect(typeof Auth.maskEmail).toBe('function')
+    expect(typeof Auth.maskPhone).toBe('function')
     expect(typeof Auth.scorePassword).toBe('function')
   })
 })

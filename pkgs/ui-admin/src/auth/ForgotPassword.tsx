@@ -7,6 +7,9 @@
 // Original at `~/work/hanzo/iam/web/src/auth/ForgetPage.tsx`.
 //
 // Security:
+//   - the email/phone returned by /resolve-user is rendered MASKED.
+//     Showing the raw value here would let any anonymous client
+//     enumerate accounts (submit a username → harvest the address).
 //   - the password field is `secureTextEntry` and `autoComplete="new-password"`.
 //   - CSRF protection lives in `apiPost`/`apiDelete` via the
 //     `X-CSRF-Token` header. No body-echoed token, no hidden field.
@@ -22,7 +25,7 @@ import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
 import { Button, Input, Label, Paragraph, Text, XStack, YStack } from 'hanzogui'
 import { Captcha } from './Captcha'
 import type { AuthApplication, CaptchaConfig, ForgetPayload } from './types'
-import { scorePassword } from './util'
+import { maskEmail, maskPhone, scorePassword } from './util'
 
 type Step = 'username' | 'code' | 'password' | 'done'
 
@@ -167,7 +170,10 @@ export function ForgotPassword({
           <YStack gap="$2">
             <Paragraph color="$placeholderColor" fontSize="$2">
               We sent a code to your{' '}
-              {verifyType === 'email' ? resolved?.email : resolved?.phone}.
+              {verifyType === 'email'
+                ? maskEmail(resolved?.email)
+                : maskPhone(resolved?.phone)}
+              .
             </Paragraph>
             {resolved?.email && resolved?.phone ? (
               <XStack gap="$2">

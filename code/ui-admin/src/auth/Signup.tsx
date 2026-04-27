@@ -4,10 +4,10 @@
 //
 // Original at `~/work/hanzo/iam/web/src/auth/SignupPage.tsx`.
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type FormEvent } from 'react'
 import { Eye } from '@hanzogui/lucide-icons-2/icons/Eye'
 import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
-import { Input, Paragraph, Text, XStack, YStack } from 'hanzogui'
+import { Button, Input, Label, Paragraph, Text, XStack, YStack } from 'hanzogui'
 import type { AuthApplication, AuthSignupItem, SignupPayload } from './types'
 import { isEmail, isPhoneShape, readCsrfToken, scorePassword } from './util'
 
@@ -27,56 +27,59 @@ interface FieldRowProps {
 
 function FieldRow({ item, value, onChange }: FieldRowProps) {
   if (item.type === 'Single Choice' || item.type === 'Multiple Choices') {
-    // Native <select> through Hanzo GUI's tag escape hatch — keeps
-    // bundle small and accessible.
     return (
       <YStack gap="$1">
-        <Text fontSize="$2" color="$placeholderColor">
+        <Label htmlFor={`signup-${item.name}`}>
           {item.label || item.name}
           {item.required ? ' *' : ''}
-        </Text>
-        <Text
-          tag="select"
-          {...({
-            value,
-            onChange: (e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.target.value),
-            multiple: item.type === 'Multiple Choices',
-            name: item.name,
-            required: item.required,
-          } as never)}
-          px="$2"
-          py="$2"
-          rounded="$2"
-          borderWidth={1}
-          borderColor="$borderColor"
-          bg="$background"
+        </Label>
+        <select
+          id={`signup-${item.name}`}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          multiple={item.type === 'Multiple Choices'}
+          name={item.name}
+          required={item.required}
+          style={{
+            padding: '8px',
+            borderRadius: 6,
+            border: '1px solid #555',
+            background: 'inherit',
+            color: 'inherit',
+          }}
         >
           {item.options?.map((opt) => (
             <option key={opt} value={opt}>
               {opt}
             </option>
           ))}
-        </Text>
+        </select>
       </YStack>
     )
   }
   return (
     <YStack gap="$1">
-      <Text fontSize="$2" color="$placeholderColor">
+      <Label htmlFor={`signup-${item.name}`}>
         {item.label || item.name}
         {item.required ? ' *' : ''}
-      </Text>
+      </Label>
       <Input
+        id={`signup-${item.name}`}
         value={value}
         onChangeText={onChange}
         placeholder={item.placeholder}
-        {...({ name: item.name, required: item.required } as never)}
       />
     </YStack>
   )
 }
 
-export function Signup({ application, onSubmit, onLogin, invitationCode, error }: SignupProps) {
+export function Signup({
+  application,
+  onSubmit,
+  onLogin,
+  invitationCode,
+  error,
+}: SignupProps) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [emailOrPhone, setEmailOrPhone] = useState('')
@@ -96,11 +99,20 @@ export function Signup({ application, onSubmit, onLogin, invitationCode, error }
     !submitting
 
   const dynamicItems = useMemo(
-    () => application.signupItems?.filter((i) => i.visible !== false && i.name !== 'Username' && i.name !== 'Password' && i.name !== 'Email' && i.name !== 'Phone') ?? [],
+    () =>
+      application.signupItems?.filter(
+        (i) =>
+          i.visible !== false &&
+          i.name !== 'Username' &&
+          i.name !== 'Password' &&
+          i.name !== 'Email' &&
+          i.name !== 'Phone'
+      ) ?? [],
     [application.signupItems]
   )
 
-  const submit = async () => {
+  const submit = async (e?: FormEvent) => {
+    if (e) e.preventDefault()
     if (!canSubmit) return
     setSubmitting(true)
     try {
@@ -122,132 +134,103 @@ export function Signup({ application, onSubmit, onLogin, invitationCode, error }
   }
 
   return (
-    <YStack
-      tag="form"
-      gap="$3"
-      width="100%"
-      maxWidth={400}
-      {...({
-        onSubmit: (e: React.FormEvent) => {
-          e.preventDefault()
-          void submit()
-        },
-        autoComplete: 'on',
-        noValidate: true,
-      } as never)}
-    >
+    <form onSubmit={submit} autoComplete="on" noValidate>
       <input type="hidden" name="csrfToken" value={csrfToken} readOnly />
-      <Text fontSize="$8" fontWeight="700">
-        Create your account
-      </Text>
-
-      <YStack gap="$1">
-        <Text fontSize="$2" color="$placeholderColor">Username *</Text>
-        <Input
-          value={username}
-          onChangeText={setUsername}
-          autoCapitalize="none"
-          {...({ autoComplete: 'username', name: 'username', required: true, spellCheck: false } as never)}
-        />
-      </YStack>
-
-      <YStack gap="$1">
-        <Text fontSize="$2" color="$placeholderColor">Email or phone *</Text>
-        <Input
-          value={emailOrPhone}
-          onChangeText={setEmailOrPhone}
-          autoCapitalize="none"
-          {...({
-            autoComplete: 'email',
-            name: 'emailOrPhone',
-            required: true,
-            inputMode: isPhoneValue ? 'tel' : 'email',
-            spellCheck: false,
-          } as never)}
-        />
-      </YStack>
-
-      <YStack gap="$1">
-        <Text fontSize="$2" color="$placeholderColor">Password *</Text>
-        <XStack items="center" gap="$2">
-          <Input
-            flex={1}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!showPassword}
-            {...({
-              type: showPassword ? 'text' : 'password',
-              autoComplete: 'new-password',
-              name: 'password',
-              required: true,
-              minLength: 8,
-            } as never)}
-          />
-          <Text
-            tag="button"
-            {...({
-              type: 'button',
-              onClick: () => setShowPassword((s) => !s),
-              'aria-label': showPassword ? 'Hide password' : 'Show password',
-            } as never)}
-            cursor="pointer"
-          >
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-          </Text>
-        </XStack>
-        <Text fontSize="$1" color={score >= 3 ? '#86efac' : score >= 2 ? '#f59e0b' : '#fca5a5'}>
-          {password.length === 0
-            ? 'At least 8 characters.'
-            : score >= 3
-              ? 'Strong password.'
-              : score >= 2
-                ? 'OK — add a symbol or more length.'
-                : 'Weak — mix letters, digits, symbols.'}
+      <YStack gap="$3" width="100%" maxW={400}>
+        <Text fontSize="$8" fontWeight="700">
+          Create your account
         </Text>
-      </YStack>
 
-      {dynamicItems.map((item) => (
-        <FieldRow
-          key={item.name}
-          item={item}
-          value={extra[item.name] ?? ''}
-          onChange={(v) => setExtra((e) => ({ ...e, [item.name]: v }))}
-        />
-      ))}
+        <YStack gap="$1">
+          <Label htmlFor="signup-username">Username *</Label>
+          <Input
+            id="signup-username"
+            value={username}
+            onChangeText={setUsername}
+            autoCapitalize="none"
+          />
+        </YStack>
 
-      {error ? (
-        <Paragraph color="#fca5a5" fontSize="$2">
-          {error}
-        </Paragraph>
-      ) : null}
+        <YStack gap="$1">
+          <Label htmlFor="signup-emailOrPhone">Email or phone *</Label>
+          <Input
+            id="signup-emailOrPhone"
+            value={emailOrPhone}
+            onChangeText={setEmailOrPhone}
+            autoCapitalize="none"
+            keyboardType={isPhoneValue ? 'phone-pad' : 'email-address'}
+          />
+        </YStack>
 
-      <Text
-        tag="button"
-        {...({ type: 'submit', disabled: !canSubmit } as never)}
-        px="$4"
-        py="$3"
-        rounded="$3"
-        bg={canSubmit ? ('#3b82f6' as never) : ('rgba(59,130,246,0.4)' as never)}
-        color="#ffffff"
-        cursor={canSubmit ? 'pointer' : 'not-allowed'}
-        text="center"
-      >
-        {submitting ? 'Creating account…' : 'Sign up'}
-      </Text>
-
-      {onLogin ? (
-        <Paragraph color="$placeholderColor" fontSize="$2" text="center">
-          Already have an account?{' '}
-          <Text
-            tag="button"
-            {...({ type: 'button', onClick: onLogin } as never)}
-            color="#60a5fa"
-            cursor="pointer"
+        <YStack gap="$1">
+          <Label htmlFor="signup-password">Password *</Label>
+          <XStack items="center" gap="$2">
+            <Input
+              id="signup-password"
+              flex={1}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+            />
+            <Button
+              size="$2"
+              chromeless
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              onPress={() => setShowPassword((s) => !s)}
+              icon={showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            />
+          </XStack>
+          <Paragraph
+            color={
+              score >= 3 ? '#86efac' : score >= 2 ? '#f59e0b' : '#fca5a5'
+            }
+            fontSize="$1"
           >
-            Sign in
-          </Text>
-        </Paragraph>
-      ) : null}
-    </YStack>
+            {password.length === 0
+              ? 'At least 8 characters.'
+              : score >= 3
+                ? 'Strong password.'
+                : score >= 2
+                  ? 'OK — add a symbol or more length.'
+                  : 'Weak — mix letters, digits, symbols.'}
+          </Paragraph>
+        </YStack>
+
+        {dynamicItems.map((item) => (
+          <FieldRow
+            key={item.name}
+            item={item}
+            value={extra[item.name] ?? ''}
+            onChange={(v) => setExtra((current) => ({ ...current, [item.name]: v }))}
+          />
+        ))}
+
+        {error ? (
+          <Paragraph color="#fca5a5" fontSize="$2">
+            {error}
+          </Paragraph>
+        ) : null}
+
+        <Button
+          size="$4"
+          theme="blue"
+          disabled={!canSubmit}
+          onPress={() => void submit()}
+        >
+          {submitting ? 'Creating account…' : 'Sign up'}
+        </Button>
+
+        {onLogin ? (
+          <XStack gap="$2" justify="center">
+            <Paragraph color="$placeholderColor" fontSize="$2">
+              Already have an account?
+            </Paragraph>
+            <Button size="$2" chromeless onPress={onLogin}>
+              Sign in
+            </Button>
+          </XStack>
+        ) : null}
+      </YStack>
+    </form>
   )
 }

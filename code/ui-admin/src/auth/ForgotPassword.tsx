@@ -11,10 +11,10 @@
 //   - the password field is `secureTextEntry` and `autoComplete="new-password"`.
 //   - CSRF token is echoed.
 
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Eye } from '@hanzogui/lucide-icons-2/icons/Eye'
 import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
-import { Input, Paragraph, Text, XStack, YStack } from 'hanzogui'
+import { Button, Input, Label, Paragraph, Text, XStack, YStack } from 'hanzogui'
 import type { AuthApplication, ForgetPayload } from './types'
 import { readCsrfToken, scorePassword } from './util'
 
@@ -22,14 +22,12 @@ type Step = 'username' | 'code' | 'password' | 'done'
 
 export interface ForgotPasswordProps {
   application: AuthApplication
-  // Step 1 → step 2: caller resolves the user and either returns
-  // the available verify methods or throws on unknown user.
   onResolveUser: (username: string) => Promise<{ email?: string; phone?: string }>
-  // Step 2 → step 3: caller verifies the code with the backend.
-  // The verifyType reflects which channel ('email' or 'phone') the
-  // code was sent through.
-  onVerifyCode: (input: { username: string; verifyType: 'email' | 'phone'; code: string }) => Promise<void>
-  // Step 3: actually set the new password.
+  onVerifyCode: (input: {
+    username: string
+    verifyType: 'email' | 'phone'
+    code: string
+  }) => Promise<void>
   onResetPassword: (payload: ForgetPayload) => Promise<void>
   onBackToLogin?: () => void
 }
@@ -54,7 +52,8 @@ export function ForgotPassword({
 
   const score = scorePassword(newPassword)
 
-  const submit = async () => {
+  const submit = async (e?: FormEvent) => {
+    if (e) e.preventDefault()
     setError(null)
     setSubmitting(true)
     try {
@@ -79,8 +78,8 @@ export function ForgotPassword({
         await onResetPassword(payload)
         setStep('done')
       }
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Something went wrong.')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong.')
     } finally {
       setSubmitting(false)
     }
@@ -88,7 +87,7 @@ export function ForgotPassword({
 
   if (step === 'done') {
     return (
-      <YStack gap="$3" width="100%" maxWidth={400}>
+      <YStack gap="$3" width="100%" maxW={400}>
         <Text fontSize="$8" fontWeight="700">
           Password updated
         </Text>
@@ -96,164 +95,126 @@ export function ForgotPassword({
           You can now sign in with your new password.
         </Paragraph>
         {onBackToLogin ? (
-          <Text
-            tag="button"
-            {...({ type: 'button', onClick: onBackToLogin } as never)}
-            px="$4"
-            py="$3"
-            rounded="$3"
-            bg={'#3b82f6' as never}
-            color="#ffffff"
-            text="center"
-            cursor="pointer"
-          >
+          <Button size="$4" theme="blue" onPress={onBackToLogin}>
             Back to sign in
-          </Text>
+          </Button>
         ) : null}
       </YStack>
     )
   }
 
   return (
-    <YStack
-      tag="form"
-      gap="$3"
-      width="100%"
-      maxWidth={400}
-      {...({
-        onSubmit: (e: React.FormEvent) => {
-          e.preventDefault()
-          void submit()
-        },
-        autoComplete: 'on',
-        noValidate: true,
-      } as never)}
-    >
+    <form onSubmit={submit} autoComplete="on" noValidate>
       <input type="hidden" name="csrfToken" value={csrfToken} readOnly />
-      <Text fontSize="$8" fontWeight="700">
-        Reset your password
-      </Text>
+      <YStack gap="$3" width="100%" maxW={400}>
+        <Text fontSize="$8" fontWeight="700">
+          Reset your password
+        </Text>
 
-      {step === 'username' ? (
-        <YStack gap="$1">
-          <Text fontSize="$2" color="$placeholderColor">
-            Username, email, or phone
-          </Text>
-          <Input
-            value={username}
-            onChangeText={setUsername}
-            autoCapitalize="none"
-            {...({ autoComplete: 'username', name: 'username', required: true, spellCheck: false } as never)}
-          />
-        </YStack>
-      ) : null}
-
-      {step === 'code' ? (
-        <YStack gap="$2">
-          <Paragraph color="$placeholderColor" fontSize="$2">
-            We sent a code to your{' '}
-            {verifyType === 'email' ? resolved?.email : resolved?.phone}.
-          </Paragraph>
-          {resolved?.email && resolved?.phone ? (
-            <XStack gap="$2">
-              <Text
-                tag="button"
-                {...({ type: 'button', onClick: () => setVerifyType('email') } as never)}
-                fontSize="$2"
-                color={verifyType === 'email' ? '#60a5fa' : '$placeholderColor'}
-                cursor="pointer"
-              >
-                Email
-              </Text>
-              <Text
-                tag="button"
-                {...({ type: 'button', onClick: () => setVerifyType('phone') } as never)}
-                fontSize="$2"
-                color={verifyType === 'phone' ? '#60a5fa' : '$placeholderColor'}
-                cursor="pointer"
-              >
-                Phone
-              </Text>
-            </XStack>
-          ) : null}
-          <Input
-            value={code}
-            onChangeText={setCode}
-            placeholder="123456"
-            {...({ autoComplete: 'one-time-code', inputMode: 'numeric', name: 'code' } as never)}
-          />
-        </YStack>
-      ) : null}
-
-      {step === 'password' ? (
-        <YStack gap="$1">
-          <Text fontSize="$2" color="$placeholderColor">New password *</Text>
-          <XStack items="center" gap="$2">
+        {step === 'username' ? (
+          <YStack gap="$1">
+            <Label htmlFor="forgot-username">Username, email, or phone</Label>
             <Input
-              flex={1}
-              value={newPassword}
-              onChangeText={setNewPassword}
-              secureTextEntry={!showPassword}
-              {...({
-                type: showPassword ? 'text' : 'password',
-                autoComplete: 'new-password',
-                name: 'newPassword',
-                required: true,
-                minLength: 8,
-              } as never)}
+              id="forgot-username"
+              value={username}
+              onChangeText={setUsername}
+              autoCapitalize="none"
             />
-            <Text
-              tag="button"
-              {...({ type: 'button', onClick: () => setShowPassword((s) => !s) } as never)}
-              cursor="pointer"
+          </YStack>
+        ) : null}
+
+        {step === 'code' ? (
+          <YStack gap="$2">
+            <Paragraph color="$placeholderColor" fontSize="$2">
+              We sent a code to your{' '}
+              {verifyType === 'email' ? resolved?.email : resolved?.phone}.
+            </Paragraph>
+            {resolved?.email && resolved?.phone ? (
+              <XStack gap="$2">
+                <Button
+                  size="$2"
+                  chromeless
+                  theme={verifyType === 'email' ? 'blue' : undefined}
+                  onPress={() => setVerifyType('email')}
+                >
+                  Email
+                </Button>
+                <Button
+                  size="$2"
+                  chromeless
+                  theme={verifyType === 'phone' ? 'blue' : undefined}
+                  onPress={() => setVerifyType('phone')}
+                >
+                  Phone
+                </Button>
+              </XStack>
+            ) : null}
+            <YStack gap="$1">
+              <Label htmlFor="forgot-code">Code</Label>
+              <Input
+                id="forgot-code"
+                value={code}
+                onChangeText={setCode}
+                placeholder="123456"
+                keyboardType="numeric"
+              />
+            </YStack>
+          </YStack>
+        ) : null}
+
+        {step === 'password' ? (
+          <YStack gap="$1">
+            <Label htmlFor="forgot-newpw">New password *</Label>
+            <XStack items="center" gap="$2">
+              <Input
+                id="forgot-newpw"
+                flex={1}
+                value={newPassword}
+                onChangeText={setNewPassword}
+                secureTextEntry={!showPassword}
+              />
+              <Button
+                size="$2"
+                chromeless
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                onPress={() => setShowPassword((s) => !s)}
+                icon={showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              />
+            </XStack>
+            <Paragraph
+              color={score >= 3 ? '#86efac' : score >= 2 ? '#f59e0b' : '#fca5a5'}
+              fontSize="$1"
             >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-            </Text>
+              {score >= 3 ? 'Strong.' : score >= 2 ? 'OK.' : 'Weak.'}
+            </Paragraph>
+          </YStack>
+        ) : null}
+
+        {error ? (
+          <Paragraph color="#fca5a5" fontSize="$2">
+            {error}
+          </Paragraph>
+        ) : null}
+
+        <Button size="$4" theme="blue" disabled={submitting} onPress={() => void submit()}>
+          {step === 'username'
+            ? 'Continue'
+            : step === 'code'
+              ? 'Verify code'
+              : 'Set new password'}
+        </Button>
+
+        {onBackToLogin ? (
+          <XStack gap="$2" justify="center">
+            <Paragraph color="$placeholderColor" fontSize="$2">
+              Remembered it?
+            </Paragraph>
+            <Button size="$2" chromeless onPress={onBackToLogin}>
+              Back to sign in
+            </Button>
           </XStack>
-          <Text fontSize="$1" color={score >= 3 ? '#86efac' : score >= 2 ? '#f59e0b' : '#fca5a5'}>
-            {score >= 3 ? 'Strong.' : score >= 2 ? 'OK.' : 'Weak.'}
-          </Text>
-        </YStack>
-      ) : null}
-
-      {error ? (
-        <Paragraph color="#fca5a5" fontSize="$2">
-          {error}
-        </Paragraph>
-      ) : null}
-
-      <Text
-        tag="button"
-        {...({ type: 'submit', disabled: submitting } as never)}
-        px="$4"
-        py="$3"
-        rounded="$3"
-        bg={'#3b82f6' as never}
-        color="#ffffff"
-        text="center"
-        cursor={submitting ? 'progress' : 'pointer'}
-        opacity={submitting ? 0.6 : 1}
-      >
-        {step === 'username'
-          ? 'Continue'
-          : step === 'code'
-            ? 'Verify code'
-            : 'Set new password'}
-      </Text>
-
-      {onBackToLogin ? (
-        <Paragraph color="$placeholderColor" fontSize="$2" text="center">
-          Remembered it?{' '}
-          <Text
-            tag="button"
-            {...({ type: 'button', onClick: onBackToLogin } as never)}
-            color="#60a5fa"
-            cursor="pointer"
-          >
-            Back to sign in
-          </Text>
-        </Paragraph>
-      ) : null}
-    </YStack>
+        ) : null}
+      </YStack>
+    </form>
   )
 }

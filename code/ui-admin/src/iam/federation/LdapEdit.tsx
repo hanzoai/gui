@@ -22,7 +22,7 @@ import { ChevronDown } from '@hanzogui/lucide-icons-2/icons/ChevronDown'
 import { Save } from '@hanzogui/lucide-icons-2/icons/Save'
 import { Loading, ErrorState } from '../../primitives/Empty'
 import { useFetch, apiPost } from '../../data/useFetch'
-import { Field } from './Field'
+import { LabelRow } from './LabelRow'
 import type { Ldap, IamItemResponse } from './types'
 
 export interface LdapEditProps {
@@ -104,12 +104,12 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
         </XStack>
         <Separator />
         <YStack gap="$4" p="$5">
-          <Field label="Organization">
+          <LabelRowlabel="Organization">
             <Input value={draft.owner} onChangeText={(v: string) => update('owner', v)} />
-          </Field>
-          <Field label="ID">
+          </LabelRow>
+          <LabelRowlabel="ID">
             <Input value={draft.id} disabled opacity={0.6} />
-          </Field>
+          </LabelRow>
           {(
             [
               ['Server name', 'serverName'],
@@ -119,22 +119,22 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
               ['Admin', 'username'],
             ] as Array<[string, keyof Ldap]>
           ).map(([label, key]) => (
-            <Field key={String(key)} label={label}>
+            <LabelRowkey={String(key)} label={label}>
               <Input
                 value={String(draft[key] ?? '')}
                 onChangeText={(v: string) => update(key, v as never)}
               />
-            </Field>
+            </LabelRow>
           ))}
-          <Field label="Server port">
+          <LabelRowlabel="Server port">
             <Input
               keyboardType="numeric"
               width={160}
               value={String(draft.port)}
               onChangeText={(v: string) => update('port', clampPort(v))}
             />
-          </Field>
-          <Field label="Enable SSL">
+          </LabelRow>
+          <LabelRowlabel="Enable SSL">
             <Switch
               size="$2"
               checked={draft.enableSsl}
@@ -142,8 +142,8 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
             >
               <Switch.Thumb />
             </Switch>
-          </Field>
-          <Field label="Allow self-signed certificate">
+          </LabelRow>
+          <LabelRowlabel="Allow self-signed certificate">
             <Switch
               size="$2"
               checked={draft.allowSelfSignedCert}
@@ -151,8 +151,8 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
             >
               <Switch.Thumb />
             </Switch>
-          </Field>
-          <Field label="Admin Password">
+          </LabelRow>
+          <LabelRowlabel="Admin Password">
             <Input
               secureTextEntry
               autoComplete="off"
@@ -163,15 +163,15 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
             <Text mt="$1.5" fontSize="$1" color="$placeholderColor">
               Leave empty to keep the current password.
             </Text>
-          </Field>
-          <Field label="Password type">
+          </LabelRow>
+          <LabelRowlabel="Password type">
             <SelectInline
               value={draft.passwordType}
               options={PASSWORD_TYPES.map((t) => ({ value: t, label: t }))}
               onChange={(v) => update('passwordType', v as Ldap['passwordType'])}
             />
-          </Field>
-          <Field label="Auto Sync">
+          </LabelRow>
+          <LabelRowlabel="Auto Sync">
             <XStack gap="$2" items="center">
               <Input
                 keyboardType="numeric"
@@ -190,7 +190,7 @@ export function LdapEdit({ ldapId, organizationName, onExit, onOpenSync }: LdapE
                 </Text>
               ) : null}
             </XStack>
-          </Field>
+          </LabelRow>
         </YStack>
       </Card>
       {saveError ? <ErrorState error={saveError} /> : null}

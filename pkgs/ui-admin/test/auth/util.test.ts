@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it } from 'vitest'
-import { isEmail, isPhoneShape, readCsrfToken, scorePassword } from '../../src/auth/util'
+import { describe, expect, it } from 'vitest'
+import { isEmail, isPhoneShape, scorePassword } from '../../src/auth/util'
 
 describe('util.isEmail', () => {
   it('accepts well-formed emails', () => {
@@ -31,20 +31,5 @@ describe('util.scorePassword', () => {
     expect(scorePassword('aaaaaaaa')).toBeLessThanOrEqual(1)
     expect(scorePassword('Aa1aaaaa')).toBeGreaterThanOrEqual(2)
     expect(scorePassword('Aa1!Aa1!Aa1!Aa1!')).toBe(4)
-  })
-})
-
-describe('util.readCsrfToken', () => {
-  afterEach(() => {
-    document.cookie = 'csrf_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'
-  })
-
-  it('returns "" when the cookie is absent', () => {
-    expect(readCsrfToken()).toBe('')
-  })
-
-  it('reads + URL-decodes a cookie value', () => {
-    document.cookie = `csrf_token=${encodeURIComponent('abc/=+123')}`
-    expect(readCsrfToken()).toBe('abc/=+123')
   })
 })

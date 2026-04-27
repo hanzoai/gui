@@ -3,15 +3,16 @@
 // Original at `~/work/hanzo/iam/web/src/auth/LoginPage.tsx` (1500+
 // lines, fused with provider buttons, MFA verify, WeChat panel, CAS
 // flow, device flow). This is the *port* of the local-credentials
-// path: username + password (or username + code), CSRF-echoed,
-// captcha-pluggable. SSO provider buttons + MFA verify + face
-// recognition live in their own components and wire in next to this.
+// path: username + password (or username + code), captcha-pluggable.
+// SSO provider buttons + MFA verify + face recognition live in their
+// own components and wire in next to this.
 //
 // Security:
 //   - password field uses `secureTextEntry` (iOS/Android) +
 //     `type="password"` (web). Toggleable via the eye button.
-//   - CSRF token is read from the `csrf_token` cookie and submitted
-//     as a hidden form field. Never as a custom header.
+//   - CSRF protection is handled by `apiPost`, which attaches the
+//     `X-CSRF-Token` header from the cookie. No body-echoed token,
+//     no hidden form field.
 //   - Captcha is delegated to <Captcha>; the widget produces a
 //     token that we forward in the POST body.
 
@@ -21,7 +22,7 @@ import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
 import { Button, Input, Label, Paragraph, Text, XStack, YStack } from 'hanzogui'
 import { Captcha } from './Captcha'
 import type { AuthApplication, CaptchaConfig, LoginPayload } from './types'
-import { isEmail, isPhoneShape, readCsrfToken } from './util'
+import { isEmail, isPhoneShape } from './util'
 
 export interface LoginProps {
   application: AuthApplication
@@ -60,7 +61,6 @@ export function Login({
     captcha?.type ?? 'none'
   )
   const [submitting, setSubmitting] = useState(false)
-  const [csrfToken] = useState(() => readCsrfToken())
 
   const usernameKind = useMemo(() => {
     if (isEmail(username)) return 'email'
@@ -90,7 +90,6 @@ export function Login({
         signinMethod: mode,
         password: mode === 'Password' ? password : undefined,
         code: mode === 'Verification code' ? code : undefined,
-        csrfToken: csrfToken || undefined,
         captchaType: captchaToken ? captchaProviderType : undefined,
         captchaToken: captchaToken || undefined,
       }
@@ -106,9 +105,6 @@ export function Login({
 
   return (
     <form onSubmit={submit} autoComplete="on" noValidate>
-      {/* CSRF token — server enforces same-origin via this echo. */}
-      <input type="hidden" name="csrfToken" value={csrfToken} readOnly />
-
       <YStack gap="$3" width="100%" maxW={400}>
         <Text fontSize="$8" fontWeight="700">
           {application.displayName || 'Sign in'}

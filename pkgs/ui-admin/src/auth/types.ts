@@ -45,10 +45,10 @@ export interface AuthSignupItem {
   options?: string[]
 }
 
-// LoginPayload — the canonical body of POST /v1/iam/login. The
-// `csrfToken` field is the value of the `csrf_token` cookie echoed
-// back so the server can confirm same-origin. Empty `password`
-// signals a passwordless flow (verification code or MFA-only).
+// LoginPayload — the canonical body of POST /v1/iam/login. CSRF is
+// transported via the `X-CSRF-Token` header (set by `apiPost`),
+// never via the body. Empty `password` signals a passwordless flow
+// (verification code or MFA-only).
 export interface LoginPayload {
   application: string
   organization: string
@@ -57,7 +57,6 @@ export interface LoginPayload {
   code?: string
   signinMethod: 'Password' | 'Verification code' | 'WebAuthn'
   language?: string
-  csrfToken?: string
   captchaType?: string
   captchaToken?: string
   // Echoed back from a captcha challenge response.
@@ -74,7 +73,6 @@ export interface SignupPayload {
   countryCode?: string
   invitationCode?: string
   language?: string
-  csrfToken?: string
   captchaType?: string
   captchaToken?: string
   // Anything from the dynamic signup items.
@@ -89,7 +87,6 @@ export interface ForgetPayload {
   code: string
   // 'email' or 'phone' — which channel the user verified through.
   verifyType: 'email' | 'phone'
-  csrfToken?: string
   captchaType?: string
   captchaToken?: string
 }
@@ -116,7 +113,6 @@ export interface MfaVerifyPayload {
   mfaType: 'app' | 'sms' | 'email' | 'recovery'
   passcode: string
   enableMfaRemember?: boolean
-  csrfToken?: string
 }
 
 // CaptchaProps — abstract config for the captcha widget. The host

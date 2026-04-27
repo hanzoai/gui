@@ -21,7 +21,7 @@ import type {
   CaptchaConfig,
   SignupPayload,
 } from './types'
-import { isEmail, isPhoneShape, readCsrfToken, scorePassword } from './util'
+import { isEmail, isPhoneShape, scorePassword } from './util'
 
 export interface SignupProps {
   application: AuthApplication
@@ -110,7 +110,6 @@ export function Signup({
   const [captchaProviderType, setCaptchaProviderType] = useState<
     CaptchaConfig['type']
   >(captcha?.type ?? 'none')
-  const [csrfToken] = useState(() => readCsrfToken())
 
   useEffect(() => {
     setCaptchaProviderType(captcha?.type ?? 'none')
@@ -157,7 +156,6 @@ export function Signup({
         email: isEmailValue ? emailOrPhone : undefined,
         phone: isPhoneValue ? emailOrPhone : undefined,
         invitationCode,
-        csrfToken: csrfToken || undefined,
         captchaType: captchaToken ? captchaProviderType : undefined,
         captchaToken: captchaToken || undefined,
         extra,
@@ -170,7 +168,6 @@ export function Signup({
 
   return (
     <form onSubmit={submit} autoComplete="on" noValidate>
-      <input type="hidden" name="csrfToken" value={csrfToken} readOnly />
       <YStack gap="$3" width="100%" maxW={400}>
         <Text fontSize="$8" fontWeight="700">
           Create your account

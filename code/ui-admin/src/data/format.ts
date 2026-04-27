@@ -46,10 +46,15 @@ export function humanTTL(raw?: string): string {
   return raw
 }
 
-export type StatusVariant = 'success' | 'destructive' | 'warning' | 'muted' | 'default'
+export type StatusVariant = 'success' | 'destructive' | 'warning' | 'muted' | 'default' | 'info' | 'accent'
 
-// Badge color tokens. Pure-string CSS so they pass through Tamagui's
+// Badge color tokens. Pure-string CSS so they pass through Hanzo GUI's
 // strict ColorTokens generic (cast to never at the call site).
+//
+// `info` (blue) maps to upstream Running. `accent` (purple) maps to
+// upstream ContinuedAsNew + Pending. `warning` (yellow/orange) maps
+// to Terminated and TimedOut so that user-initiated stops read
+// distinctly from genuine failures (`destructive`, red).
 export function badgeColors(variant: StatusVariant): { bg: string; fg: string } {
   switch (variant) {
     case 'success':
@@ -58,9 +63,107 @@ export function badgeColors(variant: StatusVariant): { bg: string; fg: string } 
       return { bg: 'rgba(239,68,68,0.15)', fg: '#fca5a5' }
     case 'warning':
       return { bg: 'rgba(234,179,8,0.15)', fg: '#fde68a' }
+    case 'info':
+      return { bg: 'rgba(59,130,246,0.15)', fg: '#93c5fd' }
+    case 'accent':
+      return { bg: 'rgba(168,85,247,0.15)', fg: '#d8b4fe' }
     case 'muted':
     case 'default':
     default:
       return { bg: 'rgba(148,163,184,0.15)', fg: '#cbd5e1' }
   }
+}
+
+// WorkflowExecutionStatus — the 9 statuses emitted by Temporal-style
+// workflow execution APIs. The wire shape is the proto enum string
+// `WORKFLOW_EXECUTION_STATUS_*`; we narrow that with `parseWorkflowStatus`
+// so downstream switch statements get exhaustivity checking.
+export type WorkflowStatus =
+  | 'Running'
+  | 'Completed'
+  | 'Failed'
+  | 'Canceled'
+  | 'Terminated'
+  | 'ContinuedAsNew'
+  | 'TimedOut'
+  | 'Pending'
+  | 'Unspecified'
+
+const WIRE_TO_STATUS: Record<string, WorkflowStatus> = {
+  WORKFLOW_EXECUTION_STATUS_RUNNING: 'Running',
+  WORKFLOW_EXECUTION_STATUS_COMPLETED: 'Completed',
+  WORKFLOW_EXECUTION_STATUS_FAILED: 'Failed',
+  WORKFLOW_EXECUTION_STATUS_CANCELED: 'Canceled',
+  WORKFLOW_EXECUTION_STATUS_TERMINATED: 'Terminated',
+  WORKFLOW_EXECUTION_STATUS_CONTINUED_AS_NEW: 'ContinuedAsNew',
+  WORKFLOW_EXECUTION_STATUS_TIMED_OUT: 'TimedOut',
+  WORKFLOW_EXECUTION_STATUS_PENDING: 'Pending',
+  WORKFLOW_EXECUTION_STATUS_UNSPECIFIED: 'Unspecified',
+}
+
+// parseWorkflowStatus normalizes the wire enum string OR the short
+// PascalCase form into our canonical `WorkflowStatus`. Unknown
+// strings fall back to 'Unspecified' rather than throwing — list
+// pages must keep rendering even when the backend invents a status
+// the UI hasn't shipped yet.
+export function parseWorkflowStatus(s: string): WorkflowStatus {
+  if (s in WIRE_TO_STATUS) return WIRE_TO_STATUS[s]
+  // Already short form?
+  const short = s as WorkflowStatus
+  switch (short) {
+    case 'Running':
+    case 'Completed':
+    case 'Failed':
+    case 'Canceled':
+    case 'Terminated':
+    case 'ContinuedAsNew':
+    case 'TimedOut':
+    case 'Pending':
+    case 'Unspecified':
+      return short
+    default:
+      return 'Unspecified'
+  }
+}
+
+// workflowStatusVariant — colour mapping for all 9 statuses. Mirrors
+// upstream temporalio/ui workflow-status.svelte (cva block).
+export function workflowStatusVariant(s: WorkflowStatus): StatusVariant {
+  switch (s) {
+    case 'Running':
+      return 'info'
+    case 'Completed':
+      return 'success'
+    case 'Failed':
+      return 'destructive'
+    case 'Canceled':
+      return 'muted'
+    case 'Terminated':
+    case 'TimedOut':
+      return 'warning'
+    case 'ContinuedAsNew':
+    case 'Pending':
+      return 'accent'
+    case 'Unspecified':
+      return 'muted'
+  }
+}
+
+// Pretty label for a status — splits CamelCase, e.g. ContinuedAsNew
+// → "Continued as New". Dedicated map for the few that don't follow
+// camel-split rules.
+const STATUS_LABEL: Record<WorkflowStatus, string> = {
+  Running: 'Running',
+  Completed: 'Completed',
+  Failed: 'Failed',
+  Canceled: 'Canceled',
+  Terminated: 'Terminated',
+  ContinuedAsNew: 'Continued as New',
+  TimedOut: 'Timed Out',
+  Pending: 'Pending',
+  Unspecified: 'Unspecified',
+}
+
+export function workflowStatusLabel(s: WorkflowStatus): string {
+  return STATUS_LABEL[s]
 }

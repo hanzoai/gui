@@ -71,11 +71,15 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
     setSaving(true)
     setSaveError(undefined)
     try {
-      const payload: Syncer = {
-        ...draft,
-        password: passwordEdit || '',
-        sshPassword: sshPasswordEdit || '',
-      }
+      // Omit `password` and `sshPassword` from the payload when blank so
+      // the server keeps the stored credentials. Sending `''` would
+      // wipe them — that's the upstream Casdoor regression we close here.
+      const base: Record<string, unknown> = { ...draft }
+      delete base.password
+      delete base.sshPassword
+      if (passwordEdit) base.password = passwordEdit
+      if (sshPasswordEdit) base.sshPassword = sshPasswordEdit
+      const payload = base as Syncer | Omit<Syncer, 'password' | 'sshPassword'>
       await apiPost(url, payload)
       setPasswordEdit('')
       setSshPasswordEdit('')
@@ -92,10 +96,16 @@ export function SyncerEdit({ owner, name, onExit }: SyncerEditProps) {
     setTesting('pending')
     setTestMsg('')
     try {
-      const r = await apiPost<{ status: string; msg?: string }>(`${url}/test`, {
-        ...draft,
-        password: passwordEdit || draft.password,
-      })
+      // Mirror the save semantics: send the password only when the user
+      // typed one. Otherwise the server uses the stored credential to
+      // run the probe — never echo the server-supplied password back.
+      const base: Record<string, unknown> = { ...draft }
+      delete base.password
+      if (passwordEdit) base.password = passwordEdit
+      const r = await apiPost<{ status: string; msg?: string }>(
+        `${url}/test`,
+        base,
+      )
       if (r.status === 'ok') {
         setTesting('ok')
         setTestMsg('Connected.')

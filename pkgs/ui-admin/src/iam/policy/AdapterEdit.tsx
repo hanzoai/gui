@@ -40,6 +40,11 @@ export function AdapterEdit({
   const url = `/v1/iam/adapters/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`
   const { data, error, isLoading } = useFetch<IamItemResponse<Adapter>>(url, { fetcher })
   const [draft, setDraft] = useState<Adapter | null>(null)
+  // Write-only — the DB bind password is held here and never hydrated
+  // from the server. An empty string means "leave the stored value
+  // alone"; any non-empty value is sent on save and then cleared.
+  // Same pattern as LdapEdit / SyncerEdit / WebhookEdit.
+  const [passwordEdit, setPasswordEdit] = useState('')
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
   const [testStatus, setTestStatus] = useState<
@@ -70,6 +75,7 @@ export function AdapterEdit({
 
   function toggleSameDb(next: boolean) {
     update('useSameDb', next)
+    setPasswordEdit('')
     if (next) {
       // Match upstream: clear connection fields when reusing.
       update('type', '')
@@ -77,7 +83,6 @@ export function AdapterEdit({
       update('host', '')
       update('port', 0)
       update('user', '')
-      update('password', '')
       update('database', '')
     } else {
       // Sensible defaults so the form isn't empty.
@@ -86,7 +91,6 @@ export function AdapterEdit({
       update('host', 'localhost')
       update('port', 3306)
       update('user', 'root')
-      update('password', '')
       update('database', 'casbin')
     }
   }
@@ -96,7 +100,14 @@ export function AdapterEdit({
     setSaving(true)
     setSaveError(null)
     try {
-      await apiPost(url, draft)
+      const payload: Adapter | Omit<Adapter, 'password'> = passwordEdit
+        ? { ...draft, password: passwordEdit }
+        : (() => {
+            const { password: _omit, ...rest } = draft
+            return rest
+          })()
+      await apiPost(url, payload)
+      setPasswordEdit('')
       if (exit) onClose(true)
     } catch (e) {
       setSaveError((e as Error).message)
@@ -152,8 +163,8 @@ export function AdapterEdit({
         <YStack
           rounded="$2"
           borderWidth={1}
-          borderColor={'#7f1d1d' as never}
-          bg={'rgba(239,68,68,0.10)' as never}
+          borderColor="#7f1d1d"
+          bg="rgba(239,68,68,0.10)"
           p="$3"
         >
           <Text fontSize="$2" color="#fca5a5">
@@ -219,10 +230,15 @@ export function AdapterEdit({
           </Field>
           <Field label="Password">
             <Input
-              value={draft.password ?? ''}
-              onChangeText={(v: string) => update('password', v)}
+              value={passwordEdit}
+              onChangeText={setPasswordEdit}
+              placeholder={draft.password ? '••••••••' : 'Set bind password'}
+              autoComplete="off"
               secureTextEntry
             />
+            <Text mt="$1.5" fontSize="$1" color="$placeholderColor">
+              Leave empty to keep the current password.
+            </Text>
           </Field>
           <Field label="Database">
             <Input

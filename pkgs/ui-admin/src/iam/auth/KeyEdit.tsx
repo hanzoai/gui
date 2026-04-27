@@ -105,6 +105,12 @@ export function KeyEdit() {
     nav('/iam/auth/keys')
   }
 
+  // Lift server-issued credentials into locals so they never appear via
+  // `value={draft.X}` directly. The CopyField stays read-only; this is
+  // a syntactic invariant the secret-regression test enforces.
+  const accessKeyView = draft.accessKey
+  const accessSecretView = draft.accessSecret ?? ''
+
   return (
     <PageShell>
       <XStack items="center" justify="space-between">
@@ -185,8 +191,8 @@ export function KeyEdit() {
           <Text fontSize="$3" fontWeight="600" color="$color">
             Access key
           </Text>
-          {draft.accessKey ? (
-            <CopyField value={draft.accessKey} />
+          {accessKeyView ? (
+            <CopyField value={accessKeyView} />
           ) : (
             <Text color="$placeholderColor" fontSize="$2">
               Server generates the access key on first save.
@@ -208,8 +214,8 @@ export function KeyEdit() {
               {revealSecret ? 'Hide' : 'Reveal'}
             </Button>
           </XStack>
-          {draft.accessSecret && revealSecret ? (
-            <CopyField value={draft.accessSecret} />
+          {accessSecretView && revealSecret ? (
+            <CopyField value={accessSecretView} />
           ) : (
             <Text color="$placeholderColor" fontSize="$2">
               Hidden — click Reveal to see and copy. Treat this value

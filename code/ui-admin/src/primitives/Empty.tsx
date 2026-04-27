@@ -1,5 +1,5 @@
 // Empty / loading / error placeholders shared across every list page.
-// Each is a tiny block of Tamagui primitives; nothing is special-cased
+// Each is a tiny block of Hanzo GUI primitives; nothing is special-cased
 // per app.
 
 import type { ReactNode } from 'react'

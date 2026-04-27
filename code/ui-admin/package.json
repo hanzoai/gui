@@ -29,7 +29,8 @@
     },
     "./shell": "./src/shell/index.ts",
     "./primitives": "./src/primitives/index.ts",
-    "./data": "./src/data/index.ts"
+    "./data": "./src/data/index.ts",
+    "./iam": "./src/iam/index.ts"
   },
   "files": [
     "src"

@@ -7,6 +7,12 @@ export {
   type SavedViewsRailProps,
 } from './SavedViewsRail'
 export {
+  SettingsMenu,
+  type SettingsMenuProps,
+  type SettingItem,
+  type SettingIcon,
+} from './SettingsMenu'
+export {
   Sidebar,
   type SidebarConfig,
   type SidebarBrand,
@@ -27,4 +33,9 @@ export {
   type ThemeToggleProps,
   AccountChip,
   type AccountChipProps,
+  EnvIndicator,
+  type EnvIndicatorProps,
+  type EnvKind,
+  VersionBadge,
+  type VersionBadgeProps,
 } from './TopBar'

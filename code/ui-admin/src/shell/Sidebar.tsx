@@ -11,9 +11,9 @@ import { NavLink } from 'react-router-dom'
 import { Text, XStack, YStack } from 'hanzogui'
 
 // Accept any icon component — including @hanzogui/lucide-icons-2 (whose
-// `color` is typed as a Tamagui theme token), plain SVG components, and
+// `color` is typed as a Hanzo GUI theme token), plain SVG components, and
 // anything that takes `size` + `color`. Runtime renders with hex color
-// strings, which Tamagui accepts via the CSS pass-through. The shell
+// strings, which Hanzo GUI accepts via the CSS pass-through. The shell
 // never reads icon-specific props, so a permissive type is correct.
 export type IconComponent = ComponentType<any>
 

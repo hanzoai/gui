@@ -8,7 +8,7 @@
 // and for re-generation later.
 
 import { useState } from 'react'
-import { Card, Paragraph, Text, XStack, YStack } from 'hanzogui'
+import { Button, Card, Paragraph, Switch, Text, XStack, YStack } from 'hanzogui'
 
 export interface RecoveryCodesProps {
   codes: string[]
@@ -32,7 +32,7 @@ export function RecoveryCodes({ codes, onConfirm }: RecoveryCodesProps) {
   }
 
   return (
-    <YStack gap="$3" width="100%" maxWidth={420}>
+    <YStack gap="$3" width="100%" maxW={420}>
       <Text fontSize="$8" fontWeight="700">
         Save your recovery codes
       </Text>
@@ -50,46 +50,29 @@ export function RecoveryCodes({ codes, onConfirm }: RecoveryCodesProps) {
         </YStack>
       </Card>
 
-      <XStack items="center" gap="$2">
-        <Text
-          tag="button"
-          {...({ type: 'button', onClick: onCopy } as never)}
-          px="$3"
-          py="$2"
-          rounded="$2"
-          bg={'rgba(255,255,255,0.06)' as never}
-          cursor="pointer"
-        >
-          {copied ? 'Copied' : 'Copy all'}
-        </Text>
-      </XStack>
+      <Button size="$2" chromeless onPress={() => void onCopy()}>
+        {copied ? 'Copied' : 'Copy all'}
+      </Button>
 
       <XStack items="center" gap="$2">
-        <Text
-          tag="input"
-          {...({
-            type: 'checkbox',
-            checked: acknowledged,
-            onChange: (e: React.ChangeEvent<HTMLInputElement>) => setAcknowledged(e.target.checked),
-            name: 'acknowledgeRecovery',
-          } as never)}
-        />
+        <Switch
+          checked={acknowledged}
+          onCheckedChange={(v) => setAcknowledged(Boolean(v))}
+          size="$2"
+        >
+          <Switch.Thumb />
+        </Switch>
         <Text fontSize="$2">I have saved these codes somewhere safe.</Text>
       </XStack>
 
-      <Text
-        tag="button"
-        {...({ type: 'button', disabled: !acknowledged, onClick: acknowledged ? onConfirm : undefined } as never)}
-        px="$4"
-        py="$3"
-        rounded="$3"
-        bg={acknowledged ? ('#3b82f6' as never) : ('rgba(59,130,246,0.4)' as never)}
-        color="#ffffff"
-        text="center"
-        cursor={acknowledged ? 'pointer' : 'not-allowed'}
+      <Button
+        size="$4"
+        theme="blue"
+        disabled={!acknowledged}
+        onPress={onConfirm}
       >
         Continue
-      </Text>
+      </Button>
     </YStack>
   )
 }

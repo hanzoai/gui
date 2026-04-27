@@ -65,7 +65,29 @@ export default defineConfig({
     ],
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-native-web', 'hanzogui'],
+    // Force ALL hanzogui packages through ONE pre-bundled ESM module
+    // graph. Without this, the umbrella `hanzogui` and direct
+    // `@hanzogui/core` imports (e.g. via @hanzogui/lucide-icons-2 →
+    // @hanzogui/helpers-icon → @hanzogui/core's Text) end up as
+    // separate module instances. Each has its own React Context for
+    // theme; the Provider sets ctx A, the <Text> in an icon reads
+    // ctx B, useTheme returns null, render throws "no parent theme
+    // context".
+    include: [
+      'react',
+      'react-dom',
+      'react-dom/client',
+      'react/jsx-runtime',
+      'react-native-web',
+      'hanzogui',
+      '@hanzogui/core',
+      '@hanzogui/web',
+      '@hanzogui/themes',
+      '@hanzogui/helpers-icon',
+      '@hanzogui/sizable-context',
+      '@hanzogui/use-element-layout',
+      '@hanzogui/lucide-icons-2',
+    ],
     esbuildOptions: {
       resolveExtensions: ['.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.tsx', '.ts', '.jsx', '.js'],
       loader: { '.js': 'jsx' },

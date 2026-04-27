@@ -76,6 +76,12 @@ export function ProviderEdit() {
     useFetch<IamItemResponse<IamProvider>>(url)
 
   const [draft, setDraft] = useState<IamProvider | null>(null)
+  // Write-only — the OAuth/OIDC client secret is held here and never
+  // hydrated from the server. An empty string means "leave the stored
+  // value alone"; any non-empty string is sent on save and then
+  // cleared. Upstream Casdoor echoed the secret straight back into
+  // the input — that regression is closed here.
+  const [clientSecretEdit, setClientSecretEdit] = useState('')
   const [saving, setSaving] = useState(false)
   const [saveErr, setSaveErr] = useState<string | null>(null)
 
@@ -106,7 +112,16 @@ export function ProviderEdit() {
     setSaving(true)
     setSaveErr(null)
     try {
-      await apiPost(authUrl(`providers/${draft.owner}/${draft.name}`), draft)
+      // Send the secret only when the user actually typed one; otherwise
+      // omit the field entirely so the server keeps the stored value.
+      const payload: IamProvider | Omit<IamProvider, 'clientSecret'> = clientSecretEdit
+        ? { ...draft, clientSecret: clientSecretEdit }
+        : (() => {
+            const { clientSecret: _omit, ...rest } = draft
+            return rest
+          })()
+      await apiPost(authUrl(`providers/${draft.owner}/${draft.name}`), payload)
+      setClientSecretEdit('')
       await mutate()
     } catch (e) {
       setSaveErr(e instanceof Error ? e.message : String(e))
@@ -186,6 +201,8 @@ export function ProviderEdit() {
       <CategoryPanel
         draft={draft}
         onChange={(patch) => setDraft((d) => (d ? { ...d, ...patch } : d))}
+        clientSecretEdit={clientSecretEdit}
+        onClientSecretEdit={setClientSecretEdit}
       />
     </PageShell>
   )
@@ -194,14 +211,35 @@ export function ProviderEdit() {
 interface CategoryPanelProps {
   draft: IamProvider
   onChange: (patch: Partial<IamProvider>) => void
+  clientSecretEdit: string
+  onClientSecretEdit: (next: string) => void
 }
 
-function CategoryPanel({ draft, onChange }: CategoryPanelProps): ReactNode {
+function CategoryPanel({
+  draft,
+  onChange,
+  clientSecretEdit,
+  onClientSecretEdit,
+}: CategoryPanelProps): ReactNode {
   switch (draft.category) {
     case 'OAuth':
-      return <OAuthFields draft={draft} onChange={onChange} />
+      return (
+        <OAuthFields
+          draft={draft}
+          onChange={onChange}
+          clientSecretEdit={clientSecretEdit}
+          onClientSecretEdit={onClientSecretEdit}
+        />
+      )
     case 'OIDC':
-      return <OIDCFields draft={draft} onChange={onChange} />
+      return (
+        <OIDCFields
+          draft={draft}
+          onChange={onChange}
+          clientSecretEdit={clientSecretEdit}
+          onClientSecretEdit={onClientSecretEdit}
+        />
+      )
     case 'SAML':
       return (
         <ScaffoldEmpty
@@ -242,7 +280,12 @@ function CategoryPanel({ draft, onChange }: CategoryPanelProps): ReactNode {
   }
 }
 
-function OAuthFields({ draft, onChange }: CategoryPanelProps): ReactNode {
+function OAuthFields({
+  draft,
+  onChange,
+  clientSecretEdit,
+  onClientSecretEdit,
+}: CategoryPanelProps): ReactNode {
   return (
     <YStack gap="$4" maxW={720}>
       <Text fontSize="$5" fontWeight="600" color="$color">
@@ -265,10 +308,11 @@ function OAuthFields({ draft, onChange }: CategoryPanelProps): ReactNode {
       <Field
         id="oauth-client-secret"
         label="Client secret"
-        value={draft.clientSecret ?? ''}
-        onChangeText={(v) => onChange({ clientSecret: v })}
+        value={clientSecretEdit}
+        onChangeText={onClientSecretEdit}
+        placeholder={draft.clientSecret ? '••••••••' : 'Set client secret'}
         type="password"
-        hint="Stored encrypted at rest. Rotate via KMS when compromised."
+        hint="Leave empty to keep the current secret. Stored encrypted at rest; rotate via KMS when compromised."
       />
       <Field
         id="oauth-scopes"
@@ -289,7 +333,12 @@ function OAuthFields({ draft, onChange }: CategoryPanelProps): ReactNode {
   )
 }
 
-function OIDCFields({ draft, onChange }: CategoryPanelProps): ReactNode {
+function OIDCFields({
+  draft,
+  onChange,
+  clientSecretEdit,
+  onClientSecretEdit,
+}: CategoryPanelProps): ReactNode {
   return (
     <YStack gap="$4" maxW={720}>
       <Text fontSize="$5" fontWeight="600" color="$color">
@@ -305,9 +354,11 @@ function OIDCFields({ draft, onChange }: CategoryPanelProps): ReactNode {
       <Field
         id="oidc-client-secret"
         label="Client secret"
-        value={draft.clientSecret ?? ''}
-        onChangeText={(v) => onChange({ clientSecret: v })}
+        value={clientSecretEdit}
+        onChangeText={onClientSecretEdit}
+        placeholder={draft.clientSecret ? '••••••••' : 'Set client secret'}
         type="password"
+        hint="Leave empty to keep the current secret."
       />
       <Field
         id="oidc-issuer"

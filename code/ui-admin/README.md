@@ -48,22 +48,23 @@ shared surface into one place. Each admin app then owns only its routes
 
 ### `@hanzogui/admin/data` — transport-agnostic data layer
 
-| Export                  | Role                                                        |
-| ----------------------- | ----------------------------------------------------------- |
-| `useFetch<T>(url)`      | Tiny SWR-shaped hook — `{ data, error, isLoading, mutate }` |
-| `useEvents<T>(opts)`    | SSE subscription with kind filter + namespace predicate     |
-| `apiPost` / `apiDelete` | JSON POST / DELETE that throw `ApiError` on non-2xx         |
-| `formatTimestamp`       | UTC / local-aware Date formatter                            |
-| `humanTTL`              | "720h" → "30 days"                                          |
-| `badgeColors`           | Status variant → `{ bg, fg }` token pair                    |
-| `getTz` / `setTz`       | Read / write the user's tz preference                       |
+| Export                       | Role                                                        |
+| ---------------------------- | ----------------------------------------------------------- |
+| `useFetch<T>(url)`           | Tiny SWR-shaped hook — `{ data, error, isLoading, mutate }` |
+| `useEvents<T>(opts)`         | SSE subscription with kind filter + namespace predicate     |
+| `apiPost` / `apiDelete`      | JSON POST / DELETE that throw `ApiError` on non-2xx         |
+| `formatTimestamp`            | UTC / local-aware Date formatter (in `data/format`)         |
+| `humanTTL`                   | "720h" → "30 days" (in `data/format`)                       |
+| `badgeColors`                | Status variant → `{ bg, fg }` token pair (in `data/format`) |
+| `getTz` / `setTz` / `TZ_KEY` | Read / write the user's tz preference (in `data/tz`)        |
 
-### `@hanzogui/admin/patterns` — high-level pages
-
-| Export       | Role                                                                |
-| ------------ | ------------------------------------------------------------------- |
-| `ListPage`   | Title + count + body. Auto-resolves loading / error / empty branches |
-| `DetailPage` | Back link + eyebrow + title + summary cards + body                  |
+There is no `patterns/` layer. Lists across our admin surfaces differ
+in shape — Workflows has a filter band, Namespaces has Active +
+retention badges, TaskQueues has running counts — so a single
+`<ListPage>` would always have to widen to fit the next consumer. We
+therefore reify nothing; pages compose primitives directly. The unit
+of reuse is the primitive (Badge, Empty, SummaryCard, Alert), not the
+page.
 
 ## Consumption — 5-line example
 
@@ -115,5 +116,31 @@ export default function App() {
 - For non-admin marketing pages (`hanzo.ai`, `lux.network`) — they have
   their own design system in `gui.hanzo.ai` etc.
 - For edge-to-edge layouts (e.g. tasks `Workflows` page with its own
-  filter band). Skip `PageShell` and `ListPage`, use the primitives
-  directly. Don't fight the abstraction.
+  filter band). Skip `PageShell` and lay out the page directly with
+  `XStack` / `YStack` + the primitives.
+
+## Tests
+
+```bash
+cd code/ui-admin
+bun run typecheck
+bun run test
+```
+
+`vitest` runs in jsdom against `test/*.test.ts`. We cover the parts
+where consumers can't easily verify correctness themselves:
+`humanTTL` parsing, `formatTimestamp` UTC + local shape, `useFetch`
+generation-counter cancellation + `ApiError` surfacing, and `getTz` /
+`setTz` round-trip via `localStorage`.
+
+## Changelog
+
+### 0.2.0
+
+- Removed the `patterns/` layer (`<ListPage>`, `<DetailPage>`). Lists
+  are not the unit of reuse; primitives are.
+- Split `getTz` / `setTz` out of `data/format` into `data/tz`. The
+  shared `TZ_KEY` constant is now exported.
+- Consumers must import `SummaryCard` from `@hanzogui/admin` — no
+  more inline copies.
+- Added vitest harness and 6 unit tests.

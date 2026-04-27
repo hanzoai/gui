@@ -1,27 +1,8 @@
-// Local-time / UTC display helpers shared by every page that renders
-// timestamps. Stored choice persists in localStorage and pages can
-// re-render on the `admin:tz-changed` window event.
-//
-// Storage key is shared across admin surfaces — the *display* choice
-// of UTC vs local belongs to the user, not the app. If you want
-// per-app isolation, override KEY at the call site (advanced; not
-// recommended).
+// Display formatting helpers shared across admin pages — timestamps,
+// retention TTLs, status badge colour tokens. Stateless. The user's
+// tz preference lives in `./tz`; this module reads it via `getTz`.
 
-const KEY = 'admin.tz'
-
-export type Tz = 'local' | 'utc'
-
-export function getTz(): Tz {
-  if (typeof window === 'undefined') return 'local'
-  const stored = localStorage.getItem(KEY)
-  return stored === 'utc' ? 'utc' : 'local'
-}
-
-export function setTz(tz: Tz) {
-  if (typeof window === 'undefined') return
-  localStorage.setItem(KEY, tz)
-  window.dispatchEvent(new CustomEvent('admin:tz-changed', { detail: tz }))
-}
+import { getTz } from './tz'
 
 // formatTimestamp renders a Date in the user's chosen tz mode. UTC
 // produces ISO 8601, local produces the upstream

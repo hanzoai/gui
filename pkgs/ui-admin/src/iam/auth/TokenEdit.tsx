@@ -6,6 +6,13 @@
 // opaque tokens just render as "Not a JWT" and the original textarea
 // stays.
 //
+// SECURITY DELTA from upstream: Casdoor renders the access/refresh
+// tokens and the authorization code in editable textareas, then POSTs
+// them straight back on save — meaning the server can't tell the
+// difference between a fresh token and a copy-pasted one, and DOM
+// inspection leaks them. We render them via read-only `<CopyField>`
+// only and strip every server-issued field from the save payload.
+//
 // TODO(i18n): English literals only.
 
 import { useEffect, useState } from 'react'
@@ -90,7 +97,17 @@ export function TokenEdit() {
     setSaving(true)
     setSaveErr(null)
     try {
-      await apiPost(authUrl(`tokens/${draft.name}`), draft)
+      // Strip every server-issued field: the wire token blobs
+      // (`accessToken`, `refreshToken`) plus the OAuth `code`. The
+      // backend re-issues these; rebroadcasting them would let an
+      // attacker with DOM access freeze a stolen token in place.
+      const {
+        accessToken: _omitAccess,
+        refreshToken: _omitRefresh,
+        code: _omitCode,
+        ...mutable
+      } = draft
+      await apiPost(authUrl(`tokens/${draft.name}`), mutable)
       await mutate()
     } catch (e) {
       setSaveErr(e instanceof Error ? e.message : String(e))
@@ -170,12 +187,6 @@ export function TokenEdit() {
           onChangeText={(v) => set('user', v)}
         />
         <Field
-          id="tok-code"
-          label="Authorization code"
-          value={draft.code ?? ''}
-          onChangeText={(v) => set('code', v)}
-        />
-        <Field
           id="tok-expires"
           label="Expires in (seconds)"
           value={String(draft.expiresIn ?? 0)}
@@ -198,6 +209,19 @@ export function TokenEdit() {
 
       <YStack gap="$3">
         <Text fontSize="$3" fontWeight="600" color="$color">
+          Authorization code
+        </Text>
+        {draft.code ? (
+          <CopyField value={draft.code} />
+        ) : (
+          <Paragraph color="$placeholderColor" fontSize="$2">
+            No authorization code on this record.
+          </Paragraph>
+        )}
+      </YStack>
+
+      <YStack gap="$3">
+        <Text fontSize="$3" fontWeight="600" color="$color">
           Access token
         </Text>
         {draft.accessToken ? (
@@ -207,13 +231,19 @@ export function TokenEdit() {
             No access token issued yet.
           </Paragraph>
         )}
-        <TextArea
-          value={draft.accessToken ?? ''}
-          onChangeText={(v) => set('accessToken', v)}
-          minHeight={180}
-          fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
-          fontSize="$2"
-        />
+      </YStack>
+
+      <YStack gap="$3">
+        <Text fontSize="$3" fontWeight="600" color="$color">
+          Refresh token
+        </Text>
+        {draft.refreshToken ? (
+          <CopyField value={draft.refreshToken} />
+        ) : (
+          <Paragraph color="$placeholderColor" fontSize="$2">
+            No refresh token issued.
+          </Paragraph>
+        )}
       </YStack>
 
       <YStack gap="$3">

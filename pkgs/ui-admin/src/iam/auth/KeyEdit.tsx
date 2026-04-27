@@ -81,7 +81,16 @@ export function KeyEdit() {
     setSaving(true)
     setSaveErr(null)
     try {
-      await apiPost(authUrl(`keys/${draft.owner}/${draft.name}`), draft)
+      // Strip server-issued credentials. The IAM backend mints
+      // `accessKey` / `accessSecret` at creation time and is the only
+      // owner of those values; rebroadcasting them on save would let an
+      // attacker with DOM access freeze a stolen secret in place.
+      const {
+        accessKey: _omitKey,
+        accessSecret: _omitSecret,
+        ...mutable
+      } = draft
+      await apiPost(authUrl(`keys/${draft.owner}/${draft.name}`), mutable)
       await mutate()
     } catch (e) {
       setSaveErr(e instanceof Error ? e.message : String(e))

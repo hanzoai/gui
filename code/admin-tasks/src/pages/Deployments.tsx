@@ -1,9 +1,33 @@
-// Deployments — worker version series. Cards mirror v1 layout.
+// Deployments — worker version series. Upstream renders a table with
+// Deployment Name / Build ID / Deployed At / Actions; we mirror it.
 
 import { useParams } from 'react-router-dom'
-import { Card, H2, Text, XStack, YStack } from 'hanzogui'
-import { Badge, Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
+import { H2, Text, XStack, YStack } from 'hanzogui'
+import {
+  Badge,
+  DataTable,
+  ErrorState,
+  LoadingState,
+  formatTimestamp,
+  useFetch,
+} from '@hanzogui/admin'
 import type { Deployment } from '../lib/api'
+
+const COLUMNS = [
+  { key: 'series', label: 'Deployment Name', flex: 2 },
+  { key: 'buildId', label: 'Build ID', flex: 2 },
+  { key: 'state', label: 'State', flex: 1 },
+  { key: 'createdAt', label: 'Deployed At', flex: 2 },
+]
+
+interface FlatRow {
+  key: string
+  seriesName: string
+  buildId: string
+  state: string
+  createTime: string
+  isDefault: boolean
+}
 
 export function DeploymentsPage() {
   const { ns } = useParams()
@@ -13,7 +37,17 @@ export function DeploymentsPage() {
 
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState />
-  const rows = data?.deployments ?? []
+  const deployments = data?.deployments ?? []
+  const rows: FlatRow[] = deployments.flatMap((d) =>
+    d.buildIds.map((b) => ({
+      key: `${d.seriesName}::${b.buildId}`,
+      seriesName: d.seriesName,
+      buildId: b.buildId,
+      state: b.state,
+      createTime: b.createTime,
+      isDefault: b.buildId === d.defaultBuildId,
+    })),
+  )
 
   return (
     <YStack gap="$4">
@@ -21,68 +55,46 @@ export function DeploymentsPage() {
         <H2 size="$7" color="$color">
           Deployments{' '}
           <Text fontSize="$3" color="$placeholderColor" fontWeight="400">
-            ({rows.length})
+            ({deployments.length})
           </Text>
         </H2>
       </XStack>
 
-      {rows.length === 0 ? (
-        <Empty
-          title={`No worker deployments in ${namespace}`}
-          hint="Workers register a series + buildId on connect. Routing rules promote a default and ramp new versions."
-        />
-      ) : (
-        <XStack gap="$4" flexWrap="wrap">
-          {rows.map((d) => (
-            <Card
-              key={d.seriesName}
-              p="$5"
-              bg="$background"
-              borderColor="$borderColor"
-              borderWidth={1}
-              flexBasis={320}
-              flexGrow={1}
-              gap="$3"
-            >
-              <YStack gap="$1">
-                <Text fontSize="$1" color="$placeholderColor" fontWeight="600" letterSpacing={0.4}>
-                  SERIES
-                </Text>
-                <Text fontSize="$3" fontWeight="500" color="$color">
-                  {d.seriesName}
-                </Text>
-              </YStack>
-              <YStack gap="$1">
-                <Text fontSize="$1" color="$placeholderColor" fontWeight="600" letterSpacing={0.4}>
-                  DEFAULT BUILD
-                </Text>
-                <Text fontFamily={'ui-monospace, SFMono-Regular, monospace' as never} fontSize="$2" color="$color">
-                  {d.defaultBuildId || '—'}
-                </Text>
-              </YStack>
-              <YStack gap="$1.5">
-                <Text fontSize="$1" color="$placeholderColor" fontWeight="600" letterSpacing={0.4}>
-                  VERSIONS
-                </Text>
-                <YStack gap="$1.5">
-                  {d.buildIds.map((b) => (
-                    <XStack key={b.buildId} items="center" gap="$2">
-                      <Text fontFamily={'ui-monospace, SFMono-Regular, monospace' as never} fontSize="$2" color="$color">
-                        {b.buildId}
-                      </Text>
-                      <Badge
-                        variant={b.state === 'DEPLOYMENT_STATE_CURRENT' ? 'success' : 'muted'}
-                      >
-                        {b.state.replace('DEPLOYMENT_STATE_', '').toLowerCase()}
-                      </Badge>
-                    </XStack>
-                  ))}
-                </YStack>
-              </YStack>
-            </Card>
-          ))}
-        </XStack>
-      )}
+      <DataTable
+        columns={COLUMNS}
+        rows={rows}
+        rowKey={(r) => r.key}
+        renderRow={(r) => [
+          <XStack key="name" gap="$2" items="center">
+            <Text fontSize="$2" fontWeight="500" color="$color">
+              {r.seriesName}
+            </Text>
+            {r.isDefault ? <Badge variant="success">default</Badge> : null}
+          </XStack>,
+          <Text
+            key="build"
+            fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
+            fontSize="$2"
+            color="$color"
+            numberOfLines={1}
+          >
+            {r.buildId}
+          </Text>,
+          <Badge
+            key="state"
+            variant={r.state === 'DEPLOYMENT_STATE_CURRENT' ? 'success' : 'muted'}
+          >
+            {r.state.replace('DEPLOYMENT_STATE_', '').toLowerCase()}
+          </Badge>,
+          <Text key="created" fontSize="$2" color="$placeholderColor">
+            {r.createTime ? formatTimestamp(new Date(r.createTime)) : '—'}
+          </Text>,
+        ]}
+        emptyState={{
+          title: `No worker deployments in ${namespace}`,
+          hint: 'Workers register a series + buildId on connect. Routing rules promote a default and ramp new versions.',
+        }}
+      />
     </YStack>
   )
 }

@@ -4,14 +4,23 @@
 
 import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Card, H2, Text, XStack, YStack } from 'hanzogui'
-import { Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
+import { H2, Text, XStack, YStack } from 'hanzogui'
+import { DataTable, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import type { Schedule } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
 
 interface ListResp {
   schedules?: Schedule[]
 }
+
+const COLUMNS = [
+  { key: 'status', label: 'Status', flex: 1 },
+  { key: 'scheduleId', label: 'Schedule ID', flex: 2 },
+  { key: 'workflowType', label: 'Workflow Type', flex: 2 },
+  { key: 'recent', label: 'Recent Runs', flex: 1 },
+  { key: 'upcoming', label: 'Upcoming Runs', flex: 1 },
+  { key: 'spec', label: 'Schedule Spec', flex: 2 },
+]
 
 export function SchedulesPage() {
   const { ns } = useParams()
@@ -45,31 +54,35 @@ export function SchedulesPage() {
         </H2>
       </XStack>
 
-      {rows.length === 0 ? (
-        <Empty
-          title={`No schedules in ${namespace}`}
-          hint="Create one with the Hanzo Tasks SDK; the UI surface is read-only for now."
-        />
-      ) : (
-        <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
-          {rows.map((s, i) => (
-            <YStack
-              key={s.scheduleId}
-              px="$5"
-              py="$3.5"
-              borderTopWidth={i === 0 ? 0 : 1}
-              borderTopColor="$borderColor"
-            >
-              <Text fontSize="$3" fontWeight="500" color="$color">
-                {s.scheduleId}
-              </Text>
-              <Text mt="$1" fontSize="$1" color="$placeholderColor">
-                {describeSpec(s)}
-              </Text>
-            </YStack>
-          ))}
-        </Card>
-      )}
+      <DataTable
+        columns={COLUMNS}
+        rows={rows}
+        rowKey={(s) => s.scheduleId}
+        renderRow={(s) => [
+          <Text key="status" fontSize="$2" color="$placeholderColor">
+            {s.state?.paused ? 'paused' : 'active'}
+          </Text>,
+          <Text key="id" fontSize="$2" fontWeight="500" color="$color" numberOfLines={1}>
+            {s.scheduleId}
+          </Text>,
+          <Text key="type" fontSize="$2" color="$color" numberOfLines={1}>
+            {s.action?.workflowType?.name ?? '—'}
+          </Text>,
+          <Text key="recent" fontSize="$2" color="$placeholderColor">
+            {s.info?.actionCount ?? 0}
+          </Text>,
+          <Text key="upcoming" fontSize="$2" color="$placeholderColor">
+            —
+          </Text>,
+          <Text key="spec" fontSize="$1" color="$placeholderColor" numberOfLines={1}>
+            {describeSpec(s)}
+          </Text>,
+        ]}
+        emptyState={{
+          title: `No schedules in ${namespace}`,
+          hint: 'Create one with the Hanzo Tasks SDK; the UI surface is read-only for now.',
+        }}
+      />
     </YStack>
   )
 }

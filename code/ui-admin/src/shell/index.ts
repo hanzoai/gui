@@ -1,6 +1,12 @@
 export { AdminApp, type AdminAppProps } from './AdminApp'
 export { PageShell, type PageShellProps } from './PageShell'
 export {
+  SavedViewsRail,
+  type SavedView,
+  type SavedViewIcon,
+  type SavedViewsRailProps,
+} from './SavedViewsRail'
+export {
   Sidebar,
   type SidebarConfig,
   type SidebarBrand,

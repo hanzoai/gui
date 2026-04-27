@@ -199,7 +199,7 @@ async function findImports(location: string): Promise<string[]> {
   const allImports = await scanAllImports()
 
   // Try to find imports for this location
-  // The location might be like "code/core/web" and we stored "./code/core/web"
+  // The location might be like "pkgs/core/web" and we stored "./pkgs/core/web"
   const normalizedLocation = location.startsWith('./') ? location : `./${location}`
 
   return allImports.get(normalizedLocation) || allImports.get(location) || []
@@ -257,7 +257,7 @@ async function analyzePackage(pkg: Package): Promise<MissingDepReport | null> {
 }
 
 async function getReactNativeVersion(): Promise<string> {
-  const kitchenSinkPath = join(process.cwd(), 'code/kitchen-sink/package.json')
+  const kitchenSinkPath = join(process.cwd(), 'apps/kitchen-sink/package.json')
   const kitchenSinkJson = JSON.parse(
     await readFile(kitchenSinkPath, { encoding: 'utf-8' })
   )

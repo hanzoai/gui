@@ -160,7 +160,7 @@ workspaces.forEach((workspace) => {
     console.log(`Running codemod in ${workspace.name} at ${srcPath}`)
     const files = glob.sync(`${srcPath}/**/*.{ts,tsx}`)
     files.forEach((file) => {
-      if (file.includes('code/bento')) {
+      if (file.includes('apps/bento')) {
         console.log(`Skipping file in code/bento: ${file}`)
         return
       }

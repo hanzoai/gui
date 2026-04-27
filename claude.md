@@ -17,7 +17,7 @@ The kitchen-sink package contains the main integration tests for Hanzo GUI compo
 1. **Start the web server** (in the background):
 
    ```bash
-   cd code/kitchen-sink
+   cd apps/kitchen-sink
    bun run start:web
    ```
 
@@ -27,7 +27,7 @@ The kitchen-sink package contains the main integration tests for Hanzo GUI compo
    open "http://localhost:9000/?test=YourTestCaseName"
    ```
 
-   Test case names match the file names in `code/kitchen-sink/src/usecases/` (e.g., `SelectFocusScopeCase`).
+   Test case names match the file names in `apps/kitchen-sink/src/usecases/` (e.g., `SelectFocusScopeCase`).
 
    To open a component demo:
 
@@ -35,7 +35,7 @@ The kitchen-sink package contains the main integration tests for Hanzo GUI compo
    open "http://localhost:9000/?demo=Select"
    ```
 
-   Demo names match files in `code/demos/src/` without the `Demo` suffix (e.g., `Select` for `SelectDemo.tsx`).
+   Demo names match files in `apps/demos/src/` without the `Demo` suffix (e.g., `Select` for `SelectDemo.tsx`).
 
 2. **Run all web tests** with different animation drivers:
 
@@ -49,7 +49,7 @@ The kitchen-sink package contains the main integration tests for Hanzo GUI compo
 
    ```bash
    # Using env var + playwright --project flag
-   cd code/kitchen-sink
+   cd apps/kitchen-sink
    NODE_ENV=test HANZO_GUI_TEST_ANIMATION_DRIVER=css npx playwright test --project=animated-css
 
    # Available projects: animated-css, animated-native, animated-reanimated, animated-motion
@@ -59,7 +59,7 @@ The kitchen-sink package contains the main integration tests for Hanzo GUI compo
 
    ```bash
    # Using playwright directly
-   cd code/kitchen-sink
+   cd apps/kitchen-sink
    npx playwright test tests/PopoverFocusScope.test.tsx
 
    # Or with a specific driver
@@ -75,7 +75,7 @@ The kitchen-sink package contains the main integration tests for Hanzo GUI compo
 
 ### Test Structure
 
-Tests are located in `code/kitchen-sink/tests/` and follow these naming conventions:
+Tests are located in `apps/kitchen-sink/tests/` and follow these naming conventions:
 
 - `ComponentName.test.tsx` - Standard tests that run ONCE with the default animation driver
 - `ComponentName.animated.test.tsx` - Animation-dependent tests that run with ALL animation drivers (css, native, reanimated, motion)

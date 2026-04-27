@@ -63,7 +63,7 @@ async function main() {
   for (const subSection of subSections) {
     const elementsIndexPath = path.join(
       __dirname,
-      `../code/bento/src/sections/${subSection}/index.tsx`
+      `../apps/bento/src/sections/${subSection}/index.tsx`
     )
     const elementsDir = path.dirname(elementsIndexPath)
     const files = await parseIndexFile(elementsIndexPath)
@@ -75,7 +75,7 @@ async function main() {
     accumulatedComponentsArray.map(async (item) => {
       const componentPath = path.join(
         __dirname,
-        `../code/bento/src/components/${item.category}/${item.categorySection}/${
+        `../apps/bento/src/components/${item.category}/${item.categorySection}/${
           item.fileName.split('.')[1]
         }.tsx`
       )

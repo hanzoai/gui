@@ -4,7 +4,7 @@ import { join } from 'node:path'
 
 // check if critical packages are built by looking for dist folder
 // using vite-plugin as it's commonly needed and fails loudly if missing
-const criticalPackage = join(process.cwd(), 'code/compiler/vite-plugin/dist')
+const criticalPackage = join(process.cwd(), 'pkgs/compiler/vite-plugin/dist')
 
 if (!existsSync(criticalPackage)) {
   console.info('\n📦 First time setup detected - building packages...\n')

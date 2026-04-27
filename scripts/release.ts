@@ -59,7 +59,7 @@ const noClean = process.argv.includes('--no-clean')
 const tagFlagIndex = process.argv.indexOf('--tag')
 const customTag = tagFlagIndex >= 0 ? process.argv[tagFlagIndex + 1] : null
 
-const curVersion = fs.readJSONSync('./code/ui/hanzogui/package.json').version
+const curVersion = fs.readJSONSync('./pkgs/ui/hanzogui/package.json').version
 
 async function getLastReleaseRef(): Promise<string | null> {
   // find the most recent baseline: either a v* tag or a canary commit
@@ -181,7 +181,7 @@ async function getWorkspacePackages() {
 
     if (normalizedPattern.includes('**')) {
       // for **/* patterns, we need to scan subdirectories
-      // e.g., code/ui/**/* -> scan all subdirs of code/ui/
+      // e.g., pkgs/ui/**/* -> scan all subdirs of pkgs/ui/
       const baseDir = normalizedPattern.split('**')[0].replace(/\/$/, '')
       try {
         const entries = await fs.readdir(baseDir, { withFileTypes: true })

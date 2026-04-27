@@ -12,7 +12,7 @@
 
 import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Text, XStack, YStack } from 'hanzogui'
+import { Button, Text, XStack } from 'hanzogui'
 import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
 import { Pencil } from '@hanzogui/lucide-icons-2/icons/Pencil'
 import { Trash2 } from '@hanzogui/lucide-icons-2/icons/Trash2'

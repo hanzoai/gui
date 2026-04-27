@@ -12,7 +12,8 @@
 //   - CSRF token is echoed.
 
 import { useState } from 'react'
-import { Eye, EyeOff } from '@hanzogui/lucide-icons-2/icons'
+import { Eye } from '@hanzogui/lucide-icons-2/icons/Eye'
+import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
 import { Input, Paragraph, Text, XStack, YStack } from 'hanzogui'
 import type { AuthApplication, ForgetPayload } from './types'
 import { readCsrfToken, scorePassword } from './util'

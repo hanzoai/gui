@@ -15,9 +15,9 @@ import {
   DataTable,
   ErrorState,
   Loading,
-  PageShell,
   type DataTableColumn,
 } from '../../primitives'
+import { PageShell } from '../../shell'
 import { useFetch, apiPost, apiDelete } from '../../data'
 import type { Group, IamListResponse } from './types'
 import { iamUrl, listQuery } from './api'

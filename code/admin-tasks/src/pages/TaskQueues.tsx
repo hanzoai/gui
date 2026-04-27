@@ -5,7 +5,7 @@
 import { useCallback } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Card, H2, Text, XStack, YStack } from 'hanzogui'
-import { Layers } from '@hanzogui/lucide-icons-2'
+import { Layers } from '@hanzogui/lucide-icons-2/icons/Layers'
 import { Badge, Empty, ErrorState, LoadingState, formatTimestamp, useFetch } from '@hanzogui/admin'
 import { useTaskEvents } from '../lib/events'
 

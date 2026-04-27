@@ -15,12 +15,10 @@ import {
   XStack,
   YStack,
 } from 'hanzogui'
-import {
-  ChevronDown,
-  ChevronLeft,
-  Globe,
-  Plug,
-} from '@hanzogui/lucide-icons-2'
+import { ChevronDown } from '@hanzogui/lucide-icons-2/icons/ChevronDown'
+import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
+import { Globe } from '@hanzogui/lucide-icons-2/icons/Globe'
+import { Plug } from '@hanzogui/lucide-icons-2/icons/Plug'
 import {
   Badge,
   CopyField,

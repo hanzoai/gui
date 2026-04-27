@@ -17,11 +17,9 @@ import {
   XStack,
   YStack,
 } from 'hanzogui'
-import {
-  Play,
-  Plus,
-  RefreshCw,
-} from '@hanzogui/lucide-icons-2'
+import { Play } from '@hanzogui/lucide-icons-2/icons/Play'
+import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
+import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
 import { Alert, Badge, Empty, ErrorState, formatTimestamp, useFetch } from '@hanzogui/admin'
 import type { WorkflowExecution } from '../lib/api'
 import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'

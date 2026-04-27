@@ -5,7 +5,7 @@
 import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { H2, Text, XStack, YStack } from 'hanzogui'
-import { DataTable, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
+import { DataTable, ErrorState, LoadingState, useFetch } from '@hanzo/admin'
 import type { Schedule } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
 

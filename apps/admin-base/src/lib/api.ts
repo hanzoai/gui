@@ -19,7 +19,7 @@ export function getToken(): string {
   return localStorage.getItem(TOKEN_KEY) ?? ''
 }
 
-export function getRecord(): Record<string, unknown> | null {
+export function getAuthRecord(): Record<string, unknown> | null {
   const raw = localStorage.getItem(RECORD_KEY)
   if (!raw) return null
   try { return JSON.parse(raw) } catch { return null }

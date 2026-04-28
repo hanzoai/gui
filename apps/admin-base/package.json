@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hanzo/iam": "^0.8.0",
     "@hanzogui/admin": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",

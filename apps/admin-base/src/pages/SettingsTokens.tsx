@@ -188,7 +188,7 @@ export function SettingsTokens() {
             <Text fontSize="$2" color="$placeholderColor">
               Secret:
             </Text>
-            <Text fontSize="$1" fontFamily="$mono" color="$color">
+            <Text fontSize="$1" color="$color">
               {tokenConfig.secret.slice(0, 8)}…
             </Text>
           </XStack>

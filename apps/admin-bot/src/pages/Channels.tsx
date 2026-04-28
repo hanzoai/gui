@@ -37,7 +37,7 @@ export function ChannelsPage() {
               <Text fontWeight="600">{c.id}</Text>
               <Text fontSize="$2" color="$placeholderColor">{c.kind}</Text>
             </YStack>
-            <Badge tone={c.status === 'connected' ? 'success' : c.status === 'error' ? 'danger' : 'neutral'}>
+            <Badge variant={c.status === 'connected' ? 'success' : c.status === 'error' ? 'destructive' : 'muted'}>
               {c.status}
             </Badge>
           </XStack>

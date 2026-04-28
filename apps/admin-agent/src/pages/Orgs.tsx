@@ -3,40 +3,54 @@
 // X-Org-Id; in solo mode the list collapses to a single 'default'
 // org so the chrome stays consistent.
 
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { DataTable, EmptyState, ErrorBanner, useFetch } from '@hanzogui/admin'
+import { Text } from 'hanzogui'
+import {
+  DataTable,
+  Empty,
+  ErrorState,
+  useFetch,
+  type DataTableColumn,
+} from '@hanzogui/admin'
 import type { Org } from '../lib/api'
+
+const COLUMNS: DataTableColumn[] = [
+  { key: 'name', label: 'Name', flex: 1.4 },
+  { key: 'slug', label: 'Slug', flex: 1 },
+  { key: 'members', label: 'Members', flex: 0.6 },
+  { key: 'created', label: 'Created', flex: 1 },
+]
 
 export function OrgsPage() {
   const { data, error, isLoading } = useFetch<{ orgs: Org[] }>('/v1/agents/orgs')
 
-  if (error) return <ErrorBanner error={error} />
+  if (error) return <ErrorState error={error} />
   if (isLoading) return null
   const rows = data?.orgs ?? []
   if (rows.length === 0) {
     return (
-      <EmptyState
+      <Empty
         title="No organizations"
-        description="agentd is running solo. Wire hanzoai/gateway in front to enable multitenant orgs."
+        hint="agentd is running solo. Wire hanzoai/gateway in front to enable multitenant orgs."
       />
     )
   }
 
+  const renderRow = (o: Org): ReactNode[] => [
+    <Link key="name" to={`/orgs/${encodeURIComponent(o.slug)}/members`}>{o.name}</Link>,
+    <Text key="slug">{o.slug}</Text>,
+    <Text key="members">{o.memberCount}</Text>,
+    <Text key="created">{o.createdAt}</Text>,
+  ]
+
   return (
     <DataTable
-      title="Organizations"
+      columns={COLUMNS}
       rows={rows}
-      columns={[
-        {
-          header: 'Name',
-          render: (o) => (
-            <Link to={`/orgs/${encodeURIComponent(o.slug)}/members`}>{o.name}</Link>
-          ),
-        },
-        { header: 'Slug', render: (o) => o.slug },
-        { header: 'Members', render: (o) => o.memberCount },
-        { header: 'Created', render: (o) => o.createdAt },
-      ]}
+      renderRow={renderRow}
+      rowKey={(o) => o.slug}
+    emptyState={{ title: 'No organizations', hint: 'agentd is running solo.' }}
     />
   )
 }

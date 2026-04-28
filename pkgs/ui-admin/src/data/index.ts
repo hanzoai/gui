@@ -19,3 +19,11 @@ export {
 } from './useFetch'
 export { readCsrfToken, CSRF_HEADER } from './csrf'
 export { useEvents, type UseEventsOptions } from './useEvents'
+export {
+  useIdentity,
+  isSuperAdmin,
+  __resetIdentityForTests,
+  type Identity,
+  type IdentityFetcher,
+  type UseIdentityState,
+} from './useIdentity'

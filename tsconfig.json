@@ -4,15 +4,15 @@
     "rootDir": ".",
     "paths": {
       "@hanzo/gui": [
-        "code/ui/gui"
+        "pkgs/ui/gui"
       ],
       "@hanzogui/*": [
-        "code/core/*",
-        "code/ui/*",
-        "code/packages/*"
+        "pkgs/core/*",
+        "pkgs/ui/*",
+        "pkgs/packages/*"
       ],
       "@hanzogui/demos": [
-        "code/demos"
+        "apps/demos"
       ]
     },
     "outDir": "dist",
@@ -64,262 +64,262 @@
   },
   "references": [
     {
-      "path": "code/compiler/babel-plugin"
+      "path": "pkgs/compiler/babel-plugin"
     },
     {
-      "path": "code/compiler/loader"
+      "path": "pkgs/compiler/loader"
     },
     {
-      "path": "code/compiler/metro-plugin"
+      "path": "pkgs/compiler/metro-plugin"
     },
     {
-      "path": "code/compiler/next-plugin"
+      "path": "pkgs/compiler/next-plugin"
     },
     {
-      "path": "code/compiler/static-tests"
+      "path": "pkgs/compiler/static-tests"
     },
     {
-      "path": "code/compiler/static"
+      "path": "pkgs/compiler/static"
     },
     {
-      "path": "code/compiler/vite-plugin"
+      "path": "pkgs/compiler/vite-plugin"
     },
     {
-      "path": "code/core/animations-css"
+      "path": "pkgs/core/animations-css"
     },
     {
-      "path": "code/core/animations-moti"
+      "path": "pkgs/core/animations-moti"
     },
     {
-      "path": "code/core/animations-react-native"
+      "path": "pkgs/core/animations-react-native"
     },
     {
-      "path": "code/core/assert"
+      "path": "pkgs/core/assert"
     },
     {
-      "path": "code/core/calc"
+      "path": "pkgs/core/calc"
     },
     {
-      "path": "code/core/cli"
+      "path": "pkgs/core/cli"
     },
     {
-      "path": "code/core/colors"
+      "path": "pkgs/core/colors"
     },
     {
-      "path": "code/core/compose-refs"
+      "path": "pkgs/core/compose-refs"
     },
     {
-      "path": "code/core/config-base"
+      "path": "pkgs/core/config-base"
     },
     {
-      "path": "code/core/config-default"
+      "path": "pkgs/core/config-default"
     },
     {
-      "path": "code/core/config"
+      "path": "pkgs/core/config"
     },
     {
-      "path": "code/core/constants"
+      "path": "pkgs/core/constants"
     },
     {
-      "path": "code/core/core"
+      "path": "pkgs/core/core"
     },
     {
-      "path": "code/core/create-context"
+      "path": "pkgs/core/create-context"
     },
     {
-      "path": "code/core/create-theme"
+      "path": "pkgs/core/create-theme"
     },
     {
-      "path": "code/core/cubic-bezier-animator"
+      "path": "pkgs/core/cubic-bezier-animator"
     },
     {
-      "path": "code/core/floating"
+      "path": "pkgs/core/floating"
     },
     {
-      "path": "code/core/font-cherry-bomb"
+      "path": "pkgs/core/font-cherry-bomb"
     },
     {
-      "path": "code/core/font-dm-sans"
+      "path": "pkgs/core/font-dm-sans"
     },
     {
-      "path": "code/core/font-dm-serif-display"
+      "path": "pkgs/core/font-dm-serif-display"
     },
     {
-      "path": "code/core/font-fira-mono"
+      "path": "pkgs/core/font-fira-mono"
     },
     {
-      "path": "code/core/font-glusp"
+      "path": "pkgs/core/font-glusp"
     },
     {
-      "path": "code/core/font-inter"
+      "path": "pkgs/core/font-inter"
     },
     {
-      "path": "code/core/font-munro"
+      "path": "pkgs/core/font-munro"
     },
     {
-      "path": "code/core/font-nohemi"
+      "path": "pkgs/core/font-nohemi"
     },
     {
-      "path": "code/core/font-silkscreen"
+      "path": "pkgs/core/font-silkscreen"
     },
     {
-      "path": "code/core/font-size"
+      "path": "pkgs/core/font-size"
     },
     {
-      "path": "code/core/font"
+      "path": "pkgs/core/font"
     },
     {
-      "path": "code/core/generate-themes"
+      "path": "pkgs/core/generate-themes"
     },
     {
-      "path": "code/core/get-button-sized"
+      "path": "pkgs/core/get-button-sized"
     },
     {
-      "path": "code/core/get-font-sized"
+      "path": "pkgs/core/get-font-sized"
     },
     {
-      "path": "code/core/get-token"
+      "path": "pkgs/core/get-token"
     },
     {
-      "path": "code/core/helpers-icon"
+      "path": "pkgs/core/helpers-icon"
     },
     {
-      "path": "code/core/helpers-node"
+      "path": "pkgs/core/helpers-node"
     },
     {
-      "path": "code/core/helpers-gui"
+      "path": "pkgs/core/helpers-gui"
     },
     {
-      "path": "code/core/helpers"
+      "path": "pkgs/core/helpers"
     },
     {
-      "path": "code/core/normalize-css-color"
+      "path": "pkgs/core/normalize-css-color"
     },
     {
-      "path": "code/core/react-native-media-driver"
+      "path": "pkgs/core/react-native-media-driver"
     },
     {
-      "path": "code/core/react-native-use-pressable"
+      "path": "pkgs/core/react-native-use-pressable"
     },
     {
-      "path": "code/core/react-native-use-responder-events"
+      "path": "pkgs/core/react-native-use-responder-events"
     },
     {
-      "path": "code/core/react-native-web-internals"
+      "path": "pkgs/core/react-native-web-internals"
     },
     {
-      "path": "code/core/shorthands"
+      "path": "pkgs/core/shorthands"
     },
     {
-      "path": "code/core/simple-hash"
+      "path": "pkgs/core/simple-hash"
     },
     {
-      "path": "code/core/start-transition"
+      "path": "pkgs/core/start-transition"
     },
     {
-      "path": "code/core/test-design-system"
+      "path": "pkgs/core/test-design-system"
     },
     {
-      "path": "code/core/theme-base"
+      "path": "pkgs/core/theme-base"
     },
     {
-      "path": "code/core/theme-builder"
+      "path": "pkgs/core/theme-builder"
     },
     {
-      "path": "code/core/theme"
+      "path": "pkgs/core/theme"
     },
     {
-      "path": "code/core/themes"
+      "path": "pkgs/core/themes"
     },
     {
-      "path": "code/core/types"
+      "path": "pkgs/core/types"
     },
     {
-      "path": "code/core/use-callback-ref"
+      "path": "pkgs/core/use-callback-ref"
     },
     {
-      "path": "code/core/use-constant"
+      "path": "pkgs/core/use-constant"
     },
     {
-      "path": "code/core/use-controllable-state"
+      "path": "pkgs/core/use-controllable-state"
     },
     {
-      "path": "code/core/use-debounce"
+      "path": "pkgs/core/use-debounce"
     },
     {
-      "path": "code/core/use-did-finish-ssr"
+      "path": "pkgs/core/use-did-finish-ssr"
     },
     {
-      "path": "code/core/use-direction"
+      "path": "pkgs/core/use-direction"
     },
     {
-      "path": "code/core/use-escape-keydown"
+      "path": "pkgs/core/use-escape-keydown"
     },
     {
-      "path": "code/core/use-event"
+      "path": "pkgs/core/use-event"
     },
     {
-      "path": "code/core/use-force-update"
+      "path": "pkgs/core/use-force-update"
     },
     {
-      "path": "code/core/use-keyboard-visible"
+      "path": "pkgs/core/use-keyboard-visible"
     },
     {
-      "path": "code/core/use-presence"
+      "path": "pkgs/core/use-presence"
     },
     {
-      "path": "code/core/use-previous"
+      "path": "pkgs/core/use-previous"
     },
     {
-      "path": "code/core/use-window-dimensions"
+      "path": "pkgs/core/use-window-dimensions"
     },
     {
-      "path": "code/core/web"
+      "path": "pkgs/core/web"
     },
     {
-      "path": "code/demos"
+      "path": "apps/demos"
     },
     {
-      "path": "code/packages/babel-plugin-fully-specified"
+      "path": "pkgs/packages/babel-plugin-fully-specified"
     },
     {
-      "path": "code/packages/bento-get"
+      "path": "pkgs/packages/bento-get"
     },
     {
-      "path": "code/packages/cli-color"
+      "path": "pkgs/packages/cli-color"
     },
     {
-      "path": "code/packages/code-to-html"
+      "path": "pkgs/packages/code-to-html"
     },
     {
-      "path": "code/packages/logo"
+      "path": "pkgs/packages/logo"
     },
     {
-      "path": "code/packages/lucide-icons"
+      "path": "pkgs/packages/lucide-icons"
     },
     {
-      "path": "code/packages/next-theme"
+      "path": "pkgs/packages/next-theme"
     },
     {
-      "path": "code/packages/react-native-svg"
+      "path": "pkgs/packages/react-native-svg"
     },
     {
-      "path": "code/packages/react-native-web-lite"
+      "path": "pkgs/packages/react-native-web-lite"
     },
     {
-      "path": "code/packages/sandbox-ui"
+      "path": "pkgs/packages/sandbox-ui"
     },
     {
-      "path": "code/packages/timer"
+      "path": "pkgs/packages/timer"
     },
     {
-      "path": "code/packages/element"
+      "path": "pkgs/packages/element"
     },
     {
-      "path": "code/packages/use-store"
+      "path": "pkgs/packages/use-store"
     },
     {
-      "path": "code/packages/vite-plugin-internal"
+      "path": "pkgs/packages/vite-plugin-internal"
     }
   ]
 }

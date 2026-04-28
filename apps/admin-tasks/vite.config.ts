@@ -28,7 +28,7 @@ export default defineConfig({
       // Absolute path — keeps the extractor from getting confused
       // when it copies the config into a `.hanzogui/` temp dir and
       // tries to re-resolve workspace deps from there.
-      config: path.resolve(__dirname, 'hanzogui.config.ts'),
+      config: path.resolve(__dirname, 'gui.config.ts'),
       // Extraction is required for production. If the temp-dir
       // workspace-resolution still bites, we'll inline a stub at
       // build time, never disable.

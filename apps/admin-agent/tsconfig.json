@@ -19,5 +19,5 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["vite/client", "node"]
   },
-  "include": ["src", "hanzogui.config.ts"]
+  "include": ["src", "gui.config.ts"]
 }

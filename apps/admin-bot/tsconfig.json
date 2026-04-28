@@ -18,5 +18,5 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "hanzogui.config.ts", "vite.config.ts"]
+  "include": ["src", "gui.config.ts", "vite.config.ts"]
 }

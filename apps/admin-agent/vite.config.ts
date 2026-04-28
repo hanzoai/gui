@@ -20,7 +20,7 @@ export default defineConfig({
   plugins: [
     hanzoguiPlugin({
       components: ['hanzogui'],
-      config: path.resolve(__dirname, 'hanzogui.config.ts'),
+      config: path.resolve(__dirname, 'gui.config.ts'),
     }),
     react(),
   ],
@@ -40,6 +40,10 @@ export default defineConfig({
       // admin-tasks uses.
       'react-native-svg': '@hanzogui/react-native-svg',
     },
+    // Pick the `source` export condition so unbuilt workspace packages
+    // (e.g. `@hanzogui/admin`, which ships its TypeScript directly) load
+    // from their `./src/index.ts` instead of an absent `./dist`.
+    conditions: ['source', 'browser', 'module', 'import', 'default'],
     dedupe: [
       'react',
       'react-dom',

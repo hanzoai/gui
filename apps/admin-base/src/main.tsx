@@ -19,7 +19,7 @@ import {
 } from 'react-router-dom'
 import { HanzoguiProvider } from 'hanzogui'
 import { PageShell } from '@hanzogui/admin'
-import config from '../hanzogui.config'
+import config from '../gui.config'
 import App from './App'
 import { useAuth } from './hooks/useAuth'
 import { CollectionEdit } from './pages/CollectionEdit'

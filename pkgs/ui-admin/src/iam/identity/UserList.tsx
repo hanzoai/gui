@@ -9,7 +9,20 @@
 
 import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { Anchor, Avatar, Button, Spinner, Text, XStack } from 'hanzogui'
+import {
+  Anchor,
+  Avatar,
+  Button,
+  Dialog,
+  Input,
+  Label,
+  Paragraph,
+  Spinner,
+  Text,
+  TextArea,
+  XStack,
+  YStack,
+} from 'hanzogui'
 import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
 import { Pencil } from '@hanzogui/lucide-icons-2/icons/Pencil'
 import { Trash2 } from '@hanzogui/lucide-icons-2/icons/Trash2'
@@ -45,6 +58,19 @@ const COLUMNS: DataTableColumn[] = [
   { key: 'actions', label: '', flex: 1.4 },
 ]
 
+// ImpersonateDraft — local dialog state. Decoupled from the
+// `target` user so closing the dialog discards both the typed
+// confirmation and the reason cleanly. Submit is gated on a
+// non-empty reason AND a typed username that exactly matches the
+// target's `name` (case-sensitive, no whitespace tolerance).
+interface ImpersonateDraft {
+  target: User
+  typedName: string
+  reason: string
+  submitting: boolean
+  error: string | null
+}
+
 export function UserList({ organizationName, groupName }: UserListProps) {
   const [page, setPage] = useState(1)
   const pageSize = 20
@@ -59,6 +85,8 @@ export function UserList({ organizationName, groupName }: UserListProps) {
 
   const { data, error, isLoading, mutate } =
     useFetch<IamListResponse<User>>(url)
+
+  const [impersonate, setImpersonate] = useState<ImpersonateDraft | null>(null)
 
   const onCreate = async () => {
     const owner = organizationName ?? 'built-in'
@@ -85,10 +113,43 @@ export function UserList({ organizationName, groupName }: UserListProps) {
     await mutate()
   }
 
-  const onImpersonate = async (u: User) => {
-    if (!window.confirm(`Impersonate "${u.displayName || u.name}"?`)) return
-    await apiPost(iamUrl(`impersonate-user`), `${u.owner}/${u.name}`)
-    // Caller's shell handles re-routing on success.
+  // Impersonation requires explicit, audit-grade ceremony. The
+  // operator must (a) type the target username verbatim and
+  // (b) supply a free-text reason that gets persisted to the audit
+  // log. window.confirm() was insufficient — a single misclick on
+  // a dense table row could elevate. The dialog is the only entry
+  // point; there is no prompt-based fallback. Backend may ignore
+  // `reason` until the audit field lands; we send it regardless so
+  // wiring is one-shot when the server catches up.
+  const openImpersonate = (u: User) => {
+    setImpersonate({
+      target: u,
+      typedName: '',
+      reason: '',
+      submitting: false,
+      error: null,
+    })
+  }
+
+  const submitImpersonate = async () => {
+    if (!impersonate) return
+    const { target, typedName, reason } = impersonate
+    if (typedName !== target.name || reason.trim().length === 0) return
+    setImpersonate({ ...impersonate, submitting: true, error: null })
+    try {
+      await apiPost(iamUrl('impersonate-user'), {
+        target: `${target.owner}/${target.name}`,
+        reason: reason.trim(),
+      })
+      setImpersonate(null)
+      // Caller's shell handles re-routing on success.
+    } catch (e) {
+      setImpersonate({
+        ...impersonate,
+        submitting: false,
+        error: e instanceof Error ? e.message : String(e),
+      })
+    }
   }
 
   if (error) {
@@ -152,7 +213,7 @@ export function UserList({ organizationName, groupName }: UserListProps) {
             u.avatar ? (
               <Avatar key="av" circular size="$2">
                 <Avatar.Image src={u.avatar} />
-                <Avatar.Fallback bg={'$borderColor' as never} />
+                <Avatar.Fallback bg="$borderColor" />
               </Avatar>
             ) : (
               <Text key="av" color="$placeholderColor">
@@ -172,7 +233,7 @@ export function UserList({ organizationName, groupName }: UserListProps) {
               <Button
                 size="$2"
                 chromeless
-                onPress={() => onImpersonate(u)}
+                onPress={() => openImpersonate(u)}
                 icon={<UserRoundCheck size={12} />}
               >
                 Impersonate
@@ -221,6 +282,128 @@ export function UserList({ organizationName, groupName }: UserListProps) {
           {isLoading ? <Spinner size="small" /> : null}
         </XStack>
       </XStack>
+
+      <ImpersonateDialog
+        draft={impersonate}
+        onClose={() => setImpersonate(null)}
+        onSubmit={submitImpersonate}
+        onChange={(next) =>
+          setImpersonate((d) => (d ? { ...d, ...next } : d))
+        }
+      />
     </PageShell>
+  )
+}
+
+interface ImpersonateDialogProps {
+  draft: ImpersonateDraft | null
+  onClose: () => void
+  onSubmit: () => void | Promise<void>
+  onChange: (next: Partial<ImpersonateDraft>) => void
+}
+
+// ImpersonateDialog — adversarial review pinned that
+// `window.confirm()` is too weak a gate for an authority that
+// elevates one principal to act as another. The two-factor UX
+// (typed username + free-text reason) trades two seconds of
+// operator friction for an audit trail and an interlock against
+// dense-table misclicks. The submit button is disabled until both
+// factors are present; there is no keyboard shortcut to bypass.
+export function ImpersonateDialog({
+  draft,
+  onClose,
+  onSubmit,
+  onChange,
+}: ImpersonateDialogProps) {
+  const open = draft !== null
+  const target = draft?.target ?? null
+  const typedName = draft?.typedName ?? ''
+  const reason = draft?.reason ?? ''
+  const submitting = draft?.submitting ?? false
+  const err = draft?.error ?? null
+  const canSubmit =
+    target !== null &&
+    typedName === target.name &&
+    reason.trim().length > 0 &&
+    !submitting
+
+  return (
+    <Dialog
+      modal
+      open={open}
+      onOpenChange={(next: boolean) => {
+        if (!next) onClose()
+      }}
+    >
+      <Dialog.Portal>
+        <Dialog.Overlay
+          key="overlay"
+          animation="quick"
+          opacity={0.6}
+          enterStyle={{ opacity: 0 }}
+          exitStyle={{ opacity: 0 }}
+        />
+        <Dialog.Content
+          bordered
+          elevate
+          key="content"
+          animation="quick"
+          enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.96 }}
+          exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.96 }}
+          gap="$3"
+          width={520}
+        >
+          <Dialog.Title>
+            Impersonate {target?.displayName || target?.name || ''}
+          </Dialog.Title>
+          <Dialog.Description>
+            You will act as {target?.owner}/{target?.name} until you sign out.
+            This is logged to the audit ledger.
+          </Dialog.Description>
+          <YStack gap="$2">
+            <Label htmlFor="impersonate-confirm">
+              Type the username{' '}
+              <Text color="$color" fontWeight="700">
+                {target?.name ?? ''}
+              </Text>{' '}
+              to confirm
+            </Label>
+            <Input
+              id="impersonate-confirm"
+              value={typedName}
+              onChangeText={(v: string) => onChange({ typedName: v })}
+              placeholder={target?.name}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </YStack>
+          <YStack gap="$2">
+            <Label htmlFor="impersonate-reason">
+              Reason for impersonation (logged to audit)
+            </Label>
+            <TextArea
+              id="impersonate-reason"
+              value={reason}
+              onChangeText={(v: string) => onChange({ reason: v })}
+              placeholder="e.g. user-reported login issue, ticket #1234"
+              minH={80}
+            />
+          </YStack>
+          {err ? (
+            <Paragraph color="#fca5a5" fontSize="$2">
+              {err}
+            </Paragraph>
+          ) : null}
+          <XStack gap="$2" justify="flex-end">
+            <Button size="$3" variant="outlined" onPress={onClose}>
+              Cancel
+            </Button>
+            <Button size="$3" disabled={!canSubmit} onPress={() => onSubmit()}>
+              {submitting ? 'Submitting…' : 'Impersonate'}
+            </Button>
+          </XStack>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog>
   )
 }

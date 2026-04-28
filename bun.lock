@@ -2258,9 +2258,10 @@
     },
     "pkgs/ui-admin": {
       "name": "@hanzogui/admin",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "devDependencies": {
         "@testing-library/react": "^16.3.2",
+        "@types/react-is": "^19.0.0",
         "jsdom": "^25.0.0",
         "react": ">=19",
         "react-dom": ">=19",
@@ -2762,7 +2763,7 @@
     },
     "pkgs/ui/hanzogui": {
       "name": "hanzogui",
-      "version": "102.0.0-rc.41-hanzoai.1",
+      "version": "7.1.0",
       "dependencies": {
         "@hanzogui/accordion": "workspace:*",
         "@hanzogui/adapt": "workspace:*",
@@ -5748,6 +5749,8 @@
     "@types/react": ["@types/react@19.1.17", "", { "dependencies": { "csstype": "^3.0.2" } }, "sha512-Qec1E3mhALmaspIrhWt9jkQMNdw6bReVu64mjvhbhq2NFPftLPVr+l1SZgmw/66WwBNpDh7ao5AT6gF5v41PFA=="],
 
     "@types/react-dom": ["@types/react-dom@19.1.11", "", { "peerDependencies": { "@types/react": "^19.0.0" } }, "sha512-3BKc/yGdNTYQVVw4idqHtSOcFsgGuBbMveKCOgF8wQ5QtrYOc3jDIlzg3jef04zcXFIHLelyGlj0T+BJ8+KN+w=="],
+
+    "@types/react-is": ["@types/react-is@19.2.0", "", { "dependencies": { "@types/react": "*" } }, "sha512-NP2xtcjZfORsOa4g2JwdseyEnF+wUCx25fTdG/J/HIY6yKga6+NozRBg2xR2gyh7kKYyd6DXndbq0YbQuTJ7Ew=="],
 
     "@types/react-native": ["@types/react-native@0.73.0", "", { "dependencies": { "react-native": "*" } }, "sha512-6ZRPQrYM72qYKGWidEttRe6M5DZBEV5F+MHMHqd4TTYx0tfkcdrUFGdef6CCxY0jXU7wldvd/zA/b0A/kTeJmA=="],
 

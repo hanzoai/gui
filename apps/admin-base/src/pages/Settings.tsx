@@ -12,8 +12,13 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { to: '/settings/smtp', label: 'SMTP' },
+  { to: '/settings/mail', label: 'Mail templates' },
+  { to: '/settings/auth', label: 'Auth providers' },
   { to: '/settings/rate-limits', label: 'Rate limits' },
   { to: '/settings/tokens', label: 'Token options' },
+  { to: '/settings/logs', label: 'Logs' },
+  { to: '/settings/backups', label: 'Backups' },
+  { to: '/settings/data', label: 'Import/Export' },
 ]
 
 export function Settings() {

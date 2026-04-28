@@ -1,9 +1,20 @@
-// Wire types for the end-user auth surface. The forms POST these
-// against the IAM backend at `/v1/iam/login`, `/v1/iam/signup`,
-// `/v1/iam/forget-password`, and `/v1/iam/mfa/*`.
+// Wire types for the end-user auth surface.
 //
-// Keep these narrow on purpose — the IAM backend (`hanzoai/iam`)
-// returns plenty of additional fields we don't decode here.
+// Login / Signup / ForgotPassword now route every network call
+// through the canonical `IAM` class from `@hanzo/iam/browser`. The
+// IAM SDK owns the request/response shapes (PKCE, token exchange,
+// signup, OTP send, phone lookup), so we no longer carry local
+// `LoginPayload` / `SignupPayload` / `ForgetPayload` types — the
+// canonical method signatures on `IAM` are the contract.
+//
+// What remains here is the surface NOT covered by `@hanzo/iam`:
+//   - `AuthApplication`   — branding metadata for the form chrome.
+//   - `AuthSignupItem`    — dynamic signup-field config.
+//   - `CaptchaConfig`     — pluggable captcha provider abstraction.
+//   - `MfaProps`          — TOTP/SMS/email enrolment payload (the IAM
+//                           class doesn't yet expose MFA setup).
+//   - `MfaSetupPayload` / `MfaVerifyPayload` — local until IAM exposes
+//                           dedicated MFA methods.
 
 export interface ApiResult<T = unknown> {
   status: 'ok' | 'error'
@@ -45,55 +56,15 @@ export interface AuthSignupItem {
   options?: string[]
 }
 
-// LoginPayload — the canonical body of POST /v1/iam/login. CSRF is
-// transported via the `X-CSRF-Token` header (set by `apiPost`),
-// never via the body. Empty `password` signals a passwordless flow
-// (verification code or MFA-only).
-export interface LoginPayload {
-  application: string
-  organization: string
-  username: string
-  password?: string
-  code?: string
-  signinMethod: 'Password' | 'Verification code' | 'WebAuthn'
-  language?: string
-  captchaType?: string
-  captchaToken?: string
-  // Echoed back from a captcha challenge response.
-  clientSecret?: string
-}
-
-export interface SignupPayload {
-  application: string
-  organization: string
-  username: string
-  password: string
-  email?: string
-  phone?: string
-  countryCode?: string
-  invitationCode?: string
-  language?: string
-  captchaType?: string
-  captchaToken?: string
-  // Anything from the dynamic signup items.
-  extra?: Record<string, string | string[]>
-}
-
-export interface ForgetPayload {
-  application: string
-  organization: string
-  username: string
-  newPassword: string
-  code: string
-  // 'email' or 'phone' — which channel the user verified through.
-  verifyType: 'email' | 'phone'
-  captchaType?: string
-  captchaToken?: string
-}
-
 // MfaSetupPayload — POSTed to /v1/iam/mfa/setup/initiate to begin
 // enrolment. The response includes a TOTP `secret`, an `otpauth://`
 // `url`, and optionally a `qrCodeDataUrl` (base64 PNG/SVG).
+//
+// Gap: `@hanzo/iam@^0.8.0` does not expose MFA setup/verify methods
+// yet. `MfaSetup` and `MfaVerify` continue to take callbacks that
+// the host app wires into its own /v1/iam/mfa/* round-trips. When
+// IAM grows MFA methods (planned for v0.10), these locals get
+// deleted in favour of the canonical signatures.
 export interface MfaSetupPayload {
   mfaType: 'app' | 'sms' | 'email'
 }

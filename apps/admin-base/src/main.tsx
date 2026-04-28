@@ -22,11 +22,18 @@ import { PageShell } from '@hanzogui/admin'
 import config from '../hanzogui.config'
 import App from './App'
 import { useAuth } from './hooks/useAuth'
+import { CollectionEdit } from './pages/CollectionEdit'
 import { Collections } from './pages/Collections'
 import { Login } from './pages/Login'
 import { Logs } from './pages/Logs'
+import { RecordEdit } from './pages/RecordEdit'
 import { Records } from './pages/Records'
 import { Settings } from './pages/Settings'
+import { SettingsAuth } from './pages/SettingsAuth'
+import { SettingsBackups } from './pages/SettingsBackups'
+import { SettingsData } from './pages/SettingsData'
+import { SettingsLogs } from './pages/SettingsLogs'
+import { SettingsMail } from './pages/SettingsMail'
 import { SettingsRateLimits } from './pages/SettingsRateLimits'
 import { SettingsSmtp } from './pages/SettingsSmtp'
 import { SettingsTokens } from './pages/SettingsTokens'
@@ -63,12 +70,25 @@ ReactDOM.createRoot(root).render(
                 path="/collections/:id/records"
                 element={<CollectionRecords />}
               />
+              <Route
+                path="/collections/:name/edit"
+                element={<PageShell><CollectionEdit /></PageShell>}
+              />
+              <Route
+                path="/records/:collection/:id"
+                element={<PageShell><RecordEdit /></PageShell>}
+              />
               <Route path="/logs" element={<PageShell><Logs /></PageShell>} />
               <Route path="/settings" element={<PageShell><Settings /></PageShell>}>
                 <Route index element={<Navigate to="/settings/smtp" replace />} />
                 <Route path="smtp" element={<SettingsSmtp />} />
+                <Route path="mail" element={<SettingsMail />} />
+                <Route path="auth" element={<SettingsAuth />} />
                 <Route path="rate-limits" element={<SettingsRateLimits />} />
                 <Route path="tokens" element={<SettingsTokens />} />
+                <Route path="logs" element={<SettingsLogs />} />
+                <Route path="backups" element={<SettingsBackups />} />
+                <Route path="data" element={<SettingsData />} />
               </Route>
               <Route path="*" element={<Navigate to="/collections" replace />} />
             </Route>

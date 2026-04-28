@@ -6,40 +6,40 @@
   "exclude": ["e2e"],
   "references": [
     {
-      "path": "../compiler/babel-plugin"
+      "path": "../../pkgs/compiler/babel-plugin"
     },
     {
-      "path": "../core/cli"
+      "path": "../../pkgs/core/cli"
     },
     {
-      "path": "../core/colors"
+      "path": "../../pkgs/core/colors"
     },
     {
-      "path": "../core/config"
+      "path": "../../pkgs/core/config"
     },
     {
-      "path": "../core/core"
+      "path": "../../pkgs/core/core"
     },
     {
-      "path": "../core/font-inter"
+      "path": "../../pkgs/core/font-inter"
     },
     {
-      "path": "../core/shorthands"
+      "path": "../../pkgs/core/shorthands"
     },
     {
-      "path": "../core/themes"
+      "path": "../../pkgs/core/themes"
     },
     {
-      "path": "../core/web"
+      "path": "../../pkgs/core/web"
     },
     {
       "path": "../demos"
     },
     {
-      "path": "../packages/lucide-icons"
+      "path": "../../pkgs/packages/lucide-icons"
     },
     {
-      "path": "../ui/toast"
+      "path": "../../pkgs/ui/toast"
     }
   ]
 }

@@ -20,7 +20,7 @@ import { PageShell } from '../../shell'
 import { useFetch, apiPost, apiDelete } from '../../data'
 import type { IamItemResponse, Organization } from './types'
 import { iamUrl } from './api'
-import { Field, ToggleField } from './Field'
+import { Field, PASSWORD_TYPE_OPTIONS, SelectField, ToggleField } from './Field'
 
 interface RouteParams {
   orgName: string
@@ -175,12 +175,14 @@ export function OrgEdit() {
           onChangeText={(v) => set('favicon', v)}
           type="url"
         />
-        <Field
+        <SelectField
           id="org-pw-type"
           label="Password type"
           value={draft.passwordType}
-          onChangeText={(v) => set('passwordType', v)}
-          hint="argon2id is preferred. Never bcrypt, never plaintext."
+          options={PASSWORD_TYPE_OPTIONS}
+          onChange={(v) => set('passwordType', v)}
+          hint="argon2id only. Plaintext and weaker hashes are not selectable."
+          required
         />
         <Field
           id="org-default-app"

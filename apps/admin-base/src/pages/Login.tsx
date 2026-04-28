@@ -72,8 +72,15 @@ export function Login() {
               {error}
             </Text>
           ) : null}
-          <Button onPress={handleSubmit} disabled={submitting} themeInverse>
-            {submitting ? 'Signing in…' : 'Sign in'}
+          <Button
+            onPress={handleSubmit}
+            disabled={submitting}
+            bg={'#f2f2f2' as never}
+            hoverStyle={{ background: '#ffffff' as never }}
+          >
+            <Text fontSize="$3" fontWeight="500" color={'#070b13' as never}>
+              {submitting ? 'Signing in…' : 'Sign in'}
+            </Text>
           </Button>
         </YStack>
       </Card>

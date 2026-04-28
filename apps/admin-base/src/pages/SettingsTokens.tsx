@@ -197,11 +197,14 @@ export function SettingsTokens() {
         <XStack gap="$2" items="center" pt="$2">
           <Button
             size="$3"
-            themeInverse
             disabled={!dirty || saving}
             onPress={save}
+            bg={'#f2f2f2' as never}
+            hoverStyle={{ background: '#ffffff' as never }}
           >
-            {saving ? 'Saving…' : 'Save duration'}
+            <Text fontSize="$2" fontWeight="500" color={'#070b13' as never}>
+              {saving ? 'Saving…' : 'Save duration'}
+            </Text>
           </Button>
           <Button size="$3" theme="red" disabled={rotating} onPress={rotate}>
             {rotating ? 'Rotating…' : 'Rotate secret'}

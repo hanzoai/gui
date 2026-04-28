@@ -50,7 +50,7 @@ export function Settings() {
           ))}
         </YStack>
       </YStack>
-      <YStack flex={1} minWidth={0}>
+      <YStack flex={1} minW={0}>
         <Outlet />
       </YStack>
     </XStack>

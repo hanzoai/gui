@@ -1,0 +1,159 @@
+name: Publish hanzogui + @hanzogui/admin
+
+# Triggered only on `release/hanzogui-v*` tags. Bumping a workspace
+# version alone does NOT publish — a tag push gates the run so an
+# accidental version bump on `main` cannot ship to npm. Tag scheme:
+#   release/hanzogui-v7.1.0   → hanzogui@7.1.0 + @hanzogui/admin@<own>
+#
+# NPM_TOKEN is sourced from KMS (kms.hanzo.ai) at runtime via Universal
+# Auth. No long-lived NPM_TOKEN secret lives in GitHub. Same shape as
+# `~/work/hanzo/login/.github/workflows/deploy.yml` — only the secret
+# path differs.
+#
+# Smoke test: after pack, install both .tgz tarballs into a throwaway
+# /tmp consumer and require() them. If the static extractor or vite
+# build chokes on an import shape, this catches it before publish.
+on:
+  push:
+    tags:
+      - 'release/hanzogui-v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Build, smoke-test, publish
+    runs-on: hanzo-build-linux-amd64
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Fetch NPM_TOKEN from KMS
+        id: kms
+        env:
+          KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
+          KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
+          HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
+          KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://kms.hanzo.ai' }}
+          KMS_WORKSPACE_ID: ${{ vars.KMS_WORKSPACE_ID_GUI || 'e1359bf4-31b4-4dfa-bb90-323e2c298ad8' }}
+        run: |
+          set -eu
+          # Auth: Universal Auth (preferred) → exchange clientId/Secret
+          # for a short-lived access token. Fallback to long-lived
+          # HANZO_API_KEY for legacy bootstrap only.
+          if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
+            HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
+              -H "Content-Type: application/json" \
+              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
+              | jq -r '.accessToken')
+          fi
+          if [ -z "${HANZO_API_KEY:-}" ]; then
+            echo "::error::No KMS auth available (need KMS_CLIENT_ID/SECRET or HANZO_API_KEY)."
+            exit 1
+          fi
+          response=$(curl -sf \
+            "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=${KMS_WORKSPACE_ID}&secretPath=/publish&environment=prod" \
+            -H "Authorization: Bearer ${HANZO_API_KEY}")
+          npm_token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="NPM_TOKEN") | .secretValue // empty')
+          if [ -z "$npm_token" ]; then
+            echo "::error::NPM_TOKEN not present in KMS at /publish."
+            exit 1
+          fi
+          echo "::add-mask::${npm_token}"
+          echo "npm_token=${npm_token}" >> "$GITHUB_OUTPUT"
+
+      - name: Configure npm registry
+        env:
+          NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
+        run: |
+          echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+
+      - name: Typecheck (hanzogui + @hanzogui/admin)
+        run: bun run typecheck --filter=hanzogui --filter=@hanzogui/admin
+
+      - name: Build (js only — types ride source for @hanzogui/admin)
+        run: bun run build:js --filter=hanzogui --filter=@hanzogui/admin
+
+      - name: Pack hanzogui
+        id: pack-hanzogui
+        working-directory: pkgs/ui/hanzogui
+        run: |
+          tgz=$(npm pack --silent | tail -1)
+          echo "tgz=$(pwd)/${tgz}" >> "$GITHUB_OUTPUT"
+
+      - name: Pack @hanzogui/admin
+        id: pack-admin
+        working-directory: pkgs/ui-admin
+        run: |
+          tgz=$(npm pack --silent | tail -1)
+          echo "tgz=$(pwd)/${tgz}" >> "$GITHUB_OUTPUT"
+
+      - name: Smoke-test packed tarballs from /tmp consumer
+        env:
+          HANZOGUI_TGZ: ${{ steps.pack-hanzogui.outputs.tgz }}
+          ADMIN_TGZ: ${{ steps.pack-admin.outputs.tgz }}
+        run: |
+          set -eu
+          consumer=$(mktemp -d)
+          cd "$consumer"
+          # Minimal consumer — installs both tarballs and requires them.
+          # Catches: missing files in `files`, broken `exports` map,
+          # wrong `main`/`module` paths, Tamagui→hanzogui rename leaks.
+          # NEVER call this package "Tamagui" anywhere in published
+          # artifacts — the brand is hanzogui.
+          cat > package.json <<'EOF'
+          {
+            "name": "hanzogui-publish-smoke",
+            "version": "0.0.0",
+            "private": true,
+            "type": "module"
+          }
+          EOF
+          npm install --no-audit --no-fund --silent \
+            "${HANZOGUI_TGZ}" \
+            "${ADMIN_TGZ}" \
+            react@^19 react-dom@^19 react-router-dom@^7
+          # Static extractor scans for the literal `'hanzogui'` import
+          # token. If it ever moves to `@hanzo/gui` the extractor bails.
+          # Verify the published name is exactly `hanzogui`.
+          test "$(node -p "require('hanzogui/package.json').name")" = "hanzogui"
+          test "$(node -p "require('@hanzogui/admin/package.json').name")" = "@hanzogui/admin"
+          # Resolve every published exports entry. A broken export
+          # shows up as MODULE_NOT_FOUND here, not after publish.
+          node -e "require('hanzogui/package.json')"
+          node -e "require('@hanzogui/admin/package.json')"
+
+      - name: Publish hanzogui
+        env:
+          NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ steps.kms.outputs.npm_token }}
+          TGZ: ${{ steps.pack-hanzogui.outputs.tgz }}
+        working-directory: pkgs/ui/hanzogui
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view "hanzogui@${version}" version >/dev/null 2>&1; then
+            echo "hanzogui@${version} already on npm — skipping."
+            exit 0
+          fi
+          npm publish "${TGZ}" --access public --tag stable
+
+      - name: Publish @hanzogui/admin
+        env:
+          NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ steps.kms.outputs.npm_token }}
+          TGZ: ${{ steps.pack-admin.outputs.tgz }}
+        working-directory: pkgs/ui-admin
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view "@hanzogui/admin@${version}" version >/dev/null 2>&1; then
+            echo "@hanzogui/admin@${version} already on npm — skipping."
+            exit 0
+          fi
+          npm publish "${TGZ}" --access public --tag stable

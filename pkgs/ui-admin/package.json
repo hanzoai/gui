@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/admin",
-  "version": "0.3.0",
-  "description": "Composable admin shell + primitives + data hooks for Hanzo admin surfaces. Pure Tamagui via the hanzogui umbrella. One way to build admin UI across tasks, kms, commerce, console.",
+  "version": "0.3.1",
+  "description": "Composable admin shell + primitives + data hooks for Hanzo admin surfaces. Built on the hanzogui umbrella. One way to build admin UI across tasks, kms, commerce, console.",
   "type": "module",
   "source": "src/index.ts",
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.2",
+    "@types/react-is": "^19.0.0",
     "jsdom": "^25.0.0",
     "react": ">=19",
     "react-dom": ">=19",
@@ -23,17 +24,50 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "source": "./src/index.ts",
       "types": "./src/index.ts",
-      "import": "./src/index.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "default": "./src/index.ts"
     },
-    "./shell": "./src/shell/index.ts",
-    "./primitives": "./src/primitives/index.ts",
-    "./data": "./src/data/index.ts",
-    "./iam": "./src/iam/index.ts",
-    "./auth": "./src/auth/index.ts"
+    "./shell": {
+      "source": "./src/shell/index.ts",
+      "types": "./src/shell/index.ts",
+      "import": "./dist/shell/index.js",
+      "require": "./dist/shell/index.cjs",
+      "default": "./src/shell/index.ts"
+    },
+    "./primitives": {
+      "source": "./src/primitives/index.ts",
+      "types": "./src/primitives/index.ts",
+      "import": "./dist/primitives/index.js",
+      "require": "./dist/primitives/index.cjs",
+      "default": "./src/primitives/index.ts"
+    },
+    "./data": {
+      "source": "./src/data/index.ts",
+      "types": "./src/data/index.ts",
+      "import": "./dist/data/index.js",
+      "require": "./dist/data/index.cjs",
+      "default": "./src/data/index.ts"
+    },
+    "./iam": {
+      "source": "./src/iam/index.ts",
+      "types": "./src/iam/index.ts",
+      "import": "./dist/iam/index.js",
+      "require": "./dist/iam/index.cjs",
+      "default": "./src/iam/index.ts"
+    },
+    "./auth": {
+      "source": "./src/auth/index.ts",
+      "types": "./src/auth/index.ts",
+      "import": "./dist/auth/index.js",
+      "require": "./dist/auth/index.cjs",
+      "default": "./src/auth/index.ts"
+    }
   },
   "files": [
+    "dist",
     "src"
   ],
   "sideEffects": false,

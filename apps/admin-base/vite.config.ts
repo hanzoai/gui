@@ -38,6 +38,10 @@ export default defineConfig({
       'react-native': 'react-native-web',
       'react-native-svg': '@hanzogui/react-native-svg',
     },
+    // Pick the `source` export condition so unbuilt workspace packages
+    // (e.g. `@hanzogui/admin`, which ships its TypeScript directly) load
+    // from their `./src/index.ts` instead of an absent `./dist`.
+    conditions: ['source', 'browser', 'module', 'import', 'default'],
     dedupe: [
       'react',
       'react-dom',

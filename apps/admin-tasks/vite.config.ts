@@ -50,6 +50,10 @@ export default defineConfig({
       // on react-native-web). Hanzo's shim is web-safe.
       'react-native-svg': '@hanzogui/react-native-svg',
     },
+    // Pick the `source` export condition so unbuilt workspace packages
+    // (e.g. `@hanzogui/admin`, which ships its TypeScript directly) load
+    // from their `./src/index.ts` instead of an absent `./dist`.
+    conditions: ['source', 'browser', 'module', 'import', 'default'],
     // Force every workspace package to resolve `@hanzo/gui` and the
     // @hanzogui/* primitives from THIS app's node_modules, not from
     // a sibling workspace's nested copy. Without dedupe the dev server

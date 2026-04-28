@@ -75,11 +75,30 @@ jobs:
           echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
-      - name: Typecheck (hanzogui + @hanzogui/admin)
-        run: bun run typecheck --filter=hanzogui --filter=@hanzogui/admin
+      - name: Typecheck @hanzogui/admin
+        # `hanzogui` (umbrella) ships pre-built types via the
+        # static-extractor pipeline and has no separate typecheck
+        # script — its types are validated transitively by every
+        # consumer. `@hanzogui/admin` ships TypeScript source and
+        # MUST typecheck before publish or downstream consumers
+        # (admin-tasks, admin-base, admin-commerce, admin-bot,
+        # admin-agent) inherit broken types.
+        working-directory: pkgs/ui-admin
+        run: bun run typecheck
 
-      - name: Build (js only — types ride source for @hanzogui/admin)
-        run: bun run build:js --filter=hanzogui --filter=@hanzogui/admin
+      - name: Build (postinstall already built js with SKIP_TYPES=1)
+        # The install step ran `bun install` which fires postinstall
+        # → `bun run build:js` (SKIP_TYPES=1 turbo run build --force).
+        # That covers both publish targets and every workspace
+        # consumer, so a separate filtered build here would be a
+        # no-op rebuild. Verifying the two dist trees exist is
+        # enough — pack will fail loudly if they don't.
+        run: |
+          test -d pkgs/ui/hanzogui/dist || (echo "::error::hanzogui/dist missing"; exit 1)
+          # @hanzogui/admin publishes source-only (no dist needed for
+          # `import` field — the `source`/`default` conditions point
+          # at ./src/*.ts, and downstream bundlers compile it).
+          test -f pkgs/ui-admin/src/index.ts || (echo "::error::ui-admin/src missing"; exit 1)
 
       - name: Pack hanzogui
         id: pack-hanzogui

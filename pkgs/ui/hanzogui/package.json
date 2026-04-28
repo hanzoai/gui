@@ -1,12 +1,12 @@
 {
   "name": "hanzogui",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
     "type": "git",
     "url": "https://github.com/hanzoai/gui.git",
-    "directory": "code/ui/hanzogui"
+    "directory": "pkgs/ui/hanzogui"
   },
   "source": "src/index.ts",
   "type": "module",

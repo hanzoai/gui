@@ -1,0 +1,33 @@
+{
+  "name": "@hanzo/commerce-admin",
+  "private": true,
+  "version": "1.38.0",
+  "type": "module",
+  "description": "Hanzo Commerce admin SPA — products, orders, customers, collections, inventory, billing, settings. Composed from @hanzogui/admin chrome. Ships embedded in commerced and at admin.commerce.hanzo.ai.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hanzogui/admin": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "hanzogui": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-native-web": "^0.21.0",
+    "react-router-dom": "^7.0.2"
+  },
+  "devDependencies": {
+    "@hanzogui/vite-plugin": "workspace:*",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "rollup-plugin-visualizer": "^7.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^8.0.3",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

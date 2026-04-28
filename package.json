@@ -13,6 +13,7 @@
     "./pkgs/ui-admin",
     "./apps/admin-base",
     "./apps/admin-bot",
+    "./apps/admin-commerce",
     "./apps/admin-tasks",
     "./apps/demos",
     "./apps/gui.hanzo.ai",

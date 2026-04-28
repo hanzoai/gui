@@ -2,6 +2,16 @@
 // (username + password + email/phone) plus any dynamic fields the
 // application's `signupItems` configures.
 //
+// Canonical auth boundary is the `IAM` class from `@hanzo/iam/browser`.
+// On submit:
+//   1. Email path: `iam.sendVerificationCode({ email }, 'signup')` →
+//      collect emailCode → `iam.signup({ method: 'email', ... })`.
+//   2. Phone path: `iam.sendVerificationCode({ phone }, 'signup')` →
+//      collect phoneCode → `iam.signup({ method: 'phone', ... })`.
+// To keep the form linear, the OTP step is rendered inline under the
+// email/phone field once the user clicks "Send code". A second submit
+// with the code triggers the actual signup.
+//
 // Original at `~/work/hanzo/iam/web/src/auth/SignupPage.tsx`.
 
 import {
@@ -11,6 +21,7 @@ import {
   type ComponentType,
   type FormEvent,
 } from 'react'
+import type { IAM } from '@hanzo/iam/browser'
 import { Eye } from '@hanzogui/lucide-icons-2/icons/Eye'
 import { EyeOff } from '@hanzogui/lucide-icons-2/icons/EyeOff'
 import { Button, Input, Label, Paragraph, Text, XStack, YStack } from 'hanzogui'
@@ -19,16 +30,17 @@ import type {
   AuthApplication,
   AuthSignupItem,
   CaptchaConfig,
-  SignupPayload,
 } from './types'
 import { isEmail, isPhoneShape, scorePassword } from './util'
 
 export interface SignupProps {
+  iam: IAM
   application: AuthApplication
-  onSubmit: (payload: SignupPayload) => Promise<void>
+  onSuccess?: (id?: string) => void
   onLogin?: () => void
+  /** Country code applied when the contact is detected as a phone. */
+  countryCode?: string
   invitationCode?: string
-  error?: string | null
   captcha?: CaptchaConfig
   CaptchaWidget?: ComponentType<{
     siteKey: string
@@ -92,24 +104,28 @@ function FieldRow({ item, value, onChange }: FieldRowProps) {
 }
 
 export function Signup({
+  iam,
   application,
-  onSubmit,
+  onSuccess,
   onLogin,
-  invitationCode,
-  error,
+  countryCode = '+1',
+  invitationCode: _invitationCode,
   captcha,
   CaptchaWidget,
 }: SignupProps) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [emailOrPhone, setEmailOrPhone] = useState('')
+  const [otp, setOtp] = useState('')
+  const [otpSent, setOtpSent] = useState(false)
   const [extra, setExtra] = useState<Record<string, string>>({})
   const [showPassword, setShowPassword] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
-  const [captchaProviderType, setCaptchaProviderType] = useState<
-    CaptchaConfig['type']
-  >(captcha?.type ?? 'none')
+  const [, setCaptchaProviderType] = useState<CaptchaConfig['type']>(
+    captcha?.type ?? 'none',
+  )
 
   useEffect(() => {
     setCaptchaProviderType(captcha?.type ?? 'none')
@@ -128,6 +144,7 @@ export function Signup({
     password.length >= 8 &&
     (isEmailValue || isPhoneValue) &&
     (!captchaRequired || captchaToken !== null) &&
+    (!otpSent || otp.length > 0) &&
     !submitting
 
   const dynamicItems = useMemo(
@@ -138,29 +155,63 @@ export function Signup({
           i.name !== 'Username' &&
           i.name !== 'Password' &&
           i.name !== 'Email' &&
-          i.name !== 'Phone'
+          i.name !== 'Phone',
       ) ?? [],
-    [application.signupItems]
+    [application.signupItems],
   )
+
+  const sendCode = async () => {
+    if (!isEmailValue && !isPhoneValue) return
+    setError(null)
+    try {
+      const result = isEmailValue
+        ? await iam.sendVerificationCode({ email: emailOrPhone }, 'signup')
+        : await iam.sendVerificationCode(
+            { phone: emailOrPhone, countryCode },
+            'signup',
+          )
+      if (!result.ok) {
+        throw new Error(result.error ?? 'Failed to send verification code')
+      }
+      setOtpSent(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send code')
+    }
+  }
 
   const submit = async (e?: FormEvent) => {
     if (e) e.preventDefault()
     if (!canSubmit) return
+    if (!otpSent) {
+      // First submit: kick off OTP delivery.
+      await sendCode()
+      return
+    }
     setSubmitting(true)
+    setError(null)
     try {
-      const payload: SignupPayload = {
-        application: application.name,
-        organization: application.organization || application.owner,
-        username: username.trim(),
-        password,
-        email: isEmailValue ? emailOrPhone : undefined,
-        phone: isPhoneValue ? emailOrPhone : undefined,
-        invitationCode,
-        captchaType: captchaToken ? captchaProviderType : undefined,
-        captchaToken: captchaToken || undefined,
-        extra,
+      const result = isEmailValue
+        ? await iam.signup({
+            method: 'email',
+            name: username.trim(),
+            email: emailOrPhone,
+            emailCode: otp,
+            password,
+          })
+        : await iam.signup({
+            method: 'phone',
+            name: username.trim(),
+            phone: emailOrPhone,
+            countryCode,
+            phoneCode: otp,
+            password,
+          })
+      if (!result.ok) {
+        throw new Error(result.error ?? 'Signup failed')
       }
-      await onSubmit(payload)
+      onSuccess?.(result.id)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Signup failed')
     } finally {
       setSubmitting(false)
     }
@@ -188,7 +239,11 @@ export function Signup({
           <Input
             id="signup-emailOrPhone"
             value={emailOrPhone}
-            onChangeText={setEmailOrPhone}
+            onChangeText={(v) => {
+              setEmailOrPhone(v)
+              setOtpSent(false)
+              setOtp('')
+            }}
             autoCapitalize="none"
             keyboardType={isPhoneValue ? 'phone-pad' : 'email-address'}
           />
@@ -237,6 +292,23 @@ export function Signup({
           />
         ))}
 
+        {otpSent ? (
+          <YStack gap="$1">
+            <Label htmlFor="signup-otp">Verification code</Label>
+            <Input
+              id="signup-otp"
+              value={otp}
+              onChangeText={setOtp}
+              placeholder="123456"
+              keyboardType="numeric"
+              autoCapitalize="none"
+            />
+            <Button size="$1" chromeless onPress={() => void sendCode()}>
+              Resend code
+            </Button>
+          </YStack>
+        ) : null}
+
         {captcha && captcha.type !== 'none' ? (
           <Captcha
             config={captcha}
@@ -260,7 +332,11 @@ export function Signup({
           disabled={!canSubmit}
           onPress={() => void submit()}
         >
-          {submitting ? 'Creating account…' : 'Sign up'}
+          {submitting
+            ? 'Creating account…'
+            : otpSent
+              ? 'Sign up'
+              : 'Send verification code'}
         </Button>
 
         {onLogin ? (

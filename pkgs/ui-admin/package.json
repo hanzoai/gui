@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@hanzo/iam": "^0.8.0",
     "@testing-library/react": "^16.3.2",
     "@types/react-is": "^19.0.0",
     "jsdom": "^25.0.0",
@@ -72,6 +73,7 @@
   ],
   "sideEffects": false,
   "peerDependencies": {
+    "@hanzo/iam": "^0.8.0",
     "@hanzogui/lucide-icons-2": ">=7.0.0",
     "hanzogui": ">=7.0.0",
     "react": ">=19",

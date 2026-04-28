@@ -7,9 +7,15 @@
 //
 //   import { Login, Signup, MfaVerify } from '@hanzogui/admin/auth'
 //
-// The components are framework-router-agnostic. Every flow takes a
-// callback for navigation and a callback for the network call;
-// nothing imports react-router-dom or fetch directly.
+// Login / Signup / ForgotPassword take an `iam: IAM` prop from
+// `@hanzo/iam/browser` — that class IS the auth boundary. Token
+// storage, PKCE, and refresh are managed there. The components are
+// purely presentational input collection; they never fetch directly.
+//
+// Local payload types (`LoginPayload`, `SignupPayload`, `ForgetPayload`)
+// have been deleted — the canonical contract is the IAM class method
+// signatures. MFA payloads remain local until `@hanzo/iam` exposes
+// dedicated MFA setup/verify methods.
 
 export { Captcha, type CaptchaProps } from './Captcha'
 export { ForgotPassword, type ForgotPasswordProps } from './ForgotPassword'
@@ -24,12 +30,9 @@ export {
   type AuthApplication,
   type AuthSignupItem,
   type CaptchaConfig,
-  type ForgetPayload,
-  type LoginPayload,
   type MfaProps,
   type MfaSetupPayload,
   type MfaVerifyPayload,
-  type SignupPayload,
 } from './types'
 export {
   isEmail,

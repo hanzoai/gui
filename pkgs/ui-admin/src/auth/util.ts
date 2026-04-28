@@ -1,6 +1,7 @@
-// Shared helpers for the auth bucket. CSRF wiring lives in
-// `data/csrf` — the only place that parses the cookie. The header is
-// attached automatically by `apiPost`/`apiDelete`.
+// Shared helpers for the auth bucket. Pure input shape detection +
+// display-only masking. Network requests go through the `IAM` class
+// (`@hanzo/iam/browser`) which owns its own CSRF + PKCE wiring; this
+// file is never on the wire path.
 
 // validateEmail — narrow check matching the upstream regex. Not a
 // security boundary; the backend always re-validates.

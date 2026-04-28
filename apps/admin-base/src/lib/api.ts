@@ -163,18 +163,11 @@ export interface CronModel {
 // ---------------------------------------------------------------------------
 // Auth
 // ---------------------------------------------------------------------------
-
-export async function authWithPassword(identity: string, password: string) {
-  const res = await request<{ token: string; record: Record<string, unknown> }>(
-    '/api/collections/_superusers/auth-with-password',
-    {
-      method: 'POST',
-      body: JSON.stringify({ identity, password }),
-    },
-  )
-  setAuth(res.token, res.record)
-  return res
-}
+//
+// Sign-in routes through `<Login iam={iam}/>` (see `pages/Login.tsx`),
+// which delegates to the canonical `IAM` class from `@hanzo/iam/browser`.
+// This module no longer carries an `authWithPassword` helper — the IAM
+// class is the auth boundary across every Hanzo SPA.
 
 // ---------------------------------------------------------------------------
 // Collections

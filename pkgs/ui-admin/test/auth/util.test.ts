@@ -81,10 +81,13 @@ describe('util.maskPhone', () => {
     expect(maskPhone('')).toBe('')
   })
 
-  it('keeps the last 4 digits and strips formatting', () => {
+  it('keeps the last 4 digits and preserves separator shape', () => {
     expect(maskPhone('913-777-9708')).toBe('***-***-9708')
-    expect(maskPhone('+1 (913) 777-9708')).toBe('***-***-9708')
-    expect(maskPhone('9137779708')).toBe('***-***-9708')
+    // Separators ride along — non-digit characters pass through
+    // unchanged so the masked shape still hints at the format.
+    expect(maskPhone('+1 (913) 777-9708')).toBe('+* (***) ***-9708')
+    // Bare digit strings: only the trailing 4 remain.
+    expect(maskPhone('9137779708')).toBe('******9708')
   })
 
   it('returns empty when there are fewer than 4 digits', () => {
@@ -92,5 +95,30 @@ describe('util.maskPhone', () => {
     // render nothing.
     expect(maskPhone('123')).toBe('')
     expect(maskPhone('()-')).toBe('')
+  })
+
+  it('does not fold extension digits into the trailing 4', () => {
+    // Regression: the legacy implementation collapsed all non-digits
+    // to nothing, so `555-1234x99` became `555123499` → mask
+    // `***-***-3499`, mislabelling the primary number. The fixed
+    // implementation splits on the alphabetic extension marker first
+    // and masks only the leading run, keeping the actual last 4
+    // digits of the primary number.
+    expect(maskPhone('555-1234x99')).toBe('***-1234')
+    expect(maskPhone('555-1234 x 99')).toBe('***-1234')
+    expect(maskPhone('555-1234ext99')).toBe('***-1234')
+    expect(maskPhone('555-1234 Ext. 99')).toBe('***-1234')
+  })
+
+  it('preserves shape for international (E.164-ish) numbers', () => {
+    // `+` and spaces ride along; only digits are masked.
+    expect(maskPhone('+44 20 7946 0958')).toBe('+** ** **** 0958')
+    // German-style with hyphens.
+    expect(maskPhone('+49-30-1234-5678')).toBe('+**-**-****-5678')
+  })
+
+  it('returns empty when the primary run is too short, even with a long extension', () => {
+    // `123x99999` has 3 primary digits — extension is irrelevant.
+    expect(maskPhone('123x99999')).toBe('')
   })
 })

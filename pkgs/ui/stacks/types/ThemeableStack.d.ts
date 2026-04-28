@@ -74,7 +74,7 @@ export declare const themeableVariants: {
         };
     };
 };
-export declare const ThemeableStack: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const ThemeableStack: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     transparent?: boolean | undefined;
     fullscreen?: boolean | undefined;

@@ -3,7 +3,7 @@ import * as React from 'react';
 declare const VIEWPORT_DEFAULT_HOTKEY: string[];
 declare const VIEWPORT_PAUSE = "toast.viewportPause";
 declare const VIEWPORT_RESUME = "toast.viewportResume";
-declare const ToastViewportFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ToastViewportFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -34,7 +34,7 @@ type ToastViewportProps = ToastViewportFrameProps & {
      */
     portalToRoot?: boolean;
 };
-declare const ToastViewport: React.NamedExoticComponent<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+declare const ToastViewport: React.NamedExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;

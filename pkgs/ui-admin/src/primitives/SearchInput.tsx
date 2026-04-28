@@ -57,7 +57,17 @@ export function SearchInput({
 
   return (
     <XStack flex={1} items="center" gap="$2">
-      <XStack flex={1} items="center" position="relative">
+      <XStack
+        flex={1}
+        items="center"
+        position="relative"
+        // Visually nest the search icon inside the Input. Hanzogui v7
+        // dropped per-prop padding overrides on Input; we wrap the
+        // input in an absolute-positioned XStack and use the wrapper's
+        // padding so the input still gets keyboard hit-testing across
+        // the full row.
+        pl="$8"
+      >
         <XStack
           position="absolute"
           l="$3"
@@ -69,7 +79,6 @@ export function SearchInput({
         </XStack>
         <Input
           flex={1}
-          paddingLeft={'32px' as never}
           placeholder={placeholder}
           value={value}
           onChangeText={onChange}

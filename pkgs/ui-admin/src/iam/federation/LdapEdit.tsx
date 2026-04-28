@@ -230,7 +230,7 @@ export function SelectInline({ value, options, onChange, width = '100%' }: Selec
       <Select.Trigger width={width} iconAfter={ChevronDown}>
         <Select.Value />
       </Select.Trigger>
-      <Select.Content zIndex={2_000_000}>
+      <Select.Content>
         <Select.Viewport>
           {options.map((opt, idx) => (
             <Select.Item key={opt.value} index={idx} value={opt.value}>

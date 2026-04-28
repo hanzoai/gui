@@ -17,7 +17,7 @@
 // (uniform row height). Adds ~30 lines vs ~3 KB of dep code.
 
 import { useCallback, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
+import type { ReactNode, UIEvent } from 'react'
 import { Text, XStack, YStack } from 'hanzogui'
 import { ArrowDown } from '@hanzogui/lucide-icons-2/icons/ArrowDown'
 import { ArrowUp } from '@hanzogui/lucide-icons-2/icons/ArrowUp'
@@ -210,10 +210,10 @@ export function WorkflowsTable({
   // below the visible slice so the scrollbar reflects the full list.
   return (
     <YStack
-      maxHeight={VIRTUALIZE_VIEWPORT_PX}
+      maxH={VIRTUALIZE_VIEWPORT_PX}
       overflow="scroll"
-      onScroll={(e: { nativeEvent: { contentOffset: { y: number } } }) =>
-        setScrollTop(e.nativeEvent.contentOffset.y)
+      onScroll={(e: UIEvent<HTMLDivElement>) =>
+        setScrollTop(e.currentTarget.scrollTop)
       }
     >
       {visibleSlice.padTop > 0 ? (

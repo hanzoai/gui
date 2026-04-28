@@ -73,7 +73,7 @@ export function VerificationList({ organizationName = '' }: VerificationListProp
               {r.name}
             </Text>,
             <Text key="c" fontSize="$1" color="$placeholderColor">
-              {formatTimestamp(r.createdTime)}
+              {formatTimestamp(new Date(r.createdTime))}
             </Text>,
             <Text key="t" color="$color">
               {r.type}

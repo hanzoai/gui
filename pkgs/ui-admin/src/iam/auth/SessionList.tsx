@@ -126,7 +126,7 @@ export function SessionList({ organizationName }: SessionListProps) {
                     px="$2"
                     py="$1"
                     rounded="$2"
-                    bg={'rgba(255,255,255,0.04)' as never}
+                    bg="rgba(255,255,255,0.04)"
                   >
                     <Text
                       fontSize="$1"

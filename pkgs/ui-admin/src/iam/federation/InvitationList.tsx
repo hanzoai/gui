@@ -142,7 +142,7 @@ export function InvitationList({
               {i.state}
             </Text>,
             <Text key="ct" fontSize="$1" color="$placeholderColor">
-              {formatTimestamp(i.createdTime)}
+              {formatTimestamp(new Date(i.createdTime))}
             </Text>,
             <XStack key="ax" gap="$1.5">
               <Button size="$2" variant="outlined" onPress={() => onOpenInvitation?.(i)}>

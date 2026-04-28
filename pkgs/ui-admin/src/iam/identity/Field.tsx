@@ -175,7 +175,7 @@ export function SelectField({
         <Select.Trigger width="100%" iconAfter={ChevronDown} disabled={disabled}>
           <Select.Value placeholder={value || options[0]} />
         </Select.Trigger>
-        <Select.Content zIndex={2_000_000}>
+        <Select.Content>
           <Select.Viewport>
             {options.map((opt, idx) => (
               <Select.Item key={opt} index={idx} value={opt}>

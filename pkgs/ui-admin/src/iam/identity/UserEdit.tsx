@@ -13,7 +13,13 @@ import { Save } from '@hanzogui/lucide-icons-2/icons/Save'
 import { Trash2 } from '@hanzogui/lucide-icons-2/icons/Trash2'
 import { Alert, ErrorState, Loading } from '../../primitives'
 import { PageShell } from '../../shell'
-import { useFetch, apiPost, apiDelete } from '../../data'
+import {
+  useFetch,
+  apiPost,
+  apiDelete,
+  useIdentity,
+  isSuperAdmin,
+} from '../../data'
 import type { IamItemResponse, User } from './types'
 import { iamUrl } from './api'
 import { Field, ToggleField } from './Field'
@@ -50,6 +56,13 @@ export function UserEdit() {
 
   const { data, error, isLoading, mutate } =
     useFetch<IamItemResponse<User>>(url)
+
+  // Identity hook drives client-side gating of the isAdmin toggle.
+  // Server is still authoritative; this just keeps non-super-admins
+  // from believing they can flip the bit. While identity is loading
+  // we render the toggle as disabled — fail-secure on uncertainty.
+  const { identity } = useIdentity()
+  const canEditAdminFlag = isSuperAdmin(identity)
 
   const [draft, setDraft] = useState<User | null>(null)
   const [saving, setSaving] = useState(false)
@@ -208,6 +221,12 @@ export function UserEdit() {
           label="Is admin"
           value={draft.isAdmin ?? false}
           onChange={(v) => set('isAdmin', v)}
+          disabled={!canEditAdminFlag}
+          hint={
+            canEditAdminFlag
+              ? 'Admins gain unrestricted access to all orgs.'
+              : 'Only super-admins (built-in/admin) can change admin status.'
+          }
         />
         <ToggleField
           id="user-verified"

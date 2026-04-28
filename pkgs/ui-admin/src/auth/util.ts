@@ -61,13 +61,46 @@ export function maskEmail(email: string | undefined | null): string {
   return `${head}***@${domain}`
 }
 
-// maskPhone — display-only obfuscation. Keeps the last 4 digits;
-// everything else collapses to `***-***-`. Empty/null returns ''.
-// Phones with fewer than 4 digits return '' rather than expose the
-// whole number.
+// maskPhone — display-only obfuscation. Keeps the last 4 digits of
+// the *primary* phone number (excluding any extension). Everything
+// before that collapses to digit placeholders (`*`) while preserving
+// separators (`+`, ` `, `-`, `(`, `)`). Empty/null and numbers with
+// fewer than 4 primary-digits return ''.
+//
+// Why split on extension first: a naive `\D` flatten folds the
+// extension digits into the trailing 4, so `555-1234x99` would mask
+// to `***-***-3499` and mislabel the number. We split on the first
+// alphabetic separator (`x`, `ext`, `Ext.`, etc) and mask only the
+// leading run. International numbers (`+44 20 7946 0958`) keep their
+// shape because we transform digits to `*` in place rather than
+// stripping all non-digits.
 export function maskPhone(phone: string | undefined | null): string {
   if (!phone) return ''
-  const digits = phone.replace(/\D/g, '')
-  if (digits.length < 4) return ''
-  return `***-***-${digits.slice(-4)}`
+  // Split on first alphabetic character (extension marker like `x`,
+  // `ext`, `Ext.`). The leading run is the primary number; ignore
+  // anything after.
+  const primary = phone.split(/[A-Za-z]/, 1)[0].trimEnd()
+  if (!primary) return ''
+  const primaryDigits = primary.replace(/\D/g, '')
+  if (primaryDigits.length < 4) return ''
+  // Walk the primary string right-to-left, replacing digits with `*`
+  // until we have kept the trailing 4 (which are the only digits the
+  // user is allowed to see). Separators pass through untouched —
+  // this preserves `+44 20 7946 0958` → `+** ** **** 0958` shape.
+  let kept = 0
+  let out = ''
+  for (let i = primary.length - 1; i >= 0; i--) {
+    const ch = primary[i]
+    if (ch >= '0' && ch <= '9') {
+      if (kept < 4) {
+        out = ch + out
+        kept++
+      } else {
+        out = '*' + out
+      }
+    } else {
+      out = ch + out
+    }
+  }
+  return out
 }

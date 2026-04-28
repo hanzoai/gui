@@ -3,7 +3,7 @@ import { type GetProps } from '@hanzogui/web';
  * A web-aligned textarea component (multi-line input).
  * @see — Docs https://hanzogui.dev/ui/inputs#textarea
  */
-export declare const TextArea: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & Omit<import("react").InputHTMLAttributes<HTMLInputElement>, "color" | "size" | "children" | "style" | "fontFamily" | "fontSize" | "fontStyle" | "fontWeight" | "letterSpacing" | "textAlign" | "textTransform" | "className" | ("autoCapitalize" | "autoCorrect" | "spellCheck")> & {
+export declare const TextArea: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("react").InputHTMLAttributes<HTMLInputElement>, "color" | "size" | "children" | "style" | "fontFamily" | "fontSize" | "fontStyle" | "fontWeight" | "letterSpacing" | "textAlign" | "textTransform" | "className" | ("autoCapitalize" | "autoCorrect" | "spellCheck")> & {
     color?: "unset" | import("react-native").OpaqueColorValue | import("@hanzogui/web").GetThemeValueForKey<"color"> | undefined;
     fontFamily?: "unset" | import("@hanzogui/web").GetThemeValueForKey<"fontFamily"> | undefined;
     fontSize?: "unset" | import("@hanzogui/web").GetThemeValueForKey<"fontSize"> | undefined;

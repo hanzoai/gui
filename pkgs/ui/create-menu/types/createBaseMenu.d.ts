@@ -175,14 +175,14 @@ export declare function createBaseMenu({ Item: _Item, Title: _Title, SubTitle: _
             (props: ScopedProps<MenuPortalProps>): import("react/jsx-runtime").JSX.Element;
             displayName: string;
         };
-        Content: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        Content: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             size?: import("@hanzogui/web").SizeTokens | undefined;
             unstyled?: boolean | undefined;
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }>, keyof MenuContentProps> & MenuContentProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & MenuContentProps & {
+        }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & MenuContentProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             size?: import("@hanzogui/web").SizeTokens | undefined;
@@ -257,14 +257,14 @@ export declare function createBaseMenu({ Item: _Item, Title: _Title, SubTitle: _
         SubTrigger: React.ForwardRefExoticComponent<MenuSubTriggerProps & {
             scope?: string;
         } & React.RefAttributes<HanzoguiElement>>;
-        SubContent: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        SubContent: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             size?: import("@hanzogui/web").SizeTokens | undefined;
             unstyled?: boolean | undefined;
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }>, keyof MenuSubContentProps> & MenuSubContentProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & MenuSubContentProps & {
+        }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & MenuSubContentProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             size?: import("@hanzogui/web").SizeTokens | undefined;

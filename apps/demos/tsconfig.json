@@ -7,58 +7,58 @@
   },
   "references": [
     {
-      "path": "../core/config"
+      "path": "../../pkgs/core/config"
     },
     {
-      "path": "../core/core"
+      "path": "../../pkgs/core/core"
     },
     {
-      "path": "../packages/logo"
+      "path": "../../pkgs/packages/logo"
     },
     {
-      "path": "../packages/lucide-icons"
+      "path": "../../pkgs/packages/lucide-icons"
     },
     {
-      "path": "../packages/hanzogui-dev-config"
+      "path": "../../pkgs/packages/hanzogui-dev-config"
     },
     {
-      "path": "../ui/avatar"
+      "path": "../../pkgs/ui/avatar"
     },
     {
-      "path": "../ui/button"
+      "path": "../../pkgs/ui/button"
     },
     {
-      "path": "../ui/list-item"
+      "path": "../../pkgs/ui/list-item"
     },
     {
-      "path": "../ui/menu"
+      "path": "../../pkgs/ui/menu"
     },
     {
-      "path": "../ui/popover"
+      "path": "../../pkgs/ui/popover"
     },
     {
-      "path": "../ui/progress"
+      "path": "../../pkgs/ui/progress"
     },
     {
-      "path": "../ui/radio-group"
+      "path": "../../pkgs/ui/radio-group"
     },
     {
-      "path": "../ui/select"
+      "path": "../../pkgs/ui/select"
     },
     {
-      "path": "../ui/sheet"
+      "path": "../../pkgs/ui/sheet"
     },
     {
-      "path": "../ui/slider"
+      "path": "../../pkgs/ui/slider"
     },
     {
-      "path": "../ui/stacks"
+      "path": "../../pkgs/ui/stacks"
     },
     {
-      "path": "../ui/hanzogui"
+      "path": "../../pkgs/ui/hanzogui"
     },
     {
-      "path": "../ui/toast"
+      "path": "../../pkgs/ui/toast"
     }
   ],
   "include": [

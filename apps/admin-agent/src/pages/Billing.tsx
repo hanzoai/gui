@@ -4,7 +4,13 @@
 // (see internal/services/billing).
 
 import { useParams } from 'react-router-dom'
-import { EmptyState, ErrorBanner, MetricCard, useFetch } from '@hanzogui/admin'
+import { XStack } from 'hanzogui'
+import {
+  Empty,
+  ErrorState,
+  SummaryCard,
+  useFetch,
+} from '@hanzogui/admin'
 import type { BillingSummary } from '../lib/api'
 
 function formatCents(cents: number, currency: string): string {
@@ -17,17 +23,17 @@ export function BillingPage() {
     org ? `/v1/agents/orgs/${encodeURIComponent(org)}/billing` : null,
   )
 
-  if (!org) return <EmptyState title="Pick an organization" />
-  if (error) return <ErrorBanner error={error} />
+  if (!org) return <Empty title="Pick an organization" />
+  if (error) return <ErrorState error={error} />
   if (isLoading || !data) return null
 
   return (
-    <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-      <MetricCard label="Balance" value={formatCents(data.balanceCents, data.currency)} />
-      <MetricCard label="This month" value={formatCents(data.monthSpendCents, data.currency)} />
+    <XStack gap="$4" flexWrap="wrap">
+      <SummaryCard label="Balance" value={formatCents(data.balanceCents, data.currency)} />
+      <SummaryCard label="This month" value={formatCents(data.monthSpendCents, data.currency)} />
       {data.monthBudgetCents !== undefined && (
-        <MetricCard label="Budget" value={formatCents(data.monthBudgetCents, data.currency)} />
+        <SummaryCard label="Budget" value={formatCents(data.monthBudgetCents, data.currency)} />
       )}
-    </div>
+    </XStack>
   )
 }

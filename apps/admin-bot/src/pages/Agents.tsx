@@ -36,7 +36,7 @@ export function AgentsPage() {
                 {a.modelProvider ?? '—'} / {a.modelName ?? '—'}
               </Text>
             </YStack>
-            <Badge tone={a.status === 'ready' ? 'success' : 'neutral'}>{a.status}</Badge>
+            <Badge variant={a.status === 'ready' ? 'success' : 'muted'}>{a.status}</Badge>
           </XStack>
         ))}
       </Card>

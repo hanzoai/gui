@@ -36,7 +36,7 @@ export function SessionsPage() {
                 {s.channelId ?? '—'} → {s.agentId ?? '—'} ({s.messageCount ?? 0} msgs)
               </Text>
             </YStack>
-            <Badge tone={s.status === 'open' ? 'success' : 'neutral'}>{s.status}</Badge>
+            <Badge variant={s.status === 'open' ? 'success' : 'muted'}>{s.status}</Badge>
           </XStack>
         ))}
       </Card>

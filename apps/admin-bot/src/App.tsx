@@ -37,7 +37,6 @@ import { Settings } from '@hanzogui/lucide-icons-2/icons/Settings'
 import { Sparkles } from '@hanzogui/lucide-icons-2/icons/Sparkles'
 import { Timer } from '@hanzogui/lucide-icons-2/icons/Timer'
 import { Users } from '@hanzogui/lucide-icons-2/icons/Users'
-import { Workflow } from '@hanzogui/lucide-icons-2/icons/Workflow'
 
 const APP_VERSION = (import.meta as any).env?.VITE_APP_VERSION ?? '0.1.0'
 const APP_ENV = ((import.meta as any).env?.VITE_APP_ENV ?? 'local') as

@@ -24,7 +24,7 @@ export interface BreadcrumbsProps {
 export function Breadcrumbs({ items, separator }: BreadcrumbsProps) {
   if (items.length === 0) return null
   const sep =
-    separator ?? <ChevronRight size={12} color="#7e8794" aria-hidden="true" />
+    separator ?? <ChevronRight size={12} color="#7e8794" aria-hidden />
   return (
     <XStack
       items="center"

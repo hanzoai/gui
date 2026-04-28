@@ -14,7 +14,7 @@ export function DebugPage() {
     <YStack gap="$4">
       <H2 size="$7" color="$color">Debug</H2>
       <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
-        <Paragraph fontFamily="$mono" fontSize="$2" whiteSpace="pre-wrap">
+        <Paragraph fontSize="$2" whiteSpace="pre-wrap">
           {JSON.stringify(data.info, null, 2)}
         </Paragraph>
       </Card>

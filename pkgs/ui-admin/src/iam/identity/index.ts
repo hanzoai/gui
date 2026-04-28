@@ -7,7 +7,16 @@ export { GroupEdit } from './GroupEdit'
 export { GroupTree } from './GroupTree'
 export { RoleList, type RoleListProps } from './RoleList'
 export { RoleEdit } from './RoleEdit'
-export { Field, ToggleField, type FieldProps, type ToggleFieldProps } from './Field'
+export {
+  Field,
+  ToggleField,
+  SelectField,
+  PASSWORD_TYPE_OPTIONS,
+  type FieldProps,
+  type ToggleFieldProps,
+  type SelectFieldProps,
+  type PasswordType,
+} from './Field'
 export { iamUrl, listQuery, useApiBase, type ListQuery } from './api'
 export type {
   AccountItem,

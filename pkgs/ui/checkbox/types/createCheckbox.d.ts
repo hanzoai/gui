@@ -45,8 +45,8 @@ export declare const CheckboxContext: React.Context<{
 export declare function createCheckbox<F extends CheckboxComponent, T extends CheckboxIndicatorComponent>(createProps: {
     Frame?: F;
     Indicator?: T;
-}): React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+}): React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
+    readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>, {
@@ -65,8 +65,8 @@ export declare function createCheckbox<F extends CheckboxComponent, T extends Ch
     scaleSize?: number;
     sizeAdjust?: number;
     native?: NativeValue<"web">;
-} & CheckboxExpectingVariantProps & CheckboxFrameActiveStyleProps & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+} & CheckboxExpectingVariantProps & CheckboxFrameActiveStyleProps & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
+    readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>, {
@@ -85,13 +85,13 @@ export declare function createCheckbox<F extends CheckboxComponent, T extends Ch
     scaleSize?: number;
     sizeAdjust?: number;
     native?: NativeValue<"web">;
-} & CheckboxExpectingVariantProps & CheckboxFrameActiveStyleProps, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & HeadlessCheckboxExtraProps & {
+} & CheckboxExpectingVariantProps & CheckboxFrameActiveStyleProps, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & HeadlessCheckboxExtraProps & {
     scaleIcon?: number;
     scaleSize?: number;
     sizeAdjust?: number;
     native?: NativeValue<"web">;
 } & CheckboxExpectingVariantProps & CheckboxFrameActiveStyleProps, import("@hanzogui/core").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>, {
@@ -114,8 +114,8 @@ export declare function createCheckbox<F extends CheckboxComponent, T extends Ch
         readonly activeStyle: "style";
     };
 }, "staticConfig" | "styleable"> & {
-    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
             elevation?: number | SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/core").StaticConfigPublic>, {
@@ -134,13 +134,13 @@ export declare function createCheckbox<F extends CheckboxComponent, T extends Ch
         scaleSize?: number;
         sizeAdjust?: number;
         native?: NativeValue<"web">;
-    } & CheckboxExpectingVariantProps & CheckboxFrameActiveStyleProps, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & HeadlessCheckboxExtraProps & {
+    } & CheckboxExpectingVariantProps & CheckboxFrameActiveStyleProps, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & HeadlessCheckboxExtraProps & {
         scaleIcon?: number;
         scaleSize?: number;
         sizeAdjust?: number;
         native?: NativeValue<"web">;
     } & CheckboxExpectingVariantProps & CheckboxFrameActiveStyleProps, import("@hanzogui/core").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+        readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
             elevation?: number | SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/core").StaticConfigPublic>, {
@@ -160,8 +160,8 @@ export declare function createCheckbox<F extends CheckboxComponent, T extends Ch
         };
     }];
 } & {
-    Indicator: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Indicator: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
             elevation?: number | SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/core").StaticConfigPublic>, {
@@ -173,8 +173,8 @@ export declare function createCheckbox<F extends CheckboxComponent, T extends Ch
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, `$${string}` | `$${number}` | import("@hanzogui/core").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "activeStyle" | keyof import("@hanzogui/core").StackNonStyleProps | keyof import("@hanzogui/core").StackStyleBase | keyof import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> | keyof CheckboxIndicatorExtraProps> & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & CheckboxIndicatorExtraProps & CheckboxIndicatorActiveStyleProps, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & CheckboxIndicatorExtraProps & CheckboxIndicatorActiveStyleProps, import("@hanzogui/core").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    }>, `$${string}` | `$${number}` | import("@hanzogui/core").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "activeStyle" | keyof import("@hanzogui/core").StackNonStyleProps | keyof import("@hanzogui/core").StackStyleBase | keyof import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> | keyof CheckboxIndicatorExtraProps> & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & CheckboxIndicatorExtraProps & CheckboxIndicatorActiveStyleProps, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & CheckboxIndicatorExtraProps & CheckboxIndicatorActiveStyleProps, import("@hanzogui/core").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
             elevation?: number | SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/core").StaticConfigPublic>, {

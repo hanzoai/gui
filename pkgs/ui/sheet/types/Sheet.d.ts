@@ -1,18 +1,18 @@
 export { createSheetScope } from './SheetContext';
 export * from './types';
-export declare const Handle: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Handle: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-export declare const Overlay: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Overlay: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-export declare const Frame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Frame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -50,7 +50,7 @@ export declare const Sheet: import("react").ForwardRefExoticComponent<{
     __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
 } & import("react").RefAttributes<import("react-native").View>> & {
     Controlled: import("react").FunctionComponent<Omit<import("./types").SheetProps, "open" | "onOpenChange"> & import("react").RefAttributes<import("react-native").View>> & {
-        Frame: import("react").ForwardRefExoticComponent<import("./types").SheetScopedProps<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+        Frame: import("react").ForwardRefExoticComponent<import("./types").SheetScopedProps<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
             unstyled?: boolean | undefined;
             elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
@@ -115,7 +115,7 @@ export declare const Sheet: import("react").ForwardRefExoticComponent<{
             fullscreen?: boolean | undefined;
         }>> & import("react").RefAttributes<import("react-native").ScrollView>>;
     };
-    Frame: import("react").ForwardRefExoticComponent<import("./types").SheetScopedProps<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Frame: import("react").ForwardRefExoticComponent<import("./types").SheetScopedProps<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;

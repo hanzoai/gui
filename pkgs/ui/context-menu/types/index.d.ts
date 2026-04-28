@@ -97,7 +97,7 @@ export declare const ContextMenu: import("react").FC<import("./createNonNativeCo
     } & {
         key: string;
     }>;
-    SubContent: import("react").FC<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    SubContent: import("react").FC<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: import("@hanzogui/web").SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;

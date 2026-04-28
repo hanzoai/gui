@@ -144,7 +144,7 @@ export declare function createNonNativeContextMenu(params: CreateBaseMenuProps):
     } & React.RefAttributes<HanzoguiElement>, "ref"> & {
         scope?: string;
     }, import("@hanzogui/web").StackStyleBase, {}, {}>;
-    SubContent: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    SubContent: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: import("@hanzogui/web").SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;

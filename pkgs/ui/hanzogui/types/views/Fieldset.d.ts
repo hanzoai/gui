@@ -1,5 +1,5 @@
 import type { GetProps } from '@hanzogui/core';
-export declare const Fieldset: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Fieldset: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     horizontal?: boolean | undefined;

@@ -26,30 +26,30 @@ type ToastActionProps = ScopedProps<ToastCloseProps & {
      */
     altText: string;
 }>;
-declare const ToastCloseFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ToastCloseFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 type ToastCloseFrameProps = GetProps<typeof ToastCloseFrame>;
 type ToastCloseProps = ScopedProps<ToastCloseFrameProps & {}>;
-declare const Toast: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const Toast: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof ToastExtraProps> & ToastExtraProps & React.RefAttributes<HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof ToastExtraProps> & ToastExtraProps & React.RefAttributes<HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof ToastExtraProps> & ToastExtraProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof ToastExtraProps> & ToastExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic> & Omit<import("@hanzogui/core").StaticConfigPublic, "staticConfig" | "styleable"> & {
-    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof ToastExtraProps> & ToastExtraProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof ToastExtraProps> & ToastExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -66,7 +66,7 @@ declare const Toast: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core
     Action: React.ForwardRefExoticComponent<Omit<ToastActionProps, "scope"> & {
         scope?: import("./ToastProvider").ToastScopes;
     } & React.RefAttributes<HanzoguiElement>>;
-    Close: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+    Close: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {

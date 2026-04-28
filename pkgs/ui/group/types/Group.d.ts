@@ -5,7 +5,7 @@ type ScopedProps<P> = P & {
     __scopeGroup?: Scope;
 };
 declare const createGroupScope: import("@hanzogui/create-context").CreateScope;
-export declare const GroupFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const GroupFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -33,21 +33,21 @@ export declare const useGroupItem: (childrenProps: {
     borderTopRightRadius?: number | undefined;
     disabled: boolean | undefined;
 };
-export declare const Group: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Group: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     size?: any;
 }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
     __scopeGroup?: Scope;
-} & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+} & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     size?: any;
 }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
     __scopeGroup?: Scope;
-}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & GroupExtraProps & {
+}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & GroupExtraProps & {
     __scopeGroup?: Scope;
 }, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
@@ -55,14 +55,14 @@ export declare const Group: React.ForwardRefExoticComponent<Omit<import("@hanzog
     fullscreen?: boolean | undefined;
     size?: any;
 }, import("@hanzogui/core").StaticConfigPublic> & Omit<import("@hanzogui/core").StaticConfigPublic, "staticConfig" | "styleable"> & {
-    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
         size?: any;
     }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
         __scopeGroup?: Scope;
-    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & GroupExtraProps & {
+    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & GroupExtraProps & {
         __scopeGroup?: Scope;
     }, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
@@ -73,21 +73,21 @@ export declare const Group: React.ForwardRefExoticComponent<Omit<import("@hanzog
 } & {
     Item: typeof GroupItem;
 };
-export declare const YGroup: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const YGroup: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     size?: any;
 }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
     __scopeGroup?: Scope;
-} & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+} & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     size?: any;
 }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
     __scopeGroup?: Scope;
-}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & GroupExtraProps & {
+}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & GroupExtraProps & {
     __scopeGroup?: Scope;
 }, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
@@ -95,14 +95,14 @@ export declare const YGroup: React.ForwardRefExoticComponent<Omit<import("@hanzo
     fullscreen?: boolean | undefined;
     size?: any;
 }, import("@hanzogui/core").StaticConfigPublic> & Omit<import("@hanzogui/core").StaticConfigPublic, "staticConfig" | "styleable"> & {
-    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
         size?: any;
     }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
         __scopeGroup?: Scope;
-    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & GroupExtraProps & {
+    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & GroupExtraProps & {
         __scopeGroup?: Scope;
     }, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
@@ -113,21 +113,21 @@ export declare const YGroup: React.ForwardRefExoticComponent<Omit<import("@hanzo
 } & {
     Item: typeof GroupItem;
 };
-export declare const XGroup: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const XGroup: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     size?: any;
 }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
     __scopeGroup?: Scope;
-} & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+} & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     size?: any;
 }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
     __scopeGroup?: Scope;
-}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & GroupExtraProps & {
+}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & GroupExtraProps & {
     __scopeGroup?: Scope;
 }, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
@@ -135,14 +135,14 @@ export declare const XGroup: React.ForwardRefExoticComponent<Omit<import("@hanzo
     fullscreen?: boolean | undefined;
     size?: any;
 }, import("@hanzogui/core").StaticConfigPublic> & Omit<import("@hanzogui/core").StaticConfigPublic, "staticConfig" | "styleable"> & {
-    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
         size?: any;
     }>, keyof GroupExtraProps | "__scopeGroup"> & GroupExtraProps & {
         __scopeGroup?: Scope;
-    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & GroupExtraProps & {
+    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & GroupExtraProps & {
         __scopeGroup?: Scope;
     }, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;

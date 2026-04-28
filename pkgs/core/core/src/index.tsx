@@ -45,25 +45,25 @@ export {
 // adds extra types to View/Stack/Text:
 
 type RNExclusiveViewProps = Omit<RNViewProps, keyof StackNonStyleProps>
-export interface RNHanzoguiViewNonStyleProps
+export interface RNViewNonStyleProps
   extends StackNonStyleProps, RNExclusiveViewProps {}
 
-type RNHanzoguiView = HanzoguiComponent<
+type RNViewComponent = HanzoguiComponent<
   TamaDefer,
   HanzoguiElement,
-  RNHanzoguiViewNonStyleProps,
+  RNViewNonStyleProps,
   StackStyleBase,
   {}
 >
 
 type RNExclusiveTextProps = Omit<RNTextProps, keyof TextProps>
-export interface RNHanzoguiTextNonStyleProps
+export interface RNTextNonStyleProps
   extends TextNonStyleProps, RNExclusiveTextProps {}
 
-type RNHanzoguiText = HanzoguiComponent<
+type RNTextComponent = HanzoguiComponent<
   TamaDefer,
   HanzoguiTextElement,
-  RNHanzoguiTextNonStyleProps,
+  RNTextNonStyleProps,
   TextStylePropsBase,
   {}
 >
@@ -190,8 +190,8 @@ setupHooks({
 
 // overwrite web versions:
 // putting at the end ensures it overwrites in dist/cjs/index.js
-export const View = WebView as any as RNHanzoguiView
-export const Text = WebText as any as RNHanzoguiText
+export const View = WebView as any as RNViewComponent
+export const Text = WebText as any as RNTextComponent
 
 // easily test type declaration output and if it gets messy:
 

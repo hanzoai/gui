@@ -3,16 +3,16 @@
 // token is set (post-login) or cleared (sign-out from any tab).
 
 import { useEffect, useState } from 'react'
-import { clearAuth, getRecord, getToken, onAuthChange } from '../lib/api'
+import { clearAuth, getAuthRecord, getToken, onAuthChange } from '../lib/api'
 
 export function useAuth() {
   const [token, setToken] = useState(getToken)
-  const [record, setRecord] = useState(getRecord)
+  const [record, setRecord] = useState(getAuthRecord)
 
   useEffect(() => {
     return onAuthChange(() => {
       setToken(getToken())
-      setRecord(getRecord())
+      setRecord(getAuthRecord())
     })
   }, [])
 

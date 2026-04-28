@@ -293,8 +293,16 @@ export function SettingsSmtp() {
         ) : null}
 
         <XStack gap="$2" items="center" pt="$2">
-          <Button size="$3" themeInverse disabled={!dirty || saving} onPress={save}>
-            {saving ? 'Saving…' : 'Save changes'}
+          <Button
+            size="$3"
+            disabled={!dirty || saving}
+            onPress={save}
+            bg={'#f2f2f2' as never}
+            hoverStyle={{ background: '#ffffff' as never }}
+          >
+            <Text fontSize="$2" fontWeight="500" color={'#070b13' as never}>
+              {saving ? 'Saving…' : 'Save changes'}
+            </Text>
           </Button>
           {savedAt > 0 && !dirty ? (
             <Text fontSize="$1" color="$green10">
@@ -364,8 +372,16 @@ export function SettingsSmtp() {
               </XStack>
             </YStack>
             <XStack gap="$2" items="center">
-              <Button size="$3" themeInverse disabled={testing} onPress={sendTest}>
-                {testing ? 'Sending…' : 'Send'}
+              <Button
+                size="$3"
+                disabled={testing}
+                onPress={sendTest}
+                bg={'#f2f2f2' as never}
+                hoverStyle={{ background: '#ffffff' as never }}
+              >
+                <Text fontSize="$2" fontWeight="500" color={'#070b13' as never}>
+                  {testing ? 'Sending…' : 'Send'}
+                </Text>
               </Button>
               {testStatus ? (
                 <Text fontSize="$1" color={testError ? '$red10' : '$green10'}>

@@ -22,7 +22,9 @@ import { PageShell } from '@hanzogui/admin'
 import config from '../hanzogui.config'
 import App from './App'
 import { useAuth } from './hooks/useAuth'
+import { Collections } from './pages/Collections'
 import { Login } from './pages/Login'
+import { Logs } from './pages/Logs'
 import { Records } from './pages/Records'
 import { Settings } from './pages/Settings'
 import { SettingsRateLimits } from './pages/SettingsRateLimits'
@@ -56,14 +58,12 @@ ReactDOM.createRoot(root).render(
           <Route element={<AuthGate />}>
             <Route element={<App />}>
               <Route path="/" element={<Navigate to="/collections" replace />} />
+              <Route path="/collections" element={<PageShell><Collections /></PageShell>} />
               <Route
                 path="/collections/:id/records"
-                element={
-                  <PageShell maxWidth="100%">
-                    <CollectionRecords />
-                  </PageShell>
-                }
+                element={<CollectionRecords />}
               />
+              <Route path="/logs" element={<PageShell><Logs /></PageShell>} />
               <Route path="/settings" element={<PageShell><Settings /></PageShell>}>
                 <Route index element={<Navigate to="/settings/smtp" replace />} />
                 <Route path="smtp" element={<SettingsSmtp />} />

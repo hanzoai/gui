@@ -22,7 +22,7 @@ export default defineConfig({
   plugins: [
     hanzoguiPlugin({
       components: ['hanzogui'],
-      config: path.resolve(__dirname, 'hanzogui.config.ts'),
+      config: path.resolve(__dirname, 'gui.config.ts'),
     }),
     react(),
   ],

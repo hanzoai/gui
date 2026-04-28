@@ -158,7 +158,7 @@ export function TicketEdit({ account }: TicketEditProps) {
               Save
             </Button>
             <Button
-              theme="active"
+              theme="blue"
               disabled={saving}
               onPress={() => submitEdit(true)}
             >
@@ -178,7 +178,7 @@ export function TicketEdit({ account }: TicketEditProps) {
             [
               { label: 'Organization', key: 'owner', disabled: true },
               { label: 'Name', key: 'name', disabled: !isAdmin },
-              { label: 'Display name', key: 'displayName' },
+              { label: 'Display name', key: 'displayName', disabled: false },
               { label: 'Created', key: 'createdTime', disabled: true },
               { label: 'Updated', key: 'updatedTime', disabled: true },
               {
@@ -187,7 +187,11 @@ export function TicketEdit({ account }: TicketEditProps) {
                 disabled: !isAdmin && !isOwner,
               },
               { label: 'User', key: 'user', disabled: true },
-            ] as const
+            ] as ReadonlyArray<{
+              label: string
+              key: keyof TicketItem
+              disabled: boolean
+            }>
           ).map(({ label, key, disabled }) => (
             <Field key={key} label={label}>
               <Input
@@ -209,10 +213,9 @@ export function TicketEdit({ account }: TicketEditProps) {
           <Field label="State">
             <Select
               value={ticket.state}
-              disabled={!isAdmin && ticket.state === 'Closed'}
-              onValueChange={(v) => update('state', v as TicketState)}
+              onValueChange={(v: string) => update('state', v as TicketState)}
             >
-              <Select.Trigger>
+              <Select.Trigger disabled={!isAdmin && ticket.state === 'Closed'}>
                 <Select.Value placeholder="Select state" />
               </Select.Trigger>
               <Select.Content>
@@ -270,11 +273,15 @@ export function TicketEdit({ account }: TicketEditProps) {
               value={messageText}
               placeholder="Type your message..."
               onChangeText={setMessageText}
-              onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+              // The Hanzogui TextArea forwards onKeyDown to the
+              // underlying div on web; the typed signature uses
+              // HTMLDivElement. We read the same `key`/`ctrlKey`
+              // fields from either shape, so the cast is safe.
+              onKeyDown={((e: React.KeyboardEvent<HTMLDivElement>) => {
                 if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                   void sendMessage()
                 }
-              }}
+              }) as React.KeyboardEventHandler<HTMLDivElement>}
             />
             <Button disabled={sending} icon={Send} onPress={sendMessage}>
               Send

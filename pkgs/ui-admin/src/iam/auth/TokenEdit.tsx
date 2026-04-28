@@ -260,8 +260,8 @@ export function TokenEdit() {
         </Text>
         <TextArea
           value={decodedText}
-          minHeight={200}
-          editable={false}
+          height={200}
+          disabled
           fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
           fontSize="$2"
         />

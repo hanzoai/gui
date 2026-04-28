@@ -147,7 +147,7 @@ export function SyncerList({ organizationName = '', onOpenSyncer, onAdded }: Syn
               {r.isEnabled ? 'ON' : 'OFF'}
             </Text>,
             <Text key="c" color="$placeholderColor" fontSize="$1">
-              {formatTimestamp(r.createdTime)}
+              {formatTimestamp(new Date(r.createdTime))}
             </Text>,
             <XStack key="a" gap="$1.5">
               <Button size="$2" disabled={busy} onPress={() => runSyncer(r)}>

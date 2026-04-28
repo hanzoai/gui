@@ -99,7 +99,7 @@ export function ServerEdit({ account }: ServerEditProps) {
             Save
           </Button>
           <Button
-            theme="active"
+            theme="blue"
             disabled={saving}
             onPress={() => submitEdit(true)}
           >

@@ -213,7 +213,7 @@ export function WebhookEdit({ owner, name, onExit }: WebhookEditProps) {
             </Switch>
           </LabelRow>
           <LabelRow label="Preview" align="start">
-            <TextArea minH={220} value={previewText} editable={false} />
+            <TextArea minH={220} value={previewText} disabled />
           </LabelRow>
         </YStack>
       </Card>

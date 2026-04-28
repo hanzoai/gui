@@ -106,26 +106,28 @@ export function WorkflowFilters({
         />
       ) : (
         <XStack gap="$2" flexWrap="wrap">
-          <Input
-            size="$3"
-            flex={1}
-            minWidth={140}
-            placeholder="Workflow ID"
-            value={query.workflowId}
-            onChangeText={(workflowId: string) => onQueryChange({ ...query, workflowId })}
-            aria-label="Workflow ID"
-          />
-          <Input
-            size="$3"
-            flex={1}
-            minWidth={140}
-            placeholder="Workflow Type"
-            value={query.workflowType}
-            onChangeText={(workflowType: string) =>
-              onQueryChange({ ...query, workflowType })
-            }
-            aria-label="Workflow Type"
-          />
+          <XStack flex={1} minW={140}>
+            <Input
+              size="$3"
+              flex={1}
+              placeholder="Workflow ID"
+              value={query.workflowId}
+              onChangeText={(workflowId: string) => onQueryChange({ ...query, workflowId })}
+              aria-label="Workflow ID"
+            />
+          </XStack>
+          <XStack flex={1} minW={140}>
+            <Input
+              size="$3"
+              flex={1}
+              placeholder="Workflow Type"
+              value={query.workflowType}
+              onChangeText={(workflowType: string) =>
+                onQueryChange({ ...query, workflowType })
+              }
+              aria-label="Workflow Type"
+            />
+          </XStack>
           <Select
             value={query.timeRange}
             onValueChange={(timeRange: string) =>
@@ -133,7 +135,7 @@ export function WorkflowFilters({
             }
           >
             <Select.Trigger
-              minWidth={140}
+              minW={140}
               size="$3"
               iconAfter={ChevronDown as never}
               aria-label="Time range"
@@ -163,7 +165,7 @@ export function WorkflowFilters({
             }
           >
             <Select.Trigger
-              minWidth={140}
+              minW={140}
               size="$3"
               iconAfter={ChevronDown as never}
               aria-label="Status"

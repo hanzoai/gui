@@ -110,7 +110,7 @@ export function AuthzEditor({
         ref={taRef as never}
         value={value}
         onChangeText={onChange}
-        editable={!readOnly}
+        disabled={readOnly}
         spellCheck={false}
         autoComplete={'off' as never}
         autoCorrect={'off' as never}
@@ -122,7 +122,7 @@ export function AuthzEditor({
         rounded="$2"
         borderWidth={1}
         borderColor="$borderColor"
-        bg={'rgba(0,0,0,0.25)' as never}
+        bg="rgba(0,0,0,0.25)"
         color="$color"
         // Disable Hanzo GUI's auto-resize so the long .conf doesn't
         // push the page layout. Internal scroll is the upstream
@@ -138,8 +138,8 @@ export function AuthzEditor({
           borderWidth={1}
           borderColor={'#7f1d1d' as never}
           bg={'rgba(239,68,68,0.06)' as never}
-          maxHeight={140}
-          overflow={'auto' as never}
+          maxH={140}
+          overflow="hidden"
         >
           {errors.map((err, i) => (
             <XStack
@@ -150,7 +150,7 @@ export function AuthzEditor({
               borderBottomWidth={i === errors.length - 1 ? 0 : 1}
               borderBottomColor="$borderColor"
               items="center"
-              hoverStyle={{ background: 'rgba(255,255,255,0.04)' as never }}
+              hoverStyle={{ background: 'rgba(255,255,255,0.04)' }}
               bg={
                 focusedError === err.line
                   ? ('rgba(239,68,68,0.12)' as never)
@@ -177,7 +177,7 @@ export function AuthzEditor({
                   px="$2"
                   py="$1"
                   rounded="$1"
-                  hoverStyle={{ background: 'rgba(59,130,246,0.12)' as never }}
+                  hoverStyle={{ background: 'rgba(59,130,246,0.12)' }}
                   onPress={() => goTo(err)}
                 >
                   Go to

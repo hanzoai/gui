@@ -116,7 +116,7 @@ export function FormEdit({ account }: FormEditProps) {
             Save
           </Button>
           <Button
-            theme="active"
+            theme="blue"
             disabled={saving}
             onPress={() => submitEdit(true)}
           >

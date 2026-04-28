@@ -209,7 +209,7 @@ function RecordDetailDrawer({
       b={0}
       z={50}
       onPress={onClose}
-      bg={'rgba(0,0,0,0.5)' as never}
+      bg="rgba(0,0,0,0.5)"
     >
       <YStack
         position="absolute"
@@ -269,7 +269,7 @@ function RecordDetailDrawer({
               color="$color"
               fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
               p="$3"
-              bg={'rgba(255,255,255,0.03)' as never}
+              bg="rgba(255,255,255,0.03)"
               rounded="$2"
             >
               {record.response ?? ''}
@@ -284,7 +284,7 @@ function RecordDetailDrawer({
               color="$color"
               fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
               p="$3"
-              bg={'rgba(255,255,255,0.03)' as never}
+              bg="rgba(255,255,255,0.03)"
               rounded="$2"
             >
               {formatJson(record.object)}

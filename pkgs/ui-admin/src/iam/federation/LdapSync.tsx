@@ -9,7 +9,7 @@
 // navigates away mid-sync (the backend continues; the user can
 // reopen the page and pick up the latest snapshot).
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Button,
   Card,
@@ -169,12 +169,12 @@ export function LdapSync({ ldapId, organizationName, onOpenEdit, onExit }: LdapS
               </Text>
             </XStack>
             <Progress value={pct} max={100}>
-              <Progress.Indicator animation="quick" />
+              <Progress.Indicator />
             </Progress>
             {lines.length > 0 && (
               <YStack mt="$2" gap="$1" maxH={200} overflow="hidden">
                 {lines.slice(-50).map((l, i) => (
-                  <Text key={`${l.cn}-${i}`} fontSize="$1" color={statusColor(l.status)}>
+                  <Text key={`${l.cn}-${i}`} fontSize="$1" color={statusColor(l.status) as never}>
                     [{l.status}] {l.cn}
                     {l.reason ? ` — ${l.reason}` : ''}
                   </Text>

@@ -22,8 +22,13 @@ export interface LabelRowProps {
 const LABEL_WIDTH = 160
 
 export function LabelRow({ label, align = 'center', children }: LabelRowProps) {
+  // Hanzogui v7's `items` maps to React Native's FlexAlignType
+  // ("flex-start" | "flex-end" | ...). We expose the simpler
+  // start/center vocabulary on this primitive — translate at the
+  // boundary so callers don't need to think in RN flex names.
+  const itemsValue = align === 'start' ? 'flex-start' : 'center'
   return (
-    <XStack gap="$4" items={align}>
+    <XStack gap="$4" items={itemsValue}>
       <YStack width={LABEL_WIDTH} pt={align === 'start' ? '$2' : 0}>
         <Text fontSize="$2" color="$placeholderColor">
           {label}

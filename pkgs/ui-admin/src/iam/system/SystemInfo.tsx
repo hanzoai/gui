@@ -39,7 +39,7 @@ function ProgressBar({ percent, label }: ProgressBarProps) {
     <YStack gap="$1">
       <XStack
         height={8}
-        bg={'rgba(255,255,255,0.06)' as never}
+        bg="rgba(255,255,255,0.06)"
         rounded="$1"
         overflow="hidden"
       >

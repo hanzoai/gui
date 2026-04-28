@@ -174,19 +174,19 @@ export function AdapterEdit({
       ) : null}
 
       <Field label="Organization">
-        <Input value={draft.owner} editable={false} />
+        <Input value={draft.owner} disabled />
       </Field>
       <Field label="Name">
         <Input
           value={draft.name}
-          editable={!isBuiltIn}
+          disabled={isBuiltIn}
           onChangeText={(v: string) => update('name', v)}
         />
       </Field>
       <Field label="Table">
         <Input
           value={draft.table}
-          editable={!isBuiltIn}
+          disabled={isBuiltIn}
           onChangeText={(v: string) => update('table', v)}
         />
       </Field>
@@ -196,7 +196,7 @@ export function AdapterEdit({
           disabled={isBuiltIn}
           onCheckedChange={toggleSameDb}
         >
-          <Switch.Thumb animation="quick" />
+          <Switch.Thumb />
         </Switch>
       </Field>
 

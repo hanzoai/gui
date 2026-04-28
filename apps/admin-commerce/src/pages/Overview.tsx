@@ -109,9 +109,11 @@ function RecentSection({
       {loading ? (
         <LoadingState />
       ) : (
-        <Text fontSize="$2" color="$placeholderColor" mt="$3" py="$6" textAlign="center">
-          {count ? `${count} total` : 'No data yet'}
-        </Text>
+        <YStack mt="$3" py="$6" items="center">
+          <Text fontSize="$2" color="$placeholderColor">
+            {count ? `${count} total` : 'No data yet'}
+          </Text>
+        </YStack>
       )}
     </Card>
   )

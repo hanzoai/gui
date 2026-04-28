@@ -30,9 +30,9 @@ export function LogsPage() {
             borderBottomWidth={i === items.length - 1 ? 0 : 1}
             borderColor="$borderColor"
           >
-            <Badge tone={toneFor(e.level)}>{e.level}</Badge>
+            <Badge variant={toneFor(e.level)}>{e.level}</Badge>
             <YStack flex={1}>
-              <Text fontFamily="$mono" fontSize="$2">{e.msg}</Text>
+              <Text fontSize="$2">{e.msg}</Text>
               <Text fontSize="$1" color="$placeholderColor">
                 {new Date(e.ts).toLocaleString()}{e.source ? ` · ${e.source}` : ''}
               </Text>
@@ -44,11 +44,11 @@ export function LogsPage() {
   )
 }
 
-function toneFor(level: LogEntry['level']) {
+function toneFor(level: LogEntry['level']): 'destructive' | 'warning' | 'info' | 'muted' {
   switch (level) {
-    case 'error': return 'danger'
+    case 'error': return 'destructive'
     case 'warn': return 'warning'
     case 'info': return 'info'
-    default: return 'neutral'
+    default: return 'muted'
   }
 }

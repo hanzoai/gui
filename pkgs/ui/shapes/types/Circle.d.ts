@@ -1,5 +1,5 @@
 import type { GetProps } from '@hanzogui/web';
-export declare const Circle: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+export declare const Circle: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     size?: number | import("@hanzogui/web").SizeTokens | undefined;
     transparent?: boolean | undefined;

@@ -120,7 +120,7 @@ declare const Accordion: React.ForwardRefExoticComponent<ScopedProps<AccordionSi
         unstyled?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
     Item: React.ForwardRefExoticComponent<AccordionItemProps & React.RefAttributes<(HTMLElement & import("@hanzogui/core").HanzoguiElementMethods) | import("react-native").View>>;
-    HeightAnimator: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {}, {}>;
+    HeightAnimator: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {}, {}>;
 };
 export { Accordion };
 export type { AccordionContentProps, AccordionHeaderProps, AccordionItemProps, AccordionMultipleProps, AccordionSingleProps, AccordionTriggerProps, };

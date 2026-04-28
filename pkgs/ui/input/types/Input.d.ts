@@ -4,7 +4,7 @@ import React from 'react';
  * A web-aligned input component.
  * @see — Docs https://hanzogui.dev/ui/inputs#input
  */
-export declare const Input: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
+export declare const Input: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
     readonly placeholderTextColor?: import("@hanzogui/core").ColorTokens | undefined;
     readonly selectionColor?: import("@hanzogui/core").ColorTokens | undefined;
     readonly cursorColor?: import("@hanzogui/core").ColorTokens | undefined;
@@ -49,7 +49,7 @@ export declare const Input: import("@hanzogui/core").HanzoguiComponent<Omit<impo
         };
     }) => void;
     textContentType?: import("./types").InputTextContentType;
-}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & Omit<React.InputHTMLAttributes<HTMLInputElement>, "color" | "size" | "children" | "style" | "fontFamily" | "fontSize" | "fontStyle" | "fontWeight" | "letterSpacing" | "textAlign" | "textTransform" | "className" | ("autoCapitalize" | "autoCorrect" | "spellCheck")> & {
+}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<React.InputHTMLAttributes<HTMLInputElement>, "color" | "size" | "children" | "style" | "fontFamily" | "fontSize" | "fontStyle" | "fontWeight" | "letterSpacing" | "textAlign" | "textTransform" | "className" | ("autoCapitalize" | "autoCorrect" | "spellCheck")> & {
     color?: "unset" | import("react-native").OpaqueColorValue | import("@hanzogui/core").GetThemeValueForKey<"color"> | undefined;
     fontFamily?: "unset" | import("@hanzogui/core").GetThemeValueForKey<"fontFamily"> | undefined;
     fontSize?: "unset" | import("@hanzogui/core").GetThemeValueForKey<"fontSize"> | undefined;

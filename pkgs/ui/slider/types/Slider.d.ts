@@ -3,14 +3,14 @@ import type { SizableStackProps } from '@hanzogui/stacks';
 import * as React from 'react';
 import type { View } from 'react-native';
 import type { SliderProps, SliderTrackProps } from './types';
-export declare const SliderTrackFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const SliderTrackFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: any;
     fullscreen?: boolean | undefined;
     orientation?: "horizontal" | "vertical" | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-declare const SliderTrack: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "transparent" | "fullscreen" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+declare const SliderTrack: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "transparent" | "fullscreen" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
     size?: import("@hanzogui/core").SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -41,7 +41,7 @@ declare const SliderTrack: React.ForwardRefExoticComponent<Omit<import("@hanzogu
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
 }>> & React.RefAttributes<HanzoguiElement>>;
-export declare const SliderActiveFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const SliderActiveFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: any;
@@ -49,7 +49,7 @@ export declare const SliderActiveFrame: import("@hanzogui/core").HanzoguiCompone
     orientation?: "horizontal" | "vertical" | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 type SliderActiveProps = GetProps<typeof SliderActiveFrame>;
-declare const SliderActive: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+declare const SliderActive: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: any;
@@ -68,7 +68,7 @@ declare const SliderActive: React.ForwardRefExoticComponent<Omit<import("@hanzog
     fullscreen?: boolean | undefined;
     orientation?: "horizontal" | "vertical" | undefined;
 }>> & React.RefAttributes<View>>;
-export declare const SliderThumbFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const SliderThumbFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: number | SizeTokens | undefined;
@@ -84,7 +84,7 @@ export interface SliderThumbExtraProps {
 }
 export interface SliderThumbProps extends SizableStackProps, SliderThumbExtraProps {
 }
-declare const SliderThumb: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const SliderThumb: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: number | SizeTokens | undefined;
@@ -94,7 +94,7 @@ declare const SliderThumb: import("@hanzogui/core").HanzoguiComponent<Omit<impor
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-}>, "index"> & SliderThumbExtraProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & SliderThumbExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, "index"> & SliderThumbExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & SliderThumbExtraProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: number | SizeTokens | undefined;
@@ -108,7 +108,7 @@ declare const SliderThumb: import("@hanzogui/core").HanzoguiComponent<Omit<impor
 declare const Slider: React.ForwardRefExoticComponent<SliderProps & {
     __scopeSlider?: string;
 } & React.RefAttributes<unknown>> & {
-    Track: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "transparent" | "fullscreen" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+    Track: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "transparent" | "fullscreen" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         size?: import("@hanzogui/core").SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -139,7 +139,7 @@ declare const Slider: React.ForwardRefExoticComponent<SliderProps & {
         bordered?: boolean | undefined;
         chromeless?: boolean | "all" | undefined;
     }>> & React.RefAttributes<HanzoguiElement>>;
-    TrackActive: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+    TrackActive: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         size?: any;
@@ -158,7 +158,7 @@ declare const Slider: React.ForwardRefExoticComponent<SliderProps & {
         fullscreen?: boolean | undefined;
         orientation?: "horizontal" | "vertical" | undefined;
     }>> & React.RefAttributes<View>>;
-    Thumb: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Thumb: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         size?: number | SizeTokens | undefined;
@@ -168,7 +168,7 @@ declare const Slider: React.ForwardRefExoticComponent<SliderProps & {
         elevate?: boolean | undefined;
         bordered?: boolean | undefined;
         chromeless?: boolean | "all" | undefined;
-    }>, "index"> & SliderThumbExtraProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & SliderThumbExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>, "index"> & SliderThumbExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & SliderThumbExtraProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         size?: number | SizeTokens | undefined;
@@ -180,7 +180,7 @@ declare const Slider: React.ForwardRefExoticComponent<SliderProps & {
         chromeless?: boolean | "all" | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
 };
-declare const Track: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "transparent" | "fullscreen" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+declare const Track: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "transparent" | "fullscreen" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
     size?: import("@hanzogui/core").SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -211,7 +211,7 @@ declare const Track: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
 }>> & React.RefAttributes<HanzoguiElement>>;
-declare const Range: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+declare const Range: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "size" | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: any;
@@ -230,7 +230,7 @@ declare const Range: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core
     fullscreen?: boolean | undefined;
     orientation?: "horizontal" | "vertical" | undefined;
 }>> & React.RefAttributes<View>>;
-declare const Thumb: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const Thumb: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: number | SizeTokens | undefined;
@@ -240,7 +240,7 @@ declare const Thumb: import("@hanzogui/core").HanzoguiComponent<Omit<import("@ha
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-}>, "index"> & SliderThumbExtraProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & SliderThumbExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, "index"> & SliderThumbExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & SliderThumbExtraProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     size?: number | SizeTokens | undefined;

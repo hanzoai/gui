@@ -97,10 +97,10 @@ export type PopperAnchorExtraProps = {
     scope?: string;
 };
 export type PopperAnchorProps = YStackProps;
-export declare const PopperAnchor: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopperAnchor: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof PopperAnchorExtraProps> & PopperAnchorExtraProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & PopperAnchorExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof PopperAnchorExtraProps> & PopperAnchorExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperAnchorExtraProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
@@ -114,13 +114,13 @@ export type PopperContentProps = SizableStackProps & {
     enableAnimationForPositionChange?: boolean | 'even-when-repositioning';
     passThrough?: boolean;
 };
-export declare const PopperContentFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopperContentFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-export declare const PopperContent: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, "size" | "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "transparent" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+export declare const PopperContent: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "size" | "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "transparent" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
     size?: import("@hanzogui/core").SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -170,12 +170,12 @@ export type PopperArrowExtraProps = {
     animatePosition?: boolean;
 };
 export type PopperArrowProps = YStackProps & PopperArrowExtraProps;
-export declare const PopperArrowFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopperArrowFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-export declare const PopperArrow: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopperArrow: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }>, keyof import("@hanzogui/stacks").StackVariants> & import("@hanzogui/stacks").StackVariants & PopperArrowExtraProps & React.RefAttributes<HanzoguiElement>>;

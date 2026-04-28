@@ -54,9 +54,9 @@ export declare const useDialogContext: (scope?: string) => DialogContextValue, D
     scope?: string;
 }>;
 type DialogTriggerProps = ScopedProps<ViewProps>;
-declare const DialogTrigger: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope"> & {
+declare const DialogTrigger: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope"> & {
     scope?: DialogScopes;
-}, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & {
+}, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & {
     scope?: DialogScopes;
 }, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
 type DialogPortalProps = ScopedProps<YStackProps & {
@@ -66,12 +66,12 @@ type DialogPortalProps = ScopedProps<YStackProps & {
      */
     forceMount?: boolean;
 }>;
-export declare const DialogPortalFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const DialogPortalFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-declare const DialogPortal: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const DialogPortal: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }>, keyof import("@hanzogui/stacks").StackVariants> & import("@hanzogui/stacks").StackVariants & {
@@ -86,7 +86,7 @@ declare const DialogPortal: React.ForwardRefExoticComponent<Omit<import("@hanzog
 /**
  * exported for internal use with extractable()
  */
-export declare const DialogOverlayFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const DialogOverlayFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -100,7 +100,7 @@ export type DialogOverlayExtraProps = ScopedProps<{
     forceMount?: boolean;
 }>;
 type DialogOverlayProps = YStackProps & DialogOverlayExtraProps;
-declare const DialogOverlay: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const DialogOverlay: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -113,7 +113,7 @@ declare const DialogOverlay: import("@hanzogui/core").HanzoguiComponent<Omit<imp
     forceMount?: boolean;
 } & {
     scope?: DialogScopes;
-}, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & {
+}, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & {
     /**
      * Used to force mounting when more control is needed. Useful when
      * controlling animation with React animation libraries.
@@ -127,7 +127,7 @@ declare const DialogOverlay: import("@hanzogui/core").HanzoguiComponent<Omit<imp
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-declare const DialogContentFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const DialogContentFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -141,7 +141,7 @@ declare const DialogContentFrame: import("@hanzogui/core").HanzoguiComponent<imp
 type DialogContentFrameProps = GetProps<typeof DialogContentFrame>;
 type DialogContentExtraProps = ScopedProps<Omit<DialogContentTypeProps, 'context' | 'onPointerDownCapture'>>;
 type DialogContentProps = DialogContentFrameProps & DialogContentExtraProps;
-declare const DialogContent: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const DialogContent: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -163,7 +163,7 @@ declare const DialogContent: import("@hanzogui/core").HanzoguiComponent<Omit<imp
     chromeless?: boolean | "all" | undefined;
 } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> | "trapFocus" | "onOpenAutoFocus" | "onCloseAutoFocus"> & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
     scope?: DialogScopes;
-}, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
+}, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
     scope?: DialogScopes;
 }, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
@@ -233,16 +233,16 @@ declare const DialogDescription: import("@hanzogui/core").HanzoguiComponent<Omit
     unstyled?: boolean | undefined;
     size?: import("@hanzogui/core").FontSizeTokens | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-declare const DialogCloseFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
+declare const DialogCloseFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
 export type DialogCloseExtraProps = ScopedProps<{
     displayWhenAdapted?: boolean;
 }>;
 type DialogCloseProps = GetProps<typeof DialogCloseFrame> & DialogCloseExtraProps;
-declare const DialogClose: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope" | "displayWhenAdapted"> & {
+declare const DialogClose: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope" | "displayWhenAdapted"> & {
     displayWhenAdapted?: boolean;
 } & {
     scope?: DialogScopes;
-}, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & {
+}, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & {
     displayWhenAdapted?: boolean;
 } & {
     scope?: DialogScopes;
@@ -284,12 +284,12 @@ declare const Dialog: React.ForwardRefExoticComponent<{
 } & React.RefAttributes<{
     open: (val: boolean) => void;
 }>> & {
-    Trigger: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope"> & {
+    Trigger: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope"> & {
         scope?: DialogScopes;
-    }, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & {
+    }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & {
         scope?: DialogScopes;
     }, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
-    Portal: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Portal: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }>, keyof import("@hanzogui/stacks").StackVariants> & import("@hanzogui/stacks").StackVariants & {
@@ -301,7 +301,7 @@ declare const Dialog: React.ForwardRefExoticComponent<{
     } & {
         scope?: DialogScopes;
     } & React.RefAttributes<HanzoguiElement>>;
-    Overlay: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Overlay: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         open?: boolean | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -314,7 +314,7 @@ declare const Dialog: React.ForwardRefExoticComponent<{
         forceMount?: boolean;
     } & {
         scope?: DialogScopes;
-    }, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & {
+    }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & {
         /**
          * Used to force mounting when more control is needed. Useful when
          * controlling animation with React animation libraries.
@@ -328,7 +328,7 @@ declare const Dialog: React.ForwardRefExoticComponent<{
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Content: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Content: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -350,7 +350,7 @@ declare const Dialog: React.ForwardRefExoticComponent<{
         chromeless?: boolean | "all" | undefined;
     } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> | "trapFocus" | "onOpenAutoFocus" | "onCloseAutoFocus"> & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
         scope?: DialogScopes;
-    }, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
+    }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
         scope?: DialogScopes;
     }, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
@@ -385,11 +385,11 @@ declare const Dialog: React.ForwardRefExoticComponent<{
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/core").FontSizeTokens | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Close: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope" | "displayWhenAdapted"> & {
+    Close: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope" | "displayWhenAdapted"> & {
         displayWhenAdapted?: boolean;
     } & {
         scope?: DialogScopes;
-    }, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & {
+    }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & {
         displayWhenAdapted?: boolean;
     } & {
         scope?: DialogScopes;

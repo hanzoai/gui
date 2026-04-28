@@ -2,8 +2,8 @@ export * from './createCheckbox';
 export * from './Checkbox';
 export * from './CheckboxStyledContext';
 export type { CheckedState } from '@hanzogui/checkbox-headless';
-export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -26,8 +26,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
     size?: import("@hanzogui/web").SizeTokens;
     unstyled?: boolean;
 } & {
-    activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -47,8 +47,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
         };
     }>>;
     activeTheme?: string | null;
-} & import("react").RefAttributes<import("@hanzogui/web").HanzoguiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+} & import("react").RefAttributes<import("@hanzogui/web").HanzoguiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -71,8 +71,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
     size?: import("@hanzogui/web").SizeTokens;
     unstyled?: boolean;
 } & {
-    activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -92,7 +92,7 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
         };
     }>>;
     activeTheme?: string | null;
-}, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>> & import("@hanzogui/checkbox-headless").CheckboxExtraProps & {
+}, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>> & import("@hanzogui/checkbox-headless").CheckboxExtraProps & {
     scaleIcon?: number;
     scaleSize?: number;
     sizeAdjust?: number;
@@ -101,8 +101,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
     size?: import("@hanzogui/web").SizeTokens;
     unstyled?: boolean;
 } & {
-    activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -123,7 +123,7 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
     }>>;
     activeTheme?: string | null;
 }, import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -146,8 +146,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
         readonly activeStyle: "style";
     };
 }, "staticConfig" | "styleable"> & {
-    __tama: [Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    __tama: [Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -170,8 +170,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
         size?: import("@hanzogui/web").SizeTokens;
         unstyled?: boolean;
     } & {
-        activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-            readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+            readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
                 elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
                 fullscreen?: boolean | undefined;
             }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -191,7 +191,7 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
             };
         }>>;
         activeTheme?: string | null;
-    }, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>> & import("@hanzogui/checkbox-headless").CheckboxExtraProps & {
+    }, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>> & import("@hanzogui/checkbox-headless").CheckboxExtraProps & {
         scaleIcon?: number;
         scaleSize?: number;
         sizeAdjust?: number;
@@ -200,8 +200,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
         size?: import("@hanzogui/web").SizeTokens;
         unstyled?: boolean;
     } & {
-        activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-            readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+            readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
                 elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
                 fullscreen?: boolean | undefined;
             }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -222,7 +222,7 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
         }>>;
         activeTheme?: string | null;
     }, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -242,8 +242,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
         };
     }];
 } & {
-    Indicator: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Indicator: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -262,8 +262,8 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
         forceMount?: boolean;
         disablePassStyles?: boolean;
     } & {
-        activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-            readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+            readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
                 elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
                 fullscreen?: boolean | undefined;
             }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -280,12 +280,12 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
                 readonly activeStyle: "style";
             };
         }>>;
-    }, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>> & {
+    }, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>> & {
         forceMount?: boolean;
         disablePassStyles?: boolean;
     } & {
-        activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-            readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        activeStyle?: import("@hanzogui/web").GetProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+            readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
                 elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
                 fullscreen?: boolean | undefined;
             }, import("@hanzogui/web").StaticConfigPublic>, {
@@ -303,7 +303,7 @@ export declare const Checkbox: import("react").ForwardRefExoticComponent<Omit<im
             };
         }>>;
     }, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>, {

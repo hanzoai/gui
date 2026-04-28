@@ -91,7 +91,7 @@ export interface ToastRootProps {
      */
     icons?: ToastIcons;
 }
-declare const ToastViewportFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ToastViewportFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 export interface ToastViewportProps extends GetProps<typeof ToastViewportFrame> {
@@ -152,17 +152,17 @@ export declare function useToasts(): {
 };
 export declare function useToastItem(): ToastItemContextValue;
 export declare const Toast: React.ForwardRefExoticComponent<ToastRootProps & React.RefAttributes<HanzoguiElement>> & {
-    Viewport: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Viewport: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }>, keyof ToastViewportProps> & ToastViewportProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & ToastViewportProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof ToastViewportProps> & ToastViewportProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastViewportProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
     List: typeof ToastList;
-    Item: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Item: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof ToastItemProps> & ToastItemProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & ToastItemProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof ToastItemProps> & ToastItemProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastItemProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -175,20 +175,20 @@ export declare const Toast: React.ForwardRefExoticComponent<ToastRootProps & Rea
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/core").FontSizeTokens | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Close: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Close: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Action: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Action: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;

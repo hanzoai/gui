@@ -155,12 +155,12 @@ export interface PopoverContentTypeProps extends Omit<PopoverContentImplProps, '
     enableAnimationForPositionChange?: boolean;
 }
 export type PopoverContentProps = PopoverContentTypeProps;
-export declare const PopoverContent: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopoverContent: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
@@ -206,11 +206,11 @@ export declare const PopoverClose: React.ForwardRefExoticComponent<Omit<YStackPr
     scope?: PopoverScopes;
 } & React.RefAttributes<HanzoguiElement>>;
 export type PopoverArrowProps = PopperArrowProps;
-export declare const PopoverArrow: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopoverArrow: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -272,11 +272,11 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
     Anchor: React.NamedExoticComponent<Omit<YStackProps, "scope"> & {
         scope?: PopoverScopes;
     } & React.RefAttributes<HanzoguiElement>>;
-    Arrow: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Arrow: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -291,12 +291,12 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
     }, "scope"> & {
         scope?: PopoverScopes;
     } & React.RefAttributes<HanzoguiElement>>;
-    Content: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Content: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;

@@ -49,6 +49,54 @@
         "vite": "^8.0.3",
       },
     },
+    "apps/admin-bot": {
+      "name": "@hanzo/bot-admin",
+      "version": "0.1.0",
+      "dependencies": {
+        "@hanzogui/admin": "workspace:*",
+        "@hanzogui/config": "workspace:*",
+        "@hanzogui/lucide-icons-2": "workspace:*",
+        "hanzogui": "workspace:*",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-native-web": "^0.21.0",
+        "react-router-dom": "^7.0.2",
+      },
+      "devDependencies": {
+        "@hanzogui/vite-plugin": "workspace:*",
+        "@types/react": "^19.1.10",
+        "@types/react-dom": "^19.1.7",
+        "@vitejs/plugin-react": "^5.0.0",
+        "rollup-plugin-visualizer": "^7.0.1",
+        "typescript": "^5.7.2",
+        "vite": "^8.0.3",
+        "vite-tsconfig-paths": "^5.1.4",
+      },
+    },
+    "apps/admin-commerce": {
+      "name": "@hanzo/commerce-admin",
+      "version": "1.38.0",
+      "dependencies": {
+        "@hanzogui/admin": "workspace:*",
+        "@hanzogui/config": "workspace:*",
+        "@hanzogui/lucide-icons-2": "workspace:*",
+        "hanzogui": "workspace:*",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-native-web": "^0.21.0",
+        "react-router-dom": "^7.0.2",
+      },
+      "devDependencies": {
+        "@hanzogui/vite-plugin": "workspace:*",
+        "@types/react": "^19.1.10",
+        "@types/react-dom": "^19.1.7",
+        "@vitejs/plugin-react": "^5.0.0",
+        "rollup-plugin-visualizer": "^7.0.1",
+        "typescript": "^5.7.2",
+        "vite": "^8.0.3",
+        "vite-tsconfig-paths": "^5.1.4",
+      },
+    },
     "apps/admin-tasks": {
       "name": "@hanzo/tasks",
       "version": "2.49.0",
@@ -4126,6 +4174,10 @@
     "@grpc/proto-loader": ["@grpc/proto-loader@0.8.0", "", { "dependencies": { "lodash.camelcase": "^4.3.0", "long": "^5.0.0", "protobufjs": "^7.5.3", "yargs": "^17.7.2" }, "bin": { "proto-loader-gen-types": "build/bin/proto-loader-gen-types.js" } }, "sha512-rc1hOQtjIWGxcxpb9aHAfLpIctjEnsDehj0DAiVfBlmT84uvR0uUtN2hEi/ecvWVjXUGf5qPF4qEgiLOx1YIMQ=="],
 
     "@hanzo/base-ui": ["@hanzo/base-ui@workspace:apps/admin-base"],
+
+    "@hanzo/bot-admin": ["@hanzo/bot-admin@workspace:apps/admin-bot"],
+
+    "@hanzo/commerce-admin": ["@hanzo/commerce-admin@workspace:apps/admin-commerce"],
 
     "@hanzo/tasks": ["@hanzo/tasks@workspace:apps/admin-tasks"],
 

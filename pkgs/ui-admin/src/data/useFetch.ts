@@ -25,7 +25,15 @@ export interface FetchOptions {
 }
 
 const defaultFetcher = async (url: string) => {
-  const res = await fetch(url, { headers: { Accept: 'application/json' } })
+  // `credentials: 'same-origin'` is the spec default for fetch in
+  // modern browsers, but some bundlers (Vite SSR shims, jest-fetch-mock)
+  // and corporate proxies invert it to 'omit'. Pinning it explicitly
+  // means session and CSRF cookies always accompany the request and
+  // are never silently dropped at integration boundaries.
+  const res = await fetch(url, {
+    headers: { Accept: 'application/json' },
+    credentials: 'same-origin',
+  })
   const contentType = res.headers.get('content-type') || ''
   const body: unknown = contentType.includes('application/json')
     ? await res.json().catch(() => null)

@@ -244,7 +244,7 @@ export function AppEdit() {
           <TextArea
             value={draft.description ?? ''}
             onChangeText={(v) => set('description', v)}
-            minHeight={80}
+            height={80}
           />
         </YStack>
       </YStack>

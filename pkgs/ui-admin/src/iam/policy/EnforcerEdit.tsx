@@ -116,8 +116,8 @@ export function EnforcerEdit({
         <YStack
           rounded="$2"
           borderWidth={1}
-          borderColor={'#7f1d1d' as never}
-          bg={'rgba(239,68,68,0.10)' as never}
+          borderColor="#7f1d1d"
+          bg="rgba(239,68,68,0.10)"
           p="$3"
         >
           <Text fontSize="$2" color="#fca5a5">
@@ -127,12 +127,12 @@ export function EnforcerEdit({
       ) : null}
 
       <Field label="Organization">
-        <Input value={draft.owner} editable={false} />
+        <Input value={draft.owner} disabled />
       </Field>
       <Field label="Name">
         <Input
           value={draft.name}
-          editable={!isBuiltIn}
+          disabled={isBuiltIn}
           onChangeText={(v: string) => update('name', v)}
         />
       </Field>
@@ -172,7 +172,7 @@ export function EnforcerEdit({
           borderWidth={1}
           borderColor="$borderColor"
           p="$3"
-          bg={'rgba(0,0,0,0.15)' as never}
+          bg="rgba(0,0,0,0.15)"
         >
           <Text fontSize="$2" color="$placeholderColor">
             Edit policies via the linked Adapter. Inline editing is not enabled

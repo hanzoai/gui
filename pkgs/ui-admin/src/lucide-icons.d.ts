@@ -53,3 +53,11 @@ declare module '@hanzogui/lucide-icons-2/icons/X'  { export const X: any }
 declare module '@hanzogui/lucide-icons-2/icons/Save'  { export const Save: any }
 declare module '@hanzogui/lucide-icons-2/icons/FolderTree'  { export const FolderTree: any }
 declare module '@hanzogui/lucide-icons-2/icons/UserRoundCheck'  { export const UserRoundCheck: any }
+declare module '@hanzogui/lucide-icons-2/icons/AlertTriangle'  { export const AlertTriangle: any }
+declare module '@hanzogui/lucide-icons-2/icons/CheckCircle2'  { export const CheckCircle2: any }
+declare module '@hanzogui/lucide-icons-2/icons/CircleX'  { export const CircleX: any }
+declare module '@hanzogui/lucide-icons-2/icons/Power'  { export const Power: any }
+declare module '@hanzogui/lucide-icons-2/icons/RotateCcw'  { export const RotateCcw: any }
+declare module '@hanzogui/lucide-icons-2/icons/HelpCircle'  { export const HelpCircle: any }
+declare module '@hanzogui/lucide-icons-2/icons/ArrowDown'  { export const ArrowDown: any }
+declare module '@hanzogui/lucide-icons-2/icons/ArrowUp'  { export const ArrowUp: any }

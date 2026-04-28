@@ -336,20 +336,11 @@ export function ImpersonateDialog({
       }}
     >
       <Dialog.Portal>
-        <Dialog.Overlay
-          key="overlay"
-          animation="quick"
-          opacity={0.6}
-          enterStyle={{ opacity: 0 }}
-          exitStyle={{ opacity: 0 }}
-        />
+        <Dialog.Overlay key="overlay" opacity={0.6} />
         <Dialog.Content
           bordered
           elevate
           key="content"
-          animation="quick"
-          enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.96 }}
-          exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.96 }}
           gap="$3"
           width={520}
         >

@@ -142,8 +142,8 @@ export function PermissionEdit({
         <YStack
           rounded="$2"
           borderWidth={1}
-          borderColor={'#7f1d1d' as never}
-          bg={'rgba(239,68,68,0.10)' as never}
+          borderColor="#7f1d1d"
+          bg="rgba(239,68,68,0.10)"
           p="$3"
         >
           <Text fontSize="$2" color="#fca5a5">
@@ -155,7 +155,7 @@ export function PermissionEdit({
       <Field label="Organization">
         <Input
           value={draft.owner}
-          editable={isAdmin}
+          disabled={!isAdmin}
           onChangeText={(v: string) => update('owner', v)}
         />
       </Field>
@@ -256,7 +256,7 @@ export function PermissionEdit({
                     update('actions', Array.from(next))
                   }}
                 >
-                  <Switch.Thumb animation="quick" />
+                  <Switch.Thumb />
                 </Switch>
                 <Text fontSize="$2" color="$color">
                   {opt}
@@ -287,18 +287,18 @@ export function PermissionEdit({
           checked={draft.isEnabled}
           onCheckedChange={(v: boolean) => update('isEnabled', v)}
         >
-          <Switch.Thumb animation="quick" />
+          <Switch.Thumb />
         </Switch>
       </Field>
 
       <Field label="Submitter">
-        <Input value={draft.submitter} editable={false} />
+        <Input value={draft.submitter} disabled />
       </Field>
       <Field label="Approver">
-        <Input value={draft.approver} editable={false} />
+        <Input value={draft.approver} disabled />
       </Field>
       <Field label="Approve time">
-        <Input value={draft.approveTime} editable={false} />
+        <Input value={draft.approveTime} disabled />
       </Field>
       <Field label="State">
         <XStack gap="$2">

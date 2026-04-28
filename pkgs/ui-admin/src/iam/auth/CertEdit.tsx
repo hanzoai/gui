@@ -252,7 +252,7 @@ export function CertEdit() {
         <TextArea
           value={draft.certificate ?? ''}
           onChangeText={(v) => set('certificate', v)}
-          minHeight={240}
+          height={240}
           fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
           fontSize="$2"
           placeholder="-----BEGIN CERTIFICATE-----"

@@ -126,7 +126,7 @@ export function WebhookList({ organizationName = '', onOpenWebhook, onAdded }: W
               {w.isEnabled ? 'ON' : 'OFF'}
             </Text>,
             <Text key="c" fontSize="$1" color="$placeholderColor">
-              {formatTimestamp(w.createdTime)}
+              {formatTimestamp(new Date(w.createdTime))}
             </Text>,
             <XStack key="a" gap="$1.5">
               <Button size="$2" variant="outlined" onPress={() => onOpenWebhook?.(w)}>

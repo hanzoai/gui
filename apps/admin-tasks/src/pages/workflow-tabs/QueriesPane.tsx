@@ -1,15 +1,20 @@
-// Queries pane — interactive query runner. The user types a queryType
-// (e.g. "currentState"), optional JSON args, and POSTs to the same
-// /query endpoint the call-stack tab uses. The engine returns 501 for
-// every queryType except __stack_trace today; we surface that 501 as
-// the same "worker SDK runtime not yet shipped" hint instead of a
-// generic error wall.
+// Queries pane — interactive query runner. The user picks (or types) a
+// queryType, supplies optional JSON args, and POSTs to the worker via
+// /v1/tasks/.../query. Args are encoded as a Payload{encoding:'json/plain'}
+// matching the worker SDK's dataConverter contract.
+//
+// The native engine returns 501 for any queryType other than __stack_trace
+// today; we surface that 501 as the same "worker SDK runtime not yet
+// shipped" hint instead of a generic error wall.
 
 import { useState } from 'react'
 import { Button, Card, Input, Spinner, Text, TextArea, XStack, YStack } from 'hanzogui'
 import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
 import { Alert } from '@hanzogui/admin'
-import { ApiError, apiPost } from '../../lib/api'
+import { ApiError, Workflows } from '../../lib/api'
+import { encodeJsonPayload } from '../../components/workflow-actions/ActionDialog'
+
+const SUGGESTED_QUERIES = ['currentState', '__stack_trace', '__enhanced_stack_trace']
 
 export function QueriesPane({
   ns,
@@ -32,7 +37,7 @@ export function QueriesPane({
     setLoading(true)
     setErr(null)
     setResult(null)
-    let parsedArgs: unknown = null
+    let parsedArgs: unknown
     if (args.trim()) {
       try {
         parsedArgs = JSON.parse(args)
@@ -46,12 +51,8 @@ export function QueriesPane({
       }
     }
     try {
-      const resp = await apiPost<unknown>(
-        `/v1/tasks/namespaces/${encodeURIComponent(ns)}/workflows/${encodeURIComponent(workflowId)}/query?runId=${encodeURIComponent(runId)}`,
-        parsedArgs === null
-          ? { queryType }
-          : { queryType, args: parsedArgs },
-      )
+      const encoded = encodeJsonPayload(parsedArgs)
+      const resp = await Workflows.query(ns, workflowId, runId, queryType, encoded ?? undefined)
       setResult(resp)
     } catch (e) {
       if (e instanceof ApiError) {
@@ -87,6 +88,21 @@ export function QueriesPane({
               onChangeText={setQueryType}
               placeholder="currentState"
             />
+            <XStack gap="$1.5" flexWrap="wrap">
+              {SUGGESTED_QUERIES.map((s) => (
+                <Button
+                  key={s}
+                  size="$1"
+                  chromeless
+                  onPress={() => setQueryType(s)}
+                  disabled={loading}
+                >
+                  <Text fontSize="$1" color="$placeholderColor">
+                    {s}
+                  </Text>
+                </Button>
+              ))}
+            </XStack>
           </YStack>
           <YStack gap="$1">
             <Text fontSize="$1" color="$placeholderColor">

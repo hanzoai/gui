@@ -1,49 +1,65 @@
-// Workflow history — synthetic event timeline. Native engine doesn't
-// yet emit per-event durable history, so the server returns start +
-// signal counter + (if closed) terminal transition. We label the
-// response as synthetic so this page can show the right hint.
+// Workflow history — top-level page hosting four views over the same
+// event payload: tree (default), feed, compact, json. View is keyed
+// on the trailing URL segment so the view is shareable.
+//
+// Above the body: horizontal timeline strip + view tabs. The page
+// fetches once and feeds the same events array into whichever view
+// is active.
 
-import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { useMemo } from 'react'
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import {
   Card,
   H1,
-  H4,
   Text,
   XStack,
   YStack,
 } from 'hanzogui'
 import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
-import { Circle } from '@hanzogui/lucide-icons-2/icons/Circle'
 import {
   Alert,
-  Badge,
-  Empty,
   ErrorState,
   LoadingState,
-  formatTimestamp,
   useFetch,
 } from '@hanzogui/admin'
+import { Workflows } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
-
-interface HistoryEvent {
-  eventId: string
-  eventType: string
-  eventTime?: string
-  attributes?: Record<string, unknown>
-}
+import { HistoryCompact } from '../components/workflow/HistoryCompact'
+import { HistoryFeed } from '../components/workflow/HistoryFeed'
+import { HistoryJson } from '../components/workflow/HistoryJson'
+import { HistoryTimeline } from '../components/workflow/HistoryTimeline'
+import { HistoryTree } from '../components/workflow/HistoryTree'
+import type { HistoryEvent } from '../lib/types'
 
 interface HistoryResp {
   events?: HistoryEvent[]
   synthetic?: boolean
 }
 
+type View = 'tree' | 'feed' | 'compact' | 'json'
+
+const VIEWS: ReadonlyArray<{ value: View; label: string }> = [
+  { value: 'tree', label: 'Tree' },
+  { value: 'feed', label: 'Feed' },
+  { value: 'compact', label: 'Compact' },
+  { value: 'json', label: 'JSON' },
+]
+
+function detectView(pathname: string): View {
+  const seg = pathname.split('/').pop() ?? ''
+  if (seg === 'feed' || seg === 'compact' || seg === 'json') return seg
+  return 'tree'
+}
+
 export function WorkflowHistoryPage() {
-  const { ns, workflowId } = useParams()
+  const { ns, workflowId, runId: runIdParam } = useParams()
   const [sp] = useSearchParams()
-  const runId = sp.get('runId') ?? ''
+  const location = useLocation()
   const namespace = ns!
-  const qs = runId ? `?runId=${encodeURIComponent(runId)}` : ''
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(workflowId!)}/history${qs}`
+  const runId = runIdParam ?? sp.get('runId') ?? ''
+  const view = detectView(location.pathname)
+
+  const url = Workflows.historyUrl(namespace, workflowId!, runId || undefined)
   const { data, error, isLoading, mutate } = useFetch<HistoryResp>(url)
 
   useTaskEvents(namespace, () => void mutate(), [
@@ -52,17 +68,18 @@ export function WorkflowHistoryPage() {
     'workflow.signaled',
   ])
 
+  const events = useMemo(() => data?.events ?? [], [data])
+
   if (error) return <ErrorState error={error as Error} />
   if (isLoading || !data) return <LoadingState />
 
-  const events = data.events ?? []
+  const qs = runId ? `?runId=${encodeURIComponent(runId)}` : ''
+  const detailHref = `/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(workflowId!)}${qs}`
+  const baseHistoryHref = `/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(workflowId!)}${runIdParam ? `/${encodeURIComponent(runIdParam)}` : ''}/history`
 
   return (
     <YStack gap="$5">
-      <Link
-        to={`/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(workflowId!)}${qs}`}
-        style={{ textDecoration: 'none', color: 'inherit' }}
-      >
+      <Link to={detailHref} style={{ textDecoration: 'none', color: 'inherit' }}>
         <XStack items="center" gap="$1.5" hoverStyle={{ opacity: 0.8 }}>
           <ChevronLeft size={14} color="#7e8794" />
           <Text fontSize="$2" color="$placeholderColor">
@@ -78,76 +95,59 @@ export function WorkflowHistoryPage() {
         <H1 size="$7" color="$color" fontWeight="600">
           {workflowId}
         </H1>
-        {runId && (
-          <Text fontFamily={'ui-monospace, SFMono-Regular, monospace' as never} fontSize="$2" color="$placeholderColor">
+        {runId ? (
+          <Text
+            fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
+            fontSize="$2"
+            color="$placeholderColor"
+          >
             {runId}
           </Text>
-        )}
+        ) : null}
       </YStack>
 
       {data.synthetic ? (
         <Alert title="Synthetic timeline">
-          Native engine event history coming in v1.42. Today this view derives
-          events from the workflow record (start, signal count, terminal
-          transition) — no events are fabricated.
+          Native engine event history coming soon. This view derives events
+          from the workflow record (start, signal count, terminal transition)
+          — no events are fabricated.
         </Alert>
       ) : null}
 
-      {events.length === 0 ? (
-        <Empty title="No events yet" hint="Events will appear once the workflow runs." />
+      <Card p="$3" bg="$background" borderColor="$borderColor" borderWidth={1}>
+        <HistoryTimeline ns={namespace} workflowId={workflowId!} runId={runId} events={events} />
+      </Card>
+
+      <XStack gap="$2" borderBottomWidth={1} borderBottomColor="$borderColor" pb="$1">
+        {VIEWS.map((v) => {
+          const path = v.value === 'tree' ? baseHistoryHref : `${baseHistoryHref}/${v.value}`
+          const active = v.value === view
+          return (
+            <Link
+              key={v.value}
+              to={`${path}${qs}`}
+              style={{
+                textDecoration: 'none',
+                padding: '6px 12px',
+                borderBottom: active ? '2px solid #86efac' : '2px solid transparent',
+              }}
+            >
+              <Text fontSize="$2" color={active ? '$color' : '$placeholderColor'}>
+                {v.label}
+              </Text>
+            </Link>
+          )
+        })}
+      </XStack>
+
+      {view === 'tree' ? (
+        <HistoryTree ns={namespace} workflowId={workflowId!} runId={runId} events={events} />
+      ) : view === 'feed' ? (
+        <HistoryFeed ns={namespace} workflowId={workflowId!} runId={runId} events={events} />
+      ) : view === 'compact' ? (
+        <HistoryCompact ns={namespace} workflowId={workflowId!} runId={runId} events={events} />
       ) : (
-        <YStack gap="$3" pl="$4" borderLeftWidth={1} borderLeftColor="$borderColor">
-          {events.map((ev) => (
-            <YStack key={ev.eventId} position="relative">
-              <YStack
-                position="absolute"
-                l={-29}
-                t={14}
-                width={12}
-                height={12}
-                rounded={9999}
-                bg="$background"
-                items="center"
-                justify="center"
-              >
-                <Circle size={10} color="#f2f2f2" fill="#f2f2f2" />
-              </YStack>
-              <Card p="$4" bg="$background" borderColor="$borderColor" borderWidth={1}>
-                <YStack gap="$2">
-                  <XStack items="center" justify="space-between" gap="$3">
-                    <XStack items="center" gap="$2">
-                      <Badge variant="muted">#{ev.eventId}</Badge>
-                      <Link
-                        to={`/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(workflowId!)}/events/${encodeURIComponent(ev.eventId)}${qs}`}
-                        style={{ textDecoration: 'none' }}
-                      >
-                        <H4 fontSize="$3" fontWeight="500" color={'#86efac' as never}>
-                          {ev.eventType}
-                        </H4>
-                      </Link>
-                    </XStack>
-                    <Text fontSize="$1" color="$placeholderColor">
-                      {ev.eventTime ? formatTimestamp(new Date(ev.eventTime)) : '—'}
-                    </Text>
-                  </XStack>
-                  {ev.attributes && Object.keys(ev.attributes).length > 0 && (
-                    <YStack
-                      bg={'rgba(255,255,255,0.02)' as never}
-                      p="$2"
-                      rounded="$2"
-                      borderWidth={1}
-                      borderColor="$borderColor"
-                    >
-                      <Text fontFamily={'ui-monospace, SFMono-Regular, monospace' as never} fontSize="$1" color="$placeholderColor">
-                        {JSON.stringify(ev.attributes, null, 2)}
-                      </Text>
-                    </YStack>
-                  )}
-                </YStack>
-              </Card>
-            </YStack>
-          ))}
-        </YStack>
+        <HistoryJson events={events} />
       )}
     </YStack>
   )

@@ -22,6 +22,8 @@ import { Alert, Badge, ErrorState, LoadingState, useFetch } from '@hanzogui/admi
 import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
 import type { WorkflowExecution } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
+import { WorkflowActionMenu } from '../components/workflow/WorkflowActionMenu'
+import { WorkflowStatusPill } from '../components/workflow/WorkflowStatusPill'
 import { HistoryStrip } from './workflow-tabs/HistoryStrip'
 import { JsonPane } from './workflow-tabs/JsonPane'
 import { NexusLinksPane } from './workflow-tabs/NexusLinksPane'
@@ -139,9 +141,12 @@ export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = 
 
       <XStack items="flex-start" justify="space-between" gap="$3">
         <YStack gap="$1" flex={1}>
-          <H1 size="$7" color="$color" fontWeight="600">
-            {wf.execution.workflowId}
-          </H1>
+          <XStack items="center" gap="$3" flexWrap="wrap">
+            <H1 size="$7" color="$color" fontWeight="600">
+              {wf.execution.workflowId}
+            </H1>
+            <WorkflowStatusPill status={String(wf.status)} />
+          </XStack>
           <Text
             fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
             fontSize="$2"
@@ -150,14 +155,23 @@ export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = 
             {wf.execution.runId}
           </Text>
         </YStack>
-        <Link to={`${baseHref}/history${runQs}`} style={{ textDecoration: 'none' }}>
-          <Button size="$2" borderWidth={1} borderColor="$borderColor">
-            <XStack items="center" gap="$1.5">
-              <History size={14} />
-              <Text fontSize="$2">Full history</Text>
-            </XStack>
-          </Button>
-        </Link>
+        <XStack gap="$2" items="center">
+          <WorkflowActionMenu
+            ns={namespace}
+            workflowId={wf.execution.workflowId}
+            runId={wf.execution.runId}
+            status={String(wf.status)}
+            onChanged={() => void mutate()}
+          />
+          <Link to={`${baseHref}/history${runQs}`} style={{ textDecoration: 'none' }}>
+            <Button size="$2" borderWidth={1} borderColor="$borderColor">
+              <XStack items="center" gap="$1.5">
+                <History size={14} />
+                <Text fontSize="$2">Full history</Text>
+              </XStack>
+            </Button>
+          </Link>
+        </XStack>
       </XStack>
 
       <HistoryStrip

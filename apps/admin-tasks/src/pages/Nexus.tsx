@@ -1,20 +1,47 @@
-// Nexus — list of cross-namespace operation bridges.
+// Nexus — list of cross-namespace operation bridges. Cursor-paginated
+// against /v1/tasks/(namespaces/:ns/)?nexus. The page is the same
+// component for both top-level and namespace-scoped routes; ns?: from
+// useParams discriminates.
 
-import { useParams } from 'react-router-dom'
-import { Card, H2, Text, XStack, YStack } from 'hanzogui'
-import { Network } from '@hanzogui/lucide-icons-2/icons/Network'
-import { Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
-import type { NexusEndpoint } from '../lib/api'
+import { useCallback } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { Button, H2, Text, XStack, YStack } from 'hanzogui'
+import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
+import { Empty, ErrorState, LoadingState } from '@hanzogui/admin'
+import type { ListNexusEndpointsResponse, NexusEndpoint } from '../lib/api'
+import { Nexus } from '../lib/api'
+import { useCursorPager, type PageResult } from '../stores/pagination-cursor'
+import { NexusEndpointCard } from '../components/nexus/NexusEndpointCard'
 
 export function NexusPage() {
   const { ns } = useParams()
-  const namespace = ns!
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/nexus`
-  const { data, error, isLoading } = useFetch<{ endpoints: NexusEndpoint[] }>(url)
+  const namespace = ns
+  const baseUrl = Nexus.listUrl(namespace)
+  const createHref = namespace
+    ? `/namespaces/${encodeURIComponent(namespace)}/nexus/create`
+    : '/nexus/create'
 
-  if (error) return <ErrorState error={error as Error} />
-  if (isLoading) return <LoadingState />
-  const rows = data?.endpoints ?? []
+  const fetchPage = useCallback(
+    async (token: string | null): Promise<PageResult<NexusEndpoint>> => {
+      const url = token ? `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}nextPageToken=${encodeURIComponent(token)}` : baseUrl
+      const res = await fetch(url, { credentials: 'same-origin' })
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+      const body = (await res.json()) as ListNexusEndpointsResponse
+      return { items: body.endpoints ?? [], nextPageToken: body.nextPageToken ?? null }
+    },
+    [baseUrl],
+  )
+
+  const { items, loading, error, hasMore, loadMore } = useCursorPager<NexusEndpoint>(fetchPage, [baseUrl])
+
+  if (error && items.length === 0) return <ErrorState error={error} />
+  if (loading && items.length === 0) return <LoadingState />
+
+  function detailHref(e: NexusEndpoint): string {
+    const id = e.asyncOperationId || e.name
+    if (namespace) return `/namespaces/${encodeURIComponent(namespace)}/nexus/${encodeURIComponent(id)}`
+    return `/nexus/${encodeURIComponent(id)}`
+  }
 
   return (
     <YStack gap="$4">
@@ -22,45 +49,40 @@ export function NexusPage() {
         <H2 size="$7" color="$color">
           Nexus{' '}
           <Text fontSize="$3" color="$placeholderColor" fontWeight="400">
-            ({rows.length})
+            ({items.length}
+            {hasMore ? '+' : ''})
           </Text>
         </H2>
+        <Link to={createHref} style={{ textDecoration: 'none' }}>
+          <Button size="$2" bg={'#f2f2f2' as never}>
+            <XStack items="center" gap="$1.5">
+              <Plus size={14} color="#070b13" />
+              <Text fontSize="$2" color={'#070b13' as never} fontWeight="500">
+                Create endpoint
+              </Text>
+            </XStack>
+          </Button>
+        </Link>
       </XStack>
 
-      {rows.length === 0 ? (
+      {items.length === 0 ? (
         <Empty
-          title={`No Nexus endpoints in ${namespace}`}
+          title={namespace ? `No Nexus endpoints in ${namespace}` : 'No Nexus endpoints'}
           hint="Cross-namespace operation bridges. A workflow in this namespace calls a handler in another."
         />
       ) : (
-        <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
-          {rows.map((e, i) => (
-            <XStack
-              key={e.name}
-              items="center"
-              gap="$3"
-              px="$5"
-              py="$3.5"
-              borderTopWidth={i === 0 ? 0 : 1}
-              borderTopColor="$borderColor"
-            >
-              <Network size={16} color="#7e8794" />
-              <YStack flex={1} minW={0}>
-                <Text fontSize="$3" fontWeight="500" color="$color">
-                  {e.name}
-                </Text>
-                {e.description ? (
-                  <Text fontSize="$1" color="$placeholderColor" numberOfLines={1}>
-                    {e.description}
-                  </Text>
-                ) : null}
-              </YStack>
-              <Text fontFamily={'ui-monospace, SFMono-Regular, monospace' as never} fontSize="$1" color="$placeholderColor">
-                {e.target}
-              </Text>
-            </XStack>
+        <YStack gap="$2">
+          {items.map((e) => (
+            <NexusEndpointCard key={`${e.namespace}/${e.name}`} endpoint={e} detailHref={detailHref(e)} />
           ))}
-        </Card>
+          {hasMore ? (
+            <Button size="$2" chromeless onPress={() => void loadMore()} disabled={loading}>
+              <Text fontSize="$2" color="$placeholderColor">
+                {loading ? 'Loading…' : 'Load more'}
+              </Text>
+            </Button>
+          ) : null}
+        </YStack>
       )}
     </YStack>
   )

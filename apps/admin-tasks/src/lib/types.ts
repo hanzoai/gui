@@ -349,7 +349,10 @@ export interface EventHistory {
 }
 
 export interface GetWorkflowExecutionHistoryResponse {
-  history: EventHistory
+  history?: EventHistory
+  // Hanzo Tasks engine returns events flat at the top level.
+  events?: HistoryEvent[]
+  nextCursor?: number
   rawHistory?: unknown
   archived?: boolean
   nextPageToken?: NextPageToken

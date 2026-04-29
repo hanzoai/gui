@@ -24,8 +24,9 @@ export function EventDetailPage() {
   if (error) return <ErrorState error={error as Error} />
   if (isLoading || !data) return <LoadingState />
 
-  const events = data.history?.events ?? []
-  const idx = events.findIndex((e) => e.eventId === eventId)
+  const events = data.history?.events ?? data.events ?? []
+  const target = Number(eventId)
+  const idx = events.findIndex((e) => Number(e.eventId) === target)
   const ev = idx >= 0 ? events[idx] : undefined
   const prev = idx > 0 ? events[idx - 1] : undefined
   const next = idx >= 0 && idx < events.length - 1 ? events[idx + 1] : undefined

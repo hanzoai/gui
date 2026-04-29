@@ -108,6 +108,48 @@ export default defineConfig({
     sourcemap: false,
     assetsInlineLimit: 16 * 1024,
     target: 'es2020',
+    // Vendor split — keep React + router + the hanzogui runtime in
+    // long-lived chunks so per-page lazy chunks stay small.
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Heavy primitives only used in modals/menus split off the
+          // main `ui` chunk so the eager runtime stays small.
+          if (
+            id.includes('/pkgs/ui/popover/') ||
+            id.includes('/pkgs/ui/sheet/') ||
+            id.includes('/pkgs/ui/dialog/') ||
+            id.includes('/pkgs/ui/select/') ||
+            id.includes('/pkgs/ui/tooltip/') ||
+            id.includes('/pkgs/ui/alert-dialog/') ||
+            id.includes('/pkgs/ui/popper/')
+          ) {
+            return 'ui-overlay'
+          }
+          // Workspace UI lives in pkgs/ui*, resolved via the `source`
+          // condition. Group it with hanzogui so small primitives don't
+          // each get their own chunk.
+          if (
+            id.includes('node_modules/hanzogui') ||
+            id.includes('node_modules/@hanzogui/') ||
+            id.includes('/pkgs/ui-admin/') ||
+            id.includes('/pkgs/ui/')
+          ) {
+            return 'ui'
+          }
+          if (!id.includes('node_modules')) return undefined
+          if (
+            id.includes('/react/') ||
+            id.includes('/react-dom/') ||
+            id.includes('/react-router') ||
+            id.includes('/scheduler/')
+          ) {
+            return 'vendor'
+          }
+          return undefined
+        },
+      },
+    },
   },
   server: {
     port: 5174,

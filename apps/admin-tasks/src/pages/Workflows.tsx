@@ -1,11 +1,10 @@
-// Workflows — list view for a namespace. Full-bleed (no PageShell).
-//
-// Header band:  "N Workflows" + refresh + last-fetched stamp + Start CTA.
-// Filter band:  query input.
-// Body:         saved-views rail (left) + table when populated, empty state when not (right).
+// Workflows — list view for a namespace. Composes saved-views rail
+// (system presets + active filter chips) + WorkflowSearchBar + the
+// shared WorkflowTable. Pagination uses the cursor hook so the list
+// streams in pages and the page count is whatever the engine emits.
 
 import { useCallback, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -28,25 +27,24 @@ import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
 import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
 import {
   Alert,
-  Badge,
-  Empty,
   ErrorState,
-  formatTimestamp,
   SavedViewsRail,
-  useFetch,
+  formatTimestamp,
   type SavedView,
+  type WorkflowSort,
 } from '@hanzogui/admin'
+import { ApiError, Workflows, apiPost } from '../lib/api'
 import type { WorkflowExecution } from '../lib/api'
-import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
+import { useCursorPager, type PageResult } from '../stores/pagination-cursor'
+import type { NextPageToken } from '../lib/types'
+import { WorkflowSearchBar } from '../components/workflow/WorkflowSearchBar'
+import { WorkflowTable } from '../components/workflow/WorkflowTable'
 
-interface WorkflowsResp {
-  executions?: WorkflowExecution[]
-}
+const PAGE_SIZE = 50
 
-// System views mirror upstream temporalio/ui (see
-// $lib/stores/saved-queries.ts). Each preset sets the visibility query.
-// `today` and `last-hour` are recomputed per render so the bound is fresh.
+// System views — namespace-scoped saved queries. `today` and
+// `last-hour` recompute per render so the lower-bound stays fresh.
 function buildSystemViews(): SavedView[] {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -61,24 +59,14 @@ function buildSystemViews(): SavedView[] {
       query: 'WorkflowTaskFailureCount > 0',
       icon: AlertTriangle,
     },
-    {
-      id: 'running',
-      label: 'Running',
-      query: 'ExecutionStatus="Running"',
-      icon: Activity,
-    },
+    { id: 'running', label: 'Running', query: 'ExecutionStatus="Running"', icon: Activity },
     {
       id: 'parent-workflows',
       label: 'Parent Workflows',
       query: 'ParentWorkflowId is null',
       icon: GitBranch,
     },
-    {
-      id: 'today',
-      label: 'Today',
-      query: `StartTime >= "${today.toISOString()}"`,
-      icon: Calendar,
-    },
+    { id: 'today', label: 'Today', query: `StartTime >= "${today.toISOString()}"`, icon: Calendar },
     {
       id: 'last-hour',
       label: 'Last Hour',
@@ -93,38 +81,56 @@ export function WorkflowsPage() {
   const namespace = ns!
   const systemViews = useMemo(buildSystemViews, [])
   const [activeViewId, setActiveViewId] = useState<string>('all')
-  const [query, setQuery] = useState('')
+  const [draft, setDraft] = useState('')
+  const [submitted, setSubmitted] = useState('')
+  const [sort, setSort] = useState<WorkflowSort | undefined>(undefined)
   const [fetchedAt, setFetchedAt] = useState<Date>(new Date())
+
+  const fetchPage = useCallback(
+    async (token: NextPageToken): Promise<PageResult<WorkflowExecution>> => {
+      const cursor = await Workflows.list(namespace, {
+        query: submitted,
+        pageSize: PAGE_SIZE,
+        nextPageToken: token ?? undefined,
+      })
+      setFetchedAt(new Date())
+      return {
+        items: cursor.data.executions ?? [],
+        nextPageToken: cursor.nextPageToken ?? null,
+      }
+    },
+    [namespace, submitted],
+  )
+
+  const pager = useCursorPager<WorkflowExecution>(fetchPage, [namespace, submitted])
 
   const onSelectView = useCallback((view: SavedView) => {
     setActiveViewId(view.id)
-    setQuery(view.query)
+    setDraft(view.query)
+    setSubmitted(view.query)
   }, [])
 
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/workflows?query=${encodeURIComponent(query)}&pageSize=50`
-  const { data, error, isLoading, isValidating, mutate } = useFetch<WorkflowsResp>(url)
+  const onSubmitQuery = useCallback((q: string) => {
+    setSubmitted(q)
+    setActiveViewId('')
+  }, [])
 
-  const onEvent = useCallback(() => {
-    mutate().then(() => setFetchedAt(new Date()))
-  }, [mutate])
+  const onChangeQuery = useCallback((q: string) => {
+    setDraft(q)
+    setActiveViewId('')
+  }, [])
 
-  useTaskEvents(namespace, onEvent, [
+  useTaskEvents(namespace, () => void pager.refresh(), [
     'workflow.started',
     'workflow.canceled',
     'workflow.terminated',
     'workflow.signaled',
   ])
 
-  const rows = data?.executions ?? []
-  const count = rows.length
-
-  const refresh = useCallback(() => {
-    mutate().then(() => setFetchedAt(new Date()))
-  }, [mutate])
+  const count = pager.items.length
 
   return (
     <YStack flex={1} bg="$background" minH="100%">
-      {/* Header band */}
       <XStack
         px="$6"
         py="$5"
@@ -135,55 +141,36 @@ export function WorkflowsPage() {
       >
         <XStack items="baseline" gap="$3">
           <H1 size="$9" fontWeight="600" color="$color">
-            {count} Workflow{count === 1 ? '' : 's'}
+            {count}
+            {pager.hasMore ? '+' : ''} Workflow{count === 1 ? '' : 's'}
           </H1>
           <Button
             size="$2"
             chromeless
-            onPress={refresh}
-            disabled={isValidating}
+            onPress={() => void pager.refresh()}
+            disabled={pager.loading}
             aria-label="Refresh"
           >
-            {isValidating ? (
-              <Spinner size="small" />
-            ) : (
-              <RefreshCw size={14} color="#7e8794" />
-            )}
+            {pager.loading ? <Spinner size="small" /> : <RefreshCw size={14} color="#7e8794" />}
           </Button>
           <Text fontSize="$1" color="$placeholderColor">
             {formatTimestamp(fetchedAt)}
           </Text>
         </XStack>
-        <StartWorkflowButton ns={namespace} onStarted={refresh} />
+        <StartWorkflowButton ns={namespace} onStarted={() => void pager.refresh()} />
       </XStack>
 
-      {/* Filter band */}
       <XStack
         px="$6"
         py="$3"
         borderBottomWidth={1}
         borderBottomColor="$borderColor"
-        gap="$2"
+        gap="$3"
         items="center"
       >
-        <Input
-          size="$3"
-          flex={1}
-          maxW={520}
-          placeholder='WorkflowType="MyWorkflow" OR WorkflowId STARTS_WITH "abc"'
-          value={query}
-          onChangeText={(v: string) => {
-            setQuery(v)
-            // Free-text edits drop the active system view.
-            setActiveViewId('')
-          }}
-        />
-        <Text fontSize="$1" color="$placeholderColor">
-          List view
-        </Text>
+        <WorkflowSearchBar value={draft} onChange={onChangeQuery} onSubmit={onSubmitQuery} />
       </XStack>
 
-      {/* Body — saved views rail (left) + table (right) */}
       <XStack flex={1}>
         <SavedViewsRail
           views={systemViews}
@@ -191,114 +178,39 @@ export function WorkflowsPage() {
           onSelect={onSelectView}
         />
         <YStack flex={1} p="$6" gap="$4">
-          {error ? (
-            <ErrorState error={error as Error} />
-          ) : isLoading ? (
-            <YStack gap="$3">
-              <YStack height={36} bg="$borderColor" rounded="$2" opacity={0.5} />
-              <YStack height={120} bg="$borderColor" rounded="$2" opacity={0.3} />
-            </YStack>
-          ) : rows.length === 0 ? (
-            <Empty
-              title={`No workflows in ${namespace}`}
-              hint="Start one with the button above, or run a worker that registers a workflow type."
-            />
+          {pager.error ? (
+            <ErrorState error={pager.error} />
           ) : (
-            <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
-              <XStack
-                bg={'rgba(255,255,255,0.03)' as never}
-                px="$4"
-                py="$2.5"
-                borderBottomWidth={1}
-                borderBottomColor="$borderColor"
-              >
-                <HeaderCell flex={1.2}>Status</HeaderCell>
-                <HeaderCell flex={3}>Workflow ID</HeaderCell>
-                <HeaderCell flex={1.5}>Run ID</HeaderCell>
-                <HeaderCell flex={2}>Type</HeaderCell>
-                <HeaderCell flex={2}>Start</HeaderCell>
-                <HeaderCell flex={2}>End</HeaderCell>
-              </XStack>
-              {rows.map((wf, i) => (
-                <WorkflowRow
-                  key={`${wf.execution.workflowId}-${wf.execution.runId}`}
-                  wf={wf}
-                  ns={namespace}
-                  last={i === rows.length - 1}
-                />
-              ))}
-            </Card>
+            <>
+              <WorkflowTable
+                ns={namespace}
+                rows={pager.items}
+                sort={sort}
+                onSortChange={setSort}
+                emptyState={{
+                  title: `No workflows in ${namespace}`,
+                  hint: 'Start one with the button above, or run a worker that registers a workflow type.',
+                }}
+              />
+              {pager.hasMore ? (
+                <XStack justify="center">
+                  <Button
+                    size="$3"
+                    onPress={() => void pager.loadMore()}
+                    disabled={pager.loading}
+                  >
+                    <XStack items="center" gap="$1.5">
+                      {pager.loading ? <Spinner size="small" /> : null}
+                      <Text fontSize="$2">{pager.loading ? 'Loading…' : 'Load more'}</Text>
+                    </XStack>
+                  </Button>
+                </XStack>
+              ) : null}
+            </>
           )}
         </YStack>
       </XStack>
     </YStack>
-  )
-}
-
-function HeaderCell({ children, flex }: { children: React.ReactNode; flex: number }) {
-  return (
-    <YStack flex={flex} px="$2">
-      <Text fontSize="$1" fontWeight="500" color="$placeholderColor">
-        {children}
-      </Text>
-    </YStack>
-  )
-}
-
-function WorkflowRow({
-  wf,
-  ns,
-  last,
-}: {
-  wf: WorkflowExecution
-  ns: string
-  last: boolean
-}) {
-  const href = `/namespaces/${encodeURIComponent(ns)}/workflows/${encodeURIComponent(wf.execution.workflowId)}?runId=${encodeURIComponent(wf.execution.runId)}`
-  return (
-    <XStack
-      px="$4"
-      py="$2.5"
-      borderBottomWidth={last ? 0 : 1}
-      borderBottomColor="$borderColor"
-      hoverStyle={{ background: 'rgba(255,255,255,0.04)' as never }}
-      items="center"
-    >
-      <YStack flex={1.2} px="$2">
-        <Badge variant={statusVariant(wf.status)}>{shortStatus(wf.status)}</Badge>
-      </YStack>
-      <YStack flex={3} px="$2">
-        <Link to={href} style={{ textDecoration: 'none' }}>
-          <Text fontSize="$2" color={'#86efac' as never} numberOfLines={1}>
-            {wf.execution.workflowId}
-          </Text>
-        </Link>
-      </YStack>
-      <YStack flex={1.5} px="$2">
-        <Text
-          fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
-          fontSize="$1"
-          color="$placeholderColor"
-        >
-          {wf.execution.runId.slice(0, 8)}
-        </Text>
-      </YStack>
-      <YStack flex={2} px="$2">
-        <Text fontSize="$2" color="$color">
-          {wf.type.name}
-        </Text>
-      </YStack>
-      <YStack flex={2} px="$2">
-        <Text fontSize="$2" color="$placeholderColor">
-          {wf.startTime ? formatTimestamp(new Date(wf.startTime)) : '—'}
-        </Text>
-      </YStack>
-      <YStack flex={2} px="$2">
-        <Text fontSize="$2" color="$placeholderColor">
-          {wf.closeTime ? formatTimestamp(new Date(wf.closeTime)) : '—'}
-        </Text>
-      </YStack>
-    </XStack>
   )
 }
 
@@ -368,7 +280,7 @@ function StartWorkflowButton({ ns, onStarted }: { ns: string; onStarted: () => v
             Start a workflow in {ns}
           </Dialog.Title>
           <Dialog.Description fontSize="$2" color="$placeholderColor">
-            Posts to /v1/tasks/namespaces/{ns}/workflows (opcode 0x0060).
+            Posts to /v1/tasks/namespaces/{ns}/workflows.
           </Dialog.Description>
           <YStack gap="$3">
             <Field label="Workflow type *">
@@ -385,7 +297,11 @@ function StartWorkflowButton({ ns, onStarted }: { ns: string; onStarted: () => v
             <Field label="Input (JSON, optional)">
               <Input value={input} onChangeText={setInput} placeholder='{"key":"value"}' />
             </Field>
-            {err && <Alert variant="destructive" title="Could not start">{err}</Alert>}
+            {err ? (
+              <Alert variant="destructive" title="Could not start">
+                {err}
+              </Alert>
+            ) : null}
           </YStack>
           <XStack gap="$2" justify="flex-end" mt="$2">
             <Button chromeless onPress={() => setOpen(false)}>
@@ -430,3 +346,5 @@ function Field({
   )
 }
 
+// Card import retained for downstream extension (kept on import list).
+export const _kept = Card

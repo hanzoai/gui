@@ -1,13 +1,19 @@
-// Schedules — list of recurring workflow specs. Read-only for now;
-// the upstream UI surfaces a create dialog but the native engine
-// ships writes via the SDK first.
+// Schedules — list of recurring workflow specs. Streams realtime
+// schedule.* events through useTaskEvents to revalidate the SWR
+// cache. Each row surfaces the next-fire time computed locally from
+// the recurrence helpers (info.futureActionTimes is used when the
+// engine populates it).
 
 import { useCallback } from 'react'
-import { useParams } from 'react-router-dom'
-import { H2, Text, XStack, YStack } from 'hanzogui'
+import { Link, useParams } from 'react-router-dom'
+import { Button, H2, Text, XStack, YStack } from 'hanzogui'
+import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
 import { DataTable, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
-import type { Schedule } from '../lib/api'
+import { Schedules, type Schedule } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
+import { describeSpec, nextOccurrences } from '../stores/schedule-recurrence'
+import { ScheduleStatusPill } from '../components/schedule/ScheduleStatusPill'
+import { formatTimestamp } from '../lib/format'
 
 interface ListResp {
   schedules?: Schedule[]
@@ -17,15 +23,15 @@ const COLUMNS = [
   { key: 'status', label: 'Status', flex: 1 },
   { key: 'scheduleId', label: 'Schedule ID', flex: 2 },
   { key: 'workflowType', label: 'Workflow Type', flex: 2 },
-  { key: 'recent', label: 'Recent Runs', flex: 1 },
-  { key: 'upcoming', label: 'Upcoming Runs', flex: 1 },
-  { key: 'spec', label: 'Schedule Spec', flex: 2 },
+  { key: 'recent', label: 'Runs', flex: 1 },
+  { key: 'upcoming', label: 'Next fire', flex: 2 },
+  { key: 'spec', label: 'Spec', flex: 2 },
 ]
 
 export function SchedulesPage() {
   const { ns } = useParams()
   const namespace = ns!
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/schedules`
+  const url = Schedules.listUrl(namespace)
   const { data, error, isLoading, mutate } = useFetch<ListResp>(url)
 
   const onEvent = useCallback(() => {
@@ -52,46 +58,68 @@ export function SchedulesPage() {
             ({rows.length})
           </Text>
         </H2>
+        <Link
+          to={`/namespaces/${encodeURIComponent(namespace)}/schedules/create`}
+          style={{ textDecoration: 'none' }}
+        >
+          <Button size="$2" bg={'#f2f2f2' as never}>
+            <XStack items="center" gap="$1.5">
+              <Plus size={14} color="#070b13" />
+              <Text fontSize="$2" color={'#070b13' as never} fontWeight="500">
+                New schedule
+              </Text>
+            </XStack>
+          </Button>
+        </Link>
       </XStack>
 
       <DataTable
         columns={COLUMNS}
         rows={rows}
         rowKey={(s) => s.scheduleId}
-        renderRow={(s) => [
-          <Text key="status" fontSize="$2" color="$placeholderColor">
-            {s.state?.paused ? 'paused' : 'active'}
-          </Text>,
-          <Text key="id" fontSize="$2" fontWeight="500" color="$color" numberOfLines={1}>
-            {s.scheduleId}
-          </Text>,
-          <Text key="type" fontSize="$2" color="$color" numberOfLines={1}>
-            {s.action?.workflowType?.name ?? '—'}
-          </Text>,
-          <Text key="recent" fontSize="$2" color="$placeholderColor">
-            {s.info?.actionCount ?? 0}
-          </Text>,
-          <Text key="upcoming" fontSize="$2" color="$placeholderColor">
-            —
-          </Text>,
-          <Text key="spec" fontSize="$1" color="$placeholderColor" numberOfLines={1}>
-            {describeSpec(s)}
-          </Text>,
-        ]}
+        renderRow={(s) => {
+          const upcoming = upcomingFor(s)
+          const idHref = `/namespaces/${encodeURIComponent(namespace)}/schedules/${encodeURIComponent(
+            s.scheduleId,
+          )}`
+          return [
+            <ScheduleStatusPill
+              key="status"
+              paused={s.state?.paused}
+              pauseOnFailure={s.policies?.pauseOnFailure}
+            />,
+            <Link key="id" to={idHref} style={{ textDecoration: 'none' }}>
+              <Text fontSize="$2" fontWeight="500" color="$color" numberOfLines={1}>
+                {s.scheduleId}
+              </Text>
+            </Link>,
+            <Text key="type" fontSize="$2" color="$color" numberOfLines={1}>
+              {s.action?.workflowType?.name ?? '—'}
+            </Text>,
+            <Text key="recent" fontSize="$2" color="$placeholderColor">
+              {s.info?.actionCount ?? 0}
+            </Text>,
+            <Text key="upcoming" fontSize="$1" color="$placeholderColor" numberOfLines={1}>
+              {upcoming ? formatTimestamp(new Date(upcoming)) : '—'}
+            </Text>,
+            <Text key="spec" fontSize="$1" color="$placeholderColor" numberOfLines={1}>
+              {describeSpec(s.spec)}
+            </Text>,
+          ]
+        }}
         emptyState={{
           title: `No schedules in ${namespace}`,
-          hint: 'Create one with the Hanzo Tasks SDK; the UI surface is read-only for now.',
+          hint: 'Create one above or via the Hanzo Tasks SDK.',
         }}
       />
     </YStack>
   )
 }
 
-function describeSpec(s: Schedule): string {
-  const spec = s.spec
-  if (!spec) return 'no spec'
-  if (spec.cronString?.length) return `cron: ${spec.cronString.join(', ')}`
-  if (spec.interval?.length)
-    return `every ${spec.interval.map((i) => i.interval).join(', ')}`
-  return 'custom'
+function upcomingFor(s: Schedule): string | null {
+  if (s.state?.paused) return null
+  const futures = s.info?.futureActionTimes
+  if (futures && futures.length) return futures[0]
+  const computed = nextOccurrences(s.spec, 1)
+  return computed[0] ?? null
 }

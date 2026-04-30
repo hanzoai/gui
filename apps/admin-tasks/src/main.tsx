@@ -19,6 +19,7 @@ import App from './App'
 // Light list/landing pages — eager: keeps initial paint fast and
 // avoids a Suspense flash on the most common entry routes.
 import { ActivitiesPage } from './pages/Activities'
+import { ClusterPage } from './pages/Cluster'
 import { ArchivalPage } from './pages/Archival'
 import { BatchesPage } from './pages/Batches'
 import { DeploymentsPage } from './pages/Deployments'
@@ -159,6 +160,7 @@ ReactDOM.createRoot(root).render(
             <Route path="select-namespace" element={<PageShell><SelectNamespacePage /></PageShell>} />
             <Route path="archive" element={<PageShell><ArchivalPage /></PageShell>} />
             <Route path="support" element={<PageShell><SupportPage /></PageShell>} />
+            <Route path="cluster" element={<PageShell><ClusterPage /></PageShell>} />
 
             {/* Top-level nexus (cross-namespace). */}
             <Route path="nexus" element={<PageShell><NexusPage /></PageShell>} />

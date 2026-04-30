@@ -48,6 +48,11 @@ import {
   durationToDays,
 } from '../components/namespace/RetentionEditor'
 import { canWriteNamespace, useSettings } from '../stores/settings'
+import { useCluster } from '../stores/cluster'
+import { MigrationDialog } from '../components/migration/MigrationDialog'
+import { MigrationStatusCard } from '../components/migration/MigrationStatusCard'
+import type { MigrationJob } from '../lib/api'
+import { Server as ServerIcon } from '@hanzogui/lucide-icons-2/icons/Server'
 
 interface NamespaceMetadata {
   summary?: string
@@ -64,13 +69,22 @@ export function NamespaceDetailPage() {
   const { data: meta, mutate: mutateMeta } = useFetch<NamespaceMetadata>(metaUrl)
   const { settings } = useSettings()
   const writeAllowed = canWriteNamespace(settings)
+  const cluster = useCluster()
 
   const [editingMeta, setEditingMeta] = useState(false)
+  const [migrateOpen, setMigrateOpen] = useState(false)
+  const [migrationJob, setMigrationJob] = useState<MigrationJob | null>(null)
 
   if (error) return <ErrorState error={error as Error} />
   if (isLoading || !data) return <LoadingState />
 
   const { namespaceInfo, config } = data
+  // Migration is gated on (a) namespace writes allowed by settings,
+  // and (b) cluster mode is enabled. Single-node deployments hide
+  // the button entirely — no point showing an unusable control.
+  const migrationEnabled = writeAllowed && cluster.enabled && cluster.status !== undefined
+  const otherValidators =
+    cluster.status?.validators.filter((v) => v.id !== cluster.status?.nodeId) ?? []
   const stateRaw = namespaceInfo.state ?? ''
   const active = stateRaw === 'NAMESPACE_STATE_REGISTERED' || stateRaw === 'Registered'
   const state = stateRaw.replace(/^NAMESPACE_STATE_/, '').toLowerCase() || 'unknown'
@@ -111,8 +125,46 @@ export function NamespaceDetailPage() {
             </Paragraph>
           )}
         </YStack>
-        <ConnectDropdown ns={namespaceInfo.name} />
+        <XStack gap="$2" items="center">
+          {migrationEnabled ? (
+            <Button
+              size="$2"
+              borderWidth={1}
+              borderColor="$borderColor"
+              onPress={() => setMigrateOpen(true)}
+              aria-label="Migrate namespace to a different node"
+            >
+              <XStack items="center" gap="$1.5">
+                <ServerIcon size={14} />
+                <Text fontSize="$2">Migrate to node…</Text>
+              </XStack>
+            </Button>
+          ) : null}
+          <ConnectDropdown ns={namespaceInfo.name} />
+        </XStack>
       </XStack>
+
+      {migrationJob ? (
+        <MigrationStatusCard
+          ns={namespaceInfo.name}
+          jobId={migrationJob.jobId}
+          onTerminal={(j) => {
+            // Keep the card around so the operator sees the final
+            // state; only clear after a refresh of the namespace.
+            if (j.state === 'done') void mutate()
+          }}
+        />
+      ) : null}
+
+      {migrationEnabled ? (
+        <MigrationDialog
+          ns={namespaceInfo.name}
+          open={migrateOpen}
+          candidates={otherValidators}
+          onClose={() => setMigrateOpen(false)}
+          onStarted={(job) => setMigrationJob(job)}
+        />
+      ) : null}
 
       <Tabs defaultValue="overview" orientation="horizontal" flexDirection="column">
         <Tabs.List

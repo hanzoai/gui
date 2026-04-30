@@ -59,7 +59,7 @@ export function DeploymentsPage() {
       setDeleteBusy(true)
       setDeleteErr(undefined)
       try {
-        await Deployments.deleteDeployment(namespace, deleteTarget.seriesName, force)
+        await Deployments.deleteDeployment(namespace, deleteTarget.name, force)
         setDeleteTarget(null)
         await pager.refresh()
       } catch (e) {
@@ -135,14 +135,14 @@ export function DeploymentsPage() {
               <HeaderCell flex={1}>{''}</HeaderCell>
             </XStack>
             {rows.map((d, i) => {
-              const lastAccess = d.buildIds.reduce<string | undefined>((acc, b) => {
+              const lastAccess = d.versions.reduce<string | undefined>((acc, b) => {
                 if (!b.createTime) return acc
                 if (!acc || b.createTime > acc) return b.createTime
                 return acc
               }, d.createTime)
               return (
                 <XStack
-                  key={d.seriesName}
+                  key={d.name}
                   px="$4"
                   py="$2.5"
                   borderBottomWidth={i === rows.length - 1 ? 0 : 1}
@@ -152,11 +152,11 @@ export function DeploymentsPage() {
                 >
                   <YStack flex={3} px="$2">
                     <Link
-                      to={`/namespaces/${encodeURIComponent(namespace)}/deployments/${encodeURIComponent(d.seriesName)}`}
+                      to={`/namespaces/${encodeURIComponent(namespace)}/deployments/${encodeURIComponent(d.name)}`}
                       style={{ textDecoration: 'none' }}
                     >
                       <Text fontSize="$2" fontWeight="500" color={'#86efac' as never}>
-                        {d.seriesName}
+                        {d.name}
                       </Text>
                     </Link>
                   </YStack>
@@ -178,7 +178,7 @@ export function DeploymentsPage() {
                     )}
                   </YStack>
                   <YStack flex={1} px="$2">
-                    <Text fontSize="$2" color="$color">{d.buildIds.length}</Text>
+                    <Text fontSize="$2" color="$color">{d.versions.length}</Text>
                   </YStack>
                   <YStack flex={2} px="$2">
                     <Text fontSize="$2" color="$placeholderColor">
@@ -194,7 +194,7 @@ export function DeploymentsPage() {
                         setDeleteErr(undefined)
                         setDeleteTarget(d)
                       }}
-                      aria-label={`Delete ${d.seriesName}`}
+                      aria-label={`Delete ${d.name}`}
                     >
                       <Trash2 size={14} color="#fca5a5" />
                     </Button>
@@ -215,8 +215,8 @@ export function DeploymentsPage() {
       </YStack>
 
       <DeleteDeploymentModal
-        deploymentName={deleteTarget?.seriesName ?? ''}
-        versionCount={deleteTarget?.buildIds.length ?? 0}
+        deploymentName={deleteTarget?.name ?? ''}
+        versionCount={deleteTarget?.versions.length ?? 0}
         open={deleteTarget !== null}
         busy={deleteBusy}
         error={deleteErr}

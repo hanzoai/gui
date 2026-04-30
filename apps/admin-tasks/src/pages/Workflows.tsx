@@ -36,6 +36,7 @@ import {
 import { ApiError, Workflows, apiPost } from '../lib/api'
 import type { WorkflowExecution } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
+import { canWriteNamespace, useSettings } from '../stores/settings'
 import { useCursorPager, type PageResult } from '../stores/pagination-cursor'
 import type { NextPageToken } from '../lib/types'
 import { WorkflowSearchBar } from '../components/workflow/WorkflowSearchBar'
@@ -215,6 +216,8 @@ export function WorkflowsPage() {
 }
 
 function StartWorkflowButton({ ns, onStarted }: { ns: string; onStarted: () => void }) {
+  const { settings } = useSettings()
+  const writeAllowed = canWriteNamespace(settings)
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('')
   const [taskQueue, setTaskQueue] = useState('default')
@@ -257,7 +260,14 @@ function StartWorkflowButton({ ns, onStarted }: { ns: string; onStarted: () => v
   return (
     <Dialog modal open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <Button size="$3" bg={'#f2f2f2' as never} hoverStyle={{ background: '#ffffff' as never }}>
+        <Button
+          size="$3"
+          disabled={!writeAllowed}
+          opacity={writeAllowed ? 1 : 0.5}
+          bg={'#f2f2f2' as never}
+          hoverStyle={{ background: '#ffffff' as never }}
+          aria-label={writeAllowed ? 'Start Workflow' : 'Namespace write actions are disabled'}
+        >
           <XStack items="center" gap="$1.5">
             <Plus size={14} color="#070b13" />
             <Text fontSize="$2" fontWeight="500" color={'#070b13' as never}>

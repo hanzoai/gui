@@ -35,6 +35,7 @@ import {
 } from '@hanzogui/admin'
 import {
   ApiError,
+  Identities,
   Namespaces,
   type Identity,
   type Namespace,
@@ -46,6 +47,7 @@ import {
   daysToDuration,
   durationToDays,
 } from '../components/namespace/RetentionEditor'
+import { canWriteNamespace, useSettings } from '../stores/settings'
 
 interface NamespaceMetadata {
   summary?: string
@@ -60,6 +62,8 @@ export function NamespaceDetailPage() {
   const { data, error, isLoading, mutate } = useFetch<Namespace>(url)
   const metaUrl = Namespaces.getMetadata(ns!)
   const { data: meta, mutate: mutateMeta } = useFetch<NamespaceMetadata>(metaUrl)
+  const { settings } = useSettings()
+  const writeAllowed = canWriteNamespace(settings)
 
   const [editingMeta, setEditingMeta] = useState(false)
 
@@ -237,8 +241,18 @@ export function NamespaceDetailPage() {
 
         <Tabs.Content value="config" mt="$4">
           <YStack gap="$4">
-            <RetentionPanel ns={ns!} ttl={config.workflowExecutionRetentionTtl} onSaved={mutate} />
-            <ArchivalPanel ns={ns!} config={config} onSaved={mutate} />
+            {!writeAllowed ? (
+              <Alert title="Namespace writes disabled">
+                Retention and archival are read-only — the engine has namespace writes disabled in settings.
+              </Alert>
+            ) : null}
+            <RetentionPanel
+              ns={ns!}
+              ttl={config.workflowExecutionRetentionTtl}
+              onSaved={mutate}
+              disabled={!writeAllowed}
+            />
+            <ArchivalPanel ns={ns!} config={config} onSaved={mutate} disabled={!writeAllowed} />
           </YStack>
         </Tabs.Content>
 
@@ -282,10 +296,12 @@ function RetentionPanel({
   ns,
   ttl,
   onSaved,
+  disabled = false,
 }: {
   ns: string
   ttl: string
   onSaved: () => Promise<void>
+  disabled?: boolean
 }) {
   const [days, setDays] = useState(() => durationToDays(ttl))
   const [saving, setSaving] = useState(false)
@@ -318,17 +334,22 @@ function RetentionPanel({
         <Text fontSize="$1" color="$placeholderColor" fontWeight="600" letterSpacing={0.4}>
           RETENTION PERIOD
         </Text>
-        <RetentionEditor days={days} onChange={setDays} disabled={saving} />
+        <RetentionEditor days={days} onChange={setDays} disabled={saving || disabled} />
         {err ? (
           <Alert variant="destructive" title="Failed to update retention">
             {err.message}
           </Alert>
         ) : null}
         <XStack gap="$2" justify="flex-end">
-          <Button size="$2" chromeless disabled={!dirty || saving} onPress={() => setDays(initial)}>
+          <Button
+            size="$2"
+            chromeless
+            disabled={!dirty || saving || disabled}
+            onPress={() => setDays(initial)}
+          >
             Reset
           </Button>
-          <Button size="$2" disabled={!dirty || saving} onPress={save}>
+          <Button size="$2" disabled={!dirty || saving || disabled} onPress={save}>
             <XStack items="center" gap="$1.5">
               {saving ? <Spinner size="small" /> : null}
               <Text fontSize="$2">Save retention</Text>
@@ -344,10 +365,12 @@ function ArchivalPanel({
   ns,
   config,
   onSaved,
+  disabled = false,
 }: {
   ns: string
   config: Namespace['config']
   onSaved: () => Promise<void>
+  disabled?: boolean
 }) {
   const histEnabled =
     config.historyArchivalState === 'ARCHIVAL_STATE_ENABLED' ||
@@ -395,14 +418,14 @@ function ArchivalPanel({
           hint={config.historyArchivalUri || 'No archival URI configured.'}
           on={hist}
           onChange={setHist}
-          disabled={saving}
+          disabled={saving || disabled}
         />
         <ToggleRow
           label="Visibility archival"
           hint={config.visibilityArchivalUri || 'No archival URI configured.'}
           on={vis}
           onChange={setVis}
-          disabled={saving}
+          disabled={saving || disabled}
         />
         {err ? (
           <Alert variant="destructive" title="Failed to update archival">
@@ -410,7 +433,7 @@ function ArchivalPanel({
           </Alert>
         ) : null}
         <XStack gap="$2" justify="flex-end">
-          <Button size="$2" disabled={!dirty || saving} onPress={save}>
+          <Button size="$2" disabled={!dirty || saving || disabled} onPress={save}>
             <XStack items="center" gap="$1.5">
               {saving ? <Spinner size="small" /> : null}
               <Text fontSize="$2">Save archival</Text>
@@ -599,7 +622,27 @@ function StatCard({
 
 function IdentitiesPanel({ ns }: { ns: string }) {
   const url = `/v1/tasks/namespaces/${encodeURIComponent(ns)}/identities`
-  const { data, error, isLoading } = useFetch<{ identities: Identity[] }>(url)
+  const { data, error, isLoading, mutate } = useFetch<{ identities: Identity[] }>(url)
+  const [busyEmail, setBusyEmail] = useState<string | null>(null)
+  const [revErr, setRevErr] = useState<string | null>(null)
+
+  const revoke = useCallback(
+    async (email: string) => {
+      if (!confirm(`Revoke ${email} from ${ns}? They lose all namespace access immediately.`)) return
+      setBusyEmail(email)
+      setRevErr(null)
+      try {
+        await Identities.revoke(ns, email)
+        await mutate()
+      } catch (e) {
+        setRevErr(e instanceof ApiError ? e.message : (e as Error).message)
+      } finally {
+        setBusyEmail(null)
+      }
+    },
+    [ns, mutate],
+  )
+
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState rows={2} />
   const rows = data?.identities ?? []
@@ -612,44 +655,65 @@ function IdentitiesPanel({ ns }: { ns: string }) {
     )
   }
   return (
-    <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
-      <XStack
-        bg={'rgba(255,255,255,0.03)' as never}
-        px="$4"
-        py="$2"
-        borderBottomWidth={1}
-        borderBottomColor="$borderColor"
-      >
-        <H4 flex={2} fontSize="$2" color="$placeholderColor" fontWeight="500">
-          Email
-        </H4>
-        <H4 flex={1} fontSize="$2" color="$placeholderColor" fontWeight="500">
-          Role
-        </H4>
-        <H4 flex={1} fontSize="$2" color="$placeholderColor" fontWeight="500">
-          Granted
-        </H4>
-      </XStack>
-      {rows.map((id, i) => (
+    <YStack gap="$2">
+      <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
         <XStack
-          key={`${id.email}-${i}`}
+          bg={'rgba(255,255,255,0.03)' as never}
           px="$4"
-          py="$2.5"
-          borderTopWidth={i === 0 ? 0 : 1}
-          borderTopColor="$borderColor"
-          items="center"
+          py="$2"
+          borderBottomWidth={1}
+          borderBottomColor="$borderColor"
         >
-          <Text flex={2} fontSize="$2" color="$color">
-            {id.email}
-          </Text>
-          <YStack flex={1}>
-            <Badge variant="muted">{id.role}</Badge>
-          </YStack>
-          <Text flex={1} fontSize="$2" color="$placeholderColor">
-            {new Date(id.grantTime).toLocaleString()}
-          </Text>
+          <H4 flex={2} fontSize="$2" color="$placeholderColor" fontWeight="500">
+            Email
+          </H4>
+          <H4 flex={1} fontSize="$2" color="$placeholderColor" fontWeight="500">
+            Role
+          </H4>
+          <H4 flex={1} fontSize="$2" color="$placeholderColor" fontWeight="500">
+            Granted
+          </H4>
+          <Text width={90} fontSize="$2" color="$placeholderColor" fontWeight="500" />
         </XStack>
-      ))}
-    </Card>
+        {rows.map((id, i) => (
+          <XStack
+            key={`${id.email}-${i}`}
+            px="$4"
+            py="$2.5"
+            borderTopWidth={i === 0 ? 0 : 1}
+            borderTopColor="$borderColor"
+            items="center"
+          >
+            <Text flex={2} fontSize="$2" color="$color">
+              {id.email}
+            </Text>
+            <YStack flex={1}>
+              <Badge variant="muted">{id.role}</Badge>
+            </YStack>
+            <Text flex={1} fontSize="$2" color="$placeholderColor">
+              {new Date(id.grantTime).toLocaleString()}
+            </Text>
+            <YStack width={90} items="flex-end">
+              <Button
+                size="$2"
+                chromeless
+                onPress={() => void revoke(id.email)}
+                disabled={busyEmail === id.email}
+                aria-label={`Revoke ${id.email}`}
+              >
+                <Text fontSize="$1" color={'#fca5a5' as never}>
+                  Revoke
+                </Text>
+              </Button>
+            </YStack>
+          </XStack>
+        ))}
+      </Card>
+      {revErr ? (
+        <Alert variant="destructive" title="Could not revoke identity">
+          {revErr}
+        </Alert>
+      ) : null}
+    </YStack>
   )
 }

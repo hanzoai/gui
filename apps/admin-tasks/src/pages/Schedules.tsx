@@ -11,6 +11,7 @@ import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
 import { DataTable, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import { Schedules, type Schedule } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
+import { canWriteNamespace, useSettings } from '../stores/settings'
 import { describeSpec, nextOccurrences } from '../stores/schedule-recurrence'
 import { ScheduleStatusPill } from '../components/schedule/ScheduleStatusPill'
 import { formatTimestamp } from '../lib/format'
@@ -33,6 +34,8 @@ export function SchedulesPage() {
   const namespace = ns!
   const url = Schedules.listUrl(namespace)
   const { data, error, isLoading, mutate } = useFetch<ListResp>(url)
+  const { settings } = useSettings()
+  const writeAllowed = canWriteNamespace(settings)
 
   const onEvent = useCallback(() => {
     void mutate()
@@ -58,11 +61,28 @@ export function SchedulesPage() {
             ({rows.length})
           </Text>
         </H2>
-        <Link
-          to={`/namespaces/${encodeURIComponent(namespace)}/schedules/create`}
-          style={{ textDecoration: 'none' }}
-        >
-          <Button size="$2" bg={'#f2f2f2' as never}>
+        {writeAllowed ? (
+          <Link
+            to={`/namespaces/${encodeURIComponent(namespace)}/schedules/create`}
+            style={{ textDecoration: 'none' }}
+          >
+            <Button size="$2" bg={'#f2f2f2' as never}>
+              <XStack items="center" gap="$1.5">
+                <Plus size={14} color="#070b13" />
+                <Text fontSize="$2" color={'#070b13' as never} fontWeight="500">
+                  New schedule
+                </Text>
+              </XStack>
+            </Button>
+          </Link>
+        ) : (
+          <Button
+            size="$2"
+            disabled
+            opacity={0.5}
+            bg={'#f2f2f2' as never}
+            aria-label="Namespace write actions are disabled"
+          >
             <XStack items="center" gap="$1.5">
               <Plus size={14} color="#070b13" />
               <Text fontSize="$2" color={'#070b13' as never} fontWeight="500">
@@ -70,7 +90,7 @@ export function SchedulesPage() {
               </Text>
             </XStack>
           </Button>
-        </Link>
+        )}
       </XStack>
 
       <DataTable

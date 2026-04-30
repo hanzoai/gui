@@ -630,18 +630,33 @@ export interface WorkerDeploymentVersion {
   deploymentName: string
 }
 
-export interface BuildIdEntry {
+// Wire shape: matches Hanzo Tasks engine. Each version row carries
+// state + metadata. Legacy field aliases (BuildIdEntry, seriesName,
+// buildIds) removed — backend renamed BuildIDs→Versions in v3.8.0.
+export interface DeploymentVersion {
   buildId: string
   state: DeploymentStatus | string
+  description?: string
+  compute?: string
+  image?: string
+  env?: Record<string, string>
   createTime: Timestamp
+  updateTime?: Timestamp
 }
+// Backwards-compat alias kept ONLY at the type level for files mid-port.
+// Do not introduce new uses; everything new keys off DeploymentVersion.
+export type BuildIdEntry = DeploymentVersion
 
 export interface Deployment {
-  seriesName: string
+  name: string
   namespace: string
-  buildIds: BuildIdEntry[]
+  description?: string
+  ownerEmail?: string
+  defaultCompute?: string
+  versions: DeploymentVersion[]
   defaultBuildId: string
   createTime: Timestamp
+  updateTime?: Timestamp
 }
 
 export interface ListDeploymentsResponse {

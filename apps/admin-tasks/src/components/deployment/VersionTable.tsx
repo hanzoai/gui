@@ -1,15 +1,23 @@
 // VersionTable — build IDs registered against one deployment series.
-// "Set current" button per row when the row is not already current.
+// Each row hosts a VersionActionsMenu when handlers are supplied, or the
+// inline "Set current" button when only the legacy callbacks are wired.
 
 import { Button, Card, Text, XStack, YStack } from 'hanzogui'
 import { Badge, formatTimestamp } from '@hanzogui/admin'
 import type { BuildIdEntry } from '../../lib/types'
+import { VersionActionsMenu } from './VersionActionsMenu'
 
 export interface VersionTableProps {
   buildIds: BuildIdEntry[]
   defaultBuildId: string
   onSetCurrent: (buildId: string) => void
   onUnsetCurrent?: () => void
+  onValidate?: (buildId: string) => void
+  onDelete?: (buildId: string) => void
+  // Path prefix for per-row edit links: "{prefix}/{buildId}/edit". When
+  // omitted the actions menu is not rendered.
+  editHrefBase?: string
+  writeDisabled?: boolean
   busy?: boolean
 }
 
@@ -18,8 +26,13 @@ export function VersionTable({
   defaultBuildId,
   onSetCurrent,
   onUnsetCurrent,
+  onValidate,
+  onDelete,
+  editHrefBase,
+  writeDisabled,
   busy,
 }: VersionTableProps) {
+  const fullActions = !!editHrefBase && !!onValidate && !!onDelete
   return (
     <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
       <XStack
@@ -68,7 +81,17 @@ export function VersionTable({
               </Text>
             </YStack>
             <YStack flex={1} px="$2">
-              {isCurrent ? (
+              {fullActions ? (
+                <VersionActionsMenu
+                  buildId={b.buildId}
+                  editHref={`${editHrefBase}/${encodeURIComponent(b.buildId)}/edit`}
+                  isCurrent={isCurrent}
+                  writeDisabled={writeDisabled}
+                  onSetCurrent={() => onSetCurrent(b.buildId)}
+                  onValidate={() => onValidate!(b.buildId)}
+                  onDelete={() => onDelete!(b.buildId)}
+                />
+              ) : isCurrent ? (
                 onUnsetCurrent ? (
                   <Button
                     size="$2"

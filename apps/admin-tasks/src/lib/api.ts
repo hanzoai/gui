@@ -16,16 +16,19 @@
 
 import { apiPost, apiDelete, ApiError } from '@hanzogui/admin'
 import type {
+  Activity,
   BatchOperation,
   Cursor,
   Deployment,
   Identity,
+  ListActivitiesResponse,
   ListWorkflowExecutionsResponse,
   Namespace,
   NexusEndpoint,
   NexusEndpointSpec,
   Schedule,
   SearchAttributesSchema,
+  StartActivityRequest,
   WorkflowExecution,
 } from './types'
 
@@ -47,6 +50,14 @@ export type {
   PendingNexusOperation,
   ExecutionRef,
   ListWorkflowExecutionsResponse,
+  Activity,
+  ActivityWireStatus,
+  ActivityStatus,
+  ActivityRetryPolicy,
+  ActivityAttempt,
+  ListActivitiesResponse,
+  DescribeActivityResponse,
+  StartActivityRequest,
 } from './types'
 
 // ── URL helpers ────────────────────────────────────────────────────
@@ -301,13 +312,77 @@ export const Batches = {
 export const deploymentUrls = {
   list: (ns: string) => `${ROOT}/namespaces/${enc(ns)}/deployments`,
   describe: (ns: string, name: string) => `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(name)}`,
+  versionDescribe: (ns: string, name: string, buildId: string) =>
+    `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(name)}/versions/${enc(buildId)}`,
+  versionValidate: (ns: string, name: string, buildId: string) =>
+    `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(name)}/versions/${enc(buildId)}/validate`,
+}
+
+export interface DeploymentCreateInput {
+  name: string
+  description?: string
+  ownerEmail?: string
+  defaultCompute?: Record<string, unknown>
+}
+
+export interface DeploymentUpdateInput {
+  description?: string
+  ownerEmail?: string
+  defaultCompute?: Record<string, unknown>
+}
+
+export interface VersionCreateInput {
+  buildId: string
+  description?: string
+  image?: string
+  region?: string
+  compute?: Record<string, unknown>
+  env?: Record<string, string>
+}
+
+export interface VersionUpdateInput {
+  description?: string
+  image?: string
+  region?: string
+  compute?: Record<string, unknown>
+  env?: Record<string, string>
+}
+
+export interface ValidateConnectionResult {
+  valid: boolean
+  message?: string
+  network?: boolean
+  workerRegistered?: boolean
+  heartbeatReceived?: boolean
+  latencyMs?: number
 }
 
 export const Deployments = {
   listUrl: deploymentUrls.list,
   describeUrl: deploymentUrls.describe,
-  create: (ns: string, deployment: Partial<Deployment>) =>
+  versionDescribeUrl: deploymentUrls.versionDescribe,
+  versionValidateUrl: deploymentUrls.versionValidate,
+
+  create: (ns: string, deployment: DeploymentCreateInput | Partial<Deployment>) =>
     request<Deployment>('POST', `${ROOT}/namespaces/${enc(ns)}/deployments`, deployment),
+
+  // Full update of deployment metadata. Engine route shape ready; backend
+  // returns 501 until the mutation handler lands.
+  update: (ns: string, deploymentName: string, patch: DeploymentUpdateInput) =>
+    request<Deployment>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}`,
+      patch,
+    ),
+
+  // Delete a deployment series. Backend refuses with 409 if any versions
+  // are still attached unless force=true cascades the delete.
+  deleteDeployment: (ns: string, deploymentName: string, force = false) =>
+    request<{ status: string }>(
+      'DELETE',
+      `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}${qs({ force: force ? 'true' : undefined })}`,
+    ),
+
   // Stub: setCurrent flips the active build; backend returns 501.
   setCurrent: (ns: string, deploymentName: string, buildId: string) =>
     request<Deployment>(
@@ -322,6 +397,44 @@ export const Deployments = {
       'POST',
       `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}/set-current`,
       { buildId: '' },
+    ),
+
+  // Register a new version (build id) under a deployment series.
+  createVersion: (ns: string, deploymentName: string, version: VersionCreateInput) =>
+    request<{ buildId: string }>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}/versions`,
+      version,
+    ),
+
+  // Patch a version's metadata (image, env, compute). Build id itself is
+  // immutable; routing identity is the build id, not metadata.
+  updateVersion: (
+    ns: string,
+    deploymentName: string,
+    buildId: string,
+    patch: VersionUpdateInput,
+  ) =>
+    request<{ buildId: string }>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}/versions/${enc(buildId)}`,
+      patch,
+    ),
+
+  // Delete a single version. Backend refuses if buildId === defaultBuildId
+  // (set another current first).
+  deleteVersion: (ns: string, deploymentName: string, buildId: string) =>
+    request<{ status: string }>(
+      'DELETE',
+      `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}/versions/${enc(buildId)}`,
+    ),
+
+  // Smoke-test connectivity for a version: probes registration, heartbeat,
+  // and round-trip latency. Returns a typed result envelope.
+  validateVersion: (ns: string, deploymentName: string, buildId: string) =>
+    request<ValidateConnectionResult>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}/versions/${enc(buildId)}/validate`,
     ),
 }
 
@@ -463,6 +576,74 @@ export const UserMetadata = {
       'POST',
       `${ROOT}/namespaces/${enc(ns)}/workflows/${enc(workflowId)}/metadata${qs({ runId })}`,
       { summary, details },
+    ),
+}
+
+// ── Activities (standalone) ───────────────────────────────────────
+//
+// Standalone activities live on the same /v1/tasks tree. The id+run
+// pair scopes mutations the same way workflows do. History uses the
+// shared `events` envelope so the workflow history adapter renders
+// the response shape unchanged.
+
+export const activityUrls = {
+  list: (ns: string, opts: { query?: string; pageSize?: number; nextPageToken?: string } = {}) =>
+    `${ROOT}/namespaces/${enc(ns)}/activities${qs(opts)}`,
+  describe: (ns: string, activityId: string, runId: string) =>
+    `${ROOT}/namespaces/${enc(ns)}/activities/${enc(activityId)}/${enc(runId)}`,
+  history: (ns: string, activityId: string, runId: string, nextPageToken?: string) =>
+    `${ROOT}/namespaces/${enc(ns)}/activities/${enc(activityId)}/${enc(runId)}/history${qs({ nextPageToken })}`,
+}
+
+export const Activities = {
+  listUrl: activityUrls.list,
+  describeUrl: activityUrls.describe,
+  historyUrl: activityUrls.history,
+
+  list: async (
+    ns: string,
+    opts: { query?: string; pageSize?: number; nextPageToken?: string } = {},
+    fetcher: (url: string) => Promise<unknown> = (u) => fetch(u, { credentials: 'same-origin' }).then((r) => r.json()),
+  ): Promise<Cursor<ListActivitiesResponse>> => {
+    const body = (await fetcher(activityUrls.list(ns, opts))) as ListActivitiesResponse
+    return { data: body, nextPageToken: body.nextPageToken ?? null }
+  },
+
+  start: (ns: string, req: StartActivityRequest) =>
+    request<Activity>('POST', `${ROOT}/namespaces/${enc(ns)}/activities`, req),
+
+  cancel: (ns: string, activityId: string, runId: string, reason?: string) =>
+    request<{ status: string }>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/activities/${enc(activityId)}/${enc(runId)}/cancel`,
+      { reason },
+    ),
+
+  // Operator-side completion. The worker SDK is the natural producer of
+  // success — this surface exists for stuck-activity recovery (drained
+  // worker, lost host).
+  complete: (ns: string, activityId: string, runId: string, result?: unknown) =>
+    request<{ status: string }>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/activities/${enc(activityId)}/${enc(runId)}/complete`,
+      { result },
+    ),
+
+  fail: (ns: string, activityId: string, runId: string, message: string, stackTrace?: string) =>
+    request<{ status: string }>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/activities/${enc(activityId)}/${enc(runId)}/fail`,
+      { failure: { message, stackTrace } },
+    ),
+
+  // Heartbeat-reset bumps the activity's last-heartbeat timestamp from
+  // the operator side. Used to keep an activity alive past
+  // heartbeatTimeout while the worker recovers.
+  heartbeat: (ns: string, activityId: string, runId: string, details?: unknown) =>
+    request<{ status: string }>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/activities/${enc(activityId)}/${enc(runId)}/heartbeat`,
+      { details },
     ),
 }
 

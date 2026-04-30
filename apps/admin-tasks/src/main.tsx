@@ -44,6 +44,22 @@ const BatchDetailPage = lazy(() =>
 const DeploymentDetailPage = lazy(() =>
   import('./pages/DeploymentDetail').then((m) => ({ default: m.DeploymentDetailPage })),
 )
+const DeploymentCreatePage = lazy(() =>
+  import('./pages/DeploymentCreate').then((m) => ({ default: m.DeploymentCreatePage })),
+)
+const DeploymentEditPage = lazy(() =>
+  import('./pages/DeploymentEdit').then((m) => ({ default: m.DeploymentEditPage })),
+)
+const DeploymentVersionCreatePage = lazy(() =>
+  import('./pages/DeploymentVersionCreate').then((m) => ({
+    default: m.DeploymentVersionCreatePage,
+  })),
+)
+const DeploymentVersionEditPage = lazy(() =>
+  import('./pages/DeploymentVersionEdit').then((m) => ({
+    default: m.DeploymentVersionEditPage,
+  })),
+)
 const EventDetailPage = lazy(() =>
   import('./pages/EventDetail').then((m) => ({ default: m.EventDetailPage })),
 )
@@ -77,6 +93,12 @@ const WorkflowDetailPage = lazy(() =>
 const WorkflowHistoryPage = lazy(() =>
   import('./pages/WorkflowHistory').then((m) => ({ default: m.WorkflowHistoryPage })),
 )
+const ActivityDetailPage = lazy(() =>
+  import('./pages/ActivityDetail').then((m) => ({ default: m.ActivityDetailPage })),
+)
+const ActivityStartPage = lazy(() =>
+  import('./pages/ActivityStart').then((m) => ({ default: m.ActivityStartPage })),
+)
 
 const Fallback = () => <Loading label="Loading…" />
 
@@ -93,6 +115,8 @@ if (!root) throw new Error('root element missing')
 const detailTabs = [
   'call-stack',
   'pending-activities',
+  'pending-nexus',
+  'timeline',
   'workers',
   'query',
   'memo',
@@ -111,6 +135,16 @@ const tabAliases: Array<{ alias: string; tab: typeof detailTabs[number] }> = [
 // Sub-views of the workflow history page. compact / feed / json are
 // rendered by `WorkflowHistoryPage` itself based on the URL segment.
 const historyViews = ['compact', 'feed', 'json'] as const
+
+// Activity detail tabs. All values must be members of
+// `ActivityDetailPage`'s `ActivityTab` union.
+const activityTabs = [
+  'summary',
+  'history',
+  'workers',
+  'search-attributes',
+  'user-metadata',
+] as const
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
@@ -256,8 +290,24 @@ ReactDOM.createRoot(root).render(
               element={<PageShell><DeploymentsPage /></PageShell>}
             />
             <Route
-              path="namespaces/:ns/deployments/:deploymentName"
+              path="namespaces/:ns/deployments/create"
+              element={<PageShell><DeploymentCreatePage /></PageShell>}
+            />
+            <Route
+              path="namespaces/:ns/deployments/:name"
               element={<PageShell><DeploymentDetailPage /></PageShell>}
+            />
+            <Route
+              path="namespaces/:ns/deployments/:name/edit"
+              element={<PageShell><DeploymentEditPage /></PageShell>}
+            />
+            <Route
+              path="namespaces/:ns/deployments/:name/versions/create"
+              element={<PageShell><DeploymentVersionCreatePage /></PageShell>}
+            />
+            <Route
+              path="namespaces/:ns/deployments/:name/versions/:buildId/edit"
+              element={<PageShell><DeploymentVersionEditPage /></PageShell>}
             />
 
             {/* Workers. */}
@@ -267,11 +317,26 @@ ReactDOM.createRoot(root).render(
               element={<PageShell><WorkerDetailPage /></PageShell>}
             />
 
-            {/* Activities. */}
+            {/* Activities — list, start, detail with tabs. */}
             <Route
               path="namespaces/:ns/activities"
               element={<PageShell><ActivitiesPage /></PageShell>}
             />
+            <Route
+              path="namespaces/:ns/activities/start"
+              element={<PageShell><ActivityStartPage /></PageShell>}
+            />
+            <Route
+              path="namespaces/:ns/activities/:activityId/:runId"
+              element={<PageShell><ActivityDetailPage tab="summary" /></PageShell>}
+            />
+            {activityTabs.map((tab) => (
+              <Route
+                key={`act-${tab}`}
+                path={`namespaces/:ns/activities/:activityId/:runId/${tab}`}
+                element={<PageShell><ActivityDetailPage tab={tab} /></PageShell>}
+              />
+            ))}
 
             {/* Search attributes. */}
             <Route

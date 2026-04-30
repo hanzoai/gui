@@ -4,11 +4,11 @@
 
 import { Button, Card, Text, XStack, YStack } from 'hanzogui'
 import { Badge, formatTimestamp } from '@hanzogui/admin'
-import type { BuildIdEntry } from '../../lib/types'
+import type { DeploymentVersion } from '../../lib/types'
 import { VersionActionsMenu } from './VersionActionsMenu'
 
 export interface VersionTableProps {
-  buildIds: BuildIdEntry[]
+  versions: DeploymentVersion[]
   defaultBuildId: string
   onSetCurrent: (buildId: string) => void
   onUnsetCurrent?: () => void
@@ -22,7 +22,7 @@ export interface VersionTableProps {
 }
 
 export function VersionTable({
-  buildIds,
+  versions,
   defaultBuildId,
   onSetCurrent,
   onUnsetCurrent,
@@ -47,7 +47,7 @@ export function VersionTable({
         <HeaderCell flex={2}>Created</HeaderCell>
         <HeaderCell flex={1}>Actions</HeaderCell>
       </XStack>
-      {buildIds.map((b, i) => {
+      {versions.map((b, i) => {
         const isCurrent = b.buildId === defaultBuildId
         const state = String(b.state ?? '').replace(/^DEPLOYMENT_STATE_/, '').toLowerCase() || 'unknown'
         return (
@@ -55,7 +55,7 @@ export function VersionTable({
             key={b.buildId}
             px="$4"
             py="$2.5"
-            borderBottomWidth={i === buildIds.length - 1 ? 0 : 1}
+            borderBottomWidth={i === versions.length - 1 ? 0 : 1}
             borderBottomColor="$borderColor"
             items="center"
           >

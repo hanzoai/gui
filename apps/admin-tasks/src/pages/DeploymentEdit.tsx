@@ -16,16 +16,37 @@ import {
 } from '../components/deployment/DeploymentForm'
 import { useSettings, canWriteNamespace } from '../stores/settings'
 
-interface DeploymentEnvelope extends Deployment {
-  description?: string
-  ownerEmail?: string
-  defaultCompute?: {
+// Wire defaultCompute as a string today (e.g. "cpu=500m,memory=512Mi").
+// The structured form below is a UI-side parsed view and lives outside
+// the API type. Keeping the structured fields optional means hydration
+// from the wire string degrades gracefully.
+interface DeploymentEnvelope extends Omit<Deployment, 'defaultCompute'> {
+  defaultCompute?: string | {
     type?: string
     cpu?: string | number
     memory?: string | number
     gpu?: string | number
     region?: string
   }
+}
+
+// parseComputeString reads "cpu=500m,memory=512Mi,gpu=0,type=k8s,region=sfo3"
+// into the structured form. Tolerant — unknown keys are dropped, missing
+// keys come back undefined and the caller falls back to defaults.
+function parseComputeString(s: string): {
+  type?: string
+  cpu?: string | number
+  memory?: string | number
+  gpu?: string | number
+  region?: string
+} {
+  const out: Record<string, string> = {}
+  for (const part of s.split(',')) {
+    const eq = part.indexOf('=')
+    if (eq < 1) continue
+    out[part.slice(0, eq).trim()] = part.slice(eq + 1).trim()
+  }
+  return out as ReturnType<typeof parseComputeString>
 }
 
 export function DeploymentEditPage() {
@@ -45,16 +66,20 @@ export function DeploymentEditPage() {
 
   useEffect(() => {
     if (!data) return
+    const compute =
+      typeof data.defaultCompute === 'object' && data.defaultCompute !== null
+        ? data.defaultCompute
+        : parseComputeString(data.defaultCompute ?? '')
     setForm({
-      name: data.seriesName,
+      name: data.name,
       description: data.description ?? '',
       ownerEmail: data.ownerEmail ?? '',
       defaultCompute: {
-        type: data.defaultCompute?.type ?? 'k8s',
-        cpu: String(data.defaultCompute?.cpu ?? '1'),
-        memory: String(data.defaultCompute?.memory ?? '1Gi'),
-        gpu: String(data.defaultCompute?.gpu ?? '0'),
-        region: data.defaultCompute?.region ?? '',
+        type: compute.type ?? 'k8s',
+        cpu: String(compute.cpu ?? '1'),
+        memory: String(compute.memory ?? '1Gi'),
+        gpu: String(compute.gpu ?? '0'),
+        region: compute.region ?? '',
       },
     })
   }, [data])

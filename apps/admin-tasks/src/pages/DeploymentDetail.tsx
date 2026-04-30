@@ -177,9 +177,9 @@ export function DeploymentDetailPage() {
   if (error) return <ErrorState error={error as Error} />
   if (isLoading || !data) return <LoadingState />
 
-  const buildIds = data.buildIds ?? []
-  const ramping = buildIds.find((b) => String(b.state).includes('RAMPING') || String(b.state) === 'Ramping')
-  const latest = buildIds.length > 0 ? buildIds[buildIds.length - 1] : undefined
+  const versions = data.versions ?? []
+  const ramping = versions.find((b) => String(b.state).includes('RAMPING') || String(b.state) === 'Ramping')
+  const latest = versions.length > 0 ? versions[versions.length - 1] : undefined
   const drift = latest && data.defaultBuildId && latest.buildId !== data.defaultBuildId
 
   const editHrefBase = `/namespaces/${encodeURIComponent(namespace)}/deployments/${encodeURIComponent(series)}/versions`
@@ -202,7 +202,7 @@ export function DeploymentDetailPage() {
             DEPLOYMENT
           </Text>
           <XStack items="center" gap="$3" flexWrap="wrap">
-            <H1 size="$7" color="$color" fontWeight="600">{data.seriesName}</H1>
+            <H1 size="$7" color="$color" fontWeight="600">{data.name}</H1>
             {ramping ? <Badge variant="warning">ramping</Badge> : null}
             {drift ? <Badge variant="info">drift</Badge> : null}
           </XStack>
@@ -256,7 +256,7 @@ export function DeploymentDetailPage() {
       </XStack>
 
       <XStack gap="$3" flexWrap="wrap">
-        <SummaryCard label="Versions" value={buildIds.length} />
+        <SummaryCard label="Versions" value={versions.length} />
         <SummaryCard
           label="Current"
           value={data.defaultBuildId ? 1 : 0}
@@ -266,15 +266,15 @@ export function DeploymentDetailPage() {
         <SummaryCard label="Task queues" value={impactedQueues.length} accent="default" />
       </XStack>
 
-      <Section title={`Versions (${buildIds.length})`}>
-        {buildIds.length === 0 ? (
+      <Section title={`Versions (${versions.length})`}>
+        {versions.length === 0 ? (
           <Empty
             title="No build IDs registered"
             hint="A build ID lands when a worker connects with that series + version, or you can register one explicitly."
           />
         ) : (
           <VersionTable
-            buildIds={buildIds}
+            versions={versions}
             defaultBuildId={data.defaultBuildId}
             onSetCurrent={onSetCurrent}
             onUnsetCurrent={data.defaultBuildId ? onUnsetCurrent : undefined}
@@ -338,7 +338,7 @@ export function DeploymentDetailPage() {
       </Section>
 
       <SetCurrentDialog
-        deploymentName={data.seriesName}
+        deploymentName={data.name}
         currentBuildId={data.defaultBuildId}
         proposedBuildId={pending ?? ''}
         impactedTaskQueues={impactedQueues}
@@ -350,8 +350,8 @@ export function DeploymentDetailPage() {
       />
 
       <DeleteDeploymentModal
-        deploymentName={data.seriesName}
-        versionCount={buildIds.length}
+        deploymentName={data.name}
+        versionCount={versions.length}
         open={deleteOpen}
         busy={deleteBusy}
         error={deleteErr}
@@ -360,7 +360,7 @@ export function DeploymentDetailPage() {
       />
 
       <DeleteVersionModal
-        deploymentName={data.seriesName}
+        deploymentName={data.name}
         buildId={deleteVersion ?? ''}
         isCurrent={deleteVersion !== null && deleteVersion === data.defaultBuildId}
         open={deleteVersion !== null}
@@ -371,7 +371,7 @@ export function DeploymentDetailPage() {
       />
 
       <ValidateConnectionModal
-        deploymentName={data.seriesName}
+        deploymentName={data.name}
         buildId={validateBuild ?? ''}
         open={validateBuild !== null}
         loading={validateLoading}

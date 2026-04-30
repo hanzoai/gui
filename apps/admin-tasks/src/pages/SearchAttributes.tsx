@@ -21,6 +21,7 @@ import {
 } from 'hanzogui'
 import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
 import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
+import { Trash2 } from '@hanzogui/lucide-icons-2/icons/Trash2'
 import {
   Alert,
   Badge,
@@ -35,6 +36,7 @@ import {
   type SearchAttributesResponse,
 } from '../lib/api'
 import { SEARCH_ATTRIBUTE_TYPE, type SearchAttributeType } from '../lib/types'
+import { canAddSearchAttribute, useSettings } from '../stores/settings'
 
 const TYPE_OPTIONS: SearchAttributeType[] = [
   SEARCH_ATTRIBUTE_TYPE.KEYWORD,
@@ -51,6 +53,8 @@ export function SearchAttributesPage() {
   const namespace = ns!
   const url = Search.attributesUrl(namespace)
   const { data, error, isLoading, mutate } = useFetch<SearchAttributesResponse>(url)
+  const { settings } = useSettings()
+  const advancedOn = canAddSearchAttribute(settings)
 
   if (error) return <ErrorState error={error as Error} />
   if (isLoading || !data) return <LoadingState />
@@ -82,15 +86,16 @@ export function SearchAttributesPage() {
       </YStack>
 
       <Section title="Built-in" hint="System attributes — read-only.">
-        <AttributeTable schema={system} readOnly />
+        <AttributeTable ns={namespace} schema={system} readOnly onChanged={() => mutate()} />
       </Section>
 
       <Section title="Custom" hint="Application-specific keys you can filter workflows by.">
         <AddAttributeForm
           ns={namespace}
+          disabled={!advancedOn}
           onAdded={() => mutate()}
         />
-        <AttributeTable schema={custom} />
+        <AttributeTable ns={namespace} schema={custom} onChanged={() => mutate()} />
       </Section>
     </YStack>
   )
@@ -123,13 +128,37 @@ function Section({
 }
 
 function AttributeTable({
+  ns,
   schema,
   readOnly = false,
+  onChanged,
 }: {
+  ns: string
   schema: Record<string, string>
   readOnly?: boolean
+  onChanged: () => void
 }) {
   const entries = Object.entries(schema).sort(([a], [b]) => a.localeCompare(b))
+  const [busyKey, setBusyKey] = useState<string | null>(null)
+  const [rowErr, setRowErr] = useState<string | null>(null)
+
+  const remove = useCallback(
+    async (key: string) => {
+      if (!confirm(`Delete custom attribute "${key}"? Existing workflow records keep the value but new queries cannot reference it.`)) return
+      setBusyKey(key)
+      setRowErr(null)
+      try {
+        await Search.deleteAttribute(ns, key)
+        onChanged()
+      } catch (e) {
+        setRowErr(e instanceof ApiError ? e.message : (e as Error).message)
+      } finally {
+        setBusyKey(null)
+      }
+    },
+    [ns, onChanged],
+  )
+
   if (entries.length === 0) {
     return (
       <Empty
@@ -143,47 +172,70 @@ function AttributeTable({
     )
   }
   return (
-    <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
-      <XStack
-        bg={'rgba(255,255,255,0.03)' as never}
-        px="$4"
-        py="$2"
-        borderBottomWidth={1}
-        borderBottomColor="$borderColor"
-      >
-        <Text flex={2} fontSize="$2" color="$placeholderColor" fontWeight="500">
-          Key
-        </Text>
-        <Text flex={1} fontSize="$2" color="$placeholderColor" fontWeight="500">
-          Type
-        </Text>
-      </XStack>
-      {entries.map(([k, t], i) => (
+    <YStack gap="$2">
+      <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
         <XStack
-          key={k}
+          bg={'rgba(255,255,255,0.03)' as never}
           px="$4"
-          py="$2.5"
-          borderTopWidth={i === 0 ? 0 : 1}
-          borderTopColor="$borderColor"
-          items="center"
+          py="$2"
+          borderBottomWidth={1}
+          borderBottomColor="$borderColor"
         >
-          <Text flex={2} fontSize="$2" color="$color">
-            {k}
+          <Text flex={2} fontSize="$2" color="$placeholderColor" fontWeight="500">
+            Key
           </Text>
-          <YStack flex={1}>
-            <Badge variant="muted">{t}</Badge>
-          </YStack>
+          <Text flex={1} fontSize="$2" color="$placeholderColor" fontWeight="500">
+            Type
+          </Text>
+          {!readOnly ? <Text width={80} fontSize="$2" color="$placeholderColor" fontWeight="500" /> : null}
         </XStack>
-      ))}
-    </Card>
+        {entries.map(([k, t], i) => (
+          <XStack
+            key={k}
+            px="$4"
+            py="$2.5"
+            borderTopWidth={i === 0 ? 0 : 1}
+            borderTopColor="$borderColor"
+            items="center"
+          >
+            <Text flex={2} fontSize="$2" color="$color">
+              {k}
+            </Text>
+            <YStack flex={1}>
+              <Badge variant="muted">{t}</Badge>
+            </YStack>
+            {!readOnly ? (
+              <YStack width={80} items="flex-end">
+                <Button
+                  size="$2"
+                  chromeless
+                  onPress={() => void remove(k)}
+                  disabled={busyKey === k}
+                  aria-label={`Delete ${k}`}
+                >
+                  <Trash2 size={14} color={busyKey === k ? '#7e8794' : '#fca5a5'} />
+                </Button>
+              </YStack>
+            ) : null}
+          </XStack>
+        ))}
+      </Card>
+      {rowErr ? (
+        <Alert variant="destructive" title="Could not delete attribute">
+          {rowErr}
+        </Alert>
+      ) : null}
+    </YStack>
   )
 }
 
 function AddAttributeForm({
   ns,
+  disabled = false,
   onAdded,
 }: {
   ns: string
+  disabled?: boolean
   onAdded: () => void
 }) {
   const [name, setName] = useState('')
@@ -213,16 +265,20 @@ function AddAttributeForm({
 
   return (
     <YStack gap="$2">
-      <XStack gap="$2" items="center" flexWrap="wrap">
+      <XStack gap="$2" items="center" flexWrap="wrap" opacity={disabled ? 0.5 : 1}>
         <Input
           size="$3"
           width={260}
           placeholder="MyAttribute"
           value={name}
           onChangeText={setName}
+          disabled={disabled}
         />
-        <Select value={type} onValueChange={(v: string) => setType(v as SearchAttributeType)}>
-          <Select.Trigger width={180}>
+        <Select
+          value={type}
+          onValueChange={(v: string) => setType(v as SearchAttributeType)}
+        >
+          <Select.Trigger width={180} disabled={disabled}>
             <Select.Value placeholder="Type" />
           </Select.Trigger>
           <Select.Content>
@@ -235,13 +291,23 @@ function AddAttributeForm({
             </Select.Viewport>
           </Select.Content>
         </Select>
-        <Button size="$3" disabled={busy} onPress={submit} aria-label="Add attribute">
+        <Button
+          size="$3"
+          disabled={busy || disabled}
+          onPress={submit}
+          aria-label={disabled ? 'Advanced visibility disabled' : 'Add attribute'}
+        >
           <XStack items="center" gap="$1.5">
             <Plus size={14} color="#cbd5e1" />
             <Text fontSize="$2">{busy ? 'Adding…' : 'Add'}</Text>
           </XStack>
         </Button>
       </XStack>
+      {disabled ? (
+        <Text fontSize="$1" color="$placeholderColor">
+          Advanced visibility is disabled — custom attributes cannot be added.
+        </Text>
+      ) : null}
       {err ? <Alert variant="destructive" title="Could not add attribute">{err}</Alert> : null}
     </YStack>
   )

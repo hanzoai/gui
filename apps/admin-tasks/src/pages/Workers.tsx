@@ -17,6 +17,7 @@ import {
 import { Workers, type Worker } from '../lib/api'
 import type { NextPageToken } from '../lib/types'
 import { useCursorPager, type PageResult } from '../stores/pagination-cursor'
+import { useSettings, workerHeartbeatsEnabled } from '../stores/settings'
 
 const PAGE_SIZE = 200
 
@@ -38,6 +39,8 @@ export function WorkersPage() {
   )
 
   const pager = useCursorPager<Worker>(fetchPage, [namespace])
+  const { settings } = useSettings()
+  const heartbeatsOn = workerHeartbeatsEnabled(settings)
 
   if (pager.error) return <ErrorState error={pager.error} />
 
@@ -63,10 +66,17 @@ export function WorkersPage() {
 
       <YStack px="$6" pb="$6" gap="$3">
         {pager.items.length === 0 ? (
-          <Empty
-            title={`No workers polling ${namespace}`}
-            hint="Worker heartbeats land with the worker SDK runtime (pkg/sdk/worker). Once a worker registers, its identity, build ID, and last poll will appear here."
-          />
+          heartbeatsOn ? (
+            <Empty
+              title={`No workers polling ${namespace}`}
+              hint="Worker heartbeats land with the worker SDK runtime (pkg/sdk/worker). Once a worker registers, its identity, build ID, and last poll will appear here."
+            />
+          ) : (
+            <Empty
+              title="Heartbeats disabled"
+              hint="The engine has worker heartbeats disabled in settings; live poller status is unavailable. Re-enable on the server to populate this view."
+            />
+          )
         ) : (
           <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
             <XStack

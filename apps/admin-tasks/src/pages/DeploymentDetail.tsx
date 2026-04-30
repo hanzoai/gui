@@ -82,6 +82,33 @@ export function DeploymentDetailPage() {
     setDialogError(undefined)
   }, [busy])
 
+  const onUnsetCurrent = useCallback(async () => {
+    if (!data?.defaultBuildId) return
+    if (
+      !confirm(
+        `Clear current build "${data.defaultBuildId}" for ${series}? Routing falls back to the worker's default until you set another current.`,
+      )
+    )
+      return
+    setBusy(true)
+    try {
+      await Deployments.unsetCurrent(namespace, series)
+      await mutate()
+    } catch (e) {
+      const msg =
+        e instanceof ApiError
+          ? e.status === 501
+            ? 'Engine does not implement set-current yet (cannot clear).'
+            : e.message
+          : e instanceof Error
+            ? e.message
+            : String(e)
+      setDialogError(msg)
+    } finally {
+      setBusy(false)
+    }
+  }, [data?.defaultBuildId, namespace, series, mutate])
+
   if (error) return <ErrorState error={error as Error} />
   if (isLoading || !data) return <LoadingState />
 
@@ -140,6 +167,7 @@ export function DeploymentDetailPage() {
             buildIds={buildIds}
             defaultBuildId={data.defaultBuildId}
             onSetCurrent={onSetCurrent}
+            onUnsetCurrent={data.defaultBuildId ? onUnsetCurrent : undefined}
             busy={busy}
           />
         )}

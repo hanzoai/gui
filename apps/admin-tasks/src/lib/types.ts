@@ -714,6 +714,119 @@ export interface Settings {
   workerStopSupported?: boolean
 }
 
+// ── standalone activities ─────────────────────────────────────────
+//
+// Standalone activities are first-class entities that workers can start
+// directly (i.e. without a workflow parent). The wire shape mirrors
+// upstream Temporal's ActivityExecutionInfo. Status uses the
+// ACTIVITY_EXECUTION_STATUS_* enum on the wire; the UI prefers the
+// PascalCase short form via parseActivityStatus.
+
+export type ActivityWireStatus =
+  | 'ACTIVITY_EXECUTION_STATUS_UNSPECIFIED'
+  | 'ACTIVITY_EXECUTION_STATUS_SCHEDULED'
+  | 'ACTIVITY_EXECUTION_STATUS_RUNNING'
+  | 'ACTIVITY_EXECUTION_STATUS_COMPLETED'
+  | 'ACTIVITY_EXECUTION_STATUS_FAILED'
+  | 'ACTIVITY_EXECUTION_STATUS_CANCELED'
+  | 'ACTIVITY_EXECUTION_STATUS_TERMINATED'
+  | 'ACTIVITY_EXECUTION_STATUS_TIMED_OUT'
+
+export type ActivityStatus =
+  | 'Scheduled'
+  | 'Running'
+  | 'Started'
+  | 'Completed'
+  | 'Failed'
+  | 'Canceled'
+  | 'Terminated'
+  | 'TimedOut'
+  | 'Unspecified'
+
+export const ACTIVITY_STATUSES: ActivityStatus[] = [
+  'Scheduled',
+  'Running',
+  'Started',
+  'Completed',
+  'Failed',
+  'Canceled',
+  'Terminated',
+  'TimedOut',
+  'Unspecified',
+]
+
+export interface ActivityRetryPolicy {
+  initialInterval?: Duration
+  backoffCoefficient?: number
+  maximumInterval?: Duration
+  maximumAttempts?: number
+  nonRetryableErrorTypes?: string[]
+}
+
+export interface ActivityAttempt {
+  attempt: number
+  startTime?: Timestamp
+  endTime?: Timestamp
+  failure?: { message?: string; stackTrace?: string } | null
+  workerIdentity?: string
+}
+
+export interface Activity {
+  activityId: string
+  runId: string
+  namespace: string
+  activityType: WorkflowType | string
+  taskQueue: TaskQueueRef | string
+  status: ActivityWireStatus | ActivityStatus | string
+  attempt?: number
+  maximumAttempts?: number
+  scheduledTime?: Timestamp
+  startedTime?: Timestamp
+  closeTime?: Timestamp
+  scheduleToCloseTimeout?: Duration
+  scheduleToStartTimeout?: Duration
+  startToCloseTimeout?: Duration
+  heartbeatTimeout?: Duration
+  lastHeartbeatTime?: Timestamp
+  heartbeatDetails?: Payloads
+  input?: unknown
+  result?: unknown
+  lastFailure?: { message?: string; stackTrace?: string } | null
+  retryPolicy?: ActivityRetryPolicy
+  searchAttributes?: SearchAttributesMap | null
+  searchAttrs?: Record<string, unknown> | null
+  memo?: Memo | Record<string, unknown> | null
+  userMetadata?: { summary?: string; details?: string } | null
+  workerIdentity?: string
+  attempts?: ActivityAttempt[]
+}
+
+export interface ListActivitiesResponse {
+  activities?: Activity[]
+  nextPageToken?: NextPageToken
+}
+
+export interface DescribeActivityResponse {
+  activityInfo: Activity
+}
+
+// Wire request shapes for start / mutate. Mirrors the workflow start
+// request — workers attach via task queue + type name, the rest is
+// optional configuration.
+export interface StartActivityRequest {
+  activityId?: string
+  activityType: { name: string }
+  taskQueue: { name: string }
+  input?: unknown
+  retryPolicy?: ActivityRetryPolicy
+  scheduleToCloseTimeout?: Duration
+  scheduleToStartTimeout?: Duration
+  startToCloseTimeout?: Duration
+  heartbeatTimeout?: Duration
+  searchAttributes?: SearchAttributesSchema
+  memo?: Record<string, unknown>
+}
+
 // ── filter / query parameters ─────────────────────────────────────
 
 export interface FilterParameters {
@@ -727,3 +840,52 @@ export interface FilterParameters {
 export type ArchiveFilterParameters = Omit<FilterParameters, 'timeRange'> & {
   closeTime?: Duration | string
 }
+
+// ── ui-only: configurable table columns ───────────────────────────
+//
+// Generic descriptor shared by the configurable table headers drawer.
+// Every table that opts in passes its own `Column[]` and a stable
+// localStorage `key`. Visibility is persisted under
+// `tasks.columns.${key}` so the user's choice survives reloads.
+export interface TableColumn {
+  key: string
+  label: string
+  default: boolean
+}
+
+// ── ui-only: retry policy form input ──────────────────────────────
+//
+// Mirror of the Temporal RetryPolicy proto, kept in the same wire
+// shape so the form can post it to /v1/tasks/* endpoints without an
+// adapter. `maximumAttempts: 0` means unlimited (proto convention).
+export interface RetryPolicy {
+  initialInterval: Duration
+  backoffCoefficient: number
+  maximumInterval: Duration
+  maximumAttempts: number
+  nonRetryableErrorTypes: string[]
+}
+
+export const DEFAULT_RETRY_POLICY: RetryPolicy = {
+  initialInterval: '1s',
+  backoffCoefficient: 2.0,
+  maximumInterval: '60s',
+  maximumAttempts: 0,
+  nonRetryableErrorTypes: [],
+}
+
+// ── ui-only: payload encoding ─────────────────────────────────────
+//
+// Encoding tags accepted by PayloadInputWithEncoding. `json/plain`
+// is the default (utf-8 JSON → base64). `json/protobuf` and `binary`
+// are passthrough — the textarea contents are encoded as raw utf-8
+// bytes; the worker SDK is expected to parse. `none` emits no
+// payload (the form returns null).
+export type PayloadEncoding = 'json/plain' | 'json/protobuf' | 'binary' | 'none'
+
+export const PAYLOAD_ENCODINGS: PayloadEncoding[] = [
+  'json/plain',
+  'json/protobuf',
+  'binary',
+  'none',
+]

@@ -28,8 +28,10 @@ import { HistoryStrip } from './workflow-tabs/HistoryStrip'
 import { JsonPane } from './workflow-tabs/JsonPane'
 import { NexusLinksPane } from './workflow-tabs/NexusLinksPane'
 import { PendingActivitiesPane } from './workflow-tabs/PendingActivitiesPane'
+import { PendingNexusPane } from './workflow-tabs/PendingNexusPane'
 import { QueriesPane } from './workflow-tabs/QueriesPane'
 import { RelationshipsPane } from './workflow-tabs/RelationshipsPane'
+import { TimelinePane } from './workflow-tabs/TimelinePane'
 import { UserMetadataPane } from './workflow-tabs/UserMetadataPane'
 import { WorkersPane } from './workflow-tabs/WorkersPane'
 
@@ -46,7 +48,9 @@ export type WorkflowTab =
   | 'summary'
   | 'call-stack'
   | 'history'
+  | 'timeline'
   | 'pending-activities'
+  | 'pending-nexus'
   | 'workers'
   | 'query'
   | 'memo'
@@ -67,10 +71,16 @@ const TABS: TabSpec[] = [
   { value: 'summary', label: 'Summary' },
   { value: 'call-stack', label: 'Call stack' },
   { value: 'history', label: 'History', count: (wf) => wf.historyLength ?? 0 },
+  { value: 'timeline', label: 'Timeline' },
   {
     value: 'pending-activities',
     label: 'Pending activities',
     count: (wf) => wf.pendingActivities?.length ?? 0,
+  },
+  {
+    value: 'pending-nexus',
+    label: 'Pending nexus',
+    count: (wf) => wf.pendingNexusOperations?.length ?? 0,
   },
   { value: 'workers', label: 'Workers', count: () => 0 },
   { value: 'query', label: 'Queries' },
@@ -228,8 +238,16 @@ export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = 
           <HistoryRedirectPane baseHref={baseHref} runQs={runQs} />
         </Tabs.Content>
 
+        <Tabs.Content value="timeline" mt="$4">
+          <TimelinePane wf={wf} ns={namespace} />
+        </Tabs.Content>
+
         <Tabs.Content value="pending-activities" mt="$4">
           <PendingActivitiesPane wf={wf} />
+        </Tabs.Content>
+
+        <Tabs.Content value="pending-nexus" mt="$4">
+          <PendingNexusPane wf={wf} ns={namespace} />
         </Tabs.Content>
 
         <Tabs.Content value="workers" mt="$4">

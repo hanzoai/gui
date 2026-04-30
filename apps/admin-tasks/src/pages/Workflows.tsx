@@ -1,9 +1,19 @@
 // Workflows — list view for a namespace. Composes saved-views rail
-// (system presets + active filter chips) + WorkflowSearchBar + the
-// shared WorkflowTable. Pagination uses the cursor hook so the list
-// streams in pages and the page count is whatever the engine emits.
+// (system presets + user-saved views) + WorkflowSearchBar + FilterBar
+// + the shared WorkflowTable. Pagination uses the cursor hook so
+// the list streams in pages and the page count is whatever the
+// engine emits.
+//
+// Bulk actions: when one or more rows are selected the BulkActionToolbar
+// drops in below the search row and the selected workflowIds become
+// the visibility query for a one-shot Batches.create() POST.
+//
+// Saved views: system presets are namespace-scoped and live in
+// buildSystemViews. User-saved views are persisted client-side
+// (per org+namespace) via useSavedViews; the rail renders them
+// below a divider.
 
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   Button,
@@ -18,18 +28,22 @@ import {
 } from 'hanzogui'
 import { Activity } from '@hanzogui/lucide-icons-2/icons/Activity'
 import { AlertTriangle } from '@hanzogui/lucide-icons-2/icons/AlertTriangle'
+import { Bookmark } from '@hanzogui/lucide-icons-2/icons/Bookmark'
 import { Calendar } from '@hanzogui/lucide-icons-2/icons/Calendar'
 import { Clock } from '@hanzogui/lucide-icons-2/icons/Clock'
 import { GitBranch } from '@hanzogui/lucide-icons-2/icons/GitBranch'
 import { Layers } from '@hanzogui/lucide-icons-2/icons/Layers'
+import { Pencil } from '@hanzogui/lucide-icons-2/icons/Pencil'
 import { Play } from '@hanzogui/lucide-icons-2/icons/Play'
 import { Plus } from '@hanzogui/lucide-icons-2/icons/Plus'
 import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
+import { Trash2 } from '@hanzogui/lucide-icons-2/icons/Trash2'
 import {
   Alert,
   ErrorState,
   SavedViewsRail,
   formatTimestamp,
+  useIdentity,
   type SavedView,
   type WorkflowSort,
 } from '@hanzogui/admin'
@@ -38,9 +52,13 @@ import type { WorkflowExecution } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
 import { canWriteNamespace, useSettings } from '../stores/settings'
 import { useCursorPager, type PageResult } from '../stores/pagination-cursor'
+import { useSavedViews, type SavedQueryView } from '../stores/saved-views'
 import type { NextPageToken } from '../lib/types'
 import { WorkflowSearchBar } from '../components/workflow/WorkflowSearchBar'
-import { WorkflowTable } from '../components/workflow/WorkflowTable'
+import { WorkflowTable, rowKey } from '../components/workflow/WorkflowTable'
+import { BulkActionToolbar } from '../components/workflow/BulkActionToolbar'
+import { FilterBar } from '../components/search/FilterBar'
+import { SavedViewModal, type SavedViewModalMode } from '../components/search/SavedViewModal'
 
 const PAGE_SIZE = 50
 
@@ -86,6 +104,16 @@ export function WorkflowsPage() {
   const [submitted, setSubmitted] = useState('')
   const [sort, setSort] = useState<WorkflowSort | undefined>(undefined)
   const [fetchedAt, setFetchedAt] = useState<Date>(new Date())
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [savedViewModal, setSavedViewModal] = useState<SavedViewModalMode | null>(null)
+
+  const { settings } = useSettings()
+  const writeAllowed = canWriteNamespace(settings)
+  const advancedVisibility = settings?.advancedVisibilityEnabled !== false
+
+  const identity = useIdentity()
+  const org = identity.identity?.owner ?? 'unknown'
+  const userViews = useSavedViews(org, namespace)
 
   const fetchPage = useCallback(
     async (token: NextPageToken): Promise<PageResult<WorkflowExecution>> => {
@@ -105,6 +133,12 @@ export function WorkflowsPage() {
 
   const pager = useCursorPager<WorkflowExecution>(fetchPage, [namespace, submitted])
 
+  // Clear the selection whenever the page is refetched (the rows
+  // identified by the keys are no longer the same set).
+  useEffect(() => {
+    setSelected(new Set())
+  }, [pager.items])
+
   const onSelectView = useCallback((view: SavedView) => {
     setActiveViewId(view.id)
     setDraft(view.query)
@@ -120,6 +154,39 @@ export function WorkflowsPage() {
     setDraft(q)
     setActiveViewId('')
   }, [])
+
+  // FilterBar edits the same draft+submitted string the search input
+  // owns. We keep them in lockstep so chips appear immediately when
+  // the user clicks the bar.
+  const onFilterChange = useCallback((q: string) => {
+    setDraft(q)
+    setSubmitted(q)
+    setActiveViewId('')
+  }, [])
+
+  const toggleRow = useCallback((key: string) => {
+    setSelected((cur) => {
+      const next = new Set(cur)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }, [])
+
+  const toggleAll = useCallback((rowKeys: string[], selectAll: boolean) => {
+    setSelected((cur) => {
+      if (!selectAll) {
+        const next = new Set(cur)
+        for (const k of rowKeys) next.delete(k)
+        return next
+      }
+      const next = new Set(cur)
+      for (const k of rowKeys) next.add(k)
+      return next
+    })
+  }, [])
+
+  const clearSelection = useCallback(() => setSelected(new Set()), [])
 
   useTaskEvents(namespace, () => void pager.refresh(), [
     'workflow.started',
@@ -161,23 +228,101 @@ export function WorkflowsPage() {
         <StartWorkflowButton ns={namespace} onStarted={() => void pager.refresh()} />
       </XStack>
 
-      <XStack
+      <YStack
         px="$6"
         py="$3"
         borderBottomWidth={1}
         borderBottomColor="$borderColor"
-        gap="$3"
-        items="center"
+        gap="$2"
       >
-        <WorkflowSearchBar value={draft} onChange={onChangeQuery} onSubmit={onSubmitQuery} />
-      </XStack>
+        <XStack gap="$3" items="center">
+          <WorkflowSearchBar value={draft} onChange={onChangeQuery} onSubmit={onSubmitQuery} />
+        </XStack>
+        <FilterBar
+          namespace={namespace}
+          query={draft}
+          onChange={onFilterChange}
+          advancedVisibilityEnabled={advancedVisibility}
+        />
+        <BulkActionToolbar
+          ns={namespace}
+          selected={selected}
+          totalCount={pager.items.length}
+          onClear={clearSelection}
+          enabled={writeAllowed}
+        />
+      </YStack>
 
       <XStack flex={1}>
-        <SavedViewsRail
-          views={systemViews}
-          activeId={activeViewId}
-          onSelect={onSelectView}
-        />
+        <YStack
+          width={220}
+          borderRightWidth={1}
+          borderRightColor="$borderColor"
+          bg={'rgba(7,11,19,0.4)' as never}
+        >
+          <SavedViewsRail
+            views={systemViews}
+            activeId={activeViewId}
+            onSelect={onSelectView}
+            width={220}
+          />
+          <YStack
+            px="$2"
+            pb="$3"
+            borderTopWidth={1}
+            borderTopColor="$borderColor"
+            mt="$2"
+            pt="$3"
+            gap="$1"
+          >
+            <XStack px="$2" pb="$1" justify="space-between" items="center">
+              <Text
+                fontSize="$1"
+                color="$placeholderColor"
+                fontWeight="600"
+                letterSpacing={0.4}
+                textTransform={'uppercase' as never}
+              >
+                Your views
+              </Text>
+              <Button
+                size="$1"
+                chromeless
+                onPress={() => setSavedViewModal({ kind: 'create', query: draft })}
+                aria-label="Save current view"
+              >
+                <XStack items="center" gap="$1">
+                  <Plus size={11} color="#7e8794" />
+                  <Text fontSize="$1" color="$placeholderColor">
+                    Save
+                  </Text>
+                </XStack>
+              </Button>
+            </XStack>
+            {userViews.views.length === 0 ? (
+              <Text px="$3" fontSize="$1" color="$placeholderColor">
+                No saved views yet.
+              </Text>
+            ) : (
+              userViews.views.map((v) => (
+                <UserViewRow
+                  key={v.id}
+                  view={v}
+                  active={activeViewId === `user:${v.id}`}
+                  onSelect={() => {
+                    setActiveViewId(`user:${v.id}`)
+                    setDraft(v.query)
+                    setSubmitted(v.query)
+                  }}
+                  onRename={() =>
+                    setSavedViewModal({ kind: 'rename', id: v.id, name: v.name })
+                  }
+                  onDelete={() => userViews.remove(v.id)}
+                />
+              ))
+            )}
+          </YStack>
+        </YStack>
         <YStack flex={1} p="$6" gap="$4">
           {pager.error ? (
             <ErrorState error={pager.error} />
@@ -192,6 +337,10 @@ export function WorkflowsPage() {
                   title: `No workflows in ${namespace}`,
                   hint: 'Start one with the button above, or run a worker that registers a workflow type.',
                 }}
+                selectable
+                selected={selected}
+                onToggle={toggleRow}
+                onToggleAll={toggleAll}
               />
               {pager.hasMore ? (
                 <XStack justify="center">
@@ -211,7 +360,79 @@ export function WorkflowsPage() {
           )}
         </YStack>
       </XStack>
+
+      <SavedViewModal
+        open={savedViewModal !== null}
+        mode={savedViewModal}
+        onOpenChange={(open) => {
+          if (!open) setSavedViewModal(null)
+        }}
+        onSubmit={(name) => {
+          if (!savedViewModal) return
+          if (savedViewModal.kind === 'create') {
+            userViews.save({ name, query: savedViewModal.query })
+          } else {
+            userViews.rename(savedViewModal.id, name)
+          }
+        }}
+      />
     </YStack>
+  )
+}
+
+function UserViewRow({
+  view,
+  active,
+  onSelect,
+  onRename,
+  onDelete,
+}: {
+  view: SavedQueryView
+  active: boolean
+  onSelect: () => void
+  onRename: () => void
+  onDelete: () => void
+}) {
+  return (
+    <XStack
+      mx="$2"
+      px="$2.5"
+      py="$2"
+      rounded="$3"
+      items="center"
+      gap="$2"
+      cursor="pointer"
+      bg={active ? ('rgba(255,255,255,0.06)' as never) : 'transparent'}
+      hoverStyle={{ background: 'rgba(255,255,255,0.04)' as never }}
+      onPress={onSelect}
+    >
+      <Bookmark size={12} color={active ? '#f2f2f2' : '#7e8794'} />
+      <Text fontSize="$2" color={active ? '$color' : '$placeholderColor'} flex={1} numberOfLines={1}>
+        {view.name}
+      </Text>
+      <Button
+        size="$1"
+        chromeless
+        onPress={(e: { stopPropagation?: () => void } | undefined) => {
+          e?.stopPropagation?.()
+          onRename()
+        }}
+        aria-label={`Rename ${view.name}`}
+      >
+        <Pencil size={11} color="#7e8794" />
+      </Button>
+      <Button
+        size="$1"
+        chromeless
+        onPress={(e: { stopPropagation?: () => void } | undefined) => {
+          e?.stopPropagation?.()
+          onDelete()
+        }}
+        aria-label={`Delete ${view.name}`}
+      >
+        <Trash2 size={11} color="#7e8794" />
+      </Button>
+    </XStack>
   )
 }
 
@@ -355,6 +576,11 @@ function Field({
     </YStack>
   )
 }
+
+// Suppress unused-named import warning for the rowKey export so
+// downstream callers (or future inline tests in this file) can pull
+// it without re-importing.
+export const _selectionKey = rowKey
 
 // Card import retained for downstream extension (kept on import list).
 export const _kept = Card

@@ -40,6 +40,7 @@ import { Users } from '@hanzogui/lucide-icons-2/icons/Users'
 import { Workflow } from '@hanzogui/lucide-icons-2/icons/Workflow'
 import { Zap } from '@hanzogui/lucide-icons-2/icons/Zap'
 import type { Namespace } from './lib/api'
+import { useCluster } from './stores/cluster'
 
 const APP_VERSION = (import.meta as any).env?.VITE_APP_VERSION ?? '2.45.3'
 const APP_ENV = ((import.meta as any).env?.VITE_APP_ENV ?? 'local') as
@@ -81,8 +82,25 @@ function useRecentNamespaces(active?: string): string[] {
   return recents
 }
 
-function buildSidebarConfig(ns?: string): SidebarConfig {
+function buildSidebarConfig(ns?: string, clusterEnabled = false): SidebarConfig {
   const ent = ns ? `/namespaces/${encodeURIComponent(ns)}` : ''
+  // Cluster nav lives directly below "Nexus" so the cross-namespace
+  // controls cluster together. Hidden entirely on single-node
+  // deployments — useCluster reports `enabled=false` after a 404.
+  const navItems: SidebarConfig['sections'][number]['items'] = [
+    { to: '/namespaces', icon: Layers, label: 'Namespaces', end: true },
+    { to: ent ? `${ent}/workflows` : '/namespaces', icon: Workflow, label: 'Workflows', disabled: !ns },
+    { to: ent ? `${ent}/schedules` : '/namespaces', icon: Timer, label: 'Schedules', disabled: !ns },
+    { to: ent ? `${ent}/batches` : '/namespaces', icon: Activity, label: 'Batch', disabled: !ns },
+    { to: ent ? `${ent}/deployments` : '/namespaces', icon: Rocket, label: 'Deployments', disabled: !ns },
+    { to: ent ? `${ent}/task-queues` : '/namespaces', icon: ListChecks, label: 'Task Queues', disabled: !ns },
+    { to: ent ? `${ent}/activities` : '/namespaces', icon: Zap, label: 'Activities', disabled: !ns },
+    { to: ent ? `${ent}/workers` : '/namespaces', icon: Users, label: 'Workers', disabled: !ns },
+    { to: ent ? `${ent}/nexus` : '/namespaces', icon: Network, label: 'Nexus', disabled: !ns },
+  ]
+  if (clusterEnabled) {
+    navItems.push({ to: '/cluster', icon: Server, label: 'Cluster', disabled: false })
+  }
   return {
     brand: {
       mark: <HanzoMark />,
@@ -90,19 +108,7 @@ function buildSidebarConfig(ns?: string): SidebarConfig {
       subtitle: 'Self-Hosted',
     },
     sections: [
-      {
-        items: [
-          { to: '/namespaces', icon: Layers, label: 'Namespaces', end: true },
-          { to: ent ? `${ent}/workflows` : '/namespaces', icon: Workflow, label: 'Workflows', disabled: !ns },
-          { to: ent ? `${ent}/schedules` : '/namespaces', icon: Timer, label: 'Schedules', disabled: !ns },
-          { to: ent ? `${ent}/batches` : '/namespaces', icon: Activity, label: 'Batch', disabled: !ns },
-          { to: ent ? `${ent}/deployments` : '/namespaces', icon: Rocket, label: 'Deployments', disabled: !ns },
-          { to: ent ? `${ent}/task-queues` : '/namespaces', icon: ListChecks, label: 'Task Queues', disabled: !ns },
-          { to: ent ? `${ent}/activities` : '/namespaces', icon: Zap, label: 'Activities', disabled: !ns },
-          { to: ent ? `${ent}/workers` : '/namespaces', icon: Users, label: 'Workers', disabled: !ns },
-          { to: ent ? `${ent}/nexus` : '/namespaces', icon: Network, label: 'Nexus', disabled: !ns },
-        ],
-      },
+      { items: navItems },
       {
         items: [
           { to: '/archive', icon: Archive, label: 'Archive' },
@@ -203,7 +209,11 @@ function TasksTopBar({ ns }: { ns?: string }) {
 
 export default function App() {
   const { ns } = useParams()
-  const sidebarConfig = useCallback(() => buildSidebarConfig(ns), [ns])
+  const cluster = useCluster()
+  const sidebarConfig = useCallback(
+    () => buildSidebarConfig(ns, cluster.enabled),
+    [ns, cluster.enabled],
+  )
   return (
     <AdminApp sidebar={<Sidebar config={sidebarConfig()} />} topBar={<TasksTopBar ns={ns} />}>
       <Outlet />

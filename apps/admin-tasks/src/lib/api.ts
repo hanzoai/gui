@@ -659,6 +659,69 @@ export const SettingsApi = {
   healthUrl: settingsUrls.health,
 }
 
+// ── Cluster (distributed engine, optional) ────────────────────────
+//
+// `GET /v1/tasks/cluster` returns 200 with the topology when the
+// engine runs in replicated mode, 404 on single-node deployments.
+// `GET /v1/tasks/cluster/health` returns 200 in-quorum, 503 otherwise.
+// The UI calls statusUrl through useFetch and treats a 404 as
+// "single-node — hide the cluster surface".
+
+export const clusterUrls = {
+  status: () => `${ROOT}/cluster`,
+  health: () => `${ROOT}/cluster/health`,
+}
+
+export const Cluster = {
+  statusUrl: clusterUrls.status,
+  healthUrl: clusterUrls.health,
+  getStatus: () =>
+    fetch(clusterUrls.status(), { credentials: 'same-origin', headers: { Accept: 'application/json' } }).then(
+      async (r) => {
+        if (!r.ok) throw new ApiError(r.status, await r.json().catch(() => null), `cluster → ${r.status}`)
+        return r.json() as Promise<import('./types').ClusterStatus>
+      },
+    ),
+  getHealth: () =>
+    fetch(clusterUrls.health(), { credentials: 'same-origin' }).then((r) => ({ ok: r.ok, status: r.status })),
+}
+
+// ── Namespace migration ──────────────────────────────────────────
+//
+// `POST /v1/tasks/namespaces/{ns}/migrate` body `{toNode}` returns
+// `{jobId,state}`; subsequent `GET ...?jobId=...` polls the same job.
+
+export const migrationUrls = {
+  start: (ns: string) => `${ROOT}/namespaces/${enc(ns)}/migrate`,
+  status: (ns: string, jobId: string) =>
+    `${ROOT}/namespaces/${enc(ns)}/migrate${qs({ jobId })}`,
+}
+
+export const Migration = {
+  startUrl: migrationUrls.start,
+  statusUrl: migrationUrls.status,
+  start: (ns: string, toNode: string) =>
+    request<import('./types').MigrationJob>('POST', migrationUrls.start(ns), { toNode }),
+  status: (ns: string, jobId: string) =>
+    fetch(migrationUrls.status(ns, jobId), { credentials: 'same-origin', headers: { Accept: 'application/json' } }).then(
+      async (r) => {
+        if (!r.ok) throw new ApiError(r.status, await r.json().catch(() => null), `migrate → ${r.status}`)
+        return r.json() as Promise<import('./types').MigrationJob>
+      },
+    ),
+}
+
+export type {
+  ClusterStatus,
+  Validator,
+  ValidatorHealth,
+  ValidatorRole,
+  ReplicatorKind,
+  ShardInfo,
+  MigrationJob,
+  MigrationPhase,
+} from './types'
+
 // ── Aggregate response types — re-exported for convenience ────────
 
 export type {

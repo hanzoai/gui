@@ -904,3 +904,62 @@ export const PAYLOAD_ENCODINGS: PayloadEncoding[] = [
   'binary',
   'none',
 ]
+
+// ── cluster (distributed engine, optional capability) ─────────────
+//
+// Wire shape from `GET /v1/tasks/cluster`. Present only when the
+// engine is running in replicated mode. Single-node deployments 404
+// this path and the UI hides the Cluster nav entry.
+
+export type ReplicatorKind = 'quasar' | 'local'
+export type ValidatorRole = 'leader' | 'follower' | 'candidate' | 'observer' | 'unspecified'
+export type ValidatorHealth = 'healthy' | 'laggy' | 'failed' | 'unknown'
+
+export interface Validator {
+  id: string
+  addr: string
+  role: ValidatorRole | string
+  health: ValidatorHealth | string
+  // Optional per-node lag vs leader, milliseconds. Server may omit
+  // when unknown; UI treats absence as "unknown".
+  replicationLagMs?: number
+}
+
+export interface ClusterStatus {
+  nodeId: string
+  replicator: ReplicatorKind | string
+  validators: Validator[]
+  // Map of shard / task-queue key → owning nodeId. Keyed by an
+  // opaque routing key the engine emits ("org/ns/task-queue" today,
+  // an opaque hash later).
+  leaderFor: Record<string, string>
+  // Worst-case follower lag versus the leader, milliseconds.
+  replicationLag: number
+  shardCount: number
+  openShards: number
+  // Per-shard breakdown. Optional — when omitted the table renders
+  // an empty state and the ShardTable is hidden.
+  shards?: ShardInfo[]
+}
+
+export interface ShardInfo {
+  shardKey: string
+  leader: string
+  replicationLagMs: number
+  isOpen: boolean
+}
+
+// Migration job — surfaced by `POST /v1/tasks/namespaces/{ns}/migrate`
+// and the GET status of the same path.
+export type MigrationPhase = 'queued' | 'locked' | 'copying' | 'replaying' | 'done' | 'failed'
+
+export interface MigrationJob {
+  jobId: string
+  state: MigrationPhase | string
+  fromNode?: string
+  toNode?: string
+  progress?: number // 0..1
+  startedAt?: Timestamp
+  finishedAt?: Timestamp
+  error?: string
+}

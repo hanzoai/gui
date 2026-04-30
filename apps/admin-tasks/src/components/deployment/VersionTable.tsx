@@ -9,10 +9,17 @@ export interface VersionTableProps {
   buildIds: BuildIdEntry[]
   defaultBuildId: string
   onSetCurrent: (buildId: string) => void
+  onUnsetCurrent?: () => void
   busy?: boolean
 }
 
-export function VersionTable({ buildIds, defaultBuildId, onSetCurrent, busy }: VersionTableProps) {
+export function VersionTable({
+  buildIds,
+  defaultBuildId,
+  onSetCurrent,
+  onUnsetCurrent,
+  busy,
+}: VersionTableProps) {
   return (
     <Card overflow="hidden" bg="$background" borderColor="$borderColor" borderWidth={1}>
       <XStack
@@ -62,9 +69,23 @@ export function VersionTable({ buildIds, defaultBuildId, onSetCurrent, busy }: V
             </YStack>
             <YStack flex={1} px="$2">
               {isCurrent ? (
-                <Text fontSize="$1" color="$placeholderColor">
-                  active
-                </Text>
+                onUnsetCurrent ? (
+                  <Button
+                    size="$2"
+                    chromeless
+                    onPress={onUnsetCurrent}
+                    disabled={busy}
+                    aria-label="Unset current build"
+                  >
+                    <Text fontSize="$1" color={'#fca5a5' as never}>
+                      Unset
+                    </Text>
+                  </Button>
+                ) : (
+                  <Text fontSize="$1" color="$placeholderColor">
+                    active
+                  </Text>
+                )
               ) : (
                 <Button
                   size="$2"

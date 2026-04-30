@@ -21,6 +21,7 @@ import { useCursorPager, type PageResult } from '../stores/pagination-cursor'
 import type { ListWorkflowExecutionsResponse, NextPageToken } from '../lib/types'
 import { WorkflowSearchBar } from '../components/workflow/WorkflowSearchBar'
 import { WorkflowTable } from '../components/workflow/WorkflowTable'
+import { archivalEnabled, useSettings } from '../stores/settings'
 
 const PAGE_SIZE = 50
 
@@ -44,6 +45,8 @@ export function ArchivalPage() {
   const [submitted, setSubmitted] = useState('')
   const [fetchedAt, setFetchedAt] = useState<Date>(new Date())
   const [unsupported, setUnsupported] = useState<string | null>(null)
+  const { settings } = useSettings()
+  const archivalOn = archivalEnabled(settings)
 
   const fetchPage = useCallback(
     async (token: NextPageToken): Promise<PageResult<WorkflowExecution>> => {
@@ -122,7 +125,18 @@ export function ArchivalPage() {
       </XStack>
 
       <YStack flex={1} p="$6" gap="$4">
-        {unsupported ? <Alert title="Archival query not yet wired">{unsupported}</Alert> : null}
+        {!archivalOn ? (
+          <Alert title="Archival is disabled">
+            Closed workflows leave the visibility store after their retention window and are not
+            persisted to cold storage. To restore archival history, enable an archival provider on
+            the engine (history + visibility URIs in cluster config) and turn on archival per
+            namespace under Configuration. Once enabled, workflows older than retention will appear
+            here and become queryable with the same filter language as the live Workflows view.
+          </Alert>
+        ) : null}
+        {archivalOn && unsupported ? (
+          <Alert title="Archival query not yet wired">{unsupported}</Alert>
+        ) : null}
 
         {pager.error ? (
           <ErrorState error={pager.error} />

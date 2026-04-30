@@ -3,10 +3,12 @@
 // describe endpoint until the worker SDK runtime ships; in that case
 // we render a skeleton header from the URL identity.
 
+import { useCallback, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Card, H1, H3, Text, XStack, YStack } from 'hanzogui'
+import { Button, Card, H1, H3, Spinner, Text, XStack, YStack } from 'hanzogui'
 import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
 import { Layers } from '@hanzogui/lucide-icons-2/icons/Layers'
+import { Power } from '@hanzogui/lucide-icons-2/icons/Power'
 import {
   Alert,
   Badge,
@@ -16,7 +18,8 @@ import {
   formatTimestamp,
   useFetch,
 } from '@hanzogui/admin'
-import { Workers, type Worker } from '../lib/api'
+import { ApiError, Workers, type Worker } from '../lib/api'
+import { useSettings, workerStopSupported } from '../stores/settings'
 
 interface WorkerDescribeResp {
   worker?: Worker
@@ -29,7 +32,35 @@ export function WorkerDetailPage() {
   const { ns, identity } = useParams()
   const namespace = ns!
   const id = decodeURIComponent(identity!)
-  const { data, error, isLoading } = useFetch<WorkerDescribeResp>(Workers.describeUrl(namespace, id))
+  const { data, error, isLoading, mutate } = useFetch<WorkerDescribeResp>(
+    Workers.describeUrl(namespace, id),
+  )
+  const { settings } = useSettings()
+  const stopSupported = workerStopSupported(settings)
+  const [stopping, setStopping] = useState(false)
+  const [stopErr, setStopErr] = useState<string | null>(null)
+
+  const onStop = useCallback(async () => {
+    if (!confirm(`Stop worker "${id}"? In-flight tasks will complete; no new tasks will be dispatched.`)) return
+    setStopping(true)
+    setStopErr(null)
+    try {
+      await Workers.stop(namespace, id)
+      void mutate()
+    } catch (e) {
+      const msg =
+        e instanceof ApiError
+          ? e.status === 501
+            ? 'Engine does not implement worker stop yet.'
+            : e.message
+          : e instanceof Error
+            ? e.message
+            : String(e)
+      setStopErr(msg)
+    } finally {
+      setStopping(false)
+    }
+  }, [namespace, id, mutate])
 
   if (error && (error as { status?: number }).status !== 501) {
     return <ErrorState error={error as Error} />
@@ -41,6 +72,7 @@ export function WorkerDetailPage() {
   const polled = data?.polled ?? []
   const capabilities = data?.capabilities ?? []
   const stub = !data || (!worker && polled.length === 0)
+  const online = !stub && polled.length > 0
 
   return (
     <YStack gap="$5">
@@ -63,24 +95,49 @@ export function WorkerDetailPage() {
         <Text fontSize="$1" color="$placeholderColor" fontWeight="600" letterSpacing={0.4}>
           WORKER
         </Text>
-        <XStack items="center" gap="$3" flexWrap="wrap">
-          <H1
-            size="$7"
-            color="$color"
-            fontWeight="600"
-            fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
-          >
-            {id}
-          </H1>
-          {worker?.buildId ? (
-            <Badge variant="info">build {worker.buildId}</Badge>
+        <XStack items="center" gap="$3" flexWrap="wrap" justify="space-between">
+          <XStack items="center" gap="$3" flexWrap="wrap">
+            <H1
+              size="$7"
+              color="$color"
+              fontWeight="600"
+              fontFamily={'ui-monospace, SFMono-Regular, monospace' as never}
+            >
+              {id}
+            </H1>
+            {worker?.buildId ? (
+              <Badge variant="info">build {worker.buildId}</Badge>
+            ) : null}
+            {worker?.pollerKind ? <Badge variant="muted">{worker.pollerKind}</Badge> : null}
+            {online ? <Badge variant="success">online</Badge> : null}
+          </XStack>
+          {online && stopSupported ? (
+            <Button
+              size="$2"
+              borderWidth={1}
+              borderColor={'#fca5a5' as never}
+              onPress={() => void onStop()}
+              disabled={stopping}
+              aria-label="Stop worker"
+            >
+              <XStack items="center" gap="$1.5">
+                {stopping ? <Spinner size="small" /> : <Power size={14} color="#fca5a5" />}
+                <Text fontSize="$2" color={'#fca5a5' as never}>
+                  {stopping ? 'Stopping…' : 'Stop worker'}
+                </Text>
+              </XStack>
+            </Button>
           ) : null}
-          {worker?.pollerKind ? <Badge variant="muted">{worker.pollerKind}</Badge> : null}
         </XStack>
         {worker?.lastAccessTime ? (
           <Text fontSize="$1" color="$placeholderColor">
             last poll {formatTimestamp(new Date(worker.lastAccessTime))}
           </Text>
+        ) : null}
+        {stopErr ? (
+          <Alert variant="destructive" title="Could not stop worker">
+            {stopErr}
+          </Alert>
         ) : null}
       </YStack>
 

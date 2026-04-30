@@ -315,6 +315,14 @@ export const Deployments = {
       `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}/set-current`,
       { buildId },
     ),
+  // Inverse of setCurrent — clears the active build so no version is
+  // routed to. Backend treats `buildId: ""` as the unset sentinel.
+  unsetCurrent: (ns: string, deploymentName: string) =>
+    request<Deployment>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/deployments/${enc(deploymentName)}/set-current`,
+      { buildId: '' },
+    ),
 }
 
 // ── Workers / Task Queues ──────────────────────────────────────────
@@ -344,6 +352,13 @@ export const workerUrls = {
 export const Workers = {
   listUrl: workerUrls.list,
   describeUrl: workerUrls.describe,
+  // Graceful disconnect — engine clears the poller record so no new
+  // tasks are dispatched. Gated by settings.workerStopSupported.
+  stop: (ns: string, identity: string) =>
+    request<{ status: string }>(
+      'POST',
+      `${ROOT}/namespaces/${enc(ns)}/workers/${enc(identity)}/stop`,
+    ),
 }
 
 // ── Search attributes / Search ────────────────────────────────────
@@ -364,6 +379,13 @@ export const Search = {
       'POST',
       `${ROOT}/namespaces/${enc(ns)}/search-attributes`,
       { name, type },
+    ),
+  // Inverse of addAttribute — removes a custom attribute. System
+  // attributes cannot be deleted; the UI gates that path.
+  deleteAttribute: (ns: string, name: string) =>
+    request<{ status: string }>(
+      'DELETE',
+      `${ROOT}/namespaces/${enc(ns)}/search-attributes/${enc(name)}`,
     ),
 }
 
@@ -413,6 +435,13 @@ export const Identities = {
   listUrl: identityUrls.list,
   grant: (ns: string, identity: Partial<Identity>) =>
     request<Identity>('POST', `${ROOT}/namespaces/${enc(ns)}/identities`, identity),
+  // Inverse of grant — removes an identity's access to a namespace.
+  // Identity is keyed by email per the IAM mapping.
+  revoke: (ns: string, email: string) =>
+    request<{ status: string }>(
+      'DELETE',
+      `${ROOT}/namespaces/${enc(ns)}/identities/${enc(email)}`,
+    ),
 }
 
 // ── User Metadata ──────────────────────────────────────────────────

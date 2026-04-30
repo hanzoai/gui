@@ -17,6 +17,7 @@ import {
 } from '@hanzogui/admin'
 import type { BatchOperation } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
+import { canWriteNamespace, useSettings } from '../stores/settings'
 import { BatchKindIcon, batchKindLabel } from '../components/batch/BatchKindIcon'
 import { BatchProgress } from '../components/batch/BatchProgress'
 
@@ -51,6 +52,8 @@ export function BatchesPage() {
   const namespace = ns!
   const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/batches`
   const { data, error, isLoading, mutate } = useFetch<ListResp>(url)
+  const { settings } = useSettings()
+  const writeAllowed = canWriteNamespace(settings)
 
   const onEvent = useCallback(() => {
     void mutate()
@@ -72,11 +75,32 @@ export function BatchesPage() {
             ({rows.length})
           </Text>
         </H2>
-        <Link
-          to={`/namespaces/${encodeURIComponent(namespace)}/batches/create`}
-          style={{ textDecoration: 'none' }}
-        >
-          <Button size="$3" bg={'#f2f2f2' as never} hoverStyle={{ background: '#ffffff' as never }}>
+        {writeAllowed ? (
+          <Link
+            to={`/namespaces/${encodeURIComponent(namespace)}/batches/create`}
+            style={{ textDecoration: 'none' }}
+          >
+            <Button
+              size="$3"
+              bg={'#f2f2f2' as never}
+              hoverStyle={{ background: '#ffffff' as never }}
+            >
+              <XStack items="center" gap="$1.5">
+                <Plus size={14} color="#070b13" />
+                <Text fontSize="$2" fontWeight="500" color={'#070b13' as never}>
+                  Start Batch
+                </Text>
+              </XStack>
+            </Button>
+          </Link>
+        ) : (
+          <Button
+            size="$3"
+            disabled
+            opacity={0.5}
+            bg={'#f2f2f2' as never}
+            aria-label="Namespace write actions are disabled"
+          >
             <XStack items="center" gap="$1.5">
               <Plus size={14} color="#070b13" />
               <Text fontSize="$2" fontWeight="500" color={'#070b13' as never}>
@@ -84,7 +108,7 @@ export function BatchesPage() {
               </Text>
             </XStack>
           </Button>
-        </Link>
+        )}
       </XStack>
 
       <DataTable

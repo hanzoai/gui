@@ -10,7 +10,6 @@ import {
   AccountChip,
   AdminApp,
   EnvIndicator,
-  HanzoMark,
   LocalTimeIndicator,
   NamespaceSwitcher,
   type SettingItem,
@@ -22,6 +21,7 @@ import {
   useFetch,
   type SidebarConfig,
 } from '@hanzogui/admin'
+import { HanzoMark } from './components/HanzoMark'
 import { Activity } from '@hanzogui/lucide-icons-2/icons/Activity'
 import { Archive } from '@hanzogui/lucide-icons-2/icons/Archive'
 import { BookOpen } from '@hanzogui/lucide-icons-2/icons/BookOpen'

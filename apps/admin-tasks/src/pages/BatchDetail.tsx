@@ -67,6 +67,12 @@ export function BatchDetailPage() {
   }, [namespace, data?.query])
 
   const onTerminate = useCallback(async () => {
+    if (
+      !confirm(
+        `Terminate batch ${id}? In-flight per-execution operations finish; queued operations are dropped.`,
+      )
+    )
+      return
     setTerminating(true)
     setTermErr(null)
     try {

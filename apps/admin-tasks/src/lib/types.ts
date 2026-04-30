@@ -704,6 +704,14 @@ export interface Settings {
   feedbackURL: string
   runtimeEnvironment: { isCloud: boolean; isLocal: boolean; envOverride: boolean }
   version: string
+  // Capability flags surfaced by /v1/tasks/settings. All optional —
+  // server backfills as the engine wires each subsystem. Treat absence
+  // as "feature available" so legacy responses do not over-disable.
+  namespaceWriteDisabled?: boolean
+  advancedVisibilityEnabled?: boolean
+  workerHeartbeatsEnabled?: boolean
+  archivalEnabled?: boolean
+  workerStopSupported?: boolean
 }
 
 // ── filter / query parameters ─────────────────────────────────────

@@ -204,5 +204,14 @@
     "sf-symbols-typescript": {
       "optional": true
     }
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "*.cjs",
+    "*.mjs",
+    "*.css",
+    "README.md"
+  ]
 }

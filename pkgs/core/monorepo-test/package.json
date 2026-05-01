@@ -13,5 +13,14 @@
   },
   "devDependencies": {
     "vitest": "4.0.4"
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "*.cjs",
+    "*.mjs",
+    "*.css",
+    "README.md"
+  ]
 }

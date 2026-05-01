@@ -100,5 +100,14 @@
   "peerDependencies": {
     "react": ">=19",
     "react-native": "*"
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "*.cjs",
+    "*.mjs",
+    "*.css",
+    "README.md"
+  ]
 }

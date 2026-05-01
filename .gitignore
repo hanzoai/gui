@@ -59,3 +59,4 @@ code/studio/types/**
 test-results/
 .gui/
 # Wed Mar 25 04:08:49 PDT 2026
+*.tgz

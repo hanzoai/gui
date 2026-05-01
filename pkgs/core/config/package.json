@@ -133,5 +133,14 @@
     "@hanzogui/animations-moti": {
       "optional": true
     }
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "*.cjs",
+    "*.mjs",
+    "*.css",
+    "README.md"
+  ]
 }

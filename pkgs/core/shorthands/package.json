@@ -52,5 +52,14 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "*.cjs",
+    "*.mjs",
+    "*.css",
+    "README.md"
+  ]
 }

@@ -92,5 +92,14 @@
     }
   },
   "module:jsx": "dist/jsx",
-  "removeSideEffects": true
+  "removeSideEffects": true,
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "*.cjs",
+    "*.mjs",
+    "*.css",
+    "README.md"
+  ]
 }

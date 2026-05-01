@@ -77,5 +77,14 @@
     "react": ">=19",
     "react-dom": "*",
     "react-native": "*"
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "*.cjs",
+    "*.mjs",
+    "*.css",
+    "README.md"
+  ]
 }

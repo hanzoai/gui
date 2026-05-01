@@ -176,3 +176,27 @@ jobs:
             exit 0
           fi
           npm publish "${TGZ}" --access public --tag stable
+
+      - name: Pack + Publish @hanzo/gui (alias of hanzogui)
+        # Republish the umbrella tarball under the @hanzo/gui scoped name so
+        # downstream consumers can import either alias. Same dist tree as
+        # hanzogui — only `name` differs. The static extractor scans for the
+        # literal 'hanzogui' import token, so this alias is purely for
+        # consumer ergonomics and never participates in extractor input.
+        env:
+          NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ steps.kms.outputs.npm_token }}
+        working-directory: pkgs/ui/hanzogui
+        run: |
+          set -eu
+          cp package.json package.json.orig
+          jq '.name = "@hanzo/gui"' package.json.orig > package.json
+          version=$(node -p "require('./package.json').version")
+          if npm view "@hanzo/gui@${version}" version >/dev/null 2>&1; then
+            echo "@hanzo/gui@${version} already on npm — skipping."
+            mv package.json.orig package.json
+            exit 0
+          fi
+          tgz=$(npm pack --silent | tail -1)
+          npm publish "${tgz}" --access public --tag stable
+          mv package.json.orig package.json

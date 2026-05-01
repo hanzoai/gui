@@ -25,5 +25,14 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "*.cjs",
+    "*.mjs",
+    "*.css",
+    "README.md"
+  ]
 }

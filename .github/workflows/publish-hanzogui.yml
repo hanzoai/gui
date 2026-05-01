@@ -100,19 +100,99 @@ jobs:
           # at ./src/*.ts, and downstream bundlers compile it).
           test -f pkgs/ui-admin/src/index.ts || (echo "::error::ui-admin/src missing"; exit 1)
 
-      - name: Pack hanzogui
-        id: pack-hanzogui
-        working-directory: pkgs/ui/hanzogui
+      - name: Build workspace version map
+        # Map every workspace package name to its on-disk version so we can
+        # resolve `workspace:*` deps to the actual version each subpackage is
+        # at. The umbrella is on the 7.x track but the @hanzogui/* primitives
+        # are still on the 102.x canary stream — they are NOT republished
+        # here, only referenced.
+        id: ws-versions
         run: |
+          set -eu
+          node -e "
+            const fs=require('fs'); const path=require('path');
+            const map={};
+            const dirs=['pkgs/ui','pkgs/core','pkgs/ui-admin','pkgs/compiler','pkgs/packages'];
+            const collect=(d)=>{
+              if (!fs.existsSync(d)) return;
+              const stat=fs.statSync(d);
+              if (stat.isFile() && d.endsWith('package.json')) {
+                try { const j=JSON.parse(fs.readFileSync(d)); if (j.name && j.version) map[j.name]=j.version; } catch{}
+                return;
+              }
+              if (!stat.isDirectory()) return;
+              const pkg=path.join(d,'package.json');
+              if (fs.existsSync(pkg)) collect(pkg);
+              for (const e of fs.readdirSync(d)) {
+                if (e==='node_modules') continue;
+                collect(path.join(d,e));
+              }
+            };
+            for (const d of dirs) collect(d);
+            fs.writeFileSync('/tmp/ws-versions.json', JSON.stringify(map));
+            console.log('mapped', Object.keys(map).length, 'workspace packages');
+          "
+
+      - name: Pack hanzogui
+        # `npm pack` does NOT resolve `workspace:*` specifiers; the resulting
+        # tarball would ship literal `workspace:*` and break consumers. We
+        # mirror what `scripts/release.ts` does — copy to a temp dir, rewrite
+        # every `workspace:*` to the matching package's on-disk version (from
+        # the workspace map built above), then pack.
+        id: pack-hanzogui
+        run: |
+          set -eu
+          tmpdir=$(mktemp -d)
+          cp -R pkgs/ui/hanzogui/. "$tmpdir/"
+          rm -rf "$tmpdir/node_modules"
+          node -e "
+            const fs=require('fs');
+            const map=JSON.parse(fs.readFileSync('/tmp/ws-versions.json'));
+            const p='$tmpdir/package.json';
+            const j=JSON.parse(fs.readFileSync(p));
+            const ownVer=j.version;
+            for (const f of ['dependencies','devDependencies','peerDependencies','optionalDependencies']) {
+              if (!j[f]) continue;
+              for (const k of Object.keys(j[f])) {
+                if (j[f][k].startsWith('workspace:')) {
+                  const v=map[k]; if (!v) { console.error('no version for',k); process.exit(1); }
+                  j[f][k]=v;
+                }
+              }
+            }
+            fs.writeFileSync(p, JSON.stringify(j, null, 2)+'\n');
+          "
+          cd "$tmpdir"
           tgz=$(npm pack --silent | tail -1)
-          echo "tgz=$(pwd)/${tgz}" >> "$GITHUB_OUTPUT"
+          echo "tgz=$tmpdir/${tgz}" >> "$GITHUB_OUTPUT"
+          echo "tmpdir=$tmpdir" >> "$GITHUB_OUTPUT"
 
       - name: Pack @hanzogui/admin
         id: pack-admin
-        working-directory: pkgs/ui-admin
         run: |
+          set -eu
+          tmpdir=$(mktemp -d)
+          cp -R pkgs/ui-admin/. "$tmpdir/"
+          rm -rf "$tmpdir/node_modules"
+          node -e "
+            const fs=require('fs');
+            const map=JSON.parse(fs.readFileSync('/tmp/ws-versions.json'));
+            const p='$tmpdir/package.json';
+            const j=JSON.parse(fs.readFileSync(p));
+            for (const f of ['dependencies','devDependencies','peerDependencies','optionalDependencies']) {
+              if (!j[f]) continue;
+              for (const k of Object.keys(j[f])) {
+                if (j[f][k].startsWith('workspace:')) {
+                  const v=map[k]; if (!v) { console.error('no version for',k); process.exit(1); }
+                  j[f][k]=v;
+                }
+              }
+            }
+            fs.writeFileSync(p, JSON.stringify(j, null, 2)+'\n');
+          "
+          cd "$tmpdir"
           tgz=$(npm pack --silent | tail -1)
-          echo "tgz=$(pwd)/${tgz}" >> "$GITHUB_OUTPUT"
+          echo "tgz=$tmpdir/${tgz}" >> "$GITHUB_OUTPUT"
 
       - name: Smoke-test packed tarballs from /tmp consumer
         env:
@@ -181,22 +261,25 @@ jobs:
         # Republish the umbrella tarball under the @hanzo/gui scoped name so
         # downstream consumers can import either alias. Same dist tree as
         # hanzogui — only `name` differs. The static extractor scans for the
-        # literal 'hanzogui' import token, so this alias is purely for
-        # consumer ergonomics and never participates in extractor input.
+        # literal 'hanzogui' import token, so this alias is purely a consumer
+        # ergonomics shim and never participates in extractor input. We reuse
+        # the prepared tmpdir from the hanzogui pack step (workspace specs
+        # already rewritten) and only mutate `name`.
         env:
           NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
           NODE_AUTH_TOKEN: ${{ steps.kms.outputs.npm_token }}
-        working-directory: pkgs/ui/hanzogui
+          TMPDIR_HANZOGUI: ${{ steps.pack-hanzogui.outputs.tmpdir }}
         run: |
           set -eu
-          cp package.json package.json.orig
-          jq '.name = "@hanzo/gui"' package.json.orig > package.json
+          aliasdir=$(mktemp -d)
+          cp -R "$TMPDIR_HANZOGUI"/. "$aliasdir/"
+          cd "$aliasdir"
+          jq '.name = "@hanzo/gui"' package.json > package.json.new
+          mv package.json.new package.json
           version=$(node -p "require('./package.json').version")
           if npm view "@hanzo/gui@${version}" version >/dev/null 2>&1; then
             echo "@hanzo/gui@${version} already on npm — skipping."
-            mv package.json.orig package.json
             exit 0
           fi
           tgz=$(npm pack --silent | tail -1)
           npm publish "${tgz}" --access public --tag stable
-          mv package.json.orig package.json

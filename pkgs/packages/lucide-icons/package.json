@@ -1,9 +1,9 @@
 {
   "name": "@hanzogui/lucide-icons-2",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "React Native components for Lucide icons - native and web",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "source": "src/index.ts",
   "files": [
     "types",
@@ -15895,5 +15895,6 @@
     "react": ">=19",
     "react-native-svg": ">=12"
   },
-  "skipPublishIfUnchanged": false
+  "skipPublishIfUnchanged": false,
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

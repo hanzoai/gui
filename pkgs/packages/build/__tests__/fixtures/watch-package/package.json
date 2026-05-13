@@ -1,6 +1,6 @@
 {
   "name": "hanzogui-build-test-watch-package",
-  "version": "2.0.0-rc.0-1769885482630",
+  "version": "2.0.0",
   "main": "dist/cjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
@@ -18,5 +18,7 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "typescript": "~5.9.2"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

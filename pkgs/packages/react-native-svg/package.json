@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/react-native-svg",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "type": "module",
   "main": "dist/cjs",
   "module": "dist/esm/index.js",
@@ -35,5 +35,7 @@
     "react-native-svg": {
       "optional": true
     }
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

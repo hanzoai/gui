@@ -10,5 +10,7 @@
     "@hanzogui/cli": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "hanzogui": "workspace:*"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

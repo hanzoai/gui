@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/switch",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -58,5 +58,7 @@
     "react-native": "*"
   },
   "module:jsx": "dist/jsx",
-  "removeSideEffects": true
+  "removeSideEffects": true,
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

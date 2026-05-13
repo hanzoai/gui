@@ -33,5 +33,7 @@
   },
   "peerDependencies": {
     "react-dom": "*"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

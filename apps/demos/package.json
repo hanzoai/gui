@@ -88,5 +88,7 @@
   "peerDependencies": {
     "react": ">=19",
     "react-native": "*"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

@@ -1,8 +1,8 @@
 {
   "name": "@hanzogui/static",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -97,5 +97,6 @@
   },
   "tests": {
     "parallel": true
-  }
+  },
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

@@ -1,8 +1,8 @@
 {
   "name": "@hanzogui/sizable-context",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "description": "Sizable context for Hanzogui components",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -44,5 +44,6 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  }
+  },
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

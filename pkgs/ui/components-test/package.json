@@ -1,8 +1,8 @@
 {
   "name": "@hanzogui/components-test",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "private": true,
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -34,5 +34,6 @@
     "*.mjs",
     "*.css",
     "README.md"
-  ]
+  ],
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

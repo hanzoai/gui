@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Hanzo Bot admin SPA — channels, sessions, agents, skills, config, logs. Composed from @hanzogui/admin chrome. Ships as a Vite SPA at /_/bot/ served by hanzo-bot Node runtime.",
+  "description": "Hanzo Bot admin SPA \u2014 channels, sessions, agents, skills, config, logs. Composed from @hanzogui/admin chrome. Ships as a Vite SPA at /_/bot/ served by hanzo-bot Node runtime.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -29,5 +29,7 @@
     "typescript": "^5.7.2",
     "vite": "^8.0.3",
     "vite-tsconfig-paths": "^5.1.4"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

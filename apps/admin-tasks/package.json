@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.49.0",
   "type": "module",
-  "description": "Hanzo Tasks SPA — namespaces, workflows, schedules, batches, deployments, task queues, workers, nexus. Composed from @hanzogui/admin chrome. Ships as a Vite SPA at tasks.hanzo.ai and embedded in tasksd.",
+  "description": "Hanzo Tasks SPA \u2014 namespaces, workflows, schedules, batches, deployments, task queues, workers, nexus. Composed from @hanzogui/admin chrome. Ships as a Vite SPA at tasks.hanzo.ai and embedded in tasksd.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -37,5 +37,7 @@
     "vite": "^8.0.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.0.4"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

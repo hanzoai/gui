@@ -25,5 +25,7 @@
     "react": ">=19",
     "react-native": "0.83.2",
     "hanzogui": "workspace:*"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Hanzo Agents admin SPA — operator chrome for orgs, API keys, billing, observability. Composed from @hanzogui/admin chrome. Ships embedded in agentd at /_/agents/ and standalone at agents.hanzo.ai.",
+  "description": "Hanzo Agents admin SPA \u2014 operator chrome for orgs, API keys, billing, observability. Composed from @hanzogui/admin chrome. Ships embedded in agentd at /_/agents/ and standalone at agents.hanzo.ai.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -29,5 +29,7 @@
     "typescript": "^5.7.2",
     "vite": "^8.0.3",
     "vite-tsconfig-paths": "^5.1.4"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

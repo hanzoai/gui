@@ -1,11 +1,9 @@
 {
   "name": "@hanzogui/core-test",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "private": true,
-  "license": "MIT",
-  "author": {
-    "name": "Nate Wienert"
-  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>",
   "type": "module",
   "module": "dist/esm",
   "scripts": {

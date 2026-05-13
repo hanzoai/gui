@@ -25,5 +25,7 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

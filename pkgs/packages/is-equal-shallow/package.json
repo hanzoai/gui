@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/is-equal-shallow",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "files": [
     "src",
     "types",
@@ -37,5 +37,7 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

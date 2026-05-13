@@ -48,5 +48,7 @@
     "vite": "^8.0.3",
     "wait-port": "^0.3.0",
     "ws": "^8.18.0"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

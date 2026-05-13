@@ -164,5 +164,7 @@
     "*.mjs",
     "*.css",
     "README.md"
-  ]
+  ],
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/vite-plugin",
-  "version": "102.0.0-rc.41-hanzoai.1",
-  "license": "MIT",
+  "version": "2.0.0",
+  "license": "BSD-3-Clause",
   "files": [
     "src",
     "types",
@@ -54,5 +54,6 @@
     "build": {
       "skipEnvToMeta": true
     }
-  }
+  },
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

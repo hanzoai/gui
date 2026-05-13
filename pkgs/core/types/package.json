@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/types",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "files": [
     "types.ts"
   ],
@@ -14,5 +14,7 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

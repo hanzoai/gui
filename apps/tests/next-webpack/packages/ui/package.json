@@ -33,5 +33,7 @@
   "peerDependencies": {
     "react": ">=19"
   },
-  "module:jsx": "src"
+  "module:jsx": "src",
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

@@ -1,7 +1,7 @@
 {
   "name": "bento-get",
-  "version": "2.0.0-rc.41-hanzoai.5",
-  "license": "MIT",
+  "version": "2.0.0",
+  "license": "BSD-3-Clause",
   "bin": "dist/cli.js",
   "source": "src/cli.tsx",
   "files": [
@@ -64,5 +64,6 @@
   "engines": {
     "node": ">=20"
   },
-  "private": true
+  "private": true,
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/animations-reanimated",
-  "version": "102.0.0-rc.41-hanzoai.1",
-  "license": "MIT",
+  "version": "2.0.0",
+  "license": "BSD-3-Clause",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -48,5 +48,6 @@
     "react": ">=19",
     "react-native": "*",
     "react-native-reanimated": ">=3.0.0"
-  }
+  },
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

@@ -39,5 +39,7 @@
     "@playwright/test": "^1.49.1",
     "@hanzogui/build": "workspace:*",
     "hanzogui-loader": "workspace:*"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

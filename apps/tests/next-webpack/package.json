@@ -17,5 +17,7 @@
   },
   "devDependencies": {
     "vitest": "4.0.4"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

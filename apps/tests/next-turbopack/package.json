@@ -27,5 +27,7 @@
     "@types/node": "^22.1.0",
     "@types/react": "~19.1.10",
     "vitest": "4.0.4"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

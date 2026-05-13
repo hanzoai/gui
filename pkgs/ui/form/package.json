@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/form",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "2.0.0",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -46,5 +46,7 @@
   "peerDependencies": {
     "react": ">=19"
   },
-  "module:jsx": "dist/jsx"
+  "module:jsx": "dist/jsx",
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

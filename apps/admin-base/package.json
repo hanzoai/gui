@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.4.0",
   "type": "module",
-  "description": "Hanzo Base admin SPA — collections, records, logs, settings. Composed from @hanzogui/admin chrome. Embedded in based via //go:embed against dist/.",
+  "description": "Hanzo Base admin SPA \u2014 collections, records, logs, settings. Composed from @hanzogui/admin chrome. Embedded in based via //go:embed against dist/.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -28,5 +28,7 @@
     "@vitejs/plugin-react": "^5.0.0",
     "typescript": "^5.7.2",
     "vite": "^8.0.3"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

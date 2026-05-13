@@ -105,5 +105,7 @@
     "vite-bundle-analyzer": "^0.9.4",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "4.0.4"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

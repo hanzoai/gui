@@ -1,0 +1,35 @@
+{
+  "name": "@hanzogui/admin-base-go",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Hanzo Base admin — iOS + Android. Expo sibling of @hanzo/base-ui (apps/admin-base). Reuses the same screens via path alias; only the runtime shell differs.",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start --port 8083",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web --port 8084",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hanzo/base-ui": "workspace:*",
+    "@hanzo/iam": "^0.9.3",
+    "@hanzogui/admin": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/metro-plugin": "workspace:*",
+    "expo": "~55.0.6",
+    "expo-font": "~55.0.4",
+    "expo-linking": "~7.0.0",
+    "expo-router": "~5.0.0",
+    "expo-secure-store": "~14.0.0",
+    "hanzogui": "workspace:*",
+    "react": ">=19",
+    "react-native": "0.83.2",
+    "react-native-screens": "~4.4.0",
+    "react-native-safe-area-context": "~5.0.0"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

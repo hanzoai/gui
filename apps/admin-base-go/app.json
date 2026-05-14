@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Hanzo Base Admin",
+    "slug": "admin-base-go",
+    "version": "0.4.0",
+    "scheme": "hanzobase",
+    "platforms": ["ios", "android", "web"],
+    "ios": {
+      "bundleIdentifier": "ai.hanzo.base.admin",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Required for QR-code based device-pairing during IAM login.",
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": ["hanzobase"]
+          }
+        ]
+      }
+    },
+    "android": {
+      "package": "ai.hanzo.base.admin",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [{ "scheme": "hanzobase" }],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

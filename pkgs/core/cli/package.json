@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/cli",
-  "version": "2.0.0",
+  "version": "7.2.3",
   "bin": {
     "tama": "./dist/index.cjs",
     "hanzogui": "./dist/index.cjs"

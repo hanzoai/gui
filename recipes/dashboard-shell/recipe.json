@@ -1,0 +1,8 @@
+{
+  "slug": "dashboard-shell",
+  "name": "Dashboard shell",
+  "description": "App layout with sidebar nav, top bar, and content slot. Drop in your routes.",
+  "category": "dashboard",
+  "npmDeps": ["@hanzo/gui"],
+  "recipeDeps": []
+}

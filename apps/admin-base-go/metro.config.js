@@ -1,22 +1,26 @@
 const { getDefaultConfig } = require('expo/metro-config')
-const { withMetroPlugin } = require('@hanzogui/metro-plugin')
 const path = require('path')
 
 const projectRoot = __dirname
-const workspaceRoot = path.resolve(projectRoot, '../..')
+const monorepoRoot = path.resolve(projectRoot, '../..')
 
 const config = getDefaultConfig(projectRoot)
 
-// Watch the entire monorepo so changes in apps/admin-base or any
-// pkgs/* package hot-reload here too.
-config.watchFolders = [workspaceRoot]
+config.resolver.unstable_enablePackageExports =
+  process.env.TAMAGUI_PACKAGE_EXPORTS !== 'false'
+
+// block unnecessary directories from metro file crawling
+config.resolver.blockList = [
+  /code\/hanzogui\.dev\//,
+  /code\/.*\/__tests__\//,
+  /code\/.*\/\.maestro\//,
+]
+
+config.watchFolders = [monorepoRoot]
 config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, 'node_modules'),
-  path.resolve(workspaceRoot, 'node_modules'),
+  path.resolve(monorepoRoot, 'node_modules'),
 ]
-config.resolver.disableHierarchicalLookup = true
 
-module.exports = withMetroPlugin(config, {
-  // Same configuration knobs as kitchen-sink-go; see
-  // @hanzogui/metro-plugin for the list.
-})
+// no withHanzogui, no unstable_conditionNames — same shape as kitchen-sink-go
+module.exports = config

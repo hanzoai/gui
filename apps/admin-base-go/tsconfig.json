@@ -12,5 +12,5 @@
       "@hanzo/base-ui/*": ["../admin-base/src/*"]
     }
   },
-  "include": ["App.tsx", "index.js", "metro.config.js"]
+  "include": ["App.tsx", "gui.config.ts", "index.js", "metro.config.js"]
 }

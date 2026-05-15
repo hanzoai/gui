@@ -3,6 +3,11 @@
 // chip backed by the local auth store.
 //
 // The route tree lives in main.tsx so this file only owns config.
+//
+// Env reads are Vite-native: `import.meta.env.VITE_*`. The Expo
+// sibling (apps/admin-base-go) owns its own env strategy via
+// `process.env.EXPO_PUBLIC_*` — separate file, separate module.
+// One way per platform; no clever cross-runtime bridge.
 
 import { Outlet } from 'react-router-dom'
 import {
@@ -20,17 +25,18 @@ import { BookOpen } from '@hanzogui/lucide-icons-2/icons/BookOpen'
 import { Database } from '@hanzogui/lucide-icons-2/icons/Database'
 import { Heart } from '@hanzogui/lucide-icons-2/icons/Heart'
 import { Settings as SettingsIcon } from '@hanzogui/lucide-icons-2/icons/Settings'
-import { env } from './env'
 import { useAuth } from './hooks/useAuth'
 
-const APP_VERSION = env.APP_VERSION
+const APP_VERSION = import.meta.env.VITE_APP_VERSION ?? '0.4.0'
+const BRAND_NAME = import.meta.env.VITE_BRAND_NAME ?? 'Hanzo Base'
+const BRAND_SUBTITLE = import.meta.env.VITE_BRAND_SUBTITLE ?? 'Self-Hosted'
 
 function buildSidebarConfig(): SidebarConfig {
   return {
     brand: {
       mark: <HanzoMark />,
-      title: env.BRAND_NAME,
-      subtitle: env.BRAND_SUBTITLE,
+      title: BRAND_NAME,
+      subtitle: BRAND_SUBTITLE,
     },
     sections: [
       {

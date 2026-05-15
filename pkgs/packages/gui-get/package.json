@@ -1,5 +1,5 @@
 {
-  "name": "gui-get",
+  "name": "@hanzo/gui-get",
   "version": "7.2.3",
   "description": "CLI installer for Hanzo GUI recipes.",
   "license": "BSD-3-Clause",
@@ -17,7 +17,8 @@
   "main": "./dist/cli.js",
   "source": "src/cli.ts",
   "files": [
-    "src",
+    "src/**/*.ts",
+    "!src/**/*.test.ts",
     "dist"
   ],
   "publishConfig": {

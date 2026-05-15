@@ -1,15 +1,17 @@
-# gui-get
+# @hanzo/gui-get
 
 Install Hanzo GUI recipes — composable screens and widgets built on `@hanzo/gui` primitives — into your project with one command.
 
 ## Usage
 
 ```sh
-npx gui-get                  # interactive picker
-npx gui-get add sign-in-form # install a single recipe
-npx gui-get list             # show all available recipes
-npx gui-get init             # write gui.config.json
+npx @hanzo/gui-get                  # interactive picker
+npx @hanzo/gui-get add sign-in-form # install a single recipe
+npx @hanzo/gui-get list             # show all available recipes
+npx @hanzo/gui-get init             # write gui.config.json
 ```
+
+After global install (`npm i -g @hanzo/gui-get`), the command is simply `gui-get`.
 
 Recipes are vendored into `src/gui/` by default. Override the destination by adding a `gui.config.json` at the project root:
 

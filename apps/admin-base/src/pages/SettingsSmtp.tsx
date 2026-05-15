@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { Button, Input, Text, XStack, YStack } from 'hanzogui'
 import { ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
-import { authedFetcher, testEmail, updateSettings } from '../lib/api'
+import { apiPath, authedFetcher, testEmail, updateSettings} from '../lib/api'
 import { SectionCard } from '../components/SectionCard'
 
 interface SmtpSettings {
@@ -40,7 +40,7 @@ const templateOptions = [
 
 export function SettingsSmtp() {
   const settingsRes = useFetch<{ smtp?: SmtpSettings; meta?: MetaSettings }>(
-    '/v1/settings',
+    apiPath('/settings'),
     { fetcher: authedFetcher as never },
   )
 

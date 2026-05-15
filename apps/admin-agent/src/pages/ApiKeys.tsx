@@ -15,6 +15,7 @@ import {
   type DataTableColumn,
 } from '@hanzogui/admin'
 import type { ApiKey } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 const COLUMNS: DataTableColumn[] = [
   { key: 'name', label: 'Name', flex: 1.2 },
@@ -27,7 +28,7 @@ const COLUMNS: DataTableColumn[] = [
 export function ApiKeysPage() {
   const { org } = useParams()
   const { data, error, isLoading } = useFetch<{ keys: ApiKey[] }>(
-    org ? `/v1/agents/orgs/${encodeURIComponent(org)}/api-keys` : null,
+    org ? `${ROOT}/orgs/${encodeURIComponent(org)}/api-keys` : null,
   )
 
   if (!org) return <Empty title="Pick an organization" />

@@ -13,6 +13,7 @@ import { Outlet } from 'react-router-dom'
 import {
   AccountChip,
   AdminApp,
+  BrandMark,
   HanzoMark,
   LocalTimeIndicator,
   Sidebar,
@@ -28,13 +29,21 @@ import { Settings as SettingsIcon } from '@hanzogui/lucide-icons-2/icons/Setting
 import { useAuth } from './hooks/useAuth'
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION ?? '0.4.0'
+// Brand surface is fully env-driven so white-label deployments override
+// without code changes. Defaults render the canonical Hanzo mark.
 const BRAND_NAME = import.meta.env.VITE_BRAND_NAME ?? 'Hanzo Base'
 const BRAND_SUBTITLE = import.meta.env.VITE_BRAND_SUBTITLE ?? 'Self-Hosted'
+const BRAND_MARK_URL = import.meta.env.VITE_BRAND_MARK_URL as string | undefined
 
 function buildSidebarConfig(): SidebarConfig {
+  const mark = BRAND_MARK_URL ? (
+    <BrandMark imageSrc={BRAND_MARK_URL} alt={BRAND_NAME} />
+  ) : (
+    <HanzoMark />
+  )
   return {
     brand: {
-      mark: <HanzoMark />,
+      mark,
       title: BRAND_NAME,
       subtitle: BRAND_SUBTITLE,
     },

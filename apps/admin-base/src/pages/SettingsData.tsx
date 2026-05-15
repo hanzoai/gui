@@ -6,18 +6,17 @@ import { useMemo, useRef, useState, type ChangeEvent } from 'react'
 import { Button, Text, TextArea, XStack, YStack } from 'hanzogui'
 import { ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import {
-  authedFetcher,
+  apiPath, authedFetcher,
   importCollections,
   type CollectionModel,
-  type ListResult,
-} from '../lib/api'
+  type ListResult,} from '../lib/api'
 import { SectionCard } from '../components/SectionCard'
 
 export function SettingsData() {
   const fileRef = useRef<HTMLInputElement | null>(null)
 
   const collections = useFetch<ListResult<CollectionModel>>(
-    `/v1/collections?perPage=200&sort=name`,
+    apiPath(`/collections?perPage=200&sort=name`),
     { fetcher: authedFetcher as never },
   )
 

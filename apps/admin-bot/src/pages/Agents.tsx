@@ -3,9 +3,10 @@
 import { Card, H2, Text, XStack, YStack } from 'hanzogui'
 import { Badge, Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import type { AgentsListResult } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 export function AgentsPage() {
-  const { data, error, isLoading } = useFetch<AgentsListResult>('/v1/bot/agents')
+  const { data, error, isLoading } = useFetch<AgentsListResult>(`${ROOT}/agents`)
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState />
   const items = data?.agents ?? []

@@ -7,11 +7,10 @@ import { useEffect, useState } from 'react'
 import { Button, Input, Text, XStack, YStack } from 'hanzogui'
 import { ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import {
-  authedFetcher,
+  apiPath, authedFetcher,
   updateCollection,
   type CollectionModel,
-  type ListResult,
-} from '../lib/api'
+  type ListResult,} from '../lib/api'
 import { SectionCard } from '../components/SectionCard'
 
 const tokenTypes = [
@@ -26,7 +25,7 @@ type TokenKey = (typeof tokenTypes)[number]['key']
 
 export function SettingsTokens() {
   const collectionsRes = useFetch<ListResult<CollectionModel>>(
-    `/v1/collections?perPage=500&filter=${encodeURIComponent("type='auth'")}`,
+    apiPath(`/collections?perPage=500&filter=${encodeURIComponent("type='auth'")}`),
     { fetcher: authedFetcher as never },
   )
 

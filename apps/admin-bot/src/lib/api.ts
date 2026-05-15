@@ -1,11 +1,14 @@
 // Hanzo Bot wire-shape types for the admin SPA. Transport (apiPost,
 // apiDelete, ApiError, useFetch) lives in @hanzogui/admin. This file
-// only owns shapes that match the bot gateway's HTTP surface
-// (src/gateway/server-http.ts → /v1/bot/*).
+// only owns shapes that match the bot gateway's HTTP surface.
 //
-// No /api/ prefix. /v1 only — append-only opcode evolution.
+// Mount prefix is read from VITE_API_PREFIX (default /v1/bot).
+// Server-side BASE_API_PREFIX must match for multi-app deployments.
 
 export { ApiError, apiPost, apiDelete } from '@hanzogui/admin'
+
+const RAW_API_PREFIX = (import.meta.env.VITE_API_PREFIX as string | undefined) ?? '/v1/bot'
+export const ROOT = '/' + RAW_API_PREFIX.replace(/^\/+|\/+$/g, '')
 
 // ── Health / overview ────────────────────────────────────────────────
 

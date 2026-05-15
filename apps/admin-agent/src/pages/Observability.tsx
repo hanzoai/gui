@@ -11,6 +11,7 @@ import {
   type DataTableColumn,
 } from '@hanzogui/admin'
 import type { ObservabilityWebhook } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 const COLUMNS: DataTableColumn[] = [
   { key: 'url', label: 'URL', flex: 2 },
@@ -20,7 +21,7 @@ const COLUMNS: DataTableColumn[] = [
 
 export function ObservabilityPage() {
   const { data, error, isLoading } = useFetch<{ webhooks: ObservabilityWebhook[] }>(
-    '/v1/agents/observability/webhooks',
+    `${ROOT}/observability/webhooks`,
   )
 
   if (error) return <ErrorState error={error} />

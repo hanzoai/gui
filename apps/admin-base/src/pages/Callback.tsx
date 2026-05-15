@@ -10,6 +10,12 @@ import { IAM } from '@hanzo/iam/browser'
 import { Text, YStack } from 'hanzogui'
 import { setAuth } from '../lib/api'
 
+// Module-scoped guard so React.StrictMode's intentional double-mount
+// doesn't try to consume the same single-use authorization code twice.
+// Keyed by the `code` URL param so different sign-in attempts in the
+// same tab session don't collide.
+const consumedCodes = new Set<string>()
+
 function resolveServerUrl(): string {
   const fromEnv = import.meta.env.VITE_IAM_SERVER_URL
   if (fromEnv) {
@@ -26,6 +32,12 @@ export function Callback() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    const code = new URLSearchParams(window.location.search).get('code') ?? ''
+    if (!code || consumedCodes.has(code)) {
+      return
+    }
+    consumedCodes.add(code)
+
     const iam = new IAM({
       serverUrl: resolveServerUrl(),
       clientId: 'hanzo-base',

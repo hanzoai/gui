@@ -17,10 +17,10 @@ async function main() {
   console.info(`Target version: ${targetVersion}`)
 
   // Find all package.json files across the workspace, excluding node_modules
-  const glob = new Glob('pkgs/**/package.json')
-  const packagePaths = Array.from(glob.scanSync('.')).filter(
-    (p) => !p.includes('node_modules')
-  )
+  const globs = ['pkgs/**/package.json', 'apps/**/package.json', 'templates/**/package.json']
+  const packagePaths = Array.from(
+    new Set(globs.flatMap((g) => Array.from(new Glob(g).scanSync('.'))))
+  ).filter((p) => !p.includes('node_modules'))
 
   let updated = 0
 
@@ -32,9 +32,10 @@ async function main() {
       const content = await readFile(pkgPath, 'utf8')
       const pkg = JSON.parse(content)
 
-      // match all hanzogui packages: bare `hanzogui`, bare `hanzogui-*`, scoped `@hanzogui/*`
+      // match all hanzogui packages: bare `hanzogui`, bare `hanzogui-*`, scoped `@hanzogui/*`, `create-hanzogui`
       const isHanzoguiPkg =
         pkg.name === 'hanzogui' ||
+        pkg.name === 'create-hanzogui' ||
         pkg.name?.startsWith('hanzogui-') ||
         pkg.name?.startsWith('@hanzogui/')
       if (!isHanzoguiPkg) continue

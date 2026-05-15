@@ -3,9 +3,10 @@
 import { Card, H2, Text, XStack, YStack } from 'hanzogui'
 import { Badge, Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import type { SessionsListResult } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 export function SessionsPage() {
-  const { data, error, isLoading } = useFetch<SessionsListResult>('/v1/bot/sessions')
+  const { data, error, isLoading } = useFetch<SessionsListResult>(`${ROOT}/sessions`)
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState />
   const items = data?.sessions ?? []

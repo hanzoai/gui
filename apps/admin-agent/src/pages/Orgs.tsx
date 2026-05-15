@@ -14,6 +14,7 @@ import {
   type DataTableColumn,
 } from '@hanzogui/admin'
 import type { Org } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 const COLUMNS: DataTableColumn[] = [
   { key: 'name', label: 'Name', flex: 1.4 },
@@ -23,7 +24,7 @@ const COLUMNS: DataTableColumn[] = [
 ]
 
 export function OrgsPage() {
-  const { data, error, isLoading } = useFetch<{ orgs: Org[] }>('/v1/agents/orgs')
+  const { data, error, isLoading } = useFetch<{ orgs: Org[] }>(`${ROOT}/orgs`)
 
   if (error) return <ErrorState error={error} />
   if (isLoading) return null

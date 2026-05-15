@@ -33,14 +33,12 @@ import {
   humanTTL,
   useFetch,
 } from '@hanzogui/admin'
-import {
-  ApiError,
+import { ROOT, ApiError,
   Identities,
   Namespaces,
   type Identity,
   type Namespace,
-  type SearchAttributesResponse,
-} from '../lib/api'
+  type SearchAttributesResponse } from '../lib/api'
 import { NamespaceMetadataEditor } from '../components/namespace/NamespaceMetadataEditor'
 import {
   RetentionEditor,
@@ -537,7 +535,7 @@ function ToggleRow({
 }
 
 function SearchAttributesPanel({ ns }: { ns: string }) {
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(ns)}/search-attributes`
+  const url = `${ROOT}/namespaces/${encodeURIComponent(ns)}/search-attributes`
   const { data, error, isLoading } = useFetch<SearchAttributesResponse>(url)
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState rows={2} />
@@ -673,7 +671,7 @@ function StatCard({
 }
 
 function IdentitiesPanel({ ns }: { ns: string }) {
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(ns)}/identities`
+  const url = `${ROOT}/namespaces/${encodeURIComponent(ns)}/identities`
   const { data, error, isLoading, mutate } = useFetch<{ identities: Identity[] }>(url)
   const [busyEmail, setBusyEmail] = useState<string | null>(null)
   const [revErr, setRevErr] = useState<string | null>(null)

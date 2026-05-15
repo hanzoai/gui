@@ -2,9 +2,10 @@
 
 import { Card, H2, Paragraph, YStack } from 'hanzogui'
 import { Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
+import { ROOT } from '../lib/api'
 
 export function DebugPage() {
-  const { data, error, isLoading } = useFetch<{ info: Record<string, unknown> }>('/v1/bot/debug')
+  const { data, error, isLoading } = useFetch<{ info: Record<string, unknown> }>(`${ROOT}/debug`)
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState />
   if (!data?.info) {

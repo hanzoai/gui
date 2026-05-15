@@ -7,11 +7,10 @@ import { useMemo, useState } from 'react'
 import { Button, Input, Text, TextArea, XStack, YStack } from 'hanzogui'
 import { ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import {
-  authedFetcher,
+  apiPath, authedFetcher,
   updateCollection,
   type CollectionModel,
-  type ListResult,
-} from '../lib/api'
+  type ListResult,} from '../lib/api'
 import { SectionCard } from '../components/SectionCard'
 
 const templateKeys = [
@@ -30,7 +29,7 @@ interface Template {
 
 export function SettingsMail() {
   const authCollections = useFetch<ListResult<CollectionModel>>(
-    `/v1/collections?perPage=200&filter=${encodeURIComponent("type='auth'")}`,
+    apiPath(`/collections?perPage=200&filter=${encodeURIComponent("type='auth'")}`),
     { fetcher: authedFetcher as never },
   )
 

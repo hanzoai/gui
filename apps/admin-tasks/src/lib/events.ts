@@ -4,6 +4,7 @@
 
 import { useCallback } from 'react'
 import { useEvents } from '@hanzogui/admin'
+import { ROOT } from '../lib/api'
 
 export type EventKind =
   | 'workflow.started'
@@ -58,7 +59,7 @@ export function useTaskEvents(
     [ns, kindFilter],
   )
   useEvents<TaskEvent>({
-    url: '/v1/tasks/events',
+    url: `${ROOT}/events`,
     kinds: kindFilter ?? ALL_KINDS,
     filter,
     onEvent,

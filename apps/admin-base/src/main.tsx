@@ -22,6 +22,7 @@ import { PageShell } from '@hanzogui/admin'
 import config from '../gui.config'
 import App from './App'
 import { useAuth } from './hooks/useAuth'
+import { Callback } from './pages/Callback'
 import { CollectionEdit } from './pages/CollectionEdit'
 import { Collections } from './pages/Collections'
 import { Login } from './pages/Login'
@@ -62,6 +63,7 @@ ReactDOM.createRoot(root).render(
       <BrowserRouter basename="/_">
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/callback" element={<Callback />} />
           <Route element={<AuthGate />}>
             <Route element={<App />}>
               <Route path="/" element={<Navigate to="/collections" replace />} />

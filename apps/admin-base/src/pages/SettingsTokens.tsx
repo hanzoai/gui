@@ -1,6 +1,6 @@
 // Token options — per-auth-collection token duration and secret
-// rotation. Auth collections are read from /api/collections; updates
-// are PATCH /api/collections/:id with the field nested under one of
+// rotation. Auth collections are read from /v1/collections; updates
+// are PATCH /v1/collections/:id with the field nested under one of
 // the well-known token keys.
 
 import { useEffect, useState } from 'react'
@@ -26,7 +26,7 @@ type TokenKey = (typeof tokenTypes)[number]['key']
 
 export function SettingsTokens() {
   const collectionsRes = useFetch<ListResult<CollectionModel>>(
-    `/api/collections?perPage=500&filter=${encodeURIComponent("type='auth'")}`,
+    `/v1/collections?perPage=500&filter=${encodeURIComponent("type='auth'")}`,
     { fetcher: authedFetcher as never },
   )
 

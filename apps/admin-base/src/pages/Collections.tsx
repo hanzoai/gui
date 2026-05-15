@@ -31,7 +31,7 @@ export function Collections() {
   const [filter, setFilter] = useState('')
   const [fetchedAt, setFetchedAt] = useState(new Date())
 
-  const url = `/api/collections?perPage=500&sort=name`
+  const url = `/v1/collections?perPage=500&sort=name`
   const { data, error, isLoading, mutate } = useFetch<ListResult<CollectionModel>>(url, {
     fetcher: authedFetcher as never,
   })

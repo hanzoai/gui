@@ -2,9 +2,10 @@
 
 import { Card, H2, Paragraph, YStack } from 'hanzogui'
 import { Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
+import { ROOT } from '../lib/api'
 
 export function ConfigPage() {
-  const { data, error, isLoading } = useFetch<{ config: unknown }>('/v1/bot/config')
+  const { data, error, isLoading } = useFetch<{ config: unknown }>(`${ROOT}/config`)
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState />
   if (!data?.config) {

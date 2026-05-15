@@ -47,7 +47,7 @@ import {
   type SavedView,
   type WorkflowSort,
 } from '@hanzogui/admin'
-import { ApiError, Workflows, apiPost } from '../lib/api'
+import { ROOT, ApiError, Workflows, apiPost } from '../lib/api'
 import type { WorkflowExecution } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
 import { canWriteNamespace, useSettings } from '../stores/settings'
@@ -459,7 +459,7 @@ function StartWorkflowButton({ ns, onStarted }: { ns: string; onStarted: () => v
           throw new Error('Input must be valid JSON.')
         }
       }
-      await apiPost(`/v1/tasks/namespaces/${encodeURIComponent(ns)}/workflows`, {
+      await apiPost(`${ROOT}/namespaces/${encodeURIComponent(ns)}/workflows`, {
         workflowId: workflowId || undefined,
         workflowType: { name: type },
         taskQueue: { name: taskQueue },

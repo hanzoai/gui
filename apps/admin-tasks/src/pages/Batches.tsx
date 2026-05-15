@@ -20,6 +20,7 @@ import { useTaskEvents } from '../lib/events'
 import { canWriteNamespace, useSettings } from '../stores/settings'
 import { BatchKindIcon, batchKindLabel } from '../components/batch/BatchKindIcon'
 import { BatchProgress } from '../components/batch/BatchProgress'
+import { ROOT } from '../lib/api'
 
 interface ListResp {
   batches?: BatchOperation[]
@@ -50,7 +51,7 @@ function shortState(state: string): string {
 export function BatchesPage() {
   const { ns } = useParams()
   const namespace = ns!
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/batches`
+  const url = `${ROOT}/namespaces/${encodeURIComponent(namespace)}/batches`
   const { data, error, isLoading, mutate } = useFetch<ListResp>(url)
   const { settings } = useSettings()
   const writeAllowed = canWriteNamespace(settings)

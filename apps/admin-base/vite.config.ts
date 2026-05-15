@@ -18,6 +18,18 @@ import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 
 const APP_VERSION = process.env.VITE_APP_VERSION ?? '0.4.0'
 
+// Single mount-prefix knob shared with the server (`BASE_API_PREFIX`).
+// Default `/v1`; team-go style multi-app deployments use `/v1/team`
+// etc. The dev proxy forwards exactly this prefix to the Base origin.
+const RAW_API_PREFIX = process.env.VITE_API_PREFIX ?? '/v1'
+const API_PREFIX = '/' + RAW_API_PREFIX.replace(/^\/+|\/+$/g, '')
+
+// IAM is a sibling mount at `/v1/iam` regardless of API_PREFIX, so
+// proxy it separately. Override target via VITE_IAM_URL (defaults to
+// VITE_BASE_URL — single host running both).
+const BASE_TARGET = process.env.VITE_BASE_URL ?? 'http://localhost:8090'
+const IAM_TARGET = process.env.VITE_IAM_URL ?? BASE_TARGET
+
 export default defineConfig({
   plugins: [
     hanzoguiPlugin({
@@ -29,6 +41,22 @@ export default defineConfig({
   base: '/_/',
   define: {
     'import.meta.env.VITE_APP_VERSION': JSON.stringify(APP_VERSION),
+    // Vite only auto-loads VITE_* vars from .env* files; CLI env passed
+    // via process.env needs explicit forwarding so import.meta.env sees
+    // it both in dev and in the //go:embed prod bundle.
+    'import.meta.env.VITE_API_PREFIX': JSON.stringify(API_PREFIX),
+    'import.meta.env.VITE_IAM_SERVER_URL': JSON.stringify(
+      process.env.VITE_IAM_SERVER_URL ?? '',
+    ),
+    'import.meta.env.VITE_BRAND_NAME': JSON.stringify(
+      process.env.VITE_BRAND_NAME ?? 'Hanzo Base',
+    ),
+    'import.meta.env.VITE_BRAND_SUBTITLE': JSON.stringify(
+      process.env.VITE_BRAND_SUBTITLE ?? 'Self-Hosted',
+    ),
+    'import.meta.env.VITE_BRAND_MARK_URL': JSON.stringify(
+      process.env.VITE_BRAND_MARK_URL ?? '',
+    ),
     __DEV__: process.env.NODE_ENV !== 'production' ? 'true' : 'false',
     'process.env.HANZOGUI_TARGET': JSON.stringify('web'),
     'process.env.HANZOGUI_REACT_19': '"1"',
@@ -84,10 +112,16 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Base mounts everything under /v1/* (REST, IAM, realtime). One
-      // proxy target keeps dev parity with the //go:embed prod build.
-      '/v1': {
-        target: process.env.VITE_BASE_URL ?? 'http://localhost:8090',
+      // IAM is always a fixed sibling at /v1/iam, even when the app
+      // itself mounts at /v1/<app>. Configure it first so it takes
+      // precedence over the app prefix proxy below.
+      '/v1/iam': {
+        target: IAM_TARGET,
+        changeOrigin: true,
+        ws: true,
+      },
+      [API_PREFIX]: {
+        target: BASE_TARGET,
         changeOrigin: true,
         ws: true,
       },

@@ -3,6 +3,7 @@
 import { Card, H2, Paragraph, XStack, YStack } from 'hanzogui'
 import { Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import type { HealthSnapshot, StatusSummary } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 interface OverviewData {
   health: HealthSnapshot
@@ -10,7 +11,7 @@ interface OverviewData {
 }
 
 export function OverviewPage() {
-  const { data, error, isLoading } = useFetch<OverviewData>('/v1/bot/overview')
+  const { data, error, isLoading } = useFetch<OverviewData>(`${ROOT}/overview`)
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState />
   if (!data) return <Empty title="No status" hint="The bot gateway hasn't reported yet." />

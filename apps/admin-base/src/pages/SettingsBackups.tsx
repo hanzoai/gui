@@ -13,15 +13,14 @@ import {
   type DataTableColumn,
 } from '@hanzogui/admin'
 import {
-  authedFetcher,
+  apiPath, authedFetcher,
   createBackup,
   deleteBackup,
   getBackupDownloadURL,
   getFileToken,
   restoreBackup,
   updateSettings,
-  type BackupModel,
-} from '../lib/api'
+  type BackupModel,} from '../lib/api'
 import { SectionCard } from '../components/SectionCard'
 
 interface S3Settings {
@@ -56,10 +55,10 @@ const tableCols: DataTableColumn[] = [
 
 export function SettingsBackups() {
   const settings = useFetch<{ backups?: BackupsSettings }>(
-    '/v1/settings',
+    apiPath('/settings'),
     { fetcher: authedFetcher as never },
   )
-  const backups = useFetch<BackupModel[]>('/v1/backups', {
+  const backups = useFetch<BackupModel[]>(apiPath('/backups'), {
     fetcher: authedFetcher as never,
   })
 

@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { Button, Card, Input, Text, XStack, YStack } from 'hanzogui'
 import { ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
-import { authedFetcher, updateSettings } from '../lib/api'
+import { apiPath, authedFetcher, updateSettings} from '../lib/api'
 import { SectionCard } from '../components/SectionCard'
 
 interface RateLimitRule {
@@ -27,7 +27,7 @@ const audienceOptions = [
 
 export function SettingsRateLimits() {
   const settings = useFetch<{ rateLimits?: RateLimitsSettings }>(
-    '/v1/settings',
+    apiPath('/settings'),
     { fetcher: authedFetcher as never },
   )
 

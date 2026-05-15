@@ -16,7 +16,7 @@ import {
   useFetch,
   type DataTableColumn,
 } from '@hanzogui/admin'
-import { authedFetcher, deleteCollection, type CollectionModel, type ListResult } from '../lib/api'
+import { apiPath, authedFetcher, deleteCollection, type CollectionModel, type ListResult} from '../lib/api'
 
 const cols: DataTableColumn[] = [
   { key: 'name', label: 'Name', flex: 3 },
@@ -31,7 +31,7 @@ export function Collections() {
   const [filter, setFilter] = useState('')
   const [fetchedAt, setFetchedAt] = useState(new Date())
 
-  const url = `/v1/collections?perPage=500&sort=name`
+  const url = apiPath(`/collections?perPage=500&sort=name`)
   const { data, error, isLoading, mutate } = useFetch<ListResult<CollectionModel>>(url, {
     fetcher: authedFetcher as never,
   })

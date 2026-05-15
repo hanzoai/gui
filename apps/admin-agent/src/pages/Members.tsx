@@ -13,6 +13,7 @@ import {
   type DataTableColumn,
 } from '@hanzogui/admin'
 import type { Member } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 const COLUMNS: DataTableColumn[] = [
   { key: 'email', label: 'Email', flex: 1.5 },
@@ -23,7 +24,7 @@ const COLUMNS: DataTableColumn[] = [
 export function MembersPage() {
   const { org } = useParams()
   const { data, error, isLoading } = useFetch<{ members: Member[] }>(
-    org ? `/v1/agents/orgs/${encodeURIComponent(org)}/members` : null,
+    org ? `${ROOT}/orgs/${encodeURIComponent(org)}/members` : null,
   )
 
   if (!org) return <Empty title="Pick an organization" />

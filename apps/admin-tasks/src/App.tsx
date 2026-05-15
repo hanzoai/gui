@@ -41,6 +41,7 @@ import { Workflow } from '@hanzogui/lucide-icons-2/icons/Workflow'
 import { Zap } from '@hanzogui/lucide-icons-2/icons/Zap'
 import type { Namespace } from './lib/api'
 import { useCluster } from './stores/cluster'
+import { ROOT } from './lib/api'
 
 const APP_VERSION = (import.meta as any).env?.VITE_APP_VERSION ?? '2.45.3'
 const APP_ENV = ((import.meta as any).env?.VITE_APP_ENV ?? 'local') as
@@ -129,7 +130,7 @@ function buildSidebarConfig(ns?: string, clusterEnabled = false): SidebarConfig 
 }
 
 function TasksTopBar({ ns }: { ns?: string }) {
-  const { data } = useFetch<{ namespaces: Namespace[] }>('/v1/tasks/namespaces?pageSize=200')
+  const { data } = useFetch<{ namespaces: Namespace[] }>(`${ROOT}/namespaces?pageSize=200`)
   const recents = useRecentNamespaces(ns)
   const options = (data?.namespaces ?? []).map((n) => ({
     id: n.namespaceInfo.name,

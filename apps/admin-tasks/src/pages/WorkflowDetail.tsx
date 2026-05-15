@@ -19,7 +19,7 @@ import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
 import { History } from '@hanzogui/lucide-icons-2/icons/History'
 import { RefreshCw } from '@hanzogui/lucide-icons-2/icons/RefreshCw'
 import { Alert, Badge, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
-import { ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
+import { ROOT, ApiError, apiPost, shortStatus, statusVariant } from '../lib/api'
 import type { WorkflowExecution } from '../lib/api'
 import { useTaskEvents } from '../lib/events'
 import { WorkflowActionMenu } from '../components/workflow/WorkflowActionMenu'
@@ -110,7 +110,7 @@ export function WorkflowDetailPage({ tab = 'summary' }: { tab?: WorkflowTab } = 
     'execution.workflowId': workflowId!,
     'execution.runId': runId,
   }).toString()
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(workflowId!)}?${qs}`
+  const url = `${ROOT}/namespaces/${encodeURIComponent(namespace)}/workflows/${encodeURIComponent(workflowId!)}?${qs}`
   const { data, error, isLoading, mutate } = useFetch<DescribeResp>(url)
 
   useTaskEvents(namespace, () => void mutate(), [
@@ -519,7 +519,7 @@ function CallStackPane({
     setStack(null)
     try {
       const resp = await apiPost<{ stack?: string }>(
-        `/v1/tasks/namespaces/${encodeURIComponent(ns)}/workflows/${encodeURIComponent(workflowId)}/query?runId=${encodeURIComponent(runId)}`,
+        `${ROOT}/namespaces/${encodeURIComponent(ns)}/workflows/${encodeURIComponent(workflowId)}/query?runId=${encodeURIComponent(runId)}`,
         { queryType: '__stack_trace' },
       )
       setStack(resp?.stack ?? '')

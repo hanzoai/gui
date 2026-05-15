@@ -2,10 +2,13 @@
 // ApiError / useFetch) lives in @hanzogui/admin. This file only owns
 // the wire-shape types that match pkg/agents JSON tags.
 //
-// There is no /api/ prefix and no v2 — append-only opcode evolution
-// behind /v1.
+// Mount prefix is read from VITE_API_PREFIX (default /v1/agents).
+// Server-side BASE_API_PREFIX must match for multi-app deployments.
 
 export { ApiError, apiPost, apiDelete, useFetch } from '@hanzogui/admin'
+
+const RAW_API_PREFIX = (import.meta.env.VITE_API_PREFIX as string | undefined) ?? '/v1/agents'
+export const ROOT = '/' + RAW_API_PREFIX.replace(/^\/+|\/+$/g, '')
 
 // ── shape types — match pkg/agents/types JSON tags exactly ─────────
 

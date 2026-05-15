@@ -20,12 +20,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Button, H1, Input, Text, XStack, YStack } from 'hanzogui'
 import { ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import {
-  authedFetcher,
+  apiPath, authedFetcher,
   deleteCollection,
   updateCollection,
   type CollectionField,
-  type CollectionModel,
-} from '../lib/api'
+  type CollectionModel,} from '../lib/api'
 
 const FIELD_TYPES = [
   'text', 'number', 'bool', 'email', 'url', 'editor',
@@ -56,7 +55,7 @@ export function CollectionEdit() {
   const { name } = useParams<{ name: string }>()
   if (!name) return null
 
-  const collectionUrl = `/v1/collections/${encodeURIComponent(name)}`
+  const collectionUrl = apiPath(`/collections/${encodeURIComponent(name)}`)
   const collection = useFetch<CollectionModel>(collectionUrl, {
     fetcher: authedFetcher as never,
   })

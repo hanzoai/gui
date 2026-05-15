@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { Button, Input, Text, XStack, YStack } from 'hanzogui'
 import { ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
-import { authedFetcher, updateSettings } from '../lib/api'
+import { apiPath, authedFetcher, updateSettings} from '../lib/api'
 import { SectionCard } from '../components/SectionCard'
 
 interface LogsSettings {
@@ -21,7 +21,7 @@ const logLevels = [
 ] as const
 
 export function SettingsLogs() {
-  const settings = useFetch<{ logs?: LogsSettings }>('/v1/settings', {
+  const settings = useFetch<{ logs?: LogsSettings }>(apiPath('/settings'), {
     fetcher: authedFetcher as never,
   })
 

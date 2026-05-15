@@ -9,7 +9,7 @@ import {
   LoadingState,
   useFetch,
 } from '@hanzogui/admin'
-import { authedFetcher, type ListResult, type LogModel } from '../lib/api'
+import { apiPath, authedFetcher, type ListResult, type LogModel} from '../lib/api'
 
 const PER_PAGE = 50
 
@@ -24,9 +24,9 @@ export function Logs() {
   const [filterInput, setFilterInput] = useState('')
   const [page, setPage] = useState(1)
 
-  const url = `/v1/logs?page=${page}&perPage=${PER_PAGE}&sort=-created${
+  const url = apiPath(`/logs?page=${page}&perPage=${PER_PAGE}&sort=-created${
     filter ? `&filter=${encodeURIComponent(`message ~ "${filter.replace(/"/g, '\\"')}"`)}` : ''
-  }`
+  }`)
   const { data, error, isLoading } = useFetch<ListResult<LogModel>>(url, {
     fetcher: authedFetcher as never,
   })

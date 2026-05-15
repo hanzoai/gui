@@ -61,8 +61,13 @@ export type {
 } from './types'
 
 // ── URL helpers ────────────────────────────────────────────────────
+//
+// Mount prefix is read from VITE_API_PREFIX (default /v1/tasks). The
+// server-side BASE_API_PREFIX env and this client-side env MUST be
+// set to the same value for multi-app deployments.
 
-const ROOT = '/v1/tasks'
+const RAW_API_PREFIX = (import.meta.env.VITE_API_PREFIX as string | undefined) ?? '/v1/tasks'
+export const ROOT = '/' + RAW_API_PREFIX.replace(/^\/+|\/+$/g, '')
 
 const enc = encodeURIComponent
 

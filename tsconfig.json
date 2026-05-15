@@ -283,7 +283,10 @@
       "path": "pkgs/packages/babel-plugin-fully-specified"
     },
     {
-      "path": "pkgs/packages/bento-get"
+      "path": "pkgs/packages/gui-get"
+    },
+    {
+      "path": "pkgs/packages/recipes"
     },
     {
       "path": "pkgs/packages/cli-color"

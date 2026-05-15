@@ -20,9 +20,10 @@ import { BookOpen } from '@hanzogui/lucide-icons-2/icons/BookOpen'
 import { Database } from '@hanzogui/lucide-icons-2/icons/Database'
 import { Heart } from '@hanzogui/lucide-icons-2/icons/Heart'
 import { Settings as SettingsIcon } from '@hanzogui/lucide-icons-2/icons/Settings'
+import { env } from './env'
 import { useAuth } from './hooks/useAuth'
 
-const APP_VERSION = (import.meta as any).env?.VITE_APP_VERSION ?? '0.4.0'
+const APP_VERSION = env.APP_VERSION
 
 function buildSidebarConfig(): SidebarConfig {
   return {

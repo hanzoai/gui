@@ -18,7 +18,6 @@
     "@hanzogui/config": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
-    "@hanzogui/metro-plugin": "workspace:*",
     "@react-navigation/native": "^7.1.9",
     "expo": "~55.0.6",
     "expo-font": "~55.0.4",

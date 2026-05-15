@@ -6,7 +6,7 @@
 // navigates to the originally-requested route.
 //
 // The IAM SDK (@hanzo/iam/browser, ≥ 0.9.4) is OIDC-only — no Casdoor
-// `/api/login` shortcut. Every credential interaction lives inside the
+// `/v1/login` shortcut. Every credential interaction lives inside the
 // IAM server.
 //
 // SERVER_URL resolution (in priority):

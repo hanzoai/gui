@@ -1,4 +1,18 @@
-// Typed fetch wrappers for the Base API. Replaces the PocketBase JS SDK.
+// Typed fetch wrappers for the Base API.
+//
+// Mount prefix is read from VITE_API_PREFIX (default /v1). The
+// server-side BASE_API_PREFIX env and this client-side env MUST be set
+// to the same value when an app mounts at a non-default prefix (e.g.
+// team-go at /v1/team). IAM is a fixed sibling at /v1/iam regardless —
+// configured separately via VITE_IAM_SERVER_URL.
+
+const RAW_API_PREFIX = (import.meta.env.VITE_API_PREFIX as string | undefined) ?? '/v1'
+export const API_PREFIX = '/' + RAW_API_PREFIX.replace(/^\/+|\/+$/g, '')
+
+export function apiPath(p: string): string {
+  if (!p.startsWith('/')) p = '/' + p
+  return API_PREFIX + p
+}
 
 const TOKEN_KEY = 'base_auth_token'
 const RECORD_KEY = 'base_auth_record'
@@ -176,27 +190,27 @@ export interface CronModel {
 export async function listCollections(params?: { sort?: string; filter?: string; batch?: number }): Promise<CollectionModel[]> {
   // Base returns paginated; use perPage=500 to get all in one shot
   const q = qs({ sort: params?.sort, filter: params?.filter, perPage: params?.batch ?? 500 })
-  const res = await request<ListResult<CollectionModel>>(`/v1/collections${q}`)
+  const res = await request<ListResult<CollectionModel>>(`${API_PREFIX}/collections${q}`)
   return res.items
 }
 
 export async function getCollection(id: string): Promise<CollectionModel> {
-  return request<CollectionModel>(`/v1/collections/${encodeURIComponent(id)}`)
+  return request<CollectionModel>(`${API_PREFIX}/collections/${encodeURIComponent(id)}`)
 }
 
 export async function updateCollection(id: string, data: Record<string, unknown>): Promise<CollectionModel> {
-  return request<CollectionModel>(`/v1/collections/${encodeURIComponent(id)}`, {
+  return request<CollectionModel>(`${API_PREFIX}/collections/${encodeURIComponent(id)}`, {
     method: 'PATCH',
     body: JSON.stringify(data),
   })
 }
 
 export async function deleteCollection(id: string): Promise<void> {
-  return request<void>(`/v1/collections/${encodeURIComponent(id)}`, { method: 'DELETE' })
+  return request<void>(`${API_PREFIX}/collections/${encodeURIComponent(id)}`, { method: 'DELETE' })
 }
 
 export async function importCollections(collections: CollectionModel[]): Promise<void> {
-  return request<void>('/v1/collections/import', {
+  return request<void>(apiPath('/collections/import'), {
     method: 'PUT',
     body: JSON.stringify({ collections }),
   })
@@ -213,16 +227,16 @@ export async function listRecords(
   params?: { sort?: string; filter?: string },
 ): Promise<ListResult<RecordModel>> {
   const q = qs({ page, perPage, sort: params?.sort, filter: params?.filter })
-  return request<ListResult<RecordModel>>(`/v1/collections/${encodeURIComponent(collection)}/records${q}`)
+  return request<ListResult<RecordModel>>(`${API_PREFIX}/collections/${encodeURIComponent(collection)}/records${q}`)
 }
 
 export async function getRecord(collection: string, id: string): Promise<RecordModel> {
-  return request<RecordModel>(`/v1/collections/${encodeURIComponent(collection)}/records/${encodeURIComponent(id)}`)
+  return request<RecordModel>(`${API_PREFIX}/collections/${encodeURIComponent(collection)}/records/${encodeURIComponent(id)}`)
 }
 
 export async function createRecord(collection: string, data: FormData | Record<string, unknown>): Promise<RecordModel> {
   const body = data instanceof FormData ? data : JSON.stringify(data)
-  return request<RecordModel>(`/v1/collections/${encodeURIComponent(collection)}/records`, {
+  return request<RecordModel>(`${API_PREFIX}/collections/${encodeURIComponent(collection)}/records`, {
     method: 'POST',
     body,
   })
@@ -230,14 +244,14 @@ export async function createRecord(collection: string, data: FormData | Record<s
 
 export async function updateRecord(collection: string, id: string, data: FormData | Record<string, unknown>): Promise<RecordModel> {
   const body = data instanceof FormData ? data : JSON.stringify(data)
-  return request<RecordModel>(`/v1/collections/${encodeURIComponent(collection)}/records/${encodeURIComponent(id)}`, {
+  return request<RecordModel>(`${API_PREFIX}/collections/${encodeURIComponent(collection)}/records/${encodeURIComponent(id)}`, {
     method: 'PATCH',
     body,
   })
 }
 
 export async function deleteRecord(collection: string, id: string): Promise<void> {
-  return request<void>(`/v1/collections/${encodeURIComponent(collection)}/records/${encodeURIComponent(id)}`, { method: 'DELETE' })
+  return request<void>(`${API_PREFIX}/collections/${encodeURIComponent(collection)}/records/${encodeURIComponent(id)}`, { method: 'DELETE' })
 }
 
 // ---------------------------------------------------------------------------
@@ -246,7 +260,7 @@ export async function deleteRecord(collection: string, id: string): Promise<void
 
 export async function listLogs(page: number, perPage: number, params?: { sort?: string; filter?: string }): Promise<ListResult<LogModel>> {
   const q = qs({ page, perPage, sort: params?.sort, filter: params?.filter })
-  return request<ListResult<LogModel>>(`/v1/logs${q}`)
+  return request<ListResult<LogModel>>(`${API_PREFIX}/logs${q}`)
 }
 
 // ---------------------------------------------------------------------------
@@ -254,18 +268,18 @@ export async function listLogs(page: number, perPage: number, params?: { sort?: 
 // ---------------------------------------------------------------------------
 
 export async function getSettings(): Promise<Record<string, unknown>> {
-  return request<Record<string, unknown>>('/v1/settings')
+  return request<Record<string, unknown>>(apiPath('/settings'))
 }
 
 export async function updateSettings(data: Record<string, unknown>): Promise<Record<string, unknown>> {
-  return request<Record<string, unknown>>('/v1/settings', {
+  return request<Record<string, unknown>>(apiPath('/settings'), {
     method: 'PATCH',
     body: JSON.stringify(data),
   })
 }
 
 export async function testEmail(collection: string, toEmail: string, template: string): Promise<void> {
-  return request<void>('/v1/settings/test/email', {
+  return request<void>(apiPath('/settings/test/email'), {
     method: 'POST',
     body: JSON.stringify({ email: toEmail, template, collection }),
   })
@@ -276,30 +290,30 @@ export async function testEmail(collection: string, toEmail: string, template: s
 // ---------------------------------------------------------------------------
 
 export async function listBackups(): Promise<BackupModel[]> {
-  return request<BackupModel[]>('/v1/backups')
+  return request<BackupModel[]>(apiPath('/backups'))
 }
 
 export async function createBackup(name: string): Promise<void> {
-  return request<void>('/v1/backups', {
+  return request<void>(apiPath('/backups'), {
     method: 'POST',
     body: JSON.stringify({ name }),
   })
 }
 
 export async function deleteBackup(key: string): Promise<void> {
-  return request<void>(`/v1/backups/${encodeURIComponent(key)}`, { method: 'DELETE' })
+  return request<void>(`${API_PREFIX}/backups/${encodeURIComponent(key)}`, { method: 'DELETE' })
 }
 
 export async function restoreBackup(key: string): Promise<void> {
-  return request<void>(`/v1/backups/${encodeURIComponent(key)}/restore`, { method: 'POST' })
+  return request<void>(`${API_PREFIX}/backups/${encodeURIComponent(key)}/restore`, { method: 'POST' })
 }
 
 export function getBackupDownloadURL(key: string, token: string): string {
-  return `/v1/backups/${encodeURIComponent(key)}?token=${encodeURIComponent(token)}`
+  return `${API_PREFIX}/backups/${encodeURIComponent(key)}?token=${encodeURIComponent(token)}`
 }
 
 export async function getFileToken(): Promise<string> {
-  const res = await request<{ token: string }>('/v1/files/token', { method: 'POST' })
+  const res = await request<{ token: string }>(apiPath('/files/token'), { method: 'POST' })
   return res.token
 }
 
@@ -308,12 +322,12 @@ export async function getFileToken(): Promise<string> {
 // ---------------------------------------------------------------------------
 
 export async function listCrons(): Promise<CronModel[]> {
-  const res = await request<CronModel[]>('/v1/crons')
+  const res = await request<CronModel[]>(apiPath('/crons'))
   return res
 }
 
 export async function runCron(jobId: string): Promise<void> {
-  return request<void>(`/v1/crons/${encodeURIComponent(jobId)}`, { method: 'POST' })
+  return request<void>(`${API_PREFIX}/crons/${encodeURIComponent(jobId)}`, { method: 'POST' })
 }
 
 // ---------------------------------------------------------------------------
@@ -322,6 +336,6 @@ export async function runCron(jobId: string): Promise<void> {
 
 export async function listSuperusers(params?: { sort?: string }): Promise<RecordModel[]> {
   const q = qs({ sort: params?.sort, perPage: 200 })
-  const res = await request<ListResult<RecordModel>>(`/v1/collections/_superusers/records${q}`)
+  const res = await request<ListResult<RecordModel>>(`${API_PREFIX}/collections/_superusers/records${q}`)
   return res.items
 }

@@ -8,6 +8,7 @@ import { useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Text, XStack, YStack } from 'hanzogui'
 import { Empty, useFetch } from '@hanzogui/admin'
+import { ROOT } from '../../lib/api'
 
 interface HistoryEvent {
   eventId: string
@@ -51,7 +52,7 @@ export function HistoryStrip({
 }) {
   const [sp] = useSearchParams()
   const qs = sp.toString() ? `?${sp.toString()}` : ''
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(ns)}/workflows/${encodeURIComponent(workflowId)}/history${runId ? `?runId=${encodeURIComponent(runId)}` : ''}`
+  const url = `${ROOT}/namespaces/${encodeURIComponent(ns)}/workflows/${encodeURIComponent(workflowId)}/history${runId ? `?runId=${encodeURIComponent(runId)}` : ''}`
   const { data, error, isLoading } = useFetch<HistoryResp>(url)
 
   const events = useMemo(() => data?.events ?? [], [data])

@@ -10,7 +10,7 @@ import { Button, Card, H1, H4, Spinner, Text, XStack, YStack } from 'hanzogui'
 import { ChevronLeft } from '@hanzogui/lucide-icons-2/icons/ChevronLeft'
 import { Square } from '@hanzogui/lucide-icons-2/icons/Square'
 import { Alert, Badge, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
-import { ApiError, Batches, Workflows } from '../lib/api'
+import { ROOT, ApiError, Batches, Workflows } from '../lib/api'
 import type { BatchOperation, WorkflowExecution } from '../lib/api'
 import { BatchKindIcon, batchKindLabel } from '../components/batch/BatchKindIcon'
 import { BatchProgress } from '../components/batch/BatchProgress'
@@ -22,7 +22,7 @@ export function BatchDetailPage() {
   const { ns, batchId } = useParams()
   const namespace = ns!
   const id = batchId!
-  const url = `/v1/tasks/namespaces/${encodeURIComponent(namespace)}/batches/${encodeURIComponent(id)}`
+  const url = `${ROOT}/namespaces/${encodeURIComponent(namespace)}/batches/${encodeURIComponent(id)}`
   const { data, error, isLoading, mutate } = useFetch<BatchOperation>(url)
 
   const [executions, setExecutions] = useState<WorkflowExecution[]>([])

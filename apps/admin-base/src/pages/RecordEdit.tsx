@@ -12,14 +12,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Button, H1, Input, Text, TextArea, XStack, YStack } from 'hanzogui'
 import { ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import {
-  authedFetcher,
+  apiPath, authedFetcher,
   createRecord,
   deleteRecord,
   updateRecord,
   type CollectionField,
   type CollectionModel,
-  type RecordModel,
-} from '../lib/api'
+  type RecordModel,} from '../lib/api'
 
 type FormValues = Record<string, unknown>
 
@@ -45,7 +44,7 @@ export function RecordEdit() {
   if (!collectionParam || !recordId) return null
   const isNew = recordId === '_new'
 
-  const collectionUrl = `/v1/collections/${encodeURIComponent(collectionParam)}`
+  const collectionUrl = apiPath(`/collections/${encodeURIComponent(collectionParam)}`)
   const collection = useFetch<CollectionModel>(collectionUrl, {
     fetcher: authedFetcher as never,
   })
@@ -53,9 +52,9 @@ export function RecordEdit() {
   const collectionName = collection.data?.name ?? collectionParam
   const recordUrl =
     !isNew && collection.data
-      ? `/v1/collections/${encodeURIComponent(collectionName)}/records/${encodeURIComponent(
+      ? apiPath(`/collections/${encodeURIComponent(collectionName)}/records/${encodeURIComponent(
           recordId,
-        )}`
+        )}`)
       : null
   const record = useFetch<RecordModel>(recordUrl, { fetcher: authedFetcher as never })
 

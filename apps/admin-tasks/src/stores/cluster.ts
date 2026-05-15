@@ -1,6 +1,6 @@
 // useCluster — capability gate. The Cluster nav entry and route are
 // only meaningful when the engine runs in replicated mode. We probe
-// `/v1/tasks/cluster` once per session and cache the result; a 404
+// `${ROOT}/cluster` once per session and cache the result; a 404
 // hides the surface, a 200 reveals it.
 //
 // The cache lives at module scope so every consumer (sidebar nav,

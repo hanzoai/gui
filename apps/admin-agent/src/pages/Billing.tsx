@@ -12,6 +12,7 @@ import {
   useFetch,
 } from '@hanzogui/admin'
 import type { BillingSummary } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 function formatCents(cents: number, currency: string): string {
   return new Intl.NumberFormat(undefined, { style: 'currency', currency }).format(cents / 100)
@@ -20,7 +21,7 @@ function formatCents(cents: number, currency: string): string {
 export function BillingPage() {
   const { org } = useParams()
   const { data, error, isLoading } = useFetch<BillingSummary>(
-    org ? `/v1/agents/orgs/${encodeURIComponent(org)}/billing` : null,
+    org ? `${ROOT}/orgs/${encodeURIComponent(org)}/billing` : null,
   )
 
   if (!org) return <Empty title="Pick an organization" />

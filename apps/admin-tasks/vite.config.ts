@@ -38,6 +38,11 @@ export default defineConfig({
   base: '/_/tasks/',
   define: {
     'import.meta.env.VITE_APP_VERSION': JSON.stringify(APP_VERSION),
+    // Mount-prefix knob: defaults to /v1/tasks, override at deploy
+    // (e.g. /v1/myorg/tasks for multi-tenant gateway routing).
+    'import.meta.env.VITE_API_PREFIX': JSON.stringify(
+      process.env.VITE_API_PREFIX ?? '/v1/tasks',
+    ),
     __DEV__: process.env.NODE_ENV !== 'production' ? 'true' : 'false',
     'process.env.HANZOGUI_TARGET': JSON.stringify('web'),
     'process.env.HANZOGUI_REACT_19': '"1"',

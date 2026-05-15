@@ -1,12 +1,13 @@
 // ClusterStatusCard — top-of-page summary. Three facts at a glance:
 //   replicator type (quasar = replicated, local = single-node fallback),
 //   validator count, and whether the local node is in quorum. The
-//   in-quorum bool comes from `/v1/tasks/cluster/health` (200 = yes,
+//   in-quorum bool comes from `${ROOT}/cluster/health` (200 = yes,
 //   503 = no); the parent fetches it once per refresh tick.
 
 import { Card, Text, XStack, YStack } from 'hanzogui'
 import { Badge } from '@hanzogui/admin'
 import type { ClusterStatus } from '../../lib/api'
+
 
 export interface ClusterStatusCardProps {
   status: ClusterStatus

@@ -1,6 +1,6 @@
 // Cluster — operator view of the distributed engine. Refreshes every
 // 5s; falls back to a "single-node deployment" empty state when the
-// engine returns 404 on `/v1/tasks/cluster` (capability-gated).
+// engine returns 404 on `${ROOT}/cluster` (capability-gated).
 //
 // Layout: status card (replicator type, validators, in-quorum bool,
 // shard counts) → validator table → leader map → shard table.

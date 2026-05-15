@@ -3,9 +3,10 @@
 import { Card, H2, Text, XStack, YStack } from 'hanzogui'
 import { Badge, Empty, ErrorState, LoadingState, useFetch } from '@hanzogui/admin'
 import type { LogEntry } from '../lib/api'
+import { ROOT } from '../lib/api'
 
 export function LogsPage() {
-  const { data, error, isLoading } = useFetch<{ entries: LogEntry[] }>('/v1/bot/logs?limit=200')
+  const { data, error, isLoading } = useFetch<{ entries: LogEntry[] }>(`${ROOT}/logs?limit=200`)
   if (error) return <ErrorState error={error as Error} />
   if (isLoading) return <LoadingState />
   const items = data?.entries ?? []

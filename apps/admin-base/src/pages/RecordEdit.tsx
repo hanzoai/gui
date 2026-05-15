@@ -45,7 +45,7 @@ export function RecordEdit() {
   if (!collectionParam || !recordId) return null
   const isNew = recordId === '_new'
 
-  const collectionUrl = `/api/collections/${encodeURIComponent(collectionParam)}`
+  const collectionUrl = `/v1/collections/${encodeURIComponent(collectionParam)}`
   const collection = useFetch<CollectionModel>(collectionUrl, {
     fetcher: authedFetcher as never,
   })
@@ -53,7 +53,7 @@ export function RecordEdit() {
   const collectionName = collection.data?.name ?? collectionParam
   const recordUrl =
     !isNew && collection.data
-      ? `/api/collections/${encodeURIComponent(collectionName)}/records/${encodeURIComponent(
+      ? `/v1/collections/${encodeURIComponent(collectionName)}/records/${encodeURIComponent(
           recordId,
         )}`
       : null

@@ -40,7 +40,7 @@ const templateOptions = [
 
 export function SettingsSmtp() {
   const settingsRes = useFetch<{ smtp?: SmtpSettings; meta?: MetaSettings }>(
-    '/api/settings',
+    '/v1/settings',
     { fetcher: authedFetcher as never },
   )
 

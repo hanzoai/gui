@@ -56,10 +56,10 @@ const tableCols: DataTableColumn[] = [
 
 export function SettingsBackups() {
   const settings = useFetch<{ backups?: BackupsSettings }>(
-    '/api/settings',
+    '/v1/settings',
     { fetcher: authedFetcher as never },
   )
-  const backups = useFetch<BackupModel[]>('/api/backups', {
+  const backups = useFetch<BackupModel[]>('/v1/backups', {
     fetcher: authedFetcher as never,
   })
 

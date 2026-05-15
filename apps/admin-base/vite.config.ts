@@ -5,7 +5,7 @@ import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 
 // Hanzo Base admin SPA.
 //
-// Mirrors admin-tasks shape (same Tamagui static-extractor pipeline,
+// Mirrors admin-tasks shape (same hanzogui static-extractor pipeline,
 // same dedupe list, same optimizeDeps include set). One way across
 // every admin surface.
 //
@@ -84,9 +84,10 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/api': 'http://localhost:8090',
-      '/realtime': {
-        target: 'http://localhost:8090',
+      // Base mounts everything under /v1/* (REST, IAM, realtime). One
+      // proxy target keeps dev parity with the //go:embed prod build.
+      '/v1': {
+        target: process.env.VITE_BASE_URL ?? 'http://localhost:8090',
         changeOrigin: true,
         ws: true,
       },

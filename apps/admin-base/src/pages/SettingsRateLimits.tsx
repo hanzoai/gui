@@ -27,7 +27,7 @@ const audienceOptions = [
 
 export function SettingsRateLimits() {
   const settings = useFetch<{ rateLimits?: RateLimitsSettings }>(
-    '/api/settings',
+    '/v1/settings',
     { fetcher: authedFetcher as never },
   )
 

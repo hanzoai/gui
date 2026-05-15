@@ -1,5 +1,5 @@
 // Logs — server logs viewer. Replaces ui-react/pages/Logs.tsx with
-// @hanzogui/admin primitives. Uses /api/logs with server-side filter.
+// @hanzogui/admin primitives. Uses /v1/logs with server-side filter.
 
 import { useCallback, useState } from 'react'
 import { Button, H1, Input, Text, XStack, YStack } from 'hanzogui'
@@ -24,7 +24,7 @@ export function Logs() {
   const [filterInput, setFilterInput] = useState('')
   const [page, setPage] = useState(1)
 
-  const url = `/api/logs?page=${page}&perPage=${PER_PAGE}&sort=-created${
+  const url = `/v1/logs?page=${page}&perPage=${PER_PAGE}&sort=-created${
     filter ? `&filter=${encodeURIComponent(`message ~ "${filter.replace(/"/g, '\\"')}"`)}` : ''
   }`
   const { data, error, isLoading } = useFetch<ListResult<LogModel>>(url, {

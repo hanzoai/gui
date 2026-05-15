@@ -17,7 +17,7 @@ export function SettingsData() {
   const fileRef = useRef<HTMLInputElement | null>(null)
 
   const collections = useFetch<ListResult<CollectionModel>>(
-    `/api/collections?perPage=200&sort=name`,
+    `/v1/collections?perPage=200&sort=name`,
     { fetcher: authedFetcher as never },
   )
 

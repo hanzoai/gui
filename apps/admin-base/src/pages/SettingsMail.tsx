@@ -30,7 +30,7 @@ interface Template {
 
 export function SettingsMail() {
   const authCollections = useFetch<ListResult<CollectionModel>>(
-    `/api/collections?perPage=200&filter=${encodeURIComponent("type='auth'")}`,
+    `/v1/collections?perPage=200&filter=${encodeURIComponent("type='auth'")}`,
     { fetcher: authedFetcher as never },
   )
 

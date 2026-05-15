@@ -21,7 +21,7 @@ const logLevels = [
 ] as const
 
 export function SettingsLogs() {
-  const settings = useFetch<{ logs?: LogsSettings }>('/api/settings', {
+  const settings = useFetch<{ logs?: LogsSettings }>('/v1/settings', {
     fetcher: authedFetcher as never,
   })
 

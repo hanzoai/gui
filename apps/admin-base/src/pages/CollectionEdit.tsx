@@ -56,7 +56,7 @@ export function CollectionEdit() {
   const { name } = useParams<{ name: string }>()
   if (!name) return null
 
-  const collectionUrl = `/api/collections/${encodeURIComponent(name)}`
+  const collectionUrl = `/v1/collections/${encodeURIComponent(name)}`
   const collection = useFetch<CollectionModel>(collectionUrl, {
     fetcher: authedFetcher as never,
   })

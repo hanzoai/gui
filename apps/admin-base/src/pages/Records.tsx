@@ -3,7 +3,7 @@
 // DataTable + useFetch.
 //
 // Filter is server-side (Base's filter syntax); paging is server-side via
-// /api/collections/:id/records?page=&perPage=. Bulk delete is best-effort
+// /v1/collections/:id/records?page=&perPage=. Bulk delete is best-effort
 // parallel — same as the legacy implementation.
 
 import { useCallback, useState } from 'react'
@@ -35,7 +35,7 @@ export function Records({ id }: { id: string }) {
   const [filterInput, setFilterInput] = useState('')
   const [bulkSelected, setBulkSelected] = useState<Set<string>>(new Set())
 
-  const collectionUrl = `/api/collections/${encodeURIComponent(id)}`
+  const collectionUrl = `/v1/collections/${encodeURIComponent(id)}`
   const collection = useFetch<CollectionModel>(collectionUrl, {
     fetcher: authedFetcher as never,
   })
@@ -47,7 +47,7 @@ export function Records({ id }: { id: string }) {
   )
 
   const recordsUrl = collection.data
-    ? `/api/collections/${encodeURIComponent(collectionName)}/records?page=${page}&perPage=${PER_PAGE}&sort=${encodeURIComponent(sort)}${
+    ? `/v1/collections/${encodeURIComponent(collectionName)}/records?page=${page}&perPage=${PER_PAGE}&sort=${encodeURIComponent(sort)}${
         filter ? `&filter=${encodeURIComponent(filter)}` : ''
       }`
     : null

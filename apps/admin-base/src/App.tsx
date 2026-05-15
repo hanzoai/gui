@@ -29,8 +29,8 @@ function buildSidebarConfig(): SidebarConfig {
   return {
     brand: {
       mark: <HanzoMark />,
-      title: 'Hanzo Base',
-      subtitle: 'Self-Hosted',
+      title: env.BRAND_NAME,
+      subtitle: env.BRAND_SUBTITLE,
     },
     sections: [
       {

@@ -49,4 +49,7 @@ function fromExpo(key: string): string | undefined {
 
 export const env = {
   APP_VERSION: fromVite('APP_VERSION') ?? fromExpo('APP_VERSION') ?? '0.4.0',
+  BRAND_NAME: fromVite('BRAND_NAME') ?? fromExpo('BRAND_NAME') ?? 'Hanzo Base',
+  BRAND_SUBTITLE:
+    fromVite('BRAND_SUBTITLE') ?? fromExpo('BRAND_SUBTITLE') ?? 'Self-Hosted',
 }

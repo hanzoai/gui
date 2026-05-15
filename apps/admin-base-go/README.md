@@ -55,7 +55,9 @@ on iOS/Android, Vite ignores them.
 
 ## Status
 
-Scaffold. The shared admin-base UI was authored Vite-first; a sweep
-to replace `import.meta.env.VITE_*` with `process.env.EXPO_PUBLIC_*`
-(or a thin shim re-export in `apps/admin-base/src/env.ts`) is the
-next mechanical step before this app will actually boot.
+Boot-path-clean for the env shim. `apps/admin-base/src/env.ts` is the
+single bridge between Vite (`import.meta.env.VITE_*`) and Expo / Metro
+(`process.env.EXPO_PUBLIC_*`); the admin-base source reads only through
+that module, so the same files compile under both runtimes. Add a new
+env var by listing it once in `env.ts` and exposing it under
+`VITE_X` (vite.config.ts) plus `EXPO_PUBLIC_X` (EAS config).

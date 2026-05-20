@@ -17,6 +17,16 @@
 // signatures. MFA payloads remain local until `@hanzo/iam` exposes
 // dedicated MFA setup/verify methods.
 
+export {
+  AuthGate,
+  CallbackHandler,
+  useAuth,
+  __resetAuthForTests,
+  type AuthGateProps,
+  type AuthContextValue,
+  type AuthUser,
+  type CallbackHandlerProps,
+} from './AuthGate'
 export { Captcha, type CaptchaProps } from './Captcha'
 export { ForgotPassword, type ForgotPasswordProps } from './ForgotPassword'
 export { Login, type LoginProps } from './Login'

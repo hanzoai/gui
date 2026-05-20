@@ -1,0 +1,34 @@
+{
+  "name": "@hanzo/admin-auto-stub",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Reference consumer of @hanzogui/admin's AuthGate + AdminApp + CollectionCRUD. Wired to https://auto.hanzo.ai as a smoke test for the shared admin shell.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hanzo/iam": "^0.9.4",
+    "@hanzogui/admin": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "hanzogui": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-native-web": "^0.21.0",
+    "react-router-dom": "^7.0.2"
+  },
+  "devDependencies": {
+    "@hanzogui/vite-plugin": "workspace:*",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^8.0.3"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

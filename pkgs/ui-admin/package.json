@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/admin",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "description": "Composable admin shell + primitives + data hooks for Hanzo admin surfaces. Built on the hanzogui umbrella. One way to build admin UI across tasks, kms, commerce, console.",
   "type": "module",
   "source": "src/index.ts",
@@ -65,6 +65,13 @@
       "import": "./dist/auth/index.js",
       "require": "./dist/auth/index.cjs",
       "default": "./src/auth/index.ts"
+    },
+    "./crud": {
+      "source": "./src/crud/index.ts",
+      "types": "./src/crud/index.ts",
+      "import": "./dist/crud/index.js",
+      "require": "./dist/crud/index.cjs",
+      "default": "./src/crud/index.ts"
     }
   },
   "files": [

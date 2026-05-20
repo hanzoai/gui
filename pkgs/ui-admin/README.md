@@ -53,10 +53,49 @@ shared surface into one place. Each admin app then owns only its routes
 | `useFetch<T>(url)`           | Tiny SWR-shaped hook — `{ data, error, isLoading, mutate }` |
 | `useEvents<T>(opts)`         | SSE subscription with kind filter + namespace predicate     |
 | `apiPost` / `apiDelete`      | JSON POST / DELETE that throw `ApiError` on non-2xx         |
+| `createBaseClient(opts)`     | Typed wrapper around any hanzoai/base API. Factory + provider |
+| `BaseClientProvider`         | React context provider for the client                       |
+| `useBaseClient()`            | Hook that returns the configured `BaseClient`               |
+| `makeAuthedFetcher(client)`  | Adapter into `useFetch({ fetcher })` — auth headers come from the client |
 | `formatTimestamp`            | UTC / local-aware Date formatter (in `data/format`)         |
 | `humanTTL`                   | "720h" → "30 days" (in `data/format`)                       |
 | `badgeColors`                | Status variant → `{ bg, fg }` token pair (in `data/format`) |
 | `getTz` / `setTz` / `TZ_KEY` | Read / write the user's tz preference (in `data/tz`)        |
+
+### `@hanzogui/admin/auth` — IAM OIDC gate
+
+| Export             | Role                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------- |
+| `<AuthGate iam>`   | Route guard. Redirects unauth'd visitors to `/login`, renders sign-in at `/login`, runs the `/callback` exchange |
+| `<CallbackHandler>`| Standalone callback page (mount on its own route if you don't want the gate to dispatch path-based) |
+| `useAuth()`        | `{ token, user, ready, signIn, signOut, iam }`                                        |
+| `IAMClient`        | Structural type the gate accepts. Compatible with `@hanzo/iam@^0.8` and `@hanzo/iam@^0.9` |
+
+The end-user forms `<Login>`, `<Signup>`, `<ForgotPassword>` remain in
+this module; they pin to `@hanzo/iam@0.8.x`'s Casdoor-style methods.
+`<AuthGate>` is the new way for top-level wiring and is version-agnostic.
+
+### `@hanzogui/admin/crud` — schema-driven page
+
+| Export             | Role                                                  |
+| ------------------ | ----------------------------------------------------- |
+| `<CollectionCRUD>` | List + filter + paginate + detail + create for one Base collection. Schema is fetched live; columns/inputs are derived from `fields[]`. Edit + delete land in Phase 2. |
+
+Consumer:
+
+```tsx
+<BaseClientProvider client={createBaseClient({ apiPrefix: '/v1' })}>
+  <AuthGate iam={iam}>
+    <AdminApp sidebar={…} topBar={…}>
+      <CollectionCRUD collection="_superusers" title="Superusers" />
+    </AdminApp>
+  </AuthGate>
+</BaseClientProvider>
+```
+
+See `apps/admin-auto-stub/` for a 40-line working app rendering against
+`https://base.hanzo.ai` (override the proxy target via
+`VITE_BASE_TARGET` to point at any other Base instance).
 
 There is no `patterns/` layer. Lists across our admin surfaces differ
 in shape — Workflows has a filter band, Namespaces has Active +
@@ -134,6 +173,24 @@ generation-counter cancellation + `ApiError` surfacing, and `getTz` /
 `setTz` round-trip via `localStorage`.
 
 ## Changelog
+
+### 7.2.4
+
+- New `auth/AuthGate` — single declarative guard for any hanzoai/base
+  -backed admin SPA. Wraps the route subtree, intercepts `/login` and
+  `/callback`, drives the OIDC dance via the canonical IAM client.
+  Version-agnostic structural type `IAMClient` so `@hanzo/iam@0.8.x`
+  and `0.9.x` both satisfy the prop.
+- New `data/baseClient` — `createBaseClient({ apiPrefix, getToken })`
+  returns a typed wrapper around any Base instance (`/v1`, `/v1/auto`,
+  `/v1/commerce`, …). React binding: `<BaseClientProvider>` +
+  `useBaseClient()`. `makeAuthedFetcher(client)` plugs straight into
+  `useFetch({ fetcher })`.
+- New `crud/CollectionCRUD` — drop-in schema-driven list/view/create
+  page for one Base collection. Phase 1 stops at create. Edit + delete
+  are Phase 2; the underlying client already exposes both.
+- New example app `apps/admin-auto-stub/` — reference consumer wired
+  against `base.hanzo.ai`. Override target via `VITE_BASE_TARGET`.
 
 ### 0.3.0
 

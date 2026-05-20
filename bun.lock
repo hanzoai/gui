@@ -27,6 +27,29 @@
         "ultra-runner": "^3.10.5",
       },
     },
+    "apps/admin-auto-stub": {
+      "name": "@hanzo/admin-auto-stub",
+      "version": "0.1.0",
+      "dependencies": {
+        "@hanzo/iam": "^0.9.4",
+        "@hanzogui/admin": "workspace:*",
+        "@hanzogui/config": "workspace:*",
+        "@hanzogui/lucide-icons-2": "workspace:*",
+        "hanzogui": "workspace:*",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-native-web": "^0.21.0",
+        "react-router-dom": "^7.0.2",
+      },
+      "devDependencies": {
+        "@hanzogui/vite-plugin": "workspace:*",
+        "@types/react": "^19.1.10",
+        "@types/react-dom": "^19.1.7",
+        "@vitejs/plugin-react": "^5.0.0",
+        "typescript": "^5.7.2",
+        "vite": "^8.0.3",
+      },
+    },
     "apps/admin-base": {
       "name": "@hanzo/base-ui",
       "version": "0.4.0",
@@ -2248,7 +2271,7 @@
     },
     "pkgs/ui-admin": {
       "name": "@hanzogui/admin",
-      "version": "7.2.3",
+      "version": "7.2.4",
       "devDependencies": {
         "@hanzo/iam": "^0.8.0",
         "@testing-library/react": "^16.3.2",
@@ -4165,6 +4188,8 @@
     "@grpc/grpc-js": ["@grpc/grpc-js@1.14.3", "", { "dependencies": { "@grpc/proto-loader": "^0.8.0", "@js-sdsl/ordered-map": "^4.4.2" } }, "sha512-Iq8QQQ/7X3Sac15oB6p0FmUg/klxQvXLeileoqrTRGJYLV+/9tubbr9ipz0GKHjmXVsgFPo/+W+2cA8eNcR+XA=="],
 
     "@grpc/proto-loader": ["@grpc/proto-loader@0.8.1", "", { "dependencies": { "lodash.camelcase": "^4.3.0", "long": "^5.0.0", "protobufjs": "^7.5.5", "yargs": "^17.7.2" }, "bin": { "proto-loader-gen-types": "build/bin/proto-loader-gen-types.js" } }, "sha512-wtF6h+DY6M3YaDBPAmvuuA6jV8Sif9MjtOI5euKFWRgCDl5PeDpPsHR9u2l6St5ceY8AZgoNDww5+HvEsXFsGg=="],
+
+    "@hanzo/admin-auto-stub": ["@hanzo/admin-auto-stub@workspace:apps/admin-auto-stub"],
 
     "@hanzo/base-ui": ["@hanzo/base-ui@workspace:apps/admin-base"],
 

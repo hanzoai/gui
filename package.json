@@ -11,6 +11,7 @@
     "./pkgs/packages/**/*",
     "./pkgs/ui/**/*",
     "./pkgs/ui-admin",
+    "./apps/admin-auto-stub",
     "./apps/admin-base",
     "./apps/admin-bot",
     "./apps/admin-commerce",

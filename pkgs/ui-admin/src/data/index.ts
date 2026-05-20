@@ -27,3 +27,18 @@ export {
   type IdentityFetcher,
   type UseIdentityState,
 } from './useIdentity'
+export {
+  createBaseClient,
+  BaseClientProvider,
+  useBaseClient,
+  makeAuthedFetcher,
+  ApiError as BaseApiError,
+  type BaseClient,
+  type BaseClientOptions,
+  type BaseClientProviderProps,
+  type BrandInfo,
+  type CollectionField,
+  type CollectionModel,
+  type ListResult,
+  type RecordModel,
+} from './baseClient'

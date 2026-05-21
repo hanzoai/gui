@@ -40,30 +40,49 @@ jobs:
           KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
           KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
           HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
+          NPM_TOKEN_FALLBACK: ${{ secrets.NPM_TOKEN }}
           KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://kms.hanzo.ai' }}
           KMS_WORKSPACE_ID: ${{ vars.KMS_WORKSPACE_ID_GUI || 'e1359bf4-31b4-4dfa-bb90-323e2c298ad8' }}
         run: |
-          set -eu
+          set -euo pipefail
           # Auth: Universal Auth (preferred) → exchange clientId/Secret
-          # for a short-lived access token. Fallback to long-lived
-          # HANZO_API_KEY for legacy bootstrap only.
+          # for a short-lived access token. Long-lived HANZO_API_KEY is
+          # the second choice. Org-secret NPM_TOKEN is the last-resort
+          # fallback for the case where KMS at /publish has not been
+          # provisioned with the npm token yet.
+          npm_token=""
+          access_token="${HANZO_API_KEY:-}"
           if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
-            HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
+            auth_response=$(curl -s -w '\n%{http_code}' "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
               -H "Content-Type: application/json" \
-              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
-              | jq -r '.accessToken')
+              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}")
+            auth_code=$(echo "$auth_response" | tail -n1)
+            auth_body=$(echo "$auth_response" | sed '$d')
+            if [ "$auth_code" = "200" ]; then
+              maybe_token=$(echo "$auth_body" | jq -r '.accessToken // empty')
+              if [ -n "$maybe_token" ]; then
+                access_token="$maybe_token"
+              fi
+            fi
           fi
-          if [ -z "${HANZO_API_KEY:-}" ]; then
-            echo "::error::No KMS auth available (need KMS_CLIENT_ID/SECRET or HANZO_API_KEY)."
-            exit 1
+          if [ -n "${access_token:-}" ]; then
+            response=$(curl -s -w '\n%{http_code}' \
+              "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=${KMS_WORKSPACE_ID}&secretPath=/publish&environment=prod" \
+              -H "Authorization: Bearer ${access_token}")
+            kms_code=$(echo "$response" | tail -n1)
+            kms_body=$(echo "$response" | sed '$d')
+            if [ "$kms_code" = "200" ]; then
+              npm_token=$(echo "$kms_body" | jq -r '.secrets[]? | select(.secretKey=="NPM_TOKEN") | .secretValue // empty')
+            fi
           fi
-          response=$(curl -sf \
-            "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=${KMS_WORKSPACE_ID}&secretPath=/publish&environment=prod" \
-            -H "Authorization: Bearer ${HANZO_API_KEY}")
-          npm_token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="NPM_TOKEN") | .secretValue // empty')
           if [ -z "$npm_token" ]; then
-            echo "::error::NPM_TOKEN not present in KMS at /publish."
-            exit 1
+            if [ -n "${NPM_TOKEN_FALLBACK:-}" ]; then
+              echo "::warning::KMS at /publish unavailable; using org-secret NPM_TOKEN fallback."
+              npm_token="$NPM_TOKEN_FALLBACK"
+            else
+              echo "::error::No npm token available — KMS at /publish failed AND no NPM_TOKEN org secret."
+              exit 1
+            fi
           fi
           echo "::add-mask::${npm_token}"
           echo "npm_token=${npm_token}" >> "$GITHUB_OUTPUT"

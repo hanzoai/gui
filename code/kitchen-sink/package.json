@@ -52,7 +52,6 @@
     "@hanzogui/config": "workspace:*",
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/core": "workspace:*",
-    "@hanzogui/demos": "workspace:*",
     "@hanzogui/font-inter": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/input": "workspace:*",

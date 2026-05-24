@@ -14,7 +14,6 @@
   "dependencies": {
     "@hanzogui/config": "workspace:*",
     "@hanzogui/core": "workspace:*",
-    "@hanzogui/demos": "workspace:*",
     "@hanzogui/kitchen-sink-shared": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/metro-plugin": "workspace:*",

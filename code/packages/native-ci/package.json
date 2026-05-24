@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native-ci",
-  "version": "102.0.0-rc.41-hanzoai.1",
+  "version": "7.0.0",
   "description": "Native CI/CD helpers for React Native apps with Expo - fingerprinting, caching, and build optimization",
   "license": "MIT",
   "repository": {

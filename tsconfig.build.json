@@ -7,8 +7,6 @@
     "noEmit": true
   },
   "references": [
-    { "path": "code/kitchen-sink" },
-    { "path": "code/demos" },
-    { "path": "code/gui.hanzo.ai" }
+    { "path": "code/kitchen-sink" }
   ]
 }

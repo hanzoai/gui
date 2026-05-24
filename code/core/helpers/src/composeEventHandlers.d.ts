@@ -1,6 +1,0 @@
-type Events = object;
-export type EventHandler<E extends Events> = (event: E) => void;
-export declare function composeEventHandlers<E extends Events>(og?: EventHandler<E> | null, next?: EventHandler<E> | null, { checkDefaultPrevented }?: {
-    checkDefaultPrevented?: boolean;
-}): EventHandler<E>;
-export {};

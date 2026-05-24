@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.accessSafe = accessSafe;
+var t = require("@babel/types");
+// accessSafe wraps memberExpressions in object/null checks
+// TODO: inject this as a function? this gets pretty repetitive
+function accessSafe(obj, member) {
+    return t.logicalExpression('&&', t.logicalExpression('&&', 
+    // typeof obj === 'object
+    t.binaryExpression('===', t.unaryExpression('typeof', obj), t.stringLiteral('object')), 
+    // obj !== null
+    t.binaryExpression('!==', obj, t.nullLiteral())), 
+    // obj.member
+    t.memberExpression(obj, t.identifier(member), false));
+}

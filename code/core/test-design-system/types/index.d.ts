@@ -1,3 +1,0 @@
-export declare const MyStack: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNHanzoguiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
-export declare const MySizableText: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").RNHanzoguiTextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {}, import("@hanzogui/core").StaticConfigPublic>;
-//# sourceMappingURL=index.d.ts.map

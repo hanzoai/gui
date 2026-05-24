@@ -1,0 +1,9 @@
+import type { ThemeProps, ThemeState } from '../types';
+export declare function ThemeDebug({ themeState, themeProps, children, }: {
+    themeState: ThemeState;
+    themeProps: ThemeProps;
+    children: any;
+}): any;
+export declare namespace ThemeDebug {
+    var displayName: string;
+}

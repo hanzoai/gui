@@ -1,5 +1,0 @@
-export { clientPostHog } from './client'
-export { serverPostHog } from './server'
-export { captureServerError } from './captureServerError'
-export { processError } from './errorHandling'
-export type { PostHogInstance, ErrorContext, ErrorReport } from './types'

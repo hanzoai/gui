@@ -1,4 +1,0 @@
-import '@hanzogui/polyfill-dev';
-import * as React from 'react';
-import type { PortalProps } from './PortalProps';
-export declare const Portal: React.MemoExoticComponent<(propsIn: PortalProps) => React.ReactNode>;

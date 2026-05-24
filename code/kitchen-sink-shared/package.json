@@ -5,7 +5,6 @@
   "main": "src/index.ts",
   "dependencies": {
     "@hanzogui/config": "workspace:*",
-    "@hanzogui/demos": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/toast": "workspace:*",
     "hanzogui": "workspace:*"

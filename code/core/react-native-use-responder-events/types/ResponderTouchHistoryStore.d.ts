@@ -7,7 +7,7 @@
 import type { TouchEvent } from './types';
 export declare class ResponderTouchHistoryStore {
     _touchHistory: {
-        touchBank: any[];
+        touchBank: never[];
         numberActiveTouches: number;
         indexOfSingleActiveTouch: number;
         mostRecentTimeStamp: number;

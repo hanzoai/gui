@@ -4,16 +4,12 @@ import type { ScopedProps } from './types';
 declare const createFocusScopeControllerScope: import("@hanzogui/create-context").CreateScope;
 type FocusScopeControllerContextValue = Omit<FocusScopeProps, 'children'>;
 declare const FocusScopeControllerProvider: (props: FocusScopeControllerContextValue & {
-    scope: {
-        [scopeName: string]: React.Context<FocusScopeControllerContextValue>[];
-    };
+    scope: import("@hanzogui/create-context").Scope<FocusScopeControllerContextValue>;
     children: React.ReactNode;
-}) => import("react/jsx-runtime").JSX.Element, useFocusScopeControllerContext: (consumerName: string, scope: {
-    [scopeName: string]: React.Context<FocusScopeControllerContextValue>[];
-}, options?: {
+}) => import("react/jsx-runtime").JSX.Element, useFocusScopeControllerContext: (consumerName: string, scope: import("@hanzogui/create-context").Scope<FocusScopeControllerContextValue | undefined>, options?: {
     warn?: boolean;
-    fallback?: Partial<FocusScopeControllerContextValue>;
-}) => FocusScopeControllerContextValue;
+    fallback?: Partial<FocusScopeControllerContextValue> | undefined;
+} | undefined) => FocusScopeControllerContextValue;
 export interface FocusScopeControllerProps extends FocusScopeControllerContextValue {
     children?: React.ReactNode;
 }

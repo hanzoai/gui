@@ -1105,7 +1105,7 @@
     },
     "code/core/types": {
       "name": "@hanzogui/types",
-      "version": "7.0.0",
+      "version": "2.0.0",
     },
     "code/core/use-callback-ref": {
       "name": "@hanzogui/use-callback-ref",

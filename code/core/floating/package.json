@@ -28,10 +28,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-types",
-    "watch": "hanzogui-build --watch --skip-types",
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
-    "clean:build": "rm -rf dist"
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.6",

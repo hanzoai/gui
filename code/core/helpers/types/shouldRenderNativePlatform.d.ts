@@ -13,5 +13,5 @@ export type NativeValue<Platform extends NativePlatform = NativePlatform> = bool
  * @param nativeProp the platforms your user is requesting you to use
  * @returns
  */
-export declare function shouldRenderNativePlatform(nativeProp?: NativeValue): ExplicitNativePlatform;
+export declare function shouldRenderNativePlatform(nativeProp?: NativeValue): ExplicitNativePlatform | null;
 //# sourceMappingURL=shouldRenderNativePlatform.d.ts.map

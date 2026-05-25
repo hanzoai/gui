@@ -31,7 +31,7 @@
     "build": "hanzogui-build --skip-types",
     "watch": "hanzogui-build --watch --skip-types",
     "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "clean:build": "rm -rf dist"
   },
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.6",

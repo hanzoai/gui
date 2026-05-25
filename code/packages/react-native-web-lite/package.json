@@ -121,5 +121,6 @@
   },
   "tags": [
     "react"
-  ]
+  ],
+  "private": true
 }

@@ -28,8 +28,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "watch": "hanzogui-build --watch",
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --watch --skip-types",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"
   },

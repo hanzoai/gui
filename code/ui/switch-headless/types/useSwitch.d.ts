@@ -22,7 +22,7 @@ export declare function useSwitch<R extends View, P extends SwitchProps>(props: 
 } | {
     switchProps: {
         'aria-labelledby': string | undefined;
-        onPress: import("@hanzogui/helpers").EventHandler<GestureResponderEvent>;
+        onPress: import("@hanzogui/helpers").EventHandler<GestureResponderEvent> | undefined;
         tabIndex?: 0 | undefined;
         'data-state'?: string | undefined;
         'data-disabled'?: string | undefined;

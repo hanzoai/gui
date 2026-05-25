@@ -65,7 +65,7 @@ export declare const useRadioGroupItem: (params: UseRadioItemParams) => {
         onKeyDown?: import("@hanzogui/helpers").EventHandler<import("react").KeyboardEvent<HTMLDivElement>> | undefined;
         onFocus?: import("@hanzogui/helpers").EventHandler<import("react").FocusEvent<HTMLDivElement, Element>> | undefined;
         id: string | undefined;
-        onPress: import("@hanzogui/helpers").EventHandler<GestureResponderEvent>;
+        onPress: import("@hanzogui/helpers").EventHandler<GestureResponderEvent> | undefined;
         type?: string | undefined;
         value?: string | undefined;
         'data-state': string;

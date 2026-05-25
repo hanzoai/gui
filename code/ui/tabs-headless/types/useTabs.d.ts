@@ -86,7 +86,7 @@ export interface TabsContextValue {
     loop: boolean;
 }
 export declare function useTabs(props?: UseTabsProps): UseTabsReturn;
-export declare const TabsProvider: React.Provider<TabsContextValue>;
+export declare const TabsProvider: React.Provider<TabsContextValue | null>;
 export declare function useTabsContext(): TabsContextValue;
 export interface UseTabProps {
     value: string;
@@ -98,13 +98,13 @@ export interface UseTabProps {
 export declare function useTab(props: UseTabProps): {
     isSelected: boolean;
     tabProps: {
-        disabled: boolean;
+        disabled: boolean | undefined;
         tabIndex: number;
-        onKeyDown: import("@hanzogui/helpers").EventHandler<React.KeyboardEvent<Element>>;
-        onPress: import("@hanzogui/helpers").EventHandler<any>;
-        onFocus: import("@hanzogui/helpers").EventHandler<React.FocusEvent<Element, Element>>;
-        'data-disabled': "";
-        ref: React.RefObject<HTMLElement>;
+        onKeyDown: import("@hanzogui/helpers").EventHandler<React.KeyboardEvent<Element>> | undefined;
+        onPress: import("@hanzogui/helpers").EventHandler<any> | undefined;
+        onFocus: import("@hanzogui/helpers").EventHandler<React.FocusEvent<Element, Element>> | undefined;
+        'data-disabled'?: "" | undefined;
+        ref: React.RefObject<HTMLElement | null>;
         role: "tab";
         id: string;
         'aria-selected': boolean;

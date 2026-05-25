@@ -9,7 +9,7 @@ export interface HanzoguiBuildOptions {
     config?: string;
     /**
      * Use the new ThemeBuilder in `@hanzogui/create-theme` to create beautiful theme sets,
-     * see docs at https://hanzogui.dev/docs/guides/theme-builder
+     * see docs at https://gui.hanzo.ai/docs/guides/theme-builder
      * This helps you automate generating the build themes typescript file which loads fastere
      * and has smaller bundle size.
      */

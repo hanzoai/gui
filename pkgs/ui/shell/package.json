@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/shell",
-  "version": "0.1.0",
+  "version": "7.2.3",
   "description": "Multi-tenant navigation shell — TenantHeader, AppSwitcher, UserOrgDropdown, CommandPalette",
   "source": "src/index.ts",
   "files": [
@@ -21,7 +21,7 @@
     }
   },
   "peerDependencies": {
-    "@hanzo/iam-ui": "*",
+    "@hanzo/iam": "^0.10.0",
     "react": "*",
     "react-dom": "*"
   },

@@ -1,6 +1,6 @@
-// User & Org types live in @hanzo/iam-ui (single canonical source).
+// User & Org types live in @hanzo/iam (single canonical source).
 // Re-export here so existing TenantUser / TenantOrg imports keep working.
-export type { IAMUser as TenantUser, IAMOrg as TenantOrg } from '@hanzo/iam-ui/hooks/useIAMAuth'
+export type { IamUser as TenantUser, IamOrganization as TenantOrg } from '@hanzo/iam'
 
 export type TenantApp = {
   id: string

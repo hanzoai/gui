@@ -7,29 +7,38 @@ Canonical, single source of truth for the cross-app shell (`TenantHeader`,
 `BeamAvatar`, `UserAvatar`) shared across billing, console, chat, platform,
 and downstream-tenant apps.
 
-Auth comes from `@hanzo/iam-ui/hooks/useIAMAuth` (the canonical IAM client
-hook) — do not duplicate this hook per-app.
+Auth comes from `@hanzo/iam/react` (the canonical IAM client) — do not
+duplicate this hook per-app.
+
+## Usage
 
 ```tsx
-import {
-  TenantHeader,
-  AppSwitcher,
-  DEFAULT_TENANT_APPS,
-  ORG_DOMAINS,
-  getAppsForOrg,
-} from '@hanzogui/shell'
-import { useIAMAuth } from '@hanzo/iam-ui/hooks/useIAMAuth'
+import { IamProvider, useIam, useOrganizations } from '@hanzo/iam/react'
+import { TenantHeader, AppSwitcher, getAppsForOrg } from '@hanzogui/shell'
 
-export function MyApp() {
-  const { user, organizations, currentOrgId, signOut, switchOrg } = useIAMAuth()
+export function App() {
+  return (
+    <IamProvider config={{
+      serverUrl: 'https://iam.hanzo.ai',
+      clientId: 'my-app',
+      redirectUri: `${window.location.origin}/auth/callback`,
+    }}>
+      <Shell />
+    </IamProvider>
+  )
+}
+
+function Shell() {
+  const { user, isAuthenticated, login, logout } = useIam()
+  const { organizations, currentOrg, switchOrg } = useOrganizations()
   return (
     <TenantHeader
       currentApp="MyApp"
-      user={user}
+      user={user ?? undefined}
       organizations={organizations}
-      currentOrgId={currentOrgId}
+      currentOrgId={currentOrg?.id}
       onOrgSwitch={switchOrg}
-      onSignOut={signOut}
+      onSignOut={logout}
     />
   )
 }
@@ -43,12 +52,17 @@ via `apps={[...getAppsForOrg(slug), ...customApps]}`.
 
 ## Exports
 
-- `TenantHeader`, `TenantHeaderProps` — top header with org switcher + user menu
+- `TenantHeader`, `TenantShellProps` — top header with org switcher + user menu
 - `AppSwitcher` — cross-app launcher
 - `UserOrgDropdown` — user/org dropdown
 - `TenantCommandPalette` — ⌘K palette
-- `TenantMark` — brand mark
+- `TenantMark`, `TenantMarkProps` — brand mark
 - `BeamAvatar`, `UserAvatar` — avatars
-- `useTenantAuth` — **deprecated**, use `useIAMAuth` from `@hanzo/iam-ui` directly
+- `useTenantAuth` — **deprecated**, use `useIam` from `@hanzo/iam/react` directly
 - `DEFAULT_TENANT_APPS`, `ORG_DOMAINS`, `getAppsForOrg(slug)` — app registry
-- `TenantApp`, `TenantOrg` (re-exported as `IAMOrg`), `TenantUser` (re-exported as `IAMUser`), `TenantShellProps`, `TenantMarkProps`, `TenantCommandPaletteProps`, `OrgDomains` — types
+- `TenantApp`, `TenantOrg` (re-exported as `IamOrganization`), `TenantUser` (re-exported as `IamUser`), `OrgDomains` — types
+
+## Peer dependencies
+
+- `@hanzo/iam ^0.10.0` — for the auth hook + types
+- `react`, `react-dom`

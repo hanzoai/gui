@@ -1,7 +1,6 @@
 .next
 node_modules
 .hanzogui
-.tamagui
 next-env.d.ts
 src/_*.css
 src/*.native.tsx

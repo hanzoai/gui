@@ -34,7 +34,7 @@ if (typeof window !== 'undefined' && typeof window.matchMedia !== 'function') {
     }),
   })
 }
-// ResizeObserver is also missing under jsdom — Tamagui layout helpers poke it.
+// ResizeObserver is also missing under jsdom — Hanzogui layout helpers poke it.
 if (typeof globalThis.ResizeObserver === 'undefined') {
   ;(globalThis as { ResizeObserver?: unknown }).ResizeObserver = class {
     observe() {}

@@ -2658,9 +2658,9 @@ export function createExtractor(
 
           if (!(err instanceof BailOptimizationError)) {
             console.error(
-              `@hanzogui/static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment TAMAGUI_DEBUG=1`
+              `@hanzogui/static error, reverting optimization. In ${filePath} ${lineNumbers} on ${originalNodeName}: ${err.message}. For stack trace set environment GUI_DEBUG=1`
             )
-            if (process.env.TAMAGUI_DEBUG === '1') {
+            if (process.env.GUI_DEBUG === '1') {
               console.error(err.stack)
             }
           }

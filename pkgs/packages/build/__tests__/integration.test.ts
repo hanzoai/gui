@@ -171,12 +171,12 @@ describe('hanzogui-build integration test', () => {
     // Check for platform-specific content in web output
     expect(webOutput).toContain('salutation = "Hi"')
     expect(webOutput).not.toContain('salutation = "Hey"')
-    expect(webOutput).not.toContain('process.env.TAMAGUI_TARGET')
+    expect(webOutput).not.toContain('process.env.GUI_TARGET')
 
     // Check for platform-specific content in native output
     expect(nativeOutput).toContain('salutation = "Hey"')
     expect(nativeOutput).not.toContain('salutation = "Hi"')
-    expect(nativeOutput).not.toContain('process.env.TAMAGUI_TARGET')
+    expect(nativeOutput).not.toContain('process.env.GUI_TARGET')
 
     // Check that the common code is present in both outputs
     expect(webOutput).toContain('greet:')

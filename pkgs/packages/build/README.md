@@ -17,7 +17,7 @@ Some details on how it works:
 - strips bare imports that esbuild leaves behind, respecting the `sideEffects` field in package.json
 - outputs `.native.js` and regular `.js` files for all output files, so React Native always loads separate files from web. In the `native` specific files,
   - swc is sued to transform to es5
-  - `process.env.TAMAGUI_TARGET` is defined `native` (otherwise `web`)
+  - `process.env.GUI_TARGET` is defined `native` (otherwise `web`)
 - on non-native files:
   - on web, imports of `react-native` are transformed to `react-native-web`
 

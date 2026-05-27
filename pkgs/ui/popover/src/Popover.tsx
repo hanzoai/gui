@@ -772,7 +772,7 @@ const PopoverContentImpl = React.forwardRef<
   // i want to avoid reparenting but react-remove-scroll makes it hard
   // TODO its removed now so we can probable do it now
   if (!context.breakpointActive) {
-    if (process.env.TAMAGUI_TARGET !== 'native') {
+    if (process.env.GUI_TARGET !== 'native') {
       if (!alwaysDisable || !alwaysDisable.focus) {
         contents = (
           <FocusScope

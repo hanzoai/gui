@@ -444,7 +444,7 @@ export const SheetImplementationCustom = React.forwardRef<View, SheetProps>(
         setIsDragging(val)
 
         // make unselectable:
-        if (process.env.TAMAGUI_TARGET === 'web') {
+        if (process.env.GUI_TARGET === 'web') {
           if (!sheetHiddenStyleSheet) {
             sheetHiddenStyleSheet = document.createElement('style')
             if (typeof document.head !== 'undefined') {
@@ -794,7 +794,7 @@ export const SheetImplementationCustom = React.forwardRef<View, SheetProps>(
       </LayoutMeasurementController>
     )
 
-    if (process.env.TAMAGUI_TARGET === 'native' && needsPortalRepropagation()) {
+    if (process.env.GUI_TARGET === 'native' && needsPortalRepropagation()) {
       // TODO alongside sheet scope="" need to pass scope here
       const adaptContext = useAdaptContext()
       contents = (

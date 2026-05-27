@@ -26,4 +26,4 @@ if (!text.startsWith('#!')) {
 await Bun.$`chmod +x ${cli}`
 
 const size = (await Bun.file(cli).text()).length
-console.log(`built gui-get (${(size / 1024).toFixed(1)} KB)`)
+console.log(`built @hanzogui/get (${(size / 1024).toFixed(1)} KB)`)

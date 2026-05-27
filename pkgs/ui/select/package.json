@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/select",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "source": "src/index.tsx",
   "files": [
     "src",

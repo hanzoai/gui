@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "license": "BSD-3-Clause",
   "files": [
     "src",

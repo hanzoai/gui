@@ -31,8 +31,8 @@ export function isActivePlatform(key: string) {
     platform === currentPlatform ||
     // native matches all non-web platforms (iOS, Android, tvOS, Android TV)
     (platform === 'native' && currentPlatform !== 'web') ||
-    // TAMAGUI_TARGET fallback (web or native build target)
-    platform === process.env.TAMAGUI_TARGET ||
+    // GUI_TARGET fallback (web or native build target)
+    platform === process.env.GUI_TARGET ||
     // tv matches both Android TV and tvOS
     (platform === 'tv' && isTV) ||
     // androidtv matches Android TV specifically

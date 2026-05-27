@@ -27,7 +27,7 @@ import {
 
 const getFilledOptions = (propsIn: Partial<HanzoguiOptions>): HanzoguiOptions => ({
   // defaults
-  platform: (process.env.TAMAGUI_TARGET as any) || 'web',
+  platform: (process.env.GUI_TARGET as any) || 'web',
   config: 'hanzogui.config.ts',
   components: ['hanzogui'],
   ...(propsIn as Partial<HanzoguiOptions>),
@@ -250,7 +250,7 @@ export function loadHanzoguiSync({
   // lets shim require and avoid importing react-native + react-native-web
   // we just need to read the config around them
   process.env.IS_STATIC = 'is_static'
-  process.env.TAMAGUI_IS_SERVER = 'true'
+  process.env.GUI_IS_SERVER = 'true'
 
   const { unregister } = registerRequire(props.platform || 'web', {
     proxyWormImports: !!forceExports,
@@ -372,7 +372,7 @@ export async function getOptions({
     debug,
     tsconfigPath,
     hanzoguiOptions: {
-      platform: (process.env.TAMAGUI_TARGET as any) || 'web',
+      platform: (process.env.GUI_TARGET as any) || 'web',
       components: ['hanzogui'],
       ...hanzoguiOptions,
       config:
@@ -393,7 +393,7 @@ export function resolveWebOrNativeSpecificEntry(entry: string) {
   const resolved = require.resolve(entry, { paths: [workspaceRoot] })
   const ext = extname(resolved)
   const fileName = basename(resolved).replace(ext, '')
-  const specificExt = process.env.TAMAGUI_TARGET === 'web' ? 'web' : 'native'
+  const specificExt = process.env.GUI_TARGET === 'web' ? 'web' : 'native'
   const specificFile = join(dirname(resolved), fileName + '.' + specificExt + ext)
   if (fsExtra.existsSync(specificFile)) {
     return specificFile

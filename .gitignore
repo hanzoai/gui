@@ -1,6 +1,7 @@
 **/test-results/*
 **/.maestro-debug
 **/.hanzogui/
+**/.tamagui/
 
 # keep types in repo to track them
 # **/types/**/*.d.ts
@@ -34,6 +35,7 @@ node_modules
 
 code/kitchen-sink/ios
 
+.hanzogui
 .tamagui
 
 .idea

@@ -67,7 +67,7 @@ async function writeIfUnchanged(filePath, contents) {
 }
 
 function dceHanzoguiTarget(contents, { format, jsx, platform }) {
-  if (!contents.includes('process.env.TAMAGUI_TARGET')) {
+  if (!contents.includes('process.env.GUI_TARGET')) {
     return contents
   }
 
@@ -76,13 +76,13 @@ function dceHanzoguiTarget(contents, { format, jsx, platform }) {
     jsx: jsx === 'preserve' ? 'preserve' : undefined,
     sourceType: format === 'cjs' ? 'commonjs' : 'module',
     define: {
-      'process.env.TAMAGUI_TARGET': JSON.stringify(platform),
+      'process.env.GUI_TARGET': JSON.stringify(platform),
     },
   })
 
   if (result.errors?.length) {
     throw new Error(
-      `Failed to DCE TAMAGUI_TARGET for ${platform}: ${result.errors
+      `Failed to DCE GUI_TARGET for ${platform}: ${result.errors
         .map((error) => error.message)
         .join('\n')}`
     )
@@ -165,7 +165,7 @@ const shouldSkipTypes = shouldSwapExports
 const shouldSkipNative = hasFlag('--skip-native')
 const shouldSkipMJS = hasFlag('--skip-mjs')
 const shouldSkipSourceMaps =
-  hasFlag('--skip-sourcemaps') || getEnvFlag('TAMAGUI_BUILD_SKIP_SOURCEMAPS')
+  hasFlag('--skip-sourcemaps') || getEnvFlag('GUI_BUILD_SKIP_SOURCEMAPS')
 // React Compiler is disabled by default - use --react-compiler to enable
 const shouldEnableCompiler = !!(
   hasFlag('--react-compiler') || process.env.REACT_COMPILER
@@ -949,7 +949,7 @@ async function esbuildWriteIfChanged(
       format: isESM ? 'esm' : 'cjs',
 
       treeShaking: true,
-      // We only want TAMAGUI_TARGET dead-code elimination during normal builds.
+      // We only want GUI_TARGET dead-code elimination during normal builds.
       // Syntax minification can legally rewrite statements into comma expressions.
       minifySyntax: false,
       write: false,

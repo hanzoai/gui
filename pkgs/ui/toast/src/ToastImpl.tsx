@@ -26,7 +26,7 @@ import type {
 
 // Lazy load PanResponder only on native to avoid SSR issues
 const getPanResponder = (): typeof PanResponderType | null => {
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     return require('react-native').PanResponder
   }

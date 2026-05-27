@@ -9,13 +9,13 @@ run kitchen-sink:web in the bg!!!!!!! ON PORT 7979!!!!!!!!!!!!!!
 
 ## Vision
 
-Build the best toast component for React Native/Web - combining Sonner's polish and UX details with Base UI's composability, implemented in pure Tamagui style with cross-platform gesture handling.
+Build the best toast component for React Native/Web - combining Sonner's polish and UX details with Base UI's composability, implemented in pure Hanzogui style with cross-platform gesture handling.
 
 ---
 
 ## Core Principles
 
-1. **Tamagui-first**: No CSS animations, use `useAnimatedNumber`/`useAnimatedNumberStyle` for interactive + animations
+1. **Hanzogui-first**: No CSS animations, use `useAnimatedNumber`/`useAnimatedNumberStyle` for interactive + animations
 2. **Cross-driver animations**: Works with CSS, RN Animated, Reanimated, and Motion drivers
 3. **Composable API**: Base UI-style compound components for full customization
 4. **Premium UX**: Sonner-level polish - resistance physics, velocity-based dismissal, smooth stacking
@@ -83,7 +83,7 @@ A SUB-AGENT CRITIQUE YOUR TESTS
 ### Imperative API (Sonner-style)
 
 ```tsx
-import { toast } from '@tamagui/toast'
+import { toast } from '@hanzogui/toast'
 
 // basic usage
 toast('Hello world')
@@ -126,7 +126,7 @@ toast.dismiss() // all
 ### Declarative/Composable API (Base UI-style)
 
 ```tsx
-import { Toast } from '@tamagui/toast'
+import { Toast } from '@hanzogui/toast'
 
 // provider setup
 <Toast.Provider swipeDirection="right" duration={4000}>
@@ -149,7 +149,7 @@ import { Toast } from '@tamagui/toast'
 ### Standalone Toaster (Simple Setup)
 
 ```tsx
-import { Toaster, toast } from '@tamagui/toast'
+import { Toaster, toast } from '@hanzogui/toast'
 
 // minimal setup - just add Toaster anywhere
 function App() {
@@ -195,11 +195,11 @@ Three levels of animation, all cross-driver compatible:
 
 1. **AnimatePresence** → enter/exit styles (enterStyle, exitStyle)
    - Used for: toast appearing/disappearing
-   - Cross-driver: yes (handled by Tamagui core)
+   - Cross-driver: yes (handled by Hanzogui core)
 
 2. **transition prop** → non-interactive animations
    - Used for: stacking position changes, scale, opacity
-   - Cross-driver: yes (handled by Tamagui core)
+   - Cross-driver: yes (handled by Hanzogui core)
    - Example: `transition="quick"` on ToastItemFrame
 
 3. **useAnimatedNumber/Style** → interactive animations (with gesture responder)
@@ -418,7 +418,7 @@ const ToastContent = styled(YStack, {
   },
 
   defaultVariants: {
-    unstyled: process.env.TAMAGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 ```

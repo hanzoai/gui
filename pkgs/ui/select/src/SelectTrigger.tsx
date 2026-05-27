@@ -15,7 +15,7 @@ const TRIGGER_NAME = 'SelectTrigger'
 export type SelectTriggerProps = SelectScopedProps<ListItemProps>
 
 const isPointerCoarse =
-  typeof window !== 'undefined' && process.env.TAMAGUI_TARGET === 'web'
+  typeof window !== 'undefined' && process.env.GUI_TARGET === 'web'
     ? window.matchMedia('(pointer:coarse)').matches
     : true
 
@@ -61,7 +61,7 @@ export const SelectTrigger = React.forwardRef<HanzoguiElement, SelectTriggerProp
         data-disabled={disabled ? '' : undefined}
         {...triggerProps}
         ref={composedRefs}
-        {...(process.env.TAMAGUI_TARGET === 'web' && itemParentContext.interactions
+        {...(process.env.GUI_TARGET === 'web' && itemParentContext.interactions
           ? {
               ...itemParentContext.interactions.getReferenceProps(),
               ...(isPointerCoarse

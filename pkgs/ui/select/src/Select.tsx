@@ -544,7 +544,7 @@ function SelectInner(props: SelectScopedProps<SelectProps> & { adaptScope: strin
     emitValue(value)
   }, [value])
 
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     React.useEffect(() => {
       if (!props.id) return
 

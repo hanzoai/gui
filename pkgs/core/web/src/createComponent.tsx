@@ -78,7 +78,7 @@ const avoidReRenderKeys = new Set([
   'group',
 ])
 
-if (process.env.TAMAGUI_TARGET !== 'native' && typeof window !== 'undefined') {
+if (process.env.GUI_TARGET !== 'native' && typeof window !== 'undefined') {
   const cancelPresses = () => {
     // clear all press downs
     componentSetStates.forEach((setState) =>
@@ -248,7 +248,7 @@ export function createComponent<
       }
     }
 
-    if (process.env.TAMAGUI_TARGET === 'native') {
+    if (process.env.GUI_TARGET === 'native') {
       // todo this could be moved to a cleaner location
       if (!hasSetupBaseViews) {
         hasSetupBaseViews = true
@@ -286,12 +286,12 @@ export function createComponent<
     // direct press events instead — GestureDetector consumes touches before they
     // reach MenuView's native handler, preventing the menu from opening
     const isInsideNativeMenu =
-      process.env.TAMAGUI_TARGET === 'native'
+      process.env.GUI_TARGET === 'native'
         ? React.useContext(NativeMenuContext)
         : false
 
     if (
-      !process.env.TAMAGUI_IS_CORE_NODE &&
+      !process.env.GUI_IS_CORE_NODE &&
       process.env.NODE_ENV === 'development' &&
       debugProp === 'profile' &&
       !time
@@ -528,7 +528,7 @@ export function createComponent<
 
     // internal use only
     const disableThemeProp =
-      process.env.TAMAGUI_TARGET === 'native' ? false : props['data-disable-theme']
+      process.env.GUI_TARGET === 'native' ? false : props['data-disable-theme']
 
     const disableTheme = disableThemeProp || isHOC
 
@@ -552,7 +552,7 @@ export function createComponent<
     // even when using raw colors (not tokens) since isListeningToTheme is set after useSplitStyles
     themeStateProps.needsUpdate = () => !!stateRef.current.isListeningToTheme
     // on native we optimize theme changes if fastSchemeChange is enabled, otherwise deopt
-    if (process.env.TAMAGUI_TARGET === 'native') {
+    if (process.env.GUI_TARGET === 'native') {
       themeStateProps.deopt = willBeAnimated
     }
 
@@ -1333,7 +1333,7 @@ export function createComponent<
           onPress: attachPress
             ? (e) => {
                 unPress()
-                if (process.env.TAMAGUI_TARGET === 'web') {
+                if (process.env.GUI_TARGET === 'web') {
                   // @ts-ignore
                   onClick?.(e)
                   // matches RN pressable behavior - only when an explicit press
@@ -1343,12 +1343,12 @@ export function createComponent<
                   }
                 }
                 onPress?.(e)
-                if (process.env.TAMAGUI_TARGET === 'web') {
+                if (process.env.GUI_TARGET === 'web') {
                   onLongPress?.(e)
                 }
               }
             : undefined,
-          ...(process.env.TAMAGUI_TARGET === 'native' &&
+          ...(process.env.GUI_TARGET === 'native' &&
             attachPress &&
             onLongPress && {
               onLongPress: (e) => {
@@ -1390,7 +1390,7 @@ export function createComponent<
         }
       : null
 
-    if (process.env.TAMAGUI_TARGET === 'native' && events && !asChild) {
+    if (process.env.GUI_TARGET === 'native' && events && !asChild) {
       // replicating TouchableWithoutFeedback
       Object.assign(events, {
         cancelable: !viewProps.rejectResponderTermination,
@@ -1404,7 +1404,7 @@ export function createComponent<
       })
     }
 
-    if (process.env.TAMAGUI_TARGET === 'web' && events && !isReactNative) {
+    if (process.env.GUI_TARGET === 'web' && events && !isReactNative) {
       Object.assign(viewProps, getWebEvents(events))
     }
 
@@ -1431,7 +1431,7 @@ export function createComponent<
     // EVENTS native - handles focus/blur, input special cases, and RNGH press handling
     // Skip gesture setup for HOC components - they may return null which crashes GestureDetector
     const pressGesture =
-      process.env.TAMAGUI_TARGET === 'native'
+      process.env.GUI_TARGET === 'native'
         ? useEvents(
             events,
             viewProps,
@@ -1448,7 +1448,7 @@ export function createComponent<
     if (asChild) {
       elementType = Slot
       // on native this is already merged into viewProps in useEvents
-      if (process.env.TAMAGUI_TARGET === 'web') {
+      if (process.env.GUI_TARGET === 'web') {
         const webStyleEvents = asChild === 'web' || asChild === 'except-style-web'
         const passEvents = getWebEvents(
           {
@@ -1522,7 +1522,7 @@ export function createComponent<
 
     // wrap with GestureDetector for RNGH press handling (native only, no-op on web)
     // Skip for HOC and composite components - they pass press events to inner component instead
-    if (process.env.TAMAGUI_TARGET === 'native') {
+    if (process.env.GUI_TARGET === 'native') {
       const isCompositeComponent = !isHOC && Component && typeof Component !== 'string'
       content = wrapWithGestureDetector(
         content,
@@ -1577,7 +1577,7 @@ export function createComponent<
     }
 
     // Text components set inText context for children so nested Text can inherit styles
-    if (process.env.TAMAGUI_TARGET === 'web' && !asChild && isText && !hasTextAncestor) {
+    if (process.env.GUI_TARGET === 'web' && !asChild && isText && !hasTextAncestor) {
       content = (
         <ComponentContext.Provider {...componentContext} inText={true}>
           {content}
@@ -1594,7 +1594,7 @@ export function createComponent<
 
     if (process.env.NODE_ENV === 'development' && time) time`themed-children`
 
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.GUI_TARGET === 'web') {
       if (isReactNative && !asChild) {
         content = (
           <span
@@ -1628,7 +1628,7 @@ export function createComponent<
 
     // SSR style support - for non compiled styles we render them inline until client takes over
     // on client we then switch over to our global sheet insert, because rendering inline is expensive
-    if (process.env.TAMAGUI_TARGET === 'web' && startedUnhydrated && splitStyles) {
+    if (process.env.GUI_TARGET === 'web' && startedUnhydrated && splitStyles) {
       content = (
         <>
           {content}
@@ -1771,7 +1771,7 @@ export function createComponent<
 
     out = options?.disableTheme ? out : themeable(out, extendedConfig, true)
 
-    if (extendedConfig.memo || process.env.TAMAGUI_MEMOIZE_STYLEABLE) {
+    if (extendedConfig.memo || process.env.GUI_MEMOIZE_STYLEABLE) {
       out = React.memo(out)
     }
 
@@ -1831,7 +1831,7 @@ const getCustomRender = (
 
 // avoid passing web-only elements to native
 function getRenderElementForPlatform(potential: ReactElement) {
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     if (isHTMLElement(potential)) {
       return
     }

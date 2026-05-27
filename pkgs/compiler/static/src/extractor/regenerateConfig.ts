@@ -33,7 +33,7 @@ export async function regenerateConfig(
       spaces: 2,
     })
   } catch (err) {
-    if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_TAMAGUI_DEV) {
+    if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now
@@ -54,7 +54,7 @@ export function regenerateConfigSync(
       }
     )
   } catch (err) {
-    if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_TAMAGUI_DEV) {
+    if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now

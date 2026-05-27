@@ -87,7 +87,7 @@ function getESBuildConfig(
     allowOverwrite: true,
     keepNames: true,
     resolveExtensions: [
-      ...(process.env.TAMAGUI_TARGET === 'web'
+      ...(process.env.GUI_TARGET === 'web'
         ? ['.web.tsx', '.web.ts', '.web.jsx', '.web.js']
         : ['.native.tsx', '.native.ts', '.native.jsx', '.native.js']),
       '.tsx',

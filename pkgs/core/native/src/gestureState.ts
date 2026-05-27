@@ -143,8 +143,8 @@ export function getGestureHandler(): GestureHandlerAccessor {
       // RNGH fires parent before child, but we want innermost to win.
       // Claims typically span a few ms, 24ms gives enough room to observe
       // ordering while debugging slower frames.
-      const GRACE_PERIOD_MS = process.env.TAMAGUI_RNGH_PRESS_DELAY
-        ? +process.env.TAMAGUI_RNGH_PRESS_DELAY
+      const GRACE_PERIOD_MS = process.env.GUI_RNGH_PRESS_DELAY
+        ? +process.env.GUI_RNGH_PRESS_DELAY
         : 24
 
       const tryClaimOwnership = (e: any) => {

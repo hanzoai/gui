@@ -1,12 +1,12 @@
-// Tamagui config for Hanzo Tasks UI v2.
+// Hanzogui config for Hanzo Tasks UI v2.
 //
 // Use the canonical @hanzogui/config v5 default (same shape the
 // starter at ~/work/hanzo/gui/code/starters/expo-router uses) so
-// Tamagui's runtime theme registry resolves cleanly. Hanzo brand
+// Hanzogui's runtime theme registry resolves cleanly. Hanzo brand
 // recoloring lives in src/index.css as CSS variables that we layer
-// on top of Tamagui's `dark` theme, NOT by mutating the themes
+// on top of Hanzogui's `dark` theme, NOT by mutating the themes
 // object — spreading it through a JS module breaks the static
-// shape Tamagui's getThemeProxied() depends on.
+// shape Hanzogui's getThemeProxied() depends on.
 
 // IMPORTANT: this config file imports from `hanzogui` (workspace
 // umbrella), NOT `@hanzo/gui`. Source code uses `@hanzo/gui` (the

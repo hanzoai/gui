@@ -1,4 +1,4 @@
-// Tamagui SectionCard. Replaces the legacy HTML/CSS version. Used as
+// Hanzogui SectionCard. Replaces the legacy HTML/CSS version. Used as
 // the chrome for each settings sub-form: title row + optional
 // description + content slot.
 

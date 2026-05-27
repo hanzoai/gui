@@ -361,7 +361,7 @@ const AlertDialogInner: React.FC<AlertDialogProps> = (props) => {
   const { scope, native, ...alertDialogProps } = props
   const dialogScope = getAlertDialogScope(scope)
 
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     const [open, setOpen] = useControllableState({
       prop: props.open,
       defaultProp: props.defaultOpen || false,

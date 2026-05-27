@@ -78,7 +78,7 @@ export function HanzoguiProvider({
     <>
       {contents}
 
-      {process.env.TAMAGUI_TARGET !== 'native' && config && !disableInjectCSS && (
+      {process.env.GUI_TARGET !== 'native' && config && !disableInjectCSS && (
         <style
           // react 19 feature to hoist style tags to header:
           // https://react.dev/reference/react-dom/components/style

@@ -86,7 +86,7 @@ export const Image = StyledImage.styleable<ImageProps>((inProps, ref) => {
       : (source ?? src)
 
   if (finalSource && typeof finalSource === 'object') {
-    if (process.env.TAMAGUI_TARGET === 'native') {
+    if (process.env.GUI_TARGET === 'native') {
       // fix: normalize import style images
       if (!Array.isArray(finalSource)) {
         if (typeof finalSource.uri === 'number') {
@@ -101,7 +101,7 @@ export const Image = StyledImage.styleable<ImageProps>((inProps, ref) => {
       }
     }
 
-    if (process.env.NODE_ENV === 'development' && process.env.TAMAGUI_IMAGE_CHECK_ERROR) {
+    if (process.env.NODE_ENV === 'development' && process.env.GUI_IMAGE_CHECK_ERROR) {
       // lets add an onload timeout and warning if it fails to load in console
       React.useEffect(() => {
         async function run() {

@@ -3,7 +3,7 @@ import { expect, test } from 'vitest'
 
 import { extractForNative } from './lib/extract'
 
-process.env.TAMAGUI_TARGET = 'native'
+process.env.GUI_TARGET = 'native'
 process.env.IS_STATIC = ''
 
 window['React'] = React

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/expo-router-starter",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "private": true,
   "main": "expo-router/entry",
   "scripts": {

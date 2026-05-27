@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/cli-color",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "type": "module",
   "main": "dist/cjs",
   "module": "dist/esm",

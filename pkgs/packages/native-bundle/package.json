@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native-bundle",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "description": "Vite-based bundler for creating native CommonJS bundles for Gui packages",
   "license": "BSD-3-Clause",
   "author": "Hanzo AI <dev@hanzo.ai>",

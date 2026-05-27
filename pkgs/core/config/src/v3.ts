@@ -100,7 +100,7 @@ export const selectionStyles = (theme) =>
 
 // tree shake away themes in production
 const themes =
-  process.env.TAMAGUI_OPTIMIZE_THEMES === 'true' ? ({} as typeof themesIn) : themesIn
+  process.env.GUI_OPTIMIZE_THEMES === 'true' ? ({} as typeof themesIn) : themesIn
 
 export const config = {
   animations,

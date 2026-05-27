@@ -99,7 +99,7 @@ setupHooks({
   getBaseViews,
 
   setElementProps: (node) => {
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.GUI_TARGET === 'web') {
       // web only
       if (node && !node['measure']) {
         node.measure ||= createMeasure(node)
@@ -110,7 +110,7 @@ setupHooks({
   },
 
   usePropsTransform(elementType, propsIn, stateRef, willHydrate) {
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.GUI_TARGET === 'web') {
       const isDOM = typeof elementType === 'string'
 
       // replicate react-native-web functionality
@@ -173,7 +173,7 @@ setupHooks({
   },
 
   // attempt at properly fixing RN input, but <Pressable><TextInput /> just doesnt work on RN
-  ...(process.env.TAMAGUI_TARGET === 'native' && {
+  ...(process.env.GUI_TARGET === 'native' && {
     useChildren(elementType, children, viewProps) {
       if (process.env.NODE_ENV === 'test') {
         // test mode - just use regular views since optimizations cause weirdness

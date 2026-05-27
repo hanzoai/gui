@@ -210,7 +210,7 @@ export function registerRequire(
       return out
     } catch (err: any) {
       if (
-        !process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD &&
+        !process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD &&
         path.includes('hanzogui-dynamic-eval')
       ) {
         // ok, dynamic eval fails
@@ -218,7 +218,7 @@ export function registerRequire(
       }
       if (allowedIgnores[path] || IGNORES === 'true') {
         // ignore
-      } else if (!process.env.TAMAGUI_SHOW_FULL_BUNDLE_ERRORS && !process.env.DEBUG) {
+      } else if (!process.env.GUI_SHOW_FULL_BUNDLE_ERRORS && !process.env.DEBUG) {
         if (hasWarnedForModules.has(path)) {
           // ignore
         } else {
@@ -231,7 +231,7 @@ export function registerRequire(
          */
 
         console.warn(
-          `  [hanzogui] skipped "${path}" (set TAMAGUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
+          `  [hanzogui] skipped "${path}" (set GUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
         )
       }
 
@@ -256,9 +256,9 @@ export function registerRequire(
   }
 }
 
-const IGNORES = process.env.TAMAGUI_IGNORE_BUNDLE_ERRORS
+const IGNORES = process.env.GUI_IGNORE_BUNDLE_ERRORS
 const extraIgnores =
-  IGNORES === 'true' ? [] : process.env.TAMAGUI_IGNORE_BUNDLE_ERRORS?.split(',')
+  IGNORES === 'true' ? [] : process.env.GUI_IGNORE_BUNDLE_ERRORS?.split(',')
 
 const knownIgnorableModules = {
   '@gorhom/bottom-sheet': true,

@@ -6,8 +6,8 @@ export const greet = (name: string): string => {
 
 export const paltformGreeter = (name: string): string => {
   let salutation
-  process.env.TAMAGUI_TARGET === 'web' ? (salutation = 'Hi') : (salutation = 'Hello')
-  process.env.TAMAGUI_TARGET === 'native' ? (salutation = 'Hey') : (salutation = 'Hello')
+  process.env.GUI_TARGET === 'web' ? (salutation = 'Hi') : (salutation = 'Hello')
+  process.env.GUI_TARGET === 'native' ? (salutation = 'Hey') : (salutation = 'Hello')
   return `${salutation}, ${name}!`
 }
 
@@ -26,12 +26,12 @@ export function guardNativeSideEffects(items: string[], debug?: string) {
 }
 
 export function getPlatformMarker() {
-  return process.env.TAMAGUI_TARGET === 'native' ? 'native-only-marker' : 'web-only-marker'
+  return process.env.GUI_TARGET === 'native' ? 'native-only-marker' : 'web-only-marker'
 }
 
 export function applyNativeLogicalMarker(items: string[]) {
-  process.env.TAMAGUI_TARGET === 'native' && items.push('native-logical-marker')
-  process.env.TAMAGUI_TARGET !== 'native' && items.push('web-logical-marker')
+  process.env.GUI_TARGET === 'native' && items.push('native-logical-marker')
+  process.env.GUI_TARGET !== 'native' && items.push('web-logical-marker')
 
   return items
 }

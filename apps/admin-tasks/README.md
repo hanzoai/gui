@@ -1,6 +1,6 @@
 # `@hanzo/tasks`
 
-The Hanzo Tasks SPA. Vite, Tamagui via the `hanzogui` umbrella, composed
+The Hanzo Tasks SPA. Vite, Hanzogui via the `hanzogui` umbrella, composed
 from `@hanzogui/admin` chrome + transport-agnostic data hooks. Ships
 standalone to `tasks.hanzo.ai` and is also embedded in `tasksd` (Go
 binary) under `/_/tasks/`.
@@ -38,7 +38,7 @@ target — anyone running `tasksd start` gets the embedded UI for free,
 no Node.js required.
 
 `@hanzo/tasks` is a different deployment target: the cloud
-SPA at `tasks.hanzo.ai`. Same backend (`/v1/tasks/*`), Tamagui chrome,
+SPA at `tasks.hanzo.ai`. Same backend (`/v1/tasks/*`), Hanzogui chrome,
 and the bigger surface for namespaces / batches / deployments / nexus
 that we want first-class on the web.
 
@@ -71,7 +71,7 @@ bun run preview                  # serve dist/ for a sanity check
 | Total | 1.5 MB | **0.68 MB** |
 | Gzip JS | 294,962 B | **201,529 B** (-32%) |
 
-Tamagui's static extractor hoists the style props it can resolve at
+Hanzogui's static extractor hoists the style props it can resolve at
 build time into atomic class names in a single CSS file, then strips
 the style runtime call sites in JS. The savings come from both the
 removed style-prop arguments AND the dropped runtime style code.
@@ -99,16 +99,16 @@ removed style-prop arguments AND the dropped runtime style code.
   been ported across yet. Single-page focus first.
 - **Auth flow** — currently relies on identity headers injected by
   `hanzoai/gateway` in production. Local dev runs without auth.
-- **Mobile target** — Tamagui compiles to react-native for iOS/Android
+- **Mobile target** — Hanzogui compiles to react-native for iOS/Android
   but no native shell exists yet. Future work.
 
 ## Conventions
 
 - Strict TypeScript. `noUnusedLocals` / `noUnusedParameters` on.
-- No HTML / CSS DOM primitives. Tamagui only.
+- No HTML / CSS DOM primitives. Hanzogui only.
 - All gui deps via `workspace:*`. Never pin a version on a package
   that lives in this repo.
-- Extractor stays enabled. If a Tamagui type widening breaks the
+- Extractor stays enabled. If a Hanzogui type widening breaks the
   build, fix the type — don't disable extraction.
 - Versioning tracks upstream `temporalio/ui` major.minor. Don't bump
   majors for internal UI rewrites — that's how we ended up at v3.x.x

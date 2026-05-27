@@ -186,6 +186,6 @@ export const themes = generatedThemes
  * So long as you server render your Hanzogui CSS, this will save you bundle size:
  */
 // export const themes: HanzoguiThemes =
-//   process.env.TAMAGUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
+//   process.env.GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
 //     ? {}
 //     : (generatedThemes as any)

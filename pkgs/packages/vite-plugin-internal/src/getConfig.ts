@@ -11,7 +11,7 @@ export function getConfig(hanzoguiPlugin: any) {
   const isNative =
     !process.env.DISABLE_REACT_NATIVE &&
     !process.env.DISABLE_NATIVE_TEST &&
-    process.env.TAMAGUI_TARGET !== 'web'
+    process.env.GUI_TARGET !== 'web'
 
   const nativeExtensions =
     process.env.TEST_NATIVE_PLATFORM === 'ios' ||
@@ -107,7 +107,7 @@ export function getConfig(hanzoguiPlugin: any) {
     ].filter(Boolean),
 
     define: {
-      'process.env.TAMAGUI_TARGET': JSON.stringify(process.env.TAMAGUI_TARGET),
+      'process.env.GUI_TARGET': JSON.stringify(process.env.GUI_TARGET),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       // otherwise react logs Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
       __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })',

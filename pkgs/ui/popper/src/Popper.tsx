@@ -191,7 +191,7 @@ export type PopperProps = {
 }
 
 const checkFloating =
-  process.env.TAMAGUI_TARGET === 'native'
+  process.env.GUI_TARGET === 'native'
     ? {
         name: 'checkFloating',
         fn(data: any) {
@@ -360,7 +360,7 @@ export function Popper(props: PopperProps) {
         : (null as any),
       arrowEl ? arrow({ element: arrowEl }) : (null as any),
       checkFloating,
-      process.env.TAMAGUI_TARGET !== 'native' && resize
+      process.env.GUI_TARGET !== 'native' && resize
         ? sizeMiddleware({
             padding: typeof stayInFrame === 'object' ? stayInFrame.padding : 10,
             apply({ availableHeight, availableWidth }) {
@@ -382,7 +382,7 @@ export function Popper(props: PopperProps) {
           })
         : (null as any),
       // Add size middleware for CSS custom properties (web only)
-      process.env.TAMAGUI_TARGET !== 'native'
+      process.env.GUI_TARGET !== 'native'
         ? sizeMiddleware({
             apply({ elements, rects, availableWidth, availableHeight }) {
               const { width: anchorWidth, height: anchorHeight } = rects.reference
@@ -407,7 +407,7 @@ export function Popper(props: PopperProps) {
           })
         : (null as any),
       // Transform origin middleware (web only)
-      process.env.TAMAGUI_TARGET !== 'native'
+      process.env.GUI_TARGET !== 'native'
         ? transformOriginMiddleware({
             arrowHeight: arrowSize,
             arrowWidth: arrowSize,
@@ -434,7 +434,7 @@ export function Popper(props: PopperProps) {
     middleware: middlewareRef.current,
   })
 
-  if (process.env.TAMAGUI_TARGET !== 'native') {
+  if (process.env.GUI_TARGET !== 'native') {
     // add our size middleware here
     floating = React.useMemo(() => {
       const og = floating.getFloatingProps
@@ -455,7 +455,7 @@ export function Popper(props: PopperProps) {
 
   const { middlewareData } = floating
 
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     // On Native there's no autoupdate so we call update() when necessary
 
     // Subscribe to window dimensions (orientation, scale, etc...)

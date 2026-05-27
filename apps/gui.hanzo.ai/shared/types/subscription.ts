@@ -1,14 +1,14 @@
 export const ProductName = {
-  TamaguiPro: 'Tamagui Pro',
-  TamaguiProV2: 'Tamagui Pro V2', // V2 per-project license
-  TamaguiProV2Upgrade: 'Tamagui Pro V2 Upgrade', // V2 yearly renewal
-  TamaguiChat: 'Tamagui Chat',
-  TamaguiSupport: 'Tamagui Support',
-  TamaguiSupportDirect: 'Tamagui Support Direct', // V2 direct support
-  TamaguiSupportSponsor: 'Tamagui Support Sponsor', // V2 sponsor support
-  TamaguiProTeamSeats: 'Tamagui Pro Team Seats',
-  TamaguiBento: 'Bento',
-  TamaguiTakeoutStack: 'Takeout Stack',
+  HanzoguiPro: 'Hanzogui Pro',
+  HanzoguiProV2: 'Hanzogui Pro V2', // V2 per-project license
+  HanzoguiProV2Upgrade: 'Hanzogui Pro V2 Upgrade', // V2 yearly renewal
+  HanzoguiChat: 'Hanzogui Chat',
+  HanzoguiSupport: 'Hanzogui Support',
+  HanzoguiSupportDirect: 'Hanzogui Support Direct', // V2 direct support
+  HanzoguiSupportSponsor: 'Hanzogui Support Sponsor', // V2 sponsor support
+  HanzoguiProTeamSeats: 'Hanzogui Pro Team Seats',
+  HanzoguiBento: 'Bento',
+  HanzoguiTakeoutStack: 'Takeout Stack',
 } as const
 
 export const ProductSlug = {

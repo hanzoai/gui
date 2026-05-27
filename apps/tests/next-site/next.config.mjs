@@ -3,7 +3,7 @@ import { withHanzogui } from '@hanzogui/next-plugin'
 Error.stackTraceLimit = Infinity
 
 process.env.IGNORE_TS_CONFIG_PATHS = 'true'
-// process.env.TAMAGUI_ENABLE_DYNAMIC_LOAD = '1'
+// process.env.GUI_ENABLE_DYNAMIC_LOAD = '1'
 
 const plugins = [
   withHanzogui(
@@ -43,7 +43,7 @@ const plugins = [
   },
   (config) => {
     // for github pages
-    if (process.env.IS_TAMAGUI_PROD) {
+    if (process.env.IS_GUI_PROD) {
       config.assetPrefix = 'https://hanzogui.dev'
     } else if (process.env.ON_GITHUB_PAGES) {
       config.basePath = '/hanzogui'

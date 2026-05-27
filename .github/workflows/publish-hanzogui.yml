@@ -204,8 +204,8 @@ jobs:
           cd "$consumer"
           # Minimal consumer — installs both tarballs and requires them.
           # Catches: missing files in `files`, broken `exports` map,
-          # wrong `main`/`module` paths, Tamagui→hanzogui rename leaks.
-          # NEVER call this package "Tamagui" anywhere in published
+          # wrong `main`/`module` paths, Hanzogui→hanzogui rename leaks.
+          # NEVER call this package "Hanzogui" anywhere in published
           # artifacts — the brand is hanzogui.
           cat > package.json <<'EOF'
           {

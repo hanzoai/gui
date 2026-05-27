@@ -74,18 +74,18 @@ export const withHanzogui = (hanzoguiOptionsIn?: WithHanzoguiProps) => {
 
         const defines = {
           'process.env.IS_STATIC': JSON.stringify(''),
-          'process.env.TAMAGUI_TARGET': '"web"',
-          'process.env.TAMAGUI_IS_SERVER': JSON.stringify(isServer ? 'true' : ''),
-          'process.env.TAMAGUI_ENVIRONMENT': JSON.stringify(isServer ? 'ssr' : 'client'),
+          'process.env.GUI_TARGET': '"web"',
+          'process.env.GUI_IS_SERVER': JSON.stringify(isServer ? 'true' : ''),
+          'process.env.GUI_ENVIRONMENT': JSON.stringify(isServer ? 'ssr' : 'client'),
           __DEV__: JSON.stringify(dev),
-          ...(process.env.TAMAGUI_DOES_SSR_CSS && {
-            'process.env.TAMAGUI_DOES_SSR_CSS': JSON.stringify(
-              process.env.TAMAGUI_DOES_SSR_CSS
+          ...(process.env.GUI_DOES_SSR_CSS && {
+            'process.env.GUI_DOES_SSR_CSS': JSON.stringify(
+              process.env.GUI_DOES_SSR_CSS
             ),
           }),
           ...(hanzoguiOptions?.disableThemesBundleOptimize && {
-            'process.env.TAMAGUI_OPTIMIZE_THEMES': JSON.stringify(false),
-            'process.env.TAMAGUI_ENVIRONMENT': JSON.stringify(false),
+            'process.env.GUI_OPTIMIZE_THEMES': JSON.stringify(false),
+            'process.env.GUI_ENVIRONMENT': JSON.stringify(false),
           }),
         }
 

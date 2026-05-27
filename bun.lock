@@ -3290,6 +3290,15 @@
         "react-native-gesture-handler",
       ],
     },
+    "pkgs/ui/shell": {
+      "name": "@hanzogui/shell",
+      "version": "7.2.3",
+      "peerDependencies": {
+        "@hanzo/iam": "^0.11.0",
+        "react": "*",
+        "react-dom": "*",
+      },
+    },
     "pkgs/ui/slider": {
       "name": "@hanzogui/slider",
       "version": "7.2.3",
@@ -4427,6 +4436,8 @@
     "@hanzogui/shapes": ["@hanzogui/shapes@workspace:pkgs/ui/shapes"],
 
     "@hanzogui/sheet": ["@hanzogui/sheet@workspace:pkgs/ui/sheet"],
+
+    "@hanzogui/shell": ["@hanzogui/shell@workspace:pkgs/ui/shell"],
 
     "@hanzogui/shorthands": ["@hanzogui/shorthands@workspace:pkgs/core/shorthands"],
 

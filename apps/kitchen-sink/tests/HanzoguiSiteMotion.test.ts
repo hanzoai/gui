@@ -21,7 +21,7 @@ test.describe.skip('Hanzogui.dev Motion Issues', () => {
   })
 
   test.describe('Logo Jitter Bug', () => {
-    test('dot indicator should not jitter when moving mouse rapidly across TAMAGUI text', async ({
+    test('dot indicator should not jitter when moving mouse rapidly across HANZOGUI text', async ({
       page,
     }) => {
       await page.goto(SITE_URL, { waitUntil: 'networkidle' })

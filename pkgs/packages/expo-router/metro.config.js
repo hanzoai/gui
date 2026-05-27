@@ -22,7 +22,7 @@ module.exports = config
 
 // REMOVE THIS (just for hanzogui internal devs to work in monorepo):
 console.info(`Starting metro`)
-if (process.env.IS_TAMAGUI_DEV && __dirname.includes('hanzogui')) {
+if (process.env.IS_GUI_DEV && __dirname.includes('hanzogui')) {
   console.info('🧑‍💻 using monorepo packages')
   const fs = require('fs')
   const path = require('path')

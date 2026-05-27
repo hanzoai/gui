@@ -151,7 +151,7 @@ export const AdaptParent = ({ children, Contents, scope, portal }: AdaptParentPr
   }
 
   const isTeleport =
-    process.env.TAMAGUI_TARGET === 'native' && getPortal().state.type === 'teleport'
+    process.env.GUI_TARGET === 'native' && getPortal().state.type === 'teleport'
 
   const FinalContents = useMemo(() => {
     if (Contents) {

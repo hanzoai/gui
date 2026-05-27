@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const isServerSide: boolean =
-  process.env.TAMAGUI_TARGET === 'web' && typeof window === 'undefined'
+  process.env.GUI_TARGET === 'web' && typeof window === 'undefined'
 
 const idFn = () => {}
 

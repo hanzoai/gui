@@ -60,8 +60,8 @@ const activeSliderMeasureListeners = new Set<Function>()
 // run an interval on web as using translate can move things at any moment
 // without triggering layout or intersection observers
 
-if (process.env.TAMAGUI_TARGET === 'web') {
-  if (!process.env.TAMAGUI_DISABLE_SLIDER_INTERVAL) {
+if (process.env.GUI_TARGET === 'web') {
+  if (!process.env.GUI_DISABLE_SLIDER_INTERVAL) {
     setInterval?.(
       () => {
         activeSliderMeasureListeners.forEach((cb) => cb())
@@ -110,7 +110,7 @@ const SliderHorizontal = React.forwardRef<View, SliderHorizontalProps>(
       })
     }
 
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.GUI_TARGET === 'web') {
       useSliderMeasure(sliderRef, measure)
     }
 
@@ -251,7 +251,7 @@ const SliderVertical = React.forwardRef<View, SliderVerticalProps>(
       })
     }
 
-    if (process.env.TAMAGUI_TARGET === 'web') {
+    if (process.env.GUI_TARGET === 'web') {
       useSliderMeasure(sliderRef, measure)
     }
 

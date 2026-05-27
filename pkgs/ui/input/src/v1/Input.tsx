@@ -102,7 +102,7 @@ export const Input = StyledInput.styleable<InputProps>((inProps, forwardedRef) =
     caretColor,
     id,
     enterKeyHint,
-    ...(process.env.TAMAGUI_TARGET === 'web'
+    ...(process.env.GUI_TARGET === 'web'
       ? {
           type: (() => {
             if (rest?.type) return rest.type
@@ -170,7 +170,7 @@ export const Input = StyledInput.styleable<InputProps>((inProps, forwardedRef) =
 
   return (
     <>
-      {process.env.TAMAGUI_TARGET === 'web' && (
+      {process.env.GUI_TARGET === 'web' && (
         <style>
           {`
       input::selection, textarea::selection {

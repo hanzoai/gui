@@ -1,4 +1,4 @@
-process.env.TAMAGUI_TARGET = 'native'
+process.env.GUI_TARGET = 'native'
 
 import { getDefaultHanzoguiConfig } from '@hanzogui/config-default'
 import { HanzoguiProvider, _withStableStyle, createHanzogui } from '@hanzogui/core'

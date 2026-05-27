@@ -11,7 +11,7 @@ export async function generatePrompt(options: GeneratePromptOptions) {
 
   // Regenerate the config first
   const { loadHanzogui } = require('@hanzogui/static/loadHanzogui')
-  process.env.TAMAGUI_KEEP_THEMES = '1'
+  process.env.GUI_KEEP_THEMES = '1'
   await loadHanzogui({
     ...options.hanzoguiOptions,
     platform: 'web',

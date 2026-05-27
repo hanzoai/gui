@@ -63,7 +63,7 @@ export default defineConfig({
     // @hanzogui/* primitives from THIS app's node_modules, not from
     // a sibling workspace's nested copy. Without dedupe the dev server
     // serves two parallel module graphs (one for admin-tasks, one
-    // for @hanzo/admin), each with its own TamaguiProvider context
+    // for @hanzo/admin), each with its own HanzoguiProvider context
     // — children rendered through the @hanzo/admin Sidebar don't see
     // the provider mounted in admin-tasks's main.tsx, throw "Can't
     // find Hanzogui configuration", page goes blank.

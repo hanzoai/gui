@@ -28,7 +28,7 @@ interface CommitInfo {
   date: string
 }
 
-const TAMAGUI_PACKAGES_PATTERN = /^(@hanzogui\/|hanzogui$)/
+const GUI_PACKAGES_PATTERN = /^(@hanzogui\/|hanzogui$)/
 const COMMIT_TYPE_ORDER = [
   'feat',
   'fix',
@@ -113,7 +113,7 @@ function findHanzoguiPackages(root: string): PackageInfo[] {
 
         for (const [name, version] of Object.entries(deps)) {
           if (typeof version !== 'string') continue
-          if (!TAMAGUI_PACKAGES_PATTERN.test(name)) continue
+          if (!GUI_PACKAGES_PATTERN.test(name)) continue
           // Skip workspace: dependencies
           if (version.startsWith('workspace:')) continue
 

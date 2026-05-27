@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-MSG="Use 7.x — synced to upstream tamagui 2.0.0"
+MSG="Use 7.x — synced to upstream hanzogui 2.0.0"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 # Collect every workspace package whose name is `hanzogui` (bare) or `@hanzogui/*`.

@@ -1,5 +1,5 @@
 # local build dockerfile - uses bento from ../bento
-# build from PARENT directory: docker build -f tamagui5/Dockerfile.local -t tamagui-site .
+# build from PARENT directory: docker build -f hanzogui5/Dockerfile.local -t hanzogui-site .
 FROM node:22
 
 # install bun
@@ -17,10 +17,10 @@ ARG GITHUB_APP_CLIENT_ID
 ARG GITHUB_APP_SECRET
 ARG GITHUB_SPONSOR_WEBHOOK_SECRET
 ARG GITHUB_TOKEN
-ARG IS_TAMAGUI_DEV
+ARG IS_GUI_DEV
 ARG NEXT_PUBLIC_GITHUB_APP_ID
 ARG NEXT_PUBLIC_GITHUB_AUTH_CLIENT_ID
-ARG NEXT_PUBLIC_IS_TAMAGUI_DEV
+ARG NEXT_PUBLIC_IS_GUI_DEV
 ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
 ARG NEXT_PUBLIC_SUPABASE_URL
@@ -36,7 +36,7 @@ ARG TAKEOUT_RENEWAL_COUPON_ID
 ARG URL
 ARG ONE_SERVER_URL
 ARG APP_NAME
-ARG TAMAGUI_PRO_SECRET
+ARG GUI_PRO_SECRET
 ARG DEEPSEEK_API_KEY
 
 # install dependencies (sharp needs libvips for image processing)
@@ -46,14 +46,14 @@ WORKDIR /root
 
 # copy both repos
 COPY bento /root/bento
-COPY tamagui5 /root/tamagui
+COPY hanzogui5 /root/hanzogui
 
-WORKDIR /root/tamagui
+WORKDIR /root/hanzogui
 
 # init git (allow empty commit if nothing to commit)
 RUN git config --global user.email "you@example.com" && git config --global user.name "Docker Build" && git init . && git add -A && (git commit -m 'add' > /dev/null || true)
 
-# install tamagui deps first
+# install hanzogui deps first
 RUN bun install
 
 # setup bento - merge deps and symlink node_modules

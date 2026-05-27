@@ -33,13 +33,13 @@ const alias = {
 
 // @ts-ignore
 process.env.NODE_ENV = 'test'
-process.env.TAMAGUI_TARGET = 'web'
+process.env.GUI_TARGET = 'web'
 
 const defines = {
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   __DEV__: JSON.stringify(false),
   'process.env.DEBUG': JSON.stringify(process.env.DEBUG ?? ''),
-  'process.env.TAMAGUI_TARGET': JSON.stringify('web'),
+  'process.env.GUI_TARGET': JSON.stringify('web'),
 }
 
 async function extractStaticWebpackApp() {

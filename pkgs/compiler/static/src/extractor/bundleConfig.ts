@@ -459,7 +459,7 @@ export async function bundleConfig(props: HanzoguiOptions) {
         component.moduleName
 
       if (!component.moduleName) {
-        if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_TAMAGUI_DEV) {
+        if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_GUI_DEV) {
           console.warn(
             `⚠️ no module name found: ${component.moduleName} ${JSON.stringify(
               baseComponents
@@ -673,7 +673,7 @@ export async function loadComponentsInner(
         try {
           loaded = await attemptLoad({ forceExports: false })
         } catch (err2) {
-          if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
+          if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
             console.info(
               `\nHanzogui attempted but failed to dynamically optimize components in:\n  ${name}\n`
             )
@@ -824,7 +824,7 @@ export function loadComponentsInnerSync(
       try {
         return attemptLoad({ forceExports: false })
       } catch (err) {
-        if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
+        if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
           console.info(
             `\nHanzogui attempted but failed to dynamically optimize components in:\n  ${name}\n`
           )
@@ -882,9 +882,9 @@ function getComponentStaticConfigByName(name: string, exported: any) {
       }
     }
   } catch (err) {
-    if (process.env.TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD) {
+    if (process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD) {
       console.error(
-        `Hanzogui failed getting components from ${name} (Disable error by setting environment variable TAMAGUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
+        `Hanzogui failed getting components from ${name} (Disable error by setting environment variable GUI_ENABLE_WARN_DYNAMIC_LOAD=1)`
       )
       console.error(err)
     }

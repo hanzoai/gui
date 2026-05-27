@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 
 // FEATURE-1 shipped src/components/workflow/WorkflowStatusPill.tsx. The
-// component pulls in the hanzogui TamaguiProvider chain transitively
+// component pulls in the hanzogui HanzoguiProvider chain transitively
 // (Text/XStack/Badge), which under jsdom requires the full theme
 // extractor to have run. Wiring that up at the unit-test layer is
 // disproportionate to the value — the pill renders a single Badge with

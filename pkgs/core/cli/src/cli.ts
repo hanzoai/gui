@@ -45,7 +45,7 @@ const COMMAND_MAP = {
         loadHanzoguiOptions: true,
       })
       const { loadHanzogui } = require('@hanzogui/static/loadHanzogui')
-      process.env.TAMAGUI_KEEP_THEMES = '1'
+      process.env.GUI_KEEP_THEMES = '1'
       await loadHanzogui({
         ...options.hanzoguiOptions,
         platform: 'web',
@@ -81,7 +81,7 @@ const COMMAND_MAP = {
         flags['--output'] || options.hanzoguiOptions.outputCSS || './hanzogui.generated.css'
 
       const { loadHanzogui } = require('@hanzogui/static/loadHanzogui')
-      process.env.TAMAGUI_KEEP_THEMES = '1'
+      process.env.GUI_KEEP_THEMES = '1'
       await loadHanzogui({
         ...options.hanzoguiOptions,
         outputCSS: outputPath,

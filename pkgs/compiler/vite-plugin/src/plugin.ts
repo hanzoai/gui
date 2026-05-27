@@ -234,13 +234,13 @@ export function hanzoguiPlugin({
       }
 
       return {
-        envPrefix: ['TAMAGUI_'],
+        envPrefix: ['GUI_'],
 
         environments: {
           client: {
             define: {
-              'process.env.TAMAGUI_IS_CLIENT': JSON.stringify(true),
-              'process.env.TAMAGUI_ENVIRONMENT': '"client"',
+              'process.env.GUI_IS_CLIENT': JSON.stringify(true),
+              'process.env.GUI_ENVIRONMENT': '"client"',
             },
           },
         },
@@ -255,7 +255,7 @@ export function hanzoguiPlugin({
           'process.env.ENABLE_STEPS': JSON.stringify(process.env.ENABLE_STEPS || ''),
           'process.env.IS_STATIC': JSON.stringify(false),
           ...(env.mode === 'production' && {
-            'process.env.TAMAGUI_OPTIMIZE_THEMES': JSON.stringify(true),
+            'process.env.GUI_OPTIMIZE_THEMES': JSON.stringify(true),
           }),
         },
         resolve:
@@ -432,7 +432,7 @@ export function hanzoguiPlugin({
         // check cache first
         const cached = memoryCache[cacheKey]
         if (cached) {
-          if (process.env.DEBUG_TAMAGUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
               `[hanzogui-cache] HIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
             )
@@ -443,7 +443,7 @@ export function hanzoguiPlugin({
         // check if another request is already extracting this file
         const pendingExtraction = pending.get(cacheKey)
         if (pendingExtraction) {
-          if (process.env.DEBUG_TAMAGUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
               `[hanzogui-cache] WAIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
             )
@@ -455,7 +455,7 @@ export function hanzoguiPlugin({
           return
         }
 
-        if (process.env.DEBUG_TAMAGUI_CACHE) {
+        if (process.env.DEBUG_GUI_CACHE) {
           console.info(
             `[hanzogui-cache] EXTRACT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
           )
@@ -472,7 +472,7 @@ export function hanzoguiPlugin({
               shouldPrintDebug,
             })
           } catch (err) {
-            if (process.env.DEBUG_TAMAGUI_CACHE) {
+            if (process.env.DEBUG_GUI_CACHE) {
               console.info(
                 `[hanzogui-cache] ERROR extracting ${id.split('/').pop()}:`,
                 err
@@ -483,7 +483,7 @@ export function hanzoguiPlugin({
           }
 
           if (!extracted) {
-            if (process.env.DEBUG_TAMAGUI_CACHE) {
+            if (process.env.DEBUG_GUI_CACHE) {
               console.info(
                 `[hanzogui-cache] no extraction result for ${id.split('/').pop()}`
               )
@@ -525,7 +525,7 @@ export function hanzoguiPlugin({
           }
           memoryCache[cacheKey] = cacheEntry
 
-          if (process.env.DEBUG_TAMAGUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
               `[hanzogui-cache] WRITE key=${cacheKey.slice(0, 8)} cacheSize=${Object.keys(memoryCache).length}`
             )

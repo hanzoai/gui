@@ -301,7 +301,7 @@ export interface PortalHostProps {
 const defaultRenderer = (children) => <>{children}</>
 
 export const PortalHost = memo(function PortalHost(props: PortalHostProps) {
-  if (process.env.TAMAGUI_TARGET === 'web') {
+  if (process.env.GUI_TARGET === 'web') {
     return <PortalHostWeb {...props} />
   } else {
     const portalState = getPortal().state

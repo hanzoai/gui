@@ -1,8 +1,8 @@
-// Tamagui config for Hanzo Base admin UI.
+// Hanzogui config for Hanzo Base admin UI.
 //
 // Same shape as admin-tasks — uses @hanzogui/config v5 default so
 // runtime theme registry resolves. Brand recoloring lives in
-// src/index.css as CSS variables layered over Tamagui's `dark` theme.
+// src/index.css as CSS variables layered over Hanzogui's `dark` theme.
 //
 // IMPORTANT: imports from `hanzogui` (workspace umbrella). The static
 // extractor copies this file into `.hanzogui/` at build time and

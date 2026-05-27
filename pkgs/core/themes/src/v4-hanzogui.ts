@@ -282,6 +282,6 @@ export type HanzoguiThemes = typeof themes
  * So long as you server render your Hanzogui CSS, this will save you bundle size:
  */
 export const hanzoguiThemes: HanzoguiThemes =
-  process.env.TAMAGUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
+  process.env.GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
     ? ({} as any)
     : (themes as any)

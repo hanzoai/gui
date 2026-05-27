@@ -1,4 +1,4 @@
-process.env.TAMAGUI_TARGET = 'web'
+process.env.GUI_TARGET = 'web'
 
 import { describe, expectTypeOf, test } from 'vitest'
 import { createHanzogui, type AnimationDriver, type InferHanzoguiConfig } from '../core/src'

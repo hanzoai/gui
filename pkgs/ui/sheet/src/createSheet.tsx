@@ -256,7 +256,7 @@ export function createSheet<
     let SheetImplementation = SheetImplementationCustom
 
     if (props.native && Platform.OS === 'ios') {
-      if (process.env.TAMAGUI_TARGET === 'native') {
+      if (process.env.GUI_TARGET === 'native') {
         const impl = getNativeSheet('ios')
         if (impl) {
           // @ts-expect-error accepting external sheet implementation

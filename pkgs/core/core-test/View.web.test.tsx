@@ -1,4 +1,4 @@
-process.env.TAMAGUI_TARGET = 'web'
+process.env.GUI_TARGET = 'web'
 
 import { getDefaultHanzoguiConfig } from '@hanzogui/config-default'
 import { render } from '@testing-library/react'

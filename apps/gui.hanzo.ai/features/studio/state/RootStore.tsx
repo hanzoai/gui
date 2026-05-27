@@ -1,8 +1,8 @@
 import type { ThemeDefinition } from '@hanzogui/theme-builder'
 import { createStore } from '@hanzogui/use-store'
-import type { HanzoguiInternalConfig, ThemeName } from 'hanzogui'
+import type { GuiInternalConfig, ThemeName } from 'hanzogui'
 import { isLocal } from '~/features/studio/constants'
-// import { watchHanzoguiDirectory } from '../helpers/watchHanzoguiDirectory'
+// import { watchGuiDirectory } from '../helpers/watchGuiDirectory'
 import { toastController } from '../ToastProvider'
 import type { Components, DialogTypes, StudioDialogProps } from './types'
 
@@ -32,7 +32,7 @@ export class RootStore {
     })
 
     if (isLocal) {
-      await this.reloadHanzoguiConfig()
+      await this.reloadGuiConfig()
     }
   }
 
@@ -46,7 +46,7 @@ export class RootStore {
   dialog: keyof DialogTypes = 'none'
   dialogProps: StudioDialogProps = {}
 
-  config: null | HanzoguiInternalConfig = null
+  config: null | GuiInternalConfig = null
   themes: null | ThemesConfig = null
 
   components = {
@@ -55,25 +55,25 @@ export class RootStore {
 
   unwatchPreviousFileWatch?: () => void
 
-  async reloadHanzoguiConfig() {
+  async reloadGuiConfig() {
     if (isLocal) {
       console.warn(`⚠️ disabled RootStore for now`)
       return
 
       // const domain = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8081'
       // const [configJson, themesJson] = await Promise.all([
-      //   fetch(`${domain}/api/hanzogui.config.json`).then((res) => res.json()),
+      //   fetch(`${domain}/api/gui.config.json`).then((res) => res.json()),
       //   fetch(`${domain}/api/gui.themes.json`).then((res) => res.json()),
       // ])
 
-      // await this.onReloadedHanzoguiConfig(configJson)
+      // await this.onReloadedGuiConfig(configJson)
       // this.themes = themesJson
     } else {
       // TODO
       // try {
       //   this.unwatchPreviousFileWatch?.()
-      //   this.unwatchPreviousFileWatch = await watchHanzoguiDirectory((data) => {
-      //     this.onReloadedHanzoguiConfig(data.config)
+      //   this.unwatchPreviousFileWatch = await watchGuiDirectory((data) => {
+      //     this.onReloadedGuiConfig(data.config)
       //     this.projectName = data.projectName
       //     this.fsReadSucceeded = true
       //   })
@@ -94,8 +94,8 @@ export class RootStore {
     return null
   }
 
-  async onReloadedHanzoguiConfig(config: {
-    guiConfig: HanzoguiInternalConfig
+  async onReloadedGuiConfig(config: {
+    guiConfig: GuiInternalConfig
     components: Components
   }) {
     toastController.show('Config Updated.', {
@@ -114,7 +114,7 @@ export class RootStore {
       // @ts-ignore
       this.config = config.guiConfig.config
     } else {
-      const guiConfig = config.guiConfig as HanzoguiInternalConfig
+      const guiConfig = config.guiConfig as GuiInternalConfig
       this.config = guiConfig
     }
   }

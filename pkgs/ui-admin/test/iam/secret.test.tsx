@@ -97,7 +97,7 @@ describe('IAM edit pages — secret fields are write-only', () => {
 
     if (file.requireSecureTextEntry) {
       it(`${file.path} declares a masked secret input`, () => {
-        // Either a hanzogui Input with `secureTextEntry` (federation /
+        // Either a gui Input with `secureTextEntry` (federation /
         // policy) or a Field with `type="password"` (auth bucket which
         // wraps Input via primitives). Both render a `<input type=
         // "password">` underneath.

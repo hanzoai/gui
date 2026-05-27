@@ -1,4 +1,4 @@
-import { LogoWords, setTintFamily, HanzoguiLogo, ThemeTint, useTint } from '@hanzogui/logo'
+import { LogoWords, setTintFamily, GuiLogo, ThemeTint, useTint } from '@hanzogui/logo'
 import { Check, ExternalLink, Figma, LogIn, Menu } from '@hanzogui/lucide-icons-2'
 import { isTouchable, useGet, useMedia } from '@hanzogui/web'
 import { useFocusEffect, usePathname, useRouter } from 'one'
@@ -267,7 +267,7 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
                   },
                 })}
               >
-                <HanzoguiLogo downscale={2.6} />
+                <GuiLogo downscale={2.6} />
               </YStack>
             </SeasonTogglePopover>
             <LogoWords animated />

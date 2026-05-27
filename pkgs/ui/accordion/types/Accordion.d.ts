@@ -1,5 +1,5 @@
 import { Collapsible } from '@hanzogui/collapsible';
-import type { GetProps, HanzoguiElement } from '@hanzogui/core';
+import type { GetProps, GuiElement } from '@hanzogui/core';
 import { View } from '@hanzogui/core';
 import { H1 } from '@hanzogui/text';
 import * as React from 'react';
@@ -51,7 +51,7 @@ interface AccordionImplMultipleProps extends AccordionImplProps {
      */
     onValueChange?(value: string[]): void;
 }
-type AccordionImplElement = HanzoguiElement;
+type AccordionImplElement = GuiElement;
 type PrimitiveDivProps = GetProps<typeof View>;
 interface AccordionImplProps extends PrimitiveDivProps {
     /**
@@ -90,18 +90,18 @@ interface AccordionItemProps extends Omit<CollapsibleProps, 'open' | 'defaultOpe
 }
 type PrimitiveHeading3Props = React.ComponentPropsWithoutRef<typeof H1>;
 type AccordionHeaderProps = PrimitiveHeading3Props;
-declare const AccordionTriggerFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+declare const AccordionTriggerFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 type AccordionTriggerProps = GetProps<typeof AccordionTriggerFrame>;
-declare const AccordionContentFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps, import("@hanzogui/core").StackStyleBase, {
+declare const AccordionContentFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 type AccordionContentProps = GetProps<typeof AccordionContentFrame>;
 declare const Accordion: React.ForwardRefExoticComponent<ScopedProps<AccordionSingleProps | AccordionMultipleProps> & React.RefAttributes<AccordionElement>> & {
-    Trigger: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    Trigger: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }>, HanzoguiElement, import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, GuiElement, import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
     Header: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/core").TextNonStyleProps, "unstyled" | "size" | keyof import("@hanzogui/core").TextStylePropsBase> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").TextStylePropsBase> & {
@@ -113,14 +113,14 @@ declare const Accordion: React.ForwardRefExoticComponent<ScopedProps<AccordionSi
     } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").TextStylePropsBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/core").FontSizeTokens | undefined;
-    }>> & React.RefAttributes<import("@hanzogui/core").HanzoguiTextElement>, "ref"> & React.RefAttributes<(HTMLElement & import("@hanzogui/core").HanzoguiElementMethods) | import("react-native").Text>>;
-    Content: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>> & React.RefAttributes<import("@hanzogui/core").GuiTextElement>, "ref"> & React.RefAttributes<(HTMLElement & import("@hanzogui/core").GuiElementMethods) | import("react-native").Text>>;
+    Content: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }>, HanzoguiElement, import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, GuiElement, import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps & void, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Item: React.ForwardRefExoticComponent<AccordionItemProps & React.RefAttributes<(HTMLElement & import("@hanzogui/core").HanzoguiElementMethods) | import("react-native").View>>;
-    HeightAnimator: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {}, {}>;
+    Item: React.ForwardRefExoticComponent<AccordionItemProps & React.RefAttributes<(HTMLElement & import("@hanzogui/core").GuiElementMethods) | import("react-native").View>>;
+    HeightAnimator: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {}, {}>;
 };
 export { Accordion };
 export type { AccordionContentProps, AccordionHeaderProps, AccordionItemProps, AccordionMultipleProps, AccordionSingleProps, AccordionTriggerProps, };

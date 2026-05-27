@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'node:path'
 
 // Standalone vitest config — we intentionally do NOT extend vite.config.ts
-// because the hanzogui static-extractor plugin requires a workspace
+// because the gui static-extractor plugin requires a workspace
 // gui.config.ts at runtime which is unrelated to test execution. Tests
 // only need React JSX support + jsdom.
 export default defineConfig({

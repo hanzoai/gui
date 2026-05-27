@@ -1,14 +1,14 @@
 export const ProductName = {
-  HanzoguiPro: 'Hanzogui Pro',
-  HanzoguiProV2: 'Hanzogui Pro V2', // V2 per-project license
-  HanzoguiProV2Upgrade: 'Hanzogui Pro V2 Upgrade', // V2 yearly renewal
-  HanzoguiChat: 'Hanzogui Chat',
-  HanzoguiSupport: 'Hanzogui Support',
-  HanzoguiSupportDirect: 'Hanzogui Support Direct', // V2 direct support
-  HanzoguiSupportSponsor: 'Hanzogui Support Sponsor', // V2 sponsor support
-  HanzoguiProTeamSeats: 'Hanzogui Pro Team Seats',
-  HanzoguiBento: 'Bento',
-  HanzoguiTakeoutStack: 'Takeout Stack',
+  GuiPro: 'Gui Pro',
+  GuiProV2: 'Gui Pro V2', // V2 per-project license
+  GuiProV2Upgrade: 'Gui Pro V2 Upgrade', // V2 yearly renewal
+  GuiChat: 'Gui Chat',
+  GuiSupport: 'Gui Support',
+  GuiSupportDirect: 'Gui Support Direct', // V2 direct support
+  GuiSupportSponsor: 'Gui Support Sponsor', // V2 sponsor support
+  GuiProTeamSeats: 'Gui Pro Team Seats',
+  GuiBento: 'Bento',
+  GuiTakeoutStack: 'Takeout Stack',
 } as const
 
 export const ProductSlug = {

@@ -7,7 +7,7 @@ import { getGestureHandler } from '@hanzogui/native'
 import React, { useRef } from 'react'
 import { Platform, View } from 'react-native'
 import { useMainThreadPressEvents } from './helpers/mainThreadPressEvents'
-import type { StaticConfig, HanzoguiComponentStateRef } from './types'
+import type { StaticConfig, GuiComponentStateRef } from './types'
 
 // web events not used on native
 export function getWebEvents() {
@@ -17,7 +17,7 @@ export function getWebEvents() {
 export function useEvents(
   events: any,
   viewProps: any,
-  stateRef: { current: HanzoguiComponentStateRef },
+  stateRef: { current: GuiComponentStateRef },
   staticConfig: StaticConfig,
   isHOC?: boolean,
   isInsideNativeMenu?: boolean,
@@ -78,7 +78,7 @@ export function useEvents(
   // _internalInstanceHandle on a null native view). By passing events down, the inner
   // component handles gesture detection at its own level.
   //
-  // Composite component special case - when styled() wraps a non-Hanzogui component
+  // Composite component special case - when styled() wraps a non-Gui component
   // (e.g. React.forwardRef), the elementType becomes that composite component.
   // GestureDetector/responder wrapping around a composite component breaks during
   // re-renders triggered by pressStyle state changes (the gesture/responder loses
@@ -168,7 +168,7 @@ export function useEvents(
 export function wrapWithGestureDetector(
   content: any,
   gesture: any,
-  stateRef: { current: HanzoguiComponentStateRef },
+  stateRef: { current: GuiComponentStateRef },
   isHOC?: boolean,
   isCompositeComponent?: boolean
 ) {

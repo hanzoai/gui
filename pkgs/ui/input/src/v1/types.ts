@@ -1,7 +1,7 @@
 import type {
   ColorTokens,
   ViewProps,
-  HanzoguiComponentPropsBase,
+  GuiComponentPropsBase,
   TextProps,
 } from '@hanzogui/web'
 import type { TextInputProps, InputModeOptions } from 'react-native'
@@ -53,7 +53,7 @@ export type InputProps = ViewProps &
     inputMode?: InputModeOptions
     placeholderTextColor?: ColorTokens
     selectionColor?: ColorTokens
-    render?: HanzoguiComponentPropsBase['render']
+    render?: GuiComponentPropsBase['render']
     /**
      * @deprecated - use `render='textarea'` instead
      */

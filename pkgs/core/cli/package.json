@@ -18,10 +18,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-native",
+    "build": "gui-build --skip-native",
     "watch": "bun run build --skip-native --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build",
     "test": "vitest run",
     "test:web": "bun run test"
   },

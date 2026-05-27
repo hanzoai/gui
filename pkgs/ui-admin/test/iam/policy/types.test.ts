@@ -1,5 +1,5 @@
 // Smoke tests for the policy bucket. Most of the bucket is JSX
-// against `hanzogui` primitives that don't have a resolvable
+// against `gui` primitives that don't have a resolvable
 // peer in this isolated package — we'd need a workspace-wide
 // install for those. Tests here cover the pure-logic surface:
 // `validateModelText`, the type re-exports, and the URL contracts

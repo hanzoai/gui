@@ -49,7 +49,7 @@ export interface BundleOptions {
 }
 
 /**
- * Bundle a Hanzogui package for React Native using Vite
+ * Bundle a Gui package for React Native using Vite
  */
 export async function bundleNative(options: BundleOptions): Promise<void> {
   const {
@@ -125,7 +125,7 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
     build: {
       lib: {
         entry: entryPath,
-        name: 'HanzoguiNativeBundle',
+        name: 'GuiNativeBundle',
         fileName: () => fileName,
         formats: ['cjs'],
       },

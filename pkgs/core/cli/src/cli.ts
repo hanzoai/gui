@@ -31,7 +31,7 @@ const COMMAND_MAP = {
   },
 
   generate: {
-    description: `Builds your entire hanzogui configuration and outputs any CSS.`,
+    description: `Builds your entire gui configuration and outputs any CSS.`,
     shorthands: [],
     flags: {
       '--help': Boolean,
@@ -42,16 +42,16 @@ const COMMAND_MAP = {
       const { _, ...flags } = arg(this.flags)
       const options = await getOptions({
         debug: flags['--debug'] ? (flags['--verbose'] ? 'verbose' : true) : false,
-        loadHanzoguiOptions: true,
+        loadGuiOptions: true,
       })
-      const { loadHanzogui } = require('@hanzogui/static/loadHanzogui')
+      const { loadGui } = require('@hanzogui/static/loadGui')
       process.env.GUI_KEEP_THEMES = '1'
-      await loadHanzogui({
-        ...options.hanzoguiOptions,
+      await loadGui({
+        ...options.guiOptions,
         platform: 'web',
       })
 
-      // also generate prompt to .hanzogui/prompt.md
+      // also generate prompt to .gui/prompt.md
       const { generatePrompt } = require('./generate-prompt')
       const { join } = require('node:path')
       await generatePrompt({
@@ -63,7 +63,7 @@ const COMMAND_MAP = {
 
   'generate-css': {
     shorthands: [],
-    description: `Generate the hanzogui.generated.css file from your config`,
+    description: `Generate the gui.generated.css file from your config`,
     flags: {
       '--help': Boolean,
       '--debug': Boolean,
@@ -74,16 +74,16 @@ const COMMAND_MAP = {
       const { _, ...flags } = arg(this.flags)
       const options = await getOptions({
         debug: flags['--debug'] ? (flags['--verbose'] ? 'verbose' : true) : false,
-        loadHanzoguiOptions: true,
+        loadGuiOptions: true,
       })
 
       const outputPath =
-        flags['--output'] || options.hanzoguiOptions.outputCSS || './hanzogui.generated.css'
+        flags['--output'] || options.guiOptions.outputCSS || './gui.generated.css'
 
-      const { loadHanzogui } = require('@hanzogui/static/loadHanzogui')
+      const { loadGui } = require('@hanzogui/static/loadGui')
       process.env.GUI_KEEP_THEMES = '1'
-      await loadHanzogui({
-        ...options.hanzoguiOptions,
+      await loadGui({
+        ...options.guiOptions,
         outputCSS: outputPath,
         platform: 'web',
       })
@@ -148,7 +148,7 @@ const COMMAND_MAP = {
 
   build: {
     shorthands: ['b'],
-    description: `Use to pre-build a Hanzogui component directory. Use -- to run a command after optimization, then auto-restore files.`,
+    description: `Use to pre-build a Gui component directory. Use -- to run a command after optimization, then auto-restore files.`,
     flags: {
       '--help': Boolean,
       '--debug': Boolean,
@@ -205,7 +205,7 @@ const COMMAND_MAP = {
 
   upgrade: {
     shorthands: ['up'],
-    description: `Upgrade all hanzogui packages in your workspace to the latest version`,
+    description: `Upgrade all gui packages in your workspace to the latest version`,
     flags: {
       '--help': Boolean,
       '--debug': Boolean,
@@ -250,7 +250,7 @@ const COMMAND_MAP = {
 
   'generate-prompt': {
     shorthands: [],
-    description: `Generate an LLM-friendly markdown file from your Hanzogui config`,
+    description: `Generate an LLM-friendly markdown file from your Gui config`,
     flags: {
       '--help': Boolean,
       '--debug': Boolean,
@@ -261,7 +261,7 @@ const COMMAND_MAP = {
       const { generatePrompt } = require('./generate-prompt')
       const options = await getOptions({
         debug: flags['--debug'] ? true : false,
-        loadHanzoguiOptions: true,
+        loadGuiOptions: true,
       })
       await generatePrompt({
         ...options,
@@ -307,7 +307,7 @@ if (flags['--version']) {
 }
 
 if (!command && flags['--help']) {
-  console.info(`$ hanzogui
+  console.info(`$ gui
 
 commands:
 
@@ -331,7 +331,7 @@ main()
 
 async function main() {
   if (flags['--help']) {
-    console.info(`\n$ hanzogui ${command}: ${definition.description}\n`)
+    console.info(`\n$ gui ${command}: ${definition.description}\n`)
     console.info(
       `Flags: ${Object.entries(definition.flags).map(([k, v]) => `${k} (${v.name})`)}`
     )
@@ -342,7 +342,7 @@ async function main() {
 
   // help for any command
   if (cmdFlags['--help']) {
-    console.info(`$ hanzogui ${_}
+    console.info(`$ gui ${_}
 
     Flags: ${JSON.stringify(cmdFlags, null, 2)}
 

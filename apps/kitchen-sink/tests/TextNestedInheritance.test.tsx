@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
   await setupPage(page, { name: 'TextNestedInheritance', type: 'useCase' })
 })
 
-test(`nested hanzogui Text does NOT inherit color (sets own theme color)`, async ({
+test(`nested gui Text does NOT inherit color (sets own theme color)`, async ({
   page,
 }) => {
   const parentStyles = await getStyles(page.getByTestId('parent-color').first())
@@ -16,7 +16,7 @@ test(`nested hanzogui Text does NOT inherit color (sets own theme color)`, async
   // parent should have blue color
   expect(parentStyles.color).toBe('rgb(0, 0, 255)')
 
-  // nested hanzogui Text sets color: '$color' so should NOT be blue
+  // nested gui Text sets color: '$color' so should NOT be blue
   expect(nestedStyles.color).not.toBe(parentStyles.color)
 })
 

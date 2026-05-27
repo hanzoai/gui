@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # deprecate-pre-7.sh
 #
-# Deprecate every published hanzogui / @hanzogui/* version below 7.0.0 in
+# Deprecate every published gui / @hanzogui/* version below 7.0.0 in
 # one pass. Idempotent — safe to re-run if interrupted.
 #
 # Lifting deprecation later: `npm deprecate <pkg>@<version> ""` (empty msg).
@@ -10,13 +10,13 @@
 
 set -euo pipefail
 
-MSG="Use 7.x — synced to upstream hanzogui 2.0.0"
+MSG="Use 7.x — synced to upstream gui 2.0.0"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
-# Collect every workspace package whose name is `hanzogui` (bare) or `@hanzogui/*`.
+# Collect every workspace package whose name is `gui` (bare) or `@hanzogui/*`.
 PKGS=$(find "$ROOT/code" -maxdepth 3 -name "package.json" -not -path "*/node_modules/*" \
        | xargs jq -r '.name // empty' \
-       | grep -E "^hanzogui$|^@hanzogui/" \
+       | grep -E "^gui$|^@hanzogui/" \
        | sort -u)
 
 count=$(echo "$PKGS" | wc -l)

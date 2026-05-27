@@ -1,5 +1,5 @@
 import React from 'react'
-import type { HanzoguiElement } from '@hanzogui/core'
+import type { GuiElement } from '@hanzogui/core'
 import { useConfiguration } from '@hanzogui/core'
 import { useConstant } from '@hanzogui/use-constant'
 import { useControllableState } from '@hanzogui/use-controllable-state'
@@ -18,8 +18,8 @@ export function useSheetProviderProps(
     onOverlayComponent?: (comp: any) => void
   } = {}
 ) {
-  const handleRef = React.useRef<HanzoguiElement>(null)
-  const contentRef = React.useRef<HanzoguiElement>(null)
+  const handleRef = React.useRef<GuiElement>(null)
+  const contentRef = React.useRef<GuiElement>(null)
   const [frameSize, setFrameSize] = React.useState<number>(0)
   const [maxContentSize, setMaxContentSize] = React.useState<number>(0)
   const snapPointsMode = props.snapPointsMode ?? 'percent'
@@ -133,7 +133,7 @@ export function useSheetProviderProps(
     throw new Error(
       process.env.NODE_ENV === 'production'
         ? `❌ 008`
-        : 'Must set animations in hanzogui.config.ts'
+        : 'Must set animations in gui.config.ts'
     )
   }
 

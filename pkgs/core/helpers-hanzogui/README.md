@@ -1,1 +1,1 @@
-This is a superset of @hanzogui/helpers with extra utilities used by `hanzogui`
+This is a superset of @hanzogui/helpers with extra utilities used by `gui`

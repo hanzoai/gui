@@ -9,13 +9,13 @@ run kitchen-sink:web in the bg!!!!!!! ON PORT 7979!!!!!!!!!!!!!!
 
 ## Vision
 
-Build the best toast component for React Native/Web - combining Sonner's polish and UX details with Base UI's composability, implemented in pure Hanzogui style with cross-platform gesture handling.
+Build the best toast component for React Native/Web - combining Sonner's polish and UX details with Base UI's composability, implemented in pure Gui style with cross-platform gesture handling.
 
 ---
 
 ## Core Principles
 
-1. **Hanzogui-first**: No CSS animations, use `useAnimatedNumber`/`useAnimatedNumberStyle` for interactive + animations
+1. **Gui-first**: No CSS animations, use `useAnimatedNumber`/`useAnimatedNumberStyle` for interactive + animations
 2. **Cross-driver animations**: Works with CSS, RN Animated, Reanimated, and Motion drivers
 3. **Composable API**: Base UI-style compound components for full customization
 4. **Premium UX**: Sonner-level polish - resistance physics, velocity-based dismissal, smooth stacking
@@ -195,11 +195,11 @@ Three levels of animation, all cross-driver compatible:
 
 1. **AnimatePresence** → enter/exit styles (enterStyle, exitStyle)
    - Used for: toast appearing/disappearing
-   - Cross-driver: yes (handled by Hanzogui core)
+   - Cross-driver: yes (handled by Gui core)
 
 2. **transition prop** → non-interactive animations
    - Used for: stacking position changes, scale, opacity
-   - Cross-driver: yes (handled by Hanzogui core)
+   - Cross-driver: yes (handled by Gui core)
    - Example: `transition="quick"` on ToastItemFrame
 
 3. **useAnimatedNumber/Style** → interactive animations (with gesture responder)

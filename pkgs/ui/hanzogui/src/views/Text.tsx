@@ -1,6 +1,6 @@
-import { Text as HanzoguiText, styled } from '@hanzogui/core'
+import { Text as GuiText, styled } from '@hanzogui/core'
 
-export const Text = styled(HanzoguiText, {
+export const Text = styled(GuiText, {
   variants: {
     unstyled: {
       false: {
@@ -10,6 +10,6 @@ export const Text = styled(HanzoguiText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })

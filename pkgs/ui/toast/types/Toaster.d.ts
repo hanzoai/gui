@@ -2,7 +2,7 @@
  * Toaster — drop-in all-in-one toast component.
  * Thin wrapper around Toast + Toast.Viewport + Toast.List (composable API).
  */
-import type { HanzoguiElement } from '@hanzogui/core';
+import type { GuiElement } from '@hanzogui/core';
 import * as React from 'react';
 import type { ToastPosition } from './ToastComposable';
 import type { SwipeDirection } from './ToastProvider';
@@ -108,5 +108,5 @@ export interface ToasterProps {
      */
     reducedMotion?: boolean;
 }
-export declare const Toaster: React.ForwardRefExoticComponent<ToasterProps & React.RefAttributes<HanzoguiElement>>;
+export declare const Toaster: React.ForwardRefExoticComponent<ToasterProps & React.RefAttributes<GuiElement>>;
 //# sourceMappingURL=Toaster.d.ts.map

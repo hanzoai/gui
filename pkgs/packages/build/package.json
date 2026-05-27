@@ -3,7 +3,7 @@
   "version": "7.2.3",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "bin": {
-    "hanzogui-build": "hanzogui-build.js",
+    "gui-build": "gui-build.js",
     "teesx": "./teesx.sh"
   },
   "publishConfig": {

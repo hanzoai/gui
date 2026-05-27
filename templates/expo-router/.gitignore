@@ -33,7 +33,7 @@ node_modules
 
 .next
 .vercel
-.hanzogui
+.gui
 .idea
 
 .env

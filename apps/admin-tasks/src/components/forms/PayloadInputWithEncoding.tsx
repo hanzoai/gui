@@ -167,8 +167,8 @@ function EncodingSelect({
   onChange: (v: PayloadEncoding) => void
   disabled?: boolean
 }) {
-  // hanzogui has no Select primitive yet (see WorkflowSearchBar etc.);
-  // a native <select> nested inside a hanzogui XStack styles cleanly
+  // gui has no Select primitive yet (see WorkflowSearchBar etc.);
+  // a native <select> nested inside a gui XStack styles cleanly
   // enough and stays a11y-friendly without extra deps.
   return (
     <select

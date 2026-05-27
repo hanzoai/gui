@@ -2,13 +2,13 @@ import { stylePropsTextOnly, validStyles } from '@hanzogui/helpers'
 
 import { createComponent } from '../createComponent'
 import type {
-  HanzoguiTextElement,
+  GuiTextElement,
   TextNonStyleProps,
   TextProps,
   TextStylePropsBase,
 } from '../types'
 
-export type Text = HanzoguiTextElement
+export type Text = GuiTextElement
 
 const ellipsisStyle =
   process.env.GUI_TARGET === 'web'

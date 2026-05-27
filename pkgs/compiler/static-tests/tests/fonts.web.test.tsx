@@ -30,7 +30,7 @@ test('font family across media queries', async () => {
   `,
     {
       options: {
-        components: ['hanzogui'],
+        components: ['gui'],
       },
     }
   )

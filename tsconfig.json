@@ -4,7 +4,7 @@
     "rootDir": ".",
     "paths": {
       "@hanzo/gui": [
-        "pkgs/ui/gui"
+        "pkgs/ui/hanzogui"
       ],
       "@hanzogui/*": [
         "pkgs/core/*",
@@ -187,7 +187,7 @@
       "path": "pkgs/core/helpers-node"
     },
     {
-      "path": "pkgs/core/helpers-gui"
+      "path": "pkgs/core/helpers-hanzogui"
     },
     {
       "path": "pkgs/core/helpers"

@@ -1,7 +1,7 @@
 // Local form primitives for the IAM auth bucket. Mirrors the shape
 // of `iam/identity/Field.tsx` but lives in this bucket so the auth
 // surface doesn't reach into a sibling bucket. Tiny — vertical label
-// + control + error/hint. Selects use hanzogui's `Select`; we never
+// + control + error/hint. Selects use gui's `Select`; we never
 // fall back to native HTML `<select>`.
 
 import type { ReactNode } from 'react'

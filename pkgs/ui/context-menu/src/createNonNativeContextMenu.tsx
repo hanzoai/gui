@@ -8,7 +8,7 @@ import {
   isAndroid,
   isWeb,
   Slot,
-  type HanzoguiElement,
+  type GuiElement,
   View,
   type ViewProps,
   withStaticProperties,
@@ -35,7 +35,7 @@ type ContextMenuOpenChangeEvent = {
 
 type ContextMenuContextValue = {
   triggerId: string
-  triggerRef: React.RefObject<HanzoguiElement | null>
+  triggerRef: React.RefObject<GuiElement | null>
   contentId: string
   open: boolean
   onOpenChange(open: boolean, event?: ContextMenuOpenChangeEvent): void
@@ -105,7 +105,7 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
   const ContextMenuComp = (props: ScopedProps<ContextMenuProps>) => {
     const { scope, children, onOpenChange, dir, modal = true, ...rest } = props
     const [open, setOpen] = React.useState(false)
-    const triggerRef = React.useRef<HanzoguiElement>(null)
+    const triggerRef = React.useRef<GuiElement>(null)
 
     const handleOpenChange = React.useCallback(
       (open: boolean, event?: ContextMenuOpenChangeEvent) => {
@@ -359,7 +359,7 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
   const ITEM_NAME = 'ContextMenuItem'
 
   const ContextMenuItem = React.forwardRef<
-    HanzoguiElement,
+    GuiElement,
     ScopedProps<ContextMenuItemProps>
   >((props, forwardedRef) => {
     const { scope, ...itemProps } = props
@@ -382,7 +382,7 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
   const CHECKBOX_ITEM_NAME = 'ContextMenuCheckboxItem'
 
   const ContextMenuCheckboxItem = React.forwardRef<
-    HanzoguiElement,
+    GuiElement,
     ScopedProps<ContextMenuCheckboxItemProps>
   >((props, forwardedRef) => {
     const { scope, ...checkboxItemProps } = props
@@ -427,7 +427,7 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
   const RADIO_ITEM_NAME = 'ContextMenuRadioItem'
 
   const ContextMenuRadioItem = React.forwardRef<
-    HanzoguiElement,
+    GuiElement,
     ScopedProps<ContextMenuRadioItemProps>
   >((props, forwardedRef) => {
     const { scope, ...radioItemProps } = props
@@ -536,16 +536,16 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
             ? {
                 ...(props.style as object),
                 ...({
-                  '--hanzogui-context-menu-content-transform-origin':
-                    'var(--hanzogui-popper-transform-origin)',
-                  '--hanzogui-context-menu-content-available-width':
-                    'var(--hanzogui-popper-available-width)',
-                  '--hanzogui-context-menu-content-available-height':
-                    'var(--hanzogui-popper-available-height)',
-                  '--hanzogui-context-menu-trigger-width':
-                    'var(--hanzogui-popper-anchor-width)',
-                  '--hanzogui-context-menu-trigger-height':
-                    'var(--hanzogui-popper-anchor-height)',
+                  '--gui-context-menu-content-transform-origin':
+                    'var(--gui-popper-transform-origin)',
+                  '--gui-context-menu-content-available-width':
+                    'var(--gui-popper-available-width)',
+                  '--gui-context-menu-content-available-height':
+                    'var(--gui-popper-available-height)',
+                  '--gui-context-menu-trigger-width':
+                    'var(--gui-popper-anchor-width)',
+                  '--gui-context-menu-trigger-height':
+                    'var(--gui-popper-anchor-height)',
                 } as React.CSSProperties),
               }
             : null
@@ -563,7 +563,7 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
   const ARROW_NAME = 'ContextMenuArrow'
 
   const ContextMenuArrow = React.forwardRef<
-    HanzoguiElement,
+    GuiElement,
     ScopedProps<ContextMenuArrowProps>
   >((props, forwardedRef) => {
     const { scope, ...arrowProps } = props

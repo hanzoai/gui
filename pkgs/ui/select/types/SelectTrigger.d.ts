@@ -1,4 +1,4 @@
-import type { HanzoguiElement } from '@hanzogui/core';
+import type { GuiElement } from '@hanzogui/core';
 import type { ListItemProps } from '@hanzogui/list-item';
 import * as React from 'react';
 import type { SelectScopedProps } from './types';
@@ -23,5 +23,5 @@ export declare const SelectTrigger: React.ForwardRefExoticComponent<Omit<import(
     active?: boolean | undefined;
 }>> & import("@hanzogui/list-item").ListItemExtraProps & {
     scope?: import("./types").SelectScopes;
-} & React.RefAttributes<HanzoguiElement>>;
+} & React.RefAttributes<GuiElement>>;
 //# sourceMappingURL=SelectTrigger.d.ts.map

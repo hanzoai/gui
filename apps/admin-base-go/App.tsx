@@ -10,15 +10,15 @@
 
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { HanzoguiProvider } from 'hanzogui'
+import { GuiProvider } from 'hanzogui'
 import BaseAdminApp from '@hanzo/base-ui/App'
-import hanzoguiConfig from './gui.config'
+import guiConfig from './gui.config'
 
 function Provider({ children }: { children: React.ReactNode }) {
   return (
-    <HanzoguiProvider config={hanzoguiConfig} defaultTheme="light">
+    <GuiProvider config={guiConfig} defaultTheme="light">
       {children}
-    </HanzoguiProvider>
+    </GuiProvider>
   )
 }
 

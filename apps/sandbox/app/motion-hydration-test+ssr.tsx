@@ -3,7 +3,7 @@ import { AnimatePresence, YStack, isClient, useDidFinishSSR } from 'hanzogui'
 
 /**
  * Test case for motion hydration regression.
- * This mimics the HomeGlow pattern on hanzogui.dev:
+ * This mimics the HomeGlow pattern on gui.dev:
  * - AnimatePresence wrapping animated elements
  * - enterStyle for initial state
  * - transition for animations

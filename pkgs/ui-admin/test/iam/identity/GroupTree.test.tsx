@@ -8,9 +8,9 @@
 import { describe, expect, it, vi } from 'vitest'
 import { render } from '@testing-library/react'
 
-// ---- Stub hanzogui primitives ------------------------------------------
+// ---- Stub gui primitives ------------------------------------------
 
-vi.mock('hanzogui', () => {
+vi.mock('gui', () => {
   const React = require('react') as typeof import('react')
   const pass = (tag: string) =>
     React.forwardRef(function P(props: Record<string, unknown>, ref: unknown) {

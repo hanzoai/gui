@@ -1,4 +1,4 @@
-# This Dockerfile is used to run tests for the Hanzogui monorepo in a clean environment
+# This Dockerfile is used to run tests for the Gui monorepo in a clean environment
 # If CI is failing you can run bun run test:docker on your own machine to debug
 
 # syntax=docker/dockerfile:1.2

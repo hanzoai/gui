@@ -11,7 +11,7 @@ config.resolver.unstable_enablePackageExports =
 
 // block unnecessary directories from metro file crawling
 config.resolver.blockList = [
-  /code\/hanzogui\.dev\//,
+  /code\/gui\.dev\//,
   /code\/.*\/__tests__\//,
   /code\/.*\/\.maestro\//,
 ]
@@ -22,5 +22,5 @@ config.resolver.nodeModulesPaths = [
   path.resolve(monorepoRoot, 'node_modules'),
 ]
 
-// no withHanzogui, no unstable_conditionNames — same shape as kitchen-sink-go
+// no withGui, no unstable_conditionNames — same shape as kitchen-sink-go
 module.exports = config

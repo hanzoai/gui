@@ -84,9 +84,9 @@ module.exports = {
       // so we use BUILT_PRODUCTS_DIR to force the output location
       binaryPath:
         process.env.DETOX_IOS_APP_PATH ||
-        'ios/build/Build/Products/Debug-iphonesimulator/hanzoguikitchensink.app',
+        'ios/build/Build/Products/Debug-iphonesimulator/guikitchensink.app',
       build:
-        'xcodebuild -workspace ios/hanzoguikitchensink.xcworkspace -scheme hanzoguikitchensink -configuration Debug -sdk iphonesimulator SYMROOT="$(pwd)/ios/build/Build/Products" OBJROOT="$(pwd)/ios/build/Build/Intermediates.noindex"',
+        'xcodebuild -workspace ios/guikitchensink.xcworkspace -scheme guikitchensink -configuration Debug -sdk iphonesimulator SYMROOT="$(pwd)/ios/build/Build/Products" OBJROOT="$(pwd)/ios/build/Build/Intermediates.noindex"',
       // tell RCTBundleURLProvider where metro is (auto-detection fails with dev-client)
       launchArgs: {
         RCT_jsLocation: `localhost:${detoxMetroPort}`,
@@ -96,9 +96,9 @@ module.exports = {
       type: 'ios.app',
       binaryPath:
         process.env.DETOX_IOS_APP_PATH ||
-        'ios/build/Build/Products/Release-iphonesimulator/hanzoguikitchensink.app',
+        'ios/build/Build/Products/Release-iphonesimulator/guikitchensink.app',
       build:
-        'xcodebuild -workspace ios/hanzoguikitchensink.xcworkspace -scheme hanzoguikitchensink -configuration Release -sdk iphonesimulator SYMROOT="$(pwd)/ios/build/Build/Products" OBJROOT="$(pwd)/ios/build/Build/Intermediates.noindex"',
+        'xcodebuild -workspace ios/guikitchensink.xcworkspace -scheme guikitchensink -configuration Release -sdk iphonesimulator SYMROOT="$(pwd)/ios/build/Build/Products" OBJROOT="$(pwd)/ios/build/Build/Intermediates.noindex"',
     },
     'android.debug': {
       type: 'android.apk',

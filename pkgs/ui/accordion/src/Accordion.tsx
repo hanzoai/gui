@@ -2,7 +2,7 @@ import { Collapsible } from '@hanzogui/collapsible'
 import { createCollection } from '@hanzogui/collection'
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb } from '@hanzogui/constants'
-import type { GetProps, GetRef, HanzoguiElement } from '@hanzogui/core'
+import type { GetProps, GetRef, GuiElement } from '@hanzogui/core'
 import { View, createStyledContext, styled } from '@hanzogui/core'
 import { composeEventHandlers, withStaticProperties } from '@hanzogui/helpers'
 import { YStack } from '@hanzogui/stacks'
@@ -226,7 +226,7 @@ type AccordionImplContextValue = {
 const { Provider: AccordionImplProvider, useStyledContext: useAccordionContext } =
   createStyledContext<AccordionImplContextValue>()
 
-type AccordionImplElement = HanzoguiElement
+type AccordionImplElement = GuiElement
 type PrimitiveDivProps = GetProps<typeof View>
 interface AccordionImplProps extends PrimitiveDivProps {
   /**
@@ -499,7 +499,7 @@ const AccordionTriggerFrame = styled(Collapsible.Trigger, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -549,7 +549,7 @@ const AccordionContentFrame = styled(Collapsible.Content, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 

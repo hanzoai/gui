@@ -31,7 +31,7 @@ import {
   View,
   withStaticProperties,
 } from '@hanzogui/web'
-import type { HanzoguiElement } from '@hanzogui/web/types'
+import type { GuiElement } from '@hanzogui/web/types'
 import * as React from 'react'
 import { useId } from 'react'
 import type { Image, ImageProps } from 'react-native'
@@ -224,7 +224,7 @@ interface MenuItemProps extends Omit<MenuItemImplProps, 'onSelect'> {
   preventCloseOnSelect?: boolean
 }
 
-type MenuItemImplElement = HanzoguiElement
+type MenuItemImplElement = GuiElement
 
 interface MenuItemImplProps extends ViewProps {
   disabled?: boolean
@@ -708,7 +708,7 @@ export function createBaseMenu({
       onDismiss,
       disableOutsideScroll,
       disableDismissOnScroll = false,
-      unstyled = process.env.HANZOGUI_HEADLESS === '1',
+      unstyled = process.env.GUI_HEADLESS === '1',
       ...contentProps
     } = props
 
@@ -716,7 +716,7 @@ export function createBaseMenu({
     const rootContext = useMenuRootContext(scope)
     const getItems = useCollection(scope)
     const [currentItemId, setCurrentItemId] = React.useState<string | null>(null)
-    const contentRef = React.useRef<HanzoguiElement>(null)
+    const contentRef = React.useRef<GuiElement>(null)
     // the actual focusable content element (PopperContentFrame) differs from contentRef
     // due to PopperContent's wrapper structure, so we capture it on mount
     const focusableContentRef = React.useRef<HTMLElement | null>(null)
@@ -765,14 +765,14 @@ export function createBaseMenu({
 
     // capture the actual focusable content element on mount
     // PopperContent has a wrapper structure where the ref points to the outer
-    // HanzoguiView but props like tabIndex go to the inner PopperContentFrame
+    // GuiView but props like tabIndex go to the inner PopperContentFrame
     React.useEffect(() => {
       if (!isWeb || !context.open) return
       // use requestAnimationFrame to ensure DOM is ready
       const frame = requestAnimationFrame(() => {
         // scope the query to within this menu's content to avoid grabbing a submenu's element
         const container = contentRef.current as unknown as HTMLElement
-        const el = container?.querySelector('[data-hanzogui-menu-content]') as HTMLElement
+        const el = container?.querySelector('[data-gui-menu-content]') as HTMLElement
         if (el) focusableContentRef.current = el
       })
       return () => cancelAnimationFrame(frame)
@@ -822,7 +822,7 @@ export function createBaseMenu({
         })}
         aria-orientation="vertical"
         data-state={getOpenState(context.open)}
-        data-hanzogui-menu-content=""
+        data-gui-menu-content=""
         // TODO
         // @ts-ignore
         dir={rootContext.dir}
@@ -836,7 +836,7 @@ export function createBaseMenu({
                 // submenu key events bubble through portals. We only care about keys in this menu.
                 const target = event.target as HTMLElement
                 const isKeyDownInside =
-                  target.closest('[data-hanzogui-menu-content]') === event.currentTarget
+                  target.closest('[data-gui-menu-content]') === event.currentTarget
                 const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
                 const isCharacterKey = event.key.length === 1
                 if (isKeyDownInside) {
@@ -848,7 +848,7 @@ export function createBaseMenu({
                 // isKeyDownInside ensures we only handle keys for this menu, not bubbled from submenus
                 // isOnContentFrame ensures we only handle when focused on the content frame, not an item
                 const isOnContentFrame = (event.target as HTMLElement).hasAttribute(
-                  'data-hanzogui-menu-content'
+                  'data-gui-menu-content'
                 )
                 if (!isKeyDownInside || !isOnContentFrame) return
                 if (!FIRST_LAST_KEYS.includes(event.key)) return
@@ -927,10 +927,10 @@ export function createBaseMenu({
               // `onEntryFocus` in control of focusing first item
               event.preventDefault()
               // contentRef.current doesn't reliably point to the focusable DOM element
-              // due to how refs propagate through Hanzogui's styled component chain,
+              // due to how refs propagate through Gui's styled component chain,
               // so we query for the element directly using the data attribute
               const content = document.querySelector(
-                '[data-hanzogui-menu-content]'
+                '[data-gui-menu-content]'
               ) as HTMLElement | null
               content?.focus({ preventScroll: true })
             })}
@@ -998,7 +998,7 @@ export function createBaseMenu({
       iosIconName,
       ...itemProps
     } = props
-    const ref = React.useRef<HanzoguiElement>(null)
+    const ref = React.useRef<GuiElement>(null)
     const rootContext = useMenuRootContext(scope)
     const contentContext = useMenuContentContext(scope)
     const composedRefs = useComposedRefs(forwardedRef, ref)
@@ -1091,11 +1091,11 @@ export function createBaseMenu({
       scope = MENU_CONTEXT,
       disabled = false,
       textValue,
-      unstyled = process.env.HANZOGUI_HEADLESS === '1',
+      unstyled = process.env.GUI_HEADLESS === '1',
       ...itemProps
     } = props
     const contentContext = useMenuContentContext(scope)
-    const ref = React.useRef<HanzoguiElement>(null)
+    const ref = React.useRef<GuiElement>(null)
     const composedRefs = useComposedRefs(forwardedRef, ref)
     const [isFocused, setIsFocused] = React.useState(false)
 
@@ -1382,11 +1382,11 @@ export function createBaseMenu({
    * -----------------------------------------------------------------------------------------------*/
 
   // TODO this was styleable but it cant flatten anyways so likely fine just need to check
-  const MenuArrow = React.forwardRef<HanzoguiElement, MenuArrowProps>(
+  const MenuArrow = React.forwardRef<GuiElement, MenuArrowProps>(
     function MenuArrow(props, forwardedRef) {
       const {
         scope = MENU_CONTEXT,
-        unstyled = process.env.HANZOGUI_HEADLESS === '1',
+        unstyled = process.env.GUI_HEADLESS === '1',
         ...rest
       } = props
       return (
@@ -1515,7 +1515,7 @@ export function createBaseMenu({
   const SUB_TRIGGER_NAME = 'MenuSubTrigger'
 
   const MenuSubTrigger = React.forwardRef<
-    HanzoguiElement,
+    GuiElement,
     ScopedProps<MenuSubTriggerProps>
   >((props, forwardedRef) => {
     const scope = props.scope || MENU_CONTEXT
@@ -1810,7 +1810,7 @@ export function createBaseMenu({
                   // don't accidentally focus a sibling/parent submenu content
                   const root = ref.current as unknown as HTMLElement
                   const content = root?.querySelector?.(
-                    '[data-hanzogui-menu-content]'
+                    '[data-gui-menu-content]'
                   ) as HTMLElement | null
                   ;(content || root)?.focus({ preventScroll: true })
                 }

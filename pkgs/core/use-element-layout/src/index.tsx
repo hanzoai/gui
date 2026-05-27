@@ -57,7 +57,7 @@ export const LayoutMeasurementController = ({
 // Single persistent IntersectionObserver for visibility tracking
 let globalIntersectionObserver: IntersectionObserver | null = null
 
-type HanzoguiComponentStatePartial = {
+type GuiComponentStatePartial = {
   host?: any
 }
 
@@ -396,7 +396,7 @@ function cleanupNode(node: HTMLElement) {
 const PrevHostNode = new WeakMap<object, HTMLElement | undefined>()
 
 export function useElementLayout(
-  ref: RefObject<HanzoguiComponentStatePartial>,
+  ref: RefObject<GuiComponentStatePartial>,
   onLayout?: ((e: LayoutEvent) => void) | null
 ): void {
   const disableKey = useContext(DisableLayoutContextKey)

@@ -12,7 +12,7 @@ import React from 'react'
 import { Button } from 'hanzogui'
 
 /**
- * Menu Demo using Hanzogui Menu component.
+ * Menu Demo using Gui Menu component.
  * Automatically uses native menus on iOS/Android, web menus on web.
  * No configuration needed - it just works!
  */

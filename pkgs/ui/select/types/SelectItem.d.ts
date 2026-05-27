@@ -17,13 +17,13 @@ export interface SelectItemExtraProps {
 }
 export interface SelectItemProps extends Omit<ListItemProps, keyof SelectItemExtraProps>, SelectItemExtraProps {
 }
-export declare const SelectItem: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const SelectItem: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     size?: import("@hanzogui/core").SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
-}>, keyof SelectItemExtraProps> & SelectItemExtraProps, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").StackNonStyleProps & SelectItemExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof SelectItemExtraProps> & SelectItemExtraProps, import("@hanzogui/core").GuiElement, import("@hanzogui/core").StackNonStyleProps & SelectItemExtraProps, import("@hanzogui/core").StackStyleBase, {
     size?: import("@hanzogui/core").SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;

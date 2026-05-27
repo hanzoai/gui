@@ -18,7 +18,7 @@ export interface ValidatorTableProps {
 export type EffectiveHealth = 'healthy' | 'laggy' | 'failed' | 'unknown'
 
 // Predicate exported separately so unit tests can assert without
-// rendering the full table component (avoids the hanzogui provider
+// rendering the full table component (avoids the gui provider
 // chain that would otherwise need a test-mode shim).
 export function effectiveHealth(v: Validator, lagThresholdMs = 500): EffectiveHealth {
   if (v.health === 'failed') return 'failed'

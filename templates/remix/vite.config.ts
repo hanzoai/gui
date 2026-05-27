@@ -1,7 +1,7 @@
 import { vitePlugin as remix } from '@remix-run/dev'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 export default defineConfig({
   plugins: [
@@ -13,6 +13,6 @@ export default defineConfig({
       },
     }),
     tsconfigPaths(),
-    hanzoguiPlugin(),
+    guiPlugin(),
   ],
 })

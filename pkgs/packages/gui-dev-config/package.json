@@ -34,10 +34,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-types --skip-native",
-    "watch": "hanzogui-build --skip-types --skip-native --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "build": "gui-build --skip-types --skip-native",
+    "watch": "gui-build --skip-types --skip-native --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/animations-css": "workspace:*",

@@ -41,8 +41,8 @@ import type {
   SplitStyleProps,
   StaticConfig,
   StyleObject,
-  HanzoguiComponentState,
-  HanzoguiInternalConfig,
+  GuiComponentState,
+  GuiInternalConfig,
   TextStyle,
   ThemeParsed,
   ViewStyleWithPseudos,
@@ -78,7 +78,7 @@ export type SplitStyles = ReturnType<typeof getSplitStyles>
 
 export type SplitStyleResult = ReturnType<typeof getSplitStyles>
 
-let conf: HanzoguiInternalConfig
+let conf: GuiInternalConfig
 
 // WeakMap to track original token values for style objects
 // Used to preserve '$8' style tokens instead of resolved 'var(--t-space-8)'
@@ -90,7 +90,7 @@ type StyleSplitter = (
   staticConfig: StaticConfig,
   theme: ThemeParsed,
   themeName: string,
-  componentState: HanzoguiComponentState,
+  componentState: GuiComponentState,
   styleProps: SplitStyleProps,
   parentSplitStyles?: GetStyleResult | null,
   context?: ComponentContextI,

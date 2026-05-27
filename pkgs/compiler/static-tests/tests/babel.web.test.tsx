@@ -23,7 +23,7 @@ import { View } from '@hanzogui/core'
     }
   )
 
-  expect(output?.js).toContain(`<_HanzoguiTheme name="green"><div className={`)
+  expect(output?.js).toContain(`<_GuiTheme name="green"><div className={`)
 })
 
 test('theme + media queries + conditionals extract', async () => {

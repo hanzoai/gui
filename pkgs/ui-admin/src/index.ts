@@ -1,5 +1,5 @@
 // @hanzogui/admin — composable admin shell, primitives, and data
-// hooks for Hanzo admin surfaces. Pure Hanzo GUI via the hanzogui
+// hooks for Hanzo admin surfaces. Pure Hanzo GUI via the gui
 // umbrella package. One way to build admin UI across tasks, kms,
 // commerce, console.
 //

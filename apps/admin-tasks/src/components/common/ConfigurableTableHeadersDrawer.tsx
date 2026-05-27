@@ -7,7 +7,7 @@
 // drawer.
 //
 // Implementation notes:
-//   - hanzogui doesn't yet export a Drawer primitive; we mirror the
+//   - gui doesn't yet export a Drawer primitive; we mirror the
 //     same fixed-position YStack pattern used by ActionDialog so the
 //     visual language stays consistent with the rest of admin-tasks.
 //   - Native checkboxes + label rows; no a11y libraries needed.

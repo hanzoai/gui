@@ -30,10 +30,10 @@
     }
   },
   "scripts": {
-    "build": "hanzogui-build --skip-native",
-    "watch": "hanzogui-build --skip-native --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "build": "gui-build --skip-native",
+    "watch": "gui-build --skip-native --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/normalize-css-color": "workspace:*",

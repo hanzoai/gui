@@ -3,7 +3,7 @@
 // authoritative; this test pins the client-side hint so non-super
 // admins never see an enabled toggle they can't actually use.
 //
-// We don't render the page (it needs a hanzogui Provider + react-router
+// We don't render the page (it needs a gui Provider + react-router
 // + the IAM whoami endpoint). Instead we assert the source-level
 // wiring: the file imports the gating predicate, calls useIdentity,
 // and passes `disabled={!canEditAdminFlag}` (or equivalent) to the

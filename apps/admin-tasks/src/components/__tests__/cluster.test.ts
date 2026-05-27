@@ -1,6 +1,6 @@
 // Pure-logic tests for cluster + migration components. We assert the
 // exported predicates (effectiveHealth, canSubmitMigration) directly
-// to avoid the hanzogui provider chain — same reasoning as
+// to avoid the gui provider chain — same reasoning as
 // WorkflowStatusPill.test.tsx.
 
 import { describe, it, expect } from 'vitest'

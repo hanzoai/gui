@@ -1,8 +1,8 @@
 import { defaultConfig } from '@hanzogui/config/v5'
 import { animations } from '@hanzogui/config/v5-rn'
-import { createHanzogui } from 'hanzogui'
+import { createGui } from 'hanzogui'
 
-export const config = createHanzogui({
+export const config = createGui({
   ...defaultConfig,
   animations,
 })
@@ -10,5 +10,5 @@ export const config = createHanzogui({
 export type Conf = typeof config
 
 declare module 'hanzogui' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }

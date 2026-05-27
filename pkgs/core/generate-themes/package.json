@@ -28,10 +28,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "gui-build",
     "watch": "bun run build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/create-theme": "workspace:*",

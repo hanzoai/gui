@@ -1,7 +1,7 @@
 # `@hanzogui/admin`
 
 Composable admin shell, primitives, and data hooks for every Hanzo admin
-surface. Pure Hanzogui via the `hanzogui` umbrella. One way to build admin
+surface. Pure Gui via the `gui` umbrella. One way to build admin
 UI across `tasks`, `kms`, `commerce`, `console`.
 
 ## Why this exists
@@ -10,7 +10,7 @@ Every Hanzo admin app needs the same chrome:
 
 - a left sidebar with brand mark + nav groups + footer
 - a top bar with namespace switcher + clock + theme + account chip
-- list / detail / empty / dialog patterns over Hanzogui primitives
+- list / detail / empty / dialog patterns over Gui primitives
 - a tiny `useFetch` hook + SSE event subscription
 - consistent timestamp formatting, retention TTL display, status badge colours
 
@@ -100,12 +100,12 @@ export default function App() {
 ## Conventions
 
 - Everything ships as TypeScript source. Vite parses it directly. No
-  `hanzogui-build` step required because we don't publish prebuilt
+  `gui-build` step required because we don't publish prebuilt
   artifacts — each consuming app's bundler handles it.
-- Peer dependencies: `hanzogui` (the umbrella), `@hanzogui/lucide-icons-2`,
+- Peer dependencies: `gui` (the umbrella), `@hanzogui/lucide-icons-2`,
   `react`, `react-router-dom`. The consumer pins the versions; this
   package doesn't.
-- No HTML / CSS DOM primitives. Hanzogui only.
+- No HTML / CSS DOM primitives. Gui only.
 - Strict TypeScript. `noUnusedLocals` / `noUnusedParameters` on.
 - Same colour palette across surfaces — variants come from
   `badgeColors()` in `data/format.ts`. Do not invent new colour tokens

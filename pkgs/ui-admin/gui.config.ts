@@ -3,11 +3,11 @@
 // This file exists for one reason: typing. The shared chrome under
 // pkgs/ui-admin/ is published as a library (`@hanzogui/admin`) and
 // runs its own `tsc --noEmit` in isolation. Without a config file
-// here, the umbrella `hanzogui` types cannot resolve a concrete
-// `HanzoguiCustomConfig` — every shorthand prop (`p`, `px`, `bg`,
+// here, the umbrella `gui` types cannot resolve a concrete
+// `GuiCustomConfig` — every shorthand prop (`p`, `px`, `bg`,
 // `rounded`, `items`, `justify`, `gap`, `maxW`, ...) widens and the
 // type checker rejects valid JSX. Each consumer app already declares
-// its own augmentation (see apps/admin-tasks/hanzogui.config.ts) but
+// its own augmentation (see apps/admin-tasks/gui.config.ts) but
 // that augmentation is invisible to this package's standalone build.
 //
 // The runtime never executes this file. We import the canonical v5
@@ -18,17 +18,17 @@
 // spreading themes through a JS module (that breaks getThemeProxied()).
 
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createHanzogui } from 'hanzogui'
+import { createGui } from 'hanzogui'
 
-export const config = createHanzogui(defaultConfig)
+export const config = createGui(defaultConfig)
 
 export default config
 
 export type Conf = typeof config
 
 declare module 'hanzogui' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }
 declare module '@hanzogui/web' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }

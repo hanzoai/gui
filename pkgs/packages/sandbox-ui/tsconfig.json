@@ -5,7 +5,7 @@
   },
   "references": [
     {
-      "path": "../../ui/hanzogui"
+      "path": "../../ui/gui"
     },
     {
       "path": "../../ui/toast"

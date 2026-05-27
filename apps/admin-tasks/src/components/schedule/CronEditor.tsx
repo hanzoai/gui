@@ -1,7 +1,7 @@
 // CronEditor — 5-field standard cron + 6-field with seconds. Live
 // describes the cron via `describeCron` and previews the next 5 fire
 // times via `nextCronAfter`. Validation is pure so it can be unit-
-// tested without rendering hanzogui primitives.
+// tested without rendering gui primitives.
 
 import { useMemo } from 'react'
 import { Button, Input, Text, XStack, YStack } from 'hanzogui'

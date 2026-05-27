@@ -40,10 +40,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-types",
-    "watch": "hanzogui-build --skip-types --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "build": "gui-build --skip-types",
+    "watch": "gui-build --skip-types --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/animate-presence": "workspace:*",
@@ -75,7 +75,7 @@
     "@hanzogui/switch": "workspace:*",
     "@hanzogui/switch-headless": "workspace:*",
     "@hanzogui/tabs": "workspace:*",
-    "@hanzogui/hanzogui-dev-config": "workspace:*",
+    "@hanzogui/dev-config": "workspace:*",
     "@hanzogui/theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",
     "hanzogui": "workspace:*"

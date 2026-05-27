@@ -1,10 +1,10 @@
-// Entry point. Wires HanzoguiProvider, BrowserRouter, and the route
+// Entry point. Wires GuiProvider, BrowserRouter, and the route
 // tree. PageShell wraps each page for consistent padding.
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { HanzoguiProvider } from 'hanzogui'
+import { GuiProvider } from 'hanzogui'
 import { PageShell } from '@hanzogui/admin'
 import config from '../gui.config'
 import App from './App'
@@ -22,7 +22,7 @@ if (!root) throw new Error('root element missing')
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <HanzoguiProvider config={config} defaultTheme="dark">
+    <GuiProvider config={config} defaultTheme="dark">
       <BrowserRouter basename="/_/commerce/ui">
         <Routes>
           <Route path="/" element={<App />}>
@@ -38,6 +38,6 @@ ReactDOM.createRoot(root).render(
           </Route>
         </Routes>
       </BrowserRouter>
-    </HanzoguiProvider>
+    </GuiProvider>
   </React.StrictMode>,
 )

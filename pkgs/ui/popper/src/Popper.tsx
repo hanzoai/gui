@@ -2,10 +2,10 @@
 import { flushSync } from 'react-dom'
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb, useIsomorphicLayoutEffect } from '@hanzogui/constants'
-import type { SizeTokens, HanzoguiElement, ViewProps } from '@hanzogui/core'
+import type { SizeTokens, GuiElement, ViewProps } from '@hanzogui/core'
 import {
   LayoutMeasurementController,
-  View as HanzoguiView,
+  View as GuiView,
   createStyledContext,
   getVariableValue,
   registerLayoutNode,
@@ -262,10 +262,10 @@ const transformOriginMiddleware = (options: {
   },
 })
 
-// replaces floating-ui's autoUpdate with hanzogui's batched IO measurement loop
+// replaces floating-ui's autoUpdate with gui's batched IO measurement loop
 // keeps scroll/resize listeners for immediate response, but replaces per-element
 // ResizeObserver + IntersectionObserver with the shared layoutOnAnimationFrame loop
-function hanzoguiAutoUpdate(
+function guiAutoUpdate(
   reference: ReferenceType,
   floating: HTMLElement,
   update: () => void
@@ -286,7 +286,7 @@ function hanzoguiAutoUpdate(
     },
   ]
 
-  // watch reference element via hanzogui's IO measurement loop
+  // watch reference element via gui's IO measurement loop
   // only watch reference, NOT floating — watching floating causes loops
   // (computePosition sets position → rect changes → update → repeat)
   if (reference instanceof HTMLElement) {
@@ -388,19 +388,19 @@ export function Popper(props: PopperProps) {
               const { width: anchorWidth, height: anchorHeight } = rects.reference
               const contentStyle = elements.floating.style
               contentStyle.setProperty(
-                '--hanzogui-popper-available-width',
+                '--gui-popper-available-width',
                 `${availableWidth}px`
               )
               contentStyle.setProperty(
-                '--hanzogui-popper-available-height',
+                '--gui-popper-available-height',
                 `${availableHeight}px`
               )
               contentStyle.setProperty(
-                '--hanzogui-popper-anchor-width',
+                '--gui-popper-anchor-width',
                 `${anchorWidth}px`
               )
               contentStyle.setProperty(
-                '--hanzogui-popper-anchor-height',
+                '--gui-popper-anchor-height',
                 `${anchorHeight}px`
               )
             },
@@ -421,7 +421,7 @@ export function Popper(props: PopperProps) {
     strategy,
     placement,
     sameScrollView: false, // this only takes effect on native
-    whileElementsMounted: !isOpen ? undefined : hanzoguiAutoUpdate,
+    whileElementsMounted: !isOpen ? undefined : guiAutoUpdate,
     platform:
       (disableRTL ?? setupOptions.disableRTL)
         ? {
@@ -524,7 +524,7 @@ export function Popper(props: PopperProps) {
  * PopperAnchor
  * -----------------------------------------------------------------------------------------------*/
 
-type PopperAnchorRef = HanzoguiElement
+type PopperAnchorRef = GuiElement
 
 export type PopperAnchorExtraProps = {
   virtualRef?: React.RefObject<any>
@@ -586,7 +586,7 @@ export const PopperAnchor = YStack.styleable<PopperAnchorExtraProps>(
     )
 
     return (
-      <HanzoguiView
+      <GuiView
         {...rest}
         {...refProps}
         ref={composedRefs}
@@ -627,7 +627,7 @@ export const PopperAnchor = YStack.styleable<PopperAnchorExtraProps>(
  * PopperContent
  * -----------------------------------------------------------------------------------------------*/
 
-type PopperContentElement = HanzoguiElement
+type PopperContentElement = GuiElement
 
 export type PopperContentProps = SizableStackProps & {
   scope?: string
@@ -824,7 +824,7 @@ export const PopperContent = React.forwardRef<PopperContentElement, PopperConten
 
     return (
       <LayoutMeasurementController disable={!context.open}>
-        <HanzoguiView
+        <GuiView
           passThrough={passThrough}
           ref={contentRefs}
           direction={rest.direction}
@@ -849,7 +849,7 @@ export const PopperContent = React.forwardRef<PopperContentElement, PopperConten
           >
             {children}
           </PopperContentFrame>
-        </HanzoguiView>
+        </GuiView>
       </LayoutMeasurementController>
     )
   }
@@ -885,7 +885,7 @@ export const PopperArrowFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -906,7 +906,7 @@ const PopperArrowOuterFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -919,7 +919,7 @@ const opposites = {
 
 type Sides = keyof typeof opposites
 
-export const PopperArrow = React.forwardRef<HanzoguiElement, PopperArrowProps>(
+export const PopperArrow = React.forwardRef<GuiElement, PopperArrowProps>(
   function PopperArrow(propsIn, forwardedRef) {
     const { scope, animatePosition, transition, ...rest } = propsIn
     const { offset, size: sizeProp, borderWidth = 0, ...arrowProps } = rest

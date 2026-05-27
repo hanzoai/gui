@@ -2,21 +2,21 @@ import '@testing-library/jest-dom'
 import 'vitest-axe/extend-expect'
 
 import { Button } from '@hanzogui/button'
-import { getDefaultHanzoguiConfig } from '@hanzogui/config-default'
-import { View, HanzoguiProvider, createHanzogui } from '@hanzogui/core'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
+import { View, GuiProvider, createGui } from '@hanzogui/core'
 import type { RenderResult } from '@testing-library/react'
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-const conf = createHanzogui(getDefaultHanzoguiConfig())
+const conf = createGui(getDefaultGuiConfig())
 
 function ButtonTest(props: React.ComponentProps<typeof Button>) {
   return (
-    <HanzoguiProvider config={conf} defaultTheme="light">
+    <GuiProvider config={conf} defaultTheme="light">
       <View>
         <Button {...props} />
       </View>
-    </HanzoguiProvider>
+    </GuiProvider>
   )
 }
 

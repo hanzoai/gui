@@ -29,11 +29,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "gui-build",
     "subset": "node -r esbuild-register subset.ts",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/constants": "workspace:*",

@@ -7,7 +7,7 @@ import { RovingFocusGroup, type RovingFocusGroupProps } from '@hanzogui/roving-f
 import { SizableContext } from '@hanzogui/sizable-context'
 import { useControllableState } from '@hanzogui/use-controllable-state'
 import { useDirection } from '@hanzogui/use-direction'
-import type { GetProps, HanzoguiElement, ViewProps } from '@hanzogui/web'
+import type { GetProps, GuiElement, ViewProps } from '@hanzogui/web'
 import { useEvent } from '@hanzogui/web'
 import * as React from 'react'
 import type { LayoutRectangle } from 'react-native'
@@ -37,7 +37,7 @@ export function createTabs<
 
   const TAB_LIST_NAME = 'TabsList'
 
-  const TabsList = React.forwardRef<HanzoguiElement, TabsListProps>(
+  const TabsList = React.forwardRef<GuiElement, TabsListProps>(
     (props: ScopedProps<TabsListProps>, forwardedRef) => {
       const { __scopeTabs, loop = true, children, ...listProps } = props
       const context = useTabsContext(__scopeTabs)
@@ -94,7 +94,7 @@ export function createTabs<
       const contentId = makeContentId(context.baseId, value)
       const isSelected = value === context.value
       const [layout, setLayout] = React.useState<TabLayout | null>(null)
-      const triggerRef = React.useRef<HanzoguiElement>(null)
+      const triggerRef = React.useRef<GuiElement>(null)
       const groupItemProps = useGroupItem({ disabled: !!disabled })
 
       React.useEffect(() => {
@@ -323,7 +323,7 @@ export function createTabs<
   // this broke things outside our repo, but not sure why, all non style props were missing
   // like onPress etc
   // as <Tab = string>(
-  //   props: TabsProps<Tab> & { ref?: React.Ref<HanzoguiElement> }
+  //   props: TabsProps<Tab> & { ref?: React.Ref<GuiElement> }
   // ) => React.JSX.Element
 
   return withStaticProperties(TabsComponent, {
@@ -420,7 +420,7 @@ type TabsContentExtraProps = {
 
   /**
    * Used to force mounting when more control is needed. Useful when
-   * controlling animation with Hanzogui animations.
+   * controlling animation with Gui animations.
    */
   forceMount?: boolean
 }

@@ -10,7 +10,7 @@ const StyledInput = styled(View, styledBody[0], styledBody[1])
 /**
  * @deprecated Use the new Input from '@hanzogui/input' instead
  * @summary An input is a text field that allows users to enter text.
- * @see — Docs https://hanzogui.dev/ui/inputs#input
+ * @see — Docs https://gui.dev/ui/inputs#input
  */
 export const Input = StyledInput.styleable<InputProps>((inProps, forwardedRef) => {
   const {

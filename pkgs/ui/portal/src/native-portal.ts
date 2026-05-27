@@ -15,12 +15,12 @@ const IS_FABRIC =
  */
 export const setupNativePortal = (): void => {
   const g = globalThis as any
-  if (g.__hanzogui_portal_create) return
+  if (g.__gui_portal_create) return
 
   if (IS_FABRIC) {
     try {
       const mod = require('react-native/Libraries/Renderer/shims/ReactFabric')
-      g.__hanzogui_portal_create = mod?.default?.createPortal ?? mod.createPortal
+      g.__gui_portal_create = mod?.default?.createPortal ?? mod.createPortal
     } catch (err) {
       console.info(`Note: error importing fabric portal, native portals disabled`, err)
     }
@@ -29,7 +29,7 @@ export const setupNativePortal = (): void => {
 
   try {
     const mod = require('react-native/Libraries/Renderer/shims/ReactNative')
-    g.__hanzogui_portal_create = mod?.default?.createPortal ?? mod.createPortal
+    g.__gui_portal_create = mod?.default?.createPortal ?? mod.createPortal
   } catch (err) {
     console.info(`Note: error importing native portal, native portals disabled`, err)
   }

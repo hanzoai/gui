@@ -1,22 +1,22 @@
 /**
- * Worker thread implementation for Hanzogui extraction
+ * Worker thread implementation for Gui extraction
  * Used by both piscina (async) and synckit (sync for babel)
  */
 import type { BabelFileResult } from '@babel/core';
 import type { ExtractedResponse } from './extractor/extractToClassNames';
-import type { HanzoguiOptions } from './types';
+import type { GuiOptions } from './types';
 export interface ExtractToClassNamesTask {
     type: 'extractToClassNames';
     source: string;
     sourcePath: string;
-    options: HanzoguiOptions;
+    options: GuiOptions;
     shouldPrintDebug: boolean | 'verbose';
 }
 export interface ExtractToNativeTask {
     type: 'extractToNative';
     sourceFileName: string;
     sourceCode: string;
-    options: HanzoguiOptions;
+    options: GuiOptions;
 }
 export interface ClearCacheTask {
     type: 'clearCache';

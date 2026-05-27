@@ -1,6 +1,6 @@
 import '@hanzogui/polyfill-dev';
 import type { UseHoverProps } from '@hanzogui/floating';
-import type { SizeTokens, HanzoguiElement, ViewProps } from '@hanzogui/core';
+import type { SizeTokens, GuiElement, ViewProps } from '@hanzogui/core';
 import { type DismissableProps } from '@hanzogui/dismissable';
 import type { FocusScopeProps } from '@hanzogui/focus-scope';
 import { type PopperArrowExtraProps, type PopperArrowProps, type PopperContentProps, type PopperProps } from '@hanzogui/popper';
@@ -42,11 +42,11 @@ export type PopoverProps = ScopedPopoverProps<PopperProps> & {
      * z-index for the popover portal. Use this when popovers need to appear
      * above other portaled content like dialogs or fixed headers.
      *
-     * By default, Hanzogui automatically stacks overlays - later-opened content
+     * By default, Gui automatically stacks overlays - later-opened content
      * appears above earlier content, and nested content appears above its parent.
      * Only set this if you need to override the automatic stacking behavior.
      *
-     * @see https://hanzogui.dev/ui/z-index
+     * @see https://gui.dev/ui/z-index
      */
     zIndex?: number;
 };
@@ -127,7 +127,7 @@ export declare const PopoverContextProvider: React.MemoExoticComponent<({ scope,
 export type PopoverAnchorProps = ScopedPopoverProps<YStackProps>;
 export declare const PopoverAnchor: React.NamedExoticComponent<Omit<YStackProps, "scope"> & {
     scope?: PopoverScopes;
-} & React.RefAttributes<HanzoguiElement>>;
+} & React.RefAttributes<GuiElement>>;
 export type PopoverTriggerProps = ScopedPopoverProps<ViewProps & {
     /**
      * When true, disables the built-in click-to-toggle behavior on the trigger.
@@ -145,7 +145,7 @@ export declare const PopoverTrigger: React.NamedExoticComponent<Omit<import("@ha
     disablePressTrigger?: boolean;
 }, "scope"> & {
     scope?: PopoverScopes;
-} & React.RefAttributes<HanzoguiElement>>;
+} & React.RefAttributes<GuiElement>>;
 export interface PopoverContentTypeProps extends Omit<PopoverContentImplProps, 'disableOutsidePointerEvents'> {
     /**
      * Enable smooth animation when the content position changes (e.g., when flipping sides)
@@ -155,12 +155,12 @@ export interface PopoverContentTypeProps extends Omit<PopoverContentImplProps, '
     enableAnimationForPositionChange?: boolean;
 }
 export type PopoverContentProps = PopoverContentTypeProps;
-export declare const PopoverContent: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopoverContent: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
@@ -204,13 +204,13 @@ export type PopoverContentImplProps = PopperContentProps & Omit<DismissableProps
 export type PopoverCloseProps = ScopedPopoverProps<YStackProps>;
 export declare const PopoverClose: React.ForwardRefExoticComponent<Omit<YStackProps, "scope"> & {
     scope?: PopoverScopes;
-} & React.RefAttributes<HanzoguiElement>>;
+} & React.RefAttributes<GuiElement>>;
 export type PopoverArrowProps = PopperArrowProps;
-export declare const PopoverArrow: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopoverArrow: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -261,22 +261,22 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
      * z-index for the popover portal. Use this when popovers need to appear
      * above other portaled content like dialogs or fixed headers.
      *
-     * By default, Hanzogui automatically stacks overlays - later-opened content
+     * By default, Gui automatically stacks overlays - later-opened content
      * appears above earlier content, and nested content appears above its parent.
      * Only set this if you need to override the automatic stacking behavior.
      *
-     * @see https://hanzogui.dev/ui/z-index
+     * @see https://gui.dev/ui/z-index
      */
     zIndex?: number;
 } & React.RefAttributes<Popover>> & {
     Anchor: React.NamedExoticComponent<Omit<YStackProps, "scope"> & {
         scope?: PopoverScopes;
-    } & React.RefAttributes<HanzoguiElement>>;
-    Arrow: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    } & React.RefAttributes<GuiElement>>;
+    Arrow: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -290,13 +290,13 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
         disablePressTrigger?: boolean;
     }, "scope"> & {
         scope?: PopoverScopes;
-    } & React.RefAttributes<HanzoguiElement>>;
-    Content: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    } & React.RefAttributes<GuiElement>>;
+    Content: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
@@ -304,7 +304,7 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
     }, import("@hanzogui/core").StaticConfigPublic>;
     Close: React.ForwardRefExoticComponent<Omit<YStackProps, "scope"> & {
         scope?: PopoverScopes;
-    } & React.RefAttributes<HanzoguiElement>>;
+    } & React.RefAttributes<GuiElement>>;
     Adapt: ((props: import("@hanzogui/adapt").AdaptProps) => import("react/jsx-runtime").JSX.Element) & {
         Contents: {
             ({ scope, ...rest }: {
@@ -313,7 +313,7 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
             shouldForwardSpace: boolean;
         };
     };
-    ScrollView: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").HanzoguiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
+    ScrollView: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
         readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";

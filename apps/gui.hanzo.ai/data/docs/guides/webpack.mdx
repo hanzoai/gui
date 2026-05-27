@@ -12,7 +12,7 @@ yarn add -D webpack webpack-cli
 Then install the Hanzo GUI plugin:
 
 ```bash
-yarn add -D gui-loader
+yarn add -D hanzogui-loader
 ```
 
 ### Configuration
@@ -23,7 +23,7 @@ Add the plugin to your `webpack.config.js`. If you have a `gui.build.ts`
 no options are needed:
 
 ```tsx fileName="webpack.config.js"
-const { GuiPlugin } = require('gui-loader')
+const { GuiPlugin } = require('hanzogui-loader')
 
 // reads from gui.build.ts automatically
 config.plugins.push(new GuiPlugin())
@@ -32,7 +32,7 @@ config.plugins.push(new GuiPlugin())
 Or pass options inline:
 
 ```tsx fileName="webpack.config.js"
-const { GuiPlugin } = require('gui-loader')
+const { GuiPlugin } = require('hanzogui-loader')
 
 config.plugins.push(
   new GuiPlugin({

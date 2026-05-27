@@ -1,10 +1,10 @@
 // Pure logic for EventAttributeTable. Lives in its own file (no JSX,
-// no Hanzogui imports) so unit tests can exercise the row-derivation
-// and the proto-payload decoder without spinning the hanzogui
+// no Gui imports) so unit tests can exercise the row-derivation
+// and the proto-payload decoder without spinning the gui
 // provider.
 //
 // EventAttributeTable.tsx imports from here for the actual rendering;
-// the React component layers a Hanzogui table + EventLink + PayloadDecoder
+// the React component layers a Gui table + EventLink + PayloadDecoder
 // on top of these rows.
 
 import type { HistoryEvent } from '../../lib/types'

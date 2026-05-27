@@ -27,7 +27,7 @@
       "ignoreBinaries": [
         "hanzo-gui",
         "create-hanzo-gui",
-        "gui",
+        "hanzogui",
         "lighthouse",
         "expo",
         "detox",

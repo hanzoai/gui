@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/calc",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "files": [
     "src",
     "types",

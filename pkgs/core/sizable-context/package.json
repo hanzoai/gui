@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sizable-context",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "description": "Sizable context for Gui components",
   "license": "BSD-3-Clause",
   "source": "src/index.ts",

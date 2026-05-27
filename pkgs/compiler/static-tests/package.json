@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/static-tests",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "private": true,
   "license": "BSD-3-Clause",
   "module": "dist/esm/index.js",

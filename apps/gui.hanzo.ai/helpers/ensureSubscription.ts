@@ -36,15 +36,15 @@ export async function ensureSubscription(
   // We don't need to check for chat/support subscriptions since they are handled in the support+api.ts file
   const validProducts = [
     // V1 products
-    ProductName.HanzoguiPro,
+    ProductName.GuiPro,
     // Add old Takeout Stack to support old subscriptions access to the takeout channel
-    ProductName.HanzoguiTakeoutStack,
+    ProductName.GuiTakeoutStack,
     // V2 products
-    ProductName.HanzoguiProV2,
-    ProductName.HanzoguiProV2Upgrade,
+    ProductName.GuiProV2,
+    ProductName.GuiProV2Upgrade,
     // V2 support tiers also imply Pro access
-    ProductName.HanzoguiSupportDirect,
-    ProductName.HanzoguiSupportSponsor,
+    ProductName.GuiSupportDirect,
+    ProductName.GuiSupportSponsor,
   ]
 
   const subscriptionData = getArray(subscription.subscription_items).find((item) => {
@@ -75,10 +75,10 @@ export async function ensureSubscription(
   // Check if this is a V2 Pro subscription (unlimited team, per-project license)
   const productName = getSingle(getSingle(subscriptionData?.price)?.products)?.name
   const isV2Pro =
-    productName === ProductName.HanzoguiProV2 ||
-    productName === ProductName.HanzoguiProV2Upgrade ||
-    productName === ProductName.HanzoguiSupportDirect ||
-    productName === ProductName.HanzoguiSupportSponsor
+    productName === ProductName.GuiProV2 ||
+    productName === ProductName.GuiProV2Upgrade ||
+    productName === ProductName.GuiSupportDirect ||
+    productName === ProductName.GuiSupportSponsor
 
   const data = getTakeoutPriceInfo(pricingDescription ?? '', isV2Pro)
 

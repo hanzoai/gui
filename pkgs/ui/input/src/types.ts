@@ -1,4 +1,4 @@
-import type { ColorTokens, TextStyle, HanzoguiElementMethods } from '@hanzogui/web'
+import type { ColorTokens, TextStyle, GuiElementMethods } from '@hanzogui/web'
 import type { TextInput } from 'react-native'
 import type { InputNativeProps } from './InputNativeProps'
 
@@ -92,12 +92,12 @@ export type InputExtraProps = Omit<
     rows?: number
 
     /**
-     * Placeholder text color - accepts Hanzogui color tokens
+     * Placeholder text color - accepts Gui color tokens
      */
     placeholderTextColor?: ColorTokens
 
     /**
-     * Text selection color - accepts Hanzogui color tokens
+     * Text selection color - accepts Gui color tokens
      */
     selectionColor?: ColorTokens
 
@@ -134,10 +134,10 @@ export type InputExtraProps = Omit<
 
 /**
  * Cross-platform ref type for Input.
- * On web: HTMLInputElement with Hanzogui methods (measure, focus, blur).
+ * On web: HTMLInputElement with Gui methods (measure, focus, blur).
  * On native: TextInput.
  */
-export type InputRef = (HTMLInputElement & HanzoguiElementMethods) | TextInput
+export type InputRef = (HTMLInputElement & GuiElementMethods) | TextInput
 
 /**
  * iOS text content types for autofill

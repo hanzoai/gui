@@ -1,4 +1,4 @@
-import { HanzoguiLogo } from '@hanzogui/logo'
+import { GuiLogo } from '@hanzogui/logo'
 import { useDidFinishSSR } from '@hanzogui/use-did-finish-ssr'
 import { H2, H3, Paragraph, styled, View, XStack, YStack } from 'hanzogui'
 
@@ -164,7 +164,7 @@ const techStack = [
       'The best universal style system. A smart optimizing compiler unlocks write once, run everywhere styles with platform-native performance, and a ton of components.',
     url: 'https://gui.hanzo.ai',
     highlight: 'v2 RC1 Released',
-    Logo: HanzoguiLogo,
+    Logo: GuiLogo,
     color: '$yellow10',
     bgColor: 'rgba(236, 210, 10, 0.1)',
     glowColor: 'var(--yellow7)',

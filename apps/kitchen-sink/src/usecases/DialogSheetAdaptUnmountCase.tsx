@@ -4,7 +4,7 @@ import {
   Paragraph,
   Sheet,
   styled,
-  Dialog as HanzoguiDialog,
+  Dialog as GuiDialog,
   XStack,
   YStack,
 } from 'hanzogui'
@@ -38,8 +38,8 @@ function ThreePunchDialog({
   onOpenChange?: (open: boolean) => void
 }) {
   return (
-    <HanzoguiDialog modal open={open} onOpenChange={onOpenChange}>
-      <HanzoguiDialog.Adapt when="maxMd">
+    <GuiDialog modal open={open} onOpenChange={onOpenChange}>
+      <GuiDialog.Adapt when="maxMd">
         <Sheet
           transition="medium"
           zIndex={250_000}
@@ -64,13 +64,13 @@ function ThreePunchDialog({
             bg="$background"
           >
             <Sheet.ScrollView>
-              <HanzoguiDialog.Adapt.Contents />
+              <GuiDialog.Adapt.Contents />
             </Sheet.ScrollView>
           </Sheet.Frame>
         </Sheet>
-      </HanzoguiDialog.Adapt>
+      </GuiDialog.Adapt>
 
-      <HanzoguiDialog.Portal>
+      <GuiDialog.Portal>
         <DialogOverlay
           key="overlay"
           onPress={(e: any) => {
@@ -90,12 +90,12 @@ function ThreePunchDialog({
         >
           {children}
         </DialogContent>
-      </HanzoguiDialog.Portal>
-    </HanzoguiDialog>
+      </GuiDialog.Portal>
+    </GuiDialog>
   )
 }
 
-const DialogOverlay = styled(HanzoguiDialog.Overlay, {
+const DialogOverlay = styled(GuiDialog.Overlay, {
   unstyled: true,
   transition: 'quick',
   position: 'absolute',
@@ -106,7 +106,7 @@ const DialogOverlay = styled(HanzoguiDialog.Overlay, {
   exitStyle: { opacity: 0 },
 })
 
-const DialogContent = styled(HanzoguiDialog.Content, {
+const DialogContent = styled(GuiDialog.Content, {
   unstyled: true,
   transition: 'quick',
   zIndex: 1_000_000,
@@ -144,15 +144,15 @@ export function DialogSheetAdaptUnmountCase() {
 
       <ThreePunchDialog open={open} onOpenChange={setOpen}>
         <YStack gap="$3">
-          <HanzoguiDialog.Title size="$6">Three Punch Dialog</HanzoguiDialog.Title>
-          <HanzoguiDialog.Description>
+          <GuiDialog.Title size="$6">Three Punch Dialog</GuiDialog.Title>
+          <GuiDialog.Description>
             This body should remain visible while the sheet slides out.
-          </HanzoguiDialog.Description>
+          </GuiDialog.Description>
           <Paragraph testID="dialog-content-marker">unique-content-marker-3pc</Paragraph>
           <XStack gap="$3" justify="flex-end">
-            <HanzoguiDialog.Close asChild displayWhenAdapted>
+            <GuiDialog.Close asChild displayWhenAdapted>
               <Button testID="close-dialog">Close</Button>
-            </HanzoguiDialog.Close>
+            </GuiDialog.Close>
           </XStack>
         </YStack>
       </ThreePunchDialog>

@@ -1,5 +1,5 @@
 // Smoke tests for the identity bucket. We don't render here — full
-// render needs a hanzogui Provider and Hanzogui theme stack which the
+// render needs a gui Provider and Gui theme stack which the
 // admin-shell wires up at the route level. Instead we assert each
 // page is a function component (i.e. exports cleanly), and that the
 // barrel re-exports align with the package contract.

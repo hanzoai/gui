@@ -2,7 +2,7 @@ import React from 'react';
 import type { GetProps, RadiusTokens, SizeTokens, ViewProps, ThemeValueFallback } from '@hanzogui/web';
 import type { FC } from 'react';
 import { Image as RNImage } from 'react-native';
-declare const StyledImage: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, RNImage, import("@hanzogui/web").HanzoguiComponentPropsBaseBase & import("react-native").ImageProps, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
+declare const StyledImage: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, RNImage, import("@hanzogui/web").GuiComponentPropsBaseBase & import("react-native").ImageProps, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
 type StyledImageProps = Omit<GetProps<typeof StyledImage>, 'borderRadius'> & {
     borderRadius?: RadiusTokens;
 };
@@ -29,7 +29,7 @@ type ImageType = FC<ImageProps> & {
 };
 /**
  * @summary An image is a component that displays an image.
- * @see — Docs https://hanzogui.dev/ui/image
+ * @see — Docs https://gui.dev/ui/image
  */
 export declare const Image: ImageType;
 export {};

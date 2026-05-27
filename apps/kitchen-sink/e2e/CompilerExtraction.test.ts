@@ -1,6 +1,6 @@
 /**
  * Tests compiler extraction with theme functionality and performance.
- * Runs hanzogui build to generate .native.tsx before testing.
+ * Runs gui build to generate .native.tsx before testing.
  */
 
 import * as assert from 'assert'
@@ -22,10 +22,10 @@ describe('CompilerExtraction', () => {
       unlinkSync(NATIVE_FILE)
     }
 
-    // run hanzogui build to generate optimized .native.tsx
-    console.log('Running hanzogui build...')
+    // run gui build to generate optimized .native.tsx
+    console.log('Running gui build...')
     execSync(
-      `npx hanzogui build ${SOURCE_FILE} --target native --output-around --expect-optimizations ${EXPECTED_OPTIMIZATIONS}`,
+      `npx gui build ${SOURCE_FILE} --target native --output-around --expect-optimizations ${EXPECTED_OPTIMIZATIONS}`,
       { stdio: 'inherit' }
     )
     console.log('Build complete, .native.tsx generated')

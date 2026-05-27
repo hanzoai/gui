@@ -1,6 +1,6 @@
 **/test-results/*
 **/.maestro-debug
-**/.hanzogui/
+**/.gui/
 
 # keep types in repo to track them
 # **/types/**/*.d.ts
@@ -34,7 +34,7 @@ node_modules
 
 code/kitchen-sink/ios
 
-.hanzogui
+.gui
 
 .idea
 

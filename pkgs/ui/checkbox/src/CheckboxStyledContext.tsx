@@ -10,7 +10,7 @@ export const CheckboxStyledContext = createStyledContext<{
 }>({
   size: '$true' as SizeTokens,
   scaleIcon: 1,
-  unstyled: process.env.HANZOGUI_HEADLESS === '1',
+  unstyled: process.env.GUI_HEADLESS === '1',
   active: false,
   disabled: false,
 })

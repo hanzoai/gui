@@ -74,8 +74,8 @@ export function PurchaseModalContents() {
       userData?.subscriptions?.some((sub) =>
         sub.subscription_items?.some(
           (item) =>
-            (item.price?.product?.name === ProductName.HanzoguiBento ||
-              item.price?.product?.name === ProductName.HanzoguiTakeoutStack) &&
+            (item.price?.product?.name === ProductName.GuiBento ||
+              item.price?.product?.name === ProductName.GuiTakeoutStack) &&
             sub.ended_at &&
             new Date(sub.ended_at) < new Date()
         )

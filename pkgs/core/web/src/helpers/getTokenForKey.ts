@@ -98,12 +98,12 @@ export const getTokenForKey = (
 
     valOrVar = themeValue
     if (process.env.NODE_ENV === 'development' && styleState.debug === 'verbose') {
-      globalThis.hanzoguiAvoidTracking = true
+      globalThis.guiAvoidTracking = true
       console.info(
         ` - resolving ${key} to theme value ${value} resolveAs ${resolveAs}`,
         valOrVar
       )
-      globalThis.hanzoguiAvoidTracking = false
+      globalThis.guiAvoidTracking = false
     }
     hasSet = true
   } else {
@@ -150,14 +150,14 @@ export const getTokenForKey = (
               if (!didLogMissingToken) {
                 didLogMissingToken = true
                 console.groupCollapsed(
-                  `[hanzogui] Warning: missing token ${key} in category ${cat} - ${value} (open for details)`
+                  `[gui] Warning: missing token ${key} in category ${cat} - ${value} (open for details)`
                 )
                 console.info(
-                  `Note: this could just be due to you not setting all the theme tokens Hanzogui expects, which is harmless, but
-                    it also often can be because you have a duplicated Hanzogui in your bundle, which can cause tricky bugs.`
+                  `Note: this could just be due to you not setting all the theme tokens Gui expects, which is harmless, but
+                    it also often can be because you have a duplicated Gui in your bundle, which can cause tricky bugs.`
                 )
                 console.info(
-                  `To see if you have duplicated dependencies, in Chrome DevTools hit CMD+P and type HanzoguiProvider.
+                  `To see if you have duplicated dependencies, in Chrome DevTools hit CMD+P and type GuiProvider.
                     If you see both a .cjs and a .mjs entry, it's duplicated.`
                 )
                 console.info(
@@ -192,9 +192,9 @@ export const getTokenForKey = (
     }
 
     if (process.env.NODE_ENV === 'development' && styleState.debug === 'verbose') {
-      globalThis.hanzoguiAvoidTracking = true
+      globalThis.guiAvoidTracking = true
       console.info(`resolved`, resolveAs, valOrVar, out)
-      globalThis.hanzoguiAvoidTracking = false
+      globalThis.guiAvoidTracking = false
     }
     return out
   }

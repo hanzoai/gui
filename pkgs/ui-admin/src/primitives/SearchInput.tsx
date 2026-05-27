@@ -61,7 +61,7 @@ export function SearchInput({
         flex={1}
         items="center"
         position="relative"
-        // Visually nest the search icon inside the Input. Hanzogui v7
+        // Visually nest the search icon inside the Input. Gui v7
         // dropped per-prop padding overrides on Input; we wrap the
         // input in an absolute-positioned XStack and use the wrapper's
         // padding so the input still gets keyboard hit-testing across

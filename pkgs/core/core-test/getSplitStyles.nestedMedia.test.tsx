@@ -11,7 +11,7 @@
  * The nested style should only apply when BOTH conditions are true.
  */
 
-import { View, createHanzogui } from '@hanzogui/core'
+import { View, createGui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 // Set GUI_TARGET before importing getSplitStyles
@@ -37,7 +37,7 @@ vi.mock('@hanzogui/constants', async () => {
 import config from '../config-default'
 
 beforeAll(() => {
-  createHanzogui(config.getDefaultHanzoguiConfig('native'))
+  createGui(config.getDefaultGuiConfig('native'))
 })
 
 function getSplitStylesFor(

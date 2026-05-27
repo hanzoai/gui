@@ -9,7 +9,7 @@
 //   - <ToggleField> for booleans (Switch)
 //   - <SelectField> for closed-set string options (server-trust gate)
 // Anything more exotic (MultiSelect) is rendered inline by the caller
-// using hanzogui primitives directly. Keeping the abstraction tiny
+// using gui primitives directly. Keeping the abstraction tiny
 // avoids the Ant Design over-form trap.
 
 import type { ReactNode } from 'react'

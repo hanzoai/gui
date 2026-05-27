@@ -70,11 +70,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "gui-build",
     "afterBuild": "node bundle-native.mjs",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/helpers": "workspace:*",

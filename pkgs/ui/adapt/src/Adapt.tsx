@@ -225,8 +225,8 @@ export const AdaptContents = ({ scope, ...rest }: { scope?: string }) => {
   if (!context?.Contents) {
     throw new Error(
       process.env.NODE_ENV === 'production'
-        ? `hanzogui.dev/docs/intro/errors#warning-002`
-        : `You're rendering a Hanzogui <Adapt /> component without nesting it inside a parent that is able to adapt.`
+        ? `gui.dev/docs/intro/errors#warning-002`
+        : `You're rendering a Gui <Adapt /> component without nesting it inside a parent that is able to adapt.`
     )
   }
 

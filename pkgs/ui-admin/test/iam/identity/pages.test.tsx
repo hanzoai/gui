@@ -1,6 +1,6 @@
 // One smoke test per page, asserts the imported component is a
-// valid React element type. Full rendering requires a hanzogui
-// Provider + Hanzogui theme — that's wired by the admin shell at the
+// valid React element type. Full rendering requires a gui
+// Provider + Gui theme — that's wired by the admin shell at the
 // route level, not in unit tests. The export tests in exports.test.ts
 // catch type regressions; this file catches "page named export
 // changed" regressions by name+arity.

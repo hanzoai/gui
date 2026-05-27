@@ -1,7 +1,7 @@
 import { AnimatePresence } from '@hanzogui/animate-presence'
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb } from '@hanzogui/constants'
-import type { GetProps, HanzoguiElement } from '@hanzogui/core'
+import type { GetProps, GuiElement } from '@hanzogui/core'
 import { styled } from '@hanzogui/core'
 import { PortalHost } from '@hanzogui/portal'
 import { YStack } from '@hanzogui/stacks'
@@ -37,7 +37,7 @@ const ToastViewportWrapperFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -55,7 +55,7 @@ const ToastViewportFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -81,7 +81,7 @@ type ToastViewportProps = ToastViewportFrameProps & {
    */
   multipleToasts?: boolean
   /**
-   * When true, uses a portal to render at the very top of the root HanzoguiProvider.
+   * When true, uses a portal to render at the very top of the root GuiProvider.
    */
   portalToRoot?: boolean
 }
@@ -106,7 +106,7 @@ const ToastViewport = React.memo(
       const wrapperRef = React.useRef<HTMLDivElement>(null)
       const ref = React.useRef<HTMLDivElement>(null)
       const onViewportChange = React.useCallback(
-        (el: HanzoguiElement) => {
+        (el: GuiElement) => {
           if (context.viewports[name] !== el) context.onViewportChange(name, el)
         },
         [name, context.viewports]
@@ -380,7 +380,7 @@ FocusProxy.displayName = FOCUS_PROXY_NAME
 
 /* -----------------------------------------------------------------------------------------------*/
 
-function focusFirst(candidates: HanzoguiElement[]) {
+function focusFirst(candidates: GuiElement[]) {
   if (!isWeb) return
   const previouslyFocusedElement = document.activeElement
   return candidates.some((candidate) => {
@@ -401,7 +401,7 @@ function focusFirst(candidates: HanzoguiElement[]) {
  * See: https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker
  * Credit: https://github.com/discord/focus-layers/blob/master/src/util/wrapFocus.tsx#L1
  */
-function getTabbableCandidates(container: HanzoguiElement) {
+function getTabbableCandidates(container: GuiElement) {
   if (!isWeb) return []
   const containerHtml = container as HTMLElement
   const nodes: HTMLElement[] = []

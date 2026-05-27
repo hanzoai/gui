@@ -3,7 +3,7 @@
 // (b) supplying a non-empty reason that gets persisted to audit.
 //
 // Source-level assertions verify the wiring; a runtime test would
-// require a hanzogui Provider stack which the page-level tests in
+// require a gui Provider stack which the page-level tests in
 // this bucket already deliberately skip. The combinations covered
 // below are sufficient to catch any regression that would weaken
 // the gate.

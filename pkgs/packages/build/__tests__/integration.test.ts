@@ -26,7 +26,7 @@ const jsMainDistPath = join(jsMainPackagePath, 'dist')
 //   distPath,
 // })
 
-describe('hanzogui-build integration test', () => {
+describe('gui-build integration test', () => {
   beforeAll(() => {
     // Clean up dist directory before starting
     execSync('rm -rf dist && rm -rf types', { cwd: simplePackagePath })

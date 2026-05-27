@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native'
 import { Text, View, XStack, YStack, styled } from 'hanzogui'
 
 // tab pill that changes bg + border on press. mirrors 3pc CategoryPills +
-// Hanzogui Button outline/selected variant. the backdrop view is absolutely
+// Gui Button outline/selected variant. the backdrop view is absolutely
 // positioned behind the text so any stuck press state is visible as a
 // colored panel behind the label.
 

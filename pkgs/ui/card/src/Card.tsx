@@ -29,7 +29,7 @@ export const CardFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -56,7 +56,7 @@ export const CardHeader = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -75,7 +75,7 @@ export const CardFooter = styled(CardHeader, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -95,7 +95,7 @@ export const CardBackground = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 

@@ -1,22 +1,22 @@
 process.env.GUI_TARGET = 'web'
 
-import { getDefaultHanzoguiConfig } from '@hanzogui/config-default'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
 import type { ViewProps } from '@hanzogui/core'
-import { View, HanzoguiProvider, createHanzogui } from '@hanzogui/core'
+import { View, GuiProvider, createGui } from '@hanzogui/core'
 
-const conf = createHanzogui(getDefaultHanzoguiConfig())
+const conf = createGui(getDefaultGuiConfig())
 
 const TestViewRenders = ({
   renderCount,
   ...props
 }: ViewProps & { renderCount: { current: number } }) => {
   return (
-    <HanzoguiProvider config={conf} defaultTheme="light">
+    <GuiProvider config={conf} defaultTheme="light">
       <View data-test-renders={renderCount} {...props} />
-    </HanzoguiProvider>
+    </GuiProvider>
   )
 }
 

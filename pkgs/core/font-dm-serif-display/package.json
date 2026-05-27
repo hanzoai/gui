@@ -25,10 +25,10 @@
     }
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "build": "gui-build",
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/core": "workspace:*"

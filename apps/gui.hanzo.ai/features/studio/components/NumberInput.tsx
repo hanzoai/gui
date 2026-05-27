@@ -3,7 +3,7 @@ import {
   Button,
   Input,
   type SizeTokens,
-  type InputProps as HanzoguiInputProps,
+  type InputProps as GuiInputProps,
 } from 'hanzogui'
 
 export type NumberInputProps = {
@@ -12,7 +12,7 @@ export type NumberInputProps = {
   onValueChange?: (newValue: number) => void
   min?: number
   max?: number
-} & Omit<HanzoguiInputProps, 'value' | 'onValueChange'>
+} & Omit<GuiInputProps, 'value' | 'onValueChange'>
 
 export function NumberInput({
   size,

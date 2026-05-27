@@ -27,7 +27,7 @@ export const H1 = styled(Heading, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1' ? true : false,
+    unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
   },
 })
 
@@ -44,7 +44,7 @@ export const H2 = styled(Heading, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1' ? true : false,
+    unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
   },
 })
 
@@ -61,7 +61,7 @@ export const H3 = styled(Heading, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1' ? true : false,
+    unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
   },
 })
 
@@ -78,7 +78,7 @@ export const H4 = styled(Heading, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1' ? true : false,
+    unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
   },
 })
 
@@ -95,7 +95,7 @@ export const H5 = styled(Heading, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1' ? true : false,
+    unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
   },
 })
 
@@ -112,6 +112,6 @@ export const H6 = styled(Heading, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1' ? true : false,
+    unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
   },
 })

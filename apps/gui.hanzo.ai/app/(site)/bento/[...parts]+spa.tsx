@@ -22,7 +22,7 @@ import { ContainerBento } from '~/components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'
 import { BentoPageFrame } from '~/features/bento/BentoPageFrame'
 import { useBentoStore } from '~/features/bento/BentoStore'
-import { DropHanzoguiConfig } from '~/features/bento/DropHanzoguiConfig'
+import { DropGuiConfig } from '~/features/bento/DropGuiConfig'
 import { useSubscriptionModal } from '~/features/site/purchase/useSubscriptionModal'
 
 export const generateStaticParams = async () => {
@@ -179,7 +179,7 @@ export const DetailHeader = (props: { children: string }) => {
             $sm={{ y: 0, mt: 0, mb: 40, items: 'center' }}
           >
             <XStack gap="$4">
-              <DropHanzoguiConfig />
+              <DropGuiConfig />
 
               <Button
                 icon={bentoStore.disableTint ? Paintbrush : CircleDashed}

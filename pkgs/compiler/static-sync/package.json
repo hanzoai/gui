@@ -25,10 +25,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-native --bundle",
+    "build": "gui-build --skip-native --bundle",
     "watch": "bun run build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@babel/core": "^7.25.2",

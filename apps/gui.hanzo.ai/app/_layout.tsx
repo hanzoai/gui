@@ -1,6 +1,6 @@
 import '@hanzogui/core/reset.css'
 import '~/app.css'
-import '~/hanzogui.generated.css'
+import '~/gui.generated.css'
 
 import { LoadProgressBar, Slot } from 'one'
 import { setupPopper } from 'hanzogui'

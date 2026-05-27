@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
-import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 // Hanzo Tasks admin app.
 //
@@ -9,7 +9,7 @@ import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 // @hanzogui/core + @hanzo/admin all resolve cleanly — @hanzo/gui from
 // npm, @hanzo/admin via workspace:*. That's what lets the static
 // extractor's bundled-config worker re-resolve those imports when it
-// copies hanzogui.config.ts into the .hanzogui temp dir.
+// copies gui.config.ts into the .gui temp dir.
 //
 // Build target: a Vite SPA served from tasks.hanzo.ai. The base path
 // /_/tasks/ matches what tasksd's Go server strips before delegating
@@ -23,10 +23,10 @@ const APP_VERSION = process.env.VITE_APP_VERSION ?? '2.49.0'
 
 export default defineConfig({
   plugins: [
-    hanzoguiPlugin({
-      components: ['hanzogui'],
+    guiPlugin({
+      components: ['gui'],
       // Absolute path — keeps the extractor from getting confused
-      // when it copies the config into a `.hanzogui/` temp dir and
+      // when it copies the config into a `.gui/` temp dir and
       // tries to re-resolve workspace deps from there.
       config: path.resolve(__dirname, 'gui.config.ts'),
       // Extraction is required for production. If the temp-dir
@@ -44,8 +44,8 @@ export default defineConfig({
       process.env.VITE_API_PREFIX ?? '/v1/tasks',
     ),
     __DEV__: process.env.NODE_ENV !== 'production' ? 'true' : 'false',
-    'process.env.HANZOGUI_TARGET': JSON.stringify('web'),
-    'process.env.HANZOGUI_REACT_19': '"1"',
+    'process.env.GUI_TARGET': JSON.stringify('web'),
+    'process.env.GUI_REACT_19': '"1"',
   },
   resolve: {
     alias: {
@@ -63,15 +63,15 @@ export default defineConfig({
     // @hanzogui/* primitives from THIS app's node_modules, not from
     // a sibling workspace's nested copy. Without dedupe the dev server
     // serves two parallel module graphs (one for admin-tasks, one
-    // for @hanzo/admin), each with its own HanzoguiProvider context
+    // for @hanzo/admin), each with its own GuiProvider context
     // — children rendered through the @hanzo/admin Sidebar don't see
     // the provider mounted in admin-tasks's main.tsx, throw "Can't
-    // find Hanzogui configuration", page goes blank.
+    // find Gui configuration", page goes blank.
     dedupe: [
       'react',
       'react-dom',
       'react-native-web',
-      'hanzogui',
+      'gui',
       '@hanzogui/core',
       '@hanzogui/web',
       '@hanzogui/themes',
@@ -79,7 +79,7 @@ export default defineConfig({
     ],
   },
   optimizeDeps: {
-    // Force ALL hanzogui packages through ONE pre-bundled ESM module
+    // Force ALL gui packages through ONE pre-bundled ESM module
     // graph. Without this, the @hanzo/gui umbrella and direct
     // `@hanzogui/core` imports (e.g. via @hanzogui/lucide-icons-2 →
     // @hanzogui/helpers-icon → @hanzogui/core's Text) end up as
@@ -93,7 +93,7 @@ export default defineConfig({
       'react-dom/client',
       'react/jsx-runtime',
       'react-native-web',
-      'hanzogui',
+      'gui',
       '@hanzogui/core',
       '@hanzogui/web',
       '@hanzogui/themes',
@@ -113,7 +113,7 @@ export default defineConfig({
     sourcemap: false,
     assetsInlineLimit: 16 * 1024,
     target: 'es2020',
-    // Vendor split — keep React + router + the hanzogui runtime in
+    // Vendor split — keep React + router + the gui runtime in
     // long-lived chunks so per-page lazy chunks stay small.
     rollupOptions: {
       output: {
@@ -132,10 +132,10 @@ export default defineConfig({
             return 'ui-overlay'
           }
           // Workspace UI lives in pkgs/ui*, resolved via the `source`
-          // condition. Group it with hanzogui so small primitives don't
+          // condition. Group it with gui so small primitives don't
           // each get their own chunk.
           if (
-            id.includes('node_modules/hanzogui') ||
+            id.includes('node_modules/gui') ||
             id.includes('node_modules/@hanzogui/') ||
             id.includes('/pkgs/ui-admin/') ||
             id.includes('/pkgs/ui/')

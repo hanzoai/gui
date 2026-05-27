@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Removes the 'next' dist-tag from every published hanzogui / @hanzogui/* package.
+ * Removes the 'next' dist-tag from every published gui / @hanzogui/* package.
  * Use after promoting a new RC line to `latest`, when the legacy `next` tag is no longer wanted.
  *
  * Usage:
@@ -24,11 +24,11 @@ async function collectPackages(): Promise<string[]> {
     try {
       const pkg = JSON.parse(await readFile(pkgPath, 'utf8'))
       if (pkg.private) continue
-      const isHanzoguiPkg =
-        pkg.name === 'hanzogui' ||
-        pkg.name?.startsWith('hanzogui-') ||
+      const isGuiPkg =
+        pkg.name === 'gui' ||
+        pkg.name?.startsWith('gui-') ||
         pkg.name?.startsWith('@hanzogui/')
-      if (!isHanzoguiPkg) continue
+      if (!isGuiPkg) continue
       names.push(pkg.name)
     } catch {}
   }

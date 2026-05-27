@@ -7,10 +7,10 @@ import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { HanzoguiProvider } from 'hanzogui'
+import { GuiProvider } from 'hanzogui'
 
 import Head from 'next/head'
-import config from '../hanzogui.config'
+import config from '../gui.config'
 
 Error.stackTraceLimit = Number.POSITIVE_INFINITY
 
@@ -74,9 +74,9 @@ function AppContents(
 ) {
   return (
     <>
-      <HanzoguiProvider config={config} disableInjectCSS defaultTheme={props.theme}>
+      <GuiProvider config={config} disableInjectCSS defaultTheme={props.theme}>
         <ContentInner {...props} />
-      </HanzoguiProvider>
+      </GuiProvider>
     </>
   )
 }

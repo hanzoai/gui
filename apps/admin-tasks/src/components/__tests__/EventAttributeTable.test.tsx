@@ -6,7 +6,7 @@ import {
 } from '../event/event-attribute-rows'
 import { buildHistoryEvent } from '../../test/factories'
 
-// EventAttributeTable.tsx pulls in the hanzogui Hanzogui provider chain
+// EventAttributeTable.tsx pulls in the gui Gui provider chain
 // (Text/XStack/Badge), which under jsdom requires the full theme
 // extractor (see WorkflowStatusPill.test.tsx for the same trade-off).
 // The load-bearing pieces are pure: row derivation per event-type and

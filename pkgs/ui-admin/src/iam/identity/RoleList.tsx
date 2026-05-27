@@ -1,7 +1,7 @@
 // IAM roles — list view. Ports `web/src/RoleListPage.tsx`. The
 // upstream page is already a function component (not BaseListPage),
 // so the port is a near-1:1 swap of Ant Design `<Table>` for
-// `<DataTable>` and the lucide-react buttons for hanzogui Buttons.
+// `<DataTable>` and the lucide-react buttons for gui Buttons.
 
 import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'

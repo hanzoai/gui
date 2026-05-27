@@ -5,10 +5,10 @@
   "source": "src",
   "scripts": {
     "dev": "./scripts/dev.sh",
-    "clean:build": "hanzogui-build clean:build",
+    "clean:build": "gui-build clean:build",
     "ci:build": "bun run next:build && bun run build:bento",
     "ci:build:no-extract": "DISABLE_EXTRACTION=true bun run ci:build",
-    "ci:build:debug": "DEBUG=hanzogui bun run ci:build",
+    "ci:build:debug": "DEBUG=gui bun run ci:build",
     "dev:analyze": "ANALYZE=true bun run dev",
     "dev:next": "bun run next",
     "test-bak": "./scripts/test.sh",
@@ -24,7 +24,7 @@
     "env:pull": "vc env pull .env.local",
     "supabase:generate": "npx supabase gen types typescript --local > lib/supabase-types.ts",
     "stripe:listen": "stripe listen --forward-to localhost:5005/api/stripe/webhook",
-    "clean": "hanzogui-build clean"
+    "clean": "gui-build clean"
   },
   "dependencies": {
     "@types/d3-scale": "^4.0.2",

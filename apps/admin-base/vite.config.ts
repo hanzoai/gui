@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
-import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 // Hanzo Base admin SPA.
 //
-// Mirrors admin-tasks shape (same hanzogui static-extractor pipeline,
+// Mirrors admin-tasks shape (same gui static-extractor pipeline,
 // same dedupe list, same optimizeDeps include set). One way across
 // every admin surface.
 //
@@ -32,8 +32,8 @@ const IAM_TARGET = process.env.VITE_IAM_URL ?? BASE_TARGET
 
 export default defineConfig({
   plugins: [
-    hanzoguiPlugin({
-      components: ['hanzogui'],
+    guiPlugin({
+      components: ['gui'],
       config: path.resolve(__dirname, 'gui.config.ts'),
     }),
     react(),
@@ -58,8 +58,8 @@ export default defineConfig({
       process.env.VITE_BRAND_MARK_URL ?? '',
     ),
     __DEV__: process.env.NODE_ENV !== 'production' ? 'true' : 'false',
-    'process.env.HANZOGUI_TARGET': JSON.stringify('web'),
-    'process.env.HANZOGUI_REACT_19': '"1"',
+    'process.env.GUI_TARGET': JSON.stringify('web'),
+    'process.env.GUI_REACT_19': '"1"',
   },
   resolve: {
     alias: {
@@ -74,7 +74,7 @@ export default defineConfig({
       'react',
       'react-dom',
       'react-native-web',
-      'hanzogui',
+      'gui',
       '@hanzogui/core',
       '@hanzogui/web',
       '@hanzogui/themes',
@@ -88,7 +88,7 @@ export default defineConfig({
       'react-dom/client',
       'react/jsx-runtime',
       'react-native-web',
-      'hanzogui',
+      'gui',
       '@hanzogui/core',
       '@hanzogui/web',
       '@hanzogui/themes',

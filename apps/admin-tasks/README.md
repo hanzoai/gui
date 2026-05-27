@@ -1,16 +1,16 @@
 # `@hanzo/tasks`
 
-The Hanzo Tasks SPA. Vite, Hanzogui via the `hanzogui` umbrella, composed
+The Hanzo Tasks SPA. Vite, Gui via the `gui` umbrella, composed
 from `@hanzogui/admin` chrome + transport-agnostic data hooks. Ships
 standalone to `tasks.hanzo.ai` and is also embedded in `tasksd` (Go
 binary) under `/_/tasks/`.
 
 ## Why this lives in `gui`
 
-This app consumes `hanzogui`, `@hanzogui/core`, and `@hanzogui/admin`
+This app consumes `gui`, `@hanzogui/core`, and `@hanzogui/admin`
 through `workspace:*`. That's the only place the static extractor's
 bundled-config worker can re-resolve those imports when it copies
-`hanzogui.config.ts` into `.hanzogui/hanzogui.config.mjs` at build time.
+`gui.config.ts` into `.gui/gui.config.mjs` at build time.
 Outside the workspace, hoisting can't reach the temp file and the
 extractor crashes on `cannot find @hanzogui/core`. Inside, every dep
 resolves through the root `node_modules` and the extractor emits the
@@ -21,7 +21,7 @@ theme CSS layer cleanly.
 - The package name is **`@hanzo/tasks`** — top-level under `@hanzo/*`,
   same namespace as the product binary (`tasksd`) and the public domain
   (`tasks.hanzo.ai`).
-- All gui-internals (the umbrella `hanzogui`, deep packages
+- All gui-internals (the umbrella `gui`, deep packages
   `@hanzogui/admin`, `@hanzogui/core`, `@hanzogui/web`,
   `@hanzogui/lucide-icons-2`, `@hanzogui/config`, etc.) stay under
   `@hanzogui/*`. The line is: **`@hanzogui/*` = gui internals, `@hanzo/*`
@@ -38,7 +38,7 @@ target — anyone running `tasksd start` gets the embedded UI for free,
 no Node.js required.
 
 `@hanzo/tasks` is a different deployment target: the cloud
-SPA at `tasks.hanzo.ai`. Same backend (`/v1/tasks/*`), Hanzogui chrome,
+SPA at `tasks.hanzo.ai`. Same backend (`/v1/tasks/*`), Gui chrome,
 and the bigger surface for namespaces / batches / deployments / nexus
 that we want first-class on the web.
 
@@ -71,7 +71,7 @@ bun run preview                  # serve dist/ for a sanity check
 | Total | 1.5 MB | **0.68 MB** |
 | Gzip JS | 294,962 B | **201,529 B** (-32%) |
 
-Hanzogui's static extractor hoists the style props it can resolve at
+Gui's static extractor hoists the style props it can resolve at
 build time into atomic class names in a single CSS file, then strips
 the style runtime call sites in JS. The savings come from both the
 removed style-prop arguments AND the dropped runtime style code.
@@ -82,8 +82,8 @@ removed style-prop arguments AND the dropped runtime style code.
 |---|---|
 | `package.json` | bun workspace manifest — every gui dep via `workspace:*` |
 | `tsconfig.json` | strict TS, bundler resolution, JSX react-jsx |
-| `vite.config.ts` | Vite 8 + `@vitejs/plugin-react` + `hanzoguiPlugin`; aliases `react-native` → `react-native-web` and `react-native-svg` → `@hanzogui/react-native-svg`; proxies `/v1/tasks` → `127.0.0.1:7243`; serves under `/_/tasks/` to match tasksd's path |
-| `hanzogui.config.ts` | extends `@hanzogui/config`'s v5 default — clean, no runtime spread |
+| `vite.config.ts` | Vite 8 + `@vitejs/plugin-react` + `guiPlugin`; aliases `react-native` → `react-native-web` and `react-native-svg` → `@hanzogui/react-native-svg`; proxies `/v1/tasks` → `127.0.0.1:7243`; serves under `/_/tasks/` to match tasksd's path |
+| `gui.config.ts` | extends `@hanzogui/config`'s v5 default — clean, no runtime spread |
 | `index.html` | SPA shell, dark `<body>`, Inter font preconnect |
 | `src/main.tsx` | React root, BrowserRouter at basename `/_/tasks` |
 | `src/App.tsx` | wires `@hanzogui/admin` chrome with tasks-specific nav config |
@@ -99,16 +99,16 @@ removed style-prop arguments AND the dropped runtime style code.
   been ported across yet. Single-page focus first.
 - **Auth flow** — currently relies on identity headers injected by
   `hanzoai/gateway` in production. Local dev runs without auth.
-- **Mobile target** — Hanzogui compiles to react-native for iOS/Android
+- **Mobile target** — Gui compiles to react-native for iOS/Android
   but no native shell exists yet. Future work.
 
 ## Conventions
 
 - Strict TypeScript. `noUnusedLocals` / `noUnusedParameters` on.
-- No HTML / CSS DOM primitives. Hanzogui only.
+- No HTML / CSS DOM primitives. Gui only.
 - All gui deps via `workspace:*`. Never pin a version on a package
   that lives in this repo.
-- Extractor stays enabled. If a Hanzogui type widening breaks the
+- Extractor stays enabled. If a Gui type widening breaks the
   build, fix the type — don't disable extraction.
 - Versioning tracks upstream `temporalio/ui` major.minor. Don't bump
   majors for internal UI rewrites — that's how we ended up at v3.x.x

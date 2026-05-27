@@ -4,7 +4,7 @@
     "composite": true
   },
   "exclude": [
-    "hanzogui.config.ts",
+    "gui.config.ts",
     "test",
     "dist",
     "types",

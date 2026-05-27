@@ -1,4 +1,4 @@
-// Entry point. Wires HanzoguiProvider, BrowserRouter, and the route
+// Entry point. Wires GuiProvider, BrowserRouter, and the route
 // tree. Login is unguarded; everything else routes through App's
 // AdminApp shell with an auth gate.
 //
@@ -17,7 +17,7 @@ import {
   useLocation,
   useParams,
 } from 'react-router-dom'
-import { HanzoguiProvider } from 'hanzogui'
+import { GuiProvider } from 'hanzogui'
 import { PageShell } from '@hanzogui/admin'
 import config from '../gui.config'
 import App from './App'
@@ -59,7 +59,7 @@ if (!root) throw new Error('root element missing')
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <HanzoguiProvider config={config} defaultTheme="dark">
+    <GuiProvider config={config} defaultTheme="dark">
       <BrowserRouter basename="/_">
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -97,6 +97,6 @@ ReactDOM.createRoot(root).render(
           </Route>
         </Routes>
       </BrowserRouter>
-    </HanzoguiProvider>
+    </GuiProvider>
   </React.StrictMode>,
 )

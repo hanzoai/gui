@@ -9,7 +9,7 @@
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc",
     "prod": "bun run build:web && bun run start",
-    "upgrade:hanzogui": "bunx npm-check-updates -u '*hanzogui*' '@hanzogui/*' && bun install"
+    "upgrade:gui": "bunx npm-check-updates -u '*gui*' '@hanzogui/*' && bun install"
   },
   "dependencies": {
     "@remix-run/node": "^2.12.1",

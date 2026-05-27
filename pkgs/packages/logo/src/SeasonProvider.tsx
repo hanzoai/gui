@@ -9,7 +9,7 @@ function getInlineScript() {
   var d = new Date();
   var m = d.getMonth();
   var day = d.getDate();
-  var season = 'hanzogui';
+  var season = 'gui';
 
   if (m === 11 && day >= 14) season = 'xmas';
   else if (m === 9 && day >= 20) season = 'halloween';
@@ -18,7 +18,7 @@ function getInlineScript() {
   else if (m === 1 && day >= 7 && day <= 14) season = 'valentine';
   else if (m === 0 && day >= 20 || m === 1 && day <= 12) season = 'lunar';
 
-  if (season !== 'hanzogui') {
+  if (season !== 'gui') {
     document.documentElement.classList.add(season + '-season');
   }
   window.__GUI_SEASON__ = season;

@@ -16,10 +16,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-native",
-    "watch": "hanzogui-build --skip-native --watch",
-    "clean": "node ../../../node_modules/.bin/hanzogui-build clean",
-    "clean:build": "node ../../../node_modules/.bin/hanzogui-build clean:build"
+    "build": "gui-build --skip-native",
+    "watch": "gui-build --skip-native --watch",
+    "clean": "node ../../../node_modules/.bin/gui-build clean",
+    "clean:build": "node ../../../node_modules/.bin/gui-build clean:build"
   },
   "dependencies": {
     "@babel/core": "^7.25.2",

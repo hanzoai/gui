@@ -1,14 +1,14 @@
 // Smoke tests for the auth bucket pages. Mirrors the identity-bucket
-// approach: stub `hanzogui` and lucide deep imports with no-op
+// approach: stub `gui` and lucide deep imports with no-op
 // forwards so each page renders in jsdom without a workspace install.
 // We render every page once and assert no-throw + the documented
 // `/v1/iam/...` path is hit.
 
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 
-// ---- Stub hanzogui primitives ------------------------------------------
+// ---- Stub gui primitives ------------------------------------------
 
-vi.mock('hanzogui', () => {
+vi.mock('gui', () => {
   const React = require('react') as typeof import('react')
   const pass = (tag: string) =>
     React.forwardRef(function P(props: Record<string, unknown>, ref: unknown) {

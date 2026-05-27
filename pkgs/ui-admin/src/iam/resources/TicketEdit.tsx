@@ -273,7 +273,7 @@ export function TicketEdit({ account }: TicketEditProps) {
               value={messageText}
               placeholder="Type your message..."
               onChangeText={setMessageText}
-              // The Hanzogui TextArea forwards onKeyDown to the
+              // The Gui TextArea forwards onKeyDown to the
               // underlying div on web; the typed signature uses
               // HTMLDivElement. We read the same `key`/`ctrlKey`
               // fields from either shape, so the cast is safe.

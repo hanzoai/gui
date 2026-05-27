@@ -6,7 +6,7 @@ import type {
   GestureReponderEvent,
   GetProps,
   SizeTokens,
-  HanzoguiElement,
+  GuiElement,
 } from '@hanzogui/core'
 import {
   getTokens,
@@ -231,7 +231,7 @@ const SliderVertical = React.forwardRef<View, SliderVerticalProps>(
     const setState = useCreateShallowSetState(setState_)
     const sliderRef = React.useRef<View>(null)
     const configuration = useConfiguration()
-    // these insets are insets passed from HanzoguiProvider by useSafeAreaInsets()
+    // these insets are insets passed from GuiProvider by useSafeAreaInsets()
     const insets =
       isIos && configuration.insets ? configuration.insets : { top: 0, bottom: 0 }
 
@@ -299,7 +299,7 @@ const SliderVertical = React.forwardRef<View, SliderVerticalProps>(
  * SliderTrack
  * -----------------------------------------------------------------------------------------------*/
 
-type SliderTrackElement = HanzoguiElement
+type SliderTrackElement = GuiElement
 
 export const SliderTrackFrame = styled(SliderFrame, {
   name: 'Slider',
@@ -318,7 +318,7 @@ export const SliderTrackFrame = styled(SliderFrame, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -358,7 +358,7 @@ export const SliderActiveFrame = styled(SliderFrame, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -409,7 +409,7 @@ const SliderActive = React.forwardRef<View, SliderActiveProps>(function SliderAc
  * SliderThumb
  * -----------------------------------------------------------------------------------------------*/
 
-// TODO make this customizable through hanzogui
+// TODO make this customizable through gui
 // so we can accurately use it for estimatedSize below
 const getThumbSize = (val?: SizeTokens | number) => {
   const tokens = getTokens()
@@ -460,7 +460,7 @@ export const SliderThumbFrame = styled(ThemeableStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -475,7 +475,7 @@ const SliderThumb = SliderThumbFrame.styleable<SliderThumbExtraProps>(
     const { __scopeSlider, index = 0, circular, size: sizeProp, ...thumbProps } = props
     const context = useSliderContext(__scopeSlider)
     const orientation = useSliderOrientationContext(__scopeSlider)
-    const [thumb, setThumb] = React.useState<HanzoguiElement | null>(null)
+    const [thumb, setThumb] = React.useState<GuiElement | null>(null)
     const composedRefs = useComposedRefs(forwardedRef, setThumb as any)
 
     // We cast because index could be `-1` which would return undefined

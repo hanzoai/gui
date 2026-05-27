@@ -1,6 +1,6 @@
 import { autoUpdate, offset, useFloatingRaw as useFloating } from '@hanzogui/floating'
 import { useComposedRefs } from '@hanzogui/compose-refs'
-import type { HanzoguiElement } from '@hanzogui/core'
+import type { GuiElement } from '@hanzogui/core'
 import { YStack } from '@hanzogui/stacks'
 import * as React from 'react'
 import { flushSync } from 'react-dom'
@@ -19,7 +19,7 @@ import type {
 const SCROLL_UP_BUTTON_NAME = 'SelectScrollUpButton'
 
 export const SelectScrollUpButton = React.forwardRef<
-  HanzoguiElement,
+  GuiElement,
   SelectScrollButtonProps
 >((props: SelectScopedProps<SelectScrollButtonProps>, forwardedRef) => {
   return (
@@ -41,7 +41,7 @@ SelectScrollUpButton.displayName = SCROLL_UP_BUTTON_NAME
 const SCROLL_DOWN_BUTTON_NAME = 'SelectScrollDownButton'
 
 export const SelectScrollDownButton = React.forwardRef<
-  HanzoguiElement,
+  GuiElement,
   SelectScrollButtonProps
 >((props: SelectScopedProps<SelectScrollButtonProps>, forwardedRef) => {
   return (
@@ -56,7 +56,7 @@ export const SelectScrollDownButton = React.forwardRef<
 
 SelectScrollDownButton.displayName = SCROLL_DOWN_BUTTON_NAME
 
-type SelectScrollButtonImplElement = HanzoguiElement
+type SelectScrollButtonImplElement = GuiElement
 
 const SelectScrollButtonImpl = React.memo(
   React.forwardRef<SelectScrollButtonImplElement, SelectScrollButtonImplProps>(

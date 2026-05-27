@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
-import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 
 // Hanzo Agents admin app.
 //
@@ -18,8 +18,8 @@ const APP_VERSION = process.env.VITE_APP_VERSION ?? '0.1.0'
 
 export default defineConfig({
   plugins: [
-    hanzoguiPlugin({
-      components: ['hanzogui'],
+    guiPlugin({
+      components: ['gui'],
       config: path.resolve(__dirname, 'gui.config.ts'),
     }),
     react(),
@@ -31,8 +31,8 @@ export default defineConfig({
       process.env.VITE_API_PREFIX ?? '/v1/agents',
     ),
     __DEV__: process.env.NODE_ENV !== 'production' ? 'true' : 'false',
-    'process.env.HANZOGUI_TARGET': JSON.stringify('web'),
-    'process.env.HANZOGUI_REACT_19': '"1"',
+    'process.env.GUI_TARGET': JSON.stringify('web'),
+    'process.env.GUI_REACT_19': '"1"',
   },
   resolve: {
     alias: {
@@ -51,7 +51,7 @@ export default defineConfig({
       'react',
       'react-dom',
       'react-native-web',
-      'hanzogui',
+      'gui',
       '@hanzogui/core',
       '@hanzogui/web',
       '@hanzogui/themes',
@@ -65,7 +65,7 @@ export default defineConfig({
       'react-dom/client',
       'react/jsx-runtime',
       'react-native-web',
-      'hanzogui',
+      'gui',
       '@hanzogui/core',
       '@hanzogui/web',
       '@hanzogui/themes',

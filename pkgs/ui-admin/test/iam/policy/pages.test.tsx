@@ -1,4 +1,4 @@
-// Smoke tests for the policy bucket pages. We stub `hanzogui`
+// Smoke tests for the policy bucket pages. We stub `gui`
 // and the lucide deep imports with no-op forwards so the pages
 // can render in jsdom without a workspace-wide install. Tests
 // assert the URL contract (each list page hits the documented
@@ -7,13 +7,13 @@
 
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 
-// ---- Stub hanzogui primitives -------------------------------------------
+// ---- Stub gui primitives -------------------------------------------
 //
 // Each primitive renders a div with role + data-testid so RTL
 // assertions can find it. Forwarded refs are honoured for
 // AuthzEditor's textarea ref.
 
-vi.mock('hanzogui', () => {
+vi.mock('gui', () => {
   const React = require('react') as typeof import('react')
   const passthrough = (tag: string) =>
     React.forwardRef(function P(props: Record<string, unknown>, ref: unknown) {

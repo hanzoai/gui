@@ -3,9 +3,9 @@ import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import type {
   GetProps,
   ViewProps,
-  HanzoguiComponent,
-  HanzoguiComponentExpectingVariants,
-  HanzoguiElement,
+  GuiComponent,
+  GuiComponentExpectingVariants,
+  GuiElement,
 } from '@hanzogui/core'
 import { View } from '@hanzogui/core'
 import { composeEventHandlers, withStaticProperties } from '@hanzogui/helpers'
@@ -32,12 +32,12 @@ type SharedSheetProps = {
 
 type BaseProps = ViewProps & SharedSheetProps
 
-type SheetStyledComponent = HanzoguiComponentExpectingVariants<BaseProps, SharedSheetProps>
+type SheetStyledComponent = GuiComponentExpectingVariants<BaseProps, SharedSheetProps>
 
 export function createSheet<
-  H extends HanzoguiComponent | SheetStyledComponent,
-  F extends HanzoguiComponent | SheetStyledComponent,
-  O extends HanzoguiComponent | SheetStyledComponent,
+  H extends GuiComponent | SheetStyledComponent,
+  F extends GuiComponent | SheetStyledComponent,
+  O extends GuiComponent | SheetStyledComponent,
 >({ Handle, Frame, Overlay }: { Handle: H; Frame: F; Overlay: O }) {
   const SheetHandle = Handle.styleable<any>(
     (
@@ -45,7 +45,7 @@ export function createSheet<
       forwardedRef
     ) => {
       const context = useSheetContext(SHEET_HANDLE_NAME, __scopeSheet)
-      const composedRef = useComposedRefs<HanzoguiElement>(context.handleRef, forwardedRef)
+      const composedRef = useComposedRefs<GuiElement>(context.handleRef, forwardedRef)
 
       // track if sheet was being dragged to prevent onPress toggle after drag
       const wasDraggingRef = useRef(false)

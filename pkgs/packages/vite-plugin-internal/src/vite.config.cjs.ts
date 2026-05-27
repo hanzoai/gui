@@ -1,4 +1,4 @@
-import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
+import { guiPlugin } from '@hanzogui/vite-plugin'
 import { getConfig } from './getConfig'
 
-export default getConfig(hanzoguiPlugin)
+export default getConfig(guiPlugin)

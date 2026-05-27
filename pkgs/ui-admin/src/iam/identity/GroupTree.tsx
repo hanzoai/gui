@@ -1,6 +1,6 @@
 // IAM groups — tree view. Ports `web/src/GroupTreePage.tsx`. The
 // upstream page used Ant Design `<Tree>`, which we don't have in
-// hanzogui. We render an indented list of recursive `<TreeNode>`
+// gui. We render an indented list of recursive `<TreeNode>`
 // components — same affordances (expand/collapse, select, add child,
 // delete) without the framework dependency.
 //

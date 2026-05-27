@@ -6,23 +6,23 @@
 // the themes object — spreading it through a JS module breaks the
 // static shape getThemeProxied() depends on.
 //
-// IMPORTANT: this config file imports from `hanzogui` (workspace
-// umbrella). The static extractor copies this file into `.hanzogui/`
-// at build time; that temp dir can find `hanzogui` via standard
+// IMPORTANT: this config file imports from `gui` (workspace
+// umbrella). The static extractor copies this file into `.gui/`
+// at build time; that temp dir can find `gui` via standard
 // node_modules walk-up.
 
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createHanzogui } from 'hanzogui'
+import { createGui } from 'hanzogui'
 
-export const config = createHanzogui(defaultConfig)
+export const config = createGui(defaultConfig)
 
 export default config
 
 export type Conf = typeof config
 
 declare module 'hanzogui' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }
 declare module '@hanzogui/web' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }

@@ -12,7 +12,7 @@
 // MarkerRecorded with one populated header doesn't spam 8 nulls.
 //
 // The pure logic lives in ./event-attribute-rows so the unit test can
-// exercise row derivation + payload decoding without a Hanzogui provider.
+// exercise row derivation + payload decoding without a Gui provider.
 
 import { useMemo, useState } from 'react'
 import { Button, Text, XStack, YStack } from 'hanzogui'

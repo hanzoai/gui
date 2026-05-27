@@ -8,7 +8,7 @@ import type {
   TokensParsed,
 } from '../types'
 
-// only cache hanzogui styles
+// only cache gui styles
 // TODO merge totalSelectorsInserted and allSelectors?
 const scannedCache = new WeakMap<CSSStyleSheet, string>()
 const totalSelectorsInserted = new Map<string, number>()
@@ -101,8 +101,8 @@ function updateSheetStyles(
     return
   }
 
-  const firstSelector = getHanzoguiSelector(rules[0], collectThemes)?.[0]
-  const lastSelector = getHanzoguiSelector(rules[rules.length - 1], collectThemes)?.[0]
+  const firstSelector = getGuiSelector(rules[0], collectThemes)?.[0]
+  const lastSelector = getGuiSelector(rules[rules.length - 1], collectThemes)?.[0]
   const cacheKey = `${rules.length}${firstSelector}${lastSelector}`
   const lastScanned = scannedCache.get(sheet)
 
@@ -127,7 +127,7 @@ function updateSheetStyles(
     const rule = rules[i]
     if (!(rule instanceof CSSStyleRule)) continue
 
-    const response = getHanzoguiSelector(rule, collectThemes)
+    const response = getGuiSelector(rule, collectThemes)
 
     if (response) {
       // reset to 0 on any success as eg every other theme scan we get empty
@@ -135,7 +135,7 @@ function updateSheetStyles(
     } else {
       fails++
       if (fails > bailAfter) {
-        // conservatively bail out of non-hanzogui sheets
+        // conservatively bail out of non-gui sheets
         return
       }
       continue
@@ -249,9 +249,9 @@ function addThemesFromCSS(cssStyleRule: CSSStyleRule, tokens?: TokensParsed) {
   } satisfies DedupedTheme
 }
 
-const hanzoguiSelectorRegex = /\.tm_xxt/
+const guiSelectorRegex = /\.tm_xxt/
 
-function getHanzoguiSelector(
+function getGuiSelector(
   rule: CSSRule | null,
   collectThemes = false
 ): readonly [string, CSSStyleRule] | [string, CSSStyleRule, true] | undefined {
@@ -259,21 +259,21 @@ function getHanzoguiSelector(
     const text = rule.selectorText
 
     // only matches t_ starting selector chains
-    if (text[0] === ':' && text[1] === 'r' && hanzoguiSelectorRegex.test(text)) {
-      const id = getIdentifierFromHanzoguiSelector(
+    if (text[0] === ':' && text[1] === 'r' && guiSelectorRegex.test(text)) {
+      const id = getIdentifierFromGuiSelector(
         // next.js minifies it so its in front
-        text.replace(hanzoguiSelectorRegex, '')
+        text.replace(guiSelectorRegex, '')
       )
       return collectThemes ? [id, rule, true] : [id, rule]
     }
   } else if (rule instanceof CSSMediaRule) {
-    // hanzogui only ever inserts 1 rule per media
+    // gui only ever inserts 1 rule per media
     if (rule.cssRules.length > 1) return
-    return getHanzoguiSelector(rule.cssRules[0])
+    return getGuiSelector(rule.cssRules[0])
   }
 }
 
-const getIdentifierFromHanzoguiSelector = (selector: string) => {
+const getIdentifierFromGuiSelector = (selector: string) => {
   const dotIndex = selector.indexOf(':')
   if (dotIndex > -1) {
     return selector.slice(7, dotIndex)
@@ -305,7 +305,7 @@ export function insertStyleRules(rulesToInsert: RulesToInsert) {
 
   if (!sheet && document.head) {
     const styleTag = document.createElement('style')
-    styleTag.id = '_hanzogui-styles'
+    styleTag.id = '_gui-styles'
     if (nonce) {
       styleTag.nonce = nonce
     }

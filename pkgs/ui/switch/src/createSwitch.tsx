@@ -61,7 +61,7 @@ export function createSwitch<
         frameWidth = 0,
       } = styledContext
       const unstyled =
-        process.env.HANZOGUI_HEADLESS === '1'
+        process.env.GUI_HEADLESS === '1'
           ? true
           : (unstyledProp ?? unstyledContext ?? false)
       const size = sizeProp ?? sizeContext ?? '$true'
@@ -122,7 +122,7 @@ export function createSwitch<
       const { switchProps, bubbleInput, switchRef } = useSwitch(
         props as any,
         [checked, setChecked],
-        // @ts-ignore TODO hanzogui react 19 type error
+        // @ts-ignore TODO gui react 19 type error
         forwardedRef
       )
 

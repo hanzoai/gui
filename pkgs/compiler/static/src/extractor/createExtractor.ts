@@ -10,7 +10,7 @@ import {
   type PseudoStyles,
   type SplitStyleProps,
   type StaticConfig,
-  type HanzoguiComponentState,
+  type GuiComponentState,
 } from '@hanzogui/web'
 import { existsSync, readFileSync } from 'node:fs'
 import { basename, dirname, resolve, relative } from 'node:path'
@@ -18,17 +18,17 @@ import { nodeModuleNameResolver, sys } from 'typescript'
 import type { ViewStyle } from 'react-native'
 
 import { FAILED_EVAL } from '../constants'
-import { requireHanzoguiCore } from '../helpers/requireHanzoguiCore'
+import { requireGuiCore } from '../helpers/requireGuiCore'
 import type {
   ExtractedAttr,
   ExtractedAttrStyle,
   ExtractorOptions,
   ExtractorParseProps,
-  HanzoguiOptions,
-  HanzoguiOptionsWithFileInfo,
+  GuiOptions,
+  GuiOptionsWithFileInfo,
   Ternary,
 } from '../types'
-import type { LoadedComponents, HanzoguiProjectInfo } from './bundleConfig'
+import type { LoadedComponents, GuiProjectInfo } from './bundleConfig'
 import { createEvaluator, createSafeEvaluator } from './createEvaluator'
 import { evaluateAstNode } from './evaluateAstNode'
 import {
@@ -44,7 +44,7 @@ import {
 import { findTopmostFunction } from './findTopmostFunction'
 import { cleanupBeforeExit, getStaticBindingsForScope } from './getStaticBindingsForScope'
 import { literalToAst } from './literalToAst'
-import { loadHanzogui, loadHanzoguiSync } from './loadHanzogui'
+import { loadGui, loadGuiSync } from './loadGui'
 import { logLines } from './logLines'
 import { normalizeTernaries } from './normalizeTernaries'
 import { setPropsToFontFamily } from './propsToFontFamilyCache'
@@ -72,7 +72,7 @@ type FileOrPath = NodePath<t.Program> | t.File
 
 let hasLoggedBaseInfo = false
 
-function isFullyDisabled(props: HanzoguiOptions) {
+function isFullyDisabled(props: GuiOptions) {
   return props.disableExtraction && props.disableDebugAttr
 }
 
@@ -114,7 +114,7 @@ export function createExtractor(
     }),
   }
 
-  const componentState: HanzoguiComponentState = {
+  const componentState: GuiComponentState = {
     focus: false,
     focusVisible: false,
     focusWithin: false,
@@ -138,7 +138,7 @@ export function createExtractor(
     process.env.IDENTIFY_TAGS !== 'false' &&
     (process.env.NODE_ENV === 'development' || process.env.IDENTIFY_TAGS)
 
-  let projectInfo: HanzoguiProjectInfo | null = null
+  let projectInfo: GuiProjectInfo | null = null
 
   // cache of dynamically discovered styled components, keyed by absolute file path
   // persists across files within the same worker/extractor instance
@@ -217,21 +217,21 @@ export function createExtractor(
     }
   }
 
-  // we load hanzogui delayed because we need to set some global/env stuff before importing
+  // we load gui delayed because we need to set some global/env stuff before importing
   // otherwise we'd import `rnw` and cause it to evaluate react-native-web which causes errors
 
-  function loadSync(props: HanzoguiOptions) {
+  function loadSync(props: GuiOptions) {
     if (isFullyDisabled(props)) {
       return null
     }
-    return (projectInfo ||= loadHanzoguiSync(props))
+    return (projectInfo ||= loadGuiSync(props))
   }
 
-  async function load(props: HanzoguiOptions) {
+  async function load(props: GuiOptions) {
     if (isFullyDisabled(props)) {
       return null
     }
-    return (projectInfo ||= await loadHanzogui(props))
+    return (projectInfo ||= await loadGui(props))
   }
 
   return {
@@ -239,10 +239,10 @@ export function createExtractor(
       logger,
     },
     cleanupBeforeExit,
-    loadHanzogui: load,
-    loadHanzoguiSync: loadSync,
-    getHanzogui() {
-      return projectInfo?.hanzoguiConfig
+    loadGui: load,
+    loadGuiSync: loadSync,
+    getGui() {
+      return projectInfo?.guiConfig
     },
     parseSync: (f: FileOrPath, props: ExtractorParseProps) => {
       globalThis.expo ||= {} // expo-modules-core checks this and avoids loading "native" modules if exists
@@ -257,12 +257,12 @@ export function createExtractor(
   }
 
   function parseWithConfig(
-    { components, hanzoguiConfig }: HanzoguiProjectInfo,
+    { components, guiConfig }: GuiProjectInfo,
     fileOrPath: FileOrPath,
     options: ExtractorParseProps
   ) {
     const {
-      config = 'hanzogui.config.ts',
+      config = 'gui.config.ts',
       importsWhitelist = ['constants.js'],
       evaluateVars = true,
       sourcePath = '',
@@ -288,7 +288,7 @@ export function createExtractor(
       styledCheckCache.delete(sourcePath)
     }
 
-    if (sourcePath.includes('.hanzogui-dynamic-eval')) {
+    if (sourcePath.includes('.gui-dynamic-eval')) {
       return null
     }
 
@@ -300,7 +300,7 @@ export function createExtractor(
       proxyThemeVariables,
       getDefaultProps,
       pseudoDescriptors,
-    } = requireHanzoguiCore(platform)
+    } = requireGuiCore(platform)
 
     let shouldPrintDebug = options.shouldPrintDebug || false
 
@@ -331,7 +331,7 @@ export function createExtractor(
 
     function isValidStyleKey(name: string, staticConfig: StaticConfig) {
       if (!projectInfo) {
-        throw new Error(`Hanzogui extractor not loaded yet`)
+        throw new Error(`Gui extractor not loaded yet`)
       }
       if (platform === 'native' && name[0] === '$' && mediaQueryConfig[name.slice(1)]) {
         return false
@@ -355,7 +355,7 @@ export function createExtractor(
         pseudoDescriptors[name] ||
         // don't disable variants or else you lose many things flattening
         staticConfig.variants?.[name] ||
-        projectInfo?.hanzoguiConfig?.shorthands[name]
+        projectInfo?.guiConfig?.shorthands[name]
       )
     }
 
@@ -366,7 +366,7 @@ export function createExtractor(
     const isTargetingHTML = platform === 'web'
     const ogDebug = shouldPrintDebug
     const tm = timer()
-    const propsWithFileInfo: HanzoguiOptionsWithFileInfo = {
+    const propsWithFileInfo: GuiOptionsWithFileInfo = {
       ...options,
       sourcePath,
       allLoadedComponents: components ? [...components] : [],
@@ -384,7 +384,7 @@ export function createExtractor(
           ].join(' ')
         )
       }
-      if (process.env.DEBUG?.startsWith('hanzogui')) {
+      if (process.env.DEBUG?.startsWith('gui')) {
         logger.info(
           [
             'loaded:',
@@ -394,14 +394,14 @@ export function createExtractor(
       }
     }
 
-    tm.mark('load-hanzogui', !!shouldPrintDebug)
+    tm.mark('load-gui', !!shouldPrintDebug)
 
     if (!isFullyDisabled(options)) {
-      if (!hanzoguiConfig?.themes) {
+      if (!guiConfig?.themes) {
         console.error(
-          `⛔️ Error: Missing "themes" in your hanzogui.config file:
+          `⛔️ Error: Missing "themes" in your gui.config file:
 
-            You may not need the compiler! Remember you can run Hanzogui with no configuration at all.
+            You may not need the compiler! Remember you can run Gui with no configuration at all.
 
             You may have not "export default" your config (you can also "export const config").
             
@@ -410,17 +410,17 @@ export function createExtractor(
               - or search your lockfile for mis-matches.
           `
         )
-        console.info(`  Got config:`, hanzoguiConfig)
+        console.info(`  Got config:`, guiConfig)
         process.exit(0)
       }
     }
 
-    const firstThemeName = Object.keys(hanzoguiConfig?.themes || {})[0]
-    const firstTheme = hanzoguiConfig?.themes[firstThemeName] || {}
+    const firstThemeName = Object.keys(guiConfig?.themes || {})[0]
+    const firstTheme = guiConfig?.themes[firstThemeName] || {}
 
     if (!firstTheme || typeof firstTheme !== 'object') {
       const err = `Missing theme ${firstThemeName}, an error occurred when importing your config`
-      console.info(err, `Got config:`, hanzoguiConfig)
+      console.info(err, `Got config:`, guiConfig)
       console.info(`Looking for theme:`, firstThemeName)
       throw new Error(err)
     }
@@ -443,9 +443,9 @@ export function createExtractor(
     if (!isFullyDisabled(options)) {
       if (Object.keys(components || []).length === 0) {
         console.warn(
-          `Warning: Hanzogui didn't find any valid components (DEBUG=hanzogui for more)`
+          `Warning: Gui didn't find any valid components (DEBUG=gui for more)`
         )
-        if (process.env.DEBUG === 'hanzogui') {
+        if (process.env.DEBUG === 'gui') {
           console.info(`components`, Object.keys(components || []), components)
         }
       }
@@ -487,7 +487,7 @@ export function createExtractor(
 
       if (extractStyledDefinitions && enableDynamicEvaluation) {
         // check all imports for `styled`, not just valid packages
-        // styled( is basically guaranteed to be hanzogui regardless of source
+        // styled( is basically guaranteed to be gui regardless of source
         if (node.specifiers.some((specifier) => specifier.local.name === 'styled')) {
           doesUseValidImport = true
           // don't break - need to collect all import declarations for the styled() handler
@@ -655,7 +655,7 @@ export function createExtractor(
               )
             }
 
-            const out = loadHanzoguiSync({
+            const out = loadGuiSync({
               forceExports: true,
               components: [sourcePath],
               cacheKey: version,
@@ -684,14 +684,14 @@ export function createExtractor(
               if (foundNames) {
                 colorLog(
                   Color.FgYellow,
-                  `      | Hanzogui found dynamic components: ${foundNames}`
+                  `      | Gui found dynamic components: ${foundNames}`
                 )
               }
             }
           } catch (err: any) {
             if (shouldPrintDebug) {
               logger.info(
-                `skip optimize styled(${variableName}), unable to pre-process (DEBUG=hanzogui for more)`
+                `skip optimize styled(${variableName}), unable to pre-process (DEBUG=gui for more)`
               )
             }
           }
@@ -895,7 +895,7 @@ export function createExtractor(
           return
         }
 
-        // validate its a proper import from hanzogui (or internally inside hanzogui)
+        // validate its a proper import from gui (or internally inside gui)
         const binding = traversePath.scope.getBinding(node.name.name)
         let moduleName = ''
         let dynamicComponent: { staticConfig: any } | null = null
@@ -919,7 +919,7 @@ export function createExtractor(
                     // proactively load the file
                     dynamicLoadingInProgress.add(resolved)
                     try {
-                      const out = loadHanzoguiSync({
+                      const out = loadGuiSync({
                         forceExports: true,
                         components: [resolved],
                       })
@@ -971,7 +971,7 @@ export function createExtractor(
           getValidComponent(propsWithFileInfo, moduleName, node.name.name)
         if (!component || !component.staticConfig) {
           if (shouldPrintDebug) {
-            logger.info(`\n - No Hanzogui conf for: ${node.name.name}\n`)
+            logger.info(`\n - No Gui conf for: ${node.name.name}\n`)
           }
           return
         }
@@ -1104,7 +1104,7 @@ export function createExtractor(
               : []),
 
             // when using a non-CSS driver, de-opt on enterStyle/exitStyle
-            ...(hanzoguiConfig?.animations.isReactNative
+            ...(guiConfig?.animations.isReactNative
               ? ['enterStyle', 'exitStyle']
               : []),
           ])
@@ -1176,7 +1176,7 @@ export function createExtractor(
             style: {},
             theme: defaultTheme,
             viewProps: defaultProps,
-            conf: hanzoguiConfig!,
+            conf: guiConfig!,
             props: defaultProps,
             componentState,
             styleProps: {
@@ -1288,9 +1288,9 @@ export function createExtractor(
 
             const name = attribute.name.name
 
-            // in hanzogui style is handled at the end of the style loop so its not as simple as just
+            // in gui style is handled at the end of the style loop so its not as simple as just
             // adding this as a "style" property
-            // its not used often when using hanzogui so not optimizing it for now
+            // its not used often when using gui so not optimizing it for now
             if (name === 'style') {
               shouldDeopt = true
               return null
@@ -1911,7 +1911,7 @@ export function createExtractor(
             if (!isValidStyleKey(key, staticConfig)) {
               return []
             }
-            const name = hanzoguiConfig?.shorthands[key] || key
+            const name = guiConfig?.shorthands[key] || key
             if (value === undefined) {
               logger.warn(
                 `⚠️ Error evaluating default style for component, prop ${key} ${value}`
@@ -2022,7 +2022,7 @@ export function createExtractor(
                   t.importDeclaration(
                     [
                       t.importSpecifier(
-                        t.identifier('_HanzoguiTheme'),
+                        t.identifier('_GuiTheme'),
                         t.identifier('Theme')
                       ),
                     ],
@@ -2033,10 +2033,10 @@ export function createExtractor(
 
               traversePath.replaceWith(
                 t.jsxElement(
-                  t.jsxOpeningElement(t.jsxIdentifier('_HanzoguiTheme'), [
+                  t.jsxOpeningElement(t.jsxIdentifier('_GuiTheme'), [
                     t.jsxAttribute(t.jsxIdentifier('name'), themeVal.value),
                   ]),
-                  t.jsxClosingElement(t.jsxIdentifier('_HanzoguiTheme')),
+                  t.jsxClosingElement(t.jsxIdentifier('_GuiTheme')),
                   [traversePath.node]
                 )
               )
@@ -2194,7 +2194,7 @@ export function createExtractor(
 
             let key = Object.keys(cur.value)[0]
             const value = cur.value[key]
-            const fullKey = hanzoguiConfig?.shorthands[key]
+            const fullKey = guiConfig?.shorthands[key]
             // expand shorthands
             if (fullKey) {
               cur.value = { [fullKey]: value }
@@ -2622,7 +2622,7 @@ export function createExtractor(
             node,
             lineNumbers,
             filePath,
-            config: hanzoguiConfig!,
+            config: guiConfig!,
             flatNodeName,
             attemptEval,
             jsxPath: traversePath,

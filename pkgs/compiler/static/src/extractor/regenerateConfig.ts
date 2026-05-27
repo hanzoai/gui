@@ -1,39 +1,39 @@
 import { dirname, join } from 'node:path'
 
 import { generateThemes, writeGeneratedThemes } from '@hanzogui/generate-themes'
-import type { HanzoguiOptions } from '@hanzogui/types'
+import type { GuiOptions } from '@hanzogui/types'
 import * as FS from 'fs-extra'
 
-import { requireHanzoguiCore } from '../helpers/requireHanzoguiCore'
-import type { HanzoguiPlatform } from '../types'
+import { requireGuiCore } from '../helpers/requireGuiCore'
+import type { GuiPlatform } from '../types'
 import type { BundledConfig } from './bundleConfig'
 import { getBundledConfig } from './bundleConfig'
 
-const hanzoguiDir = join(process.cwd(), '.hanzogui')
-const confFile = join(hanzoguiDir, 'hanzogui.config.json')
+const guiDir = join(process.cwd(), '.gui')
+const confFile = join(guiDir, 'gui.config.json')
 
 /**
  * Sort of a super-set of bundleConfig(), this code needs some refactoring ideally
  */
 
 export async function regenerateConfig(
-  hanzoguiOptions: HanzoguiOptions,
+  guiOptions: GuiOptions,
   configIn?: BundledConfig | null,
   rebuild = false
 ) {
   try {
     // this has a side effect of rebuilding config and css!
     // need to improve code here:
-    const config = configIn ?? (await getBundledConfig(hanzoguiOptions, rebuild))
+    const config = configIn ?? (await getBundledConfig(guiOptions, rebuild))
     if (!config) return
-    const out = transformConfig(config, hanzoguiOptions.platform || 'web')
+    const out = transformConfig(config, guiOptions.platform || 'web')
 
     await FS.ensureDir(dirname(confFile))
     await FS.writeJSON(confFile, out, {
       spaces: 2,
     })
   } catch (err) {
-    if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_GUI_DEV) {
+    if (process.env.DEBUG?.includes('gui') || process.env.IS_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now
@@ -41,35 +41,35 @@ export async function regenerateConfig(
 }
 
 export function regenerateConfigSync(
-  _hanzoguiOptions: HanzoguiOptions,
+  _guiOptions: GuiOptions,
   config: BundledConfig
 ) {
   try {
     FS.ensureDirSync(dirname(confFile))
     FS.writeJSONSync(
       confFile,
-      transformConfig(config, _hanzoguiOptions.platform || 'web'),
+      transformConfig(config, _guiOptions.platform || 'web'),
       {
         spaces: 2,
       }
     )
   } catch (err) {
-    if (process.env.DEBUG?.includes('hanzogui') || process.env.IS_GUI_DEV) {
+    if (process.env.DEBUG?.includes('gui') || process.env.IS_GUI_DEV) {
       console.warn('regenerateConfig error', err)
     }
     // ignore for now
   }
 }
 
-export async function generateHanzoguiThemes(
-  hanzoguiOptions: HanzoguiOptions,
+export async function generateGuiThemes(
+  guiOptions: GuiOptions,
   force = false
 ) {
-  if (!hanzoguiOptions.themeBuilder) {
+  if (!guiOptions.themeBuilder) {
     return
   }
 
-  const { input, output } = hanzoguiOptions.themeBuilder
+  const { input, output } = guiOptions.themeBuilder
   const inPath = resolveRelativePath(input)
   const outPath = resolveRelativePath(output)
   const generatedOutput = await generateThemes(inPath)
@@ -90,7 +90,7 @@ export async function generateHanzoguiThemes(
     })())
 
   if (hasChanged) {
-    await writeGeneratedThemes(hanzoguiDir, outPath, generatedOutput)
+    await writeGeneratedThemes(guiDir, outPath, generatedOutput)
   }
 
   return hasChanged
@@ -110,20 +110,20 @@ function cloneDeepSafe(x: any, excludeKeys = {}) {
   )
 }
 
-function transformConfig(config: BundledConfig, platform: HanzoguiPlatform) {
+function transformConfig(config: BundledConfig, platform: GuiPlatform) {
   if (!config) {
     return null
   }
 
-  const { getVariableValue } = requireHanzoguiCore(platform)
+  const { getVariableValue } = requireGuiCore(platform)
 
   // ensure we don't mangle anything in the original
   const next = cloneDeepSafe(config, {
     validStyles: true,
   }) as BundledConfig
 
-  const { components, nameToPaths, hanzoguiConfig } = next
-  const { themes, tokens } = hanzoguiConfig
+  const { components, nameToPaths, guiConfig } = next
+  const { themes, tokens } = guiConfig
 
   // reduce down to usable, smaller json
 
@@ -172,12 +172,12 @@ function transformConfig(config: BundledConfig, platform: HanzoguiPlatform) {
     shorthands: _shorthands,
     userShorthands,
     ...cleanedConfig
-  } = next.hanzoguiConfig
+  } = next.guiConfig
 
   return {
     components,
     nameToPaths,
-    hanzoguiConfig: {
+    guiConfig: {
       ...cleanedConfig,
       // Output userShorthands as shorthands (excludes built-ins)
       shorthands: userShorthands,

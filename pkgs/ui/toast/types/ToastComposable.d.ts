@@ -1,4 +1,4 @@
-import type { GetProps, HanzoguiElement } from '@hanzogui/core';
+import type { GetProps, GuiElement } from '@hanzogui/core';
 import * as React from 'react';
 import type { SwipeDirection } from './ToastProvider';
 import type { ExternalToast, ToastT } from './ToastState';
@@ -91,7 +91,7 @@ export interface ToastRootProps {
      */
     icons?: ToastIcons;
 }
-declare const ToastViewportFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ToastViewportFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 export interface ToastViewportProps extends GetProps<typeof ToastViewportFrame> {
@@ -151,44 +151,44 @@ export declare function useToasts(): {
     position: ToastPosition;
 };
 export declare function useToastItem(): ToastItemContextValue;
-export declare const Toast: React.ForwardRefExoticComponent<ToastRootProps & React.RefAttributes<HanzoguiElement>> & {
-    Viewport: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Toast: React.ForwardRefExoticComponent<ToastRootProps & React.RefAttributes<GuiElement>> & {
+    Viewport: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }>, keyof ToastViewportProps> & ToastViewportProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastViewportProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof ToastViewportProps> & ToastViewportProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastViewportProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
     List: typeof ToastList;
-    Item: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Item: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof ToastItemProps> & ToastItemProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastItemProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof ToastItemProps> & ToastItemProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastItemProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Title: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    Title: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/core").FontSizeTokens | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Description: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    Description: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/core").FontSizeTokens | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Close: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Close: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Action: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Action: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;

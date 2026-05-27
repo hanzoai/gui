@@ -6,23 +6,23 @@
 // variables that we layer on top of Hanzo GUI's `dark` theme, NOT
 // by mutating the themes object.
 //
-// IMPORTANT: this config file imports from `hanzogui` (workspace
+// IMPORTANT: this config file imports from `gui` (workspace
 // umbrella), NOT `@hanzo/gui`. Source code uses `@hanzo/gui`; the
 // Vite alias in vite.config.ts routes that to this same workspace
 // package at bundle time.
 
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createHanzogui } from 'hanzogui'
+import { createGui } from 'hanzogui'
 
-export const config = createHanzogui(defaultConfig)
+export const config = createGui(defaultConfig)
 
 export default config
 
 export type Conf = typeof config
 
 declare module 'hanzogui' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }
 declare module '@hanzogui/web' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }

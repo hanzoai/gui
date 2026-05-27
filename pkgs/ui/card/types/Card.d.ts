@@ -1,23 +1,23 @@
 import type { GetProps, SizeTokens } from '@hanzogui/web';
-export declare const CardFrame: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+export declare const CardFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/web").StaticConfigPublic>;
-export declare const CardHeader: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+export declare const CardHeader: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/web").StaticConfigPublic>;
-export declare const CardFooter: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+export declare const CardFooter: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/web").StaticConfigPublic>;
-export declare const CardBackground: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+export declare const CardBackground: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -40,32 +40,32 @@ export declare const Card: import("react").ForwardRefExoticComponent<Omit<import
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>> & import("react").RefAttributes<import("@hanzogui/web").HanzoguiElement>> & import("@hanzogui/web").StaticComponentObject<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+}>> & import("react").RefAttributes<import("@hanzogui/web").GuiElement>> & import("@hanzogui/web").StaticComponentObject<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/web").StaticConfigPublic> & Omit<import("@hanzogui/web").StaticConfigPublic, "staticConfig" | "styleable"> & {
-    __tama: [import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    __tama: [import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic];
 } & {
-    Header: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Header: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Footer: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Footer: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Background: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Background: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;

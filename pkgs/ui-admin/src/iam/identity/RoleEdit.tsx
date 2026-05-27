@@ -202,7 +202,7 @@ export function RoleEdit() {
         <Text fontSize="$2" color="$placeholderColor">
           Upstream uses tag-style multi-selects with autocomplete. The
           comma-separated text inputs above are a port placeholder.
-          Wire them to a proper picker (probably hanzogui&apos;s Combobox
+          Wire them to a proper picker (probably gui&apos;s Combobox
           + autocompletion-from-IAM) once the Application/Adapter
           buckets land.
         </Text>

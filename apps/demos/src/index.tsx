@@ -1,5 +1,5 @@
-// Include hanzogui config types for proper type checking
-import type {} from './hanzogui.config'
+// Include gui config types for proper type checking
+import type {} from './gui.config'
 
 export * from './AccordionDemo'
 export * from './AddThemeDemo'

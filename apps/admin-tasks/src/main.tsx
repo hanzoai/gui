@@ -1,4 +1,4 @@
-// Entry point. Wires HanzoguiProvider, BrowserRouter, and the route
+// Entry point. Wires GuiProvider, BrowserRouter, and the route
 // tree. Workflows renders edge-to-edge; every other page wraps in
 // PageShell for consistent padding.
 //
@@ -11,7 +11,7 @@
 import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { HanzoguiProvider } from 'hanzogui'
+import { GuiProvider } from 'hanzogui'
 import { PageShell, Loading } from '@hanzogui/admin'
 import config from '../gui.config'
 import App from './App'
@@ -149,7 +149,7 @@ const activityTabs = [
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <HanzoguiProvider config={config} defaultTheme="dark">
+    <GuiProvider config={config} defaultTheme="dark">
       <BrowserRouter basename="/_/tasks">
         <Suspense fallback={<Fallback />}>
         <Routes>
@@ -360,6 +360,6 @@ ReactDOM.createRoot(root).render(
         </Routes>
         </Suspense>
       </BrowserRouter>
-    </HanzoguiProvider>
+    </GuiProvider>
   </React.StrictMode>,
 )

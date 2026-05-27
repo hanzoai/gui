@@ -1,8 +1,8 @@
 import { register } from 'esbuild-register/dist/node'
 
 import { esbuildIgnoreFilesRegex } from './extractor/bundle'
-import { requireHanzoguiCore } from './helpers/requireHanzoguiCore'
-import type { HanzoguiPlatform } from './types'
+import { requireGuiCore } from './helpers/requireGuiCore'
+import type { GuiPlatform } from './types'
 
 const nameToPaths = {}
 
@@ -54,7 +54,7 @@ function getStaticExtractionStub(path: string) {
 }
 
 export function registerRequire(
-  platform: HanzoguiPlatform,
+  platform: GuiPlatform,
   { proxyWormImports } = {
     proxyWormImports: false,
   }
@@ -62,7 +62,7 @@ export function registerRequire(
   // already registered
   if (isRegistered) {
     return {
-      hanzoguiRequire: require,
+      guiRequire: require,
       unregister: () => {},
     }
   }
@@ -77,7 +77,7 @@ export function registerRequire(
     hookMatcher: (filename) => {
       if (
         filename.includes('@hanzogui') ||
-        /\/hanzogui\/code\/(core|ui|packages)\//.test(filename)
+        /\/gui\/code\/(core|ui|packages)\//.test(filename)
       ) {
         return false
       }
@@ -104,20 +104,20 @@ export function registerRequire(
 
   isRegistered = true
 
-  Module.prototype.require = hanzoguiRequire
+  Module.prototype.require = guiRequire
 
-  function hanzoguiRequire(this: any, path: string) {
+  function guiRequire(this: any, path: string) {
     const staticExtractionStub = getStaticExtractionStub(path)
     if (staticExtractionStub) {
       return staticExtractionStub
     }
 
-    if (path === 'hanzogui' && platform === 'native') {
-      return og.apply(this, ['hanzogui/native'])
+    if (path === 'gui' && platform === 'native') {
+      return og.apply(this, ['gui/native'])
     }
 
     if (path === '@hanzogui/core') {
-      return requireHanzoguiCore(platform, (path) => {
+      return requireGuiCore(platform, (path) => {
         return og.apply(this, [path])
       })
     }
@@ -155,25 +155,25 @@ export function registerRequire(
     }
 
     if (!whitelisted[path]) {
-      if (proxyWormImports && !path.includes('.hanzogui-dynamic-eval')) {
-        // allow hanzogui and its sub-packages through - they re-export components
+      if (proxyWormImports && !path.includes('.gui-dynamic-eval')) {
+        // allow gui and its sub-packages through - they re-export components
         // with staticConfig needed for dynamic eval optimization.
-        // also allow requires FROM within hanzogui packages (relative imports like ./Separator.cjs)
+        // also allow requires FROM within gui packages (relative imports like ./Separator.cjs)
         const callerFile = this?.filename || this?.id || ''
-        const isFromHanzoguiPkg =
-          callerFile.includes('@hanzogui') || callerFile.includes('node_modules/hanzogui/')
+        const isFromGuiPkg =
+          callerFile.includes('@hanzogui') || callerFile.includes('node_modules/gui/')
         const isFromStaticLoader =
           !callerFile ||
           callerFile === '.' ||
           callerFile === '[eval]' ||
           callerFile.endsWith('/[eval]') ||
           callerFile.includes('/code/compiler/static/') ||
-          callerFile.includes('/.hanzogui/')
+          callerFile.includes('/.gui/')
 
         if (
-          path === 'hanzogui' ||
+          path === 'gui' ||
           path.startsWith('@hanzogui/') ||
-          isFromHanzoguiPkg ||
+          isFromGuiPkg ||
           isFromStaticLoader
         ) {
           return og.apply(this, [path])
@@ -211,7 +211,7 @@ export function registerRequire(
     } catch (err: any) {
       if (
         !process.env.GUI_ENABLE_WARN_DYNAMIC_LOAD &&
-        path.includes('hanzogui-dynamic-eval')
+        path.includes('gui-dynamic-eval')
       ) {
         // ok, dynamic eval fails
         return
@@ -231,7 +231,7 @@ export function registerRequire(
          */
 
         console.warn(
-          `  [hanzogui] skipped "${path}" (set GUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
+          `  [gui] skipped "${path}" (set GUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
         )
       }
 
@@ -240,11 +240,11 @@ export function registerRequire(
   }
 
   return {
-    hanzoguiRequire,
+    guiRequire,
     unregister: () => {
       if (hasWarnedForModules.size) {
         console.info(
-          `  [hanzogui] skipped loading ${hasWarnedForModules.size} module, see: https://hanzogui.dev/docs/intro/errors#warning-001`
+          `  [gui] skipped loading ${hasWarnedForModules.size} module, see: https://gui.dev/docs/intro/errors#warning-001`
         )
         hasWarnedForModules.clear()
       }
@@ -266,7 +266,7 @@ const knownIgnorableModules = {
   solito: true,
   'expo-linear-gradient': true,
   '@expo/vector-icons': true,
-  'hanzogui/linear-gradient': true,
+  'gui/linear-gradient': true,
   // animation libraries not needed for static extraction
   '@emotion/is-prop-valid': true,
   'framer-motion': true,

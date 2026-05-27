@@ -5,9 +5,9 @@
 
 import { describe, expect, it, vi } from 'vitest'
 
-vi.mock('hanzogui', () => ({
+vi.mock('gui', () => ({
   // We don't render anything in this test, but ESM-loading the page
-  // modules pulls hanzogui into the import graph. Stub everything as
+  // modules pulls gui into the import graph. Stub everything as
   // a no-op forward.
   Anchor: () => null,
   Button: () => null,

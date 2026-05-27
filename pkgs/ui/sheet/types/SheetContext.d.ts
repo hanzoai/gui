@@ -15,8 +15,8 @@ export declare const SheetProvider: (props: {
     open: boolean;
     setOpen: import("react").Dispatch<import("react").SetStateAction<boolean>>;
     hidden: boolean;
-    contentRef: import("react").RefObject<import("@hanzogui/web").HanzoguiElement | null>;
-    handleRef: import("react").RefObject<import("@hanzogui/web").HanzoguiElement | null>;
+    contentRef: import("react").RefObject<import("@hanzogui/web").GuiElement | null>;
+    handleRef: import("react").RefObject<import("@hanzogui/web").GuiElement | null>;
     frameSize: number;
     setFrameSize: import("react").Dispatch<import("react").SetStateAction<number>>;
     dismissOnOverlayPress: boolean;

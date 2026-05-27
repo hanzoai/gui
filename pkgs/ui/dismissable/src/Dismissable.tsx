@@ -2,7 +2,7 @@
 // https://github.com/radix-ui/primitives/blob/cfd8dcba5fa6a0e751486af418d05a7b88a7f541/packages/react/dismissable-layer/src/DismissableLayer.tsx#L324
 
 import { useComposedRefs } from '@hanzogui/compose-refs'
-import { Slot, HanzoguiElement, View, composeEventHandlers } from '@hanzogui/core'
+import { Slot, GuiElement, View, composeEventHandlers } from '@hanzogui/core'
 import { useEscapeKeydown } from '@hanzogui/use-escape-keydown'
 import { useEvent } from '@hanzogui/use-event'
 import * as React from 'react'
@@ -339,11 +339,11 @@ Dismissable.displayName = DISMISSABLE_LAYER_NAME
 
 const BRANCH_NAME = 'DismissableBranch'
 
-const DismissableBranch = React.forwardRef<HanzoguiElement, DismissableBranchProps>(
+const DismissableBranch = React.forwardRef<GuiElement, DismissableBranchProps>(
   (props, forwardedRef) => {
     const { branches: branchesProp, ...rest } = props
     const context = React.useContext(DismissableContext)
-    const ref = React.useRef<HanzoguiElement>(null)
+    const ref = React.useRef<GuiElement>(null)
     const composedRefs = useComposedRefs(forwardedRef, ref)
 
     React.useEffect(() => {

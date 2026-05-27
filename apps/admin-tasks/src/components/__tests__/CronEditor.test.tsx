@@ -1,6 +1,6 @@
 // CronEditor — pure logic tests for the validator and preset table.
-// We do not render the component itself: hanzogui Input pulls in the
-// Hanzogui theme extractor at module-eval, which is wired up in the
+// We do not render the component itself: gui Input pulls in the
+// Gui theme extractor at module-eval, which is wired up in the
 // kitchen-sink shell, not here. Behavioural coverage that requires
 // the provider lives there.
 

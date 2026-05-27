@@ -15870,10 +15870,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-sourcemaps",
+    "build": "gui-build --skip-sourcemaps",
     "watch": "bun run build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build",
     "generate": "node ./bin/build.cjs"
   },
   "devDependencies": {

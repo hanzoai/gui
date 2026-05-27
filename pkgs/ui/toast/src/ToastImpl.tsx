@@ -1,7 +1,7 @@
 import { useIsPresent } from '@hanzogui/animate-presence'
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb } from '@hanzogui/constants'
-import type { GetProps, HanzoguiElement } from '@hanzogui/core'
+import type { GetProps, GuiElement } from '@hanzogui/core'
 import {
   View,
   Theme,
@@ -62,7 +62,7 @@ const ToastImplFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -161,7 +161,7 @@ type ToastImplProps = ScopedProps<
   ToastImplPrivateProps & ToastImplFrameProps & ToastExtraProps
 >
 
-const ToastImpl = React.forwardRef<HanzoguiElement, ToastImplProps>(
+const ToastImpl = React.forwardRef<GuiElement, ToastImplProps>(
   (props, forwardedRef) => {
     const {
       scope,
@@ -181,7 +181,7 @@ const ToastImpl = React.forwardRef<HanzoguiElement, ToastImplProps>(
     } = props
     const isPresent = useIsPresent()
     const context = useToastProviderContext(scope)
-    const [node, setNode] = React.useState<HanzoguiElement | null>(null)
+    const [node, setNode] = React.useState<GuiElement | null>(null)
     const composedRefs = useComposedRefs(forwardedRef, setNode)
     const duration = durationProp || context.duration
     const closeTimerStartTimeRef = React.useRef(0)
@@ -270,7 +270,7 @@ const ToastImpl = React.forwardRef<HanzoguiElement, ToastImplProps>(
 
     const { animationDriver } = useConfiguration()
     if (!animationDriver) {
-      throw new Error('Must set animations in hanzogui.config.ts')
+      throw new Error('Must set animations in gui.config.ts')
     }
 
     const { useAnimatedNumber, useAnimatedNumberStyle } = animationDriver

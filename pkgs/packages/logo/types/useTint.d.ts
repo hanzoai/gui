@@ -19,7 +19,7 @@ export declare const useTint: (altOffset?: number) => {
 	disableTintTheme: boolean;
 	name: string;
 	families: {
-		hanzogui: string[];
+		gui: string[];
 		xmas: string[];
 		easter: string[];
 		halloween: string[];

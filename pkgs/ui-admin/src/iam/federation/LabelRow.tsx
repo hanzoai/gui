@@ -22,7 +22,7 @@ export interface LabelRowProps {
 const LABEL_WIDTH = 160
 
 export function LabelRow({ label, align = 'center', children }: LabelRowProps) {
-  // Hanzogui v7's `items` maps to React Native's FlexAlignType
+  // Gui v7's `items` maps to React Native's FlexAlignType
   // ("flex-start" | "flex-end" | ...). We expose the simpler
   // start/center vocabulary on this primitive — translate at the
   // boundary so callers don't need to think in RN flex names.

@@ -27,7 +27,7 @@ import {
   isWeb,
   Slot,
   styled,
-  type HanzoguiElement,
+  type GuiElement,
   useEvent,
   useIsTouchDevice,
   View,
@@ -51,7 +51,7 @@ type MenuTriggerStateSetter = React.Dispatch<React.SetStateAction<boolean>>
 
 type MenuContextValue = {
   triggerId: string
-  triggerRef: React.RefObject<HanzoguiElement | null>
+  triggerRef: React.RefObject<GuiElement | null>
   contentId: string
   openRef: React.RefObject<boolean>
   onOpenChange(open: boolean): void
@@ -131,7 +131,7 @@ type MenuPortalProps = BaseMenuPortalProps
  * MenuContent
  * -----------------------------------------------------------------------------------------------*/
 
-type MenuContentElement = HanzoguiElement
+type MenuContentElement = GuiElement
 interface MenuContentProps extends Omit<BaseMenuContentProps, 'onEntryFocus'> {}
 
 /* -------------------------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ type MenuItemProps = BaseMenuItemProps
 
 type MenuCheckboxItemProps = BaseMenuCheckboxItemProps
 
-type MenuRadioGroupElement = HanzoguiElement
+type MenuRadioGroupElement = GuiElement
 type MenuRadioGroupProps = BaseMenuRadioGroupProps
 type MenuRadioItemProps = BaseMenuRadioItemProps
 type MenuItemIndicatorProps = BaseMenuItemIndicatorProps
@@ -192,7 +192,7 @@ type MenuSubTriggerProps = BaseMenuSubTriggerProps
  * MenuSubContent
  * -----------------------------------------------------------------------------------------------*/
 
-type MenuSubContentElement = HanzoguiElement
+type MenuSubContentElement = GuiElement
 type MenuSubContentProps = BaseMenuSubContentProps
 
 /* -------------------------------------------------------------------------------------------------
@@ -226,7 +226,7 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
       modal = true,
       ...rest
     } = props
-    const triggerRef = React.useRef<HanzoguiElement>(null)
+    const triggerRef = React.useRef<GuiElement>(null)
     const [open = false, setOpen] = useControllableState({
       prop: openProp,
       defaultProp: defaultOpen!,
@@ -295,7 +295,7 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
       const popperCtx = usePopperContextSlow(scope || DROPDOWN_MENU_CONTEXT)
       const Comp = asChild ? Slot : View
       const isTouchDevice = useIsTouchDevice()
-      const triggerElRef = React.useRef<HanzoguiElement>(null)
+      const triggerElRef = React.useRef<GuiElement>(null)
 
       // multi-trigger: per-trigger open state
       const triggerId = React.useId()
@@ -472,15 +472,15 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
               ? {
                   ...(props.style as object),
                   ...({
-                    '--hanzogui-menu-content-transform-origin':
-                      'var(--hanzogui-popper-transform-origin)',
-                    '--hanzogui-menu-content-available-width':
-                      'var(--hanzogui-popper-available-width)',
-                    '--hanzogui-menu-content-available-height':
-                      'var(--hanzogui-popper-available-height)',
-                    '--hanzogui-menu-trigger-width': 'var(--hanzogui-popper-anchor-width)',
-                    '--hanzogui-menu-trigger-height':
-                      'var(--hanzogui-popper-anchor-height)',
+                    '--gui-menu-content-transform-origin':
+                      'var(--gui-popper-transform-origin)',
+                    '--gui-menu-content-available-width':
+                      'var(--gui-popper-available-width)',
+                    '--gui-menu-content-available-height':
+                      'var(--gui-popper-available-height)',
+                    '--gui-menu-trigger-width': 'var(--gui-popper-anchor-width)',
+                    '--gui-menu-trigger-height':
+                      'var(--gui-popper-anchor-height)',
                   } as React.CSSProperties),
                 }
               : props.style
@@ -542,14 +542,14 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
             ? {
                 ...(props.style as object),
                 ...({
-                  '--hanzogui-menu-content-transform-origin':
-                    'var(--hanzogui-popper-transform-origin)',
-                  '--hanzogui-menu-content-available-width':
-                    'var(--hanzogui-popper-available-width)',
-                  '--hanzogui-menu-content-available-height':
-                    'var(--hanzogui-popper-available-height)',
-                  '--hanzogui-menu-trigger-width': 'var(--hanzogui-popper-anchor-width)',
-                  '--hanzogui-menu-trigger-height': 'var(--hanzogui-popper-anchor-height)',
+                  '--gui-menu-content-transform-origin':
+                    'var(--gui-popper-transform-origin)',
+                  '--gui-menu-content-available-width':
+                    'var(--gui-popper-available-width)',
+                  '--gui-menu-content-available-height':
+                    'var(--gui-popper-available-height)',
+                  '--gui-menu-trigger-width': 'var(--gui-popper-anchor-width)',
+                  '--gui-menu-trigger-height': 'var(--gui-popper-anchor-height)',
                 } as React.CSSProperties),
               }
             : null
@@ -571,7 +571,7 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
     showsVerticalScrollIndicator: false,
 
     '$platform-web': {
-      maxHeight: 'var(--hanzogui-menu-content-available-height)',
+      maxHeight: 'var(--gui-menu-content-available-height)',
     },
   })
 

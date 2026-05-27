@@ -19,8 +19,8 @@
     }
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "clean": "hanzogui-build clean"
+    "build": "gui-build",
+    "clean": "gui-build clean"
   },
   "dependencies": {
     "@hanzogui/core": "workspace:*"

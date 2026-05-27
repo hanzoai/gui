@@ -1,4 +1,4 @@
-// Entry point for admin-bot. Wires HanzoguiProvider, BrowserRouter,
+// Entry point for admin-bot. Wires GuiProvider, BrowserRouter,
 // and the route tree. Tabs mirror the legacy Lit nav (chat / control:
 // overview, channels, instances, sessions, usage, cron / agent: agents,
 // skills, nodes / settings: config, debug, logs).
@@ -8,7 +8,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { HanzoguiProvider } from 'hanzogui'
+import { GuiProvider } from 'hanzogui'
 import { PageShell } from '@hanzogui/admin'
 import config from '../gui.config'
 import App from './App'
@@ -31,7 +31,7 @@ if (!root) throw new Error('root element missing')
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <HanzoguiProvider config={config} defaultTheme="dark">
+    <GuiProvider config={config} defaultTheme="dark">
       <BrowserRouter basename="/_/bot">
         <Routes>
           <Route path="/" element={<App />}>
@@ -52,6 +52,6 @@ ReactDOM.createRoot(root).render(
           </Route>
         </Routes>
       </BrowserRouter>
-    </HanzoguiProvider>
+    </GuiProvider>
   </React.StrictMode>,
 )

@@ -68,11 +68,11 @@
     }
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "gui-build",
     "afterBuild": "node bundle-native.mjs",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build",
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build",
     "check": "bun run check-circular-deps",
     "check-circular-deps": "npx madge --circular ./src/index.ts"
   },

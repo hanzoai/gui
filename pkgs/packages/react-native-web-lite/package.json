@@ -96,10 +96,10 @@
     }
   },
   "scripts": {
-    "build": "hanzogui-build --skip-types --skip-native",
-    "watch": "hanzogui-build --watch --skip-types --skip-native",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "build": "gui-build --skip-types --skip-native",
+    "watch": "gui-build --watch --skip-types --skip-native",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/normalize-css-color": "workspace:*",

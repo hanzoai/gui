@@ -5,7 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "hanzogui": [
-        "../ui/hanzogui"
+        "../ui/gui"
       ],
       "@hanzogui/studio": [
         "../studio"
@@ -59,7 +59,7 @@
   },
   "include": [
     "next-env.d.ts",
-    "hanzogui.config.ts",
+    "gui.config.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",

@@ -11,7 +11,7 @@
     "start": "EXPO_NO_TELEMETRY=true expo start --dev-client --offline",
     "start:extract": "GUI_OPTIMIZE_NATIVE_VIEWS=1 GUI_ENABLE_DYNAMIC_LOAD=1 bun run start",
     "start:prod": "DISABLE_EXTRACTION=false GUI_ENABLE_DYNAMIC_LOAD=1 expo start --dev-client --offline --no-dev --minify",
-    "start:hanzogui": "tama dev",
+    "start:gui": "tama dev",
     "start:android": "bun run start --android",
     "start:ios": "bun run start --ios",
     "start:clean": "watchman watch-del-all & rm -r $TMPDIR/metro-cache & bun run start -c",

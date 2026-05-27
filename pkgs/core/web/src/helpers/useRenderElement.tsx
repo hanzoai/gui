@@ -1,13 +1,13 @@
 import type React from 'react'
 import { cloneElement, createElement, isValidElement } from 'react'
 import { composeRefs } from '@hanzogui/compose-refs'
-import type { HanzoguiComponentState } from '../types'
+import type { GuiComponentState } from '../types'
 import { mergeSlotStyleProps } from './mergeSlotStyleProps'
 
 export type RenderProp<Props = Record<string, any>> =
   | string
   | React.ReactElement
-  | ((props: Props, state: HanzoguiComponentState) => React.ReactElement)
+  | ((props: Props, state: GuiComponentState) => React.ReactElement)
 
 /**
  * Evaluates a render prop and returns the element to render.
@@ -20,7 +20,7 @@ export type RenderProp<Props = Record<string, any>> =
 export function evaluateRenderProp(
   render: RenderProp | undefined,
   props: Record<string, any>,
-  state: HanzoguiComponentState,
+  state: GuiComponentState,
   defaultElement: React.ReactElement<any>
 ): React.ReactElement {
   if (!render) {

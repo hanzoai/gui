@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/gui-get",
+  "name": "@hanzogui/get",
   "version": "7.3.0",
   "description": "CLI installer for Hanzo GUI recipes.",
   "license": "BSD-3-Clause",
@@ -8,10 +8,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hanzoai/gui.git",
-    "directory": "pkgs/packages/gui-get"
+    "directory": "pkgs/packages/get"
   },
   "bin": {
-    "gui-get": "./dist/cli.js"
+    "hanzo-gui-get": "./dist/cli.js"
   },
   "type": "module",
   "main": "./dist/cli.js",

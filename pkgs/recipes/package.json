@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/recipes",
+  "name": "@hanzogui/recipes",
   "version": "7.3.0",
   "description": "Hanzo GUI recipe library: read from Base, resolve transitive deps, install into a project.",
   "license": "BSD-3-Clause",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hanzoai/gui.git",
-    "directory": "pkgs/packages/recipes"
+    "directory": "pkgs/recipes"
   },
   "type": "module",
   "main": "./dist/index.js",

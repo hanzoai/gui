@@ -24,4 +24,4 @@ if (!result.success) {
   process.exit(1)
 }
 
-console.log(`built @hanzo/recipes (${result.outputs.length} files)`)
+console.log(`built @hanzogui/recipes (${result.outputs.length} files)`)

@@ -1,7 +1,0 @@
-node_modules/
-dist/
-.gui/
-*.log
-.DS_Store
-.vite/
-tsconfig.tsbuildinfo

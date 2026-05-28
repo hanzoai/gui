@@ -1,17 +1,19 @@
-name: Publish gui + @hanzogui/admin
+name: Publish gui
 
 # Triggered only on `release/gui-v*` tags. Bumping a workspace
 # version alone does NOT publish — a tag push gates the run so an
 # accidental version bump on `main` cannot ship to npm. Tag scheme:
-#   release/gui-v7.1.0   → gui@7.1.0 + @hanzogui/admin@<own>
+#   release/gui-v7.1.0   → gui@7.1.0
+#
+# Note: @hanzogui/admin moved to hanzoai/admin and publishes from there.
 #
 # NPM_TOKEN is sourced from KMS (kms.hanzo.ai) at runtime via Universal
 # Auth. No long-lived NPM_TOKEN secret lives in GitHub. Same shape as
 # `~/work/hanzo/login/.github/workflows/deploy.yml` — only the secret
 # path differs.
 #
-# Smoke test: after pack, install both .tgz tarballs into a throwaway
-# /tmp consumer and require() them. If the static extractor or vite
+# Smoke test: after pack, install the .tgz tarball into a throwaway
+# /tmp consumer and require() it. If the static extractor or vite
 # build chokes on an import shape, this catches it before publish.
 on:
   push:
@@ -75,30 +77,15 @@ jobs:
           echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
-      - name: Typecheck @hanzogui/admin
-        # `gui` (umbrella) ships pre-built types via the
-        # static-extractor pipeline and has no separate typecheck
-        # script — its types are validated transitively by every
-        # consumer. `@hanzogui/admin` ships TypeScript source and
-        # MUST typecheck before publish or downstream consumers
-        # (admin-tasks, admin-base, admin-commerce, admin-bot,
-        # admin-agent) inherit broken types.
-        working-directory: pkgs/ui-admin
-        run: bun run typecheck
-
       - name: Build (postinstall already built js with SKIP_TYPES=1)
         # The install step ran `bun install` which fires postinstall
         # → `bun run build:js` (SKIP_TYPES=1 turbo run build --force).
-        # That covers both publish targets and every workspace
-        # consumer, so a separate filtered build here would be a
-        # no-op rebuild. Verifying the two dist trees exist is
-        # enough — pack will fail loudly if they don't.
+        # That covers the publish target and every workspace consumer,
+        # so a separate filtered build here would be a no-op rebuild.
+        # Verifying the dist tree exists is enough — pack will fail
+        # loudly if it doesn't.
         run: |
           test -d pkgs/ui/hanzogui/dist || (echo "::error::gui/dist missing"; exit 1)
-          # @hanzogui/admin publishes source-only (no dist needed for
-          # `import` field — the `source`/`default` conditions point
-          # at ./src/*.ts, and downstream bundlers compile it).
-          test -f pkgs/ui-admin/src/index.ts || (echo "::error::ui-admin/src missing"; exit 1)
 
       - name: Build workspace version map
         # Map every workspace package name to its on-disk version so we can
@@ -112,7 +99,7 @@ jobs:
           node -e "
             const fs=require('fs'); const path=require('path');
             const map={};
-            const dirs=['pkgs/ui','pkgs/core','pkgs/ui-admin','pkgs/compiler','pkgs'];
+            const dirs=['pkgs/ui','pkgs/core','pkgs/compiler','pkgs'];
             const collect=(d)=>{
               if (!fs.existsSync(d)) return;
               const stat=fs.statSync(d);
@@ -167,42 +154,14 @@ jobs:
           echo "tgz=$tmpdir/${tgz}" >> "$GITHUB_OUTPUT"
           echo "tmpdir=$tmpdir" >> "$GITHUB_OUTPUT"
 
-      - name: Pack @hanzogui/admin
-        id: pack-admin
-        run: |
-          set -eu
-          tmpdir=$(mktemp -d)
-          cp -R pkgs/ui-admin/. "$tmpdir/"
-          rm -rf "$tmpdir/node_modules"
-          node -e "
-            const fs=require('fs');
-            const map=JSON.parse(fs.readFileSync('/tmp/ws-versions.json'));
-            const p='$tmpdir/package.json';
-            const j=JSON.parse(fs.readFileSync(p));
-            for (const f of ['dependencies','devDependencies','peerDependencies','optionalDependencies']) {
-              if (!j[f]) continue;
-              for (const k of Object.keys(j[f])) {
-                if (j[f][k].startsWith('workspace:')) {
-                  const v=map[k]; if (!v) { console.error('no version for',k); process.exit(1); }
-                  j[f][k]=v;
-                }
-              }
-            }
-            fs.writeFileSync(p, JSON.stringify(j, null, 2)+'\n');
-          "
-          cd "$tmpdir"
-          tgz=$(npm pack --silent | tail -1)
-          echo "tgz=$tmpdir/${tgz}" >> "$GITHUB_OUTPUT"
-
-      - name: Smoke-test packed tarballs from /tmp consumer
+      - name: Smoke-test packed tarball from /tmp consumer
         env:
           GUI_TGZ: ${{ steps.pack-gui.outputs.tgz }}
-          ADMIN_TGZ: ${{ steps.pack-admin.outputs.tgz }}
         run: |
           set -eu
           consumer=$(mktemp -d)
           cd "$consumer"
-          # Minimal consumer — installs both tarballs and requires them.
+          # Minimal consumer — installs the tarball and requires it.
           # Catches: missing files in `files`, broken `exports` map,
           # wrong `main`/`module` paths, Gui→gui rename leaks.
           # NEVER call this package "Gui" anywhere in published
@@ -217,17 +176,14 @@ jobs:
           EOF
           npm install --no-audit --no-fund --silent \
             "${GUI_TGZ}" \
-            "${ADMIN_TGZ}" \
             react@^19 react-dom@^19 react-router-dom@^7
           # Static extractor scans for the literal `'hanzogui'` import
           # token. If it ever moves to `@hanzo/gui` the extractor bails.
           # Verify the published name is exactly `hanzogui`.
           test "$(node -p "require('hanzogui/package.json').name")" = "hanzogui"
-          test "$(node -p "require('@hanzogui/admin/package.json').name")" = "@hanzogui/admin"
           # Resolve every published exports entry. A broken export
           # shows up as MODULE_NOT_FOUND here, not after publish.
           node -e "require('hanzogui/package.json')"
-          node -e "require('@hanzogui/admin/package.json')"
 
       - name: Publish gui
         env:
@@ -243,19 +199,6 @@ jobs:
           fi
           npm publish "${TGZ}" --access public --tag stable
 
-      - name: Publish @hanzogui/admin
-        env:
-          NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
-          NODE_AUTH_TOKEN: ${{ steps.kms.outputs.npm_token }}
-          TGZ: ${{ steps.pack-admin.outputs.tgz }}
-        working-directory: pkgs/ui-admin
-        run: |
-          version=$(node -p "require('./package.json').version")
-          if npm view "@hanzogui/admin@${version}" version >/dev/null 2>&1; then
-            echo "@hanzogui/admin@${version} already on npm — skipping."
-            exit 0
-          fi
-          npm publish "${TGZ}" --access public --tag stable
 
       - name: Pack + Publish @hanzo/gui (alias of gui)
         # Republish the umbrella tarball under the @hanzo/gui scoped name so

@@ -11,7 +11,7 @@
       "path": "../../core/web"
     },
     {
-      "path": "../../packages/cli-color"
+      "path": "../../cli-color"
     },
     {
       "path": "../static"

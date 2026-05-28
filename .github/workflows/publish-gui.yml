@@ -7,10 +7,11 @@ name: Publish gui
 #
 # Note: @hanzogui/admin moved to hanzoai/admin and publishes from there.
 #
-# NPM_TOKEN is sourced from KMS (kms.hanzo.ai) at runtime via Universal
-# Auth. No long-lived NPM_TOKEN secret lives in GitHub. Same shape as
-# `~/work/hanzo/login/.github/workflows/deploy.yml` — only the secret
-# path differs.
+# NPM_TOKEN resolution order:
+#   1. KMS via Universal Auth (KMS_CLIENT_ID/SECRET → short-lived token)
+#   2. KMS via long-lived HANZO_API_KEY (legacy bootstrap)
+#   3. Direct repo secret NPM_TOKEN (fallback until KMS is provisioned)
+# Same shape as `~/work/hanzo/login/.github/workflows/deploy.yml`.
 #
 # Smoke test: after pack, install the .tgz tarball into a throwaway
 # /tmp consumer and require() it. If the static extractor or vite
@@ -36,9 +37,10 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
-      - name: Fetch NPM_TOKEN from KMS
-        id: kms
+      - name: Resolve NPM_TOKEN (KMS → fallback to repo secret)
+        id: token
         env:
+          DIRECT_NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
           KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
           HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
@@ -46,25 +48,33 @@ jobs:
           KMS_WORKSPACE_ID: ${{ vars.KMS_WORKSPACE_ID_GUI || 'e1359bf4-31b4-4dfa-bb90-323e2c298ad8' }}
         run: |
           set -eu
-          # Auth: Universal Auth (preferred) → exchange clientId/Secret
-          # for a short-lived access token. Fallback to long-lived
-          # HANZO_API_KEY for legacy bootstrap only.
+          # Preferred (when configured): pull NPM_TOKEN from KMS at runtime
+          # via Universal Auth (KMS_CLIENT_ID/SECRET) or legacy HANZO_API_KEY.
+          # Fallback: direct repo-secret NPM_TOKEN. The fallback keeps the
+          # publish path unblocked while KMS provisioning catches up.
+          npm_token=""
           if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
             HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
               -H "Content-Type: application/json" \
               -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
-              | jq -r '.accessToken')
+              | jq -r '.accessToken') || true
           fi
-          if [ -z "${HANZO_API_KEY:-}" ]; then
-            echo "::error::No KMS auth available (need KMS_CLIENT_ID/SECRET or HANZO_API_KEY)."
-            exit 1
+          if [ -n "${HANZO_API_KEY:-}" ]; then
+            response=$(curl -sf \
+              "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=${KMS_WORKSPACE_ID}&secretPath=/publish&environment=prod" \
+              -H "Authorization: Bearer ${HANZO_API_KEY}" 2>/dev/null) || true
+            if [ -n "${response:-}" ]; then
+              npm_token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="NPM_TOKEN") | .secretValue // empty')
+            fi
           fi
-          response=$(curl -sf \
-            "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=${KMS_WORKSPACE_ID}&secretPath=/publish&environment=prod" \
-            -H "Authorization: Bearer ${HANZO_API_KEY}")
-          npm_token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="NPM_TOKEN") | .secretValue // empty')
           if [ -z "$npm_token" ]; then
-            echo "::error::NPM_TOKEN not present in KMS at /publish."
+            npm_token="${DIRECT_NPM_TOKEN:-}"
+            if [ -n "$npm_token" ]; then
+              echo "Using NPM_TOKEN from repo secret (KMS path unavailable)."
+            fi
+          fi
+          if [ -z "$npm_token" ]; then
+            echo "::error::No NPM_TOKEN available — need either KMS_CLIENT_ID/SECRET, HANZO_API_KEY, or NPM_TOKEN repo secret."
             exit 1
           fi
           echo "::add-mask::${npm_token}"
@@ -72,7 +82,7 @@ jobs:
 
       - name: Configure npm registry
         env:
-          NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
+          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
         run: |
           echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
@@ -187,10 +197,10 @@ jobs:
 
       - name: Publish gui
         env:
-          NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
-          NODE_AUTH_TOKEN: ${{ steps.kms.outputs.npm_token }}
+          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ steps.token.outputs.npm_token }}
           TGZ: ${{ steps.pack-gui.outputs.tgz }}
-        working-directory: pkgs/ui/gui
+        working-directory: pkgs/ui/hanzogui
         run: |
           version=$(node -p "require('./package.json').version")
           if npm view "hanzogui@${version}" version >/dev/null 2>&1; then
@@ -209,8 +219,8 @@ jobs:
         # the prepared tmpdir from the gui pack step (workspace specs
         # already rewritten) and only mutate `name`.
         env:
-          NPM_TOKEN: ${{ steps.kms.outputs.npm_token }}
-          NODE_AUTH_TOKEN: ${{ steps.kms.outputs.npm_token }}
+          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ steps.token.outputs.npm_token }}
           TMPDIR_GUI: ${{ steps.pack-gui.outputs.tmpdir }}
         run: |
           set -eu

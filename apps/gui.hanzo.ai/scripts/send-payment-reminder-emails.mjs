@@ -130,7 +130,7 @@ function buildEmailHtml(name, daysUntilExpiry, isApology) {
     <li><strong>One v1</strong> - One is now stable and works seamlessly with Metro, plus has more features than your favorite web framework. <strong><a href="https://onestack.dev/blog/version-one-rc1">Read about One &rarr;</a></strong></li>
     <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. GUI 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://gui.hanzo.ai/takeout">More info</a></strong> | <strong><a href="https://takeout.gui.hanzo.ai">Demo</a></strong></li>
     <li><strong>Takeout Static</strong> - A new simplified web-only starter with MDX blog/docs and 100 Lighthouse.</li>
-    <li><strong>Bento Components</strong> - Rewritten for v2 with new components and more polish, updated libraries.</li>
+    <li><strong>Recipes Components</strong> - Rewritten for v2 with new components and more polish, updated libraries.</li>
     <li><strong>Unlimited Team Members</strong> - Share access with your whole team.</li>
     <li><strong>AI Theme Generator</strong> - Opus-powered /theme generation for custom designs.</li>
   </ul>

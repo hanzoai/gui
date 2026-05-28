@@ -1,5 +1,5 @@
 -- This file cancels all active and trialing subscriptions.
--- It is used to cancel the old Takeout and Bento subscriptions
+-- It is used to cancel the old Takeout and Recipes subscriptions
 -- in preparation for migrating to the new Hanzo GUI subscription models.
 UPDATE subscriptions
 SET status = 'canceled',

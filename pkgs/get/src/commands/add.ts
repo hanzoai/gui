@@ -1,4 +1,4 @@
-import { resolveRecipe, installPlan } from '@hanzo/recipes'
+import { resolveRecipe, installPlan } from '@hanzogui/recipes'
 import { green, gray, bold } from '../lib/ansi.js'
 
 export async function add(slug: string): Promise<void> {

@@ -10,7 +10,7 @@
 
 import { readFile, readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
-import { authAdmin, ensureCollection, upsertRecipe, type AdminAuth, type RecipeInput, type RecipeFile } from '@hanzo/recipes'
+import { authAdmin, ensureCollection, upsertRecipe, type AdminAuth, type RecipeInput, type RecipeFile } from '@hanzogui/recipes'
 
 const RECIPES_DIR = path.join(import.meta.dir, '..', 'recipes')
 

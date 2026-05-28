@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hanzoai/gui.git",
-    "directory": "pkgs/packages/get"
+    "directory": "pkgs/get"
   },
   "bin": {
     "hanzo-gui-get": "./dist/cli.js"
@@ -30,7 +30,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@hanzo/recipes": "workspace:*",
+    "@hanzogui/recipes": "workspace:*",
     "fuse.js": "7.1.0"
   },
   "engines": {

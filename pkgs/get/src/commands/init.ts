@@ -1,6 +1,6 @@
 import { existsSync, promises as fs } from 'node:fs'
 import path from 'node:path'
-import { findProjectRoot, DEFAULT_INSTALL_DIR } from '@hanzo/recipes'
+import { findProjectRoot, DEFAULT_INSTALL_DIR } from '@hanzogui/recipes'
 import { green, yellow } from '../lib/ansi.js'
 
 export async function init(): Promise<void> {

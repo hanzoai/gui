@@ -1,4 +1,4 @@
-import { listRecipes } from '@hanzo/recipes'
+import { listRecipes } from '@hanzogui/recipes'
 import { bold, cyan, gray, yellow } from '../lib/ansi.js'
 
 export async function list(): Promise<void> {

@@ -56,16 +56,16 @@
       "path": "../demos"
     },
     {
-      "path": "../../pkgs/packages/logo"
+      "path": "../../pkgs/logo"
     },
     {
-      "path": "../../pkgs/packages/gui-dev-config"
+      "path": "../../pkgs/gui-dev-config"
     },
     {
-      "path": "../../pkgs/packages/lucide-icons"
+      "path": "../../pkgs/lucide-icons"
     },
     {
-      "path": "../../pkgs/packages/use-store"
+      "path": "../../pkgs/use-store"
     }
   ]
 }

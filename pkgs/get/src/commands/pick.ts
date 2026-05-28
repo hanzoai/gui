@@ -1,6 +1,6 @@
 import Fuse from 'fuse.js'
 import * as readline from 'node:readline/promises'
-import { listRecipes } from '@hanzo/recipes'
+import { listRecipes } from '@hanzogui/recipes'
 import { bold, cyan, dim, gray } from '../lib/ansi.js'
 import { add } from './add.js'
 

@@ -305,7 +305,7 @@ export const AccountView = () => {
             supportSubscription={supportSubscription!}
             setCurrentTab={setCurrentTab}
             isTeamMember={!!isTeamMember}
-            hasBento={data?.accessInfo?.hasBento ?? false}
+            hasRecipes={data?.accessInfo?.hasRecipes ?? false}
             hasExpiredSubscription={hasExpiredSubscription}
             hasNoActiveSubscription={hasNoActiveSubscription}
           />
@@ -1100,7 +1100,7 @@ const PlanTab = ({
   supportSubscription,
   setCurrentTab,
   isTeamMember,
-  hasBento,
+  hasRecipes,
   hasExpiredSubscription,
   hasNoActiveSubscription,
 }: {
@@ -1108,7 +1108,7 @@ const PlanTab = ({
   supportSubscription?: Subscription
   setCurrentTab: (value: 'plan' | 'manage' | 'team') => void
   isTeamMember: boolean
-  hasBento: boolean
+  hasRecipes: boolean
   hasExpiredSubscription: boolean
   hasNoActiveSubscription: boolean
 }) => {
@@ -1197,7 +1197,7 @@ const PlanTab = ({
         >
           <H4 color="$yellow11">Your subscription has expired</H4>
           <Paragraph color="$yellow11">
-            Renew now to regain access to Takeout, Bento, and all Pro features. Use code{' '}
+            Renew now to regain access to Takeout, Recipes, and all Pro features. Use code{' '}
             <Paragraph fontFamily="$mono" fontWeight="bold" color="$yellow12">
               WELCOMEBACK30
             </Paragraph>{' '}
@@ -1259,7 +1259,7 @@ const PlanTab = ({
             }
           />
 
-          <BentoCard subscription={subscription as Subscription} hasBento={hasBento} />
+          <RecipesCard subscription={subscription as Subscription} hasRecipes={hasRecipes} />
 
           <ServiceCard
             title="Discord Access"
@@ -2339,21 +2339,21 @@ const TeamMemberRow = ({
   )
 }
 
-const BentoCard = ({
+const RecipesCard = ({
   subscription,
-  hasBento,
+  hasRecipes,
 }: {
   subscription?: Subscription
-  hasBento: boolean
+  hasRecipes: boolean
 }) => {
   const supabase = useSupabaseClient()
   const { onCopy, hasCopied } = useClipboard()
 
-  // user has access if they have active subscription OR lifetime bento
-  const hasAccess = !!subscription || hasBento
+  // user has access if they have active subscription OR lifetime recipes
+  const hasAccess = !!subscription || hasRecipes
 
   const { data, isLoading, mutate } = useSWR(
-    hasAccess ? '/api/bento/cli/login' : null,
+    hasAccess ? '/api/recipes/cli/login' : null,
     async (url) => {
       const response = await authFetch(url)
       if (!response.ok) {
@@ -2367,7 +2367,7 @@ const BentoCard = ({
     }
   )
 
-  const handleBentoDownload = async () => {
+  const handleRecipesDownload = async () => {
     if (!supabase) {
       alert('Authentication required')
       return
@@ -2378,11 +2378,11 @@ const BentoCard = ({
         data: { session },
       } = await supabase.auth.getSession()
       if (!session) {
-        alert('Please sign in to download Bento components')
+        alert('Please sign in to download Recipes components')
         return
       }
 
-      const response = await fetch('/api/bento/zip-download', {
+      const response = await fetch('/api/recipes/zip-download', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${session.access_token}`,
@@ -2390,7 +2390,7 @@ const BentoCard = ({
       })
 
       if (!response.ok) {
-        throw new Error('Failed to download Bento components')
+        throw new Error('Failed to download Recipes components')
       }
 
       // create a blob from the response
@@ -2398,7 +2398,7 @@ const BentoCard = ({
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'bento-bundle.zip'
+      a.download = 'recipes-bundle.zip'
       document.body.appendChild(a)
       a.click()
 
@@ -2406,7 +2406,7 @@ const BentoCard = ({
       window.URL.revokeObjectURL(url)
       document.body.removeChild(a)
     } catch (error) {
-      alert('Failed to download Bento components. Please try again later.')
+      alert('Failed to download Recipes components. Please try again later.')
     }
   }
 
@@ -2425,12 +2425,12 @@ const BentoCard = ({
 
   return (
     <ServiceCard
-      title="Bento"
-      description="Download Bento components or browse the source repo."
+      title="Recipes"
+      description="Download Recipes components or browse the source repo."
       actionLabel={hasAccess ? 'Download' : 'Purchase'}
       onAction={
         hasAccess
-          ? handleBentoDownload
+          ? handleRecipesDownload
           : () => {
               paymentModal.show = true
             }

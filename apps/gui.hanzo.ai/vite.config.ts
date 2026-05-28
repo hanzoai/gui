@@ -6,7 +6,7 @@ import { guiPlugin } from '@hanzogui/vite-plugin'
 import { one } from 'one/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import type { UserConfig } from 'vite'
-import { generateBentoProxy } from './scripts/generate-bento-proxy.mjs'
+import { generateRecipesProxy } from './scripts/generate-recipes-proxy.mjs'
 
 Error.stackTraceLimit = Number.POSITIVE_INFINITY
 
@@ -37,14 +37,14 @@ if (!existsSync(vitePluginDist) || !existsSync(staticDist)) {
   }
 }
 
-// Generate bento proxy files (creates stubs if bento repo not found)
-const { hasBento } = generateBentoProxy({
+// Generate recipes proxy files (creates stubs if recipes repo not found)
+const { hasRecipes } = generateRecipesProxy({
   basePath: pathResolve(import.meta.dirname, 'scripts'),
   silent: false,
 })
 
-if (hasBento) {
-  console.info('Using ../bento')
+if (hasRecipes) {
+  console.info('Using ../recipes')
 }
 
 // use createRequire instead of import.meta.resolve for bun compatibility in vite config
@@ -110,7 +110,7 @@ export default {
 
   server: {
     fs: {
-      allow: ['..', '../../../bento'],
+      allow: ['..', '../../../recipes'],
     },
   },
 
@@ -121,14 +121,14 @@ export default {
   resolve: {
     preserveSymlinks: false,
     alias: [
-      // Regex-based alias for bento components when not available
-      ...(!hasBento
+      // Regex-based alias for recipes components when not available
+      ...(!hasRecipes
         ? [
             {
-              find: /^@gui\/bento\/component\/.+$/,
+              find: /^@gui\/recipes\/component\/.+$/,
               replacement: pathResolve(
                 import.meta.dirname,
-                './helpers/dist/bento-component-stub.tsx'
+                './helpers/dist/recipes-component-stub.tsx'
               ),
             },
           ]
@@ -151,37 +151,37 @@ export default {
         find: 'react-native/Libraries/Core/ReactNativeVersion',
         replacement: resolve('@hanzogui/proxy-worm'),
       },
-      // Bento paths (conditional based on bento availability)
-      ...(hasBento
+      // Recipes paths (conditional based on recipes availability)
+      ...(hasRecipes
         ? [
             {
-              find: '@hanzogui/bento/raw',
-              replacement: pathResolve(import.meta.dirname, '../../../bento/src/index'),
+              find: '@hanzogui/recipes/raw',
+              replacement: pathResolve(import.meta.dirname, '../../../recipes/src/index'),
             },
             {
-              find: '@hanzogui/bento/provider',
+              find: '@hanzogui/recipes/provider',
               replacement: pathResolve(
                 import.meta.dirname,
-                '../../../bento/src/components/provider/CurrentRouteProvider'
+                '../../../recipes/src/components/provider/CurrentRouteProvider'
               ),
             },
             {
-              find: '@hanzogui/bento/component',
+              find: '@hanzogui/recipes/component',
               replacement: pathResolve(
                 import.meta.dirname,
-                '../../../bento/src/components'
+                '../../../recipes/src/components'
               ),
             },
           ]
         : []),
-      // Always provide these aliases - they point to proxy files that work with or without bento
+      // Always provide these aliases - they point to proxy files that work with or without recipes
       {
-        find: '@hanzogui/bento/data',
-        replacement: pathResolve(import.meta.dirname, './helpers/dist/bento-proxy-data'),
+        find: '@hanzogui/recipes/data',
+        replacement: pathResolve(import.meta.dirname, './helpers/dist/recipes-proxy-data'),
       },
       {
-        find: '@hanzogui/bento',
-        replacement: pathResolve(import.meta.dirname, './helpers/dist/bento-proxy'),
+        find: '@hanzogui/recipes',
+        replacement: pathResolve(import.meta.dirname, './helpers/dist/recipes-proxy'),
       },
     ],
 
@@ -206,39 +206,39 @@ export default {
   },
 
   plugins: [
-    // Plugin to stub bento component imports when bento repo is not available
-    !hasBento && {
-      name: 'stub-bento-components',
+    // Plugin to stub recipes component imports when recipes repo is not available
+    !hasRecipes && {
+      name: 'stub-recipes-components',
       enforce: 'pre', // Run before other plugins including alias resolution
       resolveId(id: string) {
-        // Intercept imports from @hanzogui/bento/component/*
-        if (id.startsWith('@hanzogui/bento/component/')) {
+        // Intercept imports from @hanzogui/recipes/component/*
+        if (id.startsWith('@hanzogui/recipes/component/')) {
           // Return a virtual module ID
-          return '\0bento-component-stub:' + id
+          return '\0recipes-component-stub:' + id
         }
       },
       load(id: string) {
         // Handle the virtual module
-        if (id.startsWith('\0bento-component-stub:')) {
+        if (id.startsWith('\0recipes-component-stub:')) {
           // Return stub component code
           return `
 import { YStack, Paragraph } from 'hanzogui'
 
-export default function BentoComponentStub() {
+export default function RecipesComponentStub() {
   if (process.env.NODE_ENV === 'production') {
     return null
   }
   return (
     <YStack p="$4" bc="$borderColor" br="$4">
       <Paragraph size="$2" color="$color10">
-        Bento component not available
+        Recipes component not available
       </Paragraph>
     </YStack>
   )
 }
 
 // Export as default and named for compatibility
-export const LocationNotification = BentoComponentStub
+export const LocationNotification = RecipesComponentStub
 `
         }
       },

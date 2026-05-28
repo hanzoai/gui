@@ -1,5 +1,5 @@
-bento-output
+recipes-output
 helpers/dist/
 
-# Generated bento proxies
+# Generated recipes proxies
 helpers/dist/

@@ -33,12 +33,12 @@ import { seasons, SeasonTogglePopover } from '~/features/site/seasons/SeasonTogg
 import { ThemeToggle } from '~/features/site/theme/ThemeToggle'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { useLoginLink } from '../../auth/useLoginLink'
-import { useBentoStore } from '../../bento/BentoStore'
-import { useBentoTheme } from '../../bento/useBentoTheme'
+import { useRecipesStore } from '../../recipes/RecipesStore'
+import { useRecipesTheme } from '../../recipes/useRecipesTheme'
 import { DocsMenuContents } from '../../docs/DocsMenuContents'
 import { useDocsMenu } from '../../docs/useDocsMenu'
 import { AddEvenBrandIcon } from '../../icons/AddEvenBrandIcon'
-import { BentoIcon } from '../../icons/BentoIcon'
+import { RecipesIcon } from '../../icons/RecipesIcon'
 import { TakeoutIcon } from '../../icons/TakeoutIcon'
 import { useUser } from '../../user/useUser'
 import { accountModal } from '../purchase/accountModalStore'
@@ -651,16 +651,16 @@ const ActivePageDocsMenuContents = () => {
 const HeaderMenuContents = (props: { id: ID }) => {
   const { data } = useUser()
   const { updateGenerate } = useThemeBuilderStore()
-  const bentoStore = useBentoStore()
+  const recipesStore = useRecipesStore()
   const themeHistories = data?.themeHistories || []
-  const bentoTheme = useBentoTheme()
+  const recipesTheme = useRecipesTheme()
   const isOnlyShowingMenu = useMedia().maxMd
   const isMobile = isTouchable && isOnlyShowingMenu
 
   const contents = (() => {
     /**
      * When the theme_histories are fetched,
-     * we can apply one of them to Bento components from dropdown
+     * we can apply one of them to Recipes components from dropdown
      */
     if (props.id === 'menu') {
       return (
@@ -708,26 +708,26 @@ const HeaderMenuContents = (props: { id: ID }) => {
                   grid
                   items="center"
                   onPress={() => {
-                    bentoStore.disableCustomTheme = !bentoStore.disableCustomTheme
+                    recipesStore.disableCustomTheme = !recipesStore.disableCustomTheme
                   }}
                 >
                   <SizableText size="$3" color="$color11" ellipsis>
                     Enabled
                   </SizableText>
 
-                  {bentoTheme.enabled ? <Check ml="$2" size={12} /> : null}
+                  {recipesTheme.enabled ? <Check ml="$2" size={12} /> : null}
                 </HeadAnchor>
                 <HeadAnchor
                   grid
                   onPress={() => {
-                    bentoStore.disableTint = !bentoStore.disableTint
+                    recipesStore.disableTint = !recipesStore.disableTint
                   }}
                 >
                   <SizableText size="$3" color="$color11" ellipsis>
                     Tint
                   </SizableText>
 
-                  {!bentoStore.disableTint ? <Check ml="$2" size={12} /> : null}
+                  {!recipesStore.disableTint ? <Check ml="$2" size={12} /> : null}
                 </HeadAnchor>
               </XStack>
 
@@ -888,10 +888,10 @@ const HeaderMenuMoreContents = () => {
         </HeadAnchor>
       </Link>
 
-      <Link asChild href="/bento">
+      <Link asChild href="/recipes">
         <HeadAnchor grid render="a">
           <XStack items="center">
-            <span>Bento</span>
+            <span>Recipes</span>
             <YStack
               ml={3}
               display={'inline-block' as any}
@@ -900,7 +900,7 @@ const HeaderMenuMoreContents = () => {
               my={-10}
               opacity={0.8}
             >
-              <BentoIcon scale={0.65} />
+              <RecipesIcon scale={0.65} />
             </YStack>
           </XStack>
           <SizableText size="$2" color="$color9">

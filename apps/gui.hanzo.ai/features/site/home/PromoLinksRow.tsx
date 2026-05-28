@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Paragraph, Theme, Tooltip, TooltipGroup, XGroup } from 'hanzogui'
 import { Link } from '~/components/Link'
-import { BentoButton } from '../BentoButton'
+import { RecipesButton } from '../RecipesButton'
 import { ConsultingButton } from '../ConsultingButton'
 import { TakeoutButton } from '../TakeoutButton'
 
@@ -34,16 +34,16 @@ export const PromoLinksRow = () => {
           <Tooltip.Trigger
             scope="promo-tooltip"
             asChild
-            onMouseEnter={() => setLabel('Bento — Free + paid pre-made UI')}
+            onMouseEnter={() => setLabel('Recipes — Free + paid pre-made UI')}
           >
             <Link
               hoverStyle={{
                 z: 100,
               }}
-              href="/bento"
+              href="/recipes"
             >
               <XGroup.Item>
-                <BentoButton mr={-1} elevation={0} />
+                <RecipesButton mr={-1} elevation={0} />
               </XGroup.Item>
             </Link>
           </Tooltip.Trigger>

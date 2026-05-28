@@ -9,7 +9,7 @@ import { ThemeNameEffect } from '../../features/site/theme/ThemeNameEffect'
 
 import { LoadCherryBomb } from '~/features/site/fonts/LoadFonts'
 import { ScreenshotGallery } from '~/features/takeout/ScreenshotGallery'
-import { TakeoutBentoFeatures } from '~/features/takeout/TakeoutBentoFeatures'
+import { TakeoutRecipesFeatures } from '~/features/takeout/TakeoutRecipesFeatures'
 // import { TakeoutGlow } from '~/features/takeout/TakeoutGlow'
 import { TakeoutHeroNew } from '~/features/takeout/TakeoutHeroNew'
 import { TakeoutMenuShowcase } from '~/features/takeout/TakeoutMenuShowcase'
@@ -146,7 +146,7 @@ export default function TakeoutPageNew() {
         <TakeoutMenuShowcase />
 
         {/* Features Section */}
-        <TakeoutBentoFeatures />
+        <TakeoutRecipesFeatures />
 
         {/* Video Section */}
         <YStack py="$8" px="$4">

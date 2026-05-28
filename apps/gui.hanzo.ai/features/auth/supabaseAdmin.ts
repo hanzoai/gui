@@ -40,18 +40,18 @@ const toDateTime = (secs: number) => {
   return t
 }
 
-export const getBentoCode = async (codePath: string) => {
+export const getRecipesCode = async (codePath: string) => {
   const { data, error } = await supabaseAdmin.storage
     .from('bento')
     .download(`merged/${codePath}.tsx`)
   if (error) {
     console.error(error)
-    throw new Error(`Error getting bento code for ${codePath}`)
+    throw new Error(`Error getting recipes code for ${codePath}`)
   }
   return data.text()
 }
 
-export const getBentoComponentCategory = async ({
+export const getRecipesComponentCategory = async ({
   categoryPath,
   categorySectionPath,
   fileName,
@@ -72,7 +72,7 @@ export const getBentoComponentCategory = async ({
     .list(downloadPath)
 
   if (error) {
-    throw new Error(`Error getting bento code for ${categoryPath} ${categorySectionPath}`)
+    throw new Error(`Error getting recipes code for ${categoryPath} ${categorySectionPath}`)
   }
 
   let result: { [key: string]: Array<{ path: string; downloadUrl: string }> } = {}
@@ -83,7 +83,7 @@ export const getBentoComponentCategory = async ({
       .list(folderPath)
 
     if (subError) {
-      throw new Error(`Error getting bento code for ${folderPath}`)
+      throw new Error(`Error getting recipes code for ${folderPath}`)
     }
 
     const subFiles = await Promise.all(
@@ -385,15 +385,15 @@ export const manageSubscriptionStatusChange = async (
     const includesTakeoutStarter = subscribedProducts.some(
       (product) => product.metadata.slug === ProductSlug.UniversalStarter
     )
-    const includesBento = subscribedProducts.some(
-      (product) => product.metadata.slug === 'bento'
+    const includesRecipes = subscribedProducts.some(
+      (product) => product.metadata.slug === ProductSlug.Recipes
     )
 
     // Send one consolidated purchase email
-    if (includesTakeoutStarter || includesBento) {
+    if (includesTakeoutStarter || includesRecipes) {
       const productNames: string[] = []
       if (includesTakeoutStarter) productNames.push('Takeout')
-      if (includesBento) productNames.push('Bento')
+      if (includesRecipes) productNames.push('Recipes')
 
       await sendProductPurchaseEmail(email, {
         name: userName,
@@ -606,14 +606,16 @@ export async function populateStripeData() {
   }
 }
 
-export const getBentoBundleZip = async () => {
+export const getRecipesBundleZip = async () => {
+  // NOTE: external Supabase storage bucket is still named 'bento' and the
+  // zip object is still 'bento-bundle.zip' — to be migrated separately.
   const { data, error } = await supabaseAdmin.storage
     .from('bento')
     .download('bento-bundle.zip')
 
   if (error) {
-    console.error('Error downloading Bento bundle:', error)
-    throw new Error('Failed to download Bento bundle')
+    console.error('Error downloading Recipes bundle:', error)
+    throw new Error('Failed to download Recipes bundle')
   }
 
   return data

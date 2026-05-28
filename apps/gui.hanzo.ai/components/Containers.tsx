@@ -69,7 +69,7 @@ export const ContainerXL = styled(YStack, {
   variants,
 })
 
-export const ContainerBento = styled(YStack, {
+export const ContainerRecipes = styled(YStack, {
   mx: 'auto',
   width: '100%',
   position: 'relative',

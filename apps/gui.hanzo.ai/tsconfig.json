@@ -35,7 +35,7 @@
     "lib": ["dom", "esnext"]
   },
   "include": ["**/*", "types/**/*"],
-  "exclude": ["**/test", "**/dist", "**/__tests__", "**/recipes-output"],
+  "exclude": ["**/test", "**/dist", "**/__tests__", "**/recipes-output", "scripts/**/*.ts", "scripts/**/*.mjs"],
   "typeAcquisition": {
     "enable": true
   },

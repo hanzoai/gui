@@ -1,21 +1,17 @@
-import { createServerClient } from '@supabase/ssr'
 import { ImageResponse } from '@vercel/og'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { db } from '~/features/db'
+import { storage } from '~/features/db/storage'
 import { getTheme } from '../../../features/studio/theme/getTheme'
 
 export async function GET(req: Request) {
-  const supabase = createServerClient(
-    import.meta.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
-    import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '',
-    {
-      cookies: {
-        getAll() {
-          return []
-        },
-      },
-    }
-  )
+  // Local facade mirrors the supabase shape this file historically used —
+  // `supabase.storage.from(...)` + `supabase.from('theme_histories')`.
+  const supabase = {
+    storage,
+    from: db.from,
+  }
 
   try {
     const url = new URL(req.url)
@@ -547,40 +543,11 @@ export async function GET(req: Request) {
     const imageBuffer = Buffer.from(buffer)
 
     queueMicrotask(async () => {
-      try {
-        if (theme.og_image_url) {
-          await supabase.storage.from('theme-og-images').remove([theme.og_image_url])
-        }
-
-        const fileName = `theme-${id}-${Date.now()}.png`
-        const { error: uploadError } = await supabase.storage
-          .from('theme-og-images')
-          .upload(fileName, imageBuffer, {
-            contentType: 'image/png',
-            cacheControl: '31536000',
-          })
-
-        if (uploadError) {
-          console.error('Storage error:', uploadError)
-          return
-        }
-
-        const { error: updateError } = await supabase
-          .from('theme_histories')
-          .update({
-            og_image_url: fileName,
-            is_cached: true,
-          })
-          .eq('id', id)
-
-        if (updateError) {
-          console.error('DB update error:', updateError)
-        } else {
-          console.info('DB update success:', fileName)
-        }
-      } catch (error) {
-        console.error('Background storage/update error:', error)
-      }
+      // TODO(supabase-rip): Base storage adapter does not yet expose
+      // `.remove([...])` or `.upload(buffer)` — only `.download/.list/.
+      // createSignedUrl`. Cached OG images stay valid until manually
+      // evicted; new image generation falls through to live render.
+      void imageBuffer
     })
 
     return new Response(imageBuffer, {

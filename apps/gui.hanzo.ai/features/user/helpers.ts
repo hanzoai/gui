@@ -1,4 +1,4 @@
-import type { User } from '@supabase/supabase-js'
+import type { AuthUser as User } from '~/features/iam/server'
 import {
   whitelistRecipesUsernames,
   whitelistGithubUsernames,

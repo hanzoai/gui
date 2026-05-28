@@ -112,7 +112,7 @@ jobs:
           node -e "
             const fs=require('fs'); const path=require('path');
             const map={};
-            const dirs=['pkgs/ui','pkgs/core','pkgs/ui-admin','pkgs/compiler','pkgs/packages'];
+            const dirs=['pkgs/ui','pkgs/core','pkgs/ui-admin','pkgs/compiler','pkgs'];
             const collect=(d)=>{
               if (!fs.existsSync(d)) return;
               const stat=fs.statSync(d);

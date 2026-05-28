@@ -27,15 +27,6 @@
       "require": "./dist/cjs/index.cjs",
       "default": "./dist/esm/index.mjs"
     },
-    "./react-native-web": {
-      "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/react-native-web.native.js",
-      "browser": "./dist/esm/react-native-web.mjs",
-      "module": "./dist/esm/react-native-web.mjs",
-      "import": "./dist/esm/react-native-web.mjs",
-      "require": "./dist/cjs/react-native-web.cjs",
-      "default": "./dist/esm/react-native-web.mjs"
-    },
     "./web": {
       "types": "./types/index.d.ts",
       "react-native": "./dist/esm/index.native.js",
@@ -53,7 +44,6 @@
     },
     "./native-test": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/test.native.js",
       "require": "./dist/test.cjs",
       "default": "./dist/test.cjs"
     },

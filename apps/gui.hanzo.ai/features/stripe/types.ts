@@ -1,62 +1,98 @@
-import type Stripe from 'stripe'
+/**
+ * Local payment-types — processor-agnostic.
+ *
+ * Was `import type Stripe from 'stripe'`. Commerce uses Stripe-shaped
+ * primitives under the hood, so these still match the field names that
+ * downstream UI components display. They're typed loosely on purpose: the
+ * server-side commerce client is the source of truth for the actual API
+ * shapes.
+ */
 
-export interface PageMeta {
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type PageMeta = {
   title: string
   description: string
   cardImage: string
 }
 
-export interface Customer {
-  id: string /* primary key */
+export type Customer = {
+  id: string
   stripe_customer_id?: string
 }
 
-export interface Product {
-  id: string /* primary key */
+export type Product = {
+  id: string
   active?: boolean
   name?: string
   description?: string
-  image?: string
-  metadata?: Stripe.Metadata
+  image?: string | null
+  metadata?: Record<string, string>
 }
 
-export interface ProductWithPrice extends Product {
+export type ProductWithPrice = Product & {
   prices?: Price[]
 }
 
-export interface UserDetails {
-  id: string /* primary key */
+export type Address = {
+  city?: string | null
+  country?: string | null
+  line1?: string | null
+  line2?: string | null
+  postal_code?: string | null
+  state?: string | null
+}
+
+export type UserDetails = {
+  id: string
   first_name: string
   last_name: string
   full_name?: string
   avatar_url?: string
-  billing_address?: Stripe.Address
-  payment_method?: Stripe.PaymentMethod[Stripe.PaymentMethod.Type]
+  billing_address?: Address
+  payment_method?: Record<string, unknown>
 }
 
-export interface Price {
-  id: string /* primary key */
-  product_id?: string /* foreign key to products.id */
+export type PriceInterval = 'day' | 'week' | 'month' | 'year'
+
+export type Price = {
+  id: string
+  product_id?: string
   active?: boolean
   description?: string
   unit_amount?: number
   currency?: string
-  type?: string
-  interval?: Stripe.Price.Recurring.Interval
+  type?: 'one_time' | 'recurring' | string
+  interval?: PriceInterval
   interval_count?: number
   trial_period_days?: number | null
-  metadata?: Stripe.Metadata
+  metadata?: Record<string, string>
   products?: Product
 }
 
-export interface PriceWithProduct extends Price {}
+export type PriceWithProduct = Price
 
-export interface Subscription {
-  id: string /* primary key */
+export type SubscriptionStatus =
+  | 'incomplete'
+  | 'incomplete_expired'
+  | 'trialing'
+  | 'active'
+  | 'past_due'
+  | 'canceled'
+  | 'unpaid'
+
+export type Subscription = {
+  id: string
   user_id: string
-  status?: Stripe.Subscription.Status
-  metadata?: Stripe.Metadata
-  price_id?: string /* foreign key to prices.id */
+  status?: SubscriptionStatus
+  metadata?: Record<string, string>
+  price_id?: string
   quantity?: number
   cancel_at_period_end?: boolean
   created: string

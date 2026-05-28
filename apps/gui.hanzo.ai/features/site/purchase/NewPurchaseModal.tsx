@@ -1,5 +1,9 @@
-import type { StripeError } from '@stripe/stripe-js'
 import { X } from '@hanzogui/lucide-icons-2'
+
+// Was `import type { StripeError } from '@stripe/stripe-js'` — local alias
+// keeps the component compiling while the processor-agnostic commerce error
+// shape stabilises.
+type StripeError = { message?: string; code?: string }
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import type { TabsProps } from 'hanzogui'
 import {

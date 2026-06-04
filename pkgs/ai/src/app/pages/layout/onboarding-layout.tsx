@@ -1,4 +1,4 @@
-import { useBrand } from '@hanzo/ai';
+import { useBrand } from '@hanzo_network/brand-config';
 import { cn } from '@hanzo_network/hanzo-ui/utils';
 import React, { useContext } from 'react';
 import { Outlet } from 'react-router';

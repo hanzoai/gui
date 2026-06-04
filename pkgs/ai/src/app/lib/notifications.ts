@@ -1,4 +1,4 @@
-import { useBrand } from '@hanzo/ai';
+import { useBrand } from '@hanzo_network/brand-config';
 import {} from '@tauri-apps/api';
 import { debug } from '@tauri-apps/plugin-log';
 import * as notification from '@tauri-apps/plugin-notification';

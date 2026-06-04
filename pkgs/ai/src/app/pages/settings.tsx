@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useBrand } from '@hanzo/ai';
+import { useBrand } from '@hanzo_network/brand-config';
 import {
   type LocaleMode,
   localeOptions,

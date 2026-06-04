@@ -185,3 +185,24 @@ export function getBrand(): BrandConfig {
   }
   return HANZO;
 }
+
+// ---------------------------------------------------------------------------
+// Injectable brand store — the prop-driven override used by the @hanzo/ai SDK.
+//
+// <HanzoAI {...brand}/> calls setBrand(brand) once, synchronously, before the
+// app tree mounts. App call sites then read it via useBrand(). This is a PLAIN
+// module getter, NOT a React hook — the app calls useBrand() from module scope,
+// plain utils and event handlers, so it must never touch a hook (else "invalid
+// hook call"). When nothing is injected (e.g. running net-brand-config alone)
+// it transparently falls back to env/hostname detection via getBrand().
+let _injected: BrandConfig | null = null;
+
+/** Inject the active brand (called by <HanzoAI> before mount). */
+export function setBrand(b: BrandConfig): void {
+  _injected = b;
+}
+
+/** Read the active brand: the injected prop if set, else env/hostname. */
+export function useBrand(): BrandConfig {
+  return _injected ?? getBrand();
+}

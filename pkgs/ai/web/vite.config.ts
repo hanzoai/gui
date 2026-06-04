@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react()],
   worker: { format: 'es' },
   server: { port: 1500, strictPort: true, host: '0.0.0.0' },
-  build: { outDir: 'dist', chunkSizeWarningLimit: 8000, rollupOptions: { onwarn(w,d){ if(w.code==='MODULE_LEVEL_DIRECTIVE')return; d(w);} } },
+  build: { outDir: 'dist', minify: 'esbuild', chunkSizeWarningLimit: 8000, rollupOptions: { onwarn(w,d){ if(w.code==='MODULE_LEVEL_DIRECTIVE')return; d(w);} } },
   optimizeDeps: { include: ['react','react-dom','react-dom/client','react/jsx-runtime','libsodium-wrappers-sumo','@tanstack/react-query','lucide-react','zustand'], exclude: ['pyodide'], esbuildOptions: { jsx: 'automatic' } },
   resolve: { dedupe: ['react','react-dom'], alias: {
     'libsodium-wrappers-sumo': '/home/z/work/hanzo/gui/node_modules/libsodium-wrappers-sumo/dist/modules-sumo/libsodium-wrappers.js',

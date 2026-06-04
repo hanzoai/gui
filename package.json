@@ -18,7 +18,14 @@
     "./apps/sandbox",
     "./apps/team",
     "./apps/tests/**/*",
-    "./templates/*"
+    "./templates/*",
+    "./pkgs/ai",
+    "./pkgs/net-ui",
+    "./pkgs/net-state",
+    "./pkgs/net-i18n",
+    "./pkgs/net-message-ts",
+    "./pkgs/net-brand-config",
+    "./pkgs/net-logo"
   ],
   "scripts": {
     "postinstall": "bun ./scripts/postinstall.ts",

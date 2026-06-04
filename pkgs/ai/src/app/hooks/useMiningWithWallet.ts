@@ -1,4 +1,4 @@
-import { useBrand } from '@hanzo/ai';
+import { useBrand } from '@hanzo_network/brand-config';
 import { useEffect, useRef } from 'react';
 
 import { useAuth } from '../store/auth';

@@ -1,3 +1,4 @@
 { "name": "@zoo/desktop-shim", "private": true, "type": "module",
-  "dependencies": { "@hanzo/ai": "workspace:*", "@zooai/brand": "*",
+  "scripts": { "dev": "VITE_BRAND=zoo vite", "build": "VITE_BRAND=zoo vite build" },
+  "dependencies": { "@hanzo/ai": "workspace:*",
     "react": "^19.0.0", "react-dom": "^19.0.0", "@tauri-apps/api": "^2.0.0" } }

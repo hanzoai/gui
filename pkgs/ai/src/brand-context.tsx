@@ -1,33 +1,24 @@
-// Brand store — the prop-driven replacement for the env `getBrand()`.
+// Brand store — re-exported from @hanzo_network/brand-config so there is ONE
+// source of truth. The app's call sites import useBrand from brand-config
+// directly; <HanzoAI> writes that same module-level store via setBrand().
 //
-// CRITICAL: this is a PLAIN module-level getter, NOT a React hook. The
-// migrated app calls getBrand()/useBrand() from many non-component sites
-// (module scope, plain utils, event handlers), so it must not call any
-// React hook — otherwise "invalid hook call". HanzoAI sets the brand via
-// setBrand() before the app mounts (same pattern as setHost()).
+// CRITICAL: getBrand()/useBrand() are PLAIN module getters, NOT React hooks.
+// The migrated app calls them from non-component scope (module init, utils,
+// event handlers), so they must never call a hook — else "invalid hook call".
+// (Importing useBrand from the @hanzo/ai PACKAGE instead of here would pull the
+// built dist back into the source graph — a cycle + a duplicate React. Don't.)
 import React from 'react';
+import { setBrand, getBrand, useBrand } from '@hanzo_network/brand-config';
 import type { BrandConfig } from './types';
 
-let _brand: BrandConfig | null = null;
-
-export function setBrand(b: BrandConfig): void { _brand = b; }
-
-/** Returns the brand injected by <HanzoAI>. Callable anywhere (not a hook). */
-export function getBrand(): BrandConfig {
-  if (!_brand) throw new Error('brand not set — render inside <HanzoAI {...brand}/>');
-  return _brand;
-}
-
-/** Back-compat alias for migrated call sites that were rewritten to useBrand().
- *  Intentionally NOT a hook — it just reads the module-level brand. */
-export const useBrand = getBrand;
+export { setBrand, getBrand, useBrand };
 
 /** Optional passthrough provider (the store is module-level, so this just
- *  renders children). Kept so existing <BrandProvider> usage compiles. */
+ *  sets the brand and renders children). Kept so existing usage compiles. */
 export const BrandProvider: React.FC<{ brand?: BrandConfig; children: React.ReactNode }> = ({
   brand,
   children,
 }) => {
-  if (brand) setBrand(brand);
+  if (brand) setBrand(brand as unknown as Parameters<typeof setBrand>[0]);
   return React.createElement(React.Fragment, null, children);
 };

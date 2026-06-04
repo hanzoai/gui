@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-import { useBrand } from '@hanzo/ai';
+import { useBrand } from '@hanzo_network/brand-config';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { formatWei, useChainBalance } from '../hooks/useChainBalance';

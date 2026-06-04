@@ -38,5 +38,9 @@ export function HanzoAI(props: HanzoAIProps): React.ReactElement {
 }
 
 export default HanzoAI;
-export { BrandProvider, useBrand } from './brand-context';
+export { BrandProvider, useBrand, getBrand } from './brand-context';
+// Re-export the brand resolvers so a thin shim needs no separate brand pkg for
+// the default case: `import HanzoAI, { getBrand } from '@hanzo/ai'`. Custom
+// brands still flow in as props (<HanzoAI {...myBrand}/>).
+export { getBrandFromHostname } from '@hanzo_network/brand-config';
 export type { BrandConfig, HanzoAIProps, HostAdapter, Brand } from './types';

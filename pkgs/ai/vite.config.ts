@@ -40,22 +40,36 @@ const libAlias = {
   '@hanzo_network/hanzo-artifacts': p('net-artifacts'),
 };
 
+// @hanzo/ai is shipped as an APP-as-SDK: the dist is SELF-CONTAINED so a
+// consumer's thin shim only needs react + react-dom (peers) + a brand. We
+// externalize ONLY React (the consumer must own a single copy — two Reacts
+// would re-break hooks) and bundle everything else: the app, the net-* libs,
+// the @tauri-apps host shims, and all 3rd-party deps.
+const EXTERNAL = new Set([
+  'react', 'react-dom', 'react-dom/client', 'react-dom/server',
+  'react/jsx-runtime', 'react/jsx-dev-runtime',
+]);
+
 export default defineConfig({
   plugins: [react()],
   worker: { format: 'es' },
-  resolve: { alias: { '@': resolve(__dirname, 'src/app'), ...tauriAlias, ...libAlias }, dedupe: ['react','react-dom'] },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src/app'),
+      // libsodium ships an ESM that vite can't resolve cleanly; pin its CJS
+      // build (same fix as the web app) now that it's bundled, not external.
+      'libsodium-wrappers-sumo': resolve(__dirname, '../../node_modules/libsodium-wrappers-sumo/dist/modules-sumo/libsodium-wrappers.js'),
+      ...tauriAlias,
+      ...libAlias,
+    },
+    dedupe: ['react', 'react-dom'],
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),
       formats: ['es', 'cjs'],
       fileName: (f) => (f === 'es' ? 'index.js' : 'index.cjs'),
     },
-    // Library build: externalize every npm dep (the consuming web/desktop
-    // shim bundles them). Only @hanzo/ai's own source + the moved app + the
-    // net-* libs (aliases rewrite those to absolute paths) get bundled.
-    rollupOptions: {
-      external: (id: string) =>
-        !id.startsWith('.') && !id.startsWith('/') && !id.startsWith('\0') && !/^[A-Za-z]:[\\/]/.test(id),
-    },
+    rollupOptions: { external: (id: string) => EXTERNAL.has(id) },
   },
 });

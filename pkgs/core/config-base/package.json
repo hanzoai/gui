@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/config-base",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "files": [
     "src",
     "types",
@@ -27,10 +27,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "build": "gui-build",
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"

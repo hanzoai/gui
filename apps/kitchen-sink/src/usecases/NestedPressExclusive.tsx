@@ -5,8 +5,8 @@ import { Button, Text, YStack, XStack } from 'hanzogui'
 /**
  * Test case for nested press exclusivity:
  *
- * Verifies that when a Hanzogui component (using RNGH) is nested inside
- * a RN Pressable, only the inner Hanzogui component fires onPress.
+ * Verifies that when a Gui component (using RNGH) is nested inside
+ * a RN Pressable, only the inner Gui component fires onPress.
  *
  * This tests the responder claiming behavior that blocks parent
  * RN Pressable/TouchableOpacity from receiving press events.
@@ -45,15 +45,15 @@ export function NestedPressExclusive() {
 
         <YStack gap="$2">
           <Text fontSize="$4" fontWeight="bold">
-            Standalone Hanzogui Button
+            Standalone Gui Button
           </Text>
           <Button
-            testID="hanzogui-button-solo"
+            testID="gui-button-solo"
             onPressIn={() => setSoloPressInCount((c) => c + 1)}
             onPressOut={() => setSoloPressOutCount((c) => c + 1)}
             onPress={() => setSoloPressCount((c) => c + 1)}
           >
-            Hanzogui Button (solo)
+            Gui Button (solo)
           </Button>
           <XStack gap="$4">
             <Text testID="solo-press-count">Solo: {soloPressCount}</Text>
@@ -62,7 +62,7 @@ export function NestedPressExclusive() {
           </XStack>
         </YStack>
 
-        {/* RN Pressable parent with Hanzogui Button child */}
+        {/* RN Pressable parent with Gui Button child */}
         <Pressable
           testID="rn-pressable-parent"
           onPress={() => {
@@ -79,7 +79,7 @@ export function NestedPressExclusive() {
             RN Pressable (parent)
           </Text>
           <Button
-            testID="hanzogui-button-child"
+            testID="gui-button-child"
             onPressIn={() => setChildPressInCount((c) => c + 1)}
             onPressOut={() => setChildPressOutCount((c) => c + 1)}
             onPress={() => {
@@ -87,7 +87,7 @@ export function NestedPressExclusive() {
               setLastPressed('child')
             }}
           >
-            Hanzogui Button (child)
+            Gui Button (child)
           </Button>
         </Pressable>
 
@@ -107,31 +107,31 @@ export function NestedPressExclusive() {
           </Button>
         </YStack>
 
-        {/* also test nested Hanzogui components (should also be exclusive) */}
+        {/* also test nested Gui components (should also be exclusive) */}
         <Text fontSize="$4" fontWeight="bold" marginTop="$4">
-          Hanzogui → Hanzogui nesting
+          Gui → Gui nesting
         </Text>
-        <NestedHanzoguiTest />
+        <NestedGuiTest />
       </YStack>
     </ScrollView>
   )
 }
 
-function NestedHanzoguiTest() {
+function NestedGuiTest() {
   const [outerCount, setOuterCount] = useState(0)
   const [innerCount, setInnerCount] = useState(0)
 
   return (
     <YStack gap="$2">
       <Button
-        testID="outer-hanzogui-button"
+        testID="outer-gui-button"
         size="$5"
         onPress={() => setOuterCount((c) => c + 1)}
       >
         <YStack alignItems="center">
-          <Text>Outer Hanzogui Button</Text>
+          <Text>Outer Gui Button</Text>
           <Button
-            testID="inner-hanzogui-button"
+            testID="inner-gui-button"
             size="$3"
             onPress={() => setInnerCount((c) => c + 1)}
           >

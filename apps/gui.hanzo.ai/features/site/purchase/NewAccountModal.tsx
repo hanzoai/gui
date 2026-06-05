@@ -231,7 +231,7 @@ export const AccountView = () => {
 
   const proTeamSubscription = activeSubscriptions?.find((sub) =>
     sub.subscription_items?.some(
-      (item) => item.price?.product?.name === ProductName.HanzoguiProTeamSeats
+      (item) => item.price?.product?.name === ProductName.GuiProTeamSeats
     )
   ) as Subscription
 
@@ -250,12 +250,12 @@ export const AccountView = () => {
     : (activeSubscriptions?.find((sub) =>
         sub.subscription_items?.some(
           (item) =>
-            item.price?.product?.name === ProductName.HanzoguiPro ||
-            item.price?.product?.name === ProductName.HanzoguiProV2 ||
-            item.price?.product?.name === ProductName.HanzoguiProV2Upgrade ||
+            item.price?.product?.name === ProductName.GuiPro ||
+            item.price?.product?.name === ProductName.GuiProV2 ||
+            item.price?.product?.name === ProductName.GuiProV2Upgrade ||
             // V2 support tiers also imply Pro access
-            item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
-            item.price?.product?.name === ProductName.HanzoguiSupportSponsor
+            item.price?.product?.name === ProductName.GuiSupportDirect ||
+            item.price?.product?.name === ProductName.GuiSupportSponsor
         )
       ) as Subscription)
 
@@ -265,11 +265,11 @@ export const AccountView = () => {
       sub.subscription_items?.some(
         (item) =>
           // V1 support products
-          item.price?.product?.name === ProductName.HanzoguiSupport ||
-          item.price?.product?.name === ProductName.HanzoguiChat ||
+          item.price?.product?.name === ProductName.GuiSupport ||
+          item.price?.product?.name === ProductName.GuiChat ||
           // V2 support products
-          item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
-          item.price?.product?.name === ProductName.HanzoguiSupportSponsor
+          item.price?.product?.name === ProductName.GuiSupportDirect ||
+          item.price?.product?.name === ProductName.GuiSupportSponsor
       )
     )
     .sort((a, b) => new Date(a.created).getTime() - new Date(b.created).getTime())
@@ -305,7 +305,7 @@ export const AccountView = () => {
             supportSubscription={supportSubscription!}
             setCurrentTab={setCurrentTab}
             isTeamMember={!!isTeamMember}
-            hasBento={data?.accessInfo?.hasBento ?? false}
+            hasRecipes={data?.accessInfo?.hasRecipes ?? false}
             hasExpiredSubscription={hasExpiredSubscription}
             hasNoActiveSubscription={hasNoActiveSubscription}
           />
@@ -671,11 +671,11 @@ const DiscordPanel = ({
     const supportItems = subscription?.subscription_items?.filter((item) => {
       return (
         // V1 support products
-        item.price?.product?.name === ProductName.HanzoguiSupport ||
-        item.price?.product?.name === ProductName.HanzoguiChat ||
+        item.price?.product?.name === ProductName.GuiSupport ||
+        item.price?.product?.name === ProductName.GuiChat ||
         // V2 support products
-        item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
-        item.price?.product?.name === ProductName.HanzoguiSupportSponsor
+        item.price?.product?.name === ProductName.GuiSupportDirect ||
+        item.price?.product?.name === ProductName.GuiSupportSponsor
       )
     })
 
@@ -685,16 +685,16 @@ const DiscordPanel = ({
 
     // Check for chat support (V1 only - V2 Pro includes chat by default)
     const chatItem = supportItems.find(
-      (item) => item.price?.product?.name === ProductName.HanzoguiChat
+      (item) => item.price?.product?.name === ProductName.GuiChat
     )
     const hasChat = !!chatItem
 
     // Check for support tier (V1 or V2)
     const tierItem = supportItems.find(
       (item) =>
-        item.price?.product?.name === ProductName.HanzoguiSupport ||
-        item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
-        item.price?.product?.name === ProductName.HanzoguiSupportSponsor
+        item.price?.product?.name === ProductName.GuiSupport ||
+        item.price?.product?.name === ProductName.GuiSupportDirect ||
+        item.price?.product?.name === ProductName.GuiSupportSponsor
     )
 
     let hasTier = false
@@ -1100,7 +1100,7 @@ const PlanTab = ({
   supportSubscription,
   setCurrentTab,
   isTeamMember,
-  hasBento,
+  hasRecipes,
   hasExpiredSubscription,
   hasNoActiveSubscription,
 }: {
@@ -1108,7 +1108,7 @@ const PlanTab = ({
   supportSubscription?: Subscription
   setCurrentTab: (value: 'plan' | 'manage' | 'team') => void
   isTeamMember: boolean
-  hasBento: boolean
+  hasRecipes: boolean
   hasExpiredSubscription: boolean
   hasNoActiveSubscription: boolean
 }) => {
@@ -1129,10 +1129,10 @@ const PlanTab = ({
   // Check if this is a V2 Pro subscription (V2 no need for team seats)
   const isV2Pro = subscription?.subscription_items?.some(
     (item) =>
-      item.price?.product?.name === ProductName.HanzoguiProV2 ||
-      item.price?.product?.name === ProductName.HanzoguiProV2Upgrade ||
-      item.price?.product?.name === ProductName.HanzoguiSupportDirect ||
-      item.price?.product?.name === ProductName.HanzoguiSupportSponsor
+      item.price?.product?.name === ProductName.GuiProV2 ||
+      item.price?.product?.name === ProductName.GuiProV2Upgrade ||
+      item.price?.product?.name === ProductName.GuiSupportDirect ||
+      item.price?.product?.name === ProductName.GuiSupportSponsor
   )
 
   // V2 users need to set up a project after purchase
@@ -1197,7 +1197,7 @@ const PlanTab = ({
         >
           <H4 color="$yellow11">Your subscription has expired</H4>
           <Paragraph color="$yellow11">
-            Renew now to regain access to Takeout, Bento, and all Pro features. Use code{' '}
+            Renew now to regain access to Takeout, Recipes, and all Pro features. Use code{' '}
             <Paragraph fontFamily="$mono" fontWeight="bold" color="$yellow12">
               WELCOMEBACK30
             </Paragraph>{' '}
@@ -1259,7 +1259,7 @@ const PlanTab = ({
             }
           />
 
-          <BentoCard subscription={subscription as Subscription} hasBento={hasBento} />
+          <RecipesCard subscription={subscription as Subscription} hasRecipes={hasRecipes} />
 
           <ServiceCard
             title="Discord Access"
@@ -1837,7 +1837,7 @@ const ManageTab = ({
                       const price = item.price
                       const product = price?.product
                       const qty =
-                        product?.name === ProductName.HanzoguiProTeamSeats
+                        product?.name === ProductName.GuiProTeamSeats
                           ? (teamData?.subscription.total_seats ?? 1)
                           : (subscription.quantity ?? 1)
                       const total = (price?.unit_amount || 0) * qty
@@ -2339,21 +2339,21 @@ const TeamMemberRow = ({
   )
 }
 
-const BentoCard = ({
+const RecipesCard = ({
   subscription,
-  hasBento,
+  hasRecipes,
 }: {
   subscription?: Subscription
-  hasBento: boolean
+  hasRecipes: boolean
 }) => {
   const supabase = useSupabaseClient()
   const { onCopy, hasCopied } = useClipboard()
 
-  // user has access if they have active subscription OR lifetime bento
-  const hasAccess = !!subscription || hasBento
+  // user has access if they have active subscription OR lifetime recipes
+  const hasAccess = !!subscription || hasRecipes
 
   const { data, isLoading, mutate } = useSWR(
-    hasAccess ? '/api/bento/cli/login' : null,
+    hasAccess ? '/api/recipes/cli/login' : null,
     async (url) => {
       const response = await authFetch(url)
       if (!response.ok) {
@@ -2367,7 +2367,7 @@ const BentoCard = ({
     }
   )
 
-  const handleBentoDownload = async () => {
+  const handleRecipesDownload = async () => {
     if (!supabase) {
       alert('Authentication required')
       return
@@ -2378,11 +2378,11 @@ const BentoCard = ({
         data: { session },
       } = await supabase.auth.getSession()
       if (!session) {
-        alert('Please sign in to download Bento components')
+        alert('Please sign in to download Recipes components')
         return
       }
 
-      const response = await fetch('/api/bento/zip-download', {
+      const response = await fetch('/api/recipes/zip-download', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${session.access_token}`,
@@ -2390,7 +2390,7 @@ const BentoCard = ({
       })
 
       if (!response.ok) {
-        throw new Error('Failed to download Bento components')
+        throw new Error('Failed to download Recipes components')
       }
 
       // create a blob from the response
@@ -2398,7 +2398,7 @@ const BentoCard = ({
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'bento-bundle.zip'
+      a.download = 'recipes-bundle.zip'
       document.body.appendChild(a)
       a.click()
 
@@ -2406,7 +2406,7 @@ const BentoCard = ({
       window.URL.revokeObjectURL(url)
       document.body.removeChild(a)
     } catch (error) {
-      alert('Failed to download Bento components. Please try again later.')
+      alert('Failed to download Recipes components. Please try again later.')
     }
   }
 
@@ -2425,12 +2425,12 @@ const BentoCard = ({
 
   return (
     <ServiceCard
-      title="Bento"
-      description="Download Bento components or browse the source repo."
+      title="Recipes"
+      description="Download Recipes components or browse the source repo."
       actionLabel={hasAccess ? 'Download' : 'Purchase'}
       onAction={
         hasAccess
-          ? handleBentoDownload
+          ? handleRecipesDownload
           : () => {
               paymentModal.show = true
             }

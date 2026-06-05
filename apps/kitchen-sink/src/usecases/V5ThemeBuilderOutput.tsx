@@ -19,7 +19,7 @@ export function V5ThemeBuilderOutput() {
       <YStack gap="$2">
         <H2>V5 Theme Builder - Accent Theme Tests</H2>
         <Paragraph color="$color11">
-          Tests documented accent usage patterns from hanzogui.dev docs.
+          Tests documented accent usage patterns from gui.dev docs.
         </Paragraph>
       </YStack>
 

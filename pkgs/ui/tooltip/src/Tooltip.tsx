@@ -1,7 +1,7 @@
 import '@hanzogui/polyfill-dev'
 
 import { FloatingDelayGroup, useDelayGroupContext, type Delay } from '@hanzogui/floating'
-import type { SizeTokens, HanzoguiElement } from '@hanzogui/core'
+import type { SizeTokens, GuiElement } from '@hanzogui/core'
 import { useEvent } from '@hanzogui/core'
 import { FloatingOverrideContext } from '@hanzogui/floating'
 import { getSize } from '@hanzogui/get-token'
@@ -74,7 +74,7 @@ const TooltipContent = PopperContentFrame.styleable<TooltipContentProps>(
   }
 )
 
-const TooltipArrow = React.forwardRef<HanzoguiElement, PopperArrowProps>((props, ref) => {
+const TooltipArrow = React.forwardRef<GuiElement, PopperArrowProps>((props, ref) => {
   return (
     <PopoverArrow
       scope={props.scope || TOOLTIP_SCOPE}

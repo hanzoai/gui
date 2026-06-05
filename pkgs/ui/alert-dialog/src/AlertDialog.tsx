@@ -3,12 +3,12 @@
 
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb, useIsomorphicLayoutEffect } from '@hanzogui/constants'
-import type { HanzoguiElement } from '@hanzogui/core'
+import type { GuiElement } from '@hanzogui/core'
 import {
   Slottable,
   View,
   createStyledContext,
-  isHanzoguiElement,
+  isGuiElement,
   styled,
 } from '@hanzogui/core'
 import type {
@@ -139,8 +139,8 @@ const AlertDialogOverlay = AlertDialogOverlayFrame.styleable<AlertDialogOverlayP
 const CONTENT_NAME = 'AlertDialogContent'
 
 type AlertDialogContentContextValue = {
-  cancelRef?: React.RefObject<HanzoguiElement | null>
-  destructiveRef?: React.RefObject<HanzoguiElement | null>
+  cancelRef?: React.RefObject<GuiElement | null>
+  destructiveRef?: React.RefObject<GuiElement | null>
 }
 
 const {
@@ -152,14 +152,14 @@ type AlertDialogContentProps = ScopedProps<
   Omit<DialogContentProps, 'onPointerDownOutside' | 'onInteractOutside'>
 >
 
-const AlertDialogContent = React.forwardRef<HanzoguiElement, AlertDialogContentProps>(
+const AlertDialogContent = React.forwardRef<GuiElement, AlertDialogContentProps>(
   function AlertDialogContent(props, forwardedRef) {
     const { scope, children, ...contentProps } = props
     const dialogScope = getAlertDialogScope(scope)
-    const contentRef = React.useRef<HanzoguiElement>(null)
+    const contentRef = React.useRef<GuiElement>(null)
     const composedRefs = useComposedRefs(forwardedRef, contentRef)
-    const cancelRef = React.useRef<HanzoguiElement | null>(null)
-    const destructiveRef = React.useRef<HanzoguiElement | null>(null)
+    const cancelRef = React.useRef<GuiElement | null>(null)
+    const destructiveRef = React.useRef<GuiElement | null>(null)
 
     return (
       <DialogWarningProvider
@@ -331,7 +331,7 @@ const AlertDialogDestructive =
 /* ---------------------------------------------------------------------------------------------- */
 
 type DescriptionWarningProps = {
-  contentRef: React.RefObject<HanzoguiElement | null>
+  contentRef: React.RefObject<GuiElement | null>
 }
 
 const DescriptionWarning: React.FC<DescriptionWarningProps> = ({ contentRef }) => {
@@ -349,7 +349,7 @@ const DescriptionWarning: React.FC<DescriptionWarningProps> = ({ contentRef }) =
         
         Alternatively, you can use your own component as a description by assigning it an \`id\` and passing the same value to the \`aria-describedby\` prop in \`${CONTENT_NAME}\`. If the description is confusing or duplicative for sighted users, you can use the \`@radix-ui/react-visually-hidden\` primitive as a wrapper around your description component.
         
-        For more information, see https://hanzogui.dev/docs/components/alert-dialog`)
+        For more information, see https://gui.dev/docs/components/alert-dialog`)
       }
     }, [contentRef])
   }
@@ -361,7 +361,7 @@ const AlertDialogInner: React.FC<AlertDialogProps> = (props) => {
   const { scope, native, ...alertDialogProps } = props
   const dialogScope = getAlertDialogScope(scope)
 
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     const [open, setOpen] = useControllableState({
       prop: props.open,
       defaultProp: props.defaultOpen || false,
@@ -380,7 +380,7 @@ const AlertDialogInner: React.FC<AlertDialogProps> = (props) => {
 
     forEachChildDeep(React.Children.toArray(props.children), (child) => {
       if (!React.isValidElement(child)) return false
-      const name = isHanzoguiElement(child)
+      const name = isGuiElement(child)
         ? child.type.staticConfig.componentName
         : (child.type['displayName'] as string | undefined)
       switch (name) {

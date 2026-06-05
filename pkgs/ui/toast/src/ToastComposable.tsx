@@ -1,7 +1,7 @@
 import { AnimatePresence } from '@hanzogui/animate-presence'
 import { isWeb } from '@hanzogui/constants'
 import { getGestureHandler } from '@hanzogui/native'
-import type { GetProps, HanzoguiElement } from '@hanzogui/core'
+import type { GetProps, GuiElement } from '@hanzogui/core'
 import {
   createStyledContext,
   styled,
@@ -225,7 +225,7 @@ function resolveSwipeDirection(
   return 'horizontal'
 }
 
-const ToastRoot = React.forwardRef<HanzoguiElement, ToastRootProps>(
+const ToastRoot = React.forwardRef<GuiElement, ToastRootProps>(
   function ToastRoot(props, _ref) {
     const {
       children,
@@ -447,7 +447,7 @@ const ToastViewportFrame = styled(View, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -491,7 +491,7 @@ const ToastViewport = ToastViewportFrame.styleable<ToastViewportProps>(
     } = props
 
     const ctx = useToastContext()
-    const listRef = React.useRef<HanzoguiElement>(null)
+    const listRef = React.useRef<GuiElement>(null)
     const hoverTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
     const hoverCooldownRef = React.useRef(false)
     const deferredCollapseRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -504,8 +504,8 @@ const ToastViewport = ToastViewportFrame.styleable<ToastViewportProps>(
 
     // offset styles
     // on native, get safe area insets to avoid status bar / Dynamic Island / home indicator
-    // use insets from HanzoguiProvider (passed via useConfiguration)
-    // same pattern as Slider — works on native when HanzoguiProvider has insets prop
+    // use insets from GuiProvider (passed via useConfiguration)
+    // same pattern as Slider — works on native when GuiProvider has insets prop
     const { insets: safeInsets } = useConfiguration()
 
     const offsetStyles = React.useMemo(() => {
@@ -1243,7 +1243,7 @@ const ToastTitle = styled(SizableText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -1264,7 +1264,7 @@ const ToastDescription = styled(SizableText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 

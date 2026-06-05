@@ -1,4 +1,4 @@
-import type { GestureReponderEvent, SizeTokens, HanzoguiElement } from '@hanzogui/core'
+import type { GestureReponderEvent, SizeTokens, GuiElement } from '@hanzogui/core'
 import type { Scope } from '@hanzogui/create-context'
 import type { SizableStackProps } from '@hanzogui/stacks'
 
@@ -85,6 +85,6 @@ export type SliderContextValue = {
   max: number
   values: number[]
   valueIndexToChangeRef: React.MutableRefObject<number>
-  thumbs: Map<HanzoguiElement, number>
+  thumbs: Map<GuiElement, number>
   orientation: SliderProps['orientation']
 }

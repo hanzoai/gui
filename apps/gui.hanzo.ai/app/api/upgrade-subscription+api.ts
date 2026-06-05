@@ -1,31 +1,29 @@
+/**
+ * Upgrade subscription — commerce pass-through.
+ *
+ * The cloud UI no longer creates Stripe subscriptions directly. Commerce
+ * decides processor (Stripe / Square / crypto / ...) based on org config and
+ * the payment method. The client should:
+ *
+ *   1. POST /v1/upgrade-subscription with { items: [{ price, quantity? }],
+ *      payment_method_id?, coupon? }
+ *   2. Receive { id, client_secret? } back.
+ *   3. If client_secret is present, finish the 3DS / SCA confirmation flow
+ *      via the @hanzoai/pay UI (returned via redirect).
+ *
+ * TODO(supabase-rip): finalize the commerce → @hanzoai/pay handoff once the
+ * payment-finished + checkout-session endpoints are stable in commerce.
+ */
+
 import { apiRoute } from '~/features/api/apiRoute'
 import { ensureAuth } from '~/features/api/ensureAuth'
-import { createOrRetrieveCustomer } from '~/features/auth/supabaseAdmin'
-import { STRIPE_PRODUCTS } from '~/features/stripe/products'
-import { stripe } from '~/features/stripe/stripe'
+import { commerce, CommerceError } from '~/features/commerce/client'
 
-// V2 support tier type
-type SupportTier = 'chat' | 'direct' | 'sponsor'
-
-// Get the price ID for a support tier
-const getSupportTierPriceId = (tier: SupportTier | number): string | null => {
-  // Handle new string-based tiers
-  if (tier === 'direct') {
-    return STRIPE_PRODUCTS.SUPPORT_DIRECT.priceId
-  }
-  if (tier === 'sponsor') {
-    return STRIPE_PRODUCTS.SUPPORT_SPONSOR.priceId
-  }
-  if (tier === 'chat') {
-    return null // Chat is included, no additional subscription needed
-  }
-
-  // Handle legacy numeric tiers (for backwards compatibility)
-  if (typeof tier === 'number' && tier > 0) {
-    return STRIPE_PRODUCTS.SUPPORT.priceId
-  }
-
-  return null
+type Body = {
+  items?: Array<{ price: string; quantity?: number }>
+  payment_method_id?: string
+  trial_period_days?: number
+  metadata?: Record<string, string>
 }
 
 export default apiRoute(async (req) => {
@@ -33,97 +31,27 @@ export default apiRoute(async (req) => {
     return Response.json({ error: 'Method not allowed' }, { status: 405 })
   }
 
-  const { subscriptionId, paymentMethodId, chatSupport, supportTier, couponId } =
-    await req.json()
+  const { user, token } = await ensureAuth({ req })
+  const body = (await req.json()) as Body
 
-  if (!paymentMethodId) {
-    return Response.json({ error: 'Payment method ID is required' }, { status: 400 })
+  if (!body.items?.length) {
+    return Response.json({ error: 'items required' }, { status: 400 })
   }
 
   try {
-    const { user } = await ensureAuth({ req })
-    const stripeCustomerId = await createOrRetrieveCustomer({
-      email: user.email!,
-      uuid: user.id,
+    const sub = await commerce.subscriptions.create(token, {
+      customer: user.id,
+      items: body.items,
+      payment_method: body.payment_method_id,
+      trial_period_days: body.trial_period_days,
+      metadata: body.metadata,
     })
-
-    if (!stripeCustomerId) {
-      return Response.json(
-        { error: 'Failed to create or retrieve customer' },
-        { status: 500 }
-      )
+    return Response.json(sub)
+  } catch (err) {
+    if (err instanceof CommerceError) {
+      return Response.json(err.detail, { status: err.status })
     }
-
-    // Build items array based on selected options
-    const items: Array<{ price: string; quantity?: number }> = []
-
-    // Handle legacy V1 chat support
-    if (chatSupport) {
-      items.push({ price: STRIPE_PRODUCTS.CHAT.priceId })
-    }
-
-    // Handle support tier (V2 string-based or legacy numeric)
-    const supportPriceId = getSupportTierPriceId(supportTier)
-    if (supportPriceId) {
-      // Legacy numeric tiers used quantity, new string tiers don't
-      if (typeof supportTier === 'number' && supportTier > 0) {
-        items.push({ price: supportPriceId, quantity: supportTier })
-      } else {
-        items.push({ price: supportPriceId })
-      }
-    }
-
-    if (items.length === 0) {
-      return Response.json({ error: 'No items selected' }, { status: 400 })
-    }
-
-    // Attach the payment method to the customer
-    await stripe.paymentMethods.attach(paymentMethodId, {
-      customer: stripeCustomerId,
-    })
-
-    // Set it as the default payment method
-    await stripe.customers.update(stripeCustomerId, {
-      invoice_settings: {
-        default_payment_method: paymentMethodId,
-      },
-    })
-
-    // Create subscription for monthly options
-    const subscription = await stripe.subscriptions.create({
-      customer: stripeCustomerId,
-      items: items,
-      payment_behavior: 'default_incomplete',
-      payment_settings: { save_default_payment_method: 'on_subscription' },
-      expand: ['latest_invoice.payment_intent'],
-      coupon: couponId || undefined,
-      default_payment_method: paymentMethodId,
-      collection_method: 'charge_automatically',
-    })
-
-    const latestInvoice = subscription.latest_invoice as any
-    const amountDue = latestInvoice?.amount_due || 0
-
-    // Get client secret safely
-    let clientSecret: string | null = null
-    if (latestInvoice?.payment_intent) {
-      if (typeof latestInvoice.payment_intent === 'string') {
-        const paymentIntent = await stripe.paymentIntents.retrieve(
-          latestInvoice.payment_intent
-        )
-        clientSecret = paymentIntent.client_secret
-      } else {
-        clientSecret = latestInvoice.payment_intent.client_secret
-      }
-    }
-
-    return Response.json({
-      id: subscription.id,
-      clientSecret,
-      amount_due: amountDue,
-    })
-  } catch (error) {
-    console.error('Error creating subscription:', error)
-    return Response.json({ error: 'Failed to create subscription' }, { status: 500 })
+    console.error('upgrade-subscription failed', err)
+    return Response.json({ error: 'failed to create subscription' }, { status: 500 })
   }
 })

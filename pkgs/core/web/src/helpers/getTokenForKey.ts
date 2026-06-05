@@ -98,12 +98,12 @@ export const getTokenForKey = (
 
     valOrVar = themeValue
     if (process.env.NODE_ENV === 'development' && styleState.debug === 'verbose') {
-      globalThis.hanzoguiAvoidTracking = true
+      globalThis.guiAvoidTracking = true
       console.info(
         ` - resolving ${key} to theme value ${value} resolveAs ${resolveAs}`,
         valOrVar
       )
-      globalThis.hanzoguiAvoidTracking = false
+      globalThis.guiAvoidTracking = false
     }
     hasSet = true
   } else {
@@ -146,25 +146,25 @@ export const getTokenForKey = (
           hasSet = true
         } else {
           if (process.env.NODE_ENV === 'development') {
-            if (process.env.TAMAGUI_DISABLE_MISSING_TOKEN_LOG !== '1') {
+            if (process.env.GUI_DISABLE_MISSING_TOKEN_LOG !== '1') {
               if (!didLogMissingToken) {
                 didLogMissingToken = true
                 console.groupCollapsed(
-                  `[hanzogui] Warning: missing token ${key} in category ${cat} - ${value} (open for details)`
+                  `[gui] Warning: missing token ${key} in category ${cat} - ${value} (open for details)`
                 )
                 console.info(
-                  `Note: this could just be due to you not setting all the theme tokens Hanzogui expects, which is harmless, but
-                    it also often can be because you have a duplicated Hanzogui in your bundle, which can cause tricky bugs.`
+                  `Note: this could just be due to you not setting all the theme tokens Gui expects, which is harmless, but
+                    it also often can be because you have a duplicated Gui in your bundle, which can cause tricky bugs.`
                 )
                 console.info(
-                  `To see if you have duplicated dependencies, in Chrome DevTools hit CMD+P and type HanzoguiProvider.
+                  `To see if you have duplicated dependencies, in Chrome DevTools hit CMD+P and type GuiProvider.
                     If you see both a .cjs and a .mjs entry, it's duplicated.`
                 )
                 console.info(
                   `You can debug that issue by opening the .mjs and .cjs files and setting a breakpoint at the top of each.`
                 )
                 console.info(
-                  `We only log this warning one time as it's sometimes harmless, to disable this log entirely set process.env.TAMAGUI_DISABLE_MISSING_TOKEN_LOG=1.`
+                  `We only log this warning one time as it's sometimes harmless, to disable this log entirely set process.env.GUI_DISABLE_MISSING_TOKEN_LOG=1.`
                 )
                 console.groupEnd()
               }
@@ -192,9 +192,9 @@ export const getTokenForKey = (
     }
 
     if (process.env.NODE_ENV === 'development' && styleState.debug === 'verbose') {
-      globalThis.hanzoguiAvoidTracking = true
+      globalThis.guiAvoidTracking = true
       console.info(`resolved`, resolveAs, valOrVar, out)
-      globalThis.hanzoguiAvoidTracking = false
+      globalThis.guiAvoidTracking = false
     }
     return out
   }
@@ -223,14 +223,14 @@ export function resolveVariableValue(
     const get = valOrVar?.get
 
     // shadowColor doesn't support dynamic style
-    if (process.env.TAMAGUI_TARGET !== 'native' || key !== 'shadowColor') {
+    if (process.env.GUI_TARGET !== 'native' || key !== 'shadowColor') {
       if (typeof get === 'function') {
         const resolveDynamicFor = resolveValues === 'web' ? 'web' : undefined
         return get(resolveDynamicFor)
       }
     }
 
-    return process.env.TAMAGUI_TARGET === 'native' ? valOrVar.val : valOrVar.variable
+    return process.env.GUI_TARGET === 'native' ? valOrVar.val : valOrVar.variable
   }
   return valOrVar
 }

@@ -21,7 +21,17 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { err
   }
 }
 
+const brand = getBrand();
+// Per-brand document title + favicon (index.html ships a generic default).
+document.title = brand.productName || brand.name;
+if (brand.logo?.favicon) {
+  const link =
+    document.querySelector<HTMLLinkElement>('link[rel~="icon"]') ??
+    (document.head.appendChild(Object.assign(document.createElement('link'), { rel: 'icon' })) as HTMLLinkElement);
+  link.href = brand.logo.favicon;
+}
+
 createRoot(document.getElementById('root')!).render(
   React.createElement(ErrorBoundary, null,
-    React.createElement(HanzoAI, { ...getBrand(), features: { chat: true, wallet: true, agents: true } })),
+    React.createElement(HanzoAI, { ...brand, features: { chat: true, wallet: true, agents: true } })),
 );

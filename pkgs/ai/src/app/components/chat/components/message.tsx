@@ -1071,7 +1071,7 @@ export function ToolCard({
   );
 }
 
-const MotionAccordionTrigger = motion(AccordionTrigger);
+const MotionAccordionTrigger = motion.create(AccordionTrigger);
 
 export function Reasoning({
   reasoning,

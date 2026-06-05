@@ -4,6 +4,7 @@
 import { describe, it, expect } from 'vitest';
 import { getCurrentWindow, getAllWindows } from '../host/window';
 import { isNative, platformName, invoke, listen, emit, setHost } from '../host/runtime';
+import * as notification from '../host/notification';
 
 describe('host window shim (web-safe)', () => {
   it('getCurrentWindow() exposes emit/listen/once + lifecycle as functions', () => {
@@ -25,10 +26,11 @@ describe('host window shim (web-safe)', () => {
 });
 
 describe('host runtime (injected platform adapter)', () => {
-  it('defaults to web; invoke no-ops; listen returns unlisten', async () => {
+  it('defaults to web; invoke returns null (not undefined → react-query error)', async () => {
     expect(platformName()).toBe('web');
     expect(isNative()).toBe(false);
-    await expect(invoke('any_cmd')).resolves.toBeUndefined();
+    // null, NOT undefined — React Query rejects undefined query results.
+    await expect(invoke('any_cmd')).resolves.toBeNull();
     const un = await listen('e', () => {});
     expect(typeof un).toBe('function');
     await expect(emit('e', {})).resolves.toBeUndefined();
@@ -42,5 +44,20 @@ describe('host runtime (injected platform adapter)', () => {
     await expect(invoke('greet')).resolves.toBe('ok');
     expect(calls).toEqual(['greet']);
     setHost({ platform: 'web' }); // reset for other tests
+  });
+});
+
+describe('host notification shim (web-safe)', () => {
+  it('exposes isPermissionGranted/requestPermission/sendNotification', () => {
+    // Regression: "isPermissionGranted is not a function" — the shim was a stub.
+    expect(typeof notification.isPermissionGranted).toBe('function');
+    expect(typeof notification.requestPermission).toBe('function');
+    expect(typeof notification.sendNotification).toBe('function');
+  });
+
+  it('isPermissionGranted resolves a boolean; sendNotification never throws', async () => {
+    await expect(notification.isPermissionGranted()).resolves.toEqual(expect.any(Boolean));
+    expect(() => notification.sendNotification('hi')).not.toThrow();
+    expect(() => notification.sendNotification({ title: 'a', body: 'b' })).not.toThrow();
   });
 });

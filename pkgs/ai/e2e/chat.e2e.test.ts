@@ -47,7 +47,11 @@ describe('@hanzo/ai web e2e', () => {
     if (!runtimeUp) return ctx.skip();
     const page = await browser!.newPage({ viewport: { width: 1280, height: 820 } });
     const pageErrors: string[] = [];
+    const consoleErrors: string[] = [];
+    const failedReqs: string[] = [];
     page.on('pageerror', (e) => pageErrors.push(e.message));
+    page.on('console', (m) => { if (m.type() === 'error') consoleErrors.push(m.text()); });
+    page.on('response', (r) => { if (r.status() >= 400) failedReqs.push(`${r.status()} ${r.url()}`); });
 
     await page.goto(WEB, { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForTimeout(3000);
@@ -83,8 +87,13 @@ describe('@hanzo/ai web e2e', () => {
     }
     await page.screenshot({ path: '/tmp/e2e-chat.png' }).catch(() => {});
     expect(replied, 'zen-coder should reply with the prompted text').toBe(true);
-    // the chat screens must render (regression for the Box/resizable crashes)
+    // No fatal page errors (Box/resizable crashes)…
     expect(pageErrors.join('\n')).not.toMatch(/is not defined|Element type is invalid/);
+    // …and none of the console errors we fixed (host shims, CORS, react-query, auth timing).
+    const allErrors = [...pageErrors, ...consoleErrors, ...failedReqs].join('\n');
+    expect(allErrors, allErrors).not.toMatch(
+      /is not a function|Query data cannot be undefined|blocked by CORS|available_models|ws:\/\/localhost:1501/,
+    );
     await page.close();
   }, 120000);
 });

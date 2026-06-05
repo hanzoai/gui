@@ -19,6 +19,14 @@ export default defineConfig(({ command }) => ({
       '/v1': { target: process.env.VITE_NODE_API || 'http://127.0.0.1:3700', changeOrigin: true },
       '/v2': { target: process.env.VITE_NODE_API || 'http://127.0.0.1:3700', changeOrigin: true },
       '/ws': { target: process.env.VITE_NODE_WS || 'ws://127.0.0.1:3701', ws: true, changeOrigin: true },
+      // The hanzo-engine client (lib/hanzo-engine) fetches the engine directly;
+      // on web that's cross-origin → CORS. Route it same-origin via the proxy.
+      // Set VITE_ENGINE_BASE_URL=/engine-api for the web build.
+      '/engine-api': {
+        target: process.env.VITE_ENGINE_API || 'http://127.0.0.1:36906',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/engine-api/, ''),
+      },
     },
   },
   build: { outDir: 'dist', minify: 'esbuild', chunkSizeWarningLimit: 8000, rollupOptions: { onwarn(w,d){ if(w.code==='MODULE_LEVEL_DIRECTIVE')return; d(w);} } },

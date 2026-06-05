@@ -10,8 +10,10 @@ export const platformName = (): 'tauri' | 'web' | 'expo' => H.platform ?? 'web';
 export const isNative = (): boolean => platformName() !== 'web';
 export async function invoke<T = unknown>(cmd: string, args?: unknown): Promise<T> {
   if (H.invoke) return H.invoke(cmd, args) as Promise<T>;
-  if (import.meta?.env?.DEV) console.warn(`[host] invoke('${cmd}') ignored on web`);
-  return undefined as unknown as T;
+  // No native host on web: return null (NOT undefined). React Query rejects an
+  // undefined query result ("Query data cannot be undefined"); null is valid
+  // and reads as "feature unavailable on web".
+  return null as unknown as T;
 }
 export type UnlistenFn = () => void;
 export async function listen<T = unknown>(event: string, cb: (e: { payload: T }) => void): Promise<UnlistenFn> {

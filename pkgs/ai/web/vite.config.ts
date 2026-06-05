@@ -8,7 +8,18 @@ export default defineConfig({
   root: __dirname,
   plugins: [react()],
   worker: { format: 'es' },
-  server: { port: 1500, strictPort: true, host: '0.0.0.0' },
+  server: {
+    port: 1500, strictPort: true, host: '0.0.0.0',
+    // Same-origin proxy to a hanzo-node API so the browser avoids CORS: the app
+    // talks to its own origin (nodeAddress = http://<host>:1500) and vite
+    // forwards /v2 + /ws to the node. Point VITE_NODE_API/VITE_NODE_WS at a
+    // healthy node; the node is already wired to the zen engine (agent
+    // `zen_engine` -> http://localhost:36900, embeddings -> :36901/:11436).
+    proxy: {
+      '/v2': { target: process.env.VITE_NODE_API || 'http://127.0.0.1:3690', changeOrigin: true },
+      '/ws': { target: process.env.VITE_NODE_WS || 'ws://127.0.0.1:3691', ws: true, changeOrigin: true },
+    },
+  },
   build: { outDir: 'dist', minify: 'esbuild', chunkSizeWarningLimit: 8000, rollupOptions: { onwarn(w,d){ if(w.code==='MODULE_LEVEL_DIRECTIVE')return; d(w);} } },
   optimizeDeps: { include: ['react','react-dom','react-dom/client','react/jsx-runtime','libsodium-wrappers-sumo','@tanstack/react-query','lucide-react','zustand'], exclude: ['pyodide'], esbuildOptions: { jsx: 'automatic' } },
   resolve: { dedupe: ['react','react-dom'], alias: {

@@ -257,7 +257,7 @@ v3:
   - theme inverse only works with sub-themes named \_inverse. createThemes.generateInverseSubThemes: boolean
     - v4 config can add a boolean to do this by default
     <!-- - button-next is mostly ready now to replace button:
-    - remove old button, move new button into place, fix issues around the site/bento
+    - remove old button, move new button into place, fix issues around the site/recipes
     - docs update: we should show "headless" style and non-headless
       - <Button.Frame><Button.Icon></Button.Icon></Button.Frame> for headless
       - <Button> for non-headless -->

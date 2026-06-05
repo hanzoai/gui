@@ -1,7 +1,7 @@
 import { createVariable, isVariable } from '../createVariable'
 
 // mutates, freeze after
-// shared by createHanzogui so extracted here
+// shared by createGui so extracted here
 export function ensureThemeVariable(theme: any, key: string) {
   const val = theme[key]
   if (!isVariable(val)) {

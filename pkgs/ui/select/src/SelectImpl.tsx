@@ -72,7 +72,7 @@ export const SelectInlineImpl = (props: SelectImplProps) => {
   }, [open, selectedIndex, setActiveIndexFast])
 
   // close when mouseup outside select
-  if (process.env.TAMAGUI_TARGET === 'web') {
+  if (process.env.GUI_TARGET === 'web') {
     useIsomorphicLayoutEffect(() => {
       if (!open) return
       const mouseUp = (e: MouseEvent) => {

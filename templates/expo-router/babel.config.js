@@ -6,8 +6,8 @@ module.exports = (api) => {
       [
         '@hanzogui/babel-plugin',
         {
-          components: ['hanzogui'],
-          config: './hanzogui.config.ts',
+          components: ['gui'],
+          config: './gui.config.ts',
           logTimings: true,
           disableExtraction: process.env.NODE_ENV === 'development',
         },

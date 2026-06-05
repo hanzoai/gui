@@ -1,6 +1,6 @@
-import { Text as HanzoguiText, styled } from 'hanzogui'
+import { Text as GuiText, styled } from 'hanzogui'
 
-export const FontTokensInVariants = styled(HanzoguiText, {
+export const FontTokensInVariants = styled(GuiText, {
   borderRadius: 100_000_000,
 
   variants: {

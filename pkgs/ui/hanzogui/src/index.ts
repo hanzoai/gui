@@ -52,10 +52,10 @@ export * from '@hanzogui/element'
 export * from '@hanzogui/use-window-dimensions'
 export * from '@hanzogui/visually-hidden'
 
-export * from './createHanzogui'
+export * from './createGui'
 
 export * from './viewTypes'
-export * from './views/HanzoguiProvider'
+export * from './views/GuiProvider'
 
 export * from './views/Anchor'
 export * from './views/EnsureFlexed'
@@ -70,8 +70,8 @@ export type {
   TransitionKeys,
   TransitionProp,
   ColorTokens,
-  CreateHanzoguiConfig,
-  CreateHanzoguiProps,
+  CreateGuiConfig,
+  CreateGuiProps,
   FontColorTokens,
   FontLanguages,
   FontLetterSpacingTokens,
@@ -84,7 +84,7 @@ export type {
   FontWeightTokens,
   GenericFont,
   GenericStackVariants,
-  GenericHanzoguiConfig,
+  GenericGuiConfig,
   GenericTextVariants,
   GetAnimationKeys,
   GetProps,
@@ -105,16 +105,16 @@ export type {
   ViewProps,
   StaticConfig,
   Styleable,
-  HanzoguiBaseTheme,
-  HanzoguiBuildOptions,
-  HanzoguiComponent,
-  HanzoguiConfig,
-  HanzoguiCustomConfig,
-  HanzoguiElement,
-  HanzoguiInternalConfig,
-  HanzoguiProviderProps,
-  HanzoguiSettings,
-  HanzoguiTextElement,
+  GuiBaseTheme,
+  GuiBuildOptions,
+  GuiComponent,
+  GuiConfig,
+  GuiCustomConfig,
+  GuiElement,
+  GuiInternalConfig,
+  GuiProviderProps,
+  GuiSettings,
+  GuiTextElement,
   TextNonStyleProps,
   TextProps,
   ThemeKeys,
@@ -169,8 +169,8 @@ export {
   isChrome,
   isClient,
   isServer,
-  isHanzoguiComponent,
-  isHanzoguiElement,
+  isGuiComponent,
+  isGuiElement,
   isTouchable,
   isVariable,
   isWeb,

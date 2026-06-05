@@ -30,7 +30,7 @@ export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<
     name?: string;
     native?: boolean;
     accentColor?: string;
-} & import("react").RefAttributes<import("@hanzogui/web").HanzoguiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+} & import("react").RefAttributes<import("@hanzogui/web").GuiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     orientation?: "horizontal" | "vertical" | undefined;
@@ -59,7 +59,7 @@ export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<
     name?: string;
     native?: boolean;
     accentColor?: string;
-}, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "orientation"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
+}, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "orientation"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
     elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     orientation?: "horizontal" | "vertical" | undefined;
@@ -114,7 +114,7 @@ export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<
         name?: string;
         native?: boolean;
         accentColor?: string;
-    }, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "orientation"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
+    }, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "orientation"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
         orientation?: "horizontal" | "vertical" | undefined;
@@ -141,7 +141,7 @@ export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<
         orientation?: "horizontal" | "vertical" | undefined;
     }, import("@hanzogui/web").StaticConfigPublic];
 } & {
-    Item: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Item: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
@@ -176,7 +176,7 @@ export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<
         id?: string;
         labelledBy?: string;
         disabled?: boolean;
-    }, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "disabled" | "unstyled" | "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "size"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
+    }, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "disabled" | "unstyled" | "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "size"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
@@ -206,7 +206,7 @@ export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<
         fullscreen?: boolean | undefined;
         size?: import("@hanzogui/web").SizeTokens | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Indicator: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Indicator: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -229,7 +229,7 @@ export declare const RadioGroup: import("react").ForwardRefExoticComponent<Omit<
     }>> & {
         forceMount?: boolean;
         unstyled?: boolean;
-    }, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
+    }, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;

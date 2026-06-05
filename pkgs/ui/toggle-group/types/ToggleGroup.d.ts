@@ -1,5 +1,5 @@
 import { RovingFocusGroup } from '@hanzogui/roving-focus';
-import type { GetProps, HanzoguiElement } from '@hanzogui/web';
+import type { GetProps, GuiElement } from '@hanzogui/web';
 import React from 'react';
 import { ToggleFrame } from './Toggle';
 type ToggleGroupItemProps = GetProps<typeof ToggleFrame> & {
@@ -17,9 +17,9 @@ interface ToggleGroupMultipleProps extends ToggleGroupImplMultipleProps {
     type: 'multiple';
 }
 type ToggleGroupProps = ToggleGroupSingleProps | ToggleGroupMultipleProps;
-declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGroupProps> & React.RefAttributes<HanzoguiElement>> & {
-    Item: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGroupProps> & React.RefAttributes<GuiElement>> & {
+    Item: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -29,7 +29,7 @@ declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGro
         size?: number | import("@hanzogui/web").SizeTokens | undefined;
         defaultActiveStyle?: boolean | undefined;
     }>, "theme" | "debug" | "style" | `$${string}` | `$${number}` | import("@hanzogui/web").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "render" | "hitSlop" | "children" | "target" | "htmlFor" | "asChild" | "dangerouslySetInnerHTML" | "disabled" | "className" | "themeShallow" | "unstyled" | "id" | "group" | "untilMeasured" | "componentName" | "tabIndex" | "role" | "disableOptimization" | "forceStyle" | "disableClassName" | "animatedBy" | "onFocus" | "onBlur" | "onPointerCancel" | "onPointerDown" | "onPointerMove" | "onPointerUp" | "needsOffscreenAlphaCompositing" | "removeClippedSubviews" | "testID" | "nativeID" | "collapsable" | "collapsableChildren" | "renderToHardwareTextureAndroid" | "focusable" | "shouldRasterizeIOS" | "isTVSelectable" | "hasTVPreferredFocus" | "tvParallaxShiftDistanceX" | "tvParallaxShiftDistanceY" | "tvParallaxTiltAngle" | "tvParallaxMagnification" | "onTouchStart" | "onTouchMove" | "onTouchEnd" | "onTouchCancel" | "onTouchEndCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerMoveCapture" | "onPointerCancelCapture" | "onPointerDownCapture" | "onPointerUpCapture" | "accessible" | "accessibilityActions" | "accessibilityLabel" | "aria-label" | "accessibilityRole" | "accessibilityState" | "aria-busy" | "aria-checked" | "aria-disabled" | "aria-expanded" | "aria-selected" | "accessibilityHint" | "accessibilityValue" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "onAccessibilityAction" | "importantForAccessibility" | "aria-hidden" | "aria-modal" | "accessibilityLabelledBy" | "aria-labelledby" | "accessibilityLiveRegion" | "aria-live" | "screenReaderFocusable" | "accessibilityElementsHidden" | "accessibilityViewIsModal" | "onAccessibilityEscape" | "onAccessibilityTap" | "onMagicTap" | "accessibilityIgnoresInvertColors" | "accessibilityLanguage" | "accessibilityShowsLargeContentViewer" | "accessibilityLargeContentTitle" | "accessibilityRespondsToUserInteraction" | keyof import("@hanzogui/web").StackStyleBase | "onPress" | "onLongPress" | "onPressIn" | "onPressOut" | "onMouseEnter" | "onMouseLeave" | "onMouseDown" | "onMouseUp" | "onMouseMove" | "onMouseOver" | "onMouseOut" | "onClick" | "onDoubleClick" | "onContextMenu" | "onWheel" | "onKeyDown" | "onKeyUp" | "onChange" | "onInput" | "onBeforeInput" | "onScroll" | "onCopy" | "onCut" | "onPaste" | "onDrag" | "onDragStart" | "onDragEnd" | "onDragEnter" | "onDragLeave" | "onDragOver" | "onDrop" | "size" | "activeStyle" | "value" | "defaultActiveStyle" | keyof import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -39,13 +39,13 @@ declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGro
         size?: number | import("@hanzogui/web").SizeTokens | undefined;
         defaultActiveStyle?: boolean | undefined;
     } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
         }>> | undefined;
     }>>> | "__scopeToggleGroup"> & Omit<import("@hanzogui/web").StackNonStyleProps, "unstyled" | keyof import("@hanzogui/web").StackStyleBase | "size" | "activeStyle" | "defaultActiveStyle"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -55,13 +55,13 @@ declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGro
         size?: number | import("@hanzogui/web").SizeTokens | undefined;
         defaultActiveStyle?: boolean | undefined;
     } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
         }>> | undefined;
     }>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -71,13 +71,13 @@ declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGro
         size?: number | import("@hanzogui/web").SizeTokens | undefined;
         defaultActiveStyle?: boolean | undefined;
     } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
         }>> | undefined;
     }>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -92,8 +92,8 @@ declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGro
         disabled?: boolean;
     } & {
         __scopeToggleGroup?: string;
-    }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & Omit<import("@hanzogui/web").StackNonStyleProps, "unstyled" | keyof import("@hanzogui/web").StackStyleBase | "size" | "activeStyle" | "defaultActiveStyle"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+    }, GuiElement, import("@hanzogui/web").StackNonStyleProps & Omit<import("@hanzogui/web").StackNonStyleProps, "unstyled" | keyof import("@hanzogui/web").StackStyleBase | "size" | "activeStyle" | "defaultActiveStyle"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -103,13 +103,13 @@ declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGro
         size?: number | import("@hanzogui/web").SizeTokens | undefined;
         defaultActiveStyle?: boolean | undefined;
     } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
         }>> | undefined;
     }>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -119,13 +119,13 @@ declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGro
         size?: number | import("@hanzogui/web").SizeTokens | undefined;
         defaultActiveStyle?: boolean | undefined;
     } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
         }>> | undefined;
     }>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -141,7 +141,7 @@ declare const ToggleGroup: React.ForwardRefExoticComponent<ScopedProps<ToggleGro
     } & {
         __scopeToggleGroup?: string;
     }, import("@hanzogui/web").StackStyleBase & {
-        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+        readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
             accept: {
                 readonly activeStyle: "style";
             };
@@ -176,7 +176,7 @@ interface ToggleGroupImplMultipleProps extends ToggleGroupImplProps {
     disableDeactivation?: never;
 }
 type RovingFocusGroupProps = React.ComponentPropsWithoutRef<typeof RovingFocusGroup>;
-declare const ToggleGroupFrame: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
+declare const ToggleGroupFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
 type ToggleGroupImplProps = GetProps<typeof ToggleGroupFrame> & {
     orientation?: 'horizontal' | 'vertical';
     rovingFocus?: boolean;

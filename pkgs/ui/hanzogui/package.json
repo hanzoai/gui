@@ -1,6 +1,6 @@
 {
   "name": "hanzogui",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
@@ -27,15 +27,6 @@
       "require": "./dist/cjs/index.cjs",
       "default": "./dist/esm/index.mjs"
     },
-    "./react-native-web": {
-      "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/react-native-web.native.js",
-      "browser": "./dist/esm/react-native-web.mjs",
-      "module": "./dist/esm/react-native-web.mjs",
-      "import": "./dist/esm/react-native-web.mjs",
-      "require": "./dist/cjs/react-native-web.cjs",
-      "default": "./dist/esm/react-native-web.mjs"
-    },
     "./web": {
       "types": "./types/index.d.ts",
       "react-native": "./dist/esm/index.native.js",
@@ -53,7 +44,6 @@
     },
     "./native-test": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/test.native.js",
       "require": "./dist/test.cjs",
       "default": "./dist/test.cjs"
     },
@@ -68,11 +58,11 @@
     }
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "gui-build",
     "afterBuild": "node bundle-native.mjs",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build",
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build",
     "check": "bun run check-circular-deps",
     "check-circular-deps": "npx madge --circular ./src/index.ts"
   },

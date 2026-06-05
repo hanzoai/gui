@@ -71,7 +71,7 @@ const ListItemFrame = styled(View, {
 
     variant: {
       outlined:
-        process.env.HANZOGUI_HEADLESS === '1'
+        process.env.GUI_HEADLESS === '1'
           ? {}
           : {
               backgroundColor: 'transparent',
@@ -119,7 +119,7 @@ const ListItemFrame = styled(View, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -141,7 +141,7 @@ const ListItemText = styled(SizableText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -170,7 +170,7 @@ const ListItemSubtitle = styled(ListItemText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -183,7 +183,7 @@ const ListItemTitle = styled(ListItemText, {
     },
   } as const,
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -245,7 +245,7 @@ const ListItemComponent = ListItemFrame.styleable<ListItemExtraProps>(
       { children },
       propsIn.unstyled !== true
         ? {
-            unstyled: process.env.HANZOGUI_HEADLESS === '1',
+            unstyled: process.env.GUI_HEADLESS === '1',
             fontSize: propsIn.size,
           }
         : undefined

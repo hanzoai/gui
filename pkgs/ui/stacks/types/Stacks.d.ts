@@ -15,25 +15,25 @@ export declare const fullscreenStyle: {
 };
 /**
  * @summary A view that arranges its children in a vertical line.
- * @see — Docs https://hanzogui.dev/ui/stacks#xstack-ystack-zstack
+ * @see — Docs https://gui.dev/ui/stacks#xstack-ystack-zstack
  */
-export declare const YStack: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const YStack: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 /**
  * @summary A view that arranges its children in a horizontal line.
- * @see — Docs https://hanzogui.dev/ui/stacks#xstack-ystack-zstack
+ * @see — Docs https://gui.dev/ui/stacks#xstack-ystack-zstack
  */
-export declare const XStack: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const XStack: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 /**
  * @summary A view that stacks its children on top of each other.
- * @see — Docs https://hanzogui.dev/ui/stacks#xstack-ystack-zstack
+ * @see — Docs https://gui.dev/ui/stacks#xstack-ystack-zstack
  */
-export declare const ZStack: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const ZStack: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic & {

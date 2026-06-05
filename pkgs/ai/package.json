@@ -21,7 +21,7 @@
     "BUILD.md"
   ],
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json --emitDeclarationOnly",
+    "build": "vite build && cp types/public.d.ts dist/index.d.ts",
     "dev": "vite build --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
@@ -34,10 +34,6 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@hanzo_network/hanzo-ui": "workspace:*",
-    "@hanzo_network/hanzo-node-state": "workspace:*",
-    "@hanzo_network/hanzo-i18n": "workspace:*",
-    "@hanzo_network/hanzo-message-ts": "workspace:*",
     "lucide-react": "^0.460.0",
     "@tanstack/react-query": "^5.0.0",
     "date-fns": "^4.1.0",
@@ -65,5 +61,8 @@
     "@vitejs/plugin-react": "^4.7.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

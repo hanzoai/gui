@@ -36,21 +36,24 @@ browser :1500 ─(vite proxy /v1,/v2,/ws)→ hanzo-node :3700 ─job→ zen_engi
 # 1. engine + embeddings already running: :36902 (zen-coder), :11436 (embed)
 # 2. responses-proxy (path rewrite):
 python3 pkgs/ai/local-runtime/responses-proxy.py &        # :36906 → :36902
-# 3. a /v1 hanzo-node wired to the proxy (fresh storage, no reg code):
+# 3. WS proxy (the app derives ws://host:1501 behind the vite proxy):
+node pkgs/ai/local-runtime/ws-proxy.js &                  # :1501 → node WS :3701
+# 4. a /v1 hanzo-node wired to the proxy (fresh storage, no reg code):
 bash pkgs/ai/local-runtime/run-node.sh &                  # API :3700, zen_engine → :36906
-# 4. web app pointed at the node:
+# 5. web app pointed at the node + engine (engine-api proxy avoids CORS):
 cd pkgs/ai/web && VITE_NODE_API=http://127.0.0.1:3700 VITE_NODE_WS=ws://127.0.0.1:3701 \
+  VITE_ENGINE_BASE_URL=/engine-api VITE_ENGINE_API=http://127.0.0.1:36906 \
   bun x vite --config vite.config.ts                      # :1500
-# 5. open http://spark.local:1500 → agree → Quick Connect (node address = same
+# 6. open http://spark.local:1500 → agree → Quick Connect (node address = same
 #    origin http://localhost:1500) → /home → chat. Reply streams from zen-coder.
 ```
 
-## Known non-fatal warnings (cosmetic on web)
+## Console — clean (the e2e asserts it)
 
-- `401 /v1/node/available_models` and `500 search_hanzo_tool` — the model-list
-  and tool-search calls; chat works regardless.
-- `isPermissionGranted is not a function` — the web notification host-shim is a
-  no-op; harmless. (Add `isPermissionGranted`/`requestPermission` to
-  `src/host/notification.ts` to silence.)
-- `Embedding generation error: Query is not read-only` — the node's vector store
-  (RAG scope) write fails on this standalone setup; the LLM reply still streams.
+The earlier web console errors are fixed and guarded by `e2e/chat.e2e.test.ts`:
+react-query "data cannot be undefined" (web `invoke` returns null), the
+`isPermissionGranted`/notification gap, the `:36900/v1/engine/models` CORS
+(routed via the `/engine-api` proxy), the `ws://…:1501` failure (ws-proxy), the
+`available_models` 401 (gated `useGetLLMProviders` on auth), and the framer
+`motion()` deprecation. Remaining: a rare, intermittent static-asset `404` and a
+node-side `Embedding "Query is not read-only"` warning — neither affects chat.

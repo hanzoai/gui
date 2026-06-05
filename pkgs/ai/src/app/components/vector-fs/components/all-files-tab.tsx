@@ -52,7 +52,7 @@ import VectorFsItem from './vector-fs-item';
 import VectorFsToggleLayout from './vector-fs-toggle-layout';
 import VectorFsToggleSortName from './vector-fs-toggle-sort-name';
 
-const MotionButton = motion(Button);
+const MotionButton = motion.create(Button);
 
 const AllFiles = () => {
   const auth = useAuth((state) => state.auth);

@@ -1,6 +1,6 @@
 import type BaseMenuTypes from '@hanzogui/create-menu';
 import { createBaseMenu, type CreateBaseMenuProps } from '@hanzogui/create-menu';
-import { type HanzoguiElement, type ViewProps } from '@hanzogui/web';
+import { type GuiElement, type ViewProps } from '@hanzogui/web';
 import React from 'react';
 type Direction = 'ltr' | 'rtl';
 export declare const CONTEXTMENU_CONTEXT = "ContextMenuContext";
@@ -50,9 +50,9 @@ export declare function createNonNativeContextMenu(params: CreateBaseMenuProps):
         (props: ScopedProps<ContextMenuProps>): import("react/jsx-runtime").JSX.Element;
         displayName: string;
     };
-    Trigger: import("@hanzogui/web").HanzoguiComponent<Omit<ViewProps, "scope" | keyof ContextMenuTriggerProps> & ContextMenuTriggerProps & {
+    Trigger: import("@hanzogui/web").GuiComponent<Omit<ViewProps, "scope" | keyof ContextMenuTriggerProps> & ContextMenuTriggerProps & {
         scope?: string;
-    }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & ContextMenuTriggerProps & {
+    }, GuiElement, import("@hanzogui/web").StackNonStyleProps & ContextMenuTriggerProps & {
         scope?: string;
     }, import("@hanzogui/web").StackStyleBase, {}, {}>;
     Portal: {
@@ -61,16 +61,16 @@ export declare function createNonNativeContextMenu(params: CreateBaseMenuProps):
     };
     Content: React.ForwardRefExoticComponent<ContextMenuContentProps & {
         scope?: string;
-    } & React.RefAttributes<(HTMLElement & import("@hanzogui/web").HanzoguiElementMethods) | import("react-native").View>>;
-    Group: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    } & React.RefAttributes<(HTMLElement & import("@hanzogui/web").GuiElementMethods) | import("react-native").View>>;
+    Group: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }>, keyof BaseMenuTypes.MenuGroupProps> & BaseMenuTypes.MenuGroupProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & BaseMenuTypes.MenuGroupProps, import("@hanzogui/web").StackStyleBase, {
+    }>, keyof BaseMenuTypes.MenuGroupProps> & BaseMenuTypes.MenuGroupProps, GuiElement, import("@hanzogui/web").StackNonStyleProps & BaseMenuTypes.MenuGroupProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Label: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+    Label: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/web").FontSizeTokens | undefined;
-    }>, keyof BaseMenuTypes.MenuLabelProps> & BaseMenuTypes.MenuLabelProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & BaseMenuTypes.MenuLabelProps, import("@hanzogui/web").TextStylePropsBase, {
+    }>, keyof BaseMenuTypes.MenuLabelProps> & BaseMenuTypes.MenuLabelProps, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & BaseMenuTypes.MenuLabelProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/web").FontSizeTokens | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
@@ -78,31 +78,31 @@ export declare function createNonNativeContextMenu(params: CreateBaseMenuProps):
         unstyled?: boolean | undefined;
     }>, "scope" | keyof BaseMenuTypes.MenuItemProps> & BaseMenuTypes.MenuItemProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>>;
+    } & React.RefAttributes<GuiElement>>;
     CheckboxItem: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }>, "scope" | keyof BaseMenuTypes.MenuCheckboxItemProps> & BaseMenuTypes.MenuCheckboxItemProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>>;
+    } & React.RefAttributes<GuiElement>>;
     RadioGroup: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }>, "scope" | keyof BaseMenuTypes.MenuRadioGroupProps> & BaseMenuTypes.MenuRadioGroupProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
-    } & React.RefAttributes<(HTMLElement & import("@hanzogui/web").HanzoguiElementMethods) | import("react-native").View>>;
+    } & React.RefAttributes<(HTMLElement & import("@hanzogui/web").GuiElementMethods) | import("react-native").View>>;
     RadioItem: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }>, "scope" | keyof BaseMenuTypes.MenuRadioItemProps> & BaseMenuTypes.MenuRadioItemProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>>;
-    ItemIndicator: import("@hanzogui/web").HanzoguiComponent<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    } & React.RefAttributes<GuiElement>>;
+    ItemIndicator: import("@hanzogui/web").GuiComponent<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }>, "scope" | keyof BaseMenuTypes.MenuItemIndicatorProps> & BaseMenuTypes.MenuItemIndicatorProps & {
         scope?: string;
@@ -110,38 +110,38 @@ export declare function createNonNativeContextMenu(params: CreateBaseMenuProps):
         unstyled?: boolean | undefined;
     }>, "scope" | keyof BaseMenuTypes.MenuItemIndicatorProps> & BaseMenuTypes.MenuItemIndicatorProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
-    }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & BaseMenuTypes.MenuItemIndicatorProps & {
+    }, GuiElement, import("@hanzogui/web").StackNonStyleProps & BaseMenuTypes.MenuItemIndicatorProps & {
         scope?: string;
     } & Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }>, "scope" | keyof BaseMenuTypes.MenuItemIndicatorProps> & BaseMenuTypes.MenuItemIndicatorProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
     }, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Separator: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Separator: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }>, keyof BaseMenuTypes.MenuSeparatorProps> & BaseMenuTypes.MenuSeparatorProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & BaseMenuTypes.MenuSeparatorProps, import("@hanzogui/web").StackStyleBase, {
+    }>, keyof BaseMenuTypes.MenuSeparatorProps> & BaseMenuTypes.MenuSeparatorProps, GuiElement, import("@hanzogui/web").StackNonStyleProps & BaseMenuTypes.MenuSeparatorProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Arrow: React.ForwardRefExoticComponent<Omit<BaseMenuTypes.MenuArrowProps & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    Arrow: React.ForwardRefExoticComponent<Omit<BaseMenuTypes.MenuArrowProps & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>>;
+    } & React.RefAttributes<GuiElement>>;
     Sub: {
         (props: ScopedProps<ContextMenuSubProps>): import("react/jsx-runtime").JSX.Element;
         displayName: string;
     };
-    SubTrigger: import("@hanzogui/web").HanzoguiComponent<Omit<ViewProps, "scope" | "key" | keyof BaseMenuTypes.MenuSubTriggerProps> & Omit<BaseMenuTypes.MenuSubTriggerProps & {
+    SubTrigger: import("@hanzogui/web").GuiComponent<Omit<ViewProps, "scope" | "key" | keyof BaseMenuTypes.MenuSubTriggerProps> & Omit<BaseMenuTypes.MenuSubTriggerProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
-    }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & Omit<BaseMenuTypes.MenuSubTriggerProps & {
+    }, GuiElement, import("@hanzogui/web").StackNonStyleProps & Omit<BaseMenuTypes.MenuSubTriggerProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
     }, import("@hanzogui/web").StackStyleBase, {}, {}>;
     SubContent: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
@@ -151,26 +151,26 @@ export declare function createNonNativeContextMenu(params: CreateBaseMenuProps):
         fullscreen?: boolean | undefined;
     }>, keyof BaseMenuTypes.MenuSubContentProps> & BaseMenuTypes.MenuSubContentProps & {
         scope?: string;
-    } & React.RefAttributes<HanzoguiElement>, "ref"> & {
+    } & React.RefAttributes<GuiElement>, "ref"> & {
         scope?: string;
-    } & React.RefAttributes<(HTMLElement & import("@hanzogui/web").HanzoguiElementMethods) | import("react-native").View>>;
-    ItemTitle: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+    } & React.RefAttributes<(HTMLElement & import("@hanzogui/web").GuiElementMethods) | import("react-native").View>>;
+    ItemTitle: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/web").FontSizeTokens | undefined;
-    }>, keyof BaseMenuTypes.MenuItemTitleProps> & BaseMenuTypes.MenuItemTitleProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & BaseMenuTypes.MenuItemTitleProps, import("@hanzogui/web").TextStylePropsBase, {
-        unstyled?: boolean | undefined;
-        size?: import("@hanzogui/web").FontSizeTokens | undefined;
-    }, import("@hanzogui/web").StaticConfigPublic>;
-    ItemSubtitle: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
-        unstyled?: boolean | undefined;
-        size?: import("@hanzogui/web").FontSizeTokens | undefined;
-    }>, keyof BaseMenuTypes.MenuItemSubTitleProps> & BaseMenuTypes.MenuItemSubTitleProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & BaseMenuTypes.MenuItemSubTitleProps, import("@hanzogui/web").TextStylePropsBase, {
+    }>, keyof BaseMenuTypes.MenuItemTitleProps> & BaseMenuTypes.MenuItemTitleProps, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & BaseMenuTypes.MenuItemTitleProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/web").FontSizeTokens | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    ItemIcon: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    ItemSubtitle: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
-    }>, `$${string}` | `$${number}` | import("@hanzogui/web").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | keyof import("@hanzogui/web").StackStyleBase | keyof import("@hanzogui/web").StackNonStyleProps | keyof import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>>> & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, import("@hanzogui/web").StackStyleBase, {
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    }>, keyof BaseMenuTypes.MenuItemSubTitleProps> & BaseMenuTypes.MenuItemSubTitleProps, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & BaseMenuTypes.MenuItemSubTitleProps, import("@hanzogui/web").TextStylePropsBase, {
+        unstyled?: boolean | undefined;
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    ItemIcon: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        unstyled?: boolean | undefined;
+    }>, `$${string}` | `$${number}` | import("@hanzogui/web").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | keyof import("@hanzogui/web").StackStyleBase | keyof import("@hanzogui/web").StackNonStyleProps | keyof import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>>> & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, GuiElement, import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
     ItemImage: React.ForwardRefExoticComponent<import("react-native").ImageProps & React.RefAttributes<import("react-native").Image>>;

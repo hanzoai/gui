@@ -12,7 +12,7 @@ import { useState } from 'react'
 /**
  * Test case for tooltip position jump bug
  *
- * CRITICAL: This must match the PromoLinksRow pattern from hanzogui.dev:
+ * CRITICAL: This must match the PromoLinksRow pattern from gui.dev:
  * - Single Tooltip with scope
  * - Multiple Tooltip.Triggers with same scope
  * - animatePosition on Tooltip.Content

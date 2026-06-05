@@ -32,13 +32,13 @@ async function main() {
       const content = await readFile(pkgPath, 'utf8')
       const pkg = JSON.parse(content)
 
-      // match all hanzogui packages: bare `hanzogui`, bare `hanzogui-*`, scoped `@hanzogui/*`, `create-hanzogui`
-      const isHanzoguiPkg =
-        pkg.name === 'hanzogui' ||
-        pkg.name === 'create-hanzogui' ||
-        pkg.name?.startsWith('hanzogui-') ||
+      // match all gui packages: bare `gui`, bare `gui-*`, scoped `@hanzogui/*`, `create-gui`
+      const isGuiPkg =
+        pkg.name === 'gui' ||
+        pkg.name === 'create-gui' ||
+        pkg.name?.startsWith('gui-') ||
         pkg.name?.startsWith('@hanzogui/')
-      if (!isHanzoguiPkg) continue
+      if (!isGuiPkg) continue
 
       if (pkg.version !== targetVersion) {
         console.info(`  Updating ${pkg.name}: ${pkg.version} -> ${targetVersion}`)

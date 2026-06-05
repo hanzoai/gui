@@ -13,13 +13,13 @@ export function StyledAnchor() {
     <>
       <StyledAnchor1
         testID="test-anchor"
-        href="https://hanzogui.dev/test-link"
+        href="https://gui.dev/test-link"
         target="_blank"
       >
         hi
       </StyledAnchor1>
 
-      <StyledAnchor2 testID="test-anchor2" href="https://hanzogui.dev/test-link">
+      <StyledAnchor2 testID="test-anchor2" href="https://gui.dev/test-link">
         hi
       </StyledAnchor2>
     </>

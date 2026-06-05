@@ -1,5 +1,5 @@
 import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
-import type { GetProps, HanzoguiElement } from '@hanzogui/core'
+import type { GetProps, GuiElement } from '@hanzogui/core'
 import { View, Text, styled, useEvent } from '@hanzogui/core'
 import { Portal } from '@hanzogui/portal'
 import { startTransition } from '@hanzogui/start-transition'
@@ -22,7 +22,7 @@ type ToastAnnounceExcludeExtraProps = {
 type ToastAnnounceExcludeProps = ToastAnnounceExcludeFrameProps &
   ToastAnnounceExcludeExtraProps
 
-const ToastAnnounceExclude = React.forwardRef<HanzoguiElement, ToastAnnounceExcludeProps>(
+const ToastAnnounceExclude = React.forwardRef<GuiElement, ToastAnnounceExcludeProps>(
   (props, forwardedRef) => {
     const { altText, ...announceExcludeProps } = props
 

@@ -18,7 +18,7 @@ export const SizableText = styled(Text, {
   },
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 

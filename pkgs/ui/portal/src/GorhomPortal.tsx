@@ -239,8 +239,8 @@ const PortalProviderComponent = ({
   if (process.env.NODE_ENV === 'development') {
     if (isAlreadyInProvider && shouldAddRootHost) {
       console.warn(
-        `[hanzogui] Nested PortalProvider with shouldAddRootHost detected. ` +
-          `This causes hydration mismatches. HanzoguiProvider from 'hanzogui' already includes PortalProvider - ` +
+        `[gui] Nested PortalProvider with shouldAddRootHost detected. ` +
+          `This causes hydration mismatches. GuiProvider from 'hanzogui' already includes PortalProvider - ` +
           `remove the explicit PortalProvider wrapper or set shouldAddRootHost={false}.`
       )
     }
@@ -301,7 +301,7 @@ export interface PortalHostProps {
 const defaultRenderer = (children) => <>{children}</>
 
 export const PortalHost = memo(function PortalHost(props: PortalHostProps) {
-  if (process.env.TAMAGUI_TARGET === 'web') {
+  if (process.env.GUI_TARGET === 'web') {
     return <PortalHostWeb {...props} />
   } else {
     const portalState = getPortal().state

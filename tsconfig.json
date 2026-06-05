@@ -4,12 +4,12 @@
     "rootDir": ".",
     "paths": {
       "@hanzo/gui": [
-        "pkgs/ui/gui"
+        "pkgs/ui/hanzogui"
       ],
       "@hanzogui/*": [
         "pkgs/core/*",
         "pkgs/ui/*",
-        "pkgs/packages/*"
+        "pkgs/*"
       ],
       "@hanzogui/demos": [
         "apps/demos"
@@ -187,7 +187,7 @@
       "path": "pkgs/core/helpers-node"
     },
     {
-      "path": "pkgs/core/helpers-gui"
+      "path": "pkgs/core/helpers-hanzogui"
     },
     {
       "path": "pkgs/core/helpers"
@@ -280,49 +280,49 @@
       "path": "apps/demos"
     },
     {
-      "path": "pkgs/packages/babel-plugin-fully-specified"
+      "path": "pkgs/babel-plugin-fully-specified"
     },
     {
-      "path": "pkgs/packages/gui-get"
+      "path": "pkgs/get"
     },
     {
-      "path": "pkgs/packages/recipes"
+      "path": "pkgs/recipes"
     },
     {
-      "path": "pkgs/packages/cli-color"
+      "path": "pkgs/cli-color"
     },
     {
-      "path": "pkgs/packages/code-to-html"
+      "path": "pkgs/code-to-html"
     },
     {
-      "path": "pkgs/packages/logo"
+      "path": "pkgs/logo"
     },
     {
-      "path": "pkgs/packages/lucide-icons"
+      "path": "pkgs/lucide-icons"
     },
     {
-      "path": "pkgs/packages/next-theme"
+      "path": "pkgs/next-theme"
     },
     {
-      "path": "pkgs/packages/react-native-svg"
+      "path": "pkgs/react-native-svg"
     },
     {
-      "path": "pkgs/packages/react-native-web-lite"
+      "path": "pkgs/react-native-web-lite"
     },
     {
-      "path": "pkgs/packages/sandbox-ui"
+      "path": "pkgs/sandbox-ui"
     },
     {
-      "path": "pkgs/packages/timer"
+      "path": "pkgs/timer"
     },
     {
-      "path": "pkgs/packages/element"
+      "path": "pkgs/element"
     },
     {
-      "path": "pkgs/packages/use-store"
+      "path": "pkgs/use-store"
     },
     {
-      "path": "pkgs/packages/vite-plugin-internal"
+      "path": "pkgs/vite-plugin-internal"
     }
   ]
 }

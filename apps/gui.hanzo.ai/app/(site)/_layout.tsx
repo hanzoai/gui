@@ -40,19 +40,19 @@ export default function SiteLayout() {
   const isBlog = path.startsWith('/blog')
   const isDocs =
     path.startsWith('/docs') || path.startsWith('/ui') || path.startsWith('/demo')
-  const isBento = path.startsWith('/bento')
+  const isRecipes = path.startsWith('/recipes')
 
   const disableNew = isBlog || isAuthPage || isProductLandingPage || isAccountPage
   const showAuth = isAuthPage || isProductLandingPage || isAccountPage
-  const hideFooter = isDocs || isTakeout || isBento || isAuthPage
+  const hideFooter = isDocs || isTakeout || isRecipes || isAuthPage
   const hideHeader = isAuthPage
   const hidePromoBanner = isAuthPage
 
   const { themeName, enabled } = useSiteTheme()
 
-  // use custom theme when enabled (skip bento - it has its own wrapper)
+  // use custom theme when enabled (skip recipes - it has its own wrapper)
   // always render the same tree structure to avoid remounting on enable toggle
-  const customThemeActive = enabled && themeName && !isBento
+  const customThemeActive = enabled && themeName && !isRecipes
   const customThemeName = customThemeActive ? themeName : null
 
   return (

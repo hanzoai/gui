@@ -37,8 +37,9 @@ export default function PaymentFinishedPage() {
           </Paragraph>
 
           <Paragraph size="$4" color="$color10">
-            We're checking for the Stripe webhook, once complete your Account modal should
-            open and you can set up your project.
+            We're confirming the payment with our billing provider. Once
+            complete your Account modal will open and you can set up your
+            project.
           </Paragraph>
         </YStack>
       </Container>

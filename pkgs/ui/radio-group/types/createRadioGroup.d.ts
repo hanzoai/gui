@@ -58,7 +58,7 @@ export declare function createRadioGroup<F extends RadioGroupComponent, D extend
     name?: string;
     native?: boolean;
     accentColor?: string;
-} & React.RefAttributes<import("@hanzogui/core").HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+} & React.RefAttributes<import("@hanzogui/core").GuiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     orientation?: "horizontal" | "vertical" | undefined;
@@ -87,7 +87,7 @@ export declare function createRadioGroup<F extends RadioGroupComponent, D extend
     name?: string;
     native?: boolean;
     accentColor?: string;
-}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+}, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     orientation?: "horizontal" | "vertical" | undefined;
@@ -142,7 +142,7 @@ export declare function createRadioGroup<F extends RadioGroupComponent, D extend
         name?: string;
         native?: boolean;
         accentColor?: string;
-    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+    }, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "orientation"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
         orientation?: "horizontal" | "vertical" | undefined;
@@ -169,7 +169,7 @@ export declare function createRadioGroup<F extends RadioGroupComponent, D extend
         orientation?: "horizontal" | "vertical" | undefined;
     }, import("@hanzogui/core").StaticConfigPublic];
 } & {
-    Item: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Item: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -204,7 +204,7 @@ export declare function createRadioGroup<F extends RadioGroupComponent, D extend
         id?: string;
         labelledBy?: string;
         disabled?: boolean;
-    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "disabled" | "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "size"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+    }, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "disabled" | "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "size"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
@@ -234,7 +234,7 @@ export declare function createRadioGroup<F extends RadioGroupComponent, D extend
         fullscreen?: boolean | undefined;
         size?: import("@hanzogui/core").SizeTokens | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Indicator: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Indicator: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -257,7 +257,7 @@ export declare function createRadioGroup<F extends RadioGroupComponent, D extend
     }>> & {
         forceMount?: boolean;
         unstyled?: boolean;
-    }, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+    }, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;

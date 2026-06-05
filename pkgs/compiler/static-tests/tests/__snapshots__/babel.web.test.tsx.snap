@@ -252,9 +252,9 @@ exports[`theme + media queries + conditionals extract 1`] = `
 const _cn = "is_View _fd-_sm_column _fd-column";
 import { View } from '@hanzogui/core';
 export function Test(props) {
-  return <_HanzoguiTheme name="surface1"><div className={onlyDemo ? _cn : _cn2} /></_HanzoguiTheme>;
+  return <_GuiTheme name="surface1"><div className={onlyDemo ? _cn : _cn2} /></_GuiTheme>;
 }
-import { Theme as _HanzoguiTheme } from "@hanzogui/web";"
+import { Theme as _GuiTheme } from "@hanzogui/web";"
 `;
 
 exports[`theme + media queries + conditionals extract 2`] = `

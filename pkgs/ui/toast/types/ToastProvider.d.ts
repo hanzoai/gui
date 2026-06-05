@@ -1,4 +1,4 @@
-import type { NativeValue, HanzoguiElement } from '@hanzogui/core';
+import type { NativeValue, GuiElement } from '@hanzogui/core';
 import * as React from 'react';
 import type { ToastImperativeOptions } from './ToastImperative';
 import type { BurntToastOptions } from './types';
@@ -10,14 +10,14 @@ declare const Collection: {
     }>;
     readonly Slot: React.ForwardRefExoticComponent<import("@hanzogui/collection").CollectionProps & {
         scope?: any;
-    } & React.RefAttributes<HanzoguiElement | undefined>>;
+    } & React.RefAttributes<GuiElement | undefined>>;
     readonly ItemSlot: React.ForwardRefExoticComponent<{
         children: React.ReactNode;
     } & {
         scope?: any;
-    } & React.RefAttributes<HanzoguiElement | undefined>>;
+    } & React.RefAttributes<GuiElement | undefined>>;
 }, useCollection: (scope: string) => () => {
-    ref: React.RefObject<HanzoguiElement | undefined>;
+    ref: React.RefObject<GuiElement | undefined>;
 }[];
 export type SwipeDirection = 'vertical' | 'up' | 'down' | 'horizontal' | 'left' | 'right' | 'auto';
 export type ToastProviderContextValue = {
@@ -28,8 +28,8 @@ export type ToastProviderContextValue = {
     swipeDirection: SwipeDirection;
     swipeThreshold: number;
     toastCount: number;
-    viewports: Record<string, HanzoguiElement | null>;
-    onViewportChange(name: string, viewport: HanzoguiElement): void;
+    viewports: Record<string, GuiElement | null>;
+    onViewportChange(name: string, viewport: GuiElement): void;
     onToastAdd(): void;
     onToastRemove(): void;
     isFocusedToastEscapeKeyDownRef: React.MutableRefObject<boolean>;

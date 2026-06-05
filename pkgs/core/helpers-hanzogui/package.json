@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/component-helpers",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -28,10 +28,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build"
+    "build": "gui-build",
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/helpers": "workspace:*",

@@ -1,6 +1,13 @@
-import type { PostgrestError } from '@supabase/supabase-js'
 import type { Endpoint } from 'one'
 import { isResponse } from 'one'
+
+/** Local PostgrestError-shape used by `postgresError()`. */
+export type PostgrestError = {
+  code: string
+  message: string
+  details?: string
+  hint?: string
+}
 
 export function apiRoute(handler: Endpoint) {
   return (async (req) => {

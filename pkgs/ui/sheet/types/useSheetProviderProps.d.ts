@@ -1,5 +1,5 @@
 import React from 'react';
-import type { HanzoguiElement } from '@hanzogui/core';
+import type { GuiElement } from '@hanzogui/core';
 import type { ScrollBridge, SheetProps } from './types';
 import type { SheetOpenState } from './useSheetOpenState';
 export type SheetContextValue = ReturnType<typeof useSheetProviderProps> & {
@@ -16,8 +16,8 @@ export declare function useSheetProviderProps(props: SheetProps, state: SheetOpe
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     hidden: boolean;
-    contentRef: React.RefObject<HanzoguiElement | null>;
-    handleRef: React.RefObject<HanzoguiElement | null>;
+    contentRef: React.RefObject<GuiElement | null>;
+    handleRef: React.RefObject<GuiElement | null>;
     frameSize: number;
     setFrameSize: React.Dispatch<React.SetStateAction<number>>;
     dismissOnOverlayPress: boolean;

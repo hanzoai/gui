@@ -1,5 +1,5 @@
 import React from 'react'
-import { View as HanzoguiView, Theme } from '@hanzogui/core'
+import { View as GuiView, Theme } from '@hanzogui/core'
 
 import { Button, View as RNView } from 'react-native'
 
@@ -8,7 +8,7 @@ const newArray = Array.from(Array(10).keys())
 export function SlowThemeReRender() {
   const [theme, setTheme] = React.useState<'light' | 'dark'>('light')
 
-  const [type, setType] = React.useState<'Hanzogui' | 'RN'>('Hanzogui')
+  const [type, setType] = React.useState<'Gui' | 'RN'>('Gui')
   return (
     <Theme name={theme}>
       <Button
@@ -16,9 +16,9 @@ export function SlowThemeReRender() {
         title={`Toggle Theme ${theme}`}
       ></Button>
       <Button
-        onPress={() => setType(type === 'Hanzogui' ? 'RN' : 'Hanzogui')}
+        onPress={() => setType(type === 'Gui' ? 'RN' : 'Gui')}
         title={
-          type === 'Hanzogui' ? 'Using View from Hanzogui' : 'Using View with inline styles'
+          type === 'Gui' ? 'Using View from Gui' : 'Using View with inline styles'
         }
       />
 
@@ -30,9 +30,9 @@ export function SlowThemeReRender() {
           flexWrap: 'wrap',
         }}
       >
-        {type === 'Hanzogui'
+        {type === 'Gui'
           ? newArray.map((item) => (
-              <HanzoguiView key={item} backgroundColor="$color" height={50} width={50} />
+              <GuiView key={item} backgroundColor="$color" height={50} width={50} />
             ))
           : newArray.map((item) => (
               <RNView

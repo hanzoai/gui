@@ -12,5 +12,5 @@ export const SwitchStyledContext = createStyledContext<{
   disabled: false,
   frameWidth: undefined,
   size: undefined,
-  unstyled: process.env.HANZOGUI_HEADLESS === '1',
+  unstyled: process.env.GUI_HEADLESS === '1',
 })

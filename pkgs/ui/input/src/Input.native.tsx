@@ -10,7 +10,7 @@ const StyledInput = styled(TextInput, styledBody[0], styledBody[1])
 
 /**
  * A web-aligned input component for React Native.
- * @see — Docs https://hanzogui.dev/ui/inputs#input
+ * @see — Docs https://gui.dev/ui/inputs#input
  */
 export const Input = StyledInput.styleable<InputExtraProps>((props, forwardedRef) => {
   const {

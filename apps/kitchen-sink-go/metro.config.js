@@ -7,11 +7,11 @@ const monorepoRoot = path.resolve(projectRoot, '../..')
 const config = getDefaultConfig(projectRoot)
 
 config.resolver.unstable_enablePackageExports =
-  process.env.TAMAGUI_PACKAGE_EXPORTS !== 'false'
+  process.env.GUI_PACKAGE_EXPORTS !== 'false'
 
 // block unnecessary directories from metro file crawling
 config.resolver.blockList = [
-  /code\/hanzogui\.dev\//,
+  /code\/gui\.dev\//,
   /code\/.*\/__tests__\//,
   /code\/.*\/\.maestro\//,
 ]
@@ -22,5 +22,5 @@ config.resolver.nodeModulesPaths = [
   path.resolve(monorepoRoot, 'node_modules'),
 ]
 
-// no withHanzogui, no unstable_conditionNames - pure vanilla
+// no withGui, no unstable_conditionNames - pure vanilla
 module.exports = config

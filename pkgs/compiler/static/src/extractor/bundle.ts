@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs'
 import esbuild from 'esbuild'
 import * as FS from 'fs-extra'
-import type { HanzoguiPlatform } from '../types'
+import type { GuiPlatform } from '../types'
 import { detectModuleFormat } from './detectModuleFormat'
 import { esbuildAliasPlugin } from './esbuildAliasPlugin'
 import { hasTopLevelAwait } from './hasTopLevelAwait'
-import { resolveWebOrNativeSpecificEntry } from './loadHanzogui'
+import { resolveWebOrNativeSpecificEntry } from './loadGui'
 import { TsconfigPathsPlugin } from './esbuildTsconfigPaths'
 
 export const esbuildLoaderConfig = {
@@ -54,10 +54,10 @@ type Props = Omit<Partial<esbuild.BuildOptions>, 'entryPoints'> & {
 
 function getESBuildConfig(
   { entryPoints, resolvePlatformSpecificEntries, ...options }: Props,
-  platform: HanzoguiPlatform,
+  platform: GuiPlatform,
   aliases?: Record<string, string>
 ) {
-  if (process.env.DEBUG?.startsWith('hanzogui')) {
+  if (process.env.DEBUG?.startsWith('gui')) {
     console.info(`Building`, entryPoints)
   }
 
@@ -87,7 +87,7 @@ function getESBuildConfig(
     allowOverwrite: true,
     keepNames: true,
     resolveExtensions: [
-      ...(process.env.TAMAGUI_TARGET === 'web'
+      ...(process.env.GUI_TARGET === 'web'
         ? ['.web.tsx', '.web.ts', '.web.jsx', '.web.js']
         : ['.native.tsx', '.native.ts', '.native.jsx', '.native.js']),
       '.tsx',
@@ -148,8 +148,8 @@ function getESBuildConfig(
 
             // stub files with top-level await - they're typically runtime-only
             if (hasTopLevelAwait(contents, args.path)) {
-              if (process.env.DEBUG?.startsWith('hanzogui')) {
-                console.info(`[hanzogui] stubbing file with top-level await: ${args.path}`)
+              if (process.env.DEBUG?.startsWith('gui')) {
+                console.info(`[gui] stubbing file with top-level await: ${args.path}`)
               }
               return {
                 // Keep this as an ESM-shaped stub so esbuild doesn't inline a
@@ -255,9 +255,9 @@ function detectEntryFormat(entryPoint: string): esbuild.BuildOptions['format'] {
   }
 }
 
-export async function esbundleHanzoguiConfig(
+export async function esbundleGuiConfig(
   props: Props,
-  platform: HanzoguiPlatform,
+  platform: GuiPlatform,
   aliases?: Record<string, string>
 ) {
   const config = getESBuildConfig(props, platform, aliases)

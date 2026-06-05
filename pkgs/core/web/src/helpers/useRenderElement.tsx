@@ -1,13 +1,13 @@
 import type React from 'react'
 import { cloneElement, createElement, isValidElement } from 'react'
 import { composeRefs } from '@hanzogui/compose-refs'
-import type { HanzoguiComponentState } from '../types'
+import type { GuiComponentState } from '../types'
 import { mergeSlotStyleProps } from './mergeSlotStyleProps'
 
 export type RenderProp<Props = Record<string, any>> =
   | string
   | React.ReactElement
-  | ((props: Props, state: HanzoguiComponentState) => React.ReactElement)
+  | ((props: Props, state: GuiComponentState) => React.ReactElement)
 
 /**
  * Evaluates a render prop and returns the element to render.
@@ -20,7 +20,7 @@ export type RenderProp<Props = Record<string, any>> =
 export function evaluateRenderProp(
   render: RenderProp | undefined,
   props: Record<string, any>,
-  state: HanzoguiComponentState,
+  state: GuiComponentState,
   defaultElement: React.ReactElement<any>
 ): React.ReactElement {
   if (!render) {
@@ -33,7 +33,7 @@ export function evaluateRenderProp(
   if (typeof render === 'string') {
     // on native, ignore lowercase tags (html/jsx elements like "div", "span")
     if (
-      process.env.TAMAGUI_TARGET === 'native' &&
+      process.env.GUI_TARGET === 'native' &&
       render[0] === render[0].toLowerCase()
     ) {
       return defaultElement

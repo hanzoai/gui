@@ -1,16 +1,16 @@
-process.env.TAMAGUI_TARGET = 'native'
+process.env.GUI_TARGET = 'native'
 
-import { getDefaultHanzoguiConfig } from '@hanzogui/config-default'
-import { HanzoguiProvider, _withStableStyle, createHanzogui } from '@hanzogui/core'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
+import { GuiProvider, _withStableStyle, createGui } from '@hanzogui/core'
 import { render } from '@testing-library/react-native'
 import { View } from 'react-native'
 import { describe, expect, test, vi } from 'vitest'
 
-const defaultConfig = getDefaultHanzoguiConfig('native')
-const config = createHanzogui(defaultConfig)
+const defaultConfig = getDefaultGuiConfig('native')
+const config = createGui(defaultConfig)
 
 describe('_withStableStyle', () => {
-  test('renders correctly with HanzoguiProvider', () => {
+  test('renders correctly with GuiProvider', () => {
     const Wrapped = _withStableStyle(
       View,
       (theme) => [
@@ -20,15 +20,15 @@ describe('_withStableStyle', () => {
     )
 
     const tree = render(
-      <HanzoguiProvider defaultTheme="light" config={config}>
+      <GuiProvider defaultTheme="light" config={config}>
         <Wrapped />
-      </HanzoguiProvider>
+      </GuiProvider>
     )
 
     expect(tree.toJSON()).toBeTruthy()
   })
 
-  test('does not crash without HanzoguiProvider (graceful fallback)', () => {
+  test('does not crash without GuiProvider (graceful fallback)', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const Wrapped = _withStableStyle(View, () => [{ width: 50, height: 50 }], true)
@@ -40,7 +40,7 @@ describe('_withStableStyle', () => {
     warnSpy.mockRestore()
   })
 
-  test('theme values resolve correctly under HanzoguiProvider', () => {
+  test('theme values resolve correctly under GuiProvider', () => {
     let resolvedBg: any = null
 
     const Wrapped = _withStableStyle(
@@ -53,9 +53,9 @@ describe('_withStableStyle', () => {
     )
 
     render(
-      <HanzoguiProvider defaultTheme="light" config={config}>
+      <GuiProvider defaultTheme="light" config={config}>
         <Wrapped />
-      </HanzoguiProvider>
+      </GuiProvider>
     )
 
     expect(resolvedBg).toBeTruthy()
@@ -70,9 +70,9 @@ describe('_withStableStyle', () => {
     })
 
     render(
-      <HanzoguiProvider defaultTheme="light" config={config}>
+      <GuiProvider defaultTheme="light" config={config}>
         <Wrapped _expressions={[true, false, 42]} />
-      </HanzoguiProvider>
+      </GuiProvider>
     )
 
     expect(receivedExpressions).toEqual([true, false, 42])

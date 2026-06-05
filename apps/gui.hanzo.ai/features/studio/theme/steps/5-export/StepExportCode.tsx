@@ -114,11 +114,11 @@ export class StepExportStore {
                 type: 'files',
                 files: [
                   {
-                    filename: 'hanzogui.config.ts',
+                    filename: 'gui.config.ts',
                     content: `import { themes } from './themes'
 import { defaultConfig } from '@hanzogui/config/v5'
 
-export const config = createHanzogui({
+export const config = createGui({
   ...defaultConfig,
   themes,
 })

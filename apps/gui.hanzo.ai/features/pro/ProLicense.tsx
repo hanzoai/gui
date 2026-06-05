@@ -34,7 +34,7 @@ export const ProLicense = () => {
           <Li>
             Access to all Takeout templates (v1 Takeout, v2 Takeout, Takeout Static)
           </Li>
-          <Li>Bento premium components</Li>
+          <Li>Recipes premium components</Li>
           <Li>One year of updates included with purchase</Li>
           <Li>Unlimited team members for your project (no additional seat cost)</Li>
           <Li>
@@ -56,9 +56,9 @@ export const ProLicense = () => {
 
       <H3>Code Usage Rights</H3>
       <Paragraph>
-        For Bento components - you are free to use the source code in your licensed
+        For Recipes components - you are free to use the source code in your licensed
         project and publish derivative works publicly. You may not re-publish the majority
-        of Bento components as a standalone component library.
+        of Recipes components as a standalone component library.
       </Paragraph>
       <Paragraph>
         For Takeout templates - you cannot re-publish any of the source code publicly. All
@@ -85,7 +85,7 @@ export const ProLicense = () => {
       <Paragraph render="span">
         <Ul>
           <Li>
-            Use all Pro features including Theme Builder, Bento, and Takeout for your
+            Use all Pro features including Theme Builder, Recipes, and Takeout for your
             licensed project.
           </Li>
           <Li>Use Pro features in both commercial and non-commercial projects.</Li>

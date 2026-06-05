@@ -1,13 +1,13 @@
-import { withHanzogui } from '@hanzogui/next-plugin'
+import { withGui } from '@hanzogui/next-plugin'
 
 Error.stackTraceLimit = Infinity
 
 process.env.IGNORE_TS_CONFIG_PATHS = 'true'
-// process.env.TAMAGUI_ENABLE_DYNAMIC_LOAD = '1'
+// process.env.GUI_ENABLE_DYNAMIC_LOAD = '1'
 
 const plugins = [
-  withHanzogui(
-    // see hanzogui.build.ts for details
+  withGui(
+    // see gui.build.ts for details
   ),
   (config) => {
     return {
@@ -43,11 +43,11 @@ const plugins = [
   },
   (config) => {
     // for github pages
-    if (process.env.IS_TAMAGUI_PROD) {
-      config.assetPrefix = 'https://hanzogui.dev'
+    if (process.env.IS_GUI_PROD) {
+      config.assetPrefix = 'https://gui.dev'
     } else if (process.env.ON_GITHUB_PAGES) {
-      config.basePath = '/hanzogui'
-      config.assetPrefix = '/hanzogui/'
+      config.basePath = '/gui'
+      config.assetPrefix = '/gui/'
     }
     return config
   },
@@ -93,7 +93,7 @@ export default (name, { defaultConfig }) => {
       ignoreBuildErrors: true,
     },
     assetPrefix:
-      process.env.VERCEL_GIT_COMMIT_REF === 'master' ? 'https://hanzogui.dev' : undefined,
+      process.env.VERCEL_GIT_COMMIT_REF === 'master' ? 'https://gui.dev' : undefined,
 
     // Next.js config
     async redirects() {

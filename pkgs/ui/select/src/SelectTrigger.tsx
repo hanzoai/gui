@@ -1,5 +1,5 @@
 import { useComposedRefs } from '@hanzogui/compose-refs'
-import type { HanzoguiElement } from '@hanzogui/core'
+import type { GuiElement } from '@hanzogui/core'
 import type { ListItemProps } from '@hanzogui/list-item'
 import { ListItem } from '@hanzogui/list-item'
 import * as React from 'react'
@@ -15,11 +15,11 @@ const TRIGGER_NAME = 'SelectTrigger'
 export type SelectTriggerProps = SelectScopedProps<ListItemProps>
 
 const isPointerCoarse =
-  typeof window !== 'undefined' && process.env.TAMAGUI_TARGET === 'web'
+  typeof window !== 'undefined' && process.env.GUI_TARGET === 'web'
     ? window.matchMedia('(pointer:coarse)').matches
     : true
 
-export const SelectTrigger = React.forwardRef<HanzoguiElement, SelectTriggerProps>(
+export const SelectTrigger = React.forwardRef<GuiElement, SelectTriggerProps>(
   function SelectTrigger(props: SelectTriggerProps, forwardedRef) {
     const { scope, disabled = false, unstyled = false, ...triggerProps } = props
 
@@ -61,7 +61,7 @@ export const SelectTrigger = React.forwardRef<HanzoguiElement, SelectTriggerProp
         data-disabled={disabled ? '' : undefined}
         {...triggerProps}
         ref={composedRefs}
-        {...(process.env.TAMAGUI_TARGET === 'web' && itemParentContext.interactions
+        {...(process.env.GUI_TARGET === 'web' && itemParentContext.interactions
           ? {
               ...itemParentContext.interactions.getReferenceProps(),
               ...(isPointerCoarse

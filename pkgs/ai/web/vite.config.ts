@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 const a = resolve(__dirname, '..');           // pkgs/ai
 const h = (m: string) => `${a}/src/host/${m}`;
 const p = (d: string) => resolve(__dirname, `../../${d}/src`);
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   root: __dirname,
   plugins: [react()],
   worker: { format: 'es' },
@@ -21,9 +21,24 @@ export default defineConfig({
     },
   },
   build: { outDir: 'dist', minify: 'esbuild', chunkSizeWarningLimit: 8000, rollupOptions: { onwarn(w,d){ if(w.code==='MODULE_LEVEL_DIRECTIVE')return; d(w);} } },
-  optimizeDeps: { include: ['react','react-dom','react-dom/client','react/jsx-runtime','libsodium-wrappers-sumo','@tanstack/react-query','lucide-react','zustand'], exclude: ['pyodide'], esbuildOptions: { jsx: 'automatic' } },
+  optimizeDeps: {
+    include: ['react','react-dom','react-dom/client','react/jsx-runtime','libsodium-wrappers-sumo','@tanstack/react-query','lucide-react','zustand'],
+    exclude: ['pyodide'],
+    esbuildOptions: { jsx: 'automatic' },
+  },
   resolve: { dedupe: ['react','react-dom'], alias: {
     'libsodium-wrappers-sumo': '/home/z/work/hanzo/gui/node_modules/libsodium-wrappers-sumo/dist/modules-sumo/libsodium-wrappers.js',
+    // DEV-only (command === 'serve'): stub the streamdown markdown stack (see
+    // streamdown-stub.tsx). The prod build (rollup) skips these and uses the
+    // real packages, resolving their nested micromark correctly.
+    ...(command === 'serve'
+      ? {
+          'streamdown': `${__dirname}/streamdown-stub.tsx`,
+          '@streamdown/code': `${__dirname}/streamdown-stub.tsx`,
+          '@streamdown/math': `${__dirname}/streamdown-stub.tsx`,
+          '@streamdown/mermaid': `${__dirname}/streamdown-stub.tsx`,
+        }
+      : {}),
     '@': `${a}/src/app`,
     '@tauri-apps/api/core': h('core'), '@tauri-apps/api/event': h('event'),
     '@tauri-apps/api/window': h('window'), '@tauri-apps/api/app': h('app'), '@tauri-apps/api': h('index'),
@@ -36,4 +51,4 @@ export default defineConfig({
     '@hanzo_network/brand-config': p('net-brand-config'), '@hanzo_network/hanzo-logo': p('net-logo'),
     '@hanzo_network/hanzo-artifacts': p('net-artifacts'),
   }},
-});
+}));

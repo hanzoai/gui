@@ -13,5 +13,8 @@
     "./package.json": "./package.json",
     "./*": "./src/*"
   },
-  "module": "./src/index.ts"
+  "module": "./src/index.ts",
+  "dependencies": {
+    "react-resizable-panels": "^3.0.2"
+  }
 }

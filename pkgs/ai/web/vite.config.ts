@@ -36,7 +36,7 @@ export default defineConfig(({ command }) => ({
     esbuildOptions: { jsx: 'automatic' },
   },
   resolve: { dedupe: ['react','react-dom'], alias: {
-    'libsodium-wrappers-sumo': '/home/z/work/hanzo/gui/node_modules/libsodium-wrappers-sumo/dist/modules-sumo/libsodium-wrappers.js',
+    'libsodium-wrappers-sumo': resolve(a, '../../node_modules/libsodium-wrappers-sumo/dist/modules-sumo/libsodium-wrappers.js'),
     // DEV-only (command === 'serve'): stub the streamdown markdown stack (see
     // streamdown-stub.tsx). The prod build (rollup) skips these and uses the
     // real packages, resolving their nested micromark correctly.

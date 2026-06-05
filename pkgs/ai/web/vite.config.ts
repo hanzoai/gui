@@ -16,8 +16,9 @@ export default defineConfig(({ command }) => ({
     // healthy node; the node is already wired to the zen engine (agent
     // `zen_engine` -> http://localhost:36900, embeddings -> :36901/:11436).
     proxy: {
-      '/v2': { target: process.env.VITE_NODE_API || 'http://127.0.0.1:3690', changeOrigin: true },
-      '/ws': { target: process.env.VITE_NODE_WS || 'ws://127.0.0.1:3691', ws: true, changeOrigin: true },
+      '/v1': { target: process.env.VITE_NODE_API || 'http://127.0.0.1:3700', changeOrigin: true },
+      '/v2': { target: process.env.VITE_NODE_API || 'http://127.0.0.1:3700', changeOrigin: true },
+      '/ws': { target: process.env.VITE_NODE_WS || 'ws://127.0.0.1:3701', ws: true, changeOrigin: true },
     },
   },
   build: { outDir: 'dist', minify: 'esbuild', chunkSizeWarningLimit: 8000, rollupOptions: { onwarn(w,d){ if(w.code==='MODULE_LEVEL_DIRECTIVE')return; d(w);} } },

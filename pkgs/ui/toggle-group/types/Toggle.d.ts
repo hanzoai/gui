@@ -1,7 +1,7 @@
-import type { GetProps, HanzoguiElement, ViewStyle } from '@hanzogui/web';
+import type { GetProps, GuiElement, ViewStyle } from '@hanzogui/web';
 import * as React from 'react';
-export declare const ToggleFrame: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+export declare const ToggleFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
         accept: {
             readonly activeStyle: "style";
         };
@@ -28,7 +28,7 @@ type ToggleItemExtraProps = {
 };
 export type ToggleProps = ToggleFrameProps & ToggleItemExtraProps;
 export declare const Toggle: React.ForwardRefExoticComponent<Omit<import("@hanzogui/web").StackNonStyleProps, "unstyled" | keyof import("@hanzogui/web").StackStyleBase | "size" | "activeStyle" | "defaultActiveStyle"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
         accept: {
             readonly activeStyle: "style";
         };
@@ -38,13 +38,13 @@ export declare const Toggle: React.ForwardRefExoticComponent<Omit<import("@hanzo
     size?: number | import("@hanzogui/web").SizeTokens | undefined;
     defaultActiveStyle?: boolean | undefined;
 } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
         accept: {
             readonly activeStyle: "style";
         };
     }>> | undefined;
 }>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
         accept: {
             readonly activeStyle: "style";
         };
@@ -54,13 +54,13 @@ export declare const Toggle: React.ForwardRefExoticComponent<Omit<import("@hanzo
     size?: number | import("@hanzogui/web").SizeTokens | undefined;
     defaultActiveStyle?: boolean | undefined;
 } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
         accept: {
             readonly activeStyle: "style";
         };
     }>> | undefined;
 }>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>, {
         accept: {
             readonly activeStyle: "style";
         };
@@ -69,6 +69,6 @@ export declare const Toggle: React.ForwardRefExoticComponent<Omit<import("@hanzo
     unstyled?: boolean | undefined;
     size?: number | import("@hanzogui/web").SizeTokens | undefined;
     defaultActiveStyle?: boolean | undefined;
-}>> & ToggleItemExtraProps & React.RefAttributes<HanzoguiElement>>;
+}>> & ToggleItemExtraProps & React.RefAttributes<GuiElement>>;
 export {};
 //# sourceMappingURL=Toggle.d.ts.map

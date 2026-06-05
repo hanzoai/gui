@@ -2,9 +2,9 @@
  * Web event handling - maps RN-style events to DOM events
  */
 
-import type { HanzoguiComponentEvents } from './interfaces/HanzoguiComponentEvents'
+import type { GuiComponentEvents } from './interfaces/GuiComponentEvents'
 
-type EventKeys = keyof HanzoguiComponentEvents
+type EventKeys = keyof GuiComponentEvents
 type EventLikeObject = { [key in EventKeys]?: any }
 
 export function getWebEvents<E extends EventLikeObject>(events: E, webStyle = true) {

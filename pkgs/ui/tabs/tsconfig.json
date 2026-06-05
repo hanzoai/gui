@@ -8,7 +8,7 @@
       "path": "../../core/constants"
     },
     {
-      "path": "../../packages/element"
+      "path": "../../element"
     },
     {
       "path": "../../core/create-context"

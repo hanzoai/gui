@@ -6,15 +6,10 @@
     "url": "https://github.com/hanzoai/gui"
   },
   "workspaces": [
+    "./pkgs/*",
     "./pkgs/compiler/**/*",
     "./pkgs/core/**/*",
-    "./pkgs/packages/**/*",
     "./pkgs/ui/**/*",
-    "./pkgs/ui-admin",
-    "./apps/admin-base",
-    "./apps/admin-bot",
-    "./apps/admin-commerce",
-    "./apps/admin-tasks",
     "./apps/demos",
     "./apps/gui.hanzo.ai",
     "./apps/kitchen-sink",
@@ -36,7 +31,7 @@
     "build:app": "./scripts/ci-build-app.sh",
     "build:force": "bun run clean:build && bun run build -- --force",
     "build:js": "SKIP_TYPES=1 bun run build --force",
-    "build:pre": "cd pkgs/packages/babel-plugin-fully-specified && bun run build",
+    "build:pre": "cd pkgs/babel-plugin-fully-specified && bun run build",
     "build:types": "SKIP_JS=1 bun run build",
     "build:verbose": "bun run build -vvv",
     "build": "turbo run build",
@@ -125,7 +120,6 @@
   "devDependencies": {
     "@manypkg/cli": "^0.23.0",
     "@playwright/test": "^1.49.1",
-    "@take-out/cli": "0.0.65",
     "@testing-library/dom": "^10.4.0",
     "dotenv-cli": "^7.4.2",
     "esbuild": "^0.27.2",
@@ -166,10 +160,6 @@
     ]
   },
   "upgradeSets": {
-    "takeout": [
-      "@take-out/*",
-      "over-zero"
-    ],
     "hanzo-gui": [
       "hanzogui",
       "@hanzogui/*"

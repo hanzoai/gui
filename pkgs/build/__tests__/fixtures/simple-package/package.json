@@ -1,0 +1,26 @@
+{
+  "name": "hanzogui-build-test-simple-tpackage",
+  "version": "2.0.0",
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "module:jsx": "dist/jsx",
+  "types": "dist/types/index.d.ts",
+  "scripts": {
+    "build": "node ../../../gui-build.js",
+    "build:bundle": "node ../../../gui-build.js --bundle",
+    "build:skip-mjs": "node ../../../gui-build.js --skip-mjs",
+    "build:skip-sourcemaps": "node ../../../gui-build.js --skip-sourcemaps",
+    "build:declaration-root": "node ../../../gui-build.js --declaration-root",
+    "build:ignore-base-url": "node ../../../gui-build.js --ignore-base-url",
+    "build:watch": "node ../../../gui-build.js --watch",
+    "build:minify": "MINIFY=true node ../../../gui-build.js",
+    "build:target-web": "GUI_TARGET=web node ../../../gui-build.js",
+    "build:target-native": "GUI_TARGET=native node ../../../gui-build.js"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "typescript": "~5.9.2"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

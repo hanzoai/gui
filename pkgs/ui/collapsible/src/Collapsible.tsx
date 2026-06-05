@@ -3,7 +3,7 @@ import { AnimatePresence, ResetPresence } from '@hanzogui/animate-presence'
 import { composeEventHandlers, withStaticProperties } from '@hanzogui/helpers'
 import type { YStackProps } from '@hanzogui/stacks'
 import { useControllableState } from '@hanzogui/use-controllable-state'
-import type { GetProps, ViewProps, HanzoguiElement } from '@hanzogui/web'
+import type { GetProps, ViewProps, GuiElement } from '@hanzogui/web'
 import { View, createStyledContext, styled } from '@hanzogui/web'
 import * as React from 'react'
 
@@ -32,7 +32,7 @@ interface CollapsibleProps extends ViewProps {
   onOpenChange?(open: boolean): void
 }
 
-const _Collapsible = React.forwardRef<HanzoguiElement, ScopedProps<CollapsibleProps>>(
+const _Collapsible = React.forwardRef<GuiElement, ScopedProps<CollapsibleProps>>(
   (props, forwardedRef) => {
     const {
       __scopeCollapsible,

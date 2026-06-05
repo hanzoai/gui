@@ -1,19 +1,19 @@
-import { HanzoguiProvider, View, createHanzogui } from '@hanzogui/core'
+import { GuiProvider, View, createGui } from '@hanzogui/core'
 import { render } from '@testing-library/react-native'
 import { describe, expect, test } from 'vitest'
 
-import { getDefaultHanzoguiConfig } from '../config-default'
+import { getDefaultGuiConfig } from '../config-default'
 
-const config = createHanzogui(getDefaultHanzoguiConfig('native'))
+const config = createGui(getDefaultGuiConfig('native'))
 
 // TODO since upgrade to react-native 76 this stopped working
 
 describe('animation props', () => {
   test.skip(`renders with no props`, () => {
     const tree = render(
-      <HanzoguiProvider config={config} defaultTheme="light">
+      <GuiProvider config={config} defaultTheme="light">
         <View />
-      </HanzoguiProvider>
+      </GuiProvider>
     )
 
     expect(tree.toJSON()).toMatchInlineSnapshot('<View />')
@@ -22,9 +22,9 @@ describe('animation props', () => {
   // this looks wrong
   test.skip(`renders with animation props`, () => {
     const tree = render(
-      <HanzoguiProvider config={config} defaultTheme="light">
+      <GuiProvider config={config} defaultTheme="light">
         <View transition="quick" x={0} />
-      </HanzoguiProvider>
+      </GuiProvider>
     )
 
     expect(tree.toJSON()).toMatchInlineSnapshot(`

@@ -1,0 +1,126 @@
+{
+  "name": "@hanzogui/react-native-web-lite",
+  "version": "7.3.0",
+  "description": "React Native for Web",
+  "keywords": [
+    "react",
+    "react-component",
+    "react-native",
+    "web"
+  ],
+  "bugs": {
+    "url": "https://github.com/hanzoai/gui/issues"
+  },
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanzoai/gui.git",
+    "directory": "packages/react-native-web-lite"
+  },
+  "files": [
+    "types",
+    "dist",
+    "src"
+  ],
+  "type": "module",
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./without-animated": {
+      "browser": "./dist/esm/without-animated.mjs",
+      "module": "./dist/esm/without-animated.mjs",
+      "import": "./dist/esm/without-animated.mjs",
+      "require": "./dist/cjs/without-animated.cjs"
+    },
+    "./Libraries/Pressability/Pressability": {
+      "browser": "./dist/esm/Libraries/Pressability/Pressability.mjs",
+      "module": "./dist/esm/Libraries/Pressability/Pressability.mjs",
+      "import": "./dist/esm/Libraries/Pressability/Pressability.mjs",
+      "require": "./dist/cjs/Libraries/Pressability/Pressability.cjs"
+    },
+    "./Libraries/Pressability/usePressability": {
+      "browser": "./dist/esm/Libraries/Pressability/usePressability.mjs",
+      "module": "./dist/esm/Libraries/Pressability/usePressability.mjs",
+      "import": "./dist/esm/Libraries/Pressability/usePressability.mjs",
+      "require": "./dist/cjs/Libraries/Pressability/usePressability.cjs"
+    },
+    "./Libraries/Utilities/codegenNativeComponent": {
+      "browser": "./dist/esm/codegenNativeComponent.mjs",
+      "module": "./dist/esm/codegenNativeComponent.mjs",
+      "import": "./dist/esm/codegenNativeComponent.mjs",
+      "require": "./dist/cjs/codegenNativeComponent.cjs"
+    },
+    "./Libraries/Utilities/codegenNativeCommand": {
+      "browser": "./dist/esm/codegenNativeCommand.mjs",
+      "module": "./dist/esm/codegenNativeCommand.mjs",
+      "import": "./dist/esm/codegenNativeCommand.mjs",
+      "require": "./dist/cjs/codegenNativeCommand.cjs"
+    },
+    "./dist/exports/StyleSheet/compiler/createReactDOMStyle": {
+      "browser": "./dist/esm/createReactDOMStyle.mjs",
+      "module": "./dist/esm/createReactDOMStyle.mjs",
+      "import": "./dist/esm/createReactDOMStyle.mjs",
+      "require": "./dist/cjs/createReactDOMStyle.cjs"
+    },
+    "./dist/exports/StyleSheet/preprocess": {
+      "browser": "./dist/esm/preprocess.mjs",
+      "module": "./dist/esm/preprocess.mjs",
+      "import": "./dist/esm/preprocess.mjs",
+      "require": "./dist/cjs/preprocess.cjs"
+    },
+    "./dist/modules/*": {
+      "browser": "./dist/esm/modules/*/index.mjs",
+      "module": "./dist/esm/modules/*/index.mjs",
+      "import": "./dist/esm/modules/*/index.mjs",
+      "require": "./dist/cjs/modules/*/index.cjs"
+    },
+    "./dist/exports/*": {
+      "browser": "./dist/esm/exports/*/index.mjs",
+      "module": "./dist/esm/exports/*/index.mjs",
+      "import": "./dist/esm/exports/*/index.mjs",
+      "require": "./dist/cjs/exports/*/index.cjs"
+    },
+    "./dist/*": {
+      "browser": "./dist/esm/*/index.mjs",
+      "module": "./dist/esm/*/index.mjs",
+      "import": "./dist/esm/*/index.mjs",
+      "require": "./dist/cjs/*/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "gui-build --skip-types --skip-native",
+    "watch": "gui-build --watch --skip-types --skip-native",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/normalize-css-color": "workspace:*",
+    "@hanzogui/react-native-use-pressable": "workspace:*",
+    "@hanzogui/react-native-use-responder-events": "workspace:*",
+    "@hanzogui/react-native-web-internals": "workspace:*",
+    "@hanzogui/web": "workspace:*",
+    "invariant": "^2.2.4",
+    "memoize-one": "^6.0.0"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "react": ">=19",
+    "react-dom": "*"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": "*"
+  },
+  "tags": [
+    "react"
+  ],
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

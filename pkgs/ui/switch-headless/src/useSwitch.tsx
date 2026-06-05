@@ -81,7 +81,7 @@ export function useSwitch<R extends View, P extends SwitchProps>(
   [checked, setChecked]: [SwitchState, React.Dispatch<React.SetStateAction<SwitchState>>],
   ref: React.Ref<R>
 ) {
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     return {
       switchProps: {
         onPress() {

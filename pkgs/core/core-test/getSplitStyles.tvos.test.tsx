@@ -16,11 +16,11 @@
  *   - $platform-web should NOT apply
  */
 
-import { View, createHanzogui } from '@hanzogui/core'
+import { View, createGui } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
-// Set TAMAGUI_TARGET before importing getSplitStyles
-process.env.TAMAGUI_TARGET = 'native'
+// Set GUI_TARGET before importing getSplitStyles
+process.env.GUI_TARGET = 'native'
 
 // Import directly from source so mocks apply
 import { getSplitStyles } from '../web/src/helpers/getSplitStyles'
@@ -45,7 +45,7 @@ vi.mock('@hanzogui/constants', async () => {
 import config from '../config-default'
 
 beforeAll(() => {
-  createHanzogui(config.getDefaultHanzoguiConfig('native'))
+  createGui(config.getDefaultGuiConfig('native'))
 })
 
 function getSplitStylesFor(props: Record<string, any>, Component = View) {

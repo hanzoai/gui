@@ -77,7 +77,7 @@ export default function InvoicePage() {
 
           <XStack borderBottomColor="#ccc" borderBottomWidth={1}>
             <Text width={200} flex={1} p={8}>
-              Bento
+              Recipes
             </Text>
             <Text flex={1} p={8}>
               1
@@ -235,7 +235,7 @@ export default function InvoicePage() {
 //                       <Check />
 //                     </Checkbox.Indicator>
 //                   </Checkbox>
-//                   GUI Bento
+//                   GUI Recipes
 //                 </XStack>
 //               </DT.Col>
 //             </DT.Row>

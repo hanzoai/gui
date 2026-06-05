@@ -1,1 +1,1 @@
-export * from './hanzogui.config'
+export * from './gui.config'

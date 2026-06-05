@@ -1,18 +1,18 @@
 export { createSheetScope } from './SheetContext';
 export * from './types';
-export declare const Handle: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Handle: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-export declare const Overlay: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Overlay: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-export declare const Frame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Frame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -61,23 +61,23 @@ export declare const Sheet: import("react").ForwardRefExoticComponent<{
             disableHideBottomOverflow?: boolean;
             adjustPaddingForOffscreenContent?: boolean;
         }>>;
-        Overlay: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
+        Overlay: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
             open?: boolean;
         }, "__scopeSheet"> & {
             __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
         }, any, any, any, {
             open?: boolean;
-        }, {}> | import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
+        }, {}> | import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
             open?: boolean;
         }, "__scopeSheet"> & {
             __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
         }, any, {
             __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
         }, {}, {}, {}>;
-        Handle: import("@hanzogui/core").HanzoguiComponent<any, any, any, any, {
+        Handle: import("@hanzogui/core").GuiComponent<any, any, any, any, {
             open?: boolean;
-        }, {}> | import("@hanzogui/core").HanzoguiComponent<any, any, any, {}, {}, {}>;
-        ScrollView: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/core").HanzoguiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
+        }, {}> | import("@hanzogui/core").GuiComponent<any, any, any, {}, {}, {}>;
+        ScrollView: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/core").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
             readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
                 accept: {
                     readonly contentContainerStyle: "style";
@@ -126,23 +126,23 @@ export declare const Sheet: import("react").ForwardRefExoticComponent<{
         disableHideBottomOverflow?: boolean;
         adjustPaddingForOffscreenContent?: boolean;
     }>>;
-    Overlay: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
+    Overlay: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
         open?: boolean;
     }, "__scopeSheet"> & {
         __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
     }, any, any, any, {
         open?: boolean;
-    }, {}> | import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
+    }, {}> | import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
         open?: boolean;
     }, "__scopeSheet"> & {
         __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
     }, any, {
         __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
     }, {}, {}, {}>;
-    Handle: import("@hanzogui/core").HanzoguiComponent<any, any, any, any, {
+    Handle: import("@hanzogui/core").GuiComponent<any, any, any, any, {
         open?: boolean;
-    }, {}> | import("@hanzogui/core").HanzoguiComponent<any, any, any, {}, {}, {}>;
-    ScrollView: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/core").HanzoguiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
+    }, {}> | import("@hanzogui/core").GuiComponent<any, any, any, {}, {}, {}>;
+    ScrollView: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/core").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
         readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";

@@ -6,7 +6,7 @@ import * as t from '@babel/types'
 import findRoot from 'find-root'
 
 import { memoize } from '../helpers/memoize'
-import type { ExtractedAttr, HanzoguiOptionsWithFileInfo, Ternary } from '../types'
+import type { ExtractedAttr, GuiOptionsWithFileInfo, Ternary } from '../types'
 
 // import { astToLiteral } from './literalToAst'
 
@@ -98,7 +98,7 @@ export function findComponentName(scope) {
 }
 
 export function isValidThemeHook(
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   jsxPath: NodePath<t.JSXElement>,
   n: t.MemberExpression,
   sourcePath?: string
@@ -122,7 +122,7 @@ export function isValidThemeHook(
 }
 
 export const isInsideComponentPackage = (
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   moduleName: string
 ) => {
   return getValidComponentsPaths(props).some((path) => {
@@ -131,7 +131,7 @@ export const isInsideComponentPackage = (
 }
 
 export const isComponentPackage = (
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   srcName: string
 ) => {
   return getValidComponentsPaths(props).some((path) => {
@@ -140,7 +140,7 @@ export const isComponentPackage = (
 }
 
 export function getValidComponent(
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   moduleName: string,
   componentName: string
 ) {
@@ -161,7 +161,7 @@ export function getValidComponent(
   return null
 }
 
-export const isValidModule = (props: HanzoguiOptionsWithFileInfo, moduleName: string) => {
+export const isValidModule = (props: GuiOptionsWithFileInfo, moduleName: string) => {
   if (typeof moduleName !== 'string') {
     throw new Error(`No module name`)
   }
@@ -175,7 +175,7 @@ export const isValidModule = (props: HanzoguiOptionsWithFileInfo, moduleName: st
 }
 
 export const getValidImport = (
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   moduleName: string,
   componentName?: string
 ) => {
@@ -187,7 +187,7 @@ export const getValidImport = (
 }
 
 export const isValidImport = (
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   moduleName: string,
   componentName?: string
 ) => {
@@ -197,12 +197,12 @@ export const isValidImport = (
   return Boolean(getValidImport(props, moduleName, componentName))
 }
 
-const getValidComponentPackages = memoize((props: HanzoguiOptionsWithFileInfo) => {
-  // just always look for `hanzogui` and `@hanzogui/core`
-  return [...new Set(['@hanzogui/core', 'hanzogui', ...(props.components || [])])]
+const getValidComponentPackages = memoize((props: GuiOptionsWithFileInfo) => {
+  // just always look for `gui` and `@hanzogui/core`
+  return [...new Set(['@hanzogui/core', 'gui', ...(props.components || [])])]
 })
 
-export const getValidComponentsPaths = memoize((props: HanzoguiOptionsWithFileInfo) => {
+export const getValidComponentsPaths = memoize((props: GuiOptionsWithFileInfo) => {
   return getValidComponentPackages(props).flatMap((pkg) => {
     const root = findRoot(pkg)
     const based = basename(root)

@@ -51,7 +51,7 @@ export type CreateImageOptions<C extends ComponentType<any>> = {
  * })
  *
  * Now you get all expo-image props (transition, placeholder, etc.)
- * plus Hanzogui's unified API (src, objectFit, objectPosition)
+ * plus Gui's unified API (src, objectFit, objectPosition)
  * <Image
  *   src="https://example.com/photo.jpg"
  *   objectFit="cover"

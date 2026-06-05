@@ -1,4 +1,4 @@
-import type { HanzoguiOptions, ExtractedResponse } from '@hanzogui/static-worker'
+import type { GuiOptions, ExtractedResponse } from '@hanzogui/static-worker'
 import * as Static from '@hanzogui/static-worker'
 import { getPragmaOptions } from '@hanzogui/static-worker'
 import { createHash } from 'node:crypto'
@@ -8,11 +8,11 @@ import { fileURLToPath } from 'node:url'
 import type { Plugin, PluginOption, ResolvedConfig, ViteDevServer } from 'vite'
 import { normalizePath, transformWithEsbuild, type Environment } from 'vite'
 import {
-  loadHanzoguiBuildConfig,
+  loadGuiBuildConfig,
   getLoadPromise,
-  getHanzoguiOptions,
+  getGuiOptions,
   ensureFullConfigLoaded,
-} from './loadHanzogui'
+} from './loadGui'
 
 const resolve = (name: string) => fileURLToPath(import.meta.resolve(name))
 
@@ -23,9 +23,9 @@ type CacheEntry = {
   cssImport: string | null
 }
 
-const CACHE_KEY = '__hanzogui_vite_cache__'
-const CACHE_SIZE_KEY = '__hanzogui_vite_cache_size__'
-const PENDING_KEY = '__hanzogui_vite_pending__'
+const CACHE_KEY = '__gui_vite_cache__'
+const CACHE_SIZE_KEY = '__gui_vite_cache_size__'
+const PENDING_KEY = '__gui_vite_pending__'
 
 function getSharedCache(): Record<string, CacheEntry> {
   if (!(globalThis as any)[CACHE_KEY]) {
@@ -65,10 +65,10 @@ type AliasOptions = {
 type AliasEntry = { find: string | RegExp; replacement: string }
 
 /**
- * returns vite-compatible aliases for hanzogui
+ * returns vite-compatible aliases for gui
  * use this when you need control over alias ordering in your config
  */
-export function hanzoguiAliases(options: AliasOptions = {}): AliasEntry[] {
+export function guiAliases(options: AliasOptions = {}): AliasEntry[] {
   const aliases: AliasEntry[] = []
 
   if (options.svg) {
@@ -116,14 +116,14 @@ export function hanzoguiAliases(options: AliasOptions = {}): AliasEntry[] {
   return aliases
 }
 
-export function hanzoguiPlugin({
+export function guiPlugin({
   disableResolveConfig,
-  ...hanzoguiOptionsIn
-}: HanzoguiOptions & {
+  ...guiOptionsIn
+}: GuiOptions & {
   disableResolveConfig?: boolean
 } = {}): PluginOption {
   // extraction ON by default, set disableExtraction: true to opt out
-  let shouldExtract = !hanzoguiOptionsIn.disableExtraction
+  let shouldExtract = !guiOptionsIn.disableExtraction
   let watcher: Promise<{ dispose: () => void } | void | undefined> | undefined
 
   // TODO temporary fix
@@ -145,14 +145,14 @@ export function hanzoguiPlugin({
   ]
 
   // start loading immediately but don't block
-  loadHanzoguiBuildConfig(hanzoguiOptionsIn)
+  loadGuiBuildConfig(guiOptionsIn)
 
   // helper to await load when needed
   const ensureLoaded = async () => {
     const promise = getLoadPromise()
     if (promise) await promise
-    const options = getHanzoguiOptions()
-    // update shouldExtract from loaded config (hanzogui.build.ts)
+    const options = getGuiOptions()
+    // update shouldExtract from loaded config (gui.build.ts)
     if (options) {
       shouldExtract = !options.disableExtraction
     }
@@ -168,7 +168,7 @@ export function hanzoguiPlugin({
   const cssMap = new Map<string, string>()
   let config: ResolvedConfig
   let server: ViteDevServer
-  const virtualExt = `.hanzogui.css`
+  const virtualExt = `.gui.css`
 
   const getAbsoluteVirtualFileId = (filePath: string) => {
     if (filePath.startsWith(config.root)) {
@@ -202,7 +202,7 @@ export function hanzoguiPlugin({
   }
 
   const basePlugin: Plugin = {
-    name: 'hanzogui',
+    name: 'gui',
     enforce: 'pre',
 
     configureServer(_server) {
@@ -219,28 +219,28 @@ export function hanzoguiPlugin({
       const options = await ensureLoaded()
 
       if (!options) {
-        throw new Error(`No hanzogui options loaded`)
+        throw new Error(`No gui options loaded`)
       }
 
       // start watching config if enabled
-      if (!options.disableWatchHanzoguiConfig) {
-        watcher = Static.watchHanzoguiConfig({
-          components: ['hanzogui'],
-          config: './src/hanzogui.config.ts',
+      if (!options.disableWatchGuiConfig) {
+        watcher = Static.watchGuiConfig({
+          components: ['gui'],
+          config: './src/gui.config.ts',
           ...options,
         }).catch((err) => {
-          console.error(` [Hanzogui] Error watching config: ${err}`)
+          console.error(` [Gui] Error watching config: ${err}`)
         })
       }
 
       return {
-        envPrefix: ['TAMAGUI_'],
+        envPrefix: ['GUI_'],
 
         environments: {
           client: {
             define: {
-              'process.env.TAMAGUI_IS_CLIENT': JSON.stringify(true),
-              'process.env.TAMAGUI_ENVIRONMENT': '"client"',
+              'process.env.GUI_IS_CLIENT': JSON.stringify(true),
+              'process.env.GUI_ENVIRONMENT': '"client"',
             },
           },
         },
@@ -255,7 +255,7 @@ export function hanzoguiPlugin({
           'process.env.ENABLE_STEPS': JSON.stringify(process.env.ENABLE_STEPS || ''),
           'process.env.IS_STATIC': JSON.stringify(false),
           ...(env.mode === 'production' && {
-            'process.env.TAMAGUI_OPTIMIZE_THEMES': JSON.stringify(true),
+            'process.env.GUI_OPTIMIZE_THEMES': JSON.stringify(true),
           }),
         },
         resolve:
@@ -281,21 +281,21 @@ export function hanzoguiPlugin({
   }
 
   const rnwLitePlugin: Plugin = {
-    name: 'hanzogui-rnw-lite',
+    name: 'gui-rnw-lite',
 
     config() {
       if (enableNativeEnv) {
         return {}
       }
 
-      const options = getHanzoguiOptions()
+      const options = getGuiOptions()
       if (!options?.useReactNativeWebLite) {
         return {}
       }
 
       return {
         resolve: {
-          alias: hanzoguiAliases({ rnwLite: options.useReactNativeWebLite }),
+          alias: guiAliases({ rnwLite: options.useReactNativeWebLite }),
         },
         optimizeDeps: {
           // upstream react-native-web must not be pre-bundled when aliased to lite
@@ -308,7 +308,7 @@ export function hanzoguiPlugin({
   // extract plugin for optimize mode
   // always included, but checks shouldExtract dynamically after config loads
   const extractPlugin: Plugin = {
-    name: 'hanzogui-extract',
+    name: 'gui-extract',
     enforce: 'pre',
 
     async config(userConf) {
@@ -360,7 +360,7 @@ export function hanzoguiPlugin({
     async load(id) {
       if (!shouldExtract) return
 
-      const options = getHanzoguiOptions()
+      const options = getGuiOptions()
       if (options?.disable) {
         return
       }
@@ -380,7 +380,7 @@ export function hanzoguiPlugin({
     transform: {
       order: 'pre',
       async handler(code, id) {
-        // ensure hanzogui is loaded before transform
+        // ensure gui is loaded before transform
         const options = await ensureLoaded()
 
         // ensure full config (heavy bundling) is loaded before extraction
@@ -432,9 +432,9 @@ export function hanzoguiPlugin({
         // check cache first
         const cached = memoryCache[cacheKey]
         if (cached) {
-          if (process.env.DEBUG_TAMAGUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
-              `[hanzogui-cache] HIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
+              `[gui-cache] HIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
             )
           }
           return formatResult(cached)
@@ -443,9 +443,9 @@ export function hanzoguiPlugin({
         // check if another request is already extracting this file
         const pendingExtraction = pending.get(cacheKey)
         if (pendingExtraction) {
-          if (process.env.DEBUG_TAMAGUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
-              `[hanzogui-cache] WAIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
+              `[gui-cache] WAIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
             )
           }
           const result = await pendingExtraction
@@ -455,9 +455,9 @@ export function hanzoguiPlugin({
           return
         }
 
-        if (process.env.DEBUG_TAMAGUI_CACHE) {
+        if (process.env.DEBUG_GUI_CACHE) {
           console.info(
-            `[hanzogui-cache] EXTRACT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
+            `[gui-cache] EXTRACT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
           )
         }
 
@@ -472,9 +472,9 @@ export function hanzoguiPlugin({
               shouldPrintDebug,
             })
           } catch (err) {
-            if (process.env.DEBUG_TAMAGUI_CACHE) {
+            if (process.env.DEBUG_GUI_CACHE) {
               console.info(
-                `[hanzogui-cache] ERROR extracting ${id.split('/').pop()}:`,
+                `[gui-cache] ERROR extracting ${id.split('/').pop()}:`,
                 err
               )
             }
@@ -483,9 +483,9 @@ export function hanzoguiPlugin({
           }
 
           if (!extracted) {
-            if (process.env.DEBUG_TAMAGUI_CACHE) {
+            if (process.env.DEBUG_GUI_CACHE) {
               console.info(
-                `[hanzogui-cache] no extraction result for ${id.split('/').pop()}`
+                `[gui-cache] no extraction result for ${id.split('/').pop()}`
               )
             }
             return null
@@ -525,9 +525,9 @@ export function hanzoguiPlugin({
           }
           memoryCache[cacheKey] = cacheEntry
 
-          if (process.env.DEBUG_TAMAGUI_CACHE) {
+          if (process.env.DEBUG_GUI_CACHE) {
             console.info(
-              `[hanzogui-cache] WRITE key=${cacheKey.slice(0, 8)} cacheSize=${Object.keys(memoryCache).length}`
+              `[gui-cache] WRITE key=${cacheKey.slice(0, 8)} cacheSize=${Object.keys(memoryCache).length}`
             )
           }
 

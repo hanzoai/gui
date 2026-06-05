@@ -1,9 +1,9 @@
-import type { GetProps, HanzoguiElement } from '@hanzogui/core';
+import type { GetProps, GuiElement } from '@hanzogui/core';
 import * as React from 'react';
 declare const VIEWPORT_DEFAULT_HOTKEY: string[];
 declare const VIEWPORT_PAUSE = "toast.viewportPause";
 declare const VIEWPORT_RESUME = "toast.viewportResume";
-declare const ToastViewportFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ToastViewportFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -30,7 +30,7 @@ type ToastViewportProps = ToastViewportFrameProps & {
      */
     multipleToasts?: boolean;
     /**
-     * When true, uses a portal to render at the very top of the root HanzoguiProvider.
+     * When true, uses a portal to render at the very top of the root GuiProvider.
      */
     portalToRoot?: boolean;
 };
@@ -67,7 +67,7 @@ declare const ToastViewport: React.NamedExoticComponent<Omit<import("@hanzogui/c
      */
     multipleToasts?: boolean;
     /**
-     * When true, uses a portal to render at the very top of the root HanzoguiProvider.
+     * When true, uses a portal to render at the very top of the root GuiProvider.
      */
     portalToRoot?: boolean;
 } & React.RefAttributes<HTMLDivElement>>;

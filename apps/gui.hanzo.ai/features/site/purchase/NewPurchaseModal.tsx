@@ -1,5 +1,9 @@
-import type { StripeError } from '@stripe/stripe-js'
 import { X } from '@hanzogui/lucide-icons-2'
+
+// Was `import type { StripeError } from '@stripe/stripe-js'` — local alias
+// keeps the component compiling while the processor-agnostic commerce error
+// shape stabilises.
+type StripeError = { message?: string; code?: string }
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import type { TabsProps } from 'hanzogui'
 import {
@@ -74,8 +78,8 @@ export function PurchaseModalContents() {
       userData?.subscriptions?.some((sub) =>
         sub.subscription_items?.some(
           (item) =>
-            (item.price?.product?.name === ProductName.HanzoguiBento ||
-              item.price?.product?.name === ProductName.HanzoguiTakeoutStack) &&
+            (item.price?.product?.name === ProductName.GuiRecipes ||
+              item.price?.product?.name === ProductName.GuiTakeoutStack) &&
             sub.ended_at &&
             new Date(sub.ended_at) < new Date()
         )

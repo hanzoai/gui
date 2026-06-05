@@ -579,7 +579,7 @@ export function createAnimations<A extends object>(animations: A): AnimationDriv
         props.exitStyle,
       ])
 
-      // hanzogui doesnt even use animation output during hydration
+      // gui doesnt even use animation output during hydration
       if (isHydrating) {
         return null
       }

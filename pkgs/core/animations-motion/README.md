@@ -1,6 +1,6 @@
 # @hanzogui/animations-motion
 
-Motion animation driver for Hanzogui, powered by the [Motion](https://motion.dev) library and the Web Animations API (WAAPI).
+Motion animation driver for Gui, powered by the [Motion](https://motion.dev) library and the Web Animations API (WAAPI).
 
 ## Features
 
@@ -18,13 +18,13 @@ yarn add @hanzogui/animations-motion motion
 
 ## Usage
 
-Add to your Hanzogui configuration:
+Add to your Gui configuration:
 
 ```tsx
 import { createAnimations } from '@hanzogui/animations-motion'
-import { createHanzogui } from 'hanzogui'
+import { createGui } from 'hanzogui'
 
-export default createHanzogui({
+export default createGui({
   animations: createAnimations({
     bouncy: {
       type: 'spring',
@@ -69,4 +69,4 @@ export default createHanzogui({
 
 ## Documentation
 
-For complete documentation, see the [Hanzogui Animations docs](https://hanzogui.dev/docs/core/animations).
+For complete documentation, see the [Gui Animations docs](https://gui.dev/docs/core/animations).

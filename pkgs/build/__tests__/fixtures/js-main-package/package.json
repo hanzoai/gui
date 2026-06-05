@@ -1,0 +1,16 @@
+{
+  "name": "hanzogui-build-test-js-main-package",
+  "version": "2.0.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.mjs",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "node ../../../gui-build.js"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "typescript": "~5.9.2"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

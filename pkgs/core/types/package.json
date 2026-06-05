@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/types",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "files": [
     "types.ts"
   ],

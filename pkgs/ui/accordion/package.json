@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/accordion",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
   "files": [
@@ -31,9 +31,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean"
+    "build": "gui-build",
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean"
   },
   "dependencies": {
     "@hanzogui/collapsible": "workspace:*",

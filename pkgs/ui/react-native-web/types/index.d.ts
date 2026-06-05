@@ -11,8 +11,8 @@ export declare const StyleSheet: {
 };
 export declare const Pressable: () => null;
 export declare const Animated: {
-    View: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").ViewProps, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>;
-    Text: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TextProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {}, {}>;
+    View: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").ViewProps, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, {}>;
+    Text: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TextProps, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {}, {}>;
 };
 export declare const ActivityIndicator: () => null;
 export declare const PanResponder: () => null;

@@ -1,21 +1,24 @@
 export const ProductName = {
-  TamaguiPro: 'Tamagui Pro',
-  TamaguiProV2: 'Tamagui Pro V2', // V2 per-project license
-  TamaguiProV2Upgrade: 'Tamagui Pro V2 Upgrade', // V2 yearly renewal
-  TamaguiChat: 'Tamagui Chat',
-  TamaguiSupport: 'Tamagui Support',
-  TamaguiSupportDirect: 'Tamagui Support Direct', // V2 direct support
-  TamaguiSupportSponsor: 'Tamagui Support Sponsor', // V2 sponsor support
-  TamaguiProTeamSeats: 'Tamagui Pro Team Seats',
-  TamaguiBento: 'Bento',
-  TamaguiTakeoutStack: 'Takeout Stack',
+  GuiPro: 'Gui Pro',
+  GuiProV2: 'Gui Pro V2', // V2 per-project license
+  GuiProV2Upgrade: 'Gui Pro V2 Upgrade', // V2 yearly renewal
+  GuiChat: 'Gui Chat',
+  GuiSupport: 'Gui Support',
+  GuiSupportDirect: 'Gui Support Direct', // V2 direct support
+  GuiSupportSponsor: 'Gui Support Sponsor', // V2 sponsor support
+  GuiProTeamSeats: 'Gui Pro Team Seats',
+  // NOTE: value 'Bento' is the live Stripe product name; Stripe-side rename is
+  // a separate migration. Identifier renamed to GuiRecipes for the new vernacular.
+  GuiRecipes: 'Bento',
+  GuiTakeoutStack: 'Takeout Stack',
 } as const
 
 export const ProductSlug = {
   UniversalStarter: 'universal-starter',
   IconPacks: 'icon-packs',
   FontPacks: 'font-packs',
-  Bento: 'bento',
+  // NOTE: value 'bento' is the live Stripe product slug; Stripe-side rename TBD.
+  Recipes: 'bento',
 } as const
 
 export const SubscriptionStatus = {

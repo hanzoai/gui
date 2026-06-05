@@ -27,7 +27,7 @@ export const FaqTabContent = () => {
     <YStack gap="$5">
       <Question>What's included with Pro?</Question>
       <Answer>
-        Two starter kits (v1 with Next.js + Expo, v2 with One framework), Bento copy-paste
+        Two starter kits (v1 with Next.js + Expo, v2 with One framework), Recipes copy-paste
         components with full source repo access, Theme AI generator, private Discord
         support, and all future updates during your license period. See our{' '}
         <Link href="/pro-license">full license terms</Link> for details.
@@ -43,7 +43,7 @@ export const FaqTabContent = () => {
 
       <Question>Do I own the code?</Question>
       <Answer>
-        For Bento - yes, you have full rights and can use it in public projects. For
+        For Recipes - yes, you have full rights and can use it in public projects. For
         Takeout - the code is private, all team members must be added to your project on
         gui.hanzo.ai. See our <Link href="/pro-license">license</Link> for full details.
       </Answer>

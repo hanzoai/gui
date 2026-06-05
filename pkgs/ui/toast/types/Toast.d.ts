@@ -1,4 +1,4 @@
-import type { GetProps, NativePlatform, NativeValue, HanzoguiElement } from '@hanzogui/core';
+import type { GetProps, NativePlatform, NativeValue, GuiElement } from '@hanzogui/core';
 import * as React from 'react';
 import type { CustomData } from './ToastImperative';
 import { useToast, useToastController, useToastState } from './ToastImperative';
@@ -7,12 +7,12 @@ import type { ScopedProps, ToastProviderProps } from './ToastProvider';
 import { ToastProvider } from './ToastProvider';
 import type { ToastViewportProps } from './ToastViewport';
 import { ToastViewport } from './ToastViewport';
-declare const ToastTitle: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const ToastTitle: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
     unstyled?: boolean | undefined;
     size?: import("@hanzogui/core").FontSizeTokens | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 type ToastTitleProps = GetProps<typeof ToastTitle>;
-declare const ToastDescription: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const ToastDescription: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
     unstyled?: boolean | undefined;
     size?: import("@hanzogui/core").FontSizeTokens | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
@@ -26,7 +26,7 @@ type ToastActionProps = ScopedProps<ToastCloseProps & {
      */
     altText: string;
 }>;
-declare const ToastCloseFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ToastCloseFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
@@ -36,11 +36,11 @@ declare const Toast: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof ToastExtraProps> & ToastExtraProps & React.RefAttributes<HanzoguiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof ToastExtraProps> & ToastExtraProps & React.RefAttributes<GuiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof ToastExtraProps> & ToastExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof ToastExtraProps> & ToastExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -49,23 +49,23 @@ declare const Toast: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof ToastExtraProps> & ToastExtraProps, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof ToastExtraProps> & ToastExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic];
 } & {
-    Title: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    Title: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/core").FontSizeTokens | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Description: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    Description: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/core").FontSizeTokens | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
     Action: React.ForwardRefExoticComponent<Omit<ToastActionProps, "scope"> & {
         scope?: import("./ToastProvider").ToastScopes;
-    } & React.RefAttributes<HanzoguiElement>>;
+    } & React.RefAttributes<GuiElement>>;
     Close: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -77,7 +77,7 @@ declare const Toast: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core
         fullscreen?: boolean | undefined;
     }>>, "scope"> & {
         scope?: import("./ToastProvider").ToastScopes;
-    } & React.RefAttributes<HanzoguiElement>>;
+    } & React.RefAttributes<GuiElement>>;
 };
 export { Toast, ToastProvider, ToastViewport, useToast, useToastController, useToastState, };
 export type { CustomData, ToastActionProps, ToastCloseProps, ToastDescriptionProps, NativePlatform as ToastNativePlatform, NativeValue as ToastNativeValue, ToastProps, ToastProviderProps, ToastTitleProps, ToastViewportProps, };

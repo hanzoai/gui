@@ -1,11 +1,11 @@
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb } from '@hanzogui/constants'
-import type { HanzoguiElement } from '@hanzogui/core'
+import type { GuiElement } from '@hanzogui/core'
 import { Slot, createStyledContext } from '@hanzogui/core'
 import React from 'react'
 
 type SlotProps = React.ComponentPropsWithoutRef<typeof Slot>
-type CollectionElement = HanzoguiElement
+type CollectionElement = GuiElement
 interface CollectionProps extends SlotProps {}
 
 // We have resorted to returning slots directly rather than exposing primitives that can then
@@ -13,7 +13,7 @@ interface CollectionProps extends SlotProps {}
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-function createCollection<ItemElement extends HanzoguiElement, ItemData = {}>(
+function createCollection<ItemElement extends GuiElement, ItemData = {}>(
   name: string
 ) {
   /* -----------------------------------------------------------------------------------------------

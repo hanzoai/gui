@@ -1,6 +1,6 @@
 // forked from radix https://github.com/radix-ui/primitives/blob/main/packages/react/avatar/src/Avatar.tsx
 
-import type { GetProps, SizeTokens, HanzoguiElement } from '@hanzogui/core'
+import type { GetProps, SizeTokens, GuiElement } from '@hanzogui/core'
 import { getTokens, getVariableValue, styled } from '@hanzogui/core'
 import type { Scope } from '@hanzogui/create-context'
 import { createContextScope } from '@hanzogui/create-context'
@@ -37,7 +37,7 @@ type AvatarImageProps = Partial<ImageProps> & {
   onLoadingStatusChange?: (status: ImageLoadingStatus) => void
 }
 
-const AvatarImage = React.forwardRef<HanzoguiElement, AvatarImageProps>(
+const AvatarImage = React.forwardRef<GuiElement, AvatarImageProps>(
   (props: ScopedProps<AvatarImageProps>, forwardedRef) => {
     const {
       __scopeAvatar,
@@ -169,7 +169,7 @@ type AvatarProps = GetProps<typeof AvatarFrame>
 
 /**
  * @summary A component that displays an image or a fallback icon.
- * @see — Docs https://hanzogui.dev/ui/avatar
+ * @see — Docs https://gui.dev/ui/avatar
  *
  * @example
  * ```tsx
@@ -183,7 +183,7 @@ type AvatarProps = GetProps<typeof AvatarFrame>
  * ```
  */
 const Avatar = withStaticProperties(
-  React.forwardRef<HanzoguiElement, AvatarProps>(
+  React.forwardRef<GuiElement, AvatarProps>(
     (props: ScopedProps<AvatarProps>, forwardedRef) => {
       const { __scopeAvatar, size = '$true', ...avatarProps } = props
       const [imageLoadingStatus, setImageLoadingStatus] =

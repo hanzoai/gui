@@ -1,5 +1,5 @@
 import {
-  HanzoguiLogo,
+  GuiLogo,
   setTintFamily,
   useTint,
   getTints,
@@ -29,13 +29,13 @@ export const seasons = {
 }
 
 export const seasonLogos = {
-  gui: <HanzoguiLogo downscale={2} color={seasonColors.gui} />,
-  easter: <HanzoguiLogo downscale={2} color={seasonColors.easter} />,
-  xmas: <HanzoguiLogo downscale={2} color={seasonColors.xmas} />,
-  lunar: <HanzoguiLogo downscale={2} color={seasonColors.lunar} />,
-  valentine: <HanzoguiLogo downscale={2} color={seasonColors.valentine} />,
-  halloween: <HanzoguiLogo downscale={2} color={seasonColors.halloween} />,
-  stpatricks: <HanzoguiLogo downscale={2} color={seasonColors.stpatricks} />,
+  gui: <GuiLogo downscale={2} color={seasonColors.gui} />,
+  easter: <GuiLogo downscale={2} color={seasonColors.easter} />,
+  xmas: <GuiLogo downscale={2} color={seasonColors.xmas} />,
+  lunar: <GuiLogo downscale={2} color={seasonColors.lunar} />,
+  valentine: <GuiLogo downscale={2} color={seasonColors.valentine} />,
+  halloween: <GuiLogo downscale={2} color={seasonColors.halloween} />,
+  stpatricks: <GuiLogo downscale={2} color={seasonColors.stpatricks} />,
 }
 
 const seasonKeys = [

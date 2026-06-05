@@ -5,7 +5,7 @@ import { defaultStyles, textAreaSizeVariant } from '../shared'
 /**
  * @deprecated Use the new TextArea from '@hanzogui/input' instead
  * @summary A text area is a multi-line input field that allows users to enter text.
- * @see — Docs https://hanzogui.dev/ui/inputs#textarea
+ * @see — Docs https://gui.dev/ui/inputs#textarea
  */
 export const TextArea = styled(Input, {
   name: 'TextArea',
@@ -30,6 +30,6 @@ export const TextArea = styled(Input, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })

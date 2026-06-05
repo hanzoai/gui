@@ -103,7 +103,7 @@ BUILD_CMD=""
 case "$PLATFORM" in
   ios)
     CONFIG="ios.sim.debug"
-    APP_PATH="ios/build/Build/Products/Debug-iphonesimulator/hanzoguikitchensink.app"
+    APP_PATH="ios/build/Build/Products/Debug-iphonesimulator/guikitchensink.app"
     BUILD_CMD="bun run detox:build:ios"
     ;;
   android)

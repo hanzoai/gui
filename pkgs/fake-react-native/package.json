@@ -1,0 +1,20 @@
+{
+  "name": "@hanzogui/fake-react-native",
+  "version": "7.3.0",
+  "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
+  "main": "index.js",
+  "module": "index.mjs",
+  "exports": {
+    ".": {
+      "browser": "./index.mjs",
+      "module": "./index.mjs",
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

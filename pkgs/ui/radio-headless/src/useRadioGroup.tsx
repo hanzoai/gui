@@ -142,7 +142,7 @@ export const useRadioGroupItem = (params: UseRadioItemParams) => {
     }
   }, [])
 
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     useEffect(() => {
       if (!id) return
       if (disabled) return

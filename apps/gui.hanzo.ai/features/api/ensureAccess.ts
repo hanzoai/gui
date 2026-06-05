@@ -1,4 +1,4 @@
-import type { User } from '@supabase/supabase-js'
+import type { AuthUser } from '~/features/iam/server'
 import { getUserAccessInfo } from '~/features/user/helpers'
 
 type AccessInfo = {
@@ -6,10 +6,8 @@ type AccessInfo = {
   teamId?: number
 }
 
-/**
- * Checks if the user has Pro access
- */
-export async function ensureAccess({ user }: { user: User }): Promise<AccessInfo> {
+/** Checks if the user has Pro access. */
+export async function ensureAccess({ user }: { user: AuthUser }): Promise<AccessInfo> {
   console.info(`[ensureAccess] user=${user?.email} checking access...`)
 
   const { hasPro, teamsWithAccess } = await getUserAccessInfo(user)

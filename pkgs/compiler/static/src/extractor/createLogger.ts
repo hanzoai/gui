@@ -1,13 +1,13 @@
 import { basename } from 'node:path'
 
-import type { HanzoguiOptions } from '../types'
+import type { GuiOptions } from '../types'
 import { getPrefixLogs } from './getPrefixLogs'
 
-export function createLogger(sourcePath: string, options: HanzoguiOptions) {
+export function createLogger(sourcePath: string, options: GuiOptions) {
   const shouldLogTiming = options.logTimings ?? true
   const start = Date.now()
   const mem =
-    process.env.TAMAGUI_SHOW_MEMORY_USAGE && shouldLogTiming
+    process.env.GUI_SHOW_MEMORY_USAGE && shouldLogTiming
       ? process.memoryUsage()
       : null
 

@@ -12,8 +12,8 @@
   "main": "src/index.ts",
   "types": "./src",
   "scripts": {
-    "build": "hanzogui-build --skip-types",
-    "watch": "hanzogui-build --skip-types --watch"
+    "build": "gui-build --skip-types",
+    "watch": "gui-build --skip-types --watch"
   },
   "dependencies": {
     "@hanzogui/animations-react-native": "workspace:*",

@@ -1,12 +1,12 @@
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createHanzogui } from 'hanzogui'
+import { createGui } from 'hanzogui'
 
-const hanzoguiConfig = createHanzogui(defaultConfig)
+const guiConfig = createGui(defaultConfig)
 
-export type Conf = typeof hanzoguiConfig
+export type Conf = typeof guiConfig
 
 declare module 'hanzogui' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 }
 
-export default hanzoguiConfig
+export default guiConfig

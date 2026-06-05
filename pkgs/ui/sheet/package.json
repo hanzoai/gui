@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sheet",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "license": "BSD-3-Clause",
   "source": "src/index.ts",
   "type": "module",
@@ -51,9 +51,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean"
+    "build": "gui-build",
+    "watch": "gui-build --watch",
+    "clean": "gui-build clean"
   },
   "dependencies": {
     "@hanzogui/adapt": "workspace:*",

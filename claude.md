@@ -121,3 +121,16 @@ const response = await authFetch('/api/some-endpoint', {
 ```
 
 **Why this matters:** Cookies alone are not reliable for auth in production due to cross-origin/SameSite issues. The `authFetch` helper automatically includes the Authorization header with the user's access token. All payment/subscription endpoints require this.
+
+
+---
+
+## Additional notes (merged from LLM.md)
+
+# gui — AI Assistant Context
+
+# Hanzo GUI
+
+<h3 align="center">
+  Style library, design system, composable components, and more.
+</h3>

@@ -1,7 +1,7 @@
-import type { FontSizeTokens, GetProps, SizeTokens, HanzoguiElement } from '@hanzogui/core';
+import type { FontSizeTokens, GetProps, SizeTokens, GuiElement } from '@hanzogui/core';
 import * as React from 'react';
 import type { SelectProps, SelectScopedProps } from './types';
-declare const SelectValueFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const SelectValueFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
     unstyled?: boolean | undefined;
     size?: import("@hanzogui/web").FontSizeTokens | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
@@ -9,26 +9,26 @@ export type SelectValueExtraProps = SelectScopedProps<{
     placeholder?: React.ReactNode;
 }>;
 export type SelectValueProps = GetProps<typeof SelectValueFrame> & SelectValueExtraProps;
-export declare const SelectIcon: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const SelectIcon: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-declare const SelectIndicatorFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const SelectIndicatorFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 export type SelectIndicatorProps = GetProps<typeof SelectIndicatorFrame>;
-export declare const SelectGroupFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const SelectGroupFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-declare const SelectLabelFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const SelectLabelFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
     size?: SizeTokens | FontSizeTokens | undefined;
     unstyled?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
 export type SelectLabelProps = SelectScopedProps<GetProps<typeof SelectLabelFrame>>;
-export declare const SelectSeparator: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const SelectSeparator: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     vertical?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
@@ -53,18 +53,18 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
         fullscreen?: boolean | undefined;
     }>> & {
         scope?: import("./types").SelectScopes;
-    } & React.RefAttributes<HanzoguiElement>>;
-    Icon: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    } & React.RefAttributes<GuiElement>>;
+    Icon: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Item: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Item: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         size?: SizeTokens | undefined;
         variant?: "outlined" | undefined;
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
         active?: boolean | undefined;
-    }>, keyof import("./SelectItem").SelectItemExtraProps> & import("./SelectItem").SelectItemExtraProps, HanzoguiElement, import("@hanzogui/core").StackNonStyleProps & import("./SelectItem").SelectItemExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof import("./SelectItem").SelectItemExtraProps> & import("./SelectItem").SelectItemExtraProps, GuiElement, import("@hanzogui/core").StackNonStyleProps & import("./SelectItem").SelectItemExtraProps, import("@hanzogui/core").StackStyleBase, {
         size?: SizeTokens | undefined;
         variant?: "outlined" | undefined;
         disabled?: boolean | undefined;
@@ -82,31 +82,31 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
         fullscreen?: boolean | undefined;
     }>> & {
         scope?: import("./types").SelectScopes;
-    } & React.RefAttributes<HanzoguiElement>>;
-    ItemText: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    } & React.RefAttributes<GuiElement>>;
+    ItemText: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
         size?: FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }>, "scope"> & {
         scope?: import("./types").SelectScopes;
-    }, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps & {
+    }, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps & {
         scope?: import("./types").SelectScopes;
     }, import("@hanzogui/core").TextStylePropsBase, {
         size?: FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Label: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    Label: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
         size?: SizeTokens | FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }>, "scope"> & {
         scope?: any;
-    }, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps & {
+    }, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps & {
         scope?: any;
     }, import("@hanzogui/core").TextStylePropsBase, {
         size?: SizeTokens | FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    ScrollDownButton: React.ForwardRefExoticComponent<import("./types").SelectScrollButtonProps & React.RefAttributes<HanzoguiElement>>;
-    ScrollUpButton: React.ForwardRefExoticComponent<import("./types").SelectScrollButtonProps & React.RefAttributes<HanzoguiElement>>;
+    ScrollDownButton: React.ForwardRefExoticComponent<import("./types").SelectScrollButtonProps & React.RefAttributes<GuiElement>>;
+    ScrollUpButton: React.ForwardRefExoticComponent<import("./types").SelectScrollButtonProps & React.RefAttributes<GuiElement>>;
     Trigger: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").StackNonStyleProps, "disabled" | "size" | "unstyled" | keyof import("@hanzogui/core").StackStyleBase | "variant" | "active"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         size?: SizeTokens | undefined;
         variant?: "outlined" | undefined;
@@ -127,15 +127,15 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
         active?: boolean | undefined;
     }>> & import("@hanzogui/list-item").ListItemExtraProps & {
         scope?: import("./types").SelectScopes;
-    } & React.RefAttributes<HanzoguiElement>>;
-    Value: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    } & React.RefAttributes<GuiElement>>;
+    Value: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/web").FontSizeTokens | undefined;
     }>, "scope" | "placeholder"> & {
         placeholder?: React.ReactNode;
     } & {
         scope?: import("./types").SelectScopes;
-    }, import("@hanzogui/core").HanzoguiTextElement, import("@hanzogui/core").TextNonStyleProps & {
+    }, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps & {
         placeholder?: React.ReactNode;
     } & {
         scope?: import("./types").SelectScopes;
@@ -143,7 +143,7 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
         unstyled?: boolean | undefined;
         size?: import("@hanzogui/web").FontSizeTokens | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Viewport: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Viewport: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
@@ -154,7 +154,7 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
         unstyled?: boolean;
     } & {
         scope?: import("./types").SelectScopes;
-    }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & {
+    }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & {
         size?: SizeTokens;
         disableScroll?: boolean;
         unstyled?: boolean;
@@ -166,7 +166,7 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    Indicator: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Indicator: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -188,7 +188,7 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
         fullscreen?: boolean | undefined;
     }>> & {
         scope?: import("./types").SelectScopes;
-    }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+    }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;

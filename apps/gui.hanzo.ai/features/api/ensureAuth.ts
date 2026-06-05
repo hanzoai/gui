@@ -1,90 +1,60 @@
-import type { User } from '@supabase/supabase-js'
-import { redirect } from 'one'
-import { supabaseAdmin } from '../auth/supabaseAdmin'
-import { setupCors } from './cors'
-import { getSupabaseServerClient } from './getSupabaseServerClient'
-
 /**
- * makes a supabase instance for the current user and returns a 401 if there's no user
+ * Server-side auth gate for One framework API routes.
+ *
+ * Validates the request's IAM JWT, ensures a corresponding `users_private`
+ * record exists in Base, and returns `{ user, token }` to the caller.
+ *
+ * Note: the return shape is intentionally compatible with the previous
+ * `{ supabase, user }` shape — we hand back `supabaseAdmin` so the dozens of
+ * route handlers that destructure `const { supabase, user } = await ensureAuth(...)`
+ * continue to compile. They're using it as a generic DB facade.
  */
+
+import { redirect } from 'one'
+import { authenticate, type AuthUser } from '~/features/iam/server'
+import { db } from '~/features/db'
+import { setupCors } from './cors'
+import { supabaseAdmin } from '../auth/supabaseAdmin'
+
 export const ensureAuth = async ({
   req,
   shouldRedirect = false,
 }: {
   req: Request
   shouldRedirect?: boolean
-}) => {
+}): Promise<{ user: AuthUser; supabase: typeof supabaseAdmin; token: string }> => {
   setupCors(req)
 
-  const supabase = getSupabaseServerClient(req)
-
-  // Check Authorization header first (localStorage-based auth from client)
-  const authHeader = req.headers.get('Authorization')
-  let user: User | null = null
-
-  if (authHeader?.startsWith('Bearer ')) {
-    const token = authHeader.slice(7)
-    // Validate the JWT directly with Supabase
-    const { data, error } = await supabase.auth.getUser(token)
-    if (!error && data.user) {
-      user = data.user
-    }
-  }
-
-  // Fall back to cookies (traditional flow)
-  if (!user) {
-    const { data } = await supabase.auth.getUser()
-    user = data.user
-  }
-
-  if (!user) {
+  const authed = await authenticate(req)
+  if (!authed) {
     if (shouldRedirect) {
       throw redirect(
-        `/login?${new URLSearchParams({
-          redirect_to: req.url ?? '',
-        }).toString()}`,
-        303
+        `/login?${new URLSearchParams({ redirect_to: req.url ?? '' }).toString()}`,
+        303,
       )
     }
-
     throw Response.json(
-      {
-        error: 'The user is not authenticated',
-      },
-      {
-        status: 401,
-        statusText: `Not authed ${!user ? 'no user' : ''}`,
-      }
+      { error: 'The user is not authenticated' },
+      { status: 401, statusText: 'Not authed' },
     )
   }
 
-  const userPrivate = await supabase
-    .from('users_private')
-    .select('*')
-    .eq('id', user.id)
-    .maybeSingle()
+  const { user, token } = authed
 
-  if (!userPrivate.data?.email || !userPrivate.data.github_user_name) {
-    const updateData = {
+  // Ensure users_private row exists (mirrors old supabase upsert behaviour).
+  const existing = await db.from('users_private').select('*').eq('id', user.id).maybeSingle()
+  if (!existing.data?.email || !existing.data?.github_user_name) {
+    const result = await db.from('users_private').upsert({
       id: user.id,
       email: user.email,
       full_name: user.user_metadata.full_name,
       github_refresh_token: user.user_metadata.github_refresh_token,
       github_user_name: user.user_metadata.user_name,
-    }
-
-    console.info(`Update user info`, updateData.email)
-
-    // use supabaseAdmin to bypass RLS - server-side client doesn't have proper session for RLS
-    const result = await supabaseAdmin
-      .from('users_private')
-      .upsert(updateData)
-      .eq('id', user.id)
-
+    })
     if (result.error) {
-      console.error(`Error updating user metadata`, result.error)
+      console.error('Error updating user metadata', result.error)
     }
   }
 
-  return { supabase, user }
+  return { user, supabase: supabaseAdmin, token }
 }

@@ -1,5 +1,5 @@
 import { AnimatePresence } from '@hanzogui/animate-presence'
-import type { GetProps, NativePlatform, NativeValue, HanzoguiElement } from '@hanzogui/core'
+import type { GetProps, NativePlatform, NativeValue, GuiElement } from '@hanzogui/core'
 import { styled, useEvent } from '@hanzogui/core'
 import { composeEventHandlers, withStaticProperties } from '@hanzogui/helpers'
 import { YStack } from '@hanzogui/stacks'
@@ -35,7 +35,7 @@ const ToastTitle = styled(SizableText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -60,7 +60,7 @@ const ToastDescription = styled(SizableText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -84,7 +84,7 @@ type ToastActionProps = ScopedProps<
   }
 >
 
-const ToastAction = React.forwardRef<HanzoguiElement, ScopedProps<ToastActionProps>>(
+const ToastAction = React.forwardRef<GuiElement, ScopedProps<ToastActionProps>>(
   function ToastAction(props, forwardedRef) {
     const { altText, ...actionProps } = props
     if (!altText) return null
@@ -119,7 +119,7 @@ const ToastCloseFrame = styled(YStack, {
 type ToastCloseFrameProps = GetProps<typeof ToastCloseFrame>
 type ToastCloseProps = ScopedProps<ToastCloseFrameProps & {}>
 
-const ToastClose = React.forwardRef<HanzoguiElement, ToastCloseProps>(
+const ToastClose = React.forwardRef<GuiElement, ToastCloseProps>(
   function ToastClose(props, forwardedRef) {
     const { scope, ...closeProps } = props
     const interactiveContext = useToastInteractiveContext(scope)

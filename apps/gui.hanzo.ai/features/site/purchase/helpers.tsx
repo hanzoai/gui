@@ -121,7 +121,7 @@ export const RadioGroupItem = ({
   )
 }
 
-const bentoDefaults = {
+const recipesDefaults = {
   price_1QPzlaFQGtHoG6xcdRzFfWL8: {
     seats: 1,
   },
@@ -136,7 +136,7 @@ const bentoDefaults = {
   },
 }
 
-export function BentoTable({
+export function RecipesTable({
   product,
   selectedPriceId,
 }: {
@@ -146,7 +146,7 @@ export function BentoTable({
   selectedPriceId: string
 }) {
   const price = product?.prices.find((price) => price.id === selectedPriceId)
-  const priceInfo = price ? bentoDefaults[price.id] : null
+  const priceInfo = price ? recipesDefaults[price.id] : null
 
   return (
     <YStack borderWidth="$0.5" rounded="$4" borderColor="$color5">

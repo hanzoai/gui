@@ -39,7 +39,7 @@ export const ChatPage = () => {
 
         <Paragraph fontFamily="$mono" size="$7" lineHeight="$8" color="$color11">
           Our bot isn't just a GPT wrapper, it features a large library of resources
-          including all the code for Bento and Takeout and a custom library designed to
+          including all the code for Recipes and Takeout and a custom library designed to
           improve it's answers with Config v4.
         </Paragraph>
 

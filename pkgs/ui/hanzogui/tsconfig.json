@@ -4,7 +4,7 @@
     "composite": true
   },
   "exclude": [
-    "hanzogui.config.ts",
+    "gui.config.ts",
     "test",
     "dist",
     "types",
@@ -60,7 +60,7 @@
       "path": "../../core/use-window-dimensions"
     },
     {
-      "path": "../../packages/element"
+      "path": "../../element"
     },
     {
       "path": "../accordion"

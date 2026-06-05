@@ -1,16 +1,10 @@
-// hanzo-desktop — the entire app, as a thin shim over @hanzo/ai. Decomplected:
-//   • brand    = a build axis  (VITE_BRAND=hanzo → getBrand() returns the hanzo config)
-//   • platform = an injected prop (host={tauriHost})
-//   • app      = @hanzo/ai (one surface; web/desktop/mobile share it)
-// To use a published brand package instead of VITE_BRAND, spread it as props:
-//   import brand from '@hanzoai/brand'; <HanzoAI {...brand} host={tauriHost}/>
+// hanzo-desktop — the entire app, as a thin shim over @hanzo/ai's DESKTOP build
+// (real @tauri-apps native APIs; brand via VITE_BRAND=hanzo at build).
 import { createRoot } from 'react-dom/client';
-import HanzoAI, { getBrand } from '@hanzo/ai';
-import { tauriHost } from '../../tauri-host';
+import HanzoAI, { getBrand } from '@hanzo/ai/desktop';
 
 createRoot(document.getElementById('root')!).render(
   <HanzoAI {...getBrand()}
-    host={tauriHost}
     features={{ chat: true, wallet: true, mining: true, tools: true, agents: true }}
   />,
 );

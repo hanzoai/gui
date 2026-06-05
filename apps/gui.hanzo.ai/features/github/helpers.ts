@@ -150,7 +150,7 @@ const codinscapeusers = ['NathanBeesley']
 
 const callstackusers = ['troZee']
 
-export const whitelistBentoUsernames = new Set([
+export const whitelistRecipesUsernames = new Set([
   // team
   'baronha',
   'poteboy',

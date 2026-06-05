@@ -1,12 +1,12 @@
-import { createHanzogui } from 'hanzogui'
+import { createGui } from 'hanzogui'
 import { config } from '@hanzogui/dev-config'
 
-const guiConf = createHanzogui(config)
+const guiConf = createGui(config)
 
 export type Conf = typeof guiConf
 
 declare module 'hanzogui' {
-  interface HanzoguiCustomConfig extends Conf {}
+  interface GuiCustomConfig extends Conf {}
 
   interface TypeOverride {
     groupNames(): 'card' | 'takeoutBody' | 'content' | 'item'

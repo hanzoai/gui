@@ -13,13 +13,13 @@
       "path": "../../pkgs/core/core"
     },
     {
-      "path": "../../pkgs/packages/logo"
+      "path": "../../pkgs/logo"
     },
     {
-      "path": "../../pkgs/packages/lucide-icons"
+      "path": "../../pkgs/lucide-icons"
     },
     {
-      "path": "../../pkgs/packages/hanzogui-dev-config"
+      "path": "../../pkgs/gui-dev-config"
     },
     {
       "path": "../../pkgs/ui/avatar"

@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>dev.tamagui.kitchensinkgo</string>
+          <string>ai.hanzo.kitchensinkgo</string>
         </array>
       </dict>
     </array>

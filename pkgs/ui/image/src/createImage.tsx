@@ -86,7 +86,7 @@ const defaultTransformSource = (props: {
  * })
  *
  * Now you get all expo-image props (transition, placeholder, etc.)
- * plus Hanzogui's unified API (src, objectFit, objectPosition)
+ * plus Gui's unified API (src, objectFit, objectPosition)
  * <Image
  *   src="https://example.com/photo.jpg"
  *   objectFit="cover"
@@ -105,7 +105,7 @@ export function createImage<C extends ComponentType<any>>(
     transformSource = defaultTransformSource,
   } = options
 
-  // Props that should pass directly to the underlying component without Hanzogui processing
+  // Props that should pass directly to the underlying component without Gui processing
   const inlinePropsSet = new Set([
     'source',
     'placeholder',
@@ -135,7 +135,7 @@ export function createImage<C extends ComponentType<any>>(
     }
   )
 
-  // Combined props: ImageProps (Hanzogui) + Component's native props
+  // Combined props: ImageProps (Gui) + Component's native props
   type CombinedProps = ImageProps & Omit<GetProps<C>, keyof ImageProps>
 
   const ImageComponent = StyledImage.styleable<CombinedProps>((incomingProps, ref) => {

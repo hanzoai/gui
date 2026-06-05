@@ -1,5 +1,5 @@
-import { type TamaDefer, type HanzoguiComponent, type HanzoguiTextElement, type TextNonStyleProps, type TextStylePropsBase } from "@hanzogui/web";
-export declare const VisuallyHidden: HanzoguiComponent<TamaDefer, HanzoguiTextElement, TextNonStyleProps, TextStylePropsBase, {
+import { type TamaDefer, type GuiComponent, type GuiTextElement, type TextNonStyleProps, type TextStylePropsBase } from "@hanzogui/web";
+export declare const VisuallyHidden: GuiComponent<TamaDefer, GuiTextElement, TextNonStyleProps, TextStylePropsBase, {
 	visible?: boolean | undefined;
 	preserveDimensions?: boolean | undefined;
 }>;

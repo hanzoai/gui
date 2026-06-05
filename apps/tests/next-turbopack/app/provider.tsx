@@ -1,12 +1,12 @@
 'use client'
 
-import { HanzoguiProvider as Provider } from '@hanzogui/core'
+import { GuiProvider as Provider } from '@hanzogui/core'
 import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { useServerInsertedHTML } from 'next/navigation'
 import { StyleSheet } from 'react-native'
-import config from '../hanzogui.config'
+import config from '../gui.config'
 
-export function HanzoguiProvider({ children }: { children: React.ReactNode }) {
+export function GuiProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useRootTheme()
 
   useServerInsertedHTML(() => {
@@ -14,8 +14,8 @@ export function HanzoguiProvider({ children }: { children: React.ReactNode }) {
     const rnwStyle = StyleSheet.getSheet()
     return (
       <>
-        {/* Pre-generated CSS from hanzogui build */}
-        <link rel="stylesheet" href="/hanzogui.generated.css" />
+        {/* Pre-generated CSS from gui build */}
+        <link rel="stylesheet" href="/gui.generated.css" />
         <style
           dangerouslySetInnerHTML={{ __html: rnwStyle.textContent }}
           id={rnwStyle.id}

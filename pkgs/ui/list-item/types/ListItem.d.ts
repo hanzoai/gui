@@ -14,7 +14,7 @@ export type ListItemExtraProps = {
     iconSize?: SizeTokens;
 };
 export type ListItemProps = GetProps<typeof ListItemFrame> & ListItemExtraProps;
-declare const ListItemFrame: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+declare const ListItemFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
@@ -27,13 +27,13 @@ export declare const ListItem: import("react").ForwardRefExoticComponent<Omit<im
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
-}>, keyof ListItemExtraProps> & ListItemExtraProps & import("react").RefAttributes<import("@hanzogui/web").HanzoguiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+}>, keyof ListItemExtraProps> & ListItemExtraProps & import("react").RefAttributes<import("@hanzogui/web").GuiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
-}>, keyof ListItemExtraProps> & ListItemExtraProps, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & ListItemExtraProps, import("@hanzogui/web").StackStyleBase, {
+}>, keyof ListItemExtraProps> & ListItemExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps & ListItemExtraProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
@@ -46,7 +46,7 @@ export declare const ListItem: import("react").ForwardRefExoticComponent<Omit<im
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
         active?: boolean | undefined;
-    }>, keyof ListItemExtraProps> & ListItemExtraProps, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & ListItemExtraProps, import("@hanzogui/web").StackStyleBase, {
+    }>, keyof ListItemExtraProps> & ListItemExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps & ListItemExtraProps, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         variant?: "outlined" | undefined;
         disabled?: boolean | undefined;
@@ -66,18 +66,18 @@ export declare const ListItem: import("react").ForwardRefExoticComponent<Omit<im
         children?: ReactNode;
         scope?: string;
     }>;
-    Frame: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Frame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         variant?: "outlined" | undefined;
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
         active?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Text: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+    Text: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         size?: FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Subtitle: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+    Subtitle: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         size?: SizeTokens | FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
@@ -86,7 +86,7 @@ export declare const ListItem: import("react").ForwardRefExoticComponent<Omit<im
         size?: SizeTokens;
         scaleIcon?: number;
     }) => any;
-    Title: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+    Title: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         size?: FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;

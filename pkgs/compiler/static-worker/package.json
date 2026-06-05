@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/static-worker",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "license": "BSD-3-Clause",
   "source": "src/index.ts",
   "files": [
@@ -26,10 +26,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-native",
-    "watch": "hanzogui-build --skip-native --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build",
+    "build": "gui-build --skip-native",
+    "watch": "gui-build --skip-native --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build",
     "test": "vitest run",
     "test:web": "bun run test",
     "test:watch": "vitest"

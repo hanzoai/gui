@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/kitchen-sink-shared",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "private": true,
   "main": "src/index.ts",
   "dependencies": {

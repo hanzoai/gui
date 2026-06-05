@@ -6,10 +6,10 @@ export type LinearGradientExtraProps = {
     start?: LinearGradientPoint | null;
     end?: LinearGradientPoint | null;
 };
-export declare const LinearGradient: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const LinearGradient: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof LinearGradientExtraProps> & LinearGradientExtraProps, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & LinearGradientExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof LinearGradientExtraProps> & LinearGradientExtraProps, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & LinearGradientExtraProps, import("@hanzogui/core").StackStyleBase, {
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;

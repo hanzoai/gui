@@ -1,6 +1,6 @@
 import { composeEventHandlers } from '@hanzogui/helpers'
 import { useControllableState } from '@hanzogui/use-controllable-state'
-import type { GetProps, HanzoguiElement, ViewStyle } from '@hanzogui/web'
+import type { GetProps, GuiElement, ViewStyle } from '@hanzogui/web'
 import { styled, View } from '@hanzogui/web'
 import * as React from 'react'
 import { context } from './context'
@@ -74,7 +74,7 @@ export const ToggleFrame = styled(
     } as const,
 
     defaultVariants: {
-      unstyled: process.env.HANZOGUI_HEADLESS === '1',
+      unstyled: process.env.GUI_HEADLESS === '1',
     },
   },
   {
@@ -99,7 +99,7 @@ type ToggleItemExtraProps = {
 
 export type ToggleProps = ToggleFrameProps & ToggleItemExtraProps
 
-export const Toggle = React.forwardRef<HanzoguiElement, ToggleProps>(
+export const Toggle = React.forwardRef<GuiElement, ToggleProps>(
   function Toggle(props, forwardedRef) {
     const {
       active: activeProp,

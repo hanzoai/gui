@@ -3,7 +3,7 @@ import React from 'react'
 import type { LoaderProps } from 'one'
 import { useLoader } from 'one'
 import { HeadInfo } from '~/components/HeadInfo'
-import { HanzoguiExamples } from '~/components/HanzoguiExamples'
+import { GuiExamples } from '~/components/GuiExamples'
 import { BlogSlugPage } from '~/features/site/blog/BlogSlugPage'
 import { getOgUrl } from '~/features/site/getOgUrl'
 
@@ -73,9 +73,9 @@ export default function BlogSlug() {
         }}
       />
 
-      <HanzoguiExamples.Provider value={data.examples}>
+      <GuiExamples.Provider value={data.examples}>
         <BlogSlugPage Component={Component} {...data} />
-      </HanzoguiExamples.Provider>
+      </GuiExamples.Provider>
     </>
   )
 }

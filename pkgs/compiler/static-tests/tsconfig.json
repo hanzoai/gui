@@ -14,7 +14,7 @@
       "path": "../../core/test-design-system"
     },
     {
-      "path": "../../packages/sandbox-ui"
+      "path": "../../sandbox-ui"
     }
   ]
 }

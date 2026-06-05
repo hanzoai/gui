@@ -43,10 +43,10 @@ export const isTV: boolean =
  */
 export const currentPlatform: 'web' | 'ios' | 'native' | 'android' = 'web'
 
-// In web source mode (Vite/webpack without pre-built dist), TAMAGUI_TARGET may not be set.
-// Set it here so all process.env.TAMAGUI_TARGET runtime checks work correctly.
-// In pre-built dist, the build tool inlines TAMAGUI_TARGET as a literal string,
+// In web source mode (Vite/webpack without pre-built dist), GUI_TARGET may not be set.
+// Set it here so all process.env.GUI_TARGET runtime checks work correctly.
+// In pre-built dist, the build tool inlines GUI_TARGET as a literal string,
 // making this block dead code (if (!'web') → never executes).
-if (!process.env.TAMAGUI_TARGET) {
-  process.env.TAMAGUI_TARGET = 'web'
+if (!process.env.GUI_TARGET) {
+  process.env.GUI_TARGET = 'web'
 }

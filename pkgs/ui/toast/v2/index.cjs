@@ -1,2 +1,2 @@
-// compat with hanzogui static compiler
+// compat with gui static compiler
 Object.assign(module.exports, require('../dist/cjs/v2.cjs'))

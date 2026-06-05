@@ -9,7 +9,7 @@ import { SizableText } from '@hanzogui/text'
 
 /* -------------------------------------------------------------------------------------------------
  * ToastPositionWrapper - handles absolute positioning and stacking animations
- * On web: uses Hanzogui transition/enterStyle/exitStyle
+ * On web: uses Gui transition/enterStyle/exitStyle
  * On native: replaced by Animated.View with useAnimatedStyle
  * -----------------------------------------------------------------------------------------------*/
 
@@ -58,7 +58,7 @@ export const ToastItemFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -92,7 +92,7 @@ export const ToastCloseFrame = styled(XStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -121,7 +121,7 @@ export const ToastActionFrame = styled(XStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 

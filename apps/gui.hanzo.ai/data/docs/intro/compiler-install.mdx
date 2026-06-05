@@ -81,12 +81,12 @@ We have a full example of a plain Webpack or Vite setup in the simple starter
 accessible through `npm create hanzo-gui@latest`, which shows a complete
 configuration with more detail.
 
-Add `gui-loader` and set up your `webpack.config.js`.
+Add `hanzogui-loader` and set up your `webpack.config.js`.
 
 You can set it up more manually like so:
 
 ```js
-const { shouldExclude } = require('gui-loader')
+const { shouldExclude } = require('hanzogui-loader')
 
 const guiOptions = {
   config: './gui.config.ts',
@@ -125,7 +125,7 @@ module.exports = {
           },
 
           {
-            loader: 'gui-loader',
+            loader: 'hanzogui-loader',
             options: guiOptions,
           },
         ],
@@ -139,7 +139,7 @@ Or you can use the GuiPlugin which automates some of this setup for you.
 If you have a `gui.build.ts`, you can pass no options:
 
 ```tsx
-const { GuiPlugin } = require('gui-loader')
+const { GuiPlugin } = require('hanzogui-loader')
 
 module.exports = {
   plugins: [
@@ -152,7 +152,7 @@ module.exports = {
 Or pass options inline to override:
 
 ```tsx
-const { GuiPlugin } = require('gui-loader')
+const { GuiPlugin } = require('hanzogui-loader')
 
 module.exports = {
   plugins: [

@@ -1,9 +1,6 @@
 import { apiRoute } from '~/features/api/apiRoute'
 import { ensureAuth } from '~/features/api/ensureAuth'
 import { supabaseAdmin } from '~/features/auth/supabaseAdmin'
-import { stripe } from '~/features/stripe/stripe'
-import type Stripe from 'stripe'
-import { STRIPE_PRODUCTS } from '~/features/stripe/products'
 
 export default apiRoute(async (req) => {
   if (req.method === 'GET') {

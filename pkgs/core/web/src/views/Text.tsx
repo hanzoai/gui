@@ -2,16 +2,16 @@ import { stylePropsTextOnly, validStyles } from '@hanzogui/helpers'
 
 import { createComponent } from '../createComponent'
 import type {
-  HanzoguiTextElement,
+  GuiTextElement,
   TextNonStyleProps,
   TextProps,
   TextStylePropsBase,
 } from '../types'
 
-export type Text = HanzoguiTextElement
+export type Text = GuiTextElement
 
 const ellipsisStyle =
-  process.env.TAMAGUI_TARGET === 'web'
+  process.env.GUI_TARGET === 'web'
     ? {
         maxWidth: '100%',
         overflow: 'hidden',
@@ -34,7 +34,7 @@ export const Text = createComponent<
   isText: true,
 
   defaultProps:
-    process.env.TAMAGUI_TARGET === 'web'
+    process.env.GUI_TARGET === 'web'
       ? undefined
       : {
           suppressHighlighting: true,
@@ -43,7 +43,7 @@ export const Text = createComponent<
   inlineWhenUnflattened: new Set(['fontFamily']),
 
   variants: {
-    ...(process.env.TAMAGUI_TARGET === 'web' && {
+    ...(process.env.GUI_TARGET === 'web' && {
       numberOfLines: {
         1: ellipsisStyle,
 

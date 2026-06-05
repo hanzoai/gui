@@ -1,10 +1,10 @@
-import { HanzoguiProvider } from './provider'
+import { GuiProvider } from './provider'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <HanzoguiProvider>{children}</HanzoguiProvider>
+        <GuiProvider>{children}</GuiProvider>
       </body>
     </html>
   )

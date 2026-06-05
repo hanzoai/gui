@@ -116,7 +116,7 @@ function ProfileCard() {
         <Card3D.Item translateZ={25}>
           <YStack width={90} self="stretch" overflow="hidden" m="$2" rounded="$3">
             <Image
-              src="https://gui.hanzo.ai/bento/images/wheel-list/wl_6.png"
+              src="https://gui.hanzo.ai/recipes/images/wheel-list/wl_6.png"
               alt="Employee portrait"
               width="100%"
               height="100%"
@@ -201,7 +201,7 @@ function ProductCard() {
       borderColor="$color6"
     >
       <Image
-        src="https://gui.hanzo.ai/bento/images/wheel-list/wl_2.png"
+        src="https://gui.hanzo.ai/recipes/images/wheel-list/wl_2.png"
         alt="AI Character"
         width="100%"
         height="100%"

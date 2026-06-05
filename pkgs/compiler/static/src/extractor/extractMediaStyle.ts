@@ -1,31 +1,31 @@
 import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
-import type { HanzoguiInternalConfig } from '@hanzogui/core'
+import type { GuiInternalConfig } from '@hanzogui/core'
 import * as core from '@hanzogui/core'
 import type { ViewStyle } from 'react-native'
 
-import { requireHanzoguiCore } from '../helpers/requireHanzoguiCore'
-import type { StyleObject, HanzoguiOptionsWithFileInfo, Ternary } from '../types'
+import { requireGuiCore } from '../helpers/requireGuiCore'
+import type { StyleObject, GuiOptionsWithFileInfo, Ternary } from '../types'
 import { isPresent, isValidImport } from './extractHelpers'
 
 export function extractMediaStyle(
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   ternary: Ternary,
   jsxPath: NodePath<t.JSXElement>,
-  hanzoguiConfig: HanzoguiInternalConfig,
+  guiConfig: GuiInternalConfig,
   sourcePath: string,
   importance = 0,
   shouldPrintDebug: boolean | 'verbose' = false
 ) {
-  const { getCSSStylesAtomic } = requireHanzoguiCore('web')
+  const { getCSSStylesAtomic } = requireGuiCore('web')
   const mt = getMediaQueryTernary(props, ternary, jsxPath, sourcePath)
   if (!mt) {
     return null
   }
   const { key } = mt
-  const mq = hanzoguiConfig.media[key]
+  const mq = guiConfig.media[key]
   if (!mq) {
-    console.error(`Media query "${key}" not found: ${Object.keys(hanzoguiConfig.media)}`)
+    console.error(`Media query "${key}" not found: ${Object.keys(guiConfig.media)}`)
     return null
   }
   const getStyleObj = (styleObj: ViewStyle | null, negate = false) => {
@@ -40,7 +40,7 @@ export function extractMediaStyle(
     return null
   }
   // for now order first strongest
-  const mediaKeys = Object.keys(hanzoguiConfig.media)
+  const mediaKeys = Object.keys(guiConfig.media)
   const mediaKeyPrecendence = mediaKeys.reduce((acc, cur, i) => {
     acc[cur] = new Array(importance + 1).fill(':root').join('')
     return acc
@@ -57,7 +57,7 @@ export function extractMediaStyle(
       const mediaStyle = core.createMediaStyle(
         style,
         key,
-        hanzoguiConfig.media,
+        guiConfig.media,
         true,
         negate
       )
@@ -85,7 +85,7 @@ export function extractMediaStyle(
 }
 
 function getMediaQueryTernary(
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   ternary: Ternary,
   jsxPath: NodePath<t.JSXElement>,
   sourcePath: string
@@ -134,7 +134,7 @@ function getMediaQueryTernary(
 }
 
 function getMediaInfoFromExpression(
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   test: t.Expression,
   jsxPath: NodePath<t.JSXElement>,
   sourcePath: string,
@@ -173,7 +173,7 @@ function getMediaInfoFromExpression(
 }
 
 export function isValidMediaCall(
-  props: HanzoguiOptionsWithFileInfo,
+  props: GuiOptionsWithFileInfo,
   jsxPath: NodePath<t.JSXElement>,
   init: t.Expression,
   sourcePath: string

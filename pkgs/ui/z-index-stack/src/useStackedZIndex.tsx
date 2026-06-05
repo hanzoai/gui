@@ -12,7 +12,7 @@ export const useStackedZIndex = (props: {
   zIndex?: number
   stackZIndex?: StackZIndexProp
 }) => {
-  if (process.env.TAMAGUI_STACK_Z_INDEX_GLOBAL) {
+  if (process.env.GUI_STACK_Z_INDEX_GLOBAL) {
     const { stackZIndex, zIndex: zIndexProp } = props
     const id = useId()
 

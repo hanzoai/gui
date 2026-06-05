@@ -54,7 +54,7 @@ type ReanimatedAnimatedNumber = SharedValue<number>
 // this is our own custom reanimated animated component so we can allow data- attributes, className etc
 // this should ultimately be merged with react-native-web-lite
 
-function createHanzoguiAnimatedComponent(defaultTag = 'div') {
+function createGuiAnimatedComponent(defaultTag = 'div') {
   const isText = defaultTag === 'span'
 
   const Component = Animated.createAnimatedComponent(
@@ -99,8 +99,8 @@ function createHanzoguiAnimatedComponent(defaultTag = 'div') {
   return Component
 }
 
-const AnimatedView = createHanzoguiAnimatedComponent('div')
-const AnimatedText = createHanzoguiAnimatedComponent('span')
+const AnimatedView = createGuiAnimatedComponent('div')
+const AnimatedText = createGuiAnimatedComponent('span')
 
 // const AnimatedView = styled(View, {
 //   disableClassName: true,

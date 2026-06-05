@@ -4,7 +4,7 @@ import { withStaticProperties } from '@hanzogui/helpers'
 import { RovingFocusGroup } from '@hanzogui/roving-focus'
 import { useControllableState } from '@hanzogui/use-controllable-state'
 import { useDirection } from '@hanzogui/use-direction'
-import type { GetProps, HanzoguiElement } from '@hanzogui/web'
+import type { GetProps, GuiElement } from '@hanzogui/web'
 import { createStyledContext, styled, View } from '@hanzogui/web'
 import React from 'react'
 
@@ -82,7 +82,7 @@ type ToggleGroupItemImplProps = Omit<ToggleProps, 'defaultActive' | 'onActiveCha
 }
 
 const ToggleGroupItemImpl = React.forwardRef<
-  HanzoguiElement,
+  GuiElement,
   ScopedProps<ToggleGroupItemImplProps>
 >((props, forwardedRef) => {
   const { __scopeToggleGroup, value, ...itemProps } = props
@@ -123,7 +123,7 @@ interface ToggleGroupMultipleProps extends ToggleGroupImplMultipleProps {
 type ToggleGroupProps = ToggleGroupSingleProps | ToggleGroupMultipleProps
 
 const ToggleGroup = withStaticProperties(
-  React.forwardRef<HanzoguiElement, ScopedProps<ToggleGroupProps>>(
+  React.forwardRef<GuiElement, ScopedProps<ToggleGroupProps>>(
     (props, forwardedRef) => {
       const { type, ...toggleGroupProps } = props
 
@@ -183,7 +183,7 @@ interface ToggleGroupImplSingleProps extends ToggleGroupImplProps {
 }
 
 const ToggleGroupImplSingle = React.forwardRef<
-  HanzoguiElement,
+  GuiElement,
   ScopedProps<ToggleGroupImplSingleProps>
 >((props: ScopedProps<ToggleGroupImplSingleProps>, forwardedRef) => {
   const {
@@ -231,7 +231,7 @@ interface ToggleGroupImplMultipleProps extends ToggleGroupImplProps {
 }
 
 const ToggleGroupImplMultiple = React.forwardRef<
-  HanzoguiElement,
+  GuiElement,
   ToggleGroupImplMultipleProps
 >((props: ScopedProps<ToggleGroupImplMultipleProps>, forwardedRef) => {
   const {
@@ -297,7 +297,7 @@ type ToggleGroupImplProps = GetProps<typeof ToggleGroupFrame> & {
   color?: string
 }
 
-const ToggleGroupImpl = ToggleGroupFrame.styleable<HanzoguiElement, ToggleGroupImplProps>(
+const ToggleGroupImpl = ToggleGroupFrame.styleable<GuiElement, ToggleGroupImplProps>(
   (props: ScopedProps<ToggleGroupImplProps>, forwardedRef) => {
     const {
       __scopeToggleGroup,

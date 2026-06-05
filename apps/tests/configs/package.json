@@ -1,10 +1,10 @@
 {
   "name": "@hanzogui/configs-test",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "private": true,
   "scripts": {
-    "generate": "hanzogui generate",
-    "generate-prompt": "hanzogui generate-prompt"
+    "generate": "gui generate",
+    "generate-prompt": "gui generate-prompt"
   },
   "dependencies": {
     "@hanzogui/cli": "workspace:*",

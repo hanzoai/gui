@@ -1,9 +1,9 @@
-import type { GetProps, HanzoguiElement } from '@hanzogui/core';
+import type { GetProps, GuiElement } from '@hanzogui/core';
 import type { DismissableProps } from '@hanzogui/dismissable';
 import * as React from 'react';
 import type { GestureResponderEvent } from 'react-native';
 import type { ScopedProps } from './ToastProvider';
-declare const ToastImplFrame: import("@hanzogui/core").HanzoguiComponent<import("@hanzogui/core").TamaDefer, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ToastImplFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
@@ -103,7 +103,7 @@ declare const ToastImpl: React.ForwardRefExoticComponent<Omit<ToastImplPrivatePr
     fullscreen?: boolean | undefined;
 }>> & ToastExtraProps, "scope"> & {
     scope?: import("./ToastProvider").ToastScopes;
-} & React.RefAttributes<HanzoguiElement>>;
+} & React.RefAttributes<GuiElement>>;
 export { ToastImpl, ToastImplFrame, useToastInteractiveContext, type ToastImplProps };
 export type { ToastProps };
 //# sourceMappingURL=ToastImpl.d.ts.map

@@ -19,8 +19,8 @@
 <br />
 
 - `@hanzogui/web` - Universal style library for React.
-- `hanzogui` - UI kit that adapts to every platform.
-- `@hanzogui/static` - Optimizing compiler that works with `@hanzogui/web` and `hanzogui`.
+- `gui` - UI kit that adapts to every platform.
+- `@hanzogui/static` - Optimizing compiler that works with `@hanzogui/web` and `gui`.
 
 <br />
 
@@ -32,7 +32,7 @@ It does this with an optimizing compiler that outputs platform-specific optimiza
 
 The entirety of Hanzo GUI works at compile time and runtime, and can be set up gradually, with initial usage as simple as importing it and using the base views and styled function.
 
-We recommend checking out the starters with `npm create hanzogui@latest`, they range from a simple learning example to a production-ready monorepo.
+We recommend checking out the starters with `npm create gui@latest`, they range from a simple learning example to a production-ready monorepo.
 
 The compiler optimizes most styled components by flattening them to plain `div`s (web) or `View`s (native) at build time. Real-world apps see double-digit Lighthouse improvements.
 

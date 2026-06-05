@@ -25,7 +25,7 @@ type ButtonExtraProps = {
     name?: string;
     value?: string | readonly string[] | number;
 };
-declare const ButtonComponent: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+declare const ButtonComponent: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: number | SizeTokens | undefined;
     variant?: "outlined" | undefined;
     elevation?: number | SizeTokens | undefined;
@@ -33,7 +33,7 @@ declare const ButtonComponent: import("@hanzogui/web").HanzoguiComponent<Omit<im
     chromeless?: boolean | "all" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
-}>, keyof ButtonExtraProps> & ButtonExtraProps, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & ButtonExtraProps, import("@hanzogui/web").StackStyleBase, {
+}>, keyof ButtonExtraProps> & ButtonExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps & ButtonExtraProps, import("@hanzogui/web").StackStyleBase, {
     size?: number | SizeTokens | undefined;
     variant?: "outlined" | undefined;
     elevation?: number | SizeTokens | undefined;
@@ -50,7 +50,7 @@ export declare const Button: import("react").ForwardRefExoticComponent<Omit<impo
     chromeless?: boolean | "all" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
-}>, keyof ButtonExtraProps> & ButtonExtraProps & import("react").RefAttributes<import("@hanzogui/web").HanzoguiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+}>, keyof ButtonExtraProps> & ButtonExtraProps & import("react").RefAttributes<import("@hanzogui/web").GuiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: number | SizeTokens | undefined;
     variant?: "outlined" | undefined;
     elevation?: number | SizeTokens | undefined;
@@ -58,7 +58,7 @@ export declare const Button: import("react").ForwardRefExoticComponent<Omit<impo
     chromeless?: boolean | "all" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
-}>, keyof ButtonExtraProps> & ButtonExtraProps, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & ButtonExtraProps, import("@hanzogui/web").StackStyleBase, {
+}>, keyof ButtonExtraProps> & ButtonExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps & ButtonExtraProps, import("@hanzogui/web").StackStyleBase, {
     size?: number | SizeTokens | undefined;
     variant?: "outlined" | undefined;
     elevation?: number | SizeTokens | undefined;
@@ -75,7 +75,7 @@ export declare const Button: import("react").ForwardRefExoticComponent<Omit<impo
         chromeless?: boolean | "all" | undefined;
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
-    }>, keyof ButtonExtraProps> & ButtonExtraProps, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & ButtonExtraProps, import("@hanzogui/web").StackStyleBase, {
+    }>, keyof ButtonExtraProps> & ButtonExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps & ButtonExtraProps, import("@hanzogui/web").StackStyleBase, {
         size?: number | SizeTokens | undefined;
         variant?: "outlined" | undefined;
         elevation?: number | SizeTokens | undefined;
@@ -99,7 +99,7 @@ export declare const Button: import("react").ForwardRefExoticComponent<Omit<impo
         children?: import("react").ReactNode;
         scope?: string;
     }>;
-    Frame: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    Frame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: number | SizeTokens | undefined;
         variant?: "outlined" | undefined;
         elevation?: number | SizeTokens | undefined;
@@ -108,7 +108,7 @@ export declare const Button: import("react").ForwardRefExoticComponent<Omit<impo
         disabled?: boolean | undefined;
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
-    Text: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+    Text: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         size?: import("@hanzogui/web").FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;

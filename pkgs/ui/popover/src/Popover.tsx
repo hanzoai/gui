@@ -13,7 +13,7 @@ import { Animate } from '@hanzogui/animate'
 import { ResetPresence } from '@hanzogui/animate-presence'
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb, useIsomorphicLayoutEffect } from '@hanzogui/constants'
-import type { SizeTokens, HanzoguiElement, ViewProps } from '@hanzogui/core'
+import type { SizeTokens, GuiElement, ViewProps } from '@hanzogui/core'
 import {
   createStyledContext,
   useCreateShallowSetState,
@@ -119,11 +119,11 @@ export type PopoverProps = ScopedPopoverProps<PopperProps> & {
    * z-index for the popover portal. Use this when popovers need to appear
    * above other portaled content like dialogs or fixed headers.
    *
-   * By default, Hanzogui automatically stacks overlays - later-opened content
+   * By default, Gui automatically stacks overlays - later-opened content
    * appears above earlier content, and nested content appears above its parent.
    * Only set this if you need to override the automatic stacking behavior.
    *
-   * @see https://hanzogui.dev/ui/z-index
+   * @see https://gui.dev/ui/z-index
    */
   zIndex?: number
 }
@@ -338,7 +338,7 @@ const voidFn = () => {}
 export type PopoverAnchorProps = ScopedPopoverProps<YStackProps>
 
 export const PopoverAnchor = React.memo(
-  React.forwardRef<HanzoguiElement, PopoverAnchorProps>(
+  React.forwardRef<GuiElement, PopoverAnchorProps>(
     function PopoverAnchor(props, forwardedRef) {
       const { scope, ...rest } = props
       const context = usePopoverContext(scope)
@@ -370,14 +370,14 @@ export type PopoverTriggerProps = ScopedPopoverProps<
 >
 
 export const PopoverTrigger = React.memo(
-  React.forwardRef<HanzoguiElement, PopoverTriggerProps>(
+  React.forwardRef<GuiElement, PopoverTriggerProps>(
     function PopoverTrigger(props, forwardedRef) {
       const { scope, disablePressTrigger, ...rest } = props
       const triggerContext = usePopoverTriggerContext(scope)
       const triggerId = React.useId()
       const [open, setOpen] = React.useState(false)
       const anchorTo = triggerContext.anchorTo
-      const triggerElRef = React.useRef<HanzoguiElement>(null)
+      const triggerElRef = React.useRef<GuiElement>(null)
       const composedTriggerRef = useComposedRefs(forwardedRef, triggerElRef)
 
       const { registerTrigger, unregisterTrigger } = triggerContext
@@ -503,7 +503,7 @@ export const PopoverContent = PopperContentFrame.styleable<PopoverContentProps>(
     const [isFullyHidden, setIsFullyHidden] = React.useState(!open)
 
     // Reset isFullyHidden when popover opens (useEffect avoids render-phase timing issues)
-    // there was a hard to isolate bug in hanzogui.dev where moving between /ui docs pages quickly
+    // there was a hard to isolate bug in gui.dev where moving between /ui docs pages quickly
     // caused it to infinite loop, the setState in render (and useLayoutEffect) made it too prone
     // to bug, useEffect maybe fine here because its hidden, ok to be slightly delayed while hidden
     useIsomorphicLayoutEffect(() => {
@@ -772,7 +772,7 @@ const PopoverContentImpl = React.forwardRef<
   // i want to avoid reparenting but react-remove-scroll makes it hard
   // TODO its removed now so we can probable do it now
   if (!context.breakpointActive) {
-    if (process.env.TAMAGUI_TARGET !== 'native') {
+    if (process.env.GUI_TARGET !== 'native') {
       if (!alwaysDisable || !alwaysDisable.focus) {
         contents = (
           <FocusScope
@@ -854,7 +854,7 @@ const dspContentsStyle = {
 
 export type PopoverCloseProps = ScopedPopoverProps<YStackProps>
 
-export const PopoverClose = React.forwardRef<HanzoguiElement, PopoverCloseProps>(
+export const PopoverClose = React.forwardRef<GuiElement, PopoverCloseProps>(
   function PopoverClose(props: ScopedPopoverProps<PopoverCloseProps>, forwardedRef) {
     const { scope, ...rest } = props
     const context = usePopoverContext(scope)
@@ -993,7 +993,7 @@ const PopoverInner = React.forwardRef<
     ...restProps
   } = props
 
-  const triggerRef = React.useRef<HanzoguiElement>(null)
+  const triggerRef = React.useRef<GuiElement>(null)
   const [hasCustomAnchor, setHasCustomAnchor] = React.useState(false)
   const viaRef = React.useRef<PopoverVia>(undefined)
 

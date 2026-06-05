@@ -3,7 +3,7 @@
  * Thin wrapper around Toast + Toast.Viewport + Toast.List (composable API).
  */
 
-import type { HanzoguiElement } from '@hanzogui/core'
+import type { GuiElement } from '@hanzogui/core'
 import * as React from 'react'
 import { Toast } from './ToastComposable'
 import type { ToastPosition } from './ToastComposable'
@@ -125,7 +125,7 @@ export interface ToasterProps {
   reducedMotion?: boolean
 }
 
-export const Toaster = React.forwardRef<HanzoguiElement, ToasterProps>(
+export const Toaster = React.forwardRef<GuiElement, ToasterProps>(
   function Toaster(props, ref) {
     const {
       position = 'bottom-right',

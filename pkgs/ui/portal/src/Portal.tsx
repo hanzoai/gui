@@ -1,7 +1,7 @@
 import '@hanzogui/polyfill-dev'
 
 import { isServer } from '@hanzogui/constants'
-import { HanzoguiRoot, useDidFinishSSR, useThemeName } from '@hanzogui/web'
+import { GuiRoot, useDidFinishSSR, useThemeName } from '@hanzogui/web'
 import { useStackedZIndex, ZIndexHardcodedContext } from '@hanzogui/z-index-stack'
 import * as React from 'react'
 import { createPortal } from 'react-dom'
@@ -24,7 +24,7 @@ export const Portal = React.memo((propsIn: PortalProps) => {
   }
 
   return createPortal(
-    <HanzoguiRoot
+    <GuiRoot
       theme={themeName}
       style={{
         zIndex,
@@ -42,7 +42,7 @@ export const Portal = React.memo((propsIn: PortalProps) => {
       <ZIndexHardcodedContext.Provider value={zIndex}>
         {children}
       </ZIndexHardcodedContext.Provider>
-    </HanzoguiRoot>,
+    </GuiRoot>,
     globalThis.document?.body
   )
 })

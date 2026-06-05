@@ -37,10 +37,10 @@ const platforms = { ios: 'ios', android: 'android' } as const
 export const currentPlatform: 'web' | 'ios' | 'native' | 'android' =
   (Platform?.OS ? platforms[Platform.OS] : undefined) || 'native'
 
-// In Metro source mode, TAMAGUI_TARGET may not be set by the build tool.
-// Set it here so all process.env.TAMAGUI_TARGET runtime checks work correctly.
-// In pre-built dist, the build tool inlines TAMAGUI_TARGET as a literal string,
+// In Metro source mode, GUI_TARGET may not be set by the build tool.
+// Set it here so all process.env.GUI_TARGET runtime checks work correctly.
+// In pre-built dist, the build tool inlines GUI_TARGET as a literal string,
 // making this block dead code (if (!'native') → never executes).
-if (!process.env.TAMAGUI_TARGET) {
-  process.env.TAMAGUI_TARGET = 'native'
+if (!process.env.GUI_TARGET) {
+  process.env.GUI_TARGET = 'native'
 }

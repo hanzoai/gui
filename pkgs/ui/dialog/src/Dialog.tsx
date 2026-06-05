@@ -9,7 +9,7 @@ import {
 import { Animate } from '@hanzogui/animate'
 import { composeRefs, useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb, useIsomorphicLayoutEffect } from '@hanzogui/constants'
-import type { GetProps, HanzoguiElement, ViewProps } from '@hanzogui/core'
+import type { GetProps, GuiElement, ViewProps } from '@hanzogui/core'
 import {
   createStyledContext,
   getExpandedShorthand,
@@ -75,8 +75,8 @@ type DialogContextValue = {
   forceMount?: boolean
   keepChildrenMounted?: boolean
   disableRemoveScroll?: boolean
-  triggerRef: React.RefObject<HanzoguiElement | null>
-  contentRef: React.RefObject<HanzoguiElement | null>
+  triggerRef: React.RefObject<GuiElement | null>
+  contentRef: React.RefObject<GuiElement | null>
   contentId: string
   titleId: string
   descriptionId: string
@@ -188,7 +188,7 @@ export const DialogPortalFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -230,10 +230,10 @@ const DialogPortalItem = ({
   )
 }
 
-const DialogPortal = React.forwardRef<HanzoguiElement, DialogPortalProps>(
+const DialogPortal = React.forwardRef<GuiElement, DialogPortalProps>(
   (props, forwardRef) => {
     const { scope, forceMount, children, ...frameProps } = props
-    const dialogRef = React.useRef<HanzoguiElement>(null)
+    const dialogRef = React.useRef<GuiElement>(null)
     const ref = composeRefs(dialogRef, forwardRef)
 
     const context = useDialogContext(scope)
@@ -383,7 +383,7 @@ export const DialogOverlayFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -462,7 +462,7 @@ const DialogContentFrame = styled(ThemeableStack, {
 
   defaultVariants: {
     size: '$true',
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -508,9 +508,9 @@ type DialogContentTypeProps = DialogContentImplProps & {
   context: DialogContextValue
 }
 
-const DialogContentModal = React.forwardRef<HanzoguiElement, DialogContentTypeProps>(
+const DialogContentModal = React.forwardRef<GuiElement, DialogContentTypeProps>(
   ({ children, context, ...props }, forwardedRef) => {
-    const contentRef = React.useRef<HanzoguiElement>(null)
+    const contentRef = React.useRef<GuiElement>(null)
     const composedRefs = useComposedRefs(forwardedRef, context.contentRef, contentRef)
 
     return (
@@ -555,7 +555,7 @@ const DialogContentModal = React.forwardRef<HanzoguiElement, DialogContentTypePr
 
 /* -----------------------------------------------------------------------------------------------*/
 
-const DialogContentNonModal = React.forwardRef<HanzoguiElement, DialogContentTypeProps>(
+const DialogContentNonModal = React.forwardRef<GuiElement, DialogContentTypeProps>(
   (props, forwardedRef) => {
     const hasInteractedOutsideRef = React.useRef(false)
 
@@ -627,7 +627,7 @@ type DialogContentImplExtraProps = Omit<DismissableProps, 'onDismiss'> & {
 
 type DialogContentImplProps = DialogContentFrameProps & DialogContentImplExtraProps
 
-const DialogContentImpl = React.forwardRef<HanzoguiElement, DialogContentImplProps>(
+const DialogContentImpl = React.forwardRef<GuiElement, DialogContentImplProps>(
   (props, forwardedRef) => {
     const {
       trapFocus,
@@ -642,7 +642,7 @@ const DialogContentImpl = React.forwardRef<HanzoguiElement, DialogContentImplPro
       ...contentProps
     } = props
 
-    const contentRef = React.useRef<HanzoguiElement>(null)
+    const contentRef = React.useRef<GuiElement>(null)
     const composedRefs = useComposedRefs(forwardedRef, contentRef)
     const isAdapted = useAdaptIsActive(context.adaptScope)
 
@@ -847,7 +847,7 @@ const TitleWarning: React.FC<TitleWarningProps> = ({ titleId }) => {
 const DESCRIPTION_WARNING_NAME = 'DialogDescriptionWarning'
 
 type DescriptionWarningProps = {
-  contentRef: React.RefObject<HanzoguiElement>
+  contentRef: React.RefObject<GuiElement>
   descriptionId?: string
 }
 
@@ -908,8 +908,8 @@ const Dialog = withStaticProperties(
       const titleId = `${dialogId}-title`
       const descriptionId = `${dialogId}-description`
 
-      const triggerRef = React.useRef<HanzoguiElement>(null)
-      const contentRef = React.useRef<HanzoguiElement>(null)
+      const triggerRef = React.useRef<GuiElement>(null)
+      const contentRef = React.useRef<GuiElement>(null)
 
       const [open, setOpen] = useControllableState({
         prop: openProp,

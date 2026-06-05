@@ -40,7 +40,7 @@ type ButtonExtraProps = TextParentStyles & ThemeableProps & {
     unstyled?: boolean;
 };
 type ButtonProps = ButtonExtraProps & GetProps<typeof ButtonFrame>;
-declare const ButtonFrame: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+declare const ButtonFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: number | SizeTokens | undefined;
     variant?: "outlined" | undefined;
     elevation?: number | SizeTokens | undefined;
@@ -53,7 +53,7 @@ declare const ButtonFrame: import("@hanzogui/web").HanzoguiComponent<import("@ha
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
 }, import("@hanzogui/web").StaticConfigPublic>;
-declare const ButtonText: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+declare const ButtonText: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     size?: FontSizeTokens | undefined;
     unstyled?: boolean | undefined;
 }, import("@hanzogui/web").StaticConfigPublic>;
@@ -63,7 +63,7 @@ declare const ButtonIcon: (props: {
 }) => any;
 /**
  * @summary A Button is a clickable element that can be used to trigger actions such as submitting forms, navigating to other pages, or performing other actions.
- * @see — Docs https://hanzogui.dev/ui/button
+ * @see — Docs https://gui.dev/ui/button
  */
 declare const Button: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: number | SizeTokens | undefined;
@@ -107,7 +107,7 @@ declare const Button: import("react").ForwardRefExoticComponent<Omit<import("@ha
      * remove default styles
      */
     unstyled?: boolean;
-} & import("react").RefAttributes<import("@hanzogui/web").HanzoguiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+} & import("react").RefAttributes<import("@hanzogui/web").GuiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: number | SizeTokens | undefined;
     variant?: "outlined" | undefined;
     elevation?: number | SizeTokens | undefined;
@@ -149,7 +149,7 @@ declare const Button: import("react").ForwardRefExoticComponent<Omit<import("@ha
      * remove default styles
      */
     unstyled?: boolean;
-}, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & TextContextStyles & {
+}, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & TextContextStyles & {
     textProps?: Partial<import("@hanzogui/text").SizableTextProps>;
     noTextWrap?: boolean;
 } & ThemeableProps & {
@@ -234,7 +234,7 @@ declare const Button: import("react").ForwardRefExoticComponent<Omit<import("@ha
          * remove default styles
          */
         unstyled?: boolean;
-    }, import("@hanzogui/web").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & TextContextStyles & {
+    }, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & TextContextStyles & {
         textProps?: Partial<import("@hanzogui/text").SizableTextProps>;
         noTextWrap?: boolean;
     } & ThemeableProps & {
@@ -278,7 +278,7 @@ declare const Button: import("react").ForwardRefExoticComponent<Omit<import("@ha
         bordered?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic];
 } & {
-    Text: import("@hanzogui/web").HanzoguiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+    Text: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         size?: FontSizeTokens | undefined;
         unstyled?: boolean | undefined;
     }, import("@hanzogui/web").StaticConfigPublic>;
@@ -288,7 +288,7 @@ declare const Button: import("react").ForwardRefExoticComponent<Omit<import("@ha
     }) => any;
 };
 /**
- * @deprecated Instead of useButton, see the Button docs for the newer and much improved Advanced customization pattern: https://hanzogui.dev/docs/components/button
+ * @deprecated Instead of useButton, see the Button docs for the newer and much improved Advanced customization pattern: https://gui.dev/docs/components/button
  */
 declare function useButton<Props extends ButtonProps>({ textProps, ...propsIn }: Props, { Text }?: {
     Text: any;

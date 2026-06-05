@@ -15,7 +15,7 @@
  */
 
 import { isWeb } from '@hanzogui/constants'
-import { useConfiguration, useEvent, View as HanzoguiView } from '@hanzogui/core'
+import { useConfiguration, useEvent, View as GuiView } from '@hanzogui/core'
 import * as React from 'react'
 import type { Animated } from 'react-native'
 
@@ -162,12 +162,12 @@ export function useToastAnimations(
   const { animationDriver } = useConfiguration()
 
   if (!animationDriver) {
-    throw new Error('Toast requires an animation driver to be set in HanzoguiProvider')
+    throw new Error('Toast requires an animation driver to be set in GuiProvider')
   }
 
   const { useAnimatedNumber, useAnimatedNumberStyle, useAnimatedNumbersStyle } =
     animationDriver
-  const AnimatedView = (animationDriver.View ?? HanzoguiView) as typeof Animated.View
+  const AnimatedView = (animationDriver.View ?? GuiView) as typeof Animated.View
 
   // ref for direct DOM manipulation (CSS driver fallback)
   const dragRef = React.useRef<HTMLDivElement>(null)

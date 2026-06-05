@@ -4,7 +4,7 @@ import { useLoader } from 'one'
 import { useMemo } from 'react'
 import { HeadInfo } from '~/components/HeadInfo'
 import { SubTitle, nbspLastWord } from '~/components/SubTitle'
-import { HanzoguiExamples } from '~/components/HanzoguiExamples'
+import { GuiExamples } from '~/components/GuiExamples'
 import { DocsPageFrame } from '~/features/docs/DocsPageFrame'
 import { useDocsMenu } from '~/features/docs/useDocsMenu'
 import { components } from '~/features/mdx/MDXComponents'
@@ -71,9 +71,9 @@ export default function DocIntroPage() {
       <HomeH1>{nbspLastWord(frontmatter.title)}</HomeH1>
       <SubTitle>{nbspLastWord(frontmatter.description || '')}</SubTitle>
       <ThemeTint>
-        <HanzoguiExamples.Provider value={examples}>
+        <GuiExamples.Provider value={examples}>
           <Component components={components as any} />
-        </HanzoguiExamples.Provider>
+        </GuiExamples.Provider>
       </ThemeTint>
     </DocsPageFrame>
   )

@@ -5,7 +5,7 @@ import * as PopperPrimitive from '@hanzogui/popper';
 import type { RovingFocusGroupProps } from '@hanzogui/roving-focus';
 import type { TextProps } from '@hanzogui/web';
 import { type ViewProps, View } from '@hanzogui/web';
-import type { HanzoguiElement } from '@hanzogui/web/types';
+import type { GuiElement } from '@hanzogui/web/types';
 import * as React from 'react';
 import type { Image, ImageProps } from 'react-native';
 import { MenuPredefined } from './MenuPredefined';
@@ -175,14 +175,14 @@ export declare function createBaseMenu({ Item: _Item, Title: _Title, SubTitle: _
             (props: ScopedProps<MenuPortalProps>): import("react/jsx-runtime").JSX.Element;
             displayName: string;
         };
-        Content: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        Content: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             size?: import("@hanzogui/web").SizeTokens | undefined;
             unstyled?: boolean | undefined;
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }>, keyof MenuContentProps> & MenuContentProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & MenuContentProps & {
+        }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & MenuContentProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             size?: import("@hanzogui/web").SizeTokens | undefined;
@@ -190,81 +190,81 @@ export declare function createBaseMenu({ Item: _Item, Title: _Title, SubTitle: _
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        Group: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        Group: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
-        }>, keyof MenuGroupProps> & MenuGroupProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuGroupProps, import("@hanzogui/web").StackStyleBase, {
+        }>, keyof MenuGroupProps> & MenuGroupProps, GuiElement, import("@hanzogui/web").StackNonStyleProps & MenuGroupProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        Label: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+        Label: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
             unstyled?: boolean | undefined;
             size?: import("@hanzogui/web").FontSizeTokens | undefined;
-        }>, keyof MenuLabelProps> & MenuLabelProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuLabelProps, import("@hanzogui/web").TextStylePropsBase, {
+        }>, keyof MenuLabelProps> & MenuLabelProps, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuLabelProps, import("@hanzogui/web").TextStylePropsBase, {
             unstyled?: boolean | undefined;
             size?: import("@hanzogui/web").FontSizeTokens | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        Item: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        Item: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }>, "scope" | keyof MenuItemProps> & MenuItemProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuItemProps & {
+        }, GuiElement, import("@hanzogui/web").StackNonStyleProps & MenuItemProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        CheckboxItem: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        CheckboxItem: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }>, "scope" | keyof MenuCheckboxItemProps> & MenuCheckboxItemProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuCheckboxItemProps & {
+        }, GuiElement, import("@hanzogui/web").StackNonStyleProps & MenuCheckboxItemProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        RadioGroup: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        RadioGroup: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }>, "scope" | keyof MenuRadioGroupProps> & MenuRadioGroupProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuRadioGroupProps & {
+        }, GuiElement, import("@hanzogui/web").StackNonStyleProps & MenuRadioGroupProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        RadioItem: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        RadioItem: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }>, "scope" | keyof MenuRadioItemProps> & MenuRadioItemProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuRadioItemProps & {
+        }, GuiElement, import("@hanzogui/web").StackNonStyleProps & MenuRadioItemProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        ItemIndicator: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        ItemIndicator: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }>, "scope" | keyof MenuItemIndicatorProps> & MenuItemIndicatorProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuItemIndicatorProps & {
+        }, GuiElement, import("@hanzogui/web").StackNonStyleProps & MenuItemIndicatorProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        Separator: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        Separator: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
-        }>, keyof MenuSeparatorProps> & MenuSeparatorProps, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & MenuSeparatorProps, import("@hanzogui/web").StackStyleBase, {
+        }>, keyof MenuSeparatorProps> & MenuSeparatorProps, GuiElement, import("@hanzogui/web").StackNonStyleProps & MenuSeparatorProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        Arrow: React.ForwardRefExoticComponent<MenuArrowProps & React.RefAttributes<HanzoguiElement>>;
+        Arrow: React.ForwardRefExoticComponent<MenuArrowProps & React.RefAttributes<GuiElement>>;
         Sub: React.FC<ScopedProps<MenuSubProps>>;
         SubTrigger: React.ForwardRefExoticComponent<MenuSubTriggerProps & {
             scope?: string;
-        } & React.RefAttributes<HanzoguiElement>>;
-        SubContent: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        } & React.RefAttributes<GuiElement>>;
+        SubContent: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             size?: import("@hanzogui/web").SizeTokens | undefined;
             unstyled?: boolean | undefined;
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }>, keyof MenuSubContentProps> & MenuSubContentProps & {
             scope?: string;
-        }, HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & MenuSubContentProps & {
+        }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & MenuSubContentProps & {
             scope?: string;
         }, import("@hanzogui/web").StackStyleBase, {
             size?: import("@hanzogui/web").SizeTokens | undefined;
@@ -272,24 +272,24 @@ export declare function createBaseMenu({ Item: _Item, Title: _Title, SubTitle: _
             elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
             fullscreen?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        ItemTitle: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+        ItemTitle: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
             unstyled?: boolean | undefined;
             size?: import("@hanzogui/web").FontSizeTokens | undefined;
-        }>, keyof MenuItemTitleProps> & MenuItemTitleProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuItemTitleProps, import("@hanzogui/web").TextStylePropsBase, {
+        }>, keyof MenuItemTitleProps> & MenuItemTitleProps, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuItemTitleProps, import("@hanzogui/web").TextStylePropsBase, {
             unstyled?: boolean | undefined;
             size?: import("@hanzogui/web").FontSizeTokens | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
-        ItemSubtitle: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+        ItemSubtitle: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
             unstyled?: boolean | undefined;
             size?: import("@hanzogui/web").FontSizeTokens | undefined;
-        }>, keyof MenuItemSubTitleProps> & MenuItemSubTitleProps, import("@hanzogui/web").HanzoguiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuItemSubTitleProps, import("@hanzogui/web").TextStylePropsBase, {
+        }>, keyof MenuItemSubTitleProps> & MenuItemSubTitleProps, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & MenuItemSubTitleProps, import("@hanzogui/web").TextStylePropsBase, {
             unstyled?: boolean | undefined;
             size?: import("@hanzogui/web").FontSizeTokens | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
         ItemImage: React.ForwardRefExoticComponent<ImageProps & React.RefAttributes<Image>>;
-        ItemIcon: import("@hanzogui/web").HanzoguiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        ItemIcon: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
-        }>, `$${string}` | `$${number}` | import("@hanzogui/web").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | keyof import("@hanzogui/web").StackStyleBase | keyof import("@hanzogui/web").StackNonStyleProps | keyof import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>>> & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, HanzoguiElement, import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, import("@hanzogui/web").StackStyleBase, {
+        }>, `$${string}` | `$${number}` | import("@hanzogui/web").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | keyof import("@hanzogui/web").StackStyleBase | keyof import("@hanzogui/web").StackNonStyleProps | keyof import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>>> & import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, GuiElement, import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>>, import("@hanzogui/web").StackStyleBase, {
             unstyled?: boolean | undefined;
         }, import("@hanzogui/web").StaticConfigPublic>;
     };

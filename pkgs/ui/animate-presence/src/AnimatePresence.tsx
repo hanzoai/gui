@@ -13,7 +13,7 @@ const getChildKey = (child: ReactElement<any>): ComponentKey => {
   return (
     child.key ||
     (() => {
-      // we can help a bit by falling back to hanzogui name or component name
+      // we can help a bit by falling back to gui name or component name
       const ct = child.type
       const defaultName = ct['displayName'] || ct['name'] || ''
       if (ct && typeof ct === 'object' && 'staticConfig' in ct) {

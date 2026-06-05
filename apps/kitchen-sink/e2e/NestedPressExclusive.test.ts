@@ -1,8 +1,8 @@
 /**
  * Detox E2E tests for nested press exclusivity
  *
- * Tests verify that when Hanzogui components (using RNGH) are nested inside
- * RN Pressable or other Hanzogui pressables, only the innermost fires onPress.
+ * Tests verify that when Gui components (using RNGH) are nested inside
+ * RN Pressable or other Gui pressables, only the innermost fires onPress.
  * This matches RN Pressable/responder semantics.
  */
 
@@ -30,17 +30,17 @@ describe('NestedPressExclusive', () => {
   })
 
   it('should render the test case screen', async () => {
-    await expect(element(by.id('hanzogui-button-solo'))).toBeVisible()
+    await expect(element(by.id('gui-button-solo'))).toBeVisible()
     await expect(element(by.id('rn-pressable-parent'))).toBeVisible()
-    await expect(element(by.id('hanzogui-button-child'))).toBeVisible()
+    await expect(element(by.id('gui-button-child'))).toBeVisible()
   })
 
-  it('should fire a standalone Hanzogui button press', async () => {
+  it('should fire a standalone Gui button press', async () => {
     await expect(element(by.id('solo-press-count'))).toHaveText('Solo: 0')
     await expect(element(by.id('solo-press-in-count'))).toHaveText('Solo in: 0')
     await expect(element(by.id('solo-press-out-count'))).toHaveText('Solo out: 0')
 
-    await tapForCurrentPlatform('hanzogui-button-solo')
+    await tapForCurrentPlatform('gui-button-solo')
     await new Promise((resolve) => setTimeout(resolve, 400))
 
     await expect(element(by.id('solo-press-in-count'))).toHaveText('Solo in: 1')
@@ -54,7 +54,7 @@ describe('NestedPressExclusive', () => {
     await expect(element(by.id('child-press-in-count'))).toHaveText('Child in: 0')
     await expect(element(by.id('child-press-out-count'))).toHaveText('Child out: 0')
 
-    await tapForCurrentPlatform('hanzogui-button-child')
+    await tapForCurrentPlatform('gui-button-child')
     await new Promise((resolve) => setTimeout(resolve, 400))
 
     await expect(element(by.id('parent-press-count'))).toHaveText('Parent: 0')

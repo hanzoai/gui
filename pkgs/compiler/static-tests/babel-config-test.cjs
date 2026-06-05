@@ -3,9 +3,9 @@ module.exports = {
     [
       '@hanzogui/babel-plugin',
       {
-        components: ['hanzogui', '@hanzogui/test-design-system'],
+        components: ['gui', '@hanzogui/test-design-system'],
         platform: 'native',
-        config: './tests/lib/hanzogui.config.cjs',
+        config: './tests/lib/gui.config.cjs',
       },
     ],
     [

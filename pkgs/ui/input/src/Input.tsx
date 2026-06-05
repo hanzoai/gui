@@ -9,7 +9,7 @@ const StyledInput = styled(View, styledBody[0], styledBody[1])
 
 /**
  * A web-aligned input component.
- * @see — Docs https://hanzogui.dev/ui/inputs#input
+ * @see — Docs https://gui.dev/ui/inputs#input
  */
 export const Input = StyledInput.styleable<InputExtraProps>((props, _forwardedRef) => {
   const {

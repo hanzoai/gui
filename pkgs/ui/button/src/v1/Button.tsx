@@ -142,7 +142,7 @@ const ButtonFrame = styled(ThemeableStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -165,7 +165,7 @@ const ButtonText = styled(SizableText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -191,7 +191,7 @@ const ButtonComponent = ButtonFrame.styleable<ButtonExtraProps>(
 )
 /**
  * @summary A Button is a clickable element that can be used to trigger actions such as submitting forms, navigating to other pages, or performing other actions.
- * @see — Docs https://hanzogui.dev/ui/button
+ * @see — Docs https://gui.dev/ui/button
  */
 const Button = withStaticProperties(ButtonComponent, {
   Text: ButtonText,
@@ -199,7 +199,7 @@ const Button = withStaticProperties(ButtonComponent, {
 })
 
 /**
- * @deprecated Instead of useButton, see the Button docs for the newer and much improved Advanced customization pattern: https://hanzogui.dev/docs/components/button
+ * @deprecated Instead of useButton, see the Button docs for the newer and much improved Advanced customization pattern: https://gui.dev/docs/components/button
  */
 function useButton<Props extends ButtonProps>(
   { textProps, ...propsIn }: Props,
@@ -267,7 +267,7 @@ function useButton<Props extends ButtonProps>(
         },
         Text === ButtonText && propsActive.unstyled !== true
           ? {
-              unstyled: process.env.HANZOGUI_HEADLESS === '1',
+              unstyled: process.env.GUI_HEADLESS === '1',
               size,
             }
           : undefined

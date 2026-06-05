@@ -2,9 +2,9 @@ import React from 'react';
 import { TextInput, type TextInputProps as RNTextInputProps } from 'react-native';
 /**
  * A web-aligned input component for React Native.
- * @see — Docs https://hanzogui.dev/ui/inputs#input
+ * @see — Docs https://gui.dev/ui/inputs#input
  */
-export declare const Input: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").HanzoguiComponentPropsBaseBase & RNTextInputProps, import("@hanzogui/core").TextStylePropsBase & {
+export declare const Input: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").GuiComponentPropsBaseBase & RNTextInputProps, import("@hanzogui/core").TextStylePropsBase & {
     readonly placeholderTextColor?: import("@hanzogui/core").ColorTokens | undefined;
     readonly selectionColor?: import("@hanzogui/core").ColorTokens | undefined;
     readonly cursorColor?: import("@hanzogui/core").ColorTokens | undefined;
@@ -49,7 +49,7 @@ export declare const Input: import("@hanzogui/core").HanzoguiComponent<Omit<impo
         };
     }) => void;
     textContentType?: import("./types").InputTextContentType;
-}, TextInput, import("@hanzogui/core").HanzoguiComponentPropsBaseBase & RNTextInputProps & Omit<React.InputHTMLAttributes<HTMLInputElement>, "color" | "size" | "children" | "style" | "fontFamily" | "fontSize" | "fontStyle" | "fontWeight" | "letterSpacing" | "textAlign" | "textTransform" | "className" | ("autoCapitalize" | "autoCorrect" | "spellCheck")> & {
+}, TextInput, import("@hanzogui/core").GuiComponentPropsBaseBase & RNTextInputProps & Omit<React.InputHTMLAttributes<HTMLInputElement>, "color" | "size" | "children" | "style" | "fontFamily" | "fontSize" | "fontStyle" | "fontWeight" | "letterSpacing" | "textAlign" | "textTransform" | "className" | ("autoCapitalize" | "autoCorrect" | "spellCheck")> & {
     color?: "unset" | import("react-native").OpaqueColorValue | import("@hanzogui/core").GetThemeValueForKey<"color"> | undefined;
     fontFamily?: "unset" | import("@hanzogui/core").GetThemeValueForKey<"fontFamily"> | undefined;
     fontSize?: "unset" | import("@hanzogui/core").GetThemeValueForKey<"fontSize"> | undefined;

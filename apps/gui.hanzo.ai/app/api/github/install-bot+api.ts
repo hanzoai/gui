@@ -25,7 +25,7 @@ export default apiRoute(async (req) => {
 
   if (data?.id) {
     return Response.redirect(
-      `https://github.com/apps/hanzoguibot/installations/new?state=${data.id}`
+      `https://github.com/apps/guibot/installations/new?state=${data.id}`
     )
   }
 

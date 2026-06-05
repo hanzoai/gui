@@ -1,4 +1,5 @@
-import type { Provider } from '@supabase/auth-js'
+// OAuth provider identifier — IAM accepts the same set ('github', 'google', ...).
+type Provider = string
 import { LogoIcon } from '@hanzogui/logo'
 import type { FormEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'

@@ -4,7 +4,7 @@ import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb, useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import {
   LayoutMeasurementController,
-  View as HanzoguiView,
+  View as GuiView,
   useConfiguration,
   useDidFinishSSR,
   useEvent,
@@ -224,7 +224,7 @@ export const SheetImplementationCustom = React.forwardRef<View, SheetProps>(
 
     const { useAnimatedNumber, useAnimatedNumberStyle, useAnimatedNumberReaction } =
       animationDriver
-    const AnimatedView = (animationDriver.View ?? HanzoguiView) as typeof Animated.View
+    const AnimatedView = (animationDriver.View ?? GuiView) as typeof Animated.View
 
     useIsomorphicLayoutEffect(() => {
       if (!(sheetInsideSheet && open)) return
@@ -444,7 +444,7 @@ export const SheetImplementationCustom = React.forwardRef<View, SheetProps>(
         setIsDragging(val)
 
         // make unselectable:
-        if (process.env.TAMAGUI_TARGET === 'web') {
+        if (process.env.GUI_TARGET === 'web') {
           if (!sheetHiddenStyleSheet) {
             sheetHiddenStyleSheet = document.createElement('style')
             if (typeof document.head !== 'undefined') {
@@ -774,7 +774,7 @@ export const SheetImplementationCustom = React.forwardRef<View, SheetProps>(
                   animatedStyle,
                 ]}
               >
-                {/* wrap children with plain RN View for panResponder - hanzogui views no longer handle responder events on web */}
+                {/* wrap children with plain RN View for panResponder - gui views no longer handle responder events on web */}
                 {gestureHandlerEnabled && panGesture ? (
                   <GestureDetectorWrapper gesture={panGesture} style={{ flex: 1 }}>
                     {props.children}
@@ -794,7 +794,7 @@ export const SheetImplementationCustom = React.forwardRef<View, SheetProps>(
       </LayoutMeasurementController>
     )
 
-    if (process.env.TAMAGUI_TARGET === 'native' && needsPortalRepropagation()) {
+    if (process.env.GUI_TARGET === 'native' && needsPortalRepropagation()) {
       // TODO alongside sheet scope="" need to pass scope here
       const adaptContext = useAdaptContext()
       contents = (

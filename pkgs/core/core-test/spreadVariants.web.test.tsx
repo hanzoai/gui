@@ -6,7 +6,7 @@ import {
   Text,
   StyleObjectProperty,
   StyleObjectValue,
-  createHanzogui,
+  createGui,
   styled,
   getConfig,
 } from '../web/src'
@@ -25,7 +25,7 @@ let lightTheme: any
 
 beforeAll(() => {
   // @ts-ignore
-  createHanzogui(config.getDefaultHanzoguiConfig())
+  createGui(config.getDefaultGuiConfig())
   lightTheme = getConfig().themes.light
 })
 

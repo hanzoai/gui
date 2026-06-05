@@ -29,10 +29,10 @@
       "path": "../../core/types"
     },
     {
-      "path": "../../packages/cli-color"
+      "path": "../../cli-color"
     },
     {
-      "path": "../../packages/react-native-web-lite"
+      "path": "../../react-native-web-lite"
     }
   ],
   "exclude": [

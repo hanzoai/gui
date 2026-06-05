@@ -5,7 +5,7 @@ import { setupPage } from './test-utils'
  * Repro for: "Sheet body unmounts before exit animation completes"
  *
  * Bug context:
- *   When a Hanzogui Dialog adapts to a Sheet (Adapt + Sheet + Adapt.Contents),
+ *   When a Gui Dialog adapts to a Sheet (Adapt + Sheet + Adapt.Contents),
  *   the children mounted into Adapt.Contents are driven by Dialog.open, NOT
  *   by Sheet.open. On close, Dialog tears its tree down immediately while the
  *   Sheet is still animating out, so the body of the sheet vanishes mid-slide.
@@ -62,7 +62,7 @@ test.describe('Dialog Sheet Adapt - body persists during exit animation', () => 
     // start the close. clicking elements isn't viable here:
     //   - the SheetOverlay covers the entire viewport so every element looks
     //     obstructed,
-    //   - Hanzogui Buttons use Pressable (pointer events), so synthetic
+    //   - Gui Buttons use Pressable (pointer events), so synthetic
     //     .click() from page.evaluate doesn't fire onPress.
     // the use case exposes window.__dialogSetOpen so we can drive the dialog
     // imperatively, which is what we actually want to test.

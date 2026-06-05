@@ -21,7 +21,7 @@
     "**/*.lock",
     "**/*.generated.*",
     "**/generated-*",
-    "**/.tamagui/**",
+    "**/.gui/**",
     "**/node_modules/**",
   ],
 }

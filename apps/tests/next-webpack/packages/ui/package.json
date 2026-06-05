@@ -16,8 +16,8 @@
     "./components/*": "./src/*.tsx"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-types",
-    "watch": "hanzogui-build --skip-types --watch"
+    "build": "gui-build --skip-types",
+    "watch": "gui-build --skip-types --watch"
   },
   "dependencies": {
     "@my/config": "workspace:^",

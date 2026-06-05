@@ -1,5 +1,5 @@
 import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
-import { HanzoguiRoot, useThemeName } from '@hanzogui/web'
+import { GuiRoot, useThemeName } from '@hanzogui/web'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { allPortalHosts, portalListeners } from './constants'
@@ -59,7 +59,7 @@ export const GorhomPortalItem = (props: PortalItemProps) => {
   }
 
   return createPortal(
-    <HanzoguiRoot theme={theme}>{props.children}</HanzoguiRoot>,
+    <GuiRoot theme={theme}>{props.children}</GuiRoot>,
     actualNode
   )
 }

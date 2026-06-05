@@ -47,7 +47,7 @@ This plan covers:
 │  The best cross-platform React + RN stack      │
 │                                                 │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐       │
-│  │3 Stacks  │ │ Bento    │ │ 1 Year   │       │
+│  │3 Stacks  │ │ Recipes  │ │ 1 Year   │       │
 │  │Takeout   │ │ Pro      │ │ Updates  │       │
 │  └──────────┘ └──────────┘ └──────────┘       │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐       │

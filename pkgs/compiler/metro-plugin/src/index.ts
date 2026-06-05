@@ -1,8 +1,8 @@
-import { loadHanzoguiBuildConfigSync, type HanzoguiOptions } from '@hanzogui/static'
+import { loadGuiBuildConfigSync, type GuiOptions } from '@hanzogui/static'
 
-export type MetroHanzoguiOptions = HanzoguiOptions & {
+export type MetroGuiOptions = GuiOptions & {
   /**
-   * @deprecated CSS interop is no longer supported. Use `hanzogui generate` instead.
+   * @deprecated CSS interop is no longer supported. Use `gui generate` instead.
    */
   cssInterop?: boolean
 }
@@ -16,43 +16,43 @@ type MetroConfigInput = {
 }
 
 /**
- * Configure Metro for Hanzogui.
+ * Configure Metro for Gui.
  *
  * This is now a simplified wrapper that just ensures CSS is enabled and
- * loads your Hanzogui config. For CSS generation, use the CLI:
+ * loads your Gui config. For CSS generation, use the CLI:
  *
- * 1. Create a `hanzogui.build.ts` with `outputCSS` option
- * 2. Run `hanzogui generate` before your build
+ * 1. Create a `gui.build.ts` with `outputCSS` option
+ * 2. Run `gui generate` before your build
  * 3. Import the generated CSS in your app's layout
  *
  * @example
  * ```js
  * // metro.config.js
  * const { getDefaultConfig } = require('expo/metro-config')
- * const { withHanzogui } = require('@hanzogui/metro-plugin')
+ * const { withGui } = require('@hanzogui/metro-plugin')
  *
  * const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
- * module.exports = withHanzogui(config, {
- *   components: ['hanzogui'],
- *   config: './hanzogui.config.ts',
+ * module.exports = withGui(config, {
+ *   components: ['gui'],
+ *   config: './gui.config.ts',
  * })
  * ```
  */
-export function withHanzogui(
+export function withGui(
   metroConfig: MetroConfigInput,
-  optionsIn?: MetroHanzoguiOptions
+  optionsIn?: MetroGuiOptions
 ): MetroConfigInput {
-  const { cssInterop, ...hanzoguiOptionsIn } = optionsIn || {}
+  const { cssInterop, ...guiOptionsIn } = optionsIn || {}
 
   if (cssInterop) {
     console.warn(
-      '[@hanzogui/metro-plugin] cssInterop option is deprecated. Use `hanzogui generate` to pre-generate CSS instead.'
+      '[@hanzogui/metro-plugin] cssInterop option is deprecated. Use `gui generate` to pre-generate CSS instead.'
     )
   }
 
   const options = {
-    ...hanzoguiOptionsIn,
-    ...loadHanzoguiBuildConfigSync(hanzoguiOptionsIn),
+    ...guiOptionsIn,
+    ...loadGuiBuildConfigSync(guiOptionsIn),
   }
 
   // Ensure CSS files can be resolved
@@ -61,10 +61,10 @@ export function withHanzogui(
     sourceExts: [...new Set([...(metroConfig.resolver?.sourceExts || []), 'css'])],
   }
 
-  // Store hanzogui options for potential use by other tools
+  // Store gui options for potential use by other tools
   metroConfig.transformer = {
     ...metroConfig.transformer,
-    hanzogui: options,
+    gui: options,
   }
 
   return metroConfig

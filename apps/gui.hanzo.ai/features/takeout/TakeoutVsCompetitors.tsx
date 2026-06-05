@@ -33,8 +33,8 @@ const features: Feature[] = [
   },
   {
     feature: 'Premium Components',
-    description: 'Access to Bento copy-paste component library',
-    takeout: 'Bento included',
+    description: 'Access to Recipes copy-paste component library',
+    takeout: 'Recipes included',
     others: false,
   },
   {

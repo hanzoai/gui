@@ -325,7 +325,7 @@ async function run() {
     // ensure right user
     if (guiGitUser) {
       await spawnify(`git config --global user.name 'Gui'`)
-      await spawnify(`git config --global user.email 'gui@users.noreply.github.com`)
+      await spawnify(`git config --global user.email 'hanzogui@users.noreply.github.com`)
     }
 
     // get version

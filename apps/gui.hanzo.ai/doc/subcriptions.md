@@ -12,7 +12,7 @@ This document provides a comprehensive guide to the Hanzo GUI subscription syste
 
 - **🔄 Recurring Subscription** (Annual): $240/year
   - 🔐 Access to private Takeout GitHub repository
-  - 🍱 Bento components download + private Bento source repo access
+  - 🍱 Recipes components download + private Recipes source repo access
   - 💬 Private community Discord chat room (#takeout-general)
   - ♾️ Lifetime rights to all code and assets (even after subscription expires)
   - 👥 Supports team seats addition
@@ -253,18 +253,18 @@ if (supportTier > 0) {
 **🎯 Purpose**:
 
 - 📊 Track one-time purchases before subscription system
-- 🍱 Provide Bento access for legacy users
+- 🍱 Provide Recipes access for legacy users
 - 🔧 Handle data migration issues
 
 **💻 Usage**:
 
 ```typescript
-// Check legacy 🍱 Bento access
+// Check legacy 🍱 Recipes access
 const { data: ownership } = await supabase
   .from('product_ownership')
   .select('*')
   .eq('user_id', userId)
-  .eq('product_id', BENTO_PRODUCT_ID)
+  .eq('product_id', RECIPES_PRODUCT_ID)
 ```
 
 ### 🕰️ Legacy Discord Seats Calculation

@@ -1,7 +1,7 @@
 import { InitialPathContext, SeasonProvider } from '@hanzogui/logo'
 import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
-import { HanzoguiProvider } from 'hanzogui'
-import tamaConf from '~/hanzogui.config'
+import { GuiProvider } from 'hanzogui'
+import tamaConf from '~/gui.config'
 import { PostHogProvider } from '~/features/posthog/PostHogProvider'
 import { SearchProvider } from '~/features/site/search/SearchProvider'
 import { ToastProvider } from '~/features/studio/ToastProvider'
@@ -12,9 +12,9 @@ export const Providers = (props: { children: any }) => {
       <SchemeProvider>
         <PostHogProvider>
           <SeasonProvider>
-            <WebsiteHanzoguiProvider>
+            <WebsiteGuiProvider>
               <SearchProvider>{props.children}</SearchProvider>
-            </WebsiteHanzoguiProvider>
+            </WebsiteGuiProvider>
           </SeasonProvider>
         </PostHogProvider>
       </SchemeProvider>
@@ -22,12 +22,12 @@ export const Providers = (props: { children: any }) => {
   )
 }
 
-function WebsiteHanzoguiProvider(props: { children: any }) {
+function WebsiteGuiProvider(props: { children: any }) {
   const { value } = useUserScheme()
 
   return (
-    <HanzoguiProvider disableInjectCSS defaultTheme={value} config={tamaConf}>
+    <GuiProvider disableInjectCSS defaultTheme={value} config={tamaConf}>
       <ToastProvider>{props.children}</ToastProvider>
-    </HanzoguiProvider>
+    </GuiProvider>
   )
 }

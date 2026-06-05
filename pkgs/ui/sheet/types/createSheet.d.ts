@@ -1,4 +1,4 @@
-import type { GetProps, ViewProps, HanzoguiComponent, HanzoguiComponentExpectingVariants } from '@hanzogui/core';
+import type { GetProps, ViewProps, GuiComponent, GuiComponentExpectingVariants } from '@hanzogui/core';
 import type { ForwardRefExoticComponent, FunctionComponent, RefAttributes } from 'react';
 import type { View as RNView } from 'react-native';
 import type { SheetProps, SheetScopedProps } from './types';
@@ -6,8 +6,8 @@ type SharedSheetProps = {
     open?: boolean;
 };
 type BaseProps = ViewProps & SharedSheetProps;
-type SheetStyledComponent = HanzoguiComponentExpectingVariants<BaseProps, SharedSheetProps>;
-export declare function createSheet<H extends HanzoguiComponent | SheetStyledComponent, F extends HanzoguiComponent | SheetStyledComponent, O extends HanzoguiComponent | SheetStyledComponent>({ Handle, Frame, Overlay }: {
+type SheetStyledComponent = GuiComponentExpectingVariants<BaseProps, SharedSheetProps>;
+export declare function createSheet<H extends GuiComponent | SheetStyledComponent, F extends GuiComponent | SheetStyledComponent, O extends GuiComponent | SheetStyledComponent>({ Handle, Frame, Overlay }: {
     Handle: H;
     Frame: F;
     Overlay: O;
@@ -71,15 +71,15 @@ export declare function createSheet<H extends HanzoguiComponent | SheetStyledCom
              */
             adjustPaddingForOffscreenContent?: boolean;
         }>>;
-        Overlay: HanzoguiComponent<Omit<BaseProps, "__scopeSheet"> & {
+        Overlay: GuiComponent<Omit<BaseProps, "__scopeSheet"> & {
             __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
-        }, any, any, any, SharedSheetProps, {}> | HanzoguiComponent<Omit<BaseProps, "__scopeSheet"> & {
+        }, any, any, any, SharedSheetProps, {}> | GuiComponent<Omit<BaseProps, "__scopeSheet"> & {
             __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
         }, any, {
             __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
         }, {}, {}, {}>;
-        Handle: HanzoguiComponent<any, any, any, any, SharedSheetProps, {}> | HanzoguiComponent<any, any, any, {}, {}, {}>;
-        ScrollView: ForwardRefExoticComponent<Omit<import("@hanzogui/core").HanzoguiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
+        Handle: GuiComponent<any, any, any, any, SharedSheetProps, {}> | GuiComponent<any, any, any, {}, {}, {}>;
+        ScrollView: ForwardRefExoticComponent<Omit<import("@hanzogui/core").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
             readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
                 accept: {
                     readonly contentContainerStyle: "style";
@@ -144,15 +144,15 @@ export declare function createSheet<H extends HanzoguiComponent | SheetStyledCom
          */
         adjustPaddingForOffscreenContent?: boolean;
     }>>;
-    Overlay: HanzoguiComponent<Omit<BaseProps, "__scopeSheet"> & {
+    Overlay: GuiComponent<Omit<BaseProps, "__scopeSheet"> & {
         __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
-    }, any, any, any, SharedSheetProps, {}> | HanzoguiComponent<Omit<BaseProps, "__scopeSheet"> & {
+    }, any, any, any, SharedSheetProps, {}> | GuiComponent<Omit<BaseProps, "__scopeSheet"> & {
         __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
     }, any, {
         __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
     }, {}, {}, {}>;
-    Handle: HanzoguiComponent<any, any, any, any, SharedSheetProps, {}> | HanzoguiComponent<any, any, any, {}, {}, {}>;
-    ScrollView: ForwardRefExoticComponent<Omit<import("@hanzogui/core").HanzoguiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
+    Handle: GuiComponent<any, any, any, any, SharedSheetProps, {}> | GuiComponent<any, any, any, {}, {}, {}>;
+    ScrollView: ForwardRefExoticComponent<Omit<import("@hanzogui/core").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
         readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";

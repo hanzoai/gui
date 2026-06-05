@@ -24,8 +24,8 @@ describe('CompilerTernaryActive', () => {
       unlinkSync(NATIVE_FILE)
     }
 
-    console.log('Running hanzogui build...')
-    execSync(`npx hanzogui build ${SOURCE_FILE} --target native --output-around`, {
+    console.log('Running gui build...')
+    execSync(`npx gui build ${SOURCE_FILE} --target native --output-around`, {
       stdio: 'inherit',
     })
     console.log('Build complete, .native.tsx generated')

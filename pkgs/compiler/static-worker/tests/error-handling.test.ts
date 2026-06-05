@@ -35,7 +35,7 @@ describe('static-worker error handling', () => {
         source,
         sourcePath,
         options: {
-          components: ['hanzogui'],
+          components: ['gui'],
           config: './does-not-exist.ts',
         },
         shouldPrintDebug: false,
@@ -50,7 +50,7 @@ describe('static-worker error handling', () => {
       const errorMessage = (error as Error).message
 
       // Should include the helpful prefix
-      expect(errorMessage).toContain('[hanzogui-extract]')
+      expect(errorMessage).toContain('[gui-extract]')
 
       // Should include the file path
       expect(errorMessage).toContain('InvalidComponent.tsx')
@@ -71,7 +71,7 @@ describe('static-worker error handling', () => {
       source,
       sourcePath,
       options: {
-        components: ['hanzogui'],
+        components: ['gui'],
       },
       shouldPrintDebug: false,
     })
@@ -88,7 +88,7 @@ describe('static-worker error handling', () => {
       source,
       sourcePath: '/node_modules/test.tsx', // Will be skipped, but creates pool
       options: {
-        components: ['hanzogui'],
+        components: ['gui'],
       },
       shouldPrintDebug: false,
     })
@@ -113,7 +113,7 @@ describe('static-worker error handling', () => {
     await Worker.extractToClassNames({
       source: 'import { Text } from "hanzogui"',
       sourcePath: '/node_modules/test.tsx',
-      options: { components: ['hanzogui'] },
+      options: { components: ['gui'] },
     })
 
     // This should not throw even if there's a race condition

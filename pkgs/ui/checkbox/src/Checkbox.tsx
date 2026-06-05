@@ -24,7 +24,7 @@ export const CheckboxIndicatorFrame = styled(
       },
     } as const,
     defaultVariants: {
-      unstyled: process.env.HANZOGUI_HEADLESS === '1',
+      unstyled: process.env.GUI_HEADLESS === '1',
     },
   },
   {
@@ -111,7 +111,7 @@ export const CheckboxFrame = styled(
     } as const,
 
     defaultVariants: {
-      unstyled: process.env.HANZOGUI_HEADLESS === '1',
+      unstyled: process.env.GUI_HEADLESS === '1',
     },
   },
   {

@@ -7,8 +7,8 @@ import {
 import { useState } from 'react'
 import type { PopoverProps } from 'hanzogui'
 import { Button, Configuration, Popover, Text, XStack, YStack } from 'hanzogui'
-import { animationsCSS } from '../config/hanzogui/animationsCSS'
-import { animationsMotion } from '../config/hanzogui/animationMotion'
+import { animationsCSS } from '../config/gui/animationsCSS'
+import { animationsMotion } from '../config/gui/animationMotion'
 
 /**
  * Test component for Popover transformOrigin feature.

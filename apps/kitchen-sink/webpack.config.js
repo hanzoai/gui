@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { shouldExclude, HanzoguiPlugin } = require('hanzogui-loader')
+const { shouldExclude, GuiPlugin } = require('hanzogui-loader')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const target = 'web'
@@ -115,9 +115,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new HanzoguiPlugin({
-      config: './src/hanzogui.config.ts',
-      components: ['hanzogui', '@hanzogui/sandbox-ui'],
+    new GuiPlugin({
+      config: './src/gui.config.ts',
+      components: ['gui', '@hanzogui/sandbox-ui'],
       importsWhitelist: ['constants.js'],
       disableExtraction,
     }),

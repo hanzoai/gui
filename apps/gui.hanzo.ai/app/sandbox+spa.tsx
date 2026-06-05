@@ -27,7 +27,7 @@ export async function loader() {
   return getCompilationExamples()
 }
 
-export default function HanzoguiHomePage() {
+export default function GuiHomePage() {
   const { compilationExamples, animationCode } = useLoader(loader)
 
   useEffect(() => {

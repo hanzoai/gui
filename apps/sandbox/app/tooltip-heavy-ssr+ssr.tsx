@@ -10,7 +10,7 @@ import {
   useDidFinishSSR,
 } from 'hanzogui'
 
-// simulates hanzogui.dev homepage during hydration:
+// simulates gui.dev homepage during hydration:
 // - multiple elements with enter animations (glows, hero content)
 // - PromoLinksRow tooltip pattern with scoped multi-trigger
 // - heavy re-rendering from animation effects
@@ -72,7 +72,7 @@ function HydrationRerenderer() {
   const didHydrate = useDidFinishSSR()
 
   React.useEffect(() => {
-    // simulate state updates that happen during hydration on hanzogui.dev
+    // simulate state updates that happen during hydration on gui.dev
     // (theme detection, tint changes, layout measurements, etc.)
     const timers = [
       setTimeout(() => setCount(1), 10),

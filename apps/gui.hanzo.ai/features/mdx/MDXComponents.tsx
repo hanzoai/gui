@@ -1,4 +1,4 @@
-import { HanzoguiLogo, ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
+import { GuiLogo, ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
 import {
   Asterisk,
   Box,
@@ -50,8 +50,8 @@ import { OffsetBox } from '~/components/OffsetBox'
 import { Preview } from '~/components/Preview'
 import { ProductCard } from '~/components/ProductCard'
 import { SubTitle } from '~/components/SubTitle'
-import { HanzoguiCard } from '~/components/HanzoguiCard'
-import { HanzoguiExamplesCode } from '~/components/HanzoguiExamples'
+import { GuiCard } from '~/components/GuiCard'
+import { GuiExamplesCode } from '~/components/GuiExamples'
 import { UL } from '~/components/UL'
 import { SponsorButton } from '~/features/docs/SponsorButton'
 import { ExternalIcon } from '~/features/icons/ExternalIcon'
@@ -239,8 +239,8 @@ const componentsIn = {
 
   ...Demos,
 
-  HanzoguiDemo: () => {
-    return <HanzoguiLogo />
+  GuiDemo: () => {
+    return <GuiLogo />
   },
 
   Highlights,
@@ -256,7 +256,7 @@ const componentsIn = {
     <Paragraph render="strong" fontSize="inherit" fontWeight="700" {...props} />
   ),
 
-  HanzoguiExamplesCode,
+  GuiExamplesCode,
 
   InstallBanner: ({ name = '' }) => {
     const {
@@ -269,7 +269,7 @@ const componentsIn = {
     } = useBashCommand(`yarn add ${name}`, 'language-bash')
 
     const { transformedCommand: guiCommand } = useBashCommand(
-      `npm install hanzogui`,
+      `npm install gui`,
       'language-bash'
     )
     const { onCopy, hasCopied } = useClipboard(transformedCommand)
@@ -427,7 +427,7 @@ const componentsIn = {
   IntroParagraph,
 
   Grid: (props) => <XStack flexWrap="wrap" jc="space-between" {...props} />,
-  Card: HanzoguiCard,
+  Card: GuiCard,
 
   LogoCard: LogoCard,
   NextJSRouterCard: (props) => {

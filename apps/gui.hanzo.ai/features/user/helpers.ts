@@ -1,13 +1,13 @@
-import type { User } from '@supabase/supabase-js'
+import type { AuthUser as User } from '~/features/iam/server'
 import {
-  whitelistBentoUsernames,
+  whitelistRecipesUsernames,
   whitelistGithubUsernames,
 } from '~/features/github/helpers'
 import { getArray } from '~/helpers/getArray'
 import { getSingle } from '~/helpers/getSingle'
 import { ProductName, ProductSlug, SubscriptionStatus } from '~/shared/types/subscription'
 import { supabaseAdmin } from '../auth/supabaseAdmin'
-import { hasProAccess } from '../bento/hasProAccess'
+import { hasProAccess } from '../recipes/hasProAccess'
 import { tiersPriority } from '../stripe/tiers'
 import { ThemeSuiteSchema } from '../studio/theme/getTheme'
 import type { ThemeSuiteItemData } from '../studio/theme/types'
@@ -184,11 +184,11 @@ function checkAccessToProduct(
 ) {
   // Valid Pro products that grant access
   const validProProducts = [
-    ProductName.HanzoguiPro,
-    ProductName.HanzoguiProV2,
-    ProductName.HanzoguiProV2Upgrade,
-    ProductName.HanzoguiSupportDirect,
-    ProductName.HanzoguiSupportSponsor,
+    ProductName.GuiPro,
+    ProductName.GuiProV2,
+    ProductName.GuiProV2Upgrade,
+    ProductName.GuiSupportDirect,
+    ProductName.GuiSupportSponsor,
   ]
 
   const hasActiveSubscription = subscriptions.some(
@@ -230,10 +230,10 @@ function checkAccessToProduct(
  * However, for the backwards compatibility, we keep the function.
  */
 /**
- * Check if user has lifetime Bento access via product_ownership
- * This is separate from Pro subscription - Bento is a lifetime purchase
+ * Check if user has lifetime Recipes access via product_ownership
+ * This is separate from Pro subscription - Recipes is a lifetime purchase
  */
-async function checkBentoAccess(userId: string): Promise<boolean> {
+async function checkRecipesAccess(userId: string): Promise<boolean> {
   const result = await supabaseAdmin
     .from('product_ownership')
     .select(`
@@ -251,38 +251,38 @@ async function checkBentoAccess(userId: string): Promise<boolean> {
     return false
   }
 
-  // check for direct Bento product ownership
-  const hasBentoOwnership = result.data.some(
-    (ownership) => ownership.prices?.products?.name === ProductName.HanzoguiBento
+  // check for direct Recipes product ownership
+  const hasRecipesOwnership = result.data.some(
+    (ownership) => ownership.prices?.products?.name === ProductName.GuiRecipes
   )
 
-  if (hasBentoOwnership) {
+  if (hasRecipesOwnership) {
     return true
   }
 
   // check for legacy lifetime purchases with is_lifetime metadata
-  const hasLifetimeBento = result.data.some((ownership) => {
+  const hasLifetimeRecipes = result.data.some((ownership) => {
     const productMetadata = ownership.prices?.metadata as Record<string, any> | null
     const productName = ownership.prices?.products?.name
-    // only count as bento if it's a bento product with lifetime flag
-    return productMetadata?.is_lifetime === '1' && productName === ProductName.HanzoguiBento
+    // only count as recipes if it's a recipes product with lifetime flag
+    return productMetadata?.is_lifetime === '1' && productName === ProductName.GuiRecipes
   })
 
-  return hasLifetimeBento
+  return hasLifetimeRecipes
 }
 
 export async function getUserAccessInfo(user: User | null) {
   if (!user) {
     return {
       hasPro: false,
-      hasBento: false,
+      hasRecipes: false,
       teamsWithAccess: [],
     }
   }
 
-  const [proAccess, bentoAccess, teams] = await Promise.all([
+  const [proAccess, recipesAccess, teams] = await Promise.all([
     hasProAccess(user.id),
-    checkBentoAccess(user.id),
+    checkRecipesAccess(user.id),
     getUserTeams(user.id),
   ])
 
@@ -295,12 +295,12 @@ export async function getUserAccessInfo(user: User | null) {
   // user has Pro if they have subscription/legacy access OR team sponsorship access
   const hasPro = proAccess || hasTeamAccess
 
-  // user has Bento if they have lifetime bento ownership OR pro access (pro includes bento)
-  const hasBento = bentoAccess || hasPro
+  // user has Recipes if they have lifetime recipes ownership OR pro access (pro includes recipes)
+  const hasRecipes = recipesAccess || hasPro
 
   return {
     hasPro,
-    hasBento,
+    hasRecipes,
     teamsWithAccess,
   }
 }

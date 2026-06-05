@@ -2,7 +2,7 @@
 
 ## Current Limitation
 
-The Sheet + ScrollView gesture coordination on native iOS has limitations because Hanzogui uses React Native's built-in `PanResponder`, while iOS's `UIScrollView` gesture recognizers fire BEFORE the RN responder system can claim the gesture.
+The Sheet + ScrollView gesture coordination on native iOS has limitations because Gui uses React Native's built-in `PanResponder`, while iOS's `UIScrollView` gesture recognizers fire BEFORE the RN responder system can claim the gesture.
 
 This causes:
 

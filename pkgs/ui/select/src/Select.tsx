@@ -1,7 +1,7 @@
 import { Adapt, AdaptParent, useAdaptIsActive } from '@hanzogui/adapt'
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import { isWeb, useIsomorphicLayoutEffect } from '@hanzogui/constants'
-import type { FontSizeTokens, GetProps, SizeTokens, HanzoguiElement } from '@hanzogui/core'
+import type { FontSizeTokens, GetProps, SizeTokens, GuiElement } from '@hanzogui/core'
 import {
   createStyledContext,
   getVariableValue,
@@ -131,7 +131,7 @@ type SelectItemIndicatorProps = SelectScopedProps<
   GetProps<typeof SelectItemIndicatorFrame>
 >
 
-const SelectItemIndicator = React.forwardRef<HanzoguiElement, SelectItemIndicatorProps>(
+const SelectItemIndicator = React.forwardRef<GuiElement, SelectItemIndicatorProps>(
   function SelectItemIndicator(props, forwardedRef) {
     const { scope, ...itemIndicatorProps } = props
     const context = useSelectItemParentContext(scope)
@@ -169,7 +169,7 @@ const SelectIndicatorFrame = styled(YStack, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -282,13 +282,13 @@ const NativeSelectFrame = styled(YStack, {
 
   defaultVariants: {
     size: '$2',
-    unstyled: process.env.HANZOGUI_HEADLESS === '1' ? true : false,
+    unstyled: process.env.GUI_HEADLESS === '1' ? true : false,
   },
 })
 
 type SelectGroupProps = SelectScopedProps<GetProps<typeof SelectGroupFrame>>
 
-const SelectGroup = React.forwardRef<HanzoguiElement, SelectGroupProps>(
+const SelectGroup = React.forwardRef<GuiElement, SelectGroupProps>(
   (props, forwardedRef) => {
     const { scope, ...groupProps } = props
     const groupId = React.useId()
@@ -379,7 +379,7 @@ const SelectLabelFrame = styled(SizableText, {
   } as const,
 
   defaultVariants: {
-    unstyled: process.env.HANZOGUI_HEADLESS === '1',
+    unstyled: process.env.GUI_HEADLESS === '1',
   },
 })
 
@@ -544,7 +544,7 @@ function SelectInner(props: SelectScopedProps<SelectProps> & { adaptScope: strin
     emitValue(value)
   }, [value])
 
-  if (process.env.TAMAGUI_TARGET === 'native') {
+  if (process.env.GUI_TARGET === 'native') {
     React.useEffect(() => {
       if (!props.id) return
 

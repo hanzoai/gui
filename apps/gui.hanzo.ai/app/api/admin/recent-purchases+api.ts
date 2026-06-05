@@ -1,18 +1,32 @@
-import type Stripe from 'stripe'
+/**
+ * Recent purchases (admin) — commerce-backed.
+ *
+ * Pulls the most recent successful charges from commerce and joins them
+ * against Base user records by email. Commerce returns processor-agnostic
+ * charge objects, so this works whether the underlying processor was
+ * Stripe, Square, crypto, etc.
+ */
+
 import { apiRoute } from '~/features/api/apiRoute'
 import { ensureAuth } from '~/features/api/ensureAuth'
 import { isAdminEmail } from '~/features/api/isAdmin'
-import { stripe } from '~/features/stripe/stripe'
-import { supabaseAdmin } from '~/features/auth/supabaseAdmin'
+import { commerceFetch, CommerceError } from '~/features/commerce/client'
+import { db } from '~/features/db'
 
-/**
- * Get recent purchases for admin review
- * Admin-only endpoint
- */
+type CommerceCharge = {
+  id: string
+  amount: number
+  currency: string
+  created: number
+  description?: string
+  status: string
+  paid: boolean
+  customer?: { id: string; email?: string } | string | null
+}
+
 export default apiRoute(async (req) => {
-  const { user } = await ensureAuth({ req })
+  const { user, token } = await ensureAuth({ req })
 
-  // check admin access
   if (!isAdminEmail(user.email)) {
     return Response.json({ error: 'Admin access required' }, { status: 403 })
   }
@@ -21,47 +35,42 @@ export default apiRoute(async (req) => {
   const limit = Math.min(Number(url.searchParams.get('limit')) || 20, 100)
 
   try {
-    // get recent successful payments from Stripe
-    const charges = await stripe.charges.list({
-      limit,
-      expand: ['data.customer'],
-    })
+    const { data: charges } = await commerceFetch<{ data: CommerceCharge[] }>(
+      `/charges?limit=${limit}&expand=customer`,
+      { token },
+    )
 
     const purchases = await Promise.all(
-      charges.data
-        .filter((charge) => charge.status === 'succeeded' && charge.paid)
+      charges
+        .filter((c) => c.status === 'succeeded' && c.paid)
         .map(async (charge) => {
-          const customer = charge.customer as
-            | Stripe.Customer
-            | Stripe.DeletedCustomer
-            | null
+          const customer = charge.customer
           const customerEmail =
-            customer && 'email' in customer && !customer.deleted ? customer.email : null
+            customer && typeof customer === 'object' ? customer.email ?? null : null
 
-          // try to find user in supabase by email
-          let supabaseUser: {
+          let userRow: {
             id: string
             email: string | null
             full_name: string | null
           } | null = null
+
           if (customerEmail) {
-            const { data } = await supabaseAdmin
-              .from('users')
+            const { data } = await db
+              .from<{ id: string; email: string | null; full_name: string | null }>('users')
               .select('id, email, full_name')
               .eq('email', customerEmail)
-              .single()
-            supabaseUser = data
+              .maybeSingle()
+            userRow = data
           }
 
-          // get github username if we have user
           let githubUsername: string | null = null
-          if (supabaseUser?.id) {
-            const { data: privateData } = await supabaseAdmin
-              .from('users_private')
+          if (userRow?.id) {
+            const { data: priv } = await db
+              .from<{ github_user_name: string | null }>('users_private')
               .select('github_user_name')
-              .eq('id', supabaseUser.id)
-              .single()
-            githubUsername = privateData?.github_user_name ?? null
+              .eq('id', userRow.id)
+              .maybeSingle()
+            githubUsername = priv?.github_user_name ?? null
           }
 
           return {
@@ -71,17 +80,21 @@ export default apiRoute(async (req) => {
             created: charge.created,
             description: charge.description,
             customerEmail,
-            customerId: typeof customer === 'string' ? customer : customer?.id || null,
-            supabaseUserId: supabaseUser?.id || null,
-            userName: supabaseUser?.full_name || null,
+            customerId:
+              typeof customer === 'string' ? customer : customer?.id ?? null,
+            userId: userRow?.id || null,
+            userName: userRow?.full_name || null,
             githubUsername,
           }
-        })
+        }),
     )
 
     return Response.json({ purchases })
-  } catch (error) {
-    console.error('Error fetching recent purchases:', error)
+  } catch (err) {
+    if (err instanceof CommerceError) {
+      return Response.json({ error: String(err.detail) }, { status: err.status })
+    }
+    console.error('recent-purchases error', err)
     return Response.json({ error: 'Failed to fetch purchases' }, { status: 500 })
   }
 })

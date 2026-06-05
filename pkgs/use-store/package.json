@@ -1,0 +1,49 @@
+{
+  "name": "@hanzogui/use-store",
+  "version": "7.3.0",
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./src",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./src/index.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "gui-build --skip-types",
+    "watch": "gui-build --skip-types --watch",
+    "clean": "gui-build clean",
+    "clean:build": "gui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/simple-hash": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "@testing-library/react": "^16.1.0",
+    "react": ">=19",
+    "vitest": "4.0.4"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

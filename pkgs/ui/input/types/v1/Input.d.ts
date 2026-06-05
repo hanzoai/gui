@@ -2,9 +2,9 @@ import React from 'react';
 /**
  * @deprecated Use the new Input from '@hanzogui/input' instead
  * @summary An input is a text field that allows users to enter text.
- * @see — Docs https://hanzogui.dev/ui/inputs#input
+ * @see — Docs https://gui.dev/ui/inputs#input
  */
-export declare const Input: import("@hanzogui/core").HanzoguiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
+export declare const Input: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
     readonly placeholderTextColor?: import("@hanzogui/core").ColorTokens | undefined;
     readonly selectionColor?: import("@hanzogui/core").ColorTokens | undefined;
     readonly cursorColor?: import("@hanzogui/core").ColorTokens | undefined;
@@ -23,10 +23,10 @@ export declare const Input: import("@hanzogui/core").HanzoguiComponent<Omit<impo
     inputMode?: import("react-native").InputModeOptions;
     placeholderTextColor?: import("@hanzogui/core").ColorTokens;
     selectionColor?: import("@hanzogui/core").ColorTokens;
-    render?: import("@hanzogui/core").HanzoguiComponentPropsBase["render"];
+    render?: import("@hanzogui/core").GuiComponentPropsBase["render"];
     multiline?: boolean;
     numberOfLines?: number;
-}, import("@hanzogui/core").HanzoguiElement, import("@hanzogui/core").RNViewNonStyleProps & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & Omit<React.ClassAttributes<HTMLInputElement> & React.HTMLProps<HTMLInputElement>, "size" | `$${string}` | `$${number}` | import("@hanzogui/core").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "value" | keyof import("@hanzogui/core").StackNonStyleProps | keyof import("@hanzogui/core").StackStyleBase | keyof import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>>> & Pick<import("@hanzogui/core").TextProps, "color"> & Omit<React.CSSProperties | undefined, "color"> & Omit<import("react-native").TextInputProps, "numberOfLines" | "selectionColor" | "secureTextEntry" | "keyboardType" | "enterKeyHint" | "inputMode" | "placeholderTextColor" | "editable" | "onChangeText"> & {
+}, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & Omit<React.ClassAttributes<HTMLInputElement> & React.HTMLProps<HTMLInputElement>, "size" | `$${string}` | `$${number}` | import("@hanzogui/core").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "value" | keyof import("@hanzogui/core").StackNonStyleProps | keyof import("@hanzogui/core").StackStyleBase | keyof import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>>> & Pick<import("@hanzogui/core").TextProps, "color"> & Omit<React.CSSProperties | undefined, "color"> & Omit<import("react-native").TextInputProps, "numberOfLines" | "selectionColor" | "secureTextEntry" | "keyboardType" | "enterKeyHint" | "inputMode" | "placeholderTextColor" | "editable" | "onChangeText"> & {
     secureTextEntry?: import("react-native").TextInputProps["secureTextEntry"];
     onChangeText?: import("react-native").TextInputProps["onChangeText"];
     editable?: import("react-native").TextInputProps["editable"];
@@ -35,7 +35,7 @@ export declare const Input: import("@hanzogui/core").HanzoguiComponent<Omit<impo
     inputMode?: import("react-native").InputModeOptions;
     placeholderTextColor?: import("@hanzogui/core").ColorTokens;
     selectionColor?: import("@hanzogui/core").ColorTokens;
-    render?: import("@hanzogui/core").HanzoguiComponentPropsBase["render"];
+    render?: import("@hanzogui/core").GuiComponentPropsBase["render"];
     multiline?: boolean;
     numberOfLines?: number;
 }, import("@hanzogui/core").StackStyleBase & {

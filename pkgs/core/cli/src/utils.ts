@@ -1,4 +1,4 @@
-import type { HanzoguiOptions, HanzoguiProjectInfo } from '@hanzogui/static'
+import type { GuiOptions, GuiProjectInfo } from '@hanzogui/static'
 import type { CLIResolvedOptions, CLIUserOptions } from '@hanzogui/types'
 import chalk from 'chalk'
 import fs, { pathExists, readJSON } from 'fs-extra'
@@ -7,22 +7,22 @@ import { join } from 'node:path'
 export async function getOptions({
   root = process.cwd(),
   tsconfigPath = 'tsconfig.json',
-  hanzoguiOptions,
+  guiOptions,
   host,
   debug,
-  loadHanzoguiOptions,
+  loadGuiOptions,
 }: Partial<CLIUserOptions> = {}): Promise<CLIResolvedOptions> {
-  const dotDir = join(root, '.hanzogui')
+  const dotDir = join(root, '.gui')
   let pkgJson = {}
   let config = ''
   try {
-    config = await getDefaultHanzoguiConfigPath()
+    config = await getDefaultGuiConfigPath()
     pkgJson = await readJSON(join(root, 'package.json'))
   } catch {
-    if (loadHanzoguiOptions) {
+    if (loadGuiOptions) {
       console.warn(
         chalk.yellow(
-          `Warning: no hanzogui.config.ts found in ${root}. Commands that need a config may fail.`
+          `Warning: no gui.config.ts found in ${root}. Commands that need a config may fail.`
         )
       )
     }
@@ -30,15 +30,15 @@ export async function getOptions({
 
   const filledOptions = {
     platform: 'native',
-    components: ['hanzogui'],
+    components: ['gui'],
     config,
-    ...hanzoguiOptions,
-  } satisfies HanzoguiOptions
+    ...guiOptions,
+  } satisfies GuiOptions
 
-  let finalOptions: HanzoguiOptions = filledOptions
-  if (loadHanzoguiOptions) {
-    const { loadHanzoguiBuildConfigSync } = require('@hanzogui/static/loadHanzogui')
-    finalOptions = loadHanzoguiBuildConfigSync(filledOptions)
+  let finalOptions: GuiOptions = filledOptions
+  if (loadGuiOptions) {
+    const { loadGuiBuildConfigSync } = require('@hanzogui/static/loadGui')
+    finalOptions = loadGuiBuildConfigSync(filledOptions)
   }
 
   return {
@@ -48,11 +48,11 @@ export async function getOptions({
     pkgJson,
     debug,
     tsconfigPath,
-    hanzoguiOptions: finalOptions,
+    guiOptions: finalOptions,
     paths: {
       root,
       dotDir,
-      conf: join(dotDir, 'hanzogui.config.json'),
+      conf: join(dotDir, 'gui.config.json'),
       types: join(dotDir, 'types.json'),
     },
   }
@@ -65,29 +65,29 @@ export function ensure(condition: boolean, message: string) {
   }
 }
 
-const defaultPaths = ['hanzogui.config.ts', join('src', 'hanzogui.config.ts')]
+const defaultPaths = ['gui.config.ts', join('src', 'gui.config.ts')]
 let cachedPath = ''
 
-async function getDefaultHanzoguiConfigPath() {
+async function getDefaultGuiConfigPath() {
   if (cachedPath) return cachedPath
   const existingPaths = await Promise.all(defaultPaths.map((path) => pathExists(path)))
   const existing = existingPaths.findIndex((x) => !!x)
   const found = defaultPaths[existing]
   if (!found) {
-    throw new Error(`No found hanzogui.config.ts`)
+    throw new Error(`No found gui.config.ts`)
   }
   cachedPath = found
   return found
 }
 
-export const loadHanzogui = async (
-  opts: Partial<HanzoguiOptions>
-): Promise<HanzoguiProjectInfo | null> => {
-  const { loadHanzogui: loadHanzoguiStatic } = require('@hanzogui/static/loadHanzogui')
-  const loaded = await loadHanzoguiStatic({
-    components: ['hanzogui'],
+export const loadGui = async (
+  opts: Partial<GuiOptions>
+): Promise<GuiProjectInfo | null> => {
+  const { loadGui: loadGuiStatic } = require('@hanzogui/static/loadGui')
+  const loaded = await loadGuiStatic({
+    components: ['gui'],
     ...opts,
-    config: opts.config ?? (await getDefaultHanzoguiConfigPath()),
+    config: opts.config ?? (await getDefaultGuiConfigPath()),
   })
   return loaded
 }

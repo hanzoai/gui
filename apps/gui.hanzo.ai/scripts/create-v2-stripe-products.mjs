@@ -21,7 +21,7 @@ async function createV2Products() {
   const product = await stripe.products.create({
     name: 'GUI Pro V2',
     description:
-      'Per-project license for GUI Pro. Includes all templates (v1 Takeout, v2 Takeout, Takeout Static), Bento components, 1 year of updates, unlimited team members, and basic chat support. Lifetime rights to downloaded code.',
+      'Per-project license for GUI Pro. Includes all templates (v1 Takeout, v2 Takeout, Takeout Static), Recipes components, 1 year of updates, unlimited team members, and basic chat support. Lifetime rights to downloaded code.',
     metadata: {
       version: 'v2',
       type: 'license',

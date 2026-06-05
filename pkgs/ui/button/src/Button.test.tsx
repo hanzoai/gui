@@ -1,9 +1,9 @@
-import { getDefaultHanzoguiConfig } from '@hanzogui/config-default'
-import { createHanzogui } from '@hanzogui/core'
+import { getDefaultGuiConfig } from '@hanzogui/config-default'
+import { createGui } from '@hanzogui/core'
 import { describe, expect, test } from 'vitest'
 import { Button } from './Button'
 
-const conf = createHanzogui(getDefaultHanzoguiConfig())
+const conf = createGui(getDefaultGuiConfig())
 
 describe('Button', () => {
   test(`123`, () => {
@@ -35,9 +35,9 @@ describe('Button', () => {
 
   // test(`Adapts to a when given accessibilityRole="link"`, async () => {
   //   const { container } = render(
-  //     <HanzoguiProvider config={conf} defaultTheme="light">
+  //     <GuiProvider config={conf} defaultTheme="light">
   //       <Button href="http://google.com" accessibilityRole="link" />
-  //     </HanzoguiProvider>
+  //     </GuiProvider>
   //   )
 
   //   expect(container.firstChild).toMatchSnapshot()

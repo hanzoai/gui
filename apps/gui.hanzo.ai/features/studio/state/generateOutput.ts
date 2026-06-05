@@ -26,14 +26,14 @@ export const generateOutput = (globalStore: ReturnType<typeof useGlobalState>) =
   const animations = globalStore.animations.draftAnimations
 
   return `import { config as baseConfig } from '@hanzogui/config/v3'
-import { createHanzogui } from 'hanzogui'
+import { createGui } from 'hanzogui'
 import { createAnimations } from '@hanzogui/animations-react-native'
 
 const animations = createAnimations({
 ${objToStr({ type: 'object', value: animations })}
 })
 
-export const config = createHanzogui({    
+export const config = createGui({    
 ${objToStr(
   { type: 'spread', value: 'baseConfig' },
   { type: 'value', value: 'animations' },

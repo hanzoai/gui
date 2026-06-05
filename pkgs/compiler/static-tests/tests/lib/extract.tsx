@@ -33,8 +33,8 @@ export async function extractForWeb(
     ...opts,
     options: {
       platform: 'web',
-      components: ['hanzogui', '@hanzogui/core', '@hanzogui/test-design-system'],
-      config: './tests/lib/hanzogui.config.cjs',
+      components: ['gui', '@hanzogui/core', '@hanzogui/test-design-system'],
+      config: './tests/lib/gui.config.cjs',
       ...opts?.options,
     },
   })

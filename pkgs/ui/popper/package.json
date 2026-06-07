@@ -43,7 +43,8 @@
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/start-transition": "workspace:*",
-    "@hanzogui/use-controllable-state": "workspace:*"
+    "@hanzogui/use-controllable-state": "workspace:*",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

@@ -38,6 +38,10 @@ export default defineConfig({
     },
   },
   build: {
+    minify: false,
+    sourcemap: false,
+    reportCompressedSize: false,
+    target: 'esnext',
     outDir: 'dist-desktop',
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),

@@ -215,5 +215,8 @@
     "README.md"
   ],
   "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "author": "Hanzo AI <dev@hanzo.ai>",
+  "dependencies": {
+    "expo-linear-gradient": "^55.0.14"
+  }
 }

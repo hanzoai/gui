@@ -27,7 +27,7 @@
     "dist-desktop"
   ],
   "scripts": {
-    "build": "vite build && vite build --config vite.desktop.config.ts && cp types/public.d.ts dist/index.d.ts",
+    "build": "NODE_OPTIONS=--max-old-space-size=8192 vite build && NODE_OPTIONS=--max-old-space-size=8192 vite build --config vite.desktop.config.ts && cp types/public.d.ts dist/index.d.ts",
     "dev": "vite build --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",

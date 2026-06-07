@@ -65,6 +65,10 @@ export default defineConfig({
     dedupe: ['react', 'react-dom'],
   },
   build: {
+    minify: false,
+    sourcemap: false,
+    reportCompressedSize: false,
+    target: 'esnext',
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),
       formats: ['es', 'cjs'],

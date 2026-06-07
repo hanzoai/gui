@@ -54,7 +54,8 @@
     "@hanzogui/text": "workspace:*",
     "@hanzogui/use-callback-ref": "workspace:*",
     "@hanzogui/use-direction": "workspace:*",
-    "@hanzogui/web": "workspace:*"
+    "@hanzogui/web": "workspace:*",
+    "sf-symbols-typescript": "^2.2.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

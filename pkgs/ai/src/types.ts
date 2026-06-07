@@ -5,7 +5,7 @@
 // libs/brand-config, lifted into the SDK so brand becomes a *prop* (one
 // way, one place) instead of a build-time `VITE_BRAND` env lookup.
 
-export type Brand = 'hanzo' | 'zoo' | 'lux';
+export type Brand = string;
 
 export interface BrandConfig {
   brand: Brand;

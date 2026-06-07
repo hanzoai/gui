@@ -17,7 +17,7 @@ import { toast } from 'sonner';
 import { OnboardingStep } from '../components/onboarding/constants';
 import { ResetStorageBeforeConnectConfirmationPrompt } from '../components/reset-storage-before-connect-confirmation-prompt';
 import config from '../config';
-import { useHanzoLogin } from '../hooks/hanzo-auth';
+import { useIamLogin } from '../hooks/iam-auth';
 import {
   useHanzoNodeRemoveStorageMutation,
   useHanzoNodeSpawnMutation,
@@ -155,7 +155,7 @@ const TermsAndConditionsPage = () => {
     error: hanzoLoginError,
     tokens: hanzoTokens,
     startLogin: startHanzoLogin,
-  } = useHanzoLogin();
+  } = useIamLogin();
 
   // When IAM tokens arrive, spawn node and register
   useEffect(() => {
@@ -170,7 +170,7 @@ const TermsAndConditionsPage = () => {
     hanzoNodeRemoveStorageIsPending ||
     submitRegistrationNodeCodeIsPending;
 
-  const { login: hanzoLogin } = useHanzoLogin();
+  const { login: hanzoLogin } = useIamLogin();
   const [hanzoLoginPending, setHanzoLoginPending] = useState(false);
 
   const handleHanzoLogin = async () => {

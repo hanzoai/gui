@@ -63,7 +63,7 @@ const HANZO: BrandConfig = {
   inferenceEndpoint: 'https://gateway.hanzo.ai',
   iam: {
     baseUrl: 'https://hanzo.id',
-    clientId: 'hanzo-app-client-id',
+    clientId: 'hanzo-app',
     redirectUri: 'hanzo://oauth/hanzo',
     callbackEvent: 'hanzo-iam-callback',
   },
@@ -98,7 +98,7 @@ const ZOO: BrandConfig = {
   inferenceEndpoint: 'https://gateway.hanzo.ai',
   iam: {
     baseUrl: 'https://zoolabs.id',
-    clientId: 'zoo-app-client-id',
+    clientId: 'zoo-app',
     redirectUri: 'zoo://oauth/zoo',
     callbackEvent: 'zoo-iam-callback',
   },
@@ -133,7 +133,7 @@ const LUX: BrandConfig = {
   inferenceEndpoint: 'https://gateway.hanzo.ai',
   iam: {
     baseUrl: 'https://lux.id',
-    clientId: 'lux-app-client-id',
+    clientId: 'lux-app',
     redirectUri: 'lux://oauth/lux',
     callbackEvent: 'lux-iam-callback',
   },

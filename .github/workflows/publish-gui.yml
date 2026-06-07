@@ -28,7 +28,7 @@ permissions:
 jobs:
   publish:
     name: Build, smoke-test, publish
-    runs-on: evo
+    runs-on: spark
     steps:
       - uses: actions/checkout@v5
         with:

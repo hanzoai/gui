@@ -39,6 +39,7 @@
     "clean:build": "gui-build clean:build"
   },
   "dependencies": {
+    "@expo/cli": "^55.0.32",
     "@expo/fingerprint": "~0.16.6"
   },
   "devDependencies": {

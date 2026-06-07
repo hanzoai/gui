@@ -28,7 +28,7 @@ permissions:
 jobs:
   publish:
     name: Build, smoke-test, publish
-    runs-on: hanzo-build-linux-amd64
+    runs-on: evo
     steps:
       - uses: actions/checkout@v5
         with:

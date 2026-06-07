@@ -22,7 +22,8 @@
     "clean:build": "gui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/vite-plugin": "workspace:*"
+    "@hanzogui/vite-plugin": "workspace:*",
+    "vite": "^7.3.5"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

@@ -12,5 +12,13 @@
     "./package.json": "./package.json",
     "./*": "./src/*"
   },
-  "module": "./src/index.ts"
+  "module": "./src/index.ts",
+  "dependencies": {
+    "@tanstack/react-query": "^5.101.0",
+    "@tanstack/react-query-devtools": "^5.101.0",
+    "axios": "^1.17.0",
+    "react": "^19.1.0",
+    "ts-deepmerge": "^7.0.3",
+    "zod": "^3.25.76"
+  }
 }

@@ -41,7 +41,8 @@
     "@hanzogui/react-native-use-responder-events": "workspace:*",
     "@hanzogui/simple-hash": "workspace:*",
     "@hanzogui/use-element-layout": "workspace:*",
-    "@hanzogui/web": "workspace:*"
+    "@hanzogui/web": "workspace:*",
+    "@testing-library/react": "^16.3.2"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

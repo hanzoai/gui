@@ -38,7 +38,8 @@
   "dependencies": {
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/core": "workspace:*",
-    "@hanzogui/web": "workspace:*"
+    "@hanzogui/web": "workspace:*",
+    "expo-image": "^55.0.11"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

@@ -13,9 +13,11 @@
     "./*": "./src/*"
   },
   "dependencies": {
+    "consola": "^3.4.2",
     "i18next": "^24.0.0",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-resources-to-backend": "^1.2.1",
+    "react": "^19.1.0",
     "react-i18next": "^15.5.2"
   },
   "module": "./src/index.ts"

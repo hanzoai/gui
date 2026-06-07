@@ -107,6 +107,7 @@
     "@hanzogui/react-native-use-responder-events": "workspace:*",
     "@hanzogui/react-native-web-internals": "workspace:*",
     "@hanzogui/web": "workspace:*",
+    "@testing-library/react": "^16.3.2",
     "invariant": "^2.2.4",
     "memoize-one": "^6.0.0"
   },

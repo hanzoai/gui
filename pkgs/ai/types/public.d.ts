@@ -4,12 +4,13 @@
 // dist/index.d.ts.
 import type { ComponentType, ReactElement, ReactNode } from 'react';
 
-export type Brand = 'hanzo' | 'zoo' | 'lux';
+export type Brand = string;
 
 export interface BrandConfig {
   brand: Brand;
   name: string;
   productName: string;
+  company: string;
   identifier: string;
   logo: { light: string; dark: string; favicon: string };
   colors: { primary: string; bg: string; fg: string };
@@ -25,6 +26,7 @@ export interface BrandConfig {
   overlayController: string;
   inferenceEndpoint: string;
   iam: { baseUrl: string; clientId: string; redirectUri: string; callbackEvent: string };
+  machinesEnabled?: boolean;
 }
 
 export interface HostAdapter {
@@ -53,7 +55,13 @@ export default HanzoAI;
 export declare const BrandProvider: (props: { brand?: BrandConfig; children: ReactNode }) => ReactElement;
 /** Read the active brand. A plain getter, NOT a React hook — callable anywhere. */
 export declare function useBrand(): BrandConfig;
-/** Read the active brand: the injected one if set, else env/hostname (default hanzo). */
+/** Read the active brand: the injected one if set, else env/hostname via the registry. */
 export declare function getBrand(): BrandConfig;
-/** Resolve a brand from a hostname (hanzo / zoo / lux; defaults to hanzo). */
-export declare function getBrandFromHostname(hostname: string): BrandConfig;
+/** Resolve a brand from a hostname using the registered brands. */
+export declare function getBrandFromHostname(hostname: string): BrandConfig | undefined;
+/** Inject the active brand (called by <HanzoAI> before mount). */
+export declare function setBrand(brand: BrandConfig): void;
+/** Register brands for hostname/env resolution (web multi-tenant). */
+export declare function registerBrands(brands: BrandConfig[]): void;
+/** Whether the Machines/Containers/K8s/Network pages render (config-driven). */
+export declare function isMachinesEnabled(cfg?: BrandConfig): boolean;

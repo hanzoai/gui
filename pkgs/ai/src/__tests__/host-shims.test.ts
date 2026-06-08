@@ -1,5 +1,5 @@
 // Regression: "getCurrentWindow(...).emit is not a function" crashed the mount
-// after the brand fix. The web host shims must expose the full surface the app
+// after the chain fix. The web host shims must expose the full surface the app
 // touches, as no-op-safe defaults.
 import { describe, it, expect } from 'vitest';
 import { getCurrentWindow, getAllWindows } from '../host/window';

@@ -29,7 +29,7 @@ import {
   AIAgentIcon,
   AISearchContentIcon,
   AisIcon,
-  BrandCombinationMarkIcon,
+  ChainMarkIcon,
   FilesIcon,
   HomeIcon,
   InboxIcon,
@@ -345,7 +345,7 @@ export function MainNav() {
         )}
       >
         {sidebarExpanded && (
-          <BrandCombinationMarkIcon className="text-text-secondary h-auto w-[50px]" />
+          <ChainMarkIcon className="text-text-secondary h-auto w-[50px]" />
         )}
 
         <Tooltip>

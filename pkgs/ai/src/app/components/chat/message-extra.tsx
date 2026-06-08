@@ -223,7 +223,7 @@ function Payment({
                         value="one-time"
                       />
                       <Label
-                        className="hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-brand [&:has([data-state=checked])]:border-brand flex w-full flex-col items-center justify-between rounded-md border-2 border-gray-400 bg-gray-500 p-4"
+                        className="hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-chain [&:has([data-state=checked])]:border-chain flex w-full flex-col items-center justify-between rounded-md border-2 border-gray-400 bg-gray-500 p-4"
                         htmlFor="one-time"
                       >
                         <span className="font-inter text-2xl font-semibold">
@@ -252,7 +252,7 @@ function Payment({
                         value="download"
                       />
                       <Label
-                        className="hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-brand [&:has([data-state=checked])]:border-brand flex w-full flex-col items-center justify-between rounded-md border-2 border-gray-400 bg-gray-500 p-4"
+                        className="hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-chain [&:has([data-state=checked])]:border-chain flex w-full flex-col items-center justify-between rounded-md border-2 border-gray-400 bg-gray-500 p-4"
                         htmlFor="download"
                       >
                         <span className="font-inter text-xl font-semibold">

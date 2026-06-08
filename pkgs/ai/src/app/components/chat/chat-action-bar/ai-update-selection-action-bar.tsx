@@ -1,4 +1,4 @@
-import { useBrand } from '@hanzo_network/brand-config';
+import { useChain } from '@hanzo_network/chain-config';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import { ModelPrefix } from '@hanzo_network/hanzo-message-ts/api/jobs/index';
 import { extractJobIdFromInbox } from '@hanzo_network/hanzo-message-ts/utils/inbox_name_handler';
@@ -36,7 +36,7 @@ import { memo, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import { toast } from 'sonner';
 
-import { BRAND } from '../../../config/brand';
+import { BRAND } from '../../../config/chain';
 import { useAuth } from '../../../store/auth';
 import { useHanzoNodeManager } from '../../../store/hanzo-node-manager';
 import MODEL_CATALOG from '../../../lib/hanzo-node-manager/model-catalog.json';
@@ -56,9 +56,9 @@ const localModelDescriptionMap = MODEL_CATALOG.reduce(
 
 const nonOllamaProviderModels = {
   'hanzo-backend:free_text_inference':
-    `${useBrand().name} AI model for text generation.`,
+    `${useChain().name} AI model for text generation.`,
   'hanzo-backend:code_generator':
-    `${useBrand().name} AI model for generating tool code.`,
+    `${useChain().name} AI model for generating tool code.`,
   'openai:gpt-4o':
     'Powerful OpenAI model known for its ability to generate human-like text and handle complex tasks.',
   'openai:gpt-4o-mini':

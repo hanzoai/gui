@@ -34,7 +34,7 @@ const AppearancePage = () => {
           <Label
             className={cn(
               'cursor-pointer space-y-2',
-              chatFontSize === 'sm' && '[&_div]:border-brand',
+              chatFontSize === 'sm' && '[&_div]:border-chain',
             )}
             htmlFor="sm"
           >
@@ -52,7 +52,7 @@ const AppearancePage = () => {
           <Label
             className={cn(
               'cursor-pointer space-y-2',
-              chatFontSize === 'base' && '[&_div]:border-brand',
+              chatFontSize === 'base' && '[&_div]:border-chain',
             )}
             htmlFor="base"
           >
@@ -70,7 +70,7 @@ const AppearancePage = () => {
           <Label
             className={cn(
               'cursor-pointer space-y-2',
-              chatFontSize === 'lg' && '[&_div]:border-brand',
+              chatFontSize === 'lg' && '[&_div]:border-chain',
             )}
             htmlFor="lg"
           >
@@ -88,7 +88,7 @@ const AppearancePage = () => {
           <Label
             className={cn(
               'cursor-pointer space-y-2',
-              chatFontSize === 'xl' && '[&_div]:border-brand',
+              chatFontSize === 'xl' && '[&_div]:border-chain',
             )}
             htmlFor="xl"
           >

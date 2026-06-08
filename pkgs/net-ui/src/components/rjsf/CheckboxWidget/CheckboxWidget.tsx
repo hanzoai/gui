@@ -89,7 +89,7 @@ export default function CheckboxWidget<
         <input
           autoFocus={autofocus}
           checked={typeof value === 'undefined' ? false : value}
-          className="form-checkbox text-primary accent-brand"
+          className="form-checkbox text-primary accent-chain"
           disabled={disabled || readonly}
           id={id}
           name={id}

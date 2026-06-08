@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 
 // import { useFormContext } from 'react-hook-form';
-import { BRAND } from '../../../config/brand';
+import { BRAND } from '../../../config/chain';
 import { usePlaygroundStore } from '../context/playground-context';
 // import { useAutoSaveTool } from '../hooks/use-create-tool-and-save';
 // import { CreateToolCodeFormSchema } from '../hooks/use-tool-code';

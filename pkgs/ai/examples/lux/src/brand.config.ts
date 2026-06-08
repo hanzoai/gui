@@ -1,10 +1,10 @@
-import type { BrandConfig } from '@hanzo_network/brand-config';
+import type { ChainConfig } from '@hanzo_network/chain-config';
 
-// This app OWNS its brand. The @hanzo/ai SDK bundles no brands; it receives this
-// config via <HanzoAI {...brandConfig}/>. Edit values here — nothing brand-
+// This app OWNS its chain. The @hanzo/ai SDK bundles no brands; it receives this
+// config via <HanzoAI {...brandConfig}/>. Edit values here — nothing chain-
 // specific is hardcoded in the SDK.
-export const brandConfig: BrandConfig = {
-  brand: 'lux',
+export const brandConfig: ChainConfig = {
+  chain: 'lux',
   name: 'Lux',
   productName: 'Lux Desktop',
   company: 'Lux Partners',

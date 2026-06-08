@@ -18,7 +18,7 @@ import { cn } from '@hanzo_network/hanzo-ui/utils';
 import { Edit3Icon, ExternalLinkIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { BRAND } from '../../config/brand';
+import { BRAND } from '../../config/chain';
 import { useHanzoNodeRespawnMutation } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { isHostingHanzoNode } from '../../lib/hanzo-node-manager/hanzo-node-manager-windows-utils';
 import { type Auth, useAuth } from '../../store/auth';

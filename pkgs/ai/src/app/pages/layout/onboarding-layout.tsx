@@ -1,4 +1,4 @@
-import { useBrand } from '@hanzo_network/brand-config';
+import { useChain } from '@hanzo_network/chain-config';
 import { cn } from '@hanzo_network/hanzo-ui/utils';
 import React, { useContext } from 'react';
 import { Outlet } from 'react-router';
@@ -11,11 +11,11 @@ export type OnboardingLayoutProps = React.PropsWithChildren<
 >;
 
 const logoSrc =
-  useBrand().brand === 'zoo' ? './zoo-logo.svg' : './visor.svg';
+  useChain().chain === 'zoo' ? './zoo-logo.svg' : './visor.svg';
 // TODO: zoo-onboarding.png is currently the rounded app icon as a stand-in.
 // Replace with a proper Zoo onboarding hero image when art is available.
 const heroSrc =
-  useBrand().brand === 'zoo' ? './zoo-onboarding.png' : './onboarding.png';
+  useChain().chain === 'zoo' ? './zoo-onboarding.png' : './onboarding.png';
 
 const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
   const { tapCount, setTapCount, setShowLocalNodeOption } =
@@ -42,7 +42,7 @@ const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
       <div className="flex h-[calc(100dvh-100px)] items-center justify-center">
         <div className="mx-auto flex h-[600px] w-full max-w-lg flex-col gap-12">
           <img
-            alt={`${useBrand().name} logo`}
+            alt={`${useChain().name} logo`}
             className="w-24 cursor-pointer"
             data-cy="hanzo-logo"
             onClick={handleLogoTap}
@@ -58,7 +58,7 @@ const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
         <div className="relative size-full">
           <div className="absolute left-14 z-10 flex aspect-square size-full items-center object-left bg-blend-darken">
             <img
-              alt={`${useBrand().name} onboarding`}
+              alt={`${useChain().name} onboarding`}
               className="size-full max-h-[70vh] object-cover object-left"
               data-cy="onboarding-logo"
               src={heroSrc}

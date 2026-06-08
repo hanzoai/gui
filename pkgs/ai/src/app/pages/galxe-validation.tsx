@@ -16,7 +16,7 @@ import {
 import { Check, CircleIcon, Info, RefreshCw } from 'lucide-react';
 import { useMemo } from 'react';
 
-import { BRAND } from '../config/brand';
+import { BRAND } from '../config/chain';
 import { useAuth } from '../store/auth';
 import { SimpleLayout } from './layout/simple-layout';
 

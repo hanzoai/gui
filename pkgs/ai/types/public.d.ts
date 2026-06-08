@@ -4,10 +4,10 @@
 // dist/index.d.ts.
 import type { ComponentType, ReactElement, ReactNode } from 'react';
 
-export type Brand = string;
+export type Chain = string;
 
-export interface BrandConfig {
-  brand: Brand;
+export interface ChainConfig {
+  chain: Chain;
   name: string;
   productName: string;
   company: string;
@@ -35,10 +35,10 @@ export interface HostAdapter {
   platform?: 'tauri' | 'web' | 'expo';
 }
 
-export interface HanzoAIProps extends BrandConfig {
+export interface HanzoAIProps extends ChainConfig {
   logo?: ComponentType<{ className?: string }> | string;
   cloud?: { overlay?: string; inference?: string };
-  auth?: Partial<BrandConfig['iam']> & { provider?: 'iam' };
+  auth?: Partial<ChainConfig['iam']> & { provider?: 'iam' };
   features?: Partial<{
     chat: boolean; wallet: boolean; mining: boolean; tools: boolean;
     agents: boolean; vectorFs: boolean; machines: boolean;
@@ -47,21 +47,23 @@ export interface HanzoAIProps extends BrandConfig {
   host?: HostAdapter;
 }
 
-/** The Hanzo AI app as one declarative component. Brand is a prop; platform is
+/** The Hanzo AI app as one declarative component. Chain is a prop; platform is
  *  an injected host. Renders web / desktop (Tauri) / mobile (Expo) from one surface. */
 export declare function HanzoAI(props: HanzoAIProps): ReactElement;
 export default HanzoAI;
 
-export declare const BrandProvider: (props: { brand?: BrandConfig; children: ReactNode }) => ReactElement;
-/** Read the active brand. A plain getter, NOT a React hook — callable anywhere. */
-export declare function useBrand(): BrandConfig;
-/** Read the active brand: the injected one if set, else env/hostname via the registry. */
-export declare function getBrand(): BrandConfig;
-/** Resolve a brand from a hostname using the registered brands. */
-export declare function getBrandFromHostname(hostname: string): BrandConfig | undefined;
-/** Inject the active brand (called by <HanzoAI> before mount). */
-export declare function setBrand(brand: BrandConfig): void;
+export declare const BrandProvider: (props: { chain?: ChainConfig; children: ReactNode }) => ReactElement;
+/** Read the active chain. A plain getter, NOT a React hook — callable anywhere. */
+export declare function useChain(): ChainConfig;
+/** Read the active chain: the injected one if set, else env/hostname via the registry. */
+export declare function getChain(): ChainConfig;
+export declare function getChainByName(name: string): ChainConfig;
+export declare function getChainFromHostname(h: string): ChainConfig | undefined;
+/** Resolve a chain from a hostname using the registered brands. */
+export declare function getChainFromHostname(hostname: string): ChainConfig | undefined;
+/** Inject the active chain (called by <HanzoAI> before mount). */
+export declare function setChain(chain: ChainConfig): void;
 /** Register brands for hostname/env resolution (web multi-tenant). */
-export declare function registerBrands(brands: BrandConfig[]): void;
+export declare function registerBrands(brands: ChainConfig[]): void;
 /** Whether the Machines/Containers/K8s/Network pages render (config-driven). */
-export declare function isMachinesEnabled(cfg?: BrandConfig): boolean;
+export declare function isMachinesEnabled(cfg?: ChainConfig): boolean;

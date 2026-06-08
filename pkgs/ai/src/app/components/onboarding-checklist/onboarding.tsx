@@ -21,7 +21,7 @@ import { ChevronDown, PlusIcon, Sparkles, XIcon } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { BRAND } from '../../config/brand';
+import { BRAND } from '../../config/chain';
 import { showAnimation } from '../../pages/layout/main-layout';
 import { useSettings } from '../../store/settings';
 import { useOnboardingSteps } from './use-onboarding-stepper';
@@ -184,7 +184,7 @@ const stepIconColorMap: {
     icon: <CheckIcon className="text-text-secondary w-full" />,
   },
   // [StepStatus.Loading]: {
-  //   icon: <Loader className="text-brand animate-spin" />,
+  //   icon: <Loader className="text-chain animate-spin" />,
   //   iconClassName: 'bg-gray-200',
   // },
   [GetStartedStatus.Done]: {

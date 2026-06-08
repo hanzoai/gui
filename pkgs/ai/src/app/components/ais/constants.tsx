@@ -53,7 +53,7 @@ export const providerMappings = {
   [ModelProvider.LmStudio]: LmStudioIcon,
   [ModelProvider.Mistral]: MistralIcon,
   [ModelProvider.Meta]: MetaIcon,
-  // Local Hanzo/Zen engine is exposed as an OpenAI-compatible provider — brand it with the Zen enso ring.
+  // Local Hanzo/Zen engine is exposed as an OpenAI-compatible provider — chain it with the Zen enso ring.
   [ModelProvider.OpenAI]: ZenIcon,
   'openai-legacy': OpenAIIcon,
   [ModelProvider.OpenRouter]: OpenRouterIcon,

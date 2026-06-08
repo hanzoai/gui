@@ -1020,7 +1020,7 @@ const RegularRestoreWalletPrivateKey = () => {
           {/*                  value={value}*/}
           {/*                />*/}
           {/*                <Label*/}
-          {/*                  className="peer-data-[state=checked]:border-brand [&:has([data-state=checked])]:border-brand hover:bg-gray-450 flex cursor-pointer flex-col items-center justify-between rounded-md border-2 border-gray-200 bg-gray-400 p-4 transition-colors hover:text-white"*/}
+          {/*                  className="peer-data-[state=checked]:border-chain [&:has([data-state=checked])]:border-chain hover:bg-gray-450 flex cursor-pointer flex-col items-center justify-between rounded-md border-2 border-gray-200 bg-gray-400 p-4 transition-colors hover:text-white"*/}
           {/*                  htmlFor={value}*/}
           {/*                >*/}
           {/*                  <Icon className="mb-3 h-6 w-6" />*/}

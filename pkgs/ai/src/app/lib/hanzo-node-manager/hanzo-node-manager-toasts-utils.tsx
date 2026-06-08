@@ -3,7 +3,7 @@ import { cn } from '@hanzo_network/hanzo-ui/utils';
 import React from 'react';
 import { type ExternalToast, toast } from 'sonner';
 
-import { BRAND } from '../../config/brand';
+import { BRAND } from '../../config/chain';
 import { openHanzoNodeManagerWindow } from './hanzo-node-manager-windows-utils';
 
 export const modelNameMap: Record<string, string> = {

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-import { useBrand } from '@hanzo_network/brand-config';
+import { useChain } from '@hanzo_network/chain-config';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { formatWei, useChainBalance } from '../hooks/useChainBalance';
@@ -37,8 +37,8 @@ const PRIVACY_LABELS: Record<Privacy, { label: string; multiplier: string }> = {
 const HASHRATE_WINDOW_MS = 5 * 60 * 1000;
 
 export default function MiningPage() {
-  const brand = useBrand();
-  const token = brand.network.token;
+  const chain = useChain();
+  const token = chain.network.token;
   const { wallet } = useWallet();
 
   const [history, setHistory] = useState<ProofRecord[]>([]);
@@ -98,8 +98,8 @@ export default function MiningPage() {
 
   const recent = useMemo(() => history.slice(-10).reverse(), [history]);
   const explorerUrl = wallet?.address
-    ? `${brand.network.blockExplorer}/address/${wallet.address}`
-    : brand.network.blockExplorer;
+    ? `${chain.network.blockExplorer}/address/${wallet.address}`
+    : chain.network.blockExplorer;
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="mining-page">

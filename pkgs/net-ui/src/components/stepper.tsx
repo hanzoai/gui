@@ -192,7 +192,7 @@ const StepperIndicator = ({
   return (
     <div
       className={cn(
-        'bg-bg-tertiary text-text-secondary data-[state=completed]:bg-brand data-[state=active]:text-text-default data-[state=completed]:text-primary-foreground data-[state=active]:bg-bg-secondary relative flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-medium',
+        'bg-bg-tertiary text-text-secondary data-[state=completed]:bg-chain data-[state=active]:text-text-default data-[state=completed]:text-primary-foreground data-[state=active]:bg-bg-secondary relative flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-medium',
         className,
       )}
       data-state={state}

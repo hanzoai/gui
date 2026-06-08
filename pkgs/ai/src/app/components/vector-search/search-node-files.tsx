@@ -233,7 +233,7 @@ const SearchNodeFiles = () => {
                 >
                   <span className="text-sm">Create AI Chat</span>
                   <Badge
-                    className="bg-brand text-xs font-medium"
+                    className="bg-chain text-xs font-medium"
                     variant="inputAdornment"
                   >
                     {Object.keys(selectedKeys).length}

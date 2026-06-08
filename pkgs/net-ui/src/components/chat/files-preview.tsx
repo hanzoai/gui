@@ -415,7 +415,7 @@ const themeVariables = [
   '--color-text-default',
   '--color-text-secondary',
   '--color-divider',
-  '--color-brand-500',
+  '--color-chain-500',
   '--font-family-inter',
 ] as const;
 
@@ -425,7 +425,7 @@ const fallbackThemeValues: Record<(typeof themeVariables)[number], string> = {
   '--color-text-default': '#f7f5f5',
   '--color-text-secondary': '#b2aeae',
   '--color-divider': 'rgba(255, 255, 255, 0.1)',
-  '--color-brand-500': '#fe6162',
+  '--color-chain-500': '#fe6162',
   '--font-family-inter':
     "Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
 };
@@ -512,7 +512,7 @@ const HtmlPreview = ({
   const styleTag = useMemo(() => {
     const baseStyles = `:root { ${themeCss} }
 body { margin: 0; padding: 1.5rem; background: var(--color-bg-default); color: var(--color-text-default); font-family: var(--font-family-inter); line-height: 1.6; }
-a { color: var(--color-brand-500); }
+a { color: var(--color-chain-500); }
 table { width: 100%; border-collapse: collapse; }
 th, td { border: 1px solid var(--color-divider); padding: 0.5rem 0.75rem; text-align: left; }
 pre { background: var(--color-bg-secondary); padding: 0.75rem 1rem; border-radius: 0.75rem; overflow: auto; }

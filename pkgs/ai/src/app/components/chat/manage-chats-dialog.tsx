@@ -325,7 +325,7 @@ export function ManageChatsDialog({
                   <div
                     className={cn(
                       'flex items-center gap-4 rounded-lg border border-transparent px-4 py-3 transition-colors hover:bg-gray-400/10',
-                      isSelected && 'border-brand/30 bg-brand/5',
+                      isSelected && 'border-chain/30 bg-chain/5',
                     )}
                     key={inbox.inbox_id}
                     onClick={(e) => {

@@ -12,8 +12,8 @@
   /* =============================== */
 
   /* Hanzo monochrome brand */
-  --color-brand: hsla(0, 0%, 100%, 1);
-  --color-brand-500: hsla(0, 0%, 80%, 1);
+  --color-chain: hsla(0, 0%, 100%, 1);
+  --color-chain-500: hsla(0, 0%, 80%, 1);
   --color-red: hsla(0, 0%, 60%, 1);
 
   /* Generic tokens */

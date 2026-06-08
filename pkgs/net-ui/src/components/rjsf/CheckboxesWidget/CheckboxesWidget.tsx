@@ -71,7 +71,7 @@ export default function CheckboxesWidget<
                 aria-describedby={ariaDescribedByIds<T>(id)}
                 autoFocus={autofocus && index === 0}
                 checked={checked}
-                className="form-checkbox accent-brand border-0 bg-transparent"
+                className="form-checkbox accent-chain border-0 bg-transparent"
                 disabled={disabled || itemDisabled || readonly}
                 id={optionId(id, index)}
                 name={id}

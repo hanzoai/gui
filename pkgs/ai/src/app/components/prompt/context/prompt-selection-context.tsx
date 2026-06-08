@@ -333,7 +333,7 @@ export function CreatePromptDrawer({
       <DialogTrigger asChild>
         {children ?? (
           <button
-            className="bg-brand absolute top-2 right-12 rounded-full p-2"
+            className="bg-chain absolute top-2 right-12 rounded-full p-2"
             type="button"
           >
             <PlusIcon className="h-4 w-4" />

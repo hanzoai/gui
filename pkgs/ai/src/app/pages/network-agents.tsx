@@ -75,7 +75,7 @@ import {
 } from '../components/crypto-wallet/utils';
 import RemoveNetworkAgentButton from '../components/network/remove-network-agent-button';
 import RemoveToolOfferingButton from '../components/network/remove-tool-offering-button';
-import { BRAND } from '../config/brand';
+import { BRAND } from '../config/chain';
 import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
 

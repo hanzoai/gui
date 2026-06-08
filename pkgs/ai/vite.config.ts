@@ -35,7 +35,7 @@ const libAlias = {
   '@hanzo_network/hanzo-node-state': p('net-state'),
   '@hanzo_network/hanzo-i18n': p('net-i18n'),
   '@hanzo_network/hanzo-message-ts': p('net-message-ts'),
-  '@hanzo_network/brand-config': p('net-brand-config'),
+  '@hanzo_network/chain-config': p('net-chain-config'),
   '@hanzo_network/hanzo-logo': p('net-logo'),
   '@hanzo_network/hanzo-artifacts': p('net-artifacts'),
 };

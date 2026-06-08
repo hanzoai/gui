@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useBrand } from '@hanzo_network/brand-config';
+import { useChain } from '@hanzo_network/chain-config';
 import {
   type LocaleMode,
   localeOptions,
@@ -57,7 +57,7 @@ import { z } from 'zod';
 
 import { FeedbackModal } from '../components/feedback/feedback-modal';
 import { OnboardingStep } from '../components/onboarding/constants';
-import { BRAND } from '../config/brand';
+import { BRAND } from '../config/chain';
 import EmbeddingModelSelectionDialog from '../components/settings/embedding-model-selection-dialog';
 import HanzoIdentityDialog from '../components/settings/hanzo-identity-dialog';
 import {
@@ -442,7 +442,7 @@ const SettingsPage = () => {
               </form>
             </Form>
           </SettingsSection>
-          <SettingsSection title={`${useBrand().name} Node Configuration`}>
+          <SettingsSection title={`${useChain().name} Node Configuration`}>
             <div className="divide-divider flex flex-col divide-y">
               {[
                 {

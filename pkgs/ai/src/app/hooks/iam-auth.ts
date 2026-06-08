@@ -1,12 +1,12 @@
 import { listen } from '@tauri-apps/api/event';
 import { open } from '@tauri-apps/plugin-shell';
 import { useCallback, useRef, useState } from 'react';
-import { useBrand } from '@hanzo_network/brand-config';
+import { useChain } from '@hanzo_network/chain-config';
 
-// Brand-neutral IAM login. Everything brand-specific (auth host, OAuth client,
-// redirect scheme, callback event) comes from the active brand's `iam` config
-// (see @hanzo_network/brand-config). Adding a brand = adding a config entry;
-// nothing here is hardcoded to any one brand. Public-client PKCE flow (no
+// Chain-neutral IAM login. Everything chain-specific (auth host, OAuth client,
+// redirect scheme, callback event) comes from the active chain's `iam` config
+// (see @hanzo_network/chain-config). Adding a chain = adding a config entry;
+// nothing here is hardcoded to any one chain. Public-client PKCE flow (no
 // client secret shipped in the binary).
 
 export type AuthTokens = {
@@ -64,7 +64,7 @@ async function exchangeCodeForTokens(
 }
 
 export function useIamLogin() {
-  const { iam } = useBrand();
+  const { iam } = useChain();
   const [state, setState] = useState<LoginState>({
     isLoading: false,
     error: null,
@@ -93,8 +93,8 @@ export function useIamLogin() {
 
     return new Promise<AuthTokens>((resolve, reject) => {
       let settled = false;
-      // Listen for the active brand's callback event (emitted by the Tauri
-      // deep-link handler for `<scheme>://oauth/<brand>`).
+      // Listen for the active chain's callback event (emitted by the Tauri
+      // deep-link handler for `<scheme>://oauth/<chain>`).
       const unlistenPromise = listen(iam.callbackEvent, async (event) => {
         const payload = event.payload as { state: string; code: string };
         if (payload.state !== pendingState.current || settled) return;

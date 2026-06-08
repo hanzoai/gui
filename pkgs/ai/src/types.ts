@@ -1,14 +1,14 @@
 // @hanzo/ai — the declarative props contract for the Hanzo AI app SDK.
 //
-// This is the canonical shape every brand passes to <HanzoAI {...brand} />.
-// It is the SAME `BrandConfig` that lived in hanzoai/desktop's
-// libs/brand-config, lifted into the SDK so brand becomes a *prop* (one
+// This is the canonical shape every chain passes to <HanzoAI {...chain} />.
+// It is the SAME `ChainConfig` that lived in hanzoai/desktop's
+// libs/chain-config, lifted into the SDK so chain becomes a *prop* (one
 // way, one place) instead of a build-time `VITE_BRAND` env lookup.
 
-export type Brand = string;
+export type Chain = string;
 
-export interface BrandConfig {
-  brand: Brand;
+export interface ChainConfig {
+  chain: Chain;
   name: string;
   productName: string;
   identifier: string; // bundle id, e.g. com.lux.desktop
@@ -38,13 +38,13 @@ export interface HostAdapter {
   platform?: 'tauri' | 'web' | 'expo';
 }
 
-export interface HanzoAIProps extends BrandConfig {
-  /** SVG/logo component override (brand ships its own marks). */
+export interface HanzoAIProps extends ChainConfig {
+  /** SVG/logo component override (chain ships its own marks). */
   logo?: React.ComponentType<{ className?: string }> | string;
   /** Per-env cloud overrides (defaults derive from overlayController/inferenceEndpoint). */
   cloud?: { overlay?: string; inference?: string };
   /** Auth override (defaults derive from `iam`). */
-  auth?: Partial<BrandConfig['iam']> & { provider?: 'iam' };
+  auth?: Partial<ChainConfig['iam']> & { provider?: 'iam' };
   /** Feature toggles. */
   features?: Partial<{
     chat: boolean; wallet: boolean; mining: boolean; tools: boolean;

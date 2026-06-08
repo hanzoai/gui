@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { toast } from 'sonner';
 
 import { ResetConnectionDialog } from '../components/reset-connection-dialog';
-import { BRAND } from '../config/brand';
+import { BRAND } from '../config/chain';
 import { useAuth } from '../store/auth';
 import { useHanzoNodeManager } from '../store/hanzo-node-manager';
 import { useDownloadTauriLogsMutation } from './hanzo-logs/logs-client';

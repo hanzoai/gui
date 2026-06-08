@@ -175,7 +175,7 @@ export const SetJobScopeDrawer = () => {
           <SheetTitle className="flex h-[40px] items-center gap-4">
             {t('chat.form.setContext')}
             {Object.keys(selectedKeys ?? {}).length > 0 && (
-              <Badge className="bg-brand text-sm text-white">
+              <Badge className="bg-chain text-sm text-white">
                 {Object.keys(selectedKeys ?? {}).length}
               </Badge>
             )}
@@ -460,7 +460,7 @@ export const KnowledgeSearchDrawer = () => {
                   })}
                 </h2>
                 {selectedKeys && Object.keys(selectedKeys).length > 0 && (
-                  <span className="text-brand text-sm font-medium">
+                  <span className="text-chain text-sm font-medium">
                     {t('aiFilesSearch.filesSelected', {
                       count: Object.keys(selectedKeys).length,
                     })}

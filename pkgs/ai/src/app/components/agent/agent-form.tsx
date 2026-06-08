@@ -2743,7 +2743,7 @@ function AgentForm({ mode }: AgentFormProps) {
                                     key={task.task_id}
                                   >
                                     <div className="flex items-center gap-2 pl-1">
-                                      <div className="bg-brand/70 h-2 w-2 rounded-full" />
+                                      <div className="bg-chain/70 h-2 w-2 rounded-full" />
                                       <span className="text-sm">
                                         {cronstrue.toString(task.cron, {
                                           throwExceptionOnParseError: false,

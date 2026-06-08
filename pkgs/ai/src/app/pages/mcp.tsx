@@ -39,7 +39,7 @@ import { Link } from 'react-router';
 import { toast } from 'sonner';
 
 import { McpServers } from '../components/mcp-servers/mcp-servers';
-import { BRAND } from '../config/brand';
+import { BRAND } from '../config/chain';
 import { handleConfigureClaude } from '../lib/external-clients/claude-desktop';
 import { getDenoBinPath, ConfigError } from '../lib/external-clients/common';
 import { handleConfigureCursor } from '../lib/external-clients/cursor';

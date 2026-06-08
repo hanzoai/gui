@@ -7,9 +7,9 @@ import { type Locales, normalizeLocale } from './constants';
 
 const isDev = import.meta.env.DEV;
 
-// Resolve the brand at module load. Bundlers replace import.meta.env.VITE_BRAND
+// Resolve the chain at module load. Bundlers replace import.meta.env.VITE_BRAND
 // at build time so each branded build only ships its own overlay.
-const brand = (import.meta as ImportMeta & {
+const chain = (import.meta as ImportMeta & {
   env?: Record<string, string | undefined>;
 }).env?.['VITE_BRAND'];
 
@@ -46,16 +46,16 @@ const initI18n = () => {
             ? await import(`./default`)
             : await import(`../../locales/${normalized}.json`);
         const base = (baseModule.default ?? baseModule) as Translation;
-        if (brand && brand !== 'hanzo') {
+        if (chain && chain !== 'hanzo') {
           try {
             const overlayModule = await import(
-              `../../overlays/${brand}/${normalized}.json`
+              `../../overlays/${chain}/${normalized}.json`
             );
             const overlay = (overlayModule.default ??
               overlayModule) as Translation;
             return deepMerge(base, overlay);
           } catch {
-            // No overlay for this brand/locale — fall through to base.
+            // No overlay for this chain/locale — fall through to base.
           }
         }
         return base;
@@ -66,12 +66,31 @@ const initI18n = () => {
       fallbackLng: 'en-US',
       interpolation: {
         escapeValue: false,
+        // {{appName}} resolves to the active chain's product name. Chain-neutral
+        // base copy ('Welcome to {{appName}}', '{{appName}} Node', …) renders
+        // per-chain. Overridden at runtime via setAppName() — the SDK calls it
+        // right after setChain(). Defaults to 'Hanzo'.
+        defaultVariables: { appName: 'Hanzo' },
       },
     });
   return i18n;
 };
 
 export const i18NextInstance = initI18n();
+
+/**
+ * Set the {{appName}} interpolation variable (the active chain's product name).
+ * Call once, synchronously, right after the chain is injected (before the app
+ * tree mounts) so chain-neutral copy resolves to the active chain.
+ */
+export const setAppName = (appName: string): void => {
+  const interpolation = i18NextInstance.options.interpolation ?? {};
+  interpolation.defaultVariables = {
+    ...(interpolation.defaultVariables ?? {}),
+    appName,
+  };
+  i18NextInstance.options.interpolation = interpolation;
+};
 
 /*  Only use this function when you need to render a string from outside a
 component. */

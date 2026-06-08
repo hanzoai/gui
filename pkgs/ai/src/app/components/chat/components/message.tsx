@@ -81,7 +81,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import { z } from 'zod';
 
-import { BRAND } from '../../../config/brand';
+import { BRAND } from '../../../config/chain';
 import { useAuth } from '../../../store/auth';
 import { useOAuth } from '../../../store/oauth';
 import { useSettings } from '../../../store/settings';
@@ -766,7 +766,7 @@ export const MessageBase = ({
                   <div className="bg-bg-tertiary border-divider mt-4 flex flex-col items-start rounded-lg border p-6">
                     <p className="text-em-base text-text-default mb-3 font-semibold">
                       <div className="flex items-center">
-                        <ToolsIcon className="text-brand mr-3 size-4" />
+                        <ToolsIcon className="text-chain mr-3 size-4" />
                         {t('tools.setupRequired')}
                       </div>
                     </p>
@@ -1017,7 +1017,7 @@ export function ToolCard({
 
   const renderStatus = () => {
     if (status === ToolStatusType.Complete) {
-      return <ToolsIcon className="text-brand size-full" />;
+      return <ToolsIcon className="text-chain size-full" />;
     }
     if (status === ToolStatusType.Incomplete) {
       return <XCircle className="text-text-secondary size-full" />;
@@ -1025,7 +1025,7 @@ export function ToolCard({
     if (status === ToolStatusType.RequiresAction) {
       return <InfoIcon className="text-text-secondary size-full" />;
     }
-    return <Loader2 className="text-brand size-full animate-spin" />;
+    return <Loader2 className="text-chain size-full animate-spin" />;
   };
 
   const renderLabelText = () => {
@@ -1083,7 +1083,7 @@ export function Reasoning({
   const { t } = useTranslation();
   const renderStatus = () => {
     if (status?.type === 'complete') {
-      return <ReasoningIcon className="text-brand size-full" />;
+      return <ReasoningIcon className="text-chain size-full" />;
     }
     if (status?.type === 'incomplete') {
       return <XCircle className="text-text-secondary size-full" />;

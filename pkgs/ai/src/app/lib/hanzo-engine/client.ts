@@ -18,7 +18,7 @@ import type {
   EmbeddingResponse,
 } from './types';
 
-// Default engine endpoint. Brand-neutral name (was HANZO_ENGINE_BASE_URL).
+// Default engine endpoint. Chain-neutral name (was HANZO_ENGINE_BASE_URL).
 // Re-exported as the legacy name for back-compat with existing call sites.
 export const ENGINE_BASE_URL =
   (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_ENGINE_BASE_URL) ||

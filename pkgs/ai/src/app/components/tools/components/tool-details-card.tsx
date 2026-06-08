@@ -58,7 +58,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
-import { BRAND } from '../../../config/brand';
+import { BRAND } from '../../../config/chain';
 import { useAuth } from '../../../store/auth';
 import { useSettings } from '../../../store/settings';
 import { HANZO_STORE_URL } from '../../../utils/store';
@@ -1398,7 +1398,7 @@ export default function ToolDetailsCard({
 
 export function ToolIcon() {
   return (
-    <div className="from-brand-500 to-brand-600 flex size-10 items-center justify-center rounded-lg border border-gray-300 bg-gray-500 bg-gradient-to-tr text-gray-50">
+    <div className="from-chain-500 to-chain-600 flex size-10 items-center justify-center rounded-lg border border-gray-300 bg-gray-500 bg-gradient-to-tr text-gray-50">
       <svg
         color="currentColor"
         fill="none"

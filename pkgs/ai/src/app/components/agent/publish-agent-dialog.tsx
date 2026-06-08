@@ -32,7 +32,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRightIcon, PlusIcon } from 'lucide-react';
 import { useState, useMemo, useEffect } from 'react';
 import { toast } from 'sonner';
-import { BRAND } from '../../config/brand';
+import { BRAND } from '../../config/chain';
 import { useAuth } from '../../store/auth';
 type WizardStep = 'select' | 'configure' | 'publishing' | 'success';
 
@@ -181,9 +181,9 @@ export default function PublishAgentDialog() {
                       'ml-[40px] flex items-center justify-center rounded-full text-sm font-semibold',
                       'z-10 h-7 w-7',
                       currentStep === 'select'
-                        ? 'bg-brand text-white'
+                        ? 'bg-chain text-white'
                         : currentStep === 'configure'
-                          ? 'bg-brand'
+                          ? 'bg-chain'
                           : 'bg-bg-quaternary text-text-secondary',
                     )}
                   >
@@ -194,7 +194,7 @@ export default function PublishAgentDialog() {
                       className={cn(
                         'absolute top-1/2 right-0 left-0 h-4 -translate-y-1/2 rounded',
                         currentStep === 'configure'
-                          ? 'bg-brand'
+                          ? 'bg-chain'
                           : 'bg-bg-quaternary',
                       )}
                     />
@@ -204,7 +204,7 @@ export default function PublishAgentDialog() {
                       'mr-[50px] flex items-center justify-center rounded-full text-sm font-semibold',
                       'z-10 h-7 w-7',
                       currentStep === 'configure'
-                        ? 'bg-brand text-white'
+                        ? 'bg-chain text-white'
                         : 'bg-bg-quaternary text-text-secondary',
                     )}
                   >

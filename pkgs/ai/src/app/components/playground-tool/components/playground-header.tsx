@@ -29,7 +29,7 @@ import { useFormContext } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 
-import { BRAND } from '../../../config/brand';
+import { BRAND } from '../../../config/chain';
 import { useAuth } from '../../../store/auth';
 import { HANZO_STORE_URL } from '../../../utils/store';
 import { DockerStatus } from '../../tools/components/docker-status';

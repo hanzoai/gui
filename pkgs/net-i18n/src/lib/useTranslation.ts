@@ -1,4 +1,4 @@
-import { useBrand } from '@hanzo_network/brand-config';
+import { useChain } from '@hanzo_network/chain-config';
 import { createElement } from 'react';
 import {
   Trans as I18NextTrans,
@@ -14,10 +14,10 @@ import {
 // injected chain (set by <HanzoAI> before mount), so this is correct per app.
 export const useTranslation = () => {
   const { t: baseT, i18n, ready } = useI18NextTranslation();
-  // useBrand() returns the runtime-INJECTED chain (set by <HanzoAI> before
+  // useChain() returns the runtime-INJECTED chain (set by <HanzoAI> before
   // mount). getChain() must NOT be used here — it ignores the injection and
   // falls back to the build-frozen VITE_BRAND (→ always Hanzo).
-  const appName = useBrand().name;
+  const appName = useChain().name;
 
   const t = ((key: unknown, options?: unknown) =>
     baseT(key as never, {

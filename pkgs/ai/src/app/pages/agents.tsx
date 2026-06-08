@@ -55,7 +55,7 @@ import { toast } from 'sonner';
 
 import ImportAgentModal from '../components/agent/import-agent-modal';
 import { useGetStoreAgents } from '../components/store/store-client';
-import { BRAND } from '../config/brand';
+import { BRAND } from '../config/chain';
 
 import { useAuth } from '../store/auth';
 

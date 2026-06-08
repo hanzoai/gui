@@ -1,4 +1,4 @@
-import { getBrand } from '@hanzo_network/brand-config';
+import { getChain } from '@hanzo_network/chain-config';
 import BoringAvatar from 'boring-avatars';
 import React from 'react';
 
@@ -78,13 +78,13 @@ export const ZooCombinationMarkIcon = ({
   </svg>
 );
 
-export const BrandCombinationMarkIcon = ({
+export const ChainMarkIcon = ({
   className,
 }: {
   className?: string;
 }) => {
-  const { brand } = getBrand();
-  return brand === 'zoo' ? (
+  const { chain } = getChain();
+  return chain === 'zoo' ? (
     <ZooCombinationMarkIcon className={className} />
   ) : (
     <HanzoCombinationMarkIcon className={className} />

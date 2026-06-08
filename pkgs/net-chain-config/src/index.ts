@@ -71,11 +71,16 @@ export function getChainFromHostname(h: string): ChainConfig | undefined {
 // before the app tree mounts. Call sites then read it via useChain() / getChain()
 // — a PLAIN module getter, NOT a React hook (it is called from module scope,
 // utils and event handlers, so it must never touch a hook).
-let _injected: ChainConfig | null = null;
+// Stored on globalThis, NOT a module-level `let`. Rollup/vite can DUPLICATE a
+// small module across output chunks; a module-level `let` then has two copies
+// (setChain writes one, getChain reads the other → null → getChain throws →
+// BLANK app). A globalThis key is a true cross-chunk singleton.
+const CHAIN_KEY = '__hanzoNetworkInjectedChain__';
+type ChainGlobal = typeof globalThis & { [CHAIN_KEY]?: ChainConfig | null };
 
 /** Inject the active chain (called by <HanzoAI> before mount). */
 export function setChain(b: ChainConfig): void {
-  _injected = b;
+  (globalThis as ChainGlobal)[CHAIN_KEY] = b;
 }
 
 function envVar(key: string): string | undefined {
@@ -90,6 +95,7 @@ function envVar(key: string): string | undefined {
 
 /** Read the active chain: injected prop, else env/hostname via the registry. */
 export function getChain(): ChainConfig {
+  const _injected = (globalThis as ChainGlobal)[CHAIN_KEY];
   if (_injected) return _injected;
   const viteBrand = envVar('VITE_BRAND');
   if (viteBrand) {

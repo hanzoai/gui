@@ -1,9 +1,0 @@
-import { U as Utils, F as Color } from './index-B2dmfNaL.js';
-
-/* IMPORT */
-/* MAIN */
-const channel = (color, channel) => {
-    return Utils.lang.round(Color.parse(color)[channel]);
-};
-
-export { channel as c };

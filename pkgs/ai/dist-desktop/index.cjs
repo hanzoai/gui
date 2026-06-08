@@ -3,7 +3,7 @@
 Object.defineProperties(exports, { __esModule: { value: true }, [Symbol.toStringTag]: { value: 'Module' } });
 
 require('react');
-const index = require('./index-C2MrPJDk.cjs');
+const index = require('./index-X2HrgaMI.cjs');
 require('react/jsx-runtime');
 
 

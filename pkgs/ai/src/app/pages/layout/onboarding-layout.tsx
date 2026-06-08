@@ -10,14 +10,20 @@ export type OnboardingLayoutProps = React.PropsWithChildren<
   React.HTMLAttributes<HTMLDivElement>
 >;
 
-const logoSrc =
-  useChain().chain === 'zoo' ? './zoo-logo.svg' : './visor.svg';
-// TODO: zoo-onboarding.png is currently the rounded app icon as a stand-in.
-// Replace with a proper Zoo onboarding hero image when art is available.
-const heroSrc =
-  useChain().chain === 'zoo' ? './zoo-onboarding.png' : './onboarding.png';
-
 const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
+  // Per-chain onboarding art. Computed in RENDER (not module scope): a
+  // module-scope useChain() runs at IMPORT time — before <HanzoAI> calls
+  // setChain() — so it always sees the default chain (hanzo) and mis-brands
+  // zoo/lux. Each app serves its OWN ./*.svg as same-origin public assets.
+  const chain = useChain().chain;
+  const logoSrc =
+    chain === 'zoo'
+      ? './zoo-logo.svg'
+      : chain === 'lux'
+        ? './lux-logo.svg'
+        : './visor.svg';
+  const heroSrc =
+    chain === 'zoo' ? './zoo-onboarding.png' : './onboarding.png';
   const { tapCount, setTapCount, setShowLocalNodeOption } =
     useContext(LogoTapContext);
 

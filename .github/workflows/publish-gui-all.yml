@@ -96,15 +96,13 @@ jobs:
           echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
-      - name: Publish all packages (republish current version)
-        # --republish: skip version bump, build, tests, and the git
-        #   tag/commit/push finish step — just (re)publish the current
-        #   on-disk version of every package.
-        # --force-publish-all: publish every workspace package, not only
-        #   those with source changes since the last release.
-        # release.ts rewrites workspace:* → concrete versions at pack time
-        # and skips any package whose version is already on npm.
+      - name: Publish gui surface (primitives + umbrella + @hanzo/gui alias)
+        # Targeted publish of just the @hanzogui/* closure + hanzogui +
+        # @hanzo/gui, at the current on-disk version. Avoids release.ts's
+        # whole-workspace fan-out (which fails packing unrelated
+        # @hanzo_network/* packages) and its fragile tarball-rename step.
+        # Idempotent — skips any name@version already on npm.
         env:
           NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
           NODE_AUTH_TOKEN: ${{ steps.token.outputs.npm_token }}
-        run: bun ./scripts/release.ts --republish --force-publish-all
+        run: node ./scripts/publish-gui-surface.mjs

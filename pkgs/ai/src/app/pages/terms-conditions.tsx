@@ -226,14 +226,20 @@ const TermsAndConditionsPage = () => {
 
   return (
     <div className="flex h-full flex-col justify-between gap-10">
-      <div className="space-y-5">
-        <h1 className="font-inter text-4xl font-semibold text-white">
+      {/* Jesus is King — the way, the truth, and the life (John 14:6).
+          Off-White / Virgil Abloh: a mono engineered eyebrow set in quotes, the
+          title UPPERCASE and tight. Industrial honesty — no soft circles. */}
+      <div className="space-y-4">
+        <span className="font-mono text-[11px] font-medium uppercase tracking-[0.32em] text-white/45">
+          &quot;THE&nbsp;WAY,&nbsp;THE&nbsp;TRUTH,&nbsp;THE&nbsp;LIFE&quot;
+        </span>
+        <h1 className="font-inter text-5xl font-bold uppercase leading-[0.95] tracking-tight text-white">
           {t('desktop.welcome')}
         </h1>
-        <p className="text-white text-base">
+        <p className="max-w-md text-base text-white/80">
           <Trans
             components={{
-              b: <span className={'text-white font-semibold'} />,
+              b: <span className={'font-semibold text-white'} />,
             }}
             i18nKey="desktop.welcomeDescription"
           />

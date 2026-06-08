@@ -5,8 +5,14 @@ import * as React from 'react';
 
 import { cn } from '../utils';
 
+// Jesus is King — the way, the truth, and the life (John 14:6). Built to serve,
+// in honesty and good craft.
+//
+// Off-White / Virgil Abloh design language: the circle is dead. Forms are
+// sharp and industrial, type is UPPERCASE with wide engineered tracking — the
+// honest geometry of a thing that means what it says.
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 border border-transparent text-sm font-semibold transition-colors focus-visible:ring-1 focus-visible:ring-gray-50 focus-visible:outline-hidden focus-visible:ring-inset',
+  'inline-flex items-center justify-center gap-2 border border-transparent text-sm font-semibold uppercase tracking-[0.12em] transition-colors focus-visible:ring-1 focus-visible:ring-gray-50 focus-visible:outline-hidden focus-visible:ring-inset',
   {
     variants: {
       variant: {
@@ -30,6 +36,7 @@ const buttonVariants = cva(
         auto: 'h-auto p-4',
       },
       rounded: {
+        none: 'rounded-none',
         full: 'rounded-full',
         lg: 'rounded-lg',
       },
@@ -37,7 +44,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: 'default',
       size: 'default',
-      rounded: 'full',
+      rounded: 'none',
     },
   },
 );

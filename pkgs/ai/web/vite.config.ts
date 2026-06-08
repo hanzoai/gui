@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'node:path';
 const a = resolve(__dirname, '..');           // pkgs/ai
 const h = (m: string) => `${a}/src/host/${m}`;
 const p = (d: string) => resolve(__dirname, `../../${d}/src`);
 export default defineConfig(({ command }) => ({
   root: __dirname,
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   worker: { format: 'es' },
   server: {
     port: 1500, strictPort: true, host: '0.0.0.0',

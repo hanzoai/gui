@@ -2,6 +2,8 @@
 @import 'katex/dist/katex.min.css';
 
 @import 'tailwindcss';
+@source '../../../ai/src/**/*.{ts,tsx}';
+@source '../**/*.{ts,tsx}';
 @plugin "@tailwindcss/typography";
 
 

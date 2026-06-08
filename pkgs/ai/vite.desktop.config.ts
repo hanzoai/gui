@@ -6,6 +6,7 @@
 //   render(<HanzoAI {...getChain()} />)   // VITE_BRAND selects hanzo/zoo/lux
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'node:path';
 
 const p = (d: string) => resolve(__dirname, `../${d}/src`);
@@ -27,7 +28,7 @@ const isExternal = (id: string) =>
   REACT.has(id) || id === '@tauri-apps/api' || id.startsWith('@tauri-apps/');
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   worker: { format: 'es' },
   resolve: {
     dedupe: ['react', 'react-dom'],

@@ -7,6 +7,7 @@
 // Mirrors @luxfi/exchange's <Exchange {...chain} />: chain is a prop, one way,
 // one place. hanzo/zoo/lux desktop+mobile apps all collapse to an ~80-line shim.
 import React from 'react';
+import './app/globals.css';
 import { setAppName } from '@hanzo_network/hanzo-i18n';
 import { ChainProvider, setChain } from './chain-context';
 import { setHost } from './host/runtime';

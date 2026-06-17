@@ -13,6 +13,10 @@ export interface BrandConfig {
   productName: string;
   identifier: string; // bundle id, e.g. com.lux.desktop
   logo: { light: string; dark: string; favicon: string };
+  /** Optional small-caps tagline under the onboarding logo. Empty/absent for
+   *  every brand by default — set it per-brand to opt in. (Replaces the old
+   *  hardcoded "the way, the truth, the life".) */
+  tagline?: string;
   colors: { primary: string; bg: string; fg: string };
   hosts: string[];
   storeUrl: { mac: string; win: string; ios: string; android: string };

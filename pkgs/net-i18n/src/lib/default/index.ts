@@ -14,7 +14,7 @@ export default {
     enterToSend: '<span>Enter</span> to send',
   },
   desktop: {
-    welcome: 'Welcome to Hanzo',
+    welcome: 'Welcome to {{appName}}',
     welcomeDescription:
       '<b>Hanzo lets you build AI agents in minutes — fast, private, and secure.</b> Run locally, collaborate through a decentralized network, and create AI workflows effortlessly. ',
     localAI: 'Hanzo Local AI',

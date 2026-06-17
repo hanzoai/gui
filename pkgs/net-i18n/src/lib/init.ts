@@ -41,10 +41,18 @@ const initI18n = () => {
     .use(
       resourcesToBackend(async (lng: string) => {
         const normalized = normalizeLocale(lng);
+        // en-US ALWAYS loads the bundled ./default. The @hanzo/ai dist is
+        // production-built, so import.meta.env.DEV is false at runtime in the
+        // consumer; the old `isDev && en-US` gate then fell through to
+        // locales/en-US.json — which is NOT bundled → reject → no resources →
+        // raw i18n keys ("desktop.welcome"). Other locales try their json,
+        // falling back to ./default when absent.
         const baseModule =
-          isDev && lng === 'en-US'
+          normalized === 'en-US'
             ? await import(`./default`)
-            : await import(`../../locales/${normalized}.json`);
+            : await import(`../../locales/${normalized}.json`).catch(
+                () => import(`./default`),
+              );
         const base = (baseModule.default ?? baseModule) as Translation;
         if (brand && brand !== 'hanzo') {
           try {

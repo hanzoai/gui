@@ -10,16 +10,20 @@ export type OnboardingLayoutProps = React.PropsWithChildren<
   React.HTMLAttributes<HTMLDivElement>
 >;
 
-const logoSrc =
-  useBrand().brand === 'zoo' ? './zoo-logo.svg' : './visor.svg';
-// TODO: zoo-onboarding.png is currently the rounded app icon as a stand-in.
-// Replace with a proper Zoo onboarding hero image when art is available.
-const heroSrc =
-  useBrand().brand === 'zoo' ? './zoo-onboarding.png' : './onboarding.png';
-
 const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
   const { tapCount, setTapCount, setShowLocalNodeOption } =
     useContext(LogoTapContext);
+
+  // Brand-driven logo + (optional) tagline. Read INSIDE the component so each
+  // app's injected brand (set by <HanzoAI {...brandConfig}/> before mount) is
+  // honored — the previous module-level useBrand() froze on the default brand
+  // and forced the Hanzo "H" (visor.svg) onto Zoo/Lux. The brand ships its own
+  // mark via brandConfig.logo; nothing brand-specific is hardcoded here.
+  const brand = useBrand();
+  const logoSrc = brand.logo?.dark ?? brand.logo?.light ?? '/app-logo.png';
+  // Tagline is opt-in: only brands that set brandConfig.tagline show one. No
+  // brand carries the old hardcoded "the way, the truth, the life" copy.
+  const tagline = (brand as { tagline?: string }).tagline;
 
   const handleLogoTap = () => {
     const newCount = tapCount + 1;
@@ -33,36 +37,31 @@ const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
   return (
     <div
       className={cn(
-        'bg-bg-dark relative mx-auto grid h-full grid-cols-2 flex-col-reverse items-center px-[48px]',
+        'bg-bg-dark relative mx-auto flex h-full items-center justify-center px-[48px]',
         className,
       )}
       {...props}
     >
       <UpdateBanner />
-      <div className="flex h-[calc(100dvh-100px)] items-center justify-center">
+      <div className="flex h-[calc(100dvh-100px)] w-full items-center justify-center">
         <div className="mx-auto flex h-[600px] w-full max-w-lg flex-col gap-12">
-          <img
-            alt={`${useBrand().name} logo`}
-            className="w-24 cursor-pointer"
-            data-cy="hanzo-logo"
-            onClick={handleLogoTap}
-            src={logoSrc}
-          />
+          <div className="flex flex-col gap-3">
+            <img
+              alt={`${brand.name} logo`}
+              className="w-24 cursor-pointer"
+              data-cy="app-logo"
+              onClick={handleLogoTap}
+              src={logoSrc}
+            />
+            {tagline ? (
+              <p className="text-xs uppercase tracking-[0.2em] text-white/60">
+                {tagline}
+              </p>
+            ) : null}
+          </div>
 
           <div className="flex-1">
             <Outlet />
-          </div>
-        </div>
-      </div>
-      <div className="grid h-full place-items-center">
-        <div className="relative size-full">
-          <div className="absolute left-14 z-10 flex aspect-square size-full items-center object-left bg-blend-darken">
-            <img
-              alt={`${useBrand().name} onboarding`}
-              className="size-full max-h-[70vh] object-cover object-left"
-              data-cy="onboarding-logo"
-              src={heroSrc}
-            />
           </div>
         </div>
       </div>

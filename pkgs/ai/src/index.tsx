@@ -18,7 +18,7 @@ import { setHost } from './host/runtime';
 import App from './app/App';
 import type { HanzoAIProps } from './types';
 
-// The migrated shinkai-fork app root (./app/App). getBrand() → useBrand();
+// The migrated forked app root (./app/App). getBrand() → useBrand();
 // the 44 @tauri-apps imports route through the host shim via the build alias.
 const AppRoot: React.ComponentType = App;
 

@@ -1,4 +1,3 @@
-import { useBrand } from '@hanzo_network/brand-config';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import { ModelPrefix } from '@hanzo_network/hanzo-message-ts/api/jobs/index';
 import { extractJobIdFromInbox } from '@hanzo_network/hanzo-message-ts/utils/inbox_name_handler';
@@ -54,11 +53,12 @@ const localModelDescriptionMap = MODEL_CATALOG.reduce(
   {} as Record<string, string>,
 );
 
-const nonOllamaProviderModels = {
-  'hanzo-backend:free_text_inference':
-    `${useBrand().name} AI model for text generation.`,
-  'hanzo-backend:code_generator':
-    `${useBrand().name} AI model for generating tool code.`,
+// Brand-dependent descriptions (the two hanzo-backend models) are resolved at
+// RENDER time in the select() callback below via the BRAND proxy. They MUST NOT
+// read the brand here: this object is a module-scope const, so `useBrand()` at
+// init runs before <HanzoAI/> calls setBrand() → it throws "No brand configured"
+// and crashes the whole app (e.g. the onboarding welcome) to a blank screen.
+const remoteProviderModelDescriptions = {
   'openai:gpt-4o':
     'Powerful OpenAI model known for its ability to generate human-like text and handle complex tasks.',
   'openai:gpt-4o-mini':
@@ -115,6 +115,11 @@ export function AIModelSelectorBase({
             } else if (provider.model.includes('claude')) {
               description =
                 'Safe and thoughtful Anthropic AI model with advanced coding capabilities';
+            } else if (provider.model === 'hanzo-backend:free_text_inference') {
+              // Brand name read lazily (render time) via the BRAND proxy — safe.
+              description = `${BRAND.name} AI model for text generation.`;
+            } else if (provider.model === 'hanzo-backend:code_generator') {
+              description = `${BRAND.name} AI model for generating tool code.`;
             } else {
               description = remoteProviderModelDescriptions[provider.model] || '';
             }

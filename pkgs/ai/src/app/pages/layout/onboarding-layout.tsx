@@ -19,11 +19,23 @@ const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
   // honored — the previous module-level useBrand() froze on the default brand
   // and forced the Hanzo "H" (visor.svg) onto Zoo/Lux. The brand ships its own
   // mark via brandConfig.logo; nothing brand-specific is hardcoded here.
-  const brand = useBrand();
+  // useBrand() THROWS if the brand isn't registered yet — and <HanzoAI/> registers
+  // it asynchronously, so it is absent on the first render. Tolerate that (fall back
+  // to the served /app-logo.png, which is each app's own mark) instead of throwing
+  // and crashing the whole onboarding to a blank screen.
+  let brand: {
+    name?: string;
+    logo?: { light?: string; dark?: string };
+    tagline?: string;
+  } = {};
+  try {
+    brand = useBrand() as typeof brand;
+  } catch {
+    /* brand not configured yet — use the fallbacks below */
+  }
   const logoSrc = brand.logo?.dark ?? brand.logo?.light ?? '/app-logo.png';
-  // Tagline is opt-in: only brands that set brandConfig.tagline show one. No
-  // brand carries the old hardcoded "the way, the truth, the life" copy.
-  const tagline = (brand as { tagline?: string }).tagline;
+  // Tagline is opt-in: only brands that set brandConfig.tagline show one.
+  const tagline = brand.tagline;
 
   const handleLogoTap = () => {
     const newCount = tapCount + 1;
@@ -47,7 +59,7 @@ const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
         <div className="mx-auto flex h-[600px] w-full max-w-lg flex-col gap-12">
           <div className="flex flex-col gap-3">
             <img
-              alt={`${brand.name} logo`}
+              alt={`${brand.name ?? ''} logo`}
               className="w-24 cursor-pointer"
               data-cy="app-logo"
               onClick={handleLogoTap}

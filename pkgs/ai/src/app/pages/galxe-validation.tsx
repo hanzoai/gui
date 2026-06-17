@@ -20,10 +20,14 @@ import { BRAND } from '../config/brand';
 import { useAuth } from '../store/auth';
 import { SimpleLayout } from './layout/simple-layout';
 
-const questStatusInfoMap: Record<
+// Built lazily (at render time) — NOT as a module-scope const. The BRAND proxy
+// reads the active brand on property access; doing that at module init runs
+// before <HanzoAI/> calls setBrand() → getBrand() throws "No brand configured"
+// and crashes the whole app (e.g. the onboarding welcome) to a blank screen.
+const getQuestStatusInfoMap = (): Record<
   QuestNames,
   { name: string; description: string }
-> = {
+> => ({
   [QuestNames.InstalledApp]: {
     name: `Try ${BRAND.productName}`,
     description: `Download and Install ${BRAND.productName}.`,
@@ -85,7 +89,7 @@ const questStatusInfoMap: Record<
     description:
       'Experience the power of Retrieval-Augmented Generation (RAG) while chat with your files in 3 different days.',
   },
-};
+});
 
 export const GalxeValidation = () => {
   const { t } = useTranslation();
@@ -100,6 +104,8 @@ export const GalxeValidation = () => {
     useUpdateQuestsStatus();
 
   const quests = useMemo(() => {
+    // Resolve brand-dependent quest copy here (render time) — safe, brand is set.
+    const questStatusInfoMap = getQuestStatusInfoMap();
     return data?.data?.quests.map((quest) => ({
       key: quest.name,
       name: questStatusInfoMap[quest.name].name,

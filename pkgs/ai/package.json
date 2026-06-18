@@ -19,7 +19,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist-desktop/index.js",
       "require": "./dist-desktop/index.cjs"
-    }
+    },
+    "./ai.css": "./dist/ai.css"
   },
   "files": [
     "dist",

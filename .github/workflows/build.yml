@@ -1,0 +1,25 @@
+name: Build image
+
+# Builds + pushes ghcr.io/hanzoai/gui (the gui.hanzo.ai site, served on
+# :3000 by the repo's existing Dockerfile) on a v* semver tag via the
+# canonical reusable workflow, natively on the self-hosted arcd fleet
+# (NO GitHub-hosted runners). Semver-only tags. Deployable on DOKS.
+#
+# This is the CONTAINER-image path. The repo's publish-gui*.yml workflows
+# publish the npm library packages and are unaffected.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  docker:
+    uses: hanzoai/.github/.github/workflows/docker-build.yml@main
+    with:
+      image: ghcr.io/hanzoai/gui
+    secrets: inherit

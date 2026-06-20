@@ -535,7 +535,7 @@ function ConversationChatFooter({
                                   onClick={async () => {
                                     try {
                                       await invoke(
-                                        'hanzo_node_open_chat_folder',
+                                        'node_open_chat_folder',
                                         {
                                           storageLocation: nodeStorageLocation,
                                           chatFolderName:

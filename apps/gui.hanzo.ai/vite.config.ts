@@ -37,8 +37,10 @@ if (!existsSync(vitePluginDist) || !existsSync(staticDist)) {
   }
 }
 
-// Generate recipes proxy files (creates stubs if recipes repo not found)
-const { hasRecipes } = generateRecipesProxy({
+// Generate recipes proxy files (creates stubs if recipes repo not found).
+// When recipes is absent, subpathStubs maps each deep
+// `@hanzogui/recipes/component/*` import to a concrete generated stub module.
+const { hasRecipes, subpathStubs } = generateRecipesProxy({
   basePath: pathResolve(import.meta.dirname, 'scripts'),
   silent: false,
 })
@@ -119,17 +121,19 @@ export default {
   resolve: {
     preserveSymlinks: false,
     alias: [
-      // Regex-based alias for recipes components when not available
+      // When recipes is absent, map each deep @hanzogui/recipes/component/*
+      // import to its concrete generated stub. These MUST precede the catch-all
+      // '@hanzogui/recipes' alias below, otherwise that alias swallows the
+      // subpath (resolving to recipes-proxy/component/...) and the build fails
+      // with UNLOADABLE_DEPENDENCY. Stubs carry the exact named exports the
+      // showcase tree imports/re-exports, which rolldown validates statically.
       ...(!hasRecipes
-        ? [
-            {
-              find: /^@gui\/recipes\/component\/.+$/,
-              replacement: pathResolve(
-                import.meta.dirname,
-                './helpers/dist/recipes-component-stub.tsx'
-              ),
-            },
-          ]
+        ? Object.entries(subpathStubs)
+            // longest subpath first: vite matches `id === find || id.startsWith(find + '/')`,
+            // so a parent like `.../user/preferences` must not shadow its child
+            // `.../user/preferences/LocationNotification`.
+            .sort(([a], [b]) => b.length - a.length)
+            .map(([find, replacement]) => ({ find, replacement }))
         : []),
       // Standard string-based aliases
       {
@@ -204,43 +208,6 @@ export default {
   },
 
   plugins: [
-    // Plugin to stub recipes component imports when recipes repo is not available
-    !hasRecipes && {
-      name: 'stub-recipes-components',
-      enforce: 'pre', // Run before other plugins including alias resolution
-      resolveId(id: string) {
-        // Intercept imports from @hanzogui/recipes/component/*
-        if (id.startsWith('@hanzogui/recipes/component/')) {
-          // Return a virtual module ID
-          return '\0recipes-component-stub:' + id
-        }
-      },
-      load(id: string) {
-        // Handle the virtual module
-        if (id.startsWith('\0recipes-component-stub:')) {
-          // Return stub component code
-          return `
-import { YStack, Paragraph } from 'hanzogui'
-
-export default function RecipesComponentStub() {
-  if (process.env.NODE_ENV === 'production') {
-    return null
-  }
-  return (
-    <YStack p="$4" bc="$borderColor" br="$4">
-      <Paragraph size="$2" color="$color10">
-        Recipes component not available
-      </Paragraph>
-    </YStack>
-  )
-}
-
-// Export as default and named for compatibility
-export const LocationNotification = RecipesComponentStub
-`
-        }
-      },
-    },
     guiPlugin({
       // see gui.build.ts
       disable: process.env.NODE_ENV !== 'production',

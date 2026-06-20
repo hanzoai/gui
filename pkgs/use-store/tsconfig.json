@@ -5,7 +5,7 @@
   },
   "references": [
     {
-      "path": "../../core/simple-hash"
+      "path": "../core/simple-hash"
     }
   ],
   "exclude": [

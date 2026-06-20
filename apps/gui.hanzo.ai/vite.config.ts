@@ -61,7 +61,7 @@ const include = [
   'swr/mutation',
   'mdx-bundler/client',
   // core hanzo-gui packages must be pre-bundled together to avoid duplicate instances
-  'gui',
+  'hanzogui',
   '@hanzogui/core',
   '@hanzogui/web',
   // existing

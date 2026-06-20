@@ -36,7 +36,7 @@ export declare const TooltipGroup: ({ children, delay, preventAnimation, timeout
     delay: Delay;
     preventAnimation?: boolean;
     timeoutMs?: number;
-}) => import("react/jsx-runtime").JSX.Element;
+}) => React.JSX.Element;
 export declare const closeOpenTooltips: () => void;
 export declare const Tooltip: React.ForwardRefExoticComponent<Omit<PopperProps & {
     open?: boolean;

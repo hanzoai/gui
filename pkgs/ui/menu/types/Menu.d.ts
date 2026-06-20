@@ -127,7 +127,7 @@ export declare function createMenu(params: CreateBaseMenuProps): React.FC<import
     } & import("@hanzogui/web").StaticConfigPublic> | {
         ({ children }: {
             children: React.ReactNode;
-        }): import("react/jsx-runtime").JSX.Element;
+        }): React.JSX.Element;
         displayName: string;
     };
 };

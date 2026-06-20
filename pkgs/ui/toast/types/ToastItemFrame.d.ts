@@ -21,5 +21,5 @@ export declare const ToastActionFrame: import("@hanzogui/core").GuiComponent<imp
     elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-export declare const DefaultCloseIcon: () => import("react/jsx-runtime").JSX.Element;
+export declare const DefaultCloseIcon: () => import("react").JSX.Element;
 //# sourceMappingURL=ToastItemFrame.d.ts.map

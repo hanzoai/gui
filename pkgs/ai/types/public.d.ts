@@ -26,6 +26,13 @@ export interface BrandConfig {
   overlayController: string;
   inferenceEndpoint: string;
   iam: { baseUrl: string; clientId: string; redirectUri: string; callbackEvent: string };
+  /** On-device node daemon (hanzod/zood/luxd) + local inference engine ports —
+   *  the single source of truth for the localhost node address. ws/p2p/https/zap
+   *  = apiPort+1..+4; embed engine = enginePort+1. Optional for back-compat. */
+  node?: {
+    apiPort: number;     // node HTTP API — hanzod 3690, zood 2000, luxd 9630
+    enginePort: number;  // local inference engine (chat completions)
+  };
   machinesEnabled?: boolean;
 }
 

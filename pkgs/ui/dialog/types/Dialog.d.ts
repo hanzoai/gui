@@ -394,8 +394,8 @@ declare const Dialog: React.ForwardRefExoticComponent<{
     } & {
         scope?: DialogScopes;
     }, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
-    FocusScope: (props: import("@hanzogui/focus-scope/types/types").ScopedProps<import("@hanzogui/focus-scope").FocusScopeControllerProps>) => import("react/jsx-runtime").JSX.Element;
-    Adapt: ((props: import("@hanzogui/adapt").AdaptProps) => import("react/jsx-runtime").JSX.Element) & {
+    FocusScope: (props: import("@hanzogui/focus-scope/types/types").ScopedProps<import("@hanzogui/focus-scope").FocusScopeControllerProps>) => React.JSX.Element;
+    Adapt: ((props: import("@hanzogui/adapt").AdaptProps) => React.JSX.Element) & {
         Contents: {
             ({ scope, ...rest }: {
                 scope?: string;

@@ -6,10 +6,10 @@
   },
   "references": [
     {
-      "path": "../../core/core"
+      "path": "../core/core"
     },
     {
-      "path": "../../core/helpers-icon"
+      "path": "../core/helpers-icon"
     }
   ],
   "exclude": [

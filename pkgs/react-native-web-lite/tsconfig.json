@@ -12,16 +12,16 @@
   ],
   "references": [
     {
-      "path": "../../core/normalize-css-color"
+      "path": "../core/normalize-css-color"
     },
     {
-      "path": "../../core/react-native-use-pressable"
+      "path": "../core/react-native-use-pressable"
     },
     {
-      "path": "../../core/react-native-use-responder-events"
+      "path": "../core/react-native-use-responder-events"
     },
     {
-      "path": "../../core/react-native-web-internals"
+      "path": "../core/react-native-web-internals"
     }
   ]
 }

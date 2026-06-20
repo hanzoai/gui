@@ -5,10 +5,10 @@
   },
   "references": [
     {
-      "path": "../../compiler/vite-plugin"
+      "path": "../compiler/vite-plugin"
     },
     {
-      "path": "../../core/config-default"
+      "path": "../core/config-default"
     }
   ]
 }

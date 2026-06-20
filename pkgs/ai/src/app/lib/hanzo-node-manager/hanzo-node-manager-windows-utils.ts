@@ -1,7 +1,7 @@
 import { invoke } from '@tauri-apps/api/core';
 
 export const openHanzoNodeManagerWindow = async () => {
-  return invoke('show_hanzo_node_manager_window');
+  return invoke('show_node_manager_window');
 };
 
 export const isLocalHanzoNode = (nodeAddress: string) => {

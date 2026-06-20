@@ -43,11 +43,11 @@ interface ContextMenuSubProps extends BaseMenuTypes.MenuSubProps {
 type ContextMenuSubTriggerProps = React.ComponentPropsWithoutRef<BaseMenu['SubTrigger']>;
 type ContextMenuSubContentProps = React.ComponentPropsWithoutRef<BaseMenu['SubContent']>;
 export declare function createNonNativeContextMenu(params: CreateBaseMenuProps): {
-    (props: ScopedProps<ContextMenuProps>): import("react/jsx-runtime").JSX.Element;
+    (props: ScopedProps<ContextMenuProps>): React.JSX.Element;
     displayName: string;
 } & {
     Root: {
-        (props: ScopedProps<ContextMenuProps>): import("react/jsx-runtime").JSX.Element;
+        (props: ScopedProps<ContextMenuProps>): React.JSX.Element;
         displayName: string;
     };
     Trigger: import("@hanzogui/web").GuiComponent<Omit<ViewProps, "scope" | keyof ContextMenuTriggerProps> & ContextMenuTriggerProps & {
@@ -56,7 +56,7 @@ export declare function createNonNativeContextMenu(params: CreateBaseMenuProps):
         scope?: string;
     }, import("@hanzogui/web").StackStyleBase, {}, {}>;
     Portal: {
-        (props: ScopedProps<ContextMenuPortalProps>): import("react/jsx-runtime").JSX.Element;
+        (props: ScopedProps<ContextMenuPortalProps>): React.JSX.Element;
         displayName: string;
     };
     Content: React.ForwardRefExoticComponent<ContextMenuContentProps & {
@@ -132,7 +132,7 @@ export declare function createNonNativeContextMenu(params: CreateBaseMenuProps):
         scope?: string;
     } & React.RefAttributes<GuiElement>>;
     Sub: {
-        (props: ScopedProps<ContextMenuSubProps>): import("react/jsx-runtime").JSX.Element;
+        (props: ScopedProps<ContextMenuSubProps>): React.JSX.Element;
         displayName: string;
     };
     SubTrigger: import("@hanzogui/web").GuiComponent<Omit<ViewProps, "scope" | "key" | keyof BaseMenuTypes.MenuSubTriggerProps> & Omit<BaseMenuTypes.MenuSubTriggerProps & {

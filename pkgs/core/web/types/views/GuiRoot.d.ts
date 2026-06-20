@@ -11,5 +11,5 @@ export declare function GuiRoot({ children, theme, isRootRoot, passThrough, styl
     isRootRoot?: boolean;
     passThrough?: boolean;
     style?: React.CSSProperties;
-}): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;
 //# sourceMappingURL=GuiRoot.d.ts.map

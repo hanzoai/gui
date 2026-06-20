@@ -2,7 +2,7 @@ import type { SheetContextValue } from './useSheetProviderProps';
 export declare const createSheetContext: <ContextValueType extends object | null>(rootComponentName: string, defaultContext?: ContextValueType) => readonly [(props: ContextValueType & {
     scope: import("@hanzogui/create-context").Scope<ContextValueType>;
     children: React.ReactNode;
-}) => import("react/jsx-runtime").JSX.Element, (consumerName: string, scope: import("@hanzogui/create-context").Scope<ContextValueType | undefined>, options?: {
+}) => import("react").JSX.Element, (consumerName: string, scope: import("@hanzogui/create-context").Scope<ContextValueType | undefined>, options?: {
     warn?: boolean;
     fallback?: Partial<ContextValueType>;
 }) => ContextValueType], createSheetScope: import("@hanzogui/create-context").CreateScope;
@@ -36,7 +36,7 @@ export declare const SheetProvider: (props: {
 } & {
     scope: import("@hanzogui/create-context").Scope<SheetContextValue>;
     children: React.ReactNode;
-}) => import("react/jsx-runtime").JSX.Element, useSheetContext: (consumerName: string, scope: import("@hanzogui/create-context").Scope<SheetContextValue | undefined>, options?: {
+}) => import("react").JSX.Element, useSheetContext: (consumerName: string, scope: import("@hanzogui/create-context").Scope<SheetContextValue | undefined>, options?: {
     warn?: boolean;
     fallback?: Partial<SheetContextValue> | undefined;
 } | undefined) => SheetContextValue;

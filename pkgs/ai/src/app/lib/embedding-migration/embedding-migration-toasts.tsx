@@ -38,7 +38,7 @@ export const embeddingMigrationSuccessToast = async (model: string) => {
     description: `Embeddings are now updated to ${model}. Enjoy smarter and faster results. Restarting the app...`,
   });
   setTimeout(async () => {
-    await invoke('hanzo_node_kill');
+    await invoke('node_kill');
     await relaunch();
   }, 3000);
 };

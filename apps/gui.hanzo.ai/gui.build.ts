@@ -1,7 +1,7 @@
 import type { GuiBuildOptions } from 'hanzogui'
 
 export default {
-  components: ['gui'],
+  components: ['hanzogui'],
   logTimings: true,
   config: '@hanzogui/dev-config',
   outputCSS: './gui.generated.css',

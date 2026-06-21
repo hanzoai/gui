@@ -156,7 +156,7 @@ export const publishAgent = async (
   payload: PublishAgentRequest,
 ) => {
   const response = await httpClient.post(
-    urlJoin(nodeAddress, '/v2/publish_agent'),
+    urlJoin(nodeAddress, '/v1/node/publish_agent'),
     payload,
     {
       headers: { Authorization: `Bearer ${bearerToken}` },

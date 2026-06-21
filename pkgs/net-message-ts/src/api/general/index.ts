@@ -79,7 +79,7 @@ export const initialRegistration = async (
 
 /**
  * Cloud free-tier quota is retired. The desktop is local-only and no longer
- * calls the cloud `/v2/hanzo_backend_quota` endpoint. Returns a zeroed,
+ * calls the cloud `/v1/node/hanzo_backend_quota` endpoint. Returns a zeroed,
  * no-quota response without any network request.
  */
 export const getHanzoFreeModelQuota =

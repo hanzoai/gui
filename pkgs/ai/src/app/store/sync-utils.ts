@@ -77,7 +77,7 @@ const handleAuthSideEffect = async (
 
   if (!prevAuth) {
     const isLocal = isLocalHanzoNode(auth?.node_address || '');
-    const isRunning: boolean = await invoke('hanzo_node_is_running');
+    const isRunning: boolean = await invoke('node_is_running');
     void debug(`setting is in use isLocal:${isLocal} isRunning:${isRunning}`);
     useHanzoNodeManager.getState().setIsInUse(isLocal && isRunning);
     void emit('rehydrate-storage', {

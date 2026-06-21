@@ -46,6 +46,17 @@ export interface BrandConfig {
    * driven (no hardcoded brand check); falls back to VITE_ENABLE_MACHINES.
    */
   machinesEnabled?: boolean;
+  /**
+   * On-device node daemon (hanzod/zood/luxd) + local inference engine ports.
+   * THE single source of truth for the localhost node address — every frontend
+   * localhost node/engine URL derives from here so each app runs its own node on
+   * its own port (no hardcoded :3690/:9850/:4000). ws/p2p/https/zap = apiPort+1..+4;
+   * embed engine = enginePort+1. Optional for back-compat with already-built apps.
+   */
+  node?: {
+    apiPort: number; // node HTTP API — hanzod 3690, zood 2000, luxd 9630
+    enginePort: number; // local inference engine (chat completions)
+  };
 }
 
 // --- registry (multi-tenant / hostname resolution) -------------------------

@@ -16,9 +16,9 @@ import { XIcon } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
 import {
-  useHanzoNodeKillMutation,
-  useHanzoNodeRemoveStorageMutation,
-  useHanzoNodeSpawnMutation,
+  useNodeKillMutation,
+  useNodeRemoveStorageMutation,
+  useNodeSpawnMutation,
 } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useAuth } from '../store/auth';
 import { useHanzoNodeManager } from '../store/hanzo-node-manager';
@@ -33,12 +33,12 @@ export const ResetConnectionDialog = ({
   allowClose?: boolean;
 }) => {
   const { t } = useTranslation();
-  const { mutateAsync: hanzoNodeKill, isPending: isHanzoNodeKillPending } =
-    useHanzoNodeKillMutation();
+  const { mutateAsync: nodeKill, isPending: isHanzoNodeKillPending } =
+    useNodeKillMutation();
   const {
-    mutateAsync: hanzoNodeSpawn,
+    mutateAsync: nodeSpawn,
     isPending: isHanzoNodeSpawnPending,
-  } = useHanzoNodeSpawnMutation({
+  } = useNodeSpawnMutation({
     onSuccess: async () => {
       if (!encryptionKeys) return;
       await submitRegistrationNoCode({
@@ -49,9 +49,9 @@ export const ResetConnectionDialog = ({
     },
   });
   const {
-    mutateAsync: hanzoNodeRemoveStorage,
+    mutateAsync: nodeRemoveStorage,
     isPending: isHanzoNodeRemoveStoragePending,
-  } = useHanzoNodeRemoveStorageMutation();
+  } = useNodeRemoveStorageMutation();
   const { setHanzoNodeOptions } = useHanzoNodeManager();
   const { encryptionKeys } = useGetEncryptionKeys();
   const setAuth = useAuth((state) => state.setAuth);
@@ -65,7 +65,7 @@ export const ResetConnectionDialog = ({
   const { mutateAsync: submitRegistrationNoCode } = useInitialRegistration({
     onSuccess: (response, setupPayload) => {
       if (response.status !== 'success') {
-        void hanzoNodeKill();
+        void nodeKill();
       }
       if (response.status === 'success' && encryptionKeys) {
         setAuth({
@@ -77,7 +77,7 @@ export const ResetConnectionDialog = ({
           identity_pk: response.data?.identity_public_key ?? '',
         });
 
-        void navigate('/ai-model-installation');
+        void navigate('/install-ai-models');
         onOpenChange(false);
       } else {
         submitRegistrationNoCodeError();
@@ -86,11 +86,11 @@ export const ResetConnectionDialog = ({
   });
 
   const handleReset = async () => {
-    await hanzoNodeKill();
+    await nodeKill();
     useAuth.getState().setLogout(); // clean up local storage
-    await hanzoNodeRemoveStorage({ preserveKeys: true });
+    await nodeRemoveStorage({ preserveKeys: true });
     setHanzoNodeOptions(null);
-    await hanzoNodeSpawn();
+    await nodeSpawn();
   };
 
   return (

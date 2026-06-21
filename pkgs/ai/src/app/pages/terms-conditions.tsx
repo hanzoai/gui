@@ -20,9 +20,9 @@ import { ResetStorageBeforeConnectConfirmationPrompt } from '../components/reset
 import config from '../config';
 import { useIamLogin } from '../hooks/iam-auth';
 import {
-  useHanzoNodeRemoveStorageMutation,
-  useHanzoNodeSpawnMutation,
-  useHanzoNodeKillMutation,
+  useNodeRemoveStorageMutation,
+  useNodeSpawnMutation,
+  useNodeKillMutation,
 } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
@@ -137,12 +137,12 @@ const TermsAndConditionsPage = () => {
       }
     },
   });
-  const { isPending: hanzoNodeRemoveStorageIsPending } =
-    useHanzoNodeRemoveStorageMutation();
+  const { isPending: nodeRemoveStorageIsPending } =
+    useNodeRemoveStorageMutation();
   const {
-    isPending: hanzoNodeSpawnIsPending,
-    mutateAsync: hanzoNodeSpawn,
-  } = useHanzoNodeSpawnMutation({
+    isPending: nodeSpawnIsPending,
+    mutateAsync: nodeSpawn,
+  } = useNodeSpawnMutation({
     onSuccess: () => {
       void onSubmit(setupDataForm.getValues());
     },
@@ -155,7 +155,7 @@ const TermsAndConditionsPage = () => {
       });
     },
   });
-  const { isPending: hanzoNodeKillIsPending } = useHanzoNodeKillMutation();
+  const { isPending: nodeKillIsPending } = useNodeKillMutation();
 
   const {
     isLoading: hanzoLoginIsLoading,
@@ -167,14 +167,14 @@ const TermsAndConditionsPage = () => {
   // When IAM tokens arrive, spawn node and register
   useEffect(() => {
     if (hanzoTokens) {
-      void hanzoNodeSpawn();
+      void nodeSpawn();
     }
-  }, [hanzoTokens, hanzoNodeSpawn]);
+  }, [hanzoTokens, nodeSpawn]);
 
   const isStartLocalButtonLoading =
-    hanzoNodeSpawnIsPending ||
-    hanzoNodeKillIsPending ||
-    hanzoNodeRemoveStorageIsPending ||
+    nodeSpawnIsPending ||
+    nodeKillIsPending ||
+    nodeRemoveStorageIsPending ||
     submitRegistrationNodeCodeIsPending;
 
   const { login: hanzoLogin } = useIamLogin();
@@ -307,7 +307,7 @@ const TermsAndConditionsPage = () => {
           )}
           disabled={!termsAndConditionsAccepted || isStartLocalButtonLoading}
           isLoading={isStartLocalButtonLoading}
-          onClick={() => hanzoNodeSpawn()}
+          onClick={() => nodeSpawn()}
         >
           {t('common.skip')}
         </Button>

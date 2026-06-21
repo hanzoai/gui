@@ -36,10 +36,19 @@ import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
 import { useURLQueryParams } from '../hooks/use-url-query-params';
+import { getEngineUrl } from '../lib/hanzo-engine';
 import { useAuth } from '../store/auth';
 import { SubpageLayout } from './layout/simple-layout';
 
 const modelOptions: { value: Models; label: string }[] = [
+  {
+    value: Models.Hanzo,
+    label: 'Hanzo Engine (Local)',
+  },
+  {
+    value: Models.LMStudio,
+    label: 'LM Studio (Local)',
+  },
   {
     value: Models.OpenAI,
     label: 'OpenAI',
@@ -88,6 +97,8 @@ const getGuideUrl = (model: Models) => {
   }
 
   const urlMap = {
+    [Models.Hanzo]: 'https://docs.hanzo.ai/advanced/models',
+    [Models.LMStudio]: 'https://docs.hanzo.ai/advanced/models',
     [Models.OpenAI]: 'https://docs.hanzo.ai/advanced/models/gpt',
     [Models.OpenAILegacy]: 'https://docs.hanzo.ai/advanced/models/gpt',
     [Models.TogetherComputer]:
@@ -190,9 +201,16 @@ const AddAIPage = () => {
 
     if (currentModel) {
       const modelConfig = modelsConfig[currentModel as Models];
-      addAgentForm.setValue('externalUrl', modelConfig.apiUrl);
+      if (!modelConfig) return;
+      // The native Hanzo engine URL is brand-specific (hanzo 36900 / zoo 36910 /
+      // lux 36920). Derive it from the brand config (`node.enginePort`) instead
+      // of the static 36900 placeholder baked into modelsConfig.
+      addAgentForm.setValue(
+        'externalUrl',
+        currentModel === Models.Hanzo ? getEngineUrl() : modelConfig.apiUrl,
+      );
       setModelTypeOptions(
-        modelsConfig[currentModel as Models].modelTypes
+        modelConfig.modelTypes
           .map((modelType) => ({
             label: modelType.name,
             value: modelType.value,

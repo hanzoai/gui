@@ -91,6 +91,70 @@ export const zenCatalog: ZenModelEntry[] = [
   },
 ];
 
+/**
+ * Featured community models — a curated, LM-Studio-style list of popular public
+ * GGUF models the native Hanzo engine can pull from Hugging Face and run.
+ *
+ * Same `ZenModelEntry[]` shape and same download path as `zenCatalog`; rendered
+ * as a "Featured" segment in the Local Models gallery. Every `value` is a
+ * verified-PUBLIC HF repo (no gated meta-llama/google/mistralai originals — only
+ * open GGUF mirrors), and every `file` is a real Q4_K_M artifact that exists in
+ * the repo (the first shard when the quant is split). These are chat models, so
+ * no `embedding`/`reranker` flags.
+ */
+export const featuredCatalog: ZenModelEntry[] = [
+  {
+    name: 'Qwen2.5 3B Instruct',
+    value: 'Qwen/Qwen2.5-3B-Instruct-GGUF',
+    file: 'qwen2.5-3b-instruct-q4_k_m.gguf',
+    format: 'gguf',
+    size: '~2 GB',
+  },
+  {
+    name: 'Qwen2.5 7B Instruct',
+    value: 'Qwen/Qwen2.5-7B-Instruct-GGUF',
+    // Q4_K_M is sharded; the engine resolves the rest from the first shard.
+    file: 'qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf',
+    format: 'gguf',
+    size: '~4.7 GB',
+  },
+  {
+    name: 'Llama 3.2 3B Instruct',
+    value: 'bartowski/Llama-3.2-3B-Instruct-GGUF',
+    file: 'Llama-3.2-3B-Instruct-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~2 GB',
+  },
+  {
+    name: 'Llama 3.1 8B Instruct',
+    value: 'bartowski/Meta-Llama-3.1-8B-Instruct-GGUF',
+    file: 'Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~4.9 GB',
+  },
+  {
+    name: 'Gemma 2 2B Instruct',
+    value: 'bartowski/gemma-2-2b-it-GGUF',
+    file: 'gemma-2-2b-it-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~1.7 GB',
+  },
+  {
+    name: 'Mistral 7B Instruct v0.3',
+    value: 'bartowski/Mistral-7B-Instruct-v0.3-GGUF',
+    file: 'Mistral-7B-Instruct-v0.3-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~4.4 GB',
+  },
+  {
+    name: 'DeepSeek R1 Distill Qwen 7B',
+    value: 'bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF',
+    file: 'DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~4.7 GB',
+  },
+];
+
 export const modelsConfig = {
   // Native Hanzo engine — Zen catalog (zenCatalog). Apps point apiUrl at their
   // own engine port (hanzo 36900 / zoo 36910 / lux 36920) via the local-node

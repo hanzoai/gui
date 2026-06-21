@@ -16,6 +16,9 @@ const deriveModelLabel = (model: string): string => {
   const tail = model.split(':').pop() ?? model; // openai:foo -> foo
   const base = (tail.split('/').pop() ?? tail) // a/b/zen-nano.gguf -> zen-nano.gguf
     .replace(/\.(gguf|safetensors|bin|pth|ggml)$/i, ''); // -> zen-nano
+  // A bare "default" (any prefix stripped) is the node's generic alias for the
+  // current local model — show the real model rather than the meaningless "Default".
+  if (/^default$/i.test(base)) return 'Zen Nano 0.6B';
   if (/zen-?nano/i.test(base)) return 'Zen Nano 0.6B';
   if (/zen-?eco/i.test(base)) return 'Zen Eco 3B';
   if (/zen-?coder/i.test(base)) return 'Zen Coder';

@@ -46,6 +46,7 @@ import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
 import ProviderIcon from '../components/ais/provider-icon';
+import { isLocalHanzoNode } from '../lib/hanzo-node-manager/hanzo-node-manager-windows-utils';
 import { useAuth } from '../store/auth';
 import { useHanzoNodeManager } from '../store/hanzo-node-manager';
 import { getModelObject } from './add-ai';
@@ -59,9 +60,13 @@ const AIsPage = () => {
     token: auth?.api_v2_key ?? '',
   });
 
-  const isLocalHanzoNodeIsUse = useHanzoNodeManager(
-    (state) => state.isInUse,
-  );
+  // Local model gallery is the right "Add AI" target whenever the node is local
+  // — whether or not THIS app session spawned it (an externally-run local node
+  // still serves the native engine). Fall back to the in-use flag for the
+  // managed-sidecar case.
+  const nodeInUse = useHanzoNodeManager((state) => state.isInUse);
+  const isLocalHanzoNodeIsUse =
+    isLocalHanzoNode(auth?.node_address ?? '') || !!nodeInUse;
 
   const [searchQuery, setSearchQuery] = React.useState('');
 

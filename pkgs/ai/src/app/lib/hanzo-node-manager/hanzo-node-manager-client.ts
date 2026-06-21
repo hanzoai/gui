@@ -15,10 +15,10 @@ import { type HanzoNodeOptions } from './hanzo-node-manager-client-types';
 
 // Client
 
-export const hanzoNodeQueryClient = new QueryClient();
+export const nodeQueryClient = new QueryClient();
 
 // Queries
-export const useHanzoNodeIsRunningQuery = (
+export const useNodeIsRunningQuery = (
   options?: Omit<QueryObserverOptions, 'queryKey'>,
 ): UseQueryResult<boolean, Error> => {
   const query = useQuery({
@@ -28,7 +28,7 @@ export const useHanzoNodeIsRunningQuery = (
   });
   return { ...query } as UseQueryResult<boolean, Error>;
 };
-export const useHanzoNodeGetOptionsQuery = (
+export const useNodeGetOptionsQuery = (
   options?: Omit<QueryObserverOptions, 'queryKey'>,
 ): UseQueryResult<HanzoNodeOptions, Error> => {
   const query = useQuery({
@@ -39,7 +39,7 @@ export const useHanzoNodeGetOptionsQuery = (
   });
   return { ...query } as UseQueryResult<HanzoNodeOptions, Error>;
 };
-export const useHanzoNodeGetDefaultModel = (
+export const useNodeGetDefaultModel = (
   options?: QueryObserverOptions,
 ): UseQueryResult<string, Error> => {
   const query = useQuery({
@@ -49,7 +49,7 @@ export const useHanzoNodeGetDefaultModel = (
   });
   return { ...query } as UseQueryResult<string, Error>;
 };
-export const useHanzoNodeGetDefaultEmbeddingModelQuery = (
+export const useNodeGetDefaultEmbeddingModelQuery = (
   options?: Omit<QueryObserverOptions, 'queryKey'>,
 ): UseQueryResult<string, Error> => {
   const query = useQuery({
@@ -62,7 +62,7 @@ export const useHanzoNodeGetDefaultEmbeddingModelQuery = (
 };
 
 // Mutations
-export const useHanzoNodeSpawnMutation = (options?: UseMutationOptions) => {
+export const useNodeSpawnMutation = (options?: UseMutationOptions) => {
   const queryClient = useQueryClient();
   const response = useMutation({
     mutationFn: () => {
@@ -81,7 +81,7 @@ export const useHanzoNodeSpawnMutation = (options?: UseMutationOptions) => {
   return { ...response };
 };
 
-export const useHanzoNodeKillMutation = (options?: UseMutationOptions) => {
+export const useNodeKillMutation = (options?: UseMutationOptions) => {
   const queryClient = useQueryClient();
   const response = useMutation({
     mutationFn: async (): Promise<void> => {
@@ -100,19 +100,19 @@ export const useHanzoNodeKillMutation = (options?: UseMutationOptions) => {
   return { ...response };
 };
 
-export type HanzoNodeRemoveStorageOptions = {
+export type NodeRemoveStorageOptions = {
   preserveKeys: boolean;
 };
-export const useHanzoNodeRemoveStorageMutation = (
+export const useNodeRemoveStorageMutation = (
   options?: UseMutationOptions<
     void,
     Error,
-    Partial<HanzoNodeRemoveStorageOptions>
+    Partial<NodeRemoveStorageOptions>
   >,
 ) => {
   const response = useMutation({
     mutationFn: async (
-      options: Partial<HanzoNodeRemoveStorageOptions>,
+      options: Partial<NodeRemoveStorageOptions>,
     ): Promise<void> => {
       await invoke('node_set_default_options');
       return invoke('node_remove_storage', {
@@ -124,7 +124,7 @@ export const useHanzoNodeRemoveStorageMutation = (
   return { ...response };
 };
 
-export const useHanzoNodeSetOptionsMutation = (
+export const useNodeSetOptionsMutation = (
   options?: UseMutationOptions<
     Partial<HanzoNodeOptions>,
     Error,
@@ -153,7 +153,7 @@ export const useHanzoNodeSetOptionsMutation = (
   return { ...response };
 };
 
-export const useHanzoNodeSetDefaultOptionsMutation = (
+export const useNodeSetDefaultOptionsMutation = (
   options?: UseMutationOptions<HanzoNodeOptions, Error, void>,
 ) => {
   const queryClient = useQueryClient();
@@ -174,7 +174,7 @@ export const useHanzoNodeSetDefaultOptionsMutation = (
   return { ...response };
 };
 
-export const useHanzoNodeRespawnMutation = (options?: UseMutationOptions) => {
+export const useNodeRespawnMutation = (options?: UseMutationOptions) => {
   const queryClient = useQueryClient();
   const response = useMutation({
     mutationFn: async () => {
@@ -194,7 +194,7 @@ export const useHanzoNodeRespawnMutation = (options?: UseMutationOptions) => {
   return { ...response };
 };
 
-export const useHanzoNodeSetDefaultLlmProviderMutation = (
+export const useNodeSetDefaultLlmProviderMutation = (
   options?: UseMutationOptions<void, Error, string>,
 ) => {
   const response = useMutation({
@@ -209,7 +209,7 @@ export const useHanzoNodeSetDefaultLlmProviderMutation = (
   return { ...response };
 };
 
-export const hanzoNodeSetDefaultLlmProvider = async (
+export const nodeSetDefaultLlmProvider = async (
   defaultLlmProvider: string,
   nodeAddress: string,
   apiToken: string,

@@ -115,7 +115,7 @@ export const ResetStorageBeforeConnectConfirmationPrompt = ({
             className="min-w-32 text-sm"
             disabled={isResetLoading}
             isLoading={isResetLoading}
-            onClick={() => reset(true)}
+            onClick={() => reset(false)}
             size="sm"
             variant={'destructive'}
           >

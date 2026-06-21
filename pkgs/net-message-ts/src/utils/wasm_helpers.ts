@@ -1,5 +1,13 @@
 import * as ed from '@noble/ed25519';
+import { sha512 } from '@noble/hashes/sha512';
 import { generateKeyPair } from 'curve25519-js';
+
+// @noble/ed25519 v2 ships no hashing — a SHA-512 impl MUST be injected or
+// getPublicKeyAsync/sign throw ("etc.sha512Async not set"). Without this,
+// generateSignatureKeys throws, key generation fails, and onboarding silently
+// stalls (the registration payload never gets built). Wire both sync + async.
+ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m));
+ed.etc.sha512Async = (...m) => Promise.resolve(sha512(ed.etc.concatBytes(...m)));
 
 type HexString = string;
 

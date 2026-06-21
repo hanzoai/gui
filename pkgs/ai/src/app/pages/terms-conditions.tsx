@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useBrand } from '@hanzo_network/brand-config';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import {
   type QuickConnectFormSchema,
@@ -97,10 +98,16 @@ const TermsAndConditionsPage = () => {
   ] = useState(false);
 
   const { encryptionKeys } = useGetEncryptionKeys();
+  // The local node address MUST come from the brand config (luxd 9630, zood 2000,
+  // hanzod 3690), never a hardcoded port. Hardcoding :3690 sent the onboarding
+  // registration POST to a dead port on Lux/Zoo, so Skip spawned the node but the
+  // app silently never advanced past Welcome.
+  const brand = useBrand();
+  const localNodeAddress = `http://127.0.0.1:${brand.node?.apiPort ?? 3690}`;
   const setupDataForm = useForm<QuickConnectFormSchema>({
     resolver: zodResolver(quickConnectFormSchema),
     defaultValues: {
-      node_address: 'http://127.0.0.1:3690',
+      node_address: localNodeAddress,
     },
   });
 

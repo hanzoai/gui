@@ -37,17 +37,17 @@ import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
 import logo from '../../../src-tauri/icons/128x128@2x.png';
-import { LocalModels } from '../../components/hanzo-node-manager/local-models';
+import { LocalModelBrowser } from '../../components/hanzo-node-manager/local-model-browser';
 import { ModelTools } from '../../components/hanzo-node-manager/model-tools';
 import {
-  hanzoNodeQueryClient,
-  useHanzoNodeGetOptionsQuery,
-  useHanzoNodeIsRunningQuery,
-  useHanzoNodeKillMutation,
-  useHanzoNodeRemoveStorageMutation,
-  useHanzoNodeSetDefaultOptionsMutation,
-  useHanzoNodeSetOptionsMutation,
-  useHanzoNodeSpawnMutation,
+  nodeQueryClient,
+  useNodeGetOptionsQuery,
+  useNodeIsRunningQuery,
+  useNodeKillMutation,
+  useNodeRemoveStorageMutation,
+  useNodeSetDefaultOptionsMutation,
+  useNodeSetOptionsMutation,
+  useNodeSpawnMutation,
 } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { type HanzoNodeOptions } from '../../lib/hanzo-node-manager/hanzo-node-manager-client-types';
 import { useHanzoNodeEventsToast } from '../../lib/hanzo-node-manager/hanzo-node-manager-hooks';
@@ -76,17 +76,17 @@ const App = () => {
   const { setHanzoNodeOptions } = useHanzoNodeManager();
   const [isConfirmResetDialogOpened, setIsConfirmResetDialogOpened] =
     useState<boolean>(false);
-  const { data: hanzoNodeIsRunning } = useHanzoNodeIsRunningQuery({
+  const { data: nodeIsRunning } = useNodeIsRunningQuery({
     refetchInterval: 1000,
   });
-  const { data: hanzoNodeOptions } = useHanzoNodeGetOptionsQuery({
+  const { data: hanzoNodeOptions } = useNodeGetOptionsQuery({
     refetchInterval: 1000,
   });
 
   const {
-    isPending: hanzoNodeSpawnIsPending,
-    mutateAsync: hanzoNodeSpawn,
-  } = useHanzoNodeSpawnMutation({
+    isPending: nodeSpawnIsPending,
+    mutateAsync: nodeSpawn,
+  } = useNodeSpawnMutation({
     onMutate: () => {
       startingHanzoNodeToast();
     },
@@ -97,8 +97,8 @@ const App = () => {
       hanzoNodeStartErrorToast();
     },
   });
-  const { isPending: hanzoNodeKillIsPending, mutateAsync: hanzoNodeKill } =
-    useHanzoNodeKillMutation({
+  const { isPending: nodeKillIsPending, mutateAsync: nodeKill } =
+    useNodeKillMutation({
       onMutate: () => {
         stoppingHanzoNodeToast();
       },
@@ -110,9 +110,9 @@ const App = () => {
       },
     });
   const {
-    isPending: hanzoNodeRemoveStorageIsPending,
-    mutateAsync: hanzoNodeRemoveStorage,
-  } = useHanzoNodeRemoveStorageMutation({
+    isPending: nodeRemoveStorageIsPending,
+    mutateAsync: nodeRemoveStorage,
+  } = useNodeRemoveStorageMutation({
     onSuccess: async () => {
       successRemovingHanzoNodeStorageToast();
       setHanzoNodeOptions(null);
@@ -122,14 +122,14 @@ const App = () => {
       errorRemovingHanzoNodeStorageToast();
     },
   });
-  const { mutateAsync: hanzoNodeSetOptions } =
-    useHanzoNodeSetOptionsMutation({
+  const { mutateAsync: nodeSetOptions } =
+    useNodeSetOptionsMutation({
       onSuccess: (options) => {
         setHanzoNodeOptions(options);
       },
     });
-  const { mutateAsync: hanzoNodeSetDefaultOptions } =
-    useHanzoNodeSetDefaultOptionsMutation({
+  const { mutateAsync: nodeSetDefaultOptions } =
+    useNodeSetDefaultOptionsMutation({
       onSuccess: (options) => {
         hanzoNodeOptionsForm.reset(options);
         successHanzoNodeSetDefaultOptionsToast();
@@ -149,13 +149,13 @@ const App = () => {
       ...hanzoNodeOptions,
       ...hanzoNodeOptionsFormWatch,
     };
-    void hanzoNodeSetOptions(options as HanzoNodeOptions);
+    void nodeSetOptions(options as HanzoNodeOptions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hanzoNodeOptionsFormWatch, hanzoNodeSetOptions]);
+  }, [hanzoNodeOptionsFormWatch, nodeSetOptions]);
 
   const handleReset = (): void => {
     setIsConfirmResetDialogOpened(false);
-    void hanzoNodeRemoveStorage({ preserveKeys: true });
+    void nodeRemoveStorage({ preserveKeys: true });
   };
 
   const [hanzoNodeOptionsForUI, setHanzoNodeOptionsForUI] =
@@ -194,18 +194,18 @@ const App = () => {
             <TooltipTrigger>
               <Button
                 disabled={
-                  hanzoNodeSpawnIsPending ||
-                  hanzoNodeKillIsPending ||
-                  hanzoNodeIsRunning
+                  nodeSpawnIsPending ||
+                  nodeKillIsPending ||
+                  nodeIsRunning
                 }
                 onClick={() => {
                   console.log('spawning');
-                  void hanzoNodeSpawn();
+                  void nodeSpawn();
                 }}
                 variant={'outline'}
                 size={'icon'}
               >
-                {hanzoNodeSpawnIsPending || hanzoNodeKillIsPending ? (
+                {nodeSpawnIsPending || nodeKillIsPending ? (
                   <Loader2 className="size-4 animate-spin" />
                 ) : (
                   <PlayIcon className="size-4" />
@@ -223,15 +223,15 @@ const App = () => {
             <TooltipTrigger>
               <Button
                 disabled={
-                  hanzoNodeSpawnIsPending ||
-                  hanzoNodeKillIsPending ||
-                  !hanzoNodeIsRunning
+                  nodeSpawnIsPending ||
+                  nodeKillIsPending ||
+                  !nodeIsRunning
                 }
-                onClick={() => hanzoNodeKill()}
+                onClick={() => nodeKill()}
                 variant={'outline'}
                 size={'icon'}
               >
-                {hanzoNodeKillIsPending ? (
+                {nodeKillIsPending ? (
                   <Loader2 className="size-4 animate-spin" />
                 ) : (
                   <StopIcon className="size-4" />
@@ -248,12 +248,12 @@ const App = () => {
           <Tooltip>
             <TooltipTrigger>
               <Button
-                disabled={hanzoNodeIsRunning}
+                disabled={nodeIsRunning}
                 onClick={() => setIsConfirmResetDialogOpened(true)}
                 variant={'outline'}
                 size={'icon'}
               >
-                {hanzoNodeRemoveStorageIsPending ? (
+                {nodeRemoveStorageIsPending ? (
                   <Loader2 className="size-4 animate-spin" />
                 ) : (
                   <Trash2 className="size-4" />
@@ -327,8 +327,8 @@ const App = () => {
             <div className="flex flex-row justify-end pr-4">
               <Button
                 className=""
-                disabled={hanzoNodeIsRunning}
-                onClick={() => hanzoNodeSetDefaultOptions()}
+                disabled={nodeIsRunning}
+                onClick={() => nodeSetDefaultOptions()}
                 variant={'outline'}
                 size={'sm'}
               >
@@ -345,7 +345,7 @@ const App = () => {
                           <FormField
                             control={hanzoNodeOptionsForm.control}
                             defaultValue={value}
-                            disabled={hanzoNodeIsRunning}
+                            disabled={nodeIsRunning}
                             key={key}
                             name={key as keyof HanzoNodeOptions}
                             render={({ field }) => (
@@ -364,8 +364,11 @@ const App = () => {
           </ScrollArea>
         </TabsContent>
 
-        <TabsContent className="h-full overflow-hidden pb-2" value="models">
-          <LocalModels />
+        <TabsContent
+          className="h-full overflow-y-auto pb-2"
+          value="models"
+        >
+          <LocalModelBrowser />
         </TabsContent>
 
         <TabsContent
@@ -416,7 +419,7 @@ const App = () => {
 };
 
 ReactDOM.createRoot(document.querySelector('#root') as HTMLElement).render(
-  <QueryClientProvider client={hanzoNodeQueryClient}>
+  <QueryClientProvider client={nodeQueryClient}>
     <React.StrictMode>
       <TooltipProvider>
         <App />

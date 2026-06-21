@@ -1,4 +1,33 @@
+/**
+ * A single entry of the native Zen catalog (`modelsConfig[Models.Hanzo].modelTypes`).
+ *
+ * THE one catalog-entry shape. The Local Models gallery segments the catalog by
+ * these flags: no flag = Chat, `embedding` = Embeddings, `reranker` = Reranker.
+ * `value` is the Hugging Face repo id the on-device engine pulls weights from;
+ * `file`/`format` pin an explicit quantized artifact when the repo is GGUF.
+ */
+export type ZenModelEntry = {
+  /** Display name, e.g. "Zen Nano 0.6B". */
+  name: string;
+  /** Hugging Face repo id, e.g. "zenlm/zen-nano-0.6b". */
+  value: string;
+  /** Explicit GGUF file within the repo when it is quantized. */
+  file?: string;
+  /** Weight format, e.g. "gguf". */
+  format?: string;
+  /** Human-readable on-disk size, e.g. "~0.7 GB". */
+  size?: string;
+  /** Text-embedding model (served by the embed engine). */
+  embedding?: boolean;
+  /** Cross-encoder reranker model. */
+  reranker?: boolean;
+};
+
 export enum Models {
+  // Native first-party engine (downloads Zen models from HF, runs locally).
+  // First in the list so it's the default engine; Ollama / LM Studio are
+  // alternative local engines users can pick instead.
+  Hanzo = 'hanzo',
   OpenAI = 'open-ai',
   OpenAILegacy = 'open-ai-legacy',
   TogetherComputer = 'togethercomputer',
@@ -13,7 +42,63 @@ export enum Models {
   Grok = 'grok',
 }
 
+/**
+ * The native Zen catalog — first-party models from huggingface.co/zenlm served
+ * locally by the on-device engine. THE single catalog source; the Local Models
+ * gallery segments it by `embedding` / `reranker` flags. `value` is the HF repo
+ * id so the engine pulls weights natively on first use.
+ */
+export const zenCatalog: ZenModelEntry[] = [
+  {
+    name: 'Zen Nano 0.6B',
+    value: 'zenlm/zen-nano-0.6b',
+    // GGUF-quantized; the engine needs the explicit file + format.
+    file: 'gguf/zen-nano-0.6b-Q8_0.gguf',
+    format: 'gguf',
+    size: '~0.7 GB',
+  },
+  { name: 'Zen Eco 4B', value: 'zenlm/zen-eco-4b-instruct', size: '~8 GB' },
+  {
+    name: 'Zen Eco 4B Thinking',
+    value: 'zenlm/zen-eco-4b-thinking',
+    size: '~8 GB',
+  },
+  { name: 'Zen 3 Nano', value: 'zenlm/zen3-nano', size: '~1.2 GB' },
+  {
+    name: 'Zen Embedding',
+    value: 'zenlm/zen-embedding',
+    embedding: true,
+    size: '~1.2 GB',
+  },
+  {
+    name: 'Zen Embedding 0.6B',
+    value: 'zenlm/zen-embedding-0.6B',
+    embedding: true,
+    size: '~1.2 GB',
+  },
+  {
+    name: 'Zen Embedding 8B (GGUF)',
+    value: 'zenlm/zen-embedding-8B-GGUF',
+    embedding: true,
+    format: 'gguf',
+    size: '~8 GB',
+  },
+  {
+    name: 'Zen Reranker',
+    value: 'zenlm/zen-reranker',
+    reranker: true,
+    size: '~1.2 GB',
+  },
+];
+
 export const modelsConfig = {
+  // Native Hanzo engine — Zen catalog (zenCatalog). Apps point apiUrl at their
+  // own engine port (hanzo 36900 / zoo 36910 / lux 36920) via the local-node
+  // config; the engine downloads each `value` repo from Hugging Face natively.
+  [Models.Hanzo]: {
+    apiUrl: 'http://localhost:36900',
+    modelTypes: zenCatalog,
+  },
   [Models.OpenAI]: {
     apiUrl: 'https://api.openai.com',
     modelTypes: [

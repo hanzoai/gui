@@ -12,9 +12,9 @@ import {
 } from '@hanzo_network/hanzo-ui';
 
 import {
-  useHanzoNodeKillMutation,
-  useHanzoNodeRemoveStorageMutation,
-  useHanzoNodeSpawnMutation,
+  useNodeKillMutation,
+  useNodeRemoveStorageMutation,
+  useNodeSpawnMutation,
 } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useHanzoNodeManager } from '../store/hanzo-node-manager';
 
@@ -30,16 +30,16 @@ export const ResetStorageBeforeConnectConfirmationPrompt = ({
   // const navigate = useNavigate();
   const { t } = useTranslation();
   const { setHanzoNodeOptions } = useHanzoNodeManager();
-  const { mutateAsync: hanzoNodeKill, isPending: isHanzoNodeKillPending } =
-    useHanzoNodeKillMutation();
+  const { mutateAsync: nodeKill, isPending: isHanzoNodeKillPending } =
+    useNodeKillMutation();
   const {
-    mutateAsync: hanzoNodeSpawn,
+    mutateAsync: nodeSpawn,
     isPending: isHanzoNodeSpawnPending,
-  } = useHanzoNodeSpawnMutation();
+  } = useNodeSpawnMutation();
   const {
-    mutateAsync: hanzoNodeRemoveStorage,
+    mutateAsync: nodeRemoveStorage,
     isPending: isHanzoNodeRemoveStoragePending,
-  } = useHanzoNodeRemoveStorageMutation();
+  } = useNodeRemoveStorageMutation();
 
   const cancel = () => {
     if (typeof onCancel === 'function') {
@@ -60,10 +60,10 @@ export const ResetStorageBeforeConnectConfirmationPrompt = ({
     isHanzoNodeSpawnPending;
 
   const reset = async (preserveKeys: boolean) => {
-    await hanzoNodeKill();
-    await hanzoNodeRemoveStorage({ preserveKeys });
+    await nodeKill();
+    await nodeRemoveStorage({ preserveKeys });
     setHanzoNodeOptions(null);
-    await hanzoNodeSpawn();
+    await nodeSpawn();
     if (typeof onReset === 'function') {
       onReset();
     }

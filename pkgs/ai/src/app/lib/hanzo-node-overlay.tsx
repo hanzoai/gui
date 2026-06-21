@@ -11,7 +11,7 @@ import { BRAND } from '../config/brand';
 import { useAuth } from '../store/auth';
 import { useHanzoNodeManager } from '../store/hanzo-node-manager';
 import { useDownloadTauriLogsMutation } from './hanzo-logs/logs-client';
-import { useHanzoNodeIsRunningQuery } from './hanzo-node-manager/hanzo-node-manager-client';
+import { useNodeIsRunningQuery } from './hanzo-node-manager/hanzo-node-manager-client';
 import { openHanzoNodeManagerWindow } from './hanzo-node-manager/hanzo-node-manager-windows-utils';
 
 export const HanzoNodeRunningOverlay = ({
@@ -22,7 +22,7 @@ export const HanzoNodeRunningOverlay = ({
   const auth = useAuth((store) => store.auth);
   const isCloudMode = !!auth?.hanzo_token;
   const { data: isHanzoNodeRunning, isPending: isHanzoNodeRunningPending } =
-    useHanzoNodeIsRunningQuery();
+    useNodeIsRunningQuery();
   const isInUse = useHanzoNodeManager((store) => store.isInUse);
 
   const {

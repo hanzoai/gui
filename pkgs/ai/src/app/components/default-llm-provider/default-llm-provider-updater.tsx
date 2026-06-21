@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { hanzoNodeSetDefaultLlmProvider } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
+import { nodeSetDefaultLlmProvider } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useAuth } from '../../store/auth';
 
 interface DefaultLlmProviderUpdaterProps {
@@ -22,7 +22,7 @@ export const DefaultLlmProviderUpdater: React.FC<DefaultLlmProviderUpdaterProps>
       if (!auth?.node_address || !auth?.api_v2_key) {
         throw new Error('Node address and API key are required');
       }
-      return hanzoNodeSetDefaultLlmProvider(
+      return nodeSetDefaultLlmProvider(
         llmProvider,
         auth.node_address,
         auth.api_v2_key

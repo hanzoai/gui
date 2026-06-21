@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useBrand } from '@hanzo_network/brand-config';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import {
   type QuickConnectFormSchema,
@@ -19,9 +20,9 @@ import { ResetStorageBeforeConnectConfirmationPrompt } from '../components/reset
 import config from '../config';
 import { useIamLogin } from '../hooks/iam-auth';
 import {
-  useHanzoNodeRemoveStorageMutation,
-  useHanzoNodeSpawnMutation,
-  useHanzoNodeKillMutation,
+  useNodeRemoveStorageMutation,
+  useNodeSpawnMutation,
+  useNodeKillMutation,
 } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
@@ -97,10 +98,16 @@ const TermsAndConditionsPage = () => {
   ] = useState(false);
 
   const { encryptionKeys } = useGetEncryptionKeys();
+  // The local node address MUST come from the brand config (luxd 9630, zood 2000,
+  // hanzod 3690), never a hardcoded port. Hardcoding :3690 sent the onboarding
+  // registration POST to a dead port on Lux/Zoo, so Skip spawned the node but the
+  // app silently never advanced past Welcome.
+  const brand = useBrand();
+  const localNodeAddress = `http://127.0.0.1:${brand.node?.apiPort ?? 3690}`;
   const setupDataForm = useForm<QuickConnectFormSchema>({
     resolver: zodResolver(quickConnectFormSchema),
     defaultValues: {
-      node_address: 'http://127.0.0.1:3690',
+      node_address: localNodeAddress,
     },
   });
 
@@ -130,12 +137,12 @@ const TermsAndConditionsPage = () => {
       }
     },
   });
-  const { isPending: hanzoNodeRemoveStorageIsPending } =
-    useHanzoNodeRemoveStorageMutation();
+  const { isPending: nodeRemoveStorageIsPending } =
+    useNodeRemoveStorageMutation();
   const {
-    isPending: hanzoNodeSpawnIsPending,
-    mutateAsync: hanzoNodeSpawn,
-  } = useHanzoNodeSpawnMutation({
+    isPending: nodeSpawnIsPending,
+    mutateAsync: nodeSpawn,
+  } = useNodeSpawnMutation({
     onSuccess: () => {
       void onSubmit(setupDataForm.getValues());
     },
@@ -148,7 +155,7 @@ const TermsAndConditionsPage = () => {
       });
     },
   });
-  const { isPending: hanzoNodeKillIsPending } = useHanzoNodeKillMutation();
+  const { isPending: nodeKillIsPending } = useNodeKillMutation();
 
   const {
     isLoading: hanzoLoginIsLoading,
@@ -160,14 +167,14 @@ const TermsAndConditionsPage = () => {
   // When IAM tokens arrive, spawn node and register
   useEffect(() => {
     if (hanzoTokens) {
-      void hanzoNodeSpawn();
+      void nodeSpawn();
     }
-  }, [hanzoTokens, hanzoNodeSpawn]);
+  }, [hanzoTokens, nodeSpawn]);
 
   const isStartLocalButtonLoading =
-    hanzoNodeSpawnIsPending ||
-    hanzoNodeKillIsPending ||
-    hanzoNodeRemoveStorageIsPending ||
+    nodeSpawnIsPending ||
+    nodeKillIsPending ||
+    nodeRemoveStorageIsPending ||
     submitRegistrationNodeCodeIsPending;
 
   const { login: hanzoLogin } = useIamLogin();
@@ -300,7 +307,7 @@ const TermsAndConditionsPage = () => {
           )}
           disabled={!termsAndConditionsAccepted || isStartLocalButtonLoading}
           isLoading={isStartLocalButtonLoading}
-          onClick={() => hanzoNodeSpawn()}
+          onClick={() => nodeSpawn()}
         >
           {t('common.skip')}
         </Button>

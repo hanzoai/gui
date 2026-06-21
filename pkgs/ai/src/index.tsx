@@ -7,12 +7,18 @@
 // Mirrors @luxfi/exchange's <Exchange {...brand} />: brand is a prop, one way,
 // one place. hanzo/zoo/lux desktop+mobile apps all collapse to an ~80-line shim.
 import React from 'react';
+// The Tailwind v4 entry + theme tokens live here (globals.css → hanzo-ui
+// styles.css). It is imported by the standalone dev entry (app/main.tsx) but
+// NOT by app/App.tsx, so the SDK lib build must pull it in HERE or the emitted
+// ai.css ships only component CSS — no Tailwind utilities / dark theme, and
+// consumer apps render unstyled (they rely entirely on @hanzo/ai/ai.css).
+import './app/globals.css';
 import { BrandProvider, setBrand } from './brand-context';
 import { setHost } from './host/runtime';
 import App from './app/App';
 import type { HanzoAIProps } from './types';
 
-// The migrated shinkai-fork app root (./app/App). getBrand() → useBrand();
+// The migrated forked app root (./app/App). getBrand() → useBrand();
 // the 44 @tauri-apps imports route through the host shim via the build alias.
 const AppRoot: React.ComponentType = App;
 

@@ -1,3 +1,4 @@
+import { useBrand } from '@hanzo_network/brand-config';
 import { ExitIcon, GearIcon } from '@radix-ui/react-icons';
 import { PopoverClose } from '@radix-ui/react-popover';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
@@ -29,7 +30,6 @@ import {
   AIAgentIcon,
   AISearchContentIcon,
   AisIcon,
-  BrandCombinationMarkIcon,
   FilesIcon,
   HomeIcon,
   InboxIcon,
@@ -183,6 +183,7 @@ const NavLink = ({
 
 export function MainNav() {
   const { t, Trans } = useTranslation();
+  const brand = useBrand();
   const optInExperimental = useSettings((state) => state.optInExperimental);
   const auth = useAuth((state) => state.auth);
   const logout = useAuth((state) => state.setLogout);
@@ -345,7 +346,11 @@ export function MainNav() {
         )}
       >
         {sidebarExpanded && (
-          <BrandCombinationMarkIcon className="text-text-secondary h-auto w-[50px]" />
+          <img
+            alt={brand?.name ?? 'Logo'}
+            className="h-auto w-[50px]"
+            src={brand?.logo?.light ?? '/app-logo.png'}
+          />
         )}
 
         <Tooltip>

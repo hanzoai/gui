@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 import { useAuth } from '../../store/auth';
 import { useSettings } from '../../store/settings';
-import { useHanzoNodeGetDefaultEmbeddingModelQuery } from '../hanzo-node-manager/hanzo-node-manager-client';
+import { useNodeGetDefaultEmbeddingModelQuery } from '../hanzo-node-manager/hanzo-node-manager-client';
 import { embeddingModelMismatchToast } from './embedding-migration-toasts';
 
 export const useEmbeddingStartupCheck = () => {
@@ -21,7 +21,7 @@ export const useEmbeddingStartupCheck = () => {
   );
 
   const { data: defaultEmbeddingModel } =
-    useHanzoNodeGetDefaultEmbeddingModelQuery({
+    useNodeGetDefaultEmbeddingModelQuery({
       staleTime: Infinity, // Static value, never changes
     });
 

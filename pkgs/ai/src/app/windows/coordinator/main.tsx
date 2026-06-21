@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { useOAuthDeepLinkSet } from '../../hooks/oauth';
-import { hanzoNodeQueryClient } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
+import { nodeQueryClient } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
 import {
   useSyncStorageMain,
   useSyncStorageSecondary,
@@ -25,7 +25,7 @@ const App = () => {
 
 ReactDOM.createRoot(document.querySelector('#root') as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={hanzoNodeQueryClient}>
+    <QueryClientProvider client={nodeQueryClient}>
       <App />
     </QueryClientProvider>
   </React.StrictMode>,

@@ -35,12 +35,13 @@ import VectorFs from '../components/vector-fs/vector-fs';
 import SearchNodeFiles from '../components/vector-search/search-node-files';
 import { useConfigDeepLink } from '../hooks/config-deeplink';
 import {
-  useHanzoNodeGetDefaultModel,
-  useHanzoNodeIsRunningQuery,
-  useHanzoNodeSetOptionsMutation,
-  useHanzoNodeSpawnMutation,
+  useNodeGetDefaultModel,
+  useNodeIsRunningQuery,
+  useNodeSetOptionsMutation,
+  useNodeSpawnMutation,
 } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useHanzoNodeEventsToast } from '../lib/hanzo-node-manager/hanzo-node-manager-hooks';
+import { isLocalHanzoNode } from '../lib/hanzo-node-manager/hanzo-node-manager-windows-utils';
 import { HanzoNodeRunningOverlay } from '../lib/hanzo-node-overlay';
 import AddAIPage from '../pages/add-ai';
 import AgentsPage from '../pages/agents';
@@ -101,13 +102,14 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   );
   useHanzoNodeEventsToast();
   const isInUse = useHanzoNodeManager((state) => state.isInUse);
+  const setIsInUse = useHanzoNodeManager((state) => state.setIsInUse);
   const autoStartHanzoNodeTried = useRef<boolean>(false);
-  const { data: hanzoNodeIsRunning } = useHanzoNodeIsRunningQuery({
+  const { data: nodeIsRunning } = useNodeIsRunningQuery({
     refetchInterval: isCloudMode ? false : 1000,
   });
-  const { mutateAsync: hanzoNodeSetOptions } =
-    useHanzoNodeSetOptionsMutation();
-  const { mutateAsync: hanzoNodeSpawn } = useHanzoNodeSpawnMutation();
+  const { mutateAsync: nodeSetOptions } =
+    useNodeSetOptionsMutation();
+  const { mutateAsync: nodeSpawn } = useNodeSpawnMutation();
   const location = useLocation();
 
   const isConnectionRoute = skipOnboardingRoutes.some(
@@ -123,31 +125,43 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (isCloudMode) return;
     void debug(
-      `initializing autoStartHanzoNodeTried.current:${autoStartHanzoNodeTried.current} isInUse:${isInUse} hanzoNodeIsRunning:${hanzoNodeIsRunning}`,
+      `initializing autoStartHanzoNodeTried.current:${autoStartHanzoNodeTried.current} isInUse:${isInUse} nodeIsRunning:${nodeIsRunning}`,
     );
     if (
       !autoStartHanzoNodeTried.current &&
       isInUse &&
-      !hanzoNodeIsRunning
+      !nodeIsRunning
     ) {
       autoStartHanzoNodeTried.current = true;
       void Promise.resolve().then(async () => {
         if (hanzoNodeOptions) {
-          await hanzoNodeSetOptions(hanzoNodeOptions);
+          await nodeSetOptions(hanzoNodeOptions);
         }
-        await hanzoNodeSpawn();
+        await nodeSpawn();
       });
     }
   }, [
     auth,
     isCloudMode,
-    hanzoNodeSpawn,
+    nodeSpawn,
     autoStartHanzoNodeTried,
-    hanzoNodeIsRunning,
+    nodeIsRunning,
     hanzoNodeOptions,
-    hanzoNodeSetOptions,
+    nodeSetOptions,
     isInUse,
   ]);
+
+  // Keep `isInUse` in sync with reality on every load. It was only derived at
+  // the auth null→set transition, so after a reload (auth already hydrated) it
+  // stayed at its persisted default and never reflected the running local node
+  // — which left every "use local models" path (Manage AIs ▸ Add AI, the chat
+  // empty-state, the model gallery) gated off. THE single source of truth:
+  // local node address + node running ⇒ in use.
+  useEffect(() => {
+    if (isCloudMode || !auth) return;
+    const next = isLocalHanzoNode(auth.node_address ?? '') && !!nodeIsRunning;
+    if (next !== isInUse) setIsInUse(next);
+  }, [auth, isCloudMode, nodeIsRunning, isInUse, setIsInUse]);
 
   if (!auth && !isConnectionRoute) {
     return <Navigate replace to={'/terms-conditions'} />;
@@ -178,7 +192,7 @@ export const useDefaultAgentByDefault = () => {
   const auth = useAuth((state) => state.auth);
   const defaultAgentId = useSettings((state) => state.defaultAgentId);
   const setDefaultAgentId = useSettings((state) => state.setDefaultAgentId);
-  const { data: defaultModel } = useHanzoNodeGetDefaultModel();
+  const { data: defaultModel } = useNodeGetDefaultModel();
 
   const { llmProviders, isSuccess } = useGetLLMProviders({
     nodeAddress: auth?.node_address ?? '',

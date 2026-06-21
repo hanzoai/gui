@@ -12,7 +12,7 @@ import { BrowserRouter as Router } from 'react-router';
 import { ChatProvider } from '../../components/chat/context/chat-context';
 import { ToolsProvider } from '../../components/chat/context/tools-context';
 import FullPageErrorFallback from '../../components/error-boundary';
-import { hanzoNodeQueryClient } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
+import { nodeQueryClient } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useHanzoNodeEventsToast } from '../../lib/hanzo-node-manager/hanzo-node-manager-hooks';
 import { HanzoNodeRunningOverlay } from '../../lib/hanzo-node-overlay';
 import { useSyncStorageSecondary } from '../../store/sync-utils';
@@ -49,7 +49,7 @@ const App = () => {
 
 ReactDOM.createRoot(document.querySelector('#root') as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={hanzoNodeQueryClient}>
+    <QueryClientProvider client={nodeQueryClient}>
       <QueryProvider>
         <App />
       </QueryProvider>

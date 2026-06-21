@@ -52,6 +52,9 @@ export { EngineEvent, ModelFormat, detectModelFormat } from './types';
 // Client
 export { HanzoEngineClient, hanzoEngine, HANZO_ENGINE_BASE_URL } from './client';
 
+// Brand-resolved engine URLs (single source of truth: brand `node.enginePort`)
+export { getEngineUrl, getEmbeddingEngineUrl } from './engine-url';
+
 // Hooks
 export {
   engineQueryKeys,

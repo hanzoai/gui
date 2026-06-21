@@ -70,7 +70,7 @@ export default function OnboardingStepper() {
               <Button
                 className="h-auto gap-1 px-3 py-2"
                 onClick={() => {
-                  void navigate('/ai-model-installation?provider=local');
+                  void navigate('/install-ai-models?provider=local');
                 }}
                 size="sm"
                 variant="outline"

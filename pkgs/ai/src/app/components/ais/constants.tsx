@@ -9,6 +9,7 @@ import {
   GroqIcon,
   LmStudioIcon,
   MetaIcon,
+  OllamaIcon,
   MistralIcon,
   OpenAIIcon,
   ZenIcon,
@@ -30,6 +31,7 @@ export enum ModelProvider {
   Groq = 'groq',
   LmStudio = 'lmstudio',
   Meta = 'meta',
+  Ollama = 'ollama',
   Mistral = 'mistral',
   OpenAI = 'openai',
   OpenRouter = 'openrouter',
@@ -53,6 +55,7 @@ export const providerMappings = {
   [ModelProvider.LmStudio]: LmStudioIcon,
   [ModelProvider.Mistral]: MistralIcon,
   [ModelProvider.Meta]: MetaIcon,
+  [ModelProvider.Ollama]: OllamaIcon,
   // Local Hanzo/Zen engine is exposed as an OpenAI-compatible provider — brand it with the Zen enso ring.
   [ModelProvider.OpenAI]: ZenIcon,
   'openai-legacy': OpenAIIcon,

@@ -2,7 +2,13 @@ import { z } from 'zod';
 
 import { Models, modelsConfig } from '../../lib/utils/models';
 
-const modelsWithoutApiKey = [Models.Exo];
+// Local engines need no API key: native Hanzo engine, Ollama, LM Studio, Exo.
+const modelsWithoutApiKey = [
+  Models.Hanzo,
+  Models.Ollama,
+  Models.LMStudio,
+  Models.Exo,
+];
 
 export const addAiModelSchema = z
   .object({

@@ -11,7 +11,7 @@ import { platform } from '@tauri-apps/plugin-os';
 import { relaunch } from '@tauri-apps/plugin-process';
 import { check, type Update } from '@tauri-apps/plugin-updater';
 
-import { useHanzoNodeKillMutation } from '../hanzo-node-manager/hanzo-node-manager-client';
+import { useNodeKillMutation } from '../hanzo-node-manager/hanzo-node-manager-client';
 
 // Types
 export type DownloadState = {
@@ -95,7 +95,7 @@ export const useCheckUpdateQuery = (
 // Mutations
 export const useDownloadUpdateMutation = (options?: UseMutationOptions) => {
   const queryClient = useQueryClient();
-  const { mutateAsync: hanzoNodeKill } = useHanzoNodeKillMutation();
+  const { mutateAsync: nodeKill } = useNodeKillMutation();
 
   return useMutation({
     mutationFn: async (): Promise<void> => {
@@ -152,7 +152,7 @@ export const useDownloadUpdateMutation = (options?: UseMutationOptions) => {
                   downloadProgressPercent: 100,
                 },
               };
-              void hanzoNodeKill();
+              void nodeKill();
               break;
           }
           void queryClient.invalidateQueries(

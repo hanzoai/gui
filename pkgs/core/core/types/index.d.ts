@@ -12,7 +12,7 @@ export interface RNTextNonStyleProps extends TextNonStyleProps, RNExclusiveTextP
 }
 type RNTextComponent = GuiComponent<TamaDefer, GuiTextElement, RNTextNonStyleProps, TextStylePropsBase, {}>;
 export * from './reactNativeTypes';
-export declare const GuiProvider: (props: GuiProviderProps) => import("react/jsx-runtime").JSX.Element;
+export declare const GuiProvider: (props: GuiProviderProps) => import("react").JSX.Element;
 export declare const createGui: typeof createGuiWeb;
 export declare const View: RNViewComponent;
 export declare const Text: RNTextComponent;

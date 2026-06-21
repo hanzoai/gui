@@ -24,9 +24,9 @@ import { Link, useNavigate } from 'react-router';
 import { ModelProvider } from '../components/ais/constants';
 import ProviderIcon from '../components/ais/provider-icon';
 import { ResourcesBanner } from '../components/hardware-capabilities/resources-banner';
-import { LocalModels } from '../components/hanzo-node-manager/local-models';
+import { LocalModelBrowser } from '../components/hanzo-node-manager/local-model-browser';
 import { useURLQueryParams } from '../hooks/use-url-query-params';
-import { hanzoNodeQueryClient } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
+import { nodeQueryClient } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useAuth } from '../store/auth';
 import { FixedHeaderLayout } from './layout/simple-layout';
 
@@ -171,7 +171,7 @@ const AIModelInstallation = () => {
       onValueChange={(value) => setSelectedProvider(value as 'local' | 'cloud')}
       value={selectedProvider}
     >
-      <QueryClientProvider client={hanzoNodeQueryClient}>
+      <QueryClientProvider client={nodeQueryClient}>
         <FixedHeaderLayout
           className="relative flex h-full w-full max-w-6xl flex-col gap-2 px-4"
           rightElement={
@@ -226,7 +226,7 @@ const AIModelInstallation = () => {
           title={t('llmProviders.localAI.installTitle')}
         >
           <ResourcesBanner />
-          <TabsContent className="h-full" value="local">
+          <TabsContent className="h-full overflow-y-auto" value="local">
             <div className="flex items-center justify-between gap-10 space-y-2 pb-4">
               <div className="flex-1">
                 <h1 className="font-inter text-lg font-medium">Local AI</h1>
@@ -239,9 +239,9 @@ const AIModelInstallation = () => {
               </div>
             </div>
 
-            <LocalModels />
+            <LocalModelBrowser />
           </TabsContent>
-          <TabsContent className="h-full" value="cloud">
+          <TabsContent className="h-full overflow-y-auto" value="cloud">
             <div className="flex items-center justify-between gap-10 space-y-2 pb-4">
               <div className="max-w-3xl">
                 <h1 className="font-inter text-lg font-medium">Cloud AI</h1>

@@ -6,6 +6,7 @@
 // mobile / desktop.
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'node:path';
 
 const h = (m: string) => resolve(__dirname, `src/host/${m}`);
@@ -51,7 +52,7 @@ const EXTERNAL = new Set([
 ]);
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   worker: { format: 'es' },
   resolve: {
     alias: {

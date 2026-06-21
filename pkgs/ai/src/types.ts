@@ -13,6 +13,10 @@ export interface BrandConfig {
   productName: string;
   identifier: string; // bundle id, e.g. com.lux.desktop
   logo: { light: string; dark: string; favicon: string };
+  /** Optional small-caps tagline under the onboarding logo. Empty/absent for
+   *  every brand by default — set it per-brand to opt in. (Replaces the old
+   *  hardcoded "the way, the truth, the life".) */
+  tagline?: string;
   colors: { primary: string; bg: string; fg: string };
   hosts: string[];
   storeUrl: { mac: string; win: string; ios: string; android: string };
@@ -26,6 +30,17 @@ export interface BrandConfig {
   overlayController: string;   // decentralized cloud overlay, e.g. edge.lux.cloud
   inferenceEndpoint: string;   // AI inference gateway, e.g. gateway.hanzo.ai
   iam: { baseUrl: string; clientId: string; redirectUri: string; callbackEvent: string };
+  /** On-device node daemon (hanzod/zood/luxd) + local inference engine ports.
+   *  THE single source of truth for the localhost node address — every frontend
+   *  localhost node/engine URL derives from here so each app runs its own node
+   *  on its own port (no hardcoded :3690/:9850/:4000). ws/p2p/https/zap =
+   *  apiPort+1..+4; embed engine = enginePort+1. Optional so already-built app
+   *  copies of the SDK type keep compiling; apps also re-export it from
+   *  brand.config for direct use without an SDK rebuild. */
+  node?: {
+    apiPort: number;     // node HTTP API — hanzod 3690, zood 2000, luxd 9630
+    enginePort: number;  // local inference engine (chat completions)
+  };
 }
 
 /** Optional, host-shell-provided capabilities. On Tauri these are the native

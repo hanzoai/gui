@@ -1,4 +1,33 @@
+/**
+ * A single entry of the native Zen catalog (`modelsConfig[Models.Hanzo].modelTypes`).
+ *
+ * THE one catalog-entry shape. The Local Models gallery segments the catalog by
+ * these flags: no flag = Chat, `embedding` = Embeddings, `reranker` = Reranker.
+ * `value` is the Hugging Face repo id the on-device engine pulls weights from;
+ * `file`/`format` pin an explicit quantized artifact when the repo is GGUF.
+ */
+export type ZenModelEntry = {
+  /** Display name, e.g. "Zen Nano 0.6B". */
+  name: string;
+  /** Hugging Face repo id, e.g. "zenlm/zen-nano-0.6b". */
+  value: string;
+  /** Explicit GGUF file within the repo when it is quantized. */
+  file?: string;
+  /** Weight format, e.g. "gguf". */
+  format?: string;
+  /** Human-readable on-disk size, e.g. "~0.7 GB". */
+  size?: string;
+  /** Text-embedding model (served by the embed engine). */
+  embedding?: boolean;
+  /** Cross-encoder reranker model. */
+  reranker?: boolean;
+};
+
 export enum Models {
+  // Native first-party engine (downloads Zen models from HF, runs locally).
+  // First in the list so it's the default engine; Ollama / LM Studio are
+  // alternative local engines users can pick instead.
+  Hanzo = 'hanzo',
   OpenAI = 'open-ai',
   OpenAILegacy = 'open-ai-legacy',
   TogetherComputer = 'togethercomputer',
@@ -13,7 +42,127 @@ export enum Models {
   Grok = 'grok',
 }
 
+/**
+ * The native Zen catalog — first-party models from huggingface.co/zenlm served
+ * locally by the on-device engine. THE single catalog source; the Local Models
+ * gallery segments it by `embedding` / `reranker` flags. `value` is the HF repo
+ * id so the engine pulls weights natively on first use.
+ */
+export const zenCatalog: ZenModelEntry[] = [
+  {
+    name: 'Zen Nano 0.6B',
+    value: 'zenlm/zen-nano-0.6b',
+    // GGUF-quantized; the engine needs the explicit file + format.
+    file: 'gguf/zen-nano-0.6b-Q8_0.gguf',
+    format: 'gguf',
+    size: '~0.7 GB',
+  },
+  { name: 'Zen Eco 4B', value: 'zenlm/zen-eco-4b-instruct', size: '~8 GB' },
+  {
+    name: 'Zen Eco 4B Thinking',
+    value: 'zenlm/zen-eco-4b-thinking',
+    size: '~8 GB',
+  },
+  { name: 'Zen 3 Nano', value: 'zenlm/zen3-nano', size: '~1.2 GB' },
+  {
+    name: 'Zen Embedding',
+    value: 'zenlm/zen-embedding',
+    embedding: true,
+    size: '~1.2 GB',
+  },
+  {
+    name: 'Zen Embedding 0.6B',
+    value: 'zenlm/zen-embedding-0.6B',
+    embedding: true,
+    size: '~1.2 GB',
+  },
+  {
+    name: 'Zen Embedding 8B (GGUF)',
+    value: 'zenlm/zen-embedding-8B-GGUF',
+    embedding: true,
+    format: 'gguf',
+    size: '~8 GB',
+  },
+  {
+    name: 'Zen Reranker',
+    value: 'zenlm/zen-reranker',
+    reranker: true,
+    size: '~1.2 GB',
+  },
+];
+
+/**
+ * Featured community models — a curated, LM-Studio-style list of popular public
+ * GGUF models the native Hanzo engine can pull from Hugging Face and run.
+ *
+ * Same `ZenModelEntry[]` shape and same download path as `zenCatalog`; rendered
+ * as a "Featured" segment in the Local Models gallery. Every `value` is a
+ * verified-PUBLIC HF repo (no gated meta-llama/google/mistralai originals — only
+ * open GGUF mirrors), and every `file` is a real Q4_K_M artifact that exists in
+ * the repo (the first shard when the quant is split). These are chat models, so
+ * no `embedding`/`reranker` flags.
+ */
+export const featuredCatalog: ZenModelEntry[] = [
+  {
+    name: 'Qwen2.5 3B Instruct',
+    value: 'Qwen/Qwen2.5-3B-Instruct-GGUF',
+    file: 'qwen2.5-3b-instruct-q4_k_m.gguf',
+    format: 'gguf',
+    size: '~2 GB',
+  },
+  {
+    name: 'Qwen2.5 7B Instruct',
+    value: 'Qwen/Qwen2.5-7B-Instruct-GGUF',
+    // Q4_K_M is sharded; the engine resolves the rest from the first shard.
+    file: 'qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf',
+    format: 'gguf',
+    size: '~4.7 GB',
+  },
+  {
+    name: 'Llama 3.2 3B Instruct',
+    value: 'bartowski/Llama-3.2-3B-Instruct-GGUF',
+    file: 'Llama-3.2-3B-Instruct-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~2 GB',
+  },
+  {
+    name: 'Llama 3.1 8B Instruct',
+    value: 'bartowski/Meta-Llama-3.1-8B-Instruct-GGUF',
+    file: 'Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~4.9 GB',
+  },
+  {
+    name: 'Gemma 2 2B Instruct',
+    value: 'bartowski/gemma-2-2b-it-GGUF',
+    file: 'gemma-2-2b-it-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~1.7 GB',
+  },
+  {
+    name: 'Mistral 7B Instruct v0.3',
+    value: 'bartowski/Mistral-7B-Instruct-v0.3-GGUF',
+    file: 'Mistral-7B-Instruct-v0.3-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~4.4 GB',
+  },
+  {
+    name: 'DeepSeek R1 Distill Qwen 7B',
+    value: 'bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF',
+    file: 'DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf',
+    format: 'gguf',
+    size: '~4.7 GB',
+  },
+];
+
 export const modelsConfig = {
+  // Native Hanzo engine — Zen catalog (zenCatalog). Apps point apiUrl at their
+  // own engine port (hanzo 36900 / zoo 36910 / lux 36920) via the local-node
+  // config; the engine downloads each `value` repo from Hugging Face natively.
+  [Models.Hanzo]: {
+    apiUrl: 'http://localhost:36900',
+    modelTypes: zenCatalog,
+  },
   [Models.OpenAI]: {
     apiUrl: 'https://api.openai.com',
     modelTypes: [

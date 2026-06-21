@@ -32,8 +32,8 @@ export declare const SelectSeparator: import("@hanzogui/core").GuiComponent<impo
     unstyled?: boolean | undefined;
     vertical?: boolean | undefined;
 }, import("@hanzogui/core").StaticConfigPublic>;
-export declare const Select: (<Value extends string = string>(props: SelectScopedProps<SelectProps<Value>>) => import("react/jsx-runtime").JSX.Element) & {
-    Adapt: ((props: import("@hanzogui/adapt").AdaptProps) => import("react/jsx-runtime").JSX.Element) & {
+export declare const Select: (<Value extends string = string>(props: SelectScopedProps<SelectProps<Value>>) => React.JSX.Element) & {
+    Adapt: ((props: import("@hanzogui/adapt").AdaptProps) => React.JSX.Element) & {
         Contents: {
             ({ scope, ...rest }: {
                 scope?: string;
@@ -41,7 +41,7 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
             shouldForwardSpace: boolean;
         };
     };
-    Content: ({ children, scope, ...focusScopeProps }: import("./types").SelectContentProps & import("@hanzogui/focus-scope").FocusScopeProps) => import("react/jsx-runtime").JSX.Element | null;
+    Content: ({ children, scope, ...focusScopeProps }: import("./types").SelectContentProps & import("@hanzogui/focus-scope").FocusScopeProps) => React.JSX.Element | null;
     Group: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
@@ -207,7 +207,7 @@ export declare const Select: (<Value extends string = string>(props: SelectScope
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }, import("@hanzogui/core").StaticConfigPublic>;
-    FocusScope: (props: import("@hanzogui/focus-scope/types/types").ScopedProps<import("@hanzogui/focus-scope").FocusScopeControllerProps>) => import("react/jsx-runtime").JSX.Element;
+    FocusScope: (props: import("@hanzogui/focus-scope/types/types").ScopedProps<import("@hanzogui/focus-scope").FocusScopeControllerProps>) => React.JSX.Element;
 };
 export {};
 //# sourceMappingURL=Select.d.ts.map

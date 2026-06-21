@@ -19,7 +19,7 @@ import { Edit3Icon, ExternalLinkIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { BRAND } from '../../config/brand';
-import { useHanzoNodeRespawnMutation } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
+import { useNodeRespawnMutation } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { isHostingHanzoNode } from '../../lib/hanzo-node-manager/hanzo-node-manager-windows-utils';
 import { type Auth, useAuth } from '../../store/auth';
 import { useHanzoNodeManager } from '../../store/hanzo-node-manager';
@@ -34,7 +34,7 @@ const HanzoIdentityDialog = () => {
   const isLocalHanzoNodeInUse = useHanzoNodeManager(
     (state) => state.isInUse,
   );
-  const { mutateAsync: respawnHanzoNode } = useHanzoNodeRespawnMutation();
+  const { mutateAsync: respawnHanzoNode } = useNodeRespawnMutation();
 
   const { mutateAsync: updateNodeName, isPending: isUpdateNodeNamePending } =
     useUpdateNodeName({

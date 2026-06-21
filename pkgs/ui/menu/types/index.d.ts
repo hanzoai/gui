@@ -126,7 +126,7 @@ export declare const Menu: import("react").FC<import("./createNonNativeMenu").Me
     } & import("@hanzogui/web").StaticConfigPublic> | {
         ({ children }: {
             children: React.ReactNode;
-        }): import("react/jsx-runtime").JSX.Element;
+        }): import("react").JSX.Element;
         displayName: string;
     };
 };

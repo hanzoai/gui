@@ -1,7 +1,7 @@
 export default {
   extension: {
     welcome:
-      'Transform your web browsing experience using AI with Hanzo Visor ✨',
+      'Transform your web browsing experience using AI with {{appName}} Visor ✨',
   },
   homepage: {
     welcomeTitle: 'How can I help you today?',
@@ -14,13 +14,13 @@ export default {
     enterToSend: '<span>Enter</span> to send',
   },
   desktop: {
-    welcome: 'Welcome to Hanzo',
+    welcome: 'Welcome to {{appName}}',
     welcomeDescription:
-      '<b>Hanzo lets you build AI agents in minutes — fast, private, and secure.</b> Run locally, collaborate through a decentralized network, and create AI workflows effortlessly. ',
-    localAI: 'Hanzo Local AI',
+      '<b>{{appName}} lets you build AI agents in minutes — fast, private, and secure.</b> Run locally, collaborate through a decentralized network, and create AI workflows effortlessly. ',
+    localAI: '{{appName}} Local AI',
     benefits: {
       local:
-        '<b>Local:</b> With a local Hanzo, you gain complete control over your data in a secure environment.',
+        '<b>Local:</b> With a local {{appName}}, you gain complete control over your data in a secure environment.',
       privacy:
         '<b>Privacy-Focused:</b> Your data remains secure with offline capabilities and strong privacy protections.',
       tools:
@@ -92,22 +92,22 @@ export default {
   chatDM: {
     create: 'Create DM Chat',
     form: {
-      hanzoIdentity: 'Hanzo Identity',
+      hanzoIdentity: '{{appName}} Identity',
       message: 'Message',
       messagePlaceholder: 'Enter your message',
     },
   },
   quickAsk: {
-    emptyStateTitle: 'Ask Hanzo AI',
+    emptyStateTitle: 'Ask {{appName}} AI',
     emptyStateDescription:
       'Try "How to make a HTTP request in JavaScript" , "Give me the top 10 rock music in the 80s", "Explain me how internet works"',
   },
   chat: {
     chats: 'Chats',
     agents: 'Agents',
-    emptyStateTitle: 'Ask Hanzo AI',
+    emptyStateTitle: 'Ask {{appName}} AI',
     emptyStateDescription:
-      'For quick questions, press ⌘ + Shift + J to use Hanzo Spotlight',
+      'For quick questions, press ⌘ + Shift + J to use {{appName}} Spotlight',
     create: 'Create AI Chat',
     allMessagesLoaded: 'All previous messages have been loaded ✅',
     limitReachedTitle: 'Limit Reached',
@@ -208,7 +208,7 @@ export default {
       delete: 'Delete',
       searchWithinFolder: 'Search within folder',
       uploadFileText:
-        'Uploading your files transforms them to be AI-ready and available to use in Hanzo.',
+        'Uploading your files transforms them to be AI-ready and available to use in {{appName}}.',
       shareFolderText:
         'You can share folders that you store in AI Files with anyone.',
       unshareFolderText:
@@ -261,7 +261,7 @@ export default {
       'Are you sure you want to delete this file? This action cannot be undone.',
     shareFolderWarning: {
       title: 'Enable Folder Sharing',
-      text: 'You must register a Hanzo identity before you can share folders over the Hanzo Network.',
+      text: 'You must register a {{appName}} identity before you can share folders over the {{appName}} Network.',
       action: 'Click Here to Learn How',
     },
   },
@@ -270,40 +270,40 @@ export default {
     inboxName: 'Name',
   },
   hanzoNode: {
-    restartNode: 'Please restart your Hanzo Node',
+    restartNode: 'Please restart your {{appName}} Node',
     nodeAddress: 'Node Address',
     nodeVersion: 'Node Version',
-    unavailable: 'Your Hanzo Node is unavailable',
+    unavailable: 'Your {{appName}} Node is unavailable',
     notifications: {
-      startingNode: 'Starting your local Hanzo Node',
-      runningNode: 'Your local Hanzo Node is running',
-      stoppedNode: 'Your local Hanzo Node was stopped',
-      stopNode: 'Stopping your local Hanzo Node',
-      removedNote: 'Your local Hanzo Node storage was removed',
+      startingNode: 'Starting your local {{appName}} Node',
+      runningNode: 'Your local {{appName}} Node is running',
+      stoppedNode: 'Your local {{appName}} Node was stopped',
+      stopNode: 'Stopping your local {{appName}} Node',
+      removedNote: 'Your local {{appName}} Node storage was removed',
       startingOllama: 'Starting your Ollama',
       runningOllama: 'Your Ollama is running',
       stoppedOllama: 'Your local Ollama was stopped',
       stopOllama: 'Stopping your local Ollama',
-      syncedOllama: 'Local Ollama models synchronized with your Hanzo Node',
+      syncedOllama: 'Local Ollama models synchronized with your {{appName}} Node',
       errorSyncOllama:
-        'Error synchronizing your local Ollama models with your Hanzo Node',
+        'Error synchronizing your local Ollama models with your {{appName}} Node',
       optionsRestored: 'Options restored to default values',
       startingDownload: 'Starting downloading {{modelName}}',
       downloadingModel: 'Downloading AI model {{modelName}} - {{progress}}%',
       downloadedModel: 'AI model {{modelName}} downloaded successfully',
       installingModel: 'Installing {{modelName}} ...',
     },
-    manager: 'Hanzo Node Manager',
+    manager: '{{appName}} Node Manager',
     resetNodeWarning: {
       title: 'Unable to connect',
       description:
-        'Your Hanzo Node is currently locked by existing keys. To connect again, you can reset all your Hanzo Node data.',
+        'Your {{appName}} Node is currently locked by existing keys. To connect again, you can reset all your {{appName}} Node data.',
       option1:
         '<b>Restore:</b> Try to restore your connection using a backed up keys.',
       option2:
-        '<b>Reset Data:</b> Permanently delete all your Hanzo Node data.',
+        '<b>Reset Data:</b> Permanently delete all your {{appName}} Node data.',
       option3:
-        '<b>Reset All:</b> Permanently delete all your Hanzo Node data including the encryption and signing keys.',
+        '<b>Reset All:</b> Permanently delete all your {{appName}} Node data including the encryption and signing keys.',
     },
     models: {
       labels: {
@@ -331,10 +331,10 @@ export default {
     },
   },
   onboardingChecklist: {
-    getStartedText: 'Get Started with Hanzo',
+    getStartedText: 'Get Started with {{appName}}',
     getStartedChecklist: 'Get started checklist',
-    setupHanzoDesktop: 'Setup Hanzo Desktop',
-    setupHanzoDesktopDescription: 'Setup Hanzo Desktop to get started',
+    setupHanzoDesktop: 'Setup {{appName}} Desktop',
+    setupHanzoDesktopDescription: 'Setup {{appName}} Desktop to get started',
     addAIAgent: 'Create your AI Agent',
     addAIAgentDescription:
       'Add a customized AI agent tailored to to your specific needs.',
@@ -363,7 +363,7 @@ export default {
       general: 'General',
       appearance: 'Appearance',
       remoteAccess: 'Remote Access',
-      hanzoNode: 'Hanzo Node Manager',
+      hanzoNode: '{{appName}} Node Manager',
       exportConnection: 'Export Connection',
       createRegistrationCode: 'Create Registration Code',
       analytics: 'Analytics',
@@ -395,15 +395,15 @@ export default {
       },
     },
     hanzoIdentity: {
-      label: 'Hanzo Identity',
-      updatedIdentity: 'Hanzo Identity updated successfully.',
-      registerIdentity: 'Register your Hanzo Identity',
+      label: '{{appName}} Identity',
+      updatedIdentity: '{{appName}} Identity updated successfully.',
+      registerIdentity: 'Register your {{appName}} Identity',
       troubleRegisterIdentity: 'Trouble registering your Identity?',
       saveWillRestartApp: 'Save will restart the App to apply changes',
-      goToHanzoIdentity: 'Go to My Hanzo Identity',
-      success: 'Hanzo Identity updated successfully',
-      error: 'Error updating Hanzo Identity',
-      checkIdentityInSync: 'Verify Hanzo Identity',
+      goToHanzoIdentity: 'Go to My {{appName}} Identity',
+      success: '{{appName}} Identity updated successfully',
+      error: 'Error updating {{appName}} Identity',
+      checkIdentityInSync: 'Verify {{appName}} Identity',
       checkIdentityInSyncDescription:
         'Check that your hanzo identity are accurately in sync.',
     },
@@ -421,7 +421,7 @@ export default {
       },
     },
     quickAccessButton: {
-      label: 'Show Hanzo Quick Access Button',
+      label: 'Show {{appName}} Quick Access Button',
       description:
         'The Quick Access Button can be moved by clicking and holding.',
     },
@@ -440,7 +440,7 @@ export default {
       label: 'Language',
       selectLanguage: 'Select Language',
     },
-    hanzoVersion: 'Hanzo Desktop Version:',
+    hanzoVersion: '{{appName}} Desktop Version:',
     shortcutKey: {
       label: 'Shortcut Key',
       description: 'Modify the shortcut key to launch sidebar',
@@ -481,7 +481,7 @@ export default {
     remoteAccess: {
       title: 'Remote Access',
       description:
-        'Easily and securely connect to your Hanzo node from anywhere using ngrok. No complex setup—just  <a>create a free ngrok account</a>, copy your <b>ngrok auth token</b> from the dashboard, and paste it below to enable secure remote access.',
+        'Easily and securely connect to your {{appName}} node from anywhere using ngrok. No complex setup—just  <a>create a free ngrok account</a>, copy your <b>ngrok auth token</b> from the dashboard, and paste it below to enable secure remote access.',
       connected: 'Connected',
       publicAccessUrl: 'Public Access URL',
       publicAccessURLDescription:
@@ -495,7 +495,7 @@ export default {
         stopRemoteAccess: 'Stop Remote Access',
       },
       success:
-        'Connected! Your Hanzo node is now accessible remotely via ngrok',
+        'Connected! Your {{appName}} node is now accessible remotely via ngrok',
       stopRemoteAccessSuccess: 'Remote access has been stopped successfully',
       errors: {
         failedToStart: 'Failed to connect remote access via ngrok.',
@@ -509,7 +509,7 @@ export default {
     generateFile: 'Generate connection file',
     downloadText: 'Download and keep this connection file in a safe place',
     restoreText:
-      'Use it with your passphrase to restore the connection to your Hanzo Node',
+      'Use it with your passphrase to restore the connection to your {{appName}} Node',
     form: {
       passphrase: 'Passphrase',
       repeatPassphrase: 'Repeat Passphrase',
@@ -594,8 +594,8 @@ export default {
     repeatPassphrase: 'Confirm passphrase',
     optIn: 'Opt In',
     optOut: 'Opt Out',
-    logInHanzoHosting: 'Log In To Hanzo Hosting',
-    signUpHanzoHosting: 'Sign up For Hanzo Hosting',
+    logInHanzoHosting: 'Log In To {{appName}} Hosting',
+    signUpHanzoHosting: 'Sign up For {{appName}} Hosting',
     quickConnect: 'Quick Connect',
     alreadyHaveNode: 'Already have a Node?',
     hanzoPrivate: 'Setup Your Local AI',
@@ -634,11 +634,11 @@ export default {
       nodeAddress: 'Node Address',
       connect: 'Connect',
     },
-    connectingToNode: 'Connecting to your local Hanzo Node',
+    connectingToNode: 'Connecting to your local {{appName}} Node',
   },
   analytics: {
     label: 'Analytics',
-    title: 'Help us improve Hanzo',
+    title: 'Help us improve {{appName}}',
     bulletPoints: {
       one: '<check/> Always allow you to opt-out via Settings',
       two: '<check/> Randomized Analytics',
@@ -665,7 +665,7 @@ export default {
     notFound: {
       title: 'No available AIs',
       description:
-        'Connect your first AI to start asking Hanzo AI. Try connecting OpenAI',
+        'Connect your first AI to start asking {{appName}} AI. Try connecting OpenAI',
     },
     localAI: {
       installTitle: 'Install AI Models',
@@ -721,11 +721,11 @@ export default {
     },
     success: {
       registerDesktopInstallation:
-        'Your Hanzo Desktop installation was registered successfully. It may take some hours to be registered in Galxe quest.',
+        'Your {{appName}} Desktop installation was registered successfully. It may take some hours to be registered in Galxe quest.',
     },
     errors: {
       registerDesktopInstallation:
-        'Error registering your Hanzo Desktop installation. Please ensure your EVM Address was not used previously to register a different installation.',
+        'Error registering your {{appName}} Desktop installation. Please ensure your EVM Address was not used previously to register a different installation.',
     },
   },
   mcpServers: {
@@ -753,7 +753,7 @@ export default {
     addSuccess: 'MCP server added successfully',
     addFailed: 'Failed to add MCP server',
     addDescription:
-      'Configure a new MCP server to connect with your Hanzo Node',
+      'Configure a new MCP server to connect with your {{appName}} Node',
     updateSuccess: 'MCP server updated successfully',
     updateFailed: 'Failed to update MCP server',
     toolMustBeEnabled: 'Tool must be enabled before changing MCP server mode',
@@ -768,7 +768,7 @@ export default {
     noToolsAvailableForThisServer: 'No tools available for this server.',
     noServersFound: 'No MCP servers found. Add a new server to get started.',
     title: 'MCP Servers',
-    listDescription: 'List of MCP servers connected to your Hanzo Node',
+    listDescription: 'List of MCP servers connected to your {{appName}} Node',
     composio: {
       title: 'Composio MCP Servers',
       details: 'Details',
@@ -817,10 +817,10 @@ export default {
       otherProtocols:
         "Other protocols may also work but haven't been officially verified.",
       requestProtocol: 'Request Protocol',
-      hanzoCodeGenerator: 'Hanzo Code Generator',
+      hanzoCodeGenerator: '{{appName}} Code Generator',
       hanzoCodeGeneratorDescription:
         'Builds tools using our specialized AI code-generation tool.',
-      hanzoFreeTrial: 'Hanzo Free Trial',
+      hanzoFreeTrial: '{{appName}} Free Trial',
       hanzoFreeTrialDescription:
         'Great for building tools, works with any content you provide.',
       hanzoFreeTrialRecommendation:
@@ -878,7 +878,7 @@ export default {
     installFromStore: 'Install from Store',
     lookingForMoreTools: 'Looking for more tools?',
     visitStore:
-      'Visit the Hanzo Store to discover and install additional tools to enhance your workflow',
+      'Visit the {{appName}} Store to discover and install additional tools to enhance your workflow',
     setupRequired: 'Tool Setup Required',
     configurationRequired: "Tool's Configuration Required",
     setupDescription:
@@ -924,7 +924,7 @@ export default {
     },
   },
   disconnect: {
-    modalTitle: 'Disconnect Hanzo',
+    modalTitle: 'Disconnect {{appName}}',
     modalDescription:
       'Are you sure you want to disconnect? This will permanently delete your data',
     exportConnection:
@@ -934,7 +934,7 @@ export default {
     nodeUnavailable: {
       title: 'Node Unavailable',
       description:
-        "We're having trouble connecting to your Hanzo Node. Your node may be offline, or your internet connection may be down.",
+        "We're having trouble connecting to your {{appName}} Node. Your node may be offline, or your internet connection may be down.",
     },
   },
   notifications: {
@@ -987,7 +987,7 @@ export default {
     customDescriptionPrimary:
       'The recommended way to connect your external client is via Server-Sent Events (SSE).',
     customDescriptionSecondary:
-      'If your client does not support SSE, you can run the Hanzo MCP server as a separate process using this command:',
+      'If your client does not support SSE, you can run the {{appName}} MCP server as a separate process using this command:',
     customCopySseUrlButton: 'Copy SSE URL',
     customCopyCommandButton: 'Copy Command',
     copySuccessUrl: 'SSE URL copied to clipboard',
@@ -997,7 +997,7 @@ export default {
   feedback: {
     button: 'Feedback',
     description:
-      'We value your feedback! Please let us know your thoughts about Hanzo and how we can improve your experience.',
+      'We value your feedback! Please let us know your thoughts about {{appName}} and how we can improve your experience.',
     title: 'Share Feedback',
     form: {
       contactLabel: 'Email or phone number',
@@ -1165,8 +1165,8 @@ export default {
     addAgent: 'Add Agent',
     addAgentFromId: 'Add Agent From ID',
     addAgentFromIdDescription:
-      'Add an agent to your collection using a Hanzo ID. Example: @@official.sep-hanzo/main/agent/youtube_expert',
-    addAgentFromIdHelper: 'Enter the Hanzo ID of the agent you want to add.',
+      'Add an agent to your collection using a {{appName}} ID. Example: @@official.sep-hanzo/main/agent/youtube_expert',
+    addAgentFromIdHelper: 'Enter the {{appName}} ID of the agent you want to add.',
     addAgentFromIdPlaceholder:
       'e.g. @@official.sep-hanzo/main/agent/youtube_expert',
     nextAddAgent: 'Next (Add Agent)',
@@ -1178,9 +1178,9 @@ export default {
     setupRequired: 'Setup required to use paid agents and publish agents',
     removeSuccess: 'Network agent removed successfully',
     removeFailed: 'Failed to remove agent',
-    registerHanzoIdentity: 'Register Hanzo Identity',
+    registerHanzoIdentity: 'Register {{appName}} Identity',
     registerHanzoIdentityDescription:
-      'Create your unique identity on the Hanzo network to use and publish agents',
+      'Create your unique identity on the {{appName}} network to use and publish agents',
     registerIdentity: 'Register Identity',
     connectWallet: 'Connect Wallet',
     connectWalletDescription:
@@ -1227,7 +1227,7 @@ export default {
     exposeToolsDescription:
       'Expose your AI Tools through MCP to enable seamless integration with other MCP Clients \nand expand their capabilities.',
     helpfulLinks:
-      'You can find helpful MCPs to connect with Hanzo at smithery.ai and composio.dev.',
+      'You can find helpful MCPs to connect with {{appName}} at smithery.ai and composio.dev.',
   },
   errorBoundary: {
     genericError: 'Something went wrong. Try refreshing the app.',

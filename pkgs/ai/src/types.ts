@@ -54,8 +54,10 @@ export interface HostAdapter {
 }
 
 export interface HanzoAIProps extends BrandConfig {
-  /** SVG/logo component override (brand ships its own marks). */
-  logo?: React.ComponentType<{ className?: string }> | string;
+  // logo is inherited from BrandConfig as { light; dark; favicon } — the single
+  // shape every brand passes and every consumer reads (main-layout brand.logo.light).
+  // (Removed a dead ComponentType|string override that contradicted BrandConfig.logo
+  // and made `<HanzoAI {...brandConfig}/>` fail tsc in all 3 apps.)
   /** Per-env cloud overrides (defaults derive from overlayController/inferenceEndpoint). */
   cloud?: { overlay?: string; inference?: string };
   /** Auth override (defaults derive from `iam`). */

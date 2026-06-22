@@ -36,7 +36,6 @@ import ReactDOM from 'react-dom/client';
 import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
-import logo from '../../../src-tauri/icons/128x128@2x.png';
 import { LocalModelBrowser } from '../../components/hanzo-node-manager/local-model-browser';
 import { ModelTools } from '../../components/hanzo-node-manager/model-tools';
 import {
@@ -184,7 +183,7 @@ const App = () => {
         data-tauri-drag-region={true}
       />
       <div className="flex flex-row items-center px-4 pt-10 pb-4">
-        <img alt="hanzo logo" className="h-8 w-8" src={logo} />
+        <img alt="logo" className="h-8 w-8" src="/app-logo.png" />
         <div className="ml-3 flex flex-col">
           <span className="text-base font-medium">Node</span>
           <span className="text-text-secondary text-xs">{`API URL: http://${hanzoNodeOptions?.node_api_ip}:${hanzoNodeOptions?.node_api_port}`}</span>

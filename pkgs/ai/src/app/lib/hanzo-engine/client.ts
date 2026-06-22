@@ -169,7 +169,10 @@ export class HanzoEngineClient {
             }
             try {
               const parsed = JSON.parse(data);
-              const content = parsed.choices?.[0]?.delta?.content;
+              // Thinking models stream `reasoning_content` before (or instead of)
+              // `content`; rendering only `content` made the chat show no reply.
+              const delta = parsed.choices?.[0]?.delta;
+              const content = delta?.content ?? delta?.reasoning_content;
               if (content) {
                 yield content;
               }

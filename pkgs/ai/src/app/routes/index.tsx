@@ -348,7 +348,6 @@ const AppRoutes = () => {
               path={'quick-connection'}
             />
             <Route element={<RestoreConnectionPage />} path={'restore'} />
-            {/* <Route element={<ConnectMethodQrCodePage />} path={'connect-qr'} /> */}
           </Route>
           <Route
             element={

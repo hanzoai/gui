@@ -3,7 +3,7 @@
 Object.defineProperties(exports, { __esModule: { value: true }, [Symbol.toStringTag]: { value: 'Module' } });
 
 require('react');
-const index = require('./index-BqtStGzd.cjs');
+const index = require('./index-DJT7cNZ5.cjs');
 
 
 

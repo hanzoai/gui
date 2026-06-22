@@ -236,7 +236,10 @@ export const uploadFilesToJob = async (
   const responses: AddFileToInboxResponse[] = [];
   for (const file of files) {
     const response = await addFileToJob(nodeAddress, bearerToken, {
-      filename: encodeURIComponent(file.name),
+      // Raw name — FormData already encodes field values; encodeURIComponent here
+      // double-encoded it (filenames showed as %20…) and mismatched the file's
+      // own multipart name. (red-team #23)
+      filename: file.name,
       job_id: jobId,
       file,
     });

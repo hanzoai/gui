@@ -342,16 +342,14 @@ export function MainNav() {
       <div
         className={cn(
           'text-text-secondary flex w-full items-center justify-between gap-2 py-2 pl-4',
-          !sidebarExpanded && 'justify-center px-0',
+          !sidebarExpanded && 'flex-col justify-center gap-3 px-0 pl-0',
         )}
       >
-        {sidebarExpanded && (
-          <img
-            alt={brand?.name ?? 'Logo'}
-            className="h-auto w-[50px]"
-            src={brand?.logo?.light ?? '/app-logo.png'}
-          />
-        )}
+        <img
+          alt={brand?.name ?? 'Logo'}
+          className={cn('h-auto', sidebarExpanded ? 'w-[50px]' : 'w-7')}
+          src={brand?.logo?.light ?? '/app-logo.png'}
+        />
 
         <Tooltip>
           <TooltipTrigger asChild>

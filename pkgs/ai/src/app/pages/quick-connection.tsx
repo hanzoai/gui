@@ -32,6 +32,7 @@ import { useHanzoNodeEventsToast } from '../lib/hanzo-node-manager/hanzo-node-ma
 import { HOME_PATH } from '../routes/name';
 import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
+import { getNodeUrl } from '../lib/hanzo-engine/engine-url';
 
 export interface ConnectionOptionButtonProps extends ButtonProps {
   title: string;
@@ -66,7 +67,6 @@ const ConnectionOptionButton = ({
 // is derived as apiPort+1 (=> 3691) in websocket-message.tsx, which is exactly
 // where the node's WS server listens. Using a wrong port here (e.g. 9850)
 // makes the WS target a dead port (9851) so chat streams never connect.
-const LOCAL_NODE_ADDRESS = 'http://127.0.0.1:3690';
 
 const QuickConnectionPage = () => {
   const navigate = useNavigate();
@@ -77,7 +77,7 @@ const QuickConnectionPage = () => {
   const locationState = useLocation().state;
   const isHanzoPrivate = locationState?.connectionType === 'local';
   const { nodeInfo, isSuccess: isNodeInfoSuccess } = useGetHealth(
-    { nodeAddress: LOCAL_NODE_ADDRESS },
+    { nodeAddress: getNodeUrl() },
     { enabled: isHanzoPrivate },
   );
 
@@ -86,9 +86,7 @@ const QuickConnectionPage = () => {
   const setupDataForm = useForm<QuickConnectFormSchema>({
     resolver: zodResolver(quickConnectFormSchema),
     defaultValues: {
-      node_address: isHanzoPrivate
-        ? LOCAL_NODE_ADDRESS
-        : 'http://127.0.0.1:3690',
+      node_address: getNodeUrl(),
     },
   });
 

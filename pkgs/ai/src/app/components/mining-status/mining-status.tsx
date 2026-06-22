@@ -163,11 +163,8 @@ export const MiningStatus: React.FC<MiningStatusProps> = ({
       size="auto"
       variant="ghost"
     >
-      <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10">
-        {isMining && (
-          <span className="absolute inset-0 animate-ping rounded-2xl bg-emerald-400/30" />
-        )}
-        <Wallet className="relative h-6 w-6 text-white" />
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10">
+        <Wallet className="h-6 w-6 text-white" />
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5">

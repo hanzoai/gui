@@ -43,7 +43,8 @@ export interface HostAdapter {
 }
 
 export interface HanzoAIProps extends BrandConfig {
-  logo?: ComponentType<{ className?: string }> | string;
+  // logo inherited from BrandConfig ({ light; dark; favicon }); dead incompatible
+  // ComponentType|string override removed (it broke tsc for all 3 apps).
   cloud?: { overlay?: string; inference?: string };
   auth?: Partial<BrandConfig['iam']> & { provider?: 'iam' };
   features?: Partial<{

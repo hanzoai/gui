@@ -71,6 +71,32 @@ export const zenCatalog: ZenModelEntry[] = [
     format: 'gguf',
     size: '~2.5 GB',
   },
+
+  // --- Zen 5 generation (current flagship family) ---
+  {
+    name: 'Zen 5',
+    value: 'zenlm/zen-5-gguf',
+    file: 'Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf',
+    format: 'gguf',
+    size: '~21 GB',
+  },
+  {
+    name: 'Zen 5 Mini',
+    value: 'zenlm/zen-5-mini-gguf',
+    file: 'MiniMax-M2.5-abliterated-Q4_K_M.gguf',
+    format: 'gguf',
+  },
+  { name: 'Zen 5 Pro', value: 'zenlm/zen-5-pro' },
+  { name: 'Zen 5 Coder', value: 'zenlm/zen-5-coder' },
+  { name: 'Zen Agent 4B', value: 'zenlm/zen-agent-4b', size: '~8 GB' },
+
+  // --- Zen VL (vision-language) ---
+  { name: 'Zen VL 4B', value: 'zenlm/zen-vl-4b-instruct', size: '~8 GB' },
+  { name: 'Zen VL 8B', value: 'zenlm/zen-vl-8b-instruct', size: '~16 GB' },
+
+  // --- Zen Omni (any-to-any) ---
+  { name: 'Zen Omni 30B', value: 'zenlm/zen-omni-30b-instruct', size: '~60 GB' },
+
   {
     name: 'Zen Embedding',
     value: 'zenlm/zen-embedding',
@@ -90,6 +116,12 @@ export const zenCatalog: ZenModelEntry[] = [
     format: 'gguf',
     embedding: true,
     size: '~0.7 GB',
+  },
+  {
+    name: 'Zen Embedding 4B',
+    value: 'zenlm/zen-embedding-4B',
+    embedding: true,
+    size: '~8 GB',
   },
   {
     name: 'Zen Embedding 8B (GGUF)',

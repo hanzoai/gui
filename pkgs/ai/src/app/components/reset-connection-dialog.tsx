@@ -22,6 +22,7 @@ import {
 } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
 import { useAuth } from '../store/auth';
 import { useHanzoNodeManager } from '../store/hanzo-node-manager';
+import { getNodeUrl } from '../lib/hanzo-engine/engine-url';
 
 export const ResetConnectionDialog = ({
   isOpen,
@@ -42,7 +43,7 @@ export const ResetConnectionDialog = ({
     onSuccess: async () => {
       if (!encryptionKeys) return;
       await submitRegistrationNoCode({
-        nodeAddress: 'http://127.0.0.1:3690',
+        nodeAddress: getNodeUrl(),
         profileEncryptionPk: encryptionKeys.profile_encryption_pk,
         profileIdentityPk: encryptionKeys.profile_identity_pk,
       });

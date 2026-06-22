@@ -23,6 +23,7 @@ import { create } from 'zustand';
 
 import { useAuth } from '../../store/auth';
 import { useToolsStore } from './context/tools-context';
+import { getNodeUrl } from '../../lib/hanzo-engine/engine-url';
 
 type UseWebSocketMessage = {
   enabled?: boolean;
@@ -51,7 +52,7 @@ export const useWebSocketMessage = ({
   inboxId: defaultInboxId,
 }: UseWebSocketMessage) => {
   const auth = useAuth((state) => state.auth);
-  const nodeAddressUrl = new URL(auth?.node_address ?? 'http://localhost:3690');
+  const nodeAddressUrl = new URL(auth?.node_address ?? getNodeUrl());
   const socketUrl = ['localhost', '0.0.0.0', '127.0.0.1'].includes(
     nodeAddressUrl.hostname,
   )
@@ -258,7 +259,7 @@ export const useWebSocketTools = ({
   inboxId: defaultInboxId,
 }: UseWebSocketMessage) => {
   const auth = useAuth((state) => state.auth);
-  const nodeAddressUrl = new URL(auth?.node_address ?? 'http://localhost:3690');
+  const nodeAddressUrl = new URL(auth?.node_address ?? getNodeUrl());
   const socketUrl = ['localhost', '0.0.0.0', '127.0.0.1'].includes(
     nodeAddressUrl.hostname,
   )

@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 
 import { useAuth } from '../../store/auth'; // Adjust path as needed
 import { ConfigError, getDenoBinPath } from './common'; // Import from common.ts
+import { getNodeUrl } from '../hanzo-engine/engine-url';
 
 export interface McpServerConfig {
   command: string;
@@ -24,7 +25,7 @@ export const getClaudeDesktopConfigPath = (): string => {
 
 export const handleConfigureClaude = async (serverId: string, t: TFunction) => {
   const auth = useAuth.getState().auth;
-  const nodeUrl = auth?.node_address || 'http://localhost:3690';
+  const nodeUrl = auth?.node_address || getNodeUrl();
   const loadingToastId = toast.loading(t('mcpClients.claudeLoading'));
 
   try {

@@ -65,6 +65,13 @@ export const zenCatalog: ZenModelEntry[] = [
   },
   { name: 'Zen 3 Nano', value: 'zenlm/zen3-nano', size: '~1.2 GB' },
   {
+    name: 'Zen Eco 4B Agent',
+    value: 'zenlm/zen-eco-4b-agent-gguf',
+    file: 'zen-eco-4b-agent-Q4_K_M-fixed.gguf',
+    format: 'gguf',
+    size: '~2.5 GB',
+  },
+  {
     name: 'Zen Embedding',
     value: 'zenlm/zen-embedding',
     embedding: true,
@@ -75,6 +82,14 @@ export const zenCatalog: ZenModelEntry[] = [
     value: 'zenlm/zen-embedding-0.6B',
     embedding: true,
     size: '~1.2 GB',
+  },
+  {
+    name: 'Zen Embedding 0.6B (GGUF)',
+    value: 'zenlm/zen-embedding-0.6B-GGUF',
+    file: 'zen-embedding-0.6B-Q8_0.gguf',
+    format: 'gguf',
+    embedding: true,
+    size: '~0.7 GB',
   },
   {
     name: 'Zen Embedding 8B (GGUF)',
@@ -88,6 +103,30 @@ export const zenCatalog: ZenModelEntry[] = [
     value: 'zenlm/zen-reranker',
     reranker: true,
     size: '~1.2 GB',
+  },
+  {
+    name: 'Zen Reranker 0.6B (GGUF)',
+    value: 'zenlm/zen-reranker-0.6B-GGUF',
+    file: 'zen-reranker-0.6B-Q8_0.gguf',
+    format: 'gguf',
+    reranker: true,
+    size: '~0.7 GB',
+  },
+  {
+    name: 'Zen Reranker 4B (GGUF)',
+    value: 'zenlm/zen-reranker-4B-GGUF',
+    file: 'zen-reranker-4B-Q4_K_M.gguf',
+    format: 'gguf',
+    reranker: true,
+    size: '~2.5 GB',
+  },
+  {
+    name: 'Zen Reranker 8B (GGUF)',
+    value: 'zenlm/zen-reranker-8B-GGUF',
+    file: 'zen-reranker-8B-Q4_K_M.gguf',
+    format: 'gguf',
+    reranker: true,
+    size: '~5 GB',
   },
 ];
 

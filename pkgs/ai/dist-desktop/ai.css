@@ -4789,6 +4789,16 @@ body {
     }
   }
 
+  .border-brand\/60 {
+    border-color: #fff9;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-brand\/60 {
+      border-color: color-mix(in oklab, var(--color-brand) 60%, transparent);
+    }
+  }
+
   .border-current {
     border-color: currentColor;
   }
@@ -6162,6 +6172,10 @@ body {
 
   .\!pl-5 {
     padding-left: calc(var(--spacing) * 5) !important;
+  }
+
+  .pl-0 {
+    padding-left: calc(var(--spacing) * 0);
   }
 
   .pl-0\.5 {
@@ -7562,6 +7576,11 @@ body {
   .last\:rounded-e-lg:last-child {
     border-start-end-radius: var(--radius-lg);
     border-end-end-radius: var(--radius-lg);
+  }
+
+  .last\:border-b-0:last-child {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 0;
   }
 
   .placeholder-shown\:border:placeholder-shown {

@@ -206,33 +206,50 @@ const EmptyMessage = () => {
 
   const [isPolling, setIsPolling] = useState(true);
 
+  // Poll the node for default-tools sync so the "installing default agents"
+  // spinner clears as soon as the node is ready — and, critically, does NOT
+  // hang when the default-tools source is unavailable (e.g. the store endpoint
+  // 404s). Bounded: clears on sync, gives up after a few failed probes, and a
+  // hard 20s ceiling guarantees the UI never stalls.
   useEffect(() => {
-    const checkDefaultTools = async () => {
-      const auth = useAuth.getState().auth;
+    const auth = useAuth.getState().auth;
+    if (!auth?.node_address || !auth?.api_v2_key) {
+      setIsPolling(false);
+      return;
+    }
+    let cancelled = false;
+    let failures = 0;
+    const probe = async (): Promise<boolean> => {
       try {
-        if (!auth?.node_address || !auth?.api_v2_key) {
-          console.error('Missing node address or API key');
-          return;
-        }
-
         const response = await axios.get(
           `${auth.node_address}/v1/node/check_default_tools_sync`,
-          {
-            headers: {
-              Authorization: `Bearer ${auth.api_v2_key}`,
-            },
-          },
+          { headers: { Authorization: `Bearer ${auth.api_v2_key}` } },
         );
-
-        if (response.data.is_synced) {
-          setIsPolling(false);
-        }
-      } catch (error) {
-        console.error('Error checking default tools sync:', error);
+        if (response.data?.is_synced) return true;
+        failures = 0;
+      } catch {
+        // Default-tools source unavailable — don't spin forever.
+        if (++failures >= 3) return true;
       }
+      return false;
     };
-
-    void checkDefaultTools();
+    const stop = () => {
+      if (cancelled) return;
+      cancelled = true;
+      setIsPolling(false);
+      clearInterval(intervalId);
+      clearTimeout(timeoutId);
+    };
+    const intervalId = setInterval(() => {
+      void probe().then((done) => done && stop());
+    }, 3000);
+    const timeoutId = setTimeout(stop, 20000);
+    void probe().then((done) => done && stop());
+    return () => {
+      cancelled = true;
+      clearInterval(intervalId);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const { data: recentlyUsedAgents } = useGetAgents(
@@ -255,14 +272,6 @@ const EmptyMessage = () => {
       refetchInterval: isPolling ? 2000 : false,
     },
   );
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsPolling(false);
-    }, 60000);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
 
   const [isCommandOpen, setIsCommandOpen] = useState(false);
   const { data: toolsList, isSuccess: isToolsListSuccess } = useGetTools(

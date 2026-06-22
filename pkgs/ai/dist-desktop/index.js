@@ -1,2 +1,2 @@
 import 'react';
-export { c1 as BrandProvider, c2 as HanzoAI, c2 as default, c3 as getBrand, c4 as getBrandFromHostname, c5 as useBrand } from './index-BnaE_tRw.js';
+export { c1 as BrandProvider, c2 as HanzoAI, c2 as default, c3 as getBrand, c4 as getBrandFromHostname, c5 as useBrand } from './index-BtY--xB0.js';

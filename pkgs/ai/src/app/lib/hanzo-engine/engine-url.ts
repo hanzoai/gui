@@ -32,3 +32,20 @@ export function getEmbeddingEngineUrl(): string {
   }
   return ENGINE_BASE_URL;
 }
+
+/**
+ * Native node-daemon API base URL for the active brand, e.g.
+ * http://127.0.0.1:9630 (hanzo 3690 / zoo 2000 / lux 9630 via `node.apiPort`).
+ * THE single brand-derived default for an absent auth node_address — replaces
+ * the hardcoded `http://localhost:3690` fallbacks that pinned every brand to
+ * hanzo's port.
+ */
+export function getNodeUrl(): string {
+  try {
+    const port = getBrand().node?.apiPort;
+    if (port) return `http://127.0.0.1:${port}`;
+  } catch {
+    // No brand injected yet — fall through to the static default.
+  }
+  return 'http://127.0.0.1:3690';
+}

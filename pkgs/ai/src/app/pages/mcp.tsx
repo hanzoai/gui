@@ -44,6 +44,7 @@ import { handleConfigureClaude } from '../lib/external-clients/claude-desktop';
 import { getDenoBinPath, ConfigError } from '../lib/external-clients/common';
 import { handleConfigureCursor } from '../lib/external-clients/cursor';
 import { useAuth } from '../store/auth';
+import { getNodeUrl } from '../lib/hanzo-engine/engine-url';
 
 export const MCP_SERVER_ID = 'hanzo-mcp-server';
 
@@ -223,7 +224,7 @@ const ExposeToolsAsMcp = () => {
 
   const handleShowCustomInstructions = async () => {
     // Generate SSE URL (same logic as cursor)
-    const nodeUrl = auth?.node_address || 'http://localhost:3690'; // Default or get from auth
+    const nodeUrl = auth?.node_address || getNodeUrl(); // Default or get from auth
     const sseUrl = `${nodeUrl}/mcp/sse`;
     setCustomSseUrl(sseUrl);
 

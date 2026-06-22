@@ -33,7 +33,11 @@ const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
   } catch {
     /* brand not configured yet — use the fallbacks below */
   }
-  const logoSrc = brand.logo?.dark ?? brand.logo?.light ?? '/app-logo.png';
+  // Each app serves its OWN /app-logo.png (zoo = colorful Venn, lux = triangle,
+  // hanzo = H). Use it directly — brand.logo from useBrand() can resolve to the
+  // SDK's default Hanzo logo when the brand isn't fully propagated, which leaked
+  // the Hanzo mark onto the zoo/lux onboarding landing.
+  const logoSrc = '/app-logo.png';
   // Tagline is opt-in: only brands that set brandConfig.tagline show one.
   const tagline = brand.tagline;
 

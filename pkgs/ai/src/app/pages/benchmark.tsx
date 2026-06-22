@@ -1,11 +1,10 @@
 import { Button } from '@hanzo_network/hanzo-ui';
 import { useState } from 'react';
+import { getEngineUrl, getEmbeddingEngineUrl } from '../lib/hanzo-engine/engine-url';
 
 // The local Zen engines (hanzo-engine / mistral.rs). Chat is OpenAI-compatible on
 // :36900; embeddings on :36901. The engine sends `access-control-allow-origin: *`,
 // so the webview can call them directly with native fetch.
-const CHAT_URL = 'http://localhost:36900/v1/engine/chat/completions';
-const EMBED_URL = 'http://localhost:36901/v1/engine/embeddings';
 const DEFAULT_PROMPT =
   'Write a clear, three-sentence explanation of how photosynthesis works.';
 
@@ -38,7 +37,7 @@ const BenchmarkPage = () => {
 
   const runChat = async () => {
     const t0 = performance.now();
-    const res = await fetch(CHAT_URL, {
+    const res = await fetch(`${getEngineUrl()}/v1/engine/chat/completions`, {
       body: JSON.stringify({
         max_tokens: maxTokens,
         messages: [{ content: prompt, role: 'user' }],
@@ -68,7 +67,7 @@ const BenchmarkPage = () => {
     let dim = 0;
     for (let i = 0; i < runs; i++) {
       const t0 = performance.now();
-      const res = await fetch(EMBED_URL, {
+      const res = await fetch(`${getEmbeddingEngineUrl()}/v1/engine/embeddings`, {
         body: JSON.stringify({ model: 'default', input: `${prompt} #${i}` }),
         headers: { 'content-type': 'application/json' },
         method: 'POST',

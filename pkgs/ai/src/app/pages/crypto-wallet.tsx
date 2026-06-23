@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DialogClose } from '@radix-ui/react-dialog';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import {
   NetworkIdentifier,
@@ -20,6 +19,7 @@ import {
   CardContent,
   CopyToClipboardIcon,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,

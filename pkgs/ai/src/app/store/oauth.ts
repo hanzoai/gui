@@ -18,7 +18,6 @@ export const useOAuth = create<OAuthStore>()(
   devtools(
     (set) => ({
       oauthModalVisible: false,
-      provider: 'github',
       url: undefined,
       setOauthModalVisible: (options) => {
         if (options.visible) {

@@ -10,7 +10,7 @@
  */
 
 import { validateToken } from '@hanzo/iam/auth'
-import type { IamUser } from '@hanzo/iam'
+import type { User as IamUser } from '@hanzo/iam'
 
 const IAM_SERVER_URL =
   process.env.HANZO_IAM_SERVER_URL ?? 'https://iam.hanzo.ai'

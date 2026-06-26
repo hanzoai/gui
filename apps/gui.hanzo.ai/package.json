@@ -38,7 +38,7 @@
     "@rehookify/datepicker": "^6.6.8",
     "@sindresorhus/slugify": "^2.2.1",
     "@hanzo/base": "^0.2.0",
-    "@hanzo/iam": "^0.9.4",
+    "@hanzo/iam": "^0.13.1",
     "@hanzogui/assert": "workspace:*",
     "@hanzogui/demos": "workspace:*",
     "@hanzogui/get-token": "workspace:*",

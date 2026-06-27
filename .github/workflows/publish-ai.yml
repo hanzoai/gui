@@ -32,7 +32,11 @@ permissions:
 jobs:
   publish:
     name: Build, smoke-test, publish @hanzo/ai
-    runs-on: [self-hosted, linux, arm64]
+    # PaaS-native: the healthy in-cluster arcd pool on do-sfo3-hanzo-k8s
+    # (registered to github.com/hanzoai, ephemeral dind runners, autoscale
+    # 0..30). @hanzo/ai is a vite/JS build so it is arch-independent — no
+    # arm64 runner needed; this avoids the legacy static `spark` box.
+    runs-on: hanzo-build-linux-amd64
     if: github.event_name == 'push' || github.event.inputs.confirm == 'publish'
     steps:
       - uses: actions/checkout@v5

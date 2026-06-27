@@ -2,6 +2,7 @@ import { listen } from '@tauri-apps/api/event';
 import { open } from '@tauri-apps/plugin-shell';
 import { useCallback, useRef, useState } from 'react';
 import { useBrand } from '@hanzo_network/brand-config';
+import { iamUrl } from '../lib/iam-oidc';
 
 // Brand-neutral IAM login. Everything brand-specific (auth host, OAuth client,
 // redirect scheme, callback event) comes from the active brand's `iam` config
@@ -46,7 +47,7 @@ async function exchangeCodeForTokens(
   code: string,
   codeVerifier: string,
 ): Promise<AuthTokens> {
-  const response = await fetch(`${baseUrl}/oauth/token`, {
+  const response = await fetch(iamUrl(baseUrl, 'token'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
@@ -80,7 +81,7 @@ export function useIamLogin() {
     pendingState.current = oauthState;
     verifierRef.current = verifier;
 
-    const authUrl = new URL(`${iam.baseUrl}/login/oauth/authorize`);
+    const authUrl = new URL(iamUrl(iam.baseUrl, 'authorize'));
     authUrl.searchParams.set('client_id', iam.clientId);
     authUrl.searchParams.set('redirect_uri', iam.redirectUri);
     authUrl.searchParams.set('response_type', 'code');

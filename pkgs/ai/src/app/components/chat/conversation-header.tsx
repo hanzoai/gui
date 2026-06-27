@@ -237,6 +237,11 @@ const ConversationHeaderWithInboxId = () => {
                               <ProviderIcon
                                 className="size-full"
                                 provider={selectedModel?.id.split(':')[0]}
+                                model={
+                                  selectedModel?.name ||
+                                  selectedModel?.model ||
+                                  selectedModel?.id
+                                }
                               />
                             </div>
                             <p className="text-sm">

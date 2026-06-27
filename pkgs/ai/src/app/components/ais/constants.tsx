@@ -56,8 +56,10 @@ export const providerMappings = {
   [ModelProvider.Mistral]: MistralIcon,
   [ModelProvider.Meta]: MetaIcon,
   [ModelProvider.Ollama]: OllamaIcon,
-  // Local Hanzo/Zen engine is exposed as an OpenAI-compatible provider — brand it with the Zen enso ring.
-  [ModelProvider.OpenAI]: ZenIcon,
+  [ModelProvider.OpenAI]: OpenAIIcon,
+  // Zen-family local models also speak the OpenAI-compatible API; ProviderIcon
+  // brands those by model name (Zen ring), so the raw `openai-legacy` key keeps
+  // the OpenAI mark for any real legacy-OpenAI provider.
   'openai-legacy': OpenAIIcon,
   [ModelProvider.OpenRouter]: OpenRouterIcon,
   [ModelProvider.Perplexity]: PerplexityIcon,

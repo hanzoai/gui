@@ -1,0 +1,130 @@
+name: Publish @hanzo/ai
+
+# Surgical publish of ONLY the @hanzo/ai SDK (pkgs/ai). The desktop apps
+# (hanzo/zoo/lux) render `<HanzoAI/>` from this package; it must be on npm
+# for a clean `npm i` to resolve it.
+#
+# Triggered only on `release/ai-v*` tags. A version bump alone does NOT
+# publish — the tag gates the run. Tag scheme:
+#   release/ai-v0.1.1   -> @hanzo/ai@0.1.1
+#
+# NPM_TOKEN resolution order (same shape as publish-gui.yml):
+#   1. KMS via Universal Auth (KMS_CLIENT_ID/SECRET -> short-lived token)
+#   2. KMS via long-lived HANZO_API_KEY (legacy bootstrap)
+#   3. Direct repo secret NPM_TOKEN (fallback until KMS is provisioned)
+#
+# Idempotent: skips if @hanzo/ai@<version> is already on npm.
+on:
+  push:
+    tags:
+      - 'release/ai-v*'
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "publish" to publish @hanzo/ai at its current on-disk version'
+        required: true
+        default: ''
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Build, smoke-test, publish @hanzo/ai
+    runs-on: [self-hosted, linux, arm64]
+    if: github.event_name == 'push' || github.event.inputs.confirm == 'publish'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Resolve NPM_TOKEN (KMS -> fallback to repo secret)
+        id: token
+        env:
+          DIRECT_NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
+          KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
+          HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
+          KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://kms.hanzo.ai' }}
+          KMS_WORKSPACE_ID: ${{ vars.KMS_WORKSPACE_ID_GUI || 'e1359bf4-31b4-4dfa-bb90-323e2c298ad8' }}
+        run: |
+          set -eu
+          npm_token=""
+          if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
+            HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
+              -H "Content-Type: application/json" \
+              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
+              | jq -r '.accessToken') || true
+          fi
+          if [ -n "${HANZO_API_KEY:-}" ]; then
+            response=$(curl -sf \
+              "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=${KMS_WORKSPACE_ID}&secretPath=/publish&environment=prod" \
+              -H "Authorization: Bearer ${HANZO_API_KEY}" 2>/dev/null) || true
+            if [ -n "${response:-}" ]; then
+              npm_token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="NPM_TOKEN") | .secretValue // empty')
+            fi
+          fi
+          if [ -z "$npm_token" ]; then
+            npm_token="${DIRECT_NPM_TOKEN:-}"
+            if [ -n "$npm_token" ]; then
+              echo "Using NPM_TOKEN from repo secret (KMS path unavailable)."
+            fi
+          fi
+          if [ -z "$npm_token" ]; then
+            echo "::error::No NPM_TOKEN available - need KMS_CLIENT_ID/SECRET, HANZO_API_KEY, or NPM_TOKEN repo secret."
+            exit 1
+          fi
+          echo "::add-mask::${npm_token}"
+          echo "npm_token=${npm_token}" >> "$GITHUB_OUTPUT"
+
+      - name: Configure npm registry
+        env:
+          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
+        run: |
+          echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+
+      - name: Build @hanzo/ai (dist + dist-desktop)
+        # pkgs/ai's own build runs BOTH vite passes: dist/ (web entry,
+        # ai.css) and dist-desktop/ (the <HanzoAI/> desktop bundle the apps
+        # import). Build it explicitly so both trees exist before publish.
+        working-directory: pkgs/ai
+        run: bun run build
+
+      - name: Smoke-test dist trees + exports
+        run: |
+          set -eu
+          cd pkgs/ai
+          test -f dist/index.js || (echo "::error::dist/index.js missing"; exit 1)
+          test -f dist/ai.css || (echo "::error::dist/ai.css missing"; exit 1)
+          test -f dist-desktop/index.js || (echo "::error::dist-desktop/index.js missing"; exit 1)
+          # Every file referenced from the exports map must exist.
+          node -e "
+            const fs=require('fs');
+            const pkg=require('./package.json');
+            const walk=(v)=>{
+              if (typeof v==='string') { if (v.startsWith('./') && !fs.existsSync(v)) { console.error('missing:',v); process.exitCode=1; } }
+              else if (v && typeof v==='object') { for (const k of Object.keys(v)) walk(v[k]); }
+            };
+            walk(pkg.exports||{}); walk(pkg.main); walk(pkg.module); walk(pkg.types);
+          "
+          echo "smoke OK: $(node -p "require('./package.json').name + '@' + require('./package.json').version")"
+
+      - name: Publish @hanzo/ai
+        env:
+          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ steps.token.outputs.npm_token }}
+        working-directory: pkgs/ai
+        run: |
+          set -eu
+          version=$(node -p "require('./package.json').version")
+          if npm view "@hanzo/ai@${version}" version >/dev/null 2>&1; then
+            echo "@hanzo/ai@${version} already on npm - skipping."
+            exit 0
+          fi
+          # pkgs/ai has no workspace:* deps, so a direct publish is clean.
+          npm publish --access public

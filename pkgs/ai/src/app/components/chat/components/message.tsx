@@ -440,6 +440,9 @@ export const MessageBase = ({
         <ProviderIcon
           className="mx-1 size-4"
           provider={(message.provider?.agent?.model ?? '').split(':')[0]}
+          model={
+            message.provider?.agent?.name || message.provider?.agent?.id
+          }
         />
       );
     }

@@ -13,6 +13,7 @@ import { useEmbeddingStartupCheck } from './lib/embedding-migration/embedding-st
 import { AnalyticsProvider } from './lib/posthog-provider';
 import AppRoutes from './routes';
 import { useSyncStorageSecondary } from './store/sync-utils';
+import { useWallet } from './store/wallet';
 
 // Component that wraps router content and calls hooks that need router context
 function RouterContent() {
@@ -39,6 +40,9 @@ function AppWithQuery() {
 function App() {
   useEffect(() => {
     void info('initializing main');
+    // Ensure a wallet exists/loads on startup so it's never "Offline / 0x0000"
+    // and mining (which gates on wallet.address) can run.
+    void useWallet.getState().initWallet();
   }, []);
   useSyncStorageSecondary();
   return (

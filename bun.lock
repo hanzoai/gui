@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "hanzo-gui",
@@ -90,7 +91,7 @@
         "@docsearch/react": "^3.9.0",
         "@github/mini-throttle": "^2.1.0",
         "@hanzo/base": "^0.2.0",
-        "@hanzo/iam": "^0.9.4",
+        "@hanzo/iam": "^0.13.1",
         "@hanzogui/assert": "workspace:*",
         "@hanzogui/demos": "workspace:*",
         "@hanzogui/dev-config": "workspace:*",
@@ -512,6 +513,8 @@
         "zustand": "^5.0.0",
       },
       "devDependencies": {
+        "@tailwindcss/typography": "^0.5.20",
+        "@tailwindcss/vite": "^4",
         "@testing-library/react": "^16.3.2",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
@@ -3291,7 +3294,7 @@
       "name": "@hanzogui/shell",
       "version": "7.3.0",
       "peerDependencies": {
-        "@hanzo/iam": "^0.11.0",
+        "@hanzo/iam": "^0.13.1",
         "react": "*",
         "react-dom": "*",
       },
@@ -4228,7 +4231,7 @@
 
     "@hanzo/base": ["@hanzo/base@0.2.0", "", { "dependencies": { "pocketbase": "^0.26.5" }, "peerDependencies": { "react": ">=18.0.0" }, "optionalPeers": ["react"] }, "sha512-JymDJQou0olqik3okyqqNxPs2RGwV3wwqzeaX1IdIYsjPCEvgEkSCMqje6FdsuAmSTc5NgVNO62KJ3lIeHsxcA=="],
 
-    "@hanzo/iam": ["@hanzo/iam@0.9.4", "", { "dependencies": { "jose": "^6.1.0", "passport-oauth2": "^1.8.0" }, "peerDependencies": { "react": ">=17" }, "optionalPeers": ["react"] }, "sha512-IJzjvwZct2TB1PpMaWJvytud/DYLTek14qZ8UBpTjVtFWm/bkgcny46CfmhE7IA8EGKCkV8Fvr4Nu82K6eNqpA=="],
+    "@hanzo/iam": ["@hanzo/iam@0.13.1", "", { "dependencies": { "jose": "^6.1.0", "libphonenumber-js": "^1.13.3", "passport-oauth2": "^1.8.0" }, "peerDependencies": { "react": ">=17" }, "optionalPeers": ["react"] }, "sha512-MAqXY7jL5pcPkaUE0Qb/ePL2WKvk3p6EQDLHGZENj+/gbNKs7e/9qG+nmRlPMFVcwXPk+suzkBAEyIMT2EiJ8w=="],
 
     "@hanzo_network/brand-config": ["@hanzo_network/brand-config@workspace:pkgs/net-brand-config"],
 
@@ -7809,6 +7812,8 @@
     "levn": ["levn@0.4.1", "", { "dependencies": { "prelude-ls": "^1.2.1", "type-check": "~0.4.0" } }, "sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ=="],
 
     "lib0": ["lib0@0.2.117", "", { "dependencies": { "isomorphic.js": "^0.2.4" }, "bin": { "0serve": "bin/0serve.js", "0gentesthtml": "bin/gentesthtml.js", "0ecdsa-generate-keypair": "bin/0ecdsa-generate-keypair.js" } }, "sha512-DeXj9X5xDCjgKLU/7RR+/HQEVzuuEUiwldwOGsHK/sfAfELGWEyTcf0x+uOvCvK3O2zPmZePXWL85vtia6GyZw=="],
+
+    "libphonenumber-js": ["libphonenumber-js@1.13.7", "", {}, "sha512-rvr3HIMdOgzhz1RFGjftji+wjoAFlzhqCNqJOU/MKTZQ8d9NZxAR/tI+0weDicyoucqVR0U1GCniqHJ0f8aM2A=="],
 
     "libsodium-sumo": ["libsodium-sumo@0.7.16", "", {}, "sha512-x6atrz2AdXCJg6G709x9W9TTJRI6/0NcL5dD0l5GGVqNE48UJmDsjO4RUWYTeyXXUpg+NXZ2SHECaZnFRYzwGA=="],
 

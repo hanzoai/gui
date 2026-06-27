@@ -21,7 +21,7 @@
     }
   },
   "peerDependencies": {
-    "@hanzo/iam": "^0.11.0",
+    "@hanzo/iam": "^0.13.1",
     "react": "*",
     "react-dom": "*"
   },

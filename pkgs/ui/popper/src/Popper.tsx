@@ -554,7 +554,7 @@ export const PopperAnchor = YStack.styleable<PopperAnchorExtraProps>(
 
     React.useEffect(() => {
       if (virtualRef) {
-        refs.setReference(virtualRef.current)
+        refs?.setReference(virtualRef.current)
         // recompute position after setting virtual reference
         update()
       }
@@ -570,7 +570,7 @@ export const PopperAnchor = YStack.styleable<PopperAnchorExtraProps>(
     const safeSetReference = React.useCallback(
       (node: any) => {
         startTransition(() => {
-          refs.setReference(node)
+          refs?.setReference(node)
         })
       },
       // it was refs.setRefernce but its stable and refs is undefined on server
@@ -604,7 +604,7 @@ export const PopperAnchor = YStack.styleable<PopperAnchorExtraProps>(
           onMouseEnter: (e) => {
             const el = (e.currentTarget ?? ref.current) as HTMLElement | null
             if (el instanceof HTMLElement) {
-              flushSync(() => refs.setReference(el))
+              flushSync(() => refs?.setReference(el))
               update()
 
               if (!refProps) return

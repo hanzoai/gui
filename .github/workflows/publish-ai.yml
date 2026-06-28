@@ -29,6 +29,15 @@ permissions:
   contents: read
   id-token: write
 
+# A transitive puppeteer dep tries to download Chromium in its postinstall,
+# which fails on the runner and kills `bun install` (run #7). The publish
+# never drives a browser, so skip every browser-binary download.
+env:
+  PUPPETEER_SKIP_DOWNLOAD: '1'
+  PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: '1'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+  PUPPETEER_SKIP_CHROME_DOWNLOAD: '1'
+
 jobs:
   publish:
     name: Build, smoke-test, publish @hanzo/ai

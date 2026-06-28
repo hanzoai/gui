@@ -32,12 +32,12 @@ permissions:
 jobs:
   publish:
     name: Build, smoke-test, publish @hanzo/ai
-    # Runs on the spark arcd host (platform-native via the Hanzo Platform GitHub
-    # App). @hanzo/ai is a vite/JS build so it is arch-independent; spark has the
-    # RAM headroom the full-monorepo `bun install` needs — the constrained DOKS
-    # dind pods OOM mid-install (runs #1/#2 died during Install). arcd JIT-spawns
-    # the ephemeral runner here.
-    runs-on: [self-hosted, linux, arm64]
+    # Runs on the evo arcd host (platform-native via the Hanzo Platform GitHub
+    # App). @hanzo/ai is a vite/JS build (arch-independent); evo has the RAM the
+    # full-monorepo `bun install` needs — constrained DOKS dind pods OOM mid-
+    # install (runs #1/#2 died during Install), and spark runs hot. arcd
+    # JIT-spawns the ephemeral runner here.
+    runs-on: evo
     if: github.event_name == 'push' || github.event.inputs.confirm == 'publish'
     steps:
       - uses: actions/checkout@v5

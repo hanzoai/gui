@@ -58,49 +58,25 @@ jobs:
       - name: Install
         uses: ./.github/actions/install
 
-      - name: Resolve NPM_TOKEN (KMS -> fallback to repo secret)
-        id: token
-        env:
-          DIRECT_NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
-          KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
-          HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
-          KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://kms.hanzo.ai' }}
-          KMS_WORKSPACE_ID: ${{ vars.KMS_WORKSPACE_ID_GUI || 'e1359bf4-31b4-4dfa-bb90-323e2c298ad8' }}
-        run: |
-          set -eu
-          npm_token=""
-          if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
-            HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
-              -H "Content-Type: application/json" \
-              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
-              | jq -r '.accessToken') || true
-          fi
-          if [ -n "${HANZO_API_KEY:-}" ]; then
-            response=$(curl -sf \
-              "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=${KMS_WORKSPACE_ID}&secretPath=/publish&environment=prod" \
-              -H "Authorization: Bearer ${HANZO_API_KEY}" 2>/dev/null) || true
-            if [ -n "${response:-}" ]; then
-              npm_token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="NPM_TOKEN") | .secretValue // empty')
-            fi
-          fi
-          if [ -z "$npm_token" ]; then
-            npm_token="${DIRECT_NPM_TOKEN:-}"
-            if [ -n "$npm_token" ]; then
-              echo "Using NPM_TOKEN from repo secret (KMS path unavailable)."
-            fi
-          fi
-          if [ -z "$npm_token" ]; then
-            echo "::error::No NPM_TOKEN available - need KMS_CLIENT_ID/SECRET, HANZO_API_KEY, or NPM_TOKEN repo secret."
-            exit 1
-          fi
-          echo "::add-mask::${npm_token}"
-          echo "npm_token=${npm_token}" >> "$GITHUB_OUTPUT"
+      # Canonical, deterministic KMS auth — the ONE way every hanzo/lux/zoo repo
+      # loads secrets (see hanzoai/universe/.github/actions/kms-action). OIDC-
+      # first: GitHub's id-token proves this repo's identity to KMS, so NOTHING
+      # is stored — only non-secret `vars.*` config. NPM_TOKEN is exported into
+      # the job env at `secret-path`. No repo NPM_TOKEN secret, no client_id/
+      # secret. Set KMS_IDENTITY_ID + KMS_PROJECT_ID once at the org level.
+      - name: Load NPM_TOKEN from Hanzo KMS (OIDC)
+        uses: hanzoai/universe/.github/actions/kms-action@main
+        with:
+          identity-id: ${{ vars.KMS_IDENTITY_ID }}
+          project-id: ${{ vars.KMS_PROJECT_ID }}
+          environment: ${{ vars.KMS_ENVIRONMENT || 'prod' }}
+          secret-path: ${{ vars.KMS_PUBLISH_SECRET_PATH || '/publish' }}
+          export-type: env
 
       - name: Configure npm registry
-        env:
-          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
         run: |
+          # NPM_TOKEN is now in the job env (kms-action export-type=env).
+          test -n "${NPM_TOKEN:-}" || { echo "::error::KMS did not yield NPM_TOKEN at the publish path"; exit 1; }
           echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
@@ -132,8 +108,7 @@ jobs:
 
       - name: Publish @hanzo/ai
         env:
-          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
-          NODE_AUTH_TOKEN: ${{ steps.token.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
         working-directory: pkgs/ai
         run: |
           set -eu

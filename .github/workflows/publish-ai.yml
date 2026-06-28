@@ -42,7 +42,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          # Shallow: the publish only builds pkgs/ai — it needs no git history.
+          # A full clone (fetch-depth 0) of this monorepo's history OOMs git
+          # index-pack on the runner and fails checkout (runs #5/#6 died here).
+          fetch-depth: 1
 
       - name: Install
         uses: ./.github/actions/install

@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="gui" width="880"></p>
+
 # Hanzo GUI
 
 <h3 align="center">

@@ -99,6 +99,7 @@
     "@hanzogui/label": "workspace:*",
     "@hanzogui/linear-gradient": "workspace:*",
     "@hanzogui/list-item": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/menu": "workspace:*",
     "@hanzogui/polyfill-dev": "workspace:*",
     "@hanzogui/popover": "workspace:*",

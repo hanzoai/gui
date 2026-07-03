@@ -131,7 +131,7 @@ export type Theme = {
     accent12: string;
 };
 export declare const colors: string[];
-export type ThemeNames = 'light' | 'dark' | 'light_accent' | 'light_white_accent' | 'dark_accent' | 'dark_black_accent' | 'light_black' | 'light_white' | 'light_blue' | 'light_red' | 'light_yellow' | 'light_green' | 'dark_black' | 'dark_white' | 'dark_blue' | 'dark_red' | 'dark_yellow' | 'dark_green' | 'light_black_accent' | 'light_blue_accent' | 'light_red_accent' | 'light_yellow_accent' | 'light_green_accent' | 'dark_white_accent' | 'dark_blue_accent' | 'dark_red_accent' | 'dark_yellow_accent' | 'dark_green_accent';
+export type ThemeNames = 'light' | 'dark' | 'light_accent' | 'dark_accent' | 'light_black' | 'light_white' | 'light_blue' | 'light_red' | 'light_yellow' | 'light_green' | 'light_hanzo' | 'light_lux' | 'light_zoo' | 'light_pars' | 'dark_black' | 'dark_white' | 'dark_blue' | 'dark_red' | 'dark_yellow' | 'dark_green' | 'dark_hanzo' | 'dark_lux' | 'dark_zoo' | 'dark_pars' | 'light_black_accent' | 'light_white_accent' | 'light_blue_accent' | 'light_red_accent' | 'light_yellow_accent' | 'light_green_accent' | 'light_hanzo_accent' | 'light_lux_accent' | 'light_zoo_accent' | 'light_pars_accent' | 'dark_black_accent' | 'dark_white_accent' | 'dark_blue_accent' | 'dark_red_accent' | 'dark_yellow_accent' | 'dark_green_accent' | 'dark_hanzo_accent' | 'dark_lux_accent' | 'dark_zoo_accent' | 'dark_pars_accent';
 export type Themes = Record<ThemeNames, Theme>;
 export declare const themes: Themes;
 //# sourceMappingURL=generated-v4.d.ts.map

@@ -26,6 +26,7 @@ declare const defaultSizes: {
 export declare const fonts: {
     body: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
     heading: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
+    mono: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
 };
 export {};
 //# sourceMappingURL=v4-fonts.d.ts.map

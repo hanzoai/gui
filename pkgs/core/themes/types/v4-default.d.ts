@@ -1,4 +1,16 @@
-declare const generatedThemes: Record<"light_blue" | "light_green" | "light_red" | "light_yellow" | "dark_blue" | "dark_green" | "dark_red" | "dark_yellow" | "light" | "dark" | "light_accent" | "dark_accent" | "light_black" | "light_white" | "light_blue_accent" | "light_green_accent" | "light_red_accent" | "light_yellow_accent" | "light_black_accent" | "light_white_accent" | "dark_black" | "dark_white" | "dark_blue_accent" | "dark_green_accent" | "dark_red_accent" | "dark_yellow_accent" | "dark_black_accent" | "dark_white_accent", {
+declare const generatedThemes: Record<"light_blue" | "light_green" | "light_red" | "light_yellow" | "dark_blue" | "dark_green" | "dark_red" | "dark_yellow" | "light" | "dark" | "light_accent" | "dark_accent" | "light_black" | "light_white" | "light_blue_accent" | "light_green_accent" | "light_red_accent" | "light_yellow_accent" | "light_black_accent" | "light_white_accent" | "dark_black" | "dark_white" | "dark_blue_accent" | "dark_green_accent" | "dark_red_accent" | "dark_yellow_accent" | "dark_black_accent" | "dark_white_accent" | "light_hanzo" | "light_lux" | "light_zoo" | "light_pars" | "light_hanzo_accent" | "light_lux_accent" | "light_zoo_accent" | "light_pars_accent" | "dark_hanzo" | "dark_lux" | "dark_zoo" | "dark_pars" | "dark_hanzo_accent" | "dark_lux_accent" | "dark_zoo_accent" | "dark_pars_accent", {
+    blue1: string;
+    blue2: string;
+    blue3: string;
+    blue4: string;
+    blue5: string;
+    blue6: string;
+    blue7: string;
+    blue8: string;
+    blue9: string;
+    blue10: string;
+    blue11: string;
+    blue12: string;
     yellow1: string;
     yellow2: string;
     yellow3: string;
@@ -35,18 +47,6 @@ declare const generatedThemes: Record<"light_blue" | "light_green" | "light_red"
     green10: string;
     green11: string;
     green12: string;
-    blue1: string;
-    blue2: string;
-    blue3: string;
-    blue4: string;
-    blue5: string;
-    blue6: string;
-    blue7: string;
-    blue8: string;
-    blue9: string;
-    blue10: string;
-    blue11: string;
-    blue12: string;
     color: string;
     shadowColor: string;
     borderColor: string;
@@ -132,7 +132,19 @@ declare const generatedThemes: Record<"light_blue" | "light_green" | "light_red"
     accent11: string;
 } & Record<string, string>>;
 export type GuiThemes = typeof generatedThemes;
-export declare const themes: Record<"light_blue" | "light_green" | "light_red" | "light_yellow" | "dark_blue" | "dark_green" | "dark_red" | "dark_yellow" | "light" | "dark" | "light_accent" | "dark_accent" | "light_black" | "light_white" | "light_blue_accent" | "light_green_accent" | "light_red_accent" | "light_yellow_accent" | "light_black_accent" | "light_white_accent" | "dark_black" | "dark_white" | "dark_blue_accent" | "dark_green_accent" | "dark_red_accent" | "dark_yellow_accent" | "dark_black_accent" | "dark_white_accent", {
+export declare const themes: Record<"light_blue" | "light_green" | "light_red" | "light_yellow" | "dark_blue" | "dark_green" | "dark_red" | "dark_yellow" | "light" | "dark" | "light_accent" | "dark_accent" | "light_black" | "light_white" | "light_blue_accent" | "light_green_accent" | "light_red_accent" | "light_yellow_accent" | "light_black_accent" | "light_white_accent" | "dark_black" | "dark_white" | "dark_blue_accent" | "dark_green_accent" | "dark_red_accent" | "dark_yellow_accent" | "dark_black_accent" | "dark_white_accent" | "light_hanzo" | "light_lux" | "light_zoo" | "light_pars" | "light_hanzo_accent" | "light_lux_accent" | "light_zoo_accent" | "light_pars_accent" | "dark_hanzo" | "dark_lux" | "dark_zoo" | "dark_pars" | "dark_hanzo_accent" | "dark_lux_accent" | "dark_zoo_accent" | "dark_pars_accent", {
+    blue1: string;
+    blue2: string;
+    blue3: string;
+    blue4: string;
+    blue5: string;
+    blue6: string;
+    blue7: string;
+    blue8: string;
+    blue9: string;
+    blue10: string;
+    blue11: string;
+    blue12: string;
     yellow1: string;
     yellow2: string;
     yellow3: string;
@@ -169,18 +181,6 @@ export declare const themes: Record<"light_blue" | "light_green" | "light_red" |
     green10: string;
     green11: string;
     green12: string;
-    blue1: string;
-    blue2: string;
-    blue3: string;
-    blue4: string;
-    blue5: string;
-    blue6: string;
-    blue7: string;
-    blue8: string;
-    blue9: string;
-    blue10: string;
-    blue11: string;
-    blue12: string;
     color: string;
     shadowColor: string;
     borderColor: string;

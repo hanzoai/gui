@@ -255,6 +255,7 @@ export declare const defaultConfig: {
     fonts: {
         body: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
         heading: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
+        mono: import("@hanzogui/web").FillInFont<import("@hanzogui/web").GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
     };
     selectionStyles: (theme: any) => {
         backgroundColor: any;

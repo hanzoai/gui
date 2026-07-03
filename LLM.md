@@ -134,3 +134,57 @@ const response = await authFetch('/api/some-endpoint', {
 <h3 align="center">
   Style library, design system, composable components, and more.
 </h3>
+
+---
+
+# Unified UI Architecture — one definition, every surface (CANONICAL)
+
+Decision (CTO, big-bang on Tamagui). Every Hanzo front end — hanzo.chat,
+hanzo.app, console, the desktop app, and the coming mobile/wallet apps — renders
+from ONE component definition. No per-app UI forks. Decomplected into two layers
+plus orthogonal targets:
+
+```
+  apps ─ hanzo.chat · hanzo.app · console · hanzoai/desktop · hanzoai/ios · hanzoai/android
+    │  import ONLY
+    ▼
+  @hanzo/ui   ── HIGH-LEVEL component library (what apps consume)
+    │           Button, Input, Card, Sheet, CommandPalette, ModelPicker,
+    │           ChatComposer, AgentCard, WalletCard, …  — built ON @hanzo/gui,
+    │  built on  never on raw Tailwind/Radix.
+    ▼
+  @hanzo/gui  ── LOW-LEVEL framework: welds Tamagui (universal web+native) +
+    │           Tauri (desktop) + Expo/RN (mobile). Owns design TOKENS
+    │  targets  (color/type/space/radius/motion/brand, per-brand hanzo/lux/zoo/
+    ▼           pars), primitives, platform adapters, the compiler.
+  web (Next.js)  ·  native (Expo/RN: iOS+Android)  ·  desktop (Tauri webview)
+```
+
+Concerns, kept separate (Hickey):
+- **Values, not places** — design tokens are pure data in `@hanzo/gui`
+  (`pkgs/net-brand-config` + token pkgs), defined ONCE, qualified by brand.
+  A component reads a token; it never hardcodes a color/space.
+- **@hanzo/gui = framework** (the weld: Tamagui ⨯ Tauri ⨯ Expo). Low level.
+  Already carries the native machinery: `pkgs/{core,compiler,expo-router,
+  native-bundle,native-ci,fake-react-native}`. The remaining weld is the
+  **Tauri desktop adapter** (webview host + native bridge) alongside web/native.
+- **@hanzo/ui = components** built on `@hanzo/gui`. High level. Apps import this
+  and ONLY this. Its internals migrate Tailwind/Radix → gui/Tamagui primitives;
+  the **import surface apps use stays `@hanzo/ui`**, so migrating gui-internals
+  does not churn every app.
+- **Targets are orthogonal.** The same component compiles to web, iOS, Android,
+  and runs in Tauri's webview for desktop. One primitive, N hosts.
+
+Migration is phased (target = every app on @hanzo/ui-on-gui, raw Tailwind gone),
+but never big-bang against a LIVE surface in one shot — migrate component-by-
+component behind the stable `@hanzo/ui` import so chat/app keep shipping.
+
+New repos this implies: `hanzoai/ios`, `hanzoai/android` (Expo/RN apps on
+@hanzo/ui). Desktop + its launcher live in `hanzoai/desktop` (Tauri), also on
+@hanzo/ui. `hanzoai/launcher` is NOT a repo — the launcher installs with the
+desktop app.
+
+One way: a component is defined once in `@hanzo/ui` (on `@hanzo/gui`) and used
+everywhere. If you're about to write a second implementation of the same thing
+for a different target, stop — that's the thing this architecture exists to
+forbid.

@@ -188,3 +188,47 @@ One way: a component is defined once in `@hanzo/ui` (on `@hanzo/gui`) and used
 everywhere. If you're about to write a second implementation of the same thing
 for a different target, stop — that's the thing this architecture exists to
 forbid.
+
+## Phase 1 — foundation + proof (BUILT)
+
+Design tokens are the single source of truth; the true-black + per-brand look is
+baked into the tokens so every app gets the world-class look for free.
+
+- **Tokens SoT** — `pkgs/core/themes/src/v4-default.ts` (the readable source) is
+  regenerated into `generated-v4.ts` (the artifact `@hanzogui/config/v4`
+  consumes) via `bun pkgs/core/cli/dist/index.cjs generate-themes
+  ./pkgs/core/themes/src/v4-default.ts ./pkgs/core/themes/src/generated-v4.ts`.
+  MUST run under **bun** (node's esbuild-register can't `require` the ESM
+  `@hanzogui/colors`). After regenerating, rebuild `themes` → `config` →
+  `hanzogui` in that order.
+- **True-black default dark** — `darkPalette[0]` is the `background` slot
+  (bgIndex 6, padded). Anchored: canvas `#000`, panel `#050505` (palette[1]),
+  elevated + hairline border `#171717` (palette[3]). `dark.background` verifies
+  as `hsla(0,0%,0%,1)`.
+- **Per-brand accents** — `pkgs/core/themes/src/brands.ts` is the one data row
+  per brand: hanzo `#fff` (zinc mono), lux `#3b82f6` (blue), zoo `#facc15`
+  (yellow), pars `#d4af37` (gold). Reuses the audited Radix ramps in
+  `@hanzogui/colors` (no bespoke color math). Wired as `childrenThemes` →
+  `dark_hanzo|lux|zoo|pars` + light variants. Applied SPARINGLY: wrap only an
+  accent element `<Theme name="lux"><Button/></Theme>`, never the page.
+  `brandAccent` (brand→hex) is exported from `@hanzogui/themes` for components.
+- **Type system** — `pkgs/core/config/src/v4-fonts.ts` defaults body/heading to
+  Geist Sans (matches hanzo.ai) + a `mono` = Geist Mono for data/tabular, all
+  with system-stack fallback.
+- **Tauri weld** — `@hanzogui/tauri` (`pkgs/tauri`) is the desktop adapter:
+  `isTauri()`, `useWindowControls()`, `useGlobalShortcut()`, fs/shell bridge,
+  and a hanzogui `<TitleBar>`. Every call guards on `isTauri()` so the same
+  component runs unchanged on web/native. Proof shell: `apps/desktop` (Vite
+  front-end + `src-tauri` Tauri v2). `cargo build` compiles the shell;
+  `apps/desktop/screenshots/tauri-weld-trueblack.png` shows hanzogui rendering
+  on true-black with the four brand accents in the webview. Note: `src-tauri`
+  needs an empty `[workspace]` in its `Cargo.toml` to escape the parent monorepo
+  Rust workspace.
+
+**Migrate the rest of @hanzo/ui (mechanical recipe):** for each component, keep
+the exported prop API identical and swap the internals Tailwind/Radix →
+hanzogui primitives + tokens (`$background`, `$borderColor`, `$color*`,
+`fontFamily="$body|$heading|$mono"`, `borderRadius` from {6,8,12,full}, motion
+120–200ms ease-out / spring for overlays). Brand CTAs use `<Theme name>`. Prove
+web (Playwright screenshot on the true-black theme) + native (hanzogui native
+driver / expo export).

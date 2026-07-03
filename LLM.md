@@ -137,57 +137,57 @@ const response = await authFetch('/api/some-endpoint', {
 
 ---
 
-# Unified UI Architecture — one definition, every surface (CANONICAL)
+# Unified UI Architecture — TWO engines, ONE token table (CANONICAL)
 
-Decision (CTO, big-bang on Tamagui). Every Hanzo front end — hanzo.chat,
-hanzo.app, console, the desktop app, and the coming mobile/wallet apps — renders
-from ONE component definition. No per-app UI forks. Decomplected into two layers
-plus orthogonal targets:
+**Authoritative decision: the user's committed `~/work/hanzo/ui/DESIGN.md`** (commit
+451c57df2, 2026-07-03): *"Two design systems, do not confuse them: `@hanzo/ui` =
+shadcn/ui + Tailwind + Radix. `@hanzo/gui` = the Tamagui/RN system. They share these
+token VALUES (fonts, dark palette, sidebar glyph), NOT code."* (This supersedes an
+earlier "big-bang everything on Tamagui / rebuild @hanzo/ui on @hanzo/gui" framing —
+that would have meant a risky rewrite of chat/app's thousands of Tailwind components;
+DESIGN.md is the considered, production-safe decision. Follow DESIGN.md.)
 
 ```
-  apps ─ hanzo.chat · hanzo.app · console · hanzoai/desktop · hanzoai/ios · hanzoai/android
-    │  import ONLY
-    ▼
-  @hanzo/ui   ── HIGH-LEVEL component library (what apps consume)
-    │           Button, Input, Card, Sheet, CommandPalette, ModelPicker,
-    │           ChatComposer, AgentCard, WalletCard, …  — built ON @hanzo/gui,
-    │  built on  never on raw Tailwind/Radix.
-    ▼
-  @hanzo/gui  ── LOW-LEVEL framework: welds Tamagui (universal web+native) +
-    │           Tauri (desktop) + Expo/RN (mobile). Owns design TOKENS
-    │  targets  (color/type/space/radius/motion/brand, per-brand hanzo/lux/zoo/
-    ▼           pars), primitives, platform adapters, the compiler.
-  web (Next.js)  ·  native (Expo/RN: iOS+Android)  ·  desktop (Tauri webview)
+  ONE token table  ──  @hanzo/ui/DESIGN.md is the SoT for the shared look:
+  (values, not code)   typography (Basel Grotesk + Geist Mono), true-black #000
+        │              palette, sidebar glyph, per-brand accents (hanzo/lux/zoo/pars).
+        ├───────────────┬──────────────────────────────
+        ▼               ▼
+  @hanzo/ui          @hanzo/gui
+  = shadcn + Tailwind + Radix    = Tamagui / RN system
+  WEB apps:                      NATIVE / desktop / console:
+  hanzo.chat, hanzo.app,         console (Tamagui), hanzoai/ios,
+  console-web, commerce,         hanzoai/android, hanzoai/desktop
+  hanzo-desktop (Vite+Tailwind)  (Expo/RN + Tauri weld @hanzogui/tauri)
+        │                               │
+        └── each converges its token VALUES to the DESIGN.md table via its OWN
+            mechanism (Tailwind CSS vars for @hanzo/ui; Tamagui $color*/config for
+            @hanzo/gui). They do NOT share component code.
 ```
 
-Concerns, kept separate (Hickey):
-- **Values, not places** — design tokens are pure data in `@hanzo/gui`
-  (`pkgs/net-brand-config` + token pkgs), defined ONCE, qualified by brand.
-  A component reads a token; it never hardcodes a color/space.
-- **@hanzo/gui = framework** (the weld: Tamagui ⨯ Tauri ⨯ Expo). Low level.
-  Already carries the native machinery: `pkgs/{core,compiler,expo-router,
-  native-bundle,native-ci,fake-react-native}`. The remaining weld is the
-  **Tauri desktop adapter** (webview host + native bridge) alongside web/native.
-- **@hanzo/ui = components** built on `@hanzo/gui`. High level. Apps import this
-  and ONLY this. Its internals migrate Tailwind/Radix → gui/Tamagui primitives;
-  the **import surface apps use stays `@hanzo/ui`**, so migrating gui-internals
-  does not churn every app.
-- **Targets are orthogonal.** The same component compiles to web, iOS, Android,
-  and runs in Tauri's webview for desktop. One primitive, N hosts.
+Concerns, kept separate (Hickey — values, not places):
+- **One token table, two engines.** The unified thing is the DESIGN.md token VALUES
+  (fonts, dark palette, sidebar glyph, brand accents) — NOT one component codebase.
+  Web keeps Tailwind/shadcn (`@hanzo/ui`); native/desktop/console use Tamagui
+  (`@hanzo/gui`). Native can't run Tailwind, so mobile correctly renders on
+  `@hanzo/gui`; there is no "rebuild @hanzo/ui on Tamagui."
+- **@hanzo/gui** owns the Tamagui config + tokens (`pkgs/core/themes` `brands.ts`/
+  `v4-default.ts`, fonts `v4-fonts.ts`) + the Tauri weld (`pkgs/tauri` =
+  `@hanzogui/tauri`) + the native machinery (`pkgs/{core,compiler,expo-router,
+  native-bundle,native-ci}`). Consume the coherent `@hanzogui/*@7.3.x` sub-packages,
+  NEVER the stale `hanzogui` umbrella (double-core "Missing theme" trap).
+- **@hanzo/ui** owns the Tailwind/shadcn components + reads the same token values via
+  CSS vars (`pkgs/ui/style/hanzo-default-colors.css`). Its `.dark` block must converge
+  to true-black #000 per DESIGN.md §4 (open item — still ships shadcn-gray).
 
-Migration is phased (target = every app on @hanzo/ui-on-gui, raw Tailwind gone),
-but never big-bang against a LIVE surface in one shot — migrate component-by-
-component behind the stable `@hanzo/ui` import so chat/app keep shipping.
+Migration recipe (mechanical): **converge each surface's token VALUES to the DESIGN.md
+table; do NOT rip its engine.** Web → @hanzo/ui Tailwind vars; native/desktop/console
+→ @hanzo/gui Tamagui config; new universal surfaces render on @hanzo/gui. Never a
+big-bang against a live surface.
 
-New repos this implies: `hanzoai/ios`, `hanzoai/android` (Expo/RN apps on
-@hanzo/ui). Desktop + its launcher live in `hanzoai/desktop` (Tauri), also on
-@hanzo/ui. `hanzoai/launcher` is NOT a repo — the launcher installs with the
-desktop app.
-
-One way: a component is defined once in `@hanzo/ui` (on `@hanzo/gui`) and used
-everywhere. If you're about to write a second implementation of the same thing
-for a different target, stop — that's the thing this architecture exists to
-forbid.
+New repos: `hanzoai/ios` + `hanzoai/android` (Expo/RN on `@hanzogui/*`, LIVE, CI green).
+Desktop + launcher → `hanzoai/desktop` (Tauri). `hanzoai/launcher` is NOT a repo —
+the launcher installs with the desktop app.
 
 ## Phase 1 — foundation + proof (BUILT)
 

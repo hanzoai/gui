@@ -11,22 +11,24 @@ import { brandRamps } from './brands'
 // Themes:
 
 // True-black default dark theme. palette[0] is the `background` slot, palette[1]
-// the first surface, palette[3] the elevated surface + hairline border. Anchored
-// to the design spec: canvas #000, panel #050505, elevated #171717. The upper
-// half (borders → text) is the audited ramp, kept intact.
+// the resting surface, palette[3] the elevated surface + hairline border, [10]
+// muted text, [11] primary text. Values are the canonical Hanzo dark table
+// (ui/DESIGN.md §4): canvas #000, resting surface #0a0a0a, elevated/border
+// #171717, muted #a1a1aa, text #ededf1 — deliberately NOT pure #fff on #000.
+// @hanzo/ui (Tailwind) and @hanzo/gui (this) converge on these VALUES.
 const darkPalette = [
   '#000000', // 1  background — true-black canvas
-  '#050505', // 2  panel / subtle surface
-  '#0f0f0f', // 3  raised surface
+  '#0a0a0a', // 2  resting surface (sidebar / panel / card)
+  '#111111', // 3  raised surface
   '#171717', // 4  elevated surface + hairline border
   '#1f1f1f', // 5
-  '#282828', // 6
+  '#2a2a2a', // 6
   '#3a3a3a', // 7
-  '#494949', // 8
-  '#545454', // 9
-  '#626262', // 10
-  '#a5a5a5', // 11 muted text
-  '#fff', //    12 text
+  '#4a4a4a', // 8
+  '#606060', // 9
+  '#7d7d84', // 10
+  '#a1a1aa', // 11 muted text (white/70)
+  '#ededf1', // 12 primary text — near-white, never harsh pure #fff
 ]
 
 const lightPalette = [

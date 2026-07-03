@@ -9,8 +9,8 @@ const BRANDS = ['hanzo', 'lux', 'zoo', 'pars'] as const
 
 const SURFACES: Array<[string, string, string]> = [
   ['background', '$background', '#000 canvas'],
-  ['color2', '$color2', '#050505 panel'],
-  ['color3', '$color3', '#0f0f0f raised'],
+  ['color2', '$color2', '#0a0a0a surface'],
+  ['color3', '$color3', '#111 raised'],
   ['color4', '$color4', '#171717 elevated'],
 ]
 

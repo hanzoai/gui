@@ -23,6 +23,10 @@ declare const defaultSizes: {
     readonly 15: 114;
     readonly 16: 134;
 };
+export declare const createBaselSansFont: <A extends GenericFont>(font?: Partial<A>, { sizeLineHeight, sizeSize, }?: {
+    sizeLineHeight?: (fontSize: number) => number;
+    sizeSize?: (size: number) => number;
+}) => FillInFont<A, keyof typeof defaultSizes>;
 export declare const fonts: {
     body: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;
     heading: FillInFont<GenericFont, 9 | 15 | 1 | 10 | 3 | 2 | 5 | 6 | 16 | 11 | 12 | 14 | 4 | 7 | 8 | 13 | "true">;

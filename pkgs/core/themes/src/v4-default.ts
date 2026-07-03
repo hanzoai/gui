@@ -1,5 +1,6 @@
 import * as Colors from '@hanzogui/colors/legacy'
 import { createThemes, defaultComponentThemes } from '@hanzogui/theme-builder'
+import { brandRamps } from './brands'
 
 /**
  * This is the default config v4 definitions.
@@ -9,19 +10,23 @@ import { createThemes, defaultComponentThemes } from '@hanzogui/theme-builder'
 
 // Themes:
 
+// True-black default dark theme. palette[0] is the `background` slot, palette[1]
+// the first surface, palette[3] the elevated surface + hairline border. Anchored
+// to the design spec: canvas #000, panel #050505, elevated #171717. The upper
+// half (borders → text) is the audited ramp, kept intact.
 const darkPalette = [
-  '#050505',
-  '#151515',
-  '#191919',
-  '#232323',
-  '#282828',
-  '#323232',
-  '#424242',
-  '#494949',
-  '#545454',
-  '#626262',
-  '#a5a5a5',
-  '#fff',
+  '#000000', // 1  background — true-black canvas
+  '#050505', // 2  panel / subtle surface
+  '#0f0f0f', // 3  raised surface
+  '#171717', // 4  elevated surface + hairline border
+  '#1f1f1f', // 5
+  '#282828', // 6
+  '#3a3a3a', // 7
+  '#494949', // 8
+  '#545454', // 9
+  '#626262', // 10
+  '#a5a5a5', // 11 muted text
+  '#fff', //    12 text
 ]
 
 const lightPalette = [
@@ -167,6 +172,14 @@ const generatedThemes = createThemes({
         light: Object.values(Colors.green),
       },
     },
+
+    // Per-brand accent themes (white-label). Applied SPARINGLY: wrap only an
+    // accent element (`<Theme name="lux"><Button/></Theme>`), never the page —
+    // the canvas stays true-black. Ramps live in ./brands (one data row each).
+    hanzo: { palette: brandRamps.hanzo },
+    lux: { palette: brandRamps.lux },
+    zoo: { palette: brandRamps.zoo },
+    pars: { palette: brandRamps.pars },
   },
 
   grandChildrenThemes: {

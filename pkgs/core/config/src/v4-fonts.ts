@@ -1,5 +1,7 @@
 import type { FillInFont, GenericFont } from '@hanzogui/core'
 import { createFont, getVariableValue, isWeb } from '@hanzogui/core'
+import { createGeistSansFont } from '@hanzogui/font-geist-sans'
+import { createGeistMonoFont } from '@hanzogui/font-geist-mono'
 
 export const createSystemFont = <A extends GenericFont>({
   font = {},
@@ -55,7 +57,15 @@ const defaultSizes = {
   16: 134,
 } as const
 
+// Geist is the default type system (matches hanzo.ai). Body uses Geist Sans with
+// its tuned 1.5 line-height; headings tighten letter-spacing at large sizes for a
+// crisp, modern hierarchy; data/code use Geist Mono (tabular by construction).
+// Both fall back to the system stack when the webfont has not loaded.
 export const fonts = {
-  body: createSystemFont(),
-  heading: createSystemFont({ sizeSize: (n) => n * 1.4 }),
+  body: createGeistSansFont(),
+  heading: createGeistSansFont(
+    { letterSpacing: { 4: 0, 8: -0.5, 9: -1, 10: -1.5, 11: -2, 12: -2.5 } as any },
+    { sizeSize: (n) => n * 1.4 }
+  ),
+  mono: createGeistMonoFont(),
 }

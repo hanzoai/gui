@@ -10,7 +10,7 @@ on:
 jobs:
   release:
     name: Release
-    runs-on: [self-hosted, linux, amd64]
+    runs-on: hanzo-build-linux-amd64
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -36,7 +36,7 @@ jobs:
 
   tagged-release:
     name: Tagged Release
-    runs-on: [self-hosted, linux, amd64]
+    runs-on: hanzo-build-linux-amd64
     # needs: release
 
     steps:

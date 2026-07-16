@@ -2,6 +2,8 @@
 
 # Hanzo GUI
 
+Forked from [tamagui](https://github.com/tamagui/tamagui) (MIT).
+
 <h3 align="center">
   Style library, design system, composable components, and more.
 </h3>

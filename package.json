@@ -16,6 +16,7 @@
     "./apps/kitchen-sink-go",
     "./apps/kitchen-sink-shared",
     "./apps/sandbox",
+    "./apps/team",
     "./apps/tests/**/*",
     "./templates/*",
     "./pkgs/ai",

@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "Hanzo Team",
+    "slug": "team",
+    "scheme": "hanzo-team",
+    "newArchEnabled": true,
+    "platforms": ["ios", "android"],
+    "plugins": ["vxrn/expo-plugin"],
+    "ios": {
+      "bundleIdentifier": "ai.hanzo.team"
+    },
+    "android": {
+      "package": "ai.hanzo.team"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "@hanzogui/team",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "one dev",
+    "build:web": "one build",
+    "serve": "one serve",
+    "ios": "one run:ios",
+    "android": "one run:android",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@vxrn/color-scheme": "^1.12.5",
+    "expo": "~55.0.6",
+    "one": "1.12.5",
+    "react": ">=19",
+    "react-native": "0.83.2",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.23.0",
+    "react-native-svg": "15.15.3",
+    "react-native-web": "^0.21.0",
+    "hanzogui": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/vite-plugin": "workspace:*",
+    "@types/react": "~19.1.10",
+    "vite": "^8.0.3"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

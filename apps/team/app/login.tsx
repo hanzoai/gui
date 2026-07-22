@@ -1,17 +1,16 @@
-import { Linking } from 'react-native'
+import { Redirect } from 'one'
 import { Button, SizableText, YStack } from 'hanzogui'
 import { Mark } from '~/components/Mark'
+import { useSession } from '~/src/session'
 
-// OIDC code flow against hanzo.id — launched in the system browser, the session
-// returns via the app deep link. No in-app credential entry, no fake auth.
-const authorize =
-  'https://hanzo.id/oidc/authorize' +
-  '?client_id=hanzo-team' +
-  '&response_type=code' +
-  '&scope=openid+profile+email' +
-  '&redirect_uri=hanzo-team://callback'
-
+// Real hanzo.id OIDC (Authorization Code + PKCE) via the system browser (native) or a
+// full-page redirect (web); the session returns through the app deep link / callback
+// route. No in-app credential entry, no fake auth. See ~/src/auth.ts.
 export default function Login() {
+  const { session, loading, signingIn, signIn } = useSession()
+
+  if (!loading && session != null) return <Redirect href="/" />
+
   return (
     <YStack flex={1} items="center" justify="center" p="$4" gap="$4">
       <Mark size={44} />
@@ -29,16 +28,18 @@ export default function Login() {
         size="$4"
         bg="$color"
         borderWidth={0}
+        disabled={signingIn}
+        opacity={signingIn ? 0.6 : 1}
         pressStyle={{ opacity: 0.8, bg: '$color' }}
-        onPress={() => Linking.openURL(authorize)}
+        onPress={() => void signIn()}
       >
         <Button.Text color="$background" fontWeight="600">
-          Continue with hanzo.id
+          {signingIn ? 'Opening…' : 'Continue with hanzo.id'}
         </Button.Text>
       </Button>
 
       <SizableText size="$1" color="$color10">
-        Opens your browser · returns via hanzo-team://callback
+        Opens hanzo.id · returns via hanzo-team://callback
       </SizableText>
     </YStack>
   )

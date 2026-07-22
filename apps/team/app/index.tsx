@@ -1,12 +1,19 @@
 import { Link } from 'one'
 import { SizableText, XStack, YStack } from 'hanzogui'
-
-const views = [
-  { href: '/login', title: 'Login', caption: 'hanzo.id single sign-on' },
-  { href: '/wallet', title: 'Wallet', caption: 'Balance and AI usage' },
-] as const
+import { useSession } from '~/src/session'
 
 export default function Home() {
+  const { session, loading } = useSession()
+  const signedIn = !loading && session != null
+  const who = session?.user?.email ?? session?.user?.name
+
+  const views = signedIn
+    ? [{ href: '/wallet', title: 'Wallet', caption: 'Balance and AI usage' } as const]
+    : [
+        { href: '/login', title: 'Sign in', caption: 'hanzo.id single sign-on' } as const,
+        { href: '/wallet', title: 'Wallet', caption: 'Balance and AI usage' } as const,
+      ]
+
   return (
     <YStack p="$4" gap="$4" maxW={560} width="100%" self="center">
       <YStack gap="$1">
@@ -14,8 +21,9 @@ export default function Home() {
           Team
         </SizableText>
         <SizableText size="$3" color="$color10">
-          Chat, projects, and planning for your org — one native app for mobile and
-          desktop.
+          {signedIn && who != null
+            ? `Signed in as ${who}.`
+            : 'Chat, projects, and planning for your org — one native app for mobile and desktop.'}
         </SizableText>
       </YStack>
 

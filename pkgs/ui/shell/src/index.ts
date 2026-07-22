@@ -11,3 +11,11 @@ export { TenantCommandPalette } from './TenantCommandPalette'
 export type { CommandItem as TenantCommandItem, TenantCommandPaletteProps } from './TenantCommandPalette'
 export type { TenantApp, TenantOrg, TenantUser, TenantShellProps, TenantMarkProps, OrgDomains } from './types'
 export { DEFAULT_TENANT_APPS, ORG_DOMAINS, getAppsForOrg } from './types'
+
+// ── Unified Hanzo app-switcher (the 9-dot cross-app launcher + top bar) ──
+export { HanzoAppBar } from './HanzoAppBar'
+export type { HanzoAppBarProps, HanzoAppBarAction, HanzoUser } from './HanzoAppBar'
+export { HanzoAppLauncher } from './HanzoAppLauncher'
+export type { HanzoAppLauncherProps } from './HanzoAppLauncher'
+export { HANZO_APPS, getHanzoApps, findHanzoApp, HanzoGridIcon } from './hanzo-apps'
+export type { HanzoApp } from './hanzo-apps'

@@ -4,6 +4,7 @@ import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
 import { Slot } from 'one'
 import { GuiProvider } from 'hanzogui'
 import { Shell } from '~/components/Shell'
+import { SessionProvider } from '~/src/session'
 import config from '~/src/gui.config'
 
 export default function Layout() {
@@ -19,9 +20,11 @@ export default function Layout() {
       <body>
         <SchemeProvider>
           <Providers>
-            <Shell>
-              <Slot />
-            </Shell>
+            <SessionProvider>
+              <Shell>
+                <Slot />
+              </Shell>
+            </SessionProvider>
           </Providers>
         </SchemeProvider>
       </body>

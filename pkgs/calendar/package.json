@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/calendar",
+  "name": "@hanzo/booker",
   "version": "0.1.0",
   "description": "Universal (web + native) scheduling UI for the Hanzo Calendar — a Booker, Confirmation, and compact CalendarEmbed built with hanzogui primitives.",
   "license": "BSD-3-Clause",

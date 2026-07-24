@@ -20,6 +20,9 @@
  */
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps'
+import { U } from './hanzo-registry'
+import { isEntitled as planEntitles, normalizeTier } from './entitlements'
+import { useEntitlement } from './useEntitlement'
 import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME } from './theme'
 import { useShellFocusRing } from './focusRing'
 
@@ -48,6 +51,26 @@ export interface HanzoAppLauncherProps {
   size?: number
   /** Render with the panel already open (storybook / embedding / tests). */
   defaultOpen?: boolean
+  /**
+   * Current viewer's plan tier slug. When set, tiles for apps the tier does NOT
+   * grant render LOCKED (dimmed + lock badge, click → `upgradeHref`). Omit to
+   * keep every tile an unconditional link (backward compatible).
+   */
+  userPlan?: string
+  /**
+   * Override the per-app access check (defaults to the registry
+   * `isEntitled(userPlan, appId)`). Pass a resolver — e.g. from a shared
+   * `useEntitlement()` — to gate without also passing `userPlan`.
+   */
+  isEntitled?: (appId: string) => boolean
+  /**
+   * Resolve the viewer's plan HERE via `useEntitlement` and lock tiles above it.
+   * Pass `true` for the default billing endpoint, or `{ endpoint }` to point it
+   * elsewhere. Ignored when `userPlan` or `isEntitled` is supplied.
+   */
+  entitlement?: boolean | { endpoint?: string; fallbackTier?: string }
+  /** Where a locked tile sends the viewer to upgrade (default the plans surface). */
+  upgradeHref?: string
 }
 
 export function HanzoAppLauncher({
@@ -58,8 +81,29 @@ export function HanzoAppLauncher({
   label = 'Hanzo apps',
   size = 18,
   defaultOpen = false,
+  userPlan,
+  isEntitled: providedIsEntitled,
+  entitlement,
+  upgradeHref = U.pricing,
 }: HanzoAppLauncherProps) {
   useShellFocusRing()
+
+  // Resolve the viewer's plan ourselves only when asked to AND no check/tier was
+  // supplied; the `enabled` flag keeps the hook a no-op (no fetch) otherwise.
+  const auto = useEntitlement({
+    enabled: !!entitlement && providedIsEntitled == null && userPlan == null,
+    endpoint: typeof entitlement === 'object' ? entitlement.endpoint : undefined,
+    fallbackTier: typeof entitlement === 'object' ? entitlement.fallbackTier : undefined,
+  })
+
+  // The effective access check, or `null` when no entitlement context is provided
+  // (in which case every tile stays an unconditional link — backward compatible).
+  const check = useMemo<((appId: string) => boolean) | null>(() => {
+    if (providedIsEntitled) return providedIsEntitled
+    if (userPlan != null) return (id: string) => planEntitles(id, normalizeTier(userPlan))
+    if (entitlement) return auto.isEntitled
+    return null
+  }, [providedIsEntitled, userPlan, entitlement, auto.isEntitled])
   const [open, setOpen] = useState(defaultOpen)
   const [hover, setHover] = useState(false)
   const [query, setQuery] = useState('')
@@ -173,14 +217,24 @@ export function HanzoAppLauncher({
 
   const Tile = (app: HanzoApp, wide: boolean) => {
     const isCurrent = app.id === currentApp
+    // Locked = an entitlement context is active AND the viewer's tier does not
+    // grant this app. Locked tiles stay real links (keyboard + roving focus),
+    // but point at the upgrade surface instead of the app.
+    const locked = check ? !check(app.id) : false
     const Icon = app.icon
     return (
       <a
         key={app.id}
         ref={registerTile}
-        href={app.href}
+        href={locked ? upgradeHref : app.href}
         aria-current={isCurrent ? 'page' : undefined}
-        aria-label={app.description ? `${app.label} — ${app.description}` : app.label}
+        aria-label={
+          locked
+            ? `${app.label} — locked, upgrade to unlock`
+            : app.description
+              ? `${app.label} — ${app.description}`
+              : app.label
+        }
         onClick={() => setOpen(false)}
         style={{
           display: 'flex',
@@ -194,8 +248,9 @@ export function HanzoAppLauncher({
           border: `1px solid ${isCurrent ? ACCENT : 'transparent'}`,
           background: isCurrent ? ACCENT_SOFT : 'transparent',
           color: FG,
+          opacity: locked ? 0.55 : 1,
           outlineColor: ACCENT,
-          transition: 'background 120ms ease, border-color 120ms ease',
+          transition: 'background 120ms ease, border-color 120ms ease, opacity 120ms ease',
           justifyContent: wide ? 'flex-start' : 'center',
         }}
         onMouseEnter={(e) => {
@@ -208,6 +263,7 @@ export function HanzoAppLauncher({
         <span
           aria-hidden="true"
           style={{
+            position: 'relative',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -220,6 +276,26 @@ export function HanzoAppLauncher({
           }}
         >
           <Icon size={wide ? 20 : 22} />
+          {locked ? (
+            <span
+              style={{
+                position: 'absolute',
+                right: -3,
+                bottom: -3,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 16,
+                height: 16,
+                borderRadius: '50%',
+                background: PANEL_BG,
+                border: `1px solid ${BORDER}`,
+                color: FG_DIM,
+              }}
+            >
+              <LockGlyph size={9} />
+            </span>
+          ) : null}
         </span>
         <span style={{ display: 'flex', flexDirection: 'column', gap: 1, minWidth: 0 }}>
           <span
@@ -372,6 +448,26 @@ export function HanzoAppLauncher({
         </div>
       ) : null}
     </div>
+  )
+}
+
+/** Padlock badge shown on tiles the viewer's plan does not grant. */
+function LockGlyph({ size = 10 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.4}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="4.5" y="10.5" width="15" height="10" rx="2.2" />
+      <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
+    </svg>
   )
 }
 

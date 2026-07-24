@@ -20,12 +20,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoMark } from './mark'
 import { MeetHanzoMenu } from './MeetHanzoMenu'
+import { ProductsMegaMenu } from './ProductsMegaMenu'
 import {
   DEFAULT_SURFACE,
   findSurfaceByHost,
   getSurface,
   type HanzoLink,
   type HanzoSurface,
+  type ProductCategory,
 } from './hanzo-registry'
 import { ACCENT, CHROME, FS, Z } from './theme'
 import { useIsMobile } from './useMediaQuery'
@@ -39,6 +41,27 @@ export interface HanzoHeaderProps {
   account?: React.ReactNode
   /** Opens the caller's Ask-Hanzo affordance (used by the mobile search button). */
   onAskHanzo?: () => void
+  /**
+   * Opt into the RICH ten-category Products mega-menu. When provided, a
+   * "Products ⌄" trigger renders next to "Meet Hanzo" and opens
+   * <ProductsMegaMenu> over this taxonomy. Omit for the flat `localNav` header
+   * (the default — fully backward compatible).
+   */
+  productsTaxonomy?: ProductCategory[]
+  /** Highlights the current Products category (accent + `aria-current`). */
+  currentCategoryId?: string
+  /** Highlights the current Products leaf whose href matches. */
+  currentHref?: string
+  /**
+   * Custom brand block (a surface's own wordmark/logo) rendered in place of the
+   * default mark + brand name. Own its own home link. Omit for the default.
+   */
+  brandSlot?: React.ReactNode
+  /**
+   * Custom identity control (sign-in / account menu) rendered at the far right,
+   * before `account`. A richer alternative to `account`.
+   */
+  identitySlot?: React.ReactNode
   className?: string
 }
 
@@ -48,13 +71,26 @@ export function resolveSurface(surface: HanzoSurface | string): HanzoSurface {
   return getSurface(surface) ?? findSurfaceByHost(surface) ?? DEFAULT_SURFACE
 }
 
-export function HanzoHeader({ surface, account, onAskHanzo, className }: HanzoHeaderProps) {
+export function HanzoHeader({
+  surface,
+  account,
+  onAskHanzo,
+  productsTaxonomy,
+  currentCategoryId,
+  currentHref,
+  brandSlot,
+  identitySlot,
+  className,
+}: HanzoHeaderProps) {
   const s = resolveSurface(surface)
   const isMobile = useIsMobile(900)
   const [meetOpen, setMeetOpen] = useState(false)
+  const [productsOpen, setProductsOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const meetBtnRef = useRef<HTMLButtonElement>(null)
+  const productsBtnRef = useRef<HTMLButtonElement>(null)
 
+  const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const home = `https://${s.host}`
 
   // Close everything on Esc when a mobile sheet is open.
@@ -67,9 +103,17 @@ export function HanzoHeader({ surface, account, onAskHanzo, className }: HanzoHe
     return () => document.removeEventListener('keydown', onKey)
   }, [mobileOpen])
 
+  // The two mega-menus are mutually exclusive; either closes the mobile sheet.
   const toggleMeet = useCallback(() => {
     setMobileOpen(false)
+    setProductsOpen(false)
     setMeetOpen((v) => !v)
+  }, [])
+
+  const toggleProducts = useCallback(() => {
+    setMobileOpen(false)
+    setMeetOpen(false)
+    setProductsOpen((v) => !v)
   }, [])
 
   return (
@@ -94,24 +138,26 @@ export function HanzoHeader({ surface, account, onAskHanzo, className }: HanzoHe
         fontFamily: CHROME.font,
       }}
     >
-      {/* ── Brand ── */}
-      <a
-        href={home}
-        aria-label={s.brandName}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 9,
-          flexShrink: 0,
-          textDecoration: 'none',
-          color: CHROME.fg,
-        }}
-      >
-        <HanzoMark size={24} />
-        <span style={{ fontSize: FS.base, fontWeight: 800, letterSpacing: -0.2, whiteSpace: 'nowrap' }}>
-          {s.brandName}
-        </span>
-      </a>
+      {/* ── Brand (surface-supplied wordmark, or the default mark + name) ── */}
+      {brandSlot ?? (
+        <a
+          href={home}
+          aria-label={s.brandName}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 9,
+            flexShrink: 0,
+            textDecoration: 'none',
+            color: CHROME.fg,
+          }}
+        >
+          <HanzoMark size={24} />
+          <span style={{ fontSize: FS.base, fontWeight: 800, letterSpacing: -0.2, whiteSpace: 'nowrap' }}>
+            {s.brandName}
+          </span>
+        </a>
+      )}
 
       {isMobile ? (
         <>
@@ -168,6 +214,44 @@ export function HanzoHeader({ surface, account, onAskHanzo, className }: HanzoHe
             <Chevron open={meetOpen} />
           </button>
 
+          {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
+          {hasProducts ? (
+            <button
+              ref={productsBtnRef}
+              type="button"
+              onClick={toggleProducts}
+              aria-haspopup="dialog"
+              aria-expanded={productsOpen}
+              aria-controls={productsOpen ? 'hanzo-products-menu' : undefined}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+                flexShrink: 0,
+                height: 34,
+                padding: '0 10px',
+                border: 'none',
+                borderRadius: 9,
+                background: productsOpen ? CHROME.hover : 'transparent',
+                color: CHROME.fg,
+                fontSize: FS.sm,
+                fontWeight: 600,
+                fontFamily: 'inherit',
+                cursor: 'pointer',
+                transition: 'background 120ms ease',
+              }}
+              onMouseEnter={(e) => {
+                if (!productsOpen) (e.currentTarget as HTMLElement).style.background = CHROME.hover
+              }}
+              onMouseLeave={(e) => {
+                if (!productsOpen) (e.currentTarget as HTMLElement).style.background = 'transparent'
+              }}
+            >
+              Products
+              <Chevron open={productsOpen} />
+            </button>
+          ) : null}
+
           {/* ── Local nav ── */}
           <nav aria-label={`${s.brandName} navigation`} style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
             {s.localNav.map((link) => (
@@ -177,9 +261,10 @@ export function HanzoHeader({ surface, account, onAskHanzo, className }: HanzoHe
 
           <div style={{ flex: 1 }} />
 
-          {/* ── CTAs + account ── */}
+          {/* ── CTAs + identity + account ── */}
           <CTA link={s.secondaryCTA} variant="ghost" />
           <CTA link={s.primaryCTA} variant="filled" />
+          {identitySlot}
           {account}
         </>
       )}
@@ -193,11 +278,27 @@ export function HanzoHeader({ surface, account, onAskHanzo, className }: HanzoHe
         currentProductId={s.productId}
       />
 
+      {/* ── Rich Products mega-menu (opt-in via productsTaxonomy) ── */}
+      {hasProducts ? (
+        <ProductsMegaMenu
+          id="hanzo-products-menu"
+          categories={productsTaxonomy!}
+          open={productsOpen}
+          onClose={() => setProductsOpen(false)}
+          anchor={HEADER_H}
+          currentCategoryId={currentCategoryId}
+          currentHref={currentHref}
+        />
+      ) : null}
+
       {/* ── Mobile disclosure sheet ── */}
       {isMobile && mobileOpen ? (
         <MobileSheet
           surface={s}
           account={account}
+          identity={identitySlot}
+          productsTaxonomy={hasProducts ? productsTaxonomy : undefined}
+          currentHref={currentHref}
           top={HEADER_H}
           onClose={() => setMobileOpen(false)}
           onMeet={() => {
@@ -321,12 +422,18 @@ function IconButton({
 function MobileSheet({
   surface,
   account,
+  identity,
+  productsTaxonomy,
+  currentHref,
   top,
   onClose,
   onMeet,
 }: {
   surface: HanzoSurface
   account?: React.ReactNode
+  identity?: React.ReactNode
+  productsTaxonomy?: ProductCategory[]
+  currentHref?: string
   top: number
   onClose: () => void
   onMeet: () => void
@@ -400,13 +507,59 @@ function MobileSheet({
           ))}
         </div>
 
+        {/* Rich Products taxonomy — same categories, stacked for mobile. */}
+        {productsTaxonomy && productsTaxonomy.length > 0 ? (
+          <div style={{ marginBottom: 12, borderTop: `1px solid ${CHROME.border}`, paddingTop: 12 }}>
+            {productsTaxonomy.map((category) => (
+              <div key={category.id} style={{ marginBottom: 12 }}>
+                <a
+                  href={category.href}
+                  onClick={onClose}
+                  style={{
+                    display: 'block',
+                    marginBottom: 4,
+                    padding: '0 12px',
+                    textDecoration: 'none',
+                    fontSize: FS.xs,
+                    fontWeight: 700,
+                    letterSpacing: 0.6,
+                    textTransform: 'uppercase',
+                    color: CHROME.fgDim,
+                  }}
+                >
+                  {category.label}
+                </a>
+                {category.items.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    target={item.external ? '_blank' : undefined}
+                    rel={item.external ? 'noreferrer noopener' : undefined}
+                    onClick={onClose}
+                    style={{
+                      display: 'block',
+                      padding: '9px 12px',
+                      borderRadius: 10,
+                      textDecoration: 'none',
+                      fontSize: FS.sm,
+                      color: item.href === currentHref ? ACCENT : CHROME.fgMuted,
+                    }}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : null}
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <CTA link={surface.secondaryCTA} variant="ghost" />
           <CTA link={surface.primaryCTA} variant="filled" />
         </div>
 
-        {/* Account controls (Sign In / avatar) stay reachable on mobile. */}
-        {account ? (
+        {/* Identity + account controls (Sign In / avatar) stay reachable on mobile. */}
+        {identity || account ? (
           <div
             style={{
               display: 'flex',
@@ -417,6 +570,7 @@ function MobileSheet({
               borderTop: `1px solid ${CHROME.border}`,
             }}
           >
+            {identity}
             {account}
           </div>
         ) : null}

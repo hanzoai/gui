@@ -56,6 +56,26 @@ import { Slot } from './views/Slot'
 import { getThemedChildren } from './views/Theme'
 import type { ViewProps } from './views/View'
 
+// data-slot: a neutral, standard structural annotation for zero-config analytics.
+// Mirrors shadcn's convention — the component's name, kebab-cased — so a tracker
+// like track.js's `annotate` can capture DOM structure with no per-app config.
+// Only named components carry one (base View/Text/Stack have no componentName),
+// matching shadcn's "named primitives only" rule.
+// Memoized: names come from the fixed set of styled() definitions, so each is
+// kebab-cased once — the render path is then an O(1) hit with no per-render regex.
+const dataSlotCache = new Map<string, string>()
+const dataSlotFor = (name: string): string => {
+  let slot = dataSlotCache.get(name)
+  if (slot === undefined) {
+    slot = name
+      .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .toLowerCase()
+    dataSlotCache.set(name, slot)
+  }
+  return slot
+}
+
 /**
  * All things that need one-time setup after createGui is called
  */
@@ -1470,6 +1490,15 @@ export function createComponent<
     }
 
     if (process.env.NODE_ENV === 'development' && time) time`spaced-as-child`
+
+    // Stamp a neutral, standard structural annotation (data-slot) on the web host
+    // node so analytics can self-describe with zero app config. Named components
+    // only; overridable — passing your own `data-slot` (any value) opts out.
+    // No-op on native (isWeb compiles to false there). asChild flows via Slot,
+    // which merges viewProps onto the child host, so it is covered too.
+    if (isWeb && componentName && !('data-slot' in viewProps)) {
+      viewProps['data-slot'] = dataSlotFor(componentName)
+    }
 
     let content: ReactNode | undefined
 

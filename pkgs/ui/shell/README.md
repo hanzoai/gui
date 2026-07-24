@@ -44,6 +44,37 @@ function Shell() {
 }
 ```
 
+## Public header — rich Products mega-menu (7.5.0+)
+
+`HanzoHeader` is the ONE public/marketing header. By default it renders a flat
+`localNav` + the universal "Meet Hanzo" menu. Pass `productsTaxonomy` to opt into
+the RICH ten-category cloud Products mega-menu (the flagship hanzo.ai UX) — a
+"Products ⌄" trigger appears next to "Meet Hanzo" and opens `<ProductsMegaMenu>`.
+Omit it and the header behaves exactly as before (fully backward compatible).
+
+```tsx
+import { HanzoHeader, HANZO_PRODUCT_CATEGORIES } from '@hanzogui/shell'
+
+// Shared default taxonomy:
+<HanzoHeader surface="ai" productsTaxonomy={HANZO_PRODUCT_CATEGORIES} />
+
+// A surface that owns the taxonomy locally passes its own (mapped to
+// ProductCategory[]) so its /products/<slug> pages + routes never drift, and
+// supplies its own wordmark + identity control via the slots:
+<HanzoHeader
+  surface="ai"
+  productsTaxonomy={myCategories}     // ProductCategory[]
+  currentCategoryId="ai"              // highlight the current category header
+  currentHref="/models"              // highlight the current leaf
+  brandSlot={<MyAnimatedWordmark />}  // replaces the default mark + name
+  identitySlot={<MyAccountMenu />}    // far-right identity control
+/>
+```
+
+`ProductsMegaMenu` is also exported standalone (controlled `open`/`onClose`/
+`anchor`, keyboard-accessible). `HANZO_PRODUCT_CATEGORIES` (+ `productCategorySlug`)
+is the shared default taxonomy; `ProductCategory` is the taxonomy type.
+
 ## Org switching
 
 `ORG_DOMAINS` provides per-org branded domains; `getAppsForOrg(slug)` returns

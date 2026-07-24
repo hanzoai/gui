@@ -36,6 +36,8 @@ export {
   HANZO_PRODUCTS,
   HANZO_FLAGSHIP,
   MEET_HANZO_GROUPS,
+  HANZO_PRODUCT_CATEGORIES,
+  productCategorySlug,
   HANZO_FOOTER_COLUMNS,
   HANZO_FOOTER_BOTTOM,
   HANZO_SURFACES,
@@ -48,6 +50,7 @@ export type {
   HanzoProduct,
   HanzoSurface,
   MeetHanzoGroup,
+  ProductCategory,
   FooterColumn,
 } from './hanzo-registry'
 
@@ -56,6 +59,8 @@ export { HanzoHeader, resolveSurface } from './HanzoHeader'
 export type { HanzoHeaderProps } from './HanzoHeader'
 export { MeetHanzoMenu } from './MeetHanzoMenu'
 export type { MeetHanzoMenuProps } from './MeetHanzoMenu'
+export { ProductsMegaMenu } from './ProductsMegaMenu'
+export type { ProductsMegaMenuProps } from './ProductsMegaMenu'
 export { HanzoAppHeader } from './HanzoAppHeader'
 export type { HanzoAppHeaderProps, HanzoAppHeaderAction, HanzoContextNode } from './HanzoAppHeader'
 export { HanzoFooter } from './HanzoFooter'

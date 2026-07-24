@@ -71,6 +71,12 @@ export interface HanzoAppLauncherProps {
   entitlement?: boolean | { endpoint?: string; fallbackTier?: string }
   /** Where a locked tile sends the viewer to upgrade (default the plans surface). */
   upgradeHref?: string
+  /**
+   * Custom trigger content. When provided, it REPLACES the default 9-dot grid
+   * glyph — so the Hanzo logo itself can open the switcher (one affordance, no
+   * separate grid button). Receives {open, hover} so the trigger can react.
+   */
+  trigger?: (state: { open: boolean; hover: boolean }) => React.ReactNode
 }
 
 export function HanzoAppLauncher({
@@ -85,6 +91,7 @@ export function HanzoAppLauncher({
   isEntitled: providedIsEntitled,
   entitlement,
   upgradeHref = U.pricing,
+  trigger,
 }: HanzoAppLauncherProps) {
   useShellFocusRing()
 
@@ -341,18 +348,18 @@ export function HanzoAppLauncher({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: 34,
+          width: trigger ? 'auto' : 34,
           height: 34,
           padding: 0,
           border: 'none',
           borderRadius: 9,
-          background: open ? ACCENT_SOFT : 'transparent',
+          background: open && !trigger ? ACCENT_SOFT : 'transparent',
           color: triggerColor,
           cursor: 'pointer',
           transition: 'background 120ms ease, color 120ms ease',
         }}
       >
-        <HanzoGridIcon size={size} />
+        {trigger ? trigger({ open, hover }) : <HanzoGridIcon size={size} />}
       </button>
 
       {open ? (

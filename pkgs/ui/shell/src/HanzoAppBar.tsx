@@ -112,15 +112,30 @@ export function HanzoAppBar({
           'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
       }}
     >
-      {/* ── Left: mark · app · launcher ── */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-        <a
-          href={logoHref}
-          aria-label="Hanzo"
-          style={{ display: 'inline-flex', flexShrink: 0, borderRadius: 6 }}
-        >
-          <HMark size={22} />
-        </a>
+      {/* ── Left: logo IS the product switcher (⌘K / click), then current-app
+             context. One affordance — no separate grid button on the right. ── */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+        <HanzoAppLauncher
+          currentApp={currentApp}
+          apps={apps}
+          quickSwitchKey={quickSwitchKey}
+          label="Switch Hanzo apps (⌘K)"
+          trigger={({ open, hover }) => (
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '4px 5px',
+                borderRadius: 7,
+                background: open ? 'rgba(255,255,255,0.06)' : 'transparent',
+                color: open || hover ? FG : 'rgba(255,255,255,0.82)',
+                transition: 'background 120ms ease, color 120ms ease',
+              }}
+            >
+              <HMark size={22} />
+            </span>
+          )}
+        />
         <span aria-hidden="true" style={{ color: 'rgba(255,255,255,0.18)', fontSize: 16 }}>
           /
         </span>
@@ -136,7 +151,6 @@ export function HanzoAppBar({
         >
           {label}
         </span>
-        <HanzoAppLauncher currentApp={currentApp} apps={apps} quickSwitchKey={quickSwitchKey} />
       </div>
 
       {/* ── Right: app slot · account menu ── */}

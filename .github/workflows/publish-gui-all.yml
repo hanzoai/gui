@@ -34,7 +34,10 @@ permissions:
 jobs:
   publish-all:
     name: Build + publish all gui packages
-    runs-on: [self-hosted, linux, arm64]
+    # Retargeted arm64 self-hosted (spark, frequently offline) → the always-up
+    # in-cluster amd64 ARC pool. @hanzogui/* are pure-JS; publishing is
+    # arch-independent, so amd64 is safe and far more reliable.
+    runs-on: hanzo-build-linux-amd64
     if: github.event_name == 'push' || github.event.inputs.confirm == 'publish'
     steps:
       - uses: actions/checkout@v5

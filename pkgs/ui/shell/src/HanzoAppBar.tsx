@@ -19,13 +19,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoAppLauncher } from './HanzoAppLauncher'
 import { HANZO_APPS, type HanzoApp } from './hanzo-apps'
+import { ACCENT, ACCENT_TINT, CHROME } from './theme'
 
-const ORANGE = '#f97316'
-const BAR_BG = 'rgba(9,9,11,0.85)'
+const BAR_BG = CHROME.bg
 const BORDER = 'rgba(255,255,255,0.08)'
-const FG = 'rgba(255,255,255,0.92)'
+const FG = CHROME.fg
 const FG_DIM = 'rgba(255,255,255,0.42)'
-const HOVER_BG = 'rgba(255,255,255,0.06)'
+const HOVER_BG = CHROME.hover
 
 export interface HanzoUser {
   name?: string
@@ -341,8 +341,8 @@ function Avatar({ user, size = 26 }: { user?: HanzoUser; size?: number }) {
           width: size,
           height: size,
           borderRadius: 8,
-          background: 'rgba(249,115,22,0.18)',
-          color: ORANGE,
+          background: ACCENT_TINT,
+          color: ACCENT,
           fontSize: Math.round(size * 0.42),
           fontWeight: 800,
           flexShrink: 0,

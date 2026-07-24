@@ -1,0 +1,28 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true
+  },
+  "references": [
+    {
+      "path": "../../core/core"
+    },
+    {
+      "path": "../../core/web"
+    },
+    {
+      "path": "../../lucide-icons"
+    },
+    {
+      "path": "../input"
+    },
+    {
+      "path": "../stacks"
+    }
+  ],
+  "exclude": [
+    "types",
+    "dist",
+    "**/__tests__"
+  ]
+}

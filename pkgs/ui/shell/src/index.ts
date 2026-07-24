@@ -19,3 +19,48 @@ export { HanzoAppLauncher } from './HanzoAppLauncher'
 export type { HanzoAppLauncherProps } from './HanzoAppLauncher'
 export { HANZO_APPS, getHanzoApps, findHanzoApp, HanzoGridIcon } from './hanzo-apps'
 export type { HanzoApp } from './hanzo-apps'
+
+// ── Shared brand mark ──
+export { HanzoMark, HanzoWordmark } from './mark'
+
+// ── Shell chrome tokens (brand-driven, monochrome) ──
+export { CHROME, ACCENT, ACCENT_SOFT, ACCENT_SOFTER, ACCENT_TINT, FS, Z } from './theme'
+
+// ── Responsive hook ──
+export { useMediaQuery, useIsMobile } from './useMediaQuery'
+
+// ── Canonical registry — the ONE source of truth for every shell surface ──
+export {
+  U,
+  PRODUCT_BOUNDARIES,
+  HANZO_PRODUCTS,
+  HANZO_FLAGSHIP,
+  MEET_HANZO_GROUPS,
+  HANZO_FOOTER_COLUMNS,
+  HANZO_FOOTER_BOTTOM,
+  HANZO_SURFACES,
+  DEFAULT_SURFACE,
+  getSurface,
+  findSurfaceByHost,
+} from './hanzo-registry'
+export type {
+  HanzoLink,
+  HanzoProduct,
+  HanzoSurface,
+  MeetHanzoGroup,
+  FooterColumn,
+} from './hanzo-registry'
+
+// ── Reusable public/marketing + signed-in shell components ──
+export { HanzoHeader, resolveSurface } from './HanzoHeader'
+export type { HanzoHeaderProps } from './HanzoHeader'
+export { MeetHanzoMenu } from './MeetHanzoMenu'
+export type { MeetHanzoMenuProps } from './MeetHanzoMenu'
+export { HanzoAppHeader } from './HanzoAppHeader'
+export type { HanzoAppHeaderProps, HanzoAppHeaderAction, HanzoContextNode } from './HanzoAppHeader'
+export { HanzoFooter } from './HanzoFooter'
+export type { HanzoFooterProps } from './HanzoFooter'
+export { HanzoPreFooterCTA } from './HanzoPreFooterCTA'
+export type { HanzoPreFooterCTAProps } from './HanzoPreFooterCTA'
+export { AskHanzo } from './AskHanzo'
+export type { AskHanzoProps, AskHanzoMessage } from './AskHanzo'

@@ -20,6 +20,7 @@ import React from 'react'
 import { HanzoWordmark } from './mark'
 import { HANZO_FOOTER_BOTTOM, HANZO_FOOTER_COLUMNS, type HanzoLink } from './hanzo-registry'
 import { ACCENT, CHROME, FS } from './theme'
+import { useShellFocusRing } from './focusRing'
 
 export interface HanzoFooterProps {
   /** Highlights the current product in the PRODUCTS column (`aria-current`). */
@@ -28,9 +29,11 @@ export interface HanzoFooterProps {
 }
 
 export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
+  useShellFocusRing()
   return (
     <footer
       role="contentinfo"
+      data-hanzo-shell=""
       className={className}
       style={{
         borderTop: `1px solid ${CHROME.border}`,
@@ -88,7 +91,7 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
           <a href="https://hanzo.ai" aria-label="Hanzo" style={{ color: CHROME.fg, textDecoration: 'none', flexShrink: 0 }}>
             <HanzoWordmark label="Hanzo" size={20} />
           </a>
-          <span style={{ fontSize: FS.sm, color: CHROME.fgDim, flexShrink: 0 }}>
+          <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, flexShrink: 0 }}>
             {HANZO_FOOTER_BOTTOM.copyright}
           </span>
           <div style={{ flex: 1 }} />
@@ -133,9 +136,9 @@ function LegalLink({ link }: { link: HanzoLink }) {
     <a
       href={link.href}
       style={{
-        fontSize: FS.xs,
+        fontSize: FS.sm,
         textDecoration: 'none',
-        color: CHROME.fgDim,
+        color: CHROME.fgMuted,
         padding: '2px 6px',
         borderRadius: 6,
         transition: 'color 120ms ease',
@@ -144,7 +147,7 @@ function LegalLink({ link }: { link: HanzoLink }) {
         ;(e.currentTarget as HTMLElement).style.color = CHROME.fg
       }}
       onMouseLeave={(e) => {
-        ;(e.currentTarget as HTMLElement).style.color = CHROME.fgDim
+        ;(e.currentTarget as HTMLElement).style.color = CHROME.fgMuted
       }}
     >
       {link.label}

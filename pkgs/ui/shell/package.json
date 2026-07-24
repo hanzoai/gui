@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/shell",
-  "version": "7.4.1",
+  "version": "7.4.2",
   "description": "Unified Hanzo shell — HanzoHeader, HanzoAppHeader, MeetHanzoMenu, HanzoFooter, HanzoPreFooterCTA, AskHanzo, HanzoAppBar/Launcher + the canonical surface registry",
   "source": "src/index.ts",
   "files": [

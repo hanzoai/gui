@@ -46,6 +46,16 @@ export interface MeetHanzoMenuProps {
   /** id for the panel (wire the trigger's `aria-controls` to it). */
   id?: string
   className?: string
+  /**
+   * Optional per-link href rewriter. The menu renders the SAME registry data
+   * everywhere by default (product homes on hanzo.ai); a host can pass this to
+   * point items at a local equivalent instead — e.g. the docs site maps
+   * `hanzo.ai/models` → `/docs/services/models` so its own nav keeps users in
+   * the docs. Called once per link with (href, id); return the href to use.
+   * Omit it (the default on every marketing property) to keep the canonical
+   * ecosystem links unchanged.
+   */
+  resolveHref?: (href: string, id: string) => string
 }
 
 export function MeetHanzoMenu({
@@ -55,6 +65,7 @@ export function MeetHanzoMenu({
   currentProductId,
   id,
   className,
+  resolveHref,
 }: MeetHanzoMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
@@ -117,8 +128,24 @@ export function MeetHanzoMenu({
     [close, focusItem],
   )
 
-  // Column groups = every group except the rich flagship grid.
-  const columnGroups = useMemo(() => MEET_HANZO_GROUPS.filter((g) => g.id !== 'products'), [])
+  // Apply the optional host href rewriter (docs-aware nav, etc.). Identity by
+  // default, so marketing properties render the canonical ecosystem links.
+  const resolve = resolveHref ?? ((h: string) => h)
+  const flagship = useMemo(
+    () => HANZO_FLAGSHIP.map((p) => ({ ...p, href: resolve(p.href, p.id) })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [resolveHref],
+  )
+  // Column groups = every group except the rich flagship grid, hrefs resolved.
+  const columnGroups = useMemo(
+    () =>
+      MEET_HANZO_GROUPS.filter((g) => g.id !== 'products').map((g) => ({
+        ...g,
+        items: g.items.map((it) => ({ ...it, href: resolve(it.href, it.id) })),
+      })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [resolveHref],
+  )
 
   // Reset the ref list each render so indices track render order.
   itemRefs.current = []
@@ -182,7 +209,7 @@ export function MeetHanzoMenu({
               marginBottom: 24,
             }}
           >
-            {HANZO_FLAGSHIP.map((p) => (
+            {flagship.map((p) => (
               <ProductCard
                 key={p.id}
                 product={p}

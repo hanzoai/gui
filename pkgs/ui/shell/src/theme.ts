@@ -33,14 +33,21 @@ export const ACCENT_SOFT = 'rgba(255,255,255,0.14)'
 export const ACCENT_SOFTER = 'rgba(255,255,255,0.22)'
 export const ACCENT_TINT = 'rgba(255,255,255,0.18)'
 
-/** Brand font-size scale (consumes @hanzo/brand `--font-size-*`). */
+/**
+ * Brand font-size scale (consumes @hanzo/brand `--font-size-*`).
+ *
+ * DEFAULTS ARE TIGHT — a small, dense, developer-app type scale (the linear.app /
+ * vercel.com register), NOT a roomy marketing scale. Base is 14px, nav labels 13px,
+ * section labels 11px. This is the Hanzo default so every shell surface reads like a
+ * modern web app out of the box; a brand can still override any step via the CSS var.
+ */
 export const FS = {
-  xs: 'var(--font-size-xs, 0.75rem)',
-  sm: 'var(--font-size-sm, 0.875rem)',
-  base: 'var(--font-size-base, 1rem)',
-  lg: 'var(--font-size-lg, 1.125rem)',
-  xl: 'var(--font-size-xl, 1.25rem)',
-  '2xl': 'var(--font-size-2xl, 1.5rem)',
+  xs: 'var(--font-size-xs, 0.6875rem)', // 11px — section labels / eyebrows
+  sm: 'var(--font-size-sm, 0.8125rem)', // 13px — nav labels, dense body
+  base: 'var(--font-size-base, 0.875rem)', // 14px — base app text (was 16px)
+  lg: 'var(--font-size-lg, 0.9375rem)', // 15px
+  xl: 'var(--font-size-xl, 1.0625rem)', // 17px
+  '2xl': 'var(--font-size-2xl, 1.3125rem)', // 21px
 } as const
 
 /** Brand z-index ladder (consumes @hanzo/brand `--z-*`). */

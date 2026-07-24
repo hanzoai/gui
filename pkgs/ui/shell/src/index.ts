@@ -54,6 +54,26 @@ export type {
   FooterColumn,
 } from './hanzo-registry'
 
+// ── Plan tiers + app entitlements (the plan→apps map + pure resolver) ──
+export {
+  HANZO_PLANS,
+  HANZO_PLAN_TIERS,
+  DEFAULT_PLAN_TIER,
+  UNLIMITED,
+  getPlanTier,
+  APP_ENTITLEMENTS,
+} from './hanzo-registry'
+export type { HanzoPlanKind, HanzoPlanTier, HanzoPlanLimits, HanzoPlanTierDef } from './hanzo-registry'
+export { entitlementFor, isEntitled, requiredTier, rankOf, normalizeTier } from './entitlements'
+
+// ── Cross-ecosystem access layer — entitlement hook, paywall gate, plans ──
+export { useEntitlement, FREE_TIER } from './useEntitlement'
+export type { Entitlement, EntitlementState, UseEntitlementOptions } from './useEntitlement'
+export { HanzoAccessGate } from './HanzoAccessGate'
+export type { HanzoAccessGateProps } from './HanzoAccessGate'
+export { HanzoPlans } from './HanzoPlans'
+export type { HanzoPlansProps } from './HanzoPlans'
+
 // ── Reusable public/marketing + signed-in shell components ──
 export { HanzoHeader, resolveSurface } from './HanzoHeader'
 export type { HanzoHeaderProps } from './HanzoHeader'

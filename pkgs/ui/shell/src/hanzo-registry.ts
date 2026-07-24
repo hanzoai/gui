@@ -684,3 +684,217 @@ export function findSurfaceByHost(host?: string): HanzoSurface {
   )[0]
   return suffix ?? DEFAULT_SURFACE
 }
+
+/* ── Plan tiers + app entitlements — the ONE plan→apps map ──────────────────── */
+/**
+ * The canonical subscription ladder + which apps each tier unlocks. This mirrors
+ * the REAL commerce catalog (`@hanzo/plans`, served at `GET /v1/billing/plans`;
+ * a tier resolves via `GET /v1/billing/tier`). Commerce enforces MODEL access +
+ * agent count + credit balance per tier; it has no per-APP entitlement object —
+ * so THIS is the client-side source of truth the launcher reads to grey-out and
+ * upsell apps above the signed-in user's tier.
+ *
+ * Two orthogonal values, composed by the resolver (no duplication):
+ *   HANZO_PLANS ....... the tiers — price · limits · monotonic `rank`.
+ *   APP_ENTITLEMENTS .. each app id → the MINIMUM tier that unlocks it.
+ * The set of apps a tier includes is DERIVED (`entitlementFor`), never restated.
+ */
+
+/** Plan family — the axis a tier lives on (personal ladder vs. team vs. sales). */
+export type HanzoPlanKind = 'personal' | 'team' | 'enterprise'
+
+/**
+ * Canonical plan-tier slugs — mirror the commerce `@hanzo/plans` catalog. The
+ * gating key everywhere (`entitlementFor`, `isEntitled`, the launcher's
+ * `userPlan` prop, the IAM `tier` JWT claim after coarse-mapping).
+ */
+export type HanzoPlanTier =
+  | 'free'
+  | 'pro'
+  | 'plus'
+  | 'max'
+  | 'team'
+  | 'team-max'
+  | 'enterprise'
+  | 'custom'
+
+/** Sentinel for "no ceiling" limits (unlimited members / usage). */
+export const UNLIMITED = Number.MAX_SAFE_INTEGER
+
+/** Quotas / included usage carried by a tier (subset of the commerce `limits`). */
+export interface HanzoPlanLimits {
+  /** Requests per minute (rate limit; per seat on team plans). */
+  requestsPerMinute: number
+  /** Tokens per minute (rate limit; per seat on team plans). */
+  tokensPerMinute: number
+  /** Included usage credit, USD/month (0 = none). */
+  includedCreditUsd: number
+  /** Included cloud credits, USD/month (per seat on team plans). */
+  includedCloudCredits: number
+  /** Minimum seats the plan is sold in (personal = 1). */
+  minSeats: number
+  /** Maximum members the plan admits (`UNLIMITED` for enterprise/custom). */
+  maxMembers: number
+}
+
+/** One rung of the subscription ladder. */
+export interface HanzoPlanTierDef {
+  /** Stable tier slug — the gating key. */
+  slug: HanzoPlanTier
+  /** Display name ("Free", "Pro", …). */
+  name: string
+  /** One-line positioning shown on upsell surfaces. */
+  tagline: string
+  /** Plan family. */
+  kind: HanzoPlanKind
+  /**
+   * Monotonic access rank — a tier unlocks every app whose required tier ranks
+   * at or below it. Higher = more access. This is the ONLY ordering the
+   * resolver reads; price is not an ordering.
+   */
+  rank: number
+  /** Monthly price in cents (per seat when `perSeat`). 0 = free; null = contact sales. */
+  priceMonthly: number | null
+  /** Annual price in cents (per seat), when offered. */
+  priceAnnual?: number | null
+  /** Priced per seat (team plans). */
+  perSeat?: boolean
+  /** No self-serve checkout — routes to sales. */
+  contactSales?: boolean
+  /** Quotas / included usage. */
+  limits: HanzoPlanLimits
+}
+
+/**
+ * HANZO_PLANS — the canonical tier ladder. Order = display order = ascending
+ * `rank`. Prices in cents; limits from the live commerce tiers. Personal ladder
+ * (free→pro→plus→max) then team ladder (team→team-max) then sales (enterprise→
+ * custom); `rank` makes it one monotonic chain for gating.
+ */
+export const HANZO_PLANS: HanzoPlanTierDef[] = [
+  {
+    slug: 'free',
+    name: 'Free',
+    tagline: 'The on-ramp — build with AI at no cost',
+    kind: 'personal',
+    rank: 0,
+    priceMonthly: 0,
+    limits: { requestsPerMinute: 60, tokensPerMinute: 100_000, includedCreditUsd: 5, includedCloudCredits: 0, minSeats: 1, maxMembers: 1 },
+  },
+  {
+    slug: 'pro',
+    name: 'Pro',
+    tagline: 'For individuals shipping with AI every day',
+    kind: 'personal',
+    rank: 1,
+    priceMonthly: 2_000,
+    limits: { requestsPerMinute: 500, tokensPerMinute: 1_000_000, includedCreditUsd: 20, includedCloudCredits: 5, minSeats: 1, maxMembers: 1 },
+  },
+  {
+    slug: 'plus',
+    name: 'Plus',
+    tagline: 'More throughput and the max-tier models',
+    kind: 'personal',
+    rank: 2,
+    priceMonthly: 10_000,
+    limits: { requestsPerMinute: 2_500, tokensPerMinute: 5_000_000, includedCreditUsd: 100, includedCloudCredits: 25, minSeats: 1, maxMembers: 1 },
+  },
+  {
+    slug: 'max',
+    name: 'Max',
+    tagline: 'Unlimited premium models and fine-tuning',
+    kind: 'personal',
+    rank: 3,
+    priceMonthly: 20_000,
+    limits: { requestsPerMinute: 5_000, tokensPerMinute: 10_000_000, includedCreditUsd: 200, includedCloudCredits: 100, minSeats: 1, maxMembers: 1 },
+  },
+  {
+    slug: 'team',
+    name: 'Team',
+    tagline: 'People and AI coworkers together, with SSO',
+    kind: 'team',
+    rank: 4,
+    priceMonthly: 2_500,
+    perSeat: true,
+    limits: { requestsPerMinute: 500, tokensPerMinute: 1_000_000, includedCreditUsd: 0, includedCloudCredits: 100, minSeats: 2, maxMembers: 100 },
+  },
+  {
+    slug: 'team-max',
+    name: 'Team Max',
+    tagline: 'Team, with unlimited premium models per seat',
+    kind: 'team',
+    rank: 5,
+    priceMonthly: 22_500,
+    perSeat: true,
+    limits: { requestsPerMinute: 5_000, tokensPerMinute: 10_000_000, includedCreditUsd: 0, includedCloudCredits: 100, minSeats: 2, maxMembers: 100 },
+  },
+  {
+    slug: 'enterprise',
+    name: 'Enterprise',
+    tagline: 'Unlimited members, SLA, on-prem, SOC 2',
+    kind: 'enterprise',
+    rank: 6,
+    priceMonthly: 999_900,
+    contactSales: true,
+    limits: { requestsPerMinute: 5_000, tokensPerMinute: 10_000_000, includedCreditUsd: 1_000, includedCloudCredits: 100, minSeats: 2, maxMembers: UNLIMITED },
+  },
+  {
+    slug: 'custom',
+    name: 'Custom',
+    tagline: 'Dedicated, air-gapped, custom SLA',
+    kind: 'enterprise',
+    rank: 7,
+    priceMonthly: null,
+    contactSales: true,
+    limits: { requestsPerMinute: UNLIMITED, tokensPerMinute: UNLIMITED, includedCreditUsd: 0, includedCloudCredits: 0, minSeats: 2, maxMembers: UNLIMITED },
+  },
+]
+
+/** Tier-slug list in ladder order. */
+export const HANZO_PLAN_TIERS: HanzoPlanTier[] = HANZO_PLANS.map((p) => p.slug)
+
+/** The tier assumed when none is known (signed-out / no claim). */
+export const DEFAULT_PLAN_TIER: HanzoPlanTier = 'free'
+
+/** Look up a tier definition by slug. */
+export const getPlanTier = (slug?: string): HanzoPlanTierDef | undefined =>
+  slug ? HANZO_PLANS.find((p) => p.slug === slug) : undefined
+
+/**
+ * APP_ENTITLEMENTS — each launcher app id → the MINIMUM tier that unlocks it.
+ * This is the single source for app gating; the per-tier included-app SET is
+ * derived from it (`entitlementFor`), never restated on the plan.
+ *
+ * Keys are the `HANZO_APPS` ids (hanzo-apps.tsx). An app absent from this map is
+ * treated as `free` (ungated) by the resolver, so adding an app never silently
+ * locks it. Positioning: the free tier is the full individual-developer surface;
+ * `pro` adds the creator/deploy apps; `team` adds collaboration + org admin.
+ */
+export const APP_ENTITLEMENTS: Record<string, HanzoPlanTier> = {
+  // Products
+  chat: 'free',
+  app: 'free',
+  search: 'free',
+  dev: 'free',
+  cloud: 'free',
+  studio: 'pro',
+  bot: 'pro',
+  world: 'pro', // bundled via world-pro on pro/plus/max, world-team on team
+  team: 'team',
+
+  // Platform
+  console: 'free',
+  gateway: 'free',
+  platform: 'pro',
+
+  // Install (clients are always free)
+  desktop: 'free',
+  extension: 'free',
+  vscode: 'free',
+  cli: 'free',
+
+  // Account
+  account: 'free',
+  billing: 'free',
+  admin: 'team', // org/member administration requires a team plan
+}

@@ -61,11 +61,20 @@ import type { ViewProps } from './views/View'
 // like track.js's `annotate` can capture DOM structure with no per-app config.
 // Only named components carry one (base View/Text/Stack have no componentName),
 // matching shadcn's "named primitives only" rule.
-const dataSlotFor = (name: string): string =>
-  name
-    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
-    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
-    .toLowerCase()
+// Memoized: names come from the fixed set of styled() definitions, so each is
+// kebab-cased once — the render path is then an O(1) hit with no per-render regex.
+const dataSlotCache = new Map<string, string>()
+const dataSlotFor = (name: string): string => {
+  let slot = dataSlotCache.get(name)
+  if (slot === undefined) {
+    slot = name
+      .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .toLowerCase()
+    dataSlotCache.set(name, slot)
+  }
+  return slot
+}
 
 /**
  * All things that need one-time setup after createGui is called

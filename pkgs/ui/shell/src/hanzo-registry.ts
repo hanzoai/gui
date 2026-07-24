@@ -137,8 +137,11 @@ export const U = {
   cliRef: 'https://docs.hanzo.ai/cli',
   quickstarts: 'https://docs.hanzo.ai/quickstart',
   learn: 'https://hanzo.ai/learn',
-  community: 'https://hanzo.ai/community',
-  showcase: 'https://hanzo.ai/showcase',
+  // Community = the hub for everything built on Hanzo: templates + apps shipped on
+  // hanzo.app + the hanzo-apps GitHub org. Lives on hanzo.app (the builder), which
+  // owns the feed + its moderation. (Replaces the old hanzo.ai/showcase, which was
+  // just the hero chat re-skinned.)
+  community: 'https://hanzo.app/community',
   changelog: 'https://hanzo.ai/changelog',
   research: 'https://hanzo.ai/research',
   status: 'https://status.hanzo.ai',
@@ -234,7 +237,6 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'quickstarts', label: 'Quickstarts', href: U.quickstarts },
       { id: 'learn', label: 'Learn', href: U.learn },
       { id: 'community', label: 'Community', href: U.community },
-      { id: 'showcase', label: 'Showcase', href: U.showcase },
       { id: 'changelog', label: 'Changelog', href: U.changelog },
       { id: 'status', label: 'Status', href: U.status },
       { id: 'support', label: 'Support', href: U.support },
@@ -472,7 +474,6 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
       { id: 'quickstarts', label: 'Quickstarts', href: U.quickstarts },
       { id: 'learn', label: 'Learn', href: U.learn },
       { id: 'community', label: 'Community', href: U.community },
-      { id: 'showcase', label: 'Showcase', href: U.showcase },
       { id: 'changelog', label: 'Changelog', href: U.changelog },
       { id: 'research', label: 'Research', href: U.research },
       { id: 'support', label: 'Support', href: U.support },
@@ -558,7 +559,6 @@ export const HANZO_SURFACES: HanzoSurface[] = [
     localNav: [
       { id: 'product', label: 'Product', href: `${U.app}/product` },
       { id: 'templates', label: 'Templates', href: `${U.app}/templates` },
-      { id: 'showcase', label: 'Showcase', href: U.showcase },
       { id: 'pricing', label: 'Pricing', href: U.pricing },
       { id: 'enterprise', label: 'Enterprise', href: U.enterprise },
     ],

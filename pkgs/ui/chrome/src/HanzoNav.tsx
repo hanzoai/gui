@@ -1,8 +1,21 @@
 'use client'
 
-import { useState, useEffect, useRef, type ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Search, ChevronDown, ArrowUpRight, Menu, X } from 'lucide-react'
+/**
+ * HanzoNav — the openai.com-style public header: brand mark + collapsing
+ * wordmark, hover-driven full-width mega-menu, "Log in" + primary-CTA dropdowns,
+ * and a full-screen mobile drawer. Monochrome zinc-on-black, Geist.
+ *
+ * Presentational + host-agnostic: nav items, login links, the primary CTA and
+ * its analytics callback are all injected as props. Built from Tamagui `styled()`
+ * atoms (see ./styles) + @hanzogui/lucide-icons-2.
+ */
+
+import { useState, useRef, useEffect, type ReactNode } from 'react'
+import { Search, ChevronDown, ArrowUpRight, Menu, X } from '@hanzogui/lucide-icons-2'
+import { styled, View } from '@hanzogui/web'
+import { XStack, YStack } from '@hanzogui/stacks'
+import { Txt, Surface, LinkRow, IconBtn, linkable, useHover, useIsWide, useReveal } from './styles'
+import { c, SM } from './tokens'
 import type { NavItem, NavLink } from './types'
 
 /** Focus the hero composer (openai's magnifying glass drops you into the ask box). */
@@ -47,65 +60,251 @@ export interface HanzoNavProps {
   onSearch?: () => void
 }
 
-/**
- * The FULL-WIDTH mega panel — an openai.com-style dropout below the header bar,
- * spanning the viewport, with a big "Explore <section>" links column on the left
- * and secondary link columns on the right.
- */
+/* ── styled atoms (nav-local) ────────────────────────────────────────────────── */
+
+const Bar = styled(View, {
+  name: 'ChromeBar',
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  zIndex: 50,
+  borderBottomWidth: 1,
+  borderColor: c.lineBar,
+  backgroundColor: c.barBg,
+})
+
+const Inner = styled(XStack, {
+  name: 'ChromeNavInner',
+  width: '100%',
+  maxWidth: 1280,
+  marginHorizontal: 'auto',
+  height: 64,
+  alignItems: 'center',
+  gap: 8,
+  paddingHorizontal: 24,
+})
+
+const BrandLink = linkable(
+  styled(XStack, {
+    name: 'ChromeBrandLink',
+    render: 'a',
+    cursor: 'pointer',
+    alignItems: 'center',
+    flexShrink: 0,
+  }),
+)
+
+/** Text-trigger frame (nav item / login) — layout only; the child Txt colours by state. */
+const TriggerFrame = styled(XStack, {
+  name: 'ChromeTrigger',
+  render: 'button',
+  cursor: 'pointer',
+  alignItems: 'center',
+  gap: 4,
+  borderRadius: 9999,
+  paddingHorizontal: 12,
+  paddingVertical: 8,
+  backgroundColor: 'transparent',
+})
+
+const NavLinkFrame = linkable(
+  styled(XStack, {
+    name: 'ChromeNavLink',
+    render: 'a',
+    cursor: 'pointer',
+    alignItems: 'center',
+    gap: 2,
+    borderRadius: 9999,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  }),
+)
+
+const Cta = linkable(
+  styled(XStack, {
+    name: 'ChromeCta',
+    render: 'a',
+    cursor: 'pointer',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: c.ctaBg,
+    borderRadius: 9999,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    hoverStyle: { opacity: 0.9 },
+  }),
+)
+
+const Panel = styled(View, {
+  name: 'ChromeMegaPanel',
+  position: 'absolute',
+  top: '100%',
+  left: 0,
+  right: 0,
+  borderBottomWidth: 1,
+  borderColor: c.line,
+  backgroundColor: c.bg,
+  shadowColor: '#000',
+  shadowOpacity: 0.5,
+  shadowRadius: 50,
+  shadowOffset: { width: 0, height: 24 },
+})
+
+const DropWrap = styled(View, { name: 'ChromeDropWrap', position: 'relative' })
+
+const Drop = styled(View, {
+  name: 'ChromeDrop',
+  position: 'absolute',
+  top: '100%',
+  right: 0,
+  paddingTop: 12,
+})
+
+const Drawer = styled(View, {
+  name: 'ChromeDrawer',
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 60,
+  backgroundColor: c.bg,
+})
+
+const MobileToggle = styled(XStack, {
+  name: 'ChromeMobileToggle',
+  render: 'button',
+  cursor: 'pointer',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingVertical: 14,
+  backgroundColor: 'transparent',
+})
+
+const BLUR = { backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' } as const
+const BLUR_XL = { backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' } as const
+
+/* ── nav triggers ──────────────────────────────────────────────────────────── */
+
+function NavItemTrigger({ item, active, onOpen }: { item: NavItem; active: boolean; onOpen: () => void }) {
+  const { hovered, onHoverIn, onHoverOut } = useHover()
+  if (item.href) {
+    return (
+      <NavLinkFrame
+        href={item.href}
+        target="_blank"
+        rel="noreferrer noopener"
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+      >
+        <Txt kind="nav" color={hovered ? c.fg : c.fgMuted}>
+          {item.label}
+        </Txt>
+        <ArrowUpRight size={14} color={c.fgDim} />
+      </NavLinkFrame>
+    )
+  }
+  const lit = active || hovered
+  return (
+    <TriggerFrame
+      onHoverIn={() => {
+        onHoverIn()
+        onOpen()
+      }}
+      onHoverOut={onHoverOut}
+      onFocus={onOpen}
+    >
+      <Txt kind="nav" color={lit ? c.fg : c.fgMuted}>
+        {item.label}
+      </Txt>
+      <ChevronDown size={14} color={c.fgDim} />
+    </TriggerFrame>
+  )
+}
+
+/* ── mega panel ──────────────────────────────────────────────────────────────── */
+
 function MegaPanel({ item }: { item: NavItem }) {
   const explore = item.explore ?? []
   const columns = item.columns ?? []
+  const reveal = useReveal({ y: -4 })
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -4 }}
-      transition={{ duration: 0.15 }}
-      className="absolute inset-x-0 top-full border-b border-neutral-800 bg-black shadow-2xl"
-    >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-10 sm:px-6 md:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)] lg:px-8">
+    <Panel style={reveal}>
+      <XStack
+        width="100%"
+        maxWidth={1280}
+        marginHorizontal="auto"
+        paddingHorizontal={24}
+        paddingVertical={40}
+        gap={40}
+        flexDirection="row"
+      >
         {/* Explore — big links. */}
-        <div>
-          <div className="mb-5 text-xs font-medium uppercase tracking-widest text-neutral-500">Explore {item.label}</div>
-          <ul className="space-y-0.5">
-            {explore.map((l) => (
-              <li key={l.label}>
-                <a
-                  href={l.href}
-                  className="group flex flex-col rounded-lg px-2 py-1.5 -mx-2 transition-colors hover:bg-neutral-900"
-                >
-                  <span className="text-2xl font-medium text-white">{l.label}</span>
-                  {l.desc && <span className="text-xs text-neutral-500">{l.desc}</span>}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <YStack flexBasis="34%" minWidth={0} gap={2}>
+          <Txt kind="kicker" marginBottom={12} letterSpacing={1.6}>
+            Explore {item.label}
+          </Txt>
+          {explore.map((l) => (
+            <LinkRow key={l.label} href={l.href} paddingHorizontal={8} paddingVertical={6} marginHorizontal={-8}>
+              <Txt kind="explore">{l.label}</Txt>
+              {l.desc ? <Txt kind="desc">{l.desc}</Txt> : null}
+            </LinkRow>
+          ))}
+        </YStack>
 
         {/* Secondary columns. */}
-        {columns.length > 0 && (
-          <div className="grid gap-8" style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0,1fr))` }}>
+        {columns.length > 0 ? (
+          <XStack flex={1} gap={32}>
             {columns.map((col) => (
-              <div key={col.title}>
-                <div className="mb-3 text-xs font-medium uppercase tracking-widest text-neutral-500">{col.title}</div>
-                <ul className="space-y-1">
+              <YStack key={col.title} flex={1} minWidth={0}>
+                <Txt kind="kicker" marginBottom={12} letterSpacing={1.6}>
+                  {col.title}
+                </Txt>
+                <YStack gap={2}>
                   {col.links.map((link) => (
-                    <li key={link.label}>
-                      <a href={link.href} className="block rounded-lg px-2 py-1.5 -mx-2 transition-colors hover:bg-neutral-900">
-                        <span className="text-sm font-medium text-neutral-100">{link.label}</span>
-                        {link.desc && <span className="mt-0.5 block text-xs text-neutral-500">{link.desc}</span>}
-                      </a>
-                    </li>
+                    <LinkRow key={link.label} href={link.href} paddingHorizontal={8} marginHorizontal={-8}>
+                      <Txt kind="strong">{link.label}</Txt>
+                      {link.desc ? (
+                        <Txt kind="desc" marginTop={2}>
+                          {link.desc}
+                        </Txt>
+                      ) : null}
+                    </LinkRow>
                   ))}
-                </ul>
-              </div>
+                </YStack>
+              </YStack>
             ))}
-          </div>
-        )}
-      </div>
-    </motion.div>
+          </XStack>
+        ) : null}
+      </XStack>
+    </Panel>
   )
 }
+
+/* ── dropdown (login / primary) ──────────────────────────────────────────────── */
+
+function LinkDrop({ links, minWidth, withDesc }: { links: NavLink[]; minWidth: number; withDesc?: boolean }) {
+  const reveal = useReveal({ y: 6 })
+  return (
+    <Drop minWidth={minWidth} style={reveal}>
+      <Surface style={BLUR_XL}>
+        {links.map((l) => (
+          <LinkRow key={l.label} href={l.href} paddingVertical={withDesc ? 10 : 8}>
+            <Txt kind="strong">{l.label}</Txt>
+            {withDesc && l.desc ? (
+              <Txt kind="desc" marginTop={2}>
+                {l.desc}
+              </Txt>
+            ) : null}
+          </LinkRow>
+        ))}
+      </Surface>
+    </Drop>
+  )
+}
+
+/* ── component ───────────────────────────────────────────────────────────────── */
 
 export function HanzoNav({
   items,
@@ -122,7 +321,11 @@ export function HanzoNav({
   const [loginOpen, setLoginOpen] = useState(false)
   const [tryOpen, setTryOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const loginHover = useHover()
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const wide = useIsWide()
+  const showSm = useIsWide(SM)
 
   const onTry = () => onPrimary?.()
   const onSearchClick = onSearch ?? focusComposer
@@ -135,8 +338,7 @@ export function HanzoNav({
     }
   }, [mobile])
 
-  // Collapse the wordmark to just the mark once you scroll (matches
-  // cloud.hanzo.ai, which collapses "Hanzo Cloud" → H).
+  // Collapse the wordmark to just the mark once you scroll.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
     onScroll()
@@ -156,214 +358,201 @@ export function HanzoNav({
   const activeItem = items.find((i) => i.label === open && !i.href) ?? null
   const loginLinks = login?.links ?? []
   const tryLinks = primary.links ?? []
+  const loginLit = loginOpen || loginHover.hovered
+
+  const wordmarkStyle = {
+    overflow: 'hidden' as const,
+    whiteSpace: 'nowrap' as const,
+    opacity: scrolled ? 0 : 1,
+    maxWidth: scrolled ? 0 : 160,
+    marginLeft: scrolled ? 0 : 8,
+    transition: 'opacity 250ms ease-in-out, max-width 250ms ease-in-out, margin-left 250ms ease-in-out',
+  }
 
   return (
     <>
-      {/* The header owns the full-width panel: hovering a top item opens it below the
-          bar, and leaving the whole header (bar + panel) closes it. */}
-      <header
-        className="fixed inset-x-0 top-0 z-50 border-b border-neutral-800/80 bg-black/70 backdrop-blur-md"
-        onMouseLeave={scheduleClose}
-      >
-        <nav className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 sm:px-6 lg:px-8">
+      <Bar onHoverOut={scheduleClose} style={BLUR}>
+        <Inner>
           {/* Left: logo + desktop nav */}
-          <a href={homeHref} className="flex flex-shrink-0 items-center" aria-label={`${brand} home`}>
+          <BrandLink href={homeHref} aria-label={`${brand} home`}>
             {logo}
-            <motion.span
-              initial={false}
-              animate={{ opacity: scrolled ? 0 : 1, width: scrolled ? 0 : 'auto', marginLeft: scrolled ? 0 : 8 }}
-              transition={{ duration: 0.25, ease: 'easeInOut' }}
-              className="overflow-hidden whitespace-nowrap text-[15px] font-semibold tracking-tight text-white"
-            >
+            <Txt kind="wordmark" style={wordmarkStyle}>
               {brand}
-            </motion.span>
-          </a>
+            </Txt>
+          </BrandLink>
 
-          <div className="ml-4 hidden items-center lg:flex">
-            {items.map((item) =>
-              item.href ? (
-                <a
+          {wide ? (
+            <XStack marginLeft={16} alignItems="center">
+              {items.map((item) => (
+                <NavItemTrigger
                   key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex items-center gap-0.5 rounded-full px-3 py-2 text-sm text-neutral-300 transition-colors hover:text-white"
-                >
-                  {item.label}
-                  <ArrowUpRight className="h-3.5 w-3.5 text-neutral-500" />
-                </a>
-              ) : (
-                <button
-                  key={item.label}
-                  className={`inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm transition-colors hover:text-white ${open === item.label ? 'text-white' : 'text-neutral-300'}`}
-                  aria-expanded={open === item.label}
-                  onMouseEnter={() => openMenu(item.label)}
-                  onFocus={() => openMenu(item.label)}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3.5 w-3.5 text-neutral-500" />
-                </button>
-              ),
-            )}
-          </div>
+                  item={item}
+                  active={open === item.label}
+                  onOpen={() => openMenu(item.label)}
+                />
+              ))}
+            </XStack>
+          ) : null}
 
           {/* Right: search + login + primary CTA */}
-          <div className="ml-auto flex items-center gap-1 sm:gap-2">
-            <button
-              onClick={onSearchClick}
-              aria-label="Search"
-              className="hidden rounded-full p-2 text-neutral-300 transition-colors hover:bg-neutral-900 hover:text-white sm:inline-flex"
-            >
-              <Search className="h-4 w-4" />
-            </button>
+          <XStack marginLeft="auto" alignItems="center" gap={8}>
+            {showSm ? (
+              <IconBtn onPress={onSearchClick} aria-label="Search">
+                <Search size={16} color={c.fgMuted} />
+              </IconBtn>
+            ) : null}
 
-            {loginLinks.length > 0 && (
-              <div className="relative hidden sm:block" onMouseEnter={() => setLoginOpen(true)} onMouseLeave={() => setLoginOpen(false)}>
-                <button className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm text-neutral-300 transition-colors hover:text-white" aria-expanded={loginOpen}>
-                  {login?.label ?? 'Log in'}
-                  <ChevronDown className="h-3.5 w-3.5 text-neutral-500" />
-                </button>
-                <AnimatePresence>
-                  {loginOpen && (
-                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.15 }} className="absolute right-0 top-full min-w-[12rem] pt-3">
-                      <div className="rounded-2xl border border-neutral-800 bg-neutral-950/95 p-2 shadow-2xl backdrop-blur-xl">
-                        {loginLinks.map((l) => (
-                          <a key={l.label} href={l.href} className="block rounded-lg px-3 py-2 text-sm font-medium text-neutral-100 transition-colors hover:bg-neutral-900">
-                            {l.label}
-                          </a>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            )}
+            {showSm && loginLinks.length > 0 ? (
+              <DropWrap onHoverIn={() => setLoginOpen(true)} onHoverOut={() => setLoginOpen(false)}>
+                <TriggerFrame onHoverIn={loginHover.onHoverIn} onHoverOut={loginHover.onHoverOut}>
+                  <Txt kind="nav" color={loginLit ? c.fg : c.fgMuted}>
+                    {login?.label ?? 'Log in'}
+                  </Txt>
+                  <ChevronDown size={14} color={c.fgDim} />
+                </TriggerFrame>
+                {loginOpen ? <LinkDrop links={loginLinks} minWidth={192} /> : null}
+              </DropWrap>
+            ) : null}
 
-            {/* The ONE uniform primary CTA, as a nice dropdown. */}
-            <div className="relative" onMouseEnter={() => setTryOpen(true)} onMouseLeave={() => setTryOpen(false)}>
-              <a
-                href={primary.href}
-                onClick={onTry}
-                className="inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-opacity hover:opacity-90"
-                aria-haspopup="true"
-                aria-expanded={tryOpen}
-              >
-                {primary.label}
-                {tryLinks.length > 0 && <ChevronDown className="h-4 w-4" />}
-              </a>
-              {tryLinks.length > 0 && (
-                <AnimatePresence>
-                  {tryOpen && (
-                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.15 }} className="absolute right-0 top-full min-w-[17rem] pt-3">
-                      <div className="rounded-2xl border border-neutral-800 bg-neutral-950/95 p-2 shadow-2xl backdrop-blur-xl">
-                        {tryLinks.map((l) => (
-                          <a key={l.label} href={l.href} className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-neutral-900">
-                            <span className="text-sm font-medium text-neutral-100">{l.label}</span>
-                            {l.desc && <span className="mt-0.5 block text-xs text-neutral-500">{l.desc}</span>}
-                          </a>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              )}
-            </div>
+            <DropWrap onHoverIn={() => setTryOpen(true)} onHoverOut={() => setTryOpen(false)}>
+              <Cta href={primary.href} onPress={onTry} aria-haspopup="true">
+                <Txt kind="nav" color={c.ctaFg} fontWeight="500">
+                  {primary.label}
+                </Txt>
+                {tryLinks.length > 0 ? <ChevronDown size={16} color={c.ctaFg} /> : null}
+              </Cta>
+              {tryLinks.length > 0 && tryOpen ? <LinkDrop links={tryLinks} minWidth={272} withDesc /> : null}
+            </DropWrap>
 
-            <button onClick={() => setMobile(true)} aria-label="Open menu" className="rounded-full p-2 text-neutral-200 transition-colors hover:bg-neutral-900 lg:hidden">
-              <Menu className="h-5 w-5" />
-            </button>
-          </div>
-        </nav>
+            {!wide ? (
+              <IconBtn onPress={() => setMobile(true)} aria-label="Open menu">
+                <Menu size={20} color={c.fgBody} />
+              </IconBtn>
+            ) : null}
+          </XStack>
+        </Inner>
 
         {/* Full-width mega panel (desktop). */}
-        <div className="hidden lg:block">
-          <AnimatePresence>{activeItem && <MegaPanel item={activeItem} />}</AnimatePresence>
-        </div>
-      </header>
+        {wide && activeItem ? <MegaPanel item={activeItem} /> : null}
+      </Bar>
 
-      {/* Mobile drawer — sibling of <header> (the header's backdrop-blur traps
-          position:fixed children). */}
-      <AnimatePresence>
-        {mobile && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} style={{ zIndex: 60 }} className="fixed inset-0 bg-black lg:hidden">
-            <div className="flex h-16 items-center justify-between border-b border-neutral-800/80 px-4">
-              <a href={homeHref} className="flex items-center gap-2" aria-label={`${brand} home`}>
-                {logo}
-                <span className="ml-2 text-[15px] font-semibold tracking-tight text-white">{brand}</span>
-              </a>
-              <button onClick={() => setMobile(false)} aria-label="Close menu" className="rounded-full p-2 text-neutral-200 transition-colors hover:bg-neutral-900">
-                <X className="h-5 w-5" />
-              </button>
-            </div>
+      {/* Mobile drawer — sibling of the bar (the bar's backdrop-blur traps position:fixed children). */}
+      {!wide && mobile ? (
+        <Drawer style={useReveal({ duration: 200 })}>
+          <XStack
+            height={64}
+            alignItems="center"
+            justifyContent="space-between"
+            borderBottomWidth={1}
+            borderColor={c.lineBar}
+            paddingHorizontal={16}
+          >
+            <BrandLink href={homeHref} aria-label={`${brand} home`} gap={8}>
+              {logo}
+              <Txt kind="wordmark">{brand}</Txt>
+            </BrandLink>
+            <IconBtn onPress={() => setMobile(false)} aria-label="Close menu">
+              <X size={20} color={c.fgBody} />
+            </IconBtn>
+          </XStack>
 
-            <div className="h-[calc(100dvh-4rem)] overflow-y-auto px-4 py-6">
-              <a href={primary.href} onClick={onTry} className="mb-6 inline-flex w-full items-center justify-center gap-1 rounded-full bg-white px-4 py-3 text-sm font-medium text-black">
-                {primary.label} <ArrowUpRight className="h-4 w-4" />
-              </a>
+          <View
+            paddingHorizontal={16}
+            paddingVertical={24}
+            style={{ height: 'calc(100dvh - 64px)', overflowY: 'auto' }}
+          >
+            <Cta href={primary.href} onPress={onTry} justifyContent="center" marginBottom={24} paddingVertical={12}>
+              <Txt kind="nav" color={c.ctaFg} fontWeight="500">
+                {primary.label}
+              </Txt>
+              <ArrowUpRight size={16} color={c.ctaFg} />
+            </Cta>
 
-              {items.map((item) => (
-                <MobileSection key={item.label} item={item} />
-              ))}
+            {items.map((item) => (
+              <MobileSection key={item.label} item={item} />
+            ))}
 
-              {loginLinks.length > 0 && (
-                <div className="mt-6 border-t border-neutral-800 pt-6">
-                  <div className="mb-2 text-xs font-medium uppercase tracking-wide text-neutral-500">{login?.label ?? 'Log in'}</div>
-                  {loginLinks.map((l) => (
-                    <a key={l.label} href={l.href} className="block py-2 text-[15px] text-neutral-200">
+            {loginLinks.length > 0 ? (
+              <YStack marginTop={24} paddingTop={24} borderTopWidth={1} borderColor={c.line}>
+                <Txt kind="kicker" marginBottom={8}>
+                  {login?.label ?? 'Log in'}
+                </Txt>
+                {loginLinks.map((l) => (
+                  <LinkRow key={l.label} href={l.href} paddingHorizontal={0}>
+                    <Txt kind="body" color={c.fgBody} fontSize={15}>
                       {l.label}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                    </Txt>
+                  </LinkRow>
+                ))}
+              </YStack>
+            ) : null}
+          </View>
+        </Drawer>
+      ) : null}
     </>
   )
 }
+
+/* ── mobile accordion section ────────────────────────────────────────────────── */
 
 function MobileSection({ item }: { item: NavItem }) {
   const [expanded, setExpanded] = useState(false)
 
   if (item.href) {
     return (
-      <a href={item.href} target="_blank" rel="noreferrer noopener" className="flex items-center justify-between border-b border-neutral-900 py-3.5 text-[15px] font-medium text-neutral-100">
-        {item.label}
-        <ArrowUpRight className="h-4 w-4 text-neutral-500" />
-      </a>
+      <LinkRow
+        href={item.href}
+        target="_blank"
+        rel="noreferrer noopener"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        paddingHorizontal={0}
+        paddingVertical={14}
+        borderRadius={0}
+        borderBottomWidth={1}
+        borderColor={c.lineSoft}
+      >
+        <Txt kind="mobile">{item.label}</Txt>
+        <ArrowUpRight size={16} color={c.fgDim} />
+      </LinkRow>
     )
   }
 
   return (
-    <div className="border-b border-neutral-900">
-      <button onClick={() => setExpanded((v) => !v)} className="flex w-full items-center justify-between py-3.5 text-[15px] font-medium text-neutral-100" aria-expanded={expanded}>
-        {item.label}
-        <ChevronDown className={`h-4 w-4 text-neutral-500 transition-transform ${expanded ? 'rotate-180' : ''}`} />
-      </button>
-      <AnimatePresence initial={false}>
-        {expanded && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
-            <div className="pb-3">
-              {(item.explore ?? []).map((l) => (
-                <a key={l.label} href={l.href} className="block py-1.5 pl-2 text-[15px] font-medium text-neutral-100">
-                  {l.label}
-                </a>
+    <YStack borderBottomWidth={1} borderColor={c.lineSoft}>
+      <MobileToggle onPress={() => setExpanded((v) => !v)}>
+        <Txt kind="mobile">{item.label}</Txt>
+        <View
+          style={{
+            transform: expanded ? 'rotate(180deg)' : 'none',
+            transition: 'transform 200ms ease',
+          }}
+        >
+          <ChevronDown size={16} color={c.fgDim} />
+        </View>
+      </MobileToggle>
+      {expanded ? (
+        <YStack paddingBottom={12} style={useReveal({ y: -4 })}>
+          {(item.explore ?? []).map((l) => (
+            <LinkRow key={l.label} href={l.href} paddingHorizontal={8} paddingVertical={6}>
+              <Txt kind="mobile">{l.label}</Txt>
+            </LinkRow>
+          ))}
+          {(item.columns ?? []).map((col) => (
+            <YStack key={col.title} marginTop={12} marginBottom={12}>
+              <Txt kind="kicker" color={c.fgFaint} marginBottom={4} paddingHorizontal={8}>
+                {col.title}
+              </Txt>
+              {col.links.map((link) => (
+                <LinkRow key={link.label} href={link.href} paddingHorizontal={8} paddingVertical={6}>
+                  <Txt kind="body">{link.label}</Txt>
+                </LinkRow>
               ))}
-              {(item.columns ?? []).map((col) => (
-                <div key={col.title} className="mb-3 mt-3">
-                  <div className="mb-1 text-xs font-medium uppercase tracking-wide text-neutral-600">{col.title}</div>
-                  {col.links.map((link) => (
-                    <a key={link.label} href={link.href} className="block py-1.5 pl-2 text-sm text-neutral-300">
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+            </YStack>
+          ))}
+        </YStack>
+      ) : null}
+    </YStack>
   )
 }

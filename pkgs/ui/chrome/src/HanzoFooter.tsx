@@ -1,7 +1,16 @@
 'use client'
 
-import type { ReactNode } from 'react'
-import { Github } from 'lucide-react'
+/**
+ * HanzoFooter — the minimal monochrome footer: brand + tagline, link columns,
+ * copyright, and an optional GitHub mark. Data-driven via props.
+ */
+
+import { type ReactNode } from 'react'
+import { Github } from '@hanzogui/lucide-icons-2'
+import { styled, View } from '@hanzogui/web'
+import { XStack, YStack } from '@hanzogui/stacks'
+import { Txt, LinkText, linkable, useHover, useIsWide } from './styles'
+import { c } from './tokens'
 import type { NavColumn } from './types'
 
 export interface HanzoFooterProps {
@@ -21,6 +30,44 @@ export interface HanzoFooterProps {
   githubHref?: string
 }
 
+const FooterFrame = styled(View, {
+  name: 'ChromeFooter',
+  render: 'footer',
+  borderTopWidth: 1,
+  borderColor: c.lineSoft,
+  paddingHorizontal: 24,
+  paddingVertical: 56,
+})
+
+const BrandRow = linkable(
+  styled(XStack, {
+    name: 'ChromeFooterBrand',
+    render: 'a',
+    cursor: 'pointer',
+    alignItems: 'center',
+    gap: 8,
+  }),
+)
+
+const GhFrame = linkable(
+  styled(View, {
+    name: 'ChromeGh',
+    render: 'a',
+    cursor: 'pointer',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }),
+)
+
+function GithubLink({ href, label }: { href: string; label: string }) {
+  const { hovered, onHoverIn, onHoverOut } = useHover()
+  return (
+    <GhFrame href={href} target="_blank" rel="noreferrer noopener" aria-label={label} onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
+      <Github size={20} color={hovered ? c.fg : c.fgDim} />
+    </GhFrame>
+  )
+}
+
 export function HanzoFooter({
   sections,
   logo,
@@ -30,53 +77,55 @@ export function HanzoFooter({
   legalName = 'Hanzo AI, Inc.',
   githubHref,
 }: HanzoFooterProps) {
+  const wide = useIsWide()
+  const year = new Date().getFullYear()
+
   return (
-    <footer className="border-t border-neutral-900 px-4 py-14 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-          <div className="lg:col-span-1">
-            <a href={homeHref} className="inline-flex items-center gap-2" aria-label={`${brand} home`}>
+    <FooterFrame>
+      <YStack width="100%" maxWidth={1152} marginHorizontal="auto">
+        <XStack flexWrap="wrap" gap={40} flexDirection={wide ? 'row' : 'column'}>
+          <YStack width={wide ? 220 : '100%'}>
+            <BrandRow href={homeHref} aria-label={`${brand} home`}>
               {logo}
-              <span className="text-[15px] font-semibold tracking-tight text-white">{brand}</span>
-            </a>
-            <p className="mt-3 max-w-[16rem] text-sm text-neutral-500">{tagline}</p>
-          </div>
+              <Txt kind="wordmark">{brand}</Txt>
+            </BrandRow>
+            <Txt kind="dim" marginTop={12} maxWidth={256}>
+              {tagline}
+            </Txt>
+          </YStack>
 
           {sections.map((col) => (
-            <div key={col.title}>
-              <div className="mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500">
+            <YStack key={col.title} flexGrow={1} minWidth={140}>
+              <Txt kind="kicker" marginBottom={12}>
                 {col.title}
-              </div>
-              <ul className="space-y-2">
+              </Txt>
+              <YStack gap={8}>
                 {col.links.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="text-sm text-neutral-400 transition-colors hover:text-white">
-                      {link.label}
-                    </a>
-                  </li>
+                  <LinkText key={link.label} href={link.href}>
+                    {link.label}
+                  </LinkText>
                 ))}
-              </ul>
-            </div>
+              </YStack>
+            </YStack>
           ))}
-        </div>
+        </XStack>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-neutral-900 pt-8 sm:flex-row">
-          <p className="text-sm text-neutral-500">
-            © {new Date().getFullYear()} {legalName} All rights reserved.
-          </p>
-          {githubHref && (
-            <a
-              href={githubHref}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label={`${brand} on GitHub`}
-              className="text-neutral-500 transition-colors hover:text-white"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-          )}
-        </div>
-      </div>
-    </footer>
+        <XStack
+          marginTop={48}
+          paddingTop={32}
+          borderTopWidth={1}
+          borderColor={c.lineSoft}
+          flexDirection={wide ? 'row' : 'column'}
+          alignItems="center"
+          justifyContent="space-between"
+          gap={16}
+        >
+          <Txt kind="dim">
+            © {year} {legalName} All rights reserved.
+          </Txt>
+          {githubHref ? <GithubLink href={githubHref} label={`${brand} on GitHub`} /> : null}
+        </XStack>
+      </YStack>
+    </FooterFrame>
   )
 }

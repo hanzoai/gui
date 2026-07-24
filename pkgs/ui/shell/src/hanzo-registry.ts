@@ -45,6 +45,29 @@ export interface MeetHanzoGroup {
   items: HanzoLink[]
 }
 
+/**
+ * A category of first-party product primitives — the unit of the RICH Products
+ * mega-menu (the ten-category cloud taxonomy the flagship hanzo.ai renders).
+ *
+ * A surface opts into the rich menu by passing a `ProductCategory[]` to
+ * `HanzoHeader`'s `productsTaxonomy` prop. `HANZO_PRODUCT_CATEGORIES` below is
+ * the shared default; a surface that owns the taxonomy locally (hanzo.ai's
+ * `cloudCategories`) passes its own so the menu, its `/products/<slug>` landing
+ * pages, and its route table never drift.
+ */
+export interface ProductCategory {
+  /** Stable category id — also the current-category highlight key. */
+  id: string
+  /** Category label shown as the column header ("AI", "Compute", …). */
+  label: string
+  /** Category landing page — the mega-menu column header links here. */
+  href: string
+  /** One-line category positioning, shown under the header. */
+  tagline?: string
+  /** The category's primitives (≈6). Each leaf's `hint` is its short descriptor. */
+  items: HanzoLink[]
+}
+
 export interface FooterColumn {
   id: string
   title: string
@@ -214,6 +237,181 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'changelog', label: 'Changelog', href: U.changelog },
       { id: 'status', label: 'Status', href: U.status },
       { id: 'support', label: 'Support', href: U.support },
+    ],
+  },
+]
+
+/* ── Rich Products taxonomy — the ten-category cloud menu (flagship level) ───── */
+
+/**
+ * Category slug — the ONE slugify shared by the rich-menu column headers and the
+ * `/products/<slug>` landing routes ("AI" → "ai", "Web3" → "web3"). Matches the
+ * flagship's `categorySlug`, so a header always links to a page that exists.
+ */
+export const productCategorySlug = (label: string): string =>
+  label
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+
+// The Web3 category is a Lux Network surface — white-label separation is
+// absolute: a Lux leaf hands off to lux.cloud, never carrying the Hanzo mark.
+const LUX_CLOUD = 'https://lux.cloud'
+const LUX_SERVICES = 'https://lux.cloud/services'
+
+/** Build a `/products/<slug>` category landing href on hanzo.ai. */
+const cat = (label: string): string => `${U.ai}/products/${productCategorySlug(label)}`
+
+/**
+ * HANZO_PRODUCT_CATEGORIES — the canonical ten-category cloud taxonomy rendered
+ * by <ProductsMegaMenu>. Two rows of five: AI · Compute · Data · Network ·
+ * Security / Dev · Platform · Observe · Web3 · Apps. Positioned "Open AI Cloud —
+ * GCP-compatible. Open source. On-chain." Every leaf's `hint` is its short
+ * menu descriptor. This is the shared DEFAULT; hanzo.ai passes its own live
+ * `cloudCategories` (the route source of truth) to `productsTaxonomy`.
+ */
+export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
+  {
+    id: 'ai',
+    label: 'AI',
+    href: cat('AI'),
+    tagline: 'Models, agents, and inference — open weights, one API.',
+    items: [
+      { id: 'models', label: 'Models', href: `${U.ai}/models`, hint: 'Model Garden' },
+      { id: 'agents', label: 'Agents', href: `${U.ai}/agents`, hint: 'Agent Builder' },
+      { id: 'inference', label: 'Inference', href: `${U.ai}/engine`, hint: 'Vertex AI Prediction' },
+      { id: 'fine-tuning', label: 'Fine-tuning', href: `${U.ai}/cloud/fine-tuning`, hint: 'Vertex AI Training' },
+      { id: 'embeddings', label: 'Embeddings', href: `${U.ai}/cloud/embeddings`, hint: 'Vertex AI Embeddings' },
+      { id: 'evals', label: 'Evals', href: `${U.ai}/cloud/evals`, hint: 'Vertex AI Eval' },
+    ],
+  },
+  {
+    id: 'compute',
+    label: 'Compute',
+    href: cat('Compute'),
+    tagline: 'GPUs, containers, and functions that scale to zero.',
+    items: [
+      { id: 'gpus', label: 'GPUs', href: `${U.ai}/cloud/gpus`, hint: 'Compute Engine GPUs' },
+      { id: 'machines', label: 'Machines', href: `${U.ai}/machines`, hint: 'Compute Engine' },
+      { id: 'containers', label: 'Containers', href: `${U.ai}/cloud/containers`, hint: 'Cloud Run' },
+      { id: 'functions', label: 'Functions', href: `${U.ai}/functions`, hint: 'Cloud Functions' },
+      { id: 'edge', label: 'Edge', href: `${U.ai}/edge`, hint: 'Cloud Run (edge)' },
+      { id: 'jobs', label: 'Jobs', href: `${U.ai}/cloud/jobs`, hint: 'Cloud Run Jobs / Batch' },
+    ],
+  },
+  {
+    id: 'data',
+    label: 'Data',
+    href: cat('Data'),
+    tagline: 'Every persistence primitive, from vectors to objects.',
+    items: [
+      { id: 'vector', label: 'Vector', href: `${U.ai}/vector`, hint: 'Vertex Vector Search' },
+      { id: 'sql', label: 'SQL', href: `${U.ai}/sql`, hint: 'Cloud SQL / AlloyDB' },
+      { id: 'kv', label: 'KV', href: `${U.ai}/kv`, hint: 'Memorystore' },
+      { id: 'storage', label: 'Object Storage', href: `${U.ai}/storage`, hint: 'Cloud Storage' },
+      { id: 'datastore', label: 'Datastore', href: `${U.ai}/datastore`, hint: 'Bigtable' },
+      { id: 'docdb', label: 'DocDB', href: `${U.ai}/docdb`, hint: 'Firestore' },
+    ],
+  },
+  {
+    id: 'network',
+    label: 'Network',
+    href: cat('Network'),
+    tagline: 'Connect, route, and protect every service.',
+    items: [
+      { id: 'gateway', label: 'Gateway', href: `${U.ai}/gateway`, hint: 'API Gateway' },
+      { id: 'vpc', label: 'VPC', href: `${U.ai}/network`, hint: 'VPC' },
+      { id: 'dns', label: 'DNS', href: `${U.ai}/dns`, hint: 'Cloud DNS' },
+      { id: 'cdn', label: 'CDN', href: `${U.ai}/cloud/cdn`, hint: 'Cloud CDN' },
+      { id: 'load-balancer', label: 'Load Balancer', href: `${U.ai}/ingress`, hint: 'Cloud Load Balancing' },
+      { id: 'service-mesh', label: 'Service Mesh', href: `${U.ai}/cloud/service-mesh`, hint: 'Anthos Service Mesh' },
+    ],
+  },
+  {
+    id: 'security',
+    label: 'Security',
+    href: cat('Security'),
+    tagline: 'Identity, keys, and audit for the whole cloud.',
+    items: [
+      { id: 'iam', label: 'IAM', href: `${U.ai}/iam`, hint: 'Cloud IAM' },
+      { id: 'authz', label: 'Authz', href: `${U.ai}/authz`, hint: 'IAM Conditions' },
+      { id: 'kms', label: 'KMS', href: `${U.ai}/kms`, hint: 'Cloud KMS' },
+      { id: 'hsm', label: 'HSM', href: `${U.ai}/hsm`, hint: 'Cloud HSM' },
+      { id: 'secrets', label: 'Secrets', href: `${U.ai}/cloud/secrets`, hint: 'Secret Manager' },
+      { id: 'audit', label: 'Audit', href: `${U.ai}/cloud/audit`, hint: 'Cloud Audit Logs' },
+    ],
+  },
+  {
+    id: 'dev',
+    label: 'Dev',
+    href: cat('Dev'),
+    tagline: 'Build against the cloud from anywhere.',
+    items: [
+      { id: 'cli', label: 'CLI', href: `${U.ai}/cli`, hint: 'gcloud CLI' },
+      { id: 'sdks', label: 'SDKs', href: `${U.ai}/cloud/sdks`, hint: 'Cloud Client Libraries' },
+      { id: 'api', label: 'API', href: `${U.ai}/cloud/api`, hint: 'Google Cloud APIs' },
+      { id: 'playground', label: 'Playground', href: `${U.ai}/playground`, hint: 'Vertex AI Studio' },
+      { id: 'ide', label: 'IDE', href: `${U.ai}/code`, hint: 'Cloud Code' },
+      { id: 'desktop', label: 'Desktop', href: `${U.ai}/desktop`, hint: 'Cloud Workstations' },
+    ],
+  },
+  {
+    id: 'platform',
+    label: 'Platform',
+    href: cat('Platform'),
+    tagline: 'Source to production as declared state.',
+    items: [
+      { id: 'projects', label: 'Projects', href: `${U.ai}/platform`, hint: 'Resource Manager' },
+      { id: 'environments', label: 'Environments', href: `${U.ai}/cloud/environments`, hint: 'Deploy targets' },
+      { id: 'builds', label: 'Builds', href: `${U.ai}/cloud/builds`, hint: 'Cloud Build' },
+      { id: 'registry', label: 'Registry', href: `${U.ai}/registry`, hint: 'Artifact Registry' },
+      { id: 'releases', label: 'Releases', href: `${U.ai}/cloud/releases`, hint: 'Cloud Deploy' },
+      { id: 'pipelines', label: 'Pipelines', href: `${U.ai}/cloud/pipelines`, hint: 'Cloud Build / Deploy' },
+    ],
+  },
+  {
+    id: 'observe',
+    label: 'Observe',
+    href: cat('Observe'),
+    tagline: 'Logs, metrics, traces, and cost in one pane.',
+    items: [
+      { id: 'logs', label: 'Logs', href: `${U.ai}/cloud/logs`, hint: 'Cloud Logging' },
+      { id: 'metrics', label: 'Metrics', href: `${U.ai}/metrics`, hint: 'Cloud Monitoring' },
+      { id: 'traces', label: 'Traces', href: `${U.ai}/telemetry`, hint: 'Cloud Trace' },
+      { id: 'dashboards', label: 'Dashboards', href: `${U.ai}/dashboards`, hint: 'Monitoring Dashboards' },
+      { id: 'alerts', label: 'Alerts', href: `${U.ai}/sentry`, hint: 'Cloud Alerting' },
+      { id: 'cost', label: 'Cost', href: `${U.ai}/cloud/cost`, hint: 'Cloud Billing' },
+    ],
+  },
+  {
+    // Web3 = Lux Network settlement layer. Every leaf hands off to lux.cloud
+    // under the Lux brand — never the Hanzo mark on a Lux surface.
+    id: 'web3',
+    label: 'Web3',
+    href: cat('Web3'),
+    tagline: 'The settlement layer under every resource — powered by Lux Network.',
+    items: [
+      { id: 'settlement', label: 'Settlement', href: LUX_CLOUD, hint: 'On-chain settlement', external: true },
+      { id: 'chains', label: 'Chains', href: LUX_SERVICES, hint: 'Launch L1 / L2 rollups', external: true },
+      { id: 'wallets', label: 'Wallets', href: LUX_SERVICES, hint: 'MPC custody & keys', external: true },
+      { id: 'tokens', label: 'Tokens', href: LUX_SERVICES, hint: 'Tokenization & assets', external: true },
+      { id: 'indexer', label: 'Indexer', href: LUX_SERVICES, hint: 'Explorer & chain data', external: true },
+      { id: 'attestations', label: 'Attestations', href: LUX_SERVICES, hint: 'Verifiable provenance', external: true },
+    ],
+  },
+  {
+    id: 'apps',
+    label: 'Apps',
+    href: cat('Apps'),
+    tagline: 'Production apps built on the primitives.',
+    items: [
+      { id: 'chat', label: 'Chat', href: `${U.ai}/chat`, hint: 'Vertex AI Search & Conversation' },
+      { id: 'bot', label: 'Bot', href: `${U.ai}/bot`, hint: 'Multi-agent platform' },
+      { id: 'search', label: 'Search', href: `${U.ai}/search`, hint: 'Vertex AI Search' },
+      { id: 'crawl', label: 'Crawl', href: `${U.ai}/crawl`, hint: 'Web crawler' },
+      { id: 'studio', label: 'Studio', href: `${U.ai}/studio`, hint: 'Creative studio' },
+      { id: 'console', label: 'Console', href: `${U.ai}/console`, hint: 'Cloud Console' },
     ],
   },
 ]

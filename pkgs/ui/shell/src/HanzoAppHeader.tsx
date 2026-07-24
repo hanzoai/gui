@@ -21,6 +21,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoMark } from './mark'
 import { type HanzoAppBarAction } from './HanzoAppBar'
 import { ACCENT, ACCENT_SOFT, CHROME, FS, Z } from './theme'
+import { useShellFocusRing } from './focusRing'
 
 const HEADER_H = 56
 
@@ -83,9 +84,11 @@ export function HanzoAppHeader({
   className,
   logoHref = 'https://hanzo.ai',
 }: HanzoAppHeaderProps) {
+  useShellFocusRing()
   return (
     <header
       role="banner"
+      data-hanzo-shell=""
       className={className}
       data-product={productId}
       style={{

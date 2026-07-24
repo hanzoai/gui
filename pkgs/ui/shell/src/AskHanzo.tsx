@@ -18,6 +18,7 @@
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ACCENT, ACCENT_SOFT, CHROME, FS, Z } from './theme'
+import { useShellFocusRing } from './focusRing'
 
 export interface AskHanzoMessage {
   role: 'user' | 'assistant'
@@ -54,6 +55,7 @@ export function AskHanzo({
   greeting = 'Ask about products, models, APIs, or how to get started.',
   className,
 }: AskHanzoProps) {
+  useShellFocusRing()
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<AskHanzoMessage[]>([])
   const [draft, setDraft] = useState('')
@@ -62,6 +64,7 @@ export function AskHanzo({
 
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const logRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
   const restoreRef = useRef<HTMLElement | null>(null)
 
   const openPanel = useCallback(() => {
@@ -78,7 +81,29 @@ export function AskHanzo({
     if (!open) return
     requestAnimationFrame(() => inputRef.current?.focus())
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closePanel()
+      if (e.key === 'Escape') {
+        closePanel()
+        return
+      }
+      // Trap Tab within the panel while it is a modal dialog.
+      if (e.key === 'Tab') {
+        const root = panelRef.current
+        if (!root) return
+        const focusables = root.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])',
+        )
+        if (focusables.length === 0) return
+        const first = focusables[0]
+        const last = focusables[focusables.length - 1]
+        const active = document.activeElement
+        if (e.shiftKey && active === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
@@ -167,9 +192,11 @@ export function AskHanzo({
             style={{ position: 'fixed', inset: 0, zIndex: Z.overlay as unknown as number, background: 'rgba(0,0,0,0.45)' }}
           />
           <div
+            ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-label="Ask Hanzo"
+            data-hanzo-shell=""
             style={{
               position: 'fixed',
               top: 0,

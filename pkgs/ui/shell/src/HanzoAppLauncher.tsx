@@ -10,24 +10,24 @@
  * host's Tailwind/Tamagui/none setup.
  *
  * - Click (or ⌘K / Ctrl-K) opens a grid of every Hanzo app (icon + label).
- * - The current app is highlighted (orange ring, `aria-current`).
+ * - The current app is highlighted (monochrome brand accent ring, `aria-current`).
  * - Fully keyboard-accessible: trigger is a real button; the panel autofocuses
  *   the filter; ↑/↓/←/→/Home/End rove the tiles; Enter opens; Esc closes and
  *   returns focus to the trigger.
- * - The pinned app (Zach's personal portal) floats to a prominent top row.
+ * - Any `pinned` apps float to a prominent top row above the grid.
  *
  * Source of truth for the app list is `HANZO_APPS` (./hanzo-apps).
  */
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps'
+import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME } from './theme'
+import { useShellFocusRing } from './focusRing'
 
-const ORANGE = '#f97316'
-const ORANGE_SOFT = 'rgba(249,115,22,0.14)'
-const PANEL_BG = '#0b0b0f'
-const BORDER = 'rgba(255,255,255,0.09)'
-const FG = 'rgba(255,255,255,0.92)'
-const FG_DIM = 'rgba(255,255,255,0.45)'
-const HOVER_BG = 'rgba(255,255,255,0.06)'
+const PANEL_BG = CHROME.panel
+const BORDER = CHROME.border
+const FG = CHROME.fg
+const FG_DIM = CHROME.fgDim
+const HOVER_BG = CHROME.hover
 
 export interface HanzoAppLauncherProps {
   /** Highlights the matching tile + marks it `aria-current`. */
@@ -59,6 +59,7 @@ export function HanzoAppLauncher({
   size = 18,
   defaultOpen = false,
 }: HanzoAppLauncherProps) {
+  useShellFocusRing()
   const [open, setOpen] = useState(defaultOpen)
   const [hover, setHover] = useState(false)
   const [query, setQuery] = useState('')
@@ -190,10 +191,10 @@ export function HanzoAppLauncher({
           textDecoration: 'none',
           padding: wide ? '10px 12px' : '12px 8px',
           borderRadius: 12,
-          border: `1px solid ${isCurrent ? ORANGE : 'transparent'}`,
-          background: isCurrent ? ORANGE_SOFT : 'transparent',
+          border: `1px solid ${isCurrent ? ACCENT : 'transparent'}`,
+          background: isCurrent ? ACCENT_SOFT : 'transparent',
           color: FG,
-          outlineColor: ORANGE,
+          outlineColor: ACCENT,
           transition: 'background 120ms ease, border-color 120ms ease',
           justifyContent: wide ? 'flex-start' : 'center',
         }}
@@ -214,8 +215,8 @@ export function HanzoAppLauncher({
             height: wide ? 40 : 44,
             flexShrink: 0,
             borderRadius: 12,
-            background: isCurrent ? 'rgba(249,115,22,0.22)' : 'rgba(255,255,255,0.05)',
-            color: isCurrent ? ORANGE : FG,
+            background: isCurrent ? ACCENT_SOFTER : 'rgba(255,255,255,0.05)',
+            color: isCurrent ? ACCENT : FG,
           }}
         >
           <Icon size={wide ? 20 : 22} />
@@ -226,7 +227,7 @@ export function HanzoAppLauncher({
               fontSize: 13,
               fontWeight: 600,
               lineHeight: 1.2,
-              color: isCurrent ? ORANGE : FG,
+              color: isCurrent ? ACCENT : FG,
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -243,10 +244,12 @@ export function HanzoAppLauncher({
     )
   }
 
-  const triggerColor = open || hover ? ORANGE : 'currentColor'
+  // Resting color sits at the nav-link tier (not `currentColor`, which can
+  // resolve near-invisible on some hosts); hover/open lifts it to the accent.
+  const triggerColor = open || hover ? ACCENT : CHROME.fgMuted
 
   return (
-    <div ref={rootRef} style={{ position: 'relative', display: 'inline-flex' }}>
+    <div ref={rootRef} data-hanzo-shell="" style={{ position: 'relative', display: 'inline-flex' }}>
       <button
         ref={triggerRef}
         type="button"
@@ -267,7 +270,7 @@ export function HanzoAppLauncher({
           padding: 0,
           border: 'none',
           borderRadius: 9,
-          background: open ? ORANGE_SOFT : 'transparent',
+          background: open ? ACCENT_SOFT : 'transparent',
           color: triggerColor,
           cursor: 'pointer',
           transition: 'background 120ms ease, color 120ms ease',

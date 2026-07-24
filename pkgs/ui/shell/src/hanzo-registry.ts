@@ -107,6 +107,7 @@ export const U = {
   chat: 'https://hanzo.chat',
   app: 'https://hanzo.app',
   team: 'https://hanzo.team',
+  world: 'https://world.hanzo.ai',
   studio: 'https://studio.hanzo.ai',
   bot: 'https://hanzo.bot',
   cloud: 'https://cloud.hanzo.ai',
@@ -656,6 +657,28 @@ export const HANZO_SURFACES: HanzoSurface[] = [
       heading: 'Take models and agents from idea to production',
       actions: [
         { id: 'studio', label: 'Open Studio', href: U.studio },
+        { id: 'quickstart', label: 'Read quickstart', href: U.quickstarts },
+      ],
+    },
+  },
+  {
+    id: 'world',
+    host: 'world.hanzo.ai',
+    productId: 'world',
+    brandName: 'Hanzo World',
+    localNav: [
+      { id: 'globe', label: 'Globe', href: U.world },
+      { id: 'news', label: 'News', href: `${U.world}/news` },
+      { id: 'reports', label: 'Reports', href: `${U.world}/reports` },
+      { id: 'widgets', label: 'Widgets', href: `${U.world}/widgets` },
+      { id: 'docs', label: 'Docs', href: U.docs },
+    ],
+    secondaryCTA: { id: 'studio', label: 'Open Studio', href: U.studio },
+    primaryCTA: { id: 'world', label: 'Open World', href: U.world },
+    preFooter: {
+      heading: 'Build your world — realtime intelligence, reports, and widgets',
+      actions: [
+        { id: 'world', label: 'Open World', href: U.world },
         { id: 'quickstart', label: 'Read quickstart', href: U.quickstarts },
       ],
     },

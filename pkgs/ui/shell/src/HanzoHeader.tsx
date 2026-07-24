@@ -43,8 +43,12 @@ const HEADER_H = 60
  */
 function withoutProductsDup(nav: HanzoLink[], hasProducts: boolean): HanzoLink[] {
   if (!hasProducts) return nav
+  // Drop ONLY the canonical Products-hub entry (the one the rich mega-menu
+  // replaces) — never a legitimate deep link that merely ends in /products or
+  // happens to be labelled "Products". Match the hub id, or a "Products"-labelled
+  // link that also points at a /products hub (both, not either).
   return nav.filter(
-    (l) => !(l.id === 'products' || l.label === 'Products' || /\/products\/?$/.test(l.href)),
+    (l) => !(l.id === 'products' || (l.label === 'Products' && /\/products\/?$/.test(l.href))),
   )
 }
 

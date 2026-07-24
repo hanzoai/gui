@@ -1,12 +1,25 @@
 'use client'
 
-import { useState, useRef, type FormEvent, type ReactNode } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowUp, type LucideIcon } from 'lucide-react'
+/**
+ * ChatHero — the "What can I help with?" composer hero: a radial-gradient glow, a
+ * big headline, the rounded ask-composer that forwards its value to a chat
+ * target, and optional quick-action pills. Host owns submit + analytics.
+ */
+
+import { useState, useRef, type ReactNode, type ComponentType } from 'react'
+import { ArrowUp } from '@hanzogui/lucide-icons-2'
+import { styled, View } from '@hanzogui/web'
+import { XStack, YStack } from '@hanzogui/stacks'
+import { TextArea } from '@hanzogui/input'
+import { Txt, useHover, useIsWide, useReveal } from './styles'
+import { c, FONT, HERO_GLOW } from './tokens'
+
+/** An icon component compatible with @hanzogui/lucide-icons-2 (size + color props). */
+export type HeroIcon = ComponentType<{ size?: number; color?: string }>
 
 export interface HeroPill {
   label: string
-  icon: LucideIcon
+  icon: HeroIcon
   /** Submit the current composer value (carries the input into the chat target). */
   submit?: boolean
   /** Or link out to a surface. */
@@ -16,8 +29,7 @@ export interface HeroPill {
 export interface ChatHeroProps {
   /**
    * Called with the trimmed composer value on submit. The host owns navigation +
-   * analytics (e.g. forward to hanzo.chat, or drop into the local chat app). If
-   * omitted, submit navigates to `href` with the value appended as `?q=`.
+   * analytics. If omitted, submit navigates to `href` with the value appended as `?q=`.
    */
   onSubmit?: (value: string) => void
   /** Fallback submit target when `onSubmit` is not provided. */
@@ -34,6 +46,95 @@ export interface ChatHeroProps {
   footnote?: ReactNode
 }
 
+/* ── styled atoms ────────────────────────────────────────────────────────────── */
+
+const Section = styled(YStack, {
+  name: 'ChromeHero',
+  render: 'section',
+  position: 'relative',
+  overflow: 'hidden',
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingHorizontal: 24,
+  paddingVertical: 64,
+})
+
+const Glow = styled(View, {
+  name: 'ChromeHeroGlow',
+  position: 'absolute',
+  pointerEvents: 'none',
+  width: 640,
+  height: 640,
+  borderRadius: 9999,
+  opacity: 0.16,
+})
+
+const Composer = styled(XStack, {
+  name: 'ChromeComposer',
+  alignItems: 'flex-end',
+  gap: 8,
+  borderWidth: 1,
+  borderRadius: 28,
+  backgroundColor: c.field,
+  padding: 10,
+  paddingLeft: 20,
+  shadowColor: '#000',
+  shadowOpacity: 0.5,
+  shadowRadius: 40,
+  shadowOffset: { width: 0, height: 24 },
+  variants: {
+    focused: {
+      true: { borderColor: c.fieldLineHover },
+      false: { borderColor: c.fieldLine },
+    },
+  } as const,
+  defaultVariants: { focused: false },
+})
+
+const Send = styled(View, {
+  name: 'ChromeSend',
+  render: 'button',
+  cursor: 'pointer',
+  width: 36,
+  height: 36,
+  flexShrink: 0,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 9999,
+  backgroundColor: c.ctaBg,
+  hoverStyle: { opacity: 0.9 },
+})
+
+const PillFrame = styled(XStack, {
+  name: 'ChromePill',
+  render: 'button',
+  cursor: 'pointer',
+  alignItems: 'center',
+  gap: 8,
+  borderWidth: 1,
+  borderColor: c.line,
+  backgroundColor: c.fill,
+  borderRadius: 9999,
+  paddingHorizontal: 16,
+  paddingVertical: 8,
+  hoverStyle: { borderColor: c.fieldLine },
+})
+
+function Pill({ pill, onPress }: { pill: HeroPill; onPress: () => void }) {
+  const { hovered, onHoverIn, onHoverOut } = useHover()
+  const Icon = pill.icon
+  return (
+    <PillFrame onPress={onPress} onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
+      <Icon size={16} color={hovered ? c.fg : c.icon} />
+      <Txt kind="nav" color={hovered ? c.fg : c.fgMuted}>
+        {pill.label}
+      </Txt>
+    </PillFrame>
+  )
+}
+
+/* ── component ───────────────────────────────────────────────────────────────── */
+
 export function ChatHero({
   onSubmit,
   href,
@@ -44,7 +145,14 @@ export function ChatHero({
   footnote,
 }: ChatHeroProps) {
   const [value, setValue] = useState('')
+  const [focused, setFocused] = useState(false)
   const inputRef = useRef<HTMLTextAreaElement>(null)
+  const wide = useIsWide(640)
+
+  const revealH = useReveal({ y: 16 })
+  const revealForm = useReveal({ y: 16, delay: 60 })
+  const revealPills = useReveal({ y: 16, delay: 120 })
+  const revealFoot = useReveal({ delay: 200 })
 
   const forward = (v: string) => {
     const q = v.trim()
@@ -57,17 +165,11 @@ export function ChatHero({
     }
   }
 
-  const submit = (e: FormEvent) => {
-    e.preventDefault()
-    forward(value)
-  }
+  const submit = () => forward(value)
 
   const handlePill = (pill: HeroPill) => {
     onPill?.(pill)
-    if (pill.submit) {
-      forward(value)
-      return
-    }
+    if (pill.submit) return forward(value)
     if (pill.href) {
       window.location.href = pill.href
       return
@@ -76,92 +178,84 @@ export function ChatHero({
   }
 
   return (
-    <section className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center overflow-hidden px-4 py-16 sm:px-6 lg:px-8">
-      {/* Ambient glow (matches the site's radial-gradient hero). */}
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <div
-          className="absolute left-1/2 top-[38%] h-[640px] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.16]"
-          style={{ background: 'radial-gradient(circle, #ffffff 0%, transparent 70%)', filter: 'blur(120px)' }}
-        />
-      </div>
+    <Section style={{ minHeight: 'calc(100svh - 64px)' }}>
+      {/* Ambient glow */}
+      <Glow
+        style={{
+          left: '50%',
+          top: '38%',
+          transform: 'translate(-50%,-50%)',
+          background: HERO_GLOW,
+          filter: 'blur(120px)',
+        }}
+      />
 
-      <div className="relative z-10 mx-auto max-w-3xl">
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-center text-4xl font-semibold tracking-tight text-white sm:text-5xl"
+      <YStack width="100%" maxWidth={768} zIndex={10} alignItems="center">
+        <Txt
+          text="center"
+          fontSize={wide ? 48 : 36}
+          lineHeight={wide ? 52 : 40}
+          fontWeight="600"
+          letterSpacing={-1}
+          color={c.fg}
+          style={revealH}
         >
           {heading}
-        </motion.h1>
+        </Txt>
 
-        {/* Composer */}
-        <motion.form
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.06 }}
-          onSubmit={submit}
-          className="mx-auto mt-8 w-full"
-        >
-          <div className="flex items-end gap-2 rounded-[28px] border border-neutral-700 bg-neutral-900/70 p-2.5 pl-5 shadow-2xl transition-colors focus-within:border-neutral-500">
-            <textarea
+        {/* Composer — Enter (no shift) and the send button both submit; no native
+            <form> so the send button never triggers a page reload. */}
+        <View width="100%" marginTop={32} style={revealForm}>
+          <Composer focused={focused}>
+            <TextArea
               id="ask"
-              ref={inputRef}
-              rows={1}
+              ref={inputRef as any}
+              unstyled
               value={value}
-              onChange={(e) => setValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) submit(e)
+              onChangeText={setValue}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              onKeyPress={(e: any) => {
+                if (e?.nativeEvent?.key === 'Enter' && !e?.nativeEvent?.shiftKey) {
+                  e.preventDefault?.()
+                  submit()
+                }
               }}
               placeholder={placeholder}
+              placeholderTextColor={c.fgDim}
               aria-label={placeholder}
-              className="max-h-40 min-h-[28px] flex-1 resize-none bg-transparent py-1.5 text-[15px] text-white placeholder-neutral-500 outline-none"
+              flex={1}
+              minHeight={28}
+              maxHeight={160}
+              paddingVertical={6}
+              backgroundColor="transparent"
+              borderWidth={0}
+              color={c.fg}
+              fontFamily={FONT}
+              fontSize={15}
+              style={{ resize: 'none', outline: 'none' }}
             />
-            <button
-              type="submit"
-              aria-label="Send"
-              className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white text-black transition-opacity hover:opacity-90"
-            >
-              <ArrowUp className="h-5 w-5" />
-            </button>
-          </div>
-        </motion.form>
+            <Send onPress={submit} aria-label="Send">
+              <ArrowUp size={20} color={c.ctaFg} />
+            </Send>
+          </Composer>
+        </View>
 
         {/* Quick-action pills */}
-        {pills && pills.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.12 }}
-            className="mt-5 flex flex-wrap items-center justify-center gap-2"
-          >
-            {pills.map((pill) => {
-              const Icon = pill.icon
-              return (
-                <button
-                  key={pill.label}
-                  onClick={() => handlePill(pill)}
-                  className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/50 px-4 py-2 text-sm text-neutral-300 transition-colors hover:border-neutral-700 hover:text-white"
-                >
-                  <Icon className="h-4 w-4 text-neutral-400" />
-                  {pill.label}
-                </button>
-              )
-            })}
-          </motion.div>
-        )}
+        {pills && pills.length > 0 ? (
+          <XStack marginTop={20} flexWrap="wrap" alignItems="center" justifyContent="center" gap={8} style={revealPills}>
+            {pills.map((pill) => (
+              <Pill key={pill.label} pill={pill} onPress={() => handlePill(pill)} />
+            ))}
+          </XStack>
+        ) : null}
 
-        {footnote && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="mt-6 text-center text-sm text-neutral-500"
-          >
+        {footnote ? (
+          <Txt kind="dim" text="center" marginTop={24} style={revealFoot}>
             {footnote}
-          </motion.p>
-        )}
-      </div>
-    </section>
+          </Txt>
+        ) : null}
+      </YStack>
+    </Section>
   )
 }

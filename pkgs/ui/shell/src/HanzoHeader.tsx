@@ -31,8 +31,22 @@ import {
 } from './hanzo-registry'
 import { ACCENT, CHROME, FS, Z } from './theme'
 import { useIsMobile } from './useMediaQuery'
+import { useShellFocusRing } from './focusRing'
 
 const HEADER_H = 60
+
+/**
+ * Drop the local-nav item that duplicates the Products hub — but only when the
+ * rich Products mega-menu is present (`hasProducts`), so a surface always has
+ * exactly ONE Products affordance (the `Products ⌄` trigger). Matches by id,
+ * label, or a `/products` href tail.
+ */
+function withoutProductsDup(nav: HanzoLink[], hasProducts: boolean): HanzoLink[] {
+  if (!hasProducts) return nav
+  return nav.filter(
+    (l) => !(l.id === 'products' || l.label === 'Products' || /\/products\/?$/.test(l.href)),
+  )
+}
 
 export interface HanzoHeaderProps {
   /** A `HanzoSurface`, or a surface id / hostname to resolve one. */
@@ -62,6 +76,12 @@ export interface HanzoHeaderProps {
    * before `account`. A richer alternative to `account`.
    */
   identitySlot?: React.ReactNode
+  /**
+   * Destination for the DEFAULT "Sign in" affordance rendered when `account`
+   * is omitted (so surfaces don't diverge between "Sign in" / "Log in"). The
+   * `account` prop always overrides it. Defaults to `#`.
+   */
+  signInHref?: string
   className?: string
 }
 
@@ -80,8 +100,10 @@ export function HanzoHeader({
   currentHref,
   brandSlot,
   identitySlot,
+  signInHref = '#',
   className,
 }: HanzoHeaderProps) {
+  useShellFocusRing()
   const s = resolveSurface(surface)
   const isMobile = useIsMobile(900)
   const [meetOpen, setMeetOpen] = useState(false)
@@ -92,6 +114,12 @@ export function HanzoHeader({
 
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const home = `https://${s.host}`
+  // Exactly one Products affordance: with the rich menu present, drop the
+  // duplicate localNav "Products" link.
+  const localNav = withoutProductsDup(s.localNav, hasProducts)
+  // Standard account affordance: the surface-supplied `account`, else a default
+  // "Sign in" so surfaces can't drift between "Sign in" / "Log in".
+  const accountNode = account ?? <DefaultAccount href={signInHref} />
 
   // Close everything on Esc when a mobile sheet is open.
   useEffect(() => {
@@ -119,6 +147,7 @@ export function HanzoHeader({
   return (
     <header
       role="banner"
+      data-hanzo-shell=""
       className={className}
       style={{
         position: 'sticky',
@@ -254,7 +283,7 @@ export function HanzoHeader({
 
           {/* ── Local nav ── */}
           <nav aria-label={`${s.brandName} navigation`} style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
-            {s.localNav.map((link) => (
+            {localNav.map((link) => (
               <NavLink key={link.id} link={link} />
             ))}
           </nav>
@@ -265,7 +294,7 @@ export function HanzoHeader({
           <CTA link={s.secondaryCTA} variant="ghost" />
           <CTA link={s.primaryCTA} variant="filled" />
           {identitySlot}
-          {account}
+          {accountNode}
         </>
       )}
 
@@ -295,7 +324,7 @@ export function HanzoHeader({
       {isMobile && mobileOpen ? (
         <MobileSheet
           surface={s}
-          account={account}
+          account={accountNode}
           identity={identitySlot}
           productsTaxonomy={hasProducts ? productsTaxonomy : undefined}
           currentHref={currentHref}
@@ -438,6 +467,8 @@ function MobileSheet({
   onClose: () => void
   onMeet: () => void
 }) {
+  const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
+  const localNav = withoutProductsDup(surface.localNav, hasProducts)
   return (
     <>
       <div
@@ -488,7 +519,7 @@ function MobileSheet({
         </button>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 12 }}>
-          {surface.localNav.map((link) => (
+          {localNav.map((link) => (
             <a
               key={link.id}
               href={link.href}
@@ -507,48 +538,17 @@ function MobileSheet({
           ))}
         </div>
 
-        {/* Rich Products taxonomy — same categories, stacked for mobile. */}
-        {productsTaxonomy && productsTaxonomy.length > 0 ? (
-          <div style={{ marginBottom: 12, borderTop: `1px solid ${CHROME.border}`, paddingTop: 12 }}>
-            {productsTaxonomy.map((category) => (
-              <div key={category.id} style={{ marginBottom: 12 }}>
-                <a
-                  href={category.href}
-                  onClick={onClose}
-                  style={{
-                    display: 'block',
-                    marginBottom: 4,
-                    padding: '0 12px',
-                    textDecoration: 'none',
-                    fontSize: FS.xs,
-                    fontWeight: 700,
-                    letterSpacing: 0.6,
-                    textTransform: 'uppercase',
-                    color: CHROME.fgDim,
-                  }}
-                >
-                  {category.label}
-                </a>
-                {category.items.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noreferrer noopener' : undefined}
-                    onClick={onClose}
-                    style={{
-                      display: 'block',
-                      padding: '9px 12px',
-                      borderRadius: 10,
-                      textDecoration: 'none',
-                      fontSize: FS.sm,
-                      color: item.href === currentHref ? ACCENT : CHROME.fgMuted,
-                    }}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
+        {/* Rich Products taxonomy — collapsed accordions so mobile isn't an
+            endless scroll (mirrors the "Meet Hanzo" collapsible pattern). */}
+        {hasProducts ? (
+          <div style={{ marginBottom: 12, borderTop: `1px solid ${CHROME.border}`, paddingTop: 4 }}>
+            {productsTaxonomy!.map((category) => (
+              <MobileProductsCategory
+                key={category.id}
+                category={category}
+                currentHref={currentHref}
+                onClose={onClose}
+              />
             ))}
           </div>
         ) : null}
@@ -576,6 +576,121 @@ function MobileSheet({
         ) : null}
       </div>
     </>
+  )
+}
+
+/** One collapsed-by-default Products category (mobile accordion section). */
+function MobileProductsCategory({
+  category,
+  currentHref,
+  onClose,
+}: {
+  category: ProductCategory
+  currentHref?: string
+  onClose: () => void
+}) {
+  const [open, setOpen] = useState(false)
+  const panelId = `hanzo-mprod-${category.id}`
+  return (
+    <div style={{ borderBottom: `1px solid ${CHROME.borderSoft}` }}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls={open ? panelId : undefined}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          padding: '12px',
+          border: 'none',
+          background: 'transparent',
+          color: CHROME.fg,
+          fontSize: FS.sm,
+          fontWeight: 700,
+          letterSpacing: 0.6,
+          textTransform: 'uppercase',
+          fontFamily: 'inherit',
+          cursor: 'pointer',
+        }}
+      >
+        {category.label}
+        <Chevron open={open} />
+      </button>
+      {open ? (
+        <div id={panelId} style={{ paddingBottom: 6 }}>
+          <a
+            href={category.href}
+            onClick={onClose}
+            style={{
+              display: 'block',
+              padding: '9px 12px',
+              borderRadius: 10,
+              textDecoration: 'none',
+              fontSize: FS.sm,
+              fontWeight: 600,
+              color: category.href === currentHref ? ACCENT : CHROME.fg,
+            }}
+          >
+            All {category.label}
+          </a>
+          {category.items.map((item) => (
+            <a
+              key={item.id}
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noreferrer noopener' : undefined}
+              onClick={onClose}
+              style={{
+                display: 'block',
+                padding: '9px 12px',
+                borderRadius: 10,
+                textDecoration: 'none',
+                fontSize: FS.sm,
+                color: item.href === currentHref ? ACCENT : CHROME.fgMuted,
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+/**
+ * Default account affordance — a text "Sign in" link styled like the shell
+ * chrome, rendered when `account` is omitted so every surface reads identically.
+ */
+function DefaultAccount({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        flexShrink: 0,
+        height: 34,
+        padding: '0 10px',
+        borderRadius: 9,
+        textDecoration: 'none',
+        fontSize: FS.sm,
+        fontWeight: 600,
+        whiteSpace: 'nowrap',
+        color: CHROME.fg,
+        transition: 'background 120ms ease',
+      }}
+      onMouseEnter={(e) => {
+        ;(e.currentTarget as HTMLElement).style.background = CHROME.hover
+      }}
+      onMouseLeave={(e) => {
+        ;(e.currentTarget as HTMLElement).style.background = 'transparent'
+      }}
+    >
+      Sign in
+    </a>
   )
 }
 

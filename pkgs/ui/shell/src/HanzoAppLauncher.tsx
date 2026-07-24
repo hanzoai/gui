@@ -21,6 +21,7 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps'
 import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME } from './theme'
+import { useShellFocusRing } from './focusRing'
 
 const PANEL_BG = CHROME.panel
 const BORDER = CHROME.border
@@ -58,6 +59,7 @@ export function HanzoAppLauncher({
   size = 18,
   defaultOpen = false,
 }: HanzoAppLauncherProps) {
+  useShellFocusRing()
   const [open, setOpen] = useState(defaultOpen)
   const [hover, setHover] = useState(false)
   const [query, setQuery] = useState('')
@@ -242,10 +244,12 @@ export function HanzoAppLauncher({
     )
   }
 
-  const triggerColor = open || hover ? ACCENT : 'currentColor'
+  // Resting color sits at the nav-link tier (not `currentColor`, which can
+  // resolve near-invisible on some hosts); hover/open lifts it to the accent.
+  const triggerColor = open || hover ? ACCENT : CHROME.fgMuted
 
   return (
-    <div ref={rootRef} style={{ position: 'relative', display: 'inline-flex' }}>
+    <div ref={rootRef} data-hanzo-shell="" style={{ position: 'relative', display: 'inline-flex' }}>
       <button
         ref={triggerRef}
         type="button"

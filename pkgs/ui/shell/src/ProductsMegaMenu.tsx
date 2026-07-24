@@ -27,6 +27,7 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import { type HanzoLink, type ProductCategory } from './hanzo-registry'
 import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, Z } from './theme'
+import { useShellFocusRing } from './focusRing'
 
 export interface ProductsMegaMenuProps {
   /** The category taxonomy to render (≈10 categories, ≈6 leaves each). */
@@ -58,6 +59,7 @@ export function ProductsMegaMenu({
 }: ProductsMegaMenuProps) {
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const restoreRef = useRef<HTMLElement | null>(null)
+  useShellFocusRing()
 
   const close = useCallback(() => onClose?.(), [onClose])
 
@@ -130,6 +132,7 @@ export function ProductsMegaMenu({
       />
       <div
         id={id}
+        data-hanzo-shell=""
         role="dialog"
         aria-modal="false"
         aria-label="Products"
@@ -165,7 +168,7 @@ export function ProductsMegaMenu({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
               gap: '20px 24px',
             }}
           >
@@ -319,13 +322,14 @@ function LeafRow({
       {link.hint ? (
         <span
           style={{
-            display: 'block',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            whiteSpace: 'normal',
             fontSize: FS.xs,
             lineHeight: 1.25,
             color: CHROME.fgDim,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
           }}
         >
           {link.hint}

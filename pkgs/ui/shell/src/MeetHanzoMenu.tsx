@@ -31,6 +31,8 @@ import {
   type HanzoProduct,
 } from './hanzo-registry'
 import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, Z } from './theme'
+import { useShellFocusRing } from './focusRing'
+import { useMediaQuery } from './useMediaQuery'
 
 export interface MeetHanzoMenuProps {
   /** Controlled visibility. When false/undefined the menu renders nothing. */
@@ -57,6 +59,10 @@ export function MeetHanzoMenu({
   const panelRef = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const restoreRef = useRef<HTMLElement | null>(null)
+  useShellFocusRing()
+  // Flagship cards render as an even 3×2 grid on desktop; 2-wide on narrow
+  // viewports — six cards always fill their rows (no empty trailing cells).
+  const narrow = useMediaQuery('(max-width: 720px)')
 
   const close = useCallback(() => onClose?.(), [onClose])
 
@@ -133,6 +139,7 @@ export function MeetHanzoMenu({
       <div
         ref={panelRef}
         id={id}
+        data-hanzo-shell=""
         role="dialog"
         aria-modal="false"
         aria-label="Meet Hanzo"
@@ -170,7 +177,7 @@ export function MeetHanzoMenu({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gridTemplateColumns: narrow ? 'repeat(2, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))',
               gap: 10,
               marginBottom: 24,
             }}

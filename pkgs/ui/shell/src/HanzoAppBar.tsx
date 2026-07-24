@@ -20,6 +20,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoAppLauncher } from './HanzoAppLauncher'
 import { HANZO_APPS, type HanzoApp } from './hanzo-apps'
 import { ACCENT, ACCENT_TINT, CHROME } from './theme'
+import { useShellFocusRing } from './focusRing'
 
 const BAR_BG = CHROME.bg
 const BORDER = 'rgba(255,255,255,0.08)'
@@ -84,12 +85,14 @@ export function HanzoAppBar({
   quickSwitchKey = 'k',
   sticky = true,
 }: HanzoAppBarProps) {
+  useShellFocusRing()
   const current = apps.find((a) => a.id === currentApp)
   const label = currentAppLabel ?? current?.label ?? titleCase(currentApp)
 
   return (
     <header
       role="banner"
+      data-hanzo-shell=""
       style={{
         position: sticky ? 'sticky' : 'relative',
         top: 0,

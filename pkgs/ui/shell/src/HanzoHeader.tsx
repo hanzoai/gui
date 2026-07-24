@@ -181,10 +181,11 @@ export function HanzoHeader({
             color: CHROME.fg,
           }}
         >
-          <HanzoMark size={24} />
-          <span style={{ fontSize: FS.base, fontWeight: 800, letterSpacing: -0.2, whiteSpace: 'nowrap' }}>
-            {s.brandName}
-          </span>
+          {/* Just the H mark — the product wordmark is dropped so the lockup stays
+              tight (H → Meet Hanzo), matching the compact app-shell register. The
+              current product is still named inside the Meet Hanzo menu (highlighted)
+              and by the page itself, so the wordmark here was redundant chrome. */}
+          <HanzoMark size={22} />
         </a>
       )}
 

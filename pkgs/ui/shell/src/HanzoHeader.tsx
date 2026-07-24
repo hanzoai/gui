@@ -197,6 +197,7 @@ export function HanzoHeader({ surface, account, onAskHanzo, className }: HanzoHe
       {isMobile && mobileOpen ? (
         <MobileSheet
           surface={s}
+          account={account}
           top={HEADER_H}
           onClose={() => setMobileOpen(false)}
           onMeet={() => {
@@ -319,11 +320,13 @@ function IconButton({
 
 function MobileSheet({
   surface,
+  account,
   top,
   onClose,
   onMeet,
 }: {
   surface: HanzoSurface
+  account?: React.ReactNode
   top: number
   onClose: () => void
   onMeet: () => void
@@ -401,6 +404,22 @@ function MobileSheet({
           <CTA link={surface.secondaryCTA} variant="ghost" />
           <CTA link={surface.primaryCTA} variant="filled" />
         </div>
+
+        {/* Account controls (Sign In / avatar) stay reachable on mobile. */}
+        {account ? (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              marginTop: 12,
+              paddingTop: 12,
+              borderTop: `1px solid ${CHROME.border}`,
+            }}
+          >
+            {account}
+          </div>
+        ) : null}
       </div>
     </>
   )

@@ -1,6 +1,22 @@
-// User & Org types live in @hanzo/iam (single canonical source).
-// Re-export here so existing TenantUser / TenantOrg imports keep working.
-export type { User as TenantUser, Organization as TenantOrg } from '@hanzo/iam'
+// Nav view-model types for the shell's tenant surfaces. These are the shell's
+// OWN display shape — what the app-switcher / org dropdown actually render —
+// intentionally decoupled from @hanzo/iam's billing/identity DTOs. The shell
+// needs a lightweight view, not the full IAM record; a host maps its IAM user
+// into this shape at the boundary.
+export type TenantUser = {
+  id: string
+  name?: string
+  displayName?: string
+  email?: string
+  avatar?: string
+}
+
+export type TenantOrg = {
+  id: string
+  name: string
+  slug?: string
+  role?: string
+}
 
 export type TenantApp = {
   id: string

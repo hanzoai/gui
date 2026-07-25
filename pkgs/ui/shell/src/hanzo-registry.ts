@@ -127,7 +127,6 @@ export const U = {
   // Install
   desktop: 'https://hanzo.ai/desktop',
   extension: 'https://hanzo.ai/extension',
-  vscode: 'https://hanzo.ai/vscode',
   cli: 'https://hanzo.ai/cli',
   sdks: 'https://hanzo.ai/sdks',
   downloads: 'https://hanzo.ai/download',
@@ -143,7 +142,6 @@ export const U = {
   // owns the feed + its moderation. (Replaces the old hanzo.ai/showcase, which was
   // just the hero chat re-skinned.)
   community: 'https://hanzo.app/community',
-  changelog: 'https://hanzo.ai/changelog',
   research: 'https://hanzo.ai/research',
   status: 'https://status.hanzo.ai',
   support: 'https://hanzo.ai/support',
@@ -224,7 +222,6 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
     items: [
       { id: 'desktop', label: 'Desktop app', href: U.desktop },
       { id: 'extension', label: 'Browser extension', href: U.extension },
-      { id: 'vscode', label: 'VS Code', href: U.vscode },
       { id: 'cli', label: 'Hanzo CLI', href: U.cli },
       { id: 'sdks', label: 'SDKs', href: U.sdks },
       { id: 'downloads', label: 'All downloads', href: U.downloads },
@@ -238,7 +235,6 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'quickstarts', label: 'Quickstarts', href: U.quickstarts },
       { id: 'learn', label: 'Learn', href: U.learn },
       { id: 'community', label: 'Community', href: U.community },
-      { id: 'changelog', label: 'Changelog', href: U.changelog },
       { id: 'status', label: 'Status', href: U.status },
       { id: 'support', label: 'Support', href: U.support },
     ],
@@ -451,7 +447,6 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
     items: [
       { id: 'desktop', label: 'Desktop app', href: U.desktop },
       { id: 'extension', label: 'Browser extension', href: U.extension },
-      { id: 'vscode', label: 'VS Code', href: U.vscode },
       { id: 'cli', label: 'Hanzo CLI', href: U.cli },
       { id: 'sdks', label: 'SDKs', href: U.sdks },
       { id: 'downloads', label: 'All downloads', href: U.downloads },
@@ -475,7 +470,6 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
       { id: 'quickstarts', label: 'Quickstarts', href: U.quickstarts },
       { id: 'learn', label: 'Learn', href: U.learn },
       { id: 'community', label: 'Community', href: U.community },
-      { id: 'changelog', label: 'Changelog', href: U.changelog },
       { id: 'research', label: 'Research', href: U.research },
       { id: 'support', label: 'Support', href: U.support },
     ],

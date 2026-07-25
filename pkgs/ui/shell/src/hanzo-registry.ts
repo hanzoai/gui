@@ -134,9 +134,9 @@ export const U = {
 
   // Developers / resources
   docs: 'https://docs.hanzo.ai',
-  apiRef: 'https://docs.hanzo.ai/api-reference',
-  cliRef: 'https://docs.hanzo.ai/cli',
-  quickstarts: 'https://docs.hanzo.ai/quickstart',
+  apiRef: 'https://docs.hanzo.ai/docs/api',
+  cliRef: 'https://docs.hanzo.ai/docs/cli',
+  quickstarts: 'https://docs.hanzo.ai/docs/getting-started',
   learn: 'https://hanzo.ai/learn',
   // Community = the hub for everything built on Hanzo: templates + apps shipped on
   // hanzo.app + the hanzo-apps GitHub org. Lives on hanzo.app (the builder), which
@@ -623,10 +623,13 @@ export const HANZO_SURFACES: HanzoSurface[] = [
     productId: 'bot',
     brandName: 'Hanzo Bot',
     localNav: [
-      { id: 'product', label: 'Product', href: `${U.bot}/product` },
-      { id: 'channels', label: 'Channels', href: `${U.bot}/channels` },
-      { id: 'templates', label: 'Templates', href: `${U.bot}/templates` },
+      // These point at hanzo.bot's real pages. /product, /channels and
+      // /templates never existed there, so the header shipped three 404s;
+      // the site calls the same things platform, integrations and skills.
+      { id: 'platform', label: 'Platform', href: `${U.bot}/platform` },
+      { id: 'skills', label: 'Skills', href: `${U.bot}/skills` },
       { id: 'integrations', label: 'Integrations', href: `${U.bot}/integrations` },
+      { id: 'showcase', label: 'Showcase', href: `${U.bot}/showcase` },
       { id: 'pricing', label: 'Pricing', href: U.pricing },
     ],
     secondaryCTA: { id: 'docs', label: 'Documentation', href: U.docs },
@@ -635,7 +638,7 @@ export const HANZO_SURFACES: HanzoSurface[] = [
       heading: 'Put an intelligent agent in every channel',
       actions: [
         { id: 'createbot', label: 'Create bot', href: U.bot },
-        { id: 'channels', label: 'View channels', href: `${U.bot}/channels` },
+        { id: 'integrations', label: 'View integrations', href: `${U.bot}/integrations` },
       ],
     },
   },

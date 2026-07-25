@@ -123,6 +123,66 @@ const response = await authFetch('/api/some-endpoint', {
 **Why this matters:** Cookies alone are not reliable for auth in production due to cross-origin/SameSite issues. The `authFetch` helper automatically includes the Authorization header with the user's access token. All payment/subscription endpoints require this.
 
 
+## Tailwind → gui migration (marketing surfaces)
+
+`@hanzogui/chrome` is the shared public-site chrome (`HanzoNav`, `HanzoFooter`,
+`ChatHero`, `HanzoWidget`) in Tamagui `styled()` + monochrome tokens. It compiles
+and ships `dist/{esm,cjs,jsx}` + `types/`. It is the bridgehead: a surface adopts
+the chrome first, then its page bodies.
+
+**Read `pkgs/ui/chrome/src/styles.tsx`'s header before touching a chrome file.**
+It states the contract this package is built under — no host config augmentation —
+and every build break so far has been a violation of it: element type is `render`
+(not `tag`); hover is DOM `onMouseEnter`/`onMouseLeave` (not `onHoverIn`); only
+`Text` takes `color`; style props are LONGHAND (`textAlign`, `paddingHorizontal` —
+the `text`/`px` shorthands live in augmentation that is absent here); anchors
+forward `href` through the `linkable` `.styleable` wrapper. Two type consequences:
+`GetProps<F>` requires `F extends StylableComponent`, and a raw-hex token handed to
+a strict RN colour prop needs `as ColorTokens`.
+
+### What the migration actually is
+
+Measured on hanzo.ai (the largest surface): **126 marketing pages, 6,720
+`className=` sites, 29,845 utility tokens, 671 distinct utilities**, and **zero**
+imports of `@hanzo/ui` or `@hanzogui/*` in the page bodies. So this is not a
+shadcn component swap — the pages are raw Tailwind. The vocabulary is regular
+though: 30 utilities cover **51.4%** of all tokens, and colours are already
+semantic (`text-foreground`, not hex), so the colour layer is a rename.
+
+### Primitive map
+
+| Tailwind (count) | gui equivalent |
+|---|---|
+| `text-foreground` 1091 · `text-muted-foreground` 859 · `text-foreground/80` 244 | `Txt` + `color={c.fg / c.fgMuted / c.fgDim}` (`chrome/src/tokens.ts`) |
+| `border-border` 829 · `border` 795 | `borderColor={c.line}` · `borderWidth={1}` |
+| `flex` 760 · `items-center` 887 · `justify-center` 512 | `XStack`/`YStack` + `alignItems` / `justifyContent` |
+| `inline-flex` 484 | `XStack display="inline-flex"` |
+| `grid` 220 | `YStack` + explicit rows, or `View display="grid"` |
+| `mx-auto` 705 | `marginHorizontal="auto"` |
+| `px-4` 542 · `py-3` 347 | `paddingHorizontal={16}` · `paddingVertical={12}` (longhand) |
+| `gap-2` 509 · `gap-4` 239 | `gap={8}` · `gap={16}` |
+| `mb-4` 507 | `marginBottom={16}` |
+| `text-sm` 693 · `text-xl` 287 · `text-2xl` 323 | `Txt kind=` — the type scale in `chrome/src/styles.tsx` |
+| `font-medium` 676 · `font-bold` 560 | `fontWeight="500"` / `"700"` |
+| `text-center` 410 | `textAlign="center"` (never `text=`) |
+| `rounded-full` 625 · `rounded-xl` 391 | `borderRadius={999}` · `borderRadius={12}` |
+| `transition-colors` 372 | `useHover()` + explicit `color` on the child `Text` |
+| `relative` 268 · `absolute` 256 · `overflow-hidden` 251 | `position` / `overflow` props |
+| `h-4 w-4` 357/352 | icon `size={16}` (lucide props, unchanged) |
+
+### Order
+
+1. Adopt `@hanzogui/chrome` on a surface (nav/footer/hero) — the page bodies keep
+   working untouched, so this is independently shippable.
+2. Extract the repeated page shapes. 17 hanzo.ai pages already open with a
+   byte-identical hero block; those become one primitive, not 17 rewrites.
+3. Migrate bodies shape-by-shape, not page-by-page. Tailwind leaves as a
+   consequence of the last shape moving, which is the only point it can be
+   removed from the build.
+
+Do not sed 6,720 class strings. The tail (671 − 30 utilities) is where the layout
+bugs hide, and a marketing site is visually regression-tested by eye.
+
 ---
 
 ## Additional notes (merged from LLM.md)

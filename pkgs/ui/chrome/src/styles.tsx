@@ -18,7 +18,7 @@
  */
 
 import { useEffect, useState, type CSSProperties, type FC } from 'react'
-import { styled, Text, View, type GetProps } from '@hanzogui/web'
+import { styled, Text, View, type GetProps, type StylableComponent } from '@hanzogui/web'
 import { XStack, YStack } from '@hanzogui/stacks'
 import { c, FONT, LG } from './tokens'
 
@@ -79,7 +79,7 @@ function linkable(Frame: any): any {
 }
 
 /** Type a linkable frame as a component that also accepts href/target/rel. */
-export type Link<F> = FC<GetProps<F> & AnchorExtra>
+export type Link<F extends StylableComponent> = FC<GetProps<F> & AnchorExtra>
 
 /* ── layout re-exports ─────────────────────────────────────────────────────── */
 export { XStack, YStack, View, linkable }

@@ -188,15 +188,15 @@ const BLUR_XL = { backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px
 /* ── nav triggers ──────────────────────────────────────────────────────────── */
 
 function NavItemTrigger({ item, active, onOpen }: { item: NavItem; active: boolean; onOpen: () => void }) {
-  const { hovered, onHoverIn, onHoverOut } = useHover()
+  const { hovered, onMouseEnter, onMouseLeave } = useHover()
   if (item.href) {
     return (
       <NavLinkFrame
         href={item.href}
         target="_blank"
         rel="noreferrer noopener"
-        onHoverIn={onHoverIn}
-        onHoverOut={onHoverOut}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         <Txt kind="nav" color={hovered ? c.fg : c.fgMuted}>
           {item.label}
@@ -208,11 +208,11 @@ function NavItemTrigger({ item, active, onOpen }: { item: NavItem; active: boole
   const lit = active || hovered
   return (
     <TriggerFrame
-      onHoverIn={() => {
-        onHoverIn()
+      onMouseEnter={() => {
+        onMouseEnter()
         onOpen()
       }}
-      onHoverOut={onHoverOut}
+      onMouseLeave={onMouseLeave}
       onFocus={onOpen}
     >
       <Txt kind="nav" color={lit ? c.fg : c.fgMuted}>
@@ -371,7 +371,7 @@ export function HanzoNav({
 
   return (
     <>
-      <Bar onHoverOut={scheduleClose} style={BLUR}>
+      <Bar onMouseLeave={scheduleClose} style={BLUR}>
         <Inner>
           {/* Left: logo + desktop nav */}
           <BrandLink href={homeHref} aria-label={`${brand} home`}>
@@ -403,8 +403,8 @@ export function HanzoNav({
             ) : null}
 
             {showSm && loginLinks.length > 0 ? (
-              <DropWrap onHoverIn={() => setLoginOpen(true)} onHoverOut={() => setLoginOpen(false)}>
-                <TriggerFrame onHoverIn={loginHover.onHoverIn} onHoverOut={loginHover.onHoverOut}>
+              <DropWrap onMouseEnter={() => setLoginOpen(true)} onMouseLeave={() => setLoginOpen(false)}>
+                <TriggerFrame onMouseEnter={loginHover.onMouseEnter} onMouseLeave={loginHover.onMouseLeave}>
                   <Txt kind="nav" color={loginLit ? c.fg : c.fgMuted}>
                     {login?.label ?? 'Log in'}
                   </Txt>
@@ -414,7 +414,7 @@ export function HanzoNav({
               </DropWrap>
             ) : null}
 
-            <DropWrap onHoverIn={() => setTryOpen(true)} onHoverOut={() => setTryOpen(false)}>
+            <DropWrap onMouseEnter={() => setTryOpen(true)} onMouseLeave={() => setTryOpen(false)}>
               <Cta href={primary.href} onPress={onTry} aria-haspopup="true">
                 <Txt kind="nav" color={c.ctaFg} fontWeight="500">
                   {primary.label}

@@ -194,3 +194,31 @@ bugs hide, and a marketing site is visually regression-tested by eye.
 <h3 align="center">
   Style library, design system, composable components, and more.
 </h3>
+
+---
+
+## Telemetry — `@hanzogui/telemetry` (pkgs/telemetry)
+
+The ONE zero-config telemetry surface. `<TelemetryProvider>{children}</TelemetryProvider>`
+with no props wires all three planes; `@hanzo/ui/telemetry` re-exports it unchanged
+so the component layer needs no second definition.
+
+- **One front door.** Everything (pageviews, product events, exceptions,
+  interaction capture) is POSTed to `https://api.hanzo.ai/v1/event`. Cloud lenses
+  that one stream into `sentry.hanzo.ai` (errors + session capture),
+  `analytics.hanzo.ai` (web analytics) and `insights.hanzo.ai` (product insights,
+  incl. `analytics_errors`). Those three hosts are DASHBOARDS — never ingest
+  endpoints, never configured in a client.
+- **Layering.** `@hanzo/event` = the client (batching, attribution, the wire).
+  `@hanzo/observe` = the capture engine (semantics, redaction, playback), loaded
+  with a dynamic `import()` inside an idle callback so it cannot cost LCP.
+  `@hanzogui/telemetry` = the zero-config policy that composes them. Mechanism
+  below, policy here, one of each.
+- **Privacy.** DNT/GPC honored by default with no app code; an explicit
+  `setConsent()` choice outranks the browser in both directions; nothing is
+  written to storage while telemetry is refused.
+- **Guarantees.** SSR-safe (a DOM is required before anything is collected),
+  fail-soft (every method swallows its own errors), no CDN script, ESM,
+  `sideEffects: false`.
+- Tests: `cd pkgs/telemetry && bun run test` (24 tests — one-door URL, three-lens
+  wire, DNT/GPC, consent precedence, SPA route counting, error boundary, SSR).

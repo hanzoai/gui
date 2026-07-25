@@ -185,7 +185,6 @@ export const HANZO_APPS: HanzoApp[] = [
   // ── Install ──
   { id: 'desktop', label: 'Desktop', href: U.desktop, description: 'Desktop app', icon: MonitorIcon, category: 'Install' },
   { id: 'extension', label: 'Browser', href: U.extension, description: 'Browser extension', icon: PuzzleIcon, category: 'Install' },
-  { id: 'vscode', label: 'VS Code', href: U.vscode, description: 'VS Code extension', icon: CodeIcon, category: 'Install' },
   { id: 'cli', label: 'CLI', href: U.cli, description: 'Command-line interface', icon: TerminalIcon, category: 'Install' },
 
   // ── Account ──

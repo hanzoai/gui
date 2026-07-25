@@ -8,7 +8,7 @@
 
 import { useState, useRef, type ReactNode, type ComponentType } from 'react'
 import { ArrowUp } from '@hanzogui/lucide-icons-2'
-import { styled, View } from '@hanzogui/web'
+import { styled, View, type ColorTokens } from '@hanzogui/web'
 import { XStack, YStack } from '@hanzogui/stacks'
 import { TextArea } from '@hanzogui/input'
 import { Txt, useHover, useIsWide, useReveal } from './styles'
@@ -121,10 +121,10 @@ const PillFrame = styled(XStack, {
 })
 
 function Pill({ pill, onPress }: { pill: HeroPill; onPress: () => void }) {
-  const { hovered, onHoverIn, onHoverOut } = useHover()
+  const { hovered, onMouseEnter, onMouseLeave } = useHover()
   const Icon = pill.icon
   return (
-    <PillFrame onPress={onPress} onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
+    <PillFrame onPress={onPress} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <Icon size={16} color={hovered ? c.fg : c.icon} />
       <Txt kind="nav" color={hovered ? c.fg : c.fgMuted}>
         {pill.label}
@@ -192,7 +192,7 @@ export function ChatHero({
 
       <YStack width="100%" maxWidth={768} zIndex={10} alignItems="center">
         <Txt
-          text="center"
+          textAlign="center"
           fontSize={wide ? 48 : 36}
           lineHeight={wide ? 52 : 40}
           fontWeight="600"
@@ -222,7 +222,9 @@ export function ChatHero({
                 }
               }}
               placeholder={placeholder}
-              placeholderTextColor={c.fgDim}
+              // Isolation: tokens are raw hex while this RN prop is typed to the
+              // host ColorTokens union, which this package is built without.
+              placeholderTextColor={c.fgDim as ColorTokens}
               aria-label={placeholder}
               flex={1}
               minHeight={28}
@@ -251,7 +253,7 @@ export function ChatHero({
         ) : null}
 
         {footnote ? (
-          <Txt kind="dim" text="center" marginTop={24} style={revealFoot}>
+          <Txt kind="dim" textAlign="center" marginTop={24} style={revealFoot}>
             {footnote}
           </Txt>
         ) : null}

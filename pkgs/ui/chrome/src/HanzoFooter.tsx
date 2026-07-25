@@ -60,9 +60,9 @@ const GhFrame = linkable(
 )
 
 function GithubLink({ href, label }: { href: string; label: string }) {
-  const { hovered, onHoverIn, onHoverOut } = useHover()
+  const { hovered, onMouseEnter, onMouseLeave } = useHover()
   return (
-    <GhFrame href={href} target="_blank" rel="noreferrer noopener" aria-label={label} onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
+    <GhFrame href={href} target="_blank" rel="noreferrer noopener" aria-label={label} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <Github size={20} color={hovered ? c.fg : c.fgDim} />
     </GhFrame>
   )

@@ -16,7 +16,7 @@ import type {
 import { router } from 'one'
 import { useToastController } from '@hanzogui/toast'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { processError } from '~/features/posthog/errorHandling'
+import { captureError } from '@hanzogui/telemetry'
 import useSWR, { mutate } from 'swr'
 import useSWRMutation from 'swr/mutation'
 import {
@@ -749,10 +749,9 @@ const DiscordPanel = ({
       toast.show('Discord search failed', {
         message: searchSwr.error.message || 'Could not search Discord members',
       })
-      processError({
-        error: searchSwr.error,
-        severity: 'medium',
-        tags: { source: 'discord_member_search' },
+      captureError(searchSwr.error, {
+        handled: true,
+        properties: { severity: 'medium', source: 'discord_member_search' },
       })
     }
   }, [searchSwr.error])

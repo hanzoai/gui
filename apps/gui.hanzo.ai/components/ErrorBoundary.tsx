@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { processError } from '~/features/posthog/errorHandling'
+import { captureError } from '@hanzogui/telemetry'
 
 export class ErrorBoundary extends Component<any> {
   constructor(props) {
@@ -13,14 +13,14 @@ export class ErrorBoundary extends Component<any> {
   }
 
   componentDidCatch(error, errorInfo) {
-    processError({
-      error,
-      context: {
+    captureError(error, {
+      handled: true,
+      properties: {
+        severity: 'high',
+        source: 'error_boundary',
         url: typeof window !== 'undefined' ? window.location.href : undefined,
-        additional: { componentStack: errorInfo?.componentStack },
+        componentStack: errorInfo?.componentStack,
       },
-      severity: 'high',
-      tags: { source: 'error_boundary' },
     })
   }
 

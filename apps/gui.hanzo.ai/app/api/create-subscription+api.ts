@@ -15,7 +15,6 @@
 
 import { apiRoute } from '~/features/api/apiRoute'
 import { ensureAuth } from '~/features/api/ensureAuth'
-import { captureServerError } from '~/features/posthog'
 import { commerce, CommerceError } from '~/features/commerce/client'
 
 type Body = {
@@ -58,8 +57,14 @@ export default apiRoute(async (req) => {
     if (err instanceof CommerceError) {
       return Response.json(err.detail, { status: err.status })
     }
+    // Server-side error reporting is the cluster log pipeline for now. The
+    // previous captureServerError shipped this to a third-party PostHog project
+    // (posthog-node, hardcoded key, us.i.posthog.com) — off-platform and not the
+    // ONE door. @hanzogui/telemetry is DOM-oriented and would silently no-op
+    // here, so wiring it would only pretend to capture. A real server plane
+    // needs a service credential POSTing api.hanzo.ai/v1/event; until then this
+    // log is the honest surface.
     console.error('create-subscription failed', err)
-    captureServerError(err as Error, { endpoint: '/api/create-subscription' })
     return Response.json({ error: 'Failed to create subscription' }, { status: 500 })
   }
 })

@@ -17,14 +17,28 @@
 /** Dark-chrome palette shared by the header/footer/menu/launcher. */
 export const CHROME = {
   bg: 'rgba(9,9,11,0.85)',
-  panel: '#0b0b0f',
+  // True black. This was #0b0b0f — a blue-tinted near-black that read as a
+  // different surface next to the true-#000 grounds on hanzo.ai and hanzo.chat.
+  panel: '#000000',
   border: 'rgba(255,255,255,0.09)',
   borderSoft: 'rgba(255,255,255,0.06)',
   fg: 'rgba(255,255,255,0.92)',
   fgMuted: 'rgba(255,255,255,0.6)',
   fgDim: 'rgba(255,255,255,0.45)',
   hover: 'rgba(255,255,255,0.06)',
-  font: 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  // Geist first, via the consuming app's --font-sans when it sets one.
+  //
+  // This constant is applied as an INLINE `fontFamily: CHROME.font` in 9 places
+  // across 8 shared-chrome components, and an inline style beats the app's
+  // @theme token every time. So this one line was silently overriding Geist on
+  // every surface that mounts the shared chrome: hanzo.ai's whole footer (48
+  // visible nodes in system font while the page above them was Geist), and
+  // cloud/console's entire nav plus both mega-menus.
+  //
+  // The var() indirection is the point — the app stays the source of truth for
+  // its own type, and the literals are only the fallback for a host that sets
+  // no --font-sans.
+  font: 'var(--font-sans, "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif)',
 } as const
 
 /** Monochrome brand accent — paper-white on dark chrome; overridable per surface. */

@@ -81,9 +81,10 @@ export interface HanzoHeaderProps {
    */
   identitySlot?: React.ReactNode
   /**
-   * Destination for the DEFAULT "Sign in" affordance rendered when `account`
-   * is omitted (so surfaces don't diverge between "Sign in" / "Log in"). The
-   * `account` prop always overrides it. Defaults to `#`.
+   * Where the DEFAULT "Sign in" affordance points. Supplying it is what makes
+   * that affordance exist — omit it (the default) on a surface that already
+   * carries its own sign-in, e.g. one whose primary CTA IS the sign-in, so the
+   * header can never grow a second, dead one. `account` overrides it.
    */
   signInHref?: string
   className?: string
@@ -104,7 +105,7 @@ export function HanzoHeader({
   currentHref,
   brandSlot,
   identitySlot,
-  signInHref = '#',
+  signInHref,
   className,
 }: HanzoHeaderProps) {
   useShellFocusRing()
@@ -122,8 +123,9 @@ export function HanzoHeader({
   // duplicate localNav "Products" link.
   const localNav = withoutProductsDup(s.localNav, hasProducts)
   // Standard account affordance: the surface-supplied `account`, else a default
-  // "Sign in" so surfaces can't drift between "Sign in" / "Log in".
-  const accountNode = account ?? <DefaultAccount href={signInHref} />
+  // "Sign in" so surfaces can't drift between "Sign in" / "Log in". Rendered ONLY
+  // when the host asked for one — a header must never invent a link to nowhere.
+  const accountNode = account ?? (signInHref ? <DefaultAccount href={signInHref} /> : null)
 
   // Close everything on Esc when a mobile sheet is open.
   useEffect(() => {
@@ -667,7 +669,8 @@ function MobileProductsCategory({
 
 /**
  * Default account affordance — a text "Sign in" link styled like the shell
- * chrome, rendered when `account` is omitted so every surface reads identically.
+ * chrome, rendered when a surface asks for one via `signInHref` and supplies no
+ * `account` of its own, so every surface that has it reads identically.
  */
 function DefaultAccount({ href }: { href: string }) {
   return (

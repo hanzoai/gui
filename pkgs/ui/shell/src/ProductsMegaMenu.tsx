@@ -156,7 +156,9 @@ export function ProductsMegaMenu({
           style={{
             width: '100%',
             maxWidth: 1180,
-            maxHeight: 'calc(100vh - 96px)',
+            // Always clears the nav it hangs off, whatever height that is (36 =
+            // this panel's own 16px bottom padding + a 20px breathing gap).
+            maxHeight: `calc(100vh - ${anchor + 36}px)`,
             overflowY: 'auto',
             padding: 24,
             borderRadius: 18,
@@ -168,7 +170,11 @@ export function ProductsMegaMenu({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
+              // 200 is what makes the signature TWO ROWS OF FIVE actually fit:
+              // the 1180 panel less 48 padding leaves 1130, so five columns get
+              // (1130 - 4×24) / 5 = 206px each. At 210 only four fit — ten
+              // categories became three rows and the last two fell below the fold.
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '20px 24px',
             }}
           >

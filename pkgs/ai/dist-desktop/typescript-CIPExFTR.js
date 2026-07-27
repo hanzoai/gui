@@ -5,3 +5,4 @@ lang
 ];
 
 export { typescript as default };
+//# sourceMappingURL=typescript-CIPExFTR.js.map

@@ -3,16 +3,16 @@ import { type QueryObserverOptions } from '@tanstack/react-query';
 
 import { type FunctionKeyV2 } from '../../constants';
 
-export type GetHanzoFreeModelQuotaInput = Token & {
+export type GetFreeModelQuotaInput = Token & {
   nodeAddress: string;
 };
-export type UseGetHanzoFreeModelQuota = [
+export type UseGetFreeModelQuota = [
   FunctionKeyV2.GET_HANZO_FREE_MODEL_QUOTA,
-  GetHanzoFreeModelQuotaInput,
+  GetFreeModelQuotaInput,
 ];
 // Cloud free-tier is retired (local-only). The query resolves to `null` and the
 // "Free Hanzo AI Usage" UI is simply not rendered.
-export type GetHanzoFreeModelQuotaOutput = {
+export type GetFreeModelQuotaOutput = {
   hasQuota: boolean;
   remainingMessages: number;
   totalMessages: number;
@@ -22,9 +22,9 @@ export type GetHanzoFreeModelQuotaOutput = {
 } | null;
 
 export type Options = QueryObserverOptions<
-  GetHanzoFreeModelQuotaOutput,
+  GetFreeModelQuotaOutput,
   Error,
-  GetHanzoFreeModelQuotaOutput,
-  GetHanzoFreeModelQuotaOutput,
-  UseGetHanzoFreeModelQuota
+  GetFreeModelQuotaOutput,
+  GetFreeModelQuotaOutput,
+  UseGetFreeModelQuota
 >;

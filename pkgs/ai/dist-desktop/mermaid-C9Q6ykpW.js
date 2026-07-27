@@ -5,3 +5,4 @@ lang
 ];
 
 export { mermaid as default };
+//# sourceMappingURL=mermaid-C9Q6ykpW.js.map

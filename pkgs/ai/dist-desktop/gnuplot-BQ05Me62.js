@@ -5,3 +5,4 @@ lang
 ];
 
 export { gnuplot as default };
+//# sourceMappingURL=gnuplot-BQ05Me62.js.map

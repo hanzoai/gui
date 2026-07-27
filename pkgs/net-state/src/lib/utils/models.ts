@@ -27,7 +27,7 @@ export enum Models {
   // Native first-party engine (downloads Zen models from HF, runs locally).
   // First in the list so it's the default engine; Ollama / LM Studio are
   // alternative local engines users can pick instead.
-  Hanzo = 'hanzo',
+  Native = 'hanzo',
   OpenAI = 'open-ai',
   OpenAILegacy = 'open-ai-legacy',
   TogetherComputer = 'togethercomputer',
@@ -132,7 +132,7 @@ export const zenCatalog: ZenModelEntry[] = [
 
 /**
  * Featured community models — a curated, LM-Studio-style list of popular public
- * GGUF models the native Hanzo engine can pull from Hugging Face and run.
+ * GGUF models the native engine can pull from Hugging Face and run.
  *
  * Same `ZenModelEntry[]` shape and same download path as `zenCatalog`; rendered
  * as a "Featured" segment in the Local Models gallery. Every `value` is a
@@ -195,10 +195,10 @@ export const featuredCatalog: ZenModelEntry[] = [
 ];
 
 export const modelsConfig = {
-  // Native Hanzo engine — Zen catalog (zenCatalog). Apps point apiUrl at their
+  // Native engine — Zen catalog (zenCatalog). Apps point apiUrl at their
   // own engine port (hanzo 36900 / zoo 36910 / lux 36920) via the local-node
   // config; the engine downloads each `value` repo from Hugging Face natively.
-  [Models.Hanzo]: {
+  [Models.Native]: {
     apiUrl: 'http://localhost:36900',
     modelTypes: zenCatalog,
   },

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = proto;
+//# sourceMappingURL=proto-BalmH3hK.cjs.map

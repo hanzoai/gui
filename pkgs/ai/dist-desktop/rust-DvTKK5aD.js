@@ -5,3 +5,4 @@ lang
 ];
 
 export { rust as default };
+//# sourceMappingURL=rust-DvTKK5aD.js.map

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = reg;
+//# sourceMappingURL=reg-BDMTLnSm.cjs.map

@@ -1,4 +1,4 @@
-import { type HanzoToolHeader } from '@hanzo_network/hanzo-message-ts/api/tools/types';
+import { type ToolHeader } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 
 export const formatText = (text: string | null | undefined) => {
   if (!text) return '';
@@ -23,7 +23,7 @@ export const formatCamelCaseText = (text: string | null | undefined) => {
   return result.charAt(0).toUpperCase() + result.slice(1);
 };
 
-export const getVersionFromTool = (toolRouterKey: HanzoToolHeader) => {
+export const getVersionFromTool = (toolRouterKey: ToolHeader) => {
   if (toolRouterKey.version) {
     return toolRouterKey.version;
   }

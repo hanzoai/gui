@@ -5,3 +5,4 @@ lang
 ];
 
 export { prolog as default };
+//# sourceMappingURL=prolog-Mgsq2F5j.js.map

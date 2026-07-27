@@ -18,3 +18,4 @@ lang
 ];
 
 exports.default = graphql;
+//# sourceMappingURL=graphql-CAAKg7Qy.cjs.map

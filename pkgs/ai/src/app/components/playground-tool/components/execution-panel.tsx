@@ -2,7 +2,7 @@ import { type FormProps } from '@rjsf/core';
 import { type FieldProps } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import { useUploadPlaygroundToolFiles } from '@hanzo_network/hanzo-node-state/v2/mutations/uploadPlaygroundToolFiles/useUploadPlaygroundToolFiles';
-import { useGetHanzoFileProtocol } from '@hanzo_network/hanzo-node-state/v2/queries/getHanzoFileProtocol/useGetHanzoFileProtocol';
+import { useGetFileProtocol } from '@hanzo_network/hanzo-node-state/v2/queries/getHanzoFileProtocol/useGetHanzoFileProtocol';
 import {
   Button,
   CommandShortcut,
@@ -414,7 +414,7 @@ const ToolLogsBase = ({
   const logsFilePath = toolResultFiles.find((file) => logFileRegex.test(file));
   const [logsFile, setLogsFile] = useState<string | null>(null);
 
-  const { data: logsFileBlob } = useGetHanzoFileProtocol(
+  const { data: logsFileBlob } = useGetFileProtocol(
     {
       nodeAddress: auth?.node_address ?? '',
       token: auth?.api_v2_key ?? '',
@@ -534,8 +534,8 @@ const ToolLogs = memo(ToolLogsBase, (prevProps, nextProps) => {
 export const FileInputField = ({ value, onChange }: FieldProps) => {
   const auth = useAuth((state) => state.auth);
 
-  const xHanzoAppId = usePlaygroundStore((state) => state.xHanzoAppId);
-  const xHanzoToolId = usePlaygroundStore((state) => state.xHanzoToolId);
+  const xAppId = usePlaygroundStore((state) => state.xAppId);
+  const xToolId = usePlaygroundStore((state) => state.xToolId);
 
   const { mutateAsync: uploadPlaygroundToolFiles } =
     useUploadPlaygroundToolFiles();
@@ -553,8 +553,8 @@ export const FileInputField = ({ value, onChange }: FieldProps) => {
       nodeAddress: auth?.node_address ?? '',
       token: auth?.api_v2_key ?? '',
       files,
-      xHanzoAppId,
-      xHanzoToolId,
+      xAppId,
+      xToolId,
     });
     setAcceptedFiles(files);
     onChange(fileContent[files[0].name]);

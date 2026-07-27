@@ -199,7 +199,7 @@ const ArtifactPreview = () => {
                   className="size-full"
                   loading="lazy"
                   ref={iframeRef}
-                  src={'/src/windows/hanzo-artifacts/index.html'}
+                  src={'/src/windows/artifacts/index.html'}
                 />
               </div>
             </TabsContent>

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = typescript;
+//# sourceMappingURL=typescript-hF9jaln-.cjs.map

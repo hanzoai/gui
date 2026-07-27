@@ -33,8 +33,8 @@ export type CheckHealthResponse = {
 export type Token = { token: string };
 
 export type CustomToolHeaders = {
-  xHanzoAppId: string;
-  xHanzoToolId: string;
+  xAppId: string;
+  xToolId: string;
 };
 
 export type WalletBalance = {
@@ -171,7 +171,7 @@ export type SubmitRegistrationNoCodeResponse = {
   data?: InitialRegistrationResponse;
 };
 
-export type GetHanzoFreeModelQuotaResponse = {
+export type GetFreeModelQuotaResponse = {
   has_quota: boolean;
   tokens_quota: number;
   used_tokens: number;

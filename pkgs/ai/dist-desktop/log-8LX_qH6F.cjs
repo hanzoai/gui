@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = log;
+//# sourceMappingURL=log-8LX_qH6F.cjs.map

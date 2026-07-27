@@ -8,7 +8,7 @@ import { FeedbackModal } from '../components/feedback/feedback-modal';
 import { useToolsStore } from '../components/tools/context/tools-context';
 import { ToolCollection } from '../components/tools/tool-collection';
 import { useViewportStore } from '../store/viewport';
-import { HANZO_STORE_URL } from '../utils/store';
+import { storeUrl } from '../utils/store';
 
 export function ToolsPage() {
   const toolHomepageScrollPositionRef = useToolsStore(
@@ -45,7 +45,7 @@ export function ToolsPage() {
               <div className="flex items-center gap-3">
                 <a
                   className={cn(buttonVariants({ size: 'sm' }), 'gap-4 px-4')}
-                  href={HANZO_STORE_URL}
+                  href={storeUrl()}
                   rel="noreferrer"
                   target="_blank"
                 >

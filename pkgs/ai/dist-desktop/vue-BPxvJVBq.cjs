@@ -51,3 +51,4 @@ lang
 ];
 
 exports.default = vue;
+//# sourceMappingURL=vue-BPxvJVBq.cjs.map

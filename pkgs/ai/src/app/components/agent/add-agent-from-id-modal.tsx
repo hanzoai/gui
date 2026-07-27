@@ -24,7 +24,7 @@ export default function AddAgentFromIdModal() {
   }, [open]);
 
   const handleAdd = () => {
-    // TODO: Add agent using the provided Hanzo ID
+    // TODO: Add agent using the provided ID
     setOpen(false);
   };
 

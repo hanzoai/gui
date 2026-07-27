@@ -1,3 +1,4 @@
+import { getBrand } from '@hanzo_network/brand-config';
 import { useEffect, useState } from 'react';
 
 const BOT_GATEWAY_URL = 'http://127.0.0.1:18789';
@@ -24,7 +25,7 @@ const BotPage = () => {
   if (status === 'offline') {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-4 p-8">
-        <div className="text-2xl font-bold">Hanzo Bot</div>
+        <div className="text-2xl font-bold">{`${getBrand().name} Bot`}</div>
         <div className="text-text-secondary text-sm">
           Bot gateway is not running. Start it with:
         </div>
@@ -64,7 +65,7 @@ const BotPage = () => {
       <iframe
         className="flex-1 border-none"
         src={BOT_GATEWAY_URL}
-        title="Hanzo Bot Control Plane"
+        title={`${getBrand().name} Bot Control Plane`}
       />
     </div>
   );

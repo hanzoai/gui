@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = typespec;
+//# sourceMappingURL=typespec-dqGx8siF.cjs.map

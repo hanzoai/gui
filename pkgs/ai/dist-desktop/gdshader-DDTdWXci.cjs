@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = gdshader;
+//# sourceMappingURL=gdshader-DDTdWXci.cjs.map

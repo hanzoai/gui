@@ -45,3 +45,4 @@ const angularHtml = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.definePropert
 }, Symbol.toStringTag, { value: 'Module' }));
 
 export { angular_html as a, angular_template as b, angular_expression as c, angular_let_declaration as d, angular_template_blocks as e, angularHtml as f };
+//# sourceMappingURL=angular-html-BgNfP_om.js.map

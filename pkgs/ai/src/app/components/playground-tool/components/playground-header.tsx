@@ -31,7 +31,7 @@ import { toast } from 'sonner';
 
 import { BRAND } from '../../../config/brand';
 import { useAuth } from '../../../store/auth';
-import { HANZO_STORE_URL } from '../../../utils/store';
+import { storeUrl } from '../../../utils/store';
 import { DockerStatus } from '../../tools/components/docker-status';
 import { usePlaygroundStore } from '../context/playground-context';
 import { type CreateToolCodeFormSchema } from '../hooks/use-tool-code';
@@ -106,7 +106,7 @@ function PlaygroundHeaderBase({
     usePublishTool({
       onSuccess: async (response) => {
         await open(
-          `${HANZO_STORE_URL}/store/revisions/complete?id=${response.response.revisionId}`,
+          `${storeUrl()}/store/revisions/complete?id=${response.response.revisionId}`,
         );
       },
       onError: (error) => {
@@ -329,7 +329,7 @@ function PlaygroundHeaderBase({
                   Publishing will make your tool available in the{' '}
                   <a
                     className="text-text-default underline"
-                    href={HANZO_STORE_URL}
+                    href={storeUrl()}
                     rel="noreferrer"
                     target="_blank"
                   >

@@ -8,3 +8,4 @@ function initRange(domain, range) {
 }
 
 export { initRange as i };
+//# sourceMappingURL=init-zpY4DTin.js.map

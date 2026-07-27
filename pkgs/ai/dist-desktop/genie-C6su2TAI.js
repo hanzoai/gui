@@ -5,3 +5,4 @@ lang
 ];
 
 export { genie as default };
+//# sourceMappingURL=genie-C6su2TAI.js.map

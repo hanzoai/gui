@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = splunk;
+//# sourceMappingURL=splunk-FhuvTT2v.cjs.map

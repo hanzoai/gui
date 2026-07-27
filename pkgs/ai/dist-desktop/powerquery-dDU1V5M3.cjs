@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = powerquery;
+//# sourceMappingURL=powerquery-dDU1V5M3.cjs.map

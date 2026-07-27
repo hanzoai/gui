@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = clojure;
+//# sourceMappingURL=clojure-BXvb2V03.cjs.map

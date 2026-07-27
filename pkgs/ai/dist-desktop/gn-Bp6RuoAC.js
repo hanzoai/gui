@@ -5,3 +5,4 @@ lang
 ];
 
 export { gn as default };
+//# sourceMappingURL=gn-Bp6RuoAC.js.map

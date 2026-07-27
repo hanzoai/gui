@@ -1,25 +1,25 @@
-export class HanzoNameError extends Error {
+export class NameError extends Error {
   constructor(public type: 'InvalidFormat' | 'ReceiverNotFound') {
-    super(`Hanzo Name Error: ${type}`);
-    this.name = 'HanzoNameError';
+    super(`Name Error: ${type}`);
+    this.name = 'NameError';
     Object.setPrototypeOf(this, new.target.prototype); // restore prototype chain
   }
 }
 
-export const isHanzoIdentityLocalhost = (
-  hanzoIdentity: string,
+export const isIdentityLocalhost = (
+  identity: string,
 ): boolean => {
   return (
-    hanzoIdentity.includes('localhost.arb-sep-hanzo') ||
-    hanzoIdentity.includes('localhost.sep-hanzo') ||
-    hanzoIdentity.includes('localhost.hanzo')
+    identity.includes('localhost.arb-sep-hanzo') ||
+    identity.includes('localhost.sep-hanzo') ||
+    identity.includes('localhost.hanzo')
   );
 };
 
 export const extractJobIdFromInbox = (deserializedId: string): string => {
   const parts: string[] = deserializedId.split('::');
   if (parts.length < 3 || !isJobInbox(deserializedId)) {
-    throw new HanzoNameError('InvalidFormat');
+    throw new NameError('InvalidFormat');
   }
 
   const jobId = parts[1];
@@ -29,7 +29,7 @@ export const extractJobIdFromInbox = (deserializedId: string): string => {
 export const isJobInbox = (inboxId: string): boolean => {
   const parts: string[] = inboxId.split('::');
   if (parts.length < 3) {
-    throw new HanzoNameError('InvalidFormat');
+    throw new NameError('InvalidFormat');
   }
   return parts[0] === 'job_inbox';
 };

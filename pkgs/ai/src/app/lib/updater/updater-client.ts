@@ -11,7 +11,7 @@ import { platform } from '@tauri-apps/plugin-os';
 import { relaunch } from '@tauri-apps/plugin-process';
 import { check, type Update } from '@tauri-apps/plugin-updater';
 
-import { useNodeKillMutation } from '../hanzo-node-manager/hanzo-node-manager-client';
+import { useNodeKillMutation } from '../node-manager/node-manager-client';
 
 // Types
 export type DownloadState = {

@@ -1,8 +1,8 @@
-// @hanzo/ai — the Hanzo AI app, as one declarative SDK component.
+// @hanzo/ai — the AI app, as one declarative SDK component.
 //
-//   import HanzoAI from '@hanzo/ai'
+//   import AI from '@hanzo/ai'
 //   import brand   from '@luxfi/brand'
-//   render(<HanzoAI {...brand} features={{ chat:true, wallet:true }} />)
+//   render(<AI {...brand} features={{ chat:true, wallet:true }} />)
 //
 // Mirrors @luxfi/exchange's <Exchange {...brand} />: brand is a prop, one way,
 // one place. hanzo/zoo/lux desktop+mobile apps all collapse to an ~80-line shim.
@@ -16,13 +16,13 @@ import './app/globals.css';
 import { BrandProvider, setBrand } from './brand-context';
 import { setHost } from './host/runtime';
 import App from './app/App';
-import type { HanzoAIProps } from './types';
+import type { AIProps } from './types';
 
 // The migrated forked app root (./app/App). getBrand() → useBrand();
 // the 44 @tauri-apps imports route through the host shim via the build alias.
 const AppRoot: React.ComponentType = App;
 
-export function HanzoAI(props: HanzoAIProps): React.ReactElement {
+export function AI(props: AIProps): React.ReactElement {
   const { logo, cloud, auth, features, i18n, host, ...brand } = props;
   // Register the platform adapter (web default, or the injected tauri/expo host)
   // before the app tree mounts — so the app's native calls route correctly.
@@ -43,10 +43,10 @@ export function HanzoAI(props: HanzoAIProps): React.ReactElement {
   );
 }
 
-export default HanzoAI;
+export default AI;
 export { BrandProvider, useBrand, getBrand } from './brand-context';
 // Re-export the brand resolvers so a thin shim needs no separate brand pkg for
-// the default case: `import HanzoAI, { getBrand } from '@hanzo/ai'`. Custom
-// brands still flow in as props (<HanzoAI {...myBrand}/>).
+// the default case: `import AI, { getBrand } from '@hanzo/ai'`. Custom
+// brands still flow in as props (<AI {...myBrand}/>).
 export { getBrandFromHostname } from '@hanzo_network/brand-config';
-export type { BrandConfig, HanzoAIProps, HostAdapter, Brand } from './types';
+export type { BrandConfig, AIProps, HostAdapter, Brand } from './types';

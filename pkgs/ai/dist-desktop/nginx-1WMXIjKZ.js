@@ -8,3 +8,4 @@ lang
 ];
 
 export { nginx as default };
+//# sourceMappingURL=nginx-1WMXIjKZ.js.map

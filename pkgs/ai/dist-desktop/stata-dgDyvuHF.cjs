@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = stata;
+//# sourceMappingURL=stata-dgDyvuHF.cjs.map

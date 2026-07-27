@@ -5,3 +5,4 @@ lang
 ];
 
 export { gdscript as default };
+//# sourceMappingURL=gdscript-QV6MF9CG.js.map

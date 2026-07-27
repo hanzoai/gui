@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = applescript;
+//# sourceMappingURL=applescript-CG_lOcFh.cjs.map

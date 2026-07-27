@@ -5,3 +5,4 @@ lang
 ];
 
 export { qmldir as default };
+//# sourceMappingURL=qmldir-CWYUQ7py.js.map

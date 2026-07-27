@@ -5,3 +5,4 @@ lang
 ];
 
 export { log as default };
+//# sourceMappingURL=log-DDkzWJrD.js.map

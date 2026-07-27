@@ -7,7 +7,7 @@ import {
 export type CopyToolAssetsInput = Token & {
   nodeAddress: string;
   currentToolKeyPath: CopyToolAssetsRequest['first_path'];
-  xHanzoAppId: CopyToolAssetsRequest['second_path'];
+  xAppId: CopyToolAssetsRequest['second_path'];
 };
 
 export type CopyToolAssetsOutput = CopyToolAssetsResponse;

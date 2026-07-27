@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = haskell;
+//# sourceMappingURL=haskell-B-TyQgye.cjs.map

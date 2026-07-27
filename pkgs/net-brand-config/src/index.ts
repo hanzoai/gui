@@ -1,7 +1,7 @@
 // Brand-neutral brand registry + injection.
 //
 // This package bundles NO brands. Every host app supplies its own BrandConfig:
-//   • desktop (single brand): <HanzoAI {...brandConfig}/> (injects via setBrand)
+//   • desktop (single brand): <AI {...brandConfig}/> (injects via setBrand)
 //   • web (multi-tenant):     registerBrands([...]) then resolve by hostname
 //
 // Adding a brand is a config object in the host app — zero edits here. Nothing
@@ -57,6 +57,18 @@ export interface BrandConfig {
     apiPort: number; // node HTTP API — hanzod 3690, zood 2000, luxd 9630
     enginePort: number; // local inference engine (chat completions)
   };
+  /**
+   * Brand-owned external links rendered inside the app (docs site, app store,
+   * dapp/contracts portal, tutorials). Brand-driven so Zoo/Lux surface their own
+   * domains instead of hanzo.ai. Each is optional; call sites fall back to the
+   * hanzo.ai default when unset.
+   */
+  links?: {
+    docs?: string;
+    store?: string;
+    dapp?: string;
+    tutorials?: string;
+  };
 }
 
 // --- registry (multi-tenant / hostname resolution) -------------------------
@@ -78,13 +90,13 @@ export function getBrandFromHostname(h: string): BrandConfig | undefined {
 
 // --- injection (single-brand desktop) --------------------------------------
 //
-// <HanzoAI {...brandConfig}/> calls setBrand(brandConfig) once, synchronously,
+// <AI {...brandConfig}/> calls setBrand(brandConfig) once, synchronously,
 // before the app tree mounts. Call sites then read it via useBrand() / getBrand()
 // — a PLAIN module getter, NOT a React hook (it is called from module scope,
 // utils and event handlers, so it must never touch a hook).
 let _injected: BrandConfig | null = null;
 
-/** Inject the active brand (called by <HanzoAI> before mount). */
+/** Inject the active brand (called by <AI> before mount). */
 export function setBrand(b: BrandConfig): void {
   _injected = b;
 }
@@ -113,7 +125,7 @@ export function getBrand(): BrandConfig {
   }
   if (_registry.length) return _registry[0];
   throw new Error(
-    'No brand configured. Pass <HanzoAI {...brandConfig}/> (desktop) or call ' +
+    'No brand configured. Pass <AI {...brandConfig}/> (desktop) or call ' +
       'registerBrands([...]) before reading the brand (web).',
   );
 }

@@ -5,3 +5,4 @@ lang
 ];
 
 export { vb as default };
+//# sourceMappingURL=vb-Cn0Uxbyu.js.map

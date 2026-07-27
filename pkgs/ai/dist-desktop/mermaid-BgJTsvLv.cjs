@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = mermaid;
+//# sourceMappingURL=mermaid-BgJTsvLv.cjs.map

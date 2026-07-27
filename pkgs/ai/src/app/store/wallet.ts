@@ -15,8 +15,8 @@ export type Wallet = {
 };
 
 export enum NetworkType {
-  HanzoMainnet = 'hanzo-mainnet',
-  HanzoTestnet = 'hanzo-testnet',
+  Mainnet = 'hanzo-mainnet',
+  Testnet = 'hanzo-testnet',
   ZooMainnet = 'zoo-mainnet',
   ZooTestnet = 'zoo-testnet',
   ZooDevnet = 'zoo-devnet',
@@ -38,16 +38,16 @@ export interface NetworkConfig {
 }
 
 export const NETWORKS: Record<NetworkType, NetworkConfig> = {
-  [NetworkType.HanzoMainnet]: {
-    name: 'Hanzo Mainnet',
+  [NetworkType.Mainnet]: {
+    name: 'Mainnet',
     chainId: 36900,
     rpcUrl: 'https://rpc.hanzo.network',
     blockExplorer: 'https://explorer.hanzo.network',
     nativeCurrency: { name: 'AI Token', symbol: 'AI', decimals: 18 },
     isMiningEnabled: true,
   },
-  [NetworkType.HanzoTestnet]: {
-    name: 'Hanzo Testnet',
+  [NetworkType.Testnet]: {
+    name: 'Testnet',
     chainId: 36901,
     rpcUrl: 'https://rpc.hanzo-test.network',
     blockExplorer: 'https://explorer.hanzo-test.network',
@@ -122,7 +122,7 @@ export const useWallet = create<WalletStore>()(
       (set, get) => ({
         wallet: null,
         isInitialized: false,
-        selectedNetwork: NetworkType.HanzoMainnet,
+        selectedNetwork: NetworkType.Mainnet,
         showBackupPrompt: false,
 
         // Run once on app startup so the wallet is never "Offline / 0x0000".

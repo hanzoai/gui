@@ -1,4 +1,4 @@
-import { type DenoHanzoTool } from '@hanzo_network/hanzo-message-ts/api/tools/types';
+import { type DenoTool } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 
 import ToolDetailsCard from './components/tool-details-card';
 
@@ -8,7 +8,7 @@ export default function DenoTool({
   isPlaygroundTool,
   toolRouterKey,
 }: {
-  tool: DenoHanzoTool;
+  tool: DenoTool;
   isEnabled: boolean;
   isPlaygroundTool?: boolean;
   toolRouterKey: string;

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { getBrand } from '@hanzo_network/brand-config';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import { type LLMProviderInterface } from '@hanzo_network/hanzo-message-ts/api/jobs/types';
 import {
@@ -36,14 +37,14 @@ import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
 import { useURLQueryParams } from '../hooks/use-url-query-params';
-import { getEngineUrl } from '../lib/hanzo-engine';
+import { getEngineUrl } from '../lib/engine';
 import { useAuth } from '../store/auth';
 import { SubpageLayout } from './layout/simple-layout';
 
 const modelOptions: { value: Models; label: string }[] = [
   {
-    value: Models.Hanzo,
-    label: 'Hanzo Engine (Local)',
+    value: Models.Native,
+    label: 'native',
   },
   {
     value: Models.LMStudio,
@@ -97,7 +98,7 @@ const getGuideUrl = (model: Models) => {
   }
 
   const urlMap = {
-    [Models.Hanzo]: 'https://docs.hanzo.ai/advanced/models',
+    [Models.Native]: 'https://docs.hanzo.ai/advanced/models',
     [Models.LMStudio]: 'https://docs.hanzo.ai/advanced/models',
     [Models.OpenAI]: 'https://docs.hanzo.ai/advanced/models/gpt',
     [Models.OpenAILegacy]: 'https://docs.hanzo.ai/advanced/models/gpt',
@@ -202,12 +203,12 @@ const AddAIPage = () => {
     if (currentModel) {
       const modelConfig = modelsConfig[currentModel as Models];
       if (!modelConfig) return;
-      // The native Hanzo engine URL is brand-specific (hanzo 36900 / zoo 36910 /
+      // The native engine URL is brand-specific (hanzo 36900 / zoo 36910 /
       // lux 36920). Derive it from the brand config (`node.enginePort`) instead
       // of the static 36900 placeholder baked into modelsConfig.
       addAgentForm.setValue(
         'externalUrl',
-        currentModel === Models.Hanzo ? getEngineUrl() : modelConfig.apiUrl,
+        currentModel === Models.Native ? getEngineUrl() : modelConfig.apiUrl,
       );
       setModelTypeOptions(
         modelConfig.modelTypes
@@ -334,7 +335,9 @@ const AddAIPage = () => {
                             key={model.value}
                             value={model.value.toString()}
                           >
-                            {model.label}
+                            {model.label === 'native'
+                              ? `${getBrand().name} Engine (Local)`
+                              : model.label}
                           </SelectItem>
                         ))}
                       </SelectContent>

@@ -5,3 +5,4 @@ lang
 ];
 
 export { json5 as default };
+//# sourceMappingURL=json5-BpyjgwRz.js.map

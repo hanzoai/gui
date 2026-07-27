@@ -33,3 +33,4 @@ lang
 ];
 
 exports.default = angularTs;
+//# sourceMappingURL=angular-ts-Bkk9Qpg_.cjs.map

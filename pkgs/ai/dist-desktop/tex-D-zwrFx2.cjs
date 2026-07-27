@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = tex;
+//# sourceMappingURL=tex-D-zwrFx2.cjs.map

@@ -37,15 +37,15 @@ function ManageSourcesButtonBase() {
   const auth = useAuth((state) => state.auth);
   const { t } = useTranslation();
 
-  const xHanzoAppId = usePlaygroundStore((state) => state.xHanzoAppId);
-  const xHanzoToolId = usePlaygroundStore((state) => state.xHanzoToolId);
+  const xAppId = usePlaygroundStore((state) => state.xAppId);
+  const xToolId = usePlaygroundStore((state) => state.xToolId);
 
   const { data: assets, isSuccess: isGetAllToolAssetsSuccess } =
     useGetAllToolAssets({
       nodeAddress: auth?.node_address ?? '',
       token: auth?.api_v2_key ?? '',
-      xHanzoAppId,
-      xHanzoToolId,
+      xAppId,
+      xToolId,
     });
 
   const { mutateAsync: uploadAssets, isPending: isUploadingAssets } =
@@ -73,8 +73,8 @@ function ManageSourcesButtonBase() {
           nodeAddress: auth?.node_address ?? '',
           token: auth?.api_v2_key ?? '',
           files: acceptedFiles,
-          xHanzoAppId,
-          xHanzoToolId,
+          xAppId,
+          xToolId,
         });
       },
     });
@@ -185,8 +185,8 @@ function ManageSourcesButtonBase() {
                     await removeAsset({
                       nodeAddress: auth?.node_address ?? '',
                       token: auth?.api_v2_key ?? '',
-                      xHanzoAppId,
-                      xHanzoToolId,
+                      xAppId,
+                      xToolId,
                       filename: asset,
                     });
                   }}

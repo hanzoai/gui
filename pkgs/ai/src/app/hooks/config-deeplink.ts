@@ -1,8 +1,8 @@
-import { listen } from '@tauri-apps/api/event';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useAuth } from '../store/auth';
+import { safeListen } from '../utils/tauri-check';
 
 export const CONFIG_DEEPLINK_EVENT = 'config-deep-link';
 export type ConfigDeepLinkPayload = {
@@ -12,7 +12,7 @@ export const useConfigDeepLink = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    const unlisten = listen(CONFIG_DEEPLINK_EVENT, (event) => {
+    const unlisten = safeListen(CONFIG_DEEPLINK_EVENT, (event) => {
       if (!auth) return;
 
       const payload = event.payload as ConfigDeepLinkPayload;
@@ -21,7 +21,7 @@ export const useConfigDeepLink = () => {
       }
     });
     return () => {
-      void unlisten.then((fn) => fn());
+      void unlisten.then((fn) => fn?.());
     };
   }, [auth, navigate]);
 };

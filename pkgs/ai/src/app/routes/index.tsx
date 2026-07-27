@@ -2,8 +2,8 @@ import { FunctionKeyV2 } from '@hanzo_network/hanzo-node-state/v2/constants';
 import { useGetLLMProviders } from '@hanzo_network/hanzo-node-state/v2/queries/getLLMProviders/useGetLLMProviders';
 import { TooltipProvider } from '@hanzo_network/hanzo-ui';
 import { useQueryClient } from '@tanstack/react-query';
-import { listen } from '@tauri-apps/api/event';
 import { debug } from '@tauri-apps/plugin-log';
+import { safeListen } from '../utils/tauri-check';
 import React, { useEffect, useRef } from 'react';
 import {
   Navigate,
@@ -39,10 +39,10 @@ import {
   useNodeIsRunningQuery,
   useNodeSetOptionsMutation,
   useNodeSpawnMutation,
-} from '../lib/hanzo-node-manager/hanzo-node-manager-client';
-import { useHanzoNodeEventsToast } from '../lib/hanzo-node-manager/hanzo-node-manager-hooks';
-import { isLocalHanzoNode } from '../lib/hanzo-node-manager/hanzo-node-manager-windows-utils';
-import { HanzoNodeRunningOverlay } from '../lib/hanzo-node-overlay';
+} from '../lib/node-manager/node-manager-client';
+import { useNodeEventsToast } from '../lib/node-manager/node-manager-hooks';
+import { isLocalNode } from '../lib/node-manager/node-manager-windows-utils';
+import { NodeRunningOverlay } from '../lib/node-overlay';
 import AddAIPage from '../pages/add-ai';
 import AgentsPage from '../pages/agents';
 import AIModelInstallation from '../pages/ai-model-installation';
@@ -89,7 +89,7 @@ import { ToolsPage } from '../pages/tools-homepage';
 import BotPage from '../pages/bot';
 import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
-import { useHanzoNodeManager } from '../store/hanzo-node-manager';
+import { useNodeManager } from '../store/node-manager';
 import useAppHotkeys from '../utils/use-app-hotkeys';
 
 const skipOnboardingRoutes = ['/quick-connection', '/restore', '/connect-qr'];
@@ -97,13 +97,13 @@ const skipOnboardingRoutes = ['/quick-connection', '/restore', '/connect-qr'];
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const auth = useAuth((state) => state.auth);
   const isCloudMode = !!auth?.hanzo_token;
-  const hanzoNodeOptions = useHanzoNodeManager(
-    (state) => state.hanzoNodeOptions,
+  const nodeOptions = useNodeManager(
+    (state) => state.nodeOptions,
   );
-  useHanzoNodeEventsToast();
-  const isInUse = useHanzoNodeManager((state) => state.isInUse);
-  const setIsInUse = useHanzoNodeManager((state) => state.setIsInUse);
-  const autoStartHanzoNodeTried = useRef<boolean>(false);
+  useNodeEventsToast();
+  const isInUse = useNodeManager((state) => state.isInUse);
+  const setIsInUse = useNodeManager((state) => state.setIsInUse);
+  const autoStartNodeTried = useRef<boolean>(false);
   const { data: nodeIsRunning } = useNodeIsRunningQuery({
     refetchInterval: isCloudMode ? false : 1000,
   });
@@ -125,17 +125,17 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (isCloudMode) return;
     void debug(
-      `initializing autoStartHanzoNodeTried.current:${autoStartHanzoNodeTried.current} isInUse:${isInUse} nodeIsRunning:${nodeIsRunning}`,
+      `initializing autoStartHanzoNodeTried.current:${autoStartNodeTried.current} isInUse:${isInUse} nodeIsRunning:${nodeIsRunning}`,
     );
     if (
-      !autoStartHanzoNodeTried.current &&
+      !autoStartNodeTried.current &&
       isInUse &&
       !nodeIsRunning
     ) {
-      autoStartHanzoNodeTried.current = true;
+      autoStartNodeTried.current = true;
       void Promise.resolve().then(async () => {
-        if (hanzoNodeOptions) {
-          await nodeSetOptions(hanzoNodeOptions);
+        if (nodeOptions) {
+          await nodeSetOptions(nodeOptions);
         }
         await nodeSpawn();
       });
@@ -144,9 +144,9 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     auth,
     isCloudMode,
     nodeSpawn,
-    autoStartHanzoNodeTried,
+    autoStartNodeTried,
     nodeIsRunning,
-    hanzoNodeOptions,
+    nodeOptions,
     nodeSetOptions,
     isInUse,
   ]);
@@ -159,7 +159,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   // local node address + node running ⇒ in use.
   useEffect(() => {
     if (isCloudMode || !auth) return;
-    const next = isLocalHanzoNode(auth.node_address ?? '') && !!nodeIsRunning;
+    const next = isLocalNode(auth.node_address ?? '') && !!nodeIsRunning;
     if (next !== isInUse) setIsInUse(next);
   }, [auth, isCloudMode, nodeIsRunning, isInUse, setIsInUse]);
 
@@ -172,18 +172,18 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <>{children}</>;
   }
 
-  return <HanzoNodeRunningOverlay>{children}</HanzoNodeRunningOverlay>;
+  return <NodeRunningOverlay>{children}</NodeRunningOverlay>;
 };
 
 const useGlobalAppShortcuts = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    const unlisten = listen('create-chat', () => {
+    const unlisten = safeListen('create-chat', () => {
       void navigate('/home');
     });
 
     return () => {
-      void unlisten.then((fn) => fn());
+      void unlisten.then((fn) => fn?.());
     };
   }, []);
 };
@@ -295,7 +295,7 @@ const useNavigateToPathFromSpotlight = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   useEffect(() => {
-    const unlisten = listen('navigate-to-path', (event) => {
+    const unlisten = safeListen('navigate-to-path', (event) => {
       const inboxId = event.payload as string;
       void queryClient.invalidateQueries({
         queryKey: [
@@ -309,7 +309,7 @@ const useNavigateToPathFromSpotlight = () => {
     });
 
     return () => {
-      void unlisten.then((fn) => fn());
+      void unlisten.then((fn) => fn?.());
     };
   }, [navigate, queryClient]);
 };

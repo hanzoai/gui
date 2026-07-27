@@ -44,7 +44,7 @@ import { handleConfigureClaude } from '../lib/external-clients/claude-desktop';
 import { getDenoBinPath, ConfigError } from '../lib/external-clients/common';
 import { handleConfigureCursor } from '../lib/external-clients/cursor';
 import { useAuth } from '../store/auth';
-import { getNodeUrl } from '../lib/hanzo-engine/engine-url';
+import { getNodeUrl } from '../lib/engine/engine-url';
 
 export const MCP_SERVER_ID = 'hanzo-mcp-server';
 

@@ -36,8 +36,8 @@ export function useToolSave() {
   const navigate = useNavigate();
 
   const chatInboxId = usePlaygroundStore((state) => state.chatInboxId);
-  const xHanzoAppId = usePlaygroundStore((state) => state.xHanzoAppId);
-  const xHanzoToolId = usePlaygroundStore((state) => state.xHanzoToolId);
+  const xAppId = usePlaygroundStore((state) => state.xAppId);
+  const xToolId = usePlaygroundStore((state) => state.xToolId);
   const setToolCreationError = usePlaygroundStore(
     (state) => state.setToolCreationError,
   );
@@ -48,8 +48,8 @@ export function useToolSave() {
   const { data: assets } = useGetAllToolAssets({
     nodeAddress: auth?.node_address ?? '',
     token: auth?.api_v2_key ?? '',
-    xHanzoAppId,
-    xHanzoToolId,
+    xAppId,
+    xToolId,
   });
 
   const handleSaveTool = useCallback(
@@ -107,10 +107,10 @@ export function useToolSave() {
           nodeAddress: auth?.node_address ?? '',
           language,
           assets: assets ?? [],
-          xHanzoAppId,
-          xHanzoToolId,
+          xAppId,
+          xToolId,
           ...(previousToolRouterKeyWithVersion && {
-            xHanzoOriginalToolRouterKey: previousToolRouterKeyWithVersion,
+            xOriginalToolRouterKey: previousToolRouterKeyWithVersion,
           }),
           shouldPrefetchPlaygroundTool,
         },
@@ -147,8 +147,8 @@ export function useToolSave() {
       auth?.api_v2_key,
       auth?.node_address,
       assets,
-      xHanzoAppId,
-      xHanzoToolId,
+      xAppId,
+      xToolId,
       setToolCreationError,
       navigate,
     ],

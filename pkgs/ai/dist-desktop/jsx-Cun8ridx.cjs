@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = jsx;
+//# sourceMappingURL=jsx-Cun8ridx.cjs.map

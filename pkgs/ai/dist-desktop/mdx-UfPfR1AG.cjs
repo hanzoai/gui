@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = mdx;
+//# sourceMappingURL=mdx-UfPfR1AG.cjs.map

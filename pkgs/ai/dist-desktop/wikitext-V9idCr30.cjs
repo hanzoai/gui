@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = wikitext;
+//# sourceMappingURL=wikitext-V9idCr30.cjs.map

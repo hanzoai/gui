@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = kusto;
+//# sourceMappingURL=kusto-D6MfboDn.cjs.map

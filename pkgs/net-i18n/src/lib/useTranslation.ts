@@ -11,10 +11,10 @@ import {
 // overlays and without relying on the build-frozen VITE_BRAND. i18next's
 // init-time `defaultVariables` can't be mutated after the interpolator is
 // constructed, so we inject per-call instead. getChain() returns the runtime-
-// injected chain (set by <HanzoAI> before mount), so this is correct per app.
+// injected chain (set by <AI> before mount), so this is correct per app.
 export const useTranslation = () => {
   const { t: baseT, i18n, ready } = useI18NextTranslation();
-  // useBrand() returns the runtime-INJECTED chain (set by <HanzoAI> before
+  // useBrand() returns the runtime-INJECTED chain (set by <AI> before
   // mount). getChain() must NOT be used here — it ignores the injection and
   // falls back to the build-frozen VITE_BRAND (→ always Hanzo).
   const appName = useBrand().name;

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = shellscript;
+//# sourceMappingURL=shellscript-BZS4iHOY.cjs.map

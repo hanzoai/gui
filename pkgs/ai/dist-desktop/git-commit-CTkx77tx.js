@@ -8,3 +8,4 @@ lang
 ];
 
 export { gitCommit as default };
+//# sourceMappingURL=git-commit-CTkx77tx.js.map

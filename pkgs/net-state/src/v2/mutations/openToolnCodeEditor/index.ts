@@ -6,17 +6,17 @@ export const openToolInCodeEditor = async ({
   nodeAddress,
   token,
   language,
-  xHanzoAppId,
-  xHanzoToolId,
-  xHanzoLLMProvider,
+  xAppId,
+  xToolId,
+  xLLMProvider,
 }: OpenToolInCodeEditorInput): Promise<OpenToolInCodeEditorOutput> => {
   const response = await openToolInCodeEditorApi(
     nodeAddress,
     token,
     { language },
-    xHanzoAppId,
-    xHanzoToolId,
-    xHanzoLLMProvider,
+    xAppId,
+    xToolId,
+    xLLMProvider,
   );
   return response;
 };

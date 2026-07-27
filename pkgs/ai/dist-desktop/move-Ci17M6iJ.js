@@ -5,3 +5,4 @@ lang
 ];
 
 export { move as default };
+//# sourceMappingURL=move-Ci17M6iJ.js.map

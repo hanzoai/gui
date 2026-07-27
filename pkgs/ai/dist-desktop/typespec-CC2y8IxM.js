@@ -5,3 +5,4 @@ lang
 ];
 
 export { typespec as default };
+//# sourceMappingURL=typespec-CC2y8IxM.js.map

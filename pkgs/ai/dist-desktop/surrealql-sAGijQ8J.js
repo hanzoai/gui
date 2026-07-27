@@ -8,3 +8,4 @@ lang
 ];
 
 export { surrealql as default };
+//# sourceMappingURL=surrealql-sAGijQ8J.js.map

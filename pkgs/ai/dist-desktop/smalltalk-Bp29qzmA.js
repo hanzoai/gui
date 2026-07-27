@@ -5,3 +5,4 @@ lang
 ];
 
 export { smalltalk as default };
+//# sourceMappingURL=smalltalk-Bp29qzmA.js.map

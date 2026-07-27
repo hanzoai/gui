@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = codeowners;
+//# sourceMappingURL=codeowners-BIS9Ji2Q.cjs.map

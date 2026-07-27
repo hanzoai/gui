@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = pascal;
+//# sourceMappingURL=pascal-78XVpkNp.cjs.map

@@ -1,1 +1,1 @@
-export * from './cryptography/hanzo-encryption';
+export * from './cryptography/encryption';

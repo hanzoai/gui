@@ -10,3 +10,4 @@ lang
 ];
 
 export { gdresource as default };
+//# sourceMappingURL=gdresource-0dMUpXt4.js.map

@@ -59,8 +59,8 @@ type PlaygroundStore = {
   resetCounter: number;
   setResetCounter: (resetCounter: number | ((prev: number) => number)) => void;
 
-  xHanzoAppId: string;
-  xHanzoToolId: string;
+  xAppId: string;
+  xToolId: string;
 
   focusedPanel: 'code' | 'metadata' | 'console' | 'preview' | null;
   setFocusedPanel: (
@@ -127,8 +127,8 @@ const createPlaygroundStore = () =>
             : resetCounter,
       })),
 
-    xHanzoAppId: `app-id-${Date.now()}`,
-    xHanzoToolId: `task-id-${Date.now()}`,
+    xAppId: `app-id-${Date.now()}`,
+    xToolId: `task-id-${Date.now()}`,
 
     focusedPanel: 'code',
     setFocusedPanel: (focusedPanel) => set({ focusedPanel }),
@@ -152,8 +152,8 @@ const createPlaygroundStore = () =>
         toolResult: null,
         resetCounter: 0,
         focusedPanel: 'code',
-        xHanzoAppId: `app-id-${Date.now()}`,
-        xHanzoToolId: `task-id-${Date.now()}`,
+        xAppId: `app-id-${Date.now()}`,
+        xToolId: `task-id-${Date.now()}`,
         forceGenerateCode: createRef<boolean>(),
         forceGenerateMetadata: createRef<boolean>(),
         codeEditorRef: createRef<PrismEditor>(),

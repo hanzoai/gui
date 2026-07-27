@@ -18,3 +18,4 @@ lang
 ];
 
 exports.default = handlebars;
+//# sourceMappingURL=handlebars-BAbwtBOq.cjs.map

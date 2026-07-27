@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = wolfram;
+//# sourceMappingURL=wolfram-B0pjokkD.cjs.map

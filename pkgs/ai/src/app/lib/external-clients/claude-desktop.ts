@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 
 import { useAuth } from '../../store/auth'; // Adjust path as needed
 import { ConfigError, getDenoBinPath } from './common'; // Import from common.ts
-import { getNodeUrl } from '../hanzo-engine/engine-url';
+import { getNodeUrl } from '../engine/engine-url';
 
 export interface McpServerConfig {
   command: string;

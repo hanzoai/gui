@@ -12,3 +12,4 @@ lang
 ];
 
 export { nix as default };
+//# sourceMappingURL=nix-qMrKSb6Q.js.map

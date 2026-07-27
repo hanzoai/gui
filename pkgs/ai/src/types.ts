@@ -1,6 +1,6 @@
-// @hanzo/ai — the declarative props contract for the Hanzo AI app SDK.
+// @hanzo/ai — the declarative props contract for the AI app SDK.
 //
-// This is the canonical shape every brand passes to <HanzoAI {...brand} />.
+// This is the canonical shape every brand passes to <AI {...brand} />.
 // It is the SAME `BrandConfig` that lived in hanzoai/desktop's
 // libs/brand-config, lifted into the SDK so brand becomes a *prop* (one
 // way, one place) instead of a build-time `VITE_BRAND` env lookup.
@@ -41,6 +41,10 @@ export interface BrandConfig {
     apiPort: number;     // node HTTP API — hanzod 3690, zood 2000, luxd 9630
     enginePort: number;  // local inference engine (chat completions)
   };
+  /** Brand-owned external links (docs site, app store, dapp/contracts portal,
+   *  tutorials). Brand-driven so each app renders its own domains; every field
+   *  is optional and falls back to the hanzo.ai default at the call site. */
+  links?: { docs?: string; store?: string; dapp?: string; tutorials?: string };
 }
 
 /** Optional, host-shell-provided capabilities. On Tauri these are the native
@@ -53,11 +57,11 @@ export interface HostAdapter {
   platform?: 'tauri' | 'web' | 'expo';
 }
 
-export interface HanzoAIProps extends BrandConfig {
+export interface AIProps extends BrandConfig {
   // logo is inherited from BrandConfig as { light; dark; favicon } — the single
   // shape every brand passes and every consumer reads (main-layout brand.logo.light).
   // (Removed a dead ComponentType|string override that contradicted BrandConfig.logo
-  // and made `<HanzoAI {...brandConfig}/>` fail tsc in all 3 apps.)
+  // and made `<AI {...brandConfig}/>` fail tsc in all 3 apps.)
   /** Per-env cloud overrides (defaults derive from overlayController/inferenceEndpoint). */
   cloud?: { overlay?: string; inference?: string };
   /** Auth override (defaults derive from `iam`). */

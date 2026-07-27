@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = nextflow_groovy;
+//# sourceMappingURL=nextflow-groovy-CnqyZJV3.cjs.map

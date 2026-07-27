@@ -35678,3 +35678,4 @@ cytoscape.version = version;
 cytoscape.stylesheet = cytoscape.Stylesheet = _Stylesheet;
 
 export { cytoscape as c };
+//# sourceMappingURL=cytoscape.esm-vCfDE9xP.js.map

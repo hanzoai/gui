@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = gherkin;
+//# sourceMappingURL=gherkin-DxDUpJnk.cjs.map

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = scala;
+//# sourceMappingURL=scala-DTopaIF3.cjs.map

@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
-import { type HanzoPath } from '@hanzo_network/hanzo-message-ts/api/jobs/types';
+import { type Path } from '@hanzo_network/hanzo-message-ts/api/jobs/types';
 import { retrieveVectorResource } from '@hanzo_network/hanzo-message-ts/api/vector-fs/index';
 import {
   type SearchVectorFormSchema,
@@ -55,7 +55,7 @@ const SearchNodeFiles = () => {
   const auth = useAuth((state) => state.auth);
   const [selectedKeys, setSelectedKeys] =
     useState<TreeCheckboxSelectionKeys | null>(null);
-  const selectedFileKeysRef = useRef<Map<string, HanzoPath>>(new Map());
+  const selectedFileKeysRef = useRef<Map<string, Path>>(new Map());
 
   const setDestinationFolderPath = useVectorFolderSelectionStore(
     (state) => state.setDestinationFolderPath,

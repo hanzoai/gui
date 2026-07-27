@@ -1,6 +1,6 @@
 // Brand store — re-exported from @hanzo_network/brand-config so there is ONE
 // source of truth. The app's call sites import useBrand from brand-config
-// directly; <HanzoAI> writes that same module-level store via setBrand().
+// directly; <AI> writes that same module-level store via setBrand().
 //
 // CRITICAL: getBrand()/useBrand() are PLAIN module getters, NOT React hooks.
 // The migrated app calls them from non-component scope (module init, utils,

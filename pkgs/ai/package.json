@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/ai",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "The Hanzo AI app as one declarative SDK component \u2014 <HanzoAI {...brand} />. Brand is a prop; hanzo/zoo/lux apps are thin shims (the @luxfi/exchange pattern, for AI).",
   "license": "BSD-3-Clause",
   "type": "module",

@@ -22,7 +22,7 @@ import { SimpleLayout } from './layout/simple-layout';
 
 // Built lazily (at render time) — NOT as a module-scope const. The BRAND proxy
 // reads the active brand on property access; doing that at module init runs
-// before <HanzoAI/> calls setBrand() → getBrand() throws "No brand configured"
+// before <AI/> calls setBrand() → getBrand() throws "No brand configured"
 // and crashes the whole app (e.g. the onboarding welcome) to a blank screen.
 const getQuestStatusInfoMap = (): Record<
   QuestNames,

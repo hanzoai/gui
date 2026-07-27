@@ -12,23 +12,23 @@ import { BrowserRouter as Router } from 'react-router';
 import { ChatProvider } from '../../components/chat/context/chat-context';
 import { ToolsProvider } from '../../components/chat/context/tools-context';
 import FullPageErrorFallback from '../../components/error-boundary';
-import { nodeQueryClient } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
-import { useHanzoNodeEventsToast } from '../../lib/hanzo-node-manager/hanzo-node-manager-hooks';
-import { HanzoNodeRunningOverlay } from '../../lib/hanzo-node-overlay';
+import { nodeQueryClient } from '../../lib/node-manager/node-manager-client';
+import { useNodeEventsToast } from '../../lib/node-manager/node-manager-hooks';
+import { NodeRunningOverlay } from '../../lib/node-overlay';
 import { useSyncStorageSecondary } from '../../store/sync-utils';
 import QuickAsk from './components/quick-ask';
 import { QuickAskProvider } from './context/quick-ask';
 
 const App = () => {
   useSyncStorageSecondary();
-  useHanzoNodeEventsToast();
+  useNodeEventsToast();
 
   return (
     <I18nProvider>
       <ErrorBoundary FallbackComponent={FullPageErrorFallback}>
         <QuickAskProvider>
           <ToolsProvider>
-            <HanzoNodeRunningOverlay>
+            <NodeRunningOverlay>
               <ChatProvider>
                 <TooltipProvider delayDuration={0}>
                   <Router>
@@ -39,7 +39,7 @@ const App = () => {
                   <Toaster />
                 </TooltipProvider>
               </ChatProvider>
-            </HanzoNodeRunningOverlay>
+            </NodeRunningOverlay>
           </ToolsProvider>
         </QuickAskProvider>
       </ErrorBoundary>

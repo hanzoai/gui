@@ -41,11 +41,11 @@ env:
 jobs:
   publish:
     name: Build, smoke-test, publish @hanzo/ai
-    # Same runner publish-gui.yml uses (the proven-working publish path): the
-    # spark arcd host, platform-native via the Hanzo Platform GitHub App. KMS
-    # (kms.hanzo.ai) is reachable here for the NPM_TOKEN resolution. @hanzo/ai is
-    # arch-independent JS; spark has the RAM the monorepo install needs.
-    runs-on: [self-hosted, linux, arm64]
+    # Same runner publish-gui.yml uses. @hanzo/ai is arch-independent JS, and the
+    # arm64 label this asked for is answered by one frequently-offline host — a job
+    # requesting a label nothing answers queues silently instead of failing, which
+    # is the worst outcome for a publisher. KMS is reachable from either pool.
+    runs-on: hanzo-build-linux-amd64
     if: github.event_name == 'push' || github.event.inputs.confirm == 'publish'
     steps:
       - uses: actions/checkout@v5

@@ -1,0 +1,249 @@
+name: Publish gui
+
+# Triggered only on `release/gui-v*` tags. Bumping a workspace
+# version alone does NOT publish — a tag push gates the run so an
+# accidental version bump on `main` cannot ship to npm. Tag scheme:
+#   release/gui-v7.1.0   → gui@7.1.0
+#
+# Note: @hanzogui/admin moved to hanzoai/admin and publishes from there.
+#
+# NPM_TOKEN resolution order:
+#   1. KMS via Universal Auth (KMS_CLIENT_ID/SECRET → short-lived token)
+#   2. KMS via long-lived HANZO_API_KEY (legacy bootstrap)
+#   3. Direct repo secret NPM_TOKEN (fallback until KMS is provisioned)
+# Same shape as `~/work/hanzo/login/.github/workflows/deploy.yml`.
+#
+# Smoke test: after pack, install the .tgz tarball into a throwaway
+# /tmp consumer and require() it. If the static extractor or vite
+# build chokes on an import shape, this catches it before publish.
+on:
+  push:
+    tags:
+      - 'release/gui-v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Build, smoke-test, publish
+    # Retargeted arm64 self-hosted (spark, frequently offline) → the always-up
+    # in-cluster amd64 ARC pool. Pure-JS publish is arch-independent.
+    runs-on: hanzo-build-linux-amd64
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install
+        uses: ./.github/actions/install
+
+      - name: Resolve NPM_TOKEN (KMS → fallback to repo secret)
+        id: token
+        env:
+          DIRECT_NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
+          KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
+          HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
+          KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://kms.hanzo.ai' }}
+          KMS_WORKSPACE_ID: ${{ vars.KMS_WORKSPACE_ID_GUI || 'e1359bf4-31b4-4dfa-bb90-323e2c298ad8' }}
+        run: |
+          set -eu
+          # Preferred (when configured): pull NPM_TOKEN from KMS at runtime
+          # via Universal Auth (KMS_CLIENT_ID/SECRET) or legacy HANZO_API_KEY.
+          # Fallback: direct repo-secret NPM_TOKEN. The fallback keeps the
+          # publish path unblocked while KMS provisioning catches up.
+          npm_token=""
+          if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
+            HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
+              -H "Content-Type: application/json" \
+              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
+              | jq -r '.accessToken') || true
+          fi
+          if [ -n "${HANZO_API_KEY:-}" ]; then
+            response=$(curl -sf \
+              "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=${KMS_WORKSPACE_ID}&secretPath=/publish&environment=prod" \
+              -H "Authorization: Bearer ${HANZO_API_KEY}" 2>/dev/null) || true
+            if [ -n "${response:-}" ]; then
+              npm_token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="NPM_TOKEN") | .secretValue // empty')
+            fi
+          fi
+          if [ -z "$npm_token" ]; then
+            npm_token="${DIRECT_NPM_TOKEN:-}"
+            if [ -n "$npm_token" ]; then
+              echo "Using NPM_TOKEN from repo secret (KMS path unavailable)."
+            fi
+          fi
+          if [ -z "$npm_token" ]; then
+            echo "::error::No NPM_TOKEN available — need either KMS_CLIENT_ID/SECRET, HANZO_API_KEY, or NPM_TOKEN repo secret."
+            exit 1
+          fi
+          echo "::add-mask::${npm_token}"
+          echo "npm_token=${npm_token}" >> "$GITHUB_OUTPUT"
+
+      - name: Configure npm registry
+        env:
+          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
+        run: |
+          echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+
+      - name: Build (postinstall already built js with SKIP_TYPES=1)
+        # The install step ran `bun install` which fires postinstall
+        # → `bun run build:js` (SKIP_TYPES=1 turbo run build --force).
+        # That covers the publish target and every workspace consumer,
+        # so a separate filtered build here would be a no-op rebuild.
+        # Verifying the dist tree exists is enough — pack will fail
+        # loudly if it doesn't.
+        run: |
+          test -d pkgs/ui/hanzogui/dist || (echo "::error::gui/dist missing"; exit 1)
+
+      - name: Build workspace version map
+        # Map every workspace package name to its on-disk version so we can
+        # resolve `workspace:*` deps to the actual version each subpackage is
+        # at. The umbrella is on the 7.x track but the @hanzogui/* primitives
+        # are still on the 102.x canary stream — they are NOT republished
+        # here, only referenced.
+        id: ws-versions
+        run: |
+          set -eu
+          node -e "
+            const fs=require('fs'); const path=require('path');
+            const map={};
+            const dirs=['pkgs/ui','pkgs/core','pkgs/compiler','pkgs'];
+            const collect=(d)=>{
+              if (!fs.existsSync(d)) return;
+              const stat=fs.statSync(d);
+              if (stat.isFile() && d.endsWith('package.json')) {
+                try { const j=JSON.parse(fs.readFileSync(d)); if (j.name && j.version) map[j.name]=j.version; } catch{}
+                return;
+              }
+              if (!stat.isDirectory()) return;
+              const pkg=path.join(d,'package.json');
+              if (fs.existsSync(pkg)) collect(pkg);
+              for (const e of fs.readdirSync(d)) {
+                if (e==='node_modules') continue;
+                collect(path.join(d,e));
+              }
+            };
+            for (const d of dirs) collect(d);
+            fs.writeFileSync('/tmp/ws-versions.json', JSON.stringify(map));
+            console.log('mapped', Object.keys(map).length, 'workspace packages');
+          "
+
+      - name: Pack gui
+        # `npm pack` does NOT resolve `workspace:*` specifiers; the resulting
+        # tarball would ship literal `workspace:*` and break consumers. We
+        # mirror what `scripts/release.ts` does — copy to a temp dir, rewrite
+        # every `workspace:*` to the matching package's on-disk version (from
+        # the workspace map built above), then pack.
+        id: pack-gui
+        run: |
+          set -eu
+          tmpdir=$(mktemp -d)
+          cp -R pkgs/ui/hanzogui/. "$tmpdir/"
+          rm -rf "$tmpdir/node_modules"
+          node -e "
+            const fs=require('fs');
+            const map=JSON.parse(fs.readFileSync('/tmp/ws-versions.json'));
+            const p='$tmpdir/package.json';
+            const j=JSON.parse(fs.readFileSync(p));
+            const ownVer=j.version;
+            for (const f of ['dependencies','devDependencies','peerDependencies','optionalDependencies']) {
+              if (!j[f]) continue;
+              for (const k of Object.keys(j[f])) {
+                if (j[f][k].startsWith('workspace:')) {
+                  const v=map[k]; if (!v) { console.error('no version for',k); process.exit(1); }
+                  j[f][k]=v;
+                }
+              }
+            }
+            fs.writeFileSync(p, JSON.stringify(j, null, 2)+'\n');
+          "
+          cd "$tmpdir"
+          tgz=$(npm pack --silent | tail -1)
+          echo "tgz=$tmpdir/${tgz}" >> "$GITHUB_OUTPUT"
+          echo "tmpdir=$tmpdir" >> "$GITHUB_OUTPUT"
+
+      - name: Smoke-test packed tarball (metadata-only)
+        env:
+          GUI_TGZ: ${{ steps.pack-gui.outputs.tgz }}
+        run: |
+          set -eu
+          # Metadata-only smoke: extract package.json + key dist files from
+          # the tarball without npm-installing it. Full consumer install
+          # would chicken-egg on first release (hanzogui's @hanzogui/*
+          # workspace deps aren't on npm yet at the new version), so this
+          # checks the tarball SHAPE — name, exports map resolvability,
+          # required dist files present — without resolving the dep tree.
+          inspect=$(mktemp -d)
+          tar -xzf "${GUI_TGZ}" -C "$inspect"
+          cd "$inspect/package"
+          # Name must be exactly 'hanzogui' (the static extractor scans
+          # for this literal token; never call this package 'Gui').
+          test "$(node -p "require('./package.json').name")" = "hanzogui"
+          # All workspace:* specs must be rewritten by the pack step
+          # (literal 'workspace:' in the published tarball would break
+          # consumer installs with EUNSUPPORTEDPROTOCOL).
+          ! grep -q '"workspace:' package.json
+          # Every dist file referenced from exports must actually exist
+          # in the tarball — catches broken exports maps + missing files.
+          node -e "
+            const fs = require('fs');
+            const pkg = require('./package.json');
+            const walk = (v) => {
+              if (typeof v === 'string') {
+                if (v.startsWith('./')) {
+                  if (!fs.existsSync(v)) { console.error('missing:', v); process.exitCode = 1; }
+                }
+              } else if (v && typeof v === 'object') {
+                for (const k of Object.keys(v)) walk(v[k]);
+              }
+            };
+            walk(pkg.exports || {});
+            walk(pkg.main); walk(pkg.module); walk(pkg.types);
+          "
+          echo "smoke OK: $(jq -r '.name + \"@\" + .version' package.json)"
+
+      - name: Publish gui
+        env:
+          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ steps.token.outputs.npm_token }}
+          TGZ: ${{ steps.pack-gui.outputs.tgz }}
+        working-directory: pkgs/ui/hanzogui
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view "hanzogui@${version}" version >/dev/null 2>&1; then
+            echo "hanzogui@${version} already on npm — skipping."
+            exit 0
+          fi
+          npm publish "${TGZ}" --access public --tag stable
+
+
+      - name: Pack + Publish @hanzo/gui (alias of gui)
+        # Republish the umbrella tarball under the @hanzo/gui scoped name so
+        # downstream consumers can import either alias. Same dist tree as
+        # gui — only `name` differs. The static extractor scans for the
+        # literal 'gui' import token, so this alias is purely a consumer
+        # ergonomics shim and never participates in extractor input. We reuse
+        # the prepared tmpdir from the gui pack step (workspace specs
+        # already rewritten) and only mutate `name`.
+        env:
+          NPM_TOKEN: ${{ steps.token.outputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ steps.token.outputs.npm_token }}
+          TMPDIR_GUI: ${{ steps.pack-gui.outputs.tmpdir }}
+        run: |
+          set -eu
+          aliasdir=$(mktemp -d)
+          cp -R "$TMPDIR_GUI"/. "$aliasdir/"
+          cd "$aliasdir"
+          jq '.name = "@hanzo/gui"' package.json > package.json.new
+          mv package.json.new package.json
+          version=$(node -p "require('./package.json').version")
+          if npm view "@hanzo/gui@${version}" version >/dev/null 2>&1; then
+            echo "@hanzo/gui@${version} already on npm — skipping."
+            exit 0
+          fi
+          tgz=$(npm pack --silent | tail -1)
+          npm publish "${tgz}" --access public --tag stable

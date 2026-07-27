@@ -6,6 +6,75 @@ FOR LONG RUNNNING DEBUGGING run `bun run watch` in the background its faster and
 
 keep commits to one line, add a trailing "Fixes #" if associated with a GH issue, and start with a convential commit style - UNLESS its a change that shouldn't go into the changelog, in those cases you can do things like `docs: ` or `site: `.
 
+# How this ships
+
+One way, and it runs on our own stack:
+
+    push  ->  github.com/hanzoai/gui           (a mirror)
+              .github/workflows/sync.yml        carries refs onward
+      ->  git.hanzo.ai/hanzoai/gui              CANONICAL
+              .hanzo/workflows/checks.yaml      check, lint, unit tests
+              .hanzo/workflows/publish-gui.yml      hanzogui + @hanzo/gui
+              .hanzo/workflows/publish-gui-all.yml  every @hanzogui/* primitive
+              .hanzo/workflows/publish-ai.yml       @hanzo/ai
+              .hanzo/workflows/build.yml            ghcr.io/hanzoai/gui
+
+**git.hanzo.ai is canonical; GitHub is a mirror.** `.github/workflows/` holds
+exactly one file, `sync.yml`, and its only job is getting refs to the forge. Every
+build, check and publish is a workflow under `.hanzo/workflows/`, which the forge
+reads. `.hanzo/workflows` uses GitHub Actions syntax, so a workflow moves between
+the two by changing directory and nothing else. `.github/actions/install` stays
+where it is — a moved workflow's `uses: ./.github/actions/install` still resolves.
+
+## What publishes what
+
+Each publisher is the only producer of its packages, and a tag is the trigger in
+every case — a version bump alone never ships.
+
+| tag | workflow | publishes |
+| --- | --- | --- |
+| `release/gui-v*` | `publish-gui.yml` | `hanzogui` + the `@hanzo/gui` alias |
+| `release/gui-all-v*` (or dispatch) | `publish-gui-all.yml` | every `@hanzogui/*` primitive + both umbrellas |
+| `release/ai-v*` | `publish-ai.yml` | `@hanzo/ai` from `pkgs/ai` |
+
+`NPM_TOKEN` comes from KMS with a repo-secret fallback in the two `publish-gui*`
+workflows, and from `hanzoai/universe/.github/actions/kms-action` over OIDC in
+`publish-ai.yml`. The forge has to be able to resolve that cross-repo action, so
+`hanzoai/universe` must exist there; if it does not, the KMS step is the thing that
+fails.
+
+`publish-ai.yml` asked for `runs-on: [self-hosted, linux, arm64]`, which is one
+frequently-offline host. A job requesting a label nothing answers queues silently
+instead of failing, which is the worst possible outcome for a publisher, so it now
+uses `hanzo-build-linux-amd64` like its two siblings — `@hanzo/ai` is
+arch-independent JS.
+
+## Known dead ends
+
+- `build.yml` delegates to `hanzoai/.github/.github/workflows/docker-build.yml@main`
+  and **that file does not exist** in `hanzoai/.github` (which carries
+  `platform-build.yml` and `promote.yml`). The workflow has therefore never
+  completed a run and `ghcr.io/hanzoai/gui` is not in the registry. It moved to
+  `.hanzo/workflows/` unchanged rather than being deleted, because it is the only
+  declaration of the image path; making it real means either inlining a build or
+  pointing it at `platform-build.yml`.
+- `gui.hanzo.ai` is **not served from this repo.** It answers from Cloudflare Pages
+  out of `hanzoai/docs` (`apps/gui-docs`). This repo's own `apps/gui.hanzo.ai` is
+  `one serve` — a long-running server, not a static export — so `hanzoai/static`
+  cannot serve it and there is no App CR for it. Either point a CR at the docs
+  image or convert that app to a static export; both are their own change.
+- `checks.yaml` lost its `changes` + `integration-tests` jobs on the way over. They
+  filtered on `code/core/**`, `code/kitchen-sink/**` and friends — an upstream
+  Tamagui layout this repo does not have (the real paths are `apps/` and `pkgs/`) —
+  so the filter never matched and the shard matrix never ran. The Playwright suite
+  they were meant to run is at `apps/kitchen-sink/playwright.config.ts` and is
+  currently wired to nothing.
+- Three iOS workflows were deleted outright: `build-ios-kitchensink-app.yml`,
+  `test-ios-native.yml` and `test-ios-kitchensink-go.yml`. All three wanted
+  `macos-14`/`macos-15` runners, which the forge does not have, and all three ran
+  in `code/kitchen-sink`, which does not exist. One was already `if: false`. Native
+  iOS testing needs macOS capacity first; these files could not have provided it.
+
 # Hanzo GUI Testing Guide
 
 ## Running Tests

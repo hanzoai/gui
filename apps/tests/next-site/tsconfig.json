@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "composite": true,
-    // for jumping to things properly in vscode
-    "baseUrl": ".",
     "paths": {
       "hanzogui": [
         "../ui/gui"
@@ -42,7 +40,7 @@
     "allowJs": true,
     "noEmit": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
     "jsx": "preserve",
     "noImplicitThis": true,

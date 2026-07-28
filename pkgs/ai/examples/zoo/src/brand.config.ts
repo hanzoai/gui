@@ -1,7 +1,7 @@
 import type { BrandConfig } from '@hanzo_network/brand-config';
 
 // This app OWNS its brand. The @hanzo/app SDK bundles no brands; it receives this
-// config via <HanzoAI {...brandConfig}/>. Edit values here — nothing brand-
+// config via <AI {...brandConfig}/>. Edit values here — nothing brand-
 // specific is hardcoded in the SDK.
 export const brandConfig: BrandConfig = {
   brand: 'zoo',

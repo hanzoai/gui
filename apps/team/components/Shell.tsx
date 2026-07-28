@@ -1,152 +1,111 @@
-import { useState } from 'react'
-import { Linking } from 'react-native'
-import { useRouter } from 'one'
-import { ChevronDown } from '@hanzogui/lucide-icons-2'
-import { ScrollView, SizableText, XStack, YStack } from 'hanzogui'
-import { Mark } from './Mark'
-import { SchemeToggle } from './Scheme'
-import { SURFACES } from '~/src/surfaces'
-import { useSession } from '~/src/session'
+import { Separator } from '@hanzo/ui'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  login as fetchLogin,
+  workspaces as fetchWorkspaces,
+  type Login,
+  type Workspace,
+} from '~/src/account'
+import { brandFor } from '~/src/brand'
+import { claim, token } from '~/src/session'
+import { VIEWS, viewFor, type Props } from '~/src/views'
+import { Account } from './Account'
+import { Palette } from './Palette'
+import { Sidebar } from './Sidebar'
+import { Svelte } from './Svelte'
 
-// app frame: AppHeader (mark · org switcher · seven-surface switcher · auth) over content
-export const Shell = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter()
-  const { session, signOut } = useSession()
-  const [orgOpen, setOrgOpen] = useState(false)
-  const [activeOrg, setActiveOrg] = useState<string | undefined>(undefined)
+/*
+ * The chrome.
+ *
+ * React owns the frame and the navigation. The sidebar decides which view is
+ * active; the content area renders it. A view is React or Svelte and gets the
+ * same props either way, so which language it happens to be written in is not
+ * something the shell — or the user — can observe.
+ */
+export function Shell() {
+  const brand = useMemo(() => brandFor(window.location.hostname), [])
+  const [active, setActive] = useState(() => window.location.hash.replace(/^#/, '') || VIEWS[0].id)
+  const [login, setLogin] = useState<Login | undefined>(undefined)
+  const [workspaces, setWorkspaces] = useState<readonly Workspace[]>([])
+  const [workspace, setWorkspace] = useState<string | undefined>(undefined)
+  const [error, setError] = useState<string | null>(null)
 
-  const orgs = session?.user?.orgs ?? []
-  const currentOrg = activeOrg ?? orgs[0] ?? 'Hanzo'
-  const signedIn = session != null
+  // Take any token the backend handed back before asking who we are.
+  useEffect(() => {
+    setError(claim().error)
+  }, [])
+
+  useEffect(() => {
+    if (token() === null) return
+    let live = true
+    void (async () => {
+      try {
+        const [who, list] = await Promise.all([fetchLogin(), fetchWorkspaces()])
+        if (!live) return
+        setLogin(who)
+        setWorkspaces(list)
+        setWorkspace((current) => current ?? list[0]?.url)
+      } catch (e) {
+        if (live) setError(e instanceof Error ? e.message : String(e))
+      }
+    })()
+    return () => {
+      live = false
+    }
+  }, [])
+
+  const select = useCallback((id: string) => {
+    setActive(id)
+    window.location.hash = id
+  }, [])
+
+  const view = viewFor(active)
+
+  // One object per (workspace, token) pair rather than per render, so a live
+  // Svelte view is not re-pushed props it already has.
+  const props = useMemo<Props>(() => ({ workspace: workspace ?? '', token: token() }), [workspace])
 
   return (
-    <YStack flex={1} minH="100%" bg="$background">
-      <YStack borderBottomWidth={1} borderColor="$borderColor" px="$4" pt="$3" pb="$2" gap="$2">
-        <XStack items="center" gap="$3">
-          <Mark size={22} />
+    <div className="flex h-full w-full">
+      <Sidebar brand={brand} views={VIEWS} active={view.id} onSelect={select} />
 
-          <YStack position="relative">
-            <XStack
-              items="center"
-              gap="$2"
-              rounded="$4"
-              px="$2"
-              py="$1"
-              cursor="pointer"
-              pressStyle={{ bg: '$color1' }}
-              onPress={() => setOrgOpen((v) => (orgs.length > 1 ? !v : v))}
-            >
-              <YStack width={20} height={20} rounded={999} bg="$color" items="center" justify="center">
-                <SizableText size="$1" fontWeight="700" color="$background">
-                  {currentOrg.charAt(0).toUpperCase()}
-                </SizableText>
-              </YStack>
-              <SizableText size="$3" fontWeight="600">
-                {currentOrg}
-              </SizableText>
-              {orgs.length > 1 ? <ChevronDown size={14} color="$color10" /> : null}
-            </XStack>
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="flex h-14 shrink-0 items-center gap-3 px-4" role="banner">
+          <span className="truncate text-sm font-medium" data-shell="title">
+            {view.label}
+          </span>
+          <div className="flex-1" />
+          <Account
+            login={login}
+            workspaces={workspaces}
+            current={workspace}
+            onSelect={(w) => setWorkspace(w.url)}
+          />
+        </header>
 
-            {orgOpen && orgs.length > 1 ? (
-              <YStack
-                position="absolute"
-                t={38}
-                l={0}
-                minW={180}
-                bg="$background"
-                borderWidth={1}
-                borderColor="$borderColor"
-                rounded="$4"
-                py="$1"
-                z={100}
-              >
-                {orgs.map((org) => (
-                  <XStack
-                    key={org}
-                    px="$3"
-                    py="$2"
-                    cursor="pointer"
-                    pressStyle={{ bg: '$color1' }}
-                    onPress={() => {
-                      setActiveOrg(org)
-                      setOrgOpen(false)
-                    }}
-                  >
-                    <SizableText size="$3" color={org === currentOrg ? '$color' : '$color10'}>
-                      {org}
-                    </SizableText>
-                  </XStack>
-                ))}
-              </YStack>
-            ) : null}
-          </YStack>
+        <Separator />
 
-          <XStack flex={1} />
+        {error !== null ? (
+          <p role="alert" data-shell="error" className="text-destructive px-4 py-2 text-xs">
+            {error}
+          </p>
+        ) : null}
 
-          {signedIn ? (
-            <XStack
-              rounded="$10"
-              px="$3"
-              py="$1.5"
-              borderWidth={1}
-              borderColor="$borderColor"
-              cursor="pointer"
-              pressStyle={{ opacity: 0.6 }}
-              onPress={() => void signOut()}
-            >
-              <SizableText size="$2" color="$color10">
-                Sign out
-              </SizableText>
-            </XStack>
+        <main className="min-h-0 flex-1 overflow-auto p-4" data-shell="content">
+          {'react' in view.content ? (
+            <view.content.react {...props} />
           ) : (
-            <XStack
-              rounded="$10"
-              px="$3"
-              py="$1.5"
-              bg="$color"
-              cursor="pointer"
-              pressStyle={{ opacity: 0.8 }}
-              onPress={() => router.push('/login')}
-            >
-              <SizableText size="$2" color="$background" fontWeight="600">
-                Sign in
-              </SizableText>
-            </XStack>
+            <Svelte view={view.content.svelte} props={props} className="h-full" />
           )}
+        </main>
+      </div>
 
-          <SchemeToggle />
-        </XStack>
-
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <XStack gap="$2">
-            {SURFACES.map((surface) => {
-              const active = surface.id === 'team'
-              return (
-                <XStack
-                  key={surface.id}
-                  rounded="$10"
-                  px="$3"
-                  py="$1.5"
-                  borderWidth={1}
-                  borderColor={active ? '$borderColor' : 'transparent'}
-                  bg={active ? '$color1' : 'transparent'}
-                  cursor="pointer"
-                  pressStyle={{ opacity: 0.6 }}
-                  onPress={() => {
-                    if (!active) void Linking.openURL(surface.href)
-                  }}
-                >
-                  <SizableText size="$2" color={active ? '$color' : '$color10'}>
-                    {surface.label}
-                  </SizableText>
-                </XStack>
-              )
-            })}
-          </XStack>
-        </ScrollView>
-      </YStack>
-
-      {children}
-    </YStack>
+      <Palette
+        views={VIEWS}
+        workspaces={workspaces}
+        onView={select}
+        onWorkspace={(w) => setWorkspace(w.url)}
+      />
+    </div>
   )
 }

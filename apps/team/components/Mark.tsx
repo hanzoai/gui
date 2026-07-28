@@ -1,14 +1,49 @@
-import { useTheme } from 'hanzogui'
-import Svg, { Path } from 'react-native-svg'
+import { MARK_PATHS, MARK_VIEWBOX } from '@hanzo/logo'
+import type { Brand } from '~/src/brand'
 
-const d =
-  'M45.9269 46.3536C45.65 45.3274 44.9038 44.8299 43.8628 44.9314C41.8474 45.1268 41.1782 44.4808 40.2218 43.0613C42.7423 43.5952 44.3679 42.9389 44.8756 42.6471C45.5295 42.2694 46.191 41.785 45.9295 40.9306C45.6731 40.0945 44.9038 39.9278 44.1141 40.0789C42.9936 40.2925 41.9192 40.4175 41.0474 39.3261C41.232 39.1594 41.4166 38.9875 41.6064 38.8234C42.0705 38.4249 42.4295 37.9561 42.1936 37.3231C41.9679 36.7188 41.3961 36.3724 40.8141 36.4792C40.3397 36.5678 39.3884 36.8647 39.0987 36.3802L39.1115 36.375C39.0013 36.349 38.832 35.8957 38.7961 35.5649C38.6269 33.9474 39.3269 32.395 40.2705 31.1057C41.4474 29.5038 42.2551 27.7378 42.6141 25.7791C43.1756 22.7055 42.5807 19.8456 40.9192 17.2174C38.9474 14.097 36.1679 12.0419 32.509 11.2865C31.65 11.1094 30.8115 11.0156 29.9987 11C29.1833 11.0156 28.3474 11.1094 27.4884 11.2865C23.832 12.0419 21.05 14.097 19.0782 17.2174C17.4192 19.8456 16.8243 22.7055 17.3833 25.7791C17.7397 27.7404 18.55 29.5038 19.7269 31.1057C20.6731 32.395 21.3731 33.9448 21.2013 35.5649C21.1654 35.8957 20.9961 36.349 20.8859 36.375L20.8987 36.3802C20.609 36.8621 19.6602 36.5678 19.1833 36.4792C18.6038 36.3724 18.0295 36.7188 17.8038 37.3231C17.5679 37.9561 17.9243 38.4249 18.391 38.8234C18.5807 38.9875 18.7654 39.1594 18.95 39.3261C18.0782 40.4175 17.0013 40.2925 15.8833 40.0789C15.0936 39.9278 14.3243 40.0945 14.0679 40.9306C13.8064 41.785 14.4679 42.2694 15.1218 42.6471C15.6269 42.9389 17.2551 43.5926 19.7756 43.0613C18.8192 44.4808 18.15 45.1268 16.1346 44.9314C15.0936 44.8299 14.3448 45.3274 14.0705 46.3536C13.8013 47.3564 14.332 48.0753 15.1731 48.5546C15.7243 48.8672 16.3397 48.9896 16.991 49C20.5577 49.0495 23.5013 47.5778 26.1525 45.3638C27.6115 44.1448 28.8115 43.5275 30.0013 43.5119C31.191 43.5275 32.3884 44.1448 33.85 45.3638C36.5013 47.5778 39.4448 49.0495 43.0115 49C43.6628 48.9922 44.2782 48.8672 44.8295 48.5546C45.6731 48.0753 46.2013 47.3564 45.932 46.3536H45.9269ZM25.0756 34.2027C23.9731 34.2001 23.0628 33.278 23.0602 32.1658C23.0602 31.0328 23.9807 30.1055 25.1166 30.0951C26.1961 30.0847 27.1577 31.1083 27.1474 32.257C27.1372 33.3952 26.2705 34.2079 25.0756 34.2027ZM34.9192 34.2027C33.7218 34.2079 32.8577 33.3926 32.8474 32.257C32.8372 31.1083 33.8013 30.0847 34.8782 30.0951C36.0141 30.1081 36.9346 31.0354 36.9346 32.1658C36.9346 33.278 36.0218 34.2001 34.9192 34.2027Z'
+/*
+ * The brand mark, from the brand pack.
+ *
+ * The geometry comes from `@hanzo/logo` — the app holds no path data of its own,
+ * so a brand change is a package bump rather than an edit here.
+ *
+ * The pack ships ONE mark, Hanzo's. So a brand belonging to any other org has no
+ * mark available and renders its wordmark instead. That is the whole white-label
+ * guarantee, and it holds structurally rather than by remembering to check:
+ * there is no code path that can put Hanzo's mark on a Lux or Zoo host, because
+ * the mark is selected by `brand.org` and only `hanzo` has one.
+ *
+ * This owns the ENTIRE lockup — glyph and name together — so exactly one place
+ * decides how a brand presents itself. Splitting it, with a caller rendering the
+ * name alongside, is what produced "Lux Team Lux Team": the wordmark already IS
+ * the name, and a caller cannot know that without re-deciding it.
+ */
+export function Mark({ brand, size = 22 }: { brand: Brand | undefined; size?: number }) {
+  // Unknown host — no brand claims it, so show nothing rather than a guess.
+  if (brand === undefined) return null
 
-export const Mark = ({ size = 24 }: { size?: number }) => {
-  const theme = useTheme()
+  // No glyph for this org: the name is the mark.
+  if (brand.org !== 'hanzo') {
+    return (
+      <span data-mark={brand.org} className="truncate text-sm font-semibold tracking-tight">
+        {brand.name}
+      </span>
+    )
+  }
+
   return (
-    <Svg width={size} height={size} viewBox="10 8 40 44" fill="none">
-      <Path d={d} fill={theme.color.get()} />
-    </Svg>
+    <>
+      <svg
+        data-mark="hanzo"
+        width={size}
+        height={size}
+        viewBox={MARK_VIEWBOX}
+        aria-hidden="true"
+        className="shrink-0 fill-foreground"
+        // Static markup from the brand pack, not input.
+        dangerouslySetInnerHTML={{ __html: MARK_PATHS }}
+      />
+      <span className="truncate text-sm font-semibold tracking-tight">{brand.name}</span>
+    </>
   )
 }

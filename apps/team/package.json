@@ -4,32 +4,29 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "one dev",
-    "build:web": "one build",
-    "serve": "one serve",
-    "ios": "one run:ios",
-    "android": "one run:android",
-    "typecheck": "tsc --noEmit"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test"
   },
   "dependencies": {
-    "@hanzogui/config": "workspace:*",
-    "@hanzogui/core": "workspace:*",
-    "@hanzogui/lucide-icons-2": "workspace:*",
-    "@vxrn/color-scheme": "^1.12.5",
-    "expo": "~55.0.6",
-    "one": "1.12.5",
-    "react": ">=19",
-    "react-native": "0.83.2",
-    "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "~4.23.0",
-    "react-native-svg": "15.15.3",
-    "react-native-web": "^0.21.0",
-    "hanzogui": "workspace:*"
+    "@hanzo/svelte": "^1.0.0",
+    "@hanzo/ui": "^8.0.26",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "svelte": "^5.56.8"
   },
   "devDependencies": {
-    "@hanzogui/vite-plugin": "workspace:*",
+    "@playwright/test": "^1.49.1",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
+    "@tailwindcss/vite": "^4",
     "@types/react": "~19.1.10",
-    "vite": "^8.0.3"
+    "@types/react-dom": "~19.1.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "tailwindcss": "^4",
+    "typescript": "~5.9.2",
+    "vite": "^7.1.5"
   },
   "license": "BSD-3-Clause",
   "author": "Hanzo AI <dev@hanzo.ai>"

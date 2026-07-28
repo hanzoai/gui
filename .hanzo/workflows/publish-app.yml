@@ -1,7 +1,7 @@
 name: Publish @hanzo/app
 
 # Surgical publish of ONLY the @hanzo/app SDK (pkgs/ai). The desktop apps
-# (hanzo/zoo/lux) render `<HanzoAI/>` from this package; it must be on npm
+# (hanzo/zoo/lux) render `<AI/>` from this package; it must be on npm
 # for a clean `npm i` to resolve it.
 #
 # Triggered only on `release/app-v*` tags. A version bump alone does NOT
@@ -82,7 +82,7 @@ jobs:
 
       - name: Build @hanzo/app (dist + dist-desktop)
         # pkgs/ai's own build runs BOTH vite passes: dist/ (web entry,
-        # ai.css) and dist-desktop/ (the <HanzoAI/> desktop bundle the apps
+        # app.css) and dist-desktop/ (the <AI/> desktop bundle the apps
         # import). Build it explicitly so both trees exist before publish.
         working-directory: pkgs/ai
         run: bun run build
@@ -92,7 +92,7 @@ jobs:
           set -eu
           cd pkgs/ai
           test -f dist/index.js || (echo "::error::dist/index.js missing"; exit 1)
-          test -f dist/ai.css || (echo "::error::dist/ai.css missing"; exit 1)
+          test -f dist/app.css || (echo "::error::dist/app.css missing"; exit 1)
           test -f dist-desktop/index.js || (echo "::error::dist-desktop/index.js missing"; exit 1)
           # Every file referenced from the exports map must exist.
           node -e "

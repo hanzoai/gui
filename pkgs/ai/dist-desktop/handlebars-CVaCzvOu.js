@@ -14,3 +14,4 @@ lang
 ];
 
 export { handlebars as default };
+//# sourceMappingURL=handlebars-CVaCzvOu.js.map

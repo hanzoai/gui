@@ -22,3 +22,4 @@ lang
 ];
 
 exports.default = astro;
+//# sourceMappingURL=astro-Cp6zZR-b.cjs.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { reg as default };
+//# sourceMappingURL=reg-D7brQ7Jq.js.map

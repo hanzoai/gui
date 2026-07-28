@@ -5,7 +5,7 @@
 // CRITICAL: getBrand()/useBrand() are PLAIN module getters, NOT React hooks.
 // The migrated app calls them from non-component scope (module init, utils,
 // event handlers), so they must never call a hook — else "invalid hook call".
-// (Importing useBrand from the @hanzo/ai PACKAGE instead of here would pull the
+// (Importing useBrand from the @hanzo/app PACKAGE instead of here would pull the
 // built dist back into the source graph — a cycle + a duplicate React. Don't.)
 import React from 'react';
 import { setBrand, getBrand, useBrand } from '@hanzo_network/brand-config';

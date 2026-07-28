@@ -5,3 +5,4 @@ lang
 ];
 
 export { nextflow_groovy as default };
+//# sourceMappingURL=nextflow-groovy-BTr18SAT.js.map

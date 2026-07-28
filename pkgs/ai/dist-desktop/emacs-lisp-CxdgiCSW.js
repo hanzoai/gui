@@ -5,3 +5,4 @@ lang
 ];
 
 export { emacsLisp as default };
+//# sourceMappingURL=emacs-lisp-CxdgiCSW.js.map

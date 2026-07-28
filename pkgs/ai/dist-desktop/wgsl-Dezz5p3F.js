@@ -5,3 +5,4 @@ lang
 ];
 
 export { wgsl as default };
+//# sourceMappingURL=wgsl-Dezz5p3F.js.map

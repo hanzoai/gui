@@ -8,3 +8,4 @@ lang
 ];
 
 export { shellsession as default };
+//# sourceMappingURL=shellsession-pUygluEP.js.map

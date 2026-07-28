@@ -34,3 +34,4 @@ lang
 ];
 
 exports.default = ruby;
+//# sourceMappingURL=ruby-CYN0f6yw.cjs.map

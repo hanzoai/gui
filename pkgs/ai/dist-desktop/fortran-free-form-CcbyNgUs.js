@@ -5,3 +5,4 @@ lang
 ];
 
 export { fortran_free_form as default };
+//# sourceMappingURL=fortran-free-form-CcbyNgUs.js.map

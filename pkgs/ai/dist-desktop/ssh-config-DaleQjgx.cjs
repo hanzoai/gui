@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = sshConfig;
+//# sourceMappingURL=ssh-config-DaleQjgx.cjs.map

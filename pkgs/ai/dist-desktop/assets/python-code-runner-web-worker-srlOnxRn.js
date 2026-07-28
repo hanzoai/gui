@@ -304,3 +304,4 @@ self.onmessage = async (event) => {
       console.warn("Unknown message type:", event.data?.type);
   }
 };
+//# sourceMappingURL=python-code-runner-web-worker-srlOnxRn.js.map

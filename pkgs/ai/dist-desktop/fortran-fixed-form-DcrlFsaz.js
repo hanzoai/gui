@@ -8,3 +8,4 @@ lang
 ];
 
 export { fortranFixedForm as default };
+//# sourceMappingURL=fortran-fixed-form-DcrlFsaz.js.map

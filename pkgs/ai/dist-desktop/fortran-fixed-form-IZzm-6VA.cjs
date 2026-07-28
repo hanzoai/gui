@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = fortranFixedForm;
+//# sourceMappingURL=fortran-fixed-form-IZzm-6VA.cjs.map

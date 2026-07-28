@@ -5,3 +5,4 @@ lang
 ];
 
 export { nushell as default };
+//# sourceMappingURL=nushell-Cb_ftVxn.js.map

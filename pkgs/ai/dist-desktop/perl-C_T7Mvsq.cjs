@@ -20,3 +20,4 @@ lang
 ];
 
 exports.default = perl;
+//# sourceMappingURL=perl-C_T7Mvsq.cjs.map

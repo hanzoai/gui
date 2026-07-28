@@ -1,4 +1,4 @@
-# Testing @hanzo/ai — and TDD going forward
+# Testing @hanzo/app — and TDD going forward
 
 ## Run
 

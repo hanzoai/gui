@@ -5,3 +5,4 @@ lang
 ];
 
 export { shellscript as default };
+//# sourceMappingURL=shellscript-B-IN73ZR.js.map

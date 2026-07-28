@@ -486,7 +486,7 @@
       },
     },
     "pkgs/ai": {
-      "name": "@hanzo/ai",
+      "name": "@hanzo/app",
       "version": "0.1.1",
       "dependencies": {
         "@hookform/resolvers": "^3.10.0",
@@ -4306,7 +4306,7 @@
 
     "@github/mini-throttle": ["@github/mini-throttle@2.1.1", "", {}, "sha512-KtOPaB+FiKJ6jcKm9UKyaM5fPURHGf+xcp+b4Mzoi81hOc6M1sIGpMZMAVbNzfa2lW5+RPGKq888Px0j76OZ/A=="],
 
-    "@hanzo/ai": ["@hanzo/ai@workspace:pkgs/ai"],
+    "@hanzo/app": ["@hanzo/app@workspace:pkgs/ai"],
 
     "@hanzo/base": ["@hanzo/base@0.2.0", "", { "dependencies": { "pocketbase": "^0.26.5" }, "peerDependencies": { "react": ">=18.0.0" }, "optionalPeers": ["react"] }, "sha512-JymDJQou0olqik3okyqqNxPs2RGwV3wwqzeaX1IdIYsjPCEvgEkSCMqje6FdsuAmSTc5NgVNO62KJ3lIeHsxcA=="],
 

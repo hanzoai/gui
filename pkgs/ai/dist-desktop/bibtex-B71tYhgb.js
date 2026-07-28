@@ -5,3 +5,4 @@ lang
 ];
 
 export { bibtex as default };
+//# sourceMappingURL=bibtex-B71tYhgb.js.map

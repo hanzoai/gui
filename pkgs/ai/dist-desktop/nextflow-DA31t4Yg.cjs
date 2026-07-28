@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = nextflow;
+//# sourceMappingURL=nextflow-DA31t4Yg.cjs.map

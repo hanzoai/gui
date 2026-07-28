@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = typst;
+//# sourceMappingURL=typst-CWb_BXat.cjs.map

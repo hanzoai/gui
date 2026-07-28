@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = moonbit;
+//# sourceMappingURL=moonbit-BP1SCHQJ.cjs.map

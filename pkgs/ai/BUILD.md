@@ -1,11 +1,11 @@
-# @hanzo/ai — build / migration plan
+# @hanzo/app — build / migration plan
 
 Goal: the Hanzo AI app as **one declarative SDK component** (`<HanzoAI {...brand} />`),
 so `hanzo/zoo/lux` desktop+mobile apps become ~80-line shims — exactly how
 `zooai/exchange` / `luxfi/exchange` consume `@luxfi/exchange`.
 
 ```
-@hanzo/ai  (this pkg — the app)            @luxfi/exchange  (the analog)
+@hanzo/app  (this pkg — the app)            @luxfi/exchange  (the analog)
    ▲                                          ▲
 hanzoai/desktop · zooai/app · luxfi/app    zooai/exchange · luxfi/exchange
    <HanzoAI {...brand}/>                      <Exchange {...brand}/>
@@ -16,7 +16,7 @@ hanzoai/desktop · zooai/app · luxfi/app    zooai/exchange · luxfi/exchange
 - [x] `<HanzoAI>` component + `BrandProvider`/`useBrand` (prop-driven; replaces `getBrand()` env lookup).
 - [ ] **Move the app in** (the big rock).
 - [ ] **Decouple Tauri** (44 files).
-- [ ] **Bundle + publish** `@hanzo/ai` and its libs.
+- [ ] **Bundle + publish** `@hanzo/app` and its libs.
 - [ ] **Shims**: rewrite `hanzoai/desktop`, `zooai/app`, `luxfi/app` to the shim.
 
 ## The move (~955 source files)
@@ -38,7 +38,7 @@ Mechanical, but two rewrites are required during the move:
 ## Then the shim (per app) — the whole app:
 ```tsx
 // luxfi/app — apps/web/src/main.tsx
-import HanzoAI from '@hanzo/ai'
+import HanzoAI from '@hanzo/app'
 import brand   from '@luxfi/brand'
 import { tauriHost } from './host'   // desktop adapter
 createRoot(root).render(
@@ -46,4 +46,4 @@ createRoot(root).render(
     features={{ chat:true, wallet:true, mining:true }} />)
 ```
 Mobile = `apps/mobile` (Expo) with the same `<HanzoAI {...brand} host={expoHost} />`.
-Build via Dockerfile from the pinned `@hanzo/ai`, brand overlaid — like the exchanges.
+Build via Dockerfile from the pinned `@hanzo/app`, brand overlaid — like the exchanges.

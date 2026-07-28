@@ -1,8 +1,8 @@
-// @hanzo/ai DESKTOP build. Unlike the web lib build, this does NOT alias
+// @hanzo/app DESKTOP build. Unlike the web lib build, this does NOT alias
 // @tauri-apps → web shims — it EXTERNALIZES @tauri-apps (and react) so the app
 // uses the host's REAL native APIs (full window/fs/dialog/updater/node-sidecar).
 // A desktop shim consumes this + provides react + @tauri-apps:
-//   import HanzoAI, { getBrand } from '@hanzo/ai/desktop'
+//   import HanzoAI, { getBrand } from '@hanzo/app/desktop'
 //   render(<HanzoAI {...getBrand()} />)   // VITE_BRAND selects hanzo/zoo/lux
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -55,6 +55,9 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.tsx'),
       formats: ['es', 'cjs'],
       fileName: (f) => (f === 'es' ? 'index.js' : 'index.cjs'),
+      // See vite.config.ts — pin the css asset name, don't inherit it from the
+      // package name.
+      cssFileName: 'app',
     },
     rollupOptions: { external: isExternal },
   },

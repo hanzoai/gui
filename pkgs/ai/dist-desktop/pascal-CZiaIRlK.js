@@ -5,3 +5,4 @@ lang
 ];
 
 export { pascal as default };
+//# sourceMappingURL=pascal-CZiaIRlK.js.map

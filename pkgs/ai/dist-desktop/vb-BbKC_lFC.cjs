@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = vb;
+//# sourceMappingURL=vb-BbKC_lFC.cjs.map

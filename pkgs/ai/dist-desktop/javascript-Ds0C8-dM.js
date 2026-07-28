@@ -5,3 +5,4 @@ lang
 ];
 
 export { javascript as default };
+//# sourceMappingURL=javascript-Ds0C8-dM.js.map

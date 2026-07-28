@@ -1,19 +1,19 @@
-export enum HanzoNodeManagerEvent {
-  StartingHanzoNode = 'StartingHanzoNode',
-  HanzoNodeStarted = 'HanzoNodeStarted',
-  HanzoNodeStartError = 'HanzoNodeStartError',
+export enum NodeManagerEvent {
+  StartingNode = 'StartingHanzoNode',
+  NodeStarted = 'HanzoNodeStarted',
+  NodeStartError = 'HanzoNodeStartError',
 
   PullingModelStart = 'PullingModelStart',
   PullingModelProgress = 'PullingModelProgress',
   PullingModelDone = 'PullingModelDone',
   PullingModelError = 'PullingModelError',
 
-  StoppingHanzoNode = 'StoppingHanzoNode',
-  HanzoNodeStopped = 'HanzoNodeStopped',
-  HanzoNodeStopError = 'HanzoNodeStopError',
+  StoppingNode = 'StoppingHanzoNode',
+  NodeStopped = 'HanzoNodeStopped',
+  NodeStopError = 'HanzoNodeStopError',
 }
 
-export interface HanzoNodeStartErrorEvent {
+export interface NodeStartErrorEvent {
   error: string;
 }
 
@@ -32,41 +32,41 @@ export interface PullingModelErrorEvent {
   error: string;
 }
 
-export interface HanzoNodeStopErrorEvent {
+export interface NodeStopErrorEvent {
   error: string;
 }
 
-export type HanzoNodeManagerEventMap =
-  | { type: HanzoNodeManagerEvent.StartingHanzoNode; payload: never }
-  | { type: HanzoNodeManagerEvent.HanzoNodeStarted; payload: never }
+export type NodeManagerEventMap =
+  | { type: NodeManagerEvent.StartingNode; payload: never }
+  | { type: NodeManagerEvent.NodeStarted; payload: never }
   | {
-      type: HanzoNodeManagerEvent.HanzoNodeStartError;
-      payload: HanzoNodeStartErrorEvent;
+      type: NodeManagerEvent.NodeStartError;
+      payload: NodeStartErrorEvent;
     }
   | {
-      type: HanzoNodeManagerEvent.PullingModelStart;
+      type: NodeManagerEvent.PullingModelStart;
       payload: PullingModelStartEvent;
     }
   | {
-      type: HanzoNodeManagerEvent.PullingModelProgress;
+      type: NodeManagerEvent.PullingModelProgress;
       payload: PullingModelProgressEvent;
     }
   | {
-      type: HanzoNodeManagerEvent.PullingModelDone;
+      type: NodeManagerEvent.PullingModelDone;
       payload: PullingModelDoneEvent;
     }
   | {
-      type: HanzoNodeManagerEvent.PullingModelError;
+      type: NodeManagerEvent.PullingModelError;
       payload: PullingModelErrorEvent;
     }
-  | { type: HanzoNodeManagerEvent.StoppingHanzoNode; payload: never }
-  | { type: HanzoNodeManagerEvent.HanzoNodeStopped; payload: never }
+  | { type: NodeManagerEvent.StoppingNode; payload: never }
+  | { type: NodeManagerEvent.NodeStopped; payload: never }
   | {
-      type: HanzoNodeManagerEvent.HanzoNodeStopError;
-      payload: HanzoNodeStopErrorEvent;
+      type: NodeManagerEvent.NodeStopError;
+      payload: NodeStopErrorEvent;
     };
 
-export type HanzoNodeOptions = {
+export type NodeOptions = {
    node_api_ip?: string,
    node_api_port?: string,
    node_ws_port?: string,

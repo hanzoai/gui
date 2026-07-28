@@ -3,7 +3,7 @@ import * as sodium from 'libsodium-wrappers-sumo';
 import {
   decryptMessageWithPassphrase,
   encryptMessageWithPassphrase,
-} from './hanzo-encryption';
+} from './encryption';
 
 test('encrypt and decrypt message with passphrase', async () => {
   await sodium.ready; // Ensure sodium is fully loaded

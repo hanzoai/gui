@@ -92,7 +92,7 @@ import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
 import { useViewportStore } from '../store/viewport';
 import { getThinkingConfig } from '../utils/thinking-config';
-// import { HANZO_DOCS_URL, HANZO_TUTORIALS } from '../utils/constants';
+// import { docsUrl, TUTORIALS } from '../utils/constants';
 
 export const showSpotlightWindow = async () => {
   return invoke('show_spotlight_window_app');

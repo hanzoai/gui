@@ -15,11 +15,11 @@ const OnboardingLayout = ({ className, ...props }: OnboardingLayoutProps) => {
     useContext(LogoTapContext);
 
   // Brand-driven logo + (optional) tagline. Read INSIDE the component so each
-  // app's injected brand (set by <HanzoAI {...brandConfig}/> before mount) is
+  // app's injected brand (set by <AI {...brandConfig}/> before mount) is
   // honored — the previous module-level useBrand() froze on the default brand
   // and forced the Hanzo "H" (visor.svg) onto Zoo/Lux. The brand ships its own
   // mark via brandConfig.logo; nothing brand-specific is hardcoded here.
-  // useBrand() THROWS if the brand isn't registered yet — and <HanzoAI/> registers
+  // useBrand() THROWS if the brand isn't registered yet — and <AI/> registers
   // it asynchronously, so it is absent on the first render. Tolerate that (fall back
   // to the served /app-logo.png, which is each app's own mark) instead of throwing
   // and crashing the whole onboarding to a blank screen.

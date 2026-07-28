@@ -1,7 +1,7 @@
 /**
- * Hanzo Engine React Hooks
+ * Engine React Hooks
  *
- * React Query hooks for interacting with the embedded Hanzo Engine.
+ * React Query hooks for interacting with the embedded engine.
  * These provide caching, automatic refetching, and optimistic updates.
  */
 
@@ -15,7 +15,7 @@ import {
 } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 
-import { hanzoEngine, HanzoEngineClient } from './client';
+import { engine, EngineClient } from './client';
 import type {
   EngineStatus,
   LoadModelOptions,
@@ -27,7 +27,7 @@ import type {
 
 // Query Keys
 export const engineQueryKeys = {
-  all: ['hanzo-engine'] as const,
+  all: ['engine'] as const,
   status: () => [...engineQueryKeys.all, 'status'] as const,
   models: () => [...engineQueryKeys.all, 'models'] as const,
 };
@@ -40,7 +40,7 @@ export function useEngineStatus(
 ): UseQueryResult<EngineStatus, Error> {
   return useQuery({
     queryKey: engineQueryKeys.status(),
-    queryFn: () => hanzoEngine.getStatus(),
+    queryFn: () => engine.getStatus(),
     refetchInterval: 5000, // Poll every 5 seconds
     ...options,
   });
@@ -54,7 +54,7 @@ export function useEngineModels(
 ): UseQueryResult<ModelsResponse, Error> {
   return useQuery({
     queryKey: engineQueryKeys.models(),
-    queryFn: () => hanzoEngine.listModels(),
+    queryFn: () => engine.listModels(),
     ...options,
   });
 }
@@ -67,7 +67,7 @@ export function useEngineAvailable(
 ): UseQueryResult<boolean, Error> {
   return useQuery({
     queryKey: [...engineQueryKeys.all, 'available'],
-    queryFn: () => hanzoEngine.isAvailable(),
+    queryFn: () => engine.isAvailable(),
     refetchInterval: 10000, // Poll every 10 seconds
     ...options,
   });
@@ -83,7 +83,7 @@ export function useLoadModel(
 
   return useMutation({
     mutationFn: (modelOptions: LoadModelOptions) =>
-      hanzoEngine.loadModel(modelOptions),
+      engine.loadModel(modelOptions),
     onSuccess: () => {
       // Invalidate status and models queries
       queryClient.invalidateQueries({ queryKey: engineQueryKeys.status() });
@@ -102,7 +102,7 @@ export function useUnloadModel(
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => hanzoEngine.unloadModel(),
+    mutationFn: () => engine.unloadModel(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: engineQueryKeys.status() });
       queryClient.invalidateQueries({ queryKey: engineQueryKeys.models() });
@@ -123,7 +123,7 @@ export function useChat(
 ) {
   return useMutation({
     mutationFn: ({ messages, model, temperature, max_tokens }) =>
-      hanzoEngine.chat(messages, model, { temperature, max_tokens }),
+      engine.chat(messages, model, { temperature, max_tokens }),
     ...options,
   });
 }
@@ -139,7 +139,7 @@ export function useEmbeddings(
   >
 ) {
   return useMutation({
-    mutationFn: ({ input, model }) => hanzoEngine.embeddings(input, model),
+    mutationFn: ({ input, model }) => engine.embeddings(input, model),
     ...options,
   });
 }
@@ -165,7 +165,7 @@ export function useStreamingChat() {
 
       try {
         let fullContent = '';
-        for await (const chunk of hanzoEngine.streamChat(messages, model, options)) {
+        for await (const chunk of engine.streamChat(messages, model, options)) {
           fullContent += chunk;
           setContent(fullContent);
           options?.onChunk?.(chunk);
@@ -222,7 +222,7 @@ export function useEngineReady(): {
  * Hook that provides a complete engine interface
  * Combines status, loading, and chat functionality
  */
-export function useHanzoEngine() {
+export function useEngine() {
   const statusQuery = useEngineStatus();
   const modelsQuery = useEngineModels();
   const loadModelMutation = useLoadModel();

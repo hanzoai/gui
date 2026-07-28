@@ -4,7 +4,7 @@ import React from 'react';
 import { type ExternalToast, toast } from 'sonner';
 
 import { BRAND } from '../../config/brand';
-import { openHanzoNodeManagerWindow } from './hanzo-node-manager-windows-utils';
+import { openNodeManagerWindow } from './node-manager-windows-utils';
 
 export const modelNameMap: Record<string, string> = {
   'embeddinggemma:300m': "Embedding Gemma 300M",
@@ -14,7 +14,7 @@ export const modelNameMap: Record<string, string> = {
   'mistral-small3.2:24b-instruct-2506-q4_K_M': 'Mistral Small 3.2',
 };
 
-const HanzoNodeLogsLabel = ({
+const NodeLogsLabel = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLSpanElement>) => {
@@ -22,7 +22,7 @@ const HanzoNodeLogsLabel = ({
     <span
       className={cn('cursor-pointer text-white', className)}
       onClick={async () => {
-        await openHanzoNodeManagerWindow();
+        await openNodeManagerWindow();
       }}
       {...props}
     >
@@ -31,26 +31,26 @@ const HanzoNodeLogsLabel = ({
   );
 };
 
-export const HANZO_NODE_MANAGER_TOAST_ID = 'hanzo-node-manager-toast-id';
+export const NODE_MANAGER_TOAST_ID = 'node-manager-toast-id';
 const defaultToastOptions: ExternalToast = {
-  id: HANZO_NODE_MANAGER_TOAST_ID,
+  id: NODE_MANAGER_TOAST_ID,
   position: 'top-right',
 };
 
-export const startingHanzoNodeToast = () => {
-  return toast.loading(t('hanzoNode.notifications.startingNode'), {
+export const startingNodeToast = () => {
+  return toast.loading(t('node.notifications.startingNode'), {
     ...defaultToastOptions,
   });
 };
-export const hanzoNodeStartedToast = () => {
-  return toast.success(t('hanzoNode.notifications.runningNode'), {
+export const nodeStartedToast = () => {
+  return toast.success(t('node.notifications.runningNode'), {
     ...defaultToastOptions,
   });
 };
-export const hanzoNodeStartErrorToast = () => {
+export const nodeStartErrorToast = () => {
   toast.error(
     <div>
-      Error starting your local Node, see <HanzoNodeLogsLabel /> for
+      Error starting your local Node, see <NodeLogsLabel /> for
       more information
     </div>,
     {
@@ -59,15 +59,15 @@ export const hanzoNodeStartErrorToast = () => {
   );
 };
 
-export const stoppingHanzoNodeToast = () => {
-  return toast.loading(t('hanzoNode.notifications.stopNode'), {
+export const stoppingNodeToast = () => {
+  return toast.loading(t('node.notifications.stopNode'), {
     ...defaultToastOptions,
   });
 };
-export const hanzoNodeStopErrorToast = () => {
+export const nodeStopErrorToast = () => {
   toast.error(
     <div>
-      Error stopping your local Node, see <HanzoNodeLogsLabel /> for
+      Error stopping your local Node, see <NodeLogsLabel /> for
       more information
     </div>,
     {
@@ -75,37 +75,37 @@ export const hanzoNodeStopErrorToast = () => {
     },
   );
 };
-export const hanzoNodeStoppedToast = () => {
-  return toast.success(t('hanzoNode.notifications.stoppedNode'), {
+export const nodeStoppedToast = () => {
+  return toast.success(t('node.notifications.stoppedNode'), {
     ...defaultToastOptions,
   });
 };
 
-export const successRemovingHanzoNodeStorageToast = () => {
-  return toast.success(t('hanzoNode.notifications.removedNote'), {
+export const successRemovingNodeStorageToast = () => {
+  return toast.success(t('node.notifications.removedNote'), {
     ...defaultToastOptions,
   });
 };
 
-export const errorRemovingHanzoNodeStorageToast = () => {
+export const errorRemovingNodeStorageToast = () => {
   return toast.error(
     <div>
       Error removing your local {BRAND.name} Node storage, see{' '}
-      <HanzoNodeLogsLabel /> for more information
+      <NodeLogsLabel /> for more information
     </div>,
     { ...defaultToastOptions },
   );
 };
 
-export const successHanzoNodeSetDefaultOptionsToast = () => {
-  return toast.success(t('hanzoNode.notifications.optionsRestored'), {
+export const successNodeSetDefaultOptionsToast = () => {
+  return toast.success(t('node.notifications.optionsRestored'), {
     ...defaultToastOptions,
   });
 };
 
 export const pullingModelStartToast = (model: string) => {
   return toast.loading(
-    t('hanzoNode.notifications.startingDownload', { modelName: model }),
+    t('node.notifications.startingDownload', { modelName: model }),
     {
       ...defaultToastOptions,
     },
@@ -113,7 +113,7 @@ export const pullingModelStartToast = (model: string) => {
 };
 export const pullingModelProgressToast = (model: string, progress: number) => {
   return toast.loading(
-    t('hanzoNode.notifications.downloadingModel', {
+    t('node.notifications.downloadingModel', {
       modelName: model,
       progress,
     }),
@@ -124,7 +124,7 @@ export const pullingModelProgressToast = (model: string, progress: number) => {
 };
 export const pullingModelDoneToast = (model: string) => {
   return toast.success(
-    t('hanzoNode.notifications.downloadedModel', {
+    t('node.notifications.downloadedModel', {
       modelName: modelNameMap[model],
     }),
     { duration: 3000 },
@@ -134,7 +134,7 @@ export const pullingModelDoneToast = (model: string) => {
 export const pullingModelErrorToast = (model: string) => {
   return toast.error(
     <div>
-      Error downloading AI model {model}, see <HanzoNodeLogsLabel /> for more
+      Error downloading AI model {model}, see <NodeLogsLabel /> for more
       information
     </div>,
     {

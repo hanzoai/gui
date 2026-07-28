@@ -142,8 +142,8 @@ function PlaygroundToolEditor({
 
   const toolCode = usePlaygroundStore((state) => state.toolCode);
   const chatInboxId = usePlaygroundStore((state) => state.chatInboxId);
-  const xHanzoAppId = usePlaygroundStore((state) => state.xHanzoAppId);
-  const xHanzoToolId = usePlaygroundStore((state) => state.xHanzoToolId);
+  const xAppId = usePlaygroundStore((state) => state.xAppId);
+  const xToolId = usePlaygroundStore((state) => state.xToolId);
   const focusedPanel = usePlaygroundStore((state) => state.focusedPanel);
   const setFocusedPanel = usePlaygroundStore((state) => state.setFocusedPanel);
   const toolCodeStatus = usePlaygroundStore((state) => state.toolCodeStatus);
@@ -158,15 +158,15 @@ function PlaygroundToolEditor({
     void copyToolAssets({
       nodeAddress: auth?.node_address ?? '',
       token: auth?.api_v2_key ?? '',
-      xHanzoAppId,
+      xAppId,
       currentToolKeyPath: toolRouterKey ?? '',
     });
   }, [
     copyToolAssets,
     auth?.api_v2_key,
     auth?.node_address,
-    xHanzoAppId,
-    xHanzoToolId,
+    xAppId,
+    xToolId,
     toolRouterKey,
   ]);
 

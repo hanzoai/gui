@@ -6,7 +6,7 @@ import {
 } from '@hanzo_network/hanzo-message-ts/api/general/types';
 import { type MessageTrace } from '@hanzo_network/hanzo-message-ts/api/jobs/types';
 import { extractJobIdFromInbox } from '@hanzo_network/hanzo-message-ts/utils';
-import { getProviderModelLabel } from '../../../lib/hanzo-node-manager/local-model-names';
+import { getProviderModelLabel } from '../../../lib/node-manager/local-model-names';
 import {
   type AssistantMessage,
   type FormattedMessage,
@@ -317,7 +317,7 @@ export const MessageBase = ({
     setSelectedText((prev) => (prev === text ? prev : text));
   }, [editing]);
 
-  const handleAskHanzo = useCallback(() => {
+  const handleAsk = useCallback(() => {
     if (!selectedText) return;
     setQuotedText(selectedText);
     setSelectedText(null);
@@ -809,7 +809,7 @@ export const MessageBase = ({
                   >
                     <Button
                       className="bg-bg-secondary text-text-default pointer-events-auto shadow-md"
-                      onClick={handleAskHanzo}
+                      onClick={handleAsk}
                       size="xs"
                       variant="outline"
                       aria-label={`Ask ${BRAND.name} about selection`}

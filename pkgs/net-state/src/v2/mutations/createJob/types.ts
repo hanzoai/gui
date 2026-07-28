@@ -1,7 +1,7 @@
 import { type Token } from '@hanzo_network/hanzo-message-ts/api/general/types';
 import {
   type JobConfig,
-  type HanzoPath,
+  type Path,
 } from '@hanzo_network/hanzo-message-ts/api/jobs/types';
 
 export type CreateJobInput = Token & {
@@ -12,8 +12,8 @@ export type CreateJobInput = Token & {
   isHidden: boolean;
   toolKey?: string;
   files?: File[];
-  selectedVRFiles?: HanzoPath[];
-  selectedVRFolders?: HanzoPath[];
+  selectedVRFiles?: Path[];
+  selectedVRFolders?: Path[];
   chatConfig?: JobConfig;
 };
 

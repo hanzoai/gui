@@ -24,8 +24,8 @@ import {
   type GetPlaygroundToolRequest,
   type GetPlaygroundToolResponse,
   type GetPlaygroundToolsResponse,
-  type GetHanzoFileProtocolRequest,
-  type GetHanzoFileProtocolResponse,
+  type GetFileProtocolRequest,
+  type GetFileProtocolResponse,
   type GetToolPlaygroundMetadataRequest,
   type GetToolPlaygroundMetadataResponse,
   type GetToolProtocolsResponse,
@@ -359,8 +359,8 @@ export const executeToolCode = async (
   nodeAddress: string,
   bearerToken: string,
   payload: ExecuteToolCodeRequest,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
+  xAppId: string,
+  xToolId: string,
 ) => {
   const response = await httpClient.post(
     urlJoin(nodeAddress, '/v1/node/code_execution'),
@@ -368,8 +368,8 @@ export const executeToolCode = async (
     {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'x-hanzo-app-id': xHanzoAppId,
-        'x-hanzo-tool-id': xHanzoToolId,
+        'x-hanzo-app-id': xAppId,
+        'x-hanzo-tool-id': xToolId,
       },
       responseType: 'json',
     },
@@ -381,9 +381,9 @@ export const saveToolCode = async (
   nodeAddress: string,
   bearerToken: string,
   payload: SaveToolCodeRequest,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
-  xHanzoOriginalToolRouterKey?: string,
+  xAppId: string,
+  xToolId: string,
+  xOriginalToolRouterKey?: string,
 ) => {
   const response = await httpClient.post(
     urlJoin(nodeAddress, '/v1/node/set_playground_tool'),
@@ -391,10 +391,10 @@ export const saveToolCode = async (
     {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'x-hanzo-app-id': xHanzoAppId,
-        'x-hanzo-tool-id': xHanzoToolId,
-        ...(xHanzoOriginalToolRouterKey && {
-          'x-hanzo-original-tool-router-key': xHanzoOriginalToolRouterKey,
+        'x-hanzo-app-id': xAppId,
+        'x-hanzo-tool-id': xToolId,
+        ...(xOriginalToolRouterKey && {
+          'x-hanzo-original-tool-router-key': xOriginalToolRouterKey,
         }),
       },
       responseType: 'json',
@@ -421,15 +421,15 @@ export const getPlaygroundTool = async (
   nodeAddress: string,
   bearerToken: string,
   payload: GetPlaygroundToolRequest,
-  xHanzoOriginalToolRouterKey?: string,
+  xOriginalToolRouterKey?: string,
 ) => {
   const response = await httpClient.get(
     urlJoin(nodeAddress, '/v1/node/get_playground_tool'),
     {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        ...(xHanzoOriginalToolRouterKey && {
-          'x-hanzo-original-tool-router-key': xHanzoOriginalToolRouterKey,
+        ...(xOriginalToolRouterKey && {
+          'x-hanzo-original-tool-router-key': xOriginalToolRouterKey,
           'x-hanzo-copy-metadata': 'true',
         }),
       },
@@ -508,9 +508,9 @@ export const openToolInCodeEditor = async (
   nodeAddress: string,
   bearerToken: string,
   payload: OpenToolInCodeEditorRequest,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
-  xHanzoLLMProvider: string,
+  xAppId: string,
+  xToolId: string,
+  xLLMProvider: string,
 ) => {
   const response = await httpClient.post(
     urlJoin(nodeAddress, '/v1/node/tools_standalone_playground'),
@@ -518,9 +518,9 @@ export const openToolInCodeEditor = async (
     {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'x-hanzo-app-id': xHanzoAppId,
-        'x-hanzo-tool-id': xHanzoToolId,
-        'x-hanzo-llm-provider': xHanzoLLMProvider,
+        'x-hanzo-app-id': xAppId,
+        'x-hanzo-tool-id': xToolId,
+        'x-hanzo-llm-provider': xLLMProvider,
       },
       responseType: 'json',
     },
@@ -576,10 +576,10 @@ export const exportTool = async (
   return response.data as ExportToolResponse;
 };
 
-export const getHanzoFileProtocol = async (
+export const getFileProtocol = async (
   nodeAddress: string,
   bearerToken: string,
-  payload: GetHanzoFileProtocolRequest,
+  payload: GetFileProtocolRequest,
 ) => {
   const response = await httpClient.get(
     urlJoin(nodeAddress, '/v1/node/resolve_hanzo_file_protocol'),
@@ -589,7 +589,7 @@ export const getHanzoFileProtocol = async (
       responseType: 'blob',
     },
   );
-  return response.data as GetHanzoFileProtocolResponse;
+  return response.data as GetFileProtocolResponse;
 };
 
 export const setOAuthToken = async (
@@ -611,16 +611,16 @@ export const setOAuthToken = async (
 export const getAllToolAssets = async (
   nodeAddress: string,
   bearerToken: string,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
+  xAppId: string,
+  xToolId: string,
 ) => {
   const response = await httpClient.get(
     urlJoin(nodeAddress, '/v1/node/list_tool_asset'),
     {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'x-hanzo-app-id': xHanzoAppId,
-        'x-hanzo-tool-id': xHanzoToolId,
+        'x-hanzo-app-id': xAppId,
+        'x-hanzo-tool-id': xToolId,
       },
       responseType: 'json',
     },
@@ -632,8 +632,8 @@ export const uploadAssetTool = async (
   nodeAddress: string,
   bearerToken: string,
   payload: AddToolRequestRequest,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
+  xAppId: string,
+  xToolId: string,
 ) => {
   const fileData = await payload.file.arrayBuffer();
 
@@ -647,8 +647,8 @@ export const uploadAssetTool = async (
     {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'x-hanzo-app-id': xHanzoAppId,
-        'x-hanzo-tool-id': xHanzoToolId,
+        'x-hanzo-app-id': xAppId,
+        'x-hanzo-tool-id': xToolId,
       },
       responseType: 'json',
     },
@@ -660,8 +660,8 @@ export const uploadPlaygroundToolFile = async (
   nodeAddress: string,
   bearerToken: string,
   payload: AddToolRequestRequest,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
+  xAppId: string,
+  xToolId: string,
 ) => {
   const fileData = await payload.file.arrayBuffer();
 
@@ -675,8 +675,8 @@ export const uploadPlaygroundToolFile = async (
     {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'x-hanzo-app-id': xHanzoAppId,
-        'x-hanzo-tool-id': xHanzoToolId,
+        'x-hanzo-app-id': xAppId,
+        'x-hanzo-tool-id': xToolId,
       },
       responseType: 'json',
     },
@@ -687,8 +687,8 @@ export const uploadPlaygroundToolFile = async (
 export const uploadAssetsToTool = async (
   nodeAddress: string,
   bearerToken: string,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
+  xAppId: string,
+  xToolId: string,
   files: File[],
 ) => {
   for (const file of files) {
@@ -699,8 +699,8 @@ export const uploadAssetsToTool = async (
         filename: encodeURIComponent(file.name),
         file,
       },
-      xHanzoAppId,
-      xHanzoToolId,
+      xAppId,
+      xToolId,
     );
   }
   return { success: true };
@@ -709,8 +709,8 @@ export const uploadAssetsToTool = async (
 export const uploadPlaygroundToolFiles = async (
   nodeAddress: string,
   bearerToken: string,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
+  xAppId: string,
+  xToolId: string,
   files: File[],
 ) => {
   const fileContent: Record<string, string> = {};
@@ -722,8 +722,8 @@ export const uploadPlaygroundToolFiles = async (
         filename: encodeURIComponent(file.name),
         file,
       },
-      xHanzoAppId,
-      xHanzoToolId,
+      xAppId,
+      xToolId,
     );
     fileContent[file.name] = response.file_path;
   }
@@ -734,16 +734,16 @@ export const removeToolAsset = async (
   nodeAddress: string,
   bearerToken: string,
   payload: RemoveToolRequestRequest,
-  xHanzoAppId: string,
-  xHanzoToolId: string,
+  xAppId: string,
+  xToolId: string,
 ) => {
   const response = await httpClient.delete(
     urlJoin(nodeAddress, '/v1/node/tool_asset'),
     {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'x-hanzo-app-id': xHanzoAppId,
-        'x-hanzo-tool-id': xHanzoToolId,
+        'x-hanzo-app-id': xAppId,
+        'x-hanzo-tool-id': xToolId,
       },
       params: { file_name: payload.filename },
       responseType: 'json',

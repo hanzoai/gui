@@ -39,7 +39,7 @@ import {
   ToolsIcon,
 } from '@hanzo_network/hanzo-ui/assets';
 import { cn } from '@hanzo_network/hanzo-ui/utils';
-import { listen } from '@tauri-apps/api/event';
+import { isTauriAvailable, safeListen } from '../../utils/tauri-check';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -637,7 +637,7 @@ const MainLayout = () => {
   });
 
   useEffect(() => {
-    const unlisten = listen('store-deep-link', async (event) => {
+    const unlisten = safeListen('store-deep-link', async (event) => {
       if (!auth) return;
       const payload = event.payload as { tool_type: string; tool_url: string };
       if (payload.tool_type.toLowerCase() === 'tool') {
@@ -664,9 +664,9 @@ const MainLayout = () => {
         }
       }
     });
-    void getCurrentWindow().emit('hanzo-app-ready');
+    if (isTauriAvailable()) void getCurrentWindow().emit('hanzo-app-ready');
     return () => {
-      void unlisten.then((fn) => fn());
+      void unlisten.then((fn) => fn?.());
     };
   }, [importTool, importAgentFromUrl, auth]);
 

@@ -1,4 +1,4 @@
-import { type RustHanzoTool } from '@hanzo_network/hanzo-message-ts/api/tools/types';
+import { type RustTool } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 
 import ToolDetailsCard from './components/tool-details-card';
 
@@ -7,7 +7,7 @@ export default function RustTool({
   isEnabled,
   toolRouterKey,
 }: {
-  tool: RustHanzoTool;
+  tool: RustTool;
   isEnabled: boolean;
   toolRouterKey: string;
 }) {

@@ -3,7 +3,7 @@ import { Check } from 'lucide-react';
 import React, { useState } from 'react';
 import { type IProps, QRCode as ReactQRCode } from 'react-qrcode-logo';
 
-import hanzoLogo from '../assets/images/app-icon.png';
+import logo from '../assets/images/app-icon.png';
 import { Button } from './button';
 import { Dialog, DialogContent } from './dialog';
 
@@ -26,7 +26,7 @@ export function QRCode({
         fgColor="black"
         id={id}
         logoHeight={size ? size * 0.2 : undefined}
-        logoImage={hanzoLogo}
+        logoImage={logo}
         logoPaddingStyle="circle"
         logoWidth={size ? size * 0.2 : undefined}
         qrStyle="dots"

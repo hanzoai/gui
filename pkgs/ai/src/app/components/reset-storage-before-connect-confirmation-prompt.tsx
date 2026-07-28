@@ -15,8 +15,8 @@ import {
   useNodeKillMutation,
   useNodeRemoveStorageMutation,
   useNodeSpawnMutation,
-} from '../lib/hanzo-node-manager/hanzo-node-manager-client';
-import { useHanzoNodeManager } from '../store/hanzo-node-manager';
+} from '../lib/node-manager/node-manager-client';
+import { useNodeManager } from '../store/node-manager';
 
 export const ResetStorageBeforeConnectConfirmationPrompt = ({
   onCancel,
@@ -29,16 +29,16 @@ export const ResetStorageBeforeConnectConfirmationPrompt = ({
 } & AlertDialogProps) => {
   // const navigate = useNavigate();
   const { t } = useTranslation();
-  const { setHanzoNodeOptions } = useHanzoNodeManager();
-  const { mutateAsync: nodeKill, isPending: isHanzoNodeKillPending } =
+  const { setNodeOptions } = useNodeManager();
+  const { mutateAsync: nodeKill, isPending: isNodeKillPending } =
     useNodeKillMutation();
   const {
     mutateAsync: nodeSpawn,
-    isPending: isHanzoNodeSpawnPending,
+    isPending: isNodeSpawnPending,
   } = useNodeSpawnMutation();
   const {
     mutateAsync: nodeRemoveStorage,
-    isPending: isHanzoNodeRemoveStoragePending,
+    isPending: isNodeRemoveStoragePending,
   } = useNodeRemoveStorageMutation();
 
   const cancel = () => {
@@ -55,14 +55,14 @@ export const ResetStorageBeforeConnectConfirmationPrompt = ({
   // };
 
   const isResetLoading =
-    isHanzoNodeKillPending ||
-    isHanzoNodeRemoveStoragePending ||
-    isHanzoNodeSpawnPending;
+    isNodeKillPending ||
+    isNodeRemoveStoragePending ||
+    isNodeSpawnPending;
 
   const reset = async (preserveKeys: boolean) => {
     await nodeKill();
     await nodeRemoveStorage({ preserveKeys });
-    setHanzoNodeOptions(null);
+    setNodeOptions(null);
     await nodeSpawn();
     if (typeof onReset === 'function') {
       onReset();
@@ -74,13 +74,13 @@ export const ResetStorageBeforeConnectConfirmationPrompt = ({
       <AlertDialogContent className="w-[100%]">
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {t('hanzoNode.resetNodeWarning.title')}
+            {t('node.resetNodeWarning.title')}
           </AlertDialogTitle>
           <AlertDialogDescription>
             <div className="flex flex-col space-y-3 text-left text-white/70">
               <div className="flex flex-col space-y-3">
                 <span className="text-sm">
-                  {t('hanzoNode.resetNodeWarning.description')}
+                  {t('node.resetNodeWarning.description')}
                 </span>
                 <div className="flex flex-col space-y-1" />
               </div>

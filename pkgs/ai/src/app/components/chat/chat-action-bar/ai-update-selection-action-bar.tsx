@@ -37,9 +37,9 @@ import { toast } from 'sonner';
 
 import { BRAND } from '../../../config/brand';
 import { useAuth } from '../../../store/auth';
-import { useHanzoNodeManager } from '../../../store/hanzo-node-manager';
-import MODEL_CATALOG from '../../../lib/hanzo-node-manager/model-catalog.json';
-import { getProviderModelLabel } from '../../../lib/hanzo-node-manager/local-model-names';
+import { useNodeManager } from '../../../store/node-manager';
+import MODEL_CATALOG from '../../../lib/node-manager/model-catalog.json';
+import { getProviderModelLabel } from '../../../lib/node-manager/local-model-names';
 import ProviderIcon from '../../ais/provider-icon';
 import { CODE_GENERATOR_MODEL_ID } from '../../tools/constants';
 import { actionButtonClassnames } from '../conversation-footer';
@@ -56,7 +56,7 @@ const localModelDescriptionMap = MODEL_CATALOG.reduce(
 // Brand-dependent descriptions (the two hanzo-backend models) are resolved at
 // RENDER time in the select() callback below via the BRAND proxy. They MUST NOT
 // read the brand here: this object is a module-scope const, so `useBrand()` at
-// init runs before <HanzoAI/> calls setBrand() → it throws "No brand configured"
+// init runs before <AI/> calls setBrand() → it throws "No brand configured"
 // and crashes the whole app (e.g. the onboarding welcome) to a blank screen.
 const remoteProviderModelDescriptions = {
   'openai:gpt-4o':
@@ -189,7 +189,7 @@ export function AIModelSelectorBase({
     return '';
   }, [agents, llmProviders, value]);
 
-  const isLocalHanzoNodeIsUse = useHanzoNodeManager(
+  const isLocalNodeIsUse = useNodeManager(
     (state) => state.isInUse,
   );
 
@@ -368,7 +368,7 @@ export function AIModelSelectorBase({
                       }),
                     )}
                     to={
-                      isLocalHanzoNodeIsUse ? '/install-ai-models' : '/add-ai'
+                      isLocalNodeIsUse ? '/install-ai-models' : '/add-ai'
                     }
                   >
                     <PlusIcon className="size-4" />

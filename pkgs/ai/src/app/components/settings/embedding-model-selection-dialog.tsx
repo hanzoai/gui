@@ -33,7 +33,7 @@ const EmbeddingModelSelectionDialog = () => {
 
   const supportedEmbeddingModels = useMemo(
     () => [
-      // The local hanzo-engine serves zen-embedding (1024-dim) — the default.
+      // The local engine serves zen-embedding (1024-dim) — the default.
       'zenlm/zen-embedding-0.6B',
       'snowflake-arctic-embed:xs',
       'embeddinggemma:300m',

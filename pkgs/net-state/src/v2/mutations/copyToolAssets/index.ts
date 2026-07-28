@@ -5,13 +5,13 @@ import { type CopyToolAssetsInput } from './types';
 export const copyToolAssets = async ({
   nodeAddress,
   token,
-  xHanzoAppId,
+  xAppId,
   currentToolKeyPath,
 }: CopyToolAssetsInput) => {
   return await copyToolAssetsApi(nodeAddress, token, {
     is_first_playground: false,
     first_path: currentToolKeyPath,
-    second_path: xHanzoAppId,
+    second_path: xAppId,
     is_second_playground: true,
   });
 };

@@ -2,11 +2,11 @@ import { useGetEmbeddingMigrationStatus } from '@hanzo_network/hanzo-node-state/
 import { useEffect, useRef, useState } from 'react';
 
 import { useAuth } from '../../store/auth';
-import { useHanzoNodeManager } from '../../store/hanzo-node-manager';
+import { useNodeManager } from '../../store/node-manager';
 import {
   useNodeGetOptionsQuery,
   useNodeSetOptionsMutation,
-} from '../hanzo-node-manager/hanzo-node-manager-client';
+} from '../node-manager/node-manager-client';
 import {
   embeddingMigrationErrorToast,
   embeddingMigrationSuccessToast,
@@ -23,16 +23,16 @@ export const useEmbeddingMigrationToast = () => {
   } | null>(null);
   const targetModelRef = useRef<string>('');
 
-  const { data: hanzoNodeOptions } = useNodeGetOptionsQuery();
+  const { data: nodeOptions } = useNodeGetOptionsQuery();
 
-  const setHanzoNodeOptions = useHanzoNodeManager(
-    (state) => state.setHanzoNodeOptions,
+  const setNodeOptions = useNodeManager(
+    (state) => state.setNodeOptions,
   );
 
   const { mutateAsync: nodeSetOptions } =
     useNodeSetOptionsMutation({
       onSuccess: (options) => {
-        setHanzoNodeOptions(options);
+        setNodeOptions(options);
       },
     });
 
@@ -100,7 +100,7 @@ export const useEmbeddingMigrationToast = () => {
       currentStatus.status === 'ready'
     ) {
       void nodeSetOptions({
-        ...hanzoNodeOptions,
+        ...nodeOptions,
         default_embedding_model: currentStatus.current_embedding_model,
       });
       void embeddingMigrationSuccessToast(
@@ -126,5 +126,5 @@ export const useEmbeddingMigrationToast = () => {
       current_embedding_model: currentStatus.current_embedding_model,
       status: currentStatus.status,
     };
-  }, [embeddingMigrationStatus, hanzoNodeOptions, nodeSetOptions]);
+  }, [embeddingMigrationStatus, nodeOptions, nodeSetOptions]);
 };

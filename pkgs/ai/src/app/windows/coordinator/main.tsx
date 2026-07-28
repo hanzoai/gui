@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { useOAuthDeepLinkSet } from '../../hooks/oauth';
-import { nodeQueryClient } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
+import { nodeQueryClient } from '../../lib/node-manager/node-manager-client';
 import {
   useSyncStorageMain,
   useSyncStorageSecondary,

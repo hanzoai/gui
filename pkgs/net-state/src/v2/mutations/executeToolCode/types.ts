@@ -12,8 +12,8 @@ export type ExecuteToolCodeInput = Token & {
   llmProviderId: string;
   tools: string[];
   language: CodeLanguage;
-  xHanzoAppId: string;
-  xHanzoToolId: string;
+  xAppId: string;
+  xToolId: string;
   mounts?: string[];
 };
 

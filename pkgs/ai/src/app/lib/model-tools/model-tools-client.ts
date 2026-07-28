@@ -10,7 +10,7 @@
  *   trainer-free GRPO example from a local `hanzoai/ml` checkout.
  *
  * All calls go through Tauri `invoke`, matching the pattern used by
- * `hanzo-node-manager-client.ts`.
+ * `node-manager-client.ts`.
  */
 
 import {

@@ -25,9 +25,9 @@ import React from 'react';
 import { Link, Outlet, useMatch } from 'react-router';
 
 
-import { openHanzoNodeManagerWindow } from '../../lib/hanzo-node-manager/hanzo-node-manager-windows-utils';
+import { openNodeManagerWindow } from '../../lib/node-manager/node-manager-windows-utils';
 import { useAuth } from '../../store/auth';
-import { useHanzoNodeManager } from '../../store/hanzo-node-manager';
+import { useNodeManager } from '../../store/node-manager';
 
 type NavigationLink = {
   title: string;
@@ -101,7 +101,7 @@ const NavLink = ({
 
 export function MainNav() {
   const { t } = useTranslation();
-  const isLocalHanzoNodeInUse = useHanzoNodeManager(
+  const isLocalNodeInUse = useNodeManager(
     (state) => state.isInUse,
   );
 
@@ -121,11 +121,11 @@ export function MainNav() {
       href: '/settings/shortcuts',
       icon: <ShortcutsIcon className="text-text-secondary h-4 w-4" />,
     },
-    isLocalHanzoNodeInUse && {
-      title: t('settings.layout.hanzoNode'),
+    isLocalNodeInUse && {
+      title: t('settings.layout.node'),
       href: '#',
       onClick: () => {
-        void openHanzoNodeManagerWindow();
+        void openNodeManagerWindow();
       },
       icon: <CodesandboxIcon className="text-text-secondary h-4 w-4" />,
     },

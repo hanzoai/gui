@@ -1,5 +1,5 @@
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
-import { type HanzoToolHeader } from '@hanzo_network/hanzo-message-ts/api/tools/types';
+import { type ToolHeader } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 import { FunctionKeyV2 } from '@hanzo_network/hanzo-node-state/v2/constants';
 import { useToggleEnableTool } from '@hanzo_network/hanzo-node-state/v2/mutations/toggleEnableTool/useToggleEnableTool';
 import {
@@ -25,7 +25,7 @@ import { Link } from 'react-router';
 import { useAuth } from '../../../store/auth';
 import RemoveToolButton from '../../playground-tool/components/remove-tool-button';
 
-export default function ToolCard({ tool }: { tool: HanzoToolHeader }) {
+export default function ToolCard({ tool }: { tool: ToolHeader }) {
   const { t } = useTranslation();
   const auth = useAuth((state) => state.auth);
   const queryClient = useQueryClient();

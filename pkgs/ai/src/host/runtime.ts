@@ -1,4 +1,4 @@
-// The injectable host runtime. <HanzoAI host={tauriHost}/> registers the
+// The injectable host runtime. <AI host={tauriHost}/> registers the
 // native adapter; on plain web it stays the web default so the SAME app
 // surface runs on hanzo.chat / hanzo.app / mobile / desktop. (decomplect:
 // platform is an orthogonal, injected axis — not 48 hard @tauri-apps imports.)

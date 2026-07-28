@@ -28,11 +28,11 @@ import { Link, type To, useLocation, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
 import { OnboardingStep } from '../components/onboarding/constants';
-import { useHanzoNodeEventsToast } from '../lib/hanzo-node-manager/hanzo-node-manager-hooks';
+import { useNodeEventsToast } from '../lib/node-manager/node-manager-hooks';
 import { HOME_PATH } from '../routes/name';
 import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
-import { getNodeUrl } from '../lib/hanzo-engine/engine-url';
+import { getNodeUrl } from '../lib/engine/engine-url';
 
 export interface ConnectionOptionButtonProps extends ButtonProps {
   title: string;
@@ -72,13 +72,13 @@ const QuickConnectionPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const setAuth = useAuth((state) => state.setAuth);
-  useHanzoNodeEventsToast();
+  useNodeEventsToast();
   const { encryptionKeys } = useGetEncryptionKeys();
   const locationState = useLocation().state;
-  const isHanzoPrivate = locationState?.connectionType === 'local';
+  const isPrivate = locationState?.connectionType === 'local';
   const { nodeInfo, isSuccess: isNodeInfoSuccess } = useGetHealth(
     { nodeAddress: getNodeUrl() },
-    { enabled: isHanzoPrivate },
+    { enabled: isPrivate },
   );
 
   const completeStep = useSettings((state) => state.completeStep);
@@ -110,9 +110,11 @@ const QuickConnectionPage = () => {
         completeStep(OnboardingStep.ANALYTICS, false);
         void navigate(HOME_PATH);
       } else if (response.status === 'non-pristine') {
-        submitRegistrationNoCodeNonPristineError();
+        submitRegistrationNoCodeNonPristineError(
+          t('node.resetNodeWarning.description'),
+        );
       } else {
-        submitRegistrationNoCodeError();
+        submitRegistrationNoCodeError(t('node.errorConnecting'));
       }
     },
   });
@@ -127,13 +129,13 @@ const QuickConnectionPage = () => {
   }
 
   useEffect(() => {
-    if (isNodeInfoSuccess && isHanzoPrivate && nodeInfo?.is_pristine) {
+    if (isNodeInfoSuccess && isPrivate && nodeInfo?.is_pristine) {
       toast.loading(t('quickConnection.connectingToNode'), {
         id: 'auto-connect-hanzo-private',
       });
       void setupDataForm.handleSubmit(onSubmit)();
     }
-  }, [isNodeInfoSuccess, isHanzoPrivate, nodeInfo, setupDataForm]);
+  }, [isNodeInfoSuccess, isPrivate, nodeInfo, setupDataForm]);
 
   return (
     <div className="mx-auto flex size-full max-w-lg flex-col justify-between gap-8">

@@ -5,7 +5,7 @@
  * OpenAI-compatible HTTP API. We detect "is it running" by probing `/v1/models`
  * (or the engine status endpoint) at its conventional port:
  *
- *   • Hanzo Engine  — native; brand-specific port (hanzo 36900 / zoo 36910 /
+ *   • Engine  — native; brand-specific port (hanzo 36900 / zoo 36910 /
  *                     lux 36920), resolved from the brand config.
  *   • Ollama        — 11434 (fixed).
  *   • LM Studio     — 1234  (fixed).
@@ -13,9 +13,10 @@
  * One place, one way: the model browser reads this to show which engines are
  * available. No parallel probing logic elsewhere.
  */
+import { getBrand } from '@hanzo_network/brand-config';
 import { Models } from '@hanzo_network/hanzo-node-state/lib/utils/models';
 
-import { getEngineUrl } from '../hanzo-engine';
+import { getEngineUrl } from '../engine';
 
 export interface LocalProvider {
   /** The Models enum key used by the add-AI / provider flow. */
@@ -28,11 +29,11 @@ export interface LocalProvider {
   description: string;
 }
 
-/** The native Hanzo engine for the active brand (URL from `node.enginePort`). */
-export function hanzoProvider(): LocalProvider {
+/** The native engine for the active brand (URL from `node.enginePort`). */
+export function provider(): LocalProvider {
   return {
-    id: Models.Hanzo,
-    name: 'Hanzo Engine',
+    id: Models.Native,
+    name: `${getBrand().name} Engine`,
     baseUrl: getEngineUrl(),
     description:
       'Native on-device engine. Downloads first-party Zen models from Hugging Face and serves them locally — no API key, fully private.',
@@ -57,7 +58,7 @@ export const LM_STUDIO_PROVIDER: LocalProvider = {
 
 /** All local engine choices (native first). */
 export function localProviders(): LocalProvider[] {
-  return [hanzoProvider(), OLLAMA_PROVIDER, LM_STUDIO_PROVIDER];
+  return [provider(), OLLAMA_PROVIDER, LM_STUDIO_PROVIDER];
 }
 
 /** Probe a single engine's OpenAI-compatible endpoint. */

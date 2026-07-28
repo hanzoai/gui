@@ -5,14 +5,14 @@ import {
   localeOptions,
   useTranslation,
 } from '@hanzo_network/hanzo-i18n';
-import { isHanzoIdentityLocalhost } from '@hanzo_network/hanzo-message-ts/utils/inbox_name_handler';
+import { isIdentityLocalhost } from '@hanzo_network/hanzo-message-ts/utils/inbox_name_handler';
 
 import { useSetMaxChatIterations } from '@hanzo_network/hanzo-node-state/v2/mutations/setMaxChatIterations/useSetMaxChatIterations';
 
 import { useGetHealth } from '@hanzo_network/hanzo-node-state/v2/queries/getHealth/useGetHealth';
 import { useGetLLMProviders } from '@hanzo_network/hanzo-node-state/v2/queries/getLLMProviders/useGetLLMProviders';
 import { useGetPreferences } from '@hanzo_network/hanzo-node-state/v2/queries/getPreferences/useGetPreferences';
-import { useGetHanzoFreeModelQuota } from '@hanzo_network/hanzo-node-state/v2/queries/getHanzoFreeModelQuota/useGetHanzoFreeModelQuota';
+import { useGetFreeModelQuota } from '@hanzo_network/hanzo-node-state/v2/queries/getHanzoFreeModelQuota/useGetHanzoFreeModelQuota';
 
 import {
   Badge,
@@ -59,7 +59,7 @@ import { FeedbackModal } from '../components/feedback/feedback-modal';
 import { OnboardingStep } from '../components/onboarding/constants';
 import { BRAND } from '../config/brand';
 import EmbeddingModelSelectionDialog from '../components/settings/embedding-model-selection-dialog';
-import HanzoIdentityDialog from '../components/settings/hanzo-identity-dialog';
+import IdentityDialog from '../components/settings/identity-dialog';
 import {
   useCheckUpdateQuery,
   useDownloadUpdateMutation,
@@ -249,9 +249,9 @@ const SettingsPage = () => {
     });
 
   const {
-    data: hanzoFreeModelQuota,
-    isPending: isHanzoFreeModelQuotaPending,
-  } = useGetHanzoFreeModelQuota(
+    data: freeModelQuota,
+    isPending: isFreeModelQuotaPending,
+  } = useGetFreeModelQuota(
     { nodeAddress: auth?.node_address ?? '', token: auth?.api_v2_key ?? '' },
     { enabled: !!auth },
   );
@@ -260,7 +260,7 @@ const SettingsPage = () => {
     setDefaultAgentId(currentDefaultAgentId);
   }, [currentDefaultAgentId, setDefaultAgentId]);
 
-  const isIdentityLocalhost = isHanzoIdentityLocalhost(
+  const isIdentityLocalhost = isIdentityLocalhost(
     auth?.hanzo_identity ?? '',
   );
 
@@ -269,10 +269,10 @@ const SettingsPage = () => {
       <FeedbackModal buttonProps={{ className: 'absolute right-6 top-6' }} />
       <div className="flex flex-col space-y-8 pr-2.5 pb-20">
         <div className="flex flex-col space-y-8">
-          {isHanzoFreeModelQuotaPending ? (
+          {isFreeModelQuotaPending ? (
             <Skeleton className="h-[140px] w-full" />
           ) : (
-            hanzoFreeModelQuota && (
+            freeModelQuota && (
               <SettingsSection title="Usage">
                 <CardContent className="space-y-2 px-4 py-3">
                   <div className="flex justify-between text-sm">
@@ -283,9 +283,9 @@ const SettingsPage = () => {
                     <div className="flex items-center gap-1">
                       <span>Total tokens used: </span>
                       <span className="text-text-default text-xs">
-                        {hanzoFreeModelQuota.usedTokens.toLocaleString()}{' '}
+                        {freeModelQuota.usedTokens.toLocaleString()}{' '}
                         <span className="text-text-tertiary text-xs">
-                          / {hanzoFreeModelQuota.tokensQuota.toLocaleString()}
+                          / {freeModelQuota.tokensQuota.toLocaleString()}
                         </span>
                       </span>
                       <Tooltip>
@@ -300,8 +300,8 @@ const SettingsPage = () => {
                             used. <br /> <br /> Based on your current usage, you
                             have approximately{' '}
                             {Math.floor(
-                              (hanzoFreeModelQuota.tokensQuota -
-                                hanzoFreeModelQuota.usedTokens) /
+                              (freeModelQuota.tokensQuota -
+                                freeModelQuota.usedTokens) /
                                 2,
                             )}{' '}
                             messages remaining.
@@ -314,11 +314,11 @@ const SettingsPage = () => {
                     className="h-2 rounded-full bg-cyan-900 [&>div]:bg-cyan-400"
                     max={100}
                     value={
-                      hanzoFreeModelQuota?.tokensQuota
+                      freeModelQuota?.tokensQuota
                         ? Math.min(
                             100,
-                            (hanzoFreeModelQuota.usedTokens /
-                              hanzoFreeModelQuota.tokensQuota) *
+                            (freeModelQuota.usedTokens /
+                              freeModelQuota.tokensQuota) *
                               100,
                           )
                         : 0
@@ -330,7 +330,7 @@ const SettingsPage = () => {
                       {formatDuration(
                         intervalToDuration({
                           start: 0,
-                          end: hanzoFreeModelQuota?.resetTime * 60 * 1000,
+                          end: freeModelQuota?.resetTime * 60 * 1000,
                         }),
                       )}
                     </span>
@@ -446,12 +446,12 @@ const SettingsPage = () => {
             <div className="divide-divider flex flex-col divide-y">
               {[
                 {
-                  label: t('hanzoNode.nodeAddress'),
+                  label: t('node.nodeAddress'),
                   description: `The URL of your ${BRAND.name} node connection`,
                   value: auth?.node_address,
                 },
                 {
-                  label: t('hanzoNode.nodeVersion'),
+                  label: t('node.nodeVersion'),
                   description: `Current version of your ${BRAND.name} node.`,
                   value: nodeInfo?.version,
                 },
@@ -487,7 +487,7 @@ const SettingsPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <HanzoIdentityDialog />
+                  <IdentityDialog />
                   {!isIdentityLocalhost && (
                     <Tooltip>
                       <TooltipTrigger>
@@ -515,7 +515,7 @@ const SettingsPage = () => {
                         <TooltipContent>
                           <p>
                             {t(
-                              'settings.hanzoIdentity.checkIdentityInSyncDescription',
+                              'settings.identity.checkIdentityInSyncDescription',
                             )}
                           </p>
                         </TooltipContent>

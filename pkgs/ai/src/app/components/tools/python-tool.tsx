@@ -1,4 +1,4 @@
-import { type PythonHanzoTool } from '@hanzo_network/hanzo-message-ts/api/tools/types';
+import { type PythonTool } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 
 import ToolDetailsCard from './components/tool-details-card';
 
@@ -8,7 +8,7 @@ export default function PythonTool({
   isPlaygroundTool,
   toolRouterKey,
 }: {
-  tool: PythonHanzoTool;
+  tool: PythonTool;
   isEnabled: boolean;
   isPlaygroundTool?: boolean;
   toolRouterKey: string;

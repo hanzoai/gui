@@ -46,9 +46,9 @@ import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
 import ProviderIcon from '../components/ais/provider-icon';
-import { isLocalHanzoNode } from '../lib/hanzo-node-manager/hanzo-node-manager-windows-utils';
+import { isLocalNode } from '../lib/node-manager/node-manager-windows-utils';
 import { useAuth } from '../store/auth';
-import { useHanzoNodeManager } from '../store/hanzo-node-manager';
+import { useNodeManager } from '../store/node-manager';
 import { getModelObject } from './add-ai';
 
 const AIsPage = () => {
@@ -64,9 +64,9 @@ const AIsPage = () => {
   // — whether or not THIS app session spawned it (an externally-run local node
   // still serves the native engine). Fall back to the in-use flag for the
   // managed-sidecar case.
-  const nodeInUse = useHanzoNodeManager((state) => state.isInUse);
-  const isLocalHanzoNodeIsUse =
-    isLocalHanzoNode(auth?.node_address ?? '') || !!nodeInUse;
+  const nodeInUse = useNodeManager((state) => state.isInUse);
+  const isLocalNodeIsUse =
+    isLocalNode(auth?.node_address ?? '') || !!nodeInUse;
 
   const [searchQuery, setSearchQuery] = React.useState('');
 
@@ -92,7 +92,7 @@ const AIsPage = () => {
   }, [llmProviders, searchQuery]);
 
   const onAddAgentClick = () => {
-    if (isLocalHanzoNodeIsUse) {
+    if (isLocalNodeIsUse) {
       void navigate('/install-ai-models');
       return;
     }

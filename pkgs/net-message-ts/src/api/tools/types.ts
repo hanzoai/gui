@@ -1,6 +1,6 @@
 import { type JobMessage } from '../jobs/types';
 
-export type HanzoToolHeader = {
+export type ToolHeader = {
   author: string;
   config?: ToolConfigBase[];
   description: string;
@@ -8,7 +8,7 @@ export type HanzoToolHeader = {
   formatted_tool_summary_for_ui: string;
   name: string;
   tool_router_key: string;
-  tool_type: HanzoToolType;
+  tool_type: ToolType;
   version: string;
   input_args: {
     properties: Record<string, { description: string; type: string }>;
@@ -63,7 +63,7 @@ export type OAuth = {
   refreshToken: 'false' | 'true' | undefined;
 };
 
-export type DenoHanzoTool = {
+export type DenoTool = {
   toolkit_name: string;
   tool_router_key?: string;
   name: string;
@@ -82,7 +82,7 @@ export type DenoHanzoTool = {
   result: Record<string, any>;
   tool_set: string;
 };
-export type PythonHanzoTool = {
+export type PythonTool = {
   activated: boolean;
   author: string;
   keywords: string[];
@@ -100,7 +100,7 @@ export type PythonHanzoTool = {
   result: JSToolResult;
   tool_set: string;
 };
-export type RustHanzoTool = {
+export type RustTool = {
   description: string;
   input_args: ToolArgument;
   name: string;
@@ -111,7 +111,7 @@ export type RustHanzoTool = {
   tool_router_key: string;
 };
 
-export type NetworkHanzoTool = {
+export type NetworkTool = {
   activated: boolean;
   author: string;
   config?: ToolConfigBase;
@@ -132,7 +132,7 @@ export type NetworkHanzoTool = {
   tool_router_key: string;
 };
 
-export type AgentHanzoTool = {
+export type AgentTool = {
   agent_id: string;
   name: string;
   full_identity_name: string;
@@ -172,7 +172,7 @@ export type McpServerTool = {
   version: string;
 };
 
-export type HanzoToolType =
+export type ToolType =
   | 'Deno'
   | 'Python'
   | 'Rust'
@@ -180,17 +180,17 @@ export type HanzoToolType =
   | 'Agent'
   | 'MCPServer';
 
-export type HanzoTool =
-  | DenoHanzoTool
-  | PythonHanzoTool
-  | RustHanzoTool
-  | NetworkHanzoTool
-  | AgentHanzoTool
+export type Tool =
+  | DenoTool
+  | PythonTool
+  | RustTool
+  | NetworkTool
+  | AgentTool
   | McpServerTool;
 
 export type GetToolResponse = {
-  content: [HanzoTool, boolean];
-  type: HanzoToolType;
+  content: [Tool, boolean];
+  type: ToolType;
 };
 
 export type GetToolsCategory =
@@ -203,12 +203,12 @@ export type GetToolsCategory =
 export type GetToolsRequest = {
   category?: GetToolsCategory;
 };
-export type GetToolsResponse = HanzoToolHeader[];
-export type GetToolsSearchResponse = [HanzoToolHeader, number][];
+export type GetToolsResponse = ToolHeader[];
+export type GetToolsSearchResponse = [ToolHeader, number][];
 
 export type GetToolsFromToolsetResponse = {
-  type: HanzoToolType;
-  content: [HanzoToolHeader, boolean];
+  type: ToolType;
+  content: [ToolHeader, boolean];
 }[];
 
 export type SetCommonToolsetConfigRequest = {
@@ -220,17 +220,17 @@ export type SetCommonToolsetConfigResponse = {
   updated_tool_keys: string[];
 };
 export type AddToolRequest = {
-  type: HanzoToolType;
-  content: [HanzoTool, boolean];
+  type: ToolType;
+  content: [Tool, boolean];
 };
 
 export type UpdateToolRequest = {
-  type: HanzoToolType;
-  content: [HanzoTool, boolean];
+  type: ToolType;
+  content: [Tool, boolean];
 };
 export type UpdateToolResponse = {
-  type: HanzoToolType;
-  content: [HanzoTool, boolean];
+  type: ToolType;
+  content: [Tool, boolean];
 };
 
 export type ToggleEnableToolRequest = {
@@ -408,7 +408,7 @@ export type ToolMetadata = {
 export type SaveToolCodeResponse = {
   hanzo_tool: {
     type: 'Deno';
-    content: [HanzoTool, boolean];
+    content: [Tool, boolean];
   };
   metadata: {
     metadata: ToolMetadata;
@@ -486,8 +486,8 @@ export type ExportToolRequest = {
 };
 
 export type ExportToolResponse = Blob;
-export type GetHanzoFileProtocolRequest = { file: string };
-export type GetHanzoFileProtocolResponse = Blob;
+export type GetFileProtocolRequest = { file: string };
+export type GetFileProtocolResponse = Blob;
 
 export type GetAllToolAssetsResponse = string[];
 export type AddToolRequestRequest = {
@@ -621,7 +621,7 @@ export type NetworkToolNode = {
 };
 
 export type NetworkToolWithOffering = {
-  network_tool: NetworkHanzoTool;
+  network_tool: NetworkTool;
   tool_offering: ToolOffering;
   node: NetworkToolNode;
 };
@@ -654,13 +654,13 @@ export type RemoveToolOfferingRequest = {
   tool_key_name: string;
 };
 
-export type GetInstalledNetworkToolsResponse = HanzoToolHeader[];
+export type GetInstalledNetworkToolsResponse = ToolHeader[];
 
 export type AddNetworkToolRequest = {
   assets: any[];
   tool: {
     type: 'Network';
-    content: [NetworkHanzoTool, boolean];
+    content: [NetworkTool, boolean];
   };
 };
 

@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
-import { type HanzoToolHeader } from '@hanzo_network/hanzo-message-ts/api/tools/types';
+import { type ToolHeader } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 import {
   buildInboxIdFromJobId,
   extractJobIdFromInbox,
@@ -141,7 +141,7 @@ function QuickAsk() {
       token: auth?.api_v2_key ?? '',
     },
     {
-      select: (data: HanzoToolHeader[]) =>
+      select: (data: ToolHeader[]) =>
         data.filter((tool) => tool.enabled),
     },
   );

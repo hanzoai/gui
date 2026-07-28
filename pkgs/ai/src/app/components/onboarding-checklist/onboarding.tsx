@@ -27,7 +27,7 @@ import { useSettings } from '../../store/settings';
 import { useOnboardingSteps } from './use-onboarding-stepper';
 
 export enum GetStartedSteps {
-  SetupHanzoNode = 'SetupHanzoNode',
+  SetupNode = 'SetupHanzoNode',
   DownloadFirstModel = 'DownloadFirstModel',
   CreateAIAgent = 'CreateAIAgent',
   CreateAIChatWithAgent = 'CreateAIChatWithAgent',
@@ -48,12 +48,12 @@ export default function OnboardingStepper() {
     <Stepper
       steps={[
         {
-          label: GetStartedSteps.SetupHanzoNode,
+          label: GetStartedSteps.SetupNode,
           status:
-            currentStepsMap.get(GetStartedSteps.SetupHanzoNode) ??
+            currentStepsMap.get(GetStartedSteps.SetupNode) ??
             GetStartedStatus.NotStarted,
-          title: t('onboardingChecklist.setupHanzoDesktop'),
-          body: t('onboardingChecklist.setupHanzoDesktopDescription'),
+          title: t('onboardingChecklist.setupDesktop'),
+          body: t('onboardingChecklist.setupDesktopDescription'),
         },
         {
           label: GetStartedSteps.DownloadFirstModel,

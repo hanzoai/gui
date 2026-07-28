@@ -29,7 +29,7 @@ export const useGalxeGenerateProofQuery = (
 };
 
 // Mutations
-export const useGalxeRegisterHanzoDesktopInstallationMutation = (
+export const useGalxeRegisterDesktopInstallationMutation = (
   options?: UseMutationOptions<
     void,
     AxiosError<{ message: string; error: string }>,

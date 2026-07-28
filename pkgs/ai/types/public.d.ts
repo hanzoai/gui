@@ -33,6 +33,10 @@ export interface BrandConfig {
     apiPort: number;     // node HTTP API — hanzod 3690, zood 2000, luxd 9630
     enginePort: number;  // local inference engine (chat completions)
   };
+  /** Brand-owned external links (docs site, app store, dapp/contracts portal,
+   *  tutorials). Brand-driven so each app renders its own domains; every field
+   *  is optional and falls back to the hanzo.ai default at the call site. */
+  links?: { docs?: string; store?: string; dapp?: string; tutorials?: string };
   machinesEnabled?: boolean;
 }
 
@@ -42,7 +46,7 @@ export interface HostAdapter {
   platform?: 'tauri' | 'web' | 'expo';
 }
 
-export interface HanzoAIProps extends BrandConfig {
+export interface AIProps extends BrandConfig {
   // logo inherited from BrandConfig ({ light; dark; favicon }); dead incompatible
   // ComponentType|string override removed (it broke tsc for all 3 apps).
   cloud?: { overlay?: string; inference?: string };
@@ -55,10 +59,10 @@ export interface HanzoAIProps extends BrandConfig {
   host?: HostAdapter;
 }
 
-/** The Hanzo AI app as one declarative component. Brand is a prop; platform is
+/** The AI app as one declarative component. Brand is a prop; platform is
  *  an injected host. Renders web / desktop (Tauri) / mobile (Expo) from one surface. */
-export declare function HanzoAI(props: HanzoAIProps): ReactElement;
-export default HanzoAI;
+export declare function AI(props: AIProps): ReactElement;
+export default AI;
 
 export declare const BrandProvider: (props: { brand?: BrandConfig; children: ReactNode }) => ReactElement;
 /** Read the active brand. A plain getter, NOT a React hook — callable anywhere. */
@@ -67,7 +71,7 @@ export declare function useBrand(): BrandConfig;
 export declare function getBrand(): BrandConfig;
 /** Resolve a brand from a hostname using the registered brands. */
 export declare function getBrandFromHostname(hostname: string): BrandConfig | undefined;
-/** Inject the active brand (called by <HanzoAI> before mount). */
+/** Inject the active brand (called by <AI> before mount). */
 export declare function setBrand(brand: BrandConfig): void;
 /** Register brands for hostname/env resolution (web multi-tenant). */
 export declare function registerBrands(brands: BrandConfig[]): void;

@@ -1,5 +1,5 @@
 import { type Token } from '@hanzo_network/hanzo-message-ts/api/general/types';
-import { type HanzoToolHeader, type HanzoToolType } from '@hanzo_network/hanzo-message-ts/api/tools/types';
+import { type ToolHeader, type ToolType } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 
 export type GetToolsFromToolsetInput = Token & {
   nodeAddress: string;
@@ -7,6 +7,6 @@ export type GetToolsFromToolsetInput = Token & {
 };
 
 export type GetToolsFromToolsetOutput = {
-  type: HanzoToolType;
-  content: [HanzoToolHeader, boolean];
+  type: ToolType;
+  content: [ToolHeader, boolean];
 }[];

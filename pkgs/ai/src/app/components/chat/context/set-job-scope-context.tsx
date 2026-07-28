@@ -1,4 +1,4 @@
-import { type HanzoPath } from '@hanzo_network/hanzo-message-ts/api/jobs/types';
+import { type Path } from '@hanzo_network/hanzo-message-ts/api/jobs/types';
 import { type TreeCheckboxSelectionKeys } from 'primereact/tree';
 import React, { createContext, useContext, useState } from 'react';
 import { createStore, useStore } from 'zustand';
@@ -13,8 +13,8 @@ type SetJobScopeStore = {
   setSetJobScopeOpen: (isSetJobScopeOpen: boolean) => void;
   selectedKeys: TreeCheckboxSelectionKeys | null;
   onSelectedKeysChange: (value: TreeCheckboxSelectionKeys | null) => void;
-  selectedFileKeysRef: Map<string, HanzoPath>;
-  selectedFolderKeysRef: Map<string, HanzoPath>;
+  selectedFileKeysRef: Map<string, Path>;
+  selectedFolderKeysRef: Map<string, Path>;
 
   isKnowledgeSearchOpen: boolean;
   setKnowledgeSearchOpen: (isKnowledgeSearchOpen: boolean) => void;
@@ -32,8 +32,8 @@ const createVectorFsStore = () =>
     onSelectedKeysChange: (selectedKeys) => {
       set({ selectedKeys });
     },
-    selectedFileKeysRef: new Map<string, HanzoPath>(),
-    selectedFolderKeysRef: new Map<string, HanzoPath>(),
+    selectedFileKeysRef: new Map<string, Path>(),
+    selectedFolderKeysRef: new Map<string, Path>(),
 
     isKnowledgeSearchOpen: false,
     setKnowledgeSearchOpen: (isKnowledgeSearchOpen) => {
@@ -43,8 +43,8 @@ const createVectorFsStore = () =>
       set({
         isSetJobScopeOpen: false,
         selectedKeys: null,
-        selectedFileKeysRef: new Map<string, HanzoPath>(),
-        selectedFolderKeysRef: new Map<string, HanzoPath>(),
+        selectedFileKeysRef: new Map<string, Path>(),
+        selectedFolderKeysRef: new Map<string, Path>(),
         isKnowledgeSearchOpen: false,
       });
     },

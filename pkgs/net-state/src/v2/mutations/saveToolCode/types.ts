@@ -11,9 +11,9 @@ export type SaveToolCodeInput = Token & {
   code?: string;
   assets: string[];
   language: CodeLanguage;
-  xHanzoAppId: string;
-  xHanzoToolId: string;
-  xHanzoOriginalToolRouterKey?: string;
+  xAppId: string;
+  xToolId: string;
+  xOriginalToolRouterKey?: string;
   shouldPrefetchPlaygroundTool?: boolean;
 } & {
   name: string;

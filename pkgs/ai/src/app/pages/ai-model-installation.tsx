@@ -24,9 +24,9 @@ import { Link, useNavigate } from 'react-router';
 import { ModelProvider } from '../components/ais/constants';
 import ProviderIcon from '../components/ais/provider-icon';
 import { ResourcesBanner } from '../components/hardware-capabilities/resources-banner';
-import { LocalModelBrowser } from '../components/hanzo-node-manager/local-model-browser';
+import { LocalModelBrowser } from '../components/node-manager/local-model-browser';
 import { useURLQueryParams } from '../hooks/use-url-query-params';
-import { nodeQueryClient } from '../lib/hanzo-node-manager/hanzo-node-manager-client';
+import { nodeQueryClient } from '../lib/node-manager/node-manager-client';
 import { useAuth } from '../store/auth';
 import { FixedHeaderLayout } from './layout/simple-layout';
 

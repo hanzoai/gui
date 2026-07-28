@@ -1,4 +1,4 @@
-import { type GetHanzoFreeModelQuotaOutput } from './types';
+import { type GetFreeModelQuotaOutput } from './types';
 
 /**
  * Cloud free-tier quota is retired. The desktop is local-only (engine on
@@ -6,7 +6,7 @@ import { type GetHanzoFreeModelQuotaOutput } from './types';
  * `/v2/hanzo_backend_quota?model=FREE_TEXT_INFERENCE` endpoint. Resolves to
  * `null` so consumers render no free-tier usage UI.
  */
-export const getHanzoFreeModelQuota =
-  async (): Promise<GetHanzoFreeModelQuotaOutput> => {
+export const getFreeModelQuota =
+  async (): Promise<GetFreeModelQuotaOutput> => {
     return null;
   };

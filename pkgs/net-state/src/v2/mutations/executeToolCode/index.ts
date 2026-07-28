@@ -15,8 +15,8 @@ export const executeToolCode = async ({
   tools,
   language,
   configs,
-  xHanzoAppId,
-  xHanzoToolId,
+  xAppId,
+  xToolId,
   mounts,
 }: ExecuteToolCodeInput) => {
   const toolTypeLanguageMap = {
@@ -38,7 +38,7 @@ export const executeToolCode = async ({
       extra_config: configs,
       mounts,
     },
-    xHanzoAppId,
-    xHanzoToolId,
+    xAppId,
+    xToolId,
   );
 };

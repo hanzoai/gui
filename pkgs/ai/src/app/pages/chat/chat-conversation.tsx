@@ -76,7 +76,7 @@ export const useChatConversationWithOptimisticUpdates = ({
     token: auth?.api_v2_key ?? '',
     nodeAddress: auth?.node_address ?? '',
     inboxId: inboxId as string,
-    hanzoIdentity: auth?.hanzo_identity ?? '',
+    identity: auth?.hanzo_identity ?? '',
     profile: auth?.profile ?? '',
     refetchIntervalEnabled: chatConfig?.stream === false,
     enabled: !!inboxId,

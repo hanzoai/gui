@@ -3,15 +3,15 @@
     "rootDir": ".",
     "paths": {
       "@hanzo/gui": [
-        "pkgs/ui/hanzogui"
+        "./pkgs/ui/hanzogui"
       ],
       "@hanzogui/*": [
-        "pkgs/core/*",
-        "pkgs/ui/*",
-        "pkgs/*"
+        "./pkgs/core/*",
+        "./pkgs/ui/*",
+        "./pkgs/*"
       ],
       "@hanzogui/demos": [
-        "apps/demos"
+        "./apps/demos"
       ]
     },
     "outDir": "dist",
@@ -23,7 +23,6 @@
     "declaration": true,
     "experimentalDecorators": false,
     "emitDecoratorMetadata": false,
-    "downlevelIteration": true,
     "strict": true,
     "esModuleInterop": true,
     "inlineSourceMap": true,

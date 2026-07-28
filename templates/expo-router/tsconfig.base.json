@@ -4,7 +4,6 @@
     "importHelpers": true,
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true,
     "esModuleInterop": true,
     "preserveSymlinks": true,
     "incremental": true,

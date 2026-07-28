@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = rosmsg;
+//# sourceMappingURL=rosmsg-B0x6iYMh.cjs.map

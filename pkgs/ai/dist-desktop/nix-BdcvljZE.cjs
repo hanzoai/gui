@@ -16,3 +16,4 @@ lang
 ];
 
 exports.default = nix;
+//# sourceMappingURL=nix-BdcvljZE.cjs.map

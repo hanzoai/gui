@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = lean;
+//# sourceMappingURL=lean-2XhSMU_D.cjs.map

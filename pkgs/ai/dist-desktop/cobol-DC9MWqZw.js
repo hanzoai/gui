@@ -10,3 +10,4 @@ lang
 ];
 
 export { cobol as default };
+//# sourceMappingURL=cobol-DC9MWqZw.js.map

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = awk;
+//# sourceMappingURL=awk-9ns3fHZl.cjs.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { beancount as default };
+//# sourceMappingURL=beancount-D5Viq-xB.js.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { applescript as default };
+//# sourceMappingURL=applescript-BaXuR7SY.js.map

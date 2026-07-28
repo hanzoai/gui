@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = gn;
+//# sourceMappingURL=gn-BUHB0Rmy.cjs.map

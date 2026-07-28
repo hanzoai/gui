@@ -5,3 +5,4 @@ lang
 ];
 
 export { openscad as default };
+//# sourceMappingURL=openscad-CFeyGTRF.js.map

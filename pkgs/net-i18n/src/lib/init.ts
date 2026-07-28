@@ -41,7 +41,7 @@ const initI18n = () => {
     .use(
       resourcesToBackend(async (lng: string) => {
         const normalized = normalizeLocale(lng);
-        // en-US ALWAYS loads the bundled ./default. The @hanzo/ai dist is
+        // en-US ALWAYS loads the bundled ./default. The @hanzo/app dist is
         // production-built, so import.meta.env.DEV is false at runtime in the
         // consumer; the old `isDev && en-US` gate then fell through to
         // locales/en-US.json — which is NOT bundled → reject → no resources →

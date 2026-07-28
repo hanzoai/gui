@@ -5,3 +5,4 @@ lang
 ];
 
 export { go as default };
+//# sourceMappingURL=go-CiieLKfD.js.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { vyper as default };
+//# sourceMappingURL=vyper-DsCrBs2M.js.map

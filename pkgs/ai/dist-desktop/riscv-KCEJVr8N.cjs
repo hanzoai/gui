@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = riscv;
+//# sourceMappingURL=riscv-KCEJVr8N.cjs.map

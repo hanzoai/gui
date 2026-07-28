@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = nushell;
+//# sourceMappingURL=nushell-DZwR_Lwh.cjs.map

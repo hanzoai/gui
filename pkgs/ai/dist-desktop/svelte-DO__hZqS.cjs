@@ -18,3 +18,4 @@ lang
 ];
 
 exports.default = svelte;
+//# sourceMappingURL=svelte-DO__hZqS.cjs.map

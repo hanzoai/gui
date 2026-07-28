@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = powershell;
+//# sourceMappingURL=powershell-CC5t8qb4.cjs.map

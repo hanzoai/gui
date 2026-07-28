@@ -8,3 +8,4 @@ lang
 ];
 
 export { stata as default };
+//# sourceMappingURL=stata-B1fA5iDZ.js.map

@@ -1,7 +1,7 @@
 {
-  "name": "@hanzo/ai",
-  "version": "0.1.1",
-  "description": "The Hanzo AI app as one declarative SDK component \u2014 <HanzoAI {...brand} />. Brand is a prop; hanzo/zoo/lux apps are thin shims (the @luxfi/exchange pattern, for AI).",
+  "name": "@hanzo/app",
+  "version": "0.1.4",
+  "description": "The AI app as one declarative SDK component \u2014 <AI {...brand} />. Brand is a prop; hanzo/zoo/lux apps are thin shims (the @luxfi/exchange pattern, for AI).",
   "license": "BSD-3-Clause",
   "type": "module",
   "sideEffects": false,
@@ -20,12 +20,14 @@
       "import": "./dist-desktop/index.js",
       "require": "./dist-desktop/index.cjs"
     },
-    "./ai.css": "./dist/ai.css"
+    "./app.css": "./dist/app.css"
   },
   "files": [
     "dist",
     "BUILD.md",
-    "dist-desktop"
+    "dist-desktop",
+    "!dist/**/*.map",
+    "!dist-desktop/**/*.map"
   ],
   "scripts": {
     "build": "NODE_OPTIONS=--max-old-space-size=12288 vite build && NODE_OPTIONS=--max-old-space-size=12288 vite build --config vite.desktop.config.ts && cp types/public.d.ts dist/index.d.ts",

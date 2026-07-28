@@ -5,3 +5,4 @@ lang
 ];
 
 export { rosmsg as default };
+//# sourceMappingURL=rosmsg-D7AzfslN.js.map

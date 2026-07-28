@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = objectiveCpp;
+//# sourceMappingURL=objective-cpp-BsUK7qz0.cjs.map

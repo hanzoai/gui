@@ -1,4 +1,4 @@
-// hanzo.chat / hanzo.app — the web entry. The SAME @hanzo/ai surface that
+// hanzo.chat / hanzo.app — the web entry. The SAME @hanzo/app surface that
 // ships to desktop (Tauri) and mobile (Expo); here the host stays the web
 // default. Brand comes from env/hostname via getBrand() (VITE_BRAND or the
 // hanzo/zoo/lux domain), spread as props — one way, one place.

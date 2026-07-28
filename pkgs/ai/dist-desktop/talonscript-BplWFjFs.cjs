@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = talonscript;
+//# sourceMappingURL=talonscript-BplWFjFs.cjs.map

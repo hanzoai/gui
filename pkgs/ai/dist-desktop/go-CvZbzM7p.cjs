@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = go;
+//# sourceMappingURL=go-CvZbzM7p.cjs.map

@@ -14,3 +14,4 @@ lang
 ];
 
 exports.default = gdresource;
+//# sourceMappingURL=gdresource-I1mmOd6b.cjs.map

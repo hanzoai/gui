@@ -65,3 +65,4 @@ lang
 ];
 
 exports.default = tsTags;
+//# sourceMappingURL=ts-tags-Gb8OoLIc.cjs.map

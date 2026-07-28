@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = bird2;
+//# sourceMappingURL=bird2-m9gx0Z9A.cjs.map

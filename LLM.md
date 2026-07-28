@@ -16,7 +16,7 @@ One way, and it runs on our own stack:
               .hanzo/workflows/checks.yaml      check, lint, unit tests
               .hanzo/workflows/publish-gui.yml      hanzogui + @hanzo/gui
               .hanzo/workflows/publish-gui-all.yml  every @hanzogui/* primitive
-              .hanzo/workflows/publish-ai.yml       @hanzo/ai
+              .hanzo/workflows/publish-app.yml       @hanzo/app
               .hanzo/workflows/build.yml            ghcr.io/hanzoai/gui
 
 **git.hanzo.ai is canonical; GitHub is a mirror.** `.github/workflows/` holds
@@ -35,18 +35,18 @@ every case — a version bump alone never ships.
 | --- | --- | --- |
 | `release/gui-v*` | `publish-gui.yml` | `hanzogui` + the `@hanzo/gui` alias |
 | `release/gui-all-v*` (or dispatch) | `publish-gui-all.yml` | every `@hanzogui/*` primitive + both umbrellas |
-| `release/ai-v*` | `publish-ai.yml` | `@hanzo/ai` from `pkgs/ai` |
+| `release/app-v*` | `publish-app.yml` | `@hanzo/app` from `pkgs/ai` (dir keeps its name; the package is `@hanzo/app` — `@hanzo/ai` is the unrelated headless client at hanzo-js/ai) |
 
 `NPM_TOKEN` comes from KMS with a repo-secret fallback in the two `publish-gui*`
 workflows, and from `hanzoai/universe/.github/actions/kms-action` over OIDC in
-`publish-ai.yml`. The forge has to be able to resolve that cross-repo action, so
+`publish-app.yml`. The forge has to be able to resolve that cross-repo action, so
 `hanzoai/universe` must exist there; if it does not, the KMS step is the thing that
 fails.
 
-`publish-ai.yml` asked for `runs-on: [self-hosted, linux, arm64]`, which is one
+`publish-app.yml` asked for `runs-on: [self-hosted, linux, arm64]`, which is one
 frequently-offline host. A job requesting a label nothing answers queues silently
 instead of failing, which is the worst possible outcome for a publisher, so it now
-uses `hanzo-build-linux-amd64` like its two siblings — `@hanzo/ai` is
+uses `hanzo-build-linux-amd64` like its two siblings — `@hanzo/app` is
 arch-independent JS.
 
 ## Known dead ends

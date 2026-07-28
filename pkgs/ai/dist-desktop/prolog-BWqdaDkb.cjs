@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = prolog;
+//# sourceMappingURL=prolog-BWqdaDkb.cjs.map

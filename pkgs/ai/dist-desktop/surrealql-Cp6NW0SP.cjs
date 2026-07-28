@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = surrealql;
+//# sourceMappingURL=surrealql-Cp6NW0SP.cjs.map

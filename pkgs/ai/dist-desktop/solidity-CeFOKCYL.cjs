@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = solidity;
+//# sourceMappingURL=solidity-CeFOKCYL.cjs.map

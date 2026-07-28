@@ -5,3 +5,4 @@ lang
 ];
 
 export { fish as default };
+//# sourceMappingURL=fish-Pi1OqB6M.js.map

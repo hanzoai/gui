@@ -8,3 +8,4 @@ lang
 ];
 
 export { sparql as default };
+//# sourceMappingURL=sparql-0ajZOJ_H.js.map

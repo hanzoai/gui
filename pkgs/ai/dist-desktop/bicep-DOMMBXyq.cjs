@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = bicep;
+//# sourceMappingURL=bicep-DOMMBXyq.cjs.map

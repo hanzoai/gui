@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = cmake;
+//# sourceMappingURL=cmake-B5g3nQo2.cjs.map

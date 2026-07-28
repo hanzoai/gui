@@ -5,3 +5,4 @@ lang
 ];
 
 export { bird2 as default };
+//# sourceMappingURL=bird2-DRq8VoZF.js.map

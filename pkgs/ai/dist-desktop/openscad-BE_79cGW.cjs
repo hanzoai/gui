@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = openscad;
+//# sourceMappingURL=openscad-BE_79cGW.cjs.map

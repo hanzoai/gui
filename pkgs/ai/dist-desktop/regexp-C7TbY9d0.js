@@ -5,3 +5,4 @@ lang
 ];
 
 export { regexp as default };
+//# sourceMappingURL=regexp-C7TbY9d0.js.map

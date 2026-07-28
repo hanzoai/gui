@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = wasm;
+//# sourceMappingURL=wasm-RI0yU2_V.cjs.map

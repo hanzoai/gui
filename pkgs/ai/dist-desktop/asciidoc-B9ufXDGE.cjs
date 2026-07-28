@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = asciidoc;
+//# sourceMappingURL=asciidoc-B9ufXDGE.cjs.map

@@ -8,3 +8,4 @@ lang
 ];
 
 export { tex as default };
+//# sourceMappingURL=tex-Db4-2AzB.js.map

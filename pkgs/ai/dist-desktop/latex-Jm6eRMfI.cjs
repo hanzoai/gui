@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = latex;
+//# sourceMappingURL=latex-Jm6eRMfI.cjs.map

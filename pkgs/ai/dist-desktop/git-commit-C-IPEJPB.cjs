@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = gitCommit;
+//# sourceMappingURL=git-commit-C-IPEJPB.cjs.map

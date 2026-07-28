@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = glsl;
+//# sourceMappingURL=glsl-UuMe6upS.cjs.map

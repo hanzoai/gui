@@ -5,3 +5,4 @@ lang
 ];
 
 export { java as default };
+//# sourceMappingURL=java-CUw28yYa.js.map

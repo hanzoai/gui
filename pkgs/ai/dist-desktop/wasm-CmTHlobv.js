@@ -6,3 +6,4 @@ const getWasmInstance = async (info) => {
 };
 
 export { getWasmInstance as default, getWasmInstance, wasmBinary };
+//# sourceMappingURL=wasm-CmTHlobv.js.map

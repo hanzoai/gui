@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = nginx;
+//# sourceMappingURL=nginx-Cl04lKP7.cjs.map

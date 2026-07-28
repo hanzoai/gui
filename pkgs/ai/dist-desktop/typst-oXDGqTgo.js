@@ -5,3 +5,4 @@ lang
 ];
 
 export { typst as default };
+//# sourceMappingURL=typst-oXDGqTgo.js.map

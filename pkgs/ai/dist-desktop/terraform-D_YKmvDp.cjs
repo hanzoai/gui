@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = terraform;
+//# sourceMappingURL=terraform-D_YKmvDp.cjs.map

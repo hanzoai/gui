@@ -5,3 +5,4 @@ lang
 ];
 
 export { wikitext as default };
+//# sourceMappingURL=wikitext-Ck8McAIr.js.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { mdx as default };
+//# sourceMappingURL=mdx-yS5LQBP9.js.map

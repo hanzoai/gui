@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = bibtex;
+//# sourceMappingURL=bibtex-DxxwiVlR.cjs.map

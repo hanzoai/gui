@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = codeql;
+//# sourceMappingURL=codeql-BWsZjrHL.cjs.map

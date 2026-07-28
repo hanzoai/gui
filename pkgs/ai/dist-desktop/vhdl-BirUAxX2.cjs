@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = vhdl;
+//# sourceMappingURL=vhdl-BirUAxX2.cjs.map

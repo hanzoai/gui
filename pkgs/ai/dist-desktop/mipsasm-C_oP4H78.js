@@ -5,3 +5,4 @@ lang
 ];
 
 export { mipsasm as default };
+//# sourceMappingURL=mipsasm-C_oP4H78.js.map

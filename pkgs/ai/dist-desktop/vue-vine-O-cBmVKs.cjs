@@ -22,3 +22,4 @@ lang
 ];
 
 exports.default = vueVine;
+//# sourceMappingURL=vue-vine-O-cBmVKs.cjs.map

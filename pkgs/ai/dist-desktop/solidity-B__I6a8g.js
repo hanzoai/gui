@@ -5,3 +5,4 @@ lang
 ];
 
 export { solidity as default };
+//# sourceMappingURL=solidity-B__I6a8g.js.map

@@ -20,3 +20,4 @@ lang
 ];
 
 export { nim as default };
+//# sourceMappingURL=nim-BmF56jfu.js.map

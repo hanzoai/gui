@@ -1,6 +1,6 @@
-// @hanzo/ai — the AI app, as one declarative SDK component.
+// @hanzo/app — the AI app, as one declarative SDK component.
 //
-//   import AI from '@hanzo/ai'
+//   import AI from '@hanzo/app'
 //   import brand   from '@luxfi/brand'
 //   render(<AI {...brand} features={{ chat:true, wallet:true }} />)
 //
@@ -10,8 +10,8 @@ import React from 'react';
 // The Tailwind v4 entry + theme tokens live here (globals.css → hanzo-ui
 // styles.css). It is imported by the standalone dev entry (app/main.tsx) but
 // NOT by app/App.tsx, so the SDK lib build must pull it in HERE or the emitted
-// ai.css ships only component CSS — no Tailwind utilities / dark theme, and
-// consumer apps render unstyled (they rely entirely on @hanzo/ai/ai.css).
+// app.css ships only component CSS — no Tailwind utilities / dark theme, and
+// consumer apps render unstyled (they rely entirely on @hanzo/app/app.css).
 import './app/globals.css';
 import { BrandProvider, setBrand } from './brand-context';
 import { setHost } from './host/runtime';
@@ -44,9 +44,20 @@ export function AI(props: AIProps): React.ReactElement {
 }
 
 export default AI;
-export { BrandProvider, useBrand, getBrand } from './brand-context';
+export { BrandProvider, useBrand, getBrand, setBrand } from './brand-context';
 // Re-export the brand resolvers so a thin shim needs no separate brand pkg for
-// the default case: `import AI, { getBrand } from '@hanzo/ai'`. Custom
+// the default case: `import AI, { getBrand } from '@hanzo/app'`. Custom
 // brands still flow in as props (<AI {...myBrand}/>).
-export { getBrandFromHostname } from '@hanzo_network/brand-config';
+//
+// registerBrands + getBrandFromHostname are the WEB path (one bundle, brand
+// picked by hostname); setBrand is the desktop path; isMachinesEnabled is a
+// brand-driven feature gate. types/public.d.ts declares all five and README's
+// API table documents them, but the runtime never exported the last three —
+// `import { registerBrands } from '@hanzo/app'` type-checked and then threw at
+// runtime. The bundle has to ship the surface it advertises.
+export {
+  getBrandFromHostname,
+  registerBrands,
+  isMachinesEnabled,
+} from '@hanzo_network/brand-config';
 export type { BrandConfig, AIProps, HostAdapter, Brand } from './types';

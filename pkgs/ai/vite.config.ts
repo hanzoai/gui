@@ -1,4 +1,4 @@
-// @hanzo/ai build — library mode. The key move: alias every @tauri-apps/*
+// @hanzo/app build — library mode. The key move: alias every @tauri-apps/*
 // module to the injectable host shim, so the migrated app's 48 native
 // import sites resolve to web/tauri/expo-agnostic code with ZERO source
 // edits. Platform becomes an injected prop (<HanzoAI host={...}/>), not a
@@ -41,7 +41,7 @@ const libAlias = {
   '@hanzo_network/hanzo-artifacts': p('net-artifacts'),
 };
 
-// @hanzo/ai is shipped as an APP-as-SDK: the dist is SELF-CONTAINED so a
+// @hanzo/app is shipped as an APP-as-SDK: the dist is SELF-CONTAINED so a
 // consumer's thin shim only needs react + react-dom (peers) + a brand. We
 // externalize ONLY React (the consumer must own a single copy — two Reacts
 // would re-break hooks) and bundle everything else: the app, the net-* libs,
@@ -74,6 +74,10 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.tsx'),
       formats: ['es', 'cjs'],
       fileName: (f) => (f === 'es' ? 'index.js' : 'index.cjs'),
+      // Explicit: with a fileName FUNCTION vite falls back to the package name
+      // for the css asset, so the stylesheet would silently rename whenever the
+      // package does. Pin it — consumers import '@hanzo/app/app.css'.
+      cssFileName: 'app',
     },
     rollupOptions: { external: (id: string) => EXTERNAL.has(id) },
   },

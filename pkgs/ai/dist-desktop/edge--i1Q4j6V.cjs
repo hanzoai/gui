@@ -16,3 +16,4 @@ lang
 ];
 
 exports.default = edge;
+//# sourceMappingURL=edge--i1Q4j6V.cjs.map

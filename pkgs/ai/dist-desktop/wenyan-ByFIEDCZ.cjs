@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = wenyan;
+//# sourceMappingURL=wenyan-ByFIEDCZ.cjs.map

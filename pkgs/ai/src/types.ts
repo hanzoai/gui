@@ -1,4 +1,4 @@
-// @hanzo/ai — the declarative props contract for the AI app SDK.
+// @hanzo/app — the declarative props contract for the AI app SDK.
 //
 // This is the canonical shape every brand passes to <AI {...brand} />.
 // It is the SAME `BrandConfig` that lived in hanzoai/desktop's

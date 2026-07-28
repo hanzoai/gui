@@ -31,7 +31,7 @@ beforeAll(async () => {
 });
 afterAll(async () => { await browser?.close(); });
 
-describe('@hanzo/ai web e2e', () => {
+describe('@hanzo/app web e2e', () => {
   it('renders the onboarding screen (smoke)', async (ctx) => {
     if (!runtimeUp) return ctx.skip();
     const page = await browser!.newPage({ viewport: { width: 1280, height: 820 } });

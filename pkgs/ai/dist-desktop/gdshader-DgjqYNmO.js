@@ -5,3 +5,4 @@ lang
 ];
 
 export { gdshader as default };
+//# sourceMappingURL=gdshader-DgjqYNmO.js.map

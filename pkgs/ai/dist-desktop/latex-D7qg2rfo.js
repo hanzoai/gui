@@ -8,3 +8,4 @@ lang
 ];
 
 export { latex as default };
+//# sourceMappingURL=latex-D7qg2rfo.js.map

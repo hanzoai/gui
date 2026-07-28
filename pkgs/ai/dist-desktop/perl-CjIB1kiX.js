@@ -16,3 +16,4 @@ lang
 ];
 
 export { perl as default };
+//# sourceMappingURL=perl-CjIB1kiX.js.map

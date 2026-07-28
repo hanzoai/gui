@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = move;
+//# sourceMappingURL=move-BjbNvhpx.cjs.map

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = verilog;
+//# sourceMappingURL=verilog-DElAsSmL.cjs.map

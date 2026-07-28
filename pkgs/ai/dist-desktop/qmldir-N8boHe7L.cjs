@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = qmldir;
+//# sourceMappingURL=qmldir-N8boHe7L.cjs.map

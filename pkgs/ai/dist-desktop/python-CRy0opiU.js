@@ -5,3 +5,4 @@ lang
 ];
 
 export { python as default };
+//# sourceMappingURL=python-CRy0opiU.js.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { vala as default };
+//# sourceMappingURL=vala-BZyufv6y.js.map

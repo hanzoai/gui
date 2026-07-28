@@ -5,3 +5,4 @@ lang
 ];
 
 export { asciidoc as default };
+//# sourceMappingURL=asciidoc-KdP1ByGr.js.map

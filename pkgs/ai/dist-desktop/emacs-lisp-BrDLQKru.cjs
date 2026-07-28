@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = emacsLisp;
+//# sourceMappingURL=emacs-lisp-BrDLQKru.cjs.map

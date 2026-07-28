@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = wgsl;
+//# sourceMappingURL=wgsl-CWhwa-MD.cjs.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { gherkin as default };
+//# sourceMappingURL=gherkin-DGjaLuN4.js.map

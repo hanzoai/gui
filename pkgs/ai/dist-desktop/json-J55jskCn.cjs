@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = json;
+//# sourceMappingURL=json-J55jskCn.cjs.map

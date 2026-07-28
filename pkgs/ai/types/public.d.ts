@@ -1,4 +1,4 @@
-// Public type surface for @hanzo/ai. Hand-authored + self-contained (only the
+// Public type surface for @hanzo/app. Hand-authored + self-contained (only the
 // react peer dep is referenced) — the app is bundled, so a raw tsc .d.ts tree
 // would carry broken internal/@hanzo_network imports. The build copies this to
 // dist/index.d.ts.

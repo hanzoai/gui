@@ -8,3 +8,4 @@ lang
 ];
 
 export { nextflow as default };
+//# sourceMappingURL=nextflow-D58bY2uI.js.map

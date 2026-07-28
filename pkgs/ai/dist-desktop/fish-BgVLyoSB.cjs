@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = fish;
+//# sourceMappingURL=fish-BgVLyoSB.cjs.map

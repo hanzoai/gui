@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = scss;
+//# sourceMappingURL=scss-Bc0e-s0_.cjs.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { haskell as default };
+//# sourceMappingURL=haskell-IROkTdzM.js.map

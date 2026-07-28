@@ -5,3 +5,4 @@ lang
 ];
 
 export { purescript as default };
+//# sourceMappingURL=purescript-BPerrxWj.js.map

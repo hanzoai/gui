@@ -16,3 +16,4 @@ lang
 ];
 
 exports.default = mdc;
+//# sourceMappingURL=mdc-CHEl5DLp.cjs.map

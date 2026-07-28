@@ -5,3 +5,4 @@ lang
 ];
 
 export { wolfram as default };
+//# sourceMappingURL=wolfram-B2ozmFis.js.map

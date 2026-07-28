@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = vueHtml;
+//# sourceMappingURL=vue-html-CUnCwZ89.cjs.map

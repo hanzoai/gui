@@ -5,3 +5,4 @@ lang
 ];
 
 export { rel as default };
+//# sourceMappingURL=rel-CL74NK6w.js.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { markdown as default };
+//# sourceMappingURL=markdown-8ijpLnj8.js.map

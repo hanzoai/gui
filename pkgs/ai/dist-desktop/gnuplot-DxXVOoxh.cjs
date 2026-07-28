@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = gnuplot;
+//# sourceMappingURL=gnuplot-DxXVOoxh.cjs.map

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = puppet;
+//# sourceMappingURL=puppet-KUHLctuu.cjs.map

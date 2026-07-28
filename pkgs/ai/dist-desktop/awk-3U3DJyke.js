@@ -5,3 +5,4 @@ lang
 ];
 
 export { awk as default };
+//# sourceMappingURL=awk-3U3DJyke.js.map

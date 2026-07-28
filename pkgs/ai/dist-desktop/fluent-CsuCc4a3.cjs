@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = fluent;
+//# sourceMappingURL=fluent-CsuCc4a3.cjs.map

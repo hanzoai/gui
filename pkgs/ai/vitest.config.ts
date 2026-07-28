@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-// Test config for @hanzo/ai. Mirrors the web build's alias graph so app + net-*
+// Test config for @hanzo/app. Mirrors the web build's alias graph so app + net-*
 // imports resolve, runs in jsdom, and stubs the streamdown markdown stack (same
 // reason as the dev web build — esbuild can't resolve its nested micromark).
 import { defineConfig } from 'vitest/config';

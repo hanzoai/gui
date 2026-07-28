@@ -18,3 +18,4 @@ lang
 ];
 
 export { vueVine as default };
+//# sourceMappingURL=vue-vine-BcF3oZ5t.js.map

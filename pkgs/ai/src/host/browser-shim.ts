@@ -1,4 +1,4 @@
-// @hanzo/ai/desktop links the REAL @tauri-apps (the desktop build externalizes
+// @hanzo/app/desktop links the REAL @tauri-apps (the desktop build externalizes
 // it), so when this bundle is loaded in a PLAIN BROWSER (Playwright e2e, web
 // preview) every @tauri-apps call throws: getCurrentWindow() dereferences
 // window.__TAURI_INTERNALS__.metadata, listen() reads .transformCallback and

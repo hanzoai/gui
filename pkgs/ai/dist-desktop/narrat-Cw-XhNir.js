@@ -5,3 +5,4 @@ lang
 ];
 
 export { narrat as default };
+//# sourceMappingURL=narrat-Cw-XhNir.js.map

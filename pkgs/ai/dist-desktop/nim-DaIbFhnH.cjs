@@ -24,3 +24,4 @@ lang
 ];
 
 exports.default = nim;
+//# sourceMappingURL=nim-DaIbFhnH.cjs.map

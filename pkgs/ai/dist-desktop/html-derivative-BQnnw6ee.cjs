@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = html_derivative;
+//# sourceMappingURL=html-derivative-BQnnw6ee.cjs.map

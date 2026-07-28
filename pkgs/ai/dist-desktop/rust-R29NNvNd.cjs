@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = rust;
+//# sourceMappingURL=rust-R29NNvNd.cjs.map

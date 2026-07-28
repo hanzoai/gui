@@ -16,3 +16,4 @@ lang
 ];
 
 exports.default = templ;
+//# sourceMappingURL=templ-CIibkFq4.cjs.map

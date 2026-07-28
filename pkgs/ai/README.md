@@ -1,8 +1,8 @@
 <p align="center">
-  <img src=".github/hero.svg" alt="@hanzo/ai" width="100%" />
+  <img src=".github/hero.svg" alt="@hanzo/app" width="100%" />
 </p>
 
-# @hanzo/ai
+# @hanzo/app
 
 The AI app as one declarative, brand-neutral component. Render the full
 chat / agents / tools / settings experience for **web, desktop (Tauri), or
@@ -10,8 +10,8 @@ mobile (Expo)** from a single surface — the brand is a prop, the platform is a
 injected host.
 
 ```tsx
-import AI from '@hanzo/ai/desktop';   // or '@hanzo/ai' for web
-import '@hanzo/ai/ai.css';
+import AI from '@hanzo/app/desktop';   // or '@hanzo/app' for web
+import '@hanzo/app/app.css';
 import { brandConfig } from './brand.config';
 
 createRoot(document.querySelector('#root')!).render(
@@ -26,9 +26,9 @@ the same build renders Hanzo, Lux, Zoo, or any white-label brand.
 
 | Import | For | Bundles |
 |---|---|---|
-| `@hanzo/ai` | web | everything except React |
-| `@hanzo/ai/desktop` | Tauri desktop | everything except React + `@tauri-apps/*` (host is injected) |
-| `@hanzo/ai/ai.css` | styles | — |
+| `@hanzo/app` | web | everything except React |
+| `@hanzo/app/desktop` | Tauri desktop | everything except React + `@tauri-apps/*` (host is injected) |
+| `@hanzo/app/app.css` | styles | — |
 
 ## Brand configuration
 
@@ -37,7 +37,7 @@ hosts, store URLs, on-device node ports, inference endpoint, and IAM (OAuth)
 settings. Pass it as props to `<AI>`; read it anywhere via the getters.
 
 ```ts
-import { getBrand, useBrand, setBrand, registerBrands, getBrandFromHostname } from '@hanzo/ai';
+import { getBrand, useBrand, setBrand, registerBrands, getBrandFromHostname } from '@hanzo/app';
 
 getBrand();                       // active brand (injected, else env/hostname, else throws)
 useBrand();                       // same value — a plain getter, callable outside React too

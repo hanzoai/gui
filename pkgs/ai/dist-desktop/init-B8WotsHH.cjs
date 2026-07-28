@@ -10,3 +10,4 @@ function initRange(domain, range) {
 }
 
 exports.initRange = initRange;
+//# sourceMappingURL=init-B8WotsHH.cjs.map

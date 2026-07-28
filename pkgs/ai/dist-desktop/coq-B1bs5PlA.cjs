@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = coq;
+//# sourceMappingURL=coq-B1bs5PlA.cjs.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { codeowners as default };
+//# sourceMappingURL=codeowners-BOc0X9qM.js.map

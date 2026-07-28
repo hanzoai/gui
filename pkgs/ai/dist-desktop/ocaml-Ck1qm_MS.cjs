@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = ocaml;
+//# sourceMappingURL=ocaml-Ck1qm_MS.cjs.map

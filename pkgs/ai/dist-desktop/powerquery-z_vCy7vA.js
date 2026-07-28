@@ -5,3 +5,4 @@ lang
 ];
 
 export { powerquery as default };
+//# sourceMappingURL=powerquery-z_vCy7vA.js.map

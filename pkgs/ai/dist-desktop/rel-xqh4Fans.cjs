@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = rel;
+//# sourceMappingURL=rel-xqh4Fans.cjs.map

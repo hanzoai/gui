@@ -5,3 +5,4 @@ lang
 ];
 
 export { wenyan as default };
+//# sourceMappingURL=wenyan-DsXqpl0u.js.map

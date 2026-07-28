@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = tsx;
+//# sourceMappingURL=tsx-6pVFS2oh.cjs.map

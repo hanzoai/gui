@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = purescript;
+//# sourceMappingURL=purescript-BXNJT2mP.cjs.map

@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = gdscript;
+//# sourceMappingURL=gdscript-BBHfvL4J.cjs.map

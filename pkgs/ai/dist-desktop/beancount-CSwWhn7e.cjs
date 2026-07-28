@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = beancount;
+//# sourceMappingURL=beancount-CSwWhn7e.cjs.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { coq as default };
+//# sourceMappingURL=coq-PUEJBaSb.js.map

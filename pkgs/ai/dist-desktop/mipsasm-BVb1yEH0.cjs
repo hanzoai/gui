@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = mipsasm;
+//# sourceMappingURL=mipsasm-BVb1yEH0.cjs.map

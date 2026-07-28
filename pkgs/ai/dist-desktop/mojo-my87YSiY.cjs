@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = mojo;
+//# sourceMappingURL=mojo-my87YSiY.cjs.map

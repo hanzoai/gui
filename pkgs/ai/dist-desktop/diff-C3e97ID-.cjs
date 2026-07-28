@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = diff;
+//# sourceMappingURL=diff-C3e97ID-.cjs.map

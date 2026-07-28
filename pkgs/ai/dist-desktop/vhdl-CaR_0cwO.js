@@ -5,3 +5,4 @@ lang
 ];
 
 export { vhdl as default };
+//# sourceMappingURL=vhdl-CaR_0cwO.js.map

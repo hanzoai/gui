@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = prisma;
+//# sourceMappingURL=prisma-CCEAkoux.cjs.map

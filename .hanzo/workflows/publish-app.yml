@@ -1,27 +1,27 @@
-name: Publish @hanzo/ai
+name: Publish @hanzo/app
 
-# Surgical publish of ONLY the @hanzo/ai SDK (pkgs/ai). The desktop apps
+# Surgical publish of ONLY the @hanzo/app SDK (pkgs/ai). The desktop apps
 # (hanzo/zoo/lux) render `<HanzoAI/>` from this package; it must be on npm
 # for a clean `npm i` to resolve it.
 #
-# Triggered only on `release/ai-v*` tags. A version bump alone does NOT
+# Triggered only on `release/app-v*` tags. A version bump alone does NOT
 # publish — the tag gates the run. Tag scheme:
-#   release/ai-v0.1.1   -> @hanzo/ai@0.1.1
+#   release/app-v0.1.1   -> @hanzo/app@0.1.1
 #
 # NPM_TOKEN resolution order (same shape as publish-gui.yml):
 #   1. KMS via Universal Auth (KMS_CLIENT_ID/SECRET -> short-lived token)
 #   2. KMS via long-lived HANZO_API_KEY (legacy bootstrap)
 #   3. Direct repo secret NPM_TOKEN (fallback until KMS is provisioned)
 #
-# Idempotent: skips if @hanzo/ai@<version> is already on npm.
+# Idempotent: skips if @hanzo/app@<version> is already on npm.
 on:
   push:
     tags:
-      - 'release/ai-v*'
+      - 'release/app-v*'
   workflow_dispatch:
     inputs:
       confirm:
-        description: 'Type "publish" to publish @hanzo/ai at its current on-disk version'
+        description: 'Type "publish" to publish @hanzo/app at its current on-disk version'
         required: true
         default: ''
 
@@ -40,8 +40,8 @@ env:
 
 jobs:
   publish:
-    name: Build, smoke-test, publish @hanzo/ai
-    # Same runner publish-gui.yml uses. @hanzo/ai is arch-independent JS, and the
+    name: Build, smoke-test, publish @hanzo/app
+    # Same runner publish-gui.yml uses. @hanzo/app is arch-independent JS, and the
     # arm64 label this asked for is answered by one frequently-offline host — a job
     # requesting a label nothing answers queues silently instead of failing, which
     # is the worst outcome for a publisher. KMS is reachable from either pool.
@@ -80,7 +80,7 @@ jobs:
           echo 'registry=https://registry.npmjs.org/' > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
-      - name: Build @hanzo/ai (dist + dist-desktop)
+      - name: Build @hanzo/app (dist + dist-desktop)
         # pkgs/ai's own build runs BOTH vite passes: dist/ (web entry,
         # ai.css) and dist-desktop/ (the <HanzoAI/> desktop bundle the apps
         # import). Build it explicitly so both trees exist before publish.
@@ -106,15 +106,15 @@ jobs:
           "
           echo "smoke OK: $(node -p "require('./package.json').name + '@' + require('./package.json').version")"
 
-      - name: Publish @hanzo/ai
+      - name: Publish @hanzo/app
         env:
           NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
         working-directory: pkgs/ai
         run: |
           set -eu
           version=$(node -p "require('./package.json').version")
-          if npm view "@hanzo/ai@${version}" version >/dev/null 2>&1; then
-            echo "@hanzo/ai@${version} already on npm - skipping."
+          if npm view "@hanzo/app@${version}" version >/dev/null 2>&1; then
+            echo "@hanzo/app@${version} already on npm - skipping."
             exit 0
           fi
           # pkgs/ai has no workspace:* deps, so a direct publish is clean.

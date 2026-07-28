@@ -5,3 +5,4 @@ lang
 ];
 
 export { verilog as default };
+//# sourceMappingURL=verilog-Bt924HV1.js.map

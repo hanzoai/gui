@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = logo;
+//# sourceMappingURL=logo-Di5iK5iS.cjs.map

@@ -5,3 +5,4 @@ lang
 ];
 
 export { kusto as default };
+//# sourceMappingURL=kusto-Cn0D-rCJ.js.map

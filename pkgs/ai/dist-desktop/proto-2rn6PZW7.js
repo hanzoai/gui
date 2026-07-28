@@ -5,3 +5,4 @@ lang
 ];
 
 export { proto as default };
+//# sourceMappingURL=proto-2rn6PZW7.js.map

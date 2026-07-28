@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = smalltalk;
+//# sourceMappingURL=smalltalk-CpbuNvLf.cjs.map

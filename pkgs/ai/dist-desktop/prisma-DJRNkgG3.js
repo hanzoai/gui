@@ -5,3 +5,4 @@ lang
 ];
 
 export { prisma as default };
+//# sourceMappingURL=prisma-DJRNkgG3.js.map

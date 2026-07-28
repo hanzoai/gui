@@ -5,3 +5,4 @@ lang
 ];
 
 export { riscv as default };
+//# sourceMappingURL=riscv-BX1sKBR-.js.map

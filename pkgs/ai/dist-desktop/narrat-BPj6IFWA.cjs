@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = narrat;
+//# sourceMappingURL=narrat-BPj6IFWA.cjs.map

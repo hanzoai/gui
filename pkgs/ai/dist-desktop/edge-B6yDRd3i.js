@@ -12,3 +12,4 @@ lang
 ];
 
 export { edge as default };
+//# sourceMappingURL=edge-B6yDRd3i.js.map

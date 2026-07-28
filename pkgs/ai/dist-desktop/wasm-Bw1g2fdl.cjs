@@ -12,3 +12,4 @@ const getWasmInstance = async (info) => {
 exports.default = getWasmInstance;
 exports.getWasmInstance = getWasmInstance;
 exports.wasmBinary = wasmBinary;
+//# sourceMappingURL=wasm-Bw1g2fdl.cjs.map

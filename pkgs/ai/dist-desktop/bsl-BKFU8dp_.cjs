@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = bsl;
+//# sourceMappingURL=bsl-BKFU8dp_.cjs.map

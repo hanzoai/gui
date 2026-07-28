@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = csharp;
+//# sourceMappingURL=csharp-CNGWX9CD.cjs.map

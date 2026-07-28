@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = json5;
+//# sourceMappingURL=json5-AVKetMiW.cjs.map

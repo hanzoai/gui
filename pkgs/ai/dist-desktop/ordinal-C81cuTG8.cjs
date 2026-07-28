@@ -92,3 +92,4 @@ function ordinal() {
 }
 
 exports.ordinal = ordinal;
+//# sourceMappingURL=ordinal-C81cuTG8.cjs.map

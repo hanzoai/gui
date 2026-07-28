@@ -8,3 +8,4 @@ lang
 ];
 
 export { vueHtml as default };
+//# sourceMappingURL=vue-html-Ddw8bJd2.js.map

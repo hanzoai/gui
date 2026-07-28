@@ -8,3 +8,4 @@ lang
 ];
 
 export { xml as default };
+//# sourceMappingURL=xml-BSnVqmeZ.js.map

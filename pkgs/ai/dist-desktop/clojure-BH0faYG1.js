@@ -5,3 +5,4 @@ lang
 ];
 
 export { clojure as default };
+//# sourceMappingURL=clojure-BH0faYG1.js.map

@@ -12,3 +12,4 @@ lang
 ];
 
 exports.default = sparql;
+//# sourceMappingURL=sparql-5sP0w__P.cjs.map

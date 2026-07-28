@@ -9,3 +9,4 @@ lang
 ];
 
 exports.default = scheme;
+//# sourceMappingURL=scheme-zBqtM4lY.cjs.map

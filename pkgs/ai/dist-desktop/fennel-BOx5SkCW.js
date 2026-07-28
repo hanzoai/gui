@@ -5,3 +5,4 @@ lang
 ];
 
 export { fennel as default };
+//# sourceMappingURL=fennel-BOx5SkCW.js.map

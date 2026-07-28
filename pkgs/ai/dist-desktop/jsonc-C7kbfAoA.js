@@ -5,3 +5,4 @@ lang
 ];
 
 export { jsonc as default };
+//# sourceMappingURL=jsonc-C7kbfAoA.js.map

@@ -12,3 +12,4 @@ lang
 ];
 
 export { mdc as default };
+//# sourceMappingURL=mdc-BoVlF0gH.js.map

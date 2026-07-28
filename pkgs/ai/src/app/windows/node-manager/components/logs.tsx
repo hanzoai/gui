@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import {
   useDownloadTauriLogsMutation,
   useRetrieveLogsQuery,
-} from '../../../lib/hanzo-logs/logs-client';
+} from '../../../lib/logs/logs-client';
 import { LogIcon, LogItem } from './log-entry';
 
 export const Logs = () => {

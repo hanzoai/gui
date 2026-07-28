@@ -8,7 +8,7 @@ import {
   type GetEmbeddingMigrationStatusResponse,
   type GetNodeStorageLocationResponse,
   type GetPreferencesResponse,
-  type GetHanzoFreeModelQuotaResponse,
+  type GetFreeModelQuotaResponse,
   type InitialRegistrationRequest,
   type InitialRegistrationResponse,
   type SetPreferencesRequest,
@@ -82,8 +82,8 @@ export const initialRegistration = async (
  * calls the cloud `/v1/node/hanzo_backend_quota` endpoint. Returns a zeroed,
  * no-quota response without any network request.
  */
-export const getHanzoFreeModelQuota =
-  async (): Promise<GetHanzoFreeModelQuotaResponse> => {
+export const getFreeModelQuota =
+  async (): Promise<GetFreeModelQuotaResponse> => {
     return {
       has_quota: false,
       tokens_quota: 0,

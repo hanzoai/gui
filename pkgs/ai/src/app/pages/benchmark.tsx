@@ -1,8 +1,8 @@
 import { Button } from '@hanzo_network/hanzo-ui';
 import { useState } from 'react';
-import { getEngineUrl, getEmbeddingEngineUrl } from '../lib/hanzo-engine/engine-url';
+import { getEngineUrl, getEmbeddingEngineUrl } from '../lib/engine/engine-url';
 
-// The local Zen engines (hanzo-engine / mistral.rs). Chat is OpenAI-compatible on
+// The local Zen engines (mistral.rs). Chat is OpenAI-compatible on
 // :36900; embeddings on :36901. The engine sends `access-control-allow-origin: *`,
 // so the webview can call them directly with native fetch.
 const DEFAULT_PROMPT =

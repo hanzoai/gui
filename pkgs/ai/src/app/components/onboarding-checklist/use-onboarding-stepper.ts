@@ -51,7 +51,7 @@ export const useOnboardingSteps = () => {
   useEffect(() => {
     if (isSuccess && nodeInfo?.status === 'ok') {
       currentStepsMap.set(
-        GetStartedSteps.SetupHanzoNode,
+        GetStartedSteps.SetupNode,
         GetStartedStatus.Done,
       );
     }

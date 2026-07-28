@@ -12,7 +12,7 @@ export type GetChatConversationInput = Token & {
   inboxId: string;
   count?: number;
   lastKey?: string;
-  hanzoIdentity: string;
+  identity: string;
   profile: string;
   enabled?: boolean;
   refetchIntervalEnabled?: boolean;

@@ -69,7 +69,7 @@ import PlaygroundToolLayout from '../components/playground-tool/layout';
 import ToolCreationStatus from '../components/tools/components/tool-creation-status';
 import {
   CODE_GENERATOR_MODEL_ID,
-  HANZO_NODE_MODEL_ID,
+  NODE_MODEL_ID,
   TOOL_HOMEPAGE_SUGGESTIONS,
 } from '../components/tools/constants';
 
@@ -268,7 +268,7 @@ function AIModelSelectorBase({
     const freeTrialModel = llmProviders?.find(
       (provider) =>
         provider.model.toLowerCase() ===
-        HANZO_NODE_MODEL_ID.toLowerCase(),
+        NODE_MODEL_ID.toLowerCase(),
     );
 
     if (!codeGeneratorModel || !freeTrialModel) {
@@ -278,16 +278,16 @@ function AIModelSelectorBase({
     return [
       {
         id: codeGeneratorModel?.id ?? '',
-        name: t('tools.create.hanzoCodeGenerator'),
+        name: t('tools.create.codeGenerator'),
         placeholderId: 'code-generator',
-        description: t('tools.create.hanzoCodeGeneratorDescription'),
+        description: t('tools.create.codeGeneratorDescription'),
       },
       {
         id: freeTrialModel?.id ?? '',
-        name: t('tools.create.hanzoFreeTrial'),
+        name: t('tools.create.freeTrial'),
         placeholderId: 'free-trial',
-        description: t('tools.create.hanzoFreeTrialDescription'),
-        recommendation: t('tools.create.hanzoFreeTrialRecommendation'),
+        description: t('tools.create.freeTrialDescription'),
+        recommendation: t('tools.create.freeTrialRecommendation'),
       },
       {
         id: 'custom-model',
@@ -306,7 +306,7 @@ function AIModelSelectorBase({
           provider.model.toLowerCase() !==
             CODE_GENERATOR_MODEL_ID.toLowerCase() &&
           provider.model.toLowerCase() !==
-            HANZO_NODE_MODEL_ID.toLowerCase(),
+            NODE_MODEL_ID.toLowerCase(),
       ),
     [llmProviders],
   );
@@ -509,8 +509,8 @@ function ToolsHome({
     }
   }, [thinkingConfig.forceEnabled, form]);
 
-  const xHanzoToolId = usePlaygroundStore((state) => state.xHanzoToolId);
-  const xHanzoAppId = usePlaygroundStore((state) => state.xHanzoAppId);
+  const xToolId = usePlaygroundStore((state) => state.xToolId);
+  const xAppId = usePlaygroundStore((state) => state.xAppId);
 
   const defaulAgentId = useSettings((state) => state.defaultAgentId);
 
@@ -636,9 +636,9 @@ function ToolsHome({
                                     token: auth?.api_v2_key,
                                     language: form.watch('language'),
                                     nodeAddress: auth?.node_address,
-                                    xHanzoAppId,
-                                    xHanzoToolId,
-                                    xHanzoLLMProvider: defaulAgentId,
+                                    xAppId,
+                                    xToolId,
+                                    xLLMProvider: defaulAgentId,
                                   });
                                 }}
                                 rounded="lg"

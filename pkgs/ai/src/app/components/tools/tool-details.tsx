@@ -1,11 +1,11 @@
 import {
-  type AgentHanzoTool,
-  type DenoHanzoTool,
-  type NetworkHanzoTool,
-  type PythonHanzoTool,
-  type RustHanzoTool,
+  type AgentTool,
+  type DenoTool,
+  type NetworkTool,
+  type PythonTool,
+  type RustTool,
   type McpServerTool as McpServerToolType,
-  type HanzoTool,
+  type Tool,
 } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 import { useGetPlaygroundTools } from '@hanzo_network/hanzo-node-state/v2/queries/getPlaygroundTools/useGetPlaygroundTools';
 import { useGetTool } from '@hanzo_network/hanzo-node-state/v2/queries/getTool/useGetTool';
@@ -22,14 +22,14 @@ import NetworkTool from './network-tool';
 import PythonTool from './python-tool';
 import RustTool from './rust-tool';
 
-export function isDenoHanzoTool(tool: HanzoTool): tool is DenoHanzoTool {
-  return (tool as DenoHanzoTool).js_code !== undefined;
+export function isDenoTool(tool: Tool): tool is DenoTool {
+  return (tool as DenoTool).js_code !== undefined;
 }
 
-export function isPythonHanzoTool(
-  tool: HanzoTool,
-): tool is PythonHanzoTool {
-  return (tool as PythonHanzoTool).py_code !== undefined;
+export function isPythonTool(
+  tool: Tool,
+): tool is PythonTool {
+  return (tool as PythonTool).py_code !== undefined;
 }
 
 export default function ToolDetails() {
@@ -47,7 +47,7 @@ export default function ToolDetails() {
     token: auth?.api_v2_key ?? '',
   });
 
-  const tool = data?.content[0] as HanzoTool;
+  const tool = data?.content[0] as Tool;
   const isEnabled = data?.content[1] as boolean;
 
   const toolType = data?.type;
@@ -111,7 +111,7 @@ export default function ToolDetails() {
           isPlaygroundTool={playgroundTools?.some(
             (playgroundTool) => playgroundTool.tool_router_key === toolKey,
           )}
-          tool={tool as DenoHanzoTool}
+          tool={tool as DenoTool}
           toolRouterKey={toolKey ?? ''}
         />
       </SubpageLayout>
@@ -124,7 +124,7 @@ export default function ToolDetails() {
           isPlaygroundTool={playgroundTools?.some(
             (playgroundTool) => playgroundTool.tool_router_key === toolKey,
           )}
-          tool={tool as PythonHanzoTool}
+          tool={tool as PythonTool}
           toolRouterKey={toolKey ?? ''}
         />
       </SubpageLayout>
@@ -134,7 +134,7 @@ export default function ToolDetails() {
       <SubpageLayout className="container" title="">
         <RustTool
           isEnabled={isEnabled}
-          tool={tool as RustHanzoTool}
+          tool={tool as RustTool}
           toolRouterKey={toolKey ?? ''}
         />
       </SubpageLayout>
@@ -144,7 +144,7 @@ export default function ToolDetails() {
       <SubpageLayout className="container" title="">
         <NetworkTool
           isEnabled={isEnabled}
-          tool={tool as NetworkHanzoTool}
+          tool={tool as NetworkTool}
           toolRouterKey={toolKey ?? ''}
         />
       </SubpageLayout>
@@ -157,7 +157,7 @@ export default function ToolDetails() {
           isPlaygroundTool={playgroundTools?.some(
             (playgroundTool) => playgroundTool.tool_router_key === toolKey,
           )}
-          tool={tool as AgentHanzoTool}
+          tool={tool as AgentTool}
           toolRouterKey={toolKey ?? ''}
         />
       </SubpageLayout>

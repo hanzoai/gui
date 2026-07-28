@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="@hanzo/ai">
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+  
+  <g transform="translate(88,88) scale(1.1343283582089552)" fill="#FFFFFF"><path d="M22.21 67V44.6369H0V67H22.21Z"/><path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z"/><path d="M22.21 0H0V22.3184H22.21V0Z"/><path d="M66.7198 0H44.5098V22.3184H66.7198V0Z"/><path d="M66.7198 67V44.6369H44.5098V67H66.7198Z"/></g>
+  <text x="88" y="349" font-family="'Inter','SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="80" font-weight="800" letter-spacing="-2" fill="#FFFFFF">@hanzo/ai</text>
+  <text x="88" y="407" font-family="'Inter','SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="400" fill="#FFFFFF" opacity="0.62">The AI app as one declarative component</text>
+  <line x1="88" y1="502" x2="1112" y2="502" stroke="#FFFFFF" stroke-opacity="0.12"/>
+  <text x="88" y="542" font-family="'Inter','SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="24" font-weight="500" fill="#FFFFFF" opacity="0.7">github.com/hanzoai</text>
+  <text x="1112" y="542" font-family="'Inter','SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="24" font-weight="500" fill="#FFFFFF" opacity="0.7" text-anchor="end">docs.hanzo.ai</text>
+</svg>

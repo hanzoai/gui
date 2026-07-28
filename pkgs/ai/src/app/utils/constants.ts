@@ -1,10 +1,14 @@
+import { getBrand } from '@hanzo_network/brand-config';
 import { ModelPrefix } from '@hanzo_network/hanzo-message-ts/api/jobs/index';
 
-import MODEL_CATALOG from '../lib/hanzo-node-manager/model-catalog.json';
+import MODEL_CATALOG from '../lib/node-manager/model-catalog.json';
 
-export const HANZO_DOCS_URL = 'https://docs.hanzo.ai';
+/** Brand docs site URL. A getter (not a module-eval const) so getBrand() runs
+ *  after brand injection; falls back to the hanzo.ai docs default. */
+export const docsUrl = (): string =>
+  getBrand().links?.docs ?? 'https://docs.hanzo.ai';
 
-export const HANZO_TUTORIALS = {
+export const TUTORIALS = {
   'add-ai':
     'https://pub-0f9ce9e619a7477aa6e92197a3ec4a1e.r2.dev/assets/agents.mp4',
   'file-explorer':

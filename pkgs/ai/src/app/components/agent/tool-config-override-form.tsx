@@ -1,7 +1,7 @@
 import { type RJSFSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import {
-  type HanzoTool,
+  type Tool,
   type ToolConfigBase,
 } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 import { useGetTool } from '@hanzo_network/hanzo-node-state/v2/queries/getTool/useGetTool';
@@ -36,7 +36,7 @@ export const TooConfigOverrideForm = ({
     token: auth?.api_v2_key ?? '',
     toolKey: toolRouterKey ?? '',
   });
-  const tool: HanzoTool | undefined = data?.content?.[0] as HanzoTool;
+  const tool: Tool | undefined = data?.content?.[0] as Tool;
   const properties = useMemo(() => {
     const properties = (tool as any)?.configurations?.properties || {};
     return Object.entries(properties).map(([key, value]: [string, any]) => {

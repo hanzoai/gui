@@ -2,26 +2,26 @@ import { debug } from '@tauri-apps/plugin-log';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-import { type HanzoNodeOptions } from '../lib/hanzo-node-manager/hanzo-node-manager-client-types';
+import { type NodeOptions } from '../lib/node-manager/node-manager-client-types';
 
-type HanzoNodeManagerStore = {
+type NodeManagerStore = {
   isInUse: boolean | null;
   setIsInUse: (value: boolean) => void;
-  hanzoNodeOptions: Partial<HanzoNodeOptions> | null;
-  setHanzoNodeOptions: (
-    hanzoNodeOptions: Partial<HanzoNodeOptions> | null,
+  nodeOptions: Partial<NodeOptions> | null;
+  setNodeOptions: (
+    nodeOptions: Partial<NodeOptions> | null,
   ) => void;
 };
 
-export const useHanzoNodeManager = create<HanzoNodeManagerStore>()(
+export const useNodeManager = create<NodeManagerStore>()(
   devtools(
     persist(
       (set) => ({
         isInUse: false,
-        hanzoNodeOptions: null,
-        setHanzoNodeOptions: (hanzoNodeOptions) => {
+        nodeOptions: null,
+        setNodeOptions: (nodeOptions) => {
           void debug('setting hanzo-node options');
-          set({ hanzoNodeOptions });
+          set({ nodeOptions });
         },
         setIsInUse: (value: boolean) => {
           void debug('setting is in use');

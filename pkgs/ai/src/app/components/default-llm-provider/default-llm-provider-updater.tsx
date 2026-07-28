@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { nodeSetDefaultLlmProvider } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
+import { nodeSetDefaultLlmProvider } from '../../lib/node-manager/node-manager-client';
 import { useAuth } from '../../store/auth';
 
 interface DefaultLlmProviderUpdaterProps {

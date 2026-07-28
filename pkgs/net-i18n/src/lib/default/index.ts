@@ -92,7 +92,7 @@ export default {
   chatDM: {
     create: 'Create DM Chat',
     form: {
-      hanzoIdentity: '{{appName}} Identity',
+      identity: '{{appName}} Identity',
       message: 'Message',
       messagePlaceholder: 'Enter your message',
     },
@@ -269,8 +269,9 @@ export default {
     updateName: 'Update inbox name',
     inboxName: 'Name',
   },
-  hanzoNode: {
+  node: {
     restartNode: 'Please restart your {{appName}} Node',
+    errorConnecting: 'Error connecting to your {{appName}} Node',
     nodeAddress: 'Node Address',
     nodeVersion: 'Node Version',
     unavailable: 'Your {{appName}} Node is unavailable',
@@ -333,8 +334,8 @@ export default {
   onboardingChecklist: {
     getStartedText: 'Get Started with {{appName}}',
     getStartedChecklist: 'Get started checklist',
-    setupHanzoDesktop: 'Setup {{appName}} Desktop',
-    setupHanzoDesktopDescription: 'Setup {{appName}} Desktop to get started',
+    setupDesktop: 'Setup {{appName}} Desktop',
+    setupDesktopDescription: 'Setup {{appName}} Desktop to get started',
     addAIAgent: 'Create your AI Agent',
     addAIAgentDescription:
       'Add a customized AI agent tailored to to your specific needs.',
@@ -363,7 +364,7 @@ export default {
       general: 'General',
       appearance: 'Appearance',
       remoteAccess: 'Remote Access',
-      hanzoNode: '{{appName}} Node Manager',
+      node: '{{appName}} Node Manager',
       exportConnection: 'Export Connection',
       createRegistrationCode: 'Create Registration Code',
       analytics: 'Analytics',
@@ -394,13 +395,13 @@ export default {
           'Manage your crypto wallets. Create or restore your Wallet.',
       },
     },
-    hanzoIdentity: {
+    identity: {
       label: '{{appName}} Identity',
       updatedIdentity: '{{appName}} Identity updated successfully.',
       registerIdentity: 'Register your {{appName}} Identity',
       troubleRegisterIdentity: 'Trouble registering your Identity?',
       saveWillRestartApp: 'Save will restart the App to apply changes',
-      goToHanzoIdentity: 'Go to My {{appName}} Identity',
+      goToIdentity: 'Go to My {{appName}} Identity',
       success: '{{appName}} Identity updated successfully',
       error: 'Error updating {{appName}} Identity',
       checkIdentityInSync: 'Verify {{appName}} Identity',
@@ -440,7 +441,7 @@ export default {
       label: 'Language',
       selectLanguage: 'Select Language',
     },
-    hanzoVersion: '{{appName}} Desktop Version:',
+    desktopVersion: '{{appName}} Desktop Version:',
     shortcutKey: {
       label: 'Shortcut Key',
       description: 'Modify the shortcut key to launch sidebar',
@@ -594,11 +595,11 @@ export default {
     repeatPassphrase: 'Confirm passphrase',
     optIn: 'Opt In',
     optOut: 'Opt Out',
-    logInHanzoHosting: 'Log In To {{appName}} Hosting',
-    signUpHanzoHosting: 'Sign up For {{appName}} Hosting',
+    logInHosting: 'Log In To {{appName}} Hosting',
+    signUpHosting: 'Sign up For {{appName}} Hosting',
     quickConnect: 'Quick Connect',
     alreadyHaveNode: 'Already have a Node?',
-    hanzoPrivate: 'Setup Your Local AI',
+    localAI: 'Setup Your Local AI',
     seeOptions: 'See Options',
     termsAndConditionsText:
       'I agree to the <a>Terms of Service</a> and <b>Privacy Policy</b>',
@@ -817,13 +818,13 @@ export default {
       otherProtocols:
         "Other protocols may also work but haven't been officially verified.",
       requestProtocol: 'Request Protocol',
-      hanzoCodeGenerator: '{{appName}} Code Generator',
-      hanzoCodeGeneratorDescription:
+      codeGenerator: '{{appName}} Code Generator',
+      codeGeneratorDescription:
         'Builds tools using our specialized AI code-generation tool.',
-      hanzoFreeTrial: '{{appName}} Free Trial',
-      hanzoFreeTrialDescription:
+      freeTrial: '{{appName}} Free Trial',
+      freeTrialDescription:
         'Great for building tools, works with any content you provide.',
-      hanzoFreeTrialRecommendation:
+      freeTrialRecommendation:
         'Manually copy and paste the documentation that the AI requires and place it inside <documentation></documentation>.',
       customModel: 'Custom Model',
       customModelDescription:
@@ -1178,10 +1179,9 @@ export default {
     setupRequired: 'Setup required to use paid agents and publish agents',
     removeSuccess: 'Network agent removed successfully',
     removeFailed: 'Failed to remove agent',
-    registerHanzoIdentity: 'Register {{appName}} Identity',
-    registerHanzoIdentityDescription:
+    registerIdentity: 'Register {{appName}} Identity',
+    registerIdentityDescription:
       'Create your unique identity on the {{appName}} network to use and publish agents',
-    registerIdentity: 'Register Identity',
     connectWallet: 'Connect Wallet',
     connectWalletDescription:
       'Connect your wallet to pay for agent usage and receive earnings from your published agents',

@@ -1,6 +1,37 @@
 // SPDX-License-Identifier: Apache-2.0
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, beforeEach, vi } from 'vitest';
+import { setBrand, type BrandConfig } from '@hanzo_network/brand-config';
+
+// Neutral by construction: the package bundles no brands, and useBrand() throws
+// unless a host injects one. MiningPage reads brand.network.{token,blockExplorer},
+// so the test injects a FIXTURE brand — never hanzo/zoo/lux.
+const FIXTURE: BrandConfig = {
+  brand: 'alpha',
+  name: 'alpha',
+  productName: 'alpha',
+  company: 'alpha',
+  identifier: 'com.alpha.desktop',
+  logo: { light: '', dark: '', favicon: '' },
+  colors: { primary: '#000000', bg: '#000000', fg: '#ffffff' },
+  hosts: ['alpha.test'],
+  storeUrl: { mac: '', win: '', ios: '', android: '' },
+  network: {
+    rpc: '',
+    chainId: 1,
+    token: '$ALPHA',
+    aiMiningPrecompile: '0x0300000000000000000000000000000000000000',
+    blockExplorer: '',
+  },
+  overlayController: 'https://edge.alpha.test',
+  inferenceEndpoint: 'https://gateway.example',
+  iam: {
+    baseUrl: 'https://alpha.id',
+    clientId: 'alpha-app',
+    redirectUri: 'alpha://oauth/alpha',
+    callbackEvent: 'alpha-iam-callback',
+  },
+};
 
 // Provide a tauri shim BEFORE importing the component so isTauriAvailable()
 // returns true and safeInvoke routes through our mock.
@@ -8,6 +39,7 @@ const invokeMock = vi.fn();
 const listenMock = vi.fn().mockResolvedValue(() => {});
 
 beforeEach(() => {
+  setBrand(FIXTURE);
   invokeMock.mockReset();
   listenMock.mockClear();
   (globalThis as { window?: unknown }).window = (

@@ -19,10 +19,10 @@ import {
   useNodeKillMutation,
   useNodeRemoveStorageMutation,
   useNodeSpawnMutation,
-} from '../lib/hanzo-node-manager/hanzo-node-manager-client';
+} from '../lib/node-manager/node-manager-client';
 import { useAuth } from '../store/auth';
-import { useHanzoNodeManager } from '../store/hanzo-node-manager';
-import { getNodeUrl } from '../lib/hanzo-engine/engine-url';
+import { useNodeManager } from '../store/node-manager';
+import { getNodeUrl } from '../lib/engine/engine-url';
 
 export const ResetConnectionDialog = ({
   isOpen,
@@ -34,11 +34,11 @@ export const ResetConnectionDialog = ({
   allowClose?: boolean;
 }) => {
   const { t } = useTranslation();
-  const { mutateAsync: nodeKill, isPending: isHanzoNodeKillPending } =
+  const { mutateAsync: nodeKill, isPending: isNodeKillPending } =
     useNodeKillMutation();
   const {
     mutateAsync: nodeSpawn,
-    isPending: isHanzoNodeSpawnPending,
+    isPending: isNodeSpawnPending,
   } = useNodeSpawnMutation({
     onSuccess: async () => {
       if (!encryptionKeys) return;
@@ -51,17 +51,17 @@ export const ResetConnectionDialog = ({
   });
   const {
     mutateAsync: nodeRemoveStorage,
-    isPending: isHanzoNodeRemoveStoragePending,
+    isPending: isNodeRemoveStoragePending,
   } = useNodeRemoveStorageMutation();
-  const { setHanzoNodeOptions } = useHanzoNodeManager();
+  const { setNodeOptions } = useNodeManager();
   const { encryptionKeys } = useGetEncryptionKeys();
   const setAuth = useAuth((state) => state.setAuth);
   const navigate = useNavigate();
 
   const isResetLoading =
-    isHanzoNodeKillPending ||
-    isHanzoNodeRemoveStoragePending ||
-    isHanzoNodeSpawnPending;
+    isNodeKillPending ||
+    isNodeRemoveStoragePending ||
+    isNodeSpawnPending;
 
   const { mutateAsync: submitRegistrationNoCode } = useInitialRegistration({
     onSuccess: (response, setupPayload) => {
@@ -81,7 +81,7 @@ export const ResetConnectionDialog = ({
         void navigate('/install-ai-models');
         onOpenChange(false);
       } else {
-        submitRegistrationNoCodeError();
+        submitRegistrationNoCodeError(t('node.errorConnecting'));
       }
     },
   });
@@ -90,7 +90,7 @@ export const ResetConnectionDialog = ({
     await nodeKill();
     useAuth.getState().setLogout(); // clean up local storage
     await nodeRemoveStorage({ preserveKeys: true });
-    setHanzoNodeOptions(null);
+    setNodeOptions(null);
     await nodeSpawn();
   };
 

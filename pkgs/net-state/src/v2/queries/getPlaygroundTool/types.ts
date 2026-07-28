@@ -4,7 +4,7 @@ import { type GetPlaygroundToolResponse } from '@hanzo_network/hanzo-message-ts/
 export type GetPlaygroundToolInput = Token & {
   nodeAddress: string;
   toolRouterKey: string;
-  xHanzoOriginalToolRouterKey?: string;
+  xOriginalToolRouterKey?: string;
 };
 
 export type GetPlaygroundToolOutput = GetPlaygroundToolResponse;

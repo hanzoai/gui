@@ -6,9 +6,9 @@ import {
 
 export type OpenToolInCodeEditorInput = Token & {
   nodeAddress: string;
-  xHanzoAppId: string;
-  xHanzoToolId: string;
-  xHanzoLLMProvider: string;
+  xAppId: string;
+  xToolId: string;
+  xLLMProvider: string;
   language: CodeLanguage;
 };
 

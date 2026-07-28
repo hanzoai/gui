@@ -126,8 +126,8 @@ export const useToolFlow = ({
     (state) => state.setToolMetadataError,
   );
 
-  const xHanzoAppId = usePlaygroundStore((state) => state.xHanzoAppId);
-  const xHanzoToolId = usePlaygroundStore((state) => state.xHanzoToolId);
+  const xAppId = usePlaygroundStore((state) => state.xAppId);
+  const xToolId = usePlaygroundStore((state) => state.xToolId);
 
   const mountTimestamp = useRef(new Date());
   const notificationSentRef = useRef(false);
@@ -579,7 +579,7 @@ export const useToolFlow = ({
         token: auth.api_v2_key,
         jobId: extractJobIdFromInbox(chatInboxId),
         tools: currentTools,
-        xHanzoToolId: xHanzoToolId, // Add tool ID to help server identify the context
+        xToolId: xToolId, // Add tool ID to help server identify the context
       });
     } catch (error) {
       console.error('Error generating metadata:', error);
@@ -693,14 +693,14 @@ export const useToolFlow = ({
         tools: form.getValues('tools'),
         language: form.getValues('language'),
         configs,
-        xHanzoAppId,
-        xHanzoToolId,
+        xAppId,
+        xToolId,
         ...(selectedFilePathsInParams.length > 0 && {
           mounts: selectedFilePathsInParams.map((key) => params[key]),
         }),
       });
     },
-    [executeToolCodeQuery, form, auth, toolCode, xHanzoAppId, xHanzoToolId],
+    [executeToolCodeQuery, form, auth, toolCode, xAppId, xToolId],
   );
 
   const toolResultFiles = useMemo(() => {

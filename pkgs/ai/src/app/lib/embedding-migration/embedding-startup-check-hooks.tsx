@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 import { useAuth } from '../../store/auth';
 import { useSettings } from '../../store/settings';
-import { useNodeGetDefaultEmbeddingModelQuery } from '../hanzo-node-manager/hanzo-node-manager-client';
+import { useNodeGetDefaultEmbeddingModelQuery } from '../node-manager/node-manager-client';
 import { embeddingModelMismatchToast } from './embedding-migration-toasts';
 
 export const useEmbeddingStartupCheck = () => {
@@ -70,7 +70,7 @@ export const useEmbeddingStartupCheck = () => {
 
     const currentModel = embeddingMigrationStatus.current_embedding_model;
 
-    // Embedding-update popup intentionally suppressed. The local Hanzo engine
+    // Embedding-update popup intentionally suppressed. The local engine
     // probes its live vector dimension at runtime (set_active_vector_dimensions),
     // so the node adapts to whatever embedder is configured (zen 1024, gemma
     // 768, ...) and boots on the right defaults without prompting the user.

@@ -5,14 +5,14 @@ import  { type GetAllToolAssetsInput } from './types';
 export const getAllToolAssets = async ({
   nodeAddress,
   token,
-  xHanzoAppId,
-  xHanzoToolId,
+  xAppId,
+  xToolId,
 }: GetAllToolAssetsInput) => {
   const result = await getAllToolAssetsApi(
     nodeAddress,
     token,
-    xHanzoAppId,
-    xHanzoToolId,
+    xAppId,
+    xToolId,
   );
   return result;
 };

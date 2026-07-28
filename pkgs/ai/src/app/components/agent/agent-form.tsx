@@ -4,9 +4,9 @@ import { PlusIcon } from '@radix-ui/react-icons';
 import * as SelectPrimitive from '@radix-ui/react-select'; // <-- Import SelectPrimitive
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import {
-  type HanzoTool,
-  type HanzoToolHeader,
-  type HanzoToolType,
+  type Tool,
+  type ToolHeader,
+  type ToolType,
 } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 import {
   buildInboxIdFromJobId,
@@ -1264,7 +1264,7 @@ function AgentForm({ mode }: AgentFormProps) {
   };
 
   const toolsRequiringConfig = useMemo(() => {
-    const getToolsRequiringConfig = (tools: HanzoToolHeader[]) => {
+    const getToolsRequiringConfig = (tools: ToolHeader[]) => {
       return tools.filter((tool) =>
         getToolRequiresConfigurations(tool?.config ?? []),
       );
@@ -2972,9 +2972,9 @@ const ToolConfigModal = ({
     toolKey: toolRouterKey ?? '',
   });
 
-  const tool = data?.content[0] as HanzoTool;
+  const tool = data?.content[0] as Tool;
   const isEnabled = data?.content[1] as boolean;
-  const toolType = data?.type as HanzoToolType;
+  const toolType = data?.type as ToolType;
 
   const hasAllRequiredFields = useMemo(() => {
     if (

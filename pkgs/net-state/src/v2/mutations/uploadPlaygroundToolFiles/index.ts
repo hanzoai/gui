@@ -6,14 +6,14 @@ export const uploadPlaygroundToolFiles = async ({
   nodeAddress,
   token,
   files,
-  xHanzoAppId,
-  xHanzoToolId,
+  xAppId,
+  xToolId,
 }: UploadPlaygroundToolFilesInput) => {
   const response = await uploadPlaygroundToolFilesApi(
     nodeAddress,
     token,
-    xHanzoAppId,
-    xHanzoToolId,
+    xAppId,
+    xToolId,
     files,
   );
 

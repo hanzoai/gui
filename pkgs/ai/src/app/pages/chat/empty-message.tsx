@@ -15,7 +15,7 @@ import { useSetJobScope } from '../../components/chat/context/set-job-scope-cont
 import { usePromptSelectionStore } from '../../components/prompt/context/prompt-selection-context';
 import { useAuth } from '../../store/auth';
 import { useSettings } from '../../store/settings';
-import { useHanzoNodeManager } from '../../store/hanzo-node-manager';
+import { useNodeManager } from '../../store/node-manager';
 
 export const showSpotlightWindow = async () => {
   return invoke('show_spotlight_window_app');
@@ -28,7 +28,7 @@ const EmptyMessage = () => {
     nodeAddress: auth?.node_address ?? '',
     token: auth?.api_v2_key ?? '',
   });
-  const isLocalHanzoNodeIsUse = useHanzoNodeManager(
+  const isLocalNodeIsUse = useNodeManager(
     (state) => state.isInUse,
   );
   const { t } = useTranslation();
@@ -166,7 +166,7 @@ const EmptyMessage = () => {
               className={buttonVariants({
                 variant: 'default',
               })}
-              to={isLocalHanzoNodeIsUse ? '/install-ai-models' : '/add-ai'}
+              to={isLocalNodeIsUse ? '/install-ai-models' : '/add-ai'}
             >
               <span>{t('llmProviders.add')}</span>
             </Link>

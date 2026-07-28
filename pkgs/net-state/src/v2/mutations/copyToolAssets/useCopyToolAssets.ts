@@ -28,7 +28,7 @@ export const useCopyToolAssets = (options?: Options) => {
           {
             nodeAddress: variables.nodeAddress,
             token: variables.token,
-            xHanzoAppId: variables.xHanzoAppId,
+            xAppId: variables.xAppId,
           },
         ],
       });

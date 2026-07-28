@@ -67,7 +67,7 @@ export default defineConfig({
   },
   build: {
     minify: false,
-    sourcemap: false,
+    sourcemap: true,
     reportCompressedSize: false,
     target: 'esnext',
     lib: {

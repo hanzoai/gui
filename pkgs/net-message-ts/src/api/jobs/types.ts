@@ -11,11 +11,11 @@ export enum VectorSearchMode {
   MergeSiblings = 'MergeSiblings',
 }
 
-export type HanzoPath = string;
+export type Path = string;
 
 export type JobScope = {
-  vector_fs_items: HanzoPath[];
-  vector_fs_folders: HanzoPath[];
+  vector_fs_items: Path[];
+  vector_fs_folders: Path[];
   vector_search_mode?: VectorSearchMode[];
 };
 
@@ -76,7 +76,7 @@ export type JobMessage = {
       response?: string;
     }[];
   };
-  fs_files_paths?: HanzoPath[];
+  fs_files_paths?: Path[];
   job_filenames?: string[];
   reasoning_content: string | null;
 };

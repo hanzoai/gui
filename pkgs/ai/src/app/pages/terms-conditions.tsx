@@ -23,10 +23,10 @@ import {
   useNodeRemoveStorageMutation,
   useNodeSpawnMutation,
   useNodeKillMutation,
-} from '../lib/hanzo-node-manager/hanzo-node-manager-client';
+} from '../lib/node-manager/node-manager-client';
 import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
-import { useHanzoNodeManager } from '../store/hanzo-node-manager';
+import { useNodeManager } from '../store/node-manager';
 
 export const LogoTapContext = createContext<{
   tapCount: number;
@@ -79,17 +79,17 @@ const TermsAndConditionsPage = () => {
   const termsAndConditionsAcceptedLegacy = useSettings((state) =>
     state.getTermsAndConditionsAccepted(),
   );
-  const isLocalHanzoNodeInUse = useHanzoNodeManager(
+  const isLocalNodeInUse = useNodeManager(
     (state) => state.isInUse,
   );
   useEffect(() => {
     if (
       termsAndConditionsAcceptedLegacy !== undefined &&
-      isLocalHanzoNodeInUse
+      isLocalNodeInUse
     ) {
       completeStep(OnboardingStep.TERMS_CONDITIONS, true);
     }
-  }, [completeStep, isLocalHanzoNodeInUse, termsAndConditionsAcceptedLegacy]);
+  }, [completeStep, isLocalNodeInUse, termsAndConditionsAcceptedLegacy]);
 
   const setAuth = useAuth((state) => state.setAuth);
   const [
@@ -124,16 +124,16 @@ const TermsAndConditionsPage = () => {
           hanzo_identity: response.data?.node_name ?? '',
           encryption_pk: response.data?.encryption_public_key ?? '',
           identity_pk: response.data?.identity_public_key ?? '',
-          ...(hanzoTokens ? {
-            hanzo_token: hanzoTokens.access_token,
-            hanzo_refresh_token: hanzoTokens.refresh_token,
+          ...(tokens ? {
+            hanzo_token: tokens.access_token,
+            hanzo_refresh_token: tokens.refresh_token,
           } : {}),
         });
         completeStep(OnboardingStep.TERMS_CONDITIONS, true);
       } else if (response.status === 'non-pristine') {
         setResetStorageBeforeConnectConfirmationPrompt(true);
       } else {
-        submitRegistrationNoCodeError();
+        submitRegistrationNoCodeError(t('node.errorConnecting'));
       }
     },
   });
@@ -149,7 +149,7 @@ const TermsAndConditionsPage = () => {
     onError: (error) => {
       // Previously a failed local-node spawn was swallowed silently, so the
       // "Get Started Free" button appeared to do nothing. Surface the reason.
-      toast.error('Failed to start the local Hanzo node', {
+      toast.error(`Failed to start the local ${brand.name} node`, {
         description: error instanceof Error ? error.message : String(error),
         position: 'bottom-center',
       });
@@ -158,18 +158,18 @@ const TermsAndConditionsPage = () => {
   const { isPending: nodeKillIsPending } = useNodeKillMutation();
 
   const {
-    isLoading: hanzoLoginIsLoading,
-    error: hanzoLoginError,
-    tokens: hanzoTokens,
-    startLogin: startHanzoLogin,
+    isLoading: loginIsLoading,
+    error: loginError,
+    tokens: tokens,
+    startLogin: startLogin,
   } = useIamLogin();
 
   // When IAM tokens arrive, spawn node and register
   useEffect(() => {
-    if (hanzoTokens) {
+    if (tokens) {
       void nodeSpawn();
     }
-  }, [hanzoTokens, nodeSpawn]);
+  }, [tokens, nodeSpawn]);
 
   const isStartLocalButtonLoading =
     nodeSpawnIsPending ||
@@ -177,13 +177,13 @@ const TermsAndConditionsPage = () => {
     nodeRemoveStorageIsPending ||
     submitRegistrationNodeCodeIsPending;
 
-  const { login: hanzoLogin } = useIamLogin();
-  const [hanzoLoginPending, setHanzoLoginPending] = useState(false);
+  const { login: login } = useIamLogin();
+  const [loginPending, setLoginPending] = useState(false);
 
-  const handleHanzoLogin = async () => {
-    setHanzoLoginPending(true);
+  const handleLogin = async () => {
+    setLoginPending(true);
     try {
-      const tokens = await hanzoLogin();
+      const tokens = await login();
       setAuth({
         api_v2_key: '',
         node_address: '',
@@ -197,9 +197,9 @@ const TermsAndConditionsPage = () => {
       // Cloud login — skip local node, complete onboarding directly
       completeStep(OnboardingStep.TERMS_CONDITIONS, true);
     } catch (err) {
-      console.error('Hanzo login failed:', err);
+      console.error('Login failed:', err);
     } finally {
-      setHanzoLoginPending(false);
+      setLoginPending(false);
     }
   };
 
@@ -292,9 +292,9 @@ const TermsAndConditionsPage = () => {
               size: 'lg',
             }),
           )}
-          disabled={!termsAndConditionsAccepted || hanzoLoginPending}
-          isLoading={hanzoLoginPending}
-          onClick={() => void handleHanzoLogin()}
+          disabled={!termsAndConditionsAccepted || loginPending}
+          isLoading={loginPending}
+          onClick={() => void handleLogin()}
         >
           {t('common.login')}
         </Button>

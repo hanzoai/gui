@@ -23,7 +23,7 @@ import { create } from 'zustand';
 
 import { useAuth } from '../../store/auth';
 import { useToolsStore } from './context/tools-context';
-import { getNodeUrl } from '../../lib/hanzo-engine/engine-url';
+import { getNodeUrl } from '../../lib/engine/engine-url';
 
 type UseWebSocketMessage = {
   enabled?: boolean;

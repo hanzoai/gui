@@ -36,8 +36,8 @@ import ReactDOM from 'react-dom/client';
 import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
-import { LocalModelBrowser } from '../../components/hanzo-node-manager/local-model-browser';
-import { ModelTools } from '../../components/hanzo-node-manager/model-tools';
+import { LocalModelBrowser } from '../../components/node-manager/local-model-browser';
+import { ModelTools } from '../../components/node-manager/model-tools';
 import {
   nodeQueryClient,
   useNodeGetOptionsQuery,
@@ -47,38 +47,38 @@ import {
   useNodeSetDefaultOptionsMutation,
   useNodeSetOptionsMutation,
   useNodeSpawnMutation,
-} from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
-import { type HanzoNodeOptions } from '../../lib/hanzo-node-manager/hanzo-node-manager-client-types';
-import { useHanzoNodeEventsToast } from '../../lib/hanzo-node-manager/hanzo-node-manager-hooks';
+} from '../../lib/node-manager/node-manager-client';
+import { type NodeOptions } from '../../lib/node-manager/node-manager-client-types';
+import { useNodeEventsToast } from '../../lib/node-manager/node-manager-hooks';
 import {
-  errorRemovingHanzoNodeStorageToast,
-  hanzoNodeStartedToast,
-  hanzoNodeStartErrorToast,
-  hanzoNodeStopErrorToast,
-  hanzoNodeStoppedToast,
-  startingHanzoNodeToast,
-  stoppingHanzoNodeToast,
-  successRemovingHanzoNodeStorageToast,
-  successHanzoNodeSetDefaultOptionsToast,
-} from '../../lib/hanzo-node-manager/hanzo-node-manager-toasts-utils';
+  errorRemovingNodeStorageToast,
+  nodeStartedToast,
+  nodeStartErrorToast,
+  nodeStopErrorToast,
+  nodeStoppedToast,
+  startingNodeToast,
+  stoppingNodeToast,
+  successRemovingNodeStorageToast,
+  successNodeSetDefaultOptionsToast,
+} from '../../lib/node-manager/node-manager-toasts-utils';
 import { useAuth } from '../../store/auth';
-import { useHanzoNodeManager } from '../../store/hanzo-node-manager';
+import { useNodeManager } from '../../store/node-manager';
 import { useSyncStorageSecondary } from '../../store/sync-utils';
 import { Logs } from './components/logs';
 
 const App = () => {
   useEffect(() => {
-    void info('initializing hanzo-node-manager');
+    void info('initializing node-manager');
   }, []);
   useSyncStorageSecondary();
   const setLogout = useAuth((auth) => auth.setLogout);
-  const { setHanzoNodeOptions } = useHanzoNodeManager();
+  const { setNodeOptions } = useNodeManager();
   const [isConfirmResetDialogOpened, setIsConfirmResetDialogOpened] =
     useState<boolean>(false);
   const { data: nodeIsRunning } = useNodeIsRunningQuery({
     refetchInterval: 1000,
   });
-  const { data: hanzoNodeOptions } = useNodeGetOptionsQuery({
+  const { data: nodeOptions } = useNodeGetOptionsQuery({
     refetchInterval: 1000,
   });
 
@@ -87,25 +87,25 @@ const App = () => {
     mutateAsync: nodeSpawn,
   } = useNodeSpawnMutation({
     onMutate: () => {
-      startingHanzoNodeToast();
+      startingNodeToast();
     },
     onSuccess: () => {
-      hanzoNodeStartedToast();
+      nodeStartedToast();
     },
     onError: () => {
-      hanzoNodeStartErrorToast();
+      nodeStartErrorToast();
     },
   });
   const { isPending: nodeKillIsPending, mutateAsync: nodeKill } =
     useNodeKillMutation({
       onMutate: () => {
-        stoppingHanzoNodeToast();
+        stoppingNodeToast();
       },
       onSuccess: () => {
-        hanzoNodeStoppedToast();
+        nodeStoppedToast();
       },
       onError: () => {
-        hanzoNodeStopErrorToast();
+        nodeStopErrorToast();
       },
     });
   const {
@@ -113,68 +113,68 @@ const App = () => {
     mutateAsync: nodeRemoveStorage,
   } = useNodeRemoveStorageMutation({
     onSuccess: async () => {
-      successRemovingHanzoNodeStorageToast();
-      setHanzoNodeOptions(null);
+      successRemovingNodeStorageToast();
+      setNodeOptions(null);
       setLogout();
     },
     onError: () => {
-      errorRemovingHanzoNodeStorageToast();
+      errorRemovingNodeStorageToast();
     },
   });
   const { mutateAsync: nodeSetOptions } =
     useNodeSetOptionsMutation({
       onSuccess: (options) => {
-        setHanzoNodeOptions(options);
+        setNodeOptions(options);
       },
     });
   const { mutateAsync: nodeSetDefaultOptions } =
     useNodeSetDefaultOptionsMutation({
       onSuccess: (options) => {
-        hanzoNodeOptionsForm.reset(options);
-        successHanzoNodeSetDefaultOptionsToast();
+        nodeOptionsForm.reset(options);
+        successNodeSetDefaultOptionsToast();
       },
     });
-  const hanzoNodeOptionsForm = useForm<Partial<HanzoNodeOptions>>({
+  const nodeOptionsForm = useForm<Partial<NodeOptions>>({
     resolver: zodResolver(z.any()),
   });
-  const hanzoNodeOptionsFormWatch = useWatch({
-    control: hanzoNodeOptionsForm.control,
+  const nodeOptionsFormWatch = useWatch({
+    control: nodeOptionsForm.control,
   });
 
-  useHanzoNodeEventsToast();
+  useNodeEventsToast();
 
   useEffect(() => {
     const options = {
-      ...hanzoNodeOptions,
-      ...hanzoNodeOptionsFormWatch,
+      ...nodeOptions,
+      ...nodeOptionsFormWatch,
     };
-    void nodeSetOptions(options as HanzoNodeOptions);
+    void nodeSetOptions(options as NodeOptions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hanzoNodeOptionsFormWatch, nodeSetOptions]);
+  }, [nodeOptionsFormWatch, nodeSetOptions]);
 
   const handleReset = (): void => {
     setIsConfirmResetDialogOpened(false);
     void nodeRemoveStorage({ preserveKeys: true });
   };
 
-  const [hanzoNodeOptionsForUI, setHanzoNodeOptionsForUI] =
-    useState<Partial<HanzoNodeOptions>>();
+  const [nodeOptionsForUI, setNodeOptionsForUI] =
+    useState<Partial<NodeOptions>>();
 
   useEffect(() => {
-    const filteredHanzoNodeOptionsKeys: (keyof HanzoNodeOptions)[] = [
+    const filteredNodeOptionsKeys: (keyof NodeOptions)[] = [
       'secret_desktop_installation_proof_key',
     ];
-    setHanzoNodeOptionsForUI(
+    setNodeOptionsForUI(
       Object.fromEntries(
-        Object.entries(hanzoNodeOptions ?? {}).filter(
+        Object.entries(nodeOptions ?? {}).filter(
           ([key]) =>
-            !filteredHanzoNodeOptionsKeys.includes(
-              key as keyof HanzoNodeOptions,
+            !filteredNodeOptionsKeys.includes(
+              key as keyof NodeOptions,
             ),
         ),
-      ) as Partial<HanzoNodeOptions>,
+      ) as Partial<NodeOptions>,
     );
-  }, [hanzoNodeOptions]);
+  }, [nodeOptions]);
 
   return (
     <div className="flex h-screen w-full flex-col space-y-2">
@@ -186,7 +186,7 @@ const App = () => {
         <img alt="logo" className="h-8 w-8" src="/app-logo.png" />
         <div className="ml-3 flex flex-col">
           <span className="text-base font-medium">Node</span>
-          <span className="text-text-secondary text-xs">{`API URL: http://${hanzoNodeOptions?.node_api_ip}:${hanzoNodeOptions?.node_api_port}`}</span>
+          <span className="text-text-secondary text-xs">{`API URL: http://${nodeOptions?.node_api_ip}:${nodeOptions?.node_api_port}`}</span>
         </div>
         <div className="flex grow flex-row items-center justify-end space-x-4">
           <Tooltip>
@@ -335,18 +335,18 @@ const App = () => {
               </Button>
             </div>
             <div className="mt-2 h-full [&>div>div]:!block">
-              <Form {...hanzoNodeOptionsForm}>
+              <Form {...nodeOptionsForm}>
                 <form className="space-y-2 pr-4">
-                  {hanzoNodeOptionsForUI &&
-                    Object.entries(hanzoNodeOptionsForUI).map(
+                  {nodeOptionsForUI &&
+                    Object.entries(nodeOptionsForUI).map(
                       ([key, value]) => {
                         return (
                           <FormField
-                            control={hanzoNodeOptionsForm.control}
+                            control={nodeOptionsForm.control}
                             defaultValue={value}
                             disabled={nodeIsRunning}
                             key={key}
-                            name={key as keyof HanzoNodeOptions}
+                            name={key as keyof NodeOptions}
                             render={({ field }) => (
                               <TextField
                                 field={field}

@@ -66,7 +66,7 @@ const RestoreConnectionPage = () => {
           void navigate(COMPLETION_DESTINATION);
         }
         
-        // TODO: Add logic to test if setup data is valid to create an authenticated connection with Hanzo Node
+        // TODO: Add logic to test if setup data is valid to create an authenticated connection with the node
       }
     } catch {
       setError(true);

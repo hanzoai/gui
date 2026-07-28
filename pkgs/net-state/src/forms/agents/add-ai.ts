@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 import { Models, modelsConfig } from '../../lib/utils/models';
 
-// Local engines need no API key: native Hanzo engine, Ollama, LM Studio, Exo.
+// Local engines need no API key: native engine, Ollama, LM Studio, Exo.
 const modelsWithoutApiKey = [
-  Models.Hanzo,
+  Models.Native,
   Models.Ollama,
   Models.LMStudio,
   Models.Exo,

@@ -1,23 +1,23 @@
 /**
- * Hanzo Engine Client Tests
+ * Engine Client Tests
  *
  * Tests for the embedded engine HTTP client.
  * These tests run against the live engine on localhost:36900.
  */
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { HanzoEngineClient, HANZO_ENGINE_BASE_URL } from './client';
+import { EngineClient, ENGINE_BASE_URL } from './client';
 import type { EngineStatus, ChatMessage } from './types';
 import { ModelFormat, detectModelFormat } from './types';
 
 // Test against live engine or mock
 const USE_LIVE_ENGINE = process.env.TEST_LIVE_ENGINE === 'true';
 
-describe('HanzoEngineClient', () => {
-  let client: HanzoEngineClient;
+describe('EngineClient', () => {
+  let client: EngineClient;
 
   beforeAll(() => {
-    client = new HanzoEngineClient(HANZO_ENGINE_BASE_URL);
+    client = new EngineClient(ENGINE_BASE_URL);
   });
 
   describe('isAvailable', () => {
@@ -78,12 +78,12 @@ describe('HanzoEngineClient', () => {
 
   describe('Client Configuration', () => {
     it('should use default base URL', () => {
-      expect(HANZO_ENGINE_BASE_URL).toBe('http://127.0.0.1:36900');
+      expect(ENGINE_BASE_URL).toBe('http://127.0.0.1:36900');
     });
 
     it('should allow custom base URL', () => {
-      const customClient = new HanzoEngineClient('http://localhost:8080');
-      expect(customClient).toBeInstanceOf(HanzoEngineClient);
+      const customClient = new EngineClient('http://localhost:8080');
+      expect(customClient).toBeInstanceOf(EngineClient);
     });
   });
 

@@ -2,16 +2,16 @@ import { type Token } from '@hanzo_network/hanzo-message-ts/api/general/types';
 
 import { type Attachment } from '../getChatConversation/types';
 
-export type GetHanzoFileProtocolInput = Token & {
+export type GetFileProtocolInput = Token & {
   nodeAddress: string;
   file: string;
 };
 
-export type GetHanzoFileProtocolOutput = Blob;
+export type GetFileProtocolOutput = Blob;
 
-export type GetHanzoFilesProtocolInput = Token & {
+export type GetFilesProtocolInput = Token & {
   nodeAddress: string;
   files: string[];
 };
 
-export type GetHanzoFilesProtocolOutput = Attachment[];
+export type GetFilesProtocolOutput = Attachment[];

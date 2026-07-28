@@ -1,5 +1,5 @@
 /**
- * Canonical Hanzo IAM OIDC paths (HIP-0111), mirrored locally because
+ * Canonical IAM OIDC paths (HIP-0111), mirrored locally because
  * `pkgs/ai` is intentionally not a dependent of the full `@hanzo/iam` SDK.
  *
  * The paths below are byte-for-byte the SDK's `OIDC_PATHS`

@@ -37,7 +37,7 @@ import { useToolFlow } from '../components/playground-tool/hooks/use-tool-flow';
 import PlaygroundToolLayout from '../components/playground-tool/layout';
 import {
   CODE_GENERATOR_MODEL_ID,
-  HANZO_NODE_MODEL_ID,
+  NODE_MODEL_ID,
 } from '../components/tools/constants';
 import { useAuth } from '../store/auth';
 import { useSettings } from '../store/settings';
@@ -112,7 +112,7 @@ function ToolFeedbackPrompt() {
     }
   }, [error, resetPlaygroundStore, navigate]);
 
-  // Effect to switch from CODE_GENERATOR to HANZO_FREE_TRIAL model when tool creation is completed
+  // Effect to switch from CODE_GENERATOR to FREE_TRIAL model when tool creation is completed
   useEffect(() => {
     if (!auth || !currentProvider || !llmProviders || !jobId) return;
     
@@ -123,7 +123,7 @@ function ToolFeedbackPrompt() {
     
     if (isCodeGeneratorModel) {
       const freeTrialProvider = llmProviders.find(
-        (provider) => provider.model.toLowerCase() === HANZO_NODE_MODEL_ID.toLowerCase()
+        (provider) => provider.model.toLowerCase() === NODE_MODEL_ID.toLowerCase()
       );
       
       // Use free trial provider if available, otherwise fall back to default provider

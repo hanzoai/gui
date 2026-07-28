@@ -6,14 +6,14 @@ export const uploadAssetsToTool = async ({
   nodeAddress,
   token,
   files,
-  xHanzoAppId,
-  xHanzoToolId,
+  xAppId,
+  xToolId,
 }: UploadAssetsToToolInput) => {
   const response = await uploadAssetsToToolApi(
     nodeAddress,
     token,
-    xHanzoAppId,
-    xHanzoToolId,
+    xAppId,
+    xToolId,
     files,
   );
 

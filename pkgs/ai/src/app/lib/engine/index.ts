@@ -1,16 +1,16 @@
 /**
- * Hanzo Engine - Embedded AI Inference
+ * Engine - Embedded AI Inference
  *
- * This module provides the frontend interface to the embedded Hanzo Engine,
+ * This module provides the frontend interface to the embedded engine,
  * which runs in the Tauri backend and exposes an OpenAI-compatible API
  * on localhost:36900.
  *
  * Usage:
  * ```typescript
- * import { useHanzoEngine, hanzoEngine } from '@/lib/hanzo-engine';
+ * import { useEngine, engine } from '@/lib/engine';
  *
  * // In a React component:
- * const { status, loadModel, chat, streamChat } = useHanzoEngine();
+ * const { status, loadModel, chat, streamChat } = useEngine();
  *
  * // Load a model
  * await loadModel({ model_id: 'path/to/model.gguf' });
@@ -50,7 +50,7 @@ export type {
 export { EngineEvent, ModelFormat, detectModelFormat } from './types';
 
 // Client
-export { HanzoEngineClient, hanzoEngine, HANZO_ENGINE_BASE_URL } from './client';
+export { EngineClient, engine, ENGINE_BASE_URL } from './client';
 
 // Brand-resolved engine URLs (single source of truth: brand `node.enginePort`)
 export { getEngineUrl, getEmbeddingEngineUrl } from './engine-url';
@@ -67,5 +67,5 @@ export {
   useEmbeddings,
   useStreamingChat,
   useEngineReady,
-  useHanzoEngine,
+  useEngine,
 } from './hooks';

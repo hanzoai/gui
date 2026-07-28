@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PopoverClose } from '@radix-ui/react-popover';
 import {
-  type HanzoTool,
-  type HanzoToolType,
+  type Tool,
+  type ToolType,
 } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 import { useUpdateTool } from '@hanzo_network/hanzo-node-state/v2/mutations/updateTool/useUpdateTool';
 import {
@@ -43,8 +43,8 @@ const toolDetailsSchema = z.object({
 type ToolDetailsFormSchema = z.infer<typeof toolDetailsSchema>;
 
 interface EditToolDetailsDialogProps {
-  tool: HanzoTool;
-  toolType: HanzoToolType;
+  tool: Tool;
+  toolType: ToolType;
   toolKey: string;
   fieldName: 'description' | 'keywords' | 'previewUrl' | 'iconUrl' | 'version';
   currentValue: string;
@@ -110,7 +110,7 @@ export default function EditToolDetailsDialog({
       return;
     }
 
-    const toolPayload: Partial<HanzoTool> = {};
+    const toolPayload: Partial<Tool> = {};
 
     if (fieldName === 'description') {
       toolPayload.description = data.description;
@@ -129,7 +129,7 @@ export default function EditToolDetailsDialog({
     await updateTool({
       toolKey: toolKey,
       toolType: toolType,
-      toolPayload: toolPayload as HanzoTool,
+      toolPayload: toolPayload as Tool,
       isToolEnabled: true,
       nodeAddress: auth?.node_address ?? '',
       token: auth?.api_v2_key ?? '',

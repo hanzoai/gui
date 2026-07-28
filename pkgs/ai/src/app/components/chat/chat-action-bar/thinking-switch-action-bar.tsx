@@ -54,7 +54,7 @@ function ThinkingSwitchActionBarBase({
                 checked ? 'text-cyan-400' : 'text-text-secondary',
               )}
             />
-            <span>{t('hanzoNode.models.labels.thinkingCapability')}</span>
+            <span>{t('node.models.labels.thinkingCapability')}</span>
           </button>
         </TooltipTrigger>
         <TooltipPortal>

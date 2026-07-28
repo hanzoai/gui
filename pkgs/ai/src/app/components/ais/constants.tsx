@@ -16,7 +16,7 @@ import {
   OpenRouterIcon,
   PerplexityIcon,
   QwenIcon,
-  HanzoIcon,
+  Icon,
   TogetherAI,
 } from '@hanzo_network/hanzo-ui/assets';
 
@@ -64,6 +64,6 @@ export const providerMappings = {
   [ModelProvider.OpenRouter]: OpenRouterIcon,
   [ModelProvider.Perplexity]: PerplexityIcon,
   [ModelProvider.Qwen]: QwenIcon,
-  [ModelProvider['Hanzo-Backend']]: HanzoIcon,
+  [ModelProvider['Hanzo-Backend']]: Icon,
   [ModelProvider.TogetherAI]: TogetherAI,
 };

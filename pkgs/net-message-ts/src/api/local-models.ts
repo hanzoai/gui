@@ -1,11 +1,11 @@
 /**
- * Local model discovery via the local Hanzo Engine.
+ * Local model discovery via the local engine.
  *
- * The desktop talks ONLY to the local OpenAI-compatible Hanzo Engine. Model
+ * The desktop talks ONLY to the local OpenAI-compatible Engine. Model
  * discovery has exactly ONE canonical path: `GET {engineUrl}/v1/engine/models`.
  */
 
-// Default engine endpoint (OpenAI-compatible). Mirrors lib/hanzo-engine/client.ts.
+// Default engine endpoint (OpenAI-compatible). Mirrors lib/engine/client.ts.
 // Override with VITE_ENGINE_BASE_URL when pointing at a different engine.
 const ENGINE_BASE_URL =
   (typeof import.meta !== 'undefined' &&

@@ -11,7 +11,7 @@ import {
 import { invoke } from '@tauri-apps/api/core';
 import { relaunch } from '@tauri-apps/plugin-process';
 
-import { type HanzoNodeOptions } from './hanzo-node-manager-client-types';
+import { type NodeOptions } from './node-manager-client-types';
 
 // Client
 
@@ -30,14 +30,14 @@ export const useNodeIsRunningQuery = (
 };
 export const useNodeGetOptionsQuery = (
   options?: Omit<QueryObserverOptions, 'queryKey'>,
-): UseQueryResult<HanzoNodeOptions, Error> => {
+): UseQueryResult<NodeOptions, Error> => {
   const query = useQuery({
     queryKey: ['node_get_options'],
-    queryFn: (): Promise<HanzoNodeOptions> =>
+    queryFn: (): Promise<NodeOptions> =>
       invoke('node_get_options'),
     ...options,
   });
-  return { ...query } as UseQueryResult<HanzoNodeOptions, Error>;
+  return { ...query } as UseQueryResult<NodeOptions, Error>;
 };
 export const useNodeGetDefaultModel = (
   options?: QueryObserverOptions,
@@ -126,18 +126,18 @@ export const useNodeRemoveStorageMutation = (
 
 export const useNodeSetOptionsMutation = (
   options?: UseMutationOptions<
-    Partial<HanzoNodeOptions>,
+    Partial<NodeOptions>,
     Error,
-    HanzoNodeOptions
+    NodeOptions
   >,
 ) => {
   const queryClient = useQueryClient();
   const response = useMutation({
     mutationFn: (
-      hanzoNodeOptions: Partial<HanzoNodeOptions>,
-    ): Promise<HanzoNodeOptions> => {
+      nodeOptions: Partial<NodeOptions>,
+    ): Promise<NodeOptions> => {
       return invoke('node_set_options', {
-        options: hanzoNodeOptions,
+        options: nodeOptions,
       });
     },
     ...options,
@@ -154,11 +154,11 @@ export const useNodeSetOptionsMutation = (
 };
 
 export const useNodeSetDefaultOptionsMutation = (
-  options?: UseMutationOptions<HanzoNodeOptions, Error, void>,
+  options?: UseMutationOptions<NodeOptions, Error, void>,
 ) => {
   const queryClient = useQueryClient();
   const response = useMutation({
-    mutationFn: (): Promise<HanzoNodeOptions> => {
+    mutationFn: (): Promise<NodeOptions> => {
       return invoke('node_set_default_options', {});
     },
     ...options,

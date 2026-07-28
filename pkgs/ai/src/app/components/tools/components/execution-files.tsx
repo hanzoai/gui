@@ -1,4 +1,4 @@
-import { useGetHanzoFilesProtocol } from '@hanzo_network/hanzo-node-state/v2/queries/getHanzoFileProtocol/useGetHanzoFilesProtocol';
+import { useGetFilesProtocol } from '@hanzo_network/hanzo-node-state/v2/queries/getHanzoFileProtocol/useGetHanzoFilesProtocol';
 import { FileList } from '@hanzo_network/hanzo-ui';
 import { cn } from '@hanzo_network/hanzo-ui/utils';
 
@@ -11,7 +11,7 @@ type ExecutionFilesProps = {
 
 export function ExecutionFiles({ files, className }: ExecutionFilesProps) {
   const auth = useAuth((state) => state.auth);
-  const { data } = useGetHanzoFilesProtocol(
+  const { data } = useGetFilesProtocol(
     {
       nodeAddress: auth?.node_address ?? '',
       token: auth?.api_v2_key ?? '',

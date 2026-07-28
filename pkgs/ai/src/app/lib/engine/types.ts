@@ -1,5 +1,5 @@
 /**
- * Hanzo Engine - Embedded AI Inference Types
+ * Engine - Embedded AI Inference Types
  *
  * These types match the Rust backend types exposed via the HTTP API
  * on localhost:36900 (OpenAI-compatible format)

@@ -1,20 +1,20 @@
 import { useSetOAuthToken } from '@hanzo_network/hanzo-node-state/v2/mutations/setOAuthToken/index';
-import { emit, listen } from '@tauri-apps/api/event';
 import { useEffect } from 'react';
 
 import { useAuth } from '../store/auth';
+import { safeEmit, safeListen } from '../utils/tauri-check';
 
 export const useOAuthDeepLinkSet = () => {
   const { mutateAsync: setOAuthToken } = useSetOAuthToken({
     onSuccess: async (data) => {
       console.log('oauth-success', data);
-      await emit('oauth-success', { state: data.state, code: data.code });
+      await safeEmit('oauth-success', { state: data.state, code: data.code });
     },
   });
   const auth = useAuth((s) => s.auth);
 
   useEffect(() => {
-    const unlisten = listen('oauth-deep-link', (event) => {
+    const unlisten = safeListen('oauth-deep-link', (event) => {
       if (!auth) return;
 
       const payload = event.payload as { state: string; code: string };
@@ -27,7 +27,7 @@ export const useOAuthDeepLinkSet = () => {
     });
 
     return () => {
-      void unlisten.then((fn) => fn());
+      void unlisten.then((fn) => fn?.());
     };
   }, [setOAuthToken, auth]);
 };
@@ -36,13 +36,13 @@ export const useOAuthSuccess = (
   callback: (payload: { state: string; code: string }) => void,
 ) => {
   useEffect(() => {
-    const unlisten = listen('oauth-success', (event) => {
+    const unlisten = safeListen('oauth-success', (event) => {
       const payload = event.payload as { state: string; code: string };
       callback(payload);
     });
 
     return () => {
-      void unlisten.then((fn) => fn());
+      void unlisten.then((fn) => fn?.());
     };
   }, [callback]);
 };

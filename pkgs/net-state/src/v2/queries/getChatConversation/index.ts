@@ -6,7 +6,7 @@ import {
   getProviderFromJob,
 } from '@hanzo_network/hanzo-message-ts/api/jobs/index';
 import { type ChatMessage } from '@hanzo_network/hanzo-message-ts/api/jobs/types';
-import { getHanzoFileProtocol } from '@hanzo_network/hanzo-message-ts/api/tools/index';
+import { getFileProtocol } from '@hanzo_network/hanzo-message-ts/api/tools/index';
 import { extractJobIdFromInbox } from '@hanzo_network/hanzo-message-ts/utils/inbox_name_handler';
 
 import { generateFilePreview } from '../../utils/file-preview';
@@ -122,7 +122,7 @@ const createAssistantMessage = async (
           if (files && files.length > 0) {
             const fileResults = await Promise.all(
               files.map(async (file) => {
-                const response = await getHanzoFileProtocol(
+                const response = await getFileProtocol(
                   nodeAddress,
                   token,
                   { file: file.replace('/main/', '/') }, // todo: remove this once we fix it in the node
@@ -183,7 +183,7 @@ const createAssistantMessage = async (
       const fileResults = await Promise.all(
         filePaths.map(async (filePath) => {
           const fullFilePath = `hanzo://file/${filePath.replace('/main/', '/')}`;
-          const response = await getHanzoFileProtocol(
+          const response = await getFileProtocol(
             nodeAddress,
             token,
             { file: fullFilePath }, // todo: remove this once we fix it in the node
@@ -239,7 +239,7 @@ export const getChatConversation = async ({
   inboxId,
   count = CONVERSATION_PAGINATION_LIMIT,
   lastKey,
-  hanzoIdentity,
+  identity,
   profile,
 }: GetChatConversationInput): Promise<GetChatConversationOutput> => {
   const data = await getLastMessagesWithBranches(nodeAddress, token, {
@@ -271,7 +271,7 @@ export const getChatConversation = async ({
 
   for (const message of uniqueMessages) {
     const role: 'user' | 'assistant' =
-      message.sender === hanzoIdentity &&
+      message.sender === identity &&
       message.sender_subidentity === profile
         ? 'user'
         : 'assistant';

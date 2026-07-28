@@ -6,15 +6,15 @@ export const removeToolAsset = async ({
   nodeAddress,
   token,
   filename,
-  xHanzoAppId,
-  xHanzoToolId,
+  xAppId,
+  xToolId,
 }: RemoveAssetToToolInput) => {
   const response = await removeToolAssetApi(
     nodeAddress,
     token,
     { filename },
-    xHanzoAppId,
-    xHanzoToolId,
+    xAppId,
+    xToolId,
   );
 
   return response;

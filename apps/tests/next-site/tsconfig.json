@@ -27,7 +27,7 @@
         "./data/*"
       ],
       "react-native": [
-        "react-native-web"
+        "./react-native-web"
       ]
     },
     "target": "es2021",

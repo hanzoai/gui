@@ -13,7 +13,8 @@
     "paths": {
       "~/*": ["./*"]
     },
-    "types": ["vite/client"],
+    "types": ["vite/client", "svelte"],
     "noEmit": true
-  }
+  },
+  "include": ["src", "components", "views", "tests"]
 }

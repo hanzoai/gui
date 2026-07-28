@@ -2,30 +2,30 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { FunctionKeyV2 } from '../../constants';
 import {
-  type GetHanzoFileProtocolInput,
-  type GetHanzoFileProtocolOutput,
+  type GetFileProtocolInput,
+  type GetFileProtocolOutput,
 } from './types';
-import { getHanzoFileProtocol } from './index';
+import { getFileProtocol } from './index';
 
-export type UseGetHanzoFileProtocol = [
+export type UseGetFileProtocol = [
   FunctionKeyV2.GET_HANZO_FILE_PROTOCOL,
-  GetHanzoFileProtocolInput,
+  GetFileProtocolInput,
 ];
 type Options = QueryObserverOptions<
-  GetHanzoFileProtocolOutput,
+  GetFileProtocolOutput,
   Error,
-  GetHanzoFileProtocolOutput,
-  GetHanzoFileProtocolOutput,
-  UseGetHanzoFileProtocol
+  GetFileProtocolOutput,
+  GetFileProtocolOutput,
+  UseGetFileProtocol
 >;
 
-export const useGetHanzoFileProtocol = (
-  input: GetHanzoFileProtocolInput,
+export const useGetFileProtocol = (
+  input: GetFileProtocolInput,
   options?: Omit<Options, 'queryKey' | 'queryFn'>,
 ) => {
   const response = useQuery({
     queryKey: [FunctionKeyV2.GET_HANZO_FILE_PROTOCOL, input],
-    queryFn: () => getHanzoFileProtocol(input),
+    queryFn: () => getFileProtocol(input),
     ...options,
   });
   return response;

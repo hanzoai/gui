@@ -19,9 +19,9 @@ export const saveToolCode = async ({
   language,
   assets,
   tools,
-  xHanzoAppId,
-  xHanzoToolId,
-  xHanzoOriginalToolRouterKey,
+  xAppId,
+  xToolId,
+  xOriginalToolRouterKey,
   author,
 }: SaveToolCodeInput) => {
   const mergedToolMetadata = merge(metadata, {
@@ -42,9 +42,9 @@ export const saveToolCode = async ({
       language,
       assets,
     },
-    xHanzoAppId,
-    xHanzoToolId,
-    xHanzoOriginalToolRouterKey,
+    xAppId,
+    xToolId,
+    xOriginalToolRouterKey,
   );
 
   if (

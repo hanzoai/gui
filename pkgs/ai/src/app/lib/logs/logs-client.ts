@@ -34,7 +34,7 @@ export const useDownloadTauriLogsMutation = (
 ): UseMutationResult<{ savePath: string; fileName: string }, Error, void> => {
   return useMutation({
     mutationFn: async (): Promise<{ savePath: string; fileName: string }> => {
-      const fileName = `hanzo-logs-${new Date().toISOString().replace(/:/g, '-')}.log`;
+      const fileName = `logs-${new Date().toISOString().replace(/:/g, '-')}.log`;
 
       void info('opening save dialog for logs download');
       const savePath = await save({

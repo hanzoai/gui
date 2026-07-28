@@ -4,8 +4,8 @@ import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import {
   CodeLanguage,
   type OAuth,
-  type HanzoTool,
-  type HanzoToolType,
+  type Tool,
+  type ToolType,
 } from '@hanzo_network/hanzo-message-ts/api/tools/types';
 import { useDuplicateTool } from '@hanzo_network/hanzo-node-state/v2/mutations/duplicateTool/useDuplicateTool';
 import { useExecuteToolCode } from '@hanzo_network/hanzo-node-state/v2/mutations/executeToolCode/useExecuteToolCode';
@@ -61,7 +61,7 @@ import { toast } from 'sonner';
 import { BRAND } from '../../../config/brand';
 import { useAuth } from '../../../store/auth';
 import { useSettings } from '../../../store/settings';
-import { HANZO_STORE_URL } from '../../../utils/store';
+import { storeUrl } from '../../../utils/store';
 import { FileInputField } from '../../playground-tool/components/execution-panel';
 import RemoveToolButton from '../../playground-tool/components/remove-tool-button';
 import ToolCodeEditor from '../../playground-tool/tool-code-editor';
@@ -72,7 +72,7 @@ import { ExecutionFiles } from './execution-files';
 /**
  * Removes embedding-related fields from a tool object to prevent displaying large embedding arrays
  */
-function removeEmbeddingFields(tool: HanzoTool): HanzoTool {
+function removeEmbeddingFields(tool: Tool): Tool {
   if (!tool) return tool;
 
   const filteredTool = { ...tool };
@@ -102,11 +102,11 @@ function sanitizeFileName(name: string): string {
 }
 
 interface ToolDetailsProps {
-  tool: HanzoTool;
+  tool: Tool;
   toolKey: string;
   isEnabled: boolean;
   isPlaygroundTool?: boolean;
-  toolType: HanzoToolType;
+  toolType: ToolType;
   hideToolHeaderDetails?: boolean;
 }
 
@@ -158,7 +158,7 @@ export default function ToolDetailsCard({
   } = usePublishTool({
     onSuccess: async (response) => {
       await open(
-        `${HANZO_STORE_URL}/store/revisions/complete?id=${response.response.revisionId}`,
+        `${storeUrl()}/store/revisions/complete?id=${response.response.revisionId}`,
       );
     },
     onError: (error) => {
@@ -430,7 +430,7 @@ export default function ToolDetailsCard({
     await updateTool({
       toolKey: toolKeyToUpdate ?? '',
       toolType: toolType,
-      toolPayload: { config: configToSave } as unknown as HanzoTool,
+      toolPayload: { config: configToSave } as unknown as Tool,
       isToolEnabled: true,
       nodeAddress: auth?.node_address ?? '',
       token: auth?.api_v2_key ?? '',
@@ -485,7 +485,7 @@ export default function ToolDetailsCard({
       toolType: toolType,
       toolPayload: {
         oauth: sanitizedOAuth,
-      } as HanzoTool,
+      } as Tool,
       nodeAddress: auth?.node_address ?? '',
       token: auth?.api_v2_key ?? '',
       isToolEnabled: true,
@@ -543,8 +543,8 @@ export default function ToolDetailsCard({
       llmProviderId: defaultAgentId ?? '',
       tools: [],
       configs: sanitizedConfigs,
-      xHanzoAppId: 'hanzo-desktop',
-      xHanzoToolId: toolKey ?? '',
+      xAppId: 'hanzo-desktop',
+      xToolId: toolKey ?? '',
       ...(selectedFilePathsInParams.length > 0 && {
         mounts: selectedFilePathsInParams.map((key) => sanitizedParams[key]),
       }),
@@ -780,7 +780,7 @@ export default function ToolDetailsCard({
               toolStoreDetails?.product?.product?.category && {
                 label: 'Category',
                 value: toolStoreDetails?.product?.product?.category.name,
-                href: `${HANZO_STORE_URL}/category/${toolStoreDetails?.product?.product?.category.id}`,
+                href: `${storeUrl()}/category/${toolStoreDetails?.product?.product?.category.id}`,
               },
               'author' in tool &&
                 tool.author && {
@@ -1336,7 +1336,7 @@ export default function ToolDetailsCard({
                       Publish your tool to the{' '}
                       <a
                         className="text-text-default underline"
-                        href={HANZO_STORE_URL}
+                        href={storeUrl()}
                         rel="noreferrer"
                         target="_blank"
                       >
@@ -1377,7 +1377,7 @@ export default function ToolDetailsCard({
                         the submission details on the app store.{' '}
                         <a
                           className="font-medium text-inherit underline"
-                          href={`${HANZO_STORE_URL}/store/revisions/complete?id=${publishToolData?.response.revisionId}`}
+                          href={`${storeUrl()}/store/revisions/complete?id=${publishToolData?.response.revisionId}`}
                           rel="noreferrer"
                           target="_blank"
                         >

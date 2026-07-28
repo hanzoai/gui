@@ -24,8 +24,13 @@ const REACT = new Set([
   'react', 'react-dom', 'react-dom/client', 'react-dom/server',
   'react/jsx-runtime', 'react/jsx-dev-runtime',
 ]);
+// Logging is diagnostics, not a native feature: bundle the web/desktop-safe log
+// shim (console fallback) instead of externalizing the real plugin, so the
+// desktop bundle never throws when loaded in a plain browser (Playwright e2e).
+// Every OTHER @tauri-apps/* stays external -> the host app's REAL native APIs.
 const isExternal = (id: string) =>
-  REACT.has(id) || id === '@tauri-apps/api' || id.startsWith('@tauri-apps/');
+  id !== '@tauri-apps/plugin-log' &&
+  (REACT.has(id) || id === '@tauri-apps/api' || id.startsWith('@tauri-apps/'));
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
@@ -35,12 +40,14 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, 'src/app'),
       'libsodium-wrappers-sumo': resolve(__dirname, '../../node_modules/libsodium-wrappers-sumo/dist/modules-sumo/libsodium-wrappers.js'),
+      // Diagnostics-only: route logging through the safe shim (see isExternal).
+      '@tauri-apps/plugin-log': resolve(__dirname, 'src/host/log'),
       ...libAlias,
     },
   },
   build: {
     minify: false,
-    sourcemap: false,
+    sourcemap: true,
     reportCompressedSize: false,
     target: 'esnext',
     outDir: 'dist-desktop',

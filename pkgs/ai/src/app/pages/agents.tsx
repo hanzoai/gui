@@ -1,5 +1,6 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 import { DotsVerticalIcon } from '@radix-ui/react-icons';
+import { getBrand } from '@hanzo_network/brand-config';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
 import { type RecurringTask } from '@hanzo_network/hanzo-message-ts/api/recurring-tasks/types';
 import { useExportAgent } from '@hanzo_network/hanzo-node-state/v2/mutations/exportAgent/useExportAgent';
@@ -491,7 +492,10 @@ const RemoveAgentDrawer = ({
     </Dialog>
   );
 };
-const HANZO_DAPP_URL = 'https://hanzo-contracts.pages.dev';
+/** Brand dapp/contracts portal URL. A getter (not a module-eval const) so
+ *  getBrand() runs after brand injection; falls back to the hanzo.ai default. */
+const dappUrl = (): string =>
+  getBrand().links?.dapp ?? 'https://hanzo-contracts.pages.dev';
 
 export function AuthorAvatarLink({ author }: { author: string }) {
   const formattedAuthor = author
@@ -500,7 +504,7 @@ export function AuthorAvatarLink({ author }: { author: string }) {
 
   return (
     <a
-      href={`${HANZO_DAPP_URL}/identity/${formattedAuthor}`}
+      href={`${dappUrl()}/identity/${formattedAuthor}`}
       className="text-text-secondary isolate flex items-center gap-2 text-sm hover:[&>span]:underline"
       target="_blank"
       rel="noopener noreferrer"

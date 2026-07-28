@@ -1,15 +1,15 @@
 import { invoke } from '@tauri-apps/api/core';
 
-export const openHanzoNodeManagerWindow = async () => {
+export const openNodeManagerWindow = async () => {
   return invoke('show_node_manager_window');
 };
 
-export const isLocalHanzoNode = (nodeAddress: string) => {
-  const isLocalHanzoNode =
+export const isLocalNode = (nodeAddress: string) => {
+  const isLocalNode =
     nodeAddress.includes('localhost') || nodeAddress.includes('127.0.0.1');
-  return isLocalHanzoNode;
+  return isLocalNode;
 };
 
-export const isHostingHanzoNode = (nodeAddress: string) => {
+export const isHostingNode = (nodeAddress: string) => {
   return nodeAddress?.includes('hosting.hanzo.ai');
 };

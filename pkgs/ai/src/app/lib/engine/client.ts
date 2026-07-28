@@ -2,7 +2,7 @@
  * Engine Client
  *
  * HTTP client for the local inference engine.
- * Defaults to hanzo-engine on 36900 (OpenAI / Anthropic compatible).
+ * Defaults to the local engine on 36900 (OpenAI / Anthropic compatible).
  * Override with VITE_ENGINE_BASE_URL=… to point at zen5-server (8000)
  * or a remote endpoint.
  */
@@ -18,21 +18,17 @@ import type {
   EmbeddingResponse,
 } from './types';
 
-// Default engine endpoint. Brand-neutral name (was HANZO_ENGINE_BASE_URL).
-// Re-exported as the legacy name for back-compat with existing call sites.
+// Default local engine endpoint; override with VITE_ENGINE_BASE_URL.
 export const ENGINE_BASE_URL =
   (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_ENGINE_BASE_URL) ||
   'http://127.0.0.1:36900';
-
-/** @deprecated Use ENGINE_BASE_URL. Kept for one release. */
-export const HANZO_ENGINE_BASE_URL = ENGINE_BASE_URL;
 
 /**
  * Engine API client. Class name preserved for now to avoid sweeping
  * call-site renames; introduce `EngineClient` alias before deprecating
  * the `Hanzo`-prefixed name.
  */
-export class HanzoEngineClient {
+export class EngineClient {
   private baseUrl: string;
 
   constructor(baseUrl: string = ENGINE_BASE_URL) {
@@ -227,4 +223,4 @@ export class HanzoEngineClient {
 }
 
 // Default client instance
-export const hanzoEngine = new HanzoEngineClient();
+export const engine = new EngineClient();

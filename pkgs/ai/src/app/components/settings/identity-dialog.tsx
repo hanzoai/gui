@@ -1,5 +1,6 @@
+import { getBrand } from '@hanzo_network/brand-config';
 import { useTranslation } from '@hanzo_network/hanzo-i18n';
-import { isHanzoIdentityLocalhost } from '@hanzo_network/hanzo-message-ts/utils';
+import { isIdentityLocalhost } from '@hanzo_network/hanzo-message-ts/utils';
 import { useUpdateNodeName } from '@hanzo_network/hanzo-node-state/v2/mutations/updateNodeName/useUpdateNodeName';
 import {
   Dialog,
@@ -19,41 +20,41 @@ import { Edit3Icon, ExternalLinkIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { BRAND } from '../../config/brand';
-import { useNodeRespawnMutation } from '../../lib/hanzo-node-manager/hanzo-node-manager-client';
-import { isHostingHanzoNode } from '../../lib/hanzo-node-manager/hanzo-node-manager-windows-utils';
+import { useNodeRespawnMutation } from '../../lib/node-manager/node-manager-client';
+import { isHostingNode } from '../../lib/node-manager/node-manager-windows-utils';
 import { type Auth, useAuth } from '../../store/auth';
-import { useHanzoNodeManager } from '../../store/hanzo-node-manager';
+import { useNodeManager } from '../../store/node-manager';
 
-const HanzoIdentityDialog = () => {
+const IdentityDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [newIdentity, setNewIdentity] = useState('');
   const { t } = useTranslation();
   const auth = useAuth((authStore) => authStore.auth);
   const setAuth = useAuth((authStore) => authStore.setAuth);
-  const isLocalHanzoNodeInUse = useHanzoNodeManager(
+  const isLocalNodeInUse = useNodeManager(
     (state) => state.isInUse,
   );
-  const { mutateAsync: respawnHanzoNode } = useNodeRespawnMutation();
+  const { mutateAsync: respawnNode } = useNodeRespawnMutation();
 
   const { mutateAsync: updateNodeName, isPending: isUpdateNodeNamePending } =
     useUpdateNodeName({
       onSuccess: async () => {
-        toast.success(t('settings.hanzoIdentity.success'));
+        toast.success(t('settings.identity.success'));
         if (!auth) return;
         const newAuth: Auth = { ...auth };
         setAuth({
           ...newAuth,
           hanzo_identity: newIdentity,
         });
-        if (isLocalHanzoNodeInUse) {
-          await respawnHanzoNode();
-        } else if (!isHostingHanzoNode(auth.node_address)) {
-          toast.info(t('hanzoNode.restartNode'));
+        if (isLocalNodeInUse) {
+          await respawnNode();
+        } else if (!isHostingNode(auth.node_address)) {
+          toast.info(t('node.restartNode'));
         }
       },
       onError: (error) => {
-        toast.error(t('settings.hanzoIdentity.error'), {
+        toast.error(t('settings.identity.error'), {
           description: error?.response?.data?.error
             ? error?.response?.data?.error +
               ': ' +
@@ -77,7 +78,7 @@ const HanzoIdentityDialog = () => {
     });
   };
 
-  const isIdentityLocalhost = isHanzoIdentityLocalhost(
+  const isIdentityLocalhost = isIdentityLocalhost(
     auth?.hanzo_identity ?? '',
   );
 
@@ -95,7 +96,7 @@ const HanzoIdentityDialog = () => {
           disabled={isUpdateNodeNamePending}
           className="min-w-[100px] gap-2 rounded-md"
         >
-          <span className="sr-only"> Update Hanzo Identity</span>
+          <span className="sr-only"> Update {`${getBrand().name} Identity`}</span>
           <span className="text-text-default text-sm font-normal">
             {auth?.hanzo_identity}
           </span>
@@ -116,7 +117,7 @@ const HanzoIdentityDialog = () => {
         <div className="mt-6 space-y-4">
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-1">
-              <Label htmlFor="identity">Enter the new Hanzo Identity</Label>
+              <Label htmlFor="identity">{`Enter the new ${getBrand().name} Identity`}</Label>
               <div className="text-text-secondary hover:text-text-default inline-flex items-center gap-1">
                 {isIdentityLocalhost ? (
                   <a
@@ -131,7 +132,7 @@ const HanzoIdentityDialog = () => {
                     rel="noreferrer"
                     target="_blank"
                   >
-                    {t('settings.hanzoIdentity.registerIdentity')}
+                    {t('settings.identity.registerIdentity')}
                   </a>
                 ) : (
                   <a
@@ -149,7 +150,7 @@ const HanzoIdentityDialog = () => {
                     rel="noreferrer"
                     target="_blank"
                   >
-                    {t('settings.hanzoIdentity.goToHanzoIdentity')}
+                    {t('settings.identity.goToIdentity')}
                   </a>
                 )}
                 <ExternalLinkIcon className="h-4 w-4" />
@@ -179,7 +180,7 @@ const HanzoIdentityDialog = () => {
             rel="noreferrer"
             target="_blank"
           >
-            {t('settings.hanzoIdentity.troubleRegisterIdentity')}
+            {t('settings.identity.troubleRegisterIdentity')}
           </a>
           <div className="flex items-center gap-1">
             <Button
@@ -210,4 +211,4 @@ const HanzoIdentityDialog = () => {
   );
 };
 
-export default HanzoIdentityDialog;
+export default IdentityDialog;

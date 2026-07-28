@@ -1,5 +1,5 @@
-import { listen } from '@tauri-apps/api/event';
 import { open } from '@tauri-apps/plugin-shell';
+import { safeListen } from '../utils/tauri-check';
 import { useCallback, useRef, useState } from 'react';
 import { useBrand } from '@hanzo_network/brand-config';
 import { iamUrl } from '../lib/iam-oidc';
@@ -96,13 +96,13 @@ export function useIamLogin() {
       let settled = false;
       // Listen for the active brand's callback event (emitted by the Tauri
       // deep-link handler for `<scheme>://oauth/<brand>`).
-      const unlistenPromise = listen(iam.callbackEvent, async (event) => {
+      const unlistenPromise = safeListen(iam.callbackEvent, async (event) => {
         const payload = event.payload as { state: string; code: string };
         if (payload.state !== pendingState.current || settled) return;
         settled = true;
         clearTimeout(timeout);
         pendingState.current = null;
-        void unlistenPromise.then((fn) => fn());
+        void unlistenPromise.then((fn) => fn?.());
         try {
           resolve(
             await exchangeCodeForTokens(
@@ -122,7 +122,7 @@ export function useIamLogin() {
         if (settled) return;
         settled = true;
         pendingState.current = null;
-        void unlistenPromise.then((fn) => fn());
+        void unlistenPromise.then((fn) => fn?.());
         reject(new Error('OAuth login timed out'));
       }, 300_000); // 5 min
     });

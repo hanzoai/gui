@@ -8,13 +8,13 @@ export const createToolMetadata = async ({
   token,
   jobId,
   tools,
-  xHanzoToolId,
+  xToolId,
 }: CreateToolMetadataInput): Promise<CreateToolMetadataOutput> => {
   const response = await createToolMetadataApi(nodeAddress, token, {
     job_id: jobId,
     language: CodeLanguage.Typescript,
     tools,
-    x_hanzo_tool_id: xHanzoToolId,
+    x_hanzo_tool_id: xToolId,
   });
   return response;
 };

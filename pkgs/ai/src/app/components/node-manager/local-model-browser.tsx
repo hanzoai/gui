@@ -20,7 +20,7 @@ import { Check, Cpu, Download, DownloadCloud, Loader2 } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
-import { getEmbeddingEngineUrl, getEngineUrl } from '../../lib/hanzo-engine';
+import { getEmbeddingEngineUrl, getEngineUrl } from '../../lib/engine';
 import {
   type LocalProvider,
   isProviderRunning,
@@ -138,7 +138,7 @@ const EngineCard = ({ provider }: { provider: LocalProvider }) => {
     refetchInterval: 10000,
   });
 
-  const isNative = provider.id === Models.Hanzo;
+  const isNative = provider.id === Models.Native;
 
   return (
     <Card className={cn('flex flex-col', isNative && 'border-brand/60')}>
@@ -342,7 +342,7 @@ const ModelSection = ({
 /**
  * Local Models — the ONE surface for first-party Zen models on this device.
  *
- * Pick the local engine (native Hanzo / Ollama / LM Studio, live-detected), then
+ * Pick the local engine (native / Ollama / LM Studio, live-detected), then
  * browse the catalog segmented Chat / Embeddings / Reranker / Featured. Each row
  * shows "Served" when the engine is already serving that model (probed live from
  * the brand engine's `/v1/models`), otherwise "Download" — which registers a
@@ -365,7 +365,7 @@ export const LocalModelBrowser = ({ className }: { className?: string }) => {
       <div className="flex flex-col gap-1">
         <h2 className="text-base font-medium">Engine</h2>
         <p className="text-text-secondary text-xs">
-          Pick which engine runs your local models. The native Hanzo engine
+          Pick which engine runs your local models. The native engine
           downloads first-party Zen models from Hugging Face; Ollama and LM
           Studio are detected automatically when running.
         </p>

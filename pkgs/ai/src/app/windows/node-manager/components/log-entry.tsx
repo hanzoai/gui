@@ -7,7 +7,7 @@ import {
   Info,
 } from 'lucide-react';
 
-import { type LogEntry } from '../../../lib/hanzo-logs/log-entry';
+import { type LogEntry } from '../../../lib/logs/log-entry';
 
 interface LogEntryProps {
   log: LogEntry;

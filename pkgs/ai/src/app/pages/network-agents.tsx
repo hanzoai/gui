@@ -334,14 +334,14 @@ const DiscoverNetworkAgents = ({
       (pricingFilter === 'free' && isFreePricing) ||
       (pricingFilter === 'paid' && !isFreePricing);
 
-    const isHanzoProvider = agent.provider
+    const isProvider = agent.provider
       ?.toLowerCase()
       .includes('@@official.sep-hanzo');
 
     const matchesProvider =
       providerFilter === 'all' ||
-      (providerFilter === 'hanzo' && isHanzoProvider) ||
-      (providerFilter === 'community' && !isHanzoProvider);
+      (providerFilter === 'hanzo' && isProvider) ||
+      (providerFilter === 'community' && !isProvider);
 
     return matchesSearch && matchesPricing && matchesProvider;
   });

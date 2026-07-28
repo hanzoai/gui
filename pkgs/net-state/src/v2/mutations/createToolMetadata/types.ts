@@ -5,7 +5,7 @@ export type CreateToolMetadataInput = Token & {
   nodeAddress: string;
   jobId: string;
   tools: string[];
-  xHanzoToolId?: string;
+  xToolId?: string;
 };
 
 export type CreateToolMetadataOutput = CreateToolMetadataResponse;

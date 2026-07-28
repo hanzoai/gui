@@ -9,21 +9,21 @@ import { toast } from 'sonner';
 import { ResetConnectionDialog } from '../components/reset-connection-dialog';
 import { BRAND } from '../config/brand';
 import { useAuth } from '../store/auth';
-import { useHanzoNodeManager } from '../store/hanzo-node-manager';
-import { useDownloadTauriLogsMutation } from './hanzo-logs/logs-client';
-import { useNodeIsRunningQuery } from './hanzo-node-manager/hanzo-node-manager-client';
-import { openHanzoNodeManagerWindow } from './hanzo-node-manager/hanzo-node-manager-windows-utils';
+import { useNodeManager } from '../store/node-manager';
+import { useDownloadTauriLogsMutation } from './logs/logs-client';
+import { useNodeIsRunningQuery } from './node-manager/node-manager-client';
+import { openNodeManagerWindow } from './node-manager/node-manager-windows-utils';
 
-export const HanzoNodeRunningOverlay = ({
+export const NodeRunningOverlay = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
   const auth = useAuth((store) => store.auth);
   const isCloudMode = !!auth?.hanzo_token;
-  const { data: isHanzoNodeRunning, isPending: isHanzoNodeRunningPending } =
+  const { data: isNodeRunning, isPending: isNodeRunningPending } =
     useNodeIsRunningQuery();
-  const isInUse = useHanzoNodeManager((store) => store.isInUse);
+  const isInUse = useNodeManager((store) => store.isInUse);
 
   const {
     isSuccess: isHealthSuccess,
@@ -63,9 +63,9 @@ export const HanzoNodeRunningOverlay = ({
   const [isResetConnectionDialogOpen, setIsResetConnectionDialogOpen] =
     useState(false);
 
-  const isHanzoNodeHealthy = isHealthSuccess && health.status === 'ok';
+  const isNodeHealthy = isHealthSuccess && health.status === 'ok';
 
-  if (isHealthPending || isHanzoNodeRunningPending) {
+  if (isHealthPending || isNodeRunningPending) {
     return (
       <div className="flex size-full flex-col items-center justify-center gap-3 py-8">
         <Loader2 className="h-8 w-8 animate-spin text-white" />
@@ -122,7 +122,7 @@ export const HanzoNodeRunningOverlay = ({
     );
   }
 
-  if (isHanzoNodeHealthy && !!auth) {
+  if (isNodeHealthy && !!auth) {
     return children;
   }
 
@@ -137,10 +137,10 @@ export const HanzoNodeRunningOverlay = ({
           Please make sure the Node is running and try again.
         </p>
       </div>
-      {isInUse && !isHanzoNodeRunning && (
+      {isInUse && !isNodeRunning && (
         <Button
           onClick={async () => {
-            await openHanzoNodeManagerWindow();
+            await openNodeManagerWindow();
           }}
         >
           Launch Node

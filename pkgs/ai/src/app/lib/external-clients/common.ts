@@ -10,14 +10,14 @@ export class ConfigError extends Error {
   }
 }
 
-interface HanzoNodeOptions {
+interface NodeOptions {
   hanzo_tools_runner_deno_binary_path?: string;
   // other options...
 }
 
 export const getDenoBinPath = async (): Promise<string> => {
   try {
-    const options = await invoke<HanzoNodeOptions>('node_get_options');
+    const options = await invoke<NodeOptions>('node_get_options');
     const denoPath = options?.hanzo_tools_runner_deno_binary_path;
     if (!denoPath) {
       console.warn('Deno binary path not found in options, defaulting to "deno"');

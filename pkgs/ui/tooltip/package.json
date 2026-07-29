@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/tooltip",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "source": "src/index.tsx",
   "files": [
     "src",
@@ -60,5 +60,10 @@
   },
   "module:jsx": "dist/jsx",
   "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "author": "Hanzo AI <dev@hanzo.ai>",
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
+  }
 }

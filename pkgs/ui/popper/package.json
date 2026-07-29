@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/popper",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -44,7 +44,8 @@
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/start-transition": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-native-web": "^0.21.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -57,5 +58,10 @@
   },
   "module:jsx": "dist/jsx",
   "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "author": "Hanzo AI <dev@hanzo.ai>",
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
+  }
 }

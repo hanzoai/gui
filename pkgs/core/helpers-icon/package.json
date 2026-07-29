@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/helpers-icon",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "Utilities for icon packages",
   "license": "BSD-3-Clause",
   "source": "src/index.ts",

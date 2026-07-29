@@ -135,7 +135,7 @@ export declare const defaultConfig: {
         t: "top";
         z: "zIndex";
     };
-    themes: import("@hanzogui/themes/types/generated-v4").Themes;
+    themes: import("@hanzogui/themes/v4").V4Themes;
     tokens: {
         readonly radius: {
             0: number;

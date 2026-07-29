@@ -10,8 +10,8 @@ export declare const useComponentState: (props: ViewProps | TextProps | Record<s
     isAnimated: boolean;
     isExiting: boolean;
     isHydrated: boolean;
-    presence: import("../types").UsePresenceResult | null;
-    presenceState: import("../types").PresenceContextProps | null | undefined;
+    presence: import("..").UsePresenceResult | null;
+    presenceState: import("..").PresenceContextProps | null | undefined;
     setState: import("react").Dispatch<import("react").SetStateAction<GuiComponentState>>;
     setStateShallow: import("react").Dispatch<import("react").SetStateAction<Partial<GuiComponentState>>>;
     noClass: boolean;

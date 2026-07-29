@@ -1,69 +1,69 @@
 import type { GetProps } from '@hanzogui/core';
 declare const createProgressScope: import("@hanzogui/create-context").CreateScope;
-export declare const ProgressIndicatorFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const ProgressIndicatorFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 export type ProgressIndicatorProps = GetProps<typeof ProgressIndicatorFrame>;
-declare const ProgressIndicator: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ProgressIndicator: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+}>, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
-export declare const ProgressFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+}, import("@hanzogui/web").StaticConfigPublic>;
+export declare const ProgressFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-    size?: import("@hanzogui/core").SizeTokens | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+    size?: import("@hanzogui/web").SizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic>;
 export interface ProgressExtraProps {
     value?: number | null | undefined;
     max?: number;
     getValueLabel?(value: number, max: number): string;
 }
 export type ProgressProps = GetProps<typeof ProgressFrame> & ProgressExtraProps;
-declare const Progress: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const Progress: import("react").ForwardRefExoticComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-    size?: import("@hanzogui/core").SizeTokens | undefined;
-}>, keyof ProgressExtraProps> & ProgressExtraProps & import("react").RefAttributes<import("@hanzogui/core").GuiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    size?: import("@hanzogui/web").SizeTokens | undefined;
+}>, keyof ProgressExtraProps> & ProgressExtraProps & import("react").RefAttributes<import("@hanzogui/web").GuiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-    size?: import("@hanzogui/core").SizeTokens | undefined;
-}>, keyof ProgressExtraProps> & ProgressExtraProps, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ProgressExtraProps, import("@hanzogui/core").StackStyleBase, {
+    size?: import("@hanzogui/web").SizeTokens | undefined;
+}>, keyof ProgressExtraProps> & ProgressExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ProgressExtraProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-    size?: import("@hanzogui/core").SizeTokens | undefined;
-}, import("@hanzogui/core").StaticConfigPublic> & Omit<import("@hanzogui/core").StaticConfigPublic, "staticConfig" | "styleable"> & {
-    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    size?: import("@hanzogui/web").SizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic> & Omit<import("@hanzogui/web").StaticConfigPublic, "staticConfig" | "styleable"> & {
+    __tama: [Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-        size?: import("@hanzogui/core").SizeTokens | undefined;
-    }>, keyof ProgressExtraProps> & ProgressExtraProps, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ProgressExtraProps, import("@hanzogui/core").StackStyleBase, {
+        size?: import("@hanzogui/web").SizeTokens | undefined;
+    }>, keyof ProgressExtraProps> & ProgressExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ProgressExtraProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-        size?: import("@hanzogui/core").SizeTokens | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic];
+        size?: import("@hanzogui/web").SizeTokens | undefined;
+    }, import("@hanzogui/web").StaticConfigPublic];
 } & {
-    Indicator: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Indicator: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
+    }, import("@hanzogui/web").StaticConfigPublic>;
 };
 export { createProgressScope, Progress, ProgressIndicator };
 //# sourceMappingURL=Progress.d.ts.map

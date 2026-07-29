@@ -7,7 +7,7 @@ export type Extractor = ReturnType<typeof createExtractor>;
 type FileOrPath = NodePath<t.Program> | t.File;
 export declare function createExtractor({ logger, platform }?: ExtractorOptions): {
     options: {
-        logger: import("../types").Logger;
+        logger: import("..").Logger;
     };
     cleanupBeforeExit: typeof cleanupBeforeExit;
     loadGui: (props: GuiOptions) => Promise<GuiProjectInfo | null>;

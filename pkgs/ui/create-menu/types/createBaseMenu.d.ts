@@ -5,7 +5,7 @@ import * as PopperPrimitive from '@hanzogui/popper';
 import type { RovingFocusGroupProps } from '@hanzogui/roving-focus';
 import type { TextProps } from '@hanzogui/web';
 import { type ViewProps, View } from '@hanzogui/web';
-import type { GuiElement } from '@hanzogui/web/types';
+import type { GuiElement } from '@hanzogui/web';
 import * as React from 'react';
 import type { Image, ImageProps } from 'react-native';
 import { MenuPredefined } from './MenuPredefined';

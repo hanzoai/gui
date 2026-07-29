@@ -82,9 +82,9 @@ type PopoverTriggerContextValue = {
     registerTrigger(id: string, setOpen: PopoverTriggerStateSetter): void;
     unregisterTrigger(id: string): void;
 };
-export declare const PopoverContext: import("@hanzogui/core").StyledContext<PopoverContextValue>;
+export declare const PopoverContext: import("@hanzogui/web").StyledContext<PopoverContextValue>;
 export declare const PopoverZIndexContext: React.Context<number | undefined>;
-export declare const PopoverTriggerContext: import("@hanzogui/core").StyledContext<PopoverTriggerContextValue>;
+export declare const PopoverTriggerContext: import("@hanzogui/web").StyledContext<PopoverTriggerContextValue>;
 export declare const usePopoverContext: (scope?: string) => PopoverContextValue;
 export declare const usePopoverTriggerContext: (scope?: string) => PopoverTriggerContextValue;
 /**
@@ -136,7 +136,7 @@ export type PopoverTriggerProps = ScopedPopoverProps<ViewProps & {
      */
     disablePressTrigger?: boolean;
 }>;
-export declare const PopoverTrigger: React.NamedExoticComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
+export declare const PopoverTrigger: React.NamedExoticComponent<Omit<import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>> & {
     /**
      * When true, disables the built-in click-to-toggle behavior on the trigger.
      * Useful for hoverable popovers where you want to control open/close
@@ -155,17 +155,17 @@ export interface PopoverContentTypeProps extends Omit<PopoverContentImplProps, '
     enableAnimationForPositionChange?: boolean;
 }
 export type PopoverContentProps = PopoverContentTypeProps;
-export declare const PopoverContent: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopoverContent: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/web").StackStyleBase, {
     size?: SizeTokens | undefined;
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 export type PopoverContentImplProps = PopperContentProps & Omit<DismissableProps, 'onDismiss' | 'children' | 'onPointerDownCapture'> & {
     /**
      * Rather than mount the content immediately, mounts it in a useEffect
@@ -206,15 +206,15 @@ export declare const PopoverClose: React.ForwardRefExoticComponent<Omit<YStackPr
     scope?: PopoverScopes;
 } & React.RefAttributes<GuiElement>>;
 export type PopoverArrowProps = PopperArrowProps;
-export declare const PopoverArrow: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const PopoverArrow: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type Rect = {
     x: number;
     y: number;
@@ -272,16 +272,16 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
     Anchor: React.NamedExoticComponent<Omit<YStackProps, "scope"> & {
         scope?: PopoverScopes;
     } & React.RefAttributes<GuiElement>>;
-    Arrow: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Arrow: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof PopperArrowExtraProps> & PopperArrowExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopperArrowExtraProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
-    Trigger: React.NamedExoticComponent<Omit<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {}>> & {
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    Trigger: React.NamedExoticComponent<Omit<import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {}>> & {
         /**
          * When true, disables the built-in click-to-toggle behavior on the trigger.
          * Useful for hoverable popovers where you want to control open/close
@@ -291,17 +291,17 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
     }, "scope"> & {
         scope?: PopoverScopes;
     } & React.RefAttributes<GuiElement>>;
-    Content: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Content: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof PopoverContentTypeProps> & PopoverContentTypeProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & PopoverContentTypeProps, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
+    }, import("@hanzogui/web").StaticConfigPublic>;
     Close: React.ForwardRefExoticComponent<Omit<YStackProps, "scope"> & {
         scope?: PopoverScopes;
     } & React.RefAttributes<GuiElement>>;
@@ -313,36 +313,36 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
             shouldForwardSpace: boolean;
         };
     };
-    ScrollView: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    ScrollView: React.ForwardRefExoticComponent<Omit<import("@hanzogui/web").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
         }>> | undefined;
     }> & {
         fullscreen?: boolean | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
         }>> | undefined;
-    }>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    }>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
         }>> | undefined;
     }> & {
         fullscreen?: boolean | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
         }>> | undefined;
-    }>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    }>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
@@ -352,7 +352,7 @@ export declare const Popover: React.ForwardRefExoticComponent<Omit<PopperProps, 
     }>> & {
         scope?: string;
     } & React.RefAttributes<import("react-native").ScrollView>>;
-    FocusScope: (props: import("@hanzogui/focus-scope/types/types").ScopedProps<import("@hanzogui/focus-scope").FocusScopeControllerProps>) => React.JSX.Element;
+    FocusScope: (props: import("@hanzogui/focus-scope").ScopedProps<import("@hanzogui/focus-scope").FocusScopeControllerProps>) => React.JSX.Element;
 };
 export {};
 //# sourceMappingURL=Popover.d.ts.map

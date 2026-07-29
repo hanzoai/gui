@@ -1,5 +1,5 @@
-export declare const Separator: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const Separator: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
     vertical?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 //# sourceMappingURL=Separator.d.ts.map

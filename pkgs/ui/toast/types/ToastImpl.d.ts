@@ -3,11 +3,11 @@ import type { DismissableProps } from '@hanzogui/dismissable';
 import * as React from 'react';
 import type { GestureResponderEvent } from 'react-native';
 import type { ScopedProps } from './ToastProvider';
-declare const ToastImplFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const ToastImplFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type ToastProps = Omit<ToastImplProps, keyof ToastImplPrivateProps>;
 type SwipeEvent = GestureResponderEvent;
 declare const useToastInteractiveContext: (scope?: string) => {
@@ -89,17 +89,17 @@ export type ToastExtraProps = {
     id?: string;
 };
 type ToastImplProps = ScopedProps<ToastImplPrivateProps & ToastImplFrameProps & ToastExtraProps>;
-declare const ToastImpl: React.ForwardRefExoticComponent<Omit<ToastImplPrivateProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+declare const ToastImpl: React.ForwardRefExoticComponent<Omit<ToastImplPrivateProps & Omit<import("@hanzogui/core").RNViewNonStyleProps, "unstyled" | "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-} & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+} & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-} & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {
+} & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }>> & ToastExtraProps, "scope"> & {
     scope?: import("./ToastProvider").ToastScopes;

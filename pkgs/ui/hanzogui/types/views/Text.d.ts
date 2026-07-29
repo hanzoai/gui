@@ -1,4 +1,4 @@
-export declare const Text: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").RNTextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+export declare const Text: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/core").RNTextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 //# sourceMappingURL=Text.d.ts.map

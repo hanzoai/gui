@@ -48,17 +48,17 @@ type DialogContextValue = {
     adaptScope: string;
     onAnimationComplete?: DialogProps['onAnimationComplete'];
 };
-export declare const DialogContext: import("@hanzogui/core").StyledContext<DialogContextValue>;
+export declare const DialogContext: import("@hanzogui/web").StyledContext<DialogContextValue>;
 export declare const useDialogContext: (scope?: string) => DialogContextValue, DialogProvider: React.Provider<DialogContextValue> & React.ProviderExoticComponent<Partial<DialogContextValue> & {
     children?: React.ReactNode;
     scope?: string;
 }>;
 type DialogTriggerProps = ScopedProps<ViewProps>;
-declare const DialogTrigger: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope"> & {
+declare const DialogTrigger: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {}>, "scope"> & {
     scope?: DialogScopes;
 }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & {
     scope?: DialogScopes;
-}, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
 type DialogPortalProps = ScopedProps<YStackProps & {
     /**
      * Used to force mounting when more control is needed. Useful when
@@ -66,13 +66,13 @@ type DialogPortalProps = ScopedProps<YStackProps & {
      */
     forceMount?: boolean;
 }>;
-export declare const DialogPortalFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const DialogPortalFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
-declare const DialogPortal: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic>;
+declare const DialogPortal: React.ForwardRefExoticComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }>, keyof import("@hanzogui/stacks").StackVariants> & import("@hanzogui/stacks").StackVariants & {
     /**
@@ -86,12 +86,12 @@ declare const DialogPortal: React.ForwardRefExoticComponent<Omit<import("@hanzog
 /**
  * exported for internal use with extractable()
  */
-export declare const DialogOverlayFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const DialogOverlayFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 export type DialogOverlayExtraProps = ScopedProps<{
     /**
      * Used to force mounting when more control is needed. Useful when
@@ -100,10 +100,10 @@ export type DialogOverlayExtraProps = ScopedProps<{
     forceMount?: boolean;
 }>;
 type DialogOverlayProps = YStackProps & DialogOverlayExtraProps;
-declare const DialogOverlay: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const DialogOverlay: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }>, "scope" | "forceMount"> & {
     /**
@@ -121,61 +121,61 @@ declare const DialogOverlay: import("@hanzogui/core").GuiComponent<Omit<import("
     forceMount?: boolean;
 } & {
     scope?: DialogScopes;
-}, import("@hanzogui/core").StackStyleBase, {
+}, import("@hanzogui/web").StackStyleBase, {
     open?: boolean | undefined;
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
-declare const DialogContentFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+}, import("@hanzogui/web").StaticConfigPublic>;
+declare const DialogContentFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     transparent?: boolean | undefined;
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     circular?: boolean | undefined;
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type DialogContentFrameProps = GetProps<typeof DialogContentFrame>;
 type DialogContentExtraProps = ScopedProps<Omit<DialogContentTypeProps, 'context' | 'onPointerDownCapture'>>;
 type DialogContentProps = DialogContentFrameProps & DialogContentExtraProps;
-declare const DialogContent: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const DialogContent: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     transparent?: boolean | undefined;
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     circular?: boolean | undefined;
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-}>, "theme" | "debug" | "children" | "id" | "style" | `$${string}` | `$${number}` | import("@hanzogui/core").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "hitSlop" | "target" | "htmlFor" | "asChild" | "dangerouslySetInnerHTML" | "disabled" | "className" | "themeShallow" | "unstyled" | "render" | "group" | "untilMeasured" | "componentName" | "tabIndex" | "role" | "disableOptimization" | "forceStyle" | "disableClassName" | "animatedBy" | "onStartShouldSetResponder" | "onScrollShouldSetResponder" | "onScrollShouldSetResponderCapture" | "onSelectionChangeShouldSetResponder" | "onSelectionChangeShouldSetResponderCapture" | "onLayout" | "elevationAndroid" | "rel" | "download" | "onMoveShouldSetResponder" | "onResponderEnd" | "onResponderGrant" | "onResponderReject" | "onResponderMove" | "onResponderRelease" | "onResponderStart" | "onResponderTerminationRequest" | "onResponderTerminate" | "onStartShouldSetResponderCapture" | "onMoveShouldSetResponderCapture" | "onFocus" | "onBlur" | "onPointerCancel" | "onPointerDown" | "onPointerMove" | "onPointerUp" | "needsOffscreenAlphaCompositing" | "removeClippedSubviews" | "testID" | "nativeID" | "collapsable" | "collapsableChildren" | "renderToHardwareTextureAndroid" | "focusable" | "shouldRasterizeIOS" | "isTVSelectable" | "hasTVPreferredFocus" | "tvParallaxShiftDistanceX" | "tvParallaxShiftDistanceY" | "tvParallaxTiltAngle" | "tvParallaxMagnification" | "onTouchStart" | "onTouchMove" | "onTouchEnd" | "onTouchCancel" | "onTouchEndCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerMoveCapture" | "onPointerCancelCapture" | "onPointerUpCapture" | "accessible" | "accessibilityActions" | "accessibilityLabel" | "aria-label" | "accessibilityRole" | "accessibilityState" | "aria-busy" | "aria-checked" | "aria-disabled" | "aria-expanded" | "aria-selected" | "accessibilityHint" | "accessibilityValue" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "onAccessibilityAction" | "importantForAccessibility" | "aria-hidden" | "aria-modal" | "accessibilityLabelledBy" | "aria-labelledby" | "accessibilityLiveRegion" | "aria-live" | "screenReaderFocusable" | "accessibilityElementsHidden" | "accessibilityViewIsModal" | "onAccessibilityEscape" | "onAccessibilityTap" | "onMagicTap" | "accessibilityIgnoresInvertColors" | "accessibilityLanguage" | "accessibilityShowsLargeContentViewer" | "accessibilityLargeContentTitle" | "accessibilityRespondsToUserInteraction" | "onPress" | "onLongPress" | "onPressIn" | "onPressOut" | "onMouseEnter" | "onMouseLeave" | "onMouseDown" | "onMouseUp" | "onMouseMove" | "onMouseOver" | "onMouseOut" | "onClick" | "onDoubleClick" | "onContextMenu" | "onWheel" | "onKeyDown" | "onKeyUp" | "onChange" | "onInput" | "onBeforeInput" | "onScroll" | "onCopy" | "onCut" | "onPaste" | "onDrag" | "onDragStart" | "onDragEnd" | "onDragEnter" | "onDragLeave" | "onDragOver" | "onDrop" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "scope" | "fullscreen" | "transparent" | "size" | "circular" | "elevate" | "bordered" | "chromeless" | "disableOutsidePointerEvents" | "branches" | "onEscapeKeyDown" | "onPointerDownOutside" | "onFocusOutside" | "onInteractOutside" | "forceUnmount" | "onBlurCapture" | "onFocusCapture" | keyof import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+}>, "theme" | "debug" | "style" | `$${string}` | `$${number}` | import("@hanzogui/web").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "hitSlop" | "children" | "target" | "htmlFor" | "asChild" | "dangerouslySetInnerHTML" | "disabled" | "className" | "themeShallow" | "unstyled" | "id" | "render" | "group" | "untilMeasured" | "componentName" | "tabIndex" | "role" | "disableOptimization" | "forceStyle" | "disableClassName" | "animatedBy" | "onStartShouldSetResponder" | "onScrollShouldSetResponder" | "onScrollShouldSetResponderCapture" | "onSelectionChangeShouldSetResponder" | "onSelectionChangeShouldSetResponderCapture" | "onLayout" | "elevationAndroid" | "rel" | "download" | "onMoveShouldSetResponder" | "onResponderEnd" | "onResponderGrant" | "onResponderReject" | "onResponderMove" | "onResponderRelease" | "onResponderStart" | "onResponderTerminationRequest" | "onResponderTerminate" | "onStartShouldSetResponderCapture" | "onMoveShouldSetResponderCapture" | "onFocus" | "onBlur" | "onPointerCancel" | "onPointerDown" | "onPointerMove" | "onPointerUp" | "needsOffscreenAlphaCompositing" | "removeClippedSubviews" | "testID" | "nativeID" | "collapsable" | "collapsableChildren" | "renderToHardwareTextureAndroid" | "focusable" | "shouldRasterizeIOS" | "isTVSelectable" | "hasTVPreferredFocus" | "tvParallaxShiftDistanceX" | "tvParallaxShiftDistanceY" | "tvParallaxTiltAngle" | "tvParallaxMagnification" | "onTouchStart" | "onTouchMove" | "onTouchEnd" | "onTouchCancel" | "onTouchEndCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerMoveCapture" | "onPointerCancelCapture" | "onPointerUpCapture" | "accessible" | "accessibilityActions" | "accessibilityLabel" | "aria-label" | "accessibilityRole" | "accessibilityState" | "aria-busy" | "aria-checked" | "aria-disabled" | "aria-expanded" | "aria-selected" | "accessibilityHint" | "accessibilityValue" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "onAccessibilityAction" | "importantForAccessibility" | "aria-hidden" | "aria-modal" | "accessibilityLabelledBy" | "aria-labelledby" | "accessibilityLiveRegion" | "aria-live" | "screenReaderFocusable" | "accessibilityElementsHidden" | "accessibilityViewIsModal" | "onAccessibilityEscape" | "onAccessibilityTap" | "onMagicTap" | "accessibilityIgnoresInvertColors" | "accessibilityLanguage" | "accessibilityShowsLargeContentViewer" | "accessibilityLargeContentTitle" | "accessibilityRespondsToUserInteraction" | "onPress" | "onLongPress" | "onPressIn" | "onPressOut" | "onMouseEnter" | "onMouseLeave" | "onMouseDown" | "onMouseUp" | "onMouseMove" | "onMouseOver" | "onMouseOut" | "onClick" | "onDoubleClick" | "onContextMenu" | "onWheel" | "onKeyDown" | "onKeyUp" | "onChange" | "onInput" | "onBeforeInput" | "onScroll" | "onCopy" | "onCut" | "onPaste" | "onDrag" | "onDragStart" | "onDragEnd" | "onDragEnter" | "onDragLeave" | "onDragOver" | "onDrop" | "elevation" | keyof import("@hanzogui/web").StackStyleBase | "scope" | "fullscreen" | "transparent" | "size" | "circular" | "elevate" | "bordered" | "chromeless" | "disableOutsidePointerEvents" | "branches" | "onEscapeKeyDown" | "onPointerDownOutside" | "onFocusOutside" | "onInteractOutside" | "forceUnmount" | "onBlurCapture" | "onFocusCapture" | keyof import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     transparent?: boolean | undefined;
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     circular?: boolean | undefined;
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-} & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> | "trapFocus" | "onOpenAutoFocus" | "onCloseAutoFocus"> & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
+} & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> | "trapFocus" | "onOpenAutoFocus" | "onCloseAutoFocus"> & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
     scope?: DialogScopes;
 }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
     scope?: DialogScopes;
-}, import("@hanzogui/core").StackStyleBase, {
+}, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
     transparent?: boolean | undefined;
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     circular?: boolean | undefined;
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type DialogContentTypeProps = DialogContentImplProps & {
     context: DialogContextValue;
 };
@@ -199,46 +199,46 @@ type DialogContentImplExtraProps = Omit<DismissableProps, 'onDismiss'> & {
     context: DialogContextValue;
 };
 type DialogContentImplProps = DialogContentFrameProps & DialogContentImplExtraProps;
-declare const DialogTitleFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const DialogTitleFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-    size?: import("@hanzogui/core").FontSizeTokens | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+    size?: import("@hanzogui/web").FontSizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type DialogTitleExtraProps = ScopedProps<{}>;
 type DialogTitleProps = DialogTitleExtraProps & GetProps<typeof DialogTitleFrame>;
-declare const DialogTitle: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const DialogTitle: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-    size?: import("@hanzogui/core").FontSizeTokens | undefined;
+    size?: import("@hanzogui/web").FontSizeTokens | undefined;
 }>, "scope"> & {
     scope?: DialogScopes;
-}, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps & {
+}, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & {
     scope?: DialogScopes;
-}, import("@hanzogui/core").TextStylePropsBase, {
+}, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-    size?: import("@hanzogui/core").FontSizeTokens | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
-declare const DialogDescriptionFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    size?: import("@hanzogui/web").FontSizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic>;
+declare const DialogDescriptionFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-    size?: import("@hanzogui/core").FontSizeTokens | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+    size?: import("@hanzogui/web").FontSizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type DialogDescriptionExtraProps = ScopedProps<{}>;
 type DialogDescriptionProps = DialogDescriptionExtraProps & GetProps<typeof DialogDescriptionFrame>;
-declare const DialogDescription: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const DialogDescription: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-    size?: import("@hanzogui/core").FontSizeTokens | undefined;
+    size?: import("@hanzogui/web").FontSizeTokens | undefined;
 }>, "scope"> & {
     scope?: DialogScopes;
-}, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps & {
+}, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & {
     scope?: DialogScopes;
-}, import("@hanzogui/core").TextStylePropsBase, {
+}, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-    size?: import("@hanzogui/core").FontSizeTokens | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
-declare const DialogCloseFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
+    size?: import("@hanzogui/web").FontSizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic>;
+declare const DialogCloseFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
 export type DialogCloseExtraProps = ScopedProps<{
     displayWhenAdapted?: boolean;
 }>;
 type DialogCloseProps = GetProps<typeof DialogCloseFrame> & DialogCloseExtraProps;
-declare const DialogClose: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope" | "displayWhenAdapted"> & {
+declare const DialogClose: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {}>, "scope" | "displayWhenAdapted"> & {
     displayWhenAdapted?: boolean;
 } & {
     scope?: DialogScopes;
@@ -246,7 +246,7 @@ declare const DialogClose: import("@hanzogui/core").GuiComponent<Omit<import("@h
     displayWhenAdapted?: boolean;
 } & {
     scope?: DialogScopes;
-}, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
 declare const DialogWarningProvider: (props: {
     contentName: string;
     titleName: string;
@@ -284,13 +284,13 @@ declare const Dialog: React.ForwardRefExoticComponent<{
 } & React.RefAttributes<{
     open: (val: boolean) => void;
 }>> & {
-    Trigger: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope"> & {
+    Trigger: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {}>, "scope"> & {
         scope?: DialogScopes;
     }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & {
         scope?: DialogScopes;
-    }, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
-    Portal: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    }, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
+    Portal: React.ForwardRefExoticComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }>, keyof import("@hanzogui/stacks").StackVariants> & import("@hanzogui/stacks").StackVariants & {
         /**
@@ -301,10 +301,10 @@ declare const Dialog: React.ForwardRefExoticComponent<{
     } & {
         scope?: DialogScopes;
     } & React.RefAttributes<GuiElement>>;
-    Overlay: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Overlay: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         open?: boolean | undefined;
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }>, "scope" | "forceMount"> & {
         /**
@@ -322,70 +322,70 @@ declare const Dialog: React.ForwardRefExoticComponent<{
         forceMount?: boolean;
     } & {
         scope?: DialogScopes;
-    }, import("@hanzogui/core").StackStyleBase, {
+    }, import("@hanzogui/web").StackStyleBase, {
         open?: boolean | undefined;
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
-    Content: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    Content: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
         transparent?: boolean | undefined;
-        size?: import("@hanzogui/core").SizeTokens | undefined;
+        size?: import("@hanzogui/web").SizeTokens | undefined;
         circular?: boolean | undefined;
         elevate?: boolean | undefined;
         bordered?: boolean | undefined;
         chromeless?: boolean | "all" | undefined;
-    }>, "theme" | "debug" | "children" | "id" | "style" | `$${string}` | `$${number}` | import("@hanzogui/core").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "hitSlop" | "target" | "htmlFor" | "asChild" | "dangerouslySetInnerHTML" | "disabled" | "className" | "themeShallow" | "unstyled" | "render" | "group" | "untilMeasured" | "componentName" | "tabIndex" | "role" | "disableOptimization" | "forceStyle" | "disableClassName" | "animatedBy" | "onStartShouldSetResponder" | "onScrollShouldSetResponder" | "onScrollShouldSetResponderCapture" | "onSelectionChangeShouldSetResponder" | "onSelectionChangeShouldSetResponderCapture" | "onLayout" | "elevationAndroid" | "rel" | "download" | "onMoveShouldSetResponder" | "onResponderEnd" | "onResponderGrant" | "onResponderReject" | "onResponderMove" | "onResponderRelease" | "onResponderStart" | "onResponderTerminationRequest" | "onResponderTerminate" | "onStartShouldSetResponderCapture" | "onMoveShouldSetResponderCapture" | "onFocus" | "onBlur" | "onPointerCancel" | "onPointerDown" | "onPointerMove" | "onPointerUp" | "needsOffscreenAlphaCompositing" | "removeClippedSubviews" | "testID" | "nativeID" | "collapsable" | "collapsableChildren" | "renderToHardwareTextureAndroid" | "focusable" | "shouldRasterizeIOS" | "isTVSelectable" | "hasTVPreferredFocus" | "tvParallaxShiftDistanceX" | "tvParallaxShiftDistanceY" | "tvParallaxTiltAngle" | "tvParallaxMagnification" | "onTouchStart" | "onTouchMove" | "onTouchEnd" | "onTouchCancel" | "onTouchEndCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerMoveCapture" | "onPointerCancelCapture" | "onPointerUpCapture" | "accessible" | "accessibilityActions" | "accessibilityLabel" | "aria-label" | "accessibilityRole" | "accessibilityState" | "aria-busy" | "aria-checked" | "aria-disabled" | "aria-expanded" | "aria-selected" | "accessibilityHint" | "accessibilityValue" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "onAccessibilityAction" | "importantForAccessibility" | "aria-hidden" | "aria-modal" | "accessibilityLabelledBy" | "aria-labelledby" | "accessibilityLiveRegion" | "aria-live" | "screenReaderFocusable" | "accessibilityElementsHidden" | "accessibilityViewIsModal" | "onAccessibilityEscape" | "onAccessibilityTap" | "onMagicTap" | "accessibilityIgnoresInvertColors" | "accessibilityLanguage" | "accessibilityShowsLargeContentViewer" | "accessibilityLargeContentTitle" | "accessibilityRespondsToUserInteraction" | "onPress" | "onLongPress" | "onPressIn" | "onPressOut" | "onMouseEnter" | "onMouseLeave" | "onMouseDown" | "onMouseUp" | "onMouseMove" | "onMouseOver" | "onMouseOut" | "onClick" | "onDoubleClick" | "onContextMenu" | "onWheel" | "onKeyDown" | "onKeyUp" | "onChange" | "onInput" | "onBeforeInput" | "onScroll" | "onCopy" | "onCut" | "onPaste" | "onDrag" | "onDragStart" | "onDragEnd" | "onDragEnter" | "onDragLeave" | "onDragOver" | "onDrop" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "scope" | "fullscreen" | "transparent" | "size" | "circular" | "elevate" | "bordered" | "chromeless" | "disableOutsidePointerEvents" | "branches" | "onEscapeKeyDown" | "onPointerDownOutside" | "onFocusOutside" | "onInteractOutside" | "forceUnmount" | "onBlurCapture" | "onFocusCapture" | keyof import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+    }>, "theme" | "debug" | "style" | `$${string}` | `$${number}` | import("@hanzogui/web").GroupMediaKeys | `$theme-${string}` | `$theme-${number}` | "hitSlop" | "children" | "target" | "htmlFor" | "asChild" | "dangerouslySetInnerHTML" | "disabled" | "className" | "themeShallow" | "unstyled" | "id" | "render" | "group" | "untilMeasured" | "componentName" | "tabIndex" | "role" | "disableOptimization" | "forceStyle" | "disableClassName" | "animatedBy" | "onStartShouldSetResponder" | "onScrollShouldSetResponder" | "onScrollShouldSetResponderCapture" | "onSelectionChangeShouldSetResponder" | "onSelectionChangeShouldSetResponderCapture" | "onLayout" | "elevationAndroid" | "rel" | "download" | "onMoveShouldSetResponder" | "onResponderEnd" | "onResponderGrant" | "onResponderReject" | "onResponderMove" | "onResponderRelease" | "onResponderStart" | "onResponderTerminationRequest" | "onResponderTerminate" | "onStartShouldSetResponderCapture" | "onMoveShouldSetResponderCapture" | "onFocus" | "onBlur" | "onPointerCancel" | "onPointerDown" | "onPointerMove" | "onPointerUp" | "needsOffscreenAlphaCompositing" | "removeClippedSubviews" | "testID" | "nativeID" | "collapsable" | "collapsableChildren" | "renderToHardwareTextureAndroid" | "focusable" | "shouldRasterizeIOS" | "isTVSelectable" | "hasTVPreferredFocus" | "tvParallaxShiftDistanceX" | "tvParallaxShiftDistanceY" | "tvParallaxTiltAngle" | "tvParallaxMagnification" | "onTouchStart" | "onTouchMove" | "onTouchEnd" | "onTouchCancel" | "onTouchEndCapture" | "onPointerEnter" | "onPointerEnterCapture" | "onPointerLeave" | "onPointerLeaveCapture" | "onPointerMoveCapture" | "onPointerCancelCapture" | "onPointerUpCapture" | "accessible" | "accessibilityActions" | "accessibilityLabel" | "aria-label" | "accessibilityRole" | "accessibilityState" | "aria-busy" | "aria-checked" | "aria-disabled" | "aria-expanded" | "aria-selected" | "accessibilityHint" | "accessibilityValue" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "aria-valuetext" | "onAccessibilityAction" | "importantForAccessibility" | "aria-hidden" | "aria-modal" | "accessibilityLabelledBy" | "aria-labelledby" | "accessibilityLiveRegion" | "aria-live" | "screenReaderFocusable" | "accessibilityElementsHidden" | "accessibilityViewIsModal" | "onAccessibilityEscape" | "onAccessibilityTap" | "onMagicTap" | "accessibilityIgnoresInvertColors" | "accessibilityLanguage" | "accessibilityShowsLargeContentViewer" | "accessibilityLargeContentTitle" | "accessibilityRespondsToUserInteraction" | "onPress" | "onLongPress" | "onPressIn" | "onPressOut" | "onMouseEnter" | "onMouseLeave" | "onMouseDown" | "onMouseUp" | "onMouseMove" | "onMouseOver" | "onMouseOut" | "onClick" | "onDoubleClick" | "onContextMenu" | "onWheel" | "onKeyDown" | "onKeyUp" | "onChange" | "onInput" | "onBeforeInput" | "onScroll" | "onCopy" | "onCut" | "onPaste" | "onDrag" | "onDragStart" | "onDragEnd" | "onDragEnter" | "onDragLeave" | "onDragOver" | "onDrop" | "elevation" | keyof import("@hanzogui/web").StackStyleBase | "scope" | "fullscreen" | "transparent" | "size" | "circular" | "elevate" | "bordered" | "chromeless" | "disableOutsidePointerEvents" | "branches" | "onEscapeKeyDown" | "onPointerDownOutside" | "onFocusOutside" | "onInteractOutside" | "forceUnmount" | "onBlurCapture" | "onFocusCapture" | keyof import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
         transparent?: boolean | undefined;
-        size?: import("@hanzogui/core").SizeTokens | undefined;
+        size?: import("@hanzogui/web").SizeTokens | undefined;
         circular?: boolean | undefined;
         elevate?: boolean | undefined;
         bordered?: boolean | undefined;
         chromeless?: boolean | "all" | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> | "trapFocus" | "onOpenAutoFocus" | "onCloseAutoFocus"> & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> | "trapFocus" | "onOpenAutoFocus" | "onCloseAutoFocus"> & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
         scope?: DialogScopes;
     }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<DialogContentTypeProps, "onPointerDownCapture" | "context"> & {
         scope?: DialogScopes;
-    }, import("@hanzogui/core").StackStyleBase, {
+    }, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
         transparent?: boolean | undefined;
-        size?: import("@hanzogui/core").SizeTokens | undefined;
+        size?: import("@hanzogui/web").SizeTokens | undefined;
         circular?: boolean | undefined;
         elevate?: boolean | undefined;
         bordered?: boolean | undefined;
         chromeless?: boolean | "all" | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
-    Title: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    Title: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
     }>, "scope"> & {
         scope?: DialogScopes;
-    }, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps & {
+    }, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & {
         scope?: DialogScopes;
-    }, import("@hanzogui/core").TextStylePropsBase, {
+    }, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
-    Description: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    Description: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
     }>, "scope"> & {
         scope?: DialogScopes;
-    }, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps & {
+    }, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps & {
         scope?: DialogScopes;
-    }, import("@hanzogui/core").TextStylePropsBase, {
+    }, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
-    Close: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, "scope" | "displayWhenAdapted"> & {
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    Close: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {}>, "scope" | "displayWhenAdapted"> & {
         displayWhenAdapted?: boolean;
     } & {
         scope?: DialogScopes;
@@ -393,8 +393,8 @@ declare const Dialog: React.ForwardRefExoticComponent<{
         displayWhenAdapted?: boolean;
     } & {
         scope?: DialogScopes;
-    }, import("@hanzogui/core").StackStyleBase, {}, import("@hanzogui/core").StaticConfigPublic>;
-    FocusScope: (props: import("@hanzogui/focus-scope/types/types").ScopedProps<import("@hanzogui/focus-scope").FocusScopeControllerProps>) => React.JSX.Element;
+    }, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
+    FocusScope: (props: import("@hanzogui/focus-scope").ScopedProps<import("@hanzogui/focus-scope").FocusScopeControllerProps>) => React.JSX.Element;
     Adapt: ((props: import("@hanzogui/adapt").AdaptProps) => React.JSX.Element) & {
         Contents: {
             ({ scope, ...rest }: {

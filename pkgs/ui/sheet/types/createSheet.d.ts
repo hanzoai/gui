@@ -25,11 +25,11 @@ export declare function createSheet<H extends GuiComponent | SheetStyledComponen
     dismissOnSnapToBottom?: boolean;
     disableRemoveScroll?: boolean;
     forceRemoveScrollEnabled?: boolean;
-    transitionConfig?: import("@hanzogui/core").AnimatedNumberStrategy;
+    transitionConfig?: import("@hanzogui/web").AnimatedNumberStrategy;
     preferAdaptParentOpenState?: boolean;
     unmountChildrenWhenHidden?: boolean;
     native?: "ios"[] | boolean;
-    transition?: import("@hanzogui/core").TransitionProp;
+    transition?: import("@hanzogui/web").TransitionProp;
     handleDisableScroll?: boolean;
     disableDrag?: boolean;
     modal?: boolean;
@@ -79,36 +79,36 @@ export declare function createSheet<H extends GuiComponent | SheetStyledComponen
             __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
         }, {}, {}, {}>;
         Handle: GuiComponent<any, any, any, any, SharedSheetProps, {}> | GuiComponent<any, any, any, {}, {}, {}>;
-        ScrollView: ForwardRefExoticComponent<Omit<import("@hanzogui/core").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-            readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+        ScrollView: ForwardRefExoticComponent<Omit<import("@hanzogui/web").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+            readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
                 accept: {
                     readonly contentContainerStyle: "style";
                 };
             }>> | undefined;
         }> & {
             fullscreen?: boolean | undefined;
-        } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-            readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+        } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+            readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
                 accept: {
                     readonly contentContainerStyle: "style";
                 };
             }>> | undefined;
-        }>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-            readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+        }>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+            readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
                 accept: {
                     readonly contentContainerStyle: "style";
                 };
             }>> | undefined;
         }> & {
             fullscreen?: boolean | undefined;
-        } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-            readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+        } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+            readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
                 accept: {
                     readonly contentContainerStyle: "style";
                 };
             }>> | undefined;
-        }>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase & {
-            readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+        }>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase & {
+            readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
                 accept: {
                     readonly contentContainerStyle: "style";
                 };
@@ -152,36 +152,36 @@ export declare function createSheet<H extends GuiComponent | SheetStyledComponen
         __scopeSheet?: import("@hanzogui/create-context").Scope<any>;
     }, {}, {}, {}>;
     Handle: GuiComponent<any, any, any, any, SharedSheetProps, {}> | GuiComponent<any, any, any, {}, {}, {}>;
-    ScrollView: ForwardRefExoticComponent<Omit<import("@hanzogui/core").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    ScrollView: ForwardRefExoticComponent<Omit<import("@hanzogui/web").GuiComponentPropsBaseBase & import("react-native").ScrollViewProps, keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "contentContainerStyle"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
         }>> | undefined;
     }> & {
         fullscreen?: boolean | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
         }>> | undefined;
-    }>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    }>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
         }>> | undefined;
     }> & {
         fullscreen?: boolean | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };
         }>> | undefined;
-    }>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase & {
-        readonly contentContainerStyle?: Partial<import("@hanzogui/core").InferStyleProps<typeof import("react-native").ScrollView, {
+    }>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase & {
+        readonly contentContainerStyle?: Partial<import("@hanzogui/web").InferStyleProps<typeof import("react-native").ScrollView, {
             accept: {
                 readonly contentContainerStyle: "style";
             };

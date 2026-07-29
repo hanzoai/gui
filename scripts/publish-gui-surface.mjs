@@ -3,7 +3,7 @@
 // version, with workspace:* specs rewritten to concrete versions.
 //
 // Unlike `release.ts --force-publish-all`, this does NOT touch unrelated
-// workspace packages (@hanzo_network/*, @hanzo/app, fonts, demos…) and uses
+// workspace packages (fonts, demos…) and uses
 // `npm pack --json` to publish the produced tarball directly (no fragile
 // rename step). Idempotent: skips any name@version already on npm.
 //

@@ -34,7 +34,7 @@ interface Endpoints {
   userinfo: string
 }
 
-// Casdoor/IAM defaults, used when discovery is unreachable.
+// IAM's endpoint paths, used when discovery is unreachable.
 const FALLBACK: Endpoints = {
   authorization: `${ISSUER}/login/oauth/authorize`,
   token: `${ISSUER}/api/login/oauth/access_token`,
@@ -43,7 +43,7 @@ const FALLBACK: Endpoints = {
 
 let endpointsCache: Endpoints | undefined
 
-/** Resolve OIDC endpoints from the discovery document, falling back to Casdoor paths. */
+/** Resolve OIDC endpoints from the discovery document, falling back to IAM's paths. */
 export async function discover(): Promise<Endpoints> {
   if (endpointsCache !== undefined) return endpointsCache
   try {
@@ -58,7 +58,7 @@ export async function discover(): Promise<Endpoints> {
       return endpointsCache
     }
   } catch {
-    // discovery blocked — fall through to the known Casdoor paths
+    // discovery blocked — fall through to the known IAM paths
   }
   endpointsCache = FALLBACK
   return endpointsCache

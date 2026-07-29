@@ -65,11 +65,11 @@ export declare const Tooltip: React.ForwardRefExoticComponent<Omit<PopperProps &
     Anchor: React.ForwardRefExoticComponent<Omit<PopoverAnchorProps, "scope"> & {
         scope?: TooltipScopes;
     } & React.RefAttributes<unknown>>;
-    Arrow: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Arrow: React.ForwardRefExoticComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }>, keyof import("@hanzogui/stacks").StackVariants> & import("@hanzogui/stacks").StackVariants & import("@hanzogui/popper").PopperArrowExtraProps & React.RefAttributes<GuiElement>>;
-    Content: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Content: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
@@ -78,12 +78,12 @@ export declare const Tooltip: React.ForwardRefExoticComponent<Omit<PopperProps &
         scope?: TooltipScopes;
     }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & Omit<import("@hanzogui/popover").PopoverContentTypeProps, "scope"> & {
         scope?: TooltipScopes;
-    }, import("@hanzogui/core").StackStyleBase, {
+    }, import("@hanzogui/web").StackStyleBase, {
         size?: SizeTokens | undefined;
         unstyled?: boolean | undefined;
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
+    }, import("@hanzogui/web").StaticConfigPublic>;
     Trigger: React.ForwardRefExoticComponent<Omit<PopoverTriggerProps, "scope"> & {
         scope?: TooltipScopes;
     } & React.RefAttributes<unknown>>;

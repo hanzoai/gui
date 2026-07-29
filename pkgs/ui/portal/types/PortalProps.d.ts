@@ -1,4 +1,4 @@
-import { ViewProps } from '@hanzogui/web/types';
+import type { ViewProps } from '@hanzogui/web';
 import type { StackZIndexProp } from '@hanzogui/z-index-stack';
 import { CSSProperties, ReactNode } from 'react';
 export type PortalProps = {

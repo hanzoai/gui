@@ -15,11 +15,11 @@ export declare const SheetImplementationCustom: React.ForwardRefExoticComponent<
     dismissOnSnapToBottom?: boolean;
     disableRemoveScroll?: boolean;
     forceRemoveScrollEnabled?: boolean;
-    transitionConfig?: import("@hanzogui/core").AnimatedNumberStrategy;
+    transitionConfig?: import("@hanzogui/web").AnimatedNumberStrategy;
     preferAdaptParentOpenState?: boolean;
     unmountChildrenWhenHidden?: boolean;
     native?: "ios"[] | boolean;
-    transition?: import("@hanzogui/core").TransitionProp;
+    transition?: import("@hanzogui/web").TransitionProp;
     handleDisableScroll?: boolean;
     disableDrag?: boolean;
     modal?: boolean;

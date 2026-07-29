@@ -1,4 +1,4 @@
-export declare const SandboxHeading: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").RNTextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+export declare const SandboxHeading: import("hanzogui").GuiComponent<import("@hanzogui/web").TamaDefer, import("hanzogui").GuiTextElement, import("@hanzogui/core").RNTextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     size?: "small" | "large" | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 //# sourceMappingURL=SandboxHeading.d.ts.map

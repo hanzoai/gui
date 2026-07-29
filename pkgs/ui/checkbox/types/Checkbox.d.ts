@@ -1,37 +1,37 @@
-export declare const CheckboxIndicatorFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+export declare const CheckboxIndicatorFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>, {
+    }, import("@hanzogui/web").StaticConfigPublic>, {
         accept: {
             readonly activeStyle: "style";
         };
     }>> | undefined;
 }, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic & {
+}, import("@hanzogui/web").StaticConfigPublic & {
     accept: {
         readonly activeStyle: "style";
     };
 }>;
-export declare const CheckboxFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase & {
-    readonly activeStyle?: Partial<import("@hanzogui/core").InferStyleProps<import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+export declare const CheckboxFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase & {
+    readonly activeStyle?: Partial<import("@hanzogui/web").InferStyleProps<import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>, {
+    }, import("@hanzogui/web").StaticConfigPublic>, {
         accept: {
             readonly activeStyle: "style";
         };
     }>> | undefined;
 }, {
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic & {
+}, import("@hanzogui/web").StaticConfigPublic & {
     accept: {
         readonly activeStyle: "style";
     };

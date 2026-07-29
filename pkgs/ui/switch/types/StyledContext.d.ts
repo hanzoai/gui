@@ -1,5 +1,5 @@
 import type { SizeTokens } from '@hanzogui/core';
-export declare const SwitchStyledContext: import("@hanzogui/core").StyledContext<{
+export declare const SwitchStyledContext: import("@hanzogui/web").StyledContext<{
     active?: boolean;
     disabled?: boolean;
     frameWidth?: number;

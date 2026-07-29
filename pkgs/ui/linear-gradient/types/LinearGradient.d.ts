@@ -6,12 +6,12 @@ export type LinearGradientExtraProps = {
     start?: LinearGradientPoint | null;
     end?: LinearGradientPoint | null;
 };
-export declare const LinearGradient: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+export declare const LinearGradient: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof LinearGradientExtraProps> & LinearGradientExtraProps, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & LinearGradientExtraProps, import("@hanzogui/core").StackStyleBase, {
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+}>, keyof LinearGradientExtraProps> & LinearGradientExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps & LinearGradientExtraProps, import("@hanzogui/web").StackStyleBase, {
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 export type LinearGradientProps = GetProps<typeof LinearGradient>;
 //# sourceMappingURL=LinearGradient.d.ts.map

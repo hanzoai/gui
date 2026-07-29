@@ -3,20 +3,20 @@ import type { ListItemProps } from '@hanzogui/list-item';
 import * as React from 'react';
 import type { SelectScopedProps } from './types';
 export type SelectTriggerProps = SelectScopedProps<ListItemProps>;
-export declare const SelectTrigger: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").StackNonStyleProps, "disabled" | "size" | "unstyled" | keyof import("@hanzogui/core").StackStyleBase | "variant" | "active"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+export declare const SelectTrigger: React.ForwardRefExoticComponent<Omit<import("@hanzogui/web").StackNonStyleProps, "disabled" | "size" | "unstyled" | keyof import("@hanzogui/web").StackStyleBase | "variant" | "active"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
-} & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+} & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
-} & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+} & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;

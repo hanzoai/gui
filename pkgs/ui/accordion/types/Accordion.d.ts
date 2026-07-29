@@ -90,37 +90,37 @@ interface AccordionItemProps extends Omit<CollapsibleProps, 'open' | 'defaultOpe
 }
 type PrimitiveHeading3Props = React.ComponentPropsWithoutRef<typeof H1>;
 type AccordionHeaderProps = PrimitiveHeading3Props;
-declare const AccordionTriggerFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+declare const AccordionTriggerFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/web").StackNonStyleProps & void, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type AccordionTriggerProps = GetProps<typeof AccordionTriggerFrame>;
-declare const AccordionContentFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps, import("@hanzogui/core").StackStyleBase, {
+declare const AccordionContentFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type AccordionContentProps = GetProps<typeof AccordionContentFrame>;
 declare const Accordion: React.ForwardRefExoticComponent<ScopedProps<AccordionSingleProps | AccordionMultipleProps> & React.RefAttributes<AccordionElement>> & {
-    Trigger: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    Trigger: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps & void, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }>, GuiElement, import("@hanzogui/core").StackNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, GuiElement, import("@hanzogui/web").StackNonStyleProps & void, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
-    Header: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/core").TextNonStyleProps, "unstyled" | "size" | keyof import("@hanzogui/core").TextStylePropsBase> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").TextStylePropsBase> & {
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    Header: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/web").TextNonStyleProps, "unstyled" | "size" | keyof import("@hanzogui/web").TextStylePropsBase> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").TextStylePropsBase> & {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").TextStylePropsBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").TextStylePropsBase> & {
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").TextStylePropsBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").TextStylePropsBase> & {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").TextStylePropsBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").TextStylePropsBase, {
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").TextStylePropsBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
-    }>> & React.RefAttributes<import("@hanzogui/core").GuiTextElement>, "ref"> & React.RefAttributes<(HTMLElement & import("@hanzogui/core").GuiElementMethods) | import("react-native").Text>>;
-    Content: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps, import("@hanzogui/core").StackStyleBase, {
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    }>> & React.RefAttributes<import("@hanzogui/web").GuiTextElement>, "ref"> & React.RefAttributes<(HTMLElement & import("@hanzogui/web").GuiElementMethods) | import("react-native").Text>>;
+    Content: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }>, GuiElement, import("@hanzogui/core").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps & void, import("@hanzogui/core").StackStyleBase, {
+    }>, GuiElement, import("@hanzogui/web").StackNonStyleProps & import("@hanzogui/collapsible").CollapsibleContentExtraProps & void, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
-    Item: React.ForwardRefExoticComponent<AccordionItemProps & React.RefAttributes<(HTMLElement & import("@hanzogui/core").GuiElementMethods) | import("react-native").View>>;
-    HeightAnimator: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {}>, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/core").StackStyleBase, {}, {}>;
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    Item: React.ForwardRefExoticComponent<AccordionItemProps & React.RefAttributes<(HTMLElement & import("@hanzogui/web").GuiElementMethods) | import("react-native").View>>;
+    HeightAnimator: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {}>, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & void, import("@hanzogui/web").StackStyleBase, {}, {}>;
 };
 export { Accordion };
 export type { AccordionContentProps, AccordionHeaderProps, AccordionItemProps, AccordionMultipleProps, AccordionSingleProps, AccordionTriggerProps, };

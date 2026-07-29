@@ -17,18 +17,18 @@ export interface SelectItemExtraProps {
 }
 export interface SelectItemProps extends Omit<ListItemProps, keyof SelectItemExtraProps>, SelectItemExtraProps {
 }
-export declare const SelectItem: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").StackNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+export declare const SelectItem: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/web").StackNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
-}>, keyof SelectItemExtraProps> & SelectItemExtraProps, import("@hanzogui/core").GuiElement, import("@hanzogui/core").StackNonStyleProps & SelectItemExtraProps, import("@hanzogui/core").StackStyleBase, {
-    size?: import("@hanzogui/core").SizeTokens | undefined;
+}>, keyof SelectItemExtraProps> & SelectItemExtraProps, import("@hanzogui/web").GuiElement, import("@hanzogui/web").StackNonStyleProps & SelectItemExtraProps, import("@hanzogui/web").StackStyleBase, {
+    size?: import("@hanzogui/web").SizeTokens | undefined;
     variant?: "outlined" | undefined;
     disabled?: boolean | undefined;
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 export {};
 //# sourceMappingURL=SelectItem.d.ts.map

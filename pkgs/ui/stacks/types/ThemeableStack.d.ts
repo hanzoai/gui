@@ -74,14 +74,14 @@ export declare const themeableVariants: {
         };
     };
 };
-export declare const ThemeableStack: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+export declare const ThemeableStack: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     transparent?: boolean | undefined;
     fullscreen?: boolean | undefined;
     circular?: boolean | undefined;
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 export type ThemeableStackProps = GetProps<typeof ThemeableStack>;
 //# sourceMappingURL=ThemeableStack.d.ts.map

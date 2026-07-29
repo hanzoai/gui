@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/animations-reanimated",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "license": "BSD-3-Clause",
   "source": "src/index.ts",
   "files": [
@@ -49,5 +49,10 @@
     "react-native": "*",
     "react-native-reanimated": ">=3.0.0"
   },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "author": "Hanzo AI <dev@hanzo.ai>",
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/slider",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -45,7 +45,8 @@
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-debounce": "workspace:*",
-    "@hanzogui/use-direction": "workspace:*"
+    "@hanzogui/use-direction": "workspace:*",
+    "react-native-web": "^0.21.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -58,5 +59,10 @@
   },
   "module:jsx": "dist/jsx",
   "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "author": "Hanzo AI <dev@hanzo.ai>",
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
+  }
 }

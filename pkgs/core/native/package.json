@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "Native setup modules for Gui - portals, gesture handler, worklets, and more",
   "type": "module",
   "sideEffects": [
@@ -203,6 +203,9 @@
     },
     "sf-symbols-typescript": {
       "optional": true
+    },
+    "react-native": {
+      "optional": true
     }
   },
   "files": [
@@ -217,6 +220,7 @@
   "license": "BSD-3-Clause",
   "author": "Hanzo AI <dev@hanzo.ai>",
   "dependencies": {
-    "expo-linear-gradient": "^55.0.14"
+    "expo-linear-gradient": "^55.0.14",
+    "react-native-web": "^0.21.0"
   }
 }

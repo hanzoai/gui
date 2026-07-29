@@ -1,5 +1,5 @@
 import type { SizeTokens } from '@hanzogui/core';
-export declare const CheckboxStyledContext: import("@hanzogui/core").StyledContext<{
+export declare const CheckboxStyledContext: import("@hanzogui/web").StyledContext<{
     size: SizeTokens;
     scaleIcon: number;
     unstyled?: boolean;

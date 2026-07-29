@@ -30,13 +30,13 @@ export declare function useCheckbox<R extends View, P extends CheckboxProps>(pro
         'aria-labelledby': string | undefined;
         'aria-checked': string | boolean;
     } & Omit<P, "disabled" | "labelledBy" | "name" | "required" | "value" | "onCheckedChange"> & {
-        onPress: import("@hanzogui/web").EventHandler<import("react-native").GestureResponderEvent> | undefined;
+        onPress: import("@hanzogui/helpers").EventHandler<import("react-native").GestureResponderEvent> | undefined;
         type?: string | undefined;
         value?: string | undefined;
         'data-state'?: string | undefined;
         'data-disabled'?: string | undefined;
         disabled?: boolean | undefined;
-        onKeyDown?: import("@hanzogui/web").EventHandler<React.KeyboardEvent<HTMLButtonElement>> | undefined;
+        onKeyDown?: import("@hanzogui/helpers").EventHandler<React.KeyboardEvent<HTMLButtonElement>> | undefined;
     };
 };
 export {};

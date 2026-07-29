@@ -7,15 +7,15 @@ import type { ScopedProps, ToastProviderProps } from './ToastProvider';
 import { ToastProvider } from './ToastProvider';
 import type { ToastViewportProps } from './ToastViewport';
 import { ToastViewport } from './ToastViewport';
-declare const ToastTitle: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const ToastTitle: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-    size?: import("@hanzogui/core").FontSizeTokens | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+    size?: import("@hanzogui/web").FontSizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type ToastTitleProps = GetProps<typeof ToastTitle>;
-declare const ToastDescription: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+declare const ToastDescription: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
-    size?: import("@hanzogui/core").FontSizeTokens | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+    size?: import("@hanzogui/web").FontSizeTokens | undefined;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type ToastDescriptionProps = GetProps<typeof ToastDescription>;
 type ToastActionProps = ScopedProps<ToastCloseProps & {
     /**
@@ -26,54 +26,54 @@ type ToastActionProps = ScopedProps<ToastCloseProps & {
      */
     altText: string;
 }>;
-declare const ToastCloseFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+declare const ToastCloseFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type ToastCloseFrameProps = GetProps<typeof ToastCloseFrame>;
 type ToastCloseProps = ScopedProps<ToastCloseFrameProps & {}>;
-declare const Toast: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const Toast: React.ForwardRefExoticComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof ToastExtraProps> & ToastExtraProps & React.RefAttributes<GuiElement>> & import("@hanzogui/core").StaticComponentObject<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof ToastExtraProps> & ToastExtraProps & React.RefAttributes<GuiElement>> & import("@hanzogui/web").StaticComponentObject<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}>, keyof ToastExtraProps> & ToastExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
+}>, keyof ToastExtraProps> & ToastExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/web").StackStyleBase, {
     unstyled?: boolean | undefined;
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic> & Omit<import("@hanzogui/core").StaticConfigPublic, "staticConfig" | "styleable"> & {
-    __tama: [Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+}, import("@hanzogui/web").StaticConfigPublic> & Omit<import("@hanzogui/web").StaticConfigPublic, "staticConfig" | "styleable"> & {
+    __tama: [Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }>, keyof ToastExtraProps> & ToastExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/core").StackStyleBase, {
+    }>, keyof ToastExtraProps> & ToastExtraProps, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & ToastExtraProps, import("@hanzogui/web").StackStyleBase, {
         unstyled?: boolean | undefined;
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic];
+    }, import("@hanzogui/web").StaticConfigPublic];
 } & {
-    Title: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+    Title: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
-    Description: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiTextElement, import("@hanzogui/core").TextNonStyleProps, import("@hanzogui/core").TextStylePropsBase, {
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    }, import("@hanzogui/web").StaticConfigPublic>;
+    Description: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
         unstyled?: boolean | undefined;
-        size?: import("@hanzogui/core").FontSizeTokens | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
+        size?: import("@hanzogui/web").FontSizeTokens | undefined;
+    }, import("@hanzogui/web").StaticConfigPublic>;
     Action: React.ForwardRefExoticComponent<Omit<ToastActionProps, "scope"> & {
         scope?: import("./ToastProvider").ToastScopes;
     } & React.RefAttributes<GuiElement>>;
-    Close: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    Close: React.ForwardRefExoticComponent<Omit<Omit<import("@hanzogui/core").RNViewNonStyleProps, "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    } & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {
-        elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
+    } & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {
+        elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }>>, "scope"> & {
         scope?: import("./ToastProvider").ToastScopes;

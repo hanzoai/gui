@@ -10,26 +10,26 @@ type AvatarImageProps = Partial<ImageProps> & {
 declare const AvatarImage: React.ForwardRefExoticComponent<Partial<ImageProps> & {
     onLoadingStatusChange?: (status: ImageLoadingStatus) => void;
 } & React.RefAttributes<GuiElement>>;
-export declare const AvatarFallbackFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+export declare const AvatarFallbackFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
+}, import("@hanzogui/web").StaticConfigPublic>;
 type AvatarFallbackExtraProps = {
     delayMs?: number;
 };
 type AvatarFallbackProps = GetProps<typeof AvatarFallbackFrame> & AvatarFallbackExtraProps;
-declare const AvatarFallback: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+declare const AvatarFallback: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
 }>, "delayMs" | "__scopeAvatar"> & AvatarFallbackExtraProps & {
     __scopeAvatar?: Scope;
 }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & AvatarFallbackExtraProps & {
     __scopeAvatar?: Scope;
-}, import("@hanzogui/core").StackStyleBase, {
+}, import("@hanzogui/web").StackStyleBase, {
     elevation?: number | SizeTokens | undefined;
     fullscreen?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
-export declare const AvatarFrame: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+}, import("@hanzogui/web").StaticConfigPublic>;
+export declare const AvatarFrame: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
     elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     size?: number | import("@hanzogui/web").SizeTokens | undefined;
     transparent?: boolean | undefined;
@@ -38,7 +38,7 @@ export declare const AvatarFrame: import("@hanzogui/core").GuiComponent<import("
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-}, import("@hanzogui/core").StaticConfigPublic & {
+}, import("@hanzogui/web").StaticConfigPublic & {
     memo: true;
 }>;
 type AvatarProps = GetProps<typeof AvatarFrame>;
@@ -57,7 +57,7 @@ type AvatarProps = GetProps<typeof AvatarFrame>;
  * </Avatar>
  * ```
  */
-declare const Avatar: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "size" | "elevation" | keyof import("@hanzogui/core").StackStyleBase | "fullscreen" | "transparent" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+declare const Avatar: React.ForwardRefExoticComponent<Omit<import("@hanzogui/core").RNViewNonStyleProps, "size" | "elevation" | keyof import("@hanzogui/web").StackStyleBase | "fullscreen" | "transparent" | "circular" | "elevate" | "bordered" | "chromeless"> & import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
     elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     size?: number | import("@hanzogui/web").SizeTokens | undefined;
     transparent?: boolean | undefined;
@@ -66,7 +66,7 @@ declare const Avatar: React.ForwardRefExoticComponent<Omit<import("@hanzogui/cor
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-} & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>> & import("@hanzogui/core").WithPseudoProps<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase> & {
+} & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>> & import("@hanzogui/web").WithPseudoProps<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase> & {
     elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     size?: number | import("@hanzogui/web").SizeTokens | undefined;
     transparent?: boolean | undefined;
@@ -75,7 +75,7 @@ declare const Avatar: React.ForwardRefExoticComponent<Omit<import("@hanzogui/cor
     elevate?: boolean | undefined;
     bordered?: boolean | undefined;
     chromeless?: boolean | "all" | undefined;
-} & import("@hanzogui/core").WithShorthands<import("@hanzogui/core").WithThemeValues<import("@hanzogui/core").StackStyleBase>>> & import("@hanzogui/core").WithMediaProps<import("@hanzogui/core").WithThemeShorthandsAndPseudos<import("@hanzogui/core").StackStyleBase, {
+} & import("@hanzogui/web").WithShorthands<import("@hanzogui/web").WithThemeValues<import("@hanzogui/web").StackStyleBase>>> & import("@hanzogui/web").WithMediaProps<import("@hanzogui/web").WithThemeShorthandsAndPseudos<import("@hanzogui/web").StackStyleBase, {
     elevation?: number | import("@hanzogui/web").SizeTokens | undefined;
     size?: number | import("@hanzogui/web").SizeTokens | undefined;
     transparent?: boolean | undefined;
@@ -88,17 +88,17 @@ declare const Avatar: React.ForwardRefExoticComponent<Omit<import("@hanzogui/cor
     Image: React.ForwardRefExoticComponent<Partial<ImageProps> & {
         onLoadingStatusChange?: (status: ImageLoadingStatus) => void;
     } & React.RefAttributes<GuiElement>>;
-    Fallback: import("@hanzogui/core").GuiComponent<Omit<import("@hanzogui/core").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
+    Fallback: import("@hanzogui/web").GuiComponent<Omit<import("@hanzogui/web").GetFinalProps<import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
     }>, "delayMs" | "__scopeAvatar"> & AvatarFallbackExtraProps & {
         __scopeAvatar?: Scope;
     }, GuiElement, import("@hanzogui/core").RNViewNonStyleProps & AvatarFallbackExtraProps & {
         __scopeAvatar?: Scope;
-    }, import("@hanzogui/core").StackStyleBase, {
+    }, import("@hanzogui/web").StackStyleBase, {
         elevation?: number | SizeTokens | undefined;
         fullscreen?: boolean | undefined;
-    }, import("@hanzogui/core").StaticConfigPublic>;
+    }, import("@hanzogui/web").StaticConfigPublic>;
 };
 export { createAvatarScope, Avatar, AvatarImage, AvatarFallback };
 export type { AvatarProps, AvatarImageProps, AvatarFallbackProps };

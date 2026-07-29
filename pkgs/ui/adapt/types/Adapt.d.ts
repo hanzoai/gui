@@ -23,7 +23,7 @@ export type AdaptProps = {
     children: React.JSX.Element | ((children: React.ReactNode) => React.ReactNode);
 };
 type Component = (props: any) => any;
-export declare const AdaptContext: import("@hanzogui/core").StyledContext<AdaptParentContextI>;
+export declare const AdaptContext: import("@hanzogui/web").StyledContext<AdaptParentContextI>;
 export declare const ProvideAdaptContext: ({ children, ...context }: AdaptParentContextI & {
     children: any;
 }) => React.JSX.Element;

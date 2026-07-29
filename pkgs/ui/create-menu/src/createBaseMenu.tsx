@@ -31,7 +31,7 @@ import {
   View,
   withStaticProperties,
 } from '@hanzogui/web'
-import type { GuiElement } from '@hanzogui/web/types'
+import type { GuiElement } from '@hanzogui/web'
 import * as React from 'react'
 import { useId } from 'react'
 import type { Image, ImageProps } from 'react-native'

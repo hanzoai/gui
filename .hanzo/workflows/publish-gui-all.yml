@@ -103,7 +103,7 @@ jobs:
         # Targeted publish of just the @hanzogui/* closure + hanzogui +
         # @hanzo/gui, at the current on-disk version. Avoids release.ts's
         # whole-workspace fan-out (which fails packing unrelated
-        # @hanzo_network/* packages) and its fragile tarball-rename step.
+        # unrelated workspace packages) and its fragile tarball-rename step.
         # Idempotent — skips any name@version already on npm.
         env:
           NPM_TOKEN: ${{ steps.token.outputs.npm_token }}

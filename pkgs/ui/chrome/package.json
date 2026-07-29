@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/chrome",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "Unified public-site chrome — HanzoNav, HanzoFooter, ChatHero, HanzoWidget. The one openai-style header/footer + AI-composer hero shared across Hanzo marketing surfaces. Tamagui styled() + monochrome zinc-on-black tokens (Geist), presentational and host-agnostic (data + effects injected via props).",
   "source": "src/index.ts",
   "files": [

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sheet",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "license": "BSD-3-Clause",
   "source": "src/index.ts",
   "type": "module",
@@ -73,7 +73,8 @@
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-did-finish-ssr": "workspace:*",
     "@hanzogui/use-keyboard-visible": "workspace:*",
-    "@hanzogui/z-index-stack": "workspace:*"
+    "@hanzogui/z-index-stack": "workspace:*",
+    "react-native-web": "^0.21.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -88,6 +89,9 @@
   },
   "peerDependenciesMeta": {
     "react-native-gesture-handler": {
+      "optional": true
+    },
+    "react-native": {
       "optional": true
     }
   },

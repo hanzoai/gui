@@ -1,6 +1,6 @@
 {
   "name": "hanzogui",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
@@ -77,6 +77,7 @@
     "@hanzogui/card": "workspace:*",
     "@hanzogui/checkbox": "workspace:*",
     "@hanzogui/collapsible": "workspace:*",
+    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/compose-refs": "workspace:*",
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/context-menu": "workspace:*",
@@ -88,12 +89,12 @@
     "@hanzogui/elements": "workspace:*",
     "@hanzogui/fake-react-native": "workspace:*",
     "@hanzogui/focusable": "workspace:*",
+    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/form": "workspace:*",
     "@hanzogui/get-button-sized": "workspace:*",
     "@hanzogui/get-font-sized": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/group": "workspace:*",
-    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/image": "workspace:*",
     "@hanzogui/input": "workspace:*",
     "@hanzogui/label": "workspace:*",
@@ -128,14 +129,13 @@
     "@hanzogui/use-force-update": "workspace:*",
     "@hanzogui/use-window-dimensions": "workspace:*",
     "@hanzogui/visually-hidden": "workspace:*",
-    "@hanzogui/font-size": "workspace:*",
-    "@hanzogui/z-index-stack": "workspace:*"
+    "@hanzogui/z-index-stack": "workspace:*",
+    "react-native-web": "^0.21.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react": ">=19",
-    "react-native": "0.83.2",
-    "react-native-web": "^0.21.0"
+    "react-native": "0.83.2"
   },
   "peerDependencies": {
     "react": ">=19",
@@ -156,5 +156,10 @@
     "README.md"
   ],
   "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "author": "Hanzo AI <dev@hanzo.ai>",
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
+  }
 }

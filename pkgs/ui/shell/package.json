@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/shell",
-  "version": "7.6.4",
+  "version": "7.6.5",
   "description": "Unified Hanzo shell — HanzoHeader (flat + rich Products mega-menu), HanzoAppHeader, MeetHanzoMenu, ProductsMegaMenu, HanzoFooter, HanzoPreFooterCTA, AskHanzo, HanzoAppBar/Launcher + the canonical surface registry",
   "source": "src/index.ts",
   "files": [
@@ -8,6 +8,7 @@
     "src"
   ],
   "type": "module",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,6 +18,16 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./registry": {
+      "types": "./dist/hanzo-registry.d.ts",
+      "import": "./dist/hanzo-registry.js",
+      "default": "./dist/hanzo-registry.js"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.js",
+      "default": "./dist/theme.js"
     }
   },
   "scripts": {

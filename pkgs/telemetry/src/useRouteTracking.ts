@@ -14,19 +14,24 @@
 import { useEffect, useRef } from 'react'
 import type { Telemetry } from './types.js'
 
-const location = (): string => {
+/** Where we are, as `{key, path}` — `key` is the full location (so a query-only
+ *  change still counts as a view) and `path` is what gets reported.
+ *
+ *  `url` is the third argument the app just handed `pushState`/`replaceState`.
+ *  Preferring it over reading `window.location` back is not a workaround: it is
+ *  the navigation the app actually requested, resolved against the current
+ *  document. Reading `location` instead assumes the host reflects a pushState
+ *  into `location` synchronously — every real browser does, but that makes the
+ *  behavior untestable in a DOM shim, and an assumption nothing verifies is one
+ *  that silently rots. With no `url` argument (popstate, hashchange, the initial
+ *  load) `location` is the only source, and it is read exactly as before. */
+const where = (url?: string | URL | null): { key: string; path: string | undefined } => {
   try {
-    return window.location.pathname + window.location.search + window.location.hash
+    const loc = window.location
+    const u = url == null || url === '' ? loc : new URL(String(url), loc.href)
+    return { key: u.pathname + u.search + u.hash, path: u.pathname }
   } catch {
-    return ''
-  }
-}
-
-const pathname = (): string | undefined => {
-  try {
-    return window.location.pathname
-  } catch {
-    return undefined
+    return { key: '', path: undefined }
   }
 }
 
@@ -43,7 +48,7 @@ export function useRouteTracking(
   // Controlled: the app's router is the clock.
   useEffect(() => {
     if (!active || !controlled || typeof window === 'undefined') return
-    const next = path ?? pathname() ?? ''
+    const next = path ?? where().path ?? ''
     if (last.current === next) return
     last.current = next
     telemetry.pageview(next)
@@ -53,11 +58,11 @@ export function useRouteTracking(
   useEffect(() => {
     if (!active || controlled || typeof window === 'undefined') return
 
-    const fire = (): void => {
-      const key = location()
+    const fire = (url?: string | URL | null): void => {
+      const { key, path: next } = where(url)
       if (last.current === key) return
       last.current = key
-      telemetry.pageview(pathname())
+      telemetry.pageview(next)
     }
 
     fire() // the initial load counts
@@ -67,22 +72,23 @@ export function useRouteTracking(
     const replace = history.replaceState
     history.pushState = function (this: History, ...args: Parameters<History['pushState']>) {
       const result = push.apply(this, args)
-      fire()
+      fire(args[2])
       return result
     }
     history.replaceState = function (this: History, ...args: Parameters<History['replaceState']>) {
       const result = replace.apply(this, args)
-      fire()
+      fire(args[2])
       return result
     }
-    window.addEventListener('popstate', fire)
-    window.addEventListener('hashchange', fire)
+    const onPop = (): void => fire()
+    window.addEventListener('popstate', onPop)
+    window.addEventListener('hashchange', onPop)
 
     return () => {
       history.pushState = push
       history.replaceState = replace
-      window.removeEventListener('popstate', fire)
-      window.removeEventListener('hashchange', fire)
+      window.removeEventListener('popstate', onPop)
+      window.removeEventListener('hashchange', onPop)
     }
   }, [telemetry, active, controlled])
 }

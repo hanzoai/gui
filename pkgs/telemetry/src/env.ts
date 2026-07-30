@@ -73,8 +73,12 @@ function processEnv(): RawEnv {
 
 function metaEnv(): RawEnv {
   try {
-    const m = import.meta as unknown as { env?: Record<string, string | undefined> }
-    const e = m?.env
+    // MEMBER form, deliberately. Aliasing a bare `import.meta` first
+    // (`const m = import.meta`) is a parse-time SyntaxError in a CommonJS
+    // consumer: every babel plugin that rewrites `import.meta` for a CJS target
+    // matches only the member expression, so a bare one survives the transform
+    // and takes the whole module down. Jest is the one that finds this.
+    const e = (import.meta as unknown as { env?: Record<string, string | undefined> })?.env
     if (!e) return {}
     return {
       apiUrl: first(e.VITE_HANZO_API_URL, e.EXPO_PUBLIC_HANZO_API_URL, e.PUBLIC_HANZO_API_URL),

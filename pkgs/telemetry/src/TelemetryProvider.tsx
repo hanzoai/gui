@@ -194,11 +194,21 @@ export class TelemetryBoundary extends Component<BoundaryProps, BoundaryState> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    if (!this.props.enabled) return
-    this.props.telemetry.captureError(error, {
-      handled: false,
-      properties: { componentStack: info.componentStack, react: true },
-    })
+    if (this.props.enabled) {
+      this.props.telemetry.captureError(error, {
+        handled: false,
+        properties: { componentStack: info.componentStack, react: true },
+      })
+    }
+    // Re-throw HERE, not from render(), when the app supplied no fallback.
+    //
+    // React's order is: getDerivedStateFromError → re-render → commit →
+    // componentDidCatch. Throwing from render() aborts that sequence before the
+    // commit, so componentDidCatch never runs and the error is never reported —
+    // silently, and only for the apps that (correctly) let their own boundary
+    // own the UI. Throwing from componentDidCatch propagates to the next
+    // boundary up exactly the same way, but AFTER the error has been observed.
+    if (this.props.fallback === undefined) throw error
   }
 
   private reset = (): void => this.setState({ error: null })
@@ -207,7 +217,9 @@ export class TelemetryBoundary extends Component<BoundaryProps, BoundaryState> {
     const { error } = this.state
     if (!error) return this.props.children
     const { fallback } = this.props
-    if (fallback === undefined) throw error
+    // Nothing, for the one commit it takes componentDidCatch to re-throw; the
+    // app's own boundary decides what the user actually sees.
+    if (fallback === undefined) return null
     return typeof fallback === 'function' ? fallback(error, this.reset) : fallback
   }
 }

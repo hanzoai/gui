@@ -5,7 +5,7 @@
 // error is reported, and the ambient `track()` shares the provider's stream.
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { act } from 'react'
+import { Component, act, type ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { TelemetryProvider } from './TelemetryProvider.js'
 import { getTelemetry, setTelemetry, track } from './telemetry.js'
@@ -134,6 +134,52 @@ describe('<TelemetryProvider/> with no props', () => {
       | { error: Record<string, unknown>; properties: Record<string, unknown> }
       | undefined
     expect(err?.error).toMatchObject({ message: 'render exploded', handled: false })
+    expect(err?.properties).toMatchObject({ react: true })
+  })
+
+  // The regression that mattered: with no `fallback` the provider must still
+  // REPORT before it gets out of the way. Re-throwing from render() aborted the
+  // commit, so componentDidCatch never ran and the error vanished — silently,
+  // and only for apps that correctly let their own boundary own the UI.
+  it('reports a render error even with NO fallback, then re-throws', () => {
+    const Boom = (): never => {
+      throw new Error('no fallback exploded')
+    }
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    let escaped: unknown
+    class Outer extends Component<{ children: ReactNode }, { failed: boolean }> {
+      state = { failed: false }
+      static getDerivedStateFromError() {
+        return { failed: true }
+      }
+      componentDidCatch(e: Error) {
+        escaped = e
+      }
+      render() {
+        return this.state.failed ? 'outer caught' : this.props.children
+      }
+    }
+
+    act(() => {
+      root.render(
+        <Outer>
+          <TelemetryProvider replay={false}>
+            <Boom />
+          </TelemetryProvider>
+        </Outer>,
+      )
+    })
+
+    // Observing must not change behavior: the app's own boundary still decides.
+    expect(container.textContent).toBe('outer caught')
+    expect((escaped as Error)?.message).toBe('no fallback exploded')
+
+    act(() => getTelemetry().flush())
+    const err = events().find((e) => e.type === 'error') as
+      | { error: Record<string, unknown>; properties: Record<string, unknown> }
+      | undefined
+    expect(err?.error).toMatchObject({ message: 'no fallback exploded', handled: false })
     expect(err?.properties).toMatchObject({ react: true })
   })
 

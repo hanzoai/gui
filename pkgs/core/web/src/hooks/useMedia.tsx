@@ -39,8 +39,20 @@ export const getMediaKey = (key: string): IsMediaType => {
   return false
 }
 
-// for SSR capture it at time of startup
-let initState: MediaQueryState
+// for SSR capture it at time of startup.
+//
+// Seeded, not just declared: useMedia() hands the server snapshot straight to
+// `new Proxy(state, …)`, and `new Proxy(undefined, …)` throws "Cannot create proxy
+// with a non-object as target or handler" — which fails the whole prerender, not
+// just the component. Only configureMedia() (i.e. createGui) assigns this, so any
+// component rendering before the config is evaluated in that pass hits it; an
+// auto-generated route like Next's /_not-found needs nothing but the root layout,
+// so it fails first and most confusingly.
+//
+// An empty state is the correct answer on a server with no viewport (no query
+// matches), and the reference is stable, which useSyncExternalStore requires — a
+// fresh object per call would re-render forever.
+let initState: MediaQueryState = Object.freeze({}) as MediaQueryState
 
 let mediaKeysOrdered: string[]
 

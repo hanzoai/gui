@@ -1,5 +1,4 @@
 import { isWeb } from '@hanzogui/constants'
-import { createGui as __lazyCreateGui } from './createGui'
 import { MISSING_THEME_MESSAGE } from './constants/constants'
 import type {
   AnimationDriver,
@@ -56,17 +55,6 @@ Gui: Using global config fallback. This may indicate duplicate gui instances (e.
       }, 500)
     }
     return globalThis.__guiConfig
-  }
-
-  // Server-side, nothing configured anywhere: a prerender worker reached a gui
-  // component before any config module evaluated (chunk-graph dependent). Build
-  // a minimal config so the render degrades instead of throwing; the client
-  // hydrates with the real config.
-  if (typeof document === 'undefined') {
-    try {
-      __lazyCreateGui({ themes: { light: {}, dark: {} } } as any)
-    } catch {}
-    if (conf) return conf
   }
 
   return null

@@ -66,7 +66,7 @@ export const useThemeState = (
   const { disable } = props
   const parentId = useContext(ThemeStateContext)
 
-  if (!parentId && !isRoot) {
+  if (!parentId && !isRoot && typeof document !== 'undefined') {
     throw new Error(
       process.env.NODE_ENV === 'development'
         ? `${MISSING_THEME_MESSAGE}
@@ -285,7 +285,14 @@ const getNextState = (
   }
 
   if (!name) {
-    const next = lastState ?? parentState
+    const next =
+      lastState ??
+      parentState ??
+      // server prerender with no resolvable theme: degrade to a stub instead of
+      // crashing the worker; the client hydrates with the real theme state
+      (typeof document === 'undefined'
+        ? ({ name: 'light', theme: {}, isNew: false } as any as ThemeState)
+        : undefined)
 
     if (!next) {
       throw new Error(

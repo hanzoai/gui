@@ -237,7 +237,13 @@ export function useMedia(
   })
 }
 
-const getServerSnapshot = () => initState
+// initState is undefined until configureMedia() runs. During prerender, module
+// evaluation order is a property of the bundler's chunk graph, and a render can
+// reach useMedia before any config module evaluates — new Proxy(undefined) then
+// throws and kills the whole page. Degrade to the (empty) live media state: every
+// query reads false on the server, hydration corrects. Wrong-but-renderable beats
+// a build that fails on whichever pages the chunk graph shuffled this time.
+const getServerSnapshot = () => initState ?? getMedia()
 
 let disableMediaTouch = false
 export function _disableMediaTouch(val: boolean) {

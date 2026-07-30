@@ -7,8 +7,8 @@ export const FONT_DATA_ATTRIBUTE_NAME = 'data-gui-font'
 export const MISSING_THEME_MESSAGE =
   process.env.NODE_ENV === 'development'
     ? `Can't find Gui configuration.
-    
-Most of the time this is due to having mis-matched versions of Gui dependencies, or bundlers somehow duplicating them.
+
+Most of the time this is due to having mis-matched versions of Gui dependencies, bundlers somehow duplicating them, or a gui component rendered outside <GuiProvider> (check your root layout — every gui component needs a <GuiProvider> ancestor).
 First step is to ensure every "hanzogui" and "@hanzogui/*" dependency is on the same version, we have a CLI tool to help: 
 
   npx @hanzogui/cli check

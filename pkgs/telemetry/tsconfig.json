@@ -13,6 +13,10 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
+    // Explicit since TS6+: tsc no longer infers the common source directory and
+    // fails the build with TS5011, which surfaces only at publish (the prepare
+    // script runs tsc) rather than during `bun run build`.
+    "rootDir": "./src",
     "types": ["react"]
   },
   "include": ["src/**/*"],

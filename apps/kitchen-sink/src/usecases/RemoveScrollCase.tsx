@@ -1,5 +1,5 @@
 import React from 'react'
-import { Select, H2, Paragraph, YStack } from 'hanzogui'
+import { Select, H2, Paragraph, YStack } from '@hanzo/gui'
 import { ChevronDown } from '@hanzogui/lucide-icons-2'
 
 const items = [

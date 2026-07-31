@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'one'
-import { Separator, SizableText, XStack, YStack } from 'hanzogui'
+import { Separator, SizableText, XStack, YStack } from '@hanzo/gui'
 import { useSession } from '~/src/session'
 import { fetchWallet, type Wallet } from '~/src/billing'
 

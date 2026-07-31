@@ -11,7 +11,7 @@ import {
   YStack,
   useDebounce,
   useEvent,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { Checkerboard } from '../components/Checkerboard'
 

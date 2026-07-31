@@ -7,7 +7,7 @@ Quick reference for common Gui components. For full API, see https://hanzogui.de
 ### Stacks
 
 ```tsx
-import { XStack, YStack, ZStack } from 'hanzogui'
+import { XStack, YStack, ZStack } from '@hanzo/gui'
 
 <YStack gap="$4">        {/* column layout */}
 <XStack gap="$2">        {/* row layout */}
@@ -21,7 +21,7 @@ Common props: `gap`, `padding`, `margin`, `alignItems`, `justifyContent`, `flex`
 Base components - all others extend these:
 
 ```tsx
-import { View, Text } from 'hanzogui'
+import { View, Text } from '@hanzo/gui'
 
 <View padding="$4" backgroundColor="$background" />
 <Text color="$color" fontSize="$4">Hello</Text>
@@ -32,7 +32,7 @@ import { View, Text } from 'hanzogui'
 ### Button
 
 ```tsx
-import { Button } from 'hanzogui'
+import { Button } from '@hanzo/gui'
 
 <Button>Default</Button>
 <Button size="$4">Sized</Button>
@@ -45,7 +45,7 @@ import { Button } from 'hanzogui'
 ### Input
 
 ```tsx
-import { Input } from 'hanzogui'
+import { Input } from '@hanzo/gui'
 
 <Input placeholder="Enter text" />
 <Input size="$4" />
@@ -56,7 +56,7 @@ import { Input } from 'hanzogui'
 ### TextArea
 
 ```tsx
-import { TextArea } from 'hanzogui'
+import { TextArea } from '@hanzo/gui'
 
 <TextArea placeholder="Long text..." numberOfLines={4} />
 ```
@@ -64,7 +64,7 @@ import { TextArea } from 'hanzogui'
 ### Checkbox
 
 ```tsx
-import { Checkbox } from 'hanzogui'
+import { Checkbox } from '@hanzo/gui'
 
 <Checkbox id="terms" checked={checked} onCheckedChange={setChecked}>
   <Checkbox.Indicator>
@@ -76,7 +76,7 @@ import { Checkbox } from 'hanzogui'
 ### Switch
 
 ```tsx
-import { Switch } from 'hanzogui'
+import { Switch } from '@hanzo/gui'
 
 <Switch checked={on} onCheckedChange={setOn}>
   <Switch.Thumb />
@@ -86,7 +86,7 @@ import { Switch } from 'hanzogui'
 ### RadioGroup
 
 ```tsx
-import { RadioGroup } from 'hanzogui'
+import { RadioGroup } from '@hanzo/gui'
 
 <RadioGroup value={value} onValueChange={setValue}>
   <RadioGroup.Item value="a" id="a">
@@ -101,7 +101,7 @@ import { RadioGroup } from 'hanzogui'
 ### Slider
 
 ```tsx
-import { Slider } from 'hanzogui'
+import { Slider } from '@hanzo/gui'
 
 <Slider value={[value]} onValueChange={([v]) => setValue(v)} max={100} step={1}>
   <Slider.Track>
@@ -116,7 +116,7 @@ import { Slider } from 'hanzogui'
 ### Dialog
 
 ```tsx
-import { Dialog } from 'hanzogui'
+import { Dialog } from '@hanzo/gui'
 
 <Dialog open={open} onOpenChange={setOpen}>
   <Dialog.Trigger asChild>
@@ -138,7 +138,7 @@ import { Dialog } from 'hanzogui'
 ### Sheet
 
 ```tsx
-import { Sheet } from 'hanzogui'
+import { Sheet } from '@hanzo/gui'
 
 <Sheet open={open} onOpenChange={setOpen} snapPoints={[80]} dismissOnSnapToBottom>
   <Sheet.Overlay />
@@ -152,7 +152,7 @@ import { Sheet } from 'hanzogui'
 ### Popover
 
 ```tsx
-import { Popover } from 'hanzogui'
+import { Popover } from '@hanzo/gui'
 
 <Popover>
   <Popover.Trigger asChild>
@@ -168,7 +168,7 @@ import { Popover } from 'hanzogui'
 ### Tooltip
 
 ```tsx
-import { Tooltip } from 'hanzogui'
+import { Tooltip } from '@hanzo/gui'
 
 <Tooltip>
   <Tooltip.Trigger>
@@ -186,7 +186,7 @@ import { Tooltip } from 'hanzogui'
 ### Tabs
 
 ```tsx
-import { Tabs } from 'hanzogui'
+import { Tabs } from '@hanzo/gui'
 
 <Tabs defaultValue="tab1">
   <Tabs.List>
@@ -201,7 +201,7 @@ import { Tabs } from 'hanzogui'
 ### Select
 
 ```tsx
-import { Select } from 'hanzogui'
+import { Select } from '@hanzo/gui'
 
 <Select value={value} onValueChange={setValue}>
   <Select.Trigger>
@@ -225,7 +225,7 @@ import { Select } from 'hanzogui'
 ### Card
 
 ```tsx
-import { Card } from 'hanzogui'
+import { Card } from '@hanzo/gui'
 
 <Card>
   <Card.Header>
@@ -243,7 +243,7 @@ import { Card } from 'hanzogui'
 ### Avatar
 
 ```tsx
-import { Avatar } from 'hanzogui'
+import { Avatar } from '@hanzo/gui'
 
 <Avatar circular size="$6">
   <Avatar.Image src="..." />
@@ -254,7 +254,7 @@ import { Avatar } from 'hanzogui'
 ### Separator
 
 ```tsx
-import { Separator } from 'hanzogui'
+import { Separator } from '@hanzo/gui'
 
 <Separator />                    {/* horizontal */}
 <Separator vertical />           {/* vertical */}
@@ -263,7 +263,7 @@ import { Separator } from 'hanzogui'
 ### Spinner
 
 ```tsx
-import { Spinner } from 'hanzogui'
+import { Spinner } from '@hanzo/gui'
 
 <Spinner />
 <Spinner size="large" color="$blue10" />
@@ -272,7 +272,7 @@ import { Spinner } from 'hanzogui'
 ### Progress
 
 ```tsx
-import { Progress } from 'hanzogui'
+import { Progress } from '@hanzo/gui'
 
 <Progress value={60}>
   <Progress.Indicator animation="bouncy" />
@@ -282,7 +282,7 @@ import { Progress } from 'hanzogui'
 ## Typography
 
 ```tsx
-import { H1, H2, H3, H4, H5, H6, Paragraph, Text } from 'hanzogui'
+import { H1, H2, H3, H4, H5, H6, Paragraph, Text } from '@hanzo/gui'
 
 <H1>Heading 1</H1>
 <Paragraph>Body text paragraph</Paragraph>
@@ -294,7 +294,7 @@ import { H1, H2, H3, H4, H5, H6, Paragraph, Text } from 'hanzogui'
 ### Label
 
 ```tsx
-import { Label } from 'hanzogui'
+import { Label } from '@hanzo/gui'
 
 <Label htmlFor="input-id">Label Text</Label>
 <Input id="input-id" />
@@ -303,7 +303,7 @@ import { Label } from 'hanzogui'
 ### Spacer
 
 ```tsx
-import { Spacer } from 'hanzogui'
+import { Spacer } from '@hanzo/gui'
 
 <XStack>
   <Text>Left</Text>
@@ -317,7 +317,7 @@ import { Spacer } from 'hanzogui'
 ### ScrollView
 
 ```tsx
-import { ScrollView } from 'hanzogui'
+import { ScrollView } from '@hanzo/gui'
 
 <ScrollView>
   {/* scrollable content */}
@@ -327,7 +327,7 @@ import { ScrollView } from 'hanzogui'
 ### Image
 
 ```tsx
-import { Image } from 'hanzogui'
+import { Image } from '@hanzo/gui'
 
 <Image source={{ uri: '...' }} width={200} height={200} />
 ```
@@ -337,7 +337,7 @@ import { Image } from 'hanzogui'
 Make components responsive to platform/screen size:
 
 ```tsx
-import { Adapt, Dialog, Sheet } from 'hanzogui'
+import { Adapt, Dialog, Sheet } from '@hanzo/gui'
 
 <Dialog>
   {/* On small touch screens, render as Sheet instead */}

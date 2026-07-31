@@ -1,5 +1,5 @@
 import { Text, useTheme } from '@hanzogui/core'
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 export function UseTheme() {
   const x = useTheme()

@@ -6,7 +6,7 @@ import {
   useToastState,
   type ToastProps,
 } from '@hanzogui/toast'
-import { Theme, YStack } from 'hanzogui'
+import { Theme, YStack } from '@hanzo/gui'
 
 export let toastController: ReturnType<typeof useToastController>
 

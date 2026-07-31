@@ -1,7 +1,7 @@
 import { type Href, useRouter } from 'one'
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Paragraph } from 'hanzogui'
+import { Paragraph } from '@hanzo/gui'
 import DocSearchModal from './DocSearch'
 
 import { SearchContext } from './SearchContext'

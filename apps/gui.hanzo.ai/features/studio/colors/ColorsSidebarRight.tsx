@@ -11,7 +11,7 @@ import {
   Square,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { SidebarPanel, SidebarRight } from '../components/Sidebar'
 import { colorsStore } from '../state/ColorsStore'

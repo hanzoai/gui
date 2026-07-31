@@ -12,7 +12,7 @@ import {
 import type { Href } from 'one'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
-import type { ImageProps, XStackProps } from 'hanzogui'
+import type { ImageProps, XStackProps } from '@hanzo/gui'
 import {
   Adapt,
   Button,
@@ -35,7 +35,7 @@ import {
   XStack,
   YStack,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { Code, CodeInline } from '~/components/Code'
 import { CustomTabs } from '~/components/CustomTabs'
@@ -71,7 +71,7 @@ import { PropsTable } from '../docs/PropsTable'
 import { VersionSwitcher } from '../docs/VersionSwitcher'
 import * as Demos from '../docs/demos'
 import { ExampleAnimations } from '../site/home/HomeAnimations'
-import { TabsTabProps } from 'hanzogui'
+import { TabsTabProps } from '@hanzo/gui'
 import { Tab } from '~/components/RovingTabs'
 import { SimpleTable } from './SimpleTable'
 

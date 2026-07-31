@@ -8,7 +8,7 @@
  */
 
 import { useState } from 'react'
-import { Button, Text, YStack } from 'hanzogui'
+import { Button, Text, YStack } from '@hanzo/gui'
 
 function ActiveText({ isActive, label }: { isActive: boolean; label: string }) {
   return (

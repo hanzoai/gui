@@ -60,7 +60,7 @@ import {
   useMedia,
   useTheme,
   useThemeName,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { z } from 'zod'
 import { authFetch } from '~/features/api/authFetch'
 import { useSupabaseClient } from '~/features/auth/useSupabaseClient'

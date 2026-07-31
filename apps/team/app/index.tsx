@@ -1,5 +1,5 @@
 import { Link } from 'one'
-import { SizableText, XStack, YStack } from 'hanzogui'
+import { SizableText, XStack, YStack } from '@hanzo/gui'
 import { useSession } from '~/src/session'
 
 export default function Home() {

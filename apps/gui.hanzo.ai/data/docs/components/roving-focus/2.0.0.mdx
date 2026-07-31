@@ -37,7 +37,7 @@ npm install @hanzogui/roving-focus
 Wrap focusable items with RovingFocusGroup and use RovingFocusGroup.Item for each focusable element:
 
 ```tsx
-import { Button, RovingFocusGroup, XStack } from 'hanzogui'
+import { Button, RovingFocusGroup, XStack } from '@hanzo/gui'
 
 export default () => (
   <RovingFocusGroup orientation="horizontal" loop>
@@ -71,7 +71,7 @@ This improves keyboard navigation by:
 Set `orientation` to control which arrow keys navigate:
 
 ```tsx
-import { Button, RovingFocusGroup, YStack } from 'hanzogui'
+import { Button, RovingFocusGroup, YStack } from '@hanzo/gui'
 
 export default () => (
   // Up/Down arrows navigate, Left/Right are ignored
@@ -96,7 +96,7 @@ export default () => (
 Enable `loop` to wrap focus from the last item back to the first:
 
 ```tsx
-import { Button, RovingFocusGroup, XStack } from 'hanzogui'
+import { Button, RovingFocusGroup, XStack } from '@hanzo/gui'
 
 export default () => (
   <RovingFocusGroup loop>
@@ -121,7 +121,7 @@ export default () => (
 Control which item is the current tab stop:
 
 ```tsx
-import { Button, RovingFocusGroup, XStack } from 'hanzogui'
+import { Button, RovingFocusGroup, XStack } from '@hanzo/gui'
 import { useState } from 'react'
 
 export default () => {
@@ -153,7 +153,7 @@ export default () => {
 Mark items as non-focusable to skip them during keyboard navigation:
 
 ```tsx
-import { Button, RovingFocusGroup, XStack } from 'hanzogui'
+import { Button, RovingFocusGroup, XStack } from '@hanzo/gui'
 
 export default () => (
   <RovingFocusGroup>
@@ -177,7 +177,7 @@ export default () => (
 Handle focus when the group first receives focus:
 
 ```tsx
-import { Button, RovingFocusGroup, XStack } from 'hanzogui'
+import { Button, RovingFocusGroup, XStack } from '@hanzo/gui'
 
 export default () => (
   <RovingFocusGroup

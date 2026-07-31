@@ -59,7 +59,7 @@ boundaries.
 ### Regular Gui
 
 ```tsx
-import { View, Text, html, styled } from 'hanzogui'
+import { View, Text, html, styled } from '@hanzo/gui'
 
 const Card = styled(View, {
   p: '4',
@@ -123,7 +123,7 @@ animations, and normalized style output with core. It does not import the
 ### Standalone Gui DOM
 
 ```tsx
-import { html, style } from 'hanzogui/dom'
+import { html, style } from '@hanzo/gui/dom'
 // lower-level alias: @hanzogui/core/dom
 
 const root = style({
@@ -1360,7 +1360,7 @@ Existing `View` and `Text` code does not need to migrate.
 DOM adoption is explicit:
 
 ```tsx
-import { html } from 'hanzogui'
+import { html } from '@hanzo/gui'
 ```
 
 Libraries that publish `html.*` source either publish compiled output or

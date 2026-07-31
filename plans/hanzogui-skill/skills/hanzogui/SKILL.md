@@ -77,7 +77,7 @@ const Card = styled(View, {
 ### Stack Components
 
 ```tsx
-import { XStack, YStack, ZStack } from 'hanzogui'
+import { XStack, YStack, ZStack } from '@hanzo/gui'
 
 // XStack = flexDirection: 'row'
 // YStack = flexDirection: 'column'
@@ -96,7 +96,7 @@ import { XStack, YStack, ZStack } from 'hanzogui'
 Themes nest and combine hierarchically:
 
 ```tsx
-import { Theme } from 'hanzogui'
+import { Theme } from '@hanzo/gui'
 
 // base theme
 <Theme name="dark">
@@ -143,7 +143,7 @@ if (media.gtMd) {
 ### Animations
 
 ```tsx
-import { AnimatePresence } from 'hanzogui'
+import { AnimatePresence } from '@hanzo/gui'
 
 <AnimatePresence>
   {show && (
@@ -223,7 +223,7 @@ export const Card = withStaticProperties(CardFrame, {
 ### Dialog with Adapt (Sheet on Mobile)
 
 ```tsx
-import { Dialog, Sheet, Adapt, Button } from 'hanzogui'
+import { Dialog, Sheet, Adapt, Button } from '@hanzo/gui'
 
 <Dialog>
   <Dialog.Trigger asChild>
@@ -266,7 +266,7 @@ import { Dialog, Sheet, Adapt, Button } from 'hanzogui'
 ### Form with Input/Label
 
 ```tsx
-import { Input, Label, YStack, XStack, Button } from 'hanzogui'
+import { Input, Label, YStack, XStack, Button } from '@hanzo/gui'
 
 <YStack gap="$4" padding="$4">
   <YStack gap="$2">

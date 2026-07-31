@@ -1,5 +1,5 @@
 import React from 'react'
-import type { ViewProps, TabLayout, TabsTabProps } from 'hanzogui'
+import type { ViewProps, TabLayout, TabsTabProps } from '@hanzo/gui'
 import {
   AnimatePresence,
   Button,
@@ -9,7 +9,7 @@ import {
   XStack,
   YStack,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const demos = ['background', 'underline'] as const
 const demosTitle: Record<(typeof demos)[number], string> = {

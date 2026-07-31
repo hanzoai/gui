@@ -20,7 +20,7 @@ other nice things:
 
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createGui } from 'hanzogui' // or '@hanzogui/core'
+import { createGui } from '@hanzo/gui' // or '@hanzogui/core'
 
 const appConfig = createGui(defaultConfig)
 
@@ -174,7 +174,7 @@ Here's how to set up your `NextGuiProvider.tsx`:
 
 import { ReactNode } from 'react'
 import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import hanzoguiConfig from '../hanzogui.config'
 
 export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
@@ -311,7 +311,7 @@ this automatically work better with Gui's built-in `useThemeSetting`.
 
 ```tsx fileName="SwitchThemeButton.tsx"
 import { useState } from 'react'
-import { Button, useIsomorphicLayoutEffect } from 'hanzogui'
+import { Button, useIsomorphicLayoutEffect } from '@hanzo/gui'
 import { useThemeSetting, useRootTheme } from '@hanzogui/next-theme'
 
 export const SwitchThemeButton = () => {
@@ -363,7 +363,7 @@ module.exports = function (name, { defaultConfig }) {
   }
   const hanzoguiPlugin = withGui({
     config: './hanzogui.config.ts',
-    components: ['hanzogui'],
+    components: ['@hanzo/gui'],
   })
   return {
     ...config,
@@ -435,7 +435,7 @@ import { NextThemeProvider } from '@hanzogui/next-theme'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React, { useMemo } from 'react'
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import hanzoguiConfig from '../hanzogui.config'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -484,7 +484,7 @@ import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React, { useMemo } from 'react'
-import { GuiProvider, createGui } from 'hanzogui'
+import { GuiProvider, createGui } from '@hanzo/gui'
 
 // you usually export this from a hanzogui.config.ts file:
 import { defaultConfig } from '@hanzogui/config/v5'
@@ -550,7 +550,7 @@ configure `outputCSS` in your `hanzogui.build.ts`:
 import type { GuiBuildOptions } from '@hanzogui/core'
 
 export default {
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   config: './hanzogui.config.ts',
   outputCSS: './public/hanzogui.generated.css',
 } satisfies GuiBuildOptions
@@ -569,7 +569,7 @@ You can also have the plugin generate CSS during your Next.js build:
 ```tsx fileName="next.config.js"
 const hanzoguiPlugin = withGui({
   config: './hanzogui.config.ts',
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
   // faster dev mode, keeps debugging helpers:
   disableExtraction: process.env.NODE_ENV === 'development',
@@ -615,7 +615,7 @@ module.exports = function (name, { defaultConfig }) {
 
   const hanzoguiPlugin = withGui({
     config: './hanzogui.config.ts',
-    components: ['hanzogui'],
+    components: ['@hanzo/gui'],
     appDir: true,
   })
 
@@ -645,7 +645,7 @@ import { ReactNode } from 'react'
 import { StyleSheet } from 'react-native'
 import { useServerInsertedHTML } from 'next/navigation'
 import { NextThemeProvider } from '@hanzogui/next-theme'
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import hanzoguiConfig from '../hanzogui.config'
 
 export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
@@ -713,7 +713,7 @@ Now you're ready to start adding components to `app/page.tsx`:
 ```tsx fileName="page.tsx"
 'use client'
 
-import { Button } from 'hanzogui'
+import { Button } from '@hanzo/gui'
 
 export default function Home() {
   return <Button>Hello world!</Button>
@@ -740,7 +740,7 @@ import { ReactNode } from 'react'
 import { StyleSheet } from 'react-native'
 import { useServerInsertedHTML } from 'next/navigation'
 import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import hanzoguiConfig from '../hanzogui.config'
 
 export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
@@ -783,7 +783,7 @@ CLI or the Next.js plugin:
 ```tsx fileName="next.config.js"
 const hanzoguiPlugin = withGui({
   config: './hanzogui.config.ts',
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
   // faster dev mode, keeps debugging helpers:
   disableExtraction: process.env.NODE_ENV === 'development',

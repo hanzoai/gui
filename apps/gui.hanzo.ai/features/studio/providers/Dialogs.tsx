@@ -1,8 +1,8 @@
 import { X } from '@hanzogui/lucide-icons-2'
 import { memo } from 'react'
 import { useWindowDimensions } from 'react-native'
-import type { DialogCloseProps } from 'hanzogui'
-import { Button, Dialog, Fieldset, Input, Label, Unspaced, XStack, YStack } from 'hanzogui'
+import type { DialogCloseProps } from '@hanzo/gui'
+import { Button, Dialog, Fieldset, Input, Label, Unspaced, XStack, YStack } from '@hanzo/gui'
 import { rootStore } from '../state/RootStore'
 import type {
   ConfirmDeleteDialogProps,

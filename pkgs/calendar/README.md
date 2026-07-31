@@ -16,7 +16,7 @@ Render inside a `GuiProvider` (from `hanzogui`) so tokens and themes resolve.
 ## Usage
 
 ```tsx
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import { Booker } from '@hanzo/calendar'
 import config from './gui.config' // your createGui(...) config
 

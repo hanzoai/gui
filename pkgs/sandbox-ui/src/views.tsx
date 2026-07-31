@@ -1,4 +1,4 @@
-import { Text, styled } from 'hanzogui'
+import { Text, styled } from '@hanzo/gui'
 
 export const Tag = styled(Text, {
   className: 'hero-tag text-decoration-none',

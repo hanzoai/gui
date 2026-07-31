@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Square, YStack } from 'hanzogui'
+import { Button, Square, YStack } from '@hanzo/gui'
 
 /**
  * Repro for the reanimated avoidReRenders emitter latch bug.

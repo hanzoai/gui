@@ -1,5 +1,5 @@
 import { Link, Tabs } from 'expo-router'
-import { Button, useTheme } from 'hanzogui'
+import { Button, useTheme } from '@hanzo/gui'
 import { Atom, AudioWaveform } from '@hanzogui/lucide-icons-2'
 
 export default function TabLayout() {

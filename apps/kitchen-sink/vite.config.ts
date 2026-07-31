@@ -6,7 +6,7 @@ export default defineConfig({
   clearScreen: true,
   plugins: [
     // hanzoguiPlugin({
-    //   components: ['@hanzogui/sandbox-ui', 'hanzogui'],
+    //   components: ['@hanzogui/sandbox-ui', '@hanzo/gui'],
     //   config: 'src/hanzogui.config.ts',
     //   optimize: process.env.EXTRACT === '1',
     // }),

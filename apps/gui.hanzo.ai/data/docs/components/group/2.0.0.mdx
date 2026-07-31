@@ -39,7 +39,7 @@ Use `Group` with `Group.Item` wrapping each child. The `orientation` property de
 Group zeros out the border radius on connecting sides of children - the first child keeps its start radius, the last keeps its end radius, and middle items have no radius on connecting sides. For `YGroup`, this affects top/bottom radius. For `XGroup`, left/right radius.
 
 ```tsx
-import { Button, XGroup } from 'hanzogui'
+import { Button, XGroup } from '@hanzo/gui'
 
 export default () => (
   <XGroup>
@@ -62,7 +62,7 @@ In v2, children control their own sizing. Apply size props directly to the child
 
 ```tsx
 import { Activity, Airplay } from '@hanzogui/lucide-icons-2'
-import { Button, XGroup } from 'hanzogui'
+import { Button, XGroup } from '@hanzo/gui'
 
 export default () => (
   <XGroup>
@@ -83,7 +83,7 @@ export default () => (
 The `size` prop on Group itself only affects the border radius of the group container:
 
 ```tsx
-import { Button, XGroup } from 'hanzogui'
+import { Button, XGroup } from '@hanzo/gui'
 
 export default () => (
   <XGroup size="$6">
@@ -105,7 +105,7 @@ export default () => (
 Add separators manually between items:
 
 ```tsx
-import { ListItem, Separator, YGroup } from 'hanzogui'
+import { ListItem, Separator, YGroup } from '@hanzo/gui'
 
 export default () => (
   <YGroup>

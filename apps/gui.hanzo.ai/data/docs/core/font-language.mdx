@@ -36,7 +36,7 @@ On the web, FontLanguage uses CSS Variables to avoid re-renders even when changi
 In your `hanzogui.config.ts`, you can add a language variant for any font by adding a suffix with a custom name for that language. Here's a stripped down config showing how you can add the custom `_cn` suffix for a Chinese language font:
 
 ```tsx
-import { createFont, createGui, createTokens } from 'hanzogui'
+import { createFont, createGui, createTokens } from '@hanzo/gui'
 
 export default createGui({
   fonts: {
@@ -55,7 +55,7 @@ export default createGui({
 You'll then need to load the `Inter` and `Inter-CN` fonts for the platforms you support. Once you do, you'll get fully typed support for changing any `body` font to `cn` in a component:
 
 ```tsx
-import { FontLanguage, Text } from 'hanzogui' // or '@hanzogui/core'
+import { FontLanguage, Text } from '@hanzo/gui' // or '@hanzogui/core'
 
 export default (
   <FontLanguage body="cn">
@@ -69,7 +69,7 @@ The name you choose for the suffix is up to you, and Gui will treat any font wit
 To reset your font back to your base `body` font, you can use the reserved key `default`:
 
 ```tsx
-import { FontLanguage, Text } from 'hanzogui' // or '@hanzogui/core'
+import { FontLanguage, Text } from '@hanzo/gui' // or '@hanzogui/core'
 
 export default (
   <FontLanguage body="cn">

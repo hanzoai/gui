@@ -1,7 +1,7 @@
-import type { GuiBuildOptions } from 'hanzogui'
+import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   config: './hanzogui.config.ts',
   outputCSS: './hanzogui.generated.css',
 } satisfies GuiBuildOptions

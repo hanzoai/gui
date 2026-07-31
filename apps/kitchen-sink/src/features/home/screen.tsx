@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import type { UseLinkProps } from 'solito/link'
 import { useLink } from 'solito/link'
-import type { ListItemProps } from 'hanzogui'
-import { Button, ListItem, Paragraph, YGroup, YStack } from 'hanzogui'
+import type { ListItemProps } from '@hanzo/gui'
+import { Button, ListItem, Paragraph, YGroup, YStack } from '@hanzo/gui'
 import { useCases as TestCases } from '../../usecases'
 
 const testCaseNames = Object.keys(TestCases)

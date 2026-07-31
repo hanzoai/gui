@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Text, YStack } from 'hanzogui'
+import { Text, YStack } from '@hanzo/gui'
 
 const DEPTH = 64
 

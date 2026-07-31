@@ -13,7 +13,7 @@ import {
   Spacer,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Card } from '~/components/Card'
 import { ContainerLarge } from '~/components/Containers'
 import { FlatBubbleCard } from '~/components/FlatBubbleCard'

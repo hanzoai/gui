@@ -92,7 +92,7 @@ Every Gui `styled()` component looks for its own specific theme if you pass
 it the `name` property. For example:
 
 ```tsx
-import { View, styled } from 'hanzogui' // or '@hanzogui/core'
+import { View, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 const Circle = styled(View, {
   name: 'Circle',
@@ -218,7 +218,7 @@ If you are building a component with more than one sub-components, you can
 follow this pattern:
 
 ```tsx
-import { GetProps, View, Text, styled } from 'hanzogui' // or '@hanzogui/core'
+import { GetProps, View, Text, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 const ButtonFrame = styled(View, {
   name: 'Button',
@@ -254,7 +254,7 @@ Let's start with an example of inline styling with a subset of the
 configuration:
 
 ```tsx
-import { GuiProvider, createTokens, createGui, View, Theme } from 'hanzogui'
+import { GuiProvider, createTokens, createGui, View, Theme } from '@hanzo/gui'
 
 const tokens = createTokens({
   color: {

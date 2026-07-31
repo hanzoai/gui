@@ -37,7 +37,7 @@ npm install @hanzogui/slider
 Slider comes as multiple components that ship with default styles and are sizable. The `size` prop on `<Slider />` will automatically pass size down to all the sub-components.
 
 ```tsx
-import { Slider } from 'hanzogui'
+import { Slider } from '@hanzo/gui'
 
 export default () => (
   <Slider size="$4" width={200} defaultValue={[50]} max={100} step={1}>
@@ -52,7 +52,7 @@ export default () => (
 You can also optionally style any component, either using inline style props or by wrapping with `styled`:
 
 ```tsx
-import { Slider, styled } from 'hanzogui'
+import { Slider, styled } from '@hanzo/gui'
 
 const CustomSliderTrack = styled(Slider.Track, {
   backgroundColor: 'red',
@@ -73,7 +73,7 @@ export default () => (
 When using a vertical slider on iOS, you need to pass safe area insets to `GuiProvider` for proper pointer position calculation. Without this, the slider thumb may not track your finger correctly due to iOS safe area offsets.
 
 ```tsx
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { config } from './hanzogui.config'
 
@@ -91,7 +91,7 @@ function App() {
 Then you can use vertical sliders normally:
 
 ```tsx
-import { Slider, XStack } from 'hanzogui'
+import { Slider, XStack } from '@hanzo/gui'
 
 export default () => (
   <XStack height={200} alignItems="center" gap="$8">

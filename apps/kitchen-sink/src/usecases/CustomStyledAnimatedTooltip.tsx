@@ -5,7 +5,7 @@ import {
   Theme,
   styled,
   withStaticProperties,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const StyledTooltip = styled(GuiTooltip, {
   delay: 0,

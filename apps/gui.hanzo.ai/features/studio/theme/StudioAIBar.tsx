@@ -18,7 +18,7 @@ import {
   useThemeName,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { authFetch } from '../../api/authFetch'
 import { getAccessToken } from '../../auth/useSupabaseClient'
 import { defaultModel } from '../../api/generateModels'

@@ -17,7 +17,7 @@ import {
   XStack,
   YStack,
   Theme,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { ContainerBento } from '~/components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'
 import { BentoPageFrame } from '~/features/bento/BentoPageFrame'

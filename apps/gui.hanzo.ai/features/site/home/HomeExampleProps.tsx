@@ -1,4 +1,4 @@
-import { Card, Paragraph, SizableText, Text, XStack, YStack } from 'hanzogui'
+import { Card, Paragraph, SizableText, Text, XStack, YStack } from '@hanzo/gui'
 
 import { CheckCircle } from '~/components/CheckCircle'
 import { ContainerLarge } from '~/components/Containers'

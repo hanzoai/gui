@@ -1,4 +1,4 @@
-import { Avatar } from 'hanzogui'
+import { Avatar } from '@hanzo/gui'
 import { getDefaultAvatarImage } from '~/features/user/getDefaultAvatarImage'
 import { useUser } from '~/features/user/useUser'
 

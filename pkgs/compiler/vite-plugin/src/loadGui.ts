@@ -73,7 +73,7 @@ export async function ensureFullConfigLoaded(): Promise<void> {
     // load full hanzogui config in worker (asynchronous)
     if (!options.disableWatchGuiConfig && !options.disable) {
       await StaticWorker.loadGui({
-        components: ['hanzogui'],
+        components: ['@hanzo/gui'],
         platform: 'web',
         ...options,
       })

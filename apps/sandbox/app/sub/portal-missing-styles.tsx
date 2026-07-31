@@ -1,4 +1,4 @@
-import { Button, Dialog, H1, Paragraph, Sheet, YStack } from 'hanzogui'
+import { Button, Dialog, H1, Paragraph, Sheet, YStack } from '@hanzo/gui'
 
 export default function Test() {
   return (

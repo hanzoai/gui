@@ -8,7 +8,7 @@ module.exports = (api) => {
     plugins.push([
       '@hanzogui/babel-plugin',
       {
-        components: ['hanzogui', '@hanzogui/sandbox-ui'],
+        components: ['@hanzo/gui', '@hanzogui/sandbox-ui'],
         config: './src/hanzogui.config.ts',
       },
     ])

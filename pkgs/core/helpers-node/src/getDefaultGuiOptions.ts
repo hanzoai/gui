@@ -9,7 +9,7 @@ export async function getDefaultGuiOptions({
 }): Promise<GuiOptions> {
   return {
     platform: 'native',
-    components: ['hanzogui'],
+    components: ['@hanzo/gui'],
     config: await getDefaultGuiConfigPath({ cwd }),
   }
 }

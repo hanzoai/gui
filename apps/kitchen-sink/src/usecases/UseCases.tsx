@@ -13,7 +13,7 @@ import {
   getMedia,
   styled,
   useThemeName,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import config from '../hanzogui.config'
 

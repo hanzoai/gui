@@ -1,4 +1,4 @@
-import { Paragraph, Separator, XStack, YStack } from 'hanzogui'
+import { Paragraph, Separator, XStack, YStack } from '@hanzo/gui'
 
 export function SeparatorDemo() {
   return (

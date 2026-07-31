@@ -25,7 +25,7 @@ import {
   XStack,
   YStack,
   type PopoverProps,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { useBannerHeight } from '~/components/PromoBanner'
 import { GithubIcon } from '~/features/icons/GithubIcon'

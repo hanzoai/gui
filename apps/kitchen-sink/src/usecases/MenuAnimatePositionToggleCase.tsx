@@ -1,6 +1,6 @@
 import { Menu } from '@hanzogui/menu'
 import { useState } from 'react'
-import { Button, Text, XStack, YStack } from 'hanzogui'
+import { Button, Text, XStack, YStack } from '@hanzo/gui'
 
 // reproduces the bug where toggling animatePosition between renders on the
 // same long-lived Menu.Content trips React's "Should have a queue" invariant.

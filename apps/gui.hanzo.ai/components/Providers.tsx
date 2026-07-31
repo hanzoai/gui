@@ -1,6 +1,6 @@
 import { InitialPathContext, SeasonProvider } from '@hanzogui/logo'
 import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import tamaConf from '~/config/hanzogui.config'
 import { PostHogProvider } from '~/features/posthog/PostHogProvider'
 import { SearchProvider } from '~/features/site/search/SearchProvider'

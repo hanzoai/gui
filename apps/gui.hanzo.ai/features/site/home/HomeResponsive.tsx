@@ -13,7 +13,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import type { YStackProps } from 'hanzogui'
+import type { YStackProps } from '@hanzo/gui'
 import {
   Button,
   Circle,
@@ -30,7 +30,7 @@ import {
   useGet,
   useIsomorphicLayoutEffect,
   useMedia,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Container, ContainerLarge } from '~/components/Containers'
 import { useIsIntersecting } from '~/hooks/useOnIntersecting'
 import { useTransitionState } from '~/hooks/useTransitionState'

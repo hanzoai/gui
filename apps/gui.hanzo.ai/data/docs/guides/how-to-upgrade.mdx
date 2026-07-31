@@ -37,7 +37,7 @@ In monorepos, you may want to add resolutions to avoid duplicate copies of core 
 "resolutions": {
   "@hanzogui/core": "^2.0.0",
   "@hanzogui/web": "^2.0.0",
-  "hanzogui": "^2.0.0"
+  "@hanzo/gui": "^2.0.0"
 }
 ```
 
@@ -70,7 +70,7 @@ Animations are no longer bundled with the config. Choose your driver:
 ```tsx
 import { defaultConfig } from '@hanzogui/config/v5'
 import { animations } from '@hanzogui/config/v5-css'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,
@@ -231,10 +231,10 @@ For `tag="a"`, consider using the `Anchor` component instead.
 
 ```tsx
 // before
-import { Stack, type StackProps } from 'hanzogui'
+import { Stack, type StackProps } from '@hanzo/gui'
 
 // after
-import { View, type ViewProps } from 'hanzogui'
+import { View, type ViewProps } from '@hanzo/gui'
 ```
 
 ### `themeInverse` / `<Theme inverse>` to `theme="accent"`
@@ -511,10 +511,10 @@ export default {
 Create a `hanzogui.build.ts` at your project root:
 
 ```tsx
-import type { GuiBuildOptions } from 'hanzogui'
+import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   config: './src/hanzogui.config.ts',
   outputCSS: './src/hanzogui.generated.css',
 } satisfies GuiBuildOptions

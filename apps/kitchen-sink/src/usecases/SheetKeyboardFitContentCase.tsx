@@ -1,6 +1,6 @@
 import { useState, useSyncExternalStore } from 'react'
 import { Keyboard, type NativeScrollEvent, type NativeSyntheticEvent } from 'react-native'
-import { Button, Image, Input, Sheet, Text, XStack, YStack } from 'hanzogui'
+import { Button, Image, Input, Sheet, Text, XStack, YStack } from '@hanzo/gui'
 
 const MOCK_URLS = {
   tall: 'https://picsum.photos/400/600',

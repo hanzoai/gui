@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useLocalSearchParams } from 'one'
-import { SizableText, YStack } from 'hanzogui'
+import { SizableText, YStack } from '@hanzo/gui'
 import { Mark } from '~/components/Mark'
 import { completeWebCallback } from '~/src/auth'
 import { persistSession } from '~/src/session'

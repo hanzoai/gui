@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence } from '@hanzogui/animate-presence'
-import { Button, Paragraph, Square, XStack, YStack } from 'hanzogui'
+import { Button, Paragraph, Square, XStack, YStack } from '@hanzo/gui'
 
 // regression: a style key first introduced by exitStyle (no base value, never
 // painted) must still animate over the exit and gate exit completion. the bug

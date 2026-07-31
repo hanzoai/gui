@@ -12,7 +12,7 @@ describe('expo-router starter', () => {
   it('has workspace:* hanzogui deps', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
     expect(pkg.dependencies['@hanzogui/config']).toBe('workspace:*')
-    expect(pkg.dependencies['hanzogui']).toBe('workspace:*')
+    expect(pkg.dependencies['@hanzo/gui']).toBe('workspace:*')
     expect(pkg.devDependencies['@hanzogui/babel-plugin']).toBe('workspace:*')
   })
 
@@ -58,7 +58,7 @@ describe('remix starter', () => {
   it('has workspace:* hanzogui deps', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf-8'))
     expect(pkg.dependencies['@hanzogui/config']).toBe('workspace:*')
-    expect(pkg.dependencies['hanzogui']).toBe('workspace:*')
+    expect(pkg.dependencies['@hanzo/gui']).toBe('workspace:*')
     expect(pkg.devDependencies['@hanzogui/vite-plugin']).toBe('workspace:*')
   })
 
@@ -76,9 +76,9 @@ describe('remix starter', () => {
   it('imports from hanzogui not @hanzogui/web', () => {
     const root = fs.readFileSync(path.join(dir, 'app/root.tsx'), 'utf-8')
     const index = fs.readFileSync(path.join(dir, 'app/routes/_index.tsx'), 'utf-8')
-    expect(root).toContain("from 'hanzogui'")
+    expect(root).toContain("from '@hanzo/gui'")
     expect(root).not.toContain('@hanzogui/web')
-    expect(index).toContain("from 'hanzogui'")
+    expect(index).toContain("from '@hanzo/gui'")
     expect(index).not.toContain('@hanzogui/web')
   })
 
@@ -136,7 +136,7 @@ describe('workspace version rewriting', () => {
         fs.readFileSync(path.join(tmpDir, 'package.json'), 'utf-8')
       )
       expect(result.dependencies['@hanzogui/config']).toBe(version)
-      expect(result.dependencies['hanzogui']).toBe(version)
+      expect(result.dependencies['@hanzo/gui']).toBe(version)
       expect(result.dependencies['react']).toBe('19.1.0')
       expect(result.devDependencies['@hanzogui/vite-plugin']).toBe(version)
       expect(result.devDependencies['typescript']).toBe('~5.9.2')

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Square, XStack, YStack } from 'hanzogui'
+import { Button, Square, XStack, YStack } from '@hanzo/gui'
 
 /**
  * Repro for the reanimated avoidReRenders "stuck hover" bug.

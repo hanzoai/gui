@@ -33,7 +33,7 @@ type MetroConfigInput = {
  *
  * const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
  * module.exports = withGui(config, {
- *   components: ['hanzogui'],
+ *   components: ['@hanzo/gui'],
  *   config: './hanzogui.config.ts',
  * })
  * ```

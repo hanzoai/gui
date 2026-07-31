@@ -35,7 +35,7 @@ npm install @hanzogui/button
 ## Usage
 
 ```tsx
-import { Button } from 'hanzogui'
+import { Button } from '@hanzo/gui'
 
 export default () => <Button>Lorem ipsum</Button>
 ```
@@ -48,7 +48,7 @@ on the text wrapped inside. Gui supports adjusting the padding, border
 radius, font size and icons sizes all in one with the `size` prop.
 
 ```tsx
-import { Button } from 'hanzogui'
+import { Button } from '@hanzo/gui'
 
 export default () => <Button size="$6">Lorem ipsum</Button>
 ```
@@ -63,7 +63,7 @@ The Button component supports different visual styles through the `variant`
 prop. Currently, the primary available variant is `"outlined"`.
 
 ```tsx
-import { Button, XStack } from 'hanzogui'
+import { Button, XStack } from '@hanzo/gui'
 
 export default () => (
   <XStack gap="$2">
@@ -94,7 +94,7 @@ derived from the Button's `size` token value, keeping spacing consistent with
 the overall button dimensions.
 
 ```tsx
-import { Button, Star } from 'hanzogui'
+import { Button, Star } from '@hanzo/gui'
 
 export default () => (
   <>
@@ -120,7 +120,7 @@ This is useful for applying consistent sizing or variants to multiple buttons
 without passing props to each one individually.
 
 ```tsx
-import { Button, ButtonDemo, YStack } from 'hanzogui'
+import { Button, ButtonDemo, YStack } from '@hanzo/gui'
 
 export default () => (
   <YStack gap="$4">
@@ -144,7 +144,7 @@ Button supports all standard HTML `<button>` attributes for form integration.
 These props are web-only and ignored on native:
 
 ```tsx
-import { Button, Form } from 'hanzogui'
+import { Button, Form } from '@hanzo/gui'
 
 export default () => (
   <Form action="/submit">
@@ -176,7 +176,7 @@ passed to it are ignored.
 To customize text appearance, use `Button.Text` explicitly:
 
 ```tsx
-import { Button } from 'hanzogui'
+import { Button } from '@hanzo/gui'
 
 export default () => (
   <Button>
@@ -193,7 +193,7 @@ Combine `Button.Text` with the `group` prop on Button to coordinate text
 styles across hover, press, and focus states:
 
 ```tsx
-import { Button } from 'hanzogui'
+import { Button } from '@hanzo/gui'
 
 export default () => (
   <Button group="btn" bg="pink">

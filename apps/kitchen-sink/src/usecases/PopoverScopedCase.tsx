@@ -1,4 +1,4 @@
-import { Adapt, Button, Paragraph, Popover, Sheet, XStack, YStack } from 'hanzogui'
+import { Adapt, Button, Paragraph, Popover, Sheet, XStack, YStack } from '@hanzo/gui'
 
 export function PopoverScopedCase() {
   const shouldAdapt = window.location.search.includes('adapt=true')

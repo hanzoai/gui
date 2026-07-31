@@ -30,7 +30,7 @@ export async function getOptions({
 
   const filledOptions = {
     platform: 'native',
-    components: ['hanzogui'],
+    components: ['@hanzo/gui'],
     config,
     ...hanzoguiOptions,
   } satisfies GuiOptions
@@ -85,7 +85,7 @@ export const loadGui = async (
 ): Promise<GuiProjectInfo | null> => {
   const { loadGui: loadGuiStatic } = require('@hanzogui/static/loadGui')
   const loaded = await loadGuiStatic({
-    components: ['hanzogui'],
+    components: ['@hanzo/gui'],
     ...opts,
     config: opts.config ?? (await getDefaultGuiConfigPath()),
   })

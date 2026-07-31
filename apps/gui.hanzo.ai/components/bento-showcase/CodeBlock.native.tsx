@@ -1,6 +1,6 @@
 import React from 'react'
-import type { GetProps } from 'hanzogui'
-import { YStack, Paragraph, styled } from 'hanzogui'
+import type { GetProps } from '@hanzo/gui'
+import { YStack, Paragraph, styled } from '@hanzo/gui'
 
 const Code = styled(Paragraph, {
   name: 'Code',

@@ -1,4 +1,4 @@
 import { defaultConfig } from '@hanzogui/config/v4'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export default createGui(defaultConfig)

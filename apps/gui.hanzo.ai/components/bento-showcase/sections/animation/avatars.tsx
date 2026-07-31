@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 import * as AnAvatars from '@hanzogui/bento/component/animation/avatars'
 import {

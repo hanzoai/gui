@@ -1,4 +1,4 @@
-import { Anchor, styled } from 'hanzogui'
+import { Anchor, styled } from '@hanzo/gui'
 
 const StyledAnchor1 = styled(Anchor, {
   color: 'red',

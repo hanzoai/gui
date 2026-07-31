@@ -16,7 +16,7 @@ behaves just like CSS variables as well, at runtime.
 A short example:
 
 ```tsx
-import { YStack, useTheme } from 'hanzogui'
+import { YStack, useTheme } from '@hanzo/gui'
 
 const App = () => {
   const theme = useTheme()
@@ -85,7 +85,7 @@ most basic usages, even with nested logic or constants within the file or
 imports [whitelisted in your build setup](/docs/intro/compiler-install):
 
 ```tsx
-import { YStack, useMedia, useTheme } from 'hanzogui'
+import { YStack, useMedia, useTheme } from '@hanzo/gui'
 
 const App = () => {
   const theme = useTheme()
@@ -109,7 +109,7 @@ This will compile on the web to:
 const _cn =
   ' _alignItems-1oszu61 _boxSizing-deolkf _display-6koalj _flexBasis-1mlwlqe _flexDirection-eqz5dr _flexShrink-1q142lx _transform-_sm_1exagq _transform-_sm0_1wpzndr _backgroundColor-_lg_no4z4g _backgroundColor-_lg0_1qoifqd _transform-_xl_gqa6p0'
 
-import { YStack, useMedia, useTheme } from 'hanzogui'
+import { YStack, useMedia, useTheme } from '@hanzo/gui'
 
 const App = () => {
   return <div className={_cn} />

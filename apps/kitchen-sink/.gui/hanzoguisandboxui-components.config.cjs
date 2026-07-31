@@ -3253,7 +3253,7 @@ var init_GorhomPortal = __esm({
     }) => {
       const isAlreadyInProvider = (0, import_react16.useContext)(PortalProviderActiveContext);
       if (process.env.NODE_ENV === "development") {
-        if (isAlreadyInProvider && shouldAddRootHost) console.warn(`[gui] Nested PortalProvider with shouldAddRootHost detected. This causes hydration mismatches. GuiProvider from 'hanzogui' already includes PortalProvider - remove the explicit PortalProvider wrapper or set shouldAddRootHost={false}.`);
+        if (isAlreadyInProvider && shouldAddRootHost) console.warn(`[gui] Nested PortalProvider with shouldAddRootHost detected. This causes hydration mismatches. GuiProvider from '@hanzo/gui' already includes PortalProvider - remove the explicit PortalProvider wrapper or set shouldAddRootHost={false}.`);
       }
       const [state5, dispatch] = (0, import_react16.useReducer)(reducer, INITIAL_STATE);
       const transitionDispatch = (0, import_react16.useMemo)(() => {

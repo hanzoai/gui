@@ -74,7 +74,7 @@ export function getConfig(hanzoguiPlugin: any) {
       // react({}),
 
       hanzoguiPlugin({
-        components: ['hanzogui'],
+        components: ['@hanzo/gui'],
         config: './hanzogui.config.ts',
         disableWatchGuiConfig: true,
         disable: true,

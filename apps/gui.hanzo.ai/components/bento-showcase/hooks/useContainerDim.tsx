@@ -1,4 +1,4 @@
-import { GroupContext, debounce } from 'hanzogui'
+import { GroupContext, debounce } from '@hanzo/gui'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { mergeIfNotShallowEqual } from '@hanzogui/web'
 import { usePhoneScale } from './usePhoneScale'

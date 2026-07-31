@@ -1,6 +1,6 @@
 import { AuthClient } from '@supabase/auth-js'
 import { useLayoutEffect, useRef } from 'react'
-import { Spinner, Text, YStack } from 'hanzogui'
+import { Spinner, Text, YStack } from '@hanzo/gui'
 import {
   getSafeInternalPath,
   navigateToInternalPath,

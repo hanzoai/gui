@@ -8,7 +8,7 @@ import {
   XStack,
   Button,
   useDidFinishSSR,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 // simulates hanzogui.dev homepage during hydration:
 // - multiple elements with enter animations (glows, hero content)

@@ -1,6 +1,6 @@
 import { CheckCircle2 } from '@hanzogui/lucide-icons-2'
 import { Toast, toast, useToasts } from '@hanzogui/toast/v2'
-import { Button, XStack, YStack } from 'hanzogui'
+import { Button, XStack, YStack } from '@hanzo/gui'
 
 /**
  *  IMPORTANT NOTE: if you're copy-pasting this demo into your code, make sure to add the Toast wrapper as well.

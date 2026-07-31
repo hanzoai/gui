@@ -1,4 +1,4 @@
-import { createContext } from 'hanzogui'
+import { createContext } from '@hanzo/gui'
 
 export type ShowcaseTheme = 'default' | 'monokai' | 'dracula'
 

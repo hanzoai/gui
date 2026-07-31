@@ -1,7 +1,7 @@
 import { useRef } from 'react'
-import { Button, YStack, Text } from 'hanzogui'
+import { Button, YStack, Text } from '@hanzo/gui'
 import { toast, Toast, type ToastT } from '@hanzogui/toast/v2'
-import { XStack } from 'hanzogui'
+import { XStack } from '@hanzo/gui'
 
 export function ToastNativeBurntCase() {
   const count = useRef(0)

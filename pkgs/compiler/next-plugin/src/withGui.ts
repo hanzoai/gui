@@ -3,8 +3,8 @@ import browserslist from 'browserslist'
 import { lazyPostCSS } from 'next/dist/build/webpack/config/blocks/css/index.js'
 import { getGlobalCssLoader } from 'next/dist/build/webpack/config/blocks/css/loaders/index.js'
 import path from 'node:path'
-import type { PluginOptions as LoaderPluginOptions } from 'hanzogui-loader'
-import { GuiPlugin } from 'hanzogui-loader'
+import type { PluginOptions as LoaderPluginOptions } from '@hanzogui/loader'
+import { GuiPlugin } from '@hanzogui/loader'
 import webpack from 'webpack'
 
 const { loadGuiBuildConfigSync } = Static

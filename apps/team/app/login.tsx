@@ -1,5 +1,5 @@
 import { Redirect } from 'one'
-import { Button, SizableText, YStack } from 'hanzogui'
+import { Button, SizableText, YStack } from '@hanzo/gui'
 import { Mark } from '~/components/Mark'
 import { useSession } from '~/src/session'
 

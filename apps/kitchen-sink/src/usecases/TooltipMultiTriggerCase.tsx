@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react'
-import { Tooltip, TooltipGroup, YStack, SizableText, XStack } from 'hanzogui'
+import { Tooltip, TooltipGroup, YStack, SizableText, XStack } from '@hanzo/gui'
 
 // test case: matches production PromoLinksRow on hanzogui.dev
 // single scoped tooltip with multiple triggers, animatePosition, TooltipGroup

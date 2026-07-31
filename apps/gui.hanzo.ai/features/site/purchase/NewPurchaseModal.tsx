@@ -1,7 +1,7 @@
 import type { StripeError } from '@stripe/stripe-js'
 import { X } from '@hanzogui/lucide-icons-2'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import type { TabsProps } from 'hanzogui'
+import type { TabsProps } from '@hanzo/gui'
 import {
   Button,
   Dialog,
@@ -19,7 +19,7 @@ import {
   Unspaced,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { useUser } from '~/features/user/useUser'
 import { useParityDiscount } from '~/hooks/useParityDiscount'
 import { ProductName } from '~/shared/types/subscription'

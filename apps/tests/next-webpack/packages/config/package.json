@@ -21,7 +21,7 @@
     "@hanzogui/font-inter": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",
     "@hanzogui/themes": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"

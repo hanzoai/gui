@@ -5,7 +5,7 @@ import {
   getTints,
   type TintFamily,
 } from '@hanzogui/logo'
-import { Popover, SizableText, Square, View, XStack, YStack } from 'hanzogui'
+import { Popover, SizableText, Square, View, XStack, YStack } from '@hanzo/gui'
 
 // colors match the theme families in tints.tsx
 const seasonColors = {

@@ -240,7 +240,7 @@ const PortalProviderComponent = ({
     if (isAlreadyInProvider && shouldAddRootHost) {
       console.warn(
         `[hanzogui] Nested PortalProvider with shouldAddRootHost detected. ` +
-          `This causes hydration mismatches. GuiProvider from 'hanzogui' already includes PortalProvider - ` +
+          `This causes hydration mismatches. GuiProvider from '@hanzo/gui' already includes PortalProvider - ` +
           `remove the explicit PortalProvider wrapper or set shouldAddRootHost={false}.`
       )
     }

@@ -12,7 +12,7 @@ import {
   View,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { usePathname } from 'one'
 import { Container } from '~/components/Containers'

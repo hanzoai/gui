@@ -40,7 +40,7 @@ By default, Groups will control the border radius of their children automaticall
 You can use Groups with or without `Group.Item`, depending on if you want to spacing and separators to be handled based on direct children, or on each Item rendered.
 
 ```tsx
-import { Button, XGroup } from 'hanzogui'
+import { Button, XGroup } from '@hanzo/gui'
 
 // usage with Item:
 export default () => (
@@ -61,7 +61,7 @@ export default () => (
 For a simpler use case and backwards compat, you can also use it without `Group.Item`, which will just apply borders and spacing based on direct children. Note that Group will detect if any `Group.Item` is inside it, and automatically switch modes. If no Item, it spaces direct children:
 
 ```tsx
-import { Button, XGroup } from 'hanzogui'
+import { Button, XGroup } from '@hanzo/gui'
 
 // usage without Item:
 export default () => (
@@ -78,7 +78,7 @@ export default () => (
 The `size` property will use your tokens to grab the appropriate radius for borderRadius values which it will pass to the first and last child as style props for borderRadius.
 
 ```tsx
-import { Button, XGroup } from 'hanzogui'
+import { Button, XGroup } from '@hanzo/gui'
 
 export default () => (
   <XGroup size="$6">

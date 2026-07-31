@@ -20,7 +20,7 @@ npm install @hanzogui/config
 
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,
@@ -45,7 +45,7 @@ Here's an example of a stripped down configuration to get a feel for the most
 common concepts:
 
 ```tsx fileName=hanzogui.config.ts
-import { createGui, getConfig } from 'hanzogui'
+import { createGui, getConfig } from '@hanzo/gui'
 
 export const config = createGui({
   // tokens work like CSS Variables (and compile to them on the web)
@@ -120,7 +120,7 @@ Finally, pass your `config` export to a `<GuiProvider />` at the root of
 your app:
 
 ```tsx
-import { GuiProvider, View } from 'hanzogui'
+import { GuiProvider, View } from '@hanzo/gui'
 import { config } from './hanzogui.config.ts'
 
 export default () => (
@@ -146,7 +146,7 @@ You're all set up!
 Let's start with an example of a more complete `hanzogui.config.ts`:
 
 ```tsx fileName="hanzogui.config.ts"
-import { createFont, createGui, createTokens, isWeb } from 'hanzogui'
+import { createFont, createGui, createTokens, isWeb } from '@hanzo/gui'
 
 // To work with the hanzogui UI kit styled components (which is optional)
 // you'd want the keys used for `size`, `lineHeight`, `weight` and
@@ -316,7 +316,7 @@ With your config set up, import it near the root of your app and pass it to
 `GuiProvider`:
 
 ```tsx line=3-5 fileName="App.tsx"
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import { config } from './hanzogui.config'
 
 export default function App() {
@@ -401,10 +401,10 @@ As final option, you can also generate it yourself with the CLI. First create a
 `hanzogui.build.ts`:
 
 ```tsx fileName=hanzogui.build.ts
-import type { GuiBuildOptions } from 'hanzogui'
+import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   config: './config/hanzogui.config.ts',
   outputCSS: './hanzogui.generated.css',
 } satisfies GuiBuildOptions
@@ -430,7 +430,7 @@ depth on [the tokens page](/docs/core/tokens).
 The font tokens are a bit special and are created with `createFont`:
 
 ```tsx
-import { isWeb } from 'hanzogui'
+import { isWeb } from '@hanzo/gui'
 
 const interFont = createFont({
   family: isWeb ? 'Inter, Helvetica, Arial, sans-serif' : 'Inter',
@@ -860,7 +860,7 @@ client, it reads these from the DOM instead of needing the JS object.
 
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig, themes } from '@hanzogui/config/v5'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,

@@ -57,7 +57,7 @@ export default App
 ## Anatomy
 
 ```tsx
-import { AlertDialog } from 'hanzogui' // or '@hanzogui/alert-dialog'
+import { AlertDialog } from '@hanzo/gui' // or '@hanzogui/alert-dialog'
 
 export default () => (
   <AlertDialog>
@@ -189,7 +189,7 @@ Closes the AlertDialog, accepts all YStack props. Recommended to use with your o
 If you're using native modals (maybe from react-navigation), you'll notice the Dialogs won't show up inside the modal. To get around this, you should wrap your screen inside `PortalProvider`, like so:
 
 ```tsx
-import { PortalProvider } from 'hanzogui'
+import { PortalProvider } from '@hanzo/gui'
 
 // this component used in react-navigation/expo-router with `presentation: "modal"`
 export function Page() {

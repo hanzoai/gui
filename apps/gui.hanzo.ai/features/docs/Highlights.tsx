@@ -1,6 +1,6 @@
 import { ExternalLink } from '@hanzogui/lucide-icons-2'
 import React from 'react'
-import { H2, Paragraph, SizableText, Text, VisuallyHidden, XStack, YStack } from 'hanzogui'
+import { H2, Paragraph, SizableText, Text, VisuallyHidden, XStack, YStack } from '@hanzo/gui'
 import { Features } from '~/components/Features'
 import { Link } from '~/components/Link'
 import { FrontmatterContext } from './FrontmatterContext'

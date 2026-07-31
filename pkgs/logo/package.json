@@ -46,7 +46,7 @@
   "dependencies": {
     "@hanzogui/use-element-layout": "workspace:*",
     "@hanzogui/web": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

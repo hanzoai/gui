@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 import * as Switches from '@hanzogui/bento/component/forms/switches'
 import {

@@ -6,7 +6,7 @@ import {
   XStack,
   YStack,
   SizableText,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { useState } from 'react'
 
 /**

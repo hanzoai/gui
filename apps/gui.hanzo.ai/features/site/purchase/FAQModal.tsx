@@ -10,7 +10,7 @@ import {
   Unspaced,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { useTakeoutStore } from './useTakeoutStore'
 

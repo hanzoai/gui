@@ -1,4 +1,4 @@
-export declare const Tag: import("hanzogui").GuiComponent<import("@hanzogui/web").TamaDefer, import("hanzogui").GuiTextElement, import("@hanzogui/core").RNGuiTextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
+export declare const Tag: import("@hanzo/gui").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzo/gui").GuiTextElement, import("@hanzogui/core").RNGuiTextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {
     unstyled?: boolean | undefined;
     active?: boolean | undefined;
 }, import("@hanzogui/web").StaticConfigPublic>;

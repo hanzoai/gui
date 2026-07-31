@@ -21,7 +21,7 @@ import {
   useTheme,
   useThemeName,
   SizableText,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { authFetch } from '~/features/api/authFetch'
 import { useUser } from '~/features/user/useUser'
 

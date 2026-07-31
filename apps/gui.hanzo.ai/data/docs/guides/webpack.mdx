@@ -23,7 +23,7 @@ Add the plugin to your `webpack.config.js`. If you have a `hanzogui.build.ts`
 no options are needed:
 
 ```tsx fileName="webpack.config.js"
-const { GuiPlugin } = require('hanzogui-loader')
+const { GuiPlugin } = require('@hanzogui/loader')
 
 // reads from hanzogui.build.ts automatically
 config.plugins.push(new GuiPlugin())
@@ -32,12 +32,12 @@ config.plugins.push(new GuiPlugin())
 Or pass options inline:
 
 ```tsx fileName="webpack.config.js"
-const { GuiPlugin } = require('hanzogui-loader')
+const { GuiPlugin } = require('@hanzogui/loader')
 
 config.plugins.push(
   new GuiPlugin({
     config: './src/hanzogui.config.ts',
-    components: ['hanzogui'],
+    components: ['@hanzo/gui'],
   })
 )
 ```

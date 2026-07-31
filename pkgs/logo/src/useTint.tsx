@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { useDidFinishSSR, type ThemeName } from 'hanzogui'
+import { useDidFinishSSR, type ThemeName } from '@hanzo/gui'
 import { getTints, setNextTintFamily, useTints } from './tints'
 
 let current = 3

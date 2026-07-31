@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { isClient } from 'hanzogui'
+import { isClient } from '@hanzo/gui'
 
 const FontLoadedContext = createContext(false)
 

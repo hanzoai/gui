@@ -1,6 +1,6 @@
 import type { ThemeDefinition } from '@hanzogui/theme-builder'
 import { createStore } from '@hanzogui/use-store'
-import type { GuiInternalConfig, ThemeName } from 'hanzogui'
+import type { GuiInternalConfig, ThemeName } from '@hanzo/gui'
 import { isLocal } from '~/features/studio/constants'
 // import { watchGuiDirectory } from '../helpers/watchGuiDirectory'
 import { toastController } from '../ToastProvider'

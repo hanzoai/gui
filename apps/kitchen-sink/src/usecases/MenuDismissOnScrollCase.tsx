@@ -1,5 +1,5 @@
 import { Menu } from '@hanzogui/menu'
-import { Button, ScrollView, YStack } from 'hanzogui'
+import { Button, ScrollView, YStack } from '@hanzo/gui'
 
 /**
  * Menu dismiss-on-scroll test case

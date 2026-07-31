@@ -12,7 +12,7 @@ const config = getDefaultConfig(__dirname, {
 // Enable Gui and add nice web support with optimizing compiler + CSS extraction
 const { withGui } = require('@hanzogui/metro-plugin')
 module.exports = withGui(config, {
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   config: './hanzogui.config.ts',
 })
 

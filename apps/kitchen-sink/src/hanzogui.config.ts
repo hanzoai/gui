@@ -6,7 +6,7 @@ import { config } from '@hanzogui/config/v3'
 import { defaultConfig as configV4, shorthands } from '@hanzogui/config/v4'
 import { defaultConfig } from '@hanzogui/config/v5'
 import { hanzoguiThemes } from '@hanzogui/themes/v4'
-import { createGui, type CreateGuiProps } from 'hanzogui'
+import { createGui, type CreateGuiProps } from '@hanzo/gui'
 // TODO just move this into this folder
 import { config as hanzoguiDevConfig } from '../../hanzogui-dev-config/src/index'
 import { themeDev } from '../../hanzogui-dev-config/src/theme.dev'

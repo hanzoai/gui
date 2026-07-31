@@ -7,7 +7,7 @@ import {
   useFrameCallback,
   useSharedValue,
 } from 'react-native-reanimated'
-import { Accordion, Button, Paragraph, Square, View, YStack, isWeb } from 'hanzogui'
+import { Accordion, Button, Paragraph, Square, View, YStack, isWeb } from '@hanzo/gui'
 
 // verifies first-paint of a defaultValue-open item shows content at full height
 // (no collapse-to-0 flash), which is the client-side equivalent of the SSR case.

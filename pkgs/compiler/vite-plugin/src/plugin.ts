@@ -261,7 +261,7 @@ export function hanzoguiPlugin({
       // start watching config if enabled
       if (!options.disableWatchGuiConfig) {
         watcher = Static.watchGuiConfig({
-          components: ['hanzogui'],
+          components: ['@hanzo/gui'],
           config: './src/hanzogui.config.ts',
           ...options,
         }).catch((err) => {

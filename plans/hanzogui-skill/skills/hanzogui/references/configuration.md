@@ -268,7 +268,7 @@ export default config
 ## Provider Setup
 
 ```tsx
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import config from './hanzogui.config'
 
 export default function App() {

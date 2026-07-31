@@ -1,4 +1,4 @@
-import { Button, styled } from 'hanzogui'
+import { Button, styled } from '@hanzo/gui'
 
 const StyledButton = styled(Button, {
   variants: {

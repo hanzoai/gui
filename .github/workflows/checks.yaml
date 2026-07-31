@@ -84,10 +84,10 @@ jobs:
             turbo-${{ runner.os }}-
 
       - name: Run unit tests
-        run: bun turbo run test:web --filter='!@tamagui/kitchen-sink' --concurrency=1
+        run: bun turbo run test:web --filter='!@hanzogui/kitchen-sink' --concurrency=1
 
       - name: Run native unit tests
-        run: bun turbo run test:native --filter=@tamagui/static-tests --filter=@tamagui/core-test --filter=@tamagui/components-test --concurrency=1
+        run: bun turbo run test:native --filter=@hanzogui/static-tests --filter=@hanzogui/core-test --filter=@hanzogui/components-test --concurrency=1
 
   changes:
     runs-on: ubuntu-latest
@@ -120,7 +120,7 @@ jobs:
 
           # get all package directories in kitchen-sink's transitive dependency tree
           # turbo ls resolves the real workspace dependency graph — no manual list needed
-          DEP_DIRS=$(turbo ls --filter='@tamagui/kitchen-sink...' 2>/dev/null | awk 'NR>1 && NF>0 {print $2}' | grep '/')
+          DEP_DIRS=$(turbo ls --filter='@hanzogui/kitchen-sink...' 2>/dev/null | awk 'NR>1 && NF>0 {print $2}' | grep '/')
 
           if [ -z "$DEP_DIRS" ]; then
             echo "relevant=true" >> $GITHUB_OUTPUT
@@ -185,5 +185,5 @@ jobs:
             turbo-${{ runner.os }}-
 
       - name: Run integration tests (shard ${{ matrix.shard }})
-        run: cd code/kitchen-sink && NODE_ENV=test npx playwright test --shard=${{ matrix.shard }}
+        run: cd apps/kitchen-sink && NODE_ENV=test npx playwright test --shard=${{ matrix.shard }}
         timeout-minutes: 20

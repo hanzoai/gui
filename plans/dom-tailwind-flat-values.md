@@ -1,13 +1,13 @@
-# Tamagui DOM, Tailwind, and flat conditional values
+# Gui DOM, Tailwind, and flat conditional values
 
 ## Status
 
 Design plan, July 2026. This consolidates the current direction for:
 
-- regular Tamagui and its future inline style syntax;
-- the separate `@tamagui/tailwind` frontend;
-- Tamagui-owned DOM components aligned with React Strict DOM;
-- the standalone `tamagui/dom` entry;
+- regular Gui and its future inline style syntax;
+- the separate `@hanzogui/tailwind` frontend;
+- Gui-owned DOM components aligned with React Strict DOM;
+- the standalone `hanzogui/dom` entry;
 - compiler, runtime, type, bundle, and migration boundaries.
 
 The design is intentionally compiler-led. V2 applications receive an explicit
@@ -16,19 +16,19 @@ boundaries.
 
 ## Decisions
 
-1. `tamagui` and `@tamagui/core` remain regular Tamagui.
-2. There is no `@tamagui/inline` package.
-3. Tailwind authoring lives in `@tamagui/tailwind`.
+1. `hanzogui` and `@hanzogui/core` remain regular Gui.
+2. There is no `@hanzogui/inline` package.
+3. Tailwind authoring lives in `@hanzogui/tailwind`.
 4. There is no unified inline-and-Tailwind mode and no global `styleMode`.
-5. Tamagui owns its DOM implementation. React Strict DOM is the semantic
+5. Gui owns its DOM implementation. React Strict DOM is the semantic
    reference and conformance oracle, not a runtime dependency.
-6. DOM components are available from regular Tamagui and Tailwind roots.
-7. Standalone DOM is available from `tamagui/dom` and
-   `@tamagui/core/dom`.
+6. DOM components are available from regular Gui and Tailwind roots.
+7. Standalone DOM is available from `hanzogui/dom` and
+   `@hanzogui/core/dom`.
 8. The standalone style API is `style()`, not `css.create()`.
 9. `style(definition)` uses the same style-definition grammar as
    `styled(Component, definition)`, with the component argument removed.
-10. `tailwind-merge` is removed from Tamagui.
+10. `tailwind-merge` is removed from Gui.
 11. New DOM authoring always requires the compiler. It cannot bail to an
     untransformed runtime path.
 12. Conditional styling moves into individual property values in v3. The
@@ -46,7 +46,7 @@ boundaries.
 16. Group variants use Tailwind's exact modifier spelling: `group-hover:` for
     an unnamed group and `group-hover/card:` for a named group.
 17. Groups and query containers are independent. `group` exposes parent state
-    and does not establish a size container. On regular Tamagui components,
+    and does not establish a size container. On regular Gui components,
     boolean `container` is the shorthand for an unnamed
     `containerType="inline-size"` container. Named and full-size containers use
     `containerName` and `containerType`.
@@ -56,10 +56,10 @@ boundaries.
 
 ## Product shape
 
-### Regular Tamagui
+### Regular Gui
 
 ```tsx
-import { View, Text, html, styled } from 'tamagui'
+import { View, Text, html, styled } from 'hanzogui'
 
 const Card = styled(View, {
   p: '4',
@@ -79,10 +79,10 @@ export function Example() {
 The lower-level equivalent remains:
 
 ```tsx
-import { View, Text, html, styled } from '@tamagui/core'
+import { View, Text, html, styled } from '@hanzogui/core'
 ```
 
-Regular Tamagui retains:
+Regular Gui retains:
 
 - shorthand and longhand style props;
 - tokens, themes, media, variants, groups, and animations;
@@ -93,10 +93,10 @@ Regular Tamagui retains:
 The V3 style direction changes how conditions are written, while the package
 and component model remain familiar.
 
-### Tailwind Tamagui
+### Tailwind Gui
 
 ```tsx
-import { View, Text, html, styled } from '@tamagui/tailwind'
+import { View, Text, html, styled } from '@hanzogui/tailwind'
 
 export function Example() {
   return (
@@ -108,23 +108,23 @@ export function Example() {
 }
 ```
 
-`@tamagui/tailwind` owns:
+`@hanzogui/tailwind` owns:
 
 - Tailwind-style `className` authoring;
 - class-oriented component and `styled()` types;
-- the Tamagui candidate grammar;
+- the Gui candidate grammar;
 - compiler integration;
 - its Tailwind and Vite integration.
 
 It shares the renderer, config, tokens, themes, events, refs, accessibility,
 animations, and normalized style output with core. It does not import the
-`@tamagui/core` root or its inline-style frontend.
+`@hanzogui/core` root or its inline-style frontend.
 
-### Standalone Tamagui DOM
+### Standalone Gui DOM
 
 ```tsx
-import { html, style } from 'tamagui/dom'
-// lower-level alias: @tamagui/core/dom
+import { html, style } from 'hanzogui/dom'
+// lower-level alias: @hanzogui/core/dom
 
 const root = style({
   display: 'flex',
@@ -168,15 +168,15 @@ The standalone entry contains:
 - opaque compiled style handles and their conditional composition;
 - the minimum DOM behavior runtime needed after compilation.
 
-It contains neither regular Tamagui style props nor the Tailwind parser.
+It contains neither regular Gui style props nor the Tailwind parser.
 
-The public name is Tamagui DOM or DOM mode. The word `strict` describes the
+The public name is Gui DOM or DOM mode. The word `strict` describes the
 contract but is not part of the entrypoint or product name.
 
 ## One runtime, three frontends
 
 ```text
-regular Tamagui props ──────┐
+regular Gui props ──────┐
                             │
 Tailwind class candidates ──┼─> shared property/condition/value IR
                             │                 │
@@ -202,14 +202,14 @@ import source.
 
 | Import | DOM styling language |
 |---|---|
-| `tamagui`, `@tamagui/core` | regular Tamagui style props |
-| `@tamagui/tailwind` | Tailwind `className` |
-| `tamagui/dom`, `@tamagui/core/dom` | `style()` handles |
+| `hanzogui`, `@hanzogui/core` | regular Gui style props |
+| `@hanzogui/tailwind` | Tailwind `className` |
+| `hanzogui/dom`, `@hanzogui/core/dom` | `style()` handles |
 
 Examples:
 
 ```tsx
-// regular Tamagui
+// regular Gui
 <html.div p="4" bg="surface hover:surface-hover" />
 
 // Tailwind
@@ -220,12 +220,12 @@ Examples:
 ```
 
 The strict inline DOM types reject Tailwind `className`. The strict Tailwind
-DOM types reject Tamagui style props. Standalone DOM accepts compiled style
+DOM types reject Gui style props. Standalone DOM accepts compiled style
 handles rather than either frontend.
 
-Ordinary Tamagui components may retain raw `className` and `style` where needed
+Ordinary Gui components may retain raw `className` and `style` where needed
 for existing web and React Native interoperability. Core never interprets a
-raw `className` as Tamagui Tailwind syntax.
+raw `className` as Gui Tailwind syntax.
 
 ## Web-aligned transitions
 
@@ -249,7 +249,7 @@ transition="opacity 150ms ease-out, transform 250ms cubic-bezier(0.2, 0, 0, 1) 5
 ```
 
 The expanded form uses the real web longhands rather than a second
-Tamagui-specific object:
+Gui-specific object:
 
 ```tsx
 transitionProperty="opacity, transform"
@@ -324,7 +324,7 @@ bg="red-500 hover:blue-500"
 
 The implementation does not need to construct class-name strings. It binds the
 candidate family before sending each suffix through the same candidate parser
-and ordered style IR used by `@tamagui/tailwind`.
+and ordered style IR used by `@hanzogui/tailwind`.
 
 Group state uses Tailwind's modifier grammar unchanged. A group exposes parent
 state and does not make the parent a size container:
@@ -342,7 +342,7 @@ state and does not make the parent a size container:
 ```
 
 The equivalent Tailwind frontend marks the named parent with `group/card` and
-uses the same `group-hover/card:` modifier on descendants. Tamagui-specific
+uses the same `group-hover/card:` modifier on descendants. Gui-specific
 native states extend the same shape, for example `group-press/card:`. Variants
 remain stackable, such as `sm:dark:group-hover/card:foreground`.
 
@@ -366,14 +366,14 @@ use `@sm:`, `@md:`, `@max-md:`, and their named forms.
 The parent capabilities are explicit and can be combined on one element:
 
 ```tsx
-// regular Tamagui
+// regular Gui
 <View group="card" container />
 
-// Tailwind Tamagui
+// Tailwind Gui
 <View className="group/card @container" />
 ```
 
-On regular Tamagui base components, `container` is boolean-only:
+On regular Gui base components, `container` is boolean-only:
 
 ```tsx
 // nearest unnamed inline-size container
@@ -392,12 +392,12 @@ be supplied together with `container`. `containerType="size"` corresponds to
 Tailwind's `@container-size`; adding `containerName="layout"` corresponds to
 the `/layout` modifier.
 
-The boolean shorthand belongs only to regular Tamagui components. Tailwind
-Tamagui uses `@container`, and standalone `style()` retains the actual CSS
+The boolean shorthand belongs only to regular Gui components. Tailwind
+Gui uses `@container`, and standalone `style()` retains the actual CSS
 `container`, `containerName`, and `containerType` properties. Native treats the
 regular props as semantic query-container configuration.
 
-This changes current Tamagui behavior, where `group="card"` also emits
+This changes current Gui behavior, where `group="card"` also emits
 `container-name: card` and defaults `container-type` to `inline-size`. V3
 removes that coupling so hover-only groups do not pay container setup or native
 measurement costs.
@@ -410,7 +410,7 @@ w="[117px] md:[344px]"
 bg="(--my-background)"
 ```
 
-Using this exact spelling lets regular and Tailwind Tamagui share one parser.
+Using this exact spelling lets regular and Tailwind Gui share one parser.
 The brackets also give whitespace, functions, slashes, and modifier boundaries
 one unambiguous representation.
 
@@ -441,10 +441,10 @@ placeholderColor -> placeholder-color
 This makes the same configured value read consistently in both frontends:
 
 ```tsx
-// regular Tamagui
+// regular Gui
 bg="background hover:background-hover"
 
-// Tailwind Tamagui
+// Tailwind Gui
 className="bg-background hover:bg-background-hover"
 ```
 
@@ -489,7 +489,7 @@ type FlatStyleValue<T> = T | (string & {})
 ```
 
 Candidate, token, modifier, arbitrary-value, and target validation live in the
-compiler and a Tamagui language server backed by the same candidate engine.
+compiler and a Gui language server backed by the same candidate engine.
 Thin editor integrations launch that server through the Language Server
 Protocol. TypeScript can expose small finite unions where they remain cheap,
 but type performance takes priority over exhaustive string validation.
@@ -585,7 +585,7 @@ The compiler and runtime parser share one implementation and one test corpus.
 
 ### Conditions
 
-Conditions form one registry assembled from built-ins and Tamagui config.
+Conditions form one registry assembled from built-ins and Gui config.
 
 Initial categories:
 
@@ -627,7 +627,7 @@ reported when the config is created. The implementation must not silently
 choose between a theme, media, platform, or state condition with the same
 name.
 
-Exact theme matching semantics must reuse Tamagui's established theme
+Exact theme matching semantics must reuse Gui's established theme
 inheritance rules. The flat syntax must not invent a second definition of
 whether a parent theme condition matches a child theme.
 
@@ -709,7 +709,7 @@ The exact CSS encoding may differ, but these semantics are fixed.
 
 ### Tokens and opacity
 
-Tamagui tokens keep `$`:
+Gui tokens keep `$`:
 
 ```tsx
 bg="$green"
@@ -723,7 +723,7 @@ bg="var(--green)"
 
 Bare `--green` is not the token syntax. In CSS, `--green` names a custom
 property declaration and is not itself a value. Keeping `$` makes the
-cross-platform Tamagui token distinct from a web-only CSS variable.
+cross-platform Gui token distinct from a web-only CSS variable.
 
 Color-token opacity uses:
 
@@ -785,7 +785,7 @@ receive the same validation and injection protections as existing dynamic
 styles.
 
 Standalone DOM is compile-only and reports dynamic structures that cannot be
-lowered safely. Existing regular Tamagui components remain runtime-correct
+lowered safely. Existing regular Gui components remain runtime-correct
 during the v3 migration. Whether ordinary v4 components require compilation
 is a separate release-level decision.
 
@@ -816,10 +816,10 @@ performance takes priority over exhaustive validation.
 Property-scoped candidates and Tailwind classes lower into the same ordered IR:
 
 ```tsx
-// regular Tamagui
+// regular Gui
 bg="red hover:green dark:hover:blue"
 
-// Tailwind Tamagui
+// Tailwind Gui
 className="bg-red hover:bg-green dark:hover:bg-blue"
 ```
 
@@ -848,13 +848,13 @@ The two public syntaxes do not import one another.
 
 `tailwind-merge` is removed completely.
 
-For Tamagui-owned candidates:
+For Gui-owned candidates:
 
 ```tsx
 <View className="p-2 p-4" />
 ```
 
-The Tailwind frontend emits ordered contributions. Tamagui's resolver makes
+The Tailwind frontend emits ordered contributions. Gui's resolver makes
 the later padding contribution win.
 
 Unknown classes are preserved for official Tailwind on web:
@@ -863,22 +863,22 @@ Unknown classes are preserved for official Tailwind on web:
 <View className="grid-cols-2 grid-cols-3" />
 ```
 
-Tamagui does not attempt to merge candidates it does not own. Applications
+Gui does not attempt to merge candidates it does not own. Applications
 that dynamically compose unknown Tailwind utilities can install and call
 `tailwind-merge` themselves. It is never a dependency of core or
-`@tamagui/tailwind`.
+`@hanzogui/tailwind`.
 
-`@tamagui/tailwind/vite` owns:
+`@hanzogui/tailwind/vite` owns:
 
 - official Tailwind scanning;
 - passthrough candidate compilation;
 - CSS layer ordering;
-- filtering Tamagui-owned candidates;
+- filtering Gui-owned candidates;
 - Tailwind build dependencies.
 
-## Tamagui DOM contract
+## Gui DOM contract
 
-### Why Tamagui owns it
+### Why Gui owns it
 
 Wrapping official React Strict DOM would combine two component and style
 runtimes.
@@ -893,12 +893,12 @@ Official RSD currently owns:
 - block-flow emulation;
 - ref and DOM API adaptation.
 
-Tamagui already owns equivalents for much of this. A wrapper would also have
+Gui already owns equivalents for much of this. A wrapper would also have
 to reconcile:
 
 - RSD's StyleX-only `style` contract;
 - RSD's rejection of `className`;
-- Tamagui's optimized class output;
+- Gui's optimized class output;
 - both Babel/compiler transforms;
 - duplicate native state and style processing;
 - RSD's React Native version requirements.
@@ -930,10 +930,10 @@ RSD deliberately excludes capture-phase JSX event props. DOM mode follows that
 strict contract. Capture listeners require the underlying event target API
 where the target supports it.
 
-Ordinary Tamagui components may expose a broader web-only prop surface. Those
+Ordinary Gui components may expose a broader web-only prop surface. Those
 props carry clear `@platform web` JSDoc and do not weaken strict DOM mode.
 
-The initial web-only prop gap found in regular Tamagui included:
+The initial web-only prop gap found in regular Gui included:
 
 - `onAuxClick`;
 - `onFocusIn` and `onFocusOut`;
@@ -945,7 +945,7 @@ The initial web-only prop gap found in regular Tamagui included:
   `onWheelCapture`.
 
 The regular component expansion should use explicit generated or curated
-interfaces. Intersecting every Tamagui component with React's complete
+interfaces. Intersecting every Gui component with React's complete
 `HTMLAttributes` is rejected until a type-performance benchmark proves it
 safe.
 
@@ -956,23 +956,23 @@ The July 2026 comparison found:
 | Surface | Concrete style keys |
 |---|---:|
 | Official RSD | 148 |
-| Tamagui View on web | 244 |
-| Tamagui Text on web | 263 |
-| Tamagui View on native | 187 |
-| Tamagui Text on native | 202 |
+| Gui View on web | 244 |
+| Gui Text on web | 263 |
+| Gui View on native | 187 |
+| Gui Text on native | 202 |
 
-At that snapshot, Tamagui covered 139 of RSD's 148 style names on web and 131
+At that snapshot, Gui covered 139 of RSD's 148 style names on web and 131
 on native. Some apparent gaps were API-shape differences:
 
-- RSD uses raw transition properties while Tamagui uses animation drivers and
+- RSD uses raw transition properties while Gui uses animation drivers and
   `transition`;
-- RSD uses conditional objects while existing Tamagui uses pseudo-style
+- RSD uses conditional objects while existing Gui uses pseudo-style
   objects;
-- RSD treats `pointerEvents` as a style while Tamagui exposes it as a prop.
+- RSD treats `pointerEvents` as a style while Gui exposes it as a prop.
 
-The flat conditional-value syntax brings Tamagui closer to RSD's
+The flat conditional-value syntax brings Gui closer to RSD's
 property-centered model without adopting StyleX handles as the regular
-Tamagui authoring syntax.
+Gui authoring syntax.
 
 Native cannot promise every CSS behavior. Known difficult areas include:
 
@@ -1039,9 +1039,9 @@ Import provenance selects the frontend:
 
 | Binding source | Compiler interpretation |
 |---|---|
-| `tamagui`, `@tamagui/core` | DOM plus regular Tamagui props |
-| `@tamagui/tailwind` | DOM plus Tailwind candidates |
-| `tamagui/dom`, `@tamagui/core/dom` | DOM plus `style()` handles |
+| `hanzogui`, `@hanzogui/core` | DOM plus regular Gui props |
+| `@hanzogui/tailwind` | DOM plus Tailwind candidates |
+| `hanzogui/dom`, `@hanzogui/core/dom` | DOM plus `style()` handles |
 
 All lower to:
 
@@ -1084,7 +1084,7 @@ Rules:
 - unsupported native semantics produce actionable diagnostics;
 - ordinary `View` and `Text` retain their established runtime path.
 
-`@tamagui/tailwind` is also compiler-led. It does not ship the Tailwind parser
+`@hanzogui/tailwind` is also compiler-led. It does not ship the Tailwind parser
 inside every rendered component. Dynamic class values require a statically
 bounded compiler representation or a documented Tailwind-package runtime
 cost. Core never pays that cost.
@@ -1095,23 +1095,23 @@ Conceptual exports:
 
 ```json
 {
-  "tamagui": {
-    ".": "regular Tamagui plus html",
+  "hanzogui": {
+    ".": "regular Gui plus html",
     "./dom": "standalone DOM plus style()"
   },
-  "@tamagui/core": {
-    ".": "regular Tamagui plus html",
+  "@hanzogui/core": {
+    ".": "regular Gui plus html",
     "./dom": "standalone DOM plus style()",
     "./internal-runtime": "private shared implementation boundary"
   },
-  "@tamagui/tailwind": {
-    ".": "Tailwind Tamagui plus html",
+  "@hanzogui/tailwind": {
+    ".": "Tailwind Gui plus html",
     "./vite": "Tailwind build integration"
   }
 }
 ```
 
-`@tamagui/core/internal-runtime` is implementation plumbing, not another user
+`@hanzogui/core/internal-runtime` is implementation plumbing, not another user
 package. Its exact name is not public API unless package tooling requires an
 export.
 
@@ -1139,7 +1139,7 @@ type TailwindStyleProps = {
 }
 ```
 
-Their style types do not instantiate the regular Tamagui shorthand, pseudo,
+Their style types do not instantiate the regular Gui shorthand, pseudo,
 media, theme, and variant prop graph.
 
 ### Standalone DOM
@@ -1178,7 +1178,7 @@ Corrected `View` results:
 
 | Configuration | Web gzip |
 |---|---:|
-| main `@tamagui/web` | 24.3 KB |
+| main `@hanzogui/web` | 24.3 KB |
 | v3-beta as shipped | 43.9 KB |
 | v3-beta with `tailwind-merge` externalized | 35.6 KB |
 | v3-beta with `tailwind-merge` and style grammar externalized | 31.5 KB |
@@ -1200,8 +1200,8 @@ The same probe, with StyleX externalized, measured official RSD `html.div` at
 about 3.4 KB gzip on web and 15.8 KB on native. Those numbers describe RSD
 glue rather than the complete StyleX requirement.
 
-Current `styledHtml` added about 1 KB gzip to an existing Tamagui graph.
-Layering official RSD on Tamagui added roughly 3.3 KB on web and 15.4 KB on
+Current `styledHtml` added about 1 KB gzip to an existing Gui graph.
+Layering official RSD on Gui added roughly 3.3 KB on web and 15.4 KB on
 native in that probe, while also duplicating runtime responsibilities.
 
 These measurements are comparison evidence, not permanent budgets. The final
@@ -1223,7 +1223,7 @@ Required gates:
 Initial targets:
 
 - regular core returns to the 25 to 30 KB gzip range in the established probe;
-- compiled DOM adds less than 2 KB gzip on web to an existing Tamagui app;
+- compiled DOM adds less than 2 KB gzip on web to an existing Gui app;
 - compiled DOM adds less than 8 KB gzip on native before app-used semantic
   primitives;
 - any miss triggers a design review rather than silently raising the budget.
@@ -1235,14 +1235,14 @@ Initial targets:
 Package imports define the mode:
 
 ```tsx
-import { View as InlineView } from '@tamagui/core'
-import { View as TailwindView } from '@tamagui/tailwind'
+import { View as InlineView } from '@hanzogui/core'
+import { View as TailwindView } from '@hanzogui/tailwind'
 ```
 
 Both use the same provider and config:
 
 ```tsx
-const config = createTamagui({
+const config = createGui({
   tokens,
   themes,
   media,
@@ -1251,10 +1251,10 @@ const config = createTamagui({
 
 Migration:
 
-1. Add `@tamagui/tailwind`.
+1. Add `@hanzogui/tailwind`.
 2. Keep existing components unchanged.
 3. Convert one component or file.
-4. Switch that file's component imports to `@tamagui/tailwind`.
+4. Switch that file's component imports to `@hanzogui/tailwind`.
 5. Continue until the intended surface is converted.
 6. Remove temporary mixed imports.
 
@@ -1360,7 +1360,7 @@ Existing `View` and `Text` code does not need to migrate.
 DOM adoption is explicit:
 
 ```tsx
-import { html } from 'tamagui'
+import { html } from 'hanzogui'
 ```
 
 Libraries that publish `html.*` source either publish compiled output or
@@ -1382,11 +1382,11 @@ declare that consumers must compile the dependency.
 
 1. Remove global `styleMode` from public types and runtime branches.
 2. Extract the narrow shared runtime entry.
-3. Restore core `getSplitStyles` to regular Tamagui responsibilities.
-4. Move candidate parsing into `@tamagui/tailwind`.
+3. Restore core `getSplitStyles` to regular Gui responsibilities.
+4. Move candidate parsing into `@hanzogui/tailwind`.
 5. Remove `tailwind-merge`.
 6. Move Vite and official Tailwind integration to
-   `@tamagui/tailwind/vite`.
+   `@hanzogui/tailwind/vite`.
 7. Add graph and type-entry isolation tests.
 
 ### Phase 3: prove DOM lowering
@@ -1405,15 +1405,15 @@ declare that consumers must compile the dependency.
    tables.
 2. Generate explicit prop interfaces.
 3. Implement the minimum native semantic primitives.
-4. Expose regular-Tamagui `html` from core.
-5. Expose Tailwind `html` from `@tamagui/tailwind`.
-6. Add `tamagui/dom` and `@tamagui/core/dom`.
+4. Expose regular-Gui `html` from core.
+5. Expose Tailwind `html` from `@hanzogui/tailwind`.
+6. Add `hanzogui/dom` and `@hanzogui/core/dom`.
 7. Implement `style()` on the same style grammar as `styled()`.
 8. Add missing-compiler failures.
 
 ### Phase 5: introduce flat values
 
-1. Make property-scoped candidates the V3 regular Tamagui grammar.
+1. Make property-scoped candidates the V3 regular Gui grammar.
 2. Parse and lower literal candidate programs.
 3. Define and cache runtime parsing for permitted dynamic strings.
 4. Add compiler diagnostics, canonical formatting, and language-service
@@ -1478,7 +1478,7 @@ recorded in the compatibility table.
 - element-specific positive and negative tests;
 - ARIA and `data-*` coverage;
 - strict rejection of capture-phase JSX props in DOM mode;
-- regular Tamagui web-only props with platform JSDoc;
+- regular Gui web-only props with platform JSDoc;
 - Tailwind components do not instantiate regular inline style types;
 - standalone DOM checks style properties at `style()`;
 - declaration emit size and TypeScript diagnostic-time baselines.
@@ -1507,7 +1507,7 @@ in its benchmark from changes that appear locally small:
 - replace stacked callback/ref hooks with one memoized callback;
 - reuse default image props when no aspect-ratio style must be added.
 
-Final passes over Tamagui DOM and RSD-aligned code must treat every hook,
+Final passes over Gui DOM and RSD-aligned code must treat every hook,
 callback ref, wrapper object, style array, default-prop object, context read,
 and tag-specific polyfill on the generic native host path as a measured cost.
 Optional behavior must not allocate or subscribe when the corresponding prop
@@ -1521,7 +1521,7 @@ The native benchmark gate covers:
 - components with and without refs, styles, events, inheritance, and
   tag-specific polyfills;
 - Hermes or a documented jitless proxy in addition to ordinary Node.js;
-- comparison with the pinned RSD fixture and with Tamagui's direct native
+- comparison with the pinned RSD fixture and with Gui's direct native
   primitives.
 
 Record the benchmark command, device or runtime, sample size, variance, and
@@ -1533,7 +1533,7 @@ change.
 - no React Strict DOM runtime dependency;
 - no StyleX runtime or StyleX compiled-object protocol;
 - no promise of drop-in compatibility for third-party RSD packages in v1;
-- no `@tamagui/inline`;
+- no `@hanzogui/inline`;
 - no combined inline-and-Tailwind mode;
 - no global style-mode switch;
 - no `tailwind-merge` dependency;
@@ -1561,7 +1561,7 @@ locked:
 6. The structured React Native value migration table.
 7. The minimum native DOM ref API.
 8. The exact dependency-precompilation metadata and error experience.
-9. Which dynamic regular Tamagui cases require the compiler in V3.
+9. Which dynamic regular Gui cases require the compiler in V3.
 
 Each prototype must end with one chosen path. The implementation must not ship
 multiple equivalent syntaxes or runtime fallback paths.

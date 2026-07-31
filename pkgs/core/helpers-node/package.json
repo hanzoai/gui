@@ -1,0 +1,29 @@
+{
+  "name": "@hanzogui/helpers-node",
+  "version": "2.6.0",
+  "source": "src/index.ts",
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
+  "sideEffects": false,
+  "main": "./dist",
+  "types": "./types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "fs-extra": "^11.2.0"
+  }
+}

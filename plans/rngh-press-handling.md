@@ -1,28 +1,28 @@
-# Plan: RNGH Press Handling via @tamagui/native
+# Plan: RNGH Press Handling via @hanzogui/native
 
 ## Goal
 
-Replace RN's JS-thread Pressability with RNGH's native-thread gestures. Use the new `@tamagui/native` getter pattern. Keep web logic separate and smart about avoiding re-parenting.
+Replace RN's JS-thread Pressability with RNGH's native-thread gestures. Use the new `@hanzogui/native` getter pattern. Keep web logic separate and smart about avoiding re-parenting.
 
 ## Architecture
 
 ```
-@tamagui/native
+@hanzogui/native
 ├── gestureState.ts          # getGestureHandler().isEnabled, .state, .set(), .createPressGesture()
 ├── setup-gesture-handler.ts # calls getGestureHandler().set({ enabled: true, Gesture, GestureDetector })
 
-@tamagui/web (createComponent lives here)
+@hanzogui/web (createComponent lives here)
 ├── createComponent.tsx      # imports from ./eventHandling
 ├── eventHandling.ts         # web: getWebEvents, state tracking, DOM events
 └── eventHandling.native.ts  # native: uses getGestureHandler(), wraps with GestureDetector
 
-@tamagui/core
+@hanzogui/core
 └── index.tsx                # setupHooks - simplified, eventHandling handles divergence
 ```
 
 ## Key Changes
 
-### 1. Add `createPressGesture` to `@tamagui/native/gestureState.ts`
+### 1. Add `createPressGesture` to `@hanzogui/native/gestureState.ts`
 
 ```typescript
 export function getGestureHandler() {
@@ -72,16 +72,16 @@ export function getGestureHandler() {
 }
 ```
 
-### 2. Create `code/core/web/src/eventHandling.ts` (web version)
+### 2. Create `pkgs/core/web/src/eventHandling.ts` (web version)
 
 ```typescript
 // web event handling - maps RN-style events to DOM events
 import type {
-  TamaguiComponentEvents,
+  GuiComponentEvents,
   WebOnlyPressEvents,
-} from './interfaces/TamaguiComponentEvents'
+} from './interfaces/GuiComponentEvents'
 
-type EventKeys = keyof (TamaguiComponentEvents & WebOnlyPressEvents)
+type EventKeys = keyof (GuiComponentEvents & WebOnlyPressEvents)
 type EventLikeObject = { [key in EventKeys]?: any }
 
 export function getWebEvents<E extends EventLikeObject>(events: E, webStyle = true) {
@@ -109,12 +109,12 @@ export function usePressHandling() {
 }
 ```
 
-### 3. Create `code/core/web/src/eventHandling.native.ts`
+### 3. Create `pkgs/core/web/src/eventHandling.native.ts`
 
 ```typescript
 import React, { useRef } from 'react'
-import { getGestureHandler } from '@tamagui/native'
-import { composeEventHandlers } from '@tamagui/helpers'
+import { getGestureHandler } from '@hanzogui/native'
+import { composeEventHandlers } from '@hanzogui/helpers'
 
 // fallback to RN's pressability
 const usePressability =
@@ -205,7 +205,7 @@ import { getWebEvents, usePressHandling, wrapWithGestureDetector } from './event
 // In the component, after events object is created:
 
 // Line ~1300 - web events attachment stays same
-if (process.env.TAMAGUI_TARGET === 'web' && events && !isReactNative) {
+if (process.env.GUI_TARGET === 'web' && events && !isReactNative) {
   Object.assign(viewProps, getWebEvents(events))
 }
 
@@ -232,7 +232,7 @@ We removed this
 
 ```typescript
 // App entry
-import '@tamagui/native/setup-gesture-handler'  // calls getGestureHandler().set(...)
+import '@hanzogui/native/setup-gesture-handler'  // calls getGestureHandler().set(...)
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export default function App() {
@@ -256,8 +256,8 @@ export default function App() {
 
 | File                                        | Action                                                |
 | ------------------------------------------- | ----------------------------------------------------- |
-| `@tamagui/native/gestureState.ts`           | Add `createPressGesture` method                       |
-| `code/core/web/src/eventHandling.ts`        | Create (web version)                                  |
-| `code/core/web/src/eventHandling.native.ts` | Create (native version)                               |
-| `code/core/web/src/createComponent.tsx`     | Import from eventHandling, remove inline getWebEvents |
-| `code/core/core/src/index.tsx`              | Simplify useEvents hook                               |
+| `@hanzogui/native/gestureState.ts`           | Add `createPressGesture` method                       |
+| `pkgs/core/web/src/eventHandling.ts`        | Create (web version)                                  |
+| `pkgs/core/web/src/eventHandling.native.ts` | Create (native version)                               |
+| `pkgs/core/web/src/createComponent.tsx`     | Import from eventHandling, remove inline getWebEvents |
+| `pkgs/core/core/src/index.tsx`              | Simplify useEvents hook                               |

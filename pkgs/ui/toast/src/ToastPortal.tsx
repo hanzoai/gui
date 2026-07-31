@@ -1,0 +1,19 @@
+import { isWeb } from '@hanzogui/constants'
+import { Portal } from '@hanzogui/portal'
+import type { ReactNode } from 'react'
+import { ReprogapateToastProvider, type ToastProviderContextValue } from './ToastProvider'
+
+export function ToastPortal(props: {
+  children: ReactNode
+  zIndex?: number
+  context: ToastProviderContextValue
+}) {
+  const { context, children, zIndex } = props
+  let content = children
+  if (!isWeb) {
+    content = (
+      <ReprogapateToastProvider context={context}>{children}</ReprogapateToastProvider>
+    )
+  }
+  return <Portal zIndex={zIndex || Number.MAX_SAFE_INTEGER}>{content}</Portal>
+}

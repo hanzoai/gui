@@ -1,0 +1,93 @@
+/**
+ * Setup gesture handler for Gui native components.
+ *
+ * Simply import this module at the top of your app entry point:
+ *
+ * @example
+ * ```tsx
+ * // auto-setup with all features enabled
+ * import '@hanzogui/native/setup-gesture-handler'
+ *
+ * // or configure selectively
+ * import { setupGestureHandler } from '@hanzogui/native/setup-gesture-handler'
+ * setupGestureHandler({ pressEvents: true, sheet: false })
+ * ```
+ *
+ * This automatically detects and configures react-native-gesture-handler
+ * for use with Sheet and other gesture-aware components.
+ */
+
+import { canChangeGestureHandlerEnabled, getGestureHandler } from './gestureState'
+
+export interface GestureHandlerConfig {
+  /** use RNGH for press events on Gui components (default: true) */
+  pressEvents?: boolean
+  /** use RNGH for Sheet drag gestures (default: true) */
+  sheet?: boolean
+}
+
+let currentConfig: GestureHandlerConfig = {
+  pressEvents: true,
+  sheet: true,
+}
+
+export function getGestureHandlerConfig(): GestureHandlerConfig {
+  return currentConfig
+}
+
+export function setupGestureHandler(config?: GestureHandlerConfig): void {
+  const g = globalThis as any
+
+  // override config if provided
+  if (config) {
+    currentConfig = config
+
+    if (
+      config.pressEvents !== undefined &&
+      !canChangeGestureHandlerEnabled(
+        config.pressEvents !== false,
+        'setupGestureHandler()'
+      )
+    ) {
+      currentConfig = {
+        ...currentConfig,
+        pressEvents: getGestureHandler().isEnabled,
+      }
+    }
+  }
+
+  // allow re-running setup to change config
+  const isFirstRun = !g.__hanzogui_native_gesture_setup_complete
+  g.__hanzogui_native_gesture_setup_complete = true
+
+  try {
+    // dynamically require RNGH - it should already be imported by the app
+    const rngh = require('react-native-gesture-handler')
+    const { Gesture, GestureDetector, ScrollView, GestureHandlerRootView } = rngh
+
+    if (Gesture && GestureDetector) {
+      // only enable if pressEvents is true
+      getGestureHandler().set({
+        enabled: currentConfig.pressEvents !== false,
+        Gesture,
+        GestureDetector,
+        ScrollView: ScrollView || null,
+        RootView: GestureHandlerRootView || null,
+      })
+
+      // sheet state - only enable if sheet is true
+      g.__hanzogui_sheet_gesture_state__ = {
+        enabled: currentConfig.sheet !== false,
+        Gesture,
+        GestureDetector,
+        ScrollView: ScrollView || null,
+        RootView: GestureHandlerRootView || null,
+      }
+    }
+  } catch {
+    // RNGH not available, that's fine
+  }
+}
+
+// run setup immediately on import (can be overridden by calling setupGestureHandler)
+setupGestureHandler()

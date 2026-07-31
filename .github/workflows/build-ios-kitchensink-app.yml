@@ -1,13 +1,13 @@
 name: Build iOS Test Container App
 env:
   # Relative path from the monorepo root to the app
-  test_container_app_path: code/kitchen-sink
+  test_container_app_path: apps/kitchen-sink
   # Package name in the monorepo
-  test_app_package_name: '@tamagui/kitchen-sink'
+  test_app_package_name: '@hanzogui/kitchen-sink'
   # Should match the name of "ios/<app_name>.xcworkspace"
-  ios_app_name: tamaguikitchensink
+  ios_app_name: hanzoguikitchensink
   # A unique ID to identify the app on GitHub Actions, this is used as part of cache keys and artifact names, must be unique among all workflows
-  app_id: ios-tamaguikitchensink
+  app_id: ios-hanzoguikitchensink
   # The command used to prebuild the app
   prebuild_command: bunx expo prebuild --platform ios --no-install # --no-install is used to skip installing dependencies, specifically `pod install` as we want to do it after the Cache Pods step
 

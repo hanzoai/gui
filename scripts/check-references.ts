@@ -199,7 +199,7 @@ async function findImports(location: string): Promise<string[]> {
   const allImports = await scanAllImports()
 
   // Try to find imports for this location
-  // The location might be like "code/core/web" and we stored "./code/core/web"
+  // The location might be like "pkgs/core/web" and we stored "./pkgs/core/web"
   const normalizedLocation = location.startsWith('./') ? location : `./${location}`
 
   return allImports.get(normalizedLocation) || allImports.get(location) || []
@@ -257,31 +257,31 @@ async function analyzePackage(pkg: Package): Promise<MissingDepReport | null> {
 }
 
 async function getReactNativeVersion(): Promise<string> {
-  const kitchenSinkPath = join(process.cwd(), 'code/kitchen-sink/package.json')
+  const kitchenSinkPath = join(process.cwd(), 'apps/kitchen-sink/package.json')
   const kitchenSinkJson = JSON.parse(
     await readFile(kitchenSinkPath, { encoding: 'utf-8' })
   )
   return kitchenSinkJson.dependencies['react-native'] || '^0.79.2'
 }
 
-async function fixTamaguiDependencies(
+async function fixGuiDependencies(
   pkg: Package,
   report: MissingDepReport
 ): Promise<void> {
   const jsonPath = join(process.cwd(), pkg.location, 'package.json')
   const packageJson = JSON.parse(await readFile(jsonPath, { encoding: 'utf-8' }))
 
-  // Only fix @tamagui/* packages
-  const tamaguiDeps = report.missingDeps.filter((dep) => dep.startsWith('@tamagui/'))
+  // Only fix @hanzogui/* packages
+  const hanzoguiDeps = report.missingDeps.filter((dep) => dep.startsWith('@hanzogui/'))
 
-  if (tamaguiDeps.length === 0) {
+  if (hanzoguiDeps.length === 0) {
     return
   }
 
-  // Add missing @tamagui/* packages to dependencies with workspace:* version
+  // Add missing @hanzogui/* packages to dependencies with workspace:* version
   packageJson.dependencies = packageJson.dependencies || {}
 
-  for (const dep of tamaguiDeps) {
+  for (const dep of hanzoguiDeps) {
     packageJson.dependencies[dep] = 'workspace:*'
   }
 
@@ -289,7 +289,7 @@ async function fixTamaguiDependencies(
     encoding: 'utf-8',
   })
 
-  console.info(`   Added ${tamaguiDeps.length} @tamagui/* dependencies to ${pkg.name}`)
+  console.info(`   Added ${hanzoguiDeps.length} @hanzogui/* dependencies to ${pkg.name}`)
 }
 
 interface DependencyInfo {
@@ -383,7 +383,7 @@ async function fixAllDependencies(
       packageJson.peerDependencies[dep] = reactNativeVersion
       packageJson.devDependencies[dep] = reactNativeVersion
       changesCount++
-    } else if (dep.startsWith('@tamagui/') || dep === 'tamagui') {
+    } else if (dep.startsWith('@hanzogui/') || dep === 'hanzogui') {
       // Check if dependency is already in devDependencies
       if (packageJson.devDependencies[dep]) {
         // Move from devDependencies to dependencies
@@ -391,7 +391,7 @@ async function fixAllDependencies(
         delete packageJson.devDependencies[dep]
         changesCount++
       } else {
-        // Fix @tamagui/* packages and "tamagui" with workspace:*
+        // Fix @hanzogui/* packages and "hanzogui" with workspace:*
         packageJson.dependencies[dep] = 'workspace:*'
         changesCount++
       }
@@ -424,7 +424,7 @@ async function fixAllDependencies(
 
 async function main() {
   const args = process.argv.slice(2)
-  const fixTamagui = args.includes('--fix-tamagui')
+  const fixGui = args.includes('--fix-hanzogui')
   const fixAll = args.includes('--fix')
 
   console.info('Analyzing package dependencies...\n')
@@ -432,8 +432,8 @@ async function main() {
 
   const allPackages = await findAllPackages()
   // console.info('[DEBUG] Found all packages, filtering...')
-  const packages = allPackages.filter((pkg) => pkg.name !== '@tamagui/bento')
-  console.info(`Found ${packages.length} packages to analyze (excluding @tamagui/bento)`)
+  const packages = allPackages.filter((pkg) => pkg.name !== '@hanzogui/bento')
+  console.info(`Found ${packages.length} packages to analyze (excluding @hanzogui/bento)`)
   // console.info('[DEBUG] Starting scanAllImports...')
 
   const reports = await pMap(
@@ -521,21 +521,21 @@ async function main() {
 
     // Exit with code 1 since there are still missing dependencies
     process.exit(1)
-  } else if (fixTamagui) {
-    console.info('Fixing @tamagui/* dependencies...\n')
+  } else if (fixGui) {
+    console.info('Fixing @hanzogui/* dependencies...\n')
 
     await pMap(
       validReports,
       async (report) => {
         const pkg = packages.find((p) => p.name === report.packageName)
         if (pkg) {
-          await fixTamaguiDependencies(pkg, report)
+          await fixGuiDependencies(pkg, report)
         }
       },
       { concurrency: 3 }
     )
 
-    console.info('\nFixed @tamagui/* dependencies!')
+    console.info('\nFixed @hanzogui/* dependencies!')
     console.info('Re-analyzing after fixes...\n')
 
     // Re-analyze to show updated results
@@ -554,7 +554,7 @@ async function main() {
     const newValidReports = newReports.filter(Boolean) as MissingDepReport[]
 
     if (newValidReports.length === 0) {
-      console.info('All @tamagui/* dependencies fixed!')
+      console.info('All @hanzogui/* dependencies fixed!')
       return
     }
 
@@ -592,9 +592,9 @@ async function main() {
     'Note: This may include false positives for built-in modules, type-only imports, or monorepo packages.'
   )
 
-  if (!fixTamagui && !fixAll) {
+  if (!fixGui && !fixAll) {
     console.info(
-      '\nUse --fix-tamagui to automatically add missing @tamagui/* dependencies'
+      '\nUse --fix-hanzogui to automatically add missing @hanzogui/* dependencies'
     )
     console.info('Use --fix to automatically fix all dependencies')
     // Exit with code 1 to indicate missing dependencies were found

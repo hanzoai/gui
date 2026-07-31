@@ -1,0 +1,61 @@
+{
+  "name": "@hanzogui/chrome",
+  "version": "7.3.1",
+  "description": "Unified public-site chrome \u2014 HanzoNav, HanzoFooter, ChatHero, HanzoWidget. The one openai-style header/footer + AI-composer hero shared across Hanzo marketing surfaces. Gui styled() + monochrome zinc-on-black tokens (Geist), presentational and host-agnostic (data + effects injected via props).",
+  "source": "src/index.ts",
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/input": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/stacks": "workspace:*",
+    "@hanzogui/web": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "react": ">=19"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "module:jsx": "dist/jsx",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanzoai/gui",
+    "directory": "pkgs/ui/chrome"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
+}

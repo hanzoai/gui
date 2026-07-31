@@ -1,0 +1,209 @@
+// forked from radix https://github.com/radix-ui/primitives/blob/main/packages/react/avatar/src/Avatar.tsx
+
+import type { GetProps, SizeTokens, GuiElement } from '@hanzogui/core'
+import { styled } from '@hanzogui/core'
+import type { Scope } from '@hanzogui/create-context'
+import { createContextScope } from '@hanzogui/create-context'
+import { withStaticProperties } from '@hanzogui/helpers'
+import type { ImageProps } from '@hanzogui/image'
+import { Image } from '@hanzogui/image'
+import { Square } from '@hanzogui/shapes'
+import { YStack } from '@hanzogui/stacks'
+import * as React from 'react'
+
+const AVATAR_NAME = 'Avatar'
+
+type ScopedProps<P> = P & { __scopeAvatar?: Scope }
+const [createAvatarContext, createAvatarScope] = createContextScope(AVATAR_NAME)
+
+type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
+
+type AvatarContextValue = {
+  size: SizeTokens
+  imageLoadingStatus: ImageLoadingStatus
+  onImageLoadingStatusChange(status: ImageLoadingStatus): void
+}
+
+const [AvatarProvider, useAvatarContext] =
+  createAvatarContext<AvatarContextValue>(AVATAR_NAME)
+
+/* -------------------------------------------------------------------------------------------------
+ * AvatarImage
+ * -----------------------------------------------------------------------------------------------*/
+
+const IMAGE_NAME = 'AvatarImage'
+
+type AvatarImageProps = Partial<ImageProps> & {
+  onLoadingStatusChange?: (status: ImageLoadingStatus) => void
+}
+
+const AvatarImage = React.forwardRef<GuiElement, AvatarImageProps>(
+  (props: ScopedProps<AvatarImageProps>, forwardedRef) => {
+    const {
+      __scopeAvatar,
+      src,
+      source,
+      onLoadingStatusChange = () => {},
+      ...imageProps
+    } = props
+    const context = useAvatarContext(IMAGE_NAME, __scopeAvatar)
+    const [status, setStatus] = React.useState<ImageLoadingStatus>('idle')
+
+    // Support both `src` (web) and `source` (RN) props
+    const resolvedSrc =
+      src ||
+      (source && typeof source === 'object' && 'uri' in source ? source.uri : source)
+
+    React.useEffect(() => {
+      // If src is falsy, immediately set error status so fallback renders
+      if (!resolvedSrc) {
+        setStatus('error')
+      } else {
+        setStatus('idle')
+      }
+    }, [resolvedSrc])
+
+    React.useEffect(() => {
+      onLoadingStatusChange(status)
+      context.onImageLoadingStatusChange(status)
+    }, [status])
+
+    // Don't render Image if src is falsy to avoid Android warning
+    if (!resolvedSrc) {
+      return null
+    }
+
+    return (
+      <YStack fullscreen zIndex={1}>
+        <Image
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          objectFit="cover"
+          // fill the frame. previously the image was sized to
+          // getShapeSize(context.size) — but that resolves a numeric `size`
+          // (e.g. <Avatar size={16} />) as a size-TOKEN index (tokens.size[16]),
+          // so it got the token-scale value (~224px) instead of 16px, blowing
+          // the image far past its frame; object-fit:cover then showed a
+          // blurry mis-cropped corner. the frame already owns the size, so the
+          // image just fills it — correct for numeric and token sizes alike.
+          width="100%"
+          height="100%"
+          {...imageProps}
+          // @ts-ignore
+          ref={forwardedRef}
+          // @ts-ignore
+          src={resolvedSrc}
+          // onLoadStart={() => {
+          //   // setStatus('loading')
+          // }}
+          onError={() => {
+            setStatus('error')
+          }}
+          onLoad={() => {
+            setStatus('loaded')
+          }}
+        />
+      </YStack>
+    )
+  }
+)
+
+AvatarImage.displayName = IMAGE_NAME
+
+/* -------------------------------------------------------------------------------------------------
+ * AvatarFallback
+ * -----------------------------------------------------------------------------------------------*/
+
+const FALLBACK_NAME = 'AvatarFallback'
+
+export const AvatarFallbackFrame = styled(YStack, {
+  name: FALLBACK_NAME,
+  position: 'absolute',
+  fullscreen: true,
+  zIndex: 0,
+})
+
+type AvatarFallbackExtraProps = {
+  delayMs?: number
+}
+type AvatarFallbackProps = GetProps<typeof AvatarFallbackFrame> & AvatarFallbackExtraProps
+
+const AvatarFallback = AvatarFallbackFrame.styleable<
+  ScopedProps<AvatarFallbackExtraProps>
+>((props, forwardedRef) => {
+  const { __scopeAvatar, delayMs, ...fallbackProps } = props
+  const context = useAvatarContext(FALLBACK_NAME, __scopeAvatar)
+  const [canRender, setCanRender] = React.useState(delayMs === undefined)
+
+  React.useEffect(() => {
+    if (delayMs !== undefined) {
+      const timerId = setTimeout(() => setCanRender(true), delayMs)
+      return () => clearTimeout(timerId)
+    }
+  }, [delayMs])
+
+  return canRender && context.imageLoadingStatus !== 'loaded' ? (
+    <AvatarFallbackFrame {...fallbackProps} ref={forwardedRef} />
+  ) : null
+})
+
+AvatarFallback.displayName = FALLBACK_NAME
+
+/* -------------------------------------------------------------------------------------------------
+ * Avatar
+ * -----------------------------------------------------------------------------------------------*/
+
+export const AvatarFrame = styled(Square, {
+  name: AVATAR_NAME,
+  position: 'relative',
+  overflow: 'hidden',
+})
+
+type AvatarProps = GetProps<typeof AvatarFrame>
+
+/**
+ * @summary A component that displays an image or a fallback icon.
+ * @see — Docs https://hanzogui.dev/ui/avatar
+ *
+ * @example
+ * ```tsx
+ * <Avatar circular size="$10">
+ *  <Avatar.Image
+ *    aria-label="Cam"
+ *    src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
+ *  />
+ *  <Avatar.Fallback backgroundColor="$blue10" />
+ * </Avatar>
+ * ```
+ */
+const Avatar = withStaticProperties(
+  React.forwardRef<GuiElement, AvatarProps>(
+    (props: ScopedProps<AvatarProps>, forwardedRef) => {
+      const { __scopeAvatar, size = '$true', ...avatarProps } = props
+      const [imageLoadingStatus, setImageLoadingStatus] =
+        React.useState<ImageLoadingStatus>('idle')
+      return (
+        <AvatarProvider
+          size={size}
+          scope={__scopeAvatar}
+          imageLoadingStatus={imageLoadingStatus}
+          onImageLoadingStatusChange={setImageLoadingStatus}
+        >
+          <AvatarFrame size={size} {...avatarProps} ref={forwardedRef} />
+        </AvatarProvider>
+      )
+    }
+  ),
+  {
+    Image: AvatarImage,
+    Fallback: AvatarFallback,
+  }
+)
+
+Avatar.displayName = AVATAR_NAME
+
+export { createAvatarScope, Avatar, AvatarImage, AvatarFallback }
+export type { AvatarProps, AvatarImageProps, AvatarFallbackProps }

@@ -1,0 +1,35 @@
+{
+  "name": "@hanzogui/core-test",
+  "version": "2.6.0",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Nate Wienert"
+  },
+  "type": "module",
+  "module": "dist/esm",
+  "scripts": {
+    "test:run": "vitest --run --config ../../vite-plugin-internal/src/vite.config.ts",
+    "test:web": "GUI_TARGET=web vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
+    "test:ios": "TEST_NATIVE_PLATFORM=ios GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.ios.test.tsx",
+    "test:native": "GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
+    "test:token-provenance": "NODE_ENV=development GUI_ENABLE_STYLE_TOKEN_PROVENANCE=1 GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts getSplitStyles.tokenProvenance.native.test.tsx",
+    "test:androidtv": "TEST_NATIVE_PLATFORM=androidtv GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.androidtv.test.tsx",
+    "test:tvos": "TEST_NATIVE_PLATFORM=tvos GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.tvos.test.tsx",
+    "test": "bun run test:native && bun run test:token-provenance && bun run test:web && bun run test:ios && bun run test:androidtv && bun run test:tvos",
+    "test:update": "bun run test:native --update && bun run test:web --update"
+  },
+  "devDependencies": {
+    "@hanzogui/core": "workspace:*",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/react-native": "^12.9.0",
+    "csstype": "^3.0.10",
+    "react": ">=19",
+    "typescript": "~5.9.2",
+    "vitest": "4.0.4"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "sideEffects": false
+}

@@ -1,10 +1,10 @@
-# Contributing to `tamagui`
+# Contributing to `hanzogui`
 
 To set up your development environment you'll need [bun](https://bun.sh) installed, then clone and install:
 
 ```bash
-git clone https://github.com/tamagui/tamagui
-cd tamagui
+git clone https://github.com/hanzogui/hanzogui
+cd hanzogui
 bun install
 ```
 
@@ -18,13 +18,13 @@ bun run watch
 
 We compile out js to `dist` for "0-setup" installs by compiling a .native version of every file, and then in every web file we replace react-native with react-native-web. We also build our types out to ./types/\*.d.ts for a variety of reasons - it means we can't cause type issues for people with stricter configurations using our packages, it means we can track type regressions (the styled() type setup is impossible delicate to explosions of complexity), and it's generally faster for end users.
 
-### Linking tamagui into your existing project
+### Linking hanzogui into your existing project
 
-Most package managers have a `link` command that lets you link in the local tamagui to your project, we've built a package we found useful that works with `bun` or `yarn` depending on your configuration:
+Most package managers have a `link` command that lets you link in the local hanzogui to your project, we've built a package we found useful that works with `bun` or `yarn` depending on your configuration:
 
 ```bash
 npm i -g lllink
-lllink ~/path/to/tamagui
+lllink ~/path/to/hanzogui
 ```
 
 ### Running native apps
@@ -55,7 +55,7 @@ bun run kitchen-sink:build:ios
 
 ### Running web
 
-You can run `bun run sandbox` or `bun run dev` (the tamagui website).
+You can run `bun run sandbox` or `bun run dev` (the hanzogui website).
 
 ### Local Testing Setup
 
@@ -64,7 +64,7 @@ You can run `bun run sandbox` or `bun run dev` (the tamagui website).
 Install browser binaries before first run:
 
 ```bash
-cd code/kitchen-sink
+cd apps/kitchen-sink
 bun run test:web:setup   # installs chromium
 bun run start:web        # start dev server (background)
 bun run test:web         # run all web tests
@@ -86,7 +86,7 @@ The `run-detox.sh` script will automatically:
 - Build the app if the binary is missing or outdated
 
 ```bash
-cd code/kitchen-sink
+cd apps/kitchen-sink
 bun run detox:run:ios                              # run all iOS tests
 bun run detox:run:ios "Sheet"                      # filter by test name
 DETOX_DEVICE="iPhone 16 Pro" bun run detox:run:ios # override simulator device
@@ -100,11 +100,11 @@ npx detox clean-framework-cache && npx detox build-framework-cache
 
 ### Fixing libraries
 
-All compiler and CSS generation tests live in `code/compiler/static-tests`.
+All compiler and CSS generation tests live in `pkgs/compiler/static-tests`.
 
-There are many native tests in `code/kitchen-sink/tests`.
+There are many native tests in `apps/kitchen-sink/tests`.
 
-A variety of core tests live in `code/core/core-test`.
+A variety of core tests live in `pkgs/core/core-test`.
 
 Before submitting a PR, please check everything works across every combination of environments.
 

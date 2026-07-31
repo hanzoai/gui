@@ -1,0 +1,4 @@
+export declare const Strong: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {}, import("@hanzogui/web").StaticConfigPublic>;
+export declare const Span: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {}, import("@hanzogui/web").StaticConfigPublic>;
+export declare const Em: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/web").TextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {}, import("@hanzogui/web").StaticConfigPublic>;
+//# sourceMappingURL=Emphasis.d.ts.map

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Use RNGH for press events when `@tamagui/native/setup-gesture-handler` has been called, otherwise fall back to RN's `usePressability`. Avoid re-parenting by tracking `hasEverHadPressEvents` in stateRef.
+Use RNGH for press events when `@hanzogui/native/setup-gesture-handler` has been called, otherwise fall back to RN's `usePressability`. Avoid re-parenting by tracking `hasEverHadPressEvents` in stateRef.
 
 ## Key Points
 
@@ -13,24 +13,24 @@ Use RNGH for press events when `@tamagui/native/setup-gesture-handler` has been 
 
 ## Changes
 
-### 1. `code/core/web/src/types.tsx`
+### 1. `pkgs/core/web/src/types.tsx`
 
-Add to `TamaguiComponentStateRef` (around line 535):
+Add to `GuiComponentStateRef` (around line 535):
 
 ```typescript
-export type TamaguiComponentStateRef = {
+export type GuiComponentStateRef = {
   // ... existing fields ...
   hasEverHadPressEvents?: boolean // <-- add this
 }
 ```
 
-### 2. `code/core/web/src/eventHandling.native.ts`
+### 2. `pkgs/core/web/src/eventHandling.native.ts`
 
 ```typescript
 import React from 'react'
-import { composeEventHandlers } from '@tamagui/helpers'
-import { getGestureHandler } from '@tamagui/native'
-import type { TamaguiComponentStateRef } from './types'
+import { composeEventHandlers } from '@hanzogui/helpers'
+import { getGestureHandler } from '@hanzogui/native'
+import type { GuiComponentStateRef } from './types'
 
 // web events not used on native
 export function getWebEvents() {
@@ -45,7 +45,7 @@ const dontComposePressabilityKeys: Record<string, boolean> = {
 export function usePressHandling(
   events: any,
   viewProps: any,
-  stateRef: { current: TamaguiComponentStateRef }
+  stateRef: { current: GuiComponentStateRef }
 ) {
   const hasPressEvents =
     events?.onPress || events?.onPressIn || events?.onPressOut || events?.onLongPress
@@ -94,7 +94,7 @@ export function usePressHandling(
 export function wrapWithGestureDetector(
   content: any,
   gesture: any,
-  stateRef: { current: TamaguiComponentStateRef }
+  stateRef: { current: GuiComponentStateRef }
 ) {
   const gh = getGestureHandler()
   const { GestureDetector, Gesture } = gh.state
@@ -123,7 +123,7 @@ export function wrapWithGestureDetector(
 
    ```typescript
    // app entry
-   import '@tamagui/native/setup-gesture-handler'
+   import '@hanzogui/native/setup-gesture-handler'
    import { GestureHandlerRootView } from 'react-native-gesture-handler'
    ```
 

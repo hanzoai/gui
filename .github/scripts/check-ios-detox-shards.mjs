@@ -3,7 +3,7 @@ import { basename, join } from 'node:path'
 
 const repoRoot = process.cwd()
 const workflowPath = join(repoRoot, '.github/workflows/test-native.yml')
-const e2eDir = join(repoRoot, 'code/kitchen-sink/e2e')
+const e2eDir = join(repoRoot, 'apps/kitchen-sink/e2e')
 
 const explicitlyExcludedTests = new Map([
   // android-only: every test skips on iOS (device.getPlatform() === 'ios'), so running

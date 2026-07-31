@@ -1,0 +1,16 @@
+{
+  "name": "@hanzogui/kitchen-sink-shared",
+  "version": "2.6.0",
+  "private": true,
+  "main": "src/index.ts",
+  "dependencies": {
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/demos": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/toast": "workspace:*",
+    "hanzogui": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  }
+}

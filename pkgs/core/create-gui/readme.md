@@ -1,0 +1,14 @@
+# `create-gui`
+
+```sh
+npm create hanzogui
+```
+
+A script that creates a [hanzogui monorepo](https://github.com/hanzogui/hanzogui/tree/main/example-monorepos/blank) for you in seconds.
+
+## Contributing
+
+- Clone the root repo.
+- `cd packages/create-gui`
+- `yarn`
+- `yarn test` to build your local app into a gitignored `create-test-app` folder

@@ -1,0 +1,16 @@
+{
+  "name": "@hanzogui/vite-plugin-cjs",
+  "version": "2.6.0",
+  "license": "MIT",
+  "main": "./index.js",
+  "types": "./types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "cp -r ../vite-plugin/dist . || true"
+  },
+  "dependencies": {
+    "@hanzogui/vite-plugin": "workspace:*"
+  }
+}

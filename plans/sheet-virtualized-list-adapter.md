@@ -1,4 +1,4 @@
-# tamagui Sheet ↔ virtualized list adapter
+# hanzogui Sheet ↔ virtualized list adapter
 
 Goal: let consumers drop a virtualized list (`@legendapp/list`'s `LegendList`,
 `FlashList`, RN `FlatList`/`SectionList`) inside a `Sheet.Frame` and get the
@@ -58,9 +58,9 @@ position; once `scrollY === 0` and the user keeps pulling, the sheet pan
 takes over (handled by the sheet's own pan gesture, which is now
 simultaneous with the list's native scroll).
 
-## prior art: tamagui's own `SheetScrollView`
+## prior art: hanzogui's own `SheetScrollView`
 
-`code/ui/sheet/src/SheetScrollView.tsx` already implements 90% of the same
+`pkgs/ui/sheet/src/SheetScrollView.tsx` already implements 90% of the same
 machinery in plain RN, just hand-rolled instead of worklet-driven:
 
 - `scrollBridge` on `SheetContext` is the equivalent of gorhom's
@@ -73,17 +73,17 @@ machinery in plain RN, just hand-rolled instead of worklet-driven:
   `simultaneousHandlers={[panGestureRef]}` — same idea as gorhom's
   `simultaneousWithExternalGesture`.
 
-So tamagui already owns the right primitives; what it doesn't expose is a
+So hanzogui already owns the right primitives; what it doesn't expose is a
 hook to plug a non-`ScrollView` scrollable into them.
 
 ## proposed shape
 
 Add a `useSheetScrollGesture()` hook plus a `createSheetScrollableComponent()`
-HOC, both exported from `@tamagui/sheet`. Consumers either:
+HOC, both exported from `@hanzogui/sheet`. Consumers either:
 
 ```tsx
 // path A: pre-wrapped components (mirrors gorhom)
-import { Sheet, SheetFlatList, SheetSectionList, createSheetScrollable } from 'tamagui'
+import { Sheet, SheetFlatList, SheetSectionList, createSheetScrollable } from 'hanzogui'
 
 const SheetLegendList = createSheetScrollable(LegendList)
 
@@ -94,7 +94,7 @@ const SheetLegendList = createSheetScrollable(LegendList)
 
 ```tsx
 // path B: BYO list — useful for libraries we don't want to dep on
-import { Sheet, useSheetScrollGesture } from 'tamagui'
+import { Sheet, useSheetScrollGesture } from 'hanzogui'
 
 function ChatList() {
   const { ref, onScroll, simultaneousHandlers, scrollEventThrottle } =
@@ -163,8 +163,8 @@ directly.
 
 ### ship as a separate entry
 
-Ship the adapters as `@tamagui/sheet/scrollable` so the `react-native-gesture-handler`
-fallback (already optional in tamagui sheet) doesn't get pulled into web bundles
+Ship the adapters as `@hanzogui/sheet/scrollable` so the `react-native-gesture-handler`
+fallback (already optional in hanzogui sheet) doesn't get pulled into web bundles
 just because someone imports `Sheet`.
 
 ## reanimated upgrade path (optional, follow-up)
@@ -208,7 +208,7 @@ detects the env and returns the right shape per platform.
 ## non-goals
 
 - Replacing gorhom for projects that already use it. This is for
-  consumers who picked tamagui's `Sheet` and just want their list to
+  consumers who picked hanzogui's `Sheet` and just want their list to
   drag-cooperate.
 - Implementing horizontal pan-handoff. The lock state machine assumes a
   vertical sheet; horizontal lists inside vertical sheets work today

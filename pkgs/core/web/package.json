@@ -1,0 +1,80 @@
+{
+  "name": "@hanzogui/web",
+  "version": "2.6.0",
+  "license": "MIT",
+  "author": {
+    "name": "Nate Wienert"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanzogui/hanzogui.git",
+    "directory": "packages/web"
+  },
+  "source": "src/index.ts",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    "./reset.css": "./reset.css",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./inject-styles": {
+      "types": "./types/inject-styles.d.ts",
+      "react-native": "./dist/esm/inject-styles.mjs",
+      "browser": "./dist/esm/inject-styles.mjs",
+      "module": "./dist/esm/inject-styles.mjs",
+      "import": "./dist/esm/inject-styles.mjs",
+      "require": "./dist/cjs/inject-styles.cjs",
+      "default": "./dist/cjs/inject-styles.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build",
+    "test:web": "vitest --typecheck --run"
+  },
+  "dependencies": {
+    "@hanzogui/compose-refs": "workspace:*",
+    "@hanzogui/constants": "workspace:*",
+    "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/is-equal-shallow": "workspace:*",
+    "@hanzogui/native": "workspace:*",
+    "@hanzogui/normalize-css-color": "workspace:*",
+    "@hanzogui/timer": "workspace:*",
+    "@hanzogui/types": "workspace:*",
+    "@hanzogui/use-did-finish-ssr": "workspace:*",
+    "@hanzogui/use-event": "workspace:*",
+    "@hanzogui/use-force-update": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "@testing-library/react": "^16.1.0",
+    "csstype": "^3.0.10",
+    "react": ">=19",
+    "react-dom": "*",
+    "react-native": "0.83.2",
+    "typescript": "~5.9.2",
+    "vitest": "4.0.4"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": "*"
+  }
+}

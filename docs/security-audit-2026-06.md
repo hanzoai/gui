@@ -1,6 +1,6 @@
 # Security Audit — June 2026
 
-A hardening pass across the repo, the tamagui.dev web app, the CI/CD pipeline,
+A hardening pass across the repo, the hanzogui.dev web app, the CI/CD pipeline,
 and the GitHub project configuration. This document records what was found, what
 was fixed in-tree, and the action items that can only be done by a maintainer
 (credential rotation, etc.).
@@ -14,7 +14,7 @@ Status legend: ✅ fixed in this repo · ⚠️ **needs maintainer action** · �
 A 2023 commit (`df848c8`, `takeout/studio-next/.env`, removed the same day) is
 permanently reachable in the **public** history and contained credentials for
 Supabase project `akrzjiwwabjhzbvvnypu` (still referenced in
-`code/packages/bento-get/src/constants.ts`):
+`pkgs/bento-get/src/constants.ts`):
 
 - **GitHub PAT** (`ghp_…0FEvWK`) — tested 2026-06-13: `GET /user` → **401**. Already revoked. ✅
 - **Supabase `service_role` key** (JWT, `exp` 2032, bypasses RLS) — tested
@@ -28,7 +28,7 @@ Both leaked credentials are dead; no rotation needed. The anon key currently in
 `git filter-repo`) for cleanliness. (GitHub secret scanning + push protection
 are now enabled and cover ongoing detection.)
 
-### ⚠️ A2. Verify / remove the prod `test-user@tamagui.dev` account
+### ⚠️ A2. Verify / remove the prod `test-user@hanzogui.dev` account
 The test-user endpoint previously created this account in the **production**
 Supabase project with a static, source-committed password and Pro entitlements.
 The static password is now removed (see H5), but if the account was ever created
@@ -38,7 +38,7 @@ in prod it still exists. Confirm in Supabase Auth and delete it if present.
 
 ## What was fixed in this repo
 
-### tamagui.dev web app
+### hanzogui.dev web app
 | ID | Issue | Fix |
 |----|-------|-----|
 | C1 ✅ | `GET /api/bento/code?userGithubId=` served paid Bento source with no auth (legacy v1 CLI path; trusted a client-supplied id as the user identity) | Removed the unauthenticated branch; the shipped CLI already uses the token-authenticated `/api/bento/cli/v2/code-download`. `app/api/bento/code+api.ts` |

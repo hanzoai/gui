@@ -15,7 +15,7 @@ afterEach(async () => {
 })
 
 async function makeTmpDir() {
-  const dir = await fs.mkdtemp(join(tmpdir(), 'tamagui-release-cache-'))
+  const dir = await fs.mkdtemp(join(tmpdir(), 'hanzogui-release-cache-'))
   testDirs.push(dir)
   return dir
 }
@@ -23,31 +23,31 @@ async function makeTmpDir() {
 describe('release publish cache', () => {
   test('reuses a matching tarball and prepared workspace', async () => {
     const dir = await makeTmpDir()
-    const paths = getPublishArtifactPaths(dir, '@tamagui/button', '2.6.0')
+    const paths = getPublishArtifactPaths(dir, '@hanzogui/button', '2.6.0')
     await fs.ensureDir(paths.workspaceDir)
     await fs.writeFile(paths.tarballPath, 'packed')
     await fs.writeJSON(join(paths.workspaceDir, 'package.json'), {
-      name: '@tamagui/button',
+      name: '@hanzogui/button',
       version: '2.6.0',
     })
 
-    expect(await getReusablePublishWorkspace(dir, '@tamagui/button', '2.6.0')).toBe(
-      'workspaces/@tamagui_button'
+    expect(await getReusablePublishWorkspace(dir, '@hanzogui/button', '2.6.0')).toBe(
+      'workspaces/@hanzogui_button'
     )
   })
 
   test('rejects a cache entry with no tarball or a mismatched manifest', async () => {
     const dir = await makeTmpDir()
-    const paths = getPublishArtifactPaths(dir, 'tamagui', '2.6.0')
+    const paths = getPublishArtifactPaths(dir, 'hanzogui', '2.6.0')
     await fs.ensureDir(paths.workspaceDir)
     await fs.writeJSON(join(paths.workspaceDir, 'package.json'), {
-      name: 'tamagui',
+      name: 'hanzogui',
       version: '2.5.3',
     })
 
-    expect(await getReusablePublishWorkspace(dir, 'tamagui', '2.6.0')).toBeNull()
+    expect(await getReusablePublishWorkspace(dir, 'hanzogui', '2.6.0')).toBeNull()
 
     await fs.writeFile(paths.tarballPath, 'packed')
-    expect(await getReusablePublishWorkspace(dir, 'tamagui', '2.6.0')).toBeNull()
+    expect(await getReusablePublishWorkspace(dir, 'hanzogui', '2.6.0')).toBeNull()
   })
 })

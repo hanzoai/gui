@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "hanzogui-kitchen-sink",
+    "slug": "hanzogui-kitchen-sink",
+    "scheme": "hanzogui-kitchen-sink",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hanzogui.hanzoguikitchensink"
+    },
+    "android": {
+      "package": "com.hanzogui.hanzoguikitchensink",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5c027280-f9c1-4bba-9c75-762ba6efcecc"
+      }
+    },
+    "plugins": [
+      "expo-font",
+      "./plugins/expo-modules-core-swift6",
+      "./plugins/detox-metro-port",
+      "./plugins/detox-skip-splash"
+    ],
+    "experiments": {
+      "reactCanary": true
+    }
+  }
+}

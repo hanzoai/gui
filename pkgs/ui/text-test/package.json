@@ -1,0 +1,16 @@
+{
+  "name": "@hanzogui/text-test",
+  "version": "2.6.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "scripts": {
+    "test": "GUI_TARGET=web vitest --config ../../vite-plugin-internal/src/vite.config.ts --run"
+  },
+  "devDependencies": {
+    "@hanzogui/text": "workspace:*",
+    "vitest": "4.0.4"
+  }
+}

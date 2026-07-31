@@ -7,7 +7,7 @@
 Run Metro separately for faster iteration:
 
 ```bash
-cd code/kitchen-sink
+cd apps/kitchen-sink
 bun run start > /tmp/metro.log 2>&1 &
 ```
 

@@ -26,8 +26,8 @@
  */
 import React, { useCallback, useEffect, useRef } from 'react'
 import { type HanzoLink, type ProductCategory } from './hanzo-registry'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, Z } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { ACCENT, CHROME, FS, LABEL, PANEL, R, Z, ghostHover, row } from './theme'
+import { useShellStyles } from './shellStyles'
 
 export interface ProductsMegaMenuProps {
   /** The category taxonomy to render (≈10 categories, ≈6 leaves each). */
@@ -59,7 +59,7 @@ export function ProductsMegaMenu({
 }: ProductsMegaMenuProps) {
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const restoreRef = useRef<HTMLElement | null>(null)
-  useShellFocusRing()
+  useShellStyles()
 
   const close = useCallback(() => onClose?.(), [onClose])
 
@@ -154,6 +154,7 @@ export function ProductsMegaMenu({
       >
         <div
           style={{
+            ...PANEL,
             width: '100%',
             maxWidth: 1180,
             // Always clears the nav it hangs off, whatever height that is (36 =
@@ -161,10 +162,6 @@ export function ProductsMegaMenu({
             maxHeight: `calc(100vh - ${anchor + 36}px)`,
             overflowY: 'auto',
             padding: 24,
-            borderRadius: 18,
-            border: `1px solid ${CHROME.border}`,
-            background: CHROME.panel,
-            boxShadow: '0 30px 80px -20px rgba(0,0,0,0.8)',
           }}
         >
           <div
@@ -219,17 +216,14 @@ function CategoryColumn({
         aria-current={currentCategory ? 'true' : undefined}
         onClick={onNavigate}
         style={{
+          ...LABEL,
           display: 'inline-flex',
           alignItems: 'center',
           gap: 4,
           margin: '0 -6px 4px',
           padding: '2px 6px',
-          borderRadius: 7,
+          borderRadius: R.pill,
           textDecoration: 'none',
-          fontSize: FS.xs,
-          fontWeight: 700,
-          letterSpacing: 0.6,
-          textTransform: 'uppercase',
           color: currentCategory ? ACCENT : CHROME.fg,
           outlineColor: ACCENT,
           transition: 'color 120ms ease',
@@ -297,22 +291,8 @@ function LeafRow({
       target={link.external ? '_blank' : undefined}
       rel={link.external ? 'noreferrer noopener' : undefined}
       onClick={onNavigate}
-      style={{
-        display: 'block',
-        padding: '5px 8px',
-        margin: '0 -8px',
-        borderRadius: 8,
-        textDecoration: 'none',
-        outlineColor: ACCENT,
-        background: current ? ACCENT_SOFT : 'transparent',
-        transition: 'background 120ms ease',
-      }}
-      onMouseEnter={(e) => {
-        if (!current) (e.currentTarget as HTMLElement).style.background = ACCENT_SOFTER
-      }}
-      onMouseLeave={(e) => {
-        if (!current) (e.currentTarget as HTMLElement).style.background = 'transparent'
-      }}
+      style={{ ...row(current), padding: '5px 8px' }}
+      {...ghostHover(current)}
     >
       <span
         style={{

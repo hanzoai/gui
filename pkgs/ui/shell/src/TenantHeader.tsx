@@ -108,7 +108,7 @@ async function hardRefresh() {
 /**
  * TenantHeader — shared top navigation bar for all Hanzo properties.
  *
- * Style: monochrome #09090b / white, same as hanzo.ai docs & console.
+ * Style: monochrome true-black / white, same as hanzo.ai docs & console.
  *
  * Features:
  * - Official Hanzo H-mark (animates on hover, brand context menu on right-click)
@@ -156,7 +156,7 @@ export function TenantHeader({
 
   return (
     <header
-      className="sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b border-white/[0.07] bg-[#09090b]/90 px-4 backdrop-blur-xl"
+      className="sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b border-white/[0.07] bg-black/90 px-4 backdrop-blur-xl"
       role="banner"
     >
       {/* ── Left: logo · breadcrumb · app switcher ── */}

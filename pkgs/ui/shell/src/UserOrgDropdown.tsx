@@ -72,7 +72,7 @@ export function UserOrgDropdown({
       </button>
 
       {open && (
-        <div className="absolute right-0 top-10 z-50 w-64 rounded-xl border border-white/[0.08] bg-[#0e0e13] shadow-2xl">
+        <div className="absolute right-0 top-10 z-50 w-64 rounded-xl border border-white/[0.08] bg-black shadow-2xl">
           {/* User info */}
           <div className="border-b border-white/[0.06] px-4 py-3">
             <p className="text-[13px] font-medium text-white/80">{user.name || 'User'}</p>

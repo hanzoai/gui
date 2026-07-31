@@ -20,8 +20,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoMark } from './mark'
 import { type HanzoAppBarAction } from './HanzoAppBar'
-import { ACCENT, ACCENT_SOFT, CHROME, FS, Z } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { CHROME, FS, PANEL, R, control, cta, ghostHover, row, Z } from './theme'
+import { useShellStyles } from './shellStyles'
 
 const HEADER_H = 56
 
@@ -84,7 +84,7 @@ export function HanzoAppHeader({
   className,
   logoHref = 'https://hanzo.ai',
 }: HanzoAppHeaderProps) {
-  useShellFocusRing()
+  useShellStyles()
   return (
     <header
       role="banner"
@@ -113,19 +113,8 @@ export function HanzoAppHeader({
       {mark === 'back' ? (
         <a
           href={backHref}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            flexShrink: 0,
-            height: 34,
-            padding: '0 10px',
-            borderRadius: 9,
-            textDecoration: 'none',
-            fontSize: FS.sm,
-            fontWeight: 600,
-            color: CHROME.fg,
-          }}
+          style={{ ...control(), gap: 6 }}
+          {...ghostHover()}
         >
           <BackArrow />
           {backLabel}
@@ -181,8 +170,8 @@ function SearchField({ placeholder, onClick }: { placeholder: string; onClick?: 
         height: 34,
         padding: '0 12px',
         border: `1px solid ${CHROME.border}`,
-        borderRadius: 9,
-        background: 'rgba(255,255,255,0.03)',
+        borderRadius: R.pill,
+        background: CHROME.raised,
         color: CHROME.fgMuted,
         fontSize: FS.sm,
         fontFamily: 'inherit',
@@ -193,7 +182,7 @@ function SearchField({ placeholder, onClick }: { placeholder: string; onClick?: 
         ;(e.currentTarget as HTMLElement).style.background = CHROME.hover
       }}
       onMouseLeave={(e) => {
-        ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)'
+        ;(e.currentTarget as HTMLElement).style.background = CHROME.raised
       }}
     >
       <SearchGlyph />
@@ -204,7 +193,7 @@ function SearchField({ placeholder, onClick }: { placeholder: string; onClick?: 
           fontFamily: 'inherit',
           color: CHROME.fgDim,
           border: `1px solid ${CHROME.border}`,
-          borderRadius: 5,
+          borderRadius: R.row,
           padding: '1px 5px',
         }}
       >
@@ -263,7 +252,7 @@ function Crumb({
     maxWidth: 200,
     height: 32,
     padding: '0 9px',
-    borderRadius: 8,
+    borderRadius: R.pill,
     border: 'none',
     background: open ? CHROME.hover : 'transparent',
     color: CHROME.fg,
@@ -316,12 +305,9 @@ function Crumb({
             minWidth: 220,
             maxHeight: 320,
             overflowY: 'auto',
+            ...PANEL,
             zIndex: Z.popover as unknown as number,
             padding: 6,
-            borderRadius: 12,
-            border: `1px solid ${CHROME.border}`,
-            background: CHROME.panel,
-            boxShadow: '0 24px 60px -16px rgba(0,0,0,0.7)',
           }}
         >
           {options!.map((opt) => {
@@ -337,28 +323,20 @@ function Crumb({
                   setOpen(false)
                 }}
                 style={{
+                  ...row(current),
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   gap: 8,
                   width: '100%',
+                  margin: 0,
                   padding: '8px 10px',
                   border: 'none',
-                  borderRadius: 8,
-                  background: current ? ACCENT_SOFT : 'transparent',
-                  color: current ? ACCENT : CHROME.fg,
-                  fontSize: FS.sm,
                   fontWeight: current ? 600 : 500,
                   fontFamily: 'inherit',
-                  cursor: 'pointer',
                   textAlign: 'left',
                 }}
-                onMouseEnter={(e) => {
-                  if (!current) (e.currentTarget as HTMLElement).style.background = CHROME.hover
-                }}
-                onMouseLeave={(e) => {
-                  if (!current) (e.currentTarget as HTMLElement).style.background = 'transparent'
-                }}
+                {...ghostHover(current)}
               >
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{opt.label}</span>
                 {current ? <Check /> : null}
@@ -373,25 +351,7 @@ function Crumb({
 
 function ActionButton({ action }: { action: HanzoAppHeaderAction }) {
   const filled = action.variant === 'filled'
-  const style: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 5,
-    flexShrink: 0,
-    height: 34,
-    padding: '0 13px',
-    borderRadius: 9,
-    textDecoration: 'none',
-    fontSize: FS.sm,
-    fontWeight: 600,
-    fontFamily: 'inherit',
-    whiteSpace: 'nowrap',
-    cursor: 'pointer',
-    border: filled ? '1px solid transparent' : `1px solid ${CHROME.border}`,
-    background: filled ? ACCENT : 'transparent',
-    color: filled ? '#0b0b0f' : CHROME.fg,
-    transition: 'opacity 120ms ease, background 120ms ease',
-  }
+  const style = cta(filled)
   const hoverIn = (el: HTMLElement) => {
     if (filled) el.style.opacity = '0.85'
     else el.style.background = CHROME.hover

@@ -33,8 +33,8 @@ import {
 import { normalizeTier, rankOf } from './entitlements'
 import { useEntitlement, type Entitlement, type UseEntitlementOptions } from './useEntitlement'
 import { findHanzoApp, type HanzoApp } from './hanzo-apps'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, R } from './theme'
+import { useShellStyles } from './shellStyles'
 
 const { panel: PANEL_BG, border: BORDER, borderSoft: BORDER_SOFT, fg: FG, fgMuted: FG_MUTED, fgDim: FG_DIM, hover: HOVER_BG, font: FONT } = CHROME
 
@@ -151,7 +151,7 @@ export function HanzoPlans({
   style,
   id,
 }: HanzoPlansProps) {
-  useShellFocusRing()
+  useShellStyles()
 
   // Always call the hook (rules of hooks); disable its network read when an
   // entitlement is injected so we don't fetch needlessly.
@@ -249,9 +249,9 @@ export function HanzoPlans({
               display: 'inline-flex',
               padding: 3,
               gap: 2,
-              borderRadius: 12,
+              borderRadius: R.pill,
               border: `1px solid ${BORDER}`,
-              background: 'rgba(255,255,255,0.03)',
+              background: CHROME.raised,
             }}
           >
             {kinds.map((k) => {
@@ -267,7 +267,7 @@ export function HanzoPlans({
                     border: 'none',
                     cursor: 'pointer',
                     padding: '7px 14px',
-                    borderRadius: 9,
+                    borderRadius: R.pill,
                     fontSize: FS.sm,
                     fontWeight: 600,
                     fontFamily: FONT,
@@ -380,7 +380,7 @@ function PlanCard({
         flexDirection: 'column',
         boxSizing: 'border-box',
         padding: 20,
-        borderRadius: 16,
+        borderRadius: R.card,
         border: `1px solid ${emphasise || isCurrent ? ACCENT : BORDER}`,
         background: emphasise ? ACCENT_SOFT : PANEL_BG,
         boxShadow: emphasise ? '0 20px 50px -20px rgba(0,0,0,0.65)' : 'none',
@@ -393,7 +393,7 @@ function PlanCard({
             style={{
               display: 'inline-block',
               padding: '3px 9px',
-              borderRadius: 999,
+              borderRadius: R.pill,
               fontSize: FS.xs,
               fontWeight: 700,
               letterSpacing: 0.3,
@@ -492,7 +492,7 @@ function PlanCTA({
     width: '100%',
     boxSizing: 'border-box',
     padding: '10px 14px',
-    borderRadius: 10,
+    borderRadius: R.pill,
     textAlign: 'center',
     fontSize: FS.sm,
     fontWeight: 700,
@@ -563,9 +563,9 @@ function AppChip({ app }: { app: HanzoApp }) {
         alignItems: 'center',
         gap: 6,
         padding: '4px 9px 4px 7px',
-        borderRadius: 999,
+        borderRadius: R.pill,
         border: `1px solid ${BORDER_SOFT}`,
-        background: 'rgba(255,255,255,0.04)',
+        background: CHROME.raised,
         fontSize: FS.xs,
         fontWeight: 600,
         color: FG_MUTED,

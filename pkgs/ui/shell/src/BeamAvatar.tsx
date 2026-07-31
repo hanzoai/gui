@@ -2,7 +2,8 @@
 
 import React from 'react'
 
-const COLORS = ['#0A0310', '#49007E', '#FF005B', '#FF7D10', '#FFB238']
+/** Monochrome ramp — the chrome carries no hue, so neither does an identicon. */
+const COLORS = ['#0a0a0a', '#3f3f46', '#71717a', '#a1a1aa', '#e4e4e7']
 
 function hashStr(str: string): number {
   let hash = 0

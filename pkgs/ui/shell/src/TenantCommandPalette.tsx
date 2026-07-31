@@ -181,7 +181,7 @@ export function TenantCommandPalette({
 
       {/* Palette */}
       <div className="fixed top-[15%] left-1/2 -translate-x-1/2 w-full max-w-xl z-[101]">
-        <div className="bg-[#111113] border border-white/[0.08] rounded-xl shadow-2xl overflow-hidden">
+        <div className="bg-black border border-white/[0.08] rounded-xl shadow-2xl overflow-hidden">
           {/* Search */}
           <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.07]">
             <svg

@@ -29,9 +29,9 @@ import {
   type HanzoSurface,
   type ProductCategory,
 } from './hanzo-registry'
-import { ACCENT, CHROME, FS, Z } from './theme'
+import { CHROME, FS, LABEL, PANEL, R, SCRIM, TAP_H, Z, control, cta, ghostHover, row } from './theme'
 import { useIsMobile } from './useMediaQuery'
-import { useShellFocusRing } from './focusRing'
+import { useShellStyles } from './shellStyles'
 
 const HEADER_H = 60
 
@@ -108,7 +108,7 @@ export function HanzoHeader({
   signInHref,
   className,
 }: HanzoHeaderProps) {
-  useShellFocusRing()
+  useShellStyles()
   const s = resolveSurface(surface)
   const isMobile = useIsMobile(900)
   const [meetOpen, setMeetOpen] = useState(false)
@@ -215,77 +215,23 @@ export function HanzoHeader({
       ) : (
         <>
           {/* ── Meet Hanzo ⌄ ── */}
-          <button
+          <MenuTrigger
             ref={meetBtnRef}
-            type="button"
+            label="Meet Hanzo"
+            open={meetOpen}
             onClick={toggleMeet}
-            aria-haspopup="dialog"
-            aria-expanded={meetOpen}
-            aria-controls={meetOpen ? 'hanzo-meet-menu' : undefined}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 5,
-              flexShrink: 0,
-              height: 34,
-              padding: '0 10px',
-              border: 'none',
-              borderRadius: 9,
-              background: meetOpen ? CHROME.hover : 'transparent',
-              color: CHROME.fg,
-              fontSize: FS.sm,
-              fontWeight: 600,
-              fontFamily: 'inherit',
-              cursor: 'pointer',
-              transition: 'background 120ms ease',
-            }}
-            onMouseEnter={(e) => {
-              if (!meetOpen) (e.currentTarget as HTMLElement).style.background = CHROME.hover
-            }}
-            onMouseLeave={(e) => {
-              if (!meetOpen) (e.currentTarget as HTMLElement).style.background = 'transparent'
-            }}
-          >
-            Meet Hanzo
-            <Chevron open={meetOpen} />
-          </button>
+            controls="hanzo-meet-menu"
+          />
 
           {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
           {hasProducts ? (
-            <button
+            <MenuTrigger
               ref={productsBtnRef}
-              type="button"
+              label="Products"
+              open={productsOpen}
               onClick={toggleProducts}
-              aria-haspopup="dialog"
-              aria-expanded={productsOpen}
-              aria-controls={productsOpen ? 'hanzo-products-menu' : undefined}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 5,
-                flexShrink: 0,
-                height: 34,
-                padding: '0 10px',
-                border: 'none',
-                borderRadius: 9,
-                background: productsOpen ? CHROME.hover : 'transparent',
-                color: CHROME.fg,
-                fontSize: FS.sm,
-                fontWeight: 600,
-                fontFamily: 'inherit',
-                cursor: 'pointer',
-                transition: 'background 120ms ease',
-              }}
-              onMouseEnter={(e) => {
-                if (!productsOpen) (e.currentTarget as HTMLElement).style.background = CHROME.hover
-              }}
-              onMouseLeave={(e) => {
-                if (!productsOpen) (e.currentTarget as HTMLElement).style.background = 'transparent'
-              }}
-            >
-              Products
-              <Chevron open={productsOpen} />
-            </button>
+              controls="hanzo-products-menu"
+            />
           ) : null}
 
           {/* ── Local nav ── */}
@@ -349,32 +295,40 @@ export function HanzoHeader({
 
 /* ── Pieces ──────────────────────────────────────────────────────────────── */
 
+/** A mega-menu disclosure in the header row ("Meet Hanzo ⌄", "Products ⌄"). */
+const MenuTrigger = React.forwardRef<
+  HTMLButtonElement,
+  { label: string; open: boolean; onClick: () => void; controls: string }
+>(function MenuTrigger({ label, open, onClick, controls }, ref) {
+  return (
+    <button
+      ref={ref}
+      type="button"
+      onClick={onClick}
+      aria-haspopup="dialog"
+      aria-expanded={open}
+      aria-controls={open ? controls : undefined}
+      style={control(open)}
+      {...ghostHover(open)}
+    >
+      {label}
+      <Chevron open={open} />
+    </button>
+  )
+})
+
 function NavLink({ link }: { link: HanzoLink }) {
   return (
     <a
       href={link.href}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        height: 34,
-        padding: '0 10px',
-        borderRadius: 9,
-        textDecoration: 'none',
-        fontSize: FS.sm,
-        fontWeight: 500,
-        color: CHROME.fgMuted,
-        whiteSpace: 'nowrap',
-        transition: 'background 120ms ease, color 120ms ease',
-      }}
+      style={{ ...control(), fontWeight: 500, color: CHROME.fgMuted }}
       onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.background = CHROME.hover
-        el.style.color = CHROME.fg
+        e.currentTarget.style.background = CHROME.hover
+        e.currentTarget.style.color = CHROME.fg
       }}
       onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.background = 'transparent'
-        el.style.color = CHROME.fgMuted
+        e.currentTarget.style.background = 'transparent'
+        e.currentTarget.style.color = CHROME.fgMuted
       }}
     >
       {link.label}
@@ -382,36 +336,19 @@ function NavLink({ link }: { link: HanzoLink }) {
   )
 }
 
-function CTA({ link, variant }: { link: HanzoLink; variant: 'ghost' | 'filled' }) {
+function CTA({ link, variant, height }: { link: HanzoLink; variant: 'ghost' | 'filled'; height?: number }) {
   const filled = variant === 'filled'
   return (
     <a
       href={link.href}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        flexShrink: 0,
-        height: 34,
-        padding: '0 14px',
-        borderRadius: 9,
-        textDecoration: 'none',
-        fontSize: FS.sm,
-        fontWeight: 600,
-        whiteSpace: 'nowrap',
-        border: filled ? '1px solid transparent' : `1px solid ${CHROME.border}`,
-        background: filled ? ACCENT : 'transparent',
-        color: filled ? '#0b0b0f' : CHROME.fg,
-        transition: 'opacity 120ms ease, background 120ms ease',
-      }}
+      style={cta(filled, height)}
       onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        if (filled) el.style.opacity = '0.85'
-        else el.style.background = CHROME.hover
+        if (filled) e.currentTarget.style.opacity = '0.85'
+        else e.currentTarget.style.background = CHROME.hover
       }}
       onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        if (filled) el.style.opacity = '1'
-        else el.style.background = 'transparent'
+        if (filled) e.currentTarget.style.opacity = '1'
+        else e.currentTarget.style.background = 'transparent'
       }}
     >
       {link.label}
@@ -436,19 +373,8 @@ function IconButton({
       onClick={onClick}
       aria-label={label}
       aria-expanded={expanded}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 38,
-        height: 38,
-        flexShrink: 0,
-        border: 'none',
-        borderRadius: 9,
-        background: expanded ? CHROME.hover : 'transparent',
-        color: CHROME.fg,
-        cursor: 'pointer',
-      }}
+      style={{ ...control(expanded, TAP_H), width: TAP_H, padding: 0 }}
+      {...ghostHover(expanded)}
     >
       {children}
     </button>
@@ -481,12 +407,13 @@ function MobileSheet({
       <div
         aria-hidden="true"
         onClick={onClose}
-        style={{ position: 'fixed', inset: 0, top, zIndex: Z.overlay as unknown as number, background: 'rgba(0,0,0,0.4)' }}
+        style={{ position: 'fixed', inset: 0, top, zIndex: Z.overlay as unknown as number, background: SCRIM }}
       />
       <div
         role="dialog"
         aria-label={`${surface.brandName} menu`}
         style={{
+          ...PANEL,
           position: 'fixed',
           top,
           left: 0,
@@ -495,9 +422,8 @@ function MobileSheet({
           maxHeight: `calc(100vh - ${top}px)`,
           overflowY: 'auto',
           padding: 12,
-          background: CHROME.panel,
-          borderBottom: `1px solid ${CHROME.border}`,
-          boxShadow: '0 24px 60px -12px rgba(0,0,0,0.7)',
+          borderRadius: 0,
+          borderTop: 'none',
           fontFamily: CHROME.font,
         }}
       >
@@ -505,19 +431,12 @@ function MobileSheet({
           type="button"
           onClick={onMeet}
           style={{
-            display: 'flex',
-            alignItems: 'center',
+            ...cta(false, TAP_H),
             justifyContent: 'space-between',
             width: '100%',
-            padding: '12px 12px',
-            border: `1px solid ${CHROME.border}`,
-            borderRadius: 12,
-            background: 'transparent',
-            color: CHROME.fg,
+            borderRadius: R.card,
             fontSize: FS.base,
             fontWeight: 700,
-            fontFamily: 'inherit',
-            cursor: 'pointer',
             marginBottom: 8,
           }}
         >
@@ -531,14 +450,8 @@ function MobileSheet({
               key={link.id}
               href={link.href}
               onClick={onClose}
-              style={{
-                display: 'block',
-                padding: '11px 12px',
-                borderRadius: 10,
-                textDecoration: 'none',
-                fontSize: FS.base,
-                color: CHROME.fg,
-              }}
+              style={{ ...row(), display: 'flex', alignItems: 'center', margin: 0, padding: '0 12px', minHeight: TAP_H, fontSize: FS.base }}
+              {...ghostHover()}
             >
               {link.label}
             </a>
@@ -561,8 +474,8 @@ function MobileSheet({
         ) : null}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <CTA link={surface.secondaryCTA} variant="ghost" />
-          <CTA link={surface.primaryCTA} variant="filled" />
+          <CTA link={surface.secondaryCTA} variant="ghost" height={TAP_H} />
+          <CTA link={surface.primaryCTA} variant="filled" height={TAP_H} />
         </div>
 
         {/* Identity + account controls (Sign In / avatar) stay reachable on mobile. */}
@@ -606,20 +519,12 @@ function MobileProductsCategory({
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
         style={{
-          display: 'flex',
-          alignItems: 'center',
+          ...control(false, TAP_H),
+          ...LABEL,
           justifyContent: 'space-between',
           width: '100%',
-          padding: '12px',
-          border: 'none',
-          background: 'transparent',
+          borderRadius: 0,
           color: CHROME.fg,
-          fontSize: FS.sm,
-          fontWeight: 700,
-          letterSpacing: 0.6,
-          textTransform: 'uppercase',
-          fontFamily: 'inherit',
-          cursor: 'pointer',
         }}
       >
         {category.label}
@@ -630,15 +535,8 @@ function MobileProductsCategory({
           <a
             href={category.href}
             onClick={onClose}
-            style={{
-              display: 'block',
-              padding: '9px 12px',
-              borderRadius: 10,
-              textDecoration: 'none',
-              fontSize: FS.sm,
-              fontWeight: 600,
-              color: category.href === currentHref ? ACCENT : CHROME.fg,
-            }}
+            style={{ ...mobileLeaf(category.href === currentHref), fontWeight: 600 }}
+            {...ghostHover()}
           >
             All {category.label}
           </a>
@@ -649,14 +547,8 @@ function MobileProductsCategory({
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noreferrer noopener' : undefined}
               onClick={onClose}
-              style={{
-                display: 'block',
-                padding: '9px 12px',
-                borderRadius: 10,
-                textDecoration: 'none',
-                fontSize: FS.sm,
-                color: item.href === currentHref ? ACCENT : CHROME.fgMuted,
-              }}
+              style={mobileLeaf(item.href === currentHref)}
+              {...ghostHover()}
             >
               {item.label}
             </a>
@@ -667,6 +559,18 @@ function MobileProductsCategory({
   )
 }
 
+/** One row of the mobile Products accordion. */
+function mobileLeaf(current: boolean) {
+  return {
+    ...row(current),
+    display: 'flex',
+    alignItems: 'center',
+    margin: 0,
+    padding: '0 12px',
+    minHeight: TAP_H,
+  }
+}
+
 /**
  * Default account affordance — a text "Sign in" link styled like the shell
  * chrome, rendered when a surface asks for one via `signInHref` and supplies no
@@ -674,29 +578,7 @@ function MobileProductsCategory({
  */
 function DefaultAccount({ href }: { href: string }) {
   return (
-    <a
-      href={href}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        flexShrink: 0,
-        height: 34,
-        padding: '0 10px',
-        borderRadius: 9,
-        textDecoration: 'none',
-        fontSize: FS.sm,
-        fontWeight: 600,
-        whiteSpace: 'nowrap',
-        color: CHROME.fg,
-        transition: 'background 120ms ease',
-      }}
-      onMouseEnter={(e) => {
-        ;(e.currentTarget as HTMLElement).style.background = CHROME.hover
-      }}
-      onMouseLeave={(e) => {
-        ;(e.currentTarget as HTMLElement).style.background = 'transparent'
-      }}
-    >
+    <a href={href} style={control()} {...ghostHover()}>
       Sign in
     </a>
   )

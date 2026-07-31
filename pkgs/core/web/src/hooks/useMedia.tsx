@@ -345,7 +345,7 @@ const incReducer = (c: number): number => c + 1
 // PATCH (ours, carried across the transplant): initState is only assigned by
 // configureMedia, which returns early when the config carries no `media`. On a
 // server render neither has happened, so this handed undefined to
-// `new Proxy(state, …)` and every Tamagui Dialog — which runs useMedia when it
+// `new Proxy(state, …)` and every Gui Dialog — which runs useMedia when it
 // renders, open or closed — killed the whole prerender with "Cannot create proxy
 // with a non-object as target or handler". Degrade to the (empty) live media
 // state: queries read false on a server that has no viewport, which is the

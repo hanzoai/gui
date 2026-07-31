@@ -15,7 +15,7 @@ release before reporting.
 Report privately using **GitHub's private vulnerability reporting**:
 
 1. Go to the repo's **Security** tab → **Report a vulnerability**
-   (https://github.com/hanzogui/hanzogui/security/advisories/new)
+   (https://github.com/hanzoai/gui/security/advisories/new)
 2. Describe the issue, affected versions, and a proof-of-concept if you have one.
 
 If you can't use GitHub advisories, email **security@hanzogui.dev** (or

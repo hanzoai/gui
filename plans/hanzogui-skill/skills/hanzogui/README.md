@@ -42,5 +42,5 @@ skills/hanzogui/
 ## Resources
 
 - [Gui Docs](https://hanzogui.dev)
-- [GitHub](https://github.com/hanzogui/hanzogui)
+- [GitHub](https://github.com/hanzoai/gui)
 - [Discord](https://discord.gg/hanzogui)

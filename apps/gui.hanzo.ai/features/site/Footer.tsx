@@ -87,7 +87,7 @@ export const Footer = memo(() => {
               <ParagraphLink href="/blog">Blog</ParagraphLink>
             </XStack>
             <XStack gap="$1" items="center">
-              <ParagraphLink href="https://github.com/hanzogui/hanzogui" target="_blank">
+              <ParagraphLink href="https://github.com/hanzoai/gui" target="_blank">
                 GitHub
               </ParagraphLink>
               <ExternalIcon />

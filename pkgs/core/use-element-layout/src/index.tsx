@@ -8,7 +8,7 @@ const IntersectionState = new WeakMap<HTMLElement, boolean>()
 
 // feature flag to enable pre-transform dimension reporting (matches RN behavior)
 // can be set via env var at build time or runtime global for testing
-// see: https://github.com/hanzogui/hanzogui/pull/2329
+// see: https://github.com/hanzoai/gui/pull/2329
 const usePretransformDimensions = () =>
   (globalThis as any).__GUI_ONLAYOUT_PRETRANSFORM === true ||
   process.env.GUI_ONLAYOUT_PRETRANSFORM === '1'
@@ -308,7 +308,7 @@ export const getElementLayoutEvent = (
  * uses offsetWidth/offsetHeight which report CSS layout dimensions
  * unaffected by transforms - this matches React Native's onLayout behavior.
  *
- * see: https://github.com/hanzogui/hanzogui/pull/2329
+ * see: https://github.com/hanzoai/gui/pull/2329
  */
 const getPreTransformDimensions = (
   node: HTMLElement

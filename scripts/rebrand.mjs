@@ -46,6 +46,14 @@ const RULES = [
   [/\bhelpers-tamagui\b/g, 'component-helpers'],
   [/\bcreate-tamagui\b/g, 'create-gui'],
 
+  // The GitHub remote is hanzoai/gui — the brand name and the repo path are NOT
+  // the same string. Upstream's `github.com/tamagui/tamagui` would otherwise fall
+  // through to the blanket rule and become `github.com/hanzogui/hanzogui`, a repo
+  // that has never existed, and it ships in the `repository.url` of every one of
+  // the 174 published packages. Second form repairs a tree already branded wrong.
+  [/github\.com\/tamagui\/tamagui/g, 'github.com/hanzoai/gui'],
+  [/github\.com\/hanzogui\/hanzogui/g, 'github.com/hanzoai/gui'],
+
   [/@tamagui\//g, '@hanzogui/'],
   [/TAMAGUI/g, 'GUI'], // env vars: TAMAGUI_CACHE -> GUI_CACHE
   [/Tamagui/g, 'Gui'], // identifiers: createTamagui -> createGui

@@ -718,7 +718,7 @@ async function run() {
         const pkgJson = await fs.readJSON(pkgJsonPath)
         pkgJson.repository = {
           type: 'git',
-          url: 'git+https://github.com/hanzogui/hanzogui.git',
+          url: 'git+https://github.com/hanzoai/gui.git',
           directory: path.relative(process.cwd(), cwd),
         }
         for (const field of [

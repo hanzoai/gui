@@ -938,8 +938,8 @@ export const getSplitStyles: StyleSplitter = (
 
                 // Only color properties support DynamicColorIOS - non-color properties
                 // like opacity, dimensions, etc. will crash if wrapped with {dynamic: {...}}
-                // See: https://github.com/hanzogui/hanzogui/issues/3096
-                // See: https://github.com/hanzogui/hanzogui/issues/2980
+                // See: https://github.com/hanzoai/gui/issues/3096
+                // See: https://github.com/hanzoai/gui/issues/2980
                 if (!isColorStyleKey(subKey)) {
                   // non-color properties require re-render to update
                   dynamicThemeAccess = true

@@ -168,8 +168,8 @@ describe('getSplitStyles iOS specific', () => {
    * `opacity` are wrapped with {dynamic: {...}}, React Native throws:
    * "TypeError: expected dynamic type 'int/double/bool/string', but had type 'object'"
    *
-   * See: https://github.com/hanzogui/hanzogui/issues/3096
-   * See: https://github.com/hanzogui/hanzogui/issues/2980
+   * See: https://github.com/hanzoai/gui/issues/3096
+   * See: https://github.com/hanzoai/gui/issues/2980
    */
   test('non-color properties in $theme-dark/$theme-light should NOT be wrapped with dynamic object', () => {
     // Arrange - opacity is a numeric property, not a color

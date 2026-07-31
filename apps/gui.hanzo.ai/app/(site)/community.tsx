@@ -179,7 +179,7 @@ export default function Community() {
               />
 
               <StarterRepoCard
-                url="https://github.com/hanzogui/hanzogui/tree/main/apps/site"
+                url="https://github.com/hanzoai/gui/tree/main/apps/site"
                 name="hanzogui.dev"
                 author="nate"
               />

@@ -4,7 +4,7 @@
 npm create hanzogui
 ```
 
-A script that creates a [hanzogui monorepo](https://github.com/hanzogui/hanzogui/tree/main/example-monorepos/blank) for you in seconds.
+A script that creates a [hanzogui monorepo](https://github.com/hanzoai/gui/tree/main/example-monorepos/blank) for you in seconds.
 
 ## Contributing
 

@@ -17,7 +17,7 @@ import { Button, Square, Text, YStack } from 'hanzogui'
  *
  * enable GUI_ONLAYOUT_PRETRANSFORM=1 to test the fix
  *
- * see: https://github.com/hanzogui/hanzogui/pull/2329
+ * see: https://github.com/hanzoai/gui/pull/2329
  */
 export function OnLayoutScaleCase() {
   const [layoutWithoutScale, setLayoutWithoutScale] = useState<LayoutRectangle | null>(

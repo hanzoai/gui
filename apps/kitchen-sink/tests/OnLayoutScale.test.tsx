@@ -12,7 +12,7 @@ import { setupPage } from './test-utils'
  * - onLayout should report pre-transform dimensions (matching RN behavior)
  * - a 200x200 element with scale(0.5) should report 200x200
  *
- * see: https://github.com/hanzogui/hanzogui/pull/2329
+ * see: https://github.com/hanzoai/gui/pull/2329
  */
 
 test.describe('onLayout with CSS scale', () => {

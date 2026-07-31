@@ -2,7 +2,7 @@
 
 ## Overview
 
-The motion driver (`@tamagui/animations-motion`) has several issues that need to be fixed. This document tracks the research, bugs, and fixes.
+The motion driver (`@hanzogui/animations-motion`) has several issues that need to be fixed. This document tracks the research, bugs, and fixes.
 
 ## Recent Commits (Last 5 Days)
 
@@ -26,11 +26,11 @@ The motion driver (`@tamagui/animations-motion`) has several issues that need to
 
 ## Known Bugs
 
-### 1. TAMAGUI Logo Jitter Bug
+### 1. GUI Logo Jitter Bug
 
-**Component**: `LogoWords.tsx` in `@tamagui/logo`
+**Component**: `LogoWords.tsx` in `@hanzogui/logo`
 
-**Symptoms**: Moving mouse left/right fast over the TAMAGUI text causes the dot indicator to jitter erratically.
+**Symptoms**: Moving mouse left/right fast over the GUI text causes the dot indicator to jitter erratically.
 
 **Relevant Code**:
 
@@ -137,12 +137,12 @@ The fix uses **approach #4: element attribute marker** to distinguish Popper ele
 
 ### Changes Made
 
-1. **`/code/ui/popper/src/Popper.tsx`**
-   - Added `data-popper-animated="true"` attribute to the outer animated TamaguiView
+1. **`/pkgs/ui/popper/src/Popper.tsx`**
+   - Added `data-popper-animated="true"` attribute to the outer animated GuiView
    - This attribute is only added when `enableAnimationForPositionChange` is true
    - Marker is on the actual animated element (not the inner PopperContentFrame which has `data-placement`)
 
-2. **`/code/core/animations-motion/src/createAnimations.tsx`**
+2. **`/pkgs/core/animations-motion/src/createAnimations.tsx`**
    - Changed position fix to check for `data-popper-animated` attribute
    - Only applies `getComputedStyle` fix when the element has this marker
    - Logo Circle doesn't have this marker, so it won't get the fix (avoiding jitter)
@@ -168,10 +168,10 @@ All tests pass:
 
 ## Files Modified
 
-- `/code/core/animations-motion/src/createAnimations.tsx` - Position fix with data-popper-animated check
-- `/code/ui/popper/src/Popper.tsx` - Added data-popper-animated marker
+- `/pkgs/core/animations-motion/src/createAnimations.tsx` - Position fix with data-popper-animated check
+- `/pkgs/ui/popper/src/Popper.tsx` - Added data-popper-animated marker
 
 ## Test Files
 
-- `/code/kitchen-sink/tests/TooltipPositionJump.animated.test.tsx` - Existing (passes)
-- `/code/kitchen-sink/tests/TamaguiSiteMotion.test.ts` - Tests against actual tamagui.dev site
+- `/apps/kitchen-sink/tests/TooltipPositionJump.animated.test.tsx` - Existing (passes)
+- `/apps/kitchen-sink/tests/GuiSiteMotion.test.ts` - Tests against actual hanzogui.dev site

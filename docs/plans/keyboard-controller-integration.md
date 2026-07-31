@@ -2,7 +2,7 @@
 
 ## Overview
 
-Add `react-native-keyboard-controller` integration to Tamagui following the same pattern as gesture-handler and teleport in `@tamagui/native`. This enables smooth keyboard + sheet coordination where:
+Add `react-native-keyboard-controller` integration to Hanzo GUI following the same pattern as gesture-handler and teleport in `@hanzogui/native`. This enables smooth keyboard + sheet coordination where:
 
 1. Dragging sheet down dismisses keyboard FIRST with smooth handoff
 2. Keyboard and sheet animate in sync (60/120 FPS frame-by-frame)
@@ -31,7 +31,7 @@ Following the exact pattern of `setup-gesture-handler.ts`:
 ### 1. State Module (`keyboardControllerState.ts`)
 
 ```typescript
-const GLOBAL_KEY = '__tamagui_native_keyboard_controller_state__'
+const GLOBAL_KEY = '__gui_native_keyboard_controller_state__'
 
 export interface KeyboardControllerState {
   enabled: boolean
@@ -60,8 +60,8 @@ import { setKeyboardControllerState } from './keyboardControllerState'
 
 function setup() {
   const g = globalThis as any
-  if (g.__tamagui_native_keyboard_controller_setup_complete) return
-  g.__tamagui_native_keyboard_controller_setup_complete = true
+  if (g.__gui_native_keyboard_controller_setup_complete) return
+  g.__gui_native_keyboard_controller_setup_complete = true
 
   try {
     const rnkc = require('react-native-keyboard-controller')
@@ -101,7 +101,7 @@ setup()
 
 ### 4. Package.json Updates
 
-Add to `@tamagui/native/package.json`:
+Add to `@hanzogui/native/package.json`:
 
 ```json
 {
@@ -135,7 +135,7 @@ Add to `@tamagui/native/package.json`:
 New hook: `useKeyboardControllerSheet.ts`
 
 ```typescript
-import { isKeyboardControllerEnabled, getKeyboardControllerState } from '@tamagui/native'
+import { isKeyboardControllerEnabled, getKeyboardControllerState } from '@hanzogui/native'
 import { useSharedValue } from 'react-native-reanimated'
 
 export function useKeyboardControllerSheet({
@@ -213,20 +213,20 @@ interface SheetProps {
 
 ### Create
 
-1. `code/core/native/src/keyboardControllerState.ts`
-2. `code/core/native/src/setup-keyboard-controller.ts`
-3. `code/core/native/src/setup-keyboard-controller.web.ts`
-4. `code/ui/sheet/src/useKeyboardControllerSheet.ts`
-5. `code/ui/sheet/src/useKeyboardControllerSheet.native.ts`
-6. `code/kitchen-sink/src/usecases/SheetKeyboardDragCase.tsx`
-7. `code/kitchen-sink/e2e/SheetKeyboardDrag.test.ts`
+1. `pkgs/core/native/src/keyboardControllerState.ts`
+2. `pkgs/core/native/src/setup-keyboard-controller.ts`
+3. `pkgs/core/native/src/setup-keyboard-controller.web.ts`
+4. `pkgs/ui/sheet/src/useKeyboardControllerSheet.ts`
+5. `pkgs/ui/sheet/src/useKeyboardControllerSheet.native.ts`
+6. `apps/kitchen-sink/src/usecases/SheetKeyboardDragCase.tsx`
+7. `apps/kitchen-sink/e2e/SheetKeyboardDrag.test.ts`
 
 ### Modify
 
-1. `code/core/native/package.json` - add peer dep + exports
-2. `code/core/native/src/index.ts` - export state functions
-3. `code/ui/sheet/src/SheetImplementationCustom.tsx` - integrate hook
-4. `code/ui/sheet/src/types.ts` - add new props
+1. `pkgs/core/native/package.json` - add peer dep + exports
+2. `pkgs/core/native/src/index.ts` - export state functions
+3. `pkgs/ui/sheet/src/SheetImplementationCustom.tsx` - integrate hook
+4. `pkgs/ui/sheet/src/types.ts` - add new props
 5. `docs/using-ios.md` - add keyboard test workflow
 
 ## Detox Test Cases
@@ -268,7 +268,7 @@ describe('SheetKeyboardDrag - Keyboard Controller Integration', () => {
 
 ```bash
 # 1. Start metro in background
-cd code/kitchen-sink && yarn start > /tmp/metro.log 2>&1 &
+cd apps/kitchen-sink && yarn start > /tmp/metro.log 2>&1 &
 
 # 2. Build app once
 detox build -c ios.sim.debug

@@ -31,9 +31,9 @@ node_modules
 
 .vercel
 
-code/kitchen-sink/ios
+apps/kitchen-sink/ios
 
-.tamagui
+.hanzogui
 
 .idea
 
@@ -54,8 +54,8 @@ code/kitchen-sink/ios
 *.mobileprovision
 **/serviceAccount*.json
 
-code/kitchen-sink/ios
-code/kitchen-sink/android
+apps/kitchen-sink/ios
+apps/kitchen-sink/android
 
 code/studio/types/**
 
@@ -67,3 +67,7 @@ code/studio/types/**
 .playwright-report/
 .playwright-results/
 test-results/
+
+# Rust build artifacts — never commit; a debug .a is 272MB and GitHub caps at 100MB.
+apps/desktop/src-tauri/target/
+**/src-tauri/target/

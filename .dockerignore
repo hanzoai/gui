@@ -7,7 +7,7 @@ node_modules
 **/*/node_modules
 **/*/dist
 **/*/.turbo
-**/*/.tamagui
+**/*/.hanzogui
 
 # expo
 **/*/.expo

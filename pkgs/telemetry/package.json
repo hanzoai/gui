@@ -1,0 +1,66 @@
+{
+  "name": "@hanzogui/telemetry",
+  "version": "0.1.0",
+  "description": "Zero-config Hanzo telemetry — one <TelemetryProvider/> wires errors + session capture, pageviews, and product events to the ONE front door (POST api.hanzo.ai/v1/event), which lenses them into sentry.hanzo.ai, analytics.hanzo.ai and insights.hanzo.ai. Honors DNT/GPC, consent-aware, SSR-safe, fail-soft.",
+  "source": "src/index.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hanzo/event": "^0.3.1",
+    "@hanzo/observe": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "happy-dom": "^20.10.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.9"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "telemetry",
+    "analytics",
+    "error-tracking",
+    "session-replay",
+    "consent",
+    "react",
+    "hanzo"
+  ],
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanzoai/gui",
+    "directory": "pkgs/telemetry"
+  }
+}

@@ -54,16 +54,16 @@ When sheet is at middle position and user does FAST swipe up:
 
 Like gorhom/bottom-sheet and react-native-actions-sheet, we need synchronous native-thread control. Instead of requiring full Reanimated, we can use the lighter `react-native-worklets-core` package.
 
-**New Architecture** - `@tamagui/native` package:
+**New Architecture** - `@hanzogui/native` package:
 
 ```tsx
 // Entry points (side-effect imports only, no setup() functions):
-import '@tamagui/native/setup-gesture-handler' // RNGH
-import '@tamagui/native/setup-worklets' // react-native-worklets-core
+import '@hanzogui/native/setup-gesture-handler' // RNGH
+import '@hanzogui/native/setup-worklets' // react-native-worklets-core
 
 // In your app:
-import '@tamagui/native/setup-gesture-handler'
-import '@tamagui/native/setup-worklets'
+import '@hanzogui/native/setup-gesture-handler'
+import '@hanzogui/native/setup-worklets'
 // That's it! Sheet will automatically use worklets when available
 ```
 
@@ -146,7 +146,7 @@ if (wasAtTop !== nowAtTop) {
 
 ### Remaining Work
 
-- [ ] Move setup to @tamagui/native-gestures package
+- [ ] Move setup to @hanzogui/native-gestures package
 - [ ] Write docs and blog post
 - [ ] Test web sheets haven't regressed
 - [ ] Run release dry-run
@@ -182,7 +182,7 @@ This happened because the app imports RNGH at the top (`import 'react-native-ges
 ```tsx
 // OLD (broken):
 import 'react-native-gesture-handler'
-import { setupGestureHandler } from '@tamagui/sheet/setup-gesture-handler'
+import { setupGestureHandler } from '@hanzogui/sheet/setup-gesture-handler'
 setupGestureHandler() // ❌ tries to require RNGH again, double registration
 
 // NEW (fixed):
@@ -191,7 +191,7 @@ import {
   GestureDetector,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler'
-import { setupGestureHandler } from '@tamagui/sheet/setup-gesture-handler'
+import { setupGestureHandler } from '@hanzogui/sheet/setup-gesture-handler'
 setupGestureHandler({ Gesture, GestureDetector }) // ✅ uses already-imported refs
 ```
 
@@ -266,23 +266,23 @@ Sheet + Sheet.ScrollView gesture coordination on iOS is fundamentally broken wit
 
 ### Core Infrastructure (DONE)
 
-- `code/ui/sheet/src/gestureState.ts` - Global state (no native deps)
-- `code/ui/sheet/src/setupGestureHandler.ts` - Auto-detects RNGH via require()
-- `code/ui/sheet/src/useGestureHandlerPan.tsx` - Pan gesture hook with blockPan
-- `code/ui/sheet/src/GestureDetectorWrapper.tsx` - Conditional wrapper
-- `code/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture refs
+- `pkgs/ui/sheet/src/gestureState.ts` - Global state (no native deps)
+- `pkgs/ui/sheet/src/setupGestureHandler.ts` - Auto-detects RNGH via require()
+- `pkgs/ui/sheet/src/useGestureHandlerPan.tsx` - Pan gesture hook with blockPan
+- `pkgs/ui/sheet/src/GestureDetectorWrapper.tsx` - Conditional wrapper
+- `pkgs/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture refs
 
 ### Integration (DONE)
 
-- `code/ui/sheet/src/SheetImplementationCustom.tsx` - Uses hook, falls back to PanResponder
-- `code/ui/sheet/src/SheetScrollView.tsx` - simultaneousWithExternalGesture
-- `code/ui/sheet/package.json` - Export and optional peer dep
+- `pkgs/ui/sheet/src/SheetImplementationCustom.tsx` - Uses hook, falls back to PanResponder
+- `pkgs/ui/sheet/src/SheetScrollView.tsx` - simultaneousWithExternalGesture
+- `pkgs/ui/sheet/package.json` - Export and optional peer dep
 
 ### Kitchen Sink (DONE)
 
-- `code/kitchen-sink/src/App.native.tsx` - Calls setupGestureHandler()
-- `code/kitchen-sink/src/usecases/SheetScrollableDrag.tsx` - Test case
-- `code/kitchen-sink/src/features/home/screen.tsx` - RNGH status indicator
+- `apps/kitchen-sink/src/App.native.tsx` - Calls setupGestureHandler()
+- `apps/kitchen-sink/src/usecases/SheetScrollableDrag.tsx` - Test case
+- `apps/kitchen-sink/src/features/home/screen.tsx` - RNGH status indicator
 
 ## Next Steps (Priority Order)
 
@@ -303,7 +303,7 @@ Look at how gorhom/bottom-sheet tracks `animatedScrollableState.contentOffsetY`:
 
 ### 2. Write Failing Detox Tests First
 
-Create `code/kitchen-sink/tests/SheetScrollableDrag.detox.test.ts`:
+Create `apps/kitchen-sink/tests/SheetScrollableDrag.detox.test.ts`:
 
 ```typescript
 describe('Sheet + ScrollView RNGH Integration', () => {
@@ -553,7 +553,7 @@ Testing with debug logs in:
 
 ```bash
 # Start Metro for kitchen-sink
-cd code/kitchen-sink && yarn start --port 8081
+cd apps/kitchen-sink && yarn start --port 8081
 
 # Run iOS app
 npx expo run:ios
@@ -594,21 +594,21 @@ yarn detox test -c ios.sim.debug tests/SheetScrollableDrag.detox.test.ts
 
 ### Architecture Decisions
 
-1. **Setup via @tamagui/native** - Follows portal pattern, side-effect imports only
+1. **Setup via @hanzogui/native** - Follows portal pattern, side-effect imports only
 2. **Optional peer dep** - RNGH is optional, clean fallback to PanResponder
 3. **No RNGH on web** - Web always uses PanResponder (works fine)
 4. **ScrollBridge for coordination** - Centralized state between pan and scroll
 
 ### Files Changed
 
-- `code/ui/sheet/src/gestureState.ts` - Re-exports from @tamagui/native
-- `code/ui/sheet/src/useGestureHandlerPan.tsx` - Pan gesture with scroll coordination
-- `code/ui/sheet/src/SheetScrollView.tsx` - RNGH ScrollView with simultaneousHandlers
-- `code/ui/sheet/src/GestureDetectorWrapper.tsx` - Conditional gesture wrapper
-- `code/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture ref sharing
-- `code/ui/sheet/src/SheetImplementationCustom.tsx` - Integration with fallback
-- `code/ui/sheet/src/types.tsx` - Extended ScrollBridge type
-- `code/core/native/src/setup-gesture-handler.ts` - Side-effect setup
+- `pkgs/ui/sheet/src/gestureState.ts` - Re-exports from @hanzogui/native
+- `pkgs/ui/sheet/src/useGestureHandlerPan.tsx` - Pan gesture with scroll coordination
+- `pkgs/ui/sheet/src/SheetScrollView.tsx` - RNGH ScrollView with simultaneousHandlers
+- `pkgs/ui/sheet/src/GestureDetectorWrapper.tsx` - Conditional gesture wrapper
+- `pkgs/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture ref sharing
+- `pkgs/ui/sheet/src/SheetImplementationCustom.tsx` - Integration with fallback
+- `pkgs/ui/sheet/src/types.tsx` - Extended ScrollBridge type
+- `pkgs/core/native/src/setup-gesture-handler.ts` - Side-effect setup
 
 ### Ralph Loop Notes
 

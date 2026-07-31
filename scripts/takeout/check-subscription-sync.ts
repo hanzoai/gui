@@ -15,7 +15,7 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
 const GITHUB_ADMIN_TOKEN = process.env.GITHUB_ADMIN_TOKEN
 const TEAM_SLUG = 'early-access'
-const ORG_NAME = 'tamagui'
+const ORG_NAME = 'hanzogui'
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
   console.error('Missing Supabase environment variables')
@@ -96,13 +96,13 @@ async function getActiveStripeSubscriptions() {
   })
 
   // Products that grant early-access team membership:
-  // - Tamagui Pro (includes takeout access)
+  // - Gui Pro (includes takeout access)
   // - Takeout Stack (includes unistack repo access)
   const takeoutProducts = products.data.filter(
     (p) =>
       p.name.toLowerCase().includes('takeout') ||
-      p.name.toLowerCase().includes('tamagui pro') ||
-      p.id === 'prod_RlRd2DVrG0frHe' || // Tamagui Pro
+      p.name.toLowerCase().includes('hanzogui pro') ||
+      p.id === 'prod_RlRd2DVrG0frHe' || // Gui Pro
       p.id === 'prod_NzLEazaqBgoKnC' || // Takeout Stack
       p.metadata?.type === 'repo' ||
       p.metadata?.includes_takeout === 'true' ||

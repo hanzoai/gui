@@ -1,0 +1,29 @@
+{
+  "name": "@hanzogui/metro-plugin",
+  "version": "2.6.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm",
+  "types": "./types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/static": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*"
+  }
+}

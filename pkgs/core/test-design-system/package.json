@@ -1,0 +1,25 @@
+{
+  "name": "@hanzogui/test-design-system",
+  "version": "2.6.0",
+  "source": "src/index.ts",
+  "files": [],
+  "sideEffects": false,
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "./types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*"
+  }
+}

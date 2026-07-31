@@ -1,0 +1,156 @@
+---
+title: One Guide
+description: How to set up Gui with One
+---
+
+[One](https://onestack.dev) is a React framework for web, iOS, and Android built on Vite. It offers seamless cross-platform development and integrates well with Gui.
+
+## Install
+
+First, create a new One project:
+
+```bash
+npx one
+```
+
+Add Gui and its dependencies:
+
+```bash
+yarn add hanzogui @hanzogui/config
+```
+
+## Configuration
+
+Create a `hanzogui.config.ts` file in your project root:
+
+```tsx fileName="hanzogui.config.ts"
+import { defaultConfig } from '@hanzogui/config/v5'
+import { createGui } from 'hanzogui'
+
+const hanzoguiConfig = createGui(defaultConfig)
+
+export default hanzoguiConfig
+
+// this is important!
+export type Conf = typeof hanzoguiConfig
+
+declare module 'hanzogui' {
+  interface GuiCustomConfig extends Conf {}
+}
+```
+
+Update your `vite.config.ts`:
+
+```tsx fileName="vite.config.ts"
+import { one } from 'one/vite'
+import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
+import type { UserConfig } from 'vite'
+
+export default {
+  plugins: [
+    one({
+      web: {
+        defaultRenderMode: 'ssg',
+      },
+    }),
+    hanzoguiPlugin({
+      config: './hanzogui.config.ts',
+      components: ['hanzogui'],
+    }),
+  ],
+
+  // Vite 6 style configuration
+  ssr: {
+    noExternal: true,
+  },
+
+  optimizeDeps: {
+    include: ['@hanzogui/core', '@hanzogui/config'],
+  },
+
+  build: {
+    cssTarget: 'safari15',
+  },
+} satisfies UserConfig
+```
+
+## Setup Gui Provider
+
+Update your root layout file (typically `app/_layout.tsx`):
+
+```tsx fileName="app/_layout.tsx"
+import { GuiProvider } from 'hanzogui'
+import { Slot } from 'one'
+import config from '../hanzogui.config'
+
+export default function Layout() {
+  return (
+    <GuiProvider config={config}>
+      <Slot />
+    </GuiProvider>
+  )
+}
+```
+
+## Usage
+
+Now you can use Gui components in your One app:
+
+```tsx fileName="app/index.tsx"
+import { Button, Text, YStack } from 'hanzogui'
+
+export default function Home() {
+  return (
+    <YStack f={1} jc="center" ai="center" p="$4" gap="$4">
+      <Text fontSize="$6">Welcome to Gui with One!</Text>
+      <Button>Click me</Button>
+    </YStack>
+  )
+}
+```
+
+## Themes
+
+To support light and dark modes, use One's built-in color scheme support along with Gui's theming system. Update your root layout:
+
+```tsx fileName="app/_layout.tsx"
+import { GuiProvider, Theme } from 'hanzogui'
+import { Slot } from 'one'
+import { useColorScheme } from 'react-native'
+import config from '../hanzogui.config'
+
+export default function Layout() {
+  const colorScheme = useColorScheme()
+
+  return (
+    <GuiProvider config={config} defaultTheme={colorScheme}>
+      <Theme name={colorScheme}>
+        <Slot />
+      </Theme>
+    </GuiProvider>
+  )
+}
+```
+
+## Performance
+
+For better performance, use the `outputCSS` option in the Gui Vite plugin:
+
+```tsx fileName="vite.config.ts"
+hanzoguiPlugin({
+  config: './hanzogui.config.ts',
+  components: ['hanzogui'],
+  outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
+})
+```
+
+Then import the CSS in your root layout:
+
+```tsx fileName="app/_layout.tsx"
+import '../public/hanzogui.generated.css'
+// ... rest of your imports and component
+```
+
+## Next Steps
+
+You now have Gui set up with [One](https://onestack.dev). Start building your cross-platform app using Gui's styling system and One's seamless development experience.

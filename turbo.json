@@ -2,7 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build:js": {
-      "inputs": ["package.json", "src/**", "tamagui-build.js"],
+      "inputs": ["package.json", "src/**", "hanzogui-build.js"],
       "outputs": ["dist/**"]
     },
     "build": {
@@ -11,7 +11,7 @@
         "tsconfig.json",
         "package.json",
         "src/**/*",
-        "tamagui-build.js",
+        "hanzogui-build.js",
         "externalNodePlugin.js"
       ],
       "outputs": [".next/**/*", "dist/**/*", "types/**/*"]
@@ -39,8 +39,8 @@
       "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
       "outputs": [],
       "env": [
-        "TAMAGUI_TARGET",
-        "TAMAGUI_TEST_ANIMATION_DRIVER",
+        "GUI_TARGET",
+        "GUI_TEST_ANIMATION_DRIVER",
         "TEST_NATIVE_PLATFORM",
         "DISABLE_NATIVE_TEST",
         "DISABLE_REACT_NATIVE",
@@ -49,8 +49,8 @@
         "PORT"
       ],
       "passThroughEnv": [
-        "TAMAGUI_TARGET",
-        "TAMAGUI_TEST_ANIMATION_DRIVER",
+        "GUI_TARGET",
+        "GUI_TEST_ANIMATION_DRIVER",
         "TEST_NATIVE_PLATFORM",
         "DISABLE_NATIVE_TEST",
         "DISABLE_REACT_NATIVE",
@@ -64,14 +64,14 @@
       "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
       "outputs": [],
       "env": [
-        "TAMAGUI_TARGET",
-        "TAMAGUI_TEST_ANIMATION_DRIVER",
+        "GUI_TARGET",
+        "GUI_TEST_ANIMATION_DRIVER",
         "NODE_ENV",
         "PORT"
       ],
       "passThroughEnv": [
-        "TAMAGUI_TARGET",
-        "TAMAGUI_TEST_ANIMATION_DRIVER",
+        "GUI_TARGET",
+        "GUI_TEST_ANIMATION_DRIVER",
         "NODE_ENV",
         "PORT"
       ]

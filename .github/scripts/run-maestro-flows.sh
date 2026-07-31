@@ -13,7 +13,7 @@
 #
 # configuration (env vars, all optional):
 #   FLOWS_DIR      directory of flow .yaml files            (default: ./flows)
-#   BUNDLE_ID      app to terminate between attempts        (default: com.tamagui.tamaguikitchensink)
+#   BUNDLE_ID      app to terminate between attempts        (default: com.hanzogui.hanzoguikitchensink)
 #   MAX_ATTEMPTS   attempts per flow before giving up       (default: 3)
 #   SKIP_FLOWS     space-separated basenames to skip; these are util
 #                  sub-flows / warm-ups, not standalone tests
@@ -29,7 +29,7 @@
 set -uo pipefail
 
 FLOWS_DIR="${FLOWS_DIR:-./flows}"
-BUNDLE_ID="${BUNDLE_ID:-com.tamagui.tamaguikitchensink}"
+BUNDLE_ID="${BUNDLE_ID:-com.hanzogui.hanzoguikitchensink}"
 MAX_ATTEMPTS="${MAX_ATTEMPTS:-3}"
 SKIP_FLOWS="${SKIP_FLOWS:-OpenApp.yaml WarmUp.yaml}"
 METRO_PID_FILE="${METRO_PID_FILE:-/tmp/metro-pid}"

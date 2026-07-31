@@ -1,0 +1,37 @@
+{
+  "name": "@my/ui",
+  "version": "2.0.0-rc.0-1769885482630",
+  "private": true,
+  "files": [
+    "types",
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "src/index.tsx",
+  "types": "./src",
+  "exports": {
+    ".": "./src/index.tsx",
+    "./components/*": "./src/*.tsx"
+  },
+  "scripts": {
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch"
+  },
+  "dependencies": {
+    "@my/config": "workspace:^",
+    "@hanzogui/next-theme": "workspace:*",
+    "@hanzogui/toast": "workspace:*",
+    "expo-constants": "~55.0.7",
+    "hanzogui": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "react": ">=19"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "module:jsx": "src"
+}

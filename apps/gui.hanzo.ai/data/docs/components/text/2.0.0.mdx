@@ -1,0 +1,266 @@
+---
+title: Text
+description: Text primitives with themes custom to each font
+name: text
+component: Paragraph
+package: text
+demoName: Text
+---
+
+<HeroContainer demoMultiple>
+  <TextDemo />
+</HeroContainer>
+
+```tsx hero template=Text
+
+```
+
+<Highlights
+  features={[
+    'Themes that give you control over spacing, weights, and sizes custom to each font.',
+    'Size prop that automatically matches all theme values.',
+    'Media query styles, hoverStyle, pressStyle, focusStyle.',
+  ]}
+/>
+
+<Notice theme="green">
+  The base `Text` component is already included in `@hanzogui/core` (and `hanzogui`). This
+  package is optional and adds `SizableText` and `Paragraph`, which extend `Text` with the
+  `size` prop and theme-aware defaults.
+</Notice>
+
+## Installation
+
+If you're using `hanzogui`, `SizableText` and `Paragraph` are already included. Otherwise, install independently:
+
+```bash
+npm install @hanzogui/text
+```
+
+## Usage
+
+```tsx
+export default () => (
+  <>
+    <Text>Text</Text>
+    <SizableText>Sizable Text</SizableText>
+    <Paragraph>Paragraph</Paragraph>
+  </>
+)
+```
+
+## Text
+
+Text in Gui matches Text in react-native-web, with the added [Gui props](/docs/intro/props).
+
+It explicitly does not inherit your theme color or other font properties, as it is meant to be plain and used for extension. Below, we show `SizableText` which extends Text, and `Paragraph` which extends SizableText. Generally, Paragraph is the useful component as it uses theme values, while you can extend Text if you want to derive your own design system.
+
+```tsx
+import { Text, XStack, YStack } from 'hanzogui'
+
+export default () => (
+  <>
+    <Text
+      // can add theme values
+      color="$white"
+      fontFamily="$body"
+      // or just use direct values
+      fontSize={20}
+      hoverStyle={{
+        color: '$colorHover',
+      }}
+    >
+      Lorem ipsum
+    </Text>
+  </>
+)
+```
+
+## SizableText
+
+Gui lets you define font sizing, spacing, line height, letter spacing and other properties with `createFont`, of which you can have many different configurations. We've found a nice pattern is to "align" all your keys across these sub-objects.
+
+SizableText adds a `size` property that is defined using a [spread variant](/docs/core/styled#spread-variants) which looks for a matching key on each of these properties (using `@hanzogui/get-font-sized`):
+
+- color
+- fontStyle
+- textTransform
+- fontFamily
+- fontWeight
+- letterSpacing
+- fontSize
+- lineHeight
+
+So, if you've defined `small`, `medium` and `large` keys on each createFont category, you can use it like so:
+
+```tsx
+<SizableText size="$small" />
+```
+
+[Source code for SizableText](https://github.com/hanzogui/hanzogui/blob/main/pkgs/ui/text/src/SizableText.tsx).
+
+## Paragraph
+
+Paragraph extends SizableText and is defined as:
+
+```tsx
+export const Paragraph = styled(SizableText, {
+  name: 'Paragraph',
+  tag: 'p',
+  userSelect: 'auto',
+  color: '$color',
+  size: '$true',
+  whiteSpace: 'normal',
+})
+```
+
+<Notice>
+  Note: Paragraph renders to a `p` tag on web, which can cause issues when you nest them
+  during SSR. If you don't mind rendering to a span, use `SizableText`, otherwise, be
+  careful when nesting items inside a Paragraph.
+</Notice>
+
+## Inline Text Elements
+
+For semantic inline text styling, `@hanzogui/text` exports `Strong`, `Em`, and `Span`:
+
+```tsx
+import { Strong, Em, Span, Paragraph } from '@hanzogui/text'
+
+export default () => (
+  <Paragraph>
+    This is <Strong>bold text</Strong>, this is <Em>italic text</Em>, and this is a{' '}
+    <Span color="$blue10">colored span</Span>.
+  </Paragraph>
+)
+```
+
+These render to their corresponding HTML elements (`<strong>`, `<em>`, `<span>`) on web while remaining compatible with React Native.
+
+## Text Truncation
+
+Gui provides two props for truncating text with ellipsis: `ellipsis` for single-line truncation and `numberOfLines` for multi-line clamping.
+
+### Single-line Ellipsis
+
+Use the `ellipsis` prop to truncate text to a single line with an ellipsis:
+
+```tsx
+import { Text, SizableText, Paragraph } from 'hanzogui'
+
+export default () => (
+  <Paragraph ellipsis maxWidth={200}>
+    This is a very long text that will be truncated with an ellipsis when it overflows.
+  </Paragraph>
+)
+```
+
+On web, this applies `text-overflow: ellipsis`, `white-space: nowrap`, and `overflow: hidden`. On native, it sets `numberOfLines={1}`.
+
+### Multi-line Clamping
+
+Use the `numberOfLines` prop to clamp text to a specific number of lines:
+
+```tsx
+import { Paragraph } from 'hanzogui'
+
+export default () => (
+  <>
+    <Paragraph numberOfLines={1} maxWidth={200}>
+      Single line truncation, same as ellipsis.
+    </Paragraph>
+
+    <Paragraph numberOfLines={3} maxWidth={200}>
+      This text will be clamped to three lines. Any overflow beyond the third
+      line will be hidden. This is useful for card descriptions or preview text
+      where you want to show a limited amount of content.
+    </Paragraph>
+  </>
+)
+```
+
+On web, multi-line clamping uses `-webkit-line-clamp` with `-webkit-box` display. On native, it passes `numberOfLines` directly to the React Native Text component.
+
+<Notice>
+  The `numberOfLines` prop is supported on the base `Text` component from `@hanzogui/core`
+  as well as `SizableText` and `Paragraph`. The `ellipsis` prop is a shorthand for
+  `numberOfLines={1}`.
+</Notice>
+
+## API Reference
+
+### Text
+
+The base text component from `@hanzogui/core`. Accepts all [Gui style props](/docs/intro/props) for text elements.
+
+<PropsTable
+  data={[
+    {
+      name: 'ellipsis',
+      required: false,
+      type: 'boolean',
+      description: `When true, truncates text to a single line with an ellipsis. Equivalent to numberOfLines={1}.`,
+    },
+    {
+      name: 'numberOfLines',
+      required: false,
+      type: 'number',
+      description: `Clamps text to the specified number of lines. Overflow is hidden. On web uses -webkit-line-clamp; on native uses the React Native numberOfLines prop.`,
+    },
+  ]}
+/>
+
+### SizableText
+
+Extends Text with the `size` prop for theme-aware font sizing.
+
+<PropsTable
+  data={[
+    {
+      name: 'size',
+      required: false,
+      type: 'SizeTokens',
+      description: `Sets font size, line height, letter spacing, and font weight from your theme's font configuration. Accepts any size token (e.g., "$4", "$true").`,
+    },
+    {
+      name: 'ellipsis',
+      required: false,
+      type: 'boolean',
+      description: `When true, truncates text to a single line with an ellipsis.`,
+    },
+    {
+      name: 'numberOfLines',
+      required: false,
+      type: 'number',
+      description: `Clamps text to the specified number of lines.`,
+    },
+  ]}
+/>
+
+### Paragraph
+
+Extends SizableText with semantic defaults. Renders as `<p>` on web, uses theme color, and sets `userSelect: 'auto'` and `whiteSpace: 'normal'`.
+
+<PropsTable
+  data={[
+    {
+      name: 'size',
+      required: false,
+      type: 'SizeTokens',
+      default: "'$true'",
+      description: `Sets font size from your theme. Defaults to the theme's base size.`,
+    },
+    {
+      name: 'ellipsis',
+      required: false,
+      type: 'boolean',
+      description: `When true, truncates text to a single line with an ellipsis.`,
+    },
+    {
+      name: 'numberOfLines',
+      required: false,
+      type: 'number',
+      description: `Clamps text to the specified number of lines.`,
+    },
+  ]}
+/>

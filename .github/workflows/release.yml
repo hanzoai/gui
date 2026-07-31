@@ -263,8 +263,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name 'Tamagui Release'
-          git config user.email 'tamagui@users.noreply.github.com'
+          git config user.name 'Gui Release'
+          git config user.email 'hanzogui@users.noreply.github.com'
           bun scripts/release.ts "--$RELEASE_KIND" --ci --dirty --skip-publish --skip-push --skip-tests --skip-native-tests --skip-checks
 
       # a canary mutates no git at all, matching orez and takeout. pushing a
@@ -299,7 +299,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          version=$(node -p "require('./code/ui/tamagui/package.json').version")
+          version=$(node -p "require('./pkgs/ui/hanzogui/package.json').version")
           [[ "$(git rev-list -n 1 "v$version")" == "$(git rev-parse HEAD)" ]]
           auth=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')
           trap 'git config --local --unset-all http.https://github.com/.extraheader || true' EXIT

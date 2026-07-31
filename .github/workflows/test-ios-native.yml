@@ -14,7 +14,7 @@ permissions:
   pull-requests: read
 
 env:
-  test_container_app_path: code/kitchen-sink
+  test_container_app_path: apps/kitchen-sink
   MAESTRO_DRIVER_STARTUP_TIMEOUT: 360000
 
 jobs:
@@ -85,7 +85,7 @@ jobs:
         run: |
           # start Metro in background, capture output for debugging
           cd "${{ env.test_container_app_path }}"
-          EXPO_NO_TELEMETRY=true TAMAGUI_PACKAGE_EXPORTS=${{ matrix.package-exports }} bunx expo start --dev-client --offline --reset-cache > /tmp/metro.log 2>&1 &
+          EXPO_NO_TELEMETRY=true GUI_PACKAGE_EXPORTS=${{ matrix.package-exports }} bunx expo start --dev-client --offline --reset-cache > /tmp/metro.log 2>&1 &
           METRO_PID=$!
           echo "$METRO_PID" > /tmp/metro-pid
           cd "${{ github.workspace }}"
@@ -102,7 +102,7 @@ jobs:
 
           # install app and verify FrontBoard registration
           APP_PATH="${{ needs.build.outputs.built-app-path }}"
-          BUNDLE_ID="com.tamagui.tamaguikitchensink"
+          BUNDLE_ID="com.hanzogui.hanzoguikitchensink"
           for attempt in 1 2 3; do
             xcrun simctl install booted "$APP_PATH"
             sleep 3
@@ -167,7 +167,7 @@ jobs:
         if: env.SKIP_MAESTRO_TESTS != 'true'
         run: |
           # capture simulator device logs in background for debugging app crashes
-          xcrun simctl spawn booted log stream --predicate 'process == "tamaguikitchensink" OR subsystem == "com.tamagui.tamaguikitchensink"' --level debug > /tmp/simulator-app.log 2>&1 &
+          xcrun simctl spawn booted log stream --predicate 'process == "hanzoguikitchensink" OR subsystem == "com.hanzogui.hanzoguikitchensink"' --level debug > /tmp/simulator-app.log 2>&1 &
           echo $! > /tmp/simlog-pid
           # also capture broader crash/error logs
           xcrun simctl spawn booted log stream --predicate 'eventMessage CONTAINS "crash" OR eventMessage CONTAINS "fatal" OR eventMessage CONTAINS "error" OR process == "ReportCrash"' --level error > /tmp/simulator-errors.log 2>&1 &
@@ -215,7 +215,7 @@ jobs:
           tail -100 /tmp/metro.log 2>/dev/null || echo "No metro logs captured"
           echo "::endgroup::"
           echo "::group::Crash Reports"
-          find ~/Library/Logs/DiagnosticReports -name "*tamaguikitchensink*" -newer /tmp/simulator-app.log 2>/dev/null | while read f; do
+          find ~/Library/Logs/DiagnosticReports -name "*hanzoguikitchensink*" -newer /tmp/simulator-app.log 2>/dev/null | while read f; do
             echo "=== $f ==="
             head -50 "$f"
           done || echo "No crash reports found"

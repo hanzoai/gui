@@ -1,0 +1,91 @@
+{
+  "name": "@hanzogui/demos",
+  "version": "2.6.0",
+  "source": "demos/src/index.tsx",
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "types": "./src",
+  "exports": {
+    "./package.json": "./package.json",
+    "./photo/*": "./public/*.jpg",
+    ".": {
+      "types": "./src/index.tsx",
+      "react-native": "./dist/esm/index.native.js",
+      "browser": "./dist/esm/index.mjs",
+      "module": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./demo/*": {
+      "types": "./types/*.d.ts",
+      "react-native": "./dist/esm/*.native.js",
+      "browser": "./dist/esm/*.mjs",
+      "module": "./dist/esm/*.mjs",
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/cjs/*.cjs",
+      "default": "./dist/esm/*.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/animate-presence": "workspace:*",
+    "@hanzogui/avatar": "workspace:*",
+    "@hanzogui/button": "workspace:*",
+    "@hanzogui/checkbox": "workspace:*",
+    "@hanzogui/checkbox-headless": "workspace:*",
+    "@hanzogui/colors": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/context-menu": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/get-button-sized": "workspace:*",
+    "@hanzogui/image": "workspace:*",
+    "@hanzogui/input": "workspace:*",
+    "@hanzogui/linear-gradient": "workspace:*",
+    "@hanzogui/list-item": "workspace:*",
+    "@hanzogui/logo": "workspace:*",
+    "@hanzogui/lucide-icons-2": "workspace:*",
+    "@hanzogui/menu": "workspace:*",
+    "@hanzogui/popover": "workspace:*",
+    "@hanzogui/progress": "workspace:*",
+    "@hanzogui/radio-group": "workspace:*",
+    "@hanzogui/radio-headless": "workspace:*",
+    "@hanzogui/roving-focus": "workspace:*",
+    "@hanzogui/select": "workspace:*",
+    "@hanzogui/sheet": "workspace:*",
+    "@hanzogui/slider": "workspace:*",
+    "@hanzogui/stacks": "workspace:*",
+    "@hanzogui/switch": "workspace:*",
+    "@hanzogui/switch-headless": "workspace:*",
+    "@hanzogui/tabs": "workspace:*",
+    "@hanzogui/dev-config": "workspace:*",
+    "@hanzogui/theme": "workspace:*",
+    "@hanzogui/toast": "workspace:*",
+    "hanzogui": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*",
+    "react": ">=19",
+    "react-native": "0.83.2"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  }
+}

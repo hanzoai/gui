@@ -1,4 +1,4 @@
-# Tamagui — agent operating contract
+# Gui — agent operating contract
 
 `CLAUDE.md` is a symlink to this file, so Claude, Codex, and every other agent
 read the same rules. Put durable, repo-wide agent guidance here.
@@ -17,7 +17,7 @@ Don't do that. If you were asked to do something, it is not done until:
   a DB/RLS change. "Should work" is not validation;
 - any **migration is actually applied and the live state verified** — this repo's
   prod migration history is NOT auto-applied on deploy (see
-  `code/tamagui.dev/supabase/README.md`); a committed migration that was never
+  `apps/gui.hanzo.ai/supabase/README.md`); a committed migration that was never
   run is an open gap, not a fix;
 - for security/payments work especially, the loop is closed end to end — a
   documented finding with no shipped, deployed fix counts as no fix.
@@ -38,18 +38,18 @@ FOR LONG RUNNNING DEBUGGING run `bun run watch` in the background its faster and
 
 keep commits to one line, add a trailing "Fixes #" if associated with a GH issue, and start with a convential commit style - UNLESS its a change that shouldn't go into the changelog, in those cases you can do things like `docs: ` or `site: `.
 
-# Tamagui Testing Guide
+# Gui Testing Guide
 
 ## Running Tests
 
 ### Kitchen Sink Tests
 
-The kitchen-sink package contains the main integration tests for Tamagui components. To run these tests:
+The kitchen-sink package contains the main integration tests for Gui components. To run these tests:
 
 1. **Start the web server** (in the background):
 
    ```bash
-   cd code/kitchen-sink
+   cd apps/kitchen-sink
    bun run start:web
    ```
 
@@ -59,7 +59,7 @@ The kitchen-sink package contains the main integration tests for Tamagui compone
    open "http://localhost:7979/?test=YourTestCaseName"
    ```
 
-   Test case names match the file names in `code/kitchen-sink/src/usecases/` (e.g., `SelectFocusScopeCase`).
+   Test case names match the file names in `apps/kitchen-sink/src/usecases/` (e.g., `SelectFocusScopeCase`).
 
    To open a component demo:
 
@@ -67,7 +67,7 @@ The kitchen-sink package contains the main integration tests for Tamagui compone
    open "http://localhost:7979/?demo=Select"
    ```
 
-   Demo names match files in `code/demos/src/` without the `Demo` suffix (e.g., `Select` for `SelectDemo.tsx`).
+   Demo names match files in `apps/demos/src/` without the `Demo` suffix (e.g., `Select` for `SelectDemo.tsx`).
 
 2. **Run all web tests** with different animation drivers:
 
@@ -81,8 +81,8 @@ The kitchen-sink package contains the main integration tests for Tamagui compone
 
    ```bash
    # Using env var + playwright --project flag
-   cd code/kitchen-sink
-   NODE_ENV=test TAMAGUI_TEST_ANIMATION_DRIVER=css npx playwright test --project=animated-css
+   cd apps/kitchen-sink
+   NODE_ENV=test GUI_TEST_ANIMATION_DRIVER=css npx playwright test --project=animated-css
 
    # Available projects: animated-css, animated-native, animated-reanimated, animated-motion
    ```
@@ -91,11 +91,11 @@ The kitchen-sink package contains the main integration tests for Tamagui compone
 
    ```bash
    # Using playwright directly
-   cd code/kitchen-sink
+   cd apps/kitchen-sink
    npx playwright test tests/PopoverFocusScope.test.tsx
 
    # Or with a specific driver
-   NODE_ENV=test TAMAGUI_TEST_ANIMATION_DRIVER=css npx playwright test tests/YourTest.animated.test.tsx --project=animated-css
+   NODE_ENV=test GUI_TEST_ANIMATION_DRIVER=css npx playwright test tests/YourTest.animated.test.tsx --project=animated-css
    ```
 
 5. **Debug tests**:
@@ -107,7 +107,7 @@ The kitchen-sink package contains the main integration tests for Tamagui compone
 
 ### Test Structure
 
-Tests are located in `code/kitchen-sink/tests/` and follow these naming conventions:
+Tests are located in `apps/kitchen-sink/tests/` and follow these naming conventions:
 
 - `ComponentName.test.tsx` - Standard tests that run ONCE with the default animation driver
 - `ComponentName.animated.test.tsx` - Animation-dependent tests that run with ALL animation drivers (css, native, reanimated, motion)
@@ -131,7 +131,7 @@ When writing tests for focus behavior or component interactions:
 
 ## Commit Message Conventions
 
-- Use `site:` prefix (not `fix(site):`) for tamagui.dev changes since they don't go in the changelog
+- Use `site:` prefix (not `fix(site):`) for hanzogui.dev changes since they don't go in the changelog
 - Use `ci:` prefix (not `fix(ci):`) for CI/workflow changes since they don't go in the changelog
 - Keep commit messages to a single line
 
@@ -139,9 +139,9 @@ When writing tests for focus behavior or component interactions:
 
 See [docs/using-ios.md](./docs/using-ios.md) for iOS native development and Detox testing tips.
 
-## tamagui.dev API Authentication
+## hanzogui.dev API Authentication
 
-When making authenticated API calls from the client side in tamagui.dev, always use the `authFetch` helper:
+When making authenticated API calls from the client side in hanzogui.dev, always use the `authFetch` helper:
 
 ```ts
 import { authFetch } from '~/features/api/authFetch'

@@ -65,14 +65,14 @@ const skipBuild =
   shouldFinish || rePublish || skipAll || process.argv.includes('--skip-build')
 const buildFast = process.argv.includes('--build-fast')
 const dryRun = process.argv.includes('--dry-run')
-const tamaguiGitUser = process.argv.includes('--tamagui-git-user')
+const hanzoguiGitUser = process.argv.includes('--hanzogui-git-user')
 const isCI = shouldFinish || rePublish || undocumented || process.argv.includes('--ci')
 const skipFinish =
   rePublish || skipAll || undocumented || process.argv.includes('--skip-finish')
 const skipPush = process.argv.includes('--skip-push')
 const forcePublishAll = process.argv.includes('--force-publish-all')
 
-const curVersion = fs.readJSONSync('./code/ui/tamagui/package.json').version
+const curVersion = fs.readJSONSync('./pkgs/ui/hanzogui/package.json').version
 
 async function getLastReleaseRef(): Promise<string | null> {
   if (process.env.RELEASE_BASE_REF) {
@@ -199,7 +199,7 @@ async function getWorkspacePackages() {
 
     if (normalizedPattern.includes('**')) {
       // for **/* patterns, we need to scan subdirectories
-      // e.g., code/ui/**/* -> scan all subdirs of code/ui/
+      // e.g., pkgs/ui/**/* -> scan all subdirs of pkgs/ui/
       const baseDir = normalizedPattern.split('**')[0].replace(/\/$/, '')
       try {
         const entries = await fs.readdir(baseDir, { withFileTypes: true })
@@ -341,9 +341,9 @@ async function run() {
     }
 
     // ensure right user
-    if (tamaguiGitUser) {
-      await spawnify(`git config --global user.name 'Tamagui'`)
-      await spawnify(`git config --global user.email 'tamagui@users.noreply.github.com`)
+    if (hanzoguiGitUser) {
+      await spawnify(`git config --global user.name 'Gui'`)
+      await spawnify(`git config --global user.email 'hanzogui@users.noreply.github.com`)
     }
 
     // get version
@@ -472,7 +472,7 @@ async function run() {
       if (!skipChecks) {
         console.info('run checks')
         await Promise.all([
-          spawnify(`chmod ug+x ./node_modules/.bin/tamagui`),
+          spawnify(`chmod ug+x ./node_modules/.bin/hanzogui`),
           spawnify(`bun run check`),
           spawnify(`bun run lint`),
         ])
@@ -629,7 +629,7 @@ async function run() {
     }
 
     if (!shouldFinish && !skipPublish) {
-      const tmpDir = `/tmp/tamagui-publish`
+      const tmpDir = `/tmp/hanzogui-publish`
       if (!rePublish) {
         await fs.remove(tmpDir)
       }
@@ -718,7 +718,7 @@ async function run() {
         const pkgJson = await fs.readJSON(pkgJsonPath)
         pkgJson.repository = {
           type: 'git',
-          url: 'git+https://github.com/tamagui/tamagui.git',
+          url: 'git+https://github.com/hanzogui/hanzogui.git',
           directory: path.relative(process.cwd(), cwd),
         }
         for (const field of [
@@ -762,7 +762,7 @@ async function run() {
         await writeJSON(
           join(tmpDir, 'package.json'),
           {
-            name: 'tamagui-release',
+            name: 'hanzogui-release',
             private: true,
             workspaces,
           },
@@ -803,7 +803,7 @@ async function run() {
 
       // for a non-latest channel (canary/beta/rc/…), point that dist-tag at the
       // latest published version of each skipped package so e.g.
-      // `npm install @tamagui/lucide-icons-2@beta` still resolves
+      // `npm install @hanzogui/lucide-icons-2@beta` still resolves
       if (publishTag !== 'latest' && skippedPackages.length > 0 && !process.env.CI) {
         console.info(
           `Updating ${publishTag} dist-tags for ${skippedPackages.length} skipped packages...`
@@ -945,7 +945,7 @@ if (intoIdx !== -1) {
 
   ;(async () => {
     const packages = await getWorkspacePackages()
-    const tmpDir = `/tmp/tamagui-release-into`
+    const tmpDir = `/tmp/hanzogui-release-into`
     await ensureDir(tmpDir)
 
     let released = 0

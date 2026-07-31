@@ -9,7 +9,7 @@ export PATH="$PATH:$HOME/.maestro/bin"
 
 TARGET="${1:-all}"
 
-echo "=== Tamagui Native Tests (Maestro) ==="
+echo "=== Gui Native Tests (Maestro) ==="
 
 # Check maestro
 if ! command -v maestro &> /dev/null; then
@@ -78,8 +78,8 @@ find_and_install_app() {
 run_kitchen_sink() {
     echo ""
     echo "=== Kitchen Sink ==="
-    if find_and_install_app "tamaguikitchensink" "code/kitchen-sink"; then
-        cd code/kitchen-sink
+    if find_and_install_app "hanzoguikitchensink" "apps/kitchen-sink"; then
+        cd apps/kitchen-sink
         maestro test flows/ --exclude-tags=util
         cd ../..
         echo "Kitchen Sink tests passed!"
@@ -91,8 +91,8 @@ run_kitchen_sink() {
 run_kitchen_sink_go() {
     echo ""
     echo "=== Kitchen Sink Go ==="
-    if find_and_install_app "kitchensinkgo" "code/kitchen-sink-go"; then
-        cd code/kitchen-sink-go
+    if find_and_install_app "kitchensinkgo" "apps/kitchen-sink-go"; then
+        cd apps/kitchen-sink-go
         maestro test flows/ --exclude-tags=util
         cd ../..
         echo "Kitchen Sink Go tests passed!"

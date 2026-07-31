@@ -1,0 +1,27 @@
+{
+  "name": "@hanzogui/components-test",
+  "version": "2.6.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "module": "dist/esm",
+  "scripts": {
+    "test:web": "DISABLE_REACT_NATIVE=1 TEST_ENVIRONMENT=jsdom GUI_TARGET=web vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
+    "test:native": "GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
+    "test": "bun run test:native"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "csstype": "^3.0.10",
+    "jsdom": "^28.1.0",
+    "react": ">=19",
+    "typescript": "~5.9.2",
+    "vitest": "4.0.4",
+    "vitest-axe": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  }
+}

@@ -1,6 +1,0 @@
-.next
-node_modules
-.tamagui
-next-env.d.ts
-src/_*.css
-src/*.native.tsx

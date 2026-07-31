@@ -1,0 +1,31 @@
+{
+  "name": "@hanzogui/config-default",
+  "version": "2.6.0",
+  "source": "src/index.ts",
+  "files": [
+    "types",
+    "dist"
+  ],
+  "sideEffects": false,
+  "main": "dist/index.cjs",
+  "types": "./types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "dependencies": {
+    "@hanzogui/animations-css": "workspace:*",
+    "@hanzogui/animations-react-native": "workspace:*",
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/web": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*"
+  }
+}

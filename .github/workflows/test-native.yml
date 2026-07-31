@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  test_container_app_path: code/kitchen-sink
+  test_container_app_path: apps/kitchen-sink
   # Increment this to force a fresh Android build (invalidates Redis KV cache)
   android_cache_version: v4
 
@@ -64,7 +64,7 @@ jobs:
           # type-check tax is gone (e2e now transpiles via e2e/tsconfig.json), so
           # startup is small and these fit well under the native-ci runner's
           # 45-minute process timeout. CompilerExtraction runs an in-test
-          # `npx tamagui build` (~12-19min, variable) so it gets its OWN shard
+          # `npx hanzogui build` (~12-19min, variable) so it gets its OWN shard
           # (with the iOS-skipped SafeArea/SheetKeyboardDrag, which cost ~0, plus
           # the small iOS-running SheetFitKeyboardSafeArea, ~1 launch); the
           # remaining files are bin-packed to ~14.5min test-exec each (~25min wall).
@@ -137,7 +137,7 @@ jobs:
         if: env.SKIP_IOS_TESTS != 'true'
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@tamagui/kitchen-sink'
+          workspace-focus: '@hanzogui/kitchen-sink'
 
       - name: Install tooling
         if: env.SKIP_IOS_TESTS != 'true'
@@ -203,7 +203,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           APP_PATH="${{ needs.build-ios.outputs.built-app-path }}"
-          BUNDLE_ID="com.tamagui.tamaguikitchensink"
+          BUNDLE_ID="com.hanzogui.hanzoguikitchensink"
 
           for attempt in 1 2 3; do
             echo "Install attempt $attempt/3..."
@@ -240,12 +240,12 @@ jobs:
       - name: Run iOS Detox Tests
         if: env.SKIP_IOS_TESTS != 'true'
         env:
-          DETOX_IOS_APP_PATH: build/Build/Products/Debug-iphonesimulator/tamaguikitchensink.app
+          DETOX_IOS_APP_PATH: build/Build/Products/Debug-iphonesimulator/hanzoguikitchensink.app
         run: |
           # --retries 0: no whole-file retry (that re-ran beforeAll + every test of a
           # flaky file, the 2x wall-time variance). individual flaky tests retry
           # in-place via jest.retryTimes (e2e/jest.setup.ts).
-          bun run ../packages/native-ci/src/run-detox-ios.ts --project-root "$PWD" --record-logs failing --retries 0 ${{ matrix.test_files }}
+          bun run ../native-ci/src/run-detox-ios.ts --project-root "$PWD" --record-logs failing --retries 0 ${{ matrix.test_files }}
 
       - name: Report iOS Test Status
         if: always() && env.SKIP_IOS_TESTS == 'true'
@@ -272,7 +272,7 @@ jobs:
     timeout-minutes: 45
     outputs:
       android-cache-key: ${{ steps.final-cache-key.outputs.cache_key }}
-      android-path: code/kitchen-sink/android
+      android-path: apps/kitchen-sink/android
       fingerprint: ${{ steps.calculate-fingerprint.outputs.fingerprint || steps.get-fingerprint-from-cache.outputs.fingerprint }}
     steps:
       - name: Free Disk Space
@@ -294,7 +294,7 @@ jobs:
         id: calculate-pre-fingerprint
         env:
           # Include cache version to allow manual cache busting
-          PRE_FINGERPRINT_HASH: ${{ hashFiles('bun.lock', 'code/kitchen-sink/app.json', 'packages/vxrn/expo-plugin.cjs') }}-${{ env.android_cache_version }}
+          PRE_FINGERPRINT_HASH: ${{ hashFiles('bun.lock', 'apps/kitchen-sink/app.json', 'packages/vxrn/expo-plugin.cjs') }}-${{ env.android_cache_version }}
         run: |
           echo "Pre-fingerprint hash: $PRE_FINGERPRINT_HASH"
           echo "pre_fingerprint_hash=$PRE_FINGERPRINT_HASH" >> $GITHUB_OUTPUT
@@ -305,10 +305,10 @@ jobs:
           KV_STORE_REDIS_REST_URL: ${{ secrets.KV_STORE_REDIS_REST_URL }}
           KV_STORE_REDIS_REST_TOKEN: ${{ secrets.KV_STORE_REDIS_REST_TOKEN }}
         run: |
-          FINGERPRINT_FROM_CACHE=$(curl -s "$KV_STORE_REDIS_REST_URL/get/android-tamaguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN" | jq -r '.result')
+          FINGERPRINT_FROM_CACHE=$(curl -s "$KV_STORE_REDIS_REST_URL/get/android-hanzoguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN" | jq -r '.result')
 
           if [ "$FINGERPRINT_FROM_CACHE" != "null" ]; then
-            curl -s -X POST "$KV_STORE_REDIS_REST_URL/EXPIRE/android-tamaguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}/2592000" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN"
+            curl -s -X POST "$KV_STORE_REDIS_REST_URL/EXPIRE/android-hanzoguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}/2592000" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN"
             echo "Fingerprint from cache: $FINGERPRINT_FROM_CACHE"
             echo "fingerprint=$FINGERPRINT_FROM_CACHE" >> $GITHUB_OUTPUT
           else
@@ -321,7 +321,7 @@ jobs:
         if: ${{ steps.get-fingerprint-from-cache.outputs.fingerprint != 'null' }}
         uses: actions/cache/restore@v4
         with:
-          path: code/kitchen-sink/android
+          path: apps/kitchen-sink/android
           key: android-detox-${{ env.android_cache_version }}-${{ steps.get-fingerprint-from-cache.outputs.fingerprint }}
           lookup-only: true
 
@@ -329,7 +329,7 @@ jobs:
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@tamagui/kitchen-sink'
+          workspace-focus: '@hanzogui/kitchen-sink'
 
       - name: Setup Java
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
@@ -344,13 +344,13 @@ jobs:
 
       - name: Prebuild Android
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
-        working-directory: code/kitchen-sink
+        working-directory: apps/kitchen-sink
         run: |
           bunx expo prebuild --platform android --clean
 
       - name: Setup Detox Test Infrastructure
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
-        working-directory: code/kitchen-sink
+        working-directory: apps/kitchen-sink
         run: |
           # Create Gradle init script for JNI library conflicts
           cat > android/init.gradle << 'INITGRADLE'
@@ -404,11 +404,11 @@ jobs:
           "
 
           # Create androidTest directory structure
-          mkdir -p android/app/src/androidTest/java/com/tamagui/tamaguikitchensink
+          mkdir -p android/app/src/androidTest/java/com/hanzogui/hanzoguikitchensink
 
           # Create DetoxTest.java
-          cat > android/app/src/androidTest/java/com/tamagui/tamaguikitchensink/DetoxTest.java << 'DETOXTEST'
-          package com.tamagui.tamaguikitchensink;
+          cat > android/app/src/androidTest/java/com/hanzogui/hanzoguikitchensink/DetoxTest.java << 'DETOXTEST'
+          package com.hanzogui.hanzoguikitchensink;
 
           import com.wix.detox.Detox;
           import com.wix.detox.config.DetoxConfig;
@@ -467,7 +467,7 @@ jobs:
       - name: Calculate Fingerprint
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
         id: calculate-fingerprint
-        working-directory: code/kitchen-sink
+        working-directory: apps/kitchen-sink
         run: |
           FINGERPRINT=$(bunx @expo/fingerprint fingerprint:generate --platform android | jq -r '.hash')
           if [ -z "$FINGERPRINT" ]; then
@@ -483,14 +483,14 @@ jobs:
           KV_STORE_REDIS_REST_URL: ${{ secrets.KV_STORE_REDIS_REST_URL }}
           KV_STORE_REDIS_REST_TOKEN: ${{ secrets.KV_STORE_REDIS_REST_TOKEN }}
         run: |
-          curl -s -X POST "$KV_STORE_REDIS_REST_URL/SETEX/android-tamaguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}/2592000/${{ steps.calculate-fingerprint.outputs.fingerprint }}" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN"
+          curl -s -X POST "$KV_STORE_REDIS_REST_URL/SETEX/android-hanzoguikitchensink-fingerprint-from-pre-hash-${{ steps.calculate-pre-fingerprint.outputs.pre_fingerprint_hash }}/2592000/${{ steps.calculate-fingerprint.outputs.fingerprint }}" -H "Authorization: Bearer $KV_STORE_REDIS_REST_TOKEN"
 
       - name: Check If Build Already Exists (with new fingerprint)
         if: ${{ !steps.android-cache-check.outputs.cache-hit }}
         id: android-cache-check-new
         uses: actions/cache/restore@v4
         with:
-          path: code/kitchen-sink/android
+          path: apps/kitchen-sink/android
           key: android-detox-${{ env.android_cache_version }}-${{ steps.calculate-fingerprint.outputs.fingerprint }}
           lookup-only: true
 
@@ -507,7 +507,7 @@ jobs:
 
       - name: Build Android App (Debug + Test APKs)
         if: ${{ !steps.android-cache-check.outputs.cache-hit && !steps.android-cache-check-new.outputs.cache-hit }}
-        working-directory: code/kitchen-sink
+        working-directory: apps/kitchen-sink
         env:
           # Limit Gradle memory to avoid OOM on free runners
           GRADLE_OPTS: '-Dorg.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError'
@@ -518,7 +518,7 @@ jobs:
         if: ${{ !steps.android-cache-check.outputs.cache-hit && !steps.android-cache-check-new.outputs.cache-hit }}
         uses: actions/cache/save@v4
         with:
-          path: code/kitchen-sink/android
+          path: apps/kitchen-sink/android
           key: android-detox-${{ env.android_cache_version }}-${{ steps.calculate-fingerprint.outputs.fingerprint }}
 
       - name: Set Final Cache Key
@@ -580,7 +580,7 @@ jobs:
         if: env.SKIP_ANDROID_TESTS != 'true'
         uses: ./.github/actions/install
         with:
-          workspace-focus: '@tamagui/kitchen-sink'
+          workspace-focus: '@hanzogui/kitchen-sink'
 
       - name: Setup Java
         if: env.SKIP_ANDROID_TESTS != 'true'
@@ -619,7 +619,7 @@ jobs:
           emulator-boot-timeout: 600
           disable-animations: true
           emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
-          working-directory: code/kitchen-sink
+          working-directory: apps/kitchen-sink
           script: |
             # Free up memory before tests
             sudo swapoff -a || true
@@ -647,7 +647,7 @@ jobs:
             # Let Detox handle APK installation and ADB reverse setup via reversePorts config
             # Android emulator is flaky - capture exit code but don't fail the job
             # --retries 0: no whole-file retry; individual tests retry via jest.retryTimes (e2e/jest.setup.ts)
-            bun run ../packages/native-ci/src/run-detox-android.ts --headless --project-root "$PWD" --record-logs failing --retries 0 || echo "ANDROID_TESTS_FAILED=true" >> $GITHUB_ENV
+            bun run ../native-ci/src/run-detox-android.ts --headless --project-root "$PWD" --record-logs failing --retries 0 || echo "ANDROID_TESTS_FAILED=true" >> $GITHUB_ENV
 
       - name: Report Android Test Status
         if: always()

@@ -1,0 +1,14 @@
+{
+  "name": "@hanzogui/configs-test",
+  "version": "2.6.0",
+  "private": true,
+  "scripts": {
+    "generate": "hanzogui generate",
+    "generate-prompt": "hanzogui generate-prompt"
+  },
+  "dependencies": {
+    "@hanzogui/cli": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "hanzogui": "workspace:*"
+  }
+}

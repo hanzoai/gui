@@ -1,4 +1,4 @@
-Here's a fully built tamagui config v4 just without the themes because they are
+Here's a fully built gui config v4 just without the themes because they are
 quite large.
 
 Config v4 uses CSS animations by default on the web and react-native animations on
@@ -49,7 +49,7 @@ shorthands:
 
 ```json
 {
-  "tamaguiConfig": {
+  "guiConfig": {
     "fonts": {
       "body": {
         "family": "-apple-system, system-ui, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
@@ -243,14 +243,14 @@ shorthands:
 Notes:
 
 The tokens are built out so they look like `$size.4.5`, but in practice they
-aren't used like that. Tamagui has token categories like `size`, `radius`, etc
+aren't used like that. Hanzo GUI has token categories like `size`, `radius`, etc
 and they map to specific props.
 
-So you just use that size token like so (see tamagui.mdx in library for more on
+So you just use that size token like so (see gui.mdx in library for more on
 defining and using tokens):
 
 ```tsx
-import { View } from 'tamagui'
+import { View } from '@hanzo/gui'
 
 export default () => <View width="$4.5" />
 ```

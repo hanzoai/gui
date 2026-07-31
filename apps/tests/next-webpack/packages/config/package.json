@@ -1,0 +1,29 @@
+{
+  "name": "@my/config",
+  "version": "2.0.0-rc.0-1769885482630",
+  "private": true,
+  "files": [
+    "types",
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "src/index.ts",
+  "types": "./src",
+  "scripts": {
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch"
+  },
+  "dependencies": {
+    "@hanzogui/animations-react-native": "workspace:*",
+    "@hanzogui/config": "workspace:*",
+    "@hanzogui/font-inter": "workspace:*",
+    "@hanzogui/shorthands": "workspace:*",
+    "@hanzogui/themes": "workspace:*",
+    "hanzogui": "workspace:*"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*"
+  }
+}

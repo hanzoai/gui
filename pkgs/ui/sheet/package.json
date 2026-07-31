@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sheet",
-  "version": "2.6.0",
+  "version": "8.0.0",
   "license": "MIT",
   "source": "src/index.ts",
   "type": "module",

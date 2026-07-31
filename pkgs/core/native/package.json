@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native",
-  "version": "2.6.0",
+  "version": "8.0.0",
   "description": "Native setup modules for Gui - portals, gesture handler, worklets, and more",
   "type": "module",
   "sideEffects": [

@@ -1,4 +1,12 @@
 export declare const palettes: {
+    light_hanzo: string[];
+    light_lux: string[];
+    light_zoo: string[];
+    light_pars: string[];
+    dark_hanzo: string[];
+    dark_lux: string[];
+    dark_zoo: string[];
+    dark_pars: string[];
     dark_blue: string[];
     dark_gray: string[];
     dark_green: string[];

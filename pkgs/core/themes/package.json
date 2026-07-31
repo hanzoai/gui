@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/themes",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "type": "module",
   "sideEffects": false,
@@ -71,6 +71,7 @@
     "generate": "bun run generate:v5 & bun run generate:v5-subtle",
     "generate:v5": "hanzogui generate-themes ./src/v5-themes.ts ./src/generated-v5.ts",
     "generate:v5-subtle": "hanzogui generate-themes ./src/v5-themes-subtle.ts ./src/generated-v5-subtle.ts",
+    "generate:new": "hanzogui generate-themes ./src/themes-new.ts ./src/generated-new.ts",
     "generate:v3": "hanzogui generate-themes ./src/v3-themes.ts ./src/generated-v3.ts",
     "generate:v4": "hanzogui generate-themes ./src/v4-default.ts ./src/generated-v4.ts",
     "generate:v4-hanzogui": "hanzogui generate-themes ./src/v4-hanzogui.ts ./src/generated-v4-hanzogui.ts",

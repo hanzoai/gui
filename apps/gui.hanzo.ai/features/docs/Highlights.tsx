@@ -60,7 +60,7 @@ export function Highlights({ features, disableLinks, disableTitle, large }: any)
             )}
 
             <Link
-              href={`https://github.com/hanzogui/hanzogui/tree/${sourceVersion ? `v${sourceVersion}` : 'main'}/pkgs/ui/${
+              href={`https://github.com/hanzoai/gui/tree/${sourceVersion ? `v${sourceVersion}` : 'main'}/pkgs/ui/${
                 frontmatter.package
                   ? `${frontmatter.package}/src/${frontmatter.component}.tsx`
                   : `hanzogui/src/views/${frontmatter.component}.tsx`
@@ -83,7 +83,7 @@ export function Highlights({ features, disableLinks, disableTitle, large }: any)
               </XStack>
             </Link>
             <Link
-              href="https://github.com/hanzogui/hanzogui/issues/new/choose"
+              href="https://github.com/hanzoai/gui/issues/new/choose"
               target="_blank"
             >
               <XStack items="center" gap="$1">

@@ -9,12 +9,12 @@
     "web"
   ],
   "bugs": {
-    "url": "https://github.com/hanzogui/hanzogui/issues"
+    "url": "https://github.com/hanzoai/gui/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hanzogui/hanzogui.git",
+    "url": "git+https://github.com/hanzoai/gui.git",
     "directory": "packages/react-native-web-lite"
   },
   "files": [

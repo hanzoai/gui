@@ -3,7 +3,7 @@
 To set up your development environment you'll need [bun](https://bun.sh) installed, then clone and install:
 
 ```bash
-git clone https://github.com/hanzogui/hanzogui
+git clone https://github.com/hanzoai/gui
 cd hanzogui
 bun install
 ```

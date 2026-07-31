@@ -364,7 +364,7 @@ test(`conditional classname keeps base and concats properly`, async () => {
   expect(output?.js).toMatchSnapshot()
 })
 
-// https://github.com/hanzogui/hanzogui/issues/3608
+// https://github.com/hanzoai/gui/issues/3608
 test('flexBasis: 0 with responsive style extracts correctly', async () => {
   const output = await extractForWeb(
     `

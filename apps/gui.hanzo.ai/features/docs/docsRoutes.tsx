@@ -8,7 +8,7 @@ export const docsRoutes = [
       { title: 'CLI', route: '/docs/guides/cli' },
       {
         title: 'Releases',
-        route: 'https://github.com/hanzogui/hanzogui/releases',
+        route: 'https://github.com/hanzoai/gui/releases',
       },
     ],
   },

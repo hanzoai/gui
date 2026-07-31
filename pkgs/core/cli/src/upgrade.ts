@@ -562,7 +562,7 @@ export async function upgrade(options: UpgradeOptions = {}): Promise<void> {
       } else {
         console.log(
           chalk.gray(
-            '  No changelog available. Check https://github.com/hanzogui/hanzogui/releases'
+            '  No changelog available. Check https://github.com/hanzoai/gui/releases'
           )
         )
       }

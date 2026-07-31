@@ -351,7 +351,7 @@ function SheetDemo() {
             <Anchor color="$blue10" href="https://twitter.com/natebirdman" target="_blank">
               @natebirdman,
             </Anchor>
-            <Anchor color="$blue10" href="https://github.com/hanzogui/hanzogui" target="_blank" rel="noreferrer">
+            <Anchor color="$blue10" href="https://github.com/hanzoai/gui" target="_blank" rel="noreferrer">
               give it a ⭐️
             </Anchor>
           </__ReactNativeView>
@@ -683,7 +683,7 @@ function SheetDemo() {
             <Anchor color="$blue10" href="https://twitter.com/natebirdman" target="_blank">
               @natebirdman,
             </Anchor>
-            <Anchor color="$blue10" href="https://github.com/hanzogui/hanzogui" target="_blank" rel="noreferrer">
+            <Anchor color="$blue10" href="https://github.com/hanzoai/gui" target="_blank" rel="noreferrer">
               give it a ⭐️
             </Anchor>
           </div>
@@ -1051,7 +1051,7 @@ function SheetDemo() {
             <Anchor color="$blue10" href="https://twitter.com/natebirdman" target="_blank">
               @natebirdman,
             </Anchor>
-            <Anchor color="$blue10" href="https://github.com/hanzogui/hanzogui" target="_blank" rel="noreferrer">
+            <Anchor color="$blue10" href="https://github.com/hanzoai/gui" target="_blank" rel="noreferrer">
               give it a ⭐️
             </Anchor>
           </__ReactNativeView>
@@ -1316,7 +1316,7 @@ function SheetDemo() {
             <Anchor color="$blue10" href="https://twitter.com/natebirdman" target="_blank">
               @natebirdman,
             </Anchor>
-            <Anchor color="$blue10" href="https://github.com/hanzogui/hanzogui" target="_blank" rel="noreferrer">
+            <Anchor color="$blue10" href="https://github.com/hanzoai/gui" target="_blank" rel="noreferrer">
               give it a ⭐️
             </Anchor>
           </div>

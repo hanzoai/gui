@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "repository": {
-    "url": "git+https://github.com/hanzogui/hanzogui.git"
+    "url": "git+https://github.com/hanzoai/gui.git"
   },
   "workspaces": [
     "./pkgs/compiler/**/*",
@@ -17,7 +17,8 @@
     "./apps/sandbox",
     "./pkgs/**/*",
     "./apps/gui.hanzo.ai",
-    "./pkgs/ui/**/*"
+    "./pkgs/ui/**/*",
+    "./apps/team"
   ],
   "scripts": {
     "postinstall": "bun ./scripts/postinstall.ts",

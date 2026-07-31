@@ -154,7 +154,7 @@ async function setupGuiDotDir(template: (typeof templates)[number]) {
     await remove(targetGitDir)
     console.info(`Error updating: ${err.message} ${err.stack}`)
     console.info(
-      `We removed the old template cache, so re-running may fix. If not, please file an issue: https://github.com/hanzogui/hanzogui/issues/new?assignees=&labels=&template=bug_report.md&title=`
+      `We removed the old template cache, so re-running may fix. If not, please file an issue: https://github.com/hanzoai/gui/issues/new?assignees=&labels=&template=bug_report.md&title=`
     )
     process.exit(1)
   }

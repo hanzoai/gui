@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hanzogui/hanzogui.git",
+    "url": "git+https://github.com/hanzoai/gui.git",
     "directory": "pkgs/native-ci"
   },
   "bin": {

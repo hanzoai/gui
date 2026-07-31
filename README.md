@@ -1,8 +1,8 @@
 <div align="center">
   <picture width="572px">
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/hanzogui/hanzogui/raw/main/apps/gui.hanzo.ai/public/logo-black.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/hanzogui/hanzogui/raw/main/apps/gui.hanzo.ai/public/logo-white.png">
-    <img alt="Shows a black logo in light color mode and a white one in dark color mode." src="https://github.com/hanzogui/hanzogui/raw/main/apps/gui.hanzo.ai/public/social.png">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/hanzoai/gui/raw/main/apps/gui.hanzo.ai/public/logo-black.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/hanzoai/gui/raw/main/apps/gui.hanzo.ai/public/logo-white.png">
+    <img alt="Shows a black logo in light color mode and a white one in dark color mode." src="https://github.com/hanzoai/gui/raw/main/apps/gui.hanzo.ai/public/social.png">
   </picture>
 </div>
 
@@ -44,7 +44,7 @@ The entirety of Gui works at compile time and runtime, and can be set up gradual
 
 We recommend checking out the starters with `npm create hanzogui@latest`, they range from a simple learning example to a production-ready monorepo.
 
-The compiler optimizes most and ultimately flattens a majority of styled components. In the [~500px² responsive browser section](https://hanzogui.dev) of the Gui website, 49 of the 55 or so [inline styled components](https://github.com/hanzogui/hanzogui/blob/main/apps/gui.hanzo.ai/components/HeroResponsive.tsx) are flattened to a `div`. The homepage gains nearly 15% on Lighthouse with the compiler on.
+The compiler optimizes most and ultimately flattens a majority of styled components. In the [~500px² responsive browser section](https://hanzogui.dev) of the Gui website, 49 of the 55 or so [inline styled components](https://github.com/hanzoai/gui/blob/main/apps/gui.hanzo.ai/components/HeroResponsive.tsx) are flattened to a `div`. The homepage gains nearly 15% on Lighthouse with the compiler on.
 
 [Learn more on the website](https://hanzogui.dev/docs/intro/introduction).
 
@@ -52,6 +52,6 @@ The compiler optimizes most and ultimately flattens a majority of styled compone
 
 ## Contributing
 
-To contribute to Gui reference the [contributing guide](https://github.com/hanzogui/hanzogui/blob/main/CONTRIBUTING.md).
+To contribute to Gui reference the [contributing guide](https://github.com/hanzoai/gui/blob/main/CONTRIBUTING.md).
 
 To contribute to documentation, see the docs source in `apps/gui.hanzo.ai/data/docs/`.

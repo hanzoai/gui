@@ -75,7 +75,7 @@ and cant put another View next to Content and have it show
   - ensure onlyAllowShorthands changes types properly
   - tooltip: expects zIndex but shorthand overrides and doesn't work
   - small bug, circular prop https://x.com/flexbox_/status/1907415294047379748
-  - fix toggle / multiple https://github.com/hanzogui/hanzogui/pull/3362
+  - fix toggle / multiple https://github.com/hanzoai/gui/pull/3362
   - seems <Switch checked defaultChecked> isnt showing in the checked position
 
 - option for compiler to optimize $theme-, $platform-, $group- media values (currently bails from optimization)

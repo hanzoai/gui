@@ -5,7 +5,7 @@
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hanzogui/hanzogui.git",
+    "url": "git+https://github.com/hanzoai/gui.git",
     "directory": "pkgs/ui/hanzogui"
   },
   "source": "src/index.ts",

@@ -1912,7 +1912,7 @@ type NarrowRaw<A> = (A extends [] ? [] : never) | (A extends Narrowable ? A : ne
 export type Narrow<A> = Try<A, [], NarrowRaw<A>>;
 /**
  * `StyleProp` copied from React Native:
- *  Exported to fix https://github.com/hanzogui/hanzogui/issues/1258
+ *  Exported to fix https://github.com/hanzoai/gui/issues/1258
  */
 export type Falsy = undefined | null | false | '';
 export interface RecursiveArray<T> extends Array<T | ReadonlyArray<T> | RecursiveArray<T>> {

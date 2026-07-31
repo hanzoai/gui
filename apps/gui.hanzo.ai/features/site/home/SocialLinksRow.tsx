@@ -44,7 +44,7 @@ export const SocialLinksRow = () => {
       </Link>
       <Link
         asChild
-        href="https://github.com/hanzogui/hanzogui"
+        href="https://github.com/hanzoai/gui"
         target="_blank"
         rel="noopener noreferrer"
       >

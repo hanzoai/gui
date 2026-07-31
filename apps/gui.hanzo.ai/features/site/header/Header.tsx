@@ -182,7 +182,7 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
 
         <SearchButton size="$2" rounded="$10" elevation="$0.5" />
 
-        <Link target="_blank" href="https://github.com/hanzogui/hanzogui">
+        <Link target="_blank" href="https://github.com/hanzoai/gui">
           <XStack group containerType="normal">
             <XStack
               items="center"
@@ -920,7 +920,7 @@ const HeaderMenuMoreContents = () => {
 
       <Separator borderColor="$color02" opacity={0.25} my="$2" />
 
-      <Link asChild href="https://github.com/hanzogui/hanzogui">
+      <Link asChild href="https://github.com/hanzoai/gui">
         <HeadAnchor target="_blank" grid>
           Github{' '}
           <YStack display={'inline-block' as any} y={10} my={-20} opacity={0.8}>

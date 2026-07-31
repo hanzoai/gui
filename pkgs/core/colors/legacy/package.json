@@ -1,4 +1,6 @@
 {
-  "//": "This directory holds CommonJS compat shims for resolvers that ignore the parent package's exports map (metro). The parent is \"type\": \"module\", which makes a bare .js file an ES module — so these shims threw \"require is not defined in ES module scope\" for every Node-side consumer, and esbuild-register (which transpiles to CJS and lets Node evaluate the result as ESM) failed the same way. Scoping the type here keeps the shims CommonJS without changing the package.",
+  "name": "@hanzogui/colors-legacy-shim",
+  "private": true,
+  "//": "Not a real package — it exists ONLY to scope \"type\" for this directory. The parent is \"type\": \"module\", which makes the bare .js CommonJS compat shims here (for metro, which ignores exports maps) parse as ES modules and throw \"require is not defined in ES module scope\"; esbuild-register hit the same wall and broke the theme generator. name/private are required because the root workspace glob (./pkgs/**/*) matches this directory.",
   "type": "commonjs"
 }

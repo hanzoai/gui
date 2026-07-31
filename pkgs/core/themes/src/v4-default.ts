@@ -1,5 +1,6 @@
 import * as Colors from '@hanzogui/colors/legacy'
 import { createThemes, defaultComponentThemes } from '@hanzogui/theme-builder'
+import { brandRamps } from './brands'
 
 /**
  * This is the default config v4 definitions.
@@ -167,6 +168,14 @@ const generatedThemes = createThemes({
         light: Object.values(Colors.green),
       },
     },
+
+    // Per-brand accent themes (white-label). Applied SPARINGLY: wrap only an
+    // accent element (`<Theme name="lux"><Button/></Theme>`), never the page —
+    // the canvas stays true-black. Ramps live in ./brands (one data row each).
+    hanzo: { palette: brandRamps.hanzo },
+    lux: { palette: brandRamps.lux },
+    zoo: { palette: brandRamps.zoo },
+    pars: { palette: brandRamps.pars },
   },
 
   grandChildrenThemes: {

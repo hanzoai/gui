@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/shell",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Unified Hanzo shell — HanzoHeader (flat + rich Products mega-menu), HanzoAppHeader, MeetHanzoMenu, ProductsMegaMenu, HanzoFooter, HanzoPreFooterCTA, AskHanzo, HanzoAppBar/Launcher + the canonical surface registry",
   "source": "src/index.ts",
   "files": [
@@ -35,7 +35,6 @@
     "prepublishOnly": "tsc -p tsconfig.json"
   },
   "peerDependencies": {
-    "@hanzo/iam": "^0.13.1",
     "react": "*",
     "react-dom": "*"
   },

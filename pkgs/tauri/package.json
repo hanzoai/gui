@@ -1,58 +1,53 @@
 {
-  "name": "@hanzogui/logo",
+  "name": "@hanzogui/tauri",
   "version": "8.0.0",
-  "source": "src/index.tsx",
+  "description": "Tauri desktop adapter for Hanzo GUI — window controls, global shortcuts, fs/shell bridge so hanzogui components run in a Tauri webview.",
   "files": [
     "src",
     "types",
-    "dist",
-    "*.cjs",
-    "icon"
+    "dist"
   ],
   "type": "module",
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
-  "types": "./types/index.d.ts",
+  "types": "./src",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./types/index.d.ts",
+      "types": "./src/index.ts",
       "react-native": "./dist/esm/index.native.js",
       "browser": "./dist/esm/index.mjs",
       "module": "./dist/esm/index.mjs",
       "import": "./dist/esm/index.mjs",
       "require": "./dist/cjs/index.cjs",
       "default": "./dist/esm/index.mjs"
-    },
-    "./icon": {
-      "types": "./types/LogoIcon.d.ts",
-      "react-native": "./dist/esm/LogoIcon.native.js",
-      "browser": "./dist/esm/LogoIcon.mjs",
-      "module": "./dist/esm/LogoIcon.mjs",
-      "import": "./dist/esm/LogoIcon.mjs",
-      "require": "./dist/cjs/LogoIcon.cjs",
-      "default": "./dist/cjs/LogoIcon.native.js"
     }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "watch": "hanzogui-build --watch",
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/use-element-layout": "workspace:*",
-    "@hanzogui/web": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "@tauri-apps/api": "^2.6.0",
+    "@tauri-apps/plugin-fs": "^2.3.0",
+    "@tauri-apps/plugin-global-shortcut": "^2.2.1",
+    "@tauri-apps/plugin-shell": "^2.2.1"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
+    "@hanzo/gui": "workspace:*",
     "react": ">=19"
   },
   "peerDependencies": {
+    "@hanzo/gui": "*",
     "react": ">=19"
-  }
+  },
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>"
 }

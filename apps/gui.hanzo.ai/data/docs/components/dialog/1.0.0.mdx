@@ -62,7 +62,7 @@ export default App
 ## Anatomy
 
 ```tsx
-import { Dialog } from 'hanzogui' // or '@hanzogui/dialog'
+import { Dialog } from '@hanzo/gui' // or '@hanzogui/dialog'
 
 export default () => (
   <Dialog>
@@ -277,7 +277,7 @@ See [Sheet](/docs/components/sheet) for more props.
 Must use `Adapt.Contents` inside the `Dialog.Sheet.Frame` to insert the contents given to `Dialog.Content`
 
 ```tsx
-import { Dialog } from 'hanzogui' // or '@hanzogui/dialog'
+import { Dialog } from '@hanzo/gui' // or '@hanzogui/dialog'
 
 export default () => (
   <Dialog>
@@ -332,7 +332,7 @@ export default () => (
 If you're using native modals (maybe from react-navigation), you'll notice the Dialogs won't show up inside the modal. To get around this, you should wrap your screen inside `PortalProvider`, like so:
 
 ```tsx
-import { PortalProvider } from 'hanzogui'
+import { PortalProvider } from '@hanzo/gui'
 
 // this component used in react-navigation/expo-router with `presentation: "modal"`
 export function Page() {

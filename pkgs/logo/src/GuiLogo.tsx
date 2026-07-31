@@ -1,6 +1,6 @@
 import type { JSX } from 'react/jsx-runtime'
-import type { XStackProps } from 'hanzogui'
-import { XStack, YStack } from 'hanzogui'
+import type { XStackProps } from '@hanzo/gui'
+import { XStack, YStack } from '@hanzo/gui'
 import { LogoIcon } from './LogoIcon'
 import { LogoWords } from './LogoWords'
 

@@ -1,5 +1,5 @@
 import type { MetaFunction } from 'react-router'
-import { styled, Text, type ThemeName, View } from 'hanzogui'
+import { styled, Text, type ThemeName, View } from '@hanzo/gui'
 import { useState } from 'react'
 
 export const meta: MetaFunction = () => {

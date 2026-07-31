@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { AnimatePresence, YStack, isClient, useDidFinishSSR } from 'hanzogui'
+import { AnimatePresence, YStack, isClient, useDidFinishSSR } from '@hanzo/gui'
 
 /**
  * Test case for motion hydration regression.

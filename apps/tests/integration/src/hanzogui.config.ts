@@ -1,4 +1,4 @@
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 import { shorthands } from '@hanzogui/shorthands'
 
 import { animations } from './animations'

@@ -1,5 +1,5 @@
 import { Text as CoreText } from '@hanzogui/core'
-import { H1, Text, styled } from 'hanzogui'
+import { H1, Text, styled } from '@hanzo/gui'
 
 // Test case for GitHub issue #3789: Nested Text breaks inheritance of some styles/props
 

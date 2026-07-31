@@ -9,7 +9,7 @@ import {
   XStack,
   YStack,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { useIsDocsTinted } from './docsTint'
 import {
   AnimationDriverTogglerContextProvider,

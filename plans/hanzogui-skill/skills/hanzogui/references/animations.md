@@ -109,7 +109,7 @@ const animations = createAnimations({
 Exit animations only work inside `AnimatePresence`:
 
 ```tsx
-import { AnimatePresence } from 'hanzogui'
+import { AnimatePresence } from '@hanzo/gui'
 
 <AnimatePresence>
   {show && (

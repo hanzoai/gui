@@ -140,7 +140,7 @@ export async function loadGui(options: Partial<GuiOptions>): Promise<any> {
     source: '// dummy',
     sourcePath: '__dummy__.tsx',
     options: {
-      components: ['hanzogui'],
+      components: ['@hanzo/gui'],
       ...options,
     },
     shouldPrintDebug: false,

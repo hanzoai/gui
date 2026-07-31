@@ -62,6 +62,6 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
 }
 
 module.exports = withGui(config, {
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   config: './src/hanzogui.config.ts',
 })

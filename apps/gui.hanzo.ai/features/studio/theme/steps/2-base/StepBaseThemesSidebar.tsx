@@ -1,6 +1,6 @@
 import { useStore } from '@hanzogui/use-store'
 import { useState } from 'react'
-import type { ThemeName } from 'hanzogui'
+import type { ThemeName } from '@hanzo/gui'
 import {
   Label,
   Separator,
@@ -10,7 +10,7 @@ import {
   Theme,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { StudioProcedureStore } from '../../callApi'
 import { useThemeBuilderStore } from '../../store/ThemeBuilderStore'

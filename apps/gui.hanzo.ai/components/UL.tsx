@@ -1,4 +1,4 @@
-import { YStack, styled } from 'hanzogui'
+import { YStack, styled } from '@hanzo/gui'
 
 export const UL = styled(YStack, {
   render: 'ul',

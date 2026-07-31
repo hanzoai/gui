@@ -41,11 +41,11 @@ Without it, you'd need to duplicate options across your metro, babel, vite,
 or webpack configs.
 
 ```ts fileName="hanzogui.build.ts"
-import type { GuiBuildOptions } from 'hanzogui'
+import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
   config: './hanzogui.config.ts',
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   outputCSS: './public/hanzogui.generated.css',
   // optional:
   importsWhitelist: ['constants.js', 'colors.js'],
@@ -86,11 +86,11 @@ Add `hanzogui-loader` and set up your `webpack.config.js`.
 You can set it up more manually like so:
 
 ```js
-const { shouldExclude } = require('hanzogui-loader')
+const { shouldExclude } = require('@hanzogui/loader')
 
 const hanzoguiOptions = {
   config: './hanzogui.config.ts',
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   importsWhitelist: ['constants.js', 'colors.js'],
   logTimings: true,
   disableExtraction: process.env.NODE_ENV === 'development',
@@ -125,7 +125,7 @@ module.exports = {
           },
 
           {
-            loader: 'hanzogui-loader',
+            loader: '@hanzogui/loader',
             options: hanzoguiOptions,
           },
         ],
@@ -139,7 +139,7 @@ Or you can use the GuiPlugin which automates some of this setup for you.
 If you have a `hanzogui.build.ts`, you can pass no options:
 
 ```tsx
-const { GuiPlugin } = require('hanzogui-loader')
+const { GuiPlugin } = require('@hanzogui/loader')
 
 module.exports = {
   plugins: [
@@ -152,13 +152,13 @@ module.exports = {
 Or pass options inline to override:
 
 ```tsx
-const { GuiPlugin } = require('hanzogui-loader')
+const { GuiPlugin } = require('@hanzogui/loader')
 
 module.exports = {
   plugins: [
     new GuiPlugin({
       config: './hanzogui.config.ts',
-      components: ['hanzogui'],
+      components: ['@hanzo/gui'],
       importsWhitelist: ['constants.js', 'colors.js'],
       logTimings: true,
       disableExtraction: process.env.NODE_ENV === 'development',
@@ -207,7 +207,7 @@ export default defineConfig({
   plugins: [
     hanzoguiPlugin({
       config: 'src/hanzogui.config.ts',
-      components: ['hanzogui'],
+      components: ['@hanzo/gui'],
       disableExtraction: true,
     }),
   ],
@@ -232,7 +232,7 @@ module.exports = function (name, { defaultConfig }) {
   const hanzoguiPlugin = withGui({
     // reads from hanzogui.build.ts automatically, or pass inline:
     config: './hanzogui.config.ts',
-    components: ['hanzogui'],
+    components: ['@hanzo/gui'],
     disableExtraction: process.env.NODE_ENV === 'development',
     excludeReactNativeWebExports: ['Switch', 'ProgressBar', 'Picker'],
   })
@@ -280,7 +280,7 @@ module.exports = {
     [
       '@hanzogui/babel-plugin',
       {
-        components: ['hanzogui'],
+        components: ['@hanzo/gui'],
         config: './hanzogui.config.ts',
         importsWhitelist: ['constants.js', 'colors.js'],
         logTimings: true,

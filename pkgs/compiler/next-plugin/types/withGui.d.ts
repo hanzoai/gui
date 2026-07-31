@@ -1,4 +1,4 @@
-import type { PluginOptions as LoaderPluginOptions } from 'hanzogui-loader';
+import type { PluginOptions as LoaderPluginOptions } from '@hanzogui/loader';
 export type WithGuiProps = LoaderPluginOptions & {
     appDir?: boolean;
     enableLegacyFontSupport?: boolean;

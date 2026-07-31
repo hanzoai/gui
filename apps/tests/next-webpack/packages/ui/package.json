@@ -24,7 +24,7 @@
     "@hanzogui/next-theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",
     "expo-constants": "~55.0.7",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

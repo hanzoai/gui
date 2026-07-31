@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 import * as Avatars from '@hanzogui/bento/component/elements/avatars'
 import {

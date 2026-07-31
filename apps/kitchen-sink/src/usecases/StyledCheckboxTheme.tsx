@@ -1,5 +1,5 @@
 import { Check } from '@hanzogui/lucide-icons-2'
-import { Checkbox as GuiCheckbox, styled, withStaticProperties } from 'hanzogui'
+import { Checkbox as GuiCheckbox, styled, withStaticProperties } from '@hanzo/gui'
 
 export const Checkbox = withStaticProperties(
   styled(GuiCheckbox, {

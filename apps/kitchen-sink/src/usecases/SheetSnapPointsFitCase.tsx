@@ -8,7 +8,7 @@ import {
   useWindowDimensions,
   View,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const sheetTopRadius = {
   borderTopLeftRadius: 33,

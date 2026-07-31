@@ -1,4 +1,4 @@
-import { Button, H1, Paragraph, YStack } from 'hanzogui'
+import { Button, H1, Paragraph, YStack } from '@hanzo/gui'
 import { Container } from '../../../components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'
 import { Link } from '~/components/Link'

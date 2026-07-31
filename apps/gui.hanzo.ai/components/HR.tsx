@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 export const HR = () => (
   <YStack my="$10" mb="$8" mx="auto" width="50%">

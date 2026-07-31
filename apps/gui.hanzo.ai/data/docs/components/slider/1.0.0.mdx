@@ -41,7 +41,7 @@ npm install @hanzogui/slider
 Slider comes as multiple components that ship with default styles and are sizable. The `size` prop on `<Slider />` will automatically pass size down to all the sub-components.
 
 ```tsx
-import { Slider } from 'hanzogui'
+import { Slider } from '@hanzo/gui'
 
 export default () => (
   <Slider size="$4" width={200} defaultValue={[50]} max={100} step={1}>
@@ -56,7 +56,7 @@ export default () => (
 You can also optionally style any component, either using inline style props or by wrapping with `styled`:
 
 ```tsx
-import { Slider, styled } from 'hanzogui'
+import { Slider, styled } from '@hanzo/gui'
 
 const CustomSliderTrack = styled(Slider.Track, {
   backgroundColor: 'red',

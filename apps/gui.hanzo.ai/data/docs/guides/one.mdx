@@ -25,7 +25,7 @@ Create a `hanzogui.config.ts` file in your project root:
 
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 const hanzoguiConfig = createGui(defaultConfig)
 
@@ -55,7 +55,7 @@ export default {
     }),
     hanzoguiPlugin({
       config: './hanzogui.config.ts',
-      components: ['hanzogui'],
+      components: ['@hanzo/gui'],
     }),
   ],
 
@@ -79,7 +79,7 @@ export default {
 Update your root layout file (typically `app/_layout.tsx`):
 
 ```tsx fileName="app/_layout.tsx"
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import { Slot } from 'one'
 import config from '../hanzogui.config'
 
@@ -97,7 +97,7 @@ export default function Layout() {
 Now you can use Gui components in your One app:
 
 ```tsx fileName="app/index.tsx"
-import { Button, Text, YStack } from 'hanzogui'
+import { Button, Text, YStack } from '@hanzo/gui'
 
 export default function Home() {
   return (
@@ -114,7 +114,7 @@ export default function Home() {
 To support light and dark modes, use One's built-in color scheme support along with Gui's theming system. Update your root layout:
 
 ```tsx fileName="app/_layout.tsx"
-import { GuiProvider, Theme } from 'hanzogui'
+import { GuiProvider, Theme } from '@hanzo/gui'
 import { Slot } from 'one'
 import { useColorScheme } from 'react-native'
 import config from '../hanzogui.config'
@@ -139,7 +139,7 @@ For better performance, use the `outputCSS` option in the Gui Vite plugin:
 ```tsx fileName="vite.config.ts"
 hanzoguiPlugin({
   config: './hanzogui.config.ts',
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
 })
 ```

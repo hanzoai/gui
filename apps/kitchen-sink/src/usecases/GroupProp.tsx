@@ -1,4 +1,4 @@
-import { Square, View, XStack, styled } from 'hanzogui'
+import { Square, View, XStack, styled } from '@hanzo/gui'
 
 const GroupTest = styled(View, {
   group: 'testy',

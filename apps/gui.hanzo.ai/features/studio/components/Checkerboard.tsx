@@ -1,5 +1,5 @@
-import type { YStackProps } from 'hanzogui'
-import { YStack } from 'hanzogui'
+import type { YStackProps } from '@hanzo/gui'
+import { YStack } from '@hanzo/gui'
 
 export const Checkerboard = (props: YStackProps) => (
   <YStack

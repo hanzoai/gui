@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 export const TakeoutIcon = YStack.styleable((props, ref) => (
   <YStack {...props} ref={ref as any} p="$4" m="$-4">

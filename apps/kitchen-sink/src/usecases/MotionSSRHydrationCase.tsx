@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { hydrateRoot, type Root } from 'react-dom/client'
 import { renderToString } from 'react-dom/server'
-import { GuiProvider, View } from 'hanzogui'
+import { GuiProvider, View } from '@hanzo/gui'
 
 import config from '../hanzogui.config'
 

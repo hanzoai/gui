@@ -45,7 +45,7 @@
     "esbuild-loader": "^4.2.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "hanzogui-loader": "workspace:*",
+    "@hanzogui/loader": "workspace:*",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {

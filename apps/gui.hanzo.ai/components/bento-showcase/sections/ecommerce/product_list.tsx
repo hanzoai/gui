@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 import * as ProductList from '@hanzogui/bento/component/ecommerce/product_list'
 import {

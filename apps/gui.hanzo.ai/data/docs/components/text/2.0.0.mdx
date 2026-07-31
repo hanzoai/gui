@@ -56,7 +56,7 @@ Text in Gui matches Text in react-native-web, with the added [Gui props](/docs/i
 It explicitly does not inherit your theme color or other font properties, as it is meant to be plain and used for extension. Below, we show `SizableText` which extends Text, and `Paragraph` which extends SizableText. Generally, Paragraph is the useful component as it uses theme values, while you can extend Text if you want to derive your own design system.
 
 ```tsx
-import { Text, XStack, YStack } from 'hanzogui'
+import { Text, XStack, YStack } from '@hanzo/gui'
 
 export default () => (
   <>
@@ -146,7 +146,7 @@ Gui provides two props for truncating text with ellipsis: `ellipsis` for single-
 Use the `ellipsis` prop to truncate text to a single line with an ellipsis:
 
 ```tsx
-import { Text, SizableText, Paragraph } from 'hanzogui'
+import { Text, SizableText, Paragraph } from '@hanzo/gui'
 
 export default () => (
   <Paragraph ellipsis maxWidth={200}>
@@ -162,7 +162,7 @@ On web, this applies `text-overflow: ellipsis`, `white-space: nowrap`, and `over
 Use the `numberOfLines` prop to clamp text to a specific number of lines:
 
 ```tsx
-import { Paragraph } from 'hanzogui'
+import { Paragraph } from '@hanzo/gui'
 
 export default () => (
   <>

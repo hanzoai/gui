@@ -38,7 +38,7 @@ The easiest way to get started is with [`@hanzogui/config/v5`](/docs/core/config
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
 import { animations } from '@hanzogui/config/v5-css' // or v5-motion, v5-rn, v5-reanimated
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,
@@ -64,7 +64,7 @@ yarn add @hanzogui/animations-css
 
 ```tsx
 import { createAnimations } from '@hanzogui/animations-css'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export default createGui({
   animations: createAnimations({
@@ -97,7 +97,7 @@ yarn add @hanzogui/animations-react-native
 
 ```tsx
 import { createAnimations } from '@hanzogui/animations-react-native'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export default createGui({
   animations: createAnimations({
@@ -144,7 +144,7 @@ Follow the [Reanimated installation guide](https://docs.swmansion.com/react-nati
 
 ```tsx
 import { createAnimations } from '@hanzogui/animations-reanimated'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export default createGui({
   animations: createAnimations({
@@ -186,7 +186,7 @@ yarn add @hanzogui/animations-motion motion
 
 ```tsx
 import { createAnimations } from '@hanzogui/animations-motion'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export default createGui({
   animations: createAnimations({
@@ -253,7 +253,7 @@ export default createGui({
 Use the `<Configuration>` component to swap the animation driver for a subtree. This is useful for lazy loading heavier drivers only when needed — for example, keeping initial page load fast with CSS animations, then upgrading to Motion for authenticated users:
 
 ```tsx fileName="app/_layout.tsx"
-import { Configuration, Slot } from 'hanzogui'
+import { Configuration, Slot } from '@hanzo/gui'
 import { createAnimations } from '@hanzogui/animations-motion'
 
 const motionDriver = createAnimations({
@@ -297,7 +297,7 @@ export default createGui({
 Add drivers at runtime after app initialization:
 
 ```tsx
-import { loadAnimationDriver } from 'hanzogui'
+import { loadAnimationDriver } from '@hanzo/gui'
 import { createAnimations } from '@hanzogui/animations-motion'
 
 // call this after some condition (user auth, route change, etc.)

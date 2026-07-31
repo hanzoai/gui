@@ -26,7 +26,7 @@ export const generateOutput = (globalStore: ReturnType<typeof useGlobalState>) =
   const animations = globalStore.animations.draftAnimations
 
   return `import { config as baseConfig } from '@hanzogui/config/v3'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 import { createAnimations } from '@hanzogui/animations-react-native'
 
 const animations = createAnimations({

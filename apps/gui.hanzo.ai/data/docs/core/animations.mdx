@@ -36,7 +36,7 @@ Then add it to your [Gui config](/docs/core/configuration):
 
 ```tsx
 import { createAnimations } from '@hanzogui/animations-react-native'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export default createGui({
   animations: createAnimations({
@@ -110,7 +110,7 @@ animations per-property.
 You can specify animations for specific properties using an object:
 
 ```tsx
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 export default () => (
   <YStack
@@ -133,7 +133,7 @@ You can set a default animation using a two-element array with the default in th
 first position:
 
 ```tsx
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 export default () => (
   <YStack
@@ -158,7 +158,7 @@ export default () => (
 You can add a delay before animations start using the array syntax with a `delay` property (in milliseconds):
 
 ```tsx
-import { Square, XStack } from 'hanzogui'
+import { Square, XStack } from '@hanzo/gui'
 
 export default () => (
   <XStack gap="$2">
@@ -182,7 +182,7 @@ This creates a staggered animation effect where each square animates 100ms after
 You can specify different animations for enter (mount) and exit (unmount) transitions. This is useful when you want elements to enter slowly but exit quickly, or vice versa:
 
 ```tsx
-import { AnimatePresence, View } from 'hanzogui'
+import { AnimatePresence, View } from '@hanzo/gui'
 
 export default ({ show }) => (
   <AnimatePresence>
@@ -227,7 +227,7 @@ This works with all four animation drivers (CSS, React Native, Reanimated, Motio
 You can specify different transitions for entering and exiting pseudo states like hover, press, and focus. This follows CSS-like semantics where entering a state uses that state's transition, and exiting uses the base transition:
 
 ```tsx
-import { Square } from 'hanzogui'
+import { Square } from '@hanzo/gui'
 
 export default () => (
   <Square

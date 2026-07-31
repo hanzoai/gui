@@ -83,7 +83,7 @@ HOC, both exported from `@hanzogui/sheet`. Consumers either:
 
 ```tsx
 // path A: pre-wrapped components (mirrors gorhom)
-import { Sheet, SheetFlatList, SheetSectionList, createSheetScrollable } from 'hanzogui'
+import { Sheet, SheetFlatList, SheetSectionList, createSheetScrollable } from '@hanzo/gui'
 
 const SheetLegendList = createSheetScrollable(LegendList)
 
@@ -94,7 +94,7 @@ const SheetLegendList = createSheetScrollable(LegendList)
 
 ```tsx
 // path B: BYO list — useful for libraries we don't want to dep on
-import { Sheet, useSheetScrollGesture } from 'hanzogui'
+import { Sheet, useSheetScrollGesture } from '@hanzo/gui'
 
 function ChatList() {
   const { ref, onScroll, simultaneousHandlers, scrollEventThrottle } =

@@ -24,7 +24,7 @@ You can opt out of SSR entirely or for specific parts of your app.
 For single-page applications that don't need SSR, disable it entirely in your config:
 
 ```tsx
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   // ... other config
@@ -67,7 +67,7 @@ function MyComponent() {
 The `Configuration` component is essentially a shorthand for `ClientOnly`. It accepts [configuration settings](/docs/core/configuration) like `disableSSR`:
 
 ```tsx
-import { Configuration } from 'hanzogui'
+import { Configuration } from '@hanzo/gui'
 
 function MyApp() {
   return (
@@ -84,7 +84,7 @@ function MyApp() {
 The `useMedia` hook automatically leverages Gui's smart SSR rendering. During server render, it returns appropriate defaults that match CSS media queries, then updates after hydration without flickering.
 
 ```tsx
-import { useMedia } from 'hanzogui'
+import { useMedia } from '@hanzo/gui'
 
 function ResponsiveComponent() {
   const media = useMedia() // Automatically handles SSR correctly

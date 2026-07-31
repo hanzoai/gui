@@ -6,7 +6,7 @@ const disableExtraction =
 
 export default {
   config: './hanzogui.config.ts',
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   outputCSS: './public/hanzogui.generated.css',
   importsWhitelist: ['constants.js', 'colors.js'],
   disableExtraction,

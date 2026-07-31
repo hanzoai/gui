@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { SizableText, Spinner, XStack, YStack } from 'hanzogui'
+import { SizableText, Spinner, XStack, YStack } from '@hanzo/gui'
 import type { Booking } from './client'
 import { BookingForm } from './BookingForm'
 import { Confirmation } from './Confirmation'

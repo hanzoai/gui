@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 import * as RadioGroups from '@hanzogui/bento/component/forms/radiogroups'
 import {

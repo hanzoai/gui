@@ -11,7 +11,7 @@ component.
 Change themes anywhere in your app like so:
 
 ```tsx
-import { Square, Theme } from 'hanzogui' // or '@hanzogui/core'
+import { Square, Theme } from '@hanzo/gui' // or '@hanzogui/core'
 
 export default () => (
   <Theme name="dark">
@@ -39,7 +39,7 @@ use your own styles.
 Here's a simplified theme definition:
 
 ```tsx
-import { createGui, createTokens } from 'hanzogui'
+import { createGui, createTokens } from '@hanzo/gui'
 
 const tokens = createTokens({
   color: {
@@ -90,7 +90,7 @@ Because we defined sub-themes `light_pink` and `dark_pink`, the `Theme`
 component will now let us do this:
 
 ```tsx
-import { Button, Theme } from 'hanzogui'
+import { Button, Theme } from '@hanzo/gui'
 
 export default () => {
   return (

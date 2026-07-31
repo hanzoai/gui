@@ -122,7 +122,7 @@ export class GuiPlugin {
 
     // Load Gui config asynchronously in worker
     void StaticWorker.loadGui({
-      components: ['hanzogui'],
+      components: ['@hanzo/gui'],
       platform: 'web',
       ...serializableOptions,
     })
@@ -231,7 +231,7 @@ export class GuiPlugin {
         ?.oneOf as any[]) ?? existing
 
     const hanzoguiLoader = {
-      loader: requireResolve('hanzogui-loader'),
+      loader: requireResolve('@hanzogui/loader'),
       options: {
         ...this.options,
         _disableLoadGui: true,

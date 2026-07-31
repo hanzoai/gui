@@ -1,5 +1,5 @@
 import { Input, TextArea } from '@hanzogui/input'
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 // regression: the `text` shorthand (text -> textAlign) must be accepted on Input
 // and TextArea, not just the `textAlign` longhand. before the GetBaseStyles fix,

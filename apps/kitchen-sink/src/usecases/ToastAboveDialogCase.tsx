@@ -1,7 +1,7 @@
 import { Dialog } from '@hanzogui/dialog'
 import { toast, Toast, useToasts, type ToastPosition } from '@hanzogui/toast/v2'
 import { useRef, useState } from 'react'
-import { Button, H4, Paragraph, XStack, YStack } from 'hanzogui'
+import { Button, H4, Paragraph, XStack, YStack } from '@hanzo/gui'
 
 export function ToastAboveDialogCase() {
   const [dialogOpen, setDialogOpen] = useState(false)

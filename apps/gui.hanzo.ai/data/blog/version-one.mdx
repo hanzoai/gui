@@ -102,7 +102,7 @@ CSS and CSS-in-JS systems as they largely exist today.
 Here's an example of the `styled` function with a few variants:
 
 ```tsx
-import { Stack, styled } from 'hanzogui' // or '@hanzogui/core'
+import { Stack, styled } from '@hanzo/gui' // or '@hanzogui/core'
 
 export const Circle = styled(Stack, {
   // access your tokens and theme values easily with $ props
@@ -155,7 +155,7 @@ a ton of time over rolling these yourself.
 Here's a stripped down configuration:
 
 ```tsx
-import { createFont, createGui, createTokens } from 'hanzogui' // or '@hanzogui/core'
+import { createFont, createGui, createTokens } from '@hanzo/gui' // or '@hanzogui/core'
 
 const interFont = createFont({
   family: 'Inter, Helvetica, Arial, sans-serif',
@@ -335,7 +335,7 @@ Then you can change the family to Mandarin at any point in your React tree, with
 types working as expected:
 
 ```tsx
-import { FontLanguage, Text } from 'hanzogui' // or '@hanzogui/core'
+import { FontLanguage, Text } from '@hanzo/gui' // or '@hanzogui/core'
 
 export default () => (
   <FontLanguage body="mandarin">
@@ -394,7 +394,7 @@ easy to properly access the "currently active" set of styles given the current
 screen size. Here's an example:
 
 ```tsx
-import { Stack, StackProps, useMediaPropsActive } from 'hanzogui' // or '@hanzogui/core'
+import { Stack, StackProps, useMediaPropsActive } from '@hanzo/gui' // or '@hanzogui/core'
 
 const CustomWidget = (props: StackProps) => {
   const activeProps = useMediaPropsActive(props)
@@ -485,7 +485,7 @@ export default defineConfig({
   plugins: [
     react(),
     hanzoguiPlugin({
-      components: ['hanzogui'],
+      components: ['@hanzo/gui'],
       config: 'hanzogui.config.ts',
     }),
   ],

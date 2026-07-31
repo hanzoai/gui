@@ -9,6 +9,6 @@
   "dependencies": {
     "@hanzogui/cli": "workspace:*",
     "@hanzogui/config": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   }
 }

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { TextInput } from 'react-native'
 import { useWindowDimensions } from 'react-native'
-import { Button, Input, Sheet, Text, TextArea, XStack, YStack } from 'hanzogui'
+import { Button, Input, Sheet, Text, TextArea, XStack, YStack } from '@hanzo/gui'
 import { reportSheetLayout, startSheetTracker } from './sheetFrameTracker'
 
 /**

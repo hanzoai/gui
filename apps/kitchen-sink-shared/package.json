@@ -8,7 +8,7 @@
     "@hanzogui/demos": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/toast": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=19"

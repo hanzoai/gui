@@ -29,7 +29,7 @@ const getFilledOptions = (propsIn: Partial<GuiOptions>): GuiOptions => ({
   // defaults
   platform: (process.env.GUI_TARGET as any) || 'web',
   config: 'hanzogui.config.ts',
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   ...(propsIn as Partial<GuiOptions>),
 })
 
@@ -198,7 +198,7 @@ export async function loadGuiBuildConfigAsync(
 
   return {
     config: 'hanzogui.config.ts',
-    components: ['hanzogui', '@hanzogui/core'],
+    components: ['@hanzo/gui', '@hanzogui/core'],
     ...hanzoguiOptions,
   } as GuiOptions
 }
@@ -235,7 +235,7 @@ export function loadGuiBuildConfigSync(
   }
   return {
     config: 'hanzogui.config.ts',
-    components: ['hanzogui', '@hanzogui/core'],
+    components: ['@hanzo/gui', '@hanzogui/core'],
     ...hanzoguiOptions,
   } as GuiOptions
 }
@@ -387,7 +387,7 @@ export async function getOptions({
     tsconfigPath,
     hanzoguiOptions: {
       platform: (process.env.GUI_TARGET as any) || 'web',
-      components: ['hanzogui'],
+      components: ['@hanzo/gui'],
       ...hanzoguiOptions,
       config:
         hanzoguiOptions?.config ??

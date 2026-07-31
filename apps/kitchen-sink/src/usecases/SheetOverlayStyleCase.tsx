@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Paragraph, Sheet, YStack } from 'hanzogui'
+import { Button, Paragraph, Sheet, YStack } from '@hanzo/gui'
 
 export function SheetOverlayStyleCase() {
   const [open, setOpen] = useState(false)

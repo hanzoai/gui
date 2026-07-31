@@ -1,4 +1,4 @@
-import { useWindowDimensions } from 'hanzogui'
+import { useWindowDimensions } from '@hanzo/gui'
 import type { Dim } from './useContainerDim'
 
 export const useContainerDim = (name: string): Dim => {

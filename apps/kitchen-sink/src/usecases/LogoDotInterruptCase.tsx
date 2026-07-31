@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Circle, XStack } from 'hanzogui'
+import { Circle, XStack } from '@hanzo/gui'
 
 // faithful repro of the hanzogui.dev LogoWords "dot" mechanism:
 // a Circle with transition="medium" whose `x` is updated continuously from

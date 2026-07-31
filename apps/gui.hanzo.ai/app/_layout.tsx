@@ -3,7 +3,7 @@ import '~/app.css'
 import '~/hanzogui.generated.css'
 
 import { LoadProgressBar, Slot } from 'one'
-import { setupPopper } from 'hanzogui'
+import { setupPopper } from '@hanzo/gui'
 import { Providers } from '../components/Providers'
 import { LoadCherryBomb } from '~/features/site/fonts/LoadFonts'
 

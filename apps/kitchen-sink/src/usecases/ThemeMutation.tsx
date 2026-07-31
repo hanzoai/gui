@@ -1,7 +1,7 @@
 import React from 'react'
 import { Linking, Pressable } from 'react-native'
 import { addTheme, updateTheme } from '@hanzogui/theme'
-import { Square, Text, Theme, YStack, useIsomorphicLayoutEffect } from 'hanzogui'
+import { Square, Text, Theme, YStack, useIsomorphicLayoutEffect } from '@hanzo/gui'
 
 import { TEST_IDS } from '../constants/test-ids'
 

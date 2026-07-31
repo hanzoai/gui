@@ -6,7 +6,7 @@ import {
   ScrollRestoration,
   type LinksFunction,
 } from 'react-router'
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import hanzoguiConfig from '../hanzogui.config'
 
 export const links: LinksFunction = () => [

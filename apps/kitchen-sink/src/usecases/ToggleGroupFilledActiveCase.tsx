@@ -1,5 +1,5 @@
 import React from 'react'
-import { SizableText, ToggleGroup, YStack, styled } from 'hanzogui'
+import { SizableText, ToggleGroup, YStack, styled } from '@hanzo/gui'
 
 // repro for community issue: a styled(ToggleGroup.Item) variant that sets a
 // resting backgroundColor breaks activeStyle. `filled` sets backgroundColor at

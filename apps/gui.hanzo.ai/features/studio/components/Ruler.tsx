@@ -1,4 +1,4 @@
-import { Unspaced, XStack, YStack } from 'hanzogui'
+import { Unspaced, XStack, YStack } from '@hanzo/gui'
 
 // TODO: rendering these is very expensive, converting to svg might help
 export const Ruler = ({

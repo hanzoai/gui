@@ -1,7 +1,7 @@
 'use client'
 
 import { Lock } from '@hanzogui/lucide-icons-2'
-import { H2, Paragraph, YStack } from 'hanzogui'
+import { H2, Paragraph, YStack } from '@hanzo/gui'
 
 export const SponsorshipRequired = () => {
   return (

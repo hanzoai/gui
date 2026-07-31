@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 import { GuiIconSvg } from './GuiLogoSvg'
 import type { JSX } from 'react/jsx-runtime'
 

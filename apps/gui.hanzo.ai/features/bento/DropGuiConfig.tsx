@@ -9,7 +9,7 @@ import {
   Theme,
   TooltipSimple,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Features } from '~/components/Features'
 import { Code, CodeInline } from '~/components/Code'
 import { useLocalStorageWatcher } from '~/hooks/useLocalStorageWatcher'

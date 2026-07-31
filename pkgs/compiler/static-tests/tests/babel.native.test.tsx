@@ -11,7 +11,7 @@ window['React'] = React
 
 test('basic extraction', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test() {
       return (
         <YStack backgroundColor="red" />
@@ -28,7 +28,7 @@ test('theme value extraction should work when no theme variables used', async ()
   // were not smart enough yet to detect its later overriden :/
   // that could be a perf optimization, but also have work to improve flattening soon anyway
   const output = await extractForNative(`
-    import { Paragraph } from 'hanzogui'
+    import { Paragraph } from '@hanzo/gui'
     export function Test() {
       return (
         <Paragraph color="red">hello world</Paragraph>
@@ -41,7 +41,7 @@ test('theme value extraction should work when no theme variables used', async ()
 
 test('theme value extraction should work when theme variables used', async () => {
   const output = await extractForNative(`
-    import { Paragraph } from 'hanzogui'
+    import { Paragraph } from '@hanzo/gui'
     export function Test() {
       return (
         <Paragraph>hello world</Paragraph>
@@ -54,7 +54,7 @@ test('theme value extraction should work when theme variables used', async () =>
 
 test('basic conditional extraction', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     let x = true
     export function Test() {
       return (
@@ -71,7 +71,7 @@ test('basic conditional extraction', async () => {
 
 test('flat transform props', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test(isLoading) {
       return (
         <YStack
@@ -89,7 +89,7 @@ test('flat transform props', async () => {
 
 test('handles style order merge properly', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test(props) {
       return (
         <YStack
@@ -107,7 +107,7 @@ test('handles style order merge properly', async () => {
 
 test(`normalize ternaries flips the conditional properly`, async () => {
   const inputCode = `
-  import { View } from 'hanzogui'
+  import { View } from '@hanzo/gui'
   export function Test(props) {
     return (
       <View marginBottom={props !== 123 ? 12 : 0} />
@@ -122,7 +122,7 @@ test(`normalize ternaries flips the conditional properly`, async () => {
 
 test(`normalize ternaries with the conditional dynamic values`, async () => {
   const inputCode = `
-  import { View } from 'hanzogui'
+  import { View } from '@hanzo/gui'
   export function Test(props) {
     return (
       <View marginBottom={props !== 123 ? 12 : props.mb} />
@@ -137,7 +137,7 @@ test(`normalize ternaries with the conditional dynamic values`, async () => {
 
 test('normalize dynamic values with no theme access', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     const height = 200
     export function Test(props) {
       return (
@@ -151,7 +151,7 @@ test('normalize dynamic values with no theme access', async () => {
 
 test('normalize dynamic values with theme access only', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test(props) {
       return (
         <YStack bg='$color'/>
@@ -164,7 +164,7 @@ test('normalize dynamic values with theme access only', async () => {
 
 test('do NOT flatten dynamic values with theme access', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test(props) {
       return (
         <YStack bg='$color' height={props.height}/>
@@ -177,7 +177,7 @@ test('do NOT flatten dynamic values with theme access', async () => {
 
 test('do NOT flatten dynamic values with theme access, dynamic values, and conditional', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test(props) {
       return (
         <YStack bg={props.isLoading ? '$color' : 'red'} height={props.height}/>
@@ -190,7 +190,7 @@ test('do NOT flatten dynamic values with theme access, dynamic values, and condi
 
 test('do NOT flatten multiple dynamic values with theme access and conditional', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test(props) {
       return (
         <YStack bg={props.isLoading ? '$color' : 'red'} height={props.height} width={props.width}/>
@@ -206,7 +206,7 @@ test('$md and $gtMd media queries should respect breakpoint boundaries', async (
   // On small screens (iPhone), $md should apply, NOT $gtMd
   // The bug was that $gtMd was incorrectly applying on mobile
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test() {
       return (
         <YStack
@@ -227,7 +227,7 @@ test('$md and $gtMd media queries should respect breakpoint boundaries', async (
 
 test('$gtMd only should NOT apply on small screens', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test() {
       return (
         <YStack
@@ -245,7 +245,7 @@ test('$gtMd only should NOT apply on small screens', async () => {
 
 test('multiple media query components should not conflict', async () => {
   const output = await extractForNative(`
-    import { YStack, XStack } from 'hanzogui'
+    import { YStack, XStack } from '@hanzo/gui'
     export function Test() {
       return (
         <>
@@ -272,7 +272,7 @@ test('string ternary test should not be confused with media key', async () => {
   // would incorrectly treat it as a media key lookup.
   // The fix: compiler wraps non-string-literal expressions with !! to coerce to boolean.
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test({ someString }) {
       return (
         <YStack
@@ -292,7 +292,7 @@ test('string ternary test should not be confused with media key', async () => {
 
 test('dynamic values in media props require both media and runtime conditions', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test({ fillContainer }) {
       return (
         <YStack
@@ -358,7 +358,7 @@ test('dynamic values in media props require both media and runtime conditions', 
 
 test('a single media style uses the media-aware wrapper', async () => {
   const output = await extractForNative(`
-    import { View } from 'hanzogui'
+    import { View } from '@hanzo/gui'
     export function Test() {
       return <View $gtLg={{ width: 100 }} />
     }
@@ -385,7 +385,7 @@ test('a single media style uses the media-aware wrapper', async () => {
 // preserved as runtime work.
 test('hoverStyle on native should drop dead hover work', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test() {
       return (
         <YStack backgroundColor="red" hoverStyle={{ backgroundColor: 'green' }} />
@@ -403,7 +403,7 @@ test('hoverStyle on native should drop dead hover work', async () => {
 
 test('$theme-* on native should de-opt (preserve as inline prop)', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test() {
       return (
         <YStack backgroundColor="red" $theme-dark={{ backgroundColor: 'green' }} />
@@ -421,7 +421,7 @@ test('$theme-* on native should de-opt (preserve as inline prop)', async () => {
 
 test('$group-*-hover on native should drop dead hover work', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test() {
       return (
         <YStack group="row">
@@ -443,7 +443,7 @@ test('$group-*-hover on native should drop dead hover work', async () => {
 
 test('$group-* non-hover on native should de-opt (preserve as inline prop)', async () => {
   const output = await extractForNative(`
-    import { YStack } from 'hanzogui'
+    import { YStack } from '@hanzo/gui'
     export function Test() {
       return (
         <YStack group="row">
@@ -467,7 +467,7 @@ test('$group-* non-hover on native should de-opt (preserve as inline prop)', asy
 
 test('ternary with mixed theme-token and non-token values preserves all props', async () => {
   const output = await extractForNative(`
-    import { Text } from 'hanzogui'
+    import { Text } from '@hanzo/gui'
     export function Test({ isActive, label }) {
       return (
         <Text

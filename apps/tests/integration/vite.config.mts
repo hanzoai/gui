@@ -8,7 +8,7 @@ export default defineConfig({
   clearScreen: false,
   plugins: [
     hanzoguiPlugin({
-      components: ['hanzogui'],
+      components: ['@hanzo/gui'],
       config: 'src/hanzogui.config.ts',
       useReactNativeWebLite: true,
     }),

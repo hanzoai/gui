@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Configuration, Paragraph, YStack } from 'hanzogui'
+import { Button, Configuration, Paragraph, YStack } from '@hanzo/gui'
 
 import { animationsNative } from '../hanzogui.config'
 

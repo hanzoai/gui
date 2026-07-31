@@ -1,5 +1,5 @@
 import type React from 'react'
-import { H4, XStack, YStack, styled, useWindowDimensions } from 'hanzogui'
+import { H4, XStack, YStack, styled, useWindowDimensions } from '@hanzo/gui'
 
 import {
   MODAL_MAX_HEIGHT,

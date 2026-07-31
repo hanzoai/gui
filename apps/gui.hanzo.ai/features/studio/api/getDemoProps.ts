@@ -1,4 +1,4 @@
-import type { ButtonProps } from 'hanzogui'
+import type { ButtonProps } from '@hanzo/gui'
 
 import { getTokenRelative } from '@hanzogui/get-token'
 import { accentTokenName } from '~/features/studio/accentThemeName'

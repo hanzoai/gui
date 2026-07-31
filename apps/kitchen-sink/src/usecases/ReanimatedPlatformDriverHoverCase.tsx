@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { setupPlatformDriver, type PlatformDriver } from '@hanzogui/constants'
-import { Button, Square, XStack, YStack } from 'hanzogui'
+import { Button, Square, XStack, YStack } from '@hanzo/gui'
 
 /**
  * Repro for the reanimated avoidReRenders "stuck hover" bug on the platform-driver

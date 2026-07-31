@@ -34,7 +34,7 @@ export async function extractForWeb(
     ...opts,
     options: {
       platform: 'web',
-      components: ['hanzogui', '@hanzogui/core', '@hanzogui/test-design-system'],
+      components: ['@hanzo/gui', '@hanzogui/core', '@hanzogui/test-design-system'],
       config: './tests/lib/hanzogui.config.cjs',
       ...opts?.options,
     },

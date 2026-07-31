@@ -1,5 +1,5 @@
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui(defaultConfig)
 

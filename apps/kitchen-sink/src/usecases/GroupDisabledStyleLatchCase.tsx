@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Text, View, XStack, YStack, styled } from 'hanzogui'
+import { Text, View, XStack, YStack, styled } from '@hanzo/gui'
 
 const GREEN = 'rgb(27, 122, 61)'
 const GREY = 'rgb(217, 215, 210)'

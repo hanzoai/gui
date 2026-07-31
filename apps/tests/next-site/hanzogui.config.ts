@@ -1,5 +1,5 @@
 import { config } from '@hanzogui/config/v3'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 // for site responsive demo
 Object.assign(config.media, {

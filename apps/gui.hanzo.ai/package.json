@@ -81,7 +81,7 @@
     "sharp": "^0.34.5",
     "stripe": "^9.1.0",
     "swr": "^2.2.5",
-    "hanzogui": "workspace:*",
+    "@hanzo/gui": "workspace:*",
     "three": "^0.172.0",
     "valibot": "^1.2.0",
     "victory": "^37.0.2",

@@ -1,4 +1,4 @@
-import { isWeb } from 'hanzogui'
+import { isWeb } from '@hanzo/gui'
 import {
   Toast,
   toast,
@@ -15,7 +15,7 @@ import {
   ArrowUpRight,
 } from '@hanzogui/lucide-icons-2'
 import { useRef, useState } from 'react'
-import { Button, Label, SizableText, Slider, XStack, YStack } from 'hanzogui'
+import { Button, Label, SizableText, Slider, XStack, YStack } from '@hanzo/gui'
 
 export const ToastDemo = () => {
   const [position, setPosition] = useState<ToastPosition>('bottom-right')

@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 
 import * as TextAreas from '@hanzogui/bento/component/forms/textareas'
 import {

@@ -1,4 +1,4 @@
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 import { config } from '@hanzogui/dev-config'
 
 const tamaConf = createGui(config)

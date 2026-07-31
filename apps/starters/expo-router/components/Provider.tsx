@@ -1,5 +1,5 @@
 import { useColorScheme } from 'react-native'
-import { GuiProvider, type GuiProviderProps } from 'hanzogui'
+import { GuiProvider, type GuiProviderProps } from '@hanzo/gui'
 import { ToastProvider, ToastViewport } from '@hanzogui/toast'
 import { CurrentToast } from './CurrentToast'
 import { config } from '../hanzogui.config'

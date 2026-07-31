@@ -40,7 +40,7 @@ import {
   VisuallyHidden,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { authFetch } from '~/features/api/authFetch'
 import { ADMIN_EMAILS } from '~/features/api/isAdmin'
 import type { UserContextType } from '~/features/auth/types'

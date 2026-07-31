@@ -84,7 +84,7 @@ async function extractStaticWebpackApp() {
               },
             },
             {
-              loader: 'hanzogui-loader',
+              loader: '@hanzogui/loader',
               options: {
                 config: './tests/lib/hanzogui.config.cjs',
                 components: ['@hanzogui/sandbox-ui'],

@@ -21,7 +21,7 @@
     "@hanzogui/react-native-svg": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",
     "@hanzogui/react-native-web-lite": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

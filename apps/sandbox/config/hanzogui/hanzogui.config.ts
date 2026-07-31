@@ -1,6 +1,6 @@
 import { defaultConfig } from '@hanzogui/config/v5'
 import { animationsMotion } from '@hanzogui/config/v5-motion'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 const customColors = {
   testColor: '#00ff00',

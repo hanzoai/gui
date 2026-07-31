@@ -1,7 +1,7 @@
 import { Check } from '@hanzogui/lucide-icons-2'
 import { Menu } from '@hanzogui/menu'
 import React from 'react'
-import { Button, H1, Paragraph, Text, YStack } from 'hanzogui'
+import { Button, H1, Paragraph, Text, YStack } from '@hanzo/gui'
 
 export function MenuRadioGroupCase() {
   const [color, setColor] = React.useState('blue')

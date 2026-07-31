@@ -1,6 +1,6 @@
 import type { getCompilationExamples } from '~/features/mdx/getMDXBySlug'
 import { createContext, useContext } from 'react'
-import { Spacer } from 'hanzogui'
+import { Spacer } from '@hanzo/gui'
 import { HeroContainer } from '~/features/docs/HeroContainer'
 import { HomeExamples } from '~/features/site/home/HomeExamples'
 

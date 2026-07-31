@@ -222,7 +222,7 @@ export default {
         if (id.startsWith('\0bento-component-stub:')) {
           // Return stub component code
           return `
-import { YStack, Paragraph } from 'hanzogui'
+import { YStack, Paragraph } from '@hanzo/gui'
 
 export default function BentoComponentStub() {
   if (process.env.NODE_ENV === 'production') {

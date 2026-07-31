@@ -2,8 +2,8 @@ import rangeParser from 'parse-numeric-range'
 import React from 'react'
 import { refractor } from 'refractor'
 import tsx from 'refractor/lang/tsx'
-import type { GetProps } from 'hanzogui'
-import { YStack } from 'hanzogui'
+import type { GetProps } from '@hanzo/gui'
+import { YStack } from '@hanzo/gui'
 import { toHtml } from 'hast-util-to-html'
 import parse from 'rehype-parse'
 import { unified } from 'unified'
@@ -229,7 +229,7 @@ const splitCallouts = (node) => {
   return parts
 }
 
-import { Paragraph, styled } from 'hanzogui'
+import { Paragraph, styled } from '@hanzo/gui'
 
 const Code = styled(Paragraph, {
   name: 'Code',

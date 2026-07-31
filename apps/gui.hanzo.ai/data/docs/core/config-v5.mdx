@@ -58,7 +58,7 @@ To restore v4 behavior while using v5:
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
 import { animations } from '@hanzogui/config/v5-css'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,
@@ -84,7 +84,7 @@ bundle what you need:
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
 import { animations } from '@hanzogui/config/v5-css'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,
@@ -113,7 +113,7 @@ per platform:
 import { defaultConfig } from '@hanzogui/config/v5'
 import { animations as animationsCSS } from '@hanzogui/config/v5-css'
 import { animations as animationsReanimated } from '@hanzogui/config/v5-reanimated'
-import { createGui, isWeb } from 'hanzogui'
+import { createGui, isWeb } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,
@@ -178,7 +178,7 @@ Radix color palettes:
 ```tsx fileName="hanzogui.config.ts"
 import { createV5Theme, defaultChildrenThemes, defaultConfig } from '@hanzogui/config/v5'
 import { cyan, cyanDark, amber, amberDark } from '@hanzogui/colors'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 const themes = createV5Theme({
   childrenThemes: {
@@ -283,7 +283,7 @@ For a more muted look, use the subtle variant which has desaturated colors:
 
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig, themes } from '@hanzogui/config/v5-subtle'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,
@@ -722,7 +722,7 @@ client, it reads these from the DOM instead of needing the JS object.
 
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig, themes } from '@hanzogui/config/v5'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const config = createGui({
   ...defaultConfig,

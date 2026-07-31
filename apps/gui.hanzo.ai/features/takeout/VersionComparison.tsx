@@ -10,7 +10,7 @@ import {
   YStack,
   styled,
   useThemeName,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { SubTitle } from '../../components/SubTitle'
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Adapt, Button, Paragraph, Popover, Sheet, XStack, YStack } from 'hanzogui'
+import { Adapt, Button, Paragraph, Popover, Sheet, XStack, YStack } from '@hanzo/gui'
 
 /**
  * Repro for the popover sibling of the Dialog "content removes before animation

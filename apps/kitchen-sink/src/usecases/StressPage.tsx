@@ -33,7 +33,7 @@ import {
   XStack,
   YStack,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const shouldProfile =
   typeof window !== 'undefined' &&

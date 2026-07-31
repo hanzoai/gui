@@ -2,7 +2,7 @@ import '@hanzogui/core/reset.css'
 
 import * as Demos from '@hanzogui/demos'
 import React from 'react'
-import { Separator, Theme, XStack, YStack } from 'hanzogui'
+import { Separator, Theme, XStack, YStack } from '@hanzo/gui'
 import { Provider } from './provider'
 import { Sandbox } from './Sandbox'
 import { useCases as TestCases } from './usecases/index.web'

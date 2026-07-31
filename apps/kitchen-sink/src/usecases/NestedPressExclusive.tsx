@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Pressable, ScrollView } from 'react-native'
-import { Button, Text, YStack, XStack } from 'hanzogui'
+import { Button, Text, YStack, XStack } from '@hanzo/gui'
 
 /**
  * Test case for nested press exclusivity:

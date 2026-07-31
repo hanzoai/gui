@@ -38,6 +38,6 @@
     "@babel/preset-typescript": "^7.26.0",
     "@playwright/test": "^1.49.1",
     "@hanzogui/build": "workspace:*",
-    "hanzogui-loader": "workspace:*"
+    "@hanzogui/loader": "workspace:*"
   }
 }

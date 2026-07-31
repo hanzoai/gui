@@ -1,5 +1,5 @@
 import React from 'react'
-import type { SizeTokens } from 'hanzogui'
+import type { SizeTokens } from '@hanzo/gui'
 import {
   Button,
   Form,
@@ -11,7 +11,7 @@ import {
   XGroup,
   Label,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 export function FormsDemo(props: { size: SizeTokens }) {
   const [status, setStatus] = React.useState<'off' | 'submitting' | 'submitted'>('off')

@@ -77,7 +77,7 @@ Add `@hanzogui/config` and `hanzogui` to your `package.json` and install them. T
 
 ```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export const hanzoguiConfig = createGui(defaultConfig)
 
@@ -98,7 +98,7 @@ import '../hanzogui.generated.css'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { Stack } from 'expo-router'
 import { useColorScheme } from 'react-native'
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 
 import { hanzoguiConfig } from '../hanzogui.config'
 

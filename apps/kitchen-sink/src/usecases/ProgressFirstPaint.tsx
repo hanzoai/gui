@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Progress, YStack } from 'hanzogui'
+import { Button, Progress, YStack } from '@hanzo/gui'
 
 // regression case for #4011: the indicator must paint at its correct position on
 // the very first frame and never flash to full (100%) before settling. it also

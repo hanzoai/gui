@@ -86,11 +86,11 @@ The CLI automatically handles platform-specific files:
 Create a `hanzogui.build.ts` config file in your project root:
 
 ```ts
-import type { GuiBuildOptions } from 'hanzogui'
+import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
   config: './hanzogui.config.ts',
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
   importsWhitelist: ['constants.js', 'colors.js'],
   outputCSS: './public/hanzogui.generated.css',
 } satisfies GuiBuildOptions
@@ -346,7 +346,7 @@ your configuration:
 ```ts
 export default {
   config: './hanzogui.config.ts', // Verify this path is correct
-  components: ['hanzogui'],
+  components: ['@hanzo/gui'],
 }
 ```
 

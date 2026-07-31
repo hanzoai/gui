@@ -36,7 +36,7 @@ npm install @hanzogui/focus-scope
 Wrap any content that needs focus management:
 
 ```tsx
-import { Button, FocusScope, XStack } from 'hanzogui'
+import { Button, FocusScope, XStack } from '@hanzo/gui'
 
 export default () => (
   <FocusScope loop trapped>
@@ -54,7 +54,7 @@ export default () => (
 Use `trapped` to prevent focus from escaping the scope:
 
 ```tsx
-import { Button, Dialog, FocusScope, XStack, YStack } from 'hanzogui'
+import { Button, Dialog, FocusScope, XStack, YStack } from '@hanzo/gui'
 
 export default () => (
   <Dialog>
@@ -86,7 +86,7 @@ export default () => (
 Enable `loop` to cycle focus between first and last elements:
 
 ```tsx
-import { Button, FocusScope, XStack } from 'hanzogui'
+import { Button, FocusScope, XStack } from '@hanzo/gui'
 
 export default () => (
   <FocusScope loop>
@@ -105,7 +105,7 @@ export default () => (
 Use `focusOnIdle` to prevent reflows during animations:
 
 ```tsx
-import { Button, FocusScope, XStack } from 'hanzogui'
+import { Button, FocusScope, XStack } from '@hanzo/gui'
 
 export default () => (
   <FocusScope
@@ -125,7 +125,7 @@ export default () => (
 Use the controller pattern for managing focus from parent components:
 
 ```tsx
-import { Button, FocusScope, XStack, YStack } from 'hanzogui'
+import { Button, FocusScope, XStack, YStack } from '@hanzo/gui'
 import { useState } from 'react'
 
 export default () => {
@@ -156,7 +156,7 @@ export default () => {
 For advanced use cases, pass a function to get access to focus props:
 
 ```tsx
-import { FocusScope, View } from 'hanzogui'
+import { FocusScope, View } from '@hanzo/gui'
 
 export default () => (
   <FocusScope loop>
@@ -295,7 +295,7 @@ props.
 Many Gui components export FocusScope for advanced focus control:
 
 ```tsx
-import { Dialog, Popover, Select } from 'hanzogui'
+import { Dialog, Popover, Select } from '@hanzo/gui'
 
 // Available on:
 <Dialog.FocusScope />
@@ -324,7 +324,7 @@ FocusScope follows accessibility best practices:
 ### Modal Focus Management
 
 ```tsx
-import { Button, Dialog, FocusScope, Input, XStack, YStack } from 'hanzogui'
+import { Button, Dialog, FocusScope, Input, XStack, YStack } from '@hanzo/gui'
 
 export default () => (
   <Dialog>
@@ -357,7 +357,7 @@ export default () => (
 ### Custom Focus Container
 
 ```tsx
-import { Button, FocusScope, styled, XStack } from 'hanzogui'
+import { Button, FocusScope, styled, XStack } from '@hanzo/gui'
 
 const FocusContainer = styled(XStack, {
   borderWidth: 2,

@@ -1,6 +1,6 @@
 import { GuiLogo } from '@hanzogui/logo'
 import { memo } from 'react'
-import { H4, Paragraph, Spacer, VisuallyHidden, XStack, YStack } from 'hanzogui'
+import { H4, Paragraph, Spacer, VisuallyHidden, XStack, YStack } from '@hanzo/gui'
 
 import { ContainerLarge } from '~/components/Containers'
 import { Link, ParagraphLink } from '~/components/Link'

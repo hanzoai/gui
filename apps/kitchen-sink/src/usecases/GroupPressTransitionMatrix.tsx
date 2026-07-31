@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Text, View, XStack, YStack, styled } from 'hanzogui'
+import { Text, View, XStack, YStack, styled } from '@hanzo/gui'
 
 /**
  * Regression matrix for $group-press stuck on a child after press-drag-release

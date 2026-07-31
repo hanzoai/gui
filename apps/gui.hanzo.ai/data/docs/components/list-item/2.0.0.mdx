@@ -38,7 +38,7 @@ npm install @hanzogui/list-item
 Basic usage involves providing children or using the `title` and `subTitle` props.
 
 ```tsx
-import { ListItem, Separator, YGroup } from 'hanzogui'
+import { ListItem, Separator, YGroup } from '@hanzo/gui'
 import { ChevronRight } from '@hanzogui/lucide-icons-2' // Example icon
 
 export default () => (
@@ -68,7 +68,7 @@ export default () => (
 The `size` prop adjusts various properties of the ListItem, including padding, minimum height, and the default size for text elements within it. It accepts theme size tokens (e.g., `"$3"`, `"$4"`).
 
 ```tsx
-import { ListItem } from 'hanzogui'
+import { ListItem } from '@hanzo/gui'
 
 export default () => <ListItem size="$5" title="Large List Item" />
 ```
@@ -81,7 +81,7 @@ Use the `title` and `subTitle` props for a structured layout. These props accept
 - `ListItem.Title` and `ListItem.Subtitle` components are used internally and can be targeted for styling (see Customization).
 
 ```tsx
-import { ListItem, Avatar } from 'hanzogui'
+import { ListItem, Avatar } from '@hanzo/gui'
 import { User } from '@hanzogui/lucide-icons-2'
 
 export default () => (
@@ -109,7 +109,7 @@ Icons can be passed to `icon` (before content) or `iconAfter` (after content) pr
 - **Component Props**: If you pass a component as an icon, it will receive `size` (the calculated pixel size) as a prop.
 
 ```tsx
-import { ListItem } from 'hanzogui'
+import { ListItem } from '@hanzo/gui'
 import { Star, Settings } from '@hanzogui/lucide-icons-2'
 
 export default () => (
@@ -138,7 +138,7 @@ export default () => (
 ListItem supports a `variant` prop for different visual styles:
 
 ```tsx
-import { ListItem } from 'hanzogui'
+import { ListItem } from '@hanzo/gui'
 
 export default () => <ListItem variant="outlined" title="Outlined Style" />
 ```
@@ -150,7 +150,7 @@ Currently supports `outlined` (transparent background with border).
 Use `ListItem.Apply` to pass `color`, `size`, and `variant` to multiple children via context:
 
 ```tsx
-import { ListItem, YGroup } from 'hanzogui'
+import { ListItem, YGroup } from '@hanzo/gui'
 import { Trash } from '@hanzogui/lucide-icons-2'
 
 export default () => (
@@ -174,7 +174,7 @@ The `color` prop passed to `Apply` will be inherited by icons within children.
 For customization, Gui exports the building blocks: `ListItem.Frame`, `ListItem.Text`, `ListItem.Title`, `ListItem.Subtitle`, and `ListItem.Icon`.
 
 ```tsx
-import { YStack, ListItem as GuiListItem } from 'hanzogui'
+import { YStack, ListItem as GuiListItem } from '@hanzo/gui'
 import { GetProps, styled } from '@hanzogui/web'
 
 const CustomFrame = styled(GuiListItem.Frame, {

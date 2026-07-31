@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { getGestureHandler } from '@hanzogui/native'
 import { unstable_isSheetGestureHandlerEnabled } from '@hanzogui/sheet'
-import { Button, Input, Sheet, Text, View, XStack, YStack } from 'hanzogui'
+import { Button, Input, Sheet, Text, View, XStack, YStack } from '@hanzo/gui'
 
 /**
  * regression repro for 2ce98f604a (rngh press tap maxDistance).

@@ -1,13 +1,13 @@
 import { ThemeTint, useTint } from '@hanzogui/logo'
 import { FastForward } from '@hanzogui/lucide-icons-2'
 import { memo, useState } from 'react'
-import { Button, Heading, Paragraph, ScrollView, XGroup, XStack, YStack } from 'hanzogui'
+import { Button, Heading, Paragraph, ScrollView, XGroup, XStack, YStack } from '@hanzo/gui'
 
 import { ContainerLarge } from '~/components/Containers'
 import { CodeDemoPreParsed } from './CodeDemoPreParsed'
 import { HomeH2, HomeH3 } from './HomeHeaders'
 import { IconStack } from './IconStack'
-import { Theme } from 'hanzogui'
+import { Theme } from '@hanzo/gui'
 
 const defaultExample = {
   input: {

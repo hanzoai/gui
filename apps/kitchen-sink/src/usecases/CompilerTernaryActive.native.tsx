@@ -55,7 +55,7 @@ const __ReactNativeText = require('react-native').Text
  */
 
 import { useState } from 'react'
-import { Button, Text, YStack } from 'hanzogui'
+import { Button, Text, YStack } from '@hanzo/gui'
 function ActiveText({ isActive, label }: { isActive: boolean; label: string }) {
   return (
     <_ReactNativeViewStyled0 testID={'opt-color-box'} _expressions={[!!isActive]}>

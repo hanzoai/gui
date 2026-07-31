@@ -96,7 +96,7 @@ Now, create and export your components. You can re-export components from
 `Circle.tsx`:
 
 ```tsx
-import { GetProps, YStack, styled } from 'hanzogui' // or '@hanzogui/core' if extending just that
+import { GetProps, YStack, styled } from '@hanzo/gui' // or '@hanzogui/core' if extending just that
 
 export const Circle = styled(YStack, {
   alignItems: 'center',
@@ -136,10 +136,10 @@ In your `webpack.config.js`:
 
 ```js
 {
-  loader: 'hanzogui-loader',
+  loader: '@hanzogui/loader',
   options: {
     config: './hanzogui.config.ts',
-    components: ['@ourapp/components', 'hanzogui'],
+    components: ['@ourapp/components', '@hanzo/gui'],
   },
 }
 ```
@@ -152,7 +152,7 @@ In your `next.config.js`:
 export default withPlugins([
   withGui({
     config: './hanzogui.config.ts',
-    components: ['@ourapp/components', 'hanzogui'],
+    components: ['@ourapp/components', '@hanzo/gui'],
   }),
 ])
 ```
@@ -169,7 +169,7 @@ export default {
       {
         exclude: /node_modules/,
         config: './hanzogui.config.ts',
-        components: ['@ourapp/components', 'hanzogui'],
+        components: ['@ourapp/components', '@hanzo/gui'],
       },
     ],
   ],

@@ -22,8 +22,8 @@ import { APP_ENTITLEMENTS, HANZO_PLANS, U } from './hanzo-registry'
 import { isEntitled as planEntitles, normalizeTier } from './entitlements'
 import { findHanzoApp } from './hanzo-apps'
 import { useEntitlement } from './useEntitlement'
-import { ACCENT, ACCENT_SOFT, CHROME, FS } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { ACCENT, ACCENT_SOFT, CHROME, FS, R } from './theme'
+import { useShellStyles } from './shellStyles'
 
 export interface HanzoAccessGateProps {
   /** The gated app / feature id (matches a `HanzoApp.id` and an `APP_ENTITLEMENTS` key). */
@@ -85,7 +85,7 @@ export function HanzoAccessGate({
   upgradeHref = U.pricing,
   appName,
 }: HanzoAccessGateProps) {
-  useShellFocusRing()
+  useShellStyles()
 
   // Resolve entitlement internally only when the caller did not supply a check.
   const controlled = providedIsEntitled != null
@@ -129,7 +129,7 @@ export function HanzoAccessGate({
         maxWidth: 380,
         margin: '0 auto',
         padding: '40px 28px',
-        borderRadius: 16,
+        borderRadius: R.card,
         border: `1px solid ${CHROME.border}`,
         background: CHROME.panel,
         color: CHROME.fg,
@@ -144,7 +144,7 @@ export function HanzoAccessGate({
           justifyContent: 'center',
           width: 52,
           height: 52,
-          borderRadius: 14,
+          borderRadius: R.pill,
           background: ACCENT_SOFT,
           color: ACCENT,
         }}
@@ -172,7 +172,7 @@ export function HanzoAccessGate({
           alignItems: 'center',
           justifyContent: 'center',
           padding: '9px 18px',
-          borderRadius: 10,
+          borderRadius: R.pill,
           background: ACCENT,
           color: '#000',
           fontSize: FS.sm,

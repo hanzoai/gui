@@ -38,7 +38,7 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
     <div
       ref={ref}
       role="menu"
-      className="fixed z-[9999] min-w-[180px] rounded-xl border border-white/[0.08] bg-[#111113] py-1.5 shadow-2xl shadow-black/60"
+      className="fixed z-[9999] min-w-[180px] rounded-xl border border-white/[0.08] bg-black py-1.5 shadow-2xl shadow-black/60"
       style={{ top: y, left: x }}
     >
       <div className="border-b border-white/[0.06] px-3 pb-2 pt-1">

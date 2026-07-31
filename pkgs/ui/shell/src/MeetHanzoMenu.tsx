@@ -30,8 +30,8 @@ import {
   type HanzoLink,
   type HanzoProduct,
 } from './hanzo-registry'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, Z } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { ACCENT, ACCENT_SOFT, CHROME, FS, LABEL, PANEL, R, Z, ghostHover, row } from './theme'
+import { useShellStyles } from './shellStyles'
 import { useMediaQuery } from './useMediaQuery'
 
 export interface MeetHanzoMenuProps {
@@ -70,7 +70,7 @@ export function MeetHanzoMenu({
   const panelRef = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const restoreRef = useRef<HTMLElement | null>(null)
-  useShellFocusRing()
+  useShellStyles()
   // Flagship cards render as an even 3×2 grid on desktop; 2-wide on narrow
   // viewports — six cards always fill their rows (no empty trailing cells).
   const narrow = useMediaQuery('(max-width: 720px)')
@@ -188,15 +188,12 @@ export function MeetHanzoMenu({
       >
         <div
           style={{
+            ...PANEL,
             width: '100%',
             maxWidth: 1120,
-            maxHeight: 'calc(100vh - 96px)',
+            maxHeight: `calc(100vh - ${anchor + 36}px)`,
             overflowY: 'auto',
             padding: 24,
-            borderRadius: 18,
-            border: `1px solid ${CHROME.border}`,
-            background: CHROME.panel,
-            boxShadow: '0 30px 80px -20px rgba(0,0,0,0.8)',
           }}
         >
           {/* ── Flagship products — rich cards ── */}
@@ -255,16 +252,7 @@ export function MeetHanzoMenu({
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      style={{
-        fontSize: FS.xs,
-        fontWeight: 700,
-        letterSpacing: 0.6,
-        textTransform: 'uppercase',
-        color: CHROME.fgDim,
-        marginBottom: 10,
-      }}
-    >
+    <div style={{ ...LABEL, marginBottom: 10 }}>
       {children}
     </div>
   )
@@ -294,9 +282,9 @@ function ProductCard({
         gap: 4,
         textDecoration: 'none',
         padding: '14px 16px',
-        borderRadius: 14,
+        borderRadius: R.card,
         border: `1px solid ${current ? ACCENT : CHROME.border}`,
-        background: current ? ACCENT_SOFT : 'rgba(255,255,255,0.02)',
+        background: current ? ACCENT_SOFT : CHROME.raised,
         color: CHROME.fg,
         outlineColor: ACCENT,
         transition: 'background 120ms ease, border-color 120ms ease',
@@ -305,7 +293,7 @@ function ProductCard({
         if (!current) (e.currentTarget as HTMLElement).style.background = CHROME.hover
       }}
       onMouseLeave={(e) => {
-        if (!current) (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.02)'
+        if (!current) (e.currentTarget as HTMLElement).style.background = CHROME.raised
       }}
     >
       <span style={{ fontSize: FS.xs, fontWeight: 600, color: current ? ACCENT : CHROME.fgMuted }}>
@@ -336,27 +324,8 @@ function LinkRow({
       href={link.href}
       aria-current={current ? 'true' : undefined}
       onClick={onNavigate}
-      style={{
-        display: 'block',
-        padding: '6px 8px',
-        margin: '0 -8px',
-        borderRadius: 8,
-        textDecoration: 'none',
-        fontSize: FS.sm,
-        color: current ? ACCENT : CHROME.fgMuted,
-        outlineColor: ACCENT,
-        transition: 'background 120ms ease, color 120ms ease',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.background = ACCENT_SOFTER
-        el.style.color = CHROME.fg
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.background = 'transparent'
-        el.style.color = current ? ACCENT : CHROME.fgMuted
-      }}
+      style={row(current)}
+      {...ghostHover(current)}
     >
       {link.label}
     </a>

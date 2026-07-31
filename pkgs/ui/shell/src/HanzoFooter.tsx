@@ -19,8 +19,8 @@
 import React from 'react'
 import { HanzoWordmark } from './mark'
 import { HANZO_FOOTER_BOTTOM, HANZO_FOOTER_COLUMNS, type HanzoLink } from './hanzo-registry'
-import { ACCENT, CHROME, FS } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { ACCENT, CHROME, FS, LABEL, R } from './theme'
+import { useShellStyles } from './shellStyles'
 
 export interface HanzoFooterProps {
   /** Highlights the current product in the PRODUCTS column (`aria-current`). */
@@ -29,7 +29,7 @@ export interface HanzoFooterProps {
 }
 
 export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
-  useShellFocusRing()
+  useShellStyles()
   return (
     <footer
       role="contentinfo"
@@ -53,18 +53,7 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
         >
           {HANZO_FOOTER_COLUMNS.map((col) => (
             <nav key={col.id} aria-label={col.title}>
-              <div
-                style={{
-                  fontSize: FS.xs,
-                  fontWeight: 700,
-                  letterSpacing: 0.6,
-                  textTransform: 'uppercase',
-                  color: CHROME.fgDim,
-                  marginBottom: 14,
-                }}
-              >
-                {col.title}
-              </div>
+              <div style={{ ...LABEL, marginBottom: 14 }}>{col.title}</div>
               <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 9 }}>
                 {col.items.map((item) => (
                   <li key={item.id}>
@@ -88,7 +77,7 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
             borderTop: `1px solid ${CHROME.border}`,
           }}
         >
-          <a href="https://hanzo.ai" aria-label="Hanzo" style={{ color: CHROME.fg, textDecoration: 'none', flexShrink: 0 }}>
+          <a href="https://hanzo.ai" aria-label="Hanzo" style={{ display: 'inline-flex', alignItems: 'center', color: CHROME.fg, textDecoration: 'none', flexShrink: 0 }}>
             <HanzoWordmark label="Hanzo" size={20} />
           </a>
           <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, flexShrink: 0 }}>
@@ -114,6 +103,8 @@ function FooterLink({ link, current }: { link: HanzoLink; current: boolean }) {
       href={link.href}
       aria-current={current ? 'true' : undefined}
       style={{
+        display: 'flex',
+        alignItems: 'center',
         fontSize: FS.sm,
         textDecoration: 'none',
         color: current ? ACCENT : CHROME.fgMuted,
@@ -136,11 +127,13 @@ function LegalLink({ link }: { link: HanzoLink }) {
     <a
       href={link.href}
       style={{
+        display: 'inline-flex',
+        alignItems: 'center',
         fontSize: FS.sm,
         textDecoration: 'none',
         color: CHROME.fgMuted,
         padding: '2px 6px',
-        borderRadius: 6,
+        borderRadius: R.pill,
         transition: 'color 120ms ease',
       }}
       onMouseEnter={(e) => {

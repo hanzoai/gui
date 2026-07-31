@@ -23,10 +23,10 @@ import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps'
 import { U } from './hanzo-registry'
 import { isEntitled as planEntitles, normalizeTier } from './entitlements'
 import { useEntitlement } from './useEntitlement'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { HanzoWordmark } from './mark'
+import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, LABEL, PANEL, R, Z, control } from './theme'
+import { useShellStyles } from './shellStyles'
 
-const PANEL_BG = CHROME.panel
 const BORDER = CHROME.border
 const FG = CHROME.fg
 const FG_DIM = CHROME.fgDim
@@ -93,7 +93,7 @@ export function HanzoAppLauncher({
   upgradeHref = U.pricing,
   trigger,
 }: HanzoAppLauncherProps) {
-  useShellFocusRing()
+  useShellStyles()
 
   // Resolve the viewer's plan ourselves only when asked to AND no check/tier was
   // supplied; the `enabled` flag keeps the hook a no-op (no fetch) otherwise.
@@ -251,7 +251,7 @@ export function HanzoAppLauncher({
           textAlign: wide ? 'left' : 'center',
           textDecoration: 'none',
           padding: wide ? '10px 12px' : '12px 8px',
-          borderRadius: 12,
+          borderRadius: R.card,
           border: `1px solid ${isCurrent ? ACCENT : 'transparent'}`,
           background: isCurrent ? ACCENT_SOFT : 'transparent',
           color: FG,
@@ -277,8 +277,8 @@ export function HanzoAppLauncher({
             width: wide ? 40 : 44,
             height: wide ? 40 : 44,
             flexShrink: 0,
-            borderRadius: 12,
-            background: isCurrent ? ACCENT_SOFTER : 'rgba(255,255,255,0.05)',
+            borderRadius: R.card,
+            background: isCurrent ? ACCENT_SOFTER : CHROME.raised,
             color: isCurrent ? ACCENT : FG,
           }}
         >
@@ -294,8 +294,8 @@ export function HanzoAppLauncher({
                 justifyContent: 'center',
                 width: 16,
                 height: 16,
-                borderRadius: '50%',
-                background: PANEL_BG,
+                borderRadius: R.pill,
+                background: CHROME.panel,
                 border: `1px solid ${BORDER}`,
                 color: FG_DIM,
               }}
@@ -307,7 +307,7 @@ export function HanzoAppLauncher({
         <span style={{ display: 'flex', flexDirection: 'column', gap: 1, minWidth: 0 }}>
           <span
             style={{
-              fontSize: 13,
+              fontSize: FS.sm,
               fontWeight: 600,
               lineHeight: 1.2,
               color: isCurrent ? ACCENT : FG,
@@ -320,7 +320,7 @@ export function HanzoAppLauncher({
             {app.label}
           </span>
           {wide && app.description ? (
-            <span style={{ fontSize: 11.5, color: FG_DIM, lineHeight: 1.25 }}>{app.description}</span>
+            <span style={{ fontSize: FS.xs, color: FG_DIM, lineHeight: 1.25 }}>{app.description}</span>
           ) : null}
         </span>
       </a>
@@ -345,18 +345,11 @@ export function HanzoAppLauncher({
         aria-label={label}
         title={label}
         style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          ...control(),
           width: trigger ? 'auto' : 34,
-          height: 34,
           padding: 0,
-          border: 'none',
-          borderRadius: 9,
           background: open && !trigger ? ACCENT_SOFT : 'transparent',
           color: triggerColor,
-          cursor: 'pointer',
-          transition: 'background 120ms ease, color 120ms ease',
         }}
       >
         {trigger ? trigger({ open, hover }) : <HanzoGridIcon size={size} />}
@@ -372,26 +365,20 @@ export function HanzoAppLauncher({
             top: 44,
             left: align === 'left' ? 0 : undefined,
             right: align === 'right' ? 0 : undefined,
-            zIndex: 1000,
+            ...PANEL,
+            zIndex: Z.popover as unknown as number,
             width: 340,
             maxWidth: 'calc(100vw - 24px)',
             maxHeight: '80vh',
             overflowY: 'auto',
             padding: 12,
-            borderRadius: 16,
-            border: `1px solid ${BORDER}`,
-            background: PANEL_BG,
-            boxShadow: '0 24px 60px -12px rgba(0,0,0,0.7)',
-            fontFamily:
-              'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+            fontFamily: CHROME.font,
           }}
         >
           {/* Header */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px 10px' }}>
-            <HanzoWordmark />
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 0.4, color: FG_DIM, textTransform: 'uppercase' }}>
-              Apps
-            </span>
+            <HanzoWordmark size={16} />
+            <span style={LABEL}>Apps</span>
           </div>
 
           {/* Filter */}
@@ -408,11 +395,12 @@ export function HanzoAppLauncher({
               boxSizing: 'border-box',
               padding: '9px 12px',
               marginBottom: 10,
-              borderRadius: 10,
+              borderRadius: R.row,
               border: `1px solid ${BORDER}`,
-              background: 'rgba(255,255,255,0.03)',
+              background: CHROME.raised,
               color: FG,
-              fontSize: 13,
+              fontSize: FS.sm,
+              fontFamily: 'inherit',
               outline: 'none',
             }}
           />
@@ -430,21 +418,21 @@ export function HanzoAppLauncher({
               {grid.map((a) => Tile(a, false))}
             </div>
           ) : (
-            <div style={{ padding: '18px 8px', textAlign: 'center', color: FG_DIM, fontSize: 13 }}>
+            <div style={{ padding: '18px 8px', textAlign: 'center', color: FG_DIM, fontSize: FS.sm }}>
               No apps match “{query.trim()}”.
             </div>
           )}
 
           {/* Footer hint */}
           {quickSwitchKey ? (
-            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: 10, color: FG_DIM, fontSize: 11 }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: 10, color: FG_DIM, fontSize: FS.xs }}>
               <kbd
                 style={{
                   fontFamily: 'inherit',
                   border: `1px solid ${BORDER}`,
-                  borderRadius: 6,
+                  borderRadius: R.row,
                   padding: '1px 6px',
-                  background: 'rgba(255,255,255,0.04)',
+                  background: CHROME.raised,
                 }}
               >
                 ⌘{quickSwitchKey.toUpperCase()}
@@ -475,21 +463,5 @@ function LockGlyph({ size = 10 }: { size?: number }) {
       <rect x="4.5" y="10.5" width="15" height="10" rx="2.2" />
       <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
     </svg>
-  )
-}
-
-/** Small Hanzo H-mark + wordmark used in the panel header (orange dot accent). */
-function HanzoWordmark() {
-  return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
-      <svg width={16} height={16} viewBox="0 0 67 67" aria-hidden="true">
-        <path d="M22.21 67V44.6369H0V67H22.21Z" fill="#fff" />
-        <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" fill="#fff" />
-        <path d="M22.21 0H0V22.3184H22.21V0Z" fill="#fff" />
-        <path d="M66.7198 0H44.5098V22.3184H66.7198V0Z" fill="#fff" />
-        <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" fill="#fff" />
-      </svg>
-      <span style={{ fontSize: 13, fontWeight: 800, color: '#fff', letterSpacing: -0.2 }}>Hanzo</span>
-    </span>
   )
 }

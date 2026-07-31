@@ -1,43 +1,39 @@
 /**
  * Shell chrome tokens — the ONE place the reusable Hanzo shell reads its colors,
- * accent, and type/z scales from. Every shell surface (HanzoHeader, HanzoAppHeader,
- * HanzoFooter, MeetHanzoMenu, AskHanzo, HanzoAppBar, HanzoAppLauncher) themes from
- * here so they look identical everywhere.
+ * type, radii, elevation and control geometry from. Every shell surface
+ * (HanzoHeader, HanzoAppHeader, HanzoFooter, MeetHanzoMenu, ProductsMegaMenu,
+ * AskHanzo, HanzoAppBar, HanzoAppLauncher) themes from here so they look
+ * identical everywhere.
  *
  * Brand-token driven: the values reference `@hanzo/brand`'s CSS custom properties
  * (`--hanzo-*`, `--font-size-*`, `--z-*`) with self-contained fallbacks, so a
  * surface that imports `@hanzo/brand/styles/variables.css` themes automatically
  * while a surface that does not still renders correctly.
  *
- * Hanzo is MONOCHROME — there is NO brand hue (no orange, no red). On the dark
- * shell chrome the accent is paper-white (max contrast); flip it per surface with
- * `--hanzo-accent`.
+ * Hanzo is MONOCHROME — true-black grounds, paper-white ink, hairline borders.
+ * There is no brand hue anywhere in the chrome.
  */
+import type { CSSProperties, MouseEvent } from 'react'
 
 /** Dark-chrome palette shared by the header/footer/menu/launcher. */
 export const CHROME = {
   bg: 'rgba(9,9,11,0.85)',
-  // True black. This was #0b0b0f — a blue-tinted near-black that read as a
-  // different surface next to the true-#000 grounds on hanzo.ai and hanzo.chat.
+  /** True black — the same ground hanzo.ai and hanzo.chat paint the page with. */
   panel: '#000000',
+  /** The one raised fill (inputs, cards, tiles) that sits above `panel`. */
+  raised: 'rgba(255,255,255,0.03)',
   border: 'rgba(255,255,255,0.09)',
   borderSoft: 'rgba(255,255,255,0.06)',
   fg: 'rgba(255,255,255,0.92)',
   fgMuted: 'rgba(255,255,255,0.6)',
   fgDim: 'rgba(255,255,255,0.45)',
   hover: 'rgba(255,255,255,0.06)',
-  // Geist first, via the consuming app's --font-sans when it sets one.
-  //
-  // This constant is applied as an INLINE `fontFamily: CHROME.font` in 9 places
-  // across 8 shared-chrome components, and an inline style beats the app's
-  // @theme token every time. So this one line was silently overriding Geist on
-  // every surface that mounts the shared chrome: hanzo.ai's whole footer (48
-  // visible nodes in system font while the page above them was Geist), and
-  // cloud/console's entire nav plus both mega-menus.
-  //
-  // The var() indirection is the point — the app stays the source of truth for
-  // its own type, and the literals are only the fallback for a host that sets
-  // no --font-sans.
+  /**
+   * Geist first, via the consuming app's --font-sans when it sets one. Applied
+   * as an inline `fontFamily`, which beats the app's @theme token — so this
+   * MUST stay a var() indirection or it silently un-brands every surface that
+   * mounts the shared chrome.
+   */
   font: 'var(--font-sans, "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif)',
 } as const
 
@@ -58,7 +54,7 @@ export const ACCENT_TINT = 'rgba(255,255,255,0.18)'
 export const FS = {
   xs: 'var(--font-size-xs, 0.6875rem)', // 11px — section labels / eyebrows
   sm: 'var(--font-size-sm, 0.8125rem)', // 13px — nav labels, dense body
-  base: 'var(--font-size-base, 0.875rem)', // 14px — base app text (was 16px)
+  base: 'var(--font-size-base, 0.875rem)', // 14px — base app text
   lg: 'var(--font-size-lg, 0.9375rem)', // 15px
   xl: 'var(--font-size-xl, 1.0625rem)', // 17px
   '2xl': 'var(--font-size-2xl, 1.3125rem)', // 21px
@@ -72,3 +68,97 @@ export const Z = {
   modal: 'var(--z-modal, 400)',
   popover: 'var(--z-popover, 500)',
 } as const
+
+/** Corner radii. House rule: pill controls, rounded-xl cards, lg rows. */
+export const R = { pill: 999, card: 12, row: 8 } as const
+
+/** The ONE elevation used by everything that floats over the page. */
+export const SHADOW = '0 24px 60px -16px rgba(0,0,0,0.75)'
+
+/** Scrim behind a modal surface. */
+export const SCRIM = 'rgba(0,0,0,0.45)'
+
+/** Dense desktop control height. Touch targets are grown to 44 by shellStyles. */
+export const CTRL_H = 34
+/** Minimum comfortable touch target. */
+export const TAP_H = 44
+
+/** The uppercase eyebrow every menu / footer / column head shares. */
+export const LABEL: CSSProperties = {
+  fontSize: FS.xs,
+  fontWeight: 700,
+  letterSpacing: 0.6,
+  textTransform: 'uppercase',
+  color: CHROME.fgDim,
+}
+
+/** A floating surface: mega-menu panels, dropdowns, sheets. */
+export const PANEL: CSSProperties = {
+  borderRadius: R.card,
+  border: `1px solid ${CHROME.border}`,
+  background: CHROME.panel,
+  boxShadow: SHADOW,
+}
+
+/** Ghost pill — nav triggers, nav links, sign-in, icon buttons. */
+export function control(active = false, height: number = CTRL_H): CSSProperties {
+  return {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+    flexShrink: 0,
+    height,
+    padding: '0 12px',
+    border: 'none',
+    borderRadius: R.pill,
+    background: active ? CHROME.hover : 'transparent',
+    color: CHROME.fg,
+    fontSize: FS.sm,
+    fontWeight: 600,
+    fontFamily: 'inherit',
+    textDecoration: 'none',
+    whiteSpace: 'nowrap',
+    transition: 'background 120ms ease, color 120ms ease',
+  }
+}
+
+/** The two-variant call-to-action, identical in header, app header and pre-footer. */
+export function cta(filled: boolean, height: number = CTRL_H): CSSProperties {
+  return {
+    ...control(false, height),
+    padding: height > CTRL_H ? '0 22px' : '0 14px',
+    border: filled ? '1px solid transparent' : `1px solid ${CHROME.border}`,
+    background: filled ? ACCENT : 'transparent',
+    color: filled ? CHROME.panel : CHROME.fg,
+    transition: 'opacity 120ms ease, background 120ms ease',
+  }
+}
+
+/** A list row inside a panel: menu item, product leaf, switcher option. */
+export function row(current = false): CSSProperties {
+  return {
+    display: 'block',
+    padding: '6px 8px',
+    margin: '0 -8px',
+    borderRadius: R.row,
+    textDecoration: 'none',
+    fontSize: FS.sm,
+    background: current ? ACCENT_SOFT : 'transparent',
+    color: current ? ACCENT : CHROME.fg,
+    outlineColor: ACCENT,
+    transition: 'background 120ms ease, color 120ms ease',
+  }
+}
+
+/** Background lift on hover for any ghost control or row; inert while `active`. */
+export function ghostHover(active = false, resting = 'transparent') {
+  return {
+    onMouseEnter: (e: MouseEvent<HTMLElement>) => {
+      if (!active) e.currentTarget.style.background = CHROME.hover
+    },
+    onMouseLeave: (e: MouseEvent<HTMLElement>) => {
+      if (!active) e.currentTarget.style.background = resting
+    },
+  }
+}

@@ -17,8 +17,8 @@
  * autofocuses on open, the message log is an aria-live region.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ACCENT, ACCENT_SOFT, CHROME, FS, Z } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, CTRL_H, FS, R, SCRIM, Z, control, ghostHover } from './theme'
+import { useShellStyles } from './shellStyles'
 
 export interface AskHanzoMessage {
   role: 'user' | 'assistant'
@@ -55,7 +55,7 @@ export function AskHanzo({
   greeting = 'Ask about products, models, APIs, or how to get started.',
   className,
 }: AskHanzoProps) {
-  useShellFocusRing()
+  useShellStyles()
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<AskHanzoMessage[]>([])
   const [draft, setDraft] = useState('')
@@ -157,27 +157,8 @@ export function AskHanzo({
         <button
           type="button"
           onClick={openPanel}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            height: 34,
-            padding: '0 13px',
-            border: `1px solid ${CHROME.border}`,
-            borderRadius: 9,
-            background: 'transparent',
-            color: CHROME.fg,
-            fontSize: FS.sm,
-            fontWeight: 600,
-            fontFamily: 'inherit',
-            cursor: 'pointer',
-          }}
-          onMouseEnter={(e) => {
-            ;(e.currentTarget as HTMLElement).style.background = CHROME.hover
-          }}
-          onMouseLeave={(e) => {
-            ;(e.currentTarget as HTMLElement).style.background = 'transparent'
-          }}
+          style={{ ...control(), gap: 6, border: `1px solid ${CHROME.border}` }}
+          {...ghostHover()}
         >
           <Sparkle />
           Ask Hanzo
@@ -189,7 +170,7 @@ export function AskHanzo({
           <div
             aria-hidden="true"
             onClick={closePanel}
-            style={{ position: 'fixed', inset: 0, zIndex: Z.overlay as unknown as number, background: 'rgba(0,0,0,0.45)' }}
+            style={{ position: 'fixed', inset: 0, zIndex: Z.overlay as unknown as number, background: SCRIM }}
           />
           <div
             ref={panelRef}
@@ -208,7 +189,7 @@ export function AskHanzo({
               flexDirection: 'column',
               background: CHROME.panel,
               borderLeft: `1px solid ${CHROME.border}`,
-              boxShadow: '-24px 0 60px -20px rgba(0,0,0,0.7)',
+              boxShadow: '-24px 0 60px -16px rgba(0,0,0,0.75)',
               color: CHROME.fg,
               fontFamily: CHROME.font,
             }}
@@ -236,13 +217,12 @@ export function AskHanzo({
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 34,
-                  height: 34,
+                  width: CTRL_H,
+                  height: CTRL_H,
                   border: 'none',
-                  borderRadius: 8,
+                  borderRadius: R.pill,
                   background: 'transparent',
                   color: CHROME.fg,
-                  cursor: 'pointer',
                 }}
               >
                 <CloseGlyph />
@@ -264,7 +244,7 @@ export function AskHanzo({
                 <div style={{ fontSize: FS.sm, color: CHROME.fgDim }}>Thinking…</div>
               ) : null}
               {error ? (
-                <div style={{ fontSize: FS.sm, color: CHROME.fg, background: 'rgba(255,80,80,0.12)', border: '1px solid rgba(255,80,80,0.3)', borderRadius: 10, padding: '8px 10px' }}>
+                <div role="alert" style={{ fontSize: FS.sm, color: CHROME.fg, background: ACCENT_SOFT, border: `1px solid ${ACCENT_SOFTER}`, borderRadius: R.row, padding: '8px 10px' }}>
                   {error}
                 </div>
               ) : null}
@@ -279,8 +259,8 @@ export function AskHanzo({
                   gap: 8,
                   padding: 8,
                   border: `1px solid ${CHROME.border}`,
-                  borderRadius: 12,
-                  background: 'rgba(255,255,255,0.03)',
+                  borderRadius: R.card,
+                  background: CHROME.raised,
                 }}
               >
                 <textarea
@@ -321,10 +301,9 @@ export function AskHanzo({
                     height: 32,
                     flexShrink: 0,
                     border: 'none',
-                    borderRadius: 8,
+                    borderRadius: R.pill,
                     background: draft.trim() && !busy ? ACCENT : CHROME.hover,
-                    color: draft.trim() && !busy ? '#0b0b0f' : CHROME.fgDim,
-                    cursor: draft.trim() && !busy ? 'pointer' : 'default',
+                    color: draft.trim() && !busy ? CHROME.panel : CHROME.fgDim,
                   }}
                 >
                   <SendGlyph />
@@ -348,8 +327,8 @@ function Bubble({ message }: { message: AskHanzoMessage }) {
         alignSelf: user ? 'flex-end' : 'flex-start',
         maxWidth: '85%',
         padding: '9px 12px',
-        borderRadius: 12,
-        background: user ? ACCENT_SOFT : 'rgba(255,255,255,0.04)',
+        borderRadius: R.card,
+        background: user ? ACCENT_SOFT : CHROME.raised,
         border: `1px solid ${CHROME.border}`,
         fontSize: FS.sm,
         lineHeight: 1.5,

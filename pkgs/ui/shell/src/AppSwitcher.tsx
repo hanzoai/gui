@@ -58,7 +58,7 @@ export function AppSwitcher({ apps = DEFAULT_TENANT_APPS, currentAppId }: AppSwi
       </button>
 
       {open && (
-        <div className="absolute left-0 top-10 z-50 w-72 max-h-[80vh] overflow-y-auto rounded-xl border border-white/[0.08] bg-[#0e0e13] p-2 shadow-2xl">
+        <div className="absolute left-0 top-10 z-50 w-72 max-h-[80vh] overflow-y-auto rounded-xl border border-white/[0.08] bg-black p-2 shadow-2xl">
           {APP_GROUPS.map((group) => {
             const groupApps = group.ids
               .map((id) => appMap.get(id))

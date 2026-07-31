@@ -12,21 +12,16 @@
  * Right — an optional per-app `children` slot + a settings/account menu
  *         (profile · settings · sign out · app-specific items).
  *
- * Self-contained (inline styles + inline SVG, React-only) so it drops into any
- * Hanzo app and renders identically — Hanzo white-label (dark, orange accent).
+ * Self-contained (inline styles + theme.ts tokens, React-only) so it drops into
+ * any Hanzo app and renders identically — dark, monochrome Hanzo chrome.
  * For apps that already own a header, mount <HanzoAppLauncher> alone instead.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoAppLauncher } from './HanzoAppLauncher'
+import { HanzoMark } from './mark'
 import { HANZO_APPS, type HanzoApp } from './hanzo-apps'
-import { ACCENT, ACCENT_TINT, CHROME } from './theme'
-import { useShellFocusRing } from './focusRing'
-
-const BAR_BG = CHROME.bg
-const BORDER = 'rgba(255,255,255,0.08)'
-const FG = CHROME.fg
-const FG_DIM = 'rgba(255,255,255,0.42)'
-const HOVER_BG = CHROME.hover
+import { ACCENT, ACCENT_TINT, CHROME, FS, PANEL, R, Z, control, ghostHover, row } from './theme'
+import { useShellStyles } from './shellStyles'
 
 export interface HanzoUser {
   name?: string
@@ -85,7 +80,7 @@ export function HanzoAppBar({
   quickSwitchKey = 'k',
   sticky = true,
 }: HanzoAppBarProps) {
-  useShellFocusRing()
+  useShellStyles()
   const current = apps.find((a) => a.id === currentApp)
   const label = currentAppLabel ?? current?.label ?? titleCase(currentApp)
 
@@ -96,20 +91,19 @@ export function HanzoAppBar({
       style={{
         position: sticky ? 'sticky' : 'relative',
         top: 0,
-        zIndex: 900,
+        zIndex: Z.sticky as unknown as number,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         height: 56,
         padding: '0 16px',
         boxSizing: 'border-box',
-        borderBottom: `1px solid ${BORDER}`,
-        background: BAR_BG,
+        borderBottom: `1px solid ${CHROME.border}`,
+        background: CHROME.bg,
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        color: FG,
-        fontFamily:
-          'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        color: CHROME.fg,
+        fontFamily: CHROME.font,
       }}
     >
       {/* ── Left: logo IS the product switcher (⌘K / click), then current-app
@@ -126,24 +120,24 @@ export function HanzoAppBar({
                 display: 'inline-flex',
                 alignItems: 'center',
                 padding: '4px 5px',
-                borderRadius: 7,
-                background: open ? 'rgba(255,255,255,0.06)' : 'transparent',
-                color: open || hover ? FG : 'rgba(255,255,255,0.82)',
+                borderRadius: R.pill,
+                background: open ? CHROME.hover : 'transparent',
+                color: open || hover ? CHROME.fg : CHROME.fgMuted,
                 transition: 'background 120ms ease, color 120ms ease',
               }}
             >
-              <HMark size={22} />
+              <HanzoMark size={22} />
             </span>
           )}
         />
-        <span aria-hidden="true" style={{ color: 'rgba(255,255,255,0.18)', fontSize: 16 }}>
+        <span aria-hidden="true" style={{ color: CHROME.fgDim, fontSize: FS.base }}>
           /
         </span>
         <span
           style={{
-            fontSize: 13.5,
+            fontSize: FS.sm,
             fontWeight: 600,
-            color: 'rgba(255,255,255,0.6)',
+            color: CHROME.fgMuted,
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -230,27 +224,8 @@ function AccountMenu({
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Account and settings"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 8,
-          height: 34,
-          padding: user ? '0 6px 0 6px' : 0,
-          width: user ? undefined : 34,
-          justifyContent: 'center',
-          border: 'none',
-          borderRadius: 9,
-          background: open ? HOVER_BG : 'transparent',
-          color: FG,
-          cursor: 'pointer',
-          transition: 'background 120ms ease',
-        }}
-        onMouseEnter={(e) => {
-          if (!open) (e.currentTarget as HTMLElement).style.background = HOVER_BG
-        }}
-        onMouseLeave={(e) => {
-          if (!open) (e.currentTarget as HTMLElement).style.background = 'transparent'
-        }}
+        style={{ ...control(open), gap: 8, padding: user ? '0 6px' : 0, width: user ? undefined : 34 }}
+        {...ghostHover(open)}
       >
         <Avatar user={user} />
       </button>
@@ -260,26 +235,23 @@ function AccountMenu({
           role="menu"
           aria-label="Account"
           style={{
+            ...PANEL,
             position: 'absolute',
             top: 42,
             right: 0,
-            zIndex: 1000,
+            zIndex: Z.popover as unknown as number,
             width: 248,
             padding: 8,
-            borderRadius: 14,
-            border: `1px solid ${BORDER}`,
-            background: '#0b0b0f',
-            boxShadow: '0 24px 60px -12px rgba(0,0,0,0.7)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 8px 10px' }}>
             <Avatar user={user} size={34} />
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: FG, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <div style={{ fontSize: FS.sm, fontWeight: 700, color: CHROME.fg, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {name}
               </div>
               {email ? (
-                <div style={{ fontSize: 11.5, color: FG_DIM, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div style={{ fontSize: FS.xs, color: CHROME.fgDim, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {email}
                 </div>
               ) : null}
@@ -292,7 +264,7 @@ function AccountMenu({
 
           {onSignOut ? (
             <>
-              <div style={{ height: 1, background: BORDER, margin: '6px 4px' }} />
+              <div style={{ height: 1, background: CHROME.border, margin: '6px 4px' }} />
               <MenuRow label="Sign out" onClick={() => go({ onClick: onSignOut })} />
             </>
           ) : null}
@@ -308,21 +280,8 @@ function MenuRow({ label, onClick }: { label: string; onClick: () => void }) {
       type="button"
       role="menuitem"
       onClick={onClick}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        width: '100%',
-        padding: '8px 10px',
-        border: 'none',
-        borderRadius: 9,
-        background: 'transparent',
-        color: FG,
-        fontSize: 13,
-        textAlign: 'left',
-        cursor: 'pointer',
-      }}
-      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = HOVER_BG)}
-      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = 'transparent')}
+      style={{ ...row(), display: 'flex', alignItems: 'center', width: '100%', margin: 0, padding: '8px 10px', border: 'none', fontFamily: 'inherit', textAlign: 'left' }}
+      {...ghostHover()}
     >
       {label}
     </button>
@@ -336,7 +295,7 @@ function Avatar({ user, size = 26 }: { user?: HanzoUser; size?: number }) {
       <img
         src={user.avatarUrl}
         alt=""
-        style={{ width: size, height: size, borderRadius: 8, objectFit: 'cover', display: 'block', flexShrink: 0 }}
+        style={{ width: size, height: size, borderRadius: R.pill, objectFit: 'cover', display: 'block', flexShrink: 0 }}
       />
     )
   }
@@ -357,7 +316,7 @@ function Avatar({ user, size = 26 }: { user?: HanzoUser; size?: number }) {
           justifyContent: 'center',
           width: size,
           height: size,
-          borderRadius: 8,
+          borderRadius: R.pill,
           background: ACCENT_TINT,
           color: ACCENT,
           fontSize: Math.round(size * 0.42),
@@ -374,19 +333,6 @@ function Avatar({ user, size = 26 }: { user?: HanzoUser; size?: number }) {
     <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <circle cx="12" cy="8" r="4" />
       <path d="M4 21a8 8 0 0 1 16 0" />
-    </svg>
-  )
-}
-
-/** Official Hanzo H-mark (white paths). */
-function HMark({ size = 22 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 67 67" xmlns="http://www.w3.org/2000/svg" aria-label="Hanzo">
-      <path d="M22.21 67V44.6369H0V67H22.21Z" fill="#fff" />
-      <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" fill="#fff" />
-      <path d="M22.21 0H0V22.3184H22.21V0Z" fill="#fff" />
-      <path d="M66.7198 0H44.5098V22.3184H66.7198V0Z" fill="#fff" />
-      <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" fill="#fff" />
     </svg>
   )
 }

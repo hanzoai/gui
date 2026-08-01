@@ -2,20 +2,11 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "strict": true
+    "isolatedDeclarations": true
   },
   "references": [
     {
-      "path": "../animations-css"
-    },
-    {
       "path": "../core"
-    },
-    {
-      "path": "../shorthands"
-    },
-    {
-      "path": "../font-geist"
     }
   ],
   "exclude": [

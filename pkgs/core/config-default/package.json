@@ -22,6 +22,7 @@
     "@hanzogui/animations-css": "workspace:*",
     "@hanzogui/animations-react-native": "workspace:*",
     "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-geist": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },

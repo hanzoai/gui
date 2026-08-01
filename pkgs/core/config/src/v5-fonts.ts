@@ -1,5 +1,6 @@
 import type { FillInFont, GenericFont } from '@hanzogui/core'
 import { createFont, getVariableValue } from '@hanzogui/core'
+import { geistMono, geistSans } from '@hanzogui/font-geist'
 
 const isWeb = process.env.GUI_TARGET === 'web'
 const isNative = process.env.GUI_TARGET === 'native'
@@ -95,10 +96,17 @@ export const createSystemFont = <A extends GenericFont>({
 const headingLineHeight = (size: number) =>
   Math.round(isNative ? size * 1.2 : size * 1.12 + 5)
 
+// Geist is the Hanzo typeface; `@hanzogui/font-geist` is the one place it is
+// described. The scale above stays as it is — a family is not a metric — so
+// these bind the family and inherit every size, line height and weight.
+const sansFamily = isWeb ? geistSans : 'Geist'
+const monoFamily = isWeb ? geistMono : 'GeistMono'
+
 export const fonts = {
-  body: createSystemFont(),
+  body: createSystemFont({ font: { family: sansFamily } }),
   heading: createSystemFont({
     font: {
+      family: sansFamily,
       weight: {
         0: '600',
         6: '700',
@@ -107,6 +115,7 @@ export const fonts = {
     },
     sizeLineHeight: headingLineHeight,
   }),
+  mono: createSystemFont({ font: { family: monoFamily } }),
 }
 
 export type V5Fonts = typeof fonts

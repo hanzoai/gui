@@ -115,6 +115,7 @@
     "@hanzogui/animations-reanimated": "workspace:*",
     "@hanzogui/colors": "workspace:*",
     "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-geist": "workspace:*",
     "@hanzogui/font-inter": "workspace:*",
     "@hanzogui/font-silkscreen": "workspace:*",
     "@hanzogui/react-native-media-driver": "workspace:*",

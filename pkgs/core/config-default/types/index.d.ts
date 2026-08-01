@@ -167,6 +167,25 @@ export declare function getDefaultGuiConfig(platform?: 'native' | 'web'): {
                 1: number;
             };
         };
+        mono: {
+            family: string;
+            size: {
+                1: number;
+            };
+            lineHeight: {
+                1: number;
+            };
+            transform: {};
+            weight: {
+                1: string;
+            };
+            color: {
+                1: string;
+            };
+            letterSpacing: {
+                1: number;
+            };
+        };
     };
     themes: {
         light: {

@@ -69,11 +69,15 @@ export declare const c: {
     readonly ctaFg: "#000000";
 };
 /**
- * Geist-first family. The host loads the Geist @font-face (e.g. next/font); the
- * chrome only names the family so it matches the canonical site, falling back to
- * the system stack anywhere Geist is absent.
+ * Geist, as the rest of the fleet spells it.
+ *
+ * Re-exported rather than restated: this used to carry its own copy of the
+ * stack, which is how a chrome ends up one fallback out of step with the app it
+ * frames. `@hanzogui/font-geist` also carries the @font-face rules that fetch
+ * the bytes, so naming the family and loading it are no longer separate
+ * decisions a host can get half-right.
  */
-export declare const FONT = "Geist, \"Geist Sans\", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif";
+export declare const FONT: string;
 /** The ambient radial-gradient glow behind the hero (matches the site's 640px, blur-120, 16% white). */
 export declare const HERO_GLOW = "radial-gradient(circle, #ffffff 0%, transparent 70%)";
 /** Desktop breakpoint (Tailwind `lg`) — the header flips to the mega-menu at/above this. */

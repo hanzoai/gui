@@ -1,0 +1,83 @@
+import { describe, expect, test } from 'vitest'
+
+import {
+  GEIST_CDN_ORIGIN,
+  GEIST_VERSION,
+  geistBaseURL,
+  geistFontFace,
+  geistMono,
+  geistPreloadHrefs,
+  geistSans,
+} from '../src/index'
+
+describe('the URL the bytes come from', () => {
+  test('defaults to the versioned, immutable path on our own CDN', () => {
+    expect(geistBaseURL()).toBe(`${GEIST_CDN_ORIGIN}/fonts/geist/${GEIST_VERSION}`)
+    expect(geistPreloadHrefs()).toEqual([
+      `https://cdn.hanzo.ai/fonts/geist/${GEIST_VERSION}/GeistVariable.woff2`,
+      `https://cdn.hanzo.ai/fonts/geist/${GEIST_VERSION}/GeistMonoVariable.woff2`,
+    ])
+  })
+
+  test('self-hosted serves the same layout from the app origin', () => {
+    expect(geistBaseURL({ mode: 'self-hosted' })).toBe(`/fonts/geist/${GEIST_VERSION}`)
+    expect(geistPreloadHrefs({ mode: 'self-hosted' })).toEqual([
+      `/fonts/geist/${GEIST_VERSION}/GeistVariable.woff2`,
+      `/fonts/geist/${GEIST_VERSION}/GeistMonoVariable.woff2`,
+    ])
+  })
+
+  test('a version is a directory, so publishing one never disturbs another', () => {
+    expect(geistBaseURL({ version: '9.9.9' })).toContain('/fonts/geist/9.9.9')
+    expect(geistBaseURL({ version: '9.9.9' })).not.toContain(GEIST_VERSION)
+  })
+
+  test('a trailing slash on the base does not double up', () => {
+    expect(geistBaseURL({ base: 'https://cdn.example/' })).toBe(
+      `https://cdn.example/fonts/geist/${GEIST_VERSION}`
+    )
+  })
+})
+
+describe('the @font-face rules', () => {
+  const css = geistFontFace()
+
+  test('name both families and point at the two variable files', () => {
+    expect(css).toContain('font-family: "Geist";')
+    expect(css).toContain('font-family: "Geist Mono";')
+    expect(css).toContain(`${GEIST_CDN_ORIGIN}/fonts/geist/${GEIST_VERSION}/GeistVariable.woff2`)
+    expect(css).toContain(`${GEIST_CDN_ORIGIN}/fonts/geist/${GEIST_VERSION}/GeistMonoVariable.woff2`)
+    expect(css.match(/@font-face/g)).toHaveLength(2)
+  })
+
+  test('never leave text invisible, and cover the whole weight axis', () => {
+    expect(css.match(/font-display: swap;/g)).toHaveLength(2)
+    expect(css.match(/font-weight: 100 900;/g)).toHaveLength(2)
+  })
+
+  test('switching to self-hosted changes only the origin', () => {
+    const self = geistFontFace({ mode: 'self-hosted' })
+    expect(self).not.toContain('cdn.hanzo.ai')
+    expect(self.replace(/url\("[^"]*\//g, 'url("')).toBe(
+      css.replace(/url\("[^"]*\//g, 'url("')
+    )
+  })
+})
+
+describe('the fallback chain', () => {
+  // The bug this exists to prevent: a family the browser cannot resolve leaves
+  // the document on its default, which is a serif.
+  test('sans ends in sans-serif and never in a serif', () => {
+    expect(geistSans.startsWith('"Geist"')).toBe(true)
+    expect(geistSans).toContain('system-ui')
+    expect(geistSans.trim().endsWith('sans-serif')).toBe(true)
+    expect(geistSans.replace(/sans-serif/g, '')).not.toMatch(/\bserif\b/)
+  })
+
+  test('mono ends in monospace and offers ui-monospace first', () => {
+    expect(geistMono.startsWith('"Geist Mono"')).toBe(true)
+    expect(geistMono).toContain('ui-monospace')
+    expect(geistMono.trim().endsWith('monospace')).toBe(true)
+    expect(geistMono).not.toMatch(/\bserif\b/)
+  })
+})

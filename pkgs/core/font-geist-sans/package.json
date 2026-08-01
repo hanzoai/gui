@@ -23,7 +23,8 @@
     "clean": "hanzogui-build clean"
   },
   "dependencies": {
-    "@hanzogui/core": "workspace:*"
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-geist": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"

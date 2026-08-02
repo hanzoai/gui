@@ -41,31 +41,31 @@
   },
   "references": [
     {
-      "path": "../core/assert"
+      "path": "../../pkgs/core/assert"
     },
     {
-      "path": "../core/cli"
+      "path": "../../pkgs/core/cli"
     },
     {
-      "path": "../core/theme-builder"
+      "path": "../../pkgs/core/theme-builder"
     },
     {
-      "path": "../core/get-token"
+      "path": "../../pkgs/core/get-token"
     },
     {
       "path": "../demos"
     },
     {
-      "path": "../logo"
+      "path": "../../pkgs/logo"
     },
     {
-      "path": "../hanzogui-dev-config"
+      "path": "../../pkgs/dev-config"
     },
     {
-      "path": "../lucide-icons"
+      "path": "../../pkgs/lucide-icons"
     },
     {
-      "path": "../use-store"
+      "path": "../../pkgs/use-store"
     }
   ]
 }

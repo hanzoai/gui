@@ -43,22 +43,22 @@
   },
   "references": [
     {
-      "path": "../../compiler/vite-plugin"
+      "path": "../../../pkgs/compiler/vite-plugin"
     },
     {
-      "path": "../../core/animations-css"
+      "path": "../../../pkgs/core/animations-css"
     },
     {
-      "path": "../../core/core"
+      "path": "../../../pkgs/core/core"
     },
     {
-      "path": "../../core/create-theme"
+      "path": "../../../pkgs/core/create-theme"
     },
     {
-      "path": "../../react-native-svg"
+      "path": "../../../pkgs/react-native-svg"
     },
     {
-      "path": "../../ui/hanzogui"
+      "path": "../../../pkgs/ui/hanzogui"
     }
   ]
 }

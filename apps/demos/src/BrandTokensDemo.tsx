@@ -7,12 +7,12 @@ import { Button, Card, H2, Paragraph, Text, Theme, XStack, YStack } from 'hanzog
 
 const BRANDS = ['hanzo', 'lux', 'zoo', 'pars'] as const
 
-const SURFACES: Array<[string, string, string]> = [
+const SURFACES = [
   ['background', '$background', '#000 canvas'],
   ['color2', '$color2', '#0a0a0a surface'],
   ['color3', '$color3', '#111 raised'],
   ['color4', '$color4', '#171717 elevated'],
-]
+] as const
 
 export function BrandTokensDemo() {
   return (
@@ -61,6 +61,9 @@ export function BrandTokensDemo() {
           </Text>
           <XStack gap="$4" flexWrap="wrap">
             {BRANDS.map((b) => (
+              // brand themes come from the host app's config (@hanzogui/themes/v4),
+              // not from the @hanzogui/dev-config this package is typed against
+              // @ts-expect-error
               <Theme key={b} name={b}>
                 <Card
                   backgroundColor="$color2"

@@ -48,7 +48,11 @@ export const Input = GuiInput.styleable(function MyInput({ ...props }, ref) {
     // @ts-ignore - complex type inference issue with styleable + styled combination
     <TextInput
       unstyled
-      keyboardAppearance={parentTheme?.includes('dark') ? 'dark' : 'default'}
+      keyboardAppearance={
+        typeof parentTheme === 'string' && parentTheme.includes('dark')
+          ? 'dark'
+          : 'default'
+      }
       {...props}
       focusStyle={{ margin: 0, ...props.focusStyle }}
       id={Platform.select({

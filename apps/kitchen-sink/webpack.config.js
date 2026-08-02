@@ -44,9 +44,9 @@ module.exports = {
       'react-native$': 'react-native-web',
       '@hanzogui/sheet/controller$': path.resolve(
         __dirname,
-        '../ui/sheet/src/controller.ts'
+        '../../pkgs/ui/sheet/src/controller.ts'
       ),
-      '@hanzogui/sheet$': path.resolve(__dirname, '../ui/sheet/src/index.ts'),
+      '@hanzogui/sheet$': path.resolve(__dirname, '../../pkgs/ui/sheet/src/index.ts'),
       // dedupe react-native-web - workspace setup creates multiple copies
       // (kitchen-sink/node_modules + hanzogui/node_modules + root) which each
       // initialize the responder system with their own state, breaking

@@ -24,22 +24,30 @@ export const GEIST_VERSION = '1.7.2'
 export const GEIST_CDN_ORIGIN = 'https://cdn.hanzo.ai'
 
 /**
+ * The two family names, exactly as the `@font-face` rules below register them.
+ *
+ * Everything else here is derived from these, so a stack, a rule and a native
+ * face can never name the typeface differently. Spelling the name a second time
+ * anywhere is how a font silently stops resolving.
+ */
+export const GEIST_SANS_FAMILY: string = 'Geist'
+export const GEIST_MONO_FAMILY: string = 'Geist Mono'
+
+/**
  * The UI face.
  *
  * Everything after Geist is a system face, and the list ends in `sans-serif`:
  * a font that fails to load must never leave the browser on its default, which
  * is a serif.
  */
-export const geistSans =
-  '"Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+export const geistSans: string = `"${GEIST_SANS_FAMILY}", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`
 
 /** The monospace face, ending in `monospace` for the same reason. */
-export const geistMono =
-  '"Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace'
+export const geistMono: string = `"${GEIST_MONO_FAMILY}", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace`
 
 /** The family names as the platform resolves them: a stack on web, a registered face on native. */
-export const geistSansFamily: string = isWeb ? geistSans : 'Geist'
-export const geistMonoFamily: string = isWeb ? geistMono : 'GeistMono'
+export const geistSansFamily: string = isWeb ? geistSans : GEIST_SANS_FAMILY
+export const geistMonoFamily: string = isWeb ? geistMono : GEIST_MONO_FAMILY
 
 /**
  * Where the font bytes come from.
@@ -91,20 +99,67 @@ export function geistPreloadHrefs(
 export function geistFontFace(source: GeistSource = {}): string {
   const [sans, mono] = geistPreloadHrefs(source)
   return `@font-face {
-  font-family: "Geist";
+  font-family: "${GEIST_SANS_FAMILY}";
   src: url("${sans}") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Geist Mono";
+  font-family: "${GEIST_MONO_FAMILY}";
   src: url("${mono}") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 `
+}
+
+/**
+ * The custom properties the fleet's stylesheets read, bound to the two stacks.
+ *
+ * An app that hard-codes a family in its own CSS is a second source of truth;
+ * it reads these instead and inherits whatever the kit resolves.
+ */
+export function geistProperties(): string {
+  return `:root { --hz-font-sans: ${geistSans}; --hz-font-mono: ${geistMono}; }\n`
+}
+
+/**
+ * Install the typeface into a document. This is the one way an app gets Geist.
+ *
+ * Both halves land together — the `@font-face` rules that fetch the bytes and
+ * the properties that point at them — because either alone is a page that
+ * renders in a fallback while looking correctly configured.
+ *
+ * Prefers a constructed stylesheet so a console under a strict `style-src` is
+ * not required to allow inline styles, and falls back to a `<style>` element
+ * where `adoptedStyleSheets` is unavailable. Returns false only if neither is
+ * possible (a non-DOM environment), so a caller can tell installed from not.
+ */
+export function installGeist(
+  source: GeistSource = {},
+  doc: Document | undefined = typeof document === 'undefined' ? undefined : document
+): boolean {
+  if (!doc) return false
+  const css = geistFontFace(source) + geistProperties()
+
+  if (typeof CSSStyleSheet !== 'undefined' && 'adoptedStyleSheets' in doc) {
+    try {
+      const sheet = new CSSStyleSheet()
+      sheet.replaceSync(css)
+      doc.adoptedStyleSheets = [...doc.adoptedStyleSheets, sheet]
+      return true
+    } catch {
+      // fall through to the element below
+    }
+  }
+
+  const style = doc.createElement('style')
+  style.setAttribute('data-hanzo-font', 'geist')
+  style.textContent = css
+  doc.head.appendChild(style)
+  return true
 }
 
 const defaultSizes = {

@@ -1,6 +1,6 @@
 import type { FillInFont, GenericFont } from '@hanzogui/core'
 import { createFont, getVariableValue } from '@hanzogui/core'
-import { geistMono, geistSans } from '@hanzogui/font-geist'
+import { geistMonoFamily, geistSansFamily } from '@hanzogui/font-geist'
 
 const isWeb = process.env.GUI_TARGET === 'web'
 const isNative = process.env.GUI_TARGET === 'native'
@@ -99,8 +99,14 @@ const headingLineHeight = (size: number) =>
 // Geist is the Hanzo typeface; `@hanzogui/font-geist` is the one place it is
 // described. The scale above stays as it is — a family is not a metric — so
 // these bind the family and inherit every size, line height and weight.
-const sansFamily = isWeb ? geistSans : 'Geist'
-const monoFamily = isWeb ? geistMono : 'GeistMono'
+//
+// The families come from the package already resolved for the platform. Naming
+// them again here would be a second source of truth, and it resolved off the
+// local GUI_TARGET read below — which is only correct once something else has
+// set that variable, so an unlucky module order rendered the mono face in the
+// browser's default serif.
+const sansFamily = geistSansFamily
+const monoFamily = geistMonoFamily
 
 export const fonts = {
   body: createSystemFont({ font: { family: sansFamily } }),

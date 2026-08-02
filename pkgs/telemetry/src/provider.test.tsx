@@ -169,7 +169,7 @@ describe('<TelemetryProvider/> with no props', () => {
           <TelemetryProvider replay={false}>
             <Boom />
           </TelemetryProvider>
-        </Outer>,
+        </Outer>
       )
     })
 

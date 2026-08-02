@@ -12,7 +12,12 @@ import { createAnalytics } from '@hanzo/event'
 import type { Analytics } from '@hanzo/event'
 import { resolveEnabled } from './consent.js'
 import { productFromHost, resolveEnv } from './env.js'
-import type { Telemetry, TelemetryCommerce, TelemetryConfig, TelemetryErrorContext } from './types.js'
+import type {
+  Telemetry,
+  TelemetryCommerce,
+  TelemetryConfig,
+  TelemetryErrorContext,
+} from './types.js'
 
 /** A DOM — not merely a `window`. React Native defines a global `window` with
  *  no `location`/`document`, and SSR defines neither; both must stay silent. */
@@ -65,7 +70,9 @@ export function createTelemetry(config: TelemetryConfig = {}): Telemetry {
   // A DOM is a precondition: the client reads location/referrer and buffers to
   // an unload beacon. Server and native hosts stay silent rather than emit half
   // an event. `enabled` (a build-time kill switch) still wins over consent.
-  const permitted = hasDom() && resolveEnabled({ enabled: config.enabled ?? env.enabled, consent: config.consent })
+  const permitted =
+    hasDom() &&
+    resolveEnabled({ enabled: config.enabled ?? env.enabled, consent: config.consent })
   const errors = config.errors ?? true
   const replay = config.replay ?? true
   const pageviews = config.pageviews ?? true
@@ -133,7 +140,7 @@ export function setTelemetry(t: Telemetry | undefined): void {
 export const track = (
   event: string,
   properties?: Record<string, unknown>,
-  commerce?: TelemetryCommerce,
+  commerce?: TelemetryCommerce
 ): void => getTelemetry().track(event, properties, commerce)
 
 /** Record a pageview → analytics.hanzo.ai. */

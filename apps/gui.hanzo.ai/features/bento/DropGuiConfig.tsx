@@ -197,8 +197,8 @@ export const DropGuiConfig = () => {
                           <Code>npx @hanzogui/cli generate</Code>
                         </React.Fragment>,
                         <React.Fragment key="">
-                          Drop the generated <Code>.hanzogui/hanzogui.config.json</Code> on
-                          this window.
+                          Drop the generated <Code>.hanzogui/hanzogui.config.json</Code>{' '}
+                          on this window.
                         </React.Fragment>,
                       ]}
                     />

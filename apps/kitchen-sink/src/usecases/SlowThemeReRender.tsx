@@ -17,9 +17,7 @@ export function SlowThemeReRender() {
       ></Button>
       <Button
         onPress={() => setType(type === 'Gui' ? 'RN' : 'Gui')}
-        title={
-          type === 'Gui' ? 'Using View from Gui' : 'Using View with inline styles'
-        }
+        title={type === 'Gui' ? 'Using View from Gui' : 'Using View with inline styles'}
       />
 
       <RNView

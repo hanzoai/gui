@@ -219,7 +219,8 @@ export async function extractToClassNames({
       // deoptProps changes — it only ever bails the animated case to runtime,
       // never widens what extracts.
       const hasCSSOnlyAnimationDriver =
-        hanzoguiConfig.animations.outputStyle === 'css' && !hanzoguiConfig.animationDrivers
+        hanzoguiConfig.animations.outputStyle === 'css' &&
+        !hanzoguiConfig.animationDrivers
       let elementIsAnimated = false
       for (const attr of jsxPath.node.openingElement.attributes) {
         if (!t.isJSXAttribute(attr) || !t.isJSXIdentifier(attr.name)) continue

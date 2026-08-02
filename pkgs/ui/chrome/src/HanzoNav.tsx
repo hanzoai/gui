@@ -14,7 +14,16 @@ import { useState, useRef, useEffect, type ReactNode } from 'react'
 import { Search, ChevronDown, ArrowUpRight, Menu, X } from '@hanzogui/lucide-icons-2'
 import { styled, View } from '@hanzogui/web'
 import { XStack, YStack } from '@hanzogui/stacks'
-import { Txt, Surface, LinkRow, IconBtn, linkable, useHover, useIsWide, useReveal } from './styles'
+import {
+  Txt,
+  Surface,
+  LinkRow,
+  IconBtn,
+  linkable,
+  useHover,
+  useIsWide,
+  useReveal,
+} from './styles'
 import { c, SM } from './tokens'
 import type { NavItem, NavLink } from './types'
 
@@ -92,7 +101,7 @@ const BrandLink = linkable(
     cursor: 'pointer',
     alignItems: 'center',
     flexShrink: 0,
-  }),
+  })
 )
 
 /** Text-trigger frame (nav item / login) — layout only; the child Txt colours by state. */
@@ -118,7 +127,7 @@ const NavLinkFrame = linkable(
     borderRadius: 9999,
     paddingHorizontal: 12,
     paddingVertical: 8,
-  }),
+  })
 )
 
 const Cta = linkable(
@@ -133,7 +142,7 @@ const Cta = linkable(
     paddingHorizontal: 16,
     paddingVertical: 8,
     hoverStyle: { opacity: 0.9 },
-  }),
+  })
 )
 
 const Panel = styled(View, {
@@ -183,11 +192,22 @@ const MobileToggle = styled(XStack, {
 })
 
 const BLUR = { backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' } as const
-const BLUR_XL = { backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' } as const
+const BLUR_XL = {
+  backdropFilter: 'blur(24px)',
+  WebkitBackdropFilter: 'blur(24px)',
+} as const
 
 /* ── nav triggers ──────────────────────────────────────────────────────────── */
 
-function NavItemTrigger({ item, active, onOpen }: { item: NavItem; active: boolean; onOpen: () => void }) {
+function NavItemTrigger({
+  item,
+  active,
+  onOpen,
+}: {
+  item: NavItem
+  active: boolean
+  onOpen: () => void
+}) {
   const { hovered, onMouseEnter, onMouseLeave } = useHover()
   if (item.href) {
     return (
@@ -246,7 +266,13 @@ function MegaPanel({ item }: { item: NavItem }) {
             Explore {item.label}
           </Txt>
           {explore.map((l) => (
-            <LinkRow key={l.label} href={l.href} paddingHorizontal={8} paddingVertical={6} marginHorizontal={-8}>
+            <LinkRow
+              key={l.label}
+              href={l.href}
+              paddingHorizontal={8}
+              paddingVertical={6}
+              marginHorizontal={-8}
+            >
               <Txt kind="explore">{l.label}</Txt>
               {l.desc ? <Txt kind="desc">{l.desc}</Txt> : null}
             </LinkRow>
@@ -263,7 +289,12 @@ function MegaPanel({ item }: { item: NavItem }) {
                 </Txt>
                 <YStack gap={2}>
                   {col.links.map((link) => (
-                    <LinkRow key={link.label} href={link.href} paddingHorizontal={8} marginHorizontal={-8}>
+                    <LinkRow
+                      key={link.label}
+                      href={link.href}
+                      paddingHorizontal={8}
+                      marginHorizontal={-8}
+                    >
                       <Txt kind="strong">{link.label}</Txt>
                       {link.desc ? (
                         <Txt kind="desc" marginTop={2}>
@@ -284,7 +315,15 @@ function MegaPanel({ item }: { item: NavItem }) {
 
 /* ── dropdown (login / primary) ──────────────────────────────────────────────── */
 
-function LinkDrop({ links, minWidth, withDesc }: { links: NavLink[]; minWidth: number; withDesc?: boolean }) {
+function LinkDrop({
+  links,
+  minWidth,
+  withDesc,
+}: {
+  links: NavLink[]
+  minWidth: number
+  withDesc?: boolean
+}) {
   const reveal = useReveal({ y: 6 })
   return (
     <Drop minWidth={minWidth} style={reveal}>
@@ -366,7 +405,8 @@ export function HanzoNav({
     opacity: scrolled ? 0 : 1,
     maxWidth: scrolled ? 0 : 160,
     marginLeft: scrolled ? 0 : 8,
-    transition: 'opacity 250ms ease-in-out, max-width 250ms ease-in-out, margin-left 250ms ease-in-out',
+    transition:
+      'opacity 250ms ease-in-out, max-width 250ms ease-in-out, margin-left 250ms ease-in-out',
   }
 
   return (
@@ -403,8 +443,14 @@ export function HanzoNav({
             ) : null}
 
             {showSm && loginLinks.length > 0 ? (
-              <DropWrap onMouseEnter={() => setLoginOpen(true)} onMouseLeave={() => setLoginOpen(false)}>
-                <TriggerFrame onMouseEnter={loginHover.onMouseEnter} onMouseLeave={loginHover.onMouseLeave}>
+              <DropWrap
+                onMouseEnter={() => setLoginOpen(true)}
+                onMouseLeave={() => setLoginOpen(false)}
+              >
+                <TriggerFrame
+                  onMouseEnter={loginHover.onMouseEnter}
+                  onMouseLeave={loginHover.onMouseLeave}
+                >
                   <Txt kind="nav" color={loginLit ? c.fg : c.fgMuted}>
                     {login?.label ?? 'Log in'}
                   </Txt>
@@ -414,14 +460,19 @@ export function HanzoNav({
               </DropWrap>
             ) : null}
 
-            <DropWrap onMouseEnter={() => setTryOpen(true)} onMouseLeave={() => setTryOpen(false)}>
+            <DropWrap
+              onMouseEnter={() => setTryOpen(true)}
+              onMouseLeave={() => setTryOpen(false)}
+            >
               <Cta href={primary.href} onPress={onTry} aria-haspopup="true">
                 <Txt kind="nav" color={c.ctaFg} fontWeight="500">
                   {primary.label}
                 </Txt>
                 {tryLinks.length > 0 ? <ChevronDown size={16} color={c.ctaFg} /> : null}
               </Cta>
-              {tryLinks.length > 0 && tryOpen ? <LinkDrop links={tryLinks} minWidth={272} withDesc /> : null}
+              {tryLinks.length > 0 && tryOpen ? (
+                <LinkDrop links={tryLinks} minWidth={272} withDesc />
+              ) : null}
             </DropWrap>
 
             {!wide ? (
@@ -461,7 +512,13 @@ export function HanzoNav({
             paddingVertical={24}
             style={{ height: 'calc(100dvh - 64px)', overflowY: 'auto' }}
           >
-            <Cta href={primary.href} onPress={onTry} justifyContent="center" marginBottom={24} paddingVertical={12}>
+            <Cta
+              href={primary.href}
+              onPress={onTry}
+              justifyContent="center"
+              marginBottom={24}
+              paddingVertical={12}
+            >
               <Txt kind="nav" color={c.ctaFg} fontWeight="500">
                 {primary.label}
               </Txt>
@@ -473,7 +530,12 @@ export function HanzoNav({
             ))}
 
             {loginLinks.length > 0 ? (
-              <YStack marginTop={24} paddingTop={24} borderTopWidth={1} borderColor={c.line}>
+              <YStack
+                marginTop={24}
+                paddingTop={24}
+                borderTopWidth={1}
+                borderColor={c.line}
+              >
                 <Txt kind="kicker" marginBottom={8}>
                   {login?.label ?? 'Log in'}
                 </Txt>
@@ -535,7 +597,12 @@ function MobileSection({ item }: { item: NavItem }) {
       {expanded ? (
         <YStack paddingBottom={12} style={useReveal({ y: -4 })}>
           {(item.explore ?? []).map((l) => (
-            <LinkRow key={l.label} href={l.href} paddingHorizontal={8} paddingVertical={6}>
+            <LinkRow
+              key={l.label}
+              href={l.href}
+              paddingHorizontal={8}
+              paddingVertical={6}
+            >
               <Txt kind="mobile">{l.label}</Txt>
             </LinkRow>
           ))}
@@ -545,7 +612,12 @@ function MobileSection({ item }: { item: NavItem }) {
                 {col.title}
               </Txt>
               {col.links.map((link) => (
-                <LinkRow key={link.label} href={link.href} paddingHorizontal={8} paddingVertical={6}>
+                <LinkRow
+                  key={link.label}
+                  href={link.href}
+                  paddingHorizontal={8}
+                  paddingVertical={6}
+                >
                   <Txt kind="body">{link.label}</Txt>
                 </LinkRow>
               ))}

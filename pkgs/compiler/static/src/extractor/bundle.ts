@@ -178,7 +178,9 @@ function getESBuildConfig(
             // stub files with top-level await - they're typically runtime-only
             if (hasTopLevelAwait(contents, args.path)) {
               if (process.env.DEBUG?.startsWith('hanzogui')) {
-                console.info(`[hanzogui] stubbing file with top-level await: ${args.path}`)
+                console.info(
+                  `[hanzogui] stubbing file with top-level await: ${args.path}`
+                )
               }
               return {
                 // Keep this as an ESM-shaped stub so esbuild doesn't inline a

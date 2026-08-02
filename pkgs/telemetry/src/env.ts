@@ -61,9 +61,21 @@ function processEnv(): RawEnv {
     const e = process.env
     return {
       apiUrl: first(e.NEXT_PUBLIC_HANZO_API_URL, e.PUBLIC_HANZO_API_URL, e.HANZO_API_URL),
-      ingestKey: first(e.NEXT_PUBLIC_HANZO_INGEST_KEY, e.PUBLIC_HANZO_INGEST_KEY, e.HANZO_INGEST_KEY),
-      product: first(e.NEXT_PUBLIC_HANZO_PRODUCT, e.PUBLIC_HANZO_PRODUCT, e.HANZO_PRODUCT),
-      telemetry: first(e.NEXT_PUBLIC_HANZO_TELEMETRY, e.PUBLIC_HANZO_TELEMETRY, e.HANZO_TELEMETRY),
+      ingestKey: first(
+        e.NEXT_PUBLIC_HANZO_INGEST_KEY,
+        e.PUBLIC_HANZO_INGEST_KEY,
+        e.HANZO_INGEST_KEY
+      ),
+      product: first(
+        e.NEXT_PUBLIC_HANZO_PRODUCT,
+        e.PUBLIC_HANZO_PRODUCT,
+        e.HANZO_PRODUCT
+      ),
+      telemetry: first(
+        e.NEXT_PUBLIC_HANZO_TELEMETRY,
+        e.PUBLIC_HANZO_TELEMETRY,
+        e.HANZO_TELEMETRY
+      ),
       debug: first(e.NEXT_PUBLIC_HANZO_TELEMETRY_DEBUG, e.PUBLIC_HANZO_TELEMETRY_DEBUG),
     }
   } catch {
@@ -77,10 +89,26 @@ function metaEnv(): RawEnv {
     const e = m?.env
     if (!e) return {}
     return {
-      apiUrl: first(e.VITE_HANZO_API_URL, e.EXPO_PUBLIC_HANZO_API_URL, e.PUBLIC_HANZO_API_URL),
-      ingestKey: first(e.VITE_HANZO_INGEST_KEY, e.EXPO_PUBLIC_HANZO_INGEST_KEY, e.PUBLIC_HANZO_INGEST_KEY),
-      product: first(e.VITE_HANZO_PRODUCT, e.EXPO_PUBLIC_HANZO_PRODUCT, e.PUBLIC_HANZO_PRODUCT),
-      telemetry: first(e.VITE_HANZO_TELEMETRY, e.EXPO_PUBLIC_HANZO_TELEMETRY, e.PUBLIC_HANZO_TELEMETRY),
+      apiUrl: first(
+        e.VITE_HANZO_API_URL,
+        e.EXPO_PUBLIC_HANZO_API_URL,
+        e.PUBLIC_HANZO_API_URL
+      ),
+      ingestKey: first(
+        e.VITE_HANZO_INGEST_KEY,
+        e.EXPO_PUBLIC_HANZO_INGEST_KEY,
+        e.PUBLIC_HANZO_INGEST_KEY
+      ),
+      product: first(
+        e.VITE_HANZO_PRODUCT,
+        e.EXPO_PUBLIC_HANZO_PRODUCT,
+        e.PUBLIC_HANZO_PRODUCT
+      ),
+      telemetry: first(
+        e.VITE_HANZO_TELEMETRY,
+        e.EXPO_PUBLIC_HANZO_TELEMETRY,
+        e.PUBLIC_HANZO_TELEMETRY
+      ),
       debug: first(e.VITE_HANZO_TELEMETRY_DEBUG, e.EXPO_PUBLIC_HANZO_TELEMETRY_DEBUG),
     }
   } catch {

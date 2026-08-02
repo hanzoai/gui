@@ -35,7 +35,7 @@ const pathname = (): string | undefined => {
 export function useRouteTracking(
   telemetry: Telemetry,
   active: boolean,
-  path?: string | null,
+  path?: string | null
 ): void {
   const last = useRef<string | null>(null)
   const controlled = path !== undefined
@@ -65,12 +65,18 @@ export function useRouteTracking(
     const history = window.history
     const push = history.pushState
     const replace = history.replaceState
-    history.pushState = function (this: History, ...args: Parameters<History['pushState']>) {
+    history.pushState = function (
+      this: History,
+      ...args: Parameters<History['pushState']>
+    ) {
       const result = push.apply(this, args)
       fire()
       return result
     }
-    history.replaceState = function (this: History, ...args: Parameters<History['replaceState']>) {
+    history.replaceState = function (
+      this: History,
+      ...args: Parameters<History['replaceState']>
+    ) {
       const result = replace.apply(this, args)
       fire()
       return result

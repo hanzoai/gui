@@ -161,7 +161,9 @@ export function ChatHero({
       return
     }
     if (href) {
-      window.location.href = q ? `${href}${href.includes('?') ? '&' : '?'}q=${encodeURIComponent(q)}` : href
+      window.location.href = q
+        ? `${href}${href.includes('?') ? '&' : '?'}q=${encodeURIComponent(q)}`
+        : href
     }
   }
 
@@ -245,7 +247,14 @@ export function ChatHero({
 
         {/* Quick-action pills */}
         {pills && pills.length > 0 ? (
-          <XStack marginTop={20} flexWrap="wrap" alignItems="center" justifyContent="center" gap={8} style={revealPills}>
+          <XStack
+            marginTop={20}
+            flexWrap="wrap"
+            alignItems="center"
+            justifyContent="center"
+            gap={8}
+            style={revealPills}
+          >
             {pills.map((pill) => (
               <Pill key={pill.label} pill={pill} onPress={() => handlePill(pill)} />
             ))}

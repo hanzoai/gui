@@ -1534,238 +1534,239 @@ export function createBaseMenu({
 
   const SUB_TRIGGER_NAME = 'MenuSubTrigger'
 
-  const MenuSubTrigger = React.forwardRef<
-    GuiElement,
-    ScopedProps<MenuSubTriggerProps>
-  >((props, forwardedRef) => {
-    const scope = props.scope || MENU_CONTEXT
-    const context = useMenuContext(scope)
-    const rootContext = useMenuRootContext(scope)
-    const subContext = useMenuSubContext(scope)
-    const contentContext = useMenuContentContext(scope)
-    const popperContext = PopperPrimitive.usePopperContext(scope)
-    const openTimerRef = React.useRef<number | null>(null)
-    const { pointerGraceTimerRef, onPointerGraceIntentChange } = contentContext
+  const MenuSubTrigger = React.forwardRef<GuiElement, ScopedProps<MenuSubTriggerProps>>(
+    (props, forwardedRef) => {
+      const scope = props.scope || MENU_CONTEXT
+      const context = useMenuContext(scope)
+      const rootContext = useMenuRootContext(scope)
+      const subContext = useMenuSubContext(scope)
+      const contentContext = useMenuContentContext(scope)
+      const popperContext = PopperPrimitive.usePopperContext(scope)
+      const openTimerRef = React.useRef<number | null>(null)
+      const { pointerGraceTimerRef, onPointerGraceIntentChange } = contentContext
 
-    // keyboard navigation follows text direction, not placement side
-    // ArrowRight always opens, ArrowLeft always closes (flipped only for RTL)
-    const effectiveDir: Direction = rootContext.dir
+      // keyboard navigation follows text direction, not placement side
+      // ArrowRight always opens, ArrowLeft always closes (flipped only for RTL)
+      const effectiveDir: Direction = rootContext.dir
 
-    const clearOpenTimer = React.useCallback(() => {
-      if (openTimerRef.current) window.clearTimeout(openTimerRef.current)
-      openTimerRef.current = null
-    }, [])
+      const clearOpenTimer = React.useCallback(() => {
+        if (openTimerRef.current) window.clearTimeout(openTimerRef.current)
+        openTimerRef.current = null
+      }, [])
 
-    React.useEffect(() => clearOpenTimer, [clearOpenTimer])
+      React.useEffect(() => clearOpenTimer, [clearOpenTimer])
 
-    React.useEffect(() => {
-      const pointerGraceTimer = pointerGraceTimerRef.current
-      return () => {
-        window.clearTimeout(pointerGraceTimer)
-        onPointerGraceIntentChange(null)
-      }
-    }, [pointerGraceTimerRef, onPointerGraceIntentChange])
+      React.useEffect(() => {
+        const pointerGraceTimer = pointerGraceTimerRef.current
+        return () => {
+          window.clearTimeout(pointerGraceTimer)
+          onPointerGraceIntentChange(null)
+        }
+      }, [pointerGraceTimerRef, onPointerGraceIntentChange])
 
-    return (
-      <MenuAnchor componentName={SUB_TRIGGER_NAME} asChild="except-style" scope={scope}>
-        <MenuItemImpl
-          id={subContext.triggerId}
-          aria-haspopup="menu"
-          aria-expanded={context.open}
-          aria-controls={subContext.contentId}
-          data-state={getOpenState(context.open)}
-          outlineStyle="none"
-          {...props}
-          ref={composeRefs(forwardedRef, subContext.onTriggerChange)}
-          // This is redundant for mouse users but we cannot determine pointer type from
-          // click event and we cannot use pointerup event (see git history for reasons why)
-          onPress={(event) => {
-            props.onPress?.(event)
-            if (props.disabled || event.defaultPrevented) return
-            /**
-             * We manually focus because iOS Safari doesn't always focus on click (e.g. buttons)
-             * and we rely heavily on `onFocusOutside` for submenus to close when switching
-             * between separate submenus.
-             */
-            if (isWeb) {
-              event.currentTarget.focus()
-            }
-            if (!context.open) context.onOpenChange(true)
-          }}
-          onPointerMove={composeEventHandlers(
-            props.onPointerMove,
-            // @ts-ignore
-            whenMouse((event: PointerEvent<Element>) => {
-              contentContext.onItemEnter(event)
-              if (event.defaultPrevented) return
-              if (!props.disabled && !context.open && !openTimerRef.current) {
-                contentContext.onPointerGraceIntentChange(null)
-                openTimerRef.current = window.setTimeout(() => {
-                  context.onOpenChange(true)
-                  clearOpenTimer()
-                }, 100)
+      return (
+        <MenuAnchor componentName={SUB_TRIGGER_NAME} asChild="except-style" scope={scope}>
+          <MenuItemImpl
+            id={subContext.triggerId}
+            aria-haspopup="menu"
+            aria-expanded={context.open}
+            aria-controls={subContext.contentId}
+            data-state={getOpenState(context.open)}
+            outlineStyle="none"
+            {...props}
+            ref={composeRefs(forwardedRef, subContext.onTriggerChange)}
+            // This is redundant for mouse users but we cannot determine pointer type from
+            // click event and we cannot use pointerup event (see git history for reasons why)
+            onPress={(event) => {
+              props.onPress?.(event)
+              if (props.disabled || event.defaultPrevented) return
+              /**
+               * We manually focus because iOS Safari doesn't always focus on click (e.g. buttons)
+               * and we rely heavily on `onFocusOutside` for submenus to close when switching
+               * between separate submenus.
+               */
+              if (isWeb) {
+                event.currentTarget.focus()
               }
-            })
-          )}
-          onPointerLeave={composeEventHandlers(props.onPointerLeave, (eventIn) => {
-            const event = eventIn as any as React.PointerEvent
+              if (!context.open) context.onOpenChange(true)
+            }}
+            onPointerMove={composeEventHandlers(
+              props.onPointerMove,
+              // @ts-ignore
+              whenMouse((event: PointerEvent<Element>) => {
+                contentContext.onItemEnter(event)
+                if (event.defaultPrevented) return
+                if (!props.disabled && !context.open && !openTimerRef.current) {
+                  contentContext.onPointerGraceIntentChange(null)
+                  openTimerRef.current = window.setTimeout(() => {
+                    context.onOpenChange(true)
+                    clearOpenTimer()
+                  }, 100)
+                }
+              })
+            )}
+            onPointerLeave={composeEventHandlers(props.onPointerLeave, (eventIn) => {
+              const event = eventIn as any as React.PointerEvent
 
-            clearOpenTimer()
+              clearOpenTimer()
 
-            /**
-             * SafePolygon Implementation
-             *
-             * When the mouse leaves the submenu trigger, we create a "safe polygon" zone
-             * that allows diagonal mouse movement toward the submenu content without
-             * accidentally closing it by hovering over other menu items.
-             *
-             * The polygon is a 5-point shape from the current mouse position to the
-             * submenu content bounds. When the mouse moves through this polygon while
-             * moving toward the submenu (checked via `isPointerMovingToSubmenu`),
-             * we prevent other menu items from stealing focus.
-             *
-             * Key requirement: The polygon needs a `side` property ('left' or 'right')
-             * that indicates which direction the submenu is. This is compared against
-             * the pointer movement direction - if they match and the mouse is inside
-             * the polygon, `isPointerMovingToSubmenu` returns true.
-             */
+              /**
+               * SafePolygon Implementation
+               *
+               * When the mouse leaves the submenu trigger, we create a "safe polygon" zone
+               * that allows diagonal mouse movement toward the submenu content without
+               * accidentally closing it by hovering over other menu items.
+               *
+               * The polygon is a 5-point shape from the current mouse position to the
+               * submenu content bounds. When the mouse moves through this polygon while
+               * moving toward the submenu (checked via `isPointerMovingToSubmenu`),
+               * we prevent other menu items from stealing focus.
+               *
+               * Key requirement: The polygon needs a `side` property ('left' or 'right')
+               * that indicates which direction the submenu is. This is compared against
+               * the pointer movement direction - if they match and the mouse is inside
+               * the polygon, `isPointerMovingToSubmenu` returns true.
+               */
 
-            // @ts-ignore
-            const contentRect = context.content?.getBoundingClientRect()
-            if (contentRect) {
-              // Get side from data-side attribute (set by MenuSubContent)
-              // This is critical - without it, side is undefined and isPointerMovingToSubmenu
-              // always returns false because pointerDir === undefined is never true
-              // Note: data-side is on the inner PopperContentFrame, not the outer container,
-              // so we need to query for it or check child elements
-              const contentEl = context.content as HTMLElement
-              const sideEl = contentEl?.dataset?.side
-                ? contentEl
-                : contentEl?.querySelector('[data-side]')
-              const side: Side =
-                ((sideEl as HTMLElement)?.dataset?.side as Side) || 'right'
-              const rightSide = side === 'right'
-              const bleed = rightSide ? -5 : +5
-              const contentNearEdge = contentRect[rightSide ? 'left' : 'right']
-              const contentFarEdge = contentRect[rightSide ? 'right' : 'left']
-
-              const polygon = {
-                area: [
-                  // Apply a bleed on clientX to ensure that our exit point is
-                  // consistently within polygon bounds
-                  { x: event.clientX + bleed, y: event.clientY },
-                  { x: contentNearEdge, y: contentRect.top },
-                  { x: contentFarEdge, y: contentRect.top },
-                  { x: contentFarEdge, y: contentRect.bottom },
-                  { x: contentNearEdge, y: contentRect.bottom },
-                ],
-                side,
-              }
-              contentContext.onPointerGraceIntentChange(polygon)
-
-              // Clear polygon after 300ms grace period
-              window.clearTimeout(pointerGraceTimerRef.current)
-              pointerGraceTimerRef.current = window.setTimeout(
-                () => contentContext.onPointerGraceIntentChange(null),
-                300
-              )
-            } else if (isWeb && subContext.trigger) {
-              // Fallback: Content doesn't exist yet, create polygon based on trigger position
-              const triggerEl = subContext.trigger as unknown as HTMLElement
-              const triggerRect = triggerEl?.getBoundingClientRect()
-              if (triggerRect) {
-                // determine side from popper placement, falling back to RTL direction
-                const placementSide = popperContext.placement?.split('-')[0] as
-                  | 'left'
-                  | 'right'
-                  | 'top'
-                  | 'bottom'
-                  | undefined
+              // @ts-ignore
+              const contentRect = context.content?.getBoundingClientRect()
+              if (contentRect) {
+                // Get side from data-side attribute (set by MenuSubContent)
+                // This is critical - without it, side is undefined and isPointerMovingToSubmenu
+                // always returns false because pointerDir === undefined is never true
+                // Note: data-side is on the inner PopperContentFrame, not the outer container,
+                // so we need to query for it or check child elements
+                const contentEl = context.content as HTMLElement
+                const sideEl = contentEl?.dataset?.side
+                  ? contentEl
+                  : contentEl?.querySelector('[data-side]')
                 const side: Side =
-                  placementSide === 'left' || placementSide === 'right'
-                    ? placementSide
-                    : rootContext.dir === 'rtl'
-                      ? 'left'
-                      : 'right'
+                  ((sideEl as HTMLElement)?.dataset?.side as Side) || 'right'
                 const rightSide = side === 'right'
                 const bleed = rightSide ? -5 : +5
-                // Estimate submenu position based on trigger
-                const nearEdge = rightSide ? triggerRect.right + 4 : triggerRect.left - 4
-                const farEdge = rightSide ? nearEdge + 200 : nearEdge - 200
+                const contentNearEdge = contentRect[rightSide ? 'left' : 'right']
+                const contentFarEdge = contentRect[rightSide ? 'right' : 'left']
 
                 const polygon = {
                   area: [
+                    // Apply a bleed on clientX to ensure that our exit point is
+                    // consistently within polygon bounds
                     { x: event.clientX + bleed, y: event.clientY },
-                    { x: nearEdge, y: triggerRect.top - 50 },
-                    { x: farEdge, y: triggerRect.top - 50 },
-                    { x: farEdge, y: triggerRect.bottom + 50 },
-                    { x: nearEdge, y: triggerRect.bottom + 50 },
+                    { x: contentNearEdge, y: contentRect.top },
+                    { x: contentFarEdge, y: contentRect.top },
+                    { x: contentFarEdge, y: contentRect.bottom },
+                    { x: contentNearEdge, y: contentRect.bottom },
                   ],
                   side,
                 }
                 contentContext.onPointerGraceIntentChange(polygon)
 
+                // Clear polygon after 300ms grace period
                 window.clearTimeout(pointerGraceTimerRef.current)
                 pointerGraceTimerRef.current = window.setTimeout(
                   () => contentContext.onPointerGraceIntentChange(null),
                   300
                 )
-              }
-            } else {
-              contentContext.onTriggerLeave(event)
-              if (event.defaultPrevented) return
-              contentContext.onPointerGraceIntentChange(null)
-            }
-          })}
-          {...(isWeb
-            ? {
-                onKeyDown: composeEventHandlers(props.onKeyDown, (event) => {
-                  const isTypingAhead = contentContext.searchRef.current !== ''
-                  if (props.disabled || (isTypingAhead && event.key === ' ')) return
-                  // use effectiveDir so arrow keys match the submenu's actual position
-                  // (e.g., ArrowLeft opens a left-side submenu)
-                  const willOpen = SUB_OPEN_KEYS[effectiveDir].includes(event.key)
-                  if (willOpen) {
-                    // if submenu is already open (e.g., opened via hover), focus the first item
-                    if (context.open && context.content) {
-                      // find and focus the first focusable item in the submenu
-                      const contentEl = context.content as unknown as HTMLElement
-                      const firstItem = contentEl.querySelector?.(
-                        '[role="menuitem"]:not([data-disabled])'
-                      ) as HTMLElement | null
-                      if (firstItem) {
-                        // @ts-ignore focusVisible is a newer API
-                        firstItem.focus({ focusVisible: true })
-                        event.preventDefault()
-                        return
-                      }
-                    }
+              } else if (isWeb && subContext.trigger) {
+                // Fallback: Content doesn't exist yet, create polygon based on trigger position
+                const triggerEl = subContext.trigger as unknown as HTMLElement
+                const triggerRect = triggerEl?.getBoundingClientRect()
+                if (triggerRect) {
+                  // determine side from popper placement, falling back to RTL direction
+                  const placementSide = popperContext.placement?.split('-')[0] as
+                    | 'left'
+                    | 'right'
+                    | 'top'
+                    | 'bottom'
+                    | undefined
+                  const side: Side =
+                    placementSide === 'left' || placementSide === 'right'
+                      ? placementSide
+                      : rootContext.dir === 'rtl'
+                        ? 'left'
+                        : 'right'
+                  const rightSide = side === 'right'
+                  const bleed = rightSide ? -5 : +5
+                  // Estimate submenu position based on trigger
+                  const nearEdge = rightSide
+                    ? triggerRect.right + 4
+                    : triggerRect.left - 4
+                  const farEdge = rightSide ? nearEdge + 200 : nearEdge - 200
 
-                    // set the popper reference for keyboard-only open
-                    // (normally set on mouseEnter, see PopperAnchor)
-                    const triggerEl = event.currentTarget as HTMLElement
-                    popperContext.refs?.setReference(triggerEl)
-
-                    context.onOpenChange(true)
-                    // force popper to recalculate position after render
-                    requestAnimationFrame(() => {
-                      popperContext.update?.()
-                    })
-                    // The trigger may hold focus if opened via pointer interaction
-                    // so we ensure content is given focus again when switching to keyboard.
-                    // use focusVisible: true since this is keyboard navigation
-                    // @ts-ignore focusVisible is a newer API
-                    context.content?.focus({ focusVisible: true })
-                    // prevent window from scrolling
-                    event.preventDefault()
+                  const polygon = {
+                    area: [
+                      { x: event.clientX + bleed, y: event.clientY },
+                      { x: nearEdge, y: triggerRect.top - 50 },
+                      { x: farEdge, y: triggerRect.top - 50 },
+                      { x: farEdge, y: triggerRect.bottom + 50 },
+                      { x: nearEdge, y: triggerRect.bottom + 50 },
+                    ],
+                    side,
                   }
-                }),
+                  contentContext.onPointerGraceIntentChange(polygon)
+
+                  window.clearTimeout(pointerGraceTimerRef.current)
+                  pointerGraceTimerRef.current = window.setTimeout(
+                    () => contentContext.onPointerGraceIntentChange(null),
+                    300
+                  )
+                }
+              } else {
+                contentContext.onTriggerLeave(event)
+                if (event.defaultPrevented) return
+                contentContext.onPointerGraceIntentChange(null)
               }
-            : null)}
-        />
-      </MenuAnchor>
-    )
-  })
+            })}
+            {...(isWeb
+              ? {
+                  onKeyDown: composeEventHandlers(props.onKeyDown, (event) => {
+                    const isTypingAhead = contentContext.searchRef.current !== ''
+                    if (props.disabled || (isTypingAhead && event.key === ' ')) return
+                    // use effectiveDir so arrow keys match the submenu's actual position
+                    // (e.g., ArrowLeft opens a left-side submenu)
+                    const willOpen = SUB_OPEN_KEYS[effectiveDir].includes(event.key)
+                    if (willOpen) {
+                      // if submenu is already open (e.g., opened via hover), focus the first item
+                      if (context.open && context.content) {
+                        // find and focus the first focusable item in the submenu
+                        const contentEl = context.content as unknown as HTMLElement
+                        const firstItem = contentEl.querySelector?.(
+                          '[role="menuitem"]:not([data-disabled])'
+                        ) as HTMLElement | null
+                        if (firstItem) {
+                          // @ts-ignore focusVisible is a newer API
+                          firstItem.focus({ focusVisible: true })
+                          event.preventDefault()
+                          return
+                        }
+                      }
+
+                      // set the popper reference for keyboard-only open
+                      // (normally set on mouseEnter, see PopperAnchor)
+                      const triggerEl = event.currentTarget as HTMLElement
+                      popperContext.refs?.setReference(triggerEl)
+
+                      context.onOpenChange(true)
+                      // force popper to recalculate position after render
+                      requestAnimationFrame(() => {
+                        popperContext.update?.()
+                      })
+                      // The trigger may hold focus if opened via pointer interaction
+                      // so we ensure content is given focus again when switching to keyboard.
+                      // use focusVisible: true since this is keyboard navigation
+                      // @ts-ignore focusVisible is a newer API
+                      context.content?.focus({ focusVisible: true })
+                      // prevent window from scrolling
+                      event.preventDefault()
+                    }
+                  }),
+                }
+              : null)}
+          />
+        </MenuAnchor>
+      )
+    }
+  )
 
   MenuSubTrigger.displayName = SUB_TRIGGER_NAME
 

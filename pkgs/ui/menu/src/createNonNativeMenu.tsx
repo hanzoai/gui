@@ -478,7 +478,8 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
                       'var(--hanzogui-popper-available-width)',
                     '--hanzogui-menu-content-available-height':
                       'var(--hanzogui-popper-available-height)',
-                    '--hanzogui-menu-trigger-width': 'var(--hanzogui-popper-anchor-width)',
+                    '--hanzogui-menu-trigger-width':
+                      'var(--hanzogui-popper-anchor-width)',
                     '--hanzogui-menu-trigger-height':
                       'var(--hanzogui-popper-anchor-height)',
                   } as React.CSSProperties),
@@ -549,7 +550,8 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
                   '--hanzogui-menu-content-available-height':
                     'var(--hanzogui-popper-available-height)',
                   '--hanzogui-menu-trigger-width': 'var(--hanzogui-popper-anchor-width)',
-                  '--hanzogui-menu-trigger-height': 'var(--hanzogui-popper-anchor-height)',
+                  '--hanzogui-menu-trigger-height':
+                    'var(--hanzogui-popper-anchor-height)',
                 } as React.CSSProperties),
               }
             : null

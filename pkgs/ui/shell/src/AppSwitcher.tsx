@@ -8,7 +8,10 @@ const APP_GROUPS: { label: string; ids: string[] }[] = [
   { label: 'Core', ids: ['account', 'billing', 'console'] },
   { label: 'AI', ids: ['chat', 'flow', 'bot'] },
   { label: 'Observability', ids: ['o11y', 'sentry', 'insights', 'analytics'] },
-  { label: 'Infrastructure', ids: ['platform', 'cloud', 'storage', 'kms', 'dns', 'registry'] },
+  {
+    label: 'Infrastructure',
+    ids: ['platform', 'cloud', 'storage', 'kms', 'dns', 'registry'],
+  },
   { label: 'Apps', ids: ['commerce', 'base', 'search', 'auto'] },
   { label: 'Business', ids: ['team', 'sign', 'dataroom', 'captable'] },
   { label: 'Resources', ids: ['docs', 'status'] },
@@ -19,7 +22,10 @@ interface AppSwitcherProps {
   currentAppId?: string
 }
 
-export function AppSwitcher({ apps = DEFAULT_TENANT_APPS, currentAppId }: AppSwitcherProps) {
+export function AppSwitcher({
+  apps = DEFAULT_TENANT_APPS,
+  currentAppId,
+}: AppSwitcherProps) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -77,9 +83,13 @@ export function AppSwitcher({ apps = DEFAULT_TENANT_APPS, currentAppId }: AppSwi
                       className="flex flex-col gap-0.5 rounded-lg px-3 py-2 hover:bg-white/[0.06] transition-colors"
                       onClick={() => setOpen(false)}
                     >
-                      <span className="text-[13px] font-medium text-white/80">{app.label}</span>
+                      <span className="text-[13px] font-medium text-white/80">
+                        {app.label}
+                      </span>
                       {app.description && (
-                        <span className="text-[11px] leading-tight text-white/30">{app.description}</span>
+                        <span className="text-[11px] leading-tight text-white/30">
+                          {app.description}
+                        </span>
                       )}
                     </a>
                   ))}
@@ -105,9 +115,13 @@ export function AppSwitcher({ apps = DEFAULT_TENANT_APPS, currentAppId }: AppSwi
                       className="flex flex-col gap-0.5 rounded-lg px-3 py-2 hover:bg-white/[0.06] transition-colors"
                       onClick={() => setOpen(false)}
                     >
-                      <span className="text-[13px] font-medium text-white/80">{app.label}</span>
+                      <span className="text-[13px] font-medium text-white/80">
+                        {app.label}
+                      </span>
                       {app.description && (
-                        <span className="text-[11px] leading-tight text-white/30">{app.description}</span>
+                        <span className="text-[11px] leading-tight text-white/30">
+                          {app.description}
+                        </span>
                       )}
                     </a>
                   ))}

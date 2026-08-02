@@ -24,7 +24,18 @@ import { U } from './hanzo-registry'
 import { isEntitled as planEntitles, normalizeTier } from './entitlements'
 import { useEntitlement } from './useEntitlement'
 import { HanzoWordmark } from './mark'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, LABEL, PANEL, R, Z, control } from './theme'
+import {
+  ACCENT,
+  ACCENT_SOFT,
+  ACCENT_SOFTER,
+  CHROME,
+  FS,
+  LABEL,
+  PANEL,
+  R,
+  Z,
+  control,
+} from './theme'
 import { useShellStyles } from './shellStyles'
 
 const BORDER = CHROME.border
@@ -131,7 +142,11 @@ export function HanzoAppLauncher({
   useEffect(() => {
     if (!quickSwitchKey) return
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === quickSwitchKey.toLowerCase()) {
+      if (
+        (e.metaKey || e.ctrlKey) &&
+        !e.altKey &&
+        e.key.toLowerCase() === quickSwitchKey.toLowerCase()
+      ) {
         e.preventDefault()
         setOpen((v) => !v)
       }
@@ -160,7 +175,9 @@ export function HanzoAppLauncher({
   const visible = useMemo(() => {
     if (!filtering) return apps
     return apps.filter(
-      (a) => a.label.toLowerCase().includes(q) || (a.description ?? '').toLowerCase().includes(q),
+      (a) =>
+        a.label.toLowerCase().includes(q) ||
+        (a.description ?? '').toLowerCase().includes(q)
     )
   }, [apps, filtering, q])
 
@@ -213,7 +230,7 @@ export function HanzoAppLauncher({
           break
       }
     },
-    [close, focusTile],
+    [close, focusTile]
   )
 
   // Reset the ref array each render so indices track `order`.
@@ -257,14 +274,16 @@ export function HanzoAppLauncher({
           color: FG,
           opacity: locked ? 0.55 : 1,
           outlineColor: ACCENT,
-          transition: 'background 120ms ease, border-color 120ms ease, opacity 120ms ease',
+          transition:
+            'background 120ms ease, border-color 120ms ease, opacity 120ms ease',
           justifyContent: wide ? 'flex-start' : 'center',
         }}
         onMouseEnter={(e) => {
           if (!isCurrent) (e.currentTarget as HTMLElement).style.background = HOVER_BG
         }}
         onMouseLeave={(e) => {
-          if (!isCurrent) (e.currentTarget as HTMLElement).style.background = 'transparent'
+          if (!isCurrent)
+            (e.currentTarget as HTMLElement).style.background = 'transparent'
         }}
       >
         <span
@@ -320,7 +339,9 @@ export function HanzoAppLauncher({
             {app.label}
           </span>
           {wide && app.description ? (
-            <span style={{ fontSize: FS.xs, color: FG_DIM, lineHeight: 1.25 }}>{app.description}</span>
+            <span style={{ fontSize: FS.xs, color: FG_DIM, lineHeight: 1.25 }}>
+              {app.description}
+            </span>
           ) : null}
         </span>
       </a>
@@ -332,7 +353,11 @@ export function HanzoAppLauncher({
   const triggerColor = open || hover ? ACCENT : CHROME.fgMuted
 
   return (
-    <div ref={rootRef} data-hanzo-shell="" style={{ position: 'relative', display: 'inline-flex' }}>
+    <div
+      ref={rootRef}
+      data-hanzo-shell=""
+      style={{ position: 'relative', display: 'inline-flex' }}
+    >
       <button
         ref={triggerRef}
         type="button"
@@ -376,7 +401,14 @@ export function HanzoAppLauncher({
           }}
         >
           {/* Header */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px 10px' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '2px 4px 10px',
+            }}
+          >
             <HanzoWordmark size={16} />
             <span style={LABEL}>Apps</span>
           </div>
@@ -407,25 +439,49 @@ export function HanzoAppLauncher({
 
           {/* Pinned row(s) — the personal portal floats to the top. */}
           {pinned.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginBottom: 8 }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 4,
+                marginBottom: 8,
+              }}
+            >
               {pinned.map((a) => Tile(a, true))}
             </div>
           ) : null}
 
           {/* Grid */}
           {grid.length > 0 ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 4 }}>
+            <div
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 4 }}
+            >
               {grid.map((a) => Tile(a, false))}
             </div>
           ) : (
-            <div style={{ padding: '18px 8px', textAlign: 'center', color: FG_DIM, fontSize: FS.sm }}>
+            <div
+              style={{
+                padding: '18px 8px',
+                textAlign: 'center',
+                color: FG_DIM,
+                fontSize: FS.sm,
+              }}
+            >
               No apps match “{query.trim()}”.
             </div>
           )}
 
           {/* Footer hint */}
           {quickSwitchKey ? (
-            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: 10, color: FG_DIM, fontSize: FS.xs }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                paddingTop: 10,
+                color: FG_DIM,
+                fontSize: FS.xs,
+              }}
+            >
               <kbd
                 style={{
                   fontFamily: 'inherit',

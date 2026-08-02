@@ -71,7 +71,7 @@ export function TenantCommandPalette({
       if (onOpenChange) onOpenChange(v)
       else setInternalOpen(v)
     },
-    [onOpenChange],
+    [onOpenChange]
   )
 
   const [search, setSearch] = useState('')
@@ -90,7 +90,7 @@ export function TenantCommandPalette({
         (cmd) =>
           cmd.title.toLowerCase().includes(q) ||
           cmd.description?.toLowerCase().includes(q) ||
-          cmd.keywords?.some((k) => k.includes(q)),
+          cmd.keywords?.some((k) => k.includes(q))
       )
     : allCommands
 
@@ -141,7 +141,7 @@ export function TenantCommandPalette({
       }
       setOpen(false)
     },
-    [onNavigate, setOpen],
+    [onNavigate, setOpen]
   )
 
   // Keyboard nav
@@ -160,7 +160,7 @@ export function TenantCommandPalette({
         setOpen(false)
       }
     },
-    [flat, selectedIndex, go, setOpen],
+    [flat, selectedIndex, go, setOpen]
   )
 
   // Scroll selected into view
@@ -191,7 +191,11 @@ export function TenantCommandPalette({
               stroke="currentColor"
               strokeWidth={2}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
             </svg>
             <input
               ref={inputRef}
@@ -229,23 +233,29 @@ export function TenantCommandPalette({
                         onClick={() => go(cmd)}
                         onMouseEnter={() => setSelectedIndex(idx)}
                         className={`w-full flex items-center gap-3 px-4 py-2 text-left transition-colors ${
-                          selected ? 'bg-white/[0.06] text-white' : 'text-white/50 hover:bg-white/[0.03]'
+                          selected
+                            ? 'bg-white/[0.06] text-white'
+                            : 'text-white/50 hover:bg-white/[0.03]'
                         }`}
                       >
                         {cmd.icon && (
-                          <span className={`w-5 h-5 flex items-center justify-center ${selected ? 'text-white/70' : 'text-white/25'}`}>
+                          <span
+                            className={`w-5 h-5 flex items-center justify-center ${selected ? 'text-white/70' : 'text-white/25'}`}
+                          >
                             {cmd.icon}
                           </span>
                         )}
                         <div className="flex-1 min-w-0">
-                          <span className="text-[13px] font-medium truncate block">{cmd.title}</span>
+                          <span className="text-[13px] font-medium truncate block">
+                            {cmd.title}
+                          </span>
                           {cmd.description && (
-                            <span className="text-[11px] text-white/25 truncate block">{cmd.description}</span>
+                            <span className="text-[11px] text-white/25 truncate block">
+                              {cmd.description}
+                            </span>
                           )}
                         </div>
-                        {selected && (
-                          <span className="text-white/25 text-[11px]">↵</span>
-                        )}
+                        {selected && <span className="text-white/25 text-[11px]">↵</span>}
                       </button>
                     )
                   })}

@@ -20,7 +20,7 @@ describe('server rendering', () => {
     const html = renderToString(
       <TelemetryProvider>
         <p>hello</p>
-      </TelemetryProvider>,
+      </TelemetryProvider>
     )
     expect(html).toContain('hello')
   })

@@ -32,10 +32,7 @@ const useTokenMapper = () => {
         try {
           return JSON.parse(userGuiConfig)?.hanzoguiConfig?.tokens
         } catch (error) {
-          console.error(
-            'Failed to parse user hanzogui config for tokens:',
-            userGuiConfig
-          )
+          console.error('Failed to parse user hanzogui config for tokens:', userGuiConfig)
           return null
         }
       })()

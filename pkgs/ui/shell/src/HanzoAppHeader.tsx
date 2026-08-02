@@ -111,30 +111,47 @@ export function HanzoAppHeader({
     >
       {/* ── Left: logo or back ── */}
       {mark === 'back' ? (
-        <a
-          href={backHref}
-          style={{ ...control(), gap: 6 }}
-          {...ghostHover()}
-        >
+        <a href={backHref} style={{ ...control(), gap: 6 }} {...ghostHover()}>
           <BackArrow />
           {backLabel}
         </a>
       ) : (
-        <a href={logoHref} aria-label="Hanzo" style={{ display: 'inline-flex', flexShrink: 0, color: CHROME.fg }}>
+        <a
+          href={logoHref}
+          aria-label="Hanzo"
+          style={{ display: 'inline-flex', flexShrink: 0, color: CHROME.fg }}
+        >
           <HanzoMark size={22} />
         </a>
       )}
 
       {/* ── Org → Project breadcrumb ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
-        {org ? <Crumb node={org} options={orgs} onSelect={onOrgChange} label="Organization" /> : null}
+        {org ? (
+          <Crumb node={org} options={orgs} onSelect={onOrgChange} label="Organization" />
+        ) : null}
         {org && project ? <Sep /> : null}
-        {project ? <Crumb node={project} options={projects} onSelect={onProjectChange} label="Project" /> : null}
+        {project ? (
+          <Crumb
+            node={project}
+            options={projects}
+            onSelect={onProjectChange}
+            label="Project"
+          />
+        ) : null}
       </div>
 
       {/* ── Center search / Ask Hanzo ── */}
       {search ? (
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', minWidth: 0, padding: '0 8px' }}>
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            minWidth: 0,
+            padding: '0 8px',
+          }}
+        >
           {isSearchConfig(search) ? <SearchField {...search} /> : search}
         </div>
       ) : (
@@ -156,7 +173,13 @@ function isSearchConfig(v: unknown): v is { placeholder: string; onClick?: () =>
   return typeof v === 'object' && v !== null && 'placeholder' in v
 }
 
-function SearchField({ placeholder, onClick }: { placeholder: string; onClick?: () => void }) {
+function SearchField({
+  placeholder,
+  onClick,
+}: {
+  placeholder: string
+  onClick?: () => void
+}) {
   return (
     <button
       type="button"
@@ -186,7 +209,16 @@ function SearchField({ placeholder, onClick }: { placeholder: string; onClick?: 
       }}
     >
       <SearchGlyph />
-      <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{placeholder}</span>
+      <span
+        style={{
+          flex: 1,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {placeholder}
+      </span>
       <kbd
         style={{
           fontSize: FS.xs,
@@ -222,7 +254,11 @@ function Crumb({
   useEffect(() => {
     if (!open) return
     const onDoc = (e: MouseEvent) => {
-      if (!menuRef.current?.contains(e.target as Node) && !btnRef.current?.contains(e.target as Node)) setOpen(false)
+      if (
+        !menuRef.current?.contains(e.target as Node) &&
+        !btnRef.current?.contains(e.target as Node)
+      )
+        setOpen(false)
     }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -240,7 +276,11 @@ function Crumb({
 
   const inner = (
     <>
-      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{node.label}</span>
+      <span
+        style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+      >
+        {node.label}
+      </span>
       {switchable ? <Chevron open={open} /> : null}
     </>
   )
@@ -338,7 +378,15 @@ function Crumb({
                 }}
                 {...ghostHover(current)}
               >
-                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{opt.label}</span>
+                <span
+                  style={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {opt.label}
+                </span>
                 {current ? <Check /> : null}
               </button>
             )
@@ -393,7 +441,10 @@ function ActionButton({ action }: { action: HanzoAppHeaderAction }) {
 
 function Sep() {
   return (
-    <span aria-hidden="true" style={{ color: CHROME.fgDim, fontSize: FS.sm, padding: '0 1px' }}>
+    <span
+      aria-hidden="true"
+      style={{ color: CHROME.fgDim, fontSize: FS.sm, padding: '0 1px' }}
+    >
       /
     </span>
   )
@@ -411,7 +462,11 @@ function Chevron({ open }: { open: boolean }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 150ms ease', flexShrink: 0 }}
+      style={{
+        transform: open ? 'rotate(180deg)' : 'none',
+        transition: 'transform 150ms ease',
+        flexShrink: 0,
+      }}
     >
       <path d="M6 9l6 6 6-6" />
     </svg>
@@ -420,7 +475,17 @@ function Chevron({ open }: { open: boolean }) {
 
 function BackArrow() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <path d="M19 12H5M12 19l-7-7 7-7" />
     </svg>
   )
@@ -428,7 +493,17 @@ function BackArrow() {
 
 function SearchGlyph() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.9}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.2-3.2" />
     </svg>
@@ -437,7 +512,18 @@ function SearchGlyph() {
 
 function Check() {
   return (
-    <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}>
+    <svg
+      width={14}
+      height={14}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.4}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      style={{ flexShrink: 0 }}
+    >
       <path d="M20 6L9 17l-5-5" />
     </svg>
   )

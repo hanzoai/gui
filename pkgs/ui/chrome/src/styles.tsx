@@ -45,14 +45,20 @@ export function useIsWide(min: number = LG): boolean {
 /** Hover state for colour-lift on icon+text rows (Stacks can't cascade `color`). */
 export function useHover() {
   const [hovered, setHovered] = useState(false)
-  return { hovered, onMouseEnter: () => setHovered(true), onMouseLeave: () => setHovered(false) }
+  return {
+    hovered,
+    onMouseEnter: () => setHovered(true),
+    onMouseLeave: () => setHovered(false),
+  }
 }
 
 /**
  * CSS-transition-on-mount reveal (returned as a `style` object). Used instead of
  * Gui's `animation` prop for the same isolation reason as `useIsWide`.
  */
-export function useReveal(opts: { delay?: number; y?: number; duration?: number } = {}): CSSProperties {
+export function useReveal(
+  opts: { delay?: number; y?: number; duration?: number } = {}
+): CSSProperties {
   const { delay = 0, y = 0, duration = 150 } = opts
   const [on, setOn] = useState(false)
   useEffect(() => {
@@ -74,7 +80,13 @@ export type AnchorExtra = { href?: string; target?: string; rel?: string }
 function linkable(Frame: any): any {
   return Frame.styleable((props: any, ref: any) => {
     const { href, target, rel, ...rest } = props
-    return <Frame ref={ref} {...rest} {...(href !== undefined ? { href, target, rel } : null)} />
+    return (
+      <Frame
+        ref={ref}
+        {...rest}
+        {...(href !== undefined ? { href, target, rel } : null)}
+      />
+    )
   })
 }
 

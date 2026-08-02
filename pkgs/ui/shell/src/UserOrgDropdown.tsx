@@ -44,17 +44,16 @@ export function UserOrgDropdown({
         onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-white/[0.06] transition-colors"
       >
-        <UserAvatar
-          src={user.avatar}
-          email={user.email}
-          name={user.name}
-          size={28}
-        />
+        <UserAvatar src={user.avatar} email={user.email} name={user.name} size={28} />
         <div className="hidden flex-col items-start sm:flex">
           {user.name && (
-            <span className="text-[12px] font-medium text-white/70 leading-none">{user.name}</span>
+            <span className="text-[12px] font-medium text-white/70 leading-none">
+              {user.name}
+            </span>
           )}
-          <span className="text-[11px] text-white/30 leading-none mt-0.5">{user.email}</span>
+          <span className="text-[11px] text-white/30 leading-none mt-0.5">
+            {user.email}
+          </span>
         </div>
         <svg
           width="12"
@@ -78,7 +77,9 @@ export function UserOrgDropdown({
             <p className="text-[13px] font-medium text-white/80">{user.name || 'User'}</p>
             <p className="text-[11px] text-white/40">{user.email}</p>
             {currentOrg && (
-              <p className="mt-0.5 text-[10px] font-medium text-white/25 uppercase tracking-wider">{currentOrg.name}</p>
+              <p className="mt-0.5 text-[10px] font-medium text-white/25 uppercase tracking-wider">
+                {currentOrg.name}
+              </p>
             )}
           </div>
 
@@ -101,7 +102,9 @@ export function UserOrgDropdown({
                   <div className="flex flex-col">
                     <span className="text-[13px] text-white/70">{org.name}</span>
                     {org.role && (
-                      <span className="text-[10px] text-white/25 capitalize">{org.role}</span>
+                      <span className="text-[10px] text-white/25 capitalize">
+                        {org.role}
+                      </span>
                     )}
                   </div>
                   {org.id === currentOrgId && (

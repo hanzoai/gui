@@ -206,9 +206,7 @@ export async function loadGuiBuildConfigAsync(
 /**
  * @deprecated Use loadGuiBuildConfigAsync instead to avoid EPIPE errors
  */
-export function loadGuiBuildConfigSync(
-  hanzoguiOptions: Partial<GuiOptions> | undefined
-) {
+export function loadGuiBuildConfigSync(hanzoguiOptions: Partial<GuiOptions> | undefined) {
   const buildFilePath = hanzoguiOptions?.buildFile ?? './hanzogui.build.ts'
   if (fsExtra.existsSync(buildFilePath)) {
     const registered = registerRequire('web')

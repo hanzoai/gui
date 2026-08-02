@@ -23,7 +23,10 @@ afterEach(() => {
 })
 
 const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } })
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  })
 const empty = (status: number) => new Response('', { status })
 
 test('authAdmin POSTs to /v1/base/admins/auth-with-password and returns token', async () => {
@@ -69,7 +72,15 @@ test('upsertRecipe POSTs new record when no existing match', async () => {
   ]
   const result = await upsertRecipe(
     { baseUrl: BASE, token: 't' },
-    { slug: 'x', name: 'X', description: '', category: 'misc', npmDeps: [], recipeDeps: [], files: [] }
+    {
+      slug: 'x',
+      name: 'X',
+      description: '',
+      category: 'misc',
+      npmDeps: [],
+      recipeDeps: [],
+      files: [],
+    }
   )
   expect(result).toBe('created')
   expect(calls[1].method).toBe('POST')
@@ -78,12 +89,26 @@ test('upsertRecipe POSTs new record when no existing match', async () => {
 
 test('upsertRecipe PATCHes existing record when slug matches', async () => {
   responses = [
-    json({ items: [{ id: 'existing-id' }], page: 1, perPage: 1, totalItems: 1, totalPages: 1 }),
+    json({
+      items: [{ id: 'existing-id' }],
+      page: 1,
+      perPage: 1,
+      totalItems: 1,
+      totalPages: 1,
+    }),
     json({ id: 'existing-id' }),
   ]
   const result = await upsertRecipe(
     { baseUrl: BASE, token: 't' },
-    { slug: 'x', name: 'X', description: '', category: 'misc', npmDeps: [], recipeDeps: [], files: [] }
+    {
+      slug: 'x',
+      name: 'X',
+      description: '',
+      category: 'misc',
+      npmDeps: [],
+      recipeDeps: [],
+      files: [],
+    }
   )
   expect(result).toBe('updated')
   expect(calls[1].method).toBe('PATCH')

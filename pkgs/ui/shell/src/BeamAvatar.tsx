@@ -56,7 +56,8 @@ export function BeamAvatar({
   const eyeSpread = getUnit(hash, 5, 8)
   const faceRotate = getUnit(hash, 10, 9)
   const faceTranslateX = faceRotate > 6 ? faceRotate - 10 : faceRotate
-  const faceTranslateY = getUnit(hash, 5, 10) > 3 ? getUnit(hash, 5, 10) - 5 : getUnit(hash, 5, 10)
+  const faceTranslateY =
+    getUnit(hash, 5, 10) > 3 ? getUnit(hash, 5, 10) - 5 : getUnit(hash, 5, 10)
 
   return (
     <svg
@@ -68,7 +69,14 @@ export function BeamAvatar({
       className={className}
       style={square ? undefined : { borderRadius: '50%' }}
     >
-      <mask id={`beam-${hash}`} maskUnits="userSpaceOnUse" x={0} y={0} width={36} height={36}>
+      <mask
+        id={`beam-${hash}`}
+        maskUnits="userSpaceOnUse"
+        x={0}
+        y={0}
+        width={36}
+        height={36}
+      >
         <rect width={36} height={36} rx={square ? undefined : 72} fill="#fff" />
       </mask>
       <g mask={`url(#beam-${hash})`}>
@@ -94,10 +102,7 @@ export function BeamAvatar({
               strokeLinecap="round"
             />
           ) : (
-            <path
-              d={`M13 ${19 + mouthSpread}a1 .75 0 0 0 10 0`}
-              fill={faceColor}
-            />
+            <path d={`M13 ${19 + mouthSpread}a1 .75 0 0 0 10 0`} fill={faceColor} />
           )}
           {/* Eyes */}
           <rect

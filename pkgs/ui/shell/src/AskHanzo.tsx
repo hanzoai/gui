@@ -17,7 +17,19 @@
  * autofocuses on open, the message log is an aria-live region.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, CTRL_H, FS, R, SCRIM, Z, control, ghostHover } from './theme'
+import {
+  ACCENT,
+  ACCENT_SOFT,
+  ACCENT_SOFTER,
+  CHROME,
+  CTRL_H,
+  FS,
+  R,
+  SCRIM,
+  Z,
+  control,
+  ghostHover,
+} from './theme'
 import { useShellStyles } from './shellStyles'
 
 export interface AskHanzoMessage {
@@ -90,7 +102,7 @@ export function AskHanzo({
         const root = panelRef.current
         if (!root) return
         const focusables = root.querySelectorAll<HTMLElement>(
-          'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])',
+          'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])'
         )
         if (focusables.length === 0) return
         const first = focusables[0]
@@ -170,7 +182,12 @@ export function AskHanzo({
           <div
             aria-hidden="true"
             onClick={closePanel}
-            style={{ position: 'fixed', inset: 0, zIndex: Z.overlay as unknown as number, background: SCRIM }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: Z.overlay as unknown as number,
+              background: SCRIM,
+            }}
           />
           <div
             ref={panelRef}
@@ -233,10 +250,26 @@ export function AskHanzo({
             <div
               ref={logRef}
               aria-live="polite"
-              style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}
+              style={{
+                flex: 1,
+                overflowY: 'auto',
+                padding: 16,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 12,
+              }}
             >
               {messages.length === 0 ? (
-                <p style={{ margin: 0, fontSize: FS.sm, color: CHROME.fgMuted, lineHeight: 1.5 }}>{greeting}</p>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: FS.sm,
+                    color: CHROME.fgMuted,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {greeting}
+                </p>
               ) : (
                 messages.map((m, i) => <Bubble key={i} message={m} />)
               )}
@@ -244,14 +277,30 @@ export function AskHanzo({
                 <div style={{ fontSize: FS.sm, color: CHROME.fgDim }}>Thinking…</div>
               ) : null}
               {error ? (
-                <div role="alert" style={{ fontSize: FS.sm, color: CHROME.fg, background: ACCENT_SOFT, border: `1px solid ${ACCENT_SOFTER}`, borderRadius: R.row, padding: '8px 10px' }}>
+                <div
+                  role="alert"
+                  style={{
+                    fontSize: FS.sm,
+                    color: CHROME.fg,
+                    background: ACCENT_SOFT,
+                    border: `1px solid ${ACCENT_SOFTER}`,
+                    borderRadius: R.row,
+                    padding: '8px 10px',
+                  }}
+                >
                   {error}
                 </div>
               ) : null}
             </div>
 
             {/* Composer */}
-            <div style={{ padding: 12, borderTop: `1px solid ${CHROME.border}`, flexShrink: 0 }}>
+            <div
+              style={{
+                padding: 12,
+                borderTop: `1px solid ${CHROME.border}`,
+                flexShrink: 0,
+              }}
+            >
               <div
                 style={{
                   display: 'flex',
@@ -344,7 +393,14 @@ function Bubble({ message }: { message: AskHanzoMessage }) {
 
 function Sparkle() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ flexShrink: 0 }}>
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      style={{ flexShrink: 0 }}
+    >
       <path d="M12 2l1.9 5.1L19 9l-5.1 1.9L12 16l-1.9-5.1L5 9l5.1-1.9L12 2zM19 15l.9 2.4L22 18l-2.1.8L19 21l-.9-2.2L16 18l2.1-.6L19 15z" />
     </svg>
   )
@@ -352,7 +408,17 @@ function Sparkle() {
 
 function SendGlyph() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
     </svg>
   )
@@ -360,7 +426,16 @@ function SendGlyph() {
 
 function CloseGlyph() {
   return (
-    <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true">
+    <svg
+      width={20}
+      height={20}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   )

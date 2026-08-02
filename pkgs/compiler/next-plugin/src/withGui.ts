@@ -79,9 +79,7 @@ export const withGui = (hanzoguiOptionsIn?: WithGuiProps) => {
           'process.env.GUI_ENVIRONMENT': JSON.stringify(isServer ? 'ssr' : 'client'),
           __DEV__: JSON.stringify(dev),
           ...(process.env.GUI_DOES_SSR_CSS && {
-            'process.env.GUI_DOES_SSR_CSS': JSON.stringify(
-              process.env.GUI_DOES_SSR_CSS
-            ),
+            'process.env.GUI_DOES_SSR_CSS': JSON.stringify(process.env.GUI_DOES_SSR_CSS),
           }),
           ...(hanzoguiOptions?.disableThemesBundleOptimize && {
             'process.env.GUI_OPTIMIZE_THEMES': JSON.stringify(false),

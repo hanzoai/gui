@@ -61,10 +61,7 @@ export function regenerateConfigSync(
   }
 }
 
-export async function generateGuiThemes(
-  hanzoguiOptions: GuiOptions,
-  force = false
-) {
+export async function generateGuiThemes(hanzoguiOptions: GuiOptions, force = false) {
   if (!hanzoguiOptions.themeBuilder) {
     return
   }

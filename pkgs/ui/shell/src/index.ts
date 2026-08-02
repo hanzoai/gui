@@ -8,8 +8,18 @@ export { BeamAvatar } from './BeamAvatar'
 export type { BeamAvatarProps } from './BeamAvatar'
 export { useTenantAuth } from './useTenantAuth'
 export { TenantCommandPalette } from './TenantCommandPalette'
-export type { CommandItem as TenantCommandItem, TenantCommandPaletteProps } from './TenantCommandPalette'
-export type { TenantApp, TenantOrg, TenantUser, TenantShellProps, TenantMarkProps, OrgDomains } from './types'
+export type {
+  CommandItem as TenantCommandItem,
+  TenantCommandPaletteProps,
+} from './TenantCommandPalette'
+export type {
+  TenantApp,
+  TenantOrg,
+  TenantUser,
+  TenantShellProps,
+  TenantMarkProps,
+  OrgDomains,
+} from './types'
 export { DEFAULT_TENANT_APPS, ORG_DOMAINS, getAppsForOrg } from './types'
 
 // ── Unified Hanzo app-switcher (the 9-dot cross-app launcher + top bar) ──
@@ -63,12 +73,27 @@ export {
   getPlanTier,
   APP_ENTITLEMENTS,
 } from './hanzo-registry'
-export type { HanzoPlanKind, HanzoPlanTier, HanzoPlanLimits, HanzoPlanTierDef } from './hanzo-registry'
-export { entitlementFor, isEntitled, requiredTier, rankOf, normalizeTier } from './entitlements'
+export type {
+  HanzoPlanKind,
+  HanzoPlanTier,
+  HanzoPlanLimits,
+  HanzoPlanTierDef,
+} from './hanzo-registry'
+export {
+  entitlementFor,
+  isEntitled,
+  requiredTier,
+  rankOf,
+  normalizeTier,
+} from './entitlements'
 
 // ── Cross-ecosystem access layer — entitlement hook, paywall gate, plans ──
 export { useEntitlement, FREE_TIER } from './useEntitlement'
-export type { Entitlement, EntitlementState, UseEntitlementOptions } from './useEntitlement'
+export type {
+  Entitlement,
+  EntitlementState,
+  UseEntitlementOptions,
+} from './useEntitlement'
 export { HanzoAccessGate } from './HanzoAccessGate'
 export type { HanzoAccessGateProps } from './HanzoAccessGate'
 export { HanzoPlans } from './HanzoPlans'
@@ -82,7 +107,11 @@ export type { MeetHanzoMenuProps } from './MeetHanzoMenu'
 export { ProductsMegaMenu } from './ProductsMegaMenu'
 export type { ProductsMegaMenuProps } from './ProductsMegaMenu'
 export { HanzoAppHeader } from './HanzoAppHeader'
-export type { HanzoAppHeaderProps, HanzoAppHeaderAction, HanzoContextNode } from './HanzoAppHeader'
+export type {
+  HanzoAppHeaderProps,
+  HanzoAppHeaderAction,
+  HanzoContextNode,
+} from './HanzoAppHeader'
 export { HanzoFooter } from './HanzoFooter'
 export type { HanzoFooterProps } from './HanzoFooter'
 export { HanzoPreFooterCTA } from './HanzoPreFooterCTA'

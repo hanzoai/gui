@@ -86,7 +86,8 @@ const mapPath = (p) => {
   if (!m) return p
   const [, group, rest] = m
   if (group === 'packages') return `pkgs/${rest}` // flattened
-  if (APPS.has(group)) return `apps/${group === 'tamagui.dev' ? 'gui.hanzo.ai' : group}/${rest}`
+  if (APPS.has(group))
+    return `apps/${group === 'tamagui.dev' ? 'gui.hanzo.ai' : group}/${rest}`
   return `pkgs/${group}/${rest}` // core, ui, compiler keep their grouping
 }
 
@@ -126,13 +127,16 @@ const CONTENT_PATHS = [
   [/((?:\.\.\/)+)packages\//g, '$1'],
   [/(\.\/)?code\/(core|ui|compiler)\//g, '$1pkgs/$2/'],
   [/(\.\/)?code\/hanzogui\.dev/g, '$1apps/gui.hanzo.ai'],
-  [/(\.\/)?code\/(demos|kitchen-sink-go|kitchen-sink-shared|kitchen-sink|sandbox|starters|tests)/g, '$1apps/$2'],
+  [
+    /(\.\/)?code\/(demos|kitchen-sink-go|kitchen-sink-shared|kitchen-sink|sandbox|starters|tests)/g,
+    '$1apps/$2',
+  ],
 ]
 
 const brand = (s) =>
   CONTENT_PATHS.reduce(
     (acc, [re, to]) => acc.replace(re, to),
-    RULES.reduce((acc, [re, to]) => acc.replace(re, to), s),
+    RULES.reduce((acc, [re, to]) => acc.replace(re, to), s)
   )
 
 // FLATTENING CHANGES DEPTH, and relative paths that reach the repo root have to
@@ -218,6 +222,6 @@ if (!check) {
 console.log(
   check
     ? `rebrand --check: ${edited} file(s) and ${pending.length} path(s) would change`
-    : `rebrand: ${edited} file(s) rewritten, ${pending.length} path(s) moved`,
+    : `rebrand: ${edited} file(s) rewritten, ${pending.length} path(s) moved`
 )
 if (check && (edited || pending.length)) process.exit(1)

@@ -27,7 +27,7 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "@hanzogui/config-default": "workspace:*",
-    "happy-dom": "^10.11.2",
+    "happy-dom": "^20.10.6",
     "react": ">=19",
     "vitest": "4.0.4",
     "vitest-axe": "^0.1.0",

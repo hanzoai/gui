@@ -90,7 +90,8 @@ function metaEnv(): RawEnv {
     // consumer: every babel plugin that rewrites `import.meta` for a CJS target
     // matches only the member expression, so a bare one survives the transform
     // and takes the whole module down. Jest is the one that finds this.
-    const e = (import.meta as unknown as { env?: Record<string, string | undefined> })?.env
+    const e = (import.meta as unknown as { env?: Record<string, string | undefined> })
+      ?.env
     if (!e) return {}
     return {
       apiUrl: first(

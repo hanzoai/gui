@@ -29,12 +29,17 @@ export const CHROME = {
   fgDim: 'rgba(255,255,255,0.45)',
   hover: 'rgba(255,255,255,0.06)',
   /**
-   * Geist first, via the consuming app's --font-sans when it sets one. Applied
-   * as an inline `fontFamily`, which beats the app's @theme token — so this
-   * MUST stay a var() indirection or it silently un-brands every surface that
-   * mounts the shared chrome.
+   * Geist, via the `--hz-font-sans` property `@hanzogui/font-geist` publishes —
+   * that package is where the typeface is described and this reads whatever it
+   * resolves. Applied as an inline `fontFamily`, which beats the app's @theme
+   * token, so this MUST stay a var() indirection or it silently un-brands every
+   * surface that mounts the shared chrome.
+   *
+   * The literal is the last-resort fallback for a host that installs no font at
+   * all. This package carries no dependencies by design, so it is the one place
+   * the stack is written twice; it must stay in step with `geistSans` there.
    */
-  font: 'var(--font-sans, "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif)',
+  font: 'var(--hz-font-sans, "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif)',
 } as const
 
 /** Monochrome brand accent — paper-white on dark chrome; overridable per surface. */

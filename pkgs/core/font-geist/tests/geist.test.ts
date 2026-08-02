@@ -45,8 +45,12 @@ describe('the @font-face rules', () => {
   test('name both families and point at the two variable files', () => {
     expect(css).toContain('font-family: "Geist";')
     expect(css).toContain('font-family: "Geist Mono";')
-    expect(css).toContain(`${GEIST_CDN_ORIGIN}/fonts/geist/${GEIST_VERSION}/GeistVariable.woff2`)
-    expect(css).toContain(`${GEIST_CDN_ORIGIN}/fonts/geist/${GEIST_VERSION}/GeistMonoVariable.woff2`)
+    expect(css).toContain(
+      `${GEIST_CDN_ORIGIN}/fonts/geist/${GEIST_VERSION}/GeistVariable.woff2`
+    )
+    expect(css).toContain(
+      `${GEIST_CDN_ORIGIN}/fonts/geist/${GEIST_VERSION}/GeistMonoVariable.woff2`
+    )
     expect(css.match(/@font-face/g)).toHaveLength(2)
   })
 

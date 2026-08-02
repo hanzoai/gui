@@ -8,8 +8,8 @@ import { defaultConfig } from '@hanzogui/config/v5'
 import { hanzoguiThemes } from '@hanzogui/themes/v4'
 import { createGui, type CreateGuiProps } from '@hanzo/gui'
 // TODO just move this into this folder
-import { config as hanzoguiDevConfig } from '../../hanzogui-dev-config/src/index'
-import { themeDev } from '../../hanzogui-dev-config/src/theme.dev'
+import { config as hanzoguiDevConfig } from '../../../pkgs/dev-config/src/index'
+import { themeDev } from '../../../pkgs/dev-config/src/theme.dev'
 // Generated theme from v5 theme builder for testing
 import { themes as generatedV5Themes } from './generatedV5Theme'
 

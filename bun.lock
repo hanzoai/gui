@@ -2184,7 +2184,7 @@
     },
     "pkgs/telemetry": {
       "name": "@hanzogui/telemetry",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzo/event": "^0.3.1",
         "@hanzo/observe": "^0.1.0",

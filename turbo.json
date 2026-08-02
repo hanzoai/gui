@@ -14,7 +14,9 @@
         "hanzogui-build.js",
         "externalNodePlugin.js"
       ],
-      "outputs": [".next/**/*", "dist/**/*", "types/**/*"]
+      "outputs": [".next/**/*", "dist/**/*", "types/**/*"],
+      "env": ["SKIP_JS", "SKIP_TYPES"],
+      "passThroughEnv": ["SKIP_JS", "SKIP_TYPES"]
     },
     "check": {
       "cache": false,

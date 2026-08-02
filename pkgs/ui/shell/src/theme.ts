@@ -29,17 +29,23 @@ export const CHROME = {
   fgDim: 'rgba(255,255,255,0.45)',
   hover: 'rgba(255,255,255,0.06)',
   /**
-   * Geist, via the `--hz-font-sans` property `@hanzogui/font-geist` publishes —
-   * that package is where the typeface is described and this reads whatever it
-   * resolves. Applied as an inline `fontFamily`, which beats the app's @theme
-   * token, so this MUST stay a var() indirection or it silently un-brands every
-   * surface that mounts the shared chrome.
+   * Three sources, in order of how much they know.
    *
-   * The literal is the last-resort fallback for a host that installs no font at
-   * all. This package carries no dependencies by design, so it is the one place
-   * the stack is written twice; it must stay in step with `geistSans` there.
+   * `--hz-font-sans` is what `@hanzogui/font-geist` publishes, so a host that
+   * installs the kit's typeface gets exactly the stack the kit resolved.
+   * `--font-sans` is what every host actually sets today — Tailwind emits it on
+   * `:root` even unconfigured, `@hanzo/brand` defines it, and apps using
+   * `next/font` point it at their own hashed family. Reading it second means the
+   * chrome matches the page body instead of guessing at the family name.
+   * `sans-serif` ends it, because the one thing this must never do is fall
+   * through to the browser default, which is a serif.
+   *
+   * Applied as an inline `fontFamily`, which beats the app's @theme token, so
+   * this MUST stay a var() indirection or it silently un-brands every surface
+   * that mounts the shared chrome. Naming a family here instead would be a copy
+   * of a stack this package cannot see, and it would drift.
    */
-  font: 'var(--hz-font-sans, "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif)',
+  font: 'var(--hz-font-sans, var(--font-sans, sans-serif))',
 } as const
 
 /** Monochrome brand accent — paper-white on dark chrome; overridable per surface. */

@@ -126,40 +126,19 @@ export function geistProperties(): string {
 }
 
 /**
- * Install the typeface into a document. This is the one way an app gets Geist.
+ * The whole typeface as one stylesheet: the rules that fetch the bytes and the
+ * properties that point at them. Ask for this, not for one half — either alone
+ * is a page that renders in a fallback while looking correctly configured.
  *
- * Both halves land together — the `@font-face` rules that fetch the bytes and
- * the properties that point at them — because either alone is a page that
- * renders in a fallback while looking correctly configured.
- *
- * Prefers a constructed stylesheet so a console under a strict `style-src` is
- * not required to allow inline styles, and falls back to a `<style>` element
- * where `adoptedStyleSheets` is unavailable. Returns false only if neither is
- * possible (a non-DOM environment), so a caller can tell installed from not.
+ * This package deliberately does NOT put it on a document. It cannot: it sits
+ * below `@hanzogui/web` in the dependency graph, so reaching the kit's style
+ * injection from here would be a cycle, and injecting imperatively instead
+ * would make a FOURTH way the kit writes CSS. An app installs this once at its
+ * entry — through the CSSOM under a strict `style-src`, as a `<style>`, or in
+ * the HTML it serves — and everything downstream reads the properties.
  */
-export function installGeist(
-  source: GeistSource = {},
-  doc: Document | undefined = typeof document === 'undefined' ? undefined : document
-): boolean {
-  if (!doc) return false
-  const css = geistFontFace(source) + geistProperties()
-
-  if (typeof CSSStyleSheet !== 'undefined' && 'adoptedStyleSheets' in doc) {
-    try {
-      const sheet = new CSSStyleSheet()
-      sheet.replaceSync(css)
-      doc.adoptedStyleSheets = [...doc.adoptedStyleSheets, sheet]
-      return true
-    } catch {
-      // fall through to the element below
-    }
-  }
-
-  const style = doc.createElement('style')
-  style.setAttribute('data-hanzo-font', 'geist')
-  style.textContent = css
-  doc.head.appendChild(style)
-  return true
+export function geistStylesheet(source: GeistSource = {}): string {
+  return geistFontFace(source) + geistProperties()
 }
 
 const defaultSizes = {

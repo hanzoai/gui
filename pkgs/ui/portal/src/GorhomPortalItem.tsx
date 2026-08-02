@@ -58,8 +58,5 @@ export const GorhomPortalItem = (props: PortalItemProps) => {
     return null
   }
 
-  return createPortal(
-    <GuiRoot theme={theme}>{props.children}</GuiRoot>,
-    actualNode
-  )
+  return createPortal(<GuiRoot theme={theme}>{props.children}</GuiRoot>, actualNode)
 }

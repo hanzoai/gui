@@ -130,10 +130,7 @@ export const isInsideComponentPackage = (
   })
 }
 
-export const isComponentPackage = (
-  props: GuiOptionsWithFileInfo,
-  srcName: string
-) => {
+export const isComponentPackage = (props: GuiOptionsWithFileInfo, srcName: string) => {
   return getValidComponentsPaths(props).some((path) => {
     return srcName.startsWith(path)
   })

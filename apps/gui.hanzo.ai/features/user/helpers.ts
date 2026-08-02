@@ -265,9 +265,7 @@ async function checkBentoAccess(userId: string): Promise<boolean> {
     const productMetadata = ownership.prices?.metadata as Record<string, any> | null
     const productName = ownership.prices?.products?.name
     // only count as bento if it's a bento product with lifetime flag
-    return (
-      productMetadata?.is_lifetime === '1' && productName === ProductName.GuiBento
-    )
+    return productMetadata?.is_lifetime === '1' && productName === ProductName.GuiBento
   })
 
   return hasLifetimeBento

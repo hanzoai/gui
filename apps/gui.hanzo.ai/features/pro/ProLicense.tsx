@@ -9,9 +9,9 @@ export const ProLicense = () => {
 
       <H3>Overview</H3>
       <Paragraph>
-        Gui Pro V2 License grants you a non-exclusive, perpetual license to use
-        Gui Pro features for one project. Your license includes lifetime rights to all
-        code and assets you download during your license period.
+        Gui Pro V2 License grants you a non-exclusive, perpetual license to use Gui Pro
+        features for one project. Your license includes lifetime rights to all code and
+        assets you download during your license period.
       </Paragraph>
 
       <H3>Project License Scope</H3>
@@ -69,9 +69,9 @@ export const ProLicense = () => {
       <H3>Team Members</H3>
       <Paragraph>
         Your license includes unlimited team members at no additional cost. All team
-        members must be added through your project dashboard on hanzogui.dev to gain access
-        to the private repositories. Team members may only use the code for the licensed
-        project.
+        members must be added through your project dashboard on hanzogui.dev to gain
+        access to the private repositories. Team members may only use the code for the
+        licensed project.
       </Paragraph>
 
       <H3>Sales Policy</H3>
@@ -120,7 +120,9 @@ export const ProLicense = () => {
             Project is the web domain and mobile applications specified at the time of
             purchase.
           </Li>
-          <Li>Team Member is any individual added to the project team on hanzogui.dev.</Li>
+          <Li>
+            Team Member is any individual added to the project team on hanzogui.dev.
+          </Li>
           <Li>
             License Period is the time during which you have access to updates (initial
             year plus any upgrade subscription periods).
@@ -130,13 +132,13 @@ export const ProLicense = () => {
 
       <H3>Liability</H3>
       <Paragraph>
-        Gui LLC's liability to you for costs, damages, or other losses arising from
-        your use of the Pro features — including third-party claims against you — is
-        limited to the amount paid for your license. Gui LLC may not be held liable
-        for any consequential damages related to your use of the Pro features. The
-        ownership of the Pro features remains with the Gui LLC development team. You
-        are required to abide by the licensing terms to avoid termination in case of
-        non-compliance with the agreed terms.
+        Gui LLC's liability to you for costs, damages, or other losses arising from your
+        use of the Pro features — including third-party claims against you — is limited to
+        the amount paid for your license. Gui LLC may not be held liable for any
+        consequential damages related to your use of the Pro features. The ownership of
+        the Pro features remains with the Gui LLC development team. You are required to
+        abide by the licensing terms to avoid termination in case of non-compliance with
+        the agreed terms.
       </Paragraph>
 
       <Paragraph>

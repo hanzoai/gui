@@ -78,7 +78,9 @@ const COMMAND_MAP = {
       })
 
       const outputPath =
-        flags['--output'] || options.hanzoguiOptions.outputCSS || './hanzogui.generated.css'
+        flags['--output'] ||
+        options.hanzoguiOptions.outputCSS ||
+        './hanzogui.generated.css'
 
       const { loadGui } = require('@hanzogui/static/loadGui')
       process.env.GUI_KEEP_THEMES = '1'
@@ -112,7 +114,10 @@ const COMMAND_MAP = {
         )
       }
 
-      const { generateThemes, writeGeneratedThemes } = require('@hanzogui/generate-themes')
+      const {
+        generateThemes,
+        writeGeneratedThemes,
+      } = require('@hanzogui/generate-themes')
 
       try {
         const generated = await generateThemes(inPath)

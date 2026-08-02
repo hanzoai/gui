@@ -100,10 +100,14 @@ describe('the one front door', () => {
 
     // Every event names the same emitting surface and rides the same wire.
     expect(new Set(batch.map((e) => e.product))).toEqual(new Set(['site']))
-    expect(new Set(sent.map((s) => s.url))).toEqual(new Set(['https://api.hanzo.ai/v1/event']))
+    expect(new Set(sent.map((s) => s.url))).toEqual(
+      new Set(['https://api.hanzo.ai/v1/event'])
+    )
 
     // A reported error is `handled: true`; only global/unhandled capture is false.
-    const err = batch.find((e) => e.type === 'error') as { error: Record<string, unknown> }
+    const err = batch.find((e) => e.type === 'error') as {
+      error: Record<string, unknown>
+    }
     expect(err.error).toMatchObject({ type: 'TypeError', message: 'boom', handled: true })
   })
 
@@ -114,16 +118,21 @@ describe('the one front door', () => {
     t.flush()
     expect(sent.length).toBeGreaterThan(0)
     for (const s of sent) {
-      expect(s.url).not.toMatch(/sentry\.hanzo\.ai|analytics\.hanzo\.ai|insights\.hanzo\.ai/)
+      expect(s.url).not.toMatch(
+        /sentry\.hanzo\.ai|analytics\.hanzo\.ai|insights\.hanzo\.ai/
+      )
     }
   })
 
   it('sends a publishable key as a bearer so a logged-out page still reports', () => {
     const headers: Array<Record<string, string>> = []
-    vi.stubGlobal('fetch', (_url: string, init?: { headers?: Record<string, string> }) => {
-      headers.push(init?.headers ?? {})
-      return Promise.resolve({ ok: true } as Response)
-    })
+    vi.stubGlobal(
+      'fetch',
+      (_url: string, init?: { headers?: Record<string, string> }) => {
+        headers.push(init?.headers ?? {})
+        return Promise.resolve({ ok: true } as Response)
+      }
+    )
     const t = createTelemetry({ ingestKey: 'pk_live_test' })
     t.track('x')
     t.flush()
@@ -232,7 +241,10 @@ describe('fail-soft', () => {
   })
 
   it('works with no localStorage at all (Safari private mode)', () => {
-    Object.defineProperty(window, 'localStorage', { value: undefined, configurable: true })
+    Object.defineProperty(window, 'localStorage', {
+      value: undefined,
+      configurable: true,
+    })
     const t = createTelemetry()
     expect(() => {
       t.track('x')

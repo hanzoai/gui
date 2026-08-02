@@ -39,7 +39,9 @@ function installStorage(): void {
 const events = (): Array<Record<string, unknown>> => sent.flatMap((s) => s.batch)
 
 beforeEach(() => {
-  ;(globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT = true
+  ;(
+    globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT: boolean }
+  ).IS_REACT_ACT_ENVIRONMENT = true
   installStorage()
   vi.stubGlobal('navigator', {})
   setTelemetry(undefined)
@@ -68,7 +70,7 @@ describe('<TelemetryProvider/> with no props', () => {
       root.render(
         <TelemetryProvider replay={false}>
           <p>hello</p>
-        </TelemetryProvider>,
+        </TelemetryProvider>
       )
     })
     expect(container.textContent).toBe('hello')
@@ -84,7 +86,7 @@ describe('<TelemetryProvider/> with no props', () => {
       root.render(
         <TelemetryProvider replay={false}>
           <p>hi</p>
-        </TelemetryProvider>,
+        </TelemetryProvider>
       )
     })
     act(() => {
@@ -104,7 +106,7 @@ describe('<TelemetryProvider/> with no props', () => {
       root.render(
         <TelemetryProvider product="site" replay={false}>
           <p>hi</p>
-        </TelemetryProvider>,
+        </TelemetryProvider>
       )
     })
     track('plan_clicked', { plan: 'pro' })
@@ -124,7 +126,7 @@ describe('<TelemetryProvider/> with no props', () => {
       root.render(
         <TelemetryProvider replay={false} fallback={<p>sorry</p>}>
           <Boom />
-        </TelemetryProvider>,
+        </TelemetryProvider>
       )
     })
     expect(container.textContent).toBe('sorry')
@@ -189,7 +191,7 @@ describe('<TelemetryProvider/> with no props', () => {
       root.render(
         <TelemetryProvider replay={false}>
           <p>hi</p>
-        </TelemetryProvider>,
+        </TelemetryProvider>
       )
     })
     act(() => getTelemetry().flush())

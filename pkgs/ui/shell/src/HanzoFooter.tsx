@@ -18,7 +18,11 @@
  */
 import React from 'react'
 import { HanzoWordmark } from './mark'
-import { HANZO_FOOTER_BOTTOM, HANZO_FOOTER_COLUMNS, type HanzoLink } from './hanzo-registry'
+import {
+  HANZO_FOOTER_BOTTOM,
+  HANZO_FOOTER_COLUMNS,
+  type HanzoLink,
+} from './hanzo-registry'
 import { ACCENT, CHROME, FS, LABEL, R } from './theme'
 import { useShellStyles } from './shellStyles'
 
@@ -42,7 +46,14 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
         fontFamily: CHROME.font,
       }}
     >
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px 24px', boxSizing: 'border-box' }}>
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: '0 auto',
+          padding: '48px 24px 24px',
+          boxSizing: 'border-box',
+        }}
+      >
         {/* ── Link columns ── */}
         <div
           style={{
@@ -54,10 +65,22 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
           {HANZO_FOOTER_COLUMNS.map((col) => (
             <nav key={col.id} aria-label={col.title}>
               <div style={{ ...LABEL, marginBottom: 14 }}>{col.title}</div>
-              <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 9 }}>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 9,
+                }}
+              >
                 {col.items.map((item) => (
                   <li key={item.id}>
-                    <FooterLink link={item} current={col.id === 'products' && item.id === currentProductId} />
+                    <FooterLink
+                      link={item}
+                      current={col.id === 'products' && item.id === currentProductId}
+                    />
                   </li>
                 ))}
               </ul>
@@ -77,7 +100,17 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
             borderTop: `1px solid ${CHROME.border}`,
           }}
         >
-          <a href="https://hanzo.ai" aria-label="Hanzo" style={{ display: 'inline-flex', alignItems: 'center', color: CHROME.fg, textDecoration: 'none', flexShrink: 0 }}>
+          <a
+            href="https://hanzo.ai"
+            aria-label="Hanzo"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              color: CHROME.fg,
+              textDecoration: 'none',
+              flexShrink: 0,
+            }}
+          >
             <HanzoWordmark label="Hanzo" size={20} />
           </a>
           <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, flexShrink: 0 }}>

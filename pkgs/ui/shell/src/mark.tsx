@@ -7,9 +7,22 @@
  */
 import React from 'react'
 
-export function HanzoMark({ size = 22, title = 'Hanzo' }: { size?: number; title?: string }) {
+export function HanzoMark({
+  size = 22,
+  title = 'Hanzo',
+}: {
+  size?: number
+  title?: string
+}) {
   return (
-    <svg width={size} height={size} viewBox="0 0 67 67" fill="currentColor" role="img" aria-label={title}>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 67 67"
+      fill="currentColor"
+      role="img"
+      aria-label={title}
+    >
       <path d="M22.21 67V44.6369H0V67H22.21Z" />
       <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" />
       <path d="M22.21 0H0V22.3184H22.21V0Z" />
@@ -19,11 +32,27 @@ export function HanzoMark({ size = 22, title = 'Hanzo' }: { size?: number; title
   )
 }
 
-export function HanzoWordmark({ label = 'Hanzo', size = 22 }: { label?: string; size?: number }) {
+export function HanzoWordmark({
+  label = 'Hanzo',
+  size = 22,
+}: {
+  label?: string
+  size?: number
+}) {
   return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'inherit' }}>
+    <span
+      style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'inherit' }}
+    >
       <HanzoMark size={size} />
-      <span style={{ fontSize: Math.round(size * 0.62), fontWeight: 800, letterSpacing: -0.2 }}>{label}</span>
+      <span
+        style={{
+          fontSize: Math.round(size * 0.62),
+          fontWeight: 800,
+          letterSpacing: -0.2,
+        }}
+      >
+        {label}
+      </span>
     </span>
   )
 }

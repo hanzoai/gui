@@ -31,11 +31,7 @@ const bentoGuiVersion =
 const rootGuiVersion =
   rootPackage.dependencies?.hanzogui || rootPackage.devDependencies?.hanzogui
 
-if (
-  bentoGuiVersion &&
-  rootGuiVersion &&
-  bentoGuiVersion !== rootGuiVersion
-) {
+if (bentoGuiVersion && rootGuiVersion && bentoGuiVersion !== rootGuiVersion) {
   console.warn(`⚠️  WARNING: Gui version mismatch!`)
   console.warn(`   Bento: ${bentoGuiVersion}`)
   console.warn(`   Root:  ${rootGuiVersion}`)

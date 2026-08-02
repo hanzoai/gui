@@ -331,11 +331,7 @@ export const build = async (
           } satisfies GuiOptions
 
           // Use the ORIGINAL source, not what was just written to disk
-          const nativeOut = extractToNative(
-            sourcePath,
-            originalSource,
-            nativeGuiOptions
-          )
+          const nativeOut = extractToNative(sourcePath, originalSource, nativeGuiOptions)
 
           if (isDryRun) {
             if (nativeOut.code) {

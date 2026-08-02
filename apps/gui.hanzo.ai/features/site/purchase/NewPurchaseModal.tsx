@@ -271,8 +271,8 @@ export function PurchaseModalContents() {
               >
                 <Paragraph size="$3" color="$color11">
                   For companies with over $1M in annual revenue,{' '}
-                  <Link href="mailto:support@hanzogui.dev">contact us</Link> for enterprise
-                  pricing.
+                  <Link href="mailto:support@hanzogui.dev">contact us</Link> for
+                  enterprise pricing.
                 </Paragraph>
               </XStack>
             </Theme>

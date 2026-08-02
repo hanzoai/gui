@@ -30,7 +30,18 @@ import {
   type HanzoLink,
   type HanzoProduct,
 } from './hanzo-registry'
-import { ACCENT, ACCENT_SOFT, CHROME, FS, LABEL, PANEL, R, Z, ghostHover, row } from './theme'
+import {
+  ACCENT,
+  ACCENT_SOFT,
+  CHROME,
+  FS,
+  LABEL,
+  PANEL,
+  R,
+  Z,
+  ghostHover,
+  row,
+} from './theme'
 import { useShellStyles } from './shellStyles'
 import { useMediaQuery } from './useMediaQuery'
 
@@ -125,7 +136,7 @@ export function MeetHanzoMenu({
           break
       }
     },
-    [close, focusItem],
+    [close, focusItem]
   )
 
   // Apply the optional host href rewriter (docs-aware nav, etc.). Identity by
@@ -134,7 +145,7 @@ export function MeetHanzoMenu({
   const flagship = useMemo(
     () => HANZO_FLAGSHIP.map((p) => ({ ...p, href: resolve(p.href, p.id) })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [resolveHref],
+    [resolveHref]
   )
   // Column groups = every group except the rich flagship grid, hrefs resolved.
   const columnGroups = useMemo(
@@ -144,7 +155,7 @@ export function MeetHanzoMenu({
         items: g.items.map((it) => ({ ...it, href: resolve(it.href, it.id) })),
       })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [resolveHref],
+    [resolveHref]
   )
 
   // Reset the ref list each render so indices track render order.
@@ -161,7 +172,12 @@ export function MeetHanzoMenu({
       <div
         aria-hidden="true"
         onClick={close}
-        style={{ position: 'fixed', inset: 0, zIndex: Z.overlay as unknown as number, background: 'transparent' }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: Z.overlay as unknown as number,
+          background: 'transparent',
+        }}
       />
       <div
         ref={panelRef}
@@ -201,7 +217,9 @@ export function MeetHanzoMenu({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: narrow ? 'repeat(2, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))',
+              gridTemplateColumns: narrow
+                ? 'repeat(2, minmax(0, 1fr))'
+                : 'repeat(3, minmax(0, 1fr))',
               gap: 10,
               marginBottom: 24,
             }}
@@ -251,11 +269,7 @@ export function MeetHanzoMenu({
 /* ── Pieces ──────────────────────────────────────────────────────────────── */
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{ ...LABEL, marginBottom: 10 }}>
-      {children}
-    </div>
-  )
+  return <div style={{ ...LABEL, marginBottom: 10 }}>{children}</div>
 }
 
 function ProductCard({
@@ -296,13 +310,27 @@ function ProductCard({
         if (!current) (e.currentTarget as HTMLElement).style.background = CHROME.raised
       }}
     >
-      <span style={{ fontSize: FS.xs, fontWeight: 600, color: current ? ACCENT : CHROME.fgMuted }}>
+      <span
+        style={{
+          fontSize: FS.xs,
+          fontWeight: 600,
+          color: current ? ACCENT : CHROME.fgMuted,
+        }}
+      >
         {product.verb}
       </span>
-      <span style={{ fontSize: FS.base, fontWeight: 700, color: current ? ACCENT : CHROME.fg }}>
+      <span
+        style={{
+          fontSize: FS.base,
+          fontWeight: 700,
+          color: current ? ACCENT : CHROME.fg,
+        }}
+      >
         {product.label}
       </span>
-      <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, lineHeight: 1.3 }}>{product.tagline}</span>
+      <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, lineHeight: 1.3 }}>
+        {product.tagline}
+      </span>
     </a>
   )
 }

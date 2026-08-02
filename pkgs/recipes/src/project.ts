@@ -11,7 +11,8 @@ export async function findProjectRoot(start: string = process.cwd()): Promise<st
     if (existsSync(pkgPath)) {
       try {
         const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf8'))
-        if (pkg.workspaces || existsSync(path.join(dir, 'pnpm-workspace.yaml'))) return dir
+        if (pkg.workspaces || existsSync(path.join(dir, 'pnpm-workspace.yaml')))
+          return dir
       } catch {}
     }
     if (existsSync(path.join(dir, '.git'))) return dir

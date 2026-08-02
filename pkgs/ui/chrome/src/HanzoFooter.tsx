@@ -46,7 +46,7 @@ const BrandRow = linkable(
     cursor: 'pointer',
     alignItems: 'center',
     gap: 8,
-  }),
+  })
 )
 
 const GhFrame = linkable(
@@ -56,13 +56,20 @@ const GhFrame = linkable(
     cursor: 'pointer',
     alignItems: 'center',
     justifyContent: 'center',
-  }),
+  })
 )
 
 function GithubLink({ href, label }: { href: string; label: string }) {
   const { hovered, onMouseEnter, onMouseLeave } = useHover()
   return (
-    <GhFrame href={href} target="_blank" rel="noreferrer noopener" aria-label={label} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <GhFrame
+      href={href}
+      target="_blank"
+      rel="noreferrer noopener"
+      aria-label={label}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <Github size={20} color={hovered ? c.fg : c.fgDim} />
     </GhFrame>
   )
@@ -123,7 +130,9 @@ export function HanzoFooter({
           <Txt kind="dim">
             © {year} {legalName} All rights reserved.
           </Txt>
-          {githubHref ? <GithubLink href={githubHref} label={`${brand} on GitHub`} /> : null}
+          {githubHref ? (
+            <GithubLink href={githubHref} label={`${brand} on GitHub`} />
+          ) : null}
         </XStack>
       </YStack>
     </FooterFrame>

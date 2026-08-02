@@ -18,9 +18,9 @@ export function App() {
             One definition, every surface
           </H1>
           <Paragraph fontFamily="$body" fontSize={15} color="$color11" maxWidth={560}>
-            This window is a Tauri webview rendering @hanzo/gui on the true-black
-            default theme. The bar above is a hanzogui component driving the real
-            OS window through @hanzogui/tauri.
+            This window is a Tauri webview rendering @hanzo/gui on the true-black default
+            theme. The bar above is a hanzogui component driving the real OS window
+            through @hanzogui/tauri.
           </Paragraph>
         </YStack>
 

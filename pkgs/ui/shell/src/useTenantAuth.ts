@@ -45,9 +45,16 @@ export function useTenantAuth() {
         try {
           const u = JSON.parse(cached)
           if (u?.email) {
-            setUser({ id: u.id, name: u.displayName || u.name, email: u.email, avatar: u.avatar })
+            setUser({
+              id: u.id,
+              name: u.displayName || u.name,
+              email: u.email,
+              avatar: u.avatar,
+            })
           }
-        } catch { /* ignore */ }
+        } catch {
+          /* ignore */
+        }
       }
 
       // Fetch fresh from IAM (canonical OIDC userinfo, HIP-0111)
@@ -84,7 +91,9 @@ export function useTenantAuth() {
         setOrganizations(orgs)
         setCurrentOrgId(orgs[0]?.id)
       }
-    } catch { /* silently fail */ } finally {
+    } catch {
+      /* silently fail */
+    } finally {
       setLoading(false)
     }
   }, [])

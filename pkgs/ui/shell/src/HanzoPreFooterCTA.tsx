@@ -66,9 +66,15 @@ export function HanzoPreFooterCTA({ surface, className }: HanzoPreFooterCTAProps
         >
           {heading}
         </h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
+        <div
+          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}
+        >
           {actions.map((action, i) => (
-            <ActionButton key={action.id} link={action} variant={i === 0 ? 'filled' : 'ghost'} />
+            <ActionButton
+              key={action.id}
+              link={action}
+              variant={i === 0 ? 'filled' : 'ghost'}
+            />
           ))}
         </div>
       </div>
@@ -78,7 +84,13 @@ export function HanzoPreFooterCTA({ surface, className }: HanzoPreFooterCTAProps
 
 /* ── Piece ───────────────────────────────────────────────────────────────── */
 
-function ActionButton({ link, variant }: { link: HanzoLink; variant: 'ghost' | 'filled' }) {
+function ActionButton({
+  link,
+  variant,
+}: {
+  link: HanzoLink
+  variant: 'ghost' | 'filled'
+}) {
   const filled = variant === 'filled'
   return (
     <a

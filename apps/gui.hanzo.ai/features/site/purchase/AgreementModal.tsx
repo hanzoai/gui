@@ -1,5 +1,13 @@
 import { X } from '@hanzogui/lucide-icons-2'
-import { Button, Dialog, Paragraph, ScrollView, Sheet, Unspaced, YStack } from '@hanzo/gui'
+import {
+  Button,
+  Dialog,
+  Paragraph,
+  ScrollView,
+  Sheet,
+  Unspaced,
+  YStack,
+} from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { ProLicense } from '../../pro/ProLicense'
 import { useTakeoutStore } from './useTakeoutStore'

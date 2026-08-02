@@ -406,35 +406,95 @@ export function getAppsForOrg(orgSlug: string): TenantApp[] {
   const d = ORG_DOMAINS[orgSlug] || ORG_DOMAINS.hanzo
   return [
     // Core
-    { id: 'account', label: 'Account', href: `${d.iam}/account`, description: 'Profile, orgs & referrals' },
-    { id: 'billing', label: 'Billing', href: d.billing, description: 'Subscriptions & usage' },
-    { id: 'console', label: 'Console', href: d.console, description: 'API keys & projects' },
+    {
+      id: 'account',
+      label: 'Account',
+      href: `${d.iam}/account`,
+      description: 'Profile, orgs & referrals',
+    },
+    {
+      id: 'billing',
+      label: 'Billing',
+      href: d.billing,
+      description: 'Subscriptions & usage',
+    },
+    {
+      id: 'console',
+      label: 'Console',
+      href: d.console,
+      description: 'API keys & projects',
+    },
     // AI
     { id: 'chat', label: 'Chat', href: d.chat, description: 'AI chat & models' },
     { id: 'flow', label: 'Flow', href: d.flow, description: 'Visual workflow builder' },
     { id: 'bot', label: 'Bot', href: d.bot, description: 'AI bot platform' },
     // Observability
     { id: 'o11y', label: 'O11y', href: d.o11y, description: 'Traces, logs & metrics' },
-    { id: 'sentry', label: 'Sentry', href: d.sentry, description: 'Error & crash tracking' },
-    { id: 'insights', label: 'Insights', href: d.insights, description: 'Product analytics & flags' },
-    { id: 'analytics', label: 'Analytics', href: d.analytics, description: 'Web analytics' },
+    {
+      id: 'sentry',
+      label: 'Sentry',
+      href: d.sentry,
+      description: 'Error & crash tracking',
+    },
+    {
+      id: 'insights',
+      label: 'Insights',
+      href: d.insights,
+      description: 'Product analytics & flags',
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      href: d.analytics,
+      description: 'Web analytics',
+    },
     // Infrastructure
-    { id: 'platform', label: 'Platform', href: d.platform, description: 'Deploy & scale services' },
+    {
+      id: 'platform',
+      label: 'Platform',
+      href: d.platform,
+      description: 'Deploy & scale services',
+    },
     { id: 'cloud', label: 'Cloud', href: d.cloud, description: 'Cloud infrastructure' },
-    { id: 'storage', label: 'Storage', href: d.storage, description: 'S3 object storage' },
+    {
+      id: 'storage',
+      label: 'Storage',
+      href: d.storage,
+      description: 'S3 object storage',
+    },
     { id: 'kms', label: 'KMS', href: d.kms, description: 'Secrets & key management' },
     { id: 'dns', label: 'DNS', href: d.dns, description: 'DNS management' },
-    { id: 'registry', label: 'Registry', href: d.registry, description: 'Container registry' },
+    {
+      id: 'registry',
+      label: 'Registry',
+      href: d.registry,
+      description: 'Container registry',
+    },
     // Apps
-    { id: 'commerce', label: 'Commerce', href: d.commerce, description: 'Payments & storefront' },
+    {
+      id: 'commerce',
+      label: 'Commerce',
+      href: d.commerce,
+      description: 'Payments & storefront',
+    },
     { id: 'base', label: 'Base', href: d.base, description: 'Backend-as-a-Service' },
     { id: 'search', label: 'Search', href: d.search, description: 'Full-text search' },
     { id: 'auto', label: 'Auto', href: d.auto, description: 'Workflow automation' },
     // Business
     { id: 'team', label: 'Team', href: d.team, description: 'Team collaboration' },
     { id: 'sign', label: 'Sign', href: d.sign, description: 'Document signing' },
-    { id: 'dataroom', label: 'Dataroom', href: d.dataroom, description: 'Secure deal rooms' },
-    { id: 'captable', label: 'Cap Table', href: d.captable, description: 'Equity management' },
+    {
+      id: 'dataroom',
+      label: 'Dataroom',
+      href: d.dataroom,
+      description: 'Secure deal rooms',
+    },
+    {
+      id: 'captable',
+      label: 'Cap Table',
+      href: d.captable,
+      description: 'Equity management',
+    },
     // Content
     { id: 'docs', label: 'Docs', href: d.docs, description: 'Documentation' },
     { id: 'status', label: 'Status', href: d.status, description: 'System status' },

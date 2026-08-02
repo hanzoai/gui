@@ -13,9 +13,7 @@ interface CollectionProps extends SlotProps {}
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-function createCollection<ItemElement extends GuiElement, ItemData = {}>(
-  name: string
-) {
+function createCollection<ItemElement extends GuiElement, ItemData = {}>(name: string) {
   /* -----------------------------------------------------------------------------------------------
    * CollectionProvider
    * ---------------------------------------------------------------------------------------------*/

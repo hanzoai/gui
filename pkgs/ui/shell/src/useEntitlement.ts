@@ -63,7 +63,10 @@ export interface Entitlement {
 }
 
 /** Extract a tier slug from a Stripe-shaped subscriptions payload. */
-function resolveTier(payload: unknown, fallback: string): { tier: string; found: boolean } {
+function resolveTier(
+  payload: unknown,
+  fallback: string
+): { tier: string; found: boolean } {
   const arr: unknown = Array.isArray(payload)
     ? payload
     : ((payload as { data?: unknown; subscriptions?: unknown })?.data ??
@@ -140,10 +143,13 @@ export function useEntitlement(options: UseEntitlementOptions = {}): Entitlement
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endpoint, fallbackTier, fetchImpl, enabled, nonce, headerKey])
 
-  const isEntitled = useCallback((appId: string) => planEntitles(appId, normalizeTier(tier)), [tier])
+  const isEntitled = useCallback(
+    (appId: string) => planEntitles(appId, normalizeTier(tier)),
+    [tier]
+  )
 
   return useMemo(
     () => ({ tier, state, loading: state === 'loading', isEntitled, refresh }),
-    [tier, state, isEntitled, refresh],
+    [tier, state, isEntitled, refresh]
   )
 }

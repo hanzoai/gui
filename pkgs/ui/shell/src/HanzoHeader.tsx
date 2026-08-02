@@ -29,7 +29,20 @@ import {
   type HanzoSurface,
   type ProductCategory,
 } from './hanzo-registry'
-import { CHROME, FS, LABEL, PANEL, R, SCRIM, TAP_H, Z, control, cta, ghostHover, row } from './theme'
+import {
+  CHROME,
+  FS,
+  LABEL,
+  PANEL,
+  R,
+  SCRIM,
+  TAP_H,
+  Z,
+  control,
+  cta,
+  ghostHover,
+  row,
+} from './theme'
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
 
@@ -48,7 +61,8 @@ function withoutProductsDup(nav: HanzoLink[], hasProducts: boolean): HanzoLink[]
   // happens to be labelled "Products". Match the hub id, or a "Products"-labelled
   // link that also points at a /products hub (both, not either).
   return nav.filter(
-    (l) => !(l.id === 'products' || (l.label === 'Products' && /\/products\/?$/.test(l.href))),
+    (l) =>
+      !(l.id === 'products' || (l.label === 'Products' && /\/products\/?$/.test(l.href)))
   )
 }
 
@@ -125,7 +139,8 @@ export function HanzoHeader({
   // Standard account affordance: the surface-supplied `account`, else a default
   // "Sign in" so surfaces can't drift between "Sign in" / "Log in". Rendered ONLY
   // when the host asked for one — a header must never invent a link to nowhere.
-  const accountNode = account ?? (signInHref ? <DefaultAccount href={signInHref} /> : null)
+  const accountNode =
+    account ?? (signInHref ? <DefaultAccount href={signInHref} /> : null)
 
   // Close everything on Esc when a mobile sheet is open.
   useEffect(() => {
@@ -235,7 +250,10 @@ export function HanzoHeader({
           ) : null}
 
           {/* ── Local nav ── */}
-          <nav aria-label={`${s.brandName} navigation`} style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
+          <nav
+            aria-label={`${s.brandName} navigation`}
+            style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}
+          >
             {localNav.map((link) => (
               <NavLink key={link.id} link={link} />
             ))}
@@ -336,7 +354,15 @@ function NavLink({ link }: { link: HanzoLink }) {
   )
 }
 
-function CTA({ link, variant, height }: { link: HanzoLink; variant: 'ghost' | 'filled'; height?: number }) {
+function CTA({
+  link,
+  variant,
+  height,
+}: {
+  link: HanzoLink
+  variant: 'ghost' | 'filled'
+  height?: number
+}) {
   const filled = variant === 'filled'
   return (
     <a
@@ -407,7 +433,13 @@ function MobileSheet({
       <div
         aria-hidden="true"
         onClick={onClose}
-        style={{ position: 'fixed', inset: 0, top, zIndex: Z.overlay as unknown as number, background: SCRIM }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          top,
+          zIndex: Z.overlay as unknown as number,
+          background: SCRIM,
+        }}
       />
       <div
         role="dialog"
@@ -444,13 +476,23 @@ function MobileSheet({
           <Chevron open={false} />
         </button>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 12 }}>
+        <div
+          style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 12 }}
+        >
           {localNav.map((link) => (
             <a
               key={link.id}
               href={link.href}
               onClick={onClose}
-              style={{ ...row(), display: 'flex', alignItems: 'center', margin: 0, padding: '0 12px', minHeight: TAP_H, fontSize: FS.base }}
+              style={{
+                ...row(),
+                display: 'flex',
+                alignItems: 'center',
+                margin: 0,
+                padding: '0 12px',
+                minHeight: TAP_H,
+                fontSize: FS.base,
+              }}
               {...ghostHover()}
             >
               {link.label}
@@ -461,7 +503,13 @@ function MobileSheet({
         {/* Rich Products taxonomy — collapsed accordions so mobile isn't an
             endless scroll (mirrors the "Meet Hanzo" collapsible pattern). */}
         {hasProducts ? (
-          <div style={{ marginBottom: 12, borderTop: `1px solid ${CHROME.border}`, paddingTop: 4 }}>
+          <div
+            style={{
+              marginBottom: 12,
+              borderTop: `1px solid ${CHROME.border}`,
+              paddingTop: 4,
+            }}
+          >
             {productsTaxonomy!.map((category) => (
               <MobileProductsCategory
                 key={category.id}
@@ -598,7 +646,10 @@ function Chevron({ open }: { open: boolean }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 150ms ease' }}
+      style={{
+        transform: open ? 'rotate(180deg)' : 'none',
+        transition: 'transform 150ms ease',
+      }}
     >
       <path d="M6 9l6 6 6-6" />
     </svg>
@@ -607,7 +658,17 @@ function Chevron({ open }: { open: boolean }) {
 
 function SearchGlyph() {
   return (
-    <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width={20}
+      height={20}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.9}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.2-3.2" />
     </svg>
@@ -616,7 +677,16 @@ function SearchGlyph() {
 
 function MenuGlyph() {
   return (
-    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true">
+    <svg
+      width={22}
+      height={22}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <path d="M3 6h18M3 12h18M3 18h18" />
     </svg>
   )
@@ -624,7 +694,16 @@ function MenuGlyph() {
 
 function CloseGlyph() {
   return (
-    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true">
+    <svg
+      width={22}
+      height={22}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   )

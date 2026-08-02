@@ -7,7 +7,7 @@
     "start": "expo start --port 8082",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "test:native:maestro": "bun run ../native-ci/src/cli.ts test maestro --project-root .",
+    "test:native:maestro": "bun run ../../pkgs/native-ci/src/cli.ts test maestro --project-root .",
     "test:native": "GUI_PACKAGE_EXPORTS=true bun run test:native:maestro && GUI_PACKAGE_EXPORTS=false bun run test:native:maestro",
     "test": "./run-native-tests.sh"
   },

@@ -59,13 +59,19 @@ export type GeistSource = {
 }
 
 /** The directory the two woff2 files live in, for a given source. */
-export function geistBaseURL({ mode = 'cdn', base, version = GEIST_VERSION }: GeistSource = {}): string {
+export function geistBaseURL({
+  mode = 'cdn',
+  base,
+  version = GEIST_VERSION,
+}: GeistSource = {}): string {
   const root = base ?? (mode === 'cdn' ? GEIST_CDN_ORIGIN : '')
   return `${root.replace(/\/$/, '')}/fonts/geist/${version}`
 }
 
 /** The two files a first paint needs, in the order it needs them. */
-export function geistPreloadHrefs(source: GeistSource = {}): [sans: string, mono: string] {
+export function geistPreloadHrefs(
+  source: GeistSource = {}
+): [sans: string, mono: string] {
   const at = geistBaseURL(source)
   return [`${at}/GeistVariable.woff2`, `${at}/GeistMonoVariable.woff2`]
 }
@@ -149,7 +155,10 @@ type SizeOpts = {
 
 export const createGeistSansFont = <A extends GenericFont>(
   font: Partial<A> = {},
-  { sizeLineHeight = (size) => Math.round(size * 1.5), sizeSize = (size) => size * 1 }: SizeOpts = {}
+  {
+    sizeLineHeight = (size) => Math.round(size * 1.5),
+    sizeSize = (size) => size * 1,
+  }: SizeOpts = {}
 ): FillInFont<A, keyof typeof defaultSizes> =>
   createGeistFont(geistSansFamily, font, sizeLineHeight, sizeSize) as FillInFont<
     A,
@@ -158,7 +167,10 @@ export const createGeistSansFont = <A extends GenericFont>(
 
 export const createGeistMonoFont = <A extends GenericFont>(
   font: Partial<A> = {},
-  { sizeLineHeight = (size) => Math.round(size * 1.5), sizeSize = (size) => size * 1 }: SizeOpts = {}
+  {
+    sizeLineHeight = (size) => Math.round(size * 1.5),
+    sizeSize = (size) => size * 1,
+  }: SizeOpts = {}
 ): FillInFont<A, keyof typeof defaultSizes> =>
   createGeistFont(geistMonoFamily, font, sizeLineHeight, sizeSize) as FillInFont<
     A,

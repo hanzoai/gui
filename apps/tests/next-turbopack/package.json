@@ -18,7 +18,7 @@
     "@hanzogui/next-theme": "workspace:*",
     "next": "16.1.1",
     "react": ">=19",
-    "react-dom": "*",
+    "react-dom": ">=19",
     "react-native-web": "^0.21.0"
   },
   "devDependencies": {

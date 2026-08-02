@@ -29,7 +29,7 @@
     "expo-system-ui": "~55.0.9",
     "expo-web-browser": "~55.0.9",
     "react": ">=19",
-    "react-dom": "*",
+    "react-dom": ">=19",
     "react-native": "0.83.2",
     "react-native-reanimated": "~4.2.2",
     "react-native-safe-area-context": "~5.7.0",

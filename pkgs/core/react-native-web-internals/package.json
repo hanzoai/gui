@@ -46,7 +46,7 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react": ">=19",
-    "react-dom": "*"
+    "react-dom": ">=19"
   },
   "peerDependencies": {
     "react": ">=19",

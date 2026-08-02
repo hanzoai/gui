@@ -18,15 +18,24 @@ export declare const GEIST_VERSION = "1.7.2";
 /** The origin the fleet's fonts are served from. */
 export declare const GEIST_CDN_ORIGIN = "https://cdn.hanzo.ai";
 /**
+* The two family names, exactly as the `@font-face` rules below register them.
+*
+* Everything else here is derived from these, so a stack, a rule and a native
+* face can never name the typeface differently. Spelling the name a second time
+* anywhere is how a font silently stops resolving.
+*/
+export declare const GEIST_SANS_FAMILY: string;
+export declare const GEIST_MONO_FAMILY: string;
+/**
 * The UI face.
 *
 * Everything after Geist is a system face, and the list ends in `sans-serif`:
 * a font that fails to load must never leave the browser on its default, which
 * is a serif.
 */
-export declare const geistSans = "\"Geist\", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif";
+export declare const geistSans: string;
 /** The monospace face, ending in `monospace` for the same reason. */
-export declare const geistMono = "\"Geist Mono\", ui-monospace, SFMono-Regular, \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace";
+export declare const geistMono: string;
 /** The family names as the platform resolves them: a stack on web, a registered face on native. */
 export declare const geistSansFamily: string;
 export declare const geistMonoFamily: string;
@@ -63,6 +72,26 @@ export declare function geistPreloadHrefs(source?: GeistSource): [sans: string, 
 * fallback immediately and never goes invisible waiting on the network.
 */
 export declare function geistFontFace(source?: GeistSource): string;
+/**
+* The custom properties the fleet's stylesheets read, bound to the two stacks.
+*
+* An app that hard-codes a family in its own CSS is a second source of truth;
+* it reads these instead and inherits whatever the kit resolves.
+*/
+export declare function geistProperties(): string;
+/**
+* The whole typeface as one stylesheet: the rules that fetch the bytes and the
+* properties that point at them. Ask for this, not for one half — either alone
+* is a page that renders in a fallback while looking correctly configured.
+*
+* This package deliberately does NOT put it on a document. It cannot: it sits
+* below `@hanzogui/web` in the dependency graph, so reaching the kit's style
+* injection from here would be a cycle, and injecting imperatively instead
+* would make a FOURTH way the kit writes CSS. An app installs this once at its
+* entry — through the CSSOM under a strict `style-src`, as a `<style>`, or in
+* the HTML it serves — and everything downstream reads the properties.
+*/
+export declare function geistStylesheet(source?: GeistSource): string;
 declare const defaultSizes: {
 	readonly 1: 11;
 	readonly 2: 12;

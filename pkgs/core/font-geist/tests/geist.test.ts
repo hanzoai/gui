@@ -9,10 +9,11 @@ import {
   geistPreloadHrefs,
   geistProperties,
   geistSans,
+  geistStylesheet,
   GEIST_MONO_FAMILY,
   GEIST_SANS_FAMILY,
-  installGeist,
 } from '../src/index'
+import * as fontGeist from '../src/index'
 
 describe('the URL the bytes come from', () => {
   test('defaults to the versioned, immutable path on our own CDN', () => {
@@ -130,59 +131,31 @@ describe('a fallback is always a sans, never the browser default', () => {
   })
 })
 
-describe('installing the typeface', () => {
-  test('the properties bind to the stacks the tokens use', () => {
+describe('the stylesheet an app installs', () => {
+  test('carries both halves — the rules that fetch and the properties that point', () => {
+    // Either alone is a page that renders in a fallback while looking configured.
+    const css = geistStylesheet()
+    expect(css).toContain('@font-face')
+    expect(css).toContain(`--hz-font-sans: ${geistSans}`)
+    expect(css).toContain(`--hz-font-mono: ${geistMono}`)
+  })
+
+  test('the properties bind to the very stacks the tokens use', () => {
     expect(geistProperties()).toContain(`--hz-font-sans: ${geistSans}`)
     expect(geistProperties()).toContain(`--hz-font-mono: ${geistMono}`)
   })
 
-  test('both halves land together — rules that fetch, properties that point', () => {
-    // Either alone is a page that renders in a fallback while looking configured.
-    const doc = makeDoc()
-    expect(installGeist({}, doc as unknown as Document)).toBe(true)
-    const css = installedCSS(doc)
-    expect(css).toContain('@font-face')
-    expect(css).toContain('--hz-font-sans')
-  })
-
-  test('falls back to a style element where adoptedStyleSheets is absent', () => {
-    const doc = makeDoc({ adopted: false })
-    expect(installGeist({}, doc as unknown as Document)).toBe(true)
-    expect(installedCSS(doc)).toContain('@font-face')
-  })
-
-  test('says so rather than throwing when there is no document', () => {
-    expect(installGeist({}, undefined)).toBe(false)
-  })
-
   test('an air-gapped install serves the same layout from its own origin', () => {
-    const doc = makeDoc()
-    installGeist({ mode: 'self-hosted' }, doc as unknown as Document)
-    const css = installedCSS(doc)
+    const css = geistStylesheet({ mode: 'self-hosted' })
     expect(css).toContain(`/fonts/geist/${GEIST_VERSION}/GeistVariable.woff2`)
     expect(css).not.toContain(GEIST_CDN_ORIGIN)
   })
+
+  test('it is text, and touches no document', () => {
+    // This package sits below @hanzogui/web, so it cannot reach the kit's style
+    // injection without a cycle — and a second injector would be a fourth way
+    // the kit writes CSS. It returns a string; the app installs it.
+    expect(typeof geistStylesheet()).toBe('string')
+    expect(Object.keys(fontGeist)).not.toContain('installGeist')
+  })
 })
-
-type FakeDoc = {
-  adoptedStyleSheets?: { cssText: string }[]
-  head: { appendChild: (n: { textContent: string }) => void }
-  createElement: () => { textContent: string; setAttribute: () => void }
-  _elements: { textContent: string }[]
-}
-
-function makeDoc({ adopted = true }: { adopted?: boolean } = {}): FakeDoc {
-  const elements: { textContent: string }[] = []
-  const doc: FakeDoc = {
-    head: { appendChild: (n) => elements.push(n) },
-    createElement: () => ({ textContent: '', setAttribute: () => {} }),
-    _elements: elements,
-  }
-  if (adopted) doc.adoptedStyleSheets = []
-  return doc
-}
-
-function installedCSS(doc: FakeDoc): string {
-  const sheets = (doc.adoptedStyleSheets ?? []).map((s) => s.cssText).join('')
-  return sheets + doc._elements.map((e) => e.textContent).join('')
-}

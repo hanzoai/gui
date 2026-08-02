@@ -182,13 +182,68 @@ export const PRODUCT_BOUNDARIES: Record<string, string> = {
 /* ── Flagship products (+ Dev) ─────────────────────────────────────────────── */
 
 export const HANZO_PRODUCTS: HanzoProduct[] = [
-  { id: 'chat', label: 'Hanzo Chat', href: U.chat, verb: 'Use AI', tagline: 'Ask anything', boundary: PRODUCT_BOUNDARIES.chat, flagship: true },
-  { id: 'app', label: 'Hanzo App', href: U.app, verb: 'Build', tagline: 'Build and ship apps', boundary: PRODUCT_BOUNDARIES.app, flagship: true },
-  { id: 'team', label: 'Hanzo Team', href: U.team, verb: 'Work', tagline: 'People and AI together', boundary: PRODUCT_BOUNDARIES.team, flagship: true },
-  { id: 'studio', label: 'Hanzo Studio', href: U.studio, verb: 'Design AI', tagline: 'Models, prompts and agents', boundary: PRODUCT_BOUNDARIES.studio, flagship: true },
-  { id: 'bot', label: 'Hanzo Bot', href: U.bot, verb: 'Deploy agents', tagline: 'Publish AI anywhere', boundary: PRODUCT_BOUNDARIES.bot, flagship: true },
-  { id: 'cloud', label: 'Hanzo Cloud', href: U.cloud, verb: 'Operate', tagline: 'Run the platform', boundary: PRODUCT_BOUNDARIES.cloud, flagship: true },
-  { id: 'dev', label: 'Hanzo Dev', href: U.dev, verb: 'Build software', tagline: 'From the editor and terminal', boundary: PRODUCT_BOUNDARIES.dev },
+  {
+    id: 'chat',
+    label: 'Hanzo Chat',
+    href: U.chat,
+    verb: 'Use AI',
+    tagline: 'Ask anything',
+    boundary: PRODUCT_BOUNDARIES.chat,
+    flagship: true,
+  },
+  {
+    id: 'app',
+    label: 'Hanzo App',
+    href: U.app,
+    verb: 'Build',
+    tagline: 'Build and ship apps',
+    boundary: PRODUCT_BOUNDARIES.app,
+    flagship: true,
+  },
+  {
+    id: 'team',
+    label: 'Hanzo Team',
+    href: U.team,
+    verb: 'Work',
+    tagline: 'People and AI together',
+    boundary: PRODUCT_BOUNDARIES.team,
+    flagship: true,
+  },
+  {
+    id: 'studio',
+    label: 'Hanzo Studio',
+    href: U.studio,
+    verb: 'Design AI',
+    tagline: 'Models, prompts and agents',
+    boundary: PRODUCT_BOUNDARIES.studio,
+    flagship: true,
+  },
+  {
+    id: 'bot',
+    label: 'Hanzo Bot',
+    href: U.bot,
+    verb: 'Deploy agents',
+    tagline: 'Publish AI anywhere',
+    boundary: PRODUCT_BOUNDARIES.bot,
+    flagship: true,
+  },
+  {
+    id: 'cloud',
+    label: 'Hanzo Cloud',
+    href: U.cloud,
+    verb: 'Operate',
+    tagline: 'Run the platform',
+    boundary: PRODUCT_BOUNDARIES.cloud,
+    flagship: true,
+  },
+  {
+    id: 'dev',
+    label: 'Hanzo Dev',
+    href: U.dev,
+    verb: 'Build software',
+    tagline: 'From the editor and terminal',
+    boundary: PRODUCT_BOUNDARIES.dev,
+  },
 ]
 
 /** The six flagship products (mega-menu top group + footer PRODUCTS column). */
@@ -278,12 +333,42 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
     href: cat('AI'),
     tagline: 'Models, agents, and inference — open weights, one API.',
     items: [
-      { id: 'models', label: 'Models', href: `${U.ai}/models`, hint: 'Open-weight model garden' },
-      { id: 'agents', label: 'Agents', href: `${U.ai}/agents`, hint: 'Build & run agents' },
-      { id: 'inference', label: 'Inference', href: `${U.ai}/engine`, hint: 'Serverless model serving' },
-      { id: 'fine-tuning', label: 'Fine-tuning', href: `${U.ai}/cloud/fine-tuning`, hint: 'Tune models on your data' },
-      { id: 'embeddings', label: 'Embeddings', href: `${U.ai}/cloud/embeddings`, hint: 'Vectorize text & images' },
-      { id: 'evals', label: 'Evals', href: `${U.ai}/cloud/evals`, hint: 'Score model quality' },
+      {
+        id: 'models',
+        label: 'Models',
+        href: `${U.ai}/models`,
+        hint: 'Open-weight model garden',
+      },
+      {
+        id: 'agents',
+        label: 'Agents',
+        href: `${U.ai}/agents`,
+        hint: 'Build & run agents',
+      },
+      {
+        id: 'inference',
+        label: 'Inference',
+        href: `${U.ai}/engine`,
+        hint: 'Serverless model serving',
+      },
+      {
+        id: 'fine-tuning',
+        label: 'Fine-tuning',
+        href: `${U.ai}/cloud/fine-tuning`,
+        hint: 'Tune models on your data',
+      },
+      {
+        id: 'embeddings',
+        label: 'Embeddings',
+        href: `${U.ai}/cloud/embeddings`,
+        hint: 'Vectorize text & images',
+      },
+      {
+        id: 'evals',
+        label: 'Evals',
+        href: `${U.ai}/cloud/evals`,
+        hint: 'Score model quality',
+      },
     ],
   },
   {
@@ -292,12 +377,37 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
     href: cat('Compute'),
     tagline: 'GPUs, containers, and functions that scale to zero.',
     items: [
-      { id: 'gpus', label: 'GPUs', href: `${U.ai}/cloud/gpus`, hint: 'On-demand GPU compute' },
-      { id: 'machines', label: 'Machines', href: `${U.ai}/machines`, hint: 'Virtual machines' },
-      { id: 'containers', label: 'Containers', href: `${U.ai}/cloud/containers`, hint: 'Containers, scale to zero' },
-      { id: 'functions', label: 'Functions', href: `${U.ai}/functions`, hint: 'Event-driven functions' },
+      {
+        id: 'gpus',
+        label: 'GPUs',
+        href: `${U.ai}/cloud/gpus`,
+        hint: 'On-demand GPU compute',
+      },
+      {
+        id: 'machines',
+        label: 'Machines',
+        href: `${U.ai}/machines`,
+        hint: 'Virtual machines',
+      },
+      {
+        id: 'containers',
+        label: 'Containers',
+        href: `${U.ai}/cloud/containers`,
+        hint: 'Containers, scale to zero',
+      },
+      {
+        id: 'functions',
+        label: 'Functions',
+        href: `${U.ai}/functions`,
+        hint: 'Event-driven functions',
+      },
       { id: 'edge', label: 'Edge', href: `${U.ai}/edge`, hint: 'Compute at the edge' },
-      { id: 'jobs', label: 'Jobs', href: `${U.ai}/cloud/jobs`, hint: 'Batch & scheduled jobs' },
+      {
+        id: 'jobs',
+        label: 'Jobs',
+        href: `${U.ai}/cloud/jobs`,
+        hint: 'Batch & scheduled jobs',
+      },
     ],
   },
   {
@@ -309,8 +419,18 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
       { id: 'vector', label: 'Vector', href: `${U.ai}/vector`, hint: 'Vector search' },
       { id: 'sql', label: 'SQL', href: `${U.ai}/sql`, hint: 'Managed SQL databases' },
       { id: 'kv', label: 'KV', href: `${U.ai}/kv`, hint: 'In-memory key-value store' },
-      { id: 'storage', label: 'Object Storage', href: `${U.ai}/storage`, hint: 'S3-compatible object store' },
-      { id: 'datastore', label: 'Datastore', href: `${U.ai}/datastore`, hint: 'Wide-column datastore' },
+      {
+        id: 'storage',
+        label: 'Object Storage',
+        href: `${U.ai}/storage`,
+        hint: 'S3-compatible object store',
+      },
+      {
+        id: 'datastore',
+        label: 'Datastore',
+        href: `${U.ai}/datastore`,
+        hint: 'Wide-column datastore',
+      },
       { id: 'docdb', label: 'DocDB', href: `${U.ai}/docdb`, hint: 'Document database' },
     ],
   },
@@ -323,9 +443,24 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
       { id: 'gateway', label: 'Gateway', href: `${U.ai}/gateway`, hint: 'API gateway' },
       { id: 'vpc', label: 'VPC', href: `${U.ai}/network`, hint: 'Private networks' },
       { id: 'dns', label: 'DNS', href: `${U.ai}/dns`, hint: 'Managed DNS' },
-      { id: 'cdn', label: 'CDN', href: `${U.ai}/cloud/cdn`, hint: 'Global content delivery' },
-      { id: 'load-balancer', label: 'Load Balancer', href: `${U.ai}/ingress`, hint: 'Traffic load balancing' },
-      { id: 'service-mesh', label: 'Service Mesh', href: `${U.ai}/cloud/service-mesh`, hint: 'Service-to-service mesh' },
+      {
+        id: 'cdn',
+        label: 'CDN',
+        href: `${U.ai}/cloud/cdn`,
+        hint: 'Global content delivery',
+      },
+      {
+        id: 'load-balancer',
+        label: 'Load Balancer',
+        href: `${U.ai}/ingress`,
+        hint: 'Traffic load balancing',
+      },
+      {
+        id: 'service-mesh',
+        label: 'Service Mesh',
+        href: `${U.ai}/cloud/service-mesh`,
+        hint: 'Service-to-service mesh',
+      },
     ],
   },
   {
@@ -335,10 +470,20 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
     tagline: 'Identity, keys, and audit for the whole cloud.',
     items: [
       { id: 'iam', label: 'IAM', href: `${U.ai}/iam`, hint: 'Identity & access' },
-      { id: 'authz', label: 'Authz', href: `${U.ai}/authz`, hint: 'Fine-grained authorization' },
+      {
+        id: 'authz',
+        label: 'Authz',
+        href: `${U.ai}/authz`,
+        hint: 'Fine-grained authorization',
+      },
       { id: 'kms', label: 'KMS', href: `${U.ai}/kms`, hint: 'Key management' },
       { id: 'hsm', label: 'HSM', href: `${U.ai}/hsm`, hint: 'Hardware key security' },
-      { id: 'secrets', label: 'Secrets', href: `${U.ai}/cloud/secrets`, hint: 'Secret storage & sync' },
+      {
+        id: 'secrets',
+        label: 'Secrets',
+        href: `${U.ai}/cloud/secrets`,
+        hint: 'Secret storage & sync',
+      },
       { id: 'audit', label: 'Audit', href: `${U.ai}/cloud/audit`, hint: 'Audit logging' },
     ],
   },
@@ -350,10 +495,25 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
     items: [
       { id: 'cli', label: 'CLI', href: `${U.ai}/cli`, hint: 'Command-line control' },
       { id: 'sdks', label: 'SDKs', href: `${U.ai}/cloud/sdks`, hint: 'Client libraries' },
-      { id: 'api', label: 'API', href: `${U.ai}/cloud/api`, hint: 'Programmatic cloud API' },
-      { id: 'playground', label: 'Playground', href: `${U.ai}/playground`, hint: 'Prototype in the browser' },
+      {
+        id: 'api',
+        label: 'API',
+        href: `${U.ai}/cloud/api`,
+        hint: 'Programmatic cloud API',
+      },
+      {
+        id: 'playground',
+        label: 'Playground',
+        href: `${U.ai}/playground`,
+        hint: 'Prototype in the browser',
+      },
       { id: 'ide', label: 'IDE', href: `${U.ai}/code`, hint: 'In-browser IDE' },
-      { id: 'desktop', label: 'Desktop', href: `${U.ai}/desktop`, hint: 'Managed dev workstations' },
+      {
+        id: 'desktop',
+        label: 'Desktop',
+        href: `${U.ai}/desktop`,
+        hint: 'Managed dev workstations',
+      },
     ],
   },
   {
@@ -362,12 +522,42 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
     href: cat('Platform'),
     tagline: 'Source to production as declared state.',
     items: [
-      { id: 'projects', label: 'Projects', href: `${U.ai}/platform`, hint: 'Organize resources' },
-      { id: 'environments', label: 'Environments', href: `${U.ai}/cloud/environments`, hint: 'Deploy targets' },
-      { id: 'builds', label: 'Builds', href: `${U.ai}/cloud/builds`, hint: 'Build from source' },
-      { id: 'registry', label: 'Registry', href: `${U.ai}/registry`, hint: 'Container & artifact registry' },
-      { id: 'releases', label: 'Releases', href: `${U.ai}/cloud/releases`, hint: 'Promote & roll out' },
-      { id: 'pipelines', label: 'Pipelines', href: `${U.ai}/cloud/pipelines`, hint: 'CI/CD pipelines' },
+      {
+        id: 'projects',
+        label: 'Projects',
+        href: `${U.ai}/platform`,
+        hint: 'Organize resources',
+      },
+      {
+        id: 'environments',
+        label: 'Environments',
+        href: `${U.ai}/cloud/environments`,
+        hint: 'Deploy targets',
+      },
+      {
+        id: 'builds',
+        label: 'Builds',
+        href: `${U.ai}/cloud/builds`,
+        hint: 'Build from source',
+      },
+      {
+        id: 'registry',
+        label: 'Registry',
+        href: `${U.ai}/registry`,
+        hint: 'Container & artifact registry',
+      },
+      {
+        id: 'releases',
+        label: 'Releases',
+        href: `${U.ai}/cloud/releases`,
+        hint: 'Promote & roll out',
+      },
+      {
+        id: 'pipelines',
+        label: 'Pipelines',
+        href: `${U.ai}/cloud/pipelines`,
+        hint: 'CI/CD pipelines',
+      },
     ],
   },
   {
@@ -376,12 +566,42 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
     href: cat('Observe'),
     tagline: 'Logs, metrics, traces, and cost in one pane.',
     items: [
-      { id: 'logs', label: 'Logs', href: `${U.ai}/cloud/logs`, hint: 'Centralized logging' },
-      { id: 'metrics', label: 'Metrics', href: `${U.ai}/metrics`, hint: 'Metrics & monitoring' },
-      { id: 'traces', label: 'Traces', href: `${U.ai}/telemetry`, hint: 'Distributed tracing' },
-      { id: 'dashboards', label: 'Dashboards', href: `${U.ai}/dashboards`, hint: 'Live dashboards' },
-      { id: 'alerts', label: 'Alerts', href: `${U.ai}/sentry`, hint: 'Alerting & incidents' },
-      { id: 'cost', label: 'Cost', href: `${U.ai}/cloud/cost`, hint: 'Cost & billing insights' },
+      {
+        id: 'logs',
+        label: 'Logs',
+        href: `${U.ai}/cloud/logs`,
+        hint: 'Centralized logging',
+      },
+      {
+        id: 'metrics',
+        label: 'Metrics',
+        href: `${U.ai}/metrics`,
+        hint: 'Metrics & monitoring',
+      },
+      {
+        id: 'traces',
+        label: 'Traces',
+        href: `${U.ai}/telemetry`,
+        hint: 'Distributed tracing',
+      },
+      {
+        id: 'dashboards',
+        label: 'Dashboards',
+        href: `${U.ai}/dashboards`,
+        hint: 'Live dashboards',
+      },
+      {
+        id: 'alerts',
+        label: 'Alerts',
+        href: `${U.ai}/sentry`,
+        hint: 'Alerting & incidents',
+      },
+      {
+        id: 'cost',
+        label: 'Cost',
+        href: `${U.ai}/cloud/cost`,
+        hint: 'Cost & billing insights',
+      },
     ],
   },
   {
@@ -392,12 +612,48 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
     href: cat('Web3'),
     tagline: 'The settlement layer under every resource — powered by Lux Network.',
     items: [
-      { id: 'settlement', label: 'Settlement', href: LUX_CLOUD, hint: 'On-chain settlement', external: true },
-      { id: 'chains', label: 'Chains', href: LUX_SERVICES, hint: 'Launch L1 / L2 rollups', external: true },
-      { id: 'wallets', label: 'Wallets', href: LUX_SERVICES, hint: 'MPC custody & keys', external: true },
-      { id: 'tokens', label: 'Tokens', href: LUX_SERVICES, hint: 'Tokenization & assets', external: true },
-      { id: 'indexer', label: 'Indexer', href: LUX_SERVICES, hint: 'Explorer & chain data', external: true },
-      { id: 'attestations', label: 'Attestations', href: LUX_SERVICES, hint: 'Verifiable provenance', external: true },
+      {
+        id: 'settlement',
+        label: 'Settlement',
+        href: LUX_CLOUD,
+        hint: 'On-chain settlement',
+        external: true,
+      },
+      {
+        id: 'chains',
+        label: 'Chains',
+        href: LUX_SERVICES,
+        hint: 'Launch L1 / L2 rollups',
+        external: true,
+      },
+      {
+        id: 'wallets',
+        label: 'Wallets',
+        href: LUX_SERVICES,
+        hint: 'MPC custody & keys',
+        external: true,
+      },
+      {
+        id: 'tokens',
+        label: 'Tokens',
+        href: LUX_SERVICES,
+        hint: 'Tokenization & assets',
+        external: true,
+      },
+      {
+        id: 'indexer',
+        label: 'Indexer',
+        href: LUX_SERVICES,
+        hint: 'Explorer & chain data',
+        external: true,
+      },
+      {
+        id: 'attestations',
+        label: 'Attestations',
+        href: LUX_SERVICES,
+        hint: 'Verifiable provenance',
+        external: true,
+      },
     ],
   },
   {
@@ -408,7 +664,12 @@ export const HANZO_PRODUCT_CATEGORIES: ProductCategory[] = [
     items: [
       { id: 'chat', label: 'Chat', href: `${U.ai}/chat`, hint: 'Conversational AI app' },
       { id: 'bot', label: 'Bot', href: `${U.ai}/bot`, hint: 'Multi-agent platform' },
-      { id: 'search', label: 'Search', href: `${U.ai}/search`, hint: 'AI-powered search' },
+      {
+        id: 'search',
+        label: 'Search',
+        href: `${U.ai}/search`,
+        hint: 'AI-powered search',
+      },
       { id: 'crawl', label: 'Crawl', href: `${U.ai}/crawl`, hint: 'Web crawler' },
       { id: 'studio', label: 'Studio', href: `${U.ai}/studio`, hint: 'Creative studio' },
       { id: 'console', label: 'Console', href: `${U.ai}/console`, hint: 'Cloud console' },
@@ -696,12 +957,15 @@ export function getSurface(id?: string): HanzoSurface | undefined {
  */
 export function findSurfaceByHost(host?: string): HanzoSurface {
   if (!host) return DEFAULT_SURFACE
-  const h = host.toLowerCase().replace(/^www\./, '').replace(/:\d+$/, '')
+  const h = host
+    .toLowerCase()
+    .replace(/^www\./, '')
+    .replace(/:\d+$/, '')
   const exact = HANZO_SURFACES.find((s) => s.host === h)
   if (exact) return exact
-  const suffix = HANZO_SURFACES.filter((s) => h === s.host || h.endsWith(`.${s.host}`)).sort(
-    (a, b) => b.host.length - a.host.length,
-  )[0]
+  const suffix = HANZO_SURFACES.filter(
+    (s) => h === s.host || h.endsWith(`.${s.host}`)
+  ).sort((a, b) => b.host.length - a.host.length)[0]
   return suffix ?? DEFAULT_SURFACE
 }
 
@@ -799,7 +1063,14 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     kind: 'personal',
     rank: 0,
     priceMonthly: 0,
-    limits: { requestsPerMinute: 60, tokensPerMinute: 100_000, includedCreditUsd: 5, includedCloudCredits: 0, minSeats: 1, maxMembers: 1 },
+    limits: {
+      requestsPerMinute: 60,
+      tokensPerMinute: 100_000,
+      includedCreditUsd: 5,
+      includedCloudCredits: 0,
+      minSeats: 1,
+      maxMembers: 1,
+    },
   },
   {
     slug: 'pro',
@@ -808,7 +1079,14 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     kind: 'personal',
     rank: 1,
     priceMonthly: 2_000,
-    limits: { requestsPerMinute: 500, tokensPerMinute: 1_000_000, includedCreditUsd: 20, includedCloudCredits: 5, minSeats: 1, maxMembers: 1 },
+    limits: {
+      requestsPerMinute: 500,
+      tokensPerMinute: 1_000_000,
+      includedCreditUsd: 20,
+      includedCloudCredits: 5,
+      minSeats: 1,
+      maxMembers: 1,
+    },
   },
   {
     slug: 'plus',
@@ -817,7 +1095,14 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     kind: 'personal',
     rank: 2,
     priceMonthly: 10_000,
-    limits: { requestsPerMinute: 2_500, tokensPerMinute: 5_000_000, includedCreditUsd: 100, includedCloudCredits: 25, minSeats: 1, maxMembers: 1 },
+    limits: {
+      requestsPerMinute: 2_500,
+      tokensPerMinute: 5_000_000,
+      includedCreditUsd: 100,
+      includedCloudCredits: 25,
+      minSeats: 1,
+      maxMembers: 1,
+    },
   },
   {
     slug: 'max',
@@ -826,7 +1111,14 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     kind: 'personal',
     rank: 3,
     priceMonthly: 20_000,
-    limits: { requestsPerMinute: 5_000, tokensPerMinute: 10_000_000, includedCreditUsd: 200, includedCloudCredits: 100, minSeats: 1, maxMembers: 1 },
+    limits: {
+      requestsPerMinute: 5_000,
+      tokensPerMinute: 10_000_000,
+      includedCreditUsd: 200,
+      includedCloudCredits: 100,
+      minSeats: 1,
+      maxMembers: 1,
+    },
   },
   {
     slug: 'team',
@@ -836,7 +1128,14 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     rank: 4,
     priceMonthly: 2_500,
     perSeat: true,
-    limits: { requestsPerMinute: 500, tokensPerMinute: 1_000_000, includedCreditUsd: 0, includedCloudCredits: 100, minSeats: 2, maxMembers: 100 },
+    limits: {
+      requestsPerMinute: 500,
+      tokensPerMinute: 1_000_000,
+      includedCreditUsd: 0,
+      includedCloudCredits: 100,
+      minSeats: 2,
+      maxMembers: 100,
+    },
   },
   {
     slug: 'team-max',
@@ -846,7 +1145,14 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     rank: 5,
     priceMonthly: 22_500,
     perSeat: true,
-    limits: { requestsPerMinute: 5_000, tokensPerMinute: 10_000_000, includedCreditUsd: 0, includedCloudCredits: 100, minSeats: 2, maxMembers: 100 },
+    limits: {
+      requestsPerMinute: 5_000,
+      tokensPerMinute: 10_000_000,
+      includedCreditUsd: 0,
+      includedCloudCredits: 100,
+      minSeats: 2,
+      maxMembers: 100,
+    },
   },
   {
     slug: 'enterprise',
@@ -856,7 +1162,14 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     rank: 6,
     priceMonthly: 999_900,
     contactSales: true,
-    limits: { requestsPerMinute: 5_000, tokensPerMinute: 10_000_000, includedCreditUsd: 1_000, includedCloudCredits: 100, minSeats: 2, maxMembers: UNLIMITED },
+    limits: {
+      requestsPerMinute: 5_000,
+      tokensPerMinute: 10_000_000,
+      includedCreditUsd: 1_000,
+      includedCloudCredits: 100,
+      minSeats: 2,
+      maxMembers: UNLIMITED,
+    },
   },
   {
     slug: 'custom',
@@ -866,7 +1179,14 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     rank: 7,
     priceMonthly: null,
     contactSales: true,
-    limits: { requestsPerMinute: UNLIMITED, tokensPerMinute: UNLIMITED, includedCreditUsd: 0, includedCloudCredits: 0, minSeats: 2, maxMembers: UNLIMITED },
+    limits: {
+      requestsPerMinute: UNLIMITED,
+      tokensPerMinute: UNLIMITED,
+      includedCreditUsd: 0,
+      includedCloudCredits: 0,
+      minSeats: 2,
+      maxMembers: UNLIMITED,
+    },
   },
 ]
 

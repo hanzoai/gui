@@ -52,7 +52,7 @@ function requiredTier(appId: string): { slug: string; name: string } | null {
   const slug = (APP_ENTITLEMENTS as Record<string, string>)[appId]
   if (!slug) return null
   const plan = (HANZO_PLANS as ReadonlyArray<{ slug: string; name?: string }>).find(
-    (p) => p.slug === slug,
+    (p) => p.slug === slug
   )
   return { slug, name: plan?.name ?? slug }
 }
@@ -104,7 +104,12 @@ export function HanzoAccessGate({
       <div
         data-hanzo-shell=""
         aria-busy="true"
-        style={{ minHeight: 120, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        style={{
+          minHeight: 120,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       />
     )
   }
@@ -157,7 +162,8 @@ export function HanzoAccessGate({
         <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, lineHeight: 1.4 }}>
           {req ? (
             <>
-              Included in <strong style={{ color: CHROME.fg, fontWeight: 600 }}>{req.name}</strong>
+              Included in{' '}
+              <strong style={{ color: CHROME.fg, fontWeight: 600 }}>{req.name}</strong>
             </>
           ) : (
             'Upgrade your plan to unlock this.'

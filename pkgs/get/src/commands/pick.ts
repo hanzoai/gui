@@ -19,10 +19,10 @@ export async function pick(): Promise<void> {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 
   try {
-    const query = (await rl.question(bold('Search recipes') + ' (empty = show all): ')).trim()
-    const hits = query
-      ? fuse.search(query).map((h) => h.item)
-      : recipes
+    const query = (
+      await rl.question(bold('Search recipes') + ' (empty = show all): ')
+    ).trim()
+    const hits = query ? fuse.search(query).map((h) => h.item) : recipes
     if (hits.length === 0) {
       process.stdout.write(dim('No matches.\n'))
       return

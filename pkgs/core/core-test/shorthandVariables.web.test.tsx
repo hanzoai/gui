@@ -1,13 +1,7 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
-import {
-  View,
-  createGui,
-  styled,
-  StyleObjectValue,
-  StyleObjectRules,
-} from '../web/src'
+import { View, createGui, styled, StyleObjectValue, StyleObjectRules } from '../web/src'
 import { simplifiedGetSplitStyles } from './utils'
 
 beforeAll(() => {

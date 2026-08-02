@@ -2156,12 +2156,7 @@ export function createExtractor(
                 hasImportedTheme = true
                 programPath.node.body.push(
                   t.importDeclaration(
-                    [
-                      t.importSpecifier(
-                        t.identifier('_GuiTheme'),
-                        t.identifier('Theme')
-                      ),
-                    ],
+                    [t.importSpecifier(t.identifier('_GuiTheme'), t.identifier('Theme'))],
                     t.stringLiteral('@hanzogui/web')
                   )
                 )

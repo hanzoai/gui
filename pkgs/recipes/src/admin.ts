@@ -13,7 +13,11 @@ export type AdminPasswordAuth = {
 }
 
 /** Exchanges admin email+password for a Base session token. */
-export async function authAdmin({ baseUrl, email, password }: AdminPasswordAuth): Promise<string> {
+export async function authAdmin({
+  baseUrl,
+  email,
+  password,
+}: AdminPasswordAuth): Promise<string> {
   const url = `${resolveBaseUrl(baseUrl)}/v1/base/admins/auth-with-password`
   const res = await fetch(url, {
     method: 'POST',
@@ -31,7 +35,9 @@ export async function authAdmin({ baseUrl, email, password }: AdminPasswordAuth)
 export async function ensureCollection(auth: AdminAuth): Promise<'created' | 'existed'> {
   const base = resolveBaseUrl(auth.baseUrl)
   const headers = { Authorization: auth.token, 'Content-Type': 'application/json' }
-  const probe = await fetch(`${base}/v1/base/collections/${RECIPES_COLLECTION}`, { headers })
+  const probe = await fetch(`${base}/v1/base/collections/${RECIPES_COLLECTION}`, {
+    headers,
+  })
   if (probe.ok) return 'existed'
 
   const schema = {
@@ -46,7 +52,9 @@ export async function ensureCollection(auth: AdminAuth): Promise<'created' | 'ex
       { name: 'recipeDeps', type: 'json', required: false, options: {} },
       { name: 'files', type: 'json', required: true, options: {} },
     ],
-    indexes: [`CREATE UNIQUE INDEX idx_${RECIPES_COLLECTION}_slug ON ${RECIPES_COLLECTION} (slug)`],
+    indexes: [
+      `CREATE UNIQUE INDEX idx_${RECIPES_COLLECTION}_slug ON ${RECIPES_COLLECTION} (slug)`,
+    ],
     listRule: '',
     viewRule: '',
     createRule: null,
@@ -90,7 +98,8 @@ export async function upsertRecipe(
       `${base}/v1/base/collections/${RECIPES_COLLECTION}/records/${existing}`,
       { method: 'PATCH', headers, body }
     )
-    if (!res.ok) throw new Error(`PATCH ${recipe.slug}: ${res.status} ${await res.text()}`)
+    if (!res.ok)
+      throw new Error(`PATCH ${recipe.slug}: ${res.status} ${await res.text()}`)
     return 'updated'
   }
   const res = await fetch(`${base}/v1/base/collections/${RECIPES_COLLECTION}/records`, {

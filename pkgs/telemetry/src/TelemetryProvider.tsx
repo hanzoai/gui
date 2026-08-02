@@ -122,7 +122,7 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
       // Rebuilding on a consent change is the point: `enabled` is baked into the
       // client, and a fresh one collects (or refuses to collect) accordingly.
       consentEpoch,
-    ],
+    ]
   )
 
   // Module-scope `track()` and this tree share one client and one stream.

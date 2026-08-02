@@ -264,10 +264,7 @@ async function getReactNativeVersion(): Promise<string> {
   return kitchenSinkJson.dependencies['react-native'] || '^0.79.2'
 }
 
-async function fixGuiDependencies(
-  pkg: Package,
-  report: MissingDepReport
-): Promise<void> {
+async function fixGuiDependencies(pkg: Package, report: MissingDepReport): Promise<void> {
   const jsonPath = join(process.cwd(), pkg.location, 'package.json')
   const packageJson = JSON.parse(await readFile(jsonPath, { encoding: 'utf-8' }))
 

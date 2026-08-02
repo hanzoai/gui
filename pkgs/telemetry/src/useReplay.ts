@@ -22,10 +22,11 @@ type IdleWindow = Window & {
 export function useReplay(
   telemetry: Telemetry,
   active: boolean,
-  redaction?: RedactionPolicy,
+  redaction?: RedactionPolicy
 ): void {
   useEffect(() => {
-    if (!active || typeof window === 'undefined' || typeof document === 'undefined') return
+    if (!active || typeof window === 'undefined' || typeof document === 'undefined')
+      return
 
     let cancelled = false
     let stop: (() => void) | undefined
@@ -41,7 +42,7 @@ export function useReplay(
               if (interaction.kind === 'nav') return
               telemetry.track(interaction.name, wireProps(interaction))
             },
-            { nav: false, redaction },
+            { nav: false, redaction }
           )
           stop = () => engine.stop()
         })

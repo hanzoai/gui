@@ -31,12 +31,25 @@ import {
   type HanzoPlanTierDef,
 } from './hanzo-registry'
 import { normalizeTier, rankOf } from './entitlements'
-import { useEntitlement, type Entitlement, type UseEntitlementOptions } from './useEntitlement'
+import {
+  useEntitlement,
+  type Entitlement,
+  type UseEntitlementOptions,
+} from './useEntitlement'
 import { findHanzoApp, type HanzoApp } from './hanzo-apps'
 import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, R } from './theme'
 import { useShellStyles } from './shellStyles'
 
-const { panel: PANEL_BG, border: BORDER, borderSoft: BORDER_SOFT, fg: FG, fgMuted: FG_MUTED, fgDim: FG_DIM, hover: HOVER_BG, font: FONT } = CHROME
+const {
+  panel: PANEL_BG,
+  border: BORDER,
+  borderSoft: BORDER_SOFT,
+  fg: FG,
+  fgMuted: FG_MUTED,
+  fgDim: FG_DIM,
+  hover: HOVER_BG,
+  font: FONT,
+} = CHROME
 
 /* ── Kind segments (the axis toggle) ───────────────────────────────────────── */
 
@@ -109,11 +122,13 @@ function limitLines(plan: HanzoPlanTierDef): string[] {
     `${compact(l.requestsPerMinute)} requests/min${perSeat}`,
     `${compact(l.tokensPerMinute)} tokens/min${perSeat}`,
   ]
-  if (l.includedCreditUsd > 0) lines.push(`$${l.includedCreditUsd.toLocaleString()}/mo included usage`)
+  if (l.includedCreditUsd > 0)
+    lines.push(`$${l.includedCreditUsd.toLocaleString()}/mo included usage`)
   if (l.includedCloudCredits > 0)
     lines.push(`$${l.includedCloudCredits.toLocaleString()}${perSeat}/mo cloud credits`)
   if (l.maxMembers >= UNLIMITED) lines.push('Unlimited members')
-  else if (plan.kind !== 'personal') lines.push(`Up to ${l.maxMembers.toLocaleString()} members`)
+  else if (plan.kind !== 'personal')
+    lines.push(`Up to ${l.maxMembers.toLocaleString()} members`)
   if (l.minSeats > 1) lines.push(`From ${l.minSeats} seats`)
   return lines
 }
@@ -129,7 +144,10 @@ function appsIntroducedBy(slug: HanzoPlanTier): HanzoApp[] {
 }
 
 /** The highest-rank plan of the SAME kind ranked strictly below `plan` (its ladder predecessor). */
-function prevSameKind(plan: HanzoPlanTierDef, plans: HanzoPlanTierDef[]): HanzoPlanTierDef | undefined {
+function prevSameKind(
+  plan: HanzoPlanTierDef,
+  plans: HanzoPlanTierDef[]
+): HanzoPlanTierDef | undefined {
   return plans
     .filter((p) => p.kind === plan.kind && p.rank < plan.rank)
     .sort((a, b) => b.rank - a.rank)[0]
@@ -155,7 +173,9 @@ export function HanzoPlans({
 
   // Always call the hook (rules of hooks); disable its network read when an
   // entitlement is injected so we don't fetch needlessly.
-  const auto = useEntitlement(entitlement ? { ...entitlementOptions, enabled: false } : entitlementOptions)
+  const auto = useEntitlement(
+    entitlement ? { ...entitlementOptions, enabled: false } : entitlementOptions
+  )
   const ent = entitlement ?? auto
 
   // Only a REAL held subscription (`state === 'tier'`) marks a "current" plan — a
@@ -176,11 +196,11 @@ export function HanzoPlans({
   // Which axis segments actually exist, in canonical order.
   const kinds = useMemo(
     () => KIND_ORDER.filter((k) => plans.some((p) => p.kind === k)),
-    [plans],
+    [plans]
   )
 
   const [activeKind, setActiveKind] = useState<HanzoPlanKind>(
-    defaultKind ?? getPlanTier(currentSlug)?.kind ?? 'personal',
+    defaultKind ?? getPlanTier(currentSlug)?.kind ?? 'personal'
   )
   // Snap to the viewer's own axis once (and only once) their held tier resolves —
   // unless they've already switched segments manually.
@@ -203,7 +223,7 @@ export function HanzoPlans({
 
   const shown = useMemo(
     () => ascending.filter((p) => p.kind === activeKind),
-    [ascending, activeKind],
+    [ascending, activeKind]
   )
 
   return (
@@ -231,11 +251,27 @@ export function HanzoPlans({
         }}
       >
         <div style={{ minWidth: 0, flex: '1 1 320px' }}>
-          <h2 style={{ margin: 0, fontSize: FS['2xl'], fontWeight: 800, letterSpacing: -0.4, color: FG }}>
+          <h2
+            style={{
+              margin: 0,
+              fontSize: FS['2xl'],
+              fontWeight: 800,
+              letterSpacing: -0.4,
+              color: FG,
+            }}
+          >
             {heading}
           </h2>
           {subheading ? (
-            <p style={{ margin: '8px 0 0', fontSize: FS.base, lineHeight: 1.5, color: FG_MUTED, maxWidth: 560 }}>
+            <p
+              style={{
+                margin: '8px 0 0',
+                fontSize: FS.base,
+                lineHeight: 1.5,
+                color: FG_MUTED,
+                maxWidth: 560,
+              }}
+            >
               {subheading}
             </p>
           ) : null}
@@ -276,10 +312,12 @@ export function HanzoPlans({
                     transition: 'background 120ms ease, color 120ms ease',
                   }}
                   onMouseEnter={(e) => {
-                    if (!active) (e.currentTarget as HTMLElement).style.background = HOVER_BG
+                    if (!active)
+                      (e.currentTarget as HTMLElement).style.background = HOVER_BG
                   }}
                   onMouseLeave={(e) => {
-                    if (!active) (e.currentTarget as HTMLElement).style.background = 'transparent'
+                    if (!active)
+                      (e.currentTarget as HTMLElement).style.background = 'transparent'
                   }}
                 >
                   {KIND_LABEL[k]}
@@ -411,17 +449,33 @@ function PlanCard({
       {/* Name + tagline */}
       <div style={{ marginBottom: 14, paddingRight: 84 }}>
         <div style={{ fontSize: FS.lg, fontWeight: 700, color: FG }}>{plan.name}</div>
-        <div style={{ marginTop: 4, fontSize: FS.sm, lineHeight: 1.4, color: FG_DIM, minHeight: 34 }}>
+        <div
+          style={{
+            marginTop: 4,
+            fontSize: FS.sm,
+            lineHeight: 1.4,
+            color: FG_DIM,
+            minHeight: 34,
+          }}
+        >
           {plan.tagline}
         </div>
       </div>
 
       {/* Price */}
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 4 }}>
-        <span style={{ fontSize: FS['2xl'], fontWeight: 800, letterSpacing: -0.6, color: FG }}>{priceBig}</span>
-        {priceSuffix ? <span style={{ fontSize: FS.sm, color: FG_MUTED }}>{priceSuffix}</span> : null}
+        <span
+          style={{ fontSize: FS['2xl'], fontWeight: 800, letterSpacing: -0.6, color: FG }}
+        >
+          {priceBig}
+        </span>
+        {priceSuffix ? (
+          <span style={{ fontSize: FS.sm, color: FG_MUTED }}>{priceSuffix}</span>
+        ) : null}
       </div>
-      <div style={{ minHeight: 16, marginBottom: 16, fontSize: FS.xs, color: FG_DIM }}>{priceNote}</div>
+      <div style={{ minHeight: 16, marginBottom: 16, fontSize: FS.xs, color: FG_DIM }}>
+        {priceNote}
+      </div>
 
       {/* CTA */}
       <PlanCTA
@@ -434,7 +488,9 @@ function PlanCard({
 
       {/* Apps unlocked */}
       <div style={{ marginTop: 18 }}>
-        <div style={sectionLabelStyle}>{prev ? `Everything in ${prev.name}, plus` : 'Included apps'}</div>
+        <div style={sectionLabelStyle}>
+          {prev ? `Everything in ${prev.name}, plus` : 'Included apps'}
+        </div>
         {introduced.length > 0 ? (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
             {introduced.map((app) => (
@@ -443,7 +499,9 @@ function PlanCard({
           </div>
         ) : (
           <div style={{ marginTop: 8, fontSize: FS.sm, color: FG_DIM }}>
-            {prev ? 'All the same apps, with more capacity.' : 'The full developer surface.'}
+            {prev
+              ? 'All the same apps, with more capacity.'
+              : 'The full developer surface.'}
           </div>
         )}
       </div>
@@ -451,9 +509,27 @@ function PlanCard({
       {/* Limits */}
       <div style={{ marginTop: 16 }}>
         <div style={sectionLabelStyle}>Limits & usage</div>
-        <ul style={{ listStyle: 'none', margin: '8px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 7 }}>
+        <ul
+          style={{
+            listStyle: 'none',
+            margin: '8px 0 0',
+            padding: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 7,
+          }}
+        >
           {limits.map((line) => (
-            <li key={line} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: FS.sm, color: FG_MUTED }}>
+            <li
+              key={line}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 8,
+                fontSize: FS.sm,
+                color: FG_MUTED,
+              }}
+            >
               <CheckIcon />
               <span style={{ lineHeight: 1.35 }}>{line}</span>
             </li>
@@ -506,7 +582,12 @@ function PlanCTA({
     return (
       <span
         aria-disabled="true"
-        style={{ ...base, color: FG_DIM, background: 'transparent', border: `1px solid ${BORDER_SOFT}` }}
+        style={{
+          ...base,
+          color: FG_DIM,
+          background: 'transparent',
+          border: `1px solid ${BORDER_SOFT}`,
+        }}
       >
         {label}
       </span>

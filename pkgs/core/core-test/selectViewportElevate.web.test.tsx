@@ -4,12 +4,7 @@ import { SelectViewportFrame } from '../../ui/select/src/SelectViewport'
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
-import {
-  StyleObjectProperty,
-  StyleObjectValue,
-  createGui,
-  getConfig,
-} from '../web/src'
+import { StyleObjectProperty, StyleObjectValue, createGui, getConfig } from '../web/src'
 import { simplifiedGetSplitStyles } from './utils'
 
 let lightTheme: any

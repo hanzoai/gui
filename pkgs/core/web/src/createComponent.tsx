@@ -1899,13 +1899,7 @@ export function createComponent<
     component.displayName = staticConfig.componentName
   }
 
-  type ComponentType = GuiComponent<
-    ComponentPropTypes,
-    Ref,
-    BaseProps,
-    BaseStyles,
-    {}
-  >
+  type ComponentType = GuiComponent<ComponentPropTypes, Ref, BaseProps, BaseStyles, {}>
 
   let res: ComponentType = component as any
 

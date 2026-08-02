@@ -15,7 +15,9 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose()
     }
-    const escape = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
     document.addEventListener('mousedown', handler)
     document.addEventListener('keydown', escape)
     return () => {
@@ -42,9 +44,11 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
       style={{ top: y, left: x }}
     >
       <div className="border-b border-white/[0.06] px-3 pb-2 pt-1">
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30">Hanzo Brand</p>
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
+          Hanzo Brand
+        </p>
       </div>
-      {items.map((item) => (
+      {items.map((item) =>
         item.action === 'copy-svg' ? (
           <button
             key="copy"
@@ -71,7 +75,7 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
             {item.label}
           </a>
         )
-      ))}
+      )}
     </div>
   )
 }
@@ -101,19 +105,25 @@ export function TenantMark({
   const [menu, setMenu] = useState<{ x: number; y: number } | null>(null)
   const [hovered, setHovered] = useState(false)
 
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
-    if (!brandMenu) return
-    e.preventDefault()
-    setMenu({ x: e.clientX, y: e.clientY })
-  }, [brandMenu])
+  const handleContextMenu = useCallback(
+    (e: React.MouseEvent) => {
+      if (!brandMenu) return
+      e.preventDefault()
+      setMenu({ x: e.clientX, y: e.clientY })
+    },
+    [brandMenu]
+  )
 
-  const style: React.CSSProperties = animate ? {
-    transition: 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease',
-    transform: hovered
-      ? 'scale(1.12) perspective(80px) rotateY(-6deg)'
-      : 'scale(1) perspective(80px) rotateY(0deg)',
-    transformOrigin: 'center center',
-  } : {}
+  const style: React.CSSProperties = animate
+    ? {
+        transition:
+          'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease',
+        transform: hovered
+          ? 'scale(1.12) perspective(80px) rotateY(-6deg)'
+          : 'scale(1) perspective(80px) rotateY(0deg)',
+        transformOrigin: 'center center',
+      }
+    : {}
 
   return (
     <>
@@ -131,20 +141,17 @@ export function TenantMark({
       >
         <path d="M22.21 67V44.6369H0V67H22.21Z" fill="#ffffff" />
         <path d="M0 44.6369L22.21 46.8285V44.6369H0Z" fill="#DDDDDD" />
-        <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" fill="#ffffff" />
+        <path
+          d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z"
+          fill="#ffffff"
+        />
         <path d="M22.21 0H0V22.3184H22.21V0Z" fill="#ffffff" />
         <path d="M66.7198 0H44.5098V22.3184H66.7198V0Z" fill="#ffffff" />
         <path d="M66.6753 22.3185L44.5098 20.0822V22.3185H66.6753Z" fill="#DDDDDD" />
         <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" fill="#ffffff" />
       </svg>
 
-      {menu && (
-        <BrandContextMenu
-          x={menu.x}
-          y={menu.y}
-          onClose={() => setMenu(null)}
-        />
-      )}
+      {menu && <BrandContextMenu x={menu.x} y={menu.y} onClose={() => setMenu(null)} />}
     </>
   )
 }

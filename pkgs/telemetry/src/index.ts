@@ -12,7 +12,13 @@
 // Honors Do-Not-Track and Global Privacy Control, consent-aware, SSR-safe,
 // side-effect-free on import, and fail-soft: it can never break the host app.
 
-export { TelemetryProvider, TelemetryBoundary, useTelemetry, useTrack, useConsent } from './TelemetryProvider.js'
+export {
+  TelemetryProvider,
+  TelemetryBoundary,
+  useTelemetry,
+  useTrack,
+  useConsent,
+} from './TelemetryProvider.js'
 export type { TelemetryProviderProps } from './TelemetryProvider.js'
 
 export {
@@ -31,7 +37,13 @@ export {
 } from './telemetry.js'
 export type { ResolvedTelemetry } from './telemetry.js'
 
-export { doNotTrack, getConsent, setConsent, onConsentChange, resolveEnabled } from './consent.js'
+export {
+  doNotTrack,
+  getConsent,
+  setConsent,
+  onConsentChange,
+  resolveEnabled,
+} from './consent.js'
 
 export { productFromHost, resolveEnv, DEFAULT_HOST } from './env.js'
 export type { ResolvedEnv, TelemetryGlobal } from './env.js'

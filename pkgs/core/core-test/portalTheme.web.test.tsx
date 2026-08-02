@@ -1,13 +1,7 @@
 process.env.GUI_TARGET = 'web'
 
 import { getDefaultGuiConfig } from '@hanzogui/config-default'
-import {
-  Theme,
-  GuiProvider,
-  createGui,
-  useTheme,
-  useThemeName,
-} from '@hanzogui/core'
+import { Theme, GuiProvider, createGui, useTheme, useThemeName } from '@hanzogui/core'
 import { act, render } from '@testing-library/react'
 import { memo, useState } from 'react'
 import { describe, expect, test } from 'vitest'

@@ -20,7 +20,18 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoAppLauncher } from './HanzoAppLauncher'
 import { HanzoMark } from './mark'
 import { HANZO_APPS, type HanzoApp } from './hanzo-apps'
-import { ACCENT, ACCENT_TINT, CHROME, FS, PANEL, R, Z, control, ghostHover, row } from './theme'
+import {
+  ACCENT,
+  ACCENT_TINT,
+  CHROME,
+  FS,
+  PANEL,
+  R,
+  Z,
+  control,
+  ghostHover,
+  row,
+} from './theme'
 import { useShellStyles } from './shellStyles'
 
 export interface HanzoUser {
@@ -202,15 +213,20 @@ function AccountMenu({
     }
   }, [open])
 
-  const go = useCallback((action: HanzoAppBarAction | { href?: string; onClick?: () => void }) => {
-    setOpen(false)
-    if (action.onClick) action.onClick()
-    else if (action.href) window.location.href = action.href
-  }, [])
+  const go = useCallback(
+    (action: HanzoAppBarAction | { href?: string; onClick?: () => void }) => {
+      setOpen(false)
+      if (action.onClick) action.onClick()
+      else if (action.href) window.location.href = action.href
+    },
+    []
+  )
 
   const rows: HanzoAppBarAction[] = []
-  if (accountHref || onProfileClick) rows.push({ label: 'Profile', href: accountHref, onClick: onProfileClick })
-  if (settingsHref || onSettingsClick) rows.push({ label: 'Settings', href: settingsHref, onClick: onSettingsClick })
+  if (accountHref || onProfileClick)
+    rows.push({ label: 'Profile', href: accountHref, onClick: onProfileClick })
+  if (settingsHref || onSettingsClick)
+    rows.push({ label: 'Settings', href: settingsHref, onClick: onSettingsClick })
   if (accountItems) rows.push(...accountItems)
 
   const name = user?.name?.trim() || 'Account'
@@ -224,7 +240,12 @@ function AccountMenu({
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Account and settings"
-        style={{ ...control(open), gap: 8, padding: user ? '0 6px' : 0, width: user ? undefined : 34 }}
+        style={{
+          ...control(open),
+          gap: 8,
+          padding: user ? '0 6px' : 0,
+          width: user ? undefined : 34,
+        }}
         {...ghostHover(open)}
       >
         <Avatar user={user} />
@@ -244,14 +265,38 @@ function AccountMenu({
             padding: 8,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 8px 10px' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '6px 8px 10px',
+            }}
+          >
             <Avatar user={user} size={34} />
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: FS.sm, fontWeight: 700, color: CHROME.fg, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <div
+                style={{
+                  fontSize: FS.sm,
+                  fontWeight: 700,
+                  color: CHROME.fg,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
                 {name}
               </div>
               {email ? (
-                <div style={{ fontSize: FS.xs, color: CHROME.fgDim, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div
+                  style={{
+                    fontSize: FS.xs,
+                    color: CHROME.fgDim,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
                   {email}
                 </div>
               ) : null}
@@ -280,7 +325,17 @@ function MenuRow({ label, onClick }: { label: string; onClick: () => void }) {
       type="button"
       role="menuitem"
       onClick={onClick}
-      style={{ ...row(), display: 'flex', alignItems: 'center', width: '100%', margin: 0, padding: '8px 10px', border: 'none', fontFamily: 'inherit', textAlign: 'left' }}
+      style={{
+        ...row(),
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        margin: 0,
+        padding: '8px 10px',
+        border: 'none',
+        fontFamily: 'inherit',
+        textAlign: 'left',
+      }}
       {...ghostHover()}
     >
       {label}
@@ -295,7 +350,14 @@ function Avatar({ user, size = 26 }: { user?: HanzoUser; size?: number }) {
       <img
         src={user.avatarUrl}
         alt=""
-        style={{ width: size, height: size, borderRadius: R.pill, objectFit: 'cover', display: 'block', flexShrink: 0 }}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: R.pill,
+          objectFit: 'cover',
+          display: 'block',
+          flexShrink: 0,
+        }}
       />
     )
   }
@@ -330,7 +392,17 @@ function Avatar({ user, size = 26 }: { user?: HanzoUser; size?: number }) {
   }
   // No user → a neutral account glyph.
   return (
-    <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width={20}
+      height={20}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <circle cx="12" cy="8" r="4" />
       <path d="M4 21a8 8 0 0 1 16 0" />
     </svg>

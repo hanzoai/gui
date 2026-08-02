@@ -1,6 +1,14 @@
 import { ExternalLink } from '@hanzogui/lucide-icons-2'
 import React from 'react'
-import { H2, Paragraph, SizableText, Text, VisuallyHidden, XStack, YStack } from '@hanzo/gui'
+import {
+  H2,
+  Paragraph,
+  SizableText,
+  Text,
+  VisuallyHidden,
+  XStack,
+  YStack,
+} from '@hanzo/gui'
 import { Features } from '~/components/Features'
 import { Link } from '~/components/Link'
 import { FrontmatterContext } from './FrontmatterContext'
@@ -82,10 +90,7 @@ export function Highlights({ features, disableLinks, disableTitle, large }: any)
                 </YStack>
               </XStack>
             </Link>
-            <Link
-              href="https://github.com/hanzoai/gui/issues/new/choose"
-              target="_blank"
-            >
+            <Link href="https://github.com/hanzoai/gui/issues/new/choose" target="_blank">
               <XStack items="center" gap="$1">
                 <SizableText size="$3">Report an issue</SizableText>
                 <YStack opacity={0.5} ml="$0.5">

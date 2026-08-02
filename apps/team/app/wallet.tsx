@@ -60,11 +60,19 @@ export default function WalletScreen() {
     )
   }
 
-  const balance = wallet != null ? `$${wallet.balanceUsd.toFixed(2)}` : state === 'error' ? '—' : '…'
+  const balance =
+    wallet != null ? `$${wallet.balanceUsd.toFixed(2)}` : state === 'error' ? '—' : '…'
 
   return (
     <YStack p="$4" gap="$4" maxW={560} width="100%" self="center">
-      <YStack bg="$color1" borderWidth={1} borderColor="$borderColor" rounded="$6" p="$4" gap="$1">
+      <YStack
+        bg="$color1"
+        borderWidth={1}
+        borderColor="$borderColor"
+        rounded="$6"
+        p="$4"
+        gap="$1"
+      >
         <SizableText size="$2" color="$color10">
           Balance
         </SizableText>

@@ -2,7 +2,14 @@
 // on web via localStorage and on native), exposes it through React context, and owns
 // sign-in / sign-out so the screens never touch the protocol directly.
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { getItem, removeItem, setItem } from './store'
 import { login as oidcLogin, type Session } from './auth'
 
@@ -34,7 +41,11 @@ export interface SessionState {
 
 const SessionContext = createContext<SessionState | undefined>(undefined)
 
-export function SessionProvider({ children }: { children: React.ReactNode }): React.ReactElement {
+export function SessionProvider({
+  children,
+}: {
+  children: React.ReactNode
+}): React.ReactElement {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
   const [signingIn, setSigningIn] = useState(false)
@@ -73,7 +84,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }): Re
 
   const value = useMemo<SessionState>(
     () => ({ session, loading, signingIn, signIn, signOut }),
-    [session, loading, signingIn, signIn, signOut],
+    [session, loading, signingIn, signIn, signOut]
   )
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
@@ -81,7 +92,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }): Re
 
 export function useSession(): SessionState {
   const ctx = useContext(SessionContext)
-  if (ctx === undefined) throw new Error('useSession must be used within a SessionProvider')
+  if (ctx === undefined)
+    throw new Error('useSession must be used within a SessionProvider')
   return ctx
 }
 

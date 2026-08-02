@@ -78,10 +78,7 @@ export type GuiOptionsWithFileInfo = GuiOptions & {
   allLoadedComponents: LoadedComponents[]
 }
 
-export type ExtractorParseProps = Omit<
-  GuiOptionsWithFileInfo,
-  'allLoadedComponents'
-> & {
+export type ExtractorParseProps = Omit<GuiOptionsWithFileInfo, 'allLoadedComponents'> & {
   platform: GuiPlatform
   shouldPrintDebug?: boolean | 'verbose'
   onExtractTag: (props: ExtractTagProps) => void

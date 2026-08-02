@@ -161,254 +161,251 @@ type ToastImplProps = ScopedProps<
   ToastImplPrivateProps & ToastImplFrameProps & ToastExtraProps
 >
 
-const ToastImpl = React.forwardRef<GuiElement, ToastImplProps>(
-  (props, forwardedRef) => {
-    const {
-      scope,
-      type = 'foreground',
-      duration: durationProp,
-      open,
-      onClose,
-      onEscapeKeyDown,
-      onPause,
-      onResume,
-      onSwipeStart,
-      onSwipeMove,
-      onSwipeCancel,
-      onSwipeEnd,
-      viewportName = 'default',
-      ...toastProps
-    } = props
-    const isPresent = useIsPresent()
-    const context = useToastProviderContext(scope)
-    const [node, setNode] = React.useState<GuiElement | null>(null)
-    const composedRefs = useComposedRefs(forwardedRef, setNode)
-    const duration = durationProp || context.duration
-    const closeTimerStartTimeRef = React.useRef(0)
-    const closeTimerRemainingTimeRef = React.useRef(duration)
-    const closeTimerRef = React.useRef(0)
-    const { onToastAdd, onToastRemove } = context
+const ToastImpl = React.forwardRef<GuiElement, ToastImplProps>((props, forwardedRef) => {
+  const {
+    scope,
+    type = 'foreground',
+    duration: durationProp,
+    open,
+    onClose,
+    onEscapeKeyDown,
+    onPause,
+    onResume,
+    onSwipeStart,
+    onSwipeMove,
+    onSwipeCancel,
+    onSwipeEnd,
+    viewportName = 'default',
+    ...toastProps
+  } = props
+  const isPresent = useIsPresent()
+  const context = useToastProviderContext(scope)
+  const [node, setNode] = React.useState<GuiElement | null>(null)
+  const composedRefs = useComposedRefs(forwardedRef, setNode)
+  const duration = durationProp || context.duration
+  const closeTimerStartTimeRef = React.useRef(0)
+  const closeTimerRemainingTimeRef = React.useRef(duration)
+  const closeTimerRef = React.useRef(0)
+  const { onToastAdd, onToastRemove } = context
 
-    const viewport = React.useMemo(() => {
-      return context.viewports[viewportName] as HTMLElement | null | undefined
-    }, [context.viewports, viewportName])
+  const viewport = React.useMemo(() => {
+    return context.viewports[viewportName] as HTMLElement | null | undefined
+  }, [context.viewports, viewportName])
 
-    const handleClose = useEvent(() => {
-      if (!isPresent) {
-        // already removed from the react tree
-        return
-      }
-      // focus viewport if focus is within toast to read the remaining toast
-      // count to SR users and ensure focus isn't lost
-      if (isWeb) {
-        const isFocusInToast = (node as unknown as HTMLDivElement)?.contains(
-          document.activeElement
-        )
-        if (isFocusInToast) viewport?.focus()
-      }
-      onClose()
-    })
-
-    const startTimer = React.useCallback(
-      (duration: number) => {
-        if (!duration || duration === Number.POSITIVE_INFINITY) return
-        clearTimeout(closeTimerRef.current)
-        closeTimerStartTimeRef.current = new Date().getTime()
-        closeTimerRef.current = setTimeout(handleClose, duration) as unknown as number
-      },
-      [handleClose]
-    )
-
-    const handleResume = React.useCallback(() => {
-      startTimer(closeTimerRemainingTimeRef.current)
-      onResume?.()
-    }, [onResume, startTimer])
-
-    const handlePause = React.useCallback(() => {
-      const elapsedTime = new Date().getTime() - closeTimerStartTimeRef.current
-      closeTimerRemainingTimeRef.current =
-        closeTimerRemainingTimeRef.current - elapsedTime
-      window.clearTimeout(closeTimerRef.current)
-      onPause?.()
-    }, [onPause])
-
-    React.useEffect(() => {
-      if (!isWeb) return
-
-      if (viewport) {
-        viewport.addEventListener(VIEWPORT_PAUSE, handlePause)
-        viewport.addEventListener(VIEWPORT_RESUME, handleResume)
-        return () => {
-          viewport.removeEventListener(VIEWPORT_PAUSE, handlePause)
-          viewport.removeEventListener(VIEWPORT_RESUME, handleResume)
-        }
-      }
-    }, [viewport, duration, onPause, onResume, startTimer])
-
-    // start timer when toast opens or duration changes.
-    // we include `open` in deps because closed !== unmounted when animating
-    // so it could reopen before being completely unmounted
-    React.useEffect(() => {
-      if (open && !context.isClosePausedRef.current) {
-        startTimer(duration)
-      }
-    }, [open, duration, context.isClosePausedRef, startTimer])
-
-    React.useEffect(() => {
-      onToastAdd()
-      return () => onToastRemove()
-    }, [onToastAdd, onToastRemove])
-
-    const announceTextContent = React.useMemo(() => {
-      if (!isWeb) return null
-      return node ? getAnnounceTextContent(node as unknown as HTMLDivElement) : null
-    }, [node])
-
-    const isHorizontalSwipe = ['left', 'right', 'horizontal'].includes(
-      context.swipeDirection
-    )
-
-    const { animationDriver } = useConfiguration()
-    if (!animationDriver) {
-      throw new Error('Must set animations in hanzogui.config.ts')
+  const handleClose = useEvent(() => {
+    if (!isPresent) {
+      // already removed from the react tree
+      return
     }
+    // focus viewport if focus is within toast to read the remaining toast
+    // count to SR users and ensure focus isn't lost
+    if (isWeb) {
+      const isFocusInToast = (node as unknown as HTMLDivElement)?.contains(
+        document.activeElement
+      )
+      if (isFocusInToast) viewport?.focus()
+    }
+    onClose()
+  })
 
-    const { useAnimatedNumber, useAnimatedNumberStyle } = animationDriver
+  const startTimer = React.useCallback(
+    (duration: number) => {
+      if (!duration || duration === Number.POSITIVE_INFINITY) return
+      clearTimeout(closeTimerRef.current)
+      closeTimerStartTimeRef.current = new Date().getTime()
+      closeTimerRef.current = setTimeout(handleClose, duration) as unknown as number
+    },
+    [handleClose]
+  )
 
-    const animatedNumber = useAnimatedNumber(0)
+  const handleResume = React.useCallback(() => {
+    startTimer(closeTimerRemainingTimeRef.current)
+    onResume?.()
+  }, [onResume, startTimer])
 
-    // temp until reanimated useAnimatedNumber fix
-    const AnimatedView = (animationDriver['NumberView'] ??
-      animationDriver.View ??
-      View) as typeof Animated.View
+  const handlePause = React.useCallback(() => {
+    const elapsedTime = new Date().getTime() - closeTimerStartTimeRef.current
+    closeTimerRemainingTimeRef.current = closeTimerRemainingTimeRef.current - elapsedTime
+    window.clearTimeout(closeTimerRef.current)
+    onPause?.()
+  }, [onPause])
 
-    const animatedStyles = useAnimatedNumberStyle(animatedNumber, (val) => {
-      'worklet'
-      return {
-        transform: [isHorizontalSwipe ? { translateX: val } : { translateY: val }],
+  React.useEffect(() => {
+    if (!isWeb) return
+
+    if (viewport) {
+      viewport.addEventListener(VIEWPORT_PAUSE, handlePause)
+      viewport.addEventListener(VIEWPORT_RESUME, handleResume)
+      return () => {
+        viewport.removeEventListener(VIEWPORT_PAUSE, handlePause)
+        viewport.removeEventListener(VIEWPORT_RESUME, handleResume)
       }
-    })
+    }
+  }, [viewport, duration, onPause, onResume, startTimer])
 
-    const panResponder = React.useMemo(() => {
-      const PanResponder = getPanResponder()
-      if (!PanResponder) return null
-      return PanResponder.create({
-        onMoveShouldSetPanResponder: (e, gesture) => {
-          const shouldMove = shouldGrantGestureMove(context.swipeDirection, gesture)
-          if (shouldMove) {
-            onSwipeStart?.(e)
-            return true
-          }
-          return false
-        },
-        onPanResponderGrant: (e) => {
-          if (!isWeb) {
-            handlePause?.()
-          }
-        },
-        onPanResponderMove: (e, gesture) => {
-          const { x, y } = getGestureDistance(context.swipeDirection, gesture)
-          const delta = { x, y }
-          animatedNumber.setValue(isHorizontalSwipe ? x : y, { type: 'direct' })
-          if (isDeltaInDirection(delta, context.swipeDirection, context.swipeThreshold)) {
-            onSwipeEnd?.(e)
-          }
-          onSwipeMove?.(e)
-        },
-        onPanResponderEnd: (e, { dx, dy }) => {
-          if (
-            !isDeltaInDirection(
-              { x: dx, y: dy },
-              context.swipeDirection,
-              context.swipeThreshold
-            )
-          ) {
-            if (!isWeb) {
-              handleResume?.()
-            }
-            onSwipeCancel?.(e)
-            animatedNumber.setValue(0, { type: 'spring' })
-          }
-        },
-      })
-    }, [handlePause, handleResume])
+  // start timer when toast opens or duration changes.
+  // we include `open` in deps because closed !== unmounted when animating
+  // so it could reopen before being completely unmounted
+  React.useEffect(() => {
+    if (open && !context.isClosePausedRef.current) {
+      startTimer(duration)
+    }
+  }, [open, duration, context.isClosePausedRef, startTimer])
 
-    // need to get the theme name from context and apply it again since portals don't retain the theme
-    const themeName = useThemeName()
+  React.useEffect(() => {
+    onToastAdd()
+    return () => onToastRemove()
+  }, [onToastAdd, onToastRemove])
 
-    return (
-      <>
-        {announceTextContent && (
-          <ToastAnnounce
-            scope={scope}
-            // Toasts are always role=status to avoid stuttering issues with role=alert in SRs.
-            // biome-ignore lint/a11y/useSemanticElements: <explanation>
-            role="status"
-            aria-live={type === 'foreground' ? 'assertive' : 'polite'}
-            aria-atomic
-          >
-            {announceTextContent}
-          </ToastAnnounce>
-        )}
+  const announceTextContent = React.useMemo(() => {
+    if (!isWeb) return null
+    return node ? getAnnounceTextContent(node as unknown as HTMLDivElement) : null
+  }, [node])
 
-        <PortalItem hostName={viewportName ?? 'default'}>
-          <ToastInteractiveProvider
-            key={props.id}
-            scope={scope}
-            onClose={() => {
-              handleClose()
-            }}
-          >
-            <Dismissable
-              // asChild
-              onEscapeKeyDown={composeEventHandlers(onEscapeKeyDown, () => {
-                if (!context.isFocusedToastEscapeKeyDownRef.current) {
-                  handleClose()
-                }
-                context.isFocusedToastEscapeKeyDownRef.current = false
-              })}
-            >
-              <Theme contain forceClassName name={themeName}>
-                <AnimatedView
-                  {...panResponder?.panHandlers}
-                  style={[{ margin: 'auto' }, animatedStyles]}
-                >
-                  <Collection.ItemSlot scope={context.toastScope}>
-                    <ToastImplFrame
-                      // Ensure toasts are announced as status list or status when focused
-                      role="status"
-                      aria-live="off"
-                      aria-atomic
-                      data-state={open ? 'open' : 'closed'}
-                      data-swipe-direction={context.swipeDirection}
-                      pointerEvents="auto"
-                      $platform-web={{
-                        touchAction: 'none',
-                        userSelect: 'none',
-                      }}
-                      {...toastProps}
-                      ref={composedRefs}
-                      {...(isWeb && {
-                        onKeyDown: composeEventHandlers(props.onKeyDown, (event) => {
-                          if (event.key !== 'Escape') return
-                          onEscapeKeyDown?.(event)
-                          if (!event.defaultPrevented) {
-                            context.isFocusedToastEscapeKeyDownRef.current = true
-                            handleClose()
-                          }
-                        }),
-                      })}
-                    />
-                  </Collection.ItemSlot>
-                </AnimatedView>
-              </Theme>
-            </Dismissable>
-          </ToastInteractiveProvider>
-        </PortalItem>
-      </>
-    )
+  const isHorizontalSwipe = ['left', 'right', 'horizontal'].includes(
+    context.swipeDirection
+  )
+
+  const { animationDriver } = useConfiguration()
+  if (!animationDriver) {
+    throw new Error('Must set animations in hanzogui.config.ts')
   }
-)
+
+  const { useAnimatedNumber, useAnimatedNumberStyle } = animationDriver
+
+  const animatedNumber = useAnimatedNumber(0)
+
+  // temp until reanimated useAnimatedNumber fix
+  const AnimatedView = (animationDriver['NumberView'] ??
+    animationDriver.View ??
+    View) as typeof Animated.View
+
+  const animatedStyles = useAnimatedNumberStyle(animatedNumber, (val) => {
+    'worklet'
+    return {
+      transform: [isHorizontalSwipe ? { translateX: val } : { translateY: val }],
+    }
+  })
+
+  const panResponder = React.useMemo(() => {
+    const PanResponder = getPanResponder()
+    if (!PanResponder) return null
+    return PanResponder.create({
+      onMoveShouldSetPanResponder: (e, gesture) => {
+        const shouldMove = shouldGrantGestureMove(context.swipeDirection, gesture)
+        if (shouldMove) {
+          onSwipeStart?.(e)
+          return true
+        }
+        return false
+      },
+      onPanResponderGrant: (e) => {
+        if (!isWeb) {
+          handlePause?.()
+        }
+      },
+      onPanResponderMove: (e, gesture) => {
+        const { x, y } = getGestureDistance(context.swipeDirection, gesture)
+        const delta = { x, y }
+        animatedNumber.setValue(isHorizontalSwipe ? x : y, { type: 'direct' })
+        if (isDeltaInDirection(delta, context.swipeDirection, context.swipeThreshold)) {
+          onSwipeEnd?.(e)
+        }
+        onSwipeMove?.(e)
+      },
+      onPanResponderEnd: (e, { dx, dy }) => {
+        if (
+          !isDeltaInDirection(
+            { x: dx, y: dy },
+            context.swipeDirection,
+            context.swipeThreshold
+          )
+        ) {
+          if (!isWeb) {
+            handleResume?.()
+          }
+          onSwipeCancel?.(e)
+          animatedNumber.setValue(0, { type: 'spring' })
+        }
+      },
+    })
+  }, [handlePause, handleResume])
+
+  // need to get the theme name from context and apply it again since portals don't retain the theme
+  const themeName = useThemeName()
+
+  return (
+    <>
+      {announceTextContent && (
+        <ToastAnnounce
+          scope={scope}
+          // Toasts are always role=status to avoid stuttering issues with role=alert in SRs.
+          // biome-ignore lint/a11y/useSemanticElements: <explanation>
+          role="status"
+          aria-live={type === 'foreground' ? 'assertive' : 'polite'}
+          aria-atomic
+        >
+          {announceTextContent}
+        </ToastAnnounce>
+      )}
+
+      <PortalItem hostName={viewportName ?? 'default'}>
+        <ToastInteractiveProvider
+          key={props.id}
+          scope={scope}
+          onClose={() => {
+            handleClose()
+          }}
+        >
+          <Dismissable
+            // asChild
+            onEscapeKeyDown={composeEventHandlers(onEscapeKeyDown, () => {
+              if (!context.isFocusedToastEscapeKeyDownRef.current) {
+                handleClose()
+              }
+              context.isFocusedToastEscapeKeyDownRef.current = false
+            })}
+          >
+            <Theme contain forceClassName name={themeName}>
+              <AnimatedView
+                {...panResponder?.panHandlers}
+                style={[{ margin: 'auto' }, animatedStyles]}
+              >
+                <Collection.ItemSlot scope={context.toastScope}>
+                  <ToastImplFrame
+                    // Ensure toasts are announced as status list or status when focused
+                    role="status"
+                    aria-live="off"
+                    aria-atomic
+                    data-state={open ? 'open' : 'closed'}
+                    data-swipe-direction={context.swipeDirection}
+                    pointerEvents="auto"
+                    $platform-web={{
+                      touchAction: 'none',
+                      userSelect: 'none',
+                    }}
+                    {...toastProps}
+                    ref={composedRefs}
+                    {...(isWeb && {
+                      onKeyDown: composeEventHandlers(props.onKeyDown, (event) => {
+                        if (event.key !== 'Escape') return
+                        onEscapeKeyDown?.(event)
+                        if (!event.defaultPrevented) {
+                          context.isFocusedToastEscapeKeyDownRef.current = true
+                          handleClose()
+                        }
+                      }),
+                    })}
+                  />
+                </Collection.ItemSlot>
+              </AnimatedView>
+            </Theme>
+          </Dismissable>
+        </ToastInteractiveProvider>
+      </PortalItem>
+    </>
+  )
+})
 
 ToastImpl.propTypes = {
   type(props) {

@@ -111,7 +111,7 @@ export function ProductsMegaMenu({
           break
       }
     },
-    [close, focusItem],
+    [close, focusItem]
   )
 
   // Reset the ref list each render so indices track render order.
@@ -128,7 +128,12 @@ export function ProductsMegaMenu({
       <div
         aria-hidden="true"
         onClick={close}
-        style={{ position: 'fixed', inset: 0, zIndex: Z.overlay as unknown as number, background: 'transparent' }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: Z.overlay as unknown as number,
+          background: 'transparent',
+        }}
       />
       <div
         id={id}
@@ -232,7 +237,9 @@ function CategoryColumn({
           ;(e.currentTarget as HTMLElement).style.color = ACCENT
         }}
         onMouseLeave={(e) => {
-          ;(e.currentTarget as HTMLElement).style.color = currentCategory ? ACCENT : CHROME.fg
+          ;(e.currentTarget as HTMLElement).style.color = currentCategory
+            ? ACCENT
+            : CHROME.fg
         }}
       >
         {category.label}

@@ -16,5 +16,5 @@ export interface HanzoWidgetProps {
  * workstream (edit.js); this component is purely the mount/meta contract, so any
  * Hanzo surface can opt in with one line: `<HanzoWidget repo="org/repo" />`.
  */
-export declare function HanzoWidget({ repo, provider, path, src }: HanzoWidgetProps): null;
+export declare function HanzoWidget({ repo, provider, path, src, }: HanzoWidgetProps): null;
 //# sourceMappingURL=HanzoWidget.d.ts.map

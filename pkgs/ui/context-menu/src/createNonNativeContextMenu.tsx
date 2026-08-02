@@ -358,20 +358,19 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
 
   const ITEM_NAME = 'ContextMenuItem'
 
-  const ContextMenuItem = React.forwardRef<
-    GuiElement,
-    ScopedProps<ContextMenuItemProps>
-  >((props, forwardedRef) => {
-    const { scope, ...itemProps } = props
-    return (
-      <Menu.Item
-        componentName={ITEM_NAME}
-        scope={scope || CONTEXTMENU_CONTEXT}
-        {...itemProps}
-        ref={forwardedRef}
-      />
-    )
-  })
+  const ContextMenuItem = React.forwardRef<GuiElement, ScopedProps<ContextMenuItemProps>>(
+    (props, forwardedRef) => {
+      const { scope, ...itemProps } = props
+      return (
+        <Menu.Item
+          componentName={ITEM_NAME}
+          scope={scope || CONTEXTMENU_CONTEXT}
+          {...itemProps}
+          ref={forwardedRef}
+        />
+      )
+    }
+  )
 
   ContextMenuItem.displayName = ITEM_NAME
 

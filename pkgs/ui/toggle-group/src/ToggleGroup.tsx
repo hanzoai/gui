@@ -123,32 +123,30 @@ interface ToggleGroupMultipleProps extends ToggleGroupImplMultipleProps {
 type ToggleGroupProps = ToggleGroupSingleProps | ToggleGroupMultipleProps
 
 const ToggleGroup = withStaticProperties(
-  React.forwardRef<GuiElement, ScopedProps<ToggleGroupProps>>(
-    (props, forwardedRef) => {
-      const { type, ...toggleGroupProps } = props
+  React.forwardRef<GuiElement, ScopedProps<ToggleGroupProps>>((props, forwardedRef) => {
+    const { type, ...toggleGroupProps } = props
 
-      if (!isWeb) {
-        React.useEffect(() => {
-          if (!props.id) return
-          return registerFocusable(props.id, {
-            focus: () => {},
-          })
-        }, [props.id])
-      }
-
-      if (type === 'single') {
-        const singleProps = toggleGroupProps as ToggleGroupImplSingleProps
-        return <ToggleGroupImplSingle {...singleProps} ref={forwardedRef} />
-      }
-
-      if (type === 'multiple') {
-        const multipleProps = toggleGroupProps as ToggleGroupImplMultipleProps
-        return <ToggleGroupImplMultiple {...multipleProps} ref={forwardedRef} />
-      }
-
-      throw new Error(`Missing prop \`type\` expected on \`${TOGGLE_GROUP_NAME}\``)
+    if (!isWeb) {
+      React.useEffect(() => {
+        if (!props.id) return
+        return registerFocusable(props.id, {
+          focus: () => {},
+        })
+      }, [props.id])
     }
-  ),
+
+    if (type === 'single') {
+      const singleProps = toggleGroupProps as ToggleGroupImplSingleProps
+      return <ToggleGroupImplSingle {...singleProps} ref={forwardedRef} />
+    }
+
+    if (type === 'multiple') {
+      const multipleProps = toggleGroupProps as ToggleGroupImplMultipleProps
+      return <ToggleGroupImplMultiple {...multipleProps} ref={forwardedRef} />
+    }
+
+    throw new Error(`Missing prop \`type\` expected on \`${TOGGLE_GROUP_NAME}\``)
+  }),
   {
     Item: ToggleGroupItem,
   }

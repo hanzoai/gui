@@ -4,7 +4,12 @@ import React, { useState, useCallback } from 'react'
 import { TenantMark } from './TenantMark'
 import { AppSwitcher } from './AppSwitcher'
 import { UserOrgDropdown } from './UserOrgDropdown'
-import { DEFAULT_TENANT_APPS, ORG_DOMAINS, getAppsForOrg, type TenantShellProps } from './types'
+import {
+  DEFAULT_TENANT_APPS,
+  ORG_DOMAINS,
+  getAppsForOrg,
+  type TenantShellProps,
+} from './types'
 
 /* ── Inline SVG icons (no deps) ── */
 
@@ -171,7 +176,9 @@ export function TenantHeader({
 
         <span className="select-none text-white/[0.15]">/</span>
 
-        <span className="truncate text-[13px] font-medium text-white/50">{currentApp}</span>
+        <span className="truncate text-[13px] font-medium text-white/50">
+          {currentApp}
+        </span>
 
         <AppSwitcher apps={resolvedApps} currentAppId={currentAppId} />
       </div>

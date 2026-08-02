@@ -3,7 +3,10 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "hanzogui": ["../../pkgs/ui/hanzogui"],
+      "@hanzogui/*": ["../../pkgs/core/*", "../../pkgs/ui/*", "../../pkgs/*"],
+      "@hanzogui/demos": ["../demos"]
     },
     "outDir": "dist",
     "importHelpers": true,

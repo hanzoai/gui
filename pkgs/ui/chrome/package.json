@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/chrome",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Unified public-site chrome \u2014 HanzoNav, HanzoFooter, ChatHero, HanzoWidget. The one openai-style header/footer + AI-composer hero shared across Hanzo marketing surfaces. Gui styled() + monochrome zinc-on-black tokens (Geist), presentational and host-agnostic (data + effects injected via props).",
   "source": "src/index.ts",
   "files": [

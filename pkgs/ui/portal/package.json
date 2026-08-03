@@ -37,6 +37,7 @@
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/native": "workspace:*",
+    "@hanzogui/polyfill-dev": "workspace:*",
     "@hanzogui/start-transition": "workspace:*",
     "@hanzogui/use-event": "workspace:*",
     "@hanzogui/web": "workspace:*",

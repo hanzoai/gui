@@ -36,6 +36,7 @@
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/native": "workspace:*",
     "@hanzogui/portal": "workspace:*",
     "@hanzogui/z-index-stack": "workspace:*"
   },

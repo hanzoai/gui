@@ -38,8 +38,10 @@
     "@hanzogui/core": "workspace:*",
     "@hanzogui/create-menu": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
+    "@hanzogui/polyfill-dev": "workspace:*",
     "@hanzogui/popover": "workspace:*",
     "@hanzogui/popper": "workspace:*",
+    "@hanzogui/scroll-view": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },

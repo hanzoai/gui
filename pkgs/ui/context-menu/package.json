@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@hanzogui/create-menu": "workspace:*",
+    "@hanzogui/polyfill-dev": "workspace:*",
     "@hanzogui/popover": "workspace:*",
     "@hanzogui/use-callback-ref": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",

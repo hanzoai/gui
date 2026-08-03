@@ -79,6 +79,7 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzogui/constants": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
     "@hanzogui/react-native-media-driver": "workspace:*",
     "@hanzogui/react-native-use-pressable": "workspace:*",

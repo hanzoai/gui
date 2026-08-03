@@ -53,6 +53,7 @@
     "@hanzogui/separator": "workspace:*",
     "@hanzogui/sheet": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
+    "@hanzogui/start-transition": "workspace:*",
     "@hanzogui/text": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-debounce": "workspace:*",

@@ -28,6 +28,11 @@ const STYLE_ID = 'hanzo-shell-styles'
 
 const CSS = [
   `[data-hanzo-shell] :focus-visible{outline:2px solid rgba(255,255,255,0.7)!important;outline-offset:2px!important}`,
+  // A control wrapped in a <label> is ONE control, so it gets ONE ring — on the
+  // wrapper, not on the input inside it, which would draw a second box within
+  // the first.
+  `[data-hanzo-shell] label:focus-within{outline:2px solid rgba(255,255,255,0.7);outline-offset:2px}`,
+  `[data-hanzo-shell] label :focus-visible{outline:none!important}`,
   `[data-hanzo-shell] button{cursor:pointer}`,
   `[data-hanzo-shell] button:disabled{cursor:default}`,
   `@media (pointer:coarse){[data-hanzo-shell] a,[data-hanzo-shell] button{min-height:${TAP_H}px}}`,

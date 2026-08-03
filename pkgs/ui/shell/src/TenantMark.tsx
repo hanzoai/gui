@@ -44,7 +44,7 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
       style={{ top: y, left: x }}
     >
       <div className="border-b border-white/[0.06] px-3 pb-2 pt-1">
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
+        <p className="text-[11px] font-semibold text-white/40">
           Hanzo Brand
         </p>
       </div>

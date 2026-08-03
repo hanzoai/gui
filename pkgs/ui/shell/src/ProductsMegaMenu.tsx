@@ -7,7 +7,6 @@
  * edge-to-edge from the header bar:
  *
  *   ├──────────────────────────────────────────────────────────────────────┤
- *   │ PRODUCTS                                                              │
  *   │ ◇ AI        ◇ Compute   ◇ Data      ◇ Network   ◇ Security            │
  *   │   Models      GPUs        Vector      Gateway     IAM                 │
  *   │   Agents      Machines    SQL         VPC         Authz    … item lists│
@@ -26,9 +25,16 @@
  * its leaves. Hovering a tile brightens its text toward pure white and reveals a
  * hairline outline — nothing fills, nothing flips to a button. Each category
  * header links to its `/products/<slug>` landing page; each leaf links to its
- * product page and shows a short descriptor (`hint`). The current category
- * (`currentCategoryId`) and the current leaf (`currentHref`) are highlighted with
- * the accent + `aria-current`.
+ * product page. The current category (`currentCategoryId`) and the current leaf
+ * (`currentHref`) are highlighted with the accent + `aria-current`.
+ *
+ * Leaves are LABELS ONLY. Every leaf carries a `hint` in the taxonomy and this
+ * menu deliberately does not render it: ten categories x five one-line
+ * descriptors is fifty lines of prose in a navigation surface, which buries the
+ * names you came to click. The category tagline is the one line of explanation
+ * a tile gets — the leaf's own page is where its description belongs. (The
+ * `hint` still feeds the surfaces that ARE a description: the mobile sheet and
+ * the category pages.)
  *
  * Controlled-open (`open`/`onClose`/`anchor`) so a header can drive it. Self-
  * contained: inline styles + theme.ts tokens, React the only runtime dep — the
@@ -40,8 +46,9 @@
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { type HanzoLink, type ProductCategory } from './hanzo-registry'
-import { ACCENT, ACCENT_SOFT, CHROME, FS, LABEL, R, SHADOW, Z } from './theme'
+import { ACCENT, ACCENT_SOFT, CHROME, FS, R, SHADOW, Z } from './theme'
 import { useShellStyles } from './shellStyles'
+import { NoResults, ProductSearch, filterProducts } from './productSearch'
 
 /** The signature grid: ten categories as two rows of five, at every desktop width. */
 const COLUMNS = 5
@@ -78,16 +85,23 @@ export function ProductsMegaMenu({
 }: ProductsMegaMenuProps) {
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const restoreRef = useRef<HTMLElement | null>(null)
+  const searchRef = useRef<HTMLInputElement | null>(null)
+  const [query, setQuery] = useState('')
   useShellStyles()
 
   const close = useCallback(() => onClose?.(), [onClose])
 
-  // Save focus on open, restore it on close (clean keyboard loop).
+  // Save focus on open, restore it on close (clean keyboard loop). Focus lands
+  // on the SEARCH field, not the first link: with ~97 leaves behind this panel,
+  // typing is the fastest way to the one you want, and Tab/↓ still walk the list
+  // for anyone who would rather browse.
   useEffect(() => {
-    if (!open) return
+    if (!open) {
+      setQuery('')
+      return
+    }
     restoreRef.current = (document.activeElement as HTMLElement) ?? null
-    const first = itemRefs.current.find(Boolean)
-    requestAnimationFrame(() => first?.focus())
+    requestAnimationFrame(() => searchRef.current?.focus())
     return () => {
       restoreRef.current?.focus?.()
     }
@@ -105,6 +119,14 @@ export function ProductsMegaMenu({
       if (e.key === 'Escape') {
         e.preventDefault()
         close()
+        return
+      }
+      // Inside the search field the caret owns the horizontal keys, and Home/End
+      // own the text — only ↓ leaves the field for the results.
+      if ((e.target as HTMLElement).tagName === 'INPUT') {
+        if (e.key !== 'ArrowDown') return
+        e.preventDefault()
+        focusItem(0)
         return
       }
       const els = itemRefs.current.filter(Boolean) as HTMLAnchorElement[]
@@ -132,6 +154,8 @@ export function ProductsMegaMenu({
     },
     [close, focusItem]
   )
+
+  const shown = filterProducts(categories, query)
 
   // Reset the ref list each render so indices track render order.
   itemRefs.current = []
@@ -185,8 +209,16 @@ export function ProductsMegaMenu({
           color: CHROME.fg,
         }}
       >
-        <div style={{ padding: `24px ${GUTTER}px 30px` }}>
-          <p style={{ ...LABEL, margin: '0 0 18px' }}>Products</p>
+        {/* No "PRODUCTS" eyebrow: the trigger this panel hangs off already says
+            Products, and the panel is anchored to it. Labelling it twice is the
+            same word in two places. The field below is a control, not a second
+            label — it earns its line. */}
+        <div style={{ padding: `18px ${GUTTER}px 28px` }}>
+          <div style={{ maxWidth: 320, marginBottom: 18 }}>
+            <ProductSearch value={query} onChange={setQuery} inputRef={searchRef} />
+          </div>
+
+          {shown.length === 0 ? <NoResults query={query} /> : null}
 
           <div
             style={{
@@ -203,7 +235,7 @@ export function ProductsMegaMenu({
               margin: '0 -12px',
             }}
           >
-            {categories.map((category) => (
+            {shown.map((category) => (
               <CategoryTile
                 key={category.id}
                 category={category}
@@ -320,7 +352,7 @@ function CategoryTile({
         </p>
       ) : null}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         {category.items.map((item) => (
           <LeafRow
             key={item.id}
@@ -367,38 +399,16 @@ function LeafRow({
       onMouseLeave={() => setHover(false)}
       style={{
         display: 'block',
+        fontSize: FS.sm,
+        fontWeight: 500,
+        lineHeight: 1.65,
         textDecoration: 'none',
+        color: label,
         outlineColor: ACCENT,
+        transition: 'color 120ms ease',
       }}
     >
-      <span
-        style={{
-          display: 'block',
-          fontSize: FS.sm,
-          fontWeight: 500,
-          lineHeight: 1.3,
-          color: label,
-          transition: 'color 120ms ease',
-        }}
-      >
-        {link.label}
-      </span>
-      {link.hint ? (
-        <span
-          style={{
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            whiteSpace: 'normal',
-            fontSize: FS.xs,
-            lineHeight: 1.35,
-            color: CHROME.fgDim,
-          }}
-        >
-          {link.hint}
-        </span>
-      ) : null}
+      {link.label}
     </a>
   )
 }

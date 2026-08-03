@@ -32,7 +32,6 @@ import {
 import {
   CHROME,
   FS,
-  LABEL,
   PANEL,
   R,
   SCRIM,
@@ -45,6 +44,7 @@ import {
 } from './theme'
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
+import { NoResults, ProductSearch, filterProducts } from './productSearch'
 
 const HEADER_H = 60
 
@@ -428,6 +428,8 @@ function MobileSheet({
 }) {
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const localNav = withoutProductsDup(surface.localNav, hasProducts)
+  const [query, setQuery] = useState('')
+  const shownProducts = filterProducts(productsTaxonomy ?? [], query)
   return (
     <>
       <div
@@ -500,24 +502,31 @@ function MobileSheet({
           ))}
         </div>
 
-        {/* Rich Products taxonomy — collapsed accordions so mobile isn't an
-            endless scroll (mirrors the "Meet Hanzo" collapsible pattern). */}
+        {/* Rich Products taxonomy — a search field over collapsed accordions, so
+            mobile is neither an endless scroll nor a hunt through ten closed
+            drawers. Typing narrows the taxonomy and opens what survived, which
+            on a phone is the fastest path to any of the ~97 leaves. */}
         {hasProducts ? (
           <div
             style={{
               marginBottom: 12,
               borderTop: `1px solid ${CHROME.border}`,
-              paddingTop: 4,
+              paddingTop: 12,
             }}
           >
-            {productsTaxonomy!.map((category) => (
-              <MobileProductsCategory
-                key={category.id}
-                category={category}
-                currentHref={currentHref}
-                onClose={onClose}
-              />
-            ))}
+            <ProductSearch value={query} onChange={setQuery} touch />
+            <div style={{ marginTop: 8 }}>
+              {shownProducts.length === 0 ? <NoResults query={query} /> : null}
+              {shownProducts.map((category) => (
+                <MobileProductsCategory
+                  key={category.id}
+                  category={category}
+                  currentHref={currentHref}
+                  filtering={query.trim().length > 0}
+                  onClose={onClose}
+                />
+              ))}
+            </div>
           </div>
         ) : null}
 
@@ -551,43 +560,51 @@ function MobileSheet({
 function MobileProductsCategory({
   category,
   currentHref,
+  filtering,
   onClose,
 }: {
   category: ProductCategory
   currentHref?: string
+  filtering: boolean
   onClose: () => void
 }) {
   const [open, setOpen] = useState(false)
   const panelId = `hanzo-mprod-${category.id}`
+  // A search that left its hits behind a closed drawer would not be a search.
+  const expanded = open || filtering
+  // The taxonomy may already END in a link to the category's own page (hanzo.ai
+  // spells it "All 15 →"). Synthesising a second one put two links to the same
+  // href in one drawer, so the row is only invented when the data lacks it.
+  const ownsAllLink = category.items.some((item) => item.href === category.href)
   return (
     <div style={{ borderBottom: `1px solid ${CHROME.borderSoft}` }}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls={open ? panelId : undefined}
+        aria-expanded={expanded}
+        aria-controls={expanded ? panelId : undefined}
         style={{
           ...control(false, TAP_H),
-          ...LABEL,
           justifyContent: 'space-between',
           width: '100%',
           borderRadius: 0,
-          color: CHROME.fg,
         }}
       >
         {category.label}
-        <Chevron open={open} />
+        <Chevron open={expanded} />
       </button>
-      {open ? (
+      {expanded ? (
         <div id={panelId} style={{ paddingBottom: 6 }}>
-          <a
-            href={category.href}
-            onClick={onClose}
-            style={{ ...mobileLeaf(category.href === currentHref), fontWeight: 600 }}
-            {...ghostHover()}
-          >
-            All {category.label}
-          </a>
+          {ownsAllLink || filtering ? null : (
+            <a
+              href={category.href}
+              onClick={onClose}
+              style={{ ...mobileLeaf(category.href === currentHref), fontWeight: 600 }}
+              {...ghostHover()}
+            >
+              All {category.label}
+            </a>
+          )}
           {category.items.map((item) => (
             <a
               key={item.id}

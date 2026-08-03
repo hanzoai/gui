@@ -94,13 +94,22 @@ export const CTRL_H = 34
 /** Minimum comfortable touch target. */
 export const TAP_H = 44
 
-/** The uppercase eyebrow every menu / footer / column head shares. */
+/**
+ * The section head every menu / footer / column head shares.
+ *
+ * SENTENCE CASE — the house has no all-caps. Shouting a word does not rank it;
+ * uppercase costs legibility (it strips the ascender/descender silhouette
+ * readers match on) and reads as chrome from another era. A head earns its rank
+ * from WEIGHT and BRIGHTNESS against the dimmer links beneath it, which is why
+ * this is `fg` at 600 while `FooterLink`/`row` sit at `fgMuted`.
+ *
+ * This is the ONE place that rank is defined, so no surface has to re-derive it
+ * — and none may reintroduce `textTransform: 'uppercase'` locally.
+ */
 export const LABEL: CSSProperties = {
-  fontSize: FS.xs,
-  fontWeight: 700,
-  letterSpacing: 0.6,
-  textTransform: 'uppercase',
-  color: CHROME.fgDim,
+  fontSize: FS.sm,
+  fontWeight: 600,
+  color: CHROME.fg,
 }
 
 /** A floating surface: mega-menu panels, dropdowns, sheets. */

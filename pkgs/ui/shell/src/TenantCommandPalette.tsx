@@ -220,7 +220,7 @@ export function TenantCommandPalette({
             ) : (
               Object.entries(grouped).map(([category, items]) => (
                 <div key={category}>
-                  <div className="px-4 py-2 text-[10px] font-semibold text-white/25 uppercase tracking-widest">
+                  <div className="px-4 py-2 text-[11px] font-semibold text-white/40">
                     {category}
                   </div>
                   {items.map((cmd) => {

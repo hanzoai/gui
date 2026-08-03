@@ -434,8 +434,6 @@ function PlanCard({
               borderRadius: R.pill,
               fontSize: FS.xs,
               fontWeight: 700,
-              letterSpacing: 0.3,
-              textTransform: 'uppercase',
               color: isCurrent ? FG : '#000',
               background: isCurrent ? ACCENT_SOFTER : ACCENT,
               border: isCurrent ? `1px solid ${BORDER}` : 'none',
@@ -541,11 +539,9 @@ function PlanCard({
 }
 
 const sectionLabelStyle: React.CSSProperties = {
-  fontSize: FS.xs,
-  fontWeight: 700,
-  letterSpacing: 0.4,
-  textTransform: 'uppercase',
-  color: FG_DIM,
+  fontSize: FS.sm,
+  fontWeight: 600,
+  color: FG,
 }
 
 /* ── CTA (anchor by default; button when intercepted) ──────────────────────── */

@@ -1,10 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build:js": {
-      "inputs": ["package.json", "src/**", "hanzogui-build.js"],
-      "outputs": ["dist/**"]
-    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": [
@@ -27,17 +23,12 @@
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json", "tsconfig.*.json", "../../tsconfig.json", "../../tsconfig.build.json"],
       "outputs": ["types/**"]
     },
-    "typecheck:root": {
-      "dependsOn": ["^build"],
-      "inputs": ["code/**/src/**/*.ts", "code/**/src/**/*.tsx", "**/tsconfig.json", "tsconfig.build.json"],
-      "outputs": ["code/**/types/**"]
-    },
     "start": {
       "dependsOn": ["^build"],
       "outputs": []
     },
     "test": {
-      "dependsOn": ["^build:js"],
+      "dependsOn": ["^build"],
       "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
       "outputs": [],
       "env": [
@@ -62,7 +53,7 @@
       ]
     },
     "test:web": {
-      "dependsOn": ["^build:js"],
+      "dependsOn": ["^build"],
       "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
       "outputs": [],
       "env": [
@@ -79,7 +70,7 @@
       ]
     },
     "test:native": {
-      "dependsOn": ["^build:js"],
+      "dependsOn": ["^build"],
       "inputs": ["../../bun.lockb", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
       "outputs": [],
       "cache": false

@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
-const startersDir = path.join(__dirname, '../../../starters')
+const startersDir = path.join(__dirname, '../../../../apps/starters')
 const hanzoguiCliPath = require.resolve('@hanzogui/cli/dist/index.cjs')
 
 describe('expo-router starter', () => {
@@ -99,7 +99,7 @@ describe('workspace version rewriting', () => {
         name: 'test',
         dependencies: {
           '@hanzogui/config': 'workspace:*',
-          hanzogui: 'workspace:*',
+          '@hanzo/gui': 'workspace:*',
           react: '19.1.0',
         },
         devDependencies: {

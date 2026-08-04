@@ -280,7 +280,23 @@ const DEFAULT_ALLOW = [
   // emitted by next/font's own pipeline, not by anything in this repo.
   '__variable_*',
   '__className_*',
+  // @hanzo/ui, backends/gui/button.js `buttonVariants` and backends/gui/badge.js
+  // `badgeVariants`. core/cn.cjs states the contract: "There is no Tailwind
+  // conflict-resolution step because there are no Tailwind utilities to resolve:
+  // styling lives in gui style props and the token scale, and class names are
+  // only stable handles (`hanzo-button`, `hz-mono`) a host may select on."
+  // The look comes from gui props on the same element.
+  'hanzo-button',
+  'hanzo-button--*',
+  'hanzo-badge',
+  'hanzo-badge--*',
 ]
+// NOT allowed, and deliberately: `hz-mono`, `hz-tnum`, `hz-row`. The same
+// comment calls them handles, but gui-config.js says who writes the rule —
+// "The host self-hosts both faces (its own fonts.css) — this only names them."
+// They are @hanzo/ui's INTERFACE to the host, so an app that stamps them and
+// defines nothing renders ids and figures in the proportional face with
+// proportional digits. That is a miss, and it should read as one.
 
 const globToRe = (g) =>
   new RegExp('^' + g.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\?/g, '.') + '$')

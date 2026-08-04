@@ -2066,6 +2066,7 @@
       },
       "peerDependencies": {
         "react": ">=19",
+        "react-native-svg": ">=12",
       },
     },
     "pkgs/native-bundle": {
@@ -2117,6 +2118,12 @@
         "@hanzogui/build": "workspace:*",
         "react-native-svg": "15.15.3",
       },
+      "peerDependencies": {
+        "react-native-svg": ">=12",
+      },
+      "optionalPeers": [
+        "react-native-svg",
+      ],
     },
     "pkgs/react-native-web-lite": {
       "name": "@hanzogui/react-native-web-lite",
@@ -2432,7 +2439,7 @@
     },
     "pkgs/ui/chrome": {
       "name": "@hanzogui/chrome",
-      "version": "8.0.1",
+      "version": "8.0.2",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/font-geist": "workspace:*",
@@ -3237,7 +3244,7 @@
     },
     "pkgs/ui/shell": {
       "name": "@hanzogui/shell",
-      "version": "8.0.3",
+      "version": "8.0.4",
       "peerDependencies": {
         "react": "*",
         "react-dom": "*",

@@ -14132,7 +14132,8 @@
     "@hanzogui/helpers-icon": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19",
+    "react-native-svg": ">=12"
   },
   "skipPublishIfUnchanged": false
 }

@@ -38,6 +38,7 @@
     "@hanzogui/helpers": "workspace:*",
     "@hanzogui/native": "workspace:*",
     "@hanzogui/portal": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "@hanzogui/z-index-stack": "workspace:*"
   },
   "devDependencies": {

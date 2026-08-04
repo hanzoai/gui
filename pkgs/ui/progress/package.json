@@ -39,7 +39,8 @@
     "@hanzogui/create-context": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
-    "@hanzogui/stacks": "workspace:*"
+    "@hanzogui/stacks": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

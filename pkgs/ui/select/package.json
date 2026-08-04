@@ -59,6 +59,7 @@
     "@hanzogui/use-debounce": "workspace:*",
     "@hanzogui/use-event": "workspace:*",
     "@hanzogui/use-previous": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "@hanzogui/z-index-stack": "workspace:*"
   },
   "devDependencies": {

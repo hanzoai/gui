@@ -51,6 +51,7 @@
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/text": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "@hanzogui/z-index-stack": "workspace:*"
   },
   "devDependencies": {

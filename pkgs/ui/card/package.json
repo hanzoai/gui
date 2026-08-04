@@ -34,6 +34,7 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzogui/core": "workspace:*",
     "@hanzogui/create-context": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
     "@hanzogui/stacks": "workspace:*",

@@ -2,7 +2,11 @@
   "name": "@hanzogui/test-design-system",
   "version": "8.0.1",
   "source": "src/index.ts",
-  "files": ["src", "types", "dist"],
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
   "sideEffects": false,
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -17,7 +21,8 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "workspace:*"
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"

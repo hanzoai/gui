@@ -48,7 +48,8 @@
     "@hanzogui/remove-scroll": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/text": "workspace:*",
-    "@hanzogui/use-controllable-state": "workspace:*"
+    "@hanzogui/use-controllable-state": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

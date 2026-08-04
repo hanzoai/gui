@@ -40,7 +40,8 @@
     "@hanzogui/image": "workspace:*",
     "@hanzogui/shapes": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
-    "@hanzogui/text": "workspace:*"
+    "@hanzogui/text": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

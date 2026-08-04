@@ -36,19 +36,20 @@
   },
   "dependencies": {
     "@hanzogui/checkbox-headless": "workspace:*",
+    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/compose-refs": "workspace:*",
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/create-context": "workspace:*",
     "@hanzogui/focusable": "workspace:*",
+    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
-    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/label": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
-    "@hanzogui/font-size": "workspace:*",
-    "@hanzogui/use-previous": "workspace:*"
+    "@hanzogui/use-previous": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

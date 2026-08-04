@@ -43,7 +43,8 @@
     "@hanzogui/helpers": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-direction": "workspace:*",
-    "@hanzogui/use-event": "workspace:*"
+    "@hanzogui/use-event": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

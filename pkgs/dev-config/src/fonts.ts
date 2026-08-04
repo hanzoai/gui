@@ -25,8 +25,11 @@ export const headingFont = createInterFont(
       9: 30,
       10: 44,
     },
+    // No all-caps in the house — see pkgs/core/config/src/fonts.ts. The
+    // transform scale spreads down from 6, so `uppercase` here silently capsed
+    // every small heading.
     transform: {
-      6: 'uppercase',
+      6: 'none',
       7: 'none',
     },
     weight: {

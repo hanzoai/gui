@@ -1,5 +1,3 @@
-export { HanzoNav } from './HanzoNav';
-export type { HanzoNavProps, HanzoNavLoginProps, HanzoNavPrimaryProps } from './HanzoNav';
 export { HanzoFooter } from './HanzoFooter';
 export type { HanzoFooterProps } from './HanzoFooter';
 export { ChatHero } from './ChatHero';

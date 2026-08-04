@@ -75,4 +75,4 @@ Speaks the Hanzo Calendar API (Cal API-v2 shapes):
 
 ## License
 
-BSD-3-Clause © Hanzo AI
+MIT © Hanzo AI — see [LICENSE](../../LICENSE). HIP-0137 (`hanzoai/hips`).

@@ -24,6 +24,15 @@ export const CHROME = {
   raised: 'rgba(255,255,255,0.03)',
   border: 'rgba(255,255,255,0.09)',
   borderSoft: 'rgba(255,255,255,0.06)',
+  /**
+   * The SELECTED edge — a current app tile, a current product card, a featured
+   * plan. Still a hairline. This used to be ACCENT, which resolves to literal
+   * #ffffff (see below), so "current" was drawn as a 1px pure-white box around
+   * the tile: an 11x jump from `border` and the loudest thing in the chrome.
+   * The selection is already carried by ACCENT_SOFT behind it; the edge only
+   * has to define the shape.
+   */
+  borderStrong: 'rgba(255,255,255,0.22)',
   fg: 'rgba(255,255,255,0.92)',
   fgMuted: 'rgba(255,255,255,0.6)',
   fgDim: 'rgba(255,255,255,0.45)',
@@ -59,8 +68,27 @@ export const CHROME = {
  */
 export const FG_ON = '#ffffff'
 
-/** Monochrome brand accent — paper-white on dark chrome; overridable per surface. */
+/**
+ * Monochrome brand accent — paper-white on dark chrome; overridable per surface.
+ *
+ * INK AND FILL ONLY. `--hanzo-accent` is not defined anywhere in design, gui or
+ * ui, so this always resolves to its fallback: literal #ffffff. That is right
+ * for a lit label or a filled CTA and wrong for every boundary, which is what it
+ * was also being spent on — `border: 1px solid ACCENT` and `outlineColor: ACCENT`
+ * painted pure-white outlines across the launcher, the product menu, the plans
+ * table, the access gate and every nav link. Borders use CHROME.borderStrong;
+ * focus rings use FOCUS_RING.
+ */
 export const ACCENT = 'var(--hanzo-accent, #ffffff)'
+
+/**
+ * The focus ring, and the one place the shell defers to @hanzo/design: --ring is
+ * the token that package pins at 3:1 against every surface in both themes
+ * (WCAG 2.4.11), and the fallback is that same value for a host that has not
+ * loaded it. It was `rgba(255,255,255,0.7)` — roughly 4x brighter than the
+ * design system's own sanctioned ring, on every focusable element in the shell.
+ */
+export const FOCUS_RING = 'var(--ring, #737373)'
 export const ACCENT_SOFT = 'rgba(255,255,255,0.14)'
 export const ACCENT_SOFTER = 'rgba(255,255,255,0.22)'
 export const ACCENT_TINT = 'rgba(255,255,255,0.18)'
@@ -198,7 +226,7 @@ export function row(current = false): CSSProperties {
     // not in a filled chip — the one filled element in the chrome is the CTA.
     background: 'transparent',
     color: current ? ACCENT : CHROME.fgMuted,
-    outlineColor: ACCENT,
+    outlineColor: FOCUS_RING,
     transition: 'color 120ms ease',
   }
 }

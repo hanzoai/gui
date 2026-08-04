@@ -293,15 +293,43 @@ const DEFAULT_ALLOW = [
   // `badgeVariants`. core/cn.cjs states the contract: "There is no Tailwind
   // conflict-resolution step because there are no Tailwind utilities to resolve:
   // styling lives in gui style props and the token scale, and class names are
-  // only stable handles (`hanzo-button`, `hz-mono`) a host may select on."
+  // only stable handles (`btn`, `mono`) a host may select on."
   // The look comes from gui props on the same element.
-  'hanzo-button',
-  'hanzo-button--*',
-  'hanzo-badge',
-  'hanzo-badge--*',
+  //
+  // Enumerated, NOT `btn-*`. These used to read `hanzo-button--*`, where the
+  // brand prefix made provenance self-evident: nothing but @hanzo/ui would ever
+  // emit that. `btn-` is a name anyone might type, so a wildcard here would
+  // wave through a hand-written `btn-cta` that has no rule behind it — the
+  // exact failure this file exists to catch. The list below is every value
+  // ButtonVariant/ButtonSize and BadgeVariant can take; a name outside it is
+  // not ours and must still fail.
+  'btn',
+  'btn-default',
+  'btn-destructive',
+  'btn-outline',
+  'btn-secondary',
+  'btn-ghost',
+  'btn-link',
+  'btn-primary',
+  'btn-linkFG',
+  'btn-linkMuted',
+  'btn-sm',
+  'btn-lg',
+  'btn-icon',
+  'btn-icon-sm',
+  'btn-icon-lg',
+  'badge',
+  'badge-default',
+  'badge-secondary',
+  'badge-destructive',
+  'badge-outline',
+  'badge-ghost',
+  'badge-link',
+  'badge-inputAdornment',
+  'badge-tags',
 ]
-// NOT allowed, and deliberately: `hz-mono`, `hz-tnum`, `hz-row`. The same
-// comment calls them handles, but gui-config.js says who writes the rule —
+// NOT allowed, and deliberately: `mono`, `tnum`, `row`. The same comment calls
+// them handles, but gui-config.js says who writes the rule —
 // "The host self-hosts both faces (its own fonts.css) — this only names them."
 // They are @hanzo/ui's INTERFACE to the host, so an app that stamps them and
 // defines nothing renders ids and figures in the proportional face with

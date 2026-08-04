@@ -37,7 +37,7 @@ import {
   type UseEntitlementOptions,
 } from './useEntitlement'
 import { findHanzoApp, type HanzoApp } from './hanzo-apps'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, R } from './theme'
+import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, R, SHADOW } from './theme'
 import { useShellStyles } from './shellStyles'
 
 const {
@@ -421,7 +421,7 @@ function PlanCard({
         borderRadius: R.card,
         border: `1px solid ${emphasise || isCurrent ? CHROME.borderStrong : BORDER}`,
         background: emphasise ? ACCENT_SOFT : PANEL_BG,
-        boxShadow: emphasise ? '0 20px 50px -20px rgba(0,0,0,0.65)' : 'none',
+        boxShadow: emphasise ? SHADOW : 'none',
       }}
     >
       {/* Badge */}

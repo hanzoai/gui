@@ -46,7 +46,7 @@
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { type HanzoLink, type ProductCategory } from './hanzo-registry'
-import { ACCENT, ACCENT_SOFT, CHROME, FOCUS_RING, FS, R, SHADOW, Z } from './theme'
+import { ACCENT, ACCENT_SOFT, CHROME, FOCUS_RING, FS, R, SHADOW, VEIL, Z } from './theme'
 import { useShellStyles } from './shellStyles'
 
 /** The signature grid: ten categories as two rows of five, at every desktop width. */
@@ -185,7 +185,7 @@ export function ProductsMegaMenu({
           borderBottom: `1px solid ${CHROME.border}`,
           // True black, lifted by one hueless glow where the panel meets the
           // header, so a full-bleed black band still reads as a surface.
-          background: `radial-gradient(720px 260px at 50% -40%, rgba(255,255,255,0.05), transparent 70%), ${CHROME.panel}`,
+          background: `${VEIL}, ${CHROME.panel}`,
           boxShadow: SHADOW,
           fontFamily: CHROME.font,
           color: CHROME.fg,

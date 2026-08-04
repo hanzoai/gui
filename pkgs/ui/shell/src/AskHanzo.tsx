@@ -26,6 +26,7 @@ import {
   FS,
   R,
   SCRIM,
+  SHADOW_LEFT,
   Z,
   control,
   ghostHover,
@@ -206,7 +207,7 @@ export function AskHanzo({
               flexDirection: 'column',
               background: CHROME.panel,
               borderLeft: `1px solid ${CHROME.border}`,
-              boxShadow: '-24px 0 60px -16px rgba(0,0,0,0.75)',
+              boxShadow: SHADOW_LEFT,
               color: CHROME.fg,
               fontFamily: CHROME.font,
             }}
@@ -329,7 +330,11 @@ export function AskHanzo({
                     resize: 'none',
                     maxHeight: 140,
                     border: 'none',
-                    outline: 'none',
+                    // No `outline: 'none'` here. This textarea has no <label>
+                    // wrapper and its parent's border is static, so suppressing
+                    // the outline leaves the composer with NO focus indicator at
+                    // all. shellStyles' :focus-visible rule is the indicator —
+                    // let it land.
                     background: 'transparent',
                     color: CHROME.fg,
                     fontSize: FS.sm,

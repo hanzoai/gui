@@ -41,13 +41,28 @@
  * glyphs are inlined lucide paths (ISC) rather than a dependency, so this still
  * drops into any host with zero setup. Fully keyboard-accessible: Esc closes and
  * returns focus to the trigger; ↑/↓/←/→/Home/End rove the links (category
- * headers + leaves in render order). Motion is colour/border only and is dropped
- * entirely under `prefers-reduced-motion` (see shellStyles).
+ * headers + leaves in render order) — see `useRove` for that contract, and
+ * `useIntent` for how a hover opens this without stealing focus. Motion is
+ * colour/border only and is dropped entirely under `prefers-reduced-motion`
+ * (see shellStyles).
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useState } from 'react'
+import type { PointerEventHandler } from 'react'
 import { type HanzoLink, type ProductCategory } from './hanzo-registry'
-import { ACCENT, ACCENT_SOFT, CHROME, FOCUS_RING, FS, R, SHADOW, VEIL, Z } from './theme'
+import {
+  ACCENT,
+  ACCENT_SOFT,
+  CHROME,
+  FOCUS_RING,
+  FS,
+  GLASS,
+  R,
+  SHADOW,
+  VEIL,
+  Z,
+} from './theme'
 import { useShellStyles } from './shellStyles'
+import { useRove } from './rove'
 
 /** The signature grid: ten categories as two rows of five, at every desktop width. */
 const COLUMNS = 5
@@ -70,6 +85,15 @@ export interface ProductsMegaMenuProps {
   /** id for the panel (wire the trigger's `aria-controls` to it). */
   id?: string
   className?: string
+  /**
+   * Take focus on open. TRUE for a click or a keystroke, FALSE when a hover
+   * opened the menu — a pointer resting on a trigger is not a request to move
+   * the caret. See `useIntent`.
+   */
+  autoFocus?: boolean
+  /** Keeps a hover-opened menu open while the pointer is inside it (`useIntent`). */
+  onPointerEnter?: PointerEventHandler<HTMLDivElement>
+  onPointerLeave?: PointerEventHandler<HTMLDivElement>
 }
 
 export function ProductsMegaMenu({
@@ -81,93 +105,49 @@ export function ProductsMegaMenu({
   currentHref,
   id,
   className,
+  autoFocus = true,
+  onPointerEnter,
+  onPointerLeave,
 }: ProductsMegaMenuProps) {
-  const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
-  const restoreRef = useRef<HTMLElement | null>(null)
   useShellStyles()
-
   const close = useCallback(() => onClose?.(), [onClose])
-
-  // Save focus on open, restore it on close (clean keyboard loop).
-  useEffect(() => {
-    if (!open) return
-    restoreRef.current = (document.activeElement as HTMLElement) ?? null
-    const first = itemRefs.current.find(Boolean)
-    requestAnimationFrame(() => first?.focus())
-    return () => {
-      restoreRef.current?.focus?.()
-    }
-  }, [open])
-
-  const focusItem = useCallback((i: number) => {
-    const els = itemRefs.current.filter(Boolean) as HTMLAnchorElement[]
-    if (els.length === 0) return
-    const idx = ((i % els.length) + els.length) % els.length
-    els[idx]?.focus()
-  }, [])
-
-  const onKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        close()
-        return
-      }
-      const els = itemRefs.current.filter(Boolean) as HTMLAnchorElement[]
-      const cur = els.indexOf(document.activeElement as HTMLAnchorElement)
-      switch (e.key) {
-        case 'ArrowRight':
-        case 'ArrowDown':
-          e.preventDefault()
-          focusItem((cur < 0 ? -1 : cur) + 1)
-          break
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          e.preventDefault()
-          focusItem((cur < 0 ? els.length : cur) - 1)
-          break
-        case 'Home':
-          e.preventDefault()
-          focusItem(0)
-          break
-        case 'End':
-          e.preventDefault()
-          focusItem(els.length - 1)
-          break
-      }
-    },
-    [close, focusItem]
-  )
-
-  // Reset the ref list each render so indices track render order.
-  itemRefs.current = []
-  const register = (el: HTMLAnchorElement | null) => {
-    if (el) itemRefs.current.push(el)
-  }
+  const rove = useRove(!!open, close, autoFocus)
 
   if (!open) return null
 
   return (
     <>
-      {/* Click-away backdrop (transparent). */}
+      {/* Click-away catcher (transparent), starting BELOW the header.
+          It must never cover the header row. This element sits above the bar
+          (overlay 300 > sticky 200), so an `inset: 0` catcher slides between the
+          pointer and the trigger the instant the menu opens — the trigger sees a
+          `pointerleave` the reader never made, and a menu opened by hover shuts
+          itself ~140ms later with the mouse still resting on it. Starting at the
+          anchor leaves the header row reachable, which is also what makes
+          clicking the open trigger reach the trigger and toggle it. */}
       <div
         aria-hidden="true"
         onClick={close}
         style={{
           position: 'fixed',
           inset: 0,
+          top: anchor,
           zIndex: Z.overlay as unknown as number,
           background: 'transparent',
         }}
       />
       <div
+        ref={rove.ref}
         id={id}
         data-hanzo-shell=""
         role="dialog"
         aria-modal="false"
         aria-label="Products"
         className={className}
-        onKeyDown={onKeyDown}
+        onKeyDown={rove.onKeyDown}
+        onFocus={rove.onFocus}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
         style={{
           position: 'fixed',
           top: anchor,
@@ -183,9 +163,11 @@ export function ProductsMegaMenu({
           // The header already draws the hairline above, so drawing one here too
           // would double it.
           borderBottom: `1px solid ${CHROME.border}`,
-          // True black, lifted by one hueless glow where the panel meets the
-          // header, so a full-bleed black band still reads as a surface.
-          background: `${VEIL}, ${CHROME.panel}`,
+          // The header's own glass, lifted by one hueless glow where the panel
+          // meets it, so a full-bleed band still reads as a surface. Same
+          // recipe as MeetHanzoMenu — the two drapes are one surface.
+          ...GLASS,
+          background: `${VEIL}, ${CHROME.bg}`,
           boxShadow: SHADOW,
           fontFamily: CHROME.font,
           color: CHROME.fg,
@@ -216,7 +198,6 @@ export function ProductsMegaMenu({
                 category={category}
                 currentCategory={category.id === currentCategoryId}
                 currentHref={currentHref}
-                register={register}
                 onNavigate={close}
               />
             ))}
@@ -233,13 +214,11 @@ function CategoryTile({
   category,
   currentCategory,
   currentHref,
-  register,
   onNavigate,
 }: {
   category: ProductCategory
   currentCategory: boolean
   currentHref?: string
-  register: (el: HTMLAnchorElement | null) => void
   onNavigate: () => void
 }) {
   // Hover lives on the TILE, not on each link, because the whole column lifts
@@ -261,7 +240,6 @@ function CategoryTile({
     >
       {/* Category header — glyph + name, links to its /products/<slug> page. */}
       <a
-        ref={register}
         href={category.href}
         aria-current={currentCategory ? 'true' : undefined}
         onClick={onNavigate}
@@ -334,7 +312,6 @@ function CategoryTile({
             link={item}
             current={!!currentHref && item.href === currentHref}
             tileLit={lit}
-            register={register}
             onNavigate={onNavigate}
           />
         ))}
@@ -347,13 +324,11 @@ function LeafRow({
   link,
   current,
   tileLit,
-  register,
   onNavigate,
 }: {
   link: HanzoLink
   current: boolean
   tileLit: boolean
-  register: (el: HTMLAnchorElement | null) => void
   onNavigate: () => void
 }) {
   const [hover, setHover] = useState(false)
@@ -364,7 +339,6 @@ function LeafRow({
 
   return (
     <a
-      ref={register}
       href={link.href}
       aria-current={current ? 'true' : undefined}
       target={link.external ? '_blank' : undefined}

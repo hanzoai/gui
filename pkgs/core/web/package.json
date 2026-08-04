@@ -30,6 +30,12 @@
       "require": "./dist/cjs/index.cjs",
       "default": "./dist/esm/index.mjs"
     },
+    "./types": {
+      "types": "./types/index.d.ts"
+    },
+    "./types/*": {
+      "types": "./types/*.d.ts"
+    },
     "./inject-styles": {
       "types": "./types/inject-styles.d.ts",
       "react-native": "./dist/esm/inject-styles.mjs",

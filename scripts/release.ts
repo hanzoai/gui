@@ -72,7 +72,36 @@ const skipFinish =
 const skipPush = process.argv.includes('--skip-push')
 const forcePublishAll = process.argv.includes('--force-publish-all')
 
-const curVersion = fs.readJSONSync('./pkgs/ui/hanzogui/package.json').version
+// `--only <pkg>` patches a single package instead of the lockstep fleet: it
+// versions and publishes just that one, and every dep it names resolves to
+// whatever is already on the registry. this is the way to ship one fix without
+// dragging 168 packages - and without hand-rolling a second publisher, since
+// only this script rewrites workspace:* into real versions before packing.
+const onlyIdx = process.argv.indexOf('--only')
+const onlyPackage = onlyIdx === -1 ? '' : (process.argv[onlyIdx + 1] || '').trim()
+
+function findPackageDir(name: string, dir = 'pkgs'): string | null {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (!entry.isDirectory() || entry.name === 'node_modules') continue
+    const next = path.join(dir, entry.name)
+    const manifest = path.join(next, 'package.json')
+    if (fs.existsSync(manifest) && fs.readJSONSync(manifest).name === name) return next
+    const found = findPackageDir(name, next)
+    if (found) return found
+  }
+  return null
+}
+
+const onlyPackageDir = onlyPackage ? findPackageDir(onlyPackage) : null
+if (onlyPackage && !onlyPackageDir) {
+  throw new Error(`--only: no package named ${onlyPackage} under pkgs/`)
+}
+
+const curVersion = fs.readJSONSync(
+  onlyPackageDir
+    ? path.join(onlyPackageDir, 'package.json')
+    : './pkgs/ui/hanzogui/package.json'
+).version
 
 async function getLastReleaseRef(): Promise<string | null> {
   if (process.env.RELEASE_BASE_REF) {
@@ -501,11 +530,13 @@ async function run() {
     // update version (never write files during a dry run - it's a read-only preview)
     if (!skipVersion && !shouldFinish && !dryRun) {
       await Promise.all(
-        allPackageJsons.map(async ({ json, path }) => {
-          const next = { ...json }
-          next.version = version
-          await writeJSON(path, next, { spaces: 2 })
-        })
+        allPackageJsons
+          .filter(({ name }) => !onlyPackage || name === onlyPackage)
+          .map(async ({ json, path }) => {
+            const next = { ...json }
+            next.version = version
+            await writeJSON(path, next, { spaces: 2 })
+          })
       )
     }
 
@@ -519,7 +550,14 @@ async function run() {
     const skippedPackages: typeof packageJsons = []
     let packagesToPublish = packageJsons
 
-    if (lastTag && !forcePublishAll) {
+    if (onlyPackage) {
+      packagesToPublish = packageJsons.filter((p) => p.name === onlyPackage)
+      if (packagesToPublish.length === 0) {
+        throw new Error(`--only: ${onlyPackage} is private or marked skipPublish`)
+      }
+      skippedPackages.push(...packageJsons.filter((p) => p.name !== onlyPackage))
+      console.info(`--only: publishing ${onlyPackage} alone`)
+    } else if (lastTag && !forcePublishAll) {
       const lastTagVersion = lastTag.replace(/^v/, '')
       const lastMajor = Number.parseInt(lastTagVersion.split('.')[0], 10)
       const nextMajor = Number.parseInt(version.split('.')[0], 10)
@@ -846,7 +884,11 @@ async function run() {
       }
 
       const tagPrefix = canary ? 'canary' : 'v'
-      const gitTag = `${tagPrefix}${version}`
+      // a single-package patch must not claim the fleet's v<version> tag - that
+      // tag is the baseline getLastReleaseRef() diffs against.
+      const gitTag = onlyPackage
+        ? `${onlyPackage}@${version}`
+        : `${tagPrefix}${version}`
 
       if (!shouldFinish) {
         // longer sleep since npm was missing some deps

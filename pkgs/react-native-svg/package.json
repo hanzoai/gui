@@ -27,5 +27,13 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react-native-svg": "15.15.3"
+  },
+  "peerDependencies": {
+    "react-native-svg": ">=12"
+  },
+  "peerDependenciesMeta": {
+    "react-native-svg": {
+      "optional": true
+    }
   }
 }

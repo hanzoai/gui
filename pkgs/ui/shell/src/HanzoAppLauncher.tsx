@@ -434,7 +434,9 @@ export function HanzoAppLauncher({
               color: FG,
               fontSize: FS.sm,
               fontFamily: 'inherit',
-              outline: 'none',
+              // No `outline: 'none'` here — see AskHanzo's composer. This filter
+              // has no <label> wrapper, so the shell's :focus-visible ring is
+              // its only focus indicator.
             }}
           />
 

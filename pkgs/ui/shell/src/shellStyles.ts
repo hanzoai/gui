@@ -6,8 +6,9 @@
  * Everything else in the shell stays inline styles + theme.ts tokens.
  *
  * It carries exactly six house rules, scoped to `[data-hanzo-shell]` roots:
- *   1. a paper-white focus ring, replacing Chrome's default BLUE — the one stray
- *      hue on otherwise-monochrome chrome. `!important` beats inline `outline`.
+ *   1. a hueless focus ring, replacing Chrome's default BLUE — the one stray hue
+ *      on otherwise-monochrome chrome. Stated at normal weight so a component
+ *      can still overrule it; see the rule itself.
  *   2. `cursor: pointer` on every button, so no control can drift without it.
  *   3. `cursor: default` on disabled buttons.
  *   4. a >=44px target for every link/button on coarse pointers, so the dense
@@ -32,11 +33,27 @@ import { FOCUS_RING, TAP_H } from './theme'
 const STYLE_ID = 'hanzo-shell-styles'
 
 const CSS = [
-  `[data-hanzo-shell] :focus-visible{outline:2px solid ${FOCUS_RING}!important;outline-offset:2px!important}`,
+  // The house focus treatment, stated once. Deliberately the SAME recipe
+  // @hanzo/design's base.css uses, so a focused control looks identical whether
+  // it came from the shell or from the design system — this is not a
+  // shell-private ring.
+  //
+  // NOT `!important`: a component that has a real reason to state its own focus
+  // treatment must be able to, and an unbeatable rule here is a default
+  // masquerading as a law. This is the floor, not a ceiling.
+  `[data-hanzo-shell] :focus-visible{outline:2px solid ${FOCUS_RING};outline-offset:2px}`,
   // A control wrapped in a <label> is ONE control, so it gets ONE ring — on the
   // wrapper, not on the input inside it, which would draw a second box within
   // the first.
   `[data-hanzo-shell] label:focus-within{outline:2px solid ${FOCUS_RING};outline-offset:2px}`,
+  // This one KEEPS `!important`. It exists to suppress the nested second ring
+  // the first rule would otherwise draw on the input INSIDE a label.
+  // Cascade check: `[data-hanzo-shell] label :focus-visible` scores (0,2,1) —
+  // attribute + pseudo-class + the `label` TYPE selector — against (0,2,0) for
+  // `[data-hanzo-shell] :focus-visible`, so specificity already separates them
+  // and this would win on its own. The `!important` is belt-and-braces against
+  // a component that states its own `outline` inline, which specificity alone
+  // would lose to.
   `[data-hanzo-shell] label :focus-visible{outline:none!important}`,
   `[data-hanzo-shell] button{cursor:pointer}`,
   `[data-hanzo-shell] button:disabled{cursor:default}`,

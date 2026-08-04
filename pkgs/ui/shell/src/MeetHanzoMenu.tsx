@@ -45,6 +45,7 @@ import {
   LABEL,
   R,
   SHADOW,
+  VEIL,
   Z,
   ghostHover,
   row,
@@ -217,7 +218,7 @@ export function MeetHanzoMenu({
           // A drape, not a card: the ONLY edge is the hairline that closes it.
           // The header already draws the hairline above.
           borderBottom: `1px solid ${CHROME.border}`,
-          background: `radial-gradient(720px 260px at 50% -40%, rgba(255,255,255,0.05), transparent 70%), ${CHROME.panel}`,
+          background: `${VEIL}, ${CHROME.panel}`,
           boxShadow: SHADOW,
           fontFamily: CHROME.font,
           color: CHROME.fg,
@@ -312,8 +313,8 @@ function ProductCard({
         // The reveal is an OUTLINE, never a fill — the same register the
         // products drape's tiles use, so the two menus read as one surface.
         // The outline carries the state alone here, which is exactly why it
-        // must not be ACCENT: that resolves to #ffffff, and a pure-white box is
-        // the loudest thing in the chrome. A .22 hairline against a sibling's
+        // must not be ACCENT: that is full-strength ink, and a box drawn in it
+        // is the loudest thing in the chrome. A .22 hairline against a sibling's
         // `transparent` is an unmistakable difference without shouting.
         border: `1px solid ${current ? CHROME.borderStrong : 'transparent'}`,
         background: 'transparent',

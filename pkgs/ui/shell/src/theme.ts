@@ -5,10 +5,12 @@
  * AskHanzo, HanzoAppBar, HanzoAppLauncher) themes from here so they look
  * identical everywhere.
  *
- * Brand-token driven: the values reference `@hanzo/brand`'s CSS custom properties
- * (`--hanzo-*`, `--font-size-*`, `--z-*`) with self-contained fallbacks, so a
- * surface that imports `@hanzo/brand/styles/variables.css` themes automatically
- * while a surface that does not still renders correctly.
+ * Token driven: the values reference CSS custom properties — `--font-size-*` and
+ * `--z-*` from `@hanzo/brand`, `--neutral-*` and `--ring` from `@hanzo/design` —
+ * each with a self-contained fallback, so a surface that loads those stylesheets
+ * themes automatically while a surface that loads neither still renders
+ * correctly. This package depends on neither on purpose, so those fallbacks are
+ * load-bearing rather than decorative and have to be kept in step by hand.
  *
  * Hanzo is MONOCHROME — true-black grounds, paper-white ink, hairline borders.
  * There is no brand hue anywhere in the chrome.
@@ -26,11 +28,14 @@ export const CHROME = {
   borderSoft: 'rgba(255,255,255,0.06)',
   /**
    * The SELECTED edge — a current app tile, a current product card, a featured
-   * plan. Still a hairline. This used to be ACCENT, which resolves to literal
-   * #ffffff (see below), so "current" was drawn as a 1px pure-white box around
-   * the tile: an 11x jump from `border` and the loudest thing in the chrome.
-   * The selection is already carried by ACCENT_SOFT behind it; the edge only
-   * has to define the shape.
+   * plan. Still a hairline. This used to be ACCENT, which then resolved to
+   * literal #ffffff, so "current" was drawn as a 1px pure-white box around the
+   * tile: an 11x jump from `border` and the loudest thing in the chrome. The
+   * selection is already carried by ACCENT_SOFT behind it; the edge only has to
+   * define the shape.
+   *
+   * `ACCENT_SOFTER` IS this value — the selected fill and the selected edge are
+   * one rung. Move this and both move together, which is the point.
    */
   borderStrong: 'rgba(255,255,255,0.22)',
   fg: 'rgba(255,255,255,0.92)',
@@ -58,39 +63,71 @@ export const CHROME = {
 } as const
 
 /**
- * The lit state: PURE white, the top of the brightness ramp.
+ * Monochrome brand accent — paper-white ink on dark chrome.
+ *
+ * INK AND FILL ONLY. Borders use CHROME.borderStrong; focus rings use
+ * FOCUS_RING. Spending this on a boundary is what once painted pure-white
+ * outlines across the launcher, the product menu, the plans table, the access
+ * gate and every nav link, and it is what those two tokens exist to absorb.
+ *
+ * A PALETTE rung, not a semantic one. `--neutral-50` is a fixed step on the
+ * greyscale ramp and carries the SAME value in both themes; `--primary` and
+ * `--foreground` deliberately INVERT between them. The chrome is always dark —
+ * `CHROME.panel` is #000000 and every ink here is an rgba white — so a semantic
+ * token would flip this ink to black the moment the HOST page went light, on
+ * chrome that is still black. A rung cannot do that to us.
+ *
+ * #fafafa and not #ffffff on purpose: pure white on pure black is 21:1, the
+ * maximum-contrast pair that exists, and at that ratio ink halates — the glyph
+ * edges bloom into the ground and small text reads soft. One rung down still
+ * reads as white and stops glowing.
+ */
+export const ACCENT = 'var(--neutral-50, #fafafa)'
+
+/**
+ * The lit state — the top of the brightness ramp, and the SAME VALUE as ACCENT.
+ *
+ * In a strictly monochrome system "the lit state" and "the accent" are one
+ * colour, so this is an alias rather than a second opinion: two names for one
+ * duty, both kept because `FG_ON` is what reads correctly at a hover call site
+ * and `ACCENT` is what reads correctly at a fill. They must never drift apart,
+ * which is why this is the token and not a copy of its value.
  *
  * The chrome's whole interaction language is one axis — `fgMuted` at rest,
  * `FG_ON` under the pointer — so this is the other end of `CHROME.fgMuted` and
  * the only thing a hover changes. Deliberately NOT `CHROME.fg` (0.92): a hover
- * that lands just short of white reads as a smudge rather than a response, and
+ * that lands just short of the top reads as a smudge rather than a response, and
  * leaves nothing for `fg` to mean.
  */
-export const FG_ON = '#ffffff'
+export const FG_ON = ACCENT
 
 /**
- * Monochrome brand accent — paper-white on dark chrome; overridable per surface.
+ * The focus ring, and the one place the shell defers to @hanzo/design: `--ring`
+ * is the ONE boundary that package still gates at 3:1 against its surface in
+ * both themes (WCAG 2.4.11 non-text contrast). Every other edge over there is
+ * free to be a hairline; this one is not.
  *
- * INK AND FILL ONLY. `--hanzo-accent` is not defined anywhere in design, gui or
- * ui, so this always resolves to its fallback: literal #ffffff. That is right
- * for a lit label or a filled CTA and wrong for every boundary, which is what it
- * was also being spent on — `border: 1px solid ACCENT` and `outlineColor: ACCENT`
- * painted pure-white outlines across the launcher, the product menu, the plans
- * table, the access gate and every nav link. Borders use CHROME.borderStrong;
- * focus rings use FOCUS_RING.
+ * It is now an ALPHA rung rather than a flat grey, so it LIFTS with whatever
+ * surface it lands on instead of holding a single grey that is too dark on the
+ * true-black panel and too light on a raised tile.
+ *
+ * The fallback is not decoration. The shell carries no dependency on
+ * @hanzo/design on purpose — it has to render standalone in a host that loaded
+ * nothing — so in practice the fallback is what ships, and it has to be kept in
+ * step with the package by hand every time `--ring` moves.
  */
-export const ACCENT = 'var(--hanzo-accent, #ffffff)'
-
-/**
- * The focus ring, and the one place the shell defers to @hanzo/design: --ring is
- * the token that package pins at 3:1 against every surface in both themes
- * (WCAG 2.4.11), and the fallback is that same value for a host that has not
- * loaded it. It was `rgba(255,255,255,0.7)` — roughly 4x brighter than the
- * design system's own sanctioned ring, on every focusable element in the shell.
- */
-export const FOCUS_RING = 'var(--ring, #737373)'
+export const FOCUS_RING = 'var(--ring, rgb(255 255 255 / .40))'
 export const ACCENT_SOFT = 'rgba(255,255,255,0.14)'
-export const ACCENT_SOFTER = 'rgba(255,255,255,0.22)'
+/**
+ * The selected FILL — the same rung as the selected EDGE, which is why it is
+ * literally `CHROME.borderStrong` and not a copy of its value.
+ *
+ * A chosen thing is one thing: the wash that marks a current tile and the
+ * hairline that closes it are the same white at the same alpha, so the tile
+ * reads as a single lifted plane instead of an edge and a fill that nearly
+ * agree. They sat side by side under two names until now.
+ */
+export const ACCENT_SOFTER = CHROME.borderStrong
 export const ACCENT_TINT = 'rgba(255,255,255,0.18)'
 
 /**
@@ -124,6 +161,33 @@ export const R = { pill: 999, card: 12, row: 8 } as const
 
 /** The ONE elevation used by everything that floats over the page. */
 export const SHADOW = '0 24px 60px -16px rgba(0,0,0,0.75)'
+
+/**
+ * SHADOW turned on its side, for a surface anchored to the RIGHT edge of the
+ * viewport (the AskHanzo drawer) whose shadow has to fall inward across the page
+ * instead of down it. Same alpha, same blur, same spread — only the offset
+ * rotates, so the drawer and the menus sit at the same elevation rather than at
+ * two elevations that happen to look similar.
+ */
+export const SHADOW_LEFT = '-24px 0 60px -16px rgba(0,0,0,0.75)'
+
+/**
+ * The hueless glow where a full-bleed drape meets the header — one soft lift so
+ * a black band on a black page still reads as a surface rather than a hole. Both
+ * mega-menus carried this gradient as an identical inline copy before it lived
+ * here.
+ *
+ * Compose it OVER the ground, never instead of it:
+ *   background: `${VEIL}, ${CHROME.panel}`
+ *
+ * Its 0.05 is a 13th untokenized white, sitting between `CHROME.raised` (.03)
+ * and `CHROME.hover` (.06) and belonging to neither — because it is not a fill
+ * on a control but a gradient stop that is already fading to transparent by the
+ * time it covers any area, so neither of those rungs would mean here what it
+ * means there. Naming it is the whole fix: one value, one place.
+ */
+export const VEIL =
+  'radial-gradient(720px 260px at 50% -40%, rgba(255,255,255,0.05), transparent 70%)'
 
 /** Scrim behind a modal surface. */
 export const SCRIM = 'rgba(0,0,0,0.45)'

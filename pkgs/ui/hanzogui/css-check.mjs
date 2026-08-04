@@ -196,13 +196,20 @@ function indexByBase(sheets) {
  * SSR app never needs it, and the apps that do need it already have it.
  */
 export async function render(urls, { dir }) {
+  // @playwright/test is what most repos here install and it re-exports the same
+  // chromium; asking only for `playwright` would fail in almost all of them.
   let chromium
-  try {
-    ;({ chromium } = await import('playwright'))
-  } catch {
+  for (const pkg of ['playwright', '@playwright/test']) {
+    try {
+      ;({ chromium } = await import(pkg))
+      break
+    } catch {}
+  }
+  if (!chromium) {
     throw new Error(
-      `--render needs playwright, which is not installed here.\n` +
-        `  npm i -D playwright && npx playwright install chromium\n` +
+      `--render needs playwright, and neither "playwright" nor "@playwright/test"\n` +
+        `  resolves from ${process.cwd()}.\n` +
+        `  npm i -D @playwright/test && npx playwright install chromium\n` +
         `  Or point gui-css-check at pre-rendered HTML instead.`
     )
   }
@@ -214,30 +221,41 @@ export async function render(urls, { dir }) {
     for (const [i, url] of urls.entries()) {
       const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60_000 })
       if (!res || !res.ok()) throw new Error(`${url} returned ${res ? res.status() : 'nothing'}`)
-      // Every rule the document actually has, including anything a runtime
-      // injected after load — inlined into one <style> so the on-disk shape is
-      // identical to an SSR page and one code path reads both.
-      const css = await page.evaluate(() =>
-        [...document.styleSheets]
-          .flatMap((s) => {
-            try {
-              return [...s.cssRules].map((r) => r.cssText)
-            } catch {
-              return [] // cross-origin sheet, unreadable by design
-            }
-          })
-          .join('\n')
+      // Every rule the document actually has, including whatever a runtime
+      // injected after load. Linked sheets are kept as separate files under
+      // their own basenames and inline ones stay inline, so the shape on disk
+      // matches an SSR build exactly and one code path reads both — including
+      // the byte split between what a browser caches and what it re-fetches.
+      const { linked, inline, html } = await page.evaluate(() => {
+        const linked = {}
+        const inline = []
+        for (const sheet of document.styleSheets) {
+          let text
+          try {
+            text = [...sheet.cssRules].map((r) => r.cssText).join('\n')
+          } catch {
+            continue // cross-origin sheet, unreadable by design
+          }
+          const href = sheet.href
+          if (href) linked[new URL(href).pathname.split('/').pop()] = text
+          else inline.push(text)
+        }
+        return { linked, inline, html: document.documentElement.outerHTML }
+      })
+      const stem = `${String(i).padStart(3, '0')}-${url.replace(/[^\w.-]+/g, '_').slice(-60)}`
+      for (const [name, text] of Object.entries(linked)) writeFileSync(join(dir, name), text)
+      writeFileSync(
+        join(dir, `${stem}.html`),
+        inline.map((t) => `<style>${t}</style>`).join('') + html
       )
-      const html = await page.evaluate(() => document.documentElement.outerHTML)
-      const name = `${String(i).padStart(3, '0')}-${url.replace(/[^\w.-]+/g, '_').slice(-60)}.html`
-      const file = join(dir, name)
-      writeFileSync(file, `<style>${css}</style>${html}`)
-      out.push(file)
+      out.push(url)
     }
   } finally {
     await browser.close()
   }
-  return out
+  // the directory, not the files: the pages' <link> tags still point at the
+  // sheets, which now sit beside them under the same basenames
+  return [dir]
 }
 
 // -------------------------------------------------------------------- config

@@ -37,7 +37,7 @@ async function findAllPackages(): Promise<Package[]> {
   // Use shell find command instead of fast-glob (bun compatibility)
   // console.info('[DEBUG] findAllPackages: finding package.json files with shell...')
   const { stdout } = await exec(
-    `find ./code -name package.json -type f -not -path "*/node_modules/*"`,
+    `find ./pkgs -name package.json -type f -not -path "*/node_modules/*"`,
     { cwd: process.cwd(), maxBuffer: 10 * 1024 * 1024 }
   )
   const packageJsonPaths = stdout.trim().split('\n').filter(Boolean)
@@ -162,7 +162,7 @@ async function scanAllImports(): Promise<Map<string, string[]>> {
   try {
     // Use simpler grep pattern with escaped quotes
     const result = await exec(
-      String.raw`rg "from ['\x22]" ./code --glob "**/src/**/*.tsx" --glob "**/src/**/*.ts" --glob "!**/*.test.ts" --glob "!**/*.test.tsx" --glob "!**/node_modules/**" --with-filename`,
+      String.raw`rg "from ['\x22]" ./pkgs --glob "**/src/**/*.tsx" --glob "**/src/**/*.ts" --glob "!**/*.test.ts" --glob "!**/*.test.tsx" --glob "!**/node_modules/**" --with-filename`,
       {
         cwd: process.cwd(),
         maxBuffer: 50 * 1024 * 1024, // 50MB buffer

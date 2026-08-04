@@ -59,7 +59,8 @@
     "@hanzogui/start-transition": "workspace:*",
     "@hanzogui/text": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
-    "@hanzogui/visually-hidden": "workspace:*"
+    "@hanzogui/visually-hidden": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

@@ -80,6 +80,7 @@
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-did-finish-ssr": "workspace:*",
     "@hanzogui/use-keyboard-visible": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "@hanzogui/z-index-stack": "workspace:*"
   },
   "devDependencies": {

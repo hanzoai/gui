@@ -52,6 +52,7 @@
     "@hanzogui/sheet": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "@hanzogui/z-index-stack": "workspace:*",
     "react-freeze": "^1.0.3"
   },

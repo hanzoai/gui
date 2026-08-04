@@ -41,7 +41,8 @@
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/start-transition": "workspace:*",
-    "@hanzogui/use-controllable-state": "workspace:*"
+    "@hanzogui/use-controllable-state": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

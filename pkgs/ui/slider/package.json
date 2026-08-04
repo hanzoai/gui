@@ -43,7 +43,8 @@
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-debounce": "workspace:*",
-    "@hanzogui/use-direction": "workspace:*"
+    "@hanzogui/use-direction": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

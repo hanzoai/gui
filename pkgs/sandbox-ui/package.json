@@ -19,14 +19,15 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/animations-react-native": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/toast": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "expo-constants": "~55.0.7",
     "expo-image": "~55.0.6",
-    "solito": "^4.3.0",
-    "@hanzo/gui": "workspace:*"
+    "solito": "^4.3.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

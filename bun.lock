@@ -1674,6 +1674,7 @@
       "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -1699,6 +1700,7 @@
       "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2160,6 +2162,7 @@
         "@hanzogui/core": "workspace:*",
         "@hanzogui/lucide-icons-2": "workspace:*",
         "@hanzogui/toast": "workspace:*",
+        "@hanzogui/web": "workspace:*",
         "expo-constants": "~55.0.7",
         "expo-image": "~55.0.6",
         "solito": "^4.3.0",
@@ -2234,6 +2237,7 @@
         "@hanzogui/text": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/use-direction": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2252,6 +2256,7 @@
         "@hanzogui/helpers": "workspace:*",
         "@hanzogui/native": "workspace:*",
         "@hanzogui/portal": "workspace:*",
+        "@hanzogui/web": "workspace:*",
         "@hanzogui/z-index-stack": "workspace:*",
       },
       "devDependencies": {
@@ -2281,6 +2286,7 @@
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/text": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2335,6 +2341,7 @@
         "@hanzogui/shapes": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/text": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2373,6 +2380,7 @@
       "name": "@hanzogui/card",
       "version": "8.0.1",
       "dependencies": {
+        "@hanzogui/core": "workspace:*",
         "@hanzogui/create-context": "workspace:*",
         "@hanzogui/helpers": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
@@ -2405,6 +2413,7 @@
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/use-previous": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2519,6 +2528,7 @@
       "name": "@hanzogui/context-menu",
       "version": "8.0.1",
       "dependencies": {
+        "@hanzogui/core": "workspace:*",
         "@hanzogui/create-menu": "workspace:*",
         "@hanzogui/polyfill-dev": "workspace:*",
         "@hanzogui/popover": "workspace:*",
@@ -2588,6 +2598,7 @@
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/text": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
+        "@hanzogui/web": "workspace:*",
         "@hanzogui/z-index-stack": "workspace:*",
       },
       "devDependencies": {
@@ -2624,6 +2635,7 @@
       "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2688,6 +2700,7 @@
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/helpers": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2707,6 +2720,7 @@
         "@hanzogui/spacer": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2783,6 +2797,7 @@
         "@hanzogui/use-force-update": "workspace:*",
         "@hanzogui/use-window-dimensions": "workspace:*",
         "@hanzogui/visually-hidden": "workspace:*",
+        "@hanzogui/web": "workspace:*",
         "@hanzogui/z-index-stack": "workspace:*",
       },
       "devDependencies": {
@@ -2868,6 +2883,7 @@
         "@hanzogui/core": "workspace:*",
         "@hanzogui/native": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -2944,6 +2960,7 @@
         "@hanzogui/sheet": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
+        "@hanzogui/web": "workspace:*",
         "@hanzogui/z-index-stack": "workspace:*",
         "react-freeze": "^1.0.3",
       },
@@ -2968,6 +2985,7 @@
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/start-transition": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -3012,6 +3030,7 @@
         "@hanzogui/get-token": "workspace:*",
         "@hanzogui/helpers": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -3039,6 +3058,7 @@
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/use-previous": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -3111,6 +3131,7 @@
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/use-direction": "workspace:*",
         "@hanzogui/use-event": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -3165,6 +3186,7 @@
         "@hanzogui/use-debounce": "workspace:*",
         "@hanzogui/use-event": "workspace:*",
         "@hanzogui/use-previous": "workspace:*",
+        "@hanzogui/web": "workspace:*",
         "@hanzogui/z-index-stack": "workspace:*",
       },
       "devDependencies": {
@@ -3184,6 +3206,7 @@
       "dependencies": {
         "@hanzogui/constants": "workspace:*",
         "@hanzogui/core": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -3197,6 +3220,7 @@
       "name": "@hanzogui/shapes",
       "version": "8.0.1",
       "dependencies": {
+        "@hanzogui/core": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/web": "workspace:*",
       },
@@ -3229,6 +3253,7 @@
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/use-did-finish-ssr": "workspace:*",
         "@hanzogui/use-keyboard-visible": "workspace:*",
+        "@hanzogui/web": "workspace:*",
         "@hanzogui/z-index-stack": "workspace:*",
       },
       "devDependencies": {
@@ -3244,7 +3269,7 @@
     },
     "pkgs/ui/shell": {
       "name": "@hanzogui/shell",
-      "version": "8.0.4",
+      "version": "8.0.5",
       "peerDependencies": {
         "react": "*",
         "react-dom": "*",
@@ -3264,6 +3289,7 @@
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/use-debounce": "workspace:*",
         "@hanzogui/use-direction": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -3336,6 +3362,7 @@
         "@hanzogui/switch-headless": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/use-previous": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -3453,6 +3480,7 @@
         "@hanzogui/text": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/visually-hidden": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
@@ -3505,6 +3533,7 @@
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/text": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
+        "@hanzogui/web": "workspace:*",
       },
       "devDependencies": {
         "@hanzogui/build": "workspace:*",

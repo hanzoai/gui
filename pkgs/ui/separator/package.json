@@ -35,7 +35,8 @@
   },
   "dependencies": {
     "@hanzogui/constants": "workspace:*",
-    "@hanzogui/core": "workspace:*"
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

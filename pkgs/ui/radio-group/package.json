@@ -46,7 +46,8 @@
     "@hanzogui/roving-focus": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
-    "@hanzogui/use-previous": "workspace:*"
+    "@hanzogui/use-previous": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

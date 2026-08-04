@@ -940,7 +940,9 @@ async function run() {
           }
 
           if (!skipPush) {
-            await spawnify(`git push origin head`, { cwd })
+            // HEAD, not head: git resolves refnames case-sensitively, so the
+            // lowercase form only ever worked on a case-insensitive filesystem.
+            await spawnify(`git push origin HEAD`, { cwd })
             if (!canary) {
               await spawnify(`git push origin ${gitTag}`, { cwd })
             }

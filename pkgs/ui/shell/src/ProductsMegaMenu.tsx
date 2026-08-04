@@ -522,7 +522,9 @@ const GLYPHS: Record<string, React.ReactNode> = {
 }
 
 function CategoryGlyph({ category }: { category: ProductCategory }) {
-  const key = (category.id || category.label || '').toLowerCase().replace(/[^a-z0-9]/g, '')
+  const key = (category.id || category.label || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '')
   return (
     <svg
       width={17}

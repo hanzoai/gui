@@ -132,6 +132,9 @@ export function stylesheetHrefs(html) {
 
 const SKIP_DIR = new Set(['node_modules', '.git', 'cache', 'sourcemaps'])
 
+/** Pages the framework ships, not pages this app wrote. */
+const BOILERPLATE = /^(404|500|_error|_not-found|not-found)\.html?$/i
+
 function walk(dir, hit, depth = 0) {
   if (depth > 12) return
   let entries
@@ -343,12 +346,18 @@ export function check({ roots, allow = [], extraCss = [] }) {
   // shell a client will fill in, or a render that failed. Counting it as a
   // pass is how a checker becomes decoration.
   const empty = results.filter((r) => !r.used)
+  // Same trap one step along: an app whose routes are all server-rendered
+  // prerenders nothing but the framework's own error pages, and scoring THOSE
+  // says nothing whatever about the app. Seen on hanzo.id, where the single
+  // checked page was Next's built-in 500.
+  const boilerplate = results.filter((r) => BOILERPLATE.test(basename(r.page)))
 
   return {
     results,
     pages,
     sheets,
     empty,
+    boilerplate,
     used: allUsed,
     missing,
     bytes: {
@@ -478,15 +487,23 @@ async function main(argv) {
     extraCss: [...(cfg.css ?? []), ...extraCss],
   })
 
-  if (!res.pages.length || res.empty.length === res.pages.length) {
+  const nothingMeasured =
+    !res.pages.length ||
+    res.empty.length === res.pages.length ||
+    res.boilerplate.length === res.pages.length
+  if (nothingMeasured) {
     console.error(
-      (res.pages.length
-        ? `gui-css-check: all ${res.pages.length} document(s) under ${found.join(', ')} use ZERO classes.\n`
-        : `gui-css-check: found no rendered HTML under ${found.join(', ')}.\n`) +
-        `  Nothing was checked, so nothing is proven — that is a failure, not a pass.\n` +
-        `  This is what a client-rendered app looks like on disk: an empty shell the\n` +
-        `  browser fills in. Check the real thing instead:\n` +
-        `      gui-css-check --render http://localhost:8080/`
+      `gui-css-check: ` +
+        (!res.pages.length
+          ? `found no rendered HTML under ${found.join(', ')}.\n`
+          : res.empty.length === res.pages.length
+            ? `all ${res.pages.length} document(s) under ${found.join(', ')} use ZERO classes.\n`
+            : `the only prerendered page(s) here are the framework's own error pages\n` +
+              `  (${res.boilerplate.map((r) => basename(r.page)).join(', ')}).\n`) +
+        `  Nothing about this app was checked, so nothing is proven — that is a\n` +
+        `  failure, not a pass. Either the routes are all server-rendered or the app\n` +
+        `  renders on the client. Check the real thing:\n` +
+        `      gui-css-check --render http://localhost:3000/`
     )
     return 2
   }

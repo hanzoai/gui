@@ -147,3 +147,33 @@ test('allow patterns exempt a class, and only the class they name', () => {
     rmSync(dir, { recursive: true, force: true })
   }
 })
+
+test('a build whose only page is the framework error page has measured nothing', () => {
+  const dir = fixture({
+    'server/pages/500.html':
+      '<link rel="stylesheet" href="/_next/static/css/a.css">' +
+      '<h1 class="next-error-h1">500</h1>',
+    'static/css/a.css': '.next-error-h1{font-size:1rem}',
+  })
+  try {
+    const r = check({ roots: [dir] })
+    assert.equal(r.missing.size, 0) // it "passes" on the numbers …
+    assert.equal(r.boilerplate.length, r.pages.length) // … and is refused anyway
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('a real page alongside the error page is a real measurement', () => {
+  const dir = fixture({
+    'server/pages/500.html': '<h1 class="next-error-h1">500</h1>',
+    'server/pages/index.html': '<div class="_bg-1">hi</div>',
+  })
+  try {
+    const r = check({ roots: [dir] })
+    assert.equal(r.boilerplate.length, 1)
+    assert.notEqual(r.boilerplate.length, r.pages.length)
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})

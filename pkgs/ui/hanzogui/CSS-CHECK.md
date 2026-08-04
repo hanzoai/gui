@@ -46,9 +46,16 @@ delivered, and the browser agrees.
 
 Also failed: a `<link rel="stylesheet">` pointing at a file that is not there.
 
-Also failed: a run where every document uses zero classes. That is what a
-client-rendered app looks like on disk — an empty shell — and calling it 100%
-would make the check decoration. Use `--render` for those.
+Refused, with exit 2, when the run measured nothing about the app:
+
+- every document uses zero classes — that is a client-rendered app on disk, an
+  empty shell;
+- the only prerendered pages are the framework's own (`404`, `500`, `_error`,
+  `_not-found`). Seen on hanzo.id, whose single prerendered page was Next's
+  built-in 500: 1/1 classes, 100%, and nothing whatever known about the app.
+
+Calling either of those a pass is how a checker becomes decoration. Use
+`--render` for both.
 
 ## Byte report
 

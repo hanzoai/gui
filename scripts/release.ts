@@ -886,9 +886,7 @@ async function run() {
       const tagPrefix = canary ? 'canary' : 'v'
       // a single-package patch must not claim the fleet's v<version> tag - that
       // tag is the baseline getLastReleaseRef() diffs against.
-      const gitTag = onlyPackage
-        ? `${onlyPackage}@${version}`
-        : `${tagPrefix}${version}`
+      const gitTag = onlyPackage ? `${onlyPackage}@${version}` : `${tagPrefix}${version}`
 
       if (!shouldFinish) {
         // longer sleep since npm was missing some deps

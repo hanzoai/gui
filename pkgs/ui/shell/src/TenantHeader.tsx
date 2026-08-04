@@ -10,10 +10,14 @@ import {
   getAppsForOrg,
   type TenantShellProps,
 } from './types'
+import { CHROME, CTRL_H, FS, Z, control, ghostHover } from './theme'
+import { SPIN, useShellStyles } from './shellStyles'
+
+const HEADER_H = 56
 
 /* ── Inline SVG icons (no deps) ── */
 
-function HardRefreshIcon({ className }: { className?: string }) {
+function HardRefreshIcon({ spinning }: { spinning?: boolean }) {
   return (
     <svg
       width="16"
@@ -24,7 +28,8 @@ function HardRefreshIcon({ className }: { className?: string }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      aria-hidden="true"
+      style={spinning ? { animation: SPIN } : undefined}
     >
       {/* Rotate-cw with an "x" feel — two arrows forming a circle */}
       <path d="M21 2v6h-6" />
@@ -35,7 +40,7 @@ function HardRefreshIcon({ className }: { className?: string }) {
   )
 }
 
-function SettingsIcon({ className }: { className?: string }) {
+function SettingsIcon() {
   return (
     <svg
       width="16"
@@ -46,13 +51,16 @@ function SettingsIcon({ className }: { className?: string }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      aria-hidden="true"
     >
       <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
       <circle cx="12" cy="12" r="3" />
     </svg>
   )
 }
+
+/** The header's two icon buttons are one control, twice. */
+const ICON_BTN: React.CSSProperties = { ...control(), width: CTRL_H, padding: 0 }
 
 /**
  * Nuclear hard-refresh: clears localStorage, sessionStorage, cookies,
@@ -138,6 +146,7 @@ export function TenantHeader({
   hideHardRefresh,
   hideSettings,
 }: Omit<TenantShellProps, 'children'>) {
+  useShellStyles()
   const [refreshing, setRefreshing] = useState(false)
 
   // Resolve current org slug for per-tenant domain routing
@@ -161,22 +170,55 @@ export function TenantHeader({
 
   return (
     <header
-      className="sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b border-white/[0.07] bg-black/90 px-4 backdrop-blur-xl"
       role="banner"
+      data-hanzo-shell=""
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: Z.sticky as unknown as number,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 10,
+        width: '100%',
+        height: HEADER_H,
+        padding: '0 14px',
+        boxSizing: 'border-box',
+        borderBottom: `1px solid ${CHROME.border}`,
+        background: CHROME.bg,
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        color: CHROME.fg,
+        fontFamily: CHROME.font,
+      }}
     >
       {/* ── Left: logo · breadcrumb · app switcher ── */}
-      <div className="flex min-w-0 items-center gap-2.5">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
         <a
           href={`${domains.iam}/account`}
-          className="flex-shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
           aria-label="Account"
+          style={{ display: 'inline-flex', flexShrink: 0, borderRadius: 4 }}
         >
           <TenantMark size={22} brandMenu animate />
         </a>
 
-        <span className="select-none text-white/[0.15]">/</span>
+        <span
+          aria-hidden="true"
+          style={{ color: CHROME.fgDim, fontSize: FS.sm, userSelect: 'none' }}
+        >
+          /
+        </span>
 
-        <span className="truncate text-[13px] font-medium text-white/50">
+        <span
+          style={{
+            fontSize: FS.sm,
+            fontWeight: 600,
+            color: CHROME.fgMuted,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {currentApp}
         </span>
 
@@ -184,7 +226,7 @@ export function TenantHeader({
       </div>
 
       {/* ── Right: extra slot + actions + user/org ── */}
-      <div className="flex flex-shrink-0 items-center gap-1">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0 }}>
         {headerRight}
 
         {/* Hard refresh — nuke all storage/cookies/cache */}
@@ -192,11 +234,12 @@ export function TenantHeader({
           <button
             type="button"
             onClick={handleHardRefresh}
-            className="flex items-center justify-center rounded-lg p-2 text-white/30 hover:bg-white/[0.06] hover:text-white/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
+            style={ICON_BTN}
             aria-label="Hard refresh — clear all storage, cookies, cache and reload"
             title="Hard refresh"
+            {...ghostHover()}
           >
-            <HardRefreshIcon className={refreshing ? 'animate-spin' : ''} />
+            <HardRefreshIcon spinning={refreshing} />
           </button>
         )}
 
@@ -205,9 +248,10 @@ export function TenantHeader({
           <button
             type="button"
             onClick={handleSettings}
-            className="flex items-center justify-center rounded-lg p-2 text-white/30 hover:bg-white/[0.06] hover:text-white/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
+            style={ICON_BTN}
             aria-label="Settings"
             title="Settings"
+            {...ghostHover()}
           >
             <SettingsIcon />
           </button>

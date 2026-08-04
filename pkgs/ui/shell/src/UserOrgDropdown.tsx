@@ -1,9 +1,19 @@
 'use client'
 
+/**
+ * UserOrgDropdown — the account control at the right edge of TenantHeader:
+ * who you are, which org you are acting as, and the way out.
+ *
+ * Self-contained by design: inline styles + theme.ts tokens, React the only
+ * runtime dependency, ZERO CSS-framework coupling.
+ */
 import React, { useState, useRef, useEffect } from 'react'
 import type { TenantUser, TenantOrg } from './types'
 import { ORG_DOMAINS } from './types'
 import { UserAvatar } from './UserAvatar'
+import { CHROME, CTRL_H, FS, LABEL, PANEL, Z, control, ghostHover, row } from './theme'
+import { useShellStyles } from './shellStyles'
+import { useMediaQuery } from './useMediaQuery'
 
 interface UserOrgDropdownProps {
   user?: TenantUser
@@ -13,6 +23,30 @@ interface UserOrgDropdownProps {
   onSignOut?: () => void
 }
 
+/** A divider between panel sections — the panel's only internal rule. */
+const SECTION: React.CSSProperties = {
+  borderBottom: `1px solid ${CHROME.borderSoft}`,
+}
+
+/**
+ * The geometry every row in this panel shares — org options and links alike.
+ * Colour and type come from `row()`, so this stays pure layout and the two
+ * never drift.
+ */
+const ROW_SHAPE: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 10,
+  width: '100%',
+  margin: 0,
+  padding: '8px 10px',
+  border: 'none',
+  background: 'transparent',
+  fontSize: FS.sm,
+  fontFamily: 'inherit',
+  textAlign: 'left',
+}
+
 export function UserOrgDropdown({
   user,
   organizations = [],
@@ -20,6 +54,13 @@ export function UserOrgDropdown({
   onOrgSwitch,
   onSignOut,
 }: UserOrgDropdownProps) {
+  useShellStyles()
+  // Below 640px the trigger is the avatar alone; the name/email block and its
+  // chevron would crowd a phone header. A media query, not an inline style,
+  // because that is the one thing `style` cannot express. Stated as max-width
+  // so the SSR default (false) is the DESKTOP form and wide viewports get no
+  // hydration flash — same reason MeetHanzoMenu asks for `narrow`.
+  const narrow = useMediaQuery('(max-width: 639.98px)')
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -37,119 +78,161 @@ export function UserOrgDropdown({
   const orgSlug = currentOrg?.slug || 'hanzo'
   const domains = ORG_DOMAINS[orgSlug] || ORG_DOMAINS.hanzo
 
+  const link: React.CSSProperties = { ...row(), ...ROW_SHAPE }
+
   return (
-    <div ref={ref} className="relative">
+    <div
+      ref={ref}
+      data-hanzo-shell=""
+      style={{ position: 'relative', display: 'inline-flex' }}
+    >
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-white/[0.06] transition-colors"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label="Account"
+        style={{ ...control(open), gap: 8, padding: '0 8px' }}
+        {...ghostHover(open)}
       >
         <UserAvatar src={user.avatar} email={user.email} name={user.name} size={28} />
-        <div className="hidden flex-col items-start sm:flex">
-          {user.name && (
-            <span className="text-[12px] font-medium text-white/70 leading-none">
-              {user.name}
+        {!narrow && (
+          <>
+            <span
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                minWidth: 0,
+              }}
+            >
+              {user.name && (
+                <span style={{ fontSize: FS.xs, fontWeight: 600, lineHeight: 1 }}>
+                  {user.name}
+                </span>
+              )}
+              <span style={{ fontSize: FS.xs, lineHeight: 1, color: CHROME.fgDim }}>
+                {user.email}
+              </span>
             </span>
-          )}
-          <span className="text-[11px] text-white/30 leading-none mt-0.5">
-            {user.email}
-          </span>
-        </div>
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-white/30 hidden sm:block"
-        >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
+            <Chevron open={open} />
+          </>
+        )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-10 z-50 w-64 rounded-xl border border-white/[0.08] bg-black shadow-2xl">
-          {/* User info */}
-          <div className="border-b border-white/[0.06] px-4 py-3">
-            <p className="text-[13px] font-medium text-white/80">{user.name || 'User'}</p>
-            <p className="text-[11px] text-white/40">{user.email}</p>
+        <div
+          role="menu"
+          aria-label="Account"
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: CTRL_H + 10,
+            ...PANEL,
+            zIndex: Z.popover as unknown as number,
+            width: 256,
+            maxWidth: 'calc(100vw - 24px)',
+            fontFamily: CHROME.font,
+          }}
+        >
+          {/* Who you are */}
+          <div style={{ ...SECTION, padding: '12px 14px' }}>
+            <p style={{ ...LABEL, margin: 0 }}>{user.name || 'User'}</p>
+            <p style={{ margin: '2px 0 0', fontSize: FS.xs, color: CHROME.fgDim }}>
+              {user.email}
+            </p>
             {currentOrg && (
-              <p className="mt-0.5 text-[11px] font-medium text-white/40">
+              <p
+                style={{
+                  margin: '2px 0 0',
+                  fontSize: FS.xs,
+                  fontWeight: 600,
+                  color: CHROME.fgDim,
+                }}
+              >
                 {currentOrg.name}
               </p>
             )}
           </div>
 
-          {/* Org switcher */}
+          {/* Which org you are acting as */}
           {organizations.length > 0 && (
-            <div className="border-b border-white/[0.06] p-2">
-              <p className="px-2 pb-1 pt-0.5 text-[11px] font-medium text-white/40">
-                Organizations
-              </p>
-              {organizations.map((org) => (
-                <button
-                  key={org.id}
-                  type="button"
-                  onClick={() => {
-                    onOrgSwitch?.(org.id)
-                    setOpen(false)
-                  }}
-                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left hover:bg-white/[0.06] transition-colors"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[13px] text-white/70">{org.name}</span>
-                    {org.role && (
-                      <span className="text-[10px] text-white/25 capitalize">
-                        {org.role}
-                      </span>
-                    )}
-                  </div>
-                  {org.id === currentOrgId && (
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-white/50"
+            <div style={{ ...SECTION, padding: 8 }}>
+              <p style={{ ...LABEL, margin: 0, padding: '2px 8px 4px' }}>Organizations</p>
+              {organizations.map((org) => {
+                const current = org.id === currentOrgId
+                return (
+                  <button
+                    key={org.id}
+                    type="button"
+                    role="menuitemradio"
+                    aria-checked={current}
+                    onClick={() => {
+                      onOrgSwitch?.(org.id)
+                      setOpen(false)
+                    }}
+                    style={{
+                      ...row(current),
+                      ...ROW_SHAPE,
+                      justifyContent: 'space-between',
+                    }}
+                    {...ghostHover(current)}
+                  >
+                    <span
+                      style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}
                     >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  )}
-                </button>
-              ))}
+                      <span style={{ fontSize: FS.sm, color: 'inherit' }}>
+                        {org.name}
+                      </span>
+                      {org.role && (
+                        <span
+                          style={{
+                            fontSize: FS.xs,
+                            color: CHROME.fgDim,
+                            textTransform: 'capitalize',
+                          }}
+                        >
+                          {org.role}
+                        </span>
+                      )}
+                    </span>
+                    {current && <Check />}
+                  </button>
+                )
+              })}
             </div>
           )}
 
-          {/* Links — org-aware */}
-          <div className="p-2">
+          {/* The way out */}
+          <div style={{ padding: 8 }}>
             <a
+              role="menuitem"
               href={`${domains.iam}/account`}
-              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] text-white/60 hover:bg-white/[0.06] hover:text-white/80 transition-colors"
               onClick={() => setOpen(false)}
+              style={link}
+              {...ghostHover()}
             >
               Account settings
             </a>
             <a
+              role="menuitem"
               href={domains.billing}
-              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] text-white/60 hover:bg-white/[0.06] hover:text-white/80 transition-colors"
               onClick={() => setOpen(false)}
+              style={link}
+              {...ghostHover()}
             >
               Billing
             </a>
             <button
               type="button"
+              role="menuitem"
               onClick={() => {
                 setOpen(false)
                 onSignOut?.()
               }}
-              className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] text-white/40 hover:bg-white/[0.06] hover:text-red-400/70 transition-colors"
+              style={{ ...link, color: CHROME.fgDim }}
+              {...ghostHover(false, CHROME.fgDim)}
             >
               Sign out
             </button>
@@ -157,5 +240,47 @@ export function UserOrgDropdown({
         </div>
       )}
     </div>
+  )
+}
+
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      width={12}
+      height={12}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      style={{
+        flexShrink: 0,
+        transform: open ? 'rotate(180deg)' : 'none',
+        transition: 'transform 150ms ease',
+      }}
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  )
+}
+
+function Check() {
+  return (
+    <svg
+      width={14}
+      height={14}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      style={{ flexShrink: 0 }}
+    >
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
   )
 }

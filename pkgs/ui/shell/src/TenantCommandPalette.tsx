@@ -1,7 +1,20 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { DEFAULT_TENANT_APPS, type TenantApp } from './types'
+import { CHROME, FG_ON, FS, LABEL, PANEL, R, SCRIM, Z, row } from './theme'
+import { useShellStyles } from './shellStyles'
+
+/** The ⌘K / ↑ / ↓ / ↵ hint keys, one shape for all of them. */
+const KBD: React.CSSProperties = {
+  padding: '1px 5px',
+  borderRadius: R.row,
+  border: `1px solid ${CHROME.border}`,
+  background: CHROME.raised,
+  color: CHROME.fgDim,
+  fontFamily: 'inherit',
+  fontSize: FS.xs,
+}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -64,6 +77,7 @@ export function TenantCommandPalette({
   onOpenChange,
   onNavigate,
 }: TenantCommandPaletteProps) {
+  useShellStyles()
   const [internalOpen, setInternalOpen] = useState(false)
   const open = controlledOpen ?? internalOpen
   const setOpen = useCallback(
@@ -172,24 +186,57 @@ export function TenantCommandPalette({
   if (!open) return null
 
   return (
-    <>
+    <div data-hanzo-shell="" style={{ fontFamily: CHROME.font }}>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
         onClick={() => setOpen(false)}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: Z.overlay as unknown as number,
+          background: SCRIM,
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)',
+        }}
       />
 
       {/* Palette */}
-      <div className="fixed top-[15%] left-1/2 -translate-x-1/2 w-full max-w-xl z-[101]">
-        <div className="bg-black border border-white/[0.08] rounded-xl shadow-2xl overflow-hidden">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command palette"
+        style={{
+          position: 'fixed',
+          top: '15%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: Z.modal as unknown as number,
+          width: '100%',
+          maxWidth: 576,
+          padding: '0 12px',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div style={{ ...PANEL, overflow: 'hidden' }}>
           {/* Search */}
-          <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.07]">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '12px 16px',
+              borderBottom: `1px solid ${CHROME.border}`,
+            }}
+          >
             <svg
-              className="w-4 h-4 text-white/30"
+              width={16}
+              height={16}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
+              aria-hidden="true"
+              style={{ flexShrink: 0, color: CHROME.fgDim }}
             >
               <path
                 strokeLinecap="round"
@@ -203,59 +250,129 @@ export function TenantCommandPalette({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Search commands..."
-              className="flex-1 bg-transparent text-white text-[13px] placeholder-white/30 outline-none"
+              placeholder="Search commands…"
+              aria-label="Search commands"
+              autoComplete="off"
+              spellCheck={false}
+              style={{
+                flex: 1,
+                minWidth: 0,
+                border: 'none',
+                background: 'transparent',
+                color: CHROME.fg,
+                fontSize: FS.sm,
+                fontFamily: 'inherit',
+                outline: 'none',
+              }}
             />
-            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white/[0.06] rounded text-white/30">
-              ESC
-            </kbd>
+            <kbd style={KBD}>ESC</kbd>
           </div>
 
           {/* Results */}
-          <div ref={listRef} className="max-h-[400px] overflow-y-auto py-1">
+          <div
+            ref={listRef}
+            role="listbox"
+            aria-label="Commands"
+            style={{ maxHeight: 400, overflowY: 'auto', padding: '4px 0' }}
+          >
             {flat.length === 0 ? (
-              <div className="px-4 py-8 text-center text-white/30 text-[13px]">
+              <div
+                style={{
+                  padding: '32px 16px',
+                  textAlign: 'center',
+                  color: CHROME.fgDim,
+                  fontSize: FS.sm,
+                }}
+              >
                 No results for &ldquo;{search}&rdquo;
               </div>
             ) : (
               Object.entries(grouped).map(([category, items]) => (
                 <div key={category}>
-                  <div className="px-4 py-2 text-[11px] font-semibold text-white/40">
-                    {category}
-                  </div>
+                  <div style={{ ...LABEL, padding: '8px 16px' }}>{category}</div>
                   {items.map((cmd) => {
                     const idx = flat.indexOf(cmd)
                     const selected = idx === selectedIndex
                     return (
                       <button
                         key={cmd.id}
+                        type="button"
+                        role="option"
+                        aria-selected={selected}
                         data-idx={idx}
                         onClick={() => go(cmd)}
                         onMouseEnter={() => setSelectedIndex(idx)}
-                        className={`w-full flex items-center gap-3 px-4 py-2 text-left transition-colors ${
-                          selected
-                            ? 'bg-white/[0.06] text-white'
-                            : 'text-white/50 hover:bg-white/[0.03]'
-                        }`}
+                        style={{
+                          ...row(selected),
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          width: '100%',
+                          margin: 0,
+                          padding: '8px 16px',
+                          borderRadius: 0,
+                          border: 'none',
+                          background: 'transparent',
+                          // Selection is said in brightness, like every other
+                          // row in the chrome — never in a filled band.
+                          color: selected ? FG_ON : CHROME.fgMuted,
+                          fontFamily: 'inherit',
+                          textAlign: 'left',
+                        }}
                       >
                         {cmd.icon && (
                           <span
-                            className={`w-5 h-5 flex items-center justify-center ${selected ? 'text-white/70' : 'text-white/25'}`}
+                            aria-hidden="true"
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: 20,
+                              height: 20,
+                              flexShrink: 0,
+                              color: 'inherit',
+                            }}
                           >
                             {cmd.icon}
                           </span>
                         )}
-                        <div className="flex-1 min-w-0">
-                          <span className="text-[13px] font-medium truncate block">
+                        <span style={{ flex: 1, minWidth: 0 }}>
+                          <span
+                            style={{
+                              display: 'block',
+                              fontSize: FS.sm,
+                              fontWeight: 600,
+                              color: 'inherit',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
                             {cmd.title}
                           </span>
                           {cmd.description && (
-                            <span className="text-[11px] text-white/25 truncate block">
+                            <span
+                              style={{
+                                display: 'block',
+                                fontSize: FS.xs,
+                                color: CHROME.fgDim,
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
                               {cmd.description}
                             </span>
                           )}
-                        </div>
-                        {selected && <span className="text-white/25 text-[11px]">↵</span>}
+                        </span>
+                        {selected && (
+                          <span
+                            aria-hidden="true"
+                            style={{ flexShrink: 0, fontSize: FS.xs, color: 'inherit' }}
+                          >
+                            ↵
+                          </span>
+                        )}
                       </button>
                     )
                   })}
@@ -265,22 +382,32 @@ export function TenantCommandPalette({
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-2 border-t border-white/[0.07] flex items-center justify-between">
-            <div className="flex items-center gap-4 text-[10px] text-white/20">
-              <span className="flex items-center gap-1">
-                <kbd className="px-1 py-0.5 bg-white/[0.06] rounded text-[9px]">↑</kbd>
-                <kbd className="px-1 py-0.5 bg-white/[0.06] rounded text-[9px]">↓</kbd>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '8px 16px',
+              borderTop: `1px solid ${CHROME.border}`,
+              color: CHROME.fgDim,
+              fontSize: FS.xs,
+            }}
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <kbd style={KBD}>↑</kbd>
+                <kbd style={KBD}>↓</kbd>
                 navigate
               </span>
-              <span className="flex items-center gap-1">
-                <kbd className="px-1 py-0.5 bg-white/[0.06] rounded text-[9px]">↵</kbd>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <kbd style={KBD}>↵</kbd>
                 select
               </span>
-            </div>
-            <span className="text-[10px] text-white/20">⌘K</span>
+            </span>
+            <span>⌘K</span>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

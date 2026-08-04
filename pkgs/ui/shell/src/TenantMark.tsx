@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { CHROME, FS, LABEL, PANEL, R, Z, ghostHover, row } from './theme'
+import { useShellStyles } from './shellStyles'
 
 interface BrandMenuProps {
   x: number
@@ -40,13 +42,27 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
     <div
       ref={ref}
       role="menu"
-      className="fixed z-[9999] min-w-[180px] rounded-xl border border-white/[0.08] bg-black py-1.5 shadow-2xl shadow-black/60"
-      style={{ top: y, left: x }}
+      aria-label="Hanzo brand"
+      data-hanzo-shell=""
+      style={{
+        position: 'fixed',
+        top: y,
+        left: x,
+        ...PANEL,
+        zIndex: Z.popover as unknown as number,
+        minWidth: 180,
+        padding: 6,
+        fontFamily: CHROME.font,
+      }}
     >
-      <div className="border-b border-white/[0.06] px-3 pb-2 pt-1">
-        <p className="text-[11px] font-semibold text-white/40">
-          Hanzo Brand
-        </p>
+      <div
+        style={{
+          borderBottom: `1px solid ${CHROME.borderSoft}`,
+          padding: '2px 8px 6px',
+          marginBottom: 4,
+        }}
+      >
+        <p style={{ ...LABEL, margin: 0 }}>Hanzo brand</p>
       </div>
       {items.map((item) =>
         item.action === 'copy-svg' ? (
@@ -58,7 +74,8 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
               navigator.clipboard.writeText(LOGO_SVG).catch(() => {})
               onClose()
             }}
-            className="flex w-full items-center px-3 py-2 text-[13px] text-white/60 hover:bg-white/[0.05] hover:text-white/90 transition-colors text-left"
+            style={MENU_ITEM}
+            {...ghostHover()}
           >
             Copy SVG
           </button>
@@ -70,7 +87,8 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
             target={item.href?.startsWith('https') ? '_blank' : undefined}
             rel="noopener noreferrer"
             onClick={onClose}
-            className="flex items-center px-3 py-2 text-[13px] text-white/60 hover:bg-white/[0.05] hover:text-white/90 transition-colors"
+            style={MENU_ITEM}
+            {...ghostHover()}
           >
             {item.label}
           </a>
@@ -78,6 +96,22 @@ function BrandContextMenu({ x, y, onClose }: BrandMenuProps) {
       )}
     </div>
   )
+}
+
+/** One row shape for both the link and the button form of a menu item. */
+const MENU_ITEM: React.CSSProperties = {
+  ...row(),
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  margin: 0,
+  padding: '7px 8px',
+  borderRadius: R.row,
+  border: 'none',
+  background: 'transparent',
+  fontSize: FS.sm,
+  fontFamily: 'inherit',
+  textAlign: 'left',
 }
 
 export interface TenantMarkProps {
@@ -102,6 +136,7 @@ export function TenantMark({
   brandMenu = true,
   animate = true,
 }: TenantMarkProps) {
+  useShellStyles()
   const [menu, setMenu] = useState<{ x: number; y: number } | null>(null)
   const [hovered, setHovered] = useState(false)
 

@@ -1,7 +1,19 @@
 'use client'
 
+/**
+ * AppSwitcher — the compact, sectioned cross-app dropdown carried by
+ * TenantHeader. `HanzoAppLauncher` is the roomy icon-tile form of the same
+ * idea; this is the dense text form the signed-in chrome wears.
+ *
+ * Self-contained by design: inline styles + theme.ts tokens, React the only
+ * runtime dependency, ZERO CSS-framework coupling — so it drops into any Hanzo
+ * app and renders identically regardless of the host's Tailwind/Gui/none setup.
+ */
 import React, { useState, useRef, useEffect } from 'react'
 import { DEFAULT_TENANT_APPS, type TenantApp } from './types'
+import { HanzoGridIcon } from './hanzo-apps'
+import { CHROME, CTRL_H, FS, LABEL, PANEL, R, Z, control, ghostHover, row } from './theme'
+import { useShellStyles } from './shellStyles'
 
 /** Group IDs for sectioned display */
 const APP_GROUPS: { label: string; ids: string[] }[] = [
@@ -26,6 +38,7 @@ export function AppSwitcher({
   apps = DEFAULT_TENANT_APPS,
   currentAppId,
 }: AppSwitcherProps) {
+  useShellStyles()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -39,96 +52,100 @@ export function AppSwitcher({
 
   const filtered = apps.filter((a) => a.id !== currentAppId)
   const appMap = new Map(filtered.map((a) => [a.id, a]))
+  const grouped = new Set(APP_GROUPS.flatMap((g) => g.ids))
+
+  // One list of sections, so grouped and leftover apps render through the SAME
+  // block instead of two copies of it that can drift apart.
+  const sections = [
+    ...APP_GROUPS.map((g) => ({
+      label: g.label,
+      apps: g.ids.map((id) => appMap.get(id)).filter(Boolean) as TenantApp[],
+    })),
+    { label: 'Other', apps: filtered.filter((a) => !grouped.has(a.id)) },
+  ].filter((s) => s.apps.length > 0)
 
   return (
-    <div ref={ref} className="relative">
+    <div
+      ref={ref}
+      data-hanzo-shell=""
+      style={{ position: 'relative', display: 'inline-flex' }}
+    >
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex h-8 w-8 items-center justify-center rounded-lg text-white/40 hover:bg-white/[0.06] hover:text-white/70 transition-colors"
+        aria-haspopup="menu"
+        aria-expanded={open}
         aria-label="Switch app"
         title="Switch app"
+        style={{ ...control(open), width: CTRL_H, padding: 0 }}
+        {...ghostHover(open)}
       >
-        {/* 3x3 grid icon */}
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-          <rect x="1" y="1" width="4" height="4" rx="1" />
-          <rect x="6" y="1" width="4" height="4" rx="1" />
-          <rect x="11" y="1" width="4" height="4" rx="1" />
-          <rect x="1" y="6" width="4" height="4" rx="1" />
-          <rect x="6" y="6" width="4" height="4" rx="1" />
-          <rect x="11" y="6" width="4" height="4" rx="1" />
-          <rect x="1" y="11" width="4" height="4" rx="1" />
-          <rect x="6" y="11" width="4" height="4" rx="1" />
-          <rect x="11" y="11" width="4" height="4" rx="1" />
-        </svg>
+        <HanzoGridIcon size={16} />
       </button>
 
       {open && (
-        <div className="absolute left-0 top-10 z-50 w-72 max-h-[80vh] overflow-y-auto rounded-xl border border-white/[0.08] bg-black p-2 shadow-2xl">
-          {APP_GROUPS.map((group) => {
-            const groupApps = group.ids
-              .map((id) => appMap.get(id))
-              .filter(Boolean) as TenantApp[]
-            if (groupApps.length === 0) return null
-            return (
-              <div key={group.label}>
-                <p className="px-2 pb-1 pt-2 text-[11px] font-medium text-white/40">
-                  {group.label}
-                </p>
-                <div className="grid grid-cols-2 gap-0.5">
-                  {groupApps.map((app) => (
-                    <a
-                      key={app.id}
-                      href={app.href}
-                      className="flex flex-col gap-0.5 rounded-lg px-3 py-2 hover:bg-white/[0.06] transition-colors"
-                      onClick={() => setOpen(false)}
-                    >
-                      <span className="text-[13px] font-medium text-white/80">
-                        {app.label}
+        <div
+          role="menu"
+          aria-label="Switch app"
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: CTRL_H + 10,
+            ...PANEL,
+            zIndex: Z.popover as unknown as number,
+            width: 288,
+            maxWidth: 'calc(100vw - 24px)',
+            maxHeight: '80vh',
+            overflowY: 'auto',
+            padding: 8,
+            fontFamily: CHROME.font,
+          }}
+        >
+          {sections.map((section) => (
+            <div key={section.label}>
+              <p style={{ ...LABEL, margin: 0, padding: '8px 8px 4px' }}>
+                {section.label}
+              </p>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gap: 2,
+                }}
+              >
+                {section.apps.map((app) => (
+                  <a
+                    key={app.id}
+                    role="menuitem"
+                    href={app.href}
+                    onClick={() => setOpen(false)}
+                    style={{
+                      ...row(),
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 1,
+                      margin: 0,
+                      padding: '6px 10px',
+                      borderRadius: R.row,
+                    }}
+                    {...ghostHover()}
+                  >
+                    {/* Inherits so the row's ONE color carries the hover. */}
+                    <span style={{ fontSize: FS.sm, fontWeight: 600, color: 'inherit' }}>
+                      {app.label}
+                    </span>
+                    {app.description && (
+                      <span
+                        style={{ fontSize: FS.xs, lineHeight: 1.25, color: CHROME.fgDim }}
+                      >
+                        {app.description}
                       </span>
-                      {app.description && (
-                        <span className="text-[11px] leading-tight text-white/30">
-                          {app.description}
-                        </span>
-                      )}
-                    </a>
-                  ))}
-                </div>
+                    )}
+                  </a>
+                ))}
               </div>
-            )
-          })}
-          {/* Any apps not in groups */}
-          {(() => {
-            const groupedIds = new Set(APP_GROUPS.flatMap((g) => g.ids))
-            const ungrouped = filtered.filter((a) => !groupedIds.has(a.id))
-            if (ungrouped.length === 0) return null
-            return (
-              <div>
-                <p className="px-2 pb-1 pt-2 text-[11px] font-medium text-white/40">
-                  Other
-                </p>
-                <div className="grid grid-cols-2 gap-0.5">
-                  {ungrouped.map((app) => (
-                    <a
-                      key={app.id}
-                      href={app.href}
-                      className="flex flex-col gap-0.5 rounded-lg px-3 py-2 hover:bg-white/[0.06] transition-colors"
-                      onClick={() => setOpen(false)}
-                    >
-                      <span className="text-[13px] font-medium text-white/80">
-                        {app.label}
-                      </span>
-                      {app.description && (
-                        <span className="text-[11px] leading-tight text-white/30">
-                          {app.description}
-                        </span>
-                      )}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )
-          })()}
+            </div>
+          ))}
         </div>
       )}
     </div>

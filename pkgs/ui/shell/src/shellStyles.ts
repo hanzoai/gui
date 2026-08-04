@@ -5,7 +5,7 @@
  * inline styles cannot express (`:focus-visible`, `:disabled`, media queries).
  * Everything else in the shell stays inline styles + theme.ts tokens.
  *
- * It carries exactly five house rules, scoped to `[data-hanzo-shell]` roots:
+ * It carries exactly six house rules, scoped to `[data-hanzo-shell]` roots:
  *   1. a paper-white focus ring, replacing Chrome's default BLUE — the one stray
  *      hue on otherwise-monochrome chrome. `!important` beats inline `outline`.
  *   2. `cursor: pointer` on every button, so no control can drift without it.
@@ -16,6 +16,10 @@
  *      The shell states its motion as inline `transition`, which no media query
  *      can reach — so honouring the preference has to happen HERE, once, for
  *      every surface, rather than each component re-deriving it.
+ *   6. `hanzo-spin`, the shell's ONE keyframe. A rotation has no inline-style
+ *      form — `style` can hold a single transform, not a loop — so the busy
+ *      spinner has to name a keyframe, and rule 5 already silences it for a
+ *      reader who asked for stillness.
  *
  * Usage: a top-level shell component calls `useShellStyles()` once and puts
  * `data-hanzo-shell=""` on its root; the rules then apply to every focusable
@@ -37,7 +41,11 @@ const CSS = [
   `[data-hanzo-shell] button:disabled{cursor:default}`,
   `@media (pointer:coarse){[data-hanzo-shell] a,[data-hanzo-shell] button{min-height:${TAP_H}px}}`,
   `@media (prefers-reduced-motion:reduce){[data-hanzo-shell],[data-hanzo-shell] *{transition:none!important;animation:none!important}}`,
+  `@keyframes hanzo-spin{to{transform:rotate(360deg)}}`,
 ].join('')
+
+/** The shell's one animation, for a control that is busy. See rule 6. */
+export const SPIN = 'hanzo-spin 700ms linear infinite'
 
 /** Inject the shell's base stylesheet once (idempotent). */
 export function useShellStyles(): void {

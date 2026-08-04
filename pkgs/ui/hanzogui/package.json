@@ -9,6 +9,24 @@
     "directory": "pkgs/ui/hanzogui"
   },
   "source": "src/index.ts",
+  "files": [
+    "bundle-native.mjs",
+    "dist",
+    "hanzogui.config.ts",
+    "linear-gradient",
+    "native-test.cjs",
+    "native-test.d.ts",
+    "native-test",
+    "native.cjs",
+    "native.d.ts",
+    "native",
+    "react-native-web.cjs",
+    "react-native-web",
+    "src",
+    "types",
+    "web.cjs",
+    "web"
+  ],
   "type": "module",
   "sideEffects": [
     "setup.*"

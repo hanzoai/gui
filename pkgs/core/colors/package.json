@@ -3,6 +3,13 @@
   "version": "8.0.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
+  "files": [
+    "dist",
+    "legacy.cjs",
+    "legacy",
+    "src",
+    "types"
+  ],
   "type": "module",
   "sideEffects": false,
   "main": "dist/cjs",

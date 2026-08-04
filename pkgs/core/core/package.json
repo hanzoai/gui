@@ -12,6 +12,23 @@
     "directory": "packages/core"
   },
   "source": "src/index.tsx",
+  "files": [
+    "bundle-native.mjs",
+    "dist",
+    "inject-styles.cjs",
+    "inject-styles",
+    "native-test.cjs",
+    "native-test.d.ts",
+    "native-test",
+    "native.cjs",
+    "native.d.ts",
+    "native",
+    "reactNativeTypes.cjs",
+    "reactNativeTypes",
+    "reset.css",
+    "src",
+    "types"
+  ],
   "type": "module",
   "sideEffects": [
     "*.css"

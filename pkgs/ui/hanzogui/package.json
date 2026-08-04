@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
@@ -11,6 +11,7 @@
   "source": "src/index.ts",
   "files": [
     "bundle-native.mjs",
+    "css-check.mjs",
     "dist",
     "hanzogui.config.ts",
     "linear-gradient",
@@ -34,8 +35,12 @@
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
+  "bin": {
+    "gui-css-check": "./css-check.mjs"
+  },
   "exports": {
     "./package.json": "./package.json",
+    "./css-check": "./css-check.mjs",
     ".": {
       "types": "./types/index.d.ts",
       "react-native": "./dist/esm/index.native.js",
@@ -92,7 +97,8 @@
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build",
     "check": "bun run check-circular-deps",
-    "check-circular-deps": "npx madge --circular ./src/index.ts"
+    "check-circular-deps": "npx madge --circular ./src/index.ts",
+    "test": "node --test css-check.test.mjs"
   },
   "dependencies": {
     "@hanzogui/accordion": "workspace:*",

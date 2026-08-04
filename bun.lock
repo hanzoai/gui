@@ -2050,7 +2050,7 @@
     },
     "pkgs/lucide-icons": {
       "name": "@hanzogui/lucide-icons-2",
-      "version": "8.0.1",
+      "version": "8.0.2",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/helpers-icon": "workspace:*",

@@ -1,8 +1,0 @@
-import type { GetProps } from '@hanzogui/core';
-export declare const Fieldset: import("@hanzogui/core").GuiComponent<import("@hanzogui/core").TamaDefer, import("@hanzogui/core").GuiElement, import("@hanzogui/core").RNGuiViewNonStyleProps, import("@hanzogui/core").StackStyleBase, {
-    elevation?: number | import("@hanzogui/core").SizeTokens | undefined;
-    fullscreen?: boolean | undefined;
-    horizontal?: boolean | undefined;
-}, import("@hanzogui/core").StaticConfigPublic>;
-export type FieldsetProps = GetProps<typeof Fieldset>;
-//# sourceMappingURL=Fieldset.d.ts.map

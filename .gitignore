@@ -1,10 +1,19 @@
 **/test-results/*
 **/.maestro-debug
 
-# keep types in repo to track them
-# **/types/**/*.d.ts
-# but map can be ignored and just published on npm
-**/types/**/*.d.ts.map
+# generated declarations are build artifacts: hanzogui-build emits every
+# package's into <pkg>/types/, the build fixtures emit to their package root.
+# they still ship on npm - every package lists "types" in its files[].
+# hand-authored .d.ts stay tracked (re-export shims like pkgs/core/config/v5.d.ts,
+# ambient stubs like apps/gui.hanzo.ai/types/bento.d.ts): none live under pkgs/*/types/.
+pkgs/**/types/**/*.d.ts
+pkgs/**/types/**/*.d.ts.map
+pkgs/build/__tests__/fixtures/**/*.d.ts
+pkgs/build/__tests__/fixtures/**/*.d.ts.map
+pkgs/**/vitest.config.d.ts
+pkgs/**/vitest.config.d.ts.map
+pkgs/**/*.test.d.ts
+pkgs/**/*.test.d.ts.map
 
 .yarn/*
 !.yarn/patches

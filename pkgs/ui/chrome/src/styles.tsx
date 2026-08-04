@@ -110,13 +110,15 @@ export const Txt = styled(Text, {
       nav: { fontSize: 14, lineHeight: 20, color: c.fgMuted },
       explore: { fontSize: 24, lineHeight: 30, fontWeight: '500' },
       desc: { fontSize: 12, lineHeight: 16, color: c.fgDim },
+      // Section head. Sentence case — matches @hanzogui/shell's LABEL token,
+      // which is the one place that rank is defined. It earns rank from weight
+      // and brightness against the dimmer links beneath it, never from caps or
+      // wide tracking.
       kicker: {
-        fontSize: 12,
-        lineHeight: 16,
-        fontWeight: '500',
-        color: c.fgDim,
-        textTransform: 'uppercase',
-        letterSpacing: 1.4,
+        fontSize: 13,
+        lineHeight: 18,
+        fontWeight: '600',
+        color: c.fgStrong,
       },
       strong: { fontSize: 14, lineHeight: 20, fontWeight: '500', color: c.fgStrong },
       body: { fontSize: 14, lineHeight: 20, color: c.fgMuted },

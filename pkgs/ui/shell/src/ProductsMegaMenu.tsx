@@ -48,7 +48,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { type HanzoLink, type ProductCategory } from './hanzo-registry'
 import { ACCENT, ACCENT_SOFT, CHROME, FS, R, SHADOW, Z } from './theme'
 import { useShellStyles } from './shellStyles'
-import { NoResults, ProductSearch, filterProducts } from './productSearch'
 
 /** The signature grid: ten categories as two rows of five, at every desktop width. */
 const COLUMNS = 5
@@ -85,23 +84,16 @@ export function ProductsMegaMenu({
 }: ProductsMegaMenuProps) {
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const restoreRef = useRef<HTMLElement | null>(null)
-  const searchRef = useRef<HTMLInputElement | null>(null)
-  const [query, setQuery] = useState('')
   useShellStyles()
 
   const close = useCallback(() => onClose?.(), [onClose])
 
-  // Save focus on open, restore it on close (clean keyboard loop). Focus lands
-  // on the SEARCH field, not the first link: with ~97 leaves behind this panel,
-  // typing is the fastest way to the one you want, and Tab/↓ still walk the list
-  // for anyone who would rather browse.
+  // Save focus on open, restore it on close (clean keyboard loop).
   useEffect(() => {
-    if (!open) {
-      setQuery('')
-      return
-    }
+    if (!open) return
     restoreRef.current = (document.activeElement as HTMLElement) ?? null
-    requestAnimationFrame(() => searchRef.current?.focus())
+    const first = itemRefs.current.find(Boolean)
+    requestAnimationFrame(() => first?.focus())
     return () => {
       restoreRef.current?.focus?.()
     }
@@ -119,14 +111,6 @@ export function ProductsMegaMenu({
       if (e.key === 'Escape') {
         e.preventDefault()
         close()
-        return
-      }
-      // Inside the search field the caret owns the horizontal keys, and Home/End
-      // own the text — only ↓ leaves the field for the results.
-      if ((e.target as HTMLElement).tagName === 'INPUT') {
-        if (e.key !== 'ArrowDown') return
-        e.preventDefault()
-        focusItem(0)
         return
       }
       const els = itemRefs.current.filter(Boolean) as HTMLAnchorElement[]
@@ -154,8 +138,6 @@ export function ProductsMegaMenu({
     },
     [close, focusItem]
   )
-
-  const shown = filterProducts(categories, query)
 
   // Reset the ref list each render so indices track render order.
   itemRefs.current = []
@@ -211,15 +193,8 @@ export function ProductsMegaMenu({
       >
         {/* No "PRODUCTS" eyebrow: the trigger this panel hangs off already says
             Products, and the panel is anchored to it. Labelling it twice is the
-            same word in two places. The field below is a control, not a second
-            label — it earns its line. */}
+            same word in two places. */}
         <div style={{ padding: `18px ${GUTTER}px 28px` }}>
-          <div style={{ maxWidth: 320, marginBottom: 18 }}>
-            <ProductSearch value={query} onChange={setQuery} inputRef={searchRef} />
-          </div>
-
-          {shown.length === 0 ? <NoResults query={query} /> : null}
-
           <div
             style={{
               display: 'grid',
@@ -235,7 +210,7 @@ export function ProductsMegaMenu({
               margin: '0 -12px',
             }}
           >
-            {shown.map((category) => (
+            {categories.map((category) => (
               <CategoryTile
                 key={category.id}
                 category={category}

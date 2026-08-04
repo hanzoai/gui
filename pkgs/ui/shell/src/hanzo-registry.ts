@@ -9,7 +9,7 @@
  * render it.
  *
  *   URLs .............. one canonical URL table (`U`) — every link resolves here
- *   HANZO_PRODUCTS .... the flagship products (+ Dev) with verb · tagline · boundary
+ *   HANZO_PRODUCTS .... the flagship products (+ Dev) with tagline · boundary
  *   MEET_HANZO_GROUPS . the universal mega-menu (identical on every property)
  *   HANZO_SURFACES .... per-domain public-header config (brand · nav · CTAs · CTA)
  *   HANZO_FOOTER_* .... the unified 6-column footer + bottom legal bar
@@ -29,8 +29,6 @@ export interface HanzoLink {
 
 /** A first-party Hanzo product. */
 export interface HanzoProduct extends HanzoLink {
-  /** Imperative verb shown in the mega-menu ("Use AI", "Build", …). */
-  verb: string
   /** One-line tagline ("Ask anything", "Build and ship apps", …). */
   tagline: string
   /** The product boundary — what this product is FOR (kept consistent everywhere). */
@@ -186,7 +184,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'chat',
     label: 'Hanzo Chat',
     href: U.chat,
-    verb: 'Use AI',
     tagline: 'Ask anything',
     boundary: PRODUCT_BOUNDARIES.chat,
     flagship: true,
@@ -195,7 +192,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'app',
     label: 'Hanzo App',
     href: U.app,
-    verb: 'Build',
     tagline: 'Build and ship apps',
     boundary: PRODUCT_BOUNDARIES.app,
     flagship: true,
@@ -204,7 +200,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'team',
     label: 'Hanzo Team',
     href: U.team,
-    verb: 'Work',
     tagline: 'People and AI together',
     boundary: PRODUCT_BOUNDARIES.team,
     flagship: true,
@@ -213,7 +208,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'studio',
     label: 'Hanzo Studio',
     href: U.studio,
-    verb: 'Design AI',
     tagline: 'Models, prompts and agents',
     boundary: PRODUCT_BOUNDARIES.studio,
     flagship: true,
@@ -222,7 +216,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'bot',
     label: 'Hanzo Bot',
     href: U.bot,
-    verb: 'Deploy agents',
     tagline: 'Publish AI anywhere',
     boundary: PRODUCT_BOUNDARIES.bot,
     flagship: true,
@@ -231,7 +224,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'cloud',
     label: 'Hanzo Cloud',
     href: U.cloud,
-    verb: 'Operate',
     tagline: 'Run the platform',
     boundary: PRODUCT_BOUNDARIES.cloud,
     flagship: true,
@@ -240,7 +232,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'dev',
     label: 'Hanzo Dev',
     href: U.dev,
-    verb: 'Build software',
     tagline: 'From the editor and terminal',
     boundary: PRODUCT_BOUNDARIES.dev,
   },
@@ -263,11 +254,11 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
     items: [
       { id: 'models', label: 'Models', href: U.models },
       { id: 'enso', label: 'Enso', href: U.enso },
-      { id: 'agents', label: 'Managed Agents', href: U.agents },
-      { id: 'mcp', label: 'MCP Tools', href: U.mcp },
+      { id: 'agents', label: 'Managed agents', href: U.agents },
+      { id: 'mcp', label: 'MCP tools', href: U.mcp },
       { id: 'dev', label: 'Hanzo Dev', href: U.dev },
-      { id: 'console', label: 'Developer Console', href: U.console },
-      { id: 'api', label: 'API Platform', href: U.api },
+      { id: 'console', label: 'Developer console', href: U.console },
+      { id: 'api', label: 'API platform', href: U.api },
       { id: 'cloud', label: 'All cloud products', href: U.cloud },
     ],
   },
@@ -695,10 +686,10 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
     items: [
       { id: 'models', label: 'Models', href: U.models },
       { id: 'enso', label: 'Enso', href: U.enso },
-      { id: 'agents', label: 'Managed Agents', href: U.agents },
-      { id: 'mcp', label: 'MCP Tools', href: U.mcp },
-      { id: 'api', label: 'API Platform', href: U.api },
-      { id: 'console', label: 'Developer Console', href: U.console },
+      { id: 'agents', label: 'Managed agents', href: U.agents },
+      { id: 'mcp', label: 'MCP tools', href: U.mcp },
+      { id: 'api', label: 'API platform', href: U.api },
+      { id: 'console', label: 'Developer console', href: U.console },
       { id: 'cloud', label: 'All cloud products', href: U.cloud },
     ],
   },

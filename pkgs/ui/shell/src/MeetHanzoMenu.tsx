@@ -5,16 +5,22 @@
  * Hanzo property. It is the one place a visitor discovers the whole ecosystem,
  * so it renders the SAME data (`MEET_HANZO_GROUPS`) everywhere:
  *
- *   ┌──────────────────────────────────────────────────────────────────┐
+ *   ├──────────────────────────────────────────────────────────────────┤
  *   │ Flagship products                                                  │
  *   │  ┌───────────┐ ┌───────────┐ ┌───────────┐                         │
- *   │  │ Use AI    │ │ Build     │ │ Work      │  … rich product cards    │
- *   │  │ Hanzo Chat│ │ Hanzo App │ │ Hanzo Team│                         │
+ *   │  │ Hanzo Chat│ │ Hanzo App │ │ Hanzo Team│  … rich product cards    │
  *   │  │ Ask …     │ │ Build …   │ │ People …  │                         │
  *   │  └───────────┘ └───────────┘ └───────────┘                         │
  *   │  Platform          Install            Resources                     │
  *   │  · Models          · Desktop app      · Documentation   … columns   │
- *   └──────────────────────────────────────────────────────────────────┘
+ *   ├──────────────────────────────────────────────────────────────────┤
+ *
+ * It is the SAME FULL-BLEED DRAPE the Products mega-menu is: edge-to-edge under
+ * the header, no gutters, no radius, no outline box, closed by one hairline —
+ * and its content carries the header's own 16px gutter, so the first card sits
+ * under the brand mark. The two menus hang off adjacent triggers in one header
+ * row; when one was a floating rounded card and the other a drape, opening them
+ * in turn looked like two different products' navigation.
  *
  * Controlled-open (props `open`/`onClose`/`anchor`) so a header can drive it;
  * also usable standalone. Self-contained: inline styles + theme.ts tokens,
@@ -36,14 +42,17 @@ import {
   CHROME,
   FS,
   LABEL,
-  PANEL,
   R,
+  SHADOW,
   Z,
   ghostHover,
   row,
 } from './theme'
 import { useShellStyles } from './shellStyles'
 import { useMediaQuery } from './useMediaQuery'
+
+/** Matches the header's own `padding: 0 16px`, so the two align edge for edge. */
+const GUTTER = 16
 
 export interface MeetHanzoMenuProps {
   /** Controlled visibility. When false/undefined the menu renders nothing. */
@@ -82,9 +91,14 @@ export function MeetHanzoMenu({
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const restoreRef = useRef<HTMLElement | null>(null)
   useShellStyles()
-  // Flagship cards render as an even 3×2 grid on desktop; 2-wide on narrow
-  // viewports — six cards always fill their rows (no empty trailing cells).
+  // ONE track count for the whole drape — the cards AND the link columns sit on
+  // it, so a column of links is the same width as the tile above it and as a
+  // Products category beside it. Six divides the six flagship cards evenly at
+  // every step, so no row ever ends in empty cells.
   const narrow = useMediaQuery('(max-width: 720px)')
+  const mid = useMediaQuery('(max-width: 1080px)')
+  const cols = narrow ? 2 : mid ? 3 : 6
+  const grid = `repeat(${cols}, minmax(0, 1fr))`
 
   const close = useCallback(() => onClose?.(), [onClose])
 
@@ -194,32 +208,27 @@ export function MeetHanzoMenu({
           left: 0,
           right: 0,
           zIndex: Z.modal as unknown as number,
-          display: 'flex',
-          justifyContent: 'center',
-          padding: '0 16px 16px',
           boxSizing: 'border-box',
+          // Flush under the header, and never taller than what is left of the
+          // viewport — the panel scrolls internally rather than off the bottom.
+          maxHeight: `calc(100vh - ${anchor}px)`,
+          overflowY: 'auto',
+          // A drape, not a card: the ONLY edge is the hairline that closes it.
+          // The header already draws the hairline above.
+          borderBottom: `1px solid ${CHROME.border}`,
+          background: `radial-gradient(720px 260px at 50% -40%, rgba(255,255,255,0.05), transparent 70%), ${CHROME.panel}`,
+          boxShadow: SHADOW,
           fontFamily: CHROME.font,
           color: CHROME.fg,
         }}
       >
-        <div
-          style={{
-            ...PANEL,
-            width: '100%',
-            maxWidth: 1120,
-            maxHeight: `calc(100vh - ${anchor + 36}px)`,
-            overflowY: 'auto',
-            padding: 24,
-          }}
-        >
+        <div style={{ padding: `18px ${GUTTER}px 28px` }}>
           {/* ── Flagship products — rich cards ── */}
           <SectionLabel>Flagship products</SectionLabel>
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: narrow
-                ? 'repeat(2, minmax(0, 1fr))'
-                : 'repeat(3, minmax(0, 1fr))',
+              gridTemplateColumns: grid,
               gap: 10,
               marginBottom: 24,
             }}
@@ -239,12 +248,14 @@ export function MeetHanzoMenu({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-              gap: 24,
+              gridTemplateColumns: grid,
+              gap: '24px 10px',
             }}
           >
             {columnGroups.map((group) => (
-              <div key={group.id}>
+              // The same 16px inset the cards carry, so a column head lands on
+              // the same left edge as the product name in the tile above it.
+              <div key={group.id} style={{ padding: '0 16px' }}>
                 <SectionLabel>{group.title}</SectionLabel>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   {group.items.map((item) => (
@@ -288,7 +299,7 @@ function ProductCard({
       ref={register}
       href={product.href}
       aria-current={current ? 'true' : undefined}
-      aria-label={`${product.verb} — ${product.label}: ${product.tagline}`}
+      aria-label={`${product.label}: ${product.tagline}`}
       onClick={onNavigate}
       style={{
         display: 'flex',
@@ -297,31 +308,24 @@ function ProductCard({
         textDecoration: 'none',
         padding: '14px 16px',
         borderRadius: R.card,
-        border: `1px solid ${current ? ACCENT : CHROME.border}`,
-        background: current ? ACCENT_SOFT : CHROME.raised,
+        // The reveal is an OUTLINE, never a fill — the same register the
+        // products drape's tiles use, so the two menus read as one surface.
+        border: `1px solid ${current ? ACCENT : 'transparent'}`,
+        background: 'transparent',
         color: CHROME.fg,
         outlineColor: ACCENT,
         transition: 'border-color 140ms ease',
       }}
-      // The reveal is an OUTLINE, never a fill — same rule the products drape
-      // follows. The card's resting `raised` tint is its shape, not a state, so
-      // hovering must not repaint it; the border is what answers the pointer.
       onMouseEnter={(e) => {
         if (!current) (e.currentTarget as HTMLElement).style.borderColor = ACCENT_SOFT
       }}
       onMouseLeave={(e) => {
-        if (!current) (e.currentTarget as HTMLElement).style.borderColor = CHROME.border
+        if (!current) (e.currentTarget as HTMLElement).style.borderColor = 'transparent'
       }}
     >
-      <span
-        style={{
-          fontSize: FS.xs,
-          fontWeight: 600,
-          color: current ? ACCENT : CHROME.fgMuted,
-        }}
-      >
-        {product.verb}
-      </span>
+      {/* No eyebrow. A card that says "Use AI" above "Hanzo Chat" above "Ask
+          anything" spends three lines saying one thing; the name and the
+          tagline are the thing. */}
       <span
         style={{
           fontSize: FS.base,

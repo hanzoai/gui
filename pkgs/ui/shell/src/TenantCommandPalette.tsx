@@ -1,24 +1,31 @@
 'use client'
 
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+/**
+ * TenantCommandPalette — the signed-in apps' ⌘K palette: cross-app navigation
+ * plus whatever commands the host app contributes.
+ *
+ * It renders the SAME frame as the public header's `HanzoCommandPalette` (see
+ * commandPalette.tsx) and differs only in what fills the list. A command here is
+ * an arbitrary act — "New chat", "Open billing" — so it is matched on title,
+ * description and explicit `keywords`, which is what a command list needs and
+ * what a product taxonomy does not.
+ */
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { DEFAULT_TENANT_APPS, type TenantApp } from './types'
-import { CHROME, FG_ON, FS, LABEL, PANEL, R, SCRIM, Z, row } from './theme'
 import { useShellStyles } from './shellStyles'
-
-/** The ⌘K / ↑ / ↓ / ↵ hint keys, one shape for all of them. */
-const KBD: React.CSSProperties = {
-  padding: '1px 5px',
-  borderRadius: R.row,
-  border: `1px solid ${CHROME.border}`,
-  background: CHROME.raised,
-  color: CHROME.fgDim,
-  fontFamily: 'inherit',
-  fontSize: FS.xs,
-}
-
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
+import {
+  KBD,
+  PaletteBar,
+  PaletteEmpty,
+  PaletteField,
+  PaletteGroup,
+  PaletteHints,
+  PaletteList,
+  PaletteRow,
+  PaletteShell,
+  useCommandKey,
+  usePaletteNav,
+} from './commandPalette'
 
 export type CommandItem = {
   id: string
@@ -47,11 +54,8 @@ export type TenantCommandPaletteProps = {
   onNavigate?: (href: string, external?: boolean) => void
 }
 
-// ---------------------------------------------------------------------------
-// Built-in cross-app commands derived from DEFAULT_TENANT_APPS
-// ---------------------------------------------------------------------------
-
-function buildCrossAppCommands(apps: TenantApp[], currentAppId?: string): CommandItem[] {
+/** Cross-app navigation, derived from the apps this tenant can reach. */
+function crossAppCommands(apps: TenantApp[], currentAppId?: string): CommandItem[] {
   return apps
     .filter((app) => app.id !== currentAppId)
     .map((app) => ({
@@ -65,10 +69,6 @@ function buildCrossAppCommands(apps: TenantApp[], currentAppId?: string): Comman
     }))
 }
 
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
-
 export function TenantCommandPalette({
   commands: appCommands = [],
   apps,
@@ -78,336 +78,117 @@ export function TenantCommandPalette({
   onNavigate,
 }: TenantCommandPaletteProps) {
   useShellStyles()
-  const [internalOpen, setInternalOpen] = useState(false)
-  const open = controlledOpen ?? internalOpen
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
+  const open = controlledOpen ?? uncontrolledOpen
   const setOpen = useCallback(
     (v: boolean) => {
       if (onOpenChange) onOpenChange(v)
-      else setInternalOpen(v)
+      else setUncontrolledOpen(v)
     },
     [onOpenChange]
   )
+  const close = useCallback(() => setOpen(false), [setOpen])
+  useCommandKey(useCallback(() => setOpen(!open), [open, setOpen]))
 
-  const [search, setSearch] = useState('')
-  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [query, setQuery] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
-  const listRef = useRef<HTMLDivElement>(null)
 
-  // Merge cross-app + app-specific commands
-  const crossApp = buildCrossAppCommands(apps ?? DEFAULT_TENANT_APPS, currentAppId)
-  const allCommands = [...appCommands, ...crossApp]
-
-  // Filter
-  const q = search.toLowerCase()
-  const filtered = q
-    ? allCommands.filter(
-        (cmd) =>
-          cmd.title.toLowerCase().includes(q) ||
-          cmd.description?.toLowerCase().includes(q) ||
-          cmd.keywords?.some((k) => k.includes(q))
-      )
-    : allCommands
-
-  // Group by category
-  const grouped: Record<string, CommandItem[]> = {}
-  for (const cmd of filtered) {
-    ;(grouped[cmd.category] ??= []).push(cmd)
-  }
-  const flat = Object.values(grouped).flat()
-
-  // Reset on search change
-  useEffect(() => setSelectedIndex(0), [search])
-
-  // Focus on open
   useEffect(() => {
-    if (open) {
-      setSearch('')
-      setSelectedIndex(0)
-      requestAnimationFrame(() => inputRef.current?.focus())
-    }
+    if (open) setQuery('')
   }, [open])
 
-  // Global Cmd+K
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault()
-        setOpen(!open)
-      }
+  // Filtered, then flattened to the row order the keys walk — grouping is a
+  // render detail, so the group heads are emitted as the category changes.
+  const flat = useMemo(() => {
+    const all = [
+      ...appCommands,
+      ...crossAppCommands(apps ?? DEFAULT_TENANT_APPS, currentAppId),
+    ]
+    const q = query.trim().toLowerCase()
+    const hits = q
+      ? all.filter(
+          (cmd) =>
+            cmd.title.toLowerCase().includes(q) ||
+            cmd.description?.toLowerCase().includes(q) ||
+            cmd.keywords?.some((k) => k.includes(q))
+        )
+      : all
+    const byCategory = new Map<string, CommandItem[]>()
+    for (const cmd of hits) {
+      const bucket = byCategory.get(cmd.category)
+      if (bucket) bucket.push(cmd)
+      else byCategory.set(cmd.category, [cmd])
     }
-    document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
-  }, [open, setOpen])
+    return [...byCategory.values()].flat()
+  }, [appCommands, apps, currentAppId, query])
 
-  // Navigate helper
   const go = useCallback(
-    (cmd: CommandItem) => {
-      if (cmd.action) {
-        cmd.action()
-      } else if (cmd.href) {
-        if (onNavigate) {
-          onNavigate(cmd.href, cmd.external)
-        } else if (cmd.external) {
-          window.open(cmd.href, '_blank')
-        } else {
-          window.location.href = cmd.href
-        }
-      }
-      setOpen(false)
+    (i: number) => {
+      const cmd = flat[i]
+      if (!cmd) return
+      close()
+      if (cmd.action) cmd.action()
+      else if (!cmd.href) return
+      else if (onNavigate) onNavigate(cmd.href, cmd.external)
+      else if (cmd.external) window.open(cmd.href, '_blank')
+      else window.location.href = cmd.href
     },
-    [onNavigate, setOpen]
+    [close, flat, onNavigate]
   )
 
-  // Keyboard nav
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'ArrowDown') {
-        e.preventDefault()
-        setSelectedIndex((i) => (i + 1) % (flat.length || 1))
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault()
-        setSelectedIndex((i) => (i - 1 + (flat.length || 1)) % (flat.length || 1))
-      } else if (e.key === 'Enter' && flat[selectedIndex]) {
-        e.preventDefault()
-        go(flat[selectedIndex])
-      } else if (e.key === 'Escape') {
-        setOpen(false)
-      }
-    },
-    [flat, selectedIndex, go, setOpen]
+  const { index, setIndex, listRef, onKeyDown } = usePaletteNav(
+    flat.length,
+    go,
+    close,
+    query
   )
 
-  // Scroll selected into view
-  useEffect(() => {
-    const el = listRef.current?.querySelector(`[data-idx="${selectedIndex}"]`)
-    el?.scrollIntoView({ block: 'nearest' })
-  }, [selectedIndex])
-
-  if (!open) return null
+  // Focus the field on every open. The palette is summoned to be TYPED IN — a
+  // caret anywhere else is a keystroke thrown away.
+  const focusField = useCallback((el: HTMLInputElement | null) => {
+    inputRef.current = el
+    if (el) requestAnimationFrame(() => el.focus())
+  }, [])
 
   return (
-    <div data-hanzo-shell="" style={{ fontFamily: CHROME.font }}>
-      {/* Backdrop */}
-      <div
-        onClick={() => setOpen(false)}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: Z.overlay as unknown as number,
-          background: SCRIM,
-          backdropFilter: 'blur(4px)',
-          WebkitBackdropFilter: 'blur(4px)',
-        }}
+    <PaletteShell open={open} onClose={close} label="Command palette">
+      <PaletteBar edge="top">
+        <span>Commands</span>
+        <kbd style={KBD}>ESC</kbd>
+      </PaletteBar>
+
+      <PaletteField
+        value={query}
+        onChange={setQuery}
+        onKeyDown={onKeyDown}
+        placeholder="Search commands"
+        inputRef={focusField}
       />
 
-      {/* Palette */}
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Command palette"
-        style={{
-          position: 'fixed',
-          top: '15%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: Z.modal as unknown as number,
-          width: '100%',
-          maxWidth: 576,
-          padding: '0 12px',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ ...PANEL, overflow: 'hidden' }}>
-          {/* Search */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              padding: '12px 16px',
-              borderBottom: `1px solid ${CHROME.border}`,
-            }}
-          >
-            <svg
-              width={16}
-              height={16}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-              aria-hidden="true"
-              style={{ flexShrink: 0, color: CHROME.fgDim }}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+      <PaletteList listRef={listRef}>
+        {flat.length === 0 ? (
+          <PaletteEmpty query={query} />
+        ) : (
+          flat.map((cmd, i) => (
+            <React.Fragment key={cmd.id}>
+              {cmd.category === flat[i - 1]?.category ? null : (
+                <PaletteGroup label={cmd.category} />
+              )}
+              <PaletteRow
+                index={i}
+                selected={i === index}
+                title={cmd.title}
+                description={cmd.description}
+                icon={cmd.icon}
+                onSelect={() => go(i)}
+                onHover={() => setIndex(i)}
               />
-            </svg>
-            <input
-              ref={inputRef}
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Search commands…"
-              aria-label="Search commands"
-              autoComplete="off"
-              spellCheck={false}
-              style={{
-                flex: 1,
-                minWidth: 0,
-                border: 'none',
-                background: 'transparent',
-                color: CHROME.fg,
-                fontSize: FS.sm,
-                fontFamily: 'inherit',
-                outline: 'none',
-              }}
-            />
-            <kbd style={KBD}>ESC</kbd>
-          </div>
+            </React.Fragment>
+          ))
+        )}
+      </PaletteList>
 
-          {/* Results */}
-          <div
-            ref={listRef}
-            role="listbox"
-            aria-label="Commands"
-            style={{ maxHeight: 400, overflowY: 'auto', padding: '4px 0' }}
-          >
-            {flat.length === 0 ? (
-              <div
-                style={{
-                  padding: '32px 16px',
-                  textAlign: 'center',
-                  color: CHROME.fgDim,
-                  fontSize: FS.sm,
-                }}
-              >
-                No results for &ldquo;{search}&rdquo;
-              </div>
-            ) : (
-              Object.entries(grouped).map(([category, items]) => (
-                <div key={category}>
-                  <div style={{ ...LABEL, padding: '8px 16px' }}>{category}</div>
-                  {items.map((cmd) => {
-                    const idx = flat.indexOf(cmd)
-                    const selected = idx === selectedIndex
-                    return (
-                      <button
-                        key={cmd.id}
-                        type="button"
-                        role="option"
-                        aria-selected={selected}
-                        data-idx={idx}
-                        onClick={() => go(cmd)}
-                        onMouseEnter={() => setSelectedIndex(idx)}
-                        style={{
-                          ...row(selected),
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 12,
-                          width: '100%',
-                          margin: 0,
-                          padding: '8px 16px',
-                          borderRadius: 0,
-                          border: 'none',
-                          background: 'transparent',
-                          // Selection is said in brightness, like every other
-                          // row in the chrome — never in a filled band.
-                          color: selected ? FG_ON : CHROME.fgMuted,
-                          fontFamily: 'inherit',
-                          textAlign: 'left',
-                        }}
-                      >
-                        {cmd.icon && (
-                          <span
-                            aria-hidden="true"
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              width: 20,
-                              height: 20,
-                              flexShrink: 0,
-                              color: 'inherit',
-                            }}
-                          >
-                            {cmd.icon}
-                          </span>
-                        )}
-                        <span style={{ flex: 1, minWidth: 0 }}>
-                          <span
-                            style={{
-                              display: 'block',
-                              fontSize: FS.sm,
-                              fontWeight: 600,
-                              color: 'inherit',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                            }}
-                          >
-                            {cmd.title}
-                          </span>
-                          {cmd.description && (
-                            <span
-                              style={{
-                                display: 'block',
-                                fontSize: FS.xs,
-                                color: CHROME.fgDim,
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
-                              {cmd.description}
-                            </span>
-                          )}
-                        </span>
-                        {selected && (
-                          <span
-                            aria-hidden="true"
-                            style={{ flexShrink: 0, fontSize: FS.xs, color: 'inherit' }}
-                          >
-                            ↵
-                          </span>
-                        )}
-                      </button>
-                    )
-                  })}
-                </div>
-              ))
-            )}
-          </div>
-
-          {/* Footer */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '8px 16px',
-              borderTop: `1px solid ${CHROME.border}`,
-              color: CHROME.fgDim,
-              fontSize: FS.xs,
-            }}
-          >
-            <span style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <kbd style={KBD}>↑</kbd>
-                <kbd style={KBD}>↓</kbd>
-                navigate
-              </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <kbd style={KBD}>↵</kbd>
-                select
-              </span>
-            </span>
-            <span>⌘K</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      <PaletteHints />
+    </PaletteShell>
   )
 }

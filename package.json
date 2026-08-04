@@ -118,6 +118,7 @@
     "@playwright/test": "^1.49.1",
     "@take-out/cli": "0.0.65",
     "@testing-library/dom": "^10.4.0",
+    "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "dotenv-cli": "^7.4.2",
     "esbuild": "^0.27.2",
     "esbuild-register": "^3.6.0",

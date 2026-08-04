@@ -9,6 +9,7 @@
         "@playwright/test": "^1.49.1",
         "@take-out/cli": "0.0.65",
         "@testing-library/dom": "^10.4.0",
+        "@typescript/native-preview": "7.0.0-dev.20260707.2",
         "dotenv-cli": "^7.4.2",
         "esbuild": "^0.27.2",
         "esbuild-register": "^3.6.0",
@@ -29,7 +30,7 @@
     },
     "apps/demos": {
       "name": "@hanzogui/demos",
-      "version": "8.0.2",
+      "version": "8.0.3",
       "dependencies": {
         "@hanzo/gui": "workspace:*",
         "@hanzogui/animate-presence": "workspace:*",
@@ -693,7 +694,7 @@
     },
     "pkgs/compiler/babel-plugin": {
       "name": "@hanzogui/babel-plugin",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@babel/core": "^7.25.2",
         "@babel/generator": "^7.25.5",
@@ -709,7 +710,7 @@
     },
     "pkgs/compiler/loader": {
       "name": "@hanzogui/loader",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/cli-color": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -730,7 +731,7 @@
     },
     "pkgs/compiler/metro-plugin": {
       "name": "@hanzogui/metro-plugin",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/static": "workspace:*",
       },
@@ -740,7 +741,7 @@
     },
     "pkgs/compiler/next-plugin": {
       "name": "@hanzogui/next-plugin",
-      "version": "8.0.1",
+      "version": "8.0.2",
       "dependencies": {
         "@babel/preset-react": "^7.24.7",
         "@hanzogui/loader": "workspace:*",
@@ -766,7 +767,7 @@
     },
     "pkgs/compiler/static": {
       "name": "@hanzogui/static",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@babel/core": "^7.25.2",
         "@babel/generator": "^7.25.5",
@@ -824,7 +825,7 @@
     },
     "pkgs/compiler/static-sync": {
       "name": "@hanzogui/static-sync",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@babel/core": "^7.25.2",
         "@hanzogui/static": "workspace:*",
@@ -869,7 +870,7 @@
     },
     "pkgs/compiler/static-worker": {
       "name": "@hanzogui/static-worker",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/static": "workspace:*",
         "@hanzogui/types": "workspace:*",
@@ -882,7 +883,7 @@
     },
     "pkgs/compiler/vite-plugin": {
       "name": "@hanzogui/vite-plugin",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/fake-react-native": "workspace:*",
         "@hanzogui/proxy-worm": "workspace:*",
@@ -905,7 +906,7 @@
     },
     "pkgs/compiler/vite-plugin-cjs": {
       "name": "@hanzogui/vite-plugin-cjs",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/vite-plugin": "workspace:*",
       },
@@ -953,7 +954,7 @@
     },
     "pkgs/core/animations-moti": {
       "name": "@hanzogui/animations-moti",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/use-presence": "workspace:*",
@@ -1005,7 +1006,7 @@
     },
     "pkgs/core/animations-reanimated": {
       "name": "@hanzogui/animations-reanimated",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/animation-helpers": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -1032,7 +1033,7 @@
     },
     "pkgs/core/calc": {
       "name": "@hanzogui/calc",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1042,7 +1043,7 @@
     },
     "pkgs/core/cli": {
       "name": "@hanzogui/cli",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "bin": {
         "tama": "dist/index.cjs",
         "hanzogui": "dist/index.cjs",
@@ -1117,7 +1118,7 @@
     },
     "pkgs/core/config": {
       "name": "@hanzogui/config",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/animations-css": "workspace:*",
         "@hanzogui/animations-motion": "workspace:*",
@@ -1153,7 +1154,7 @@
     },
     "pkgs/core/config-default": {
       "name": "@hanzogui/config-default",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/animations-css": "workspace:*",
         "@hanzogui/animations-react-native": "workspace:*",
@@ -1180,8 +1181,9 @@
     },
     "pkgs/core/core": {
       "name": "@hanzogui/core",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
+        "@hanzogui/constants": "workspace:*",
         "@hanzogui/helpers": "workspace:*",
         "@hanzogui/react-native-media-driver": "workspace:*",
         "@hanzogui/react-native-use-pressable": "workspace:*",
@@ -1312,7 +1314,7 @@
     },
     "pkgs/core/font-cherry-bomb": {
       "name": "@hanzogui/font-cherry-bomb",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/constants": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -1324,7 +1326,7 @@
     },
     "pkgs/core/font-dm-sans": {
       "name": "@hanzogui/font-dm-sans",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1335,7 +1337,7 @@
     },
     "pkgs/core/font-dm-serif-display": {
       "name": "@hanzogui/font-dm-serif-display",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1346,7 +1348,7 @@
     },
     "pkgs/core/font-fira-mono": {
       "name": "@hanzogui/font-fira-mono",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1366,7 +1368,7 @@
     },
     "pkgs/core/font-geist-mono": {
       "name": "@hanzogui/font-geist-mono",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/font-geist": "workspace:*",
@@ -1377,7 +1379,7 @@
     },
     "pkgs/core/font-geist-sans": {
       "name": "@hanzogui/font-geist-sans",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/font-geist": "workspace:*",
@@ -1398,7 +1400,7 @@
     },
     "pkgs/core/font-inter": {
       "name": "@hanzogui/font-inter",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1409,7 +1411,7 @@
     },
     "pkgs/core/font-munro": {
       "name": "@hanzogui/font-munro",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1419,7 +1421,7 @@
     },
     "pkgs/core/font-nohemi": {
       "name": "@hanzogui/font-nohemi",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1430,7 +1432,7 @@
     },
     "pkgs/core/font-silkscreen": {
       "name": "@hanzogui/font-silkscreen",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1440,7 +1442,7 @@
     },
     "pkgs/core/font-size": {
       "name": "@hanzogui/font-size",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1527,7 +1529,7 @@
     },
     "pkgs/core/helpers-icon": {
       "name": "@hanzogui/helpers-icon",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/sizable-context": "workspace:*",
@@ -1669,7 +1671,7 @@
     },
     "pkgs/core/sizable-context": {
       "name": "@hanzogui/sizable-context",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1694,7 +1696,7 @@
     },
     "pkgs/core/test-design-system": {
       "name": "@hanzogui/test-design-system",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -1964,7 +1966,7 @@
     },
     "pkgs/dev-config": {
       "name": "@hanzogui/dev-config",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/animations-css": "workspace:*",
         "@hanzogui/animations-moti": "workspace:*",
@@ -2030,7 +2032,7 @@
     },
     "pkgs/logo": {
       "name": "@hanzogui/logo",
-      "version": "8.0.1",
+      "version": "8.0.2",
       "dependencies": {
         "@hanzo/gui": "workspace:*",
         "@hanzogui/use-element-layout": "workspace:*",
@@ -2046,7 +2048,7 @@
     },
     "pkgs/lucide-icons": {
       "name": "@hanzogui/lucide-icons-2",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/helpers-icon": "workspace:*",
@@ -2211,7 +2213,7 @@
     },
     "pkgs/ui/accordion": {
       "name": "@hanzogui/accordion",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/collapsible": "workspace:*",
         "@hanzogui/collection": "workspace:*",
@@ -2236,11 +2238,12 @@
     },
     "pkgs/ui/adapt": {
       "name": "@hanzogui/adapt",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/constants": "workspace:*",
         "@hanzogui/core": "workspace:*",
         "@hanzogui/helpers": "workspace:*",
+        "@hanzogui/native": "workspace:*",
         "@hanzogui/portal": "workspace:*",
         "@hanzogui/z-index-stack": "workspace:*",
       },
@@ -2254,7 +2257,7 @@
     },
     "pkgs/ui/alert-dialog": {
       "name": "@hanzogui/alert-dialog",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/animate-presence": "workspace:*",
         "@hanzogui/compose-refs": "workspace:*",
@@ -2316,7 +2319,7 @@
     },
     "pkgs/ui/avatar": {
       "name": "@hanzogui/avatar",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/create-context": "workspace:*",
@@ -2337,7 +2340,7 @@
     },
     "pkgs/ui/button": {
       "name": "@hanzogui/button",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/component-helpers": "workspace:*",
         "@hanzogui/config-default": "workspace:*",
@@ -2361,7 +2364,7 @@
     },
     "pkgs/ui/card": {
       "name": "@hanzogui/card",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/create-context": "workspace:*",
         "@hanzogui/helpers": "workspace:*",
@@ -2379,7 +2382,7 @@
     },
     "pkgs/ui/checkbox": {
       "name": "@hanzogui/checkbox",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/checkbox-headless": "workspace:*",
         "@hanzogui/component-helpers": "workspace:*",
@@ -2429,7 +2432,7 @@
     },
     "pkgs/ui/chrome": {
       "name": "@hanzogui/chrome",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/font-geist": "workspace:*",
@@ -2448,7 +2451,7 @@
     },
     "pkgs/ui/collapsible": {
       "name": "@hanzogui/collapsible",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/animate-presence": "workspace:*",
         "@hanzogui/compose-refs": "workspace:*",
@@ -2470,7 +2473,7 @@
     },
     "pkgs/ui/collection": {
       "name": "@hanzogui/collection",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/constants": "workspace:*",
@@ -2507,9 +2510,10 @@
     },
     "pkgs/ui/context-menu": {
       "name": "@hanzogui/context-menu",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/create-menu": "workspace:*",
+        "@hanzogui/polyfill-dev": "workspace:*",
         "@hanzogui/popover": "workspace:*",
         "@hanzogui/use-callback-ref": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
@@ -2525,7 +2529,7 @@
     },
     "pkgs/ui/create-menu": {
       "name": "@hanzogui/create-menu",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/animate": "workspace:*",
         "@hanzogui/animate-presence": "workspace:*",
@@ -2558,7 +2562,7 @@
     },
     "pkgs/ui/dialog": {
       "name": "@hanzogui/dialog",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/adapt": "workspace:*",
         "@hanzogui/animate": "workspace:*",
@@ -2590,7 +2594,7 @@
     },
     "pkgs/ui/dismissable": {
       "name": "@hanzogui/dismissable",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -2610,7 +2614,7 @@
     },
     "pkgs/ui/elements": {
       "name": "@hanzogui/elements",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
       },
@@ -2673,7 +2677,7 @@
     },
     "pkgs/ui/form": {
       "name": "@hanzogui/form",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/helpers": "workspace:*",
@@ -2688,7 +2692,7 @@
     },
     "pkgs/ui/group": {
       "name": "@hanzogui/group",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/create-context": "workspace:*",
@@ -2708,7 +2712,7 @@
     },
     "pkgs/ui/hanzogui": {
       "name": "@hanzo/gui",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/accordion": "workspace:*",
         "@hanzogui/adapt": "workspace:*",
@@ -2786,7 +2790,7 @@
     },
     "pkgs/ui/image": {
       "name": "@hanzogui/image",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/constants": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -2803,7 +2807,7 @@
     },
     "pkgs/ui/input": {
       "name": "@hanzogui/input",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/component-helpers": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -2852,7 +2856,7 @@
     },
     "pkgs/ui/linear-gradient": {
       "name": "@hanzogui/linear-gradient",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/native": "workspace:*",
@@ -2870,7 +2874,7 @@
     },
     "pkgs/ui/list-item": {
       "name": "@hanzogui/list-item",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/component-helpers": "workspace:*",
         "@hanzogui/font-size": "workspace:*",
@@ -2891,13 +2895,15 @@
     },
     "pkgs/ui/menu": {
       "name": "@hanzogui/menu",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/create-menu": "workspace:*",
         "@hanzogui/helpers": "workspace:*",
+        "@hanzogui/polyfill-dev": "workspace:*",
         "@hanzogui/popover": "workspace:*",
         "@hanzogui/popper": "workspace:*",
+        "@hanzogui/scroll-view": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/web": "workspace:*",
       },
@@ -2911,7 +2917,7 @@
     },
     "pkgs/ui/popover": {
       "name": "@hanzogui/popover",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/adapt": "workspace:*",
         "@hanzogui/animate": "workspace:*",
@@ -2945,7 +2951,7 @@
     },
     "pkgs/ui/popper": {
       "name": "@hanzogui/popper",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/constants": "workspace:*",
@@ -2967,11 +2973,12 @@
     },
     "pkgs/ui/portal": {
       "name": "@hanzogui/portal",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/constants": "workspace:*",
         "@hanzogui/core": "workspace:*",
         "@hanzogui/native": "workspace:*",
+        "@hanzogui/polyfill-dev": "workspace:*",
         "@hanzogui/start-transition": "workspace:*",
         "@hanzogui/use-event": "workspace:*",
         "@hanzogui/web": "workspace:*",
@@ -2990,7 +2997,7 @@
     },
     "pkgs/ui/progress": {
       "name": "@hanzogui/progress",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -3010,7 +3017,7 @@
     },
     "pkgs/ui/radio-group": {
       "name": "@hanzogui/radio-group",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/constants": "workspace:*",
@@ -3086,7 +3093,7 @@
     },
     "pkgs/ui/roving-focus": {
       "name": "@hanzogui/roving-focus",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/collection": "workspace:*",
         "@hanzogui/compose-refs": "workspace:*",
@@ -3108,7 +3115,7 @@
     },
     "pkgs/ui/scroll-view": {
       "name": "@hanzogui/scroll-view",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/web": "workspace:*",
@@ -3124,7 +3131,7 @@
     },
     "pkgs/ui/select": {
       "name": "@hanzogui/select",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/adapt": "workspace:*",
         "@hanzogui/animate-presence": "workspace:*",
@@ -3145,6 +3152,7 @@
         "@hanzogui/separator": "workspace:*",
         "@hanzogui/sheet": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
+        "@hanzogui/start-transition": "workspace:*",
         "@hanzogui/text": "workspace:*",
         "@hanzogui/use-controllable-state": "workspace:*",
         "@hanzogui/use-debounce": "workspace:*",
@@ -3165,7 +3173,7 @@
     },
     "pkgs/ui/separator": {
       "name": "@hanzogui/separator",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/constants": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -3180,7 +3188,7 @@
     },
     "pkgs/ui/shapes": {
       "name": "@hanzogui/shapes",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/web": "workspace:*",
@@ -3195,7 +3203,7 @@
     },
     "pkgs/ui/sheet": {
       "name": "@hanzogui/sheet",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/adapt": "workspace:*",
         "@hanzogui/animate-presence": "workspace:*",
@@ -3229,7 +3237,7 @@
     },
     "pkgs/ui/shell": {
       "name": "@hanzogui/shell",
-      "version": "8.0.2",
+      "version": "8.0.3",
       "peerDependencies": {
         "react": "*",
         "react-dom": "*",
@@ -3237,7 +3245,7 @@
     },
     "pkgs/ui/slider": {
       "name": "@hanzogui/slider",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/constants": "workspace:*",
@@ -3276,7 +3284,7 @@
     },
     "pkgs/ui/spinner": {
       "name": "@hanzogui/spinner",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/stacks": "workspace:*",
@@ -3292,7 +3300,7 @@
     },
     "pkgs/ui/stacks": {
       "name": "@hanzogui/stacks",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/core": "workspace:*",
         "@hanzogui/get-button-sized": "workspace:*",
@@ -3308,7 +3316,7 @@
     },
     "pkgs/ui/switch": {
       "name": "@hanzogui/switch",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/constants": "workspace:*",
@@ -3352,7 +3360,7 @@
     },
     "pkgs/ui/tabs": {
       "name": "@hanzogui/tabs",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/constants": "workspace:*",
@@ -3420,7 +3428,7 @@
     },
     "pkgs/ui/toast": {
       "name": "@hanzogui/toast",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/animate-presence": "workspace:*",
         "@hanzogui/collection": "workspace:*",
@@ -3450,7 +3458,7 @@
     },
     "pkgs/ui/toggle-group": {
       "name": "@hanzogui/toggle-group",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/component-helpers": "workspace:*",
         "@hanzogui/constants": "workspace:*",
@@ -3476,7 +3484,7 @@
     },
     "pkgs/ui/tooltip": {
       "name": "@hanzogui/tooltip",
-      "version": "8.0.0",
+      "version": "8.0.1",
       "dependencies": {
         "@hanzogui/compose-refs": "workspace:*",
         "@hanzogui/core": "workspace:*",
@@ -5778,6 +5786,22 @@
     "@types/yargs-parser": ["@types/yargs-parser@21.0.3", "", {}, "sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ=="],
 
     "@types/yauzl": ["@types/yauzl@2.10.3", "", { "dependencies": { "@types/node": "*" } }, "sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q=="],
+
+    "@typescript/native-preview": ["@typescript/native-preview@7.0.0-dev.20260707.2", "", { "optionalDependencies": { "@typescript/native-preview-darwin-arm64": "7.0.0-dev.20260707.2", "@typescript/native-preview-darwin-x64": "7.0.0-dev.20260707.2", "@typescript/native-preview-linux-arm": "7.0.0-dev.20260707.2", "@typescript/native-preview-linux-arm64": "7.0.0-dev.20260707.2", "@typescript/native-preview-linux-x64": "7.0.0-dev.20260707.2", "@typescript/native-preview-win32-arm64": "7.0.0-dev.20260707.2", "@typescript/native-preview-win32-x64": "7.0.0-dev.20260707.2" }, "bin": { "tsgo": "bin/tsgo" } }, "sha512-oUGp+Rep/hqMhPunyinsALUwSlzHINSxitifPiSaeqoKOKD2OlR9NE3TaPqwsl4NlGslsOSUXI1JotWQzpYCPg=="],
+
+    "@typescript/native-preview-darwin-arm64": ["@typescript/native-preview-darwin-arm64@7.0.0-dev.20260707.2", "", { "os": "darwin", "cpu": "arm64" }, "sha512-wny2pgKjGbiZtnOIHVa3tXC1UfDqxNEFzyPGmiqybedG8hipG2Nfp0l5UxbaKCjkLacUpH/W5bP2hBOMVhCOzg=="],
+
+    "@typescript/native-preview-darwin-x64": ["@typescript/native-preview-darwin-x64@7.0.0-dev.20260707.2", "", { "os": "darwin", "cpu": "x64" }, "sha512-Afc7M5zOwo+GpfcYwz5Z8HMB2tPVsui7nNIqEuuFB73MPdVqNn/Wmpe4tP4MRri0AtJnJknoHBaTJ/VDAp/Jhw=="],
+
+    "@typescript/native-preview-linux-arm": ["@typescript/native-preview-linux-arm@7.0.0-dev.20260707.2", "", { "os": "linux", "cpu": "arm" }, "sha512-hJm/UOqZTr9FHmR7uNm8VGX4oKtfWk0Jem0zPeJFNC8ckGUfSBueyiEYMZB+XmRc1aG4x1E46y3CplP4CLHvGQ=="],
+
+    "@typescript/native-preview-linux-arm64": ["@typescript/native-preview-linux-arm64@7.0.0-dev.20260707.2", "", { "os": "linux", "cpu": "arm64" }, "sha512-iITBa2WjjTI5N9t5l7Z4KoOSI+2zBlhbvFzsD/f8qX8QoKjz/Y4DPyBDgezYi8nkqjjksbgSOJ3/ykzhwrB9cg=="],
+
+    "@typescript/native-preview-linux-x64": ["@typescript/native-preview-linux-x64@7.0.0-dev.20260707.2", "", { "os": "linux", "cpu": "x64" }, "sha512-du0dzi6y97Po5vDNdPJTyyijHCpaS22JLRnKZEJXBDaO9gCIymOv/5QQokFRuOlQm0bWl3i9PF4OVdGP6uAOQA=="],
+
+    "@typescript/native-preview-win32-arm64": ["@typescript/native-preview-win32-arm64@7.0.0-dev.20260707.2", "", { "os": "win32", "cpu": "arm64" }, "sha512-SsAwfhyHJ1akgBc+99z4+hwdbHsdWaKB8EwCNIMA6JfSLMeUjffrYvxu+vfMyxVtOVOz7RrRXRoiDiu4a2sCtg=="],
+
+    "@typescript/native-preview-win32-x64": ["@typescript/native-preview-win32-x64@7.0.0-dev.20260707.2", "", { "os": "win32", "cpu": "x64" }, "sha512-DL4u27stv0fo71sVhOzHSwE+YMZsbBijVI+kg5dLDLilSH79WFTJ8RSQ46vJrCMt+Gjlv/JOZP1PuLJDfioYeQ=="],
 
     "@ungap/structured-clone": ["@ungap/structured-clone@1.3.3", "", {}, "sha512-60YRaenCQcVjYEKOcG824+DRGGIQ3VKErcBoAEDJZz5bKIs2ZG+X/H9Nk+Q6EVkwJk5QNApxbrc5QtBSwtrXAg=="],
 

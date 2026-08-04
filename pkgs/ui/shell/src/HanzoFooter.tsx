@@ -23,7 +23,7 @@ import {
   HANZO_FOOTER_COLUMNS,
   type HanzoLink,
 } from './hanzo-registry'
-import { ACCENT, CHROME, FS, LABEL, R } from './theme'
+import { ACCENT, CHROME, FG_ON, FS, LABEL, R } from './theme'
 import { useShellStyles } from './shellStyles'
 
 export interface HanzoFooterProps {
@@ -144,7 +144,7 @@ function FooterLink({ link, current }: { link: HanzoLink; current: boolean }) {
         transition: 'color 120ms ease',
       }}
       onMouseEnter={(e) => {
-        ;(e.currentTarget as HTMLElement).style.color = CHROME.fg
+        ;(e.currentTarget as HTMLElement).style.color = FG_ON
       }}
       onMouseLeave={(e) => {
         ;(e.currentTarget as HTMLElement).style.color = current ? ACCENT : CHROME.fgMuted
@@ -170,7 +170,7 @@ function LegalLink({ link }: { link: HanzoLink }) {
         transition: 'color 120ms ease',
       }}
       onMouseEnter={(e) => {
-        ;(e.currentTarget as HTMLElement).style.color = CHROME.fg
+        ;(e.currentTarget as HTMLElement).style.color = FG_ON
       }}
       onMouseLeave={(e) => {
         ;(e.currentTarget as HTMLElement).style.color = CHROME.fgMuted

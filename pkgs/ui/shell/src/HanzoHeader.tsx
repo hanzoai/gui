@@ -13,6 +13,11 @@
  * current product highlighted. Below 900px the local nav + Meet-Hanzo collapse
  * into a single [Menu] disclosure.
  *
+ * The two mega-menus open on HOVER once the pointer RESTS on a trigger, and they
+ * are ONE value (`useIntent`), never a boolean each — two booleans can say "both
+ * open", a state the row has no layout for. Hover never takes focus; a click, an
+ * Enter or a ↓ does, and Esc closes from anywhere and hands focus back.
+ *
  * SEARCH IS A HEADER CONTROL, not a menu's. The ⌕⌘K trigger sits with the CTAs
  * and opens <HanzoCommandPalette> — filter the ~97 primitives, or ask AI —
  * reachable by ⌘K from anywhere on the page, and full-screen on a phone. It
@@ -23,7 +28,7 @@
  * drops into Next / Vite / vanilla hosts with zero provider/setup. Sticky, dark
  * chrome, fully keyboard-accessible.
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { HanzoMark } from './mark'
 import { MeetHanzoMenu } from './MeetHanzoMenu'
 import { ProductsMegaMenu } from './ProductsMegaMenu'
@@ -39,6 +44,7 @@ import {
   CHROME,
   FG_ON,
   FS,
+  GLASS,
   PANEL,
   R,
   SCRIM,
@@ -51,6 +57,7 @@ import {
 } from './theme'
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
+import { useIntent, type Reach } from './intent'
 import { HanzoCommandPalette, HanzoCommandTrigger } from './HanzoCommandPalette'
 
 const HEADER_H = 60
@@ -136,12 +143,10 @@ export function HanzoHeader({
   useShellStyles()
   const s = resolveSurface(surface)
   const isMobile = useIsMobile(900)
-  const [meetOpen, setMeetOpen] = useState(false)
-  const [productsOpen, setProductsOpen] = useState(false)
+  // ONE open mega-menu, not one boolean per menu.
+  const menu = useIntent<'meet' | 'products'>()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const meetBtnRef = useRef<HTMLButtonElement>(null)
-  const productsBtnRef = useRef<HTMLButtonElement>(null)
 
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const home = `https://${s.host}`
@@ -164,26 +169,14 @@ export function HanzoHeader({
     return () => document.removeEventListener('keydown', onKey)
   }, [mobileOpen])
 
-  // The two mega-menus are mutually exclusive; either closes the mobile sheet.
-  const toggleMeet = useCallback(() => {
-    setMobileOpen(false)
-    setProductsOpen(false)
-    setMeetOpen((v) => !v)
-  }, [])
-
-  const toggleProducts = useCallback(() => {
-    setMobileOpen(false)
-    setMeetOpen(false)
-    setProductsOpen((v) => !v)
-  }, [])
+  const closeMenu = useCallback(() => menu.set(null), [menu.set])
 
   // The palette is modal, so summoning it dismisses whatever was hanging open.
   const openSearch = useCallback(() => {
     setMobileOpen(false)
-    setMeetOpen(false)
-    setProductsOpen(false)
+    menu.set(null)
     setSearchOpen(true)
-  }, [])
+  }, [menu.set])
 
   return (
     // The overlays are SIBLINGS of the bar, not children of it. The bar carries
@@ -209,9 +202,9 @@ export function HanzoHeader({
           padding: '0 16px',
           boxSizing: 'border-box',
           borderBottom: `1px solid ${CHROME.border}`,
-          background: CHROME.bg,
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
+          // The one glass recipe, shared with both mega-menu drapes so the bar
+          // and the panel that drops out of it are lit as a single surface.
+          ...GLASS,
           color: CHROME.fg,
           fontFamily: CHROME.font,
         }}
@@ -248,7 +241,7 @@ export function HanzoHeader({
               label={mobileOpen ? 'Close menu' : 'Open menu'}
               expanded={mobileOpen}
               onClick={() => {
-                setMeetOpen(false)
+                menu.set(null)
                 setMobileOpen((v) => !v)
               }}
             >
@@ -259,20 +252,20 @@ export function HanzoHeader({
           <>
             {/* ── Meet Hanzo ⌄ ── */}
             <MenuTrigger
-              ref={meetBtnRef}
               label="Meet Hanzo"
-              open={meetOpen}
-              onClick={toggleMeet}
+              open={menu.key === 'meet'}
+              reach={menu.trigger('meet')}
+              onStepIn={() => menu.set('meet')}
               controls="hanzo-meet-menu"
             />
 
             {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
             {hasProducts ? (
               <MenuTrigger
-                ref={productsBtnRef}
                 label="Products"
-                open={productsOpen}
-                onClick={toggleProducts}
+                open={menu.key === 'products'}
+                reach={menu.trigger('products')}
+                onStepIn={() => menu.set('products')}
                 controls="hanzo-products-menu"
               />
             ) : null}
@@ -302,10 +295,12 @@ export function HanzoHeader({
       {/* ── Universal Meet-Hanzo mega-menu ── */}
       <MeetHanzoMenu
         id="hanzo-meet-menu"
-        open={meetOpen}
-        onClose={() => setMeetOpen(false)}
+        open={menu.key === 'meet'}
+        onClose={closeMenu}
         anchor={HEADER_H}
         currentProductId={s.productId}
+        autoFocus={!menu.hover}
+        {...menu.panel}
       />
 
       {/* ── Rich Products mega-menu (opt-in via productsTaxonomy) ── */}
@@ -314,11 +309,13 @@ export function HanzoHeader({
           <ProductsMegaMenu
             id="hanzo-products-menu"
             categories={productsTaxonomy!}
-            open={productsOpen}
-            onClose={() => setProductsOpen(false)}
+            open={menu.key === 'products'}
+            onClose={closeMenu}
             anchor={HEADER_H}
             currentCategoryId={currentCategoryId}
             currentHref={currentHref}
+            autoFocus={!menu.hover}
+            {...menu.panel}
           />
           {/* The ONE place products are searched — from the header, at any
               width, in or out of a menu. ⌘K reaches it without the trigger. */}
@@ -343,7 +340,7 @@ export function HanzoHeader({
           onClose={() => setMobileOpen(false)}
           onMeet={() => {
             setMobileOpen(false)
-            setMeetOpen(true)
+            menu.set('meet')
           }}
         />
       ) : null}
@@ -353,27 +350,53 @@ export function HanzoHeader({
 
 /* ── Pieces ──────────────────────────────────────────────────────────────── */
 
-/** A mega-menu disclosure in the header row ("Meet Hanzo ⌄", "Products ⌄"). */
-const MenuTrigger = React.forwardRef<
-  HTMLButtonElement,
-  { label: string; open: boolean; onClick: () => void; controls: string }
->(function MenuTrigger({ label, open, onClick, controls }, ref) {
+/**
+ * A mega-menu disclosure in the header row ("Meet Hanzo ⌄", "Products ⌄").
+ *
+ * Three ways in, one way out. The pointer RESTS and the menu opens without
+ * taking focus (`reach`, from `useIntent`); a click or Enter/Space toggles it and
+ * hands it focus; ↓ opens it and steps straight into the first item, which is
+ * how a keyboard reaches a menu it can see but cannot point at.
+ *
+ * Focus alone does NOT open it. Tabbing across the header would otherwise drop a
+ * full mega-menu on a reader who is on their way to the CTA, and then hand them
+ * twenty extra tab stops to get back out of it.
+ */
+function MenuTrigger({
+  label,
+  open,
+  reach,
+  onStepIn,
+  controls,
+}: {
+  label: string
+  open: boolean
+  /** Pointer + click props from `useIntent`. */
+  reach: Reach
+  /** Open and move focus into the panel (↓). */
+  onStepIn: () => void
+  controls: string
+}) {
   return (
     <button
-      ref={ref}
       type="button"
-      onClick={onClick}
       aria-haspopup="dialog"
       aria-expanded={open}
       aria-controls={open ? controls : undefined}
+      onKeyDown={(e) => {
+        if (e.key !== 'ArrowDown' || open) return
+        e.preventDefault()
+        onStepIn()
+      }}
       style={control(open)}
+      {...reach}
       {...ghostHover(open)}
     >
       {label}
       <Chevron open={open} />
     </button>
   )
-})
+}
 
 function NavLink({ link }: { link: HanzoLink }) {
   // Hover comes from the shared token, not from here. Hand-rolling it is what

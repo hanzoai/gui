@@ -189,6 +189,29 @@ export const SHADOW_LEFT = '-24px 0 60px -16px rgba(0,0,0,0.75)'
 export const VEIL =
   'radial-gradient(720px 260px at 50% -40%, rgba(255,255,255,0.05), transparent 70%)'
 
+/**
+ * Dark glass — the ONE recipe for chrome the page shows through: near-black at
+ * 85% over a 12px backdrop blur.
+ *
+ * The header bar and both mega-menu drapes are ONE piece of glass. A drape is
+ * the bar CONTINUING down the page, not an opaque slab hung underneath it, so
+ * the two must be lit the same way or the seam between them becomes an edge. The
+ * drapes were true black (`CHROME.panel`) against a frosted bar, which is
+ * exactly that edge.
+ *
+ * Compose the drapes' `VEIL` OVER this ground rather than instead of it:
+ *   { ...GLASS, background: `${VEIL}, ${CHROME.bg}` }
+ *
+ * Caution: a backdrop-filtered element is a containing block for every
+ * `position: fixed` descendant, so anything applying this must have no fixed
+ * children — `inset: 0` inside one resolves against the glass, not the viewport.
+ */
+export const GLASS: CSSProperties = {
+  background: CHROME.bg,
+  backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
+}
+
 /** Scrim behind a modal surface. */
 export const SCRIM = 'rgba(0,0,0,0.45)'
 

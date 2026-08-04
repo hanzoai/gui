@@ -3,6 +3,15 @@
   "version": "8.0.1",
   "license": "MIT",
   "source": "src/index.ts",
+  "files": [
+    "controller",
+    "dist",
+    "next.md",
+    "setup-gesture-handler.cjs",
+    "setup-gesture-handler",
+    "src",
+    "types"
+  ],
   "type": "module",
   "sideEffects": false,
   "main": "dist/cjs",

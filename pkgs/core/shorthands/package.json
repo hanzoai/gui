@@ -3,6 +3,17 @@
   "version": "8.0.0",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "v4.cjs",
+    "v4.d.ts",
+    "v4",
+    "v5.cjs",
+    "v5.d.ts",
+    "v5"
+  ],
   "type": "module",
   "sideEffects": false,
   "main": "dist/cjs",

@@ -301,13 +301,16 @@ function ProductCard({
         background: current ? ACCENT_SOFT : CHROME.raised,
         color: CHROME.fg,
         outlineColor: ACCENT,
-        transition: 'background 120ms ease, border-color 120ms ease',
+        transition: 'border-color 140ms ease',
       }}
+      // The reveal is an OUTLINE, never a fill — same rule the products drape
+      // follows. The card's resting `raised` tint is its shape, not a state, so
+      // hovering must not repaint it; the border is what answers the pointer.
       onMouseEnter={(e) => {
-        if (!current) (e.currentTarget as HTMLElement).style.background = CHROME.hover
+        if (!current) (e.currentTarget as HTMLElement).style.borderColor = ACCENT_SOFT
       }}
       onMouseLeave={(e) => {
-        if (!current) (e.currentTarget as HTMLElement).style.background = CHROME.raised
+        if (!current) (e.currentTarget as HTMLElement).style.borderColor = CHROME.border
       }}
     >
       <span

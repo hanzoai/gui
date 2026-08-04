@@ -31,6 +31,7 @@ import {
 } from './hanzo-registry'
 import {
   CHROME,
+  FG_ON,
   FS,
   PANEL,
   R,
@@ -336,19 +337,11 @@ const MenuTrigger = React.forwardRef<
 })
 
 function NavLink({ link }: { link: HanzoLink }) {
+  // Hover comes from the shared token, not from here. Hand-rolling it is what
+  // let this link drift from the trigger beside it (a background lift, and a
+  // brightening that stopped short of white).
   return (
-    <a
-      href={link.href}
-      style={{ ...control(), fontWeight: 500, color: CHROME.fgMuted }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = CHROME.hover
-        e.currentTarget.style.color = CHROME.fg
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = 'transparent'
-        e.currentTarget.style.color = CHROME.fgMuted
-      }}
-    >
+    <a href={link.href} style={{ ...control(), fontWeight: 500 }} {...ghostHover()}>
       {link.label}
     </a>
   )
@@ -368,13 +361,15 @@ function CTA({
     <a
       href={link.href}
       style={cta(filled, height)}
+      // The filled pill dips its opacity; the ghost one is a plain link and
+      // brightens like every other ghost control. Neither grows a background.
       onMouseEnter={(e) => {
         if (filled) e.currentTarget.style.opacity = '0.85'
-        else e.currentTarget.style.background = CHROME.hover
+        else e.currentTarget.style.color = FG_ON
       }}
       onMouseLeave={(e) => {
         if (filled) e.currentTarget.style.opacity = '1'
-        else e.currentTarget.style.background = 'transparent'
+        else e.currentTarget.style.color = CHROME.fgMuted
       }}
     >
       {link.label}

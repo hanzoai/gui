@@ -48,6 +48,17 @@ export const CHROME = {
   font: 'var(--hz-font-sans, var(--font-sans, sans-serif))',
 } as const
 
+/**
+ * The lit state: PURE white, the top of the brightness ramp.
+ *
+ * The chrome's whole interaction language is one axis — `fgMuted` at rest,
+ * `FG_ON` under the pointer — so this is the other end of `CHROME.fgMuted` and
+ * the only thing a hover changes. Deliberately NOT `CHROME.fg` (0.92): a hover
+ * that lands just short of white reads as a smudge rather than a response, and
+ * leaves nothing for `fg` to mean.
+ */
+export const FG_ON = '#ffffff'
+
 /** Monochrome brand accent — paper-white on dark chrome; overridable per surface. */
 export const ACCENT = 'var(--hanzo-accent, #ffffff)'
 export const ACCENT_SOFT = 'rgba(255,255,255,0.14)'
@@ -120,7 +131,17 @@ export const PANEL: CSSProperties = {
   boxShadow: SHADOW,
 }
 
-/** Ghost pill — nav triggers, nav links, sign-in, icon buttons. */
+/**
+ * Ghost pill — nav triggers, nav links, sign-in, icon buttons.
+ *
+ * Rest is DIM and the surface is FLAT. Every ghost control in the house reads
+ * the same at rest, whether it opens a menu or just links out: no background,
+ * no border, `fgMuted`. Brightness is the only thing that moves (see
+ * `ghostHover`), so a row of nav items looks like one row instead of some items
+ * volunteering that they are special. This used to be `CHROME.fg` here and
+ * `fgMuted` on plain links, which is why triggers and CTAs sat visibly brighter
+ * than their neighbours at rest.
+ */
 export function control(active = false, height: number = CTRL_H): CSSProperties {
   return {
     display: 'inline-flex',
@@ -132,26 +153,35 @@ export function control(active = false, height: number = CTRL_H): CSSProperties 
     padding: '0 12px',
     border: 'none',
     borderRadius: R.pill,
-    background: active ? CHROME.hover : 'transparent',
-    color: CHROME.fg,
+    background: 'transparent',
+    color: active ? FG_ON : CHROME.fgMuted,
     fontSize: FS.sm,
     fontWeight: 600,
     fontFamily: 'inherit',
     textDecoration: 'none',
     whiteSpace: 'nowrap',
-    transition: 'background 120ms ease, color 120ms ease',
+    transition: 'color 120ms ease',
   }
 }
 
-/** The two-variant call-to-action, identical in header, app header and pre-footer. */
+/**
+ * The two-variant call-to-action, identical in header, app header and pre-footer.
+ *
+ * `filled` is the ONE filled element in the chrome — a single white pill, so it
+ * is unambiguous where the primary action is. The ghost variant is not a
+ * quieter button; it is a plain link that happens to sit in the CTA slot, so it
+ * carries NO border and NO background. It used to take `1px solid CHROME.border`,
+ * which is what made secondary actions like "Documentation" render as a
+ * grey bordered button competing with the real CTA next to it.
+ */
 export function cta(filled: boolean, height: number = CTRL_H): CSSProperties {
   return {
     ...control(false, height),
     padding: height > CTRL_H ? '0 22px' : '0 14px',
-    border: filled ? '1px solid transparent' : `1px solid ${CHROME.border}`,
+    border: filled ? '1px solid transparent' : 'none',
     background: filled ? ACCENT : 'transparent',
-    color: filled ? CHROME.panel : CHROME.fg,
-    transition: 'opacity 120ms ease, background 120ms ease',
+    color: filled ? CHROME.panel : CHROME.fgMuted,
+    transition: filled ? 'opacity 120ms ease' : 'color 120ms ease',
   }
 }
 
@@ -164,21 +194,37 @@ export function row(current = false): CSSProperties {
     borderRadius: R.row,
     textDecoration: 'none',
     fontSize: FS.sm,
-    background: current ? ACCENT_SOFT : 'transparent',
-    color: current ? ACCENT : CHROME.fg,
+    // Flat, like every other ghost surface. "Current" is said in brightness,
+    // not in a filled chip — the one filled element in the chrome is the CTA.
+    background: 'transparent',
+    color: current ? ACCENT : CHROME.fgMuted,
     outlineColor: ACCENT,
-    transition: 'background 120ms ease, color 120ms ease',
+    transition: 'color 120ms ease',
   }
 }
 
-/** Background lift on hover for any ghost control or row; inert while `active`. */
-export function ghostHover(active = false, resting = 'transparent') {
+/**
+ * Hover for any ghost control or row: the label BRIGHTENS to pure white and
+ * nothing else moves. Inert while `active` (an open trigger is already lit).
+ *
+ * This used to lift a background (`CHROME.hover`), which is what put a grey
+ * panel behind whatever the pointer touched and made the menus look like a
+ * different, older product. A hover is a pointer readout, not a state change —
+ * brightness alone carries it, and it composes: rows, triggers, leaves and
+ * footer links all answer the pointer identically, so nothing has to re-derive
+ * the rule. `resting` is the colour to fall back to, so a dimmed row and a lit
+ * one each return to their own rest.
+ *
+ * NO background change and NO underline, ever. The one filled element in the
+ * chrome is the single white pill CTA (`cta(true)`).
+ */
+export function ghostHover(active = false, resting: string = CHROME.fgMuted) {
   return {
     onMouseEnter: (e: MouseEvent<HTMLElement>) => {
-      if (!active) e.currentTarget.style.background = CHROME.hover
+      if (!active) e.currentTarget.style.color = FG_ON
     },
     onMouseLeave: (e: MouseEvent<HTMLElement>) => {
-      if (!active) e.currentTarget.style.background = resting
+      if (!active) e.currentTarget.style.color = resting
     },
   }
 }

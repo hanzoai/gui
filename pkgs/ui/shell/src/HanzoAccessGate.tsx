@@ -184,7 +184,7 @@ export function HanzoAccessGate({
           fontSize: FS.sm,
           fontWeight: 600,
           textDecoration: 'none',
-          border: `1px solid ${ACCENT}`,
+          border: '1px solid transparent',
         }}
       >
         {req ? `Upgrade to ${req.name}` : 'View plans'}

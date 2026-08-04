@@ -46,7 +46,7 @@
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { type HanzoLink, type ProductCategory } from './hanzo-registry'
-import { ACCENT, ACCENT_SOFT, CHROME, FS, R, SHADOW, Z } from './theme'
+import { ACCENT, ACCENT_SOFT, CHROME, FOCUS_RING, FS, R, SHADOW, Z } from './theme'
 import { useShellStyles } from './shellStyles'
 
 /** The signature grid: ten categories as two rows of five, at every desktop width. */
@@ -272,7 +272,7 @@ function CategoryTile({
           marginBottom: 9,
           textDecoration: 'none',
           color: lit ? ACCENT : CHROME.fg,
-          outlineColor: ACCENT,
+          outlineColor: FOCUS_RING,
           transition: 'color 140ms ease',
         }}
       >
@@ -379,7 +379,7 @@ function LeafRow({
         lineHeight: 1.65,
         textDecoration: 'none',
         color: label,
-        outlineColor: ACCENT,
+        outlineColor: FOCUS_RING,
         transition: 'color 120ms ease',
       }}
     >

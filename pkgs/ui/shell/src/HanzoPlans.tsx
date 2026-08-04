@@ -419,7 +419,7 @@ function PlanCard({
         boxSizing: 'border-box',
         padding: 20,
         borderRadius: R.card,
-        border: `1px solid ${emphasise || isCurrent ? ACCENT : BORDER}`,
+        border: `1px solid ${emphasise || isCurrent ? CHROME.borderStrong : BORDER}`,
         background: emphasise ? ACCENT_SOFT : PANEL_BG,
         boxShadow: emphasise ? '0 20px 50px -20px rgba(0,0,0,0.65)' : 'none',
       }}

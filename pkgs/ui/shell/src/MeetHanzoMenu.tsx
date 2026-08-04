@@ -40,6 +40,7 @@ import {
   ACCENT,
   ACCENT_SOFT,
   CHROME,
+  FOCUS_RING,
   FS,
   LABEL,
   R,
@@ -310,10 +311,14 @@ function ProductCard({
         borderRadius: R.card,
         // The reveal is an OUTLINE, never a fill — the same register the
         // products drape's tiles use, so the two menus read as one surface.
-        border: `1px solid ${current ? ACCENT : 'transparent'}`,
+        // The outline carries the state alone here, which is exactly why it
+        // must not be ACCENT: that resolves to #ffffff, and a pure-white box is
+        // the loudest thing in the chrome. A .22 hairline against a sibling's
+        // `transparent` is an unmistakable difference without shouting.
+        border: `1px solid ${current ? CHROME.borderStrong : 'transparent'}`,
         background: 'transparent',
         color: CHROME.fg,
-        outlineColor: ACCENT,
+        outlineColor: FOCUS_RING,
         transition: 'border-color 140ms ease',
       }}
       onMouseEnter={(e) => {

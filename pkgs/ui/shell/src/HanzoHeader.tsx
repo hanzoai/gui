@@ -3,15 +3,21 @@
 /**
  * HanzoHeader — the ONE public/marketing header for every Hanzo property.
  *
- *   ┌──────────────────────────────────────────────────────────────────────┐
- *   │ [H Hanzo Chat]  [Meet Hanzo ⌄]  Product  Models  …    Docs  [New chat] ● │
- *   └──────────────────────────────────────────────────────────────────────┘
+ *   ┌────────────────────────────────────────────────────────────────────────┐
+ *   │ [H]  [Meet Hanzo ⌄] [Products ⌄]  Models  …   ⌕⌘K  Docs  [New chat]  ● │
+ *   └────────────────────────────────────────────────────────────────────────┘
  *
  * Everything is DATA from a `HanzoSurface` (the per-domain config in
  * hanzo-registry): brand name · local nav · secondary (ghost) + primary
  * (filled) CTAs. "Meet Hanzo ⌄" opens the universal <MeetHanzoMenu> with the
  * current product highlighted. Below 900px the local nav + Meet-Hanzo collapse
  * into a single [Menu] disclosure.
+ *
+ * SEARCH IS A HEADER CONTROL, not a menu's. The ⌕⌘K trigger sits with the CTAs
+ * and opens <HanzoCommandPalette> — filter the ~97 primitives, or ask AI —
+ * reachable by ⌘K from anywhere on the page, and full-screen on a phone. It
+ * used to be a field buried inside the Products mega-menu, which meant the only
+ * way to search products was to first open the menu you were trying to skip.
  *
  * Self-contained: inline styles + theme.ts tokens, React the only runtime dep —
  * drops into Next / Vite / vanilla hosts with zero provider/setup. Sticky, dark
@@ -45,7 +51,7 @@ import {
 } from './theme'
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
-import { NoResults, ProductSearch, filterProducts } from './productSearch'
+import { HanzoCommandPalette, HanzoCommandTrigger } from './HanzoCommandPalette'
 
 const HEADER_H = 60
 
@@ -72,8 +78,12 @@ export interface HanzoHeaderProps {
   surface: HanzoSurface | string
   /** Signed-in account control rendered at the far right (avatar/menu). */
   account?: React.ReactNode
-  /** Opens the caller's Ask-Hanzo affordance (used by the mobile search button). */
-  onAskHanzo?: () => void
+  /**
+   * Host-owned Ask-Hanzo affordance. When supplied, the ⌘K palette's "Ask AI"
+   * mode hands it the question instead of opening Hanzo Chat, so a surface that
+   * already embeds an assistant keeps the visitor on the page.
+   */
+  onAskHanzo?: (question: string) => void
   /**
    * Opt into the RICH ten-category Products mega-menu. When provided, a
    * "Products ⌄" trigger renders next to "Meet Hanzo" and opens
@@ -129,6 +139,7 @@ export function HanzoHeader({
   const [meetOpen, setMeetOpen] = useState(false)
   const [productsOpen, setProductsOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const meetBtnRef = useRef<HTMLButtonElement>(null)
   const productsBtnRef = useRef<HTMLButtonElement>(null)
 
@@ -166,109 +177,127 @@ export function HanzoHeader({
     setProductsOpen((v) => !v)
   }, [])
 
-  return (
-    <header
-      role="banner"
-      data-hanzo-shell=""
-      className={className}
-      style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: Z.sticky as unknown as number,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        height: HEADER_H,
-        padding: '0 16px',
-        boxSizing: 'border-box',
-        borderBottom: `1px solid ${CHROME.border}`,
-        background: CHROME.bg,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        color: CHROME.fg,
-        fontFamily: CHROME.font,
-      }}
-    >
-      {/* ── Brand (surface-supplied wordmark, or the default mark + name) ── */}
-      {brandSlot ?? (
-        <a
-          href={home}
-          aria-label={s.brandName}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 9,
-            flexShrink: 0,
-            textDecoration: 'none',
-            color: CHROME.fg,
-          }}
-        >
-          {/* Just the H mark — the product wordmark is dropped so the lockup stays
-              tight (H → Meet Hanzo), matching the compact app-shell register. The
-              current product is still named inside the Meet Hanzo menu (highlighted)
-              and by the page itself, so the wordmark here was redundant chrome. */}
-          <HanzoMark size={22} />
-        </a>
-      )}
+  // The palette is modal, so summoning it dismisses whatever was hanging open.
+  const openSearch = useCallback(() => {
+    setMobileOpen(false)
+    setMeetOpen(false)
+    setProductsOpen(false)
+    setSearchOpen(true)
+  }, [])
 
-      {isMobile ? (
-        <>
-          <div style={{ flex: 1 }} />
-          <IconButton label="Search" onClick={() => onAskHanzo?.()}>
-            <SearchGlyph />
-          </IconButton>
-          <IconButton
-            label={mobileOpen ? 'Close menu' : 'Open menu'}
-            expanded={mobileOpen}
-            onClick={() => {
-              setMeetOpen(false)
-              setMobileOpen((v) => !v)
+  return (
+    // The overlays are SIBLINGS of the bar, not children of it. The bar carries
+    // `backdrop-filter`, and a filtered element is a containing block for every
+    // `position: fixed` descendant — so a palette inside it resolves `inset: 0`
+    // against a 60px-tall strip instead of the viewport, and renders as a sliver
+    // clipped to the header. The mega-menus only escaped this by coincidence
+    // (their `left/right: 0` happened to match the full-width bar). Keeping the
+    // overlays outside makes all four correct for the same reason.
+    <>
+      <header
+        role="banner"
+        data-hanzo-shell=""
+        className={className}
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: Z.sticky as unknown as number,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          height: HEADER_H,
+          padding: '0 16px',
+          boxSizing: 'border-box',
+          borderBottom: `1px solid ${CHROME.border}`,
+          background: CHROME.bg,
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          color: CHROME.fg,
+          fontFamily: CHROME.font,
+        }}
+      >
+        {/* ── Brand (surface-supplied wordmark, or the default mark + name) ── */}
+        {brandSlot ?? (
+          <a
+            href={home}
+            aria-label={s.brandName}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 9,
+              flexShrink: 0,
+              textDecoration: 'none',
+              color: CHROME.fg,
             }}
           >
-            {mobileOpen ? <CloseGlyph /> : <MenuGlyph />}
-          </IconButton>
-        </>
-      ) : (
-        <>
-          {/* ── Meet Hanzo ⌄ ── */}
-          <MenuTrigger
-            ref={meetBtnRef}
-            label="Meet Hanzo"
-            open={meetOpen}
-            onClick={toggleMeet}
-            controls="hanzo-meet-menu"
-          />
+            {/* Just the H mark — the product wordmark is dropped so the lockup stays
+                tight (H → Meet Hanzo), matching the compact app-shell register. The
+                current product is still named inside the Meet Hanzo menu (highlighted)
+                and by the page itself, so the wordmark here was redundant chrome. */}
+            <HanzoMark size={22} />
+          </a>
+        )}
 
-          {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
-          {hasProducts ? (
+        {isMobile ? (
+          <>
+            <div style={{ flex: 1 }} />
+            {hasProducts ? (
+              <HanzoCommandTrigger onOpen={openSearch} compact height={TAP_H} />
+            ) : null}
+            <IconButton
+              label={mobileOpen ? 'Close menu' : 'Open menu'}
+              expanded={mobileOpen}
+              onClick={() => {
+                setMeetOpen(false)
+                setMobileOpen((v) => !v)
+              }}
+            >
+              {mobileOpen ? <CloseGlyph /> : <MenuGlyph />}
+            </IconButton>
+          </>
+        ) : (
+          <>
+            {/* ── Meet Hanzo ⌄ ── */}
             <MenuTrigger
-              ref={productsBtnRef}
-              label="Products"
-              open={productsOpen}
-              onClick={toggleProducts}
-              controls="hanzo-products-menu"
+              ref={meetBtnRef}
+              label="Meet Hanzo"
+              open={meetOpen}
+              onClick={toggleMeet}
+              controls="hanzo-meet-menu"
             />
-          ) : null}
 
-          {/* ── Local nav ── */}
-          <nav
-            aria-label={`${s.brandName} navigation`}
-            style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}
-          >
-            {localNav.map((link) => (
-              <NavLink key={link.id} link={link} />
-            ))}
-          </nav>
+            {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
+            {hasProducts ? (
+              <MenuTrigger
+                ref={productsBtnRef}
+                label="Products"
+                open={productsOpen}
+                onClick={toggleProducts}
+                controls="hanzo-products-menu"
+              />
+            ) : null}
 
-          <div style={{ flex: 1 }} />
+            {/* ── Local nav ── */}
+            <nav
+              aria-label={`${s.brandName} navigation`}
+              style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}
+            >
+              {localNav.map((link) => (
+                <NavLink key={link.id} link={link} />
+              ))}
+            </nav>
 
-          {/* ── CTAs + identity + account ── */}
-          <CTA link={s.secondaryCTA} variant="ghost" />
-          <CTA link={s.primaryCTA} variant="filled" />
-          {identitySlot}
-          {accountNode}
-        </>
-      )}
+            <div style={{ flex: 1 }} />
+
+            {/* ── ⌘K palette trigger + CTAs + identity + account ── */}
+            {hasProducts ? <HanzoCommandTrigger onOpen={openSearch} /> : null}
+            <CTA link={s.secondaryCTA} variant="ghost" />
+            <CTA link={s.primaryCTA} variant="filled" />
+            {identitySlot}
+            {accountNode}
+          </>
+        )}
+      </header>
 
       {/* ── Universal Meet-Hanzo mega-menu ── */}
       <MeetHanzoMenu
@@ -281,15 +310,25 @@ export function HanzoHeader({
 
       {/* ── Rich Products mega-menu (opt-in via productsTaxonomy) ── */}
       {hasProducts ? (
-        <ProductsMegaMenu
-          id="hanzo-products-menu"
-          categories={productsTaxonomy!}
-          open={productsOpen}
-          onClose={() => setProductsOpen(false)}
-          anchor={HEADER_H}
-          currentCategoryId={currentCategoryId}
-          currentHref={currentHref}
-        />
+        <>
+          <ProductsMegaMenu
+            id="hanzo-products-menu"
+            categories={productsTaxonomy!}
+            open={productsOpen}
+            onClose={() => setProductsOpen(false)}
+            anchor={HEADER_H}
+            currentCategoryId={currentCategoryId}
+            currentHref={currentHref}
+          />
+          {/* The ONE place products are searched — from the header, at any
+              width, in or out of a menu. ⌘K reaches it without the trigger. */}
+          <HanzoCommandPalette
+            categories={productsTaxonomy!}
+            open={searchOpen}
+            onOpenChange={setSearchOpen}
+            onAsk={onAskHanzo}
+          />
+        </>
       ) : null}
 
       {/* ── Mobile disclosure sheet ── */}
@@ -308,7 +347,7 @@ export function HanzoHeader({
           }}
         />
       ) : null}
-    </header>
+    </>
   )
 }
 
@@ -423,8 +462,6 @@ function MobileSheet({
 }) {
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const localNav = withoutProductsDup(surface.localNav, hasProducts)
-  const [query, setQuery] = useState('')
-  const shownProducts = filterProducts(productsTaxonomy ?? [], query)
   return (
     <>
       <div
@@ -440,6 +477,7 @@ function MobileSheet({
       />
       <div
         role="dialog"
+        data-hanzo-shell=""
         aria-label={`${surface.brandName} menu`}
         style={{
           ...PANEL,
@@ -497,10 +535,11 @@ function MobileSheet({
           ))}
         </div>
 
-        {/* Rich Products taxonomy — a search field over collapsed accordions, so
-            mobile is neither an endless scroll nor a hunt through ten closed
-            drawers. Typing narrows the taxonomy and opens what survived, which
-            on a phone is the fastest path to any of the ~97 leaves. */}
+        {/* Rich Products taxonomy — collapsed accordions, for BROWSING. This
+            sheet used to carry a second search field over the same ~97 leaves;
+            searching them now happens in exactly one place, the ⌘K palette the
+            header's own glyph opens, so a phone has one answer to "where do I
+            type" instead of two fields that could disagree. */}
         {hasProducts ? (
           <div
             style={{
@@ -509,19 +548,14 @@ function MobileSheet({
               paddingTop: 12,
             }}
           >
-            <ProductSearch value={query} onChange={setQuery} touch />
-            <div style={{ marginTop: 8 }}>
-              {shownProducts.length === 0 ? <NoResults query={query} /> : null}
-              {shownProducts.map((category) => (
-                <MobileProductsCategory
-                  key={category.id}
-                  category={category}
-                  currentHref={currentHref}
-                  filtering={query.trim().length > 0}
-                  onClose={onClose}
-                />
-              ))}
-            </div>
+            {productsTaxonomy!.map((category) => (
+              <MobileProductsCategory
+                key={category.id}
+                category={category}
+                currentHref={currentHref}
+                onClose={onClose}
+              />
+            ))}
           </div>
         ) : null}
 
@@ -555,18 +589,14 @@ function MobileSheet({
 function MobileProductsCategory({
   category,
   currentHref,
-  filtering,
   onClose,
 }: {
   category: ProductCategory
   currentHref?: string
-  filtering: boolean
   onClose: () => void
 }) {
-  const [open, setOpen] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const panelId = `hanzo-mprod-${category.id}`
-  // A search that left its hits behind a closed drawer would not be a search.
-  const expanded = open || filtering
   // The taxonomy may already END in a link to the category's own page (hanzo.ai
   // spells it "All 15 →"). Synthesising a second one put two links to the same
   // href in one drawer, so the row is only invented when the data lacks it.
@@ -575,7 +605,7 @@ function MobileProductsCategory({
     <div style={{ borderBottom: `1px solid ${CHROME.borderSoft}` }}>
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
         aria-controls={expanded ? panelId : undefined}
         style={{
@@ -590,7 +620,7 @@ function MobileProductsCategory({
       </button>
       {expanded ? (
         <div id={panelId} style={{ paddingBottom: 6 }}>
-          {ownsAllLink || filtering ? null : (
+          {ownsAllLink ? null : (
             <a
               href={category.href}
               onClick={onClose}
@@ -664,25 +694,6 @@ function Chevron({ open }: { open: boolean }) {
       }}
     >
       <path d="M6 9l6 6 6-6" />
-    </svg>
-  )
-}
-
-function SearchGlyph() {
-  return (
-    <svg
-      width={20}
-      height={20}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.9}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="11" cy="11" r="7" />
-      <path d="m20 20-3.2-3.2" />
     </svg>
   )
 }

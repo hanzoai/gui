@@ -16,10 +16,11 @@
  *      The shell states its motion as inline `transition`, which no media query
  *      can reach — so honouring the preference has to happen HERE, once, for
  *      every surface, rather than each component re-deriving it.
- *   6. `hanzo-spin`, the shell's ONE keyframe. A rotation has no inline-style
- *      form — `style` can hold a single transform, not a loop — so the busy
- *      spinner has to name a keyframe, and rule 5 already silences it for a
- *      reader who asked for stillness.
+ *   6. the shell's two keyframes. Neither has an inline-style form — `style`
+ *      holds one transform, not a sequence — so a rotation and an entrance both
+ *      have to name a keyframe, and rule 5 already silences them for a reader
+ *      who asked for stillness. `hanzo-spin` is the busy spinner;
+ *      `hanzo-palette-in` is the ⌘K palette expanding into place.
  *
  * Usage: a top-level shell component calls `useShellStyles()` once and puts
  * `data-hanzo-shell=""` on its root; the rules then apply to every focusable
@@ -42,6 +43,10 @@ const CSS = [
   `@media (pointer:coarse){[data-hanzo-shell] a,[data-hanzo-shell] button{min-height:${TAP_H}px}}`,
   `@media (prefers-reduced-motion:reduce){[data-hanzo-shell],[data-hanzo-shell] *{transition:none!important;animation:none!important}}`,
   `@keyframes hanzo-spin{to{transform:rotate(360deg)}}`,
+  // The palette expands into place. Kept to opacity + transform so it composites
+  // off the main thread, and stated on an INNER element so the frame's own
+  // centring transform is never the thing being animated.
+  `@keyframes hanzo-palette-in{from{opacity:0;transform:translateY(-6px) scale(0.98)}to{opacity:1;transform:none}}`,
 ].join('')
 
 /** The shell's one animation, for a control that is busy. See rule 6. */

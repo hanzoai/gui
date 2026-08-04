@@ -106,6 +106,9 @@ export { MeetHanzoMenu } from './MeetHanzoMenu'
 export type { MeetHanzoMenuProps } from './MeetHanzoMenu'
 export { ProductsMegaMenu } from './ProductsMegaMenu'
 export type { ProductsMegaMenuProps } from './ProductsMegaMenu'
+export { HanzoCommandPalette, HanzoCommandTrigger } from './HanzoCommandPalette'
+export type { HanzoCommandPaletteProps, HanzoCommandMode } from './HanzoCommandPalette'
+export { filterProducts } from './productSearch'
 export { HanzoAppHeader } from './HanzoAppHeader'
 export type {
   HanzoAppHeaderProps,

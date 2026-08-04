@@ -75,8 +75,8 @@ export const templates: Array<{
     packageManager: 'bun',
     repo: {
       url: `https://github.com/hanzoai/gui`,
-      sshFallback: `git@github.com:hanzogui/hanzogui.git`,
-      dir: ['code', 'starters', 'expo-router'],
+      sshFallback: `git@github.com:hanzoai/gui.git`,
+      dir: ['apps', 'starters', 'expo-router'],
       branch: 'main',
     },
     extraSteps: expoRouterSteps,
@@ -90,8 +90,8 @@ export const templates: Array<{
     packageManager: 'bun',
     repo: {
       url: `https://github.com/hanzoai/gui`,
-      sshFallback: `git@github.com:hanzogui/hanzogui.git`,
-      dir: ['code', 'starters', 'remix'],
+      sshFallback: `git@github.com:hanzoai/gui.git`,
+      dir: ['apps', 'starters', 'remix'],
       branch: 'main',
     },
     extraSteps: remixSteps,

@@ -1,10 +1,46 @@
-import { type ChildProcess, spawn } from 'node:child_process'
+import { type ChildProcess, execFileSync, spawn } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { temporaryDirectory } from 'tempy'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { templates } from '../src/templates'
 
-describe('create-gui CLI', () => {
+// Both suites below scaffold from a template that lives in another repository,
+// so they only mean anything when that repository answers. cloneStarter tries
+// https and then ssh, so ask both the same way it does: if neither responds
+// there is nothing to scaffold from, and failing here would report someone
+// else's unreachable repo as a defect in this CLI.
+const starterFree = templates.find((template) => template.value === 'starter-free')!
+
+const answers = (url: string) => {
+  try {
+    execFileSync('git', ['ls-remote', '--heads', url, starterFree.repo.branch], {
+      stdio: 'ignore',
+      timeout: 20_000,
+      env: {
+        ...process.env,
+        // a missing repo asks for credentials; never sit on that prompt
+        GIT_TERMINAL_PROMPT: '0',
+        GIT_SSH_COMMAND: 'ssh -oBatchMode=yes -oStrictHostKeyChecking=accept-new',
+      },
+    })
+    return true
+  } catch {
+    return false
+  }
+}
+
+const unreachable =
+  !answers(starterFree.repo.url) && !answers(starterFree.repo.sshFallback)
+
+if (unreachable) {
+  console.warn(
+    `[create-gui] skipping the scaffold suites: ${starterFree.repo.url} answers over neither https nor ssh. ` +
+      `Set STARTER_FREE_REPO_SOURCE to a reachable clone to run them.`
+  )
+}
+
+describe.skipIf(unreachable)('create-gui CLI', () => {
   let tempDir: string
   let cli: ChildProcess
   let projectName: string
@@ -128,7 +164,7 @@ describe('create-gui CLI', () => {
   })
 })
 
-describe('create-gui CLI with --template flag', () => {
+describe.skipIf(unreachable)('create-gui CLI with --template flag', () => {
   let tempDir: string
   let cli: ChildProcess
   let projectName: string

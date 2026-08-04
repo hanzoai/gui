@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/shell",
-  "version": "8.0.4",
-  "description": "Unified Hanzo shell — HanzoHeader (flat + rich Products mega-menu), HanzoAppHeader, MeetHanzoMenu, ProductsMegaMenu, HanzoFooter, HanzoPreFooterCTA, AskHanzo, HanzoAppBar/Launcher + the canonical surface registry",
+  "version": "8.0.5",
+  "description": "Unified Hanzo shell \u2014 HanzoHeader (flat + rich Products mega-menu), HanzoAppHeader, MeetHanzoMenu, ProductsMegaMenu, HanzoFooter, HanzoPreFooterCTA, AskHanzo, HanzoAppBar/Launcher + the canonical surface registry",
   "source": "src/index.ts",
   "files": [
     "dist",

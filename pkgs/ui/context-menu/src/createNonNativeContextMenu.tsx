@@ -1,4 +1,4 @@
-import type BaseMenuTypes from '@hanzogui/create-menu'
+import type * as BaseMenuTypes from '@hanzogui/create-menu'
 import { createBaseMenu, type CreateBaseMenuProps } from '@hanzogui/create-menu'
 import { useControllableState } from '@hanzogui/use-controllable-state'
 import {

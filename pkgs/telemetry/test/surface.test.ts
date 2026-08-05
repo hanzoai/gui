@@ -49,12 +49,12 @@ describe('product', () => {
 })
 
 describe('ingest key', () => {
-  // EVENT_INGEST_KEY is the ONE name: KMS holds `deploy/EVENT_INGEST_KEY`, the
+  // PUBLISHABLE_KEY is the ONE name: KMS holds `deploy/PUBLISHABLE_KEY`, the
   // Dockerfiles pass it through, and @hanzo/event reads the same spelling. A
   // surface that resolved no key sent unattributed beacons, which the door
   // refuses — silently, and invisibly until you read the warehouse.
   it('reads the canonical build-time name', () => {
-    vi.stubEnv('NEXT_PUBLIC_EVENT_INGEST_KEY', 'pk_canonical')
+    vi.stubEnv('NEXT_PUBLIC_PUBLISHABLE_KEY', 'pk_canonical')
     expect(describeTelemetry(createTelemetry())?.hasIngestKey).toBe(true)
   })
 
@@ -68,7 +68,7 @@ describe('ingest key', () => {
   })
 
   it('takes an explicit key over the environment', () => {
-    vi.stubEnv('NEXT_PUBLIC_EVENT_INGEST_KEY', 'pk_env')
+    vi.stubEnv('NEXT_PUBLIC_PUBLISHABLE_KEY', 'pk_env')
     const t = createTelemetry({ ingestKey: 'pk_explicit' })
     expect(describeTelemetry(t)?.hasIngestKey).toBe(true)
   })

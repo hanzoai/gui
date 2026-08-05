@@ -12,7 +12,13 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-import { definedClasses, usedClasses, inlineStyles, stylesheetHrefs, check } from './css-check.mjs'
+import {
+  definedClasses,
+  usedClasses,
+  inlineStyles,
+  stylesheetHrefs,
+  check,
+} from './css-check.mjs'
 
 const set = (css) => [...definedClasses(css)].sort()
 
@@ -22,14 +28,22 @@ test('definedClasses reads selectors, not declaration values', () => {
 })
 
 test('definedClasses handles compound, grouped and nested selectors', () => {
-  assert.deepEqual(set('.a.b, .c > .d:hover .e::after{color:red}'), ['a', 'b', 'c', 'd', 'e'])
+  assert.deepEqual(set('.a.b, .c > .d:hover .e::after{color:red}'), [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+  ])
   assert.deepEqual(set('@media (min-width:768.5px){.wide{display:flex}}'), ['wide'])
   assert.deepEqual(set('@supports (d:g){@media screen{.x{color:red}}}'), ['x'])
 })
 
 test('definedClasses unescapes CSS identifier escapes', () => {
   // what Tailwind emits for `hover:bg-white/[0.06]`
-  assert.deepEqual(set('.hover\\:bg-white\\/\\[0\\.06\\]{color:red}'), ['hover:bg-white/[0.06]'])
+  assert.deepEqual(set('.hover\\:bg-white\\/\\[0\\.06\\]{color:red}'), [
+    'hover:bg-white/[0.06]',
+  ])
   // hex escape form
   assert.deepEqual(set('.a\\3a b{color:red}'), ['a:b'])
 })
@@ -39,7 +53,11 @@ test('definedClasses ignores comments and string literals', () => {
 })
 
 test('usedClasses reads class attributes and decodes entities', () => {
-  assert.deepEqual([...usedClasses('<div class="a  b"><p class=\'c\'>')].sort(), ['a', 'b', 'c'])
+  assert.deepEqual([...usedClasses('<div class="a  b"><p class=\'c\'>')].sort(), [
+    'a',
+    'b',
+    'c',
+  ])
   assert.deepEqual([...usedClasses('<div class="a&amp;b">')], ['a&b'])
   assert.deepEqual([...usedClasses('<div class=bare>')], ['bare'])
 })
@@ -48,7 +66,10 @@ test('usedClasses ignores markup quoted inside scripts and styles', () => {
   // Next pushes the RSC payload through here; it is not delivered markup
   const html = `<div class="real"></div><script>self.__next_f.push('<i class="ghost">')</script>`
   assert.deepEqual([...usedClasses(html)], ['real'])
-  assert.deepEqual([...usedClasses('<style>.x::after{content:"class=\\"ghost\\""}</style>')], [])
+  assert.deepEqual(
+    [...usedClasses('<style>.x::after{content:"class=\\"ghost\\""}</style>')],
+    []
+  )
 })
 
 test('inlineStyles and stylesheetHrefs pull the delivered sheets', () => {
@@ -128,7 +149,8 @@ test('a rule in a sheet the page never links does not count as delivered', () =>
 
 test('a stylesheet link pointing at nothing is a failure of its own', () => {
   const dir = fixture({
-    'server/index.html': '<link rel="stylesheet" href="/_next/static/css/gone.css"><div class="x">',
+    'server/index.html':
+      '<link rel="stylesheet" href="/_next/static/css/gone.css"><div class="x">',
   })
   try {
     const r = check({ roots: [dir] })

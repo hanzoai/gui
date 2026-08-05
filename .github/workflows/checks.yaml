@@ -53,8 +53,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: '--max-old-space-size=6144'
-      # tests depend on ^build; types are the checks job's business, not ours
-      SKIP_TYPES: '1'
+      # NO SKIP_TYPES. It used to be set here, reasoning that "types are the
+      # checks job's business, not ours" — but two of these suites are
+      # `vitest --typecheck` (@hanzogui/web, @hanzogui/input) and they read
+      # their dependencies' .d.ts. Those live in <pkg>/types/, gitignored and
+      # emitted only by a types build, so skipping types made ^build emit JS
+      # alone, @hanzogui/native resolve as an untyped module, and
+      # React.useContext(NativeMenuContext) collapse to `unknown`. The job then
+      # failed in createComponent.tsx on a type error that is not in the source
+      # and cannot be fixed there. Let ^build emit what the gate reads.
     steps:
       - name: Checkout
         uses: actions/checkout@v4

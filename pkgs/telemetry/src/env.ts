@@ -61,15 +61,15 @@ function processEnv(): RawEnv {
     const e = process.env
     return {
       apiUrl: first(e.NEXT_PUBLIC_HANZO_API_URL, e.PUBLIC_HANZO_API_URL, e.HANZO_API_URL),
-      // EVENT_INGEST_KEY is the name, and it is the one the fleet already
-      // carries end to end: KMS holds `deploy/EVENT_INGEST_KEY`, each Dockerfile
+      // PUBLISHABLE_KEY is the name, and it is the one the fleet already
+      // carries end to end: KMS holds `deploy/PUBLISHABLE_KEY`, each Dockerfile
       // takes it as a build-arg, and @hanzo/event reads the same spelling. The
       // HANZO_INGEST_KEY family below is the older spelling still set by three
       // surfaces; it is read second and is being retired, not extended.
       ingestKey: first(
-        e.NEXT_PUBLIC_EVENT_INGEST_KEY,
-        e.PUBLIC_EVENT_INGEST_KEY,
-        e.EVENT_INGEST_KEY,
+        e.NEXT_PUBLIC_PUBLISHABLE_KEY,
+        e.PUBLIC_PUBLISHABLE_KEY,
+        e.PUBLISHABLE_KEY,
         e.NEXT_PUBLIC_HANZO_INGEST_KEY,
         e.PUBLIC_HANZO_INGEST_KEY,
         e.HANZO_INGEST_KEY
@@ -108,9 +108,9 @@ function metaEnv(): RawEnv {
         e.PUBLIC_HANZO_API_URL
       ),
       ingestKey: first(
-        e.VITE_EVENT_INGEST_KEY,
-        e.EXPO_PUBLIC_EVENT_INGEST_KEY,
-        e.PUBLIC_EVENT_INGEST_KEY,
+        e.VITE_PUBLISHABLE_KEY,
+        e.EXPO_PUBLIC_PUBLISHABLE_KEY,
+        e.PUBLIC_PUBLISHABLE_KEY,
         e.VITE_HANZO_INGEST_KEY,
         e.EXPO_PUBLIC_HANZO_INGEST_KEY,
         e.PUBLIC_HANZO_INGEST_KEY

@@ -141,7 +141,7 @@ Environment, read from `process.env` (Next), `import.meta.env` (Vite/Expo), or a
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `NEXT_PUBLIC_EVENT_INGEST_KEY` / `VITE_EVENT_INGEST_KEY` / `EXPO_PUBLIC_EVENT_INGEST_KEY` | — | Publishable `pk-…` key — **the one name**, the one KMS carries at `deploy/EVENT_INGEST_KEY` and the one `@hanzo/event` reads. Write-only and safe in a bundle. Without it a beacon is unattributed and the door refuses it. (The older `…_HANZO_INGEST_KEY` spelling is still read, second, and is being retired.) |
+| `NEXT_PUBLIC_PUBLISHABLE_KEY` / `VITE_PUBLISHABLE_KEY` / `EXPO_PUBLIC_PUBLISHABLE_KEY` | — | Publishable `pk-…` key — **the one name**, the one KMS carries at `deploy/PUBLISHABLE_KEY` and the one `@hanzo/event` reads. Write-only and safe in a bundle. Without it a beacon is unattributed and the door refuses it. (The older `…_HANZO_INGEST_KEY` spelling is still read, second, and is being retired.) |
 | `NEXT_PUBLIC_HANZO_API_URL` / `VITE_HANZO_API_URL` | `https://api.hanzo.ai` | The one front door. |
 | `NEXT_PUBLIC_HANZO_PRODUCT` / `VITE_HANZO_PRODUCT` | resolved from the runtime, then the hostname | Emitting surface. A Tauri window reports as `desktop` — it serves one bundle from three origins (`tauri://localhost`, `http://tauri.localhost`, the dev server), so the URL is the one thing that cannot name it. |
 | `NEXT_PUBLIC_HANZO_TELEMETRY` / `VITE_HANZO_TELEMETRY` | on | `0`/`false`/`off` is a build-time kill switch. |

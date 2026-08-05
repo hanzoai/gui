@@ -19,7 +19,11 @@ import type { CSSProperties, MouseEvent } from 'react'
 
 /** Dark-chrome palette shared by the header/footer/menu/launcher. */
 export const CHROME = {
-  bg: 'rgba(9,9,11,0.85)',
+  /**
+   * The glass ground. 72%, not 85% — see `GLASS`: it is the ground the whole
+   * material is tuned around, and `@hanzo/ui`'s says 72 over a 20px blur.
+   */
+  bg: 'rgba(9,9,11,0.72)',
   /** True black — the same ground hanzo.ai and hanzo.chat paint the page with. */
   panel: '#000000',
   /** The one raised fill (inputs, cards, tiles) that sits above `panel`. */
@@ -191,13 +195,31 @@ export const VEIL =
 
 /**
  * Dark glass — the ONE recipe for chrome the page shows through: near-black at
- * 85% over a 12px backdrop blur.
+ * 72% over a 20px backdrop blur, saturated.
  *
  * The header bar and both mega-menu drapes are ONE piece of glass. A drape is
  * the bar CONTINUING down the page, not an opaque slab hung underneath it, so
  * the two must be lit the same way or the seam between them becomes an edge. The
  * drapes were true black (`CHROME.panel`) against a frosted bar, which is
  * exactly that edge.
+ *
+ * ── The same edge, one level up ────────────────────────────────────────────
+ * It was 85% over 12px, which is the same seam between the shell and everything
+ * mounted UNDER it: `@hanzo/ui`'s material — the one every dialog, popover,
+ * select, dropdown and tooltip wears — is 72% over blur(20px) saturate(1.8), so
+ * a menu opened from this header was visibly a different glass than the header
+ * it hung off. A thicker ground with less blur reads as a slab; the same surface
+ * beside a real lens reads as the cheaper of the two.
+ *
+ * The saturate is not decoration: a plain blur greys out whatever it averages,
+ * and pushing saturation back up is what makes the blurred content still read as
+ * the page rather than as fog. It is why the material looks like glass and a
+ * bare `blur()` looks like frosted plastic.
+ *
+ * The two cannot be shared as one token. This package deliberately depends on
+ * neither `@hanzo/design` nor `@hanzo/ui` — it is the frame those render
+ * inside, and importing either would point the dependency the wrong way. So the
+ * numbers are kept in step by hand, like every other fallback in this file.
  *
  * Compose the drapes' `VEIL` OVER this ground rather than instead of it:
  *   { ...GLASS, background: `${VEIL}, ${CHROME.bg}` }
@@ -208,8 +230,8 @@ export const VEIL =
  */
 export const GLASS: CSSProperties = {
   background: CHROME.bg,
-  backdropFilter: 'blur(12px)',
-  WebkitBackdropFilter: 'blur(12px)',
+  backdropFilter: 'blur(20px) saturate(1.8)',
+  WebkitBackdropFilter: 'blur(20px) saturate(1.8)',
 }
 
 /** Scrim behind a modal surface. */

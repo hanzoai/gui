@@ -1,18 +1,57 @@
 # @hanzogui/telemetry
 
-Zero-config telemetry for any Hanzo surface. One component, no configuration:
+Zero-config telemetry for any Hanzo surface — web, desktop and native.
+
+**If you mount `<GuiProvider>` from `@hanzo/gui`, you already have it.** There is
+nothing to install, import or wire: pageviews, unhandled errors, React render
+errors and interaction capture reach the one Hanzo front door, with the product
+name resolved from the runtime and the ingest key read from the environment.
+
+```tsx
+import { GuiProvider } from '@hanzo/gui'
+
+<GuiProvider config={config}>{children}</GuiProvider>   // telemetry included
+<GuiProvider config={config} telemetry={false}>…        // opt out
+<GuiProvider config={config} telemetry={{ product: 'studio' }}>…
+```
+
+Mount it yourself only when you are not a gui app, or when you need to drive
+pageviews from your router:
 
 ```tsx
 import { TelemetryProvider } from '@hanzogui/telemetry'
 
 export default function Root({ children }) {
-  return <TelemetryProvider>{children}</TelemetryProvider>
+  return <TelemetryProvider path={usePathname()}>{children}</TelemetryProvider>
 }
 ```
 
-That is the whole adoption. It is also available from the component layer as
-`@hanzo/ui/telemetry`, which re-exports this package unchanged — so an app that
-already depends on `@hanzo/ui` adds nothing.
+It is also available from the component layer as `@hanzo/ui/telemetry`, which
+re-exports this package unchanged — so an app that already depends on
+`@hanzo/ui` adds nothing.
+
+## One stream, never two
+
+`GuiProvider` mounts `<TelemetryProvider owner="gui">`, and that posture is the
+whole reason it is safe to turn on for every app at once: **a gui-owned provider
+collects only while nothing else is collecting.**
+
+| The app mounts | Where | What gui does |
+|---|---|---|
+| nothing | — | collects — this is the free case |
+| `<AnalyticsProvider>` / `<TelemetryProvider>` | above `GuiProvider` | goes inert, and passes the app's client straight through |
+| `<TelemetryProvider>` | below `GuiProvider` | goes inert; the app owns the stream |
+| a second `<GuiProvider>` | anywhere | one client, one stream |
+
+Ownership is a claim on a module-scope slot, not a render-time guess, so it
+survives late mounts (a lazy route takes the stream) and unmounts (gui takes it
+back). `owner="app"` is the default for a provider you mount yourself and always
+wins.
+
+**The one shape gui cannot see** is a raw `@hanzo/event` `<AnalyticsProvider>`
+*below* `GuiProvider`: React context does not look down, and unlike
+`<TelemetryProvider>` a raw one claims nothing. Those apps pass
+`telemetry={false}` until they drop their own wiring.
 
 ## One door, three lenses
 
@@ -102,9 +141,9 @@ Environment, read from `process.env` (Next), `import.meta.env` (Vite/Expo), or a
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `NEXT_PUBLIC_HANZO_INGEST_KEY` / `VITE_HANZO_INGEST_KEY` | — | Publishable `pk_…` key. Write-only and safe in a bundle; it is what lets a logged-out marketing page light up all three lenses. |
+| `NEXT_PUBLIC_EVENT_INGEST_KEY` / `VITE_EVENT_INGEST_KEY` / `EXPO_PUBLIC_EVENT_INGEST_KEY` | — | Publishable `pk-…` key — **the one name**, the one KMS carries at `deploy/EVENT_INGEST_KEY` and the one `@hanzo/event` reads. Write-only and safe in a bundle. Without it a beacon is unattributed and the door refuses it. (The older `…_HANZO_INGEST_KEY` spelling is still read, second, and is being retired.) |
 | `NEXT_PUBLIC_HANZO_API_URL` / `VITE_HANZO_API_URL` | `https://api.hanzo.ai` | The one front door. |
-| `NEXT_PUBLIC_HANZO_PRODUCT` / `VITE_HANZO_PRODUCT` | inferred from hostname | Emitting surface. |
+| `NEXT_PUBLIC_HANZO_PRODUCT` / `VITE_HANZO_PRODUCT` | resolved from the runtime, then the hostname | Emitting surface. A Tauri window reports as `desktop` — it serves one bundle from three origins (`tauri://localhost`, `http://tauri.localhost`, the dev server), so the URL is the one thing that cannot name it. |
 | `NEXT_PUBLIC_HANZO_TELEMETRY` / `VITE_HANZO_TELEMETRY` | on | `0`/`false`/`off` is a build-time kill switch. |
 
 Props, when you want them:
@@ -129,9 +168,14 @@ error UI still runs. Observing must not change behavior.
 
 ## Guarantees
 
-- **SSR-safe.** Importing does nothing; rendering on the server does nothing. A
-  DOM is required before anything is collected — React Native hosts stay silent
-  rather than emit half an event.
+- **SSR-safe.** Importing does nothing; rendering on the server does nothing.
+- **Native mounts, and stays silent for now.** `GuiProvider` wires telemetry
+  identically on React Native, but a DOM is still the precondition for
+  collecting: `@hanzo/event`'s `init()` reads `window.location.search` and
+  `document.referrer` behind a `typeof window` check, and React Native defines a
+  `window` with neither. Emitting on native needs that check to require a
+  `document` — an `@hanzo/event` fix, not a gui one. Until then native is wired
+  and inert rather than crashing.
 - **Fail-soft.** Every public method swallows its own errors, network loss is
   ignored, and a failed capture-engine chunk simply means no capture.
 - **Tree-shakable.** `sideEffects: false`, ESM, one export per concern.

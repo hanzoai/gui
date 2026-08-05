@@ -153,6 +153,7 @@
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/switch": "workspace:*",
     "@hanzogui/tabs": "workspace:*",
+    "@hanzogui/telemetry": "workspace:*",
     "@hanzogui/text": "workspace:*",
     "@hanzogui/theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",

@@ -12,7 +12,7 @@
 // (`nav: false` in useReplay) — two sources would double-count every view.
 
 import { useEffect, useRef } from 'react'
-import type { Telemetry } from './types.js'
+import type { Telemetry } from './types'
 
 /** Where we are, as `{key, path}` — `key` is the full location (so a query-only
  *  change still counts as a view) and `path` is what gets reported.

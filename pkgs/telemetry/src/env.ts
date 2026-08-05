@@ -61,7 +61,15 @@ function processEnv(): RawEnv {
     const e = process.env
     return {
       apiUrl: first(e.NEXT_PUBLIC_HANZO_API_URL, e.PUBLIC_HANZO_API_URL, e.HANZO_API_URL),
+      // EVENT_INGEST_KEY is the name, and it is the one the fleet already
+      // carries end to end: KMS holds `deploy/EVENT_INGEST_KEY`, each Dockerfile
+      // takes it as a build-arg, and @hanzo/event reads the same spelling. The
+      // HANZO_INGEST_KEY family below is the older spelling still set by three
+      // surfaces; it is read second and is being retired, not extended.
       ingestKey: first(
+        e.NEXT_PUBLIC_EVENT_INGEST_KEY,
+        e.PUBLIC_EVENT_INGEST_KEY,
+        e.EVENT_INGEST_KEY,
         e.NEXT_PUBLIC_HANZO_INGEST_KEY,
         e.PUBLIC_HANZO_INGEST_KEY,
         e.HANZO_INGEST_KEY
@@ -100,6 +108,9 @@ function metaEnv(): RawEnv {
         e.PUBLIC_HANZO_API_URL
       ),
       ingestKey: first(
+        e.VITE_EVENT_INGEST_KEY,
+        e.EXPO_PUBLIC_EVENT_INGEST_KEY,
+        e.PUBLIC_EVENT_INGEST_KEY,
         e.VITE_HANZO_INGEST_KEY,
         e.EXPO_PUBLIC_HANZO_INGEST_KEY,
         e.PUBLIC_HANZO_INGEST_KEY
@@ -151,6 +162,27 @@ export function productFromHost(hostname: string | undefined): string | undefine
   // `console.hanzo.ai` → console, `cloud.hanzo.ai` → cloud, `zoo.ngo` → zoo.
   const label = h.split('.')[0]
   return label && label !== '' ? label : undefined
+}
+
+/** The product implied by the HOST RUNTIME rather than by the URL.
+ *
+ *  A desktop shell serves one bundle from three different origins —
+ *  `tauri://localhost`, `http://tauri.localhost` on Windows, and the dev
+ *  server's `localhost:5175` — so a hostname rule reads the same app three
+ *  different ways and gets all three wrong. The Tauri bridge global IS the
+ *  runtime, so it answers identically in development and in the shipped app,
+ *  which is what lets a desktop app report as `desktop` with no app-side code.
+ *
+ *  Checked BEFORE the hostname and AFTER the environment, so a surface can
+ *  still name itself. */
+export function runtimeProduct(): string | undefined {
+  try {
+    const g = globalThis as Record<string, unknown>
+    if (g.__TAURI_INTERNALS__ !== undefined || g.__TAURI__ !== undefined) return 'desktop'
+  } catch {
+    /* a locked-down global object — fall through to the hostname */
+  }
+  return undefined
 }
 
 const isOff = (v: string | undefined): boolean =>

@@ -11,7 +11,7 @@
 // not happen and the app is untouched.
 
 import { useEffect } from 'react'
-import type { RedactionPolicy, Telemetry } from './types.js'
+import type { RedactionPolicy, Telemetry } from './types'
 
 type IdleWindow = Window & {
   requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number

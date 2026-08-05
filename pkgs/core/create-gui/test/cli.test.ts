@@ -127,7 +127,13 @@ describe.skipIf(unreachable)('create-gui CLI', () => {
       'package.json',
       'tsconfig.json',
       'apps/expo/app.json',
-      'packages/config/src/hanzogui.config.ts',
+      // NOT hanzogui.config.ts. These are paths inside hanzogui/starter-free,
+      // a different repository, and the brand transform that renamed
+      // tamagui -> hanzogui in THIS repo rewrote this string as if it named a
+      // file here. It never reached the template, so the scaffold still lays
+      // down tamagui.config.ts and the assertion asked for a file that has
+      // never existed. Assert what the template actually ships.
+      'packages/config/src/tamagui.config.ts',
     ]
 
     essentialFiles.forEach((file) => {
@@ -236,7 +242,8 @@ describe.skipIf(unreachable)('create-gui CLI with --template flag', () => {
     const essentialFiles = [
       'package.json',
       'tsconfig.json',
-      'packages/config/src/hanzogui.config.ts',
+      // the template's own filename — see the note on the suite above
+      'packages/config/src/tamagui.config.ts',
     ]
 
     essentialFiles.forEach((file) => {

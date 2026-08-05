@@ -43,6 +43,21 @@ jobs:
       - name: Check
         run: bun run check
 
+      # Every package's declarations, which this gate reads and nothing else
+      # here emits. `<pkg>/types/*.d.ts` used to be committed — 2,880 of them —
+      # until a merge correctly reclassified them as build artifacts and
+      # gitignored them. A fresh checkout then has no types/ at all, so every
+      # workspace import resolved to an untyped module and Typecheck went red
+      # with 139 errors that are nowhere in the source ("@hanzogui/themes/v5 has
+      # no exported member 'themes'" and friends).
+      #
+      # Install's pre-build is the JS half — postinstall runs build:js, which is
+      # SKIP_TYPES=1. This is the other half. Both halves are one turbo `build`
+      # task, so the second pass reuses the first's cache for everything except
+      # the declarations it adds.
+      - name: Build declarations
+        run: bun run build:types
+
       - name: Typecheck
         run: bun run typecheck
 

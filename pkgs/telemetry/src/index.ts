@@ -31,6 +31,7 @@ export {
   isTelemetryOwned,
   onTelemetryOwnerChange,
   hasDom,
+  canEmit,
   track,
   pageview,
   identify,
@@ -49,11 +50,19 @@ export {
   resolveEnabled,
 } from './consent'
 
-export { productFromHost, runtimeProduct, resolveEnv, DEFAULT_HOST } from './env'
+export {
+  productFromHost,
+  runtimeProduct,
+  isReactNative,
+  resolveEnv,
+  DEFAULT_HOST,
+} from './env'
 export type { ResolvedEnv, TelemetryGlobal } from './env'
 
 export { useRouteTracking } from './useRouteTracking'
 export { useReplay } from './useReplay'
+export { useScreenTracking } from './useScreenTracking'
+export type { NavigationRefLike } from './useScreenTracking'
 
 export type {
   Analytics,

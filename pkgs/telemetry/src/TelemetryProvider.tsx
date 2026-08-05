@@ -33,6 +33,7 @@ import { getConsent, onConsentChange } from './consent'
 import {
   createTelemetry,
   getTelemetry,
+  hasDom,
   isTelemetryOwned,
   onTelemetryOwnerChange,
   setTelemetry,
@@ -129,6 +130,10 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
   useEffect(() => {
     const bump = (): void => setConsentEpoch((n) => n + 1)
     const off = onConsentChange(bump)
+    // The in-app signal (a banner, a settings toggle) applies on every host,
+    // React Native included. The cross-tab `storage` event is a DOM affordance
+    // RN has no `window.addEventListener` for — reaching for it there throws.
+    if (!hasDom()) return off
     const onStorage = (e: StorageEvent): void => {
       if (e.key === null || e.key === 'hz_consent') bump()
     }

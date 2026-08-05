@@ -164,6 +164,21 @@ export function productFromHost(hostname: string | undefined): string | undefine
   return label && label !== '' ? label : undefined
 }
 
+/** React Native: a JS runtime with a global `window` but no DOM — no
+ *  `document`, no `location`, no History. `navigator.product === 'ReactNative'`
+ *  is the runtime's own tell, and the one thing that separates a mobile app from
+ *  a browser (both have `window`) and from SSR (which has neither). */
+export function isReactNative(): boolean {
+  try {
+    return (
+      typeof navigator !== 'undefined' &&
+      (navigator as { product?: string }).product === 'ReactNative'
+    )
+  } catch {
+    return false
+  }
+}
+
 /** The product implied by the HOST RUNTIME rather than by the URL.
  *
  *  A desktop shell serves one bundle from three different origins —
@@ -172,6 +187,8 @@ export function productFromHost(hostname: string | undefined): string | undefine
  *  different ways and gets all three wrong. The Tauri bridge global IS the
  *  runtime, so it answers identically in development and in the shipped app,
  *  which is what lets a desktop app report as `desktop` with no app-side code.
+ *  React Native has no URL at all, so its runtime is the ONLY source — an
+ *  unconfigured mobile app reports as `mobile` the same way.
  *
  *  Checked BEFORE the hostname and AFTER the environment, so a surface can
  *  still name itself. */
@@ -182,6 +199,7 @@ export function runtimeProduct(): string | undefined {
   } catch {
     /* a locked-down global object — fall through to the hostname */
   }
+  if (isReactNative()) return 'mobile'
   return undefined
 }
 

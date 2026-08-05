@@ -288,10 +288,12 @@ exports[`webpack-tests > 10. extracts Text 1`] = `
         >
           <span
             class="is_Text _col-color"
+            data-slot="text"
             select="auto"
           >
             <span
               class="is_Text _col-00035 _fos-15px _fow-600"
+              data-slot="text"
             >
               hello
             </span>

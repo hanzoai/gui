@@ -11,7 +11,7 @@
 import { createAnalytics } from '@hanzo/event'
 import type { Analytics } from '@hanzo/event'
 import { resolveEnabled } from './consent'
-import { productFromHost, resolveEnv, runtimeProduct } from './env'
+import { isReactNative, productFromHost, resolveEnv, runtimeProduct } from './env'
 import type {
   Telemetry,
   TelemetryCommerce,
@@ -20,9 +20,16 @@ import type {
 } from './types'
 
 /** A DOM — not merely a `window`. React Native defines a global `window` with
- *  no `location`/`document`, and SSR defines neither; both must stay silent. */
+ *  no `location`/`document`, and SSR defines neither. This is what gates the
+ *  DOM-only planes (History pageviews, session replay), NOT whether we emit. */
 export const hasDom = (): boolean =>
   typeof window !== 'undefined' && typeof document !== 'undefined'
+
+/** A live client host: a browser DOM, or React Native. Both send — RN POSTs the
+ *  event/identify/group/error stream through `fetch` exactly like the browser,
+ *  it just skips the DOM-only planes above. SSR/Node is neither and stays
+ *  silent, emitting half an event to nobody. This gates whether we collect. */
+export const canEmit = (): boolean => hasDom() || isReactNative()
 
 /** Never let a telemetry call throw into the caller. This is the ONLY error
  *  policy in the package: every public method funnels through it. */
@@ -71,11 +78,12 @@ export function createTelemetry(config: TelemetryConfig = {}): Telemetry {
     (hasDom() ? productFromHost(window.location?.hostname) : undefined) ??
     'unknown'
 
-  // A DOM is a precondition: the client reads location/referrer and buffers to
-  // an unload beacon. Server and native hosts stay silent rather than emit half
-  // an event. `enabled` (a build-time kill switch) still wins over consent.
+  // A live client host is the precondition: a browser DOM or React Native, both
+  // of which POST through `fetch`. Only SSR/Node stays silent — it would read
+  // location/referrer and buffer to an unload beacon that never fire, emitting
+  // half an event to nobody. `enabled` (a build-time kill switch) still wins.
   const permitted =
-    hasDom() &&
+    canEmit() &&
     resolveEnabled({ enabled: config.enabled ?? env.enabled, consent: config.consent })
   const errors = config.errors ?? true
   const replay = config.replay ?? true

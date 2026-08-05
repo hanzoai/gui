@@ -12,6 +12,7 @@
 // (`nav: false` in useReplay) — two sources would double-count every view.
 
 import { useEffect, useRef } from 'react'
+import { hasDom } from './telemetry'
 import type { Telemetry } from './types'
 
 /** Where we are, as `{key, path}` — `key` is the full location (so a query-only
@@ -45,18 +46,20 @@ export function useRouteTracking(
   const last = useRef<string | null>(null)
   const controlled = path !== undefined
 
-  // Controlled: the app's router is the clock.
+  // Controlled: the app's router is the clock. `hasDom()`, not just `window`:
+  // React Native has a `window` but no `location`/History, so its screen views
+  // come from `useScreenTracking`, never from here.
   useEffect(() => {
-    if (!active || !controlled || typeof window === 'undefined') return
+    if (!active || !controlled || !hasDom()) return
     const next = path ?? where().path ?? ''
     if (last.current === next) return
     last.current = next
     telemetry.pageview(next)
   }, [telemetry, active, controlled, path])
 
-  // Uncontrolled: the History API is the clock.
+  // Uncontrolled: the History API is the clock (a browser-only clock).
   useEffect(() => {
-    if (!active || controlled || typeof window === 'undefined') return
+    if (!active || controlled || !hasDom()) return
 
     const fire = (url?: string | URL | null): void => {
       const { key, path: next } = where(url)

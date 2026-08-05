@@ -22,6 +22,10 @@
       "types": "./types/worker.d.ts",
       "default": "./dist/worker.cjs"
     },
+    "./extractablePath": {
+      "types": "./types/extractor/extractablePath.d.ts",
+      "default": "./dist/extractor/extractablePath.cjs"
+    },
     "./checkDeps": {
       "types": "./types/checkDeps.d.ts",
       "default": "./dist/checkDeps.cjs"

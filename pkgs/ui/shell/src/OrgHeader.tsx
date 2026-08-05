@@ -220,10 +220,21 @@ export function OrgHeader({
     >
       {/* ── Left: logo · breadcrumb · app switcher ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+        {/*
+          The color is stated HERE, as HanzoAppHeader states it, because the
+          mark is `currentColor` and this is an anchor: the UA sheet paints
+          anchors link-blue and that beats the header's inherited color. The
+          mark this replaced hardcoded white and so never noticed.
+        */}
         <a
           href={`${domains.iam}/account`}
           aria-label="Account"
-          style={{ display: 'inline-flex', flexShrink: 0, borderRadius: 4 }}
+          style={{
+            display: 'inline-flex',
+            flexShrink: 0,
+            borderRadius: 4,
+            color: CHROME.fg,
+          }}
         >
           <HanzoMark size={22} brandMenu animate />
         </a>

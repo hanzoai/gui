@@ -85,14 +85,15 @@ baked in — and the signed-in chrome reads it for the account and billing links
 ## One app list
 
 `HANZO_APPS` is the only app registry. `HanzoAppLauncher` renders it; `OrgHeader`
-and `HanzoAppBar` mount that launcher; `OrgCommandPalette` derives its cross-app
-commands from it. Pass `apps` to any of the three to override.
+mounts that launcher; `OrgCommandPalette` derives its cross-app commands from
+it. Pass `apps` to any of the three to override.
 
 ## Exports
 
 - `HanzoHeader` — public/marketing header
-- `OrgHeader`, `OrgHeaderProps` — signed-in header with org switcher + user menu
-- `HanzoAppLauncher`, `HanzoAppBar` — the cross-app switcher, and a bar carrying it
+- `OrgHeader`, `OrgHeaderProps`, `OrgSearch` — THE signed-in bar: launcher,
+  breadcrumb, centre search, org switcher + user menu
+- `HanzoAppLauncher` — the cross-app switcher
 - `UserOrgDropdown` — user/org dropdown
 - `OrgCommandPalette`, `OrgCommandItem` — ⌘K palette
 - `HanzoMark`, `HanzoWordmark` — brand mark (`brandMenu` opts into the

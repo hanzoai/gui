@@ -1203,6 +1203,23 @@ const ToastItemInner = ToastItemFrame.styleable<ToastItemProps>(
           dragRef={dragRef}
         >
           <ToastItemFrame
+            // The one hook a stylesheet can reach a toast by.
+            //
+            // A toast is floating chrome — it is over the page or it is nothing
+            // — so a design system wants to give it the same material every
+            // other floating surface wears. It had no handle at all: `Toaster`
+            // accepts sonner's `className`/`style`/`classNames` and documents
+            // them as INERT, and nothing else here reaches the DOM node. So the
+            // one surface that is unambiguously floating was the one surface a
+            // sheet could not select, and it kept a hand-rolled
+            // `rgba(0,0,0,0.15)` drop that is very nearly invisible on a dark
+            // ground — the exact defect an elevation ladder exists to end.
+            //
+            // `data-slot` rather than a class or a prop because it needs no
+            // decision from a call site: a toast is glass because it IS a toast.
+            // gui forwards unrecognised props to the DOM node and native drops
+            // them, which is what makes this cross-platform safe.
+            data-slot="toast"
             role="status"
             aria-live="polite"
             aria-atomic

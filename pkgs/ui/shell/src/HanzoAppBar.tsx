@@ -20,6 +20,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoAppLauncher } from './HanzoAppLauncher'
 import { HanzoMark } from './mark'
 import { HANZO_APPS, type HanzoApp } from './hanzo-apps'
+import type { HanzoUser } from './types'
 import {
   ACCENT,
   ACCENT_TINT,
@@ -34,12 +35,6 @@ import {
   row,
 } from './theme'
 import { useShellStyles } from './shellStyles'
-
-export interface HanzoUser {
-  name?: string
-  email?: string
-  avatarUrl?: string
-}
 
 export interface HanzoAppBarAction {
   label: string
@@ -347,11 +342,11 @@ function MenuRow({ label, onClick }: { label: string; onClick: () => void }) {
 }
 
 function Avatar({ user, size = 26 }: { user?: HanzoUser; size?: number }) {
-  if (user?.avatarUrl) {
+  if (user?.avatar) {
     // eslint-disable-next-line @next/next/no-img-element
     return (
       <img
-        src={user.avatarUrl}
+        src={user.avatar}
         alt=""
         style={{
           width: size,

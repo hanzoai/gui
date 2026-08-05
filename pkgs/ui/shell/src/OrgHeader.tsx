@@ -1,15 +1,11 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
-import { TenantMark } from './TenantMark'
-import { AppSwitcher } from './AppSwitcher'
+import { HanzoMark } from './mark'
+import { HanzoAppLauncher } from './HanzoAppLauncher'
 import { UserOrgDropdown } from './UserOrgDropdown'
-import {
-  DEFAULT_TENANT_APPS,
-  ORG_DOMAINS,
-  getAppsForOrg,
-  type TenantShellProps,
-} from './types'
+import { type HanzoApp } from './hanzo-apps'
+import { ORG_DOMAINS, type HanzoOrg, type HanzoUser } from './types'
 import { CHROME, CTRL_H, FS, GLASS, Z, control, ghostHover } from './theme'
 import { SPIN, useShellStyles } from './shellStyles'
 
@@ -118,20 +114,49 @@ async function hardRefresh() {
   location.reload()
 }
 
+export interface OrgHeaderProps {
+  /** Current app name shown in the breadcrumb. */
+  currentApp: string
+  /** Current app id — highlights its launcher tile. */
+  currentAppId?: string
+  /** Signed-in user (mapped from IAM at the host's boundary). */
+  user?: HanzoUser
+  /** Orgs the user belongs to. */
+  organizations?: HanzoOrg[]
+  /** Currently active org id. */
+  currentOrgId?: string
+  /** Called when the user selects a different org. */
+  onOrgSwitch?: (orgId: string) => void
+  /** Called when the user signs out. */
+  onSignOut?: () => void
+  /** Override the launcher's app list (defaults to the canonical HANZO_APPS). */
+  apps?: HanzoApp[]
+  /** Extra content rendered at the left of the header's right-hand controls. */
+  headerRight?: React.ReactNode
+  /** Settings URL (defaults to the org's IAM /account). */
+  settingsHref?: string
+  /** Called when the settings cog is clicked (overrides href navigation). */
+  onSettingsClick?: () => void
+  /** Hide the hard-refresh button. */
+  hideHardRefresh?: boolean
+  /** Hide the settings button. */
+  hideSettings?: boolean
+}
+
 /**
- * TenantHeader — shared top navigation bar for all Hanzo properties.
+ * OrgHeader — the signed-in top bar for an app the viewer reaches AS an org.
  *
  * Style: monochrome true-black / white, same as hanzo.ai docs & console.
  *
  * Features:
- * - Official Hanzo H-mark (animates on hover, brand context menu on right-click)
+ * - Official Hanzo H-mark (animates on hover, brand menu on right-click)
  * - Current app breadcrumb
- * - App switcher (billing, console, chat, platform, account)
+ * - The ONE cross-app switcher, `HanzoAppLauncher`
  * - Hard refresh button (clears ALL storage/cookies/caches and reloads)
  * - Settings cog (links to IAM account or custom settings page)
  * - User + org dropdown (orgs from IAM, sign-out)
  */
-export function TenantHeader({
+export function OrgHeader({
   currentApp,
   currentAppId,
   user,
@@ -145,14 +170,13 @@ export function TenantHeader({
   onSettingsClick,
   hideHardRefresh,
   hideSettings,
-}: Omit<TenantShellProps, 'children'>) {
+}: OrgHeaderProps) {
   useShellStyles()
   const [refreshing, setRefreshing] = useState(false)
 
-  // Resolve current org slug for per-tenant domain routing
+  // Resolve the current org slug for white-label domain routing.
   const currentOrg = organizations?.find((o) => o.id === currentOrgId)
   const orgSlug = currentOrg?.slug || 'hanzo'
-  const resolvedApps = apps || getAppsForOrg(orgSlug)
   const domains = ORG_DOMAINS[orgSlug] || ORG_DOMAINS.hanzo
 
   const handleHardRefresh = useCallback(() => {
@@ -201,7 +225,7 @@ export function TenantHeader({
           aria-label="Account"
           style={{ display: 'inline-flex', flexShrink: 0, borderRadius: 4 }}
         >
-          <TenantMark size={22} brandMenu animate />
+          <HanzoMark size={22} brandMenu animate />
         </a>
 
         <span
@@ -224,7 +248,12 @@ export function TenantHeader({
           {currentApp}
         </span>
 
-        <AppSwitcher apps={resolvedApps} currentAppId={currentAppId} />
+        {/*
+          The chord is OFF here. An app that mounts this header owns its own ⌘K
+          (the OrgCommandPalette), and the switcher this replaced had no chord at
+          all — so claiming one would be a new key grab, not a port.
+        */}
+        <HanzoAppLauncher currentApp={currentAppId} apps={apps} quickSwitchKey={false} />
       </div>
 
       {/* ── Right: extra slot + actions + user/org ── */}

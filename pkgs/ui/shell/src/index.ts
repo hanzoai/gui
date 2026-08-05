@@ -1,30 +1,22 @@
-export { TenantHeader } from './TenantHeader'
-export { TenantMark } from './TenantMark'
-export { AppSwitcher } from './AppSwitcher'
+// ── Signed-in org chrome ──
+export { OrgHeader } from './OrgHeader'
+export type { OrgHeaderProps } from './OrgHeader'
 export { UserOrgDropdown } from './UserOrgDropdown'
 export { UserAvatar } from './UserAvatar'
 export type { UserAvatarProps } from './UserAvatar'
 export { BeamAvatar } from './BeamAvatar'
 export type { BeamAvatarProps } from './BeamAvatar'
-export { useTenantAuth } from './useTenantAuth'
-export { TenantCommandPalette } from './TenantCommandPalette'
+export { OrgCommandPalette } from './OrgCommandPalette'
 export type {
-  CommandItem as TenantCommandItem,
-  TenantCommandPaletteProps,
-} from './TenantCommandPalette'
-export type {
-  TenantApp,
-  TenantOrg,
-  TenantUser,
-  TenantShellProps,
-  TenantMarkProps,
-  OrgDomains,
-} from './types'
-export { DEFAULT_TENANT_APPS, ORG_DOMAINS, getAppsForOrg } from './types'
+  CommandItem as OrgCommandItem,
+  OrgCommandPaletteProps,
+} from './OrgCommandPalette'
+export type { HanzoUser, HanzoOrg, OrgDomains } from './types'
+export { ORG_DOMAINS } from './types'
 
 // ── Unified Hanzo app-switcher (the 9-dot cross-app launcher + top bar) ──
 export { HanzoAppBar } from './HanzoAppBar'
-export type { HanzoAppBarProps, HanzoAppBarAction, HanzoUser } from './HanzoAppBar'
+export type { HanzoAppBarProps, HanzoAppBarAction } from './HanzoAppBar'
 export { HanzoAppLauncher } from './HanzoAppLauncher'
 export type { HanzoAppLauncherProps } from './HanzoAppLauncher'
 export { HANZO_APPS, getHanzoApps, findHanzoApp, HanzoGridIcon } from './hanzo-apps'

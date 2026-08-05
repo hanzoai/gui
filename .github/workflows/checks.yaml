@@ -44,8 +44,8 @@ jobs:
         run: bun run check
 
       # Every package's declarations, which this gate reads and nothing else
-      # here emits. `<pkg>/types/*.d.ts` used to be committed — 2,880 of them —
-      # until a merge correctly reclassified them as build artifacts and
+      # here emits. `<pkg>/types/*.d.ts` used to be committed — 2,885 of them,
+      # until d1f5ae7fc0 correctly reclassified them as build artifacts and
       # gitignored them. A fresh checkout then has no types/ at all, so every
       # workspace import resolved to an untyped module and Typecheck went red
       # with 139 errors that are nowhere in the source ("@hanzogui/themes/v5 has

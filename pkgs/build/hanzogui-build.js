@@ -616,9 +616,14 @@ async function build({ skipTypes, cleanOutput = !shouldWatch } = {}) {
     const start = Date.now()
     const isSkippingTypesForBuild = Boolean(skipTypes || shouldSkipTypes || !pkgTypes)
 
+    // A pass clears only what it is about to re-emit. `dist` belongs to the JS
+    // half and `types` to the declarations half, so a types-only pass (SKIP_JS)
+    // that wiped `dist` left every workspace dependency unresolvable — its
+    // package.json exports point into a directory that no longer exists — and
+    // took the JS build of a whole tree with it.
     if (cleanOutput) {
       await Promise.allSettled([
-        FSE.remove('dist'),
+        skipJS ? null : FSE.remove('dist'),
         isSkippingTypesForBuild ? null : FSE.remove('types'),
       ])
     }
@@ -635,7 +640,6 @@ async function build({ skipTypes, cleanOutput = !shouldWatch } = {}) {
 
     console.info('built', pkg.name, 'in', Date.now() - start, 'ms')
 
-    // Run afterBuild script if defined
     await runAfterBuild()
   } catch (error) {
     printBuildError(error, pkg.name, process.cwd())
@@ -645,7 +649,15 @@ async function build({ skipTypes, cleanOutput = !shouldWatch } = {}) {
   }
 }
 
+// The last step of the JS half, not a phase of its own: the two packages that
+// declare it (@hanzo/gui, @hanzogui/core) each rolldown their source into a
+// single native bundle, and rolldown resolves every workspace import through
+// that dependency's `dist`. With SKIP_JS there is no dist to resolve against,
+// so a types-only pass died on `failed to resolve import "@hanzogui/accordion"`.
+// Same value that governs buildJs governs its afterBuild.
 async function runAfterBuild() {
+  if (skipJS) return
+
   const afterBuild = pkg.scripts?.afterBuild
   if (!afterBuild) return
 

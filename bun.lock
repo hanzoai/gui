@@ -2202,10 +2202,11 @@
       "name": "@hanzogui/telemetry",
       "version": "8.1.0",
       "dependencies": {
-        "@hanzo/event": "^0.3.1",
-        "@hanzo/observe": "^0.1.0",
+        "@hanzo/event": "^0.3.11",
+        "@hanzo/observe": "^0.1.6",
       },
       "devDependencies": {
+        "@hanzogui/build": "workspace:*",
         "@types/react": "~19.1.10",
         "@types/react-dom": "~19.1.7",
         "happy-dom": "^20.10.6",
@@ -2794,6 +2795,7 @@
         "@hanzogui/stacks": "workspace:*",
         "@hanzogui/switch": "workspace:*",
         "@hanzogui/tabs": "workspace:*",
+        "@hanzogui/telemetry": "workspace:*",
         "@hanzogui/text": "workspace:*",
         "@hanzogui/theme": "workspace:*",
         "@hanzogui/toast": "workspace:*",
@@ -3276,7 +3278,7 @@
     },
     "pkgs/ui/shell": {
       "name": "@hanzogui/shell",
-      "version": "8.1.0",
+      "version": "8.1.1",
       "peerDependencies": {
         "react": "*",
         "react-dom": "*",
@@ -4216,11 +4218,11 @@
 
     "@hanzo/booker": ["@hanzo/booker@workspace:pkgs/calendar"],
 
-    "@hanzo/event": ["@hanzo/event@0.3.4", "", { "peerDependencies": { "react": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["react"] }, "sha512-dRq2Nkzd+uMBOyJEuWTCLk5b1K15Hvk0VFFyvepldc/bgBuygxEoFCaJw4vawCfaKF5GRPnCmu1FCbron0mveA=="],
+    "@hanzo/event": ["@hanzo/event@0.3.11", "", { "peerDependencies": { "react": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["react"] }, "sha512-HLdDWZPPonel3HPgmDOQ+LqXPV8hPEMZFGnXlFT2gPQq+MxcHgAY482Y9jHCCKwLFo8v805FZ81ylTlBAl5RVQ=="],
 
     "@hanzo/gui": ["@hanzo/gui@workspace:pkgs/ui/hanzogui"],
 
-    "@hanzo/observe": ["@hanzo/observe@0.1.1", "", { "dependencies": { "@hanzo/event": "^0.3.3" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["react"] }, "sha512-vupKaVPvwOj5Hdr3+sLd0M51yPSE4FBvskSy8rot99/FTaBLcs4WTtPTxYZ87du1MdIFrXZwwRWh2pEE8zYBnA=="],
+    "@hanzo/observe": ["@hanzo/observe@0.1.6", "", { "dependencies": { "@hanzo/event": "^0.3.3" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["react"] }, "sha512-+OQIexe0cToCngxl4lP9iUvk5Y9k++K6XuB0y+1yWI4Smn21vcZj//ZGr6patVYqwA3L2s0PBLDDkWigCluyFg=="],
 
     "@hanzogui/accordion": ["@hanzogui/accordion@workspace:pkgs/ui/accordion"],
 
@@ -9159,6 +9161,8 @@
     "@fastify/websocket/fastify-plugin": ["fastify-plugin@6.0.0", "", {}, "sha512-fZOty7z3O7vOliF6d8bHE3wiEh1KcNnKEQensSgTk9C1DvN6nRLS++XVd86v33Hw/8u9Un8A1zDrQ8ujcQDHEg=="],
 
     "@grpc/proto-loader/yargs": ["yargs@17.7.3", "", { "dependencies": { "cliui": "^8.0.1", "escalade": "^3.1.1", "get-caller-file": "^2.0.5", "require-directory": "^2.1.1", "string-width": "^4.2.3", "y18n": "^5.0.5", "yargs-parser": "^21.1.1" } }, "sha512-GZtjxm/J/4TSxuL3FNYjCmLktBTnIw/rVmKSIyKeYAZpmJB2ig9VauCC5xsa82GNKVKDAqpOn3KVzNt0zmrU0g=="],
+
+    "@hanzo/observe/@hanzo/event": ["@hanzo/event@0.3.4", "", { "peerDependencies": { "react": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["react"] }, "sha512-dRq2Nkzd+uMBOyJEuWTCLk5b1K15Hvk0VFFyvepldc/bgBuygxEoFCaJw4vawCfaKF5GRPnCmu1FCbron0mveA=="],
 
     "@img/sharp-freebsd-wasm32/@img/sharp-wasm32": ["@img/sharp-wasm32@0.35.3", "", { "dependencies": { "@emnapi/runtime": "^1.11.1" } }, "sha512-cZ0XkcYGpHZkqW6iCkqTcmUC0CD9DhD5d/qeZlZkfRBn6GnHniZXLUo5+9xw8Iv76YE6LQFN9YNBlKREcCG76w=="],
 

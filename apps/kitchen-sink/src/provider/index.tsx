@@ -11,7 +11,16 @@ export function Provider({
   const insets = useInsets()
 
   return (
-    <GuiProvider config={config} defaultTheme="light" insets={insets} {...rest}>
+    // telemetry={false}: this is the test harness. Every Playwright case would
+    // otherwise open the run with a pageview beacon to api.hanzo.ai — noise in
+    // the warehouse and a network round-trip per test, for zero signal.
+    <GuiProvider
+      config={config}
+      defaultTheme="light"
+      insets={insets}
+      telemetry={false}
+      {...rest}
+    >
       {children}
     </GuiProvider>
   )

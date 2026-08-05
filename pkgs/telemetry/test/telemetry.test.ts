@@ -14,9 +14,9 @@
 //      well-formed error required.
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { onConsentChange, setConsent } from './consent.js'
-import { productFromHost, resolveEnv } from './env.js'
-import { createTelemetry, setTelemetry } from './telemetry.js'
+import { onConsentChange, setConsent } from '../src/consent'
+import { productFromHost, resolveEnv } from '../src/env'
+import { createTelemetry, setTelemetry } from '../src/telemetry'
 
 interface Sent {
   url: string

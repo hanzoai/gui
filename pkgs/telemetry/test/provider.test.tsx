@@ -7,8 +7,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Component, act, type ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
-import { TelemetryProvider } from './TelemetryProvider.js'
-import { getTelemetry, setTelemetry, track } from './telemetry.js'
+import { TelemetryProvider } from '../src/TelemetryProvider'
+import { getTelemetry, setTelemetry, track } from '../src/telemetry'
 
 interface Sent {
   url: string

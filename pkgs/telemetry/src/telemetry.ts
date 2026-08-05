@@ -10,14 +10,14 @@
 
 import { createAnalytics } from '@hanzo/event'
 import type { Analytics } from '@hanzo/event'
-import { resolveEnabled } from './consent.js'
-import { productFromHost, resolveEnv } from './env.js'
+import { resolveEnabled } from './consent'
+import { productFromHost, resolveEnv, runtimeProduct } from './env'
 import type {
   Telemetry,
   TelemetryCommerce,
   TelemetryConfig,
   TelemetryErrorContext,
-} from './types.js'
+} from './types'
 
 /** A DOM — not merely a `window`. React Native defines a global `window` with
  *  no `location`/`document`, and SSR defines neither; both must stay silent. */
@@ -61,9 +61,13 @@ export function createTelemetry(config: TelemetryConfig = {}): Telemetry {
   const env = resolveEnv()
   const debug = config.debug ?? env.debug
 
+  // Runtime before hostname: a desktop shell serves the SAME bundle from three
+  // different origins (tauri://localhost, http://tauri.localhost, the Vite dev
+  // server), so the URL is the one thing that cannot name that surface.
   const product =
     config.product ??
     env.product ??
+    runtimeProduct() ??
     (hasDom() ? productFromHost(window.location?.hostname) : undefined) ??
     'unknown'
 
@@ -121,6 +125,14 @@ export function createTelemetry(config: TelemetryConfig = {}): Telemetry {
 
 let ambient: Telemetry | undefined
 
+/** True while an APP-owned client holds the ambient slot. A client installed by
+ *  `GuiProvider`'s fallback provider deliberately does NOT set this: it is the
+ *  owner of last resort and must yield the moment the app claims the stream. */
+let appOwned = false
+
+type OwnerListener = () => void
+const ownerListeners = new Set<OwnerListener>()
+
 /** getTelemetry returns the ambient client, building it from the environment on
  *  first use. This is what makes `track()` work with zero setup. */
 export function getTelemetry(): Telemetry {
@@ -129,9 +141,38 @@ export function getTelemetry(): Telemetry {
 }
 
 /** setTelemetry installs a client as the ambient one. `<TelemetryProvider/>`
- *  calls this so module-scope `track()` and the React tree share one stream. */
-export function setTelemetry(t: Telemetry | undefined): void {
+ *  calls this so module-scope `track()` and the React tree share one stream.
+ *
+ *  `app: false` installs it as the FALLBACK owner — the posture `GuiProvider`
+ *  uses. A fallback owner is a real client in every other respect; it simply
+ *  does not claim the stream, so an app that mounts its own provider (before or
+ *  after, above or below) takes over and there is never a second one emitting. */
+export function setTelemetry(t: Telemetry | undefined, opts?: { app?: boolean }): void {
   ambient = t
+  appOwned = t !== undefined && (opts?.app ?? true)
+  for (const fn of ownerListeners) {
+    try {
+      fn()
+    } catch {
+      /* a listener must never break the caller */
+    }
+  }
+}
+
+/** isTelemetryOwned reports whether the APP has claimed the stream. This is what
+ *  a fallback provider consults before collecting anything. */
+export function isTelemetryOwned(): boolean {
+  return appOwned
+}
+
+/** onTelemetryOwnerChange subscribes to claims and releases; returns the
+ *  unsubscribe. A fallback owner uses it to yield when an app-owned provider
+ *  mounts late (a lazy route) and to resume if that provider unmounts. */
+export function onTelemetryOwnerChange(fn: OwnerListener): () => void {
+  ownerListeners.add(fn)
+  return () => {
+    ownerListeners.delete(fn)
+  }
 }
 
 // ── The ambient API. Import and call; nothing to wire. ────────────────────────

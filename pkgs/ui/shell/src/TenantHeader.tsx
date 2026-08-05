@@ -10,7 +10,7 @@ import {
   getAppsForOrg,
   type TenantShellProps,
 } from './types'
-import { CHROME, CTRL_H, FS, Z, control, ghostHover } from './theme'
+import { CHROME, CTRL_H, FS, GLASS, Z, control, ghostHover } from './theme'
 import { SPIN, useShellStyles } from './shellStyles'
 
 const HEADER_H = 56
@@ -185,9 +185,11 @@ export function TenantHeader({
         padding: '0 14px',
         boxSizing: 'border-box',
         borderBottom: `1px solid ${CHROME.border}`,
-        background: CHROME.bg,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
+        // The header IS the shell's glass — spread the recipe rather than
+        // restate it. All three bars had these three lines copied out, so the
+        // "ONE recipe" in theme.ts governed the two mega-menu drapes and
+        // nothing else: moving GLASS moved the drapes and left every bar behind.
+        ...GLASS,
         color: CHROME.fg,
         fontFamily: CHROME.font,
       }}

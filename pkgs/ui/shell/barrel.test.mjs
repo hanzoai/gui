@@ -61,7 +61,6 @@ test('the barrel names at least the whole signed-in chrome', () => {
     'OrgHeader',
     'OrgCommandPalette',
     'UserOrgDropdown',
-    'HanzoAppBar',
     'HanzoAppLauncher',
     'HanzoHeader',
     'HanzoMark',
@@ -112,6 +111,51 @@ test('the retired switcher and its stale app list stay retired', () => {
     assert.ok(!all.includes(name), `${name} is exported again`)
     assert.equal(resolve(name), null, `${name}.tsx is back on disk`)
   }
+})
+
+test('the retired signed-in bars stay retired', () => {
+  const all = surface.flatMap((c) => c.specifiers)
+  // Three components drew the same 56px of signed-in chrome behind three sets
+  // of props. HanzoAppBar had no consumer; HanzoAppHeader's one consumer needed
+  // `search` and `account`, which OrgHeader now carries. OrgHeader is the bar.
+  for (const name of ['HanzoAppBar', 'HanzoAppHeader']) {
+    assert.ok(!all.includes(name), `${name} is exported again`)
+    assert.equal(resolve(name), null, `${name}.tsx is back on disk`)
+  }
+  for (const type of [
+    'HanzoAppBarProps',
+    'HanzoAppBarAction',
+    'HanzoAppHeaderProps',
+    'HanzoAppHeaderAction',
+    'HanzoContextNode',
+  ]) {
+    assert.ok(!all.includes(type), `${type} is exported again`)
+  }
+})
+
+test('the one signed-in bar carries the folded-in props', () => {
+  const source = readFileSync(join(SRC, 'OrgHeader.tsx'), 'utf8')
+  for (const prop of ['search', 'account', 'headerRight', 'currentApp']) {
+    assert.match(
+      source,
+      new RegExp(`^\\s+${prop}\\??:`, 'm'),
+      `OrgHeaderProps dropped ${prop}`
+    )
+  }
+})
+
+test('no source imports a module that no longer exists', () => {
+  // Naming a retired bar in prose is knowledge — this package keeps a record of
+  // WHY a thing went. Importing one is a build break, so that is what is held.
+  const offenders = readdirSync(SRC, { recursive: true })
+    .filter((f) => /\.tsx?$/.test(f))
+    .filter((f) => {
+      const source = readFileSync(join(SRC, f), 'utf8')
+      return [...source.matchAll(/from\s+'\.\/([\w.-]+)'/g)].some(
+        ([, module]) => !resolve(module)
+      )
+    })
+  assert.deepEqual(offenders, [], 'these files import a missing module')
 })
 
 test('HANZO_APPS is the only app registry left in the package', () => {

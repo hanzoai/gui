@@ -3,7 +3,7 @@
 /**
  * useMediaQuery — SSR-safe media-query hook for the reusable shell chrome.
  *
- * Used by HanzoHeader / HanzoAppHeader to collapse marketing nav below a
+ * Used by HanzoHeader / UserOrgDropdown to collapse marketing nav below a
  * breakpoint. Renders desktop-first on the server (matches === false) then
  * corrects on mount, so there is no hydration flash of the mobile layout on
  * wide viewports.

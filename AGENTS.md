@@ -129,6 +129,37 @@ When writing tests for focus behavior or component interactions:
 - For focus tests, ensure elements are visible before testing focus state
 - When testing popover/dialog components, wait for animations to complete
 
+## Releasing: the workspace has one version, and right now the tree disagrees
+
+`scripts/release.ts` carries a single `version` for all 169 published packages,
+read from `pkgs/ui/hanzogui/package.json`. Every path assumes it — the bump, the
+`npm view name@version` already-published check, and the tarball name
+`getPublishArtifactPaths` expects `npm pack` to produce.
+
+The tree no longer holds to it. `@hanzogui/shell` was hand-bumped to 8.0.7 while
+`@hanzo/gui` sits at 8.0.2 and `@hanzogui/core` at 8.0.1, so each dispatch of
+`Release` fails a different way, and none of them says so:
+
+- **`patch`** computes 8.0.3 and writes it to every package.json — rewriting
+  shell *backward* from 8.0.7, over versions 8.0.3–8.0.6 that are already on
+  npm. The publish then skips it as "already published" and pushes the
+  regression to `main`.
+- **`republish`** (`--republish` skips the version write) packs shell at 8.0.7
+  but looks for `hanzogui-shell-8.0.2.tgz`, because the artifact path is built
+  from the workspace `version`. The run dies untarring a file `npm pack` never
+  named.
+- **`minor`** is the one that works: 8.1.0 clears every published version, so
+  the tree reconverges on one number and all 169 publish cleanly.
+
+Verify with `bun scripts/release.ts --<kind> --ci --dirty --skip-publish
+--skip-push --skip-tests --skip-native-tests --skip-checks --dry-run`, which
+prints the computed version and the full publish plan and writes nothing.
+
+Releasing one package alone is `--only <name>` locally; there is no dispatch for
+it, so a single-package release cannot carry npm provenance today — provenance
+needs the GitHub `Release` workflow's `id-token: write`, and that workflow only
+ships the whole workspace.
+
 ## Commit Message Conventions
 
 - Use `site:` prefix (not `fix(site):`) for hanzogui.dev changes since they don't go in the changelog

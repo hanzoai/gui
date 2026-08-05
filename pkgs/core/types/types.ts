@@ -42,6 +42,22 @@ export interface GuiBuildOptions {
   importsWhitelist?: string[]
 
   /**
+   * Installed packages whose styles the compiler extracts statically. A file
+   * under `node_modules` is only read if its package is named here — matching
+   * a whole scope with `@scope/*`, or one package exactly. The compiler cannot
+   * afford to parse every installed JS file, so nothing is read by default.
+   *
+   * `DEFAULT_EXTRACT_PACKAGES` from `@hanzogui/static-worker` is the
+   * design-system list (`@hanzo/ui`, `@hanzo/gui`, `@hanzogui/*`). Read its
+   * doc comment before turning it on: today it grows the cached sheet without
+   * shrinking what the runtime injects, because a published package ships no
+   * JSX to flatten.
+   *
+   * @default []
+   */
+  extractPackages?: string[]
+
+  /**
    * Whitelist file extensions to evaluate
    *
    * @default ['.tsx', '.jsx']

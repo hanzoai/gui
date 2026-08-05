@@ -3,7 +3,7 @@ import type { GuiOptions } from '@hanzogui/types'
 import type { LoaderContext } from 'webpack'
 import { requireResolve } from './requireResolve'
 
-const { getPragmaOptions } = StaticWorker
+const { getPragmaOptions, isExtractable } = StaticWorker
 
 Error.stackTraceLimit = Number.POSITIVE_INFINITY
 
@@ -45,18 +45,21 @@ export const loader = async function loader(
   const callback = this.async()
   const sourcePath = `${this.resourcePath}`
 
-  if (sourcePath.includes('node_modules') || sourcePath.includes('lucide-icons')) {
+  const options: GuiOptions = {
+    // @ts-ignore
+    platform: 'web',
+    ...this.getOptions(),
+  }
+
+  // the same answer extractToClassNames gives, given here so an unextractable
+  // file never costs a worker round-trip
+  if (!isExtractable(sourcePath, options.extractPackages)) {
     return callback(null, sourceIn)
   }
 
   const source = sourceIn.toString()
 
   try {
-    const options: GuiOptions = {
-      // @ts-ignore
-      platform: 'web',
-      ...this.getOptions(),
-    }
 
     const { shouldDisable, shouldPrintDebug } = await getPragmaOptions({
       source,

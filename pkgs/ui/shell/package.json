@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/shell",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Unified Hanzo shell — HanzoHeader (flat + rich Products mega-menu), HanzoAppHeader, MeetHanzoMenu, ProductsMegaMenu, HanzoFooter, HanzoPreFooterCTA, AskHanzo, HanzoAppBar/Launcher + the canonical surface registry",
   "source": "src/index.ts",
   "files": [
@@ -32,6 +32,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "test": "node --test barrel.test.mjs",
     "prepublishOnly": "tsc -p tsconfig.json"
   },
   "peerDependencies": {

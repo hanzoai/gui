@@ -106,8 +106,13 @@ const ENTITIES = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;
 export function usedClasses(html) {
   const out = new Set()
   const markup = stripNonMarkup(html)
-  for (const m of markup.matchAll(/\bclass(?:Name)?\s*=\s*("([^"]*)"|'([^']*)'|([^\s"'>]+))/gi)) {
-    const raw = (m[2] ?? m[3] ?? m[4] ?? '').replace(/&[a-z#0-9]+;/gi, (e) => ENTITIES[e] ?? e)
+  for (const m of markup.matchAll(
+    /\bclass(?:Name)?\s*=\s*("([^"]*)"|'([^']*)'|([^\s"'>]+))/gi
+  )) {
+    const raw = (m[2] ?? m[3] ?? m[4] ?? '').replace(
+      /&[a-z#0-9]+;/gi,
+      (e) => ENTITIES[e] ?? e
+    )
     for (const cls of raw.split(/\s+/)) if (cls) out.add(cls)
   }
   return out
@@ -123,7 +128,8 @@ export function stylesheetHrefs(html) {
     const tag = m[0]
     if (!/\brel\s*=\s*["']?[^"'>]*\bstylesheet\b/i.test(tag)) continue
     const href = tag.match(/\bhref\s*=\s*("([^"]*)"|'([^']*)'|([^\s"'>]+))/i)
-    if (href) out.push((href[2] ?? href[3] ?? href[4]).replace(/&amp;/g, '&').split('?')[0])
+    if (href)
+      out.push((href[2] ?? href[3] ?? href[4]).replace(/&amp;/g, '&').split('?')[0])
   }
   return out
 }
@@ -162,7 +168,8 @@ export function collect(roots) {
     const st = statSync(root)
     const add = (p) => {
       if (/\.html?$/i.test(p)) pages.push(p)
-      else if (/\.css$/i.test(p) && !/\.map$/.test(p)) sheets.set(resolve(p), readFileSync(p, 'utf8'))
+      else if (/\.css$/i.test(p) && !/\.map$/.test(p))
+        sheets.set(resolve(p), readFileSync(p, 'utf8'))
     }
     if (st.isDirectory()) walk(root, add)
     else add(root)
@@ -220,7 +227,8 @@ export async function render(urls, { dir }) {
   try {
     for (const [i, url] of urls.entries()) {
       const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 60_000 })
-      if (!res || !res.ok()) throw new Error(`${url} returned ${res ? res.status() : 'nothing'}`)
+      if (!res || !res.ok())
+        throw new Error(`${url} returned ${res ? res.status() : 'nothing'}`)
       // Every rule the document actually has, including whatever a runtime
       // injected after load. Linked sheets are kept as separate files under
       // their own basenames and inline ones stay inline, so the shape on disk
@@ -243,7 +251,8 @@ export async function render(urls, { dir }) {
         return { linked, inline, html: document.documentElement.outerHTML }
       })
       const stem = `${String(i).padStart(3, '0')}-${url.replace(/[^\w.-]+/g, '_').slice(-60)}`
-      for (const [name, text] of Object.entries(linked)) writeFileSync(join(dir, name), text)
+      for (const [name, text] of Object.entries(linked))
+        writeFileSync(join(dir, name), text)
       writeFileSync(
         join(dir, `${stem}.html`),
         inline.map((t) => `<style>${t}</style>`).join('') + html
@@ -299,7 +308,14 @@ const DEFAULT_ALLOW = [
 // proportional digits. That is a miss, and it should read as one.
 
 const globToRe = (g) =>
-  new RegExp('^' + g.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\?/g, '.') + '$')
+  new RegExp(
+    '^' +
+      g
+        .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+        .replace(/\*/g, '.*')
+        .replace(/\?/g, '.') +
+      '$'
+  )
 
 export function loadConfig(cwd) {
   for (const name of ['gui-css-check.json', '.gui-css-check.json']) {
@@ -326,7 +342,8 @@ export function check({ roots, allow = [], extraCss = [] }) {
   const allowed = (c) => allowRe.some((re) => re.test(c))
 
   const shared = new Set()
-  for (const p of extraCss) for (const c of definedClasses(readFileSync(p, 'utf8'))) shared.add(c)
+  for (const p of extraCss)
+    for (const c of definedClasses(readFileSync(p, 'utf8'))) shared.add(c)
 
   // Sheets are parsed once and reused; a page just unions the ones it links.
   const parsed = new Map()
@@ -476,19 +493,19 @@ async function main(argv) {
   let quiet = false
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i]
-    if (a === '--help' || a === '-h') return console.log(HELP), 0
+    if (a === '--help' || a === '-h') return (console.log(HELP), 0)
     else if (a === '--json') json = true
     else if (a === '--quiet') quiet = true
     else if (a === '--css') extraCss.push(argv[++i])
     else if (a === '--allow') allow.push(argv[++i])
     else if (a === '--render') urls.push(argv[++i])
-    else if (a.startsWith('-')) return console.error(`unknown option ${a}\n${HELP}`), 2
+    else if (a.startsWith('-')) return (console.error(`unknown option ${a}\n${HELP}`), 2)
     else roots.push(a)
   }
 
   const cwd = process.cwd()
   const cfg = loadConfig(cwd)
-  const wanted = [...urls, ...(urls.length ? [] : cfg.render ?? [])]
+  const wanted = [...urls, ...(urls.length ? [] : (cfg.render ?? []))]
 
   let found = roots
   if (wanted.length) {
@@ -513,7 +530,7 @@ async function main(argv) {
     return 2
   }
   for (const r of found)
-    if (!existsSync(r)) return console.error(`gui-css-check: no such path: ${r}`), 2
+    if (!existsSync(r)) return (console.error(`gui-css-check: no such path: ${r}`), 2)
 
   const res = check({
     roots: found,
@@ -580,12 +597,16 @@ async function main(argv) {
         `               ${num(covered)}/${num(total)} classes covered (${pct.toFixed(1)}%)` +
         // 100% of nothing is still 100%, and that is the shape of a page that
         // failed to render. Say so on the same line as the score.
-        (res.empty.length ? `\n               ${num(res.empty.length)} page(s) use no classes at all` : '')
+        (res.empty.length
+          ? `\n               ${num(res.empty.length)} page(s) use no classes at all`
+          : '')
     )
   }
 
   if (unresolved.length) {
-    console.error(`\nFAIL  ${unresolved.length} stylesheet link(s) point at a file that is not there:`)
+    console.error(
+      `\nFAIL  ${unresolved.length} stylesheet link(s) point at a file that is not there:`
+    )
     for (const [page, href] of unresolved.slice(0, 20))
       console.error(`  ${relative(cwd, page)}  ->  ${href}`)
   }
@@ -602,7 +623,12 @@ async function main(argv) {
       if (!classes.length) continue
       const where = relative(cwd, res.missing.get(classes[0])[0])
       console.error(`\n  ${classes.length}× ${kind.title}`)
-      console.error(classes.slice(0, 10).map((c) => `      ${c}`).join('\n'))
+      console.error(
+        classes
+          .slice(0, 10)
+          .map((c) => `      ${c}`)
+          .join('\n')
+      )
       if (classes.length > 10) console.error(`      … ${classes.length - 10} more`)
       console.error(`      first in ${where}\n${kind.cause}`)
     }

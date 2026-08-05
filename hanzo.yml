@@ -83,3 +83,17 @@ test:
       export NODE_OPTIONS=--max-old-space-size=6144
       bunx playwright install
       bun turbo run test:web --filter='!@hanzogui/kitchen-sink' --concurrency=1
+
+  # The native suites. This repo ships to react-native as much as to the web, and
+  # the forge lane it replaces gated only the web half — so the three packages
+  # that assert native behaviour (148 tests) ran nowhere the forge could see.
+  # Same three the GitHub lane names; carried here so one file gates both halves.
+  - name: native tests
+    run: |
+      set -euo pipefail
+      export NODE_OPTIONS=--max-old-space-size=6144
+      bun turbo run test:native \
+        --filter=@hanzogui/static-tests \
+        --filter=@hanzogui/core-test \
+        --filter=@hanzogui/components-test \
+        --concurrency=1

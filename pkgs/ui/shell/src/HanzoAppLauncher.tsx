@@ -466,132 +466,136 @@ export function HanzoAppLauncher({
         {trigger ? trigger({ open, hover }) : <HanzoGridIcon size={size} />}
       </button>
 
-      {open && anchor && typeof document !== 'undefined' ? (
-        createPortal(
-        <div
-          ref={panelRef}
-          id={panelId}
-          data-hanzo-shell=""
-          aria-label="Hanzo apps"
-          onKeyDown={onPanelKeyDown}
-          style={{
-            position: 'fixed',
-            top: anchor.top,
-            left: anchor.left,
-            right: anchor.right,
-            ...PANEL,
-            zIndex: Z.popover as unknown as number,
-            boxSizing: 'border-box',
-            width: PANEL_W,
-            maxWidth: `calc(100vw - ${GAP * 2}px)`,
-            maxHeight: anchor.maxHeight,
-            overflowY: 'auto',
-            padding: 12,
-            fontFamily: CHROME.font,
-          }}
-        >
-          {/* Header */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '2px 4px 10px',
-            }}
-          >
-            <HanzoWordmark size={16} />
-            <span style={LABEL}>Apps</span>
-          </div>
-
-          {/* Filter */}
-          <input
-            ref={searchRef}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Filter apps…"
-            aria-label="Filter apps"
-            autoComplete="off"
-            spellCheck={false}
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              padding: '9px 12px',
-              marginBottom: 10,
-              borderRadius: R.row,
-              border: `1px solid ${BORDER}`,
-              background: CHROME.raised,
-              color: FG,
-              fontSize: FS.sm,
-              fontFamily: 'inherit',
-              // No `outline: 'none'` here — see AskHanzo's composer. This filter
-              // has no <label> wrapper, so the shell's :focus-visible ring is
-              // its only focus indicator.
-            }}
-          />
-
-          {/* Pinned row(s) — the personal portal floats to the top. */}
-          {pinned.length > 0 ? (
+      {open && anchor && typeof document !== 'undefined'
+        ? createPortal(
             <div
+              ref={panelRef}
+              id={panelId}
+              data-hanzo-shell=""
+              aria-label="Hanzo apps"
+              onKeyDown={onPanelKeyDown}
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 4,
-                marginBottom: 8,
+                position: 'fixed',
+                top: anchor.top,
+                left: anchor.left,
+                right: anchor.right,
+                ...PANEL,
+                zIndex: Z.popover as unknown as number,
+                boxSizing: 'border-box',
+                width: PANEL_W,
+                maxWidth: `calc(100vw - ${GAP * 2}px)`,
+                maxHeight: anchor.maxHeight,
+                overflowY: 'auto',
+                padding: 12,
+                fontFamily: CHROME.font,
               }}
             >
-              {pinned.map((a) => Tile(a, true))}
-            </div>
-          ) : null}
-
-          {/* Grid */}
-          {grid.length > 0 ? (
-            <div
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 4 }}
-            >
-              {grid.map((a) => Tile(a, false))}
-            </div>
-          ) : (
-            <div
-              style={{
-                padding: '18px 8px',
-                textAlign: 'center',
-                color: FG_DIM,
-                fontSize: FS.sm,
-              }}
-            >
-              No apps match “{query.trim()}”.
-            </div>
-          )}
-
-          {/* Footer hint */}
-          {quickSwitchKey ? (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                paddingTop: 10,
-                color: FG_DIM,
-                fontSize: FS.xs,
-              }}
-            >
-              <kbd
+              {/* Header */}
+              <div
                 style={{
-                  fontFamily: 'inherit',
-                  border: `1px solid ${BORDER}`,
-                  borderRadius: R.row,
-                  padding: '1px 6px',
-                  background: CHROME.raised,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '2px 4px 10px',
                 }}
               >
-                ⌘{quickSwitchKey.toUpperCase()}
-              </kbd>
-              <span style={{ marginLeft: 6 }}>to switch</span>
-            </div>
-          ) : null}
-        </div>,
-          document.body
-        )
-      ) : null}
+                <HanzoWordmark size={16} />
+                <span style={LABEL}>Apps</span>
+              </div>
+
+              {/* Filter */}
+              <input
+                ref={searchRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Filter apps…"
+                aria-label="Filter apps"
+                autoComplete="off"
+                spellCheck={false}
+                style={{
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  padding: '9px 12px',
+                  marginBottom: 10,
+                  borderRadius: R.row,
+                  border: `1px solid ${BORDER}`,
+                  background: CHROME.raised,
+                  color: FG,
+                  fontSize: FS.sm,
+                  fontFamily: 'inherit',
+                  // No `outline: 'none'` here — see AskHanzo's composer. This filter
+                  // has no <label> wrapper, so the shell's :focus-visible ring is
+                  // its only focus indicator.
+                }}
+              />
+
+              {/* Pinned row(s) — the personal portal floats to the top. */}
+              {pinned.length > 0 ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 4,
+                    marginBottom: 8,
+                  }}
+                >
+                  {pinned.map((a) => Tile(a, true))}
+                </div>
+              ) : null}
+
+              {/* Grid */}
+              {grid.length > 0 ? (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: 4,
+                  }}
+                >
+                  {grid.map((a) => Tile(a, false))}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    padding: '18px 8px',
+                    textAlign: 'center',
+                    color: FG_DIM,
+                    fontSize: FS.sm,
+                  }}
+                >
+                  No apps match “{query.trim()}”.
+                </div>
+              )}
+
+              {/* Footer hint */}
+              {quickSwitchKey ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    paddingTop: 10,
+                    color: FG_DIM,
+                    fontSize: FS.xs,
+                  }}
+                >
+                  <kbd
+                    style={{
+                      fontFamily: 'inherit',
+                      border: `1px solid ${BORDER}`,
+                      borderRadius: R.row,
+                      padding: '1px 6px',
+                      background: CHROME.raised,
+                    }}
+                  >
+                    ⌘{quickSwitchKey.toUpperCase()}
+                  </kbd>
+                  <span style={{ marginLeft: 6 }}>to switch</span>
+                </div>
+              ) : null}
+            </div>,
+            document.body
+          )
+        : null}
     </div>
   )
 }

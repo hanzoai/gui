@@ -108,7 +108,7 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
     platform: 'https://platform.lux.network',
     storage: 'https://s3.lux.network',
     s3: 'https://s3.lux.network',
-    kms: 'https://kms.lux.network',
+    kms: 'https://kms.lux.cloud',
     dns: 'https://dns.lux.network',
     registry: 'https://registry.lux.network',
     commerce: 'https://commerce.lux.network',

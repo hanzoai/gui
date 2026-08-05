@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/scroll-view",
-  "version": "8.0.1",
+  "version": "8.1.0",
   "source": "src/index.ts",
   "files": [
     "src",

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/telemetry",
-  "version": "8.0.1",
+  "version": "8.1.0",
   "description": "Zero-config Hanzo telemetry — one <TelemetryProvider/> wires errors + session capture, pageviews, and product events to the ONE front door (POST api.hanzo.ai/v1/event), which lenses them into sentry.hanzo.ai, analytics.hanzo.ai and insights.hanzo.ai. Honors DNT/GPC, consent-aware, SSR-safe, fail-soft.",
   "source": "src/index.ts",
   "files": [

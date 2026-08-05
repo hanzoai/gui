@@ -78,11 +78,11 @@ const _sheet = __ReactNativeStyleSheet.create({
     "gap": 18
   },
   "11": {
-    "fontFamily": "System",
-    "fontWeight": "300",
-    "letterSpacing": 0,
-    "fontSize": 64.39999999999999,
-    "lineHeight": 74.39999999999999,
+    "textTransform": "none",
+    "fontFamily": "InterBold",
+    "letterSpacing": -3,
+    "fontSize": 46,
+    "lineHeight": 56,
     "marginTop": 0,
     "marginRight": 0,
     "marginBottom": 0,
@@ -90,11 +90,10 @@ const _sheet = __ReactNativeStyleSheet.create({
     "textAlign": "center"
   },
   "12": {
-    "fontFamily": "System",
-    "fontWeight": "300",
+    "fontFamily": "Inter",
     "letterSpacing": 0,
-    "fontSize": 14,
-    "lineHeight": 24,
+    "fontSize": 15,
+    "lineHeight": 27,
     "textAlign": "center"
   },
   "13": {
@@ -112,11 +111,10 @@ const _sheet = __ReactNativeStyleSheet.create({
     }]
   },
   "14": {
-    "fontFamily": "System",
-    "fontWeight": "300",
+    "fontFamily": "Inter",
     "letterSpacing": 0,
-    "fontSize": 14,
-    "lineHeight": 24,
+    "fontSize": 15,
+    "lineHeight": 27,
     "textAlign": "center"
   },
   "15": {
@@ -139,11 +137,10 @@ const _sheet = __ReactNativeStyleSheet.create({
     "gap": 7
   },
   "17": {
-    "fontFamily": "System",
-    "fontWeight": "300",
+    "fontFamily": "Inter",
     "letterSpacing": 0,
-    "fontSize": 14,
-    "lineHeight": 24,
+    "fontSize": 15,
+    "lineHeight": 27,
     "textAlign": "center"
   }
 });
@@ -778,11 +775,11 @@ const _sheet = __ReactNativeStyleSheet.create({
     "gap": 18
   },
   "11": {
-    "fontFamily": "System",
-    "fontWeight": "300",
-    "letterSpacing": 0,
-    "fontSize": 64.39999999999999,
-    "lineHeight": 74.39999999999999,
+    "textTransform": "none",
+    "fontFamily": "InterBold",
+    "letterSpacing": -3,
+    "fontSize": 46,
+    "lineHeight": 56,
     "marginTop": 0,
     "marginRight": 0,
     "marginBottom": 0,
@@ -790,11 +787,10 @@ const _sheet = __ReactNativeStyleSheet.create({
     "textAlign": "center"
   },
   "12": {
-    "fontFamily": "System",
-    "fontWeight": "300",
+    "fontFamily": "Inter",
     "letterSpacing": 0,
-    "fontSize": 14,
-    "lineHeight": 24,
+    "fontSize": 15,
+    "lineHeight": 27,
     "textAlign": "center"
   },
   "13": {
@@ -812,11 +808,10 @@ const _sheet = __ReactNativeStyleSheet.create({
     }]
   },
   "14": {
-    "fontFamily": "System",
-    "fontWeight": "300",
+    "fontFamily": "Inter",
     "letterSpacing": 0,
-    "fontSize": 14,
-    "lineHeight": 24,
+    "fontSize": 15,
+    "lineHeight": 27,
     "textAlign": "center"
   },
   "15": {
@@ -839,11 +834,10 @@ const _sheet = __ReactNativeStyleSheet.create({
     "gap": 7
   },
   "17": {
-    "fontFamily": "System",
-    "fontWeight": "300",
+    "fontFamily": "Inter",
     "letterSpacing": 0,
-    "fontSize": 14,
-    "lineHeight": 24,
+    "fontSize": 15,
+    "lineHeight": 27,
     "textAlign": "center"
   }
 });

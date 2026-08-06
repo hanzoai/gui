@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin-cjs",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "license": "MIT",
   "main": "./index.js",
   "types": "./types/index.d.ts",

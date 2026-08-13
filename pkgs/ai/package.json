@@ -21,7 +21,7 @@
     "BUILD.md"
   ],
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json --emitDeclarationOnly",
+    "build": "vite build",
     "dev": "vite build --watch",
     "clean": "rm -rf dist"
   },
@@ -45,6 +45,7 @@
     "@rjsf/validator-ajv8": "^5.22.0",
     "primereact": "^10.8.0",
     "prism-react-editor": "^3.0.0",
+    "pyodide": "0.26.2",
     "yjs": "^13.6.0",
     "react-router": "^7.0.0",
     "react-router-dom": "^7.0.0",

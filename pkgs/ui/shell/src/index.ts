@@ -100,8 +100,14 @@ export type { TryHanzoMenuProps } from './TryHanzoMenu'
 export { ProductsMegaMenu } from './ProductsMegaMenu'
 export type { ProductsMegaMenuProps } from './ProductsMegaMenu'
 export { HanzoCommandPalette, HanzoCommandTrigger } from './HanzoCommandPalette'
-export type { HanzoCommandPaletteProps, HanzoCommandMode } from './HanzoCommandPalette'
+export type {
+  HanzoCommandPaletteProps,
+  HanzoCommandMode,
+  HanzoCommandEntry,
+} from './HanzoCommandPalette'
 export { filterProducts } from './productSearch'
+export { score, search } from './search'
+export type { Match } from './search'
 export { HanzoFooter } from './HanzoFooter'
 export type { HanzoFooterProps } from './HanzoFooter'
 export { HanzoPreFooterCTA } from './HanzoPreFooterCTA'

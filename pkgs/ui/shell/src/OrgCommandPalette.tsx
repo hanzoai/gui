@@ -12,6 +12,7 @@
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { HANZO_APPS, type HanzoApp } from './hanzo-apps'
+import { search } from './search'
 import { useShellStyles } from './shellStyles'
 import {
   KBD,
@@ -26,6 +27,9 @@ import {
   useCommandKey,
   usePaletteNav,
 } from './commandPalette'
+
+const LIST_ID = 'hanzo-org-palette-list'
+const rowId = (i: number) => `hanzo-org-palette-row-${i}`
 
 export type CommandItem = {
   id: string
@@ -97,26 +101,29 @@ export function OrgCommandPalette({
     if (open) setQuery('')
   }, [open])
 
-  // Filtered, then flattened to the row order the keys walk — grouping is a
-  // render detail, so the group heads are emitted as the category changes.
+  // Ranked by `search` — the same matcher the public palette runs, so a query
+  // that finds a thing signed out finds it signed in.
+  //
+  // At REST the list is grouped, which is what makes a command set legible
+  // before you know what is in it. Once a query orders rows by how well each
+  // answers it, group heads would tear that order apart, so they go.
   const flat = useMemo(() => {
     const all = [...appCommands, ...crossAppCommands(apps ?? HANZO_APPS, currentAppId)]
-    const q = query.trim().toLowerCase()
-    const hits = q
-      ? all.filter(
-          (cmd) =>
-            cmd.title.toLowerCase().includes(q) ||
-            cmd.description?.toLowerCase().includes(q) ||
-            cmd.keywords?.some((k) => k.includes(q))
-        )
-      : all
-    const byCategory = new Map<string, CommandItem[]>()
-    for (const cmd of hits) {
-      const bucket = byCategory.get(cmd.category)
-      if (bucket) bucket.push(cmd)
-      else byCategory.set(cmd.category, [cmd])
+    if (!query.trim()) {
+      const byCategory = new Map<string, CommandItem[]>()
+      for (const cmd of all) {
+        const bucket = byCategory.get(cmd.category)
+        if (bucket) bucket.push(cmd)
+        else byCategory.set(cmd.category, [cmd])
+      }
+      return [...byCategory.values()].flat().map((cmd) => ({ ...cmd, match: undefined }))
     }
-    return [...byCategory.values()].flat()
+    return search(all, query, (cmd) => [
+      cmd.title,
+      cmd.description,
+      cmd.keywords?.join(' '),
+      cmd.category,
+    ])
   }, [appCommands, apps, currentAppId, query])
 
   const go = useCallback(
@@ -147,6 +154,8 @@ export function OrgCommandPalette({
     if (el) requestAnimationFrame(() => el.focus())
   }, [])
 
+  const grouped = !query.trim()
+
   return (
     <PaletteShell open={open} onClose={close} label="Command palette">
       <PaletteBar edge="top">
@@ -160,22 +169,27 @@ export function OrgCommandPalette({
         onKeyDown={onKeyDown}
         placeholder="Search commands"
         inputRef={focusField}
+        listId={LIST_ID}
+        activeId={flat.length ? rowId(index) : undefined}
       />
 
-      <PaletteList listRef={listRef}>
+      <PaletteList listRef={listRef} id={LIST_ID}>
         {flat.length === 0 ? (
           <PaletteEmpty query={query} />
         ) : (
           flat.map((cmd, i) => (
             <React.Fragment key={cmd.id}>
-              {cmd.category === flat[i - 1]?.category ? null : (
+              {grouped && cmd.category !== flat[i - 1]?.category ? (
                 <PaletteGroup label={cmd.category} />
-              )}
+              ) : null}
               <PaletteRow
                 index={i}
+                id={rowId(i)}
                 selected={i === index}
                 title={cmd.title}
+                hits={cmd.match?.hits}
                 description={cmd.description}
+                meta={grouped ? undefined : cmd.category}
                 icon={cmd.icon}
                 onSelect={() => go(i)}
                 onHover={() => setIndex(i)}

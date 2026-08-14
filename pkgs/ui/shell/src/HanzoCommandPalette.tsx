@@ -21,7 +21,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { U, type ProductCategory } from './hanzo-registry'
 import { filterProducts } from './productSearch'
-import { CHROME, FS, control, ghostHover } from './theme'
+import { CHROME, FS, TAP_H, control, ghostHover } from './theme'
 import {
   KBD,
   PaletteBar,
@@ -259,11 +259,22 @@ function ModeTab({
 export function HanzoCommandTrigger({
   onOpen,
   compact,
-  height,
+  height = TAP_H,
 }: {
   onOpen: () => void
   /** Glyph only — the phone header has no room for the chord, or a keyboard. */
   compact?: boolean
+  /**
+   * The control's whole size, and the only knob. Everything inside is stated
+   * against it, so a host that wants a different register moves one number.
+   *
+   * Defaults to TAP_H, which is where the phone already drew it — search is the
+   * one header control a reader hunts for by SHAPE rather than by reading a
+   * label, and at the 34px nav register it read as a hint attached to the CTAs
+   * rather than as the way in. Desktop and touch are now ONE register instead
+   * of two, which is also the size the coarse-pointer rule in shellStyles was
+   * silently growing it to anyway.
+   */
   height?: number
 }) {
   return (
@@ -274,13 +285,14 @@ export function HanzoCommandTrigger({
       aria-keyshortcuts="Meta+K Control+K"
       style={{
         ...control(false, height),
-        ...(compact ? { width: height, padding: 0 } : { padding: '0 10px' }),
+        gap: 8,
+        ...(compact ? { width: height, padding: 0 } : { padding: '0 16px' }),
       }}
       {...ghostHover()}
     >
       <svg
-        width={compact ? 20 : 15}
-        height={compact ? 20 : 15}
+        width={22}
+        height={22}
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -293,7 +305,13 @@ export function HanzoCommandTrigger({
         <path d="m21 21-4.3-4.3" />
       </svg>
       {compact ? null : (
-        <kbd style={{ ...KBD, color: CHROME.fgDim }} aria-hidden="true">
+        // The keycap is stated here rather than in KBD: that shape is shared
+        // with the palette's own ESC/↑/↓/↵ hints, which sit INSIDE a panel at
+        // the small register and must not grow with the header's trigger.
+        <kbd
+          style={{ ...KBD, color: CHROME.fgDim, padding: '4px 8px', fontSize: FS.base }}
+          aria-hidden="true"
+        >
           ⌘K
         </kbd>
       )}

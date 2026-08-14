@@ -24,9 +24,7 @@ import { useTelemetry } from './TelemetryProvider'
  *  React Navigation's does, so the cleanup wiring is theirs and not ours. */
 export interface NavigationRefLike {
   addListener: (type: 'state', callback: () => void) => () => void
-  getCurrentRoute: () =>
-    | { name?: string; params?: Record<string, unknown> }
-    | undefined
+  getCurrentRoute: () => { name?: string; params?: Record<string, unknown> } | undefined
 }
 
 /** useScreenTracking records one pageview per screen change from a React

@@ -43,6 +43,12 @@ node_modules
 apps/kitchen-sink/ios
 
 .hanzogui
+# The same artifact under its current name. The directory was renamed
+# `.hanzogui` -> `.gui` and this line did not follow it, so every app's
+# generated gui config sat untracked-but-unignored — and the formatter checks
+# what git does not ignore, which is what made `bun run lint` fail on two
+# machine-written files nobody edits.
+.gui
 
 .idea
 

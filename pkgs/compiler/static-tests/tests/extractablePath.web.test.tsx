@@ -84,8 +84,7 @@ describe('extracting from an installed package', () => {
       backgroundColor: 'orange'
     })
   `
-  const installedPath =
-    '/app/node_modules/@hanzogui/test-design-system/dist/esm/Boxy.mjs'
+  const installedPath = '/app/node_modules/@hanzogui/test-design-system/dist/esm/Boxy.mjs'
 
   test('is refused by default — the allowlist is empty', async () => {
     const out = await extractForWeb(packageSource, {

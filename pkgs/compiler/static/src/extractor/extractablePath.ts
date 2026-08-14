@@ -68,12 +68,19 @@ export function installedPackageOf(sourcePath: string): string {
  * or the equivalent `@hanzogui/`).
  */
 function matches(entry: string, pkg: string): boolean {
-  const prefix = entry.endsWith('/*') ? entry.slice(0, -1) : entry.endsWith('/') ? entry : ''
+  const prefix = entry.endsWith('/*')
+    ? entry.slice(0, -1)
+    : entry.endsWith('/')
+      ? entry
+      : ''
   return prefix ? pkg.startsWith(prefix) : pkg === entry
 }
 
 /** May the compiler read styles out of this file? */
-export function isExtractable(sourcePath: string, extractPackages: string[] = []): boolean {
+export function isExtractable(
+  sourcePath: string,
+  extractPackages: string[] = []
+): boolean {
   if (NEVER_EXTRACT.some((name) => sourcePath.includes(name))) return false
   const pkg = installedPackageOf(sourcePath)
   if (!pkg) return true

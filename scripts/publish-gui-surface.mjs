@@ -46,10 +46,14 @@ for (const d of pkgDirs) {
 
 // 2. Targets: the gui surface only, excluding private packages.
 const targets = Object.keys(meta)
-  .filter((n) => (n === 'hanzogui' || n.startsWith('@hanzogui/')) && !meta[n].json.private)
+  .filter(
+    (n) => (n === 'hanzogui' || n.startsWith('@hanzogui/')) && !meta[n].json.private
+  )
   .sort()
 
-console.log(`Publishing ${targets.length} gui packages (+ @hanzo/gui alias) at their on-disk versions\n`)
+console.log(
+  `Publishing ${targets.length} gui packages (+ @hanzo/gui alias) at their on-disk versions\n`
+)
 
 function rewriteWorkspaceSpecs(deps, name) {
   if (!deps) return
@@ -57,7 +61,10 @@ function rewriteWorkspaceSpecs(deps, name) {
     const spec = deps[k]
     if (typeof spec === 'string' && spec.startsWith('workspace:')) {
       const v = versionMap[k]
-      if (!v) throw new Error(`${name}: dependency ${k} is workspace:* but has no resolvable version`)
+      if (!v)
+        throw new Error(
+          `${name}: dependency ${k} is workspace:* but has no resolvable version`
+        )
       deps[k] = v
     }
   }
@@ -91,7 +98,12 @@ function publishPackage(srcDir, baseJson, overrideName) {
 
     const j = JSON.parse(fs.readFileSync(path.join(tmp, 'package.json')))
     j.name = name
-    for (const f of ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies']) {
+    for (const f of [
+      'dependencies',
+      'devDependencies',
+      'peerDependencies',
+      'optionalDependencies',
+    ]) {
       rewriteWorkspaceSpecs(j[f], name)
     }
     fs.writeFileSync(path.join(tmp, 'package.json'), JSON.stringify(j, null, 2) + '\n')

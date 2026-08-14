@@ -4,7 +4,7 @@ import {
   Input,
   type SizeTokens,
   type InputProps as GuiInputProps,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 export type NumberInputProps = {
   size: SizeTokens

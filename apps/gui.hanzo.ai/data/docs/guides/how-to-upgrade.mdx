@@ -1,13 +1,13 @@
 ---
 title: Upgrading from v1 to v2
-description: A comprehensive guide for migrating your Hanzo GUI project from v1 to v2
+description: A comprehensive guide for migrating your Gui project from v1 to v2
 ---
 
-Hanzo GUI v2 aligns with modern web standards, improves performance, and simplifies APIs. The migration is moderate -- mostly removing deprecated APIs, renaming props, and updating your config. This guide walks through every change.
+Gui v2 aligns with modern web standards, improves performance, and simplifies APIs. The migration is moderate -- mostly removing deprecated APIs, renaming props, and updating your config. This guide walks through every change.
 
 ## Prerequisites
 
-Hanzo GUI 2 requires:
+Gui 2 requires:
 
 - **React 19+**
 - **React Native 0.81+** (with New Architecture support)
@@ -17,17 +17,17 @@ Upgrade these first before proceeding.
 
 ## 1. Update Dependencies
 
-Bump all `@hanzogui/*` and `@hanzo/gui` packages to `^2.0.0`:
+Bump all `@hanzogui/*` and `hanzogui` packages to `^2.0.0`:
 
 ```bash
-# if using npm/yarn/pnpm, update all gui packages
-npx hanzo-gui check
+# if using npm/yarn/pnpm, update all hanzogui packages
+npx hanzogui check
 ```
 
 ### Removed packages
 
 - `@hanzogui/animations-moti` -- use `@hanzogui/animations-reanimated` (same API)
-- `@hanzogui/image-next` -- use `Image` from `@hanzo/gui` directly
+- `@hanzogui/image-next` -- use `Image` from `hanzogui` directly
 
 ### Add resolutions
 
@@ -44,7 +44,7 @@ In monorepos, you may want to add resolutions to avoid duplicate copies of core 
 ## 2. Config Migration (v4 to v5)
 
 You don't have to migrate to Config v5, and it changes some default style behaviors that may
-cause some issues. It's easier to migrate to Hanzo GUI 2 first, then Config v5 after if you do choose to.
+cause some issues. It's easier to migrate to Gui 2 first, then Config v5 after if you do choose to.
 Config v5 is mostly a superset of v5, but some media query names changed and some themes and colors are different.
 
 ### Update imports
@@ -79,7 +79,7 @@ export const config = createGui({
 
 export type Conf = typeof config
 
-declare module '@hanzo/gui' {
+declare module 'hanzogui' {
   interface GuiCustomConfig extends Conf {}
 }
 ```
@@ -190,8 +190,8 @@ themes: process.env.VITE_ENVIRONMENT === 'client'
 ```
 
 <Notice theme="blue">
-  Once your v5 config is set up, run `npx hanzo-gui generate-prompt` and commit the output
-  to your repo. This helps AI assistants understand your Hanzo GUI config and can speed up
+  Once your v5 config is set up, run `npx hanzogui generate-prompt` and commit the output
+  to your repo. This helps AI assistants understand your Gui config and can speed up
   the rest of the migration.
 </Notice>
 
@@ -355,7 +355,8 @@ The old React Native props still work but are deprecated.
 
 ### Image
 
-Image now uses web-standard `src` instead of React Native's `source`:
+Image now prefers web-standard `src` for URLs and native `require()` results.
+React Native's `source` remains supported during migration, but is deprecated:
 
 ```tsx
 // before
@@ -372,6 +373,9 @@ Image now uses web-standard `src` instead of React Native's `source`:
   objectFit="cover"
 />
 ```
+
+The `width` and `height` props control layout. Percentage dimensions also work
+when the parent has defined dimensions.
 
 ### Button
 
@@ -441,7 +445,7 @@ Image now uses web-standard `src` instead of React Native's `source`:
 
 ## 8. Native Setup
 
-v2 requires explicit setup imports for native features. Add these at the top of your app entry before any Hanzo GUI imports. Note these are optional and mostly new, so only if you were using native gradient, or toast before do you need to do this.
+v2 requires explicit setup imports for native features. Add these at the top of your app entry before any Gui imports. Note these are optional and mostly new, so only if you were using native gradient, or toast before do you need to do this.
 
 ```tsx
 // portals (Sheet, Dialog, Popover, Select, Toast)
@@ -489,13 +493,13 @@ Not much has changed, but there's some nice improvements you can make:
 ### Vite
 
 ```tsx
-import { guiAliases, guiPlugin } from '@hanzogui/vite-plugin'
+import { hanzoguiAliases, hanzoguiPlugin } from '@hanzogui/vite-plugin'
 
 export default {
-  plugins: [guiPlugin()],
+  plugins: [hanzoguiPlugin()],
   resolve: {
     alias: [
-      ...guiAliases({
+      ...hanzoguiAliases({
         rnwLite: true, // use lightweight react-native-web
         svg: true,
       }),
@@ -504,21 +508,21 @@ export default {
 }
 ```
 
-Create a `gui.build.ts` at your project root:
+Create a `hanzogui.build.ts` at your project root:
 
 ```tsx
 import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
   components: ['@hanzo/gui'],
-  config: './src/gui.config.ts',
-  outputCSS: './src/gui.generated.css',
+  config: './src/hanzogui.config.ts',
+  outputCSS: './src/hanzogui.generated.css',
 } satisfies GuiBuildOptions
 ```
 
 ### Metro (Expo / React Native)
 
-No special Metro configuration is needed for Hanzo GUI v2. A standard Expo Metro config works out of the box:
+No special Metro configuration is needed for Gui v2. A standard Expo Metro config works out of the box:
 
 ```js
 // metro.config.js
@@ -558,17 +562,17 @@ module.exports = {
 
 ### CSS
 
-We recommend generating Hanzo GUI CSS to `gui.generated.css`, just so it's easier to configure linters and such:
+We recommend generating Gui CSS to `hanzogui.generated.css`, just so it's easier to configure linters and such:
 
 ```tsx
 // before
-import './gui.css'
+import './hanzogui.css'
 
 // after
-import './gui.generated.css'
+import './hanzogui.generated.css'
 ```
 
-Generate it with: `npx hanzo-gui generate-css --output ./src/gui.generated.css`
+Generate it with: `npx hanzogui generate-css --output ./src/hanzogui.generated.css`
 
 ## 10. Quick Reference: Find-and-Replace Patterns
 
@@ -608,17 +612,17 @@ While not required for migration, these v2 features can improve your app:
 - **`transition` delay and enter/exit control** -- `transition={{ enter: 'lazy', exit: 'quick' }}`
 - **Menu and ContextMenu** -- new components with native platform rendering
 - **Headless components** -- `@hanzogui/switch-headless`, `@hanzogui/checkbox-headless`, etc.
-- **CLI commands** -- `gui build`, `gui generate`, `gui generate-prompt`, `gui check`
+- **CLI commands** -- `hanzogui build`, `hanzogui generate`, `hanzogui generate-prompt`, `hanzogui check`
 - **~32% smaller core bundle** (37KB to 25KB gzipped)
 
 ## Migration Checklist
 
 - [ ] Upgrade React 19+, React Native 0.81+, TypeScript 5+
 - [ ] Bump all `@hanzogui/*` packages to `^2.0.0`
-- [ ] Add package resolutions for `@hanzogui/core`, `@hanzogui/web`, `@hanzo/gui`
+- [ ] Add package resolutions for `@hanzogui/core`, `@hanzogui/web`, `hanzogui`
 - [ ] Update config from `@hanzogui/config/v4` to `@hanzogui/config/v5`
 - [ ] Import animations separately (`@hanzogui/config/v5-css` or other driver)
-- [ ] Add `declare module '@hanzo/gui'` type augmentation
+- [ ] Add `declare module 'hanzogui'` type augmentation
 - [ ] Move root-level settings into `settings` object
 - [ ] Rename `animation` prop to `transition` everywhere
 - [ ] Rename `tag` prop to `render`
@@ -641,4 +645,4 @@ While not required for migration, these v2 features can improve your app:
 - [ ] Review flex/position defaults (add `position="relative"` where needed)
 - [ ] Update build config (Metro package exports, Vite aliases, CSS generation)
 - [ ] Update snapshot tests (shadow colors now use `color-mix()`)
-- [ ] Run `npx hanzo-gui check` to verify dependency consistency
+- [ ] Run `npx hanzogui check` to verify dependency consistency

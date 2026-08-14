@@ -1,4 +1,4 @@
-appId: com.gui.guikitchensink
+appId: com.hanzogui.hanzoguikitchensink
 ---
 # Test that Toast v2 composable API renders toasts correctly on native
 - launchApp

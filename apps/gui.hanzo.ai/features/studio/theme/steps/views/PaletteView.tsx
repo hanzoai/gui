@@ -23,7 +23,7 @@ import {
   XStack,
   YStack,
   useThemeName,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import type { HSLA } from '~/features/studio/colors/ColorPicker'
 import { ColorPickerContents } from '~/features/studio/colors/ColorPicker'
 import { useDoublePress } from '~/features/studio/hooks/useDoublePress'

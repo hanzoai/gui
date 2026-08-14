@@ -13,6 +13,9 @@
     },
     {
       "path": "../shorthands"
+    },
+    {
+      "path": "../font-geist"
     }
   ],
   "exclude": [

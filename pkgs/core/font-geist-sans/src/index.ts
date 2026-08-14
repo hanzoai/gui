@@ -1,58 +1,10 @@
-import type { FillInFont, GenericFont } from '@hanzogui/core'
-import { createFont, getVariableValue, isWeb } from '@hanzogui/core'
-
-export type { GenericFont, FillInFont } from '@hanzogui/core'
-
-const defaultSizes = {
-  1: 11,
-  2: 12,
-  3: 13,
-  4: 14,
-  true: 14,
-  5: 16,
-  6: 18,
-  7: 20,
-  8: 23,
-  9: 30,
-  10: 46,
-  11: 55,
-  12: 62,
-  13: 72,
-  14: 92,
-  15: 114,
-  16: 134,
-} as const
-
-export const createGeistSansFont = <A extends GenericFont>(
-  font: Partial<A> = {},
-  {
-    sizeLineHeight = (size) => Math.round(size * 1.5),
-    sizeSize = (size) => size * 1,
-  }: {
-    sizeLineHeight?: (fontSize: number) => number
-    sizeSize?: (size: number) => number
-  } = {}
-): FillInFont<A, keyof typeof defaultSizes> => {
-  const size = Object.fromEntries(
-    Object.entries({
-      ...defaultSizes,
-      ...font.size,
-    }).map(([k, v]) => [k, sizeSize(+v)])
-  )
-  return createFont({
-    family: isWeb
-      ? '"Geist Sans", "Geist", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
-      : 'Geist',
-    lineHeight: Object.fromEntries(
-      Object.entries(size).map(([k, v]) => [k, sizeLineHeight(getVariableValue(v))])
-    ),
-    weight: {
-      4: '400',
-    },
-    letterSpacing: {
-      4: 0,
-    },
-    ...(font as any),
-    size,
-  })
-}
+/**
+ * The Geist sans face, under the name it has always published as.
+ *
+ * Geist is described once, in `@hanzogui/font-geist`, because the sans and the
+ * mono share a version and an origin and must not be able to disagree about
+ * either. This package is that module's sans half, kept so existing imports
+ * keep resolving.
+ */
+export { createGeistSansFont, geistSans, geistSansFamily } from '@hanzogui/font-geist'
+export type { FillInFont, GenericFont } from '@hanzogui/core'

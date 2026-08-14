@@ -1,4 +1,4 @@
-import { H4, Paragraph, YStack } from 'hanzogui'
+import { H4, Paragraph, YStack } from '@hanzo/gui'
 import { NewMembersChart } from './Charts'
 import { useDemoProps } from '../hooks/useDemoProps'
 import { AccentTheme } from '../../components/AccentTheme'

@@ -4,7 +4,7 @@ import { useMedia } from './hooks/useMedia'
 import { useTheme } from './hooks/useTheme'
 import { ThemeStateContext } from './hooks/useThemeState'
 
-/** internal: this is for gui babel plugin usage only */
+/** internal: this is for hanzogui babel plugin usage only */
 
 const EMPTY_EXPRESSIONS: any[] = []
 const EMPTY_THEME = {}
@@ -28,7 +28,13 @@ export const _withStableStyle = (
       const media = hasMediaKeys ? useMedia() : null
 
       const resolvedExpressions = media
-        ? _expressions.map((expr: any) => (typeof expr === 'string' ? media[expr] : expr))
+        ? _expressions.map((expr: any) =>
+            Array.isArray(expr)
+              ? !!(media[expr[0]] && expr[1])
+              : typeof expr === 'string'
+                ? media[expr]
+                : expr
+          )
         : _expressions
 
       let resolvedTheme: any = theme || EMPTY_THEME
@@ -45,7 +51,7 @@ export const _withStableStyle = (
         if (process.env.NODE_ENV === 'development') {
           console.warn(
             '[@hanzogui] _withStableStyle: no ThemeStateContext found. ' +
-              'This usually means duplicate gui instances in a monorepo. ' +
+              'This usually means duplicate hanzogui instances in a monorepo. ' +
               'Falling back to default theme from config.'
           )
         }

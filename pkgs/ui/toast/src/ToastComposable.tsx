@@ -90,7 +90,26 @@ const ToastContext = createStyledContext<ToastContextValue>(
   'Toast__'
 )
 
-const useToastContext = ToastContext.useStyledContext
+const useToastContextValue = ToastContext.useStyledContext
+
+function hasToastContext(ctx: Partial<ToastContextValue> | null | undefined) {
+  return (
+    !!ctx &&
+    Array.isArray(ctx.toasts) &&
+    typeof ctx.setToastHeight === 'function' &&
+    typeof ctx.removeToast === 'function'
+  )
+}
+
+function useToastContext(consumerName: string) {
+  const ctx = useToastContextValue()
+
+  if (!hasToastContext(ctx)) {
+    throw new Error(`\`${consumerName}\` must be used within \`Toast\``)
+  }
+
+  return ctx
+}
 
 /* -------------------------------------------------------------------------------------------------
  * ToastItemContext - for auto-wiring Toast.Close (web only)
@@ -490,7 +509,7 @@ const ToastViewport = ToastViewportFrame.styleable<ToastViewportProps>(
       ...rest
     } = props
 
-    const ctx = useToastContext()
+    const ctx = useToastContext('Toast.Viewport')
     const listRef = React.useRef<GuiElement>(null)
     const hoverTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
     const hoverCooldownRef = React.useRef(false)
@@ -671,7 +690,11 @@ const ToastViewport = ToastViewportFrame.styleable<ToastViewportProps>(
     )
 
     if (portalToRoot) {
-      return <Portal zIndex={portalZIndex}>{content}</Portal>
+      return (
+        <Portal zIndex={portalZIndex}>
+          <ToastContext.Provider {...ctx}>{content}</ToastContext.Provider>
+        </Portal>
+      )
     }
 
     return content
@@ -696,7 +719,7 @@ export interface ToastListProps {
 }
 
 function ToastList({ renderItem }: ToastListProps) {
-  const ctx = useToastContext()
+  const ctx = useToastContext('Toast.List')
 
   // render all toasts — hidden ones have opacity 0 but stay mounted
   // so they smoothly transition when visible toasts are dismissed
@@ -741,7 +764,7 @@ function ToastList({ renderItem }: ToastListProps) {
  * -----------------------------------------------------------------------------------------------*/
 
 function DefaultToastContent({ toast }: { toast: ToastT }) {
-  const ctx = useToastContext()
+  const ctx = useToastContext('Toast.Item')
   const { handleClose } = useToastItemContext()
   const toastType = toast.type ?? 'default'
   const dismissible = toast.dismissible !== false
@@ -879,7 +902,7 @@ export interface ToastItemProps extends GetProps<typeof ToastItemFrame> {
 const ToastItemInner = ToastItemFrame.styleable<ToastItemProps>(
   function ToastItem(props, ref) {
     const { toast, index, children, ...rest } = props
-    const ctx = useToastContext()
+    const ctx = useToastContext('Toast.Item')
 
     const [mounted, setMounted] = React.useState(false)
     const [removed, setRemoved] = React.useState(false)
@@ -1180,6 +1203,23 @@ const ToastItemInner = ToastItemFrame.styleable<ToastItemProps>(
           dragRef={dragRef}
         >
           <ToastItemFrame
+            // The one hook a stylesheet can reach a toast by.
+            //
+            // A toast is floating chrome — it is over the page or it is nothing
+            // — so a design system wants to give it the same material every
+            // other floating surface wears. It had no handle at all: `Toaster`
+            // accepts sonner's `className`/`style`/`classNames` and documents
+            // them as INERT, and nothing else here reaches the DOM node. So the
+            // one surface that is unambiguously floating was the one surface a
+            // sheet could not select, and it kept a hand-rolled
+            // `rgba(0,0,0,0.15)` drop that is very nearly invisible on a dark
+            // ground — the exact defect an elevation ladder exists to end.
+            //
+            // `data-slot` rather than a class or a prop because it needs no
+            // decision from a call site: a toast is glass because it IS a toast.
+            // gui forwards unrecognised props to the DOM node and native drops
+            // them, which is what makes this cross-platform safe.
+            data-slot="toast"
             role="status"
             aria-live="polite"
             aria-atomic
@@ -1282,7 +1322,7 @@ const ToastClose = ToastCloseFrame.styleable(function ToastClose(props, ref) {
     // not inside a Toast.Item context, require manual onPress
   }
 
-  const ctx = useToastContext()
+  const ctx = useToastContext('Toast.Close')
 
   return (
     <ToastCloseFrame ref={ref} aria-label="Close toast" onPress={handleClose} {...props}>
@@ -1304,7 +1344,7 @@ const ToastAction = ToastActionFrame.styleable(function ToastAction(props, ref) 
  * -----------------------------------------------------------------------------------------------*/
 
 function ToastIcon(props: { children?: React.ReactNode }) {
-  const ctx = useToastContext()
+  const ctx = useToastContext('Toast.Icon')
   let toast: ToastT | undefined
 
   try {
@@ -1344,7 +1384,7 @@ function ToastIcon(props: { children?: React.ReactNode }) {
  * -----------------------------------------------------------------------------------------------*/
 
 export function useToasts() {
-  const ctx = useToastContext()
+  const ctx = useToastContext('useToasts')
   return {
     toasts: ctx.toasts,
     expanded: ctx.expanded,

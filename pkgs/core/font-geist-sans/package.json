@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-geist-sans",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "files": [
     "types",
     "dist"
@@ -19,11 +19,12 @@
     }
   },
   "scripts": {
-    "build": "gui-build",
-    "clean": "gui-build clean"
+    "build": "hanzogui-build",
+    "clean": "hanzogui-build clean"
   },
   "dependencies": {
-    "@hanzogui/core": "workspace:*"
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-geist": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
@@ -34,7 +35,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hanzoai/gui.git",
-    "directory": "code/core/font-geist-sans"
+    "directory": "pkgs/core/font-geist-sans"
   },
   "license": "BSD-3-Clause",
   "author": "Hanzo AI <dev@hanzo.ai>"

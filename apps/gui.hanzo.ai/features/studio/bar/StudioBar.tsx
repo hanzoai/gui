@@ -10,7 +10,7 @@ import {
   Switch,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { topBarHeight } from '~/features/studio/constants'
 import { useRootStore } from '../state/useGlobalState'

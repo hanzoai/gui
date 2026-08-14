@@ -12,13 +12,28 @@ export const setupCors = (req: Request) => {
   }
 }
 
+// exact local dev origins (the desktop/dev app on :1421) — matched verbatim so
+// attacker hosts like http://evil-localhost:1421 can't slip past a suffix check.
+const DEV_ORIGINS = new Set(['http://localhost:1421', 'http://127.0.0.1:1421'])
+
 function isValidOrigin(origin?: string | null): origin is string {
+  if (typeof origin !== 'string') return false
+  if (DEV_ORIGINS.has(origin)) return true
+  // prod: require a real https origin on hanzogui.dev / stripe.com (or a subdomain).
+  // parse so the scheme is checked and the host is compared exactly (host carries
+  // any port), so e.g. http://… and evilhanzogui.dev are both rejected.
+  let url: URL
+  try {
+    url = new URL(origin)
+  } catch {
+    return false
+  }
+  if (url.protocol !== 'https:') return false
+  const { host } = url
   return (
-    typeof origin === 'string' &&
-    (origin === 'gui.hanzo.ai' ||
-      origin.endsWith('.gui.hanzo.ai') ||
-      origin === 'stripe.com' ||
-      origin.endsWith('.stripe.com') ||
-      origin.endsWith('localhost:1421'))
+    host === 'hanzogui.dev' ||
+    host.endsWith('.hanzogui.dev') ||
+    host === 'stripe.com' ||
+    host.endsWith('.stripe.com')
   )
 }

@@ -14,14 +14,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 })
 
 async function createV2Products() {
-  console.info('Creating GUI Pro V2 products in Stripe...\n')
+  console.info('Creating Gui Pro V2 products in Stripe...\n')
 
   // 1. Create the V2 Pro License product
-  console.info('Creating product: GUI Pro V2...')
+  console.info('Creating product: Gui Pro V2...')
   const product = await stripe.products.create({
-    name: 'GUI Pro V2',
+    name: 'Gui Pro V2',
     description:
-      'Per-project license for GUI Pro. Includes all templates (v1 Takeout, v2 Takeout, Takeout Static), Recipes components, 1 year of updates, unlimited team members, and basic chat support. Lifetime rights to downloaded code.',
+      'Per-project license for Gui Pro. Includes all templates (v1 Takeout, v2 Takeout, Takeout Static), Bento components, 1 year of updates, unlimited team members, and basic chat support. Lifetime rights to downloaded code.',
     metadata: {
       version: 'v2',
       type: 'license',

@@ -12,8 +12,8 @@
   "main": "src/index.ts",
   "types": "./src",
   "scripts": {
-    "build": "gui-build --skip-types",
-    "watch": "gui-build --skip-types --watch"
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch"
   },
   "dependencies": {
     "@hanzogui/animations-react-native": "workspace:*",
@@ -21,11 +21,9 @@
     "@hanzogui/font-inter": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",
     "@hanzogui/themes": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

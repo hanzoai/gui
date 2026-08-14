@@ -9,7 +9,7 @@ import {
   XStack,
   YStack,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { useIsDocsTinted } from './docsTint'
 import {
   AnimationDriverTogglerContextProvider,
@@ -65,7 +65,7 @@ export function HeroContainer({
       $gtMd={{
         mx: smaller ? 0 : '$-4',
       }}
-      id="gui-demos-container"
+      id="hanzogui-demos-container"
     >
       <AnimationDriverTogglerContextProvider>
         {demoMultiple ? (

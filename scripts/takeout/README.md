@@ -2,20 +2,20 @@
 
 ## Overview
 
-These scripts help manage the sync between Stripe subscriptions and GitHub team access for Hanzo GUI's takeout products (Hanzo GUI Pro, Takeout Stack, Team Seats).
+These scripts help manage the sync between Stripe subscriptions and GitHub team access for Gui's takeout products (Gui Pro, Takeout Stack, Team Seats).
 
 ## How It Works
 
-1. **Customers subscribe** to Hanzo GUI Pro or Takeout Stack in Stripe
+1. **Customers subscribe** to Gui Pro or Takeout Stack in Stripe
 2. **Webhook creates claim** in database with `team_slug: 'early-access'`
 3. **User claims access** via the website, which adds them to GitHub `early-access` team
 4. **Subscription cancels** → webhook marks claim as unclaimed and removes from GitHub team
 
 ## Products That Grant Early Access
 
-- **Hanzo GUI Pro** (`prod_RlRd2DVrG0frHe`) - includes takeout access
+- **Gui Pro** (`prod_RlRd2DVrG0frHe`) - includes takeout access
 - **Takeout Stack** (`prod_NzLEazaqBgoKnC`) - standalone takeout
-- **Hanzo GUI Pro Team Seats** (`prod_Rxu0x7jR0nWJSv`) - team subscriptions
+- **Gui Pro Team Seats** (`prod_Rxu0x7jR0nWJSv`) - team subscriptions
 
 ## Available Scripts
 
@@ -132,7 +132,7 @@ npx tsx scripts/takeout/cleanup-stale-claims.ts tmp/stale-claims-*.json
 
 ### Critical Bug Fixed (Nov 2024)
 
-**Location:** `code/gui.hanzo.ai/features/api/unclaimProduct.ts`
+**Location:** `apps/gui.hanzo.ai/features/api/unclaimProduct.ts`
 
 **Problem:** When subscriptions were cancelled, the webhook tried to update claims but was missing the WHERE clause:
 
@@ -203,7 +203,7 @@ Migrated from direct repo collaborator access to GitHub team-based access:
 
 ## Environment Variables Required
 
-All scripts need these environment variables (automatically loaded from `code/gui.hanzo.ai/.env`):
+All scripts need these environment variables (automatically loaded from `apps/gui.hanzo.ai/.env`):
 
 - `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
 - `SUPABASE_SERVICE_ROLE_KEY` - Supabase service key
@@ -264,7 +264,7 @@ Some subscriptions may not have claims if:
 - Webhook failed when subscription was created
 - User subscribed before claim system existed
 
-**Solution:** Users can claim access by visiting their account page on gui.hanzo.ai
+**Solution:** Users can claim access by visiting their account page on hanzogui.dev
 
 ### "Users not in GitHub team"
 
@@ -286,10 +286,10 @@ If claims aren't being marked as unclaimed:
 
 ## Related Files
 
-- `code/gui.hanzo.ai/app/api/stripe/webhook+api.ts` - Stripe webhook handler
-- `code/gui.hanzo.ai/features/api/unclaimProduct.ts` - Unclaim logic (GitHub + Discord removal)
-- `code/gui.hanzo.ai/features/user/claim-product.ts` - Claim creation logic
-- `code/gui.hanzo.ai/features/github/helpers.ts` - GitHub team management
-- `code/gui.hanzo.ai/features/discord/helpers.ts` - Discord client and constants
-- `code/gui.hanzo.ai/app/api/discord/channel+api.ts` - Discord channel management
+- `apps/gui.hanzo.ai/app/api/stripe/webhook+api.ts` - Stripe webhook handler
+- `apps/gui.hanzo.ai/features/api/unclaimProduct.ts` - Unclaim logic (GitHub + Discord removal)
+- `apps/gui.hanzo.ai/features/user/claim-product.ts` - Claim creation logic
+- `apps/gui.hanzo.ai/features/github/helpers.ts` - GitHub team management
+- `apps/gui.hanzo.ai/features/discord/helpers.ts` - Discord client and constants
+- `apps/gui.hanzo.ai/app/api/discord/channel+api.ts` - Discord channel management
 - Database tables: `claims`, `discord_invites`, `subscriptions`

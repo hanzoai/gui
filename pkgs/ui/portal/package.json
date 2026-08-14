@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/portal",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -8,9 +8,7 @@
     "dist"
   ],
   "type": "module",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -30,15 +28,16 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/native": "workspace:*",
+    "@hanzogui/polyfill-dev": "workspace:*",
     "@hanzogui/start-transition": "workspace:*",
     "@hanzogui/use-event": "workspace:*",
     "@hanzogui/web": "workspace:*",
@@ -47,19 +46,11 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react": ">=19",
-    "react-dom": "*",
+    "react-dom": ">=19",
     "react-native": "0.83.2"
   },
   "peerDependencies": {
     "react": ">=19",
-    "react-dom": "*",
-    "react-native": "*"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>",
-  "peerDependenciesMeta": {
-    "react-native": {
-      "optional": true
-    }
+    "react-dom": "*"
   }
 }

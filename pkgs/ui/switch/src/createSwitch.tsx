@@ -122,7 +122,7 @@ export function createSwitch<
       const { switchProps, bubbleInput, switchRef } = useSwitch(
         props as any,
         [checked, setChecked],
-        // @ts-ignore TODO gui react 19 type error
+        // @ts-ignore TODO hanzogui react 19 type error
         forwardedRef
       )
 

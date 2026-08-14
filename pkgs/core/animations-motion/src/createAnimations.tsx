@@ -108,6 +108,8 @@ type MotionRefs = {
   frozenExitTarget: Record<string, unknown> | null
   exitCompleteScheduled: boolean
   wasEntering: boolean
+  wasDisabled: boolean
+  wasNoClass: boolean
 }
 
 export function createAnimations<A extends Record<string, AnimationConfig>>(
@@ -137,8 +139,15 @@ export function createAnimations<A extends Record<string, AnimationConfig>>(
         isHydratingGlobal = true
       }
 
-      const { props, style, componentState, stateRef, useStyleEmitter, presence } =
-        animationProps
+      const {
+        props,
+        style,
+        componentState,
+        stateRef,
+        useStyleEmitter,
+        presence,
+        styleProps,
+      } = animationProps
 
       const animationKey = Array.isArray(props.transition)
         ? props.transition[0]
@@ -167,6 +176,8 @@ export function createAnimations<A extends Record<string, AnimationConfig>>(
           frozenExitTarget: null,
           exitCompleteScheduled: false,
           wasEntering: false,
+          wasDisabled: false,
+          wasNoClass: !!styleProps.noClass,
         }
       }
 
@@ -395,8 +406,31 @@ export function createAnimations<A extends Record<string, AnimationConfig>>(
               )
 
               // provide explicit [from, to] keyframe for transforms during
-              // mid-flight interruption so motion starts from the right place
-              if (midFlightValues?.transform && fixedDiff.transform) {
+              // mid-flight interruption so motion starts from the right place —
+              // but ONLY when we've torn down the previous animation (popper
+              // cancel above, or exit stop()). otherwise the prior WAAPI
+              // transform animation is still running, and pinning a one-frame-
+              // stale `from` matrix makes each new flush re-start the animation
+              // from that stale base instead of continuing from the live value.
+              // for a plain transition element being interrupted repeatedly
+              // (the hanzogui.dev logo dot swept back and forth — worse the more
+              // concurrent React work the page is doing, since each render flushes
+              // again) that reads as a constant stutter/reset instead of a smooth
+              // glide. in the un-torn-down case motion's resolver already
+              // interpolates from the live value, so leave it alone. (regressed in
+              // 9485bcef0e when this keyframe was ungated; covered by
+              // LogoDotInterrupt.animated.test.tsx)
+              //
+              // note: an earlier version also keyframed entering-presence-child
+              // interrupts, but enter no longer tears down (see the stop() comment
+              // above — WAAPI replaces conflicting props per-property), so those
+              // now rely on the same live-value interpolation. covered by
+              // PopoverClickDuringEnter / AnimatePresenceEnterExit.
+              if (
+                (isPopperPosition || isCurrentlyExiting) &&
+                midFlightValues?.transform &&
+                fixedDiff.transform
+              ) {
                 fixedDiff.transform = [midFlightValues.transform, fixedDiff.transform]
               }
 
@@ -454,6 +488,7 @@ export function createAnimations<A extends Record<string, AnimationConfig>>(
       useIsomorphicLayoutEffect(() => {
         if (refs.current.isFirstRender) {
           refs.current.isFirstRender = false
+          refs.current.wasDisabled = disableAnimation
 
           // during hydration, skip inline style writes entirely — SSR CSS
           // already has the correct values. writing them again as inline
@@ -478,12 +513,44 @@ export function createAnimations<A extends Record<string, AnimationConfig>>(
           return
         }
 
+        // when animations first turn on after the mount/hydration handoff, the
+        // element is already at its resting position (SSR atomic class, or the
+        // dontAnimate inline styles). animating now would spring from the lost
+        // "from" value — which for a transform reads as 0 and flashes the
+        // element across the screen (e.g. progress bar flashing full, #4011).
+        // jump straight to the resolved styles instead, so it renders at the
+        // right place with no enter animation. only real changes after this
+        // animate. components with an explicit enter animation still animate.
+        const justEnabled = refs.current.wasDisabled && !disableAnimation
+        refs.current.wasDisabled = disableAnimation
+
+        // SSR hydration handoff: styleProps.noClass flips false -> true on the
+        // render where the core strips the SSR atomic classes and moves every
+        // style inline (outputStyle: 'inline'). the style delta is huge but the
+        // visual state is unchanged — animating it would spring every property
+        // from the stripped (zeroed) computed values, visibly collapsing and
+        // re-growing SSR-painted elements right after load. jump instead: the
+        // inline writes below run pre-paint, so the strip is never visible.
+        const justStrippedClasses = !refs.current.wasNoClass && !!styleProps.noClass
+        refs.current.wasNoClass = !!styleProps.noClass
+
+        if ((justEnabled || justStrippedClasses) && animationState !== 'enter') {
+          const node = stateRef.current.host
+          if (node instanceof HTMLElement) {
+            if (dontAnimate) Object.assign(node.style, dontAnimate)
+            if (doAnimate) Object.assign(node.style, doAnimate)
+          }
+          refs.current.lastDontAnimate = dontAnimate ? { ...dontAnimate } : {}
+          refs.current.lastDoAnimate = doAnimate ? { ...doAnimate } : {}
+          return
+        }
+
         flushAnimation({
           doAnimate,
           dontAnimate,
           animationOptions,
         })
-      }, [style, isExiting, disableAnimation])
+      }, [style, isExiting, disableAnimation, styleProps.noClass])
 
       if (process.env.NODE_ENV === 'development') {
         if (props['debug'] && props['debug'] !== 'profile') {

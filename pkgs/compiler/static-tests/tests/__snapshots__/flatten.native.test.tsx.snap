@@ -32,8 +32,8 @@ const _sheet = __ReactNativeStyleSheet.create({
 import { _withStableStyle } from '@hanzogui/core';
 const __ReactNativeView = require('react-native').View;
 const __ReactNativeText = require('react-native').Text;
-import { YStack } from 'hanzogui';
-import { useMedia } from 'hanzogui';
+import { YStack } from '@hanzo/gui';
+import { useMedia } from '@hanzo/gui';
 export function Test(isLoading) {
   const media = useMedia();
   return <_ReactNativeViewStyled0 _expressions={[!!media.sm, !!(media.sm && isLoading), !!(media.sm && !isLoading)]} />;
@@ -45,7 +45,7 @@ exports[`flatten-tests > work with experimentalFlattenThemesOnNative + ternary 1
 "import { _withStableStyle } from '@hanzogui/core';
 const __ReactNativeView = require('react-native').View;
 const __ReactNativeText = require('react-native').Text;
-import { View } from 'hanzogui';
+import { View } from '@hanzo/gui';
 export function Test() {
   return <_ReactNativeViewStyled0 _expressions={[!!showBackground]} />;
 }
@@ -73,7 +73,7 @@ const _sheet = __ReactNativeStyleSheet.create({
 import { _withStableStyle } from '@hanzogui/core';
 const __ReactNativeView = require('react-native').View;
 const __ReactNativeText = require('react-native').Text;
-import { YStack } from 'hanzogui';
+import { YStack } from '@hanzo/gui';
 export function Test(isLoading) {
   return <_ReactNativeViewStyled0 />;
 }

@@ -1,42 +1,70 @@
-/**
- * Cancel a subscription after a failed payment.
- *
- * Commerce owns the subscription state (active / past_due / canceled) so we
- * cancel via commerce and let its event stream propagate the status change
- * back into our local mirror.
- */
-
 import { apiRoute } from '~/features/api/apiRoute'
 import { ensureAuth } from '~/features/api/ensureAuth'
+import { stripe } from '~/features/stripe/stripe'
+import { supabaseAdmin } from '~/features/auth/supabaseAdmin'
 import { readBodyJSON } from '~/features/api/readBodyJSON'
-import { commerce, CommerceError } from '~/features/commerce/client'
 
 export default apiRoute(async (req) => {
   if (req.method !== 'POST') {
     return Response.json({ error: 'Method not allowed' }, { status: 405 })
   }
 
-  await ensureAuth({ req }) // gate
+  const { user } = await ensureAuth({ req })
   const body = await readBodyJSON(req)
+
   const subscriptionId = body['subscriptionId']
 
-  if (typeof subscriptionId !== 'string') {
-    return Response.json({ error: 'subscriptionId required' }, { status: 400 })
+  if (!subscriptionId) {
+    return Response.json({ error: 'Subscription ID is required' }, { status: 400 })
   }
 
   try {
-    const { token } = await ensureAuth({ req })
-    const sub = await commerce.subscriptions.get(token, subscriptionId)
-    if (sub.status === 'canceled') {
+    // Retrieve the subscription to verify it belongs to the user
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+
+    // verify user owns this subscription
+    const { data: subData } = await supabaseAdmin
+      .from('subscriptions')
+      .select('user_id')
+      .eq('id', subscriptionId)
+      .single()
+
+    if (!subData || subData.user_id !== user.id) {
+      return Response.json({ error: 'Subscription not found' }, { status: 404 })
+    }
+
+    if (subscription.status === 'canceled') {
       return Response.json({ error: 'Subscription already canceled' }, { status: 400 })
     }
-    await commerce.subscriptions.cancel(token, subscriptionId, { at_period_end: false })
-    return Response.json({ success: true })
-  } catch (err) {
-    if (err instanceof CommerceError) {
-      return Response.json({ error: String(err.detail) }, { status: err.status })
+
+    // Cancel the subscription in Stripe
+    await stripe.subscriptions.cancel(subscriptionId, {
+      prorate: true,
+    })
+
+    // Update subscription status in Supabase
+    const { error: updateError } = await supabaseAdmin
+      .from('subscriptions')
+      .update({
+        status: 'canceled',
+        canceled_at: new Date().toISOString(),
+        ended_at: new Date().toISOString(),
+      })
+      .eq('id', subscriptionId)
+
+    if (updateError) {
+      console.error('Error updating subscription in Supabase:', updateError)
+      // Even if Supabase update fails, we don't want to revert the Stripe cancellation
+      // Just log the error and return success with a warning
+      return Response.json({
+        success: true,
+        warning: 'Subscription cancelled in Stripe but database update failed',
+      })
     }
-    console.error('handle-failed-payment-subscription error', err)
+
+    return Response.json({ success: true })
+  } catch (error) {
+    console.error('Error canceling subscription:', error)
     return Response.json({ error: 'Failed to cancel subscription' }, { status: 500 })
   }
 })

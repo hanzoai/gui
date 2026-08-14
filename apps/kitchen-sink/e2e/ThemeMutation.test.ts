@@ -13,18 +13,27 @@
  * updateTheme runtime mutations can confuse Metro's module cache on reload).
  */
 
-import { by, element, expect, waitFor } from 'detox'
-import { navigateToTestCase } from './utils/navigation'
-import { safeLaunchApp, safeReloadApp } from './utils/detox'
+import { by, device, element, expect, waitFor } from 'detox'
+import { remountDirectUseCase } from './utils/navigation'
+import { safeLaunchApp } from './utils/detox'
+
+const cycleThemeColor = () => {
+  return device.openURL({ url: 'hanzogui-kitchen-sink://theme-mutation-next' })
+}
 
 describe('ThemeMutation', () => {
   beforeAll(async () => {
-    await safeLaunchApp()
+    await safeLaunchApp({
+      newInstance: true,
+      launchArgs: { directUseCase: 'ThemeMutation' },
+    })
+    await waitFor(element(by.id('theme-mutation-button')))
+      .toExist()
+      .withTimeout(180000)
   })
 
   beforeEach(async () => {
-    await safeReloadApp()
-    await navigateToTestCase('ThemeMutation', 'theme-mutation-button', {
+    await remountDirectUseCase('theme-mutation-button', {
       skipEnableSync: true,
     })
   })
@@ -52,8 +61,7 @@ describe('ThemeMutation', () => {
       .toHaveText('Expected color: red')
       .withTimeout(5000)
 
-    // tap the button to change theme color
-    await element(by.id('theme-mutation-button')).tap()
+    await cycleThemeColor()
 
     // wait for the color to update to blue
     await waitFor(element(by.id('theme-mutation-color-text')))
@@ -77,7 +85,7 @@ describe('ThemeMutation', () => {
 
       // tap to cycle to next color (except on last iteration)
       if (i < colors.length - 1) {
-        await element(by.id('theme-mutation-button')).tap()
+        await cycleThemeColor()
         await waitFor(element(by.id('theme-mutation-color-text')))
           .toHaveText(`Expected color: ${colors[i + 1]}`)
           .withTimeout(5000)
@@ -85,7 +93,7 @@ describe('ThemeMutation', () => {
     }
 
     // verify it cycles back to red after orange
-    await element(by.id('theme-mutation-button')).tap()
+    await cycleThemeColor()
     await waitFor(element(by.id('theme-mutation-color-text')))
       .toHaveText('Expected color: red')
       .withTimeout(5000)

@@ -8,7 +8,7 @@ import type {
   TokensParsed,
 } from '../types'
 
-// only cache gui styles
+// only cache hanzogui styles
 // TODO merge totalSelectorsInserted and allSelectors?
 const scannedCache = new WeakMap<CSSStyleSheet, string>()
 const totalSelectorsInserted = new Map<string, number>()
@@ -135,7 +135,7 @@ function updateSheetStyles(
     } else {
       fails++
       if (fails > bailAfter) {
-        // conservatively bail out of non-gui sheets
+        // conservatively bail out of non-hanzogui sheets
         return
       }
       continue
@@ -249,7 +249,7 @@ function addThemesFromCSS(cssStyleRule: CSSStyleRule, tokens?: TokensParsed) {
   } satisfies DedupedTheme
 }
 
-const guiSelectorRegex = /\.tm_xxt/
+const hanzoguiSelectorRegex = /\.tm_xxt/
 
 function getGuiSelector(
   rule: CSSRule | null,
@@ -259,15 +259,15 @@ function getGuiSelector(
     const text = rule.selectorText
 
     // only matches t_ starting selector chains
-    if (text[0] === ':' && text[1] === 'r' && guiSelectorRegex.test(text)) {
+    if (text[0] === ':' && text[1] === 'r' && hanzoguiSelectorRegex.test(text)) {
       const id = getIdentifierFromGuiSelector(
         // next.js minifies it so its in front
-        text.replace(guiSelectorRegex, '')
+        text.replace(hanzoguiSelectorRegex, '')
       )
       return collectThemes ? [id, rule, true] : [id, rule]
     }
   } else if (rule instanceof CSSMediaRule) {
-    // gui only ever inserts 1 rule per media
+    // hanzogui only ever inserts 1 rule per media
     if (rule.cssRules.length > 1) return
     return getGuiSelector(rule.cssRules[0])
   }
@@ -305,7 +305,7 @@ export function insertStyleRules(rulesToInsert: RulesToInsert) {
 
   if (!sheet && document.head) {
     const styleTag = document.createElement('style')
-    styleTag.id = '_gui-styles'
+    styleTag.id = '_hanzogui-styles'
     if (nonce) {
       styleTag.nonce = nonce
     }

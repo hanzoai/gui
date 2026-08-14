@@ -1,12 +1,12 @@
-import type { ToastProps } from '@hanzogui/toast'
 import {
   Toast,
   ToastProvider as ToastProviderOG,
   ToastViewport,
   useToastController,
   useToastState,
+  type ToastProps,
 } from '@hanzogui/toast'
-import { Theme, YStack } from 'hanzogui'
+import { Theme, YStack } from '@hanzo/gui'
 
 export let toastController: ReturnType<typeof useToastController>
 

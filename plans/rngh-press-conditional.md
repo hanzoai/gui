@@ -13,7 +13,7 @@ Use RNGH for press events when `@hanzogui/native/setup-gesture-handler` has been
 
 ## Changes
 
-### 1. `code/core/web/src/types.tsx`
+### 1. `pkgs/core/web/src/types.tsx`
 
 Add to `GuiComponentStateRef` (around line 535):
 
@@ -24,7 +24,7 @@ export type GuiComponentStateRef = {
 }
 ```
 
-### 2. `code/core/web/src/eventHandling.native.ts`
+### 2. `pkgs/core/web/src/eventHandling.native.ts`
 
 ```typescript
 import React from 'react'

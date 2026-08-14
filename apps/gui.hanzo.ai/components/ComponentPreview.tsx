@@ -22,9 +22,9 @@ import {
   View,
   XStack,
   ZStack,
-} from 'hanzogui'
-import { CardFrame, Text, YStack } from 'hanzogui'
-import { RecipesIcon } from '~/features/icons/RecipesIcon'
+} from '@hanzo/gui'
+import { CardFrame, Text, YStack } from '@hanzo/gui'
+import { BentoIcon } from '~/features/icons/BentoIcon'
 
 const Chip = styled(View, {
   name: 'Chip',
@@ -117,7 +117,7 @@ const ComponentPreview = {
         px="$3"
         rounded="$4"
       >
-        <Text color="$color7">Recipes 🍱</Text>
+        <Text color="$color7">Bento 🍱</Text>
       </View>
     </YStack>
   ),
@@ -548,7 +548,7 @@ const ComponentPreview = {
           p="$2"
           gap="$2"
         >
-          <RecipesIcon />
+          <BentoIcon />
           <XStack px="$2" gap="$4" flex={1}>
             {Array.from({ length: 3 }).map((_, index) => (
               <View bg="$color8" flex={1} height={6} key={index} />
@@ -576,7 +576,7 @@ const ComponentPreview = {
           p="$2"
           gap="$4"
         >
-          <RecipesIcon />
+          <BentoIcon />
           <YStack height="100%" width="100%" gap="$3" flex={1}>
             <View width="90%" bg="$color8" height={6} />
             <View width="70%" bg="$color8" height={6} />
@@ -701,7 +701,7 @@ const ComponentPreview = {
           borderColor="$color6"
           items="center"
         >
-          <RecipesIcon />
+          <BentoIcon />
         </View>
       </XStack>
     )

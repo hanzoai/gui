@@ -1,12 +1,16 @@
 import type { GuiOptions, ExtractedResponse } from '@hanzogui/static-worker'
 import * as Static from '@hanzogui/static-worker'
-import { getPragmaOptions } from '@hanzogui/static-worker'
+import {
+  getPragmaOptions,
+  installedPackageOf,
+  isExtractable,
+} from '@hanzogui/static-worker'
 import { createHash } from 'node:crypto'
-import { existsSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Plugin, PluginOption, ResolvedConfig, ViteDevServer } from 'vite'
-import { normalizePath, transformWithEsbuild, type Environment } from 'vite'
+import type { Environment } from 'vite'
 import {
   loadGuiBuildConfig,
   getLoadPromise,
@@ -14,7 +18,12 @@ import {
   ensureFullConfigLoaded,
 } from './loadGui'
 
-const resolve = (name: string) => fileURLToPath(import.meta.resolve(name))
+// handle ESM/CJS duality for plugin dependencies - resolve from plugin's location, not user's project
+const _pluginRequire = createRequire(
+  typeof __filename === 'string' ? __filename : fileURLToPath(import.meta.url)
+)
+const resolve = (name: string) => _pluginRequire.resolve(name)
+const normalizePath = (value: string) => value.replace(/\\/g, '/')
 
 // shared cache across all plugin instances/environments via globalThis
 type CacheEntry = {
@@ -23,9 +32,12 @@ type CacheEntry = {
   cssImport: string | null
 }
 
-const CACHE_KEY = '__gui_vite_cache__'
-const CACHE_SIZE_KEY = '__gui_vite_cache_size__'
-const PENDING_KEY = '__gui_vite_pending__'
+/** what an installed package can hold extractable source in */
+const PACKAGE_EXTENSIONS = /\.(mjs|js|jsx|tsx)$/
+
+const CACHE_KEY = '__hanzogui_vite_cache__'
+const CACHE_SIZE_KEY = '__hanzogui_vite_cache_size__'
+const PENDING_KEY = '__hanzogui_vite_pending__'
 
 function getSharedCache(): Record<string, CacheEntry> {
   if (!(globalThis as any)[CACHE_KEY]) {
@@ -47,6 +59,34 @@ function clearSharedCache() {
   ;(globalThis as any)[CACHE_SIZE_KEY] = 0
 }
 
+// resolves package ids against the user's project root (not the plugin's
+// install location). returns true if the id is resolvable, false if the
+// dep isn't installed, safe to call for optional deps.
+function isInstalled(projectRoot: string, id: string): boolean {
+  try {
+    const req = createRequire(path.join(projectRoot, 'package.json'))
+    req.resolve(id)
+    return true
+  } catch {
+    return false
+  }
+}
+
+function addIfInstalled(
+  userConf: { optimizeDeps?: { include?: string[] } },
+  projectRoot: string | undefined,
+  ids: string[]
+): void {
+  const root = projectRoot || process.cwd()
+  userConf.optimizeDeps ||= {}
+  userConf.optimizeDeps.include ||= []
+  for (const id of ids) {
+    if (!userConf.optimizeDeps.include.includes(id) && isInstalled(root, id)) {
+      userConf.optimizeDeps.include.push(id)
+    }
+  }
+}
+
 // pending extractions map - dedupes concurrent requests for same file
 function getPendingExtractions(): Map<string, Promise<CacheEntry | null>> {
   if (!(globalThis as any)[PENDING_KEY]) {
@@ -65,10 +105,10 @@ type AliasOptions = {
 type AliasEntry = { find: string | RegExp; replacement: string }
 
 /**
- * returns vite-compatible aliases for gui
+ * returns vite-compatible aliases for hanzogui
  * use this when you need control over alias ordering in your config
  */
-export function guiAliases(options: AliasOptions = {}): AliasEntry[] {
+export function hanzoguiAliases(options: AliasOptions = {}): AliasEntry[] {
   const aliases: AliasEntry[] = []
 
   if (options.svg) {
@@ -79,20 +119,23 @@ export function guiAliases(options: AliasOptions = {}): AliasEntry[] {
   }
 
   if (options.rnwLite) {
-    // entry point for main import (may be without-animated variant)
-    const rnwl = resolve(
-      options.rnwLite === 'without-animated'
-        ? '@hanzogui/react-native-web-lite/without-animated'
-        : '@hanzogui/react-native-web-lite'
-    )
     // base package path for subpath imports (package directory, not entry file)
     const rnwlBase = path.dirname(resolve('@hanzogui/react-native-web-lite/package.json'))
+    // vite aliases need the esm entry; require.resolve points at cjs.
+    const rnwl = normalizePath(
+      path.join(
+        rnwlBase,
+        options.rnwLite === 'without-animated'
+          ? 'dist/esm/without-animated.mjs'
+          : 'dist/esm/index.mjs'
+      )
+    )
     aliases.push(
       {
         // map deep RNW paths like dist/exports/StyleSheet/preprocess to rnw-lite's flat structure
         // extracts the final path segment (e.g. "preprocess" or "createReactDOMStyle")
         find: /^react-native(?:-web)?\/dist\/(?:exports|modules)\/.*\/([^/]+)$/,
-        replacement: `${rnwlBase}/dist/esm/$1.mjs`,
+        replacement: `${normalizePath(rnwlBase)}/dist/esm/$1.mjs`,
       },
       {
         find: /^react-native$/,
@@ -116,17 +159,17 @@ export function guiAliases(options: AliasOptions = {}): AliasEntry[] {
   return aliases
 }
 
-export function guiPlugin({
+export function hanzoguiPlugin({
   disableResolveConfig,
-  ...guiOptionsIn
+  ...hanzoguiOptionsIn
 }: GuiOptions & {
   disableResolveConfig?: boolean
 } = {}): PluginOption {
   // extraction ON by default, set disableExtraction: true to opt out
-  let shouldExtract = !guiOptionsIn.disableExtraction
+  let shouldExtract = !hanzoguiOptionsIn.disableExtraction
   let watcher: Promise<{ dispose: () => void } | void | undefined> | undefined
 
-  // TODO temporary fix
+  // temporary vxrn native env bridge
   const enableNativeEnv = !!globalThis.__vxrnEnableNativeEnv
 
   const extensions = [
@@ -145,14 +188,14 @@ export function guiPlugin({
   ]
 
   // start loading immediately but don't block
-  loadGuiBuildConfig(guiOptionsIn)
+  loadGuiBuildConfig(hanzoguiOptionsIn)
 
   // helper to await load when needed
   const ensureLoaded = async () => {
     const promise = getLoadPromise()
     if (promise) await promise
     const options = getGuiOptions()
-    // update shouldExtract from loaded config (gui.build.ts)
+    // update shouldExtract from loaded config (hanzogui.build.ts)
     if (options) {
       shouldExtract = !options.disableExtraction
     }
@@ -168,7 +211,7 @@ export function guiPlugin({
   const cssMap = new Map<string, string>()
   let config: ResolvedConfig
   let server: ViteDevServer
-  const virtualExt = `.gui.css`
+  const virtualExt = `.hanzogui.css`
 
   const getAbsoluteVirtualFileId = (filePath: string) => {
     if (filePath.startsWith(config.root)) {
@@ -202,7 +245,7 @@ export function guiPlugin({
   }
 
   const basePlugin: Plugin = {
-    name: 'gui',
+    name: 'hanzogui',
     enforce: 'pre',
 
     configureServer(_server) {
@@ -219,14 +262,14 @@ export function guiPlugin({
       const options = await ensureLoaded()
 
       if (!options) {
-        throw new Error(`No gui options loaded`)
+        throw new Error(`No hanzogui options loaded`)
       }
 
       // start watching config if enabled
       if (!options.disableWatchGuiConfig) {
         watcher = Static.watchGuiConfig({
-          components: ['gui'],
-          config: './src/gui.config.ts',
+          components: ['@hanzo/gui'],
+          config: './src/hanzogui.config.ts',
           ...options,
         }).catch((err) => {
           console.error(` [Gui] Error watching config: ${err}`)
@@ -281,7 +324,7 @@ export function guiPlugin({
   }
 
   const rnwLitePlugin: Plugin = {
-    name: 'gui-rnw-lite',
+    name: 'hanzogui-rnw-lite',
 
     config() {
       if (enableNativeEnv) {
@@ -293,13 +336,25 @@ export function guiPlugin({
         return {}
       }
 
+      // react-native-web-lite imports memoize-one internally. the esbuild dep
+      // scanner doesn't follow it through the react-native -> rnw-lite alias, so
+      // vite discovers it only at request time, re-optimizes mid-load, and full
+      // reloads. on slow runners (CI) the in-flight optimized-dep request 504s
+      // ("Outdated Optimize Dep") and surfaces as a console error. pre-include
+      // it so the first optimize pass is complete and no reload is triggered.
+      const include: string[] = []
+      if (isInstalled(process.cwd(), 'memoize-one')) {
+        include.push('memoize-one')
+      }
+
       return {
         resolve: {
-          alias: guiAliases({ rnwLite: options.useReactNativeWebLite }),
+          alias: hanzoguiAliases({ rnwLite: options.useReactNativeWebLite }),
         },
         optimizeDeps: {
           // upstream react-native-web must not be pre-bundled when aliased to lite
           exclude: ['react-native-web'],
+          include,
         },
       }
     },
@@ -308,7 +363,7 @@ export function guiPlugin({
   // extract plugin for optimize mode
   // always included, but checks shouldExtract dynamically after config loads
   const extractPlugin: Plugin = {
-    name: 'gui-extract',
+    name: 'hanzogui-extract',
     enforce: 'pre',
 
     async config(userConf) {
@@ -319,8 +374,46 @@ export function guiPlugin({
       userConf.optimizeDeps.include ||= []
 
       // inline-style-prefixer is CJS with __esModule and breaks without pre-bundling
-      // (ReferenceError: exports is not defined). always include it.
+      // (reference error: exports is not defined). always include it.
       userConf.optimizeDeps.include.push('inline-style-prefixer')
+
+      // pre-bundle hanzogui packages that use internal hooks (useThemeName, etc.)
+      // from sub-entries, vite's dep crawler can otherwise split them into a
+      // separate chunk with its own hanzogui copy, producing two ThemeStateContext
+      // instances and "Missing theme" errors at runtime.
+      //
+      // @hanzogui/sheet/controller is the lightweight controller subpath imported
+      // by popover/dialog/select; the app imports @hanzogui/sheet (full). if these
+      // land in separate optimized chunks they each get their own copy of
+      // SheetControllerContext, so the SheetController provider (from /controller)
+      // and the Sheet consumer (from the full entry) never match and adapted
+      // sheets silently never open. include both so they share one context chunk.
+      addIfInstalled(userConf, userConf.root, [
+        '@hanzogui/toast',
+        '@hanzogui/toast/v2',
+        '@hanzogui/sheet',
+        '@hanzogui/sheet/controller',
+      ])
+
+      // dedupe hanzogui packages so nested resolutions collapse to a single
+      // instance. pairs with the include above: include pre-bundles, dedupe
+      // prevents duplicate bundling when sub-deps re-resolve them.
+      userConf.resolve ||= {}
+      userConf.resolve.dedupe ||= []
+      for (const id of [
+        'hanzogui',
+        '@hanzogui/core',
+        '@hanzogui/web',
+        '@hanzogui/toast',
+        '@hanzogui/sheet',
+      ]) {
+        if (
+          !userConf.resolve.dedupe.includes(id) &&
+          isInstalled(userConf.root || process.cwd(), id)
+        ) {
+          userConf.resolve.dedupe.push(id)
+        }
+      }
 
       if (!shouldExtract) return
 
@@ -380,7 +473,7 @@ export function guiPlugin({
     transform: {
       order: 'pre',
       async handler(code, id) {
-        // ensure gui is loaded before transform
+        // ensure hanzogui is loaded before transform
         const options = await ensureLoaded()
 
         // ensure full config (heavy bundling) is loaded before extraction
@@ -396,7 +489,15 @@ export function guiPlugin({
         }
 
         const [validId] = id.split('?')
-        if (!validId.endsWith('.tsx')) {
+        // app source is .tsx; an allowlisted package is whatever it publishes,
+        // which for our design system is the jsx-preserving .mjs/.js build
+        const pkg = installedPackageOf(validId)
+        if (
+          pkg
+            ? !isExtractable(validId, options?.extractPackages) ||
+              !PACKAGE_EXTENSIONS.test(validId)
+            : !validId.endsWith('.tsx')
+        ) {
           return
         }
 
@@ -434,7 +535,7 @@ export function guiPlugin({
         if (cached) {
           if (process.env.DEBUG_GUI_CACHE) {
             console.info(
-              `[gui-cache] HIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
+              `[hanzogui-cache] HIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
             )
           }
           return formatResult(cached)
@@ -445,7 +546,7 @@ export function guiPlugin({
         if (pendingExtraction) {
           if (process.env.DEBUG_GUI_CACHE) {
             console.info(
-              `[gui-cache] WAIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
+              `[hanzogui-cache] WAIT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
             )
           }
           const result = await pendingExtraction
@@ -457,7 +558,7 @@ export function guiPlugin({
 
         if (process.env.DEBUG_GUI_CACHE) {
           console.info(
-            `[gui-cache] EXTRACT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
+            `[hanzogui-cache] EXTRACT ${this.environment?.name || 'unknown'} ${id.split('/').pop()} key=${cacheKey.slice(0, 8)}`
           )
         }
 
@@ -474,7 +575,7 @@ export function guiPlugin({
           } catch (err) {
             if (process.env.DEBUG_GUI_CACHE) {
               console.info(
-                `[gui-cache] ERROR extracting ${id.split('/').pop()}:`,
+                `[hanzogui-cache] ERROR extracting ${id.split('/').pop()}:`,
                 err
               )
             }
@@ -485,7 +586,7 @@ export function guiPlugin({
           if (!extracted) {
             if (process.env.DEBUG_GUI_CACHE) {
               console.info(
-                `[gui-cache] no extraction result for ${id.split('/').pop()}`
+                `[hanzogui-cache] no extraction result for ${id.split('/').pop()}`
               )
             }
             return null
@@ -527,7 +628,7 @@ export function guiPlugin({
 
           if (process.env.DEBUG_GUI_CACHE) {
             console.info(
-              `[gui-cache] WRITE key=${cacheKey.slice(0, 8)} cacheSize=${Object.keys(memoryCache).length}`
+              `[hanzogui-cache] WRITE key=${cacheKey.slice(0, 8)} cacheSize=${Object.keys(memoryCache).length}`
             )
           }
 

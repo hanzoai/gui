@@ -5,8 +5,10 @@ const { existsSync } = require('node:fs')
 const { join } = require('node:path')
 
 const maxWorkers = 1
-// Android dev-client launches assume the default Metro port unless overridden explicitly.
-const detoxMetroPort = process.env.DETOX_METRO_PORT || '8081'
+// dedicated detox metro port - both platforms route through it.
+// Android: app reads from android/app/src/main/res/values/integers.xml
+// iOS: launchArgs.RCT_jsLocation tells RCTBundleURLProvider where metro is
+const detoxMetroPort = process.env.DETOX_METRO_PORT || '9034'
 const defaultAndroidSdkRoot =
   process.env.ANDROID_SDK_ROOT ||
   process.env.ANDROID_HOME ||
@@ -60,8 +62,11 @@ module.exports = {
       maxWorkers,
     },
     jest: {
-      setupTimeout: 180000, // 3 minutes for CI environments
-      retries: 1, // Retry flaky tests once
+      setupTimeout: 300000, // 5 minutes - slow CI runners can exceed 180s, especially for tests that compile in beforeAll
+      // no whole-file retry: detox --retries re-runs the entire spec file (beforeAll +
+      // every test again), which is the 2x wall-time variance we're killing. individual
+      // flaky tests retry in-place via jest.retryTimes (see e2e/jest.setup.ts), which
+      // re-runs just the test + its beforeEach (fresh app) - far cheaper.
     },
   },
   artifacts: {
@@ -75,6 +80,11 @@ module.exports = {
     init: {
       exposeGlobals: true,
     },
+    // NOTE: do NOT set launchApp: 'manual' here. In detox 'manual' does not mean
+    // "the test calls device.launchApp itself" (that's always allowed) - it makes
+    // RuntimeDevice.launchApp route through waitForAppLaunch, which printLaunchHint()
+    // + pressAnyKey() and crashes in CI ('process.stdin.setRawMode is not a function')
+    // since stdin isn't a TTY. Leave it at the default 'auto'.
   },
   apps: {
     'ios.debug': {
@@ -84,9 +94,9 @@ module.exports = {
       // so we use BUILT_PRODUCTS_DIR to force the output location
       binaryPath:
         process.env.DETOX_IOS_APP_PATH ||
-        'ios/build/Build/Products/Debug-iphonesimulator/guikitchensink.app',
+        'ios/build/Build/Products/Debug-iphonesimulator/hanzoguikitchensink.app',
       build:
-        'xcodebuild -workspace ios/guikitchensink.xcworkspace -scheme guikitchensink -configuration Debug -sdk iphonesimulator SYMROOT="$(pwd)/ios/build/Build/Products" OBJROOT="$(pwd)/ios/build/Build/Intermediates.noindex"',
+        'xcodebuild -workspace ios/hanzoguikitchensink.xcworkspace -scheme hanzoguikitchensink -configuration Debug -sdk iphonesimulator SYMROOT="$(pwd)/ios/build/Build/Products" OBJROOT="$(pwd)/ios/build/Build/Intermediates.noindex"',
       // tell RCTBundleURLProvider where metro is (auto-detection fails with dev-client)
       launchArgs: {
         RCT_jsLocation: `localhost:${detoxMetroPort}`,
@@ -96,9 +106,9 @@ module.exports = {
       type: 'ios.app',
       binaryPath:
         process.env.DETOX_IOS_APP_PATH ||
-        'ios/build/Build/Products/Release-iphonesimulator/guikitchensink.app',
+        'ios/build/Build/Products/Release-iphonesimulator/hanzoguikitchensink.app',
       build:
-        'xcodebuild -workspace ios/guikitchensink.xcworkspace -scheme guikitchensink -configuration Release -sdk iphonesimulator SYMROOT="$(pwd)/ios/build/Build/Products" OBJROOT="$(pwd)/ios/build/Build/Intermediates.noindex"',
+        'xcodebuild -workspace ios/hanzoguikitchensink.xcworkspace -scheme hanzoguikitchensink -configuration Release -sdk iphonesimulator SYMROOT="$(pwd)/ios/build/Build/Products" OBJROOT="$(pwd)/ios/build/Build/Intermediates.noindex"',
     },
     'android.debug': {
       type: 'android.apk',

@@ -1,3 +1,5 @@
+import { serverEnv } from '../api/serverEnv'
+
 export type GithubSponsorshipStatus =
   | {
       hasSponsorAccess: false
@@ -31,7 +33,8 @@ export type GithubAccessStatus = {
   personal: GithubSponsorshipStatus
   orgs: GithubSponsorshipStatus[]
 }
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+// sponsor checks reuse the admin token (the old read-only GITHUB_TOKEN was retired)
+const GITHUB_ADMIN_TOKEN = serverEnv('GITHUB_ADMIN_TOKEN')
 
 // whitelisting uniswap org for feedback
 const whitelistOrgs = {
@@ -150,7 +153,7 @@ const codinscapeusers = ['NathanBeesley']
 
 const callstackusers = ['troZee']
 
-export const whitelistRecipesUsernames = new Set([
+export const whitelistBentoUsernames = new Set([
   // team
   'baronha',
   'poteboy',
@@ -317,7 +320,7 @@ const isLoginSponsor = async (
       },
     }),
     headers: {
-      Authorization: `bearer ${GITHUB_TOKEN}`,
+      Authorization: `bearer ${GITHUB_ADMIN_TOKEN}`,
     },
   })
 
@@ -412,39 +415,6 @@ const getOrgs = async (
   return json?.data?.viewer?.organizations?.nodes ?? []
 }
 
-// export const dummy = async () => {
-//   const res = await fetch('https://api.github.com/graphql', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       query: `
-//       {
-//         viewer {
-//           ... on User {
-//             id
-//             sponsorsListing {
-//               tiers (first: 100) {
-//                 nodes {
-//                   id
-//                   name
-//                   description
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       }
-//     `,
-//     }),
-//     headers: {
-//       Authorization: `bearer ${GITHUB_TOKEN}`,
-//     },
-//   })
-
-//   return await res.json()
-// }
-
-const GITHUB_ADMIN_TOKEN = process.env.GITHUB_ADMIN_TOKEN
-
 /**
  * Add a user to a GitHub team
  * @see https://docs.github.com/en/rest/teams/members?apiVersion=2022-11-28#add-or-update-team-membership-for-a-user
@@ -452,7 +422,7 @@ const GITHUB_ADMIN_TOKEN = process.env.GITHUB_ADMIN_TOKEN
 export const addUserToTeam = async (
   teamSlug: string,
   userLogin: string,
-  orgName = 'hanzoai',
+  orgName = 'hanzogui',
   role: 'member' | 'maintainer' = 'member'
 ) => {
   console.info(
@@ -495,7 +465,7 @@ export const addUserToTeam = async (
 export const removeUserFromTeam = async (
   teamSlug: string,
   userLogin: string,
-  orgName = 'hanzoai'
+  orgName = 'hanzogui'
 ) => {
   console.info(
     `Claim: removeUserFromTeam removing ${userLogin} from ${orgName}/${teamSlug}`
@@ -536,7 +506,7 @@ export const removeUserFromTeam = async (
 export const checkIfUserIsTeamMember = async (
   teamSlug: string,
   userLogin: string,
-  orgName = 'hanzoai'
+  orgName = 'hanzogui'
 ): Promise<{
   isMember: boolean
   state?: 'active' | 'pending'

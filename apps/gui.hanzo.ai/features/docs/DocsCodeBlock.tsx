@@ -17,7 +17,7 @@ import {
   XStack,
   YStack,
   useEvent,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { ErrorBoundary } from '~/components/ErrorBoundary'
 import { Pre } from '~/components/Pre'

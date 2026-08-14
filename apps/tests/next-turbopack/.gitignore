@@ -1,6 +1,6 @@
 .next
 node_modules
-.gui
+.hanzogui
 next-env.d.ts
 src/_*.css
 src/*.native.tsx

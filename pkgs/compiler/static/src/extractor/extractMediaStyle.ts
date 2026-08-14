@@ -12,7 +12,7 @@ export function extractMediaStyle(
   props: GuiOptionsWithFileInfo,
   ternary: Ternary,
   jsxPath: NodePath<t.JSXElement>,
-  guiConfig: GuiInternalConfig,
+  hanzoguiConfig: GuiInternalConfig,
   sourcePath: string,
   importance = 0,
   shouldPrintDebug: boolean | 'verbose' = false
@@ -23,9 +23,9 @@ export function extractMediaStyle(
     return null
   }
   const { key } = mt
-  const mq = guiConfig.media[key]
+  const mq = hanzoguiConfig.media[key]
   if (!mq) {
-    console.error(`Media query "${key}" not found: ${Object.keys(guiConfig.media)}`)
+    console.error(`Media query "${key}" not found: ${Object.keys(hanzoguiConfig.media)}`)
     return null
   }
   const getStyleObj = (styleObj: ViewStyle | null, negate = false) => {
@@ -40,7 +40,7 @@ export function extractMediaStyle(
     return null
   }
   // for now order first strongest
-  const mediaKeys = Object.keys(guiConfig.media)
+  const mediaKeys = Object.keys(hanzoguiConfig.media)
   const mediaKeyPrecendence = mediaKeys.reduce((acc, cur, i) => {
     acc[cur] = new Array(importance + 1).fill(':root').join('')
     return acc
@@ -57,7 +57,7 @@ export function extractMediaStyle(
       const mediaStyle = core.createMediaStyle(
         style,
         key,
-        guiConfig.media,
+        hanzoguiConfig.media,
         true,
         negate
       )

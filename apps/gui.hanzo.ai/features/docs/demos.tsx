@@ -1,5 +1,5 @@
 import { Suspense, use } from 'react'
-import { Spinner, View } from 'hanzogui'
+import { Spinner, View } from '@hanzo/gui'
 import type { ComponentType } from 'react'
 
 const cached: any = {}
@@ -127,6 +127,9 @@ export const DialogDemo = lazyDemo(() =>
 )
 export const ToastDemo = lazyDemo(() =>
   import('@hanzogui/demos/demo/ToastDemo').then((x) => x.ToastDemo)
+)
+export const ToastV1Demo = lazyDemo(() =>
+  import('@hanzogui/demos/demo/ToastV1Demo').then((x) => x.ToastV1Demo)
 )
 export const ToastDuplicateDemo = lazyDemo(() =>
   import('@hanzogui/demos/demo/ToastDuplicateDemo').then((x) => x.ToastDuplicateDemo)

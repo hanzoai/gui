@@ -15,7 +15,7 @@ const sizes = [
 ]
 
 for (const size of sizes) {
-  const demos = readdirSync(join(__dirname, '../../../packages/demos/src'))
+  const demos = readdirSync(join(__dirname, '../../../demos/src'))
     .filter((file) => file.endsWith('Demo.tsx'))
     .map((demo) => demo.split('.')[0])
   for (const demo of demos) {

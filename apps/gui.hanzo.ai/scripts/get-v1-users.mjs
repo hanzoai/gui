@@ -36,8 +36,8 @@ async function getV1Users() {
   const v1Subs = subscriptions.filter((sub) =>
     sub.subscription_items?.some(
       (item) =>
-        item.price?.product?.name === 'GUI Pro' ||
-        item.price?.product?.name === 'GUI Pro Team Seats'
+        item.price?.product?.name === 'Gui Pro' ||
+        item.price?.product?.name === 'Gui Pro Team Seats'
     )
   )
 
@@ -57,7 +57,7 @@ async function getV1Users() {
 
   // Filter out test emails
   const realUsers = users.filter(
-    (u) => u.email && !u.email.includes('takeout') && !u.email.includes('@gui.hanzo.ai')
+    (u) => u.email && !u.email.includes('takeout') && !u.email.includes('@hanzogui.dev')
   )
 
   console.log('V1 Users to email:')

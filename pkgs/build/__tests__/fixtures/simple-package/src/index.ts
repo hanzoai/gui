@@ -1,3 +1,5 @@
+import { getNativeOnlyMarker } from './nativeOnly'
+
 export { nestedHello } from './nested'
 
 export const greet = (name: string): string => {
@@ -27,6 +29,38 @@ export function guardNativeSideEffects(items: string[], debug?: string) {
 
 export function getPlatformMarker() {
   return process.env.GUI_TARGET === 'native' ? 'native-only-marker' : 'web-only-marker'
+}
+
+export function getNativeImportMarker() {
+  if (process.env.GUI_TARGET === 'native') {
+    return getNativeOnlyMarker()
+  }
+
+  return 'web-import-marker'
+}
+
+export function getNativeRequireMarker() {
+  if (process.env.GUI_TARGET === 'native') {
+    // bare require behind a native DCE guard must survive as a real require(),
+    // not esbuild's __require() shim which throws under Metro's esm scope.
+    // lodash.debounce is just an external (yet bundleable) stand-in for a native-only require.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    return require('lodash.debounce').NativeRequireMarker
+  }
+
+  return 'web-require-marker'
+}
+
+export function getNodeEnvMarker() {
+  if (process.env.NODE_ENV === 'test') {
+    return 'test-env-marker'
+  }
+
+  if (process.env.NODE_ENV === 'development') {
+    return 'development-env-marker'
+  }
+
+  return 'runtime-env-marker'
 }
 
 export function applyNativeLogicalMarker(items: string[]) {

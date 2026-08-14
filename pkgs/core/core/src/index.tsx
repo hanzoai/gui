@@ -34,7 +34,37 @@ import { createOptimizedView } from './createOptimizedView'
 import { getBaseViews } from './getBaseViews'
 import type { RNTextProps, RNViewProps } from './reactNativeTypes'
 
-// helpful for usage outside of gui
+type GestureEnabledFreezeState = {
+  frozen: boolean
+  enabled: boolean
+  warned: boolean
+}
+
+const GESTURE_STATE_KEY = '__hanzogui_gesture__'
+const GESTURE_ENABLED_FREEZE_KEY = '__hanzogui_gesture_enabled_freeze__'
+
+function freezeGestureHandlerEnabledMode() {
+  const g = globalThis as typeof globalThis & {
+    [GESTURE_STATE_KEY]?: { enabled?: boolean }
+    [GESTURE_ENABLED_FREEZE_KEY]?: GestureEnabledFreezeState
+  }
+
+  const freezeState = (g[GESTURE_ENABLED_FREEZE_KEY] ??= {
+    frozen: false,
+    enabled: false,
+    warned: false,
+  })
+
+  if (freezeState.frozen) {
+    return
+  }
+
+  freezeState.frozen = true
+  freezeState.enabled = Boolean(g[GESTURE_STATE_KEY]?.enabled)
+  freezeState.warned = false
+}
+
+// helpful for usage outside of hanzogui
 export {
   LayoutMeasurementController,
   registerLayoutNode,
@@ -45,25 +75,24 @@ export {
 // adds extra types to View/Stack/Text:
 
 type RNExclusiveViewProps = Omit<RNViewProps, keyof StackNonStyleProps>
-export interface RNViewNonStyleProps
+export interface RNGuiViewNonStyleProps
   extends StackNonStyleProps, RNExclusiveViewProps {}
 
-type RNViewComponent = GuiComponent<
+type RNGuiView = GuiComponent<
   TamaDefer,
   GuiElement,
-  RNViewNonStyleProps,
+  RNGuiViewNonStyleProps,
   StackStyleBase,
   {}
 >
 
 type RNExclusiveTextProps = Omit<RNTextProps, keyof TextProps>
-export interface RNTextNonStyleProps
-  extends TextNonStyleProps, RNExclusiveTextProps {}
+export interface RNGuiTextNonStyleProps extends TextNonStyleProps, RNExclusiveTextProps {}
 
-type RNTextComponent = GuiComponent<
+type RNGuiText = GuiComponent<
   TamaDefer,
   GuiTextElement,
-  RNTextNonStyleProps,
+  RNGuiTextNonStyleProps,
   TextStylePropsBase,
   {}
 >
@@ -74,6 +103,10 @@ export * from './reactNativeTypes'
 
 // adds useElementLayout enable
 export const GuiProvider = (props: GuiProviderProps) => {
+  if (process.env.GUI_TARGET === 'native') {
+    freezeGestureHandlerEnabledMode()
+  }
+
   useIsomorphicLayoutEffect(() => {
     enable()
   }, [])
@@ -190,8 +223,8 @@ setupHooks({
 
 // overwrite web versions:
 // putting at the end ensures it overwrites in dist/cjs/index.js
-export const View = WebView as any as RNViewComponent
-export const Text = WebText as any as RNTextComponent
+export const View = WebView as any as RNGuiView
+export const Text = WebText as any as RNGuiText
 
 // easily test type declaration output and if it gets messy:
 

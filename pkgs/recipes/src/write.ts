@@ -17,7 +17,10 @@ async function getInstallDir(opts: WriteOptions): Promise<string> {
 }
 
 /** Writes one recipe's files. Returns absolute paths written. */
-export async function installRecipe(recipe: Recipe, opts: WriteOptions = {}): Promise<string[]> {
+export async function installRecipe(
+  recipe: Recipe,
+  opts: WriteOptions = {}
+): Promise<string[]> {
   const installDir = await getInstallDir(opts)
   const written: string[] = []
   for (const file of recipe.files) {
@@ -31,7 +34,10 @@ export async function installRecipe(recipe: Recipe, opts: WriteOptions = {}): Pr
 }
 
 /** Writes a recipe and all its transitive dependents from a resolved plan. */
-export async function installPlan(plan: InstallPlan, opts: WriteOptions = {}): Promise<string[]> {
+export async function installPlan(
+  plan: InstallPlan,
+  opts: WriteOptions = {}
+): Promise<string[]> {
   const written: string[] = []
   for (const r of [plan.recipe, ...plan.transitiveRecipes]) {
     written.push(...(await installRecipe(r, opts)))

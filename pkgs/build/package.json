@@ -1,16 +1,16 @@
 {
   "name": "@hanzogui/build",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "bin": {
-    "gui-build": "gui-build.js",
-    "teesx": "./teesx.sh"
+    "hanzogui-build": "hanzogui-build.js",
+    "teesx": "teesx.sh"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "test": "vitest --run",
+    "test": "vitest --run --testTimeout=120000",
     "test:web": "bun run test"
   },
   "dependencies": {
@@ -28,6 +28,8 @@
     "fs-extra": "^11.2.0",
     "lodash.debounce": "^4.0.8",
     "oxc-transform": "^0.112.0",
+    "picomatch": "4.0.3",
+    "rolldown": "1.0.1",
     "typescript": "~5.9.2"
   },
   "peerDependencies": {
@@ -40,7 +42,5 @@
   },
   "devDependencies": {
     "vitest": "4.0.4"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

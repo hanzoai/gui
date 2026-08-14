@@ -122,7 +122,7 @@ function checkAndMaybeFixExports(file, pkg) {
 }
 
 function main() {
-  const files = walkPackageJsonFiles('code')
+  const files = walkPackageJsonFiles('pkgs')
   const allIssues = []
   const fixedFiles = []
 

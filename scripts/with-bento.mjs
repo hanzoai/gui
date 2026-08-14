@@ -24,14 +24,15 @@ console.info('✅ Found ../bento')
 const bentoPackage = JSON.parse(readFileSync(BENTO_PACKAGE_JSON, 'utf-8'))
 const rootPackage = JSON.parse(readFileSync(ROOT_PACKAGE_JSON, 'utf-8'))
 
-// 3. Validate hanzo-gui versions match
-console.info('🔍 Validating hanzo-gui versions...')
+// 3. Validate hanzogui versions match
+console.info('🔍 Validating hanzogui versions...')
 const bentoGuiVersion =
-  bentoPackage.dependencies?.gui || bentoPackage.devDependencies?.gui
-const rootGuiVersion = rootPackage.dependencies?.gui || rootPackage.devDependencies?.gui
+  bentoPackage.dependencies?.hanzogui || bentoPackage.devDependencies?.hanzogui
+const rootGuiVersion =
+  rootPackage.dependencies?.hanzogui || rootPackage.devDependencies?.hanzogui
 
 if (bentoGuiVersion && rootGuiVersion && bentoGuiVersion !== rootGuiVersion) {
-  console.warn(`⚠️  WARNING: Hanzo GUI version mismatch!`)
+  console.warn(`⚠️  WARNING: Gui version mismatch!`)
   console.warn(`   Bento: ${bentoGuiVersion}`)
   console.warn(`   Root:  ${rootGuiVersion}`)
   console.warn(`   This may cause issues. Consider syncing versions.`)
@@ -45,10 +46,10 @@ execSync('bun install', {
 })
 console.info('✅ Bento dependencies installed')
 
-// 5. Symlink all node_modules from hanzo-gui to bento to avoid any duplicates
+// 5. Symlink all node_modules from hanzogui to bento to avoid any duplicates
 console.info('🔗 Symlinking all node_modules to avoid duplicates...')
 
-const HANZO_GUI_NODE_MODULES = join(REPO_ROOT, 'node_modules')
+const GUI_NODE_MODULES = join(REPO_ROOT, 'node_modules')
 const BENTO_NODE_MODULES = join(BENTO_PATH, 'node_modules')
 
 let linkedCount = 0
@@ -92,7 +93,7 @@ function symlinkPackages(sourceDir, targetDir) {
 }
 
 // Symlink everything
-symlinkPackages(HANZO_GUI_NODE_MODULES, BENTO_NODE_MODULES)
+symlinkPackages(GUI_NODE_MODULES, BENTO_NODE_MODULES)
 
-console.info(`✅ Symlinked ${linkedCount} packages from hanzo-gui to bento`)
+console.info(`✅ Symlinked ${linkedCount} packages from hanzogui to bento`)
 console.info('🎉 Bento setup complete!')

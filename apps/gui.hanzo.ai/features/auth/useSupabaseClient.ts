@@ -1,140 +1,167 @@
-/**
- * Compat shim — old name, new implementation.
- *
- * The browser auth client is now `features/iam/client`. We re-export from
- * here under the historical names so existing components (login.tsx,
- * payment-finished.tsx, useUser.tsx, etc.) keep compiling while we migrate
- * them one-by-one.
- *
- * TODO(supabase-rip): rewrite call sites to import from `~/features/iam/client`
- * directly and delete this shim.
- */
-
+import { AuthClient, type Session } from '@supabase/auth-js'
 import { useEffect, useState } from 'react'
-import {
-  getAccessToken as iamGetAccessToken,
-  signInWithOtp,
-  signInWithPassword,
-  signInWithProvider,
-  signOut,
-  useIam,
-  useIamSession,
-} from '~/features/iam/client'
+import { useSWRConfig } from 'swr'
 
-/** Old shape: `{ auth: { ... } }`. We forward only what's still used. */
-type AuthLikeClient = {
-  auth: {
-    getSession(): Promise<{ data: { session: Session | null }; error: Error | null }>
-    getUser(token?: string): Promise<{
-      data: { user: { id: string; email?: string } | null }
-      error: Error | null
-    }>
-    signInWithPassword(args: {
-      email: string
-      password: string
-    }): Promise<{ error?: Error }>
-    signInWithOtp(args: {
-      email: string
-      options?: { emailRedirectTo?: string }
-    }): Promise<{ error?: Error }>
-    signInWithOAuth(args: {
-      provider: string
-      options?: { redirectTo?: string }
-    }): Promise<{ data: { url?: string } | null; error?: Error }>
-    signOut(): Promise<void>
-    onAuthStateChange(
-      cb: (event: string, session: Session | null) => void,
-    ): { data: { subscription: { unsubscribe(): void } } }
-    /** OAuth code → tokens — forwarded to IAM. */
-    exchangeCodeForSession(code: string): Promise<{ error?: Error }>
-  }
+// Lightweight wrapper that provides the same interface as SupabaseClient
+// but only includes auth functionality (no realtime/ws dependencies)
+type SupabaseAuthOnlyClient = {
+  auth: InstanceType<typeof AuthClient>
 }
 
-export type Session = {
-  access_token: string
-  user: { id: string; email?: string }
-} | null
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-function makeClient(): AuthLikeClient {
-  return {
-    auth: {
-      async getSession() {
-        const token = await iamGetAccessToken()
-        if (!token) return { data: { session: null }, error: null }
-        return {
-          data: {
-            session: { access_token: token, user: { id: '' } } as Session,
-          },
-          error: null,
-        }
-      },
-      async getUser(_token?: string) {
-        const token = _token ?? (await iamGetAccessToken())
-        if (!token) return { data: { user: null }, error: null }
-        return { data: { user: { id: '' } }, error: null }
-      },
-      async signInWithPassword({ email, password }) {
-        return signInWithPassword(email, password)
-      },
-      async signInWithOtp({ email }) {
-        return signInWithOtp(email)
-      },
-      async signInWithOAuth({ provider, options }) {
-        await signInWithProvider(provider, { redirectTo: options?.redirectTo })
-        return { data: null, error: undefined }
-      },
-      async signOut() {
-        await signOut()
-      },
-      onAuthStateChange(_cb) {
-        // IAM client emits via useIamSession; this is a no-op shim.
-        return { data: { subscription: { unsubscribe() {} } } }
-      },
-      async exchangeCodeForSession(code: string) {
-        // The IAM browser SDK handles the PKCE round-trip via its own
-        // callback registration. The login flow now redirects to
-        // /api/auth/callback which bounces through IAM; by the time this
-        // function runs the token is already in localStorage. We keep the
-        // function around so legacy call sites compile.
-        void code
-        return {}
-      },
+// Initialize client eagerly - @supabase/auth-js is small (~30kb) and has no ws/realtime deps
+function createClient(): SupabaseAuthOnlyClient | null {
+  if (typeof window === 'undefined') return null
+
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    console.error(`Missing supabase info`)
+    return null
+  }
+
+  const authClient = new AuthClient({
+    url: `${SUPABASE_URL}/auth/v1`,
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
     },
-  }
+    storageKey: 'sb-auth-token',
+    storage: window.localStorage,
+    flowType: 'pkce',
+    detectSessionInUrl: false, // We handle OAuth callback manually in /auth
+    lockAcquireTimeout: 30000, // 30s to avoid lock steal/broken errors from tab throttling
+  })
+
+  return { auth: authClient }
 }
 
-let _client: AuthLikeClient | null = null
+let client: SupabaseAuthOnlyClient | null = null
 
-export function useSupabaseClient(): AuthLikeClient {
-  const [current, setCurrent] = useState<AuthLikeClient | null>(() => _client)
+// Get the current access token - can be called outside React
+export async function getAccessToken(): Promise<string | null> {
+  if (typeof window === 'undefined') return null
+
+  // Ensure client is initialized
+  if (!client) {
+    client = createClient()
+    if (client) {
+      globalThis['supabaseClient'] = client
+    }
+  }
+
+  // Try via client first
+  if (client) {
+    const { data, error } = await client.auth.getSession()
+    if (!error && data.session) {
+      return data.session.access_token
+    }
+  }
+
+  // Fallback: read directly from localStorage
+  // This handles the case where SWR fetches before the client is fully ready
+  try {
+    const stored = localStorage.getItem('sb-auth-token')
+    if (stored) {
+      const parsed = JSON.parse(stored)
+      if (parsed.access_token) {
+        return parsed.access_token
+      }
+    }
+  } catch {
+    // ignore parse errors
+  }
+
+  return null
+}
+
+export function useSupabaseClient(given?: SupabaseAuthOnlyClient) {
+  const [current, setCurrent] = useState(() => given ?? client)
+
   useEffect(() => {
+    // if we already have it in state, nothing to do
     if (current) return
-    if (!_client) _client = makeClient()
-    setCurrent(_client)
+    // if module-level client exists, sync it to state
+    if (client) {
+      setCurrent(client)
+      return
+    }
+    // otherwise create it
+    client = createClient()
+    if (client) {
+      globalThis['supabaseClient'] = client
+      setCurrent(client)
+    }
   }, [current])
-  return current ?? (_client ??= makeClient())
+
+  return current as SupabaseAuthOnlyClient
 }
 
-export function useSupabaseSession(): Session {
-  const user = useIamSession()
-  const [token, setToken] = useState<string | null>(null)
+export function useSupabaseSession(client?: SupabaseAuthOnlyClient) {
+  const supabase = useSupabaseClient(client)
+  const [session, setSession] = useState<Session | null>(null)
+
   useEffect(() => {
-    void iamGetAccessToken().then(setToken)
-  }, [user])
-  if (!user || !token) return null
-  return {
-    access_token: token,
-    user: { id: (user as { id?: string }).id ?? '', email: (user as { email?: string }).email },
-  }
+    if (!supabase) return // Client not ready yet
+
+    const run = async () => {
+      const reply = await supabase.auth.getSession()
+
+      if (reply.error) {
+        console.error(`Error authenticating`, reply.error)
+        setSession(null)
+        return
+      }
+
+      // Always update session state (including when null after logout)
+      setSession(reply.data.session)
+    }
+
+    run()
+
+    // Listen for auth changes to update session state
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [supabase])
+
+  return session
 }
 
 export const useSupabase = () => {
   const supabase = useSupabaseClient()
-  const session = useSupabaseSession()
-  return { supabase, session }
+  const session = useSupabaseSession(supabase)
+  const swrClient = useSWRConfig()
+
+  useEffect(() => {
+    if (!supabase) return
+
+    const listener = supabase.auth.onAuthStateChange(async (event, currentSession) => {
+      // Skip events that shouldn't trigger user data refetch:
+      // - TOKEN_REFRESHED: fires periodically (~hourly), would cause unnecessary refetches
+      // - INITIAL_SESSION: fires on page load, SWR already handles initial fetch
+      if (event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION') {
+        return
+      }
+
+      // Skip if same user already signed in (prevents duplicate fetches)
+      if (event === 'SIGNED_IN') {
+        if (session?.user.id === currentSession?.user.id) {
+          return
+        }
+      }
+
+      await swrClient.mutate('user')
+    })
+    return () => listener.data.subscription.unsubscribe()
+  }, [supabase, session])
+
+  return {
+    supabase,
+    session,
+  }
 }
-
-export const getAccessToken = iamGetAccessToken
-
-// Re-export so consumers can opt into the new path directly.
-export { useIam, signInWithProvider, signInWithPassword, signInWithOtp, signOut }

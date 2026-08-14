@@ -1,15 +1,18 @@
 {
   "name": "@hanzogui/font-cherry-bomb",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "files": [
     "types",
     "dist",
     "css",
+    "files",
     "otf",
     "woff2"
   ],
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "files/*.css"
+  ],
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -29,11 +32,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
+    "build": "hanzogui-build",
     "subset": "node -r esbuild-register subset.ts",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/constants": "workspace:*",
@@ -43,7 +46,5 @@
     "@hanzogui/build": "workspace:*",
     "subset-font": "^2.1.0"
   },
-  "skipPublishIfUnchanged": false,
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "skipPublishIfUnchanged": false
 }

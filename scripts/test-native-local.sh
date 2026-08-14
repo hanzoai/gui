@@ -9,7 +9,7 @@ export PATH="$PATH:$HOME/.maestro/bin"
 
 TARGET="${1:-all}"
 
-echo "=== Hanzo GUI Native Tests (Maestro) ==="
+echo "=== Gui Native Tests (Maestro) ==="
 
 # Check maestro
 if ! command -v maestro &> /dev/null; then
@@ -78,7 +78,7 @@ find_and_install_app() {
 run_kitchen_sink() {
     echo ""
     echo "=== Kitchen Sink ==="
-    if find_and_install_app "guikitchensink" "apps/kitchen-sink"; then
+    if find_and_install_app "hanzoguikitchensink" "apps/kitchen-sink"; then
         cd apps/kitchen-sink
         maestro test flows/ --exclude-tags=util
         cd ../..

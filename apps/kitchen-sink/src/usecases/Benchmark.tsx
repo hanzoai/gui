@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, StyleSheet, View } from 'react-native'
-import { View as GuiView, Text, styled } from 'hanzogui'
+import { View as GuiView, Text, styled } from '@hanzo/gui'
 import { ThemeProvider, createBox } from '@shopify/restyle'
 
 const Box = createBox<any>()
@@ -56,7 +56,7 @@ const iterArr = new Array(1000).fill(0)
 
 const BenchTama = () => {
   return (
-    <BenchmarkFrame name="gui">
+    <BenchmarkFrame name="hanzogui">
       <View style={{ flexDirection: 'row' }}>
         {iterArr.map((_, i) => (
           <StyledView key={i} />

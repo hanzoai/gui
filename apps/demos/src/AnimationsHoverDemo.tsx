@@ -1,5 +1,5 @@
 import { LogoIcon } from '@hanzogui/logo'
-import { Square } from 'hanzogui'
+import { Square } from '@hanzo/gui'
 
 export function AnimationsHoverDemo() {
   return (

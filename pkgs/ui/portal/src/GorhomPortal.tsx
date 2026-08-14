@@ -239,8 +239,8 @@ const PortalProviderComponent = ({
   if (process.env.NODE_ENV === 'development') {
     if (isAlreadyInProvider && shouldAddRootHost) {
       console.warn(
-        `[gui] Nested PortalProvider with shouldAddRootHost detected. ` +
-          `This causes hydration mismatches. GuiProvider from 'hanzogui' already includes PortalProvider - ` +
+        `[hanzogui] Nested PortalProvider with shouldAddRootHost detected. ` +
+          `This causes hydration mismatches. GuiProvider from '@hanzo/gui' already includes PortalProvider - ` +
           `remove the explicit PortalProvider wrapper or set shouldAddRootHost={false}.`
       )
     }
@@ -369,5 +369,7 @@ function PortalHostNonNative(props: PortalHostProps) {
     )
   }
 
-  return render(state.map((item) => item.node))
+  return render(
+    state.map((item) => <React.Fragment key={item.name}>{item.node}</React.Fragment>)
+  )
 }

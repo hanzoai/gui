@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import type { GuiElement, ViewProps } from 'hanzogui'
-import { isWeb, View, withStaticProperties } from 'hanzogui'
+import type { GuiElement, ViewProps } from '@hanzo/gui'
+import { isWeb, View, withStaticProperties } from '@hanzo/gui'
 
 // 3D Card Context - shared hover state between container and items
 const MouseEnterContext = createContext<

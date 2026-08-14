@@ -7,7 +7,7 @@ process.env.IGNORE_TS_CONFIG_PATHS = 'true'
 
 const plugins = [
   withGui(
-    // see gui.build.ts for details
+    // see hanzogui.build.ts for details
   ),
   (config) => {
     return {
@@ -44,10 +44,10 @@ const plugins = [
   (config) => {
     // for github pages
     if (process.env.IS_GUI_PROD) {
-      config.assetPrefix = 'https://gui.dev'
+      config.assetPrefix = 'https://hanzogui.dev'
     } else if (process.env.ON_GITHUB_PAGES) {
-      config.basePath = '/gui'
-      config.assetPrefix = '/gui/'
+      config.basePath = '/hanzogui'
+      config.assetPrefix = '/hanzogui/'
     }
     return config
   },
@@ -93,7 +93,7 @@ export default (name, { defaultConfig }) => {
       ignoreBuildErrors: true,
     },
     assetPrefix:
-      process.env.VERCEL_GIT_COMMIT_REF === 'master' ? 'https://gui.dev' : undefined,
+      process.env.VERCEL_GIT_COMMIT_REF === 'master' ? 'https://hanzogui.dev' : undefined,
 
     // Next.js config
     async redirects() {

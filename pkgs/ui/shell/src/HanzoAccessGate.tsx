@@ -22,8 +22,8 @@ import { APP_ENTITLEMENTS, HANZO_PLANS, U } from './hanzo-registry'
 import { isEntitled as planEntitles, normalizeTier } from './entitlements'
 import { findHanzoApp } from './hanzo-apps'
 import { useEntitlement } from './useEntitlement'
-import { ACCENT, ACCENT_SOFT, CHROME, FS } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { ACCENT, ACCENT_SOFT, CHROME, FS, R } from './theme'
+import { useShellStyles } from './shellStyles'
 
 export interface HanzoAccessGateProps {
   /** The gated app / feature id (matches a `HanzoApp.id` and an `APP_ENTITLEMENTS` key). */
@@ -52,7 +52,7 @@ function requiredTier(appId: string): { slug: string; name: string } | null {
   const slug = (APP_ENTITLEMENTS as Record<string, string>)[appId]
   if (!slug) return null
   const plan = (HANZO_PLANS as ReadonlyArray<{ slug: string; name?: string }>).find(
-    (p) => p.slug === slug,
+    (p) => p.slug === slug
   )
   return { slug, name: plan?.name ?? slug }
 }
@@ -85,7 +85,7 @@ export function HanzoAccessGate({
   upgradeHref = U.pricing,
   appName,
 }: HanzoAccessGateProps) {
-  useShellFocusRing()
+  useShellStyles()
 
   // Resolve entitlement internally only when the caller did not supply a check.
   const controlled = providedIsEntitled != null
@@ -104,7 +104,12 @@ export function HanzoAccessGate({
       <div
         data-hanzo-shell=""
         aria-busy="true"
-        style={{ minHeight: 120, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        style={{
+          minHeight: 120,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       />
     )
   }
@@ -129,7 +134,7 @@ export function HanzoAccessGate({
         maxWidth: 380,
         margin: '0 auto',
         padding: '40px 28px',
-        borderRadius: 16,
+        borderRadius: R.card,
         border: `1px solid ${CHROME.border}`,
         background: CHROME.panel,
         color: CHROME.fg,
@@ -144,7 +149,7 @@ export function HanzoAccessGate({
           justifyContent: 'center',
           width: 52,
           height: 52,
-          borderRadius: 14,
+          borderRadius: R.pill,
           background: ACCENT_SOFT,
           color: ACCENT,
         }}
@@ -157,7 +162,8 @@ export function HanzoAccessGate({
         <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, lineHeight: 1.4 }}>
           {req ? (
             <>
-              Included in <strong style={{ color: CHROME.fg, fontWeight: 600 }}>{req.name}</strong>
+              Included in{' '}
+              <strong style={{ color: CHROME.fg, fontWeight: 600 }}>{req.name}</strong>
             </>
           ) : (
             'Upgrade your plan to unlock this.'
@@ -172,13 +178,13 @@ export function HanzoAccessGate({
           alignItems: 'center',
           justifyContent: 'center',
           padding: '9px 18px',
-          borderRadius: 10,
+          borderRadius: R.pill,
           background: ACCENT,
           color: '#000',
           fontSize: FS.sm,
           fontWeight: 600,
           textDecoration: 'none',
-          border: `1px solid ${ACCENT}`,
+          border: '1px solid transparent',
         }}
       >
         {req ? `Upgrade to ${req.name}` : 'View plans'}

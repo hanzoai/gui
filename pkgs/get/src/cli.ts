@@ -24,8 +24,12 @@ async function main(): Promise<void> {
   }
 
   if (cmd === '--version' || cmd === '-v') {
-    const pkg = await import('../package.json', { with: { type: 'json' } } as ImportCallOptions)
-    process.stdout.write(((pkg as { default?: { version?: string } }).default?.version ?? 'unknown') + '\n')
+    const pkg = await import('../package.json', {
+      with: { type: 'json' },
+    } as ImportCallOptions)
+    process.stdout.write(
+      ((pkg as { default?: { version?: string } }).default?.version ?? 'unknown') + '\n'
+    )
     return
   }
 

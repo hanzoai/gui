@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
     "composite": true,
+    // for jumping to things properly in vscode
+    "baseUrl": ".",
     "paths": {
       "hanzogui": [
-        "../ui/gui"
+        "../ui/hanzogui"
       ],
       "@hanzogui/studio": [
         "../studio"
       ],
       "@hanzogui/*": [
-        "../../packages/*"
+        "../../*"
       ],
       "@components/*": [
         "./components/*"
@@ -27,7 +29,7 @@
         "./data/*"
       ],
       "react-native": [
-        "./react-native-web"
+        "react-native-web"
       ]
     },
     "target": "es2021",
@@ -40,7 +42,7 @@
     "allowJs": true,
     "noEmit": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "isolatedModules": true,
     "jsx": "preserve",
     "noImplicitThis": true,
@@ -57,12 +59,12 @@
   },
   "include": [
     "next-env.d.ts",
-    "gui.config.ts",
+    "hanzogui.config.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "../../packages/**/*.ts",
-    "../../packages/**/*.tsx"
+    "../../**/*.ts",
+    "../../**/*.tsx"
   ],
   "exclude": [
     "node_modules",

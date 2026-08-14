@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/code-to-html",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -14,10 +14,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "hast-util-to-html": "^8.0.3",
@@ -28,12 +28,9 @@
     "rehype-parse": "^8.0.4",
     "rehype-slug": "^5.0.1",
     "unified": "^10.1.2",
-    "unist-util-visit": "^4.1.2",
     "url": "^0.11.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

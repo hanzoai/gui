@@ -9,7 +9,7 @@ const StyledInput = styled(View, styledBody[0], styledBody[1])
 
 /**
  * A web-aligned input component.
- * @see — Docs https://gui.dev/ui/inputs#input
+ * @see — Docs https://hanzogui.dev/ui/inputs#input
  */
 export const Input = StyledInput.styleable<InputExtraProps>((props, _forwardedRef) => {
   const {
@@ -158,11 +158,11 @@ export const Input = StyledInput.styleable<InputExtraProps>((props, _forwardedRe
     style: {
       ...(rest.style as any),
       ...(placeholderTextColor && {
-        '--placeholderColor':
+        '--t_placeholderColor':
           theme[placeholderTextColor]?.variable || placeholderTextColor,
       }),
       ...(selectionColor && {
-        '--selectionColor': theme[selectionColor]?.variable || selectionColor,
+        '--t_selectionColor': theme[selectionColor]?.variable || selectionColor,
       }),
     },
   } as any

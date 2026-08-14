@@ -37,7 +37,7 @@ async function findAllPackages(): Promise<Package[]> {
   // Use shell find command instead of fast-glob (bun compatibility)
   // console.info('[DEBUG] findAllPackages: finding package.json files with shell...')
   const { stdout } = await exec(
-    `find ./code -name package.json -type f -not -path "*/node_modules/*"`,
+    `find ./pkgs -name package.json -type f -not -path "*/node_modules/*"`,
     { cwd: process.cwd(), maxBuffer: 10 * 1024 * 1024 }
   )
   const packageJsonPaths = stdout.trim().split('\n').filter(Boolean)
@@ -162,7 +162,7 @@ async function scanAllImports(): Promise<Map<string, string[]>> {
   try {
     // Use simpler grep pattern with escaped quotes
     const result = await exec(
-      String.raw`rg "from ['\x22]" ./code --glob "**/src/**/*.tsx" --glob "**/src/**/*.ts" --glob "!**/*.test.ts" --glob "!**/*.test.tsx" --glob "!**/node_modules/**" --with-filename`,
+      String.raw`rg "from ['\x22]" ./pkgs --glob "**/src/**/*.tsx" --glob "**/src/**/*.ts" --glob "!**/*.test.ts" --glob "!**/*.test.tsx" --glob "!**/node_modules/**" --with-filename`,
       {
         cwd: process.cwd(),
         maxBuffer: 50 * 1024 * 1024, // 50MB buffer
@@ -269,16 +269,16 @@ async function fixGuiDependencies(pkg: Package, report: MissingDepReport): Promi
   const packageJson = JSON.parse(await readFile(jsonPath, { encoding: 'utf-8' }))
 
   // Only fix @hanzogui/* packages
-  const guiDeps = report.missingDeps.filter((dep) => dep.startsWith('@hanzogui/'))
+  const hanzoguiDeps = report.missingDeps.filter((dep) => dep.startsWith('@hanzogui/'))
 
-  if (guiDeps.length === 0) {
+  if (hanzoguiDeps.length === 0) {
     return
   }
 
   // Add missing @hanzogui/* packages to dependencies with workspace:* version
   packageJson.dependencies = packageJson.dependencies || {}
 
-  for (const dep of guiDeps) {
+  for (const dep of hanzoguiDeps) {
     packageJson.dependencies[dep] = 'workspace:*'
   }
 
@@ -286,7 +286,7 @@ async function fixGuiDependencies(pkg: Package, report: MissingDepReport): Promi
     encoding: 'utf-8',
   })
 
-  console.info(`   Added ${guiDeps.length} @hanzogui/* dependencies to ${pkg.name}`)
+  console.info(`   Added ${hanzoguiDeps.length} @hanzogui/* dependencies to ${pkg.name}`)
 }
 
 interface DependencyInfo {
@@ -380,7 +380,7 @@ async function fixAllDependencies(
       packageJson.peerDependencies[dep] = reactNativeVersion
       packageJson.devDependencies[dep] = reactNativeVersion
       changesCount++
-    } else if (dep.startsWith('@hanzogui/') || dep === '@hanzo/gui') {
+    } else if (dep.startsWith('@hanzogui/') || dep === 'hanzogui') {
       // Check if dependency is already in devDependencies
       if (packageJson.devDependencies[dep]) {
         // Move from devDependencies to dependencies
@@ -388,7 +388,7 @@ async function fixAllDependencies(
         delete packageJson.devDependencies[dep]
         changesCount++
       } else {
-        // Fix @hanzogui/* packages and "@hanzo/gui" with workspace:*
+        // Fix @hanzogui/* packages and "hanzogui" with workspace:*
         packageJson.dependencies[dep] = 'workspace:*'
         changesCount++
       }
@@ -421,7 +421,7 @@ async function fixAllDependencies(
 
 async function main() {
   const args = process.argv.slice(2)
-  const fixGui = args.includes('--fix-gui')
+  const fixGui = args.includes('--fix-hanzogui')
   const fixAll = args.includes('--fix')
 
   console.info('Analyzing package dependencies...\n')
@@ -590,7 +590,9 @@ async function main() {
   )
 
   if (!fixGui && !fixAll) {
-    console.info('\nUse --fix-gui to automatically add missing @hanzogui/* dependencies')
+    console.info(
+      '\nUse --fix-hanzogui to automatically add missing @hanzogui/* dependencies'
+    )
     console.info('Use --fix to automatically fix all dependencies')
     // Exit with code 1 to indicate missing dependencies were found
     process.exit(1)

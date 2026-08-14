@@ -1,6 +1,6 @@
 import { Box, Brush, MessageCircle } from '@hanzogui/lucide-icons-2'
-import { styled, YStack } from 'hanzogui'
-import { RecipesIcon } from '../../icons/RecipesIcon'
+import { styled, YStack } from '@hanzo/gui'
+import { BentoIcon } from '../../icons/BentoIcon'
 import { TakeoutIcon } from '../../icons/TakeoutIcon'
 import { TooltipLabelLarge } from './TooltipLabelLarge'
 
@@ -42,13 +42,13 @@ export const PromoCards = ({ less }: { less?: boolean }) => {
 
       <Card>
         <TooltipLabelLarge
-          href="/recipes"
+          href="/bento"
           icon={
             <YStack y={-2}>
-              <RecipesIcon />
+              <BentoIcon />
             </YStack>
           }
-          title="Recipes"
+          title="Bento"
           subtitle="OSS and paid copy-paste components."
         />
       </Card>

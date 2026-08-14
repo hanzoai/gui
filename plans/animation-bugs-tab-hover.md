@@ -18,7 +18,7 @@ had when it started exiting.
 **Fix**: In `PresenceChild`, freeze the `custom` value when a child
 starts exiting. Don't update it once `isPresent` becomes false.
 
-**File**: `code/ui/animate-presence/src/PresenceChild.tsx`
+**File**: `pkgs/ui/animate-presence/src/PresenceChild.tsx`
 
 ## Bug 2: CSS driver - x/translateX animations not firing
 
@@ -34,7 +34,7 @@ not be setting up the right transition property.
 enterStyle/exitStyle. May need to ensure transform is included in
 transition properties when x/y/scale/rotate are used.
 
-**File**: `code/core/animations-css/src/createAnimations.tsx`
+**File**: `pkgs/core/animations-css/src/createAnimations.tsx`
 
 ## Bug 3: Motion driver - exit animation doesn't complete
 
@@ -51,7 +51,7 @@ a bad state during rapid tab switches.
 motion driver. May need to ensure that interrupted exits still
 call `sendExitComplete()`.
 
-**File**: `code/core/animations-motion/src/createAnimations.tsx`
+**File**: `pkgs/core/animations-motion/src/createAnimations.tsx`
 
 ## Bug 4: Popover hoverable + animatePosition race conditions
 
@@ -70,9 +70,9 @@ IntersectionObserver + rAF that reads translateX for ~4 frames
 then detaches. This gives real positions without layout thrashing.
 
 **Files**:
-- `code/ui/popover/src/Popover.tsx`
-- `code/ui/popper/src/Popper.tsx`
-- `code/core/animations-motion/src/createAnimations.tsx`
+- `pkgs/ui/popover/src/Popover.tsx`
+- `pkgs/ui/popper/src/Popper.tsx`
+- `pkgs/core/animations-motion/src/createAnimations.tsx`
 
 ## Stretch: Layout-style AnimatePresence
 

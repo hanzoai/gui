@@ -1,6 +1,6 @@
 ---
 title: How to Build a Button
-description: Learn how to create a powerful yet simple API for a button with Hanzo GUI and
+description: Learn how to create a powerful yet simple API for a button with Gui and
   compound components
 hero: HowToBuildAButton
 demoName: BuildAButton
@@ -22,7 +22,7 @@ between sub-components' positions, spacing and style.
 All of this ideally delivered in a simple API that still allows complete
 customization.
 
-Hanzo GUI allows for building a button with "compound components", a concept
+Gui allows for building a button with "compound components", a concept
 popularized by [Radix](https://www.radix-ui.com/). With the introduction of
 `createStyledContext` in version 1.28 this pattern has become especially easy,
 so we wrote this guide to show off building more advanced compound component
@@ -35,7 +35,7 @@ So what are compound components? Simply, it's when you have, say, a
 And why do they exist? Well, we'll explain that and more in this guide.
 
 Keep in mind that this is an advanced use case. Usually you can just grab
-Hanzo GUI components off the shelf and use them with inline styles. But sometimes
+Gui components off the shelf and use them with inline styles. But sometimes
 you need components that want multiple related children.
 
 <Notice>
@@ -174,7 +174,7 @@ export default () => (
 
 In v2, `color` is not a direct prop on the Button frame. Instead, style your
 text through `Button.Text`. For interactive color changes on hover or press, use
-Hanzo GUI's `group` prop to coordinate styles between parent and child:
+Gui's `group` prop to coordinate styles between parent and child:
 
 ```tsx
 export default () => (
@@ -240,13 +240,13 @@ export default createGui({
     },
   },
 
-  // ... the rest of your gui.config.ts
+  // ... the rest of your hanzogui.config.ts
 })
 ```
 
-If you'd like to see a more complete work-up of a Hanzo GUI config, check out
-[the Simple Web starter repo source code](https://github.com/hanzoai/gui/blob/main/code/starters/simple-web/src/gui.config.ts)
-or go ahead and create that starter using `npm create hanzo-gui@latest`.
+If you'd like to see a more complete work-up of a Gui config, check out
+[the Simple Web starter repo source code](https://github.com/hanzoai/gui/blob/main/apps/starters/simple-web/src/hanzogui.config.ts)
+or go ahead and create that starter using `npm create hanzogui@latest`.
 
 With that in mind, we can create the outer frame of the button fairly simply,
 like so:
@@ -288,9 +288,9 @@ const ButtonFrame = styled(View, {
 This gets us a simple rounded rectangle that uses the `md` tokens from your
 design system and the `background` styles from your theme.
 
-We set the `name` property to `"Button"`, which tells Hanzo GUI to check for a
+We set the `name` property to `"Button"`, which tells Gui to check for a
 sub-theme `Button` that extends the current one. So since we have a theme
-`light` and we have a sub-theme `light_Button`, Hanzo GUI finds the theme
+`light` and we have a sub-theme `light_Button`, Gui finds the theme
 `light_Button` and apply it to this component, getting the `background` value
 from that theme (assuming we have our base theme set to light).
 
@@ -363,7 +363,7 @@ const ButtonFrame = styled(View, {
 
 Still, this is somewhat repetitive and prone to typos. To avoid duplication while
 also working even if we add new sizes to our design system in the future, we can
-use the handy Hanzo GUI [Spread Variants](/docs/core/variants#spread-variants):
+use the handy Gui [Spread Variants](/docs/core/variants#spread-variants):
 
 ```tsx
 import { View, styled } from '@hanzogui/core'
@@ -427,7 +427,7 @@ Button.Text = Text
 ```
 
 What is this whole `typeof ButtonFrame` thing? It's just TypeScript being
-awkward. Since Hanzo GUI uses this pattern internally for many components, we've
+awkward. Since Gui uses this pattern internally for many components, we've
 made a small helper:
 
 ```tsx
@@ -516,7 +516,7 @@ export default () => (
 )
 ```
 
-Not to mention by staying with the `styled` world, the Hanzo GUI optimizing
+Not to mention by staying with the `styled` world, the Gui optimizing
 compiler extracts CSS and optimizes our Button components. Note that components
 using `createStyledContext` won't be flattened, but CSS extraction and style
 optimization still apply - see the [createStyledContext docs](/docs/core/create-styled-context)
@@ -567,7 +567,7 @@ the short of it is: if you want a functional component that returns a styled
 component _to then be able to be styled again_, you need `styleable`.
 
 That's because merging things like themes, animations, variants, media queries,
-and pseudo queries is quite complex, and if Hanzo GUI doesn't know that there is a
+and pseudo queries is quite complex, and if Gui doesn't know that there is a
 functional component in between some styled components it can lead to unexpected
 merging of styles.
 
@@ -698,7 +698,7 @@ library, an SVG, or perhaps an icon font.
 Let's add a new component, `Button.Icon` and make this work.
 
 Instead of going through `styled`, this component will be just a plain
-functional component. It will still work nicely with the Hanzo GUI themes and
+functional component. It will still work nicely with the Gui themes and
 sizes, showing how you can use them together with external React components.
 
 ```tsx
@@ -748,7 +748,7 @@ say changing out `children` + `cloneElement` for something like
 
 ### Conclusion
 
-We hope this has been helpful in explaining a variety of Hanzo GUI features and
+We hope this has been helpful in explaining a variety of Gui features and
 some of the benefits and ideas behind compound components.
 
 There's certainly further you can go in building out your Button, but we think
@@ -764,7 +764,7 @@ a single functional Button component is totally fine.
 But we'd encourage you to give the compound component API a try and see
 how you like it.
 
-With the new Hanzo GUI APIs, we look forward to never having to carefully add a
+With the new Gui APIs, we look forward to never having to carefully add a
 forwardRef, re-jig the types, and then manually thread context just to share
 some props between parent and child components, especially when even after all
 of that we'd still somehow accidentally break memoization or scoped values!

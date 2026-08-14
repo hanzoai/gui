@@ -1,0 +1,113 @@
+# Canonical CI/CD config for hanzoai/gui — the ONE file that says how this repo
+# gates itself. The only caller is `.hanzo/workflows/cicd.yml`, seven lines that
+# import hanzoai/ci; everything real is here.
+#
+# WHERE THIS RUNS: git.hanzo.ai, not github.com. `gh api
+# /orgs/hanzoai/actions/runners` returns total_count 0 — GitHub has no runner
+# that answers the `hanzo-build-linux-amd64` label the reusable asks for, so a
+# `.github/workflows/cicd.yml` would queue forever. Gitea collects workflows
+# from the FIRST of WORKFLOW_DIRS present in a commit, and `.hanzo/workflows`
+# wins, which is also why `.github/workflows` is dark on the forge.
+#
+# NO `images:` AND NO `deploy:`. This is a package repo: 199 workspaces
+# published to npm, and nothing here owns a running surface. The one container
+# it produces — ghcr.io/hanzoai/gui, the gui.hanzo.ai site — is still built by
+# `.hanzo/workflows/build.yml` on a v* tag. Declaring it here too would give one
+# image two builders, and the fold can only be proven by cutting a tag, so it is
+# its own move rather than a rider on this one.
+
+test:
+  # bun, at the version package.json already pins. The reusable provisions Go,
+  # Node, Rust and Java for gates that need them — not bun — and every script in
+  # this repo runs through bun, so a gate here starts at `bun: command not
+  # found` without this. The version is READ, not retyped: packageManager is the
+  # one place this repo says which bun it is, and a second copy in this file
+  # would be free to drift from it.
+  #
+  # ~/.local/bin is already on PATH — the reusable puts it on $GITHUB_PATH when
+  # it provisions jq/yq — and every gate below is a separate `bash -c` child of
+  # that step, so linking bun into it is what makes bun visible to all of them.
+  - name: toolchain
+    run: |
+      set -euo pipefail
+      ver=$(node -p "require('./package.json').packageManager.split('@')[1]")
+      curl -fsSL https://bun.sh/install | BUN_INSTALL="$HOME/.bun" bash -s "bun-v$ver"
+      mkdir -p "$HOME/.local/bin"
+      ln -sf "$HOME/.bun/bin/bun" "$HOME/.local/bin/bun"
+      ln -sf "$HOME/.bun/bin/bunx" "$HOME/.local/bin/bunx"
+      bun --version
+
+  # Twice, deliberately, and not a superstition: the first install runs the root
+  # postinstall, which builds every package because a fresh checkout has no
+  # pkgs/compiler/vite-plugin/dist. Workspace bins only exist once that build has
+  # emitted them, so the symlinks into node_modules/.bin are made by the SECOND
+  # pass. `bun run check:hanzogui` calls ./node_modules/.bin/hanzogui and fails
+  # with "command not found" against a one-pass install. This is what
+  # .github/actions/install has always done; it is written down here now.
+  - name: install
+    run: |
+      set -euo pipefail
+      bun install --frozen-lockfile
+      bun install --frozen-lockfile
+
+  # Critical advisories only. Every one of them is pinned to a patched version
+  # through the root package.json "overrides", so this gates with no ignore list.
+  - name: audit
+    run: bun audit --audit-level critical
+
+  # manypkg + knip + the hanzogui dep check + project references + the shell's
+  # no-CSS-framework rule. Five assertions the repo already owns; `bun run check`
+  # is where it says so.
+  - name: check
+    run: bun run check
+
+  # oxfmt --check && oxlint.
+  - name: lint
+    run: bun run lint
+
+  # NO SKIP_TYPES, and that is the whole fix. `test:web` dependsOn ^build, and
+  # two packages (@hanzogui/web, @hanzogui/input) gate with `vitest --typecheck`
+  # — which needs its dependencies' .d.ts. Those live in <pkg>/types/, a
+  # gitignored artifact emitted only by a types build. The GitHub lane set
+  # SKIP_TYPES=1 on this job ("types are the checks job's business, not ours"),
+  # so ^build emitted JS only, @hanzogui/native resolved as an untyped module,
+  # React.useContext(NativeMenuContext) degraded to `unknown`, and the gate died
+  # in createComponent.tsx on a type error that is not in the source. Leaving
+  # SKIP_TYPES unset makes turbo build the declarations this gate reads.
+  #
+  # kitchen-sink is excluded because it is the integration suite (playwright
+  # against a dev server), not a unit suite.
+  - name: unit tests
+    run: |
+      set -euo pipefail
+      export NODE_OPTIONS=--max-old-space-size=6144
+      # --with-deps, and chromium only. Two suites here drive a real browser
+      # (apps/tests/integration, apps/tests/next-turbopack); neither declares
+      # `projects`, so playwright uses its default, chromium, and that is the
+      # only browser any of this needs — nothing asks for firefox or webkit.
+      #
+      # The deps are not optional on this fleet. Downloading the browser is not
+      # the same as being able to run it: the runner image
+      # (catthehacker/ubuntu:act-24.04) ships none of chromium's shared
+      # libraries, so a plain `playwright install` put the binary on disk and it
+      # then died with `error while loading shared libraries` / exit 127, which
+      # playwright reports as "Target page, context or browser has been closed"
+      # — a message that names neither the library nor the cause. GitHub's
+      # ubuntu-latest has those libs preinstalled, which is why this lane is the
+      # first place it could show up.
+      bunx playwright install --with-deps chromium
+      bun turbo run test:web --filter='!@hanzogui/kitchen-sink' --concurrency=1
+
+  # The native suites. This repo ships to react-native as much as to the web, and
+  # the forge lane it replaces gated only the web half — so the three packages
+  # that assert native behaviour (148 tests) ran nowhere the forge could see.
+  # Same three the GitHub lane names; carried here so one file gates both halves.
+  - name: native tests
+    run: |
+      set -euo pipefail
+      export NODE_OPTIONS=--max-old-space-size=6144
+      bun turbo run test:native \
+        --filter=@hanzogui/static-tests \
+        --filter=@hanzogui/core-test \
+        --filter=@hanzogui/components-test \
+        --concurrency=1

@@ -28,8 +28,8 @@ import {
 const getFilledOptions = (propsIn: Partial<GuiOptions>): GuiOptions => ({
   // defaults
   platform: (process.env.GUI_TARGET as any) || 'web',
-  config: 'gui.config.ts',
-  components: ['gui'],
+  config: 'hanzogui.config.ts',
+  components: ['@hanzo/gui'],
   ...(propsIn as Partial<GuiOptions>),
 })
 
@@ -53,7 +53,7 @@ export async function loadGui(
     const bundleInfo = await getBundledConfig(props)
     if (!bundleInfo) {
       console.warn(
-        `No bundled config generated, maybe an error in bundling. Set DEBUG=gui and re-run to get logs.`
+        `No bundled config generated, maybe an error in bundling. Set DEBUG=hanzogui and re-run to get logs.`
       )
       resolvePromise(null)
       return null
@@ -63,10 +63,10 @@ export async function loadGui(
     await generateThemesAndLog(props)
 
     // if they accidently pass in a config without createGui called,call it
-    const maybeGuiConfig = bundleInfo.guiConfig as GuiInternalConfig
+    const maybeGuiConfig = bundleInfo.hanzoguiConfig as GuiInternalConfig
     if (maybeGuiConfig && !maybeGuiConfig.parsed) {
       const { createGui } = requireGuiCore(props.platform || 'web')
-      bundleInfo.guiConfig = createGui(bundleInfo.guiConfig as any)
+      bundleInfo.hanzoguiConfig = createGui(bundleInfo.hanzoguiConfig as any)
     }
 
     if (!hasBundledConfigChanged()) {
@@ -102,7 +102,7 @@ export const generateThemesAndLog = async (options: GuiOptions, force = false) =
       const whitespaceBefore = `  `
       colorLog(
         Color.FgYellow,
-        `${whitespaceBefore}➡ [gui] generated themes: ${relative(
+        `${whitespaceBefore}➡ [hanzogui] generated themes: ${relative(
           process.cwd(),
           options.themeBuilder.output
         )}`
@@ -127,13 +127,13 @@ const lastVersion: Record<string, string> = {}
 let esbuildWasmInitialized = false
 
 /**
- * Load gui.build.ts config using esbuild-wasm transform
+ * Load hanzogui.build.ts config using esbuild-wasm transform
  * Uses WASM to avoid native esbuild service lifecycle issues (EPIPE errors)
  */
 export async function loadGuiBuildConfigAsync(
-  guiOptions: Partial<GuiOptions> | undefined
+  hanzoguiOptions: Partial<GuiOptions> | undefined
 ): Promise<GuiOptions> {
-  const buildFilePath = guiOptions?.buildFile ?? './gui.build.ts'
+  const buildFilePath = hanzoguiOptions?.buildFile ?? './hanzogui.build.ts'
   const absolutePath =
     buildFilePath[0] === '.' ? join(process.cwd(), buildFilePath) : buildFilePath
 
@@ -147,7 +147,11 @@ export async function loadGuiBuildConfigAsync(
         esbuildWasmInitialized = true
       }
 
-      // use esbuild-wasm.transform to compile - no native service needed
+      // use esbuild-wasm.transform to compile this one small config file. note
+      // that in node, even esbuild-wasm's transform spawns a long-lived
+      // `--service --ping` child via ensureServiceIsRunning, so we tear it down
+      // below - otherwise every plugin instance leaks a persistent esbuild
+      // process for the lifetime of the dev server.
       const result = await esbuildWasm.transform(source, {
         loader: 'ts',
         format: 'cjs',
@@ -166,36 +170,44 @@ export async function loadGuiBuildConfigAsync(
         throw new Error(`No default export found in ${buildFilePath}: ${out}`)
       }
 
-      guiOptions = {
-        ...guiOptions,
+      hanzoguiOptions = {
+        ...hanzoguiOptions,
         ...out,
       }
     } catch (err) {
-      console.error(`[gui] Error loading ${buildFilePath}:`, err)
+      console.error(`[hanzogui] Error loading ${buildFilePath}:`, err)
       throw err
+    } finally {
+      // this is a one-shot transform - don't keep the esbuild-wasm service
+      // running for the rest of the process. it gets lazily re-spawned if
+      // transform is ever called again.
+      try {
+        esbuildWasm.stop()
+        esbuildWasmInitialized = false
+      } catch {
+        // ok - service may already be gone
+      }
     }
   }
 
-  if (!guiOptions) {
+  if (!hanzoguiOptions) {
     throw new Error(
-      `No gui build options found either via input props or at gui.build.ts`
+      `No hanzogui build options found either via input props or at hanzogui.build.ts`
     )
   }
 
   return {
-    config: 'gui.config.ts',
-    components: ['gui', '@hanzogui/core'],
-    ...guiOptions,
+    config: 'hanzogui.config.ts',
+    components: ['@hanzo/gui', '@hanzogui/core'],
+    ...hanzoguiOptions,
   } as GuiOptions
 }
 
 /**
  * @deprecated Use loadGuiBuildConfigAsync instead to avoid EPIPE errors
  */
-export function loadGuiBuildConfigSync(
-  guiOptions: Partial<GuiOptions> | undefined
-) {
-  const buildFilePath = guiOptions?.buildFile ?? './gui.build.ts'
+export function loadGuiBuildConfigSync(hanzoguiOptions: Partial<GuiOptions> | undefined) {
+  const buildFilePath = hanzoguiOptions?.buildFile ?? './hanzogui.build.ts'
   if (fsExtra.existsSync(buildFilePath)) {
     const registered = registerRequire('web')
     try {
@@ -206,23 +218,23 @@ export function loadGuiBuildConfigSync(
         throw new Error(`No default export found in ${buildFilePath}: ${out}`)
       }
 
-      guiOptions = {
-        ...guiOptions,
+      hanzoguiOptions = {
+        ...hanzoguiOptions,
         ...out,
       }
     } finally {
       registered.unregister()
     }
   }
-  if (!guiOptions) {
+  if (!hanzoguiOptions) {
     throw new Error(
-      `No gui build options found either via input props or at gui.build.ts`
+      `No hanzogui build options found either via input props or at hanzogui.build.ts`
     )
   }
   return {
-    config: 'gui.config.ts',
-    components: ['gui', '@hanzogui/core'],
-    ...guiOptions,
+    config: 'hanzogui.config.ts',
+    components: ['@hanzo/gui', '@hanzogui/core'],
+    ...hanzoguiOptions,
   } as GuiOptions
 }
 
@@ -262,7 +274,7 @@ export function loadGuiSync({
 
     try {
       // config
-      let guiConfig: GuiInternalConfig | null = null
+      let hanzoguiConfig: GuiInternalConfig | null = null
       if (propsIn.config) {
         const configPath = getGuiConfigPathFromOptionsConfig(propsIn.config)
         const exp = require(configPath)
@@ -271,9 +283,9 @@ export function loadGuiSync({
           throw new Error(`Got a empty / proxied config!`)
         }
 
-        guiConfig = (exp['default'] || exp['config'] || exp) as GuiInternalConfig
+        hanzoguiConfig = (exp['default'] || exp['config'] || exp) as GuiInternalConfig
 
-        if (!guiConfig || !guiConfig.parsed) {
+        if (!hanzoguiConfig || !hanzoguiConfig.parsed) {
           const confPath = require.resolve(configPath)
           throw new Error(`Can't find valid config in ${confPath}:
           
@@ -281,9 +293,9 @@ export function loadGuiSync({
         }
 
         // set up core
-        if (guiConfig) {
+        if (hanzoguiConfig) {
           const { createGui } = requireGuiCore(props.platform || 'web')
-          createGui(guiConfig as any)
+          createGui(hanzoguiConfig as any)
         }
       }
 
@@ -292,7 +304,7 @@ export function loadGuiSync({
       if (!components) {
         throw new Error(`No components loaded`)
       }
-      if (process.env.DEBUG === 'gui') {
+      if (process.env.DEBUG === 'hanzogui') {
         console.info(`components`, components)
       }
 
@@ -302,14 +314,14 @@ export function loadGuiSync({
 
       const info = {
         components,
-        guiConfig,
+        hanzoguiConfig,
         nameToPaths: getNameToPaths(),
       } satisfies GuiProjectInfo
 
-      if (guiConfig) {
+      if (hanzoguiConfig) {
         const { outputCSS } = props
         if (outputCSS) {
-          writeGuiCSS(outputCSS, guiConfig)
+          writeGuiCSS(outputCSS, hanzoguiConfig)
         }
 
         regenerateConfigSync(props, info)
@@ -325,7 +337,7 @@ export function loadGuiSync({
       if (err instanceof Error) {
         if (!SHOULD_DEBUG && !forceExports) {
           console.warn(
-            `Error loading gui.config.ts (set DEBUG=gui to see full stack), running gui without custom config`
+            `Error loading hanzogui.config.ts (set DEBUG=hanzogui to see full stack), running hanzogui without custom config`
           )
           console.info(`\n\n    ${err.message}\n\n`)
         } else {
@@ -334,12 +346,12 @@ export function loadGuiSync({
           }
         }
       } else {
-        console.error(`Error loading gui.config.ts`, err)
+        console.error(`Error loading hanzogui.config.ts`, err)
       }
 
       return {
         components: [],
-        guiConfig: null,
+        hanzoguiConfig: null,
         nameToPaths: {},
       }
     }
@@ -351,11 +363,11 @@ export function loadGuiSync({
 export async function getOptions({
   root = process.cwd(),
   tsconfigPath = 'tsconfig.json',
-  guiOptions,
+  hanzoguiOptions,
   host,
   debug,
 }: Partial<CLIUserOptions> = {}): Promise<CLIResolvedOptions> {
-  const dotDir = join(root, '.gui')
+  const dotDir = join(root, '.hanzogui')
   let pkgJson = {}
 
   try {
@@ -371,29 +383,30 @@ export async function getOptions({
     pkgJson,
     debug,
     tsconfigPath,
-    guiOptions: {
+    hanzoguiOptions: {
       platform: (process.env.GUI_TARGET as any) || 'web',
-      components: ['gui'],
-      ...guiOptions,
+      components: ['@hanzo/gui'],
+      ...hanzoguiOptions,
       config:
-        guiOptions?.config ??
-        (await getDefaultGuiConfigPath(root, guiOptions?.config)),
+        hanzoguiOptions?.config ??
+        (await getDefaultGuiConfigPath(root, hanzoguiOptions?.config)),
     },
     paths: {
       root,
       dotDir,
-      conf: join(dotDir, 'gui.config.json'),
+      conf: join(dotDir, 'hanzogui.config.json'),
       types: join(dotDir, 'types.json'),
     },
   }
 }
 
-export function resolveWebOrNativeSpecificEntry(entry: string) {
+export function resolveWebOrNativeSpecificEntry(entry: string, platform?: string) {
   const workspaceRoot = resolve()
   const resolved = require.resolve(entry, { paths: [workspaceRoot] })
   const ext = extname(resolved)
   const fileName = basename(resolved).replace(ext, '')
-  const specificExt = process.env.GUI_TARGET === 'web' ? 'web' : 'native'
+  const target = platform || process.env.GUI_TARGET || 'web'
+  const specificExt = target === 'web' ? 'web' : 'native'
   const specificFile = join(dirname(resolved), fileName + '.' + specificExt + ext)
   if (fsExtra.existsSync(specificFile)) {
     return specificFile
@@ -401,7 +414,7 @@ export function resolveWebOrNativeSpecificEntry(entry: string) {
   return entry
 }
 
-const defaultPaths = ['gui.config.ts', join('src', 'gui.config.ts')]
+const defaultPaths = ['hanzogui.config.ts', join('src', 'hanzogui.config.ts')]
 let hasWarnedOnce = false
 
 async function getDefaultGuiConfigPath(root: string, configPath?: string) {
@@ -419,7 +432,7 @@ async function getDefaultGuiConfigPath(root: string, configPath?: string) {
 
   if (!hasWarnedOnce) {
     hasWarnedOnce = true
-    console.warn(`Warning: couldn't find gui.config.ts in the following paths given configuration "${configPath}":
+    console.warn(`Warning: couldn't find hanzogui.config.ts in the following paths given configuration "${configPath}":
     ${searchPaths.join(`\n  `)}
   `)
   }

@@ -84,8 +84,8 @@ export function GuiProvider({
           // https://react.dev/reference/react-dom/components/style
           // @ts-ignore
           precedence="default"
-          href="gui-css"
-          key="gui-css"
+          href="hanzogui-css"
+          key="hanzogui-css"
         >
           {config.getCSS()}
         </style>

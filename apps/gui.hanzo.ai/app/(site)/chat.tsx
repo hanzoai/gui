@@ -1,4 +1,4 @@
-import { H1, Paragraph, Separator, Spacer } from 'hanzogui'
+import { H1, Paragraph, Separator, Spacer } from '@hanzo/gui'
 import { Container } from '../../components/Containers'
 import { HeadInfo } from '../../components/HeadInfo'
 import { Link } from '../../components/Link'
@@ -17,7 +17,7 @@ export const ChatPage = () => {
         </Paragraph>
 
         <H1 fontFamily="$mono" size="$12">
-          GUI Chat
+          Gui Chat
         </H1>
 
         <Paragraph fontFamily="$mono" size="$10">
@@ -39,7 +39,7 @@ export const ChatPage = () => {
 
         <Paragraph fontFamily="$mono" size="$7" lineHeight="$8" color="$color11">
           Our bot isn't just a GPT wrapper, it features a large library of resources
-          including all the code for Recipes and Takeout and a custom library designed to
+          including all the code for Bento and Takeout and a custom library designed to
           improve it's answers with Config v4.
         </Paragraph>
 
@@ -49,14 +49,14 @@ export const ChatPage = () => {
         </Paragraph>
 
         <Paragraph fontFamily="$mono" size="$7" lineHeight="$8" color="$color11">
-          GUI Chat has access to a wide variety of tools, including vector and fuzzy
+          Gui Chat has access to a wide variety of tools, including vector and fuzzy
           search, and three specific sub-tools that work together for code generation.
         </Paragraph>
 
         <Separator my="$5" />
 
         <Paragraph fontFamily="$mono" size="$7" lineHeight="$8" color="$color11">
-          GUI Chat is in early beta, so we don't yet guarantee uptime and results, but we
+          Gui Chat is in early beta, so we don't yet guarantee uptime and results, but we
           appreciate your patience and feedback as we iterate on the model.
         </Paragraph>
 

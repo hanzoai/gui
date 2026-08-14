@@ -3,13 +3,13 @@ module.exports = (api) => {
 
   const plugins = []
 
-  // skip gui compiler for faster builds (e.g. detox test runs)
+  // skip hanzogui compiler for faster builds (e.g. detox test runs)
   if (!process.env.DISABLE_COMPILER) {
     plugins.push([
       '@hanzogui/babel-plugin',
       {
-        components: ['gui', '@hanzogui/sandbox-ui'],
-        config: './src/gui.config.ts',
+        components: ['@hanzo/gui', '@hanzogui/sandbox-ui'],
+        config: './src/hanzogui.config.ts',
       },
     ])
   }

@@ -16,12 +16,22 @@ export interface Surface {
 /** The seven Hanzo surfaces (`console` opens the cloud AI console). */
 export const SURFACES: Surface[] = [
   { id: 'ai', label: 'Hanzo AI', href: 'https://hanzo.ai', hint: 'hanzo.ai' },
-  { id: 'console', label: 'Console', href: 'https://console.hanzo.ai', hint: 'console.hanzo.ai' },
+  {
+    id: 'console',
+    label: 'Console',
+    href: 'https://console.hanzo.ai',
+    hint: 'console.hanzo.ai',
+  },
   { id: 'app', label: 'App', href: 'https://hanzo.app', hint: 'hanzo.app' },
   { id: 'chat', label: 'Chat', href: 'https://hanzo.chat', hint: 'hanzo.chat' },
   { id: 'bot', label: 'Bot', href: 'https://hanzo.bot', hint: 'hanzo.bot' },
   { id: 'team', label: 'Team', href: 'https://hanzo.team', hint: 'hanzo.team' },
-  { id: 'billing', label: 'Billing', href: 'https://billing.hanzo.ai', hint: 'billing.hanzo.ai' },
+  {
+    id: 'billing',
+    label: 'Billing',
+    href: 'https://billing.hanzo.ai',
+    hint: 'billing.hanzo.ai',
+  },
 ]
 
 /** Every surface except `current` — a launcher never links to itself. */

@@ -8,7 +8,7 @@ import {
   Unspaced,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 export function DialogNestedCase() {
   return (

@@ -17,7 +17,7 @@ const exec = (cmd: string, options?: Parameters<typeof execSync>[1]) => {
   })
 }
 
-const guiDir = join(homedir(), '.gui-repo-cache')
+const hanzoguiDir = join(homedir(), '.hanzogui-repo-cache')
 let targetGitDir = ''
 
 export const cloneStarter = async (
@@ -25,7 +25,7 @@ export const cloneStarter = async (
   resolvedProjectPath: string,
   projectName: string
 ) => {
-  targetGitDir = join(guiDir, 'gui', template.repo.url.split('/').at(-1)!)
+  targetGitDir = join(hanzoguiDir, 'hanzogui', template.repo.url.split('/').at(-1)!)
 
   console.info()
   await setupGuiDotDir(template)
@@ -66,14 +66,14 @@ async function setupGuiDotDir(template: (typeof templates)[number]) {
 
   const branch = template.repo.branch
 
-  await ensureDir(guiDir)
+  await ensureDir(hanzoguiDir)
 
   const isInSubDir = template.repo.dir.length > 0
   const sourceGitRepo = template.repo.url
   const sourceGitRepoSshFallback = template.repo.sshFallback
 
   if (!(await pathExists(targetGitDir))) {
-    console.info(`Cloning gui base directory`)
+    console.info(`Cloning hanzogui base directory`)
     console.info()
 
     const cmd = `git clone --branch ${branch} ${
@@ -105,10 +105,10 @@ async function setupGuiDotDir(template: (typeof templates)[number]) {
           if ((error as any)?.stderr?.includes('Repository not found')) {
             console.info(
               chalk.yellow(
-                `You don't have access to this starter. Check 🥡 Gui Takeout (https://gui.dev/takeout) for more info.`
+                `You don't have access to this starter. Check 🥡 Gui Takeout (https://hanzogui.dev/takeout) for more info.`
               )
             )
-            open('https://gui.dev/takeout')
+            open('https://hanzogui.dev/takeout')
             process.exit(0)
           }
         }
@@ -123,7 +123,7 @@ async function setupGuiDotDir(template: (typeof templates)[number]) {
   }
 
   if (isInSubDir) {
-    const cmd = `git sparse-checkout set code/starters`
+    const cmd = `git sparse-checkout set apps/starters`
     exec(cmd, { cwd: targetGitDir })
     console.info()
   }

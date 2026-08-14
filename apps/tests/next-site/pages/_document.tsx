@@ -1,6 +1,6 @@
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
 import { StyleSheet } from 'react-native'
-import Gui from '../gui.config'
+import Gui from '../hanzogui.config'
 
 export default class Document extends NextDocument {
   static async getInitialProps({ renderPage }) {

@@ -44,7 +44,7 @@ export class GuiPlugin {
         if (out.includes(`@gorhom/bottom-sheet`)) {
           continue
         }
-        if (process.env.DEBUG?.startsWith('gui')) {
+        if (process.env.DEBUG?.startsWith('hanzogui')) {
           console.info(`  withGui skipping resolving ${out}`, err)
         }
       }
@@ -122,7 +122,7 @@ export class GuiPlugin {
 
     // Load Gui config asynchronously in worker
     void StaticWorker.loadGui({
-      components: ['gui'],
+      components: ['@hanzo/gui'],
       platform: 'web',
       ...serializableOptions,
     })
@@ -145,8 +145,12 @@ export class GuiPlugin {
     compiler.hooks.normalModuleFactory.tap(this.pluginName, (nmf) => {
       nmf.hooks.createModule.tap(
         this.pluginName,
+        // No @ts-expect-error here: webpack now types createData precisely enough
+        // that the suppression became unused, and TS2578 fails the build on an
+        // unused one. Deleting it is the fix — re-adding it the moment webpack's
+        // types regress is, too.
         (createData: { matchResource?: string; settings: { sideEffects?: boolean } }) => {
-          if (createData.matchResource?.endsWith('.gui.css')) {
+          if (createData.matchResource?.endsWith('.hanzogui.css')) {
             createData.settings.sideEffects = true
           }
         }
@@ -222,38 +226,65 @@ export class GuiPlugin {
 
     const existing = compiler.options.module.rules as any[]
 
-    const rules =
-      (existing.find((x) => (typeof x === 'object' && 'oneOf' in x ? x : null))
-        ?.oneOf as any[]) ?? existing
+    /**
+     * EVERY `oneOf` group, not the first one that exists.
+     *
+     * Next 16 splits its rules into two `oneOf` groups and the CSS group comes
+     * first, so `find(...)` landed on 13 stylesheet rules, matched no compiler
+     * there, and left `didReplaceNextJS` false — which outside dev mode does
+     * nothing at all. The loader was attached to nothing, static extraction
+     * never ran, and every build stayed green: measured on hanzo.ai, where 238
+     * of 239 atomic classes were still being authored at render time with the
+     * plugin installed and configured.
+     */
+    const ruleSets: any[][] = existing
+      .filter((x) => x && typeof x === 'object' && 'oneOf' in x)
+      .map((x) => x.oneOf as any[])
+    if (!ruleSets.length) ruleSets.push(existing)
 
-    const guiLoader = {
-      loader: requireResolve('hanzogui-loader'),
+    const hanzoguiLoader = {
+      loader: requireResolve('@hanzogui/loader'),
       options: {
         ...this.options,
         _disableLoadGui: true,
       },
     }
 
+    /**
+     * Layers whose modules are not app UI. Everything else IS: under the app
+     * router each of `rsc`, `ssr` and `app-pages-browser` is its own layer, so
+     * skipping every rule that carries an `issuerLayer` — which is what this
+     * used to do — skipped all app-authored JSX and kept only the rules that
+     * see node_modules, which the loader itself then declines.
+     */
+    const SKIP_LAYERS = new Set(['api-node', 'api-edge', 'middleware', 'instrument'])
+
     let didReplaceNextJS = false
 
-    for (const [index, rule] of rules.entries()) {
-      const shouldReplaceNextJSRule =
-        (rule?.use?.loader === 'next-swc-loader' ||
-          (Array.isArray(rule?.use) && rule?.use[0].loader === 'next-swc-loader')) &&
-        !rule.issuerLayer
+    for (const rules of ruleSets) {
+      for (const [index, rule] of rules.entries()) {
+        // ANY position in the chain, not just the first: Next puts
+        // `next-flight-client-module-loader` ahead of `next-swc-loader` on the
+        // client and ssr layers, and matching only `use[0]` missed both.
+        const uses = Array.isArray(rule?.use) ? rule.use : rule?.use ? [rule.use] : []
+        const shouldReplaceNextJSRule =
+          uses.some(
+            (u: any) => (typeof u === 'string' ? u : u?.loader) === 'next-swc-loader'
+          ) && !SKIP_LAYERS.has(rule.issuerLayer)
 
-      if (shouldReplaceNextJSRule) {
-        didReplaceNextJS = true
+        if (shouldReplaceNextJSRule) {
+          didReplaceNextJS = true
 
-        rules[index] = {
-          ...rule,
-          test: this.options.test ?? rule.test ?? /\.m?[jt]sx?$/,
-          exclude: this.options.exclude ?? rule.exclude,
-          use: [
-            ...(jsLoader ? [jsLoader] : []),
-            ...(rule.use ? [].concat(rule.use) : []),
-            guiLoader,
-          ],
+          rules[index] = {
+            ...rule,
+            test: this.options.test ?? rule.test ?? /\.m?[jt]sx?$/,
+            exclude: this.options.exclude ?? rule.exclude,
+            use: [
+              ...(jsLoader ? [jsLoader] : []),
+              ...(rule.use ? [].concat(rule.use) : []),
+              hanzoguiLoader,
+            ],
+          }
         }
       }
     }
@@ -264,7 +295,7 @@ export class GuiPlugin {
         existing.push({
           test: this.options.test ?? /\.tsx$/,
           exclude: this.options.exclude,
-          use: [guiLoader],
+          use: [hanzoguiLoader],
         })
       }
     }

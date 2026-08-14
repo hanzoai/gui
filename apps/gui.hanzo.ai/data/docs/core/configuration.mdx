@@ -3,10 +3,10 @@ title: Configuration
 description: Set up media queries, tokens, themes, and more.
 ---
 
-Configuration in Hanzo GUI controls things like tokens, themes, media queries,
+Configuration in Gui controls things like tokens, themes, media queries,
 animations, shorthands, and settings.
 
-First, create a `gui.config.ts` file.
+First, create a `hanzogui.config.ts` file.
 
 <Notice theme="blue">
   We recommend starting with [`@hanzogui/config/v5`](/docs/core/config-v5), our preset
@@ -18,7 +18,7 @@ First, create a `gui.config.ts` file.
 npm install @hanzogui/config
 ```
 
-```tsx fileName="gui.config.ts"
+```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 
@@ -32,7 +32,7 @@ export const config = createGui({
 
 type OurConfig = typeof config
 
-declare module '@hanzo/gui' {
+declare module 'hanzogui' {
   interface GuiCustomConfig extends OurConfig {}
 }
 ```
@@ -44,7 +44,7 @@ configuration, go to [the next page](/docs/core/config-v5).
 Here's an example of a stripped down configuration to get a feel for the most
 common concepts:
 
-```tsx fileName=gui.config.ts
+```tsx fileName=hanzogui.config.ts
 import { createGui, getConfig } from '@hanzo/gui'
 
 export const config = createGui({
@@ -71,7 +71,7 @@ export const config = createGui({
       bg: '#111',
       color: '#fff',
     },
-    // sub-themes are a powerful feature of gui, explained later in the docs
+    // sub-themes are a powerful feature of hanzogui, explained later in the docs
     // user theme like <Theme name="dark"><Theme name="blue">
     // or just <Theme name="dark_blue">
     dark_blue: {
@@ -102,16 +102,16 @@ export const config = createGui({
   },
 })
 
-// now, make your types flow nicely back to your `@hanzo/gui` import:
+// now, make your types flow nicely back to your `hanzogui` import:
 type OurConfig = typeof config
 
-declare module '@hanzo/gui' {
+declare module 'hanzogui' {
   interface GuiCustomConfig extends OurConfig {}
 }
 ```
 
 <Notice theme="green">
-  In this guide we import everything from `@hanzo/gui`, but if you are using the lower-level
+  In this guide we import everything from `hanzogui`, but if you are using the lower-level
   style library only, you can change the imports in this guide out for `@hanzogui/core`,
   which is a strict subset.
 </Notice>
@@ -121,7 +121,7 @@ your app:
 
 ```tsx
 import { GuiProvider, View } from '@hanzo/gui'
-import { config } from './gui.config.ts'
+import { config } from './hanzogui.config.ts'
 
 export default () => (
   <GuiProvider config={config}>
@@ -134,7 +134,7 @@ You're all set up!
 
 <Notice>
   To avoid issues with hot reloading and circular imports, make sure to only import your
-  `gui.config.ts` once near the root of your app. If you need to access the
+  `hanzogui.config.ts` once near the root of your app. If you need to access the
   configuration in other files, you generally do this just by using props on your styled
   components, or with hooks like `useMedia` or `useTheme`. We do have some getters like
   `getTokenValue`, and if you really need to access the full configuration object (though
@@ -143,12 +143,12 @@ You're all set up!
 
 ## In more detail
 
-Let's start with an example of a more complete `gui.config.ts`:
+Let's start with an example of a more complete `hanzogui.config.ts`:
 
-```tsx fileName="gui.config.ts"
+```tsx fileName="hanzogui.config.ts"
 import { createFont, createGui, createTokens, isWeb } from '@hanzo/gui'
 
-// To work with the gui UI kit styled components (which is optional)
+// To work with the hanzogui UI kit styled components (which is optional)
 // you'd want the keys used for `size`, `lineHeight`, `weight` and
 // `letterSpacing` to be consistent. The `createFont` function
 // will fill-in any missing values if `lineHeight`, `weight` or
@@ -184,7 +184,7 @@ const systemFont = createFont({
 
 // Set up tokens
 
-// The keys can be whatever you want, but if using `@hanzo/gui` you'll want 1-10:
+// The keys can be whatever you want, but if using `hanzogui` you'll want 1-10:
 
 const size = {
   0: 0,
@@ -254,8 +254,8 @@ const config = createGui({
 type AppConfig = typeof config
 
 // this will give you types for your components
-// note - if using your own design system, put the package name here instead of gui
-declare module '@hanzo/gui' {
+// note - if using your own design system, put the package name here instead of hanzogui
+declare module 'hanzogui' {
   interface GuiCustomConfig extends AppConfig {}
 
   // if you want types for named group styling props (e.g. $group-card-hover),
@@ -284,7 +284,7 @@ The `createGui` function receives a configuration object with properties:
   different weights, due to a React Native restriction.
 </Notice>
 
-Note, for `@hanzo/gui` (not core), it expects you to define a `true` token that
+Note, for `hanzogui` (not core), it expects you to define a `true` token that
 maps to your default size, this way it knows what token to use by default. So
 you'd do something like this:
 
@@ -306,7 +306,7 @@ export const tokens = createTokens({
 ```
 
 <Notice theme="green">
-  If using the compiler, your gui.config.ts is parsed at build-time. For this reason,
+  If using the compiler, your hanzogui.config.ts is parsed at build-time. For this reason,
   we recommend keeping it relatively simple. Avoid importing heavy dependencies.
 </Notice>
 
@@ -317,7 +317,7 @@ With your config set up, import it near the root of your app and pass it to
 
 ```tsx line=3-5 fileName="App.tsx"
 import { GuiProvider } from '@hanzo/gui'
-import { config } from './gui.config'
+import { config } from './hanzogui.config'
 
 export default function App() {
   return (
@@ -342,7 +342,7 @@ export default function App() {
       name: 'disableInjectCSS',
       required: false,
       type: 'boolean',
-      description: `By default Hanzo GUI inserts CSS with a useInsertionEffect on load. But if you're setting up SSR you'll want to use getCSS() on the server instead and then turn on this setting.`,
+      description: `By default Gui inserts CSS with a useInsertionEffect on load. But if you're setting up SSR you'll want to use getCSS() on the server instead and then turn on this setting.`,
     },
     {
       name: 'insets',
@@ -353,7 +353,7 @@ export default function App() {
   ]}
 />
 
-By default, Hanzo GUI injects the CSS for your configuration on the client-side
+By default, Gui injects the CSS for your configuration on the client-side
 into `document.head`, but you probably will want something better for
 production. To do this, pass true to `disableInjectCSS` on `GuiProvider`, and
 then do one of the following three options:
@@ -361,7 +361,7 @@ then do one of the following three options:
 If your framework has server-side layouts, you can just render it inline:
 
 ```tsx fileName=app/_layout.tsx
-import { config } from './gui.config'
+import { config } from './hanzogui.config'
 
 export default () => (
   <html>
@@ -383,30 +383,30 @@ To optimize a bit more so you share a single CSS file between all pages, you can
 use one of our bundler plugins' `outputCSS` setting, like so:
 
 ```tsx fileName=vite.config.ts
-import { guiPlugin } from '@hanzogui/vite-plugin'
+import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 
 export default {
   plugins: [
-    guiPlugin({
-      config: './src/gui.config.ts',
-      outputCSS: './src/gui.generated.css',
+    hanzoguiPlugin({
+      config: './src/hanzogui.config.ts',
+      outputCSS: './src/hanzogui.generated.css',
     }),
   ],
 }
 ```
 
-And then you'll want to import the resulting `gui.generated.css` into your app.
+And then you'll want to import the resulting `hanzogui.generated.css` into your app.
 
 As final option, you can also generate it yourself with the CLI. First create a
-`gui.build.ts`:
+`hanzogui.build.ts`:
 
-```tsx fileName=gui.build.ts
+```tsx fileName=hanzogui.build.ts
 import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
   components: ['@hanzo/gui'],
-  config: './config/gui.config.ts',
-  outputCSS: './gui.generated.css',
+  config: './config/hanzogui.config.ts',
+  outputCSS: './hanzogui.generated.css',
 } satisfies GuiBuildOptions
 ```
 
@@ -467,7 +467,7 @@ const interFont = createFont({
 
 <Notice theme="blue">
   We use numbered keys as an example, but you can use any strings you'd like. The optional
-  default styles in `@hanzo/gui` make use of number keys 1-10.
+  default styles in `hanzogui` make use of number keys 1-10.
 </Notice>
 
 This gives you a lot of power over customizing every aspect of your design based
@@ -479,7 +479,7 @@ font.
 #### Custom Fonts on Native
 
 If you are using a custom font for native, you need to load your fonts for React
-Native to recognize them. Hanzo GUI doesn't really touch this area, instead you'll
+Native to recognize them. Gui doesn't really touch this area, instead you'll
 use Expo or
 [React Native directly](https://stackoverflow.com/questions/35255645/how-to-set-default-font-family-in-react-native),
 something like this:
@@ -523,7 +523,7 @@ const tokens = createTokens({
 })
 ```
 
-You access tokens then by using `$` prefixes in your values. Hanzo GUI knows which
+You access tokens then by using `$` prefixes in your values. Gui knows which
 tokens to use based on the style property you use.
 
 ```tsx
@@ -550,7 +550,7 @@ Themes live one level below tokens. Tokens are your variables, where themes use
 those tokens to create consistent, generic properties that you then typically
 use in shareable components. Themes should generally only deal with colors.
 
-Hanzo GUI components in general expect a set of theme keys to be defined like the
+Gui components in general expect a set of theme keys to be defined like the
 following, but you can deviate if you create your own design system.
 
 ```tsx
@@ -589,7 +589,7 @@ const P = styled(Text, {
 <Text color="$color11" />
 ```
 
-One of the more powerful features in Hanzo GUI is nesting themes, you just define
+One of the more powerful features in Gui is nesting themes, you just define
 them like so:
 
 ```tsx
@@ -630,7 +630,7 @@ For more full docs on media queries, see the
 
 ### Animations
 
-Hanzo GUI supports four animation drivers that can be swapped out per-platform:
+Gui supports four animation drivers that can be swapped out per-platform:
 
 - [`@hanzogui/animations-css`](/docs/core/animations-css) - CSS transition based
   animations (lightest)
@@ -710,7 +710,7 @@ You can pass a `settings` object to `createGui`:
     {
       name: `disableSSR`,
       type: `boolean`,
-      description: `For SSR compatibility on the web, Hanzo GUI will render once with the settings from mediaQueryDefaultActive set for all media queries. Then, it will render again after the initial render using the proper media query values. This is so that the hydrating components will match the server. Setting disableSSR to true will avoid this and instead immediately render using the up to date media state, which is the preferrable behavior for client-side only (SPA) style apps. See the [Server Rendering](/docs/core/server-rendering) docs for more details on SSR, the ClientOnly component, and related hooks.`,
+      description: `For SSR compatibility on the web, Gui will render once with the settings from mediaQueryDefaultActive set for all media queries. Then, it will render again after the initial render using the proper media query values. This is so that the hydrating components will match the server. Setting disableSSR to true will avoid this and instead immediately render using the up to date media state, which is the preferrable behavior for client-side only (SPA) style apps. See the [Server Rendering](/docs/core/server-rendering) docs for more details on SSR, the ClientOnly component, and related hooks.`,
     },
     {
       name: `defaultFont`,
@@ -729,14 +729,14 @@ You can pass a `settings` object to `createGui`:
       required: false,
       type: "false | 'html' | 'body'",
       default: false,
-      description: `If you want to style your <body> tag to use theme CSS variables on web, you must place the theme className  onto the body element or above. This will do so. If disabled, Hanzo GUI will place the className onto the element rendered by the GuiProvider`,
+      description: `If you want to style your <body> tag to use theme CSS variables on web, you must place the theme className  onto the body element or above. This will do so. If disabled, Gui will place the className onto the element rendered by the GuiProvider`,
     },
     {
       name: 'disableRootThemeClass',
       required: false,
       type: 'boolean',
       description:
-        'On web, GuiProvider will add your top level theme className to the root of your document, the html tag. This lets you do things like style your body tag using Hanzo GUI CSS variables that are generated by themes. If disabled, the theme className will instead by applied to the span inside the GuiProvider directly.',
+        'On web, GuiProvider will add your top level theme className to the root of your document, the html tag. This lets you do things like style your body tag using Gui CSS variables that are generated by themes. If disabled, the theme className will instead by applied to the span inside the GuiProvider directly.',
     },
     {
       name: 'selectionStyles',
@@ -776,14 +776,14 @@ You can pass a `settings` object to `createGui`:
       required: false,
       type: 'boolean',
       default: false,
-      description: `On iOS, this enables a mode where Hanzo GUI returns color values using DynamicColorIOS significantly speeding up dark/light re-renders. Note: When enabled you must make sure the defaultTheme you set on GuiProvider matches the current system color scheme.`,
+      description: `On iOS, this enables a mode where Gui returns color values using DynamicColorIOS significantly speeding up dark/light re-renders. Note: When enabled you must make sure the defaultTheme you set on GuiProvider matches the current system color scheme.`,
     },
     {
       name: 'webContainerType',
       required: false,
       type: 'string',
       default: 'inline-size',
-      description: `Only for web, when using group styles Hanzo GUI uses container queries. When using a group on a containing element, Hanzo GUI defaults to setting "container-type" in CSS to "inline-size".`,
+      description: `Only for web, when using group styles Gui uses container queries. When using a group on a containing element, Gui defaults to setting "container-type" in CSS to "inline-size".`,
     },
   ]}
 />
@@ -836,18 +836,18 @@ color.
 
 ### Environment Settings
 
-A few things in Hanzo GUI can be configured via environment variables. Doing it
+A few things in Gui can be configured via environment variables. Doing it
 this way lets us avoid extra code being shipped to the client, as your
 bundler can tree shake the unused code easily when using environment variables.
-You should be sure to either use the Vite or Webpack Hanzo GUI plugins, or
+You should be sure to either use the Vite or Webpack Gui plugins, or
 configure your bundler to define the environment variables for tree shaking. On
 native, it is not a concern as the extra size is minimal.
 
 ### Tree Shaking Themes
 
-**Production Optimization** - Theme JS can grow to 20KB or more. Since Hanzo GUI can hydrate themes from CSS variables, you can remove the themes JS from your client bundle for better Lighthouse scores.
+**Production Optimization** - Theme JS can grow to 20KB or more. Since Gui can hydrate themes from CSS variables, you can remove the themes JS from your client bundle for better Lighthouse scores.
 
-This works because Hanzo GUI generates CSS variables for all theme values. On the
+This works because Gui generates CSS variables for all theme values. On the
 client, it reads these from the DOM instead of needing the JS object.
 
 <Notice>
@@ -858,7 +858,7 @@ client, it reads these from the DOM instead of needing the JS object.
 
 ### Setup
 
-```tsx fileName="gui.config.ts"
+```tsx fileName="hanzogui.config.ts"
 import { defaultConfig, themes } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 

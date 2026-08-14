@@ -13,7 +13,7 @@ import open from 'opener'
 import prompts from 'prompts'
 import packageJson from '../package.json'
 import { IS_TEST } from './create-gui-constants'
-import { guiDuckAsciiArt, guiRainbowAsciiArt } from './helpers/asciiArts'
+import { hanzoguiDuckAsciiArt, hanzoguiRainbowAsciiArt } from './helpers/asciiArts'
 import { cloneStarter } from './helpers/cloneStarter'
 import { getProjectName } from './helpers/getProjectName'
 import { getTemplateInfo } from './helpers/getTemplateInfo'
@@ -78,14 +78,14 @@ async function run() {
     console.info()
     console.info(
       chalk.bold(
-        ' Note: You may need to run "npm create gui@latest" to get the latest version!'
+        ' Note: You may need to run "npm create hanzogui@latest" to get the latest version!'
       )
     )
     console.info()
 
     console.info() // this newline prevents the ascii art from breaking
-    console.info(guiRainbowAsciiArt)
-    console.info(chalk.bold('Creating gui app...'))
+    console.info(hanzoguiRainbowAsciiArt)
+    console.info(chalk.bold('Creating hanzogui app...'))
 
     const gitVersionString = Number.parseFloat(
       execSync(`git --version`).toString().replace(`git version `, '').trim()
@@ -104,12 +104,12 @@ async function run() {
         await prompts({
           type: 'confirm',
           name: 'purchased',
-          message: `Have you purchased Takeout on https://gui.dev/takeout`,
+          message: `Have you purchased Takeout on https://hanzogui.dev/takeout`,
         })
       ).purchased
 
       if (!didPurchase) {
-        open(`https://gui.dev/takeout`)
+        open(`https://hanzogui.dev/takeout`)
         console.info(
           `\nOpening Takeout website - once you purchase you can restart the create process. Thank you!\n`
         )
@@ -138,7 +138,7 @@ async function run() {
     if (fs.existsSync(resolvedProjectPath)) {
       console.info()
       console.info(
-        chalk.red('🚨 [gui] error'),
+        chalk.red('🚨 [hanzogui] error'),
         `You tried to make a project called ${chalk.underline(
           chalk.blueBright(projectName)
         )}, but a folder with that name already exists: ${chalk.blueBright(
@@ -152,7 +152,9 @@ ${chalk.bold(chalk.red(`Please pick a different project name 🥸`))}`
       process.exit(1)
     }
     console.info()
-    console.info(`Creating a new gui app ${chalk.blueBright(resolvedProjectPath)}...`)
+    console.info(
+      `Creating a new hanzogui app ${chalk.blueBright(resolvedProjectPath)}...`
+    )
     fs.mkdirSync(resolvedProjectPath)
     console.info(chalk.green(`${projectName} folder created.`))
 
@@ -162,7 +164,10 @@ ${chalk.bold(chalk.red(`Please pick a different project name 🥸`))}`
       // space
       console.info()
     } catch (e) {
-      console.error(`[gui] Failed to copy example into ${resolvedProjectPath}\n\n`, e)
+      console.error(
+        `[hanzogui] Failed to copy example into ${resolvedProjectPath}\n\n`,
+        e
+      )
       process.exit(1)
     }
 
@@ -180,7 +185,7 @@ ${chalk.bold(chalk.red(`Please pick a different project name 🥸`))}`
       console.info('installing with ' + packageManager)
       await installDependencies(resolvedProjectPath, packageManager)
     } catch (e: any) {
-      console.error('[gui] error installing with ' + packageManager + '\n' + `${e}`)
+      console.error('[hanzogui] error installing with ' + packageManager + '\n' + `${e}`)
       process.exit(1)
     }
 
@@ -191,7 +196,7 @@ ${chalk.bold(chalk.red(`Please pick a different project name 🥸`))}`
     })
 
     console.info()
-    console.info(chalk.gray(guiDuckAsciiArt))
+    console.info(chalk.gray(hanzoguiDuckAsciiArt))
     process.exit(0)
   } catch (error) {
     console.error('An unexpected error occurred:', error)

@@ -1,13 +1,13 @@
 ---
-title: Hanzo GUI v1 Release Candidate
+title: Gui v1 Release Candidate
 publishedAt: '2022-12-04'
-description: Hanzo GUI v1 RC is out for faster React Native + Web styling
+description: Gui v1 RC is out for faster React Native + Web styling
 by: nate
 poster: banner-rc0.jpg
 ---
 
 <IntroParagraph>
-  Hanzo GUI is an optimizing compiler meets universal style system for React that enables
+  Gui is an optimizing compiler meets universal style system for React that enables
   highly performant styles for React Native and web.
 </IntroParagraph>
 
@@ -23,14 +23,14 @@ CSS-in-JS styling while optimal VDOM and CSS is output, besting hand-tuned code.
 The compiler uses logical and VM-based analysis of your code for
 [surprising results](/docs/intro/benchmarks).
 
-> On the Hanzo GUI homepage, the compiler flattens 200+ unique components for a
+> On the Gui homepage, the compiler flattens 200+ unique components for a
 > 18% Lighthouse score increase.
 
 This Release Candidate marks API stability and the v1 release will follow
 shortly as we get feedback on any last outstanding bugs. **The V1 blog post will
 cover these changes in far more thorough detail**. Over a thousand bugfixes
 landed during the Beta, alongside major changes all around, including 14 new
-components in `@hanzo/gui`.
+components in `hanzogui`.
 
 Here's a very brief overview of changes since Beta:
 
@@ -50,7 +50,7 @@ Here's a very brief overview of changes since Beta:
 - `font.face` configuration - React Native makes loading fonts a bit trickier
   than the web, this option makes it easy to load different fonts by weight or
   style.
-- The `themeShallow` prop - The `theme` prop in Hanzo GUI by default will re-theme
+- The `themeShallow` prop - The `theme` prop in Gui by default will re-theme
   all sub-components. Using `themeShallow` _only_ themes that component, not
   children.
 - `loadTheme()` - The `loadTheme` utility function means you can only load the
@@ -59,7 +59,7 @@ Here's a very brief overview of changes since Beta:
 - `updateTheme()` - Using `updateTheme` gives you the ability to dynamically
   modify themes on the fly.
 - `useMediaPropsActive()` - Useful for authoring your own custom components
-  built on Hanzo GUI, easily access the "currently active" set of styles.
+  built on Gui, easily access the "currently active" set of styles.
 
 ### Major `@hanzogui/static` Updates
 
@@ -67,21 +67,21 @@ Here's a very brief overview of changes since Beta:
   generally handle many more edge cases, with an addition of 20+ dev-time
   console warnings.
 - Performance - During the beta we landed many performance improvements to the
-  optimizing compiler. By default now Hanzo GUI avoids even parsing many more
+  optimizing compiler. By default now Gui avoids even parsing many more
   files, and it pre-bundles your `components` and `config`.
 - Better analysis - Previously, `@hanzogui/static` only knew how to optimize
   components found in your separated design system package. The compiler now
   analyzes components anywhere in your app, by dynamically loading and reading
   their configuration. This experimental feature is enabled with the environment
-  variable `HANZO_GUI_ENABLE_DYNAMIC_LOAD=1`.
-- Vite support - Hanzo GUI supports Vite 3, both with the compiler and without.
+  variable `GUI_ENABLE_DYNAMIC_LOAD=1`.
+- Vite support - Gui supports Vite 3, both with the compiler and without.
 - Correctness - Most of the work during beta focused on correctness. We've
   increased testing to cover many more areas, and landed a number of important
   correctness fixes alongside the ones in `core`.
 
-### Major `@hanzo/gui` updates
+### Major `hanzogui` updates
 
-Hanzo GUI welcomed a flood of new components to the party. These are incredibly
+Gui welcomed a flood of new components to the party. These are incredibly
 rich components that follow the Radix model of compound component APIs. They
 have the ability to adapt their appearance completely using `<Adapt />` to
 target media queries and platforms.
@@ -102,8 +102,8 @@ everything before release. Our release script has added many checks and features
 for making sure things go out smoothly.
 
 Testing now covers far more of `core` and `static`, as well as a complete
-integration test that verifies the entire flow of starting a Hanzo GUI app with
-`npm create hanzo-gui` all the way to Playwright ensuring the final output is
+integration test that verifies the entire flow of starting a Gui app with
+`npm create hanzogui` all the way to Playwright ensuring the final output is
 correct and functional.
 
 ### Community & Contributors
@@ -123,7 +123,7 @@ design system file, example repos, sponsors, and other helpful links.
 
 ### Outstanding issues for next RCs
 
-- Windows support for `npm create hanzo-gui` can break, requires WSL
+- Windows support for `npm create hanzogui` can break, requires WSL
 - Sheets on native can have interaction issues with inner scrollable content
 - Android has some bugs with some types of content inside Sheets.
 - Some versions of Next.js don't properly load CSS on subsequent pages

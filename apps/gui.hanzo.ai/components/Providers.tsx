@@ -1,8 +1,8 @@
 import { InitialPathContext, SeasonProvider } from '@hanzogui/logo'
 import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
-import { GuiProvider } from 'hanzogui'
-import tamaConf from '~/gui.config'
-import { TelemetryProvider } from '@hanzogui/telemetry'
+import { GuiProvider } from '@hanzo/gui'
+import tamaConf from '~/config/hanzogui.config'
+import { PostHogProvider } from '~/features/posthog/PostHogProvider'
 import { SearchProvider } from '~/features/site/search/SearchProvider'
 import { ToastProvider } from '~/features/studio/ToastProvider'
 
@@ -10,13 +10,13 @@ export const Providers = (props: { children: any }) => {
   return (
     <InitialPathContext.Provider value={3}>
       <SchemeProvider>
-        <TelemetryProvider>
+        <PostHogProvider>
           <SeasonProvider>
             <WebsiteGuiProvider>
               <SearchProvider>{props.children}</SearchProvider>
             </WebsiteGuiProvider>
           </SeasonProvider>
-        </TelemetryProvider>
+        </PostHogProvider>
       </SchemeProvider>
     </InitialPathContext.Provider>
   )

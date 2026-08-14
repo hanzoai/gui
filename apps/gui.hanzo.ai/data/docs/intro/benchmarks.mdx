@@ -3,13 +3,13 @@ title: Benchmarks
 description: Performance tests and comparisons
 ---
 
-Hanzo GUI compares well to the fastest libraries at runtime, and the compiler
+Gui compares well to the fastest libraries at runtime, and the compiler
 further optimizes your styled components, flattening them down and hoisting
 objects out of your rendering loop (and extracting CSS on the web).
 
-With the compiler on Hanzo GUI will output near optimal React code despite giving
+With the compiler on Gui will output near optimal React code despite giving
 many nice shorthand style props. It has a higher impact on web, but with initial
-support for flattening more dynamic styled components now landed, Hanzo GUI does
+support for flattening more dynamic styled components now landed, Gui does
 flatten a very high % of your code on all platforms. We look forward to updating
 our benchmarks as we expect we've improved in a number of areas.
 
@@ -18,14 +18,14 @@ build out a better benchmarking setup to update this page.
 
 ## React Native
 
-In [this benchmark](https://github.com/hanzoai/benchmarks) Hanzo GUI is within 10%
-of the speed of vanilla React Native, even when using nearly all of Hanzo GUI's
+In [this benchmark](https://github.com/hanzogui/benchmarks) Gui is within 10%
+of the speed of vanilla React Native, even when using nearly all of Gui's
 features. We render list of 28 items with a few sections, text and images.
 Average of 5 runs on a Apple M2 Air:
 
 <BenchmarkChartNative />
 
-Running Hanzo GUI without the compiler averages `125ms` or ~12% slower. Note that
+Running Gui without the compiler averages `125ms` or ~12% slower. Note that
 the compiler is much more effective on the web as it turns many more props into
 CSS and both bundle size and render performance are more important.
 
@@ -71,7 +71,7 @@ Changing variants is fast at runtime, and even faster when compiled:
 
 ### Updating inline styles
 
-Hanzo GUI has a big advantage for inline styles, it's the only library to compile
+Gui has a big advantage for inline styles, it's the only library to compile
 them and flatten the tree.
 
 <BenchmarkChart

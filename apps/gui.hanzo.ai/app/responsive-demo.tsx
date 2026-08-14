@@ -4,7 +4,7 @@ import img2 from '@hanzogui/demos/photo/photo2'
 import img3 from '@hanzogui/demos/photo/photo3'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { MapPin, Star } from '@hanzogui/lucide-icons-2'
-import { H3, H4, H5, Image, Paragraph, Spacer, Theme, XStack, YStack } from 'hanzogui'
+import { H3, H4, H5, Image, Paragraph, Spacer, Theme, XStack, YStack } from '@hanzo/gui'
 
 export default function ResponsiveDemo() {
   const header = (
@@ -140,8 +140,8 @@ export default function ResponsiveDemo() {
               </XStack>
               <Spacer flex={1} />
               <XStack items="center" gap="$4">
-                <Star size={20} color="var(--purple10)" />
-                <Paragraph theme="purple">4.55</Paragraph>
+                <Star size={20} color="var(--green10)" />
+                <Paragraph theme="green">4.55</Paragraph>
               </XStack>
             </XStack>
 

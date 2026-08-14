@@ -75,7 +75,7 @@ const emailStyles = `
 `
 
 const emailIntro = `
-  <p>I want to thank you so much for supporting our small team. We've been working very hard to not just rethink Gui, but One and Takeout and try to put together something genuinely beautiful and groundbreaking. If you take anything from this email, I hope you check out <a href="https://takeout.gui.hanzo.ai">the new Takeout</a>. It's a product of love from our small team, and we could use support now more than ever to continue building dev tools that are simple, joyful, and surprisingly effective.</p>
+  <p>I want to thank you so much for supporting our small team. We've been working very hard to not just rethink Gui, but One and Takeout and try to put together something genuinely beautiful and groundbreaking. If you take anything from this email, I hope you check out <a href="https://takeout.hanzogui.dev">the new Takeout</a>. It's a product of love from our small team, and we could use support now more than ever to continue building dev tools that are simple, joyful, and surprisingly effective.</p>
 `
 
 function buildEmailHtml(name, daysUntilExpiry, isApology) {
@@ -106,16 +106,16 @@ function buildEmailHtml(name, daysUntilExpiry, isApology) {
   <p><strong>${urgencyText}</strong></p>
 
   <div class="cta-container">
-    <a href="https://gui.hanzo.ai/account" class="cta-button">Upgrade</a>
-    <a href="https://takeout.gui.hanzo.ai" class="cta-button" style="background-color: #8b3a3a;">Takeout</a>
-    <a href="https://gui.hanzo.ai/blog/version-two" class="cta-button" style="background-color: #5c4033;">v2</a>
+    <a href="https://hanzogui.dev/account" class="cta-button">Upgrade</a>
+    <a href="https://takeout.hanzogui.dev" class="cta-button" style="background-color: #8b3a3a;">Takeout</a>
+    <a href="https://hanzogui.dev/blog/version-two" class="cta-button" style="background-color: #5c4033;">v2</a>
   </div>
 
   ${apologySection}
 
   <div class="coupon-box">
     <div class="coupon-discount">30% off for returning</div>
-    <div class="coupon-code">WELCOMEBACK30</div>
+    <div class="coupon-code">RENEWAL30</div>
     <p style="margin: 4px 0 0; font-size: 14px;">Stacks with parity pricing!</p>
   </div>
 
@@ -126,19 +126,19 @@ function buildEmailHtml(name, daysUntilExpiry, isApology) {
   <p>We've been incredibly busy rethinking what a modern stack means, and rebuilding it to a much higher degree of quality:</p>
 
   <ul>
-    <li><strong>Gui 2</strong> - Better in every way: new components, re-written docs, easier install and setup, thousands of new tests. <strong><a href="https://gui.hanzo.ai/blog/version-two">Read the announcement &rarr;</a></strong></li>
+    <li><strong>Gui 2</strong> - Better in every way: new components, re-written docs, easier install and setup, thousands of new tests. <strong><a href="https://hanzogui.dev/blog/version-two">Read the announcement &rarr;</a></strong></li>
     <li><strong>One v1</strong> - One is now stable and works seamlessly with Metro, plus has more features than your favorite web framework. <strong><a href="https://onestack.dev/blog/version-one-rc1">Read about One &rarr;</a></strong></li>
-    <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. GUI 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://gui.hanzo.ai/takeout">More info</a></strong> | <strong><a href="https://takeout.gui.hanzo.ai">Demo</a></strong></li>
+    <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. Gui 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://hanzogui.dev/takeout">More info</a></strong> | <strong><a href="https://takeout.hanzogui.dev">Demo</a></strong></li>
     <li><strong>Takeout Static</strong> - A new simplified web-only starter with MDX blog/docs and 100 Lighthouse.</li>
-    <li><strong>Recipes Components</strong> - Rewritten for v2 with new components and more polish, updated libraries.</li>
+    <li><strong>Bento Components</strong> - Rewritten for v2 with new components and more polish, updated libraries.</li>
     <li><strong>Unlimited Team Members</strong> - Share access with your whole team.</li>
     <li><strong>AI Theme Generator</strong> - Opus-powered /theme generation for custom designs.</li>
   </ul>
 
-  <p>Questions? Just reply to this email or reach out at <a href="mailto:support@gui.hanzo.ai">support@gui.hanzo.ai</a>.</p>
+  <p>Questions? Just reply to this email or reach out at <a href="mailto:support@hanzogui.dev">support@hanzogui.dev</a>.</p>
 
   <div class="footer">
-    <p>Thanks for being part of Gui!<br><strong>- Nate & the GUI Team</strong></p>
+    <p>Thanks for being part of Gui!<br><strong>- Nate & the Gui Team</strong></p>
   </div>
 </body>
 </html>
@@ -174,7 +174,10 @@ async function sendEmail(email, name, daysUntilExpiry, isApology) {
 
   try {
     await postmarkClient.sendEmail({
-      From: 'support@gui.hanzo.ai',
+      MessageStream: 'broadcast',
+      TrackOpens: true,
+      TrackLinks: 'HtmlAndText',
+      From: 'support@hanzogui.dev',
       To: email,
       Subject: subject,
       HtmlBody: buildEmailHtml(name, daysUntilExpiry, isApology),

@@ -1,3 +1,0 @@
-export declare const MyStack: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiElement, import("@hanzogui/core").RNViewNonStyleProps, import("@hanzogui/web").StackStyleBase, {}, import("@hanzogui/web").StaticConfigPublic>;
-export declare const MySizableText: import("@hanzogui/web").GuiComponent<import("@hanzogui/web").TamaDefer, import("@hanzogui/web").GuiTextElement, import("@hanzogui/core").RNTextNonStyleProps, import("@hanzogui/web").TextStylePropsBase, {}, import("@hanzogui/web").StaticConfigPublic>;
-//# sourceMappingURL=index.d.ts.map

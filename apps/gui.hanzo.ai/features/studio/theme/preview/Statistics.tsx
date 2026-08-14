@@ -1,4 +1,4 @@
-import { H4, Paragraph, XStack, YStack } from 'hanzogui'
+import { H4, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { useDemoProps } from '../hooks/useDemoProps'
 import { BarChart, LineChart } from './Charts'
 import { memo } from 'react'

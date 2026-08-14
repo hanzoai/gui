@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react'
 import { useParams } from 'one'
-import { YStack, H2, Theme, Paragraph } from 'hanzogui'
+import { YStack, H2, Theme, Paragraph } from '@hanzo/gui'
 import * as Demos from '~/features/docs/demos'
 
 // Type for demo components (exclude lazyDemo helper function)

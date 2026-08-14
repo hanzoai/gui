@@ -1,16 +1,14 @@
 {
   "name": "@hanzogui/configs-test",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "private": true,
   "scripts": {
-    "generate": "gui generate",
-    "generate-prompt": "gui generate-prompt"
+    "generate": "hanzogui generate",
+    "generate-prompt": "hanzogui generate-prompt"
   },
   "dependencies": {
     "@hanzogui/cli": "workspace:*",
     "@hanzogui/config": "workspace:*",
-    "hanzogui": "workspace:*"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+    "@hanzo/gui": "workspace:*"
+  }
 }

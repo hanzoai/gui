@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/dismissable",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -8,7 +8,7 @@
     "dist"
   ],
   "type": "module",
-  "sideEffects": true,
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -28,10 +28,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/compose-refs": "workspace:*",
@@ -43,13 +43,11 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react": ">=19",
-    "react-dom": "*"
+    "react-dom": ">=19"
   },
   "peerDependencies": {
     "react": ">=19",
     "react-dom": "*"
   },
-  "module:jsx": "dist/jsx",
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "module:jsx": "dist/jsx"
 }

@@ -158,7 +158,7 @@ async function analyzeExpired() {
 async function checkCoupons() {
   console.log('\nChecking coupons...')
 
-  const codes = ['WELCOMEBACK30', 'V1_UPGRADE_35', 'HANZO_GUI_PRO_RENEWAL', 'RENEWAL04']
+  const codes = ['WELCOMEBACK30', 'V1_UPGRADE_35', 'GUI_PRO_RENEWAL', 'RENEWAL04']
 
   for (const code of codes) {
     try {

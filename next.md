@@ -1,8 +1,11 @@
+Image "types of property ''aria-hidden'' are incompatible." improve compat with real img
+
+
 vite 8 monorepo fix:
-- added `hanzo-gui-exports-fix` plugin to `@hanzogui/vite-plugin`
+- added `hanzogui-monorepo-exports-fix` plugin to `@hanzogui/vite-plugin`
 - vite 8 (rolldown) resolves workspace subpath imports to filesystem dirs instead of package.json exports
 - see https://github.com/vitejs/vite/issues/11676 and https://github.com/vitejs/vite/issues/20390
-- also adds ssr.optimizeDeps.include for @hanzogui/web, @hanzogui/core, gui to avoid duplicate instances
+- also adds ssr.optimizeDeps.include for @hanzogui/web, @hanzogui/core, hanzogui to avoid duplicate instances
 - only active in monorepos (detected via workspace: protocol in deps)
 - can be removed once vite fixes upstream
 
@@ -22,6 +25,8 @@ before v2 final:
 
 can be after v2 final
 
+- Dialog API cleanup: modal={false} + Overlay should just work without forceMount, and exit animations should work without Portal. Users shouldn't need Portal/forceMount for basic non-modal dialogs with overlays. Currently without Portal there's no AnimatePresence lifecycle so enterStyle/exitStyle don't animate - content just stays mounted. Dialog.Content/Overlay should handle their own presence animation when not inside Portal.
+
 <Popover.Content
 onInteractOutside={close}
 not working
@@ -32,7 +37,7 @@ and cant put another View next to Content and have it show
 
 - RN animation driver perf: remove useMemo, diff style in layout effect only (not render) for concurrent mode safety. compute diff in render (pure, read-only), apply + update refs in effect. only create/update Animated.Values for changed keys instead of re-processing all keys every render.
 
-- /Users/n8/gui/code/core/web/src/helpers/defaultAnimationDriver.tsx
+- /Users/n8/hanzogui/pkgs/core/web/src/helpers/defaultAnimationDriver.tsx
 
   - should just be native on native, css on web? use platfomr extensions
 
@@ -91,7 +96,7 @@ and cant put another View next to Content and have it show
 
   - styleable shouldn't probably do anything with presence because the child should expect to handle that, at least need to double check taht
 
-- bug: if you name a file `polyfill-native.ts` hanzo-gui-build doesnt output the .native files properly
+- bug: if you name a file `polyfill-native.ts` hanzogui-build doesnt output the .native files properly
 
 - When using <Adapt.Contents /> inside an Adapt when="maxMd" it seems to hide the children before fully closed
 
@@ -134,7 +139,7 @@ and cant put another View next to Content and have it show
 
 ---
 
-- MCP works w your local gui config?
+- MCP works w your local hanzogui config?
 
 - perf: could avoid even creating style rules, easy / big win:
 
@@ -142,7 +147,7 @@ and cant put another View next to Content and have it show
   - note that we create all the style rules before we actually check if should insert
   - refactor: not _super_ simple in that the check may need to happen inside getStylesAtomic for example and it also needs to check the startedUnhydrated, so just need to refactor a bit so we have a "shouldInsert" a the top of getSplitStyles properly set up, then we can maybe pass to getStylesAtomic and anywhere ebfore we actually create the rulestoinsert
 
-- import `gui/styled` / `@hanzogui/button/styled`
+- import `hanzogui/styled` / `@hanzogui/button/styled`
   - adds styles, sizing, unstyled prop
     - removing default size based styling, look at this in tooltip!:
 
@@ -162,14 +167,14 @@ const padding = !props.unstyled
 
 animations improvements:
 
-- make gui package work in some simple way
+- make hanzogui package work in some simple way
 
-  - probably making gui + gui/ui both work is fine
+  - probably making hanzogui + hanzogui/ui both work is fine
 
 - react-native-web-lite
 
   - tree shakeable, smaller, fixes things like data- attributes not passing
-  - shares core style logic with gui for smaller bundles used together
+  - shares core style logic with hanzogui for smaller bundles used together
   - outstanding bug? https://discord.com/channels/909986013848412191/1354817119233118288/1354839267771285546
 
 - docs on reprop context on ios new arch
@@ -197,7 +202,7 @@ animations improvements:
 
 - popover bring back dismissable - document dismissable etc
 
-- escape on gui sheet doesn't close in general keyboard accessibility
+- escape on hanzogui sheet doesn't close in general keyboard accessibility
 
   - check radix sheet and compare and improve
 
@@ -257,7 +262,7 @@ v3:
   - theme inverse only works with sub-themes named \_inverse. createThemes.generateInverseSubThemes: boolean
     - v4 config can add a boolean to do this by default
     <!-- - button-next is mostly ready now to replace button:
-    - remove old button, move new button into place, fix issues around the site/recipes
+    - remove old button, move new button into place, fix issues around the site/bento
     - docs update: we should show "headless" style and non-headless
       - <Button.Frame><Button.Icon></Button.Icon></Button.Frame> for headless
       - <Button> for non-headless -->
@@ -275,10 +280,10 @@ v3:
   - need to remove ThemeableStack docs from components mdx, they now are all extensiond YStack instead of ThemeableStack
   - see how much of accessibilityDirectMap we can remove for web
   - `$platform-` prefixes should go away in favor of just `$web`, `$native` etc
-  - @hanzogui/cli => gui
-    - `gui build` document/announce
-    - `gui lint` fix check and document/announce
-  - gui => gui
+  - @hanzogui/cli => hanzogui
+    - `hanzogui build` document/announce
+    - `hanzogui lint` fix check and document/announce
+  - hanzogui => hanzogui
     - note many are headless
   - Cleanup Select/ListItem
     - v2-3 ListItem simplification esp for performance of Select
@@ -318,7 +323,7 @@ createCore<CustomTypes>({
 
 - run over components and review for removing some assumptions about `size`
 - disableInjectCSS should maybe just be automated better or defaulted on
-- flat vs style mode, style moves all gui styles into `style` besides the other psuedos like hover, enter, etc
+- flat vs style mode, style moves all hanzogui styles into `style` besides the other psuedos like hover, enter, etc
 - no react-native deps across the ui kit on web
 - html.div, styled('div'), styled(html.div)
 - `<Theme values={{}} />` dynamic override
@@ -338,7 +343,7 @@ createCore<CustomTypes>({
 
 - button media queries break due to useStyle hook
 - algolia creds
-- uniswap/gui fixes, see uniswap section
+- uniswap/hanzogui fixes, see uniswap section
   - the platform-web type issues should be relatively easy
   - fix customization https://discord.com/channels/909986013848412191/1206456825583632384/1274853294195605525
 
@@ -381,6 +386,8 @@ $gtSm: false,
 
   - we may want Sheet to have its own removeScroll in this case
 
+- adapt nested-ScrollView problem: when a Dialog adapts to a Sheet, the Sheet already wraps contents in Sheet.ScrollView, so any inner ScrollView the consumer renders (e.g. DialogBody's `scrollable`) double-nests and content overscrolls while the sheet drags. right now dialog.tsx hand-detects `$xs` and skips its own ScrollView - that's a leaky workaround. need something better: either Adapt automatically unwraps/flattens a redundant ScrollView when adapting, or a documented pattern (e.g. a context flag the adapted child reads to know "a Sheet.ScrollView already owns scrolling, don't add one")
+
 - AnimatePresence should just work if you change the enterStyle exitStyle dynamically in the render, no need for custom we can capture the props
 
 - popover transform origin
@@ -395,7 +402,7 @@ $gtSm: false,
   - checkbox should have a default indicator probably with a simple svg check we inline
 - move from useMedia match.addListener to addEventListener
 - media query height taking into account the "safe height" is important
-- https://linear.app/uniswap/issue/EXT-925/gui-error-breaking-the-extension
+- https://linear.app/uniswap/issue/EXT-925/hanzogui-error-breaking-the-extension
 - document Popover.Anchor (implemented, needs docs)
 - Sometimes press getting stuck still on uniswap moonpay flow
 - Text vertical align issue: https://github.com/Uniswap/universe/pull/6730

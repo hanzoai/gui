@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Input, Text, YStack, styled } from 'hanzogui'
+import { Input, Text, YStack, styled } from '@hanzo/gui'
 
 const FocusWithinContainer = styled(YStack, {
   borderColor: '#ddd',

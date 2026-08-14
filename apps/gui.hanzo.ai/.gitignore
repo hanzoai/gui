@@ -1,5 +1,10 @@
-recipes-output
+# secrets — never commit (.env holds live service_role / sk_live / PAT)
+.env
+.env.*
+!.env.example
+
+bento-output
 helpers/dist/
 
-# Generated recipes proxies
+# Generated bento proxies
 helpers/dist/

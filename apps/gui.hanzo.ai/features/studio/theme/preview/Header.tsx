@@ -1,5 +1,5 @@
 import { GuiLogo } from '@hanzogui/logo'
-import { H1, Paragraph, Square, XStack, YStack } from 'hanzogui'
+import { H1, Paragraph, Square, XStack, YStack } from '@hanzo/gui'
 
 import { useDemoProps } from '~/features/studio/theme/hooks/useDemoProps'
 import { useThemeBuilderStore } from '../store/ThemeBuilderStore'

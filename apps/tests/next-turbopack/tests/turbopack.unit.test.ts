@@ -49,7 +49,7 @@ describe('Turbopack + Gui CLI optimization', () => {
   afterAll(() => reset())
 
   it('CLI optimization flattens Text to span with className', () => {
-    execSync(`bun gui build --target web ./src/TestComponent.tsx`, {
+    execSync(`bun hanzogui build --target web ./src/TestComponent.tsx`, {
       cwd: ROOT,
       stdio: 'pipe',
     })
@@ -68,7 +68,7 @@ describe('Turbopack + Gui CLI optimization', () => {
   })
 
   it('CLI generates atomic CSS file', () => {
-    execSync(`bun gui build --target web ./src/TestComponent.tsx`, {
+    execSync(`bun hanzogui build --target web ./src/TestComponent.tsx`, {
       cwd: ROOT,
       stdio: 'pipe',
     })
@@ -86,7 +86,7 @@ describe('Turbopack + Gui CLI optimization', () => {
   })
 
   it('prod build works after CLI optimization', () => {
-    execSync(`bunx gui build --target web ./src/TestComponent.tsx`, {
+    execSync(`bunx hanzogui build --target web ./src/TestComponent.tsx`, {
       cwd: ROOT,
       stdio: 'pipe',
     })
@@ -100,7 +100,7 @@ describe('Turbopack + Gui CLI optimization', () => {
 
   it('reset properly restores original file', () => {
     // Optimize
-    execSync(`bun gui build --target web ./src/TestComponent.tsx`, {
+    execSync(`bun hanzogui build --target web ./src/TestComponent.tsx`, {
       cwd: ROOT,
       stdio: 'pipe',
     })

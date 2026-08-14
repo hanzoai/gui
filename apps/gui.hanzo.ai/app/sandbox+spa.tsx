@@ -1,7 +1,7 @@
 import { setTintIndex } from '@hanzogui/logo'
 import { useLoader } from 'one'
 import { useEffect } from 'react'
-import { Button, YStack } from 'hanzogui'
+import { Button, YStack } from '@hanzo/gui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { HomeAnimations } from '~/features/site/home/HomeAnimations'
 import { HomeCommunity } from '~/features/site/home/HomeCommunity'

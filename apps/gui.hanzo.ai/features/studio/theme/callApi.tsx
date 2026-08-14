@@ -53,7 +53,7 @@ export async function callStudioProcedure<P extends Procedure>(
       const response = await fetch(
         `${
           process.env.NODE_ENV === 'production'
-            ? 'https://gui.hanzo.ai'
+            ? 'https://hanzogui.dev'
             : 'http://localhost:8081'
         }/api/studio/procedure?procedure=${procedureName}`,
         {

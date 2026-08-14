@@ -347,9 +347,9 @@ const DescriptionWarning: React.FC<DescriptionWarningProps> = ({ contentRef }) =
   
         You can add a description to the \`${CONTENT_NAME}\` by passing a \`${DESCRIPTION_NAME}\` component as a child, which also benefits sighted users by adding visible context to the dialog.
         
-        Alternatively, you can use your own component as a description by assigning it an \`id\` and passing the same value to the \`aria-describedby\` prop in \`${CONTENT_NAME}\`. If the description is confusing or duplicative for sighted users, you can use the \`@radix-ui/react-visually-hidden\` primitive as a wrapper around your description component.
+        Alternatively, you can use your own component as a description by assigning it an \`id\` and passing the same value to the \`aria-describedby\` prop in \`${CONTENT_NAME}\`. If the description is confusing or duplicative for sighted users, you can use the \`@hanzogui/visually-hidden\` primitive as a wrapper around your description component.
         
-        For more information, see https://gui.dev/docs/components/alert-dialog`)
+        For more information, see https://hanzogui.dev/docs/components/alert-dialog`)
       }
     }, [contentRef])
   }

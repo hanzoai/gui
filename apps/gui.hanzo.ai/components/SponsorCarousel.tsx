@@ -1,4 +1,4 @@
-import { H2, H5, Paragraph, styled, XStack, YStack, Image } from 'hanzogui'
+import { H2, H5, Paragraph, styled, XStack, YStack, Image } from '@hanzo/gui'
 import { Link } from '~/components/Link'
 
 const sponsors = [
@@ -158,7 +158,7 @@ export function SponsorCarousel() {
             Our Sponsors
           </H2>
           <Paragraph text="center" color="$color10" size="$5" mt="$2">
-            Sponsors who made GUI possible
+            Sponsors who made Gui possible
           </Paragraph>
         </YStack>
         <XStack flexWrap="wrap" justify="center" gap="$6" px="$6" maxW={1200}>

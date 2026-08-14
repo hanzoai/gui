@@ -1,14 +1,14 @@
 ---
 title: Installation
-description: Get Hanzo GUI set up, step by step
+description: Get Gui set up, step by step
 ---
 
 <IntroParagraph>
-  Hanzo GUI is easy to set up as we've invested into "0-config" installs for all bundlers.
+  Gui is easy to set up as we've invested into "0-config" installs for all bundlers.
   That said, it's easy to get lost if you start configuring too many things too early.
 </IntroParagraph>
 
-Use `npm create hanzo-gui@latest` to pick one of our starter templates.
+Use `npm create hanzogui@latest` to pick one of our starter templates.
 
 ## Requirements
 
@@ -16,7 +16,7 @@ Use `npm create hanzo-gui@latest` to pick one of our starter templates.
 - **React 19+**
 - **TypeScript 5+** (required)
 
-Hanzo GUI 2 takes advantage of new style features in React Native 0.81+ including
+Gui 2 takes advantage of new style features in React Native 0.81+ including
 `boxShadow`, `filter`, and more. On web, there are no version restrictions.
 
 ## Installation
@@ -31,18 +31,38 @@ Core is just the style library. If you plan to use our full UI kit, you can
 avoid installing `@hanzogui/core` and instead:
 
 ```bash
-yarn add @hanzo/gui
+yarn add hanzogui
 ```
 
-The `@hanzo/gui` package is a superset of core, so anywhere the docs reference
-`@hanzogui/core`, you can replace it with `@hanzo/gui`.
+The `hanzogui` package is a superset of core, so anywhere the docs reference
+`@hanzogui/core`, you can replace it with `hanzogui`.
+
+<Notice>
+  This applies to web-only apps. If you're building a native or universal app,
+  you already have `react-native` installed. For web-only apps, you still need
+  `react-native` types in the parent project for proper prop typing and
+  autocomplete. You can either install `react-native` directly:
+
+  ```bash
+  yarn add react-native
+  ```
+
+  Or, if you only want the types:
+
+  ```bash
+  yarn add react-native@0.0.0 @types/react-native
+  ```
+
+  Gui's web runtime is self-contained. In a monorepo, install either option
+  in the parent app or workspace root rather than a leaf package.
+</Notice>
 
 Next, you'll want to set up your [configuration](/docs/core/configuration) and
 provide it with `GuiProvider`:
 
 ```tsx fileName="App.tsx"
 import { GuiProvider, View } from '@hanzogui/core'
-import config from './gui.config' // your configuration
+import config from './hanzogui.config' // your configuration
 
 export default function App() {
   return (
@@ -65,7 +85,7 @@ You can use it like so:
 import { GuiProvider, createGui } from '@hanzogui/core'
 import { defaultConfig } from '@hanzogui/config/v5'
 
-// you usually export this from a gui.config.ts file
+// you usually export this from a hanzogui.config.ts file
 const config = createGui(defaultConfig)
 
 type Conf = typeof config
@@ -101,24 +121,24 @@ export default function Demo() {
 From here, we recommend
 [spending some time understanding configuration](/docs/core/configuration).
 
-100% of Hanzo GUI features work at both runtime and compile-time, which makes it
+100% of Gui features work at both runtime and compile-time, which makes it
 both easy to use and fast. Because it works fully at runtime, and because we've
 invested a lot into building it such that it doesn't need any special bundler
-configuration to work on either native or web, you can begin using Hanzo GUI with
+configuration to work on either native or web, you can begin using Gui with
 just the above setup.
 
 ---
 
 ## Next Steps
 
-Once you have Hanzo GUI installed, you'll want to explore:
+Once you have Gui installed, you'll want to explore:
 
 - **[CLI](/docs/guides/cli)** - Command-line tools for building, optimizing, and
-  managing your Hanzo GUI projects
+  managing your Gui projects
 - **[Bundler Setup](/docs/guides/next-js)** - Integration guides for Next.js,
   Expo, Vite, Webpack, Metro, and more
 - **[Design Systems](/docs/guides/design-systems)** - Build your own optimized
-  component library with Hanzo GUI
+  component library with Gui
 
 Later on, you can [set up the compiler](/docs/intro/compiler-install) to gain
 more performance and some nice development helpers.
@@ -127,11 +147,11 @@ more performance and some nice development helpers.
 
 ## Bundler Guides
 
-Hanzo GUI generally doesn't require any special bundler setup as we've worked hard
+Gui generally doesn't require any special bundler setup as we've worked hard
 to make it "just work" without configuration in a wide variety of environments.
 
 That said, the broader React Native and React Native Web ecosystem is filled
-with packages that do need configuration. Hanzo GUI provides a variety of bundler
+with packages that do need configuration. Gui provides a variety of bundler
 plugins that help with that:
 
 <Spacer />

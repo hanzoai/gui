@@ -18,18 +18,36 @@
  */
 import React from 'react'
 import { HanzoWordmark } from './mark'
-import { HANZO_FOOTER_BOTTOM, HANZO_FOOTER_COLUMNS, type HanzoLink } from './hanzo-registry'
-import { ACCENT, CHROME, FS } from './theme'
-import { useShellFocusRing } from './focusRing'
+import {
+  HANZO_FOOTER_BOTTOM,
+  HANZO_FOOTER_COLUMNS,
+  type HanzoLink,
+} from './hanzo-registry'
+import { ACCENT, CHROME, FG_ON, FS, LABEL, R } from './theme'
+import { useShellStyles } from './shellStyles'
 
 export interface HanzoFooterProps {
   /** Highlights the current product in the PRODUCTS column (`aria-current`). */
   currentProductId?: string
   className?: string
+  /**
+   * Publication predicate. The registry names every page the estate has ever
+   * shipped, but which of them a SITE currently publishes is the site's call —
+   * hanzo.ai decides it in lib/publish, the one policy that also writes its
+   * sitemap and noindex tags. When given, a link renders iff `visible(href)`;
+   * a column whose every link is withheld vanishes whole. Absent, everything
+   * renders, which is what every existing caller gets.
+   */
+  visible?: (href: string) => boolean
 }
 
-export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
-  useShellFocusRing()
+export function HanzoFooter({ currentProductId, className, visible }: HanzoFooterProps) {
+  useShellStyles()
+  const shown = (href: string) => (visible ? visible(href) : true)
+  const columns = HANZO_FOOTER_COLUMNS.map((col) => ({
+    ...col,
+    items: col.items.filter((item) => shown(item.href)),
+  })).filter((col) => col.items.length > 0)
   return (
     <footer
       role="contentinfo"
@@ -42,7 +60,14 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
         fontFamily: CHROME.font,
       }}
     >
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px 24px', boxSizing: 'border-box' }}>
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: '0 auto',
+          padding: '48px 24px 24px',
+          boxSizing: 'border-box',
+        }}
+      >
         {/* ── Link columns ── */}
         <div
           style={{
@@ -51,24 +76,25 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
             gap: '32px 24px',
           }}
         >
-          {HANZO_FOOTER_COLUMNS.map((col) => (
+          {columns.map((col) => (
             <nav key={col.id} aria-label={col.title}>
-              <div
+              <div style={{ ...LABEL, marginBottom: 14 }}>{col.title}</div>
+              <ul
                 style={{
-                  fontSize: FS.xs,
-                  fontWeight: 700,
-                  letterSpacing: 0.6,
-                  textTransform: 'uppercase',
-                  color: CHROME.fgDim,
-                  marginBottom: 14,
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 9,
                 }}
               >
-                {col.title}
-              </div>
-              <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 9 }}>
                 {col.items.map((item) => (
                   <li key={item.id}>
-                    <FooterLink link={item} current={col.id === 'products' && item.id === currentProductId} />
+                    <FooterLink
+                      link={item}
+                      current={col.id === 'products' && item.id === currentProductId}
+                    />
                   </li>
                 ))}
               </ul>
@@ -88,7 +114,17 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
             borderTop: `1px solid ${CHROME.border}`,
           }}
         >
-          <a href="https://hanzo.ai" aria-label="Hanzo" style={{ color: CHROME.fg, textDecoration: 'none', flexShrink: 0 }}>
+          <a
+            href="https://hanzo.ai"
+            aria-label="Hanzo"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              color: CHROME.fg,
+              textDecoration: 'none',
+              flexShrink: 0,
+            }}
+          >
             <HanzoWordmark label="Hanzo" size={20} />
           </a>
           <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, flexShrink: 0 }}>
@@ -96,7 +132,7 @@ export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
           </span>
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-            {HANZO_FOOTER_BOTTOM.links.map((link) => (
+            {HANZO_FOOTER_BOTTOM.links.filter((l) => shown(l.href)).map((link) => (
               <LegalLink key={link.id} link={link} />
             ))}
           </div>
@@ -114,13 +150,15 @@ function FooterLink({ link, current }: { link: HanzoLink; current: boolean }) {
       href={link.href}
       aria-current={current ? 'true' : undefined}
       style={{
+        display: 'flex',
+        alignItems: 'center',
         fontSize: FS.sm,
         textDecoration: 'none',
         color: current ? ACCENT : CHROME.fgMuted,
         transition: 'color 120ms ease',
       }}
       onMouseEnter={(e) => {
-        ;(e.currentTarget as HTMLElement).style.color = CHROME.fg
+        ;(e.currentTarget as HTMLElement).style.color = FG_ON
       }}
       onMouseLeave={(e) => {
         ;(e.currentTarget as HTMLElement).style.color = current ? ACCENT : CHROME.fgMuted
@@ -136,15 +174,17 @@ function LegalLink({ link }: { link: HanzoLink }) {
     <a
       href={link.href}
       style={{
+        display: 'inline-flex',
+        alignItems: 'center',
         fontSize: FS.sm,
         textDecoration: 'none',
         color: CHROME.fgMuted,
         padding: '2px 6px',
-        borderRadius: 6,
+        borderRadius: R.pill,
         transition: 'color 120ms ease',
       }}
       onMouseEnter={(e) => {
-        ;(e.currentTarget as HTMLElement).style.color = CHROME.fg
+        ;(e.currentTarget as HTMLElement).style.color = FG_ON
       }}
       onMouseLeave={(e) => {
         ;(e.currentTarget as HTMLElement).style.color = CHROME.fgMuted

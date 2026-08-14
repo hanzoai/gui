@@ -1,4 +1,4 @@
-import { Paragraph, SizableText, Text } from 'hanzogui'
+import { Paragraph, SizableText, Text } from '@hanzo/gui'
 
 // Test case: numberOfLines should not change fontWeight or lineHeight
 // Issue: Specifying numberOfLines on text results in changes to font styling

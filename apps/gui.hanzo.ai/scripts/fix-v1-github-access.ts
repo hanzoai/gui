@@ -136,7 +136,7 @@ async function checkGitHubTeamMembership(
   username: string
 ): Promise<{ isMember: boolean; state?: 'active' | 'pending' }> {
   const response = await fetch(
-    `https://api.github.com/orgs/hanzoai/teams/early-access/memberships/${username}`,
+    `https://api.github.com/orgs/hanzogui/teams/early-access/memberships/${username}`,
     {
       method: 'GET',
       headers: {
@@ -163,7 +163,7 @@ async function addUserToGitHubTeam(
   username: string
 ): Promise<{ success: boolean; state?: string; error?: string }> {
   const response = await fetch(
-    `https://api.github.com/orgs/hanzoai/teams/early-access/memberships/${username}`,
+    `https://api.github.com/orgs/hanzogui/teams/early-access/memberships/${username}`,
     {
       method: 'PUT',
       headers: {

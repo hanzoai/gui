@@ -1,4 +1,4 @@
-import { Paragraph, styled } from 'hanzogui'
+import { Paragraph, styled } from '@hanzo/gui'
 
 export const CodeInline = styled(Paragraph, {
   name: 'CodeInline',

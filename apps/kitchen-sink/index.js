@@ -1,5 +1,5 @@
-// ensure gui config is created before any component imports
-require('./src/gui.config')
+// ensure hanzogui config is created before any component imports
+require('./src/hanzogui.config')
 
 // setup native features - just import, no function calls needed
 import '@hanzogui/native/setup-zeego'

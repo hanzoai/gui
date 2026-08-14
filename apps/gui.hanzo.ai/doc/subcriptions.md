@@ -1,8 +1,8 @@
-# 📋 Hanzo GUI Subscription Documentation
+# 📋 Gui Subscription Documentation
 
 ## Overview
 
-This document provides a comprehensive guide to the Hanzo GUI subscription system, covering all subscription plans, database architecture, payment flows, and implementation details.
+This document provides a comprehensive guide to the Gui subscription system, covering all subscription plans, database architecture, payment flows, and implementation details.
 
 ## 1. 💳 Current Subscription Plans
 
@@ -12,7 +12,7 @@ This document provides a comprehensive guide to the Hanzo GUI subscription syste
 
 - **🔄 Recurring Subscription** (Annual): $240/year
   - 🔐 Access to private Takeout GitHub repository
-  - 🍱 Recipes components download + private Recipes source repo access
+  - 🍱 Bento components download + private Bento source repo access
   - 💬 Private community Discord chat room (#takeout-general)
   - ♾️ Lifetime rights to all code and assets (even after subscription expires)
   - 👥 Supports team seats addition
@@ -253,18 +253,18 @@ if (supportTier > 0) {
 **🎯 Purpose**:
 
 - 📊 Track one-time purchases before subscription system
-- 🍱 Provide Recipes access for legacy users
+- 🍱 Provide Bento access for legacy users
 - 🔧 Handle data migration issues
 
 **💻 Usage**:
 
 ```typescript
-// Check legacy 🍱 Recipes access
+// Check legacy 🍱 Bento access
 const { data: ownership } = await supabase
   .from('product_ownership')
   .select('*')
   .eq('user_id', userId)
-  .eq('product_id', RECIPES_PRODUCT_ID)
+  .eq('product_id', BENTO_PRODUCT_ID)
 ```
 
 ### 🕰️ Legacy Discord Seats Calculation
@@ -416,4 +416,4 @@ This tool allows developers to impersonate any user for testing subscription flo
 
 - **`/api/stripe/webhook`**: Handle all Stripe webhook events for subscription lifecycle
 
-This documentation provides a complete overview of the Hanzo GUI subscription system architecture and implementation details for team members to understand and maintain the codebase effectively.
+This documentation provides a complete overview of the Gui subscription system architecture and implementation details for team members to understand and maintain the codebase effectively.

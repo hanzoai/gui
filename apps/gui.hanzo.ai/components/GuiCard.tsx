@@ -1,4 +1,4 @@
-import { H3, Paragraph, XStack } from 'hanzogui'
+import { H3, Paragraph, XStack } from '@hanzo/gui'
 
 import { Card } from './Card'
 

@@ -1,5 +1,5 @@
 import { Text as CoreText } from '@hanzogui/core'
-import { H1, Text, styled } from 'hanzogui'
+import { H1, Text, styled } from '@hanzo/gui'
 
 // Test case for GitHub issue #3789: Nested Text breaks inheritance of some styles/props
 
@@ -22,7 +22,7 @@ export function TextNestedInheritance() {
         should also be truncated
       </Text>
 
-      {/* Test 2: gui Text sets color: '$color', so nested Text should NOT inherit */}
+      {/* Test 2: hanzogui Text sets color: '$color', so nested Text should NOT inherit */}
       <Text testID="parent-color" color="blue">
         Parent blue text with
         <Text testID="nested-color" fontWeight="bold">

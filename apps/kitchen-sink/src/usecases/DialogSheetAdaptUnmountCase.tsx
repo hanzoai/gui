@@ -7,7 +7,7 @@ import {
   Dialog as GuiDialog,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const CONTENT_RADIUS = '$6' as const
 

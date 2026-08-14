@@ -1,8 +1,8 @@
 import { ThemeTintAlt } from '@hanzogui/logo'
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
-import { Card, H3, Paragraph, View, YStack } from 'hanzogui'
+import { Card, H3, Paragraph, View, YStack } from '@hanzo/gui'
 import type { Href } from 'one'
-import { RecipesIcon } from '~/features/icons/RecipesIcon'
+import { BentoIcon } from '~/features/icons/BentoIcon'
 import { TakeoutIcon } from '~/features/icons/TakeoutIcon'
 import { Link } from './Link'
 
@@ -10,8 +10,8 @@ const productSettings = (
   product: string
 ): { colorOffset: number; Icon: React.ReactNode } => {
   switch (product) {
-    case 'recipes':
-      return { colorOffset: 6, Icon: <RecipesIcon scale={2.5} /> }
+    case 'bento':
+      return { colorOffset: 6, Icon: <BentoIcon scale={2.5} /> }
     case 'takeout':
       return { colorOffset: 3, Icon: <TakeoutIcon scale={2.5} /> }
     default:

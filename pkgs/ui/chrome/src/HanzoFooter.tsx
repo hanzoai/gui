@@ -1,8 +1,31 @@
 'use client'
 
 /**
- * HanzoFooter — the minimal monochrome footer: brand + tagline, link columns,
- * copyright, and an optional GitHub mark. Data-driven via props.
+ * HanzoFooter — DEPRECATED. Use `SiteFooter` from `@hanzo/ui/product`.
+ *
+ * Two footers called themselves the shared one; `SiteFooter` won, on the design
+ * question rather than on seniority:
+ *
+ *   · SiteFooter renders the FOOTER model from `@hanzo/products`, so the link
+ *     set is shared DATA and a footer link cannot diverge from its menu twin.
+ *     This one takes `sections` as a prop, which means every caller supplies its
+ *     own links — reproducing the 57-divergent-footers problem a shared footer
+ *     exists to end.
+ *   · Its `brand`/`meta` SLOTS are strictly more general than this file's
+ *     `logo`/`brand`/`githubHref`/`homeHref` props, and its copyright comes from
+ *     the model rather than a default string, so a white-label surface cannot
+ *     accidentally ship Hanzo's legal entity.
+ *   · 24 call sites to this file's 8.
+ *
+ * This does NOT re-export SiteFooter, and that is not an oversight: this package
+ * lives inside @hanzo/gui, and @hanzo/ui peer-depends on @hanzo/gui — a
+ * re-export would close a gui -> ui -> gui cycle. So the body stays here, works
+ * unchanged for its 8 callers, and they migrate rather than being broken.
+ *
+ * The minimal monochrome footer: brand + tagline, link columns, copyright, and
+ * an optional GitHub mark. Data-driven via props.
+ *
+ * @deprecated Use `SiteFooter` from `@hanzo/ui/product`.
  */
 
 import { type ReactNode } from 'react'
@@ -46,7 +69,7 @@ const BrandRow = linkable(
     cursor: 'pointer',
     alignItems: 'center',
     gap: 8,
-  }),
+  })
 )
 
 const GhFrame = linkable(
@@ -56,13 +79,20 @@ const GhFrame = linkable(
     cursor: 'pointer',
     alignItems: 'center',
     justifyContent: 'center',
-  }),
+  })
 )
 
 function GithubLink({ href, label }: { href: string; label: string }) {
   const { hovered, onMouseEnter, onMouseLeave } = useHover()
   return (
-    <GhFrame href={href} target="_blank" rel="noreferrer noopener" aria-label={label} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <GhFrame
+      href={href}
+      target="_blank"
+      rel="noreferrer noopener"
+      aria-label={label}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <Github size={20} color={hovered ? c.fg : c.fgDim} />
     </GhFrame>
   )
@@ -123,7 +153,9 @@ export function HanzoFooter({
           <Txt kind="dim">
             © {year} {legalName} All rights reserved.
           </Txt>
-          {githubHref ? <GithubLink href={githubHref} label={`${brand} on GitHub`} /> : null}
+          {githubHref ? (
+            <GithubLink href={githubHref} label={`${brand} on GitHub`} />
+          ) : null}
         </XStack>
       </YStack>
     </FooterFrame>

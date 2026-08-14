@@ -104,7 +104,7 @@ export const SliderImpl = React.forwardRef<View, SliderImplProps>(
     )
 
     return (
-      // wrap with plain RN View for responder events - gui views no longer handle responder events on web
+      // wrap with plain RN View for responder events - hanzogui views no longer handle responder events on web
 
       <SliderFrame
         size="$4"

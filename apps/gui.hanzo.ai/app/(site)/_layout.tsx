@@ -1,7 +1,7 @@
 import { ToastViewport } from '@hanzogui/toast'
 import { lazy, Suspense } from 'react'
 import { LoadProgressBar, Slot, usePathname } from 'one'
-import { Theme, YStack } from 'hanzogui'
+import { Theme, YStack } from '@hanzo/gui'
 import { PromoBanner } from '~/components/PromoBanner'
 import { Footer } from '~/features/site/Footer'
 import { Header } from '~/features/site/header/Header'
@@ -40,19 +40,19 @@ export default function SiteLayout() {
   const isBlog = path.startsWith('/blog')
   const isDocs =
     path.startsWith('/docs') || path.startsWith('/ui') || path.startsWith('/demo')
-  const isRecipes = path.startsWith('/recipes')
+  const isBento = path.startsWith('/bento')
 
   const disableNew = isBlog || isAuthPage || isProductLandingPage || isAccountPage
   const showAuth = isAuthPage || isProductLandingPage || isAccountPage
-  const hideFooter = isDocs || isTakeout || isRecipes || isAuthPage
+  const hideFooter = isDocs || isTakeout || isBento || isAuthPage
   const hideHeader = isAuthPage
   const hidePromoBanner = isAuthPage
 
   const { themeName, enabled } = useSiteTheme()
 
-  // use custom theme when enabled (skip recipes - it has its own wrapper)
+  // use custom theme when enabled (skip bento - it has its own wrapper)
   // always render the same tree structure to avoid remounting on enable toggle
-  const customThemeActive = enabled && themeName && !isRecipes
+  const customThemeActive = enabled && themeName && !isBento
   const customThemeName = customThemeActive ? themeName : null
 
   return (

@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/chrome",
-  "version": "7.3.1",
-  "description": "Unified public-site chrome — HanzoNav, HanzoFooter, ChatHero, HanzoWidget. The one openai-style header/footer + AI-composer hero shared across Hanzo marketing surfaces. Tamagui styled() + monochrome zinc-on-black tokens (Geist), presentational and host-agnostic (data + effects injected via props).",
+  "version": "8.1.1",
+  "description": "Marketing sections for Hanzo public sites — HanzoFooter, ChatHero, HanzoWidget. The site HEADER lives in @hanzogui/shell (HanzoHeader); this package no longer ships a nav.",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -28,13 +28,14 @@
     }
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-geist": "workspace:*",
     "@hanzogui/input": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/stacks": "workspace:*",

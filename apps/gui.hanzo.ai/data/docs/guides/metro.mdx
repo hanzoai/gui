@@ -1,6 +1,6 @@
 ---
 title: Metro Guide
-description: How to set up Hanzo GUI with Metro
+description: How to set up Gui with Metro
 ---
 
 ## Basic Setup
@@ -15,15 +15,15 @@ module.exports = getDefaultConfig(__dirname)
 
 ## With Metro Plugin (Recommended)
 
-For better dev experience, use `@hanzogui/metro-plugin` which loads your Hanzo GUI
+For better dev experience, use `@hanzogui/metro-plugin` which loads your Gui
 config and watches for changes:
 
 ```bash
 yarn add @hanzogui/metro-plugin
 ```
 
-If you have a `gui.build.ts` (recommended — see
-[compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
+If you have a `hanzogui.build.ts` (recommended — see
+[compiler install docs](/docs/intro/compiler-install#configuration-with-hanzoguibuildts)),
 no options are needed:
 
 ```tsx fileName="metro.config.js"
@@ -32,7 +32,7 @@ const { withGui } = require('@hanzogui/metro-plugin')
 
 const config = getDefaultConfig(__dirname)
 
-// reads from gui.build.ts automatically
+// reads from hanzogui.build.ts automatically
 module.exports = withGui(config)
 ```
 
@@ -46,18 +46,18 @@ const config = getDefaultConfig(__dirname)
 
 module.exports = withGui(config, {
   components: ['@hanzo/gui'],
-  config: './gui.config.ts',
+  config: './hanzogui.config.ts',
 })
 ```
 
 ## Optimized Production Builds
 
-For maximum optimization, use the `gui build` command which pre-compiles
+For maximum optimization, use the `hanzogui build` command which pre-compiles
 your components:
 
 ```bash
 # Optimize and build, then restore source files
-gui build --target web ./app -- expo export --platform web
+hanzogui build --target web ./app -- expo export --platform web
 ```
 
 The `--` syntax runs the command after optimization, then automatically restores
@@ -67,7 +67,7 @@ your source files. Add this to your `package.json`:
 {
   "scripts": {
     "build:web": "expo export --platform web",
-    "build:web:optimized": "gui build --target web ./app -- expo export --platform web"
+    "build:web:optimized": "hanzogui build --target web ./app -- expo export --platform web"
   }
 }
 ```

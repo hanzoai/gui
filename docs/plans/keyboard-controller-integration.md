@@ -213,20 +213,20 @@ interface SheetProps {
 
 ### Create
 
-1. `code/core/native/src/keyboardControllerState.ts`
-2. `code/core/native/src/setup-keyboard-controller.ts`
-3. `code/core/native/src/setup-keyboard-controller.web.ts`
-4. `code/ui/sheet/src/useKeyboardControllerSheet.ts`
-5. `code/ui/sheet/src/useKeyboardControllerSheet.native.ts`
-6. `code/kitchen-sink/src/usecases/SheetKeyboardDragCase.tsx`
-7. `code/kitchen-sink/e2e/SheetKeyboardDrag.test.ts`
+1. `pkgs/core/native/src/keyboardControllerState.ts`
+2. `pkgs/core/native/src/setup-keyboard-controller.ts`
+3. `pkgs/core/native/src/setup-keyboard-controller.web.ts`
+4. `pkgs/ui/sheet/src/useKeyboardControllerSheet.ts`
+5. `pkgs/ui/sheet/src/useKeyboardControllerSheet.native.ts`
+6. `apps/kitchen-sink/src/usecases/SheetKeyboardDragCase.tsx`
+7. `apps/kitchen-sink/e2e/SheetKeyboardDrag.test.ts`
 
 ### Modify
 
-1. `code/core/native/package.json` - add peer dep + exports
-2. `code/core/native/src/index.ts` - export state functions
-3. `code/ui/sheet/src/SheetImplementationCustom.tsx` - integrate hook
-4. `code/ui/sheet/src/types.ts` - add new props
+1. `pkgs/core/native/package.json` - add peer dep + exports
+2. `pkgs/core/native/src/index.ts` - export state functions
+3. `pkgs/ui/sheet/src/SheetImplementationCustom.tsx` - integrate hook
+4. `pkgs/ui/sheet/src/types.ts` - add new props
 5. `docs/using-ios.md` - add keyboard test workflow
 
 ## Detox Test Cases
@@ -268,7 +268,7 @@ describe('SheetKeyboardDrag - Keyboard Controller Integration', () => {
 
 ```bash
 # 1. Start metro in background
-cd code/kitchen-sink && yarn start > /tmp/metro.log 2>&1 &
+cd apps/kitchen-sink && yarn start > /tmp/metro.log 2>&1 &
 
 # 2. Build app once
 detox build -c ios.sim.debug

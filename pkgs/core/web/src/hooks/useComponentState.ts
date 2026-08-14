@@ -1,5 +1,5 @@
-import { isServer, isWeb } from '@hanzogui/constants'
-import { useCreateShallowSetState } from '@hanzogui/is-equal-shallow'
+import { getPlatformDriver, isServer, isWeb } from '@hanzogui/constants'
+import { mergeIfNotShallowEqual } from '@hanzogui/is-equal-shallow'
 import { useDidFinishSSR, useIsClientOnly } from '@hanzogui/use-did-finish-ssr'
 import { useRef, useState } from 'react'
 import { getSetting } from '../config'
@@ -63,8 +63,22 @@ export const useComponentState = (
     curStateRef.hasAnimated = true
   }
 
+  // a renderer platform driver with native pseudo states (react-native-gpui)
+  // makes ANY component with runtime pseudo styles ride the animation-driver
+  // emitter path — no per-site transition/animation prop required. the flip is
+  // driver-sourced (hover) or event-sourced (press/focus) but either way applies
+  // through the emitter with zero React commits; with no transition declared it
+  // resolves instant (see createComponent's effectiveTransition default).
+  const platformPseudo = Boolean(
+    !isHOC &&
+    useAnimations &&
+    animationDriver?.avoidReRenders &&
+    getPlatformDriver()?.pseudo &&
+    ('hoverStyle' in props || 'pressStyle' in props || 'focusStyle' in props)
+  )
+
   const willBeAnimatedClient = (() => {
-    const next = !!(hasAnimationProp && !isHOC && useAnimations)
+    const next = !!((hasAnimationProp || platformPseudo) && !isHOC && useAnimations)
     return Boolean(next || curStateRef.hasAnimated)
   })()
 
@@ -162,7 +176,44 @@ export const useComponentState = (
 
   const groupName = props.group as any as string | undefined
 
-  const setStateShallow = useCreateShallowSetState(setState, props.debug)
+  // hoisted shallow-set closure: created once per component instance and
+  // reused every render. drops the useCallback hook that useCreateShallowSetState
+  // would otherwise add. setState from useState is stable per instance so we
+  // can safely capture it. debug is read off stateRef at call time.
+  //
+  // important: this lives on `baseSetStateShallow`, not `setStateShallow`.
+  // createComponent's avoidReRenders path overwrites `stateRef.current.setStateShallow`
+  // with an emitter wrapper and captures this base as its real-re-render escape hatch.
+  // if the base shared the `setStateShallow` field, on the 2nd+ render this hook would
+  // read back the wrapper, the wrapper's escape hatch would point at itself, and a real
+  // re-render (e.g. unmounted 'should-enter' -> false) would never reach React, leaving
+  // enter animations stuck at opacity 0.
+  if (!stateRef.current.baseSetStateShallow) {
+    const r = stateRef.current
+    r.baseSetStateShallow = (stateOrGetState: any) => {
+      setState((prev: any) => {
+        const next =
+          typeof stateOrGetState === 'function' ? stateOrGetState(prev) : stateOrGetState
+        const update = mergeIfNotShallowEqual(prev, next)
+        if (process.env.NODE_ENV === 'development') {
+          const dbg = (r as any).__debug
+          if (dbg && update !== prev) {
+            console.groupCollapsed(`setStateShallow CHANGE`, '=>', update)
+            console.info(`previously`, prev)
+            console.trace()
+            console.groupEnd()
+          }
+        }
+        return update
+      })
+    }
+  }
+  if (process.env.NODE_ENV === 'development') {
+    ;(stateRef.current as any).__debug = props.debug
+  }
+  const setStateShallow = stateRef.current.baseSetStateShallow!
+  if (process.env.NODE_ENV === 'development' && globalThis.time)
+    globalThis.time`state-useCreateShallowSetState`
 
   // set enter/exit variants onto our new props object
   if (presenceState && isAnimated && isHydrated && staticConfig.variants) {
@@ -247,6 +298,7 @@ export const useComponentState = (
     outputStyle,
     willBeAnimated,
     willBeAnimatedClient,
+    platformPseudo,
   }
 }
 

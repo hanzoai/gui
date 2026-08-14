@@ -8,10 +8,10 @@ Let's take a quick look through some of the useful other exports in
 
 ## Constants
 
-[Constants are re-exported from @hanzogui/constants](https://github.com/hanzoai/gui/blob/main/code/core/constants/src/constants.ts):
+[Constants are re-exported from @hanzogui/constants](https://github.com/hanzoai/gui/blob/main/pkgs/core/constants/src/constants.ts):
 
 - `isWeb` - True if targeting the web. Will be true both for SSR and client.
-- `isBrowser` - `typeof window !== 'undefined'`
+- `isBrowser` - `typeof document !== 'undefined'`
 - `isServer` - `isWeb && !isBrowser`.
 - `isClient` - `isWeb && isBrowser`.
 - `useIsomorphicLayoutEffect` - `isServer ? useEffect : useLayoutEffect`. Helper
@@ -26,7 +26,7 @@ Let's take a quick look through some of the useful other exports in
 
 ### getConfig
 
-The exported `getConfig` will return your fully parsed Hanzo GUI config. This is
+The exported `getConfig` will return your fully parsed Gui config. This is
 safer than importing it directly as it avoids circular imports. In general you
 want to use `useTheme` to access themes, and
 `getTokens`/`getToken`/`getTokenValue` for tokens, but for other parts of the
@@ -52,8 +52,8 @@ The same as insertFont, but will update an existing font.
 type isGuiComponent = (component: any, name?: string) => boolean
 ```
 
-If no name given, true if a Hanzo GUI component, if name given ensures it's the
-specific named Hanzo GUI component.
+If no name given, true if a Gui component, if name given ensures it's the
+specific named Gui component.
 
 ### isGuiElement
 
@@ -61,8 +61,8 @@ specific named Hanzo GUI component.
 type isGuiElement = (child: any, name?: string) => boolean
 ```
 
-If no name given, true if a Hanzo GUI ReactElement, if name given ensures it's the
-specific named Hanzo GUI component element.
+If no name given, true if a Gui ReactElement, if name given ensures it's the
+specific named Gui component element.
 
 ### getTokens
 
@@ -70,7 +70,7 @@ specific named Hanzo GUI component element.
 ;() => TokensParsed
 ```
 
-Returns the parsed Hanzo GUI config object of all your tokens, can be used at
+Returns the parsed Gui config object of all your tokens, can be used at
 runtime to get values from tokens. If you are looking to get a single token
 value, prefer `getToken` or `getTokenValue`.
 
@@ -128,7 +128,7 @@ Calling `getVariable(useTheme().color)` returns `var(--color)` on the web, and
 ### setOnLayoutStrategy
 
 This is a low-level utility to control `onLayout` performance. By default,
-Hanzo GUI `onLayout` on the web uses the `"async"` strategy (see below), which
+Gui `onLayout` on the web uses the `"async"` strategy (see below), which
 gives a good balance of accuracy and performance. For extremely accurate to
 native `onLayout`, you can use `"sync"`, but it can cause performance issues in
 typical usage.
@@ -217,7 +217,7 @@ function MyButton(props) {
     // 'auto' (default) resolves to optimized value on all platforms (CSS variable on web, DynamicColor on iOS, not optimized on android)
     // 'value' resolves to the raw theme/token string on all platforms (the same as useTheme()[name].val)
     resolveValues: 'value',
-    // pass a Hanzo GUI component to resolve any custom variants:
+    // pass a Gui component to resolve any custom variants:
     forComponent: CustomComponent,
   })
 }
@@ -325,7 +325,7 @@ hydration done. On server it's always false.
 ### ClientOnly
 
 A component that opts its children out of SSR. When wrapped in `ClientOnly`,
-Hanzo GUI avoids double-renders in various places which results in faster
+Gui avoids double-renders in various places which results in faster
 client-side rendering.
 
 ```tsx
@@ -348,7 +348,7 @@ import { ClientOnly } from '@hanzo/gui' // or '@hanzogui/core'
 
 ### GetProps
 
-Fetches the type of props for a Hanzo GUI component:
+Fetches the type of props for a Gui component:
 
 ```tsx
 import { View, GetProps, styled } from '@hanzogui/core'
@@ -360,7 +360,7 @@ type XProps = GetProps<typeof X>
 
 ### GetRef
 
-Fetches the type of a ref for a Hanzo GUI component, or any React component:
+Fetches the type of a ref for a Gui component, or any React component:
 
 ```tsx
 import { View, GetRef, styled } from '@hanzogui/core'

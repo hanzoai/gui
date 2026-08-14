@@ -27,16 +27,16 @@ When using `animatePosition` with a shared tooltip (scope pattern) in the motion
 
 ## Affected Code
 
-- `/code/core/animations-motion/src/createAnimations.tsx` - Motion driver implementation
-- `/code/ui/popper/src/Popper.tsx` - PopperContent handles position with floating-ui
+- `/pkgs/core/animations-motion/src/createAnimations.tsx` - Motion driver implementation
+- `/pkgs/ui/popper/src/Popper.tsx` - PopperContent handles position with floating-ui
 - `flushAnimation()` - handles animation updates
 - `getDiff()` - computes what properties changed
 
 ## Files for Reproduction
 
-- `/code/gui.dev/features/site/home/PromoLinksRow.tsx` - Original component with the bug
-- `/code/kitchen-sink/src/usecases/TooltipPositionJumpCase.tsx` - Test case
-- `/code/kitchen-sink/scripts/repro-tooltip-jump.ts` - Playwright reproduction script
+- `/apps/gui.hanzo.ai/features/site/home/PromoLinksRow.tsx` - Original component with the bug
+- `/apps/kitchen-sink/src/usecases/TooltipPositionJumpCase.tsx` - Test case
+- `/apps/kitchen-sink/scripts/repro-tooltip-jump.ts` - Playwright reproduction script
 
 ## Jump Detection Criteria
 
@@ -61,12 +61,12 @@ The motion driver's animation state gets out of sync when:
 
 - Bug is **motion-driver specific** - other drivers (css, native, reanimated) may not have this issue
 - Run kitchen-sink on port 9000: `yarn start:web`
-- Run gui.dev on port 8282: `yarn dev --port 8282` (v2 branch)
+- Run hanzogui.dev on port 8282: `yarn dev --port 8282` (v2 branch)
 - Animation driver can be changed via URL param or config
 
 ## Playwright Reproduction Results (SUCCESS!)
 
-Script: `/code/kitchen-sink/scripts/repro-tooltip-jump.ts`
+Script: `/apps/kitchen-sink/scripts/repro-tooltip-jump.ts`
 
 **Attempt 2 detected 2 jumps:**
 
@@ -107,7 +107,7 @@ When rapidly changing triggers:
 
 ### Debugging Challenge
 
-- gui.dev on 8282 uses bundled code, doesn't pick up local changes
+- hanzogui.dev on 8282 uses bundled code, doesn't pick up local changes
 - kitchen-sink on 9000 doesn't trigger tooltips in headless mode
 - Need to either fix bundling or find different test approach
 
@@ -140,12 +140,12 @@ Potential causes:
 
 ## Files Involved
 
-- `/code/core/animations-motion/src/createAnimations.tsx` - Motion driver
+- `/pkgs/core/animations-motion/src/createAnimations.tsx` - Motion driver
   - `flushAnimation()` - Called when position changes
   - `getDiff()` - Calculates what properties changed
   - `animate(scope.current, diff, animationOptions)` - Starts animation
 
-- `/code/ui/popper/src/Popper.tsx` - PopperContent
+- `/pkgs/ui/popper/src/Popper.tsx` - PopperContent
   - `animatePosition` prop enables x/y animation
   - Passes x/y from floating-ui to the animated element
 

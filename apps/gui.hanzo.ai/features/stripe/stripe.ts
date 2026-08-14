@@ -1,26 +1,20 @@
-/**
- * `stripe` singleton — removed.
- *
- * Hanzo Commerce owns payment processor selection (Stripe is one of nine
- * configurable processors). gui.hanzo.ai never instantiates a Stripe client
- * directly any more — it calls `commerce.subscriptions.*` via the IAM-
- * authenticated REST surface in `~/features/commerce`.
- *
- * The previous Stripe SDK import (`import Stripe from 'stripe'`) is gone.
- * Re-exporting the type would re-introduce the runtime dependency, so we
- * deliberately surface a build error if any module still expects this file.
- *
- * TODO(supabase-rip): once every consumer imports from `~/features/commerce`,
- * delete this file outright.
- */
+import Stripe from 'stripe'
+import { serverEnv } from '../api/serverEnv'
 
-export const stripe = new Proxy(
-  {},
-  {
-    get() {
-      throw new Error(
-        'features/stripe/stripe.ts: removed. Call commerce.subscriptions.* from ~/features/commerce.',
-      )
-    },
+const isTestMode =
+  process.env.STRIPE_TEST_MODE === 'true' || process.env.NODE_ENV === 'development'
+
+const secretKey = isTestMode
+  ? serverEnv('STRIPE_SECRET_KEY_TEST')
+  : serverEnv('STRIPE_SECRET_KEY')
+
+export const stripe = new Stripe(secretKey!, {
+  // https://github.com/stripe/stripe-node#configuration
+  apiVersion: '2020-08-27',
+  // Register this as an official Stripe plugin.
+  // https://stripe.com/docs/building-plugins#setappinfo
+  appInfo: {
+    name: 'Next.js Subscription Starter',
+    version: '0.1.0',
   },
-) as never
+})

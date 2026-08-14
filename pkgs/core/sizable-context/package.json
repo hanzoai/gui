@@ -1,8 +1,8 @@
 {
   "name": "@hanzogui/sizable-context",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "description": "Sizable context for Gui components",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -30,13 +30,14 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/core": "workspace:*"
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -44,6 +45,5 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

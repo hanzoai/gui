@@ -9,10 +9,10 @@ import {
   Theme,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { Link } from '~/components/Link'
-import { RecipesButton } from '../site/RecipesButton'
+import { BentoButton } from '../site/BentoButton'
 import { ConsultingButton } from '../site/ConsultingButton'
 import { TakeoutButton } from '../site/TakeoutButton'
 
@@ -356,8 +356,8 @@ export function DocsQuickNav({ headings = [] }: { headings?: Heading[] }) {
 
           <YStack gap="$2" px="$4">
             <Theme name="green">
-              <Link width="100%" href="/recipes">
-                <RecipesButton />
+              <Link width="100%" href="/bento">
+                <BentoButton />
               </Link>
             </Theme>
             <Theme name="gray">

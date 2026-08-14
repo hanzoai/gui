@@ -1,15 +1,13 @@
 {
   "name": "@hanzogui/react-native-web",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "files": [
     "src",
     "types",
     "dist"
   ],
   "type": "module",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -25,10 +23,10 @@
     }
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build",
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build",
     "check": "bun run check-circular-deps",
     "check-circular-deps": "npx madge --circular ./src/index.ts"
   },
@@ -43,7 +41,5 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

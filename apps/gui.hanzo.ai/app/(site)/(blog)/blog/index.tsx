@@ -1,5 +1,5 @@
 import { useLoader } from 'one'
-import { H2, Paragraph, Spacer, XStack } from 'hanzogui'
+import { H2, Paragraph, Spacer, XStack } from '@hanzo/gui'
 import { ContainerLarge } from '~/components/Containers'
 import { Link } from '~/components/Link'
 import { GuiCard } from '~/components/GuiCard'

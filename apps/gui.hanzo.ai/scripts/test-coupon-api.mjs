@@ -11,7 +11,7 @@
  */
 
 const isProd = process.argv.includes('--prod')
-const baseUrl = isProd ? 'https://gui.hanzo.ai' : 'http://localhost:5005'
+const baseUrl = isProd ? 'https://hanzogui.dev' : 'http://localhost:5005'
 
 const testCodes = ['WELCOMEBACK30', 'V1_UPGRADE_35', 'INVALID_CODE_123']
 

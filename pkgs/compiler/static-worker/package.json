@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/static-worker",
-  "version": "7.3.1",
-  "license": "BSD-3-Clause",
+  "version": "8.1.1",
+  "license": "MIT",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -26,10 +26,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build --skip-native",
-    "watch": "gui-build --skip-native --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build",
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build",
     "test": "vitest run",
     "test:web": "bun run test",
     "test:watch": "vitest"
@@ -42,6 +42,5 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "vitest": "4.0.4"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

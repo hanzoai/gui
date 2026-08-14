@@ -25,7 +25,7 @@ import {
   XStack,
   YStack,
   type PopoverProps,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { useBannerHeight } from '~/components/PromoBanner'
 import { GithubIcon } from '~/features/icons/GithubIcon'
@@ -33,12 +33,12 @@ import { seasons, SeasonTogglePopover } from '~/features/site/seasons/SeasonTogg
 import { ThemeToggle } from '~/features/site/theme/ThemeToggle'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { useLoginLink } from '../../auth/useLoginLink'
-import { useRecipesStore } from '../../recipes/RecipesStore'
-import { useRecipesTheme } from '../../recipes/useRecipesTheme'
+import { useBentoStore } from '../../bento/BentoStore'
+import { useBentoTheme } from '../../bento/useBentoTheme'
 import { DocsMenuContents } from '../../docs/DocsMenuContents'
 import { useDocsMenu } from '../../docs/useDocsMenu'
 import { AddEvenBrandIcon } from '../../icons/AddEvenBrandIcon'
-import { RecipesIcon } from '../../icons/RecipesIcon'
+import { BentoIcon } from '../../icons/BentoIcon'
 import { TakeoutIcon } from '../../icons/TakeoutIcon'
 import { useUser } from '../../user/useUser'
 import { accountModal } from '../purchase/accountModalStore'
@@ -135,6 +135,7 @@ export function Header(props: HeaderProps) {
           </XStack>
           {/* do shadow separate so we can contain paint because its causing perf issues */}
           <XStack
+            className="ease-in-out all ms200"
             z={-1}
             rounded="$10"
             fullscreen
@@ -209,27 +210,6 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
         </Link>
 
         <UpgradeToProPopover />
-
-        {/* <Theme name="teal">
-          <Link href="/blog/version-two">
-            <Button
-              size="$2"
-              bg="$color3"
-              borderWidth={0}
-              theme="teal"
-              $theme-light={{
-                boxShadow: 'inset 0 -2px 0 1px $color8',
-              }}
-              pressStyle={{
-                y: 1,
-              }}
-            >
-              <Span fontSize="$2" fontWeight="600">
-                v2 RC
-              </Span>
-            </Button>
-          </Link>
-        </Theme> */}
       </XStack>
 
       <View flex={1} />
@@ -310,7 +290,7 @@ const HeaderMenuButton = () => {
         <Button
           size="$5"
           circular
-          my={2}
+          my={-1}
           bg="transparent"
           borderWidth={0}
           onPress={(e) => {
@@ -413,7 +393,7 @@ export const HeaderLinksPopover = (props: PopoverProps) => {
       </SlidingPopoverContext.Provider>
 
       <Adapt platform="touch" when="sm">
-        <Sheet transition={'quicker'} zIndex={100000000} modal dismissOnSnapToBottom>
+        <Sheet transition="medium" zIndex={100000000} modal dismissOnSnapToBottom>
           <Sheet.Frame>
             <Sheet.ScrollView showsVerticalScrollIndicator={false}>
               <Adapt.Contents />
@@ -651,16 +631,16 @@ const ActivePageDocsMenuContents = () => {
 const HeaderMenuContents = (props: { id: ID }) => {
   const { data } = useUser()
   const { updateGenerate } = useThemeBuilderStore()
-  const recipesStore = useRecipesStore()
+  const bentoStore = useBentoStore()
   const themeHistories = data?.themeHistories || []
-  const recipesTheme = useRecipesTheme()
+  const bentoTheme = useBentoTheme()
   const isOnlyShowingMenu = useMedia().maxMd
   const isMobile = isTouchable && isOnlyShowingMenu
 
   const contents = (() => {
     /**
      * When the theme_histories are fetched,
-     * we can apply one of them to Recipes components from dropdown
+     * we can apply one of them to Bento components from dropdown
      */
     if (props.id === 'menu') {
       return (
@@ -708,26 +688,26 @@ const HeaderMenuContents = (props: { id: ID }) => {
                   grid
                   items="center"
                   onPress={() => {
-                    recipesStore.disableCustomTheme = !recipesStore.disableCustomTheme
+                    bentoStore.disableCustomTheme = !bentoStore.disableCustomTheme
                   }}
                 >
                   <SizableText size="$3" color="$color11" ellipsis>
                     Enabled
                   </SizableText>
 
-                  {recipesTheme.enabled ? <Check ml="$2" size={12} /> : null}
+                  {bentoTheme.enabled ? <Check ml="$2" size={12} /> : null}
                 </HeadAnchor>
                 <HeadAnchor
                   grid
                   onPress={() => {
-                    recipesStore.disableTint = !recipesStore.disableTint
+                    bentoStore.disableTint = !bentoStore.disableTint
                   }}
                 >
                   <SizableText size="$3" color="$color11" ellipsis>
                     Tint
                   </SizableText>
 
-                  {!recipesStore.disableTint ? <Check ml="$2" size={12} /> : null}
+                  {!bentoStore.disableTint ? <Check ml="$2" size={12} /> : null}
                 </HeadAnchor>
               </XStack>
 
@@ -888,10 +868,10 @@ const HeaderMenuMoreContents = () => {
         </HeadAnchor>
       </Link>
 
-      <Link asChild href="/recipes">
+      <Link asChild href="/bento">
         <HeadAnchor grid render="a">
           <XStack items="center">
-            <span>Recipes</span>
+            <span>Bento</span>
             <YStack
               ml={3}
               display={'inline-block' as any}
@@ -900,7 +880,7 @@ const HeaderMenuMoreContents = () => {
               my={-10}
               opacity={0.8}
             >
-              <RecipesIcon scale={0.65} />
+              <BentoIcon scale={0.65} />
             </YStack>
           </XStack>
           <SizableText size="$2" color="$color9">
@@ -951,7 +931,7 @@ const HeaderMenuMoreContents = () => {
 
       <Link
         asChild
-        href="https://www.figma.com/community/file/1326593766534421119/hanzo-gui-v1-2-1"
+        href="https://www.figma.com/community/file/1326593766534421119/hanzogui-v1-2-1"
       >
         <HeadAnchor target="_blank" grid>
           Figma{' '}

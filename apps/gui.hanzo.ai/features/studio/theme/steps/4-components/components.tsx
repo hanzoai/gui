@@ -7,7 +7,7 @@ import {
   XStack,
   YStack,
   SizableText,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import type { ReactNode } from 'react'
 
 export type PreviewComponent = {

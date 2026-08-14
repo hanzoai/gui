@@ -2,7 +2,10 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "hanzogui": ["../../pkgs/ui/hanzogui"],
+      "@hanzogui/*": ["../../pkgs/core/*", "../../pkgs/ui/*", "../../pkgs/*"],
+      "@hanzogui/demos": ["../demos"]
     },
     "outDir": "dist",
     "importHelpers": true,
@@ -33,7 +36,7 @@
     "lib": ["dom", "esnext"]
   },
   "include": ["**/*", "types/**/*"],
-  "exclude": ["**/test", "**/dist", "**/__tests__", "**/recipes-output", "scripts/**/*.ts", "scripts/**/*.mjs"],
+  "exclude": ["**/test", "**/dist", "**/__tests__", "**/bento-output"],
   "typeAcquisition": {
     "enable": true
   },
@@ -57,7 +60,7 @@
       "path": "../../pkgs/logo"
     },
     {
-      "path": "../../pkgs/gui-dev-config"
+      "path": "../../pkgs/dev-config"
     },
     {
       "path": "../../pkgs/lucide-icons"

@@ -1,6 +1,6 @@
 ---
 title: Expo Guide
-description: How to set up Hanzo GUI with Expo
+description: How to set up Gui with Expo
 ---
 
 We've created a new template repo for starting an Expo Router app based on
@@ -12,14 +12,14 @@ the Expo starter repo.
 </Notice>
 
 ```bash
-yarn create gui@latest --template expo-router
+yarn create hanzogui@latest --template expo-router
 ```
 
 There are also [pre-made community Expo starters](/community).
 
 ## Install
 
-Use this guide to set up Hanzo GUI with Expo Native and Web.
+Use this guide to set up Gui with Expo Native and Web.
 
 <Notice theme="blue">
   To support dark mode, update your `app.json` to `app.config.ts` and set
@@ -46,8 +46,8 @@ Add `@hanzogui/babel-plugin`:
 yarn add @hanzogui/babel-plugin
 ```
 
-If you have a `gui.build.ts` (recommended — see
-[compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
+If you have a `hanzogui.build.ts` (recommended — see
+[compiler install docs](/docs/intro/compiler-install#configuration-with-hanzoguibuildts)),
 no options are needed:
 
 Update your `babel.config.js` to include the optional `@hanzogui/babel-plugin`:
@@ -73,19 +73,19 @@ module.exports = function (api) {
 
 - First, follow the [Metro configuration guide](/docs/guides/metro#web-support) to enable web support.
 
-Add `@hanzogui/config` and `@hanzo/gui` to your `package.json` and install them. Then create a `gui.config.ts`:
+Add `@hanzogui/config` and `hanzogui` to your `package.json` and install them. Then create a `hanzogui.config.ts`:
 
-```tsx fileName="gui.config.ts"
+```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui'
 
-export const guiConfig = createGui(defaultConfig)
+export const hanzoguiConfig = createGui(defaultConfig)
 
-export default guiConfig
+export default hanzoguiConfig
 
-export type Conf = typeof guiConfig
+export type Conf = typeof hanzoguiConfig
 
-declare module '@hanzo/gui' {
+declare module 'hanzogui' {
   interface GuiCustomConfig extends Conf {}
 }
 ```
@@ -93,21 +93,21 @@ declare module '@hanzo/gui' {
 Then update `app/_layout.tsx`:
 
 ```tsx showMore fileName="app/_layout.tsx"
-import '../gui.generated.css'
+import '../hanzogui.generated.css'
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { Stack } from 'expo-router'
 import { useColorScheme } from 'react-native'
 import { GuiProvider } from '@hanzo/gui'
 
-import { guiConfig } from '../gui.config'
+import { hanzoguiConfig } from '../hanzogui.config'
 
 export default function RootLayout() {
   const colorScheme = useColorScheme()
 
   return (
     // add this
-    <GuiProvider config={guiConfig} defaultTheme={colorScheme!}>
+    <GuiProvider config={hanzoguiConfig} defaultTheme={colorScheme!}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -119,7 +119,7 @@ export default function RootLayout() {
 }
 ```
 
-### Setup Hanzo GUI
+### Setup Gui
 
 From here on out you can follow the [Installation](/docs/intro/installation) and [Configuration](/docs/core/configuration) docs.
 
@@ -135,14 +135,14 @@ Load your fonts so React Native can recognize them. There are several ways to do
 
 <Spacer size="$6" />
 
-<InlineTabs id="font" defaultValue="@hanzo/gui">
+<InlineTabs id="font" defaultValue="hanzogui">
 <InlineTabs.List>
-    <InlineTabs.Tab value="@hanzo/gui">Gui</InlineTabs.Tab>
+    <InlineTabs.Tab value="hanzogui">Gui</InlineTabs.Tab>
     <InlineTabs.Tab value="expo">Expo Google Fonts</InlineTabs.Tab>
 </InlineTabs.List>
 
-<InlineTabs.Content value="@hanzo/gui">
-Use the `@hanzogui/font-inter` package, a pre-configured version of the Inter font that works with Hanzo GUI:
+<InlineTabs.Content value="hanzogui">
+Use the `@hanzogui/font-inter` package, a pre-configured version of the Inter font that works with Gui:
 
 Import the `useFonts` hook and load the fonts:
 
@@ -221,7 +221,7 @@ function App() {
 
 ## First time starting Expo
 
-The first time running your project with Hanzo GUI, be sure to clear the cache:
+The first time running your project with Gui, be sure to clear the cache:
 
 ```bash
 npx expo start -c

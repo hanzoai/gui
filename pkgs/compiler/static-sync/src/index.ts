@@ -67,7 +67,7 @@ export function extractToClassNamesSync(params: {
 
   if (!result.success) {
     const errorMessage = [
-      `[gui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
+      `[hanzogui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',
@@ -100,7 +100,7 @@ export function extractToNativeSync(
 
   if (!result.success) {
     const errorMessage = [
-      `[gui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
+      `[hanzogui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',

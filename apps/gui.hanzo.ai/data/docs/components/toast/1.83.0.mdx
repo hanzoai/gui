@@ -20,14 +20,14 @@ demoName: Toast
     `Automatically closes`,
     `Pause closing on hover, focus, window blur and mobile touch`,
     `Supports closing via swipe gesture`,
-    `Easily animatable with Hanzo GUI's animation drivers`,
+    `Easily animatable with Gui's animation drivers`,
     `Native toasts included for Android, iOS and web (notification API)`,
   ]}
 />
 
 ## Installation
 
-Note that `@hanzogui/toast` is the only UI package not included by default in `@hanzo/gui`. The reason for this is that Metro would force you to install the native `burnt` dependency, and that would mean `@hanzo/gui` wouldn't work with Expo Go and would require a native install step no matter if you used Toast or not. This is due to a limitation in Metro.
+Note that `@hanzogui/toast` is the only UI package not included by default in `hanzogui`. The reason for this is that Metro would force you to install the native `burnt` dependency, and that would mean `hanzogui` wouldn't work with Expo Go and would require a native install step no matter if you used Toast or not. This is due to a limitation in Metro.
 
 To install toast:
 
@@ -159,7 +159,7 @@ The portal for toasts to be directed to. Should be used inside [ToastProvider](#
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />
@@ -259,7 +259,7 @@ Contains the Title, Description, Action and Close component. Should be used insi
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />
@@ -274,7 +274,7 @@ Should be used inside [Toast](#toast). Extends [SizableText](/docs/components/te
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />
@@ -289,7 +289,7 @@ Should be used inside [Toast](#toast). Extends [SizableText](/docs/components/te
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />

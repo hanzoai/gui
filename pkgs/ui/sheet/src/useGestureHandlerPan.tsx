@@ -1,10 +1,13 @@
-import { useCallback, useMemo, useRef, type RefObject } from 'react'
+import { isWeb } from '@hanzogui/constants'
+import { useCallback, useEffect, useMemo, useRef, type RefObject } from 'react'
 import { getGestureHandlerState, isGestureHandlerEnabled } from './gestureState'
-import type { ScrollBridge } from './types'
+import { getSheetReleasePosition } from './keyboardAvoidance'
+import type { ScrollBridge, SnapPointsMode } from './types'
 
 // threshold in pixels for considering sheet "at top" position
 // allows for small measurement variations
 const AT_TOP_THRESHOLD = 5
+const SCROLL_HANDOFF_THRESHOLD = 160
 
 interface GesturePanConfig {
   positions: number[]
@@ -18,6 +21,9 @@ interface GesturePanConfig {
   resisted: (val: number, minY: number) => number
   disableDrag?: boolean
   isShowingInnerSheet?: boolean
+  dismissOnSnapToBottom?: boolean
+  snapPointsMode?: SnapPointsMode
+  isKeyboardVisible?: boolean
   // set the animated position directly (for smooth dragging)
   setAnimatedPosition: (val: number) => void
   // ref to scroll gesture for simultaneousWithExternalGesture
@@ -69,6 +75,16 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
 
   const gestureHandlerEnabled = isGestureHandlerEnabled()
   const panGestureRef = useRef<any>(null)
+  const releaseConfigRef = useRef({
+    dismissOnSnapToBottom: config.dismissOnSnapToBottom === true,
+    snapPointsMode: config.snapPointsMode ?? 'percent',
+    isKeyboardVisible: config.isKeyboardVisible === true,
+  })
+  releaseConfigRef.current = {
+    dismissOnSnapToBottom: config.dismissOnSnapToBottom === true,
+    snapPointsMode: config.snapPointsMode ?? 'percent',
+    isKeyboardVisible: config.isKeyboardVisible === true,
+  }
 
   // use refs for values that need to persist across gesture lifecycle
   // (useMemo closure variables get reset when gesture is recreated)
@@ -86,20 +102,48 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
     // causing positions to revert. Frozen positions ensure stable snap calculation.
     frozenPositions: [] as number[],
     frozenMinY: 0,
+    frozenIsKeyboardVisible: false,
     // whether pan gesture actually started (vs just a tap in onBegin)
     panStarted: false,
+    startedBelowTop: false,
+    upwardDragAfterTop: 0,
+    scrollUnlockedAfterTop: false,
+    keepScrollLockedAfterEnd: false,
   })
+  const unlockScrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (unlockScrollTimer.current) {
+        clearTimeout(unlockScrollTimer.current)
+        unlockScrollTimer.current = null
+      }
+    }
+  }, [])
 
   const onStart = useCallback(() => {
     stopSpring()
   }, [stopSpring])
 
   const onEnd = useCallback(
-    (closestPoint: number, animationOverride?: any) => {
+    (closestPoint: number, animationOverride?: any, keepScrollLocked = false) => {
+      if (unlockScrollTimer.current) {
+        clearTimeout(unlockScrollTimer.current)
+        unlockScrollTimer.current = null
+      }
       setIsDragging(false)
       scrollBridge.setParentDragging(false)
-      // re-enable scroll when gesture ends
-      scrollBridge.setScrollEnabled?.(true)
+      scrollBridge.lockScrollAtTop = false
+      if (keepScrollLocked) {
+        scrollBridge.setScrollEnabled?.(false, 0)
+        unlockScrollTimer.current = setTimeout(() => {
+          unlockScrollTimer.current = null
+          scrollBridge.setScrollEnabled?.(true)
+        }, 160)
+      } else {
+        // re-enable scroll when gesture ends
+        scrollBridge.setScrollEnabled?.(true)
+      }
       setPosition(closestPoint)
       animateTo(closestPoint, animationOverride)
     },
@@ -122,7 +166,6 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
 
     // simultaneousHandlers pattern from react-native-actions-sheet
     // both gestures run simultaneously, we use blockPan to decide who handles
-    // console.warn('[RNGH-Pan] CREATING gesture, minY:', minY, 'frameSize:', frameSize)
     const gesture = Gesture.Pan()
       .withRef(panGestureRef)
       // NO manualActivation - let both gestures run via simultaneousHandlers
@@ -148,7 +191,6 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
         const pos = getCurrentPosition()
         const atTop = pos <= minY + AT_TOP_THRESHOLD
         const currentScrollY = scrollBridge.y
-        // console.warn('[RNGH-Pan] onBegin', { pos, minY, atTop, currentScrollY })
         gs.startY = pos
         gs.lastPanTranslationY = 0
         gs.accumulatedOffset = 0
@@ -158,6 +200,16 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
         // doesn't change snap targets mid-gesture
         gs.frozenPositions = [...positions]
         gs.frozenMinY = minY
+        gs.frozenIsKeyboardVisible = releaseConfigRef.current.isKeyboardVisible
+        gs.startedBelowTop = !atTop
+        gs.upwardDragAfterTop = 0
+        gs.scrollUnlockedAfterTop = false
+        gs.keepScrollLockedAfterEnd = false
+        scrollBridge.lockScrollAtTop = false
+        if (unlockScrollTimer.current) {
+          clearTimeout(unlockScrollTimer.current)
+          unlockScrollTimer.current = null
+        }
 
         // if sheet not at top, DISABLE SCROLL immediately and lock to 0
         // this prevents scroll from firing before pan takes over
@@ -171,7 +223,6 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
         gs.panStarted = true
         setIsDragging(true)
 
-        // console.warn('[RNGH-Pan] onStart', { startY: gs.startY, minY })
         scrollBridge.initialPosition = gs.startY
         onStart()
       })
@@ -194,8 +245,6 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
         const currentPos = gs.startY + gs.accumulatedOffset
         const isCurrentlyAtTop = currentPos <= minY + AT_TOP_THRESHOLD
         const nodeIsScrolling = scrollY > 0
-
-        // console.warn('[RNGH-Pan] onChange', { translationY: translationY.toFixed(1), deltaY: deltaY.toFixed(1), currentPos: currentPos.toFixed(1), minY, isCurrentlyAtTop, isSwipingDown, scrollY, scrollEngaged: gs.scrollEngaged })
 
         // decision matrix (from react-native-actions-sheet pattern)
         // each frame, decide who handles the movement based on current state
@@ -229,7 +278,6 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
             } else if (gs.scrollEngaged && hasScrollableContent) {
               // scroll WAS > 0 but now is 0 -> handoff from scroll to pan
               // pan takes over to drag sheet down
-              // console.warn('[RNGH-Pan] *** HANDOFF FROM SCROLL TO PAN ***')
               panHandles = true
             } else {
               // scroll never engaged OR content not scrollable, just drag sheet down
@@ -240,8 +288,18 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
             // if there's scrollable content, let scroll handle so user can scroll into content
             // resistance only applies when there's NO scrollable content
             if (hasScrollableContent) {
-              // content is scrollable - let scroll handle (user wants to scroll down into content)
-              panHandles = false
+              if (gs.startedBelowTop && !gs.scrollUnlockedAfterTop) {
+                gs.upwardDragAfterTop += Math.max(0, -deltaY)
+                if (gs.upwardDragAfterTop >= SCROLL_HANDOFF_THRESHOLD) {
+                  gs.scrollUnlockedAfterTop = true
+                  panHandles = false
+                } else {
+                  panHandles = true
+                }
+              } else {
+                // content is scrollable - let scroll handle (user wants to scroll down into content)
+                panHandles = false
+              }
             } else {
               // no scrollable content -> pan handles for resistance effect
               panHandles = true
@@ -249,9 +307,8 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
           }
         }
 
-        // console.warn('[RNGH-Pan] decision', { panHandles, isCurrentlyAtTop, isSwipingDown, nodeIsScrolling, scrollEngaged: gs.scrollEngaged, hasScrollableContent, currentPos: currentPos.toFixed(1), minY })
-
         if (panHandles) {
+          scrollBridge.lockScrollAtTop = gs.startedBelowTop && !gs.scrollUnlockedAfterTop
           // pan handles - disable scroll and move sheet
           // when swiping down at top after scroll was engaged: lock at current scroll position
           //   (handoff from scroll to pan — preserve scroll offset)
@@ -269,19 +326,22 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
           setAnimatedPosition(newPosition)
           scrollBridge.setParentDragging(newPosition > minY)
         } else {
+          scrollBridge.lockScrollAtTop = false
           // scroll handles - enable scroll so it can move freely
           scrollBridge.setScrollEnabled?.(true)
+          scrollBridge.setParentDragging(false)
           // don't accumulate offset when scroll is handling
         }
       })
       .onEnd((event: { velocityY: number }) => {
         const { velocityY } = event
         const currentPos = gs.startY + gs.accumulatedOffset
-
-        // console.warn('[RNGH-Pan] onEnd', { velocityY, currentPos, accumulatedOffset: gs.accumulatedOffset, scrollY: scrollBridge.y })
+        const keepScrollLockedAfterEnd = gs.startedBelowTop && !gs.scrollUnlockedAfterTop
 
         // clear scroll lock
-        scrollBridge.scrollLockY = undefined
+        scrollBridge.lockScrollAtTop = false
+        scrollBridge.scrollLockY = keepScrollLockedAfterEnd ? 0 : undefined
+        gs.keepScrollLockedAfterEnd = keepScrollLockedAfterEnd
 
         // use frozen positions from gesture start — keyboard may have dismissed
         // during drag (input blur), reverting activePositions. Frozen positions
@@ -294,7 +354,7 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
 
         // if sheet is at top and scroll is engaged, just stay at top
         if (currentPos <= snapMinY + AT_TOP_THRESHOLD && scrollBridge.y > 0) {
-          onEnd(0)
+          onEnd(0, undefined, keepScrollLockedAfterEnd)
           return
         }
 
@@ -302,24 +362,24 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
         const velocity = velocityY / 1000
         const projectedEnd = currentPos + frameSize * velocity * 0.2
 
-        let closestPoint = 0
-        let minDist = Number.POSITIVE_INFINITY
+        const releaseConfig = releaseConfigRef.current
+        const closestPoint = getSheetReleasePosition({
+          positions: snapPositions,
+          projectedEnd,
+          currentPosition: currentPos,
+          frameSize,
+          dismissOnSnapToBottom: releaseConfig.dismissOnSnapToBottom,
+          snapPointsMode: releaseConfig.snapPointsMode,
+          isKeyboardVisible: gs.frozenIsKeyboardVisible,
+          isWeb,
+        })
 
-        for (let i = 0; i < snapPositions.length; i++) {
-          const pos = snapPositions[i]
-          const dist = Math.abs(projectedEnd - pos)
-          if (dist < minDist) {
-            minDist = dist
-            closestPoint = i
-          }
-        }
-
-        onEnd(closestPoint)
+        onEnd(closestPoint, undefined, keepScrollLockedAfterEnd)
       })
       .onFinalize(() => {
-        // console.warn('[RNGH-Pan] onFinalize', { panStarted: gs.panStarted })
         // clear scroll lock on finalize too (safety)
-        scrollBridge.scrollLockY = undefined
+        scrollBridge.lockScrollAtTop = false
+        scrollBridge.scrollLockY = gs.keepScrollLockedAfterEnd ? 0 : undefined
         if (gs.panStarted) {
           // real pan gesture — reset isDragging (also un-pauses keyboard handler + flushes)
           setIsDragging(false)
@@ -336,7 +396,6 @@ export function useGestureHandlerPan(config: GesturePanConfig): GesturePanResult
     // if we have a scroll gesture ref, make pan simultaneous with it
     // this allows both gestures to run and we decide in onChange who handles it
     if (scrollGestureRef?.current) {
-      // console.warn('[RNGH-Pan] adding simultaneousWithExternalGesture for scroll')
       return gesture.simultaneousWithExternalGesture(scrollGestureRef.current)
     }
 

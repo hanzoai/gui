@@ -254,7 +254,7 @@ export function HanzoHeader({
           <>
             <div style={{ flex: 1 }} />
             {hasProducts ? (
-              <HanzoCommandTrigger onOpen={openSearch} compact height={TAP_H} />
+              <HanzoCommandTrigger onOpen={openSearch} compact />
             ) : null}
             <IconButton
               label={mobileOpen ? 'Close menu' : 'Open menu'}

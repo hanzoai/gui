@@ -17,11 +17,14 @@
  *      The shell states its motion as inline `transition`, which no media query
  *      can reach — so honouring the preference has to happen HERE, once, for
  *      every surface, rather than each component re-deriving it.
- *   6. the shell's two keyframes. Neither has an inline-style form — `style`
- *      holds one transform, not a sequence — so a rotation and an entrance both
- *      have to name a keyframe, and rule 5 already silences them for a reader
- *      who asked for stillness. `hanzo-spin` is the busy spinner;
- *      `hanzo-palette-in` is the ⌘K palette expanding into place.
+ *   6. the shell's keyframes, and the two hover rules that reach a DESCENDANT
+ *      of what the pointer is on. Neither has an inline-style form — `style`
+ *      holds one transform, not a sequence, and it cannot address a child — so
+ *      both land here, where rule 5 already silences them for a reader who
+ *      asked for stillness. `hanzo-spin` is the busy spinner;
+ *      `hanzo-palette-in` is the ⌘K palette expanding into place;
+ *      `hanzo-card-in` + `hanzo-row-in` are a menu dropping out of its trigger
+ *      and its rows arriving behind it.
  *
  * Usage: a top-level shell component calls `useShellStyles()` once and puts
  * `data-hanzo-shell=""` on its root; the rules then apply to every focusable
@@ -64,6 +67,22 @@ const CSS = [
   // off the main thread, and stated on an INNER element so the frame's own
   // centring transform is never the thing being animated.
   `@keyframes hanzo-palette-in{from{opacity:0;transform:translateY(-6px) scale(0.98)}to{opacity:1;transform:none}}`,
+  // A card dropping out of the control that opened it. It scales from that
+  // corner (the caller sets `transform-origin`) and lands with a little past
+  // the mark, which is what separates a card that OPENED from one that was
+  // simply switched on.
+  `@keyframes hanzo-card-in{from{opacity:0;transform:translateY(-8px) scale(0.94)}60%{opacity:1;transform:translateY(0) scale(1.012)}to{opacity:1;transform:none}}`,
+  // The rows arriving after the card, one behind the next. The delay is set per
+  // row at the call site, so the cascade is a property of the list rather than
+  // of any one item.
+  `@keyframes hanzo-row-in{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}`,
+  // A door says where it goes once the pointer is on it. The mark leans toward
+  // the exit and the arrow arrives — the whole of the personality, and it
+  // cannot be an inline style because both are DESCENDANTS of what is hovered.
+  `[data-hanzo-shell] .hanzo-door .hanzo-door-go{opacity:0;transform:translateX(-3px);transition:opacity 140ms ease,transform 140ms ease}`,
+  `[data-hanzo-shell] .hanzo-door:hover .hanzo-door-go,[data-hanzo-shell] .hanzo-door:focus-visible .hanzo-door-go{opacity:1;transform:none}`,
+  `[data-hanzo-shell] .hanzo-door .hanzo-door-mark{transition:transform 160ms cubic-bezier(.2,.9,.3,1.4)}`,
+  `[data-hanzo-shell] .hanzo-door:hover .hanzo-door-mark,[data-hanzo-shell] .hanzo-door:focus-visible .hanzo-door-mark{transform:translateX(2px) scale(1.14)}`,
 ].join('')
 
 /** The shell's one animation, for a control that is busy. See rule 6. */

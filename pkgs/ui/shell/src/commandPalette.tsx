@@ -102,6 +102,14 @@ export function usePaletteNav(
           e.preventDefault()
           setIndex((i) => (i - 1 + n) % n)
           break
+        case 'Home':
+          e.preventDefault()
+          setIndex(0)
+          break
+        case 'End':
+          e.preventDefault()
+          setIndex(n - 1)
+          break
         case 'Enter':
           e.preventDefault()
           onEnter(index)
@@ -246,12 +254,24 @@ export function PaletteField({
   onKeyDown,
   placeholder,
   inputRef,
+  listId,
+  activeId,
 }: {
   value: string
   onChange: (value: string) => void
   onKeyDown: (e: React.KeyboardEvent) => void
   placeholder: string
   inputRef: React.Ref<HTMLInputElement>
+  /** The listbox this field drives, for `aria-controls`. */
+  listId?: string
+  /**
+   * The row the keys are currently on.
+   *
+   * The caret never leaves this input, so a screen reader learns which result
+   * is selected from here or not at all — `aria-selected` on a row nobody is
+   * focused on is invisible to it.
+   */
+  activeId?: string
 }) {
   return (
     <label
@@ -261,10 +281,15 @@ export function PaletteField({
         gap: 10,
         flex: '0 0 auto',
         height: TAP_H,
-        margin: 10,
+        margin: 8,
         padding: '0 12px',
         borderRadius: R.row,
-        border: `1px solid ${CHROME.border}`,
+        // A raised fill and NO border. The palette focuses this the moment it
+        // opens, so the focus ring is effectively always on it — and a ring
+        // 2px outside a border draws two concentric rounded rectangles with the
+        // search glyph stranded in the gutter between them. One edge at a time:
+        // the fill says "field", the ring says "live".
+        background: CHROME.raised,
       }}
     >
       <svg
@@ -285,6 +310,11 @@ export function PaletteField({
       <input
         ref={inputRef}
         type="text"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls={listId}
+        aria-activedescendant={activeId}
+        aria-autocomplete="list"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={onKeyDown}
@@ -311,17 +341,20 @@ export function PaletteField({
 /** The scrolling results region. Takes the slack between field and footer. */
 export function PaletteList({
   listRef,
+  id,
   children,
 }: {
   listRef: React.Ref<HTMLDivElement>
+  id?: string
   children: React.ReactNode
 }) {
   return (
     <div
       ref={listRef}
+      id={id}
       role="listbox"
       aria-label="Results"
-      style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '4px 0' }}
+      style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '4px 0 6px' }}
     >
       {children}
     </div>
@@ -351,17 +384,29 @@ export function PaletteGroup({ label }: { label: string }) {
  */
 export function PaletteRow({
   index,
+  id,
   selected,
   title,
+  hits,
   description,
+  meta,
   icon,
   onSelect,
   onHover,
 }: {
   index: number
+  id?: string
   selected: boolean
   title: string
+  /**
+   * Which characters of `title` the query hit. Drawn at full brightness against
+   * a dimmed title, so a reader can see WHY a row is a result — which is the
+   * only thing that makes a scattered match trustworthy rather than mysterious.
+   */
+  hits?: number[]
   description?: string
+  /** What kind of thing this is, when the list is ranked rather than grouped. */
+  meta?: string
   icon?: React.ReactNode
   onSelect: () => void
   onHover: () => void
@@ -370,18 +415,20 @@ export function PaletteRow({
     <button
       type="button"
       role="option"
+      id={id}
       aria-selected={selected}
       data-idx={index}
       onClick={onSelect}
       onMouseEnter={onHover}
       style={{
         ...row(false),
+        position: 'relative',
         display: 'flex',
         alignItems: 'center',
         gap: 10,
         width: '100%',
         margin: 0,
-        padding: '7px 14px',
+        padding: '6px 14px',
         borderRadius: 0,
         border: 'none',
         background: 'transparent',
@@ -390,6 +437,20 @@ export function PaletteRow({
         textAlign: 'left',
       }}
     >
+      {/* The selection is a lit left edge as well as brighter ink — on a dense
+          list, brightness alone is a difference a reader has to hunt for. */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 4,
+          bottom: 4,
+          width: 2,
+          borderRadius: 2,
+          background: selected ? FG_ON : 'transparent',
+        }}
+      />
       {icon ? (
         <span
           aria-hidden="true"
@@ -418,7 +479,7 @@ export function PaletteRow({
             whiteSpace: 'nowrap',
           }}
         >
-          {title}
+          <Lit text={title} hits={hits} />
         </span>
         {description ? (
           <span
@@ -435,6 +496,18 @@ export function PaletteRow({
           </span>
         ) : null}
       </span>
+      {meta ? (
+        <span
+          style={{
+            flex: '0 0 auto',
+            fontSize: FS.xs,
+            color: CHROME.fgDim,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {meta}
+        </span>
+      ) : null}
       {selected ? (
         <span
           aria-hidden="true"
@@ -445,6 +518,41 @@ export function PaletteRow({
       ) : null}
     </button>
   )
+}
+
+/**
+ * A title with the query's characters lit.
+ *
+ * Runs of adjacent hits are drawn as ONE span rather than one per character, so
+ * a contiguous match reads as a word rather than as a row of letters that
+ * happen to be bright.
+ */
+function Lit({ text, hits }: { text: string; hits?: number[] }) {
+  if (!hits || hits.length === 0) return <>{text}</>
+
+  const on = new Set(hits)
+  const parts: React.ReactNode[] = []
+  let at = 0
+  while (at < text.length) {
+    const lit = on.has(at)
+    let end = at + 1
+    while (end < text.length && on.has(end) === lit) end++
+    const chunk = text.slice(at, end)
+    parts.push(
+      lit ? (
+        <mark
+          key={at}
+          style={{ background: 'transparent', color: FG_ON, fontWeight: 700 }}
+        >
+          {chunk}
+        </mark>
+      ) : (
+        <React.Fragment key={at}>{chunk}</React.Fragment>
+      )
+    )
+    at = end
+  }
+  return <>{parts}</>
 }
 
 /** The one calm line an empty result set gets. */

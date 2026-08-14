@@ -108,6 +108,11 @@ export const U = {
   world: 'https://world.hanzo.ai',
   studio: 'https://studio.hanzo.ai',
   bot: 'https://hanzo.bot',
+  // hanzo.bot is the marketing site; the product it sells runs at app.hanzo.bot.
+  // Two origins because the product owns a whole one: ~25 top-level routes, its
+  // own /v1 API and its own /assets bundle. It signs people in itself (PKCE
+  // against hanzo.id), so a CTA only has to name it.
+  botApp: 'https://app.hanzo.bot',
   cloud: 'https://cloud.hanzo.ai',
   dev: 'https://hanzo.ai/dev',
   base: 'https://hanzo.ai/base',
@@ -938,11 +943,14 @@ export const HANZO_SURFACES: HanzoSurface[] = [
       { id: 'pricing', label: 'Pricing', href: U.pricing },
     ],
     secondaryCTA: { id: 'docs', label: 'Documentation', href: U.docs },
-    primaryCTA: { id: 'createbot', label: 'Create bot', href: U.bot },
+    // "Create bot" sends people to the product, which is what the label promises.
+    // It used to name U.bot — the marketing home the button is already on — so
+    // the one action in the header did nothing but scroll to the top.
+    primaryCTA: { id: 'createbot', label: 'Create bot', href: `${U.botApp}/?signup=1` },
     preFooter: {
       heading: 'Put an intelligent agent in every channel',
       actions: [
-        { id: 'createbot', label: 'Create bot', href: U.bot },
+        { id: 'createbot', label: 'Create bot', href: `${U.botApp}/?signup=1` },
         { id: 'integrations', label: 'View integrations', href: `${U.bot}/integrations` },
       ],
     },

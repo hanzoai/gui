@@ -9,7 +9,7 @@ import {
 } from '@hanzogui/lucide-icons-2'
 import { Menu } from '@hanzogui/menu'
 import React from 'react'
-import { Button, View } from 'hanzogui'
+import { Button, View } from '@hanzo/gui'
 import { isTouchable } from '@hanzogui/constants'
 
 /**

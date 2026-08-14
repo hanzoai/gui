@@ -1,17 +1,16 @@
 import { type Href, useRouter } from 'one'
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Paragraph, View } from 'hanzogui'
+import { Paragraph } from '@hanzo/gui'
 import DocSearchModal from './DocSearch'
 
 import { SearchContext } from './SearchContext'
-import { Link } from '~/components/Link'
 
 // const ACTION_KEY_DEFAULT = ['Ctrl ', 'Control']
 // const ACTION_KEY_APPLE = ['⌘', 'Command']
 const API_KEY = '10e7bbeb85d3909346e1519bfcdf82dc'
 const APP_ID = 'AIE0I4P8ZS'
-const INDEX = 'hanzo-gui'
+const INDEX = 'hanzogui'
 
 export const SearchProvider = memo(({ children }: any) => {
   const router = useRouter()
@@ -61,6 +60,7 @@ export const SearchProvider = memo(({ children }: any) => {
             initialQuery={initialQuery || ''}
             initialScrollY={window.scrollY}
             onClose={onClose}
+            onAskAiToggle={() => {}}
             appId={APP_ID}
             apiKey={API_KEY}
             indexName={INDEX}
@@ -100,11 +100,9 @@ export const SearchProvider = memo(({ children }: any) => {
 
 const ResultItem = ({ hit, children }) => {
   return (
-    <Link href={(window.location.origin + hit.url) as Href}>
-      <Paragraph render="span" color="$color">
-        {children}
-      </Paragraph>
-    </Link>
+    <Paragraph render="span" color="$color">
+      {children}
+    </Paragraph>
   )
 }
 

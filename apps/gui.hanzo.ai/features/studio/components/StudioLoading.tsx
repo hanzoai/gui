@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { H3, Spinner, YStack } from 'hanzogui'
+import { H3, Spinner, YStack } from '@hanzo/gui'
 
 // TODO: design this page
 export const StudioLoading = ({ name }: { name: string }) => {

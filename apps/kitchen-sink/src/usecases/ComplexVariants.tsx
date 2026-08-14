@@ -1,5 +1,5 @@
 import React from 'react'
-import type { GetProps, GuiElement } from 'hanzogui'
+import type { GetProps, GuiElement } from '@hanzo/gui'
 import {
   Paragraph,
   Separator,
@@ -11,7 +11,7 @@ import {
   styled,
   useProps,
   withStaticProperties,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const StyledContext = createStyledContext({
   isInvalid: false,

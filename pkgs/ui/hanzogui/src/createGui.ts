@@ -1,7 +1,7 @@
 import { createGui as createGuiCore } from '@hanzogui/core'
 
 /**
- * Adds some helpful validation at dev time only for `gui` specifically
+ * Adds some helpful validation at dev time only for `hanzogui` specifically
  **/
 
 export const createGui: typeof createGuiCore =
@@ -14,15 +14,15 @@ export const createGui: typeof createGuiCore =
           return expectedKeys.every((k) => typeof obj[k] !== 'undefined')
         }
 
-        const guiConfig = createGuiCore(conf)
+        const hanzoguiConfig = createGuiCore(conf)
 
         // size and space should be fully defined
         for (const name of ['size', 'space'] as const) {
-          const tokenSet = guiConfig.tokensParsed[name]
+          const tokenSet = hanzoguiConfig.tokensParsed[name]
           if (!tokenSet) {
             throw new Error(
               `Expected tokens for "${name}" in ${Object.keys(
-                guiConfig.tokensParsed
+                hanzoguiConfig.tokensParsed
               ).join(', ')}`
             )
           }
@@ -51,9 +51,9 @@ size: {
         }
 
         // others must define subset of size tokens
-        const expected = Object.keys(guiConfig.tokensParsed.size)
+        const expected = Object.keys(hanzoguiConfig.tokensParsed.size)
         for (const name of ['radius', 'zIndex'] as const) {
-          const tokenSet = guiConfig.tokensParsed[name]
+          const tokenSet = hanzoguiConfig.tokensParsed[name]
           const received = Object.keys(tokenSet)
           const hasSomeOverlap = received.some((rk) => expected.includes(rk))
           if (!hasSomeOverlap) {
@@ -68,5 +68,5 @@ Expected a subset of: ${expected.join(', ')}
           }
         }
 
-        return guiConfig
+        return hanzoguiConfig
       }

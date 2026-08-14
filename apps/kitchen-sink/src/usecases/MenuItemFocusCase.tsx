@@ -1,6 +1,6 @@
 import { Menu } from '@hanzogui/menu'
 import React from 'react'
-import { Button, Input, YStack } from 'hanzogui'
+import { Button, Input, YStack } from '@hanzo/gui'
 
 /**
  * Menu item focus preservation test case

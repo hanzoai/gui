@@ -358,20 +358,19 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
 
   const ITEM_NAME = 'ContextMenuItem'
 
-  const ContextMenuItem = React.forwardRef<
-    GuiElement,
-    ScopedProps<ContextMenuItemProps>
-  >((props, forwardedRef) => {
-    const { scope, ...itemProps } = props
-    return (
-      <Menu.Item
-        componentName={ITEM_NAME}
-        scope={scope || CONTEXTMENU_CONTEXT}
-        {...itemProps}
-        ref={forwardedRef}
-      />
-    )
-  })
+  const ContextMenuItem = React.forwardRef<GuiElement, ScopedProps<ContextMenuItemProps>>(
+    (props, forwardedRef) => {
+      const { scope, ...itemProps } = props
+      return (
+        <Menu.Item
+          componentName={ITEM_NAME}
+          scope={scope || CONTEXTMENU_CONTEXT}
+          {...itemProps}
+          ref={forwardedRef}
+        />
+      )
+    }
+  )
 
   ContextMenuItem.displayName = ITEM_NAME
 
@@ -536,16 +535,16 @@ export function createNonNativeContextMenu(params: CreateBaseMenuProps) {
             ? {
                 ...(props.style as object),
                 ...({
-                  '--gui-context-menu-content-transform-origin':
-                    'var(--gui-popper-transform-origin)',
-                  '--gui-context-menu-content-available-width':
-                    'var(--gui-popper-available-width)',
-                  '--gui-context-menu-content-available-height':
-                    'var(--gui-popper-available-height)',
-                  '--gui-context-menu-trigger-width':
-                    'var(--gui-popper-anchor-width)',
-                  '--gui-context-menu-trigger-height':
-                    'var(--gui-popper-anchor-height)',
+                  '--hanzogui-context-menu-content-transform-origin':
+                    'var(--hanzogui-popper-transform-origin)',
+                  '--hanzogui-context-menu-content-available-width':
+                    'var(--hanzogui-popper-available-width)',
+                  '--hanzogui-context-menu-content-available-height':
+                    'var(--hanzogui-popper-available-height)',
+                  '--hanzogui-context-menu-trigger-width':
+                    'var(--hanzogui-popper-anchor-width)',
+                  '--hanzogui-context-menu-trigger-height':
+                    'var(--hanzogui-popper-anchor-height)',
                 } as React.CSSProperties),
               }
             : null

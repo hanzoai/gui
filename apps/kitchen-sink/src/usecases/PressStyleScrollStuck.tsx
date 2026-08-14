@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ScrollView } from 'react-native'
-import { Text, View, XStack, YStack, styled } from 'hanzogui'
+import { Text, View, XStack, YStack, styled } from '@hanzo/gui'
 
 // tab pill that changes bg + border on press. mirrors 3pc CategoryPills +
 // Gui Button outline/selected variant. the backdrop view is absolutely

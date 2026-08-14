@@ -11,7 +11,7 @@ import {
   Switch,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { AccentTheme } from '~/features/studio/components/AccentTheme'
 import { accentThemeName } from '../../../accentThemeName'

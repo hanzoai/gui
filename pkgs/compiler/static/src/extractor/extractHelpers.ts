@@ -130,10 +130,7 @@ export const isInsideComponentPackage = (
   })
 }
 
-export const isComponentPackage = (
-  props: GuiOptionsWithFileInfo,
-  srcName: string
-) => {
+export const isComponentPackage = (props: GuiOptionsWithFileInfo, srcName: string) => {
   return getValidComponentsPaths(props).some((path) => {
     return srcName.startsWith(path)
   })
@@ -198,8 +195,8 @@ export const isValidImport = (
 }
 
 const getValidComponentPackages = memoize((props: GuiOptionsWithFileInfo) => {
-  // just always look for `gui` and `@hanzogui/core`
-  return [...new Set(['@hanzogui/core', 'gui', ...(props.components || [])])]
+  // just always look for `hanzogui` and `@hanzogui/core`
+  return [...new Set(['@hanzogui/core', 'hanzogui', ...(props.components || [])])]
 })
 
 export const getValidComponentsPaths = memoize((props: GuiOptionsWithFileInfo) => {

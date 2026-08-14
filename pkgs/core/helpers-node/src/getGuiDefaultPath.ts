@@ -16,15 +16,15 @@ export async function getDefaultGuiConfigPath({
     return cachedPath
   }
 
-  const defaultPaths = ['gui.config.ts', join('src', 'gui.config.ts')].map((p) =>
-    join(cwd, p)
+  const defaultPaths = ['hanzogui.config.ts', join('src', 'hanzogui.config.ts')].map(
+    (p) => join(cwd, p)
   )
   const existing = (
     await Promise.all(defaultPaths.map((path) => pathExists(path)))
   ).findIndex((x) => !!x)
   const found = defaultPaths[existing]
   if (!found) {
-    throw new Error(`No found gui.config.ts`)
+    throw new Error(`No found hanzogui.config.ts`)
   }
 
   cachedPath = found

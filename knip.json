@@ -15,6 +15,7 @@
         "@playwright/test",
         "@take-out/cli",
         "@testing-library/dom",
+        "@typescript/native-preview",
         "turbo",
         "tsx",
         "typescript",
@@ -25,9 +26,8 @@
         "dotenv-cli"
       ],
       "ignoreBinaries": [
-        "hanzo-gui",
-        "create-hanzo-gui",
         "hanzogui",
+        "create-gui",
         "lighthouse",
         "expo",
         "detox",

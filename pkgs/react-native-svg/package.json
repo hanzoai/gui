@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/react-native-svg",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "type": "module",
   "main": "dist/cjs",
   "module": "dist/esm/index.js",
@@ -19,23 +19,21 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react-native-svg": "15.15.3"
   },
   "peerDependencies": {
-    "react-native-svg": "*"
+    "react-native-svg": ">=12"
   },
   "peerDependenciesMeta": {
     "react-native-svg": {
       "optional": true
     }
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

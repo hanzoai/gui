@@ -1,10 +1,10 @@
 ---
 title: Next.js Guide
-description: How to set up Hanzo GUI with Next.js
+description: How to set up Gui with Next.js
 ---
 
 <Notice theme="green">
-  Running `npm create hanzo-gui@latest` lets you choose the `starter-free` starter which is
+  Running `npm create hanzogui@latest` lets you choose the `starter-free` starter which is
   a nicely configured Next.js app where you can take or leave whatever you want.
 </Notice>
 
@@ -18,7 +18,7 @@ npx create-next-app@latest
 We recommend starting with our default config which gives you media queries and
 other nice things:
 
-```tsx fileName="gui.config.ts"
+```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v5'
 import { createGui } from '@hanzo/gui' // or '@hanzogui/core'
 
@@ -26,10 +26,10 @@ const appConfig = createGui(defaultConfig)
 
 export type AppConfig = typeof appConfig
 
-declare module '@hanzo/gui' {
+declare module 'hanzogui' {
   // or '@hanzogui/core'
   // overrides GuiCustomConfig so your custom types
-  // work everywhere you import `@hanzo/gui`
+  // work everywhere you import `hanzogui`
   interface GuiCustomConfig extends AppConfig {}
 }
 
@@ -38,8 +38,8 @@ export default appConfig
 
 ## Setup
 
-Next.js uses Turbopack by default. In dev mode, Hanzo GUI works without any setup.
-For production builds, use the Hanzo GUI CLI to optimize your build.
+Next.js uses Turbopack by default. In dev mode, Gui works without any setup.
+For production builds, use the Gui CLI to optimize your build.
 
 Install the CLI:
 
@@ -47,15 +47,15 @@ Install the CLI:
 yarn add -D @hanzogui/cli
 ```
 
-Create `gui.build.ts`:
+Create `hanzogui.build.ts`:
 
-```ts fileName="gui.build.ts"
+```ts fileName="hanzogui.build.ts"
 import type { GuiBuildOptions } from '@hanzogui/core'
 
 export default {
-  components: ['@hanzogui/core'], // or ['@hanzo/gui']
-  config: './gui.config.ts',
-  outputCSS: './public/gui.generated.css',
+  components: ['@hanzogui/core'], // or ['hanzogui']
+  config: './hanzogui.config.ts',
+  outputCSS: './public/hanzogui.generated.css',
 } satisfies GuiBuildOptions
 ```
 
@@ -65,7 +65,7 @@ Your `next.config.ts` needs some configuration:
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  // some Hanzo GUI packages may need transpiling
+  // some Gui packages may need transpiling
   transpilePackages: ['@hanzogui/lucide-icons-2'],
 
   experimental: {
@@ -82,7 +82,7 @@ export default nextConfig
 ```
 
 <Notice theme="blue">
-  The `transpilePackages` array may need additional packages depending on which Hanzo GUI
+  The `transpilePackages` array may need additional packages depending on which Gui
   packages you use. If you see module resolution errors, try adding the problematic
   package to this array.
 </Notice>
@@ -96,7 +96,7 @@ them after:
 {
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "gui build --target web ./src -- next build"
+    "build": "hanzogui build --target web ./src -- next build"
   }
 }
 ```
@@ -108,10 +108,10 @@ You can also target specific files or use `--include`/`--exclude` patterns:
 
 ```bash
 # Target specific files
-gui build --target web ./src/components/Button.tsx ./src/components/Card.tsx -- next build
+hanzogui build --target web ./src/components/Button.tsx ./src/components/Card.tsx -- next build
 
 # Use glob patterns
-gui build --target web --include "src/components/**/*.tsx" --exclude "src/components/**/*.test.tsx" ./src -- next build
+hanzogui build --target web --include "src/components/**/*.tsx" --exclude "src/components/**/*.test.tsx" ./src -- next build
 ```
 
 ### CSS Setup
@@ -120,9 +120,9 @@ The CLI generates theme CSS to `outputCSS`. Commit this file to git and import
 it in your layout:
 
 ```tsx fileName="app/layout.tsx"
-import '../public/gui.generated.css'
+import '../public/hanzogui.generated.css'
 import { GuiProvider } from '@hanzogui/core'
-import config from '../gui.config'
+import config from '../hanzogui.config'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -136,11 +136,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 <Notice theme="blue">
-  With React 19, Hanzo GUI automatically injects runtime styles via style tags. The
+  With React 19, Gui automatically injects runtime styles via style tags. The
   `outputCSS` file handles themes and tokens that are generated at build time.
 </Notice>
 
-Run `npx hanzo-gui build` once to generate the initial CSS file, then commit it.
+Run `npx hanzogui build` once to generate the initial CSS file, then commit it.
 
 ### CI Verification
 
@@ -149,7 +149,7 @@ the expected minimum number of components:
 
 ```json
 {
-  "build": "gui build --target web --expect-optimizations 5 ./src -- next build"
+  "build": "hanzogui build --target web --expect-optimizations 5 ./src -- next build"
 }
 ```
 
@@ -161,7 +161,7 @@ configuration issues in CI.
 We've created a package called `@hanzogui/next-theme` that properly supports SSR
 light/dark themes while respecting user system preferences. It assumes your
 themes are named `light` and `dark`, but you can override this. This is
-pre-configured in the create-hanzo-gui starter.
+pre-configured in the create-gui starter.
 
 ```bash
 yarn add @hanzogui/next-theme
@@ -175,7 +175,7 @@ Here's how to set up your `NextGuiProvider.tsx`:
 import { ReactNode } from 'react'
 import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { GuiProvider } from '@hanzo/gui'
-import guiConfig from '../gui.config'
+import hanzoguiConfig from '../hanzogui.config'
 
 export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useRootTheme()
@@ -189,7 +189,7 @@ export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
         setTheme(next as any)
       }}
     >
-      <GuiProvider config={guiConfig} disableRootThemeClass defaultTheme={theme}>
+      <GuiProvider config={hanzoguiConfig} disableRootThemeClass defaultTheme={theme}>
         {children}
       </GuiProvider>
     </NextThemeProvider>
@@ -200,7 +200,7 @@ export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
 Then update your `app/layout.tsx`:
 
 ```tsx fileName="app/layout.tsx"
-import '../public/gui.generated.css'
+import '../public/hanzogui.generated.css'
 import { Metadata } from 'next'
 import { NextGuiProvider } from './NextGuiProvider'
 
@@ -307,7 +307,7 @@ yarn add @hanzogui/next-theme
 
 If you need to access the current theme, say for a toggle button, you will then
 use the `useThemeSetting` hook. We'll release an update in the future that makes
-this automatically work better with Hanzo GUI's built-in `useThemeSetting`.
+this automatically work better with Gui's built-in `useThemeSetting`.
 
 ```tsx fileName="SwitchThemeButton.tsx"
 import { useState } from 'react'
@@ -351,7 +351,7 @@ yarn add @hanzogui/next-plugin
 
 ### next.config.js
 
-Set up the optional Hanzo GUI plugin in `next.config.js`:
+Set up the optional Gui plugin in `next.config.js`:
 
 ```tsx showMore fileName="next.config.js"
 const { withGui } = require('@hanzogui/next-plugin')
@@ -361,13 +361,13 @@ module.exports = function (name, { defaultConfig }) {
     ...defaultConfig,
     // ...your configuration
   }
-  const guiPlugin = withGui({
-    config: './gui.config.ts',
+  const hanzoguiPlugin = withGui({
+    config: './hanzogui.config.ts',
     components: ['@hanzo/gui'],
   })
   return {
     ...config,
-    ...guiPlugin(config),
+    ...hanzoguiPlugin(config),
   }
 }
 ```
@@ -422,7 +422,7 @@ export default class Document extends NextDocument {
 ```
 
 <Notice theme="blue">
-  Hanzo GUI automatically injects styles at runtime. You can optionally generate a static
+  Gui automatically injects styles at runtime. You can optionally generate a static
   CSS file - see the [Static CSS Output](#static-css-output) section.
 </Notice>
 
@@ -436,7 +436,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React, { useMemo } from 'react'
 import { GuiProvider } from '@hanzo/gui'
-import guiConfig from '../gui.config'
+import hanzoguiConfig from '../hanzogui.config'
 
 export default function App({ Component, pageProps }: AppProps) {
   // memo to avoid re-render on dark/light change
@@ -452,7 +452,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NextThemeProvider>
-        <GuiProvider config={guiConfig} disableInjectCSS disableRootThemeClass>
+        <GuiProvider config={hanzoguiConfig} disableInjectCSS disableRootThemeClass>
           {contents}
         </GuiProvider>
       </NextThemeProvider>
@@ -471,7 +471,7 @@ export default function App({ Component, pageProps }: AppProps) {
 We've created a package called `@hanzogui/next-theme` that properly supports SSR
 light/dark themes while respecting user system preferences. It assumes your
 themes are named `light` and `dark`, but you can override this. This is
-pre-configured in the create-hanzo-gui starter.
+pre-configured in the create-gui starter.
 
 ```bash
 yarn add @hanzogui/next-theme
@@ -486,12 +486,12 @@ import Head from 'next/head'
 import React, { useMemo } from 'react'
 import { GuiProvider, createGui } from '@hanzo/gui'
 
-// you usually export this from a gui.config.ts file:
+// you usually export this from a hanzogui.config.ts file:
 import { defaultConfig } from '@hanzogui/config/v5'
-const guiConfig = createGui(defaultConfig)
+const hanzoguiConfig = createGui(defaultConfig)
 
 // make TypeScript type everything based on your config
-type Conf = typeof guiConfig
+type Conf = typeof hanzoguiConfig
 declare module '@hanzogui/core' {
   interface GuiCustomConfig extends Conf {}
 }
@@ -517,7 +517,7 @@ export default function App({ Component, pageProps }: AppProps) {
         onChangeTheme={setTheme as any}
       >
         <GuiProvider
-          config={guiConfig}
+          config={hanzoguiConfig}
           disableInjectCSS
           disableRootThemeClass
           defaultTheme={theme}
@@ -537,29 +537,29 @@ ways to do this:
 
 #### Option 1: Using the CLI
 
-The simplest approach is to use the Hanzo GUI CLI to generate the CSS file:
+The simplest approach is to use the Gui CLI to generate the CSS file:
 
 ```bash
-npx hanzo-gui generate
+npx hanzogui generate
 ```
 
-This outputs CSS to `.hanzoai/gui.generated.css`. Copy it to your public folder or
-configure `outputCSS` in your `gui.build.ts`:
+This outputs CSS to `.hanzogui/hanzogui.generated.css`. Copy it to your public folder or
+configure `outputCSS` in your `hanzogui.build.ts`:
 
-```ts fileName="gui.build.ts"
+```ts fileName="hanzogui.build.ts"
 import type { GuiBuildOptions } from '@hanzogui/core'
 
 export default {
   components: ['@hanzo/gui'],
-  config: './gui.config.ts',
-  outputCSS: './public/gui.generated.css',
+  config: './hanzogui.config.ts',
+  outputCSS: './public/hanzogui.generated.css',
 } satisfies GuiBuildOptions
 ```
 
 Then import it in your `_app.tsx`:
 
 ```tsx fileName="_app.tsx"
-import '../public/gui.generated.css'
+import '../public/hanzogui.generated.css'
 ```
 
 #### Option 2: Using the Next.js Plugin
@@ -567,10 +567,10 @@ import '../public/gui.generated.css'
 You can also have the plugin generate CSS during your Next.js build:
 
 ```tsx fileName="next.config.js"
-const guiPlugin = withGui({
-  config: './gui.config.ts',
+const hanzoguiPlugin = withGui({
+  config: './hanzogui.config.ts',
   components: ['@hanzo/gui'],
-  outputCSS: process.env.NODE_ENV === 'production' ? './public/gui.generated.css' : null,
+  outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
   // faster dev mode, keeps debugging helpers:
   disableExtraction: process.env.NODE_ENV === 'development',
 })
@@ -579,7 +579,7 @@ const guiPlugin = withGui({
 Then import it in your `_app.tsx`:
 
 ```tsx fileName="_app.tsx"
-import '../public/gui.generated.css'
+import '../public/hanzogui.generated.css'
 ```
 
 <Notice theme="green">
@@ -589,17 +589,17 @@ import '../public/gui.generated.css'
 
 ## App Router (Webpack)
 
-Hanzo GUI includes Server Components support for the Next.js app directory with
+Gui includes Server Components support for the Next.js app directory with
 [`use client`](https://nextjs.org/docs/app/building-your-application/rendering/client-components#using-client-components-in-nextjs)
 support.
 
-Note that `"use client"` components do render on the server, and since Hanzo GUI
+Note that `"use client"` components do render on the server, and since Gui
 extracts to CSS statically and uses inline `<style />` tags for non-static
 styling, you get excellent performance out of the box.
 
 ### next.config.js
 
-The Hanzo GUI plugin is optional but helps with compatibility with the rest of the
+The Gui plugin is optional but helps with compatibility with the rest of the
 React Native ecosystem. It requires CommonJS for now because the optimizing
 compiler uses various resolving features that haven't been ported to ESM yet.
 Rename your `next.config.mjs` to `next.config.js` before adding it:
@@ -613,15 +613,15 @@ module.exports = function (name, { defaultConfig }) {
     // ...your configuration
   }
 
-  const guiPlugin = withGui({
-    config: './gui.config.ts',
+  const hanzoguiPlugin = withGui({
+    config: './hanzogui.config.ts',
     components: ['@hanzo/gui'],
     appDir: true,
   })
 
   return {
     ...config,
-    ...guiPlugin(config),
+    ...hanzoguiPlugin(config),
   }
 }
 ```
@@ -646,7 +646,7 @@ import { StyleSheet } from 'react-native'
 import { useServerInsertedHTML } from 'next/navigation'
 import { NextThemeProvider } from '@hanzogui/next-theme'
 import { GuiProvider } from '@hanzo/gui'
-import guiConfig from '../gui.config'
+import hanzoguiConfig from '../hanzogui.config'
 
 export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
   // only if using react-native-web components like ScrollView:
@@ -665,7 +665,7 @@ export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <NextThemeProvider skipNextHead>
-      <GuiProvider config={guiConfig} disableRootThemeClass>
+      <GuiProvider config={hanzoguiConfig} disableRootThemeClass>
         {children}
       </GuiProvider>
     </NextThemeProvider>
@@ -674,7 +674,7 @@ export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
 ```
 
 <Notice theme="green">
-  The `getNewCSS` helper in Hanzo GUI will keep track of the last call and only return new
+  The `getNewCSS` helper in Gui will keep track of the last call and only return new
   styles generated since the last usage.
 </Notice>
 
@@ -725,7 +725,7 @@ export default function Home() {
 We've created a package called `@hanzogui/next-theme` that properly supports SSR
 light/dark themes while respecting user system preferences. It assumes your
 themes are named `light` and `dark`, but you can override this. This is
-pre-configured in the create-hanzo-gui starter.
+pre-configured in the create-gui starter.
 
 ```bash
 yarn add @hanzogui/next-theme
@@ -741,7 +741,7 @@ import { StyleSheet } from 'react-native'
 import { useServerInsertedHTML } from 'next/navigation'
 import { NextThemeProvider, useRootTheme } from '@hanzogui/next-theme'
 import { GuiProvider } from '@hanzo/gui'
-import guiConfig from '../gui.config'
+import hanzoguiConfig from '../hanzogui.config'
 
 export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useRootTheme()
@@ -767,7 +767,7 @@ export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
         setTheme(next as any)
       }}
     >
-      <GuiProvider config={guiConfig} disableRootThemeClass defaultTheme={theme}>
+      <GuiProvider config={hanzoguiConfig} disableRootThemeClass defaultTheme={theme}>
         {children}
       </GuiProvider>
     </NextThemeProvider>
@@ -781,10 +781,10 @@ You can generate a static CSS file for your themes and tokens. Use either the
 CLI or the Next.js plugin:
 
 ```tsx fileName="next.config.js"
-const guiPlugin = withGui({
-  config: './gui.config.ts',
+const hanzoguiPlugin = withGui({
+  config: './hanzogui.config.ts',
   components: ['@hanzo/gui'],
-  outputCSS: process.env.NODE_ENV === 'production' ? './public/gui.generated.css' : null,
+  outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
   // faster dev mode, keeps debugging helpers:
   disableExtraction: process.env.NODE_ENV === 'development',
 })
@@ -793,11 +793,11 @@ const guiPlugin = withGui({
 Then link the generated CSS file in your `app/layout.tsx`:
 
 ```tsx fileName="app/layout.tsx"
-import '../public/gui.generated.css'
+import '../public/hanzogui.generated.css'
 ```
 
 <Notice theme="green">
-  With React 19, Hanzo GUI automatically injects runtime styles via style tags on the
+  With React 19, Gui automatically injects runtime styles via style tags on the
   server. The `outputCSS` file handles themes and tokens generated at build time, so you
   don't need any `getCSS()` calls in your provider.
 </Notice>

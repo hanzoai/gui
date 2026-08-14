@@ -39,7 +39,7 @@ export const getProjectName = async (projectPath?: string) => {
     )
     console.info()
     console.info('For example:')
-    console.info(`  ${chalk.cyan(packageJson.name)} ${chalk.green('my-gui-app')}`)
+    console.info(`  ${chalk.cyan(packageJson.name)} ${chalk.green('my-hanzogui-app')}`)
     console.info()
     console.info(`Run ${chalk.cyan(`${packageJson.name} --help`)} to see all options.`)
     process.exit(1)

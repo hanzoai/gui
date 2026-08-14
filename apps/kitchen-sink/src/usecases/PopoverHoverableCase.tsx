@@ -1,4 +1,4 @@
-import { Popover, YStack, SizableText, XStack } from 'hanzogui'
+import { Popover, YStack, SizableText, XStack } from '@hanzo/gui'
 
 // each case is isolated for clean testing
 

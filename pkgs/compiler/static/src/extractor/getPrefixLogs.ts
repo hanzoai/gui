@@ -4,6 +4,6 @@ import type { GuiOptions } from '../types'
 export function getPrefixLogs(options?: GuiOptions) {
   return (
     options?.prefixLogs ??
-    ` 🐥 [gui]  ${colorString(Color.FgYellow, options?.platform || 'web')}`
+    ` 🐥 [hanzogui]  ${colorString(Color.FgYellow, options?.platform || 'web')}`
   )
 }

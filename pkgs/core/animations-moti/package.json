@@ -1,8 +1,8 @@
 {
   "name": "@hanzogui/animations-moti",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -11,8 +11,7 @@
   ],
   "type": "module",
   "sideEffects": [
-    "polyfill.js",
-    "polyfill.mjs"
+    "polyfill.*"
   ],
   "main": "dist/cjs",
   "module": "dist/esm",
@@ -33,10 +32,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/core": "workspace:*",
@@ -49,13 +48,6 @@
     "react-native-reanimated": "~4.2.2"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-native": "*"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>",
-  "peerDependenciesMeta": {
-    "react-native": {
-      "optional": true
-    }
+    "react": ">=19"
   }
 }

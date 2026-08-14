@@ -1,4 +1,4 @@
-import { Button, styled, type GetProps } from 'hanzogui'
+import { Button, styled, type GetProps } from '@hanzo/gui'
 
 type ButtonProps = GetProps<typeof Button>
 

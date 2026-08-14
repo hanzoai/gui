@@ -409,7 +409,7 @@ const SliderActive = React.forwardRef<View, SliderActiveProps>(function SliderAc
  * SliderThumb
  * -----------------------------------------------------------------------------------------------*/
 
-// TODO make this customizable through gui
+// TODO make this customizable through hanzogui
 // so we can accurately use it for estimatedSize below
 const getThumbSize = (val?: SizeTokens | number) => {
   const tokens = getTokens()

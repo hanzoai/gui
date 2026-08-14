@@ -1,16 +1,14 @@
 {
   "name": "@hanzogui/components-test",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "private": true,
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "type": "module",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "module": "dist/esm",
   "scripts": {
-    "test:web": "DISABLE_REACT_NATIVE=1 TEST_ENVIRONMENT=jsdom GUI_TARGET=web vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
-    "test:native": "GUI_TARGET=native vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
+    "test:web": "DISABLE_REACT_NATIVE=1 TEST_ENVIRONMENT=jsdom GUI_TARGET=web vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
+    "test:native": "GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
     "test": "bun run test:native"
   },
   "devDependencies": {
@@ -25,15 +23,5 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  },
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ],
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

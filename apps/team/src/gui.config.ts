@@ -1,5 +1,5 @@
 import { defaultConfig } from '@hanzogui/config/v5'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 // hanzo monochrome: dark #000 / #0a0a0a / #1f1f1f · light #fff / #f7f7f7 / #ebebeb
 export const config = createGui({

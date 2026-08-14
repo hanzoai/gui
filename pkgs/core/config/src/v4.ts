@@ -7,7 +7,7 @@ import { media, mediaQueryDefaultActive } from './v4-media'
 
 export { shorthands } from '@hanzogui/shorthands/v4'
 export { createThemes } from '@hanzogui/theme-builder'
-export { guiThemes, tokens } from '@hanzogui/themes/v4'
+export { hanzoguiThemes, tokens } from '@hanzogui/themes/v4'
 export { animations } from './v4-animations'
 export { createSystemFont, fonts } from './v4-fonts'
 export { breakpoints, media, mediaQueryDefaultActive } from './v4-media'

@@ -27,7 +27,9 @@ test('installRecipe writes files into installDir, creating subdirs', async () =>
   const written = await installRecipe(recipe, { installDir: dir })
   expect(written).toHaveLength(2)
   expect(await readFile(path.join(dir, 'Foo.tsx'), 'utf8')).toBe('export const Foo = 1\n')
-  expect(await readFile(path.join(dir, 'nested/Deep.tsx'), 'utf8')).toBe('export const Deep = 1\n')
+  expect(await readFile(path.join(dir, 'nested/Deep.tsx'), 'utf8')).toBe(
+    'export const Deep = 1\n'
+  )
   await rm(dir, { recursive: true })
 })
 

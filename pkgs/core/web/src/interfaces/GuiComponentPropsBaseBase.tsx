@@ -1,10 +1,4 @@
-import type {
-  DebugProp,
-  ThemeName,
-  GroupNames,
-  Role,
-  GuiComponentState,
-} from '../types'
+import type { DebugProp, ThemeName, GroupNames, Role, GuiComponentState } from '../types'
 
 export type GuiComponentPropsBaseBase = {
   target?: string
@@ -68,13 +62,13 @@ export type GuiComponentPropsBaseBase = {
 
   /**
    * Marks this component as a group for use in styling children based on parents named group
-   * See: https://gui.dev/docs/intro/props
+   * See: https://hanzogui.dev/docs/intro/props
    */
   group?: GroupNames | boolean
 
   /**
    * Works only alongside group, when children of the group are using container based sizing on native you can hide them until parent is measured.
-   * See: https://gui.dev/docs/intro/props
+   * See: https://hanzogui.dev/docs/intro/props
    */
   untilMeasured?: 'hide' | 'show'
 

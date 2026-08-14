@@ -1,5 +1,5 @@
 import { Check } from '@hanzogui/lucide-icons-2'
-import { styled, YStack } from 'hanzogui'
+import { styled, YStack } from '@hanzo/gui'
 
 const RedCheck = styled(Check, {
   color: 'red',

@@ -11,14 +11,14 @@ demoName: Switch
 
 <Tabs id="type" defaultValue="styled">
 <Tabs.List>
-  <TooltipSimple label="With Hanzo GUI's default styles">
+  <TooltipSimple label="With Gui's default styles">
     <Tabs.Tab value="styled">Styled</Tabs.Tab>
   </TooltipSimple>
   <TooltipSimple label="No default styles, easy to customize">
     <Tabs.Tab value="unstyled">Unstyled</Tabs.Tab>
   </TooltipSimple>
-  <TooltipSimple label="No dependency on Hanzo GUI's core">
-    <Tabs.Tab value="headless" label="No styles and no dependency on Hanzo GUI's styling">Headless</Tabs.Tab>
+  <TooltipSimple label="No dependency on Gui's core">
+    <Tabs.Tab value="headless" label="No styles and no dependency on Gui's styling">Headless</Tabs.Tab>
   </TooltipSimple>
 </Tabs.List>
 
@@ -67,7 +67,7 @@ features={[
 
 <Tabs.Content value="styled">
 
-Switch is already installed in `@hanzo/gui`, or you can install it independently:
+Switch is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/switch
@@ -77,7 +77,7 @@ npm install @hanzogui/switch
 
 <Tabs.Content value="unstyled">
 
-Switch is already installed in `@hanzo/gui`, or you can install it independently:
+Switch is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/switch
@@ -189,7 +189,7 @@ Using the `useSwitch` API, you can make your own Switch from scratch.
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
     {
       name: 'native',
@@ -215,7 +215,7 @@ Using the `useSwitch` API, you can make your own Switch from scratch.
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />

@@ -26,7 +26,7 @@
       "path": "../../core/helpers"
     },
     {
-      "path": "../../core/helpers-hanzogui"
+      "path": "../../core/component-helpers"
     },
     {
       "path": "../../core/use-controllable-state"

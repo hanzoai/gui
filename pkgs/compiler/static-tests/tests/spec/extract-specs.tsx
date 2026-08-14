@@ -21,10 +21,10 @@ type TestProps = {
   altConditional?: boolean
 }
 
-const guiConfig = createGui(config)
+const hanzoguiConfig = createGui(config)
 
 export const Provider = (props) => (
-  <GuiProvider defaultTheme="dark" config={guiConfig}>
+  <GuiProvider defaultTheme="dark" config={hanzoguiConfig}>
     {props.children}
   </GuiProvider>
 )

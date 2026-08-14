@@ -9,7 +9,7 @@ import {
   View,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 // tracks render count — must be memoized to isolate from parent re-renders
 const RenderCountingPopoverTrigger = memo(function RenderCountingPopoverTrigger({

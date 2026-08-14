@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Linking } from 'react-native'
 import { useRouter } from 'one'
 import { ChevronDown } from '@hanzogui/lucide-icons-2'
-import { ScrollView, SizableText, XStack, YStack } from 'hanzogui'
+import { ScrollView, SizableText, XStack, YStack } from '@hanzo/gui'
 import { Mark } from './Mark'
 import { SchemeToggle } from './Scheme'
 import { SURFACES } from '~/src/surfaces'
@@ -21,7 +21,14 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <YStack flex={1} minH="100%" bg="$background">
-      <YStack borderBottomWidth={1} borderColor="$borderColor" px="$4" pt="$3" pb="$2" gap="$2">
+      <YStack
+        borderBottomWidth={1}
+        borderColor="$borderColor"
+        px="$4"
+        pt="$3"
+        pb="$2"
+        gap="$2"
+      >
         <XStack items="center" gap="$3">
           <Mark size={22} />
 
@@ -36,7 +43,14 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
               pressStyle={{ bg: '$color1' }}
               onPress={() => setOrgOpen((v) => (orgs.length > 1 ? !v : v))}
             >
-              <YStack width={20} height={20} rounded={999} bg="$color" items="center" justify="center">
+              <YStack
+                width={20}
+                height={20}
+                rounded={999}
+                bg="$color"
+                items="center"
+                justify="center"
+              >
                 <SizableText size="$1" fontWeight="700" color="$background">
                   {currentOrg.charAt(0).toUpperCase()}
                 </SizableText>
@@ -72,7 +86,10 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
                       setOrgOpen(false)
                     }}
                   >
-                    <SizableText size="$3" color={org === currentOrg ? '$color' : '$color10'}>
+                    <SizableText
+                      size="$3"
+                      color={org === currentOrg ? '$color' : '$color10'}
+                    >
                       {org}
                     </SizableText>
                   </XStack>

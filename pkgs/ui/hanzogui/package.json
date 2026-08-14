@@ -1,23 +1,46 @@
 {
-  "name": "hanzogui",
-  "version": "7.3.1",
+  "name": "@hanzo/gui",
+  "version": "8.1.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hanzoai/gui.git",
+    "url": "git+https://github.com/hanzoai/gui.git",
     "directory": "pkgs/ui/hanzogui"
   },
   "source": "src/index.ts",
+  "files": [
+    "bundle-native.mjs",
+    "css-check.mjs",
+    "dist",
+    "hanzogui.config.ts",
+    "linear-gradient",
+    "native-test.cjs",
+    "native-test.d.ts",
+    "native-test",
+    "native.cjs",
+    "native.d.ts",
+    "native",
+    "react-native-web.cjs",
+    "react-native-web",
+    "src",
+    "types",
+    "web.cjs",
+    "web"
+  ],
   "type": "module",
   "sideEffects": [
-    "setup.js"
+    "setup.*"
   ],
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
+  "bin": {
+    "gui-css-check": "./css-check.mjs"
+  },
   "exports": {
     "./package.json": "./package.json",
+    "./css-check": "./css-check.mjs",
     ".": {
       "types": "./types/index.d.ts",
       "react-native": "./dist/esm/index.native.js",
@@ -26,6 +49,15 @@
       "import": "./dist/esm/index.mjs",
       "require": "./dist/cjs/index.cjs",
       "default": "./dist/esm/index.mjs"
+    },
+    "./react-native-web": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/react-native-web.native.js",
+      "browser": "./dist/esm/react-native-web.mjs",
+      "module": "./dist/esm/react-native-web.mjs",
+      "import": "./dist/esm/react-native-web.mjs",
+      "require": "./dist/cjs/react-native-web.cjs",
+      "default": "./dist/esm/react-native-web.mjs"
     },
     "./web": {
       "types": "./types/index.d.ts",
@@ -44,6 +76,7 @@
     },
     "./native-test": {
       "types": "./types/index.d.ts",
+      "react-native": "./dist/test.native.js",
       "require": "./dist/test.cjs",
       "default": "./dist/test.cjs"
     },
@@ -58,13 +91,14 @@
     }
   },
   "scripts": {
-    "build": "gui-build",
+    "build": "hanzogui-build",
     "afterBuild": "node bundle-native.mjs",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build",
     "check": "bun run check-circular-deps",
-    "check-circular-deps": "npx madge --circular ./src/index.ts"
+    "check-circular-deps": "npx madge --circular ./src/index.ts",
+    "test": "node --test css-check.test.mjs"
   },
   "dependencies": {
     "@hanzogui/accordion": "workspace:*",
@@ -119,6 +153,7 @@
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/switch": "workspace:*",
     "@hanzogui/tabs": "workspace:*",
+    "@hanzogui/telemetry": "workspace:*",
     "@hanzogui/text": "workspace:*",
     "@hanzogui/theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",
@@ -129,37 +164,21 @@
     "@hanzogui/use-force-update": "workspace:*",
     "@hanzogui/use-window-dimensions": "workspace:*",
     "@hanzogui/visually-hidden": "workspace:*",
-    "@hanzogui/z-index-stack": "workspace:*",
-    "react-native-web": "^0.21.0"
+    "@hanzogui/web": "workspace:*",
+    "@hanzogui/z-index-stack": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react": ">=19",
-    "react-native": "0.83.2"
+    "react-native": "0.83.2",
+    "react-native-web": "^0.21.0"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-native": "*"
+    "react": ">=19"
   },
   "alsoPublishAs_disabled": [
     "@hanzogui/ui"
   ],
   "module:jsx": "dist/jsx",
-  "removeSideEffects": true,
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ],
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>",
-  "peerDependenciesMeta": {
-    "react-native": {
-      "optional": true
-    }
-  }
+  "removeSideEffects": true
 }

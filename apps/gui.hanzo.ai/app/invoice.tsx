@@ -1,4 +1,4 @@
-import { YStack, XStack, Text, H2, Spacer } from 'hanzogui'
+import { YStack, XStack, Text, H2, Spacer } from '@hanzo/gui'
 
 export const mode = 'spa'
 
@@ -20,7 +20,7 @@ export default function InvoicePage() {
             <Text>348 Awakea Rd</Text>
             <Text>Kailua, Hawaii 96734</Text>
             <Text>United States</Text>
-            <Text>support@hanzo.ai</Text>
+            <Text>support@hanzogui.dev</Text>
           </YStack>
           <YStack width="48%">
             <Text fontWeight="bold">Bill to</Text>
@@ -77,7 +77,7 @@ export default function InvoicePage() {
 
           <XStack borderBottomColor="#ccc" borderBottomWidth={1}>
             <Text width={200} flex={1} p={8}>
-              Recipes
+              Bento
             </Text>
             <Text flex={1} p={8}>
               1
@@ -142,7 +142,7 @@ export default function InvoicePage() {
 //   styled,
 //   useDidFinishSSR,
 //   withStaticProperties,
-// } from 'hanzogui'
+// } from '@hanzo/gui'
 // import { ThemeToggle } from '~/features/site/theme/ThemeToggle'
 
 // export default memo(() => {
@@ -196,7 +196,7 @@ export default function InvoicePage() {
 //             </DT.Row>
 //             <DT.Row>
 //               <DT.Col bold>Email:</DT.Col>
-//               <DT.Col>support@hanzo.ai</DT.Col>
+//               <DT.Col>support@hanzogui.dev</DT.Col>
 //             </DT.Row>
 //           </DT>
 
@@ -227,7 +227,7 @@ export default function InvoicePage() {
 //                       <Check />
 //                     </Checkbox.Indicator>
 //                   </Checkbox>
-//                   GUI Takeout
+//                   Gui Takeout
 //                 </XStack>
 //                 <XStack gap="$2">
 //                   <Checkbox>
@@ -235,7 +235,7 @@ export default function InvoicePage() {
 //                       <Check />
 //                     </Checkbox.Indicator>
 //                   </Checkbox>
-//                   GUI Recipes
+//                   Gui Bento
 //                 </XStack>
 //               </DT.Col>
 //             </DT.Row>

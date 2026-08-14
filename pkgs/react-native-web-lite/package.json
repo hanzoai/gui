@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/react-native-web-lite",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "description": "React Native for Web",
   "keywords": [
     "react",
@@ -11,10 +11,10 @@
   "bugs": {
     "url": "https://github.com/hanzoai/gui/issues"
   },
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hanzoai/gui.git",
+    "url": "git+https://github.com/hanzoai/gui.git",
     "directory": "packages/react-native-web-lite"
   },
   "files": [
@@ -96,10 +96,10 @@
     }
   },
   "scripts": {
-    "build": "gui-build --skip-types --skip-native",
-    "watch": "gui-build --watch --skip-types --skip-native",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build --skip-types --skip-native",
+    "watch": "hanzogui-build --watch --skip-types --skip-native",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/normalize-css-color": "workspace:*",
@@ -107,14 +107,13 @@
     "@hanzogui/react-native-use-responder-events": "workspace:*",
     "@hanzogui/react-native-web-internals": "workspace:*",
     "@hanzogui/web": "workspace:*",
-    "@testing-library/react": "^16.3.2",
     "invariant": "^2.2.4",
     "memoize-one": "^6.0.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react": ">=19",
-    "react-dom": "*"
+    "react-dom": ">=19"
   },
   "peerDependencies": {
     "react": ">=19",
@@ -122,6 +121,5 @@
   },
   "tags": [
     "react"
-  ],
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  ]
 }

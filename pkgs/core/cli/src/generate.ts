@@ -14,13 +14,13 @@ export async function generateTypes(options: CLIResolvedOptions) {
 }
 
 export async function getTypes(options: CLIResolvedOptions) {
-  const gui = await loadGui(options.guiOptions)
+  const hanzogui = await loadGui(options.hanzoguiOptions)
 
-  if (!gui) {
-    throw new Error(`No gui config`)
+  if (!hanzogui) {
+    throw new Error(`No hanzogui config`)
   }
 
-  const nameToPaths = gui.nameToPaths || []
+  const nameToPaths = hanzogui.nameToPaths || []
   const uniqueViewExportingPaths = new Set(
     Object.keys(nameToPaths).map((name) => {
       return `${[...nameToPaths[name]][0]}.ts*`

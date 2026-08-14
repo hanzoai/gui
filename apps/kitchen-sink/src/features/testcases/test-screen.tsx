@@ -1,9 +1,9 @@
 import { useRoute } from '@react-navigation/native'
 import { ScrollView } from 'react-native'
 import { createParam } from 'solito'
-import { H1, YStack } from 'hanzogui'
+import { H1, YStack } from '@hanzo/gui'
 
-import * as UseCases from '../../usecases'
+import { useCases as UseCases } from '../../usecases'
 
 const { useParam } = createParam<{ id: string }>()
 

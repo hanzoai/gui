@@ -79,7 +79,8 @@ function randomString(length: number): string {
 function base64Url(bytes: Uint8Array): string {
   let bin = ''
   for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i])
-  const b64 = typeof btoa === 'function' ? btoa(bin) : Buffer.from(bytes).toString('base64')
+  const b64 =
+    typeof btoa === 'function' ? btoa(bin) : Buffer.from(bytes).toString('base64')
   return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
 }
 
@@ -127,7 +128,11 @@ function parseCallback(url: string): { code?: string; state?: string; error?: st
   }
 }
 
-async function exchangeCode(code: string, verifier: string, redirect: string): Promise<Tokens> {
+async function exchangeCode(
+  code: string,
+  verifier: string,
+  redirect: string
+): Promise<Tokens> {
   const { token } = await discover()
   const body = new URLSearchParams({
     grant_type: 'authorization_code',
@@ -138,14 +143,19 @@ async function exchangeCode(code: string, verifier: string, redirect: string): P
   })
   const res = await fetch(token, {
     method: 'POST',
-    headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' },
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+      accept: 'application/json',
+    },
     body: body.toString(),
   })
   if (!res.ok) throw new Error(`token exchange failed (${res.status})`)
   const d = (await res.json()) as Record<string, unknown>
   const accessToken = d.access_token
   if (typeof accessToken !== 'string' || accessToken.length === 0) {
-    throw new Error(typeof d.error === 'string' ? d.error : 'no access_token in token response')
+    throw new Error(
+      typeof d.error === 'string' ? d.error : 'no access_token in token response'
+    )
   }
   const expiresIn = typeof d.expires_in === 'number' ? d.expires_in : undefined
   return {
@@ -159,7 +169,9 @@ async function exchangeCode(code: string, verifier: string, redirect: string): P
 export async function fetchUserInfo(accessToken: string): Promise<UserInfo | undefined> {
   try {
     const { userinfo } = await discover()
-    const res = await fetch(userinfo, { headers: { authorization: `Bearer ${accessToken}` } })
+    const res = await fetch(userinfo, {
+      headers: { authorization: `Bearer ${accessToken}` },
+    })
     if (!res.ok) return undefined
     const d = (await res.json()) as Record<string, unknown>
     const groups = Array.isArray(d.groups)

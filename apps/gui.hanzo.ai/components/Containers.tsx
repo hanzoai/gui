@@ -1,4 +1,4 @@
-import { YStack, styled } from 'hanzogui'
+import { YStack, styled } from '@hanzo/gui'
 
 const variants = {
   hide: {
@@ -69,7 +69,7 @@ export const ContainerXL = styled(YStack, {
   variants,
 })
 
-export const ContainerRecipes = styled(YStack, {
+export const ContainerBento = styled(YStack, {
   mx: 'auto',
   width: '100%',
   position: 'relative',

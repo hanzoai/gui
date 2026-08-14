@@ -1,4 +1,4 @@
-import { H5, ListItem, Separator, View, Theme } from 'hanzogui'
+import { H5, ListItem, Separator, View, Theme } from '@hanzo/gui'
 import { ChevronRight, Star, Trash } from '@hanzogui/lucide-icons-2'
 
 export const ThemedListItem = () => (

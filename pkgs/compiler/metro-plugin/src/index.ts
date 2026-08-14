@@ -2,7 +2,7 @@ import { loadGuiBuildConfigSync, type GuiOptions } from '@hanzogui/static'
 
 export type MetroGuiOptions = GuiOptions & {
   /**
-   * @deprecated CSS interop is no longer supported. Use `gui generate` instead.
+   * @deprecated CSS interop is no longer supported. Use `hanzogui generate` instead.
    */
   cssInterop?: boolean
 }
@@ -21,8 +21,8 @@ type MetroConfigInput = {
  * This is now a simplified wrapper that just ensures CSS is enabled and
  * loads your Gui config. For CSS generation, use the CLI:
  *
- * 1. Create a `gui.build.ts` with `outputCSS` option
- * 2. Run `gui generate` before your build
+ * 1. Create a `hanzogui.build.ts` with `outputCSS` option
+ * 2. Run `hanzogui generate` before your build
  * 3. Import the generated CSS in your app's layout
  *
  * @example
@@ -33,8 +33,8 @@ type MetroConfigInput = {
  *
  * const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
  * module.exports = withGui(config, {
- *   components: ['gui'],
- *   config: './gui.config.ts',
+ *   components: ['@hanzo/gui'],
+ *   config: './hanzogui.config.ts',
  * })
  * ```
  */
@@ -42,17 +42,17 @@ export function withGui(
   metroConfig: MetroConfigInput,
   optionsIn?: MetroGuiOptions
 ): MetroConfigInput {
-  const { cssInterop, ...guiOptionsIn } = optionsIn || {}
+  const { cssInterop, ...hanzoguiOptionsIn } = optionsIn || {}
 
   if (cssInterop) {
     console.warn(
-      '[@hanzogui/metro-plugin] cssInterop option is deprecated. Use `gui generate` to pre-generate CSS instead.'
+      '[@hanzogui/metro-plugin] cssInterop option is deprecated. Use `hanzogui generate` to pre-generate CSS instead.'
     )
   }
 
   const options = {
-    ...guiOptionsIn,
-    ...loadGuiBuildConfigSync(guiOptionsIn),
+    ...hanzoguiOptionsIn,
+    ...loadGuiBuildConfigSync(hanzoguiOptionsIn),
   }
 
   // Ensure CSS files can be resolved
@@ -61,10 +61,10 @@ export function withGui(
     sourceExts: [...new Set([...(metroConfig.resolver?.sourceExts || []), 'css'])],
   }
 
-  // Store gui options for potential use by other tools
+  // Store hanzogui options for potential use by other tools
   metroConfig.transformer = {
     ...metroConfig.transformer,
-    gui: options,
+    hanzogui: options,
   }
 
   return metroConfig

@@ -1,7 +1,7 @@
 import type { LayoutValue } from '@hanzogui/use-element-layout'
 import React, { useEffect, useState } from 'react'
-import type { XStackProps } from 'hanzogui'
-import { Circle, XStack } from 'hanzogui'
+import type { XStackProps } from '@hanzo/gui'
+import { Circle, XStack } from '@hanzo/gui'
 import { useTint } from './useTint'
 
 // T A M A G U I

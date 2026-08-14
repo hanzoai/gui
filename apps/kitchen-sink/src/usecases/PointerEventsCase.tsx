@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Square, Text, XStack, YStack } from 'hanzogui'
+import { Square, Text, XStack, YStack } from '@hanzo/gui'
 
 export function PointerEventsCase() {
   const [counts, setCounts] = useState({

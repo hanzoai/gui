@@ -7,7 +7,7 @@ import {
   Sheet,
   Unspaced,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { ProLicense } from '../../pro/ProLicense'
 import { useTakeoutStore } from './useTakeoutStore'

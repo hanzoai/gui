@@ -58,7 +58,7 @@ export async function ensureSubscription(
   if (!subscriptionData) {
     throw Response.json(
       {
-        message: 'the provided subscription does not include the GUI Pro',
+        message: 'the provided subscription does not include the Gui Pro',
       },
       {
         status: 401,

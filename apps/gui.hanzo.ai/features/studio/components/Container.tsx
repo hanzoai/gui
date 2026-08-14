@@ -1,6 +1,6 @@
 // via site
 
-import { YStack, styled } from 'hanzogui'
+import { YStack, styled } from '@hanzo/gui'
 
 const variants = {
   hide: {

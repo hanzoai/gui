@@ -1,0 +1,4 @@
+{
+  "config": "./src/hanzogui.config.ts",
+  "components": ["hanzogui"]
+}

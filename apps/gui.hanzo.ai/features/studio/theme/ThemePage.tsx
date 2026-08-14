@@ -22,7 +22,7 @@ import {
   View,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { ThemeNameEffectNoTheme } from '~/features/site/theme/ThemeNameEffect'
 import { Dialogs } from '~/features/studio/components/Dialogs'
 import { StudioAIBar } from '~/features/studio/theme/StudioAIBar'

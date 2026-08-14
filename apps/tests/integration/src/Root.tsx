@@ -3,7 +3,7 @@ import '@hanzogui/core/reset.css'
 import { Text, GuiProvider, View } from '@hanzogui/core'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 
-import config from './gui.config'
+import config from './hanzogui.config'
 
 export const Root = () => {
   return (

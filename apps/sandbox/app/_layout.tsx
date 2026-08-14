@@ -1,14 +1,14 @@
 import { animationsMotion } from '@hanzogui/config/v5-motion'
 import { Image } from '@hanzogui/image'
 import './_layout.css'
-import './gui.generated.css'
+import './hanzogui.generated.css'
 
 // import { Toaster } from '@hanzogui/toast'
 import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
 import { LoadProgressBar, SafeAreaView, Slot } from 'one'
-import { Configuration, isWeb, GuiProvider, XStack, YStack } from 'hanzogui'
+import { Configuration, isWeb, GuiProvider, XStack, YStack } from '@hanzo/gui'
 import { ToggleThemeButton } from '~/components/ToggleThemeButton'
-import config from '~/config/gui/gui.config'
+import config from '~/config/hanzogui/hanzogui.config'
 import oneBall from '~/public/app-icon.png'
 
 export default function Layout() {

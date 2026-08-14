@@ -86,12 +86,5 @@ export function UserAvatar({
 
   // Tier 3: generative beam avatar
   const seed = name || email || 'user'
-  return (
-    <BeamAvatar
-      name={seed}
-      size={size}
-      colors={colors}
-      className={className}
-    />
-  )
+  return <BeamAvatar name={seed} size={size} colors={colors} className={className} />
 }

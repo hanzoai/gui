@@ -17,9 +17,12 @@ export type ReaderOptions = {
 async function getJSON<T>(url: string): Promise<T> {
   const res = await fetch(url, { headers: { Accept: 'application/json' } })
   if (!res.ok) {
-    throw Object.assign(new Error(`Base request failed: ${res.status} ${res.statusText}`), {
-      status: res.status,
-    })
+    throw Object.assign(
+      new Error(`Base request failed: ${res.status} ${res.statusText}`),
+      {
+        status: res.status,
+      }
+    )
   }
   return (await res.json()) as T
 }
@@ -53,7 +56,10 @@ export type ResolveOptions = ReaderOptions & {
 }
 
 /** Walks recipeDeps transitively, computes target paths under the resolved install dir. */
-export async function resolveRecipe(slug: string, opts: ResolveOptions = {}): Promise<InstallPlan> {
+export async function resolveRecipe(
+  slug: string,
+  opts: ResolveOptions = {}
+): Promise<InstallPlan> {
   const seen = new Map<string, Recipe>()
   const queue = [slug]
   while (queue.length) {

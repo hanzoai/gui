@@ -140,9 +140,12 @@ export const defaultPalettes = (() => {
     ]
   }
 
+  // `color` above holds only the white/black ramps — it has never had a
+  // `blue4Light`/`blue4Dark`, so these read as undefined at runtime and TS2339
+  // at build. The blue scales live on colorTokens, keyed the Radix way.
   const brandColor = {
-    light: color.blue4Light,
-    dark: color.blue4Dark,
+    light: colorTokens.light.blue.blue4,
+    dark: colorTokens.dark.blue.blue4,
   }
 
   const lightPalette = [

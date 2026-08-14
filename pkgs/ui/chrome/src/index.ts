@@ -1,19 +1,18 @@
-// @hanzogui/chrome — the ONE unified public-site chrome shared across Hanzo
-// marketing surfaces (hanzo.ai, hanzo.chat, lux, zoo, …).
+// @hanzogui/chrome — presentational marketing SECTIONS (hero, widget, footer).
 //
-//   import { HanzoNav, HanzoFooter, ChatHero, HanzoWidget } from '@hanzogui/chrome'
+//   import { HanzoFooter, ChatHero, HanzoWidget } from '@hanzogui/chrome'
 //
-// Built in Tamagui `styled()` + a committed monochrome token module (Geist,
-// zinc-on-black), matching the canonical hanzo.ai landing. Presentational and
-// host-agnostic: all content (nav items, footer columns, CTA links, pills) and
-// all effects (analytics, navigation) are injected as props / callbacks.
+// THE HEADER LIVES IN @hanzogui/shell. `HanzoNav` used to live here and was a
+// second, drifting implementation of the public header: uppercase section
+// heads, its own hover palette, a "Log in" dropdown next to a second CTA
+// dropdown. Two packages both claiming to be "the ONE public chrome" is how the
+// navs diverged in the first place, so it is deleted rather than restyled —
+// there is one header, `HanzoHeader` from @hanzogui/shell, and one set of
+// tokens behind it (shell's `theme.ts`).
 //
-// Sibling package @hanzogui/shell owns the AUTHENTICATED tenant chrome
-// (HanzoAppBar, TenantHeader, org switcher); this package owns the PUBLIC
-// marketing chrome. Separation of concerns — one name each.
-
-export { HanzoNav } from './HanzoNav'
-export type { HanzoNavProps, HanzoNavLoginProps, HanzoNavPrimaryProps } from './HanzoNav'
+// Built in Gui `styled()` + a committed monochrome token module (Geist,
+// zinc-on-black). Presentational and host-agnostic: all content and all effects
+// are injected as props / callbacks.
 
 export { HanzoFooter } from './HanzoFooter'
 export type { HanzoFooterProps } from './HanzoFooter'

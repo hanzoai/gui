@@ -13,7 +13,7 @@ import {
   XStack,
   YStack,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { ContainerLarge } from '~/components/Containers'
 import { Link } from '~/components/Link'
 import { DiscordIcon } from '~/features/icons/DiscordIcon'
@@ -61,8 +61,13 @@ const HeroContents = memo(function HeroContents() {
 
   return (
     <ContainerLarge position="relative">
+      {/* explicit absolute position instead of `fullscreen` + l/r/b overrides:
+          fullscreen emits inset:0, which conflicts with _l/_r/_b in the css
+          cascade and flips winner around hydration, causing a ~0.3 horizontal
+          CLS in the hero (the decorative grid jumps from 1140 to 2140 wide) */}
       <YStack
-        fullscreen
+        position="absolute"
+        t={0}
         l={-500}
         r={-500}
         b={-100}
@@ -191,7 +196,7 @@ const HeroContents = memo(function HeroContents() {
           gap="$2"
           $xxs={{ items: 'center', flexWrap: 'wrap', gap: 0 }}
         >
-          <Link target="_blank" href="https://x.com/hanzoai">
+          <Link target="_blank" href="https://x.com/hanzogui_js">
             <TooltipSimple placement="top" delay={0} restMs={25} label="X">
               <YStack p="$5" $sm={{ p: '$3' }} opacity={0.65} hoverStyle={{ opacity: 1 }}>
                 <VisuallyHidden>
@@ -369,19 +374,16 @@ const HeroText = styled(HeroH1, {
 })
 
 const TextWithEffects = ({ text }: { text: string }) => {
+  const displayText = text.replace(/&nbsp;/g, String.fromCharCode(160))
+
   return (
     <>
-      <span style={{ opacity: 0 }}>{text}</span>
+      <span style={{ opacity: 0 }}>{displayText}</span>
 
       <YStack fullscreen>
-        <HeroText
-          className="clip-text rainbow grain"
-          l={-1}
-          opacity={0.5}
-          dangerouslySetInnerHTML={{
-            __html: text,
-          }}
-        />
+        <HeroText className="clip-text rainbow grain" l={-1} opacity={0.5}>
+          {displayText}
+        </HeroText>
 
         <ThemeTintAlt offset={2}>
           <HeroText
@@ -390,10 +392,9 @@ const TextWithEffects = ({ text }: { text: string }) => {
             pointerEvents="none"
             x={-1}
             color="$color9"
-            dangerouslySetInnerHTML={{
-              __html: text,
-            }}
-          />
+          >
+            {displayText}
+          </HeroText>
         </ThemeTintAlt>
 
         <ThemeTintAlt offset={3}>
@@ -403,10 +404,9 @@ const TextWithEffects = ({ text }: { text: string }) => {
             mixBlendMode="hard-light"
             pointerEvents="none"
             color="$color9"
-            dangerouslySetInnerHTML={{
-              __html: text,
-            }}
-          />
+          >
+            {displayText}
+          </HeroText>
         </ThemeTintAlt>
 
         <ThemeTintAlt offset={0}>
@@ -416,10 +416,9 @@ const TextWithEffects = ({ text }: { text: string }) => {
             pointerEvents="none"
             color="$color9"
             opacity={0.26}
-            dangerouslySetInnerHTML={{
-              __html: text,
-            }}
-          />
+          >
+            {displayText}
+          </HeroText>
         </ThemeTintAlt>
 
         <ThemeTintAlt offset={-3}>
@@ -428,10 +427,9 @@ const TextWithEffects = ({ text }: { text: string }) => {
             className="mask-gradient-right"
             pointerEvents="none"
             color="$color9"
-            dangerouslySetInnerHTML={{
-              __html: text,
-            }}
-          />
+          >
+            {displayText}
+          </HeroText>
         </ThemeTintAlt>
       </YStack>
     </>

@@ -1,14 +1,24 @@
 {
   "name": "@hanzogui/web",
-  "version": "7.3.1",
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>",
+  "version": "8.1.1",
+  "license": "MIT",
+  "author": {
+    "name": "Nate Wienert"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hanzoai/gui.git",
+    "url": "git+https://github.com/hanzoai/gui.git",
     "directory": "packages/web"
   },
   "source": "src/index.ts",
+  "files": [
+    "dist",
+    "inject-styles.cjs",
+    "inject-styles",
+    "reset.css",
+    "src",
+    "types"
+  ],
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -28,6 +38,12 @@
       "require": "./dist/cjs/index.cjs",
       "default": "./dist/esm/index.mjs"
     },
+    "./types": {
+      "types": "./types/index.d.ts"
+    },
+    "./types/*": {
+      "types": "./types/*.d.ts"
+    },
     "./inject-styles": {
       "types": "./types/inject-styles.d.ts",
       "react-native": "./dist/esm/inject-styles.mjs",
@@ -42,10 +58,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build",
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build",
     "test:web": "vitest --typecheck --run"
   },
   "dependencies": {
@@ -66,28 +82,13 @@
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",
     "react": ">=19",
-    "react-dom": "*",
+    "react-dom": ">=19",
     "react-native": "0.83.2",
     "typescript": "~5.9.2",
     "vitest": "4.0.4"
   },
   "peerDependencies": {
     "react": ">=19",
-    "react-dom": "*",
-    "react-native": "*"
-  },
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ],
-  "peerDependenciesMeta": {
-    "react-native": {
-      "optional": true
-    }
+    "react-dom": "*"
   }
 }

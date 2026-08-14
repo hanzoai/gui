@@ -34,7 +34,12 @@ function upsertMeta(name: string, content: string) {
  * workstream (edit.js); this component is purely the mount/meta contract, so any
  * Hanzo surface can opt in with one line: `<HanzoWidget repo="org/repo" />`.
  */
-export function HanzoWidget({ repo, provider, path, src = DEFAULT_SRC }: HanzoWidgetProps) {
+export function HanzoWidget({
+  repo,
+  provider,
+  path,
+  src = DEFAULT_SRC,
+}: HanzoWidgetProps) {
   useEffect(() => {
     if (typeof document === 'undefined') return
 

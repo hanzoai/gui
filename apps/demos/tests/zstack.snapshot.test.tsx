@@ -1,4 +1,4 @@
-import { Separator, ZStack } from 'hanzogui'
+import { Separator, ZStack } from '@hanzo/gui'
 
 export const Crosshairs = () => {
   return (

@@ -2,7 +2,7 @@
 
 Universal (web + native) scheduling UI for the [Hanzo Calendar](https://api.hanzo.ai/v1/calendar), built with [hanzogui](https://github.com/hanzoai/gui) primitives.
 
-One booking flow — event header → month grid → time slots → details → confirmation — that runs unchanged on the web (DOM) and React Native (iOS / Android). No raw HTML, no ad-hoc CSS: every surface is a hanzogui/Tamagui component styled with theme tokens, so it inherits the host app's theme, dark mode, and design system.
+One booking flow — event header → month grid → time slots → details → confirmation — that runs unchanged on the web (DOM) and React Native (iOS / Android). No raw HTML, no ad-hoc CSS: every surface is a hanzogui/Gui component styled with theme tokens, so it inherits the host app's theme, dark mode, and design system.
 
 ## Install
 
@@ -16,7 +16,7 @@ Render inside a `GuiProvider` (from `hanzogui`) so tokens and themes resolve.
 ## Usage
 
 ```tsx
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import { Booker } from '@hanzo/calendar'
 import config from './gui.config' // your createGui(...) config
 
@@ -75,4 +75,4 @@ Speaks the Hanzo Calendar API (Cal API-v2 shapes):
 
 ## License
 
-BSD-3-Clause © Hanzo AI
+MIT © Hanzo AI — see [LICENSE](../../LICENSE). HIP-0137 (`hanzoai/hips`).

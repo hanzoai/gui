@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Input, Text, YStack } from 'hanzogui'
+import { Button, Form, Input, Text, YStack } from '@hanzo/gui'
 
 export function FormButtonTypeCase() {
   const [submitted, setSubmitted] = useState(false)

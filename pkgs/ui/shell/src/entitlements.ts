@@ -21,7 +21,9 @@ import {
 } from './hanzo-registry'
 
 /** Precomputed slug→rank (built once from HANZO_PLANS). */
-const RANK: Record<string, number> = Object.fromEntries(HANZO_PLANS.map((p) => [p.slug, p.rank]))
+const RANK: Record<string, number> = Object.fromEntries(
+  HANZO_PLANS.map((p) => [p.slug, p.rank])
+)
 
 /** The access rank of a tier. Unknown tiers fall back to the default tier's rank. */
 export function rankOf(tier: HanzoPlanTier): number {

@@ -1,6 +1,6 @@
 ---
 title: Linear Gradient
-description: Linear gradients that work with Hanzo GUI style props
+description: Linear gradients that work with Gui style props
 name: linear-gradient
 component: LinearGradient
 package: linear-gradient
@@ -18,14 +18,14 @@ demoName: LinearGradient
 <Highlights
   features={[
     'Works on native and web.',
-    'Accepts Hanzo GUI style props and theme colors.',
+    'Accepts Gui style props and theme colors.',
     'Bundles easily with webpack.',
   ]}
 />
 
 ## Installation
 
-LinearGradient is already installed in `@hanzo/gui`, or you can install it independently:
+LinearGradient is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/linear-gradient
@@ -43,7 +43,7 @@ npm install expo-linear-gradient
 
 #### Step 2: Import the setup module
 
-In your app's entry file (index.js or App.tsx), before any Hanzo GUI imports:
+In your app's entry file (index.js or App.tsx), before any Gui imports:
 
 ```tsx
 import '@hanzogui/native/setup-expo-linear-gradient'
@@ -57,14 +57,14 @@ If you don't set up expo-linear-gradient, LinearGradient will log a warning on n
 
 ## Usage
 
-Because LinearGradient requires a native package, it is not included in the main `@hanzo/gui` export. Import it either separately or using the path `/linear-gradient`:
+Because LinearGradient requires a native package, it is not included in the main `hanzogui` export. Import it either separately or using the path `/linear-gradient`:
 
 ```tsx
 import { LinearGradient } from '@hanzogui/linear-gradient'
-import { LinearGradient } from 'gui/linear-gradient'
+import { LinearGradient } from '@hanzo/gui/linear-gradient'
 ```
 
-LinearGradient is a YStack that accepts all Hanzo GUI style props as well as theme colors. It places `expo-linear-gradient` inside set to `absoluteFill`.
+LinearGradient is a YStack that accepts all Gui style props as well as theme colors. It places `expo-linear-gradient` inside set to `absoluteFill`.
 
 ## API Reference
 

@@ -1,19 +1,22 @@
 {
   "name": "@hanzogui/core-test",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "private": true,
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>",
+  "license": "MIT",
+  "author": {
+    "name": "Nate Wienert"
+  },
   "type": "module",
   "module": "dist/esm",
   "scripts": {
-    "test:run": "vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts",
-    "test:web": "GUI_TARGET=web vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
-    "test:ios": "TEST_NATIVE_PLATFORM=ios GUI_TARGET=native vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.ios.test.tsx",
-    "test:native": "GUI_TARGET=native vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
-    "test:androidtv": "TEST_NATIVE_PLATFORM=androidtv GUI_TARGET=native vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.androidtv.test.tsx",
-    "test:tvos": "TEST_NATIVE_PLATFORM=tvos GUI_TARGET=native vitest --run --config ../../packages/vite-plugin-internal/src/vite.config.ts *.tvos.test.tsx",
-    "test": "bun run test:native && bun run test:web && bun run test:ios && bun run test:androidtv && bun run test:tvos",
+    "test:run": "vitest --run --config ../../vite-plugin-internal/src/vite.config.ts",
+    "test:web": "GUI_TARGET=web vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
+    "test:ios": "TEST_NATIVE_PLATFORM=ios GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.ios.test.tsx",
+    "test:native": "GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
+    "test:token-provenance": "NODE_ENV=development GUI_ENABLE_STYLE_TOKEN_PROVENANCE=1 GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts getSplitStyles.tokenProvenance.native.test.tsx",
+    "test:androidtv": "TEST_NATIVE_PLATFORM=androidtv GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.androidtv.test.tsx",
+    "test:tvos": "TEST_NATIVE_PLATFORM=tvos GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.tvos.test.tsx",
+    "test": "bun run test:native && bun run test:token-provenance && bun run test:web && bun run test:ios && bun run test:androidtv && bun run test:tvos",
     "test:update": "bun run test:native --update && bun run test:web --update"
   },
   "devDependencies": {
@@ -28,13 +31,5 @@
   "peerDependencies": {
     "react": ">=19"
   },
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ]
+  "sideEffects": false
 }

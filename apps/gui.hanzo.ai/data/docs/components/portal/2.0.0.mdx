@@ -6,7 +6,7 @@ component: Portal
 package: portal
 ---
 
-Portal is included in `@hanzo/gui` and is used by [Sheet](/docs/components/sheet),
+Portal is included in `hanzogui` and is used by [Sheet](/docs/components/sheet),
 [Dialog](/docs/components/dialog), [Popover](/docs/components/popover),
 [Select](/docs/components/select), and [Toast](/docs/components/toast). See [Z-Index & Stacking](/ui/z-index) for how overlay layering works.
 
@@ -14,7 +14,7 @@ Portal is included in `@hanzo/gui` and is used by [Sheet](/docs/components/sheet
 
 On web, React's built-in `createPortal` preserves context automatically. On
 native, the default portal implementation doesn't preserve React context.
-Hanzo GUI automatically re-propagates its own contexts (theme, configuration), but
+Gui automatically re-propagates its own contexts (theme, configuration), but
 your custom contexts like navigation or app state won't be available inside
 portaled content. The re-propagation also adds some overhead.
 
@@ -31,7 +31,7 @@ npm install react-native-teleport
 
 ### Step 2: Import the setup module
 
-In your app's entry file (index.js or App.tsx), before any Hanzo GUI imports:
+In your app's entry file (index.js or App.tsx), before any Gui imports:
 
 ```tsx
 import '@hanzogui/native/setup-teleport'
@@ -129,7 +129,7 @@ every context you use.
       type: `boolean | number | 'global'`,
       description: (
         <span>
-          Enable automatic z-index stacking. Hanzo GUI intelligently stacks z-index both
+          Enable automatic z-index stacking. Gui intelligently stacks z-index both
           horizontally (based on mount order) and vertically (nested content is always
           above parent but below sibling content that comes after). <code>true</code>{' '}
           enables stacking, a number adds to the stacked value, <code>'global'</code> only
@@ -161,6 +161,6 @@ context providers and a reducer to manage portal state. While compatible with
 older RN versions, it breaks React context because it re-renders content in a
 separate provider tree.
 
-Hanzo GUI includes a `needsPortalRepropagation()` helper that returns `true` when
+Gui includes a `needsPortalRepropagation()` helper that returns `true` when
 using the default portal implementation and `false` when using native portals,
 so library authors can conditionally re-propagate context only when needed.

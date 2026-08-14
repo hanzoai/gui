@@ -1,6 +1,6 @@
 import { GuiLogo } from '@hanzogui/logo'
 import { useDidFinishSSR } from '@hanzogui/use-did-finish-ssr'
-import { H2, H3, Paragraph, styled, View, XStack, YStack } from 'hanzogui'
+import { H2, H3, Paragraph, styled, View, XStack, YStack } from '@hanzo/gui'
 
 import { Card3D } from '~/components/Card3D'
 import { useHoverGlow } from '~/components/HoverGlow'
@@ -162,7 +162,7 @@ const techStack = [
     badge: 'UI System',
     description:
       'The best universal style system. A smart optimizing compiler unlocks write once, run everywhere styles with platform-native performance, and a ton of components.',
-    url: 'https://gui.hanzo.ai',
+    url: 'https://hanzogui.dev',
     highlight: 'v2 RC1 Released',
     Logo: GuiLogo,
     color: '$yellow10',

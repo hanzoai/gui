@@ -1,4 +1,4 @@
-import { SizableText, Text } from 'hanzogui'
+import { SizableText, Text } from '@hanzo/gui'
 
 // Test case: numberOfLines should work inside media queries and platform props
 export function NumberOfLinesMediaQuery() {

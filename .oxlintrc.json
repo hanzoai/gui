@@ -28,7 +28,7 @@
   },
   "ignorePatterns": [
     "**/scripts/**",
-    "**/.gui/**",
+    "**/.hanzogui/**",
     "**/tmp-data/**",
     "**/.build/**",
     "**/.sst/**",

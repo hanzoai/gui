@@ -24,7 +24,7 @@ if (!STRIPE_KEY) {
 const stripe = new Stripe(STRIPE_KEY, {
   apiVersion: '2020-08-27',
   appInfo: {
-    name: 'GUI Promo Code Creator',
+    name: 'Gui Promo Code Creator',
     version: '0.1.0',
   },
 })

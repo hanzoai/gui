@@ -26,7 +26,7 @@ const importWithStyle = template.ast(`import { _withStableStyle } from '@hanzogu
 
 const extractor = createExtractor({ platform: 'native' })
 
-let guiBuildOptionsLoaded: GuiOptions | null
+let hanzoguiBuildOptionsLoaded: GuiOptions | null
 
 export function extractToNative(
   sourceFileName: string,
@@ -63,7 +63,7 @@ export function getBabelPlugin() {
 
 export function getBabelParseDefinition(options: GuiOptions) {
   return {
-    name: 'gui',
+    name: 'hanzogui',
 
     visitor: {
       Program: {
@@ -106,14 +106,14 @@ export function getBabelParseDefinition(options: GuiOptions) {
           }
 
           if (!options.config && !options.components) {
-            // if no config/components given try and load from the gui.build.ts file
-            guiBuildOptionsLoaded ||= loadGuiBuildConfigSync({})
+            // if no config/components given try and load from the hanzogui.build.ts file
+            hanzoguiBuildOptionsLoaded ||= loadGuiBuildConfigSync({})
           }
 
           const finalOptions = {
             // @ts-ignore just in case they leave it out
             platform: 'native',
-            ...guiBuildOptionsLoaded,
+            ...hanzoguiBuildOptionsLoaded,
             ...options,
           } satisfies GuiOptions
 
@@ -207,6 +207,7 @@ export function getBabelParseDefinition(options: GuiOptions) {
                 const stylesExpr = t.arrayExpression([])
                 const hocStylesExpr = t.arrayExpression([])
                 const expressions: t.Expression[] = []
+                const mediaExpressionIndexes = new Set<number>()
                 const finalAttrs: (t.JSXAttribute | t.JSXSpreadAttribute)[] = []
                 const themeKeysUsed = new Set<string>()
 
@@ -299,7 +300,22 @@ export function getBabelParseDefinition(options: GuiOptions) {
                         hasMediaKeys = true
                       }
 
-                      expressions.push(attr.value.test)
+                      let expression = attr.value.test
+                      if (
+                        attr.value.inlineMediaQuery &&
+                        t.isLogicalExpression(attr.value.test, { operator: '&&' }) &&
+                        t.isStringLiteral(attr.value.test.left)
+                      ) {
+                        expression = t.arrayExpression([
+                          t.stringLiteral(attr.value.inlineMediaQuery),
+                          t.unaryExpression(
+                            '!',
+                            t.unaryExpression('!', attr.value.test.right)
+                          ),
+                        ])
+                        mediaExpressionIndexes.add(expressions.length)
+                      }
+                      expressions.push(expression)
                       addStyleExpression(
                         t.conditionalExpression(
                           t.identifier(`_expressions[${expressions.length - 1}]`),
@@ -340,7 +356,8 @@ export function getBabelParseDefinition(options: GuiOptions) {
                 if (
                   themeKeysUsed.size ||
                   hocStylesExpr.elements.length > 1 ||
-                  hasDynamicStyle
+                  hasDynamicStyle ||
+                  hasMediaKeys
                 ) {
                   if (!hasImportedViewWrapper) {
                     root.unshiftContainer('body', importWithStyle)
@@ -386,8 +403,8 @@ export function getBabelParseDefinition(options: GuiOptions) {
                   if (expressions.length) {
                     // coerce runtime expressions to boolean so they can't be
                     // confused with string media keys at runtime
-                    const safeExpressions = expressions.map((expr) =>
-                      t.isStringLiteral(expr)
+                    const safeExpressions = expressions.map((expr, index) =>
+                      t.isStringLiteral(expr) || mediaExpressionIndexes.has(index)
                         ? expr
                         : t.unaryExpression('!', t.unaryExpression('!', expr))
                     )
@@ -466,7 +483,7 @@ function assertValidTag(node: t.JSXOpeningElement) {
   if (node.attributes.find((x) => x.type === 'JSXAttribute' && x.name.name === 'style')) {
     // we can just deopt here instead and log warning
     // need to make onExtractTag have a special catch error or similar
-    if (process.env.DEBUG?.startsWith('gui')) {
+    if (process.env.DEBUG?.startsWith('hanzogui')) {
       console.warn('⚠️ Cannot pass style attribute to extracted style')
     }
   }

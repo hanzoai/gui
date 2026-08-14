@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/recipes",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "description": "Hanzo GUI recipe library: read from Base, resolve transitive deps, install into a project.",
   "license": "BSD-3-Clause",
   "author": "Hanzo AI <dev@hanzo.ai>",

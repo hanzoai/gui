@@ -1,7 +1,7 @@
-import type { GuiProviderProps } from 'hanzogui'
-import { GuiProvider } from 'hanzogui'
+import type { GuiProviderProps } from '@hanzo/gui'
+import { GuiProvider } from '@hanzo/gui'
 
-import config from '../gui.config'
+import config from '../hanzogui.config'
 import { useInsets } from './useInsets'
 
 export function Provider({
@@ -11,7 +11,16 @@ export function Provider({
   const insets = useInsets()
 
   return (
-    <GuiProvider config={config} defaultTheme="light" insets={insets} {...rest}>
+    // telemetry={false}: this is the test harness. Every Playwright case would
+    // otherwise open the run with a pageview beacon to api.hanzo.ai — noise in
+    // the warehouse and a network round-trip per test, for zero signal.
+    <GuiProvider
+      config={config}
+      defaultTheme="light"
+      insets={insets}
+      telemetry={false}
+      {...rest}
+    >
       {children}
     </GuiProvider>
   )

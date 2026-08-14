@@ -1,5 +1,5 @@
-appId: com.gui.guikitchensink
-tag:
+appId: com.hanzogui.hanzoguikitchensink
+tags:
   - util
 ---
 # cold start with clearState to prime Hermes bytecode cache

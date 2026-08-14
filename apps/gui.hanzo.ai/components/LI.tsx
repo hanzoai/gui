@@ -1,4 +1,4 @@
-import { Paragraph, styled } from 'hanzogui'
+import { Paragraph, styled } from '@hanzo/gui'
 
 export const LI = styled(Paragraph, {
   display: 'list-item' as any,

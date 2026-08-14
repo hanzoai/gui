@@ -1,21 +1,21 @@
 import { Link } from 'one'
-import { YStack, H1, Paragraph, H3, styled } from 'hanzogui'
+import { YStack, H1, Paragraph, H3, styled } from '@hanzo/gui'
 
 export const ProLicense = () => {
   return (
     <YStack gap="$4" p="$4">
-      <H1 $sm={{ size: '$8' }}>GUI Pro V2 License Agreement</H1>
+      <H1 $sm={{ size: '$8' }}>Gui Pro V2 License Agreement</H1>
       <Link href="/pro-policy">Policy Agreement</Link>
 
       <H3>Overview</H3>
       <Paragraph>
-        GUI Pro V2 License grants you a non-exclusive, perpetual license to use GUI Pro
+        Gui Pro V2 License grants you a non-exclusive, perpetual license to use Gui Pro
         features for one project. Your license includes lifetime rights to all code and
         assets you download during your license period.
       </Paragraph>
 
       <H3>Project License Scope</H3>
-      <Paragraph>Each GUI Pro V2 License covers one project, defined as:</Paragraph>
+      <Paragraph>Each Gui Pro V2 License covers one project, defined as:</Paragraph>
       <Paragraph render="span">
         <Ul>
           <Li>One public web domain (e.g., myapp.com)</Li>
@@ -25,7 +25,7 @@ export const ProLicense = () => {
       </Paragraph>
       <Paragraph>
         You must specify your project name and domain at the time of purchase. If you need
-        to use GUI Pro for additional projects, you must purchase additional licenses.
+        to use Gui Pro for additional projects, you must purchase additional licenses.
       </Paragraph>
 
       <H3>What's Included</H3>
@@ -34,7 +34,7 @@ export const ProLicense = () => {
           <Li>
             Access to all Takeout templates (v1 Takeout, v2 Takeout, Takeout Static)
           </Li>
-          <Li>Recipes premium components</Li>
+          <Li>Bento premium components</Li>
           <Li>One year of updates included with purchase</Li>
           <Li>Unlimited team members for your project (no additional seat cost)</Li>
           <Li>
@@ -56,20 +56,20 @@ export const ProLicense = () => {
 
       <H3>Code Usage Rights</H3>
       <Paragraph>
-        For Recipes components - you are free to use the source code in your licensed
+        For Bento components - you are free to use the source code in your licensed
         project and publish derivative works publicly. You may not re-publish the majority
-        of Recipes components as a standalone component library.
+        of Bento components as a standalone component library.
       </Paragraph>
       <Paragraph>
         For Takeout templates - you cannot re-publish any of the source code publicly. All
         team members working on the source code must be added to your project team on
-        gui.hanzo.ai (no additional cost).
+        hanzogui.dev (no additional cost).
       </Paragraph>
 
       <H3>Team Members</H3>
       <Paragraph>
         Your license includes unlimited team members at no additional cost. All team
-        members must be added through your project dashboard on gui.hanzo.ai to gain
+        members must be added through your project dashboard on hanzogui.dev to gain
         access to the private repositories. Team members may only use the code for the
         licensed project.
       </Paragraph>
@@ -85,7 +85,7 @@ export const ProLicense = () => {
       <Paragraph render="span">
         <Ul>
           <Li>
-            Use all Pro features including Theme Builder, Recipes, and Takeout for your
+            Use all Pro features including Theme Builder, Bento, and Takeout for your
             licensed project.
           </Li>
           <Li>Use Pro features in both commercial and non-commercial projects.</Li>
@@ -113,7 +113,7 @@ export const ProLicense = () => {
       <Paragraph render="span">
         <Ul>
           <Li>
-            Licensee is a person or business entity who has purchased a GUI Pro V2
+            Licensee is a person or business entity who has purchased a Gui Pro V2
             license.
           </Li>
           <Li>
@@ -121,7 +121,7 @@ export const ProLicense = () => {
             purchase.
           </Li>
           <Li>
-            Team Member is any individual added to the project team on gui.hanzo.ai.
+            Team Member is any individual added to the project team on hanzogui.dev.
           </Li>
           <Li>
             License Period is the time during which you have access to updates (initial
@@ -132,17 +132,18 @@ export const ProLicense = () => {
 
       <H3>Liability</H3>
       <Paragraph>
-        GUI LLC's liability to you for costs, damages, or other losses arising from your
+        Gui LLC's liability to you for costs, damages, or other losses arising from your
         use of the Pro features — including third-party claims against you — is limited to
-        the amount paid for your license. GUI LLC may not be held liable for any
+        the amount paid for your license. Gui LLC may not be held liable for any
         consequential damages related to your use of the Pro features. The ownership of
-        the Pro features remains with the GUI LLC development team. You are required to
+        the Pro features remains with the Gui LLC development team. You are required to
         abide by the licensing terms to avoid termination in case of non-compliance with
         the agreed terms.
       </Paragraph>
 
       <Paragraph>
-        For any further questions <a href="mailto:support@hanzo.ai">send us an email</a>.
+        For any further questions{' '}
+        <a href="mailto:support@hanzogui.dev">send us an email</a>.
       </Paragraph>
     </YStack>
   )

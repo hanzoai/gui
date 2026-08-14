@@ -18,6 +18,9 @@
     },
     {
       "path": "../stacks"
+    },
+    {
+      "path": "../../core/font-geist"
     }
   ],
   "exclude": [

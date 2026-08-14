@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Sheet + Sheet.ScrollView gesture coordination on native iOS has fundamental limitations because Hanzo GUI uses React Native's built-in `PanResponder`, while iOS's `UIScrollView` gesture recognizers fire BEFORE the RN responder system can claim the gesture.
+Sheet + Sheet.ScrollView gesture coordination on native iOS has fundamental limitations because Gui uses React Native's built-in `PanResponder`, while iOS's `UIScrollView` gesture recognizers fire BEFORE the RN responder system can claim the gesture.
 
 This causes:
 
@@ -137,9 +137,9 @@ const handleOnChange = useCallback(
 
 **Files to create:**
 
-- `code/ui/sheet/src/setupGestureHandler.ts` - Setup function
-- `code/ui/sheet/src/gestureState.ts` - Global state for RNGH availability
-- `code/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture refs
+- `pkgs/ui/sheet/src/setupGestureHandler.ts` - Setup function
+- `pkgs/ui/sheet/src/gestureState.ts` - Global state for RNGH availability
+- `pkgs/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture refs
 
 **Pattern (following @hanzogui/portal):**
 
@@ -149,7 +149,7 @@ export type GestureHandlerState = {
   enabled: boolean
   GestureDetector: typeof GestureDetector | null
   Gesture: typeof Gesture | null
-  // Note: We DON'T require Reanimated - use Hanzo GUI's animation driver
+  // Note: We DON'T require Reanimated - use Gui's animation driver
 }
 
 let state: GestureHandlerState = { enabled: false, GestureDetector: null, Gesture: null }
@@ -159,8 +159,8 @@ export function setupGestureHandler(config: {
   Gesture: typeof Gesture
 }): void {
   const g = globalThis as any
-  if (g.__gui_gesture_handler_setup) return
-  g.__gui_gesture_handler_setup = true
+  if (g.__hanzogui_gesture_handler_setup) return
+  g.__hanzogui_gesture_handler_setup = true
 
   state = {
     enabled: true,
@@ -337,23 +337,23 @@ export default function App() {
 
 ### New Files
 
-1. `code/ui/sheet/src/setupGestureHandler.ts` - Setup function and state
-2. `code/ui/sheet/src/gestureState.ts` - Global state management
-3. `code/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture refs
-4. `code/ui/sheet/src/createGestureHandlerPan.ts` - RNGH-based pan gesture creation
-5. `code/ui/sheet/src/GestureDetectorWrapper.tsx` - Conditional wrapper component
+1. `pkgs/ui/sheet/src/setupGestureHandler.ts` - Setup function and state
+2. `pkgs/ui/sheet/src/gestureState.ts` - Global state management
+3. `pkgs/ui/sheet/src/GestureSheetContext.tsx` - Context for gesture refs
+4. `pkgs/ui/sheet/src/createGestureHandlerPan.ts` - RNGH-based pan gesture creation
+5. `pkgs/ui/sheet/src/GestureDetectorWrapper.tsx` - Conditional wrapper component
 
 ### Modified Files
 
-1. `code/ui/sheet/src/SheetImplementationCustom.tsx` - Conditional gesture handling
-2. `code/ui/sheet/src/SheetScrollView.tsx` - simultaneousHandlers integration
-3. `code/ui/sheet/src/SheetContext.tsx` - Extended scrollBridge interface
-4. `code/ui/sheet/package.json` - Export setup-gesture-handler
+1. `pkgs/ui/sheet/src/SheetImplementationCustom.tsx` - Conditional gesture handling
+2. `pkgs/ui/sheet/src/SheetScrollView.tsx` - simultaneousHandlers integration
+3. `pkgs/ui/sheet/src/SheetContext.tsx` - Extended scrollBridge interface
+4. `pkgs/ui/sheet/package.json` - Export setup-gesture-handler
 
 ### Test Files
 
-1. `code/kitchen-sink/tests/SheetGestureHandler.test.tsx` - New E2E tests for RNGH path
-2. `code/kitchen-sink/src/usecases/SheetScrollableDrag.tsx` - Update for testing
+1. `apps/kitchen-sink/tests/SheetGestureHandler.test.tsx` - New E2E tests for RNGH path
+2. `apps/kitchen-sink/src/usecases/SheetScrollableDrag.tsx` - Update for testing
 
 ## Testing Strategy
 
@@ -416,7 +416,7 @@ describe('Sheet with RNGH', () => {
 
 ### Why Not Use Reanimated?
 
-- Hanzo GUI has its own animation driver system
+- Gui has its own animation driver system
 - Don't want to force Reanimated as a dependency
 - `Gesture.Pan()` with `runOnJS(true)` works fine for our use case
 - The key is `simultaneousWithExternalGesture`, not worklets

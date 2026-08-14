@@ -9,7 +9,7 @@ export function useElementLayout(
   ref: RefObject<any>,
   onLayout?: ((e: LayoutEvent) => void) | null
 ) {
-  // translates to gui style
+  // translates to hanzogui style
   const wrappedRef = useMemo(() => {
     return {
       current: {

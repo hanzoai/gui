@@ -1,17 +1,17 @@
 export interface GuiBuildOptions {
   /**
-   * module paths you want to compile with gui (for example ['gui'])
+   * module paths you want to compile with hanzogui (for example ['hanzogui'])
    * */
   components?: string[]
 
   /**
-   * relative path to your gui.config.ts
+   * relative path to your hanzogui.config.ts
    */
   config?: string
 
   /**
    * Use the new ThemeBuilder in `@hanzogui/create-theme` to create beautiful theme sets,
-   * see docs at https://gui.hanzo.ai/docs/guides/theme-builder
+   * see docs at https://hanzogui.dev/docs/guides/theme-builder
    * This helps you automate generating the build themes typescript file which loads fastere
    * and has smaller bundle size.
    */
@@ -40,6 +40,22 @@ export interface GuiBuildOptions {
    * ["app/src/constants.js"].
    */
   importsWhitelist?: string[]
+
+  /**
+   * Installed packages whose styles the compiler extracts statically. A file
+   * under `node_modules` is only read if its package is named here — matching
+   * a whole scope with `@scope/*`, or one package exactly. The compiler cannot
+   * afford to parse every installed JS file, so nothing is read by default.
+   *
+   * `DEFAULT_EXTRACT_PACKAGES` from `@hanzogui/static-worker` is the
+   * design-system list (`@hanzo/ui`, `@hanzo/gui`, `@hanzogui/*`). Read its
+   * doc comment before turning it on: today it grows the cached sheet without
+   * shrinking what the runtime injects, because a published package ships no
+   * JSX to flatten.
+   *
+   * @default []
+   */
+  extractPackages?: string[]
 
   /**
    * Whitelist file extensions to evaluate
@@ -74,7 +90,7 @@ export interface GuiBuildOptions {
   enableDynamicEvaluation?: boolean
 
   /**
-   * Completely disable gui for these files
+   * Completely disable hanzogui for these files
    */
   disable?: boolean | string[]
 
@@ -106,12 +122,12 @@ export interface GuiBuildOptions {
   disableExtractVariables?: boolean | 'theme'
 
   /**
-   * (Advanced) Disables the initial build and attempts to load from the .gui directory
+   * (Advanced) Disables the initial build and attempts to load from the .hanzogui directory
    */
   disableInitialBuild?: boolean
 
   /**
-   * If you have a gui.build.ts file that describes your compiler setup, you can set it here
+   * If you have a hanzogui.build.ts file that describes your compiler setup, you can set it here
    */
   buildFile?: string
 
@@ -145,7 +161,7 @@ export type CLIUserOptions = {
   root?: string
   host?: string
   tsconfigPath?: string
-  guiOptions: Partial<GuiOptions>
+  hanzoguiOptions: Partial<GuiOptions>
   debug?: boolean | 'verbose'
   loadGuiOptions?: boolean
 }
@@ -157,7 +173,7 @@ export type CLIResolvedOptions = {
   mode: 'development' | 'production'
   debug?: CLIUserOptions['debug']
   tsconfigPath: string
-  guiOptions: GuiOptions
+  hanzoguiOptions: GuiOptions
   pkgJson: {
     name?: string
     main?: string

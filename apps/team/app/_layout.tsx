@@ -2,7 +2,7 @@ import './_layout.css'
 
 import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
 import { Slot } from 'one'
-import { GuiProvider } from 'hanzogui'
+import { GuiProvider } from '@hanzo/gui'
 import { Shell } from '~/components/Shell'
 import { SessionProvider } from '~/src/session'
 import config from '~/src/gui.config'

@@ -21,7 +21,10 @@ export type RecipeSummary = Pick<
   'id' | 'slug' | 'name' | 'description' | 'category'
 >
 
-export type RecipeInput = Pick<Recipe, 'slug' | 'name' | 'description' | 'category' | 'npmDeps' | 'recipeDeps' | 'files'>
+export type RecipeInput = Pick<
+  Recipe,
+  'slug' | 'name' | 'description' | 'category' | 'npmDeps' | 'recipeDeps' | 'files'
+>
 
 export type InstallPlan = {
   recipe: Recipe

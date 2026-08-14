@@ -9,13 +9,13 @@ import {
   XGroup,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { ContainerLarge } from '~/components/Containers'
 import { CodeDemoPreParsed } from './CodeDemoPreParsed'
 import { HomeH2, HomeH3 } from './HomeHeaders'
 import { IconStack } from './IconStack'
-import { Theme } from 'hanzogui'
+import { Theme } from '@hanzo/gui'
 
 const defaultExample = {
   input: {

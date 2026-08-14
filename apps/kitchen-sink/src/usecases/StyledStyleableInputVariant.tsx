@@ -1,4 +1,4 @@
-import { Input as GuiInput, styled } from 'hanzogui'
+import { Input as GuiInput, styled } from '@hanzo/gui'
 
 // Input accepts text styles at runtime via validStyles but TS doesn't know
 const TextInput2 = styled(GuiInput, {

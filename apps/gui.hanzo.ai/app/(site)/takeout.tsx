@@ -1,5 +1,5 @@
 import { ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
-import { Image, YStack } from 'hanzogui'
+import { Image, YStack } from '@hanzo/gui'
 import { ContainerLarge } from '~/components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'
 import { Footer } from '~/features/site/Footer'
@@ -9,7 +9,7 @@ import { ThemeNameEffect } from '../../features/site/theme/ThemeNameEffect'
 
 import { LoadCherryBomb } from '~/features/site/fonts/LoadFonts'
 import { ScreenshotGallery } from '~/features/takeout/ScreenshotGallery'
-import { TakeoutRecipesFeatures } from '~/features/takeout/TakeoutRecipesFeatures'
+import { TakeoutBentoFeatures } from '~/features/takeout/TakeoutBentoFeatures'
 // import { TakeoutGlow } from '~/features/takeout/TakeoutGlow'
 import { TakeoutHeroNew } from '~/features/takeout/TakeoutHeroNew'
 import { TakeoutMenuShowcase } from '~/features/takeout/TakeoutMenuShowcase'
@@ -26,7 +26,7 @@ export default function TakeoutPageNew() {
       <ThemeNameEffect colorKey="$color2" />
       <LoadCherryBomb />
       <HeadInfo
-        title="GUI Takeout"
+        title="Gui Takeout"
         description="Ship apps everywhere - iOS, Android, and web with one codebase"
         openGraph={{
           url: '/takeout',
@@ -146,7 +146,7 @@ export default function TakeoutPageNew() {
         <TakeoutMenuShowcase />
 
         {/* Features Section */}
-        <TakeoutRecipesFeatures />
+        <TakeoutBentoFeatures />
 
         {/* Video Section */}
         <YStack py="$8" px="$4">

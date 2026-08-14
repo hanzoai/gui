@@ -1,29 +1,16 @@
 {
   "name": "@hanzogui/text-test",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "private": true,
   "type": "module",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
   "scripts": {
-    "test": "GUI_TARGET=web vitest --config ../../packages/vite-plugin-internal/src/vite.config.ts --run"
+    "test": "GUI_TARGET=web vitest --config ../../vite-plugin-internal/src/vite.config.ts --run"
   },
   "devDependencies": {
     "@hanzogui/text": "workspace:*",
     "vitest": "4.0.4"
-  },
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ],
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

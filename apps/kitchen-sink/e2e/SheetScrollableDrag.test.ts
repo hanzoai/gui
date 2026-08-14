@@ -14,23 +14,32 @@
  */
 
 import { by, device, element, expect, waitFor } from 'detox'
-import { navigateToTestCase } from './utils/navigation'
-import { safeLaunchApp, safeReloadApp } from './utils/detox'
+import { remountDirectUseCase } from './utils/navigation'
+import { safeLaunchApp } from './utils/detox'
 
 // only run on iOS - Android behavior is different
 const isAndroid = () => device.getPlatform() === 'android'
 
+// Launch model: launch the native app ONCE with directUseCase, then remount the
+// case in-app per test (deep link, no relaunch). Each "Case" test assumes a
+// freshly-closed sheet at scrollY=0, which the remount restores. skipEnableSync
+// throughout: KeyboardProvider keeps the main thread busy and taps/swipes work
+// with sync disabled here.
 describe('SheetScrollableDrag - RNGH Integration', () => {
   beforeAll(async () => {
     if (isAndroid()) return
-    await safeLaunchApp({ newInstance: true })
+    await safeLaunchApp({
+      newInstance: true,
+      launchArgs: { directUseCase: 'SheetScrollableDrag' },
+    })
+    await waitFor(element(by.id('sheet-scrollable-drag-trigger')))
+      .toExist()
+      .withTimeout(180000)
   })
 
   beforeEach(async () => {
     if (isAndroid()) return
-    await safeReloadApp()
-    // skipEnableSync: navigation re-enabling sync hangs if animations are settling
-    await navigateToTestCase('SheetScrollableDrag', 'sheet-scrollable-drag-trigger', {
+    await remountDirectUseCase('sheet-scrollable-drag-trigger', {
       skipEnableSync: true,
     })
   })
@@ -378,6 +387,14 @@ describe('SheetScrollableDrag - RNGH Integration', () => {
       'ScrollView Y: 0'
     )
 
+    const countBeforeAttr = await element(
+      by.id('sheet-scrollable-drag-scroll-count')
+    ).getAttributes()
+    const countBefore = parseInt(
+      ((countBeforeAttr as any).text as string).replace('Scroll events: ', ''),
+      10
+    )
+
     // drag UP - sheet moves to position 0
     // scroll events may fire but are locked to 0
     await element(by.id('sheet-scrollable-drag-scrollview')).swipe('up', 'fast', 0.5)
@@ -390,13 +407,23 @@ describe('SheetScrollableDrag - RNGH Integration', () => {
     const maxScrollAttr = await element(
       by.id('sheet-scrollable-drag-max-scroll-y')
     ).getAttributes()
+    const countAfterAttr = await element(
+      by.id('sheet-scrollable-drag-scroll-count')
+    ).getAttributes()
+    const countAfter = parseInt(
+      ((countAfterAttr as any).text as string).replace('Scroll events: ', ''),
+      10
+    )
+    const lockedScrollEvents = countAfter - countBefore
     console.log(
       'Case 7 result - Position:',
       (posAttr as any).text,
       'Scroll:',
       (scrollAttr as any).text,
       'MaxScroll:',
-      (maxScrollAttr as any).text
+      (maxScrollAttr as any).text,
+      'LockedScrollEvents:',
+      lockedScrollEvents
     )
 
     // sheet should be at position 0
@@ -409,6 +436,11 @@ describe('SheetScrollableDrag - RNGH Integration', () => {
     await expect(element(by.id('sheet-scrollable-drag-scroll-y'))).toHaveText(
       'ScrollView Y: 0'
     )
+    if (lockedScrollEvents > 3) {
+      throw new Error(
+        `Expected locked drag to emit <= 3 scroll events, got ${lockedScrollEvents}`
+      )
+    }
   })
 
   it('Case 9: HANDOFF - drag UP from position 1, continue into scroll in one gesture', async () => {

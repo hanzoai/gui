@@ -11,9 +11,12 @@ const config = getDefaultConfig(projectRoot)
 config.resolver.unstable_enablePackageExports =
   process.env.GUI_PACKAGE_EXPORTS !== 'false'
 
+// watchman is flaky locally and adds nothing for ci - disable
+config.resolver.useWatchman = false
+
 // block unnecessary directories from metro file crawling
 config.resolver.blockList = [
-  /code\/gui\.dev\//,
+  /code\/hanzogui\.dev\//,
   /code\/.*\/__tests__\//,
   /code\/.*\/\.maestro\//,
 ]
@@ -59,6 +62,6 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
 }
 
 module.exports = withGui(config, {
-  components: ['gui'],
-  config: './src/gui.config.ts',
+  components: ['@hanzo/gui'],
+  config: './src/hanzogui.config.ts',
 })

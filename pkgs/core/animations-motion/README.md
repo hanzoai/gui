@@ -22,7 +22,7 @@ Add to your Gui configuration:
 
 ```tsx
 import { createAnimations } from '@hanzogui/animations-motion'
-import { createGui } from 'hanzogui'
+import { createGui } from '@hanzo/gui'
 
 export default createGui({
   animations: createAnimations({
@@ -69,4 +69,4 @@ export default createGui({
 
 ## Documentation
 
-For complete documentation, see the [Gui Animations docs](https://gui.dev/docs/core/animations).
+For complete documentation, see the [Gui Animations docs](https://hanzogui.dev/docs/core/animations).

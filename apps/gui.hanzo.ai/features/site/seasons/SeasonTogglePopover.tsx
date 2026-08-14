@@ -5,11 +5,11 @@ import {
   getTints,
   type TintFamily,
 } from '@hanzogui/logo'
-import { Popover, SizableText, Square, View, XStack, YStack } from 'hanzogui'
+import { Popover, SizableText, Square, View, XStack, YStack } from '@hanzo/gui'
 
 // colors match the theme families in tints.tsx
 const seasonColors = {
-  gui: '#ECD20A', // yellow (default)
+  hanzogui: '#ECD20A', // yellow (default)
   easter: '#ECD20A', // yellow
   xmas: '#ff3333', // red
   lunar: '#ff3333', // red
@@ -19,7 +19,7 @@ const seasonColors = {
 }
 
 export const seasons = {
-  gui: '🐤',
+  hanzogui: '🐤',
   easter: '🐣',
   xmas: '🎅🏻',
   lunar: '🧧',
@@ -29,7 +29,7 @@ export const seasons = {
 }
 
 export const seasonLogos = {
-  gui: <GuiLogo downscale={2} color={seasonColors.gui} />,
+  hanzogui: <GuiLogo downscale={2} color={seasonColors.hanzogui} />,
   easter: <GuiLogo downscale={2} color={seasonColors.easter} />,
   xmas: <GuiLogo downscale={2} color={seasonColors.xmas} />,
   lunar: <GuiLogo downscale={2} color={seasonColors.lunar} />,

@@ -1,3 +1,4 @@
+import { geistMonoFamily, geistSansFamily } from '@hanzogui/font-geist'
 import { shorthands } from '@hanzogui/shorthands'
 import { createFont, createTokens } from '@hanzogui/web'
 import { animations } from './animations'
@@ -6,7 +7,7 @@ import { animations as animationsNative } from './animations.native'
 // basic fallback theme just to have compiler load in decent tate
 export function getDefaultGuiConfig(platform: 'native' | 'web' = 'web') {
   const headingFont = createFont({
-    family: 'Heading',
+    family: geistSansFamily,
     size: {
       1: 15,
     },
@@ -26,7 +27,32 @@ export function getDefaultGuiConfig(platform: 'native' | 'web' = 'web') {
   })
 
   const font = createFont({
-    family: 'System',
+    family: geistSansFamily,
+    size: {
+      1: 15,
+    },
+    lineHeight: {
+      1: 15,
+    },
+    transform: {},
+    weight: {
+      1: '400',
+    },
+    color: {
+      1: '$color',
+    },
+    letterSpacing: {
+      1: 0,
+    },
+  })
+
+  // The families were `System` and `Heading`, which are React Native family
+  // names: that platform resolves them and the web does not. The kit emits the
+  // name verbatim as `--f-family` and every component reads it, so a family no
+  // browser knows left the document on its default — a serif — while the build,
+  // the typecheck and the render tests all passed.
+  const monoFont = createFont({
+    family: geistMonoFamily,
     size: {
       1: 15,
     },
@@ -196,6 +222,7 @@ export function getDefaultGuiConfig(platform: 'native' | 'web' = 'web') {
   const fonts = {
     heading: headingFont,
     body: font,
+    mono: monoFont,
   }
 
   const media = {

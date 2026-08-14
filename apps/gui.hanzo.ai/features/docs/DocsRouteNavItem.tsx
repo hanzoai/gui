@@ -1,6 +1,6 @@
 import type { Href } from 'one'
 import { createElement, useRef } from 'react'
-import { SizableText, Spacer, XStack, YStack } from 'hanzogui'
+import { SizableText, Spacer, XStack, YStack } from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { ExternalIcon } from '~/features/icons/ExternalIcon'
 import type { NavItemProps } from './DocsPage'

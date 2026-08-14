@@ -1,5 +1,6 @@
 import { objectFromEntries, objectKeys } from './helpers'
 import { colorTokens } from './tokens'
+import { brandRamps } from './brands'
 
 export const palettes = (() => {
   const lightTransparent = 'rgba(255,255,255,0)'
@@ -83,9 +84,24 @@ export const palettes = (() => {
     ...darkPalettes,
   }
 
+  // White-label accent palettes. Each brand is one data row in ./brands and is
+  // run through the SAME getColorPalette() as every built-in color, so a brand
+  // ramp is not a special case anywhere downstream — it is just another palette
+  // the theme builder can name.
+  const brandPalettes = objectFromEntries(
+    objectKeys(brandRamps).flatMap(
+      (brand) =>
+        [
+          [`light_${brand}`, getColorPalette(brandRamps[brand].light, lightColor)],
+          [`dark_${brand}`, getColorPalette(brandRamps[brand].dark, darkColor)],
+        ] as const
+    )
+  )
+
   return {
     light: lightPalette,
     dark: darkPalette,
     ...colorPalettes,
+    ...brandPalettes,
   }
 })()

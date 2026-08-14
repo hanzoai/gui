@@ -67,7 +67,7 @@ If not called:
 
 ## Test Case
 
-There's a test case at `code/kitchen-sink/src/usecases/SheetScrollableDrag.tsx` that demonstrates the bug and can be used to verify fixes. It's not exported in the main navigation but can be accessed directly for testing.
+There's a test case at `apps/kitchen-sink/src/usecases/SheetScrollableDrag.tsx` that demonstrates the bug and can be used to verify fixes. It's not exported in the main navigation but can be accessed directly for testing.
 
 ## Attempted Fixes
 

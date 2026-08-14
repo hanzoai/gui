@@ -19,14 +19,14 @@ export const templates: Array<{
   {
     title: `${chalk.bold.underline(
       `🥡 ${chalk.magenta('Takeout')} ${chalk.green('Free')}`
-    )} - Full stack starter: https://gui.dev/takeout`,
+    )} - Full stack starter: https://hanzogui.dev/takeout`,
     value: 'takeout-free',
     type: 'free',
     hidden: false,
     packageManager: 'bun',
     repo: {
-      url: `https://github.com/gui/takeout-free`,
-      sshFallback: `git@github.com:gui/takeout-free.git`,
+      url: `https://github.com/hanzogui/takeout-free`,
+      sshFallback: `git@github.com:hanzogui/takeout-free.git`,
       dir: [],
       branch: 'main',
     },
@@ -36,14 +36,14 @@ export const templates: Array<{
   {
     title: `${chalk.bold.underline(
       `🥡 ${chalk.magenta('Takeout')} ${chalk.red('Pro')}`
-    )} - Full featured starter: https://gui.dev/takeout`,
+    )} - Full featured starter: https://hanzogui.dev/takeout`,
     value: `takeout-pro`,
     type: 'premium',
     packageManager: 'yarn',
     hidden: false,
     repo: {
-      url: `https://github.com/gui/takeout2`,
-      sshFallback: `git@github.com:gui/takeout2.git`,
+      url: `https://github.com/hanzogui/takeout2`,
+      sshFallback: `git@github.com:hanzogui/takeout2.git`,
       dir: [],
       branch: 'main',
     },
@@ -53,14 +53,14 @@ export const templates: Array<{
   {
     title: `${chalk.bold.underline(
       `🥡 ${chalk.magenta('Takeout')} ${chalk.yellow('Pro Classic')}`
-    )} - Original Pro starter: https://gui.dev/takeout`,
+    )} - Original Pro starter: https://hanzogui.dev/takeout`,
     value: `takeout-pro-classic`,
     type: 'premium',
     packageManager: 'yarn',
     hidden: false,
     repo: {
-      url: `https://github.com/gui/takeout`,
-      sshFallback: `git@github.com:gui/takeout.git`,
+      url: `https://github.com/hanzogui/takeout`,
+      sshFallback: `git@github.com:hanzogui/takeout.git`,
       dir: [],
       branch: 'main',
     },
@@ -75,8 +75,8 @@ export const templates: Array<{
     packageManager: 'bun',
     repo: {
       url: `https://github.com/hanzoai/gui`,
-      sshFallback: `git@github.com:gui/gui.git`,
-      dir: ['code', 'starters', 'expo-router'],
+      sshFallback: `git@github.com:hanzoai/gui.git`,
+      dir: ['apps', 'starters', 'expo-router'],
       branch: 'main',
     },
     extraSteps: expoRouterSteps,
@@ -90,8 +90,8 @@ export const templates: Array<{
     packageManager: 'bun',
     repo: {
       url: `https://github.com/hanzoai/gui`,
-      sshFallback: `git@github.com:gui/gui.git`,
-      dir: ['code', 'starters', 'remix'],
+      sshFallback: `git@github.com:hanzoai/gui.git`,
+      dir: ['apps', 'starters', 'remix'],
       branch: 'main',
     },
     extraSteps: remixSteps,
@@ -106,8 +106,8 @@ export const templates: Array<{
     repo: {
       url:
         process.env.STARTER_FREE_REPO_SOURCE ||
-        `https://github.com/gui/starter-free.git`,
-      sshFallback: `git@github.com:gui/starter-free.git`,
+        `https://github.com/hanzogui/starter-free.git`,
+      sshFallback: `git@github.com:hanzogui/starter-free.git`,
       dir: [],
       branch: 'main',
     },

@@ -10,6 +10,8 @@ import type {
   TokensMerged,
 } from './types'
 
+export type StyleCompat = 'legacy' | 'react-native' | 'web'
+
 let conf: GuiInternalConfig | null
 let setConfigCalledByThisInstance = false
 
@@ -21,40 +23,40 @@ Haven't called createGui yet. ${MISSING_THEME_MESSAGE}
     : `❌ Error 001`
 
 // helper to get config from module-scoped variable or globalthis fallback
-// this handles vite ssr bundling where multiple copies of gui may exist
+// this handles vite ssr bundling where multiple copies of hanzogui may exist
 const getConfigFromGlobalOrLocal = (): GuiInternalConfig | null => {
   if (conf) {
     return conf
   }
 
   // fall back to globalthis (for vite ssr bundling scenarios)
-  if (globalThis.__guiConfig) {
+  if (globalThis.__hanzoguiConfig) {
     // defer warning - if createGui runs in THIS instance, it's HMR (safe)
     // if it never runs, it's a true duplicate (warn)
     if (
       process.env.NODE_ENV === 'development' &&
-      !globalThis.__guiHasWarnedGlobalFallback &&
-      !globalThis.__guiPendingCheck
+      !globalThis.__hanzoguiHasWarnedGlobalFallback &&
+      !globalThis.__hanzoguiPendingCheck
     ) {
-      globalThis.__guiPendingCheck = true
+      globalThis.__hanzoguiPendingCheck = true
       setTimeout(() => {
         if (
           !setConfigCalledByThisInstance &&
-          !globalThis.__guiHasWarnedGlobalFallback
+          !globalThis.__hanzoguiHasWarnedGlobalFallback
         ) {
-          globalThis.__guiHasWarnedGlobalFallback = true
+          globalThis.__hanzoguiHasWarnedGlobalFallback = true
           console.warn(
             `⚠️⚠️⚠️⚠️⚠️
 
-Gui: Using global config fallback. This may indicate duplicate gui instances (e.g., from Vite SSR bundling). This is handled automatically, but likely causes issues!
+Gui: Using global config fallback. This may indicate duplicate hanzogui instances (e.g., from Vite SSR bundling). This is handled automatically, but likely causes issues!
 
 ⚠️⚠️⚠️⚠️⚠️`
           )
         }
-        globalThis.__guiPendingCheck = false
+        globalThis.__hanzoguiPendingCheck = false
       }, 500)
     }
-    return globalThis.__guiConfig
+    return globalThis.__hanzoguiConfig
   }
 
   return null
@@ -74,10 +76,15 @@ export const getSetting = <Key extends keyof GenericGuiSettings>(
   )
 }
 
+export function getStyleCompat(): StyleCompat {
+  const config = getConfigFromGlobalOrLocal()
+  return (config?.settings.styleCompat ?? (config as any)?.styleCompat) || 'web'
+}
+
 export const setConfig = (next: GuiInternalConfig) => {
   setConfigCalledByThisInstance = true
   conf = next
-  globalThis.__guiConfig = next
+  globalThis.__hanzoguiConfig = next
 }
 
 export const setConfigFont = (name: string, font: any, fontParsed: any) => {
@@ -94,7 +101,7 @@ export const getConfig = () => {
   if (!config) {
     throw new Error(
       process.env.NODE_ENV !== 'production'
-        ? `Missing gui config, you either have a duplicate config, or haven't set it up. Be sure createGui is called before rendering. Also, make sure all of your gui dependencies are on the same version (\`gui\`, \`@hanzogui/package-name\`, etc.) not just in your package.json, but in your lockfile.`
+        ? `Missing hanzogui config, you either have a duplicate config, or haven't set it up. Be sure createGui is called before rendering. Also, make sure all of your hanzogui dependencies are on the same version (\`hanzogui\`, \`@hanzogui/package-name\`, etc.) not just in your package.json, but in your lockfile.`
         : 'Err0'
     )
   }
@@ -160,7 +167,10 @@ export const getThemes = () => getConfigFromGlobalOrLocal()!.themes
 export const updateConfig = (key: string, value: any) => {
   // for usage internally only
   const config = getConfigFromGlobalOrLocal()
-  Object.assign(config![key], value)
+  if (!config || !Object.prototype.hasOwnProperty.call(config, key)) {
+    return
+  }
+  Object.assign(config[key], value)
 }
 
 // searches by value name or token name
@@ -197,7 +207,7 @@ export function setupDev(conf: DevConfig) {
  *
  * @example
  * ```tsx
- * // import loadAnimationDriver from gui
+ * // import loadAnimationDriver from hanzogui
  * // import createAnimations from your preferred driver (e.g. animations-reanimated)
  *
  * const driver = createAnimations({ bouncy: { type: 'spring', damping: 10 } })

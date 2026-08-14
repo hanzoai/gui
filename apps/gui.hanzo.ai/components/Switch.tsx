@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { type SwitchProps, Switch as GuiSwitch, Theme } from 'hanzogui'
+import { type SwitchProps, Switch as GuiSwitch, Theme } from '@hanzo/gui'
 
 export const Switch = memo((props: SwitchProps) => {
   return (

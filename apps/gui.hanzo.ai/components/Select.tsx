@@ -1,7 +1,7 @@
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2'
-import type { SelectItemProps, SelectProps, SelectTriggerProps } from 'hanzogui'
-import { Select as GuiSelect, YStack, useProps, withStaticProperties } from 'hanzogui'
+import type { SelectItemProps, SelectProps, SelectTriggerProps } from '@hanzo/gui'
+import { Select as GuiSelect, YStack, useProps, withStaticProperties } from '@hanzo/gui'
 
 export const SelectItem = ({ children, index, ...props }: SelectItemProps) => {
   return (

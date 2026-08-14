@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Paragraph, SizableText, XStack, YStack } from 'hanzogui'
+import { Paragraph, SizableText, XStack, YStack } from '@hanzo/gui'
 import type { EventType } from './client'
 
 export interface EventHeaderProps {

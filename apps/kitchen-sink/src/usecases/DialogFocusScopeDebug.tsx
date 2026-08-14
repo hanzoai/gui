@@ -1,4 +1,4 @@
-import { Button, Dialog, Input, YStack } from 'hanzogui'
+import { Button, Dialog, Input, YStack } from '@hanzo/gui'
 import React from 'react'
 
 export function DialogFocusScopeDebug() {

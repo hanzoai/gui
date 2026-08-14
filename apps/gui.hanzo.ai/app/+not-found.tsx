@@ -1,6 +1,6 @@
 import { LogoIcon } from '@hanzogui/logo'
 import { Container } from '../components/Containers'
-import { H1, YStack } from 'hanzogui'
+import { H1, YStack } from '@hanzo/gui'
 
 export default () => {
   return (

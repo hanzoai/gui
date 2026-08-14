@@ -4,11 +4,11 @@ description: Use to show feedback to user interactions.
 name: toast
 component: Toast
 package: toast
-demoName: Toast
+demoName: ToastV1
 ---
 
 <HeroContainer showAnimationDriverControl>
-  <ToastDemo />
+  <ToastV1Demo />
 </HeroContainer>
 
 ```tsx hero template=Toast
@@ -20,14 +20,14 @@ demoName: Toast
     `Automatically closes`,
     `Pause closing on hover, focus, window blur and mobile touch`,
     `Supports closing via swipe gesture`,
-    `Easily animatable with Hanzo GUI's animation drivers`,
+    `Easily animatable with Gui's animation drivers`,
     `Native toasts included for Android, iOS and web (notification API)`,
   ]}
 />
 
 ## Installation
 
-Toast is included by default in `@hanzo/gui`. If you're using it standalone:
+Toast is included by default in `hanzogui`. If you're using it standalone:
 
 ```bash
 yarn add @hanzogui/toast
@@ -42,7 +42,7 @@ yarn add burnt
 ```
 
 ```tsx
-// App.tsx - before any Hanzo GUI imports
+// App.tsx - before any Gui imports
 import '@hanzogui/native/setup-burnt'
 ```
 
@@ -168,7 +168,7 @@ The portal for toasts to be directed to. Should be used inside [ToastProvider](#
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />
@@ -268,7 +268,7 @@ Contains the Title, Description, Action and Close component. Should be used insi
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />
@@ -283,7 +283,7 @@ Should be used inside [Toast](#toast). Extends [SizableText](/docs/components/te
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />
@@ -298,7 +298,7 @@ Should be used inside [Toast](#toast). Extends [SizableText](/docs/components/te
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, remove all default gui styling.`,
+      description: `When true, remove all default hanzogui styling.`,
     },
   ]}
 />

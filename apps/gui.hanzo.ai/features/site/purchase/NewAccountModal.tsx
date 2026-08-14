@@ -16,7 +16,7 @@ import type {
 import { router } from 'one'
 import { useToastController } from '@hanzogui/toast'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { captureError } from '@hanzogui/telemetry'
+import { processError } from '~/features/posthog/errorHandling'
 import useSWR, { mutate } from 'swr'
 import useSWRMutation from 'swr/mutation'
 import {
@@ -40,13 +40,19 @@ import {
   VisuallyHidden,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { authFetch } from '~/features/api/authFetch'
 import { ADMIN_EMAILS } from '~/features/api/isAdmin'
 import type { UserContextType } from '~/features/auth/types'
 import { useSupabaseClient } from '~/features/auth/useSupabaseClient'
-import { CURRENT_PRODUCTS, V1_PRODUCTS } from '~/features/stripe/products'
+import { navigateToInternalPath } from '~/features/security/navigation'
+import { V1_PRODUCTS } from '~/features/stripe/products'
 import { getDefaultAvatarImage } from '~/features/user/getDefaultAvatarImage'
+import {
+  isExpiredSubscription,
+  isManageableSubscription,
+  isPastDueSubscription,
+} from '~/features/user/subscriptionFilters'
 import { useUser } from '~/features/user/useUser'
 import { useClipboard } from '~/hooks/useClipboard'
 import { Pricing, ProductName, SubscriptionStatus } from '~/shared/types/subscription'
@@ -160,9 +166,14 @@ export const NewAccountModal = () => {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog>
-      <Suspense fallback={null}>
-        <AddTeamMemberModalComponent />
-      </Suspense>
+      {/* only mount when the account modal is open: add-team is only ever opened
+          from inside this modal (addTeamMemberModal.show is set in AccountView).
+          mounting it eagerly pulled in stripe.js + the chunk on every page (home). */}
+      {store.show && (
+        <Suspense fallback={null}>
+          <AddTeamMemberModalComponent />
+        </Suspense>
+      )}
     </>
   )
 }
@@ -175,16 +186,10 @@ export const AccountView = () => {
   // Calculate values needed for hooks, but use safe defaults when data isn't ready
   const subscriptions = data?.subscriptions
 
-  const filteredSubscriptions = subscriptions?.filter(
-    (sub) =>
-      (sub.status === SubscriptionStatus.Active ||
-        sub.status === SubscriptionStatus.Trialing) &&
-      sub.subscription_items?.some(
-        (item) =>
-          item.price?.product?.id &&
-          CURRENT_PRODUCTS.includes(item.price.product.id as any)
-      )
-  )
+  // includes past_due/unpaid so a failed-renewal sub stays visible and cancellable -
+  // otherwise the user sees "no subscription" during Stripe's retry window and gets
+  // charged with no way to stop it. see features/user/subscriptionFilters.ts
+  const filteredSubscriptions = subscriptions?.filter(isManageableSubscription)
 
   // Deduplicate by product ID, keeping the one with latest current_period_end
   const activeSubscriptions = filteredSubscriptions?.reduce((acc, sub) => {
@@ -212,22 +217,14 @@ export const AccountView = () => {
     return acc
   }, [] as Subscription[])
 
-  // check for expired/canceled subscriptions (for renewal prompts)
-  const expiredSubscriptions = subscriptions?.filter(
-    (sub) =>
-      (sub.status === SubscriptionStatus.Canceled ||
-        sub.status === SubscriptionStatus.PastDue ||
-        sub.status === SubscriptionStatus.Unpaid ||
-        sub.status === SubscriptionStatus.IncompleteExpired) &&
-      sub.subscription_items?.some(
-        (item) =>
-          item.price?.product?.id &&
-          CURRENT_PRODUCTS.includes(item.price.product.id as any)
-      )
-  )
+  // check for expired/canceled subscriptions (for renewal prompts).
+  // past_due/unpaid are intentionally excluded here - they're live subscriptions surfaced
+  // in the manageable set above with their own "payment failed" banner, not expired ones.
+  const expiredSubscriptions = subscriptions?.filter(isExpiredSubscription)
 
   const hasExpiredSubscription = (expiredSubscriptions?.length ?? 0) > 0
   const hasNoActiveSubscription = (activeSubscriptions?.length ?? 0) === 0
+  const hasPastDueSubscription = activeSubscriptions?.some(isPastDueSubscription) ?? false
 
   const proTeamSubscription = activeSubscriptions?.find((sub) =>
     sub.subscription_items?.some(
@@ -305,9 +302,10 @@ export const AccountView = () => {
             supportSubscription={supportSubscription!}
             setCurrentTab={setCurrentTab}
             isTeamMember={!!isTeamMember}
-            hasRecipes={data?.accessInfo?.hasRecipes ?? false}
+            hasBento={data?.accessInfo?.hasBento ?? false}
             hasExpiredSubscription={hasExpiredSubscription}
             hasNoActiveSubscription={hasNoActiveSubscription}
+            hasPastDueSubscription={hasPastDueSubscription}
           />
         )
 
@@ -425,7 +423,7 @@ const AccountHeader = () => {
 
       // Clear SWR cache and redirect
       await mutate('user', null)
-      window.location.href = '/'
+      navigateToInternalPath('/')
     } catch (error) {
       console.error('Logout failed:', error)
     }
@@ -749,9 +747,10 @@ const DiscordPanel = ({
       toast.show('Discord search failed', {
         message: searchSwr.error.message || 'Could not search Discord members',
       })
-      captureError(searchSwr.error, {
-        handled: true,
-        properties: { severity: 'medium', source: 'discord_member_search' },
+      processError({
+        error: searchSwr.error,
+        severity: 'medium',
+        tags: { source: 'discord_member_search' },
       })
     }
   }, [searchSwr.error])
@@ -920,12 +919,12 @@ const DiscordPanel = ({
 
       {apiType === 'channel' ? (
         <Paragraph color="$color9">
-          Join the #takeout-general channel to discuss GUI with other Pro users.
+          Join the #takeout-general channel to discuss Gui with other Pro users.
         </Paragraph>
       ) : (
         <Paragraph color="$color9">
           Get access to your private support channel where you can directly communicate
-          with the GUI team.
+          with the Gui team.
         </Paragraph>
       )}
 
@@ -1099,17 +1098,19 @@ const PlanTab = ({
   supportSubscription,
   setCurrentTab,
   isTeamMember,
-  hasRecipes,
+  hasBento,
   hasExpiredSubscription,
   hasNoActiveSubscription,
+  hasPastDueSubscription,
 }: {
   subscription?: Subscription
   supportSubscription?: Subscription
   setCurrentTab: (value: 'plan' | 'manage' | 'team') => void
   isTeamMember: boolean
-  hasRecipes: boolean
+  hasBento: boolean
   hasExpiredSubscription: boolean
   hasNoActiveSubscription: boolean
+  hasPastDueSubscription: boolean
 }) => {
   const [showDiscordAccess, setShowDiscordAccess] = useState(false)
   const [showSupportAccess, setShowSupportAccess] = useState(false)
@@ -1151,7 +1152,7 @@ const PlanTab = ({
     return <ProjectSetupForm onComplete={() => refreshProjects()} />
   }
 
-  const handleTakeoutAccess = (repoUrl = 'https://github.com/hanzoai/takeout') => {
+  const handleTakeoutAccess = (repoUrl = 'https://github.com/hanzogui/takeout') => {
     // Just open the repo URL directly - invite handling is done via "Resend Invite" button
     window.open(repoUrl, '_blank', 'noopener,noreferrer')
   }
@@ -1184,6 +1185,25 @@ const PlanTab = ({
 
   return (
     <YStack gap="$6">
+      {/* past-due banner - payment failed and Stripe is retrying */}
+      {hasPastDueSubscription && (
+        <YStack
+          bg="$red3"
+          borderColor="$red8"
+          borderWidth={1}
+          borderRadius="$4"
+          p="$4"
+          gap="$3"
+        >
+          <H4 color="$red11">Payment failed - your subscription is past due</H4>
+          <Paragraph color="$red11">
+            Your last payment didn't go through and Stripe is automatically retrying it.
+            To avoid being charged again, cancel your subscription below - cancelling a
+            past-due subscription stops the pending retry immediately.
+          </Paragraph>
+        </YStack>
+      )}
+
       {/* expired subscription banner */}
       {hasExpiredSubscription && hasNoActiveSubscription && (
         <YStack
@@ -1196,9 +1216,9 @@ const PlanTab = ({
         >
           <H4 color="$yellow11">Your subscription has expired</H4>
           <Paragraph color="$yellow11">
-            Renew now to regain access to Takeout, Recipes, and all Pro features. Use code{' '}
+            Renew now to regain access to Takeout, Bento, and all Pro features. Use code{' '}
             <Paragraph fontFamily="$mono" fontWeight="bold" color="$yellow12">
-              WELCOMEBACK30
+              RENEWAL30
             </Paragraph>{' '}
             for 30% off!
           </Paragraph>
@@ -1207,7 +1227,7 @@ const PlanTab = ({
               size="$3"
               theme="yellow"
               onPress={() => {
-                paymentModal.prefilledCouponCode = 'WELCOMEBACK30'
+                paymentModal.prefilledCouponCode = 'RENEWAL30'
                 paymentModal.show = true
               }}
             >
@@ -1217,7 +1237,7 @@ const PlanTab = ({
               size="$3"
               chromeless
               onPress={() => {
-                window.open('https://gui.hanzo.ai/pro', '_blank')
+                window.open('https://hanzogui.dev/pro', '_blank')
               }}
             >
               Learn More
@@ -1236,7 +1256,7 @@ const PlanTab = ({
               if (!subscription) {
                 paymentModal.show = true
               } else {
-                handleTakeoutAccess('https://github.com/hanzoai/takeout2')
+                handleTakeoutAccess('https://github.com/hanzogui/takeout2')
               }
             }}
             secondAction={
@@ -1244,7 +1264,7 @@ const PlanTab = ({
                 ? {
                     label: 'Pro Classic',
                     onPress: () =>
-                      handleTakeoutAccess('https://github.com/hanzoai/takeout'),
+                      handleTakeoutAccess('https://github.com/hanzogui/takeout'),
                   }
                 : null
             }
@@ -1258,7 +1278,7 @@ const PlanTab = ({
             }
           />
 
-          <RecipesCard subscription={subscription as Subscription} hasRecipes={hasRecipes} />
+          <BentoCard subscription={subscription as Subscription} hasBento={hasBento} />
 
           <ServiceCard
             title="Discord Access"
@@ -1278,7 +1298,7 @@ const PlanTab = ({
           {supportSubscription && (
             <ServiceCard
               title="Private Support"
-              description="Access your private Discord support channel with priority responses from the GUI team."
+              description="Access your private Discord support channel with priority responses from the Gui team."
               actionLabel="Manage Support"
               onAction={() => {
                 setShowSupportAccess(true)
@@ -1365,6 +1385,79 @@ const PlanTab = ({
           apiType="support"
         />
       )}
+
+      {/* Cancel subscription - always visible for non-team-members with active recurring sub */}
+      {!isTeamMember && subscription && !isOneTimePlan && (
+        <CancelSubscriptionSection subscription={subscription} />
+      )}
+    </YStack>
+  )
+}
+
+const CancelSubscriptionSection = ({ subscription }: { subscription: Subscription }) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const { refresh } = useUser()
+
+  const isPastDue = isPastDueSubscription(subscription)
+
+  const handleCancel = async () => {
+    const confirmed = window.confirm(
+      isPastDue
+        ? 'Cancel this subscription now? This stops the pending payment retry immediately and ends the subscription.'
+        : 'Are you sure you want to cancel this subscription? You will retain access until the end of your billing period.'
+    )
+    if (!confirmed) return
+
+    setIsLoading(true)
+    try {
+      const res = await authFetch('/api/cancel-subscription', {
+        method: 'POST',
+        body: JSON.stringify({ subscription_id: subscription.id }),
+      })
+      const data = await res.json().catch(() => ({}) as any)
+      if (!res.ok) {
+        alert(
+          `Couldn't cancel: ${data.error || data.message || `server returned ${res.status}`}. Please email support@hanzogui.dev and we'll cancel it for you.`
+        )
+        return
+      }
+      alert(data.message || 'Your subscription has been cancelled.')
+      refresh()
+    } catch (err) {
+      alert(
+        `Couldn't cancel: ${err instanceof Error ? err.message : 'unknown error'}. Please email support@hanzogui.dev and we'll cancel it for you.`
+      )
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  if (subscription.cancel_at_period_end) {
+    return (
+      <YStack gap="$3" pt="$4">
+        <Separator />
+        <YStack bg="$yellow2" p="$3" rounded="$4">
+          <Paragraph color="$yellow11">
+            Your subscription will end on{' '}
+            {new Date(subscription.current_period_end).toLocaleDateString()}
+          </Paragraph>
+        </YStack>
+      </YStack>
+    )
+  }
+
+  return (
+    <YStack gap="$3" pt="$4">
+      <Separator />
+      <Button
+        theme="red"
+        disabled={isLoading}
+        onPress={handleCancel}
+        alignSelf="flex-start"
+        size="$3"
+      >
+        <Button.Text>Cancel Subscription</Button.Text>
+      </Button>
     </YStack>
   )
 }
@@ -1401,10 +1494,10 @@ const ChatAccessCard = () => {
           return
         }
         if (chatAccess.data?.success) {
-          window.open(`https://start.chat/gui/q0upl90r4xd`)
+          window.open(`https://start.chat/hanzogui/q0upl90r4xd`)
           return
         }
-        window.open(`https://start.chat/gui`)
+        window.open(`https://start.chat/hanzogui`)
       }}
       secondAction={
         chatAccess.isLoading || chatAccess.data?.success
@@ -1485,136 +1578,50 @@ const SupportTabContent = ({
   )
 }
 
-// card for V1 users to enable automatic V2 renewal
-const V2RenewalCard = ({ subscription }: { subscription: Subscription }) => {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [error, setError] = useState<string | null>(null)
-
-  // check if already enabled from metadata
-  const metadata = subscription.metadata as Record<string, any> | null
-  const isEnabled = metadata?.v2_renewal_enabled === 'true'
-
-  if (isEnabled) {
-    return (
-      <YStack
-        gap="$3"
-        p="$4"
-        borderWidth={1}
-        borderColor="$green6"
-        bg="$green2"
-        rounded="$4"
-      >
-        <XStack gap="$3" alignItems="center">
-          <Gift y={5} size={24} color="$green10" />
-          <YStack flex={1}>
-            <H4 fontFamily="$mono" color="$green11">
-              New Pro Plan Enabled ✓
-            </H4>
-            <Paragraph color="$green10">
-              When your subscription renews, you'll automatically get the new Pro plan
-              with 35% off.
-            </Paragraph>
-          </YStack>
-        </XStack>
-      </YStack>
-    )
-  }
-
-  const handleEnable = async () => {
-    setStatus('loading')
-    setError(null)
-
-    try {
-      const response = await authFetch('/api/enable-v2-renewal', {
-        method: 'POST',
-        body: JSON.stringify({ subscription_id: subscription.id }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        setStatus('error')
-        setError(data.error || 'Failed to enable V2 renewal')
-        return
-      }
-
-      setStatus('success')
-    } catch (err) {
-      setStatus('error')
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred')
-    }
-  }
-
-  if (status === 'success') {
-    return (
-      <YStack
-        gap="$3"
-        p="$4"
-        borderWidth={1}
-        borderColor="$green6"
-        bg="$green2"
-        rounded="$4"
-      >
-        <XStack gap="$3" alignItems="center">
-          <Gift size={24} color="$green10" />
-          <YStack flex={1}>
-            <H4 fontFamily="$mono" color="$green11">
-              New Pro Plan Enabled! 🎉
-            </H4>
-            <Paragraph color="$green10">
-              When your subscription renews, you'll automatically get the new Pro plan
-              with 35% off.
-            </Paragraph>
-          </YStack>
-        </XStack>
-      </YStack>
-    )
-  }
+// info card for legacy subscribers whose renewals get the discount automatically
+const V2RenewalCard = () => {
+  const couponCode = 'RENEWAL30'
 
   return (
     <YStack
       gap="$4"
       p="$4"
       borderWidth={1}
-      borderColor="$purple6"
-      bg="$purple2"
+      borderColor="$yellow6"
+      bg="$yellow2"
       rounded="$4"
     >
       <XStack gap="$3" alignItems="flex-start">
-        <Gift y={5} size={24} color="$purple10" />
+        <Gift y={5} size={24} color="$yellow10" />
         <YStack flex={1} gap="$1">
-          <H4 fontFamily="$mono" color="$purple11">
-            Upgrade to New Pro Plan
+          <H4 fontFamily="$mono" color="$yellow11">
+            30% Off Applied To Renewal
           </H4>
-          <Paragraph color="$purple10">
-            Enable automatic upgrade and get <strong>35% off</strong> when your
-            subscription renews. You'll get access to:
+          <Paragraph color="$yellow10">
+            Your pre-v2 renewal includes <strong>30% off</strong>. No action is needed.
           </Paragraph>
-          <YStack gap="$1" pl="$2">
-            <Paragraph color="$purple10">
-              • Takeout 2 - GUI 2, One 1, and Zero stack
-            </Paragraph>
-            <Paragraph color="$purple10">
-              • Takeout Static - Web-only starter with 100 Lighthouse
-            </Paragraph>
-            <Paragraph color="$purple10">
-              • Unlimited team members - No per-seat pricing
-            </Paragraph>
-          </YStack>
+          <Paragraph color="$yellow10">
+            When this subscription renews, it stays on the current Pro package with
+            Takeout 2, Takeout Static, and unlimited team members.
+          </Paragraph>
+          <Paragraph color="$yellow10">
+            If you want to buy another project or share the discount with a friend, use{' '}
+            <strong>{couponCode}</strong>.
+          </Paragraph>
         </YStack>
       </XStack>
 
-      {error && <Paragraph color="$red10">{error}</Paragraph>}
-
       <Button
-        theme="purple"
-        disabled={status === 'loading'}
-        onPress={handleEnable}
+        size="$3"
+        theme="yellow"
         alignSelf="flex-start"
+        onPress={() => {
+          paymentModal.isV2 = true
+          paymentModal.prefilledCouponCode = couponCode
+          paymentModal.show = true
+        }}
       >
-        <Button.Text>
-          {status === 'loading' ? 'Enabling...' : 'Enable New Pro Plan (35% off)'}
-        </Button.Text>
+        <Button.Text>Use 30% Code</Button.Text>
       </Button>
     </YStack>
   )
@@ -1689,9 +1696,11 @@ const ManageTab = ({
   }
 
   // Cancel handler for a specific subscription
-  const handleCancelSubscription = async (subscriptionId: string) => {
+  const handleCancelSubscription = async (subscriptionId: string, isPastDue = false) => {
     const confirmed = window.confirm(
-      'Are you sure you want to cancel this subscription? This action cannot be undone.'
+      isPastDue
+        ? 'Cancel this subscription now? This stops the pending payment retry immediately and ends the subscription.'
+        : 'Are you sure you want to cancel this subscription? This action cannot be undone.'
     )
     if (!confirmed) return
 
@@ -1704,11 +1713,19 @@ const ManageTab = ({
         }),
       })
 
-      const data = await res.json()
-      if (data.message) {
-        alert(data.message)
-        refresh()
+      const data = await res.json().catch(() => ({}) as any)
+      if (!res.ok) {
+        alert(
+          `Couldn't cancel: ${data.error || data.message || `server returned ${res.status}`}. Please email support@hanzogui.dev and we'll cancel it for you.`
+        )
+        return
       }
+      alert(data.message || 'Your subscription has been cancelled.')
+      refresh()
+    } catch (err) {
+      alert(
+        `Couldn't cancel: ${err instanceof Error ? err.message : 'unknown error'}. Please email support@hanzogui.dev and we'll cancel it for you.`
+      )
     } finally {
       setIsLoading(false)
     }
@@ -1755,7 +1772,7 @@ const ManageTab = ({
           })
           .map((v1Sub) => (
             <YStack key={`v2-renewal-${v1Sub.id}`} gap="$4">
-              <V2RenewalCard subscription={v1Sub} />
+              <V2RenewalCard />
             </YStack>
           ))}
 
@@ -1883,9 +1900,10 @@ const ManageTab = ({
                         : '$yellow9'
                     }
                   >
-                    {subscription.status === SubscriptionStatus.Trialing
+                    {(subscription.status === SubscriptionStatus.Trialing
                       ? SubscriptionStatus.Active
-                      : subscription.status}
+                      : (subscription.status ?? '')
+                    ).replace(/_/g, ' ')}
                   </Paragraph>
                 </XStack>
                 <XStack justify="space-between">
@@ -1912,7 +1930,12 @@ const ManageTab = ({
                     <Button
                       theme="red"
                       disabled={isLoading || !!subscription.cancel_at_period_end}
-                      onPress={() => handleCancelSubscription(subscription.id)}
+                      onPress={() =>
+                        handleCancelSubscription(
+                          subscription.id,
+                          isPastDueSubscription(subscription)
+                        )
+                      }
                     >
                       <Button.Text>
                         {subscription.cancel_at_period_end
@@ -2090,7 +2113,6 @@ type GitHubUser = {
   id: string
   full_name: string | null
   avatar_url: string | null
-  email: string | null
 }
 
 const TeamTab = ({
@@ -2148,7 +2170,7 @@ const TeamTab = ({
       <YStack gap="$4">
         <H3>No Team Subscription</H3>
         <Paragraph color="$color10">
-          Purchase team seats to invite team members to your GUI Pro subscription.
+          Purchase team seats to invite team members to your Gui Pro subscription.
         </Paragraph>
         <Button
           theme="accent"
@@ -2208,7 +2230,7 @@ const TeamTab = ({
             ) : searchQuery.length > 0 ? (
               <YStack gap={0}>
                 <Paragraph color="$color10">No results found</Paragraph>
-                <Paragraph color="$color10">User is not a member of GUI</Paragraph>
+                <Paragraph color="$color10">User is not a member of Gui</Paragraph>
               </YStack>
             ) : null}
           </YStack>
@@ -2261,9 +2283,6 @@ const GitHubUserRow = ({
         </Avatar>
         <YStack>
           <Paragraph>{user.full_name ?? 'Unknown User'}</Paragraph>
-          <Paragraph size="$2" color="$color9">
-            {user.email ?? 'Unknown Email'}
-          </Paragraph>
           {inviteError && (
             <Paragraph size="$2" color="$red10">
               Error: {inviteError.message}
@@ -2338,21 +2357,21 @@ const TeamMemberRow = ({
   )
 }
 
-const RecipesCard = ({
+const BentoCard = ({
   subscription,
-  hasRecipes,
+  hasBento,
 }: {
   subscription?: Subscription
-  hasRecipes: boolean
+  hasBento: boolean
 }) => {
   const supabase = useSupabaseClient()
   const { onCopy, hasCopied } = useClipboard()
 
-  // user has access if they have active subscription OR lifetime recipes
-  const hasAccess = !!subscription || hasRecipes
+  // user has access if they have active subscription OR lifetime bento
+  const hasAccess = !!subscription || hasBento
 
   const { data, isLoading, mutate } = useSWR(
-    hasAccess ? '/api/recipes/cli/login' : null,
+    hasAccess ? '/api/bento/cli/login' : null,
     async (url) => {
       const response = await authFetch(url)
       if (!response.ok) {
@@ -2366,7 +2385,7 @@ const RecipesCard = ({
     }
   )
 
-  const handleRecipesDownload = async () => {
+  const handleBentoDownload = async () => {
     if (!supabase) {
       alert('Authentication required')
       return
@@ -2377,11 +2396,11 @@ const RecipesCard = ({
         data: { session },
       } = await supabase.auth.getSession()
       if (!session) {
-        alert('Please sign in to download Recipes components')
+        alert('Please sign in to download Bento components')
         return
       }
 
-      const response = await fetch('/api/recipes/zip-download', {
+      const response = await fetch('/api/bento/zip-download', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${session.access_token}`,
@@ -2389,7 +2408,7 @@ const RecipesCard = ({
       })
 
       if (!response.ok) {
-        throw new Error('Failed to download Recipes components')
+        throw new Error('Failed to download Bento components')
       }
 
       // create a blob from the response
@@ -2397,7 +2416,7 @@ const RecipesCard = ({
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'recipes-bundle.zip'
+      a.download = 'bento-bundle.zip'
       document.body.appendChild(a)
       a.click()
 
@@ -2405,7 +2424,7 @@ const RecipesCard = ({
       window.URL.revokeObjectURL(url)
       document.body.removeChild(a)
     } catch (error) {
-      alert('Failed to download Recipes components. Please try again later.')
+      alert('Failed to download Bento components. Please try again later.')
     }
   }
 
@@ -2424,12 +2443,12 @@ const RecipesCard = ({
 
   return (
     <ServiceCard
-      title="Recipes"
-      description="Download Recipes components or browse the source repo."
+      title="Bento"
+      description="Download Bento components or browse the source repo."
       actionLabel={hasAccess ? 'Download' : 'Purchase'}
       onAction={
         hasAccess
-          ? handleRecipesDownload
+          ? handleBentoDownload
           : () => {
               paymentModal.show = true
             }

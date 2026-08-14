@@ -60,6 +60,9 @@
     },
     {
       "path": "../web"
+    },
+    {
+      "path": "../font-geist"
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { Slot } from 'one'
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 import { ThemeNameEffect } from '~/features/site/theme/ThemeNameEffect'
 
 // minimal layout for popup windows - no header, footer, or nav

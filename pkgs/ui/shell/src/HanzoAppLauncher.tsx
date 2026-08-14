@@ -7,7 +7,17 @@
  * Self-contained by design: inline styles + inline SVG, React the only runtime
  * dependency, ZERO CSS-framework coupling — so it drops into any Hanzo app
  * (Next 15/16, Vite, React 18/19) and renders identically regardless of the
- * host's Tailwind/Tamagui/none setup.
+ * host's Tailwind/Gui/none setup.
+ *
+ * The panel is PORTALLED to `document.body` and positioned from the trigger's
+ * viewport rect. A launcher is mounted in whatever corner a host happens to
+ * own — chat's is inside its sidebar's `overflow-hidden` scroll column — and an
+ * absolutely-positioned panel is clipped by the first such ancestor, which cut
+ * the third column of tiles off mid-tile. Neither `overflow` nor `position:
+ * fixed` can escape that on its own: chat's sidebar also carries a `transform`,
+ * and a transformed ancestor becomes the containing block for fixed children
+ * too. Leaving the host's stacking context entirely is the only placement that
+ * cannot be clipped by a container this component never sees.
  *
  * - Click (or ⌘K / Ctrl-K) opens a grid of every Hanzo app (icon + label).
  * - The current app is highlighted (monochrome brand accent ring, `aria-current`).
@@ -19,18 +29,51 @@
  * Source of truth for the app list is `HANZO_APPS` (./hanzo-apps).
  */
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps'
 import { U } from './hanzo-registry'
 import { isEntitled as planEntitles, normalizeTier } from './entitlements'
 import { useEntitlement } from './useEntitlement'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME } from './theme'
-import { useShellFocusRing } from './focusRing'
+import { HanzoWordmark } from './mark'
+import {
+  ACCENT,
+  ACCENT_SOFT,
+  ACCENT_SOFTER,
+  CHROME,
+  FOCUS_RING,
+  FS,
+  LABEL,
+  PANEL,
+  R,
+  Z,
+  control,
+} from './theme'
+import { useShellStyles } from './shellStyles'
 
-const PANEL_BG = CHROME.panel
 const BORDER = CHROME.border
 const FG = CHROME.fg
 const FG_DIM = CHROME.fgDim
 const HOVER_BG = CHROME.hover
+
+/** Breathing room between the trigger and the panel, and off the viewport edge. */
+const GAP = 10
+
+/**
+ * The panel's OUTER width. It is stated border-box so this one number is also
+ * what the edge clamp below subtracts — a content-box width would have to guess
+ * at the padding and border, and guessing is what lets a panel hang off screen.
+ * 366 = the historical 340 content box + 12px padding and a 1px border a side,
+ * so the rendered size is unchanged.
+ */
+const PANEL_W = 366
+
+/** Where the portalled panel sits, in viewport coordinates. */
+interface Anchor {
+  top: number
+  left?: number
+  right?: number
+  maxHeight: number
+}
 
 export interface HanzoAppLauncherProps {
   /** Highlights the matching tile + marks it `aria-current`. */
@@ -93,7 +136,7 @@ export function HanzoAppLauncher({
   upgradeHref = U.pricing,
   trigger,
 }: HanzoAppLauncherProps) {
-  useShellFocusRing()
+  useShellStyles()
 
   // Resolve the viewer's plan ourselves only when asked to AND no check/tier was
   // supplied; the `enabled` flag keeps the hook a no-op (no fetch) otherwise.
@@ -114,15 +157,42 @@ export function HanzoAppLauncher({
   const [open, setOpen] = useState(defaultOpen)
   const [hover, setHover] = useState(false)
   const [query, setQuery] = useState('')
+  const [anchor, setAnchor] = useState<Anchor | null>(null)
   const rootRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
   const tileRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const panelId = useId()
 
+  /**
+   * Measure the trigger and place the panel beneath it. Called from the event
+   * that opens the panel — before the state update, so the first painted frame
+   * already has a position and the panel never flashes at the origin.
+   */
+  const place = useCallback(() => {
+    const r = triggerRef.current?.getBoundingClientRect()
+    if (!r) return
+    const top = r.bottom + GAP
+    // Clamp to the far edge first, then to the near one, so a trigger near the
+    // end of its axis pulls the panel back on screen instead of off it.
+    const edge = Math.max(GAP, window.innerWidth - PANEL_W - GAP)
+    setAnchor({
+      top,
+      left: align === 'left' ? Math.min(Math.max(GAP, r.left), edge) : undefined,
+      right:
+        align === 'right'
+          ? Math.min(Math.max(GAP, window.innerWidth - r.right), edge)
+          : undefined,
+      // The panel scrolls internally; it must never run off the bottom edge.
+      maxHeight: Math.max(220, window.innerHeight - top - GAP),
+    })
+  }, [align])
+
   const close = useCallback(() => {
     setOpen(false)
     setQuery('')
+    setAnchor(null)
     // Return focus to the trigger for a clean keyboard loop.
     requestAnimationFrame(() => triggerRef.current?.focus())
   }, [])
@@ -131,36 +201,66 @@ export function HanzoAppLauncher({
   useEffect(() => {
     if (!quickSwitchKey) return
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === quickSwitchKey.toLowerCase()) {
+      if (
+        (e.metaKey || e.ctrlKey) &&
+        !e.altKey &&
+        e.key.toLowerCase() === quickSwitchKey.toLowerCase()
+      ) {
         e.preventDefault()
+        place()
         setOpen((v) => !v)
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [quickSwitchKey])
+  }, [quickSwitchKey, place])
 
   // ── Dismiss on outside click ──
   useEffect(() => {
     if (!open) return
     const onDown = (e: MouseEvent) => {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false)
+      const t = e.target as Node
+      // The panel lives in a portal, so it is NOT inside `rootRef` — testing
+      // only the root would close the panel on its own filter box and tiles.
+      if (rootRef.current?.contains(t) || panelRef.current?.contains(t)) return
+      setOpen(false)
+      setAnchor(null)
     }
     document.addEventListener('mousedown', onDown)
     return () => document.removeEventListener('mousedown', onDown)
   }, [open])
 
-  // ── Autofocus the filter when the panel opens ──
+  // ── Keep the panel under the trigger while the page moves beneath it ──
+  const placed = anchor !== null
   useEffect(() => {
-    if (open) requestAnimationFrame(() => searchRef.current?.focus())
-  }, [open])
+    if (!open) return
+    if (!placed) {
+      place() // `defaultOpen`, which never went through the trigger.
+      return
+    }
+    // Capture phase: the trigger can sit in a scrolling pane that never
+    // scrolls the window, and those scroll events do not bubble.
+    window.addEventListener('scroll', place, true)
+    window.addEventListener('resize', place)
+    return () => {
+      window.removeEventListener('scroll', place, true)
+      window.removeEventListener('resize', place)
+    }
+  }, [open, placed, place])
+
+  // ── Autofocus the filter once the panel is on screen ──
+  useEffect(() => {
+    if (open && placed) requestAnimationFrame(() => searchRef.current?.focus())
+  }, [open, placed])
 
   const q = query.trim().toLowerCase()
   const filtering = q.length > 0
   const visible = useMemo(() => {
     if (!filtering) return apps
     return apps.filter(
-      (a) => a.label.toLowerCase().includes(q) || (a.description ?? '').toLowerCase().includes(q),
+      (a) =>
+        a.label.toLowerCase().includes(q) ||
+        (a.description ?? '').toLowerCase().includes(q)
     )
   }, [apps, filtering, q])
 
@@ -213,7 +313,7 @@ export function HanzoAppLauncher({
           break
       }
     },
-    [close, focusTile],
+    [close, focusTile]
   )
 
   // Reset the ref array each render so indices track `order`.
@@ -251,20 +351,22 @@ export function HanzoAppLauncher({
           textAlign: wide ? 'left' : 'center',
           textDecoration: 'none',
           padding: wide ? '10px 12px' : '12px 8px',
-          borderRadius: 12,
-          border: `1px solid ${isCurrent ? ACCENT : 'transparent'}`,
+          borderRadius: R.card,
+          border: `1px solid ${isCurrent ? CHROME.borderStrong : 'transparent'}`,
           background: isCurrent ? ACCENT_SOFT : 'transparent',
           color: FG,
           opacity: locked ? 0.55 : 1,
-          outlineColor: ACCENT,
-          transition: 'background 120ms ease, border-color 120ms ease, opacity 120ms ease',
+          outlineColor: FOCUS_RING,
+          transition:
+            'background 120ms ease, border-color 120ms ease, opacity 120ms ease',
           justifyContent: wide ? 'flex-start' : 'center',
         }}
         onMouseEnter={(e) => {
           if (!isCurrent) (e.currentTarget as HTMLElement).style.background = HOVER_BG
         }}
         onMouseLeave={(e) => {
-          if (!isCurrent) (e.currentTarget as HTMLElement).style.background = 'transparent'
+          if (!isCurrent)
+            (e.currentTarget as HTMLElement).style.background = 'transparent'
         }}
       >
         <span
@@ -277,8 +379,8 @@ export function HanzoAppLauncher({
             width: wide ? 40 : 44,
             height: wide ? 40 : 44,
             flexShrink: 0,
-            borderRadius: 12,
-            background: isCurrent ? ACCENT_SOFTER : 'rgba(255,255,255,0.05)',
+            borderRadius: R.card,
+            background: isCurrent ? ACCENT_SOFTER : CHROME.raised,
             color: isCurrent ? ACCENT : FG,
           }}
         >
@@ -294,8 +396,8 @@ export function HanzoAppLauncher({
                 justifyContent: 'center',
                 width: 16,
                 height: 16,
-                borderRadius: '50%',
-                background: PANEL_BG,
+                borderRadius: R.pill,
+                background: CHROME.panel,
                 border: `1px solid ${BORDER}`,
                 color: FG_DIM,
               }}
@@ -307,7 +409,7 @@ export function HanzoAppLauncher({
         <span style={{ display: 'flex', flexDirection: 'column', gap: 1, minWidth: 0 }}>
           <span
             style={{
-              fontSize: 13,
+              fontSize: FS.sm,
               fontWeight: 600,
               lineHeight: 1.2,
               color: isCurrent ? ACCENT : FG,
@@ -320,7 +422,9 @@ export function HanzoAppLauncher({
             {app.label}
           </span>
           {wide && app.description ? (
-            <span style={{ fontSize: 11.5, color: FG_DIM, lineHeight: 1.25 }}>{app.description}</span>
+            <span style={{ fontSize: FS.xs, color: FG_DIM, lineHeight: 1.25 }}>
+              {app.description}
+            </span>
           ) : null}
         </span>
       </a>
@@ -332,11 +436,18 @@ export function HanzoAppLauncher({
   const triggerColor = open || hover ? ACCENT : CHROME.fgMuted
 
   return (
-    <div ref={rootRef} data-hanzo-shell="" style={{ position: 'relative', display: 'inline-flex' }}>
+    <div
+      ref={rootRef}
+      data-hanzo-shell=""
+      style={{ position: 'relative', display: 'inline-flex' }}
+    >
       <button
         ref={triggerRef}
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          place()
+          setOpen((v) => !v)
+        }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         aria-haspopup="true"
@@ -345,115 +456,146 @@ export function HanzoAppLauncher({
         aria-label={label}
         title={label}
         style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          ...control(),
           width: trigger ? 'auto' : 34,
-          height: 34,
           padding: 0,
-          border: 'none',
-          borderRadius: 9,
           background: open && !trigger ? ACCENT_SOFT : 'transparent',
           color: triggerColor,
-          cursor: 'pointer',
-          transition: 'background 120ms ease, color 120ms ease',
         }}
       >
         {trigger ? trigger({ open, hover }) : <HanzoGridIcon size={size} />}
       </button>
 
-      {open ? (
-        <div
-          id={panelId}
-          aria-label="Hanzo apps"
-          onKeyDown={onPanelKeyDown}
-          style={{
-            position: 'absolute',
-            top: 44,
-            left: align === 'left' ? 0 : undefined,
-            right: align === 'right' ? 0 : undefined,
-            zIndex: 1000,
-            width: 340,
-            maxWidth: 'calc(100vw - 24px)',
-            maxHeight: '80vh',
-            overflowY: 'auto',
-            padding: 12,
-            borderRadius: 16,
-            border: `1px solid ${BORDER}`,
-            background: PANEL_BG,
-            boxShadow: '0 24px 60px -12px rgba(0,0,0,0.7)',
-            fontFamily:
-              'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-          }}
-        >
-          {/* Header */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 4px 10px' }}>
-            <HanzoWordmark />
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 0.4, color: FG_DIM, textTransform: 'uppercase' }}>
-              Apps
-            </span>
-          </div>
-
-          {/* Filter */}
-          <input
-            ref={searchRef}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Filter apps…"
-            aria-label="Filter apps"
-            autoComplete="off"
-            spellCheck={false}
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              padding: '9px 12px',
-              marginBottom: 10,
-              borderRadius: 10,
-              border: `1px solid ${BORDER}`,
-              background: 'rgba(255,255,255,0.03)',
-              color: FG,
-              fontSize: 13,
-              outline: 'none',
-            }}
-          />
-
-          {/* Pinned row(s) — the personal portal floats to the top. */}
-          {pinned.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginBottom: 8 }}>
-              {pinned.map((a) => Tile(a, true))}
-            </div>
-          ) : null}
-
-          {/* Grid */}
-          {grid.length > 0 ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 4 }}>
-              {grid.map((a) => Tile(a, false))}
-            </div>
-          ) : (
-            <div style={{ padding: '18px 8px', textAlign: 'center', color: FG_DIM, fontSize: 13 }}>
-              No apps match “{query.trim()}”.
-            </div>
-          )}
-
-          {/* Footer hint */}
-          {quickSwitchKey ? (
-            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: 10, color: FG_DIM, fontSize: 11 }}>
-              <kbd
+      {open && anchor && typeof document !== 'undefined'
+        ? createPortal(
+            <div
+              ref={panelRef}
+              id={panelId}
+              data-hanzo-shell=""
+              aria-label="Hanzo apps"
+              onKeyDown={onPanelKeyDown}
+              style={{
+                position: 'fixed',
+                top: anchor.top,
+                left: anchor.left,
+                right: anchor.right,
+                ...PANEL,
+                zIndex: Z.popover as unknown as number,
+                boxSizing: 'border-box',
+                width: PANEL_W,
+                maxWidth: `calc(100vw - ${GAP * 2}px)`,
+                maxHeight: anchor.maxHeight,
+                overflowY: 'auto',
+                padding: 12,
+                fontFamily: CHROME.font,
+              }}
+            >
+              {/* Header */}
+              <div
                 style={{
-                  fontFamily: 'inherit',
-                  border: `1px solid ${BORDER}`,
-                  borderRadius: 6,
-                  padding: '1px 6px',
-                  background: 'rgba(255,255,255,0.04)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '2px 4px 10px',
                 }}
               >
-                ⌘{quickSwitchKey.toUpperCase()}
-              </kbd>
-              <span style={{ marginLeft: 6 }}>to switch</span>
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+                <HanzoWordmark size={16} />
+                <span style={LABEL}>Apps</span>
+              </div>
+
+              {/* Filter */}
+              <input
+                ref={searchRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Filter apps…"
+                aria-label="Filter apps"
+                autoComplete="off"
+                spellCheck={false}
+                style={{
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  padding: '9px 12px',
+                  marginBottom: 10,
+                  borderRadius: R.row,
+                  border: `1px solid ${BORDER}`,
+                  background: CHROME.raised,
+                  color: FG,
+                  fontSize: FS.sm,
+                  fontFamily: 'inherit',
+                  // No `outline: 'none'` here — see AskHanzo's composer. This filter
+                  // has no <label> wrapper, so the shell's :focus-visible ring is
+                  // its only focus indicator.
+                }}
+              />
+
+              {/* Pinned row(s) — the personal portal floats to the top. */}
+              {pinned.length > 0 ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 4,
+                    marginBottom: 8,
+                  }}
+                >
+                  {pinned.map((a) => Tile(a, true))}
+                </div>
+              ) : null}
+
+              {/* Grid */}
+              {grid.length > 0 ? (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: 4,
+                  }}
+                >
+                  {grid.map((a) => Tile(a, false))}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    padding: '18px 8px',
+                    textAlign: 'center',
+                    color: FG_DIM,
+                    fontSize: FS.sm,
+                  }}
+                >
+                  No apps match “{query.trim()}”.
+                </div>
+              )}
+
+              {/* Footer hint */}
+              {quickSwitchKey ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    paddingTop: 10,
+                    color: FG_DIM,
+                    fontSize: FS.xs,
+                  }}
+                >
+                  <kbd
+                    style={{
+                      fontFamily: 'inherit',
+                      border: `1px solid ${BORDER}`,
+                      borderRadius: R.row,
+                      padding: '1px 6px',
+                      background: CHROME.raised,
+                    }}
+                  >
+                    ⌘{quickSwitchKey.toUpperCase()}
+                  </kbd>
+                  <span style={{ marginLeft: 6 }}>to switch</span>
+                </div>
+              ) : null}
+            </div>,
+            document.body
+          )
+        : null}
     </div>
   )
 }
@@ -475,21 +617,5 @@ function LockGlyph({ size = 10 }: { size?: number }) {
       <rect x="4.5" y="10.5" width="15" height="10" rx="2.2" />
       <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
     </svg>
-  )
-}
-
-/** Small Hanzo H-mark + wordmark used in the panel header (orange dot accent). */
-function HanzoWordmark() {
-  return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
-      <svg width={16} height={16} viewBox="0 0 67 67" aria-hidden="true">
-        <path d="M22.21 67V44.6369H0V67H22.21Z" fill="#fff" />
-        <path d="M66.7038 22.3184H22.2534L0.0878906 44.6367H44.4634L66.7038 22.3184Z" fill="#fff" />
-        <path d="M22.21 0H0V22.3184H22.21V0Z" fill="#fff" />
-        <path d="M66.7198 0H44.5098V22.3184H66.7198V0Z" fill="#fff" />
-        <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" fill="#fff" />
-      </svg>
-      <span style={{ fontSize: 13, fontWeight: 800, color: '#fff', letterSpacing: -0.2 }}>Hanzo</span>
-    </span>
   )
 }

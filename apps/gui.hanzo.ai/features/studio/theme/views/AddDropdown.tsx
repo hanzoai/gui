@@ -1,5 +1,5 @@
 import { Plus } from '@hanzogui/lucide-icons-2'
-import type { ListItemProps, PopoverProps } from 'hanzogui'
+import type { ListItemProps, PopoverProps } from '@hanzo/gui'
 import {
   Button,
   H6,
@@ -9,7 +9,7 @@ import {
   Separator as GuiSeparator,
   styled,
   withStaticProperties,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const Item = ({ children, ...props }: ListItemProps) => (
   <ListItem minW={190} size="$5" iconAfter={Plus} {...props}>

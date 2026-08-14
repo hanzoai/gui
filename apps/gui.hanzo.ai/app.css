@@ -349,7 +349,7 @@ iframe {
   opacity: 0.05;
 }
 
-.gui-icon {
+.hanzogui-icon {
   pointer-events: none;
 }
 
@@ -798,7 +798,7 @@ p {
   opacity: 0;
 }
 
-.recipes-shadow {
+.bento-shadow {
   text-shadow:
     1px 1px var(--color1),
     1px 2px 1px var(--color3),
@@ -812,7 +812,7 @@ p {
     1px 12px 0px var(--color7);
 }
 
-.t_dark .recipes-shadow {
+.t_dark .bento-shadow {
   text-shadow:
     2px 2px 1px var(--color9),
     1px 2px 1px var(--color9),
@@ -826,14 +826,14 @@ p {
     1px 11px 1px var(--color7);
 }
 
-.recipes-up-text {
+.bento-up-text {
   /* mix-blend-mode: luminosity; */
   mask-image: linear-gradient(rgba(0, 0, 0, 1), transparent, rgba(0, 0, 0, 1));
   background-image: linear-gradient(var(--color0), var(--color7));
   /* filter: blur(10px); */
 }
 
-.t_dark .recipes-up-text {
+.t_dark .bento-up-text {
   mix-blend-mode: color-dodge;
   background-image: linear-gradient(var(--background025), var(--color8));
 }
@@ -856,7 +856,7 @@ p {
   mix-blend-mode: color-dodge;
 }
 
-.recipes-text-3 {
+.bento-text-3 {
   background-image: linear-gradient(var(--color7), var(--color9));
   mix-blend-mode: hard-light;
   text-shadow:
@@ -864,7 +864,7 @@ p {
     0 30px 30px var(--color025);
 }
 
-.t_dark .recipes-text-3 {
+.t_dark .bento-text-3 {
   mix-blend-mode: screen;
 }
 

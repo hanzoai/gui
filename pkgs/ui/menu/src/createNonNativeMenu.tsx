@@ -472,15 +472,16 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
               ? {
                   ...(props.style as object),
                   ...({
-                    '--gui-menu-content-transform-origin':
-                      'var(--gui-popper-transform-origin)',
-                    '--gui-menu-content-available-width':
-                      'var(--gui-popper-available-width)',
-                    '--gui-menu-content-available-height':
-                      'var(--gui-popper-available-height)',
-                    '--gui-menu-trigger-width': 'var(--gui-popper-anchor-width)',
-                    '--gui-menu-trigger-height':
-                      'var(--gui-popper-anchor-height)',
+                    '--hanzogui-menu-content-transform-origin':
+                      'var(--hanzogui-popper-transform-origin)',
+                    '--hanzogui-menu-content-available-width':
+                      'var(--hanzogui-popper-available-width)',
+                    '--hanzogui-menu-content-available-height':
+                      'var(--hanzogui-popper-available-height)',
+                    '--hanzogui-menu-trigger-width':
+                      'var(--hanzogui-popper-anchor-width)',
+                    '--hanzogui-menu-trigger-height':
+                      'var(--hanzogui-popper-anchor-height)',
                   } as React.CSSProperties),
                 }
               : props.style
@@ -542,14 +543,15 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
             ? {
                 ...(props.style as object),
                 ...({
-                  '--gui-menu-content-transform-origin':
-                    'var(--gui-popper-transform-origin)',
-                  '--gui-menu-content-available-width':
-                    'var(--gui-popper-available-width)',
-                  '--gui-menu-content-available-height':
-                    'var(--gui-popper-available-height)',
-                  '--gui-menu-trigger-width': 'var(--gui-popper-anchor-width)',
-                  '--gui-menu-trigger-height': 'var(--gui-popper-anchor-height)',
+                  '--hanzogui-menu-content-transform-origin':
+                    'var(--hanzogui-popper-transform-origin)',
+                  '--hanzogui-menu-content-available-width':
+                    'var(--hanzogui-popper-available-width)',
+                  '--hanzogui-menu-content-available-height':
+                    'var(--hanzogui-popper-available-height)',
+                  '--hanzogui-menu-trigger-width': 'var(--hanzogui-popper-anchor-width)',
+                  '--hanzogui-menu-trigger-height':
+                    'var(--hanzogui-popper-anchor-height)',
                 } as React.CSSProperties),
               }
             : null
@@ -571,7 +573,7 @@ export function createNonNativeMenu(params: CreateBaseMenuProps) {
     showsVerticalScrollIndicator: false,
 
     '$platform-web': {
-      maxHeight: 'var(--gui-menu-content-available-height)',
+      maxHeight: 'var(--hanzogui-menu-content-available-height)',
     },
   })
 

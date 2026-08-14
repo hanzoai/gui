@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/demos",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "source": "demos/src/index.tsx",
   "files": [
     "src",
@@ -40,10 +40,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build --skip-types",
-    "watch": "gui-build --skip-types --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/animate-presence": "workspace:*",
@@ -78,7 +78,7 @@
     "@hanzogui/dev-config": "workspace:*",
     "@hanzogui/theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -86,9 +86,6 @@
     "react-native": "0.83.2"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-native": "*"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+    "react": ">=19"
+  }
 }

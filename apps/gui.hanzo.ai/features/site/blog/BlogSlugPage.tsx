@@ -1,6 +1,6 @@
 import { ThemeTint } from '@hanzogui/logo'
 import { ArrowLeft } from '@hanzogui/lucide-icons-2'
-import type { Frontmatter } from '@vxrn/mdx'
+import type { Frontmatter } from '@vxrn/mdx-rust'
 import {
   Button,
   H1,
@@ -12,7 +12,7 @@ import {
   View,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { usePathname } from 'one'
 import { Container } from '~/components/Containers'
@@ -119,8 +119,8 @@ export function BlogSlugPage(props: BlogPost) {
   const { frontmatter, relatedPosts, Component } = props
   const enc = encodeURIComponent
   const authorTwitter = authors?.[frontmatter.by || '']?.twitter
-  const tweetText = `${frontmatter.title} by @${authorTwitter} on the @hanloai blog.`
-  const tweetUrl = `https://gui.hanzo.ai/blog/${frontmatter.slug}`
+  const tweetText = `${frontmatter.title} by @${authorTwitter} on the @hanzogui_js blog.`
+  const tweetUrl = `https://hanzogui.dev/blog/${frontmatter.slug}`
   const twitterShare = `https://x.com/intent/tweet?text="${enc(
     tweetText
   )}"&url=${enc(tweetUrl)}` as const

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/kitchen-sink-shared",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "private": true,
   "main": "src/index.ts",
   "dependencies": {
@@ -8,12 +8,9 @@
     "@hanzogui/demos": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/toast": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-native": "*"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+    "react": ">=19"
+  }
 }

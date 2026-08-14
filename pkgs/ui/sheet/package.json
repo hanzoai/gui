@@ -1,12 +1,19 @@
 {
   "name": "@hanzogui/sheet",
-  "version": "7.3.1",
-  "license": "BSD-3-Clause",
+  "version": "8.1.1",
+  "license": "MIT",
   "source": "src/index.ts",
-  "type": "module",
-  "sideEffects": [
-    "*.css"
+  "files": [
+    "controller",
+    "dist",
+    "next.md",
+    "setup-gesture-handler.cjs",
+    "setup-gesture-handler",
+    "src",
+    "types"
   ],
+  "type": "module",
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -35,7 +42,7 @@
       "module": "./dist/esm/controller.mjs",
       "import": "./dist/esm/controller.mjs",
       "require": "./dist/cjs/controller.cjs",
-      "default": "./dist/cjs/controller.native.js"
+      "default": "./dist/esm/controller.mjs"
     },
     "./setup-gesture-handler": {
       "types": "./types/setupGestureHandler.d.ts",
@@ -51,9 +58,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean"
   },
   "dependencies": {
     "@hanzogui/adapt": "workspace:*",
@@ -73,38 +80,19 @@
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-did-finish-ssr": "workspace:*",
     "@hanzogui/use-keyboard-visible": "workspace:*",
-    "@hanzogui/z-index-stack": "workspace:*",
-    "react-native-web": "^0.21.0"
+    "@hanzogui/web": "workspace:*",
+    "@hanzogui/z-index-stack": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react": ">=19",
     "react-native": "0.83.2",
-    "react-native-gesture-handler": "~2.30.0"
+    "react-native-gesture-handler": "~2.30.0",
+    "react-native-safe-area-context": "~5.7.0"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-native": "*",
-    "react-native-gesture-handler": ">=2.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react-native-gesture-handler": {
-      "optional": true
-    },
-    "react-native": {
-      "optional": true
-    }
+    "react": ">=19"
   },
   "module:jsx": "dist/jsx",
-  "removeSideEffects": true,
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ],
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "removeSideEffects": true
 }

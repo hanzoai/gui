@@ -61,9 +61,29 @@ function processEnv(): RawEnv {
     const e = process.env
     return {
       apiUrl: first(e.NEXT_PUBLIC_HANZO_API_URL, e.PUBLIC_HANZO_API_URL, e.HANZO_API_URL),
-      ingestKey: first(e.NEXT_PUBLIC_HANZO_INGEST_KEY, e.PUBLIC_HANZO_INGEST_KEY, e.HANZO_INGEST_KEY),
-      product: first(e.NEXT_PUBLIC_HANZO_PRODUCT, e.PUBLIC_HANZO_PRODUCT, e.HANZO_PRODUCT),
-      telemetry: first(e.NEXT_PUBLIC_HANZO_TELEMETRY, e.PUBLIC_HANZO_TELEMETRY, e.HANZO_TELEMETRY),
+      // PUBLISHABLE_KEY is the name, and it is the one the fleet already
+      // carries end to end: KMS holds `deploy/PUBLISHABLE_KEY`, each Dockerfile
+      // takes it as a build-arg, and @hanzo/event reads the same spelling. The
+      // HANZO_INGEST_KEY family below is the older spelling still set by three
+      // surfaces; it is read second and is being retired, not extended.
+      ingestKey: first(
+        e.NEXT_PUBLIC_PUBLISHABLE_KEY,
+        e.PUBLIC_PUBLISHABLE_KEY,
+        e.PUBLISHABLE_KEY,
+        e.NEXT_PUBLIC_HANZO_INGEST_KEY,
+        e.PUBLIC_HANZO_INGEST_KEY,
+        e.HANZO_INGEST_KEY
+      ),
+      product: first(
+        e.NEXT_PUBLIC_HANZO_PRODUCT,
+        e.PUBLIC_HANZO_PRODUCT,
+        e.HANZO_PRODUCT
+      ),
+      telemetry: first(
+        e.NEXT_PUBLIC_HANZO_TELEMETRY,
+        e.PUBLIC_HANZO_TELEMETRY,
+        e.HANZO_TELEMETRY
+      ),
       debug: first(e.NEXT_PUBLIC_HANZO_TELEMETRY_DEBUG, e.PUBLIC_HANZO_TELEMETRY_DEBUG),
     }
   } catch {
@@ -73,14 +93,38 @@ function processEnv(): RawEnv {
 
 function metaEnv(): RawEnv {
   try {
-    const m = import.meta as unknown as { env?: Record<string, string | undefined> }
-    const e = m?.env
+    // MEMBER form, deliberately. Aliasing a bare `import.meta` first
+    // (`const m = import.meta`) is a parse-time SyntaxError in a CommonJS
+    // consumer: every babel plugin that rewrites `import.meta` for a CJS target
+    // matches only the member expression, so a bare one survives the transform
+    // and takes the whole module down. Jest is the one that finds this.
+    const e = (import.meta as unknown as { env?: Record<string, string | undefined> })
+      ?.env
     if (!e) return {}
     return {
-      apiUrl: first(e.VITE_HANZO_API_URL, e.EXPO_PUBLIC_HANZO_API_URL, e.PUBLIC_HANZO_API_URL),
-      ingestKey: first(e.VITE_HANZO_INGEST_KEY, e.EXPO_PUBLIC_HANZO_INGEST_KEY, e.PUBLIC_HANZO_INGEST_KEY),
-      product: first(e.VITE_HANZO_PRODUCT, e.EXPO_PUBLIC_HANZO_PRODUCT, e.PUBLIC_HANZO_PRODUCT),
-      telemetry: first(e.VITE_HANZO_TELEMETRY, e.EXPO_PUBLIC_HANZO_TELEMETRY, e.PUBLIC_HANZO_TELEMETRY),
+      apiUrl: first(
+        e.VITE_HANZO_API_URL,
+        e.EXPO_PUBLIC_HANZO_API_URL,
+        e.PUBLIC_HANZO_API_URL
+      ),
+      ingestKey: first(
+        e.VITE_PUBLISHABLE_KEY,
+        e.EXPO_PUBLIC_PUBLISHABLE_KEY,
+        e.PUBLIC_PUBLISHABLE_KEY,
+        e.VITE_HANZO_INGEST_KEY,
+        e.EXPO_PUBLIC_HANZO_INGEST_KEY,
+        e.PUBLIC_HANZO_INGEST_KEY
+      ),
+      product: first(
+        e.VITE_HANZO_PRODUCT,
+        e.EXPO_PUBLIC_HANZO_PRODUCT,
+        e.PUBLIC_HANZO_PRODUCT
+      ),
+      telemetry: first(
+        e.VITE_HANZO_TELEMETRY,
+        e.EXPO_PUBLIC_HANZO_TELEMETRY,
+        e.PUBLIC_HANZO_TELEMETRY
+      ),
       debug: first(e.VITE_HANZO_TELEMETRY_DEBUG, e.EXPO_PUBLIC_HANZO_TELEMETRY_DEBUG),
     }
   } catch {
@@ -118,6 +162,45 @@ export function productFromHost(hostname: string | undefined): string | undefine
   // `console.hanzo.ai` → console, `cloud.hanzo.ai` → cloud, `zoo.ngo` → zoo.
   const label = h.split('.')[0]
   return label && label !== '' ? label : undefined
+}
+
+/** React Native: a JS runtime with a global `window` but no DOM — no
+ *  `document`, no `location`, no History. `navigator.product === 'ReactNative'`
+ *  is the runtime's own tell, and the one thing that separates a mobile app from
+ *  a browser (both have `window`) and from SSR (which has neither). */
+export function isReactNative(): boolean {
+  try {
+    return (
+      typeof navigator !== 'undefined' &&
+      (navigator as { product?: string }).product === 'ReactNative'
+    )
+  } catch {
+    return false
+  }
+}
+
+/** The product implied by the HOST RUNTIME rather than by the URL.
+ *
+ *  A desktop shell serves one bundle from three different origins —
+ *  `tauri://localhost`, `http://tauri.localhost` on Windows, and the dev
+ *  server's `localhost:5175` — so a hostname rule reads the same app three
+ *  different ways and gets all three wrong. The Tauri bridge global IS the
+ *  runtime, so it answers identically in development and in the shipped app,
+ *  which is what lets a desktop app report as `desktop` with no app-side code.
+ *  React Native has no URL at all, so its runtime is the ONLY source — an
+ *  unconfigured mobile app reports as `mobile` the same way.
+ *
+ *  Checked BEFORE the hostname and AFTER the environment, so a surface can
+ *  still name itself. */
+export function runtimeProduct(): string | undefined {
+  try {
+    const g = globalThis as Record<string, unknown>
+    if (g.__TAURI_INTERNALS__ !== undefined || g.__TAURI__ !== undefined) return 'desktop'
+  } catch {
+    /* a locked-down global object — fall through to the hostname */
+  }
+  if (isReactNative()) return 'mobile'
+  return undefined
 }
 
 const isOff = (v: string | undefined): boolean =>

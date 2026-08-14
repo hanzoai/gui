@@ -6,7 +6,7 @@ import {
   Spinner,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { DEFAULT_API_URL, type Booking } from './client'
 import { useBooking } from './hooks'
 import { visitorTimeZone } from './time'

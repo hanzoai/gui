@@ -1,5 +1,5 @@
 import { Toast, useToasts } from '@hanzogui/toast/v2'
-import { XStack, YStack } from 'hanzogui'
+import { XStack, YStack } from '@hanzo/gui'
 
 export const NativeToast = () => {
   return (

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/react-native-web-internals",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "description": "React Native for Web",
   "keywords": [
     "react",
@@ -8,7 +8,7 @@
     "react-native",
     "web"
   ],
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "files": [
     "types",
     "dist",
@@ -30,10 +30,10 @@
     }
   },
   "scripts": {
-    "build": "gui-build --skip-native",
-    "watch": "gui-build --skip-native --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/normalize-css-color": "workspace:*",
@@ -41,13 +41,12 @@
     "@hanzogui/react-native-use-responder-events": "workspace:*",
     "@hanzogui/simple-hash": "workspace:*",
     "@hanzogui/use-element-layout": "workspace:*",
-    "@hanzogui/web": "workspace:*",
-    "@testing-library/react": "^16.3.2"
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "react": ">=19",
-    "react-dom": "*"
+    "react-dom": ">=19"
   },
   "peerDependencies": {
     "react": ">=19",
@@ -55,6 +54,5 @@
   },
   "tags": [
     "react"
-  ],
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  ]
 }

@@ -1,4 +1,4 @@
-import { H2, SizableText, Theme, XStack, YStack, useThemeName } from 'hanzogui'
+import { H2, SizableText, Theme, XStack, YStack, useThemeName } from '@hanzo/gui'
 import { HighlightText } from './HighlightText'
 
 export const VideoSection = () => {
@@ -98,7 +98,7 @@ export const VideoSection = () => {
                 color={isDark ? '#666' : '#888'}
                 letterSpacing={2}
               >
-                HANZO_GUI
+                GUI
               </SizableText>
             </YStack>
 

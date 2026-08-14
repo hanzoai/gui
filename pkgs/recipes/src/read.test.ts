@@ -45,7 +45,16 @@ const recipeFixture = (slug: string, recipeDeps: string[] = []): Recipe => ({
 })
 
 test('listRecipes hits /v1/base path and returns items', async () => {
-  responses = [() => jsonResponse({ items: [recipeFixture('a'), recipeFixture('b')], page: 1, perPage: 200, totalItems: 2, totalPages: 1 })]
+  responses = [
+    () =>
+      jsonResponse({
+        items: [recipeFixture('a'), recipeFixture('b')],
+        page: 1,
+        perPage: 200,
+        totalItems: 2,
+        totalPages: 1,
+      }),
+  ]
   const recipes = await listRecipes({ baseUrl: BASE })
   expect(recipes).toHaveLength(2)
   expect(calls[0].url).toContain('/v1/base/collections/gui_recipes/records')
@@ -53,7 +62,16 @@ test('listRecipes hits /v1/base path and returns items', async () => {
 })
 
 test('getRecipe filters by slug and returns first item', async () => {
-  responses = [() => jsonResponse({ items: [recipeFixture('foo')], page: 1, perPage: 1, totalItems: 1, totalPages: 1 })]
+  responses = [
+    () =>
+      jsonResponse({
+        items: [recipeFixture('foo')],
+        page: 1,
+        perPage: 1,
+        totalItems: 1,
+        totalPages: 1,
+      }),
+  ]
   const recipe = await getRecipe('foo', { baseUrl: BASE })
   expect(recipe.slug).toBe('foo')
   expect(calls[0].url).toContain('filter=')
@@ -61,7 +79,9 @@ test('getRecipe filters by slug and returns first item', async () => {
 })
 
 test('getRecipe throws 404 when no items', async () => {
-  responses = [() => jsonResponse({ items: [], page: 1, perPage: 1, totalItems: 0, totalPages: 0 })]
+  responses = [
+    () => jsonResponse({ items: [], page: 1, perPage: 1, totalItems: 0, totalPages: 0 }),
+  ]
   try {
     await getRecipe('missing', { baseUrl: BASE })
     throw new Error('should have thrown')
@@ -73,22 +93,68 @@ test('getRecipe throws 404 when no items', async () => {
 
 test('resolveRecipe walks transitive recipeDeps', async () => {
   responses = [
-    () => jsonResponse({ items: [recipeFixture('parent', ['childA', 'childB'])], page: 1, perPage: 1, totalItems: 1, totalPages: 1 }),
-    () => jsonResponse({ items: [recipeFixture('childA', ['grandchild'])], page: 1, perPage: 1, totalItems: 1, totalPages: 1 }),
-    () => jsonResponse({ items: [recipeFixture('childB')], page: 1, perPage: 1, totalItems: 1, totalPages: 1 }),
-    () => jsonResponse({ items: [recipeFixture('grandchild')], page: 1, perPage: 1, totalItems: 1, totalPages: 1 }),
+    () =>
+      jsonResponse({
+        items: [recipeFixture('parent', ['childA', 'childB'])],
+        page: 1,
+        perPage: 1,
+        totalItems: 1,
+        totalPages: 1,
+      }),
+    () =>
+      jsonResponse({
+        items: [recipeFixture('childA', ['grandchild'])],
+        page: 1,
+        perPage: 1,
+        totalItems: 1,
+        totalPages: 1,
+      }),
+    () =>
+      jsonResponse({
+        items: [recipeFixture('childB')],
+        page: 1,
+        perPage: 1,
+        totalItems: 1,
+        totalPages: 1,
+      }),
+    () =>
+      jsonResponse({
+        items: [recipeFixture('grandchild')],
+        page: 1,
+        perPage: 1,
+        totalItems: 1,
+        totalPages: 1,
+      }),
   ]
   const plan = await resolveRecipe('parent', { baseUrl: BASE, installDir: '/tmp/test' })
   expect(plan.recipe.slug).toBe('parent')
-  expect(plan.transitiveRecipes.map((r) => r.slug).sort()).toEqual(['childA', 'childB', 'grandchild'])
+  expect(plan.transitiveRecipes.map((r) => r.slug).sort()).toEqual([
+    'childA',
+    'childB',
+    'grandchild',
+  ])
   expect(plan.targetPaths).toHaveLength(4)
   expect(plan.targetPaths.every((p) => p.startsWith('/tmp/test/'))).toBe(true)
 })
 
 test('resolveRecipe avoids re-fetching cycles', async () => {
   responses = [
-    () => jsonResponse({ items: [recipeFixture('a', ['b'])], page: 1, perPage: 1, totalItems: 1, totalPages: 1 }),
-    () => jsonResponse({ items: [recipeFixture('b', ['a'])], page: 1, perPage: 1, totalItems: 1, totalPages: 1 }),
+    () =>
+      jsonResponse({
+        items: [recipeFixture('a', ['b'])],
+        page: 1,
+        perPage: 1,
+        totalItems: 1,
+        totalPages: 1,
+      }),
+    () =>
+      jsonResponse({
+        items: [recipeFixture('b', ['a'])],
+        page: 1,
+        perPage: 1,
+        totalItems: 1,
+        totalPages: 1,
+      }),
   ]
   const plan = await resolveRecipe('a', { baseUrl: BASE, installDir: '/tmp/test' })
   expect(plan.recipe.slug).toBe('a')

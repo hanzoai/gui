@@ -1,6 +1,6 @@
 import { ThemeTint, useTint } from '@hanzogui/logo'
 import { ChevronLeft, ChevronRight } from '@hanzogui/lucide-icons-2'
-import { XStack, YStack, useThemeName } from 'hanzogui'
+import { XStack, YStack, useThemeName } from '@hanzo/gui'
 
 export const PageThemeCarousel = () => {
   const tint = useTint()

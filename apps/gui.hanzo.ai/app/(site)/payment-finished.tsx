@@ -1,6 +1,6 @@
 import { useRouter } from 'one'
 import { useEffect } from 'react'
-import { H1, H4, Paragraph, YStack } from 'hanzogui'
+import { H1, H4, Paragraph, YStack } from '@hanzo/gui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { sendEvent } from '~/features/analytics/sendEvent'
 import { accountModal } from '~/features/site/purchase/accountModalStore'
@@ -37,9 +37,8 @@ export default function PaymentFinishedPage() {
           </Paragraph>
 
           <Paragraph size="$4" color="$color10">
-            We're confirming the payment with our billing provider. Once
-            complete your Account modal will open and you can set up your
-            project.
+            We're checking for the Stripe webhook, once complete your Account modal should
+            open and you can set up your project.
           </Paragraph>
         </YStack>
       </Container>

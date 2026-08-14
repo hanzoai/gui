@@ -9,7 +9,7 @@ export async function readGuiOptions({ cwd = '.' }: { cwd: string }): Promise<{
   exists: boolean
   options: GuiOptions
 }> {
-  const filePath = join(cwd, 'gui.json')
+  const filePath = join(cwd, 'hanzogui.json')
 
   if (!(await pathExists(filePath))) {
     return {
@@ -33,7 +33,7 @@ export async function readGuiOptions({ cwd = '.' }: { cwd: string }): Promise<{
       },
     }
   } catch (err: any) {
-    console.error(`Error reading gui.json: ${err.message} ${err.stack}`)
+    console.error(`Error reading hanzogui.json: ${err.message} ${err.stack}`)
 
     return {
       exists: false,

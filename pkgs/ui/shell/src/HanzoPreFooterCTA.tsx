@@ -16,7 +16,8 @@
 import React from 'react'
 import { resolveSurface } from './HanzoHeader'
 import { type HanzoLink, type HanzoSurface } from './hanzo-registry'
-import { ACCENT, CHROME, FS } from './theme'
+import { CHROME, FS, TAP_H, cta } from './theme'
+import { useShellStyles } from './shellStyles'
 
 export interface HanzoPreFooterCTAProps {
   /** A `HanzoSurface`, or a surface id / hostname to resolve one. */
@@ -25,11 +26,13 @@ export interface HanzoPreFooterCTAProps {
 }
 
 export function HanzoPreFooterCTA({ surface, className }: HanzoPreFooterCTAProps) {
+  useShellStyles()
   const s = resolveSurface(surface)
   const { heading, actions } = s.preFooter
 
   return (
     <section
+      data-hanzo-shell=""
       className={className}
       aria-label={heading}
       style={{
@@ -63,9 +66,15 @@ export function HanzoPreFooterCTA({ surface, className }: HanzoPreFooterCTAProps
         >
           {heading}
         </h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
+        <div
+          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}
+        >
           {actions.map((action, i) => (
-            <ActionButton key={action.id} link={action} variant={i === 0 ? 'filled' : 'ghost'} />
+            <ActionButton
+              key={action.id}
+              link={action}
+              variant={i === 0 ? 'filled' : 'ghost'}
+            />
           ))}
         </div>
       </div>
@@ -75,35 +84,25 @@ export function HanzoPreFooterCTA({ surface, className }: HanzoPreFooterCTAProps
 
 /* ── Piece ───────────────────────────────────────────────────────────────── */
 
-function ActionButton({ link, variant }: { link: HanzoLink; variant: 'ghost' | 'filled' }) {
+function ActionButton({
+  link,
+  variant,
+}: {
+  link: HanzoLink
+  variant: 'ghost' | 'filled'
+}) {
   const filled = variant === 'filled'
   return (
     <a
       href={link.href}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        height: 42,
-        padding: '0 22px',
-        borderRadius: 10,
-        textDecoration: 'none',
-        fontSize: FS.base,
-        fontWeight: 600,
-        whiteSpace: 'nowrap',
-        border: filled ? '1px solid transparent' : `1px solid ${CHROME.border}`,
-        background: filled ? ACCENT : 'transparent',
-        color: filled ? '#0b0b0f' : CHROME.fg,
-        transition: 'opacity 120ms ease, background 120ms ease',
-      }}
+      style={{ ...cta(filled, TAP_H), fontSize: FS.base }}
       onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        if (filled) el.style.opacity = '0.85'
-        else el.style.background = CHROME.hover
+        if (filled) e.currentTarget.style.opacity = '0.85'
+        else e.currentTarget.style.background = CHROME.hover
       }}
       onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        if (filled) el.style.opacity = '1'
-        else el.style.background = 'transparent'
+        if (filled) e.currentTarget.style.opacity = '1'
+        else e.currentTarget.style.background = 'transparent'
       }}
     >
       {link.label}

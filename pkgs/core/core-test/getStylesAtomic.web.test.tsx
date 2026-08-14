@@ -1,16 +1,26 @@
 import { beforeAll, expect, test } from 'vitest'
+import { StyleObjectIdentifier, StyleObjectRules } from '@hanzogui/helpers'
 
 import config from '../config-default'
-import {
-  StyleObjectIdentifier,
-  StyleObjectRules,
-  createGui,
-  getCSSStylesAtomic,
-} from '../core/src'
+import { createGui, getCSSStylesAtomic } from '../web/src'
+import { expandStyle } from '../web/src/helpers/expandStyle'
+
+type StyleCompat = 'legacy' | 'react-native' | 'web'
 
 beforeAll(() => {
   createGui(config.getDefaultGuiConfig())
 })
+
+function setStyleCompat(styleCompat: StyleCompat) {
+  const next = config.getDefaultGuiConfig()
+  createGui({
+    ...next,
+    settings: {
+      ...next.settings,
+      styleCompat,
+    },
+  })
+}
 
 test(`should expand webkit user-select`, () => {
   expect(
@@ -76,6 +86,59 @@ test(`outline longhands get doubled selector`, () => {
   })
   const rule = out[0][StyleObjectRules][0]
   expect(rule).toMatch(/\._[^\s]+\._[^\s]+\{/)
+})
+
+test(`styleCompat expands flex in legacy mode`, () => {
+  setStyleCompat('legacy')
+
+  expect(expandStyle('flex', 1)).toEqual([
+    ['flexGrow', 1],
+    ['flexShrink', 1],
+    ['flexBasis', 'auto'],
+  ])
+})
+
+test(`styleCompat expands flex in react-native mode`, () => {
+  setStyleCompat('react-native')
+
+  expect(expandStyle('flex', 1)).toEqual([
+    ['flexGrow', 1],
+    ['flexShrink', 0],
+    ['flexBasis', 0],
+  ])
+  expect(expandStyle('flex', 0)).toEqual([
+    ['flexGrow', 0],
+    ['flexShrink', 0],
+    ['flexBasis', 'auto'],
+  ])
+  expect(expandStyle('flex', -2)).toEqual([
+    ['flexGrow', 0],
+    ['flexShrink', 2],
+    ['flexBasis', 'auto'],
+  ])
+})
+
+test(`styleCompat expands flex in web mode`, () => {
+  setStyleCompat('web')
+
+  expect(expandStyle('flex', 1)).toEqual([
+    ['flexGrow', 1],
+    ['flexShrink', 1],
+    ['flexBasis', 0],
+  ])
+  expect(expandStyle('flex', -2)).toEqual([['flex', -2]])
+})
+
+test(`styleCompat preserves special and string flex values`, () => {
+  for (const styleCompat of ['legacy', 'react-native', 'web'] as const) {
+    setStyleCompat(styleCompat)
+    expect(expandStyle('flex', -1)).toEqual([
+      ['flexGrow', 0],
+      ['flexShrink', 1],
+      ['flexBasis', 'auto'],
+    ])
+    expect(expandStyle('flex', 'unset')).toEqual([['flex', 'unset']])
+  }
 })
 
 // test(`should be fast`, () => {

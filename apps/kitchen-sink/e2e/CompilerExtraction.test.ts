@@ -1,41 +1,29 @@
 /**
  * Tests compiler extraction with theme functionality and performance.
- * Runs gui build to generate .native.tsx before testing.
  */
 
 import * as assert from 'assert'
-import { execSync } from 'child_process'
-import { unlinkSync, existsSync } from 'fs'
-import { by, device, element, expect, waitFor } from 'detox'
-import { navigateToTestCase } from './utils/navigation'
+import { by, element, expect, waitFor } from 'detox'
+import { remountDirectUseCase } from './utils/navigation'
 import { getDominantColor, isBlueish, formatRGB } from './utils/colors'
-import { safeLaunchApp, safeReloadApp } from './utils/detox'
-
-const SOURCE_FILE = 'src/usecases/CompilerExtraction.tsx'
-const NATIVE_FILE = 'src/usecases/CompilerExtraction.native.tsx'
-const EXPECTED_OPTIMIZATIONS = 18
+import { safeLaunchApp } from './utils/detox'
 
 describe('CompilerExtraction', () => {
   beforeAll(async () => {
-    // remove existing .native.tsx to force rebuild
-    if (existsSync(NATIVE_FILE)) {
-      unlinkSync(NATIVE_FILE)
-    }
+    await safeLaunchApp({
+      newInstance: true,
+      launchArgs: { directUseCase: 'CompilerExtraction' },
+    })
+    await waitFor(element(by.id('compiler-extraction-root')))
+      .toExist()
+      .withTimeout(180000)
+  })
 
-    // run gui build to generate optimized .native.tsx
-    console.log('Running gui build...')
-    execSync(
-      `npx gui build ${SOURCE_FILE} --target native --output-around --expect-optimizations ${EXPECTED_OPTIMIZATIONS}`,
-      { stdio: 'inherit' }
-    )
-    console.log('Build complete, .native.tsx generated')
-
-    await safeLaunchApp({ newInstance: true })
+  beforeEach(async () => {
+    await remountDirectUseCase('compiler-extraction-root')
   })
 
   it('should render and respond to theme changes', async () => {
-    await safeReloadApp()
-    await navigateToTestCase('CompilerExtraction', 'compiler-extraction-root')
     await new Promise((r) => setTimeout(r, 300))
 
     // verify components render
@@ -89,8 +77,6 @@ describe('CompilerExtraction', () => {
   })
 
   it('should benchmark optimized vs non-optimized (best of 3)', async () => {
-    await safeReloadApp()
-    await navigateToTestCase('CompilerExtraction', 'compiler-extraction-root')
     await new Promise((r) => setTimeout(r, 300))
 
     // show benchmark

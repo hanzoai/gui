@@ -1,4 +1,4 @@
-import { isIos } from '@hanzogui/constants'
+import { supportsDynamicColorIOS } from '@hanzogui/constants'
 import type { MutableRefObject } from 'react'
 import { getConfig, getSetting } from '../config'
 import { getVariable } from '../createVariable'
@@ -113,7 +113,7 @@ export function getThemeProxied(
         ...value,
         get val() {
           // when they touch the actual value we only track it if its a variable (web), its ignored!
-          if (!globalThis.guiAvoidTracking) {
+          if (!globalThis.hanzoguiAvoidTracking) {
             // always track .val - not scheme optimized since they're getting raw value
             track(key, false)
           }
@@ -126,23 +126,29 @@ export function getThemeProxied(
           const { name, scheme } = curState
 
           if (process.env.GUI_TARGET === 'native') {
-            // ios can avoid re-rendering for scheme changes (light↔dark) when using DynamicColorIOS
-            // this does NOT work for sub-theme changes (red→blue) or when scheme inverses from parent
+            // ios can avoid re-rendering for scheme changes (light↔dark) when using DynamicColorIOS.
+            // DynamicColorIOS always resolves by the OS appearance, so this is only correct for a
+            // subtree that follows the OS scheme. it does NOT work when a <Theme> forces a scheme
+            // away from the OS/root — at any depth. `inverses` counts scheme flips from the root, so
+            // `inverses === 0` is exactly "this subtree still follows the OS". isInverse alone was
+            // wrong: a sub-theme keeping its parent's forced scheme (dark_blue under a forced dark,
+            // light root) has isInverse=false yet must NOT optimize, or iOS would pick the OS-scheme
+            // value (light) instead of the forced dark value.
             const fastSchemeChange = getSetting('fastSchemeChange')
             const rootMatchesSystem = doesRootSchemeMatchSystem()
             const shouldOptimize =
               scheme &&
               platform !== 'web' &&
-              isIos &&
+              supportsDynamicColorIOS &&
               !curProps.deopt &&
-              !curState.isInverse &&
+              !curState.inverses &&
               fastSchemeChange &&
               rootMatchesSystem
 
             if (process.env.NODE_ENV === 'development' && curProps.debug === 'verbose') {
               console.info(
                 ` 🎨 useTheme().get(${key}) theme=${name} scheme=${scheme}`,
-                `\n   shouldOptimize=${shouldOptimize} (iOS=${isIos} deopt=${curProps.deopt} isInverse=${curState.isInverse} fastScheme=${fastSchemeChange} rootMatch=${rootMatchesSystem})`
+                `\n   shouldOptimize=${shouldOptimize} (dynamicColorIOS=${supportsDynamicColorIOS} deopt=${curProps.deopt} inverses=${curState.inverses} fastScheme=${fastSchemeChange} rootMatch=${rootMatchesSystem})`
               )
             }
 
@@ -177,7 +183,7 @@ export function getThemeProxied(
             if (process.env.NODE_ENV === 'development' && curProps.debug) {
               console.info(
                 ` 🎨 useTheme().get(${key}) tracking key (not optimizing)`,
-                `\n   platform=${platform} isIOS=${isIos} deopt=${curProps.deopt} fastScheme=${fastSchemeChange}`
+                `\n   platform=${platform} dynamicColorIOS=${supportsDynamicColorIOS} deopt=${curProps.deopt} fastScheme=${fastSchemeChange}`
               )
             }
 

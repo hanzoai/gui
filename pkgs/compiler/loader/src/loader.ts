@@ -3,21 +3,34 @@ import type { GuiOptions } from '@hanzogui/types'
 import type { LoaderContext } from 'webpack'
 import { requireResolve } from './requireResolve'
 
-const { getPragmaOptions } = StaticWorker
+const { getPragmaOptions, isExtractable } = StaticWorker
 
 Error.stackTraceLimit = Number.POSITIVE_INFINITY
 
-// pass loader as path
-let CSS_LOADER_PATH = ''
-
-try {
-  CSS_LOADER_PATH = requireResolve('./css.cjs')
-} catch {
+/**
+ * webpack takes the css loader as a PATH, and the same source is emitted next
+ * to this file as css.cjs by the CJS build and css.mjs by the ESM build.
+ *
+ * The candidates used to be .cjs / .esm / .js. No build has ever written a
+ * `css.esm` or a `css.js`, so from the ESM build all three missed and the last
+ * one threw MODULE_NOT_FOUND while the real file, css.mjs, sat beside it. That
+ * is the whole reason `withGui()` could not be loaded from a .mjs next.config:
+ * static extraction was unreachable and apps fell back to shipping the atomic
+ * sheet inline.
+ */
+const CSS_LOADER_PATH = ['./css.cjs', './css.mjs'].reduce((found, candidate) => {
+  if (found) return found
   try {
-    CSS_LOADER_PATH = requireResolve('./css.esm')
+    return requireResolve(candidate)
   } catch {
-    CSS_LOADER_PATH = requireResolve('./css.js')
+    return ''
   }
+}, '')
+
+if (!CSS_LOADER_PATH) {
+  throw new Error(
+    `@hanzogui/loader: no css.cjs or css.mjs beside the loader — this build of the package is incomplete.`
+  )
 }
 
 let index = 0
@@ -32,18 +45,21 @@ export const loader = async function loader(
   const callback = this.async()
   const sourcePath = `${this.resourcePath}`
 
-  if (sourcePath.includes('node_modules') || sourcePath.includes('lucide-icons')) {
+  const options: GuiOptions = {
+    // @ts-ignore
+    platform: 'web',
+    ...this.getOptions(),
+  }
+
+  // the same answer extractToClassNames gives, given here so an unextractable
+  // file never costs a worker round-trip
+  if (!isExtractable(sourcePath, options.extractPackages)) {
     return callback(null, sourceIn)
   }
 
   const source = sourceIn.toString()
 
   try {
-    const options: GuiOptions = {
-      // @ts-ignore
-      platform: 'web',
-      ...this.getOptions(),
-    }
 
     const { shouldDisable, shouldPrintDebug } = await getPragmaOptions({
       source,
@@ -62,7 +78,7 @@ export const loader = async function loader(
       return callback(null, source)
     }
 
-    const cssPath = `${sourcePath}.${index++}.gui.css`
+    const cssPath = `${sourcePath}.${index++}.hanzogui.css`
 
     // Filter out non-serializable properties before passing to worker
     const serializableOptions = { ...options }

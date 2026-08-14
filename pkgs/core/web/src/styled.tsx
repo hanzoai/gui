@@ -82,7 +82,7 @@ type TextLikeElements =
   | 'u'
   | 'var'
 
-// props that conflict with gui style props
+// props that conflict with hanzogui style props
 type ConflictingHTMLProps =
   | 'color'
   | 'display'

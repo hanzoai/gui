@@ -1,4 +1,4 @@
-import { Button, Text, View, styled, createStyledContext } from 'hanzogui'
+import { Button, Text, View, styled, createStyledContext } from '@hanzo/gui'
 
 export function VariantsOrder() {
   return (

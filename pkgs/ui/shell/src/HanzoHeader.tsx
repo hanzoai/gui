@@ -3,9 +3,9 @@
 /**
  * HanzoHeader — the ONE public/marketing header for every Hanzo property.
  *
- *   ┌──────────────────────────────────────────────────────────────────────┐
- *   │ [H Hanzo Chat]  [Meet Hanzo ⌄]  Product  Models  …    Docs  [New chat] ● │
- *   └──────────────────────────────────────────────────────────────────────┘
+ *   ┌────────────────────────────────────────────────────────────────────────┐
+ *   │ [H]  [Meet Hanzo ⌄] [Products ⌄]  Models  …   ⌕⌘K  Docs  [New chat]  ● │
+ *   └────────────────────────────────────────────────────────────────────────┘
  *
  * Everything is DATA from a `HanzoSurface` (the per-domain config in
  * hanzo-registry): brand name · local nav · secondary (ghost) + primary
@@ -13,13 +13,25 @@
  * current product highlighted. Below 900px the local nav + Meet-Hanzo collapse
  * into a single [Menu] disclosure.
  *
+ * The two mega-menus open on HOVER once the pointer RESTS on a trigger, and they
+ * are ONE value (`useIntent`), never a boolean each — two booleans can say "both
+ * open", a state the row has no layout for. Hover never takes focus; a click, an
+ * Enter or a ↓ does, and Esc closes from anywhere and hands focus back.
+ *
+ * SEARCH IS A HEADER CONTROL, not a menu's. The ⌕⌘K trigger sits with the CTAs
+ * and opens <HanzoCommandPalette> — filter the ~97 primitives, or ask AI —
+ * reachable by ⌘K from anywhere on the page, and full-screen on a phone. It
+ * used to be a field buried inside the Products mega-menu, which meant the only
+ * way to search products was to first open the menu you were trying to skip.
+ *
  * Self-contained: inline styles + theme.ts tokens, React the only runtime dep —
  * drops into Next / Vite / vanilla hosts with zero provider/setup. Sticky, dark
  * chrome, fully keyboard-accessible.
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { HanzoMark } from './mark'
 import { MeetHanzoMenu } from './MeetHanzoMenu'
+import { TryHanzoMenu } from './TryHanzoMenu'
 import { ProductsMegaMenu } from './ProductsMegaMenu'
 import {
   DEFAULT_SURFACE,
@@ -29,9 +41,25 @@ import {
   type HanzoSurface,
   type ProductCategory,
 } from './hanzo-registry'
-import { ACCENT, CHROME, FS, Z } from './theme'
+import {
+  CHROME,
+  FG_ON,
+  FS,
+  GLASS,
+  PANEL,
+  R,
+  SCRIM,
+  TAP_H,
+  Z,
+  control,
+  cta,
+  ghostHover,
+  row,
+} from './theme'
 import { useIsMobile } from './useMediaQuery'
-import { useShellFocusRing } from './focusRing'
+import { useShellStyles } from './shellStyles'
+import { useIntent, type Reach } from './intent'
+import { HanzoCommandPalette, HanzoCommandTrigger } from './HanzoCommandPalette'
 
 const HEADER_H = 60
 
@@ -48,7 +76,8 @@ function withoutProductsDup(nav: HanzoLink[], hasProducts: boolean): HanzoLink[]
   // happens to be labelled "Products". Match the hub id, or a "Products"-labelled
   // link that also points at a /products hub (both, not either).
   return nav.filter(
-    (l) => !(l.id === 'products' || (l.label === 'Products' && /\/products\/?$/.test(l.href))),
+    (l) =>
+      !(l.id === 'products' || (l.label === 'Products' && /\/products\/?$/.test(l.href)))
   )
 }
 
@@ -57,8 +86,12 @@ export interface HanzoHeaderProps {
   surface: HanzoSurface | string
   /** Signed-in account control rendered at the far right (avatar/menu). */
   account?: React.ReactNode
-  /** Opens the caller's Ask-Hanzo affordance (used by the mobile search button). */
-  onAskHanzo?: () => void
+  /**
+   * Host-owned Ask-Hanzo affordance. When supplied, the ⌘K palette's "Ask AI"
+   * mode hands it the question instead of opening Hanzo Chat, so a surface that
+   * already embeds an assistant keeps the visitor on the page.
+   */
+  onAskHanzo?: (question: string) => void
   /**
    * Opt into the RICH ten-category Products mega-menu. When provided, a
    * "Products ⌄" trigger renders next to "Meet Hanzo" and opens
@@ -80,6 +113,23 @@ export interface HanzoHeaderProps {
    * before `account`. A richer alternative to `account`.
    */
   identitySlot?: React.ReactNode
+  /**
+   * Turn the PRIMARY action into the doors menu instead of a link.
+   *
+   * "Try Hanzo" as one href answers a question nobody asked — a visitor wants
+   * to build an app, or keep data somewhere, or chat, or code from a terminal,
+   * and any single destination is wrong for most of them. With this on, the
+   * pill opens <TryHanzoMenu> over the canonical `TRY_HANZO_GROUPS`; the
+   * surface's `primaryCTA.href` stays the fallback the pill still carries, so
+   * the control is a real link before hydration and for anyone without JS.
+   *
+   * DESKTOP ONLY, deliberately. The mobile sheet is ALREADY a list of doors —
+   * it opens Meet Hanzo and every product category inline — so a menu inside it
+   * would be a menu inside a menu, and the phone's big pill would stop being
+   * the one thing on the sheet that just goes somewhere. On a phone the sheet
+   * is the card.
+   */
+  tryMenu?: boolean
   /**
    * Where the DEFAULT "Sign in" affordance points. Supplying it is what makes
    * that affordance exist — omit it (the default) on a surface that already
@@ -105,17 +155,17 @@ export function HanzoHeader({
   currentHref,
   brandSlot,
   identitySlot,
+  tryMenu,
   signInHref,
   className,
 }: HanzoHeaderProps) {
-  useShellFocusRing()
+  useShellStyles()
   const s = resolveSurface(surface)
   const isMobile = useIsMobile(900)
-  const [meetOpen, setMeetOpen] = useState(false)
-  const [productsOpen, setProductsOpen] = useState(false)
+  // ONE open mega-menu, not one boolean per menu.
+  const menu = useIntent<'meet' | 'products' | 'try'>()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const meetBtnRef = useRef<HTMLButtonElement>(null)
-  const productsBtnRef = useRef<HTMLButtonElement>(null)
+  const [searchOpen, setSearchOpen] = useState(false)
 
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const home = `https://${s.host}`
@@ -125,7 +175,8 @@ export function HanzoHeader({
   // Standard account affordance: the surface-supplied `account`, else a default
   // "Sign in" so surfaces can't drift between "Sign in" / "Log in". Rendered ONLY
   // when the host asked for one — a header must never invent a link to nowhere.
-  const accountNode = account ?? (signInHref ? <DefaultAccount href={signInHref} /> : null)
+  const accountNode =
+    account ?? (signInHref ? <DefaultAccount href={signInHref} /> : null)
 
   // Close everything on Esc when a mobile sheet is open.
   useEffect(() => {
@@ -137,194 +188,185 @@ export function HanzoHeader({
     return () => document.removeEventListener('keydown', onKey)
   }, [mobileOpen])
 
-  // The two mega-menus are mutually exclusive; either closes the mobile sheet.
-  const toggleMeet = useCallback(() => {
-    setMobileOpen(false)
-    setProductsOpen(false)
-    setMeetOpen((v) => !v)
-  }, [])
+  const closeMenu = useCallback(() => menu.set(null), [menu.set])
 
-  const toggleProducts = useCallback(() => {
+  // The palette is modal, so summoning it dismisses whatever was hanging open.
+  const openSearch = useCallback(() => {
     setMobileOpen(false)
-    setMeetOpen(false)
-    setProductsOpen((v) => !v)
-  }, [])
+    menu.set(null)
+    setSearchOpen(true)
+  }, [menu.set])
 
   return (
-    <header
-      role="banner"
-      data-hanzo-shell=""
-      className={className}
-      style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: Z.sticky as unknown as number,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        height: HEADER_H,
-        padding: '0 16px',
-        boxSizing: 'border-box',
-        borderBottom: `1px solid ${CHROME.border}`,
-        background: CHROME.bg,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        color: CHROME.fg,
-        fontFamily: CHROME.font,
-      }}
-    >
-      {/* ── Brand (surface-supplied wordmark, or the default mark + name) ── */}
-      {brandSlot ?? (
-        <a
-          href={home}
-          aria-label={s.brandName}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 9,
-            flexShrink: 0,
-            textDecoration: 'none',
-            color: CHROME.fg,
-          }}
-        >
-          {/* Just the H mark — the product wordmark is dropped so the lockup stays
-              tight (H → Meet Hanzo), matching the compact app-shell register. The
-              current product is still named inside the Meet Hanzo menu (highlighted)
-              and by the page itself, so the wordmark here was redundant chrome. */}
-          <HanzoMark size={22} />
-        </a>
-      )}
-
-      {isMobile ? (
-        <>
-          <div style={{ flex: 1 }} />
-          <IconButton label="Search" onClick={() => onAskHanzo?.()}>
-            <SearchGlyph />
-          </IconButton>
-          <IconButton
-            label={mobileOpen ? 'Close menu' : 'Open menu'}
-            expanded={mobileOpen}
-            onClick={() => {
-              setMeetOpen(false)
-              setMobileOpen((v) => !v)
-            }}
-          >
-            {mobileOpen ? <CloseGlyph /> : <MenuGlyph />}
-          </IconButton>
-        </>
-      ) : (
-        <>
-          {/* ── Meet Hanzo ⌄ ── */}
-          <button
-            ref={meetBtnRef}
-            type="button"
-            onClick={toggleMeet}
-            aria-haspopup="dialog"
-            aria-expanded={meetOpen}
-            aria-controls={meetOpen ? 'hanzo-meet-menu' : undefined}
+    // The overlays are SIBLINGS of the bar, not children of it. The bar carries
+    // `backdrop-filter`, and a filtered element is a containing block for every
+    // `position: fixed` descendant — so a palette inside it resolves `inset: 0`
+    // against a 60px-tall strip instead of the viewport, and renders as a sliver
+    // clipped to the header. The mega-menus only escaped this by coincidence
+    // (their `left/right: 0` happened to match the full-width bar). Keeping the
+    // overlays outside makes all four correct for the same reason.
+    <>
+      <header
+        role="banner"
+        data-hanzo-shell=""
+        className={className}
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: Z.sticky as unknown as number,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          height: HEADER_H,
+          padding: '0 16px',
+          boxSizing: 'border-box',
+          borderBottom: `1px solid ${CHROME.border}`,
+          // The one glass recipe, shared with both mega-menu drapes so the bar
+          // and the panel that drops out of it are lit as a single surface.
+          ...GLASS,
+          color: CHROME.fg,
+          fontFamily: CHROME.font,
+        }}
+      >
+        {/* ── Brand (surface-supplied wordmark, or the default mark + name) ── */}
+        {brandSlot ?? (
+          <a
+            href={home}
+            aria-label={s.brandName}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 5,
+              gap: 9,
               flexShrink: 0,
-              height: 34,
-              padding: '0 10px',
-              border: 'none',
-              borderRadius: 9,
-              background: meetOpen ? CHROME.hover : 'transparent',
+              textDecoration: 'none',
               color: CHROME.fg,
-              fontSize: FS.sm,
-              fontWeight: 600,
-              fontFamily: 'inherit',
-              cursor: 'pointer',
-              transition: 'background 120ms ease',
-            }}
-            onMouseEnter={(e) => {
-              if (!meetOpen) (e.currentTarget as HTMLElement).style.background = CHROME.hover
-            }}
-            onMouseLeave={(e) => {
-              if (!meetOpen) (e.currentTarget as HTMLElement).style.background = 'transparent'
             }}
           >
-            Meet Hanzo
-            <Chevron open={meetOpen} />
-          </button>
+            {/* Just the H mark — the product wordmark is dropped so the lockup stays
+                tight (H → Meet Hanzo), matching the compact app-shell register. The
+                current product is still named inside the Meet Hanzo menu (highlighted)
+                and by the page itself, so the wordmark here was redundant chrome. */}
+            <HanzoMark size={22} />
+          </a>
+        )}
 
-          {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
-          {hasProducts ? (
-            <button
-              ref={productsBtnRef}
-              type="button"
-              onClick={toggleProducts}
-              aria-haspopup="dialog"
-              aria-expanded={productsOpen}
-              aria-controls={productsOpen ? 'hanzo-products-menu' : undefined}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 5,
-                flexShrink: 0,
-                height: 34,
-                padding: '0 10px',
-                border: 'none',
-                borderRadius: 9,
-                background: productsOpen ? CHROME.hover : 'transparent',
-                color: CHROME.fg,
-                fontSize: FS.sm,
-                fontWeight: 600,
-                fontFamily: 'inherit',
-                cursor: 'pointer',
-                transition: 'background 120ms ease',
-              }}
-              onMouseEnter={(e) => {
-                if (!productsOpen) (e.currentTarget as HTMLElement).style.background = CHROME.hover
-              }}
-              onMouseLeave={(e) => {
-                if (!productsOpen) (e.currentTarget as HTMLElement).style.background = 'transparent'
+        {isMobile ? (
+          <>
+            <div style={{ flex: 1 }} />
+            {hasProducts ? (
+              <HanzoCommandTrigger onOpen={openSearch} compact height={TAP_H} />
+            ) : null}
+            <IconButton
+              label={mobileOpen ? 'Close menu' : 'Open menu'}
+              expanded={mobileOpen}
+              onClick={() => {
+                menu.set(null)
+                setMobileOpen((v) => !v)
               }}
             >
-              Products
-              <Chevron open={productsOpen} />
-            </button>
-          ) : null}
+              {mobileOpen ? <CloseGlyph /> : <MenuGlyph />}
+            </IconButton>
+          </>
+        ) : (
+          <>
+            {/* ── Meet Hanzo ⌄ ── */}
+            <MenuTrigger
+              label="Meet Hanzo"
+              open={menu.key === 'meet'}
+              reach={menu.trigger('meet')}
+              onStepIn={() => menu.set('meet')}
+              controls="hanzo-meet-menu"
+            />
 
-          {/* ── Local nav ── */}
-          <nav aria-label={`${s.brandName} navigation`} style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
-            {localNav.map((link) => (
-              <NavLink key={link.id} link={link} />
-            ))}
-          </nav>
+            {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
+            {hasProducts ? (
+              <MenuTrigger
+                label="Products"
+                open={menu.key === 'products'}
+                reach={menu.trigger('products')}
+                onStepIn={() => menu.set('products')}
+                controls="hanzo-products-menu"
+              />
+            ) : null}
 
-          <div style={{ flex: 1 }} />
+            {/* ── Local nav ── */}
+            <nav
+              aria-label={`${s.brandName} navigation`}
+              style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}
+            >
+              {localNav.map((link) => (
+                <NavLink key={link.id} link={link} />
+              ))}
+            </nav>
 
-          {/* ── CTAs + identity + account ── */}
-          <CTA link={s.secondaryCTA} variant="ghost" />
-          <CTA link={s.primaryCTA} variant="filled" />
-          {identitySlot}
-          {accountNode}
-        </>
-      )}
+            <div style={{ flex: 1 }} />
+
+            {/* ── ⌘K palette trigger + CTAs + identity + account ── */}
+            {hasProducts ? <HanzoCommandTrigger onOpen={openSearch} /> : null}
+            <CTA link={s.secondaryCTA} variant="ghost" />
+            {tryMenu ? (
+              <CTATrigger
+                link={s.primaryCTA}
+                open={menu.key === 'try'}
+                reach={menu.trigger('try')}
+                onStepIn={() => menu.set('try')}
+                controls="hanzo-try-menu"
+              />
+            ) : (
+              <CTA link={s.primaryCTA} variant="filled" />
+            )}
+            {identitySlot}
+            {accountNode}
+          </>
+        )}
+      </header>
 
       {/* ── Universal Meet-Hanzo mega-menu ── */}
       <MeetHanzoMenu
         id="hanzo-meet-menu"
-        open={meetOpen}
-        onClose={() => setMeetOpen(false)}
+        open={menu.key === 'meet'}
+        onClose={closeMenu}
         anchor={HEADER_H}
         currentProductId={s.productId}
+        autoFocus={!menu.hover}
+        {...menu.panel}
       />
+
+      {/* ── The doors, behind the primary action (opt-in via tryMenu) ── */}
+      {tryMenu ? (
+        <TryHanzoMenu
+          id="hanzo-try-menu"
+          open={menu.key === 'try'}
+          onClose={closeMenu}
+          anchor={HEADER_H}
+          autoFocus={!menu.hover}
+          {...menu.panel}
+        />
+      ) : null}
 
       {/* ── Rich Products mega-menu (opt-in via productsTaxonomy) ── */}
       {hasProducts ? (
-        <ProductsMegaMenu
-          id="hanzo-products-menu"
-          categories={productsTaxonomy!}
-          open={productsOpen}
-          onClose={() => setProductsOpen(false)}
-          anchor={HEADER_H}
-          currentCategoryId={currentCategoryId}
-          currentHref={currentHref}
-        />
+        <>
+          <ProductsMegaMenu
+            id="hanzo-products-menu"
+            categories={productsTaxonomy!}
+            open={menu.key === 'products'}
+            onClose={closeMenu}
+            anchor={HEADER_H}
+            currentCategoryId={currentCategoryId}
+            currentHref={currentHref}
+            autoFocus={!menu.hover}
+            {...menu.panel}
+          />
+          {/* The ONE place products are searched — from the header, at any
+              width, in or out of a menu. ⌘K reaches it without the trigger. */}
+          <HanzoCommandPalette
+            categories={productsTaxonomy!}
+            open={searchOpen}
+            onOpenChange={setSearchOpen}
+            onAsk={onAskHanzo}
+          />
+        </>
       ) : null}
 
       {/* ── Mobile disclosure sheet ── */}
@@ -339,42 +381,98 @@ export function HanzoHeader({
           onClose={() => setMobileOpen(false)}
           onMeet={() => {
             setMobileOpen(false)
-            setMeetOpen(true)
+            menu.set('meet')
           }}
         />
       ) : null}
-    </header>
+    </>
   )
 }
 
 /* ── Pieces ──────────────────────────────────────────────────────────────── */
 
+/**
+ * A mega-menu disclosure in the header row ("Meet Hanzo ⌄", "Products ⌄").
+ *
+ * Three ways in, one way out. The pointer RESTS and the menu opens without
+ * taking focus (`reach`, from `useIntent`); a click or Enter/Space toggles it and
+ * hands it focus; ↓ opens it and steps straight into the first item, which is
+ * how a keyboard reaches a menu it can see but cannot point at.
+ *
+ * Focus alone does NOT open it. Tabbing across the header would otherwise drop a
+ * full mega-menu on a reader who is on their way to the CTA, and then hand them
+ * twenty extra tab stops to get back out of it.
+ */
+function MenuTrigger({
+  label,
+  open,
+  reach,
+  onStepIn,
+  controls,
+}: {
+  label: string
+  open: boolean
+  /** Pointer + click props from `useIntent`. */
+  reach: Reach
+  /** Open and move focus into the panel (↓). */
+  onStepIn: () => void
+  controls: string
+}) {
+  return (
+    <button
+      type="button"
+      aria-haspopup="dialog"
+      aria-expanded={open}
+      aria-controls={open ? controls : undefined}
+      onKeyDown={(e) => {
+        if (e.key !== 'ArrowDown' || open) return
+        e.preventDefault()
+        onStepIn()
+      }}
+      style={control(open)}
+      {...reach}
+      {...ghostHover(open)}
+    >
+      {label}
+      <Chevron open={open} />
+    </button>
+  )
+}
+
 function NavLink({ link }: { link: HanzoLink }) {
+  // Hover comes from the shared token, not from here. Hand-rolling it is what
+  // let this link drift from the trigger beside it (a background lift, and a
+  // brightening that stopped short of white).
+  return (
+    <a href={link.href} style={{ ...control(), fontWeight: 500 }} {...ghostHover()}>
+      {link.label}
+    </a>
+  )
+}
+
+function CTA({
+  link,
+  variant,
+  height,
+}: {
+  link: HanzoLink
+  variant: 'ghost' | 'filled'
+  height?: number
+}) {
+  const filled = variant === 'filled'
   return (
     <a
       href={link.href}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        height: 34,
-        padding: '0 10px',
-        borderRadius: 9,
-        textDecoration: 'none',
-        fontSize: FS.sm,
-        fontWeight: 500,
-        color: CHROME.fgMuted,
-        whiteSpace: 'nowrap',
-        transition: 'background 120ms ease, color 120ms ease',
-      }}
+      style={cta(filled, height)}
+      // The filled pill dips its opacity; the ghost one is a plain link and
+      // brightens like every other ghost control. Neither grows a background.
       onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.background = CHROME.hover
-        el.style.color = CHROME.fg
+        if (filled) e.currentTarget.style.opacity = '0.85'
+        else e.currentTarget.style.color = FG_ON
       }}
       onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.background = 'transparent'
-        el.style.color = CHROME.fgMuted
+        if (filled) e.currentTarget.style.opacity = '1'
+        else e.currentTarget.style.color = CHROME.fgMuted
       }}
     >
       {link.label}
@@ -382,39 +480,53 @@ function NavLink({ link }: { link: HanzoLink }) {
   )
 }
 
-function CTA({ link, variant }: { link: HanzoLink; variant: 'ghost' | 'filled' }) {
-  const filled = variant === 'filled'
+/**
+ * The primary action, opening the doors instead of taking one.
+ *
+ * It is an `<a>` carrying the surface's own `primaryCTA.href`, NOT a button:
+ * the markup ships from a static export and is read before React runs, so the
+ * pill must be a real link at first paint and for anyone who never gets the
+ * JavaScript. The click is intercepted only once there is a menu to show.
+ *
+ * `preventDefault` on the click, and nothing else about it changes — the pill
+ * keeps `cta(true)`, so "go" still looks like "go" and gains one chevron.
+ */
+function CTATrigger({
+  link,
+  open,
+  reach,
+  onStepIn,
+  controls,
+}: {
+  link: HanzoLink
+  open: boolean
+  reach: Reach
+  onStepIn: () => void
+  controls: string
+}) {
+  const { onClick, ...pointer } = reach
   return (
     <a
       href={link.href}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        flexShrink: 0,
-        height: 34,
-        padding: '0 14px',
-        borderRadius: 9,
-        textDecoration: 'none',
-        fontSize: FS.sm,
-        fontWeight: 600,
-        whiteSpace: 'nowrap',
-        border: filled ? '1px solid transparent' : `1px solid ${CHROME.border}`,
-        background: filled ? ACCENT : 'transparent',
-        color: filled ? '#0b0b0f' : CHROME.fg,
-        transition: 'opacity 120ms ease, background 120ms ease',
+      aria-haspopup="dialog"
+      aria-expanded={open}
+      aria-controls={open ? controls : undefined}
+      onClick={(e) => {
+        e.preventDefault()
+        onClick()
       }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        if (filled) el.style.opacity = '0.85'
-        else el.style.background = CHROME.hover
+      onKeyDown={(e) => {
+        if (e.key !== 'ArrowDown' || open) return
+        e.preventDefault()
+        onStepIn()
       }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        if (filled) el.style.opacity = '1'
-        else el.style.background = 'transparent'
-      }}
+      style={{ ...cta(true), gap: 6 }}
+      onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+      onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+      {...pointer}
     >
       {link.label}
+      <Chevron open={open} />
     </a>
   )
 }
@@ -436,19 +548,8 @@ function IconButton({
       onClick={onClick}
       aria-label={label}
       aria-expanded={expanded}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 38,
-        height: 38,
-        flexShrink: 0,
-        border: 'none',
-        borderRadius: 9,
-        background: expanded ? CHROME.hover : 'transparent',
-        color: CHROME.fg,
-        cursor: 'pointer',
-      }}
+      style={{ ...control(expanded, TAP_H), width: TAP_H, padding: 0 }}
+      {...ghostHover(expanded)}
     >
       {children}
     </button>
@@ -481,12 +582,20 @@ function MobileSheet({
       <div
         aria-hidden="true"
         onClick={onClose}
-        style={{ position: 'fixed', inset: 0, top, zIndex: Z.overlay as unknown as number, background: 'rgba(0,0,0,0.4)' }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          top,
+          zIndex: Z.overlay as unknown as number,
+          background: SCRIM,
+        }}
       />
       <div
         role="dialog"
+        data-hanzo-shell=""
         aria-label={`${surface.brandName} menu`}
         style={{
+          ...PANEL,
           position: 'fixed',
           top,
           left: 0,
@@ -495,9 +604,8 @@ function MobileSheet({
           maxHeight: `calc(100vh - ${top}px)`,
           overflowY: 'auto',
           padding: 12,
-          background: CHROME.panel,
-          borderBottom: `1px solid ${CHROME.border}`,
-          boxShadow: '0 24px 60px -12px rgba(0,0,0,0.7)',
+          borderRadius: 0,
+          borderTop: 'none',
           fontFamily: CHROME.font,
         }}
       >
@@ -505,19 +613,12 @@ function MobileSheet({
           type="button"
           onClick={onMeet}
           style={{
-            display: 'flex',
-            alignItems: 'center',
+            ...cta(false, TAP_H),
             justifyContent: 'space-between',
             width: '100%',
-            padding: '12px 12px',
-            border: `1px solid ${CHROME.border}`,
-            borderRadius: 12,
-            background: 'transparent',
-            color: CHROME.fg,
+            borderRadius: R.card,
             fontSize: FS.base,
             fontWeight: 700,
-            fontFamily: 'inherit',
-            cursor: 'pointer',
             marginBottom: 8,
           }}
         >
@@ -525,30 +626,43 @@ function MobileSheet({
           <Chevron open={false} />
         </button>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 12 }}>
+        <div
+          style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 12 }}
+        >
           {localNav.map((link) => (
             <a
               key={link.id}
               href={link.href}
               onClick={onClose}
               style={{
-                display: 'block',
-                padding: '11px 12px',
-                borderRadius: 10,
-                textDecoration: 'none',
+                ...row(),
+                display: 'flex',
+                alignItems: 'center',
+                margin: 0,
+                padding: '0 12px',
+                minHeight: TAP_H,
                 fontSize: FS.base,
-                color: CHROME.fg,
               }}
+              {...ghostHover()}
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        {/* Rich Products taxonomy — collapsed accordions so mobile isn't an
-            endless scroll (mirrors the "Meet Hanzo" collapsible pattern). */}
+        {/* Rich Products taxonomy — collapsed accordions, for BROWSING. This
+            sheet used to carry a second search field over the same ~97 leaves;
+            searching them now happens in exactly one place, the ⌘K palette the
+            header's own glyph opens, so a phone has one answer to "where do I
+            type" instead of two fields that could disagree. */}
         {hasProducts ? (
-          <div style={{ marginBottom: 12, borderTop: `1px solid ${CHROME.border}`, paddingTop: 4 }}>
+          <div
+            style={{
+              marginBottom: 12,
+              borderTop: `1px solid ${CHROME.border}`,
+              paddingTop: 12,
+            }}
+          >
             {productsTaxonomy!.map((category) => (
               <MobileProductsCategory
                 key={category.id}
@@ -561,8 +675,8 @@ function MobileSheet({
         ) : null}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <CTA link={surface.secondaryCTA} variant="ghost" />
-          <CTA link={surface.primaryCTA} variant="filled" />
+          <CTA link={surface.secondaryCTA} variant="ghost" height={TAP_H} />
+          <CTA link={surface.primaryCTA} variant="filled" height={TAP_H} />
         </div>
 
         {/* Identity + account controls (Sign In / avatar) stay reachable on mobile. */}
@@ -596,52 +710,41 @@ function MobileProductsCategory({
   currentHref?: string
   onClose: () => void
 }) {
-  const [open, setOpen] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const panelId = `hanzo-mprod-${category.id}`
+  // The taxonomy may already END in a link to the category's own page (hanzo.ai
+  // spells it "All 15 →"). Synthesising a second one put two links to the same
+  // href in one drawer, so the row is only invented when the data lacks it.
+  const ownsAllLink = category.items.some((item) => item.href === category.href)
   return (
     <div style={{ borderBottom: `1px solid ${CHROME.borderSoft}` }}>
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls={open ? panelId : undefined}
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+        aria-controls={expanded ? panelId : undefined}
         style={{
-          display: 'flex',
-          alignItems: 'center',
+          ...control(false, TAP_H),
           justifyContent: 'space-between',
           width: '100%',
-          padding: '12px',
-          border: 'none',
-          background: 'transparent',
-          color: CHROME.fg,
-          fontSize: FS.sm,
-          fontWeight: 700,
-          letterSpacing: 0.6,
-          textTransform: 'uppercase',
-          fontFamily: 'inherit',
-          cursor: 'pointer',
+          borderRadius: 0,
         }}
       >
         {category.label}
-        <Chevron open={open} />
+        <Chevron open={expanded} />
       </button>
-      {open ? (
+      {expanded ? (
         <div id={panelId} style={{ paddingBottom: 6 }}>
-          <a
-            href={category.href}
-            onClick={onClose}
-            style={{
-              display: 'block',
-              padding: '9px 12px',
-              borderRadius: 10,
-              textDecoration: 'none',
-              fontSize: FS.sm,
-              fontWeight: 600,
-              color: category.href === currentHref ? ACCENT : CHROME.fg,
-            }}
-          >
-            All {category.label}
-          </a>
+          {ownsAllLink ? null : (
+            <a
+              href={category.href}
+              onClick={onClose}
+              style={{ ...mobileLeaf(category.href === currentHref), fontWeight: 600 }}
+              {...ghostHover()}
+            >
+              All {category.label}
+            </a>
+          )}
           {category.items.map((item) => (
             <a
               key={item.id}
@@ -649,14 +752,8 @@ function MobileProductsCategory({
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noreferrer noopener' : undefined}
               onClick={onClose}
-              style={{
-                display: 'block',
-                padding: '9px 12px',
-                borderRadius: 10,
-                textDecoration: 'none',
-                fontSize: FS.sm,
-                color: item.href === currentHref ? ACCENT : CHROME.fgMuted,
-              }}
+              style={mobileLeaf(item.href === currentHref)}
+              {...ghostHover()}
             >
               {item.label}
             </a>
@@ -667,6 +764,18 @@ function MobileProductsCategory({
   )
 }
 
+/** One row of the mobile Products accordion. */
+function mobileLeaf(current: boolean) {
+  return {
+    ...row(current),
+    display: 'flex',
+    alignItems: 'center',
+    margin: 0,
+    padding: '0 12px',
+    minHeight: TAP_H,
+  }
+}
+
 /**
  * Default account affordance — a text "Sign in" link styled like the shell
  * chrome, rendered when a surface asks for one via `signInHref` and supplies no
@@ -674,29 +783,7 @@ function MobileProductsCategory({
  */
 function DefaultAccount({ href }: { href: string }) {
   return (
-    <a
-      href={href}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        flexShrink: 0,
-        height: 34,
-        padding: '0 10px',
-        borderRadius: 9,
-        textDecoration: 'none',
-        fontSize: FS.sm,
-        fontWeight: 600,
-        whiteSpace: 'nowrap',
-        color: CHROME.fg,
-        transition: 'background 120ms ease',
-      }}
-      onMouseEnter={(e) => {
-        ;(e.currentTarget as HTMLElement).style.background = CHROME.hover
-      }}
-      onMouseLeave={(e) => {
-        ;(e.currentTarget as HTMLElement).style.background = 'transparent'
-      }}
-    >
+    <a href={href} style={control()} {...ghostHover()}>
       Sign in
     </a>
   )
@@ -716,25 +803,28 @@ function Chevron({ open }: { open: boolean }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 150ms ease' }}
+      style={{
+        transform: open ? 'rotate(180deg)' : 'none',
+        transition: 'transform 150ms ease',
+      }}
     >
       <path d="M6 9l6 6 6-6" />
     </svg>
   )
 }
 
-function SearchGlyph() {
-  return (
-    <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="7" />
-      <path d="m20 20-3.2-3.2" />
-    </svg>
-  )
-}
-
 function MenuGlyph() {
   return (
-    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true">
+    <svg
+      width={22}
+      height={22}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <path d="M3 6h18M3 12h18M3 18h18" />
     </svg>
   )
@@ -742,7 +832,16 @@ function MenuGlyph() {
 
 function CloseGlyph() {
   return (
-    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true">
+    <svg
+      width={22}
+      height={22}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   )

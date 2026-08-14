@@ -24,7 +24,7 @@ demoName: Headings
 
 ## Installation
 
-Headings is already installed in `@hanzo/gui`, or you can install it independently:
+Headings is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/text
@@ -48,7 +48,7 @@ export default () => (
 
 The headings all extend from the base `Heading` component. Note, this is just our own theme for Inter headings, but you can change the styles for any font completely.
 
-Hanzo GUI expects for your [font.size](/docs/core/configuration#font-tokens) to have the keys 1-10 so headings work with your font tokens automatically.
+Gui expects for your [font.size](/docs/core/configuration#font-tokens) to have the keys 1-10 so headings work with your font tokens automatically.
 
 ## How it works
 
@@ -65,9 +65,9 @@ export const Heading = styled(Paragraph, {
 })
 ```
 
-Note that Heading, and H1-H6 all default to the `heading` font family that must be defined in your gui.config.ts.
+Note that Heading, and H1-H6 all default to the `heading` font family that must be defined in your hanzogui.config.ts.
 
-Because [Paragraph](/docs/components/text#paragraph) extends [SizableText](/docs/components/text#sizabletext), you get automatic styles based on your font theme. Let's see how `SizableText` defines the size variant, roughly, which gives a good idea of how Hanzo GUI works, and how you could create or change your own headings at a lower level.
+Because [Paragraph](/docs/components/text#paragraph) extends [SizableText](/docs/components/text#sizabletext), you get automatic styles based on your font theme. Let's see how `SizableText` defines the size variant, roughly, which gives a good idea of how Gui works, and how you could create or change your own headings at a lower level.
 
 ```tsx
 import { Text } from '@hanzo/gui' // or '@hanzogui/core'
@@ -99,7 +99,7 @@ const SizableText = styled(Text, {
   },
 
   defaultVariants: {
-    // note gui uses a generic "true" token that your sizes should set to be the same as the default on your scale
+    // note hanzogui uses a generic "true" token that your sizes should set to be the same as the default on your scale
     size: '$true',
   },
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { AnimatePresence, Button, Square, styled } from 'hanzogui'
+import { AnimatePresence, Button, Square, styled } from '@hanzo/gui'
 
 function Demo1() {
   return (
@@ -43,7 +43,7 @@ function Demo2() {
 //
 
 import { ArrowLeft, ArrowRight } from '@hanzogui/lucide-icons-2'
-import { Image, XStack, YStack } from 'hanzogui'
+import { Image, XStack, YStack } from '@hanzo/gui'
 
 const GalleryItem = styled(YStack, {
   zIndex: 1,

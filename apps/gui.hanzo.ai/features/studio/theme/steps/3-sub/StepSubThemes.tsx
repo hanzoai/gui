@@ -9,7 +9,7 @@ import {
   XStack,
   YGroup,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { NoticeParagraph, StudioNotice } from '../../../StudioNotice'

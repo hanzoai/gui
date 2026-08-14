@@ -4,8 +4,13 @@ import { regenerateConfig } from './regenerateConfig'
 
 let isWatching = false
 
-export async function watchGuiConfig(guiOptions: GuiOptions) {
-  if (process.env.NODE_ENV === 'production') {
+export async function watchGuiConfig(hanzoguiOptions: GuiOptions) {
+  // when the compiler is disabled there's nothing to regenerate, so don't boot
+  // a persistent esbuild watch service just to track the config graph. this is
+  // the common dev setup (e.g. `disable: NODE_ENV === 'development'`) where the
+  // plugin should be a no-op - otherwise every dev server leaks a long-lived
+  // esbuild `--service` child watching a config it never compiles.
+  if (process.env.NODE_ENV === 'production' || hanzoguiOptions.disable) {
     return {
       dispose() {},
     }
@@ -17,22 +22,22 @@ export async function watchGuiConfig(guiOptions: GuiOptions) {
 
   isWatching = true
 
-  const options = await getOptions({ guiOptions })
+  const options = await getOptions({ hanzoguiOptions })
 
-  if (!options.guiOptions.config) {
+  if (!options.hanzoguiOptions.config) {
     isWatching = false
     throw new Error(`No config`)
   }
 
   const disposeConfigWatcher = await esbuildWatchFiles(
-    options.guiOptions.config,
+    options.hanzoguiOptions.config,
     async () => {
-      await generateThemesAndLog(options.guiOptions)
-      await regenerateConfig(options.guiOptions, null, true)
+      await generateThemesAndLog(options.hanzoguiOptions)
+      await regenerateConfig(options.hanzoguiOptions, null, true)
     }
   )
 
-  const themeBuilderInput = options.guiOptions.themeBuilder?.input
+  const themeBuilderInput = options.hanzoguiOptions.themeBuilder?.input
   let disposeThemesWatcher: Function | undefined
 
   if (themeBuilderInput) {
@@ -43,7 +48,7 @@ export async function watchGuiConfig(guiOptions: GuiOptions) {
       // ok
     }
     disposeThemesWatcher = await esbuildWatchFiles(inputPath, async () => {
-      await generateThemesAndLog(options.guiOptions)
+      await generateThemesAndLog(options.hanzoguiOptions)
     })
   }
 

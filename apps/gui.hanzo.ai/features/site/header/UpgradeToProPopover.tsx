@@ -10,7 +10,7 @@ import {
   Theme,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { sendEvent } from '../../analytics/sendEvent'
 import { useSubscriptionModal } from '../purchase/useSubscriptionModal'
 import { PromoCards } from './PromoCards'
@@ -77,7 +77,7 @@ export const UpgradeToProPopover = (props: PopoverProps) => {
       </Popover.Anchor>
 
       <Adapt platform="touch" when="maxMd">
-        <Sheet zIndex={100000000} modal dismissOnSnapToBottom>
+        <Sheet zIndex={100000000} modal dismissOnSnapToBottom transition="medium">
           <Sheet.Frame>
             <Sheet.ScrollView>
               <Adapt.Contents />
@@ -121,7 +121,7 @@ export const UpgradeToProPopover = (props: PopoverProps) => {
                   size="$5"
                   text="center"
                 >
-                  GUI Pro
+                  Gui Pro
                 </H5>
               )}
 

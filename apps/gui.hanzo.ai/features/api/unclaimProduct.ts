@@ -1,5 +1,6 @@
-import type { AuthUser } from '~/features/iam/server'
-import { db } from '~/features/db'
+import type { User } from '@supabase/supabase-js'
+import type Stripe from 'stripe'
+import { supabaseAdmin } from '../auth/supabaseAdmin'
 import { removeUserFromTeam } from '../github/helpers'
 import {
   getDiscordClient,
@@ -8,13 +9,10 @@ import {
 } from '../discord/helpers'
 import type { Database, Json } from '../supabase/types'
 
-/** Subscription shape — provider-agnostic ID is all we need. */
-export type UnclaimSubscription = { id: string }
-
 /**
  * removes access to previously claimed access
  */
-export async function unclaimSubscription(subscription: UnclaimSubscription) {
+export async function unclaimSubscription(subscription: Stripe.Subscription) {
   // if (typeof data !== 'object' || !data || Array.isArray(data)) {
   //   throw new Error('bad `data` on claim row')
   // }
@@ -30,20 +28,11 @@ export async function unclaimSubscription(subscription: UnclaimSubscription) {
     .single()
   if (subscriptionRes.error) throw subscriptionRes.error
 
-  const userId = subscriptionRes.data?.user_id as string | undefined
-  if (!userId) throw new Error('subscription has no user_id')
+  const userId = subscriptionRes.data?.user_id
+  const userRes = await supabaseAdmin.auth.admin.getUserById(userId)
+  if (userRes.error) throw userRes.error
 
-  // TODO(supabase-rip): replace with IAM admin user lookup once available.
-  // For now we synthesize the minimum shape unclaimRepoAccess + downstream
-  // helpers actually use (id, email — neither is consulted here, just the
-  // structural type).
-  const user: AuthUser = {
-    id: userId,
-    email: undefined,
-    user_metadata: {},
-    app_metadata: {},
-    raw: null,
-  }
+  const { user } = userRes.data
 
   // Remove Discord access if user has Discord invites for this subscription
   await unclaimDiscordAccess(subscription.id)
@@ -69,7 +58,7 @@ type UnclaimFunction = (args: {
   data: {
     [key: string]: Json | undefined
   }
-  user: AuthUser
+  user: User
   claim: Database['public']['Tables']['claims']['Row']
 }) => Promise<void>
 

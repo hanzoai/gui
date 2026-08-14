@@ -12,6 +12,6 @@ export const topBarHeight = 46
 export const sidebarWidth = 290
 export const isLocal = process.env.NODE_ENV === 'development'
 export const studioRootDir =
-  process.env.NODE_ENV === 'development' ? '' : 'https://studio.gui.hanzo.ai'
+  process.env.NODE_ENV === 'development' ? '' : 'https://studio.hanzogui.dev'
 export const siteRootDir =
-  process.env.NODE_ENV === 'development' ? '' : 'https://gui.hanzo.ai'
+  process.env.NODE_ENV === 'development' ? '' : 'https://hanzogui.dev'

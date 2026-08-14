@@ -82,7 +82,11 @@ export interface Telemetry {
   /** The resolved emitting surface. */
   readonly product: string
   /** Record a named product event. */
-  track(event: string, properties?: Record<string, unknown>, commerce?: TelemetryCommerce): void
+  track(
+    event: string,
+    properties?: Record<string, unknown>,
+    commerce?: TelemetryCommerce
+  ): void
   /** Record a pageview. The provider does this for you on every route change. */
   pageview(path?: string, properties?: Record<string, unknown>): void
   /** Bind the visitor to a stable person id (post-login). */

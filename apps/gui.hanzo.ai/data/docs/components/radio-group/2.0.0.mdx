@@ -11,14 +11,14 @@ demoName: RadioGroup
 
 <Tabs id="type" defaultValue="styled">
 <Tabs.List>
-  <TooltipSimple label="With Hanzo GUI's default styles">
+  <TooltipSimple label="With Gui's default styles">
     <Tabs.Tab value="styled">Styled</Tabs.Tab>
   </TooltipSimple>
   <TooltipSimple label="No default styles, easy to customize">
     <Tabs.Tab value="unstyled">Unstyled</Tabs.Tab>
   </TooltipSimple>
-  <TooltipSimple label="No dependency on Hanzo GUI's core">
-    <Tabs.Tab value="headless" label="No styles and no dependency on Hanzo GUI's styling">Headless</Tabs.Tab>
+  <TooltipSimple label="No dependency on Gui's core">
+    <Tabs.Tab value="headless" label="No styles and no dependency on Gui's styling">Headless</Tabs.Tab>
   </TooltipSimple>
 </Tabs.List>
 
@@ -62,7 +62,7 @@ demoName: RadioGroup
 ## Installation
 
 <Tabs.Content value="styled">
-RadioGroup is already installed in `@hanzo/gui`, or you can install it independently:
+RadioGroup is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/radio-group
@@ -71,7 +71,7 @@ npm install @hanzogui/radio-group
 </Tabs.Content>
 
 <Tabs.Content value="unstyled">
-RadioGroup is already installed in `@hanzo/gui`, or you can install it independently:
+RadioGroup is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/radio-group
@@ -112,7 +112,7 @@ export default () => (
 
 <Tabs.Content value="unstyled">
 
-Use the `createRadioGroup` export to create a fully custom radio group that still uses the Hanzo GUI styling system. You provide your own styled components and get back a fully functional radio group component.
+Use the `createRadioGroup` export to create a fully custom radio group that still uses the Gui styling system. You provide your own styled components and get back a fully functional radio group component.
 
 ```tsx
 import { createRadioGroup, RadioGroupContext } from '@hanzogui/radio-group'
@@ -356,13 +356,13 @@ The `useRadioGroup` hook accepts these options:
       name: 'scaleSize',
       type: 'number',
       default: '0.5',
-      description: `Scale factor for the radio item size. Hanzo GUI size tokens map to button heights, so you typically want smaller radio buttons.`,
+      description: `Scale factor for the radio item size. Gui size tokens map to button heights, so you typically want smaller radio buttons.`,
     },
     {
       name: 'unstyled',
       type: 'boolean',
       default: 'false',
-      description: `When true, removes all default Hanzo GUI styling.`,
+      description: `When true, removes all default Gui styling.`,
     },
   ]}
 />
@@ -377,7 +377,7 @@ RadioGroup.Indicator appears only when the parent Item is checked. It extends [T
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Hanzo GUI styles.`,
+      description: `Removes all default Gui styles.`,
     },
   ]}
 />

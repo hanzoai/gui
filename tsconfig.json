@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "@hanzo/gui": [
+      "hanzogui": [
         "./pkgs/ui/hanzogui"
       ],
       "@hanzogui/*": [
@@ -185,7 +185,7 @@
       "path": "pkgs/core/helpers-node"
     },
     {
-      "path": "pkgs/core/helpers-hanzogui"
+      "path": "pkgs/core/component-helpers"
     },
     {
       "path": "pkgs/core/helpers"
@@ -281,10 +281,7 @@
       "path": "pkgs/babel-plugin-fully-specified"
     },
     {
-      "path": "pkgs/get"
-    },
-    {
-      "path": "pkgs/recipes"
+      "path": "pkgs/bento-get"
     },
     {
       "path": "pkgs/cli-color"
@@ -321,6 +318,153 @@
     },
     {
       "path": "pkgs/vite-plugin-internal"
+    },
+    {
+      "path": "pkgs/ui/accordion"
+    },
+    {
+      "path": "pkgs/ui/adapt"
+    },
+    {
+      "path": "pkgs/ui/alert-dialog"
+    },
+    {
+      "path": "pkgs/ui/animate-presence"
+    },
+    {
+      "path": "pkgs/ui/animate"
+    },
+    {
+      "path": "pkgs/ui/avatar"
+    },
+    {
+      "path": "pkgs/ui/button"
+    },
+    {
+      "path": "pkgs/ui/card"
+    },
+    {
+      "path": "pkgs/ui/checkbox-headless"
+    },
+    {
+      "path": "pkgs/ui/checkbox"
+    },
+    {
+      "path": "pkgs/ui/collapsible"
+    },
+    {
+      "path": "pkgs/ui/collection"
+    },
+    {
+      "path": "pkgs/ui/dialog"
+    },
+    {
+      "path": "pkgs/ui/dismissable"
+    },
+    {
+      "path": "pkgs/ui/elements"
+    },
+    {
+      "path": "pkgs/ui/focus-scope"
+    },
+    {
+      "path": "pkgs/ui/focusable"
+    },
+    {
+      "path": "pkgs/ui/form"
+    },
+    {
+      "path": "pkgs/ui/group"
+    },
+    {
+      "path": "pkgs/ui/image"
+    },
+    {
+      "path": "pkgs/ui/input"
+    },
+    {
+      "path": "pkgs/ui/label"
+    },
+    {
+      "path": "pkgs/ui/linear-gradient"
+    },
+    {
+      "path": "pkgs/ui/list-item"
+    },
+    {
+      "path": "pkgs/ui/menu"
+    },
+    {
+      "path": "pkgs/ui/popover"
+    },
+    {
+      "path": "pkgs/ui/popper"
+    },
+    {
+      "path": "pkgs/ui/portal"
+    },
+    {
+      "path": "pkgs/ui/progress"
+    },
+    {
+      "path": "pkgs/ui/radio-group"
+    },
+    {
+      "path": "pkgs/ui/radio-headless"
+    },
+    {
+      "path": "pkgs/ui/remove-scroll"
+    },
+    {
+      "path": "pkgs/ui/roving-focus"
+    },
+    {
+      "path": "pkgs/ui/scroll-view"
+    },
+    {
+      "path": "pkgs/ui/select"
+    },
+    {
+      "path": "pkgs/ui/separator"
+    },
+    {
+      "path": "pkgs/ui/shapes"
+    },
+    {
+      "path": "pkgs/ui/sheet"
+    },
+    {
+      "path": "pkgs/ui/slider"
+    },
+    {
+      "path": "pkgs/ui/stacks"
+    },
+    {
+      "path": "pkgs/ui/switch-headless"
+    },
+    {
+      "path": "pkgs/ui/switch"
+    },
+    {
+      "path": "pkgs/ui/tabs"
+    },
+    {
+      "path": "pkgs/ui/hanzogui"
+    },
+    {
+      "path": "pkgs/ui/text"
+    },
+    {
+      "path": "pkgs/ui/toast"
+    },
+    {
+      "path": "pkgs/ui/toggle-group"
+    },
+    {
+      "path": "pkgs/ui/tooltip"
+    },
+    {
+      "path": "pkgs/ui/visually-hidden"
     }
   ]
 }

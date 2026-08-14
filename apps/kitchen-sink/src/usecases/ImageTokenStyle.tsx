@@ -1,5 +1,5 @@
 import { Image } from '@hanzogui/image'
-import { Text, View, XStack, YStack } from 'hanzogui'
+import { Text, View, XStack, YStack } from '@hanzo/gui'
 
 const IMG_SRC = 'https://placecats.com/300/300'
 

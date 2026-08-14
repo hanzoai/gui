@@ -1,6 +1,6 @@
 {
   "name": "next15-plus-cli-optimize",
-  "version": "2.0.0-rc.41-hanzoai.5",
+  "version": "8.1.1",
   "private": true,
   "workspaces": [
     "./packages/*"
@@ -13,11 +13,9 @@
   },
   "dependencies": {
     "@hanzogui/cli": "workspace:*",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "vitest": "4.0.4"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

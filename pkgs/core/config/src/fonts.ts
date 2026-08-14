@@ -13,8 +13,13 @@ const headingFont = createInterFont(
       9: 32,
       10: 44,
     },
+    // The house has no all-caps. This scale used to say `6: 'uppercase'`, which
+    // spreads DOWN — steps 1-6 all inherited it — so every small heading
+    // (`<H6>`, menu/section heads, command-palette group heads) went silently
+    // ALL CAPS from a font token no surface could see. Rank comes from weight
+    // and brightness, not shouting; fixing it here fixes it everywhere at once.
     transform: {
-      6: 'uppercase',
+      6: 'none',
       7: 'none',
     },
     weight: {

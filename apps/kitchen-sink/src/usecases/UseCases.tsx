@@ -13,9 +13,9 @@ import {
   getMedia,
   styled,
   useThemeName,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
-import config from '../gui.config'
+import config from '../hanzogui.config'
 
 // import '@hanzogui/core/reset.css'
 

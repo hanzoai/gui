@@ -15,6 +15,26 @@ import Piscina from 'piscina'
 export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
 export type { GuiOptions } from '@hanzogui/types'
 
+/**
+ * Which files the compiler may read styles out of. Pure path logic, so it is
+ * handed straight across rather than run in the worker: a bundler plugin needs
+ * the answer before it decides whether a round-trip is worth making, and the
+ * extractor needs the same answer for real.
+ *
+ * @hanzogui/static is CJS-only, and Node's lexer does not find named exports
+ * through esbuild's `__export` wrapper, so an ESM `export { x } from` of the
+ * subpath throws at load. The namespace always carries `default` —
+ * module.exports — in both of this package's builds, so read the names off it
+ * once, here, instead of teaching every caller the same trick.
+ */
+import * as extractablePathModule from '@hanzogui/static/extractablePath'
+
+const extractablePath: typeof import('@hanzogui/static/extractablePath') =
+  (extractablePathModule as any).default ?? extractablePathModule
+
+export const { DEFAULT_EXTRACT_PACKAGES, installedPackageOf, isExtractable } =
+  extractablePath
+
 export const getPragmaOptions = async (props: { source: string; path: string }) => {
   const { default: Static } = await import('@hanzogui/static')
   return Static.getPragmaOptions(props)
@@ -35,10 +55,10 @@ const getWorkerPath = () => {
 }
 
 // Use globalThis to share pool across module instances (Vite environments)
-const POOL_KEY = '__gui_piscina_pool__'
-const CLOSING_KEY = '__gui_piscina_closing__'
-const TASK_COUNT_KEY = '__gui_piscina_task_count__'
-const RECYCLING_KEY = '__gui_piscina_recycling__'
+const POOL_KEY = '__hanzogui_piscina_pool__'
+const CLOSING_KEY = '__hanzogui_piscina_closing__'
+const TASK_COUNT_KEY = '__hanzogui_piscina_task_count__'
+const RECYCLING_KEY = '__hanzogui_piscina_recycling__'
 
 // recycle worker after this many tasks to prevent RSS bloat from V8 memory fragmentation
 // Node.js worker threads don't release memory properly - see https://github.com/nodejs/node/issues/51868
@@ -107,7 +127,7 @@ function createPool(): Piscina {
       err && typeof err === 'object' && 'message' in err ? String(err.message) : ''
     // Suppress termination errors (can still occur during explicit close/destroy)
     if (message.includes('Terminating worker thread')) return
-    console.error('[gui] Worker pool error:', err)
+    console.error('[hanzogui] Worker pool error:', err)
   })
 
   return pool
@@ -140,7 +160,7 @@ export async function loadGui(options: Partial<GuiOptions>): Promise<any> {
     source: '// dummy',
     sourcePath: '__dummy__.tsx',
     options: {
-      components: ['gui'],
+      components: ['@hanzo/gui'],
       ...options,
     },
     shouldPrintDebug: false,
@@ -217,7 +237,7 @@ async function recyclePool(options: GuiOptions): Promise<void> {
       process.stdout.write = originalStdout
     })
 
-    console.log(`  ♻️  [gui] recycled worker pool (${Date.now() - start}ms)`)
+    console.log(`  ♻️  [hanzogui] recycled worker pool (${Date.now() - start}ms)`)
   } finally {
     setRecycling(false)
   }
@@ -228,11 +248,11 @@ async function recyclePool(options: GuiOptions): Promise<void> {
  * Uses esbuild-wasm to avoid EPIPE errors from native esbuild service lifecycle
  */
 export async function loadGuiBuildConfig(
-  guiOptions: Partial<GuiOptions> | undefined
+  hanzoguiOptions: Partial<GuiOptions> | undefined
 ): Promise<GuiOptions> {
   const { default: Static } = await import('@hanzogui/static')
 
-  return Static.loadGuiBuildConfigAsync(guiOptions)
+  return Static.loadGuiBuildConfigAsync(hanzoguiOptions)
 }
 
 /**
@@ -263,7 +283,7 @@ export async function extractToClassNames(params: {
 
   if (!result.success) {
     const errorMessage = [
-      `[gui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
+      `[hanzogui-extract] Error processing file: ${sourcePath || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',
@@ -305,7 +325,7 @@ export async function extractToNative(
 
   if (!result.success) {
     const errorMessage = [
-      `[gui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
+      `[hanzogui-extract] Error processing file: ${sourceFileName || '(unknown)'}`,
       ``,
       result.error,
       result.stack ? `\n${result.stack}` : '',

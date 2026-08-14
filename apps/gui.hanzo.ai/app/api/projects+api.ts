@@ -1,6 +1,9 @@
 import { apiRoute } from '~/features/api/apiRoute'
 import { ensureAuth } from '~/features/api/ensureAuth'
 import { supabaseAdmin } from '~/features/auth/supabaseAdmin'
+import type { Database } from '~/features/supabase/types'
+
+type ProjectUpdate = Database['public']['Tables']['projects']['Update']
 
 export default apiRoute(async (req) => {
   if (req.method === 'GET') {
@@ -172,7 +175,7 @@ const updateProject = async (req: Request) => {
     return Response.json({ error: 'Project not found or access denied' }, { status: 404 })
   }
 
-  const updates: Record<string, string> = {}
+  const updates: ProjectUpdate = {}
   if (name && name.length > 2) updates.name = name
   if (domain && domain.length > 2) updates.domain = domain
 

@@ -10,7 +10,7 @@ export function resolveSafeAreaValue(value: string): number | undefined {
   if (!edge) return undefined
 
   const g = globalThis as any
-  const state = g.__gui_native_safe_area_state__
+  const state = g.__hanzogui_native_safe_area_state__
   if (state?.enabled && state.initialMetrics) {
     return state.initialMetrics.insets[edge]
   }

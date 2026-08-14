@@ -8,7 +8,7 @@ import {
   YStack,
   styled,
   useThemeName,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const FeatureLabel = styled(SizableText, {
   size: '$3',
@@ -33,8 +33,8 @@ const features: Feature[] = [
   },
   {
     feature: 'Premium Components',
-    description: 'Access to Recipes copy-paste component library',
-    takeout: 'Recipes included',
+    description: 'Access to Bento copy-paste component library',
+    takeout: 'Bento included',
     others: false,
   },
   {

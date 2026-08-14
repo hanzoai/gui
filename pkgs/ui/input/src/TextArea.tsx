@@ -4,7 +4,7 @@ import { defaultStyles, textAreaSizeVariant } from './shared'
 
 /**
  * A web-aligned textarea component (multi-line input).
- * @see — Docs https://gui.dev/ui/inputs#textarea
+ * @see — Docs https://hanzogui.dev/ui/inputs#textarea
  */
 export const TextArea = styled(Input, {
   name: 'TextArea',

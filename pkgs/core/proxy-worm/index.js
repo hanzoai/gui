@@ -11,7 +11,7 @@ function worm(root = false) {
         //  dev warning in debug mode
         if (
           process.env.NODE_ENV === 'development' &&
-          process.env.DEBUG?.startsWith('gui')
+          process.env.DEBUG?.startsWith('hanzogui')
         ) {
           console.warn(`
 

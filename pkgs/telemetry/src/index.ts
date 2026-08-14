@@ -12,15 +12,26 @@
 // Honors Do-Not-Track and Global Privacy Control, consent-aware, SSR-safe,
 // side-effect-free on import, and fail-soft: it can never break the host app.
 
-export { TelemetryProvider, TelemetryBoundary, useTelemetry, useTrack, useConsent } from './TelemetryProvider.js'
-export type { TelemetryProviderProps } from './TelemetryProvider.js'
+export {
+  TelemetryProvider,
+  TelemetryBoundary,
+  useTelemetry,
+  useTrack,
+  useConsent,
+} from './TelemetryProvider'
+export type { TelemetryOwner, TelemetryProviderProps } from './TelemetryProvider'
+
+export { useAppAnalytics } from './appAnalytics'
 
 export {
   createTelemetry,
   describeTelemetry,
   getTelemetry,
   setTelemetry,
+  isTelemetryOwned,
+  onTelemetryOwnerChange,
   hasDom,
+  canEmit,
   track,
   pageview,
   identify,
@@ -28,16 +39,30 @@ export {
   captureError,
   captureException,
   flush,
-} from './telemetry.js'
-export type { ResolvedTelemetry } from './telemetry.js'
+} from './telemetry'
+export type { ResolvedTelemetry } from './telemetry'
 
-export { doNotTrack, getConsent, setConsent, onConsentChange, resolveEnabled } from './consent.js'
+export {
+  doNotTrack,
+  getConsent,
+  setConsent,
+  onConsentChange,
+  resolveEnabled,
+} from './consent'
 
-export { productFromHost, resolveEnv, DEFAULT_HOST } from './env.js'
-export type { ResolvedEnv, TelemetryGlobal } from './env.js'
+export {
+  productFromHost,
+  runtimeProduct,
+  isReactNative,
+  resolveEnv,
+  DEFAULT_HOST,
+} from './env'
+export type { ResolvedEnv, TelemetryGlobal } from './env'
 
-export { useRouteTracking } from './useRouteTracking.js'
-export { useReplay } from './useReplay.js'
+export { useRouteTracking } from './useRouteTracking'
+export { useReplay } from './useReplay'
+export { useScreenTracking } from './useScreenTracking'
+export type { NavigationRefLike } from './useScreenTracking'
 
 export type {
   Analytics,
@@ -49,7 +74,7 @@ export type {
   TelemetryConfig,
   TelemetryConsent,
   TelemetryErrorContext,
-} from './types.js'
+} from './types'
 
 // The shared event + goal vocabulary, so a surface never invents its own names
 // for a signup or a sale. One import for the whole telemetry story.

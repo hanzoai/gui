@@ -1,14 +1,16 @@
 {
   "name": "@hanzogui/native-ci",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "description": "Native CI/CD helpers for React Native apps with Expo - fingerprinting, caching, and build optimization",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hanzoai/gui.git",
-    "directory": "code/packages/native-ci"
+    "url": "git+https://github.com/hanzoai/gui.git",
+    "directory": "pkgs/native-ci"
   },
-  "bin": "./dist/cli.mjs",
+  "bin": {
+    "native-ci": "dist/cli.mjs"
+  },
   "source": "src/index.ts",
   "files": [
     "src",
@@ -33,13 +35,12 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build --skip-native",
+    "build": "hanzogui-build --skip-native",
     "watch": "bun run build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@expo/cli": "^55.0.32",
     "@expo/fingerprint": "~0.16.6"
   },
   "devDependencies": {
@@ -49,6 +50,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

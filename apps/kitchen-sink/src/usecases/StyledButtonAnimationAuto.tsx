@@ -82,7 +82,7 @@ const ButtonIcon = (props: { children: any }) => {
 
   return React.cloneElement(props.children, {
     size: smaller.val * 0.5,
-    color: theme.color.get(),
+    color: theme.color?.get(),
   })
 }
 

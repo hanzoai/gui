@@ -1,5 +1,5 @@
-import type { CardProps } from 'hanzogui'
-import { Button, Card, H2, Image, Paragraph, Theme, XStack } from 'hanzogui'
+import type { CardProps } from '@hanzo/gui'
+import { Button, Card, H2, Image, Paragraph, Theme, XStack } from '@hanzo/gui'
 
 export function CardDemo() {
   return (

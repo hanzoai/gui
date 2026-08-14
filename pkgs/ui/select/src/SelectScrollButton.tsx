@@ -18,19 +18,18 @@ import type {
 
 const SCROLL_UP_BUTTON_NAME = 'SelectScrollUpButton'
 
-export const SelectScrollUpButton = React.forwardRef<
-  GuiElement,
-  SelectScrollButtonProps
->((props: SelectScopedProps<SelectScrollButtonProps>, forwardedRef) => {
-  return (
-    <SelectScrollButtonImpl
-      componentName={SCROLL_UP_BUTTON_NAME}
-      {...props}
-      dir="up"
-      ref={forwardedRef}
-    />
-  )
-})
+export const SelectScrollUpButton = React.forwardRef<GuiElement, SelectScrollButtonProps>(
+  (props: SelectScopedProps<SelectScrollButtonProps>, forwardedRef) => {
+    return (
+      <SelectScrollButtonImpl
+        componentName={SCROLL_UP_BUTTON_NAME}
+        {...props}
+        dir="up"
+        ref={forwardedRef}
+      />
+    )
+  }
+)
 
 SelectScrollUpButton.displayName = SCROLL_UP_BUTTON_NAME
 

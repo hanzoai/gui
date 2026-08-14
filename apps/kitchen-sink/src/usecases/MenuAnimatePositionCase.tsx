@@ -1,5 +1,5 @@
 import { Menu } from '@hanzogui/menu'
-import { Button, Text, XStack, YStack } from 'hanzogui'
+import { Button, Text, XStack, YStack } from '@hanzo/gui'
 
 export function MenuAnimatePositionCase() {
   return (

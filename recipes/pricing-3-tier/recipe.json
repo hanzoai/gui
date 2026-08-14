@@ -1,8 +1,0 @@
-{
-  "slug": "pricing-3-tier",
-  "name": "Three-tier pricing table",
-  "description": "Marketing pricing block: Free / Pro / Enterprise with feature lists and CTAs.",
-  "category": "marketing",
-  "npmDeps": ["@hanzo/gui"],
-  "recipeDeps": []
-}

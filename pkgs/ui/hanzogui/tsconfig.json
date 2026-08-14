@@ -4,7 +4,7 @@
     "composite": true
   },
   "exclude": [
-    "gui.config.ts",
+    "hanzogui.config.ts",
     "test",
     "dist",
     "types",
@@ -39,7 +39,7 @@
       "path": "../../core/get-token"
     },
     {
-      "path": "../../core/helpers-hanzogui"
+      "path": "../../core/component-helpers"
     },
     {
       "path": "../../core/react-native-media-driver"

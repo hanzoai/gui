@@ -1,4 +1,4 @@
-import { useTheme } from 'hanzogui'
+import { useTheme } from '@hanzo/gui'
 import Svg, { Path } from 'react-native-svg'
 
 const d =

@@ -6,7 +6,7 @@ import type { OneRouter } from 'one'
 declare module 'one' {
   export namespace OneRouter {
     export interface __routes<T extends string = string> extends Record<string, unknown> {
-      StaticRoutes: 
+      StaticRoutes:
         | `/`
         | `/(blog)`
         | `/(blog)/blog`
@@ -19,8 +19,8 @@ declare module 'one' {
         | `/(site)/(blog)/draft`
         | `/(site)/(docs)`
         | `/(site)/account`
-        | `/(site)/recipes`
-        | `/(site)/recipes/(home)`
+        | `/(site)/bento`
+        | `/(site)/bento/(home)`
         | `/(site)/blog`
         | `/(site)/chat`
         | `/(site)/community`
@@ -42,8 +42,8 @@ declare module 'one' {
         | `/admin`
         | `/admin/user`
         | `/auth`
-        | `/recipes`
-        | `/recipes/(home)`
+        | `/bento`
+        | `/bento/(home)`
         | `/blog`
         | `/chat`
         | `/community`
@@ -67,7 +67,7 @@ declare module 'one' {
         | `/test`
         | `/theme`
         | `/theme/`
-      DynamicRoutes: 
+      DynamicRoutes:
         | `/(blog)/blog/${OneRouter.SingleRoutePart<T>}`
         | `/(docs)/docs/core/${OneRouter.SingleRoutePart<T>}`
         | `/(docs)/docs/guides/${OneRouter.SingleRoutePart<T>}`
@@ -78,14 +78,14 @@ declare module 'one' {
         | `/(site)/(docs)/docs/guides/${OneRouter.SingleRoutePart<T>}`
         | `/(site)/(docs)/docs/intro/${OneRouter.SingleRoutePart<T>}`
         | `/(site)/(docs)/ui/${string}`
-        | `/(site)/recipes/${string}`
+        | `/(site)/bento/${string}`
         | `/(site)/blog/${OneRouter.SingleRoutePart<T>}`
         | `/(site)/docs/core/${OneRouter.SingleRoutePart<T>}`
         | `/(site)/docs/guides/${OneRouter.SingleRoutePart<T>}`
         | `/(site)/docs/intro/${OneRouter.SingleRoutePart<T>}`
         | `/(site)/theme/${string}`
         | `/(site)/ui/${string}`
-        | `/recipes/${string}`
+        | `/bento/${string}`
         | `/blog/${OneRouter.SingleRoutePart<T>}`
         | `/demo/${OneRouter.SingleRoutePart<T>}`
         | `/docs/core/${OneRouter.SingleRoutePart<T>}`
@@ -93,7 +93,7 @@ declare module 'one' {
         | `/docs/intro/${OneRouter.SingleRoutePart<T>}`
         | `/theme/${string}`
         | `/ui/${string}`
-      DynamicRouteTemplate: 
+      DynamicRouteTemplate:
         | `/(blog)/blog/[slug]`
         | `/(docs)/docs/core/[slug]`
         | `/(docs)/docs/guides/[slug]`
@@ -104,14 +104,14 @@ declare module 'one' {
         | `/(site)/(docs)/docs/guides/[slug]`
         | `/(site)/(docs)/docs/intro/[slug]`
         | `/(site)/(docs)/ui/[...subpath]`
-        | `/(site)/recipes/[...parts]`
+        | `/(site)/bento/[...parts]`
         | `/(site)/blog/[slug]`
         | `/(site)/docs/core/[slug]`
         | `/(site)/docs/guides/[slug]`
         | `/(site)/docs/intro/[slug]`
         | `/(site)/theme/[...subpath]`
         | `/(site)/ui/[...subpath]`
-        | `/recipes/[...parts]`
+        | `/bento/[...parts]`
         | `/blog/[slug]`
         | `/demo/[name]`
         | `/docs/core/[slug]`
@@ -131,14 +131,14 @@ declare module 'one' {
         '/(site)/(docs)/docs/guides/[slug]': RouteInfo<{ slug: string }>
         '/(site)/(docs)/docs/intro/[slug]': RouteInfo<{ slug: string }>
         '/(site)/(docs)/ui/[...subpath]': RouteInfo<{ subpath: string[] }>
-        '/(site)/recipes/[...parts]': RouteInfo<{ parts: string[] }>
+        '/(site)/bento/[...parts]': RouteInfo<{ parts: string[] }>
         '/(site)/blog/[slug]': RouteInfo<{ slug: string }>
         '/(site)/docs/core/[slug]': RouteInfo<{ slug: string }>
         '/(site)/docs/guides/[slug]': RouteInfo<{ slug: string }>
         '/(site)/docs/intro/[slug]': RouteInfo<{ slug: string }>
         '/(site)/theme/[...subpath]': RouteInfo<{ subpath: string[] }>
         '/(site)/ui/[...subpath]': RouteInfo<{ subpath: string[] }>
-        '/recipes/[...parts]': RouteInfo<{ parts: string[] }>
+        '/bento/[...parts]': RouteInfo<{ parts: string[] }>
         '/blog/[slug]': RouteInfo<{ slug: string }>
         '/demo/[name]': RouteInfo<{ name: string }>
         '/docs/core/[slug]': RouteInfo<{ slug: string }>
@@ -156,5 +156,5 @@ declare module 'one' {
  */
 type RouteInfo<Params = Record<string, never>> = {
   Params: Params
-  LoaderProps: { path: string; params: Params; request?: Request }
+  LoaderProps: { path: string; search?: string; subdomain?: string; params: Params; request?: Request }
 }

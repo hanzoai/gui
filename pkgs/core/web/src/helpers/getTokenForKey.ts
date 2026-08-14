@@ -98,12 +98,12 @@ export const getTokenForKey = (
 
     valOrVar = themeValue
     if (process.env.NODE_ENV === 'development' && styleState.debug === 'verbose') {
-      globalThis.guiAvoidTracking = true
+      globalThis.hanzoguiAvoidTracking = true
       console.info(
         ` - resolving ${key} to theme value ${value} resolveAs ${resolveAs}`,
         valOrVar
       )
-      globalThis.guiAvoidTracking = false
+      globalThis.hanzoguiAvoidTracking = false
     }
     hasSet = true
   } else {
@@ -150,7 +150,7 @@ export const getTokenForKey = (
               if (!didLogMissingToken) {
                 didLogMissingToken = true
                 console.groupCollapsed(
-                  `[gui] Warning: missing token ${key} in category ${cat} - ${value} (open for details)`
+                  `[hanzogui] Warning: missing token ${key} in category ${cat} - ${value} (open for details)`
                 )
                 console.info(
                   `Note: this could just be due to you not setting all the theme tokens Gui expects, which is harmless, but
@@ -192,9 +192,9 @@ export const getTokenForKey = (
     }
 
     if (process.env.NODE_ENV === 'development' && styleState.debug === 'verbose') {
-      globalThis.guiAvoidTracking = true
+      globalThis.hanzoguiAvoidTracking = true
       console.info(`resolved`, resolveAs, valOrVar, out)
-      globalThis.guiAvoidTracking = false
+      globalThis.hanzoguiAvoidTracking = false
     }
     return out
   }

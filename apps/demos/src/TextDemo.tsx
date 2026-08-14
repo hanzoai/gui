@@ -1,4 +1,4 @@
-import { Em, Paragraph, SizableText, Span, Strong, YStack } from 'hanzogui'
+import { Em, Paragraph, SizableText, Span, Strong, YStack } from '@hanzo/gui'
 
 export function TextDemo() {
   return (

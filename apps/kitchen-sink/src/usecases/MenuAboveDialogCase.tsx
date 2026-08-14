@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Dialog, Paragraph, YStack, XStack } from 'hanzogui'
+import { Button, Dialog, Paragraph, YStack, XStack } from '@hanzo/gui'
 import { Menu } from '@hanzogui/menu'
 
 // tests that Menu renders above Dialog when opened from inside Dialog

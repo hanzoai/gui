@@ -4,6 +4,7 @@ import { createExtractor, extractToClassNames } from '@hanzogui/static'
 
 export async function extractForNative(code: string) {
   const out = await babel.transformAsync(code, {
+    ast: true,
     configFile: './babel-config-test.cjs',
     filename: 'test.tsx',
   })
@@ -33,8 +34,8 @@ export async function extractForWeb(
     ...opts,
     options: {
       platform: 'web',
-      components: ['gui', '@hanzogui/core', '@hanzogui/test-design-system'],
-      config: './tests/lib/gui.config.cjs',
+      components: ['@hanzo/gui', '@hanzogui/core', '@hanzogui/test-design-system'],
+      config: './tests/lib/hanzogui.config.cjs',
       ...opts?.options,
     },
   })

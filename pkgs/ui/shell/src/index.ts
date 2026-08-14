@@ -1,20 +1,20 @@
-export { TenantHeader } from './TenantHeader'
-export { TenantMark } from './TenantMark'
-export { AppSwitcher } from './AppSwitcher'
+// ── Signed-in org chrome ──
+export { OrgHeader } from './OrgHeader'
+export type { OrgHeaderProps, OrgSearch } from './OrgHeader'
 export { UserOrgDropdown } from './UserOrgDropdown'
 export { UserAvatar } from './UserAvatar'
 export type { UserAvatarProps } from './UserAvatar'
 export { BeamAvatar } from './BeamAvatar'
 export type { BeamAvatarProps } from './BeamAvatar'
-export { useTenantAuth } from './useTenantAuth'
-export { TenantCommandPalette } from './TenantCommandPalette'
-export type { CommandItem as TenantCommandItem, TenantCommandPaletteProps } from './TenantCommandPalette'
-export type { TenantApp, TenantOrg, TenantUser, TenantShellProps, TenantMarkProps, OrgDomains } from './types'
-export { DEFAULT_TENANT_APPS, ORG_DOMAINS, getAppsForOrg } from './types'
+export { OrgCommandPalette } from './OrgCommandPalette'
+export type {
+  CommandItem as OrgCommandItem,
+  OrgCommandPaletteProps,
+} from './OrgCommandPalette'
+export type { HanzoUser, HanzoOrg, OrgDomains } from './types'
+export { ORG_DOMAINS } from './types'
 
-// ── Unified Hanzo app-switcher (the 9-dot cross-app launcher + top bar) ──
-export { HanzoAppBar } from './HanzoAppBar'
-export type { HanzoAppBarProps, HanzoAppBarAction, HanzoUser } from './HanzoAppBar'
+// ── Unified Hanzo app-switcher (the 9-dot cross-app launcher) ──
 export { HanzoAppLauncher } from './HanzoAppLauncher'
 export type { HanzoAppLauncherProps } from './HanzoAppLauncher'
 export { HANZO_APPS, getHanzoApps, findHanzoApp, HanzoGridIcon } from './hanzo-apps'
@@ -36,6 +36,7 @@ export {
   HANZO_PRODUCTS,
   HANZO_FLAGSHIP,
   MEET_HANZO_GROUPS,
+  TRY_HANZO_GROUPS,
   HANZO_PRODUCT_CATEGORIES,
   productCategorySlug,
   HANZO_FOOTER_COLUMNS,
@@ -63,12 +64,27 @@ export {
   getPlanTier,
   APP_ENTITLEMENTS,
 } from './hanzo-registry'
-export type { HanzoPlanKind, HanzoPlanTier, HanzoPlanLimits, HanzoPlanTierDef } from './hanzo-registry'
-export { entitlementFor, isEntitled, requiredTier, rankOf, normalizeTier } from './entitlements'
+export type {
+  HanzoPlanKind,
+  HanzoPlanTier,
+  HanzoPlanLimits,
+  HanzoPlanTierDef,
+} from './hanzo-registry'
+export {
+  entitlementFor,
+  isEntitled,
+  requiredTier,
+  rankOf,
+  normalizeTier,
+} from './entitlements'
 
 // ── Cross-ecosystem access layer — entitlement hook, paywall gate, plans ──
 export { useEntitlement, FREE_TIER } from './useEntitlement'
-export type { Entitlement, EntitlementState, UseEntitlementOptions } from './useEntitlement'
+export type {
+  Entitlement,
+  EntitlementState,
+  UseEntitlementOptions,
+} from './useEntitlement'
 export { HanzoAccessGate } from './HanzoAccessGate'
 export type { HanzoAccessGateProps } from './HanzoAccessGate'
 export { HanzoPlans } from './HanzoPlans'
@@ -79,13 +95,18 @@ export { HanzoHeader, resolveSurface } from './HanzoHeader'
 export type { HanzoHeaderProps } from './HanzoHeader'
 export { MeetHanzoMenu } from './MeetHanzoMenu'
 export type { MeetHanzoMenuProps } from './MeetHanzoMenu'
+export { TryHanzoMenu } from './TryHanzoMenu'
+export type { TryHanzoMenuProps } from './TryHanzoMenu'
 export { ProductsMegaMenu } from './ProductsMegaMenu'
 export type { ProductsMegaMenuProps } from './ProductsMegaMenu'
-export { HanzoAppHeader } from './HanzoAppHeader'
-export type { HanzoAppHeaderProps, HanzoAppHeaderAction, HanzoContextNode } from './HanzoAppHeader'
+export { HanzoCommandPalette, HanzoCommandTrigger } from './HanzoCommandPalette'
+export type { HanzoCommandPaletteProps, HanzoCommandMode } from './HanzoCommandPalette'
+export { filterProducts } from './productSearch'
 export { HanzoFooter } from './HanzoFooter'
 export type { HanzoFooterProps } from './HanzoFooter'
 export { HanzoPreFooterCTA } from './HanzoPreFooterCTA'
 export type { HanzoPreFooterCTAProps } from './HanzoPreFooterCTA'
+export { ProductShot } from './ProductShot'
+export type { ProductShotProps, ProductShotPlate } from './ProductShot'
 export { AskHanzo } from './AskHanzo'
 export type { AskHanzoProps, AskHanzoMessage } from './AskHanzo'

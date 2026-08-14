@@ -5,7 +5,7 @@ export function createGlobalState<T extends { enabled: boolean }>(
   get: () => T
   set: (next: T) => void
 } {
-  const GLOBAL_KEY = `__gui_${key}__`
+  const GLOBAL_KEY = `__hanzogui_${key}__`
 
   type GuiGlobal = typeof globalThis & {
     [GLOBAL_KEY]?: T

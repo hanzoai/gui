@@ -33,9 +33,9 @@ function getLlmsTxt() {
   }
 
   const docsDir = path.join(process.cwd(), 'data/docs')
-  let combined = '# GUI Complete Documentation\n\n'
+  let combined = '# Gui Complete Documentation\n\n'
   combined +=
-    '> GUI is a complete UI solution for React Native and Web, with a fully-featured UI kit, styling engine, and optimizing compiler.\n\n'
+    '> Gui is a complete UI solution for React Native and Web, with a fully-featured UI kit, styling engine, and optimizing compiler.\n\n'
 
   const allFiles = getAllMdxFiles(docsDir)
 

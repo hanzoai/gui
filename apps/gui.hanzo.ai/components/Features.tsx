@@ -1,4 +1,4 @@
-import { Paragraph, XStack, YStack } from 'hanzogui'
+import { Paragraph, XStack, YStack } from '@hanzo/gui'
 
 import { Pencil } from '@hanzogui/lucide-icons-2'
 import { CheckCircle } from './CheckCircle'

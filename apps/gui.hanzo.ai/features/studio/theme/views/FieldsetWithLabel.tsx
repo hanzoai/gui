@@ -8,7 +8,7 @@ import {
   TooltipSimple,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 export type FieldsetWithLabelProps = {
   enableEditLabel?: boolean

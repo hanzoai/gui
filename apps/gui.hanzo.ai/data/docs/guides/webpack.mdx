@@ -1,6 +1,6 @@
 ---
 title: Webpack Guide
-description: How to set up Hanzo GUI with Webpack
+description: How to set up Gui with Webpack
 ---
 
 First, install [Webpack and webpack-cli](https://webpack.js.org/guides/installation/):
@@ -9,7 +9,7 @@ First, install [Webpack and webpack-cli](https://webpack.js.org/guides/installat
 yarn add -D webpack webpack-cli
 ```
 
-Then install the Hanzo GUI plugin:
+Then install the Gui plugin:
 
 ```bash
 yarn add -D hanzogui-loader
@@ -17,26 +17,26 @@ yarn add -D hanzogui-loader
 
 ### Configuration
 
-Add the plugin to your `webpack.config.js`. If you have a `gui.build.ts`
+Add the plugin to your `webpack.config.js`. If you have a `hanzogui.build.ts`
 (recommended — see
-[compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
+[compiler install docs](/docs/intro/compiler-install#configuration-with-hanzoguibuildts)),
 no options are needed:
 
 ```tsx fileName="webpack.config.js"
-const { GuiPlugin } = require('hanzogui-loader')
+const { GuiPlugin } = require('@hanzogui/loader')
 
-// reads from gui.build.ts automatically
+// reads from hanzogui.build.ts automatically
 config.plugins.push(new GuiPlugin())
 ```
 
 Or pass options inline:
 
 ```tsx fileName="webpack.config.js"
-const { GuiPlugin } = require('hanzogui-loader')
+const { GuiPlugin } = require('@hanzogui/loader')
 
 config.plugins.push(
   new GuiPlugin({
-    config: './src/gui.config.ts',
+    config: './src/hanzogui.config.ts',
     components: ['@hanzo/gui'],
   })
 )

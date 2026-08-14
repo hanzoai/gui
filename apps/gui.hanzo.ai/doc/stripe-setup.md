@@ -1,6 +1,6 @@
 # 📦 Stripe Local Testing Guide (Gui Dev Environment)
 
-This document explains how to properly test Stripe subscriptions in the local development environment for Hanzo GUI, including webhook configuration, database caveats, and reset operations.
+This document explains how to properly test Stripe subscriptions in the local development environment for Gui, including webhook configuration, database caveats, and reset operations.
 
 ---
 
@@ -38,7 +38,7 @@ NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
 
 ## 3. How Subscription Flows Work
 
-The Hanzo GUI site handles Stripe subscriptions in the following way:
+The Gui site handles Stripe subscriptions in the following way:
 
 ### 💳 Subscription API Endpoints
 
@@ -91,7 +91,7 @@ Use the primary key (`auth.user.id`) to find and delete the corresponding record
 Use the provided script to remove active subscriptions for a user:
 
 ```bash
-cd code/gui.hanzo.ai
+cd apps/gui.hanzo.ai
 node ./scripts/cancel-subscription.mjs <USER_ID>
 ```
 
@@ -102,18 +102,18 @@ This script will:
 - Update the `subscriptions` table in Supabase with status: `canceled`
 
 📄 Script file:
-`code/gui.hanzo.ai/scripts/cancel-subscription.mjs`
+`apps/gui.hanzo.ai/scripts/cancel-subscription.mjs`
 
 ---
 
 ## 7. How "Pro Plan" Status is Determined
 
-A user is considered to be on the "Pro" plan if they have an active or trialing subscription named **"Hanzo GUI Pro"**.
+A user is considered to be on the "Pro" plan if they have an active or trialing subscription named **"Gui Pro"**.
 
 This status is determined by checking the `subscriptions` table in Supabase.
 
 📄 Logic from:
-`code/gui.hanzo.ai/features/user/subscription/eligibility.ts`
+`apps/gui.hanzo.ai/features/user/subscription/eligibility.ts`
 
 ```ts
 const hasProductAccess = (subscriptions, productName) =>
@@ -155,3 +155,33 @@ This logic is used to check access to specific features like Pro, Chat, or Suppo
 - Confirm the payment method ID is valid
 - Check whether you're using the correct `sk_test_...` or `sk_live_...` key
 - Use stripe `paymentMethods.list` to view available methods
+
+---
+
+## 10. Production Geographic Pricing
+
+Production geographic pricing only trusts `CF-IPCountry` when Cloudflare proves
+that the request passed through its edge. The proof uses one shared secret:
+
+- Cloudflare's `http_request_late_transform` ruleset sets
+  `X-Origin-Secret` for `hanzogui.dev` and `www.hanzogui.dev` requests.
+- Railway's `hanzogui` service stores the matching value as
+  `CF_ORIGIN_SECRET`.
+- `features/geo-pricing/trustedCountry.ts` compares the values before reading
+  `CF-IPCountry`. Direct requests to the Railway origin therefore cannot spoof a
+  discounted country.
+
+Generate a new random secret when configuring or rotating this pair. Never
+commit the value. Updating only one side disables geographic pricing safely by
+returning no country and no discount.
+
+After any Cloudflare rule or Railway variable change, wait for the Railway
+deployment to finish and verify the public route:
+
+```bash
+curl -sS https://hanzogui.dev/api/parity-discount
+```
+
+The response must contain a real two-letter `country`. A response with
+`"country": null` means the Cloudflare rule and Railway secret do not match or
+one side is missing.

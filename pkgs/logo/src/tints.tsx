@@ -1,5 +1,5 @@
 import React from 'react'
-import type { ThemeName } from 'hanzogui'
+import type { ThemeName } from '@hanzo/gui'
 
 type ChangeHandler = (next: TintFamily) => void
 
@@ -8,7 +8,7 @@ const listeners = new Set<ChangeHandler>()
 // T A M A G U I
 // Maps to logo letters - index 3 (A) is the "none" theme position
 const familiesValues = {
-  gui: ['yellow', 'yellow', 'yellow', 'gray', 'red', 'green', 'blue'] as ThemeName[],
+  hanzogui: ['yellow', 'yellow', 'yellow', 'gray', 'red', 'green', 'blue'] as ThemeName[],
   xmas: ['red', 'green', 'red', 'green', 'red', 'green', 'red'] as ThemeName[],
   easter: [
     'yellow',
@@ -30,12 +30,20 @@ const familiesValues = {
   ] as ThemeName[],
   valentine: ['red', 'red', 'red', 'red', 'red', 'red', 'red'] as ThemeName[],
   lunar: ['yellow', 'red', 'red', 'red', 'red', 'red', 'yellow'] as ThemeName[],
-  stpatricks: ['green', 'teal', 'green', 'teal', 'green', 'teal', 'green'] as ThemeName[],
+  stpatricks: [
+    'green',
+    'yellow',
+    'green',
+    'yellow',
+    'green',
+    'yellow',
+    'green',
+  ] as ThemeName[],
 }
 
 type Family = keyof typeof familiesValues
 
-const DEFAULT_FAMILY: Family = 'gui'
+const DEFAULT_FAMILY: Family = 'hanzogui'
 
 const familiesNames = Object.keys(familiesValues) as any as Family[]
 
@@ -53,7 +61,7 @@ export function getTints(): {
 } {
   return {
     name: fam || DEFAULT_FAMILY,
-    tints: families[fam] || families.gui,
+    tints: families[fam] || families.hanzogui,
     families,
   }
 }
@@ -85,12 +93,12 @@ export function setTintFamily(next: TintFamily): void {
     const root = document.documentElement.classList
     // remove all season classes
     familiesNames.forEach((s) => {
-      if (s !== 'gui') {
+      if (s !== 'hanzogui') {
         root.remove(`${s}-season`)
       }
     })
-    // add the new one if not gui
-    if (next !== 'gui') {
+    // add the new one if not hanzogui
+    if (next !== 'hanzogui') {
       root.add(`${next}-season`)
     }
   }

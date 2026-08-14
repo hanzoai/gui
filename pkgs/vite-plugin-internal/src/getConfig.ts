@@ -7,7 +7,7 @@ import { type Plugin, defineConfig } from 'vite'
 export const requireResolve =
   'url' in import.meta ? createRequire(import.meta.url).resolve : require.resolve
 
-export function getConfig(guiPlugin: any) {
+export function getConfig(hanzoguiPlugin: any) {
   const isNative =
     !process.env.DISABLE_REACT_NATIVE &&
     !process.env.DISABLE_NATIVE_TEST &&
@@ -73,9 +73,9 @@ export function getConfig(guiPlugin: any) {
       // isNative ? null : reactNative(),
       // react({}),
 
-      guiPlugin({
-        components: ['gui'],
-        config: './gui.config.ts',
+      hanzoguiPlugin({
+        components: ['@hanzo/gui'],
+        config: './hanzogui.config.ts',
         disableWatchGuiConfig: true,
         disable: true,
       }),

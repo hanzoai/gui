@@ -1,7 +1,20 @@
 // @ts-ignore
 import * as postmark from 'postmark'
+import { serverEnv } from '../api/serverEnv'
 
-const serverToken = process.env.POSTMARK_SERVER_TOKEN!
+const serverToken = serverEnv('POSTMARK_SERVER_TOKEN')!
+
+export const trackedTransactionalEmail = {
+  MessageStream: 'outbound',
+  TrackOpens: true,
+  TrackLinks: postmark.Models.LinkTrackingOptions.HtmlAndText,
+} as const
+
+export const trackedBroadcastEmail = {
+  MessageStream: 'broadcast',
+  TrackOpens: true,
+  TrackLinks: postmark.Models.LinkTrackingOptions.HtmlAndText,
+} as const
 
 if (process.env.NODE_ENV === 'production') {
   if (!serverToken) {
@@ -27,18 +40,18 @@ export function sendProductPurchaseEmail(
 
   <h2>Important: Accept Your GitHub Team Invite</h2>
 
-  <p>To access the private repositories (Takeout, Takeout Static, Recipes, and more), you need to <strong>accept the team invite</strong> that should be in your inbox from GitHub.</p>
+  <p>To access the private repositories (Takeout, Takeout Static, Bento, and more), you need to <strong>accept the team invite</strong> that should be in your inbox from GitHub.</p>
 
   <p>If you don't see the invite email, you can re-send it by:</p>
   <ol>
-    <li>Logging into your account at <a href="https://gui.hanzo.ai">gui.hanzo.ai</a></li>
+    <li>Logging into your account at <a href="https://hanzogui.dev">hanzogui.dev</a></li>
     <li>Going to your Account settings</li>
     <li>Clicking the "Re-send GitHub Invite" button</li>
   </ol>
 
   ${whatYouGetSection}
 
-  <p>If you have any questions or need help, just reply to this email or reach out at <a href="mailto:support@hanzo.ai">support@hanzo.ai</a>.</p>
+  <p>If you have any questions or need help, just reply to this email or reach out at <a href="mailto:support@hanzogui.dev">support@hanzogui.dev</a>.</p>
 
   <p><strong>P.S.</strong> If you haven't already, be sure to join our Discord community!</p>
 
@@ -46,7 +59,8 @@ export function sendProductPurchaseEmail(
   `)
 
   return client.sendEmail({
-    From: 'support@hanzo.ai',
+    ...trackedTransactionalEmail,
+    From: 'support@hanzogui.dev',
     To: email,
     Subject: `Welcome to ${args.product_name}!`,
     HtmlBody: htmlBody,
@@ -55,7 +69,7 @@ export function sendProductPurchaseEmail(
 
 export function sendProductRenewalEmail(
   email: string,
-  args: { name: string; product_name: string }
+  args: { name: string; product_name: string; amount_due?: number }
 ) {
   if (process.env.NODE_ENV !== 'production') {
     console.info(`Not sending email to ${email} since we're not on prod.`)
@@ -64,28 +78,35 @@ export function sendProductRenewalEmail(
 
   const client = new postmark.ServerClient(serverToken)
 
+  const amountText = args.amount_due
+    ? `<strong>$${(args.amount_due / 100).toFixed(2)}</strong>`
+    : 'the renewal amount'
+
   const htmlBody = wrapEmail(`
   <h1>Hey ${args.name}!</h1>
 
-  ${emailIntro}
+  <p><strong>Your subscription to ${args.product_name} will renew in approximately 7 days for ${amountText}.</strong></p>
 
-  <p><strong>In a week your subscription to ${args.product_name} will renew.</strong></p>
+  <p>If you'd like to continue, no action is needed — your subscription will renew automatically.</p>
+
+  <p>If you'd like to cancel before the renewal, you can do so from your account page:</p>
+
+  <div class="cta-container">
+    <a href="https://hanzogui.dev/account" class="cta-button">Manage Subscription</a>
+  </div>
 
   ${whatYouGetSection}
 
-  <div class="cta-container">
-    <a href="https://gui.hanzo.ai/account" class="cta-button">Manage Subscription</a>
-  </div>
-
-  <p>If you have any questions, just reply to this email or reach out at <a href="mailto:support@hanzo.ai">support@hanzo.ai</a>.</p>
+  <p>If you have any questions, just reply to this email or reach out at <a href="mailto:support@hanzogui.dev">support@hanzogui.dev</a>.</p>
 
   ${emailFooter}
   `)
 
   return client.sendEmail({
-    From: 'support@hanzo.ai',
+    ...trackedTransactionalEmail,
+    From: 'support@hanzogui.dev',
     To: email,
-    Subject: `Your ${args.product_name} subscription will renew soon`,
+    Subject: `Your ${args.product_name} subscription renews in ~7 days`,
     HtmlBody: htmlBody,
   })
 }
@@ -113,11 +134,11 @@ const whatYouGetSection = `
   <p>We've been incredibly busy rethinking what a modern stack means, and rebuilding it to a much higher degree of quality:</p>
 
   <ul>
-    <li><strong>Gui 2</strong> - Better in every way: new components, re-written docs, easier install and setup, thousands of new tests. <strong><a href="https://gui.hanzo.ai/blog/version-two">Read the announcement &rarr;</a></strong></li>
+    <li><strong>Gui 2</strong> - Better in every way: new components, re-written docs, easier install and setup, thousands of new tests. <strong><a href="https://hanzogui.dev/blog/version-two">Read the announcement &rarr;</a></strong></li>
     <li><strong>One v1</strong> - One is now stable and works seamlessly with Metro, plus has more features than your favorite web framework. <strong><a href="https://onestack.dev/blog/version-one-rc1">Read about One &rarr;</a></strong></li>
-    <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. GUI 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://gui.hanzo.ai/takeout">More info</a></strong> | <strong><a href="https://takeout.gui.hanzo.ai">Demo</a></strong></li>
+    <li><strong>Takeout 2</strong> - A huge amount of effort went into this new stack. Gui 2, One 1, and Zero. 95+ Lighthouse scores, fully shared code, tons of AI skills and documentation. <strong><a href="https://hanzogui.dev/takeout">More info</a></strong> | <strong><a href="https://takeout.hanzogui.dev">Demo</a></strong></li>
     <li><strong>Takeout Static</strong> - A new simplified web-only starter with MDX blog/docs and 100 Lighthouse.</li>
-    <li><strong>Recipes Components</strong> - Rewritten for v2 with new components and more polish, updated libraries. Includes access to the private <a href="https://github.com/hanzoai/recipes">Recipes source repo</a>.</li>
+    <li><strong>Bento Components</strong> - Rewritten for v2 with new components and more polish, updated libraries. Includes access to the private <a href="https://github.com/hanzogui/bento">Bento source repo</a>.</li>
     <li><strong>Unlimited Team Members</strong> - Share access with your whole team.</li>
     <li><strong>AI Theme Generator</strong> - Opus-powered /theme generation for custom designs.</li>
   </ul>
@@ -125,7 +146,7 @@ const whatYouGetSection = `
 
 // shared intro - heartfelt message about the team's work
 const emailIntro = `
-  <p>I want to thank you so much for supporting our small team. We've been working very hard to not just rethink Gui, but One and Takeout and try to put together something genuinely beautiful and groundbreaking. If you take anything from this email, I hope you check out <a href="https://takeout.gui.hanzo.ai">the new Takeout</a>. It's a product of love from our small team, and we could use support now more than ever to continue building dev tools that are simple, joyful, and surprisingly effective.</p>
+  <p>I want to thank you so much for supporting our small team. We've been working very hard to not just rethink Gui, but One and Takeout and try to put together something genuinely beautiful and groundbreaking. If you take anything from this email, I hope you check out <a href="https://takeout.hanzogui.dev">the new Takeout</a>. It's a product of love from our small team, and we could use support now more than ever to continue building dev tools that are simple, joyful, and surprisingly effective.</p>
 `
 
 // shared consulting callout
@@ -136,16 +157,16 @@ const emailConsulting = `
 // shared CTA buttons
 const emailCTAs = `
   <div class="cta-container">
-    <a href="https://gui.hanzo.ai/account" class="cta-button">Upgrade</a>
-    <a href="https://takeout.gui.hanzo.ai" class="cta-button" style="background-color: #8b3a3a;">Takeout</a>
-    <a href="https://gui.hanzo.ai/blog/version-two" class="cta-button" style="background-color: #5c4033;">v2</a>
+    <a href="https://hanzogui.dev/account" class="cta-button">Upgrade</a>
+    <a href="https://takeout.hanzogui.dev" class="cta-button" style="background-color: #8b3a3a;">Takeout</a>
+    <a href="https://hanzogui.dev/blog/version-two" class="cta-button" style="background-color: #5c4033;">v2</a>
   </div>
 `
 
 // shared footer
 const emailFooter = `
   <div class="footer">
-    <p>Thanks for being part of Gui!<br><strong>- Nate & the GUI Team</strong></p>
+    <p>Thanks for being part of Gui!<br><strong>- Nate & the Gui Team</strong></p>
   </div>
 `
 
@@ -165,12 +186,12 @@ ${body}
 }
 
 /**
- * Send email to V1 subscribers about Takeout 2 with 35% discount
- * Includes link to enable automatic V2 renewal
+ * Send renewal email to legacy subscribers before the V2 rollout.
+ * Their renewal gets 30% off, and they also get a shareable coupon code for manual purchases.
  */
 export function sendV1UpgradeEmail(
   email: string,
-  args: { name: string; subscriptionId: string }
+  args: { name: string; subscriptionId: string; amount_due?: number }
 ) {
   if (process.env.NODE_ENV !== 'production') {
     console.info(`Not sending V1 upgrade email to ${email} since we're not on prod.`)
@@ -178,74 +199,62 @@ export function sendV1UpgradeEmail(
   }
 
   const client = new postmark.ServerClient(serverToken)
-  const couponCode = 'V1_UPGRADE_35'
-  const enableV2Url = `https://gui.hanzo.ai/pro/enable-v2-renewal?sub_id=${args.subscriptionId}`
+  const couponCode = 'RENEWAL30'
 
-  const htmlBody = `
-<!DOCTYPE html>
-<html>
-<head>
-  <style>${emailStyles}</style>
-</head>
-<body>
-  <h1>Hey ${args.name}! 👋</h1>
+  const amountText = args.amount_due
+    ? `<strong>$${(args.amount_due / 100).toFixed(2)}</strong>`
+    : 'the renewal amount'
 
-  <p>Thank you for being a GUI Pro subscriber - we really appreciate your support!</p>
+  const htmlBody = wrapEmail(`
+  <h1>Hey ${args.name}!</h1>
 
-  <p>We're excited to announce <strong>Takeout 2</strong> is here, and it's the realization of years of effort to make a more realtime, responsive and Rails-like starter for React Native + Web.</p>
+  <p><strong>Your Gui Pro subscription will renew in approximately 7 days for ${amountText}.</strong></p>
 
-  <h2>What's New in Takeout 2</h2>
+  <p>We've applied <strong>30% off</strong> to your upcoming renewal.</p>
 
-  <ul>
-    <li><strong>Takeout 2</strong> - Featuring GUI 2, One 1, and Zero, it's a stack we poured effort into for years with way more refinement, great deployment / IaC options, and tons of scripts, helpers, hooks and UI in the box. Gets a >95 Lighthouse on a beautiful landing page that seamlessly transitions into a fully-loaded app experience.</li>
-    <li><strong>Takeout Static</strong> - A nice simplified web-only starter with Vercel deploy, MDX blog and docs, and 100 Lighthouse.</li>
-    <li><strong>Unlimited Team Members</strong> - No more per-seat pricing, instead per-project with friendly pricing.</li>
-  </ul>
-
-  <h2>New Pricing</h2>
-
-  <p>The new plan is <strong>$250 per project</strong> (one web domain + iOS + Android), with an optional <strong>$100/year</strong> to continue receiving updates after the first year.</p>
-
-  <h2>Automatic Upgrade Available</h2>
-
-  <p>Want to upgrade to Takeout 2 when your current subscription renews? Enable automatic V2 renewal and you'll get <strong>35% off</strong> applied automatically - no coupon code needed!</p>
+  <p>If you'd like to continue, no action is needed. If you'd like to cancel before renewal, you can do so from your account page:</p>
 
   <div class="cta-container">
-    <a href="${enableV2Url}" class="cta-button">Enable V2 Renewal</a>
-    <a href="https://gui.hanzo.ai/account" class="cta-button cta-button-secondary">Learn More</a>
+    <a href="https://hanzogui.dev/account" class="cta-button">Manage Subscription</a>
   </div>
 
-  <p>Or if you'd prefer to purchase manually, use this coupon at checkout:</p>
+  <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
+
+  <h2>Consider upgrading to Takeout 2</h2>
+
+  <p>We've been working hard on the next generation. <strong>Takeout 2</strong> features Gui 2, One 1, and Zero — a more realtime, responsive and Rails-like starter for React Native + Web.</p>
+
+  <ul>
+    <li><strong>Takeout 2</strong> - >95 Lighthouse, tons of scripts, helpers, hooks and UI in the box.</li>
+    <li><strong>Takeout Static</strong> - Simplified web-only starter with 100 Lighthouse.</li>
+    <li><strong>Unlimited Team Members</strong> - No more per-seat pricing.</li>
+  </ul>
+
+  <p>If you want to buy another project or share the discount with a friend, use this code at checkout:</p>
 
   <div class="coupon-box">
-    <div class="coupon-discount">35% off</div>
+    <div class="coupon-discount">30% off</div>
     <div class="coupon-code">${couponCode}</div>
   </div>
 
-  <p>Check out the dedicated demo/landing for Takeout 2:</p>
-  <ul>
-    <li><a href="https://takeout.gui.hanzo.ai">https://takeout.gui.hanzo.ai</a></li>
-  </ul>
+  <p>Check out the demo: <a href="https://takeout.hanzogui.dev">takeout.hanzogui.dev</a></p>
 
-  <p>If you have any questions or need help, just reply to this email or reach out at <a href="mailto:support@hanzo.ai">support@hanzo.ai</a>.</p>
+  <p>If you have any questions, just reply to this email or reach out at <a href="mailto:support@hanzogui.dev">support@hanzogui.dev</a>.</p>
 
-  <div class="footer">
-    <p>Thanks for being part of the GUI family!<br><strong>- Nate & the GUI Team</strong></p>
-  </div>
-</body>
-</html>
-  `.trim()
+  ${emailFooter}
+  `)
 
   return client.sendEmail({
-    From: 'support@hanzo.ai',
+    ...trackedTransactionalEmail,
+    From: 'support@hanzogui.dev',
     To: email,
-    Subject: 'Introducing Takeout 2 + 35% Off for V1 Customers 🎉',
+    Subject: 'Your Gui Pro subscription renews in ~7 days',
     HtmlBody: htmlBody,
   })
 }
 
 /**
- * Confirmation email sent after V2 renewal is enabled
+ * Legacy confirmation email kept for backwards compatibility with old V2-renewal links.
  */
 export function sendV2RenewalEnabledEmail(email: string, args: { name: string }) {
   if (process.env.NODE_ENV !== 'production') {
@@ -256,48 +265,47 @@ export function sendV2RenewalEnabledEmail(email: string, args: { name: string })
   }
 
   const client = new postmark.ServerClient(serverToken)
+  const couponCode = 'RENEWAL30'
 
-  const htmlBody = `
-<!DOCTYPE html>
-<html>
-<head>
-  <style>${emailStyles}</style>
-</head>
-<body>
-  <h1>V2 Renewal Enabled! 🎉</h1>
+  const htmlBody = wrapEmail(`
+  <h1>Your Renewal Discount Is Set</h1>
 
   <p>Hey ${args.name},</p>
 
-  <p>You've successfully enabled automatic V2 renewal for your GUI Pro subscription.</p>
+  <p>We've applied <strong>30% off</strong> to your renewal.</p>
+
+  <p>If you want to buy another project or share the discount with a friend, use this code at checkout:</p>
+
+  <div class="coupon-box">
+    <div class="coupon-discount">30% off</div>
+    <div class="coupon-code">${couponCode}</div>
+  </div>
 
   <h2>What happens next?</h2>
 
-  <p>When your current V1 subscription renews, you'll automatically be upgraded to <strong>Takeout 2</strong> with <strong>35% off</strong> applied.</p>
+  <p>Your current subscription will renew automatically with the discount applied unless you cancel it first.</p>
 
   <p>You'll get access to:</p>
   <ul>
-    <li><strong>Takeout 2</strong> - The complete React Native + Web starter with GUI 2, One 1, and Zero</li>
+    <li><strong>Takeout 2</strong> - The complete React Native + Web starter with Gui 2, One 1, and Zero</li>
     <li><strong>Takeout Static</strong> - Web-only starter with 100 Lighthouse score</li>
-    <li><strong>Recipes Components</strong> - Full source repo access</li>
+    <li><strong>Bento Components</strong> - Full source repo access</li>
     <li><strong>Unlimited Team Members</strong> - No per-seat pricing</li>
     <li><strong>1 Year of Updates</strong> - Included with your purchase</li>
   </ul>
 
-  <p>You can manage your subscription anytime from your <a href="https://gui.hanzo.ai/account">account page</a>.</p>
+  <p>You can manage your subscription anytime from your <a href="https://hanzogui.dev/account">account page</a>.</p>
 
-  <p>If you have any questions, just reply to this email or reach out at <a href="mailto:support@hanzo.ai">support@hanzo.ai</a>.</p>
+  <p>If you have any questions, just reply to this email or reach out at <a href="mailto:support@hanzogui.dev">support@hanzogui.dev</a>.</p>
 
-  <div class="footer">
-    <p>Thanks for your continued support!<br><strong>- Nate & the GUI Team</strong></p>
-  </div>
-</body>
-</html>
-  `.trim()
+  ${emailFooter}
+  `)
 
   return client.sendEmail({
-    From: 'support@hanzo.ai',
+    ...trackedTransactionalEmail,
+    From: 'support@hanzogui.dev',
     To: email,
-    Subject: 'V2 Renewal Enabled - Takeout 2 Upgrade Confirmed ✓',
+    Subject: 'Your Gui renewal discount is set',
     HtmlBody: htmlBody,
   })
 }
@@ -350,7 +358,7 @@ export function sendPaymentMethodReminderEmail(
 
   <div class="coupon-box">
     <div class="coupon-discount">30% off for returning</div>
-    <div class="coupon-code">WELCOMEBACK30</div>
+    <div class="coupon-code">RENEWAL30</div>
     <p style="margin: 4px 0 0; font-size: 14px;">Stacks with parity pricing!</p>
   </div>
 
@@ -358,15 +366,106 @@ export function sendPaymentMethodReminderEmail(
 
   ${whatYouGetSection}
 
-  <p>Questions? Just reply to this email or reach out at <a href="mailto:support@hanzo.ai">support@hanzo.ai</a>.</p>
+  <p>Questions? Just reply to this email or reach out at <a href="mailto:support@hanzogui.dev">support@hanzogui.dev</a>.</p>
 
   ${emailFooter}
   `)
 
   return client.sendEmail({
-    From: 'support@hanzo.ai',
+    ...trackedBroadcastEmail,
+    From: 'support@hanzogui.dev',
     To: email,
     Subject: 'A genuine thank you',
+    HtmlBody: htmlBody,
+  })
+}
+
+/**
+ * Send confirmation email when a user cancels their subscription
+ */
+export function sendCancellationEmail(
+  email: string,
+  args: { name: string; periodEnd: string }
+) {
+  if (process.env.NODE_ENV !== 'production') {
+    console.info(`Not sending cancellation email to ${email} since we're not on prod.`)
+    return
+  }
+
+  const client = new postmark.ServerClient(serverToken)
+
+  const endDate = new Date(args.periodEnd).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+
+  const htmlBody = wrapEmail(`
+  <h1>Your subscription has been cancelled</h1>
+
+  <p>Hey ${args.name},</p>
+
+  <p>Your Gui Pro subscription has been cancelled. You'll retain full access until <strong>${endDate}</strong>.</p>
+
+  <p>If this was a mistake, you can re-subscribe anytime from your account page:</p>
+
+  <div class="cta-container">
+    <a href="https://hanzogui.dev/account" class="cta-button">Go to Account</a>
+  </div>
+
+  <p>We'd love to have you back. If there's anything we could have done better, just reply to this email — we read every response.</p>
+
+  ${emailFooter}
+  `)
+
+  return client.sendEmail({
+    ...trackedTransactionalEmail,
+    From: 'support@hanzogui.dev',
+    To: email,
+    Subject: 'Your Gui Pro subscription has been cancelled',
+    HtmlBody: htmlBody,
+  })
+}
+
+/**
+ * Send email when a payment fails
+ */
+export function sendPaymentFailedEmail(
+  email: string,
+  args: { name: string; amount?: number }
+) {
+  if (process.env.NODE_ENV !== 'production') {
+    console.info(`Not sending payment failed email to ${email} since we're not on prod.`)
+    return
+  }
+
+  const client = new postmark.ServerClient(serverToken)
+
+  const amountText = args.amount ? ` of $${(args.amount / 100).toFixed(2)}` : ''
+
+  const htmlBody = wrapEmail(`
+  <h1>Payment failed</h1>
+
+  <p>Hey ${args.name},</p>
+
+  <p>We weren't able to process your payment${amountText} for your Gui Pro subscription. Stripe will retry the payment automatically, but if it continues to fail your subscription may be interrupted.</p>
+
+  <p>Please update your payment method from your account page:</p>
+
+  <div class="cta-container">
+    <a href="https://hanzogui.dev/account" class="cta-button">Update Payment Method</a>
+  </div>
+
+  <p>If you have any questions, just reply to this email or reach out at <a href="mailto:support@hanzogui.dev">support@hanzogui.dev</a>.</p>
+
+  ${emailFooter}
+  `)
+
+  return client.sendEmail({
+    ...trackedTransactionalEmail,
+    From: 'support@hanzogui.dev',
+    To: email,
+    Subject: 'Action needed: payment failed for your Gui Pro subscription',
     HtmlBody: htmlBody,
   })
 }

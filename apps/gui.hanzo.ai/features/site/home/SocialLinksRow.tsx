@@ -1,4 +1,4 @@
-import { H4, Paragraph, XStack } from 'hanzogui'
+import { H4, Paragraph, XStack } from '@hanzo/gui'
 
 import { Card } from '~/components/Card'
 import { Link } from '~/components/Link'
@@ -11,7 +11,7 @@ export const SocialLinksRow = () => {
     <XStack gap="$4" $sm={{ flexDirection: 'column' }}>
       <Link
         asChild
-        href="https://x.com/hanzoai"
+        href="https://x.com/hanzogui_js"
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -15,6 +15,6 @@
     "**/types",
     "apps/next/out",
     "apps/next/.next",
-    "apps/next/.gui"
+    "apps/next/.hanzogui"
   ]
 }

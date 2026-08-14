@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/animations-motion",
-  "version": "7.3.1",
-  "license": "BSD-3-Clause",
+  "version": "8.1.1",
+  "license": "MIT",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -10,8 +10,7 @@
   ],
   "type": "module",
   "sideEffects": [
-    "polyfill.js",
-    "polyfill.mjs"
+    "polyfill.*"
   ],
   "main": "dist/cjs",
   "module": "dist/esm",
@@ -19,8 +18,11 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "react-native": {
+        "types": "./types/index.native.d.ts",
+        "default": "./dist/esm/index.native.js"
+      },
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
       "browser": "./dist/esm/index.mjs",
       "module": "./dist/esm/index.mjs",
       "import": "./dist/esm/index.mjs",
@@ -32,10 +34,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/animation-helpers": "workspace:*",
@@ -49,6 +51,5 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

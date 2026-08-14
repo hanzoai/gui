@@ -1,5 +1,5 @@
 import { Check, CheckCircle } from '@hanzogui/lucide-icons-2'
-import type { CheckboxProps, RadioGroupItemProps } from 'hanzogui'
+import type { CheckboxProps, RadioGroupItemProps } from '@hanzo/gui'
 import {
   Button,
   Checkbox,
@@ -11,7 +11,7 @@ import {
   YStack,
   isClient,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import type { Database } from '~/features/supabase/types'
 import { getTakeoutPriceInfo } from './getProductInfo'
 
@@ -121,7 +121,7 @@ export const RadioGroupItem = ({
   )
 }
 
-const recipesDefaults = {
+const bentoDefaults = {
   price_1QPzlaFQGtHoG6xcdRzFfWL8: {
     seats: 1,
   },
@@ -136,7 +136,7 @@ const recipesDefaults = {
   },
 }
 
-export function RecipesTable({
+export function BentoTable({
   product,
   selectedPriceId,
 }: {
@@ -146,7 +146,7 @@ export function RecipesTable({
   selectedPriceId: string
 }) {
   const price = product?.prices.find((price) => price.id === selectedPriceId)
-  const priceInfo = price ? recipesDefaults[price.id] : null
+  const priceInfo = price ? bentoDefaults[price.id] : null
 
   return (
     <YStack borderWidth="$0.5" rounded="$4" borderColor="$color5">

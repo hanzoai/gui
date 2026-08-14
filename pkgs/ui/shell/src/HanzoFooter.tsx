@@ -132,9 +132,11 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
           </span>
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-            {HANZO_FOOTER_BOTTOM.links.filter((l) => shown(l.href)).map((link) => (
-              <LegalLink key={link.id} link={link} />
-            ))}
+            {HANZO_FOOTER_BOTTOM.links
+              .filter((l) => shown(l.href))
+              .map((link) => (
+                <LegalLink key={link.id} link={link} />
+              ))}
           </div>
         </div>
       </div>

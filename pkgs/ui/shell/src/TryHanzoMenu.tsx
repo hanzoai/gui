@@ -133,7 +133,12 @@ export function TryHanzoMenu({
                 key={item.id}
                 href={item.href}
                 onClick={close}
-                style={{ ...row(), display: 'block', padding: '4px 8px', textDecoration: 'none' }}
+                style={{
+                  ...row(),
+                  display: 'block',
+                  padding: '4px 8px',
+                  textDecoration: 'none',
+                }}
                 {...ghostHover()}
               >
                 <span style={{ display: 'block', fontSize: FS.sm, fontWeight: 500 }}>

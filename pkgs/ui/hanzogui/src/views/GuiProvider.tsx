@@ -44,7 +44,10 @@ export const GuiProvider = ({ children, telemetry, ...props }: GuiProviderProps)
   // startup or on a lazy route — takes the stream, and this one goes inert. One
   // client, one stream, never two.
   return (
-    <TelemetryProvider owner="gui" {...(typeof telemetry === 'object' ? telemetry : null)}>
+    <TelemetryProvider
+      owner="gui"
+      {...(typeof telemetry === 'object' ? telemetry : null)}
+    >
       {tree}
     </TelemetryProvider>
   )

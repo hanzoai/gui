@@ -1,0 +1,86 @@
+name: 'npm token'
+description: 'Resolve the registry credential from Hanzo KMS. The one place this repo asks.'
+
+# Two workflows publish from here and each carried its own copy of the
+# resolution. Both copies called INFISICAL — `/api/v1/auth/universal-auth/login`
+# and `/api/v3/secrets/raw?workspaceId=…` — which is an upstream secret manager
+# this estate does not run, and which also carries the `/api/` prefix nothing
+# here uses. `curl -sf` failed, `|| true` swallowed it, and the step exited 1 in
+# ONE SECOND. That is the tell: a credential lookup that fails instantly never
+# reached a server. The packages were published by hand for as long as it lasted.
+#
+# Hanzo KMS is `POST /v1/kms/auth/login` for a short-lived token, then
+# `GET /v1/kms/secrets/<KEY>?env=<env>` returning a flat `{"value"}` — the same
+# two calls hanzoai/app's release lane makes. `NPM_TOKEN` is already there, at
+# the org root, and reads clean.
+#
+# The repo-secret fallback stays, because a repo that has one should not need
+# KMS to be reachable to publish. It is a fallback and not the path: the token
+# belongs in KMS, where it is rotated once for everybody.
+
+inputs:
+  kms_client_id:
+    description: 'KMS universal-auth client id (secrets.KMS_CLIENT_ID)'
+    required: false
+  kms_client_secret:
+    description: 'KMS universal-auth client secret (secrets.KMS_CLIENT_SECRET)'
+    required: false
+  fallback:
+    description: 'Repo-secret NPM_TOKEN, used only when KMS yields nothing'
+    required: false
+  endpoint:
+    description: 'KMS endpoint'
+    required: false
+    default: 'https://api.hanzo.ai'
+  env:
+    description: 'KMS environment'
+    required: false
+    default: 'prod'
+
+outputs:
+  token:
+    description: 'The npm registry token. Masked in the log.'
+    value: ${{ steps.resolve.outputs.token }}
+
+runs:
+  using: composite
+  steps:
+    - id: resolve
+      shell: bash
+      env:
+        KMS_CLIENT_ID: ${{ inputs.kms_client_id }}
+        KMS_CLIENT_SECRET: ${{ inputs.kms_client_secret }}
+        FALLBACK: ${{ inputs.fallback }}
+        ENDPOINT: ${{ inputs.endpoint }}
+        KMS_ENV: ${{ inputs.env }}
+      run: |
+        set -uo pipefail
+        token=""
+        if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
+          # Each call is rescued so the CHECK decides rather than the abort, and
+          # each failure names which call failed. A silent `|| true` chain is
+          # what turned this into an unreadable one-second exit.
+          access=$(curl -sS -m 30 "${ENDPOINT}/v1/kms/auth/login" \
+            -H 'Content-Type: application/json' \
+            -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
+            2>/dev/null | jq -r '.accessToken // empty' || true)
+          if [ -z "$access" ]; then
+            echo "::warning::KMS login failed at ${ENDPOINT}/v1/kms/auth/login"
+          else
+            token=$(curl -sS -m 30 "${ENDPOINT}/v1/kms/secrets/NPM_TOKEN?env=${KMS_ENV}" \
+              -H "Authorization: Bearer ${access}" 2>/dev/null | jq -r '.value // empty' || true)
+            [ -n "$token" ] || echo "::warning::NPM_TOKEN absent from KMS (env ${KMS_ENV})"
+          fi
+        fi
+        if [ -z "$token" ]; then
+          token="${FALLBACK:-}"
+          [ -n "$token" ] && echo "resolved from the repo secret (KMS yielded nothing)"
+        else
+          echo "resolved from KMS (${#token} chars)"
+        fi
+        if [ -z "$token" ]; then
+          echo "::error::No npm credential. Needs KMS_CLIENT_ID + KMS_CLIENT_SECRET, or an NPM_TOKEN repo secret."
+          exit 1
+        fi
+        echo "::add-mask::${token}"
+        echo "token=${token}" >> "$GITHUB_OUTPUT"

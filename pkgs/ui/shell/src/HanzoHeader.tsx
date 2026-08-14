@@ -99,6 +99,18 @@ export interface HanzoHeaderProps {
    * (the default — fully backward compatible).
    */
   productsTaxonomy?: ProductCategory[]
+  /**
+   * What the taxonomy trigger is CALLED on this surface. The menu is the same
+   * ten categories everywhere; what a visitor is looking for when they open it
+   * is not. On hanzo.ai they are reading about the work, so it is "Research"; on
+   * cloud.hanzo.ai they are looking at what they can run, so it is "Platform".
+   * Defaults to "Products", which is what every surface said before and is still
+   * right for a storefront.
+   *
+   * A LABEL, not a second menu: one taxonomy, one component, one place it is
+   * defined. Forking the menu to rename it is how two of them drift.
+   */
+  productsLabel?: string
   /** Highlights the current Products category (accent + `aria-current`). */
   currentCategoryId?: string
   /** Highlights the current Products leaf whose href matches. */
@@ -151,6 +163,7 @@ export function HanzoHeader({
   account,
   onAskHanzo,
   productsTaxonomy,
+  productsLabel = 'Products',
   currentCategoryId,
   currentHref,
   brandSlot,
@@ -279,7 +292,7 @@ export function HanzoHeader({
             {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
             {hasProducts ? (
               <MenuTrigger
-                label="Products"
+                label={productsLabel}
                 open={menu.key === 'products'}
                 reach={menu.trigger('products')}
                 onStepIn={() => menu.set('products')}

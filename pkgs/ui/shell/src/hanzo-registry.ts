@@ -110,6 +110,7 @@ export const U = {
   bot: 'https://hanzo.bot',
   cloud: 'https://cloud.hanzo.ai',
   dev: 'https://hanzo.ai/dev',
+  base: 'https://hanzo.ai/base',
 
   // Platform
   models: 'https://hanzo.ai/models',
@@ -168,6 +169,7 @@ export const U = {
 
 export const PRODUCT_BOUNDARIES: Record<string, string> = {
   chat: 'Use AI',
+  base: 'Store and serve application data',
   app: 'Build applications',
   team: 'Organize collaborative work',
   studio: 'Create and evaluate intelligence',
@@ -229,16 +231,73 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     flagship: true,
   },
   {
+    id: 'base',
+    label: 'Hanzo Base',
+    href: U.base,
+    tagline: 'Data, auth and files',
+    boundary: PRODUCT_BOUNDARIES.base,
+    flagship: true,
+  },
+  {
     id: 'dev',
     label: 'Hanzo Dev',
     href: U.dev,
     tagline: 'From the editor and terminal',
     boundary: PRODUCT_BOUNDARIES.dev,
+    // Flagship like the rest. It was the one product held out of the rail, so
+    // the menu that answers "what is Hanzo" omitted the coding tool — while
+    // Platform listed it in small type two columns over, as if it were a
+    // feature of something else.
+    flagship: true,
   },
 ]
 
-/** The six flagship products (mega-menu top group + footer PRODUCTS column). */
+/** The flagship products (mega-menu top group + footer PRODUCTS column). */
 export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.flagship)
+
+/* ── Universal "Try Hanzo" menu — the doors, identical on every property ───── */
+
+/**
+ * What the primary action opens.
+ *
+ * "Try Hanzo" used to be one link to the console, which answered a question
+ * nobody asked: a visitor arrives wanting to build an app, or to keep data
+ * somewhere, or to chat, or to code from a terminal — and the console is only
+ * one of those. So the action names the doors and lets the visitor pick.
+ *
+ * It is NOT a second Meet Hanzo. Meet Hanzo answers "what IS Hanzo" and carries
+ * the whole ecosystem, taglines and all; this answers "start what?", and holds
+ * only things you can OPEN right now. The two never diverge because neither
+ * holds a list: both project `HANZO_PRODUCTS`, so a product added once appears
+ * in both, spelled once.
+ *
+ * OPEN is the flagships, in the order the question is usually asked. INSTALL is
+ * what you put on your own machine — the same rows as Meet Hanzo's Install
+ * group, by construction rather than by copy.
+ */
+export const TRY_HANZO_GROUPS: MeetHanzoGroup[] = [
+  {
+    id: 'open',
+    title: 'Open',
+    items: HANZO_FLAGSHIP.map((p) => ({
+      id: p.id,
+      label: p.label,
+      href: p.href,
+      hint: p.tagline,
+    })),
+  },
+  {
+    id: 'install',
+    title: 'Install',
+    items: [
+      { id: 'desktop', label: 'Desktop app', href: U.desktop },
+      { id: 'extension', label: 'Browser extension', href: U.extension },
+      { id: 'cli', label: 'Hanzo CLI', href: U.cli },
+      { id: 'sdks', label: 'SDKs', href: U.sdks },
+      { id: 'downloads', label: 'All downloads', href: U.downloads },
+    ],
+  },
+]
 
 /* ── Universal "Meet Hanzo" mega-menu — identical on every property ─────────── */
 

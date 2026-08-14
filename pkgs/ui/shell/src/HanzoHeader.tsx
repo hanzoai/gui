@@ -31,6 +31,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { HanzoMark } from './mark'
 import { MeetHanzoMenu } from './MeetHanzoMenu'
+import { TryHanzoMenu } from './TryHanzoMenu'
 import { ProductsMegaMenu } from './ProductsMegaMenu'
 import {
   DEFAULT_SURFACE,
@@ -113,6 +114,23 @@ export interface HanzoHeaderProps {
    */
   identitySlot?: React.ReactNode
   /**
+   * Turn the PRIMARY action into the doors menu instead of a link.
+   *
+   * "Try Hanzo" as one href answers a question nobody asked — a visitor wants
+   * to build an app, or keep data somewhere, or chat, or code from a terminal,
+   * and any single destination is wrong for most of them. With this on, the
+   * pill opens <TryHanzoMenu> over the canonical `TRY_HANZO_GROUPS`; the
+   * surface's `primaryCTA.href` stays the fallback the pill still carries, so
+   * the control is a real link before hydration and for anyone without JS.
+   *
+   * DESKTOP ONLY, deliberately. The mobile sheet is ALREADY a list of doors —
+   * it opens Meet Hanzo and every product category inline — so a menu inside it
+   * would be a menu inside a menu, and the phone's big pill would stop being
+   * the one thing on the sheet that just goes somewhere. On a phone the sheet
+   * is the card.
+   */
+  tryMenu?: boolean
+  /**
    * Where the DEFAULT "Sign in" affordance points. Supplying it is what makes
    * that affordance exist — omit it (the default) on a surface that already
    * carries its own sign-in, e.g. one whose primary CTA IS the sign-in, so the
@@ -137,6 +155,7 @@ export function HanzoHeader({
   currentHref,
   brandSlot,
   identitySlot,
+  tryMenu,
   signInHref,
   className,
 }: HanzoHeaderProps) {
@@ -144,7 +163,7 @@ export function HanzoHeader({
   const s = resolveSurface(surface)
   const isMobile = useIsMobile(900)
   // ONE open mega-menu, not one boolean per menu.
-  const menu = useIntent<'meet' | 'products'>()
+  const menu = useIntent<'meet' | 'products' | 'try'>()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
@@ -285,7 +304,17 @@ export function HanzoHeader({
             {/* ── ⌘K palette trigger + CTAs + identity + account ── */}
             {hasProducts ? <HanzoCommandTrigger onOpen={openSearch} /> : null}
             <CTA link={s.secondaryCTA} variant="ghost" />
-            <CTA link={s.primaryCTA} variant="filled" />
+            {tryMenu ? (
+              <CTATrigger
+                link={s.primaryCTA}
+                open={menu.key === 'try'}
+                reach={menu.trigger('try')}
+                onStepIn={() => menu.set('try')}
+                controls="hanzo-try-menu"
+              />
+            ) : (
+              <CTA link={s.primaryCTA} variant="filled" />
+            )}
             {identitySlot}
             {accountNode}
           </>
@@ -302,6 +331,18 @@ export function HanzoHeader({
         autoFocus={!menu.hover}
         {...menu.panel}
       />
+
+      {/* ── The doors, behind the primary action (opt-in via tryMenu) ── */}
+      {tryMenu ? (
+        <TryHanzoMenu
+          id="hanzo-try-menu"
+          open={menu.key === 'try'}
+          onClose={closeMenu}
+          anchor={HEADER_H}
+          autoFocus={!menu.hover}
+          {...menu.panel}
+        />
+      ) : null}
 
       {/* ── Rich Products mega-menu (opt-in via productsTaxonomy) ── */}
       {hasProducts ? (
@@ -435,6 +476,57 @@ function CTA({
       }}
     >
       {link.label}
+    </a>
+  )
+}
+
+/**
+ * The primary action, opening the doors instead of taking one.
+ *
+ * It is an `<a>` carrying the surface's own `primaryCTA.href`, NOT a button:
+ * the markup ships from a static export and is read before React runs, so the
+ * pill must be a real link at first paint and for anyone who never gets the
+ * JavaScript. The click is intercepted only once there is a menu to show.
+ *
+ * `preventDefault` on the click, and nothing else about it changes — the pill
+ * keeps `cta(true)`, so "go" still looks like "go" and gains one chevron.
+ */
+function CTATrigger({
+  link,
+  open,
+  reach,
+  onStepIn,
+  controls,
+}: {
+  link: HanzoLink
+  open: boolean
+  reach: Reach
+  onStepIn: () => void
+  controls: string
+}) {
+  const { onClick, ...pointer } = reach
+  return (
+    <a
+      href={link.href}
+      aria-haspopup="dialog"
+      aria-expanded={open}
+      aria-controls={open ? controls : undefined}
+      onClick={(e) => {
+        e.preventDefault()
+        onClick()
+      }}
+      onKeyDown={(e) => {
+        if (e.key !== 'ArrowDown' || open) return
+        e.preventDefault()
+        onStepIn()
+      }}
+      style={{ ...cta(true), gap: 6 }}
+      onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+      onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+      {...pointer}
+    >
+      {link.label}
+      <Chevron open={open} />
     </a>
   )
 }

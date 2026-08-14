@@ -60,7 +60,6 @@ export const loader = async function loader(
   const source = sourceIn.toString()
 
   try {
-
     const { shouldDisable, shouldPrintDebug } = await getPragmaOptions({
       source,
       path: sourcePath,

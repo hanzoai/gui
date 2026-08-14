@@ -59,7 +59,11 @@ import {
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
 import { useIntent, type Reach } from './intent'
-import { HanzoCommandPalette, HanzoCommandTrigger } from './HanzoCommandPalette'
+import {
+  HanzoCommandPalette,
+  HanzoCommandTrigger,
+  type HanzoCommandEntry,
+} from './HanzoCommandPalette'
 
 const HEADER_H = 60
 
@@ -99,6 +103,15 @@ export interface HanzoHeaderProps {
    * (the default — fully backward compatible).
    */
   productsTaxonomy?: ProductCategory[]
+  /**
+   * The surface's OWN pages, docs and actions, for the ⌘K palette to find.
+   *
+   * The header already contributes what it renders — the local nav and both
+   * CTAs — so this is for everything a header has no room to link and a reader
+   * still searches by name. Without it a palette answers "no results" about
+   * pages the site publishes, which is the one thing a site search may not do.
+   */
+  commands?: HanzoCommandEntry[]
   /**
    * What the taxonomy trigger is CALLED on this surface. The menu is the same
    * ten categories everywhere; what a visitor is looking for when they open it
@@ -163,6 +176,7 @@ export function HanzoHeader({
   account,
   onAskHanzo,
   productsTaxonomy,
+  commands,
   productsLabel = 'Products',
   currentCategoryId,
   currentHref,
@@ -190,6 +204,31 @@ export function HanzoHeader({
   // when the host asked for one — a header must never invent a link to nowhere.
   const accountNode =
     account ?? (signInHref ? <DefaultAccount href={signInHref} /> : null)
+
+  // What the header itself can reach, handed to the palette. A control the bar
+  // renders and the palette cannot find is the same page described two ways,
+  // and the header is the half that already knows the answer.
+  const chrome: HanzoCommandEntry[] = React.useMemo(
+    () =>
+      [...localNav, s.secondaryCTA, s.primaryCTA]
+        .filter(Boolean)
+        .map((link) => ({
+          id: `nav/${link.id}`,
+          title: link.label,
+          href: link.href,
+          hint: link.hint,
+          group: 'Pages',
+          external: /^https?:\/\//.test(link.href),
+        })),
+    [localNav, s.secondaryCTA, s.primaryCTA]
+  )
+
+  const searchIndex = React.useMemo(
+    () => [...(commands ?? []), ...chrome],
+    [commands, chrome]
+  )
+  // Search exists as long as there is something to find.
+  const hasSearch = hasProducts || searchIndex.length > 0
 
   // Close everything on Esc when a mobile sheet is open.
   useEffect(() => {
@@ -266,7 +305,7 @@ export function HanzoHeader({
         {isMobile ? (
           <>
             <div style={{ flex: 1 }} />
-            {hasProducts ? <HanzoCommandTrigger onOpen={openSearch} compact /> : null}
+            {hasSearch ? <HanzoCommandTrigger onOpen={openSearch} compact /> : null}
             <IconButton
               label={mobileOpen ? 'Close menu' : 'Open menu'}
               expanded={mobileOpen}
@@ -313,7 +352,7 @@ export function HanzoHeader({
             <div style={{ flex: 1 }} />
 
             {/* ── ⌘K palette trigger + CTAs + identity + account ── */}
-            {hasProducts ? <HanzoCommandTrigger onOpen={openSearch} /> : null}
+            {hasSearch ? <HanzoCommandTrigger onOpen={openSearch} /> : null}
             <CTA link={s.secondaryCTA} variant="ghost" />
             {tryMenu ? (
               <CTATrigger
@@ -357,27 +396,29 @@ export function HanzoHeader({
 
       {/* ── Rich Products mega-menu (opt-in via productsTaxonomy) ── */}
       {hasProducts ? (
-        <>
-          <ProductsMegaMenu
-            id="hanzo-products-menu"
-            categories={productsTaxonomy!}
-            open={menu.key === 'products'}
-            onClose={closeMenu}
-            anchor={HEADER_H}
-            currentCategoryId={currentCategoryId}
-            currentHref={currentHref}
-            autoFocus={!menu.hover}
-            {...menu.panel}
-          />
-          {/* The ONE place products are searched — from the header, at any
-              width, in or out of a menu. ⌘K reaches it without the trigger. */}
-          <HanzoCommandPalette
-            categories={productsTaxonomy!}
-            open={searchOpen}
-            onOpenChange={setSearchOpen}
-            onAsk={onAskHanzo}
-          />
-        </>
+        <ProductsMegaMenu
+          id="hanzo-products-menu"
+          categories={productsTaxonomy!}
+          open={menu.key === 'products'}
+          onClose={closeMenu}
+          anchor={HEADER_H}
+          currentCategoryId={currentCategoryId}
+          currentHref={currentHref}
+          autoFocus={!menu.hover}
+          {...menu.panel}
+        />
+      ) : null}
+
+      {/* The ONE place this surface is searched — from the header, at any
+          width, in or out of a menu. ⌘K reaches it without the trigger. */}
+      {hasSearch ? (
+        <HanzoCommandPalette
+          categories={productsTaxonomy}
+          commands={searchIndex}
+          open={searchOpen}
+          onOpenChange={setSearchOpen}
+          onAsk={onAskHanzo}
+        />
       ) : null}
 
       {/* ── Mobile disclosure sheet ── */}

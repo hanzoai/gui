@@ -43,11 +43,19 @@ import { useRove } from './rove'
 /** Matches the header's own `padding: 0 16px`, so the card lines up with the bar. */
 const EDGE = 16
 /** The Open column. Wide enough for "Hanzo Studio" + its hint on one line. */
-const OPEN_W = 232
+const OPEN_W = 206
 /** The Install column. Wide enough for "Browser extension" without wrapping. */
-const INSTALL_W = 168
+const INSTALL_W = 152
 /** Below this the card gives up its two columns and stacks, like the drapes do. */
 const STACK_BELOW = 900
+/**
+ * How far apart the doors arrive, in ms.
+ *
+ * Small on purpose. The cascade is meant to be felt rather than watched: at
+ * 22ms thirteen rows are all in within 300ms, which still reads as one gesture.
+ * Anything slower turns a menu into a performance the second time you open it.
+ */
+const CASCADE = 22
 
 /* The door's mark, from the ONE icon table.
    `hanzo-apps.tsx` already decorates every cross-app surface with a monochrome
@@ -118,8 +126,8 @@ export function TryHanzoMenu({
         zIndex: Z.sticky as unknown as number,
         display: 'flex',
         flexDirection: stacked ? 'column' : 'row',
-        gap: stacked ? 18 : 28,
-        padding: 18,
+        gap: stacked ? 14 : 20,
+        padding: 12,
         borderRadius: R.card,
         border: `1px solid ${CHROME.border}`,
         boxShadow: SHADOW,
@@ -127,82 +135,115 @@ export function TryHanzoMenu({
         ...GLASS,
         color: CHROME.fg,
         fontFamily: CHROME.font,
+        // It drops out of the pill that opened it, so it grows from that
+        // corner. Scaling from the centre would make the card appear to arrive
+        // from behind the page instead of out of the control.
+        transformOrigin: stacked ? 'top center' : 'top right',
+        animation: 'hanzo-card-in 200ms cubic-bezier(.2,.9,.3,1.1) both',
         // A long list on a short phone must not run off the bottom; `dvh`
         // because a phone's URL bar moves the usable height.
         maxHeight: `calc(100dvh - ${anchor + EDGE}px)`,
         overflowY: 'auto',
       }}
     >
-      {[
-        { g: opens, w: OPEN_W, hints: true },
-        { g: installs, w: INSTALL_W, hints: false },
-      ].map(({ g, w, hints }) =>
-        g ? (
-          <div key={g.id} style={{ minWidth: 0, width: stacked ? '100%' : w }}>
-            <div style={{ ...LABEL, marginBottom: 6 }}>{g.title}</div>
-            {g.items.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={close}
-                style={{
-                  ...row(),
-                  display: 'block',
-                  padding: '4px 8px',
-                  textDecoration: 'none',
-                }}
-                {...ghostHover()}
-              >
-                <span
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    fontSize: FS.sm,
-                    fontWeight: 500,
-                  }}
-                >
-                  {/* The rail is 18px whether or not there is a mark in it, so
-                      one door without an icon cannot shunt its label out of the
-                      column the others line up on. */}
-                  <span
-                    aria-hidden
+      {(() => {
+        // One counter across BOTH columns, so the doors arrive in reading order
+        // rather than two columns racing each other.
+        let seq = 0
+        return [
+          { g: opens, w: OPEN_W, hints: true },
+          { g: installs, w: INSTALL_W, hints: false },
+        ].map(({ g, w, hints }) =>
+          g ? (
+            <div key={g.id} style={{ minWidth: 0, width: stacked ? '100%' : w }}>
+              <div style={{ ...LABEL, marginBottom: 4 }}>{g.title}</div>
+              {g.items.map((item) => {
+                const Icon = ICONS.get(item.id)
+                const delay = seq++ * CASCADE
+                return (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    onClick={close}
+                    className="hanzo-door"
                     style={{
-                      display: 'inline-flex',
-                      width: 18,
-                      flexShrink: 0,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: CHROME.fgMuted,
-                    }}
-                  >
-                    {(() => {
-                      const Icon = ICONS.get(item.id)
-                      return Icon ? <Icon size={16} /> : null
-                    })()}
-                  </span>
-                  {item.label}
-                </span>
-                {hints && item.hint ? (
-                  <span
-                    style={{
+                      ...row(),
                       display: 'block',
-                      /* Clears the 18px rail + its 8px gap so the tagline sits
-                         under the LABEL rather than under the mark. */
-                      marginLeft: 26,
-                      fontSize: FS.xs,
-                      color: CHROME.fgMuted,
-                      lineHeight: '1.35',
+                      padding: '2px 8px',
+                      textDecoration: 'none',
+                      animation: `hanzo-row-in 180ms ease-out ${delay}ms both`,
                     }}
+                    {...ghostHover()}
                   >
-                    {item.hint}
-                  </span>
-                ) : null}
-              </a>
-            ))}
-          </div>
-        ) : null
-      )}
+                    <span
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        fontSize: FS.sm,
+                        fontWeight: 500,
+                        // Stated, not inherited: the default line box on a
+                        // flex row is tall enough to add 5px to every door,
+                        // which over thirteen of them is a taller card for
+                        // nothing a reader can see.
+                        lineHeight: 1.35,
+                      }}
+                    >
+                      {/* The rail is 18px whether or not there is a mark in it,
+                          so one door without an icon cannot shunt its label out
+                          of the column the others line up on. */}
+                      <span
+                        aria-hidden
+                        className="hanzo-door-mark"
+                        style={{
+                          display: 'inline-flex',
+                          width: 18,
+                          flexShrink: 0,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: CHROME.fgMuted,
+                        }}
+                      >
+                        {Icon ? <Icon size={16} /> : null}
+                      </span>
+                      {item.label}
+                      {/* Where it goes, said only while the pointer is on it —
+                          a row of thirteen permanent arrows is noise. */}
+                      <span
+                        aria-hidden
+                        className="hanzo-door-go"
+                        style={{
+                          marginLeft: 'auto',
+                          paddingLeft: 6,
+                          fontSize: FS.xs,
+                          color: 'inherit',
+                        }}
+                      >
+                        →
+                      </span>
+                    </span>
+                    {hints && item.hint ? (
+                      <span
+                        style={{
+                          display: 'block',
+                          /* Clears the 18px rail + its 8px gap so the tagline
+                             sits under the LABEL rather than under the mark. */
+                          marginLeft: 26,
+                          fontSize: FS.xs,
+                          color: CHROME.fgMuted,
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {item.hint}
+                      </span>
+                    ) : null}
+                  </a>
+                )
+              })}
+            </div>
+          ) : null
+        )
+      })()}
     </div>
   )
 }

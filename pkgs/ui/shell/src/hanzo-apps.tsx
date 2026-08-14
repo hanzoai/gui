@@ -98,6 +98,31 @@ const CodeIcon = svg(
     <path d="m15 8 4 4-4 4" />
   </>
 )
+/* Base — a data store. Three stacked discs is the shape every database in every
+   icon set uses, so it is the one a reader already knows. */
+const BaseIcon = svg(
+  <>
+    <ellipse cx="12" cy="6" rx="7.5" ry="3" />
+    <path d="M4.5 6v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6" />
+    <path d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" />
+  </>
+)
+/* SDKs — a package. Not braces: braces say "code", and every door in this menu
+   is code; what an SDK is, is a thing you install. */
+const PackageIcon = svg(
+  <>
+    <path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7z" />
+    <path d="M3.5 7 12 11.5 20.5 7M12 11.5V21.4" />
+  </>
+)
+/* All downloads — the arrow into a tray, which is what a download IS. */
+const DownloadIcon = svg(
+  <>
+    <path d="M12 3v11" />
+    <path d="m7.5 10 4.5 4.5L16.5 10" />
+    <path d="M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5" />
+  </>
+)
 const GlobeIcon = svg(
   <>
     <circle cx="12" cy="12" r="9" />
@@ -287,6 +312,14 @@ export const HANZO_APPS: HanzoApp[] = [
 
   // ── Install ──
   {
+    id: 'base',
+    label: 'Base',
+    href: U.base,
+    description: 'Data, auth and files',
+    icon: BaseIcon,
+    category: 'Products',
+  },
+  {
     id: 'desktop',
     label: 'Desktop',
     href: U.desktop,
@@ -308,6 +341,22 @@ export const HANZO_APPS: HanzoApp[] = [
     href: U.cli,
     description: 'Command-line interface',
     icon: TerminalIcon,
+    category: 'Install',
+  },
+  {
+    id: 'sdks',
+    label: 'SDKs',
+    href: U.sdks,
+    description: 'Client libraries',
+    icon: PackageIcon,
+    category: 'Install',
+  },
+  {
+    id: 'downloads',
+    label: 'Downloads',
+    href: U.downloads,
+    description: 'Every app and client',
+    icon: DownloadIcon,
     category: 'Install',
   },
 

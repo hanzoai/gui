@@ -34,6 +34,7 @@
 import React, { useCallback, useMemo } from 'react'
 import type { PointerEventHandler } from 'react'
 import { TRY_HANZO_GROUPS } from './hanzo-registry'
+import { HANZO_APPS } from './hanzo-apps'
 import { CHROME, FS, GLASS, LABEL, R, SHADOW, Z, ghostHover, row } from './theme'
 import { useShellStyles } from './shellStyles'
 import { useIsMobile } from './useMediaQuery'
@@ -47,6 +48,17 @@ const OPEN_W = 232
 const INSTALL_W = 168
 /** Below this the card gives up its two columns and stacks, like the drapes do. */
 const STACK_BELOW = 900
+
+/* The door's mark, from the ONE icon table.
+   `hanzo-apps.tsx` already decorates every cross-app surface with a monochrome
+   line-icon for the launcher, keyed by exactly the ids these doors carry — so
+   the icon is a LOOKUP, never a second table. A second one is how the launcher
+   and this menu come to draw different glyphs for the same product, which no
+   test would catch and every reader would notice.
+   A door with no entry renders no icon rather than a placeholder: an empty box
+   where a mark should be reads as a broken image, and a generic glyph is worse
+   — it says "some app" about a named one. */
+const ICONS = new Map(HANZO_APPS.map((a) => [a.id, a.icon]))
 
 export interface TryHanzoMenuProps {
   open?: boolean
@@ -141,13 +153,35 @@ export function TryHanzoMenu({
                 }}
                 {...ghostHover()}
               >
-                <span style={{ display: 'block', fontSize: FS.sm, fontWeight: 500 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: FS.sm, fontWeight: 500 }}>
+                  {/* The rail is 18px whether or not there is a mark in it, so
+                      one door without an icon cannot shunt its label out of the
+                      column the others line up on. */}
+                  <span
+                    aria-hidden
+                    style={{
+                      display: 'inline-flex',
+                      width: 18,
+                      flexShrink: 0,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: CHROME.fgMuted,
+                    }}
+                  >
+                    {(() => {
+                      const Icon = ICONS.get(item.id)
+                      return Icon ? <Icon size={16} /> : null
+                    })()}
+                  </span>
                   {item.label}
                 </span>
                 {hints && item.hint ? (
                   <span
                     style={{
                       display: 'block',
+                      /* Clears the 18px rail + its 8px gap so the tagline sits
+                         under the LABEL rather than under the mark. */
+                      marginLeft: 26,
                       fontSize: FS.xs,
                       color: CHROME.fgMuted,
                       lineHeight: '1.35',

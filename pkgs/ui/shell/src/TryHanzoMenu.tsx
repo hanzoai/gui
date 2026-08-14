@@ -45,7 +45,7 @@ const EDGE = 16
 /** The Open column. Wide enough for "Hanzo Studio" + its hint on one line. */
 const OPEN_W = 206
 /** The Install column. Wide enough for "Browser extension" without wrapping. */
-const INSTALL_W = 152
+const INSTALL_W = 168
 /** Below this the card gives up its two columns and stacks, like the drapes do. */
 const STACK_BELOW = 900
 /**
@@ -111,6 +111,12 @@ export function TryHanzoMenu({
       id={id}
       role="dialog"
       aria-label="Try Hanzo"
+      /* The card is a SIBLING of the bar, not a child, so it does not inherit
+         the header's marker — and without it none of shellStyles reaches here:
+         not the hover rules below, and not the reduced-motion silencer, which
+         is the one that matters, because this surface states its entrance as an
+         inline `animation` that no media query can otherwise reach. */
+      data-hanzo-shell=""
       className={className}
       ref={rove.ref}
       onKeyDown={rove.onKeyDown}

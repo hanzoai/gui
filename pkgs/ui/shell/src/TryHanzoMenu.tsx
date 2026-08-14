@@ -153,7 +153,15 @@ export function TryHanzoMenu({
                 }}
                 {...ghostHover()}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: FS.sm, fontWeight: 500 }}>
+                <span
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    fontSize: FS.sm,
+                    fontWeight: 500,
+                  }}
+                >
                   {/* The rail is 18px whether or not there is a mark in it, so
                       one door without an icon cannot shunt its label out of the
                       column the others line up on. */}

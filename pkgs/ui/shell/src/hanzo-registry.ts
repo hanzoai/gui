@@ -739,8 +739,10 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
     id: 'products',
     title: 'Products',
     items: [
+      // Just the projection. Hanzo Dev used to be named again here, from before
+      // it was a flagship; once it became one the footer listed it twice, on
+      // every property. A product is spelled once, in HANZO_PRODUCTS.
       ...HANZO_FLAGSHIP.map((p) => ({ id: p.id, label: p.label, href: p.href })),
-      { id: 'dev', label: 'Hanzo Dev', href: U.dev },
       { id: 'allProducts', label: 'All products', href: U.allProducts },
     ],
   },

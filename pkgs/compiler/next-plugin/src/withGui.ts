@@ -3,8 +3,8 @@ import browserslist from 'browserslist'
 import { lazyPostCSS } from 'next/dist/build/webpack/config/blocks/css/index.js'
 import { getGlobalCssLoader } from 'next/dist/build/webpack/config/blocks/css/loaders/index.js'
 import path from 'node:path'
-import type { PluginOptions as LoaderPluginOptions } from 'hanzogui-loader'
-import { GuiPlugin } from 'hanzogui-loader'
+import type { PluginOptions as LoaderPluginOptions } from '@hanzogui/loader'
+import { GuiPlugin } from '@hanzogui/loader'
 import webpack from 'webpack'
 
 const { loadGuiBuildConfigSync } = Static
@@ -34,13 +34,13 @@ export type WithGuiProps = LoaderPluginOptions & {
   disableOptimizeLucideIcons?: boolean
 }
 
-export const withGui = (guiOptionsIn?: WithGuiProps) => {
+export const withGui = (hanzoguiOptionsIn?: WithGuiProps) => {
   return (nextConfig: any = {}) => {
-    const guiOptions = {
-      ...guiOptionsIn,
-      ...loadGuiBuildConfigSync(guiOptionsIn),
+    const hanzoguiOptions = {
+      ...hanzoguiOptionsIn,
+      ...loadGuiBuildConfigSync(hanzoguiOptionsIn),
     }
-    const isAppDir = guiOptions?.appDir || nextConfig.experimental?.appDir
+    const isAppDir = hanzoguiOptions?.appDir || nextConfig.experimental?.appDir
 
     return {
       ...nextConfig,
@@ -66,10 +66,10 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
           })
         }
 
-        const guiPlugin = new GuiPlugin({
+        const hanzoguiPlugin = new GuiPlugin({
           platform: 'web',
           isServer,
-          ...guiOptions,
+          ...hanzoguiOptions,
         })
 
         const defines = {
@@ -79,11 +79,9 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
           'process.env.GUI_ENVIRONMENT': JSON.stringify(isServer ? 'ssr' : 'client'),
           __DEV__: JSON.stringify(dev),
           ...(process.env.GUI_DOES_SSR_CSS && {
-            'process.env.GUI_DOES_SSR_CSS': JSON.stringify(
-              process.env.GUI_DOES_SSR_CSS
-            ),
+            'process.env.GUI_DOES_SSR_CSS': JSON.stringify(process.env.GUI_DOES_SSR_CSS),
           }),
-          ...(guiOptions?.disableThemesBundleOptimize && {
+          ...(hanzoguiOptions?.disableThemesBundleOptimize && {
             'process.env.GUI_OPTIMIZE_THEMES': JSON.stringify(false),
             'process.env.GUI_ENVIRONMENT': JSON.stringify(false),
           }),
@@ -107,7 +105,7 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
          * Font Support
          */
         if (cssRules) {
-          if (guiOptions.enableLegacyFontSupport) {
+          if (hanzoguiOptions.enableLegacyFontSupport) {
             // fonts support
             cssRules.unshift({
               test: /\.(woff(2)?|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/,
@@ -153,7 +151,7 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
           )
           if (!isAppDir) {
             cssRules.unshift({
-              test: guiOptions.includeCSSTest ?? /\.gui\.css$/,
+              test: hanzoguiOptions.includeCSSTest ?? /\.hanzogui\.css$/,
               sideEffects: true,
               use: cssLoader,
             })
@@ -168,12 +166,12 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
           }
           if (webpackConfig.resolve.plugins[0]) {
             delete webpackConfig.resolve.plugins[0].paths['@hanzogui/*']
-            // delete webpackConfig.resolve.plugins[0].paths['gui']
+            // delete webpackConfig.resolve.plugins[0].paths['hanzogui']
           }
         }
 
         // better shaking for icons:
-        if (!guiOptions.disableOptimizeLucideIcons) {
+        if (!hanzoguiOptions.disableOptimizeLucideIcons) {
           nextConfig.experimental ||= {}
           nextConfig.experimental.optimizePackageImports ||= []
           nextConfig.experimental.optimizePackageImports.push('@hanzogui/lucide-icons-2')
@@ -186,8 +184,8 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
           const externalize = (context: string, request: string) => {
             const fullPath = request[0] === '.' ? path.join(context, request) : request
 
-            if (guiOptions.shouldExcludeFromServer) {
-              const userRes = guiOptions.shouldExcludeFromServer({
+            if (hanzoguiOptions.shouldExcludeFromServer) {
+              const userRes = hanzoguiOptions.shouldExcludeFromServer({
                 context,
                 request,
                 fullPath,
@@ -197,7 +195,7 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
               }
             }
 
-            if (guiPlugin.isInComponentModule(fullPath)) {
+            if (hanzoguiPlugin.isInComponentModule(fullPath)) {
               return false
             }
 
@@ -217,7 +215,7 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
             if (
               fullPath.startsWith('moti') ||
               fullPath.startsWith('solito') ||
-              // fullPath === 'gui' ||
+              // fullPath === 'hanzogui' ||
               fullPath.startsWith('@hanzogui') ||
               fullPath === 'react-native-safe-area-context' ||
               fullPath === 'expo-linear-gradient' ||
@@ -261,7 +259,7 @@ export const withGui = (guiOptionsIn?: WithGuiProps) => {
           })
         }
 
-        webpackConfig.plugins.push(guiPlugin)
+        webpackConfig.plugins.push(hanzoguiPlugin)
 
         if (typeof nextConfig.webpack === 'function') {
           return nextConfig.webpack(webpackConfig, options)

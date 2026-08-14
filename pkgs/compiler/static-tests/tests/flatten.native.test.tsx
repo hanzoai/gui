@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as t from '@babel/types'
 import { describe, expect, test } from 'vitest'
 
 import { extractForNative } from './lib/extract'
@@ -11,8 +12,8 @@ window['React'] = React
 describe('flatten-tests', () => {
   test(`flattened without extra attributes`, async () => {
     const output = await extractForNative(`
-      import { YStack } from 'hanzogui'
-      import { useMedia } from 'hanzogui'
+      import { YStack } from '@hanzo/gui'
+      import { useMedia } from '@hanzo/gui'
 
       export function Test(isLoading) {
         const media = useMedia()
@@ -32,8 +33,8 @@ describe('flatten-tests', () => {
 
   test('flattened media queries', async () => {
     const output = await extractForNative(`
-      import { YStack } from 'hanzogui'
-      import { useMedia } from 'hanzogui'
+      import { YStack } from '@hanzo/gui'
+      import { useMedia } from '@hanzo/gui'
 
       export function Test(isLoading) {
         const media = useMedia()
@@ -101,7 +102,7 @@ describe('flatten-tests', () => {
 
   test(`work with experimentalFlattenThemesOnNative`, async () => {
     const output = await extractForNative(`
-      import { YStack } from 'hanzogui'
+      import { YStack } from '@hanzo/gui'
 
       export function Test(isLoading) {
         return (
@@ -120,7 +121,7 @@ describe('flatten-tests', () => {
 
   test(`work with experimentalFlattenThemesOnNative + ternary`, async () => {
     const output = await extractForNative(`
-      import { View } from 'hanzogui'
+      import { View } from '@hanzo/gui'
 
       export function Test() {
         return (
@@ -134,7 +135,7 @@ describe('flatten-tests', () => {
 
   test(`allow invalid identifier`, async () => {
     const output = await extractForNative(`
-        import { View } from 'hanzogui'
+        import { View } from '@hanzo/gui'
         export function Test() {
           return (
             <View backgroundColor='$invalid-identifier' />
@@ -145,10 +146,40 @@ describe('flatten-tests', () => {
     expect(output?.code).contains('theme["invalid-identifier"].get()')
   })
 
+  test(`keeps static props on the runtime component after a dynamic deopt`, async () => {
+    const output = await extractForNative(`
+      import { View } from '@hanzo/gui'
+      export function Test({ color }) {
+        return (
+          <View
+            bg="white"
+            m={16}
+            p={16}
+            borderWidth={4}
+            borderColor={color}
+          />
+        )
+      }
+    `)
+
+    let attributeNames: string[] = []
+    t.traverseFast(output?.ast, (node) => {
+      if (t.isJSXOpeningElement(node) && t.isJSXIdentifier(node.name, { name: 'View' })) {
+        attributeNames = node.attributes.flatMap((attribute) =>
+          t.isJSXAttribute(attribute) && t.isJSXIdentifier(attribute.name)
+            ? [attribute.name.name]
+            : []
+        )
+      }
+    })
+
+    expect(attributeNames).toEqual(['bg', 'm', 'p', 'borderWidth', 'borderColor'])
+  })
+
   // TODO make this work:
   // test.skip(`keeps style object a single object case 2`, async () => {
   //   const output = await extractForNative(`
-  //     import { View } from 'hanzogui'
+  //     import { View } from '@hanzo/gui'
 
   //     export function Test() {
   //       return (

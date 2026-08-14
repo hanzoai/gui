@@ -1,4 +1,4 @@
-import { Paragraph, Spacer, styled, YStack } from 'hanzogui'
+import { Paragraph, Spacer, styled, YStack } from '@hanzo/gui'
 import { Link } from '../../../components/Link'
 import { P } from './BigP'
 
@@ -27,7 +27,7 @@ export const FaqTabContent = () => {
     <YStack gap="$5">
       <Question>What's included with Pro?</Question>
       <Answer>
-        Two starter kits (v1 with Next.js + Expo, v2 with One framework), Recipes copy-paste
+        Two starter kits (v1 with Next.js + Expo, v2 with One framework), Bento copy-paste
         components with full source repo access, Theme AI generator, private Discord
         support, and all future updates during your license period. See our{' '}
         <Link href="/pro-license">full license terms</Link> for details.
@@ -43,9 +43,9 @@ export const FaqTabContent = () => {
 
       <Question>Do I own the code?</Question>
       <Answer>
-        For Recipes - yes, you have full rights and can use it in public projects. For
+        For Bento - yes, you have full rights and can use it in public projects. For
         Takeout - the code is private, all team members must be added to your project on
-        gui.hanzo.ai. See our <Link href="/pro-license">license</Link> for full details.
+        hanzogui.dev. See our <Link href="/pro-license">license</Link> for full details.
       </Answer>
 
       <Question>What support do I get?</Question>
@@ -66,7 +66,7 @@ export const FaqTabContent = () => {
       <Question>What about teams?</Question>
       <Answer>
         Unlimited team members at no extra cost. Add them through your project dashboard
-        on gui.hanzo.ai to grant access to private repos.
+        on hanzogui.dev to grant access to private repos.
       </Answer>
 
       <Question>Is there a free version?</Question>
@@ -85,7 +85,7 @@ export const FaqTabContent = () => {
       <Question>Enterprise pricing?</Question>
       <Answer>
         Companies with over $1M annual revenue should contact{' '}
-        <Link href="mailto:support@hanzo.ai">support@hanzo.ai</Link>.
+        <Link href="mailto:support@hanzogui.dev">support@hanzogui.dev</Link>.
       </Answer>
 
       <Question>Why the price?</Question>

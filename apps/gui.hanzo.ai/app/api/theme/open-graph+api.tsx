@@ -1,17 +1,13 @@
 import { ImageResponse } from '@vercel/og'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { db } from '~/features/db'
-import { storage } from '~/features/db/storage'
+import { supabaseAdmin } from '~/features/auth/supabaseAdmin'
 import { getTheme } from '../../../features/studio/theme/getTheme'
 
 export async function GET(req: Request) {
-  // Local facade mirrors the supabase shape this file historically used —
-  // `supabase.storage.from(...)` + `supabase.from('theme_histories')`.
-  const supabase = {
-    storage,
-    from: db.from,
-  }
+  // service role: this server-side route caches OG images and writes the cache
+  // flags back to theme_histories, which is protected by RLS (no anon writes).
+  const supabase = supabaseAdmin
 
   try {
     const url = new URL(req.url)
@@ -98,7 +94,7 @@ export async function GET(req: Request) {
               fontWeight: 500,
             }}
           >
-            GUI Theme
+            Gui Theme
           </div>
         </div>
 
@@ -334,7 +330,7 @@ export async function GET(req: Request) {
               fontWeight: 500,
             }}
           >
-            GUI Theme
+            Gui Theme
           </div>
         </div>
 
@@ -543,11 +539,40 @@ export async function GET(req: Request) {
     const imageBuffer = Buffer.from(buffer)
 
     queueMicrotask(async () => {
-      // TODO(supabase-rip): Base storage adapter does not yet expose
-      // `.remove([...])` or `.upload(buffer)` — only `.download/.list/.
-      // createSignedUrl`. Cached OG images stay valid until manually
-      // evicted; new image generation falls through to live render.
-      void imageBuffer
+      try {
+        if (theme.og_image_url) {
+          await supabase.storage.from('theme-og-images').remove([theme.og_image_url])
+        }
+
+        const fileName = `theme-${id}-${Date.now()}.png`
+        const { error: uploadError } = await supabase.storage
+          .from('theme-og-images')
+          .upload(fileName, imageBuffer, {
+            contentType: 'image/png',
+            cacheControl: '31536000',
+          })
+
+        if (uploadError) {
+          console.error('Storage error:', uploadError)
+          return
+        }
+
+        const { error: updateError } = await supabase
+          .from('theme_histories')
+          .update({
+            og_image_url: fileName,
+            is_cached: true,
+          })
+          .eq('id', Number(id))
+
+        if (updateError) {
+          console.error('DB update error:', updateError)
+        } else {
+          console.info('DB update success:', fileName)
+        }
+      } catch (error) {
+        console.error('Background storage/update error:', error)
+      }
     })
 
     return new Response(imageBuffer, {

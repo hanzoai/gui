@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/metro-plugin",
-  "version": "7.3.1",
-  "license": "BSD-3-Clause",
+  "version": "8.1.1",
+  "license": "MIT",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -15,17 +15,15 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build --skip-native",
-    "watch": "gui-build --skip-native --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/static": "workspace:*",
-    "expo": "^55.0.26"
+    "@hanzogui/static": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

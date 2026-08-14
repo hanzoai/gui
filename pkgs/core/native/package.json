@@ -1,7 +1,30 @@
 {
   "name": "@hanzogui/native",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "description": "Native setup modules for Gui - portals, gesture handler, worklets, and more",
+  "files": [
+    "dist",
+    "gesture-handler.cjs",
+    "gesture-handler",
+    "setup-burnt.cjs",
+    "setup-burnt",
+    "setup-expo-linear-gradient.cjs",
+    "setup-expo-linear-gradient",
+    "setup-gesture-handler.cjs",
+    "setup-gesture-handler",
+    "setup-keyboard-controller.cjs",
+    "setup-keyboard-controller",
+    "setup-safe-area.cjs",
+    "setup-safe-area",
+    "setup-teleport.cjs",
+    "setup-teleport",
+    "setup-worklets.cjs",
+    "setup-worklets",
+    "setup-zeego.cjs",
+    "setup-zeego",
+    "src",
+    "types"
+  ],
   "type": "module",
   "sideEffects": [
     "**/setup-*",
@@ -138,10 +161,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -156,71 +179,6 @@
     "zeego": "^3.0.0"
   },
   "peerDependencies": {
-    "@react-native-menu/menu": ">=2.0.0",
-    "burnt": ">=0.12.0",
-    "react": "*",
-    "react-native": "*",
-    "react-native-gesture-handler": ">=2.0.0",
-    "react-native-ios-context-menu": ">=3.0.0",
-    "react-native-ios-utilities": ">=5.0.0",
-    "react-native-keyboard-controller": ">=1.0.0",
-    "react-native-safe-area-context": ">=4.0.0",
-    "react-native-teleport": ">=0.5.0",
-    "react-native-worklets-core": ">=1.0.0",
-    "sf-symbols-typescript": "*",
-    "zeego": ">=3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react-native-gesture-handler": {
-      "optional": true
-    },
-    "react-native-keyboard-controller": {
-      "optional": true
-    },
-    "react-native-safe-area-context": {
-      "optional": true
-    },
-    "react-native-teleport": {
-      "optional": true
-    },
-    "react-native-worklets-core": {
-      "optional": true
-    },
-    "zeego": {
-      "optional": true
-    },
-    "@react-native-menu/menu": {
-      "optional": true
-    },
-    "react-native-ios-context-menu": {
-      "optional": true
-    },
-    "react-native-ios-utilities": {
-      "optional": true
-    },
-    "burnt": {
-      "optional": true
-    },
-    "sf-symbols-typescript": {
-      "optional": true
-    },
-    "react-native": {
-      "optional": true
-    }
-  },
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ],
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>",
-  "dependencies": {
-    "expo-linear-gradient": "^55.0.14",
-    "react-native-web": "^0.21.0"
+    "react": "*"
   }
 }

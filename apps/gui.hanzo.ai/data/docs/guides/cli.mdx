@@ -1,10 +1,10 @@
 ---
-title: Hanzo GUI CLI
-description: Command-line tools for building, checking, and managing Hanzo GUI projects
+title: Gui CLI
+description: Command-line tools for building, checking, and managing Gui projects
 ---
 
 <IntroParagraph>
-  The Hanzo GUI CLI provides a suite of command-line tools for optimizing components,
+  The Gui CLI provides a suite of command-line tools for optimizing components,
   managing dependencies, adding fonts and icons, and more.
 </IntroParagraph>
 
@@ -24,34 +24,34 @@ yarn add -D @hanzogui/cli
 
 ### build
 
-Pre-compile Hanzo GUI components in-place for production builds. This is useful
-for bundlers that don't have a Hanzo GUI plugin yet (like Turbopack) or when you
+Pre-compile Gui components in-place for production builds. This is useful
+for bundlers that don't have a Gui plugin yet (like Turbopack) or when you
 want a simple setup that works with any bundler.
 
 ```bash
 # Build all components in a directory (web + native by default)
-npx hanzo-gui build ./src
+npx hanzogui build ./src
 
 # Build for web only
-npx hanzo-gui build --target web ./src
+npx hanzogui build --target web ./src
 
 # Build for native only
-npx hanzo-gui build --target native ./src
+npx hanzogui build --target native ./src
 
 # Build a specific file
-npx hanzo-gui build ./src/components/MyComponent.tsx
+npx hanzogui build ./src/components/MyComponent.tsx
 
 # Include/exclude patterns
-npx hanzo-gui build --include "components/**" --exclude "**/*.test.tsx" ./src
+npx hanzogui build --include "components/**" --exclude "**/*.test.tsx" ./src
 
 # Output to a separate directory (source files unchanged)
-npx hanzo-gui build --output ./dist ./src
+npx hanzogui build --output ./dist ./src
 
 # Create platform-specific files next to source files (.web.tsx or .native.tsx)
-npx hanzo-gui build --target native --output-around ./src
+npx hanzogui build --target native --output-around ./src
 
 # Preview changes without writing files
-npx hanzo-gui build --dry-run ./src
+npx hanzogui build --dry-run ./src
 ```
 
 **Flags:**
@@ -83,16 +83,16 @@ The CLI automatically handles platform-specific files:
 
 **Configuration:**
 
-Create a `gui.build.ts` config file in your project root:
+Create a `hanzogui.build.ts` config file in your project root:
 
 ```ts
 import type { GuiBuildOptions } from '@hanzo/gui'
 
 export default {
-  config: './gui.config.ts',
+  config: './hanzogui.config.ts',
   components: ['@hanzo/gui'],
   importsWhitelist: ['constants.js', 'colors.js'],
-  outputCSS: './public/gui.generated.css',
+  outputCSS: './public/hanzogui.generated.css',
 } satisfies GuiBuildOptions
 ```
 
@@ -104,7 +104,7 @@ and automatically restores them after:
 ```json
 {
   "scripts": {
-    "build": "gui build --target web ./src -- next build"
+    "build": "hanzogui build --target web ./src -- next build"
   }
 }
 ```
@@ -113,12 +113,12 @@ The `--` separator tells the CLI to run `next build` after optimization, then
 restore your source files automatically. This is the recommended approach as it
 keeps your source files unchanged.
 
-Alternatively, run `gui build` separately (files will remain modified):
+Alternatively, run `hanzogui build` separately (files will remain modified):
 
 ```json
 {
   "scripts": {
-    "build": "gui build --target web ./src && next build"
+    "build": "hanzogui build --target web ./src && next build"
   }
 }
 ```
@@ -132,7 +132,7 @@ Alternatively, use `--output` to write optimized files to a separate directory:
 ```json
 {
   "scripts": {
-    "build": "gui build --target web --output ./dist ./src && next build"
+    "build": "hanzogui build --target web --output ./dist ./src && next build"
   }
 }
 ```
@@ -149,7 +149,7 @@ helps identify version mismatches that can cause issues, especially in
 monorepos.
 
 ```bash
-npx hanzo-gui check
+npx hanzogui check
 ```
 
 **Flags:**
@@ -164,11 +164,11 @@ versions, helping you maintain consistency across your dependencies.
 
 ### generate
 
-Build your entire Hanzo GUI configuration and output CSS. This is useful for
+Build your entire Gui configuration and output CSS. This is useful for
 pre-generating your design system's CSS and validating your configuration.
 
 ```bash
-npx hanzo-gui generate
+npx hanzogui generate
 ```
 
 **Flags:**
@@ -178,30 +178,30 @@ npx hanzo-gui generate
 
 **What it does:**
 
-1. Loads and validates your Hanzo GUI configuration
+1. Loads and validates your Gui configuration
 2. Generates CSS for all your tokens, themes, and components
-3. Outputs to the `.gui` directory
-4. Also generates an LLM-friendly prompt file at `.gui/prompt.md`
+3. Outputs to the `.hanzogui` directory
+4. Also generates an LLM-friendly prompt file at `.hanzogui/prompt.md`
 
 ### generate-css
 
-Generate the `gui.generated.css` file from your configuration. Useful for build
+Generate the `hanzogui.generated.css` file from your configuration. Useful for build
 pipelines or when you need to regenerate CSS without running a full build.
 
 ```bash
-npx hanzo-gui generate-css
+npx hanzogui generate-css
 ```
 
 **Flags:**
 
-- `--output <path>` - Custom output path (default: `gui.generated.css`)
+- `--output <path>` - Custom output path (default: `hanzogui.generated.css`)
 - `--debug` - Enable debug output
 - `--verbose` - Enable verbose debug output
 
 **Example:**
 
 ```bash
-npx hanzo-gui generate-css --output ./public/styles/gui.generated.css
+npx hanzogui generate-css --output ./public/styles/hanzogui.generated.css
 ```
 
 ### generate-themes
@@ -210,13 +210,13 @@ Pre-build your theme configuration for faster runtime performance. This
 generates optimized theme objects from your theme definitions.
 
 ```bash
-npx hanzo-gui generate-themes <input-path> <output-path>
+npx hanzogui generate-themes <input-path> <output-path>
 ```
 
 **Example:**
 
 ```bash
-npx hanzo-gui generate-themes ./themes/input.ts ./themes/generated.ts
+npx hanzogui generate-themes ./themes/input.ts ./themes/generated.ts
 ```
 
 **Flags:**
@@ -230,18 +230,18 @@ pre-computes your themes at build time rather than runtime.
 ### add
 
 <Notice theme="green">
-  **Hanzo GUI Pro** - This command is available exclusively to Hanzo GUI Pro members.
+  **Gui Pro** - This command is available exclusively to Gui Pro members.
 </Notice>
 
-Add pre-configured fonts and icons from Hanzo GUI's curated collections. This
+Add pre-configured fonts and icons from Gui's curated collections. This
 includes Google Fonts and Iconify icon packs.
 
 ```bash
 # Add a font
-npx hanzo-gui add font [packages-path]
+npx hanzogui add font [packages-path]
 
 # Add an icon pack
-npx hanzo-gui add icon [packages-path]
+npx hanzogui add icon [packages-path]
 ```
 
 **Flags:**
@@ -261,22 +261,22 @@ from available fonts or icons:
 `./packages` in your current directory.
 
 **Requirements:** This feature requires
-[Hanzo GUI Pro](https://gui.hanzo.ai/takeout) membership for access to the font and
+[Gui Pro](https://hanzogui.dev/takeout) membership for access to the font and
 icon repositories.
 
 ### generate-prompt
 
-Generate an LLM-friendly markdown file from your Hanzo GUI configuration. This
+Generate an LLM-friendly markdown file from your Gui configuration. This
 creates comprehensive documentation of your design system for use with AI
 assistants.
 
 ```bash
-npx hanzo-gui generate-prompt
+npx hanzogui generate-prompt
 ```
 
 **Flags:**
 
-- `--output <path>` - Custom output path (default: `.gui/prompt.md`)
+- `--output <path>` - Custom output path (default: `.hanzogui/prompt.md`)
 - `--debug` - Enable debug output
 
 **What it includes:**
@@ -306,7 +306,7 @@ All commands support these flags:
 ```json
 {
   "scripts": {
-    "build": "gui check && gui build --target web ./src -- next build"
+    "build": "hanzogui check && hanzogui build --target web ./src -- next build"
   }
 }
 ```
@@ -316,7 +316,7 @@ All commands support these flags:
 ```json
 {
   "scripts": {
-    "build": "gui build --target web --expect-optimizations 10 ./src -- next build"
+    "build": "hanzogui build --target web --expect-optimizations 10 ./src -- next build"
   }
 }
 ```
@@ -329,9 +329,9 @@ configuration issues in CI.
 ```json
 {
   "scripts": {
-    "build:ios": "gui build --target native ./src -- eas build --platform ios",
-    "build:android": "gui build --target native ./src -- eas build --platform android",
-    "build:web": "gui build --target web ./src -- vite build"
+    "build:ios": "hanzogui build --target native ./src -- eas build --platform ios",
+    "build:android": "hanzogui build --target native ./src -- eas build --platform android",
+    "build:web": "hanzogui build --target web ./src -- vite build"
   }
 }
 ```
@@ -340,12 +340,12 @@ configuration issues in CI.
 
 ### Build command fails with "cannot find module"
 
-Make sure you have a `gui.build.ts` config file that correctly points to
+Make sure you have a `hanzogui.build.ts` config file that correctly points to
 your configuration:
 
 ```ts
 export default {
-  config: './gui.config.ts', // Verify this path is correct
+  config: './hanzogui.config.ts', // Verify this path is correct
   components: ['@hanzo/gui'],
 }
 ```
@@ -358,5 +358,5 @@ README.
 
 ### Add command shows "Repository not found"
 
-The `add` command requires Hanzo GUI Takeout access. Visit
-[gui.hanzo.ai/takeout](https://gui.hanzo.ai/takeout) to learn more.
+The `add` command requires Gui Takeout access. Visit
+[hanzogui.dev/takeout](https://hanzogui.dev/takeout) to learn more.

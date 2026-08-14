@@ -5,6 +5,12 @@ import { promisify } from 'node:util'
 import pMap from 'p-map'
 import prompts from 'prompts'
 
+import { ensureNpmAuthentication } from './release-npm-auth'
+import {
+  getPublishArtifactPaths,
+  getReusablePublishWorkspace,
+} from './release-publish-cache'
+import { computePublishTag } from './release-publish-tag'
 import { spawnify } from './spawnify'
 
 process.setMaxListeners(50)
@@ -27,9 +33,21 @@ const undocumented = process.argv.includes('--undocumented')
 
 const canary = process.argv.includes('--canary')
 const isRC = process.argv.includes('--rc')
+const isBeta = process.argv.includes('--beta')
+// the prerelease channel requested via flag (null for stable / canary releases)
+const requestedChannel = isBeta ? 'beta' : isRC ? 'rc' : null
+
+// explicit dist-tag override: `--tag <name>`. always wins over version-based
+// detection (the escape hatch for publishing to an arbitrary tag).
+const explicitTagIdx = process.argv.indexOf('--tag')
+const explicitTag =
+  explicitTagIdx !== -1 ? (process.argv[explicitTagIdx + 1] || '').trim() : undefined
+
 const skipStarters = canary || skipAll || process.argv.includes('--skip-starters')
 const skipVersion = shouldFinish || rePublish || process.argv.includes('--skip-version')
 const shouldPatch = process.argv.includes('--patch')
+const shouldMinor = process.argv.includes('--minor')
+const shouldMajor = process.argv.includes('--major')
 const dirty =
   shouldFinish || rePublish || undocumented || process.argv.includes('--dirty')
 const skipPublish = process.argv.includes('--skip-publish')
@@ -47,21 +65,49 @@ const skipBuild =
   shouldFinish || rePublish || skipAll || process.argv.includes('--skip-build')
 const buildFast = process.argv.includes('--build-fast')
 const dryRun = process.argv.includes('--dry-run')
-const guiGitUser = process.argv.includes('--gui-git-user')
+const hanzoguiGitUser = process.argv.includes('--hanzogui-git-user')
 const isCI = shouldFinish || rePublish || undocumented || process.argv.includes('--ci')
 const skipFinish =
   rePublish || skipAll || undocumented || process.argv.includes('--skip-finish')
+const skipPush = process.argv.includes('--skip-push')
 const forcePublishAll = process.argv.includes('--force-publish-all')
-const fromFeatureBranch = process.argv.includes('--from-feature-branch')
-const noClean = process.argv.includes('--no-clean')
 
-// --tag <name> overrides the publish dist-tag (canary/latest) with any custom value
-const tagFlagIndex = process.argv.indexOf('--tag')
-const customTag = tagFlagIndex >= 0 ? process.argv[tagFlagIndex + 1] : null
+// `--only <pkg>` patches a single package instead of the lockstep fleet: it
+// versions and publishes just that one, and every dep it names resolves to
+// whatever is already on the registry. this is the way to ship one fix without
+// dragging 168 packages - and without hand-rolling a second publisher, since
+// only this script rewrites workspace:* into real versions before packing.
+const onlyIdx = process.argv.indexOf('--only')
+const onlyPackage = onlyIdx === -1 ? '' : (process.argv[onlyIdx + 1] || '').trim()
 
-const curVersion = fs.readJSONSync('./pkgs/ui/hanzogui/package.json').version
+function findPackageDir(name: string, dir = 'pkgs'): string | null {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (!entry.isDirectory() || entry.name === 'node_modules') continue
+    const next = path.join(dir, entry.name)
+    const manifest = path.join(next, 'package.json')
+    if (fs.existsSync(manifest) && fs.readJSONSync(manifest).name === name) return next
+    const found = findPackageDir(name, next)
+    if (found) return found
+  }
+  return null
+}
+
+const onlyPackageDir = onlyPackage ? findPackageDir(onlyPackage) : null
+if (onlyPackage && !onlyPackageDir) {
+  throw new Error(`--only: no package named ${onlyPackage} under pkgs/`)
+}
+
+const curVersion = fs.readJSONSync(
+  onlyPackageDir
+    ? path.join(onlyPackageDir, 'package.json')
+    : './pkgs/ui/hanzogui/package.json'
+).version
 
 async function getLastReleaseRef(): Promise<string | null> {
+  if (process.env.RELEASE_BASE_REF) {
+    return process.env.RELEASE_BASE_REF
+  }
+
   // find the most recent baseline: either a v* tag or a canary commit
   let tagRef: { ref: string; date: number } | null = null
   let canaryRef: { ref: string; date: number } | null = null
@@ -98,20 +144,17 @@ async function hasSourceChanges(dir: string, tag: string): Promise<boolean> {
   }
 }
 
-// Check if current version is an RC (e.g., 1.143.0-rc.1 or 1.143.0-rc.1-1234567890)
-// Strip any canary timestamp suffix first
+// Detect the current prerelease channel, if any (e.g. 2.0.0-rc.34 or 3.0.0-beta.5).
+// Strip any canary timestamp suffix first so a canary of X.Y.Z isn't mistaken
+// for a channel prerelease.
 const curVersionStripped = curVersion.replace(/-\d{10,}$/, '')
-const rcMatch = curVersionStripped.match(/^(\d+\.\d+\.\d+)-rc\.(\d+)$/)
-const isCurrentRC = !!rcMatch
-const currentRCBase = rcMatch ? rcMatch[1] : null
-const currentRCNumber = rcMatch ? Number.parseInt(rcMatch[2], 10) : 0
+const channelMatch = curVersionStripped.match(/^(\d+\.\d+\.\d+)-([a-z]+)\.(\d+)$/i)
+const currentChannel = channelMatch ? channelMatch[2].toLowerCase() : null
+const currentChannelBase = channelMatch ? channelMatch[1] : null
+const currentChannelNumber = channelMatch ? Number.parseInt(channelMatch[3], 10) : 0
 
 const nextVersion = (() => {
   if (rePublish) {
-    return curVersion
-  }
-
-  if (skipVersion) {
     return curVersion
   }
 
@@ -119,26 +162,26 @@ const nextVersion = (() => {
     return `${curVersion.replace(/(-\d+)+$/, '')}-${Date.now()}`
   }
 
-  // RC mode: bump existing RC or compute new RC version
-  if (isRC) {
-    if (isCurrentRC) {
-      // Already an RC, bump the RC number
-      return `${currentRCBase}-rc.${currentRCNumber + 1}`
+  // prerelease channel mode (--rc / --beta): bump within the channel or start it
+  if (requestedChannel) {
+    if (currentChannel === requestedChannel && currentChannelBase) {
+      // already on this channel, bump the channel number
+      return `${currentChannelBase}-${requestedChannel}.${currentChannelNumber + 1}`
     }
-    // Not an RC yet - compute the RC version
+    // switching channels (rc -> beta) or coming from a canary: start the channel
+    // at .0 on the current base version (e.g. canary of X.Y.Z -> X.Y.Z-beta.0)
     const baseVersion = curVersion.replace(/-.*$/, '') // strip any existing prerelease
     const isCanaryOfCurrent = /-\d+$/.test(curVersion)
-    if (isCanaryOfCurrent) {
-      // canary of X.Y.Z -> X.Y.Z-rc.0
-      return `${baseVersion}-rc.0`
+    if (isCanaryOfCurrent || currentChannel) {
+      return `${baseVersion}-${requestedChannel}.0`
     }
-    // otherwise return null - will be set via prompt
+    // coming from a stable version - the base is ambiguous, set via prompt
     return null
   }
 
-  // promoting an RC to stable: just use the base version (e.g. 2.0.0-rc.34 -> 2.0.0)
-  if (isCurrentRC && currentRCBase) {
-    return currentRCBase
+  // promoting a prerelease to stable: use the base version (e.g. 2.0.0-rc.34 -> 2.0.0)
+  if (currentChannel && currentChannelBase) {
+    return currentChannelBase
   }
 
   let plusVersion = skipVersion ? 0 : 1
@@ -149,10 +192,14 @@ const nextVersion = (() => {
     plusVersion = 0
   }
   const curMajor = +curVersion.split('.')[0] || 1
-  const patchVersion = shouldPatch ? +patch + plusVersion : 0
   const curMinor = +curVersion.split('.')[1] || 0
-  const minorVersion = curMinor + (shouldPatch ? 0 : plusVersion)
-  const next = `${curMajor}.${minorVersion}.${patchVersion}`
+  if (shouldMajor) {
+    return `${curMajor + plusVersion}.0.0`
+  }
+  if (shouldMinor || !shouldPatch) {
+    return `${curMajor}.${curMinor + plusVersion}.0`
+  }
+  const next = `${curMajor}.${curMinor}.${+patch + plusVersion}`
 
   return next
 })()
@@ -241,13 +288,13 @@ async function run() {
     let version = curVersion
 
     // ensure we are up to date
-    // ensure we are on main (skip branch check for canary releases or --from-feature-branch)
-    if (!canary && !rePublish) {
-      if (!fromFeatureBranch && !isMain) {
+    // ensure we are on main (skip branch check for canary releases and dry runs)
+    if (!canary && !rePublish && !dryRun && !process.env.CI) {
+      if (!isMain) {
         throw new Error(`Not on main`)
       }
     }
-    if (!dirty && !rePublish && !shouldFinish && !canary && !fromFeatureBranch) {
+    if (!dirty && !rePublish && !shouldFinish && !canary && !dryRun) {
       await spawnify(`git pull --rebase origin main`)
     }
 
@@ -323,7 +370,7 @@ async function run() {
     }
 
     // ensure right user
-    if (guiGitUser) {
+    if (hanzoguiGitUser) {
       await spawnify(`git config --global user.name 'Gui'`)
       await spawnify(`git config --global user.email 'hanzogui@users.noreply.github.com`)
     }
@@ -333,46 +380,53 @@ async function run() {
       let answer: { version: string }
 
       if (isCI || skipVersion) {
-        answer = { version: nextVersion! }
-      } else if (isRC && !isCurrentRC) {
-        // New RC - prompt for which version to RC
+        if (!nextVersion) {
+          throw new Error(
+            `Cannot compute a ${requestedChannel} version from a stable base (${curVersion}) non-interactively.\n` +
+              `Run without --ci to pick the base, or bump to a canary/${requestedChannel} version first.`
+          )
+        }
+        answer = { version: nextVersion }
+      } else if (requestedChannel && currentChannel !== requestedChannel) {
+        // Starting a new prerelease channel - prompt for which base version to use
         const baseVersion = curVersion.replace(/-.*$/, '') // strip any existing prerelease
         const [major, minor, patch] = baseVersion.split('.').map(Number)
 
         // check if current version is a canary (has prerelease suffix like -1234567)
         const isCanaryOfCurrent = /-\d+$/.test(curVersion)
 
-        const rcChoices = isCanaryOfCurrent
-          ? [
-              // canary of X.Y.Z -> offer X.Y.Z-rc.0 as the RC
-              {
-                title: `${major}.${minor}.${patch}-rc.0`,
-                value: `${major}.${minor}.${patch}-rc.0`,
-              },
-            ]
-          : [
-              {
-                title: `${major}.${minor + 1}.0-rc.0 (next minor)`,
-                value: `${major}.${minor + 1}.0-rc.0`,
-              },
-              {
-                title: `${major}.${minor}.${patch + 1}-rc.0 (next patch)`,
-                value: `${major}.${minor}.${patch + 1}-rc.0`,
-              },
-              {
-                title: `${major + 1}.0.0-rc.0 (next major)`,
-                value: `${major + 1}.0.0-rc.0`,
-              },
-            ]
+        const channelChoices =
+          isCanaryOfCurrent || currentChannel
+            ? [
+                // canary/other-channel of X.Y.Z -> offer X.Y.Z-<channel>.0
+                {
+                  title: `${major}.${minor}.${patch}-${requestedChannel}.0`,
+                  value: `${major}.${minor}.${patch}-${requestedChannel}.0`,
+                },
+              ]
+            : [
+                {
+                  title: `${major}.${minor + 1}.0-${requestedChannel}.0 (next minor)`,
+                  value: `${major}.${minor + 1}.0-${requestedChannel}.0`,
+                },
+                {
+                  title: `${major}.${minor}.${patch + 1}-${requestedChannel}.0 (next patch)`,
+                  value: `${major}.${minor}.${patch + 1}-${requestedChannel}.0`,
+                },
+                {
+                  title: `${major + 1}.0.0-${requestedChannel}.0 (next major)`,
+                  value: `${major + 1}.0.0-${requestedChannel}.0`,
+                },
+              ]
 
-        const rcAnswer = await prompts({
+        const channelAnswer = await prompts({
           type: 'select',
           name: 'version',
-          message: 'Which version to release as RC?',
-          choices: rcChoices,
+          message: `Which version to release as ${requestedChannel}?`,
+          choices: channelChoices,
         })
 
-        answer = rcAnswer
+        answer = channelAnswer
       } else {
         answer = await prompts({
           type: 'text',
@@ -386,10 +440,18 @@ async function run() {
       console.info('Next:', version, '\n')
     }
 
-    // safety check for major version bumps - always require interactive confirmation
+    // resolve + validate the npm dist-tag up front, so a prerelease can never
+    // slip onto `latest`, and so --dry-run can print the exact publish plan.
+    // throws loudly for an unrecognized prerelease instead of defaulting to latest.
+    const publishTag = computePublishTag(version, { canary, explicitTag })
+    console.info(`Publishing to npm dist-tag: ${publishTag}\n`)
+
+    // safety check for major version bumps going to `latest` - require interactive
+    // confirmation. a prerelease of a new major (e.g. 3.0.0-beta.0 -> `beta`) can't
+    // clobber the stable line, so it skips this gate.
     const curMajor = Number.parseInt(curVersion.split('.')[0], 10)
     const nextMajor = Number.parseInt(version.split('.')[0], 10)
-    if (nextMajor > curMajor) {
+    if (nextMajor > curMajor && publishTag === 'latest' && !isCI) {
       console.info(`\n⚠️  MAJOR VERSION BUMP: ${curVersion} → ${version}\n`)
 
       for (let i = 1; i <= 3; i++) {
@@ -405,14 +467,26 @@ async function run() {
       }
     }
 
-    console.info('install and build')
+    if (!shouldFinish && !skipPublish && !dryRun) {
+      await ensureNpmAuthentication({
+        env: process.env,
+        interactive: !!process.stdin.isTTY && !!process.stdout.isTTY,
+        check: () => spawnify(`npm whoami`),
+        login: () => spawnify(`npm login`, { interactive: true }),
+      })
+    }
 
-    if (!rePublish && !shouldFinish) {
-      await spawnify(`bun install`)
+    // dry run only previews the publish plan, so skip the heavy install/build/test
+    if (!dryRun) {
+      console.info('install and build')
+    }
+
+    if (!rePublish && !shouldFinish && !dryRun) {
+      await spawnify(process.env.CI ? `bun install --frozen-lockfile` : `bun install`)
     }
 
     // build from fresh
-    if (!skipBuild && !shouldFinish) {
+    if (!skipBuild && !shouldFinish && !dryRun) {
       // lets do a full clean and build:force, to ensure we dont have weird cached or leftover files
       if (buildFast) {
         await spawnify(`bun run build`)
@@ -423,11 +497,11 @@ async function run() {
     }
 
     // run checks
-    if (!shouldFinish) {
+    if (!shouldFinish && !dryRun) {
       if (!skipChecks) {
         console.info('run checks')
         await Promise.all([
-          spawnify(`chmod ug+x ./node_modules/.bin/gui`),
+          spawnify(`chmod ug+x ./node_modules/.bin/hanzogui`),
           spawnify(`bun run check`),
           spawnify(`bun run lint`),
         ])
@@ -453,14 +527,16 @@ async function run() {
       }
     }
 
-    // update version
-    if (!skipVersion && !shouldFinish) {
+    // update version (never write files during a dry run - it's a read-only preview)
+    if (!skipVersion && !shouldFinish && !dryRun) {
       await Promise.all(
-        allPackageJsons.map(async ({ json, path }) => {
-          const next = { ...json }
-          next.version = version
-          await writeJSON(path, next, { spaces: 2 })
-        })
+        allPackageJsons
+          .filter(({ name }) => !onlyPackage || name === onlyPackage)
+          .map(async ({ json, path }) => {
+            const next = { ...json }
+            next.version = version
+            await writeJSON(path, next, { spaces: 2 })
+          })
       )
     }
 
@@ -474,7 +550,14 @@ async function run() {
     const skippedPackages: typeof packageJsons = []
     let packagesToPublish = packageJsons
 
-    if (lastTag && !forcePublishAll) {
+    if (onlyPackage) {
+      packagesToPublish = packageJsons.filter((p) => p.name === onlyPackage)
+      if (packagesToPublish.length === 0) {
+        throw new Error(`--only: ${onlyPackage} is private or marked skipPublish`)
+      }
+      skippedPackages.push(...packageJsons.filter((p) => p.name !== onlyPackage))
+      console.info(`--only: publishing ${onlyPackage} alone`)
+    } else if (lastTag && !forcePublishAll) {
       const lastTagVersion = lastTag.replace(/^v/, '')
       const lastMajor = Number.parseInt(lastTagVersion.split('.')[0], 10)
       const nextMajor = Number.parseInt(version.split('.')[0], 10)
@@ -516,7 +599,9 @@ async function run() {
     const skippedVersions = new Map<string, string>()
 
     if (skippedPackages.length > 0) {
-      const distTag = canary ? 'canary' : 'latest'
+      // resolve against the same dist-tag we're publishing to, so a beta release
+      // points beta deps at the last beta, a stable at the last stable, etc.
+      const distTag = publishTag
       console.info(
         `Resolving last published versions for skipped packages (tag: ${distTag})...`
       )
@@ -543,7 +628,25 @@ async function run() {
     }
 
     if (!shouldFinish && dryRun) {
-      console.info(`Dry run, exiting before publish`)
+      console.info(`\n── dry run: publish plan ──`)
+      console.info(`version:      ${version}`)
+      console.info(`npm dist-tag: ${publishTag}`)
+      console.info(`\npublishing ${packagesToPublish.length} packages:\n`)
+      for (const { name } of packagesToPublish) {
+        const accessOption = name.startsWith('@') ? ' --access public' : ''
+        console.info(
+          `  npm publish ${name}@${version} --tag ${publishTag}${accessOption}`
+        )
+      }
+      if (skippedPackages.length > 0) {
+        console.info(
+          `\nskipped (unchanged), dist-tag "${publishTag}" will point at last published:`
+        )
+        for (const { name } of skippedPackages) {
+          console.info(`  ${name}@${skippedVersions.get(name) ?? '(unpublished)'}`)
+        }
+      }
+      console.info(`\nDry run, exiting before publish`)
       return
     }
 
@@ -564,94 +667,184 @@ async function run() {
     }
 
     if (!shouldFinish && !skipPublish) {
-      const tmpDir = `/tmp/gui-publish`
-      if (!noClean) {
+      const tmpDir = `/tmp/hanzogui-publish`
+      if (!rePublish) {
         await fs.remove(tmpDir)
       }
       await ensureDir(tmpDir)
 
-      // pack and publish
-      await pMap(
+      // publishTag was resolved + validated up front (single source of truth)
+      const publishOptions = `--tag ${publishTag}`
+
+      const isPublished = async ({ name }: { name: string }) => {
+        try {
+          const { stdout } = await exec(`npm view ${name}@${version} version --json`)
+          const found = JSON.parse(stdout.trim())
+          return found === version || (Array.isArray(found) && found.includes(version))
+        } catch (error) {
+          const message = String(error)
+          if (/E404|404 Not Found|is not in this registry/i.test(message)) {
+            return false
+          }
+          throw new Error(`Could not verify ${name}@${version} on npm:\n${message}`)
+        }
+      }
+
+      console.info(`Checking ${packagesToPublish.length} package versions on npm...`)
+      const publishedChecks = await pMap(
         packagesToPublish,
-        async ({ name, cwd }) => {
-          const isCanaryVersion = /^\d+\.\d+\.\d+-\d+$/.test(version)
-          const publishTag =
-            customTag || (canary || isCanaryVersion ? 'canary' : 'latest')
-          const publishOptions = [publishTag && `--tag ${publishTag}`]
-            .filter(Boolean)
-            .join(' ')
+        async (pkg) => ({ pkg, published: await isPublished(pkg) }),
+        { concurrency: 8 }
+      )
+      const pendingPackages = publishedChecks
+        .filter(({ pkg, published }) => {
+          if (published) {
+            console.info(`Skipping ${pkg.name}: this version is already published`)
+            return false
+          }
+          return true
+        })
+        .map(({ pkg }) => pkg)
 
-          // Copy to temp directory and replace workspace:* with versions
-          const tmpPackageDir = join(tmpDir, name.replace('/', '_'))
-          await fs.copy(cwd, tmpPackageDir, {
-            filter: (src) => {
-              // exclude node_modules to avoid symlink issues
-              return !src.includes('node_modules')
-            },
-          })
+      const prepareOne = async ({ name, cwd }: { name: string; cwd: string }) => {
+        if (rePublish) {
+          const cachedWorkspace = await getReusablePublishWorkspace(tmpDir, name, version)
+          if (cachedWorkspace) {
+            console.info(`Reusing packed ${name}@${version}`)
+            return cachedWorkspace
+          }
+        }
 
-          // replace workspace:* with version in temp copy
-          const pkgJsonPath = join(tmpPackageDir, 'package.json')
-          const pkgJson = await fs.readJSON(pkgJsonPath)
-          for (const field of [
-            'dependencies',
-            'devDependencies',
-            'optionalDependencies',
-            'peerDependencies',
-          ]) {
-            if (!pkgJson[field]) continue
-            for (const depName in pkgJson[field]) {
-              if (pkgJson[field][depName].startsWith('workspace:')) {
-                // use the skipped package's last published version if it won't be published
-                pkgJson[field][depName] = skippedVersions.get(depName) || version
-              }
+        const { tarballPath, workspaceDir } = getPublishArtifactPaths(
+          tmpDir,
+          name,
+          version
+        )
+
+        if (rePublish && (await fs.pathExists(tarballPath))) {
+          try {
+            await fs.remove(workspaceDir)
+            await ensureDir(workspaceDir)
+            await spawnify(
+              `tar -xzf ${JSON.stringify(tarballPath)} -C ${JSON.stringify(workspaceDir)} --strip-components=1`,
+              { avoidLog: true }
+            )
+            const manifest = await fs.readJSON(join(workspaceDir, 'package.json'))
+            if (manifest.name === name && manifest.version === version) {
+              console.info(`Reusing tarball ${name}@${version}`)
+              return path.relative(tmpDir, workspaceDir)
+            }
+          } catch {
+            console.warn(`Could not reuse cached tarball for ${name}@${version}`)
+          }
+        }
+
+        // Copy to temp directory and replace workspace:* with versions
+        const tmpPackageDir = join(tmpDir, name.replace('/', '_'))
+        await fs.remove(tmpPackageDir)
+        await fs.remove(workspaceDir)
+        await fs.remove(tarballPath)
+        await fs.copy(cwd, tmpPackageDir, {
+          filter: (src) => {
+            // exclude node_modules to avoid symlink issues
+            return !src.includes('node_modules')
+          },
+        })
+
+        // replace workspace:* with version in temp copy
+        const pkgJsonPath = join(tmpPackageDir, 'package.json')
+        const pkgJson = await fs.readJSON(pkgJsonPath)
+        pkgJson.repository = {
+          type: 'git',
+          url: 'git+https://github.com/hanzoai/gui.git',
+          directory: path.relative(process.cwd(), cwd),
+        }
+        for (const field of [
+          'dependencies',
+          'devDependencies',
+          'optionalDependencies',
+          'peerDependencies',
+        ]) {
+          if (!pkgJson[field]) continue
+          for (const depName in pkgJson[field]) {
+            if (pkgJson[field][depName].startsWith('workspace:')) {
+              // use the skipped package's last published version if it won't be published
+              pkgJson[field][depName] = skippedVersions.get(depName) || version
             }
           }
-          await writeJSON(pkgJsonPath, pkgJson, { spaces: 2 })
-
-          const filename = `${name.replace('/', '_')}-package.tmp.tgz`
-          const absolutePath = `${tmpDir}/${filename}`
-          await spawnify(`npm pack --pack-destination ${tmpDir}`, {
-            cwd: tmpPackageDir,
-            avoidLog: true,
-          })
-
-          // npm pack creates a file with the package name, rename it to our expected name
-          const npmFilename = `${name.replace('@', '').replace('/', '-')}-${version}.tgz`
-          await fs.rename(join(tmpDir, npmFilename), absolutePath)
-
-          const publishCommand = ['npm publish', absolutePath, publishOptions]
-            .filter(Boolean)
-            .join(' ')
-
-          console.info(`Publishing ${name}: ${publishCommand}`)
-
-          await spawnify(publishCommand, {
-            cwd: tmpDir,
-          }).catch((err) => {
-            if (rePublish) {
-              console.warn(
-                `⚠️  ${name}: publish failed (likely already published), continuing`
-              )
-            } else {
-              console.error(err)
-              process.exit(1)
-            }
-          })
-        },
-        {
-          concurrency: 15,
         }
-      )
+        await writeJSON(pkgJsonPath, pkgJson, { spaces: 2 })
+
+        await spawnify(`npm pack --pack-destination ${tmpDir}`, {
+          cwd: tmpPackageDir,
+          avoidLog: true,
+        })
+
+        await ensureDir(workspaceDir)
+        await spawnify(
+          `tar -xzf ${JSON.stringify(tarballPath)} -C ${JSON.stringify(workspaceDir)} --strip-components=1`,
+          { avoidLog: true }
+        )
+
+        return path.relative(tmpDir, workspaceDir)
+      }
+
+      if (pendingPackages.length > 0) {
+        if (process.stdin.isTTY && process.stdout.isTTY && !process.env.CI) {
+          console.info(
+            'npm will open the browser for 2FA once. Select “do not challenge for the next 5 minutes” so the same short-lived approval can publish the remaining packages.'
+          )
+        }
+
+        const workspaces = await pMap(pendingPackages, prepareOne, { concurrency: 8 })
+        await writeJSON(
+          join(tmpDir, 'package.json'),
+          {
+            name: 'hanzogui-release',
+            private: true,
+            workspaces,
+          },
+          { spaces: 2 }
+        )
+
+        const webAuthCache = join(process.cwd(), 'scripts/cache-npm-webauth.cjs')
+        const nodeOptions = [process.env.NODE_OPTIONS, `--require=${webAuthCache}`]
+          .filter(Boolean)
+          .join(' ')
+
+        try {
+          await spawnify(
+            `npm publish --workspaces --ignore-scripts --access public ${publishOptions}`,
+            {
+              cwd: tmpDir,
+              env: { ...process.env, NODE_OPTIONS: nodeOptions },
+              interactive: true,
+            }
+          )
+        } catch (error) {
+          const postflight = await pMap(
+            pendingPackages,
+            async (pkg) => ({ pkg, published: await isPublished(pkg) }),
+            { concurrency: 8 }
+          )
+          const completed = postflight.filter(({ published }) => published)
+          const missing = postflight.filter(({ published }) => !published)
+
+          throw new Error(
+            `Publish stopped after ${completed.length} packages. Still missing:\n${missing.map(({ pkg }) => pkg.name).join('\n')}\n\nRe-run with --republish to retry only these packages.`,
+            { cause: error }
+          )
+        }
+      }
 
       console.info(`✅ Published\n`)
 
-      // for canary releases, point the canary dist-tag to the latest version for skipped packages
-      // so `npm install @hanzogui/lucide-icons-2@canary` still resolves
-      const isCanaryVersion = /^\d+\.\d+\.\d+-\d+$/.test(version)
-      if ((canary || isCanaryVersion) && skippedPackages.length > 0) {
+      // for a non-latest channel (canary/beta/rc/…), point that dist-tag at the
+      // latest published version of each skipped package so e.g.
+      // `npm install @hanzogui/lucide-icons-2@beta` still resolves
+      if (publishTag !== 'latest' && skippedPackages.length > 0 && !process.env.CI) {
         console.info(
-          `Updating canary dist-tags for ${skippedPackages.length} skipped packages...`
+          `Updating ${publishTag} dist-tags for ${skippedPackages.length} skipped packages...`
         )
         await pMap(
           skippedPackages,
@@ -660,13 +853,16 @@ async function run() {
               const { stdout } = await exec(`npm view ${name} dist-tags.latest`)
               const latestVersion = stdout.trim()
               if (latestVersion) {
-                await spawnify(`npm dist-tag add ${name}@${latestVersion} canary`, {
-                  avoidLog: true,
-                })
-                console.info(`  ✓ ${name}@${latestVersion} tagged as canary`)
+                await spawnify(
+                  `npm dist-tag add ${name}@${latestVersion} ${publishTag}`,
+                  {
+                    avoidLog: true,
+                  }
+                )
+                console.info(`  ✓ ${name}@${latestVersion} tagged as ${publishTag}`)
               }
             } catch (err) {
-              console.warn(`  ✗ ${name}: could not update canary tag`, err)
+              console.warn(`  ✗ ${name}: could not update ${publishTag} tag`, err)
             }
           },
           { concurrency: 10 }
@@ -688,7 +884,9 @@ async function run() {
       }
 
       const tagPrefix = canary ? 'canary' : 'v'
-      const gitTag = `${tagPrefix}${version}`
+      // a single-package patch must not claim the fleet's v<version> tag - that
+      // tag is the baseline getLastReleaseRef() diffs against.
+      const gitTag = onlyPackage ? `${onlyPackage}@${version}` : `${tagPrefix}${version}`
 
       if (!shouldFinish) {
         // longer sleep since npm was missing some deps
@@ -729,10 +927,6 @@ async function run() {
           }
 
           await spawnify(`git commit -m ${gitTag}`, { cwd })
-          if (!canary) {
-            await spawnify(`git tag ${gitTag}`, { cwd })
-          }
-
           if (!dirty) {
             // pull once more before pushing so if there was a push in interim we get it
             const currentBranch = (
@@ -741,12 +935,20 @@ async function run() {
             await spawnify(`git pull --rebase origin ${currentBranch}`, { cwd })
           }
 
-          await spawnify(`git push origin HEAD`, { cwd })
           if (!canary) {
-            await spawnify(`git push origin ${gitTag}`, { cwd })
+            await spawnify(`git tag ${gitTag}`, { cwd })
           }
 
-          console.info(`✅ Pushed and versioned\n`)
+          if (!skipPush) {
+            // HEAD, not head: git resolves refnames case-sensitively, so the
+            // lowercase form only ever worked on a case-insensitive filesystem.
+            await spawnify(`git push origin HEAD`, { cwd })
+            if (!canary) {
+              await spawnify(`git push origin ${gitTag}`, { cwd })
+            }
+          }
+
+          console.info(`✅ ${skipPush ? 'Versioned locally' : 'Pushed and versioned'}\n`)
         }
       }
 
@@ -785,7 +987,7 @@ if (intoIdx !== -1) {
 
   ;(async () => {
     const packages = await getWorkspacePackages()
-    const tmpDir = `/tmp/gui-release-into`
+    const tmpDir = `/tmp/hanzogui-release-into`
     await ensureDir(tmpDir)
 
     let released = 0

@@ -30,13 +30,13 @@ demoName: Dialog
 
 ## Installation
 
-Dialog is already installed in `@hanzo/gui`, or you can install it independently:
+Dialog is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/dialog
 ```
 
-In order to use this component independently of `@hanzo/gui`, you'll first need to install the `@hanzogui/portal` package:
+In order to use this component independently of `hanzogui`, you'll first need to install the `@hanzogui/portal` package:
 
 ```bash
 npm install @hanzogui/portal
@@ -91,7 +91,7 @@ export default () => (
 
 ### Dialog
 
-Contains every component for the dialog. Beyond [Hanzo GUI Props](/docs/intro/props), adds:
+Contains every component for the dialog. Beyond [Gui Props](/docs/intro/props), adds:
 
 <PropsTable
   data={[
@@ -136,11 +136,11 @@ Contains every component for the dialog. Beyond [Hanzo GUI Props](/docs/intro/pr
 
 ### Dialog.Trigger
 
-Just [Hanzo GUI Props](/docs/intro/props).
+Just [Gui Props](/docs/intro/props).
 
 ### Dialog.Portal
 
-Renders Dialog into appropriate container. Beyond [Hanzo GUI Props](/docs/intro/props), adds:
+Renders Dialog into appropriate container. Beyond [Gui Props](/docs/intro/props), adds:
 
 <PropsTable
   data={[
@@ -154,7 +154,7 @@ Renders Dialog into appropriate container. Beyond [Hanzo GUI Props](/docs/intro/
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Hanzo GUI styles.`,
+      description: `Removes all default Gui styles.`,
     },
   ]}
 />
@@ -163,7 +163,7 @@ Renders Dialog into appropriate container. Beyond [Hanzo GUI Props](/docs/intro/
 
 Main container for Dialog content, this is where you should apply animations.
 
-Beyond [Hanzo GUI Props](/docs/intro/props), adds:
+Beyond [Gui Props](/docs/intro/props), adds:
 
 <PropsTable
   data={[
@@ -177,14 +177,14 @@ Beyond [Hanzo GUI Props](/docs/intro/props), adds:
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all default Hanzo GUI styles.`,
+      description: `Removes all default Gui styles.`,
     },
   ]}
 />
 
 ### Dialog.Overlay
 
-Displays behind Content. Beyond [Hanzo GUI Props](/docs/intro/props), adds:
+Displays behind Content. Beyond [Gui Props](/docs/intro/props), adds:
 
 <PropsTable
   data={[
@@ -223,7 +223,7 @@ Closes the Dialog, accepts the same props as YStack. Recommended to use with you
   ]}
 />
 
-Just [Hanzo GUI Props](/docs/intro/props).
+Just [Gui Props](/docs/intro/props).
 
 ### Dialog.FocusScope
 

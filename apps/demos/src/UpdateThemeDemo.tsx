@@ -10,7 +10,7 @@ import {
   YStack,
   getVariableValue,
   useIsomorphicLayoutEffect,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 const colors = config.tokens.color
 const colorKeys = Object.keys(colors)

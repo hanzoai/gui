@@ -1,9 +1,9 @@
 ---
 title: Vite Guide
-description: How to set up Hanzo GUI with Vite
+description: How to set up Gui with Vite
 ---
 
-Hanzo GUI now has two plugins for Vite: one that sets up everything you need to get going, and a second that adds CSS compilation. Both are included in the `@hanzogui/vite-plugin` package.
+Gui now has two plugins for Vite: one that sets up everything you need to get going, and a second that adds CSS compilation. Both are included in the `@hanzogui/vite-plugin` package.
 
 ## Install
 
@@ -13,7 +13,7 @@ Hanzo GUI now has two plugins for Vite: one that sets up everything you need to 
 </Notice>
 
 <Notice theme="green">
-  For a full-featured example, you can create a new app using `npm create hanzo-gui@latest`
+  For a full-featured example, you can create a new app using `npm create hanzogui@latest`
   and select the 'Simple Web' option which includes a Vite setup.
 </Notice>
 
@@ -31,17 +31,17 @@ yarn add @hanzogui/vite-plugin
 
 ### Configuration
 
-Update your `vite.config.ts`. If you have a `gui.build.ts` (recommended —
-see [compiler install docs](/docs/intro/compiler-install#configuration-with-guibuildts)),
+Update your `vite.config.ts`. If you have a `hanzogui.build.ts` (recommended —
+see [compiler install docs](/docs/intro/compiler-install#configuration-with-hanzoguibuildts)),
 no options are needed:
 
 ```tsx fileName="vite.config.ts"
-import { guiPlugin } from '@hanzogui/vite-plugin'
+import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 
 export default {
   plugins: [
-    // reads from gui.build.ts automatically
-    guiPlugin(),
+    // reads from hanzogui.build.ts automatically
+    hanzoguiPlugin(),
   ].filter(Boolean),
 }
 ```
@@ -49,12 +49,12 @@ export default {
 Or pass options inline:
 
 ```tsx fileName="vite.config.ts"
-import { guiPlugin } from '@hanzogui/vite-plugin'
+import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 
 export default {
   plugins: [
-    guiPlugin({
-      config: 'src/gui.config.ts',
+    hanzoguiPlugin({
+      config: 'src/hanzogui.config.ts',
       components: ['@hanzo/gui'],
       disableExtraction: true,
     }),
@@ -94,20 +94,20 @@ config.optimizeDeps.esbuildOptions = {
 }
 ```
 
-### Custom Aliases with guiAliases
+### Custom Aliases with hanzoguiAliases
 
-For advanced use cases where you need more control over alias ordering in your Vite config, you can use the `guiAliases` helper function:
+For advanced use cases where you need more control over alias ordering in your Vite config, you can use the `hanzoguiAliases` helper function:
 
 ```tsx fileName="vite.config.ts"
-import { guiAliases } from '@hanzogui/vite-plugin'
+import { hanzoguiAliases } from '@hanzogui/vite-plugin'
 
 export default {
   resolve: {
     alias: [
       // your custom aliases first
       { find: '@app', replacement: '/src' },
-      // then gui aliases
-      ...guiAliases({
+      // then hanzogui aliases
+      ...hanzoguiAliases({
         // use @hanzogui/react-native-web-lite for smaller bundle
         rnwLite: true,
         // or 'without-animated' for even smaller bundle (no Animated API)
@@ -120,4 +120,4 @@ export default {
 }
 ```
 
-This is useful when you need to ensure specific alias resolution order or when using a custom Vite setup without the full `guiPlugin`.
+This is useful when you need to ensure specific alias resolution order or when using a custom Vite setup without the full `hanzoguiPlugin`.

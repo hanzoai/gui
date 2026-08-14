@@ -10,7 +10,7 @@ import {
   YStack,
   styled,
   useThemeName,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { SubTitle } from '../../components/SubTitle'
 
@@ -115,7 +115,7 @@ const features = [
   { feature: 'Support', v1: 'Chat', v2: 'Chat', v2free: false },
   { feature: 'Private GitHub', v1: true, v2: true, v2free: false },
   { feature: 'Native Apps', v1: true, v2: true, v2free: true },
-  { feature: 'GUI', v1: true, v2: true, v2free: true },
+  { feature: 'Gui UI', v1: true, v2: true, v2free: true },
 ]
 
 export function VersionComparison() {
@@ -209,7 +209,7 @@ export function VersionComparison() {
         </YStack>
 
         <XStack gap="$3" flexWrap="wrap" justify="center">
-          <Link href="https://takeout.gui.hanzo.ai/docs/introduction" target="_blank">
+          <Link href="https://takeout.hanzogui.dev/docs/introduction" target="_blank">
             <ThemeTintAlt>
               <Button
                 size="$4"
@@ -226,7 +226,7 @@ export function VersionComparison() {
               </Button>
             </ThemeTintAlt>
           </Link>
-          <Link href="https://takeout.gui.hanzo.ai/docs/highlights" target="_blank">
+          <Link href="https://takeout.hanzogui.dev/docs/highlights" target="_blank">
             <ThemeTintAlt offset={2}>
               <Button
                 size="$4"
@@ -243,7 +243,7 @@ export function VersionComparison() {
               </Button>
             </ThemeTintAlt>
           </Link>
-          <Link href="https://github.com/hanzoai/takeout-free" target="_blank">
+          <Link href="https://github.com/hanzogui/takeout-free" target="_blank">
             <Button
               size="$4"
               bg="$color3"

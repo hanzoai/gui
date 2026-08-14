@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Button, SizableText, XStack, YStack, Text } from 'hanzogui'
+import { Button, SizableText, XStack, YStack, Text } from '@hanzo/gui'
 import {
   toast,
   Toast,

@@ -1,4 +1,4 @@
-import { getMDXComponent } from 'mdx-bundler/client'
+import { getMDXComponent } from '@vxrn/mdx-rust/client'
 import React from 'react'
 import type { LoaderProps } from 'one'
 import { useLoader } from 'one'
@@ -52,7 +52,7 @@ export default function BlogSlug() {
       <HeadInfo
         {...data.frontmatter}
         title={`${data.frontmatter.title}: ${(data.frontmatter.description ?? '')
-          .replace(/gui\s+/i, '')
+          .replace(/hanzogui\s+/i, '')
           .trim()
           .replace(/^./, (c) => c.toLowerCase())}`}
         description={data.frontmatter.description ?? ''}

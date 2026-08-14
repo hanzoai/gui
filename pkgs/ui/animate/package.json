@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/animate",
-  "version": "7.3.1",
-  "license": "BSD-3-Clause",
+  "version": "8.1.1",
+  "license": "MIT",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -9,9 +9,7 @@
     "dist"
   ],
   "type": "module",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -31,10 +29,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/animate-presence": "workspace:*"
@@ -45,6 +43,5 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

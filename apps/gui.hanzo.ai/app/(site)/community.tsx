@@ -13,7 +13,7 @@ import {
   Spacer,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { Card } from '~/components/Card'
 import { ContainerLarge } from '~/components/Containers'
 import { FlatBubbleCard } from '~/components/FlatBubbleCard'
@@ -149,19 +149,19 @@ export default function Community() {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <XStack py="$2" gap="$4">
               <StarterRepoCard
-                url="https://galaxies.dev/course/react-native-hanzo-gui"
-                name="Universal Apps with GUI (Guide)"
+                url="https://galaxies.dev/course/react-native-hanzogui"
+                name="Universal Apps with Gui (Guide)"
                 author="Simon Grimm"
               />
 
               <StarterRepoCard
-                url="https://github.com/srikanthkh/hanzo-gui-cna"
+                url="https://github.com/srikanthkh/hanzogui-cna"
                 name="create-next-app"
                 author="srikanthkh"
               />
 
               <StarterRepoCard
-                url="https://github.com/srikanthkh/hanzo-gui-cra"
+                url="https://github.com/srikanthkh/hanzogui-cra"
                 name="create-react-app"
                 author="srikanthkh"
               />
@@ -180,25 +180,25 @@ export default function Community() {
 
               <StarterRepoCard
                 url="https://github.com/hanzoai/gui/tree/main/apps/site"
-                name="gui.hanzo.ai"
+                name="hanzogui.dev"
                 author="nate"
               />
 
               <StarterRepoCard
-                url="https://github.com/ivopr/hanzo-gui-expo"
-                name="GUI Expo"
+                url="https://github.com/ivopr/hanzogui-expo"
+                name="Gui Expo"
                 author="Ivo"
               />
 
               <StarterRepoCard
-                url="https://github.com/dohomi/hanzo-gui-kitchen-sink"
+                url="https://github.com/dohomi/hanzogui-kitchen-sink"
                 name="Kitchen Sink with Storybook"
                 author="dohomi"
               />
 
               <StarterRepoCard
-                url="https://github.com/ebg1223/t3-hanzo-gui"
-                name="GUI t3"
+                url="https://github.com/ebg1223/t3-hanzogui"
+                name="Gui t3"
                 author="ebg1223"
               />
             </XStack>

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Register gui.hanzo.ai as a payment method domain for Stripe Link
+ * Register hanzogui.dev as a payment method domain for Stripe Link
  * Run: node scripts/register-payment-domain.mjs
  *
  * Prerequisites:
@@ -19,7 +19,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2020-08-27',
 })
 
-const DOMAINS_TO_REGISTER = ['gui.hanzo.ai', 'www.gui.hanzo.ai']
+const DOMAINS_TO_REGISTER = ['hanzogui.dev', 'www.hanzogui.dev']
 
 async function listExistingDomains() {
   try {

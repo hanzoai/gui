@@ -1,9 +1,9 @@
 ---
 title: Styling
-description: Hanzo GUI accepts a superset of React Native styles
+description: Gui accepts a superset of React Native styles
 ---
 
-Hanzo GUI supports a superset of the React Native style properties on to any
+Gui supports a superset of the React Native style properties on to any
 styled component like the base
 [View and Text components](/docs/core/view-and-text), or through the
 [`styled()` function](/docs/core/styled) as the second argument.
@@ -36,7 +36,7 @@ Native 0.82):
 - [React Native View style props](https://reactnative.dev/docs/view-style-props)
 - [React Native Text style props](https://reactnative.dev/docs/text-style-props)
 
-The full Hanzo GUI typed style props can be simplified to something like this,
+The full Gui typed style props can be simplified to something like this,
 except the values can also accept one of your design tokens:
 
 ```tsx
@@ -194,7 +194,7 @@ type TextStyleBase = BaseViewStyle & {
 
 ## Pseudo States
 
-Hanzo GUI supports several style states that apply based on interaction or focus:
+Gui supports several style states that apply based on interaction or focus:
 
 - **`hoverStyle`** - Styles applied when hovering over the element (web only, maps to CSS `:hover`)
 - **`pressStyle`** - Styles applied while the element is being pressed
@@ -226,7 +226,7 @@ See [Animations](/docs/core/animations) for more details on enter/exit animation
 
 ## rem Units
 
-Hanzo GUI supports `rem` units cross-platform. On web, browsers handle rem natively. On native, Hanzo GUI converts rem values to pixels using `PixelRatio.getFontScale()` to respect the user's font size preferences.
+Gui supports `rem` units cross-platform. On web, browsers handle rem natively. On native, Gui converts rem values to pixels using `PixelRatio.getFontScale()` to respect the user's font size preferences.
 
 ```tsx
 // works on both web and native
@@ -248,7 +248,7 @@ On native, `1rem` with a base of 16 equals `16 * PixelRatio.getFontScale()` pixe
 
 ## CSS Shorthand with Variables
 
-Hanzo GUI supports using `$variables` directly inside CSS shorthand string values.
+Gui supports using `$variables` directly inside CSS shorthand string values.
 This is particularly useful for `boxShadow` and `backgroundImage` where you want
 to reference theme colors:
 
@@ -358,7 +358,7 @@ On native, only a single text shadow is supported (React Native limitation).
 
 ## Parent based styling
 
-Hanzo GUI has a variety of ways to style a child based on the "parent", a parent
+Gui has a variety of ways to style a child based on the "parent", a parent
 being one of: platform, screen size, theme, or group. All of these styles use
 the same pattern, they use a `$` prefix for their styles, and they nest styles
 as a sub-object.
@@ -368,7 +368,7 @@ For screen size, which we call media queries, they have no prefix. Instead you
 define media queries on `createGui`. For example, if you define a media
 query named `large`, then `$large` is the prop name.
 
-These parent style props accept all the Hanzo GUI style props in their value
+These parent style props accept all the Gui style props in their value
 object.
 
 #### Media query
@@ -460,10 +460,10 @@ Now the `Inner` Text will turn blue when the `card` group is hovered, and the
 `Sibling` Text will turn green when its parent is hovered.
 
 To make this typed, you need to set `TypeOverride` alongside the same area you
-set up your Hanzo GUI types:
+set up your Gui types:
 
 ```tsx
-declare module '@hanzo/gui' {
+declare module 'hanzogui' {
   interface GuiCustomConfig extends AppConfig {}
 
   // if you want types for named group styling props (e.g. $group-card-hover),
@@ -478,7 +478,7 @@ declare module '@hanzo/gui' {
 
 The final feature of group styles is the ability to style a child only when the
 parent is of a certain size. On the web these are known as "container queries",
-which is what Hanzo GUI outputs as CSS under the hood. They look like this:
+which is what Gui outputs as CSS under the hood. They look like this:
 
 ```tsx
 <View group>

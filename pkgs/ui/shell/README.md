@@ -1,20 +1,21 @@
 # @hanzogui/shell
 
-Multi-tenant navigation shell for Hanzo-stack apps.
+The navigation shell for Hanzo-stack apps — one public header, one signed-in
+header, one cross-app switcher.
 
-Canonical, single source of truth for the cross-app shell (`TenantHeader`,
-`AppSwitcher`, `UserOrgDropdown`, `TenantCommandPalette`, `TenantMark`,
-`BeamAvatar`, `UserAvatar`) shared across billing, console, chat, platform,
-and downstream-tenant apps.
+Canonical, single source of truth for the shared chrome (`HanzoHeader`,
+`OrgHeader`, `HanzoAppLauncher`, `UserOrgDropdown`, `OrgCommandPalette`,
+`HanzoMark`, `BeamAvatar`, `UserAvatar`) across billing, console, chat and
+platform.
 
-Auth comes from `@hanzo/iam/react` (the canonical IAM client) — do not
-duplicate this hook per-app.
+Auth comes from `@hanzo/iam/react` (the canonical IAM client) — never a second
+session scheme here.
 
 ## Usage
 
 ```tsx
 import { IamProvider, useIam, useOrganizations } from '@hanzo/iam/react'
-import { TenantHeader, AppSwitcher, getAppsForOrg } from '@hanzogui/shell'
+import { OrgHeader } from '@hanzogui/shell'
 
 export function App() {
   return (
@@ -29,11 +30,12 @@ export function App() {
 }
 
 function Shell() {
-  const { user, isAuthenticated, login, logout } = useIam()
+  const { user, logout } = useIam()
   const { organizations, currentOrg, switchOrg } = useOrganizations()
   return (
-    <TenantHeader
+    <OrgHeader
       currentApp="MyApp"
+      currentAppId="myapp"
       user={user ?? undefined}
       organizations={organizations}
       currentOrgId={currentOrg?.id}
@@ -77,23 +79,29 @@ is the shared default taxonomy; `ProductCategory` is the taxonomy type.
 
 ## Org switching
 
-`ORG_DOMAINS` provides per-org branded domains; `getAppsForOrg(slug)` returns
-the right per-org app URL list. Hanzo / Lux / Zoo / Pars baked in; extend
-via `apps={[...getAppsForOrg(slug), ...customApps]}`.
+`ORG_DOMAINS` maps each org to its branded domains — Hanzo / Lux / Zoo / Pars
+baked in — and the signed-in chrome reads it for the account and billing links.
+
+## One app list
+
+`HANZO_APPS` is the only app registry. `HanzoAppLauncher` renders it; `OrgHeader`
+mounts that launcher; `OrgCommandPalette` derives its cross-app commands from
+it. Pass `apps` to any of the three to override.
 
 ## Exports
 
-- `TenantHeader`, `TenantShellProps` — top header with org switcher + user menu
-- `AppSwitcher` — cross-app launcher
+- `HanzoHeader` — public/marketing header
+- `OrgHeader`, `OrgHeaderProps`, `OrgSearch` — THE signed-in bar: launcher,
+  breadcrumb, centre search, org switcher + user menu
+- `HanzoAppLauncher` — the cross-app switcher
 - `UserOrgDropdown` — user/org dropdown
-- `TenantCommandPalette` — ⌘K palette
-- `TenantMark`, `TenantMarkProps` — brand mark
+- `OrgCommandPalette`, `OrgCommandItem` — ⌘K palette
+- `HanzoMark`, `HanzoWordmark` — brand mark (`brandMenu` opts into the
+  right-click brand menu)
 - `BeamAvatar`, `UserAvatar` — avatars
-- `useTenantAuth` — **deprecated**, use `useIam` from `@hanzo/iam/react` directly
-- `DEFAULT_TENANT_APPS`, `ORG_DOMAINS`, `getAppsForOrg(slug)` — app registry
-- `TenantApp`, `TenantOrg` (re-exported as `IamOrganization`), `TenantUser` (re-exported as `IamUser`), `OrgDomains` — types
+- `HANZO_APPS`, `ORG_DOMAINS` — the app registry and the per-org domain map
+- `HanzoApp`, `HanzoUser`, `HanzoOrg`, `OrgDomains` — types
 
 ## Peer dependencies
 
-- `@hanzo/iam ^0.10.0` — for the auth hook + types
 - `react`, `react-dom`

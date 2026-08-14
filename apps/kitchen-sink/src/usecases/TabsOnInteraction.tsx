@@ -5,8 +5,8 @@
  */
 
 import React from 'react'
-import type { TabLayout } from 'hanzogui'
-import { SizableText, Tabs, Text, YStack } from 'hanzogui'
+import type { TabLayout } from '@hanzo/gui'
+import { SizableText, Tabs, Text, YStack } from '@hanzo/gui'
 
 export function TabsOnInteraction() {
   const [interactionType, setInteractionType] = React.useState<string | null>(null)

@@ -2,7 +2,7 @@ import * as StaticWorker from '@hanzogui/static-worker'
 import type { GuiOptions } from '@hanzogui/types'
 
 // use globalThis to share state across vite environments (SSR, client, etc.)
-const LOAD_STATE_KEY = '__gui_load_state__'
+const LOAD_STATE_KEY = '__hanzogui_load_state__'
 
 type LoadState = {
   loadPromise: Promise<GuiOptions> | null
@@ -32,8 +32,8 @@ export function getLoadPromise(): Promise<GuiOptions> | null {
 }
 
 /**
- * Load just the gui.build.ts config (lightweight)
- * This doesn't bundle the full gui config - call ensureFullConfigLoaded() for that
+ * Load just the hanzogui.build.ts config (lightweight)
+ * This doesn't bundle the full hanzogui config - call ensureFullConfigLoaded() for that
  */
 export async function loadGuiBuildConfig(
   optionsIn?: Partial<GuiOptions>
@@ -56,7 +56,7 @@ export async function loadGuiBuildConfig(
 }
 
 /**
- * Ensure the full gui config is loaded (heavy - bundles config + components)
+ * Ensure the full hanzogui config is loaded (heavy - bundles config + components)
  * Call this lazily when transform/extraction is actually needed
  */
 export async function ensureFullConfigLoaded(): Promise<void> {
@@ -70,10 +70,10 @@ export async function ensureFullConfigLoaded(): Promise<void> {
   state.fullConfigLoadPromise = (async () => {
     const options = await loadGuiBuildConfig()
 
-    // load full gui config in worker (asynchronous)
+    // load full hanzogui config in worker (asynchronous)
     if (!options.disableWatchGuiConfig && !options.disable) {
       await StaticWorker.loadGui({
-        components: ['gui'],
+        components: ['@hanzo/gui'],
         platform: 'web',
         ...options,
       })

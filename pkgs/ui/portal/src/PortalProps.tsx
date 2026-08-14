@@ -1,4 +1,4 @@
-import type { ViewProps } from '@hanzogui/web'
+import { ViewProps } from '@hanzogui/web/types'
 import type { StackZIndexProp } from '@hanzogui/z-index-stack'
 import { CSSProperties, ReactNode } from 'react'
 

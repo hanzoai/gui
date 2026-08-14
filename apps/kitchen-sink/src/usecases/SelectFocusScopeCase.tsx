@@ -1,5 +1,5 @@
 import React from 'react'
-import { Select, Label, YStack, XStack, Button } from 'hanzogui'
+import { Select, Label, YStack, XStack, Button } from '@hanzo/gui'
 import { ChevronDown } from '@hanzogui/lucide-icons-2'
 
 // Render value helpers for SSR support
@@ -267,4 +267,4 @@ export function SelectFocusScopeCase() {
 }
 
 // Add missing import
-import { View } from 'hanzogui'
+import { View } from '@hanzo/gui'

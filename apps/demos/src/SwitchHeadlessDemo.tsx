@@ -4,7 +4,7 @@ import { useSwitch } from '@hanzogui/switch-headless'
 
 import type { View } from 'react-native'
 import { Animated, Pressable } from 'react-native'
-import { Label, XStack, YStack } from 'hanzogui'
+import { Label, XStack, YStack } from '@hanzo/gui'
 
 export function SwitchHeadlessDemo() {
   return (

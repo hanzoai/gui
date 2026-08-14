@@ -1,5 +1,5 @@
-import type { SizeTokens } from 'hanzogui'
-import { Label, RadioGroup, XStack } from 'hanzogui'
+import type { SizeTokens } from '@hanzo/gui'
+import { Label, RadioGroup, XStack } from '@hanzo/gui'
 
 export function RadioGroupItemWithLabel(props: {
   size: SizeTokens

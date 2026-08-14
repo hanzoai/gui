@@ -10,7 +10,7 @@ import {
   Info,
   LoaderCircle,
 } from '@hanzogui/lucide-icons-2'
-import { Button, H4, XStack, YStack, Text, Separator, SizableText } from 'hanzogui'
+import { Button, H4, XStack, YStack, Text, Separator, SizableText } from '@hanzo/gui'
 import {
   toast,
   Toast,

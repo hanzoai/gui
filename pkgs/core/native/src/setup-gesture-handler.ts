@@ -17,7 +17,7 @@
  * for use with Sheet and other gesture-aware components.
  */
 
-import { getGestureHandler } from './gestureState'
+import { canChangeGestureHandlerEnabled, getGestureHandler } from './gestureState'
 
 export interface GestureHandlerConfig {
   /** use RNGH for press events on Gui components (default: true) */
@@ -41,16 +41,29 @@ export function setupGestureHandler(config?: GestureHandlerConfig): void {
   // override config if provided
   if (config) {
     currentConfig = config
+
+    if (
+      config.pressEvents !== undefined &&
+      !canChangeGestureHandlerEnabled(
+        config.pressEvents !== false,
+        'setupGestureHandler()'
+      )
+    ) {
+      currentConfig = {
+        ...currentConfig,
+        pressEvents: getGestureHandler().isEnabled,
+      }
+    }
   }
 
   // allow re-running setup to change config
-  const isFirstRun = !g.__gui_native_gesture_setup_complete
-  g.__gui_native_gesture_setup_complete = true
+  const isFirstRun = !g.__hanzogui_native_gesture_setup_complete
+  g.__hanzogui_native_gesture_setup_complete = true
 
   try {
     // dynamically require RNGH - it should already be imported by the app
     const rngh = require('react-native-gesture-handler')
-    const { Gesture, GestureDetector, ScrollView } = rngh
+    const { Gesture, GestureDetector, ScrollView, GestureHandlerRootView } = rngh
 
     if (Gesture && GestureDetector) {
       // only enable if pressEvents is true
@@ -59,14 +72,16 @@ export function setupGestureHandler(config?: GestureHandlerConfig): void {
         Gesture,
         GestureDetector,
         ScrollView: ScrollView || null,
+        RootView: GestureHandlerRootView || null,
       })
 
       // sheet state - only enable if sheet is true
-      g.__gui_sheet_gesture_state__ = {
+      g.__hanzogui_sheet_gesture_state__ = {
         enabled: currentConfig.sheet !== false,
         Gesture,
         GestureDetector,
         ScrollView: ScrollView || null,
+        RootView: GestureHandlerRootView || null,
       }
     }
   } catch {

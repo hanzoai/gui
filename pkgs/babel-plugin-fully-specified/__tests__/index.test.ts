@@ -122,6 +122,27 @@ describe('transforming actual files', () => {
         })
       ) || {}
 
-    expect(code).toBe('export * from "./modules/gui.dev.config.mjs";')
+    expect(code).toBe('export * from "./modules/hanzogui.dev.config.mjs";')
+  })
+
+  test('native output extension resolves native sibling files', () => {
+    const { code } =
+      transformFileSync(
+        path.join(__dirname, 'fixtures', 'native-extension', 'index.native.js'),
+        getTransformOptions({
+          pluginOptions: {
+            ensureFileExists: true,
+            esExtensionDefault: '.native.js',
+            esExtensions: ['.js'],
+          },
+        })
+      ) || {}
+
+    expect(code).toBe(
+      [
+        'export * from "./createComponent.native.js";',
+        'export * from "./hooks/index.native.js";',
+      ].join('\n')
+    )
   })
 })

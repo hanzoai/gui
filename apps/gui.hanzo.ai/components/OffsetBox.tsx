@@ -1,4 +1,4 @@
-import { YStack, styled } from 'hanzogui'
+import { YStack, styled } from '@hanzo/gui'
 
 export const OffsetBox = styled(YStack, {
   name: 'OffsetBox',

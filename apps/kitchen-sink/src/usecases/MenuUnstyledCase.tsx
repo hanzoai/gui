@@ -1,5 +1,5 @@
 import { Menu } from '@hanzogui/menu'
-import { Button, YStack } from 'hanzogui'
+import { Button, YStack } from '@hanzo/gui'
 
 /**
  * Menu Unstyled Test Case

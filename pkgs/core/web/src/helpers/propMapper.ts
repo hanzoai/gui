@@ -24,6 +24,7 @@ import { pseudoDescriptors } from './pseudoDescriptors'
 import { resolveCompoundTokens } from './resolveCompoundTokens'
 import { isRemValue, resolveRem } from './resolveRem'
 import { skipProps } from './skipProps'
+import { styleOriginalValues } from './styleOriginalValues'
 
 export { getTokenForKey } from './getTokenForKey'
 
@@ -42,11 +43,36 @@ export const propMapper: PropMapper = (key, value, styleState, disabled, map) =>
   const { conf, styleProps, staticConfig } = styleState
   const { variants } = staticConfig
 
+  // "unset" is a CSS-wide keyword: valid CSS on web, but React Native
+  // style props reject it (e.g. aspectRatio throws "must be a number, a
+  // ratio string or `auto`"). On native, clear anything an earlier prop or
+  // styled default already merged for this key — matching web, where unset
+  // resets toward initial — then drop the value so RN never sees it.
+  if (process.env.GUI_TARGET === 'native' && value === 'unset') {
+    const expandedKey =
+      (!styleProps.disableExpandShorthands && conf.shorthands[key]) || key
+    const expanded = styleProps.noExpand
+      ? null
+      : expandStyle(expandedKey, value, conf.settings.styleCompat || 'web')
+    if (styleState.style) {
+      if (expanded) {
+        for (const [nkey] of expanded) {
+          delete styleState.style[nkey]
+        }
+      } else {
+        delete styleState.style[expandedKey]
+      }
+    }
+    return
+  }
+
   if (!styleProps.noExpand) {
     if (variants && key in variants) {
       const variantValue = resolveVariants(key, value, styleProps, styleState, '')
       if (variantValue) {
-        variantValue.forEach(([key, value]) => map(key, value))
+        variantValue.forEach(([key, value, originalValue]) => {
+          map(key, value, originalValue)
+        })
         return
       }
     }
@@ -105,13 +131,15 @@ export const propMapper: PropMapper = (key, value, styleState, disabled, map) =>
       styleState.fontFamily = fontToken
     }
 
-    const expanded = styleProps.noExpand ? null : expandStyle(key, value)
+    const expanded = styleProps.noExpand
+      ? null
+      : expandStyle(key, value, conf.settings.styleCompat || 'web')
 
     if (expanded) {
       const max = expanded.length
       for (let i = 0; i < max; i++) {
-        const [nkey, nvalue] = expanded[i]
-        map(nkey, nvalue, originalValue)
+        const [nkey, nvalue, noriginalValue] = expanded[i]
+        map(nkey, nvalue, noriginalValue ?? originalValue)
       }
     } else {
       map(key, value, originalValue)
@@ -205,13 +233,14 @@ const resolveVariants: StyleResolver = (
       console.info(`   expanding styles from `, variantValue, `to`, expanded)
     }
     const next = Object.entries(expanded)
+    const originalValues = styleOriginalValues.get(expanded)
 
     // store any changed font family (only support variables for now)
     if (fontFamilyResult && fontFamilyResult[0] === '$') {
       setLastFontFamilyToken(getVariableValue(fontFamilyResult))
     }
 
-    return next
+    return next.map(([key, value]) => [key, value, originalValues?.[key]])
   }
 }
 
@@ -249,6 +278,7 @@ const resolveTokensAndVariants: StyleResolver<object> = (
   const { conf, staticConfig, debug, theme } = styleState
   const { variants } = staticConfig
   const res = {}
+  let originalValues: Record<string, any> | undefined
 
   if (process.env.NODE_ENV === 'development' && debug === 'verbose') {
     console.info(`   - resolveTokensAndVariants`, key, value)
@@ -261,6 +291,9 @@ const resolveTokensAndVariants: StyleResolver<object> = (
     if (!styleProps.noSkip && subKey in skipProps) {
       continue
     }
+
+    originalValues ||= {}
+    originalValues[subKey] = val
 
     // Track context overrides for any key that's in context props (issues #3670, #3676)
     // Store the ORIGINAL token value (like '$8') before resolution so that
@@ -291,13 +324,24 @@ const resolveTokensAndVariants: StyleResolver<object> = (
 
           // apply, merging sub-styles
           if (variantOut) {
-            for (const [key, val] of variantOut) {
+            for (const [key, val, originalVal] of variantOut) {
               if (val == null) continue
               if (key in pseudoDescriptors) {
                 res[key] ??= {}
                 Object.assign(res[key], val)
+                const subOriginalValues = styleOriginalValues.get(val)
+                if (subOriginalValues) {
+                  styleOriginalValues.set(res[key], {
+                    ...styleOriginalValues.get(res[key]),
+                    ...subOriginalValues,
+                  })
+                }
               } else {
                 res[key] = val
+                if (originalVal !== undefined) {
+                  originalValues ||= {}
+                  originalValues[key] = originalVal
+                }
               }
             }
           }
@@ -335,6 +379,13 @@ const resolveTokensAndVariants: StyleResolver<object> = (
       // sub-objects: media queries, pseudos, shadowOffset
       res[subKey] ??= {}
       Object.assign(res[subKey], subObject)
+      const subOriginalValues = styleOriginalValues.get(subObject)
+      if (subOriginalValues) {
+        styleOriginalValues.set(res[subKey], {
+          ...styleOriginalValues.get(res[subKey]),
+          ...subOriginalValues,
+        })
+      }
     } else {
       // nullish values cant be tokens, need no extra parsing
       res[subKey] = val
@@ -352,6 +403,10 @@ const resolveTokensAndVariants: StyleResolver<object> = (
         }
       }
     }
+  }
+
+  if (originalValues) {
+    styleOriginalValues.set(res, originalValues)
   }
 
   return res

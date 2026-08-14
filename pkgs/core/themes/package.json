@@ -1,6 +1,26 @@
 {
   "name": "@hanzogui/themes",
-  "version": "7.3.1",
+  "version": "8.1.1",
+  "files": [
+    "dist",
+    "src",
+    "types",
+    "v3-themes.cjs",
+    "v3-themes.d.ts",
+    "v3-themes",
+    "v3.cjs",
+    "v3.d.ts",
+    "v3",
+    "v4.cjs",
+    "v4.d.ts",
+    "v4",
+    "v5-subtle.cjs",
+    "v5-subtle.d.ts",
+    "v5-subtle",
+    "v5.cjs",
+    "v5.d.ts",
+    "v5"
+  ],
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "type": "module",
   "sideEffects": false,
@@ -17,6 +37,12 @@
       "import": "./dist/esm/index.mjs",
       "require": "./dist/cjs/index.cjs",
       "default": "./dist/esm/index.mjs"
+    },
+    "./types": {
+      "types": "./types/index.d.ts"
+    },
+    "./types/*": {
+      "types": "./types/*.d.ts"
     },
     "./v3": {
       "types": "./types/v3.d.ts",
@@ -69,16 +95,17 @@
   },
   "scripts": {
     "generate": "bun run generate:v5 & bun run generate:v5-subtle",
-    "generate:v5": "gui generate-themes ./src/v5-themes.ts ./src/generated-v5.ts",
-    "generate:v5-subtle": "gui generate-themes ./src/v5-themes-subtle.ts ./src/generated-v5-subtle.ts",
-    "generate:v3": "gui generate-themes ./src/v3-themes.ts ./src/generated-v3.ts",
-    "generate:v4": "gui generate-themes ./src/v4-default.ts ./src/generated-v4.ts",
-    "generate:v4-gui": "gui generate-themes ./src/v4-gui.ts ./src/generated-v4-gui.ts",
+    "generate:v5": "hanzogui generate-themes ./src/v5-themes.ts ./src/generated-v5.ts",
+    "generate:v5-subtle": "hanzogui generate-themes ./src/v5-themes-subtle.ts ./src/generated-v5-subtle.ts",
+    "generate:new": "hanzogui generate-themes ./src/themes-new.ts ./src/generated-new.ts",
+    "generate:v3": "hanzogui generate-themes ./src/v3-themes.ts ./src/generated-v3.ts",
+    "generate:v4": "hanzogui generate-themes ./src/v4-default.ts ./src/generated-v4.ts",
+    "generate:v4-hanzogui": "hanzogui generate-themes ./src/v4-hanzogui.ts ./src/generated-v4-hanzogui.ts",
     "test": "bun run generate",
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/colors": "workspace:*",
@@ -91,16 +118,5 @@
     "@hanzogui/build": "workspace:*",
     "@hanzogui/cli": "workspace:*",
     "vitest": "4.0.4"
-  },
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ],
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

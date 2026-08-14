@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { shouldExclude, GuiPlugin } = require('hanzogui-loader')
+const { shouldExclude, GuiPlugin } = require('@hanzogui/loader')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const target = 'web'
@@ -27,6 +27,10 @@ module.exports = {
     minimize: false,
   },
   resolve: {
+    // workspace packages rebuild their dist while the dev server runs; the
+    // default resolver cache pins a failed resolution from mid-rebuild until
+    // restart, so trade a little resolve speed for correctness
+    unsafeCache: false,
     mainFields: ['module:jsx', 'browser', 'module', 'main'],
     extensions: ['.web.tsx', '.web.ts', '.ts', '.tsx', '.js'],
     alias: {
@@ -35,10 +39,27 @@ module.exports = {
       'react/compiler-runtime': require.resolve('react/compiler-runtime'),
       react: require.resolve('react'),
       'react-dom/client': require.resolve('react-dom/client'),
+      'react-dom/server': require.resolve('react-dom/server.browser'),
       'react-dom': require.resolve('react-dom'),
       'react-native$': 'react-native-web',
+      '@hanzogui/sheet/controller$': path.resolve(
+        __dirname,
+        '../../pkgs/ui/sheet/src/controller.ts'
+      ),
+      '@hanzogui/sheet$': path.resolve(__dirname, '../../pkgs/ui/sheet/src/index.ts'),
+      // dedupe react-native-web - workspace setup creates multiple copies
+      // (kitchen-sink/node_modules + hanzogui/node_modules + root) which each
+      // initialize the responder system with their own state, breaking
+      // PanResponder when a different instance owns the document listeners.
+      'react-native-web': path.resolve(__dirname, '../../node_modules/react-native-web'),
       'react-native-svg': '@hanzogui/react-native-svg',
     },
+  },
+  // workspace package rebuilds delete and rewrite their dist while the dev
+  // server watches; compiling mid-rebuild caches a failed resolution. debounce
+  // long enough that a package rebuild finishes before webpack recompiles.
+  watchOptions: {
+    aggregateTimeout: 1500,
   },
   devServer: {
     client: {
@@ -116,8 +137,8 @@ module.exports = {
   },
   plugins: [
     new GuiPlugin({
-      config: './src/gui.config.ts',
-      components: ['gui', '@hanzogui/sandbox-ui'],
+      config: './src/hanzogui.config.ts',
+      components: ['@hanzo/gui', '@hanzogui/sandbox-ui'],
       importsWhitelist: ['constants.js'],
       disableExtraction,
     }),

@@ -27,7 +27,8 @@ export function wrapWithGestureDetector(
   _gesture: any,
   _stateRef: { current: any },
   _isHOC?: boolean,
-  _isCompositeComponent?: boolean
+  _isCompositeComponent?: boolean,
+  _hasRealPressEvents?: boolean
 ) {
   return content
 }
@@ -40,7 +41,8 @@ export function useEvents(
   _staticConfig: any,
   _isHOC?: boolean,
   _isInsideNativeMenu?: boolean,
-  _debugName?: string | null
+  _debugName?: string | null,
+  _hasRealPressEvents?: boolean
 ) {
   return null
 }

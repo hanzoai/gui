@@ -1,15 +1,34 @@
 {
   "name": "@hanzogui/core",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>",
+  "license": "MIT",
+  "author": {
+    "name": "Nate Wienert"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hanzoai/gui.git",
+    "url": "git+https://github.com/hanzoai/gui.git",
     "directory": "packages/core"
   },
   "source": "src/index.tsx",
+  "files": [
+    "bundle-native.mjs",
+    "dist",
+    "inject-styles.cjs",
+    "inject-styles",
+    "native-test.cjs",
+    "native-test.d.ts",
+    "native-test",
+    "native.cjs",
+    "native.d.ts",
+    "native",
+    "reactNativeTypes.cjs",
+    "reactNativeTypes",
+    "reset.css",
+    "src",
+    "types"
+  ],
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -70,13 +89,14 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
+    "build": "hanzogui-build",
     "afterBuild": "node bundle-native.mjs",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzogui/constants": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
     "@hanzogui/react-native-media-driver": "workspace:*",
     "@hanzogui/react-native-use-pressable": "workspace:*",
@@ -96,21 +116,6 @@
     "vitest": "4.0.4"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-native": "*"
-  },
-  "files": [
-    "dist",
-    "src",
-    "types",
-    "*.cjs",
-    "*.mjs",
-    "*.css",
-    "README.md"
-  ],
-  "peerDependenciesMeta": {
-    "react-native": {
-      "optional": true
-    }
+    "react": ">=19"
   }
 }

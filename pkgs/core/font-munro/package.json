@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-munro",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "files": [
     "types",
@@ -9,7 +9,9 @@
     "files"
   ],
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "css/*.css"
+  ],
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -29,10 +31,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/core": "workspace:*"
@@ -40,7 +42,5 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
   },
-  "skipPublishIfUnchanged": false,
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "skipPublishIfUnchanged": false
 }

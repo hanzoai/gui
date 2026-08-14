@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import type { LayoutChangeEvent, LayoutRectangle } from 'react-native'
-import { Button, Square, Text, YStack } from 'hanzogui'
+import { Button, Square, Text, YStack } from '@hanzo/gui'
 
 /**
  * test case for onLayout with CSS scale transform.

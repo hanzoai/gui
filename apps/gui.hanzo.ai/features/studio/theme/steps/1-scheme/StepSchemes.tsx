@@ -1,5 +1,5 @@
 import { Check } from '@hanzogui/lucide-icons-2'
-import { Checkbox, H4, Label, Paragraph, Spacer, XStack, YStack } from 'hanzogui'
+import { Checkbox, H4, Label, Paragraph, Spacer, XStack, YStack } from '@hanzo/gui'
 
 import { useRootStore } from '../../../state/useGlobalState'
 import { StudioNotice } from '~/features/studio/StudioNotice'
@@ -50,7 +50,7 @@ export function StepSchemes() {
       <Spacer flex={1} />
 
       <StudioNotice>
-        GUI auto-generates media queries on the web using prefers-color-scheme.
+        Gui auto-generates media queries on the web using prefers-color-scheme.
       </StudioNotice>
     </YStack>
   )

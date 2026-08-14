@@ -1,5 +1,5 @@
-import type { GuiProviderProps } from 'hanzogui'
-import { GuiProvider } from 'hanzogui'
+import type { GuiProviderProps } from '@hanzo/gui'
+import { GuiProvider } from '@hanzo/gui'
 import { config as defaultConfig } from './config'
 
 export function Provider({

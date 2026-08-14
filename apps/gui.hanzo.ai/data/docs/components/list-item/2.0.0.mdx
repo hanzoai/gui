@@ -27,7 +27,7 @@ demoName: ListItem
 
 ## Installation
 
-ListItem is already installed in `@hanzo/gui`, or you can install it independently:
+ListItem is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/list-item
@@ -171,10 +171,10 @@ The `color` prop passed to `Apply` will be inherited by icons within children.
 
 ## Customization
 
-For customization, Hanzo GUI exports the building blocks: `ListItem.Frame`, `ListItem.Text`, `ListItem.Title`, `ListItem.Subtitle`, and `ListItem.Icon`.
+For customization, Gui exports the building blocks: `ListItem.Frame`, `ListItem.Text`, `ListItem.Title`, `ListItem.Subtitle`, and `ListItem.Icon`.
 
 ```tsx
-import { YStack, ListItem as Hanzo GUIListItem } from '@hanzo/gui'
+import { YStack, ListItem as GuiListItem } from '@hanzo/gui'
 import { GetProps, styled } from '@hanzogui/web'
 
 const CustomFrame = styled(GuiListItem.Frame, {
@@ -288,7 +288,7 @@ ListItems extend Stack views, inheriting all the [Gui standard props](/docs/intr
       required: false,
       type: 'boolean',
       description:
-        'Removes all default Hanzo GUI styles (padding, background, etc.). Default is `false` unless `HANZO_GUI_HEADLESS` is set.',
+        'Removes all default Gui styles (padding, background, etc.). Default is `false` unless `GUI_HEADLESS` is set.',
     },
     {
       name: '// Styling Text',

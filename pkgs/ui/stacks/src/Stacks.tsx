@@ -36,7 +36,7 @@ const variants = {
 
 /**
  * @summary A view that arranges its children in a vertical line.
- * @see — Docs https://gui.dev/ui/stacks#xstack-ystack-zstack
+ * @see — Docs https://hanzogui.dev/ui/stacks#xstack-ystack-zstack
  */
 export const YStack = styled(View, {
   flexDirection: 'column',
@@ -47,7 +47,7 @@ YStack['displayName'] = 'YStack'
 
 /**
  * @summary A view that arranges its children in a horizontal line.
- * @see — Docs https://gui.dev/ui/stacks#xstack-ystack-zstack
+ * @see — Docs https://hanzogui.dev/ui/stacks#xstack-ystack-zstack
  */
 export const XStack = styled(View, {
   flexDirection: 'row',
@@ -58,7 +58,7 @@ XStack['displayName'] = 'XStack'
 
 /**
  * @summary A view that stacks its children on top of each other.
- * @see — Docs https://gui.dev/ui/stacks#xstack-ystack-zstack
+ * @see — Docs https://hanzogui.dev/ui/stacks#xstack-ystack-zstack
  */
 export const ZStack = styled(
   YStack,

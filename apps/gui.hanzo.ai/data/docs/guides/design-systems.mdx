@@ -3,10 +3,10 @@ title: Design Systems
 description: Put together your own design system.
 ---
 
-Hanzo GUI allows you to build out your own set of components that are optimized
+Gui allows you to build out your own set of components that are optimized
 with the compiler whenever they are used in your app.
 
-By default, if you just use `styled()` in your app, Hanzo GUI **won't** be able to
+By default, if you just use `styled()` in your app, Gui **won't** be able to
 optimize those components. This is because the compiler needs to know about
 those components at build-time.
 
@@ -18,11 +18,11 @@ Your design system needs to live in its own npm module, which can be private to
 just your app. That way you can later direct the compiler to look for that
 package.
 
-Design systems can extend from each other. In fact, `@hanzo/gui` extends
+Design systems can extend from each other. In fact, `hanzogui` extends
 `@hanzogui/core`, which contains simple base-level components.
 
-So, for example, if you'd like to use the Hanzo GUI `XStack`, `YStack`, `Button`
-and `Paragraph` in your design system, you would add `@hanzo/gui` to your design
+So, for example, if you'd like to use the Gui `XStack`, `YStack`, `Button`
+and `Paragraph` in your design system, you would add `hanzogui` to your design
 system's package.json.
 
 If you want to build more from scratch, then use `@hanzogui/core` and only import
@@ -44,8 +44,8 @@ Add package.json:
     "@hanzogui/core": "*"
   },
   "scripts": {
-    "build": "hanzo-gui-build",
-    "watch": "hanzo-gui-build --watch"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch"
   },
   "devDependencies": {
     "@hanzogui/build": "*"
@@ -84,14 +84,14 @@ There are a few things to note here:
 Check the [configuration](/docs/core/configuration) for more detail on this
 step.
 
-You'll be creating a `gui.config.ts` at the root of your app. It will
+You'll be creating a `hanzogui.config.ts` at the root of your app. It will
 contain a full suite of tokens, themes, and fonts exported onto a single named
 `config` export.
 
 ## Step 3: Define and export components
 
 Now, create and export your components. You can re-export components from
-`@hanzo/gui` or `@hanzogui/core` as well. Let's create a Circle component:
+`hanzogui` or `@hanzogui/core` as well. Let's create a Circle component:
 
 `Circle.tsx`:
 
@@ -127,8 +127,8 @@ export * from './Circle'
 
 ## Step 4: Set up your build
 
-Now in your app, add `@ourapp/components` and `@hanzo/gui` (since we are extending
-it) to your package.json, and update your gui build configuration.
+Now in your app, add `@ourapp/components` and `hanzogui` (since we are extending
+it) to your package.json, and update your hanzogui build configuration.
 
 ### Webpack
 
@@ -136,9 +136,9 @@ In your `webpack.config.js`:
 
 ```js
 {
-  loader: 'hanzogui-loader',
+  loader: '@hanzogui/loader',
   options: {
-    config: './gui.config.ts',
+    config: './hanzogui.config.ts',
     components: ['@ourapp/components', '@hanzo/gui'],
   },
 }
@@ -151,7 +151,7 @@ In your `next.config.js`:
 ```js
 export default withPlugins([
   withGui({
-    config: './gui.config.ts',
+    config: './hanzogui.config.ts',
     components: ['@ourapp/components', '@hanzo/gui'],
   }),
 ])
@@ -168,7 +168,7 @@ export default {
       '@hanzogui/babel-plugin',
       {
         exclude: /node_modules/,
-        config: './gui.config.ts',
+        config: './hanzogui.config.ts',
         components: ['@ourapp/components', '@hanzo/gui'],
       },
     ],
@@ -178,9 +178,9 @@ export default {
 
 ### Configuration notes
 
-You only need `@hanzo/gui` in your `components` array if you extend it, otherwise
+You only need `hanzogui` in your `components` array if you extend it, otherwise
 no need. You can also extend your own base level module so long as they export
-Hanzo GUI `styled` components.
+Gui `styled` components.
 
 ## Step 5: Test it out
 
@@ -200,14 +200,14 @@ export default () => <Circle size="$large" />
 When it compiles you should see something like:
 
 ```bash
-gui built app.tsx in 16ms (1 optimized, 1 flattened)
+hanzogui built app.tsx in 16ms (1 optimized, 1 flattened)
 ```
 
 To get more information on any extraction, use the `// debug` pragma:
 
 ```tsx
 // debug
-// ^ the above pragma will direct Hanzo GUI to output a lot of information on the extraction
+// ^ the above pragma will direct Gui to output a lot of information on the extraction
 import { Circle } from '@ourapp/components'
 
 export default () => <Circle size="$large" />

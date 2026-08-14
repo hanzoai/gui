@@ -12,17 +12,17 @@ const config = getDefaultConfig(__dirname, {
 // Enable Gui and add nice web support with optimizing compiler + CSS extraction
 const { withGui } = require('@hanzogui/metro-plugin')
 module.exports = withGui(config, {
-  components: ['gui'],
-  config: './gui.config.ts',
+  components: ['@hanzo/gui'],
+  config: './hanzogui.config.ts',
 })
 
 config.resolver.sourceExts.push('mjs')
 
 module.exports = config
 
-// REMOVE THIS (just for gui internal devs to work in monorepo):
+// REMOVE THIS (just for hanzogui internal devs to work in monorepo):
 console.info(`Starting metro`)
-if (process.env.IS_GUI_DEV && __dirname.includes('gui')) {
+if (process.env.IS_GUI_DEV && __dirname.includes('hanzogui')) {
   console.info('🧑‍💻 using monorepo packages')
   const fs = require('fs')
   const path = require('path')
@@ -41,7 +41,7 @@ if (process.env.IS_GUI_DEV && __dirname.includes('gui')) {
     })
   } catch {}
   // try {
-  //   fs.rmSync(path.join(projectRoot, 'node_modules', 'gui'), {
+  //   fs.rmSync(path.join(projectRoot, 'node_modules', 'hanzogui'), {
   //     recursive: true,
   //     force: true,
   //   })

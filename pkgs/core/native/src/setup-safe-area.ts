@@ -31,10 +31,10 @@ function setup() {
   }
 
   const g = globalThis as any
-  if (g.__gui_native_safe_area_setup_complete) {
+  if (g.__hanzogui_native_safe_area_setup_complete) {
     return
   }
-  g.__gui_native_safe_area_setup_complete = true
+  g.__hanzogui_native_safe_area_setup_complete = true
 
   try {
     const safeAreaContext = require('react-native-safe-area-context')

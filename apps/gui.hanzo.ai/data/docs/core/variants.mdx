@@ -152,7 +152,7 @@ variants, if you wanted to have a `pad` property that accepted all the keys from
 `tokens.size`, you'd have to write this:
 
 ```tsx
-// in your gui.config.ts:
+// in your hanzogui.config.ts:
 const tokens = createTokens({
   size: {
     sm: 10,
@@ -195,7 +195,7 @@ require always updating every component every time you change the tokens.
 Spread variants solve this problem. Instead, we can write:
 
 ```tsx
-// in your gui.config.ts:
+// in your hanzogui.config.ts:
 const tokens = createTokens({
   size: {
     sm: 10,
@@ -346,7 +346,7 @@ export const MyView = styled(View, {
 })
 ```
 
-Hanzo GUI also provides a few types of other variant definition patterns that work
+Gui also provides a few types of other variant definition patterns that work
 with tokens or types.
 
 ### defaultVariants
@@ -382,7 +382,7 @@ const Square = styled(View, {
 
 ### Variants and Pseudos, Media Queries
 
-Variants have the full power of the Hanzo GUI styling system, including pseudo and
+Variants have the full power of the Gui styling system, including pseudo and
 media styles:
 
 ```tsx

@@ -72,7 +72,7 @@ export function getGestureHandler() {
 }
 ```
 
-### 2. Create `code/core/web/src/eventHandling.ts` (web version)
+### 2. Create `pkgs/core/web/src/eventHandling.ts` (web version)
 
 ```typescript
 // web event handling - maps RN-style events to DOM events
@@ -109,7 +109,7 @@ export function usePressHandling() {
 }
 ```
 
-### 3. Create `code/core/web/src/eventHandling.native.ts`
+### 3. Create `pkgs/core/web/src/eventHandling.native.ts`
 
 ```typescript
 import React, { useRef } from 'react'
@@ -205,7 +205,7 @@ import { getWebEvents, usePressHandling, wrapWithGestureDetector } from './event
 // In the component, after events object is created:
 
 // Line ~1300 - web events attachment stays same
-if (process.env.HANZO_GUI_TARGET === 'web' && events && !isReactNative) {
+if (process.env.GUI_TARGET === 'web' && events && !isReactNative) {
   Object.assign(viewProps, getWebEvents(events))
 }
 
@@ -257,7 +257,7 @@ export default function App() {
 | File                                        | Action                                                |
 | ------------------------------------------- | ----------------------------------------------------- |
 | `@hanzogui/native/gestureState.ts`           | Add `createPressGesture` method                       |
-| `code/core/web/src/eventHandling.ts`        | Create (web version)                                  |
-| `code/core/web/src/eventHandling.native.ts` | Create (native version)                               |
-| `code/core/web/src/createComponent.tsx`     | Import from eventHandling, remove inline getWebEvents |
-| `code/core/core/src/index.tsx`              | Simplify useEvents hook                               |
+| `pkgs/core/web/src/eventHandling.ts`        | Create (web version)                                  |
+| `pkgs/core/web/src/eventHandling.native.ts` | Create (native version)                               |
+| `pkgs/core/web/src/createComponent.tsx`     | Import from eventHandling, remove inline getWebEvents |
+| `pkgs/core/core/src/index.tsx`              | Simplify useEvents hook                               |

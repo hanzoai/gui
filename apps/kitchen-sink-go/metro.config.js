@@ -11,7 +11,7 @@ config.resolver.unstable_enablePackageExports =
 
 // block unnecessary directories from metro file crawling
 config.resolver.blockList = [
-  /code\/gui\.dev\//,
+  /code\/hanzogui\.dev\//,
   /code\/.*\/__tests__\//,
   /code\/.*\/\.maestro\//,
 ]

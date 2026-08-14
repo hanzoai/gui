@@ -1,6 +1,6 @@
 import { GuiLogo } from '@hanzogui/logo'
 import { memo } from 'react'
-import { H4, Paragraph, Spacer, VisuallyHidden, XStack, YStack } from 'hanzogui'
+import { H4, Paragraph, Spacer, VisuallyHidden, XStack, YStack } from '@hanzo/gui'
 
 import { ContainerLarge } from '~/components/Containers'
 import { Link, ParagraphLink } from '~/components/Link'
@@ -64,7 +64,7 @@ export const Footer = memo(() => {
             </H4>
             <ParagraphLink href="/docs/intro/introduction">Introduction</ParagraphLink>
             <ParagraphLink href="/docs/intro/installation">Installation</ParagraphLink>
-            <ParagraphLink href="/docs/core/introduction">Core</ParagraphLink>
+            <ParagraphLink href="/docs/core/configuration">Core</ParagraphLink>
             <ParagraphLink href="/docs/core/styled">styled()</ParagraphLink>
             <ParagraphLink href="/docs/intro/why-a-compiler">Compiler</ParagraphLink>
           </YStack>
@@ -94,7 +94,7 @@ export const Footer = memo(() => {
             </XStack>
             <XStack gap="$1" items="center">
               <ParagraphLink
-                href="https://www.figma.com/community/file/1326593766534421119/hanzo-gui-v1-2-1"
+                href="https://www.figma.com/community/file/1326593766534421119/hanzogui-v1-2-1"
                 target="_blank"
               >
                 Figma
@@ -102,7 +102,7 @@ export const Footer = memo(() => {
               <ExternalIcon />
             </XStack>
             <XStack gap="$1" items="center">
-              <ParagraphLink href="https://x.com/hanzoai" target="_blank">
+              <ParagraphLink href="https://x.com/hanzogui_js" target="_blank">
                 X
               </ParagraphLink>
               <ExternalIcon />

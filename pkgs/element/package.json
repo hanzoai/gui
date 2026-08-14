@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/element",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "files": [
     "src",
     "types",
@@ -14,8 +14,11 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "react-native": {
+        "types": "./src/index.native.ts",
+        "default": "./dist/esm/index.native.js"
+      },
       "types": "./src/index.ts",
-      "react-native": "./dist/esm/index.native.js",
       "browser": "./dist/esm/index.mjs",
       "module": "./dist/esm/index.mjs",
       "import": "./dist/esm/index.mjs",
@@ -27,10 +30,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build --skip-types",
-    "watch": "gui-build --skip-types --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/compose-refs": "workspace:*"
@@ -39,14 +42,6 @@
     "@hanzogui/build": "workspace:*"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>",
-  "peerDependenciesMeta": {
-    "react-native": {
-      "optional": true
-    }
+    "react": "*"
   }
 }

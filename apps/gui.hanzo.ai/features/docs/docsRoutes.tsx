@@ -108,7 +108,7 @@ export const docsRoutes = [
         route: '/docs/guides/how-to-build-a-button',
       },
       { title: 'Developing', route: '/docs/guides/developing' },
-      { title: 'create-hanzo-gui', route: '/docs/guides/create-hanzo-gui-app' },
+      { title: 'create-gui', route: '/docs/guides/create-gui-app' },
       { title: 'Server Rendering', route: '/docs/core/server-rendering' },
       { title: 'Extras', route: '/docs/core/exports' },
     ],
@@ -118,7 +118,7 @@ export const docsRoutes = [
 
   {
     section: 'ui',
-    // title: 'gui',
+    // title: 'hanzogui',
     pages: [
       { title: 'Install', route: '/ui/intro' },
       { title: 'Stacks', route: '/ui/stacks' },
@@ -168,6 +168,7 @@ export const docsRoutes = [
       { title: 'Tabs', route: '/ui/tabs' },
       { title: 'Tooltip', route: '/ui/tooltip' },
       { title: 'Toast', route: '/ui/toast' },
+      { title: 'Toast v2', route: '/ui/toast-2' },
     ],
   },
 

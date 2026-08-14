@@ -1,4 +1,4 @@
-import { H3, Paragraph, XStack, YStack, styled } from 'hanzogui'
+import { H3, Paragraph, XStack, YStack, styled } from '@hanzo/gui'
 import { AlertTriangle, Info, CheckCircle } from '@hanzogui/lucide-icons-2'
 
 import { unwrapText } from '~/helpers/unwrapText'
@@ -41,6 +41,7 @@ export const Notice = ({
             </H3>
           )}
           <Paragraph
+            render="div"
             py="$2"
             color="$color11"
             mt={-3}

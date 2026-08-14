@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/context-menu",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
   "type": "module",
@@ -9,9 +9,7 @@
     "types",
     "dist"
   ],
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -30,13 +28,15 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzogui/core": "workspace:*",
     "@hanzogui/create-menu": "workspace:*",
+    "@hanzogui/polyfill-dev": "workspace:*",
     "@hanzogui/popover": "workspace:*",
     "@hanzogui/use-callback-ref": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
@@ -49,7 +49,5 @@
   "peerDependencies": {
     "react": ">=19"
   },
-  "module:jsx": "dist/jsx",
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "module:jsx": "dist/jsx"
 }

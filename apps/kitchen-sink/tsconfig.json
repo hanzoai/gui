@@ -1,7 +1,16 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "noEmit": true
+    // `tsconfig.build.json` REFERENCES this project, and `tsc -b` decides a
+    // referenced project is up to date by looking for the outputs its options
+    // describe. `noEmit: true` under the root's `outDir` promised outputs that
+    // could never appear, so this project was permanently out of date and every
+    // typecheck re-checked all ~4k files instead of caching — the whole reason
+    // the type-performance benchmark reported a 6.5x slowdown.
+    //
+    // `composite` is what a referenced project is supposed to be, and it is what
+    // the sibling `apps/demos` already uses.
+    "composite": true
   },
   "exclude": ["e2e"],
   "references": [

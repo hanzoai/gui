@@ -8,7 +8,7 @@ description: Easy config and themes with @hanzogui/config/v4
   helper function for generating your own theme suite called `createThemes`.
 </IntroParagraph>
 
-Hanzo GUI is incredibly customizable, but if you want to get started faster and
+Gui is incredibly customizable, but if you want to get started faster and
 enjoy using a configuration that is standardized and has been tested in many
 apps, we recommend our `@hanzogui/config` package.
 
@@ -20,7 +20,7 @@ npm install @hanzogui/config
 
 Using the new `defaultConfig` is the easiest way to start:
 
-```tsx fileName="gui.config.ts"
+```tsx fileName="hanzogui.config.ts"
 import { defaultConfig } from '@hanzogui/config/v4'
 import { createGui } from '@hanzo/gui'
 
@@ -29,7 +29,7 @@ export const config = createGui(defaultConfig)
 type CustomConfig = typeof config
 
 // ensure types work
-declare module '@hanzo/gui' {
+declare module 'hanzogui' {
   interface GuiCustomConfig extends CustomConfig {}
 }
 ```
@@ -38,7 +38,7 @@ It gives you a robust suite of themes, a few shorthands that mostly align with
 Tailwind, and default settings that prevent bugs.
 
 If you like it but want to make some changes, you can
-[copy and paste the source code](https://github.com/hanzoai/gui/blob/5b0c075e92688ac85737fe97c98cd77322f034b0/code/core/config/src/v4.ts)
+[copy and paste the source code](https://github.com/hanzoai/gui/blob/5b0c075e92688ac85737fe97c98cd77322f034b0/pkgs/core/config/src/v4.ts)
 into your app and customize to your taste.
 
 <Notice theme="green" title="Custom Themes">
@@ -49,7 +49,7 @@ into your app and customize to your taste.
 We recommend adding `settings.styleCompat` to the default config, setting it to
 be "react-native". This will align the default flexBasis of `flex` to be `0`,
 not `auto`, matching the default in React Native. This setting will become the
-default in the upcoming Hanzo GUI v2 release. We left it out of Config v4 because
+default in the upcoming Gui v2 release. We left it out of Config v4 because
 we wanted an easier transition for existing users, but if you are a new user, we
 recommend this setting.
 
@@ -216,17 +216,17 @@ const generatedThemes = createThemes({
   },
 })
 
-export type Hanzo GUIThemes = typeof generatedThemes
+export type GuiThemes = typeof generatedThemes
 
 /**
  * This is an optional production optimization: themes JS can get to 20Kb or more.
- * Hanzo GUI has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
- * So long as you server render your Hanzo GUI CSS, this will save you bundle size:
+ * Gui has ~1Kb of logic to hydrate themes from CSS, so you can remove the JS.
+ * So long as you server render your Gui CSS, this will save you bundle size:
  */
-export const themes: Hanzo GUIThemes =
+export const themes: GuiThemes =
   // we define this in our bundler plugins, but you can also use your framework/bundlers
   // built in environment variables to ensure this is shaken away on client js bundles
-  process.env.HANZO_GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
+  process.env.GUI_ENVIRONMENT === 'client' && process.env.NODE_ENV === 'production'
     ? {}
     : (generatedThemes as any)
 ```
@@ -246,7 +246,7 @@ So what have we done?
   success, or warning state. That's why we default to setting `green`, `yellow`,
   and `red`. Of course, you can swap these out for whatever you like.
 - We also are setting `componentThemes` to `defaultComponentThemes`, which will
-  generate for us default styling for the Hanzo GUI components. If you prefer
+  generate for us default styling for the Gui UI components. If you prefer
   to not have default component themes, you can leave this out.
 - You can use the `getTheme` callback to customize any generated theme. See the
   [theme-builder guide](/docs/guides/theme-builder#customizing-themes-with-gettheme)
@@ -304,7 +304,7 @@ The new media queries in v4 are also more simplified and aligned to Tailwind:
 On the server, only xs and 2xs default to `true` to align generally give you a
 [mobile-first design](https://en.wikipedia.org/wiki/Responsive_web_design)
 setup, but of course you can change that. This only really affects `useMedia()`,
-as Hanzo GUI generates proper SSR-safe CSS for media queries on the server for any
+as Gui generates proper SSR-safe CSS for media queries on the server for any
 style properties.
 
 #### Shorthands
@@ -422,9 +422,9 @@ export const radius = {
 
 Note that `color` tokens aren't defined, instead we are just using themes.
 
-Also note that the "true" value on tokens is the "default" - Hanzo GUI for now
+Also note that the "true" value on tokens is the "default" - Gui UI for now
 uses defaults to determine how to size various things out of the box. This isn't
-mandatory, and in version 2 of Hanzo GUI we are working on a more clear solution.
+mandatory, and in version 2 of Gui we are working on a more clear solution.
 
 #### Fonts
 

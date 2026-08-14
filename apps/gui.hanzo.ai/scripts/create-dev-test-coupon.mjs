@@ -63,7 +63,7 @@ async function createDevTestCoupon() {
 createDevTestCoupon()
   .then(() => {
     console.log('\nDone! Developers can now use DEV_TEST_99 coupon for testing.')
-    console.log('To test: go to gui.hanzo.ai?testPurchase=true and click Pro')
+    console.log('To test: go to hanzogui.dev?testPurchase=true and click Pro')
   })
   .catch((err) => {
     console.error('Failed:', err)

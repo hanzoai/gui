@@ -1,4 +1,4 @@
-export * from 'hanzogui'
+export * from '@hanzo/gui'
 export * from '@hanzogui/toast'
 export * from './MyComponent'
 export { config } from '@my/config'

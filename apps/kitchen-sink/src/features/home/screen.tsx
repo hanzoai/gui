@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import type { UseLinkProps } from 'solito/link'
 import { useLink } from 'solito/link'
-import type { ListItemProps } from 'hanzogui'
-import { Button, ListItem, Paragraph, YGroup, YStack } from 'hanzogui'
-import * as TestCases from '../../usecases'
+import type { ListItemProps } from '@hanzo/gui'
+import { Button, ListItem, Paragraph, YGroup, YStack } from '@hanzo/gui'
+import { useCases as TestCases } from '../../usecases'
 
 const testCaseNames = Object.keys(TestCases)
 
@@ -114,6 +114,17 @@ export function HomeScreen() {
               testID="home-sheet-keyboard-test"
             >
               ⌨️ Sheet + Keyboard Test
+            </LinkListItem>
+          </YGroup.Item>
+          <YGroup.Item>
+            <LinkListItem
+              bg="$green3"
+              href="/test/SheetKeyboardFitContentCase"
+              pressStyle={{ backgroundColor: '$green4' }}
+              size="$5"
+              testID="home-sheet-keyboard-fit-test"
+            >
+              ⌨️ Sheet Keyboard Fit Test
             </LinkListItem>
           </YGroup.Item>
           <YGroup.Item>

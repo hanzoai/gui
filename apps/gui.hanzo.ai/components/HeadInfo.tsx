@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react'
 
-const SITE_URL = process.env.ONE_SERVER_URL || 'https://gui.hanzo.ai'
+const SITE_URL = process.env.ONE_SERVER_URL || 'https://hanzogui.dev'
 
 const DEFAULT_OG_IMAGE = '/social.png'
 

@@ -10,7 +10,7 @@ const StyledInput = styled(View, styledBody[0], styledBody[1])
 /**
  * @deprecated Use the new Input from '@hanzogui/input' instead
  * @summary An input is a text field that allows users to enter text.
- * @see — Docs https://gui.dev/ui/inputs#input
+ * @see — Docs https://hanzogui.dev/ui/inputs#input
  */
 export const Input = StyledInput.styleable<InputProps>((inProps, forwardedRef) => {
   const {
@@ -147,11 +147,11 @@ export const Input = StyledInput.styleable<InputProps>((inProps, forwardedRef) =
     style: {
       ...(rest.style as any),
       ...(placeholderTextColor && {
-        '--placeholderColor':
+        '--t_placeholderColor':
           theme[placeholderTextColor]?.variable || placeholderTextColor,
       }),
       ...(selectionColor && {
-        '--selectionBackground': theme[selectionColor]?.variable || selectionColor,
+        '--t_selectionBackground': theme[selectionColor]?.variable || selectionColor,
       }),
     },
   } as any
@@ -174,11 +174,11 @@ export const Input = StyledInput.styleable<InputProps>((inProps, forwardedRef) =
         <style>
           {`
       input::selection, textarea::selection {
-        background-color: var(--selectionBackground) !important;
+        background-color: var(--t_selectionBackground) !important;
       }
 
       input::placeholder, textarea::placeholder {
-        color: var(--placeholderColor) !important;
+        color: var(--t_placeholderColor) !important;
       }
       `}
         </style>

@@ -1,5 +1,5 @@
 import { ThemeTint } from '@hanzogui/logo'
-import { getMDXComponent } from 'mdx-bundler/client'
+import { getMDXComponent } from '@vxrn/mdx-rust/client'
 import { useMemo } from 'react'
 import { useLoader } from 'one'
 import { HeadInfo } from '~/components/HeadInfo'
@@ -34,8 +34,8 @@ export default function DocGuidesPage() {
   const Component = useMemo(() => getMDXComponent(code), [code])
 
   const GITHUB_URL = 'https://github.com'
-  const REPO_NAME = 'hanzoai/gui'
-  const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/master/code/gui.hanzo.ai/data${currentPath}${documentVersionPath}.mdx`
+  const REPO_NAME = 'hanzogui/hanzogui'
+  const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/master/apps/gui.hanzo.ai/data${currentPath}${documentVersionPath}.mdx`
 
   return (
     <DocsPageFrame

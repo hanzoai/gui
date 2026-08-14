@@ -26,7 +26,7 @@ demoName: Button
 
 ## Installation
 
-Button is already installed in `@hanzo/gui`, or you can install it independently:
+Button is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/button
@@ -44,7 +44,7 @@ export default () => <Button>Lorem ipsum</Button>
 
 Sizing buttons provides a unique challenge especially for a compiler, because
 you need to adjust many different properties - not just on the outer frame, but
-on the text wrapped inside. Hanzo GUI supports adjusting the padding, border
+on the text wrapped inside. Gui supports adjusting the padding, border
 radius, font size and icons sizes all in one with the `size` prop.
 
 ```tsx
@@ -81,17 +81,17 @@ button.
 ## Icon Theming
 
 You can pass icons as either elements or components. If passing components,
-Hanzo GUI will automatically theme them (passing `size`). The icon size is
+Gui will automatically theme them (passing `size`). The icon size is
 determined by the Button's `size` prop by default.
 
 You can also explicitly set the icon size using the `iconSize` prop, which
 accepts a `SizeTokens` value (e.g., `"$2"`). The `scaleIcon` prop can be used to
 further adjust the size relative to the determined or explicitly set icon size.
 
-When an icon is present, Hanzo GUI automatically adds spacing between the icon and
-the button's text. This space is calculated as 40% of the icon's final computed
-size (after considering `size`, `iconSize`, and `scaleIcon`). This margin is
-applied to the right of an `icon` and to the left of an `iconAfter`.
+When an icon is present, Gui automatically adds spacing between the icon and
+the button's text using the CSS `gap` property on the Button frame. The gap is
+derived from the Button's `size` token value, keeping spacing consistent with
+the overall button dimensions.
 
 ```tsx
 import { Button, Star } from '@hanzo/gui'
@@ -109,7 +109,7 @@ export default () => (
 ```
 
 You can
-[use the source of Button itself](https://github.com/hanzoai/gui/blob/v2/code/ui/button/src/Button.tsx)
+[use the source of Button itself](https://github.com/hanzoai/gui/blob/v2/pkgs/ui/button/src/Button.tsx)
 to see in more detail what variants you can override, and how we use this
 pattern internally to create our Button component.
 
@@ -127,7 +127,7 @@ export default () => (
     <Button.Apply size="$2" variant="outlined">
       <Button>Small Outlined 1</Button>
       <Button>Small Outlined 2</Button>
-      <Button icon={ButtonDemo}>With Icon</Button>
+      <Button icon={Star}>With Icon</Button>
     </Button.Apply>
 
     <Button.Apply size="$5">
@@ -167,9 +167,30 @@ export default () => (
 
 ## Text Styling
 
-Button does not support a `color` prop directly. Instead, use `Button.Text`
-for full control over text styling. Combine it with the `group` prop on
-Button to coordinate interactive styles between the frame and its children:
+**Changed from v1:** In v1, you could pass text style props like `color`,
+`fontSize`, `fontWeight`, `fontFamily`, and `letterSpacing` directly to
+`<Button>` and they would be forwarded to the button's text via context. In v2,
+this is no longer supported — Button's frame is a `View` and text style props
+passed to it are ignored.
+
+To customize text appearance, use `Button.Text` explicitly:
+
+```tsx
+import { Button } from '@hanzo/gui'
+
+export default () => (
+  <Button>
+    <Button.Text color="blue" fontSize="$5" fontWeight="bold">
+      Styled text
+    </Button.Text>
+  </Button>
+)
+```
+
+### Interactive Text Styles
+
+Combine `Button.Text` with the `group` prop on Button to coordinate text
+styles across hover, press, and focus states:
 
 ```tsx
 import { Button } from '@hanzo/gui'
@@ -189,7 +210,7 @@ precise styling per interaction state.
 
 ## Creating Your Own Button
 
-Hanzo GUI now has all the features necessary to make creating a custom Button easy
+Gui now has all the features necessary to make creating a custom Button easy
 enough that you may want to roll your own button. Learn how to do it with our
 dedicated guide, [How to Build a Button](/docs/guides/how-to-build-a-button).
 
@@ -211,6 +232,12 @@ Buttons extend Stack views inheriting all the
       required: false,
       type: '"outlined" | undefined',
       description: 'Applies the "outlined" button style.',
+    },
+    {
+      name: 'elevation',
+      required: false,
+      type: 'SizeTokens | number',
+      description: `Adds a shadow/elevation effect to the button. Accepts a size token or number.`,
     },
     {
       name: 'disabled',
@@ -260,13 +287,13 @@ Buttons extend Stack views inheriting all the
       required: false,
       type: 'boolean | "all"',
       description:
-        'Removes default Hanzo GUI visual styles (background, border) for a more minimal appearance, while keeping layout and interactions. If "all", removes hover/press/focus styles too.',
+        'Removes default Gui visual styles (background, border) for a more minimal appearance, while keeping layout and interactions. If "all", removes hover/press/focus styles too.',
     },
     {
       name: 'unstyled',
       required: false,
       type: `boolean`,
-      description: `Removes all Hanzo GUI default styles, including layout, interactions, and accessibility attributes. Prefer 'chromeless' for removing only visual styles.`,
+      description: `Removes all Gui default styles, including layout, interactions, and accessibility attributes. Prefer 'chromeless' for removing only visual styles.`,
     },
     // Web-only form props
     {
@@ -281,6 +308,12 @@ Buttons extend Stack views inheriting all the
       type: '"button" | "submit" | "reset"',
       description:
         'Web-only. The button type. Defaults to "button" to prevent unintended form submissions.',
+    },
+    {
+      name: 'form',
+      required: false,
+      type: 'string',
+      description: 'Web-only. The ID of the form element the button is associated with.',
     },
     {
       name: 'formAction',

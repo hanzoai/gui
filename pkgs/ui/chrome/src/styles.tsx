@@ -1,11 +1,11 @@
 'use client'
 
 /**
- * styles — the shared Tamagui `styled()` atoms + hooks every chrome component
+ * styles — the shared Gui `styled()` atoms + hooks every chrome component
  * composes. All styling lives INSIDE `styled()` (the compiler flattens it to
  * atomic CSS); component files pass only variants + content.
  *
- * Tamagui facts this package respects (it is built in isolation, without the
+ * Gui facts this package respects (it is built in isolation, without the
  * host's config augmentation):
  *  - element type is set with `render: 'a' | 'button' | …` (not `tag`);
  *  - hover handlers are the DOM `onMouseEnter` / `onMouseLeave` (not `onHoverIn`);
@@ -25,7 +25,7 @@ import { c, FONT, LG } from './tokens'
 /* ── hooks ─────────────────────────────────────────────────────────────────── */
 
 /**
- * matchMedia breakpoint. Plain hook (not Tamagui `$lg` media props): this package
+ * matchMedia breakpoint. Plain hook (not Gui `$lg` media props): this package
  * is built in isolation without the host config augmentation, so media keys are
  * not in the generic config type here — and the chrome is client-side anyway.
  * Defaults wide so SSR/first paint match on desktop.
@@ -45,14 +45,20 @@ export function useIsWide(min: number = LG): boolean {
 /** Hover state for colour-lift on icon+text rows (Stacks can't cascade `color`). */
 export function useHover() {
   const [hovered, setHovered] = useState(false)
-  return { hovered, onMouseEnter: () => setHovered(true), onMouseLeave: () => setHovered(false) }
+  return {
+    hovered,
+    onMouseEnter: () => setHovered(true),
+    onMouseLeave: () => setHovered(false),
+  }
 }
 
 /**
  * CSS-transition-on-mount reveal (returned as a `style` object). Used instead of
- * Tamagui's `animation` prop for the same isolation reason as `useIsWide`.
+ * Gui's `animation` prop for the same isolation reason as `useIsWide`.
  */
-export function useReveal(opts: { delay?: number; y?: number; duration?: number } = {}): CSSProperties {
+export function useReveal(
+  opts: { delay?: number; y?: number; duration?: number } = {}
+): CSSProperties {
   const { delay = 0, y = 0, duration = 150 } = opts
   const [on, setOn] = useState(false)
   useEffect(() => {
@@ -74,7 +80,13 @@ export type AnchorExtra = { href?: string; target?: string; rel?: string }
 function linkable(Frame: any): any {
   return Frame.styleable((props: any, ref: any) => {
     const { href, target, rel, ...rest } = props
-    return <Frame ref={ref} {...rest} {...(href !== undefined ? { href, target, rel } : null)} />
+    return (
+      <Frame
+        ref={ref}
+        {...rest}
+        {...(href !== undefined ? { href, target, rel } : null)}
+      />
+    )
   })
 }
 
@@ -98,13 +110,15 @@ export const Txt = styled(Text, {
       nav: { fontSize: 14, lineHeight: 20, color: c.fgMuted },
       explore: { fontSize: 24, lineHeight: 30, fontWeight: '500' },
       desc: { fontSize: 12, lineHeight: 16, color: c.fgDim },
+      // Section head. Sentence case — matches @hanzogui/shell's LABEL token,
+      // which is the one place that rank is defined. It earns rank from weight
+      // and brightness against the dimmer links beneath it, never from caps or
+      // wide tracking.
       kicker: {
-        fontSize: 12,
-        lineHeight: 16,
-        fontWeight: '500',
-        color: c.fgDim,
-        textTransform: 'uppercase',
-        letterSpacing: 1.4,
+        fontSize: 13,
+        lineHeight: 18,
+        fontWeight: '600',
+        color: c.fgStrong,
       },
       strong: { fontSize: 14, lineHeight: 20, fontWeight: '500', color: c.fgStrong },
       body: { fontSize: 14, lineHeight: 20, color: c.fgMuted },

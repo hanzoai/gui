@@ -1,14 +1,14 @@
 'use client'
 
 import { Lock } from '@hanzogui/lucide-icons-2'
-import { H2, Paragraph, YStack } from 'hanzogui'
+import { H2, Paragraph, YStack } from '@hanzo/gui'
 
 export const SponsorshipRequired = () => {
   return (
     <ErrorContainer>
       <H2 text="center">This feature is only accessible for sponsors.</H2>
       <Paragraph text="center">
-        You are not a hanzo-gui sponsor. Sponsor the project to access Studio.
+        You are not a hanzogui sponsor. Sponsor the project to access Studio.
       </Paragraph>
       {/* <ButtonLink href="https://github.com/sponsors/natew">Sponsor Gui</ButtonLink> */}
     </ErrorContainer>

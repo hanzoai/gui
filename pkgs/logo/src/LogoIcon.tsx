@@ -1,4 +1,4 @@
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 import { GuiIconSvg } from './GuiLogoSvg'
 import type { JSX } from 'react/jsx-runtime'
 
@@ -21,7 +21,7 @@ export const LogoIcon = ({
       }}
     >
       <GuiIconSvg
-        className="gui-icon"
+        className="hanzogui-icon"
         width={450 / 8 / downscale}
         height={420 / 8 / downscale}
         color={color}

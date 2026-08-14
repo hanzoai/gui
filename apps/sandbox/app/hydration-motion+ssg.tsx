@@ -7,7 +7,7 @@ import {
   useDidFinishSSR,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 /**
  * SSR Hydration Test Page - Motion Driver

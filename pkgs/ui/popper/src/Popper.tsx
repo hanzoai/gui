@@ -262,10 +262,10 @@ const transformOriginMiddleware = (options: {
   },
 })
 
-// replaces floating-ui's autoUpdate with gui's batched IO measurement loop
+// replaces floating-ui's autoUpdate with hanzogui's batched IO measurement loop
 // keeps scroll/resize listeners for immediate response, but replaces per-element
 // ResizeObserver + IntersectionObserver with the shared layoutOnAnimationFrame loop
-function guiAutoUpdate(
+function hanzoguiAutoUpdate(
   reference: ReferenceType,
   floating: HTMLElement,
   update: () => void
@@ -286,7 +286,7 @@ function guiAutoUpdate(
     },
   ]
 
-  // watch reference element via gui's IO measurement loop
+  // watch reference element via hanzogui's IO measurement loop
   // only watch reference, NOT floating — watching floating causes loops
   // (computePosition sets position → rect changes → update → repeat)
   if (reference instanceof HTMLElement) {
@@ -388,19 +388,19 @@ export function Popper(props: PopperProps) {
               const { width: anchorWidth, height: anchorHeight } = rects.reference
               const contentStyle = elements.floating.style
               contentStyle.setProperty(
-                '--gui-popper-available-width',
+                '--hanzogui-popper-available-width',
                 `${availableWidth}px`
               )
               contentStyle.setProperty(
-                '--gui-popper-available-height',
+                '--hanzogui-popper-available-height',
                 `${availableHeight}px`
               )
               contentStyle.setProperty(
-                '--gui-popper-anchor-width',
+                '--hanzogui-popper-anchor-width',
                 `${anchorWidth}px`
               )
               contentStyle.setProperty(
-                '--gui-popper-anchor-height',
+                '--hanzogui-popper-anchor-height',
                 `${anchorHeight}px`
               )
             },
@@ -421,7 +421,7 @@ export function Popper(props: PopperProps) {
     strategy,
     placement,
     sameScrollView: false, // this only takes effect on native
-    whileElementsMounted: !isOpen ? undefined : guiAutoUpdate,
+    whileElementsMounted: !isOpen ? undefined : hanzoguiAutoUpdate,
     platform:
       (disableRTL ?? setupOptions.disableRTL)
         ? {
@@ -554,7 +554,7 @@ export const PopperAnchor = YStack.styleable<PopperAnchorExtraProps>(
 
     React.useEffect(() => {
       if (virtualRef) {
-        refs?.setReference(virtualRef.current)
+        refs.setReference(virtualRef.current)
         // recompute position after setting virtual reference
         update()
       }
@@ -570,7 +570,7 @@ export const PopperAnchor = YStack.styleable<PopperAnchorExtraProps>(
     const safeSetReference = React.useCallback(
       (node: any) => {
         startTransition(() => {
-          refs?.setReference(node)
+          refs.setReference(node)
         })
       },
       // it was refs.setRefernce but its stable and refs is undefined on server
@@ -604,7 +604,7 @@ export const PopperAnchor = YStack.styleable<PopperAnchorExtraProps>(
           onMouseEnter: (e) => {
             const el = (e.currentTarget ?? ref.current) as HTMLElement | null
             if (el instanceof HTMLElement) {
-              flushSync(() => refs?.setReference(el))
+              flushSync(() => refs.setReference(el))
               update()
 
               if (!refProps) return
@@ -661,6 +661,14 @@ export const PopperContentFrame = styled(YStack, {
 
 export const PopperContent = React.forwardRef<PopperContentElement, PopperContentProps>(
   function PopperContent(props, forwardedRef) {
+    // detect controlled animatePosition before destructuring. when the user passes
+    // animatePosition (even with a currently-falsy value like undefined or false),
+    // toggling it later must not flip 'transition' presence on the inner View - that
+    // would change useComponentState's hasAnimationProp mid-life, conditionally calling
+    // useAnimations/usePresence and tripping React's "Should have a queue" invariant.
+    const isAnimatePosControlled =
+      'animatePosition' in props || 'enableAnimationForPositionChange' in props
+
     const {
       scope,
       animatePosition,
@@ -801,11 +809,15 @@ export const PopperContent = React.forwardRef<PopperContentElement, PopperConten
       left: 0,
       position: strategy,
       opacity: hide ? 0 : 1,
-      ...(animatePos && {
-        transition: rest.transition,
+      // when animatePosition is controlled by the user, always emit these keys with
+      // safe no-op values (transition: undefined, animateOnly: []) so the inner
+      // View's hook count stays stable across animatePos toggles. animatePresence
+      // must always be false here too, to short-circuit usePresence consistently.
+      ...(isAnimatePosControlled && {
+        transition: animatePos ? rest.transition : undefined,
         // animateOnly: [] turns off transitions while keeping styles applied,
         // letting the element move to its position silently before animations start
-        animateOnly: disableAnimation ? [] : rest.animateOnly,
+        animateOnly: animatePos && !disableAnimation ? rest.animateOnly : [],
         animatePresence: false,
       }),
     }
@@ -921,6 +933,8 @@ type Sides = keyof typeof opposites
 
 export const PopperArrow = React.forwardRef<GuiElement, PopperArrowProps>(
   function PopperArrow(propsIn, forwardedRef) {
+    // see PopperContent for why we detect controlled animatePosition before destructuring
+    const isAnimatePosControlled = 'animatePosition' in propsIn
     const { scope, animatePosition, transition, ...rest } = propsIn
     const { offset, size: sizeProp, borderWidth = 0, ...arrowProps } = rest
 
@@ -985,9 +999,9 @@ export const PopperArrow = React.forwardRef<GuiElement, PopperArrowProps>(
         ref={refs}
         {...arrowStyle}
         {...(!arrowPositioned && { opacity: 0 })}
-        {...(animatePosition && {
-          transition,
-          animateOnly: ['transform'],
+        {...(isAnimatePosControlled && {
+          transition: animatePosition ? transition : undefined,
+          animateOnly: animatePosition ? ['transform'] : [],
           animatePresence: false,
         })}
       >

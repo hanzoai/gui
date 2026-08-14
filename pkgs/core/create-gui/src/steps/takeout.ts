@@ -6,7 +6,7 @@ import path from 'node:path'
 import chalk from 'chalk'
 import prompts from 'prompts'
 
-import { takeoutAsciiArt, guiRainbowAsciiArt } from '../helpers/asciiArts'
+import { takeoutAsciiArt, hanzoguiRainbowAsciiArt } from '../helpers/asciiArts'
 import type { ExtraSteps } from './types'
 
 const packageManager = 'bun'
@@ -15,7 +15,7 @@ const runCommand = (scriptName: string) => `${packageManager} run ${scriptName}`
 
 const main: ExtraSteps = async ({ isFullClone, projectName, projectPath }) => {
   console.info(`
-${guiRainbowAsciiArt
+${hanzoguiRainbowAsciiArt
   .split('\n')
   .map((line) => `                ${line}`)
   .join('\n')}

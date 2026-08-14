@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Pressable, ScrollView } from 'react-native'
-import { Button, Text, YStack, XStack } from 'hanzogui'
+import { Button, Text, YStack, XStack } from '@hanzo/gui'
 
 /**
  * Test case for nested press exclusivity:
@@ -48,7 +48,7 @@ export function NestedPressExclusive() {
             Standalone Gui Button
           </Text>
           <Button
-            testID="gui-button-solo"
+            testID="hanzogui-button-solo"
             onPressIn={() => setSoloPressInCount((c) => c + 1)}
             onPressOut={() => setSoloPressOutCount((c) => c + 1)}
             onPress={() => setSoloPressCount((c) => c + 1)}
@@ -79,7 +79,7 @@ export function NestedPressExclusive() {
             RN Pressable (parent)
           </Text>
           <Button
-            testID="gui-button-child"
+            testID="hanzogui-button-child"
             onPressIn={() => setChildPressInCount((c) => c + 1)}
             onPressOut={() => setChildPressOutCount((c) => c + 1)}
             onPress={() => {
@@ -124,14 +124,14 @@ function NestedGuiTest() {
   return (
     <YStack gap="$2">
       <Button
-        testID="outer-gui-button"
+        testID="outer-hanzogui-button"
         size="$5"
         onPress={() => setOuterCount((c) => c + 1)}
       >
         <YStack alignItems="center">
           <Text>Outer Gui Button</Text>
           <Button
-            testID="inner-gui-button"
+            testID="inner-hanzogui-button"
             size="$3"
             onPress={() => setInnerCount((c) => c + 1)}
           >

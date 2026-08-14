@@ -1,6 +1,6 @@
 import type { ThemeDefinition } from '@hanzogui/theme-builder'
 import { createStore } from '@hanzogui/use-store'
-import type { GuiInternalConfig, ThemeName } from 'hanzogui'
+import type { GuiInternalConfig, ThemeName } from '@hanzo/gui'
 import { isLocal } from '~/features/studio/constants'
 // import { watchGuiDirectory } from '../helpers/watchGuiDirectory'
 import { toastController } from '../ToastProvider'
@@ -24,7 +24,7 @@ function getPrefersScheme() {
 
 export class RootStore {
   // hardcoded for now
-  static colors = ['red', 'orange', 'blue', 'purple', 'green', 'pink', 'yellow']
+  static colors = ['red', 'blue', 'green', 'yellow', 'gray']
 
   async init() {
     matchDarkMode()?.addEventListener('change', () => {
@@ -62,8 +62,8 @@ export class RootStore {
 
       // const domain = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8081'
       // const [configJson, themesJson] = await Promise.all([
-      //   fetch(`${domain}/api/gui.config.json`).then((res) => res.json()),
-      //   fetch(`${domain}/api/gui.themes.json`).then((res) => res.json()),
+      //   fetch(`${domain}/api/hanzogui.config.json`).then((res) => res.json()),
+      //   fetch(`${domain}/api/hanzogui.themes.json`).then((res) => res.json()),
       // ])
 
       // await this.onReloadedGuiConfig(configJson)
@@ -95,7 +95,7 @@ export class RootStore {
   }
 
   async onReloadedGuiConfig(config: {
-    guiConfig: GuiInternalConfig
+    hanzoguiConfig: GuiInternalConfig
     components: Components
   }) {
     toastController.show('Config Updated.', {
@@ -110,12 +110,12 @@ export class RootStore {
 
     // hacky workaround we're generating this wrong need to fix
     // @ts-ignore
-    if (config.guiConfig.config) {
+    if (config.hanzoguiConfig.config) {
       // @ts-ignore
-      this.config = config.guiConfig.config
+      this.config = config.hanzoguiConfig.config
     } else {
-      const guiConfig = config.guiConfig as GuiInternalConfig
-      this.config = guiConfig
+      const hanzoguiConfig = config.hanzoguiConfig as GuiInternalConfig
+      this.config = hanzoguiConfig
     }
   }
 

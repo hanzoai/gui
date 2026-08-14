@@ -1,4 +1,4 @@
-import { guiAliases, guiPlugin } from '@hanzogui/vite-plugin'
+import { hanzoguiAliases, hanzoguiPlugin } from '@hanzogui/vite-plugin'
 import { one } from 'one/vite'
 import type { UserConfig } from 'vite'
 
@@ -11,7 +11,7 @@ export default {
 
   ...(useRNWLite && {
     resolve: {
-      alias: guiAliases({ rnwLite: true }),
+      alias: hanzoguiAliases({ rnwLite: true }),
     },
   }),
 
@@ -60,8 +60,8 @@ export default {
       // },
     }),
 
-    guiPlugin({
-      // see gui.build.ts for options
+    hanzoguiPlugin({
+      // see hanzogui.build.ts for options
       fixVite8SymlinkExportResolutions: true,
     }),
   ],

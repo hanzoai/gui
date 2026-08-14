@@ -16,8 +16,8 @@ import { getLinearGradient } from './linearGradientState'
 
 function setup(): void {
   const g = globalThis as any
-  if (g.__gui_native_linear_gradient_setup) return
-  g.__gui_native_linear_gradient_setup = true
+  if (g.__hanzogui_native_linear_gradient_setup) return
+  g.__hanzogui_native_linear_gradient_setup = true
 
   try {
     const expoLinearGradient = require('expo-linear-gradient')

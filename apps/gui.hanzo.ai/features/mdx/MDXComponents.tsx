@@ -12,7 +12,7 @@ import {
 import type { Href } from 'one'
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
-import type { ImageProps, XStackProps } from 'hanzogui'
+import type { ImageProps, XStackProps } from '@hanzo/gui'
 import {
   Adapt,
   Button,
@@ -35,7 +35,7 @@ import {
   XStack,
   YStack,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { LinearGradient } from '@hanzogui/linear-gradient'
 import { Code, CodeInline } from '~/components/Code'
 import { CustomTabs } from '~/components/CustomTabs'
@@ -71,7 +71,7 @@ import { PropsTable } from '../docs/PropsTable'
 import { VersionSwitcher } from '../docs/VersionSwitcher'
 import * as Demos from '../docs/demos'
 import { ExampleAnimations } from '../site/home/HomeAnimations'
-import { TabsTabProps } from 'hanzogui'
+import { TabsTabProps } from '@hanzo/gui'
 import { Tab } from '~/components/RovingTabs'
 import { SimpleTable } from './SimpleTable'
 
@@ -268,15 +268,15 @@ const componentsIn = {
       setPackageManager,
     } = useBashCommand(`yarn add ${name}`, 'language-bash')
 
-    const { transformedCommand: guiCommand } = useBashCommand(
-      `npm install gui`,
+    const { transformedCommand: hanzoguiCommand } = useBashCommand(
+      `npm install hanzogui`,
       'language-bash'
     )
     const { onCopy, hasCopied } = useClipboard(transformedCommand)
-    const guiCmdClip = useClipboard(guiCommand)
+    const hanzoguiCmdClip = useClipboard(hanzoguiCommand)
 
     const CopyIcon = hasCopied ? Check : Copy
-    const CopyIcon2 = guiCmdClip.hasCopied ? Check : Copy
+    const CopyIcon2 = hanzoguiCmdClip.hasCopied ? Check : Copy
 
     return (
       <XStack flexWrap="wrap" items="center" gap="$4">
@@ -335,7 +335,7 @@ const componentsIn = {
                   open: 1200,
                   close: 0,
                 }}
-                label={guiCmdClip.hasCopied ? 'Copied' : 'Copy to clipboard'}
+                label={hanzoguiCmdClip.hasCopied ? 'Copied' : 'Copy to clipboard'}
               >
                 <XStack
                   items="center"
@@ -347,9 +347,9 @@ const componentsIn = {
                   bg="$color2"
                   rounded="$3"
                   cursor="pointer"
-                  onPress={guiCmdClip.onCopy}
+                  onPress={hanzoguiCmdClip.onCopy}
                 >
-                  <SizableText color="$color11">{guiCommand}</SizableText>
+                  <SizableText color="$color11">{hanzoguiCommand}</SizableText>
 
                   <CopyIcon2
                     p="$0.5"
@@ -726,14 +726,14 @@ const componentsIn = {
           </H4>
           <YStack overflow="hidden" flex={1} flexBasis="auto" opacity={0.85} gap="$4">
             <Paragraph>
-              GUI is fully OSS, self-funded and built by{' '}
+              Gui is fully OSS, self-funded and built by{' '}
               <a href="https://x.com/natebirdman" target="_blank" rel="noreferrer">
                 me
               </a>
               .
             </Paragraph>
             <Paragraph>
-              My goal is to support GUI development with sponsorships that get early
+              My goal is to support Gui development with sponsorships that get early
               access to <a href="#sponsors">some really interesting</a> new features.
             </Paragraph>
             <SponsorButton />
@@ -763,7 +763,7 @@ const componentsIn = {
       <YStack gap="$1">
         <ThemeTintAlt offset={2}>
           <IntroParagraph large mt="$4">
-            GUI makes styling React on any platform a delight. All of its features work
+            Gui makes styling React on any platform a delight. All of its features work
             the same on both React Native and React web.
           </IntroParagraph>
 
@@ -810,7 +810,7 @@ const componentsIn = {
                 {/* @ts-ignore */}
                 <Link fontSize="inherit" href="/ui/intro">
                   <CodeInline>
-                    <span style={{ color: 'var(--color12)' }}>hanzo gui</span>
+                    <span style={{ color: 'var(--color12)' }}>hanzogui UI</span>
                   </CodeInline>
                 </Link>{' '}
                 is a bunch of unstyled and styled components for building common UI
@@ -826,7 +826,7 @@ const componentsIn = {
   },
 
   GetStarted: () => {
-    const clipBoard = useClipboard(`npm create hanzo-gui@latest`)
+    const clipBoard = useClipboard(`npm create hanzogui@latest`)
 
     return (
       <XStack gap="$4" flex={1} flexBasis="auto" flexWrap="wrap" pt="$3" my="$5">
@@ -871,7 +871,7 @@ const componentsIn = {
               <Card.Footer p="$6" pt={0}>
                 <XStack position="relative" items="center" gap="$4" flex={1}>
                   <Code flex={1} bg="$color4" p="$3" rounded="$4" size="$5">
-                    npm create hanzo-gui@latest
+                    npm create hanzogui@latest
                   </Code>
                   <Button
                     position="absolute"

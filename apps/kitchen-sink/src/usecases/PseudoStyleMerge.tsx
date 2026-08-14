@@ -1,4 +1,4 @@
-import { View, Text, YStack, styled } from 'hanzogui'
+import { View, Text, YStack, styled } from '@hanzo/gui'
 
 const CustomYStack = styled(YStack, {
   backgroundColor: 'yellow',

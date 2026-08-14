@@ -1,4 +1,4 @@
-import { View } from 'hanzogui'
+import { View } from '@hanzo/gui'
 
 export function ShorthandVariables() {
   return (

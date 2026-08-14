@@ -1,15 +1,35 @@
 // check launch args for disabling RNGH (for testing without gesture handler)
 import { LaunchArguments } from 'react-native-launch-arguments'
 import { getGestureHandler } from '@hanzogui/native'
+import { setupGestureHandler } from '@hanzogui/native/setup-gesture-handler'
 
 interface TestLaunchArgs {
   disableGestureHandler?: boolean
+  disablePressEventsKeepSheet?: boolean
+  disableKeyboardController?: boolean
   initialTestCase?: string
   directUseCase?: string
 }
 
-const launchArgs = LaunchArguments.value<TestLaunchArgs>()
-if (launchArgs.disableGestureHandler) {
+const rawLaunchArgs = LaunchArguments.value<TestLaunchArgs>()
+
+// Detox forwards launch args as `-key value` strings, so a JS `true` boolean
+// arrives as the string "true" and `false` arrives as "false" — which is
+// truthy in JS. Coerce known boolean flags so explicit `false` keeps
+// KeyboardProvider/RNGH mounted.
+const isTrueArg = (value: unknown) =>
+  value === true || value === 'true' || value === 1 || value === '1'
+
+const launchArgs = {
+  ...rawLaunchArgs,
+  disableGestureHandler: isTrueArg(rawLaunchArgs.disableGestureHandler),
+  disablePressEventsKeepSheet: isTrueArg(rawLaunchArgs.disablePressEventsKeepSheet),
+  disableKeyboardController: isTrueArg(rawLaunchArgs.disableKeyboardController),
+}
+
+if (launchArgs.disablePressEventsKeepSheet) {
+  setupGestureHandler({ pressEvents: false, sheet: true })
+} else if (launchArgs.disableGestureHandler) {
   getGestureHandler().disable()
 }
 
@@ -17,10 +37,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { useFonts } from 'expo-font'
 import React from 'react'
-import { Appearance, LogBox, useColorScheme } from 'react-native'
+import { Appearance, Linking, LogBox, Text, useColorScheme } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { PortalProvider } from 'react-native-teleport'
-import { H1 } from 'hanzogui'
+import { H1 } from '@hanzo/gui'
 import { Navigation } from './Navigation'
 import { Provider } from './provider'
 import { ThemeContext, type ThemeMode } from './useKitchenSinkTheme'
@@ -71,24 +91,64 @@ export default function App() {
 
   const DirectUseCase = getDirectUseCaseComponent(launchArgs.directUseCase)
 
+  // KeyboardProvider keeps the main thread busy via continuous keyboard-state
+  // monitoring, which prevents Detox's RCTContentDidAppearNotification from
+  // firing promptly after RN reload, hanging tests. Allow tests to opt out.
+  const Inner = (
+    <PortalProvider>
+      <SafeAreaProvider>
+        <ThemeContext.Provider value={themeContext}>
+          <Provider defaultTheme={resolvedTheme as any}>
+            {DirectUseCase ? (
+              <DirectUseCaseHost Component={DirectUseCase} />
+            ) : (
+              <Navigation initialTestCase={launchArgs.initialTestCase} />
+            )}
+          </Provider>
+        </ThemeContext.Provider>
+      </SafeAreaProvider>
+    </PortalProvider>
+  )
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <KeyboardProvider>
-        <PortalProvider>
-          <SafeAreaProvider>
-            <ThemeContext.Provider value={themeContext}>
-              <Provider defaultTheme={resolvedTheme as any}>
-                {DirectUseCase ? (
-                  <DirectUseCase />
-                ) : (
-                  <Navigation initialTestCase={launchArgs.initialTestCase} />
-                )}
-              </Provider>
-            </ThemeContext.Provider>
-          </SafeAreaProvider>
-        </PortalProvider>
-      </KeyboardProvider>
+      {launchArgs.disableKeyboardController ? (
+        Inner
+      ) : (
+        <KeyboardProvider>{Inner}</KeyboardProvider>
+      )}
     </GestureHandlerRootView>
+  )
+}
+
+// Hosts a directUseCase component and remounts it on a `…://remount` deep link.
+// Detox e2e tests open that deep link in beforeEach to get a fresh component
+// mount per test WITHOUT a native app relaunch. The relaunch is the only place
+// the Detox launch/connect flake bites, so collapsing per-test relaunches into a
+// single beforeAll launch + cheap JS remounts removes the flake and the wait.
+function DirectUseCaseHost({ Component }: { Component: React.ComponentType }) {
+  const [remountKey, setRemountKey] = React.useState(0)
+
+  React.useEffect(() => {
+    const sub = Linking.addEventListener('url', ({ url }) => {
+      if (url.includes('remount')) {
+        setRemountKey((k) => k + 1)
+      }
+    })
+    return () => sub.remove()
+  }, [])
+
+  return (
+    <>
+      <Component key={remountKey} />
+      {/* off-screen remount counter: lets the e2e helper wait deterministically
+          for a remount to commit (the keyed Component swaps atomically, so its
+          own testIDs can't signal "remounted"). top:-1000 keeps it out of every
+          screenshot/visibility check; Detox reads the text attribute, not pixels. */}
+      <Text testID="e2e-remount-count" style={{ position: 'absolute', top: -1000 }}>
+        {remountKey}
+      </Text>
+    </>
   )
 }
 
@@ -97,10 +157,9 @@ function getDirectUseCaseComponent(name?: string): React.ComponentType | null {
     return null
   }
 
-  const useCases = require('./usecases') as Record<
-    string,
-    React.ComponentType | undefined
-  >
+  const { useCases } = require('./usecases') as {
+    useCases: Record<string, React.ComponentType | undefined>
+  }
 
   return (
     useCases[name] || (() => <H1 testID="direct-usecase-not-found">Not found: {name}</H1>)

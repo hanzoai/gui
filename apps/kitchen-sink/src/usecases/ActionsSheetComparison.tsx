@@ -4,15 +4,15 @@ import ActionSheet, {
   type ActionSheetRef,
   ScrollView as ActionScrollView,
 } from 'react-native-actions-sheet'
-import { Button, Sheet, Text, YStack } from 'hanzogui'
+import { Button, Sheet, Text, YStack } from '@hanzo/gui'
 
 /**
  * Side-by-side comparison of Gui Sheet vs react-native-actions-sheet
  * to verify gesture smoothness
  */
 export function ActionsSheetComparison() {
-  const [guiOpen, setGuiOpen] = useState(false)
-  const [guiPosition, setGuiPosition] = useState(0)
+  const [hanzoguiOpen, setGuiOpen] = useState(false)
+  const [hanzoguiPosition, setGuiPosition] = useState(0)
   const actionsSheetRef = useRef<ActionSheetRef>(null)
 
   return (
@@ -48,11 +48,11 @@ export function ActionsSheetComparison() {
       {/* Gui Sheet */}
       <Sheet
         modal
-        open={guiOpen}
+        open={hanzoguiOpen}
         onOpenChange={setGuiOpen}
         snapPoints={[85, 50]}
         snapPointsMode="percent"
-        position={guiPosition}
+        position={hanzoguiPosition}
         onPositionChange={setGuiPosition}
         dismissOnSnapToBottom
         zIndex={100000}
@@ -65,7 +65,7 @@ export function ActionsSheetComparison() {
               <Text fontSize="$5" fontWeight="bold">
                 Gui Sheet
               </Text>
-              <Text color="$gray11">Position: {guiPosition}</Text>
+              <Text color="$gray11">Position: {hanzoguiPosition}</Text>
 
               {Array.from({ length: 30 }).map((_, i) => (
                 <YStack

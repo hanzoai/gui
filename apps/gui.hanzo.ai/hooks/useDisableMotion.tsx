@@ -1,5 +1,5 @@
 import { useClientValue } from '@hanzogui/use-did-finish-ssr'
-import { isClient } from 'hanzogui'
+import { isClient } from '@hanzo/gui'
 
 export const useDisableMotion = () => {
   return useClientValue(

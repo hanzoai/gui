@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sandbox-ui",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "private": true,
   "files": [
     "types",
@@ -13,20 +13,21 @@
   "module": "dist/esm/index.mjs",
   "types": "./types/index",
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/animations-react-native": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/toast": "workspace:*",
+    "@hanzogui/web": "workspace:*",
     "expo-constants": "~55.0.7",
     "expo-image": "~55.0.6",
-    "solito": "^4.3.0",
-    "hanzogui": "workspace:*"
+    "solito": "^4.3.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -35,7 +36,5 @@
   "peerDependencies": {
     "react": ">=19"
   },
-  "module:jsx": "dist/jsx",
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "module:jsx": "dist/jsx"
 }

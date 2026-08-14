@@ -1,5 +1,5 @@
 ---
-title: Hanzo GUI 2
+title: Gui 2
 publishedAt: '2025-12-29'
 description: More stable, easy, documented, fast, and feature-complete.
 by: nate
@@ -7,12 +7,12 @@ image: /blog/version-two.jpg
 ---
 
 <IntroParagraph large>
-  Hanzo GUI brings high performing, consistent, typed inline styles to React Native and
+  Gui brings high performing, consistent, typed inline styles to React Native and
   React Web, plus composable UI components, a novel theme system and an optimizing
   compiler.
 </IntroParagraph>
 
-We're excited to announce **the first release candidate for Hanzo GUI v2 is
+We're excited to announce **the first release candidate for Gui v2 is
 here**!
 
 We'll do a little housekeeping first, so if you want to,
@@ -20,16 +20,16 @@ We'll do a little housekeeping first, so if you want to,
 
 ### What makes it great
 
-Hanzo GUI brings many style features from CSS to native. Every style it supports
+Gui brings many style features from CSS to native. Every style it supports
 works on both native and web, at both run-time and compile-time, and server-side
 as well as client-side.
 
-In comparison to other solutions, Hanzo GUI is especially strong at:
+In comparison to other solutions, Gui is especially strong at:
 
 - **Many features, high performance everywhere.** Other solutions prioritize one
   platform, and bail out of the hard parts of web performance that require a
   compiler _and_ a lot of careful work to get right. Some examples of large
-  areas Hanzo GUI does well - SSR safe spring animations, SSR safe light-dark
+  areas Gui does well - SSR safe spring animations, SSR safe light-dark
   themes, SSR safe media queries and Container all the above features working
   with CSS or springs, and so on.
 - **Top tier performance everywhere.** A small example - you can choose from 4
@@ -37,13 +37,13 @@ In comparison to other solutions, Hanzo GUI is especially strong at:
   no matter which you choose you get proper SSR support—even media queries and
   dark mode render and hydrate without jumps or flickers.
 - **Type-safe inline styling that merges and optimizes.** Inline styles are
-  productivity boosts, but Hanzo GUI adds type safety, easy/controllable merging,
+  productivity boosts, but Gui adds type safety, easy/controllable merging,
   and an optimizing compiler that does partial analysis to optimize even
   logic-filled styling. It's an underrated boost to productivity.
 - **Refined, styled and unstyled composable components.** Great on web and
   native thanks to composable components, native adaptation, the Adapt
   primitive, and a lot of iteration.
-- **Robust.** Hanzo GUI has been developed actively for years, proven in
+- **Robust.** Gui has been developed actively for years, proven in
   [large apps](https://uniswap.org), and has more than tripled test coverage
   just in the last year.
 
@@ -56,7 +56,7 @@ In comparison to other solutions, Hanzo GUI is especially strong at:
   drivers, plus many new deeper native integration tests with both Detox and
   Maestro.
 - Released
-  [`@hanzogui/build`](https://github.com/hanzoai/gui/blob/v2/code/packages/build/README.md),
+  [`@hanzogui/build`](https://github.com/hanzoai/gui/blob/v2/pkgs/build/README.md),
   which makes it trivial to publish npm packages that support CommonJS and
   ESModules, native and web without requiring any configuration at all when
   importing - whether it's Metro, Node, Vite, or otherwise.
@@ -66,7 +66,7 @@ In comparison to other solutions, Hanzo GUI is especially strong at:
   [Accordion](/docs/components/accordion),
   [ToggleGroup](/docs/components/toggle-group).
 - New unstyled versions of most components.
-- The Takeout starter kit, and Recipes components suite and patterns.
+- The Takeout starter kit, and Bento components suite and patterns.
 - A lot of low level work on performance, documentation, our CLI, and more.
 - Improved theme generation packages, and the powerful
   [free and paid theme builder](/theme).
@@ -88,7 +88,7 @@ Find a [list of breaking changes at the bottom of the post](#breaking-changes).
 
 #### Config v5
 
-The default Hanzo GUI configuration has been upgraded to v5 with a more complete
+The default Gui configuration has been upgraded to v5 with a more complete
 design system and easier customization. See the
 [Config v5 docs](/docs/core/config-v5) for full details.
 
@@ -188,7 +188,7 @@ content on iOS.
 ```
 
 Input has been rewritten from scratch with a web-first approach - you write
-standard HTML input attributes and Hanzo GUI automatically converts them to React
+standard HTML input attributes and Gui automatically converts them to React
 Native equivalents on native platforms:
 
 ```tsx
@@ -225,14 +225,14 @@ Select on web and Sheet on native got big upgrades.
 
 ![Motion animation library banner](/blog/motion-banner.webp)
 
-The all powerful [Motion animation library](https://motion.dev) comes to Hanzo GUI
+The all powerful [Motion animation library](https://motion.dev) comes to Gui
 as an [animation driver](/docs/core/animations-motion), bringing real innovation
 to web aimations.
 
 The driver is still somewhat experimental, we're still working through some very
 subtle issues with sending updates rapidly, and are working them to isolate it.
 
-What makes this even more interesting is that Hanzo GUI completely re-wrote the
+What makes this even more interesting is that Gui completely re-wrote the
 internal component logic to allow a new `avoidReRenders` path option for
 animation drivers. When true, all group, media, pseudo, and some theme styles
 all move out of React.
@@ -427,7 +427,7 @@ child cloning.
 We're expanding headless components in v2. Many components now have three
 variants:
 
-- **Styled** - Full Hanzo GUI components with default styles
+- **Styled** - Full Gui components with default styles
 - **Unstyled** - Uses a `createX` factory allowing fully custom styling
 - **Headless** - Zero dependency on `@hanzogui/core`, just hooks
 
@@ -437,7 +437,7 @@ The headless packages (`@hanzogui/switch-headless`, `@hanzogui/checkbox-headless
 state management, accessibility, and keyboard navigation - letting you bring
 your own styling solution.
 
-This makes Hanzo GUI components usable even if you're not using Hanzo GUI for
+This makes Gui components usable even if you're not using Gui for
 styling. For now it's a subset, but we plan to continue expanding headless
 exports throughout v2.
 
@@ -448,10 +448,10 @@ projects. We built `@hanzogui/react-native-web-lite` by translating
 `react-native-web` to TypeScript, moving to a modern ESModule setup, and
 enabling tree shaking.
 
-If you're using Hanzo GUI for most styling, you can save a significant amount of
+If you're using Gui for most styling, you can save a significant amount of
 bundled JS on web by aliasing to this package. It's not perfectly compatible
-with `react-native-web` - it strips out the style system to share Hanzo GUI
-internals - but for Hanzo GUI-first apps, it's a nice optimization.
+with `react-native-web` - it strips out the style system to share Gui
+internals - but for Gui-first apps, it's a nice optimization.
 
 #### Component Scope
 
@@ -506,11 +506,11 @@ native without any configuration needed.
 
 ### Native Portals
 
-Hanzo GUI's portal-based components (Sheet, Dialog, Popover, Select, and Toast)
+Gui's portal-based components (Sheet, Dialog, Popover, Select, and Toast)
 now support true native portals via
 [react-native-teleport](https://github.com/nicksrandall/react-native-teleport).
 
-Native doesn't support portals. Hanzo GUI v1 worked around this by abusing private
+Native doesn't support portals. Gui v1 worked around this by abusing private
 APIs and automatically re-propagating its own contexts, but your custom contexts
 would break. This also added lots of overhead.
 
@@ -528,7 +528,7 @@ like component scoping.
 
 [Sheet](/docs/components/sheet) now has optional integration with
 `react-native-gesture-handler` for much smoother performance on native. Install
-`react-native-gesture-handler` and add the setup import before any Hanzo GUI
+`react-native-gesture-handler` and add the setup import before any Gui
 imports.
 
 See the [`@hanzogui/native` docs](/ui/native) or
@@ -548,22 +548,22 @@ after the pointer leaves the element bounds.
 The [Gui CLI](/docs/guides/cli) has new commands for building and working
 with your design system:
 
-- **`gui build`** - Pre-compile components in-place for production. Works
+- **`hanzogui build`** - Pre-compile components in-place for production. Works
   with any bundler and supports wrapping your build command to automatically
   restore files after.
-- **`gui generate`** - Build your full Hanzo GUI configuration and output CSS.
+- **`hanzogui generate`** - Build your full Gui configuration and output CSS.
   Validates your config and pre-generates your design system.
-- **`gui generate-css`** - Generate the `gui.generated.css` file from your config.
+- **`hanzogui generate-css`** - Generate the `hanzogui.generated.css` file from your config.
   Use `--output` to specify a custom output path.
-- **`gui generate-prompt`** - Generate an LLM-friendly markdown file from
+- **`hanzogui generate-prompt`** - Generate an LLM-friendly markdown file from
   your config, documenting all tokens, themes, components, and shorthands for
   use with AI assistants.
-- **`gui check`** - Scan for inconsistent dependency versions across your
+- **`hanzogui check`** - Scan for inconsistent dependency versions across your
   project.
 
 We recommend generating your prompt and committing to your repo, even before you
 do your full upgrade to version 2, as it will help agents understand your
-Hanzo GUI config better.
+Gui config better.
 
 ### Smaller Bundle Size
 
@@ -584,7 +584,7 @@ code.
 - **Config v5 changes from v4.** Media query names change (`2xl` → `xxl`, `2xs`
   → `xxs`), style defaults align with React Native. See
   [Config v5 docs](/docs/core/config-v5).
-- **React Native 0.81+, React 19+, and TypeScript 5+ required.** Hanzo GUI 2
+- **React Native 0.81+, React 19+, and TypeScript 5+ required.** Gui 2
   targets React Native 0.81, React 19, and TypeScript 5 and above with New
   Architecture support. This enables significant new style features, improved
   type inference, and simplified internals.
@@ -638,7 +638,7 @@ code.
 
 ### Goals
 
-Our main goal with version two is **stability**. Hanzo GUI started as a side
+Our main goal with version two is **stability**. Gui started as a side
 project with incredible scope and maintained an ambitious stance towards landing
 large features and internal improvements.
 
@@ -674,7 +674,7 @@ otherwise slip through.
 
 ### What's next
 
-Hanzo GUI is quite mature in terms of features, foundation, and performance. AI
+Gui is quite mature in terms of features, foundation, and performance. AI
 Agents generate its code exceptionally well because it's been in wide use and
 well documented for years. For this reason, we are avoiding large syntax or
 theme changes, for now.

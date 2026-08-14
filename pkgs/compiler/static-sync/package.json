@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/static-sync",
-  "version": "7.3.1",
-  "license": "BSD-3-Clause",
+  "version": "8.1.1",
+  "license": "MIT",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -25,10 +25,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build --skip-native --bundle",
+    "build": "hanzogui-build --skip-native --bundle",
     "watch": "bun run build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@babel/core": "^7.25.2",
@@ -38,6 +38,5 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

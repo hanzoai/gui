@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { Input as GuiInput, styled, useThemeName } from 'hanzogui'
+import { Input as GuiInput, styled, useThemeName } from '@hanzo/gui'
 
 export function StyledRNW() {
   return <Input id="styled-rnw-input" aria-label="ok" placeholder="search" />
@@ -48,7 +48,11 @@ export const Input = GuiInput.styleable(function MyInput({ ...props }, ref) {
     // @ts-ignore - complex type inference issue with styleable + styled combination
     <TextInput
       unstyled
-      keyboardAppearance={parentTheme?.includes('dark') ? 'dark' : 'default'}
+      keyboardAppearance={
+        typeof parentTheme === 'string' && parentTheme.includes('dark')
+          ? 'dark'
+          : 'default'
+      }
       {...props}
       focusStyle={{ margin: 0, ...props.focusStyle }}
       id={Platform.select({

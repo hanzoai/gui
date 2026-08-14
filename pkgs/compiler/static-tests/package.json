@@ -1,8 +1,8 @@
 {
   "name": "@hanzogui/static-tests",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "private": true,
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "module": "dist/esm/index.js",
   "publishConfig": {
     "access": "public"
@@ -13,7 +13,7 @@
     "test": "bun run test:web",
     "test:all": "bun run test:native && bun run test:web",
     "test:update": "bun run test:extract:web -- --update && bun run test:babel:native -- --update && bun run test:babel:web -- --update && bun run test:styled:web -- --update && bun run test:flatten:native -- --update && bun run test:webpack -- --update",
-    "test:run": "INCLUDE_CSS_COLOR_NAMES=1 vitest --retry=2 --config ../../packages/vite-plugin-internal/src/vite.config.cjs.ts --run --dangerouslyIgnoreUnhandledErrors",
+    "test:run": "INCLUDE_CSS_COLOR_NAMES=1 vitest --retry=2 --config ../../vite-plugin-internal/src/vite.config.cjs.ts --run --dangerouslyIgnoreUnhandledErrors",
     "test:run:web": "DISABLE_NATIVE_TEST=1 bun run test:run --",
     "test:concatClassName": "bun run test:run -- tests/concatClassName.web.test.tsx",
     "test:webpack": "bun run pretest && bun run test:run -- tests/webpack.test.tsx --reporter=verbose --pool=forks",
@@ -55,6 +55,5 @@
   },
   "tests": {
     "parallel": true
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

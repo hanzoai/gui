@@ -1,12 +1,12 @@
 import { ThemeTint } from '@hanzogui/logo'
 import { Check, Copy } from '@hanzogui/lucide-icons-2'
 import { memo } from 'react'
-import { Button, Paragraph, Spacer, TooltipSimple, XStack, YStack } from 'hanzogui'
+import { Button, Paragraph, Spacer, TooltipSimple, XStack, YStack } from '@hanzo/gui'
 
 import { useClipboard } from '~/hooks/useClipboard'
 
 export const InstallInput = memo(() => {
-  const installScript = `npm create hanzo-gui`
+  const installScript = `npm create hanzogui`
   const { onCopy, hasCopied } = useClipboard(`${installScript}@latest`)
 
   return (

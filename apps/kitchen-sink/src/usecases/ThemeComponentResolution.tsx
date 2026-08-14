@@ -1,4 +1,4 @@
-import { Square, Text, Theme, useThemeName, YStack } from 'hanzogui'
+import { Square, Text, Theme, useThemeName, YStack } from '@hanzo/gui'
 
 import { TEST_IDS } from '../constants/test-ids'
 

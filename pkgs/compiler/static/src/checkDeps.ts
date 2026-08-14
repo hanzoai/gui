@@ -22,10 +22,10 @@ export type Options = {
 }
 
 // critical packages that must not be duplicated at runtime
-const CRITICAL_PACKAGES = ['@hanzogui/web', '@hanzogui/core', 'gui']
+const CRITICAL_PACKAGES = ['@hanzogui/web', '@hanzogui/core', 'hanzogui']
 
 /**
- * Walks node_modules to find duplicate physical copies of critical gui packages.
+ * Walks node_modules to find duplicate physical copies of critical hanzogui packages.
  * Detects nested node_modules that would cause multiple runtime instances.
  */
 function checkDuplicateInstalls(root: string): string {
@@ -60,7 +60,7 @@ function checkDuplicateInstalls(root: string): string {
   if (duplicates.size === 0) return ''
 
   const lines: string[] = [
-    'Found duplicate gui installations in node_modules:',
+    'Found duplicate hanzogui installations in node_modules:',
     '',
     'This causes multiple runtime instances, which breaks theme/config detection.',
     '',
@@ -92,7 +92,7 @@ function checkDuplicateInstalls(root: string): string {
 
 /**
  * Recursively find all instances of a package in node_modules.
- * Handles both scoped (@hanzogui/web) and unscoped (gui) packages.
+ * Handles both scoped (@hanzogui/web) and unscoped (hanzogui) packages.
  */
 function findAllInstances(
   nodeModulesDir: string,
@@ -139,7 +139,7 @@ function findAllInstances(
 }
 
 /**
- * Checks lockfile for multiple resolved versions of gui packages.
+ * Checks lockfile for multiple resolved versions of hanzogui packages.
  * Supports bun.lock, yarn.lock, and package-lock.json.
  */
 function checkLockfileDuplicates(root: string): string {
@@ -162,7 +162,7 @@ function checkBunLockDuplicates(lockPath: string): string {
 
     // match patterns like "@hanzogui/web@version" or "hanzogui@version" in resolved entries
     // bun.lock format: "package@version": ["resolved-url", ...]
-    const packagePattern = /["'](@hanzogui\/[\w-]+|gui)@([^"'\s,]+)["']/g
+    const packagePattern = /["'](@hanzogui\/[\w-]+|hanzogui)@([^"'\s,]+)["']/g
     let match: RegExpExecArray | null
     while ((match = packagePattern.exec(content)) !== null) {
       const name = match[1]
@@ -189,7 +189,7 @@ function checkYarnLockDuplicates(lockPath: string): string {
     // yarn.lock format:
     //   "@hanzogui/web@^1.0.0":
     //     version "1.0.1"
-    const entryPattern = /^"?(@hanzogui\/[\w-]+|gui)@[^":\n]+[":]?\s*$/gm
+    const entryPattern = /^"?(@hanzogui\/[\w-]+|hanzogui)@[^":\n]+[":]?\s*$/gm
     const versionPattern = /^\s+version\s+"([^"]+)"/gm
 
     let entryMatch: RegExpExecArray | null
@@ -260,21 +260,21 @@ function formatLockfileDuplicates(
   lines.push(
     'Multiple versions cause duplicate runtime instances, breaking config/theme detection.'
   )
-  lines.push('Fix: ensure all gui packages use the same version range, then dedupe.')
+  lines.push('Fix: ensure all hanzogui packages use the same version range, then dedupe.')
 
   return lines.join('\n')
 }
 
 /**
- * Checks that a gui config file exists in common locations.
+ * Checks that a hanzogui config file exists in common locations.
  */
 function checkConfigExists(root: string): string {
   const configNames = [
-    'gui.config.ts',
-    'gui.config.tsx',
-    'gui.config.js',
-    'gui.config.mjs',
-    'gui.config.cjs',
+    'hanzogui.config.ts',
+    'hanzogui.config.tsx',
+    'hanzogui.config.js',
+    'hanzogui.config.mjs',
+    'hanzogui.config.cjs',
   ]
 
   const searchDirs = [root, join(root, 'src'), join(root, 'app'), join(root, 'config')]
@@ -287,12 +287,12 @@ function checkConfigExists(root: string): string {
     }
   }
 
-  // check if gui.build.ts references a config path
+  // check if hanzogui.build.ts references a config path
   const buildConfigNames = [
-    'gui.build.ts',
-    'gui.build.js',
-    'gui.build.mjs',
-    'gui.build.cjs',
+    'hanzogui.build.ts',
+    'hanzogui.build.js',
+    'hanzogui.build.mjs',
+    'hanzogui.build.cjs',
   ]
   for (const name of buildConfigNames) {
     const buildPath = join(root, name)
@@ -308,13 +308,13 @@ function checkConfigExists(root: string): string {
     }
   }
 
-  // also check if there's a gui config referenced in package.json
+  // also check if there's a hanzogui config referenced in package.json
   const pkgJsonPath = join(root, 'package.json')
   if (existsSync(pkgJsonPath)) {
     try {
       const pkg = JSON.parse(readFileSync(pkgJsonPath, 'utf8'))
-      if (pkg.gui?.config) {
-        const configPath = join(root, pkg.gui.config)
+      if (pkg.hanzogui?.config) {
+        const configPath = join(root, pkg.hanzogui.config)
         if (existsSync(configPath)) return ''
       }
     } catch {}
@@ -329,12 +329,12 @@ function checkConfigExists(root: string): string {
   }
 
   return [
-    'No gui.config file found.',
+    'No hanzogui.config file found.',
     '',
-    'Gui requires a config file (e.g. gui.config.ts) that calls createGui().',
+    'Gui requires a config file (e.g. hanzogui.config.ts) that calls createGui().',
     'Without it, components will throw "Can\'t find Gui configuration" at runtime.',
     '',
-    'See: https://gui.dev/docs/core/configuration',
+    'See: https://hanzogui.dev/docs/core/configuration',
   ].join('\n')
 }
 

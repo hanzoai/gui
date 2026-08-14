@@ -6,7 +6,7 @@ import { Moon, Sun, SunMoon } from '@hanzogui/lucide-icons-2'
 import { useSystemScheme, useUserScheme } from '@vxrn/color-scheme'
 import { useState } from 'react'
 import { Appearance } from 'react-native'
-import { isWeb, View } from 'hanzogui'
+import { isWeb, View } from '@hanzo/gui'
 
 const schemeSettings = ['system', 'light', 'dark'] as const
 

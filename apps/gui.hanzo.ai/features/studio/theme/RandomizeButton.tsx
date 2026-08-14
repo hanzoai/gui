@@ -1,5 +1,5 @@
 import { Dices } from '@hanzogui/lucide-icons-2'
-import { Button, TooltipSimple } from 'hanzogui'
+import { Button, TooltipSimple } from '@hanzo/gui'
 import { themeBuilderStore } from './store/ThemeBuilderStore'
 
 export function RandomizeButton() {

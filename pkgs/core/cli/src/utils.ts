@@ -7,12 +7,12 @@ import { join } from 'node:path'
 export async function getOptions({
   root = process.cwd(),
   tsconfigPath = 'tsconfig.json',
-  guiOptions,
+  hanzoguiOptions,
   host,
   debug,
   loadGuiOptions,
 }: Partial<CLIUserOptions> = {}): Promise<CLIResolvedOptions> {
-  const dotDir = join(root, '.gui')
+  const dotDir = join(root, '.hanzogui')
   let pkgJson = {}
   let config = ''
   try {
@@ -22,7 +22,7 @@ export async function getOptions({
     if (loadGuiOptions) {
       console.warn(
         chalk.yellow(
-          `Warning: no gui.config.ts found in ${root}. Commands that need a config may fail.`
+          `Warning: no hanzogui.config.ts found in ${root}. Commands that need a config may fail.`
         )
       )
     }
@@ -30,9 +30,9 @@ export async function getOptions({
 
   const filledOptions = {
     platform: 'native',
-    components: ['gui'],
+    components: ['@hanzo/gui'],
     config,
-    ...guiOptions,
+    ...hanzoguiOptions,
   } satisfies GuiOptions
 
   let finalOptions: GuiOptions = filledOptions
@@ -48,11 +48,11 @@ export async function getOptions({
     pkgJson,
     debug,
     tsconfigPath,
-    guiOptions: finalOptions,
+    hanzoguiOptions: finalOptions,
     paths: {
       root,
       dotDir,
-      conf: join(dotDir, 'gui.config.json'),
+      conf: join(dotDir, 'hanzogui.config.json'),
       types: join(dotDir, 'types.json'),
     },
   }
@@ -65,7 +65,7 @@ export function ensure(condition: boolean, message: string) {
   }
 }
 
-const defaultPaths = ['gui.config.ts', join('src', 'gui.config.ts')]
+const defaultPaths = ['hanzogui.config.ts', join('src', 'hanzogui.config.ts')]
 let cachedPath = ''
 
 async function getDefaultGuiConfigPath() {
@@ -74,7 +74,7 @@ async function getDefaultGuiConfigPath() {
   const existing = existingPaths.findIndex((x) => !!x)
   const found = defaultPaths[existing]
   if (!found) {
-    throw new Error(`No found gui.config.ts`)
+    throw new Error(`No found hanzogui.config.ts`)
   }
   cachedPath = found
   return found
@@ -85,7 +85,7 @@ export const loadGui = async (
 ): Promise<GuiProjectInfo | null> => {
   const { loadGui: loadGuiStatic } = require('@hanzogui/static/loadGui')
   const loaded = await loadGuiStatic({
-    components: ['gui'],
+    components: ['@hanzo/gui'],
     ...opts,
     config: opts.config ?? (await getDefaultGuiConfigPath()),
   })

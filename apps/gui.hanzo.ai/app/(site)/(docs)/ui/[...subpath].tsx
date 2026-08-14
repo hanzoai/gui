@@ -1,6 +1,6 @@
 import { ThemeTint } from '@hanzogui/logo'
-import { Theme } from 'hanzogui'
-import { getMDXComponent } from 'mdx-bundler/client'
+import { Theme } from '@hanzo/gui'
+import { getMDXComponent } from '@vxrn/mdx-rust/client'
 import React, { memo } from 'react'
 import type { LoaderProps } from 'one'
 import { useLoader } from 'one'
@@ -73,8 +73,8 @@ export function DocComponentsPage() {
   }
 
   const GITHUB_URL = 'https://github.com'
-  const REPO_NAME = 'hanzoai/gui'
-  const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/master/code/gui.hanzo.ai/data${getMDXPath(currentPath)}.mdx`
+  const REPO_NAME = 'hanzogui/hanzogui'
+  const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/master/apps/gui.hanzo.ai/data${getMDXPath(currentPath)}.mdx`
 
   return (
     <DocsPageFrame
@@ -84,7 +84,7 @@ export function DocComponentsPage() {
       previous={previous}
     >
       <HeadInfo
-        title={`${frontmatter.title} | GUI — React Native UI kit with copy-paste composable components`}
+        title={`${frontmatter.title} | Gui — React Native UI kit with copy-paste composable components`}
         description={frontmatter.description || 'UI Kit'}
         openGraph={{
           images: [

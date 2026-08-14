@@ -1,20 +1,18 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build:js": {
-      "inputs": ["package.json", "src/**", "hanzo-gui-build.js"],
-      "outputs": ["dist/**"]
-    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": [
         "tsconfig.json",
         "package.json",
         "src/**/*",
-        "hanzo-gui-build.js",
+        "hanzogui-build.js",
         "externalNodePlugin.js"
       ],
-      "outputs": [".next/**/*", "dist/**/*", "types/**/*", "**/*.css"]
+      "outputs": [".next/**/*", "dist/**/*", "types/**/*"],
+      "env": ["SKIP_JS", "SKIP_TYPES"],
+      "passThroughEnv": ["SKIP_JS", "SKIP_TYPES"]
     },
     "check": {
       "cache": false,
@@ -25,55 +23,54 @@
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json", "tsconfig.*.json", "../../tsconfig.json", "../../tsconfig.build.json"],
       "outputs": ["types/**"]
     },
-    "typecheck:root": {
-      "dependsOn": ["^build"],
-      "inputs": ["code/**/src/**/*.ts", "code/**/src/**/*.tsx", "**/tsconfig.json", "tsconfig.build.json"],
-      "outputs": ["code/**/types/**"]
-    },
     "start": {
       "dependsOn": ["^build"],
       "outputs": []
     },
     "test": {
-      "dependsOn": ["^build:js"],
+      "dependsOn": ["^build"],
       "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
       "outputs": [],
       "env": [
-        "HANZO_GUI_TARGET",
-        "HANZO_GUI_TEST_ANIMATION_DRIVER",
+        "GUI_TARGET",
+        "GUI_TEST_ANIMATION_DRIVER",
         "TEST_NATIVE_PLATFORM",
         "DISABLE_NATIVE_TEST",
         "DISABLE_REACT_NATIVE",
         "SKIP_NATIVE_TESTS",
-        "NODE_ENV"
+        "NODE_ENV",
+        "PORT"
       ],
       "passThroughEnv": [
-        "HANZO_GUI_TARGET",
-        "HANZO_GUI_TEST_ANIMATION_DRIVER",
+        "GUI_TARGET",
+        "GUI_TEST_ANIMATION_DRIVER",
         "TEST_NATIVE_PLATFORM",
         "DISABLE_NATIVE_TEST",
         "DISABLE_REACT_NATIVE",
         "SKIP_NATIVE_TESTS",
-        "NODE_ENV"
+        "NODE_ENV",
+        "PORT"
       ]
     },
     "test:web": {
-      "dependsOn": ["^build:js"],
+      "dependsOn": ["^build"],
       "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
       "outputs": [],
       "env": [
-        "HANZO_GUI_TARGET",
-        "HANZO_GUI_TEST_ANIMATION_DRIVER",
-        "NODE_ENV"
+        "GUI_TARGET",
+        "GUI_TEST_ANIMATION_DRIVER",
+        "NODE_ENV",
+        "PORT"
       ],
       "passThroughEnv": [
-        "HANZO_GUI_TARGET",
-        "HANZO_GUI_TEST_ANIMATION_DRIVER",
-        "NODE_ENV"
+        "GUI_TARGET",
+        "GUI_TEST_ANIMATION_DRIVER",
+        "NODE_ENV",
+        "PORT"
       ]
     },
     "test:native": {
-      "dependsOn": ["^build:js"],
+      "dependsOn": ["^build"],
       "inputs": ["../../bun.lockb", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
       "outputs": [],
       "cache": false

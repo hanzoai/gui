@@ -3,7 +3,7 @@ import { ThemeTint } from '@hanzogui/logo'
 import { ChevronLeft, ChevronRight } from '@hanzogui/lucide-icons-2'
 import * as React from 'react'
 import { ScrollView } from 'react-native'
-import { EnsureFlexed, Paragraph, View, XStack, YStack } from 'hanzogui'
+import { EnsureFlexed, Paragraph, View, XStack, YStack } from '@hanzo/gui'
 import type { Href } from 'one'
 import { Container } from '~/components/Containers'
 import { Link } from '~/components/Link'
@@ -15,9 +15,9 @@ export function DocsPage({ children }: { children: React.ReactNode }) {
   const { currentPath, next, previous, documentVersionPath } = useDocsMenu()
 
   const GITHUB_URL = 'https://github.com' as const
-  const REPO_NAME = 'hanzoai/gui' as const
+  const REPO_NAME = 'hanzogui/hanzogui' as const
   const editUrl =
-    `${GITHUB_URL}/${REPO_NAME}/edit/main/code/gui.hanzo.ai/data${currentPath}${documentVersionPath}.mdx` as const
+    `${GITHUB_URL}/${REPO_NAME}/edit/main/apps/gui.hanzo.ai/data${currentPath}${documentVersionPath}.mdx` as const
 
   const pageContents = React.useMemo(() => {
     return (

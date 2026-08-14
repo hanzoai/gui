@@ -1,6 +1,6 @@
 import { useSearchParams } from 'one'
 import { useEffect, useState } from 'react'
-import { Button, H2, Paragraph, Spinner, YStack } from 'hanzogui'
+import { Button, H2, Paragraph, Spinner, YStack } from '@hanzo/gui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { Link } from '~/components/Link'
 import { authFetch } from '~/features/api/authFetch'
@@ -79,14 +79,14 @@ export default function AcceptInvitePage() {
                 You already have access
               </H2>
               <Paragraph textAlign="center" color="$color11">
-                Your GitHub account is already a member of the GUI team.
+                Your GitHub account is already a member of the Gui team.
               </Paragraph>
               <Button
                 size="$4"
                 theme="green"
                 onPress={() =>
                   window.open(
-                    'https://github.com/hanzoai/takeout2',
+                    'https://github.com/hanzogui/takeout2',
                     '_blank',
                     'noopener,noreferrer'
                   )
@@ -100,7 +100,7 @@ export default function AcceptInvitePage() {
           {status === 'pending' && (
             <>
               <H2 size="$7" textAlign="center">
-                Invited to GUI GitHub
+                Invited to Gui GitHub
               </H2>
               <Paragraph textAlign="center" color="$color11">
                 The invite should be in your inbox now.
@@ -110,7 +110,7 @@ export default function AcceptInvitePage() {
                 theme="accent"
                 onPress={() =>
                   window.open(
-                    'https://github.com/orgs/hanzoai/invitation',
+                    'https://github.com/orgs/hanzogui/invitation',
                     '_blank',
                     'noopener,noreferrer'
                   )
@@ -133,7 +133,7 @@ export default function AcceptInvitePage() {
                 {error}
               </Paragraph>
               <Paragraph size="$3" textAlign="center" color="$color9">
-                Need help? <Link href="mailto:team@hanzo.ai">team@hanzo.ai</Link>
+                Need help? <Link href="mailto:team@hanzogui.dev">team@hanzogui.dev</Link>
               </Paragraph>
             </>
           )}

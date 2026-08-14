@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/progress",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -8,9 +8,7 @@
     "dist"
   ],
   "type": "module",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "main": "dist/cjs",
   "module": "dist/esm",
   "types": "./types/index.d.ts",
@@ -30,10 +28,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/compose-refs": "workspace:*",
@@ -41,7 +39,8 @@
     "@hanzogui/create-context": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
-    "@hanzogui/stacks": "workspace:*"
+    "@hanzogui/stacks": "workspace:*",
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -49,15 +48,7 @@
     "react-native": "0.83.2"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-native": "*"
+    "react": ">=19"
   },
-  "module:jsx": "dist/jsx",
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>",
-  "peerDependenciesMeta": {
-    "react-native": {
-      "optional": true
-    }
-  }
+  "module:jsx": "dist/jsx"
 }

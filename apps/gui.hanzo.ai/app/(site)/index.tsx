@@ -1,7 +1,7 @@
 import { setTintIndex } from '@hanzogui/logo'
 import { useLoader } from 'one'
 import { useEffect } from 'react'
-import { YStack } from 'hanzogui'
+import { YStack } from '@hanzo/gui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { HomeAnimations } from '~/features/site/home/HomeAnimations'
 import { HomeCommunity } from '~/features/site/home/HomeCommunity'
@@ -85,7 +85,7 @@ export default function GuiHomePage() {
         />
         <HomeThemes />
       </TintSection>
-      <TintSection index={4} mb={-120} z={10000}>
+      <TintSection index={4} mb={-120} z={100}>
         <HomeResponsive />
       </TintSection>
       <TintSection index={5} p={0} z={0}>

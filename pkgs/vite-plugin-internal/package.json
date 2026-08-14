@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin-internal",
-  "version": "7.3.0",
+  "version": "8.1.1",
   "private": true,
   "type": "module",
   "main": "./dist/cjs/vite.config.js",
@@ -16,19 +16,18 @@
     }
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/vite-plugin": "workspace:*",
-    "vite": "^7.3.5"
+    "@hanzogui/vite-plugin": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "@hanzogui/config-default": "workspace:*",
-    "happy-dom": "^10.11.2",
+    "happy-dom": "^20.10.6",
     "react": ">=19",
     "vitest": "4.0.4",
     "vitest-axe": "^0.1.0",
@@ -36,7 +35,5 @@
   },
   "peerDependencies": {
     "react": ">=19"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

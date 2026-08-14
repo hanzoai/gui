@@ -1,13 +1,13 @@
-// OAuth provider identifier — IAM accepts the same set ('github', 'google', ...).
-type Provider = string
+import type { Provider } from '@supabase/auth-js'
 import { LogoIcon } from '@hanzogui/logo'
 import type { FormEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { Button, Input, Paragraph, Separator, Spinner, XStack, YStack } from 'hanzogui'
+import { Button, Input, Paragraph, Separator, Spinner, XStack, YStack } from '@hanzo/gui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { Notice } from '~/components/Notice'
 import { useSupabase } from '~/features/auth/useSupabaseClient'
 import { GithubIcon } from '~/features/icons/GithubIcon'
+import { getSafeSupabaseAuthUrl } from '~/features/security/navigation'
 import { useForwardToDashboard } from '~/features/user/useForwardToDashboard'
 import { useUser } from '~/features/user/useUser'
 
@@ -42,24 +42,41 @@ function SignIn() {
     emailRef.current?.focus()
   }, [])
 
+  // surface error passed back from /auth after a failed code exchange
+  useEffect(() => {
+    const err = new URLSearchParams(window.location.search).get('error')
+    if (err) {
+      setMessage({ type: 'error', content: err })
+    }
+  }, [])
+
   useForwardToDashboard()
 
   // auto-trigger GitHub OAuth when opened as a popup (from checkout flow)
   // must be before any early returns to avoid hooks ordering violation (react error 310)
   useEffect(() => {
-    if (supabase && !user && window.opener && window.opener !== window) {
-      const redirectTo = `${window.location.origin}/api/auth/callback`
-      supabase.auth
-        .signInWithOAuth({
-          provider: 'github',
-          options: { redirectTo },
-        })
-        .then(({ data, error }) => {
-          if (!error && data?.url) {
-            window.location.href = data.url
-          }
-        })
-    }
+    if (!supabase || user) return
+    if (!(window.opener && window.opener !== window)) return
+    // if we landed here from a failed /auth (timeout or exchange error),
+    // don't auto-retry - that creates a loop when /auth keeps timing out
+    // on a slow connection. show the error and let the user click manually.
+    if (new URLSearchParams(window.location.search).has('error')) return
+
+    const redirectTo = `${window.location.origin}/api/auth/callback`
+    supabase.auth
+      .signInWithOAuth({
+        provider: 'github',
+        options: { redirectTo },
+      })
+      .then(({ data, error }) => {
+        const authUrl = getSafeSupabaseAuthUrl(data?.url)
+
+        if (!error && authUrl) {
+          window.location.assign(authUrl)
+        } else if (!error) {
+          setMessage({ type: 'error', content: 'Invalid authentication redirect.' })
+        }
+      })
   }, [supabase, user])
 
   if (!supabase) {
@@ -122,8 +139,13 @@ function SignIn() {
     }
 
     // AuthClient doesn't auto-redirect, we need to do it manually
-    if (data?.url) {
-      window.location.href = data.url
+    const authUrl = getSafeSupabaseAuthUrl(data?.url)
+
+    if (authUrl) {
+      window.location.assign(authUrl)
+    } else {
+      setMessage({ type: 'error', content: 'Invalid authentication redirect.' })
+      setLoading(false)
     }
   }
 

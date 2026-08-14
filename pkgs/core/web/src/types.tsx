@@ -298,13 +298,13 @@ export type GuiComponentPropsBaseBase = {
 
   /**
    * Marks this component as a group for use in styling children based on parents named group
-   * See: https://gui.dev/docs/intro/props
+   * See: https://hanzogui.dev/docs/intro/props
    */
   group?: GroupNames | boolean
 
   /**
    * Works only alongside group, when children of the group are using container based sizing on native you can hide them until parent is measured.
-   * See: https://gui.dev/docs/intro/props
+   * See: https://hanzogui.dev/docs/intro/props
    */
   untilMeasured?: 'hide' | 'show'
 
@@ -441,6 +441,13 @@ export type ThemeState = {
   theme: ThemeParsed
   parentName?: string
   isInverse?: boolean
+  // cumulative count of scheme inversions from the root down to this state.
+  // isInverse only compares to the immediate parent, so a sub-theme that keeps
+  // its parent's scheme (e.g. dark_blue under dark) has isInverse=false even
+  // though the whole subtree is inverted vs the root/OS. `inverses > 0` means
+  // "this subtree forced a scheme away from the OS somewhere above" and must not
+  // use the DynamicColorIOS scheme-optimization (which always follows the OS).
+  inverses?: number
   isNew?: boolean
   parentId?: string
   scheme?: 'light' | 'dark'
@@ -528,8 +535,7 @@ export type GuiTextElement = (HTMLElement & GuiElementMethods) | RNText
  * const ref = useRef<GuiWebElement<HTMLInputElement>>(null)
  * // ref.current has both HTMLInputElement props and GuiElementMethods
  */
-export type GuiWebElement<T extends HTMLElement = HTMLElement> = T &
-  GuiElementMethods
+export type GuiWebElement<T extends HTMLElement = HTMLElement> = T & GuiElementMethods
 
 export type DebugProp = boolean | 'break' | 'verbose' | 'visualize' | 'profile'
 
@@ -556,7 +562,7 @@ export type LoadedComponents = {
 
 export type GuiProjectInfo = {
   components: LoadedComponents[]
-  guiConfig: GuiInternalConfig
+  hanzoguiConfig: GuiInternalConfig
   nameToPaths: NameToPaths
 }
 
@@ -596,9 +602,14 @@ export type GuiComponentStateRef = {
   hasEverThemed?: boolean | 'wrapped'
   hasEverResetPresence?: boolean
   hasHadEvents?: boolean
+  hasRealPressEvents?: boolean
   isListeningToTheme?: boolean
   unPress?: Function
   setStateShallow?: ComponentSetStateShallow
+  // hoisted base shallow-setter that always calls the real React setState.
+  // kept on its own field so the avoidReRenders wrapper (which overwrites
+  // `setStateShallow`) can capture this as its real-re-render escape hatch.
+  baseSetStateShallow?: ComponentSetStateShallow
   useStyleListener?: UseStyleListener
   updateStyleListener?: () => void
 
@@ -721,7 +732,7 @@ type TokenifyRecord<A extends object> = {
 type CoerceToVariable<A> = A extends Variable ? A : Variable<A>
 
 export type GuiBaseTheme = {
-  // defined for our gui kit , we could do this inside `gui`
+  // defined for our hanzogui kit , we could do this inside `hanzogui`
   // but maybe helpful to have some sort of universally shared things +
   // + enforce if they want their own, redefine in their design sys
   background: VariableColorVal
@@ -1074,10 +1085,15 @@ type AutocompleteSpecificTokensSetting = boolean | 'except-special'
 
 export interface GenericGuiSettings {
   /**
-   * When true, flexBasis will be set to 0 when flex is positive. This will be
-   * the default in v2 of Gui alongside an alternative mode for web compat.
+   * controls style semantics where React Native/Yoga and CSS differ.
+   *
+   * - "legacy": preserves Gui v1 flex expansion.
+   * - "react-native": follows React Native/Yoga flex and raw numeric lineHeight semantics.
+   * - "web": follows CSS flex and unitless numeric lineHeight semantics.
+   *
+   * @default "web"
    */
-  styleCompat?: 'react-native' | 'legacy'
+  styleCompat?: 'legacy' | 'react-native' | 'web'
 
   // TODO
   /**
@@ -1087,7 +1103,7 @@ export interface GenericGuiSettings {
    * By default, Gui processes all style props in order of definition on the
    * object. This is a bit strange to most people, but it gets around many
    * annoying issues with specificity. You can see our docs on this here:
-   * https://gui.dev/docs/intro/styles#style-order-is-important
+   * https://hanzogui.dev/docs/intro/styles#style-order-is-important
    *
    * But this can be confusing in simple cases, like when you do:
    *
@@ -1390,8 +1406,18 @@ export type MediaQueryKey = keyof Media
 export type MediaPropKeys = `$${MediaQueryKey}`
 export type MediaQueryState = { [key in MediaQueryKey]: boolean }
 
-export type ThemeMediaKeys<TK extends keyof Themes = keyof Themes> =
-  `$theme-${TK extends `${string}_${string}` ? never : TK}`
+// guard against a loose `Themes` whose `keyof` collapses to `string` (e.g. a config
+// whose themes type carries a string index signature). without this, TK becomes `string`
+// and ThemeMediaKeys becomes `$theme-${string}`, which collapses the whole WithMediaProps
+// mapped type into a `[key: string]` index signature that then swallows non-style props
+// like onPress/children. see issue #4010
+export type ThemeMediaKeys<TK extends keyof Themes = keyof Themes> = TK extends string
+  ? string extends TK
+    ? never
+    : TK extends `${string}_${string}`
+      ? never
+      : `$theme-${TK}`
+  : never
 
 export type PlatformMediaKeys = `$platform-${AllPlatforms}`
 
@@ -1552,10 +1578,7 @@ type WebOnlySizeValue =
   | 'max-content'
   | 'min-content'
 
-type UserAllowedStyleValuesSetting = Exclude<
-  GuiSettings['allowedStyleValues'],
-  undefined
->
+type UserAllowedStyleValuesSetting = Exclude<GuiSettings['allowedStyleValues'], undefined>
 
 export type GetThemeValueSettingForCategory<
   Cat extends keyof AllowedStyleValuesSettingPerCategory,
@@ -1585,8 +1608,7 @@ export type GetThemeValueFallbackFor<
 export type ThemeValueFallback =
   // for backwards compat with overriding the type we make this either UnionableString
   // or never if they don't define any UserAllowedStyleValuesSetting
-  | (GuiSettings extends { allowedStyleValues: any } ? never : UnionableString)
-  | Variable
+  (GuiSettings extends { allowedStyleValues: any } ? never : UnionableString) | Variable
 
 export type AllowedValueSettingSpace = GetThemeValueSettingForCategory<'space'>
 export type AllowedValueSettingSize = GetThemeValueSettingForCategory<'size'>
@@ -1683,11 +1705,21 @@ export type SpaceTokens =
   | GetTokenString<keyof Tokens['space']>
   | ThemeValueFallbackSpace
 
-export type ColorTokens =
+// base color token strings (before opacity modifier)
+type ColorTokenBase =
   | SpecificTokensSpecial
   | GetTokenString<keyof Tokens['color']>
   | GetTokenString<keyof ThemeParsed>
+
+// keep this non-expanded. using `${ColorTokenBase}/${number}` preserves stricter
+// token names, but large user token/theme unions hit TS2590.
+type TokenWithOpacity = `$${string}/${number}`
+
+export type ColorTokens =
+  | ColorTokenBase
   | CSSColorNames
+  // opacity modifier: $token/50 → parsed at runtime in getTokenForKey
+  | TokenWithOpacity
 
 export type ZIndexTokens =
   | SpecificTokensSpecial
@@ -1711,18 +1743,14 @@ export type NonSpecificTokens =
 
 export type Token =
   | NonSpecificTokens
-  | (GuiSettings extends { autocompleteSpecificTokens: false }
-      ? never
-      : SpecificTokens)
+  | (GuiSettings extends { autocompleteSpecificTokens: false } ? never : SpecificTokens)
 
 export type ColorStyleProp = ThemeValueFallbackColor | ColorTokens
 
 // fonts
 type DefaultFont = GuiSettings['defaultFont']
 
-export type Fonts = DefaultFont extends string
-  ? GuiConfig['fonts'][DefaultFont]
-  : never
+export type Fonts = DefaultFont extends string ? GuiConfig['fonts'][DefaultFont] : never
 
 export type Font = ParseFont<Fonts>
 
@@ -1753,7 +1781,9 @@ export type FontWeightValues =
   | 'bold'
   | 'normal'
 export type FontWeightTokens = `$${GetTokenFontKeysFor<'weight'>}` | FontWeightValues
-export type FontColorTokens = `$${GetTokenFontKeysFor<'color'>}` | number
+// font color tokens also support the opacity modifier
+type FontColorTokenBase = `$${GetTokenFontKeysFor<'color'>}`
+export type FontColorTokens = FontColorTokenBase | number | TokenWithOpacity
 export type FontLetterSpacingTokens =
   | `$${GetTokenFontKeysFor<'letterSpacing'>}`
   | number
@@ -1856,12 +1886,56 @@ export type GetThemeValueForKey<K extends string | symbol | number> =
         : never
       : never)
 
+// keys that accept the first-class "safe" value (-> env(safe-area-inset-*) on
+// web, numeric insets on native). must mirror propEdges in resolveSafeArea.ts.
+// only the longhands are listed; shorthands (pt, mt, ...) inherit via WithShorthands.
+export type SafeAreaValueKeys =
+  | 'padding'
+  | 'paddingTop'
+  | 'paddingBottom'
+  | 'paddingLeft'
+  | 'paddingRight'
+  | 'paddingHorizontal'
+  | 'paddingVertical'
+  | 'paddingStart'
+  | 'paddingEnd'
+  | 'paddingBlock'
+  | 'paddingInline'
+  | 'paddingBlockStart'
+  | 'paddingBlockEnd'
+  | 'paddingInlineStart'
+  | 'paddingInlineEnd'
+  | 'margin'
+  | 'marginTop'
+  | 'marginBottom'
+  | 'marginLeft'
+  | 'marginRight'
+  | 'marginHorizontal'
+  | 'marginVertical'
+  | 'marginStart'
+  | 'marginEnd'
+  | 'marginBlock'
+  | 'marginInline'
+  | 'marginBlockStart'
+  | 'marginBlockEnd'
+  | 'marginInlineStart'
+  | 'marginInlineEnd'
+  | 'inset'
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'start'
+  | 'end'
+
 export type WithThemeValues<T extends object> = {
-  [K in keyof T]: ThemeValueGet<K> extends never
-    ? K extends keyof ExtraBaseProps
-      ? T[K]
-      : T[K] | 'unset'
-    : GetThemeValueForKey<K> | Exclude<T[K], string> | 'unset'
+  [K in keyof T]:
+    | (ThemeValueGet<K> extends never
+        ? K extends keyof ExtraBaseProps
+          ? T[K]
+          : T[K] | 'unset'
+        : GetThemeValueForKey<K> | Exclude<T[K], string> | 'unset')
+    | (K extends SafeAreaValueKeys ? 'safe' : never)
 }
 
 export type NarrowShorthands = Narrow<Shorthands>
@@ -2427,10 +2501,10 @@ export interface ExtendBaseTextProps {}
 
 interface ExtraBaseProps {
   /**
-   * Transitions are defined using `createGui` typically in a gui.config.ts file.
+   * Transitions are defined using `createGui` typically in a hanzogui.config.ts file.
    * Pass a string transition name here and it uses an animation driver to execute it.
    *
-   * See: https://gui.dev/docs/core/animations
+   * See: https://hanzogui.dev/docs/core/animations
    */
   transition?: TransitionProp | null
 
@@ -2677,7 +2751,14 @@ export type GetNonStyledProps<A extends StylableComponent> = A extends {
 export type GetBaseStyles<A, B> = A extends {
   __tama: [any, any, any, infer C, any, any]
 }
-  ? C
+  ? // when extending an existing hanzogui component (e.g. styled(View, ...)), it
+    // contributes its base styles. but isText/isInput in the config still means
+    // "this accepts text styles" (it drives runtime validStyles too), so merge
+    // text style props in, otherwise text-only props and their shorthands (e.g.
+    // the `text` shorthand for `textAlign`) get dropped from the type.
+    B extends { isText: true } | { isInput: true }
+    ? C & TextStylePropsBase
+    : C
   : B extends { isText: true }
     ? TextStylePropsBase
     : B extends { isInput: true }
@@ -2733,7 +2814,7 @@ export type GuiProviderProps = Omit<ThemeProviderProps, 'children'> & {
   insets?: { top: number; right: number; bottom: number; left: number }
 }
 
-export type PropMappedValue = [string, any][] | undefined
+export type PropMappedValue = [string, any, any?][] | undefined
 
 export type GetStyleState = {
   style: TextStyle | null
@@ -2756,6 +2837,10 @@ export type GetStyleState = {
   // Track original token values (like '$8') before they get resolved to CSS vars
   // This is used to preserve token strings in overriddenContextProps
   originalContextPropValues?: Record<string, any>
+  // opt-in dev-tools token provenance: original token string (like '$background')
+  // for each winning base style key, cleared on literal override. stamped onto
+  // the final style object as non-enumerable metadata (see helpers/styleProvenance).
+  tokenProvenance?: Record<string, string>
   // Transitions extracted from pseudo-style props (e.g., hoverStyle.transition)
   pseudoTransitions?: PseudoTransitions | null
   // Resolved animation driver (respects animatedBy prop)
@@ -3230,7 +3315,11 @@ export type UseAnimationProps = GuiComponentPropsBase & Record<string, any>
 
 type UseStyleListener = (
   nextStyle: Record<string, unknown>,
-  effectiveTransition?: TransitionProp | null
+  effectiveTransition?: TransitionProp | null,
+  // true while a self pseudo (hover/press/focus) is active. lets avoidReRenders drivers know
+  // the emitted style is a transient pseudo override that a real re-render must not be allowed
+  // to reconcile away, vs the no-pseudo base which renders own again.
+  pseudoActive?: boolean
 ) => void
 export type UseStyleEmitter = (cb: UseStyleListener) => void
 

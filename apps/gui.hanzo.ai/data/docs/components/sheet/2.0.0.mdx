@@ -28,7 +28,7 @@ Sheet is a bottom panel that slides up from the bottom of the screen, commonly u
 
 ## Installation
 
-Sheet is already installed in `@hanzo/gui`, or you can install it independently:
+Sheet is already installed in `hanzogui`, or you can install it independently:
 
 ```bash
 npm install @hanzogui/sheet
@@ -141,7 +141,7 @@ Contains every component for the sheet.
       type: 'boolean',
       default: 'false',
       deprecated: true,
-      description: `@deprecated Use \`disableRemoveScroll\` instead. By default. Hanzo GUI uses react-remove-scroll to prevent anything outside the sheet scrolling. This can cause some issues so you can override the behavior with this prop (either true or false).`,
+      description: `@deprecated Use \`disableRemoveScroll\` instead. By default. Gui uses react-remove-scroll to prevent anything outside the sheet scrolling. This can cause some issues so you can override the behavior with this prop (either true or false).`,
     },
     {
       name: 'portalProps',
@@ -172,6 +172,16 @@ Displays behind Frame. Extends [YStack](/docs/components/stacks).
 
 Contains the content. Extends [YStack](/docs/components/stacks).
 
+<PropsTable
+  data={[
+    {
+      name: 'disableHideBottomOverflow',
+      type: 'boolean',
+      description: `Disables the default cloned frame cover below the sheet. Leave it omitted or false when a spring can overshoot on open; the cover prevents page content from showing through below the sheet. If your frame uses decorative absolute layers, put the fallback background on Sheet.Frame so the cloned cover can occlude the bottom too.`,
+    },
+  ]}
+/>
+
 ### Sheet.Handle
 
 Shows a handle above the frame by default. On tap, it will cycle between
@@ -200,7 +210,7 @@ For the best gesture experience on iOS and Android, Sheet supports optional inte
 npm install react-native-gesture-handler
 ```
 
-2. Add the setup import to your app entry point (before any Hanzo GUI imports):
+2. Add the setup import to your app entry point (before any Gui imports):
 
 ```tsx
 // App.tsx or index.js

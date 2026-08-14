@@ -16,15 +16,15 @@
     "./components/*": "./src/*.tsx"
   },
   "scripts": {
-    "build": "gui-build --skip-types",
-    "watch": "gui-build --skip-types --watch"
+    "build": "hanzogui-build --skip-types",
+    "watch": "hanzogui-build --skip-types --watch"
   },
   "dependencies": {
     "@my/config": "workspace:^",
     "@hanzogui/next-theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",
     "expo-constants": "~55.0.7",
-    "hanzogui": "workspace:*"
+    "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -33,7 +33,5 @@
   "peerDependencies": {
     "react": ">=19"
   },
-  "module:jsx": "src",
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "module:jsx": "src"
 }

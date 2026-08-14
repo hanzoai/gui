@@ -1,13 +1,7 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 
 import config from '../config-default'
-import {
-  View,
-  createGui,
-  styled,
-  StyleObjectValue,
-  StyleObjectRules,
-} from '../web/src'
+import { View, createGui, styled, StyleObjectValue, StyleObjectRules } from '../web/src'
 import { simplifiedGetSplitStyles } from './utils'
 
 beforeAll(() => {
@@ -121,6 +115,17 @@ describe('shorthand variables - web', () => {
     const value = getStyleValue(styles, 'backgroundImage')
 
     expect(value).toMatch(/linear-gradient\(\$nonexistent, var\(--.*white/)
+  })
+
+  test('backgroundImage with $token/NN opacity modifier resolves to color-mix', () => {
+    const styles = simplifiedGetSplitStyles(View, {
+      backgroundImage: 'linear-gradient(180deg, $white/50, $white/0)',
+    })
+    const value = getStyleValue(styles, 'backgroundImage')
+
+    expect(value).toMatch(
+      /linear-gradient\(180deg, color-mix\(in srgb, var\(--.*white.*\) 50%, transparent\), color-mix\(in srgb, var\(--.*white.*\) 0%, transparent\)\)/
+    )
   })
 })
 

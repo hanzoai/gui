@@ -1,4 +1,4 @@
-import { SizableText, Spinner, XStack, YStack } from 'hanzogui'
+import { SizableText, Spinner, XStack, YStack } from '@hanzo/gui'
 import {
   formatMonthLabel,
   isBeforeToday,

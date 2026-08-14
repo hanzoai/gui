@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test'
 
 /**
- * Tests for motion driver issues on gui.dev
+ * Tests for motion driver issues on hanzogui.dev
  *
- * These tests run against the actual gui.dev site (localhost:4444)
+ * These tests run against the actual hanzogui.dev site (localhost:4444)
  * to test motion driver behavior on the real site components.
  *
- * SKIPPED: requires gui.dev running on localhost:4444
+ * SKIPPED: requires hanzogui.dev running on localhost:4444
  */
 
 const SITE_URL = 'http://localhost:4444'

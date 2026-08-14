@@ -49,7 +49,7 @@ describe('Turbopack + Gui CLI optimization', () => {
   afterAll(() => reset())
 
   it('CLI optimization flattens Text to span with className', () => {
-    execSync(`npx gui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
+    execSync(`npx hanzogui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
 
     const optimized = readFileSync(SRC, 'utf-8')
 
@@ -65,7 +65,7 @@ describe('Turbopack + Gui CLI optimization', () => {
   })
 
   it('CLI generates atomic CSS file', () => {
-    execSync(`npx gui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
+    execSync(`npx hanzogui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
 
     expect(existsSync(CSS)).toBe(true)
     const css = readFileSync(CSS, 'utf-8')
@@ -80,7 +80,7 @@ describe('Turbopack + Gui CLI optimization', () => {
   })
 
   it('prod build works after CLI optimization', () => {
-    execSync(`npx gui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
+    execSync(`npx hanzogui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
     const result = execSync(`bun run next-build`, {
       cwd: ROOT,
       encoding: 'utf-8',
@@ -91,7 +91,7 @@ describe('Turbopack + Gui CLI optimization', () => {
 
   it('reset properly restores original file', () => {
     // Optimize
-    execSync(`npx gui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
+    execSync(`npx hanzogui build --target web ./src`, { cwd: ROOT, stdio: 'pipe' })
     expect(existsSync(CSS)).toBe(true)
     expect(readFileSync(SRC, 'utf-8')).toContain('.css')
 

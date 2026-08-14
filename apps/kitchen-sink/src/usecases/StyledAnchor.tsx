@@ -1,4 +1,4 @@
-import { Anchor, styled } from 'hanzogui'
+import { Anchor, styled } from '@hanzo/gui'
 
 const StyledAnchor1 = styled(Anchor, {
   color: 'red',
@@ -13,13 +13,13 @@ export function StyledAnchor() {
     <>
       <StyledAnchor1
         testID="test-anchor"
-        href="https://gui.dev/test-link"
+        href="https://hanzogui.dev/test-link"
         target="_blank"
       >
         hi
       </StyledAnchor1>
 
-      <StyledAnchor2 testID="test-anchor2" href="https://gui.dev/test-link">
+      <StyledAnchor2 testID="test-anchor2" href="https://hanzogui.dev/test-link">
         hi
       </StyledAnchor2>
     </>

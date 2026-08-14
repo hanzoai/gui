@@ -296,7 +296,7 @@ Revamp @hanzogui/toast to v2, inspired by Sonner's excellent UX. Must be fully c
 ### TIMELINE
 
 - **NOW - 8:20**: Fix top position bug, verify tests pass
-- **8:20 - 8:35**: Write clean ToastDemo, verify on gui.dev /ui/toast (mobile + safe areas)
+- **8:20 - 8:35**: Write clean ToastDemo, verify on hanzogui.dev /ui/toast (mobile + safe areas)
 - **8:35 - 8:45**: Update docs, update version-two blog post
 - **8:45 - 8:55**: Full yarn test, lint, typecheck, sub-agent review
 - **8:55 - 9:00**: Clean commit, push to CI, /alert user
@@ -309,7 +309,7 @@ Revamp @hanzogui/toast to v2, inspired by Sonner's excellent UX. Must be fully c
 
 ### Before 8:35 (Demo Ready)
 
-4. [x] Write clean ToastDemo for gui.dev ✅ DONE - code/demos/src/ToastDemo.tsx
+4. [x] Write clean ToastDemo for hanzogui.dev ✅ DONE - apps/demos/src/ToastDemo.tsx
 5. [x] Verify on yarn dev site at /ui/toast ✅ VERIFIED - page renders, toast works
 6. [x] Mobile web + safe areas check (SSR safe!) ✅ FIXED - use-window-dimensions isClient guard
 7. [ ] Web-only code but use conditionals for future native support
@@ -417,13 +417,13 @@ if (!expanded) {
 
 ## Files Modified
 
-1. `/code/ui/toast/src/Toaster.tsx`
+1. `/pkgs/ui/toast/src/Toaster.tsx`
    - Container positioning with minHeight: 1
    - onMouseEnter + onMouseMove for hover expand
    - Auto-collapse when 1 toast remains
    - **visibleToasts default: 4**
 
-2. `/code/ui/toast/src/ToastItem.tsx`
+2. `/pkgs/ui/toast/src/ToastItem.tsx`
    - Stacking logic (scale, y, z-index, height, transformOrigin)
    - Gap filler View for hover flicker prevention
    - dataSet for RN Web data attribute compatibility
@@ -434,24 +434,24 @@ if (!expanded) {
    - **Subtle exit animations (10px/30px)**
    - **Opacity fade for limit**
 
-3. `/code/ui/toast/src/useDragGesture.ts`
+3. `/pkgs/ui/toast/src/useDragGesture.ts`
    - Resistive pull with sqrt curve (Sheet pattern)
    - Direction lock on first movement
    - Velocity-based dismiss
 
-4. `/code/kitchen-sink/tests/ToastMultiple.test.tsx`
+4. `/apps/kitchen-sink/tests/ToastMultiple.test.tsx`
    - Loading toast test fix (text selector vs data-type)
 
-5. `/code/kitchen-sink/tests/ToastHover.test.tsx` - NEW
+5. `/apps/kitchen-sink/tests/ToastHover.test.tsx` - NEW
    - Hover expand tests
    - Flicker prevention tests
    - Timer pause tests
 
-6. `/code/kitchen-sink/tests/ToastVisual.test.tsx` - NEW
+6. `/apps/kitchen-sink/tests/ToastVisual.test.tsx` - NEW
    - Visual verification tests
    - Swipe tests
 
-7. `/code/kitchen-sink/tests/ToastInterrupt.test.tsx` - NEW
+7. `/apps/kitchen-sink/tests/ToastInterrupt.test.tsx` - NEW
    - Interrupt behavior tests
    - Drag gesture tests
    - Velocity dismiss tests

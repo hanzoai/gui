@@ -31,9 +31,9 @@ It assumes your package.json looks something like this:
   "module": "dist/esm",
   "type": "module",
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean"
   },
   "exports": {
     "./package.json": "./package.json",
@@ -67,10 +67,10 @@ It assumes your package.json looks something like this:
 
 ### Use
 
-- `gui-build` - builds `src` folder to `dist` and `types` folders
+- `hanzogui-build` - builds `src` folder to `dist` and `types` folders
   - normal builds clear `dist` and `types` first, so stale transformed files don't hang around
   - intermediary `.js` files are removed after `.mjs` / `.cjs` postprocessing, so published output stays lean
-  - `gui build .` second argument sets baseUrl to tsc
+  - `hanzogui build .` second argument sets baseUrl to tsc
   - `--bundle-modules` - inline node_modules
   - `--declaration-root` - sets tsc flag `--declarationDir ./`
   - `--ignore-base-url` - if not set, tsc is passed `--baseUrl .`
@@ -78,7 +78,7 @@ It assumes your package.json looks something like this:
   - `--skip-native` - don't output native files
   - `--skip-sourcemaps` - don't output js or declaration sourcemaps
   - `--swap-exports` - swaps `exports.types` from `./src/*.ts` to `./types/*.d.ts` for publishing. if a command is given after `--`, runs it then swaps back. exit code is preserved.
-    - `gui-build --swap-exports` - build and swap, stays swapped (for manual publish)
-    - `gui-build --swap-exports -- npm publish` - build, swap, publish, swap back
-- `gui-build --watch` - watches for changes and does the above
-- `gui-build clean` - cleans dist, types, node_modules folders
+    - `hanzogui-build --swap-exports` - build and swap, stays swapped (for manual publish)
+    - `hanzogui-build --swap-exports -- npm publish` - build, swap, publish, swap back
+- `hanzogui-build --watch` - watches for changes and does the above
+- `hanzogui-build clean` - cleans dist, types, node_modules folders

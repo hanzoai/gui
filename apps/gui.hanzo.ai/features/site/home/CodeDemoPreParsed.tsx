@@ -1,9 +1,10 @@
 import { ScrollView } from 'react-native'
-import type { YStackProps } from 'hanzogui'
-import { YStack } from 'hanzogui'
+import type { YStackProps } from '@hanzo/gui'
+import { YStack } from '@hanzo/gui'
 
 import { Code } from '~/components/Code'
 import { Pre } from '~/components/Pre'
+import { renderSafeHtml } from '~/features/security/renderSafeHtml'
 
 export function CodeDemoPreParsed({
   source,
@@ -41,7 +42,7 @@ export function CodeDemoPreParsed({
           showsVerticalScrollIndicator={false}
         >
           <Pre>
-            <Code dangerouslySetInnerHTML={{ __html: source }} />
+            <Code>{renderSafeHtml(source)}</Code>
           </Pre>
         </ScrollView>
       </ScrollView>

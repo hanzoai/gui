@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Button, ScrollView, SizableText, XStack, YStack } from 'hanzogui'
+import { Button, ScrollView, SizableText, XStack, YStack } from '@hanzo/gui'
 import type { Slot } from './client'
 import { dateFromKey, formatDayLong, formatSlotTime } from './time'
 

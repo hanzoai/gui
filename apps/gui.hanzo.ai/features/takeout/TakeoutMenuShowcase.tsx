@@ -38,7 +38,7 @@ import {
   View,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { Card3D } from '../../components/Card3D'
 import { SubTitle } from '../../components/SubTitle'
@@ -116,7 +116,7 @@ function ProfileCard() {
         <Card3D.Item translateZ={25}>
           <YStack width={90} self="stretch" overflow="hidden" m="$2" rounded="$3">
             <Image
-              src="https://gui.hanzo.ai/recipes/images/wheel-list/wl_6.png"
+              src="https://hanzogui.dev/bento/images/wheel-list/wl_6.png"
               alt="Employee portrait"
               width="100%"
               height="100%"
@@ -201,7 +201,7 @@ function ProductCard() {
       borderColor="$color6"
     >
       <Image
-        src="https://gui.hanzo.ai/recipes/images/wheel-list/wl_2.png"
+        src="https://hanzogui.dev/bento/images/wheel-list/wl_2.png"
         alt="AI Character"
         width="100%"
         height="100%"
@@ -226,7 +226,7 @@ function ProductCard() {
             <Paragraph fontWeight="700" color="$white">
               0.42 ETH
             </Paragraph>
-            <Paragraph size="$2" color="$orange10" fontWeight="600">
+            <Paragraph size="$2" color="$yellow10" fontWeight="600">
               RARE
             </Paragraph>
           </XStack>
@@ -595,10 +595,10 @@ function SliderComponent() {
 
 const chipData = [
   { label: 'React', color: 'blue', Icon: Code },
-  { label: 'Native', color: 'purple', Icon: Smartphone },
+  { label: 'Native', color: 'gray', Icon: Smartphone },
   { label: 'Web', color: 'green', Icon: Globe },
-  { label: 'Fast', color: 'orange', Icon: Zap },
-  { label: 'Styled', color: 'pink', Icon: Palette },
+  { label: 'Fast', color: 'yellow', Icon: Zap },
+  { label: 'Styled', color: 'red', Icon: Palette },
   { label: 'SSR', color: 'red', Icon: Cpu },
 ] as const
 

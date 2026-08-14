@@ -1,11 +1,7 @@
+import type { StripeError } from '@stripe/stripe-js'
 import { X } from '@hanzogui/lucide-icons-2'
-
-// Was `import type { StripeError } from '@stripe/stripe-js'` — local alias
-// keeps the component compiling while the processor-agnostic commerce error
-// shape stabilises.
-type StripeError = { message?: string; code?: string }
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import type { TabsProps } from 'hanzogui'
+import type { TabsProps } from '@hanzo/gui'
 import {
   Button,
   Dialog,
@@ -23,10 +19,11 @@ import {
   Unspaced,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 import { useUser } from '~/features/user/useUser'
 import { useParityDiscount } from '~/hooks/useParityDiscount'
 import { ProductName } from '~/shared/types/subscription'
+import { navigateToInternalPath } from '~/features/security/navigation'
 import { Link } from '../../../components/Link'
 import { sendEvent } from '../../analytics/sendEvent'
 import { PromoCards } from '../header/PromoCards'
@@ -78,7 +75,7 @@ export function PurchaseModalContents() {
       userData?.subscriptions?.some((sub) =>
         sub.subscription_items?.some(
           (item) =>
-            (item.price?.product?.name === ProductName.GuiRecipes ||
+            (item.price?.product?.name === ProductName.GuiBento ||
               item.price?.product?.name === ProductName.GuiTakeoutStack) &&
             sub.ended_at &&
             new Date(sub.ended_at) < new Date()
@@ -125,7 +122,7 @@ export function PurchaseModalContents() {
     sendEvent('Pro: Payment Success')
     // Allow analytics beacon time to flush before navigation.
     await new Promise((resolve) => setTimeout(resolve, 1000))
-    window.location.href = '/payment-finished'
+    navigateToInternalPath('/payment-finished')
   }
 
   const handleCheckout = () => {
@@ -274,8 +271,8 @@ export function PurchaseModalContents() {
               >
                 <Paragraph size="$3" color="$color11">
                   For companies with over $1M in annual revenue,{' '}
-                  <Link href="mailto:support@hanzo.ai">contact us</Link> for enterprise
-                  pricing.
+                  <Link href="mailto:support@hanzogui.dev">contact us</Link> for
+                  enterprise pricing.
                 </Paragraph>
               </XStack>
             </Theme>
@@ -301,7 +298,7 @@ export function PurchaseModalContents() {
         }}
       >
         <Dialog.Adapt when="maxMd">
-          <Sheet modal transition="quick">
+          <Sheet modal dismissOnSnapToBottom transition="medium">
             <Sheet.Frame bg="$color1" p={0} flex={1}>
               <Sheet.ScrollView flex={1}>
                 <Dialog.Adapt.Contents />
@@ -525,14 +522,14 @@ export function PurchaseModalContents() {
                             color="$color11"
                             style={{ textWrap: 'balance' }}
                           >
-                            You have subscribed before so you are eligible for a 25%
+                            You have subscribed before so you are eligible for a 30%
                             discount.
                             <br />
                             Use code{' '}
                             <Text fontWeight="bold" fontFamily="$mono" color="$color12">
                               {subscriptionStatus.couponCodes.previouslySubscribed}
                             </Text>{' '}
-                            at checkout for 25% off
+                            at checkout for 30% off
                           </Paragraph>
                         </XStack>
                       </Theme>

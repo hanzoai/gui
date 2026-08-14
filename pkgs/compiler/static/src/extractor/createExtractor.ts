@@ -30,6 +30,7 @@ import type {
 } from '../types'
 import type { LoadedComponents, GuiProjectInfo } from './bundleConfig'
 import { createEvaluator, createSafeEvaluator } from './createEvaluator'
+import { installedPackageOf } from './extractablePath'
 import { evaluateAstNode } from './evaluateAstNode'
 import {
   attrStr,
@@ -74,6 +75,43 @@ let hasLoggedBaseInfo = false
 
 function isFullyDisabled(props: GuiOptions) {
   return props.disableExtraction && props.disableDebugAttr
+}
+
+// Walk up JSX ancestors looking for one that declares `group="<groupName>"` together
+// with the `untilMeasured` prop. Used to deopt children whose styles depend on a
+// parent that the runtime measures before emitting child styles (can't be modeled
+// in static CSS).
+function hasUntilMeasuredAncestor(path: NodePath<any>, groupName: string): boolean {
+  let current: NodePath<any> | null = path.parentPath
+  while (current) {
+    if (current.isJSXElement()) {
+      const opening = current.node.openingElement
+      let foundGroup = false
+      let foundUntilMeasured = false
+      for (const attr of opening.attributes) {
+        if (!t.isJSXAttribute(attr)) continue
+        if (!t.isJSXIdentifier(attr.name)) continue
+        const aName = attr.name.name
+        if (aName === 'group') {
+          // only literal string equality counts — dynamic group= is left to runtime
+          if (t.isStringLiteral(attr.value) && attr.value.value === groupName) {
+            foundGroup = true
+          } else if (
+            t.isJSXExpressionContainer(attr.value) &&
+            t.isStringLiteral(attr.value.expression) &&
+            attr.value.expression.value === groupName
+          ) {
+            foundGroup = true
+          }
+        } else if (aName === 'untilMeasured') {
+          foundUntilMeasured = true
+        }
+      }
+      if (foundGroup && foundUntilMeasured) return true
+    }
+    current = current.parentPath
+  }
+  return false
 }
 
 export function createExtractor(
@@ -217,7 +255,7 @@ export function createExtractor(
     }
   }
 
-  // we load gui delayed because we need to set some global/env stuff before importing
+  // we load hanzogui delayed because we need to set some global/env stuff before importing
   // otherwise we'd import `rnw` and cause it to evaluate react-native-web which causes errors
 
   function loadSync(props: GuiOptions) {
@@ -242,7 +280,7 @@ export function createExtractor(
     loadGui: load,
     loadGuiSync: loadSync,
     getGui() {
-      return projectInfo?.guiConfig
+      return projectInfo?.hanzoguiConfig
     },
     parseSync: (f: FileOrPath, props: ExtractorParseProps) => {
       globalThis.expo ||= {} // expo-modules-core checks this and avoids loading "native" modules if exists
@@ -257,12 +295,12 @@ export function createExtractor(
   }
 
   function parseWithConfig(
-    { components, guiConfig }: GuiProjectInfo,
+    { components, hanzoguiConfig }: GuiProjectInfo,
     fileOrPath: FileOrPath,
     options: ExtractorParseProps
   ) {
     const {
-      config = 'gui.config.ts',
+      config = 'hanzogui.config.ts',
       importsWhitelist = ['constants.js'],
       evaluateVars = true,
       sourcePath = '',
@@ -288,7 +326,7 @@ export function createExtractor(
       styledCheckCache.delete(sourcePath)
     }
 
-    if (sourcePath.includes('.gui-dynamic-eval')) {
+    if (sourcePath.includes('.hanzogui-dynamic-eval')) {
       return null
     }
 
@@ -314,9 +352,15 @@ export function createExtractor(
       }
     }
 
+    // includeExtensions describes the app's OWN source, where the author picks
+    // the extension. An installed package ships whatever its build emits —
+    // .mjs, .js — and it already passed the package allowlist to get here, so
+    // holding it to ['.ts', '.tsx', '.jsx'] rejected every design-system file
+    // the allowlist had just admitted.
     if (
       sourcePath &&
       includeExtensions &&
+      !installedPackageOf(sourcePath) &&
       !includeExtensions.some((ext) => sourcePath.endsWith(ext))
     ) {
       if (shouldPrintDebug) {
@@ -355,8 +399,24 @@ export function createExtractor(
         pseudoDescriptors[name] ||
         // don't disable variants or else you lose many things flattening
         staticConfig.variants?.[name] ||
-        projectInfo?.guiConfig?.shorthands[name]
+        projectInfo?.hanzoguiConfig?.shorthands[name]
       )
+    }
+
+    function getGroupPseudo(name: string) {
+      const [_, groupName, a, b, c] = name.split('-')
+      if (!groupName) return
+      const m2 = a && b ? `${a}-${b}` : ''
+      const media = (m2 && mediaQueryConfig[m2] && m2) || (a && mediaQueryConfig[a] && a)
+      return media
+        ? media === m2
+          ? c
+          : b
+            ? `${b}${c ? `-${c}` : ''}`
+            : undefined
+        : a
+          ? `${a}${b ? `-${b}` : ''}${c ? `-${c}` : ''}`
+          : undefined
     }
 
     /**
@@ -384,7 +444,7 @@ export function createExtractor(
           ].join(' ')
         )
       }
-      if (process.env.DEBUG?.startsWith('gui')) {
+      if (process.env.DEBUG?.startsWith('hanzogui')) {
         logger.info(
           [
             'loaded:',
@@ -394,12 +454,12 @@ export function createExtractor(
       }
     }
 
-    tm.mark('load-gui', !!shouldPrintDebug)
+    tm.mark('load-hanzogui', !!shouldPrintDebug)
 
     if (!isFullyDisabled(options)) {
-      if (!guiConfig?.themes) {
+      if (!hanzoguiConfig?.themes) {
         console.error(
-          `⛔️ Error: Missing "themes" in your gui.config file:
+          `⛔️ Error: Missing "themes" in your hanzogui.config file:
 
             You may not need the compiler! Remember you can run Gui with no configuration at all.
 
@@ -410,17 +470,17 @@ export function createExtractor(
               - or search your lockfile for mis-matches.
           `
         )
-        console.info(`  Got config:`, guiConfig)
+        console.info(`  Got config:`, hanzoguiConfig)
         process.exit(0)
       }
     }
 
-    const firstThemeName = Object.keys(guiConfig?.themes || {})[0]
-    const firstTheme = guiConfig?.themes[firstThemeName] || {}
+    const firstThemeName = Object.keys(hanzoguiConfig?.themes || {})[0]
+    const firstTheme = hanzoguiConfig?.themes[firstThemeName] || {}
 
     if (!firstTheme || typeof firstTheme !== 'object') {
       const err = `Missing theme ${firstThemeName}, an error occurred when importing your config`
-      console.info(err, `Got config:`, guiConfig)
+      console.info(err, `Got config:`, hanzoguiConfig)
       console.info(`Looking for theme:`, firstThemeName)
       throw new Error(err)
     }
@@ -443,9 +503,9 @@ export function createExtractor(
     if (!isFullyDisabled(options)) {
       if (Object.keys(components || []).length === 0) {
         console.warn(
-          `Warning: Gui didn't find any valid components (DEBUG=gui for more)`
+          `Warning: Gui didn't find any valid components (DEBUG=hanzogui for more)`
         )
-        if (process.env.DEBUG === 'gui') {
+        if (process.env.DEBUG === 'hanzogui') {
           console.info(`components`, Object.keys(components || []), components)
         }
       }
@@ -487,7 +547,7 @@ export function createExtractor(
 
       if (extractStyledDefinitions && enableDynamicEvaluation) {
         // check all imports for `styled`, not just valid packages
-        // styled( is basically guaranteed to be gui regardless of source
+        // styled( is basically guaranteed to be hanzogui regardless of source
         if (node.specifiers.some((specifier) => specifier.local.name === 'styled')) {
           doesUseValidImport = true
           // don't break - need to collect all import declarations for the styled() handler
@@ -691,7 +751,7 @@ export function createExtractor(
           } catch (err: any) {
             if (shouldPrintDebug) {
               logger.info(
-                `skip optimize styled(${variableName}), unable to pre-process (DEBUG=gui for more)`
+                `skip optimize styled(${variableName}), unable to pre-process (DEBUG=hanzogui for more)`
               )
             }
           }
@@ -895,7 +955,7 @@ export function createExtractor(
           return
         }
 
-        // validate its a proper import from gui (or internally inside gui)
+        // validate its a proper import from hanzogui (or internally inside hanzogui)
         const binding = traversePath.scope.getBinding(node.name.name)
         let moduleName = ''
         let dynamicComponent: { staticConfig: any } | null = null
@@ -1086,15 +1146,28 @@ export function createExtractor(
             ...(staticConfig.inlineProps || []),
           ])
 
+          const canFlattenTransition =
+            isTargetingHTML &&
+            hanzoguiConfig?.animations.outputStyle === 'css' &&
+            !hanzoguiConfig.animationDrivers
+
           const deoptProps = new Set([
-            // always de-opt animation these
+            // css-only transitions lower to ordinary css; every runtime driver
+            // needs the component preserved so it can respond to prop changes.
             'animation',
+            ...(canFlattenTransition ? [] : ['transition']),
             'animateOnly',
             'animatePresence',
             'disableOptimization',
 
             ...(!isTargetingHTML
               ? [
+                  // native has no css pseudo selectors; these are runtime-only on
+                  // rn (event listeners + style merge in createComponent), and if
+                  // we let them flatten into the stylesheet they get written
+                  // under a literal key that rn treats as an unknown style prop.
+                  // hover is intentionally excluded: it is no-op on native and
+                  // should be dropped rather than preserved as runtime work.
                   'pressStyle',
                   'focusStyle',
                   'focusVisibleStyle',
@@ -1104,7 +1177,7 @@ export function createExtractor(
               : []),
 
             // when using a non-CSS driver, de-opt on enterStyle/exitStyle
-            ...(guiConfig?.animations.isReactNative
+            ...(hanzoguiConfig?.animations.isReactNative
               ? ['enterStyle', 'exitStyle']
               : []),
           ])
@@ -1176,7 +1249,7 @@ export function createExtractor(
             style: {},
             theme: defaultTheme,
             viewProps: defaultProps,
-            conf: guiConfig!,
+            conf: hanzoguiConfig!,
             props: defaultProps,
             componentState,
             styleProps: {
@@ -1288,9 +1361,9 @@ export function createExtractor(
 
             const name = attribute.name.name
 
-            // in gui style is handled at the end of the style loop so its not as simple as just
+            // in hanzogui style is handled at the end of the style loop so its not as simple as just
             // adding this as a "style" property
-            // its not used often when using gui so not optimizing it for now
+            // its not used often when using hanzogui so not optimizing it for now
             if (name === 'style') {
               shouldDeopt = true
               return null
@@ -1368,6 +1441,20 @@ export function createExtractor(
               return [attribute.value!, path.get('value')!] as const
             })()
 
+            // these props have runtime-only meaning on native. decide from the
+            // original jsx attr, before getSplitStyles has a chance to drop
+            // native-dead work like hoverStyle from its static output.
+            if (
+              deoptProps.has(name) ||
+              (platform === 'native' &&
+                name[0] === '$' &&
+                (name.startsWith('$theme-') ||
+                  (name.startsWith('$group-') && getGroupPseudo(name) !== 'hover')))
+            ) {
+              inlined.set(name, true)
+              return attr
+            }
+
             const remove = () => {
               Array.isArray(valuePath)
                 ? valuePath.map((p) => p.remove())
@@ -1420,8 +1507,32 @@ export function createExtractor(
               return attr
             }
 
+            // static `group="<literal>"` is handled at compile-time in
+            // extractToClassNames (emits container CSS + adds `t_group_<name>`
+            // className), so we drop the JSX attribute here without bailing
+            // flattening. dynamic `group={expr}` falls through to runtime.
+            if (isTargetingHTML && name === 'group' && t.isStringLiteral(value)) {
+              return []
+            }
+
             // if value can be evaluated, extract it and filter it out
             const styleValue = attemptEvalSafe(value)
+
+            // media-like blocks with nested $-keys (eg $theme-dark={{ $sm: {…} }})
+            // can't resolve to static CSS in one pass — keep them on the runtime path
+            if (
+              name[0] === '$' &&
+              (name.startsWith('$theme-') || name.startsWith('$group-')) &&
+              styleValue &&
+              typeof styleValue === 'object' &&
+              Object.keys(styleValue).some((k) => k[0] === '$')
+            ) {
+              if (shouldPrintDebug) {
+                logger.info(`  ! nested media-like key inside ${name}, deopt to runtime`)
+              }
+              inlined.set(name, true)
+              return attr
+            }
 
             // never flatten if a prop isn't a valid static attribute
             // only post prop-mapping
@@ -1444,6 +1555,12 @@ export function createExtractor(
                   )
                   // remove className - we dont use rnw styling
                   delete out.className
+                  // remove style - rnw createDOMProps unconditionally emits a
+                  // (possibly empty) style key, but we passed it a single
+                  // non-style prop. Leaving it in causes Object.keys(out) to
+                  // iterate twice and emit the original JSXAttribute twice
+                  // (e.g. duplicate testID), breaking the DOM output.
+                  delete out.style
                 }
               }
 
@@ -1467,6 +1584,23 @@ export function createExtractor(
                   key === '__source' ||
                   key === '__self'
                 ) {
+                  if (
+                    styleValue === FAILED_EVAL &&
+                    key !== name &&
+                    t.isJSXAttribute(attr.value)
+                  ) {
+                    // createDOMProps renamed the prop (e.g. testID -> data-testid).
+                    // preserve the original expression value but use the new
+                    // attribute name. restricted to FAILED_EVAL because the
+                    // later `case 'attr'` rename pass only runs on
+                    // statically-evaluable values; for static values that pass
+                    // intentionally preserves some prop names (e.g. focusable
+                    // in v2) instead of doing the createDOMProps rename.
+                    return {
+                      type: 'attr',
+                      value: t.jsxAttribute(t.jsxIdentifier(key), attr.value.value),
+                    } as const
+                  }
                   return attr
                 }
                 if (shouldPrintDebug) {
@@ -1502,15 +1636,25 @@ export function createExtractor(
               }
 
               if (isValidStyleKey(name, staticConfig)) {
-                // $theme-, $group- styles should not be flattened (needs runtime handling)
-                // $platform- can be flattened if the platform matches
+                // $theme- / $group- styles extract through the atomic-CSS pipeline
+                // (extractToClassNames → createMediaStyle), so they fall through to
+                // the normal style return below. The one case we still bail is
+                // $group-<name>-* when an ancestor element declares `group="<name>"`
+                // together with `untilMeasured` — the runtime measures the parent
+                // and only then emits child styles, which can't be modeled in CSS.
+                // $platform- can be flattened if the platform matches.
                 if (name[0] === '$') {
-                  if (name.startsWith('$theme-') || name.startsWith('$group-')) {
-                    if (shouldPrintDebug) {
-                      logger.info(`  ! not flattening media-like style: ${name}`)
+                  if (name.startsWith('$group-')) {
+                    const groupName = name.slice('$group-'.length).split('-')[0]
+                    if (groupName && hasUntilMeasuredAncestor(path, groupName)) {
+                      if (shouldPrintDebug) {
+                        logger.info(
+                          `  ! group="${groupName}" ancestor has untilMeasured, not flattening: ${name}`
+                        )
+                      }
+                      inlined.set(name, true)
+                      return attr
                     }
-                    inlined.set(name, true)
-                    return attr
                   }
 
                   // $platform-web, $platform-native, $platform-ios, $platform-android, $platform-tv, $platform-androidtv, $platform-tvos
@@ -1878,7 +2022,6 @@ export function createExtractor(
           })
 
           if (!shouldFlatten) {
-            // were no longer partially optimizing, it adds a lot of complexity for dubious performance
             if (shouldPrintDebug) {
               logger.info(
                 `Deopting ${JSON.stringify({
@@ -1911,7 +2054,7 @@ export function createExtractor(
             if (!isValidStyleKey(key, staticConfig)) {
               return []
             }
-            const name = guiConfig?.shorthands[key] || key
+            const name = hanzoguiConfig?.shorthands[key] || key
             if (value === undefined) {
               logger.warn(
                 `⚠️ Error evaluating default style for component, prop ${key} ${value}`
@@ -2020,12 +2163,7 @@ export function createExtractor(
                 hasImportedTheme = true
                 programPath.node.body.push(
                   t.importDeclaration(
-                    [
-                      t.importSpecifier(
-                        t.identifier('_GuiTheme'),
-                        t.identifier('Theme')
-                      ),
-                    ],
+                    [t.importSpecifier(t.identifier('_GuiTheme'), t.identifier('Theme'))],
                     t.stringLiteral('@hanzogui/web')
                   )
                 )
@@ -2155,6 +2293,10 @@ export function createExtractor(
                       )
                       // remove rnw className use ours
                       out.className = cn
+                      // see note in single-prop branch above; createDOMProps
+                      // also emits a stray style key here that would duplicate
+                      // emitted JSXAttributes downstream.
+                      delete out.style
                     }
                     if (shouldPrintDebug) {
                       logger.info([' - expanded variant', name, out].join(' '))
@@ -2194,7 +2336,7 @@ export function createExtractor(
 
             let key = Object.keys(cur.value)[0]
             const value = cur.value[key]
-            const fullKey = guiConfig?.shorthands[key]
+            const fullKey = hanzoguiConfig?.shorthands[key]
             // expand shorthands
             if (fullKey) {
               cur.value = { [fullKey]: value }
@@ -2275,8 +2417,37 @@ export function createExtractor(
             const before = process.env.IS_STATIC
             process.env.IS_STATIC = 'is_static'
             try {
+              // $group-* / $theme-* keys carry block-form style objects that
+              // getSplitStyles drops in static mode (no parent group context,
+              // no theme value to read). Pluck them out so the atomic-CSS
+              // pipeline in extractToClassNames can emit @container / theme
+              // rules for them directly.
+              let extractedMediaLikeProps: Record<string, any> | null = null
+              let propsForSplit: any = props
+              for (const k in props) {
+                if (
+                  k[0] === '$' &&
+                  (k.startsWith('$group-') || k.startsWith('$theme-'))
+                ) {
+                  if (propsForSplit === props) {
+                    propsForSplit = { ...props }
+                  }
+                  if (
+                    platform === 'native' &&
+                    k.startsWith('$group-') &&
+                    getGroupPseudo(k) === 'hover'
+                  ) {
+                    delete propsForSplit[k]
+                    continue
+                  }
+                  extractedMediaLikeProps ||= {}
+                  extractedMediaLikeProps[k] = propsForSplit[k]
+                  delete propsForSplit[k]
+                }
+              }
+
               const out = getSplitStyles(
-                props,
+                propsForSplit,
                 staticConfig,
                 defaultTheme,
                 '',
@@ -2297,15 +2468,66 @@ export function createExtractor(
                 debugPropValue || shouldPrintDebug
               )!
 
+              // resolve tokens inside the plucked blocks: they skipped the main
+              // split, so values like "$color5" would flow raw into the emitted
+              // CSS where browsers reject the declaration. run each block through
+              // its own static split so tokens become var(--x) references.
+              // (native never extracts these — it deopts below — so web only.)
+              if (extractedMediaLikeProps && platform !== 'native') {
+                for (const k in extractedMediaLikeProps) {
+                  const block = extractedMediaLikeProps[k]
+                  if (!block || typeof block !== 'object') continue
+                  const blockOut = getSplitStyles(
+                    block,
+                    staticConfig,
+                    defaultTheme,
+                    '',
+                    componentState,
+                    {
+                      ...styleProps,
+                      noClass: true,
+                      fallbackProps: completeProps,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    false,
+                    debugPropValue || shouldPrintDebug
+                  )
+                  if (blockOut) {
+                    extractedMediaLikeProps[k] = {
+                      ...blockOut.style,
+                      ...blockOut.pseudos,
+                    }
+                  }
+                }
+              }
+
               let outProps = {
                 ...(includeProps ? out.viewProps : {}),
                 ...out.style,
                 ...out.pseudos,
+                ...extractedMediaLikeProps,
               }
 
               // check de-opt props again
               for (const key in outProps) {
                 if (deoptProps.has(key)) {
+                  shouldFlatten = false
+                }
+                // native has no atomic-CSS sink for theme- / group- pseudo
+                // blocks; if they flatten they get serialized under the literal
+                // `$theme-…` / `$group-…` key into the RN StyleSheet, where the
+                // runtime's @container / theme-name matching never runs. de-opt
+                // → preserve as inline prop so getSplitStyles handles them at
+                // render time.
+                if (
+                  platform === 'native' &&
+                  key[0] === '$' &&
+                  (key.startsWith('$theme-') ||
+                    (key.startsWith('$group-') && getGroupPseudo(key) !== 'hover'))
+                ) {
                   shouldFlatten = false
                 }
               }
@@ -2622,7 +2844,7 @@ export function createExtractor(
             node,
             lineNumbers,
             filePath,
-            config: guiConfig!,
+            config: hanzoguiConfig!,
             flatNodeName,
             attemptEval,
             jsxPath: traversePath,

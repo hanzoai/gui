@@ -11,7 +11,7 @@ import {
   XStack,
   YStack,
   styled,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { ErrorBoundary } from '~/components/ErrorBoundary'
 import { ButtonLink, Link } from '~/components/Link'
@@ -132,7 +132,7 @@ export function TakeoutHeroNew({
       {onBuyPress && (
         <XStack gap="$3" position="absolute" items="center" t={30} r="2%" z={10}>
           {/* <ButtonLink
-            href="https://github.com/hanzoai/takeout-free"
+            href="https://github.com/hanzogui/takeout-free"
             target="_blank"
             size="$2"
           >
@@ -182,7 +182,7 @@ export function TakeoutHeroNew({
 
         {/* CTA buttons */}
         <XStack gap="$3" flexWrap="wrap" items="center" justify="center">
-          <Link href="https://takeout.gui.hanzo.ai/docs/introduction" target="_blank">
+          <Link href="https://takeout.hanzogui.dev/docs/introduction" target="_blank">
             <ThemeTintAlt>
               <Button
                 size="$4"
@@ -200,7 +200,7 @@ export function TakeoutHeroNew({
             </ThemeTintAlt>
           </Link>
 
-          <Link href="https://takeout.gui.hanzo.ai" target="_blank">
+          <Link href="https://takeout.hanzogui.dev" target="_blank">
             <Button size="$4" theme="accent">
               <Button.Text fontFamily="$mono">Demo (web)</Button.Text>
             </Button>

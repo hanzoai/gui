@@ -14,7 +14,7 @@ import { getStyles } from './utils'
  * evaluates the config selection at bundle time (when window.location is undefined),
  * not at runtime. The v5config query param doesn't work for dynamic config switching.
  *
- * The v5 media config itself is correct - see code/core/config/src/v5-media.ts
+ * The v5 media config itself is correct - see pkgs/core/config/src/v5-media.ts
  * To properly test, the kitchen-sink would need to be built with v5 config as default,
  * or use a different mechanism for config switching.
  */

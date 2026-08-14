@@ -1,4 +1,4 @@
-import { Button, H5, Theme, XStack, YStack } from 'hanzogui'
+import { Button, H5, Theme, XStack, YStack } from '@hanzo/gui'
 
 export function ThemeInverseDemo() {
   return (

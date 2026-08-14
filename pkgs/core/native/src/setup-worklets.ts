@@ -22,10 +22,10 @@ import { getWorklets } from './workletsState'
 
 function setup() {
   const g = globalThis as any
-  if (g.__gui_native_worklets_setup_complete) {
+  if (g.__hanzogui_native_worklets_setup_complete) {
     return
   }
-  g.__gui_native_worklets_setup_complete = true
+  g.__hanzogui_native_worklets_setup_complete = true
 
   try {
     // dynamically require worklets-core

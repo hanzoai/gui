@@ -2,10 +2,10 @@ import chalk from 'chalk'
 
 import { rainbowColors } from './rainbowChalk'
 
-export const guiAsciiArt = `▀█▀ ▄▀█ █▀▄▀█ ▄▀█ █▀▀ █ █ █
+export const hanzoguiAsciiArt = `▀█▀ ▄▀█ █▀▄▀█ ▄▀█ █▀▀ █ █ █
  █  █▀█ █ ▀ █ █▀█ █▄█ █▄█ █`
 
-export const guiRainbowAsciiArt = (function () {
+export const hanzoguiRainbowAsciiArt = (function () {
   const char0_1 = chalk.hex(rainbowColors[0])('▀█▀')
   const char0_2 = chalk.hex(rainbowColors[0])(' █ ')
 
@@ -38,7 +38,7 @@ export const takeoutAsciiArt = `████████╗░█████╗
 ░░░██║░░░██║░░██║██║░╚██╗███████╗╚█████╔╝╚██████╔╝░░░██║░░░
 ░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝░╚════╝░░╚═════╝░░░░╚═╝░░░`
 
-export const guiDuckAsciiArt = `        ████████████          
+export const hanzoguiDuckAsciiArt = `        ████████████          
       ██            ██        
     ██            ██  ██████  
   ██        ██              ██

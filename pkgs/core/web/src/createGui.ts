@@ -56,7 +56,7 @@ function initializeGuiConfig(config: GuiInternalConfig) {
 export function createGui<Conf extends CreateGuiProps>(
   configIn: Conf
 ): InferGuiConfig<Conf> {
-  // if config already exists (e.g., from another copy of gui in vite ssr), reuse it
+  // if config already exists (e.g., from another copy of hanzogui in vite ssr), reuse it
   const existingConfig = getConfigMaybe()
 
   if (existingConfig) {
@@ -257,7 +257,7 @@ export function createGui<Conf extends CreateGuiProps>(
     return config as any
   }
 
-  if (process.env.DEBUG?.startsWith('gui')) {
+  if (process.env.DEBUG?.startsWith('hanzogui')) {
     console.info('Gui config:', config)
   }
   if (!globalThis['Gui']) {

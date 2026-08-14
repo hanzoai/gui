@@ -1,6 +1,6 @@
 import path from 'node:path'
 
-// helper for webpack exclude specific to gui
+// helper for webpack exclude specific to hanzogui
 
 export const shouldExclude = (filePath: string, projectRoot?: string) => {
   if (

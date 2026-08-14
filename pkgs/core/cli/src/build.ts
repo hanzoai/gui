@@ -78,12 +78,12 @@ export const build = async (
     await mkdir(outputDir, { recursive: true })
   }
 
-  const loadedOptions = loadGuiBuildConfigSync(options.guiOptions)
+  const loadedOptions = loadGuiBuildConfigSync(options.hanzoguiOptions)
 
   // when running CLI build directly, ignore disable since user explicitly wants to build
   if (loadedOptions.disable) {
     console.warn(
-      `[gui] Note: "disable" option in gui.build.ts is being ignored for CLI build command`
+      `[hanzogui] Note: "disable" option in hanzogui.build.ts is being ignored for CLI build command`
     )
   }
   const buildOptions = {
@@ -97,7 +97,7 @@ export const build = async (
       ? (['web', 'native'] as const)
       : ([options.target] as const)
 
-  // Load gui for web first (needed for both targets)
+  // Load hanzogui for web first (needed for both targets)
   const webGuiOptions = {
     ...buildOptions,
     platform: 'web' as const,
@@ -197,7 +197,7 @@ export const build = async (
   // Track files for restoration (when using --run)
   const trackedFiles: TrackedFile[] = []
   const restoreDir = options.runCommand
-    ? join(tmpdir(), `gui-restore-${process.pid}`)
+    ? join(tmpdir(), `hanzogui-restore-${process.pid}`)
     : null
 
   if (restoreDir) {
@@ -331,11 +331,7 @@ export const build = async (
           } satisfies GuiOptions
 
           // Use the ORIGINAL source, not what was just written to disk
-          const nativeOut = extractToNative(
-            sourcePath,
-            originalSource,
-            nativeGuiOptions
-          )
+          const nativeOut = extractToNative(sourcePath, originalSource, nativeGuiOptions)
 
           if (isDryRun) {
             if (nativeOut.code) {

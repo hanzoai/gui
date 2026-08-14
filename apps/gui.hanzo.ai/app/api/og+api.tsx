@@ -54,7 +54,7 @@ const interBoldFontP = fetchAsset(
   new URL(`${getURL()}/fonts/otf/Inter-Black.otf`, import.meta.url)
 )
 
-const logo = fetchAsset(new URL(`${getURL()}/hanzo-gui-logo.png`, import.meta.url))
+const logo = fetchAsset(new URL(`${getURL()}/hanzogui-words-logo.png`, import.meta.url))
 
 const ComponentOg = ({
   searchParams,

@@ -16,8 +16,8 @@ import { getBurnt } from './burntState'
 
 function setup(): void {
   const g = globalThis as any
-  if (g.__gui_native_burnt_setup) return
-  g.__gui_native_burnt_setup = true
+  if (g.__hanzogui_native_burnt_setup) return
+  g.__hanzogui_native_burnt_setup = true
 
   try {
     const Burnt = require('burnt') as typeof import('burnt')

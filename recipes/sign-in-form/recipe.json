@@ -1,8 +1,0 @@
-{
-  "slug": "sign-in-form",
-  "name": "Sign-in form",
-  "description": "Email + password sign-in card with validation states.",
-  "category": "auth",
-  "npmDeps": ["@hanzo/gui"],
-  "recipeDeps": []
-}

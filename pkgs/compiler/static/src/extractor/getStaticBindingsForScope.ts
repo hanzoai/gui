@@ -137,9 +137,9 @@ export async function getStaticBindingsForScope(
       } catch (err: any) {
         if (shouldPrintDebug) {
           console.warn(
-            `    | Skipping partial evaluation of constant file: ${moduleName} (DEBUG=gui for more)`
+            `    | Skipping partial evaluation of constant file: ${moduleName} (DEBUG=hanzogui for more)`
           )
-        } else if (process.env.DEBUG?.startsWith('gui')) {
+        } else if (process.env.DEBUG?.startsWith('hanzogui')) {
           console.info(`Error in partial evaluation`, err.message, err.stack)
         }
       }

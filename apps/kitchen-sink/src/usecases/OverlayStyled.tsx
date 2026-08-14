@@ -1,5 +1,5 @@
-import { Button, XStack } from 'hanzogui'
-import { AlertDialog, styled } from 'hanzogui'
+import { Button, XStack } from '@hanzo/gui'
+import { AlertDialog, styled } from '@hanzo/gui'
 
 export const MyOverlay = styled(AlertDialog.Overlay, {
   transition: 'quick',

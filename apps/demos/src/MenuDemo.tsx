@@ -9,7 +9,7 @@ import {
 } from '@hanzogui/lucide-icons-2'
 import { Menu } from '@hanzogui/menu'
 import React from 'react'
-import { Button } from 'hanzogui'
+import { Button } from '@hanzo/gui'
 
 /**
  * Menu Demo using Gui Menu component.

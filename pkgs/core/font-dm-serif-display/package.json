@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/font-dm-serif-display",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "files": [
     "types",
     "dist",
@@ -25,10 +25,10 @@
     }
   },
   "scripts": {
-    "build": "gui-build",
-    "watch": "gui-build --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build",
+    "watch": "hanzogui-build --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/core": "workspace:*"
@@ -37,7 +37,5 @@
     "@hanzogui/build": "workspace:*",
     "subset-font": "^2.1.0"
   },
-  "skipPublishIfUnchanged": false,
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "skipPublishIfUnchanged": false
 }

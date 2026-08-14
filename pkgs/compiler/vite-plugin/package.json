@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/vite-plugin",
-  "version": "7.3.1",
-  "license": "BSD-3-Clause",
+  "version": "8.1.1",
+  "license": "MIT",
   "files": [
     "src",
     "types",
@@ -26,10 +26,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build --skip-native",
-    "watch": "gui-build --skip-native --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/fake-react-native": "workspace:*",
@@ -48,12 +48,11 @@
     "vite": "^8.0.3"
   },
   "peerDependencies": {
-    "vite": "^8"
+    "vite": "^8.0.3"
   },
   "hanzogui": {
     "build": {
       "skipEnvToMeta": true
     }
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

@@ -16,7 +16,7 @@ import {
   Theme,
   XStack,
   YStack,
-} from 'hanzogui'
+} from '@hanzo/gui'
 
 import { themeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { toastController } from '../../../ToastProvider'
@@ -108,13 +108,13 @@ export class StepExportStore {
           },
 
           {
-            name: 'Update your gui config',
+            name: 'Update your hanzogui config',
             steps: [
               {
                 type: 'files',
                 files: [
                   {
-                    filename: 'gui.config.ts',
+                    filename: 'hanzogui.config.ts',
                     content: `import { themes } from './themes'
 import { defaultConfig } from '@hanzogui/config/v5'
 
@@ -134,7 +134,7 @@ export const config = createGui({
             steps: [
               {
                 type: 'text',
-                content: `That's it! GUI used to require more configuration to optimize your themes in production, but we now automate that optimization for you.`,
+                content: `That's it! Gui used to require more configuration to optimize your themes in production, but we now automate that optimization for you.`,
               },
             ],
           },
@@ -275,13 +275,9 @@ const Code = ({ content, downloadable, maxHeight, filename }: FileType) => {
         px="$4"
         rounded="$4"
       >
-        <Text
-          fontFamily="$mono"
-          fontSize="$2"
-          dangerouslySetInnerHTML={{
-            __html: content,
-          }}
-        />
+        <Text fontFamily="$mono" fontSize="$2">
+          {content}
+        </Text>
       </ScrollView>
       {maxHeight && (
         <LinearGradient

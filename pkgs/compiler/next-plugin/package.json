@@ -1,8 +1,8 @@
 {
   "name": "@hanzogui/next-plugin",
-  "version": "7.3.1",
+  "version": "8.1.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "source": "src/index.ts",
   "files": [
     "src",
@@ -29,10 +29,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gui-build --skip-native",
-    "watch": "gui-build --skip-native --watch",
-    "clean": "gui-build clean",
-    "clean:build": "gui-build clean:build"
+    "build": "hanzogui-build --skip-native",
+    "watch": "hanzogui-build --skip-native --watch",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@babel/preset-react": "^7.24.7",
@@ -44,8 +44,8 @@
     "css-loader": "^6.7.4",
     "esbuild-loader": "^4.2.2",
     "file-loader": "^6.2.0",
-    "hanzogui-loader": "workspace:*",
     "html-webpack-plugin": "^5.5.0",
+    "@hanzogui/loader": "workspace:*",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
@@ -55,6 +55,5 @@
   },
   "peerDependencies": {
     "next": ">=13"
-  },
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

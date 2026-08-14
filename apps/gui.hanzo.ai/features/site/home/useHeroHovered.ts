@@ -1,6 +1,6 @@
 import { useTint } from '@hanzogui/logo'
 import { useCallback, useEffect } from 'react'
-import { useForceUpdate } from 'hanzogui'
+import { useForceUpdate } from '@hanzo/gui'
 
 const listeners = new Set<Function>()
 

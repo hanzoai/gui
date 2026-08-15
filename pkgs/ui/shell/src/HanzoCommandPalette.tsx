@@ -22,7 +22,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TRY_HANZO_GROUPS, U, type ProductCategory } from './hanzo-registry'
 import { search, type Match } from './search'
-import { CHROME, CTRL_H, FS, control, ghostHover } from './theme'
+import { CHROME, CTRL_H, FS, TAP_H, control, ghostHover } from './theme'
 import {
   KBD,
   PaletteBar,
@@ -381,7 +381,7 @@ function ModeTab({
 export function HanzoCommandTrigger({
   onOpen,
   compact,
-  height = CTRL_H,
+  height = compact ? TAP_H : CTRL_H,
 }: {
   onOpen: () => void
   /** Glyph only — the phone header has no room for the word, or a keyboard. */
@@ -390,11 +390,14 @@ export function HanzoCommandTrigger({
    * The control's whole size, and the only knob. Everything inside is stated
    * against it, so a host that wants a different register moves one number.
    *
-   * CTRL_H is the bar's register: search stands in a row of 34px nav pills next
-   * to a 34px CTA, and a control 10px taller than every neighbour reads as a
-   * widget dropped into the header rather than part of it. Touch loses nothing
-   * to that — shellStyles grows every shell control to TAP_H on a coarse
-   * pointer, so the thumb target is 44 wherever a thumb is pointing.
+   * Two registers, because the two headers are two rooms. In the bar it is
+   * CTRL_H: search stands in a row of 34px nav pills next to a 34px CTA, and a
+   * control 10px taller than every neighbour reads as a widget dropped into the
+   * header rather than part of it. On the phone it is TAP_H, square, which is
+   * what the menu button beside it already is — the two are the whole header
+   * there, and a 34px circle next to a 44px one is visibly the odd one. TAP_H
+   * is also the thumb, in both directions: the coarse-pointer rule in
+   * shellStyles can grow a control's HEIGHT and cannot touch its width.
    */
   height?: number
 }) {

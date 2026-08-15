@@ -275,21 +275,24 @@ export function PaletteField({
 }) {
   return (
     <label
+      // A BAND, not a box. The palette focuses this the moment it opens, so
+      // whatever edge the field carries is drawn every single time it is seen —
+      // and a box plus its focus ring is two concentric rounded rectangles with
+      // the search glyph stranded in the gutter between them. The field is
+      // therefore the full width of the panel, separated from the results by
+      // the one hairline, which is the same anatomy as the bar above it. The
+      // class is what opts it out of the ring in shellStyles: a ring that is
+      // never off says nothing, and the caret already says where the typing
+      // goes.
+      className="hanzo-field"
       style={{
         display: 'flex',
         alignItems: 'center',
         gap: 10,
         flex: '0 0 auto',
         height: TAP_H,
-        margin: 8,
-        padding: '0 12px',
-        borderRadius: R.row,
-        // A raised fill and NO border. The palette focuses this the moment it
-        // opens, so the focus ring is effectively always on it — and a ring
-        // 2px outside a border draws two concentric rounded rectangles with the
-        // search glyph stranded in the gutter between them. One edge at a time:
-        // the fill says "field", the ring says "live".
-        background: CHROME.raised,
+        padding: '0 14px',
+        borderBottom: `1px solid ${CHROME.border}`,
       }}
     >
       <svg

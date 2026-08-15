@@ -58,6 +58,18 @@ const CSS = [
   // a component that states its own `outline` inline, which specificity alone
   // would lose to.
   `[data-hanzo-shell] label :focus-visible{outline:none!important}`,
+  // …except the palette's own field, which is focused for the whole life of
+  // the panel. An indicator that is never off indicates nothing, and it costs a
+  // rounded box drawn around the one thing a reader is already looking at. The
+  // caret says where the typing goes. Specificity (0,3,1) beats the rule above
+  // it at (0,2,1), so this needs no `!important`.
+  `[data-hanzo-shell] label.hanzo-field:focus-within{outline:none}`,
+  // A host can draw focus as a SHADOW rather than an outline — @hanzo/design's
+  // base layer does, as `:where(input,textarea):focus-visible{box-shadow:…}` —
+  // so clearing the outline leaves a soft rectangle exactly where the hard one
+  // was. The shell states its own focus treatment and has to clear both, or the
+  // field wears whichever ring the page it landed on happens to believe in.
+  `[data-hanzo-shell] label.hanzo-field input{box-shadow:none;border-color:transparent}`,
   `[data-hanzo-shell] button{cursor:pointer}`,
   `[data-hanzo-shell] button:disabled{cursor:default}`,
   `@media (pointer:coarse){[data-hanzo-shell] a,[data-hanzo-shell] button{min-height:${TAP_H}px}}`,

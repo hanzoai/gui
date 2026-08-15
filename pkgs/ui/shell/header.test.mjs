@@ -170,6 +170,20 @@ test('one chat, two docks — the corner is a parameter, not a second UI', () =>
   assert.match(src, /const LAUNCHER = TAP_H/, 'the launcher is the thumb, no bigger')
   assert.match(src, /const EDGE = 16/, 'and it rides the page gutter')
   assert.match(src, /model = 'enso-free'/, 'the house FREE tier answers by default')
-  // The key is the surface's to resolve; shared chrome never carries one.
-  assert.doesNotMatch(src, /pk_[a-z0-9]/i, 'no publishable key in the package')
+})
+
+test('the chat carries no key, and refuses to pretend it can answer', () => {
+  // A `pk-` cannot do completions and an `sk-` is spendable, so shared chrome
+  // that ships to every page carries neither. Not a hardcoded one, not a
+  // default, not an example.
+  for (const [file, src] of sources) {
+    assert.doesNotMatch(stripped(src), /['"](pk|sk)-[A-Za-z0-9]{6,}/, `${file}: a key`)
+  }
+  const src = read('AskHanzo.tsx')
+  // With no way to answer a turn, the composer is not rendered at all — the
+  // visitor gets the one sign-in action instead of a box that would be refused.
+  assert.match(src, /const canChat = !!\(onSubmit \|\| authToken\)/, 'it knows')
+  assert.match(src, /\{canChat \? \(/, 'the composer is gated on it')
+  assert.match(src, /\{canChat \? null : \(/, 'and the invitation takes its place')
+  assert.match(src, /auth\?\.signInHref \?\? U\.id/, 'one provider, the same one')
 })

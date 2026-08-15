@@ -241,8 +241,11 @@ export function HanzoHeader({
     () =>
       // A nav entry that holds links contributes what it HOLDS: its own href is
       // one of them, so offering both would be one page under two names.
+      // The predicate is spelled out so the compiler knows what the filter
+      // proves: a surface may carry no primaryCTA, and `.filter(Boolean)` alone
+      // drops the value without narrowing the type.
       [...localNav.flatMap((l) => l.items ?? [l]), s.secondaryCTA, s.primaryCTA]
-        .filter(Boolean)
+        .filter((link): link is HanzoLink => Boolean(link))
         .map((link) => ({
           id: `nav/${link.id}`,
           title: link.label,
@@ -400,7 +403,8 @@ export function HanzoHeader({
             {/* ── ⌘K palette trigger + CTAs + identity + account ── */}
             {hasSearch ? <HanzoCommandTrigger onOpen={openSearch} /> : null}
             <CTA link={s.secondaryCTA} variant="ghost" />
-            {tryMenu ? (
+            {/* A surface with no primary action renders none. */}
+            {!s.primaryCTA ? null : tryMenu ? (
               <CTATrigger
                 link={s.primaryCTA}
                 open={menu.key === 'try'}
@@ -920,7 +924,9 @@ function MobileSheet({
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <CTA link={surface.secondaryCTA} variant="ghost" height={TAP_H} />
-          <CTA link={surface.primaryCTA} variant="filled" height={TAP_H} />
+          {surface.primaryCTA ? (
+            <CTA link={surface.primaryCTA} variant="filled" height={TAP_H} />
+          ) : null}
         </div>
 
         {/* Identity + account controls (Sign In / avatar) stay reachable on mobile. */}

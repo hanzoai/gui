@@ -107,8 +107,17 @@ export interface HanzoSurface {
   localNav: HanzoNav[]
   /** Secondary (ghost) header action. */
   secondaryCTA: HanzoLink
-  /** Primary (filled) header action. */
-  primaryCTA: HanzoLink
+  /**
+   * Primary (filled) header action, when the surface has one.
+   *
+   * Optional because a signed-in product often does not: its header carries an
+   * account menu and its create action lives in the page, so the only honest
+   * value is none. Requiring one made a surface pass a link it did not want and
+   * then hide the button in CSS, which reads as a styling choice rather than as
+   * "this surface has no primary action" — and a selector matching an href is a
+   * hide that breaks the day the href changes.
+   */
+  primaryCTA?: HanzoLink
   /** Pre-footer CTA band shown immediately above the shared footer. */
   preFooter: { heading: string; actions: HanzoLink[] }
 }

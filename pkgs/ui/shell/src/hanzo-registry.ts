@@ -27,6 +27,18 @@ export interface HanzoLink {
   external?: boolean
 }
 
+/**
+ * A local-nav entry: a link, or a link that HOLDS links.
+ *
+ * With `items` the label opens a card of them under itself; `href` stays the
+ * page it names, so the entry is a real link before hydration and without
+ * JavaScript. Without `items` it is exactly a `HanzoLink` and renders as one.
+ */
+export interface HanzoNav extends HanzoLink {
+  /** The links this entry opens. Omit for a plain link. */
+  items?: HanzoLink[]
+}
+
 /** A first-party Hanzo product. */
 export interface HanzoProduct extends HanzoLink {
   /** One-line tagline ("Ask anything", "Build and ship apps", …). */
@@ -82,8 +94,8 @@ export interface HanzoSurface {
   productId: string
   /** Brand label shown next to the mark ("Hanzo", "Hanzo Chat", …). */
   brandName: string
-  /** Local (in-product) marketing nav. */
-  localNav: HanzoLink[]
+  /** Local (in-product) marketing nav. An entry with `items` opens a menu. */
+  localNav: HanzoNav[]
   /** Secondary (ghost) header action. */
   secondaryCTA: HanzoLink
   /** Primary (filled) header action. */

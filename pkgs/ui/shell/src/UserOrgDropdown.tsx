@@ -7,20 +7,55 @@
  * Self-contained by design: inline styles + theme.ts tokens, React the only
  * runtime dependency, ZERO CSS-framework coupling.
  */
-import React, { useState, useRef, useEffect } from 'react'
-import type { HanzoUser, HanzoOrg } from './types'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
+import type { HanzoUser, HanzoOrg, OrgPage, OrgQuery } from './types'
 import { ORG_DOMAINS } from './types'
 import { UserAvatar } from './UserAvatar'
-import { CHROME, CTRL_H, FS, LABEL, PANEL, Z, control, ghostHover, row } from './theme'
+import {
+  CHROME,
+  CTRL_H,
+  FS,
+  LABEL,
+  PANEL,
+  R,
+  Z,
+  control,
+  ghostHover,
+  row,
+} from './theme'
 import { useShellStyles } from './shellStyles'
 import { useMediaQuery } from './useMediaQuery'
+import { Masquerade } from './Masquerade'
 
-interface UserOrgDropdownProps {
+export interface UserOrgDropdownProps {
   user?: HanzoUser
+  /** The caller's own memberships. Rendered immediately — no round trip. */
   organizations?: HanzoOrg[]
   currentOrgId?: string
   onOrgSwitch?: (orgId: string) => void
   onSignOut?: () => void
+  /**
+   * Ask the server for organizations — filtered, sorted and paged by it.
+   *
+   * Supplying this adds the search field. The switcher never holds a full list:
+   * one caller can reach every org in the system, so "render them all" is not a
+   * size the client can be right about. Type and it queries; scroll and it asks
+   * for the next page.
+   */
+  findOrgs?: (query: OrgQuery) => Promise<OrgPage>
+  /**
+   * Act as an org the caller does not belong to.
+   *
+   * Rendered only for rows the SERVER marked as reach (`OrgPage.reach`) — and
+   * only when the host wired this. A privilege the API did not offer has no
+   * affordance here, and switching to your own org never comes through here:
+   * that is `onOrgSwitch`, a different act with a different word.
+   */
+  onMasquerade?: (orgId: string) => void
+  /** The org being acted as, while a masquerade is running. */
+  masquerade?: HanzoOrg
+  /** Return to your own identity. */
+  onMasqueradeStop?: () => void
 }
 
 /** A divider between panel sections — the panel's only internal rule. */
@@ -53,6 +88,10 @@ export function UserOrgDropdown({
   currentOrgId,
   onOrgSwitch,
   onSignOut,
+  findOrgs,
+  onMasquerade,
+  masquerade,
+  onMasqueradeStop,
 }: UserOrgDropdownProps) {
   useShellStyles()
   // Below 640px the trigger is the avatar alone; the name/email block and its
@@ -64,6 +103,13 @@ export function UserOrgDropdown({
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
+  const [q, setQ] = useState('')
+  const [page, setPage] = useState<OrgPage | null>(null)
+  const [loading, setLoading] = useState(false)
+  // Every query carries the text it was asked for, so a slow first page can
+  // never land on top of a newer one and show results for a stale word.
+  const asked = useRef('')
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
@@ -71,6 +117,49 @@ export function UserOrgDropdown({
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [])
+
+  // Ask the server, once the typing settles.
+  useEffect(() => {
+    if (!findOrgs || !open) return
+    const text = q
+    asked.current = text
+    setLoading(true)
+    const timer = setTimeout(() => {
+      findOrgs({ q: text })
+        .then((next) => {
+          if (asked.current !== text) return
+          setPage(next)
+        })
+        .catch(() => {
+          if (asked.current === text) setPage(null)
+        })
+        .finally(() => {
+          if (asked.current === text) setLoading(false)
+        })
+    }, 180)
+    return () => clearTimeout(timer)
+  }, [q, open, findOrgs])
+
+  // The next page, when the list is scrolled to its end.
+  const more = useCallback(
+    (e: React.UIEvent<HTMLDivElement>) => {
+      const box = e.currentTarget
+      if (loading || !page?.cursor || !findOrgs) return
+      if (box.scrollTop + box.clientHeight < box.scrollHeight - 24) return
+      const text = q
+      setLoading(true)
+      findOrgs({ q: text, cursor: page.cursor })
+        .then((next) => {
+          if (asked.current !== text) return
+          setPage((prev) => ({
+            ...next,
+            orgs: [...(prev?.orgs ?? []), ...next.orgs],
+          }))
+        })
+        .finally(() => setLoading(false))
+    },
+    [loading, page, findOrgs, q]
+  )
 
   if (!user) return null
 
@@ -80,12 +169,39 @@ export function UserOrgDropdown({
 
   const link: React.CSSProperties = { ...row(), ...ROW_SHAPE }
 
+  const needle = q.trim().toLowerCase()
+  // The caller's own orgs are already in memory and there are few of them, so
+  // filtering them here is instant — which is what switching has always been.
+  // The server's work starts where the caller's memberships end.
+  const mine = needle
+    ? organizations.filter((o) =>
+        `${o.name} ${o.slug ?? ''}`.toLowerCase().includes(needle)
+      )
+    : organizations
+  // Rows the server marked as reach, minus anything already listed above. No
+  // reach page and no handler for it means this is empty and the section is not
+  // rendered at all.
+  const reach =
+    page?.reach && onMasquerade
+      ? page.orgs.filter((o) => !organizations.some((m) => m.id === o.id))
+      : []
+
   return (
     <div
       ref={ref}
       data-hanzo-shell=""
-      style={{ position: 'relative', display: 'inline-flex' }}
+      style={{
+        position: 'relative',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        minWidth: 0,
+      }}
     >
+      {/* Persistent while it is running, wherever this switcher is mounted. */}
+      {masquerade ? (
+        <Masquerade org={masquerade} onStop={onMasqueradeStop} />
+      ) : null}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -157,50 +273,93 @@ export function UserOrgDropdown({
           </div>
 
           {/* Which org you are acting as */}
-          {organizations.length > 0 && (
+          {findOrgs ? (
             <div style={{ ...SECTION, padding: 8 }}>
-              <p style={{ ...LABEL, margin: 0, padding: '2px 8px 4px' }}>Organizations</p>
-              {organizations.map((org) => {
-                const current = org.id === currentOrgId
-                return (
-                  <button
-                    key={org.id}
-                    type="button"
-                    role="menuitemradio"
-                    aria-checked={current}
-                    onClick={() => {
-                      onOrgSwitch?.(org.id)
-                      setOpen(false)
-                    }}
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Find an organization"
+                aria-label="Find an organization"
+                style={{
+                  width: '100%',
+                  height: CTRL_H,
+                  padding: '0 10px',
+                  boxSizing: 'border-box',
+                  border: `1px solid ${CHROME.border}`,
+                  borderRadius: R.row,
+                  background: CHROME.raised,
+                  color: CHROME.fg,
+                  fontFamily: 'inherit',
+                  fontSize: FS.sm,
+                }}
+              />
+            </div>
+          ) : null}
+
+          {(mine.length > 0 || reach.length > 0) && (
+            <div
+              onScroll={more}
+              style={{ ...SECTION, padding: 8, maxHeight: 320, overflowY: 'auto' }}
+            >
+              {mine.length > 0 && (
+                <>
+                  <p style={{ ...LABEL, margin: 0, padding: '2px 8px 4px' }}>
+                    Organizations
+                  </p>
+                  {mine.map((org) => (
+                    <OrgRow
+                      key={org.id}
+                      org={org}
+                      current={org.id === currentOrgId}
+                      onPick={() => {
+                        onOrgSwitch?.(org.id)
+                        setOpen(false)
+                      }}
+                    />
+                  ))}
+                </>
+              )}
+
+              {/* Beyond your memberships — present only because the server
+                  answered with it. */}
+              {reach.length > 0 && (
+                <>
+                  <p
                     style={{
-                      ...row(current),
-                      ...ROW_SHAPE,
-                      justifyContent: 'space-between',
+                      ...LABEL,
+                      margin: 0,
+                      padding: mine.length ? '10px 8px 4px' : '2px 8px 4px',
                     }}
-                    {...ghostHover(current)}
                   >
-                    <span
-                      style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}
-                    >
-                      <span style={{ fontSize: FS.sm, color: 'inherit' }}>
-                        {org.name}
-                      </span>
-                      {org.role && (
-                        <span
-                          style={{
-                            fontSize: FS.xs,
-                            color: CHROME.fgDim,
-                            textTransform: 'capitalize',
-                          }}
-                        >
-                          {org.role}
-                        </span>
-                      )}
-                    </span>
-                    {current && <Check />}
-                  </button>
-                )
-              })}
+                    All organizations
+                  </p>
+                  {reach.map((org) => (
+                    <OrgRow
+                      key={org.id}
+                      org={org}
+                      current={false}
+                      hint="Act as"
+                      onPick={() => {
+                        onMasquerade?.(org.id)
+                        setOpen(false)
+                      }}
+                    />
+                  ))}
+                </>
+              )}
+
+              {loading && (
+                <p
+                  style={{
+                    margin: 0,
+                    padding: '6px 8px',
+                    fontSize: FS.xs,
+                    color: CHROME.fgDim,
+                  }}
+                >
+                  Searching…
+                </p>
+              )}
             </div>
           )}
 
@@ -240,6 +399,58 @@ export function UserOrgDropdown({
         </div>
       )}
     </div>
+  )
+}
+
+/**
+ * One organization in the list. The same row whether it is yours or one you are
+ * reaching into — what differs is the word on it and what the click calls.
+ */
+function OrgRow({
+  org,
+  current,
+  hint,
+  onPick,
+}: {
+  org: HanzoOrg
+  current: boolean
+  hint?: string
+  onPick: () => void
+}) {
+  return (
+    <button
+      type="button"
+      role="menuitemradio"
+      aria-checked={current}
+      onClick={onPick}
+      style={{ ...row(current), ...ROW_SHAPE, justifyContent: 'space-between' }}
+      {...ghostHover(current)}
+    >
+      <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        <span
+          style={{
+            fontSize: FS.sm,
+            color: 'inherit',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {org.name}
+        </span>
+        {(hint || org.role) && (
+          <span
+            style={{
+              fontSize: FS.xs,
+              color: CHROME.fgDim,
+              textTransform: hint ? 'none' : 'capitalize',
+            }}
+          >
+            {hint ?? org.role}
+          </span>
+        )}
+      </span>
+      {current && <Check />}
+    </button>
   )
 }
 

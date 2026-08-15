@@ -4,14 +4,17 @@
  * HanzoHeader — the ONE public/marketing header for every Hanzo property.
  *
  *   ┌────────────────────────────────────────────────────────────────────────┐
- *   │ [H]  [Meet Hanzo ⌄] [Products ⌄]  Models  …   ⌕⌘K  Docs  [New chat]  ● │
+ *   │ [H]  [Hanzo ⌄] [Products ⌄]  Models  …   ⌕⌘K  Docs  [Try Hanzo]  ●     │
  *   └────────────────────────────────────────────────────────────────────────┘
  *
  * Everything is DATA from a `HanzoSurface` (the per-domain config in
  * hanzo-registry): brand name · local nav · secondary (ghost) + primary
- * (filled) CTAs. "Meet Hanzo ⌄" opens the universal <MeetHanzoMenu> with the
- * current product highlighted. Below 900px the local nav + Meet-Hanzo collapse
- * into a single [Menu] disclosure.
+ * (filled) CTAs. "Hanzo ⌄" opens the universal <MeetHanzoMenu> with the
+ * current product highlighted. Below 900px the local nav + the Hanzo menu
+ * collapse into a single [Menu] disclosure.
+
+ * The identity cluster is one action against Hanzo IAM and nothing else — see
+ * <HanzoIdentity>. The chrome never holds a credential or a session.
  *
  * The two mega-menus open on HOVER once the pointer RESTS on a trigger, and they
  * are ONE value (`useIntent`), never a boolean each — two booleans can say "both
@@ -69,6 +72,7 @@ import {
   HanzoCommandTrigger,
   type HanzoCommandEntry,
 } from './HanzoCommandPalette'
+import { HanzoIdentity, type HanzoAuth } from './HanzoIdentity'
 
 const HEADER_H = 60
 /**
@@ -112,7 +116,7 @@ export interface HanzoHeaderProps {
   onAskHanzo?: (question: string) => void
   /**
    * Opt into the RICH ten-category Products mega-menu. When provided, a
-   * "Products ⌄" trigger renders next to "Meet Hanzo" and opens
+   * "Products ⌄" trigger renders next to "Hanzo" and opens
    * <ProductsMegaMenu> over this taxonomy. Omit for the flat `localNav` header
    * (the default — fully backward compatible).
    */
@@ -163,19 +167,23 @@ export interface HanzoHeaderProps {
    * the control is a real link before hydration and for anyone without JS.
    *
    * DESKTOP ONLY, deliberately. The mobile sheet is ALREADY a list of doors —
-   * it opens Meet Hanzo and every product category inline — so a menu inside it
+   * it opens the Hanzo menu and every product category inline — so a menu in it
    * would be a menu inside a menu, and the phone's big pill would stop being
    * the one thing on the sheet that just goes somewhere. On a phone the sheet
    * is the card.
    */
   tryMenu?: boolean
   /**
-   * Where the DEFAULT "Sign in" affordance points. Supplying it is what makes
-   * that affordance exist — omit it (the default) on a surface that already
-   * carries its own sign-in, e.g. one whose primary CTA IS the sign-in, so the
-   * header can never grow a second, dead one. `account` overrides it.
+   * The identity cluster: one sign-in action, or the account menu once there is
+   * a session. Supplying it is what makes the cluster exist — omit it on a
+   * surface that carries its own, so the header can never grow a second one.
+   * `account` overrides it.
+   *
+   * Hanzo IAM is the only identity provider and the host owns the client, so
+   * this is data and callbacks, never a session: pass the mapped `user` and
+   * `@hanzo/iam`'s `startLogin` / `logout`. See <HanzoIdentity>.
    */
-  signInHref?: string
+  auth?: HanzoAuth
   /**
    * `false` on a surface that carries no search at all.
    *
@@ -216,7 +224,7 @@ export function HanzoHeader({
   brandSlot,
   identitySlot,
   tryMenu,
-  signInHref,
+  auth,
   search = true,
   onSearch,
   className,
@@ -234,11 +242,10 @@ export function HanzoHeader({
   // Exactly one Products affordance: with the rich menu present, drop the
   // duplicate localNav "Products" link.
   const localNav = withoutProductsDup(s.localNav, hasProducts)
-  // Standard account affordance: the surface-supplied `account`, else a default
-  // "Sign in" so surfaces can't drift between "Sign in" / "Log in". Rendered ONLY
-  // when the host asked for one — a header must never invent a link to nowhere.
-  const accountNode =
-    account ?? (signInHref ? <DefaultAccount href={signInHref} /> : null)
+  // Standard account affordance: the surface-supplied `account`, else the
+  // canonical IAM cluster, so surfaces can't drift between "Sign in" / "Log in"
+  // or grow a second session scheme. Rendered ONLY when the host asked for one.
+  const accountNode = account ?? (auth ? <HanzoIdentity auth={auth} /> : null)
 
   // What the header itself can reach, handed to the palette. A control the bar
   // renders and the palette cannot find is the same page described two ways,
@@ -314,7 +321,11 @@ export function HanzoHeader({
           height: HEADER_H,
           padding: '0 16px',
           boxSizing: 'border-box',
-          borderBottom: `1px solid ${CHROME.border}`,
+          // The audited bar draws NO hairline: the glass already ends itself,
+          // and a white line over a blurred boundary reads as a seam between
+          // two surfaces rather than the edge of one. The 1px stays so the
+          // 60px box and everything measured against it do not move.
+          borderBottom: '1px solid transparent',
           // The one glass recipe, shared with both mega-menu drapes so the bar
           // and the panel that drops out of it are lit as a single surface.
           ...GLASS,
@@ -337,8 +348,8 @@ export function HanzoHeader({
             }}
           >
             {/* Just the H mark — the product wordmark is dropped so the lockup stays
-                tight (H → Meet Hanzo), matching the compact app-shell register. The
-                current product is still named inside the Meet Hanzo menu (highlighted)
+                tight (H → Hanzo), matching the compact app-shell register. The
+                current product is still named inside the Hanzo menu (highlighted)
                 and by the page itself, so the wordmark here was redundant chrome. */}
             <HanzoMark size={22} />
           </a>
@@ -508,7 +519,7 @@ export function HanzoHeader({
 /* ── Pieces ──────────────────────────────────────────────────────────────── */
 
 /**
- * A mega-menu disclosure in the header row ("Meet Hanzo ⌄", "Products ⌄").
+ * A mega-menu disclosure in the header row ("Hanzo ⌄", "Products ⌄").
  *
  * Three ways in, one way out. The pointer RESTS and the menu opens without
  * taking focus (`reach`, from `useIntent`); a click or Enter/Space toggles it and
@@ -870,7 +881,7 @@ function MobileSheet({
             marginBottom: 8,
           }}
         >
-          Meet Hanzo
+          Hanzo
           <Chevron open={false} />
         </button>
 
@@ -880,7 +891,7 @@ function MobileSheet({
           {localNav.map((link) => {
             const items = link.items
             // An entry that holds links opens them in place — the same
-            // disclosure the sheet already uses for Meet Hanzo and for every
+            // disclosure the sheet already uses for the Hanzo menu and for every
             // product category, so a phone learns one gesture, not three.
             return items?.length ? (
               <MobileGroup
@@ -1054,19 +1065,6 @@ function mobileLeaf(current: boolean) {
     padding: '0 12px',
     minHeight: TAP_H,
   }
-}
-
-/**
- * Default account affordance — a text "Sign in" link styled like the shell
- * chrome, rendered when a surface asks for one via `signInHref` and supplies no
- * `account` of its own, so every surface that has it reads identically.
- */
-function DefaultAccount({ href }: { href: string }) {
-  return (
-    <a href={href} style={control()} {...ghostHover()}>
-      Sign in
-    </a>
-  )
 }
 
 /* ── Glyphs ──────────────────────────────────────────────────────────────── */

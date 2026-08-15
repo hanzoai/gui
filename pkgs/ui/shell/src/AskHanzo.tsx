@@ -38,9 +38,12 @@ import {
   TAP_H,
   Z,
   control,
+  cta,
   ghostHover,
 } from './theme'
 import { MARKS } from './glyph'
+import { U } from './hanzo-registry'
+import type { HanzoAuth } from './HanzoIdentity'
 import { useShellStyles } from './shellStyles'
 
 export interface AskHanzoMessage {
@@ -54,17 +57,24 @@ export interface AskHanzoProps {
   /** Model id. Default: `enso-free`, the house free tier. */
   model?: string
   /**
-   * The credential this turn is admitted by — ONE knob, two sources:
+   * The credential this turn is admitted by: the visitor's OWN bearer, so the
+   * turn meters to their account.
    *
-   * - signed OUT, the surface's publishable key, which admits the free tier and
-   *   nothing else;
-   * - signed IN, the visitor's own bearer, so the turn meters to their account.
-   *
-   * The surface resolves it the way it already resolves one (build-time, from
-   * KMS). Never a hardcoded value here: this package ships in client bytes, and
-   * a key checked into shared chrome is a key on every surface at once.
+   * There is no signed-out value for this. A publishable key (`pk-`) is
+   * read-only — it answers `/v1/models` and refuses completions — and a secret
+   * key (`sk-`) is spendable, so putting one in shared chrome would ship a
+   * spendable secret to every page that mounts it. Anonymous inference needs a
+   * SERVER holding the key, never the browser; until an endpoint offers that,
+   * a visitor with no bearer is invited to sign in rather than shown a chat
+   * that would refuse them.
    */
   authToken?: string
+  /**
+   * The identity cluster's data, used for the one sign-in action this offers
+   * when there is no way to answer a turn. Same shape, same provider, same
+   * single action as the header's — see <HanzoIdentity>.
+   */
+  auth?: HanzoAuth
   /** Composer placeholder. */
   placeholder?: string
   /** Fully override the transport — return the assistant reply for a turn. */
@@ -101,6 +111,7 @@ export function AskHanzo({
   authToken,
   placeholder = 'Ask Hanzo anything…',
   onSubmit,
+  auth,
   corner,
   trigger,
   greeting = 'Ask about products, models, APIs, or how to get started.',
@@ -112,6 +123,11 @@ export function AskHanzo({
   const [draft, setDraft] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Can a turn be answered at all? The host either owns the transport or has
+  // handed us the visitor's own credential. Neither means the honest thing to
+  // show is the way to get one, not a composer that will be refused.
+  const canChat = !!(onSubmit || authToken)
 
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const logRef = useRef<HTMLDivElement>(null)
@@ -253,7 +269,12 @@ export function AskHanzo({
                     right: EDGE,
                     bottom: CARD_LIFT,
                     width: `min(380px, calc(100vw - ${EDGE * 2}px))`,
-                    height: `min(560px, calc(100vh - ${CARD_LIFT + EDGE}px))`,
+                    // A conversation needs the room; an invitation does not.
+                    // Sizing to content is what keeps the closed-to-open jump
+                    // from putting an empty half-screen panel over the page.
+                    ...(canChat
+                      ? { height: `min(560px, calc(100vh - ${CARD_LIFT + EDGE}px))` }
+                      : { maxHeight: `calc(100vh - ${CARD_LIFT + EDGE}px)` }),
                     ...PANEL,
                     overflow: 'hidden',
                     transformOrigin: 'bottom right',
@@ -327,7 +348,9 @@ export function AskHanzo({
                     lineHeight: 1.5,
                   }}
                 >
-                  {greeting}
+                  {canChat
+                    ? greeting
+                    : 'Sign in and Enso answers questions about products, models, APIs, and how to get started.'}
                 </p>
               ) : (
                 messages.map((m, i) => <Bubble key={i} message={m} />)
@@ -352,7 +375,8 @@ export function AskHanzo({
               ) : null}
             </div>
 
-            {/* Composer */}
+            {/* Composer, when a turn can be answered */}
+            {canChat ? (
             <div
               style={{
                 padding: 12,
@@ -422,6 +446,34 @@ export function AskHanzo({
                 </button>
               </div>
             </div>
+            ) : null}
+            {/* No way to answer a turn — offer the way to get one. */}
+            {canChat ? null : (
+              <div
+                style={{
+                  padding: 12,
+                  borderTop: `1px solid ${CHROME.border}`,
+                  flexShrink: 0,
+                }}
+              >
+                <a
+                  href={auth?.signInHref ?? U.id}
+                  onClick={
+                    auth?.onSignIn
+                      ? (e) => {
+                          e.preventDefault()
+                          auth.onSignIn!()
+                        }
+                      : undefined
+                  }
+                  style={{ ...cta(true, TAP_H), width: '100%' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                >
+                  {auth?.label ?? 'Sign in'} to chat
+                </a>
+              </div>
+            )}
           </div>
         </>
       ) : null}

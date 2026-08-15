@@ -19,6 +19,35 @@ export type HanzoOrg = {
   role?: string
 }
 
+/** What the switcher asks the server for: a filter, and where to resume. */
+export type OrgQuery = {
+  /** What the visitor typed. Empty is a legal first page. */
+  q: string
+  /** Opaque cursor from the previous page; absent asks for the first. */
+  cursor?: string
+}
+
+/**
+ * One page of orgs, as the server answered.
+ *
+ * The server filters, sorts and pages; the client only asks. A switcher that
+ * held the whole list would have to hold every org in the system to be right
+ * for the one caller who can see them all.
+ */
+export type OrgPage = {
+  orgs: HanzoOrg[]
+  /** Cursor for the next page. Absent means the list is exhausted. */
+  cursor?: string
+  /**
+   * The server says these rows reach BEYOND the caller's own memberships.
+   *
+   * Only a SuperAdmin gets such a page, and only the server knows that — the
+   * client never computes a privilege and never branches UI on a locally
+   * derived role. No reach page, no reach section, no way to ask for one.
+   */
+  reach?: boolean
+}
+
 /**
  * Per-org domain mapping.
  * Each org can have its own branded domains for every surface.

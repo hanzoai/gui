@@ -2,10 +2,16 @@
 
 /**
  * AskHanzo — the reusable "Ask Hanzo" AI-chat affordance, identical on every
- * property. A trigger button opens a right-side slide-in panel with a minimal
- * chat UI (message list + composer). By default it POSTs to the Hanzo AI
- * endpoint (OpenAI-compatible); a caller can fully override the transport with
- * `onSubmit`.
+ * property. A trigger button opens a chat (message list + composer). By default
+ * it POSTs to the Hanzo AI endpoint (OpenAI-compatible); a caller can fully
+ * override the transport with `onSubmit`.
+ *
+ * TWO DOCKS, ONE CHAT. `corner` mounts it as the visitor chat every public
+ * surface carries: a small round launcher tucked into the bottom-right, opening
+ * a card above itself. Without it the chat is a right-side drawer for a surface
+ * that wants the room. Same messages, same composer, same transport — where it
+ * sits is a parameter, not a second component, because two chat UIs is how the
+ * answers start differing by page.
  *
  * SECURITY: this component NEVER embeds a secret. Public/anonymous deployments
  * point `endpoint` at a proxy that injects auth server-side; authenticated
@@ -24,13 +30,17 @@ import {
   CHROME,
   CTRL_H,
   FS,
+  PANEL,
   R,
   SCRIM,
+  SHADOW,
   SHADOW_LEFT,
+  TAP_H,
   Z,
   control,
   ghostHover,
 } from './theme'
+import { MARKS } from './glyph'
 import { useShellStyles } from './shellStyles'
 
 export interface AskHanzoMessage {
@@ -41,15 +51,30 @@ export interface AskHanzoMessage {
 export interface AskHanzoProps {
   /** OpenAI-compatible chat endpoint. Default: the Hanzo AI gateway. */
   endpoint?: string
-  /** Model id. Default: `enso`. */
+  /** Model id. Default: `enso-free`, the house free tier. */
   model?: string
-  /** Short-lived bearer token, if the endpoint requires one (never a secret). */
+  /**
+   * The credential this turn is admitted by — ONE knob, two sources:
+   *
+   * - signed OUT, the surface's publishable key, which admits the free tier and
+   *   nothing else;
+   * - signed IN, the visitor's own bearer, so the turn meters to their account.
+   *
+   * The surface resolves it the way it already resolves one (build-time, from
+   * KMS). Never a hardcoded value here: this package ships in client bytes, and
+   * a key checked into shared chrome is a key on every surface at once.
+   */
   authToken?: string
   /** Composer placeholder. */
   placeholder?: string
   /** Fully override the transport — return the assistant reply for a turn. */
   onSubmit?: (message: string, history: AskHanzoMessage[]) => Promise<string>
-  /** Custom trigger. Defaults to an "Ask Hanzo" pill button. */
+  /**
+   * Mount as the corner visitor chat: a small round launcher in the
+   * bottom-right, opening a card above it instead of the full-height drawer.
+   */
+  corner?: boolean
+  /** Custom trigger. Defaults to the corner launcher, or an "Ask Hanzo" pill. */
   trigger?: (open: () => void) => React.ReactNode
   /** Greeting shown before the first turn. */
   greeting?: string
@@ -58,12 +83,25 @@ export interface AskHanzoProps {
 
 const DEFAULT_ENDPOINT = 'https://api.hanzo.ai/v1/chat/completions'
 
+/**
+ * The corner dock. The launcher is the thumb's size and no bigger — it sits
+ * over the page for the whole visit, so anything larger is a permanent hole in
+ * the layout — and it rides in the page's own 16px gutter, the one the header
+ * already keeps, so it reads as tucked into the corner rather than floating
+ * near it.
+ */
+const LAUNCHER = TAP_H
+const EDGE = 16
+/** The card clears the launcher and the gap above it. */
+const CARD_LIFT = EDGE + LAUNCHER + 10
+
 export function AskHanzo({
   endpoint = DEFAULT_ENDPOINT,
-  model = 'enso',
+  model = 'enso-free',
   authToken,
   placeholder = 'Ask Hanzo anything…',
   onSubmit,
+  corner,
   trigger,
   greeting = 'Ask about products, models, APIs, or how to get started.',
   className,
@@ -98,8 +136,9 @@ export function AskHanzo({
         closePanel()
         return
       }
-      // Trap Tab within the panel while it is a modal dialog.
-      if (e.key === 'Tab') {
+      // Trap Tab within the panel while it is a modal dialog. The corner card
+      // is not modal — the page behind it stays usable, so Tab must leave.
+      if (e.key === 'Tab' && !corner) {
         const root = panelRef.current
         if (!root) return
         const focusables = root.querySelectorAll<HTMLElement>(
@@ -120,7 +159,7 @@ export function AskHanzo({
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
-  }, [open, closePanel])
+  }, [open, closePanel, corner])
 
   useEffect(() => {
     // Keep the newest message in view.
@@ -166,6 +205,8 @@ export function AskHanzo({
     <span className={className}>
       {trigger ? (
         trigger(openPanel)
+      ) : corner ? (
+        <CornerLauncher open={open} onClick={open ? closePanel : openPanel} />
       ) : (
         <button
           type="button"
@@ -180,36 +221,53 @@ export function AskHanzo({
 
       {open ? (
         <>
-          <div
-            aria-hidden="true"
-            onClick={closePanel}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: Z.overlay as unknown as number,
-              background: SCRIM,
-            }}
-          />
+          {corner ? null : (
+            <div
+              aria-hidden="true"
+              onClick={closePanel}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: Z.overlay as unknown as number,
+                background: SCRIM,
+              }}
+            />
+          )}
           <div
             ref={panelRef}
             role="dialog"
-            aria-modal="true"
+            aria-modal={corner ? undefined : 'true'}
             aria-label="Ask Hanzo"
             data-hanzo-shell=""
             style={{
               position: 'fixed',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              width: 'min(440px, 100vw)',
               zIndex: Z.modal as unknown as number,
               display: 'flex',
               flexDirection: 'column',
-              background: CHROME.panel,
-              borderLeft: `1px solid ${CHROME.border}`,
-              boxShadow: SHADOW_LEFT,
               color: CHROME.fg,
               fontFamily: CHROME.font,
+              ...(corner
+                ? {
+                    // Anchored to the same corner as the launcher, and never
+                    // wider than the phone it opens on.
+                    right: EDGE,
+                    bottom: CARD_LIFT,
+                    width: `min(380px, calc(100vw - ${EDGE * 2}px))`,
+                    height: `min(560px, calc(100vh - ${CARD_LIFT + EDGE}px))`,
+                    ...PANEL,
+                    overflow: 'hidden',
+                    transformOrigin: 'bottom right',
+                    animation: 'hanzo-card-in 200ms cubic-bezier(.2,.9,.3,1.1) both',
+                  }
+                : {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: 'min(440px, 100vw)',
+                    background: CHROME.panel,
+                    borderLeft: `1px solid ${CHROME.border}`,
+                    boxShadow: SHADOW_LEFT,
+                  }),
             }}
           >
             {/* Header */}
@@ -372,6 +430,49 @@ export function AskHanzo({
 }
 
 /* ── Pieces ──────────────────────────────────────────────────────────────── */
+
+/**
+ * The corner launcher — the enso ring in a single filled pill.
+ *
+ * It wears the SAME mark the Enso row wears in the Hanzo menu, so what you
+ * click and what answers are drawn as one thing. It is also the close: a
+ * control that opens a card two inches above itself and then hides behind it
+ * makes the visitor hunt for the way out.
+ */
+function CornerLauncher({ open, onClick }: { open: boolean; onClick: () => void }) {
+  const Enso = MARKS.circle
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={open ? 'Close Enso' : 'Ask Enso'}
+      aria-expanded={open}
+      style={{
+        position: 'fixed',
+        right: EDGE,
+        bottom: EDGE,
+        zIndex: Z.popover as unknown as number,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: LAUNCHER,
+        height: LAUNCHER,
+        padding: 0,
+        border: 'none',
+        borderRadius: R.pill,
+        background: ACCENT,
+        color: CHROME.panel,
+        boxShadow: SHADOW,
+        cursor: 'pointer',
+        transition: 'opacity 120ms ease',
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+      onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+    >
+      {open ? <CloseGlyph /> : <Enso size={22} />}
+    </button>
+  )
+}
 
 function Bubble({ message }: { message: AskHanzoMessage }) {
   const user = message.role === 'user'

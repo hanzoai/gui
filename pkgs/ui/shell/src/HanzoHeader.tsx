@@ -177,19 +177,24 @@ export interface HanzoHeaderProps {
    */
   signInHref?: string
   /**
-   * `false` on a surface that already carries its own palette.
+   * `false` on a surface that carries no search at all.
    *
    * The header contributes what it renders (`chrome`) to the palette, so a
-   * surface always has SOMETHING to find and the ⌕⌘K trigger always appears —
-   * which puts two search controls in the bar of a host that brought its own,
-   * both bound to ⌘K, each answering about a different half of the site.
-   * hanzo.app is that host: its palette holds the visitor's projects and every
-   * operation the cloud answers, which a shared header cannot know about.
-   *
-   * Opt-OUT, not opt-in: the trigger is right for the surfaces that have no
-   * palette of their own, and they are the majority.
+   * surface always has something to find and the ⌕⌘K trigger appears by
+   * default.
    */
   search?: boolean
+  /**
+   * Open the HOST's palette instead of this one.
+   *
+   * The trigger is chrome and the palette is data, so a surface that knows
+   * things a shared header cannot — hanzo.app holds the visitor's projects and
+   * every operation the cloud answers — keeps its own palette and still wears
+   * the bar's control, at both widths, in the same place as every sibling. The
+   * alternative is a second search control in the identity slot, which is a
+   * second design of one thing and reaches the phone only inside the sheet.
+   */
+  onSearch?: () => void
   className?: string
 }
 
@@ -213,6 +218,7 @@ export function HanzoHeader({
   tryMenu,
   signInHref,
   search = true,
+  onSearch,
   className,
 }: HanzoHeaderProps) {
   useShellStyles()
@@ -261,9 +267,9 @@ export function HanzoHeader({
     () => [...(commands ?? []), ...chrome],
     [commands, chrome]
   )
-  // Search exists as long as there is something to find — and the host has not
-  // said it already has a palette of its own.
-  const hasSearch = search && (hasProducts || searchIndex.length > 0)
+  // Search exists as long as there is something to find, or a host that will
+  // answer for it.
+  const hasSearch = search && (hasProducts || searchIndex.length > 0 || !!onSearch)
 
   // Close everything on Esc when a mobile sheet is open.
   useEffect(() => {
@@ -281,8 +287,9 @@ export function HanzoHeader({
   const openSearch = useCallback(() => {
     setMobileOpen(false)
     menu.set(null)
-    setSearchOpen(true)
-  }, [menu.set])
+    if (onSearch) onSearch()
+    else setSearchOpen(true)
+  }, [menu.set, onSearch])
 
   return (
     // The overlays are SIBLINGS of the bar, not children of it. The bar carries
@@ -460,8 +467,9 @@ export function HanzoHeader({
       ) : null}
 
       {/* The ONE place this surface is searched — from the header, at any
-          width, in or out of a menu. ⌘K reaches it without the trigger. */}
-      {hasSearch ? (
+          width, in or out of a menu. ⌘K reaches it without the trigger, and a
+          host answering `onSearch` opens its own instead of this one. */}
+      {hasSearch && !onSearch ? (
         <HanzoCommandPalette
           categories={productsTaxonomy}
           commands={searchIndex}

@@ -34,7 +34,7 @@
 import React, { useCallback, useMemo } from 'react'
 import type { PointerEventHandler } from 'react'
 import { TRY_HANZO_GROUPS } from './hanzo-registry'
-import { HANZO_APPS } from './hanzo-apps'
+import { MARKS } from './glyph'
 import { CHROME, FS, GLASS, LABEL, R, SHADOW, Z, ghostHover, row } from './theme'
 import { useShellStyles } from './shellStyles'
 import { useIsMobile } from './useMediaQuery'
@@ -57,16 +57,12 @@ const STACK_BELOW = 900
  */
 const CASCADE = 22
 
-/* The door's mark, from the ONE icon table.
-   `hanzo-apps.tsx` already decorates every cross-app surface with a monochrome
-   line-icon for the launcher, keyed by exactly the ids these doors carry — so
-   the icon is a LOOKUP, never a second table. A second one is how the launcher
-   and this menu come to draw different glyphs for the same product, which no
-   test would catch and every reader would notice.
-   A door with no entry renders no icon rather than a placeholder: an empty box
-   where a mark should be reads as a broken image, and a generic glyph is worse
-   — it says "some app" about a named one. */
-const ICONS = new Map(HANZO_APPS.map((a) => [a.id, a.icon]))
+/* The door's mark comes from the row itself (`HanzoLink.glyph`), resolved
+   against the ONE table in `glyph.tsx` — the same table the launcher's tiles and
+   both drapes draw from. It used to be a lookup by id against `HANZO_APPS`,
+   which answered only for rows that were also launcher tiles; a row naming its
+   own mark answers for every row, and there is still exactly one place a shape
+   is drawn. */
 
 export interface TryHanzoMenuProps {
   open?: boolean
@@ -164,7 +160,7 @@ export function TryHanzoMenu({
             <div key={g.id} style={{ minWidth: 0, width: stacked ? '100%' : w }}>
               <div style={{ ...LABEL, marginBottom: 4 }}>{g.title}</div>
               {g.items.map((item) => {
-                const Icon = ICONS.get(item.id)
+                const Mark = item.glyph ? MARKS[item.glyph] : undefined
                 const delay = seq++ * CASCADE
                 return (
                   <a
@@ -210,7 +206,7 @@ export function TryHanzoMenu({
                           color: CHROME.fgMuted,
                         }}
                       >
-                        {Icon ? <Icon size={16} /> : null}
+                        {Mark ? <Mark size={16} /> : null}
                       </span>
                       {item.label}
                       {/* Where it goes, said only while the pointer is on it —

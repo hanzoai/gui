@@ -908,11 +908,17 @@ export const HANZO_SURFACES: HanzoSurface[] = [
     host: 'hanzo.app',
     productId: 'app',
     brandName: 'Hanzo App',
+    // `/product` was a 404 — the page is `/features`, and the nav had been
+    // pointing at a route that does not exist. Pricing is hanzo.app's OWN page:
+    // a reader asking what the builder costs wants the builder's plans, not the
+    // cloud's, and both pages exist. "Business" rather than "Enterprise" for the
+    // same destination — the word names who it is for instead of naming a
+    // procurement tier.
     localNav: [
-      { id: 'product', label: 'Product', href: `${U.app}/product` },
+      { id: 'features', label: 'Features', href: `${U.app}/features` },
       { id: 'templates', label: 'Templates', href: `${U.app}/templates` },
-      { id: 'pricing', label: 'Pricing', href: U.pricing },
-      { id: 'enterprise', label: 'Enterprise', href: U.enterprise },
+      { id: 'pricing', label: 'Pricing', href: `${U.app}/pricing` },
+      { id: 'business', label: 'Business', href: U.enterprise },
     ],
     secondaryCTA: { id: 'download', label: 'Download', href: U.downloads },
     primaryCTA: { id: 'newproject', label: '+ New project', href: U.app },

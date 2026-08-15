@@ -361,9 +361,15 @@ export function HanzoHeader({
           </>
         ) : (
           <>
-            {/* ── Meet Hanzo ⌄ ── */}
+            {/* ── Hanzo ⌄ ──
+                The label is the NAME, not an invitation. "Meet Hanzo" reads as
+                onboarding copy in a slot that is doing navigation: a reader
+                already on a Hanzo surface has met us, and the menu behind it is
+                the product list, which is a noun. The drape itself is unchanged
+                — same groups, same rows — so this is what the trigger is called
+                and nothing else. */}
             <MenuTrigger
-              label="Meet Hanzo"
+              label="Hanzo"
               open={menu.key === 'meet'}
               reach={menu.trigger('meet')}
               onStepIn={() => menu.set('meet')}

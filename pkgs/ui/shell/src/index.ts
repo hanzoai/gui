@@ -48,6 +48,7 @@ export {
 } from './hanzo-registry'
 export type {
   HanzoLink,
+  HanzoNav,
   HanzoProduct,
   HanzoSurface,
   MeetHanzoGroup,

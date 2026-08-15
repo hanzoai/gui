@@ -1217,7 +1217,7 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
   {
     slug: 'enterprise',
     name: 'Enterprise',
-    tagline: 'Unlimited members, SLA, on-prem, SOC 2',
+    tagline: 'Unlimited members, SLA, on-prem, SOC 2 Type II controls',
     kind: 'enterprise',
     rank: 6,
     priceMonthly: 999_900,

@@ -38,17 +38,20 @@ import {
   findSurfaceByHost,
   getSurface,
   type HanzoLink,
+  type HanzoNav,
   type HanzoSurface,
   type ProductCategory,
 } from './hanzo-registry'
 import {
   CHROME,
+  CTRL_H,
   FG_ON,
   FS,
   GLASS,
   PANEL,
   R,
   SCRIM,
+  SHADOW,
   TAP_H,
   Z,
   control,
@@ -59,6 +62,7 @@ import {
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
 import { useIntent, type Reach } from './intent'
+import { useRove } from './rove'
 import {
   HanzoCommandPalette,
   HanzoCommandTrigger,
@@ -66,6 +70,15 @@ import {
 } from './HanzoCommandPalette'
 
 const HEADER_H = 60
+/**
+ * How far a nav card hangs below the control that opened it — the control's own
+ * height plus the gap the header leaves under it, so the card starts exactly on
+ * the bar's bottom edge, where both drapes start.
+ */
+const DROP = CTRL_H + (HEADER_H - CTRL_H) / 2
+
+/** One open menu at a time, nav cards included. */
+type MenuKey = 'meet' | 'products' | 'try' | `nav:${string}`
 
 /**
  * Drop the local-nav item that duplicates the Products hub — but only when the
@@ -73,7 +86,7 @@ const HEADER_H = 60
  * exactly ONE Products affordance (the `Products ⌄` trigger). Matches by id,
  * label, or a `/products` href tail.
  */
-function withoutProductsDup(nav: HanzoLink[], hasProducts: boolean): HanzoLink[] {
+function withoutProductsDup(nav: HanzoNav[], hasProducts: boolean): HanzoNav[] {
   if (!hasProducts) return nav
   // Drop ONLY the canonical Products-hub entry (the one the rich mega-menu
   // replaces) — never a legitimate deep link that merely ends in /products or
@@ -190,7 +203,7 @@ export function HanzoHeader({
   const s = resolveSurface(surface)
   const isMobile = useIsMobile(900)
   // ONE open mega-menu, not one boolean per menu.
-  const menu = useIntent<'meet' | 'products' | 'try'>()
+  const menu = useIntent<MenuKey>()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
@@ -210,7 +223,9 @@ export function HanzoHeader({
   // and the header is the half that already knows the answer.
   const chrome: HanzoCommandEntry[] = React.useMemo(
     () =>
-      [...localNav, s.secondaryCTA, s.primaryCTA]
+      // A nav entry that holds links contributes what it HOLDS: its own href is
+      // one of them, so offering both would be one page under two names.
+      [...localNav.flatMap((l) => l.items ?? [l]), s.secondaryCTA, s.primaryCTA]
         .filter(Boolean)
         .map((link) => ({
           id: `nav/${link.id}`,
@@ -344,9 +359,23 @@ export function HanzoHeader({
               aria-label={`${s.brandName} navigation`}
               style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}
             >
-              {localNav.map((link) => (
-                <NavLink key={link.id} link={link} />
-              ))}
+              {localNav.map((link) => {
+                const items = link.items
+                if (!items?.length) return <NavLink key={link.id} link={link} />
+                const key: MenuKey = `nav:${link.id}`
+                return (
+                  <NavMenu
+                    key={link.id}
+                    link={link}
+                    items={items}
+                    open={menu.key === key}
+                    reach={menu.trigger(key)}
+                    onStepIn={() => menu.set(key)}
+                    onClose={closeMenu}
+                    autoFocus={!menu.hover}
+                  />
+                )
+              })}
             </nav>
 
             <div style={{ flex: 1 }} />
@@ -499,6 +528,128 @@ function NavLink({ link }: { link: HanzoLink }) {
     <a href={link.href} style={{ ...control(), fontWeight: 500 }} {...ghostHover()}>
       {link.label}
     </a>
+  )
+}
+
+/**
+ * A local-nav entry that holds others — the label, and a card of its links.
+ *
+ * A CARD, not a drape: a handful of destinations is for CHOOSING, so it stays
+ * the width of its contents and hangs off its own label, while the two menus
+ * that are for READING span the bar. Same distinction the primary action makes.
+ *
+ * The trigger is an `<a>` carrying the entry's own `href`, not a button — the
+ * markup is read before React runs, so the label is a real link at first paint
+ * and for anyone without JavaScript. The click is intercepted only once there is
+ * a card to show.
+ *
+ * The card is a CHILD of the label's box, so nothing has to measure where the
+ * label is: `position: absolute`, dropped by `DROP` onto the bar's bottom edge.
+ * The pointer props sit on that box rather than on the label, so crossing from
+ * one to the other never leaves the menu and there is no seam to time.
+ */
+function NavMenu({
+  link,
+  items,
+  open,
+  reach,
+  onStepIn,
+  onClose,
+  autoFocus,
+}: {
+  link: HanzoNav
+  items: HanzoLink[]
+  open: boolean
+  reach: Reach
+  onStepIn: () => void
+  onClose: () => void
+  autoFocus: boolean
+}) {
+  const { onClick, ...pointer } = reach
+  const rove = useRove(open, onClose, autoFocus)
+  const panel = `hanzo-nav-${link.id}`
+  return (
+    <div style={{ position: 'relative', display: 'inline-flex' }} {...pointer}>
+      <a
+        href={link.href}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-controls={open ? panel : undefined}
+        onClick={(e) => {
+          e.preventDefault()
+          onClick()
+        }}
+        onKeyDown={(e) => {
+          if (e.key !== 'ArrowDown' || open) return
+          e.preventDefault()
+          onStepIn()
+        }}
+        style={{ ...control(open), fontWeight: 500 }}
+        {...ghostHover(open)}
+      >
+        {link.label}
+        <Chevron open={open} />
+      </a>
+      {open ? (
+        <div
+          id={panel}
+          role="dialog"
+          aria-label={link.label}
+          ref={rove.ref}
+          onKeyDown={rove.onKeyDown}
+          onFocus={rove.onFocus}
+          style={{
+            position: 'absolute',
+            top: DROP,
+            // The label sits 12px into its control and a row 8px into the card,
+            // so the card starts 4px right of the label's box and the two
+            // columns of text line up.
+            left: 4,
+            zIndex: Z.dropdown as unknown as number,
+            minWidth: 180,
+            maxWidth: 300,
+            padding: 8,
+            borderRadius: R.card,
+            border: `1px solid ${CHROME.border}`,
+            boxShadow: SHADOW,
+            // The bar's own glass, continuing — one surface, lit once.
+            ...GLASS,
+            color: CHROME.fg,
+            // It drops out of the label that opened it, so it grows from that
+            // corner rather than appearing from behind the page.
+            transformOrigin: 'top left',
+            animation: 'hanzo-card-in 200ms cubic-bezier(.2,.9,.3,1.1) both',
+          }}
+        >
+          {items.map((item) => (
+            <a
+              key={item.id}
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noreferrer' : undefined}
+              onClick={onClose}
+              style={{ ...row(), fontWeight: 500 }}
+              {...ghostHover()}
+            >
+              {item.label}
+              {item.hint ? (
+                <span
+                  style={{
+                    display: 'block',
+                    marginTop: 1,
+                    fontSize: FS.xs,
+                    fontWeight: 400,
+                    color: CHROME.fgDim,
+                  }}
+                >
+                  {item.hint}
+                </span>
+              ) : null}
+            </a>
+          ))}
+        </div>
+      ) : null}
+    </div>
   )
 }
 
@@ -681,25 +832,38 @@ function MobileSheet({
         <div
           style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 12 }}
         >
-          {localNav.map((link) => (
-            <a
-              key={link.id}
-              href={link.href}
-              onClick={onClose}
-              style={{
-                ...row(),
-                display: 'flex',
-                alignItems: 'center',
-                margin: 0,
-                padding: '0 12px',
-                minHeight: TAP_H,
-                fontSize: FS.base,
-              }}
-              {...ghostHover()}
-            >
-              {link.label}
-            </a>
-          ))}
+          {localNav.map((link) => {
+            const items = link.items
+            // An entry that holds links opens them in place — the same
+            // disclosure the sheet already uses for Meet Hanzo and for every
+            // product category, so a phone learns one gesture, not three.
+            return items?.length ? (
+              <MobileGroup
+                key={link.id}
+                group={{ ...link, items }}
+                currentHref={currentHref}
+                onClose={onClose}
+              />
+            ) : (
+              <a
+                key={link.id}
+                href={link.href}
+                onClick={onClose}
+                style={{
+                  ...row(),
+                  display: 'flex',
+                  alignItems: 'center',
+                  margin: 0,
+                  padding: '0 12px',
+                  minHeight: TAP_H,
+                  fontSize: FS.base,
+                }}
+                {...ghostHover()}
+              >
+                {link.label}
+              </a>
+            )
+          })}
         </div>
 
         {/* Rich Products taxonomy — collapsed accordions, for BROWSING. This
@@ -716,9 +880,9 @@ function MobileSheet({
             }}
           >
             {productsTaxonomy!.map((category) => (
-              <MobileProductsCategory
+              <MobileGroup
                 key={category.id}
-                category={category}
+                group={category}
                 currentHref={currentHref}
                 onClose={onClose}
               />
@@ -752,22 +916,26 @@ function MobileSheet({
   )
 }
 
-/** One collapsed-by-default Products category (mobile accordion section). */
-function MobileProductsCategory({
-  category,
+/**
+ * One collapsed-by-default section of the sheet — a Products category, or a
+ * local-nav entry that holds links. Both are a name, the page it names, and the
+ * links under it, so both open the same way.
+ */
+function MobileGroup({
+  group,
   currentHref,
   onClose,
 }: {
-  category: ProductCategory
+  group: { id: string; label: string; href: string; items: HanzoLink[] }
   currentHref?: string
   onClose: () => void
 }) {
   const [expanded, setExpanded] = useState(false)
-  const panelId = `hanzo-mprod-${category.id}`
-  // The taxonomy may already END in a link to the category's own page (hanzo.ai
+  const panelId = `hanzo-mgroup-${group.id}`
+  // The list may already END in a link to the section's own page (hanzo.ai
   // spells it "All 15 →"). Synthesising a second one put two links to the same
   // href in one drawer, so the row is only invented when the data lacks it.
-  const ownsAllLink = category.items.some((item) => item.href === category.href)
+  const ownsAllLink = group.items.some((item) => item.href === group.href)
   return (
     <div style={{ borderBottom: `1px solid ${CHROME.borderSoft}` }}>
       <button
@@ -780,24 +948,25 @@ function MobileProductsCategory({
           justifyContent: 'space-between',
           width: '100%',
           borderRadius: 0,
+          fontSize: FS.base,
         }}
       >
-        {category.label}
+        {group.label}
         <Chevron open={expanded} />
       </button>
       {expanded ? (
         <div id={panelId} style={{ paddingBottom: 6 }}>
           {ownsAllLink ? null : (
             <a
-              href={category.href}
+              href={group.href}
               onClick={onClose}
-              style={{ ...mobileLeaf(category.href === currentHref), fontWeight: 600 }}
+              style={{ ...mobileLeaf(group.href === currentHref), fontWeight: 600 }}
               {...ghostHover()}
             >
-              All {category.label}
+              All {group.label}
             </a>
           )}
-          {category.items.map((item) => (
+          {group.items.map((item) => (
             <a
               key={item.id}
               href={item.href}

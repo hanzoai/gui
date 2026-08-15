@@ -13,6 +13,7 @@
  * primary cross-app surfaces.
  */
 import React from 'react'
+import { MARKS } from './glyph'
 import { U } from './hanzo-registry'
 
 export type HanzoAppCategory = 'Products' | 'Platform' | 'Install' | 'Account'
@@ -35,151 +36,6 @@ export type HanzoApp = {
   /** Primary cross-app surface. */
   core?: boolean
 }
-
-/* ── Inline line-icons (no icon-lib dependency; inherit currentColor) ──────── */
-
-const svg = (children: React.ReactNode) =>
-  function Icon({ size = 20 }: { size?: number }) {
-    return (
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.75}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        {children}
-      </svg>
-    )
-  }
-
-const ChatIcon = svg(
-  <path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z" />
-)
-const AppIcon = svg(
-  <>
-    <rect x="3" y="3" width="7" height="7" rx="1.4" />
-    <rect x="14" y="3" width="7" height="7" rx="1.4" />
-    <rect x="3" y="14" width="7" height="7" rx="1.4" />
-    <rect x="14" y="14" width="7" height="7" rx="1.4" />
-  </>
-)
-const UsersIcon = svg(
-  <>
-    <circle cx="9" cy="8" r="3.2" />
-    <path d="M3.5 20a5.5 5.5 0 0 1 11 0" />
-    <path d="M16 5.2a3.2 3.2 0 0 1 0 6M17.5 20a5.5 5.5 0 0 0-3-4.9" />
-  </>
-)
-const StudioIcon = svg(
-  <>
-    <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
-    <path d="M12 8.2 13.4 11l2.8 1-2.8 1L12 15.8 10.6 13l-2.8-1 2.8-1z" />
-  </>
-)
-const BotIcon = svg(
-  <>
-    <path d="M12 4V2" />
-    <rect x="4" y="7" width="16" height="12" rx="2.5" />
-    <path d="M2 13h2M20 13h2M9 12v1M15 12v1" />
-    <path d="M9.5 16.5h5" />
-  </>
-)
-const CloudIcon = svg(
-  <path d="M17.5 19H8a5 5 0 1 1 1.2-9.86A6 6 0 0 1 21 11a4 4 0 0 1-3.5 8Z" />
-)
-const CodeIcon = svg(
-  <>
-    <path d="m9 8-4 4 4 4" />
-    <path d="m15 8 4 4-4 4" />
-  </>
-)
-/* Base — a data store. Three stacked discs is the shape every database in every
-   icon set uses, so it is the one a reader already knows. */
-const BaseIcon = svg(
-  <>
-    <ellipse cx="12" cy="6" rx="7.5" ry="3" />
-    <path d="M4.5 6v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6" />
-    <path d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" />
-  </>
-)
-/* SDKs — a package. Not braces: braces say "code", and every door in this menu
-   is code; what an SDK is, is a thing you install. */
-const PackageIcon = svg(
-  <>
-    <path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7z" />
-    <path d="M3.5 7 12 11.5 20.5 7M12 11.5V21.4" />
-  </>
-)
-/* All downloads — the arrow into a tray, which is what a download IS. */
-const DownloadIcon = svg(
-  <>
-    <path d="M12 3v11" />
-    <path d="m7.5 10 4.5 4.5L16.5 10" />
-    <path d="M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5" />
-  </>
-)
-const GlobeIcon = svg(
-  <>
-    <circle cx="12" cy="12" r="9" />
-    <path d="M3 12h18" />
-    <path d="M12 3a13 13 0 0 1 0 18 13 13 0 0 1 0-18" />
-  </>
-)
-const SearchIcon = svg(
-  <>
-    <circle cx="11" cy="11" r="7" />
-    <path d="m20 20-3.2-3.2" />
-  </>
-)
-const TerminalIcon = svg(
-  <>
-    <path d="m5 8 4 4-4 4" />
-    <path d="M13 16h6" />
-    <rect x="2.5" y="4" width="19" height="16" rx="2.5" />
-  </>
-)
-const GatewayIcon = svg(
-  <>
-    <rect x="9" y="3" width="6" height="6" rx="1.2" />
-    <rect x="3" y="15" width="6" height="6" rx="1.2" />
-    <rect x="15" y="15" width="6" height="6" rx="1.2" />
-    <path d="M12 9v3M6 15v-1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" />
-  </>
-)
-const LayersIcon = svg(
-  <>
-    <path d="m12 3 9 5-9 5-9-5z" />
-    <path d="m3 13 9 5 9-5" />
-  </>
-)
-const MonitorIcon = svg(
-  <>
-    <rect x="3" y="4" width="18" height="12" rx="2" />
-    <path d="M8 20h8M12 16v4" />
-  </>
-)
-const PuzzleIcon = svg(
-  <path d="M9 4.5a1.5 1.5 0 0 1 3 0V6h3a1 1 0 0 1 1 1v3h1.5a1.5 1.5 0 0 1 0 3H16v3a1 1 0 0 1-1 1h-3v-1.5a1.5 1.5 0 0 0-3 0V20H6a1 1 0 0 1-1-1v-3H3.5a1.5 1.5 0 0 1 0-3H5V7a1 1 0 0 1 1-1h3z" />
-)
-const UserIcon = svg(
-  <>
-    <circle cx="12" cy="12" r="9" />
-    <circle cx="12" cy="10" r="3" />
-    <path d="M6.5 19a5.5 5.5 0 0 1 11 0" />
-  </>
-)
-const CardIcon = svg(
-  <>
-    <rect x="2.5" y="5" width="19" height="14" rx="2.5" />
-    <path d="M2.5 10h19M6 15h4" />
-  </>
-)
-const ShieldIcon = svg(<path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z" />)
 
 /** The 3×3 grid glyph used for the launcher trigger itself. */
 export const HanzoGridIcon = ({ size = 18 }: { size?: number }) => (
@@ -209,7 +65,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Chat',
     href: U.chat,
     description: 'Use AI — ask anything',
-    icon: ChatIcon,
+    icon: MARKS.chat,
     category: 'Products',
     core: true,
   },
@@ -218,7 +74,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'App',
     href: U.app,
     description: 'Build and ship apps',
-    icon: AppIcon,
+    icon: MARKS.blocks,
     category: 'Products',
     core: true,
   },
@@ -227,7 +83,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Team',
     href: U.team,
     description: 'People and AI together',
-    icon: UsersIcon,
+    icon: MARKS.users,
     category: 'Products',
     core: true,
   },
@@ -236,7 +92,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Studio',
     href: U.studio,
     description: 'Models, prompts and agents',
-    icon: StudioIcon,
+    icon: MARKS.studio,
     category: 'Products',
     core: true,
   },
@@ -245,7 +101,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Bot',
     href: U.bot,
     description: 'Publish AI anywhere',
-    icon: BotIcon,
+    icon: MARKS.bot,
     category: 'Products',
     core: true,
   },
@@ -254,7 +110,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Cloud',
     href: U.cloud,
     description: 'Operate the platform',
-    icon: CloudIcon,
+    icon: MARKS.cloud,
     category: 'Products',
     core: true,
   },
@@ -263,7 +119,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Dev',
     href: U.dev,
     description: 'Build from editor and terminal',
-    icon: CodeIcon,
+    icon: MARKS.code,
     category: 'Products',
   },
   {
@@ -271,7 +127,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'World',
     href: U.ai + '/world',
     description: 'Real-time global intelligence',
-    icon: GlobeIcon,
+    icon: MARKS.globe,
     category: 'Products',
   },
   {
@@ -279,7 +135,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Search',
     href: U.ai + '/search',
     description: 'AI-powered search',
-    icon: SearchIcon,
+    icon: MARKS.search,
     category: 'Products',
   },
 
@@ -289,7 +145,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Console',
     href: U.console,
     description: 'API keys, projects & products',
-    icon: TerminalIcon,
+    icon: MARKS.terminal,
     category: 'Platform',
     core: true,
   },
@@ -298,7 +154,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Gateway',
     href: U.gateway,
     description: 'Unified AI API gateway',
-    icon: GatewayIcon,
+    icon: MARKS.gateway,
     category: 'Platform',
   },
   {
@@ -306,7 +162,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Platform',
     href: U.platform,
     description: 'Deploy & scale services',
-    icon: LayersIcon,
+    icon: MARKS.layers,
     category: 'Platform',
   },
 
@@ -316,7 +172,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Base',
     href: U.base,
     description: 'Data, auth and files',
-    icon: BaseIcon,
+    icon: MARKS.base,
     category: 'Products',
   },
   {
@@ -324,7 +180,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Desktop',
     href: U.desktop,
     description: 'Desktop app',
-    icon: MonitorIcon,
+    icon: MARKS.monitor,
     category: 'Install',
   },
   {
@@ -332,7 +188,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Browser',
     href: U.extension,
     description: 'Browser extension',
-    icon: PuzzleIcon,
+    icon: MARKS.puzzle,
     category: 'Install',
   },
   {
@@ -340,7 +196,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'CLI',
     href: U.cli,
     description: 'Command-line interface',
-    icon: TerminalIcon,
+    icon: MARKS.terminal,
     category: 'Install',
   },
   {
@@ -348,7 +204,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'SDKs',
     href: U.sdks,
     description: 'Client libraries',
-    icon: PackageIcon,
+    icon: MARKS.package,
     category: 'Install',
   },
   {
@@ -356,7 +212,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Downloads',
     href: U.downloads,
     description: 'Every app and client',
-    icon: DownloadIcon,
+    icon: MARKS.download,
     category: 'Install',
   },
 
@@ -366,7 +222,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Account',
     href: U.account,
     description: 'Profile, orgs & billing',
-    icon: UserIcon,
+    icon: MARKS.user,
     category: 'Account',
   },
   {
@@ -374,7 +230,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Billing',
     href: U.billing,
     description: 'Subscriptions & usage',
-    icon: CardIcon,
+    icon: MARKS.card,
     category: 'Account',
   },
   {
@@ -382,7 +238,7 @@ export const HANZO_APPS: HanzoApp[] = [
     label: 'Admin',
     href: U.admin,
     description: 'Platform administration',
-    icon: ShieldIcon,
+    icon: MARKS.shield,
     category: 'Account',
   },
 ]

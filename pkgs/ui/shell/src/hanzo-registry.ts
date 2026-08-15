@@ -16,6 +16,8 @@
  *   PRODUCT_BOUNDARIES  the one-line "what each product is for"
  */
 
+import type { GlyphName } from './glyph'
+
 /** A plain navigable link. */
 export interface HanzoLink {
   id: string
@@ -25,6 +27,13 @@ export interface HanzoLink {
   hint?: string
   /** External (new tab) — defaults true for cross-property links. */
   external?: boolean
+  /**
+   * The mark this row wears in a menu, drawn to the LEFT of the label. A NAME
+   * from the shell's own set (`GlyphName`), never an element: the registry is
+   * data, and a host that could pass its own element would give one menu a mark
+   * the others cannot draw.
+   */
+  glyph?: GlyphName
 }
 
 /**
@@ -201,6 +210,7 @@ export const PRODUCT_BOUNDARIES: Record<string, string> = {
 export const HANZO_PRODUCTS: HanzoProduct[] = [
   {
     id: 'chat',
+    glyph: 'chat',
     label: 'Hanzo Chat',
     href: U.chat,
     tagline: 'Ask anything',
@@ -209,6 +219,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
   },
   {
     id: 'app',
+    glyph: 'blocks',
     label: 'Hanzo App',
     href: U.app,
     tagline: 'Build and ship apps',
@@ -217,6 +228,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
   },
   {
     id: 'team',
+    glyph: 'users',
     label: 'Hanzo Team',
     href: U.team,
     tagline: 'People and AI together',
@@ -225,6 +237,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
   },
   {
     id: 'studio',
+    glyph: 'studio',
     label: 'Hanzo Studio',
     href: U.studio,
     tagline: 'Models, prompts and agents',
@@ -233,6 +246,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
   },
   {
     id: 'bot',
+    glyph: 'bot',
     label: 'Hanzo Bot',
     href: U.bot,
     tagline: 'Publish AI anywhere',
@@ -241,6 +255,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
   },
   {
     id: 'cloud',
+    glyph: 'cloud',
     label: 'Hanzo Cloud',
     href: U.cloud,
     tagline: 'Run the platform',
@@ -249,6 +264,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
   },
   {
     id: 'base',
+    glyph: 'base',
     label: 'Hanzo Base',
     href: U.base,
     tagline: 'Data, auth and files',
@@ -257,6 +273,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
   },
   {
     id: 'dev',
+    glyph: 'code',
     label: 'Hanzo Dev',
     href: U.dev,
     tagline: 'From the editor and terminal',
@@ -301,17 +318,18 @@ export const TRY_HANZO_GROUPS: MeetHanzoGroup[] = [
       label: p.label,
       href: p.href,
       hint: p.tagline,
+      glyph: p.glyph,
     })),
   },
   {
     id: 'install',
     title: 'Install',
     items: [
-      { id: 'desktop', label: 'Desktop app', href: U.desktop },
-      { id: 'extension', label: 'Browser extension', href: U.extension },
-      { id: 'cli', label: 'Hanzo CLI', href: U.cli },
-      { id: 'sdks', label: 'SDKs', href: U.sdks },
-      { id: 'downloads', label: 'All downloads', href: U.downloads },
+      { id: 'desktop', label: 'Desktop app', href: U.desktop, glyph: 'monitor' },
+      { id: 'extension', label: 'Browser extension', href: U.extension, glyph: 'puzzle' },
+      { id: 'cli', label: 'Hanzo CLI', href: U.cli, glyph: 'terminal' },
+      { id: 'sdks', label: 'SDKs', href: U.sdks, glyph: 'package' },
+      { id: 'downloads', label: 'All downloads', href: U.downloads, glyph: 'download' },
     ],
   },
 ]
@@ -328,37 +346,37 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
     id: 'platform',
     title: 'Platform',
     items: [
-      { id: 'models', label: 'Models', href: U.models },
-      { id: 'enso', label: 'Enso', href: U.enso },
-      { id: 'agents', label: 'Managed agents', href: U.agents },
-      { id: 'mcp', label: 'MCP tools', href: U.mcp },
-      { id: 'dev', label: 'Hanzo Dev', href: U.dev },
-      { id: 'console', label: 'Developer console', href: U.console },
-      { id: 'api', label: 'API platform', href: U.api },
-      { id: 'cloud', label: 'All cloud products', href: U.cloud },
+      { id: 'models', label: 'Models', href: U.models, glyph: 'layers' },
+      { id: 'enso', label: 'Enso', href: U.enso, glyph: 'circle' },
+      { id: 'agents', label: 'Managed agents', href: U.agents, glyph: 'cpu' },
+      { id: 'mcp', label: 'MCP tools', href: U.mcp, glyph: 'plug' },
+      { id: 'dev', label: 'Hanzo Dev', href: U.dev, glyph: 'code' },
+      { id: 'console', label: 'Developer console', href: U.console, glyph: 'terminal' },
+      { id: 'api', label: 'API platform', href: U.api, glyph: 'gateway' },
+      { id: 'cloud', label: 'All cloud products', href: U.cloud, glyph: 'cloud' },
     ],
   },
   {
     id: 'install',
     title: 'Install',
     items: [
-      { id: 'desktop', label: 'Desktop app', href: U.desktop },
-      { id: 'extension', label: 'Browser extension', href: U.extension },
-      { id: 'cli', label: 'Hanzo CLI', href: U.cli },
-      { id: 'sdks', label: 'SDKs', href: U.sdks },
-      { id: 'downloads', label: 'All downloads', href: U.downloads },
+      { id: 'desktop', label: 'Desktop app', href: U.desktop, glyph: 'monitor' },
+      { id: 'extension', label: 'Browser extension', href: U.extension, glyph: 'puzzle' },
+      { id: 'cli', label: 'Hanzo CLI', href: U.cli, glyph: 'terminal' },
+      { id: 'sdks', label: 'SDKs', href: U.sdks, glyph: 'package' },
+      { id: 'downloads', label: 'All downloads', href: U.downloads, glyph: 'download' },
     ],
   },
   {
     id: 'resources',
     title: 'Resources',
     items: [
-      { id: 'docs', label: 'Documentation', href: U.docs },
-      { id: 'quickstarts', label: 'Quickstarts', href: U.quickstarts },
-      { id: 'learn', label: 'Learn', href: U.learn },
-      { id: 'community', label: 'Community', href: U.community },
-      { id: 'status', label: 'Status', href: U.status },
-      { id: 'support', label: 'Support', href: U.support },
+      { id: 'docs', label: 'Documentation', href: U.docs, glyph: 'book' },
+      { id: 'quickstarts', label: 'Quickstarts', href: U.quickstarts, glyph: 'rocket' },
+      { id: 'learn', label: 'Learn', href: U.learn, glyph: 'cap' },
+      { id: 'community', label: 'Community', href: U.community, glyph: 'users' },
+      { id: 'status', label: 'Status', href: U.status, glyph: 'pulse' },
+      { id: 'support', label: 'Support', href: U.support, glyph: 'ring' },
     ],
   },
 ]

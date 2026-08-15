@@ -99,10 +99,101 @@ localNav: [
 ]
 ```
 
-## Org switching
+## The one header, and what each surface passes
+
+`HanzoHeader` is the ONE public bar. It renders the chrome; a surface passes only
+its own data. The brand trigger says **Hanzo** and opens the same mega-menu
+everywhere — Flagship products · Platform · Install · Resources, projected from
+`HANZO_PRODUCTS` in `hanzo-registry.ts`. That menu is identical on every surface
+by construction; nothing about it is per-surface.
+
+```tsx
+<HanzoHeader
+  surface="ai"                          // id · hostname · or a HanzoSurface object
+  productsTaxonomy={HANZO_PRODUCT_CATEGORIES}  // opt into the rich Products menu
+  tryMenu                               // primary action opens the doors
+  auth={{ user, onSignIn, onSignOut }}  // the identity cluster
+  commands={myPages}                    // what ⌘K should also find
+/>
+```
+
+| Surface | `surface` | secondary nav (its data) | primary pill |
+|---|---|---|---|
+| hanzo.ai | `"ai"` | Models · Agents · Solutions · Developers · Pricing · Enterprise | **Try Hanzo** |
+| hanzo.app | `"app"` | Features · Templates · Pricing · Business | **+ New project** |
+| docs.hanzo.ai | `"docs"` | API · CLI · MCP · SDKs | **Get API key** |
+| console.hanzo.ai | `"console"` | Docs · API · Status | none (signed in) |
+
+A surface that owns its nav passes a `HanzoSurface` object instead of an id. The
+LABEL of the primary action is the surface's; its STYLE never varies — one white
+pill, radius 999, `rgb(250,250,250)`, 34 tall, 13px/600, from `cta(true)`.
+
+## Identity — one action, one provider
+
+Hanzo IAM is the only identity provider, and this package never runs a session.
+Pass the mapped user and your `@hanzo/iam` client's calls; the cluster renders
+one sign-in action when signed out and the account menu when signed in. There is
+no password field, no provider buttons and no email fallback here on purpose —
+every method lives on the IAM login page, which is the only place that knows
+which are enabled.
+
+```tsx
+const { user, startLogin, logout } = useIam()
+<HanzoHeader surface="docs" auth={{ user, onSignIn: startLogin, onSignOut: logout }} />
+```
+
+## The visitor chat
+
+One chat, two docks. `corner` mounts the small launcher in the bottom-right;
+without it the same chat is a right-side drawer.
+
+```tsx
+<AskHanzo corner authToken={publishableKey} />   // signed out
+<AskHanzo corner authToken={bearer} />           // signed in — meters to the user
+```
+
+Model defaults to `enso-free`. The credential is ONE knob with two sources: the
+surface's publishable key admits signed-out visitors, the visitor's own bearer
+takes over once they sign in. Resolve it the way the surface already does
+(build-time, from KMS) — never hardcode a key in shared chrome.
+
+## Org switching, and reaching past your own orgs
+
+`UserOrgDropdown` is the ONE switcher (OrgHeader mounts it). Your own orgs render
+immediately and switching them is unchanged. Supply `findOrgs` and it gains a
+search field: the server filters, sorts and pages; the client only asks.
+
+```tsx
+<OrgHeader
+  organizations={mine}                    // instant, no round trip
+  onOrgSwitch={switchOrg}
+  findOrgs={({ q, cursor }) => api.orgs({ q, cursor })}
+  onMasquerade={startMasquerade}          // only reachable for reach rows
+  masquerade={actingAs}                   // renders the persistent sign
+  onMasqueradeStop={stopMasquerade}
+/>
+```
+
+A page the server marks `reach: true` lists orgs beyond the caller's
+memberships — the SuperAdmin reach. The client never computes a privilege: no
+reach page, no section, no way to ask for one. Switching your own org calls
+`onOrgSwitch`; acting as someone else's calls `onMasquerade`, because they are
+different acts. While one runs, `<Masquerade>` names the org in the bar with a
+one-click exit, and it rides with the switcher — you get it by mounting.
 
 `ORG_DOMAINS` maps each org to its branded domains — Hanzo / Lux / Zoo / Pars
 baked in — and the signed-in chrome reads it for the account and billing links.
+
+## Chrome is dark, everywhere
+
+The bar, its menus, the launcher and the palette are one material: 60px of glass
+(`rgba(9,9,11,0.72)` over `blur(20px) saturate(1.8)`, no hairline) with dark
+menus hanging off it — on every surface, in every host theme. A menu attached to
+the chrome wears `PANEL` and stays dark under a light theme; a menu inside the
+page body is content and follows the theme. No ground here reads `--background`
+or any other inverting token, which is what keeps that true. Get it by MOUNTING
+the component; if you must build a chrome-attached menu we do not ship, spread
+`PANEL` rather than matching a colour by hand.
 
 ## One app list
 
@@ -112,11 +203,16 @@ it. Pass `apps` to any of the three to override.
 
 ## Exports
 
-- `HanzoHeader` — public/marketing header
+- `HanzoHeader` — the ONE public header
+- `HanzoIdentity`, `HanzoAuth` — the identity cluster (IAM, one action)
+- `AskHanzo` — the visitor chat (`corner` for the bottom-right launcher)
+- `Masquerade` — the sign that a masquerade is running, and its exit
 - `OrgHeader`, `OrgHeaderProps`, `OrgSearch` — THE signed-in bar: launcher,
-  breadcrumb, centre search, org switcher + user menu
+  breadcrumb, centre search, org switcher + user menu, `headerLeft` for the
+  surface's own leading controls
 - `HanzoAppLauncher` — the cross-app switcher
-- `UserOrgDropdown` — user/org dropdown
+- `UserOrgDropdown`, `UserOrgDropdownProps` — the ONE org switcher
+- `OrgQuery`, `OrgPage` — what the switcher asks the server, and its answer
 - `OrgCommandPalette`, `OrgCommandItem` — ⌘K palette
 - `HanzoMark`, `HanzoWordmark` — brand mark (`brandMenu` opts into the
   right-click brand menu)

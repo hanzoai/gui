@@ -190,6 +190,13 @@ export const U = {
   contact: 'https://hanzo.ai/contact',
 
   // Account
+  /**
+   * Hanzo IAM — the ONE identity provider every surface signs in against.
+   * The shell never mints a session itself: it renders the control and the
+   * host's `@hanzo/iam` client runs the authorization-code + PKCE round trip.
+   */
+  id: 'https://hanzo.id',
+  signup: 'https://hanzo.id/signup',
   account: 'https://hanzo.id/account',
   billing: 'https://billing.hanzo.ai',
   admin: 'https://admin.hanzo.ai',
@@ -872,7 +879,10 @@ export const HANZO_SURFACES: HanzoSurface[] = [
       { id: 'enterprise', label: 'Enterprise', href: U.enterprise },
     ],
     secondaryCTA: { id: 'docs', label: 'Documentation', href: U.docs },
-    primaryCTA: { id: 'chat', label: 'Open Chat', href: U.chat },
+    // "Try Hanzo", not "Open Chat" — the storefront's primary action names the
+    // INVITATION, and chat is only one of the doors behind it (`tryMenu` opens
+    // the rest). This is the label the audited hanzo.ai bar carries.
+    primaryCTA: { id: 'try', label: 'Try Hanzo', href: U.chat },
     preFooter: {
       heading: 'Meet the complete Hanzo AI platform',
       actions: [
@@ -1043,6 +1053,51 @@ export const HANZO_SURFACES: HanzoSurface[] = [
       actions: [
         { id: 'world', label: 'Open World', href: U.world },
         { id: 'quickstart', label: 'Read quickstart', href: U.quickstarts },
+      ],
+    },
+  },
+  {
+    id: 'docs',
+    host: 'docs.hanzo.ai',
+    productId: 'docs',
+    brandName: 'Hanzo Docs',
+    // The four things a reader came to read. Every href is a page that exists.
+    localNav: [
+      { id: 'api', label: 'API', href: U.apiRef },
+      { id: 'cli', label: 'CLI', href: U.cliRef },
+      { id: 'mcp', label: 'MCP', href: `${U.docs}/docs/mcp` },
+      { id: 'sdks', label: 'SDKs', href: `${U.docs}/docs/sdks` },
+    ],
+    secondaryCTA: { id: 'quickstart', label: 'Quickstart', href: U.quickstarts },
+    // The label changes, the pill does not. Docs asks for the key because that
+    // is what a reader is here to get; it is still the one white pill.
+    primaryCTA: { id: 'apikey', label: 'Get API key', href: U.keys },
+    preFooter: {
+      heading: 'Build with Hanzo — keys, quickstarts, and the full API',
+      actions: [
+        { id: 'apikey', label: 'Get API key', href: U.keys },
+        { id: 'quickstart', label: 'Read quickstart', href: U.quickstarts },
+      ],
+    },
+  },
+  {
+    id: 'console',
+    host: 'console.hanzo.ai',
+    productId: 'console',
+    brandName: 'Hanzo Console',
+    localNav: [
+      { id: 'docs', label: 'Docs', href: U.docs },
+      { id: 'api', label: 'API', href: U.apiRef },
+      { id: 'status', label: 'Status', href: U.status },
+    ],
+    secondaryCTA: { id: 'docs', label: 'Documentation', href: U.docs },
+    // No primary action: this surface is signed in, so the account menu is the
+    // right-hand control and the work lives in the page.
+    preFooter: {
+      heading: 'Ship on Hanzo Cloud',
+      actions: [
+        { id: 'apikey', label: 'Get API key', href: U.keys },
+        { id: 'docs', label: 'Read the docs', href: U.docs },
       ],
     },
   },

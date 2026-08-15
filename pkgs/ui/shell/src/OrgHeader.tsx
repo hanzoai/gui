@@ -3,13 +3,18 @@
 import React, { useState, useCallback } from 'react'
 import { HanzoMark } from './mark'
 import { HanzoAppLauncher } from './HanzoAppLauncher'
-import { UserOrgDropdown } from './UserOrgDropdown'
+import { UserOrgDropdown, type UserOrgDropdownProps } from './UserOrgDropdown'
 import { type HanzoApp } from './hanzo-apps'
 import { ORG_DOMAINS, type HanzoOrg, type HanzoUser } from './types'
 import { CHROME, CTRL_H, FS, GLASS, R, Z, control, ghostHover } from './theme'
 import { SPIN, useShellStyles } from './shellStyles'
 
-const HEADER_H = 56
+/**
+ * One bar, one height. 60 is what the audited hanzo.ai bar measures, and the
+ * signed-in bar is the same chrome with different contents — 56 here made the
+ * public and signed-in halves of one product read as two.
+ */
+const HEADER_H = 60
 
 /* ── Inline SVG icons (no deps) ── */
 
@@ -220,12 +225,34 @@ export interface OrgHeaderProps {
   currentOrgId?: string
   /** Called when the user selects a different org. */
   onOrgSwitch?: (orgId: string) => void
+  /**
+   * Ask the server for organizations — see <UserOrgDropdown>. Supplying it
+   * makes the switcher search-driven; the reach beyond the caller's own
+   * memberships appears only if the server answers with one.
+   */
+  findOrgs?: UserOrgDropdownProps['findOrgs']
+  /** Act as an org the caller does not belong to (server-authorized). */
+  onMasquerade?: (orgId: string) => void
+  /** The org being acted as, while a masquerade is running. */
+  masquerade?: HanzoOrg
+  /** Return to your own identity. */
+  onMasqueradeStop?: () => void
   /** Called when the user signs out. */
   onSignOut?: () => void
   /** Override the launcher's app list (defaults to the canonical HANZO_APPS). */
   apps?: HanzoApp[]
   /** Extra content rendered at the left of the header's right-hand controls. */
   headerRight?: React.ReactNode
+  /**
+   * The surface's OWN leading controls, rendered before the mark.
+   *
+   * Composed WITH the left cluster, never replacing it: an app whose layout has
+   * a rail to collapse or a drawer to open has to put those at the leading
+   * edge, and without a seat here the only way to keep them was to not mount
+   * this bar — which is how a surface ends up with no navigation at all on a
+   * phone.
+   */
+  headerLeft?: React.ReactNode
   /**
    * Replaces the built-in `UserOrgDropdown` at the far right.
    *
@@ -273,8 +300,13 @@ export function OrgHeader({
   currentOrgId,
   onOrgSwitch,
   onSignOut,
+  findOrgs,
+  onMasquerade,
+  masquerade,
+  onMasqueradeStop,
   apps,
   headerRight,
+  headerLeft,
   account,
   settingsHref,
   onSettingsClick,
@@ -318,7 +350,9 @@ export function OrgHeader({
         height: HEADER_H,
         padding: '0 14px',
         boxSizing: 'border-box',
-        borderBottom: `1px solid ${CHROME.border}`,
+        // No hairline — see HanzoHeader: the glass ends itself, and the audited
+        // bar draws a transparent edge. The 1px stays so the box does not move.
+        borderBottom: '1px solid transparent',
         // The header IS the shell's glass — spread the recipe rather than
         // restate it. All three bars had these three lines copied out, so the
         // "ONE recipe" in theme.ts governed the two mega-menu drapes and
@@ -328,8 +362,9 @@ export function OrgHeader({
         fontFamily: CHROME.font,
       }}
     >
-      {/* ── Left: logo · breadcrumb · app switcher ── */}
+      {/* ── Left: the surface's own controls · logo · breadcrumb · switcher ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+        {headerLeft}
         {/*
           The color is stated HERE because the mark is `currentColor` and this
           is an anchor: the UA sheet paints
@@ -431,6 +466,10 @@ export function OrgHeader({
             currentOrgId={currentOrgId}
             onOrgSwitch={onOrgSwitch}
             onSignOut={onSignOut}
+            findOrgs={findOrgs}
+            onMasquerade={onMasquerade}
+            masquerade={masquerade}
+            onMasqueradeStop={onMasqueradeStop}
           />
         )}
       </div>

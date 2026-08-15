@@ -260,7 +260,27 @@ export const LABEL: CSSProperties = {
   color: CHROME.fg,
 }
 
-/** A floating surface: mega-menu panels, dropdowns, sheets. */
+/**
+ * The chrome-menu surface: mega-menu panels, dropdowns, sheets, the account and
+ * org menus, the launcher, the palette.
+ *
+ * CHROME IS ALWAYS DARK — on every surface, in every host theme. It is a
+ * different material from page content, and the boundary is what a menu hangs
+ * off: a menu attached to the bar wears this and stays dark under a light
+ * theme; a menu inside the page body is content and follows the theme like
+ * everything else around it.
+ *
+ * This is why no ground in this file reads `--background` or any other
+ * semantic token — those invert between themes, and a chrome menu that
+ * inverted would be a white card hanging off a black bar. Every ground here is
+ * a literal, and `ACCENT`/`FOCUS_RING` are palette RUNGS that hold their value
+ * in both themes.
+ *
+ * A consumer gets this by MOUNTING the chrome component, not by matching its
+ * colour. Building a chrome-attached menu we do not ship? Spread this token —
+ * never a copied hex, which is how one surface ends up a shade off from the
+ * bar it hangs from.
+ */
 export const PANEL: CSSProperties = {
   borderRadius: R.card,
   border: `1px solid ${CHROME.border}`,

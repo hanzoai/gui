@@ -22,7 +22,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TRY_HANZO_GROUPS, U, type ProductCategory } from './hanzo-registry'
 import { search, type Match } from './search'
-import { CHROME, FS, TAP_H, control, ghostHover } from './theme'
+import { CHROME, CTRL_H, FS, control, ghostHover } from './theme'
 import {
   KBD,
   PaletteBar,
@@ -361,7 +361,18 @@ function ModeTab({
 }
 
 /**
- * The header's ⌘K affordance: a search glyph and the chord that opens it.
+ * The header's ⌘K affordance: one control that says what it does.
+ *
+ * A FIELD, not a nav pill, so it takes the raised fill and the hairline every
+ * input in the chrome takes (`CHROME.raised` over `CHROME.border`) and the word
+ * it answers to. The boundary belongs to the CONTROL. Drawn the other way round
+ * — a bare glyph beside a bordered keycap — the bar shows two loose objects and
+ * neither of them reads as the way in; the only edge in the row ends up around
+ * the hint rather than around the thing you click.
+ *
+ * That is the ONE exception the flat ghost rule takes, and it is the same one
+ * `CHROME.raised` was written for. Search is the control a reader hunts for
+ * before reading anything, and it cannot be found by brightness alone.
  *
  * It lives with the palette rather than in the header because the two are one
  * control — a trigger that drifted from what it opens is how a shortcut hint
@@ -370,19 +381,20 @@ function ModeTab({
 export function HanzoCommandTrigger({
   onOpen,
   compact,
-  height = TAP_H,
+  height = CTRL_H,
 }: {
   onOpen: () => void
-  /** Glyph only — the phone header has no room for the chord, or a keyboard. */
+  /** Glyph only — the phone header has no room for the word, or a keyboard. */
   compact?: boolean
   /**
    * The control's whole size, and the only knob. Everything inside is stated
    * against it, so a host that wants a different register moves one number.
    *
-   * Defaults to TAP_H, which is where the phone already drew it — search is the
-   * one header control a reader hunts for by SHAPE rather than by reading a
-   * label, and at the 34px nav register it read as a hint attached to the CTAs
-   * rather than as the way in.
+   * CTRL_H is the bar's register: search stands in a row of 34px nav pills next
+   * to a 34px CTA, and a control 10px taller than every neighbour reads as a
+   * widget dropped into the header rather than part of it. Touch loses nothing
+   * to that — shellStyles grows every shell control to TAP_H on a coarse
+   * pointer, so the thumb target is 44 wherever a thumb is pointing.
    */
   height?: number
 }) {
@@ -395,13 +407,19 @@ export function HanzoCommandTrigger({
       style={{
         ...control(false, height),
         gap: 8,
-        ...(compact ? { width: height, padding: 0 } : { padding: '0 16px' }),
+        border: `1px solid ${CHROME.border}`,
+        background: CHROME.raised,
+        // Stated, not inherited: `height` is the control's WHOLE size, and a
+        // host that never loaded a reset would otherwise add the edge to it and
+        // stand this 2px above the row it belongs to.
+        boxSizing: 'border-box',
+        ...(compact ? { width: height, padding: 0 } : { padding: '0 12px' }),
       }}
       {...ghostHover()}
     >
       <svg
-        width={22}
-        height={22}
+        width={16}
+        height={16}
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -414,15 +432,16 @@ export function HanzoCommandTrigger({
         <path d="m21 21-4.3-4.3" />
       </svg>
       {compact ? null : (
-        // The keycap is stated here rather than in KBD: that shape is shared
-        // with the palette's own ESC/↑/↓/↵ hints, which sit INSIDE a panel at
-        // the small register and must not grow with the header's trigger.
-        <kbd
-          style={{ ...KBD, color: CHROME.fgDim, padding: '4px 8px', fontSize: FS.base }}
-          aria-hidden="true"
-        >
-          ⌘K
-        </kbd>
+        <>
+          {/* The word, so the control is legible without decoding a glyph. */}
+          <span>Search</span>
+          {/* The chord spoken, not boxed. KBD is a keycap for hints sitting on
+              a flat panel; inside a control that already has its own edge it
+              would draw a second box within the first. */}
+          <span style={{ color: CHROME.fgDim, fontSize: FS.xs }} aria-hidden="true">
+            ⌘K
+          </span>
+        </>
       )}
     </button>
   )

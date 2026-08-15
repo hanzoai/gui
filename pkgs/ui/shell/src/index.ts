@@ -23,6 +23,10 @@ export type { HanzoApp } from './hanzo-apps'
 // ── Shared brand mark ──
 export { HanzoMark, HanzoWordmark } from './mark'
 
+// ── The one line-mark table every menu row and launcher tile draws from ──
+export { MARKS, Glyph } from './glyph'
+export type { GlyphName } from './glyph'
+
 // ── Shell chrome tokens (brand-driven, monochrome) ──
 export { CHROME, ACCENT, ACCENT_SOFT, ACCENT_SOFTER, ACCENT_TINT, FS, Z } from './theme'
 

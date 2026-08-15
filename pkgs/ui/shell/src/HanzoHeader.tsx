@@ -59,6 +59,7 @@ import {
   ghostHover,
   row,
 } from './theme'
+import { Glyph, glyphRow } from './glyph'
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
 import { useIntent, type Reach } from './intent'
@@ -175,6 +176,20 @@ export interface HanzoHeaderProps {
    * header can never grow a second, dead one. `account` overrides it.
    */
   signInHref?: string
+  /**
+   * `false` on a surface that already carries its own palette.
+   *
+   * The header contributes what it renders (`chrome`) to the palette, so a
+   * surface always has SOMETHING to find and the ⌕⌘K trigger always appears —
+   * which puts two search controls in the bar of a host that brought its own,
+   * both bound to ⌘K, each answering about a different half of the site.
+   * hanzo.app is that host: its palette holds the visitor's projects and every
+   * operation the cloud answers, which a shared header cannot know about.
+   *
+   * Opt-OUT, not opt-in: the trigger is right for the surfaces that have no
+   * palette of their own, and they are the majority.
+   */
+  search?: boolean
   className?: string
 }
 
@@ -197,6 +212,7 @@ export function HanzoHeader({
   identitySlot,
   tryMenu,
   signInHref,
+  search = true,
   className,
 }: HanzoHeaderProps) {
   useShellStyles()
@@ -242,8 +258,9 @@ export function HanzoHeader({
     () => [...(commands ?? []), ...chrome],
     [commands, chrome]
   )
-  // Search exists as long as there is something to find.
-  const hasSearch = hasProducts || searchIndex.length > 0
+  // Search exists as long as there is something to find — and the host has not
+  // said it already has a palette of its own.
+  const hasSearch = search && (hasProducts || searchIndex.length > 0)
 
   // Close everything on Esc when a mobile sheet is open.
   useEffect(() => {
@@ -584,9 +601,13 @@ function NavMenu({
           e.preventDefault()
           onStepIn()
         }}
-        style={{ ...control(open), fontWeight: 500 }}
+        style={{ ...control(open), fontWeight: 500, gap: 6 }}
         {...ghostHover(open)}
       >
+        {/* On a ROW the mark's box is reserved whether or not it is filled, so
+            labels line up in a column. A trigger has no column to line up with,
+            so an unnamed mark costs it 22px of bar for nothing. */}
+        {link.glyph ? <Glyph name={link.glyph} /> : null}
         {link.label}
         <Chevron open={open} />
       </a>
@@ -606,8 +627,14 @@ function NavMenu({
             // columns of text line up.
             left: 4,
             zIndex: Z.dropdown as unknown as number,
+            // A positioned box shrinks to fit its CONTAINING BLOCK, and this
+            // card's is the label that opened it — about 90px. So every row
+            // wrapped against the 180px floor while the 300px cap it was
+            // supposed to grow into never applied. `max-content` is what makes
+            // the card size to its widest row; the cap still holds it back.
+            width: 'max-content',
             minWidth: 180,
-            maxWidth: 300,
+            maxWidth: 320,
             padding: 8,
             borderRadius: R.card,
             border: `1px solid ${CHROME.border}`,
@@ -628,23 +655,26 @@ function NavMenu({
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noreferrer' : undefined}
               onClick={onClose}
-              style={{ ...row(), fontWeight: 500 }}
+              style={{ ...row(), ...glyphRow, fontWeight: 500 }}
               {...ghostHover()}
             >
-              {item.label}
-              {item.hint ? (
-                <span
-                  style={{
-                    display: 'block',
-                    marginTop: 1,
-                    fontSize: FS.xs,
-                    fontWeight: 400,
-                    color: CHROME.fgDim,
-                  }}
-                >
-                  {item.hint}
-                </span>
-              ) : null}
+              <Glyph name={item.glyph} />
+              <span style={{ minWidth: 0 }}>
+                {item.label}
+                {item.hint ? (
+                  <span
+                    style={{
+                      display: 'block',
+                      marginTop: 1,
+                      fontSize: FS.xs,
+                      fontWeight: 400,
+                      color: CHROME.fgDim,
+                    }}
+                  >
+                    {item.hint}
+                  </span>
+                ) : null}
+              </span>
             </a>
           ))}
         </div>
@@ -851,7 +881,7 @@ function MobileSheet({
                 onClick={onClose}
                 style={{
                   ...row(),
-                  display: 'flex',
+                  ...glyphRow,
                   alignItems: 'center',
                   margin: 0,
                   padding: '0 12px',
@@ -860,6 +890,7 @@ function MobileSheet({
                 }}
                 {...ghostHover()}
               >
+                <Glyph name={link.glyph} />
                 {link.label}
               </a>
             )
@@ -976,6 +1007,7 @@ function MobileGroup({
               style={mobileLeaf(item.href === currentHref)}
               {...ghostHover()}
             >
+              <Glyph name={item.glyph} />
               {item.label}
             </a>
           ))}
@@ -989,7 +1021,7 @@ function MobileGroup({
 function mobileLeaf(current: boolean) {
   return {
     ...row(current),
-    display: 'flex',
+    ...glyphRow,
     alignItems: 'center',
     margin: 0,
     padding: '0 12px',

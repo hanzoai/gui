@@ -59,6 +59,7 @@ import {
   ghostHover,
   row,
 } from './theme'
+import { Glyph, glyphRow } from './glyph'
 import { useShellStyles } from './shellStyles'
 import { useIsMobile } from './useMediaQuery'
 import { useRove } from './rove'
@@ -304,6 +305,7 @@ function ProductRow({
       onClick={onNavigate}
       style={{
         ...row(current),
+        ...glyphRow,
         padding: '4px 8px',
         lineHeight: 1.3,
         // Brighter at rest than a link row (`fgMuted`): the rail is what the
@@ -312,17 +314,20 @@ function ProductRow({
       }}
       {...ghostHover(current, CHROME.fg)}
     >
-      <span style={{ fontWeight: 500 }}>{product.label}</span>
-      <span
-        style={{
-          display: 'block',
-          fontSize: FS.xs,
-          fontWeight: 400,
-          lineHeight: 1.25,
-          color: CHROME.fgDim,
-        }}
-      >
-        {product.tagline}
+      <Glyph name={product.glyph} />
+      <span style={{ minWidth: 0 }}>
+        <span style={{ fontWeight: 500 }}>{product.label}</span>
+        <span
+          style={{
+            display: 'block',
+            fontSize: FS.xs,
+            fontWeight: 400,
+            lineHeight: 1.25,
+            color: CHROME.fgDim,
+          }}
+        >
+          {product.tagline}
+        </span>
       </span>
     </a>
   )
@@ -342,9 +347,10 @@ function LinkRow({
       href={link.href}
       aria-current={current ? 'true' : undefined}
       onClick={onNavigate}
-      style={{ ...row(current), padding: '4px 8px' }}
+      style={{ ...row(current), ...glyphRow, padding: '4px 8px' }}
       {...ghostHover(current)}
     >
+      <Glyph name={link.glyph} />
       {link.label}
     </a>
   )

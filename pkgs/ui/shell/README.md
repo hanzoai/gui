@@ -77,6 +77,28 @@ import { HanzoHeader, HANZO_PRODUCT_CATEGORIES } from '@hanzogui/shell'
 `anchor`, keyboard-accessible). `HANZO_PRODUCT_CATEGORIES` (+ `productCategorySlug`)
 is the shared default taxonomy; `ProductCategory` is the taxonomy type.
 
+## A nav entry that holds links (8.1.14+)
+
+A `localNav` entry (`HanzoNav`) with `items` opens them instead of navigating —
+a card under the label on the desktop, the sheet's own disclosure on a phone.
+It keeps its `href`, so the label is a real link before hydration and without
+JavaScript, and the ⌘K palette indexes what it holds rather than the entry.
+
+```tsx
+localNav: [
+  { id: 'solutions', label: 'Solutions', href: '/solutions' },
+  {
+    id: 'resources',
+    label: 'Resources',
+    href: '/learn',
+    items: [
+      { id: 'learn', label: 'Learn', href: '/learn', hint: 'Guides and documentation' },
+      { id: 'blog', label: 'Blog', href: '/blog', hint: 'News and deep dives' },
+    ],
+  },
+]
+```
+
 ## Org switching
 
 `ORG_DOMAINS` maps each org to its branded domains — Hanzo / Lux / Zoo / Pars

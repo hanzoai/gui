@@ -240,27 +240,27 @@ const SIZE = 16
  * One mark on a menu row, in the row's own colour — so it brightens with the
  * label under the pointer instead of sitting at a fixed brightness beside it.
  *
- * An unnamed mark still occupies its box, which is what keeps every label in a
- * card on one column. A row that shunted its label 24px left of its neighbours
- * would read as a broken menu rather than as a missing shape.
+ * Nothing at all when the row names nothing. An empty box that still takes its
+ * width reads as an indent with no cause: on the phone sheet it pushed Features
+ * and Enterprise 24px right of the rows above them, to reserve a column for
+ * marks that were never coming.
  */
 export function Glyph({ name }: { name?: GlyphName }) {
   const Mark = name ? MARKS[name] : undefined
+  if (!Mark) return null
   return (
     <span
       aria-hidden="true"
       style={{
         display: 'inline-flex',
         flexShrink: 0,
-        width: SIZE,
-        height: SIZE,
         // The mark sits on the FIRST line of a row that may have two (a
         // product's name over its tagline).
         marginTop: 1,
         opacity: 0.9,
       }}
     >
-      {Mark ? <Mark size={SIZE} /> : null}
+      <Mark size={SIZE} />
     </span>
   )
 }

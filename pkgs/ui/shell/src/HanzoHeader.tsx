@@ -59,7 +59,7 @@ import {
   ghostHover,
   row,
 } from './theme'
-import { Glyph, glyphRow } from './glyph'
+import { Glyph, glyphRow, type GlyphName } from './glyph'
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
 import { useIntent, type Reach } from './intent'
@@ -604,10 +604,7 @@ function NavMenu({
         style={{ ...control(open), fontWeight: 500, gap: 6 }}
         {...ghostHover(open)}
       >
-        {/* On a ROW the mark's box is reserved whether or not it is filled, so
-            labels line up in a column. A trigger has no column to line up with,
-            so an unnamed mark costs it 22px of bar for nothing. */}
-        {link.glyph ? <Glyph name={link.glyph} /> : null}
+        <Glyph name={link.glyph} />
         {link.label}
         <Chevron open={open} />
       </a>
@@ -957,7 +954,13 @@ function MobileGroup({
   currentHref,
   onClose,
 }: {
-  group: { id: string; label: string; href: string; items: HanzoLink[] }
+  group: {
+    id: string
+    label: string
+    href: string
+    items: HanzoLink[]
+    glyph?: GlyphName
+  }
   currentHref?: string
   onClose: () => void
 }) {
@@ -980,9 +983,13 @@ function MobileGroup({
           width: '100%',
           borderRadius: 0,
           fontSize: FS.base,
+          gap: 8,
         }}
       >
-        {group.label}
+        <span style={{ ...glyphRow, alignItems: 'center' }}>
+          <Glyph name={group.glyph} />
+          {group.label}
+        </span>
         <Chevron open={expanded} />
       </button>
       {expanded ? (

@@ -145,17 +145,23 @@ const { user, startLogin, logout } = useIam()
 ## The visitor chat
 
 One chat, two docks. `corner` mounts the small launcher in the bottom-right;
-without it the same chat is a right-side drawer.
+without it the same chat is a right-side drawer. Model defaults to `enso-free`.
 
 ```tsx
-<AskHanzo corner authToken={publishableKey} />   // signed out
-<AskHanzo corner authToken={bearer} />           // signed in — meters to the user
+<AskHanzo corner authToken={bearer} />          // signed in — meters to the user
+<AskHanzo corner auth={{ onSignIn }} />         // signed out — invites sign-in
+<AskHanzo corner onSubmit={myTransport} />      // the host owns the transport
 ```
 
-Model defaults to `enso-free`. The credential is ONE knob with two sources: the
-surface's publishable key admits signed-out visitors, the visitor's own bearer
-takes over once they sign in. Resolve it the way the surface already does
-(build-time, from KMS) — never hardcode a key in shared chrome.
+**There is no signed-out credential, by design.** A publishable key (`pk-`) is
+read-only and refuses completions; a secret key (`sk-`) is spendable, so putting
+one in shared chrome would ship a spendable secret to every page that mounts it.
+Anonymous inference needs a SERVER holding the key — never the browser.
+
+So with no `authToken` and no `onSubmit`, the card does not render a composer
+that would be refused: it shows one sign-in action against the same provider as
+the header. Give it `auth` (the `HanzoAuth` shape the header takes) and that
+action runs the host's IAM login; omit it and the action links to hanzo.id.
 
 ## Org switching, and reaching past your own orgs
 

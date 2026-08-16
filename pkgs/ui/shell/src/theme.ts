@@ -24,7 +24,21 @@ export const CHROME = {
    * material is tuned around, and `@hanzo/ui`'s says 72 over a 20px blur.
    */
   bg: 'rgba(9,9,11,0.72)',
-  /** True black — the same ground hanzo.ai and hanzo.chat paint the page with. */
+  /**
+   * True black — the ground hanzo.chat paints the page with.
+   *
+   * NOT hanzo.ai's, though this line claimed both for a long time. Measured
+   * anonymously at 1440x900: hanzo.ai and hanzo.app both paint rgb(10,10,10)
+   * (@hanzo/design's --background) and hanzo.chat paints rgb(0,0,0). So a panel
+   * built from this sits a rung BELOW the page on two of the three surfaces
+   * that mount it, which is the opposite of what a floating panel should do.
+   *
+   * Left at #000 deliberately rather than "fixed" to --background: this value
+   * is also the ink on the white CTA, where black is right and where moving it
+   * would be a change nobody asked for. Splitting the ground from the ink is a
+   * real change with a visible result, so it belongs to whoever is looking at
+   * the screen — not to a comment repair.
+   */
   panel: '#000000',
   /** The one raised fill (inputs, cards, tiles) that sits above `panel`. */
   raised: 'var(--white-03, rgb(255 255 255 / .03))',

@@ -281,17 +281,24 @@ export const GUTTER = 'clamp(20px, 4vw, 72px)'
  * floating card beside it reads as a different product, which is what a header
  * carrying two drapes and four anchored cards looked like.
  *
- * Translucent, so the picture behind it stays visible and the plane reads as a
- * layer over the page rather than a section of it. The inset highlight is the
- * whole trick: a 7% white line along the top lip is what makes a dark
- * translucent sheet read as glass with a lit edge instead of a hole.
+ * THE BAR'S OWN GLASS, not a black slab. A menu is the bar CONTINUING down the
+ * page, so it is made of what the bar is made of — same ground, same 20px blur,
+ * same saturation — and the seam between them disappears because there is
+ * nothing on either side of it to differ. It was `CHROME.panel`, flat opaque
+ * black, which is why hanzo.ai had a stylesheet rule naming two menus by id and
+ * painting glass over them; that rule reached those two and left every local
+ * nav plane opaque, so one bar answered in two materials.
+ *
+ * The page behind still recedes — that is `UNDERVEIL`'s job, and it is what
+ * keeps a translucent plane legible: everything below is dimmed and thrown out
+ * of focus first, so the words on the plane are the only thing in focus.
  *
  * Reserve rounded, bordered chrome for COMPACT controls — search, the CTA, the
  * composer. Three surfaces in the house and no more: this plane, that compact
  * glass, and the bare page.
  */
 export const DRAPE: CSSProperties = {
-  background: CHROME.panel,
+  ...GLASS,
   borderRadius: 0,
   border: 'none',
   boxShadow: 'none',

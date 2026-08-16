@@ -94,6 +94,10 @@ test('the shell never holds a credential — one action, one provider', () => {
 
 test('chrome is dark on every surface — no ground reads an inverting token', () => {
   const theme = read('theme.ts')
+  // `--border` belongs here too: design defines it as `--white-10` in dark and
+  // `rgb(0 0 0 / .10)` in light, so binding the chrome's edge to it would draw
+  // black hairlines on a black bar under a light host.
+  assert.doesNotMatch(theme, /var\(--border[,)]/, 'the edge takes the rung, not the semantic')
   for (const token of ['--background', '--foreground', '--card', '--popover', '--primary']) {
     assert.doesNotMatch(
       theme,
@@ -136,6 +140,20 @@ test('a page never links to itself — and keeps the control anyway', () => {
   // The pill stays a pill — same token, so "current" cannot drift into a
   // different-looking control.
   assert.match(src, /aria-current="page" style=\{cta\(filled, height\)\}/, 'still cta()')
+})
+
+test('one edge, at design value — 10%, spelled once', () => {
+  const theme = read('theme.ts')
+  assert.match(
+    theme,
+    /border: 'var\(--white-10, rgb\(255 255 255 \/ \.10\)\)'/,
+    'the resting edge is design\'s rung with design\'s value as the fallback'
+  )
+  // The 9% spelling is gone from the package, and cannot come back by hand:
+  // every hairline reads CHROME.border, so there is one place to change.
+  for (const [file, src] of sources) {
+    assert.doesNotMatch(src, /0\.09|,\s*\.09\)/, `${file}: a second edge value`)
+  }
 })
 
 test('the switcher asks the server — it never holds the list', () => {

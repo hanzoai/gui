@@ -52,10 +52,10 @@ import {
   CHROME,
   FS,
   DRAPE,
+  UNDERVEIL,
   GUTTER,
   LABEL,
   SHADOW,
-  VEIL,
   Z,
   ghostHover,
   row,
@@ -166,7 +166,7 @@ export function MeetHanzoMenu({
           inset: 0,
           top: anchor,
           zIndex: Z.overlay as unknown as number,
-          background: 'transparent',
+          ...UNDERVEIL,
         }}
       />
       <div
@@ -198,7 +198,6 @@ export function MeetHanzoMenu({
           // The header's own glass, lifted by one hueless glow where the panel
           // meets it, so a full-bleed band still reads as a surface.
           ...DRAPE,
-          background: `${VEIL}, ${DRAPE.background as string}`,
           boxShadow: SHADOW,
           fontFamily: CHROME.font,
           color: CHROME.fg,

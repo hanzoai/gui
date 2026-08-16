@@ -176,7 +176,11 @@ export function HanzoCommandPalette({
   const index: HanzoCommandEntry[] = useMemo(() => {
     const at = new Map<string, number>()
     const out: HanzoCommandEntry[] = []
-    for (const entry of [...doors(), ...(commands ?? []), ...products(categories ?? [])]) {
+    for (const entry of [
+      ...doors(),
+      ...(commands ?? []),
+      ...products(categories ?? []),
+    ]) {
       const seen = at.get(entry.href)
       if (seen === undefined) {
         at.set(entry.href, out.length)
@@ -246,12 +250,12 @@ export function HanzoCommandPalette({
     (i: number) => (mode === 'ask' ? ask() : go(i)),
     [ask, go, mode]
   )
-  const { index: cursor, setIndex, listRef, onKeyDown } = usePaletteNav(
-    entries.length,
-    onEnter,
-    close,
-    `${mode}:${query}`
-  )
+  const {
+    index: cursor,
+    setIndex,
+    listRef,
+    onKeyDown,
+  } = usePaletteNav(entries.length, onEnter, close, `${mode}:${query}`)
 
   // Focus the field on every open. The palette is summoned to be TYPED IN — a
   // caret anywhere else is a keystroke thrown away.

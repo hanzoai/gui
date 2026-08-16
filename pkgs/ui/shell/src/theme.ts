@@ -277,12 +277,27 @@ export const GUTTER = 'clamp(20px, 4vw, 72px)'
  * glass, and the bare page.
  */
 export const DRAPE: CSSProperties = {
-  background: 'rgba(12,12,14,0.68)',
-  backdropFilter: 'blur(28px) saturate(1.35)',
-  WebkitBackdropFilter: 'blur(28px) saturate(1.35)',
-  boxShadow: 'inset 0 1px rgba(255,255,255,0.07), 0 24px 80px rgba(0,0,0,0.28)',
+  background: CHROME.panel,
   borderRadius: 0,
   border: 'none',
+  boxShadow: 'none',
+}
+
+/**
+ * What the page does while a plane is open: it RECEDES.
+ *
+ * The blur belongs here, not on the plane. A translucent menu with the page
+ * legible through it asks a reader to pick the words out of a moving picture;
+ * the reference does the opposite — the plane is flatly opaque and everything
+ * BELOW it is dimmed and thrown out of focus, so the menu is the only thing in
+ * focus on the screen and the page is visibly still there underneath.
+ *
+ * Also the click-catcher: pointing anywhere in it closes the plane.
+ */
+export const UNDERVEIL: CSSProperties = {
+  background: 'rgba(0,0,0,0.4)',
+  backdropFilter: 'blur(24px) saturate(1.2)',
+  WebkitBackdropFilter: 'blur(24px) saturate(1.2)',
 }
 
 /** Scrim behind a modal surface. */

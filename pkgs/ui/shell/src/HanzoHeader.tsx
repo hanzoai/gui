@@ -59,7 +59,6 @@ import {
   SCRIM,
   SHADOW,
   TAP_H,
-  VEIL,
   Z,
   control,
   cta,
@@ -779,7 +778,6 @@ function NavMenu({
             maxHeight: `calc(100dvh - ${HEADER_H}px)`,
             overflowY: 'auto',
             ...DRAPE,
-            background: `${VEIL}, ${DRAPE.background as string}`,
             color: CHROME.fg,
             animation: 'hanzo-card-in 200ms cubic-bezier(.2,.9,.3,1.1) both',
           }}
@@ -906,7 +904,9 @@ function NavMenu({
  */
 const COLUMNS: React.CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
+  gridAutoFlow: 'column',
+  gridAutoColumns: 'max-content',
+  justifyContent: 'start',
   gap: 'clamp(24px, 3vw, 64px)',
   alignItems: 'flex-start',
 }

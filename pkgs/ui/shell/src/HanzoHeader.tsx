@@ -32,7 +32,7 @@
  * chrome, fully keyboard-accessible.
  */
 import React, { useCallback, useEffect, useState } from 'react'
-import { HanzoMark } from './mark'
+import { HanzoWordmark } from './mark'
 import { MeetHanzoMenu } from './MeetHanzoMenu'
 import { TryHanzoMenu } from './TryHanzoMenu'
 import { ProductsMegaMenu } from './ProductsMegaMenu'
@@ -383,16 +383,17 @@ export function HanzoHeader({
           fontFamily: CHROME.font,
         }}
       >
-        {/* ── Brand (surface-supplied wordmark, or the default mark + name) ── */}
+        {/* ── Brand (surface-supplied lockup, or the default wordmark) ── */}
         {brandSlot ?? (
-          // The mark is the way home, so on the home page it is not a link
+          // The brand is the way home, so on the home page it is not a link
           // either — same rule as every other control that names this place.
           <BrandBox home={home} name={s.brandName} current={isHere(home)}>
-            {/* Just the H mark — the product wordmark is dropped so the lockup stays
-                tight (H → Hanzo), matching the compact app-shell register. The
-                current product is still named inside the Hanzo menu (highlighted)
-                and by the page itself, so the wordmark here was redundant chrome. */}
-            <HanzoMark size={22} />
+            {/* The WORDMARK, not the glyph. The glyph is the assistant's: it is the
+                launcher in the bottom corner, on every surface, and a symbol that
+                means "ask Hanzo" there cannot also mean "go home" here without
+                teaching two things with one shape. So the corner keeps the mark
+                and the header says the name. */}
+            <HanzoWordmark label="Hanzo" size={22} />
           </BrandBox>
         )}
 

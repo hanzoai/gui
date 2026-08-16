@@ -298,6 +298,70 @@ export const DRAPE: CSSProperties = {
 }
 
 /**
+ * The plane's own inset — one figure for every menu that drops out of the bar.
+ *
+ * Across the gutter it is `GUTTER`, so a link lands in the same column as the
+ * item that opened it. Down it is 18/28, and that pair was three pairs: the
+ * ecosystem menu sat at 12/18, the taxonomy at 18/28 and a local nav card at
+ * 20/28, which is a bar whose menus each begin at their own height.
+ */
+export const PLANE_PAD = `18px ${GUTTER} 28px`
+
+/**
+ * THE PLANE, stated once — geometry as well as material.
+ *
+ * Every menu that drops out of the bar takes this: the same top edge (the bar's
+ * own bottom), the same two screen edges, the same ceiling on its height, the
+ * same elevation, the same entrance. It was copied into three files and had
+ * drifted in all the ways a copy does — `vh` here and `dvh` there, a shadow on
+ * two of them, an entrance on one.
+ *
+ * `anchor` is the bar's height, and the only thing a caller supplies.
+ */
+export function plane(anchor: number): CSSProperties {
+  return {
+    position: 'fixed',
+    top: anchor,
+    left: 0,
+    right: 0,
+    zIndex: Z.modal as unknown as number,
+    boxSizing: 'border-box',
+    // Never taller than what is left of the viewport — the plane scrolls
+    // inside itself rather than off the bottom. `dvh` because a phone's URL
+    // bar moves the usable height.
+    maxHeight: `calc(100dvh - ${anchor}px)`,
+    overflowY: 'auto',
+    ...DRAPE,
+    boxShadow: SHADOW,
+    color: CHROME.fg,
+    fontFamily: CHROME.font,
+    // It arrives, it does not appear. A full-bleed sheet cannot SCALE into
+    // place — the corners travel further than the eye can follow — so it
+    // lowers, which is the same gesture the bar's own edge makes.
+    animation: 'hanzo-plane-in 160ms cubic-bezier(.2,.9,.3,1) both',
+  }
+}
+
+/**
+ * The click-catcher and the receding page, stated once alongside `plane`.
+ *
+ * It starts at the anchor rather than at the top of the screen, so the bar
+ * stays reachable — a catcher over the trigger takes a `pointerleave` the
+ * reader never made and shuts a hover-opened menu underneath them.
+ */
+export function veil(anchor: number): CSSProperties {
+  return {
+    position: 'fixed',
+    top: anchor,
+    left: 0,
+    right: 0,
+    height: `calc(100dvh - ${anchor}px)`,
+    zIndex: Z.overlay as unknown as number,
+    ...UNDERVEIL,
+  }
+}
+
+/**
  * What the page does while a plane is open: it RECEDES.
  *
  * The blur belongs here, not on the plane. A translucent menu with the page
@@ -379,6 +443,37 @@ export const PANEL: CSSProperties = {
  * `fgMuted` on plain links, which is why triggers and CTAs sat visibly brighter
  * than their neighbours at rest.
  */
+/**
+ * THE LIT PILL — what a control wears while the pointer rests on it or while
+ * the menu behind it is open. The bar's own glass, in the shape of the control.
+ *
+ * A trigger at rest is nothing but a word. Under the pointer it becomes a
+ * SURFACE — the same 20px blur and 1.8 saturation the bar is made of, a thin
+ * white wash so it reads as lifted off the bar rather than cut into it, and a
+ * hairline to close the shape. One recipe, so a nav link, a mega-menu trigger,
+ * the search control and the account button all answer the pointer with the
+ * same gesture instead of each brightening in its own dialect.
+ *
+ * The edge is an INSET SHADOW and not a border, which is the whole reason this
+ * can be toggled at all: a border would add two pixels to a control whose
+ * height is fixed, and the row would jump by a pixel every time a pointer
+ * crossed it.
+ */
+export const LIT: CSSProperties = {
+  background: CHROME.hover,
+  backdropFilter: 'blur(20px) saturate(1.8)',
+  WebkitBackdropFilter: 'blur(20px) saturate(1.8)',
+  boxShadow: `inset 0 0 0 1px ${CHROME.border}`,
+}
+
+/** The same four properties, off. `controlHover` toggles between the two. */
+const UNLIT: CSSProperties = {
+  background: 'transparent',
+  backdropFilter: 'none',
+  WebkitBackdropFilter: 'none',
+  boxShadow: 'none',
+}
+
 export function control(active = false, height: number = CTRL_H): CSSProperties {
   return {
     display: 'inline-flex',
@@ -387,19 +482,25 @@ export function control(active = false, height: number = CTRL_H): CSSProperties 
     gap: 5,
     flexShrink: 0,
     height,
+    // Stated, so the fixed height is the WHOLE height in a host that loaded no
+    // reset — the lit pill's edge is drawn inside the box either way.
+    boxSizing: 'border-box',
     padding: '0 12px',
     border: 'none',
     borderRadius: R.pill,
-    background: 'transparent',
+    ...(active ? LIT : UNLIT),
     color: active ? FG_ON : CHROME.fgMuted,
     fontSize: FS.sm,
     fontWeight: 600,
     fontFamily: 'inherit',
     textDecoration: 'none',
     whiteSpace: 'nowrap',
-    transition: 'color 120ms ease',
+    transition: CONTROL_EASE,
   }
 }
+
+/** One timing for everything the lit pill moves. */
+const CONTROL_EASE = 'color 120ms ease, background-color 120ms ease, box-shadow 120ms ease'
 
 /**
  * The two-variant call-to-action, identical in header, app header and pre-footer.
@@ -462,6 +563,26 @@ export function ghostHover(active = false, resting: string = CHROME.fgMuted) {
     },
     onMouseLeave: (e: MouseEvent<HTMLElement>) => {
       if (!active) e.currentTarget.style.color = resting
+    },
+  }
+}
+
+/**
+ * Hover for anything wearing `control()`: it lights up (`LIT`) and the label
+ * goes to white. The pair to `ghostHover`, and the split is the same one
+ * `control` and `row` already make — a control in the chrome is a SHAPE, a row
+ * inside a panel is a line of text, and only the first has a pill to light.
+ *
+ * Inert while `active`, because an open trigger is already lit by `control`
+ * itself, and its menu closing is what puts it out.
+ */
+export function controlHover(active = false, resting: string = CHROME.fgMuted) {
+  return {
+    onMouseEnter: (e: MouseEvent<HTMLElement>) => {
+      if (!active) Object.assign(e.currentTarget.style, LIT, { color: FG_ON })
+    },
+    onMouseLeave: (e: MouseEvent<HTMLElement>) => {
+      if (!active) Object.assign(e.currentTarget.style, UNLIT, { color: resting })
     },
   }
 }

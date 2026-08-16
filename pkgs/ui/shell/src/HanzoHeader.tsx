@@ -4,13 +4,14 @@
  * HanzoHeader — the ONE public/marketing header for every Hanzo property.
  *
  *   ┌────────────────────────────────────────────────────────────────────────┐
- *   │ [H]  [Hanzo ⌄] [Products ⌄]  Models  …   ⌕⌘K  Docs  [Try Hanzo]  ●     │
+ *   │ Hanzo AI  [Products ⌄]  Models  …        ⌕⌘K  Docs  [Try Hanzo]  ●     │
  *   └────────────────────────────────────────────────────────────────────────┘
  *
  * Everything is DATA from a `HanzoSurface` (the per-domain config in
  * hanzo-registry): brand name · local nav · secondary (ghost) + primary
- * (filled) CTAs. "Hanzo ⌄" opens the universal <MeetHanzoMenu> with the
- * current product highlighted. Below 900px the local nav + the Hanzo menu
+ * (filled) CTAs. THE WORDMARK IS THE TRIGGER for the universal
+ * <MeetHanzoMenu> — resting on the name opens it with the current product
+ * highlighted, clicking it goes home. Below 900px the local nav and that menu
  * collapse into a single [Menu] disclosure.
 
  * The identity cluster is one action against Hanzo IAM and nothing else — see
@@ -50,7 +51,6 @@ import {
   CHROME,
   CTRL_H,
   FG_ON,
-  DRAPE,
   FS,
   GLASS,
   GUTTER,
@@ -59,12 +59,15 @@ import {
   SCRIM,
   SHADOW,
   TAP_H,
-  UNDERVEIL,
   Z,
   control,
+  controlHover,
   cta,
   ghostHover,
+  PLANE_PAD,
+  plane,
   row,
+  veil,
 } from './theme'
 import { Glyph, glyphRow, Outlink, type GlyphName } from './glyph'
 import { useIsMobile } from './useMediaQuery'
@@ -296,7 +299,18 @@ export function HanzoHeader({
     // oscillate. Hysteresis is the 1px slack.
     const measure = () => {
       if (tooTight) return
-      setTooTight(el.scrollWidth > el.clientWidth + 1)
+      // The NAV, not the header and not the controls.
+      //
+      // Measured at 1160 on hanzo.ai: the header reports scrollWidth ===
+      // clientWidth and every control keeps its full width, yet four labels are
+      // visibly drawn over the search pill. The nav is the only flex child that
+      // may shrink (`flex-shrink: 1`), so it is squeezed below its contents
+      // while the controls inside it refuse to give — they spill past the nav's
+      // box, over their neighbours, and nothing upstream ever overflows.
+      //
+      // So the honest question is whether the nav still contains its own items.
+      const nav = el.querySelector('nav')
+      if (nav && nav.scrollWidth > nav.clientWidth + 1) setTooTight(true)
     }
     measure()
     const ro = new ResizeObserver(measure)
@@ -421,17 +435,28 @@ export function HanzoHeader({
           fontFamily: CHROME.font,
         }}
       >
-        {/* ── Brand (surface-supplied lockup, or the default wordmark) ── */}
+        {/* ── Brand — the name of the place, and the door to the rest of it ── */}
         {brandSlot ?? (
           // The brand is the way home, so on the home page it is not a link
           // either — same rule as every other control that names this place.
-          <BrandBox home={home} name={s.brandName} current={isHere(home)}>
+          <BrandBox
+            home={home}
+            name={s.brandName}
+            current={isHere(home)}
+            open={menu.key === 'meet'}
+            reach={menu.trigger('meet')}
+            onStepIn={() => menu.set('meet')}
+            controls="hanzo-meet-menu"
+          >
             {/* The WORDMARK, not the glyph. The glyph is the assistant's: it is the
                 launcher in the bottom corner, on every surface, and a symbol that
                 means "ask Hanzo" there cannot also mean "go home" here without
                 teaching two things with one shape. So the corner keeps the mark
-                and the header says the name. */}
-            <HanzoWordmark label="Hanzo" size={22} />
+                and the header says the name.
+
+                The SURFACE's name, not the word "Hanzo": every property mounts
+                this bar, and each one is entitled to say what it is. */}
+            <HanzoWordmark label={s.brandName} size={22} />
           </BrandBox>
         )}
 
@@ -452,21 +477,6 @@ export function HanzoHeader({
           </>
         ) : (
           <>
-            {/* ── Company ⌄ ──
-                It said "Hanzo", from when the brand beside it was the GLYPH: an
-                H followed by the word read as one lockup. The brand is the
-                WORDMARK now, so the same slot rendered "Hanzo Hanzo" — the name
-                twice, side by side, which reads as a bug rather than as a menu.
-                The trigger is named for what is behind it instead. The drape is
-                unchanged: same groups, same rows. */}
-            <MenuTrigger
-              label="Company"
-              open={menu.key === 'meet'}
-              reach={menu.trigger('meet')}
-              onStepIn={() => menu.set('meet')}
-              controls="hanzo-meet-menu"
-            />
-
             {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
             {hasProducts ? (
               <MenuTrigger
@@ -649,7 +659,7 @@ function MenuTrigger({
       }}
       style={control(open)}
       {...reach}
-      {...ghostHover(open)}
+      {...controlHover(open)}
     >
       {label}
       <Chevron open={open} />
@@ -658,37 +668,78 @@ function MenuTrigger({
 }
 
 /**
- * The brand lockup: a link home, or — when this IS home — the mark alone,
- * announced as the current page rather than offered as somewhere to go.
+ * The brand: the name of the place, the way home, and the door to the rest of
+ * the estate — ONE control, because it was two and they were the same word.
+ *
+ * The bar read "Hanzo AI" and then "Hanzo ⌄" beside it, a stutter no amount of
+ * renaming the second one fixes: whatever you call it, a reader who wants to
+ * know what Hanzo is looks at the name first, and the name was inert. So the
+ * name IS the trigger, which is what apple.com and vercel.com do with the mark
+ * in the same corner.
+ *
+ * POINT to browse, CLICK to go home. Resting on it opens the menu without
+ * taking focus or leaving the page; clicking follows the link, because a
+ * wordmark that swallowed its own click would be the one control in the bar
+ * that does not do what a wordmark does. On the home page there is nowhere to
+ * go, so it becomes a button that toggles the menu instead — the same swap
+ * `NavMenu` makes, rather than losing its focus stop to a `<span>`.
+ *
+ * ↓ opens it and steps inside, which is how a keyboard reaches a menu that has
+ * no click of its own to spare.
  */
 function BrandBox({
   home,
   name,
   current,
+  open,
+  reach,
+  onStepIn,
+  controls,
   children,
 }: {
   home: string
   name: string
   current: boolean
+  open: boolean
+  reach: Reach
+  onStepIn: () => void
+  controls: string
   children: React.ReactNode
 }) {
-  const style = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 9,
-    flexShrink: 0,
-    textDecoration: 'none',
-    color: CHROME.fg,
-  } as const
+  const { onClick, ...pointer } = reach
+  const shared = {
+    'aria-haspopup': 'dialog' as const,
+    'aria-expanded': open,
+    'aria-controls': open ? controls : undefined,
+    onKeyDown: (e: React.KeyboardEvent) => {
+      if (e.key !== 'ArrowDown' || open) return
+      e.preventDefault()
+      onStepIn()
+    },
+    // The bar's own pill, at the bar's own left edge: `control` pads the shape
+    // by 12 and the negative margin hands those 12 back, so the lit pill grows
+    // outward into the gutter while the NAME stays on the page's column.
+    style: {
+      ...control(open),
+      marginLeft: -12,
+      gap: 9,
+      // The name of the place is never dim. `control` speaks in brightness and
+      // this one control is exempt: it is the only word on the bar that is not
+      // competing for attention with the others.
+      color: open ? FG_ON : CHROME.fg,
+    },
+    ...pointer,
+    ...controlHover(open, CHROME.fg),
+  }
   if (current) {
     return (
-      <span role="img" aria-label={name} aria-current="page" style={style}>
+      <button type="button" aria-label={name} aria-current="page" onClick={onClick} {...shared}>
         {children}
-      </span>
+      </button>
     )
   }
   return (
-    <a href={home} aria-label={name} style={style}>
+    <a href={home} aria-label={name} {...shared}>
       {children}
     </a>
   )
@@ -706,7 +757,7 @@ function NavLink({ link, current }: { link: HanzoLink; current?: boolean }) {
     )
   }
   return (
-    <a href={link.href} style={{ ...control(), fontWeight: 500 }} {...ghostHover()}>
+    <a href={link.href} style={{ ...control(), fontWeight: 500 }} {...controlHover()}>
       {link.label}
     </a>
   )
@@ -776,7 +827,7 @@ function NavMenu({
           onStepIn()
         }}
         style={{ ...control(open), fontWeight: 500, gap: 6 }}
-        {...ghostHover(open)}
+        {...controlHover(open)}
       >
         <Glyph name={link.glyph} />
         {link.label}
@@ -811,19 +862,7 @@ function NavMenu({
             it, and covered the menu it was supposed to sit under — swallowing
             every click on the links. Sibling to the plane, one stacking
             context, and z-index means what it says. */}
-        <div
-          aria-hidden="true"
-          onClick={onClose}
-          style={{
-            position: 'fixed',
-            top: HEADER_H,
-            left: 0,
-            right: 0,
-            height: `calc(100dvh - ${HEADER_H}px)`,
-            zIndex: Z.overlay as unknown as number,
-            ...UNDERVEIL,
-          }}
-        />
+        <div aria-hidden="true" onClick={onClose} style={veil(HEADER_H)} />
         <div
           id={panel}
           role="dialog"
@@ -833,10 +872,11 @@ function NavMenu({
           onKeyDown={rove.onKeyDown}
           onFocus={rove.onFocus}
           style={{
-            // THE NAVIGATION PLANE. Full width, dropped on the bar's bottom
-            // edge, content on the shared gutter — so a link in the menu sits
-            // in the same column as the item that opened it, and every primary
-            // menu answers with one surface instead of four.
+            // THE NAVIGATION PLANE — `plane()`, the same one the two mega-menus
+            // take, so a local nav card and the ecosystem menu are one surface
+            // arriving at one height with one entrance. This used to be a
+            // hand-written copy of it and had drifted in every direction a copy
+            // does.
             //
             // `fixed` inside the bar resolves against the BAR, not the
             // viewport, because the bar carries `backdrop-filter` and a
@@ -846,18 +886,8 @@ function NavMenu({
             // width, so `left/right: 0` are the screen edges and `top` is
             // measured from the bar's own top. If the bar ever stops being
             // full-bleed, this becomes a sibling of it like the palette.
-            position: 'fixed',
-            top: HEADER_H,
-            left: 0,
-            right: 0,
-            zIndex: Z.modal as unknown as number,
-            boxSizing: 'border-box',
-            padding: `20px ${GUTTER} 28px`,
-            maxHeight: `calc(100dvh - ${HEADER_H}px)`,
-            overflowY: 'auto',
-            ...DRAPE,
-            color: CHROME.fg,
-            animation: 'hanzo-card-in 200ms cubic-bezier(.2,.9,.3,1.1) both',
+            ...plane(HEADER_H),
+            padding: PLANE_PAD,
           }}
         >
           {wide ? (
@@ -1156,7 +1186,7 @@ function IconButton({
       aria-label={label}
       aria-expanded={expanded}
       style={{ ...control(expanded, TAP_H), width: TAP_H, padding: 0 }}
-      {...ghostHover(expanded)}
+      {...controlHover(expanded)}
     >
       {children}
     </button>

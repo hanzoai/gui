@@ -55,12 +55,10 @@ import {
   CHROME,
   FOCUS_RING,
   FS,
-  DRAPE,
-  UNDERVEIL,
-  GUTTER,
+  PLANE_PAD,
   R,
-  SHADOW,
-  Z,
+  plane,
+  veil,
 } from './theme'
 import { useShellStyles } from './shellStyles'
 import { useRove } from './rove'
@@ -142,13 +140,7 @@ export function ProductsMegaMenu({
       <div
         aria-hidden="true"
         onClick={close}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          top: anchor,
-          zIndex: Z.overlay as unknown as number,
-          ...UNDERVEIL,
-        }}
+        style={veil(anchor)}
       />
       <div
         ref={rove.ref}
@@ -163,33 +155,15 @@ export function ProductsMegaMenu({
         onFocus={rove.onFocus}
         onPointerEnter={onPointerEnter}
         onPointerLeave={onPointerLeave}
-        style={{
-          position: 'fixed',
-          top: anchor,
-          left: 0,
-          right: 0,
-          zIndex: Z.modal as unknown as number,
-          boxSizing: 'border-box',
-          // Flush under the header, and never taller than what is left of the
-          // viewport — the panel scrolls internally rather than off the bottom.
-          maxHeight: `calc(100vh - ${anchor}px)`,
-          overflowY: 'auto',
-          // A drape, not a card: the ONLY edge is the hairline that closes it.
-          // The header already draws the hairline above, so drawing one here too
-          // would double it.
-          // The header's own glass, lifted by one hueless glow where the panel
-          // meets it, so a full-bleed band still reads as a surface. Same
-          // recipe as MeetHanzoMenu — the two drapes are one surface.
-          ...DRAPE,
-          boxShadow: SHADOW,
-          fontFamily: CHROME.font,
-          color: CHROME.fg,
-        }}
+        // THE PLANE — one `plane()` for this menu, the ecosystem menu and
+        // every local nav card, so the three arrive at one height wearing one
+        // material with one entrance.
+        style={plane(anchor)}
       >
         {/* No "PRODUCTS" eyebrow: the trigger this panel hangs off already says
             Products, and the panel is anchored to it. Labelling it twice is the
             same word in two places. */}
-        <div style={{ padding: `18px ${GUTTER} 28px` }}>
+        <div style={{ padding: PLANE_PAD }}>
           <div
             data-hanzo-products-grid=""
             style={{
@@ -266,7 +240,7 @@ function CategoryTile({
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 10,
+          gap: MARK_GAP,
           marginBottom: 9,
           textDecoration: 'none',
           color: lit ? ACCENT : CHROME.fg,
@@ -280,8 +254,8 @@ function CategoryTile({
             display: 'grid',
             placeItems: 'center',
             flex: '0 0 auto',
-            width: 30,
-            height: 30,
+            width: MARK,
+            height: MARK,
             borderRadius: R.row,
             border: `1px solid ${lit ? ACCENT_SOFT : CHROME.border}`,
             color: lit ? ACCENT : CHROME.fgMuted,
@@ -307,7 +281,11 @@ function CategoryTile({
         <p
           title={category.tagline}
           style={{
-            margin: '0 0 12px',
+            // ONE text column. The heading sits after the mark, so a tagline and
+            // a leaf list starting at the tile's own edge began 40px to its LEFT
+            // — the heading read as indented under its own body. The mark hangs
+            // in the gutter now and every word in the tile shares one edge.
+            margin: `0 0 12px ${TEXT_INDENT}px`,
             fontSize: FS.xs,
             lineHeight: 1.45,
             // Levels the two rows: taglines run one to three lines, and without a
@@ -325,7 +303,7 @@ function CategoryTile({
         </p>
       ) : null}
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: TEXT_INDENT }}>
         {category.items.map((item) => (
           <LeafRow
             key={item.id}
@@ -339,6 +317,11 @@ function CategoryTile({
     </div>
   )
 }
+
+/** The category mark, and the column its text keeps clear of it. */
+const MARK = 30
+const MARK_GAP = 10
+const TEXT_INDENT = MARK + MARK_GAP
 
 function LeafRow({
   link,
@@ -355,7 +338,13 @@ function LeafRow({
 
   // Three steps, all colour: dim at rest, one step up while its tile is lit,
   // pure white on the leaf itself. Nothing moves and nothing fills.
-  const label = hover || current ? ACCENT : tileLit ? CHROME.fg : CHROME.fgMuted
+  // White at REST, and the others step back once you are pointing at one.
+  //
+  // It read the other way round — everything dim until hovered — which asks the
+  // reader to hunt for the live one and makes a full column look disabled. A
+  // menu is a list of things you may have; the pointer narrows it, so the
+  // narrowing is what the dimming should say.
+  const label = hover || current ? ACCENT : tileLit ? CHROME.fgDim : CHROME.fg
 
   return (
     <a

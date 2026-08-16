@@ -51,14 +51,12 @@ import {
   ACCENT,
   CHROME,
   FS,
-  DRAPE,
-  UNDERVEIL,
-  GUTTER,
   LABEL,
-  SHADOW,
-  Z,
+  PLANE_PAD,
   ghostHover,
+  plane,
   row,
+  veil,
 } from './theme'
 import { Glyph, glyphRow } from './glyph'
 import { useShellStyles } from './shellStyles'
@@ -161,13 +159,7 @@ export function MeetHanzoMenu({
       <div
         aria-hidden="true"
         onClick={close}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          top: anchor,
-          zIndex: Z.overlay as unknown as number,
-          ...UNDERVEIL,
-        }}
+        style={veil(anchor)}
       />
       <div
         ref={rove.ref}
@@ -182,26 +174,11 @@ export function MeetHanzoMenu({
         onFocus={rove.onFocus}
         onPointerEnter={onPointerEnter}
         onPointerLeave={onPointerLeave}
-        style={{
-          position: 'fixed',
-          top: anchor,
-          left: 0,
-          right: 0,
-          zIndex: Z.modal as unknown as number,
-          boxSizing: 'border-box',
-          // Flush under the header, and never taller than what is left of the
-          // viewport — the panel scrolls internally rather than off the bottom.
-          maxHeight: `calc(100vh - ${anchor}px)`,
-          overflowY: 'auto',
-          // A drape, not a card: the ONLY edge is the hairline that closes it.
-          // The header already draws the hairline above.
-          // The header's own glass, lifted by one hueless glow where the panel
-          // meets it, so a full-bleed band still reads as a surface.
-          ...DRAPE,
-          boxShadow: SHADOW,
-          fontFamily: CHROME.font,
-          color: CHROME.fg,
-        }}
+        // THE PLANE — geometry, material and entrance all from `plane()`, the
+        // same one the taxonomy menu and every local nav card take. A drape,
+        // not a card: the only edge is the hairline the header already draws
+        // above it.
+        style={plane(anchor)}
       >
         <div
           style={{
@@ -210,7 +187,7 @@ export function MeetHanzoMenu({
             // hairline between them lands in the same place at every width.
             gridTemplateColumns: stacked ? '1fr' : `${RAIL}px minmax(0, 1fr)`,
             gap: stacked ? 18 : 0,
-            padding: `12px ${GUTTER} 18px`,
+            padding: PLANE_PAD,
           }}
         >
           {/* ── Products — one dense column ── */}

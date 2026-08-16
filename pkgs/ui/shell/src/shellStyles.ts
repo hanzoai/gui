@@ -23,8 +23,9 @@
  *      both land here, where rule 5 already silences them for a reader who
  *      asked for stillness. `hanzo-spin` is the busy spinner;
  *      `hanzo-palette-in` is the ⌘K palette expanding into place;
- *      `hanzo-card-in` + `hanzo-row-in` are a menu dropping out of its trigger
- *      and its rows arriving behind it.
+ *      `hanzo-card-in` + `hanzo-row-in` are a card dropping out of its trigger
+ *      and its rows arriving behind it; `hanzo-plane-in` is a full-bleed menu
+ *      lowering out of the bar.
  *
  * Usage: a top-level shell component calls `useShellStyles()` once and puts
  * `data-hanzo-shell=""` on its root; the rules then apply to every focusable
@@ -112,6 +113,10 @@ const CSS = [
   // row at the call site, so the cascade is a property of the list rather than
   // of any one item.
   `@keyframes hanzo-row-in{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}`,
+  // The plane lowering out of the bar. It cannot SCALE — a full-bleed sheet's
+  // corners travel further than the eye can follow — so it fades and drops the
+  // 4px that reads as "this came from the edge above it".
+  `@keyframes hanzo-plane-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}`,
   // A door says where it goes once the pointer is on it. The mark leans toward
   // the exit and the arrow arrives — the whole of the personality, and it
   // cannot be an inline style because both are DESCENDANTS of what is hovered.

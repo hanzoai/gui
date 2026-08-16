@@ -46,6 +46,22 @@ export interface HanzoLink {
 export interface HanzoNav extends HanzoLink {
   /** The links this entry opens. Omit for a plain link. */
   items?: HanzoLink[]
+  /**
+   * Columns beside the primary list. With groups the menu opens as a WIDE
+   * panel: `items` becomes the large left column — the destinations someone
+   * arrives wanting — and each group is a column of supporting links.
+   *
+   * Without groups the menu stays the compact card, so an entry that is a
+   * short list does not grow a layout it has no content for.
+   */
+  groups?: HanzoNavGroup[]
+}
+
+/** A titled column of links inside a wide nav panel. */
+export interface HanzoNavGroup {
+  id: string
+  title: string
+  items: HanzoLink[]
 }
 
 /** A first-party Hanzo product. */

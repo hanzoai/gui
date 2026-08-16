@@ -462,11 +462,14 @@ export function HanzoHeader({
 
             {/* ── ⌘K palette trigger + CTAs + identity + account ── */}
             {hasSearch ? <HanzoCommandTrigger onOpen={openSearch} /> : null}
-            <CTA
-              link={s.secondaryCTA}
-              variant="ghost"
-              current={isHere(s.secondaryCTA.href)}
-            />
+            {/* A surface with no secondary action renders none. */}
+            {s.secondaryCTA ? (
+              <CTA
+                link={s.secondaryCTA}
+                variant="ghost"
+                current={isHere(s.secondaryCTA.href)}
+              />
+            ) : null}
             {/* A surface with no primary action renders none. */}
             {!s.primaryCTA ? null : tryMenu ? (
               <CTATrigger
@@ -1150,12 +1153,14 @@ function MobileSheet({
         ) : null}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <CTA
-            link={surface.secondaryCTA}
-            variant="ghost"
-            height={TAP_H}
-            current={isHere(surface.secondaryCTA.href)}
-          />
+          {surface.secondaryCTA ? (
+            <CTA
+              link={surface.secondaryCTA}
+              variant="ghost"
+              height={TAP_H}
+              current={isHere(surface.secondaryCTA.href)}
+            />
+          ) : null}
           {surface.primaryCTA ? (
             <CTA
               link={surface.primaryCTA}

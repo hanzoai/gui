@@ -121,8 +121,16 @@ export interface HanzoSurface {
   brandName: string
   /** Local (in-product) marketing nav. An entry with `items` opens a menu. */
   localNav: HanzoNav[]
-  /** Secondary (ghost) header action. */
-  secondaryCTA: HanzoLink
+  /**
+   * Secondary (ghost) header action, when the surface has one.
+   *
+   * Optional for the reason `primaryCTA` is: a surface that has moved this link
+   * into a menu has no second action, and the only honest value is none.
+   * Required, it made a surface pass a link it did not want and then hide the
+   * control in CSS — which reads as styling rather than as absence, and leaves
+   * the link in the palette and the mobile sheet where no rule reaches it.
+   */
+  secondaryCTA?: HanzoLink
   /**
    * Primary (filled) header action, when the surface has one.
    *

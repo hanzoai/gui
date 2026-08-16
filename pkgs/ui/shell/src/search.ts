@@ -129,7 +129,10 @@ export function score(
 
   // A short name that matched is a better answer than a long one that matched
   // the same way — "Chat" over "Chat completions streaming".
-  return { score: total - name.length * 0.08, hits: [...new Set(hits)].sort((a, b) => a - b) }
+  return {
+    score: total - name.length * 0.08,
+    hits: [...new Set(hits)].sort((a, b) => a - b),
+  }
 }
 
 /**

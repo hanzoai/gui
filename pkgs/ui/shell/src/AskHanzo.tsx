@@ -377,75 +377,75 @@ export function AskHanzo({
 
             {/* Composer, when a turn can be answered */}
             {canChat ? (
-            <div
-              style={{
-                padding: 12,
-                borderTop: `1px solid ${CHROME.border}`,
-                flexShrink: 0,
-              }}
-            >
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  gap: 8,
-                  padding: 8,
-                  border: `1px solid ${CHROME.border}`,
-                  borderRadius: R.card,
-                  background: CHROME.raised,
+                  padding: 12,
+                  borderTop: `1px solid ${CHROME.border}`,
+                  flexShrink: 0,
                 }}
               >
-                <textarea
-                  ref={inputRef}
-                  value={draft}
-                  onChange={(e) => setDraft(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault()
-                      void send()
-                    }
-                  }}
-                  rows={1}
-                  placeholder={placeholder}
+                <div
                   style={{
-                    flex: 1,
-                    resize: 'none',
-                    maxHeight: 140,
-                    border: 'none',
-                    // No `outline: 'none'` here. This textarea has no <label>
-                    // wrapper and its parent's border is static, so suppressing
-                    // the outline leaves the composer with NO focus indicator at
-                    // all. shellStyles' :focus-visible rule is the indicator —
-                    // let it land.
-                    background: 'transparent',
-                    color: CHROME.fg,
-                    fontSize: FS.sm,
-                    fontFamily: 'inherit',
-                    lineHeight: 1.5,
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => void send()}
-                  disabled={!draft.trim() || busy}
-                  aria-label="Send"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 32,
-                    height: 32,
-                    flexShrink: 0,
-                    border: 'none',
-                    borderRadius: R.pill,
-                    background: draft.trim() && !busy ? ACCENT : CHROME.hover,
-                    color: draft.trim() && !busy ? CHROME.panel : CHROME.fgDim,
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    gap: 8,
+                    padding: 8,
+                    border: `1px solid ${CHROME.border}`,
+                    borderRadius: R.card,
+                    background: CHROME.raised,
                   }}
                 >
-                  <SendGlyph />
-                </button>
+                  <textarea
+                    ref={inputRef}
+                    value={draft}
+                    onChange={(e) => setDraft(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault()
+                        void send()
+                      }
+                    }}
+                    rows={1}
+                    placeholder={placeholder}
+                    style={{
+                      flex: 1,
+                      resize: 'none',
+                      maxHeight: 140,
+                      border: 'none',
+                      // No `outline: 'none'` here. This textarea has no <label>
+                      // wrapper and its parent's border is static, so suppressing
+                      // the outline leaves the composer with NO focus indicator at
+                      // all. shellStyles' :focus-visible rule is the indicator —
+                      // let it land.
+                      background: 'transparent',
+                      color: CHROME.fg,
+                      fontSize: FS.sm,
+                      fontFamily: 'inherit',
+                      lineHeight: 1.5,
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => void send()}
+                    disabled={!draft.trim() || busy}
+                    aria-label="Send"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 32,
+                      height: 32,
+                      flexShrink: 0,
+                      border: 'none',
+                      borderRadius: R.pill,
+                      background: draft.trim() && !busy ? ACCENT : CHROME.hover,
+                      color: draft.trim() && !busy ? CHROME.panel : CHROME.fgDim,
+                    }}
+                  >
+                    <SendGlyph />
+                  </button>
+                </div>
               </div>
-            </div>
             ) : null}
             {/* No way to answer a turn — offer the way to get one. */}
             {canChat ? null : (

@@ -36,7 +36,16 @@ export type { GlyphName } from './glyph'
 // PANEL is the chrome-menu surface: chrome is dark on every surface in every
 // host theme, and a chrome-attached menu we do not ship spreads this rather
 // than matching its colour by hand.
-export { CHROME, ACCENT, ACCENT_SOFT, ACCENT_SOFTER, ACCENT_TINT, FS, PANEL, Z } from './theme'
+export {
+  CHROME,
+  ACCENT,
+  ACCENT_SOFT,
+  ACCENT_SOFTER,
+  ACCENT_TINT,
+  FS,
+  PANEL,
+  Z,
+} from './theme'
 
 // ── Responsive hook ──
 export { useMediaQuery, useIsMobile } from './useMediaQuery'

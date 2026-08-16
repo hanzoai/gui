@@ -97,8 +97,18 @@ test('chrome is dark on every surface — no ground reads an inverting token', (
   // `--border` belongs here too: design defines it as `--white-10` in dark and
   // `rgb(0 0 0 / .10)` in light, so binding the chrome's edge to it would draw
   // black hairlines on a black bar under a light host.
-  assert.doesNotMatch(theme, /var\(--border[,)]/, 'the edge takes the rung, not the semantic')
-  for (const token of ['--background', '--foreground', '--card', '--popover', '--primary']) {
+  assert.doesNotMatch(
+    theme,
+    /var\(--border[,)]/,
+    'the edge takes the rung, not the semantic'
+  )
+  for (const token of [
+    '--background',
+    '--foreground',
+    '--card',
+    '--popover',
+    '--primary',
+  ]) {
     assert.doesNotMatch(
       theme,
       new RegExp(`var\\(${token}`),
@@ -147,7 +157,7 @@ test('one edge, at design value — 10%, spelled once', () => {
   assert.match(
     theme,
     /border: 'var\(--white-10, rgb\(255 255 255 \/ \.10\)\)'/,
-    'the resting edge is design\'s rung with design\'s value as the fallback'
+    "the resting edge is design's rung with design's value as the fallback"
   )
   // The 9% spelling is gone from the package, and cannot come back by hand:
   // every hairline reads CHROME.border, so there is one place to change.
@@ -190,10 +200,15 @@ test('a running masquerade is unmistakable, and has a way out', () => {
 })
 
 test('one switcher — nothing else lists organizations', () => {
-  const listers = sources.filter(([f, src]) =>
-    f !== 'UserOrgDropdown.tsx' && /organizations\.map\(|orgs\.map\(/.test(src)
+  const listers = sources.filter(
+    ([f, src]) =>
+      f !== 'UserOrgDropdown.tsx' && /organizations\.map\(|orgs\.map\(/.test(src)
   )
-  assert.deepEqual(listers.map(([f]) => f), [], 'only one component renders orgs')
+  assert.deepEqual(
+    listers.map(([f]) => f),
+    [],
+    'only one component renders orgs'
+  )
 })
 
 test('one chat, two docks — the corner is a parameter, not a second UI', () => {

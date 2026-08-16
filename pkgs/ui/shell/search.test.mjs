@@ -17,21 +17,44 @@ import { score, search } from './dist/search.js'
  * URL cannot answer that query however clever it is.
  */
 const INDEX = [
-  { title: 'Pricing', hint: 'Plans and per-token rates', group: 'Pages', href: '/pricing' },
+  {
+    title: 'Pricing',
+    hint: 'Plans and per-token rates',
+    group: 'Pages',
+    href: '/pricing',
+  },
   { title: 'Vector', hint: 'Embeddings and retrieval', group: 'Data', href: '/vector' },
-  { title: 'Embeddings', hint: 'Turn anything into vectors', group: 'AI', href: '/embeddings' },
-  { title: 'Hanzo Chat', hint: 'Ask anything', group: 'Open', href: 'https://hanzo.chat' },
+  {
+    title: 'Embeddings',
+    hint: 'Turn anything into vectors',
+    group: 'AI',
+    href: '/embeddings',
+  },
+  {
+    title: 'Hanzo Chat',
+    hint: 'Ask anything',
+    group: 'Open',
+    href: 'https://hanzo.chat',
+  },
   { title: 'Hanzo CLI', hint: 'Code from a terminal', group: 'Install', href: '/cli' },
   { title: 'Machines', hint: 'VMs by the second', group: 'Compute', href: '/machines' },
   { title: 'GPUs', hint: 'On-demand accelerators', group: 'Compute', href: '/gpus' },
-  { title: 'Documentation', hint: 'Guides and reference', group: 'Pages', href: 'https://docs.hanzo.ai' },
+  {
+    title: 'Documentation',
+    hint: 'Guides and reference',
+    group: 'Pages',
+    href: 'https://docs.hanzo.ai',
+  },
 ]
 
 const find = (q) => search(INDEX, q, (e) => [e.title, e.hint, e.group, e.href])
 const titles = (q) => find(q).map((e) => e.title)
 
 test('an empty query is the identity, in input order', () => {
-  assert.deepEqual(titles(''), INDEX.map((e) => e.title))
+  assert.deepEqual(
+    titles(''),
+    INDEX.map((e) => e.title)
+  )
 })
 
 test('a page the site publishes is findable', () => {
@@ -91,7 +114,12 @@ test('case never matters', () => {
 test('a subsequence through PROSE is not a result', () => {
   // "docs" walks d·o·c·s through "…and prote(c)t every (s)ervice" and through
   // most other sentences too. A description is matched whole or not at all.
-  const noise = { title: 'Network', hint: 'Connect, route, and protect every service', group: 'Products', href: '/network' }
+  const noise = {
+    title: 'Network',
+    hint: 'Connect, route, and protect every service',
+    group: 'Products',
+    href: '/network',
+  }
   assert.equal(score('docs', noise.title, noise.hint, noise.group, noise.href), null)
   assert.equal(score('chat', 'Web3', 'On-chain infrastructure for the cloud'), null)
 })

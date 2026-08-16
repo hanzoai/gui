@@ -291,7 +291,12 @@ export function Outlink() {
       strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ display: 'inline-block', marginLeft: '0.28em', verticalAlign: 'middle', opacity: 0.7 }}
+      style={{
+        display: 'inline-block',
+        marginLeft: '0.28em',
+        verticalAlign: 'middle',
+        opacity: 0.7,
+      }}
     >
       <path d="M7 17 17 7M9 7h8v8" />
     </svg>

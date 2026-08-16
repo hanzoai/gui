@@ -26,7 +26,7 @@ export { HANZO_APPS, getHanzoApps, findHanzoApp, HanzoGridIcon } from './hanzo-a
 export type { HanzoApp } from './hanzo-apps'
 
 // ── Shared brand mark ──
-export { HanzoMark, HanzoWordmark } from './mark'
+export { HanzoMark, HanzoWordmark, HanzoLockup } from './mark'
 
 // ── The one line-mark table every menu row and launcher tile draws from ──
 export { MARKS, Glyph } from './glyph'

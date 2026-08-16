@@ -1189,7 +1189,18 @@ function MobileSheet({
           left: 0,
           right: 0,
           zIndex: Z.modal as unknown as number,
-          maxHeight: `calc(100vh - ${top}px)`,
+          // FULL height, not "as tall as it happens to be". A sheet sized to its
+          // content stops wherever the last row lands and leaves the page showing
+          // underneath it — which reads as a panel that failed to finish rather
+          // than as the menu taking over the screen, and it is the whole screen
+          // that a phone menu is competing for.
+          //
+          // `dvh`, not `vh`: on a phone `vh` is the LARGEST viewport, measured as
+          // though the browser's own chrome were hidden, so a sheet cut to `vh`
+          // runs under the address bar until the user scrolls. `dvh` is what is
+          // actually visible right now, and it is what the desktop plane already
+          // uses one screen up.
+          height: `calc(100dvh - ${top}px)`,
           overflowY: 'auto',
           padding: 12,
           borderRadius: 0,

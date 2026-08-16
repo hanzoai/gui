@@ -243,3 +243,45 @@ test('the chat carries no key, and refuses to pretend it can answer', () => {
   assert.match(src, /\{canChat \? null : \(/, 'and the invitation takes its place')
   assert.match(src, /auth\?\.signInHref \?\? U\.id/, 'one provider, the same one')
 })
+
+test('every palette ends the same way — a question is never a dead end', () => {
+  // One ⌘K across the estate means one BEHAVIOUR across the estate, and the
+  // load-bearing half of that is what happens when the list cannot answer.
+  // The rule lived only in the public header's palette, so the signed-in apps'
+  // palette — mounted in the products where a person is actually working — was
+  // the one place an unmatched query really was a dead end.
+  const frame = read('commandPalette.tsx')
+  assert.match(frame, /export const askLabel =/, 'the frame owns the label')
+  assert.match(frame, /export function useAsk\(/, 'and the act')
+
+  for (const file of ['HanzoCommandPalette.tsx', 'OrgCommandPalette.tsx']) {
+    const src = read(file)
+    assert.match(src, /askLabel\(question\)/, `${file}: the row says what the frame says`)
+    assert.match(src, /useAsk\(\{ askHref, onAsk, onNavigate, close \}\)/, `${file}: one act`)
+    // Neither may keep its own copy of the destination or the encoding: two
+    // spellings of `?q=` is how the same question reaches two different places.
+    assert.doesNotMatch(
+      stripped(src),
+      /encodeURIComponent\(question\)/,
+      `${file}: restates the ask URL the frame already builds`
+    )
+    assert.match(src, /askHref = U\.chat/, `${file}: the same default destination`)
+  }
+})
+
+test('the two palettes share the frame, and neither redraws it', () => {
+  // They differ in what fills the list and in nothing else. A palette that
+  // grew its own scrim, field or row would be a second product wearing ⌘K.
+  for (const file of ['HanzoCommandPalette.tsx', 'OrgCommandPalette.tsx']) {
+    const src = stripped(read(file))
+    assert.match(src, /from '\.\/commandPalette'/, `${file}: renders the shared frame`)
+    for (const own of ['PaletteShell', 'PaletteField', 'PaletteRow', 'usePaletteNav']) {
+      assert.doesNotMatch(
+        src,
+        new RegExp(`(function|const)\\s+${own}\\b`),
+        `${file}: declares its own ${own}`
+      )
+    }
+    assert.match(src, /useCommandKey\(/, `${file}: binds the one chord`)
+  }
+})

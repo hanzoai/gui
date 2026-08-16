@@ -340,7 +340,15 @@ test('the public menu explains; the launcher opens', () => {
 
   // ONE field carries the difference, on the product, not a second list.
   assert.match(reg, /page\?: string/, 'a product may name the page that explains it')
-  assert.match(reg, /href: p\.page \?\? p\.href/, 'the public menu prefers it')
+  // Derived ONCE. It was applied at one call site and there were three
+  // consumers, so the Meet menu and the footer went on sending anonymous
+  // readers to the app hosts while the Try menu did the right thing.
+  assert.match(reg, /HANZO_FLAGSHIP_PUBLIC[\s\S]{0,200}href: p\.page \?\? p\.href/, 'derived once')
+  assert.doesNotMatch(
+    stripped(reg).replace(/HANZO_FLAGSHIP_PUBLIC/g, ''),
+    /items: HANZO_FLAGSHIP\b|\.\.\.HANZO_FLAGSHIP\.map/,
+    'no public menu reads the raw flagship list'
+  )
 
   // Every flagship has one, and it is a hanzo.ai page — never the app host
   // again under a second name.

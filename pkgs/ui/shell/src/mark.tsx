@@ -125,9 +125,17 @@ export function HanzoWordmark({
     <span
       onContextMenu={onContextMenu}
       style={{
-        fontSize: Math.round(size * 0.62),
+        // 0.86 of the box, not 0.62. The wordmark is the NAME of the place and it
+        // was rendering at 14px beside 15px nav items and 18px sheet rows — the
+        // one word on the bar that should outrank its neighbours was the smallest
+        // thing on it, which is why it read as slightly wrong without looking
+        // broken. At size 22 that is now ~19px: bigger than the row it leads,
+        // which is the only relationship that has to hold.
+        fontSize: Math.round(size * 0.86),
         fontWeight: 800,
-        letterSpacing: -0.2,
+        // Tightens as it grows. -0.2 was tuned at 14px; the same absolute
+        // tracking reads loose at 19px, and this is one word set once.
+        letterSpacing: -0.4,
         color: 'inherit',
       }}
     >

@@ -140,6 +140,7 @@ export function ProductsMegaMenu({
         id={id}
         data-hanzo-shell=""
         role="dialog"
+          data-hanzo-plane=""
         aria-modal="false"
         aria-label="Products"
         className={className}

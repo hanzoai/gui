@@ -70,6 +70,23 @@ const CSS = [
   // was. The shell states its own focus treatment and has to clear both, or the
   // field wears whichever ring the page it landed on happens to believe in.
   `[data-hanzo-shell] label.hanzo-field input{box-shadow:none;border-color:transparent}`,
+  // BRIGHTEN THE TARGET, DIM THE CONTEXT.
+  //
+  // A hover already takes the row it is on to pure white (`ghostHover`), which
+  // is the only half a component can state for itself: an inline style knows
+  // about one element and a plane full of links needs the OTHER ones to answer.
+  // So while a pointer is on any link in a plane, its siblings step back to 46%
+  // — enough to read, quiet enough that the one being pointed at is the only
+  // thing at full strength. Focus counts as pointing, so a keyboard walks the
+  // plane the same way.
+  //
+  // `!important` because the rows carry their resting colour inline and no
+  // stylesheet reaches an inline declaration otherwise. It is scoped to a
+  // sibling of whatever is hovered, so it can only ever quieten — the target
+  // itself is excluded by `:not(:hover)`.
+  `[data-hanzo-plane]:is(:hover,:focus-within) a:not(:hover):not(:focus-visible){color:rgba(255,255,255,0.46)!important}`,
+  `[data-hanzo-plane] a{transition:color 140ms ease,transform 140ms ease}`,
+  `[data-hanzo-plane] a:hover{transform:translateY(-1px)}`,
   `[data-hanzo-shell] button{cursor:pointer}`,
   `[data-hanzo-shell] button:disabled{cursor:default}`,
   `@media (pointer:coarse){[data-hanzo-shell] a,[data-hanzo-shell] button{min-height:${TAP_H}px}}`,

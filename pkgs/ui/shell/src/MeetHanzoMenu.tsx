@@ -174,6 +174,7 @@ export function MeetHanzoMenu({
         id={id}
         data-hanzo-shell=""
         role="dialog"
+          data-hanzo-plane=""
         aria-modal="false"
         aria-label="Meet Hanzo"
         className={className}

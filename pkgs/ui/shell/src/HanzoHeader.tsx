@@ -50,6 +50,7 @@ import {
   CHROME,
   CTRL_H,
   FG_ON,
+  DRAPE,
   FS,
   GLASS,
   GUTTER,
@@ -58,6 +59,7 @@ import {
   SCRIM,
   SHADOW,
   TAP_H,
+  VEIL,
   Z,
   control,
   cta,
@@ -748,52 +750,49 @@ function NavMenu({
         <div
           id={panel}
           role="dialog"
+          data-hanzo-plane=""
           aria-label={link.label}
           ref={rove.ref}
           onKeyDown={rove.onKeyDown}
           onFocus={rove.onFocus}
           style={{
-            position: 'absolute',
-            top: DROP,
-            // The label sits 12px into its control and a row 8px into the card,
-            // so the card starts 4px right of the label's box and the two
-            // columns of text line up.
-            left: 4,
+            // THE NAVIGATION PLANE. Full width, dropped on the bar's bottom
+            // edge, content on the shared gutter — so a link in the menu sits
+            // in the same column as the item that opened it, and every primary
+            // menu answers with one surface instead of four.
+            //
+            // `fixed` inside the bar resolves against the BAR, not the
+            // viewport, because the bar carries `backdrop-filter` and a
+            // filtered element is the containing block for its fixed
+            // descendants. That is exactly what is wanted here and only
+            // because the bar spans the viewport: its padding box IS the
+            // width, so `left/right: 0` are the screen edges and `top` is
+            // measured from the bar's own top. If the bar ever stops being
+            // full-bleed, this becomes a sibling of it like the palette.
+            position: 'fixed',
+            top: HEADER_H,
+            left: 0,
+            right: 0,
             zIndex: Z.dropdown as unknown as number,
-            // A positioned box shrinks to fit its CONTAINING BLOCK, and this
-            // card's is the label that opened it — about 90px. So every row
-            // wrapped against the 180px floor while the 300px cap it was
-            // supposed to grow into never applied. `max-content` is what makes
-            // the card size to its widest row; the cap still holds it back.
-            width: 'max-content',
-            minWidth: wide ? 560 : 180,
-            // A wide panel is a LAYOUT, so it may run to the viewport; the
-            // compact card is a list and stays list-width.
-            maxWidth: wide ? 'min(92vw, 900px)' : 320,
-            padding: wide ? 20 : 8,
-            borderRadius: R.card,
-            border: `1px solid ${CHROME.border}`,
-            boxShadow: SHADOW,
-            // The compact card continues the bar's glass — one surface, lit
-            // once. A WIDE panel covers the page's picture, and display type
-            // read through a moving globe is not legible, so it is opaque.
-            ...(wide ? { background: CHROME.panel } : GLASS),
+            boxSizing: 'border-box',
+            padding: `20px ${GUTTER} 28px`,
+            maxHeight: `calc(100dvh - ${HEADER_H}px)`,
+            overflowY: 'auto',
+            ...DRAPE,
+            background: `${VEIL}, ${DRAPE.background as string}`,
             color: CHROME.fg,
-            // It drops out of the label that opened it, so it grows from that
-            // corner rather than appearing from behind the page.
-            transformOrigin: 'top left',
             animation: 'hanzo-card-in 200ms cubic-bezier(.2,.9,.3,1.1) both',
           }}
         >
           {wide ? (
-            <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start' }}>
+            <div style={COLUMNS}>
               {/* The destinations someone ARRIVES wanting, in display type. */}
               <div
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 2,
-                  minWidth: 200,
+                  minWidth: 0,
                 }}
               >
                 <ColumnTitle>Explore {link.label}</ColumnTitle>
@@ -827,7 +826,7 @@ function NavMenu({
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 2,
-                    minWidth: 150,
+                    minWidth: 0,
                   }}
                 >
                   <ColumnTitle>{group.title}</ColumnTitle>
@@ -854,7 +853,11 @@ function NavMenu({
               ))}
             </div>
           ) : (
-            items.map((item) => (
+            // A short list lays out on the same columns as a long one, so a
+            // five-link menu is a row across the plane rather than a stack down
+            // the left edge of one.
+            <div style={COLUMNS}>
+            {items.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
@@ -883,12 +886,29 @@ function NavMenu({
                   ) : null}
                 </span>
               </a>
-            ))
+            ))}
+            </div>
           )}
         </div>
       ) : null}
     </div>
   )
+}
+
+/**
+ * The columns a plane lays its links out on.
+ *
+ * Content varies — one menu is five links, another is a list beside four
+ * groups — but the geometry does not: as many equal tracks as the width can
+ * hold, on a gap that grows with it. `auto-fit` is what makes the count fall
+ * from five to four to two without a breakpoint per menu, and `minmax(0, …)`
+ * is what stops a long label from pushing its track past its share.
+ */
+const COLUMNS: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
+  gap: 'clamp(24px, 3vw, 64px)',
+  alignItems: 'flex-start',
 }
 
 function CTA({

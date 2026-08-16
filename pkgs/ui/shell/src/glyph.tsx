@@ -240,14 +240,29 @@ const SIZE = 16
  * One mark on a menu row, in the row's own colour — so it brightens with the
  * label under the pointer instead of sitting at a fixed brightness beside it.
  *
- * Nothing at all when the row names nothing. An empty box that still takes its
- * width reads as an indent with no cause: on the phone sheet it pushed Features
- * and Enterprise 24px right of the rows above them, to reserve a column for
- * marks that were never coming.
+ * Nothing at all when the row names nothing — UNLESS a sibling has a mark.
+ *
+ * Both failure modes here are real and they are opposites, which is why this
+ * takes a group and not a preference. An empty box that always takes its width
+ * reads as an indent with no cause: it once pushed Features and Enterprise 24px
+ * right of the rows above them to reserve a column for marks that were never
+ * coming. But returning nothing in a group where SOME rows have marks leaves a
+ * ragged left edge — measured on hanzo.app's sheet, where Products and
+ * Resources carry marks and Features, Business and Pricing do not, so five
+ * labels started at two different x positions.
+ *
+ * `reserve` is the group's answer, not the row's: hold the column when any
+ * sibling has a mark, and the indent always has a visible cause standing next
+ * to it. A group with no marks at all stays flush left, which is the case the
+ * empty box got wrong.
  */
-export function Glyph({ name }: { name?: GlyphName }) {
+export function Glyph({ name, reserve = false }: { name?: GlyphName; reserve?: boolean }) {
   const Mark = name ? MARKS[name] : undefined
-  if (!Mark) return null
+  if (!Mark) {
+    return reserve ? (
+      <span aria-hidden="true" style={{ display: 'inline-flex', flexShrink: 0, width: SIZE }} />
+    ) : null
+  }
   return (
     <span
       aria-hidden="true"

@@ -149,9 +149,15 @@ test('a page never links to itself — and keeps the control anyway', () => {
     assert.match(block, /aria-current="page"/, `branch ${i} announces current`)
     assert.doesNotMatch(block, /href=/, `branch ${i} emits NO href`)
   }
-  // The pill stays a pill — same token, so "current" cannot drift into a
-  // different-looking control.
-  assert.match(src, /aria-current="page" style=\{cta\(filled, height\)\}/, 'still cta()')
+  // The pill stays a pill — the SAME token builds it, so "current" cannot
+  // drift into a different-looking control. It may be composed onto (the sheet
+  // aligns its label left), but `cta()` has to be what it is composed FROM:
+  // a current control that stopped spreading it would be a second pill.
+  assert.match(
+    src,
+    /aria-current="page" style=\{\{?\s*\.{0,3}\s*cta\(filled, height\)/,
+    'the current control is still built from cta()'
+  )
 })
 
 test('one edge, at design value — 10%, spelled once', () => {

@@ -17,7 +17,7 @@
  * styles + theme.ts tokens, React the only runtime dep — drops into any host.
  */
 import React from 'react'
-import { HanzoWordmark } from './mark'
+import { HanzoLockup } from './mark'
 import {
   HANZO_FOOTER_BOTTOM,
   HANZO_FOOTER_COLUMNS,
@@ -125,7 +125,7 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
               flexShrink: 0,
             }}
           >
-            <HanzoWordmark label="Hanzo" size={20} />
+            <HanzoLockup label="Hanzo" size={20} />
           </a>
           <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, flexShrink: 0 }}>
             {HANZO_FOOTER_BOTTOM.copyright}

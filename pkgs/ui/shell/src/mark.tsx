@@ -90,6 +90,15 @@ export function HanzoMark({
   )
 }
 
+// Three things, three names, because they were two things under one.
+//
+// A MARK is the glyph. A WORDMARK is the name set in type. A LOCKUP is the pair.
+// `HanzoWordmark` used to render the glyph AND the name, so a caller that wanted
+// the name alone had no way to ask for it and every surface got the pair whether
+// it suited the surface or not. Naming the pair is what lets either half be
+// chosen: the header wears the wordmark, the footer wears the lockup, and
+// neither has to restate the other's type or spacing to get there.
+
 export function HanzoWordmark({
   label = 'Hanzo',
   size = 22,
@@ -99,18 +108,29 @@ export function HanzoWordmark({
 }) {
   return (
     <span
-      style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'inherit' }}
+      style={{
+        fontSize: Math.round(size * 0.62),
+        fontWeight: 800,
+        letterSpacing: -0.2,
+        color: 'inherit',
+      }}
     >
+      {label}
+    </span>
+  )
+}
+
+export function HanzoLockup({
+  label = 'Hanzo',
+  size = 22,
+}: {
+  label?: string
+  size?: number
+}) {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'inherit' }}>
       <HanzoMark size={size} />
-      <span
-        style={{
-          fontSize: Math.round(size * 0.62),
-          fontWeight: 800,
-          letterSpacing: -0.2,
-        }}
-      >
-        {label}
-      </span>
+      <HanzoWordmark label={label} size={size} />
     </span>
   )
 }

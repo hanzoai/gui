@@ -55,7 +55,8 @@ import {
   CHROME,
   FOCUS_RING,
   FS,
-  GLASS,
+  DRAPE,
+  GUTTER,
   R,
   SHADOW,
   VEIL,
@@ -66,8 +67,6 @@ import { useRove } from './rove'
 
 /** The signature grid: ten categories as two rows of five, at every desktop width. */
 const COLUMNS = 5
-/** Matches the header's own `padding: 0 16px`, so the two align edge for edge. */
-const GUTTER = 16
 
 export interface ProductsMegaMenuProps {
   /** The category taxonomy to render (≈10 categories, ≈6 leaves each). */
@@ -162,12 +161,11 @@ export function ProductsMegaMenu({
           // A drape, not a card: the ONLY edge is the hairline that closes it.
           // The header already draws the hairline above, so drawing one here too
           // would double it.
-          borderBottom: `1px solid ${CHROME.border}`,
           // The header's own glass, lifted by one hueless glow where the panel
           // meets it, so a full-bleed band still reads as a surface. Same
           // recipe as MeetHanzoMenu — the two drapes are one surface.
-          ...GLASS,
-          background: `${VEIL}, ${CHROME.bg}`,
+          ...DRAPE,
+          background: `${VEIL}, ${DRAPE.background as string}`,
           boxShadow: SHADOW,
           fontFamily: CHROME.font,
           color: CHROME.fg,
@@ -176,7 +174,7 @@ export function ProductsMegaMenu({
         {/* No "PRODUCTS" eyebrow: the trigger this panel hangs off already says
             Products, and the panel is anchored to it. Labelling it twice is the
             same word in two places. */}
-        <div style={{ padding: `18px ${GUTTER}px 28px` }}>
+        <div style={{ padding: `18px ${GUTTER} 28px` }}>
           <div
             style={{
               display: 'grid',

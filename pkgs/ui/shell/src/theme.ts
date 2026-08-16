@@ -248,6 +248,43 @@ export const GLASS: CSSProperties = {
   WebkitBackdropFilter: 'blur(20px) saturate(1.8)',
 }
 
+/**
+ * The page gutter — ONE inset for the bar, every menu under it, and the page
+ * content below. Stated as a clamp so it grows with the viewport instead of
+ * stepping at a breakpoint: 20px on a phone, 72px on a wide desktop.
+ *
+ * A menu that centres itself independently of the bar is the defect this
+ * prevents. Every drape reads this, so a link in an open menu sits in the same
+ * column as the bar item that opened it, at every width, with nothing measured.
+ */
+export const GUTTER = 'clamp(20px, 4vw, 72px)'
+
+/**
+ * THE NAVIGATION PLANE — one surface for every primary menu.
+ *
+ * Full width, no corner radius, no outer box: a menu is the bar CONTINUING down
+ * the page, so it has no edges of its own except the light on its top lip. A
+ * floating card beside it reads as a different product, which is what a header
+ * carrying two drapes and four anchored cards looked like.
+ *
+ * Translucent, so the picture behind it stays visible and the plane reads as a
+ * layer over the page rather than a section of it. The inset highlight is the
+ * whole trick: a 7% white line along the top lip is what makes a dark
+ * translucent sheet read as glass with a lit edge instead of a hole.
+ *
+ * Reserve rounded, bordered chrome for COMPACT controls — search, the CTA, the
+ * composer. Three surfaces in the house and no more: this plane, that compact
+ * glass, and the bare page.
+ */
+export const DRAPE: CSSProperties = {
+  background: 'rgba(12,12,14,0.68)',
+  backdropFilter: 'blur(28px) saturate(1.35)',
+  WebkitBackdropFilter: 'blur(28px) saturate(1.35)',
+  boxShadow: 'inset 0 1px rgba(255,255,255,0.07), 0 24px 80px rgba(0,0,0,0.28)',
+  borderRadius: 0,
+  border: 'none',
+}
+
 /** Scrim behind a modal surface. */
 export const SCRIM = 'rgba(0,0,0,0.45)'
 

@@ -51,7 +51,8 @@ import {
   ACCENT,
   CHROME,
   FS,
-  GLASS,
+  DRAPE,
+  GUTTER,
   LABEL,
   SHADOW,
   VEIL,
@@ -64,8 +65,6 @@ import { useShellStyles } from './shellStyles'
 import { useIsMobile } from './useMediaQuery'
 import { useRove } from './rove'
 
-/** Matches the header's own `padding: 0 16px`, so the two align edge for edge. */
-const GUTTER = 16
 /** The products rail. Wide enough for "Hanzo Studio" + its tagline on one line each. */
 const RAIL = 236
 /** A link column. Wide enough for "Browser extension" without wrapping. */
@@ -195,11 +194,10 @@ export function MeetHanzoMenu({
           overflowY: 'auto',
           // A drape, not a card: the ONLY edge is the hairline that closes it.
           // The header already draws the hairline above.
-          borderBottom: `1px solid ${CHROME.border}`,
           // The header's own glass, lifted by one hueless glow where the panel
           // meets it, so a full-bleed band still reads as a surface.
-          ...GLASS,
-          background: `${VEIL}, ${CHROME.bg}`,
+          ...DRAPE,
+          background: `${VEIL}, ${DRAPE.background as string}`,
           boxShadow: SHADOW,
           fontFamily: CHROME.font,
           color: CHROME.fg,
@@ -212,7 +210,7 @@ export function MeetHanzoMenu({
             // hairline between them lands in the same place at every width.
             gridTemplateColumns: stacked ? '1fr' : `${RAIL}px minmax(0, 1fr)`,
             gap: stacked ? 18 : 0,
-            padding: `12px ${GUTTER}px 18px`,
+            padding: `12px ${GUTTER} 18px`,
           }}
         >
           {/* ── Products — one dense column ── */}

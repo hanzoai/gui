@@ -103,6 +103,32 @@ function withoutProductsDup(nav: HanzoNav[], hasProducts: boolean): HanzoNav[] {
   )
 }
 
+/**
+ * Does this link point at the page we are already on?
+ *
+ * Compared as places, not as strings: both sides are resolved against the
+ * surface's own origin and their trailing slashes dropped, so `/`,
+ * `https://hanzo.app` and `https://hanzo.app/` are one place — which is the
+ * whole case, since a surface's primary action names its own home.
+ *
+ * Derived from PROPS, never from `location`: this markup ships from a static
+ * export and has to render the same on the server and in the browser.
+ */
+function here(href: string, current: string | undefined, host: string): boolean {
+  if (!current) return false
+  const base = `https://${host}`
+  const place = (u: string) => {
+    try {
+      const { origin, pathname } = new URL(u, base)
+      return origin + pathname.replace(/\/+$/, '')
+    } catch {
+      return null
+    }
+  }
+  const a = place(href)
+  return a !== null && a === place(current)
+}
+
 export interface HanzoHeaderProps {
   /** A `HanzoSurface`, or a surface id / hostname to resolve one. */
   surface: HanzoSurface | string
@@ -144,7 +170,18 @@ export interface HanzoHeaderProps {
   productsLabel?: string
   /** Highlights the current Products category (accent + `aria-current`). */
   currentCategoryId?: string
-  /** Highlights the current Products leaf whose href matches. */
+  /**
+   * Where this surface currently IS.
+   *
+   * Any control naming this place — the primary or secondary action, a
+   * top-level nav entry, a Products leaf — renders as CURRENT instead of as a
+   * link: `aria-current="page"` and NO `href`, while looking exactly as it did.
+   * A page must not link to itself, and the alternative a surface is otherwise
+   * left with is to drop the control entirely, which is how a header loses its
+   * primary action.
+   *
+   * A path or an absolute URL; both resolve against the surface's own origin.
+   */
   currentHref?: string
   /**
    * Custom brand block (a surface's own wordmark/logo) rendered in place of the
@@ -242,6 +279,11 @@ export function HanzoHeader({
   // Exactly one Products affordance: with the rich menu present, drop the
   // duplicate localNav "Products" link.
   const localNav = withoutProductsDup(s.localNav, hasProducts)
+  /** Does this control name the page we are on? */
+  const isHere = useCallback(
+    (href: string) => here(href, currentHref, s.host),
+    [currentHref, s.host]
+  )
   // Standard account affordance: the surface-supplied `account`, else the
   // canonical IAM cluster, so surfaces can't drift between "Sign in" / "Log in"
   // or grow a second session scheme. Rendered ONLY when the host asked for one.
@@ -335,24 +377,15 @@ export function HanzoHeader({
       >
         {/* ── Brand (surface-supplied wordmark, or the default mark + name) ── */}
         {brandSlot ?? (
-          <a
-            href={home}
-            aria-label={s.brandName}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 9,
-              flexShrink: 0,
-              textDecoration: 'none',
-              color: CHROME.fg,
-            }}
-          >
+          // The mark is the way home, so on the home page it is not a link
+          // either — same rule as every other control that names this place.
+          <BrandBox home={home} name={s.brandName} current={isHere(home)}>
             {/* Just the H mark — the product wordmark is dropped so the lockup stays
                 tight (H → Hanzo), matching the compact app-shell register. The
                 current product is still named inside the Hanzo menu (highlighted)
                 and by the page itself, so the wordmark here was redundant chrome. */}
             <HanzoMark size={22} />
-          </a>
+          </BrandBox>
         )}
 
         {isMobile ? (
@@ -405,7 +438,8 @@ export function HanzoHeader({
             >
               {localNav.map((link) => {
                 const items = link.items
-                if (!items?.length) return <NavLink key={link.id} link={link} />
+                if (!items?.length)
+                  return <NavLink key={link.id} link={link} current={isHere(link.href)} />
                 const key: MenuKey = `nav:${link.id}`
                 return (
                   <NavMenu
@@ -417,6 +451,7 @@ export function HanzoHeader({
                     onStepIn={() => menu.set(key)}
                     onClose={closeMenu}
                     autoFocus={!menu.hover}
+                    current={isHere(link.href)}
                   />
                 )
               })}
@@ -426,7 +461,11 @@ export function HanzoHeader({
 
             {/* ── ⌘K palette trigger + CTAs + identity + account ── */}
             {hasSearch ? <HanzoCommandTrigger onOpen={openSearch} /> : null}
-            <CTA link={s.secondaryCTA} variant="ghost" />
+            <CTA
+              link={s.secondaryCTA}
+              variant="ghost"
+              current={isHere(s.secondaryCTA.href)}
+            />
             {/* A surface with no primary action renders none. */}
             {!s.primaryCTA ? null : tryMenu ? (
               <CTATrigger
@@ -435,9 +474,14 @@ export function HanzoHeader({
                 reach={menu.trigger('try')}
                 onStepIn={() => menu.set('try')}
                 controls="hanzo-try-menu"
+                current={isHere(s.primaryCTA.href)}
               />
             ) : (
-              <CTA link={s.primaryCTA} variant="filled" />
+              <CTA
+                link={s.primaryCTA}
+                variant="filled"
+                current={isHere(s.primaryCTA.href)}
+              />
             )}
             {identitySlot}
             {accountNode}
@@ -566,10 +610,54 @@ function MenuTrigger({
   )
 }
 
-function NavLink({ link }: { link: HanzoLink }) {
+/**
+ * The brand lockup: a link home, or — when this IS home — the mark alone,
+ * announced as the current page rather than offered as somewhere to go.
+ */
+function BrandBox({
+  home,
+  name,
+  current,
+  children,
+}: {
+  home: string
+  name: string
+  current: boolean
+  children: React.ReactNode
+}) {
+  const style = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 9,
+    flexShrink: 0,
+    textDecoration: 'none',
+    color: CHROME.fg,
+  } as const
+  if (current) {
+    return (
+      <span role="img" aria-label={name} aria-current="page" style={style}>
+        {children}
+      </span>
+    )
+  }
+  return (
+    <a href={home} aria-label={name} style={style}>
+      {children}
+    </a>
+  )
+}
+
+function NavLink({ link, current }: { link: HanzoLink; current?: boolean }) {
   // Hover comes from the shared token, not from here. Hand-rolling it is what
   // let this link drift from the trigger beside it (a background lift, and a
   // brightening that stopped short of white).
+  if (current) {
+    return (
+      <span aria-current="page" style={{ ...control(true), fontWeight: 500 }}>
+        {link.label}
+      </span>
+    )
+  }
   return (
     <a href={link.href} style={{ ...control(), fontWeight: 500 }} {...ghostHover()}>
       {link.label}
@@ -602,6 +690,7 @@ function NavMenu({
   onStepIn,
   onClose,
   autoFocus,
+  current,
 }: {
   link: HanzoNav
   items: HanzoLink[]
@@ -610,22 +699,28 @@ function NavMenu({
   onStepIn: () => void
   onClose: () => void
   autoFocus: boolean
+  current?: boolean
 }) {
   const { onClick, ...pointer } = reach
   const rove = useRove(open, onClose, autoFocus)
   const panel = `hanzo-nav-${link.id}`
+  // The label opens a card, so on its own page it becomes a button rather than
+  // losing its focus stop — same shape, no href to nowhere.
+  const Trigger = current ? 'button' : 'a'
   return (
     <div style={{ position: 'relative', display: 'inline-flex' }} {...pointer}>
-      <a
-        href={link.href}
+      <Trigger
+        {...(current
+          ? { type: 'button' as const, 'aria-current': 'page' as const }
+          : { href: link.href })}
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={open ? panel : undefined}
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent) => {
           e.preventDefault()
           onClick()
         }}
-        onKeyDown={(e) => {
+        onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key !== 'ArrowDown' || open) return
           e.preventDefault()
           onStepIn()
@@ -636,7 +731,7 @@ function NavMenu({
         <Glyph name={link.glyph} />
         {link.label}
         <Chevron open={open} />
-      </a>
+      </Trigger>
       {open ? (
         <div
           id={panel}
@@ -713,12 +808,25 @@ function CTA({
   link,
   variant,
   height,
+  current,
 }: {
   link: HanzoLink
   variant: 'ghost' | 'filled'
   height?: number
+  /** This action names the page we are on: keep the pill, drop the link. */
+  current?: boolean
 }) {
   const filled = variant === 'filled'
+  // Still the pill — same fill, same geometry — but it is a statement, not a
+  // destination. No href at all, so there is nothing for a no-JS reader to
+  // follow back to the page they are already reading.
+  if (current) {
+    return (
+      <span aria-current="page" style={cta(filled, height)}>
+        {link.label}
+      </span>
+    )
+  }
   return (
     <a
       href={link.href}
@@ -756,14 +864,43 @@ function CTATrigger({
   reach,
   onStepIn,
   controls,
+  current,
 }: {
   link: HanzoLink
   open: boolean
   reach: Reach
   onStepIn: () => void
   controls: string
+  current?: boolean
 }) {
   const { onClick, ...pointer } = reach
+  // On the surface the action names, there is no href to fall back to — so it
+  // is a BUTTON, which keeps it focusable and operable while offering nobody a
+  // link back to this page. The doors still open.
+  if (current) {
+    return (
+      <button
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-current="page"
+        aria-controls={open ? controls : undefined}
+        onClick={onClick}
+        onKeyDown={(e) => {
+          if (e.key !== 'ArrowDown' || open) return
+          e.preventDefault()
+          onStepIn()
+        }}
+        style={{ ...cta(true), gap: 6 }}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+        {...pointer}
+      >
+        {link.label}
+        <Chevron open={open} />
+      </button>
+    )
+  }
   return (
     <a
       href={link.href}
@@ -836,6 +973,7 @@ function MobileSheet({
 }) {
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const localNav = withoutProductsDup(surface.localNav, hasProducts)
+  const isHere = (href: string) => here(href, currentHref, surface.host)
   return (
     <>
       <div
@@ -903,10 +1041,12 @@ function MobileSheet({
             ) : (
               <a
                 key={link.id}
-                href={link.href}
+                {...(isHere(link.href)
+                  ? { 'aria-current': 'page' as const }
+                  : { href: link.href })}
                 onClick={onClose}
                 style={{
-                  ...row(),
+                  ...row(isHere(link.href)),
                   ...glyphRow,
                   alignItems: 'center',
                   margin: 0,
@@ -914,7 +1054,7 @@ function MobileSheet({
                   minHeight: TAP_H,
                   fontSize: FS.base,
                 }}
-                {...ghostHover()}
+                {...ghostHover(isHere(link.href))}
               >
                 <Glyph name={link.glyph} />
                 {link.label}
@@ -948,9 +1088,19 @@ function MobileSheet({
         ) : null}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <CTA link={surface.secondaryCTA} variant="ghost" height={TAP_H} />
+          <CTA
+            link={surface.secondaryCTA}
+            variant="ghost"
+            height={TAP_H}
+            current={isHere(surface.secondaryCTA.href)}
+          />
           {surface.primaryCTA ? (
-            <CTA link={surface.primaryCTA} variant="filled" height={TAP_H} />
+            <CTA
+              link={surface.primaryCTA}
+              variant="filled"
+              height={TAP_H}
+              current={isHere(surface.primaryCTA.href)}
+            />
           ) : null}
         </div>
 

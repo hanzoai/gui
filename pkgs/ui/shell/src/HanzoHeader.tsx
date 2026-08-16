@@ -52,6 +52,7 @@ import {
   FG_ON,
   FS,
   GLASS,
+  GUTTER,
   PANEL,
   R,
   SCRIM,
@@ -362,7 +363,11 @@ export function HanzoHeader({
           alignItems: 'center',
           gap: 12,
           height: HEADER_H,
-          padding: '0 16px',
+          // The ONE page gutter, shared with every drape that opens beneath it
+          // and with the page content below — so a link in an open menu sits in
+          // the same column as the bar item that opened it, at every width,
+          // with nothing measured.
+          padding: `0 ${GUTTER}`,
           boxSizing: 'border-box',
           // The audited bar draws NO hairline: the glass already ends itself,
           // and a white line over a blurred boundary reads as a seam between
@@ -1056,6 +1061,46 @@ function MobileSheet({
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const localNav = withoutProductsDup(surface.localNav, hasProducts)
   const isHere = (href: string) => here(href, currentHref, surface.host)
+  /**
+   * Where the reader is in the sheet: the sections they stepped through, in
+   * order. Empty is the root list; the last entry is the pane on screen, and
+   * dropping it is the way back.
+   */
+  const [path, setPath] = useState<SheetNode[]>([])
+  const here_ = path[path.length - 1]
+  /**
+   * The estate as ONE tree, so the pane does not care whether a level came from
+   * the local nav or from the product catalogue. Products becomes a single row
+   * holding its categories, rather than ten categories flattened beside the six
+   * sections they belong under.
+   */
+  const roots: SheetNode[] = React.useMemo(() => {
+    const nodes: SheetNode[] = localNav.map((link) => ({
+      id: link.id,
+      label: link.label,
+      href: link.href,
+      glyph: link.glyph,
+      external: link.external,
+      children: link.items?.length
+        ? link.items.map((i) => ({ ...i, children: undefined }))
+        : undefined,
+    }))
+    if (hasProducts) {
+      nodes.unshift({
+        id: 'products',
+        label: 'Products',
+        href: '/products',
+        glyph: 'blocks',
+        children: productsTaxonomy!.map((c) => ({
+          id: c.id,
+          label: c.label,
+          href: c.href,
+          children: c.items.map((i) => ({ ...i, children: undefined })),
+        })),
+      })
+    }
+    return nodes
+  }, [localNav, hasProducts, productsTaxonomy])
   return (
     <>
       <div
@@ -1105,69 +1150,85 @@ function MobileSheet({
           <Chevron open={false} />
         </button>
 
-        <div
-          style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 12 }}
-        >
-          {localNav.map((link) => {
-            const items = link.items
-            // An entry that holds links opens them in place — the same
-            // disclosure the sheet already uses for the Hanzo menu and for every
-            // product category, so a phone learns one gesture, not three.
-            return items?.length ? (
-              <MobileGroup
-                key={link.id}
-                group={{ ...link, items }}
-                currentHref={currentHref}
-                onClose={onClose}
-              />
-            ) : (
-              <a
-                key={link.id}
-                {...(isHere(link.href)
-                  ? { 'aria-current': 'page' as const }
-                  : { href: link.href })}
-                onClick={onClose}
+        {/* ONE PANE AT A TIME. A section opens by REPLACING what is on screen,
+            under a row back to where you were — not by expanding in place.
+            Expanding is why this sheet grew to the height of the whole estate:
+            six sections and ten product categories all disclosed into one
+            scroll, so choosing meant reading everything first. A pane shows one
+            list, at reading size, and the path out is the first thing on it. */}
+        <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 12 }}>
+          {here_ ? (
+            <>
+              <button
+                type="button"
+                onClick={() => setPath((p) => p.slice(0, -1))}
                 style={{
-                  ...row(isHere(link.href)),
+                  ...row(false),
                   ...glyphRow,
                   alignItems: 'center',
+                  gap: 10,
                   margin: 0,
                   padding: '0 12px',
                   minHeight: TAP_H,
                   fontSize: FS.base,
+                  background: 'transparent',
+                  border: 'none',
+                  textAlign: 'left',
                 }}
-                {...ghostHover(isHere(link.href))}
+                {...ghostHover(false)}
               >
-                <Glyph name={link.glyph} />
-                {link.label}
+                <BackGlyph />
+                {path.length > 1 ? path[path.length - 2]!.label : 'Home'}
+              </button>
+              <p
+                style={{
+                  margin: '10px 12px 2px',
+                  fontSize: FS.xs,
+                  color: CHROME.fgDim,
+                }}
+              >
+                {here_.label}
+              </p>
+            </>
+          ) : null}
+
+          {(here_ ? here_.children! : roots).map((node) =>
+            node.children?.length ? (
+              <button
+                key={node.id}
+                type="button"
+                onClick={() => setPath((p) => [...p, node])}
+                style={{ ...sheetRow(false), background: 'transparent', border: 'none' }}
+                {...ghostHover(false)}
+              >
+                <span style={{ ...glyphRow, alignItems: 'center' }}>
+                  <Glyph name={node.glyph} />
+                  {node.label}
+                </span>
+                <span style={{ transform: 'rotate(-90deg)', display: 'inline-flex' }}>
+                  <Chevron open={false} />
+                </span>
+              </button>
+            ) : (
+              <a
+                key={node.id}
+                {...(isHere(node.href!)
+                  ? { 'aria-current': 'page' as const }
+                  : { href: node.href })}
+                target={node.external ? '_blank' : undefined}
+                rel={node.external ? 'noreferrer' : undefined}
+                onClick={onClose}
+                style={sheetRow(isHere(node.href!))}
+                {...ghostHover(isHere(node.href!))}
+              >
+                <span style={{ ...glyphRow, alignItems: 'center' }}>
+                  <Glyph name={node.glyph} />
+                  {node.label}
+                </span>
               </a>
             )
-          })}
+          )}
         </div>
-
-        {/* Rich Products taxonomy — collapsed accordions, for BROWSING. This
-            sheet used to carry a second search field over the same ~97 leaves;
-            searching them now happens in exactly one place, the ⌘K palette the
-            header's own glyph opens, so a phone has one answer to "where do I
-            type" instead of two fields that could disagree. */}
-        {hasProducts ? (
-          <div
-            style={{
-              marginBottom: 12,
-              borderTop: `1px solid ${CHROME.border}`,
-              paddingTop: 12,
-            }}
-          >
-            {productsTaxonomy!.map((category) => (
-              <MobileGroup
-                key={category.id}
-                group={category}
-                currentHref={currentHref}
-                onClose={onClose}
-              />
-            ))}
-          </div>
-        ) : null}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {surface.secondaryCTA ? (
@@ -1209,131 +1270,60 @@ function MobileSheet({
   )
 }
 
-/**
- * One collapsed-by-default section of the sheet — a Products category, or a
- * local-nav entry that holds links. Both are a name, the page it names, and the
- * links under it, so both open the same way.
- */
-function MobileGroup({
-  group,
-  currentHref,
-  onClose,
-}: {
-  group: {
-    id: string
-    label: string
-    href: string
-    items: HanzoLink[]
-    groups?: HanzoNavGroup[]
-    glyph?: GlyphName
-  }
-  currentHref?: string
-  onClose: () => void
-}) {
-  const [expanded, setExpanded] = useState(false)
-  const panelId = `hanzo-mgroup-${group.id}`
-  // The list may already END in a link to the section's own page (hanzo.ai
-  // spells it "All 15 →"). Synthesising a second one put two links to the same
-  // href in one drawer, so the row is only invented when the data lacks it.
-  const ownsAllLink = group.items.some((item) => item.href === group.href)
-  return (
-    <div style={{ borderBottom: `1px solid ${CHROME.borderSoft}` }}>
-      <button
-        type="button"
-        onClick={() => setExpanded((v) => !v)}
-        aria-expanded={expanded}
-        aria-controls={expanded ? panelId : undefined}
-        style={{
-          ...control(false, TAP_H),
-          justifyContent: 'space-between',
-          width: '100%',
-          borderRadius: 0,
-          fontSize: FS.base,
-          gap: 8,
-        }}
-      >
-        <span style={{ ...glyphRow, alignItems: 'center' }}>
-          <Glyph name={group.glyph} />
-          {group.label}
-        </span>
-        <Chevron open={expanded} />
-      </button>
-      {expanded ? (
-        <div id={panelId} style={{ paddingBottom: 6 }}>
-          {ownsAllLink ? null : (
-            <a
-              href={group.href}
-              onClick={onClose}
-              style={{ ...mobileLeaf(group.href === currentHref), fontWeight: 600 }}
-              {...ghostHover()}
-            >
-              All {group.label}
-            </a>
-          )}
-          {group.items.map((item) => (
-            <a
-              key={item.id}
-              href={item.href}
-              target={item.external ? '_blank' : undefined}
-              rel={item.external ? 'noreferrer noopener' : undefined}
-              onClick={onClose}
-              style={mobileLeaf(item.href === currentHref)}
-              {...ghostHover()}
-            >
-              <Glyph name={item.glyph} />
-              {item.label}
-              {item.external ? <Outlink /> : null}
-            </a>
-          ))}
-          {/* The columns a desktop panel puts BESIDE the list stack under it
-              here, each behind its own heading, because a phone has one column
-              and dropping them would make the sheet say less than the bar. */}
-          {(group.groups ?? []).map((sub) => (
-            <div key={sub.id} style={{ display: 'contents' }}>
-              <div
-                style={{
-                  padding: '18px 12px 6px',
-                  fontSize: FS.xs,
-                  color: CHROME.fgDim,
-                }}
-              >
-                {sub.title}
-              </div>
-              {sub.items.map((item) => (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  target={item.external ? '_blank' : undefined}
-                  rel={item.external ? 'noreferrer noopener' : undefined}
-                  onClick={onClose}
-                  style={{ ...mobileLeaf(item.href === currentHref), fontSize: FS.sm }}
-                  {...ghostHover()}
-                >
-                  {item.label}
-                  {item.external ? <Outlink /> : null}
-                </a>
-              ))}
-            </div>
-          ))}
-        </div>
-      ) : null}
-    </div>
-  )
-}
 
 /** One row of the mobile Products accordion. */
-function mobileLeaf(current: boolean) {
+/** One level of the sheet: a label, and either a destination or more levels. */
+interface SheetNode {
+  id: string
+  label: string
+  href?: string
+  glyph?: GlyphName
+  external?: boolean
+  children?: SheetNode[]
+}
+
+/**
+ * A row in the sheet, at READING size.
+ *
+ * The sheet is the whole screen, so its rows are the page's type rather than
+ * the bar's 13px chrome — a phone menu set at desktop density is a list nobody
+ * can hit and nobody wants to read. `xl` here against `xs` on the section label
+ * above it is the whole hierarchy: one big, one small, no third weight.
+ */
+function sheetRow(current: boolean): React.CSSProperties {
   return {
     ...row(current),
-    ...glyphRow,
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
     margin: 0,
     padding: '0 12px',
-    minHeight: TAP_H,
+    minHeight: TAP_H + 8,
+    fontSize: FS.xl,
+    fontWeight: 500,
+    textAlign: 'left',
+    width: '100%',
   }
 }
 
+
 /* ── Glyphs ──────────────────────────────────────────────────────────────── */
+
+/** The way back out of a sheet pane, drawn as the arrow it is. */
+function BackGlyph() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M10 3 5 8l5 5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 function Chevron({ open }: { open: boolean }) {
   return (

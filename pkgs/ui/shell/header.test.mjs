@@ -285,3 +285,24 @@ test('the two palettes share the frame, and neither redraws it', () => {
     assert.match(src, /useCommandKey\(/, `${file}: binds the one chord`)
   }
 })
+
+test('the chrome owns no colour of its own — every value is a design rung', () => {
+  // This bar mounts on every Hanzo property, so a colour typed here is a colour
+  // the estate has in two places. That is not hypothetical: the resting
+  // hairline sat at .06 while @hanzo/design published .10, so the shared bar
+  // and the page under it drew different hairlines for as long as nobody
+  // compared them.
+  //
+  // Every value reads `var(--white-NN, <same value>)` now. The fallback is what
+  // ships when a host loads no stylesheet — this package depends on design on
+  // purpose-not-at-all — so the rung and the fallback must AGREE, and the test
+  // reads both halves rather than trusting the name.
+  const src = read('theme.ts')
+  const bare = [...stripped(src).matchAll(/rgba?\(\s*255\s*,\s*255\s*,\s*255[^)]*\)/g)]
+    .filter((m) => !src.slice(Math.max(0, m.index - 60), m.index).includes('var(--white-'))
+  assert.deepEqual(bare.map((m) => m[0]), [], 'white values not on the ladder')
+
+  for (const m of stripped(src).matchAll(/var\(--white-(\d+),\s*rgb\(255 255 255 \/ \.(\d+)\)\)/g)) {
+    assert.equal(m[1], m[2], `--white-${m[1]} falls back to .${m[2]}`)
+  }
+})

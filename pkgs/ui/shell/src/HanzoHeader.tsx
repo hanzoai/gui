@@ -894,7 +894,7 @@ function NavMenu({
             // five-link menu is a row across the plane rather than a stack down
             // the left edge of one.
             <div style={COLUMNS}>
-            {items.map((item) => (
+            {(() => { const anyMark = items.some((i) => !!i.glyph); return items.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
@@ -904,7 +904,7 @@ function NavMenu({
                 style={{ ...row(), ...glyphRow, fontWeight: 500 }}
                 {...ghostHover()}
               >
-                <Glyph name={item.glyph} />
+                <Glyph name={item.glyph} reserve={anyMark} />
                 <span style={{ minWidth: 0 }}>
                   {item.label}
                   {item.external ? <Outlink /> : null}
@@ -923,7 +923,7 @@ function NavMenu({
                   ) : null}
                 </span>
               </a>
-            ))}
+            ))})()}
             </div>
           )}
         </div>
@@ -967,20 +967,30 @@ function CTA({
   variant,
   height,
   current,
+  align,
 }: {
   link: HanzoLink
   variant: 'ghost' | 'filled'
   height?: number
   /** This action names the page we are on: keep the pill, drop the link. */
   current?: boolean
+  /**
+   * Where the label sits in the box. Centred in the BAR, where the control is
+   * a pill sized to its text and centring is the only thing that reads. Left
+   * on the phone SHEET, where it is a full-width row in a column of rows: a
+   * centred label there breaks the one left edge every nav row above it shares,
+   * so the last thing before sign-in floats away from the list it belongs to.
+   */
+  align?: 'center' | 'start'
 }) {
   const filled = variant === 'filled'
+  const justify = align === 'start' ? { justifyContent: 'flex-start' as const, padding: '0 12px' } : null
   // Still the pill — same fill, same geometry — but it is a statement, not a
   // destination. No href at all, so there is nothing for a no-JS reader to
   // follow back to the page they are already reading.
   if (current) {
     return (
-      <span aria-current="page" style={cta(filled, height)}>
+      <span aria-current="page" style={{ ...cta(filled, height), ...justify }}>
         {link.label}
       </span>
     )
@@ -991,7 +1001,7 @@ function CTA({
       href={link.href}
       target={away ? '_blank' : undefined}
       rel={away ? 'noreferrer' : undefined}
-      style={{ ...cta(filled, height), gap: 6 }}
+      style={{ ...cta(filled, height), gap: 6, ...justify }}
       // The filled pill dips its opacity; the ghost one is a plain link and
       // brightens like every other ghost control. Neither grows a background.
       onMouseEnter={(e) => {
@@ -1211,6 +1221,15 @@ function MobileSheet({
           // uses one screen up.
           height: `calc(100dvh - ${top}px)`,
           overflowY: 'auto',
+          // A COLUMN, so the account block can sit at the foot of the sheet
+          // rather than wherever the nav list happens to end. The sheet is
+          // full-height by the rule above, so in normal flow a short pane left
+          // sign-in floating in the middle of an empty screen — and its
+          // position moved every time you opened a section, because the list
+          // above it changed length. The one control a visitor comes back for
+          // should not wander.
+          display: 'flex',
+          flexDirection: 'column',
           padding: 12,
           borderRadius: 0,
           borderTop: 'none',
@@ -1267,7 +1286,11 @@ function MobileSheet({
             </>
           ) : null}
 
-          {(here_ ? here_.children! : roots).map((node) =>
+          {/* One answer for the whole group: hold the mark column when any
+              sibling has a mark, so every label in this list starts at the
+              same x. Computed here rather than per row because a row cannot
+              see its siblings, and that is exactly the question. */}
+          {(() => { const g = here_ ? here_.children! : roots; const anyMark = g.some((n) => !!n.glyph); return g.map((node) =>
             node.children?.length ? (
               <button
                 key={node.id}
@@ -1277,7 +1300,7 @@ function MobileSheet({
                 {...ghostHover(false)}
               >
                 <span style={{ ...glyphRow, alignItems: 'center' }}>
-                  <Glyph name={node.glyph} />
+                  <Glyph name={node.glyph} reserve={anyMark} />
                   {node.label}
                 </span>
                 <span style={{ transform: 'rotate(-90deg)', display: 'inline-flex' }}>
@@ -1297,7 +1320,7 @@ function MobileSheet({
                 {...ghostHover(isHere(node.href!))}
               >
                 <span style={{ ...glyphRow, alignItems: 'center' }}>
-                  <Glyph name={node.glyph} />
+                  <Glyph name={node.glyph} reserve={anyMark} />
                   {node.label}
                   {/* The marker is the promise that this leaves the surface, and
                       it belongs wherever the row does — the desktop menus have
@@ -1307,16 +1330,23 @@ function MobileSheet({
                 </span>
               </a>
             )
-          )}
+          )})()}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {/* `marginTop: auto` is what holds it down: the column's free space is
+            given to this margin, so the block rests on the bottom edge when the
+            pane is short and is simply the last thing when the pane scrolls. */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 'auto' }}>
           {surface.secondaryCTA ? (
             <CTA
               link={surface.secondaryCTA}
               variant="ghost"
               height={TAP_H}
               current={isHere(surface.secondaryCTA.href)}
+              // On the nav's left edge, like every row above it. The filled
+              // pill below keeps its centre: it is a full-width pill and a
+              // centred label is what a pill is.
+              align="start"
             />
           ) : null}
           {surface.primaryCTA ? (

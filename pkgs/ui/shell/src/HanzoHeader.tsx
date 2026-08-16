@@ -559,6 +559,7 @@ export function HanzoHeader({
           account={accountNode}
           identity={identitySlot}
           productsTaxonomy={hasProducts ? productsTaxonomy : undefined}
+          productsLabel={productsLabel}
           currentHref={currentHref}
           top={HEADER_H}
           onClose={() => setMobileOpen(false)}
@@ -1129,6 +1130,7 @@ function MobileSheet({
   account,
   identity,
   productsTaxonomy,
+  productsLabel,
   currentHref,
   top,
   onClose,
@@ -1137,6 +1139,7 @@ function MobileSheet({
   account?: React.ReactNode
   identity?: React.ReactNode
   productsTaxonomy?: ProductCategory[]
+  productsLabel: string
   currentHref?: string
   top: number
   onClose: () => void
@@ -1171,7 +1174,11 @@ function MobileSheet({
     if (hasProducts) {
       nodes.unshift({
         id: 'products',
-        label: 'Products',
+        // The name the BAR opens this taxonomy under. It was the literal
+        // 'Products' here, so a surface that renamed it — hanzo.app calls it
+        // Platform — said one thing on the desktop and another on the phone,
+        // for the same menu.
+        label: productsLabel,
         href: '/products',
         glyph: 'blocks',
         children: productsTaxonomy!.map((c) => ({
@@ -1183,7 +1190,7 @@ function MobileSheet({
       })
     }
     return nodes
-  }, [localNav, hasProducts, productsTaxonomy])
+  }, [localNav, hasProducts, productsTaxonomy, productsLabel])
   return (
     <>
       <div

@@ -1423,7 +1423,13 @@ function MenuGlyph() {
       strokeLinecap="round"
       aria-hidden="true"
     >
-      <path d="M3 6h18M3 12h18M3 18h18" />
+      {/* TWO rules, not three. Three is the icon's inherited default and says
+          "a list"; this opens one menu. Two also answers the X it turns into —
+          two strokes crossing — so the open and closed states are the same two
+          marks in two positions rather than three marks becoming two. Set at
+          y=9 and y=15, evenly about the 24-box centre, so the pair reads as one
+          object instead of a stack missing its middle. */}
+      <path d="M3 9h18M3 15h18" />
     </svg>
   )
 }

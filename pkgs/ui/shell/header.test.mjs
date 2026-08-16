@@ -126,9 +126,11 @@ test('the signed-in bar has a seat for the surface own leading controls', () => 
   const src = read('OrgHeader.tsx')
   assert.match(src, /headerLeft\?: React\.ReactNode/, 'the prop exists')
   assert.match(src, /\{headerLeft\}/, 'and it is rendered')
-  // Composed WITH the mark, never instead of it.
+  // Composed WITH the brand, never instead of it. The brand here is the WORDMARK:
+  // the glyph is the assistant's launcher in the corner, and one shape cannot mean
+  // "ask Hanzo" there and "go home" here.
   const left = src.slice(src.indexOf('{headerLeft}'))
-  assert.match(left.slice(0, 1200), /<HanzoMark/, 'the mark still follows it')
+  assert.match(left.slice(0, 1200), /<HanzoWordmark/, 'the wordmark still follows it')
 })
 
 test('a page never links to itself — and keeps the control anyway', () => {

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
-import { HanzoMark } from './mark'
+import { HanzoWordmark } from './mark'
 import { HanzoAppLauncher } from './HanzoAppLauncher'
 import { UserOrgDropdown, type UserOrgDropdownProps } from './UserOrgDropdown'
 import { type HanzoApp } from './hanzo-apps'
@@ -381,7 +381,7 @@ export function OrgHeader({
             color: CHROME.fg,
           }}
         >
-          <HanzoMark size={22} brandMenu animate />
+          <HanzoWordmark size={22} brandMenu />
         </a>
 
         <span

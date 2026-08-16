@@ -271,3 +271,29 @@ export const glyphRow = {
   alignItems: 'flex-start',
   gap: 8,
 } as const
+
+/**
+ * The outbound arrow. A link that leaves the property says so before it is
+ * clicked, rather than surprising the reader with a new tab.
+ *
+ * It rides the label's own font size and inherits its colour, so it reads as
+ * punctuation on the word rather than as an icon beside it.
+ */
+export function Outlink() {
+  return (
+    <svg
+      aria-hidden="true"
+      width="0.75em"
+      height="0.75em"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ display: 'inline-block', marginLeft: '0.28em', verticalAlign: 'middle', opacity: 0.7 }}
+    >
+      <path d="M7 17 17 7M9 7h8v8" />
+    </svg>
+  )
+}

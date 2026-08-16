@@ -25,6 +25,26 @@ const LOGO_SVG =
   `<path d="M66.7198 67V44.6369H44.5098V67H66.7198Z"/>` +
   `</svg>`
 
+// Right-click opens the brand menu (guidelines, press, download, copy SVG). That
+// is a behaviour attached to the brand, not a property of the glyph, so it lives
+// here and both the mark and the wordmark can offer it. Asking for brand assets
+// by right-clicking the NAME is at least as natural as right-clicking the H.
+function useBrandMenu(enabled: boolean) {
+  const [menu, setMenu] = useState<{ x: number; y: number } | null>(null)
+  const onContextMenu = useCallback(
+    (e: React.MouseEvent) => {
+      if (!enabled) return
+      e.preventDefault()
+      setMenu({ x: e.clientX, y: e.clientY })
+    },
+    [enabled]
+  )
+  return {
+    onContextMenu,
+    node: menu ? <BrandMenu x={menu.x} y={menu.y} onClose={() => setMenu(null)} /> : null,
+  }
+}
+
 export function HanzoMark({
   size = 22,
   title = 'Hanzo',
@@ -40,17 +60,8 @@ export function HanzoMark({
   /** Origami-style scale + slight 3D tilt on hover. */
   animate?: boolean
 }) {
-  const [menu, setMenu] = useState<{ x: number; y: number } | null>(null)
   const [hovered, setHovered] = useState(false)
-
-  const onContextMenu = useCallback(
-    (e: React.MouseEvent) => {
-      if (!brandMenu) return
-      e.preventDefault()
-      setMenu({ x: e.clientX, y: e.clientY })
-    },
-    [brandMenu]
-  )
+  const { onContextMenu, node: menuNode } = useBrandMenu(brandMenu)
 
   return (
     <>
@@ -85,7 +96,7 @@ export function HanzoMark({
         <path d="M66.7198 67V44.6369H44.5098V67H66.7198Z" />
       </svg>
 
-      {menu && <BrandMenu x={menu.x} y={menu.y} onClose={() => setMenu(null)} />}
+      {menuNode}
     </>
   )
 }
@@ -102,12 +113,17 @@ export function HanzoMark({
 export function HanzoWordmark({
   label = 'Hanzo',
   size = 22,
+  brandMenu = false,
 }: {
   label?: string
   size?: number
+  /** Right-click opens the brand menu, the same one the mark offers. */
+  brandMenu?: boolean
 }) {
+  const { onContextMenu, node } = useBrandMenu(brandMenu)
   return (
     <span
+      onContextMenu={onContextMenu}
       style={{
         fontSize: Math.round(size * 0.62),
         fontWeight: 800,
@@ -116,6 +132,7 @@ export function HanzoWordmark({
       }}
     >
       {label}
+      {node}
     </span>
   )
 }

@@ -311,7 +311,7 @@ export function HanzoHeader({
           href: link.href,
           hint: link.hint,
           group: 'Pages',
-          external: /^https?:\/\//.test(link.href),
+          external: outward(link.href),
         })),
     [localNav, s.secondaryCTA, s.primaryCTA]
   )
@@ -562,10 +562,6 @@ export function HanzoHeader({
           currentHref={currentHref}
           top={HEADER_H}
           onClose={() => setMobileOpen(false)}
-          onMeet={() => {
-            setMobileOpen(false)
-            menu.set('meet')
-          }}
         />
       ) : null}
     </>
@@ -955,6 +951,17 @@ const COLUMNS: React.CSSProperties = {
   alignItems: 'flex-start',
 }
 
+/**
+ * Does this link leave the surface?
+ *
+ * One rule, one place. It was written inline where the palette builds its rows
+ * and nowhere else, so the CTA — the one control on the sheet that most often
+ * DOES leave (Try Hanzo goes to hanzo.chat) — opened in place and wore no
+ * marker, while a nav row beside it wore one. The same link told two stories
+ * depending on which control drew it.
+ */
+export const outward = (href: string) => /^https?:\/\//.test(href)
+
 function CTA({
   link,
   variant,
@@ -978,10 +985,13 @@ function CTA({
       </span>
     )
   }
+  const away = outward(link.href)
   return (
     <a
       href={link.href}
-      style={cta(filled, height)}
+      target={away ? '_blank' : undefined}
+      rel={away ? 'noreferrer' : undefined}
+      style={{ ...cta(filled, height), gap: 6 }}
       // The filled pill dips its opacity; the ghost one is a plain link and
       // brightens like every other ghost control. Neither grows a background.
       onMouseEnter={(e) => {
@@ -994,6 +1004,7 @@ function CTA({
       }}
     >
       {link.label}
+      {away ? <Outlink /> : null}
     </a>
   )
 }
@@ -1111,7 +1122,6 @@ function MobileSheet({
   currentHref,
   top,
   onClose,
-  onMeet,
 }: {
   surface: HanzoSurface
   account?: React.ReactNode
@@ -1120,7 +1130,6 @@ function MobileSheet({
   currentHref?: string
   top: number
   onClose: () => void
-  onMeet: () => void
 }) {
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const localNav = withoutProductsDup(surface.localNav, hasProducts)
@@ -1208,22 +1217,13 @@ function MobileSheet({
           fontFamily: CHROME.font,
         }}
       >
-        <button
-          type="button"
-          onClick={onMeet}
-          style={{
-            ...cta(false, TAP_H),
-            justifyContent: 'space-between',
-            width: '100%',
-            borderRadius: R.card,
-            fontSize: FS.base,
-            fontWeight: 700,
-            marginBottom: 8,
-          }}
-        >
-          Hanzo
-          <Chevron open={false} />
-        </button>
+        {/* The brand is the WORDMARK, one row up in the bar this sheet hangs
+            from, and it already goes home. A second row saying the same word
+            under it is the same door twice — and it was the literal string
+            "Hanzo", so a Lux or Zoo surface said Hanzo too. The Meet menu it
+            opened is desktop chrome, which this file's own `tryMenu` note
+            already says of the sibling control: on a phone the sheet IS the
+            card, so a menu inside it is a menu inside a menu. */}
 
         {/* ONE PANE AT A TIME. A section opens by REPLACING what is on screen,
             under a row back to where you were — not by expanding in place.
@@ -1299,6 +1299,11 @@ function MobileSheet({
                 <span style={{ ...glyphRow, alignItems: 'center' }}>
                   <Glyph name={node.glyph} />
                   {node.label}
+                  {/* The marker is the promise that this leaves the surface, and
+                      it belongs wherever the row does — the desktop menus have
+                      carried it since they were written, so a phone without it
+                      was the same link telling two different stories. */}
+                  {node.external ? <Outlink /> : null}
                 </span>
               </a>
             )

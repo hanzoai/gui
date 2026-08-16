@@ -31,7 +31,7 @@
  * drops into Next / Vite / vanilla hosts with zero provider/setup. Sticky, dark
  * chrome, fully keyboard-accessible.
  */
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { HanzoWordmark } from './mark'
 import { MeetHanzoMenu } from './MeetHanzoMenu'
 import { TryHanzoMenu } from './TryHanzoMenu'
@@ -272,7 +272,44 @@ export function HanzoHeader({
 }: HanzoHeaderProps) {
   useShellStyles()
   const s = resolveSurface(surface)
-  const isMobile = useIsMobile(900)
+  // The bar collapses to the sheet when it does not FIT, not at a width someone
+  // guessed. Measured on hanzo.ai: the desktop row fits at 1280 and overlaps
+  // from 1240 all the way down to the 900 media query — a 340px band where nav
+  // items were drawn on top of the search control and each other.
+  //
+  // A number cannot fix that, because the bar's length is the SURFACE's: this
+  // one carries six entries, hanzo.chat five, and any of them may gain one
+  // tomorrow. So the row reports its own overflow and that is the second half
+  // of the switch. The media query stays as the floor — a phone is a phone
+  // whether or not the row happens to fit.
+  const row = useRef<HTMLElement>(null)
+  const [tooTight, setTooTight] = useState(false)
+  const isMobile = useIsMobile(900) || tooTight
+
+  useEffect(() => {
+    const el = row.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    // scrollWidth exceeds clientWidth exactly when the row's own items no
+    // longer fit, because every control in it refuses to shrink. Read on the
+    // DESKTOP arrangement only: once collapsed the row is short by
+    // construction, and measuring that would flip it straight back and
+    // oscillate. Hysteresis is the 1px slack.
+    const measure = () => {
+      if (tooTight) return
+      setTooTight(el.scrollWidth > el.clientWidth + 1)
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    // Collapsed, the only thing that can un-collapse it is the window growing
+    // back past the media query — so re-test from a clean desktop arrangement.
+    const onResize = () => setTooTight(false)
+    window.addEventListener('resize', onResize)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', onResize)
+    }
+  }, [tooTight])
   // ONE open mega-menu, not one boolean per menu.
   const menu = useIntent<MenuKey>()
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -354,6 +391,7 @@ export function HanzoHeader({
     // overlays outside makes all four correct for the same reason.
     <>
       <header
+        ref={row}
         role="banner"
         data-hanzo-shell=""
         className={className}
@@ -414,15 +452,15 @@ export function HanzoHeader({
           </>
         ) : (
           <>
-            {/* ── Hanzo ⌄ ──
-                The label is the NAME, not an invitation. "Meet Hanzo" reads as
-                onboarding copy in a slot that is doing navigation: a reader
-                already on a Hanzo surface has met us, and the menu behind it is
-                the product list, which is a noun. The drape itself is unchanged
-                — same groups, same rows — so this is what the trigger is called
-                and nothing else. */}
+            {/* ── Company ⌄ ──
+                It said "Hanzo", from when the brand beside it was the GLYPH: an
+                H followed by the word read as one lockup. The brand is the
+                WORDMARK now, so the same slot rendered "Hanzo Hanzo" — the name
+                twice, side by side, which reads as a bug rather than as a menu.
+                The trigger is named for what is behind it instead. The drape is
+                unchanged: same groups, same rows. */}
             <MenuTrigger
-              label="Hanzo"
+              label="Company"
               open={menu.key === 'meet'}
               reach={menu.trigger('meet')}
               onStepIn={() => menu.set('meet')}

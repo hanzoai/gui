@@ -27,7 +27,7 @@ export const CHROME = {
   /** True black — the same ground hanzo.ai and hanzo.chat paint the page with. */
   panel: '#000000',
   /** The one raised fill (inputs, cards, tiles) that sits above `panel`. */
-  raised: 'rgba(255,255,255,0.03)',
+  raised: 'var(--white-03, rgb(255 255 255 / .03))',
   /**
    * The resting edge — every hairline in the chrome, and design's value.
    *
@@ -43,7 +43,7 @@ export const CHROME = {
    * Resting only. Hover, focus and press edges stay on gui's ramp.
    */
   border: 'var(--white-10, rgb(255 255 255 / .10))',
-  borderSoft: 'rgba(255,255,255,0.06)',
+  borderSoft: 'var(--white-06, rgb(255 255 255 / .06))',
   /**
    * The SELECTED edge — a current app tile, a current product card, a featured
    * plan. Still a hairline. This used to be ACCENT, which then resolved to
@@ -55,11 +55,11 @@ export const CHROME = {
    * `ACCENT_SOFTER` IS this value — the selected fill and the selected edge are
    * one rung. Move this and both move together, which is the point.
    */
-  borderStrong: 'rgba(255,255,255,0.22)',
-  fg: 'rgba(255,255,255,0.92)',
-  fgMuted: 'rgba(255,255,255,0.6)',
-  fgDim: 'rgba(255,255,255,0.45)',
-  hover: 'rgba(255,255,255,0.06)',
+  borderStrong: 'var(--white-22, rgb(255 255 255 / .22))',
+  fg: 'var(--white-92, rgb(255 255 255 / .92))',
+  fgMuted: 'var(--white-60, rgb(255 255 255 / .60))',
+  fgDim: 'var(--white-45, rgb(255 255 255 / .45))',
+  hover: 'var(--white-06, rgb(255 255 255 / .06))',
   /**
    * Three sources, in order of how much they know.
    *
@@ -135,7 +135,7 @@ export const FG_ON = ACCENT
  * step with the package by hand every time `--ring` moves.
  */
 export const FOCUS_RING = 'var(--ring, rgb(255 255 255 / .40))'
-export const ACCENT_SOFT = 'rgba(255,255,255,0.14)'
+export const ACCENT_SOFT = 'var(--white-14, rgb(255 255 255 / .14))'
 /**
  * The selected FILL — the same rung as the selected EDGE, which is why it is
  * literally `CHROME.borderStrong` and not a copy of its value.
@@ -146,7 +146,7 @@ export const ACCENT_SOFT = 'rgba(255,255,255,0.14)'
  * agree. They sat side by side under two names until now.
  */
 export const ACCENT_SOFTER = CHROME.borderStrong
-export const ACCENT_TINT = 'rgba(255,255,255,0.18)'
+export const ACCENT_TINT = 'var(--white-18, rgb(255 255 255 / .18))'
 
 /**
  * Brand font-size scale (consumes @hanzo/brand `--font-size-*`).
@@ -205,7 +205,7 @@ export const SHADOW_LEFT = '-24px 0 60px -16px rgba(0,0,0,0.75)'
  * means there. Naming it is the whole fix: one value, one place.
  */
 export const VEIL =
-  'radial-gradient(720px 260px at 50% -40%, rgba(255,255,255,0.05), transparent 70%)'
+  'radial-gradient(720px 260px at 50% -40%, var(--white-05, rgb(255 255 255 / .05)), transparent 70%)'
 
 /**
  * Dark glass — the ONE recipe for chrome the page shows through: near-black at

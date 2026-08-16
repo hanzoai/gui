@@ -753,14 +753,38 @@ function NavMenu({
             mega-menus — dimmed and thrown out of focus, so the menu is the only
             thing in focus on the screen. Without it these five menus sat over a
             page in full focus while the other two did not, which is the same
-            "several menu systems" a reader sees when only the panel changes. */}
+            "several menu systems" a reader sees when only the panel changes.
+
+            It takes its WIDTH from the containing block and its HEIGHT from the
+            viewport, and it has to be spelled that way round.
+
+            `inset: 0` here resolves against the HEADER, because the bar carries
+            `backdrop-filter` and a filtered element is the containing block for
+            its fixed descendants — a 60px strip. So `bottom: 0` and
+            `top: HEADER_H` together described a box zero pixels tall: present
+            in the DOM, painting nothing. That is why the page under these five
+            menus stayed in full focus while nothing looked broken.
+
+            `left`/`right: 0` are RIGHT for the same reason the plane's are —
+            the bar is full-bleed, so its box and the viewport agree across.
+            They disagree down, so the height is stated in viewport units and
+            asks the containing block nothing.
+
+            Not a portal to the body, which was the first fix and was worse: the
+            filtered header is its own stacking context, so a veil outside it
+            compares z-indices with the HEADER rather than with the plane inside
+            it, and covered the menu it was supposed to sit under — swallowing
+            every click on the links. Sibling to the plane, one stacking
+            context, and z-index means what it says. */}
         <div
           aria-hidden="true"
           onClick={onClose}
           style={{
             position: 'fixed',
-            inset: 0,
             top: HEADER_H,
+            left: 0,
+            right: 0,
+            height: `calc(100dvh - ${HEADER_H}px)`,
             zIndex: Z.overlay as unknown as number,
             ...UNDERVEIL,
           }}

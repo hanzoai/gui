@@ -54,6 +54,7 @@ import {
   FS,
   GLASS,
   GUTTER,
+  LABEL,
   PANEL,
   R,
   SCRIM,
@@ -299,27 +300,57 @@ export function HanzoHeader({
     // oscillate. Hysteresis is the 1px slack.
     const measure = () => {
       if (tooTight) return
-      // The NAV, not the header and not the controls.
-      //
-      // Measured at 1160 on hanzo.ai: the header reports scrollWidth ===
-      // clientWidth and every control keeps its full width, yet four labels are
-      // visibly drawn over the search pill. The nav is the only flex child that
-      // may shrink (`flex-shrink: 1`), so it is squeezed below its contents
-      // while the controls inside it refuse to give — they spill past the nav's
-      // box, over their neighbours, and nothing upstream ever overflows.
-      //
-      // So the honest question is whether the nav still contains its own items.
-      const nav = el.querySelector('nav')
-      if (nav && nav.scrollWidth > nav.clientWidth + 1) setTooTight(true)
+      // Ask the DEFECT, not a proxy for it. Three proxies failed here, each for
+      // its own reason, and each looked right in source:
+      //   - the header's scrollWidth equals its clientWidth at every failing
+      //     width, because the nav absorbs the squeeze;
+      //   - the nav's does too — 624 and 624 at 1160 — because its items shrink
+      //     rather than push it wide;
+      //   - a control's own scrollWidth does not report it either, since the
+      //     items carry `flex-shrink: 1` and compress below their text.
+      // What actually goes wrong is that two controls end up drawn in the same
+      // place, so that is what is read: any pair of boxes that intersect. It is
+      // a dozen elements, once per resize.
+      const box = Array.from(el.querySelectorAll<HTMLElement>('a, button'))
+        .map((n) => n.getBoundingClientRect())
+        .filter((r) => r.width > 0 && r.height > 0)
+      for (let i = 0; i < box.length; i++) {
+        for (let j = i + 1; j < box.length; j++) {
+          const a = box[i]!
+          const b = box[j]!
+          if (a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1) {
+            setTooTight(true)
+            return
+          }
+        }
+      }
     }
+    // On mount, on the NEXT FRAME, and again once the real face has loaded.
+    // The frame matters: at 1160 the collision appeared after first paint but
+    // before the font swap, so a single synchronous pass read a bar that still
+    // fitted and never looked again.
     measure()
+    const frame = requestAnimationFrame(measure)
+    // AGAIN once the real face has loaded. The first pass runs on fallback
+    // metrics, which are narrower — measured, a fresh load at 1080 found no
+    // collision, then Geist swapped in, the labels grew, and four of them
+    // overlapped with nothing left to re-check. The header's own box never
+    // changes across that swap, so the ResizeObserver is silent for it.
+    if (typeof document !== 'undefined' && document.fonts) {
+      document.fonts.ready.then(() => requestAnimationFrame(measure)).catch(() => {})
+    }
     const ro = new ResizeObserver(measure)
     ro.observe(el)
+    // The nav as well: it is the child that absorbs the squeeze, so it can
+    // change size in a pass where the header does not.
+    const nav = el.querySelector('nav')
+    if (nav) ro.observe(nav)
     // Collapsed, the only thing that can un-collapse it is the window growing
     // back past the media query — so re-test from a clean desktop arrangement.
     const onResize = () => setTooTight(false)
     window.addEventListener('resize', onResize)
     return () => {
+      cancelAnimationFrame(frame)
       ro.disconnect()
       window.removeEventListener('resize', onResize)
     }
@@ -1574,16 +1605,9 @@ function CloseGlyph() {
 
 /** A column heading inside a wide nav panel — dim, small, and not a link. */
 function ColumnTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      style={{
-        padding: '0 8px 10px',
-        fontSize: FS.xs,
-        fontWeight: 400,
-        color: CHROME.fgDim,
-      }}
-    >
-      {children}
-    </div>
-  )
+  // `LABEL`, the one place a column head's rank is defined — the ecosystem menu
+  // and the Try card already take it. This had re-derived it a rung dimmer and
+  // three hundred lighter, so the same kind of word read as a caption in one
+  // plane and as a heading in the next.
+  return <div style={{ ...LABEL, padding: '0 8px 10px' }}>{children}</div>
 }

@@ -22,7 +22,7 @@
  * every width and in every host theme (see `PANEL` in theme.ts).
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { CHROME, FS, PANEL, R, Z, control, ghostHover, row } from './theme'
+import { CHROME, FS, PANEL, R, Z, control, controlHover, ghostHover, row } from './theme'
 import { U, type HanzoLink } from './hanzo-registry'
 import type { HanzoUser } from './types'
 import { UserAvatar } from './UserAvatar'
@@ -79,7 +79,7 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
               }
             : undefined
         }
-        {...ghostHover()}
+        {...controlHover()}
       >
         {label}
       </a>

@@ -56,10 +56,10 @@ import {
   FOCUS_RING,
   FS,
   DRAPE,
+  UNDERVEIL,
   GUTTER,
   R,
   SHADOW,
-  VEIL,
   Z,
 } from './theme'
 import { useShellStyles } from './shellStyles'
@@ -132,7 +132,7 @@ export function ProductsMegaMenu({
           inset: 0,
           top: anchor,
           zIndex: Z.overlay as unknown as number,
-          background: 'transparent',
+          ...UNDERVEIL,
         }}
       />
       <div
@@ -166,7 +166,6 @@ export function ProductsMegaMenu({
           // meets it, so a full-bleed band still reads as a surface. Same
           // recipe as MeetHanzoMenu — the two drapes are one surface.
           ...DRAPE,
-          background: `${VEIL}, ${DRAPE.background as string}`,
           boxShadow: SHADOW,
           fontFamily: CHROME.font,
           color: CHROME.fg,

@@ -59,6 +59,7 @@ import {
   SCRIM,
   SHADOW,
   TAP_H,
+  UNDERVEIL,
   Z,
   control,
   cta,
@@ -746,6 +747,23 @@ function NavMenu({
         <Chevron open={open} />
       </Trigger>
       {open ? (
+        <>
+        {/* The page recedes under the plane, exactly as it does under the two
+            mega-menus — dimmed and thrown out of focus, so the menu is the only
+            thing in focus on the screen. Without it these five menus sat over a
+            page in full focus while the other two did not, which is the same
+            "several menu systems" a reader sees when only the panel changes. */}
+        <div
+          aria-hidden="true"
+          onClick={onClose}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            top: HEADER_H,
+            zIndex: Z.overlay as unknown as number,
+            ...UNDERVEIL,
+          }}
+        />
         <div
           id={panel}
           role="dialog"
@@ -772,7 +790,7 @@ function NavMenu({
             top: HEADER_H,
             left: 0,
             right: 0,
-            zIndex: Z.dropdown as unknown as number,
+            zIndex: Z.modal as unknown as number,
             boxSizing: 'border-box',
             padding: `20px ${GUTTER} 28px`,
             maxHeight: `calc(100dvh - ${HEADER_H}px)`,
@@ -888,6 +906,7 @@ function NavMenu({
             </div>
           )}
         </div>
+        </>
       ) : null}
     </div>
   )

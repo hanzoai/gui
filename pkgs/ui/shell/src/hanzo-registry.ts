@@ -358,6 +358,23 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
 /** The flagship products (mega-menu top group + footer PRODUCTS column). */
 export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.flagship)
 
+/**
+ * The flagships as a PUBLIC menu links them — each pointing at the page that
+ * explains it rather than the host that runs it.
+ *
+ * Derived once, because it was applied once and there were three consumers: the
+ * Try menu took it, and the Meet menu and the footer kept sending anonymous
+ * readers to the app hosts. That is the shape this file exists to prevent, and
+ * it reappeared the moment the rule lived at a call site instead of here.
+ *
+ * `HANZO_FLAGSHIP` itself is untouched, so the launcher and anything else that
+ * genuinely wants the running product still has it.
+ */
+export const HANZO_FLAGSHIP_PUBLIC: HanzoProduct[] = HANZO_FLAGSHIP.map((p) => ({
+  ...p,
+  href: p.page ?? p.href,
+}))
+
 /* ── Universal "Try Hanzo" menu — the doors, identical on every property ───── */
 
 /**
@@ -382,12 +399,10 @@ export const TRY_HANZO_GROUPS: MeetHanzoGroup[] = [
   {
     id: 'open',
     title: 'Open',
-    items: HANZO_FLAGSHIP.map((p) => ({
+    items: HANZO_FLAGSHIP_PUBLIC.map((p) => ({
       id: p.id,
       label: p.label,
-      // The page when there is one — this menu is read by people who have not
-      // signed in yet. `href` (the app host) belongs to the launcher.
-      href: p.page ?? p.href,
+      href: p.href,
       hint: p.tagline,
       glyph: p.glyph,
     })),
@@ -411,7 +426,7 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
   {
     id: 'products',
     title: 'Flagship products',
-    items: HANZO_FLAGSHIP,
+    items: HANZO_FLAGSHIP_PUBLIC,
   },
   {
     id: 'platform',
@@ -843,7 +858,7 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
       // Just the projection. Hanzo Dev used to be named again here, from before
       // it was a flagship; once it became one the footer listed it twice, on
       // every property. A product is spelled once, in HANZO_PRODUCTS.
-      ...HANZO_FLAGSHIP.map((p) => ({ id: p.id, label: p.label, href: p.href })),
+      ...HANZO_FLAGSHIP_PUBLIC.map((p) => ({ id: p.id, label: p.label, href: p.href })),
       { id: 'allProducts', label: 'All products', href: U.allProducts },
     ],
   },

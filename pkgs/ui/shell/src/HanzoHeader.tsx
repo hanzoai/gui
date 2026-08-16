@@ -42,6 +42,7 @@ import {
   getSurface,
   type HanzoLink,
   type HanzoNav,
+  type HanzoNavGroup,
   type HanzoSurface,
   type ProductCategory,
 } from './hanzo-registry'
@@ -62,7 +63,7 @@ import {
   ghostHover,
   row,
 } from './theme'
-import { Glyph, glyphRow, type GlyphName } from './glyph'
+import { Glyph, glyphRow, Outlink, type GlyphName } from './glyph'
 import { useIsMobile } from './useMediaQuery'
 import { useShellStyles } from './shellStyles'
 import { useIntent, type Reach } from './intent'
@@ -704,6 +705,9 @@ function NavMenu({
   const { onClick, ...pointer } = reach
   const rove = useRove(open, onClose, autoFocus)
   const panel = `hanzo-nav-${link.id}`
+  // Groups turn the card into a panel. Without them nothing about the menu
+  // changes, so an entry that is a short list keeps the shape that suits it.
+  const wide = (link.groups?.length ?? 0) > 0
   // The label opens a card, so on its own page it becomes a button rather than
   // losing its focus stop — same shape, no href to nowhere.
   const Trigger = current ? 'button' : 'a'
@@ -754,14 +758,18 @@ function NavMenu({
             // supposed to grow into never applied. `max-content` is what makes
             // the card size to its widest row; the cap still holds it back.
             width: 'max-content',
-            minWidth: 180,
-            maxWidth: 320,
-            padding: 8,
+            minWidth: wide ? 560 : 180,
+            // A wide panel is a LAYOUT, so it may run to the viewport; the
+            // compact card is a list and stays list-width.
+            maxWidth: wide ? 'min(92vw, 900px)' : 320,
+            padding: wide ? 20 : 8,
             borderRadius: R.card,
             border: `1px solid ${CHROME.border}`,
             boxShadow: SHADOW,
-            // The bar's own glass, continuing — one surface, lit once.
-            ...GLASS,
+            // The compact card continues the bar's glass — one surface, lit
+            // once. A WIDE panel covers the page's picture, and display type
+            // read through a moving globe is not legible, so it is opaque.
+            ...(wide ? { background: CHROME.panel } : GLASS),
             color: CHROME.fg,
             // It drops out of the label that opened it, so it grows from that
             // corner rather than appearing from behind the page.
@@ -769,7 +777,59 @@ function NavMenu({
             animation: 'hanzo-card-in 200ms cubic-bezier(.2,.9,.3,1.1) both',
           }}
         >
-          {items.map((item) => (
+          {wide ? (
+            <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start' }}>
+              {/* The destinations someone ARRIVES wanting, in display type. */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 200 }}>
+                <ColumnTitle>Explore {link.label}</ColumnTitle>
+                {items.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    target={item.external ? '_blank' : undefined}
+                    rel={item.external ? 'noreferrer' : undefined}
+                    onClick={onClose}
+                    style={{
+                      ...row(),
+                      fontSize: 26,
+                      lineHeight: 1.28,
+                      fontWeight: 400,
+                      letterSpacing: '-0.01em',
+                      padding: '2px 8px',
+                      whiteSpace: 'nowrap',
+                    }}
+                    {...ghostHover()}
+                  >
+                    {item.label}
+                    {item.external ? <Outlink /> : null}
+                  </a>
+                ))}
+              </div>
+              {(link.groups ?? []).map((group) => (
+                <div
+                  key={group.id}
+                  style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 150 }}
+                >
+                  <ColumnTitle>{group.title}</ColumnTitle>
+                  {group.items.map((item) => (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noreferrer' : undefined}
+                      onClick={onClose}
+                      style={{ ...row(), fontWeight: 500, padding: '5px 8px', whiteSpace: 'nowrap' }}
+                      {...ghostHover()}
+                    >
+                      {item.label}
+                      {item.external ? <Outlink /> : null}
+                    </a>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ) : (
+            items.map((item) => (
             <a
               key={item.id}
               href={item.href}
@@ -782,6 +842,7 @@ function NavMenu({
               <Glyph name={item.glyph} />
               <span style={{ minWidth: 0 }}>
                 {item.label}
+                {item.external ? <Outlink /> : null}
                 {item.hint ? (
                   <span
                     style={{
@@ -797,7 +858,8 @@ function NavMenu({
                 ) : null}
               </span>
             </a>
-          ))}
+            ))
+          )}
         </div>
       ) : null}
     </div>
@@ -1140,6 +1202,7 @@ function MobileGroup({
     label: string
     href: string
     items: HanzoLink[]
+    groups?: HanzoNavGroup[]
     glyph?: GlyphName
   }
   currentHref?: string
@@ -1197,7 +1260,38 @@ function MobileGroup({
             >
               <Glyph name={item.glyph} />
               {item.label}
+              {item.external ? <Outlink /> : null}
             </a>
+          ))}
+          {/* The columns a desktop panel puts BESIDE the list stack under it
+              here, each behind its own heading, because a phone has one column
+              and dropping them would make the sheet say less than the bar. */}
+          {(group.groups ?? []).map((sub) => (
+            <div key={sub.id} style={{ display: 'contents' }}>
+              <div
+                style={{
+                  padding: '18px 12px 6px',
+                  fontSize: FS.xs,
+                  color: CHROME.fgDim,
+                }}
+              >
+                {sub.title}
+              </div>
+              {sub.items.map((item) => (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noreferrer noopener' : undefined}
+                  onClick={onClose}
+                  style={{ ...mobileLeaf(item.href === currentHref), fontSize: FS.sm }}
+                  {...ghostHover()}
+                >
+                  {item.label}
+                  {item.external ? <Outlink /> : null}
+                </a>
+              ))}
+            </div>
           ))}
         </div>
       ) : null}
@@ -1272,5 +1366,21 @@ function CloseGlyph() {
     >
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
+  )
+}
+
+/** A column heading inside a wide nav panel — dim, small, and not a link. */
+function ColumnTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      style={{
+        padding: '0 8px 10px',
+        fontSize: FS.xs,
+        fontWeight: 400,
+        color: CHROME.fgDim,
+      }}
+    >
+      {children}
+    </div>
   )
 }

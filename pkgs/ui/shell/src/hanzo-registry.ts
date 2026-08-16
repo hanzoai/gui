@@ -161,6 +161,17 @@ export const U = {
   team: 'https://hanzo.team',
   world: 'https://world.hanzo.ai',
   studio: 'https://studio.hanzo.ai',
+  /**
+   * The PAGES that explain Studio and Console, as opposed to the hosts that run
+   * them. Both hosts answer an anonymous visitor with hanzo.id's bare
+   * "Login or Signup" — 241 characters that never say Studio or Console — while
+   * these pages sit published and linked from nowhere. A public menu row is
+   * read by someone who has not signed in yet, so it points at the page; the
+   * signed-in launcher (HANZO_APPS) keeps the host, because that reader is
+   * asking to open the app rather than to read about it.
+   */
+  studioPage: 'https://hanzo.ai/studio',
+  consolePage: 'https://hanzo.ai/console',
   bot: 'https://hanzo.bot',
   // hanzo.bot is the marketing site; the product it sells runs at app.hanzo.bot.
   // Two origins because the product owns a whole one: ~25 top-level routes, its
@@ -279,8 +290,13 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'studio',
     glyph: 'studio',
     label: 'Hanzo Studio',
-    href: U.studio,
-    tagline: 'Models, prompts and agents',
+    href: U.studioPage,
+    // What the page it opens actually sells. It read "Models, prompts and
+    // agents", which is a different product from the one hanzo.ai/studio
+    // describes — "the visual AI engine for generative media … images, video,
+    // audio, and 3D". A menu row and its destination disagreeing about the
+    // product is worse than either sentence alone.
+    tagline: 'Visual pipelines for generative media',
     boundary: PRODUCT_BOUNDARIES.studio,
     flagship: true,
   },
@@ -391,7 +407,7 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'agents', label: 'Managed agents', href: U.agents, glyph: 'cpu' },
       { id: 'mcp', label: 'MCP tools', href: U.mcp, glyph: 'plug' },
       { id: 'dev', label: 'Hanzo Dev', href: U.dev, glyph: 'code' },
-      { id: 'console', label: 'Developer console', href: U.console, glyph: 'terminal' },
+      { id: 'console', label: 'Developer console', href: U.consolePage, glyph: 'terminal' },
       { id: 'api', label: 'API platform', href: U.api, glyph: 'gateway' },
       { id: 'cloud', label: 'All cloud products', href: U.cloud, glyph: 'cloud' },
     ],

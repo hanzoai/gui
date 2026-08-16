@@ -312,3 +312,15 @@ test('the chrome owns no colour of its own — every value is a design rung', ()
     assert.equal(m[1], m[2], `--white-${m[1]} falls back to .${m[2]}`)
   }
 })
+
+test('the products menu has ONE name, on the phone as on the desktop', () => {
+  // The bar honoured `productsLabel` and the sheet hard-coded 'Products', so a
+  // surface that renamed the taxonomy — hanzo.app opens it as Platform — said
+  // one word on the desktop and another on the phone, for the same menu.
+  const src = read('HanzoHeader.tsx')
+  const sheet = src.slice(src.indexOf('function MobileSheet('))
+  assert.match(sheet, /label: productsLabel/, 'the sheet takes the name it is given')
+  assert.doesNotMatch(stripped(sheet), /label: 'Products'/, 'and never states one of its own')
+  // One default, declared once, where the prop is.
+  assert.match(src, /productsLabel = 'Products'/, 'the default lives at the prop')
+})

@@ -28,7 +28,21 @@ export const CHROME = {
   panel: '#000000',
   /** The one raised fill (inputs, cards, tiles) that sits above `panel`. */
   raised: 'rgba(255,255,255,0.03)',
-  border: 'rgba(255,255,255,0.09)',
+  /**
+   * The resting edge — every hairline in the chrome, and design's value.
+   *
+   * `--white-10` and NOT `--border`, though design defines the latter as the
+   * former. `--border` is semantic and INVERTS: dark themes give
+   * `rgb(255 255 255 / .10)`, light themes `rgb(0 0 0 / .10)`. This chrome is
+   * always dark, on every surface and in every host theme, so binding the edge
+   * to a token that flips would draw black hairlines on a black bar the moment
+   * the page around it went light. `--white-10` is a fixed rung and carries the
+   * same value in both — the same reason `ACCENT` reads `--neutral-50` rather
+   * than `--primary`.
+   *
+   * Resting only. Hover, focus and press edges stay on gui's ramp.
+   */
+  border: 'var(--white-10, rgb(255 255 255 / .10))',
   borderSoft: 'rgba(255,255,255,0.06)',
   /**
    * The SELECTED edge — a current app tile, a current product card, a featured

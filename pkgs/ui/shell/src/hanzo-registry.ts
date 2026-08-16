@@ -66,6 +66,23 @@ export interface HanzoNavGroup {
 
 /** A first-party Hanzo product. */
 export interface HanzoProduct extends HanzoLink {
+  /**
+   * The PAGE that explains this product, when it is not the same thing as the
+   * host that runs it.
+   *
+   * `href` is where the product LIVES — hanzo.chat, hanzo.app, studio.hanzo.ai.
+   * That is the right destination for someone who has an account and wants to
+   * open it, and the wrong one for someone who has just arrived and wants to
+   * know what it is: measured anonymously, studio.hanzo.ai and
+   * console.hanzo.ai answer with a bare "Login or Signup" that never names the
+   * product, and hanzo.chat's whole page is 260 characters that never say what
+   * it does.
+   *
+   * hanzo.ai publishes a real page for every one of them and nothing linked to
+   * any of it. So the public menu reads THIS, and the signed-in launcher reads
+   * `href` — two audiences, one list, no second copy of the taxonomy.
+   */
+  page?: string
   /** One-line tagline ("Ask anything", "Build and ship apps", …). */
   tagline: string
   /** The product boundary — what this product is FOR (kept consistent everywhere). */
@@ -161,17 +178,6 @@ export const U = {
   team: 'https://hanzo.team',
   world: 'https://world.hanzo.ai',
   studio: 'https://studio.hanzo.ai',
-  /**
-   * The PAGES that explain Studio and Console, as opposed to the hosts that run
-   * them. Both hosts answer an anonymous visitor with hanzo.id's bare
-   * "Login or Signup" — 241 characters that never say Studio or Console — while
-   * these pages sit published and linked from nowhere. A public menu row is
-   * read by someone who has not signed in yet, so it points at the page; the
-   * signed-in launcher (HANZO_APPS) keeps the host, because that reader is
-   * asking to open the app rather than to read about it.
-   */
-  studioPage: 'https://hanzo.ai/studio',
-  consolePage: 'https://hanzo.ai/console',
   bot: 'https://hanzo.bot',
   // hanzo.bot is the marketing site; the product it sells runs at app.hanzo.bot.
   // Two origins because the product owns a whole one: ~25 top-level routes, its
@@ -264,6 +270,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     glyph: 'chat',
     label: 'Hanzo Chat',
     href: U.chat,
+    page: `${U.ai}/chat`,
     tagline: 'Ask anything',
     boundary: PRODUCT_BOUNDARIES.chat,
     flagship: true,
@@ -273,6 +280,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     glyph: 'blocks',
     label: 'Hanzo App',
     href: U.app,
+    page: `${U.ai}/app`,
     tagline: 'Build and ship apps',
     boundary: PRODUCT_BOUNDARIES.app,
     flagship: true,
@@ -282,6 +290,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     glyph: 'users',
     label: 'Hanzo Team',
     href: U.team,
+    page: `${U.ai}/team`,
     tagline: 'People and AI together',
     boundary: PRODUCT_BOUNDARIES.team,
     flagship: true,
@@ -290,7 +299,8 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'studio',
     glyph: 'studio',
     label: 'Hanzo Studio',
-    href: U.studioPage,
+    href: U.studio,
+    page: `${U.ai}/studio`,
     // What the page it opens actually sells. It read "Models, prompts and
     // agents", which is a different product from the one hanzo.ai/studio
     // describes — "the visual AI engine for generative media … images, video,
@@ -305,6 +315,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     glyph: 'bot',
     label: 'Hanzo Bot',
     href: U.bot,
+    page: `${U.ai}/bot`,
     tagline: 'Publish AI anywhere',
     boundary: PRODUCT_BOUNDARIES.bot,
     flagship: true,
@@ -314,6 +325,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     glyph: 'cloud',
     label: 'Hanzo Cloud',
     href: U.cloud,
+    page: `${U.ai}/cloud`,
     tagline: 'Run the platform',
     boundary: PRODUCT_BOUNDARIES.cloud,
     flagship: true,
@@ -323,6 +335,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     glyph: 'base',
     label: 'Hanzo Base',
     href: U.base,
+    page: `${U.ai}/base`,
     tagline: 'Data, auth and files',
     boundary: PRODUCT_BOUNDARIES.base,
     flagship: true,
@@ -372,7 +385,9 @@ export const TRY_HANZO_GROUPS: MeetHanzoGroup[] = [
     items: HANZO_FLAGSHIP.map((p) => ({
       id: p.id,
       label: p.label,
-      href: p.href,
+      // The page when there is one — this menu is read by people who have not
+      // signed in yet. `href` (the app host) belongs to the launcher.
+      href: p.page ?? p.href,
       hint: p.tagline,
       glyph: p.glyph,
     })),
@@ -407,7 +422,7 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'agents', label: 'Managed agents', href: U.agents, glyph: 'cpu' },
       { id: 'mcp', label: 'MCP tools', href: U.mcp, glyph: 'plug' },
       { id: 'dev', label: 'Hanzo Dev', href: U.dev, glyph: 'code' },
-      { id: 'console', label: 'Developer console', href: U.consolePage, glyph: 'terminal' },
+      { id: 'console', label: 'Developer console', href: `${U.ai}/console`, glyph: 'terminal' },
       { id: 'api', label: 'API platform', href: U.api, glyph: 'gateway' },
       { id: 'cloud', label: 'All cloud products', href: U.cloud, glyph: 'cloud' },
     ],

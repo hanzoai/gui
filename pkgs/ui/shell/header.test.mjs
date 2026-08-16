@@ -328,3 +328,34 @@ test('the products menu has ONE name, on the phone as on the desktop', () => {
   // One default, declared once, where the prop is.
   assert.match(src, /productsLabel = 'Products'/, 'the default lives at the prop')
 })
+
+test('the public menu explains; the launcher opens', () => {
+  // Two audiences read the same taxonomy. Someone who has not signed in wants
+  // to know what a product IS — and measured anonymously, the hosts cannot
+  // tell them: studio.hanzo.ai and console.hanzo.ai answer with a bare
+  // "Login or Signup" that never names the product, and hanzo.chat's whole
+  // page is 260 characters that never say what it does. hanzo.ai publishes a
+  // page for every one of them, and nothing linked to any of it.
+  const reg = read('hanzo-registry.ts')
+
+  // ONE field carries the difference, on the product, not a second list.
+  assert.match(reg, /page\?: string/, 'a product may name the page that explains it')
+  assert.match(reg, /href: p\.page \?\? p\.href/, 'the public menu prefers it')
+
+  // Every flagship has one, and it is a hanzo.ai page — never the app host
+  // again under a second name.
+  const flagships = ['chat', 'app', 'team', 'studio', 'bot', 'cloud', 'base']
+  for (const id of flagships) {
+    const at = reg.indexOf(`    id: '${id}',`)
+    assert.ok(at > 0, `${id} is in the registry`)
+    const block = reg.slice(at, at + 400)
+    assert.match(block, new RegExp(`page: \`\\$\\{U\\.ai\\}/${id}\``), `${id} names its page`)
+  }
+
+  // The launcher is the OTHER audience and must keep the hosts: someone
+  // clicking a nine-tile app grid is asking to open the app, not read about it.
+  const apps = read('hanzo-apps.tsx')
+  assert.match(apps, /href: U\.studio,/, 'the launcher opens Studio')
+  assert.match(apps, /href: U\.console,/, 'the launcher opens the console')
+  assert.doesNotMatch(stripped(apps), /U\.ai\}\//, 'the launcher never opens a marketing page')
+})

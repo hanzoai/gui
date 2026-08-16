@@ -117,6 +117,27 @@ test('the signed-in bar has a seat for the surface own leading controls', () => 
   assert.match(left.slice(0, 1200), /<HanzoMark/, 'the mark still follows it')
 })
 
+test('a page never links to itself — and keeps the control anyway', () => {
+  const src = read('HanzoHeader.tsx')
+  assert.match(src, /function here\(/, 'the predicate exists')
+  // Derived from props, so the server and the browser render the same markup.
+  assert.doesNotMatch(stripped(src), /window\.location|document\.location/, 'no location')
+
+  // Every "you are here" branch drops the href and says so. This is the whole
+  // fix: a surface should never have to choose between a dead self-link and no
+  // control at all.
+  const branches = src.split('if (current) {').slice(1)
+  assert.ok(branches.length >= 4, `expected 4+ current branches, got ${branches.length}`)
+  for (const [i, tail] of branches.entries()) {
+    const block = tail.slice(0, tail.indexOf('\n  }'))
+    assert.match(block, /aria-current="page"/, `branch ${i} announces current`)
+    assert.doesNotMatch(block, /href=/, `branch ${i} emits NO href`)
+  }
+  // The pill stays a pill — same token, so "current" cannot drift into a
+  // different-looking control.
+  assert.match(src, /aria-current="page" style=\{cta\(filled, height\)\}/, 'still cta()')
+})
+
 test('the switcher asks the server — it never holds the list', () => {
   const src = read('UserOrgDropdown.tsx')
   assert.match(src, /findOrgs\?: \(query: OrgQuery\) => Promise<OrgPage>/, 'it asks')

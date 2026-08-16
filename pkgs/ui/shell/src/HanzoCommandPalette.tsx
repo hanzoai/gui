@@ -414,13 +414,26 @@ export function HanzoCommandTrigger({
       style={{
         ...control(false, height),
         gap: 8,
-        border: `1px solid ${CHROME.border}`,
-        background: CHROME.raised,
         // Stated, not inherited: `height` is the control's WHOLE size, and a
         // host that never loaded a reset would otherwise add the edge to it and
         // stand this 2px above the row it belongs to.
         boxSizing: 'border-box',
-        ...(compact ? { width: height, padding: 0 } : { padding: '0 12px' }),
+        // In the BAR this is a control among controls, so it wears the same edge
+        // and fill as its neighbours and reads as one of them.
+        //
+        // On the PHONE it is a glyph beside a glyph. The menu button next to it
+        // carries no edge and no fill, so a ring around this one made two icons
+        // of the same kind look like two different kinds of control — and a
+        // circle is the loudest shape in a bar that otherwise has none. The rule
+        // in a monochrome chrome is that weight has to mean something, and an
+        // edge drawn only because a control happens to be square means nothing.
+        ...(compact
+          ? { width: height, padding: 0, border: 'none', background: 'transparent' }
+          : {
+              padding: '0 12px',
+              border: `1px solid ${CHROME.border}`,
+              background: CHROME.raised,
+            }),
       }}
       {...ghostHover()}
     >

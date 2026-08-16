@@ -32,6 +32,8 @@ import {
   PaletteList,
   PaletteRow,
   PaletteShell,
+  askLabel,
+  useAsk,
   useCommandKey,
   usePaletteNav,
 } from './commandPalette'
@@ -211,7 +213,7 @@ export function HanzoCommandPalette({
     if (question) {
       hits.push({
         id: 'ask',
-        title: `Ask AI: ${question}`,
+        title: askLabel(question),
         href: askHref,
         group: 'Ask',
         ask: true,
@@ -220,16 +222,8 @@ export function HanzoCommandPalette({
     return hits
   }, [index, query, mode, question, askHref])
 
-  const ask = useCallback(() => {
-    close()
-    if (onAsk) {
-      onAsk(question)
-      return
-    }
-    const href = question ? `${askHref}?q=${encodeURIComponent(question)}` : askHref
-    if (onNavigate) onNavigate(href, true)
-    else window.open(href, '_blank', 'noreferrer')
-  }, [askHref, close, onAsk, onNavigate, question])
+  const askQuestion = useAsk({ askHref, onAsk, onNavigate, close })
+  const ask = useCallback(() => askQuestion(question), [askQuestion, question])
 
   const go = useCallback(
     (i: number) => {

@@ -66,6 +66,50 @@ export function useCommandKey(toggle: () => void): void {
 }
 
 /**
+ * The way out of an unanswerable query — one rule, for every palette.
+ *
+ * A list can always fail to hold what someone typed. The answer is never "no
+ * results": it is to hand the question to the AI, which is the one thing that
+ * can take a query nobody indexed. So every palette in the estate ends with
+ * this row, and it reads and behaves identically in all of them — a reader who
+ * learns it signed out still has it signed in.
+ *
+ * It lived only in the public header's palette, so the signed-in apps' palette
+ * — mounted in the products where a person is actually working — was the one
+ * place where an unmatched query really was a dead end.
+ *
+ * `onAsk` is the host taking the question instead: a surface that IS the AI
+ * answers in place rather than opening a second copy of itself.
+ */
+export const askLabel = (question: string) => `Ask AI: ${question}`
+
+export function useAsk({
+  askHref,
+  onAsk,
+  onNavigate,
+  close,
+}: {
+  askHref: string
+  onAsk?: (question: string) => void
+  onNavigate?: (href: string, external?: boolean) => void
+  close: () => void
+}): (question: string) => void {
+  return useCallback(
+    (question: string) => {
+      close()
+      if (onAsk) {
+        onAsk(question)
+        return
+      }
+      const href = question ? `${askHref}?q=${encodeURIComponent(question)}` : askHref
+      if (onNavigate) onNavigate(href, true)
+      else window.open(href, '_blank', 'noreferrer')
+    },
+    [askHref, close, onAsk, onNavigate]
+  )
+}
+
+/**
  * Roving selection over a flat list: the index, the keys that move it, and the
  * scroll that keeps it visible.
  *

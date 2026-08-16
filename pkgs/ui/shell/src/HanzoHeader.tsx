@@ -783,7 +783,14 @@ function NavMenu({
           {wide ? (
             <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start' }}>
               {/* The destinations someone ARRIVES wanting, in display type. */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 200 }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                  minWidth: 200,
+                }}
+              >
                 <ColumnTitle>Explore {link.label}</ColumnTitle>
                 {items.map((item) => (
                   <a
@@ -811,7 +818,12 @@ function NavMenu({
               {(link.groups ?? []).map((group) => (
                 <div
                   key={group.id}
-                  style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 150 }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    minWidth: 150,
+                  }}
                 >
                   <ColumnTitle>{group.title}</ColumnTitle>
                   {group.items.map((item) => (
@@ -821,7 +833,12 @@ function NavMenu({
                       target={item.external ? '_blank' : undefined}
                       rel={item.external ? 'noreferrer' : undefined}
                       onClick={onClose}
-                      style={{ ...row(), fontWeight: 500, padding: '5px 8px', whiteSpace: 'nowrap' }}
+                      style={{
+                        ...row(),
+                        fontWeight: 500,
+                        padding: '5px 8px',
+                        whiteSpace: 'nowrap',
+                      }}
                       {...ghostHover()}
                     >
                       {item.label}
@@ -833,34 +850,34 @@ function NavMenu({
             </div>
           ) : (
             items.map((item) => (
-            <a
-              key={item.id}
-              href={item.href}
-              target={item.external ? '_blank' : undefined}
-              rel={item.external ? 'noreferrer' : undefined}
-              onClick={onClose}
-              style={{ ...row(), ...glyphRow, fontWeight: 500 }}
-              {...ghostHover()}
-            >
-              <Glyph name={item.glyph} />
-              <span style={{ minWidth: 0 }}>
-                {item.label}
-                {item.external ? <Outlink /> : null}
-                {item.hint ? (
-                  <span
-                    style={{
-                      display: 'block',
-                      marginTop: 1,
-                      fontSize: FS.xs,
-                      fontWeight: 400,
-                      color: CHROME.fgDim,
-                    }}
-                  >
-                    {item.hint}
-                  </span>
-                ) : null}
-              </span>
-            </a>
+              <a
+                key={item.id}
+                href={item.href}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noreferrer' : undefined}
+                onClick={onClose}
+                style={{ ...row(), ...glyphRow, fontWeight: 500 }}
+                {...ghostHover()}
+              >
+                <Glyph name={item.glyph} />
+                <span style={{ minWidth: 0 }}>
+                  {item.label}
+                  {item.external ? <Outlink /> : null}
+                  {item.hint ? (
+                    <span
+                      style={{
+                        display: 'block',
+                        marginTop: 1,
+                        fontSize: FS.xs,
+                        fontWeight: 400,
+                        color: CHROME.fgDim,
+                      }}
+                    >
+                      {item.hint}
+                    </span>
+                  ) : null}
+                </span>
+              </a>
             ))
           )}
         </div>

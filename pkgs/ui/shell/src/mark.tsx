@@ -111,7 +111,12 @@ export function HanzoMark({
 // neither has to restate the other's type or spacing to get there.
 
 export function HanzoWordmark({
-  label = 'Hanzo',
+  // "Hanzo AI" — the company's name, which is what a wordmark says. This is only
+  // the FALLBACK: every surface passes its own `brandName` from the registry, so
+  // the bar reads Hanzo AI, Hanzo Chat, Hanzo App, Hanzo Cloud in its own place.
+  // It matters because a bare "Hanzo" is the one spelling that is nobody's in
+  // particular, and it is what shipped while the label was hard-coded here.
+  label = 'Hanzo AI',
   size = 22,
   brandMenu = false,
 }: {
@@ -132,7 +137,11 @@ export function HanzoWordmark({
         // broken. At size 22 that is now ~19px: bigger than the row it leads,
         // which is the only relationship that has to hold.
         fontSize: Math.round(size * 0.86),
-        fontWeight: 800,
+        // 600 — the weight the drawn wordmark is set in (Geist Sans 600), so
+        // the name in the corner and the name on the brand page are one piece
+        // of type. 800 was heavier than anything else the house sets and read
+        // as a shout rather than as a signature.
+        fontWeight: 600,
         // Tightens as it grows. -0.2 was tuned at 14px; the same absolute
         // tracking reads loose at 19px, and this is one word set once.
         letterSpacing: -0.4,

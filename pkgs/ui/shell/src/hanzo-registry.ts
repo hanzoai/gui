@@ -893,7 +893,10 @@ export const HANZO_SURFACES: HanzoSurface[] = [
     id: 'ai',
     host: 'hanzo.ai',
     productId: 'ai',
-    brandName: 'Hanzo',
+    // The company, not the word. "Hanzo" alone is the family name every product
+    // below shares — Hanzo Chat, Hanzo App, Hanzo Cloud — so on the front door
+    // it named the family rather than the firm.
+    brandName: 'Hanzo AI',
     localNav: [
       { id: 'models', label: 'Models', href: U.models },
       { id: 'agents', label: 'Agents', href: U.agents },

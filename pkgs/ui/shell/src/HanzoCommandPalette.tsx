@@ -22,7 +22,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TRY_HANZO_GROUPS, U, type ProductCategory } from './hanzo-registry'
 import { search, type Match } from './search'
-import { CHROME, CTRL_H, FS, TAP_H, control, ghostHover } from './theme'
+import { CHROME, CTRL_H, FS, TAP_H, control, controlHover, ghostHover } from './theme'
 import {
   KBD,
   PaletteBar,
@@ -351,7 +351,7 @@ function ModeTab({
       aria-selected={active}
       onClick={() => onPick(mode)}
       style={{ ...control(active, 28), padding: '0 8px', fontSize: FS.xs }}
-      {...ghostHover(active)}
+      {...controlHover(active)}
     >
       {children}
     </button>
@@ -408,28 +408,13 @@ export function HanzoCommandTrigger({
       style={{
         ...control(false, height),
         gap: 8,
-        // Stated, not inherited: `height` is the control's WHOLE size, and a
-        // host that never loaded a reset would otherwise add the edge to it and
-        // stand this 2px above the row it belongs to.
-        boxSizing: 'border-box',
-        // In the BAR this is a control among controls, so it wears the same edge
-        // and fill as its neighbours and reads as one of them.
-        //
-        // On the PHONE it is a glyph beside a glyph. The menu button next to it
-        // carries no edge and no fill, so a ring around this one made two icons
-        // of the same kind look like two different kinds of control — and a
-        // circle is the loudest shape in a bar that otherwise has none. The rule
-        // in a monochrome chrome is that weight has to mean something, and an
-        // edge drawn only because a control happens to be square means nothing.
-        ...(compact
-          ? { width: height, padding: 0, border: 'none', background: 'transparent' }
-          : {
-              padding: '0 12px',
-              border: `1px solid ${CHROME.border}`,
-              background: CHROME.raised,
-            }),
+        // A control among controls: flat at rest, lit under the pointer, like
+        // every other one in the bar. It used to carry a standing edge and fill
+        // of its own, which made the one control a reader is least likely to
+        // want the loudest shape on a bar that otherwise has none.
+        ...(compact ? { width: height, padding: 0 } : { padding: '0 12px' }),
       }}
-      {...ghostHover()}
+      {...controlHover()}
     >
       <svg
         width={16}

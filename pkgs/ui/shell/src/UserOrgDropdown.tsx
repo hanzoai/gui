@@ -11,7 +11,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import type { HanzoUser, HanzoOrg, OrgPage, OrgQuery } from './types'
 import { ORG_DOMAINS } from './types'
 import { UserAvatar } from './UserAvatar'
-import { CHROME, CTRL_H, FS, LABEL, PANEL, R, Z, control, ghostHover, row } from './theme'
+import { CHROME, CTRL_H, FS, LABEL, PANEL, R, Z, control, controlHover, ghostHover, row } from './theme'
 import { useShellStyles } from './shellStyles'
 import { useMediaQuery } from './useMediaQuery'
 import { Masquerade } from './Masquerade'
@@ -196,7 +196,7 @@ export function UserOrgDropdown({
         aria-expanded={open}
         aria-label="Account"
         style={{ ...control(open), gap: 8, padding: '0 8px' }}
-        {...ghostHover(open)}
+        {...controlHover(open)}
       >
         <UserAvatar src={user.avatar} email={user.email} name={user.name} size={28} />
         {!narrow && (

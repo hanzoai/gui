@@ -38,6 +38,7 @@ import {
   TAP_H,
   Z,
   control,
+  controlHover,
   cta,
   ghostHover,
 } from './theme'
@@ -227,8 +228,8 @@ export function AskHanzo({
         <button
           type="button"
           onClick={openPanel}
-          style={{ ...control(), gap: 6, border: `1px solid ${CHROME.border}` }}
-          {...ghostHover()}
+          style={{ ...control(), gap: 6 }}
+          {...controlHover()}
         >
           <Sparkle />
           Ask Hanzo

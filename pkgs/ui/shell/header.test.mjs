@@ -42,7 +42,11 @@ test('both bars wear the audited material — 60px of glass with no hairline', (
 
 test('the brand trigger is named, not an invitation — nothing says "Meet Hanzo"', () => {
   const src = read('HanzoHeader.tsx')
-  assert.match(src, /label="Hanzo"/, 'the desktop trigger says Hanzo')
+  // The SURFACE's name, not the literal. A hard-coded "Hanzo" here is the same
+  // white-label defect the phone sheet carried — a Lux or Zoo bar saying Hanzo —
+  // so the brand is read from the surface and this asserts that it is.
+  assert.match(src, /label=\{s\.brandName\}/, 'the trigger is named by its surface')
+  assert.doesNotMatch(stripped(src), /label="Hanzo"/, 'and never by a literal')
   // Every string the bar RENDERS, at both widths. The prose that explains why
   // the label is not "Meet Hanzo" is allowed to name it; a rendered label is not.
   assert.doesNotMatch(stripped(src), /Meet Hanzo/, 'no rendered label says "Meet Hanzo"')

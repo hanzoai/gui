@@ -87,6 +87,13 @@ const CSS = [
   `[data-hanzo-plane]:is(:hover,:focus-within) a:not(:hover):not(:focus-visible){color:rgba(255,255,255,0.46)!important}`,
   `[data-hanzo-plane] a{transition:color 140ms ease,transform 140ms ease}`,
   `[data-hanzo-plane] a:hover{transform:translateY(-1px)}`,
+  // The taxonomy grid widens in two steps. The COUNTS are computed where the
+  // categories are (ProductsMegaMenu, `columnsFor`) and ride in as custom
+  // properties; the WIDTHS that choose between them can only be said here.
+  // `!important` because the base count is stated inline on the same property,
+  // and nothing else reaches an inline declaration.
+  `@media (min-width:1100px){[data-hanzo-products-grid]{grid-template-columns:repeat(var(--hz-products-cols-mid),minmax(0,1fr))!important}}`,
+  `@media (min-width:1400px){[data-hanzo-products-grid]{grid-template-columns:repeat(var(--hz-products-cols-wide),minmax(0,1fr))!important}}`,
   `[data-hanzo-shell] button{cursor:pointer}`,
   `[data-hanzo-shell] button:disabled{cursor:default}`,
   `@media (pointer:coarse){[data-hanzo-shell] a,[data-hanzo-shell] button{min-height:${TAP_H}px}}`,

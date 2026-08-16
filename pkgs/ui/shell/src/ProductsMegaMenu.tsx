@@ -65,8 +65,23 @@ import {
 import { useShellStyles } from './shellStyles'
 import { useRove } from './rove'
 
-/** The signature grid: ten categories as two rows of five, at every desktop width. */
-const COLUMNS = 5
+/**
+ * The column count that splits the taxonomy into EQUAL rows, no wider than `max`.
+ *
+ * Seven categories give one row of seven; ten give two rows of five — the shape
+ * the shelves were written for. A FIXED five only ever divided ten: with seven
+ * published it laid a 5x2 grid and left three dead cells in the second row, and
+ * on a wide screen those five tracks ran past 500px each, so a one-word leaf sat
+ * marooned in the middle of a column. Derived, the grid cannot hold a hole again
+ * whatever the surface publishes.
+ *
+ * hanzo.ai carried this function and three `!important` media queries of its own
+ * because the count was inline here and a consumer cannot reach an inline style.
+ * A menu shaped by its host is a second layout system for one menu; the count
+ * belongs where the categories are counted.
+ */
+const columnsFor = (n: number, max: number): number =>
+  n < 1 ? 1 : Math.ceil(n / Math.ceil(n / Math.min(max, n)))
 
 export interface ProductsMegaMenuProps {
   /** The category taxonomy to render (≈10 categories, ≈6 leaves each). */
@@ -176,13 +191,20 @@ export function ProductsMegaMenu({
             same word in two places. */}
         <div style={{ padding: `18px ${GUTTER} 28px` }}>
           <div
+            data-hanzo-products-grid=""
             style={{
               display: 'grid',
-              // Explicitly five, not auto-fit: the two-rows-of-five shape IS the
-              // taxonomy's signature, and an auto-fit track count drifts with the
-              // viewport (six columns at 1440, four at 1024) which splits the ten
-              // categories into ragged rows.
-              gridTemplateColumns: `repeat(${COLUMNS}, minmax(0, 1fr))`,
+              // Counted, not auto-fit: equal rows ARE the taxonomy's signature,
+              // and an auto-fit track count drifts with the viewport (six
+              // columns at 1440, four at 1024), which splits the categories into
+              // ragged rows. The three counts ride as custom properties and
+              // `shellStyles` picks between them by width — a media query is the
+              // one thing an inline style cannot say, and the count is the one
+              // thing a stylesheet cannot compute.
+              ['--hz-products-cols' as string]: columnsFor(categories.length, 4),
+              ['--hz-products-cols-mid' as string]: columnsFor(categories.length, 5),
+              ['--hz-products-cols-wide' as string]: columnsFor(categories.length, 7),
+              gridTemplateColumns: 'repeat(var(--hz-products-cols), minmax(0, 1fr))',
               gap: '8px 4px',
               // Tiles carry their own 12px inset so their hover outline has room;
               // pulling the grid out by that much keeps the first column's TEXT

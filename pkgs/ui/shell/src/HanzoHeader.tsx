@@ -52,7 +52,7 @@ import {
   CTRL_H,
   FG_ON,
   FS,
-  GLASS,
+  BAR,
   GUTTER,
   LABEL,
   PANEL,
@@ -464,9 +464,9 @@ export function HanzoHeader({
           // two surfaces rather than the edge of one. The 1px stays so the
           // 60px box and everything measured against it do not move.
           borderBottom: '1px solid transparent',
-          // The one glass recipe, shared with both mega-menu drapes so the bar
-          // and the panel that drops out of it are lit as a single surface.
-          ...GLASS,
+          // The bar and every plane that drops out of it are ONE material, so
+          // there is no boundary between them to see. See `BAR`.
+          ...BAR,
           color: CHROME.fg,
           fontFamily: CHROME.font,
         }}

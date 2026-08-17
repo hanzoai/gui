@@ -162,7 +162,9 @@ export function HanzoLockup({
   size?: number
 }) {
   return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'inherit' }}>
+    <span
+      style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'inherit' }}
+    >
       <HanzoMark size={size} />
       <HanzoWordmark label={label} size={size} />
     </span>

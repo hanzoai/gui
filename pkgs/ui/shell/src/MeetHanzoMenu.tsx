@@ -156,17 +156,13 @@ export function MeetHanzoMenu({
           itself ~140ms later with the mouse still resting on it. Starting at the
           anchor leaves the header row reachable, which is also what makes
           clicking the open trigger reach the trigger and toggle it. */}
-      <div
-        aria-hidden="true"
-        onClick={close}
-        style={veil(anchor)}
-      />
+      <div aria-hidden="true" onClick={close} style={veil(anchor)} />
       <div
         ref={rove.ref}
         id={id}
         data-hanzo-shell=""
         role="dialog"
-          data-hanzo-plane=""
+        data-hanzo-plane=""
         aria-modal="false"
         aria-label="Meet Hanzo"
         className={className}

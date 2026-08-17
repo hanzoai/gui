@@ -43,7 +43,7 @@ export function Masquerade({ org, onStop }: MasqueradeProps) {
         padding: onStop ? '0 4px 0 12px' : '0 12px',
         borderRadius: R.pill,
         background: ACCENT,
-        color: CHROME.panel,
+        color: CHROME.ink,
         fontFamily: CHROME.font,
         fontSize: FS.sm,
         fontWeight: 600,

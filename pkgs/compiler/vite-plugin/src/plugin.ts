@@ -279,6 +279,19 @@ export function hanzoguiPlugin({
       return {
         envPrefix: ['GUI_'],
 
+        // A dependency that RENDERS is bundled, not externalised.
+        //
+        // An externalised package resolves react itself, and under SSR that is a
+        // second module instance of the one react in the tree — its dispatcher is
+        // null while the app renders, so the package's first hook throws and the
+        // whole page fails, not just the subtree. GuiProvider mounts a telemetry
+        // client for every app, so these two arrive in apps that never named them.
+        //
+        // It belongs here rather than in each app's config because every gui app
+        // already mounts this plugin, and a list repeated per app is a list the
+        // next app forgets.
+        ssr: { noExternal: ['@hanzo/event', '@hanzo/observe'] },
+
         environments: {
           client: {
             define: {

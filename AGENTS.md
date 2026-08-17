@@ -155,10 +155,22 @@ Verify with `bun scripts/release.ts --<kind> --ci --dirty --skip-publish
 --skip-push --skip-tests --skip-native-tests --skip-checks --dry-run`, which
 prints the computed version and the full publish plan and writes nothing.
 
-Releasing one package alone is `--only <name>` locally; there is no dispatch for
-it, so a single-package release cannot carry npm provenance today — provenance
-needs the GitHub `Release` workflow's `id-token: write`, and that workflow only
-ships the whole workspace.
+Releasing one package alone is `--only <name>` locally, and it is the way OUT of
+the divergence above rather than another casualty of it: with `--only`, `Current`
+is read from THAT package rather than from the workspace, so `--patch` computes a
+true next patch. Verified by dry run against a tree with the workspace at 8.1.1
+and `@hanzogui/shell` at 8.1.45 on npm:
+
+    --patch                   Current 8.1.1  -> Next 8.1.2    169 packages  (the regression)
+    --minor                   Current 8.1.1  -> Next 8.2.0    169 packages
+    --only @hanzogui/shell    Current 8.1.45 -> Next 8.1.46     1 package
+
+So "minor is the one that works" holds only for a whole-workspace release. A
+package that has drifted ahead ships with `--only` at its own next patch, without
+dragging 168 others to a new minor.
+
+What `--only` cannot do is provenance: that needs the GitHub `Release` workflow's
+`id-token: write`, and that workflow only ships the whole workspace.
 
 ## Commit Message Conventions
 

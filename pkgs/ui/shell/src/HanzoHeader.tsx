@@ -830,7 +830,10 @@ function NavLink({
   // brightening that stopped short of white).
   if (current) {
     return (
-      <span aria-current="page" style={{ ...control(true), fontWeight: 500, ...recede(dim) }}>
+      <span
+        aria-current="page"
+        style={{ ...control(true), fontWeight: 500, ...recede(dim) }}
+      >
         {link.label}
       </span>
     )
@@ -857,7 +860,9 @@ function NavLink({
  * property, and a pointer moving along the row still brightens what it touches.
  */
 const recede = (dim?: boolean): React.CSSProperties =>
-  dim ? { opacity: 0.45, transition: 'opacity 120ms ease' } : { transition: 'opacity 120ms ease' }
+  dim
+    ? { opacity: 0.45, transition: 'opacity 120ms ease' }
+    : { transition: 'opacity 120ms ease' }
 
 /**
  * A local-nav entry that holds others — the label, and a card of its links.

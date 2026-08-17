@@ -531,9 +531,19 @@ export function HanzoHeader({
             >
               {localNav.map((link) => {
                 const items = link.items
-                if (!items?.length)
-                  return <NavLink key={link.id} link={link} current={isHere(link.href)} />
                 const key: MenuKey = `nav:${link.id}`
+                // Every entry EXCEPT the open one steps back, so the row stops
+                // competing with the plane it just opened.
+                const dim = menu.key !== null && menu.key !== key
+                if (!items?.length)
+                  return (
+                    <NavLink
+                      key={link.id}
+                      link={link}
+                      current={isHere(link.href)}
+                      dim={menu.key !== null}
+                    />
+                  )
                 return (
                   <NavMenu
                     key={link.id}
@@ -545,6 +555,7 @@ export function HanzoHeader({
                     onClose={closeMenu}
                     autoFocus={!menu.hover}
                     current={isHere(link.href)}
+                    dim={dim}
                   />
                 )
               })}
@@ -787,23 +798,48 @@ function BrandBox({
   )
 }
 
-function NavLink({ link, current }: { link: HanzoLink; current?: boolean }) {
+function NavLink({
+  link,
+  current,
+  dim,
+}: {
+  link: HanzoLink
+  current?: boolean
+  dim?: boolean
+}) {
   // Hover comes from the shared token, not from here. Hand-rolling it is what
   // let this link drift from the trigger beside it (a background lift, and a
   // brightening that stopped short of white).
   if (current) {
     return (
-      <span aria-current="page" style={{ ...control(true), fontWeight: 500 }}>
+      <span aria-current="page" style={{ ...control(true), fontWeight: 500, ...recede(dim) }}>
         {link.label}
       </span>
     )
   }
   return (
-    <a href={link.href} style={{ ...control(), fontWeight: 500 }} {...controlHover()}>
+    <a
+      href={link.href}
+      style={{ ...control(), fontWeight: 500, ...recede(dim) }}
+      {...controlHover()}
+    >
       {link.label}
     </a>
   )
 }
+
+/**
+ * What the bar's OTHER entries do while one of them is open.
+ *
+ * A plane covers most of the page, so the row above it is the only thing left
+ * competing with it — and every sibling reads at the same weight as the label
+ * that opened it, which makes the open one hard to find again. Dropping the rest
+ * is what says "this one". Opacity rather than colour, so it composes with the
+ * hover handlers each control already owns instead of fighting them for the same
+ * property, and a pointer moving along the row still brightens what it touches.
+ */
+const recede = (dim?: boolean): React.CSSProperties =>
+  dim ? { opacity: 0.45, transition: 'opacity 120ms ease' } : { transition: 'opacity 120ms ease' }
 
 /**
  * A local-nav entry that holds others — the label, and a card of its links.
@@ -831,6 +867,7 @@ function NavMenu({
   onClose,
   autoFocus,
   current,
+  dim,
 }: {
   link: HanzoNav
   items: HanzoLink[]
@@ -840,6 +877,7 @@ function NavMenu({
   onClose: () => void
   autoFocus: boolean
   current?: boolean
+  dim?: boolean
 }) {
   const { onClick, ...pointer } = reach
   const rove = useRove(open, onClose, autoFocus)
@@ -868,7 +906,7 @@ function NavMenu({
           e.preventDefault()
           onStepIn()
         }}
-        style={{ ...control(open), fontWeight: 500, gap: 6 }}
+        style={{ ...control(open), fontWeight: 500, gap: 6, ...recede(dim) }}
         {...controlHover(open)}
       >
         <Glyph name={link.glyph} />
@@ -1634,5 +1672,12 @@ function ColumnTitle({ children }: { children: React.ReactNode }) {
   // and the Try card already take it. This had re-derived it a rung dimmer and
   // three hundred lighter, so the same kind of word read as a caption in one
   // plane and as a heading in the next.
-  return <div style={{ ...LABEL, padding: '0 8px 10px' }}>{children}</div>
+  //
+  // NO horizontal padding, because the rows beneath it are not inset either.
+  // `row()` pairs `padding: 6px 8px` with `margin: 0 -8px` so a hover surface
+  // bleeds past the column while the TEXT still starts at the column edge. A
+  // head has no hover surface, so 8px of padding here is 8px of pure indent —
+  // and every column in the plane read as though its heading belonged to the
+  // column to its left.
+  return <div style={{ ...LABEL, padding: '0 0 10px' }}>{children}</div>
 }

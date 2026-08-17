@@ -318,7 +318,12 @@ export function HanzoHeader({
         for (let j = i + 1; j < box.length; j++) {
           const a = box[i]!
           const b = box[j]!
-          if (a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1) {
+          if (
+            a.left < b.right - 1 &&
+            b.left < a.right - 1 &&
+            a.top < b.bottom - 1 &&
+            b.top < a.bottom - 1
+          ) {
             setTooTight(true)
             return
           }
@@ -764,7 +769,13 @@ function BrandBox({
   }
   if (current) {
     return (
-      <button type="button" aria-label={name} aria-current="page" onClick={onClick} {...shared}>
+      <button
+        type="button"
+        aria-label={name}
+        aria-current="page"
+        onClick={onClick}
+        {...shared}
+      >
         {children}
       </button>
     )
@@ -866,7 +877,7 @@ function NavMenu({
       </Trigger>
       {open ? (
         <>
-        {/* The page recedes under the plane, exactly as it does under the two
+          {/* The page recedes under the plane, exactly as it does under the two
             mega-menus — dimmed and thrown out of focus, so the menu is the only
             thing in focus on the screen. Without it these five menus sat over a
             page in full focus while the other two did not, which is the same
@@ -893,72 +904,38 @@ function NavMenu({
             it, and covered the menu it was supposed to sit under — swallowing
             every click on the links. Sibling to the plane, one stacking
             context, and z-index means what it says. */}
-        <div aria-hidden="true" onClick={onClose} style={veil(HEADER_H)} />
-        <div
-          id={panel}
-          role="dialog"
-          data-hanzo-plane=""
-          aria-label={link.label}
-          ref={rove.ref}
-          onKeyDown={rove.onKeyDown}
-          onFocus={rove.onFocus}
-          style={{
-            // THE NAVIGATION PLANE — `plane()`, the same one the two mega-menus
-            // take, so a local nav card and the ecosystem menu are one surface
-            // arriving at one height with one entrance. This used to be a
-            // hand-written copy of it and had drifted in every direction a copy
-            // does.
-            //
-            // `fixed` inside the bar resolves against the BAR, not the
-            // viewport, because the bar carries `backdrop-filter` and a
-            // filtered element is the containing block for its fixed
-            // descendants. That is exactly what is wanted here and only
-            // because the bar spans the viewport: its padding box IS the
-            // width, so `left/right: 0` are the screen edges and `top` is
-            // measured from the bar's own top. If the bar ever stops being
-            // full-bleed, this becomes a sibling of it like the palette.
-            ...plane(HEADER_H),
-            padding: PLANE_PAD,
-          }}
-        >
-          {wide ? (
-            <div style={COLUMNS}>
-              {/* The destinations someone ARRIVES wanting, in display type. */}
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 2,
-                  minWidth: 0,
-                }}
-              >
-                <ColumnTitle>Explore {link.label}</ColumnTitle>
-                {items.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noreferrer' : undefined}
-                    onClick={onClose}
-                    style={{
-                      ...row(),
-                      fontSize: 26,
-                      lineHeight: 1.28,
-                      fontWeight: 400,
-                      letterSpacing: '-0.01em',
-                      padding: '2px 8px',
-                      whiteSpace: 'nowrap',
-                    }}
-                    {...ghostHover()}
-                  >
-                    {item.label}
-                    {item.external ? <Outlink /> : null}
-                  </a>
-                ))}
-              </div>
-              {(link.groups ?? []).map((group) => (
+          <div aria-hidden="true" onClick={onClose} style={veil(HEADER_H)} />
+          <div
+            id={panel}
+            role="dialog"
+            data-hanzo-plane=""
+            aria-label={link.label}
+            ref={rove.ref}
+            onKeyDown={rove.onKeyDown}
+            onFocus={rove.onFocus}
+            style={{
+              // THE NAVIGATION PLANE — `plane()`, the same one the two mega-menus
+              // take, so a local nav card and the ecosystem menu are one surface
+              // arriving at one height with one entrance. This used to be a
+              // hand-written copy of it and had drifted in every direction a copy
+              // does.
+              //
+              // `fixed` inside the bar resolves against the BAR, not the
+              // viewport, because the bar carries `backdrop-filter` and a
+              // filtered element is the containing block for its fixed
+              // descendants. That is exactly what is wanted here and only
+              // because the bar spans the viewport: its padding box IS the
+              // width, so `left/right: 0` are the screen edges and `top` is
+              // measured from the bar's own top. If the bar ever stops being
+              // full-bleed, this becomes a sibling of it like the palette.
+              ...plane(HEADER_H),
+              padding: PLANE_PAD,
+            }}
+          >
+            {wide ? (
+              <div style={COLUMNS}>
+                {/* The destinations someone ARRIVES wanting, in display type. */}
                 <div
-                  key={group.id}
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -966,8 +943,8 @@ function NavMenu({
                     minWidth: 0,
                   }}
                 >
-                  <ColumnTitle>{group.title}</ColumnTitle>
-                  {group.items.map((item) => (
+                  <ColumnTitle>Explore {link.label}</ColumnTitle>
+                  {items.map((item) => (
                     <a
                       key={item.id}
                       href={item.href}
@@ -976,8 +953,11 @@ function NavMenu({
                       onClick={onClose}
                       style={{
                         ...row(),
-                        fontWeight: 500,
-                        padding: '5px 8px',
+                        fontSize: 26,
+                        lineHeight: 1.28,
+                        fontWeight: 400,
+                        letterSpacing: '-0.01em',
+                        padding: '2px 8px',
                         whiteSpace: 'nowrap',
                       }}
                       {...ghostHover()}
@@ -987,46 +967,80 @@ function NavMenu({
                     </a>
                   ))}
                 </div>
-              ))}
-            </div>
-          ) : (
-            // A short list lays out on the same columns as a long one, so a
-            // five-link menu is a row across the plane rather than a stack down
-            // the left edge of one.
-            <div style={COLUMNS}>
-            {(() => { const anyMark = items.some((i) => !!i.glyph); return items.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                target={item.external ? '_blank' : undefined}
-                rel={item.external ? 'noreferrer' : undefined}
-                onClick={onClose}
-                style={{ ...row(), ...glyphRow, fontWeight: 500 }}
-                {...ghostHover()}
-              >
-                <Glyph name={item.glyph} reserve={anyMark} />
-                <span style={{ minWidth: 0 }}>
-                  {item.label}
-                  {item.external ? <Outlink /> : null}
-                  {item.hint ? (
-                    <span
-                      style={{
-                        display: 'block',
-                        marginTop: 1,
-                        fontSize: FS.xs,
-                        fontWeight: 400,
-                        color: CHROME.fgDim,
-                      }}
+                {(link.groups ?? []).map((group) => (
+                  <div
+                    key={group.id}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 2,
+                      minWidth: 0,
+                    }}
+                  >
+                    <ColumnTitle>{group.title}</ColumnTitle>
+                    {group.items.map((item) => (
+                      <a
+                        key={item.id}
+                        href={item.href}
+                        target={item.external ? '_blank' : undefined}
+                        rel={item.external ? 'noreferrer' : undefined}
+                        onClick={onClose}
+                        style={{
+                          ...row(),
+                          fontWeight: 500,
+                          padding: '5px 8px',
+                          whiteSpace: 'nowrap',
+                        }}
+                        {...ghostHover()}
+                      >
+                        {item.label}
+                        {item.external ? <Outlink /> : null}
+                      </a>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              // A short list lays out on the same columns as a long one, so a
+              // five-link menu is a row across the plane rather than a stack down
+              // the left edge of one.
+              <div style={COLUMNS}>
+                {(() => {
+                  const anyMark = items.some((i) => !!i.glyph)
+                  return items.map((item) => (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noreferrer' : undefined}
+                      onClick={onClose}
+                      style={{ ...row(), ...glyphRow, fontWeight: 500 }}
+                      {...ghostHover()}
                     >
-                      {item.hint}
-                    </span>
-                  ) : null}
-                </span>
-              </a>
-            ))})()}
-            </div>
-          )}
-        </div>
+                      <Glyph name={item.glyph} reserve={anyMark} />
+                      <span style={{ minWidth: 0 }}>
+                        {item.label}
+                        {item.external ? <Outlink /> : null}
+                        {item.hint ? (
+                          <span
+                            style={{
+                              display: 'block',
+                              marginTop: 1,
+                              fontSize: FS.xs,
+                              fontWeight: 400,
+                              color: CHROME.fgDim,
+                            }}
+                          >
+                            {item.hint}
+                          </span>
+                        ) : null}
+                      </span>
+                    </a>
+                  ))
+                })()}
+              </div>
+            )}
+          </div>
         </>
       ) : null}
     </div>
@@ -1084,7 +1098,10 @@ function CTA({
   align?: 'center' | 'start'
 }) {
   const filled = variant === 'filled'
-  const justify = align === 'start' ? { justifyContent: 'flex-start' as const, padding: '0 12px' } : null
+  const justify =
+    align === 'start'
+      ? { justifyContent: 'flex-start' as const, padding: '0 12px' }
+      : null
   // Still the pill — same fill, same geometry — but it is a statement, not a
   // destination. No href at all, so there is nothing for a no-JS reader to
   // follow back to the page they are already reading.
@@ -1396,53 +1413,63 @@ function MobileSheet({
               sibling has a mark, so every label in this list starts at the
               same x. Computed here rather than per row because a row cannot
               see its siblings, and that is exactly the question. */}
-          {(() => { const g = here_ ? here_.children! : roots; const anyMark = g.some((n) => !!n.glyph); return g.map((node) =>
-            node.children?.length ? (
-              <button
-                key={node.id}
-                type="button"
-                onClick={() => setPath((p) => [...p, node])}
-                style={{ ...sheetRow(false), background: 'transparent', border: 'none' }}
-                {...ghostHover(false)}
-              >
-                <span style={{ ...glyphRow, alignItems: 'center' }}>
-                  <Glyph name={node.glyph} reserve={anyMark} />
-                  {node.label}
-                </span>
-                <span style={{ transform: 'rotate(-90deg)', display: 'inline-flex' }}>
-                  <Chevron open={false} />
-                </span>
-              </button>
-            ) : (
-              <a
-                key={node.id}
-                {...(isHere(node.href!)
-                  ? { 'aria-current': 'page' as const }
-                  : { href: node.href })}
-                target={node.external ? '_blank' : undefined}
-                rel={node.external ? 'noreferrer' : undefined}
-                onClick={onClose}
-                style={sheetRow(isHere(node.href!))}
-                {...ghostHover(isHere(node.href!))}
-              >
-                <span style={{ ...glyphRow, alignItems: 'center' }}>
-                  <Glyph name={node.glyph} reserve={anyMark} />
-                  {node.label}
-                  {/* The marker is the promise that this leaves the surface, and
+          {(() => {
+            const g = here_ ? here_.children! : roots
+            const anyMark = g.some((n) => !!n.glyph)
+            return g.map((node) =>
+              node.children?.length ? (
+                <button
+                  key={node.id}
+                  type="button"
+                  onClick={() => setPath((p) => [...p, node])}
+                  style={{
+                    ...sheetRow(false),
+                    background: 'transparent',
+                    border: 'none',
+                  }}
+                  {...ghostHover(false)}
+                >
+                  <span style={{ ...glyphRow, alignItems: 'center' }}>
+                    <Glyph name={node.glyph} reserve={anyMark} />
+                    {node.label}
+                  </span>
+                  <span style={{ transform: 'rotate(-90deg)', display: 'inline-flex' }}>
+                    <Chevron open={false} />
+                  </span>
+                </button>
+              ) : (
+                <a
+                  key={node.id}
+                  {...(isHere(node.href!)
+                    ? { 'aria-current': 'page' as const }
+                    : { href: node.href })}
+                  target={node.external ? '_blank' : undefined}
+                  rel={node.external ? 'noreferrer' : undefined}
+                  onClick={onClose}
+                  style={sheetRow(isHere(node.href!))}
+                  {...ghostHover(isHere(node.href!))}
+                >
+                  <span style={{ ...glyphRow, alignItems: 'center' }}>
+                    <Glyph name={node.glyph} reserve={anyMark} />
+                    {node.label}
+                    {/* The marker is the promise that this leaves the surface, and
                       it belongs wherever the row does — the desktop menus have
                       carried it since they were written, so a phone without it
                       was the same link telling two different stories. */}
-                  {node.external ? <Outlink /> : null}
-                </span>
-              </a>
+                    {node.external ? <Outlink /> : null}
+                  </span>
+                </a>
+              )
             )
-          )})()}
+          })()}
         </div>
 
         {/* `marginTop: auto` is what holds it down: the column's free space is
             given to this margin, so the block rests on the bottom edge when the
             pane is short and is simply the last thing when the pane scrolls. */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 'auto' }}>
+        <div
+          style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 'auto' }}
+        >
           {surface.secondaryCTA ? (
             <CTA
               link={surface.secondaryCTA}
@@ -1486,7 +1513,6 @@ function MobileSheet({
   )
 }
 
-
 /** One row of the mobile Products accordion. */
 /** One level of the sheet: a label, and either a destination or more levels. */
 interface SheetNode {
@@ -1522,7 +1548,6 @@ function sheetRow(current: boolean): React.CSSProperties {
     width: '100%',
   }
 }
-
 
 /* ── Glyphs ──────────────────────────────────────────────────────────────── */
 

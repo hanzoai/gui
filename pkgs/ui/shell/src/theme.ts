@@ -507,7 +507,8 @@ export function control(active = false, height: number = CTRL_H): CSSProperties 
 }
 
 /** One timing for everything the lit pill moves. */
-const CONTROL_EASE = 'color 120ms ease, background-color 120ms ease, box-shadow 120ms ease'
+const CONTROL_EASE =
+  'color 120ms ease, background-color 120ms ease, box-shadow 120ms ease'
 
 /**
  * The two-variant call-to-action, identical in header, app header and pre-footer.

@@ -33,13 +33,27 @@ export const CHROME = {
    * built from this sits a rung BELOW the page on two of the three surfaces
    * that mount it, which is the opposite of what a floating panel should do.
    *
-   * Left at #000 deliberately rather than "fixed" to --background: this value
-   * is also the ink on the white CTA, where black is right and where moving it
-   * would be a change nobody asked for. Splitting the ground from the ink is a
-   * real change with a visible result, so it belongs to whoever is looking at
-   * the screen — not to a comment repair.
+   * Split, now that someone has looked. A fleet audit measured the seam this
+   * predicted: a floating plane painted #000 over hanzo.ai's and hanzo.app's
+   * rgb(10,10,10), sitting a rung BELOW the page it floats over.
+   *
+   * `panel` is the GROUND, and it is a LITERAL rather than --background. That
+   * token inverts — a light host makes it white — and every ink in this chrome
+   * is an rgba white, so a plane that followed it would go white on white. The
+   * test at header.test.mjs:99 holds that line, and it caught this exact
+   * attempt. Same reason `line` below refuses --border.
+   *
+   * #0a0a0a is @hanzo/design's --background written out: level with hanzo.ai
+   * and hanzo.app, one rung above hanzo.chat, which paints true black by
+   * overriding body rather than the token. Above is what a floating surface
+   * should be; below never was.
+   *
+   * `ink` keeps #000 and is the other half this value carried: black ON the
+   * white CTA, where black is right and where a ground would be wrong.
    */
-  panel: '#000000',
+  panel: '#0a0a0a',
+  /** Black ON a white surface — the CTA's label, a filled control's glyph. */
+  ink: '#000000',
   /** The one raised fill (inputs, cards, tiles) that sits above `panel`. */
   raised: 'var(--white-03, rgb(255 255 255 / .03))',
   /**
@@ -552,7 +566,7 @@ export function cta(filled: boolean, height: number = CTRL_H): CSSProperties {
     padding: height > CTRL_H ? '0 22px' : '0 14px',
     border: filled ? '1px solid transparent' : 'none',
     background: filled ? ACCENT : 'transparent',
-    color: filled ? CHROME.panel : CHROME.fgMuted,
+    color: filled ? CHROME.ink : CHROME.fgMuted,
     transition: filled ? 'opacity 120ms ease' : 'color 120ms ease',
   }
 }

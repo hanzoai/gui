@@ -440,7 +440,7 @@ export function AskHanzo({
                       border: 'none',
                       borderRadius: R.pill,
                       background: draft.trim() && !busy ? ACCENT : CHROME.hover,
-                      color: draft.trim() && !busy ? CHROME.panel : CHROME.fgDim,
+                      color: draft.trim() && !busy ? CHROME.ink : CHROME.fgDim,
                     }}
                   >
                     <SendGlyph />
@@ -514,7 +514,7 @@ function CornerLauncher({ open, onClick }: { open: boolean; onClick: () => void 
         border: 'none',
         borderRadius: R.pill,
         background: ACCENT,
-        color: CHROME.panel,
+        color: CHROME.ink,
         boxShadow: SHADOW,
         cursor: 'pointer',
         transition: 'opacity 120ms ease',

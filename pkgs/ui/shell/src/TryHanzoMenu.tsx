@@ -139,7 +139,9 @@ export function TryHanzoMenu({
           borderRadius: R.card,
           border: `1px solid ${CHROME.border}`,
           boxShadow: SHADOW,
-          // The bar's own glass, continuing — one surface, lit once.
+          // A rounded card floating over the page, so it shows the page through
+          // it. The bar itself does not — a full-width plane wearing this would
+          // put a blur behind the words. See `GLASS`.
           ...GLASS,
           color: CHROME.fg,
           fontFamily: CHROME.font,

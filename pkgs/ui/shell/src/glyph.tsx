@@ -159,8 +159,16 @@ export const MARKS = {
     </>
   ),
   shield: svg(<path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z" />),
-  /* Enso — the circle, drawn open at the top the way the brand draws it. */
-  circle: svg(<path d="M14.5 4.4a8.5 8.5 0 1 0 4.2 4.6" />),
+  /* Enso — the circle, CLOSED, at the radius @hanzo/logo publishes for this mark
+     (ENSO_MARK: cx 12, cy 12, r 8.88 on a 24 viewBox).
+
+     It was an open arc, and the comment said that was how the brand draws it.
+     The brand draws the opposite: the ensō closes because the router completes
+     the circle, and the arc broken at the top is ZEN_MARK — Zoo Labs
+     Foundation's mark, a different maker's. So the menu drew someone else's
+     glyph next to our own product's name. Stroke weight stays the set's 1.75;
+     only the shape was wrong. */
+  circle: svg(<circle cx="12" cy="12" r="8.88" />),
   cpu: svg(
     <>
       <rect x="5" y="5" width="14" height="14" rx="2.5" />

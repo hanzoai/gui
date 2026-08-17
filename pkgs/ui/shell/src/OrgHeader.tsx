@@ -6,7 +6,7 @@ import { HanzoAppLauncher } from './HanzoAppLauncher'
 import { UserOrgDropdown, type UserOrgDropdownProps } from './UserOrgDropdown'
 import { type HanzoApp } from './hanzo-apps'
 import { ORG_DOMAINS, type HanzoOrg, type HanzoUser } from './types'
-import { CHROME, CTRL_H, FS, GLASS, R, Z, control, ghostHover } from './theme'
+import { BAR, CHROME, CTRL_H, FS, R, Z, control, ghostHover } from './theme'
 import { SPIN, useShellStyles } from './shellStyles'
 
 /**
@@ -350,14 +350,13 @@ export function OrgHeader({
         height: HEADER_H,
         padding: '0 14px',
         boxSizing: 'border-box',
-        // No hairline — see HanzoHeader: the glass ends itself, and the audited
-        // bar draws a transparent edge. The 1px stays so the box does not move.
+        // No hairline — see HanzoHeader: a white line over the boundary reads as
+        // a seam between two surfaces rather than the edge of one. The 1px stays
+        // so the 60px box and everything measured against it do not move.
         borderBottom: '1px solid transparent',
-        // The header IS the shell's glass — spread the recipe rather than
-        // restate it. All three bars had these three lines copied out, so the
-        // "ONE recipe" in theme.ts governed the two mega-menu drapes and
-        // nothing else: moving GLASS moved the drapes and left every bar behind.
-        ...GLASS,
+        // The signed-in bar and the signed-out one are the same bar, so they
+        // wear the same material — and it is the one the menus wear. See `BAR`.
+        ...BAR,
         color: CHROME.fg,
         fontFamily: CHROME.font,
       }}

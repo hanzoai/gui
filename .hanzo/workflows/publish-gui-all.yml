@@ -9,8 +9,19 @@ name: Publish gui (all packages)
 # `publish-gui.yml` only ships the umbrella; this ships the primitives it
 # depends on so a clean `npm i @hanzo/gui` works end-to-end.
 #
-# Trigger: manual (workflow_dispatch, type "publish" to confirm) or by
-# pushing a `release/gui-all-v*` tag.
+# Trigger: a push to main. A tag and a dispatch still work, but neither is
+# how a version should reach the registry — both ask a person to remember a
+# second step after the one that mattered, and when they forget, the tree
+# carries a version the registry has never heard of. That is exactly what
+# happened between 7.3.3 (the last release tag) and 8.1.46 (what npm serves):
+# every version across that gap was published by hand, because the commit that
+# bumped it triggered nothing.
+#
+# Publishing on push is safe here only because `publish-gui-surface.mjs` asks
+# the registry what it already has and skips those, so a push that bumps
+# nothing publishes nothing. The build still runs — that is the price of the
+# guarantee, and the concurrency group below keeps two pushes from paying it
+# twice or racing to define the same version.
 #
 # NPM_TOKEN resolution mirrors publish-gui.yml:
 #   1. KMS via Universal Auth (KMS_CLIENT_ID/SECRET → short-lived token)
@@ -24,8 +35,18 @@ on:
         required: true
         default: ''
   push:
+    branches: [main]
     tags:
       - 'release/gui-all-v*'
+
+# Serialized, and the newer push wins. Two builds in flight both read the
+# registry before either writes to it, so both believe the same version is
+# unpublished and the slower one ships a tree that is already stale under a
+# number the faster one defined — which is how 8.1.46 reached npm without the
+# fix its own commit was named for.
+concurrency:
+  group: publish-gui-all
+  cancel-in-progress: true
 
 permissions:
   contents: read

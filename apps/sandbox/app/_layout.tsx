@@ -54,7 +54,15 @@ const GuiRootProvider = ({ children }: { children: React.ReactNode }) => {
   const userScheme = useUserScheme()
 
   return (
-    <GuiProvider disableInjectCSS config={config} defaultTheme={userScheme.value}>
+    // No telemetry: this app exists to be rendered by the SSR and hydration
+    // tests, and a fixture that opens an analytics client is reporting a
+    // session nobody had. GuiProvider mounts one for every app otherwise.
+    <GuiProvider
+      disableInjectCSS
+      telemetry={false}
+      config={config}
+      defaultTheme={userScheme.value}
+    >
       {children}
     </GuiProvider>
   )

@@ -407,7 +407,7 @@ export function HanzoHeader({
       current={isHere(s.primaryCTA.href)}
     />
   ) : (
-    <CTA link={s.primaryCTA} variant="filled" current={isHere(s.primaryCTA.href)} />
+    <CTA link={s.primaryCTA} variant="filled" current={isHere(s.primaryCTA.href)} host={s.host} />
   )
 
   // What the header itself can reach, handed to the palette. A control the bar
@@ -428,7 +428,7 @@ export function HanzoHeader({
           href: link.href,
           hint: link.hint,
           group: 'Pages',
-          external: outward(link.href),
+          external: outward(link.href, s.host),
         })),
     [localNav, s.secondaryCTA, s.primaryCTA]
   )
@@ -601,6 +601,7 @@ export function HanzoHeader({
                 link={s.secondaryCTA}
                 variant="ghost"
                 current={isHere(s.secondaryCTA.href)}
+                host={s.host}
               />
             ) : null}
             {/* A surface with no primary action renders none. `primaryLast`
@@ -1129,13 +1130,22 @@ const COLUMNS: React.CSSProperties = {
 /**
  * Does this link leave the surface?
  *
+ * A RELATION between the link and the surface, never a property of the string:
+ * a link is away when its host is not this one. `https://hanzo.app/new` on
+ * hanzo.app stays in the tab, and the same href on hanzo.ai opens a new one.
+ *
  * One rule, one place. It was written inline where the palette builds its rows
- * and nowhere else, so the CTA — the one control on the sheet that most often
- * DOES leave (Try Hanzo goes to hanzo.chat) — opened in place and wore no
- * marker, while a nav row beside it wore one. The same link told two stories
- * depending on which control drew it.
+ * and nowhere else, so the same link told two stories depending on which
+ * control drew it.
  */
-export const outward = (href: string) => /^https?:\/\//.test(href)
+export const outward = (href: string, host: string) => {
+  if (!/^https?:\/\//.test(href)) return false
+  try {
+    return new URL(href).host !== host
+  } catch {
+    return true
+  }
+}
 
 function CTA({
   link,
@@ -1143,12 +1153,15 @@ function CTA({
   height,
   current,
   align,
+  host,
 }: {
   link: HanzoLink
   variant: 'ghost' | 'filled'
   height?: number
   /** This action names the page we are on: keep the pill, drop the link. */
   current?: boolean
+  /** The surface drawing it — a link off THIS host is the one that opens away. */
+  host: string
   /**
    * Where the label sits in the box. Centred in the BAR, where the control is
    * a pill sized to its text and centring is the only thing that reads. Left
@@ -1173,7 +1186,7 @@ function CTA({
       </span>
     )
   }
-  const away = outward(link.href)
+  const away = outward(link.href, host)
   return (
     <a
       href={link.href}
@@ -1537,6 +1550,7 @@ function MobileSheet({
               variant="ghost"
               height={TAP_H}
               current={isHere(surface.secondaryCTA.href)}
+              host={surface.host}
               // On the nav's left edge, like every row above it. The filled
               // pill below keeps its centre: it is a full-width pill and a
               // centred label is what a pill is.
@@ -1549,6 +1563,7 @@ function MobileSheet({
               variant="filled"
               height={TAP_H}
               current={isHere(surface.primaryCTA.href)}
+              host={surface.host}
             />
           ) : null}
         </div>

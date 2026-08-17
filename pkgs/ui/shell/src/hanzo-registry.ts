@@ -982,7 +982,7 @@ export const HANZO_SURFACES: HanzoSurface[] = [
       { id: 'pricing', label: 'Pricing', href: U.pricing },
     ],
     secondaryCTA: { id: 'install', label: 'Install Hanzo', href: U.downloads },
-    primaryCTA: { id: 'newchat', label: 'New chat', href: U.chat },
+    primaryCTA: { id: 'newchat', label: 'New chat', href: `${U.chat}/c/new` },
     preFooter: {
       heading: 'Take Hanzo everywhere you work',
       actions: [
@@ -1009,11 +1009,11 @@ export const HANZO_SURFACES: HanzoSurface[] = [
       { id: 'business', label: 'Business', href: U.enterprise },
     ],
     secondaryCTA: { id: 'download', label: 'Download', href: U.downloads },
-    primaryCTA: { id: 'newproject', label: '+ New project', href: U.app },
+    primaryCTA: { id: 'newproject', label: '+ New project', href: `${U.app}/new` },
     preFooter: {
       heading: 'Turn an idea into a live application',
       actions: [
-        { id: 'newproject', label: 'New project', href: U.app },
+        { id: 'newproject', label: 'New project', href: `${U.app}/new` },
         { id: 'templates', label: 'Browse templates', href: `${U.app}/templates` },
       ],
     },
@@ -1057,7 +1057,7 @@ export const HANZO_SURFACES: HanzoSurface[] = [
     preFooter: {
       heading: 'Bring your people and AI coworkers together',
       actions: [
-        { id: 'createorg', label: 'Create organization', href: U.team },
+        { id: 'createorg', label: 'Create organization', href: U.signup },
         { id: 'workspace', label: 'Open workspace', href: U.team },
       ],
     },

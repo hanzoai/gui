@@ -437,7 +437,12 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'agents', label: 'Managed agents', href: U.agents, glyph: 'cpu' },
       { id: 'mcp', label: 'MCP tools', href: U.mcp, glyph: 'plug' },
       { id: 'dev', label: 'Hanzo Dev', href: U.dev, glyph: 'code' },
-      { id: 'console', label: 'Developer console', href: `${U.ai}/console`, glyph: 'terminal' },
+      {
+        id: 'console',
+        label: 'Developer console',
+        href: `${U.ai}/console`,
+        glyph: 'terminal',
+      },
       { id: 'api', label: 'API platform', href: U.api, glyph: 'gateway' },
       { id: 'cloud', label: 'All cloud products', href: U.cloud, glyph: 'cloud' },
     ],

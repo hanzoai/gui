@@ -267,7 +267,11 @@ test('every palette ends the same way — a question is never a dead end', () =>
   for (const file of ['HanzoCommandPalette.tsx', 'OrgCommandPalette.tsx']) {
     const src = read(file)
     assert.match(src, /askLabel\(question\)/, `${file}: the row says what the frame says`)
-    assert.match(src, /useAsk\(\{ askHref, onAsk, onNavigate, close \}\)/, `${file}: one act`)
+    assert.match(
+      src,
+      /useAsk\(\{ askHref, onAsk, onNavigate, close \}\)/,
+      `${file}: one act`
+    )
     // Neither may keep its own copy of the destination or the encoding: two
     // spellings of `?q=` is how the same question reaches two different places.
     assert.doesNotMatch(
@@ -308,11 +312,18 @@ test('the chrome owns no colour of its own — every value is a design rung', ()
   // purpose-not-at-all — so the rung and the fallback must AGREE, and the test
   // reads both halves rather than trusting the name.
   const src = read('theme.ts')
-  const bare = [...stripped(src).matchAll(/rgba?\(\s*255\s*,\s*255\s*,\s*255[^)]*\)/g)]
-    .filter((m) => !src.slice(Math.max(0, m.index - 60), m.index).includes('var(--white-'))
-  assert.deepEqual(bare.map((m) => m[0]), [], 'white values not on the ladder')
+  const bare = [
+    ...stripped(src).matchAll(/rgba?\(\s*255\s*,\s*255\s*,\s*255[^)]*\)/g),
+  ].filter((m) => !src.slice(Math.max(0, m.index - 60), m.index).includes('var(--white-'))
+  assert.deepEqual(
+    bare.map((m) => m[0]),
+    [],
+    'white values not on the ladder'
+  )
 
-  for (const m of stripped(src).matchAll(/var\(--white-(\d+),\s*rgb\(255 255 255 \/ \.(\d+)\)\)/g)) {
+  for (const m of stripped(src).matchAll(
+    /var\(--white-(\d+),\s*rgb\(255 255 255 \/ \.(\d+)\)\)/g
+  )) {
     assert.equal(m[1], m[2], `--white-${m[1]} falls back to .${m[2]}`)
   }
 })
@@ -324,7 +335,11 @@ test('the products menu has ONE name, on the phone as on the desktop', () => {
   const src = read('HanzoHeader.tsx')
   const sheet = src.slice(src.indexOf('function MobileSheet('))
   assert.match(sheet, /label: productsLabel/, 'the sheet takes the name it is given')
-  assert.doesNotMatch(stripped(sheet), /label: 'Products'/, 'and never states one of its own')
+  assert.doesNotMatch(
+    stripped(sheet),
+    /label: 'Products'/,
+    'and never states one of its own'
+  )
   // One default, declared once, where the prop is.
   assert.match(src, /productsLabel = 'Products'/, 'the default lives at the prop')
 })
@@ -343,7 +358,11 @@ test('the public menu explains; the launcher opens', () => {
   // Derived ONCE. It was applied at one call site and there were three
   // consumers, so the Meet menu and the footer went on sending anonymous
   // readers to the app hosts while the Try menu did the right thing.
-  assert.match(reg, /HANZO_FLAGSHIP_PUBLIC[\s\S]{0,200}href: p\.page \?\? p\.href/, 'derived once')
+  assert.match(
+    reg,
+    /HANZO_FLAGSHIP_PUBLIC[\s\S]{0,200}href: p\.page \?\? p\.href/,
+    'derived once'
+  )
   assert.doesNotMatch(
     stripped(reg).replace(/HANZO_FLAGSHIP_PUBLIC/g, ''),
     /items: HANZO_FLAGSHIP\b|\.\.\.HANZO_FLAGSHIP\.map/,
@@ -357,7 +376,11 @@ test('the public menu explains; the launcher opens', () => {
     const at = reg.indexOf(`    id: '${id}',`)
     assert.ok(at > 0, `${id} is in the registry`)
     const block = reg.slice(at, at + 400)
-    assert.match(block, new RegExp(`page: \`\\$\\{U\\.ai\\}/${id}\``), `${id} names its page`)
+    assert.match(
+      block,
+      new RegExp(`page: \`\\$\\{U\\.ai\\}/${id}\``),
+      `${id} names its page`
+    )
   }
 
   // The launcher is the OTHER audience and must keep the hosts: someone
@@ -365,5 +388,9 @@ test('the public menu explains; the launcher opens', () => {
   const apps = read('hanzo-apps.tsx')
   assert.match(apps, /href: U\.studio,/, 'the launcher opens Studio')
   assert.match(apps, /href: U\.console,/, 'the launcher opens the console')
-  assert.doesNotMatch(stripped(apps), /U\.ai\}\//, 'the launcher never opens a marketing page')
+  assert.doesNotMatch(
+    stripped(apps),
+    /U\.ai\}\//,
+    'the launcher never opens a marketing page'
+  )
 })

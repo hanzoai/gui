@@ -256,11 +256,20 @@ const SIZE = 16
  * to it. A group with no marks at all stays flush left, which is the case the
  * empty box got wrong.
  */
-export function Glyph({ name, reserve = false }: { name?: GlyphName; reserve?: boolean }) {
+export function Glyph({
+  name,
+  reserve = false,
+}: {
+  name?: GlyphName
+  reserve?: boolean
+}) {
   const Mark = name ? MARKS[name] : undefined
   if (!Mark) {
     return reserve ? (
-      <span aria-hidden="true" style={{ display: 'inline-flex', flexShrink: 0, width: SIZE }} />
+      <span
+        aria-hidden="true"
+        style={{ display: 'inline-flex', flexShrink: 0, width: SIZE }}
+      />
     ) : null
   }
   return (

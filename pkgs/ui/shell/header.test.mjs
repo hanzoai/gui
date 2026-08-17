@@ -24,20 +24,44 @@ const sources = fs
   .filter((f) => /\.tsx?$/.test(f))
   .map((f) => [f, fs.readFileSync(path.join(SRC, f), 'utf8')])
 
-test('both bars wear the audited material — 60px of glass with no hairline', () => {
+test('both bars wear the plane — 60 tall, one ground, no hairline', () => {
   for (const file of ['HanzoHeader.tsx', 'OrgHeader.tsx']) {
     const src = read(file)
     assert.match(src, /const HEADER_H = 60/, `${file}: the bar is 60 tall`)
-    assert.match(src, /\.\.\.GLASS,/, `${file}: the bar IS the glass recipe`)
+    assert.match(src, /\.\.\.BAR,/, `${file}: the bar IS the plane's recipe`)
     assert.match(
       src,
       /borderBottom: '1px solid transparent'/,
       `${file}: the audited bar draws no hairline`
     )
   }
+  // And the recipe it spreads is the one the menus wear, which is the whole
+  // point of naming it: a bar and the plane hanging off it are ONE material, so
+  // there is no boundary between them to see.
+  const theme = read('theme.ts')
+  for (const name of ['BAR', 'DRAPE']) {
+    assert.match(
+      theme,
+      new RegExp(`export const ${name}[^}]*background: CHROME\\.panel`),
+      `${name} stands on the panel ground`
+    )
+  }
+})
+
+test('glass is what a compact control wears, and the recipe is the audited one', () => {
   const theme = read('theme.ts')
   assert.match(theme, /bg: 'rgba\(9,9,11,0\.72\)'/, 'the ground is the audited one')
   assert.match(theme, /blur\(20px\) saturate\(1\.8\)/, 'the lens is the audited one')
+  // A full-width plane never wears it: at that size the blur is a picture
+  // competing with the words on top of it. Only small rounded things do.
+  for (const [file, src] of sources) {
+    if (!/\.\.\.GLASS,/.test(src)) continue
+    assert.match(
+      src,
+      /borderRadius: R\./,
+      `${file}: spreads GLASS, so it must be a rounded control`
+    )
+  }
 })
 
 test('the brand trigger is named, not an invitation — nothing says "Meet Hanzo"', () => {

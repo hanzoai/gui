@@ -3278,7 +3278,7 @@
     },
     "pkgs/ui/shell": {
       "name": "@hanzogui/shell",
-      "version": "8.1.48",
+      "version": "8.1.49",
       "peerDependencies": {
         "react": "*",
         "react-dom": "*",

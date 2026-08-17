@@ -418,3 +418,25 @@ test('the public menu explains; the launcher opens', () => {
     'the launcher never opens a marketing page'
   )
 })
+
+test('away is a relation to the surface, not the shape of the string', () => {
+  const src = read('HanzoHeader.tsx')
+  // A link to this surface's OWN pages stays in the tab. Testing only for a
+  // scheme made every absolute href external, so `https://hanzo.app/new` on
+  // hanzo.app opened a second tab and wore an outbound arrow.
+  assert.match(src, /export const outward = \(href: string, host: string\)/, 'outward takes the surface')
+  assert.match(src, /new URL\(href\)\.host !== host/, 'and compares hosts')
+  // Nothing may ask the question without saying which surface is asking.
+  for (const call of src.match(/outward\([^)]*\)/g) ?? []) {
+    if (call.startsWith('outward(href:')) continue // the definition
+    assert.match(call, /,\s*\S/, `outward called with no surface: ${call}`)
+  }
+  // Every pill that can open away is drawn for a surface, so every one is told
+  // which. A CTA without it cannot answer the question at all.
+  // `<CTA ` only — <CTATrigger> opens a menu and never leaves the page.
+  const ctas = src.match(/<CTA\s[\s\S]*?\/>/g) ?? []
+  assert.ok(ctas.length >= 4, `expected 4+ CTA call sites, got ${ctas.length}`)
+  for (const cta of ctas) {
+    assert.match(cta, /host=\{/, `a CTA is drawn without its surface:\n${cta}`)
+  }
+})

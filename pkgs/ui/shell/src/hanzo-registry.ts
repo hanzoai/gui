@@ -1232,6 +1232,8 @@ export type HanzoPlanKind = 'personal' | 'team' | 'enterprise'
  */
 export type HanzoPlanTier =
   | 'free'
+  | 'go'
+  | 'dev'
   | 'pro'
   | 'plus'
   | 'max'
@@ -1281,6 +1283,16 @@ export interface HanzoPlanTierDef {
   priceAnnual?: number | null
   /** Priced per seat (team plans). */
   perSeat?: boolean
+  /**
+   * No longer sold, and kept anyway — for whoever still holds one.
+   *
+   * A rung is what `normalizeTier` matches a subscription's slug against, so
+   * deleting a retired tier does not remove it from the world; it removes our
+   * ability to recognise the people still paying for it, and they fall through
+   * to free. Retired tiers rank and gate exactly as they always did, and are
+   * simply not offered.
+   */
+  retired?: boolean
   /** No self-serve checkout — routes to sales. */
   contactSales?: boolean
   /** Quotas / included usage. */
@@ -1311,12 +1323,45 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     },
   },
   {
+    slug: 'go',
+    name: 'Go',
+    tagline: 'Host your agents everywhere, and the desktop app',
+    kind: 'personal',
+    rank: 1,
+    priceMonthly: 900,
+    priceAnnual: 825,
+    limits: {
+      requestsPerMinute: 60,
+      tokensPerMinute: 100_000,
+      includedCreditUsd: 5,
+      includedCloudCredits: 0,
+      minSeats: 1,
+      maxMembers: 1,
+    },
+  },
+  {
+    slug: 'dev',
+    name: 'Dev',
+    tagline: 'For everyday building',
+    kind: 'personal',
+    rank: 2,
+    priceMonthly: 1_900,
+    limits: {
+      requestsPerMinute: 500,
+      tokensPerMinute: 1_000_000,
+      includedCreditUsd: 20,
+      includedCloudCredits: 5,
+      minSeats: 1,
+      maxMembers: 1,
+    },
+  },
+  {
     slug: 'pro',
     name: 'Pro',
     tagline: 'For individuals shipping with AI every day',
     kind: 'personal',
-    rank: 1,
-    priceMonthly: 2_000,
+    rank: 3,
+    priceMonthly: 4_900,
     limits: {
       requestsPerMinute: 500,
       tokensPerMinute: 1_000_000,
@@ -1331,7 +1376,11 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     name: 'Plus',
     tagline: 'More throughput and the max-tier models',
     kind: 'personal',
-    rank: 2,
+    // RETIRED — no longer sold, and kept for exactly one reason: whoever still
+    // holds one. Deleting the rung would make normalizeTier fall through to
+    // free, which is the downgrade this whole ladder exists to prevent.
+    retired: true,
+    rank: 4,
     priceMonthly: 10_000,
     limits: {
       requestsPerMinute: 2_500,
@@ -1347,8 +1396,8 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     name: 'Max',
     tagline: 'Unlimited premium models and fine-tuning',
     kind: 'personal',
-    rank: 3,
-    priceMonthly: 20_000,
+    rank: 5,
+    priceMonthly: 9_900,
     limits: {
       requestsPerMinute: 5_000,
       tokensPerMinute: 10_000_000,
@@ -1363,7 +1412,7 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     name: 'Team',
     tagline: 'People and AI coworkers together, with SSO',
     kind: 'team',
-    rank: 4,
+    rank: 6,
     priceMonthly: 2_500,
     perSeat: true,
     limits: {
@@ -1380,7 +1429,7 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     name: 'Team Max',
     tagline: 'Team, with unlimited premium models per seat',
     kind: 'team',
-    rank: 5,
+    rank: 7,
     priceMonthly: 22_500,
     perSeat: true,
     limits: {
@@ -1397,7 +1446,7 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     name: 'Enterprise',
     tagline: 'Unlimited members, SLA, on-prem, SOC 2 Type II controls',
     kind: 'enterprise',
-    rank: 6,
+    rank: 8,
     priceMonthly: 999_900,
     contactSales: true,
     limits: {
@@ -1414,7 +1463,7 @@ export const HANZO_PLANS: HanzoPlanTierDef[] = [
     name: 'Custom',
     tagline: 'Dedicated, air-gapped, custom SLA',
     kind: 'enterprise',
-    rank: 7,
+    rank: 9,
     priceMonthly: null,
     contactSales: true,
     limits: {

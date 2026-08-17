@@ -5,11 +5,10 @@ import waitPort from 'wait-port'
 const devPort = 5008
 const prodPort = 5009
 
-// Each test here starts a server and then waits on the page for up to 45s, and
-// the prod one compiles the app before it can even do that. Playwright's default
-// 30s is smaller than the waits inside a single test, so the budget only held
-// while the machine was idle: under the rest of the workspace building alongside
-// it, the prod test spent 27s watching for the preview port and was cut off.
+// Each test starts a server and then waits on the page for up to 45s, and the
+// prod one compiles the app before it can do either. The budget covers all of
+// that, because Playwright's default 30s is smaller than the waits written
+// inside a single test here.
 test.describe.configure({ timeout: 180_000 })
 
 function spawnServer(command, args) {

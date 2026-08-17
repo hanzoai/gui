@@ -29,7 +29,14 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "inputs": ["../../bun.lockb", "src/**", "tests/**", "__tests__/**", "*.config.*"],
+      "inputs": [
+        "../../bun.lockb",
+        "src/**",
+        "tests/**",
+        "__tests__/**",
+        "*.test.*",
+        "*.config.*"
+      ],
       "outputs": [],
       "env": [
         "GUI_TARGET",

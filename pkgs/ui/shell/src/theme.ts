@@ -225,11 +225,15 @@ export const VEIL =
  * Dark glass — the ONE recipe for chrome the page shows through: near-black at
  * 72% over a 20px backdrop blur, saturated.
  *
- * The header bar and both mega-menu drapes are ONE piece of glass. A drape is
- * the bar CONTINUING down the page, not an opaque slab hung underneath it, so
- * the two must be lit the same way or the seam between them becomes an edge. The
- * drapes were true black (`CHROME.panel`) against a frosted bar, which is
- * exactly that edge.
+ * NOT the bar, and no longer the menus. The bar and every plane that drops out
+ * of it are ONE material — see `BAR` and `DRAPE` — because a menu is the bar
+ * continuing down the page and any difference between the two becomes a visible
+ * edge. That rule still stands; what changed is which material both wear.
+ *
+ * This is the material of COMPACT controls: search, the CTA, the composer, a
+ * popover, the palette. A small rounded thing floating over the page should
+ * show the page through it. A full-width plane should not — at that size the
+ * blur is a picture competing with the words on top of it.
  *
  * ── The same edge, one level up ────────────────────────────────────────────
  * It was 85% over 12px, which is the same seam between the shell and everything
@@ -298,11 +302,33 @@ export const GUTTER = 'clamp(20px, 4vw, 72px)'
  * glass, and the bare page.
  */
 export const DRAPE: CSSProperties = {
-  ...GLASS,
+  background: CHROME.panel,
   borderRadius: 0,
   border: 'none',
   boxShadow: 'none',
 }
+
+/**
+ * THE BAR WEARS THE PLANE. One material from the top of the screen to the
+ * bottom of an open menu, so there is no boundary between them to see.
+ *
+ * This is the resolution of a real disagreement, and both halves of it were
+ * right. An opaque plane hanging off a frosted bar draws exactly the seam
+ * `GLASS` warns about — that is what made the drapes glass in the first place,
+ * and it is a measured objection, not a preference. But the reference this
+ * chrome is held to has NO frosted bar: the bar and the menu are one flat
+ * ground, which is why the boundary is invisible there.
+ *
+ * So the answer was never "which surface is opaque" — it is that the two must be
+ * the SAME, and the picture chooses which. Making the plane match a frosted bar
+ * fixes the seam by giving up the picture; making the bar match the plane fixes
+ * it and keeps the picture, at the cost of the bar no longer being see-through.
+ *
+ * What does NOT change: `GLASS` is still the material of every COMPACT control —
+ * search, the CTA, the composer, popovers, the palette. Three surfaces in the
+ * house and no more: this ground, that glass, and the bare page.
+ */
+export const BAR: CSSProperties = { background: CHROME.panel }
 
 /**
  * The plane's own inset — one figure for every menu that drops out of the bar.

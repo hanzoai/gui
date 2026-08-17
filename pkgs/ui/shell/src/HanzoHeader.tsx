@@ -179,6 +179,21 @@ export interface HanzoHeaderProps {
   /** Highlights the current Products category (accent + `aria-current`). */
   currentCategoryId?: string
   /**
+   * Put the primary action at the END of the bar, after the identity cluster.
+   *
+   * The default is primary-then-identity, which is right when signing in is the
+   * more consequential of the two — a surface whose product lives behind an
+   * account. It is backwards for a surface whose primary action is the whole
+   * point and whose identity control is incidental: there the last thing in the
+   * row is the thing a reader is most likely to want, and the eye lands on the
+   * end of a row. hanzo.ai is that surface; its pill leaves for the product
+   * while its account control only says who the browser already knows.
+   *
+   * A PLACE, not a second control — the same `primaryCTA`, rendered one slot
+   * later, so nothing about it can drift between the two arrangements.
+   */
+  primaryLast?: boolean
+  /**
    * Where this surface currently IS.
    *
    * Any control naming this place — the primary or secondary action, a
@@ -260,6 +275,7 @@ export function resolveSurface(surface: HanzoSurface | string): HanzoSurface {
 export function HanzoHeader({
   surface,
   account,
+  primaryLast,
   onAskHanzo,
   productsTaxonomy,
   commands,
@@ -379,6 +395,20 @@ export function HanzoHeader({
   // canonical IAM cluster, so surfaces can't drift between "Sign in" / "Log in"
   // or grow a second session scheme. Rendered ONLY when the host asked for one.
   const accountNode = account ?? (auth ? <HanzoIdentity auth={auth} /> : null)
+  // The primary, built once so `primaryLast` chooses a PLACE and never a second
+  // spelling of the control.
+  const primaryNode = !s.primaryCTA ? null : tryMenu ? (
+    <CTATrigger
+      link={s.primaryCTA}
+      open={menu.key === 'try'}
+      reach={menu.trigger('try')}
+      onStepIn={() => menu.set('try')}
+      controls="hanzo-try-menu"
+      current={isHere(s.primaryCTA.href)}
+    />
+  ) : (
+    <CTA link={s.primaryCTA} variant="filled" current={isHere(s.primaryCTA.href)} />
+  )
 
   // What the header itself can reach, handed to the palette. A control the bar
   // renders and the palette cannot find is the same page described two ways,
@@ -573,25 +603,13 @@ export function HanzoHeader({
                 current={isHere(s.secondaryCTA.href)}
               />
             ) : null}
-            {/* A surface with no primary action renders none. */}
-            {!s.primaryCTA ? null : tryMenu ? (
-              <CTATrigger
-                link={s.primaryCTA}
-                open={menu.key === 'try'}
-                reach={menu.trigger('try')}
-                onStepIn={() => menu.set('try')}
-                controls="hanzo-try-menu"
-                current={isHere(s.primaryCTA.href)}
-              />
-            ) : (
-              <CTA
-                link={s.primaryCTA}
-                variant="filled"
-                current={isHere(s.primaryCTA.href)}
-              />
-            )}
+            {/* A surface with no primary action renders none. `primaryLast`
+                moves it one slot later, past the identity cluster — the same
+                control either way, so the two arrangements cannot drift. */}
+            {primaryLast ? null : primaryNode}
             {identitySlot}
             {accountNode}
+            {primaryLast ? primaryNode : null}
           </>
         )}
       </header>

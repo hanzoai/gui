@@ -27,6 +27,8 @@ import { U, type HanzoLink } from './hanzo-registry'
 import type { HanzoUser } from './types'
 import { UserAvatar } from './UserAvatar'
 import { useRove } from './rove'
+import { Meter } from './meter'
+import { usePlan } from './usePlan'
 
 /**
  * What the header needs to show who you are — and nothing else. No token, no
@@ -106,6 +108,11 @@ function AccountMenu({
   const rove = useRove(open, close, true)
   const name = user.name || user.email || 'Account'
 
+  // Read only while the menu is open. Nobody needs their plan resolved on every
+  // page load of every property, and two billing reads per visit is what the
+  // header would otherwise cost every surface that mounts it.
+  const plan = usePlan({ enabled: open })
+
   // A menu anchored to a control closes when the pointer goes elsewhere. Esc is
   // handled by the roving focus the panel already carries.
   useEffect(() => {
@@ -170,6 +177,8 @@ function AccountMenu({
               </div>
             ) : null}
           </div>
+
+          <Meter plan={plan} href={U.pricing} />
 
           {(items ?? DEFAULT_ITEMS).map((item) => (
             <a

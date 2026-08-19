@@ -107,6 +107,16 @@ export type {
   EntitlementState,
   UseEntitlementOptions,
 } from './useEntitlement'
+// What plan the viewer holds and how much of it is left — the read half of the
+// same fact `useEntitlement` gates on. The header mounts <Meter> itself, so a
+// surface gets this by mounting the header; these are for a page that wants to
+// show the same standing somewhere of its own.
+export { usePlan } from './usePlan'
+export type { Plan, PlanState, UsePlanOptions } from './usePlan'
+export { usageOf } from './usage'
+export type { PlanUsage, Rollup } from './usage'
+export { Meter } from './meter'
+export type { MeterProps } from './meter'
 export { HanzoAccessGate } from './HanzoAccessGate'
 export type { HanzoAccessGateProps } from './HanzoAccessGate'
 export { HanzoPlans } from './HanzoPlans'

@@ -104,16 +104,23 @@ export function usePlan(options: UsePlanOptions = {}): Plan {
 
   return useMemo(() => {
     const rung = getPlanTier(ent.tier)
+    const usage = usageOf(rollup)
     return {
       tier: ent.tier,
       // A tier the ladder has not learned yet still shows its own slug rather
       // than the free rung's name — the viewer is paying for something, and
       // calling it "Free" is the failure this ladder already had once.
       name: rung?.name ?? ent.tier,
-      state: ent.loading ? 'loading' : ent.state === 'tier' ? 'plan' : 'none',
+      // A viewer with no subscription still HOLDS a plan — the free rung — and it
+      // is bounded like every other. Reading 'no subscription' as 'nothing to
+      // show' hid the 20-a-day limit from exactly the people who reach it, and
+      // they met it as a refusal with no warning. So a measurable reading is
+      // itself a plan: if the ledger answered with a bound, there is something
+      // true to say.
+      state: ent.loading ? 'loading' : ent.state === 'tier' || usage ? 'plan' : 'none',
       loading: ent.loading,
       paid: ent.state === 'tier' && ent.tier !== FREE_TIER,
-      usage: usageOf(rollup),
+      usage,
       refresh,
     }
   }, [ent.tier, ent.state, ent.loading, rollup, refresh])

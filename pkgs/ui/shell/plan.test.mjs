@@ -120,3 +120,22 @@ test('a reset instant is shown only when it can be trusted', () => {
   assert.match(resetsAt({ span: 'hour', resets: '2026-08-19T23:00:00Z' }), /\d/)
   assert.match(resetsAt({ span: 'month', resets: '2026-09-01T00:00:00Z' }), /\w/)
 })
+
+test('a bound is worth showing whether or not it was paid for', () => {
+  // The free rung declares 20 a day. It is a real bound, met by real people, and
+  // it used to be invisible because the meter keyed on "has a subscription" —
+  // so the viewers most likely to hit a limit were the only ones never warned
+  // about it. They met it as a refusal instead.
+  //
+  // usageOf does not know or care who paid; it reports a reading when one
+  // exists. This asserts the free shape produces one.
+  const u = usageOf({
+    windows: [
+      W('hour', 10, 9, { remaining: 1, resets: '2026-08-20T15:00:00Z' }),
+      W('day', 20, 18, { remaining: 2 }),
+    ],
+  })
+  assert.ok(u, 'the free rung is bounded and the bound must be readable')
+  assert.equal(u.span, 'hour', '9/10 binds before 18/20')
+  assert.equal(u.remaining, 1)
+})

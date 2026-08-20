@@ -20,6 +20,7 @@
 import React from 'react'
 import { CHROME, FS, R } from './theme'
 import type { Plan } from './usePlan'
+import { resetsAt } from './usage'
 
 export interface MeterProps {
   /** The resolved plan, from `usePlan()`. */
@@ -66,7 +67,12 @@ export function Meter({ plan, href }: MeterProps) {
               fontVariantNumeric: 'tabular-nums',
             }}
           >
-            {usage.over ? 'over included usage' : `${usage.leftPct}% left`}
+            {/* The COUNT, not a percentage. "84 left today" is something a
+                person can act on; "8% left" needs arithmetic they do not have
+                the denominator for. The bar already carries the proportion. */}
+            {usage.over
+              ? `${usage.span} limit reached`
+              : `${usage.remaining.toLocaleString()} left this ${usage.span}`}
           </span>
         ) : null}
       </div>
@@ -95,6 +101,15 @@ export function Meter({ plan, href }: MeterProps) {
               transition: 'width 240ms cubic-bezier(.2,.9,.3,1.1)',
             }}
           />
+        </div>
+      ) : null}
+
+      {usage && usage.usedPct >= 50 && resetsAt(usage) ? (
+        <div style={{ fontSize: FS.xs, color: CHROME.fgDim }}>
+          {/* Shown only past halfway. Before that the bound is not the reader's
+              problem and the line is noise; after it, "clears at 11:00 PM" is
+              the whole answer to "what do I do now". */}
+          Clears {resetsAt(usage)}
         </div>
       ) : null}
     </div>

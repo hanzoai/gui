@@ -7,7 +7,7 @@
 # that answers the `hanzo-build-linux-amd64` label the reusable asks for, so a
 # `.github/workflows/cicd.yml` would queue forever. Gitea collects workflows
 # from the FIRST of WORKFLOW_DIRS present in a commit, and `.hanzo/workflows`
-# wins, which is also why `.github/workflows` is dark on the forge.
+# wins, which is also why `.github/workflows` is dark on Hanzo Git.
 #
 # NO `images:` AND NO `deploy:`. This is a package repo: 199 workspaces
 # published to npm, and nothing here owns a running surface. The one container
@@ -99,8 +99,8 @@ test:
       bun turbo run test:web --filter='!@hanzogui/kitchen-sink' --concurrency=1
 
   # The native suites. This repo ships to react-native as much as to the web, and
-  # the forge lane it replaces gated only the web half — so the three packages
-  # that assert native behaviour (148 tests) ran nowhere the forge could see.
+  # Hanzo Git lane it replaces gated only the web half — so the three packages
+  # that assert native behaviour (148 tests) ran nowhere Hanzo Git could see.
   # Same three the GitHub lane names; carried here so one file gates both halves.
   - name: native tests
     run: |

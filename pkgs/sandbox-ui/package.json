@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sandbox-ui",
-  "version": "8.1.1",
+  "version": "8.1.0",
   "private": true,
   "files": [
     "types",

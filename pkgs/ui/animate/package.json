@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/animate",
-  "version": "8.1.1",
+  "version": "8.1.0",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/is-equal-shallow",
-  "version": "8.1.1",
+  "version": "8.1.0",
   "files": [
     "src",
     "types",

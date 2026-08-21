@@ -112,10 +112,7 @@ export type {
   GuiCustomConfig,
   GuiElement,
   GuiInternalConfig,
-  // GuiProviderProps is NOT re-exported from core here: ./views/GuiProvider
-  // exports the one for THIS package's provider, which is the core props plus
-  // `telemetry`. Two exports of one name would silently hand callers the
-  // narrower type and make the telemetry prop look like a mistake.
+  GuiProviderProps,
   GuiSettings,
   GuiTextElement,
   TextNonStyleProps,

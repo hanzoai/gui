@@ -1,48 +1,41 @@
 {
   "name": "@hanzogui/telemetry",
-  "version": "8.1.1",
+  "version": "8.1.0",
   "description": "Zero-config Hanzo telemetry — one <TelemetryProvider/> wires errors + session capture, pageviews, and product events to the ONE front door (POST api.hanzo.ai/v1/event), which lenses them into sentry.hanzo.ai, analytics.hanzo.ai and insights.hanzo.ai. Honors DNT/GPC, consent-aware, SSR-safe, fail-soft.",
   "source": "src/index.ts",
   "files": [
-    "src",
-    "types",
     "dist",
+    "src",
     "README.md"
   ],
   "type": "module",
-  "main": "dist/cjs",
-  "module": "dist/esm",
-  "types": "./types/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "sideEffects": false,
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "hanzogui-build",
-    "watch": "hanzogui-build --watch",
-    "clean": "hanzogui-build clean",
-    "clean:build": "hanzogui-build clean:build",
+    "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@hanzo/event": "^0.3.16",
-    "@hanzo/observe": "^0.1.6"
+    "@hanzo/event": "^0.3.1",
+    "@hanzo/observe": "^0.1.0"
   },
   "peerDependencies": {
     "react": ">=18"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*",
     "@types/react": "~19.1.10",
     "@types/react-dom": "~19.1.7",
     "happy-dom": "^20.10.6",

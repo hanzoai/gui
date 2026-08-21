@@ -10,26 +10,19 @@
 
 import { createAnalytics } from '@hanzo/event'
 import type { Analytics } from '@hanzo/event'
-import { resolveEnabled } from './consent'
-import { isReactNative, productFromHost, resolveEnv, runtimeProduct } from './env'
+import { resolveEnabled } from './consent.js'
+import { productFromHost, resolveEnv } from './env.js'
 import type {
   Telemetry,
   TelemetryCommerce,
   TelemetryConfig,
   TelemetryErrorContext,
-} from './types'
+} from './types.js'
 
 /** A DOM — not merely a `window`. React Native defines a global `window` with
- *  no `location`/`document`, and SSR defines neither. This is what gates the
- *  DOM-only planes (History pageviews, session replay), NOT whether we emit. */
+ *  no `location`/`document`, and SSR defines neither; both must stay silent. */
 export const hasDom = (): boolean =>
   typeof window !== 'undefined' && typeof document !== 'undefined'
-
-/** A live client host: a browser DOM, or React Native. Both send — RN POSTs the
- *  event/identify/group/error stream through `fetch` exactly like the browser,
- *  it just skips the DOM-only planes above. SSR/Node is neither and stays
- *  silent, emitting half an event to nobody. This gates whether we collect. */
-export const canEmit = (): boolean => hasDom() || isReactNative()
 
 /** Never let a telemetry call throw into the caller. This is the ONLY error
  *  policy in the package: every public method funnels through it. */
@@ -68,22 +61,17 @@ export function createTelemetry(config: TelemetryConfig = {}): Telemetry {
   const env = resolveEnv()
   const debug = config.debug ?? env.debug
 
-  // Runtime before hostname: a desktop shell serves the SAME bundle from three
-  // different origins (tauri://localhost, http://tauri.localhost, the Vite dev
-  // server), so the URL is the one thing that cannot name that surface.
   const product =
     config.product ??
     env.product ??
-    runtimeProduct() ??
     (hasDom() ? productFromHost(window.location?.hostname) : undefined) ??
     'unknown'
 
-  // A live client host is the precondition: a browser DOM or React Native, both
-  // of which POST through `fetch`. Only SSR/Node stays silent — it would read
-  // location/referrer and buffer to an unload beacon that never fire, emitting
-  // half an event to nobody. `enabled` (a build-time kill switch) still wins.
+  // A DOM is a precondition: the client reads location/referrer and buffers to
+  // an unload beacon. Server and native hosts stay silent rather than emit half
+  // an event. `enabled` (a build-time kill switch) still wins over consent.
   const permitted =
-    canEmit() &&
+    hasDom() &&
     resolveEnabled({ enabled: config.enabled ?? env.enabled, consent: config.consent })
   const errors = config.errors ?? true
   const replay = config.replay ?? true
@@ -133,14 +121,6 @@ export function createTelemetry(config: TelemetryConfig = {}): Telemetry {
 
 let ambient: Telemetry | undefined
 
-/** True while an APP-owned client holds the ambient slot. A client installed by
- *  `GuiProvider`'s fallback provider deliberately does NOT set this: it is the
- *  owner of last resort and must yield the moment the app claims the stream. */
-let appOwned = false
-
-type OwnerListener = () => void
-const ownerListeners = new Set<OwnerListener>()
-
 /** getTelemetry returns the ambient client, building it from the environment on
  *  first use. This is what makes `track()` work with zero setup. */
 export function getTelemetry(): Telemetry {
@@ -149,38 +129,9 @@ export function getTelemetry(): Telemetry {
 }
 
 /** setTelemetry installs a client as the ambient one. `<TelemetryProvider/>`
- *  calls this so module-scope `track()` and the React tree share one stream.
- *
- *  `app: false` installs it as the FALLBACK owner — the posture `GuiProvider`
- *  uses. A fallback owner is a real client in every other respect; it simply
- *  does not claim the stream, so an app that mounts its own provider (before or
- *  after, above or below) takes over and there is never a second one emitting. */
-export function setTelemetry(t: Telemetry | undefined, opts?: { app?: boolean }): void {
+ *  calls this so module-scope `track()` and the React tree share one stream. */
+export function setTelemetry(t: Telemetry | undefined): void {
   ambient = t
-  appOwned = t !== undefined && (opts?.app ?? true)
-  for (const fn of ownerListeners) {
-    try {
-      fn()
-    } catch {
-      /* a listener must never break the caller */
-    }
-  }
-}
-
-/** isTelemetryOwned reports whether the APP has claimed the stream. This is what
- *  a fallback provider consults before collecting anything. */
-export function isTelemetryOwned(): boolean {
-  return appOwned
-}
-
-/** onTelemetryOwnerChange subscribes to claims and releases; returns the
- *  unsubscribe. A fallback owner uses it to yield when an app-owned provider
- *  mounts late (a lazy route) and to resume if that provider unmounts. */
-export function onTelemetryOwnerChange(fn: OwnerListener): () => void {
-  ownerListeners.add(fn)
-  return () => {
-    ownerListeners.delete(fn)
-  }
 }
 
 // ── The ambient API. Import and call; nothing to wire. ────────────────────────

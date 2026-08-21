@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/assert",
-  "version": "8.1.1",
+  "version": "8.1.0",
   "source": "src/index.ts",
   "files": [
     "src",

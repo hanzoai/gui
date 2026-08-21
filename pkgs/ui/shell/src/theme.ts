@@ -1,9 +1,9 @@
 /**
  * Shell chrome tokens — the ONE place the reusable Hanzo shell reads its colors,
  * type, radii, elevation and control geometry from. Every shell surface
- * (HanzoHeader, OrgHeader, HanzoFooter, MeetHanzoMenu, ProductsMegaMenu,
- * AskHanzo, HanzoAppLauncher) themes from here so they look identical
- * everywhere.
+ * (HanzoHeader, HanzoAppHeader, HanzoFooter, MeetHanzoMenu, ProductsMegaMenu,
+ * AskHanzo, HanzoAppBar, HanzoAppLauncher) themes from here so they look
+ * identical everywhere.
  *
  * Token driven: the values reference CSS custom properties — `--font-size-*` and
  * `--z-*` from `@hanzo/brand`, `--neutral-*` and `--ring` from `@hanzo/design` —

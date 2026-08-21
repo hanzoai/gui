@@ -3,6 +3,8 @@ import { Button, TooltipSimple, YStack } from '@hanzo/gui'
 
 import { Link } from '~/components/Link'
 
+const SPONSOR_URL = 'https://github.com/sponsors/hanzoai'
+
 export const SponsorButton = (props: { tiny?: boolean }) => {
   const el = (
     <Button
@@ -28,7 +30,7 @@ export const SponsorButton = (props: { tiny?: boolean }) => {
     </Button>
   )
   return (
-    <Link target="_blank" href="https://github.com/sponsors/natew">
+    <Link target="_blank" href={SPONSOR_URL}>
       <YStack>
         {props.tiny ? (
           <TooltipSimple delay={0} restMs={25} label="Support OSS development of Gui">

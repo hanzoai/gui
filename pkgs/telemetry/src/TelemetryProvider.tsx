@@ -28,34 +28,15 @@ import {
   type ReactNode,
 } from 'react'
 import { AnalyticsProvider } from '@hanzo/event/react'
-import { useAppAnalytics } from './appAnalytics'
-import { getConsent, onConsentChange } from './consent'
-import {
-  createTelemetry,
-  getTelemetry,
-  hasDom,
-  isTelemetryOwned,
-  onTelemetryOwnerChange,
-  setTelemetry,
-} from './telemetry'
-import { useReplay } from './useReplay'
-import { useRouteTracking } from './useRouteTracking'
-import type { Telemetry, TelemetryConfig } from './types'
+import { getConsent, onConsentChange } from './consent.js'
+import { createTelemetry, getTelemetry, setTelemetry } from './telemetry.js'
+import { useReplay } from './useReplay.js'
+import { useRouteTracking } from './useRouteTracking.js'
+import type { Telemetry, TelemetryConfig } from './types.js'
 
 const TelemetryContext = createContext<Telemetry | null>(null)
 
-/** Who owns the event stream.
- *
- *  - `app` (default) — this provider owns it. What an application mounts.
- *  - `gui` — own it ONLY while nothing else does. What `GuiProvider` mounts, so
- *    a bare gui app collects with no wiring at all and an app that wires its own
- *    telemetry is left completely alone.
- */
-export type TelemetryOwner = 'app' | 'gui'
-
 export interface TelemetryProviderProps extends TelemetryConfig {
-  /** Ownership posture; see {@link TelemetryOwner}. Defaults to `app`. */
-  owner?: TelemetryOwner
   /** The current route. Pass `usePathname()` (Next) or your router's location to
    *  drive pageviews from the app; omit it and the History API drives them. */
   path?: string | null
@@ -72,7 +53,6 @@ export interface TelemetryProviderProps extends TelemetryConfig {
  *  render on the server (it does nothing there) and safe to render twice. */
 export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
   const {
-    owner = 'app',
     path,
     fallback,
     client,
@@ -90,33 +70,6 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
     debug,
   } = props
 
-  // ── Ownership ──────────────────────────────────────────────────────────────
-  //
-  // A `gui`-owned provider (the one GuiProvider mounts) must never become the
-  // SECOND thing emitting. Two shapes of app-owned client have to be seen, and
-  // they need different instruments because React context only looks upward:
-  //
-  //   ABOVE us — an <AnalyticsProvider>, or a <TelemetryProvider> (which renders
-  //   one). A context read settles it during render, before anything is built.
-  //
-  //   BELOW us — a <TelemetryProvider> on a descendant. It claims the ambient
-  //   slot from an effect, and React runs child effects BEFORE parent effects,
-  //   so by the time our own effect runs the claim is already visible. We
-  //   subscribe rather than sample once, so a provider that mounts late (a lazy
-  //   route) takes over too, and one that unmounts hands the stream back.
-  const guiOwner = owner === 'gui'
-  const appClient = useAppAnalytics()
-  const yieldedToAncestor = appClient !== null && guiOwner
-  const [holdsClaim, setHoldsClaim] = useState(false)
-  const owns = guiOwner ? holdsClaim && !yieldedToAncestor : true
-
-  useEffect(() => {
-    if (!guiOwner || yieldedToAncestor) return
-    const sync = (): void => setHoldsClaim(!isTelemetryOwned())
-    sync()
-    return onTelemetryOwnerChange(sync)
-  }, [guiOwner, yieldedToAncestor])
-
   // A caller's `getToken` is usually an inline closure; keep the identity we
   // hand the client stable so the client is not rebuilt on every render.
   const tokenRef = useRef(getToken)
@@ -130,10 +83,6 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
   useEffect(() => {
     const bump = (): void => setConsentEpoch((n) => n + 1)
     const off = onConsentChange(bump)
-    // The in-app signal (a banner, a settings toggle) applies on every host,
-    // React Native included. The cross-tab `storage` event is a DOM affordance
-    // RN has no `window.addEventListener` for — reaching for it there throws.
-    if (!hasDom()) return off
     const onStorage = (e: StorageEvent): void => {
       if (e.key === null || e.key === 'hz_consent') bump()
     }
@@ -152,13 +101,7 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
         product,
         ingestKey,
         getToken: tokenRef.current ? () => tokenRef.current?.() : undefined,
-        // `enabled: false` is the hard kill switch, so a gui-owned provider
-        // that does not hold the claim is inert in every path —
-        // it cannot be woken by a stray `capture()` from the subtree, and it
-        // costs nothing but the allocation. Winning the claim rebuilds it with
-        // the real posture; losing it rebuilds it inert again. That is why the
-        // whole thing is one memo and not a pile of conditional effects.
-        enabled: owns ? enabled : false,
+        enabled,
         consent,
         replay,
         errors,
@@ -170,7 +113,6 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
       host,
       product,
       ingestKey,
-      owns,
       enabled,
       consent,
       replay,
@@ -183,18 +125,14 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
     ]
   )
 
-  // Module-scope `track()` and this tree share one client and one stream. A
-  // gui-owned provider installs itself as the ambient client too — so `track()`
-  // works with no wiring in a bare gui app — but marks the slot unclaimed, which
-  // is what lets an app-owned provider take it over without a fight.
+  // Module-scope `track()` and this tree share one client and one stream.
   useEffect(() => {
-    if (!owns) return
-    setTelemetry(telemetry, { app: !guiOwner })
+    setTelemetry(telemetry)
     telemetry.client.init()
     return () => {
       if (getTelemetry() === telemetry) setTelemetry(undefined)
     }
-  }, [telemetry, owns, guiOwner])
+  }, [telemetry])
 
   const active = telemetry.enabled
   useRouteTracking(telemetry, active && (pageviews ?? true), path)
@@ -203,16 +141,8 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
   return (
     <TelemetryContext.Provider value={telemetry}>
       {/* Interop: any @hanzo/* component that reads `useAnalytics()` gets THIS
-          client. Pageviews are ours, so the built-in one is turned off.
-          When we have yielded to an app-owned provider ABOVE us, we re-provide
-          ITS client rather than our inert one — a pass-through, not a shadow, so
-          the app's own `useAnalytics()` call sites keep working unchanged. The
-          element stays mounted either way; swapping the value never remounts the
-          subtree, whereas conditionally rendering the provider would. */}
-      <AnalyticsProvider
-        client={yieldedToAncestor && appClient ? appClient : telemetry.client}
-        autoPageview={false}
-      >
+          client. Pageviews are ours, so the built-in one is turned off. */}
+      <AnalyticsProvider client={telemetry.client} autoPageview={false}>
         <TelemetryBoundary
           telemetry={telemetry}
           enabled={active && (errors ?? true)}

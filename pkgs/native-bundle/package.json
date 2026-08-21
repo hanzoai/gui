@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/native-bundle",
-  "version": "8.1.1",
+  "version": "8.1.0",
   "description": "Vite-based bundler for creating native CommonJS bundles for Gui packages",
   "license": "MIT",
   "author": {

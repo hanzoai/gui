@@ -30,24 +30,10 @@ export interface HanzoFooterProps {
   /** Highlights the current product in the PRODUCTS column (`aria-current`). */
   currentProductId?: string
   className?: string
-  /**
-   * Publication predicate. The registry names every page the estate has ever
-   * shipped, but which of them a SITE currently publishes is the site's call —
-   * hanzo.ai decides it in lib/publish, the one policy that also writes its
-   * sitemap and noindex tags. When given, a link renders iff `visible(href)`;
-   * a column whose every link is withheld vanishes whole. Absent, everything
-   * renders, which is what every existing caller gets.
-   */
-  visible?: (href: string) => boolean
 }
 
-export function HanzoFooter({ currentProductId, className, visible }: HanzoFooterProps) {
+export function HanzoFooter({ currentProductId, className }: HanzoFooterProps) {
   useShellStyles()
-  const shown = (href: string) => (visible ? visible(href) : true)
-  const columns = HANZO_FOOTER_COLUMNS.map((col) => ({
-    ...col,
-    items: col.items.filter((item) => shown(item.href)),
-  })).filter((col) => col.items.length > 0)
   return (
     <footer
       role="contentinfo"
@@ -76,7 +62,7 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
             gap: '32px 24px',
           }}
         >
-          {columns.map((col) => (
+          {HANZO_FOOTER_COLUMNS.map((col) => (
             <nav key={col.id} aria-label={col.title}>
               <div style={{ ...LABEL, marginBottom: 14 }}>{col.title}</div>
               <ul
@@ -132,7 +118,7 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
           </span>
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-            {HANZO_FOOTER_BOTTOM.links.filter((l) => shown(l.href)).map((link) => (
+            {HANZO_FOOTER_BOTTOM.links.map((link) => (
               <LegalLink key={link.id} link={link} />
             ))}
           </div>

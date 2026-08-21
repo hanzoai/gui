@@ -1,10 +1,6 @@
 import type { GuiOptions, ExtractedResponse } from '@hanzogui/static-worker'
 import * as Static from '@hanzogui/static-worker'
-import {
-  getPragmaOptions,
-  installedPackageOf,
-  isExtractable,
-} from '@hanzogui/static-worker'
+import { getPragmaOptions } from '@hanzogui/static-worker'
 import { createHash } from 'node:crypto'
 import { createRequire } from 'node:module'
 import path from 'node:path'
@@ -31,9 +27,6 @@ type CacheEntry = {
   map: any
   cssImport: string | null
 }
-
-/** what an installed package can hold extractable source in */
-const PACKAGE_EXTENSIONS = /\.(mjs|js|jsx|tsx)$/
 
 const CACHE_KEY = '__hanzogui_vite_cache__'
 const CACHE_SIZE_KEY = '__hanzogui_vite_cache_size__'
@@ -489,15 +482,7 @@ export function hanzoguiPlugin({
         }
 
         const [validId] = id.split('?')
-        // app source is .tsx; an allowlisted package is whatever it publishes,
-        // which for our design system is the jsx-preserving .mjs/.js build
-        const pkg = installedPackageOf(validId)
-        if (
-          pkg
-            ? !isExtractable(validId, options?.extractPackages) ||
-              !PACKAGE_EXTENSIONS.test(validId)
-            : !validId.endsWith('.tsx')
-        ) {
+        if (!validId.endsWith('.tsx')) {
           return
         }
 

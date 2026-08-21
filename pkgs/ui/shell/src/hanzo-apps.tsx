@@ -6,7 +6,7 @@
  * The product/URL data is single-sourced from `hanzo-registry.ts` (the `U` URL
  * table + `HANZO_PRODUCTS`); this module decorates the launcher entries with
  * monochrome line-icons and launcher-friendly short labels. Consumed by
- * <HanzoAppLauncher> and <OrgHeader>. Do NOT hardcode a second app list —
+ * <HanzoAppLauncher> and <HanzoAppBar>. Do NOT hardcode a second app list —
  * import from here (or read the richer registry directly).
  *
  * Ordering IS the launcher order. `category` groups the tiles; `core` marks the

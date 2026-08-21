@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/static-tests",
-  "version": "8.1.1",
+  "version": "8.1.0",
   "private": true,
   "license": "MIT",
   "module": "dist/esm/index.js",

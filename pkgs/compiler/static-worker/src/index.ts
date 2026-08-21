@@ -15,26 +15,6 @@ import Piscina from 'piscina'
 export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
 export type { GuiOptions } from '@hanzogui/types'
 
-/**
- * Which files the compiler may read styles out of. Pure path logic, so it is
- * handed straight across rather than run in the worker: a bundler plugin needs
- * the answer before it decides whether a round-trip is worth making, and the
- * extractor needs the same answer for real.
- *
- * @hanzogui/static is CJS-only, and Node's lexer does not find named exports
- * through esbuild's `__export` wrapper, so an ESM `export { x } from` of the
- * subpath throws at load. The namespace always carries `default` —
- * module.exports — in both of this package's builds, so read the names off it
- * once, here, instead of teaching every caller the same trick.
- */
-import * as extractablePathModule from '@hanzogui/static/extractablePath'
-
-const extractablePath: typeof import('@hanzogui/static/extractablePath') =
-  (extractablePathModule as any).default ?? extractablePathModule
-
-export const { DEFAULT_EXTRACT_PACKAGES, installedPackageOf, isExtractable } =
-  extractablePath
-
 export const getPragmaOptions = async (props: { source: string; path: string }) => {
   const { default: Static } = await import('@hanzogui/static')
   return Static.getPragmaOptions(props)

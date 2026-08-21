@@ -7,8 +7,8 @@
 
 import { describe, expect, it } from 'vitest'
 import { renderToString } from 'react-dom/server'
-import { TelemetryProvider } from '../src/TelemetryProvider'
-import { createTelemetry, hasDom, track } from '../src/telemetry'
+import { TelemetryProvider } from './TelemetryProvider.js'
+import { createTelemetry, hasDom, track } from './telemetry.js'
 
 describe('server rendering', () => {
   it('has no DOM to speak of', () => {

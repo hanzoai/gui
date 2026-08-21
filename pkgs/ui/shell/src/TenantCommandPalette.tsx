@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * OrgCommandPalette — the signed-in apps' ⌘K palette: cross-app navigation
+ * TenantCommandPalette — the signed-in apps' ⌘K palette: cross-app navigation
  * plus whatever commands the host app contributes.
  *
  * It renders the SAME frame as the public header's `HanzoCommandPalette` (see
@@ -11,7 +11,7 @@
  * what a product taxonomy does not.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { HANZO_APPS, type HanzoApp } from './hanzo-apps'
+import { DEFAULT_TENANT_APPS, type TenantApp } from './types'
 import { useShellStyles } from './shellStyles'
 import {
   KBD,
@@ -39,11 +39,11 @@ export type CommandItem = {
   keywords?: string[]
 }
 
-export type OrgCommandPaletteProps = {
+export type TenantCommandPaletteProps = {
   /** Additional app-specific commands merged with built-in cross-app commands */
   commands?: CommandItem[]
   /** Override the default Hanzo apps used for cross-app navigation */
-  apps?: HanzoApp[]
+  apps?: TenantApp[]
   /** Current app id — used to exclude from cross-app navigation */
   currentAppId?: string
   /** Controlled open state */
@@ -54,8 +54,8 @@ export type OrgCommandPaletteProps = {
   onNavigate?: (href: string, external?: boolean) => void
 }
 
-/** Cross-app navigation, derived from the apps this org can reach. */
-function crossAppCommands(apps: HanzoApp[], currentAppId?: string): CommandItem[] {
+/** Cross-app navigation, derived from the apps this tenant can reach. */
+function crossAppCommands(apps: TenantApp[], currentAppId?: string): CommandItem[] {
   return apps
     .filter((app) => app.id !== currentAppId)
     .map((app) => ({
@@ -69,14 +69,14 @@ function crossAppCommands(apps: HanzoApp[], currentAppId?: string): CommandItem[
     }))
 }
 
-export function OrgCommandPalette({
+export function TenantCommandPalette({
   commands: appCommands = [],
   apps,
   currentAppId,
   open: controlledOpen,
   onOpenChange,
   onNavigate,
-}: OrgCommandPaletteProps) {
+}: TenantCommandPaletteProps) {
   useShellStyles()
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
   const open = controlledOpen ?? uncontrolledOpen
@@ -100,7 +100,10 @@ export function OrgCommandPalette({
   // Filtered, then flattened to the row order the keys walk — grouping is a
   // render detail, so the group heads are emitted as the category changes.
   const flat = useMemo(() => {
-    const all = [...appCommands, ...crossAppCommands(apps ?? HANZO_APPS, currentAppId)]
+    const all = [
+      ...appCommands,
+      ...crossAppCommands(apps ?? DEFAULT_TENANT_APPS, currentAppId),
+    ]
     const q = query.trim().toLowerCase()
     const hits = q
       ? all.filter(

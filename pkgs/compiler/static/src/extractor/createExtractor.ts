@@ -30,7 +30,6 @@ import type {
 } from '../types'
 import type { LoadedComponents, GuiProjectInfo } from './bundleConfig'
 import { createEvaluator, createSafeEvaluator } from './createEvaluator'
-import { installedPackageOf } from './extractablePath'
 import { evaluateAstNode } from './evaluateAstNode'
 import {
   attrStr,
@@ -352,15 +351,9 @@ export function createExtractor(
       }
     }
 
-    // includeExtensions describes the app's OWN source, where the author picks
-    // the extension. An installed package ships whatever its build emits —
-    // .mjs, .js — and it already passed the package allowlist to get here, so
-    // holding it to ['.ts', '.tsx', '.jsx'] rejected every design-system file
-    // the allowlist had just admitted.
     if (
       sourcePath &&
       includeExtensions &&
-      !installedPackageOf(sourcePath) &&
       !includeExtensions.some((ext) => sourcePath.endsWith(ext))
     ) {
       if (shouldPrintDebug) {

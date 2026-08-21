@@ -1,14 +1,14 @@
 'use client'
 
 /**
- * UserOrgDropdown — the account control at the right edge of OrgHeader:
+ * UserOrgDropdown — the account control at the right edge of TenantHeader:
  * who you are, which org you are acting as, and the way out.
  *
  * Self-contained by design: inline styles + theme.ts tokens, React the only
  * runtime dependency, ZERO CSS-framework coupling.
  */
 import React, { useState, useRef, useEffect } from 'react'
-import type { HanzoUser, HanzoOrg } from './types'
+import type { TenantUser, TenantOrg } from './types'
 import { ORG_DOMAINS } from './types'
 import { UserAvatar } from './UserAvatar'
 import { CHROME, CTRL_H, FS, LABEL, PANEL, Z, control, ghostHover, row } from './theme'
@@ -16,8 +16,8 @@ import { useShellStyles } from './shellStyles'
 import { useMediaQuery } from './useMediaQuery'
 
 interface UserOrgDropdownProps {
-  user?: HanzoUser
-  organizations?: HanzoOrg[]
+  user?: TenantUser
+  organizations?: TenantOrg[]
   currentOrgId?: string
   onOrgSwitch?: (orgId: string) => void
   onSignOut?: () => void

@@ -7,7 +7,6 @@ import * as util from 'node:util'
 import { requireGuiCore } from '../helpers/requireGuiCore'
 import type { StyleObject, GuiOptions, Ternary } from '../types'
 import { babelParse } from './babelParse'
-import { isExtractable } from './extractablePath'
 import type { Extractor } from './createExtractor'
 import { createLogger } from './createLogger'
 import { extractMediaStyle } from './extractMediaStyle'
@@ -58,7 +57,7 @@ export async function extractToClassNames({
   const tm = timer()
   const { getCSSStylesAtomic, createMediaStyle } = requireGuiCore('web')
 
-  if (!isExtractable(sourcePath, options.extractPackages)) {
+  if (sourcePath.includes('node_modules')) {
     return null
   }
 

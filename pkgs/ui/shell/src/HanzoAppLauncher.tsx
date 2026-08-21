@@ -9,6 +9,16 @@
  * (Next 15/16, Vite, React 18/19) and renders identically regardless of the
  * host's Tailwind/Gui/none setup.
  *
+ * The panel is PORTALLED to `document.body` and positioned from the trigger's
+ * viewport rect. A launcher is mounted in whatever corner a host happens to
+ * own — chat's is inside its sidebar's `overflow-hidden` scroll column — and an
+ * absolutely-positioned panel is clipped by the first such ancestor, which cut
+ * the third column of tiles off mid-tile. Neither `overflow` nor `position:
+ * fixed` can escape that on its own: chat's sidebar also carries a `transform`,
+ * and a transformed ancestor becomes the containing block for fixed children
+ * too. Leaving the host's stacking context entirely is the only placement that
+ * cannot be clipped by a container this component never sees.
+ *
  * - Click (or ⌘K / Ctrl-K) opens a grid of every Hanzo app (icon + label).
  * - The current app is highlighted (monochrome brand accent ring, `aria-current`).
  * - Fully keyboard-accessible: trigger is a real button; the panel autofocuses
@@ -19,6 +29,7 @@
  * Source of truth for the app list is `HANZO_APPS` (./hanzo-apps).
  */
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps'
 import { U } from './hanzo-registry'
 import { isEntitled as planEntitles, normalizeTier } from './entitlements'
@@ -43,6 +54,26 @@ const BORDER = CHROME.border
 const FG = CHROME.fg
 const FG_DIM = CHROME.fgDim
 const HOVER_BG = CHROME.hover
+
+/** Breathing room between the trigger and the panel, and off the viewport edge. */
+const GAP = 10
+
+/**
+ * The panel's OUTER width. It is stated border-box so this one number is also
+ * what the edge clamp below subtracts — a content-box width would have to guess
+ * at the padding and border, and guessing is what lets a panel hang off screen.
+ * 366 = the historical 340 content box + 12px padding and a 1px border a side,
+ * so the rendered size is unchanged.
+ */
+const PANEL_W = 366
+
+/** Where the portalled panel sits, in viewport coordinates. */
+interface Anchor {
+  top: number
+  left?: number
+  right?: number
+  maxHeight: number
+}
 
 export interface HanzoAppLauncherProps {
   /** Highlights the matching tile + marks it `aria-current`. */
@@ -126,15 +157,42 @@ export function HanzoAppLauncher({
   const [open, setOpen] = useState(defaultOpen)
   const [hover, setHover] = useState(false)
   const [query, setQuery] = useState('')
+  const [anchor, setAnchor] = useState<Anchor | null>(null)
   const rootRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
   const tileRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const panelId = useId()
 
+  /**
+   * Measure the trigger and place the panel beneath it. Called from the event
+   * that opens the panel — before the state update, so the first painted frame
+   * already has a position and the panel never flashes at the origin.
+   */
+  const place = useCallback(() => {
+    const r = triggerRef.current?.getBoundingClientRect()
+    if (!r) return
+    const top = r.bottom + GAP
+    // Clamp to the far edge first, then to the near one, so a trigger near the
+    // end of its axis pulls the panel back on screen instead of off it.
+    const edge = Math.max(GAP, window.innerWidth - PANEL_W - GAP)
+    setAnchor({
+      top,
+      left: align === 'left' ? Math.min(Math.max(GAP, r.left), edge) : undefined,
+      right:
+        align === 'right'
+          ? Math.min(Math.max(GAP, window.innerWidth - r.right), edge)
+          : undefined,
+      // The panel scrolls internally; it must never run off the bottom edge.
+      maxHeight: Math.max(220, window.innerHeight - top - GAP),
+    })
+  }, [align])
+
   const close = useCallback(() => {
     setOpen(false)
     setQuery('')
+    setAnchor(null)
     // Return focus to the trigger for a clean keyboard loop.
     requestAnimationFrame(() => triggerRef.current?.focus())
   }, [])
@@ -149,27 +207,51 @@ export function HanzoAppLauncher({
         e.key.toLowerCase() === quickSwitchKey.toLowerCase()
       ) {
         e.preventDefault()
+        place()
         setOpen((v) => !v)
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [quickSwitchKey])
+  }, [quickSwitchKey, place])
 
   // ── Dismiss on outside click ──
   useEffect(() => {
     if (!open) return
     const onDown = (e: MouseEvent) => {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false)
+      const t = e.target as Node
+      // The panel lives in a portal, so it is NOT inside `rootRef` — testing
+      // only the root would close the panel on its own filter box and tiles.
+      if (rootRef.current?.contains(t) || panelRef.current?.contains(t)) return
+      setOpen(false)
+      setAnchor(null)
     }
     document.addEventListener('mousedown', onDown)
     return () => document.removeEventListener('mousedown', onDown)
   }, [open])
 
-  // ── Autofocus the filter when the panel opens ──
+  // ── Keep the panel under the trigger while the page moves beneath it ──
+  const placed = anchor !== null
   useEffect(() => {
-    if (open) requestAnimationFrame(() => searchRef.current?.focus())
-  }, [open])
+    if (!open) return
+    if (!placed) {
+      place() // `defaultOpen`, which never went through the trigger.
+      return
+    }
+    // Capture phase: the trigger can sit in a scrolling pane that never
+    // scrolls the window, and those scroll events do not bubble.
+    window.addEventListener('scroll', place, true)
+    window.addEventListener('resize', place)
+    return () => {
+      window.removeEventListener('scroll', place, true)
+      window.removeEventListener('resize', place)
+    }
+  }, [open, placed, place])
+
+  // ── Autofocus the filter once the panel is on screen ──
+  useEffect(() => {
+    if (open && placed) requestAnimationFrame(() => searchRef.current?.focus())
+  }, [open, placed])
 
   const q = query.trim().toLowerCase()
   const filtering = q.length > 0
@@ -362,7 +444,10 @@ export function HanzoAppLauncher({
       <button
         ref={triggerRef}
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          place()
+          setOpen((v) => !v)
+        }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         aria-haspopup="true"
@@ -381,126 +466,136 @@ export function HanzoAppLauncher({
         {trigger ? trigger({ open, hover }) : <HanzoGridIcon size={size} />}
       </button>
 
-      {open ? (
-        <div
-          id={panelId}
-          aria-label="Hanzo apps"
-          onKeyDown={onPanelKeyDown}
-          style={{
-            position: 'absolute',
-            top: 44,
-            left: align === 'left' ? 0 : undefined,
-            right: align === 'right' ? 0 : undefined,
-            ...PANEL,
-            zIndex: Z.popover as unknown as number,
-            width: 340,
-            maxWidth: 'calc(100vw - 24px)',
-            maxHeight: '80vh',
-            overflowY: 'auto',
-            padding: 12,
-            fontFamily: CHROME.font,
-          }}
-        >
-          {/* Header */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '2px 4px 10px',
-            }}
-          >
-            <HanzoWordmark size={16} />
-            <span style={LABEL}>Apps</span>
-          </div>
-
-          {/* Filter */}
-          <input
-            ref={searchRef}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Filter apps…"
-            aria-label="Filter apps"
-            autoComplete="off"
-            spellCheck={false}
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              padding: '9px 12px',
-              marginBottom: 10,
-              borderRadius: R.row,
-              border: `1px solid ${BORDER}`,
-              background: CHROME.raised,
-              color: FG,
-              fontSize: FS.sm,
-              fontFamily: 'inherit',
-              // No `outline: 'none'` here — see AskHanzo's composer. This filter
-              // has no <label> wrapper, so the shell's :focus-visible ring is
-              // its only focus indicator.
-            }}
-          />
-
-          {/* Pinned row(s) — the personal portal floats to the top. */}
-          {pinned.length > 0 ? (
+      {open && anchor && typeof document !== 'undefined'
+        ? createPortal(
             <div
+              ref={panelRef}
+              id={panelId}
+              data-hanzo-shell=""
+              aria-label="Hanzo apps"
+              onKeyDown={onPanelKeyDown}
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 4,
-                marginBottom: 8,
+                position: 'fixed',
+                top: anchor.top,
+                left: anchor.left,
+                right: anchor.right,
+                ...PANEL,
+                zIndex: Z.popover as unknown as number,
+                boxSizing: 'border-box',
+                width: PANEL_W,
+                maxWidth: `calc(100vw - ${GAP * 2}px)`,
+                maxHeight: anchor.maxHeight,
+                overflowY: 'auto',
+                padding: 12,
+                fontFamily: CHROME.font,
               }}
             >
-              {pinned.map((a) => Tile(a, true))}
-            </div>
-          ) : null}
-
-          {/* Grid */}
-          {grid.length > 0 ? (
-            <div
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 4 }}
-            >
-              {grid.map((a) => Tile(a, false))}
-            </div>
-          ) : (
-            <div
-              style={{
-                padding: '18px 8px',
-                textAlign: 'center',
-                color: FG_DIM,
-                fontSize: FS.sm,
-              }}
-            >
-              No apps match “{query.trim()}”.
-            </div>
-          )}
-
-          {/* Footer hint */}
-          {quickSwitchKey ? (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                paddingTop: 10,
-                color: FG_DIM,
-                fontSize: FS.xs,
-              }}
-            >
-              <kbd
+              {/* Header */}
+              <div
                 style={{
-                  fontFamily: 'inherit',
-                  border: `1px solid ${BORDER}`,
-                  borderRadius: R.row,
-                  padding: '1px 6px',
-                  background: CHROME.raised,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '2px 4px 10px',
                 }}
               >
-                ⌘{quickSwitchKey.toUpperCase()}
-              </kbd>
-              <span style={{ marginLeft: 6 }}>to switch</span>
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+                <HanzoWordmark size={16} />
+                <span style={LABEL}>Apps</span>
+              </div>
+
+              {/* Filter */}
+              <input
+                ref={searchRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Filter apps…"
+                aria-label="Filter apps"
+                autoComplete="off"
+                spellCheck={false}
+                style={{
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  padding: '9px 12px',
+                  marginBottom: 10,
+                  borderRadius: R.row,
+                  border: `1px solid ${BORDER}`,
+                  background: CHROME.raised,
+                  color: FG,
+                  fontSize: FS.sm,
+                  fontFamily: 'inherit',
+                  // No `outline: 'none'` here — see AskHanzo's composer. This filter
+                  // has no <label> wrapper, so the shell's :focus-visible ring is
+                  // its only focus indicator.
+                }}
+              />
+
+              {/* Pinned row(s) — the personal portal floats to the top. */}
+              {pinned.length > 0 ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 4,
+                    marginBottom: 8,
+                  }}
+                >
+                  {pinned.map((a) => Tile(a, true))}
+                </div>
+              ) : null}
+
+              {/* Grid */}
+              {grid.length > 0 ? (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: 4,
+                  }}
+                >
+                  {grid.map((a) => Tile(a, false))}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    padding: '18px 8px',
+                    textAlign: 'center',
+                    color: FG_DIM,
+                    fontSize: FS.sm,
+                  }}
+                >
+                  No apps match “{query.trim()}”.
+                </div>
+              )}
+
+              {/* Footer hint */}
+              {quickSwitchKey ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    paddingTop: 10,
+                    color: FG_DIM,
+                    fontSize: FS.xs,
+                  }}
+                >
+                  <kbd
+                    style={{
+                      fontFamily: 'inherit',
+                      border: `1px solid ${BORDER}`,
+                      borderRadius: R.row,
+                      padding: '1px 6px',
+                      background: CHROME.raised,
+                    }}
+                  >
+                    ⌘{quickSwitchKey.toUpperCase()}
+                  </kbd>
+                  <span style={{ marginLeft: 6 }}>to switch</span>
+                </div>
+              ) : null}
+            </div>,
+            document.body
+          )
+        : null}
     </div>
   )
 }

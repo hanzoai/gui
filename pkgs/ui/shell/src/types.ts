@@ -1,240 +1,23 @@
-// Nav view-model types for the shell's tenant surfaces. These are the shell's
-// OWN display shape — what the app-switcher / org dropdown actually render —
-// intentionally decoupled from @hanzo/iam's billing/identity DTOs. The shell
-// needs a lightweight view, not the full IAM record; a host maps its IAM user
-// into this shape at the boundary.
-export type TenantUser = {
-  id: string
+// Nav view-model types for the shell's signed-in chrome. These are the shell's
+// OWN display shape — what the account menu and the org switcher actually
+// render — intentionally decoupled from @hanzo/iam's billing/identity DTOs. The
+// shell needs a lightweight view, not the full IAM record; a host maps its IAM
+// user into this shape at the boundary.
+
+/** The signed-in person, as the chrome shows them. */
+export type HanzoUser = {
   name?: string
-  displayName?: string
   email?: string
   avatar?: string
 }
 
-export type TenantOrg = {
+/** An organization the signed-in person can act as. */
+export type HanzoOrg = {
   id: string
   name: string
   slug?: string
   role?: string
 }
-
-export type TenantApp = {
-  id: string
-  label: string
-  href: string
-  icon?: React.ReactNode
-  description?: string
-}
-
-export type TenantMarkProps = {
-  size?: number
-  className?: string
-  brandMenu?: boolean
-  animate?: boolean
-}
-
-export type TenantShellProps = {
-  /** Current app name shown in breadcrumb */
-  currentApp: string
-  /** Current app id – used to suppress showing current app in switcher */
-  currentAppId?: string
-  /** User from IAM */
-  user?: TenantUser
-  /** Orgs the user belongs to */
-  organizations?: TenantOrg[]
-  /** Currently active org id */
-  currentOrgId?: string
-  /** Called when user selects a different org */
-  onOrgSwitch?: (orgId: string) => void
-  /** Called when user clicks sign out */
-  onSignOut?: () => void
-  /** Override the default Hanzo apps list */
-  apps?: TenantApp[]
-  /** Extra content rendered in header right-side */
-  headerRight?: React.ReactNode
-  /** Settings URL (defaults to IAM /account) */
-  settingsHref?: string
-  /** Called when settings icon is clicked (overrides href navigation) */
-  onSettingsClick?: () => void
-  /** Hide the hard-refresh button */
-  hideHardRefresh?: boolean
-  /** Hide the settings button */
-  hideSettings?: boolean
-  /** Sidebar content */
-  children?: React.ReactNode
-}
-
-export const DEFAULT_TENANT_APPS: TenantApp[] = [
-  // ── Core ──
-  {
-    id: 'account',
-    label: 'Account',
-    href: 'https://hanzo.id/account',
-    description: 'Profile, orgs & referrals',
-  },
-  {
-    id: 'billing',
-    label: 'Billing',
-    href: 'https://billing.hanzo.ai',
-    description: 'Subscriptions & usage',
-  },
-  {
-    id: 'console',
-    label: 'Console',
-    href: 'https://console.hanzo.ai',
-    description: 'API keys & projects',
-  },
-
-  // ── AI ──
-  {
-    id: 'chat',
-    label: 'Chat',
-    href: 'https://hanzo.chat',
-    description: 'AI chat & models',
-  },
-  {
-    id: 'flow',
-    label: 'Flow',
-    href: 'https://flow.hanzo.ai',
-    description: 'Visual workflow builder',
-  },
-  {
-    id: 'bot',
-    label: 'Bot',
-    href: 'https://hanzo.bot',
-    description: 'AI bot platform',
-  },
-
-  // ── Observability ──
-  {
-    id: 'o11y',
-    label: 'O11y',
-    href: 'https://o11y.hanzo.ai',
-    description: 'Traces, logs & metrics',
-  },
-  {
-    id: 'sentry',
-    label: 'Sentry',
-    href: 'https://sentry.hanzo.ai',
-    description: 'Error & crash tracking',
-  },
-  {
-    id: 'insights',
-    label: 'Insights',
-    href: 'https://insights.hanzo.ai',
-    description: 'Product analytics & flags',
-  },
-  {
-    id: 'analytics',
-    label: 'Analytics',
-    href: 'https://analytics.hanzo.ai',
-    description: 'Web analytics',
-  },
-
-  // ── Infrastructure ──
-  {
-    id: 'platform',
-    label: 'Platform',
-    href: 'https://platform.hanzo.ai',
-    description: 'Deploy & scale services',
-  },
-  {
-    id: 'cloud',
-    label: 'Cloud',
-    href: 'https://cloud.hanzo.ai',
-    description: 'Cloud infrastructure',
-  },
-  {
-    id: 'storage',
-    label: 'Storage',
-    href: 'https://s3.hanzo.ai',
-    description: 'S3 object storage',
-  },
-  {
-    id: 'kms',
-    label: 'KMS',
-    href: 'https://kms.hanzo.ai',
-    description: 'Secrets & key management',
-  },
-  {
-    id: 'dns',
-    label: 'DNS',
-    href: 'https://dns.hanzo.ai',
-    description: 'DNS management',
-  },
-  {
-    id: 'registry',
-    label: 'Registry',
-    href: 'https://oci.hanzo.ai',
-    description: 'Container registry',
-  },
-
-  // ── Apps ──
-  {
-    id: 'commerce',
-    label: 'Commerce',
-    href: 'https://commerce.hanzo.ai',
-    description: 'Payments & storefront',
-  },
-  {
-    id: 'base',
-    label: 'Base',
-    href: 'https://base.hanzo.ai',
-    description: 'Backend-as-a-Service',
-  },
-  {
-    id: 'search',
-    label: 'Search',
-    href: 'https://search.hanzo.ai',
-    description: 'Full-text search',
-  },
-  {
-    id: 'auto',
-    label: 'Auto',
-    href: 'https://auto.hanzo.ai',
-    description: 'Workflow automation',
-  },
-
-  // ── Business ──
-  {
-    id: 'team',
-    label: 'Team',
-    href: 'https://hanzo.team',
-    description: 'Team collaboration',
-  },
-  {
-    id: 'sign',
-    label: 'Sign',
-    href: 'https://sign.hanzo.ai',
-    description: 'Document signing',
-  },
-  {
-    id: 'dataroom',
-    label: 'Dataroom',
-    href: 'https://dataroom.hanzo.ai',
-    description: 'Secure deal rooms',
-  },
-  {
-    id: 'captable',
-    label: 'Cap Table',
-    href: 'https://captable.hanzo.ai',
-    description: 'Equity management',
-  },
-
-  // ── Content & Support ──
-  {
-    id: 'docs',
-    label: 'Docs',
-    href: 'https://docs.hanzo.ai',
-    description: 'Documentation',
-  },
-  {
-    id: 'status',
-    label: 'Status',
-    href: 'https://status.hanzo.ai',
-    description: 'System status',
-  },
-]
 
 /**
  * Per-org domain mapping.
@@ -262,8 +45,7 @@ export type OrgDomains = {
   s3: string
   kms: string
   dns: string
-  /** Absent for a brand that runs no registry. */
-  registry?: string
+  registry: string
   // Apps
   commerce: string
   base: string
@@ -298,7 +80,7 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
     s3: 'https://s3.hanzo.ai',
     kms: 'https://kms.hanzo.ai',
     dns: 'https://dns.hanzo.ai',
-    registry: 'https://oci.hanzo.ai',
+    registry: 'https://registry.hanzo.ai',
     commerce: 'https://commerce.hanzo.ai',
     base: 'https://base.hanzo.ai',
     search: 'https://search.hanzo.ai',
@@ -326,8 +108,9 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
     platform: 'https://platform.lux.network',
     storage: 'https://s3.lux.network',
     s3: 'https://s3.lux.network',
-    kms: 'https://kms.lux.network',
+    kms: 'https://kms.lux.cloud',
     dns: 'https://dns.lux.network',
+    registry: 'https://registry.lux.network',
     commerce: 'https://commerce.lux.network',
     base: 'https://base.lux.network',
     search: 'https://search.lux.network',
@@ -357,6 +140,7 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
     s3: 'https://s3.zoo.ngo',
     kms: 'https://kms.zoo.network',
     dns: 'https://dns.zoo.ngo',
+    registry: 'https://registry.zoo.ngo',
     commerce: 'https://commerce.zoo.ngo',
     base: 'https://base.zoo.ngo',
     search: 'https://search.zoo.ngo',
@@ -386,6 +170,7 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
     s3: 'https://s3.pars.network',
     kms: 'https://kms.pars.network',
     dns: 'https://dns.pars.network',
+    registry: 'https://registry.pars.network',
     commerce: 'https://commerce.pars.network',
     base: 'https://base.pars.network',
     search: 'https://search.pars.network',
@@ -397,110 +182,4 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
     docs: 'https://docs.pars.network',
     status: 'https://status.pars.network',
   },
-}
-
-/** Get apps list with org-aware URLs */
-export function getAppsForOrg(orgSlug: string): TenantApp[] {
-  const d = ORG_DOMAINS[orgSlug] || ORG_DOMAINS.hanzo
-  return [
-    // Core
-    {
-      id: 'account',
-      label: 'Account',
-      href: `${d.iam}/account`,
-      description: 'Profile, orgs & referrals',
-    },
-    {
-      id: 'billing',
-      label: 'Billing',
-      href: d.billing,
-      description: 'Subscriptions & usage',
-    },
-    {
-      id: 'console',
-      label: 'Console',
-      href: d.console,
-      description: 'API keys & projects',
-    },
-    // AI
-    { id: 'chat', label: 'Chat', href: d.chat, description: 'AI chat & models' },
-    { id: 'flow', label: 'Flow', href: d.flow, description: 'Visual workflow builder' },
-    { id: 'bot', label: 'Bot', href: d.bot, description: 'AI bot platform' },
-    // Observability
-    { id: 'o11y', label: 'O11y', href: d.o11y, description: 'Traces, logs & metrics' },
-    {
-      id: 'sentry',
-      label: 'Sentry',
-      href: d.sentry,
-      description: 'Error & crash tracking',
-    },
-    {
-      id: 'insights',
-      label: 'Insights',
-      href: d.insights,
-      description: 'Product analytics & flags',
-    },
-    {
-      id: 'analytics',
-      label: 'Analytics',
-      href: d.analytics,
-      description: 'Web analytics',
-    },
-    // Infrastructure
-    {
-      id: 'platform',
-      label: 'Platform',
-      href: d.platform,
-      description: 'Deploy & scale services',
-    },
-    { id: 'cloud', label: 'Cloud', href: d.cloud, description: 'Cloud infrastructure' },
-    {
-      id: 'storage',
-      label: 'Storage',
-      href: d.storage,
-      description: 'S3 object storage',
-    },
-    { id: 'kms', label: 'KMS', href: d.kms, description: 'Secrets & key management' },
-    { id: 'dns', label: 'DNS', href: d.dns, description: 'DNS management' },
-    // A brand that runs no registry gets no entry, rather than a link to a
-    // host that does not resolve.
-    ...(d.registry
-      ? [
-          {
-            id: 'registry',
-            label: 'Registry',
-            href: d.registry,
-            description: 'Container registry',
-          },
-        ]
-      : []),
-    // Apps
-    {
-      id: 'commerce',
-      label: 'Commerce',
-      href: d.commerce,
-      description: 'Payments & storefront',
-    },
-    { id: 'base', label: 'Base', href: d.base, description: 'Backend-as-a-Service' },
-    { id: 'search', label: 'Search', href: d.search, description: 'Full-text search' },
-    { id: 'auto', label: 'Auto', href: d.auto, description: 'Workflow automation' },
-    // Business
-    { id: 'team', label: 'Team', href: d.team, description: 'Team collaboration' },
-    { id: 'sign', label: 'Sign', href: d.sign, description: 'Document signing' },
-    {
-      id: 'dataroom',
-      label: 'Dataroom',
-      href: d.dataroom,
-      description: 'Secure deal rooms',
-    },
-    {
-      id: 'captable',
-      label: 'Cap Table',
-      href: d.captable,
-      description: 'Equity management',
-    },
-    // Content
-    { id: 'docs', label: 'Docs', href: d.docs, description: 'Documentation' },
-    { id: 'status', label: 'Status', href: d.status, description: 'System status' },
-  ]
 }

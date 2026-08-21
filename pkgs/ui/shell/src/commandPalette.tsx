@@ -15,7 +15,7 @@
  *   └────────────────────────────────┘
  *
  * Two palettes render this: `HanzoCommandPalette` (public header — the products
- * taxonomy + Ask AI) and `TenantCommandPalette` (signed-in apps — cross-app
+ * taxonomy + Ask AI) and `OrgCommandPalette` (signed-in apps — cross-app
  * commands). They differ ONLY in what fills the list and how it is narrowed;
  * the scrim, the frame, the field, the row, the roving selection and the ⌘K
  * binding are this file, once, so the two can never drift into looking or

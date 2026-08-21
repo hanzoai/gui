@@ -18,7 +18,8 @@ Report privately using **GitHub's private vulnerability reporting**:
    (https://github.com/hanzoai/gui/security/advisories/new)
 2. Describe the issue, affected versions, and a proof-of-concept if you have one.
 
-If you can't use GitHub advisories, email **security@hanzo.ai** with the details.
+If you can't use GitHub advisories, email **security@hanzogui.dev** (or
+natewienert@gmail.com) with the details.
 
 We aim to acknowledge reports within 3 business days and to ship a fix or
 mitigation for confirmed high/critical issues as quickly as we reasonably can.
@@ -29,7 +30,7 @@ We're happy to credit you in the advisory unless you'd prefer to stay anonymous.
 In scope:
 
 - The published `@hanzogui/*` / `hanzogui` npm packages.
-- The gui.hanzo.ai web application and its API endpoints (auth, payments,
+- The hanzogui.dev web application and its API endpoints (auth, payments,
   account/team management).
 - This repository's CI/CD and release/publish pipeline.
 
@@ -39,7 +40,7 @@ Out of scope:
   (please report those upstream; Dependabot tracks them here).
 - Findings that require a compromised developer machine, social engineering, or
   physical access.
-- Volumetric / denial-of-service testing against gui.hanzo.ai.
+- Volumetric / denial-of-service testing against hanzogui.dev.
 
 ## Handling secrets
 

@@ -11,7 +11,7 @@
 // An app that wants no persistence at all just passes `consent="granted"` or
 // `consent="denied"` and never calls `setConsent`.
 
-import type { StoredConsent, TelemetryConsent } from './types.js'
+import type { StoredConsent, TelemetryConsent } from './types'
 
 const KEY = 'hz_consent'
 

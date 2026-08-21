@@ -10,12 +10,13 @@ import {
 } from '~/shared/types/subscription'
 
 /**
- * GitHub usernames allowed to test the purchase flow while holding Pro. These
- * users bypass the active-subscription check, unlock the DEV_TEST_99 coupon
- * (99% off), and may repurchase the same domain. Empty, so no account
- * qualifies.
+ * GitHub usernames that are allowed to test the purchase flow even if they already have Pro.
+ * These users can:
+ * - See the checkout flow even with an active subscription
+ * - Use the DEV_TEST_99 coupon for 99% off test purchases
+ * - Purchase multiple times to the same domain (for testing)
  */
-export const DEVELOPER_GITHUB_USERNAMES: readonly string[] = []
+export const DEVELOPER_GITHUB_USERNAMES = ['natew'] as const
 
 /**
  * Check if a subscription has specific product access
@@ -99,7 +100,9 @@ const calculateTeamSeats = (subscriptions: UserContextType['subscriptions']): nu
  */
 const isDeveloperUser = (userData?: UserContextType): boolean => {
   if (!userData?.githubUsername) return false
-  return DEVELOPER_GITHUB_USERNAMES.includes(userData.githubUsername.toLowerCase())
+  return DEVELOPER_GITHUB_USERNAMES.includes(
+    userData.githubUsername.toLowerCase() as (typeof DEVELOPER_GITHUB_USERNAMES)[number]
+  )
 }
 
 /**

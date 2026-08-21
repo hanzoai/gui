@@ -11,7 +11,7 @@
 // not happen and the app is untouched.
 
 import { useEffect } from 'react'
-import type { RedactionPolicy, Telemetry } from './types.js'
+import type { RedactionPolicy, Telemetry } from './types'
 
 type IdleWindow = Window & {
   requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
@@ -33,6 +33,12 @@ export function useReplay(
 
     const start = (): void => {
       if (cancelled) return
+      // ^0.1.6 is a FLOOR, not a preference: the pointer position ($x/$y and the
+      // viewport it is relative to) is what a heat map is drawn from, and observe
+      // did not measure it before 0.1.6. An older observe still loads, still
+      // annotates, and still reports every click — so the engine looks healthy
+      // while the heat map stays empty, which is exactly how this went unnoticed
+      // until the warehouse showed zero positions against 48 clicks.
       import('@hanzo/observe')
         .then(({ observe, wireProps }) => {
           if (cancelled) return

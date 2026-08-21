@@ -1,6 +1,6 @@
 {
   "name": "@hanzo/gui",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "description": "Style and UI for React (web and native) meet an optimizing compiler",
   "repository": {
@@ -153,6 +153,7 @@
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/switch": "workspace:*",
     "@hanzogui/tabs": "workspace:*",
+    "@hanzogui/telemetry": "workspace:*",
     "@hanzogui/text": "workspace:*",
     "@hanzogui/theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",

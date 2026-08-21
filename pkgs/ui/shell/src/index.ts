@@ -1,30 +1,20 @@
-export { TenantHeader } from './TenantHeader'
-export { TenantMark } from './TenantMark'
-export { AppSwitcher } from './AppSwitcher'
+// ── Signed-in org chrome ──
+export { OrgHeader } from './OrgHeader'
+export type { OrgHeaderProps, OrgSearch } from './OrgHeader'
 export { UserOrgDropdown } from './UserOrgDropdown'
 export { UserAvatar } from './UserAvatar'
 export type { UserAvatarProps } from './UserAvatar'
 export { BeamAvatar } from './BeamAvatar'
 export type { BeamAvatarProps } from './BeamAvatar'
-export { useTenantAuth } from './useTenantAuth'
-export { TenantCommandPalette } from './TenantCommandPalette'
+export { OrgCommandPalette } from './OrgCommandPalette'
 export type {
-  CommandItem as TenantCommandItem,
-  TenantCommandPaletteProps,
-} from './TenantCommandPalette'
-export type {
-  TenantApp,
-  TenantOrg,
-  TenantUser,
-  TenantShellProps,
-  TenantMarkProps,
-  OrgDomains,
-} from './types'
-export { DEFAULT_TENANT_APPS, ORG_DOMAINS, getAppsForOrg } from './types'
+  CommandItem as OrgCommandItem,
+  OrgCommandPaletteProps,
+} from './OrgCommandPalette'
+export type { HanzoUser, HanzoOrg, OrgDomains } from './types'
+export { ORG_DOMAINS } from './types'
 
-// ── Unified Hanzo app-switcher (the 9-dot cross-app launcher + top bar) ──
-export { HanzoAppBar } from './HanzoAppBar'
-export type { HanzoAppBarProps, HanzoAppBarAction, HanzoUser } from './HanzoAppBar'
+// ── Unified Hanzo app-switcher (the 9-dot cross-app launcher) ──
 export { HanzoAppLauncher } from './HanzoAppLauncher'
 export type { HanzoAppLauncherProps } from './HanzoAppLauncher'
 export { HANZO_APPS, getHanzoApps, findHanzoApp, HanzoGridIcon } from './hanzo-apps'
@@ -109,12 +99,6 @@ export type { ProductsMegaMenuProps } from './ProductsMegaMenu'
 export { HanzoCommandPalette, HanzoCommandTrigger } from './HanzoCommandPalette'
 export type { HanzoCommandPaletteProps, HanzoCommandMode } from './HanzoCommandPalette'
 export { filterProducts } from './productSearch'
-export { HanzoAppHeader } from './HanzoAppHeader'
-export type {
-  HanzoAppHeaderProps,
-  HanzoAppHeaderAction,
-  HanzoContextNode,
-} from './HanzoAppHeader'
 export { HanzoFooter } from './HanzoFooter'
 export type { HanzoFooterProps } from './HanzoFooter'
 export { HanzoPreFooterCTA } from './HanzoPreFooterCTA'

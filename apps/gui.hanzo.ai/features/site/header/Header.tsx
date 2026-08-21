@@ -945,7 +945,7 @@ const HeaderMenuMoreContents = () => {
         <HeadAnchor grid>Blog</HeadAnchor>
       </Link>
 
-      <Link asChild href="https://github.com/sponsors/hanzoai">
+      <Link asChild href="https://github.com/sponsors/natew">
         <HeadAnchor grid target="_blank">
           Sponsor
           <YStack display={'inline-block' as any} y={0} my={-20} ml={12} opacity={0.8}>

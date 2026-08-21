@@ -14,8 +14,23 @@ const TRIGGER_NAME = 'SelectTrigger'
 
 export type SelectTriggerProps = SelectScopedProps<ListItemProps>
 
+// Guarded on matchMedia, not on window. A DOM without one is not hypothetical:
+// jsdom defines `window` and does NOT define `window.matchMedia`, so testing
+// `window` alone answered "yes, there is a browser here" and then called a
+// method that is not there. Because this runs at MODULE SCOPE, the TypeError
+// landed on the import — before any test body, and unreachable by a beforeEach
+// polyfill — so every jsdom consumer of this package had to shim matchMedia in
+// setup just to `import` a Select. This repo's own suites do exactly that
+// (pkgs/vite-plugin-internal/src/test-setup.ts installs one), which is why the
+// break was invisible here and load-bearing everywhere else.
+//
+// A DOM that cannot answer the query is treated as coarse, matching the
+// no-window branch: assuming touch grows the hit target, and being generous
+// with a target is the safe way to be wrong.
 const isPointerCoarse =
-  typeof window !== 'undefined' && process.env.GUI_TARGET === 'web'
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  process.env.GUI_TARGET === 'web'
     ? window.matchMedia('(pointer:coarse)').matches
     : true
 

@@ -217,7 +217,7 @@ export interface HanzoHeaderProps {
    */
   identitySlot?: React.ReactNode
   /**
-   * Turn the PRIMARY action into the doors menu instead of a link.
+   * Turn the PRIMARY action into the Try Hanzo menu instead of a link.
    *
    * "Try Hanzo" as one href answers a question nobody asked — a visitor wants
    * to build an app, or keep data somewhere, or chat, or code from a terminal,
@@ -226,7 +226,7 @@ export interface HanzoHeaderProps {
    * surface's `primaryCTA.href` stays the fallback the pill still carries, so
    * the control is a real link before hydration and for anyone without JS.
    *
-   * DESKTOP ONLY, deliberately. The mobile sheet is ALREADY a list of doors —
+   * DESKTOP ONLY, deliberately. The mobile sheet is ALREADY a list of products —
    * it opens the Hanzo menu and every product category inline — so a menu in it
    * would be a menu inside a menu, and the phone's big pill would stop being
    * the one thing on the sheet that just goes somewhere. On a phone the sheet
@@ -522,7 +522,7 @@ export function HanzoHeader({
           fontFamily: CHROME.font,
         }}
       >
-        {/* ── Brand — the name of the place, and the door to the rest of it ── */}
+        {/* ── Brand — the name of the place, and the entry point to the rest ── */}
         {brandSlot ?? (
           // The brand is the way home, so on the home page it is not a link
           // either — same rule as every other control that names this place.
@@ -647,7 +647,7 @@ export function HanzoHeader({
         {...menu.panel}
       />
 
-      {/* ── The doors, behind the primary action (opt-in via tryMenu) ── */}
+      {/* ── The products, behind the primary action (opt-in via tryMenu) ── */}
       {tryMenu ? (
         <TryHanzoMenu
           id="hanzo-try-menu"
@@ -755,7 +755,7 @@ function MenuTrigger({
 }
 
 /**
- * The brand: the name of the place, the way home, and the door to the rest of
+ * The brand: the name of the place, the way home, and the entry point to the rest of
  * the estate — ONE control, because it was two and they were the same word.
  *
  * The bar read "Hanzo AI" and then "Hanzo ⌄" beside it, a stutter no amount of
@@ -1232,7 +1232,7 @@ function CTA({
 }
 
 /**
- * The primary action, opening the doors instead of taking one.
+ * The primary action, opening the menu instead of following one link.
  *
  * It is an `<a>` carrying the surface's own `primaryCTA.href`, NOT a button:
  * the markup ships from a static export and is read before React runs, so the
@@ -1260,7 +1260,7 @@ function CTATrigger({
   const { onClick, ...pointer } = reach
   // On the surface the action names, there is no href to fall back to — so it
   // is a BUTTON, which keeps it focusable and operable while offering nobody a
-  // link back to this page. The doors still open.
+  // link back to this page. The menu still opens.
   if (current) {
     return (
       <button
@@ -1456,7 +1456,7 @@ function MobileSheet({
       >
         {/* The brand is the WORDMARK, one row up in the bar this sheet hangs
             from, and it already goes home. A second row saying the same word
-            under it is the same door twice — and it was the literal string
+            under it is the same control twice — and it was the literal string
             "Hanzo", so a Lux or Zoo surface said Hanzo too. The Meet menu it
             opened is desktop chrome, which this file's own `tryMenu` note
             already says of the sibling control: on a phone the sheet IS the

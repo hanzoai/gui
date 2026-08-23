@@ -111,7 +111,7 @@ by construction; nothing about it is per-surface.
 <HanzoHeader
   surface="ai"                          // id · hostname · or a HanzoSurface object
   productsTaxonomy={HANZO_PRODUCT_CATEGORIES}  // opt into the rich Products menu
-  tryMenu                               // primary action opens the doors
+  tryMenu                               // primary action opens the menu
   auth={{ user, onSignIn, onSignOut }}  // the identity cluster
   commands={myPages}                    // what ⌘K should also find
 />

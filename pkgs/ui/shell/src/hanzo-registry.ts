@@ -375,7 +375,7 @@ export const HANZO_FLAGSHIP_PUBLIC: HanzoProduct[] = HANZO_FLAGSHIP.map((p) => (
   href: p.page ?? p.href,
 }))
 
-/* ── Universal "Try Hanzo" menu — the doors, identical on every property ───── */
+/* ── Universal "Try Hanzo" menu — the products, identical on every property ── */
 
 /**
  * What the primary action opens.
@@ -383,7 +383,7 @@ export const HANZO_FLAGSHIP_PUBLIC: HanzoProduct[] = HANZO_FLAGSHIP.map((p) => (
  * "Try Hanzo" used to be one link to the console, which answered a question
  * nobody asked: a visitor arrives wanting to build an app, or to keep data
  * somewhere, or to chat, or to code from a terminal — and the console is only
- * one of those. So the action names the doors and lets the visitor pick.
+ * one of those. So the action names the products and lets the visitor pick.
  *
  * It is NOT a second Meet Hanzo. Meet Hanzo answers "what IS Hanzo" and carries
  * the whole ecosystem, taglines and all; this answers "start what?", and holds
@@ -945,7 +945,7 @@ export const HANZO_SURFACES: HanzoSurface[] = [
     host: 'hanzo.ai',
     productId: 'ai',
     // The company, not the word. "Hanzo" alone is the family name every product
-    // below shares — Hanzo Chat, Hanzo App, Hanzo Cloud — so on the front door
+    // below shares — Hanzo Chat, Hanzo App, Hanzo Cloud — so on the storefront
     // it named the family rather than the firm.
     brandName: 'Hanzo AI',
     localNav: [
@@ -958,7 +958,7 @@ export const HANZO_SURFACES: HanzoSurface[] = [
     ],
     secondaryCTA: { id: 'docs', label: 'Documentation', href: U.docs },
     // "Try Hanzo", not "Open Chat" — the storefront's primary action names the
-    // INVITATION, and chat is only one of the doors behind it (`tryMenu` opens
+    // INVITATION, and chat is only one of the products behind it (`tryMenu` opens
     // the rest). This is the label the audited hanzo.ai bar carries.
     primaryCTA: { id: 'try', label: 'Try Hanzo', href: U.chat },
     preFooter: {

@@ -40,7 +40,7 @@ export interface TelemetryErrorContext {
 
 /** Everything you may override. Every field has a working default. */
 export interface TelemetryConfig {
-  /** The ONE Hanzo API front door. Defaults to `https://api.hanzo.ai` (or
+  /** The ONE Hanzo API host. Defaults to `https://api.hanzo.ai` (or
    *  `''` for same-origin cookie apps served behind the same edge). There is
    *  exactly one ingest host — the three lenses are views on the one stream,
    *  never three endpoints. */

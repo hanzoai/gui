@@ -4,7 +4,7 @@
  * HanzoCommandPalette — the public header's ⌘K palette, in two modes.
  *
  *   Filter …… search THE SITE. Not one shelf of it: the pages the header
- *             already links, the doors the primary action opens, the installs,
+ *             already links, the products the primary action opens, the installs,
  *             and the cloud taxonomy — one index, ranked by `search`.
  *   Ask AI …… hand the question to Hanzo Chat instead. Always reachable as the
  *             last row too, so no query is ever a dead end.
@@ -90,7 +90,7 @@ type Entry = HanzoCommandEntry & { match?: Match; ask?: boolean }
 const LIST_ID = 'hanzo-palette-list'
 const rowId = (i: number) => `hanzo-palette-row-${i}`
 
-/** The doors and the downloads, which every Hanzo surface can open. */
+/** The products and the downloads, which every Hanzo surface can open. */
 function doors(): HanzoCommandEntry[] {
   return TRY_HANZO_GROUPS.flatMap((group) =>
     group.items.map((item) => ({
@@ -162,7 +162,7 @@ export function HanzoCommandPalette({
   }, [open])
 
   // ONE index, built once, in the order a reader who has typed NOTHING should
-  // meet it: the doors first, because "open something" is why most people
+  // meet it: the products first, because "open something" is why most people
   // summon this; then the site's own pages; then the ~97 primitives, which are
   // the long tail. Once a query arrives the order is the ranking's, so this is
   // only ever the resting shape.

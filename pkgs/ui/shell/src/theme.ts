@@ -96,9 +96,8 @@ export const CHROME = {
    * `sans-serif` ends it, because the one thing this must never do is fall
    * through to the browser default, which is a serif.
    *
-   * It read `--hz-font-sans` first, a name only this kit ever wrote. The token
-   * names the ROLE, not the kit and not the face, so there is one name for it
-   * across the estate.
+   * ONE name, and it names the ROLE — not the kit, not the face. A token spelled
+   * after either is a lie the next typeface makes true.
    *
    * Applied as an inline `fontFamily`, which beats the app's @theme token, so
    * this MUST stay a var() indirection or it silently un-brands every surface

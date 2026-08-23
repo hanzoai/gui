@@ -117,7 +117,7 @@ const CSS = [
   // corners travel further than the eye can follow — so it fades and drops the
   // 4px that reads as "this came from the edge above it".
   `@keyframes hanzo-plane-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}`,
-  // A door says where it goes once the pointer is on it. The mark leans toward
+  // A row says where it goes once the pointer is on it. The mark leans toward
   // the exit and the arrow arrives — the whole of the personality, and it
   // cannot be an inline style because both are DESCENDANTS of what is hovered.
   `[data-hanzo-shell] .hanzo-door .hanzo-door-go{opacity:0;transform:translateX(-3px);transition:opacity 140ms ease,transform 140ms ease}`,

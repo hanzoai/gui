@@ -6,7 +6,7 @@
  * "Try Hanzo" was one link to the console, which answered a question nobody
  * asked. A visitor arrives wanting to build an app, or to put data somewhere,
  * or to chat, or to code from a terminal; the console is one of those. So the
- * action names the doors and the visitor picks.
+ * action names the products and the visitor picks.
  *
  *   ┌──────────────────────────────┬─────────────────────┐
  *   │ OPEN                         │ INSTALL             │
@@ -49,7 +49,7 @@ const INSTALL_W = 168
 /** Below this the card gives up its two columns and stacks, like the drapes do. */
 const STACK_BELOW = 900
 /**
- * How far apart the doors arrive, in ms.
+ * How far apart the rows arrive, in ms.
  *
  * Small on purpose. The cascade is meant to be felt rather than watched: at
  * 22ms thirteen rows are all in within 300ms, which still reads as one gesture.
@@ -57,7 +57,7 @@ const STACK_BELOW = 900
  */
 const CASCADE = 22
 
-/* The door's mark comes from the row itself (`HanzoLink.glyph`), resolved
+/* Each row's mark comes from the row itself (`HanzoLink.glyph`), resolved
    against the ONE table in `glyph.tsx` — the same table the launcher's tiles and
    both drapes draw from. It used to be a lookup by id against `HANZO_APPS`,
    which answered only for rows that were also launcher tiles; a row naming its
@@ -157,7 +157,7 @@ export function TryHanzoMenu({
         }}
       >
         {(() => {
-          // One counter across BOTH columns, so the doors arrive in reading order
+          // One counter across BOTH columns, so the rows arrive in reading order
           // rather than two columns racing each other.
           let seq = 0
           return [
@@ -193,14 +193,14 @@ export function TryHanzoMenu({
                           fontSize: FS.sm,
                           fontWeight: 500,
                           // Stated, not inherited: the default line box on a
-                          // flex row is tall enough to add 5px to every door,
+                          // flex row is tall enough to add 5px to every row,
                           // which over thirteen of them is a taller card for
                           // nothing a reader can see.
                           lineHeight: 1.35,
                         }}
                       >
                         {/* The rail is 18px whether or not there is a mark in it,
-                          so one door without an icon cannot shunt its label out
+                          so one row without an icon cannot shunt its label out
                           of the column the others line up on. */}
                         <span
                           aria-hidden

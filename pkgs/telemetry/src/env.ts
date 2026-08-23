@@ -1,7 +1,7 @@
 // Zero-config resolution: where telemetry goes and what it calls itself, with
 // nobody having configured anything.
 //
-// THE ONE FRONT DOOR. Everything a Hanzo surface emits — pageviews, product
+// THE ONE ENDPOINT. Everything a Hanzo surface emits — pageviews, product
 // events, exceptions, interaction capture — is POSTed to
 //
 //     POST https://api.hanzo.ai/v1/event   { batch: [Event, …] }

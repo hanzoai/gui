@@ -7,7 +7,7 @@ import { ZIndexStackContext } from '@hanzogui/z-index-stack'
 /** Telemetry posture for a gui app.
  *
  *  Omit it and you get telemetry: pageviews, unhandled errors, React render
- *  errors and interaction capture, POSTed to the one Hanzo front door
+ *  errors and interaction capture, POSTed to the one Hanzo endpoint
  *  (`api.hanzo.ai/v1/event`), with the product name inferred from the runtime
  *  and the publishable ingest key read from the environment. Nothing to wire,
  *  on web, on desktop and on native alike.

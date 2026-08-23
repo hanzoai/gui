@@ -119,17 +119,16 @@ module.exports = {
             use: ['style-loader', 'css-loader'],
           },
 
+          // Webpack 5 handles assets itself: inline under 8kB, emit a file above
+          // it — the same rule url-loader used to apply. url-loader handed
+          // css-loader an ES module namespace instead of the URL string, so
+          // every @font-face in the app resolved to url("[object Module]") and
+          // not one face ever loaded. Measured in the browser: seven faces
+          // registered, all of them `error`, and no request for any of them.
           {
-            test: /\.(gif|jpe?g|png|svg|ttf|otf|woff2?|bmp|webp|png|jpg|gif|woff|woff2)$/i,
-            use: [
-              {
-                loader: 'url-loader',
-                options: {
-                  limit: 8192,
-                },
-              },
-            ],
-            type: 'javascript/auto',
+            test: /\.(gif|jpe?g|png|svg|ttf|otf|woff2?|bmp|webp)$/i,
+            type: 'asset',
+            parser: { dataUrlCondition: { maxSize: 8192 } },
           },
         ],
       },

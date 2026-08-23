@@ -12,7 +12,7 @@
 //   product events + errors  → insights.hanzo.ai  (analytics_errors, so a funnel
 //                              drop joins to the exception behind it)
 //
-// One stream reaches all three: every event is POSTed to the ONE front door
+// One stream reaches all three: every event is POSTed to the ONE endpoint
 // (api.hanzo.ai/v1/event) and lensed server-side. Three views, one datastore,
 // one thing to configure — and by default, nothing to configure.
 

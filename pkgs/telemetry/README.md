@@ -4,7 +4,7 @@ Zero-config telemetry for any Hanzo surface — web, desktop and native.
 
 **If you mount `<GuiProvider>` from `@hanzo/gui`, you already have it.** There is
 nothing to install, import or wire: pageviews, unhandled errors, React render
-errors and interaction capture reach the one Hanzo front door, with the product
+errors and interaction capture reach the one Hanzo endpoint, with the product
 name resolved from the runtime and the ingest key read from the environment.
 
 ```tsx
@@ -53,10 +53,10 @@ wins.
 `<TelemetryProvider>` a raw one claims nothing. Those apps pass
 `telemetry={false}` until they drop their own wiring.
 
-## One door, three lenses
+## One endpoint, three lenses
 
 Everything — pageviews, product events, exceptions, interaction capture — is
-POSTed as one batched stream to the **one** Hanzo front door:
+POSTed as one batched stream to the **one** Hanzo endpoint:
 
 ```
 POST https://api.hanzo.ai/v1/event   { batch: [Event, …] }
@@ -141,8 +141,8 @@ Environment, read from `process.env` (Next), `import.meta.env` (Vite/Expo), or a
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `NEXT_PUBLIC_PUBLISHABLE_KEY` / `VITE_PUBLISHABLE_KEY` / `EXPO_PUBLIC_PUBLISHABLE_KEY` | — | Publishable `pk-…` key — **the one name**, the one KMS carries at `deploy/PUBLISHABLE_KEY` and the one `@hanzo/event` reads. Write-only and safe in a bundle. Without it a beacon is unattributed and the door refuses it. (The older `…_HANZO_INGEST_KEY` spelling is still read, second, and is being retired.) |
-| `NEXT_PUBLIC_HANZO_API_URL` / `VITE_HANZO_API_URL` | `https://api.hanzo.ai` | The one front door. |
+| `NEXT_PUBLIC_PUBLISHABLE_KEY` / `VITE_PUBLISHABLE_KEY` / `EXPO_PUBLIC_PUBLISHABLE_KEY` | — | Publishable `pk-…` key — **the one name**, the one KMS carries at `deploy/PUBLISHABLE_KEY` and the one `@hanzo/event` reads. Write-only and safe in a bundle. Without it a beacon is unattributed and the edge refuses it. (The older `…_HANZO_INGEST_KEY` spelling is still read, second, and is being retired.) |
+| `NEXT_PUBLIC_HANZO_API_URL` / `VITE_HANZO_API_URL` | `https://api.hanzo.ai` | The one ingest host. |
 | `NEXT_PUBLIC_HANZO_PRODUCT` / `VITE_HANZO_PRODUCT` | resolved from the runtime, then the hostname | Emitting surface. A Tauri window reports as `desktop` — it serves one bundle from three origins (`tauri://localhost`, `http://tauri.localhost`, the dev server), so the URL is the one thing that cannot name it. |
 | `NEXT_PUBLIC_HANZO_TELEMETRY` / `VITE_HANZO_TELEMETRY` | on | `0`/`false`/`off` is a build-time kill switch. |
 
@@ -184,7 +184,7 @@ error UI still runs. Observing must not change behavior.
 ## Composition
 
 ```
-@hanzo/event      the ONE client — batching, attribution, the wire, the door
+@hanzo/event      the ONE client — batching, attribution, the wire, the endpoint
 @hanzo/observe    the capture engine — semantics, redaction, playback stream
 @hanzogui/telemetry  ← this: the zero-config policy that wires them together
 @hanzo/ui/telemetry   re-export, so the component layer needs no new dependency

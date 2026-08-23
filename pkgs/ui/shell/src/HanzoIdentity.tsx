@@ -14,7 +14,7 @@
  * emailed-link fallback. Every method IAM has enabled — social, passkey,
  * wallet, one-time code — lives on the IAM login page, which is the only
  * surface that knows which of them are turned on today; a button here for any
- * one of them is a guess that goes stale silently. Signing up is the same door
+ * one of them is a guess that goes stale silently. Signing up is the same page
  * (IAM's page offers it), so the header never grows a second control that
  * splits one flow in two.
  *

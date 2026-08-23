@@ -5,7 +5,7 @@
 // A gui app gets telemetry for free only if the two things it never configures
 // resolve on their own: WHAT it is (`product`, which distinguishes desktop from
 // site from console in the warehouse) and WHICH ORG it belongs to (the
-// publishable ingest key, which the door HMAC-verifies to a tenant).
+// publishable ingest key, which the edge HMAC-verifies to a tenant).
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { productFromHost, runtimeProduct } from '../src/env'
@@ -51,7 +51,7 @@ describe('product', () => {
 describe('ingest key', () => {
   // PUBLISHABLE_KEY is the ONE name: KMS holds `deploy/PUBLISHABLE_KEY`, the
   // Dockerfiles pass it through, and @hanzo/event reads the same spelling. A
-  // surface that resolved no key sent unattributed beacons, which the door
+  // surface that resolved no key sent unattributed beacons, which the edge
   // refuses — silently, and invisibly until you read the warehouse.
   it('reads the canonical build-time name', () => {
     vi.stubEnv('NEXT_PUBLIC_PUBLISHABLE_KEY', 'pk_canonical')

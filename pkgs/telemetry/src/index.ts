@@ -4,7 +4,7 @@
 //   const t = useTelemetry(); t.track('plan_clicked')     // in components
 //   import { track } from '@hanzogui/telemetry'           // anywhere else
 //
-// One provider, one client, one stream to the ONE front door
+// One provider, one client, one stream to the ONE endpoint
 // (POST api.hanzo.ai/v1/event), lensed server-side into three views:
 // sentry.hanzo.ai (errors + session capture), analytics.hanzo.ai (pageviews),
 // insights.hanzo.ai (product events + analytics_errors).

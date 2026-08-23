@@ -4,7 +4,7 @@
  * MARKS — the shell's one set of line-marks, and the only place a shape is drawn.
  *
  * Every mark the chrome uses comes from here: the 9-dot launcher's tiles, the
- * doors behind the primary action, the rows of the header's nav cards, and the
+ * products behind the primary action, the rows of the header's nav cards, and the
  * rows of the Meet Hanzo drape. They were three sets before — the launcher held
  * twenty-one of its own, the drape and the cards held none — so the same product
  * was a shape in one menu and bare text in the next.
@@ -86,7 +86,7 @@ export const MARKS = {
       <path d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" />
     </>
   ),
-  /* SDKs — a package. Not braces: braces say "code", and every door in this menu
+  /* SDKs — a package. Not braces: braces say "code", and every row in this menu
      is code; what an SDK is, is a thing you install. */
   package: svg(
     <>

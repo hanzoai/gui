@@ -2,7 +2,7 @@ import { Button, Card, H2, Paragraph, Text, Theme, XStack, YStack } from 'hanzog
 
 // Proof surface for the token layer: true-black neutral ramp, one accent per
 // white-label brand (read straight from each brand's generated theme — the
-// $color9 accent slot), Geist type. Open with ?demo=BrandTokens.
+// $color9 accent slot), Zen type. Open with ?demo=BrandTokens.
 // Brand accent SoT: pkgs/core/themes/src/brands.ts.
 
 const BRANDS = ['hanzo', 'lux', 'zoo', 'pars'] as const
@@ -23,7 +23,7 @@ export function BrandTokensDemo() {
             Hanzo GUI — design tokens
           </H2>
           <Paragraph color="$color11" fontFamily="$body">
-            True-black canvas · one accent per brand · Geist type system
+            True-black canvas · one accent per brand · Zen type system
           </Paragraph>
         </YStack>
 

@@ -12,7 +12,7 @@
  * compiler still flattens to atomic CSS.
  */
 
-import { geistSans } from '@hanzogui/font-geist'
+import { zenSans } from '@hanzogui/font-zen'
 
 /** Raw neutral scale (Tailwind `neutral-*`) + the two poles. */
 export const palette = {
@@ -77,15 +77,14 @@ export const c = {
 } as const
 
 /**
- * Geist, as the rest of the fleet spells it.
+ * Zen, as the rest of the fleet spells it.
  *
  * Re-exported rather than restated: this used to carry its own copy of the
  * stack, which is how a chrome ends up one fallback out of step with the app it
- * frames. `@hanzogui/font-geist` also carries the @font-face rules that fetch
- * the bytes, so naming the family and loading it are no longer separate
- * decisions a host can get half-right.
+ * frames. The bytes come from `@hanzo/font`, which a host imports once at its
+ * entry (`import '@hanzo/font/css'`).
  */
-export const FONT: string = geistSans
+export const FONT: string = zenSans
 
 /** The ambient radial-gradient glow behind the hero (matches the site's 640px, blur-120, 16% white). */
 export const HERO_GLOW = 'radial-gradient(circle, #ffffff 0%, transparent 70%)'

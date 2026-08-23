@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@hanzogui/core": "workspace:*",
-    "@hanzogui/font-geist": "workspace:*",
+    "@hanzogui/font-zen": "workspace:*",
     "@hanzogui/input": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/stacks": "workspace:*",

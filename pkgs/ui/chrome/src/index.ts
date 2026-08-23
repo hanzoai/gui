@@ -10,7 +10,7 @@
 // there is one header, `HanzoHeader` from @hanzogui/shell, and one set of
 // tokens behind it (shell's `theme.ts`).
 //
-// Built in Gui `styled()` + a committed monochrome token module (Geist,
+// Built in Gui `styled()` + a committed monochrome token module (Zen,
 // zinc-on-black). Presentational and host-agnostic: all content and all effects
 // are injected as props / callbacks.
 
@@ -25,6 +25,6 @@ export type { HanzoWidgetProps } from './HanzoWidget'
 
 export type { NavItem, NavLink, NavColumn } from './types'
 
-// Design tokens — the monochrome palette + Geist stack, in case a host wants to
+// Design tokens — the monochrome palette + Zen stack, in case a host wants to
 // match the chrome exactly in its own sections.
 export { palette, c as chromeColors, FONT as CHROME_FONT } from './tokens'

@@ -354,8 +354,8 @@ export function HanzoHeader({
     const frame = requestAnimationFrame(measure)
     // AGAIN once the real face has loaded. The first pass runs on fallback
     // metrics, which are narrower — measured, a fresh load at 1080 found no
-    // collision, then Geist swapped in, the labels grew, and four of them
-    // overlapped with nothing left to re-check. The header's own box never
+    // collision, then the real face swapped in, the labels grew, and four of
+    // them overlapped with nothing left to re-check. The header's own box never
     // changes across that swap, so the ResizeObserver is silent for it.
     if (typeof document !== 'undefined' && document.fonts) {
       document.fonts.ready.then(() => requestAnimationFrame(measure)).catch(() => {})

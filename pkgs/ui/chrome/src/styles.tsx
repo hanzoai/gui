@@ -98,7 +98,7 @@ export { XStack, YStack, View, linkable }
 
 /* ── text ──────────────────────────────────────────────────────────────────── */
 
-/** The one Geist text base; `kind` selects the marketing type scale. */
+/** The one Zen text base; `kind` selects the marketing type scale. */
 export const Txt = styled(Text, {
   name: 'ChromeText',
   fontFamily: FONT,

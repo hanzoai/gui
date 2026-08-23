@@ -1,4 +1,4 @@
-import { geistMonoFamily, geistSansFamily } from '@hanzogui/font-geist'
+import { zenMonoFamily, zenSansFamily } from '@hanzogui/font-zen'
 import { shorthands } from '@hanzogui/shorthands'
 import { createFont, createTokens } from '@hanzogui/web'
 import { animations } from './animations'
@@ -7,7 +7,7 @@ import { animations as animationsNative } from './animations.native'
 // basic fallback theme just to have compiler load in decent tate
 export function getDefaultGuiConfig(platform: 'native' | 'web' = 'web') {
   const headingFont = createFont({
-    family: geistSansFamily,
+    family: zenSansFamily,
     size: {
       1: 15,
     },
@@ -27,7 +27,7 @@ export function getDefaultGuiConfig(platform: 'native' | 'web' = 'web') {
   })
 
   const font = createFont({
-    family: geistSansFamily,
+    family: zenSansFamily,
     size: {
       1: 15,
     },
@@ -52,7 +52,7 @@ export function getDefaultGuiConfig(platform: 'native' | 'web' = 'web') {
   // browser knows left the document on its default — a serif — while the build,
   // the typecheck and the render tests all passed.
   const monoFont = createFont({
-    family: geistMonoFamily,
+    family: zenMonoFamily,
     size: {
       1: 15,
     },

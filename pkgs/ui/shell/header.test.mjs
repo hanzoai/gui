@@ -24,17 +24,36 @@ const sources = fs
   .filter((f) => /\.tsx?$/.test(f))
   .map((f) => [f, fs.readFileSync(path.join(SRC, f), 'utf8')])
 
-test('both bars wear the plane — 60 tall, one ground, no hairline', () => {
+test('both bars — 60 tall, the plane recipe, no hairline; the public bar flush over the hero', () => {
   for (const file of ['HanzoHeader.tsx', 'OrgHeader.tsx']) {
     const src = read(file)
     assert.match(src, /const HEADER_H = 60/, `${file}: the bar is 60 tall`)
-    assert.match(src, /\.\.\.BAR,/, `${file}: the bar IS the plane's recipe`)
+    // Both wear the plane's recipe (BAR), and NEITHER draws a hairline — flush
+    // means seamless, the audited rule (a line over the boundary reads as a seam).
+    assert.match(src, /\bBAR\b/, `${file}: the bar's ground IS the plane recipe (BAR)`)
     assert.match(
       src,
       /borderBottom: '1px solid transparent'/,
       `${file}: the audited bar draws no hairline`
     )
   }
+  // OrgHeader sits over dashboard content, not a hero, so it is the plane at
+  // every scroll position — grounded always.
+  assert.match(read('OrgHeader.tsx'), /\.\.\.BAR,/, 'OrgHeader is the plane at every scroll')
+  // The PUBLIC header is flush over the hero at rest and eases the plane in on
+  // scroll (or while a drape is open). The ground is conditional on `grounded`;
+  // still never a hairline.
+  const pub = read('HanzoHeader.tsx')
+  assert.match(
+    pub,
+    /grounded \? BAR : \{ background: 'transparent' \}/,
+    'HanzoHeader is flush at rest, the plane in motion'
+  )
+  assert.match(
+    pub,
+    /const grounded = scrolled \|\| menu\.key != null \|\| mobileOpen/,
+    'grounded = scrolled, or a drape / mobile sheet open'
+  )
   // And the recipe it spreads is the one the menus wear, which is the whole
   // point of naming it: a bar and the plane hanging off it are ONE material, so
   // there is no boundary between them to see.

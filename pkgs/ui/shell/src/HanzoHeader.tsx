@@ -381,6 +381,23 @@ export function HanzoHeader({
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
+  // Flush over the hero at rest, the plane in motion. The public bar carries no
+  // ground at the very top of the page — it reads as part of the hero — then the
+  // plane eases in once the page moves, so the bar stays legible over content.
+  // It NEVER draws a hairline: flush means seamless, which is the audited rule
+  // (a line over the boundary reads as a seam). A drape or the mobile sheet
+  // forces the plane on regardless, because the bar and the plane it opens are
+  // ONE material. This is the PUBLIC header only; OrgHeader sits over dashboard
+  // content, not a hero, so it stays grounded always.
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 4)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  const grounded = scrolled || menu.key != null || mobileOpen
+
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const home = `https://${s.host}`
   // Exactly one Products affordance: with the rich menu present, drop the
@@ -493,10 +510,14 @@ export function HanzoHeader({
           // and a white line over a blurred boundary reads as a seam between
           // two surfaces rather than the edge of one. The 1px stays so the
           // 60px box and everything measured against it do not move.
+          // No hairline, ever: flush means seamless, so the bar and every plane
+          // that drops out of it stay ONE material with no boundary to see.
           borderBottom: '1px solid transparent',
-          // The bar and every plane that drops out of it are ONE material, so
-          // there is no boundary between them to see. See `BAR`.
-          ...BAR,
+          // Flush over the hero at rest → the plane eases in on scroll (or while
+          // a drape/sheet is open, so an open menu is never a transparent bar
+          // over an opaque plane). The recipe it wears is exactly `BAR`.
+          ...(grounded ? BAR : { background: 'transparent' }),
+          transition: 'background .3s ease',
           color: CHROME.fg,
           fontFamily: CHROME.font,
         }}

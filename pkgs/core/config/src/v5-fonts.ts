@@ -1,6 +1,6 @@
 import type { FillInFont, GenericFont } from '@hanzogui/core'
 import { createFont, getVariableValue, isWeb } from '@hanzogui/core'
-import { geistMonoFamily, geistSansFamily } from '@hanzogui/font-geist'
+import { zenMonoFamily, zenSansFamily } from '@hanzogui/font-zen'
 
 // `isWeb` comes from the kit, which resolves the platform through the package
 // `exports` map (`react-native` vs `browser`) — the same source `v4-fonts` uses.
@@ -101,17 +101,17 @@ export const createSystemFont = <A extends GenericFont>({
 const headingLineHeight = (size: number) =>
   Math.round(isNative ? size * 1.2 : size * 1.12 + 5)
 
-// Geist is the Hanzo typeface; `@hanzogui/font-geist` is the one place it is
-// described. The scale above stays as it is — a family is not a metric — so
-// these bind the family and inherit every size, line height and weight.
+// Zen is the Hanzo typeface; `@hanzogui/font-zen` is the one place it is named.
+// The scale above stays as it is — a family is not a metric — so these bind the
+// family and inherit every size, line height and weight.
 //
 // The families come from the package already resolved for the platform. Naming
 // them again here would be a second source of truth, and it resolved off the
 // local GUI_TARGET read below — which is only correct once something else has
 // set that variable, so an unlucky module order rendered the mono face in the
 // browser's default serif.
-const sansFamily = geistSansFamily
-const monoFamily = geistMonoFamily
+const sansFamily = zenSansFamily
+const monoFamily = zenMonoFamily
 
 export const fonts = {
   body: createSystemFont({ font: { family: sansFamily } }),

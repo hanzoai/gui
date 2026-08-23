@@ -1,5 +1,8 @@
 import { animationsMotion } from '@hanzogui/config/v5-motion'
 import { Image } from '@hanzogui/image'
+// The faces themselves. The v5 config names Zen, and this is the one place the
+// bytes are fetched — without it those names resolve to a fallback.
+import '@hanzo/font/css'
 import './_layout.css'
 import './hanzogui.generated.css'
 

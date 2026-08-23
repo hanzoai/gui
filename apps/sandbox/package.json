@@ -38,6 +38,7 @@
     "react-native-screens": "~4.23.0",
     "react-native-svg": "15.15.3",
     "react-native-web": "^0.21.0",
+    "@hanzo/font": "^1.8.0",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {

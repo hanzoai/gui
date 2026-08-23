@@ -89,23 +89,23 @@ export const CHROME = {
   fgDim: 'var(--white-45, rgb(255 255 255 / .45))',
   hover: 'var(--white-06, rgb(255 255 255 / .06))',
   /**
-   * Three sources, in order of how much they know.
-   *
-   * `--hz-font-sans` is what `@hanzogui/font-geist` publishes, so a host that
-   * installs the kit's typeface gets exactly the stack the kit resolved.
-   * `--font-sans` is what every host actually sets today — Tailwind emits it on
-   * `:root` even unconfigured, `@hanzo/brand` defines it, and apps using
-   * `next/font` point it at their own hashed family. Reading it second means the
+   * One source: `--font-sans`, the name every host already sets — Tailwind
+   * emits it on `:root` even unconfigured, `@hanzo/ui` binds it to Zen, and apps
+   * using `next/font` point it at their own hashed family. Reading it means the
    * chrome matches the page body instead of guessing at the family name.
    * `sans-serif` ends it, because the one thing this must never do is fall
    * through to the browser default, which is a serif.
+   *
+   * It read `--hz-font-sans` first, a name only this kit ever wrote. The token
+   * names the ROLE, not the kit and not the face, so there is one name for it
+   * across the estate.
    *
    * Applied as an inline `fontFamily`, which beats the app's @theme token, so
    * this MUST stay a var() indirection or it silently un-brands every surface
    * that mounts the shared chrome. Naming a family here instead would be a copy
    * of a stack this package cannot see, and it would drift.
    */
-  font: 'var(--hz-font-sans, var(--font-sans, sans-serif))',
+  font: 'var(--font-sans, sans-serif)',
 } as const
 
 /**

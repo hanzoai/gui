@@ -137,7 +137,7 @@ export function HanzoWordmark({
         // broken. At size 22 that is now ~19px: bigger than the row it leads,
         // which is the only relationship that has to hold.
         fontSize: Math.round(size * 0.86),
-        // 600 — the weight the drawn wordmark is set in (Geist Sans 600), so
+        // 600 — the weight the drawn wordmark is set in (Zen 600), so
         // the name in the corner and the name on the brand page are one piece
         // of type. 800 was heavier than anything else the house sets and read
         // as a shout rather than as a signature.

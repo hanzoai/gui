@@ -112,21 +112,50 @@ export interface HanzoProduct extends HanzoLink {
  */
 export type Stage = 'beta' | 'alpha'
 
-/** Monotonic: a reader cleared for a stage sees it and everything past it. */
+/** Monotonic: a reader cleared for a stage is cleared for everything below it. */
 const STAGE_RANK: Record<string, number> = { beta: 1, alpha: 2 }
 
 /**
- * Does a reader cleared to `stage` see this product?
+ * Being OFFERED a product and being LET IN are different questions, and a stage
+ * answers both — at different floors.
+ *
+ * One rank answered only the second, and that hides more than anyone intends: at
+ * zero clearance a beta product fails too, so marking Studio alpha also took
+ * Hanzo Bot out of every anonymous menu, hanzo.bot's own chrome included. Two
+ * products hidden to hide one.
+ *
+ * A marketing site's whole job is offering what you cannot use yet, so `see` is
+ * about SECRECY and `open` is about READINESS. Only alpha is secret; beta is
+ * advertised to everyone and entered by a customer. Released is 0 for both.
+ */
+const FLOOR: Record<Stage, { see: number; open: number }> = {
+  beta: { see: 0, open: STAGE_RANK.beta },
+  alpha: { see: STAGE_RANK.alpha, open: STAGE_RANK.alpha },
+}
+
+/**
+ * Does a reader cleared to `stage` SEE this product listed?
  *
  * Used as a filter — `HANZO_FLAGSHIP.filter(sees(stage))`. Without a clearance
- * only released products pass, so a surface that knows nothing about stages
- * shows nothing unfinished. That default is the whole point: an unreleased
- * product leaking into a public menu is the failure this guards, and it must
- * take a deliberate act to happen rather than an omission.
+ * everything but alpha passes: an unfinished product may be advertised, and an
+ * unannounced one may not. A secret leaking into a public menu is the failure
+ * this guards, and it must take a deliberate act rather than an omission.
  */
 export function sees(stage?: Stage): (p: HanzoProduct) => boolean {
   const cleared = stage ? STAGE_RANK[stage] : 0
-  return (p) => (p.stage ? STAGE_RANK[p.stage] : 0) <= cleared
+  return (p) => (p.stage ? FLOOR[p.stage].see : 0) <= cleared
+}
+
+/**
+ * Does a reader cleared to `stage` get to OPEN this product?
+ *
+ * The other half. A surface deciding whether to serve someone asks this; a menu
+ * deciding whether to draw a row asks `sees`. Nothing admits a reader it does
+ * not offer — `open` is never below `see` — so the two are safe to state apart.
+ */
+export function enters(stage?: Stage): (p: HanzoProduct) => boolean {
+  const cleared = stage ? STAGE_RANK[stage] : 0
+  return (p) => (p.stage ? FLOOR[p.stage].open : 0) <= cleared
 }
 
 export interface MeetHanzoGroup {
@@ -365,6 +394,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     tagline: 'People and AI together',
     boundary: PRODUCT_BOUNDARIES.team,
     flagship: true,
+    stage: 'beta',
   },
   {
     id: 'bot',
@@ -417,10 +447,14 @@ export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.fla
  * `HANZO_FLAGSHIP` itself is untouched, so the launcher and anything else that
  * genuinely wants the running product still has it.
  *
- * PUBLIC is meant literally, so this one is released-only and takes no
- * clearance. A caller holding a reader's clearance wants `HANZO_FLAGSHIP`
- * through `sees(stage)`; a caller reaching for the value named "public" is by
- * definition rendering to a stranger.
+ * PUBLIC is meant literally: what a STRANGER may be shown, which is everything
+ * except the unannounced. Beta is on this list on purpose — offering a thing you
+ * cannot open yet is what a marketing page is for, and whether the door lets you
+ * through is `enters`, asked by the surface rather than by the menu.
+ *
+ * A caller holding a reader's clearance wants `HANZO_FLAGSHIP` through
+ * `sees(stage)`; a caller reaching for the value named "public" is by definition
+ * rendering to a stranger.
  */
 export const HANZO_FLAGSHIP_PUBLIC: HanzoProduct[] = HANZO_FLAGSHIP.filter(sees()).map((p) => ({
   ...p,

@@ -101,7 +101,7 @@ export const Sandbox = () => {
 
   return (
     <GuiProvider config={config} defaultTheme={theme}>
-      <link href="/fonts/inter.css" rel="stylesheet" />
+      <link href="/fonts/zen.css" rel="stylesheet" />
       {/* {getStyleElement()} */}
 
       <button

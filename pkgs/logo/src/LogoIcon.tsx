@@ -22,8 +22,8 @@ export const LogoIcon = ({
     >
       <GuiIconSvg
         className="hanzogui-icon"
-        width={450 / 8 / downscale}
-        height={420 / 8 / downscale}
+        width={440 / 8 / downscale}
+        height={440 / 8 / downscale}
         color={color}
       />
     </YStack>

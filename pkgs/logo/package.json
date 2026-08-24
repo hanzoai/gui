@@ -44,9 +44,10 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
+    "@hanzo/logo": "^1.0.21",
     "@hanzogui/use-element-layout": "workspace:*",
-    "@hanzogui/web": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

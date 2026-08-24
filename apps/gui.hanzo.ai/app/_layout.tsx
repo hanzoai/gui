@@ -34,7 +34,8 @@ export default function Layout() {
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
 
-        <link rel="icon" href="/favicon.png" />
+        {/* Copied from @hanzo/logo/dist at prebuild — the mark has one home. */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta name="docsearch:language" content="en" />
         <meta name="docsearch:version" content="1.0.0,latest" />

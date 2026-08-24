@@ -89,6 +89,44 @@ export interface HanzoProduct extends HanzoLink {
   boundary: string
   /** Flagship products get the prominent top group of the mega-menu. */
   flagship?: boolean
+  /**
+   * How finished this product is. Absent means released — the common case, so
+   * shipping a product is deleting a field.
+   *
+   * The same word the platform already uses of an operation (HIP-0139 §8), and
+   * deliberately NOT the plan tier beside it in `entitlements.ts`. Those are two
+   * axes: a tier says what someone PAID for, a stage says whether the thing is
+   * FINISHED. Paying more does not make an alpha ready, and a free reader still
+   * sees every released product.
+   */
+  stage?: Stage
+}
+
+/**
+ * A product that is not yet released, named by how far along it is.
+ *
+ * Absent is the third value and the default: released. Two words rather than
+ * three because "generally available" is the state of every product that does
+ * not say otherwise, and a field nobody has to write is a field nobody can
+ * write wrong.
+ */
+export type Stage = 'beta' | 'alpha'
+
+/** Monotonic: a reader cleared for a stage sees it and everything past it. */
+const STAGE_RANK: Record<string, number> = { beta: 1, alpha: 2 }
+
+/**
+ * Does a reader cleared to `stage` see this product?
+ *
+ * Used as a filter — `HANZO_FLAGSHIP.filter(sees(stage))`. Without a clearance
+ * only released products pass, so a surface that knows nothing about stages
+ * shows nothing unfinished. That default is the whole point: an unreleased
+ * product leaking into a public menu is the failure this guards, and it must
+ * take a deliberate act to happen rather than an omission.
+ */
+export function sees(stage?: Stage): (p: HanzoProduct) => boolean {
+  const cleared = stage ? STAGE_RANK[stage] : 0
+  return (p) => (p.stage ? STAGE_RANK[p.stage] : 0) <= cleared
 }
 
 export interface MeetHanzoGroup {
@@ -286,38 +324,13 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     flagship: true,
   },
   {
-    id: 'team',
-    glyph: 'users',
-    label: 'Hanzo Team',
-    href: U.team,
-    page: `${U.ai}/team`,
-    tagline: 'People and AI together',
-    boundary: PRODUCT_BOUNDARIES.team,
-    flagship: true,
-  },
-  {
-    id: 'studio',
-    glyph: 'studio',
-    label: 'Hanzo Studio',
-    href: U.studio,
-    page: `${U.ai}/studio`,
-    // What the page it opens actually sells. It read "Models, prompts and
-    // agents", which is a different product from the one hanzo.ai/studio
-    // describes — "the visual AI engine for generative media … images, video,
-    // audio, and 3D". A menu row and its destination disagreeing about the
-    // product is worse than either sentence alone.
-    tagline: 'Visual pipelines for generative media',
-    boundary: PRODUCT_BOUNDARIES.studio,
-    flagship: true,
-  },
-  {
-    id: 'bot',
-    glyph: 'bot',
-    label: 'Hanzo Bot',
-    href: U.bot,
-    page: `${U.ai}/bot`,
-    tagline: 'Publish AI anywhere',
-    boundary: PRODUCT_BOUNDARIES.bot,
+    id: 'base',
+    glyph: 'base',
+    label: 'Hanzo Base',
+    href: U.base,
+    page: `${U.ai}/base`,
+    tagline: 'Data, auth and files',
+    boundary: PRODUCT_BOUNDARIES.base,
     flagship: true,
   },
   {
@@ -328,16 +341,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     page: `${U.ai}/cloud`,
     tagline: 'Run the platform',
     boundary: PRODUCT_BOUNDARIES.cloud,
-    flagship: true,
-  },
-  {
-    id: 'base',
-    glyph: 'base',
-    label: 'Hanzo Base',
-    href: U.base,
-    page: `${U.ai}/base`,
-    tagline: 'Data, auth and files',
-    boundary: PRODUCT_BOUNDARIES.base,
     flagship: true,
   },
   {
@@ -353,9 +356,53 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     // feature of something else.
     flagship: true,
   },
+  {
+    id: 'team',
+    glyph: 'users',
+    label: 'Hanzo Team',
+    href: U.team,
+    page: `${U.ai}/team`,
+    tagline: 'People and AI together',
+    boundary: PRODUCT_BOUNDARIES.team,
+    flagship: true,
+  },
+  {
+    id: 'bot',
+    glyph: 'bot',
+    label: 'Hanzo Bot',
+    href: U.bot,
+    page: `${U.ai}/bot`,
+    tagline: 'Publish AI anywhere',
+    boundary: PRODUCT_BOUNDARIES.bot,
+    flagship: true,
+    stage: 'beta',
+  },
+  {
+    id: 'studio',
+    glyph: 'studio',
+    label: 'Hanzo Studio',
+    href: U.studio,
+    page: `${U.ai}/studio`,
+    // What the page it opens actually sells. It read "Models, prompts and
+    // agents", which is a different product from the one hanzo.ai/studio
+    // describes — "the visual AI engine for generative media … images, video,
+    // audio, and 3D". A menu row and its destination disagreeing about the
+    // product is worse than either sentence alone.
+    tagline: 'Visual pipelines for generative media',
+    boundary: PRODUCT_BOUNDARIES.studio,
+    flagship: true,
+    stage: 'alpha',
+  },
 ]
 
-/** The flagship products (mega-menu top group + footer PRODUCTS column). */
+/**
+ * The flagship products (mega-menu top group + footer PRODUCTS column).
+ *
+ * Every flagship, at whatever stage — this is a fact about the products, not
+ * about who is looking. A surface that shows it to a reader passes it through
+ * `sees(stage)` first; the components in this package already do, defaulting to
+ * released-only.
+ */
 export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.flagship)
 
 /**
@@ -369,8 +416,13 @@ export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.fla
  *
  * `HANZO_FLAGSHIP` itself is untouched, so the launcher and anything else that
  * genuinely wants the running product still has it.
+ *
+ * PUBLIC is meant literally, so this one is released-only and takes no
+ * clearance. A caller holding a reader's clearance wants `HANZO_FLAGSHIP`
+ * through `sees(stage)`; a caller reaching for the value named "public" is by
+ * definition rendering to a stranger.
  */
-export const HANZO_FLAGSHIP_PUBLIC: HanzoProduct[] = HANZO_FLAGSHIP.map((p) => ({
+export const HANZO_FLAGSHIP_PUBLIC: HanzoProduct[] = HANZO_FLAGSHIP.filter(sees()).map((p) => ({
   ...p,
   href: p.page ?? p.href,
 }))

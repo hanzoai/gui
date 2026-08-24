@@ -46,6 +46,7 @@ import {
   type HanzoNavGroup,
   type HanzoSurface,
   type ProductCategory,
+  type Stage,
 } from './hanzo-registry'
 import {
   CHROME,
@@ -245,6 +246,16 @@ export interface HanzoHeaderProps {
    */
   auth?: HanzoAuth
   /**
+   * How unfinished a product this reader may see, passed to the Meet menu.
+   * Omitted — the default, and every signed-out visitor — is released only.
+   *
+   * Separate from `auth` on purpose. `auth` is what the header DRAWS; this is
+   * what the reader is cleared for, and the host works it out from IAM. Folding
+   * it into `auth` would make a surface that renders no identity cluster unable
+   * to state a clearance, and those are independent choices.
+   */
+  stage?: Stage
+  /**
    * `false` on a surface that carries no search at all.
    *
    * The header contributes what it renders (`chrome`) to the palette, so a
@@ -286,6 +297,7 @@ export function HanzoHeader({
   identitySlot,
   tryMenu,
   auth,
+  stage,
   search = true,
   onSearch,
   className,
@@ -644,6 +656,7 @@ export function HanzoHeader({
         anchor={HEADER_H}
         currentProductId={s.productId}
         autoFocus={!menu.hover}
+        stage={stage}
         {...menu.panel}
       />
 

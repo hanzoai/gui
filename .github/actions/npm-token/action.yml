@@ -55,49 +55,25 @@ runs:
         KMS_ENV: ${{ inputs.env }}
       run: |
         set -uo pipefail
+        # bin/kms from hanzoai/ci — the ONE implementation of "read a secret from
+        # Hanzo KMS". This action carried its own copy, as did that repo's site
+        # action and its build.yml, and all three were wrong in different ways at
+        # once: two piped the body into jq so a gateway timeout died as an
+        # unreadable parse error, and this one reported "NPM_TOKEN absent from
+        # KMS" about a token that was sealed and read clean a minute later.
+        #
+        # Fetched at v1, both hosts, because this repo is served from each.
         token=""
         if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
-          # A TIMEOUT IS NOT AN ABSENT SECRET, and this said it was. `curl -m 30`
-          # returns nothing when the edge is slow, jq then yields empty, and the
-          # message read "NPM_TOKEN absent from KMS" about a token that is sealed
-          # and reads clean the minute after. @hanzogui/shell 8.1.54 sat
-          # unpublished for a day that way, holding a dead footer link on 949
-          # pages of hanzo.ai, because the one sentence in the log named the
-          # wrong thing.
-          #
-          # Ask again on the codes that mean ask again — nothing arrived, 429,
-          # any 5xx — take 401/403/404 on the first try, and name the code when
-          # it is none of those. The wait grows, because an edge in trouble is in
-          # it for minutes.
-          ask() {  # ask <what> <url> [curl args...] -> body on stdout when 2xx
-            local what=$1 url=$2; shift 2
-            local code
-            for wait in 0 5 15 45; do
-              [ "$wait" = 0 ] || sleep "$wait"
-              # `|| code=000` on the ASSIGNMENT, not `|| echo 000` inside the
-              # substitution: -w already prints 000 when curl fails, so echoing a
-              # second one made the variable "000000", which matched no case here
-              # and turned an outage into a refusal that never retried.
-              code=$(curl -sS -m 30 -o /tmp/kms.body -w '%{http_code}' "$url" "$@") || code=000
-              case "$code" in
-                2*) cat /tmp/kms.body; return 0 ;;
-                000|429|5*) continue ;;
-                *) echo "::warning::KMS answered $code for the $what: $(head -c 200 /tmp/kms.body)" >&2; return 1 ;;
-              esac
-            done
-            echo "::warning::KMS did not answer the $what — HTTP $code over four tries. An outage, not a missing secret." >&2
-            return 1
-          }
-          access=$(ask login "${ENDPOINT}/v1/kms/auth/login" \
-            -H 'Content-Type: application/json' \
-            -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
-            | jq -r '.accessToken // empty' 2>/dev/null || true)
-          if [ -z "$access" ]; then
-            echo "::warning::KMS login yielded no accessToken at ${ENDPOINT}/v1/kms/auth/login"
+          for url in https://git.hanzo.ai/hanzoai/ci https://github.com/hanzoai/ci; do
+            git clone -q --depth 1 --branch v1 "$url" "$RUNNER_TEMP/kms-ci" 2>/dev/null \
+              && [ -x "$RUNNER_TEMP/kms-ci/bin/kms" ] && break
+            rm -rf "$RUNNER_TEMP/kms-ci"
+          done
+          if [ -x "$RUNNER_TEMP/kms-ci/bin/kms" ]; then
+            KMS_ENDPOINT="$ENDPOINT" token=$(bash "$RUNNER_TEMP/kms-ci/bin/kms" NPM_TOKEN "$KMS_ENV") || token=""
           else
-            token=$(ask secret "${ENDPOINT}/v1/kms/secrets/NPM_TOKEN?env=${KMS_ENV}" \
-              -H "Authorization: Bearer ${access}" | jq -r '.value // empty' 2>/dev/null || true)
-            [ -n "$token" ] || echo "::warning::no NPM_TOKEN value came back from KMS (env ${KMS_ENV})"
+            echo "::warning::could not fetch hanzoai/ci@v1 (bin/kms) — falling back to the repo secret"
           fi
         fi
         if [ -z "$token" ]; then

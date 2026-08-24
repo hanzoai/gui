@@ -1,8 +1,7 @@
 'use client'
 
 import '@hanzogui/core/reset.css'
-import '@hanzogui/font-inter/css/400.css'
-import '@hanzogui/font-inter/css/700.css'
+import '@hanzo/font/css'
 import '@hanzogui/polyfill-dev'
 
 import type { ReactNode } from 'react'

@@ -23,19 +23,19 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
-  const [interLoaded, interError] = useFonts({
-    Inter: require('@hanzogui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@hanzogui/font-inter/otf/Inter-Bold.otf'),
-  })
+  // No custom face on native yet: @hanzo/font ships woff2, which react-native
+  // cannot load — it wants otf/ttf. Until that package ships those, native
+  // renders in the system face rather than a borrowed one.
+  const [fontsLoaded, fontsError] = useFonts({})
 
   useEffect(() => {
-    if (interLoaded || interError) {
+    if (fontsLoaded || fontsError) {
       // Hide the splash screen after the fonts have loaded (or an error was returned) and the UI is ready.
       SplashScreen.hideAsync()
     }
-  }, [interLoaded, interError])
+  }, [fontsLoaded, fontsError])
 
-  if (!interLoaded && !interError) {
+  if (!fontsLoaded && !fontsError) {
     return null
   }
 

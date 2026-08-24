@@ -79,10 +79,11 @@ const _sheet = __ReactNativeStyleSheet.create({
   },
   "11": {
     "textTransform": "none",
-    "fontFamily": "InterBold",
+    "fontFamily": "Zen",
+    "fontWeight": "700",
     "letterSpacing": -3,
     "fontSize": 46,
-    "lineHeight": 56,
+    "lineHeight": 69,
     "marginTop": 0,
     "marginRight": 0,
     "marginBottom": 0,
@@ -90,7 +91,8 @@ const _sheet = __ReactNativeStyleSheet.create({
     "textAlign": "center"
   },
   "12": {
-    "fontFamily": "Inter",
+    "fontFamily": "Zen",
+    "fontWeight": "400",
     "letterSpacing": 0,
     "fontSize": 15,
     "lineHeight": 27,
@@ -111,7 +113,8 @@ const _sheet = __ReactNativeStyleSheet.create({
     }]
   },
   "14": {
-    "fontFamily": "Inter",
+    "fontFamily": "Zen",
+    "fontWeight": "400",
     "letterSpacing": 0,
     "fontSize": 15,
     "lineHeight": 27,
@@ -137,7 +140,8 @@ const _sheet = __ReactNativeStyleSheet.create({
     "gap": 7
   },
   "17": {
-    "fontFamily": "Inter",
+    "fontFamily": "Zen",
+    "fontWeight": "400",
     "letterSpacing": 0,
     "fontSize": 15,
     "lineHeight": 27,
@@ -776,10 +780,11 @@ const _sheet = __ReactNativeStyleSheet.create({
   },
   "11": {
     "textTransform": "none",
-    "fontFamily": "InterBold",
+    "fontFamily": "Zen",
+    "fontWeight": "700",
     "letterSpacing": -3,
     "fontSize": 46,
-    "lineHeight": 56,
+    "lineHeight": 69,
     "marginTop": 0,
     "marginRight": 0,
     "marginBottom": 0,
@@ -787,7 +792,8 @@ const _sheet = __ReactNativeStyleSheet.create({
     "textAlign": "center"
   },
   "12": {
-    "fontFamily": "Inter",
+    "fontFamily": "Zen",
+    "fontWeight": "400",
     "letterSpacing": 0,
     "fontSize": 15,
     "lineHeight": 27,
@@ -808,7 +814,8 @@ const _sheet = __ReactNativeStyleSheet.create({
     }]
   },
   "14": {
-    "fontFamily": "Inter",
+    "fontFamily": "Zen",
+    "fontWeight": "400",
     "letterSpacing": 0,
     "fontSize": 15,
     "lineHeight": 27,
@@ -834,7 +841,8 @@ const _sheet = __ReactNativeStyleSheet.create({
     "gap": 7
   },
   "17": {
-    "fontFamily": "Inter",
+    "fontFamily": "Zen",
+    "fontWeight": "400",
     "letterSpacing": 0,
     "fontSize": 15,
     "lineHeight": 27,

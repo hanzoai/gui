@@ -1,6 +1,6 @@
-import { createInterFont } from '@hanzogui/font-inter'
+import { createZenSansFont } from '@hanzogui/font-zen'
 
-export const headingFont = createInterFont({
+export const headingFont = createZenSansFont({
   size: {
     6: 15,
   },
@@ -27,16 +27,10 @@ export const headingFont = createInterFont({
     14: -5,
     15: -6,
   },
-  face: {
-    700: { normal: 'InterBold' },
-  },
 })
 
-export const bodyFont = createInterFont(
+export const bodyFont = createZenSansFont(
   {
-    face: {
-      700: { normal: 'InterBold' },
-    },
   },
   {
     sizeSize: (size) => Math.round(size * 1.1),

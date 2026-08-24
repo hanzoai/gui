@@ -72,7 +72,7 @@ export default function Community() {
                   <Card bc="transparent" p="$4" f={1}>
                     <YStack gap="$2">
                       <H3
-                        fontFamily="$silkscreen"
+                        fontFamily="$pixel"
                         size="$6"
                         color="$color"
                         cursor="pointer"
@@ -248,7 +248,7 @@ const StarterRepoCard = ({
     >
       <YStack gap="$2">
         <GithubIcon />
-        <H4 cursor="pointer" fontFamily="$silkscreen" letterSpacing={0}>
+        <H4 cursor="pointer" fontFamily="$pixel" letterSpacing={0}>
           {name}
         </H4>
       </YStack>

@@ -3,7 +3,6 @@ import { LocationNotification } from '@hanzogui/bento/component/user/preferences
 import { ThemeTint, ThemeTintAlt } from '@hanzogui/logo'
 import { Button, Paragraph, Spacer, Theme, XStack, YStack } from '@hanzo/gui'
 import { BentoLogo } from '../features/bento/BentoLogo'
-import { LoadCherryBomb } from '../features/site/fonts/LoadFonts'
 import { useSubscriptionModal } from '../features/site/purchase/useSubscriptionModal'
 import { ContainerLarge } from './Containers'
 
@@ -12,7 +11,6 @@ export const BentoHero = () => {
 
   return (
     <YStack position="relative" z={10}>
-      <LoadCherryBomb />
       <ContainerLarge>
         <XStack
           gap="$6"

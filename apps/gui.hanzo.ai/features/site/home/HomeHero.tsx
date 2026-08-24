@@ -219,7 +219,7 @@ const HeroContents = memo(function HeroContents() {
                 elevation: '$0',
               }}
             >
-              <Button.Text fontFamily="$silkscreen" fontSize="$6">
+              <Button.Text fontFamily="$pixel" fontSize="$6">
                 Start
               </Button.Text>
               {/* <YStack $group-item-press={{ scaleX: -1 }}>
@@ -277,7 +277,7 @@ const HeroContents = memo(function HeroContents() {
 const Subtitle = styled(Paragraph, {
   color: '$gray10',
   size: '$6',
-  fontFamily: '$silkscreen',
+  fontFamily: '$pixel',
   text: 'center',
   letterSpacing: -1,
 
@@ -301,7 +301,7 @@ const Subtitle = styled(Paragraph, {
 const Tag = styled(Text, {
   render: 'a',
   className: 'hero-tag text-decoration-none',
-  fontFamily: '$silkscreen',
+  fontFamily: '$pixel',
   fontSize: 'inherit' as any,
   rounded: '$2',
   px: '$1',

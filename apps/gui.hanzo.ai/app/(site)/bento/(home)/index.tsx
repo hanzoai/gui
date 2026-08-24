@@ -5,7 +5,6 @@ import { BentoStore, ComponentSection } from '~/components/BentoComponentSection
 import { ContainerLarge } from '~/components/Containers'
 import { HeadInfo } from '~/components/HeadInfo'
 import { BentoPageFrame } from '~/features/bento/BentoPageFrame'
-import { LoadCherryBomb } from '~/features/site/fonts/LoadFonts'
 import { BentoHero } from '../../../../components/BentoHero'
 
 export default function BentoPage() {
@@ -13,7 +12,6 @@ export default function BentoPage() {
 
   return (
     <>
-      <LoadCherryBomb />
 
       <HeadInfo
         title="Copy-paste UI for React Native and Web - Gui Bento"
@@ -88,7 +86,7 @@ const IntermediateCard = ({
       <YStack flex={1} gap="$2">
         <H4
           opacity={0.5}
-          fontFamily="$silkscreen"
+          fontFamily="$pixel"
           color="$color11"
           className="text-glow"
           size="$2"

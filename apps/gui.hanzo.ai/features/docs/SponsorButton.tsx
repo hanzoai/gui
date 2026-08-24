@@ -26,7 +26,7 @@ export const SponsorButton = (props: { tiny?: boolean }) => {
       chromeless={props.tiny ? true : false}
       aria-label="Support OSS development of Gui"
     >
-      <Button.Text fontFamily="$silkscreen">{props.tiny ? '' : 'Sponsor'}</Button.Text>
+      <Button.Text fontFamily="$pixel">{props.tiny ? '' : 'Sponsor'}</Button.Text>
     </Button>
   )
   return (

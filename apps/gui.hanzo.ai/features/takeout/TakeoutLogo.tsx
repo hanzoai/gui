@@ -5,7 +5,7 @@ import { useDisableMotion } from '~/hooks/useDisableMotion'
 export const TAKEOUT = ({ fontSize = 320, lineHeight = fontSize * 0.73, ...props }) => (
   <H1
     select="none"
-    fontFamily="$cherryBomb"
+    fontFamily="$heading"
     fontSize={fontSize}
     lineHeight={lineHeight}
     whiteSpace="nowrap"
@@ -25,7 +25,7 @@ export const TAKEOUT = ({ fontSize = 320, lineHeight = fontSize * 0.73, ...props
 
 export const TakeoutLogo = (props: { scale?: number }) => {
   const disableMotion = useDisableMotion()
-  const fontLoaded = useFontLoaded('Cherry Bomb')
+  const fontLoaded = useFontLoaded('Zen')
 
   return (
     <YStack

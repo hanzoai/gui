@@ -10,7 +10,7 @@ const TextInput = styled(
   GuiInput,
   {
     fontSize: 16,
-    fontFamily: '$silkscreen',
+    fontFamily: '$pixel',
     color: '$color5',
     minWidth: 0,
     borderWidth: 0,

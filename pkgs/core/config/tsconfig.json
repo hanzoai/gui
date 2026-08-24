@@ -44,12 +44,6 @@
       "path": "../colors"
     },
     {
-      "path": "../font-inter"
-    },
-    {
-      "path": "../font-silkscreen"
-    },
-    {
       "path": "../react-native-media-driver"
     },
     {

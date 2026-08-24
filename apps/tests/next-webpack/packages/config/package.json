@@ -18,7 +18,6 @@
   "dependencies": {
     "@hanzogui/animations-react-native": "workspace:*",
     "@hanzogui/config": "workspace:*",
-    "@hanzogui/font-inter": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",
     "@hanzogui/themes": "workspace:*",
     "@hanzo/gui": "workspace:*"

@@ -12,10 +12,10 @@ import {
   useDidFinishSSR,
 } from '@hanzo/gui'
 
-const families = ['silkscreen', 'mono', 'heading']
+const families = ['pixel', 'mono', 'heading']
 
 export const HeroTypography = memo(() => {
-  const [family, setFamily] = useState(`silkscreen`)
+  const [family, setFamily] = useState(`pixel`)
   const ref = useRef<any>(undefined)
   const isIntersecting = false
 
@@ -150,7 +150,7 @@ const OverlayCard = () => {
         </Paragraph>
 
         <Button aria-label="Fonts docs" als="flex-end">
-          <Button.Text fontFamily="$silkscreen">Fonts &raquo;</Button.Text>
+          <Button.Text fontFamily="$pixel">Fonts &raquo;</Button.Text>
         </Button>
       </YStack>
     </Card>

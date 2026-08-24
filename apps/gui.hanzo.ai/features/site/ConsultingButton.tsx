@@ -14,7 +14,7 @@ export const ConsultingButton = (props: ButtonProps) => {
       }}
       {...props}
     >
-      <Button.Text fontFamily="$silkscreen" fontSize={12}>
+      <Button.Text fontFamily="$pixel" fontSize={12}>
         Hire Us
       </Button.Text>
       <Button.Icon>

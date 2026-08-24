@@ -54,7 +54,7 @@ export function getDemoProps(demosOptions: DemoOptions, hasAccent = false) {
         fontSize: 14,
       }),
 
-      ...(demosOptions.headingFontFamily == '$silkscreen' && {
+      ...(demosOptions.headingFontFamily == '$pixel' && {
         fontSize: 14,
       }),
 

@@ -33,6 +33,14 @@ export const ZEN_SANS_FAMILY: string = 'Zen'
 export const ZEN_MONO_FAMILY: string = 'Zen Mono'
 
 /**
+ * The pixel face. `@hanzo/font` ships five cuts — Square, Grid, Line, Circle,
+ * Triangle — and Square is the one a UI reaches for; the others are display.
+ * This is the face that replaced Silkscreen, so the kit keeps a pixel ROLE
+ * without naming somebody else's typeface to fill it.
+ */
+export const ZEN_PIXEL_FAMILY: string = 'Zen Pixel Square'
+
+/**
  * The UI face.
  *
  * Everything after Zen is a system face, and the list ends in `sans-serif`: a
@@ -44,9 +52,14 @@ export const zenSans: string = `"${ZEN_SANS_FAMILY}", ui-sans-serif, system-ui, 
 /** The monospace face, ending in `monospace` for the same reason. */
 export const zenMono: string = `"${ZEN_MONO_FAMILY}", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace`
 
+/** The pixel face, falling back through mono — a pixel face that fails to load
+ *  should land on something monospaced, not on a proportional sans. */
+export const zenPixel: string = `"${ZEN_PIXEL_FAMILY}", "${ZEN_MONO_FAMILY}", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`
+
 /** The family names as the platform resolves them: a stack on web, a registered face on native. */
 export const zenSansFamily: string = isWeb ? zenSans : ZEN_SANS_FAMILY
 export const zenMonoFamily: string = isWeb ? zenMono : ZEN_MONO_FAMILY
+export const zenPixelFamily: string = isWeb ? zenPixel : ZEN_PIXEL_FAMILY
 
 const defaultSizes = {
   1: 11,
@@ -102,6 +115,18 @@ export const createZenSansFont = <A extends GenericFont>(
   }: SizeOpts = {}
 ): FillInFont<A, keyof typeof defaultSizes> =>
   createZenFont(zenSansFamily, font, sizeLineHeight, sizeSize) as FillInFont<
+    A,
+    keyof typeof defaultSizes
+  >
+
+export const createZenPixelFont = <A extends GenericFont>(
+  font: Partial<A> = {},
+  {
+    sizeLineHeight = (size) => Math.round(size * 1.5),
+    sizeSize = (size) => size * 1,
+  }: SizeOpts = {}
+): FillInFont<A, keyof typeof defaultSizes> =>
+  createZenFont(zenPixelFamily, font, sizeLineHeight, sizeSize) as FillInFont<
     A,
     keyof typeof defaultSizes
   >

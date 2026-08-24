@@ -134,33 +134,6 @@
       "path": "pkgs/core/floating"
     },
     {
-      "path": "pkgs/core/font-cherry-bomb"
-    },
-    {
-      "path": "pkgs/core/font-dm-sans"
-    },
-    {
-      "path": "pkgs/core/font-dm-serif-display"
-    },
-    {
-      "path": "pkgs/core/font-fira-mono"
-    },
-    {
-      "path": "pkgs/core/font-glusp"
-    },
-    {
-      "path": "pkgs/core/font-inter"
-    },
-    {
-      "path": "pkgs/core/font-munro"
-    },
-    {
-      "path": "pkgs/core/font-nohemi"
-    },
-    {
-      "path": "pkgs/core/font-silkscreen"
-    },
-    {
       "path": "pkgs/core/font-size"
     },
     {

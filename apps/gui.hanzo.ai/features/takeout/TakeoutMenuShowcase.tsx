@@ -219,7 +219,7 @@ function ProductCard() {
           className="blur-8"
           elevation="$3"
         >
-          <Paragraph size="$2" fontWeight="600" color="$white" fontFamily="$silkscreen">
+          <Paragraph size="$2" fontWeight="600" color="$white" fontFamily="$pixel">
             Nova #2847
           </Paragraph>
           <XStack items="center" justify="space-between">

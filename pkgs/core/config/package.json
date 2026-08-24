@@ -146,8 +146,6 @@
     "@hanzogui/animations-reanimated": "workspace:*",
     "@hanzogui/colors": "workspace:*",
     "@hanzogui/core": "workspace:*",
-    "@hanzogui/font-inter": "workspace:*",
-    "@hanzogui/font-silkscreen": "workspace:*",
     "@hanzogui/font-zen": "workspace:*",
     "@hanzogui/react-native-media-driver": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",

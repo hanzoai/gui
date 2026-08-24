@@ -332,10 +332,9 @@ if (media.gtLarge) {
 Available font families:
 
 - body
-- cherryBomb
 - heading
 - mono
-- silkscreen
+- pixel
 
 ## Animations
 

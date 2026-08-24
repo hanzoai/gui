@@ -85,7 +85,7 @@ const TitleLink = ({ href, children, ...props }: any) => {
       <H3 cursor="pointer" color="$color" my="$2">
         <CodeInline
           cursor="pointer"
-          fontFamily="$silkscreen"
+          fontFamily="$pixel"
           bg="$color2"
           px="$1.5"
           py="$1.5"

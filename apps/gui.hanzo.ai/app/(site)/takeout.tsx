@@ -7,7 +7,6 @@ import { getActivePromo } from '../../features/site/purchase/promoConfig'
 import { useSubscriptionModal } from '../../features/site/purchase/useSubscriptionModal'
 import { ThemeNameEffect } from '../../features/site/theme/ThemeNameEffect'
 
-import { LoadCherryBomb } from '~/features/site/fonts/LoadFonts'
 import { ScreenshotGallery } from '~/features/takeout/ScreenshotGallery'
 import { TakeoutBentoFeatures } from '~/features/takeout/TakeoutBentoFeatures'
 // import { TakeoutGlow } from '~/features/takeout/TakeoutGlow'
@@ -24,7 +23,6 @@ export default function TakeoutPageNew() {
   return (
     <YStack maxW="100%">
       <ThemeNameEffect colorKey="$color2" />
-      <LoadCherryBomb />
       <HeadInfo
         title="Gui Takeout"
         description="Ship apps everywhere - iOS, Android, and web with one codebase"

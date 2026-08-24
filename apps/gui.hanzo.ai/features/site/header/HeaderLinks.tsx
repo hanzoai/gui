@@ -2,7 +2,7 @@ import { Paragraph, styled } from '@hanzo/gui'
 
 export const HeadAnchor = styled(Paragraph, {
   render: 'a',
-  fontFamily: '$silkscreen',
+  fontFamily: '$pixel',
   px: '$4',
   py: '$4',
   cursor: 'pointer',

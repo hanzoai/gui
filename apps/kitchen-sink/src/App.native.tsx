@@ -54,10 +54,9 @@ SplashScreen.hideAsync()
 
 export default function App() {
   const [mode, setMode] = React.useState<ThemeMode>('system')
-  const [loaded] = useFonts({
-    Inter: require('@hanzogui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@hanzogui/font-inter/otf/Inter-Bold.otf'),
-  })
+  // No custom face on native: @hanzo/font ships woff2 and react-native wants
+  // otf/ttf, so this renders in the system face until that package ships them.
+  const [loaded] = useFonts({})
 
   const systemColorScheme = useColorScheme()
 

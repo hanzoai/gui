@@ -53,7 +53,6 @@
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/demos": "workspace:*",
-    "@hanzogui/font-inter": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/input": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",

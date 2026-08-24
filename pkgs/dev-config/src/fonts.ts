@@ -1,23 +1,24 @@
-import { createCherryBombFont } from '@hanzogui/font-cherry-bomb'
-import { createInterFont } from '@hanzogui/font-inter'
-import { createSilkscreenFont } from '@hanzogui/font-silkscreen'
-import { createGenericFont } from './createGenericFont'
+import {
+  createZenMonoFont,
+  createZenPixelFont,
+  createZenSansFont,
+} from '@hanzogui/font-zen'
 
-export const cherryBombFont = createCherryBombFont({
-  // Cherry Bomb is a heavy rounded display face; fall back to on-brand Inter,
-  // then heavy web-safe faces, so the brief pre-load flash looks close to the
-  // real thing instead of thin default Arial.
-  family:
-    '"Cherry Bomb", "Inter", "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif',
-  // Cherry Bomb only ships weight 400 (so this doesn't change its look), but a
-  // heavy weight makes the Inter fallback render at ExtraBold (already preloaded)
-  // instead of thin, much closer to Cherry Bomb during the load flash.
-  weight: {
-    4: '800',
-  },
-})
-export const silkscreenFont = createSilkscreenFont()
-export const headingFont = createInterFont(
+/**
+ * Zen, and only Zen.
+ *
+ * The surface that demonstrates the design system used to render in four
+ * typefaces, none of them ours: Inter for heading and body, Berkeley Mono for
+ * code, plus Cherry Bomb and Silkscreen as display faces. The pixel ROLE stays
+ * and is `pixelFont` now — Zen Pixel Square — because the role was worth having
+ * and only the face was borrowed. Cherry Bomb has no Zen counterpart and no
+ * role of its own, so it is gone rather than substituted.
+ *
+ * Every size, weight and letter-spacing value below is unchanged.
+ */
+
+export const pixelFont = createZenPixelFont()
+export const headingFont = createZenSansFont(
   {
     size: {
       5: 13,
@@ -62,7 +63,7 @@ export const headingFont = createInterFont(
   { sizeLineHeight: (size) => Math.round(size * 1.1 + (size < 30 ? 10 : 5)) }
 )
 
-export const bodyFont = createInterFont(
+export const bodyFont = createZenSansFont(
   {
     weight: {
       1: '400',
@@ -74,8 +75,7 @@ export const bodyFont = createInterFont(
   }
 )
 
-export const monoFont = createGenericFont(
-  `"Berkeley Mono", "ui-monospace", "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace`,
+export const monoFont = createZenMonoFont(
   {
     weight: {
       1: '400',

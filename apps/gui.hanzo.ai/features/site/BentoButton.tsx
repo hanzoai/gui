@@ -15,7 +15,7 @@ export const BentoButton = (props: ButtonProps) => {
       }}
       {...props}
     >
-      <Button.Text fontFamily="$silkscreen" fontSize={12}>
+      <Button.Text fontFamily="$pixel" fontSize={12}>
         <Span $sm={{ display: 'none' }}>Copy-Paste</Span> UI
       </Button.Text>
       <Button.Icon>

@@ -1,7 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { isClient } from '@hanzo/gui'
-
-const FontLoadedContext = createContext(false)
 
 export const useFontLoaded = (fontFamily: string) => {
   const [loaded, setLoaded] = useState(false)
@@ -36,8 +34,6 @@ export const useFontLoaded = (fontFamily: string) => {
 
   return loaded
 }
-
-export const useCherryBombLoaded = () => useContext(FontLoadedContext)
 
 export function LoadFont(props: {
   cssFile?: string
@@ -83,20 +79,5 @@ export function LoadFont(props: {
         />
       )}
     </>
-  )
-}
-
-export const LoadCherryBomb = ({ prefetch }: { prefetch?: boolean }) => (
-  <LoadFont
-    prefetch={prefetch || false}
-    woff2File="/fonts/cherry-bomb.woff2"
-    cssFile="/fonts/cherry-bomb.css"
-  />
-)
-
-export const CherryBombFontProvider = ({ children }: { children: React.ReactNode }) => {
-  const loaded = useFontLoaded('Cherry Bomb')
-  return (
-    <FontLoadedContext.Provider value={loaded}>{children}</FontLoadedContext.Provider>
   )
 }

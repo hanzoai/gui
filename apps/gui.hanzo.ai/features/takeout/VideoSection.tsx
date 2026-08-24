@@ -93,7 +93,7 @@ export const VideoSection = () => {
           <XStack mt="$4" justify="space-between" items="center" px="$2">
             <YStack>
               <SizableText
-                fontFamily="$silkscreen"
+                fontFamily="$pixel"
                 size="$2"
                 color={isDark ? '#666' : '#888'}
                 letterSpacing={2}

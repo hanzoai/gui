@@ -116,46 +116,28 @@ export type Stage = 'beta' | 'alpha'
 const STAGE_RANK: Record<string, number> = { beta: 1, alpha: 2 }
 
 /**
- * Being OFFERED a product and being LET IN are different questions, and a stage
- * answers both — at different floors.
- *
- * One rank answered only the second, and that hides more than anyone intends: at
- * zero clearance a beta product fails too, so marking Studio alpha also took
- * Hanzo Bot out of every anonymous menu, hanzo.bot's own chrome included. Two
- * products hidden to hide one.
- *
- * A marketing site's whole job is offering what you cannot use yet, so `see` is
- * about SECRECY and `open` is about READINESS. Only alpha is secret; beta is
- * advertised to everyone and entered by a customer. Released is 0 for both.
- */
-const FLOOR: Record<Stage, { see: number; open: number }> = {
-  beta: { see: 0, open: STAGE_RANK.beta },
-  alpha: { see: STAGE_RANK.alpha, open: STAGE_RANK.alpha },
-}
-
-/**
- * Does a reader cleared to `stage` SEE this product listed?
+ * Does a reader cleared to `stage` see this product?
  *
  * Used as a filter — `HANZO_FLAGSHIP.filter(sees(stage))`. Without a clearance
- * everything but alpha passes: an unfinished product may be advertised, and an
- * unannounced one may not. A secret leaking into a public menu is the failure
- * this guards, and it must take a deliberate act rather than an omission.
+ * only released products pass, so a surface that knows nothing about stages
+ * shows nothing unfinished. That default is the point: an unreleased product
+ * reaching a public menu should take a deliberate act, never an omission.
+ *
+ * ONE question, not two. It briefly split into "may they see it" and "may they
+ * open it", on the reasoning that beta is advertised while alpha is secret. That
+ * is a fair rule for a product someone chose to announce, and it is not this
+ * one: what a stranger is offered here is the finished estate, and Team, Bot and
+ * Studio are all held back until they are ready. With both halves agreeing on
+ * every stage the second function computed the same answer under another name,
+ * so it is gone rather than kept as a synonym.
+ *
+ * If a beta ever should be advertised, that is the product saying so — give it
+ * its own field and let it opt in. Do not reach it by loosening what `beta`
+ * means for everything else.
  */
 export function sees(stage?: Stage): (p: HanzoProduct) => boolean {
   const cleared = stage ? STAGE_RANK[stage] : 0
-  return (p) => (p.stage ? FLOOR[p.stage].see : 0) <= cleared
-}
-
-/**
- * Does a reader cleared to `stage` get to OPEN this product?
- *
- * The other half. A surface deciding whether to serve someone asks this; a menu
- * deciding whether to draw a row asks `sees`. Nothing admits a reader it does
- * not offer — `open` is never below `see` — so the two are safe to state apart.
- */
-export function enters(stage?: Stage): (p: HanzoProduct) => boolean {
-  const cleared = stage ? STAGE_RANK[stage] : 0
-  return (p) => (p.stage ? FLOOR[p.stage].open : 0) <= cleared
+  return (p) => (p.stage ? STAGE_RANK[p.stage] : 0) <= cleared
 }
 
 export interface MeetHanzoGroup {
@@ -447,10 +429,9 @@ export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.fla
  * `HANZO_FLAGSHIP` itself is untouched, so the launcher and anything else that
  * genuinely wants the running product still has it.
  *
- * PUBLIC is meant literally: what a STRANGER may be shown, which is everything
- * except the unannounced. Beta is on this list on purpose — offering a thing you
- * cannot open yet is what a marketing page is for, and whether the door lets you
- * through is `enters`, asked by the surface rather than by the menu.
+ * PUBLIC is meant literally: what a STRANGER may be shown, which is the released
+ * estate and nothing else. A product still at beta or alpha is held back until
+ * it is ready, so this list is shorter than the taxonomy above it by design.
  *
  * A caller holding a reader's clearance wants `HANZO_FLAGSHIP` through
  * `sees(stage)`; a caller reaching for the value named "public" is by definition

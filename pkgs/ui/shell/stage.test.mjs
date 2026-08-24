@@ -1,67 +1,61 @@
 /**
- * A stage answers two questions, and this file exists because collapsing them
- * into one is a silent, shippable mistake that LOOKS correct.
+ * What a stranger is offered, and what a clearance adds.
  *
- * With a single clearance rank, filtering a public menu at zero clearance drops
- * every unfinished product — so marking Studio alpha also took Hanzo Bot out of
- * every anonymous menu, hanzo.bot's own chrome included. Nothing failed: the
- * types were fine, the build was green, and the menu simply had one fewer row.
- * Two products hidden to hide one.
+ * This file exists because the failure it guards is silent and shippable: a menu
+ * that shows one row too many looks exactly like a menu that is correct. Nothing
+ * throws, the types are fine, the build is green — an unfinished product is
+ * simply on the page, in front of everyone, until someone happens to look.
  *
- * So `sees` is about SECRECY and `enters` is about READINESS. Beta is offered to
- * a stranger and opened by a customer; only alpha is secret.
+ * The rule is one question. A product carries `stage`, absent meaning released,
+ * and a reader carries a clearance. Only the released estate is public; Team,
+ * Bot and Studio are held back until they are ready.
+ *
+ * It briefly became two questions — "may they SEE it" apart from "may they OPEN
+ * it" — on the reasoning that a beta is announced while an alpha is secret. That
+ * is a fair rule for a product someone chose to announce, and it is not this
+ * one, so the pair computed the same answer twice under two names. If a beta
+ * should ever be advertised, that is the product saying so: give it a field and
+ * let it opt in, rather than loosening what `beta` means for everything else.
  *
  *   node --test stage.test.mjs
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import {
-  HANZO_FLAGSHIP,
-  HANZO_FLAGSHIP_PUBLIC,
-  enters,
-  sees,
-} from './dist/hanzo-registry.js'
+import { HANZO_FLAGSHIP, HANZO_FLAGSHIP_PUBLIC, sees } from './dist/hanzo-registry.js'
 
 const ids = (list) => list.map((p) => p.id)
 
-test('a stranger is offered every product but the unannounced one', () => {
-  // The regression this file is named for: Bot is beta and MUST still be listed.
-  const shown = ids(HANZO_FLAGSHIP_PUBLIC)
-  assert.ok(shown.includes('bot'), 'bot is beta, not secret — it stays in the menu')
-  assert.ok(shown.includes('team'), 'team is beta, not secret — it stays in the menu')
-  assert.ok(!shown.includes('studio'), 'studio is alpha — it is not offered')
+test('a stranger is offered the released estate and nothing else', () => {
+  assert.deepEqual(ids(HANZO_FLAGSHIP_PUBLIC), ['chat', 'app', 'base', 'cloud', 'dev'])
 })
 
-test('a stranger is offered beta but not let into it', () => {
-  for (const p of HANZO_FLAGSHIP.filter((p) => p.stage === 'beta')) {
-    assert.ok(sees()(p), `${p.id} must be offered to a stranger`)
-    assert.ok(!enters()(p), `${p.id} must not open for a stranger`)
-    assert.ok(enters('beta')(p), `${p.id} must open for a customer`)
-  }
+test('an unfinished product never reaches an anonymous menu', () => {
+  for (const p of HANZO_FLAGSHIP.filter((p) => p.stage))
+    assert.ok(!sees()(p), `${p.id} is ${p.stage} — a stranger must not be offered it`)
 })
 
-test('alpha is invisible until staff', () => {
-  for (const p of HANZO_FLAGSHIP.filter((p) => p.stage === 'alpha')) {
-    assert.ok(!sees()(p), `${p.id} is hidden from a stranger`)
-    assert.ok(!sees('beta')(p), `${p.id} is hidden from a customer`)
-    assert.ok(sees('alpha')(p), `${p.id} is visible to staff`)
-  }
+test('alpha stays hidden from a customer, beta does not', () => {
+  const customer = ids(HANZO_FLAGSHIP.filter(sees('beta')))
+  assert.ok(customer.includes('bot'), 'bot is beta — a cleared customer sees it')
+  assert.ok(customer.includes('team'), 'team is beta — a cleared customer sees it')
+  assert.ok(!customer.includes('studio'), 'studio is alpha — beta clearance is not enough')
 })
 
-test('nothing admits a reader it does not offer', () => {
-  // The invariant that makes two floors safe to state apart. Without it the pair
-  // can drift into a door with no sign on it.
-  for (const p of HANZO_FLAGSHIP)
-    for (const clearance of [undefined, 'beta', 'alpha'])
-      if (enters(clearance)(p))
-        assert.ok(sees(clearance)(p), `${p.id} opens for ${clearance ?? 'a stranger'} but is not listed`)
+test('staff see the whole family', () => {
+  assert.equal(HANZO_FLAGSHIP.filter(sees('alpha')).length, HANZO_FLAGSHIP.length)
 })
 
 test('clearance only ever widens', () => {
+  // Monotonic, so raising a clearance can never take a row AWAY — the property
+  // that lets a surface pass whatever it has without reasoning about the order.
   const stranger = ids(HANZO_FLAGSHIP.filter(sees()))
   const customer = ids(HANZO_FLAGSHIP.filter(sees('beta')))
   const staff = ids(HANZO_FLAGSHIP.filter(sees('alpha')))
   assert.ok(stranger.every((id) => customer.includes(id)))
   assert.ok(customer.every((id) => staff.includes(id)))
-  assert.equal(staff.length, HANZO_FLAGSHIP.length, 'staff see the whole family')
+})
+
+test('the public list is exactly what a stranger passes', () => {
+  // Two values, one rule: HANZO_FLAGSHIP_PUBLIC must not drift from the filter.
+  assert.deepEqual(ids(HANZO_FLAGSHIP_PUBLIC), ids(HANZO_FLAGSHIP.filter(sees())))
 })

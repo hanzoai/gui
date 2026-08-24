@@ -669,7 +669,7 @@ const componentsIn = {
         {...props}
       >
         <Paragraph
-          fontFamily="$silkscreen"
+          fontFamily="$pixel"
           whiteSpace="revert"
           size="$8"
           lineHeight="$9"
@@ -721,7 +721,7 @@ const componentsIn = {
     return (
       <NoticeFrame theme="red">
         <YStack maxW="100%" gap="$4">
-          <H4 color="$color10" fontFamily="$silkscreen">
+          <H4 color="$color10" fontFamily="$pixel">
             👋 Hey! Listen!
           </H4>
           <YStack overflow="hidden" flex={1} flexBasis="auto" opacity={0.85} gap="$4">

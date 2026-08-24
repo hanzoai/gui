@@ -19,7 +19,7 @@ const themes = createV5Theme({
 })
 import type { CreateGuiProps } from '@hanzogui/core'
 import { setupDev } from '@hanzogui/core'
-import { bodyFont, cherryBombFont, headingFont, monoFont, silkscreenFont } from './fonts'
+import { bodyFont, headingFont, monoFont, pixelFont } from './fonts'
 import { media, mediaQueryDefaultActive } from './media'
 
 setupDev({
@@ -30,8 +30,7 @@ const fonts = {
   heading: headingFont,
   body: bodyFont,
   mono: monoFont,
-  silkscreen: silkscreenFont,
-  cherryBomb: cherryBombFont,
+  pixel: pixelFont,
 }
 
 export const animations = {

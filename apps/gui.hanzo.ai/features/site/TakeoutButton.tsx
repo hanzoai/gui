@@ -14,7 +14,7 @@ export const TakeoutButton = (props: ButtonProps) => {
       }}
       {...props}
     >
-      <Button.Text fontFamily="$silkscreen" fontSize={12}>
+      <Button.Text fontFamily="$pixel" fontSize={12}>
         Starter Kit
       </Button.Text>
       <Button.Icon>

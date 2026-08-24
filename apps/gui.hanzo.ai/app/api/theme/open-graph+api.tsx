@@ -36,8 +36,10 @@ export async function GET(req: Request) {
         })
       }
     }
-    const berkeleyFont = readFileSync(join(process.cwd(), 'public/fonts/berkeley.otf'))
-    const interBoldFont = readFileSync(join(process.cwd(), 'public/fonts/Inter-Bold.otf'))
+    // The same two variable files the site serves — one family each, so the card
+    // and the page it links to are set in the same faces.
+    const monoFont = readFileSync(join(process.cwd(), 'public/fonts/ZenMono-Variable.woff2'))
+    const sansFont = readFileSync(join(process.cwd(), 'public/fonts/Zen-Variable.woff2'))
 
     const hslToColor = (h, s, l) => `hsl(${h}, ${s * 100}%, ${l * 100}%)`
 
@@ -104,7 +106,7 @@ export async function GET(req: Request) {
             top: '100px',
             left: '48px',
             fontWeight: 'bold',
-            fontFamily: 'Berkeley Mono',
+            fontFamily: 'Zen Mono',
             fontSize:
               theme.search.length <= 5 ? 160 : theme.search.length <= 10 ? 140 : 120,
           }}
@@ -282,14 +284,14 @@ export async function GET(req: Request) {
         height: 630,
         fonts: [
           {
-            name: 'Berkeley Mono',
-            data: berkeleyFont,
+            name: 'Zen Mono',
+            data: monoFont,
             style: 'normal',
             weight: 600,
           },
           {
-            name: 'Inter',
-            data: interBoldFont,
+            name: 'Zen',
+            data: sansFont,
             style: 'normal',
             weight: 700,
           },
@@ -340,7 +342,7 @@ export async function GET(req: Request) {
             top: '100px',
             left: '48px',
             fontWeight: 'bold',
-            fontFamily: 'Berkeley Mono',
+            fontFamily: 'Zen Mono',
             fontSize: theme.search.length <= 5 ? 160 : 140,
           }}
         >
@@ -520,14 +522,14 @@ export async function GET(req: Request) {
         height: 630,
         fonts: [
           {
-            name: 'Berkeley Mono',
-            data: berkeleyFont,
+            name: 'Zen Mono',
+            data: monoFont,
             style: 'normal',
             weight: 600,
           },
           {
-            name: 'Inter',
-            data: interBoldFont,
+            name: 'Zen',
+            data: sansFont,
             style: 'normal',
             weight: 700,
           },

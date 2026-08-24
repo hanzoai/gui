@@ -31,7 +31,7 @@ export const BentoLogo = ({
   scale?: number
   backgrounded?: boolean
 }) => {
-  const fontLoaded = useFontLoaded('Cherry Bomb')
+  const fontLoaded = useFontLoaded('Zen')
 
   return (
     <YStack
@@ -51,7 +51,7 @@ export const BentoLogo = ({
         <BentoLogoTheme offset={-1 + offsetAdjust}>
           <H1
             componentName="span"
-            fontFamily="$cherryBomb"
+            fontFamily="$heading"
             px="$3"
             mx="$-3"
             whiteSpace="pre"
@@ -80,7 +80,7 @@ export const BentoLogo = ({
             x={2}
             l={0}
             zIndex={1100}
-            fontFamily="$cherryBomb"
+            fontFamily="$heading"
             px="$3"
             mx="$-3"
             whiteSpace="pre"
@@ -114,7 +114,7 @@ export const BentoLogo = ({
             x={-1}
             l={0}
             zIndex={10}
-            fontFamily="$cherryBomb"
+            fontFamily="$heading"
             px="$3"
             mx="$-3"
             whiteSpace="pre"
@@ -140,7 +140,7 @@ export const BentoLogo = ({
             x={1}
             opacity={0.5}
             zIndex={1100000000}
-            fontFamily="$cherryBomb"
+            fontFamily="$heading"
             px="$3"
             mx="$-3"
             whiteSpace="pre"

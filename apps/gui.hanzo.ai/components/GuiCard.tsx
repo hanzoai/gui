@@ -18,7 +18,7 @@ export function GuiCard({ children, title, subTitle, ...props }) {
     >
       <H3
         render="span"
-        fontFamily="$silkscreen"
+        fontFamily="$pixel"
         size="$7"
         lineHeight="$6"
         color="$color"

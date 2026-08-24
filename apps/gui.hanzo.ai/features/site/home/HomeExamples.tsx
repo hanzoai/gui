@@ -85,7 +85,7 @@ export const HomeExamples = memo(
                       rounded={0}
                       size="$3"
                     >
-                      <Button.Text fontFamily="$silkscreen" size="$3" fontWeight="600">
+                      <Button.Text fontFamily="$pixel" size="$3" fontWeight="600">
                         {example.name}
                       </Button.Text>
                     </Button>

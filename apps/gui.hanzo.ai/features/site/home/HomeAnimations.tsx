@@ -135,7 +135,7 @@ export function HomeAnimations({ animationCode }: { animationCode: string }) {
         <XStack self="center" gap="$3">
           <Link href="/docs/core/animations">
             <Button aria-label="Animation docs">
-              <Button.Text fontFamily="$silkscreen">Docs &raquo;</Button.Text>
+              <Button.Text fontFamily="$pixel">Docs &raquo;</Button.Text>
             </Button>
           </Link>
         </XStack>

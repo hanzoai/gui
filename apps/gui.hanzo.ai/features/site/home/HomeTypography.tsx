@@ -22,10 +22,10 @@ import {
 import { ContainerLarge } from '~/components/Containers'
 import { HomeH2 } from './HomeHeaders'
 
-const families = ['silkscreen', 'mono', 'heading']
+const families = ['pixel', 'mono', 'heading']
 
 export const HomeTypography = memo(() => {
-  const [family, setFamily] = useState(`silkscreen`)
+  const [family, setFamily] = useState(`pixel`)
   const ref = useRef<any>(null)
   const isIntersecting = useIsIntersecting(ref)
 
@@ -180,7 +180,7 @@ const OverlayCard = () => {
 
         <Link asChild href="/docs/core/configuration">
           <Button aria-label="Fonts docs" self="flex-end" theme={tint as any}>
-            <Button.Text fontFamily="$silkscreen">Fonts &raquo;</Button.Text>
+            <Button.Text fontFamily="$pixel">Fonts &raquo;</Button.Text>
           </Button>
         </Link>
       </YStack>

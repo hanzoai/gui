@@ -1,11 +1,14 @@
-import { createInterFont } from '@hanzogui/font-inter'
-import { createSilkscreenFont } from '@hanzogui/font-silkscreen'
+import { createZenMonoFont, createZenSansFont } from '@hanzogui/font-zen'
 
-import { createGenericFont } from './createGenericFont'
-
-const silkscreenFont = createSilkscreenFont()
-
-const headingFont = createInterFont(
+/**
+ * Zen, and only Zen. This config used to build its heading and body from Inter
+ * and carry a `silkscreen` face beside them, so an app on the default entry got
+ * two typefaces neither of which is ours. The sizes, weights, letter-spacing and
+ * transforms below are the design scale and are unchanged — only the face moved.
+ *
+ * `@hanzogui/font-zen` names the families; `@hanzo/font` ships the bytes.
+ */
+const headingFont = createZenSansFont(
   {
     size: {
       5: 13,
@@ -41,17 +44,11 @@ const headingFont = createInterFont(
       14: -3,
       15: -4,
     },
-    // for native
-    face: {
-      700: { normal: 'InterBold' },
-      800: { normal: 'InterBold' },
-      900: { normal: 'InterBold' },
-    },
   },
   { sizeLineHeight: (size) => Math.round(size * 1.1 + (size < 30 ? 10 : 5)) }
 )
 
-const bodyFont = createInterFont(
+const bodyFont = createZenSansFont(
   {
     weight: {
       1: '400',
@@ -63,8 +60,7 @@ const bodyFont = createInterFont(
   }
 )
 
-const monoFont = createGenericFont(
-  `"ui-monospace", "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace`,
+const monoFont = createZenMonoFont(
   {
     weight: {
       1: '500',
@@ -97,5 +93,4 @@ export const fonts = {
   heading: headingFont,
   body: bodyFont,
   mono: monoFont,
-  silkscreen: silkscreenFont,
 }

@@ -17,7 +17,7 @@ export const SocialLinksRow = () => {
       >
         <Card width="33.33%" justify="center" $sm={{ width: 'auto' }} gap="$2" p="$5">
           <TwitterIcon />
-          <H4 cursor="pointer" fontFamily="$silkscreen">
+          <H4 cursor="pointer" fontFamily="$pixel">
             X
           </H4>
           <Paragraph cursor="pointer" color="$color9">
@@ -33,8 +33,8 @@ export const SocialLinksRow = () => {
       >
         <Card width="33.33%" justify="center" gap="$2" $sm={{ width: 'auto' }} p="$5">
           <DiscordIcon />
-          {/* TODO this is using $body for other attributes not $silkscreen */}
-          <H4 cursor="pointer" fontFamily="$silkscreen">
+          {/* TODO this is using $body for other attributes not $pixel */}
+          <H4 cursor="pointer" fontFamily="$pixel">
             Discord
           </H4>
           <Paragraph cursor="pointer" color="$color9">
@@ -50,7 +50,7 @@ export const SocialLinksRow = () => {
       >
         <Card width="33.33%" justify="center" $sm={{ width: 'auto' }} gap="$2" p="$5">
           <GithubIcon />
-          <H4 cursor="pointer" fontFamily="$silkscreen">
+          <H4 cursor="pointer" fontFamily="$pixel">
             GitHub
           </H4>
           <Paragraph cursor="pointer" color="$color9">

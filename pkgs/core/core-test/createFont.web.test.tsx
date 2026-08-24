@@ -5,7 +5,7 @@ import type { GenericFont } from '../core/src'
 import { getFontSized } from '../get-font-sized/src'
 
 const font: GenericFont = {
-  family: 'Inter',
+  family: 'Zen',
   size: {
     1: 11,
     2: 12,
@@ -52,7 +52,7 @@ const font: GenericFont = {
 }
 
 const expectedProcessedFont: GenericFont = {
-  family: 'Inter',
+  family: 'Zen',
   size: {
     1: 11,
     2: 12,
@@ -109,12 +109,12 @@ const expectedProcessedFont: GenericFont = {
     15: -4,
   },
   face: {
-    100: { normal: 'Inter' },
-    200: { normal: 'Inter' },
-    300: { normal: 'Inter' },
-    400: { normal: 'Inter' },
-    500: { normal: 'Inter' },
-    600: { normal: 'Inter' },
+    100: { normal: 'Zen' },
+    200: { normal: 'Zen' },
+    300: { normal: 'Zen' },
+    400: { normal: 'Zen' },
+    500: { normal: 'Zen' },
+    600: { normal: 'Zen' },
     700: { normal: 'InterBold' },
     800: { normal: 'InterBold' },
     900: { normal: 'InterBold' },
@@ -134,7 +134,7 @@ describe('getFontSized', () => {
   // entry in the size/lineHeight maps. Build a font with both so we can compare
   // the token path against a raw-number override.
   const sizedFont = {
-    family: 'Inter',
+    family: 'Zen',
     size: { $true: 16, $9: 32 },
     lineHeight: { $true: 24, $9: 38 },
   } as unknown as GenericFont

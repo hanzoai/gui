@@ -308,7 +308,7 @@ export const Text = WebText as any as RNGuiText
 
 // export const StyledInputFrame = styled(InputFrame, {
 //   fontSize: 16,
-//   fontFamily: '$silkscreen',
+//   fontFamily: '$pixel',
 //   color: '$color5',
 //   minWidth: 0,
 //   borderWidth: 0,
@@ -339,7 +339,7 @@ export const Text = WebText as any as RNGuiText
 //   StyledInputFrame,
 //   {
 //     fontSize: 16,
-//     fontFamily: '$silkscreen',
+//     fontFamily: '$pixel',
 //     color: '$color5',
 //     minWidth: 0,
 //     borderWidth: 0,

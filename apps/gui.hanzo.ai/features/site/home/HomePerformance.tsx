@@ -72,7 +72,7 @@ const BenchmarksLink = () => {
   return (
     <Link href="/docs/intro/benchmarks">
       <Button aria-label="Performance benchmarks" theme={tint as any}>
-        <Button.Text fontFamily="$silkscreen">Benchmarks &raquo;</Button.Text>
+        <Button.Text fontFamily="$pixel">Benchmarks &raquo;</Button.Text>
       </Button>
     </Link>
   )
@@ -83,7 +83,7 @@ const CompilerLink = () => {
   return (
     <Link href="/docs/intro/why-a-compiler">
       <Button aria-label="Compiler" theme={tint as any}>
-        <Button.Text fontFamily="$silkscreen">About &raquo;</Button.Text>
+        <Button.Text fontFamily="$pixel">About &raquo;</Button.Text>
       </Button>
     </Link>
   )

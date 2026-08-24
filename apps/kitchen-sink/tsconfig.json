@@ -30,9 +30,6 @@
       "path": "../../pkgs/core/core"
     },
     {
-      "path": "../../pkgs/core/font-inter"
-    },
-    {
       "path": "../../pkgs/core/shorthands"
     },
     {

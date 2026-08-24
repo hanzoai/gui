@@ -5,20 +5,23 @@ import '~/hanzogui.generated.css'
 import { LoadProgressBar, Slot } from 'one'
 import { setupPopper } from '@hanzo/gui'
 import { Providers } from '../components/Providers'
-import { LoadCherryBomb } from '~/features/site/fonts/LoadFonts'
 
 setupPopper({
   // prevents a reflow on mount
   disableRTL: true,
 })
 
-// inlined @font-face (was 4 render-blocking /fonts/*.css links). font-display:swap
-// (was block) so text paints with a fallback immediately instead of FOIT.
+// Inlined @font-face, so the faces cost no render-blocking stylesheet. The
+// files come from @hanzo/font — one variable file per family instead of a
+// weight per request — and are copied into public/fonts because a self-hosted
+// site has to serve them from its own origin.
+//
+// font-display:swap paints a fallback immediately rather than holding text
+// invisible; the three files are preloaded below so that window is short.
 const fontFaceCss = `
-@font-face{font-family:'Inter';src:url('/fonts/Inter-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'Inter';src:url('/fonts/Inter-ExtraBold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:'Berkeley Mono';src:url('/fonts/berkeley.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'Silkscreen';src:url('/fonts/slkscr.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}`
+@font-face{font-family:'Zen';src:url('/fonts/Zen-Variable.woff2') format('woff2-variations');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Zen Mono';src:url('/fonts/ZenMono-Variable.woff2') format('woff2-variations');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Zen Pixel Square';src:url('/fonts/ZenPixel-Square.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}`
 
 export default function Layout() {
   return (
@@ -45,28 +48,21 @@ export default function Layout() {
 
         <link
           rel="preload"
-          href="/fonts/berkeley.woff2"
+          href="/fonts/ZenMono-Variable.woff2"
           as="font"
           crossOrigin="anonymous"
           type="font/woff2"
         />
         <link
           rel="preload"
-          href="/fonts/Inter-Regular.woff2"
+          href="/fonts/Zen-Variable.woff2"
           as="font"
           crossOrigin="anonymous"
           type="font/woff2"
         />
         <link
           rel="preload"
-          href="/fonts/Inter-ExtraBold.woff2"
-          as="font"
-          crossOrigin="anonymous"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="/fonts/slkscr.woff2"
+          href="/fonts/ZenPixel-Square.woff2"
           as="font"
           crossOrigin="anonymous"
           type="font/woff2"
@@ -85,7 +81,6 @@ export default function Layout() {
 
         {/* warm cherry-bomb on first interaction so it's ready when navigating
             to pages that use it (home, takeout), no eager preload */}
-        <LoadCherryBomb prefetch />
 
         <Providers>
           <Slot />

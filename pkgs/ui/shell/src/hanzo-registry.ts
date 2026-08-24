@@ -210,7 +210,7 @@ export const U = {
   docs: 'https://docs.hanzo.ai',
   apiRef: 'https://docs.hanzo.ai/docs/api',
   cliRef: 'https://docs.hanzo.ai/docs/cli',
-  quickstarts: 'https://docs.hanzo.ai/docs/getting-started',
+  quickstarts: 'https://docs.hanzo.ai/docs/quickstart',
   learn: 'https://hanzo.ai/learn',
   // Community = the hub for everything built on Hanzo: templates + apps shipped on
   // hanzo.app + the hanzo-apps GitHub org. Lives on hanzo.app (the builder), which

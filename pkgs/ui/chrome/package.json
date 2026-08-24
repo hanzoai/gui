@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/chrome",
-  "version": "8.1.1",
+  "version": "8.2.0",
   "description": "Marketing sections for Hanzo public sites — HanzoFooter, ChatHero, HanzoWidget. The site HEADER lives in @hanzogui/shell (HanzoHeader); this package no longer ships a nav.",
   "source": "src/index.ts",
   "files": [

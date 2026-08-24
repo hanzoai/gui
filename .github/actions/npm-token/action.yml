@@ -57,19 +57,43 @@ runs:
         set -uo pipefail
         token=""
         if [ -n "${KMS_CLIENT_ID:-}" ] && [ -n "${KMS_CLIENT_SECRET:-}" ]; then
-          # Each call is rescued so the CHECK decides rather than the abort, and
-          # each failure names which call failed. A silent `|| true` chain is
-          # what turned this into an unreadable one-second exit.
-          access=$(curl -sS -m 30 "${ENDPOINT}/v1/kms/auth/login" \
+          # A TIMEOUT IS NOT AN ABSENT SECRET, and this said it was. `curl -m 30`
+          # returns nothing when the edge is slow, jq then yields empty, and the
+          # message read "NPM_TOKEN absent from KMS" about a token that is sealed
+          # and reads clean the minute after. @hanzogui/shell 8.1.54 sat
+          # unpublished for a day that way, holding a dead footer link on 949
+          # pages of hanzo.ai, because the one sentence in the log named the
+          # wrong thing.
+          #
+          # Ask again on the codes that mean ask again — nothing arrived, 429,
+          # any 5xx — take 401/403/404 on the first try, and name the code when
+          # it is none of those. The wait grows, because an edge in trouble is in
+          # it for minutes.
+          ask() {  # ask <what> <url> [curl args...] -> body on stdout when 2xx
+            local what=$1 url=$2; shift 2
+            local code
+            for wait in 0 5 15 45; do
+              [ "$wait" = 0 ] || sleep "$wait"
+              code=$(curl -sS -m 30 -o /tmp/kms.body -w '%{http_code}' "$url" "$@" || echo 000)
+              case "$code" in
+                2*) cat /tmp/kms.body; return 0 ;;
+                000|429|5*) continue ;;
+                *) echo "::warning::KMS answered $code for the $what: $(head -c 200 /tmp/kms.body)" >&2; return 1 ;;
+              esac
+            done
+            echo "::warning::KMS did not answer the $what — HTTP $code over four tries. An outage, not a missing secret." >&2
+            return 1
+          }
+          access=$(ask login "${ENDPOINT}/v1/kms/auth/login" \
             -H 'Content-Type: application/json' \
             -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" \
-            2>/dev/null | jq -r '.accessToken // empty' || true)
+            | jq -r '.accessToken // empty' 2>/dev/null || true)
           if [ -z "$access" ]; then
-            echo "::warning::KMS login failed at ${ENDPOINT}/v1/kms/auth/login"
+            echo "::warning::KMS login yielded no accessToken at ${ENDPOINT}/v1/kms/auth/login"
           else
-            token=$(curl -sS -m 30 "${ENDPOINT}/v1/kms/secrets/NPM_TOKEN?env=${KMS_ENV}" \
-              -H "Authorization: Bearer ${access}" 2>/dev/null | jq -r '.value // empty' || true)
-            [ -n "$token" ] || echo "::warning::NPM_TOKEN absent from KMS (env ${KMS_ENV})"
+            token=$(ask secret "${ENDPOINT}/v1/kms/secrets/NPM_TOKEN?env=${KMS_ENV}" \
+              -H "Authorization: Bearer ${access}" | jq -r '.value // empty' 2>/dev/null || true)
+            [ -n "$token" ] || echo "::warning::no NPM_TOKEN value came back from KMS (env ${KMS_ENV})"
           fi
         fi
         if [ -z "$token" ]; then

@@ -44,8 +44,10 @@ import type { PointerEventHandler } from 'react'
 import {
   HANZO_FLAGSHIP,
   MEET_HANZO_GROUPS,
+  sees,
   type HanzoLink,
   type HanzoProduct,
+  type Stage,
 } from './hanzo-registry'
 import {
   ACCENT,
@@ -106,6 +108,15 @@ export interface MeetHanzoMenuProps {
    * ecosystem links unchanged.
    */
   resolveHref?: (href: string, id: string) => string
+  /**
+   * How unfinished a product this reader may see. Omitted — the default, and
+   * what every signed-out visitor gets — means released products only.
+   *
+   * The host decides, because the host is the only one holding an identity: the
+   * chrome never reads a session (see <HanzoIdentity>), so a menu that tried to
+   * work this out for itself would need a credential it is designed not to have.
+   */
+  stage?: Stage
 }
 
 export function MeetHanzoMenu({
@@ -119,6 +130,7 @@ export function MeetHanzoMenu({
   onPointerEnter,
   onPointerLeave,
   resolveHref,
+  stage,
 }: MeetHanzoMenuProps) {
   useShellStyles()
   const stacked = useIsMobile(STACK_BELOW)
@@ -128,10 +140,14 @@ export function MeetHanzoMenu({
   // Apply the optional host href rewriter (docs-aware nav, etc.). Identity by
   // default, so marketing properties render the canonical ecosystem links.
   const resolve = resolveHref ?? ((h: string) => h)
+  // `stage` belongs in the deps: a clearance arrives from IAM AFTER first paint,
+  // so a memo that ignored it would show the signed-out list to a reader who has
+  // since been recognised — and only until they navigated, which is the kind of
+  // bug that reproduces for nobody.
   const products = useMemo(
-    () => HANZO_FLAGSHIP.map((p) => ({ ...p, href: resolve(p.href, p.id) })),
+    () => HANZO_FLAGSHIP.filter(sees(stage)).map((p) => ({ ...p, href: resolve(p.href, p.id) })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [resolveHref]
+    [resolveHref, stage]
   )
   // Column groups = every group except the products rail, hrefs resolved.
   const columns = useMemo(

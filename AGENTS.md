@@ -129,45 +129,58 @@ When writing tests for focus behavior or component interactions:
 - For focus tests, ensure elements are visible before testing focus state
 - When testing popover/dialog components, wait for animations to complete
 
-## Releasing: the workspace has one version, and right now the tree disagrees
+## Releasing: one version for the workspace, and nothing publishes it for you
 
-`scripts/release.ts` carries a single `version` for all 169 published packages,
-read from `pkgs/ui/hanzogui/package.json`. Every path assumes it — the bump, the
+`scripts/release.ts` carries a single `version` for every published package, read
+from `pkgs/ui/hanzogui/package.json`. Every path assumes it — the bump, the
 `npm view name@version` already-published check, and the tarball name
 `getPublishArtifactPaths` expects `npm pack` to produce.
 
-The tree no longer holds to it. `@hanzogui/shell` was hand-bumped to 8.0.7 while
-`@hanzo/gui` sits at 8.0.2 and `@hanzogui/core` at 8.0.1, so each dispatch of
-`Release` fails a different way, and none of them says so:
+**NOTHING IN CI PUBLISHES, AND THE WORKFLOW WRITTEN TO SAYS IT DOES.**
+`.hanzo/workflows/publish-gui-all.yml` declares `on: push: branches: [main]` and
+explains at length why publishing on push is safe. It has never run. This repo
+has no `.github/workflows` and no `.gitea`/`.forgejo` directory, so GitHub
+Actions — which reads only `.github/workflows` — sees nothing, and the forge
+needs server-side configuration to read a directory of that name. The workflow's
+own header records the symptom without naming the cause: "every version across
+that gap was published by hand, because the commit that bumped it triggered
+nothing." That is still true, of the workflow itself.
 
-- **`patch`** computes 8.0.3 and writes it to every package.json — rewriting
-  shell *backward* from 8.0.7, over versions 8.0.3–8.0.6 that are already on
-  npm. The publish then skips it as "already published" and pushes the
-  regression to `main`.
-- **`republish`** (`--republish` skips the version write) packs shell at 8.0.7
-  but looks for `hanzogui-shell-8.0.2.tgz`, because the artifact path is built
-  from the workspace `version`. The run dies untarring a file `npm pack` never
-  named.
-- **`minor`** is the one that works: 8.1.0 clears every published version, so
-  the tree reconverges on one number and all 169 publish cleanly.
+So a release is: bump, push, and RUN THE SCRIPT. Measured on the 8.2.0 release —
+`bun install` and `bun run build` green first, then
 
-Verify with `bun scripts/release.ts --<kind> --ci --dirty --skip-publish
---skip-push --skip-tests --skip-native-tests --skip-checks --dry-run`, which
-prints the computed version and the full publish plan and writes nothing.
+    bun scripts/release.ts --minor --ci --dirty --skip-publish --skip-push \
+      --skip-tests --skip-native-tests --skip-checks     # writes the version
+    git push origin main
+    bun scripts/release.ts --republish --ci --dirty --skip-push \
+      --skip-tests --skip-native-tests --skip-checks     # publishes
 
-Releasing one package alone is `--only <name>` locally, and it is the way OUT of
-the divergence above rather than another casualty of it: with `--only`, `Current`
-is read from THAT package rather than from the workspace, so `--patch` computes a
-true next patch. Verified by dry run against a tree with the workspace at 8.1.1
-and `@hanzogui/shell` at 8.1.45 on npm:
+`--republish` skips the version write, so it is also the RETRY: it re-checks the
+registry and publishes only what is missing, and it is safe to run repeatedly.
+The 8.2.0 run needed three passes and reported what was still absent each time.
 
-    --patch                   Current 8.1.1  -> Next 8.1.2    169 packages  (the regression)
-    --minor                   Current 8.1.1  -> Next 8.2.0    169 packages
-    --only @hanzogui/shell    Current 8.1.45 -> Next 8.1.46     1 package
+**Which bump.** `--patch` computes from the WORKSPACE version, so it is a
+regression whenever one package has drifted ahead: it rewrites that package
+BACKWARD over versions already on npm, the publish then skips it as
+"already published", and the tree ships a number lower than the registry's.
+`@hanzogui/shell` sat at 8.1.54 against a workspace at 8.1.1 for exactly that
+reason. A minor clears every published version at once and reconverges the tree,
+which is why 8.2.0 was minor and not patch — and it is what finally shipped
+shell's stranded 8.1.54 work. To move ONE drifted package without dragging the
+rest, `--only <name>` reads `Current` from that package instead of the workspace,
+so `--patch` computes a true next patch there.
 
-So "minor is the one that works" holds only for a whole-workspace release. A
-package that has drifted ahead ships with `--only` at its own next patch, without
-dragging 168 others to a new minor.
+Verify any of this with `--dry-run` added to the commands above: it prints the
+computed version and the full publish plan and writes nothing.
+
+**npm can stall mid-publish and it is not your bug.** A large package can come
+back `E409 Cannot publish over previously staged version` — npm holding a partial
+upload. `@hanzogui/lucide-icons-2` (14.2 MB, 8807 files) did this and cleared on
+its own after ~9 minutes of retries. It matters because the script pins internal
+deps EXACTLY, so a package published against a missing one is a broken install
+until the missing one lands: `@hanzogui/chrome@8.2.0` pinned
+`@hanzogui/lucide-icons-2@8.2.0` while that version did not exist. Re-run
+`--republish` until the postflight reports nothing missing.
 
 What `--only` cannot do is provenance: that needs the GitHub `Release` workflow's
 `id-token: write`, and that workflow only ships the whole workspace.

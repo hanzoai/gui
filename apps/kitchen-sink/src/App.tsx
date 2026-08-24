@@ -48,7 +48,7 @@ const SandboxFrame = (props: { children: any; centered?: boolean }) => {
 
   return (
     <Provider defaultTheme={theme as any}>
-      <link href="/fonts/inter.css" rel="stylesheet" />
+      <link href="/fonts/zen.css" rel="stylesheet" />
 
       {screenshot && (
         <style

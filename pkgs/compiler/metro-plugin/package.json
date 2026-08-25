@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/metro-plugin",
-  "version": "8.2.0",
+  "version": "8.2.1",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [

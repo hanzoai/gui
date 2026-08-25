@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/test-design-system",
-  "version": "8.2.0",
+  "version": "8.2.1",
   "source": "src/index.ts",
   "files": [
     "src",

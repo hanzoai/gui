@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/shell",
-  "version": "8.2.2",
+  "version": "8.2.1",
   "description": "Unified Hanzo shell — HanzoHeader (the one public bar: Hanzo mega-menu, ⌘K search, the canonical CTA pill, IAM identity), OrgHeader (the signed-in bar), UserOrgDropdown (the one org switcher), Masquerade, AskHanzo (the visitor chat), MeetHanzoMenu, ProductsMegaMenu, HanzoFooter, HanzoPreFooterCTA, HanzoAppLauncher + the canonical surface registry",
   "source": "src/index.ts",
   "files": [

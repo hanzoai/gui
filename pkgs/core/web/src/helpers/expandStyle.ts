@@ -115,12 +115,18 @@ export function expandStyle(
       }
       case 'display': {
         // display: grid|inline-grid -> flex on native, which has no grid
-        // engine. A one-column grid and a flex column lay out identically, so
-        // a stack of rows survives the crossing; two-dimensional placement
-        // does not, and the track props below are dropped rather than
-        // half-applied. Yielding the value to RN untouched was the worse
-        // option: it warns in dev and lays out as `flex` anyway, so the
-        // degradation happened regardless and only the warning was new.
+        // engine (Yoga's Display enum is Flex, None, Contents).
+        //
+        // This is the faithful half of the crossing, not a surrender. A grid
+        // with no template has one implicit column and fills it top to bottom,
+        // which is what a flex column already does — measured in Chromium, the
+        // same three children land at the same three offsets under both. So a
+        // one-dimensional grid arrives on native intact.
+        //
+        // Two-dimensional placement does not cross, and does not pretend to:
+        // the track, area and placement properties are web-only (gridProps in
+        // @hanzogui/helpers) and are stripped here rather than handed to a
+        // layout pass that cannot read them.
         if (value === 'grid' || value === 'inline-grid') {
           return [['display', 'flex']]
         }
@@ -132,6 +138,22 @@ export function expandStyle(
           return [['display', 'flex']]
         }
         return
+      }
+      case 'gridAutoFlow': {
+        // The other half of the faithful crossing, and the reason gridAutoFlow
+        // is the one grid property that is not web-only.
+        //
+        // It names an axis, and so does flexDirection — the two engines spell
+        // the same intent with the words swapped. `column` fills a single row
+        // across, which is flexDirection 'row'; `row` fills a single column
+        // down, which is 'column'. Measured in Chromium, the three children of
+        // a `grid-auto-flow: column` grid land at the same three offsets as the
+        // children of a flex row.
+        //
+        // `dense` only changes how holes left by explicit placement are
+        // backfilled, and a one-dimensional layout has no holes, so
+        // 'row dense' and 'column dense' cross as their plain forms.
+        return [['flexDirection', String(value).startsWith('column') ? 'row' : 'column']]
       }
       case 'backgroundImage': {
         // RN 0.76+ uses experimental_backgroundImage

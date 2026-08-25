@@ -53,7 +53,7 @@ page.on('console', (m) => m.type() === 'error' && console.error('[page]', m.text
 page.on('pageerror', (e) => console.error('[page]', e.message))
 await page.goto(url)
 // `attached`, not `visible` — an empty layout box is 0px tall and correct.
-await page.waitForSelector('[data-probe="grid-default"]', { state: 'attached' })
+await page.waitForSelector('[data-probe="grid-view"]', { state: 'attached' })
 
 const read = await page.evaluate(() => {
   const out: Record<string, Record<string, string>> = {}
@@ -77,13 +77,10 @@ const read = await page.evaluate(() => {
       borderRightWidth: s.borderRightWidth,
       borderBottomColor: s.borderBottomColor,
       borderRightColor: s.borderRightColor,
-      backgroundColor: s.backgroundColor,
-      varBorder: s.getPropertyValue('--borderColor'),
-      varFocus: s.getPropertyValue('--backgroundFocus'),
       // Every prop gui failed to recognise arrives here instead, lowercased.
       leaked: Array.from(el.attributes)
         .map((a) => a.name)
-        .filter((n) => /^(grid|columns|rows|col|min|max|vertical|orientation)/.test(n))
+        .filter((n) => /^(grid|columns|rows|col|min|max|vertical|orientation|display)/.test(n))
         .join(','),
     }
   }
@@ -94,11 +91,7 @@ const read = await page.evaluate(() => {
         document.querySelectorAll<HTMLElement>(`[data-probe-cell="${name}"]`)
       ).map((e) => Math.round(e.getBoundingClientRect().left))
     ).size
-  out['#columns'] = {
-    narrow: String(columns('narrow')),
-    wide: String(columns('wide')),
-    uncapped: String(columns('uncapped')),
-  }
+  out['#columns'] = { narrow: String(columns('narrow')), wide: String(columns('wide')) }
   out['#document'] = {
     scrollWidth: String(document.documentElement.scrollWidth),
     clientWidth: String(document.documentElement.clientWidth),
@@ -111,57 +104,43 @@ await server.close()
 
 const g = (k: string) => read[k] ?? {}
 
-// --- the flex controls. An additive unification must not move these. ---
+// --- the flex controls. Nothing here may move them. ---
 eq('YStack is a flex column', `${g('ystack').display}/${g('ystack').flexDirection}`, 'flex/column')
 eq('XStack is a flex row', `${g('xstack').display}/${g('xstack').flexDirection}`, 'flex/row')
 eq('ZStack is a relative flex column', `${g('zstack').display}/${g('zstack').position}`, 'flex/relative')
 
-// --- Grid ---
-eq('Grid declares grid', g('grid-default').display, 'grid')
-eq(
-  'Grid defaults to the responsive fit',
-  g('grid-default').gridTemplateColumns.startsWith('repeat(') ||
-    g('grid-default').gridTemplateColumns.length > 0,
-  true
-)
-eq('a count is minmax(0, 1fr)', g('grid-count').gridTemplateColumns.split(' ').length, 3)
-eq('rows are read when asked', g('grid-rows').gridTemplateRows.split(' ').length, 2)
-eq('rows are absent otherwise', g('grid-default').gridTemplateRows, 'none')
-eq('a px gap is that many px', g('grid-gap-px').gap, '16px')
-ne('a token gap resolves to something', g('grid-gap-token').gap, '')
-ne('a token gap is not the px default', g('grid-gap-token').gap, '16px')
+// --- display: grid is a PARAMETER of a box, not a component ---
+eq('a View asked for grid is a grid', g('grid-view').display, 'grid')
+eq('...and takes a column track list', g('grid-view').gridTemplateColumns.split(' ').length, 3)
+eq('...and a row track list', g('grid-view').gridTemplateRows.split(' ').length, 2)
+ne('...and still takes a token gap', g('grid-view').gap, '')
+eq('an XStack asked for grid runs across', g('grid-xstack').gridTemplateColumns.split(' ').length, 4)
+eq('...and is a grid, not a row', g('grid-xstack').display, 'grid')
 
-// The case jsdom read as `flex`: a caller style prop beside the styled base.
-eq('Grid stays grid beside caller props', g('grid-with-props').display, 'grid')
+// The case jsdom read as `flex`: a caller style prop beside display.
+eq('grid survives caller props', g('grid-with-props').display, 'grid')
 eq('...and takes the caller width', g('grid-with-props').width, '300px')
-ne('...and takes the caller padding', g('grid-with-props').paddingTop, '0px')
+ne('...and the caller padding', g('grid-with-props').paddingTop, '0px')
 
-eq('a Cell spans', g('cell-span').gridColumn, 'span 2')
-eq('a Cell places across', g('cell-place').gridColumn, '2 / -1')
-eq('a Cell places down', g('cell-place').gridRow, 'span 3')
-eq('a plain child needs no Cell', g('grid-plain-child').display, 'flex')
+eq('a child spans', g('cell-span').gridColumn, 'span 2')
+eq('a child places across', g('cell-place').gridColumn, '2 / -1')
+eq('a child places down', g('cell-place').gridRow, 'span 3')
+eq('a plain child needs no wrapper', g('grid-plain-child').display, 'flex')
 
 // The floor that keeps one long word from widening its own track.
-eq('a Cell is floored at 0', g('cell-span').minWidth, '0px')
+eq('a placed child is floored at 0', g('cell-span').minWidth, '0px')
 eq('a plain child is floored at 0', g('grid-plain-child').minWidth, '0px')
 
-// Nothing leaked to the DOM as an attribute.
-for (const k of [
-  'grid-default',
-  'grid-count',
-  'grid-rows',
-  'grid-with-props',
-  'cell-span',
-  'cell-place',
-])
+// Nothing leaked to the DOM as an attribute. This is the whole hazard: gui
+// drops a prop it does not recognise, so a green build proves nothing.
+for (const k of ['grid-view', 'grid-xstack', 'grid-with-props', 'cell-span', 'cell-place'])
   eq(`${k} leaks no attribute`, g(k).leaked, '')
 
-// --- the reflow, which is the whole point of the fit form ---
-eq('{min:160,max:4} is 2-up at 390', g('#columns').narrow, '2')
-eq('{min:160,max:4} is 4-up at 1280', g('#columns').wide, '4')
-eq('{min:160} uncapped goes past 4 at 1280', Number(g('#columns').uncapped) > 4, true)
+// --- the reflow, which is what a track list buys over a breakpoint ---
+eq('a 160/4 fit is 2-up at 390', g('#columns').narrow, '2')
+eq('a 160/4 fit is 4-up at 1280', g('#columns').wide, '4')
 eq(
-  'a 900px min inside a 390px box does not scroll the page sideways',
+  'a 900px floor inside a 390px box does not scroll the page sideways',
   Number(g('#document').scrollWidth) <= Number(g('#document').clientWidth),
   true
 )
@@ -191,10 +170,10 @@ eq(
   g('token-border').borderBottomColor
 )
 
-// --- Section is the semantic element ---
+// --- Section is the semantic element, and owns no spacing ---
 eq('Section renders <section>', g('section').tag, 'section')
 eq('Section is a region', g('section').role, 'region')
-eq('Section is a plain flex column — it owns no spacing', g('section').paddingTop, '0px')
+eq('Section owns no padding', g('section').paddingTop, '0px')
 
 console.log(JSON.stringify(read, null, 2))
 if (fail.length) {

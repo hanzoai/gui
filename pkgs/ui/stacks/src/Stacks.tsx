@@ -51,28 +51,7 @@ YStack['displayName'] = 'YStack'
  */
 export const XStack = styled(View, {
   flexDirection: 'row',
-  variants: {
-    ...variants,
-    // The axis is the thing a stack means; flexDirection is only one engine's
-    // word for it. Grid's word is grid-auto-flow, and the two invert: flex
-    // `row` runs across, grid `row` fills rows and so runs DOWN. So
-    // flex-direction is inert under grid, and an XStack asked for grid laid its
-    // children out VERTICALLY — measured in a browser at x 24,24,24 / y
-    // 313,353,393, the opposite of this component's name.
-    //
-    // Saying the axis in grid's vocabulary too costs nothing when nobody asks:
-    // a variant that is not passed emits no class, so a plain XStack is still
-    // `is_View _fd-row`, byte for byte.
-    //
-    // YStack needs no such arm. Grid's default flow already fills one implicit
-    // column top to bottom, which is a YStack — measured at x 0,0,0 / y
-    // 0,20,40, identical to the flex column.
-    display: {
-      grid: { display: 'grid', gridAutoFlow: 'column' },
-      'inline-grid': { display: 'inline-grid', gridAutoFlow: 'column' },
-      ':string': (mode: string) => ({ display: mode }),
-    },
-  } as const,
+  variants,
 })
 
 XStack['displayName'] = 'XStack'

@@ -4,6 +4,7 @@ import {
   View,
   createGui,
   getSplitStyles,
+  styled,
 } from '@hanzogui/core'
 import { XStack, YStack } from '@hanzogui/stacks'
 import { render } from '@testing-library/react'
@@ -107,37 +108,27 @@ describe('a grid line is a line, not a length', () => {
     expect(declared({ gap: 12 }, 'gap')).toBe('12px')
     expect(declared({ rowGap: 12 }, 'rowGap')).toBe('12px')
   })
+
+  // A track SIZE is a length too, and these four sat with the line properties:
+  // `grid-auto-rows: 100` computes to `auto`, so it compiled, extracted,
+  // shipped and rendered nothing.
+  for (const prop of [
+    'gridAutoColumns',
+    'gridAutoRows',
+    'gridTemplateColumns',
+    'gridTemplateRows',
+  ]) {
+    test(`a number on ${prop} is a length`, () => {
+      expect(declared({ [prop]: 100 }, prop)).toBe('100px')
+    })
+  }
 })
 
 describe('the axis is resolved against the mode', () => {
-  // XStack means "a horizontal line". flexDirection is one engine's word for
-  // that, and it is inert under grid — grid's default flow fills ROWS, which
-  // runs DOWN, so an XStack asked for grid used to lay out vertically.
-  test('XStack in grid mode still runs across', () => {
-    expect(split({ display: 'grid' }, XStack).classNames).toMatchObject({
-      display: '_dsp-grid',
-      gridAutoFlow: '_gridAutoFlow-column',
-    })
-  })
-
-  test('and inline-grid the same', () => {
-    expect(split({ display: 'inline-grid' }, XStack).classNames).toMatchObject({
-      display: '_dsp-inline-grid',
-      gridAutoFlow: '_gridAutoFlow-column',
-    })
-  })
-
-  test('every other display value still passes through', () => {
-    for (const mode of ['none', 'flex', 'inline-flex', 'block', 'contents']) {
-      expect(split({ display: mode }, XStack).classNames.display).toBe(`_dsp-${mode}`)
-      expect(split({ display: mode }, XStack).classNames.gridAutoFlow).toBeUndefined()
-    }
-  })
-
-  // These read the rendered element rather than getSplitStyles, because the
-  // question is what the WHOLE component emits — a styled component's own base
-  // style is not among the props, so `flexDirection: 'row'` never appears in a
-  // split of `{}`, and the cost of the arm is exactly what is being measured.
+  // These render rather than split props, because a styled component's own base
+  // style is not among its props: `flexDirection: 'row'` reaches the style
+  // object from XStack's definition, and the whole question is what the
+  // finished element emits.
   const classOf = (ui: React.ReactElement) => {
     const { container } = render(
       <GuiProvider config={config} defaultTheme="light">
@@ -147,22 +138,104 @@ describe('the axis is resolved against the mode', () => {
     return (container.querySelector('[data-solo]') as HTMLElement).className
   }
 
-  // The arm must cost nothing to the call sites that never ask for grid, which
-  // today is all of them: a variant that is not passed emits no class.
-  test('a plain XStack is unchanged', () => {
-    expect(classOf(<XStack data-solo />)).toBe('is_View _fd-row')
-  })
-
-  test('a grid XStack adds the axis and nothing else', () => {
+  // flexDirection is inert under grid, and grid's default flow fills ROWS,
+  // which runs DOWN — so a component whose axis is named the flex way laid out
+  // backwards. Restated once, where display and flexDirection are both visible.
+  test('a stack asked for grid still runs across', () => {
     expect(classOf(<XStack data-solo display="grid" />)).toBe(
       'is_View _fd-row _dsp-grid _gridAutoFlow-column'
     )
   })
 
-  // YStack needs no arm at all: grid's default flow already fills one implicit
-  // column top to bottom, which is what a YStack is. Asserted so the asymmetry
-  // with XStack reads as a measurement rather than an omission.
-  test('YStack needs no arm, because grid already agrees with it', () => {
-    expect(classOf(<YStack data-solo display="grid" />)).toBe('is_View _fd-column _dsp-grid')
+  test('and inline-grid the same', () => {
+    expect(classOf(<XStack data-solo display="inline-grid" />)).toContain(
+      '_gridAutoFlow-column'
+    )
+  })
+
+  // Not an XStack fix. Seven components in pkgs/ui carry flexDirection: 'row'
+  // as a base style — Card, ListItem, RadioGroup, Button, Fieldset,
+  // MenuPredefined, Tabs — as does every styled(View) an author writes, which
+  // is the pattern the docs teach.
+  test('any component whose base names a row is covered', () => {
+    const Row = styled(View, { flexDirection: 'row' })
+    expect(classOf(<Row data-solo display="grid" />)).toBe(
+      'is_View _fd-row _dsp-grid _gridAutoFlow-column'
+    )
+  })
+
+  test('costs nothing when grid is not asked for', () => {
+    expect(classOf(<XStack data-solo />)).toBe('is_View _fd-row')
+  })
+
+  // Grid's default flow already fills one implicit column top to bottom, which
+  // is what a YStack is. Asserted so the asymmetry reads as a measurement
+  // rather than an omission.
+  test('a column needs no restatement, because grid already agrees', () => {
+    expect(classOf(<YStack data-solo display="grid" />)).toBe(
+      'is_View _fd-column _dsp-grid'
+    )
+  })
+})
+
+describe('naming the tracks is the author speaking', () => {
+  const classOf = (ui: React.ReactElement) => {
+    const { container } = render(
+      <GuiProvider config={config} defaultTheme="light">
+        {ui}
+      </GuiProvider>
+    )
+    return (container.querySelector('[data-solo]') as HTMLElement).className
+  }
+
+  // Column flow on top of three explicit columns pushes the fourth item into an
+  // implicit fourth column: measured in Chromium as six tracks, three of them
+  // 7px slivers, on one row. The restatement has to yield here, and it can,
+  // because the rest of the style is visible where it happens.
+  test('an explicit column list is left alone', () => {
+    expect(classOf(<XStack data-solo display="grid" gridTemplateColumns="repeat(3, 1fr)" />))
+      .not.toContain('_gridAutoFlow')
+  })
+
+  // Named areas are worse than broken under forced column flow — they keep the
+  // right geometry and put the wrong children in it.
+  test('named areas are left alone', () => {
+    expect(classOf(<XStack data-solo display="grid" gridTemplateAreas={'"a b" "c d"'} />))
+      .not.toContain('_gridAutoFlow')
+  })
+
+  for (const [name, props] of [
+    ['a row list', { gridTemplateRows: 'repeat(2, 1fr)' }],
+    ['the grid shorthand', { grid: 'auto / auto' }],
+    ['the template shorthand', { gridTemplate: 'auto / auto' }],
+  ] as const) {
+    test(`${name} is left alone`, () => {
+      expect(classOf(<XStack data-solo display="grid" {...props} />)).not.toContain(
+        '_gridAutoFlow'
+      )
+    })
+  }
+
+  // Grid has no equivalent of wrap, and column flow plus wrap does not wrap —
+  // it lays an eighth 120px child 360px outside a 600px box. Grid's own row
+  // flow gives a single column, which is a degradation you can see.
+  test('a wrapping stack is left alone', () => {
+    expect(classOf(<XStack data-solo display="grid" flexWrap="wrap" />)).not.toContain(
+      '_gridAutoFlow'
+    )
+  })
+
+  // The author's own flow wins from either side. As a variant this depended on
+  // the order the props were written in, silently.
+  test('an explicit flow wins, written before display', () => {
+    expect(classOf(<XStack data-solo gridAutoFlow="row" display="grid" />)).toContain(
+      '_gridAutoFlow-row'
+    )
+  })
+
+  test('an explicit flow wins, written after display', () => {
+    expect(classOf(<XStack data-solo display="grid" gridAutoFlow="row" />)).toContain(
+      '_gridAutoFlow-row'
+    )
   })
 })

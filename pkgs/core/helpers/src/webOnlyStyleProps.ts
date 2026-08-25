@@ -3,24 +3,23 @@
 // NOTE: RN 0.76+ added: boxShadow, filter (cross-platform, with some Android 12+ only filters)
 // NOTE: RN 0.77+ added: boxSizing, mixBlendMode, isolation, outline* props
 
-// CSS grid. React Native has no grid engine: RN 0.83 types `display` as
-// 'none' | 'flex' | 'contents' and Yoga's Display enum carries Flex, None and
-// Contents and nothing else, so every property here would reach a layout pass
-// that cannot read it. They are stripped on native, which is what the
-// "Will be omitted on native" note each one carries in types.tsx says.
-//
-// gridAutoFlow is deliberately NOT here. It is the one grid property flexbox
-// reproduces exactly, so it crosses to flexDirection instead (expandStyle.ts).
-//
-// Unitless as a set: no property here takes a bare CSS length. Track sizes are
-// written inside a string ('240px', '1fr', 'repeat(3, 1fr)'), and a number
-// means a grid LINE — `gridRow={2}` is line 2, and `grid-row: 2px` is a
-// declaration the browser drops.
-export const gridProps = {
-  grid: true,
-  gridArea: true,
+// Track SIZES. A bare number here is a CSS length and must be given a unit:
+// `gridAutoRows={100}` means 100px, and `grid-auto-rows: 100` is a declaration
+// the browser drops for want of one.
+const gridTracks = {
   gridAutoColumns: true,
   gridAutoRows: true,
+  gridTemplateColumns: true,
+  gridTemplateRows: true,
+}
+
+// The rest of grid, where a bare number is never a length. On the placement
+// properties it is a LINE — `gridRow={2}` is line 2, and `grid-row: 2px` is
+// nonsense — and the remainder take keywords or strings only.
+export const gridUnitless = {
+  grid: true,
+  gridArea: true,
+  gridAutoFlow: true,
   gridColumn: true,
   gridColumnEnd: true,
   gridColumnStart: true,
@@ -29,8 +28,6 @@ export const gridProps = {
   gridRowStart: true,
   gridTemplate: true,
   gridTemplateAreas: true,
-  gridTemplateColumns: true,
-  gridTemplateRows: true,
   // grid's own alignment. alignContent/alignItems/alignSelf and justifyContent
   // are shared with flex and stay in the cross-platform table; these five have
   // no flex meaning at all.
@@ -39,6 +36,24 @@ export const gridProps = {
   placeContent: true,
   placeItems: true,
   placeSelf: true,
+}
+
+// CSS grid, entire. React Native has no grid engine: RN 0.83 types `display` as
+// 'none' | 'flex' | 'contents' and Yoga's Display enum carries Flex, None and
+// Contents and nothing else, so every property here would reach a layout pass
+// that cannot read it. All of them are stripped on native, which is what the
+// "Will be omitted on native" note each one carries in types.tsx says.
+//
+// gridAutoFlow is in here with the rest and does NOT cross. It reads like the
+// one property flex could reproduce — it names an axis, and so does
+// flexDirection — but a per-property rewrite cannot see `display`, so it fired
+// on flex containers too and inverted their axis on native while web left them
+// alone. The axis is resolved in fixStyles instead, where the whole style is
+// visible, and it is resolved in the other direction: flexDirection is what
+// native already reads, and it is already correct there.
+export const gridProps = {
+  ...gridTracks,
+  ...gridUnitless,
 }
 
 // web-only discrete (non-animatable) view props

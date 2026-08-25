@@ -426,7 +426,18 @@ const componentsIn = {
 
   IntroParagraph,
 
-  Grid: (props) => <XStack flexWrap="wrap" jc="space-between" {...props} />,
+  // A grid, now that gui can say so. It was a wrapping XStack with
+  // space-between, which leaves the last row spread across the full width
+  // however few cards are in it — the classic flex-gallery orphan row. Even
+  // tracks are what a gallery wants, and auto-fit picks the count from the
+  // width with no breakpoint.
+  Grid: (props) => (
+    <View
+      display="grid"
+      gridTemplateColumns="repeat(auto-fit, minmax(min(240px, 100%), 1fr))"
+      {...props}
+    />
+  ),
   Card: GuiCard,
 
   LogoCard: LogoCard,

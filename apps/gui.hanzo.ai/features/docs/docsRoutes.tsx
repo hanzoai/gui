@@ -122,6 +122,7 @@ export const docsRoutes = [
     pages: [
       { title: 'Install', route: '/ui/intro' },
       { title: 'Stacks', route: '/ui/stacks' },
+      { title: 'Grid', route: '/ui/grid' },
       { title: 'Headings', route: '/ui/headings' },
       { title: 'Text', route: '/ui/text' },
       { title: 'Native', route: '/ui/native' },

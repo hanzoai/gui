@@ -9,7 +9,8 @@ export default defineConfig({
   plugins: [react()],
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-    'process.env.TAMAGUI_TARGET': JSON.stringify('web'),
+    // GUI_TARGET only. TAMAGUI_TARGET sat beside it and the runtime reads it in
+    // no file at all, so it defined a variable nothing consumes.
     'process.env.GUI_TARGET': JSON.stringify('web'),
   },
   resolve: {

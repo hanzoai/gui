@@ -171,10 +171,8 @@ const PreviewGrid = memo(() => {
   return (
     <XStack
       gap="$4"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(auto-fit, minmax(350px, 1fr))`,
-      }}
+      display="grid"
+      gridTemplateColumns="repeat(auto-fit, minmax(350px, 1fr))"
     >
       {Object.keys(components).map((name) => {
         return <ThemeBuilderComponentCard key={name} name={name} />

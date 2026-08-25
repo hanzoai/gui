@@ -17,6 +17,7 @@ import {
   Adapt,
   Button,
   Card,
+  Grid,
   H1,
   H2,
   H3,
@@ -426,7 +427,7 @@ const componentsIn = {
 
   IntroParagraph,
 
-  Grid: (props) => <XStack flexWrap="wrap" jc="space-between" {...props} />,
+  Grid,
   Card: GuiCard,
 
   LogoCard: LogoCard,

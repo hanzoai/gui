@@ -1,14 +1,13 @@
-import { EnsureFlexed, H4, Paragraph, YStack } from '@hanzo/gui'
+import { EnsureFlexed, Grid, H4, Paragraph, YStack } from '@hanzo/gui'
 
 import { ContainerLarge } from '~/components/Containers'
-import { Grid } from '~/components/Grid'
 
 export function HomeFeaturesGrid() {
   return (
     <>
       <ContainerLarge gap="$8">
         <YStack maxW={950} self="center">
-          <Grid gap={25} min={280}>
+          <Grid gap={25} columns={{ min: 280 }}>
             <YStack gap="$4" p="$4">
               <H4 letterSpacing={0} fontFamily="$mono" text="center">
                 Fully typed

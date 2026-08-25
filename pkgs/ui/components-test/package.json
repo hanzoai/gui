@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/components-test",
-  "version": "8.2.1",
+  "version": "8.2.0",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -9,9 +9,12 @@
   "scripts": {
     "test:web": "DISABLE_REACT_NATIVE=1 TEST_ENVIRONMENT=jsdom GUI_TARGET=web vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.web.test.tsx",
     "test:native": "GUI_TARGET=native vitest --run --config ../../vite-plugin-internal/src/vite.config.ts *.native.test.tsx",
+    "test:browser": "DISABLE_REACT_NATIVE=1 GUI_TARGET=web bun run browser/run.ts",
     "test": "bun run test:native"
   },
   "devDependencies": {
+    "playwright": "^1.62.1",
+    "vite": "^7.1.11",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "csstype": "^3.0.10",

@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@hanzo/gui": "workspace:*",
-    "@hanzo/logo": "^1.0.21",
+    "@hanzo/logo": "^1.0.24",
     "@hanzogui/use-element-layout": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },

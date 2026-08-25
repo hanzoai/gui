@@ -2,30 +2,29 @@ import type { LayoutValue } from '@hanzogui/use-element-layout'
 import React, { useEffect, useState } from 'react'
 import type { XStackProps } from '@hanzo/gui'
 import { Circle, XStack } from '@hanzo/gui'
+import { WORDMARKS } from '@hanzo/logo/wordmarks'
 import { useTint } from './useTint'
 
-// T A M A G U I
-// default: white white white white red green blue
-// hover: yellow yellow yellow color12 red green blue
-const defaultColors = [
-  'var(--color12)',
-  'var(--color12)',
-  'var(--color12)',
-  'var(--color12)',
-  'var(--red9)',
-  'var(--green9)',
-  'var(--blue9)',
-]
-
-const hoveredColors = [
-  'var(--yellow9)',
-  'var(--yellow9)',
-  'var(--yellow9)',
-  'var(--color12)',
-  'var(--red9)',
-  'var(--green9)',
-  'var(--blue9)',
-]
+/**
+ * The wordmark.
+ *
+ * This drew T-A-M-A-G-U-I: seven pixel-art letter polygons on a 373x41 box,
+ * each tinted from a seven-colour table, with the hover strip split into seven
+ * sections and the dot stepped by a constant fitted to those letters. The fork
+ * renamed the package and kept the artwork, so the site's own name was another
+ * company's.
+ *
+ * It renders the outlined Hanzo wordmark from @hanzo/logo now — real paths cut
+ * from Zen, so it needs no font loaded and cannot drift from the wordmark every
+ * other Hanzo surface uses.
+ *
+ * The tint interaction stays, because it is a feature rather than a piece of
+ * the old wordmark — but it is no longer DIMENSIONED to seven letters. The
+ * strip divides by however many tints there are, and the dot rides the same
+ * fraction, so the two agree whatever that number becomes.
+ */
+const WORDMARK = WORDMARKS['Hanzo']
+const [WM_X, WM_Y, WM_W, WM_H] = WORDMARK.box
 
 export const LogoWords: React.MemoExoticComponent<
   ({
@@ -42,6 +41,7 @@ export const LogoWords: React.MemoExoticComponent<
   const [mounted, setMounted] = React.useState<'start' | 'animate' | 'done'>('start')
 
   const { tintIndex: index } = Tint
+  const sections = Tint.tints.length
 
   useEffect(() => {
     const idle = window.requestIdleCallback || setTimeout
@@ -58,9 +58,9 @@ export const LogoWords: React.MemoExoticComponent<
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      const index = Number.parseInt(event.key, 10) - 1 // Convert key to index (0-based)
-      if (!Number.isNaN(index) && index >= 0 && index < Tint.tints.length) {
-        Tint.setTintIndex(index)
+      const i = Number.parseInt(event.key, 10) - 1 // Convert key to index (0-based)
+      if (!Number.isNaN(i) && i >= 0 && i < Tint.tints.length) {
+        Tint.setTintIndex(i)
       }
     }
 
@@ -71,16 +71,16 @@ export const LogoWords: React.MemoExoticComponent<
     }
   }, [Tint])
 
-  const getColor = (i: number) => {
-    if (hovered) return `var(--${Tint.tints[i]}9)`
-    return defaultColors[i]
-  }
-
-  const x = Math.round(
-    index * 18.5 + (18 / 2) * (index / defaultColors.length) + 3 + (index === 6 ? -3 : 0)
-  )
-
   const [layout, setLayout] = useState<LayoutValue>()
+
+  // The mark is one ink; the tint shows through the dot rather than by
+  // recolouring letters, which is what the seven-colour table did.
+  const fill = hovered ? `var(--${Tint.tints[index]}9)` : 'var(--color12)'
+
+  const width = 373 * (1 / downscale) * 0.3333333
+  const height = (width * WM_H) / WM_W
+  // the dot sits over the section the current tint owns
+  const dotX = Math.round((width / sections) * (index + 0.5))
 
   return (
     <XStack
@@ -98,10 +98,8 @@ export const LogoWords: React.MemoExoticComponent<
       onMouseMove={(e: MouseEvent) => {
         if (!layout) return
         const x = e.clientX - layout.pageX
-        // Total width divided into 7 sections (one for each letter)
-        const sectionWidth = layout.width / 7
-        // Calculate which section we're in (0-6)
-        const section = Math.min(6, Math.floor(x / sectionWidth))
+        const sectionWidth = layout.width / sections
+        const section = Math.min(sections - 1, Math.max(0, Math.floor(x / sectionWidth)))
         Tint.setTintIndex(section)
       }}
       {...props}
@@ -113,8 +111,7 @@ export const LogoWords: React.MemoExoticComponent<
           top={0}
           left={0}
           y={mounted === 'start' ? -30 : -4}
-          // the last i is less wide
-          x={x}
+          x={dotX}
           size={4}
           backgroundColor="$color12"
         />
@@ -122,64 +119,15 @@ export const LogoWords: React.MemoExoticComponent<
 
       <svg
         data-tauri-drag-region
-        width={373 * (1 / downscale) * 0.3333333}
-        height={41 * (1 / downscale) * 0.3333333}
-        viewBox="0 0 373 41"
+        role="img"
+        aria-label="Hanzo"
+        width={width}
+        height={height}
+        viewBox={`${WM_X} ${-WM_Y - WM_H} ${WM_W} ${WM_H}`}
       >
-        <polygon
-          data-tauri-drag-region
-          shapeRendering="crispEdges"
-          fill={getColor(0)}
-          points="24.3870968 40.1612903 24.3870968 8.67741935 32.2580645 8.67741935 32.2580645 0.806451613 0.774193548 0.806451613 0.774193548 8.67741935 8.64516129 8.67741935 8.64516129 40.1612903"
-          // onMouseEnter={() => Tint.setTintIndex(0)}
-        />
-
-        <path
-          shapeRendering="crispEdges"
-          fill={getColor(1)}
-          d="M87.3548387,0.806451613 L87.3548387,8.67741935 L95.2258065,8.67741935 L95.2258065,40.1612903 L79.483871,40.1612903 L79.483871,24.4193548 L71.6129032,24.4193548 L71.6129032,40.1612903 L55.8709677,40.1612903 L55.8709677,8.67741935 L63.7419355,8.67741935 L63.7419355,0.806451613 L87.3548387,0.806451613 Z M79.483871,8.67741935 L71.6129032,8.67741935 L71.6129032,16.5483871 L79.483871,16.5483871 L79.483871,8.67741935 Z"
-          fillRule="nonzero"
-          // onMouseEnter={() => Tint.setTintIndex(1)}
-        />
-
-        <polygon
-          data-tauri-drag-region
-          shapeRendering="crispEdges"
-          fill={getColor(2)}
-          points="130.645161 40.1612903 130.645161 22.4516129 138.516129 22.4516129 138.516129 40.1612903 154.258065 40.1612903 154.258065 0.806451613 142.451613 0.806451613 142.451613 8.67741935 126.709677 8.67741935 126.709677 0.806451613 114.903226 0.806451613 114.903226 40.1612903"
-          // onMouseEnter={() => Tint.setTintIndex(2)}
-        />
-
-        <path
-          fill={getColor(3)}
-          d="M205.419355,0.806451613 L205.419355,8.67741935 L213.290323,8.67741935 L213.290323,40.1612903 L197.548387,40.1612903 L197.548387,24.4193548 L189.677419,24.4193548 L189.677419,40.1612903 L173.935484,40.1612903 L173.935484,8.67741935 L181.806452,8.67741935 L181.806452,0.806451613 L205.419355,0.806451613 Z M197.548387,8.67741935 L189.677419,8.67741935 L189.677419,16.5483871 L197.548387,16.5483871 L197.548387,8.67741935 Z"
-          fillRule="nonzero"
-          // onMouseEnter={() => Tint.setTintIndex(3)}
-        />
-
-        <polygon
-          data-tauri-drag-region
-          shapeRendering="crispEdges"
-          fill={getColor(4)}
-          points="264.451613 40.1612903 264.451613 32.2903226 272.322581 32.2903226 272.322581 16.5483871 256.580645 16.5483871 256.580645 32.2903226 248.709677 32.2903226 248.709677 8.67741935 272.322581 8.67741935 272.322581 0.806451613 240.83871 0.806451613 240.83871 8.67741935 232.967742 8.67741935 232.967742 32.2903226 240.83871 32.2903226 240.83871 40.1612903"
-          // onMouseEnter={() => Tint.setTintIndex(4)}
-        />
-
-        <polygon
-          data-tauri-drag-region
-          shapeRendering="crispEdges"
-          fill={getColor(5)}
-          points="323.483871 40.1612903 323.483871 32.2903226 331.354839 32.2903226 331.354839 0.806451613 315.612903 0.806451613 315.612903 32.2903226 307.741935 32.2903226 307.741935 0.806451613 292 0.806451613 292 32.2903226 299.870968 32.2903226 299.870968 40.1612903"
-          // onMouseEnter={() => Tint.setTintIndex(5)}
-        />
-
-        <polygon
-          data-tauri-drag-region
-          shapeRendering="crispEdges"
-          fill={getColor(6)}
-          points="372.677419 40.1612903 372.677419 0.806451613 356.935484 0.806451613 356.935484 40.1612903"
-          // onMouseEnter={() => Tint.setTintIndex(6)}
-        />
+        <g transform="scale(1,-1)">
+          <path d={WORDMARK.d} fill={fill} />
+        </g>
       </svg>
     </XStack>
   )

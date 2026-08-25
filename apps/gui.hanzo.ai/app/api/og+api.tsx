@@ -6,9 +6,9 @@ import { apiRoute } from '~/features/api/apiRoute'
 export default apiRoute(async (req) => {
   const { ImageResponse } = await import('@vercel/og')
 
-  const [interRegularFont, interBoldFont] = await Promise.all([
-    interRegularFontP,
-    interBoldFontP,
+  const [sansRegular, sansBlack] = await Promise.all([
+    sansRegularP,
+    sansBlackP,
   ])
 
   const { searchParams } = new URL(req.url)
@@ -23,14 +23,14 @@ export default apiRoute(async (req) => {
       height: 630,
       fonts: [
         {
-          name: 'Inter',
-          data: interRegularFont,
+          name: 'Zen',
+          data: sansRegular,
           style: 'normal',
           weight: 400,
         },
         {
-          name: 'Inter',
-          data: interBoldFont,
+          name: 'Zen',
+          data: sansBlack,
           style: 'normal',
           weight: 700,
         },
@@ -46,12 +46,14 @@ export default apiRoute(async (req) => {
 
 const fetchAsset = (url: URL) => fetch(url).then((res) => res.arrayBuffer())
 
-const interRegularFontP = fetchAsset(
-  new URL(`${getURL()}/fonts/otf/Inter-Regular.otf`, import.meta.url)
+// satori reads ttf/otf and not woff2, so the OG card takes Zen's static cuts
+// rather than the variable file the page itself loads.
+const sansRegularP = fetchAsset(
+  new URL(`${getURL()}/fonts/Zen-Regular.ttf`, import.meta.url)
 )
 
-const interBoldFontP = fetchAsset(
-  new URL(`${getURL()}/fonts/otf/Inter-Black.otf`, import.meta.url)
+const sansBlackP = fetchAsset(
+  new URL(`${getURL()}/fonts/Zen-Black.ttf`, import.meta.url)
 )
 
 const logo = fetchAsset(new URL(`${getURL()}/wordmark-white.png`, import.meta.url))
@@ -104,7 +106,7 @@ const ComponentOg = ({
             fontWeight: 900,
             fontSize: 96,
             marginBottom: -10,
-            fontFamily: 'Inter',
+            fontFamily: 'Zen',
           }}
         >
           {title}
@@ -114,7 +116,7 @@ const ComponentOg = ({
             color: colors.whiteA.whiteA10,
             fontSize: 32,
             // lineHeight: 1,
-            fontFamily: 'Inter',
+            fontFamily: 'Zen',
           }}
         >
           {description}
@@ -218,7 +220,7 @@ const BackgroundedOg = ({
               opacity: 0.75,
               fontSize: 24,
               marginBottom: -10,
-              fontFamily: 'Inter',
+              fontFamily: 'Zen',
               textAlign: 'center',
               textTransform: 'uppercase',
               letterSpacing: 10,
@@ -234,7 +236,7 @@ const BackgroundedOg = ({
             fontWeight: 900,
             fontSize: 96,
             marginBottom: -10,
-            fontFamily: 'Inter',
+            fontFamily: 'Zen',
           }}
         >
           {title}
@@ -244,7 +246,7 @@ const BackgroundedOg = ({
             color: colors.whiteA.whiteA10,
             fontSize: 32,
             // lineHeight: 1,
-            fontFamily: 'Inter',
+            fontFamily: 'Zen',
           }}
         >
           {description}

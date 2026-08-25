@@ -26,7 +26,6 @@ export const Grid = ({ min = 200, columns, ...rest }: GridProps) => (
     gridTemplateColumns={
       columns ? `repeat(${columns}, 1fr)` : `repeat(auto-fit, minmax(${min}px, 1fr))`
     }
-    justifyContent="stretch"
     $platform-native={{
       display: 'flex',
       flexDirection: 'row',

@@ -18,9 +18,12 @@ if (!import.meta.dirname) {
 // Check if required build artifacts exist, auto-build if missing
 const vitePluginDist = pathResolve(
   import.meta.dirname,
-  '../compiler/vite-plugin/dist/esm/index.mjs'
+  '../../pkgs/compiler/vite-plugin/dist/esm/index.mjs'
 )
-const staticDist = pathResolve(import.meta.dirname, '../compiler/static/dist/index.cjs')
+const staticDist = pathResolve(
+  import.meta.dirname,
+  '../../pkgs/compiler/static/dist/index.cjs'
+)
 
 if (!existsSync(vitePluginDist) || !existsSync(staticDist)) {
   console.info('')
@@ -127,6 +130,14 @@ export default {
     preserveSymlinks: false,
 
     alias: [
+      // `~` is app source, and the only specifier here that is not a package.
+      // Everything else resolves through node_modules, where each workspace
+      // package is linked at its one real path.
+      {
+        find: '~',
+        replacement: pathResolve(import.meta.dirname, '.'),
+      },
+
       // when bento is unavailable, @hanzogui/bento/component/* is stubbed by the
       // `stub-bento-components` plugin below (virtual module), not an alias
 
@@ -249,6 +260,15 @@ export const LocationNotification = BentoComponentStub
     }),
 
     one({
+      // tsconfig `paths` answers "where does the source live" for the type
+      // checker, which tries every entry of a fallback list. One's resolver
+      // reads the first entry only, so `@hanzogui/*` -> pkgs/core/* was applied
+      // to all 88 packages that live elsewhere. Packages resolve through
+      // node_modules instead; `~` is a vite alias above.
+      config: {
+        tsConfigPaths: false,
+      },
+
       setupFile: {
         server: './setup.server.ts',
       },

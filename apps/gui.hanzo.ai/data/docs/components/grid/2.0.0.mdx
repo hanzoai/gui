@@ -1,0 +1,201 @@
+---
+title: Grid
+description: CSS Grid, said in the same style props as everything else
+name: grid
+---
+
+<Highlights
+  features={[
+    'display is the layout mode. Stacks name the axis; the mode is a prop.',
+    'Every grid track and placement property is a style prop, so it themes, responds and compiles.',
+    'Grid is native on web. On native there is no grid engine, and this page says where that bites.',
+  ]}
+/>
+
+Gui has always had flexbox. It now has CSS Grid on the same footing: `display`
+is the mode, and every grid property is an ordinary style prop, so it takes
+tokens, media queries and the optimizing compiler like any other.
+
+Neither mode is privileged. Reach for whichever expresses the layout.
+
+```tsx
+import { View, XStack } from '@hanzo/gui'
+
+// flex — one axis, items flow
+<XStack gap="$4">
+  <Item /><Item /><Item />
+</XStack>
+
+// grid — two axes, explicit tracks
+<View display="grid" gridTemplateColumns="repeat(3, 1fr)" gap="$4">
+  <Item /><Item /><Item />
+</View>
+```
+
+## The mode is a prop, the axis is the component
+
+`XStack` and `YStack` name an **axis** — across, and down. They have never
+meant "flexbox"; they set `flexDirection` and nothing else. So a stack takes a
+mode like anything else:
+
+```tsx
+<XStack display="grid" gap="$4">   // across, on grid
+<YStack display="grid" gap="$4">   // down, on grid
+```
+
+That works because the axis is resolved against the mode. It is worth knowing
+why, because the raw CSS does not do this for you: `flex-direction` is **inert**
+under grid, and the two engines invert the same word — flex `row` runs across,
+while grid's `grid-auto-flow: row` fills rows and therefore runs *down*. Written
+by hand, `display: grid` on a flex row silently lays out vertically. `XStack`
+says the axis in both vocabularies, so it stays horizontal.
+
+A stack you do not pass `display` to emits no extra class and is byte-identical
+to what it always was.
+
+## The same layout, both ways
+
+Four layouts, each expressed in both modes. Where they are equivalent, prefer
+whichever reads better.
+
+**A row of three**
+
+```tsx
+<XStack gap="$4">…</XStack>
+
+<View display="grid" gridTemplateColumns="repeat(3, 1fr)" gap="$4">…</View>
+```
+
+Flex sizes each child to its content and distributes the slack; grid makes three
+tracks of exactly `1fr`. For equal columns, grid says it directly.
+
+**A column**
+
+```tsx
+<YStack gap="$4">…</YStack>
+
+<View display="grid" gap="$4">…</View>
+```
+
+Identical. Grid with no template fills one implicit column top to bottom, which
+is a column.
+
+**A gallery that reflows**
+
+```tsx
+<XStack flexWrap="wrap" gap="$4">
+  <View minW={160} flexGrow={1} />…
+</XStack>
+
+<View display="grid" gridTemplateColumns="repeat(auto-fit, minmax(160px, 1fr))" gap="$4">
+  …
+</View>
+```
+
+Both reflow. The grid version needs no per-child sizing and **no media query** —
+`auto-fit` decides the track count from the available width. Measured: two
+tracks at 390px, four at 768px, eight at 1440px.
+
+**A sidebar and a body**
+
+```tsx
+<XStack gap="$4">
+  <View w={240} />
+  <View flexGrow={1} />
+</XStack>
+
+<View display="grid" gridTemplateColumns="240px 1fr" gap="$4">
+  <View /><View />
+</View>
+```
+
+Equivalent. Grid puts the sizes in one place instead of on each child.
+
+## What grid does that flex cannot
+
+Flexbox is one-dimensional. These have no flex equivalent, which is the reason
+to reach for grid at all.
+
+**Named areas** — the layout is legible as a picture:
+
+```tsx
+<View
+  display="grid"
+  gridTemplateAreas={`"nav head"
+                      "nav body"`}
+  gridTemplateColumns="240px 1fr"
+  gridTemplateRows="auto 1fr"
+  gap="$4"
+>
+  <View gridArea="nav" />
+  <View gridArea="head" />
+  <View gridArea="body" />
+</View>
+```
+
+**Explicit placement** — a child claims its own span, independent of source
+order:
+
+```tsx
+<View display="grid" gridTemplateColumns="repeat(4, 1fr)" gap="$4">
+  <View gridColumn="1 / 3" />
+  <View gridColumn="3 / 5" />
+  <View gridColumn="1 / 5" />
+</View>
+```
+
+**Overlap** — two children in one cell, no absolute positioning:
+
+```tsx
+<View display="grid">
+  <Image gridArea="1 / 1" />
+  <Overlay gridArea="1 / 1" placeSelf="end" />
+</View>
+```
+
+**Dense packing** — `gridAutoFlow="dense"` backfills holes left by items that
+span more than one track.
+
+## Native
+
+Grid is genuinely native on web: real CSS Grid, no polyfill and no JavaScript
+layout pass.
+
+React Native has **no grid engine** — its own `display` admits only `none`,
+`flex` and `contents`, and Yoga implements no grid. So on native, `display:
+grid` becomes `flex`. What survives that crossing depends entirely on the
+layout:
+
+| grid | on native | why |
+| --- | --- | --- |
+| a single implicit column | exact | a one-column grid *is* a flex column |
+| `repeat(N, 1fr)` | exact | uniform tracks are reproducible in flex |
+| `repeat(auto-fit, minmax(x, 1fr))` | close | wraps, and the reflow survives |
+| named areas | **no** | flex has no second dimension |
+| `gridColumn` / `gridArea` placement | **no** | flex has no explicit placement |
+| overlapping cells | **no** | flex cannot put two children in one cell |
+| `gridAutoFlow="dense"` | **no** | nothing to backfill in one dimension |
+
+The top three cover most real layouts — galleries, card decks, uniform columns —
+so grid is usually the better way to write them even in a cross-platform app.
+The bottom four are web-only compositions. Reach for them deliberately, and give
+native its own arrangement with `$platform-native` when you do.
+
+## Properties
+
+Tracks and placement take the CSS value verbatim, unitless, exactly as the
+stylesheet would:
+
+`grid` · `gridTemplate` · `gridTemplateColumns` · `gridTemplateRows` ·
+`gridTemplateAreas` · `gridAutoColumns` · `gridAutoRows` · `gridAutoFlow` ·
+`gridArea` · `gridColumn` · `gridColumnStart` · `gridColumnEnd` · `gridRow` ·
+`gridRowStart` · `gridRowEnd`
+
+Alignment splits by who is aligned. `alignItems`, `alignContent` and
+`justifyContent` mean the same as they do in flex. Grid adds the ones flex has
+no use for:
+
+`justifyItems` · `justifySelf` · `placeItems` · `placeContent` · `placeSelf`
+
+Spacing is `gap`, `columnGap` and `rowGap` — the same props, the same tokens, in
+both modes.

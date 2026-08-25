@@ -1,6 +1,6 @@
 ---
 title: Stacks
-description: An optional base for creating flex-based layouts
+description: Views that name an axis — across, down, and stacked
 name: stacks
 component: Stacks
 package: stacks
@@ -28,6 +28,12 @@ extend directly off the [View](/docs/core/view-and-text) from `@hanzogui/core`,
 and so accept all [style properties](/docs/intro/props).
 
 In this example you'd show three `YStack` elements spaced out.
+
+A stack names an **axis** — across, down, or stacked — not a layout engine. It
+sets `flexDirection` and nothing else, so `display` still chooses the mode:
+`<XStack display="grid">` is a horizontal grid, and the axis is resolved
+against the mode for you. See [Grid](/ui/grid) for the track and placement
+properties, and for which layouts survive the crossing to native.
 
 ## Installation
 

@@ -5,8 +5,10 @@ type ChangeHandler = (next: TintFamily) => void
 
 const listeners = new Set<ChangeHandler>()
 
-// T A M A G U I
-// Maps to logo letters - index 3 (A) is the "none" theme position
+// A seasonal ramp of tint stops. These used to be one entry per letter of the
+// old seven-letter wordmark, with index 3 reserved as the neutral notch; the
+// wordmark is Hanzo now and every reader indexes by `tints.length`, so the
+// length is just how many stops the ramp has.
 const familiesValues = {
   hanzogui: ['yellow', 'yellow', 'yellow', 'gray', 'red', 'green', 'blue'] as ThemeName[],
   xmas: ['red', 'green', 'red', 'green', 'red', 'green', 'red'] as ThemeName[],

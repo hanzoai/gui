@@ -51,7 +51,7 @@ export function LucideIconsDemo() {
 
       <YStack height={420}>
         <ScrollView>
-          <Grid itemMinWidth={size}>{iconsMemo}</Grid>
+          <Grid min={size}>{iconsMemo}</Grid>
         </ScrollView>
       </YStack>
     </YStack>

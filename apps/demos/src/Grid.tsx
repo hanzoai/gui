@@ -1,46 +1,38 @@
-import { isWeb } from '@hanzogui/core'
-import { XStack } from '@hanzogui/stacks'
-import React from 'react'
+import { View, type ViewProps } from '@hanzo/gui'
 
-export type GridProps = {
-  children?: any
-  itemMinWidth?: number
-  gap?: any
+/**
+ * A grid, on the platform's own grid.
+ *
+ * Same component as the site's, and deliberately the same API: this used to be
+ * two components behind an `isWeb` branch whose web half dropped to a raw
+ * `<div style={{ display: 'grid' }}>` — outside the theme, outside the tokens,
+ * outside media queries. That was the only way to say `display: grid`, because
+ * gui's `display` type listed flex and not grid. It does now.
+ *
+ * The platform branch survives as a VALUE rather than a second return: React
+ * Native has no grid engine, so native gets a wrapping row.
+ */
+export type GridProps = ViewProps & {
+  /** Narrowest a cell may get before the track count drops. */
+  min?: number
+  /** A fixed track count, for a layout that should not reflow. */
   columns?: number
 }
 
-export function Grid({ children, columns, itemMinWidth = 200, gap }: GridProps) {
-  if (isWeb) {
-    return (
-      <div
-        style={{
-          gap,
-          display: 'grid',
-          justifyContent: 'stretch',
-          gridTemplateColumns: `repeat( auto-fit, minmax(${itemMinWidth}px, 1fr) )`,
-        }}
-      >
-        {children}
-      </div>
-    )
-  }
-
-  const childrenList = React.Children.toArray(children)
-
-  return (
-    <XStack items="center" justify="center" flexWrap="wrap">
-      {childrenList.map((child, i) => {
-        if (!child) {
-          return null
-        }
-
-        // index key bad
-        return (
-          <XStack key={i} flex={1} minW={itemMinWidth} mr={gap} mb={gap}>
-            {child}
-          </XStack>
-        )
-      })}
-    </XStack>
-  )
-}
+export const Grid = ({ min = 200, columns, ...rest }: GridProps) => (
+  <View
+    display="grid"
+    gridTemplateColumns={
+      columns ? `repeat(${columns}, 1fr)` : `repeat(auto-fit, minmax(${min}px, 1fr))`
+    }
+    justifyContent="stretch"
+    $platform-native={{
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+    {...rest}
+  />
+)

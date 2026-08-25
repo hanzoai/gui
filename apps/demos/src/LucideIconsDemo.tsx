@@ -2,9 +2,7 @@ import React from 'react'
 import * as LucideIcons from '@hanzogui/lucide-icons-2'
 
 import { ScrollView } from 'react-native'
-import { Input, Paragraph, Spacer, YStack, useDebounceValue } from '@hanzo/gui'
-
-import { Grid } from './Grid'
+import { Input, Paragraph, Spacer, View, YStack, useDebounceValue } from '@hanzo/gui'
 
 const lucideIcons = Object.keys(
   // vite tree shaking workaround
@@ -51,7 +49,23 @@ export function LucideIconsDemo() {
 
       <YStack height={420}>
         <ScrollView>
-          <Grid itemMinWidth={size}>{iconsMemo}</Grid>
+          {/*
+            One element, both engines. On web the track list runs and the flex
+            properties are inert; on native there is no grid, so display falls
+            back to flex and the track list is stripped — leaving a wrapping
+            row, which is what an icon grid of fixed-size children needs. Icons
+            carry their own size, so nothing has to be said per child.
+          */}
+          <View
+            display="grid"
+            gridTemplateColumns={`repeat(auto-fit, minmax(min(${size}px, 100%), 1fr))`}
+            flexDirection="row"
+            flexWrap="wrap"
+            justify="center"
+            items="center"
+          >
+            {iconsMemo}
+          </View>
         </ScrollView>
       </YStack>
     </YStack>

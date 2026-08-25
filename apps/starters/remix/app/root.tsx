@@ -9,18 +9,11 @@ import {
 import { GuiProvider } from '@hanzo/gui'
 import hanzoguiConfig from '../hanzogui.config'
 
-export const links: LinksFunction = () => [
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  {
-    rel: 'preconnect',
-    href: 'https://fonts.gstatic.com',
-    crossOrigin: 'anonymous',
-  },
-  {
-    rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
-  },
-]
+// Zen ships with the package, so a project scaffolded from this starter makes
+// no request to a font host and starts on our own family rather than Inter.
+import '@hanzo/font/css'
+
+export const links: LinksFunction = () => []
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

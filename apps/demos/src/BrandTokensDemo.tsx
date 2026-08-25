@@ -1,4 +1,4 @@
-import { Button, Card, H2, Paragraph, Text, Theme, XStack, YStack } from 'hanzogui'
+import { Button, H2, Paragraph, Text, Theme, XStack, YStack } from 'hanzogui'
 
 // Proof surface for the token layer: true-black neutral ramp, one accent per
 // white-label brand (read straight from each brand's generated theme — the
@@ -65,7 +65,8 @@ export function BrandTokensDemo() {
               // not from the @hanzogui/dev-config this package is typed against
               // @ts-expect-error
               <Theme key={b} name={b}>
-                <Card
+                <YStack
+                  position="relative"
                   backgroundColor="$color2"
                   borderWidth={1}
                   borderColor="$borderColor"
@@ -97,7 +98,7 @@ export function BrandTokensDemo() {
                     </Text>
                   </YStack>
                   <Button>Themed button</Button>
-                </Card>
+                </YStack>
               </Theme>
             ))}
           </XStack>

@@ -314,9 +314,6 @@
       "path": "pkgs/ui/button"
     },
     {
-      "path": "pkgs/ui/card"
-    },
-    {
       "path": "pkgs/ui/checkbox-headless"
     },
     {

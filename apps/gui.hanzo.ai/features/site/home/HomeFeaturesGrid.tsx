@@ -1,4 +1,4 @@
-import { EnsureFlexed, Grid, H4, Paragraph, YStack } from '@hanzo/gui'
+import { EnsureFlexed, H4, Paragraph, View, YStack } from '@hanzo/gui'
 
 import { ContainerLarge } from '~/components/Containers'
 
@@ -7,7 +7,20 @@ export function HomeFeaturesGrid() {
     <>
       <ContainerLarge gap="$8">
         <YStack maxW={950} self="center">
-          <Grid gap={25} columns={{ min: 280 }}>
+          {/*
+            As many equal columns as fit at 280px or wider, and no media query
+            anywhere — the reflow is the track list's own.
+
+            `min(280px, 100%)` rather than a bare 280px: minmax(280px, 1fr)
+            forces a 280px track inside a narrower viewport and scrolls the
+            document sideways. `minmax(0, 1fr)` is implied by auto-fit here;
+            what matters is that the floor can collapse.
+          */}
+          <View
+            display="grid"
+            gridTemplateColumns="repeat(auto-fit, minmax(min(280px, 100%), 1fr))"
+            gap={25}
+          >
             <YStack gap="$4" p="$4">
               <H4 letterSpacing={0} fontFamily="$mono" text="center">
                 Fully typed
@@ -69,7 +82,7 @@ export function HomeFeaturesGrid() {
                 fonts. Advanced selectors, and more.
               </Paragraph>
             </YStack>
-          </Grid>
+          </View>
         </YStack>
       </ContainerLarge>
     </>

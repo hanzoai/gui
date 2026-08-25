@@ -1,16 +1,7 @@
 import { AnimatePresence } from '@hanzogui/animate-presence'
 import { memo, useEffect, useRef, useState } from 'react'
 import type { Heading, TextProps } from '@hanzo/gui'
-import {
-  Button,
-  Card,
-  H1,
-  H2,
-  Paragraph,
-  XStack,
-  YStack,
-  useDidFinishSSR,
-} from '@hanzo/gui'
+import { Button, H1, H2, Paragraph, XStack, YStack, useDidFinishSSR } from '@hanzo/gui'
 
 const families = ['pixel', 'mono', 'heading']
 
@@ -138,7 +129,15 @@ export const HeroTypography = memo(() => {
 const OverlayCard = () => {
   // {/* TODO elevation not overriding? */}
   return (
-    <Card bw={1} bc="$borderColor" br="$6" elevation="$6" shadowRadius={60}>
+    <YStack
+      bg="$background"
+      position="relative"
+      bw={1}
+      bc="$borderColor"
+      br="$6"
+      elevation="$6"
+      shadowRadius={60}
+    >
       <YStack jc="center" p="$6" gap="$5" maw="calc(min(90vw, 400px))" $sm={{ p: '$5' }}>
         <Paragraph ta="left" size="$8" fow="400" ls={-1}>
           Use, swap and share fonts with typed vertical rhythm.
@@ -153,7 +152,7 @@ const OverlayCard = () => {
           <Button.Text fontFamily="$pixel">Fonts &raquo;</Button.Text>
         </Button>
       </YStack>
-    </Card>
+    </YStack>
   )
 }
 

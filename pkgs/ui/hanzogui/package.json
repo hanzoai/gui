@@ -108,7 +108,6 @@
     "@hanzogui/animate-presence": "workspace:*",
     "@hanzogui/avatar": "workspace:*",
     "@hanzogui/button": "workspace:*",
-    "@hanzogui/card": "workspace:*",
     "@hanzogui/checkbox": "workspace:*",
     "@hanzogui/collapsible": "workspace:*",
     "@hanzogui/component-helpers": "workspace:*",

@@ -1,5 +1,5 @@
-import type { CardProps } from '@hanzo/gui'
-import { Card, H4, Paragraph, XStack, YStack } from '@hanzo/gui'
+import type { YStackProps } from '@hanzo/gui'
+import { H4, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { useDemoProps } from '../hooks/useDemoProps'
 
 export const Overview1 = () => {
@@ -57,7 +57,7 @@ export type OverviewCardTypes = {
   badgeAfter?: string
   badgeState?: 'success' | 'failure' | 'indifferent'
   alternative?: boolean
-} & CardProps
+} & YStackProps
 
 export const OverviewCard = ({
   title,
@@ -71,7 +71,9 @@ export const OverviewCard = ({
   const demoProps = useDemoProps()
 
   return (
-    <Card
+    <YStack
+      position="relative"
+      rounded="$true"
       backgroundColor="transparent"
       {...props}
       {...(alternative && {
@@ -80,7 +82,10 @@ export const OverviewCard = ({
         p: 10,
       })}
     >
-      <Card.Header
+      <YStack
+        z={10}
+        mb="auto"
+        p="$true"
         flex={1}
         flexBasis="auto"
         justify="space-between"
@@ -119,7 +124,7 @@ export const OverviewCard = ({
           )}
           {badgeAfter && <Paragraph>{badgeAfter}</Paragraph>}
         </XStack>
-      </Card.Header>
-    </Card>
+      </YStack>
+    </YStack>
   )
 }

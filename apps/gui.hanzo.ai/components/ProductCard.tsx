@@ -1,6 +1,6 @@
 import { ThemeTintAlt } from '@hanzogui/logo'
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
-import { Card, H3, Paragraph, View, YStack } from '@hanzo/gui'
+import { H3, Paragraph, View, XStack, YStack } from '@hanzo/gui'
 import type { Href } from 'one'
 import { BentoIcon } from '~/features/icons/BentoIcon'
 import { TakeoutIcon } from '~/features/icons/TakeoutIcon'
@@ -60,7 +60,13 @@ export function ProductCard({ product, children, ...props }) {
           />
         </ThemeTintAlt>
 
-        <Card position="relative" render="a" bg="transparent" {...props}>
+        <YStack
+          rounded="$true"
+          position="relative"
+          render="a"
+          bg="transparent"
+          {...props}
+        >
           <View
             position="absolute"
             self="flex-end"
@@ -74,16 +80,24 @@ export function ProductCard({ product, children, ...props }) {
           >
             {Icon}
           </View>
-          <Card.Header>
+          <YStack z={10} mb="auto" p="$true">
             <YStack items="center" gap="$5" p="$5">
               <H3>{title}</H3>
               <Paragraph size="$5" color="$color10">
                 {childText}
               </Paragraph>
             </YStack>
-          </Card.Header>
+          </YStack>
 
-          <Card.Footer transition="quicker" x={0} $group-card-hover={{ x: 5 }}>
+          <XStack
+            z={5}
+            mt="auto"
+            mb={0}
+            p="$true"
+            transition="quicker"
+            x={0}
+            $group-card-hover={{ x: 5 }}
+          >
             <ChevronRight
               size="$1"
               position="absolute"
@@ -92,8 +106,8 @@ export function ProductCard({ product, children, ...props }) {
               r="$4"
               color="$color11"
             />
-          </Card.Footer>
-        </Card>
+          </XStack>
+        </YStack>
       </View>
     </Link>
   )

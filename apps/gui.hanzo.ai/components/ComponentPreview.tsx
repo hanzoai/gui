@@ -23,7 +23,7 @@ import {
   XStack,
   ZStack,
 } from '@hanzo/gui'
-import { CardFrame, Text, YStack } from '@hanzo/gui'
+import { Text, YStack } from '@hanzo/gui'
 import { BentoIcon } from '~/features/icons/BentoIcon'
 
 const Chip = styled(View, {
@@ -83,7 +83,10 @@ const WindowLayout = ({ children, ...props }) => {
 
 const CardItem = ({ title, children }) => {
   return (
-    <CardFrame
+    <YStack
+      bg="$background"
+      position="relative"
+      rounded="$true"
       flexDirection="row"
       shrink={1}
       items="flex-start"
@@ -99,7 +102,7 @@ const CardItem = ({ title, children }) => {
       <Label cursor="pointer" items="flex-start" lineHeight="$2" flexDirection="column">
         {title}
       </Label>
-    </CardFrame>
+    </YStack>
   )
 }
 

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Card,
-  Input,
-  Switch,
-  TextArea,
-  XStack,
-  YStack,
-  SizableText,
-} from '@hanzo/gui'
+import { Button, Input, Switch, TextArea, XStack, YStack, SizableText } from '@hanzo/gui'
 import type { ReactNode } from 'react'
 
 export type PreviewComponent = {
@@ -31,8 +22,17 @@ export const components: PreviewComponent[] = [
   {
     name: 'Card',
     component: () => (
-      <Card borderWidth={1} borderColor="$borderColor" p="$4" width={300} elevation="$2">
-        <Card.Header p="$3">
+      <YStack
+        bg="$background"
+        position="relative"
+        rounded="$true"
+        borderWidth={1}
+        borderColor="$borderColor"
+        p="$4"
+        width={300}
+        elevation="$2"
+      >
+        <YStack z={10} mb="auto" p="$3">
           <XStack justify="space-between" items="center">
             <YStack gap="$1">
               <SizableText size="$5" fontWeight="600">
@@ -43,16 +43,16 @@ export const components: PreviewComponent[] = [
               </SizableText>
             </YStack>
           </XStack>
-        </Card.Header>
-        <Card.Footer p="$3">
+        </YStack>
+        <XStack z={5} mt="auto" mb={0} p="$3">
           <XStack gap="$3" justify="flex-end">
             <Button size="$3">Cancel</Button>
             <Button size="$3" theme="blue">
               Save
             </Button>
           </XStack>
-        </Card.Footer>
-      </Card>
+        </XStack>
+      </YStack>
     ),
   },
   {

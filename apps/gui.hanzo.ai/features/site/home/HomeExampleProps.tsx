@@ -1,4 +1,4 @@
-import { Card, Paragraph, SizableText, Text, XStack, YStack } from '@hanzo/gui'
+import { Paragraph, SizableText, Text, XStack, YStack } from '@hanzo/gui'
 
 import { CheckCircle } from '~/components/CheckCircle'
 import { ContainerLarge } from '~/components/Containers'
@@ -21,14 +21,22 @@ const Features = ({ items, ...props }: any) => {
   return (
     <YStack gap="$4" {...props}>
       {items.map((feature, i) => (
-        <Card key={i} p="$6" elevation="$1" $sm={{ p: '$4' }}>
+        <YStack
+          key={i}
+          bg="$background"
+          position="relative"
+          rounded="$true"
+          p="$6"
+          elevation="$1"
+          $sm={{ p: '$4' }}
+        >
           <XStack render="li">
             <Text color="$green9">
               <CheckCircle />
             </Text>
             <Paragraph color="$gray11">{feature}</Paragraph>
           </XStack>
-        </Card>
+        </YStack>
       ))}
     </YStack>
   )

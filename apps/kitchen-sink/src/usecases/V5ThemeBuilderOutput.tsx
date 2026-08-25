@@ -1,15 +1,4 @@
-import {
-  Button,
-  Card,
-  H2,
-  H3,
-  H4,
-  Paragraph,
-  Text,
-  Theme,
-  XStack,
-  YStack,
-} from '@hanzo/gui'
+import { Button, H2, H3, H4, Paragraph, Text, Theme, XStack, YStack } from '@hanzo/gui'
 
 import { TEST_IDS } from '../constants/test-ids'
 
@@ -182,14 +171,22 @@ export function V5ThemeBuilderOutput() {
         </Paragraph>
         <XStack gap="$3" flexWrap="wrap">
           <Theme name="yellow">
-            <Card padding="$3" backgroundColor="$background" minWidth={140}>
+            <YStack
+              position="relative"
+              borderRadius="$true"
+              padding="$3"
+              backgroundColor="$background"
+              minWidth={140}
+            >
               <Button testID="button-yellow" size="$3">
                 Yellow
               </Button>
-            </Card>
+            </YStack>
           </Theme>
           <Theme name="red">
-            <Card
+            <YStack
+              position="relative"
+              borderRadius="$true"
               testID="card-red"
               padding="$3"
               backgroundColor="$background"
@@ -198,10 +195,12 @@ export function V5ThemeBuilderOutput() {
               <Button testID="button-red" size="$3">
                 Red
               </Button>
-            </Card>
+            </YStack>
           </Theme>
           <Theme name="green">
-            <Card
+            <YStack
+              position="relative"
+              borderRadius="$true"
               testID="card-green"
               padding="$3"
               backgroundColor="$background"
@@ -210,10 +209,12 @@ export function V5ThemeBuilderOutput() {
               <Button testID="button-green" size="$3">
                 Green
               </Button>
-            </Card>
+            </YStack>
           </Theme>
           <Theme name="blue">
-            <Card
+            <YStack
+              position="relative"
+              borderRadius="$true"
               testID="card-blue"
               padding="$3"
               backgroundColor="$background"
@@ -222,7 +223,7 @@ export function V5ThemeBuilderOutput() {
               <Button testID="button-blue" size="$3">
                 Blue
               </Button>
-            </Card>
+            </YStack>
           </Theme>
         </XStack>
       </YStack>

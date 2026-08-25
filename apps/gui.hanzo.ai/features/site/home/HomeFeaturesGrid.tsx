@@ -8,7 +8,7 @@ export function HomeFeaturesGrid() {
     <>
       <ContainerLarge gap="$8">
         <YStack maxW={950} self="center">
-          <Grid gap={25} itemMinWidth={280}>
+          <Grid gap={25} min={280}>
             <YStack gap="$4" p="$4">
               <H4 letterSpacing={0} fontFamily="$mono" text="center">
                 Fully typed

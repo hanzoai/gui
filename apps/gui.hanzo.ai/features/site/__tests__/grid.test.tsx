@@ -115,6 +115,22 @@ describe('display grid reaches the DOM', () => {
     expect(leaked(find('byarea'))).toEqual([])
   })
 
+  it('stays grid next to the other atomic classes on the same node', async () => {
+    // `.is_View` declares `display: flex`, and grid arrives as one more atomic
+    // class rather than an inline style — so the conversion rests on that class
+    // winning, on nodes that also carry width, padding and margin classes.
+    const find = await draw(
+      <>
+        <View id="w" display="grid" gridTemplateColumns="repeat(2, 1fr)" width={300} />
+        <View id="p" display="grid" padding={16} />
+        <View id="m" display="grid" width={300} height={100} margin={8} />
+      </>
+    )
+    for (const id of ['w', 'p', 'm']) {
+      expect(`${id}=${getComputedStyle(find(id)).display}`).toBe(`${id}=grid`)
+    }
+  })
+
   it('separates the two gaps, which is what a two-value gap meant', async () => {
     const find = await draw(<View id="g" display="grid" rowGap={32} columnGap={24} />)
     const css = getComputedStyle(find('g'))

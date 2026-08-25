@@ -175,9 +175,12 @@ layout pass.
 
 React Native has **no grid engine** — its own `display` admits only `none`,
 `flex` and `contents`, and Yoga implements no grid. So on native, `display:
-grid` becomes `flex` **and every track property is dropped**. Not
-approximated — dropped, because a value an engine cannot read is worse applied
-than absent.
+grid` becomes `flex` and **no grid property crosses at all** — not the tracks,
+not the areas, not the placement, not even `gridAutoFlow`. Not approximated:
+dropped, because a value an engine cannot read is worse applied than absent.
+
+`display` is the only one that crosses. Everything one-dimensional survives on
+the element's own flex properties, which is why the idiom below works.
 
 That is the whole rule, and it is blunter than it looks. Measured, a
 three-column grid on native:

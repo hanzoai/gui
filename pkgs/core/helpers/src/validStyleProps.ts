@@ -1,6 +1,6 @@
 import { isAndroid } from '@hanzogui/constants'
 import {
-  gridProps,
+  gridUnitless,
   nonAnimatableWebTextProps,
   nonAnimatableWebViewProps,
   webOnlyStylePropsText,
@@ -123,10 +123,6 @@ const nonAnimatableViewProps = {
   flexWrap: true,
   isolation: true,
   justifyContent: true,
-  // the one grid property that crosses to native, because flex reproduces it
-  // exactly: expandStyle turns it into flexDirection there. The rest of grid is
-  // web-only and lives in gridProps.
-  gridAutoFlow: true,
   mixBlendMode: true,
   outlineStyle: true,
   overflow: true,
@@ -174,7 +170,10 @@ export const stylePropsUnitless = {
   // web-only, so spread under the same condition stylePropsView uses: this
   // table is spread INTO stylePropsView, and an entry here is a valid style
   // prop on both targets whether or not native can lay it out.
-  ...(process.env.GUI_TARGET === 'web' ? gridProps : {}),
+  //
+  // The track sizes are deliberately absent — they take lengths, so a bare
+  // number on them needs px like any other length.
+  ...(process.env.GUI_TARGET === 'web' ? gridUnitless : {}),
   animationIterationCount: true,
   aspectRatio: true,
   borderImageOutset: true,

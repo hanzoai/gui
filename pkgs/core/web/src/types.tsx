@@ -2383,10 +2383,6 @@ interface ExtraStyleProps {
   /**
    * Web-only style property. Will be omitted on native.
    */
-  gridRowGap?: Properties['gridRowGap']
-  /**
-   * Web-only style property. Will be omitted on native.
-   */
   gridRowStart?: Properties['gridRowStart']
   /**
    * Web-only style property. Will be omitted on native.
@@ -2396,10 +2392,6 @@ interface ExtraStyleProps {
    * Web-only style property. Will be omitted on native.
    */
   gridColumnEnd?: Properties['gridColumnEnd']
-  /**
-   * Web-only style property. Will be omitted on native.
-   */
-  gridColumnGap?: Properties['gridColumnGap']
   /**
    * Web-only style property. Will be omitted on native.
    */
@@ -2575,6 +2567,52 @@ interface ExtraBaseProps {
   passThrough?: boolean
 }
 
+/**
+ * Which layout algorithm runs. CSS's own selector, and the one place a layout
+ * mode is named — there is no second prop and no component that means `grid`
+ * by existing.
+ *
+ * On web every value is the browser's. On native, Yoga has Flex, None and
+ * Contents and nothing else, so `grid` and `inline-grid` cross as `flex`
+ * (expandStyle.ts): a grid with no template fills one implicit column top to
+ * bottom, which is what a flex column does, so a one-dimensional grid arrives
+ * intact. Two-dimensional placement has no flex equivalent and does not cross —
+ * the properties that express it are web-only and are stripped there.
+ *
+ * The mode does NOT narrow which properties are accepted, and that was tried
+ * rather than assumed. A discriminated union on `display` — grid properties
+ * `never` unless display is grid, flexDirection `never` when it is — narrows
+ * exactly right and rejects exactly the six cases it should. It is not
+ * affordable here. These props are ~380 wide and already near TypeScript's
+ * ceiling, and any union intersected into them distributes across all of it:
+ * placed in GetFinalProps it took @hanzogui/form to TS2590 "union type too
+ * complex to represent", and placed on View alone it took @hanzogui/collapsible
+ * to the same error. `interface X extends ViewProps` also stops compiling
+ * (TS2312), and that is a published idiom.
+ *
+ * What it would have bought is small: naming a track list without `display:
+ * grid` renders a flex column instead of a grid, which you see immediately. The
+ * failures worth catching here were the ones you cannot see, and those are
+ * closed at runtime instead — grid properties are stripped on native rather
+ * than handed to an engine with no grid, and XStack resolves its axis against
+ * the mode instead of laying out backwards.
+ */
+export type Display =
+  | 'inherit'
+  | 'none'
+  | 'inline'
+  | 'block'
+  | 'contents'
+  | 'flex'
+  | 'inline-flex'
+  | 'grid'
+  | 'inline-grid'
+  // A list item without it has no marker, and a list that does not look like a
+  // list is not read as one — by a person or by a screen reader. Native has no
+  // list-item either, so it degrades the way grid does: to 'flex', which is
+  // what a bare <li> already laid out as there.
+  | 'list-item'
+
 interface ExtendedBaseProps
   extends
     TransformStyleProps,
@@ -2582,25 +2620,7 @@ interface ExtendedBaseProps
     ExtendBaseStackProps,
     ExtraStyleProps,
     ExtraBaseProps {
-  // 'grid' and 'inline-grid' are converted to 'flex' on native, which has no
-  // grid engine. A single-column grid and a flex column lay out the same, so
-  // that is the degradation; anything relying on two-dimensional placement
-  // must say so with $platform-web or a Grid that carries a native fallback.
-  display?:
-    | 'inherit'
-    | 'none'
-    | 'inline'
-    | 'block'
-    | 'contents'
-    | 'flex'
-    | 'inline-flex'
-    | 'grid'
-    | 'inline-grid'
-    // A list item without it has no marker, and a list that does not look like a
-    // list is not read as one — by a person or by a screen reader. Native has no
-    // list-item either, so it degrades the way grid does: to 'flex', which is
-    // what a bare <li> already laid out as there.
-    | 'list-item'
+  display?: Display
   // extends RN's position to include 'fixed' (converted to 'absolute' on native)
   position?: 'absolute' | 'relative' | 'fixed' | 'static' | 'sticky'
 }

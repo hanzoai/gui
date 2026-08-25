@@ -1,5 +1,6 @@
 import { isAndroid } from '@hanzogui/constants'
 import {
+  gridProps,
   nonAnimatableWebTextProps,
   nonAnimatableWebViewProps,
   webOnlyStylePropsText,
@@ -122,14 +123,9 @@ const nonAnimatableViewProps = {
   flexWrap: true,
   isolation: true,
   justifyContent: true,
-  // grid's own alignment keywords. alignContent/alignItems/alignSelf and
-  // justifyContent are above and shared with flex; these four have no flex
-  // meaning at all, which is why they were never here.
-  justifyItems: true,
-  justifySelf: true,
-  placeContent: true,
-  placeItems: true,
-  placeSelf: true,
+  // the one grid property that crosses to native, because flex reproduces it
+  // exactly: expandStyle turns it into flexDirection there. The rest of grid is
+  // web-only and lives in gridProps.
   gridAutoFlow: true,
   mixBlendMode: true,
   outlineStyle: true,
@@ -154,21 +150,9 @@ const nonAnimatableTextOnlyProps = {
 }
 
 // discrete (non-animatable) unitless properties
-//
-// The grid track props MUST be unitless: a track list is `repeat(3, 1fr)` or
-// `minmax(12rem, 1fr)`, and appending px to that produces a declaration the
-// browser drops silently — a grid that renders as one column with no error.
 const nonAnimatableUnitlessProps = {
   WebkitLineClamp: true,
   lineClamp: true,
-  grid: true,
-  gridArea: true,
-  gridAutoColumns: true,
-  gridAutoRows: true,
-  gridTemplate: true,
-  gridTemplateColumns: true,
-  gridTemplateRows: true,
-  gridTemplateAreas: true,
 }
 
 // all non-animatable style props combined, used by getSplitStyles to keep
@@ -187,6 +171,10 @@ export const nonAnimatableStyleProps = {
 
 export const stylePropsUnitless = {
   ...nonAnimatableUnitlessProps,
+  // web-only, so spread under the same condition stylePropsView uses: this
+  // table is spread INTO stylePropsView, and an entry here is a valid style
+  // prop on both targets whether or not native can lay it out.
+  ...(process.env.GUI_TARGET === 'web' ? gridProps : {}),
   animationIterationCount: true,
   aspectRatio: true,
   borderImageOutset: true,
@@ -200,14 +188,6 @@ export const stylePropsUnitless = {
   flexShrink: true,
   flexNegative: true,
   fontWeight: true,
-  gridRow: true,
-  gridRowEnd: true,
-  gridRowGap: true,
-  gridRowStart: true,
-  gridColumn: true,
-  gridColumnEnd: true,
-  gridColumnGap: true,
-  gridColumnStart: true,
   opacity: true,
   order: true,
   orphans: true,

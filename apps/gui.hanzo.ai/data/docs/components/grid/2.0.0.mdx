@@ -96,6 +96,18 @@ Both reflow. The grid version needs no per-child sizing and **no media query** �
 `auto-fit` decides the track count from the available width. Measured: two
 tracks at 390px, four at 768px, eight at 1440px.
 
+**This is the one case where the two engines disagree, so it is worth knowing
+exactly where.** They are pixel-identical while every row is full. They part on
+a *partial last row*: flex's `flexGrow` stretches a lone trailing item across
+the whole width, while grid holds it to its track. Measured with seven items
+over three tracks, only the orphan differs, and only in width — by 328px on a
+480px container.
+
+Neither is wrong; they answer different questions. Grid keeps the rhythm, which
+is usually what a gallery wants. If you want the flex behaviour, say so —
+`gridColumn="1 / -1"` on the last child spans it, and `justifyItems` controls
+how a track's content fills it.
+
 **A sidebar and a body**
 
 ```tsx

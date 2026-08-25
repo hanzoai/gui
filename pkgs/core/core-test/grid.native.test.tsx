@@ -8,16 +8,21 @@ import config from '../config-default'
  *
  * React Native 0.83 types `display` as 'none' | 'flex' | 'contents' and Yoga's
  * Display enum carries Flex, None and Contents — there is no grid engine to
- * hand these to. So the crossing has two halves, and the point of this file is
- * that they are DIFFERENT halves and neither is a guess:
+ * hand these to.
  *
- *   faithful  — flex reproduces the layout exactly, so the property is mapped
- *   absent    — flex has no equivalent, so the property is dropped entirely
+ * So `display` crosses and nothing else does. The one-dimensional case survives
+ * because the element's own flex properties already describe it: `display:
+ * grid` becomes `flex`, and an XStack's `flexDirection: 'row'` was never a
+ * grid property to begin with. No grid property is translated.
  *
- * The second half is the one worth testing. A property that is dropped and a
- * property that is handed to an engine which ignores it look identical in a
- * screenshot and identical in a passing build; the difference is whether it
- * reached React Native at all, which is what `viewProps` answers.
+ * That is the half worth testing. A property that is dropped and a property
+ * that is handed to an engine which ignores it look identical in a screenshot
+ * and identical in a passing build; the difference is whether it reached React
+ * Native at all, which is what `viewProps` answers.
+ *
+ * NOTE: this file reads a PREBUILT bundle (@hanzogui/core/native-test →
+ * dist/test.native.cjs), not src. Rebuild @hanzogui/core after touching
+ * expandStyle or the prop tables, or it will grade the previous version.
  */
 
 beforeAll(() => {
@@ -61,22 +66,13 @@ describe('the half flex reproduces', () => {
     expect(split({ display: 'inline-grid' }).style).toEqual({ display: 'flex' })
   })
 
-  // gridAutoFlow and flexDirection name the same axis with the words swapped:
-  // grid fills ROWS to run down, flex points its main axis along a ROW to run
-  // across. Crossing without the swap would turn every row into a column.
-  test('the axis crosses, inverted', () => {
-    expect(split({ gridAutoFlow: 'column' }).style).toEqual({ flexDirection: 'row' })
-    expect(split({ gridAutoFlow: 'row' }).style).toEqual({ flexDirection: 'column' })
-  })
-
-  // `dense` only decides how holes left by explicit placement are backfilled,
-  // and a one-dimensional layout has no holes.
-  test('dense crosses as its plain form', () => {
-    expect(split({ gridAutoFlow: 'column dense' }).style).toEqual({
+  // The axis arrives on the flex property the element already carries — an
+  // XStack's own base style — rather than being reconstructed from grid's
+  // vocabulary. So a stack asked for grid keeps its direction here.
+  test('a stack keeps its axis', () => {
+    expect(split({ display: 'grid', flexDirection: 'row' }).style).toEqual({
+      display: 'flex',
       flexDirection: 'row',
-    })
-    expect(split({ gridAutoFlow: 'row dense' }).style).toEqual({
-      flexDirection: 'column',
     })
   })
 
@@ -87,11 +83,35 @@ describe('the half flex reproduces', () => {
   })
 })
 
+describe('gridAutoFlow does not rewrite the flex axis', () => {
+  // It reads like the one grid property flex could reproduce, since both name
+  // an axis. It cannot be done per-property: expandStyle sees one key at a
+  // time and never sees `display`, so the rewrite fired on flex containers
+  // too — where grid-auto-flow is inert on web — and inverted them on native
+  // only. Same source, two layouts.
+  test("an author's flexDirection survives beside it", () => {
+    expect(split({ flexDirection: 'row', gridAutoFlow: 'row' }).style).toEqual({
+      flexDirection: 'row',
+    })
+  })
+
+  // and it was total over its input, so values that mean nothing still picked
+  // an axis
+  for (const value of ['inherit', '', 'column', 'row']) {
+    test(`${JSON.stringify(value)} picks no axis`, () => {
+      const { style, viewProps } = split({ gridAutoFlow: value })
+      expect(style?.flexDirection).toBeUndefined()
+      expect(viewProps?.style?.flexDirection).toBeUndefined()
+    })
+  }
+})
+
 describe('the half flex cannot reproduce', () => {
   // Two-dimensional placement has no arrangement of flex properties that
   // yields it. These do not reach React Native in any form: not in style,
   // where an unknown key is ignored, and not as a prop either.
   const noEquivalent = {
+    gridAutoFlow: 'column',
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridTemplateRows: 'auto auto',
     gridTemplateAreas: '"a b" "c d"',

@@ -2411,7 +2411,55 @@ interface ExtraStyleProps {
   /**
    * Web-only style property. Will be omitted on native.
    */
+  gridTemplateRows?: Properties['gridTemplateRows']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
   gridTemplateAreas?: Properties['gridTemplateAreas']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  gridTemplate?: Properties['gridTemplate']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  grid?: Properties['grid']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  gridArea?: Properties['gridArea']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  gridAutoFlow?: Properties['gridAutoFlow']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  gridAutoColumns?: Properties['gridAutoColumns']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  gridAutoRows?: Properties['gridAutoRows']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  justifyItems?: Properties['justifyItems']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  justifySelf?: Properties['justifySelf']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  placeItems?: Properties['placeItems']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  placeContent?: Properties['placeContent']
+  /**
+   * Web-only style property. Will be omitted on native.
+   */
+  placeSelf?: Properties['placeSelf']
 
   /**
    * Web-only style property. Will be omitted on native.
@@ -2534,7 +2582,25 @@ interface ExtendedBaseProps
     ExtendBaseStackProps,
     ExtraStyleProps,
     ExtraBaseProps {
-  display?: 'inherit' | 'none' | 'inline' | 'block' | 'contents' | 'flex' | 'inline-flex'
+  // 'grid' and 'inline-grid' are converted to 'flex' on native, which has no
+  // grid engine. A single-column grid and a flex column lay out the same, so
+  // that is the degradation; anything relying on two-dimensional placement
+  // must say so with $platform-web or a Grid that carries a native fallback.
+  display?:
+    | 'inherit'
+    | 'none'
+    | 'inline'
+    | 'block'
+    | 'contents'
+    | 'flex'
+    | 'inline-flex'
+    | 'grid'
+    | 'inline-grid'
+    // A list item without it has no marker, and a list that does not look like a
+    // list is not read as one — by a person or by a screen reader. Native has no
+    // list-item either, so it degrades the way grid does: to 'flex', which is
+    // what a bare <li> already laid out as there.
+    | 'list-item'
   // extends RN's position to include 'fixed' (converted to 'absolute' on native)
   position?: 'absolute' | 'relative' | 'fixed' | 'static' | 'sticky'
 }

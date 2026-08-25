@@ -122,6 +122,15 @@ const nonAnimatableViewProps = {
   flexWrap: true,
   isolation: true,
   justifyContent: true,
+  // grid's own alignment keywords. alignContent/alignItems/alignSelf and
+  // justifyContent are above and shared with flex; these four have no flex
+  // meaning at all, which is why they were never here.
+  justifyItems: true,
+  justifySelf: true,
+  placeContent: true,
+  placeItems: true,
+  placeSelf: true,
+  gridAutoFlow: true,
   mixBlendMode: true,
   outlineStyle: true,
   overflow: true,
@@ -145,10 +154,20 @@ const nonAnimatableTextOnlyProps = {
 }
 
 // discrete (non-animatable) unitless properties
+//
+// The grid track props MUST be unitless: a track list is `repeat(3, 1fr)` or
+// `minmax(12rem, 1fr)`, and appending px to that produces a declaration the
+// browser drops silently — a grid that renders as one column with no error.
 const nonAnimatableUnitlessProps = {
   WebkitLineClamp: true,
   lineClamp: true,
+  grid: true,
+  gridArea: true,
+  gridAutoColumns: true,
+  gridAutoRows: true,
+  gridTemplate: true,
   gridTemplateColumns: true,
+  gridTemplateRows: true,
   gridTemplateAreas: true,
 }
 

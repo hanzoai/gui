@@ -7,7 +7,10 @@ export const Separator = styled(View, {
   variants: {
     unstyled: {
       false: {
-        borderColor: '$backgroundFocus',
+        // A separator IS a border, so it takes the border token. It used to
+        // take `$backgroundFocus` — the colour a surface goes when focused —
+        // which is why every consumer that cared re-declared it downstream.
+        borderColor: '$borderColor',
         flexShrink: 0,
         borderWidth: 0,
         flex: 1,

@@ -113,6 +113,26 @@ export function expandStyle(
         }
         return
       }
+      case 'display': {
+        // display: grid|inline-grid -> flex on native, which has no grid
+        // engine. A one-column grid and a flex column lay out identically, so
+        // a stack of rows survives the crossing; two-dimensional placement
+        // does not, and the track props below are dropped rather than
+        // half-applied. Yielding the value to RN untouched was the worse
+        // option: it warns in dev and lays out as `flex` anyway, so the
+        // degradation happened regardless and only the warning was new.
+        if (value === 'grid' || value === 'inline-grid') {
+          return [['display', 'flex']]
+        }
+        // list-item crosses the same way and for the same reason: native has no
+        // marker box, and a bare <li> there already laid out as a flex column.
+        // Left untouched it warns in dev and lays out as flex regardless, so the
+        // degradation is identical and only the warning would be new.
+        if (value === 'list-item') {
+          return [['display', 'flex']]
+        }
+        return
+      }
       case 'backgroundImage': {
         // RN 0.76+ uses experimental_backgroundImage
         // value may be a parsed array (from parseNativeStyle) or a plain string

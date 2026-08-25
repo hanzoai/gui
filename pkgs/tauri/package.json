@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/tauri",
-  "version": "8.2.0",
+  "version": "8.2.1",
   "description": "Tauri desktop adapter for Hanzo GUI — window controls, global shortcuts, fs/shell bridge so hanzogui components run in a Tauri webview.",
   "files": [
     "src",

@@ -175,18 +175,59 @@ layout pass.
 
 React Native has **no grid engine** — its own `display` admits only `none`,
 `flex` and `contents`, and Yoga implements no grid. So on native, `display:
-grid` becomes `flex`. What survives that crossing depends entirely on the
-layout:
+grid` becomes `flex` **and every track property is dropped**. Not
+approximated — dropped, because a value an engine cannot read is worse applied
+than absent.
 
-| grid | on native | why |
-| --- | --- | --- |
-| a single implicit column | exact | a one-column grid *is* a flex column |
-| `repeat(N, 1fr)` | exact | uniform tracks are reproducible in flex |
-| `repeat(auto-fit, minmax(x, 1fr))` | close | wraps, and the reflow survives |
-| named areas | **no** | flex has no second dimension |
-| `gridColumn` / `gridArea` placement | **no** | flex has no explicit placement |
-| overlapping cells | **no** | flex cannot put two children in one cell |
-| `gridAutoFlow="dense"` | **no** | nothing to backfill in one dimension |
+That is the whole rule, and it is blunter than it looks. Measured, a
+three-column grid on native:
+
+```
+{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }  →  { display: 'flex' }
+```
+
+No tracks, and no `flexDirection` either — so React Native's own default takes
+over and you get **one full-width column**. A gallery written as tracks alone
+is a column on a phone.
+
+### Writing one layout that works on both
+
+Say the axis in both vocabularies. Each is inert on the other engine, so they
+compose on one element with no branch:
+
+```tsx
+<View
+  display="grid"
+  gridTemplateColumns="repeat(auto-fit, minmax(160px, 1fr))"
+  flexDirection="row"
+  flexWrap="wrap"
+  gap="$3"
+>
+```
+
+Web reads the tracks and ignores the flex props; native reads the flex props
+and never sees the tracks. One source, both engines, no `$platform` branch.
+
+### What cannot cross at all
+
+| grid | why flex has no answer |
+| --- | --- |
+| named areas | flex has no second dimension |
+| `gridColumn` / `gridArea` placement | flex cannot place across rows *and* columns |
+| overlapping cells | flex cannot put two children in one cell |
+| `gridAutoFlow="dense"` | nothing to backfill in one dimension |
+
+These are web-only compositions. Reach for them deliberately and give native its
+own arrangement.
+
+### Two more words that invert
+
+`flexDirection` is not the only prop that changes meaning across the boundary.
+`justifyContent` and `alignItems` are named relative to `flexDirection` in flex,
+but in grid `justify-*` is always inline and `align-*` always block. They agree
+for a flex **row** and swap for a flex **column** — so on `YStack`, `ZStack` or
+a bare `View`, the same prop moves the other axis. And `flexWrap` is inert under
+grid: where flex would wrap, grid adds implicit tracks and overflows.
 
 The top three cover most real layouts — galleries, card decks, uniform columns —
 so grid is usually the better way to write them even in a cross-platform app.

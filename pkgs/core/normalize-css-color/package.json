@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/normalize-css-color",
-  "version": "8.2.1",
+  "version": "8.3.0",
   "source": "src/index.ts",
   "files": [
     "src",

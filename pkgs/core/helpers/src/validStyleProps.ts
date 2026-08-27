@@ -1,5 +1,6 @@
 import { isAndroid } from '@hanzogui/constants'
 import {
+  gridProps,
   gridUnitless,
   nonAnimatableWebTextProps,
   nonAnimatableWebViewProps,
@@ -103,6 +104,12 @@ export const tokenCategories = {
 // discrete (non-animatable) view style properties - keyword-based, no interpolation
 // defined above stylePropsView so it can be spread in without duplication
 const nonAnimatableViewProps = {
+  // Grid, on both targets. It sits in the CROSS-PLATFORM table because
+  // hanzoai/yoga lays grid out natively — see the note in webOnlyStyleProps.ts.
+  // This carries the track sizes as well as the keyword half; `gridUnitless`
+  // is spread separately into stylePropsUnitless, which is the table that says
+  // a bare number needs no px.
+  ...gridProps,
   alignContent: true,
   alignItems: true,
   alignSelf: true,
@@ -167,13 +174,12 @@ export const nonAnimatableStyleProps = {
 
 export const stylePropsUnitless = {
   ...nonAnimatableUnitlessProps,
-  // web-only, so spread under the same condition stylePropsView uses: this
-  // table is spread INTO stylePropsView, and an entry here is a valid style
-  // prop on both targets whether or not native can lay it out.
+  // Grid's unitless half, on BOTH targets: hanzoai/yoga lays grid out natively,
+  // so these are no longer web-only (see webOnlyStyleProps.ts).
   //
-  // The track sizes are deliberately absent — they take lengths, so a bare
+  // The track SIZES are deliberately absent — they take lengths, so a bare
   // number on them needs px like any other length.
-  ...(process.env.GUI_TARGET === 'web' ? gridUnitless : {}),
+  ...gridUnitless,
   animationIterationCount: true,
   aspectRatio: true,
   borderImageOutset: true,

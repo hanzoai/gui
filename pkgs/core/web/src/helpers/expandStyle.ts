@@ -114,21 +114,23 @@ export function expandStyle(
         return
       }
       case 'display': {
-        // display: grid|inline-grid -> flex on native, which has no grid
-        // engine (Yoga's Display enum is Flex, None, Contents).
+        // `grid` CROSSES now. It used to be rewritten to flex here, because
+        // Yoga's Display enum carried Flex, None and Contents and nothing else
+        // — so a grid arriving on native could only be laid out by the flex
+        // properties the element already had. That bought a one-dimensional
+        // stack and lost everything else about the layout.
         //
-        // A grid with no template has one implicit column and fills it top to
-        // bottom, which is what a flex column already does — measured in
-        // Chromium, the same three children land at the same three offsets
-        // under both. So a one-dimensional grid arrives on native intact, and
-        // it arrives via the flex properties the element already carries: an
-        // XStack keeps its flexDirection 'row' and stays horizontal.
+        // hanzoai/yoga has `Display::Grid` and a grid algorithm under
+        // yoga/algorithm/grid, so the value now reaches an engine that reads
+        // it, and the track and placement properties travel with it — gridProps
+        // moved to the cross-platform table in @hanzogui/helpers for the same
+        // reason.
         //
-        // Nothing else about grid crosses, and nothing pretends to. Every other
-        // grid property is web-only (gridProps in @hanzogui/helpers) and is
-        // stripped rather than handed to a layout pass that cannot read it.
-        if (value === 'grid' || value === 'inline-grid') {
-          return [['display', 'flex']]
+        // `inline-grid` still folds to `grid`: native has no inline formatting
+        // context for a box to participate in, so the inline half has nothing
+        // to mean there, while the grid half now does.
+        if (value === 'inline-grid') {
+          return [['display', 'grid']]
         }
         // list-item crosses the same way and for the same reason: native has no
         // marker box, and a bare <li> there already laid out as a flex column.

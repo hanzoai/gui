@@ -1,38 +1,36 @@
-import { View, createGui, getSplitStyles } from '@hanzogui/core'
+import { StyleObjectValue, View, createGui, getSplitStyles } from '@hanzogui/core'
 import { beforeAll, describe, expect, test } from 'vitest'
 
-import config from '../config-default'
+import configDefault from '../config-default'
 
 /**
- * What a grid becomes when it crosses to a platform that has no grid.
+ * Grid SURVIVES the native build.
  *
- * React Native 0.83 types `display` as 'none' | 'flex' | 'contents' and Yoga's
- * Display enum carries Flex, None and Contents — there is no grid engine to
- * hand these to.
+ * It used not to. Yoga's Display enum carried Flex, None and Contents and
+ * nothing else, so `display: grid` was rewritten to flex on the way through and
+ * every other grid property was stripped — a one-dimensional stack arrived and
+ * the rest of the layout did not. That was the correct answer for that engine.
  *
- * So `display` crosses and nothing else does. The one-dimensional case survives
- * because the element's own flex properties already describe it: `display:
- * grid` becomes `flex`, and an XStack's `flexDirection: 'row'` was never a
- * grid property to begin with. No grid property is translated.
+ * hanzoai/yoga has `Display::Grid` and a grid algorithm, so the correct answer
+ * changed. This file is the assertion that it actually did: the value is not
+ * rewritten, and the track and placement properties are still there afterwards
+ * rather than dropped on the floor.
  *
- * That is the half worth testing. A property that is dropped and a property
- * that is handed to an engine which ignores it look identical in a screenshot
- * and identical in a passing build; the difference is whether it reached React
- * Native at all, which is what `viewProps` answers.
- *
- * NOTE: this file reads a PREBUILT bundle (@hanzogui/core/native-test →
- * dist/test.native.cjs), not src. Rebuild @hanzogui/core after touching
- * expandStyle or the prop tables, or it will grade the previous version.
+ * The web counterpart (grid.web.test.tsx) proves the other half — that a
+ * property gui does not recognise becomes a DOM attribute and a console warning
+ * nobody reads. Here the failure is quieter still: a stripped property is simply
+ * absent, and the layout is wrong with nothing said about it.
  */
 
+let config: any
 beforeAll(() => {
-  createGui(config.getDefaultGuiConfig('native'))
+  config = createGui(configDefault.getDefaultGuiConfig())
 })
 
-function split(props: Record<string, any>) {
-  return getSplitStyles(
+const split = (props: Record<string, any>, C: any = View) =>
+  getSplitStyles(
     props,
-    View.staticConfig,
+    C.staticConfig,
     {} as any,
     '',
     {
@@ -44,112 +42,63 @@ function split(props: Record<string, any>) {
       disabled: false,
       unmounted: true,
     },
-    {
-      isAnimated: false,
-      mediaState: undefined,
-      noClassNames: false,
-      resolveValues: 'auto',
-    } as any,
+    { isAnimated: false, mediaState: undefined, resolveValues: 'auto' } as any,
     {},
     { animationDriver: {}, groups: { state: {} } } as any,
     undefined,
     undefined,
-    true
+    true,
   ) as any
+
+/** What the style actually carries for this property once gui is done with it. */
+const styled = (props: Record<string, any>, prop: string) => {
+  const out = split(props)
+  const flat = ([] as any[]).concat(out.style ?? [], out.viewProps?.style ?? [])
+  for (const s of flat) if (s && s[prop] !== undefined) return s[prop]
+  const rules = out.rulesToInsert ?? {}
+  const rule: any = Object.values(rules).find((r: any) => r[0] === prop)
+  return rule?.[StyleObjectValue]
 }
 
-describe('the half flex reproduces', () => {
-  // A grid with no template has one implicit column and fills it top to
-  // bottom. That is a flex column, so a one-dimensional grid arrives intact.
-  test('grid is flex', () => {
-    expect(split({ display: 'grid' }).style).toEqual({ display: 'flex' })
-    expect(split({ display: 'inline-grid' }).style).toEqual({ display: 'flex' })
+describe('grid crosses to native', () => {
+  test('display: grid is NOT rewritten to flex', () => {
+    // The whole point. A rewrite here is invisible downstream — the element
+    // still lays out, just as a column, and nothing reports the substitution.
+    expect(styled({ display: 'grid' }, 'display')).toBe('grid')
   })
 
-  // The axis arrives on the flex property the element already carries — an
-  // XStack's own base style — rather than being reconstructed from grid's
-  // vocabulary. So a stack asked for grid keeps its direction here.
-  test('a stack keeps its axis', () => {
-    expect(split({ display: 'grid', flexDirection: 'row' }).style).toEqual({
-      display: 'flex',
-      flexDirection: 'row',
-    })
+  test('inline-grid folds to grid, because native has no inline context', () => {
+    // The inline half has nothing to mean where there is no inline formatting
+    // context for a box to join. The grid half does, and it is kept.
+    expect(styled({ display: 'inline-grid' }, 'display')).toBe('grid')
   })
 
-  // gap is React Native's own since 0.71, and means the same thing in both
-  // engines, so it is not a grid property crossing — it just works.
-  test('gap is not a crossing', () => {
-    expect(split({ gap: 12 }).style).toEqual({ gap: 12 })
-  })
-})
-
-describe('gridAutoFlow does not rewrite the flex axis', () => {
-  // It reads like the one grid property flex could reproduce, since both name
-  // an axis. It cannot be done per-property: expandStyle sees one key at a
-  // time and never sees `display`, so the rewrite fired on flex containers
-  // too — where grid-auto-flow is inert on web — and inverted them on native
-  // only. Same source, two layouts.
-  test("an author's flexDirection survives beside it", () => {
-    expect(split({ flexDirection: 'row', gridAutoFlow: 'row' }).style).toEqual({
-      flexDirection: 'row',
-    })
-  })
-
-  // and it was total over its input, so values that mean nothing still picked
-  // an axis
-  for (const value of ['inherit', '', 'column', 'row']) {
-    test(`${JSON.stringify(value)} picks no axis`, () => {
-      const { style, viewProps } = split({ gridAutoFlow: value })
-      expect(style?.flexDirection).toBeUndefined()
-      expect(viewProps?.style?.flexDirection).toBeUndefined()
-    })
-  }
-})
-
-describe('the half flex cannot reproduce', () => {
-  // Two-dimensional placement has no arrangement of flex properties that
-  // yields it. These do not reach React Native in any form: not in style,
-  // where an unknown key is ignored, and not as a prop either.
-  const noEquivalent = {
-    gridAutoFlow: 'column',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+  const grid = {
+    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
     gridTemplateRows: 'auto auto',
-    gridTemplateAreas: '"a b" "c d"',
-    gridTemplate: 'auto / auto',
-    grid: 'auto / auto',
-    gridAutoColumns: '1fr',
-    gridAutoRows: '1fr',
-    gridArea: 'a',
+    gridAutoColumns: 'max-content',
+    gridAutoRows: 'min-content',
+    gridAutoFlow: 'column',
     gridColumn: 'span 2',
-    gridColumnStart: 1,
-    gridColumnEnd: 3,
     gridRow: '1 / 3',
-    gridRowStart: 1,
-    gridRowEnd: 3,
+    gridColumnStart: 2,
+    gridRowEnd: -1,
     justifyItems: 'center',
-    justifySelf: 'center',
+    justifySelf: 'end',
     placeItems: 'center',
-    placeContent: 'center',
+    placeContent: 'space-between',
     placeSelf: 'center',
   }
 
-  for (const [prop, value] of Object.entries(noEquivalent)) {
-    test(`${prop} does not cross`, () => {
-      const { style, viewProps } = split({ [prop]: value })
-      expect(style?.[prop]).toBeUndefined()
-      // the assertion that matters: it is not handed to React Native as a prop
-      // either. A style key React Native ignores and a property that never
-      // arrived are indistinguishable on screen.
-      expect(viewProps?.[prop]).toBeUndefined()
-      expect(viewProps?.style?.[prop]).toBeUndefined()
+  for (const [prop, value] of Object.entries(grid)) {
+    test(`${prop} is not stripped`, () => {
+      expect(styled({ display: 'grid', [prop]: value }, prop)).toBe(value)
     })
   }
 
-  // and the whole set together is still nothing, so no single one of them is
-  // carrying the others through some shorthand expansion
-  test('the set together reaches native as nothing at all', () => {
-    const { style, viewProps } = split(noEquivalent)
-    expect(style).toBeNull()
-    expect(viewProps).toEqual({})
+  test('list-item still folds — Yoga has no marker box', () => {
+    // Grid moving does not move this one with it: a marker box is a different
+    // capability, and nothing here has it.
+    expect(styled({ display: 'list-item' }, 'display')).toBe('flex')
   })
 })

@@ -38,27 +38,32 @@ export const gridUnitless = {
   placeSelf: true,
 }
 
-// CSS grid, entire. React Native has no grid engine: RN 0.83 types `display` as
-// 'none' | 'flex' | 'contents' and Yoga's Display enum carries Flex, None and
-// Contents and nothing else, so every property here would reach a layout pass
-// that cannot read it. All of them are stripped on native, which is what the
-// "Will be omitted on native" note each one carries in types.tsx says.
+// CSS grid, entire — and it CROSSES. This used to be the list of properties
+// stripped on native, on the grounds that Yoga's Display enum carried Flex,
+// None and Contents and nothing else, so every one of them would reach a layout
+// pass that could not read it.
 //
-// gridAutoFlow is in here with the rest and does NOT cross. It reads like the
-// one property flex could reproduce — it names an axis, and so does
-// flexDirection — but a per-property rewrite cannot see `display`, so it fired
-// on flex containers too and inverted their axis on native while web left them
-// alone. The axis is resolved in fixStyles instead, where the whole style is
-// visible, and it is resolved in the other direction: flexDirection is what
-// native already reads, and it is already correct there.
+// That is no longer the substrate. hanzoai/yoga carries a grid implementation:
+// `Display::Grid` is in the enum, `yoga/algorithm/grid/` is the algorithm, and
+// the JS bindings expose the track setters (setGridTemplateColumns and the
+// rest). So the properties reach an engine that reads them, and stripping them
+// would be throwing away a layout the platform can now do.
+//
+// Like every other capability note in this package (RN 0.76+ for boxShadow and
+// filter, 0.77+ for boxSizing and outline), this states a BUILD TARGET rather
+// than testing at runtime: a native app has to link that Yoga. Against stock
+// Yoga these properties are unknown and ignored, which is the same outcome
+// stripping them produced — so the floor does not move, only the ceiling.
 export const gridProps = {
   ...gridTracks,
   ...gridUnitless,
 }
 
-// web-only discrete (non-animatable) view props
+// web-only discrete (non-animatable) view props.
+//
+// gridProps is NOT here any more — it is cross-platform now (see above), and an
+// entry in this table is dropped on native.
 export const nonAnimatableWebViewProps = {
-  ...gridProps,
   backgroundAttachment: true,
   backgroundBlendMode: true,
   backgroundClip: true,

@@ -2373,43 +2373,53 @@ interface ExtraStyleProps {
    */
   maskType?: Properties['maskType']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridRow?: Properties['gridRow']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridRowEnd?: Properties['gridRowEnd']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridRowStart?: Properties['gridRowStart']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridColumn?: Properties['gridColumn']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridColumnEnd?: Properties['gridColumnEnd']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridColumnStart?: Properties['gridColumnStart']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridTemplateColumns?: Properties['gridTemplateColumns']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridTemplateRows?: Properties['gridTemplateRows']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridTemplateAreas?: Properties['gridTemplateAreas']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridTemplate?: Properties['gridTemplate']
   /**
@@ -2417,39 +2427,48 @@ interface ExtraStyleProps {
    */
   grid?: Properties['grid']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridArea?: Properties['gridArea']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridAutoFlow?: Properties['gridAutoFlow']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridAutoColumns?: Properties['gridAutoColumns']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   gridAutoRows?: Properties['gridAutoRows']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   justifyItems?: Properties['justifyItems']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   justifySelf?: Properties['justifySelf']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   placeItems?: Properties['placeItems']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   placeContent?: Properties['placeContent']
   /**
-   * Web-only style property. Will be omitted on native.
+   * Laid out on BOTH targets: hanzoai/yoga carries a grid engine, so this
+   * reaches native rather than being stripped.
    */
   placeSelf?: Properties['placeSelf']
 

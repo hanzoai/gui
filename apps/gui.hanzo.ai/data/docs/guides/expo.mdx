@@ -142,7 +142,8 @@ Load your fonts so React Native can recognize them. There are several ways to do
 </InlineTabs.List>
 
 <InlineTabs.Content value="hanzogui">
-Use the `@hanzogui/font-inter` package, a pre-configured version of the Inter font that works with Gui:
+Use the `@hanzogui/font-zen` package, which binds Zen — the Hanzo typeface — to
+the Gui font tokens. `@hanzo/font` ships the files themselves:
 
 Import the `useFonts` hook and load the fonts:
 
@@ -151,8 +152,8 @@ import { useFonts } from 'expo-font'
 
 function App() {
   const [loaded] = useFonts({
-    Inter: require('@hanzogui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@hanzogui/font-inter/otf/Inter-Bold.otf'),
+    Zen: require('@hanzo/font/dist/fonts/zen-sans/Zen-Medium.ttf'),
+    ZenBold: require('@hanzo/font/dist/fonts/zen-sans/Zen-Bold.ttf'),
   })
 
   useEffect(() => {
@@ -183,18 +184,18 @@ Use the `@expo-google-fonts` package, a collection of Google Fonts that work wit
 Install the font package:
 
 ```bash
-npx expo install @expo-google-fonts/inter
+npx expo install @expo-google-fonts/roboto
 ```
 
 Import the `useFonts` hook and load the fonts:
 
 ```tsx fileName="App.tsx"
-import { useFonts, Inter_400Regular, Inter_900Black } from '@expo-google-fonts/inter'
+import { useFonts, Roboto_400Regular, Roboto_900Black } from '@expo-google-fonts/roboto'
 
 function App() {
   const [loaded] = useFonts({
-    Inter_400Regular,
-    Inter_900Black,
+    Roboto_400Regular,
+    Roboto_900Black,
   })
 
   useEffect(() => {

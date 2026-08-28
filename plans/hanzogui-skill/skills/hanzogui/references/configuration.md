@@ -136,7 +136,7 @@ Usage:
 import { createFont } from '@hanzogui/core'
 
 const bodyFont = createFont({
-  family: 'Inter, system-ui, sans-serif',
+  family: "'Zen', system-ui, sans-serif",
   size: {
     1: 12,
     2: 14,

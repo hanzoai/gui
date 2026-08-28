@@ -177,8 +177,8 @@ const systemFont = createFont({
   },
   // (native only) swaps out fonts by face/style
   face: {
-    300: { normal: 'InterLight', italic: 'InterItalic' },
-    600: { normal: 'InterBold' },
+    300: { normal: 'ZenLight', italic: 'ZenItalic' },
+    600: { normal: 'ZenBold' },
   },
 })
 
@@ -432,8 +432,8 @@ The font tokens are a bit special and are created with `createFont`:
 ```tsx
 import { isWeb } from '@hanzo/gui'
 
-const interFont = createFont({
-  family: isWeb ? 'Inter, Helvetica, Arial, sans-serif' : 'Inter',
+const zenFont = createFont({
+  family: isWeb ? "'Zen', Helvetica, Arial, sans-serif" : 'Zen',
   size: {
     1: 12,
     2: 14,
@@ -457,10 +457,10 @@ const interFont = createFont({
 
   // because android handles fonts differently, you need to map the weight
   // to the actual name of the font in the font-file
-  // you can get the name with `otfinfo`: otfinfo --family Inter.ttf
+  // you can get the name with `otfinfo`: otfinfo --family Zen-Regular.ttf
   face: {
-    400: { normal: 'Inter', italic: 'Inter-Italic' },
-    500: { normal: 'InterBold', italic: 'InterBold-Italic' },
+    400: { normal: 'Zen', italic: 'Zen-Italic' },
+    500: { normal: 'ZenBold', italic: 'ZenBold-Italic' },
   },
 })
 ```
@@ -489,8 +489,8 @@ import { useFonts } from 'expo-font'
 
 function App() {
   const [loaded] = useFonts({
-    Inter: require('@hanzogui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@hanzogui/font-inter/otf/Inter-Bold.otf'),
+    Zen: require('@hanzo/font/dist/fonts/zen-sans/Zen-Medium.ttf'),
+    ZenBold: require('@hanzo/font/dist/fonts/zen-sans/Zen-Bold.ttf'),
   })
 
   useEffect(() => {

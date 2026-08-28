@@ -5,16 +5,12 @@ import {
 } from '@hanzogui/font-zen'
 
 /**
- * Zen, and only Zen.
+ * Zen, and only Zen — the surface that demonstrates the design system renders in
+ * the house typeface, the same one the kit binds by default.
  *
- * The surface that demonstrates the design system used to render in four
- * typefaces, none of them ours: Inter for heading and body, Berkeley Mono for
- * code, plus Cherry Bomb and Silkscreen as display faces. The pixel ROLE stays
- * and is `pixelFont` now — Zen Pixel Square — because the role was worth having
- * and only the face was borrowed. Cherry Bomb has no Zen counterpart and no
- * role of its own, so it is gone rather than substituted.
- *
- * Every size, weight and letter-spacing value below is unchanged.
+ * The pixel ROLE is worth having, so `pixelFont` fills it with Zen Pixel Square.
+ * There is no display face beside these three: a role no Zen cut answers is left
+ * unfilled rather than borrowed from somebody else's family.
  */
 
 export const pixelFont = createZenPixelFont()

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/focus-scope",
-  "version": "8.3.0",
+  "version": "8.3.1",
   "source": "src/index.ts",
   "files": [
     "src",

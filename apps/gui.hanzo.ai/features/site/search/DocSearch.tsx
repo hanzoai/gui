@@ -133,7 +133,7 @@ const docSearchCSS = `
 }
 
 .DocSearch-Hit-title {
-  font-family: Inter, sans-serif;
+  font-family: Zen, sans-serif;
   font-size: 16px;
 }
 `

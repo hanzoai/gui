@@ -12,7 +12,7 @@
     "upgrade:hanzogui": "bunx npm-check-updates -u '*hanzogui*' '@hanzogui/*' && bun install"
   },
   "dependencies": {
-    "@hanzo/font": "^1.8.11",
+    "@hanzo/font": "^1.9.1",
     "@hanzo/gui": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@react-router/node": "^7.18.0",

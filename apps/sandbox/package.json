@@ -1,6 +1,6 @@
 {
   "name": "sandbox",
-  "version": "8.3.0",
+  "version": "8.3.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -38,7 +38,7 @@
     "react-native-screens": "~4.23.0",
     "react-native-svg": "15.15.3",
     "react-native-web": "^0.21.0",
-    "@hanzo/font": "^1.9.1",
+    "@hanzo/font": "1.9.2",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/logo",
-  "version": "8.3.0",
+  "version": "8.3.1",
   "source": "src/index.tsx",
   "files": [
     "src",
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@hanzo/gui": "workspace:*",
-    "@hanzo/logo": "^1.0.24",
+    "@hanzo/logo": "1.0.26",
     "@hanzogui/use-element-layout": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },

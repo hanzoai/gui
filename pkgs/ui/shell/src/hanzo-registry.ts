@@ -322,7 +322,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     page: `${U.ai}/chat`,
     tagline: 'Ask anything',
     boundary: PRODUCT_BOUNDARIES.chat,
-    flagship: true,
   },
   {
     id: 'app',
@@ -342,7 +341,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     page: `${U.ai}/base`,
     tagline: 'Data, auth and files',
     boundary: PRODUCT_BOUNDARIES.base,
-    flagship: true,
   },
   {
     id: 'cloud',
@@ -402,7 +400,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     // product is worse than either sentence alone.
     tagline: 'Visual pipelines for generative media',
     boundary: PRODUCT_BOUNDARIES.studio,
-    flagship: true,
     stage: 'alpha',
   },
 ]

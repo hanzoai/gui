@@ -1,6 +1,6 @@
 {
   "name": "bento-get",
-  "version": "8.3.0",
+  "version": "8.3.1",
   "license": "MIT",
   "_comment_private": "npm's `bento-get` belongs to upstream (nwienert), not us — publishing it returns 403. The name survived the rebrand because it carries no `tamagui` string to rewrite, so it is the one publishable package here we do not own. It stays in the tree to keep merges with upstream clean, and is private so the release never reaches for it.",
   "private": true,

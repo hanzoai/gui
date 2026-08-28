@@ -17,7 +17,7 @@
  * styles + theme.ts tokens, React the only runtime dep — drops into any host.
  */
 import React from 'react'
-import { HanzoLockup } from './mark'
+import { HanzoMark } from './mark'
 import {
   HANZO_FOOTER_BOTTOM,
   HANZO_FOOTER_COLUMNS,
@@ -125,7 +125,9 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
               flexShrink: 0,
             }}
           >
-            <HanzoLockup label="Hanzo" size={20} />
+            {/* The mark alone. The name is already set in type beside it in the
+                copyright line, so the lockup said "Hanzo" twice on one row. */}
+            <HanzoMark size={20} />
           </a>
           <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, flexShrink: 0 }}>
             {HANZO_FOOTER_BOTTOM.copyright}

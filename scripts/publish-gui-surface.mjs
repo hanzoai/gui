@@ -127,9 +127,19 @@ for (const name of targets) {
   publishPackage(meta[name].dir, meta[name].json)
 }
 
-// The @hanzo/gui umbrella alias: same tarball as `hanzogui`, name swapped.
-if (meta['hanzogui']) {
-  publishPackage(meta['hanzogui'].dir, meta['hanzogui'].json, '@hanzo/gui')
+// The umbrella. It is NAMED `@hanzo/gui` in the tree, so it matches neither the
+// `@hanzogui/*` target filter above nor the `hanzogui` lookup this used to do —
+// and it therefore published nothing. Every primitive went to the registry at
+// 8.3.1 while the one package consumers actually depend on stayed at 8.3.0, so a
+// `@hanzo/gui@8.3.1` pin resolved to nothing at all.
+//
+// Take it by name, whichever of the two it wears.
+const umbrella = meta['@hanzo/gui'] || meta['hanzogui']
+if (umbrella) {
+  publishPackage(umbrella.dir, umbrella.json, '@hanzo/gui')
+} else {
+  console.error('! no umbrella package found — @hanzo/gui was NOT published')
+  failed.push('@hanzo/gui (package not found in the tree)')
 }
 
 console.log(`\n--- summary ---`)

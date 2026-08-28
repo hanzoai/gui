@@ -423,7 +423,8 @@ exports[`theme value extraction should work when no theme variables used 1`] = `
 "const __ReactNativeStyleSheet = require('react-native').StyleSheet;
 const _sheet = __ReactNativeStyleSheet.create({
   "0": {
-    "fontFamily": "Inter",
+    "fontFamily": "Zen",
+    "fontWeight": "400",
     "letterSpacing": 0,
     "fontSize": 14,
     "lineHeight": 23,
@@ -442,7 +443,8 @@ exports[`theme value extraction should work when theme variables used 1`] = `
 "const __ReactNativeStyleSheet = require('react-native').StyleSheet;
 const _sheet = __ReactNativeStyleSheet.create({
   "0": {
-    "fontFamily": "Inter",
+    "fontFamily": "Zen",
+    "fontWeight": "400",
     "letterSpacing": 0,
     "fontSize": 14,
     "lineHeight": 23

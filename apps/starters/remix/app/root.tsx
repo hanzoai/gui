@@ -10,7 +10,7 @@ import { GuiProvider } from '@hanzo/gui'
 import hanzoguiConfig from '../hanzogui.config'
 
 // Zen ships with the package, so a project scaffolded from this starter makes
-// no request to a font host and starts on our own family rather than Inter.
+// no request to a font host and starts on our own family.
 import '@hanzo/font/css'
 
 export const links: LinksFunction = () => []

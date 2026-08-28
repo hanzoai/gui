@@ -1,10 +1,9 @@
 import { createZenMonoFont, createZenSansFont } from '@hanzogui/font-zen'
 
 /**
- * Zen, and only Zen. This config used to build its heading and body from Inter
- * and carry a `silkscreen` face beside them, so an app on the default entry got
- * two typefaces neither of which is ours. The sizes, weights, letter-spacing and
- * transforms below are the design scale and are unchanged — only the face moved.
+ * Zen, and only Zen — heading, body and mono all come off the one family, so an
+ * app on the default entry renders in the house typeface and nothing else. The
+ * sizes, weights, letter-spacing and transforms below are the design scale.
  *
  * `@hanzogui/font-zen` names the families; `@hanzo/font` ships the bytes.
  */

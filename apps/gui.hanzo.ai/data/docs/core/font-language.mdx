@@ -41,18 +41,18 @@ import { createFont, createGui, createTokens } from '@hanzo/gui'
 export default createGui({
   fonts: {
     body: createFont({
-      family: 'Inter, Helvetica, Arial, sans-serif',
+      family: "'Zen', Helvetica, Arial, sans-serif",
       // ...
     }),
     body_cn: createFont({
-      family: 'Inter-CN',
+      family: 'Zen-CN',
       // ...
     }),
   },
 })
 ```
 
-You'll then need to load the `Inter` and `Inter-CN` fonts for the platforms you support. Once you do, you'll get fully typed support for changing any `body` font to `cn` in a component:
+You'll then need to load the `Zen` and `Zen-CN` fonts for the platforms you support. Once you do, you'll get fully typed support for changing any `body` font to `cn` in a component:
 
 ```tsx
 import { FontLanguage, Text } from '@hanzo/gui' // or '@hanzogui/core'

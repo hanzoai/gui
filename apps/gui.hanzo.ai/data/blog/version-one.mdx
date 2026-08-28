@@ -157,8 +157,8 @@ Here's a stripped down configuration:
 ```tsx
 import { createFont, createGui, createTokens } from '@hanzo/gui' // or '@hanzogui/core'
 
-const interFont = createFont({
-  family: 'Inter, Helvetica, Arial, sans-serif',
+const zenFont = createFont({
+  family: "'Zen', Helvetica, Arial, sans-serif",
   size: { 1: 12, 2: 14 /* ... */ },
   // ... lineHeight, weight, letterSpacing, transform, style, color, face
 })
@@ -175,8 +175,8 @@ const tokens = createTokens({
 
 export default createGui({
   fonts: {
-    heading: interFont,
-    body: interFont,
+    heading: zenFont,
+    body: zenFont,
   },
   tokens,
   themes: {

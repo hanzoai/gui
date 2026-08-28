@@ -167,7 +167,7 @@
       "version": "8.3.0",
       "dependencies": {
         "@dominicstop/ts-event-emitter": "1.1.0",
-        "@hanzo/font": "^1.8.0",
+        "@hanzo/font": "^1.9.1",
         "@hanzo/gui": "workspace:*",
         "@hanzogui/animate-presence": "workspace:*",
         "@hanzogui/animations-css": "workspace:*",
@@ -289,7 +289,7 @@
       "name": "sandbox",
       "version": "8.3.0",
       "dependencies": {
-        "@hanzo/font": "^1.8.0",
+        "@hanzo/font": "^1.9.1",
         "@hanzo/gui": "workspace:*",
         "@hanzogui/animations-css": "workspace:*",
         "@hanzogui/animations-motion": "workspace:*",
@@ -363,7 +363,7 @@
       "name": "@hanzogui/remix-starter",
       "version": "8.3.0",
       "dependencies": {
-        "@hanzo/font": "^1.8.11",
+        "@hanzo/font": "^1.9.1",
         "@hanzo/gui": "workspace:*",
         "@hanzogui/config": "workspace:*",
         "@react-router/node": "^7.18.0",
@@ -494,7 +494,7 @@
       "name": "app",
       "version": "2.0.0-rc.0-1769885482630",
       "dependencies": {
-        "@hanzo/font": "^1.8.8",
+        "@hanzo/font": "^1.9.1",
         "@hanzogui/animations-react-native": "workspace:*",
         "@hanzogui/colors": "workspace:*",
         "@hanzogui/lucide-icons-2": "workspace:*",
@@ -4099,7 +4099,7 @@
 
     "@hanzo/event": ["@hanzo/event@0.3.16", "", { "peerDependencies": { "react": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["react"] }, "sha512-x68S0ugCCeKmwFYhE5dYLGkHbOHZlFZbSnfQh9hcR7wxpivySD909WjVH1odC2/EhjTGinJ2JNb+FiSeAbuIcQ=="],
 
-    "@hanzo/font": ["@hanzo/font@1.8.12", "", { "peerDependencies": { "next": ">=13.2.0" } }, "sha512-WJDteTMwVnSAU4jAq0CLPyugQsQ8ePwXsw5vJplcS//oU4YeygZyk9NM3Qmk5yVn+4tfMDAtQczEk7Ap10EbsA=="],
+    "@hanzo/font": ["@hanzo/font@1.9.1", "", { "peerDependencies": { "next": ">=13.2.0" } }, "sha512-fZv8lzxUnz8g7SUP6yPoE1qKwJ6/yR0+PFhud5Vv6lEfxFdGCbsl3q86T6ZntzkC8ohoojXnNuhDAzvZCNVcCw=="],
 
     "@hanzo/gui": ["@hanzo/gui@workspace:pkgs/ui/hanzogui"],
 

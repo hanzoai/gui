@@ -270,6 +270,20 @@ export interface OrgHeaderProps {
   hideHardRefresh?: boolean
   /** Hide the settings button. */
   hideSettings?: boolean
+  /**
+   * Hide the cross-app launcher.
+   *
+   * For a surface that IS one product rather than a way into all of them: a
+   * checkout, an identity screen, a chat. The grid offers twenty-odd
+   * destinations, and on a surface someone reached to do ONE thing it is a way
+   * out of the thing they came to do.
+   *
+   * `apps` cannot express this. It overrides the LIST, and an empty list still
+   * draws the button — a grid that opens onto nothing, which is worse than the
+   * full one. So the choice is whether the launcher exists here at all, and it
+   * belongs beside the other two controls a surface can decline.
+   */
+  hideLauncher?: boolean
 }
 
 /**
@@ -285,7 +299,7 @@ export interface OrgHeaderProps {
  * Features:
  * - Official Hanzo H-mark (animates on hover, brand menu on right-click)
  * - Current app breadcrumb
- * - The ONE cross-app switcher, `HanzoAppLauncher`
+ * - The ONE cross-app switcher, `HanzoAppLauncher` (declinable: `hideLauncher`)
  * - Centre search field, opening whatever the app hands it
  * - Hard refresh button (clears ALL storage/cookies/caches and reloads)
  * - Settings cog (links to IAM account or custom settings page)
@@ -312,6 +326,7 @@ export function OrgHeader({
   onSettingsClick,
   hideHardRefresh,
   hideSettings,
+  hideLauncher,
 }: OrgHeaderProps) {
   useShellStyles()
   const [refreshing, setRefreshing] = useState(false)
@@ -408,7 +423,9 @@ export function OrgHeader({
           (the OrgCommandPalette), and the switcher this replaced had no chord at
           all — so claiming one would be a new key grab, not a port.
         */}
-        <HanzoAppLauncher currentApp={currentAppId} apps={apps} quickSwitchKey={false} />
+        {hideLauncher ? null : (
+          <HanzoAppLauncher currentApp={currentAppId} apps={apps} quickSwitchKey={false} />
+        )}
       </div>
 
       {/* ── Centre: search ── */}

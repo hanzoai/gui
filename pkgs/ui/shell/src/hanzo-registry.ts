@@ -322,6 +322,17 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     page: `${U.ai}/chat`,
     tagline: 'Ask anything',
     boundary: PRODUCT_BOUNDARIES.chat,
+    // FLAGSHIP, like every product beside it. Its absence here was an omission
+    // rather than a decision: the note above names Team, Bot and Studio as the
+    // ones held back until they are ready, and Chat is neither unfinished nor
+    // unannounced — it carries a `page` on the marketing site and is the door
+    // most readers open the palette to find.
+    //
+    // What the omission cost is easy to miss, because nothing errors: the doors
+    // come from HANZO_FLAGSHIP, so Chat was simply not among them. Every Hanzo
+    // surface's "Try Hanzo" menu and every command palette offered App, Cloud
+    // and Dev and said nothing about the product the estate leads with.
+    flagship: true,
   },
   {
     id: 'app',

@@ -85,7 +85,13 @@ const CSS = [
   // stylesheet reaches an inline declaration otherwise. It is scoped to a
   // sibling of whatever is hovered, so it can only ever quieten — the target
   // itself is excluded by `:not(:hover)`.
-  `[data-hanzo-plane]:is(:hover,:focus-within) a:not(:hover):not(:focus-visible){color:rgba(255,255,255,0.46)!important}`,
+  // THE RUNG, not the literal. This was rgba(255,255,255,0.46) written out,
+  // which is `--white-45` to within a rounding step — and unlike the literal,
+  // the rung is a name a light host already redefines. Written flat it survived
+  // every theme: on a light plane it dimmed the whole menu to white-on-white the
+  // moment a pointer entered, and `!important` meant nothing could reach it.
+  // The fallback keeps the measured value for a host that defines nothing.
+  `[data-hanzo-plane]:is(:hover,:focus-within) a:not(:hover):not(:focus-visible){color:var(--white-45, rgba(255,255,255,0.46))!important}`,
   `[data-hanzo-plane] a{transition:color 140ms ease,transform 140ms ease}`,
   `[data-hanzo-plane] a:hover{transform:translateY(-1px)}`,
   // The taxonomy grid widens in two steps. The COUNTS are computed where the

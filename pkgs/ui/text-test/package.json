@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "@hanzogui/text": "workspace:*",
-    "vitest": "4.0.4"
+    "vitest": "^4.1.11"
   }
 }

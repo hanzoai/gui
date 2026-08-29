@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.4.0"
   }
 }

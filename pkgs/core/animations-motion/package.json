@@ -43,13 +43,13 @@
     "@hanzogui/animation-helpers": "workspace:*",
     "@hanzogui/use-presence": "workspace:*",
     "@hanzogui/web": "workspace:*",
-    "motion": ">=12.35.1"
+    "motion": "^13.1.1"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "react": ">=19"
+    "react": "19.2.8"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   }
 }

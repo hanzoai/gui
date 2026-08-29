@@ -37,10 +37,10 @@
   "dependencies": {
     "@hanzogui/static": "workspace:*",
     "@hanzogui/types": "workspace:*",
-    "piscina": "^4.7.0"
+    "piscina": "^5.3.2"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "vitest": "4.0.4"
+    "vitest": "^4.1.11"
   }
 }

@@ -39,10 +39,10 @@
   "dependencies": {
     "@hanzogui/create-theme": "workspace:*",
     "@hanzogui/web": "workspace:*",
-    "color2k": "^2.0.2"
+    "color2k": "^2.0.4"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "vitest": "4.0.4"
+    "vitest": "^4.1.11"
   }
 }

@@ -50,13 +50,13 @@
     "@hanzogui/shorthands": "workspace:*",
     "@hanzogui/theme-builder": "workspace:*",
     "@hanzogui/themes": "workspace:*",
-    "color2k": "^2.0.2"
+    "color2k": "^2.0.4"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "react": ">=19"
+    "react": "19.2.8"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   }
 }

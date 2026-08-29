@@ -50,8 +50,19 @@ export const CHROME = {
    *
    * `ink` keeps #000 and is the other half this value carried: black ON the
    * white CTA, where black is right and where a ground would be wrong.
+   *
+   * A VARIABLE WITH THAT LITERAL AS ITS FALLBACK, which is how every ink below
+   * is already written, and for the reason the paragraph above gets half right.
+   * It was a bare literal so a light host could not turn the plane white while
+   * the inks stayed white — but the inks are `var(--white-92, …)`, and a host
+   * that defines those names flips them. hanzo.ai does exactly that, scoped to
+   * the bar, and the result was black ink on a plane that could not follow:
+   * every menu measured 1.06:1. Undefined still means #0a0a0a, so a host that
+   * defines nothing gets today's chrome unchanged; a host that themes the inks
+   * can now theme the ground they sit on, which is the only arrangement in
+   * which the pair cannot disagree.
    */
-  panel: '#0a0a0a',
+  panel: 'var(--chrome-panel, #0a0a0a)',
   /** Black ON a white surface — the CTA's label, a filled control's glyph. */
   ink: '#000000',
   /** The one raised fill (inputs, cards, tiles) that sits above `panel`. */

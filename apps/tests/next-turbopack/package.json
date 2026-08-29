@@ -16,16 +16,16 @@
     "@hanzogui/config": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/next-theme": "workspace:*",
-    "next": "16.1.1",
-    "react": ">=19",
-    "react-dom": ">=19",
-    "react-native-web": "^0.21.0"
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-native-web": "^0.21.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.1",
+    "@playwright/test": "^1.62.1",
     "@hanzogui/cli": "workspace:*",
-    "@types/node": "^22.1.0",
-    "@types/react": "~19.1.10",
-    "vitest": "4.0.4"
+    "@types/node": "26.4.0",
+    "@types/react": "19.2.18",
+    "vitest": "^4.1.11"
   }
 }

@@ -38,7 +38,7 @@
     "@hanzogui/theme-builder": "workspace:*",
     "@hanzogui/types": "workspace:*",
     "esbuild-register": "^3.6.0",
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.4.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"

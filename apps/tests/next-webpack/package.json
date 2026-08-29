@@ -16,6 +16,6 @@
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
-    "vitest": "4.0.4"
+    "vitest": "^4.1.11"
   }
 }

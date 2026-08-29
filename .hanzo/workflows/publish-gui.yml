@@ -30,7 +30,7 @@ jobs:
     name: Build, smoke-test, publish
     # Retargeted arm64 self-hosted (spark, frequently offline) → the always-up
     # in-cluster amd64 ARC pool. Pure-JS publish is arch-independent.
-    runs-on: hanzo-build-linux-amd64
+    runs-on: [hanzo-build-linux-amd64]
     steps:
       - uses: actions/checkout@v5
         with:

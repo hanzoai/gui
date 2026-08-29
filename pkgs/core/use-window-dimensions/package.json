@@ -38,10 +38,10 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "react": ">=19",
-    "react-native": "0.83.2"
+    "react": "19.2.8",
+    "react-native": "^0.87.1"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   }
 }

@@ -41,8 +41,8 @@
   },
   "peerDependencies": {
     "@hanzo/gui": ">=8.3.0",
-    "react": ">=18",
-    "react-native": "*"
+    "react": ">=19.2.8",
+    "react-native": ">=0"
   },
   "peerDependenciesMeta": {
     "react-native": {
@@ -52,8 +52,8 @@
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "@hanzo/gui": "workspace:*",
-    "react": ">=19",
-    "react-native": "0.83.2"
+    "react": "19.2.8",
+    "react-native": "^0.87.1"
   },
   "publishConfig": {
     "access": "public"

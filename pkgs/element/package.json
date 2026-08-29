@@ -42,6 +42,6 @@
     "@hanzogui/build": "workspace:*"
   },
   "peerDependencies": {
-    "react": "*"
+    "react": ">=19.2.8"
   }
 }

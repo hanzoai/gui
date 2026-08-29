@@ -42,12 +42,12 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "react": ">=19",
-    "react-dom": ">=19"
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-dom": "*"
+    "react": ">=19.2.8",
+    "react-dom": ">=19.2.8"
   },
   "module:jsx": "dist/jsx"
 }

@@ -14118,13 +14118,13 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "camelcase": "^6.0.0",
-    "cheerio": "^1.0.0-rc.5",
-    "glob": "^13.0.3",
-    "lucide-static": "^0.508.0",
-    "prop-types": "^15.7.2",
-    "react": ">=19",
-    "react-native-svg": "15.15.3",
+    "camelcase": "^9.0.0",
+    "cheerio": "^1.2.0",
+    "glob": "^13.0.6",
+    "lucide-static": "^1.37.0",
+    "prop-types": "^15.8.1",
+    "react": "19.2.8",
+    "react-native-svg": "^15.15.5",
     "uppercamelcase": "^3.0.0"
   },
   "dependencies": {
@@ -14132,7 +14132,7 @@
     "@hanzogui/helpers-icon": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=19",
+    "react": ">=19.2.8",
     "react-native-svg": ">=12"
   },
   "skipPublishIfUnchanged": false

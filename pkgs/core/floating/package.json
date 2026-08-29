@@ -34,16 +34,16 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@floating-ui/react-dom": "^2.1.6",
-    "@floating-ui/react-native": "^0.10.7",
+    "@floating-ui/react-dom": "^2.1.9",
+    "@floating-ui/react-native": "^0.10.10",
     "@hanzogui/use-event": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "react": ">=19",
-    "react-native": "0.83.2"
+    "react": "19.2.8",
+    "react-native": "^0.87.1"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   }
 }

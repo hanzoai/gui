@@ -15,21 +15,21 @@
     "@hanzogui/config": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
-    "@vxrn/color-scheme": "^1.20.4",
-    "expo": "~55.0.6",
-    "one": "1.20.4",
-    "react": ">=19",
-    "react-native": "0.83.2",
-    "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "~4.23.0",
-    "react-native-svg": "15.15.3",
-    "react-native-web": "^0.21.0",
+    "@vxrn/color-scheme": "^1.25.8",
+    "expo": "^57.0.18",
+    "one": "^1.25.8",
+    "react": "19.2.8",
+    "react-native": "^0.87.1",
+    "react-native-safe-area-context": "^5.9.1",
+    "react-native-screens": "^4.27.0",
+    "react-native-svg": "^15.15.5",
+    "react-native-web": "^0.21.2",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/vite-plugin": "workspace:*",
-    "@types/react": "~19.1.10",
-    "vite": "^8.0.3"
+    "@types/react": "19.2.18",
+    "vite": "^8.2.2"
   },
   "license": "BSD-3-Clause",
   "author": "Hanzo AI <dev@hanzo.ai>"

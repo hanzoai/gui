@@ -11,6 +11,6 @@
     "@hanzo/gui": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   }
 }

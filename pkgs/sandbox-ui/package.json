@@ -25,16 +25,16 @@
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/toast": "workspace:*",
     "@hanzogui/web": "workspace:*",
-    "expo-constants": "~55.0.7",
-    "expo-image": "~55.0.6",
-    "solito": "^4.3.0"
+    "expo-constants": "^57.0.16",
+    "expo-image": "^57.0.3",
+    "solito": "^5.0.0"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "react": ">=19"
+    "react": "19.2.8"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   },
   "module:jsx": "dist/jsx"
 }

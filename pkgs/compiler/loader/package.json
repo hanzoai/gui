@@ -38,14 +38,14 @@
     "@hanzogui/static-worker": "workspace:*",
     "@hanzogui/types": "workspace:*",
     "@hanzogui/web": "workspace:*",
-    "esbuild-loader": "^4.2.2",
-    "esm-resolve": "^1.0.8",
-    "fs-extra": "^11.2.0",
-    "loader-utils": "^3.2.1"
+    "esbuild-loader": "^4.5.0",
+    "esm-resolve": "^1.0.11",
+    "fs-extra": "^11.4.0",
+    "loader-utils": "^3.3.1"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "prettyjson": "^1.2.5",
-    "webpack": "^5.88.2"
+    "webpack": "^5.110.1"
   }
 }

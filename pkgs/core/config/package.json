@@ -157,7 +157,7 @@
     "@hanzogui/build": "workspace:*"
   },
   "peerDependencies": {
-    "@hanzogui/animations-moti": "*"
+    "@hanzogui/animations-moti": "8.3.1"
   },
   "peerDependenciesMeta": {
     "@hanzogui/animations-moti": {

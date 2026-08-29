@@ -41,12 +41,12 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "expo-linear-gradient": "~55.0.8",
-    "react": ">=19",
-    "react-native": "0.83.2"
+    "expo-linear-gradient": "^57.0.1",
+    "react": "19.2.8",
+    "react-native": "^0.87.1"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   },
   "module:jsx": "dist/jsx"
 }

@@ -85,13 +85,13 @@
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "react": ">=19",
-    "react-native": "0.83.2",
-    "react-native-gesture-handler": "~2.30.0",
-    "react-native-safe-area-context": "~5.7.0"
+    "react": "19.2.8",
+    "react-native": "^0.87.1",
+    "react-native-gesture-handler": "^3.2.1",
+    "react-native-safe-area-context": "^5.9.1"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   },
   "module:jsx": "dist/jsx",
   "removeSideEffects": true

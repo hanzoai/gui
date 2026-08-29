@@ -23,15 +23,15 @@
     "@my/config": "workspace:^",
     "@hanzogui/next-theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",
-    "expo-constants": "~55.0.7",
+    "expo-constants": "^57.0.16",
     "@hanzo/gui": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
-    "react": ">=19"
+    "react": "19.2.8"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19.2.8"
   },
   "module:jsx": "src"
 }

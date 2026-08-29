@@ -112,11 +112,11 @@
     "@hanzogui/create-theme": "workspace:*",
     "@hanzogui/theme-builder": "workspace:*",
     "@hanzogui/web": "workspace:*",
-    "color2k": "^2.0.2"
+    "color2k": "^2.0.4"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "@hanzogui/cli": "workspace:*",
-    "vitest": "4.0.4"
+    "vitest": "^4.1.11"
   }
 }

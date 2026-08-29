@@ -15,21 +15,21 @@
     "@hanzo/font": "1.9.2",
     "@hanzo/gui": "workspace:*",
     "@hanzogui/config": "workspace:*",
-    "@react-router/node": "^7.18.0",
-    "@react-router/serve": "^7.18.0",
-    "react": ">=19",
-    "react-dom": ">=19",
-    "react-router": "^7.18.0"
+    "@react-router/node": "^8.3.1",
+    "@react-router/serve": "^8.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router": "^8.3.1"
   },
   "devDependencies": {
-    "@react-router/dev": "^7.18.0",
-    "@react-router/fs-routes": "^7.18.0",
+    "@react-router/dev": "^8.3.1",
+    "@react-router/fs-routes": "^8.3.1",
     "@hanzogui/vite-plugin": "workspace:*",
-    "@types/react": "~19.1.10",
-    "@types/react-dom": "~19.1.7",
-    "typescript": "~5.9.2",
-    "vite": "^8.0.3",
-    "vite-tsconfig-paths": "^5.1.4"
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "typescript": "7.0.2",
+    "vite": "^8.2.2",
+    "vite-tsconfig-paths": "^6.1.1"
   },
   "engines": {
     "node": ">=20.0.0"

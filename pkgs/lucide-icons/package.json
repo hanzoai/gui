@@ -14121,7 +14121,7 @@
     "camelcase": "^9.0.0",
     "cheerio": "^1.2.0",
     "glob": "^13.0.6",
-    "lucide-static": "^1.37.0",
+    "lucide-static": "^1.17.0",
     "prop-types": "^15.8.1",
     "react": "19.2.8",
     "react-native-svg": "^15.15.5",

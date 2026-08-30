@@ -352,6 +352,11 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     page: `${U.ai}/base`,
     tagline: 'Data, auth and files',
     boundary: PRODUCT_BOUNDARIES.base,
+    // Released, so it is in the estate. `stage` is what holds a product back —
+    // Studio carries `stage: 'alpha'` and every surface passes the list through
+    // `sees(stage)` before drawing it — and dropping the flag instead takes a
+    // finished product out of the mega-menu and the footer for everybody.
+    flagship: true,
   },
   {
     id: 'cloud',

@@ -55,8 +55,18 @@ export function UserAvatar({
   const [gravatarFailed, setGravatarFailed] = useState(false)
   const gravatarUrl = useGravatarUrl(email, size * 2)
 
-  const imgClass = `rounded-full object-cover ${className || ''}`
-  const style = { width: size, height: size }
+  // THE CIRCLE AND THE CROP ARE STYLE, NOT CLASSES. This package ships no
+  // stylesheet and its hosts are not all Tailwind, so `rounded-full
+  // object-cover` named two rules that nothing supplied: a photo rendered
+  // square and squashed to the box rather than cropped to it. An inline value
+  // is the one thing every host honours, and it still loses to a caller's own
+  // `className` where that host has a sheet to back it.
+  const style = {
+    width: size,
+    height: size,
+    borderRadius: '50%',
+    objectFit: 'cover' as const,
+  }
 
   // Tier 1: uploaded/provided photo
   if (src && !photoFailed) {
@@ -64,7 +74,7 @@ export function UserAvatar({
       <img
         src={src}
         alt={name || email || 'avatar'}
-        className={imgClass}
+        className={className}
         style={style}
         onError={() => setPhotoFailed(true)}
       />
@@ -77,7 +87,7 @@ export function UserAvatar({
       <img
         src={gravatarUrl}
         alt={name || email || 'avatar'}
-        className={imgClass}
+        className={className}
         style={style}
         onError={() => setGravatarFailed(true)}
       />

@@ -35,8 +35,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@hanzo/event": "0.3.37",
-    "@hanzo/observe": "0.1.8"
+    "@hanzo/event": "^0.3.37",
+    "@hanzo/observe": "^0.1.8"
   },
   "peerDependencies": {
     "react": ">=19.2.8"

@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/booker",
   "version": "8.3.1",
-  "description": "Universal (web + native) scheduling UI for the Hanzo Calendar — a Booker, Confirmation, and compact CalendarEmbed built with hanzogui primitives.",
+  "description": "Universal (web + native) scheduling UI for the Hanzo Calendar \u2014 a Booker, Confirmation, and compact CalendarEmbed built with hanzogui primitives.",
   "license": "MIT",
   "author": "Hanzo AI <dev@hanzo.ai>",
   "repository": {
@@ -40,7 +40,7 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "peerDependencies": {
-    "@hanzo/gui": ">=8.3.0",
+    "@hanzo/gui": ">=8.3.1",
     "react": ">=19.2.8",
     "react-native": ">=0"
   },

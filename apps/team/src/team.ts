@@ -12,14 +12,12 @@
 
 import { Configuration, TeamApi } from 'hanzoai'
 import type { TeamMessage, TeamRoom } from 'hanzoai'
+import { API } from './config'
 
 export type { TeamMessage, TeamRoom }
 
-// One endpoint for every Hanzo surface. Not a per-product host.
-const BASE = 'https://api.hanzo.ai'
-
 function team(token: string): TeamApi {
-  return new TeamApi(new Configuration({ basePath: BASE, accessToken: token }))
+  return new TeamApi(new Configuration({ basePath: API, accessToken: token }))
 }
 
 /** Every room the signed-in principal can see. */

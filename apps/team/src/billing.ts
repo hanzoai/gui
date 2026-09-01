@@ -9,10 +9,7 @@
 // went.
 
 import { BillingApi, Configuration } from 'hanzoai'
-
-// One endpoint for every Hanzo surface, which is also what retired the separate
-// billing.hanzo.ai host this file used to name.
-const BASE = 'https://api.hanzo.ai'
+import { API } from './config'
 
 export interface UsageRow {
   label: string
@@ -47,7 +44,7 @@ function usd(record: Record<string, unknown>): number | undefined {
 
 /** The org wallet for the signed-in session. Throws on any non-2xx / bad shape. */
 export async function fetchWallet(accessToken: string): Promise<Wallet> {
-  const billing = new BillingApi(new Configuration({ basePath: BASE, accessToken }))
+  const billing = new BillingApi(new Configuration({ basePath: API, accessToken }))
   const { data } = (await billing.getBillingBalance()) as {
     data: Record<string, unknown>
   }

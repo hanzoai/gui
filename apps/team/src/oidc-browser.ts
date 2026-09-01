@@ -4,7 +4,7 @@
 
 import * as WebBrowser from 'expo-web-browser'
 import * as Linking from 'expo-linking'
-import { REDIRECT_SCHEME } from './oidc-config'
+import { REDIRECT_SCHEME } from './config'
 import type { AuthOutcome } from './oidc-types'
 
 export function redirectUri(): string {

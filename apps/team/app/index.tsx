@@ -7,11 +7,14 @@ export default function Home() {
   const signedIn = !loading && session != null
   const who = session?.user?.email ?? session?.user?.name
 
+  const rooms = { href: '/rooms', title: 'Rooms', caption: 'Conversations in your org' } as const
+  const wallet = { href: '/wallet', title: 'Wallet', caption: 'Balance and AI usage' } as const
   const views = signedIn
-    ? [{ href: '/wallet', title: 'Wallet', caption: 'Balance and AI usage' } as const]
+    ? [rooms, wallet]
     : [
         { href: '/login', title: 'Sign in', caption: 'hanzo.id single sign-on' } as const,
-        { href: '/wallet', title: 'Wallet', caption: 'Balance and AI usage' } as const,
+        rooms,
+        wallet,
       ]
 
   return (

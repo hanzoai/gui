@@ -1,4 +1,4 @@
-import { guiPlugin } from '@hanzogui/vite-plugin'
+import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
 import { one } from 'one/vite'
 import type { UserConfig } from 'vite'
 
@@ -16,6 +16,6 @@ export default {
       },
     }),
 
-    guiPlugin(),
+    hanzoguiPlugin(),
   ],
 } satisfies UserConfig

@@ -35,10 +35,16 @@ interface Endpoints {
 }
 
 // IAM's endpoint paths, used when discovery is unreachable.
+//
+// These are what the issuer publishes today, checked against it rather than
+// remembered: the three they replace answered 404, and two of them carried an
+// /api/ prefix IAM has not served for a long time. A fallback is only ever read
+// when discovery is down, so a stale one fails exactly when nothing else can
+// cover for it — which is why it is worth keeping honest.
 const FALLBACK: Endpoints = {
-  authorization: `${ISSUER}/login/oauth/authorize`,
-  token: `${ISSUER}/api/login/oauth/access_token`,
-  userinfo: `${ISSUER}/api/userinfo`,
+  authorization: `${ISSUER}/v1/iam/oauth/authorize`,
+  token: `${ISSUER}/v1/iam/oauth/token`,
+  userinfo: `${ISSUER}/v1/iam/oauth/userinfo`,
 }
 
 let endpointsCache: Endpoints | undefined

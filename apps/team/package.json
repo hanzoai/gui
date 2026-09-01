@@ -12,19 +12,20 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@vxrn/color-scheme": "^1.25.8",
     "expo": "^57.0.18",
+    "hanzoai": "^8.5.157",
     "one": "^1.25.8",
     "react": "19.2.8",
     "react-native": "^0.87.1",
     "react-native-safe-area-context": "^5.9.1",
     "react-native-screens": "^4.27.0",
     "react-native-svg": "^15.15.5",
-    "react-native-web": "^0.21.2",
-    "@hanzo/gui": "workspace:*"
+    "react-native-web": "^0.21.2"
   },
   "devDependencies": {
     "@hanzogui/vite-plugin": "workspace:*",

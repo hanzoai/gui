@@ -271,6 +271,10 @@ export interface OrgHeaderProps {
   /** Hide the settings button. */
   hideSettings?: boolean
   /**
+   * Hide the leading brand wordmark, breadcrumb slash and current app label.
+   */
+  hideBrandCrumb?: boolean
+  /**
    * Hide the cross-app launcher.
    *
    * For a surface that IS one product rather than a way into all of them: a
@@ -326,6 +330,7 @@ export function OrgHeader({
   onSettingsClick,
   hideHardRefresh,
   hideSettings,
+  hideBrandCrumb,
   hideLauncher,
 }: OrgHeaderProps) {
   useShellStyles()
@@ -379,52 +384,56 @@ export function OrgHeader({
       {/* ── Left: the surface's own controls · logo · breadcrumb · switcher ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
         {headerLeft}
-        {/*
-          The color is stated HERE because the mark is `currentColor` and this
-          is an anchor: the UA sheet paints
-          anchors link-blue and that beats the header's inherited color. The
-          mark this replaced hardcoded white and so never noticed.
-        */}
-        <a
-          href={`${domains.iam}/account`}
-          aria-label="Account"
-          style={{
-            display: 'inline-flex',
-            flexShrink: 0,
-            borderRadius: 4,
-            color: CHROME.fg,
-          }}
-        >
-          <HanzoWordmark size={22} brandMenu />
-        </a>
+        {!hideBrandCrumb && (
+          <>
+            {/*
+              The color is stated HERE because the mark is `currentColor` and this
+              is an anchor: the UA sheet paints
+              anchors link-blue and that beats the header's inherited color. The
+              mark this replaced hardcoded white and so never noticed.
+            */}
+            <a
+              href={`${domains.iam}/account`}
+              aria-label="Account"
+              style={{
+                display: 'inline-flex',
+                flexShrink: 0,
+                borderRadius: 4,
+                color: CHROME.fg,
+              }}
+            >
+              <HanzoWordmark size={22} brandMenu />
+            </a>
 
-        <span
-          aria-hidden="true"
-          style={{ color: CHROME.fgDim, fontSize: FS.sm, userSelect: 'none' }}
-        >
-          /
-        </span>
+            <span
+              aria-hidden="true"
+              style={{ color: CHROME.fgDim, fontSize: FS.sm, userSelect: 'none' }}
+            >
+              /
+            </span>
 
-        <span
-          style={{
-            fontSize: FS.sm,
-            fontWeight: 600,
-            color: CHROME.fgMuted,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {currentApp}
-        </span>
+            <span
+              style={{
+                fontSize: FS.sm,
+                fontWeight: 600,
+                color: CHROME.fgMuted,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {currentApp}
+            </span>
 
-        {/*
-          The chord is OFF here. An app that mounts this header owns its own ⌘K
-          (the OrgCommandPalette), and the switcher this replaced had no chord at
-          all — so claiming one would be a new key grab, not a port.
-        */}
-        {hideLauncher ? null : (
-          <HanzoAppLauncher currentApp={currentAppId} apps={apps} quickSwitchKey={false} />
+            {/*
+              The chord is OFF here. An app that mounts this header owns its own ⌘K
+              (the OrgCommandPalette), and the switcher this replaced had no chord at
+              all — so claiming one would be a new key grab, not a port.
+            */}
+            {hideLauncher ? null : (
+              <HanzoAppLauncher currentApp={currentAppId} apps={apps} quickSwitchKey={false} />
+            )}
+          </>
         )}
       </div>
 

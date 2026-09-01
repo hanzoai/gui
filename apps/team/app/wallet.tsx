@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'one'
 import { Separator, SizableText, XStack, YStack } from '@hanzo/gui'
 import { useSession } from '~/src/session'
+import { Prompt } from '~/components/Prompt'
 import { fetchWallet, type Wallet } from '~/src/billing'
 
 // Real balance + usage from billing.hanzo.ai, read with the session's bearer token.
@@ -32,33 +32,8 @@ export default function WalletScreen() {
     }
   }, [session?.accessToken])
 
-  if (!loading && session == null) {
-    return (
-      <YStack p="$4" gap="$3" maxW={560} width="100%" self="center">
-        <SizableText size="$6" fontWeight="600">
-          Wallet
-        </SizableText>
-        <SizableText size="$3" color="$color10">
-          Sign in to see your balance and AI usage.
-        </SizableText>
-        <Link href="/login" asChild>
-          <XStack
-            bg="$color"
-            rounded="$10"
-            px="$4"
-            py="$2.5"
-            self="flex-start"
-            cursor="pointer"
-            pressStyle={{ opacity: 0.8 }}
-          >
-            <SizableText size="$3" fontWeight="600" color="$background">
-              Sign in
-            </SizableText>
-          </XStack>
-        </Link>
-      </YStack>
-    )
-  }
+  if (!loading && session == null)
+    return <Prompt title="Wallet" caption="Sign in to see your balance and AI usage." />
 
   const balance =
     wallet != null ? `$${wallet.balanceUsd.toFixed(2)}` : state === 'error' ? '—' : '…'

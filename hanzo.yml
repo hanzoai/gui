@@ -10,7 +10,8 @@
 # wins, which is also why `.github/workflows` is dark on Hanzo Git.
 #
 # NO `images:` AND NO `deploy:`. This is a package repo: 199 workspaces
-# published to npm, and nothing here owns a running surface. The one container
+# published to npm, and the one surface it owns — hanzo.team, from apps/team —
+# is a static export served straight off object storage, which needs neither. The one container
 # it produces — ghcr.io/hanzoai/gui, the gui.hanzo.ai site — is still built by
 # `.hanzo/workflows/build.yml` on a v* tag. Declaring it here too would give one
 # image two builders, and the fold can only be proven by cutting a tag, so it is
@@ -111,3 +112,23 @@ test:
         --filter=@hanzogui/core-test \
         --filter=@hanzogui/components-test \
         --concurrency=1
+
+# hanzo.team. apps/team is a One SPA and its entire backend is the cloud team
+# surface at api.hanzo.ai/v1/team — rooms, messages, files, roster — so it needs
+# no image and no pod, only an export the ingress can serve. The router that
+# serves it is universe charts/app/values/hanzo/static-sites.yaml `team-static`,
+# with spaMode ON: `one build` writes rooms/:id.html literally, so /rooms/<id>
+# has no file behind it and must fall back to the shell for the client router to
+# resolve it.
+#
+# `on` is not decoration. It defaults to the empty list, and an unnamed branch
+# publishes NOTHING — a main push would run the build, report success and ship
+# no bytes. Naming main is what makes a merge reach the site.
+#
+# turbo, not the bare script: apps/team imports workspace packages that must be
+# built before it can be, and `one build` alone does not build them.
+site:
+  slug: team
+  dir: apps/team/dist/client
+  on: [main]
+  build: bun turbo run build:web --filter=@hanzogui/team

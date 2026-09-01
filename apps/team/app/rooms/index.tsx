@@ -3,14 +3,14 @@ import { Link } from 'one'
 import { Separator, SizableText, XStack, YStack } from '@hanzo/gui'
 import { useSession } from '~/src/session'
 import { Prompt } from '~/components/Prompt'
-import { fetchRooms, type Room } from '~/src/team'
+import { fetchRooms, type TeamRoom } from '~/src/team'
 
 // Every room the signed-in principal can see. Archived rooms are left out — they
 // are still readable by id, but a list of them is a filing cabinet, not a place
 // to talk. A room link carries its space because a room id alone is ambiguous.
 export default function RoomsScreen() {
   const { session, loading } = useSession()
-  const [rooms, setRooms] = useState<Room[] | null>(null)
+  const [rooms, setRooms] = useState<TeamRoom[] | null>(null)
   const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle')
 
   useEffect(() => {
@@ -36,7 +36,12 @@ export default function RoomsScreen() {
   if (!loading && session == null)
     return <Prompt title="Rooms" caption="Sign in to read and join your org's rooms." />
 
-  const open = (rooms ?? []).filter((room) => !room.archived)
+  // A room needs both halves of its address to be linkable, and the document
+  // marks neither required — so a room missing one is skipped rather than
+  // rendered into a link that cannot resolve.
+  const open = (rooms ?? []).filter(
+    (room) => !room.archived && room.id != null && room.space != null
+  )
 
   return (
     <YStack p="$4" gap="$4" maxW={560} width="100%" self="center">
@@ -50,7 +55,7 @@ export default function RoomsScreen() {
             <YStack key={`${room.space}/${room.id}`}>
               {index > 0 ? <Separator borderColor="$borderColor" /> : null}
               <Link
-                href={`/rooms/${room.id}?space=${encodeURIComponent(room.space)}`}
+                href={`/rooms/${room.id}?space=${encodeURIComponent(room.space ?? '')}`}
                 asChild
               >
                 <XStack p="$3.5" items="center" justify="space-between" cursor="pointer">

@@ -82,7 +82,7 @@ describe('StyleSheet/compile', () => {
             ],
             [
               [
-                ".r-fontFamily-1qd0xha{font-family:-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,Helvetica,Arial,sans-serif;}",
+                ".r-fontFamily-1qd0xha{font-family:Zen, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;}",
               ],
               2.2,
             ],

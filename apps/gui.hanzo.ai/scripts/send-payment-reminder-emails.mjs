@@ -61,12 +61,12 @@ const NINETY_DAYS_AGO = Math.floor((Date.now() - 90 * 24 * 60 * 60 * 1000) / 100
 const EMAIL_DELAY_MS = 200
 
 const emailStyles = `
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+  body { font-family: Zen, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
   h1 { color: #000; }
   h2 { color: #333; margin-top: 30px; }
   .cta-button { background-color: #000; color: #fff !important; padding: 14px 28px; text-decoration: none; border-radius: 8px; display: inline-block; margin: 10px 5px; font-weight: 600; }
   .coupon-box { background: #ffeb3b; color: #000; padding: 20px; border-radius: 12px; text-align: center; margin: 24px 0; }
-  .coupon-code { font-size: 28px; font-weight: bold; letter-spacing: 2px; margin: 4px 0; font-family: monospace; }
+  .coupon-code { font-size: 28px; font-weight: bold; letter-spacing: 2px; margin: 4px 0; font-family: Zen Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
   .coupon-discount { font-size: 18px; margin: 0; }
   ul { padding-left: 20px; }
   li { margin: 8px 0; }

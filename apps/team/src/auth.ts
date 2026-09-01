@@ -3,7 +3,7 @@
 // profile. The browser step is delegated to the platform-split ./oidc-browser (native
 // opens the system browser; web redirects the page), so expo stays out of the web bundle.
 
-import { CLIENT_ID, ISSUER, SCOPES } from './oidc-config'
+import { CLIENT_ID, ISSUER, SCOPES } from './config'
 import { authorize, redirectUri } from './oidc-browser'
 import type { AuthOutcome } from './oidc-types'
 

@@ -94,7 +94,7 @@
     "react-native-worklets": "^0.12.1",
     "sf-symbols-typescript": "^2.2.0",
     "solito": "^5.0.0",
-    "@hanzo/font": "1.9.2",
+    "@hanzo/font": "^1.9.3",
     "@hanzo/gui": "workspace:*",
     "vitest": "^4.1.11",
     "zeego": "^3.0.6"

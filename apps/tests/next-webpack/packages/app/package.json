@@ -7,7 +7,7 @@
   ],
   "main": "index.ts",
   "dependencies": {
-    "@hanzo/font": "1.9.2",
+    "@hanzo/font": "^1.9.3",
     "@hanzogui/animations-react-native": "workspace:*",
     "@hanzogui/colors": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",

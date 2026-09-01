@@ -4,7 +4,7 @@ import { useSession } from '~/src/session'
 import { Prompt } from '~/components/Prompt'
 import { fetchWallet, type Wallet } from '~/src/billing'
 
-// Real balance + usage from billing.hanzo.ai, read with the session's bearer token.
+// Real balance + usage from the billing surface, read through the generated client.
 // No hardcoded money: signed-out shows a sign-in prompt; a failed fetch shows an
 // honest unavailable state rather than a fake $0.00.
 export default function WalletScreen() {

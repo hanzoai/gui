@@ -1,8 +1,18 @@
-// Real wallet data — balance + usage read from the billing surface with the session's
-// bearer token. No hardcoded money: on error the wallet shows an honest unavailable
-// state, never a fake $0.00.
+// Real wallet data — balance + usage read from the billing surface through the
+// generated client. No hardcoded money: on error the wallet shows an honest
+// unavailable state, never a fake $0.00.
+//
+// The SDK owns the route, the host and the Authorization header. It does NOT own
+// the shape: /v1/billing/balance is one of the operations the document states
+// without a response schema, so `data` arrives untyped and the reduction below
+// is still this file's job. That is why the reading stays and only the transport
+// went.
 
-const BILLING_BASE = 'https://billing.hanzo.ai'
+import { BillingApi, Configuration } from 'hanzoai'
+
+// One endpoint for every Hanzo surface, which is also what retired the separate
+// billing.hanzo.ai host this file used to name.
+const BASE = 'https://api.hanzo.ai'
 
 export interface UsageRow {
   label: string
@@ -35,13 +45,12 @@ function usd(record: Record<string, unknown>): number | undefined {
   return undefined
 }
 
-/** GET the org wallet for the signed-in session. Throws on any non-2xx / bad shape. */
+/** The org wallet for the signed-in session. Throws on any non-2xx / bad shape. */
 export async function fetchWallet(accessToken: string): Promise<Wallet> {
-  const res = await fetch(`${BILLING_BASE}/v1/billing/balance`, {
-    headers: { authorization: `Bearer ${accessToken}`, accept: 'application/json' },
-  })
-  if (!res.ok) throw new Error(`billing ${res.status}`)
-  const data = (await res.json()) as Record<string, unknown>
+  const billing = new BillingApi(new Configuration({ basePath: BASE, accessToken }))
+  const { data } = (await billing.getBillingBalance()) as {
+    data: Record<string, unknown>
+  }
   const balanceUsd = usd(data)
   if (balanceUsd === undefined) throw new Error('no balance in billing response')
 

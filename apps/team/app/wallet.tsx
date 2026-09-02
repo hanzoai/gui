@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Separator, SizableText, XStack, YStack } from '@hanzo/gui'
 import { useSession } from '~/src/session'
 import { Prompt } from '~/components/Prompt'
-import { fetchWallet, type Wallet } from '~/src/billing'
+import { billing, type Wallet } from '~/src/api'
 
 // Real balance + usage from the billing surface, read through the generated client.
 // No hardcoded money: signed-out shows a sign-in prompt; a failed fetch shows an
@@ -17,7 +17,7 @@ export default function WalletScreen() {
     if (token == null) return
     let live = true
     setState('loading')
-    void fetchWallet(token)
+    void billing(token).wallet()
       .then((w) => {
         if (live) {
           setWallet(w)

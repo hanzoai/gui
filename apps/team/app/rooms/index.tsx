@@ -3,7 +3,7 @@ import { Link } from 'one'
 import { Separator, SizableText, XStack, YStack } from '@hanzo/gui'
 import { useSession } from '~/src/session'
 import { Prompt } from '~/components/Prompt'
-import { fetchRooms, type TeamRoom } from '~/src/team'
+import { team, type TeamRoom } from '~/src/api'
 
 // Every room the signed-in principal can see. Archived rooms are left out — they
 // are still readable by id, but a list of them is a filing cabinet, not a place
@@ -18,7 +18,7 @@ export default function RoomsScreen() {
     if (token == null) return
     let live = true
     setState('loading')
-    void fetchRooms(token)
+    void team(token).rooms()
       .then((list) => {
         if (live) {
           setRooms(list)

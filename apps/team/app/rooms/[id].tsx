@@ -3,7 +3,7 @@ import { useLocalSearchParams } from 'one'
 import { Button, Input, ScrollView, SizableText, XStack, YStack } from '@hanzo/gui'
 import { useSession } from '~/src/session'
 import { Prompt } from '~/components/Prompt'
-import { fetchMessages, sendMessage, type TeamMessage } from '~/src/team'
+import { team, type TeamMessage } from '~/src/api'
 
 // How often an open room re-reads its tail. Messages have no push channel of
 // their own, so the room asks; often enough to feel like a conversation, rarely
@@ -42,7 +42,7 @@ export default function RoomScreen() {
   const refresh = useCallback(async () => {
     if (token == null || room === '' || space === '') return
     try {
-      setMessages(await fetchMessages(room, space, token))
+      setMessages(await team(token).messages(room, space))
       setState('idle')
     } catch {
       setState('error')
@@ -62,7 +62,7 @@ export default function RoomScreen() {
     if (text === '' || token == null || sending) return
     setSending(true)
     try {
-      const said = await sendMessage(room, space, text, token)
+      const said = await team(token).say(room, space, text)
       setMessages((prior) => [...prior, said])
       setDraft('')
     } catch {

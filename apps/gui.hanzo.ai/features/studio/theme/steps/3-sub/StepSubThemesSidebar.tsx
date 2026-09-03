@@ -10,13 +10,11 @@ import {
   useThemeName,
 } from '@hanzo/gui'
 
-import { StudioProcedureStore } from '../../callApi'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { StudioThemesQuickPreviewSection } from '../views/StudioThemesQuickPreviewSection'
 import { getStudioInternalThemeName } from '../../updatePreviewTheme'
 
 export function StepSubThemesSidebar() {
-  const procedureStore = useStore(StudioProcedureStore)
   const store = useThemeBuilderStore()
   const hasAccent = store.subThemes[0]?.type === 'theme' && !!store.subThemes[0]?.accent
   const currentThemeName = useThemeName()
@@ -69,7 +67,6 @@ export function StepSubThemesSidebar() {
           bg="rgba(0, 0, 0, 0.25)"
           items="center"
           justify="center"
-          opacity={procedureStore.loading.createStudioThemes ? 1 : 0}
           z={100}
         >
           <Spinner />

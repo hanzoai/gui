@@ -1,7 +1,5 @@
-import { Box, Brush, MessageCircle } from '@hanzogui/lucide-icons-2'
+import { Brush } from '@hanzogui/lucide-icons-2'
 import { styled, YStack } from '@hanzo/gui'
-import { BentoIcon } from '../../icons/BentoIcon'
-import { TakeoutIcon } from '../../icons/TakeoutIcon'
 import { TooltipLabelLarge } from './TooltipLabelLarge'
 
 const Card = styled(YStack, {
@@ -23,62 +21,8 @@ export const PromoCards = ({ less }: { less?: boolean }) => {
   return (
     <>
       <Card>
-        <TooltipLabelLarge
-          icon={<TakeoutIcon />}
-          href="/takeout"
-          title="Takeout v1"
-          subtitle="Next.js + Expo with Supabase, tRPC, Vercel."
-        />
-      </Card>
-
-      <Card>
-        <TooltipLabelLarge
-          icon={<TakeoutIcon />}
-          href="/takeout"
-          title="Takeout v2"
-          subtitle="One framework, Zero sync, SST/Uncloud IaC, Agents."
-        />
-      </Card>
-
-      <Card>
-        <TooltipLabelLarge
-          href="/bento"
-          icon={
-            <YStack y={-2}>
-              <BentoIcon />
-            </YStack>
-          }
-          title="Bento"
-          subtitle="OSS and paid copy-paste components."
-        />
-      </Card>
-
-      <Card>
         <PromoCardTheme />
       </Card>
-
-      <Card>
-        <TooltipLabelLarge
-          icon={
-            <YStack>
-              <MessageCircle size={20} />
-            </YStack>
-          }
-          title="Discord"
-          subtitle="Chat support in private Discord room."
-        />
-      </Card>
-
-      {!less && (
-        <Card>
-          <TooltipLabelLarge
-            href="/takeout"
-            icon={<Box size={20} />}
-            title="Assets"
-            subtitle="Scripts to easily add fonts and icon packs."
-          />
-        </Card>
-      )}
     </>
   )
 }

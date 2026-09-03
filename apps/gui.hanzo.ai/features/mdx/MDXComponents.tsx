@@ -48,7 +48,6 @@ import { LogoCard } from '~/components/LogoCard'
 import { Notice, NoticeFrame } from '~/components/Notice'
 import { OffsetBox } from '~/components/OffsetBox'
 import { Preview } from '~/components/Preview'
-import { ProductCard } from '~/components/ProductCard'
 import { SubTitle } from '~/components/SubTitle'
 import { GuiCard } from '~/components/GuiCard'
 import { GuiExamplesCode } from '~/components/GuiExamples'
@@ -724,8 +723,6 @@ const componentsIn = {
 
   DemoButton: () => <Button>Hello world</Button>,
 
-  ProductCard: ProductCard,
-
   SponsorButton,
 
   SponsorNotice: () => {
@@ -994,20 +991,19 @@ export class ErrorBoundary extends React.Component<{ children: any; name: string
 
 export const components = Object.fromEntries(
   Object.entries(componentsIn).map(([key, Component]) => {
-    const out = (props) => {
-      // adds error boundary here as these errors are stupid to debug
-      return (
-        <ErrorBoundary name={key}>
-          {/* @ts-expect-error */}
-          <Component {...props} />
-        </ErrorBoundary>
-      )
+    if (typeof Component !== 'function') {
+      return [key, Component]
     }
+    const Comp = Component as React.ElementType
+    // An error boundary around every MDX component, so a failing one names itself.
+    const wrapped: React.FC<Record<string, unknown>> = (props) => (
+      <ErrorBoundary name={key}>
+        <Comp {...props} />
+      </ErrorBoundary>
+    )
 
-    // inherit static props
-    for (const cKey in Component) {
-      out[cKey] = Component[cKey]
-    }
+    // A component's static members (a styled config, a displayName) travel with it.
+    const out = Object.assign(wrapped, Object.fromEntries(Object.entries(Component)))
 
     return [key, out]
   })

@@ -9,7 +9,7 @@ declare module 'hanzogui' {
   interface GuiCustomConfig extends Conf {}
 
   interface TypeOverride {
-    groupNames(): 'card' | 'takeoutBody' | 'content' | 'item'
+    groupNames(): 'card' | 'content' | 'item'
   }
 }
 

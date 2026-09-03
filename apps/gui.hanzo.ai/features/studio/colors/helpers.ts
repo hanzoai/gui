@@ -1,5 +1,5 @@
 import { toHex } from 'color2k'
-import hsluv from 'hsluv'
+import { Hsluv } from 'hsluv'
 
 import type { Color, Curve, DeepReadonly, Scale } from '../state/types'
 
@@ -10,14 +10,22 @@ export const isComponentTheme = (name: string) => removeComponentName(name) !== 
 export const removePseudoPostfix = (str: string) => str.replace(/[A-Z][a-z]+$/, '')
 
 export function hexToColor(hex: string): Color {
-  const [hue, saturation, lightness] = hsluv
-    .hexToHsluv(toHex(hex))
-    .map((value) => Math.round(value * 100) / 100)
+  const conv = new Hsluv()
+  conv.hex = toHex(hex)
+  conv.hexToHsluv()
+  const hue = Math.round(conv.hsluv_h * 100) / 100
+  const saturation = Math.round(conv.hsluv_s * 100) / 100
+  const lightness = Math.round(conv.hsluv_l * 100) / 100
   return { hue, saturation, lightness }
 }
 
 export function colorToHex(color: Color): string {
-  return hsluv.hsluvToHex([color.hue, color.saturation, color.lightness])
+  const conv = new Hsluv()
+  conv.hsluv_h = color.hue
+  conv.hsluv_s = color.saturation
+  conv.hsluv_l = color.lightness
+  conv.hsluvToHex()
+  return conv.hex
 }
 
 export function randomIntegerInRange(min: number, max: number) {

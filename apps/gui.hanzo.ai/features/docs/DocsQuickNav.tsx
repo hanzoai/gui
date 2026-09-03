@@ -12,9 +12,7 @@ import {
 } from '@hanzo/gui'
 
 import { Link } from '~/components/Link'
-import { BentoButton } from '../site/BentoButton'
 import { ConsultingButton } from '../site/ConsultingButton'
-import { TakeoutButton } from '../site/TakeoutButton'
 
 export type Heading = {
   id: string
@@ -355,16 +353,6 @@ export function DocsQuickNav({ headings = [] }: { headings?: Heading[] }) {
           </YStack>
 
           <YStack gap="$2" px="$4">
-            <Theme name="green">
-              <Link width="100%" href="/bento">
-                <BentoButton />
-              </Link>
-            </Theme>
-            <Theme name="gray">
-              <Link width="100%" href="/takeout">
-                <TakeoutButton />
-              </Link>
-            </Theme>
             <Link width="100%" href="https://addeven.com" target="_blank">
               <ConsultingButton />
             </Link>

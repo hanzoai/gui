@@ -6,7 +6,6 @@ import { hanzoguiPlugin, hanzoguiAliases } from '@hanzogui/vite-plugin'
 import { one } from 'one/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import type { UserConfig } from 'vite'
-import { generateBentoProxy } from './scripts/generate-bento-proxy.mjs'
 
 Error.stackTraceLimit = Number.POSITIVE_INFINITY
 
@@ -40,16 +39,6 @@ if (!existsSync(vitePluginDist) || !existsSync(staticDist)) {
   }
 }
 
-// Generate bento proxy files (creates stubs if bento repo not found)
-const { hasBento, bentoPath } = generateBentoProxy({
-  basePath: pathResolve(import.meta.dirname, 'scripts'),
-  silent: false,
-})
-
-if (hasBento) {
-  console.info(`Using bento at ${bentoPath}`)
-}
-
 // use createRequire instead of import.meta.resolve for bun compatibility in vite config
 const require = createRequire(import.meta.url)
 const resolve = (path: string) => {
@@ -61,8 +50,6 @@ const include = [
   'react-native',
   'react-dom',
   'zod',
-  '@stripe/react-stripe-js',
-  '@stripe/stripe-js',
   'swr/mutation',
   '@vxrn/mdx-rust/client',
   // core hanzogui packages must be pre-bundled together to avoid duplicate instances
@@ -71,14 +58,12 @@ const include = [
   '@hanzogui/web',
   // existing
   'secure-json-parse',
-  '@supabase/postgres-js',
   'ai',
   '@docsearch/react',
   '@leeoniya/ufuzzy',
   'react-hook-form',
   '@github/mini-throttle',
   'swr',
-  '@supabase/ssr',
   'is-buffer',
   'extend',
   'minimatch',
@@ -111,7 +96,7 @@ export default {
 
   server: {
     fs: {
-      allow: ['..', ...(bentoPath ? [bentoPath] : [])],
+      allow: ['..'],
     },
   },
 
@@ -138,8 +123,6 @@ export default {
         replacement: pathResolve(import.meta.dirname, '.'),
       },
 
-      // when bento is unavailable, @hanzogui/bento/component/* is stubbed by the
-      // `stub-bento-components` plugin below (virtual module), not an alias
 
       // Standard string-based aliases
       {
@@ -150,35 +133,6 @@ export default {
       {
         find: 'react-native/Libraries/Core/ReactNativeVersion',
         replacement: resolve('@hanzogui/proxy-worm'),
-      },
-      // Bento paths (conditional based on bento availability)
-      ...(hasBento
-        ? [
-            {
-              find: '@hanzogui/bento/raw',
-              replacement: pathResolve(bentoPath, 'src/index'),
-            },
-            {
-              find: '@hanzogui/bento/provider',
-              replacement: pathResolve(
-                bentoPath,
-                'src/components/provider/CurrentRouteProvider'
-              ),
-            },
-            {
-              find: '@hanzogui/bento/component',
-              replacement: pathResolve(bentoPath, 'src/components'),
-            },
-          ]
-        : []),
-      // Always provide these aliases - they point to proxy files that work with or without bento
-      {
-        find: '@hanzogui/bento/data',
-        replacement: pathResolve(import.meta.dirname, './helpers/dist/bento-proxy-data'),
-      },
-      {
-        find: '@hanzogui/bento',
-        replacement: pathResolve(import.meta.dirname, './helpers/dist/bento-proxy'),
       },
 
       ...(process.env.RNW_LITE
@@ -211,49 +165,11 @@ export default {
       'satteri-expressive-code',
       'ws',
       'postmark',
-      'stripe',
     ],
     noExternal: true,
   },
 
   plugins: [
-    // Plugin to stub bento component imports when bento repo is not available
-    !hasBento && {
-      name: 'stub-bento-components',
-      enforce: 'pre', // Run before other plugins including alias resolution
-      resolveId(id: string) {
-        // Intercept imports from @hanzogui/bento/component/*
-        if (id.startsWith('@hanzogui/bento/component/')) {
-          // Return a virtual module ID
-          return '\0bento-component-stub:' + id
-        }
-      },
-      load(id: string) {
-        // Handle the virtual module
-        if (id.startsWith('\0bento-component-stub:')) {
-          // Return stub component code
-          return `
-import { YStack, Paragraph } from '@hanzo/gui'
-
-export default function BentoComponentStub() {
-  if (process.env.NODE_ENV === 'production') {
-    return null
-  }
-  return (
-    <YStack p="$4" bc="$borderColor" br="$4">
-      <Paragraph size="$2" color="$color10">
-        Bento component not available
-      </Paragraph>
-    </YStack>
-  )
-}
-
-// Export as default and named for compatibility
-export const LocationNotification = BentoComponentStub
-`
-        }
-      },
-    },
     hanzoguiPlugin({
       // see hanzogui.build.ts
       disable: process.env.NODE_ENV !== 'production',
@@ -324,7 +240,6 @@ export const LocationNotification = BentoComponentStub
                   '@discordjs/rest',
                   '@discordjs/ws',
                   '@vercel/og',
-                  'stripe',
                   'zlib-sync',
                 ],
               },
@@ -338,11 +253,6 @@ export const LocationNotification = BentoComponentStub
         experimental_scriptLoading: 'after-lcp-aggressive',
         redirects: [
           // llms.txt, llms-full.txt, docs.txt are handled by middleware directly
-          {
-            source: '/account/subscriptions',
-            destination: '/account',
-            permanent: false,
-          },
           {
             source: '/docs',
             destination: '/docs/intro/introduction',

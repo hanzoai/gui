@@ -12,7 +12,6 @@ import { LoginScreen } from './preview/Login'
 import { Overview1, Overview2 } from './preview/Overviews'
 import { Panel } from './preview/Panel'
 import { PieScreen } from './preview/Pie'
-import { PricingCards } from './preview/Pricing'
 import { StatisticsBarScreen, StatisticsLineScreen } from './preview/Statistics'
 import { UserDropdown } from './preview/UserDropdown'
 
@@ -73,9 +72,6 @@ const components = [
     </Panel>
   </>,
   <>
-    <Panel key="" fileToCopyName="Pricing">
-      <PricingCards />
-    </Panel>
   </>,
   <>
     <Panel key="" fileToCopyName="Login">

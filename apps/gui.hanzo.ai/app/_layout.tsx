@@ -81,7 +81,7 @@ export default function Layout() {
         <LoadProgressBar />
 
         {/* warm cherry-bomb on first interaction so it's ready when navigating
-            to pages that use it (home, takeout), no eager preload */}
+            to the pages that use it, no eager preload */}
 
         <Providers>
           <Slot />

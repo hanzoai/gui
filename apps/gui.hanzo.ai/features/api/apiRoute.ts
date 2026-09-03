@@ -1,4 +1,3 @@
-import type { PostgrestError } from '@supabase/supabase-js'
 import type { Endpoint } from 'one'
 import { isResponse } from 'one'
 import { ClientError } from './ClientError'
@@ -30,7 +29,7 @@ export function apiRoute(handler: Endpoint) {
       }
 
       // anything else is internal: log the detail server-side, return a generic
-      // body so we don't leak Postgres/Stripe/internal messages to the client
+      // body, so internal messages never reach the client
       const message = err instanceof Error ? err.message : `${err}`
       console.trace(`Error in apiRoute ${req.url}: ${message}`, err)
 
@@ -39,13 +38,3 @@ export function apiRoute(handler: Endpoint) {
   }) satisfies Endpoint
 }
 
-export function postgresError(err: PostgrestError): Error {
-  return new Error(`Postgres query error: [${err.code}]:
-  message:
-${err.message}
-  details:
-${err.details}
-  hint:
-${err.hint}
-`)
-}

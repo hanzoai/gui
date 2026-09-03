@@ -138,7 +138,7 @@
     "ultra-runner": "^3.10.5"
   },
   "overrides": {
-    "@babel/core": "7.29.7",
+    "@babel/core": "^8.0.1",
     "@discordjs/rest": "2.6.1",
     "@grpc/grpc-js": "1.14.4",
     "@hono/node-server": "1.19.13",

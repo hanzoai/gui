@@ -1,4 +1,4 @@
-import type { NodePath, TraverseOptions } from '@babel/traverse'
+import type { NodePath, TraverseOptions, Visitor } from '@babel/traverse'
 import traverse from '@babel/traverse'
 import * as t from '@babel/types'
 import { Color, colorLog } from '@hanzogui/cli-color'
@@ -12,9 +12,8 @@ import {
   type StaticConfig,
   type GuiComponentState,
 } from '@hanzogui/web'
-import { existsSync, readFileSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import { basename, dirname, resolve, relative } from 'node:path'
-import { nodeModuleNameResolver, sys } from 'typescript'
 import type { ViewStyle } from 'react-native'
 
 import { FAILED_EVAL } from '../constants'
@@ -52,7 +51,7 @@ import { setPropsToFontFamily } from './propsToFontFamilyCache'
 import { timer } from './timer'
 import { validHTMLAttributes } from './validHTMLAttributes'
 import { BailOptimizationError } from './errors'
-import { loadCompilerOptionsFromTsconfig } from './esbuildTsconfigPaths'
+import { probe, resolveAlias } from './esbuildTsconfigPaths'
 
 const UNTOUCHED_PROPS = {
   key: true,
@@ -183,60 +182,14 @@ export function createExtractor(
   const dynamicComponentCache = new Map<string, LoadedComponents>()
   const dynamicLoadingInProgress = new Set<string>()
 
-  // lazily loaded tsconfig compiler options for path alias resolution
-  let _compilerOptions: any = null
-  function getCompilerOptions() {
-    if (!_compilerOptions) {
-      try {
-        _compilerOptions = loadCompilerOptionsFromTsconfig()
-      } catch {
-        _compilerOptions = {}
-      }
-    }
-    return _compilerOptions
-  }
-
   function resolveImportPath(fromFile: string, importPath: string): string | null {
+    const dir = dirname(fromFile)
     if (importPath.startsWith('.')) {
-      // relative path resolution
-      const dir = dirname(fromFile)
-      const base = resolve(dir, importPath)
-      const extensions = ['.tsx', '.ts', '.jsx', '.js']
-      for (const ext of extensions) {
-        const full = base + ext
-        if (existsSync(full)) return full
-      }
-      // try index files
-      for (const ext of extensions) {
-        const full = resolve(base, `index${ext}`)
-        if (existsSync(full)) return full
-      }
-      return null
+      return probe(resolve(dir, importPath))
     }
-
-    // tsconfig path alias resolution (e.g. ~/foo, @/bar)
-    const compilerOptions = getCompilerOptions()
-    if (compilerOptions.paths) {
-      try {
-        const { resolvedModule } = nodeModuleNameResolver(
-          importPath,
-          fromFile,
-          compilerOptions,
-          sys
-        )
-        if (
-          resolvedModule &&
-          !resolvedModule.resolvedFileName.endsWith('.d.ts') &&
-          !resolvedModule.isExternalLibraryImport
-        ) {
-          return resolvedModule.resolvedFileName
-        }
-      } catch {
-        // fallback - tsconfig resolution failed
-      }
-    }
-
-    return null
+    // tsconfig path alias (e.g. ~/foo, @/bar) into project source, never into node_modules
+    const file = resolveAlias(importPath, dir)
+    return file && !file.includes('node_modules') ? file : null
   }
 
   const styledCheckCache = new Map<string, boolean>()
@@ -636,8 +589,7 @@ export function createExtractor(
     // only keeping a cache around per-file, reset it if it changes
     const bindingCache: Record<string, string | null> = {}
 
-    const callTraverse = (a: TraverseOptions<any>) => {
-      // @ts-ignore
+    const callTraverse = (a: TraverseOptions & Visitor) => {
       return fileOrPath.type === 'File' ? traverse(fileOrPath, a) : fileOrPath.traverse(a)
     }
 
@@ -661,7 +613,6 @@ export function createExtractor(
     const version = `${Math.random()}`
 
     callTraverse({
-      // @ts-ignore
       Program: {
         enter(path) {
           programPath = path

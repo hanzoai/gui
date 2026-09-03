@@ -1,7 +1,6 @@
-import { type BabelFileResult, transformFromAstSync } from '@babel/core'
+import { type BabelFileResult, transformSync } from '@babel/core'
 import generator from '@babel/generator'
 import { declare } from '@babel/helper-plugin-utils'
-import { parse } from '@babel/parser'
 import template from '@babel/template'
 import * as t from '@babel/types'
 import { basename } from 'node:path'
@@ -33,15 +32,10 @@ export function extractToNative(
   sourceCode: string,
   options: GuiOptions
 ): BabelFileResult {
-  const ast = parse(sourceCode, {
+  const out = transformSync(sourceCode, {
+    plugins: [[getBabelPlugin(), options]],
     sourceType: 'module',
-    plugins: ['jsx', 'typescript'],
-  })
-
-  const babelPlugin = getBabelPlugin()
-
-  const out = transformFromAstSync(ast, sourceCode, {
-    plugins: [[babelPlugin, options]],
+    parserOpts: { plugins: ['jsx', 'typescript'] },
     configFile: false,
     sourceFileName,
     filename: sourceFileName,

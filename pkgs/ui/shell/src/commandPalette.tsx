@@ -26,7 +26,7 @@
  * leaves no room for the pretence.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { CHROME, FG_ON, FS, PANEL, R, SCRIM, TAP_H, Z, row } from './theme'
+import { CHROME, FG_ON, FS, LABEL, PANEL, R, SCRIM, TAP_H, Z, row } from './theme'
 import { useMediaQuery } from './useMediaQuery'
 
 /** The ⌘K / ESC / ↑ / ↓ / ↵ hint keys, one shape for all of them. */
@@ -408,20 +408,18 @@ export function PaletteList({
   )
 }
 
-/** A group head inside the list — the category or command-set name. */
+/**
+ * A group head inside the list — the category or command-set name.
+ *
+ * `LABEL`, the one place a column head's rank is defined, which the mega-menu's
+ * section heads and every local nav card already take. This had re-derived it a
+ * size smaller and a rung dimmer, so "Open" over a list of products read as a
+ * caption here and as a heading in the menu three inches above — the same word,
+ * the same job, two ranks. The padding is the palette's own, because these rows
+ * are inset 14px and a head that ignored that would start left of them.
+ */
 export function PaletteGroup({ label }: { label: string }) {
-  return (
-    <div
-      style={{
-        padding: '8px 14px 4px',
-        fontSize: FS.xs,
-        fontWeight: 600,
-        color: CHROME.fgDim,
-      }}
-    >
-      {label}
-    </div>
-  )
+  return <div style={{ ...LABEL, padding: '10px 14px 4px' }}>{label}</div>
 }
 
 /**

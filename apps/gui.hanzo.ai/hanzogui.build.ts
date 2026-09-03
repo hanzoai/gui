@@ -7,6 +7,5 @@ export default {
   outputCSS: './hanzogui.generated.css',
   disableExtraction: process.env.NODE_ENV !== 'production',
   enableDynamicEvaluation: true,
-  // bento lists some last issues
   // useReactNativeWebLite: true,
 } as GuiBuildOptions

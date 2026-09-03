@@ -1,7 +1,6 @@
 import type { Href } from 'one'
 import { H2, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { Link } from '../../../components/Link'
-import { purchaseModal } from '../purchase/purchaseModalStore'
 
 export const TooltipLabelLarge = ({
   title,
@@ -58,9 +57,6 @@ export const TooltipLabelLarge = ({
       asChild
       delayNavigate
       href={href as Href}
-      onPress={() => {
-        purchaseModal.show = false
-      }}
     >
       {content}
     </Link>

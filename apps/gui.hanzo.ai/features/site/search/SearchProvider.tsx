@@ -51,19 +51,18 @@ export const SearchProvider = memo(({ children }: any) => {
         createPortal(
           <DocSearchModal
             placeholder="Search docs..."
-            hitComponent={ResultItem}
-            searchParameters={{
-              // facetFilters: ['version:1.0.0'],
-              facetFilters: [],
-              distinct: 1,
-            }}
+            indices={[{
+              name: INDEX,
+              searchParameters: {
+                facetFilters: [],
+                distinct: 1,
+              },
+            }]}
             initialQuery={initialQuery || ''}
             initialScrollY={window.scrollY}
             onClose={onClose}
-            onAskAiToggle={() => {}}
             appId={APP_ID}
             apiKey={API_KEY}
-            indexName={INDEX}
             navigator={{
               navigate({ itemUrl }) {
                 setIsOpen(false)

@@ -17,7 +17,7 @@ function getLazyComponent(
   return cached[key]
 }
 
-export function lazyDemo(importFunc: () => Promise<ComponentType<any>>) {
+function lazyDemo(importFunc: () => Promise<ComponentType<any>>) {
   return () => {
     const Component = use(getLazyComponent(importFunc)) as ComponentType<any>
 

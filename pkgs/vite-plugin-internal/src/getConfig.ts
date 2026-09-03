@@ -132,6 +132,11 @@ export function getConfig(hanzoguiPlugin: any) {
 
     // @ts-ignore
     test: {
+      server: {
+        deps: {
+          inline: [/react-native-reanimated/, /react-native-worklets/],
+        },
+      },
       // for compat with some jest libs (like @testing-library/jest-dom)
       globals: true,
       setupFiles: [

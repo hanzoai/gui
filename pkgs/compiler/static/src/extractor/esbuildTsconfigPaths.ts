@@ -1,134 +1,63 @@
 import type { Plugin } from 'esbuild'
-import fs from 'node:fs'
-import path from 'node:path'
-import * as ts from 'typescript'
+import { statSync } from 'node:fs'
+import { join } from 'node:path'
+import {
+  createPathsMatcher,
+  getTsconfig,
+  type Cache,
+  type PathsMatcher,
+  type TsConfigResult,
+} from 'get-tsconfig'
 
-const name = 'tsconfig-paths'
+const extensions = ['.tsx', '.ts', '.jsx', '.js']
 
-/**
- * This package does not own the `typescript` it reads — it borrows whatever the
- * app installed, and what that means changed. `typescript@7` ships the native
- * compiler, and its root export is `{ version, versionMajorMinor }`: `sys`,
- * `findConfigFile` and `nodeModuleNameResolver` are gone. Reading `sys.fileExists`
- * off it threw `Cannot read properties of undefined` while BUNDLING THE GUI
- * CONFIG, so on any app that took TS 7 the whole compiler plugin died before it
- * could write a single rule — measured on hanzoai/chat.
- *
- * The API is therefore probed, not assumed. Without it this plugin stops
- * rewriting `compilerOptions.paths` and esbuild resolves on its own, which costs
- * a gui config that imports through a TS path alias and costs everything else
- * nothing. Losing an alias beats losing the stylesheet.
- */
-const hasProgramApi = typeof (ts as any)?.sys?.fileExists === 'function'
-
-let warned = false
-function warnOnce() {
-  if (warned) return
-  warned = true
-  console.warn(
-    `  ➡ [hanzogui] typescript ${(ts as any)?.version ?? '(not found)'} has no program API ` +
-      `(7.x removed it from the root export), so tsconfig "paths" are not applied when ` +
-      `bundling the gui config. Imports resolve through node.`
-  )
+const isFile = (path: string) => {
+  try {
+    return statSync(path).isFile()
+  } catch {
+    return false
+  }
 }
 
-interface Tsconfig {
-  compilerOptions?: {
-    baseUrl?: string
-    paths?: Record<string, string[]>
+/** The source file an extensionless path names: the path itself, then each extension, then an index file. */
+export function probe(base: string): string | null {
+  for (const ext of ['', ...extensions]) {
+    if (isFile(base + ext)) return base + ext
   }
+  for (const ext of extensions) {
+    const index = join(base, `index${ext}`)
+    if (isFile(index)) return index
+  }
+  return null
+}
+
+const configs: Cache<TsConfigResult | null> = new Map()
+const matchers = new Map<string, PathsMatcher | null>()
+
+/** Maps a specifier through `compilerOptions.paths` of the tsconfig (or jsconfig) nearest `dir` to a source file. */
+export function resolveAlias(specifier: string, dir: string): string | null {
+  if (!matchers.has(dir)) {
+    const tsconfig =
+      getTsconfig(dir, 'tsconfig.json', configs) ?? getTsconfig(dir, 'jsconfig.json', configs)
+    matchers.set(dir, tsconfig && createPathsMatcher(tsconfig))
+  }
+  for (const candidate of matchers.get(dir)?.(specifier) ?? []) {
+    const file = probe(candidate)
+    if (file) return file
+  }
+  return null
 }
 
 export function TsconfigPathsPlugin(): Plugin {
-  if (!hasProgramApi) {
-    warnOnce()
-    return { name, setup() {} }
-  }
-
-  const compilerOptions = loadCompilerOptionsFromTsconfig()
-
   return {
-    name,
+    name: 'tsconfig-paths',
     setup({ onResolve }) {
-      onResolve({ filter: /.*/ }, (args) => {
-        // skip @hanzogui packages - they should be externalized, not resolved via tsconfig
-        if (args.path.startsWith('@hanzogui/')) {
-          return null
-        }
-
-        const paths = compilerOptions.paths || {}
-        const hasMatchingPath = Object.keys(paths).some((p) =>
-          new RegExp(p.replace('*', '\\w*')).test(args.path)
-        )
-
-        if (!hasMatchingPath) {
-          return null
-        }
-
-        const { resolvedModule } = ts.nodeModuleNameResolver(
-          args.path,
-          args.importer,
-          compilerOptions,
-          ts.sys
-        )
-
-        if (!resolvedModule) {
-          return null
-        }
-
-        const { resolvedFileName } = resolvedModule
-
-        if (!resolvedFileName || resolvedFileName.endsWith('.d.ts')) {
-          return null
-        }
-
-        return {
-          path: resolvedFileName,
-        }
+      onResolve({ filter: /.*/ }, ({ path, resolveDir }) => {
+        // @hanzogui packages are externalized, never resolved through tsconfig
+        if (path.startsWith('@hanzogui/')) return null
+        const file = resolveAlias(path, resolveDir || process.cwd())
+        return file ? { path: file } : null
       })
     },
   }
-}
-
-export function loadCompilerOptionsFromTsconfig(tsconfig?: Tsconfig | string) {
-  if (!hasProgramApi) {
-    warnOnce()
-    return {}
-  }
-
-  if (!tsconfig) {
-    const configPath =
-      ts.findConfigFile(process.cwd(), ts.sys.fileExists, 'tsconfig.json') ||
-      ts.findConfigFile(process.cwd(), ts.sys.fileExists, 'jsconfig.json')
-
-    if (configPath) {
-      return parseTsconfig(configPath)
-    }
-    return {}
-  }
-
-  if (typeof tsconfig === 'string') {
-    if (fs.existsSync(tsconfig)) {
-      return parseTsconfig(tsconfig)
-    } else {
-      throw new Error(`Specified tsconfig file not found: ${tsconfig}`)
-    }
-  }
-
-  const baseDir = process.cwd()
-  const parsed = ts.parseJsonConfigFileContent(tsconfig, ts.sys, baseDir)
-  return parsed.options
-}
-
-function parseTsconfig(configFilePath: string) {
-  const configFile = ts.readConfigFile(configFilePath, ts.sys.readFile)
-  if (configFile.error) {
-    throw new Error(
-      `Error reading tsconfig file '${configFilePath}': ${configFile.error.messageText}`
-    )
-  }
-
-  const baseDir = path.dirname(configFilePath)
-  const parsed = ts.parseJsonConfigFileContent(configFile.config, ts.sys, baseDir)
-  return parsed.options
 }

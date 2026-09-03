@@ -73,7 +73,6 @@ It assumes your package.json looks something like this:
   - `hanzogui build .` second argument sets baseUrl to tsc
   - `--bundle-modules` - inline node_modules
   - `--declaration-root` - sets tsc flag `--declarationDir ./`
-  - `--ignore-base-url` - if not set, tsc is passed `--baseUrl .`
   - `--skip-mjs` - don't output mjs files
   - `--skip-native` - don't output native files
   - `--skip-sourcemaps` - don't output js or declaration sourcemaps

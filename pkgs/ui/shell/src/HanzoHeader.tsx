@@ -1491,7 +1491,16 @@ function MobileSheet({
                   ...row(false),
                   ...glyphRow,
                   alignItems: 'center',
-                  gap: 10,
+                  // A BUTTON, and the browser centres one: Chrome's own sheet
+                  // gives `button` `justify-content: center`, which a flex
+                  // display turns from a harmless anonymous-box rule into the
+                  // thing that positions the children. Every sibling row wears
+                  // `sheetRow`, which states `space-between` and therefore never
+                  // met it — this row is the only one that inherited the
+                  // default, and it sat "‹ Home" in the middle of a 679px panel
+                  // while the list under it started at 25px. `textAlign` cannot
+                  // reach it; text-align does not place flex items.
+                  justifyContent: 'flex-start',
                   margin: 0,
                   padding: '0 12px',
                   minHeight: TAP_H,
@@ -1505,15 +1514,13 @@ function MobileSheet({
                 <BackGlyph />
                 {path.length > 1 ? path[path.length - 2]!.label : 'Home'}
               </button>
-              <p
-                style={{
-                  margin: '10px 12px 2px',
-                  fontSize: FS.xs,
-                  color: CHROME.fgDim,
-                }}
-              >
-                {here_.label}
-              </p>
+              {/* `LABEL`, like every other head in the chrome. It had its own
+                  size and its own ink here, which made the one word naming the
+                  pane you are standing in the quietest thing on the sheet — a
+                  rank below the same word in the mega-menu. 12px of inset, not
+                  8, because the rows below carry `sheetRow`'s 12px padding and
+                  a head has no hover surface to bleed. */}
+              <p style={{ ...LABEL, margin: '10px 12px 2px' }}>{here_.label}</p>
             </>
           ) : null}
 

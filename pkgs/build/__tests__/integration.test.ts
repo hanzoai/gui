@@ -99,14 +99,6 @@ describe('hanzogui-build integration test', () => {
     expect(typesOutput).not.toContain('sourceMappingURL=')
   })
 
-  it('should ignore base URL when --ignore-base-url is used', () => {
-    execSync('bun run build:ignore-base-url', { cwd: simplePackagePath })
-
-    // Check if the output files exist
-    expect(existsSync(distCjsFilePath)).toBe(true)
-    expect(existsSync(distEsmFilePath)).toBe(true)
-  })
-
   it('should rebuild the package on file change when --watch is used', async () => {
     const watchProcess = spawn('bun', ['run', 'build:watch'], { cwd: watchPackagePath })
 

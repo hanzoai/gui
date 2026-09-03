@@ -23,7 +23,7 @@
  *     hanzogui-build --swap-exports -- pnpm publish --no-git-checks
  */
 
-const { transform } = require('@babel/core')
+const { transformSync } = require('@babel/core')
 const FSE = require('fs-extra')
 const esbuild = require('esbuild')
 const fastGlob = require('fast-glob')
@@ -294,7 +294,7 @@ const reactCompilerPlugin = {
       const isTSX = args.path.endsWith('.tsx')
 
       try {
-        const result = transform(source, {
+        const result = transformSync(source, {
           filename: args.path,
           configFile: false,
           presets: [['@babel/preset-typescript', { isTSX, allExtensions: true }]],
@@ -364,14 +364,8 @@ const runCommandAfterSwap =
   dashDashIndex > -1 ? process.argv.slice(dashDashIndex + 1) : null
 
 const declarationToRoot = hasFlag('--declaration-root')
-const ignoreBaseUrl = hasFlag('--ignore-base-url')
-const baseUrlIndex = process.argv.indexOf('--base-url')
 const tsProjectIndex = process.argv.indexOf('--ts-project')
 const exludeIndex = process.argv.indexOf('--exclude')
-const baseUrl =
-  baseUrlIndex > -1 && process.argv[baseUrlIndex + 1]
-    ? process.argv[baseUrlIndex + 1]
-    : '.'
 const tsProject =
   tsProjectIndex > -1 && process.argv[tsProjectIndex + 1]
     ? process.argv[tsProjectIndex + 1]
@@ -813,9 +807,6 @@ function declarationFlags(targetDir) {
   ]
   if (declarationToRoot) {
     flags.push('--declarationDir', './')
-  }
-  if (!ignoreBaseUrl) {
-    flags.push('--baseUrl', baseUrl)
   }
   return flags
 }
@@ -1294,7 +1285,7 @@ async function esbuildWriteIfChanged(
 
         const result = opts.bundle
           ? { code: contents }
-          : transform(contents, {
+          : transformSync(contents, {
               filename: path,
               configFile: false,
               sourceMap: !shouldSkipSourceMaps,
@@ -1353,7 +1344,7 @@ async function esbuildWriteIfChanged(
       // and babel is bad on huge bundled files
       const result = opts.bundle
         ? { code: contents }
-        : transform(contents, {
+        : transformSync(contents, {
             filename: newOutPath,
             configFile: false,
             sourceMap: !shouldSkipSourceMaps,

@@ -34,11 +34,14 @@ const debounce = require('lodash.debounce')
 const { basename, dirname } = require('node:path')
 const { es5Plugin } = require('./esbuild-es5')
 const { transformSync: oxcTransformSync } = require('oxc-transform')
-const ts = require('typescript')
 const path = require('node:path')
 const childProcess = require('node:child_process')
+// TypeScript 7 is the Go compiler: the package exports no program API, only
+// the binary, and the emit below is that binary invoked once per package.
+const tsc = require(
+  path.join(path.dirname(require.resolve('typescript/package.json')), 'lib/getExePath.js')
+).default()
 const {
-  printTypescriptDiagnostics,
   printEsbuildError,
   printBuildError,
   printTypescriptCompilationError,
@@ -703,7 +706,6 @@ async function buildTsc(allFiles) {
     //   return
     // }
 
-    const compilerOptions = createCompilerOptions(config.options, targetDir)
 
     if (config.options.isolatedDeclarations) {
       const oxc = await import('oxc-transform')
@@ -751,24 +753,15 @@ async function buildTsc(allFiles) {
       return
     }
 
-    const { program, emitResult, diagnostics } = await compileTypeScript(
-      config.fileNames,
-      compilerOptions
-    )
-
-    // exit on errors
-    if (diagnostics.some((x) => x.code) && !shouldWatch) {
-      printTypescriptDiagnostics(diagnostics, ts)
+    const { ok, output } = emitDeclarations(tsProject || 'tsconfig.json', targetDir)
+    if (output.trim()) {
+      console.error(output)
+    }
+    if (!ok) {
       if (shouldWatch) {
         return
       }
       process.exit(1)
-    }
-
-    reportDiagnostics(diagnostics)
-
-    if (emitResult.emitSkipped) {
-      throw new Error('TypeScript compilation failed')
     }
   } catch (err) {
     printTypescriptCompilationError(err, pkg.name)
@@ -784,92 +777,56 @@ async function loadTsConfig() {
   if (cachedConfig && shouldWatch) {
     return cachedConfig
   }
-
-  const configPath = ts.findConfigFile(
-    './',
-    ts.sys.fileExists,
-    tsProject || 'tsconfig.json'
-  )
-  if (!configPath) {
+  const project = tsProject || 'tsconfig.json'
+  if (!(await FSE.pathExists(project))) {
     return { error: new Error("Could not find a valid 'tsconfig.json'.") }
   }
-
-  const configFile = ts.readConfigFile(configPath, ts.sys.readFile)
-  if (configFile.error) {
-    return {
-      error: new Error(`Error reading tsconfig.json: ${configFile.error.messageText}`),
-    }
+  const shown = childProcess.spawnSync(tsc, ['-p', project, '--showConfig'], {
+    encoding: 'utf8',
+  })
+  if (shown.status !== 0) {
+    return { error: new Error(`Error reading ${project}: ${shown.stderr || shown.stdout}`) }
   }
-
-  const parsedCommandLine = ts.parseJsonConfigFileContent(
-    configFile.config,
-    ts.sys,
-    path.dirname(configPath)
-  )
-
-  if (parsedCommandLine.errors.length) {
-    return {
-      error: new Error(
-        `Error parsing tsconfig.json: ${ts.formatDiagnostics(parsedCommandLine.errors, formatHost)}`
-      ),
-    }
+  const parsed = JSON.parse(shown.stdout)
+  cachedConfig = {
+    config: { fileNames: parsed.files ?? [], options: parsed.compilerOptions ?? {} },
   }
-
-  cachedConfig = { config: parsedCommandLine }
   return cachedConfig
 }
-
-function createCompilerOptions(baseOptions, targetDir) {
-  const compilerOptions = {
-    ...baseOptions,
-    declaration: true,
-    emitDeclarationOnly: true,
-    declarationMap: !shouldSkipSourceMaps,
-    outDir: targetDir,
-    rootDir: 'src',
-    incremental: true,
-    tsBuildInfoFile: 'tsconfig.tsbuildinfo',
-  }
-
+/**
+ * The flags one declaration emit takes, over whatever the project's tsconfig
+ * says. Booleans are stated as values so a tsconfig cannot turn one back on.
+ */
+function declarationFlags(targetDir) {
+  const flags = [
+    '--declaration',
+    '--emitDeclarationOnly',
+    '--declarationMap',
+    shouldSkipSourceMaps ? 'false' : 'true',
+    '--outDir',
+    targetDir,
+    '--rootDir',
+    'src',
+    '--incremental',
+    '--tsBuildInfoFile',
+    'tsconfig.tsbuildinfo',
+  ]
   if (declarationToRoot) {
-    compilerOptions.declarationDir = './'
+    flags.push('--declarationDir', './')
   }
-
   if (!ignoreBaseUrl) {
-    compilerOptions.baseUrl = baseUrl
+    flags.push('--baseUrl', baseUrl)
   }
-
-  return compilerOptions
+  return flags
 }
 
-async function compileTypeScript(fileNames, options) {
-  const program = ts.createProgram(fileNames, options)
-  const emitResult = program.emit()
-  const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics)
-
-  return { program, emitResult, diagnostics: allDiagnostics }
-}
-
-const formatHost = {
-  getCanonicalFileName: (path) => path,
-  getCurrentDirectory: ts.sys.getCurrentDirectory,
-  getNewLine: () => ts.sys.newLine,
-}
-
-function reportDiagnostics(diagnostics) {
-  diagnostics.forEach((diagnostic) => {
-    let message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n')
-    if (diagnostic.file && diagnostic.start !== undefined) {
-      const { line, character } = ts.getLineAndCharacterOfPosition(
-        diagnostic.file,
-        diagnostic.start
-      )
-      message = `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`
-    }
-    console.error(message)
+/** Emits one project's declarations. The output is tsc's own, already formatted. */
+function emitDeclarations(project, targetDir) {
+  const run = childProcess.spawnSync(tsc, ['-p', project, ...declarationFlags(targetDir)], {
+    encoding: 'utf8',
   })
+  return { ok: run.status === 0, output: `${run.stdout ?? ''}${run.stderr ?? ''}` }
 }
-
 async function buildJs(allFiles) {
   if (skipJS) {
     return

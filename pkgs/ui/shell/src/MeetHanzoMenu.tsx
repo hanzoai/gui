@@ -190,7 +190,19 @@ export function MeetHanzoMenu({
         // same one the taxonomy menu and every local nav card take. A drape,
         // not a card: the only edge is the hairline the header already draws
         // above it.
-        style={plane(anchor)}
+        //
+        // THE GUTTER RIDES THE PLANE, not a box inside it, because the plane is
+        // what a host reaches for. A local nav card already states it this way;
+        // this menu and the taxonomy menu stated it one level in, and the two
+        // arrangements are not equivalent the moment anyone styles
+        // `[data-hanzo-plane]` — which a host must, to break a full-bleed drape
+        // out of a page rail. Measured on hanzo.ai, where exactly that rule
+        // lives: the local nav card started its first column at x=80 at every
+        // width while this one started at 121 / 127 / 138 / 152 at 1024 / 1180 /
+        // 1440 / 1920, because the host's gutter REPLACED one and STACKED on the
+        // other. Two menus off one bar, drifting further apart the wider the
+        // window. One gutter, on the element the host can see.
+        style={{ ...plane(anchor), padding: PLANE_PAD }}
       >
         <div
           style={{
@@ -199,7 +211,6 @@ export function MeetHanzoMenu({
             // hairline between them lands in the same place at every width.
             gridTemplateColumns: stacked ? '1fr' : `${RAIL}px minmax(0, 1fr)`,
             gap: stacked ? 18 : 0,
-            padding: PLANE_PAD,
           }}
         >
           {/* ── Products — one dense column ── */}
@@ -264,7 +275,11 @@ export function MeetHanzoMenu({
 /* ── Pieces ──────────────────────────────────────────────────────────────── */
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <div style={{ ...LABEL, marginBottom: 6 }}>{children}</div>
+  // 10px under the head, the same air a local nav plane's `ColumnTitle` keeps.
+  // The two drapes hang off the same bar and open at the same height, so a head
+  // that sat 4px closer to its rows here than there made the two read as
+  // different menus stacked in the same slot.
+  return <div style={{ ...LABEL, marginBottom: 10 }}>{children}</div>
 }
 
 /**

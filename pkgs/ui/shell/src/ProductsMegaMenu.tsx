@@ -153,13 +153,16 @@ export function ProductsMegaMenu({
         onPointerLeave={onPointerLeave}
         // THE PLANE — one `plane()` for this menu, the ecosystem menu and
         // every local nav card, so the three arrive at one height wearing one
-        // material with one entrance.
-        style={plane(anchor)}
+        // material with one entrance. The gutter rides it too, for the reason
+        // spelled out in MeetHanzoMenu: a host styles `[data-hanzo-plane]` to
+        // break a full-bleed drape out of a page rail, and a gutter stated one
+        // level in stacks on that host rule instead of being replaced by it.
+        style={{ ...plane(anchor), padding: PLANE_PAD }}
       >
         {/* No "PRODUCTS" eyebrow: the trigger this panel hangs off already says
             Products, and the panel is anchored to it. Labelling it twice is the
             same word in two places. */}
-        <div style={{ padding: PLANE_PAD }}>
+        <div>
           <div
             data-hanzo-products-grid=""
             style={{

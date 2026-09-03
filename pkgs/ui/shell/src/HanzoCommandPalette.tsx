@@ -23,6 +23,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TRY_HANZO_GROUPS, U, type ProductCategory } from './hanzo-registry'
 import { search, type Match } from './search'
 import { CHROME, CTRL_H, FS, TAP_H, control, controlHover, ghostHover } from './theme'
+import { Glyph, type GlyphName } from './glyph'
 import {
   KBD,
   PaletteBar,
@@ -56,6 +57,14 @@ export interface HanzoCommandEntry {
   group: string
   keywords?: string
   external?: boolean
+  /**
+   * The mark this row wears, by NAME from the shell's one set — the same field
+   * `HanzoLink` carries, so a product is the same shape in the palette as in
+   * the menu that lists it. The registry already answers this for every door
+   * and every install; the palette used to drop the answer on the floor and
+   * draw a wall of bare text beside a mega-menu full of marks.
+   */
+  glyph?: GlyphName
 }
 
 export interface HanzoCommandPaletteProps {
@@ -100,6 +109,7 @@ function doors(): HanzoCommandEntry[] {
       hint: item.hint,
       group: group.id === 'install' ? 'Install' : 'Open',
       external: true,
+      glyph: item.glyph,
     }))
   )
 }
@@ -123,6 +133,7 @@ function products(categories: ProductCategory[]): HanzoCommandEntry[] {
       group: category.label,
       keywords: category.label,
       external: /^https?:\/\//.test(item.href),
+      glyph: item.glyph,
     })),
   ])
 }
@@ -264,6 +275,12 @@ export function HanzoCommandPalette({
   }, [])
 
   const grouped = !question
+  // ONE answer for the whole list, the way the sheet already decides it: hold
+  // the mark column when ANY row has a mark, so every title starts at the same
+  // x. A row cannot see its siblings, and that is exactly the question — a page
+  // record carries no glyph, and left to answer for itself it would sit 26px
+  // left of the product above it.
+  const anyMark = entries.some((e) => !!e.glyph)
 
   return (
     <PaletteShell open={open} onClose={close} label="Search Hanzo or ask AI">
@@ -318,6 +335,7 @@ export function HanzoCommandPalette({
                 hits={entry.match?.hits}
                 description={entry.hint}
                 meta={grouped ? undefined : entry.group}
+                icon={anyMark ? <Glyph name={entry.glyph} reserve /> : undefined}
                 onSelect={() => go(i)}
                 onHover={() => setIndex(i)}
               />

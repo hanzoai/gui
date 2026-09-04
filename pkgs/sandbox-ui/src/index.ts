@@ -6,7 +6,6 @@ export * from './SandboxHeading.tsx'
 export * from './views.tsx'
 
 // test breaking exports
-// export * from './TestSolito.tsx'
 // export * from './TestExpoVectorIcons'
 // export { Image as ExpoImage } from 'expo-image'
 // export * from 'expo-constants'

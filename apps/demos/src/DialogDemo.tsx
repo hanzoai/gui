@@ -16,7 +16,7 @@ import {
   XGroup,
   XStack,
 } from '@hanzo/gui'
-import { SelectDemoContents } from './SelectDemo'
+import { SelectDemoContents } from './SelectDemo.tsx'
 
 type DialogMode = 'plain' | 'adapt' | 'keepMounted'
 

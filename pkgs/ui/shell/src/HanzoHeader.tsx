@@ -561,6 +561,10 @@ export function HanzoHeader({
                 The SURFACE's name, not the word "Hanzo": every property mounts
                 this bar, and each one is entitled to say what it is. */}
             <HanzoWordmark label={s.brandName} size={22} />
+            {/* The chevron every other trigger in this bar wears. Without it the
+                name is the one control that opens a menu and does not say so,
+                and a reader looking for the products reads past it. */}
+            <Chevron open={menu.key === 'meet'} />
           </BrandBox>
         )}
 

@@ -1,5 +1,5 @@
 import { isWeb } from '@hanzogui/constants'
-import { MISSING_THEME_MESSAGE } from './constants/constants'
+import { MISSING_THEME_MESSAGE } from './constants/constants.ts'
 import type {
   AnimationDriver,
   ConfigListener,
@@ -8,7 +8,7 @@ import type {
   Token,
   Tokens,
   TokensMerged,
-} from './types'
+} from './types.tsx'
 
 export type StyleCompat = 'legacy' | 'react-native' | 'web'
 

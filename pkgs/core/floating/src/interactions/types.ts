@@ -1,6 +1,6 @@
 import type { HTMLProps, RefObject } from 'react'
-import type { FloatingEvents } from './createFloatingEvents'
-import type { PopupTriggerMap } from './PopupTriggerMap'
+import type { FloatingEvents } from './createFloatingEvents.ts'
+import type { PopupTriggerMap } from './PopupTriggerMap.ts'
 
 export type { FloatingEvents }
 

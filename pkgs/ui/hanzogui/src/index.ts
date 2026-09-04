@@ -1,4 +1,4 @@
-import './setup'
+import './setup.ts'
 
 export * from '@hanzogui/spacer'
 export * from '@hanzogui/accordion'
@@ -52,17 +52,17 @@ export * from '@hanzogui/element'
 export * from '@hanzogui/use-window-dimensions'
 export * from '@hanzogui/visually-hidden'
 
-export * from './createGui'
+export * from './createGui.ts'
 
-export * from './viewTypes'
-export * from './views/GuiProvider'
+export * from './viewTypes.tsx'
+export * from './views/GuiProvider.tsx'
 
-export * from './views/Anchor'
-export * from './views/EnsureFlexed'
-export * from './views/Fieldset'
+export * from './views/Anchor.tsx'
+export * from './views/EnsureFlexed.tsx'
+export * from './views/Fieldset.tsx'
 export * from '@hanzogui/input'
 export * from '@hanzogui/spinner'
-export * from './views/Text'
+export * from './views/Text.tsx'
 
 // since we overlap with ViewProps and potentially others
 // lets be explicit on what gets exported

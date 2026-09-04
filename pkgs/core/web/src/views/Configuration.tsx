@@ -1,7 +1,7 @@
 import { ClientOnly } from '@hanzogui/use-did-finish-ssr'
 import React from 'react'
-import { ComponentContext } from '../contexts/ComponentContext'
-import type { AnimationDriver } from '../types'
+import { ComponentContext } from '../contexts/ComponentContext.tsx'
+import type { AnimationDriver } from '../types.tsx'
 
 interface ConfigurationProps {
   animationDriver?: AnimationDriver | null

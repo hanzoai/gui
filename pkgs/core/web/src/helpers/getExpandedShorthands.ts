@@ -1,5 +1,5 @@
-import { getConfig } from '../config'
-import type { Shorthands } from '../types'
+import { getConfig } from '../config.ts'
+import type { Shorthands } from '../types.tsx'
 
 /**
  * @deprecated use useProps instead

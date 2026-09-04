@@ -4,10 +4,10 @@ import { createStyledContext } from '@hanzogui/core'
 import { startTransition } from '@hanzogui/start-transition'
 import * as React from 'react'
 
-import { TOAST_CONTEXT } from './constants'
-import type { ToastImperativeOptions } from './ToastImperative'
-import { ToastImperativeProvider } from './ToastImperative'
-import type { BurntToastOptions } from './types'
+import { TOAST_CONTEXT } from './constants.ts'
+import type { ToastImperativeOptions } from './ToastImperative.tsx'
+import { ToastImperativeProvider } from './ToastImperative.tsx'
+import type { BurntToastOptions } from './types.ts'
 
 /* -------------------------------------------------------------------------------------------------
  * ToastProvider

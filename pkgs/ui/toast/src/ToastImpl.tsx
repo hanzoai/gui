@@ -32,11 +32,11 @@ const getPanResponder = (): typeof PanResponderType | null => {
   }
   return null
 }
-import { TOAST_CONTEXT, TOAST_NAME } from './constants'
-import { ToastAnnounce } from './ToastAnnounce'
-import type { ScopedProps, SwipeDirection } from './ToastProvider'
-import { Collection, useToastProviderContext } from './ToastProvider'
-import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './ToastViewport'
+import { TOAST_CONTEXT, TOAST_NAME } from './constants.ts'
+import { ToastAnnounce } from './ToastAnnounce.tsx'
+import type { ScopedProps, SwipeDirection } from './ToastProvider.tsx'
+import { Collection, useToastProviderContext } from './ToastProvider.tsx'
+import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './ToastViewport.tsx'
 
 const ToastImplFrame = styled(YStack, {
   name: 'ToastImpl',

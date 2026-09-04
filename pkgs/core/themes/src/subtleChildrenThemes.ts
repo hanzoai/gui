@@ -2,7 +2,7 @@ import {
   type PaletteAdjustments,
   defaultChildrenThemes,
   adjustPalettes,
-} from './v5-themes'
+} from './v5-themes.ts'
 
 export const v5SubtlePaletteAdjustments: PaletteAdjustments<
   typeof defaultChildrenThemes

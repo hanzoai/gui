@@ -1,4 +1,4 @@
-import type { WindowSize } from './types'
+import type { WindowSize } from './types.ts'
 
 /**
  * SSR safe useWindowDimensions

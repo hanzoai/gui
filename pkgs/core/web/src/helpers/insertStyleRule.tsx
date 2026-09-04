@@ -1,12 +1,12 @@
 import { StyleObjectIdentifier, StyleObjectRules } from '@hanzogui/helpers'
-import { createVariable } from '../createVariable'
+import { createVariable } from '../createVariable.ts'
 import type {
   DedupedTheme,
   DedupedThemes,
   RulesToInsert,
   ThemeParsed,
   TokensParsed,
-} from '../types'
+} from '../types.tsx'
 
 // only cache hanzogui styles
 // TODO merge totalSelectorsInserted and allSelectors?

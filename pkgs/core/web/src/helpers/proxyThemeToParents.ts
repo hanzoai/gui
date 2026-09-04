@@ -1,4 +1,4 @@
-import type { DedupedThemes, ThemeParsed } from '../types'
+import type { DedupedThemes, ThemeParsed } from '../types.tsx'
 
 const themesRaw: Record<string, ThemeParsed> = {}
 

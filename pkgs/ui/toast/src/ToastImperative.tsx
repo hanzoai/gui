@@ -1,8 +1,8 @@
 import type { NativePlatform, NativeValue } from '@hanzogui/core'
 import { isAndroid, isIos, isWeb } from '@hanzogui/core'
 import React from 'react'
-import { createNativeToast } from './createNativeToast'
-import type { CreateNativeToastOptions, NativeToastRef } from './types'
+import { createNativeToast } from './createNativeToast.tsx'
+import type { CreateNativeToastOptions, NativeToastRef } from './types.ts'
 
 export interface ToastImperativeOptions extends Omit<
   CreateNativeToastOptions,

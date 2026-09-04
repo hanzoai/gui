@@ -2,10 +2,10 @@
  * Subtle v5 themes - pre-built desaturated color themes
  */
 
-export * from './v5-themes'
+export * from './v5-themes.ts'
 
-import { subtleChildrenThemes } from './subtleChildrenThemes'
-import { createV5Theme } from './v5-themes'
+import { subtleChildrenThemes } from './subtleChildrenThemes.ts'
+import { createV5Theme } from './v5-themes.ts'
 
 export const themes = createV5Theme({ childrenThemes: subtleChildrenThemes })
 

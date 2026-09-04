@@ -6,8 +6,8 @@ import { useEvent } from '@hanzogui/core'
 import { getPortal, NativePortal } from '@hanzogui/native'
 import { Theme, useThemeName } from '@hanzogui/web'
 import { useEffect, useId } from 'react'
-import { usePortal } from './GorhomPortal'
-import type { PortalItemProps } from './types'
+import { usePortal } from './GorhomPortal.tsx'
+import type { PortalItemProps } from './types.ts'
 
 export const GorhomPortalItem = (props: PortalItemProps) => {
   const {

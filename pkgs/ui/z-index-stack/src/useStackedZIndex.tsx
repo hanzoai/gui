@@ -1,6 +1,6 @@
 import { useContext, useEffect, useId, useMemo } from 'react'
-import { ZIndexHardcodedContext, ZIndexStackContext } from './context'
-import type { StackZIndexProp } from './types'
+import { ZIndexHardcodedContext, ZIndexStackContext } from './context.ts'
+import type { StackZIndexProp } from './types.ts'
 
 // this stacks horizontally - just based on which mounted last within a stacking context
 const ZIndicesByContext: Record<number, Record<string, number>> = {}

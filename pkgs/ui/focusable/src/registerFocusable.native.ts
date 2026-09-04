@@ -1,6 +1,6 @@
 // used for focusing on native
 
-import type { Focusable } from './focusable'
+import type { Focusable } from './focusable.ts'
 
 const InputsMap = new Map<string, Focusable>()
 

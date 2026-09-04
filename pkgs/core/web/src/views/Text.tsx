@@ -1,12 +1,12 @@
 import { stylePropsTextOnly, validStyles } from '@hanzogui/helpers'
 
-import { createComponent } from '../createComponent'
+import { createComponent } from '../createComponent.tsx'
 import type {
   GuiTextElement,
   TextNonStyleProps,
   TextProps,
   TextStylePropsBase,
-} from '../types'
+} from '../types.tsx'
 
 export type Text = GuiTextElement
 

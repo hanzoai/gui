@@ -6,8 +6,8 @@ import { startTransition } from '@hanzogui/start-transition'
 import { VisuallyHidden } from '@hanzogui/visually-hidden'
 import * as React from 'react'
 
-import type { ScopedProps } from './ToastProvider'
-import { useToastProviderContext } from './ToastProvider'
+import type { ScopedProps } from './ToastProvider.tsx'
+import { useToastProviderContext } from './ToastProvider.tsx'
 
 const ToastAnnounceExcludeFrame = styled(View, {
   name: 'ToastAnnounceExclude',

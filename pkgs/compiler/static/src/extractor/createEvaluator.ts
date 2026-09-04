@@ -5,9 +5,9 @@ import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
 import esbuild from 'esbuild'
 
-import { FAILED_EVAL } from '../constants'
-import type { GuiOptionsWithFileInfo } from '../types'
-import { evaluateAstNode } from './evaluateAstNode'
+import { FAILED_EVAL } from '../constants.ts'
+import type { GuiOptionsWithFileInfo } from '../types.ts'
+import { evaluateAstNode } from './evaluateAstNode.ts'
 
 export function createEvaluator({
   props,

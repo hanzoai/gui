@@ -10,8 +10,8 @@
 import { useMergeRefs } from '@hanzogui/react-native-web-internals'
 import * as React from 'react'
 
-import type { ViewProps } from '../View/index'
-import { View } from '../View/index'
+import type { ViewProps } from '../View/index.tsx'
+import { View } from '../View/index.tsx'
 
 type Props = ViewProps & {
   onMomentumScrollBegin?: (e: any) => void

@@ -1,1 +1,1 @@
-export * from './RemoveScroll'
+export * from './RemoveScroll.tsx'

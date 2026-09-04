@@ -1,7 +1,7 @@
 import type { GetProps } from '@hanzogui/web'
 import { styled } from '@hanzogui/web'
 
-import { SizableText } from './SizableText'
+import { SizableText } from './SizableText.tsx'
 
 export const Paragraph = styled(SizableText, {
   name: 'Paragraph',

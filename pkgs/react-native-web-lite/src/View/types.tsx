@@ -15,8 +15,8 @@ import type {
   LayoutStyles,
   ShadowStyles,
   TransformStyles,
-} from '../styleTypes'
-import type { ColorValue, GenericStyleProp, LayoutEvent } from '../types'
+} from '../styleTypes.ts'
+import type { ColorValue, GenericStyleProp, LayoutEvent } from '../types.ts'
 
 type NumberOrString = number | string
 type OverscrollBehaviorValue = 'auto' | 'contain' | 'none'

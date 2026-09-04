@@ -2,8 +2,8 @@ import React, { useId, useRef } from 'react'
 import { useEvent } from '@hanzogui/core'
 import type { ReactNode } from 'react'
 
-import type { SheetControllerContextValue } from './useSheetController'
-import { SheetControllerContext } from './useSheetController'
+import type { SheetControllerContextValue } from './useSheetController.tsx'
+import { SheetControllerContext } from './useSheetController.tsx'
 
 export const SheetController = ({
   children,

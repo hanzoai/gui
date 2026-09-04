@@ -1,4 +1,4 @@
-import type { SimpleThemesDefinition } from './createThemes'
+import type { SimpleThemesDefinition } from './createThemes.ts'
 
 /**
  * @deprecated component themes are no longer recommended - configure component styles directly via themes or component defaultProps instead

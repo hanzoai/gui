@@ -8,9 +8,9 @@
 
 import { invariant } from '@hanzogui/react-native-web-internals'
 import EventEmitter from '../vendor/react-native/emitter/_EventEmitter'
-import type { Task } from './TaskQueue'
-import { TaskQueue } from './TaskQueue'
-import { requestIdleCallback } from '../modules/requestIdleCallback'
+import type { Task } from './TaskQueue.tsx'
+import { TaskQueue } from './TaskQueue.tsx'
+import { requestIdleCallback } from '../modules/requestIdleCallback.ts'
 
 type EventSubscription = any
 

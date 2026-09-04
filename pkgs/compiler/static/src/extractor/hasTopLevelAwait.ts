@@ -1,5 +1,5 @@
 import traverse from '@babel/traverse'
-import { babelParse } from './babelParse'
+import { babelParse } from './babelParse.ts'
 
 export function hasTopLevelAwait(contents: string, fileName?: string) {
   if (!contents.includes('await')) {

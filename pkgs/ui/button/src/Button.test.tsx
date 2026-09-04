@@ -1,7 +1,7 @@
 import { getDefaultGuiConfig } from '@hanzogui/config-default'
 import { createGui } from '@hanzogui/core'
 import { describe, expect, test } from 'vitest'
-import { Button } from './Button'
+import { Button } from './Button.tsx'
 
 const conf = createGui(getDefaultGuiConfig())
 

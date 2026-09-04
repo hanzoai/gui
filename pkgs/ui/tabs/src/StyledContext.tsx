@@ -1,6 +1,6 @@
 import type { SizeTokens } from '@hanzogui/core'
 import { createStyledContext } from '@hanzogui/core'
-import type { TabsProps } from './createTabs'
+import type { TabsProps } from './createTabs.tsx'
 
 export type TabsContextValue = {
   baseId: string

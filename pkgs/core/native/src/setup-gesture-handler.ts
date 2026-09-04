@@ -17,7 +17,7 @@
  * for use with Sheet and other gesture-aware components.
  */
 
-import { canChangeGestureHandlerEnabled, getGestureHandler } from './gestureState'
+import { canChangeGestureHandlerEnabled, getGestureHandler } from './gestureState.ts'
 
 export interface GestureHandlerConfig {
   /** use RNGH for press events on Gui components (default: true) */

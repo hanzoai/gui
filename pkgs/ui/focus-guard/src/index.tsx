@@ -1,1 +1,1 @@
-export * from './FocusGuard'
+export * from './FocusGuard.tsx'

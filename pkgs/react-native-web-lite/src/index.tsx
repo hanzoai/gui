@@ -25,9 +25,9 @@ export {
   useMergeRefs,
   usePlatformMethods,
 } from '@hanzogui/react-native-web-internals'
-export { createElement as unstable_createElement } from './createElement/index'
-export { NativeModules } from './NativeModules/index'
-export { render } from './render/index'
+export { createElement as unstable_createElement } from './createElement/index.tsx'
+export { NativeModules } from './NativeModules/index.tsx'
+export { render } from './render/index.tsx'
 
 // animated - keep default as these are vendor files
 export { default as Animated } from './vendor/react-native/Animated/Animated'
@@ -37,62 +37,62 @@ export { default as Easing } from './vendor/react-native/Animated/Easing'
 export { default as NativeEventEmitter } from './vendor/react-native/EventEmitter/NativeEventEmitter'
 
 // APIs
-export { AccessibilityInfo } from './AccessibilityInfo/index'
-export { Alert } from './Alert/index'
-export { Appearance } from './Appearance/index'
-export { AppRegistry } from './AppRegistry/index'
-export { AppState } from './AppState/index'
-export { BackHandler } from './BackHandler/index'
-export { Clipboard } from './Clipboard/index'
-export { DeviceEmitter, DeviceEmitter as DeviceEventEmitter } from './DeviceEmitter'
-export { DeviceInfo } from './DeviceInfo/index'
-export { Dimensions } from './Dimensions/index'
-export { I18nManager } from './I18nManager/index'
-export { Keyboard } from './Keyboard/index'
+export { AccessibilityInfo } from './AccessibilityInfo/index.tsx'
+export { Alert } from './Alert/index.tsx'
+export { Appearance } from './Appearance/index.tsx'
+export { AppRegistry } from './AppRegistry/index.tsx'
+export { AppState } from './AppState/index.tsx'
+export { BackHandler } from './BackHandler/index.tsx'
+export { Clipboard } from './Clipboard/index.tsx'
+export { DeviceEmitter, DeviceEmitter as DeviceEventEmitter } from './DeviceEmitter.ts'
+export { DeviceInfo } from './DeviceInfo/index.tsx'
+export { Dimensions } from './Dimensions/index.tsx'
+export { I18nManager } from './I18nManager/index.tsx'
+export { Keyboard } from './Keyboard/index.tsx'
 
-export { Linking } from './Linking/index'
-export { PanResponder } from './PanResponder/index'
-export { PixelRatio } from './PixelRatio/index'
-export { Share } from './Share/index'
-export { Vibration } from './Vibration/index'
+export { Linking } from './Linking/index.tsx'
+export { PanResponder } from './PanResponder/index.tsx'
+export { PixelRatio } from './PixelRatio/index.tsx'
+export { Share } from './Share/index.tsx'
+export { Vibration } from './Vibration/index.tsx'
 
 // implemented components
-export { FlatList } from './FlatList'
-export { SectionList } from './SectionList'
-export { VirtualizedList } from './VirtualizedList'
-export { TouchableNativeFeedback } from './TouchableNativeFeedback'
+export { FlatList } from './FlatList.tsx'
+export { SectionList } from './SectionList.tsx'
+export { VirtualizedList } from './VirtualizedList.tsx'
+export { TouchableNativeFeedback } from './TouchableNativeFeedback.tsx'
 
 // unimplemented
 export {
   UnimplementedView as DrawerLayoutAndroid,
   UnimplementedView as Switch,
   UnimplementedView as TouchableHighlight,
-} from './UnimplementedView'
+} from './UnimplementedView.tsx'
 
-export { TouchableOpacity as Touchable, TouchableOpacity } from './TouchableOpacity'
-export { TouchableWithoutFeedback } from './TouchableWithoutFeedback'
+export { TouchableOpacity as Touchable, TouchableOpacity } from './TouchableOpacity.tsx'
+export { TouchableWithoutFeedback } from './TouchableWithoutFeedback.tsx'
 
 // components
-export { ActivityIndicator } from './ActivityIndicator/index'
-export { Image } from './Image/index'
-export { ImageBackground } from './ImageBackground/index'
-export { KeyboardAvoidingView } from './KeyboardAvoidingView/index'
-export { LogBox } from './LogBox/index'
+export { ActivityIndicator } from './ActivityIndicator/index.tsx'
+export { Image } from './Image/index.tsx'
+export { ImageBackground } from './ImageBackground/index.tsx'
+export { KeyboardAvoidingView } from './KeyboardAvoidingView/index.tsx'
+export { LogBox } from './LogBox/index.tsx'
 export { Modal } from './Modal/index'
-export { Pressable } from './Pressable/index'
-export { RefreshControl } from './RefreshControl/index'
-export { SafeAreaView } from './SafeAreaView/index'
-export { ScrollView } from './ScrollView/index'
-export type { ScrollViewRef, ScrollViewMethods } from './ScrollView/index'
-export { StatusBar } from './StatusBar/index'
-export { Text } from './Text/index'
-export { TextInput } from './TextInput/index'
-export { View } from './View/index'
+export { Pressable } from './Pressable/index.tsx'
+export { RefreshControl } from './RefreshControl/index.tsx'
+export { SafeAreaView } from './SafeAreaView/index.tsx'
+export { ScrollView } from './ScrollView/index.tsx'
+export type { ScrollViewRef, ScrollViewMethods } from './ScrollView/index.tsx'
+export { StatusBar } from './StatusBar/index.tsx'
+export { Text } from './Text/index.tsx'
+export { TextInput } from './TextInput/index.tsx'
+export { View } from './View/index.tsx'
 
 // hooks
-export { useColorScheme } from './useColorScheme/index'
-export { useLocaleContext } from './useLocaleContext/index'
-export { useWindowDimensions } from './useWindowDimensions/index'
+export { useColorScheme } from './useColorScheme/index.tsx'
+export { useLocaleContext } from './useLocaleContext/index.tsx'
+export { useWindowDimensions } from './useWindowDimensions/index.tsx'
 
 export function requireNativeComponent(name: string) {
   return function FakeComponent() {

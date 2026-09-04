@@ -1,4 +1,4 @@
-import type { GuiElement } from './types'
+import type { GuiElement } from './types.ts'
 
 /**
  * Narrows a GuiElement to an HTMLElement, with optional generic for further casting.

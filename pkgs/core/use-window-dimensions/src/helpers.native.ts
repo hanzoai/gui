@@ -1,5 +1,5 @@
 import { Dimensions } from 'react-native'
-import type { WindowSize, WindowSizeListener } from './types'
+import type { WindowSize, WindowSizeListener } from './types.ts'
 
 export function getWindowSize(): WindowSize {
   return Dimensions.get('window')

@@ -1,1 +1,1 @@
-export { animationsReactNative as animations } from './animationsReactNative'
+export { animationsReactNative as animations } from './animationsReactNative.ts'

@@ -1,5 +1,5 @@
-import { nativeOnlyProps } from './nativeOnlyProps'
-import { webPropsToSkip } from './webPropsToSkip'
+import { nativeOnlyProps } from './nativeOnlyProps.ts'
+import { webPropsToSkip } from './webPropsToSkip.ts'
 
 /**
  * These are props that dont pass down below Gui styled components

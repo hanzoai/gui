@@ -1,7 +1,7 @@
 import { styled, View } from '@hanzogui/core'
 import { withStaticProperties } from '@hanzogui/helpers'
 
-import type { RovingFocusGroupProps, RovingFocusItemProps } from './RovingFocusGroup'
+import type { RovingFocusGroupProps, RovingFocusItemProps } from './RovingFocusGroup.tsx'
 
 // noop native doesn't need keyboard accessibility
 

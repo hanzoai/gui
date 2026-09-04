@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { Button, Input, SizableText, TextArea, XStack, YStack } from '@hanzo/gui'
-import type { BookingResponses } from './client'
-import { formatBookingWhen } from './time'
+import type { BookingResponses } from './client.ts'
+import { formatBookingWhen } from './time.ts'
 
 export interface BookingFormProps {
   slotIso: string

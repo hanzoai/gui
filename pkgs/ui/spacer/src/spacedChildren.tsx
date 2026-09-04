@@ -1,8 +1,8 @@
 import { createComponent } from '@hanzogui/web'
 import React from 'react'
-import { Spacer } from './Spacer'
-import { isUnspaced } from './Unspaced'
-import type { SpacedChildrenProps } from './types'
+import { Spacer } from './Spacer.tsx'
+import { isUnspaced } from './Unspaced.tsx'
+import type { SpacedChildrenProps } from './types.ts'
 
 export function spacedChildren(props: SpacedChildrenProps) {
   const { isZStack, children, space, direction, spaceFlex, separator, ensureKeys } = props

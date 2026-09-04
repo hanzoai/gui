@@ -1,5 +1,5 @@
-import { AbortError } from './errors'
-import { sleep } from './sleep'
+import { AbortError } from './errors.ts'
+import { sleep } from './sleep.ts'
 
 /**
  * Two helpers wrapping requestIdleCallback in async, abortable.

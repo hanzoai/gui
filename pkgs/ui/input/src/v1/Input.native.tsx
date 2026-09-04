@@ -5,8 +5,8 @@ import { useNativeInputRef } from '@hanzogui/element'
 
 import type { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native'
 import { TextInput } from 'react-native'
-import { styledBody } from '../shared'
-import type { InputProps } from './types'
+import { styledBody } from '../shared.tsx'
+import type { InputProps } from './types.ts'
 
 const StyledInput = styled(TextInput, styledBody[0], styledBody[1])
 

@@ -1,5 +1,5 @@
 import { hsla, parseToHsla } from 'color2k'
-import type { BuildPalette } from './types'
+import type { BuildPalette } from './types.ts'
 
 /**
  * palette generally is:

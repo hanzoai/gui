@@ -1,4 +1,4 @@
-import type { GuiComponentState } from './types'
+import type { GuiComponentState } from './types.tsx'
 
 export const defaultComponentState: GuiComponentState = {
   hover: false,

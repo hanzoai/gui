@@ -10,8 +10,8 @@
 
 import React from 'react'
 
-import type { DisplayMetrics } from '../Dimensions/index'
-import { Dimensions } from '../Dimensions/index'
+import type { DisplayMetrics } from '../Dimensions/index.tsx'
+import { Dimensions } from '../Dimensions/index.tsx'
 
 export function useWindowDimensions(): DisplayMetrics {
   const [dims, setDims] = React.useState(() => Dimensions.get('window'))

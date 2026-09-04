@@ -1,2 +1,2 @@
-export * from './NextTheme'
-export * from './types'
+export * from './NextTheme.tsx'
+export * from './types.tsx'

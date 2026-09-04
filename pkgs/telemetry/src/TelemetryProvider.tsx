@@ -28,8 +28,8 @@ import {
   type ReactNode,
 } from 'react'
 import { AnalyticsProvider } from '@hanzo/event/react'
-import { useAppAnalytics } from './appAnalytics'
-import { getConsent, onConsentChange } from './consent'
+import { useAppAnalytics } from './appAnalytics.ts'
+import { getConsent, onConsentChange } from './consent.ts'
 import {
   createTelemetry,
   getTelemetry,
@@ -37,10 +37,10 @@ import {
   isTelemetryOwned,
   onTelemetryOwnerChange,
   setTelemetry,
-} from './telemetry'
-import { useReplay } from './useReplay'
-import { useRouteTracking } from './useRouteTracking'
-import type { Telemetry, TelemetryConfig } from './types'
+} from './telemetry.ts'
+import { useReplay } from './useReplay.ts'
+import { useRouteTracking } from './useRouteTracking.ts'
+import type { Telemetry, TelemetryConfig } from './types.ts'
 
 const TelemetryContext = createContext<Telemetry | null>(null)
 

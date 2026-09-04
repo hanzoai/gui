@@ -15,9 +15,9 @@ import type {
   LayoutStyles,
   ShadowStyles,
   TransformStyles,
-} from '../styleTypes'
-import type { ColorValue, GenericStyleProp } from '../types'
-import type { ViewProps } from '../View/types'
+} from '../styleTypes.ts'
+import type { ColorValue, GenericStyleProp } from '../types.ts'
+import type { ViewProps } from '../View/types.tsx'
 
 type SourceObject = {
   /**

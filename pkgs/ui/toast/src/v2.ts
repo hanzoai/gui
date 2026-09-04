@@ -1,5 +1,5 @@
 // Toast v2 - composable component API
-export { Toast, useToasts, useToastItem } from './ToastComposable'
+export { Toast, useToasts, useToastItem } from './ToastComposable.tsx'
 export type {
   ToastRootProps,
   ToastViewportProps,
@@ -8,10 +8,10 @@ export type {
   ToastListProps,
   ToastPosition,
   ToastIcons,
-} from './ToastComposable'
+} from './ToastComposable.tsx'
 
 // Toast v2 - imperative API
-export { toast } from './ToastState'
+export { toast } from './ToastState.ts'
 export type {
   ToastT,
   ToastType,
@@ -20,12 +20,12 @@ export type {
   PromiseT,
   PromiseData,
   ToastAction,
-} from './ToastState'
+} from './ToastState.ts'
 
 // Toaster - all-in-one component (thin wrapper over composable API)
-export { Toaster } from './Toaster'
-export type { ToasterProps, ToasterPosition } from './Toaster'
+export { Toaster } from './Toaster.tsx'
+export type { ToasterProps, ToasterPosition } from './Toaster.tsx'
 
-export type { SwipeDirection } from './ToastProvider'
-export type { BurntToastOptions, CreateNativeToastOptions, NativeToastRef } from './types'
-export { requestNotificationPermission } from './createNativeToast'
+export type { SwipeDirection } from './ToastProvider.tsx'
+export type { BurntToastOptions, CreateNativeToastOptions, NativeToastRef } from './types.ts'
+export { requestNotificationPermission } from './createNativeToast.tsx'

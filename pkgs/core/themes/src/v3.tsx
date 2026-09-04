@@ -1,5 +1,5 @@
-export { themes } from './generated-v3'
-export { tokens } from './v3-themes'
+export { themes } from './generated-v3.ts'
+export { tokens } from './v3-themes.ts'
 
 // specific colors since we have cjs here
 export { blue, blueDark } from '@hanzogui/colors/legacy'

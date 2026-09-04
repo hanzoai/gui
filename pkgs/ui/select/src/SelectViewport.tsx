@@ -7,13 +7,13 @@ import { needsPortalRepropagation } from '@hanzogui/portal'
 import { ThemeableStack, YStack } from '@hanzogui/stacks'
 import { startTransition } from '@hanzogui/start-transition'
 import * as React from 'react'
-import { VIEWPORT_NAME } from './constants'
+import { VIEWPORT_NAME } from './constants.tsx'
 import {
   ForwardSelectContext,
   useSelectContext,
   useSelectItemParentContext,
-} from './context'
-import type { SelectViewportExtraProps } from './types'
+} from './context.tsx'
+import type { SelectViewportExtraProps } from './types.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * SelectViewport

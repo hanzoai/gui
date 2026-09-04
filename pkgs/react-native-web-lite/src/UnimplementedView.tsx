@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { View } from './View/index'
+import { View } from './View/index.tsx'
 
 export class UnimplementedView extends React.Component {
   setNativeProps = () => {}

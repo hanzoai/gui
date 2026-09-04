@@ -1,8 +1,8 @@
 import React from 'react'
 
-import type { StaticConfig, ThemeableProps, ThemeProps } from '../types'
-import { Theme } from '../views/Theme'
-import { getDefaultProps } from './getDefaultProps'
+import type { StaticConfig, ThemeableProps, ThemeProps } from '../types.tsx'
+import { Theme } from '../views/Theme.tsx'
+import { getDefaultProps } from './getDefaultProps.ts'
 
 export function themeable<ComponentType extends (props: any) => any>(
   Component: ComponentType,

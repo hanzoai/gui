@@ -1,4 +1,4 @@
-import { mergeSlotStyleProps } from './mergeSlotStyleProps'
+import { mergeSlotStyleProps } from './mergeSlotStyleProps.ts'
 
 /**
  * Merges props from a render element with viewProps from Gui.

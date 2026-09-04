@@ -1,5 +1,5 @@
 import { Text, XStack, styled } from '@hanzo/gui'
-import { useWindowControls } from './window'
+import { useWindowControls } from './window.ts'
 
 // A frameless-window titlebar built entirely from hanzogui primitives + tokens
 // (true-black `$background`, hairline `$borderColor`). It is the proof that a

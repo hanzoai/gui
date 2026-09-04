@@ -2,7 +2,7 @@ import '@hanzogui/polyfill-dev'
 
 import { MenuPredefined } from '@hanzogui/create-menu'
 
-import { createMenu } from './Menu'
+import { createMenu } from './Menu.tsx'
 
 export const Menu = createMenu({
   Icon: MenuPredefined.MenuIcon,

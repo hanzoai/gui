@@ -1,3 +1,3 @@
-import './polyfill'
+import './polyfill.ts'
 
-export * from './createAnimations'
+export * from './createAnimations.tsx'

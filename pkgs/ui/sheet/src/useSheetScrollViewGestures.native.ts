@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import type { GestureResponderEvent, ScrollView as RNScrollView } from 'react-native'
-import type { ScrollBridge } from './types'
+import type { ScrollBridge } from './types.tsx'
 
 interface ResponderState {
   lastPageY: number

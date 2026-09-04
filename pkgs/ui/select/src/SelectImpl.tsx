@@ -19,14 +19,14 @@ import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import { useEvent, useIsTouchDevice } from '@hanzogui/core'
 import * as React from 'react'
 import { flushSync } from 'react-dom'
-import { SCROLL_ARROW_THRESHOLD, WINDOW_PADDING } from './constants'
+import { SCROLL_ARROW_THRESHOLD, WINDOW_PADDING } from './constants.tsx'
 import {
   SelectItemParentProvider,
   SelectProvider,
   useSelectContext,
   useSelectItemParentContext,
-} from './context'
-import type { SelectImplProps } from './types'
+} from './context.tsx'
+import type { SelectImplProps } from './types.tsx'
 
 // TODO use id for focusing from label
 export const SelectInlineImpl = (props: SelectImplProps) => {

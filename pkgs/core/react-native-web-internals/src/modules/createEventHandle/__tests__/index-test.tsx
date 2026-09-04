@@ -13,7 +13,7 @@ import * as ReactDOM from 'react-dom'
 import * as ReactDOMServer from 'react-dom/server'
 import { act } from 'react-dom/test-utils'
 
-import createEventHandle from '..'
+import createEventHandle from '../index.tsx'
 
 function createRoot(rootNode) {
   return {

@@ -1,15 +1,15 @@
 import { isServer, isWeb } from '@hanzogui/constants'
 import { useEffect, useReducer, useRef } from 'react'
-import { getSetting } from '../config'
-import { resetMediaStyleCache } from '../helpers/createMediaStyle'
-import { matchMedia } from '../helpers/matchMedia'
-import { mediaObjectToString } from '../helpers/mediaObjectToString'
+import { getSetting } from '../config.ts'
+import { resetMediaStyleCache } from '../helpers/createMediaStyle.ts'
+import { matchMedia } from '../helpers/matchMedia.ts'
+import { mediaObjectToString } from '../helpers/mediaObjectToString.ts'
 import {
   getMedia,
   mediaKeys,
   mediaQueryConfig,
   setMediaState,
-} from '../helpers/mediaState'
+} from '../helpers/mediaState.ts'
 import type {
   ComponentContextI,
   DebugProp,
@@ -19,8 +19,8 @@ import type {
   GuiInternalConfig,
   UseMediaState,
   WidthHeight,
-} from '../types'
-import { defaultMediaImportance } from '../helpers/pseudoDescriptors'
+} from '../types.tsx'
+import { defaultMediaImportance } from '../helpers/pseudoDescriptors.ts'
 
 const mediaKeyRegex = /\$(platform|theme|group)-/
 

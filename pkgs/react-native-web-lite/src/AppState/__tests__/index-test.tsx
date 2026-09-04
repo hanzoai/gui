@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import AppState from '..'
+import AppState from '../index.tsx'
 
 describe('apis/AppState', () => {
   const handler = () => {}

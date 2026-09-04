@@ -1,5 +1,5 @@
 import { PixelRatio } from 'react-native'
-import { getConfig } from '../config'
+import { getConfig } from '../config.ts'
 
 const remRegex = /(-?[\d.]+)rem/g
 

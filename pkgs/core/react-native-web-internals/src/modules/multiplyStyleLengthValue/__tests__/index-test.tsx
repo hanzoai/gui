@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import multiplyStyleLengthValue from '..'
+import multiplyStyleLengthValue from '../index.tsx'
 
 describe('modules/multiplyStyleLengthValue', () => {
   test('number', () => {

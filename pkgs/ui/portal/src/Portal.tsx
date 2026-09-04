@@ -5,8 +5,8 @@ import { GuiRoot, useDidFinishSSR, useThemeName } from '@hanzogui/web'
 import { useStackedZIndex, ZIndexHardcodedContext } from '@hanzogui/z-index-stack'
 import * as React from 'react'
 import { createPortal } from 'react-dom'
-import { getStackedZIndexProps } from './helpers'
-import type { PortalProps } from './PortalProps'
+import { getStackedZIndexProps } from './helpers.ts'
+import type { PortalProps } from './PortalProps.tsx'
 
 export const Portal = React.memo((propsIn: PortalProps) => {
   const { children, passThrough, style, open } = propsIn

@@ -19,30 +19,30 @@ import type {
   PanResponderGestureState,
 } from 'react-native'
 import { Dimensions, PanResponder, View } from 'react-native'
-import { ParentSheetContext, SheetInsideSheetContext } from './contexts'
-import { GestureDetectorWrapper } from './GestureDetectorWrapper'
-import { getGestureHandlerState } from './gestureState'
-import { GestureSheetProvider } from './GestureSheetContext'
-import { resisted } from './helpers'
+import { ParentSheetContext, SheetInsideSheetContext } from './contexts.ts'
+import { GestureDetectorWrapper } from './GestureDetectorWrapper.tsx'
+import { getGestureHandlerState } from './gestureState.ts'
+import { GestureSheetProvider } from './GestureSheetContext.tsx'
+import { resisted } from './helpers.tsx'
 import {
   getKeyboardAdjustedSheetY,
   getKeyboardOccludedHeight,
   getSheetReleasePosition,
-} from './keyboardAvoidance'
+} from './keyboardAvoidance.ts'
 import {
   getWebKeyboardResizeHeight,
   getMaxViewportHeight,
   getStableLayoutViewportHeight,
   getWebVisualViewportOffsetTop,
   MIN_KEYBOARD_HEIGHT,
-} from './webViewport'
-import { SheetProvider } from './SheetContext'
-import type { SheetProps, SnapPointsMode } from './types'
-import { useGestureHandlerPan } from './useGestureHandlerPan'
-import { useKeyboardControllerSheet } from './useKeyboardControllerSheet'
-import { SafeAreaInsetsContext, useSafeAreaInsets } from './useSafeAreaInsets'
-import { useSheetOpenState } from './useSheetOpenState'
-import { useSheetProviderProps } from './useSheetProviderProps'
+} from './webViewport.ts'
+import { SheetProvider } from './SheetContext.tsx'
+import type { SheetProps, SnapPointsMode } from './types.tsx'
+import { useGestureHandlerPan } from './useGestureHandlerPan.tsx'
+import { useKeyboardControllerSheet } from './useKeyboardControllerSheet.ts'
+import { SafeAreaInsetsContext, useSafeAreaInsets } from './useSafeAreaInsets.ts'
+import { useSheetOpenState } from './useSheetOpenState.tsx'
+import { useSheetProviderProps } from './useSheetProviderProps.tsx'
 
 const hiddenSize = 10_000.1
 

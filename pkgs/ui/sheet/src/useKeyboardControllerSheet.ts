@@ -19,13 +19,13 @@ import { isWeb } from '@hanzogui/constants'
 import type {
   KeyboardControllerSheetOptions,
   KeyboardControllerSheetResult,
-} from './types'
+} from './types.tsx'
 import {
   getWebKeyboardBottomInset,
   getWebKeyboardResizeHeight,
   isEditableElement,
   MIN_KEYBOARD_HEIGHT,
-} from './webViewport'
+} from './webViewport.ts'
 
 export function useKeyboardControllerSheet(
   options: KeyboardControllerSheetOptions

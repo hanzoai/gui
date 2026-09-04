@@ -15,7 +15,7 @@ import {
   RadioGroupFrame,
   RadioGroupIndicatorFrame,
   RadioGroupItemFrame,
-} from './RadioGroup'
+} from './RadioGroup.tsx'
 
 const ensureContext = (x: any) => {
   if (!x.context) {

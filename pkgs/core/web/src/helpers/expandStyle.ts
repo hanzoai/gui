@@ -5,10 +5,10 @@
 
 import { isAndroid, isWeb } from '@hanzogui/constants'
 
-import { getStyleCompat, type StyleCompat } from '../config'
-import type { PropMappedValue } from '../types'
-import { parseBorderShorthand } from './parseBorderShorthand'
-import { parseOutlineShorthand } from './parseOutlineShorthand'
+import { getStyleCompat, type StyleCompat } from '../config.ts'
+import type { PropMappedValue } from '../types.tsx'
+import { parseBorderShorthand } from './parseBorderShorthand.ts'
+import { parseOutlineShorthand } from './parseOutlineShorthand.ts'
 
 const neg1Flex = [
   ['flexGrow', 0],

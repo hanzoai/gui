@@ -6,8 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { invariant } from './invariant'
-import { requestIdleCallback } from './requestIdleCallback/index'
+import { invariant } from './invariant.ts'
+import { requestIdleCallback } from './requestIdleCallback/index.tsx'
 
 // Simple EventEmitter implementation for internal use
 type EventMap = {

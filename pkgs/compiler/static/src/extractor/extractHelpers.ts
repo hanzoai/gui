@@ -5,10 +5,10 @@ import type { NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
 import findRoot from 'find-root'
 
-import { memoize } from '../helpers/memoize'
-import type { ExtractedAttr, GuiOptionsWithFileInfo, Ternary } from '../types'
+import { memoize } from '../helpers/memoize.ts'
+import type { ExtractedAttr, GuiOptionsWithFileInfo, Ternary } from '../types.ts'
 
-// import { astToLiteral } from './literalToAst'
+// import { astToLiteral } from './literalToAst.ts'
 
 export function isPresent<T extends object>(
   input: null | void | undefined | T

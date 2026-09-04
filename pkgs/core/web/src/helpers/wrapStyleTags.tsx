@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { StyleObjectIdentifier, StyleObjectRules } from '@hanzogui/helpers'
-import type { StyleObject } from '../types'
+import type { StyleObject } from '../types.tsx'
 
 // turns out this is pretty slow, creating a bunch of extra tags...
 

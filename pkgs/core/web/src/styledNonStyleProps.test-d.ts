@@ -18,11 +18,11 @@
  */
 
 import { describe, expectTypeOf, test } from 'vitest'
-import { styled } from './styled'
-import { createStyledContext } from './helpers/createStyledContext'
-import { View } from './views/View'
-import { Text } from './views/Text'
-import type { GetProps, ThemeMediaKeys } from './types'
+import { styled } from './styled.tsx'
+import { createStyledContext } from './helpers/createStyledContext.tsx'
+import { View } from './views/View.tsx'
+import { Text } from './views/Text.tsx'
+import type { GetProps, ThemeMediaKeys } from './types.tsx'
 
 // builds a mapped type from a key union, mirroring how WithMediaProps maps over its keys
 type IndexedBy<K extends PropertyKey> = { [P in K]?: number }

@@ -1,8 +1,8 @@
 import * as Helpers from '@hanzogui/helpers'
 
-import { getConfig } from './config'
-import { getAllRules, getAllSelectors } from './helpers/insertStyleRule'
-import { mediaState } from './helpers/mediaState'
+import { getConfig } from './config.ts'
+import { getAllRules, getAllSelectors } from './helpers/insertStyleRule.tsx'
+import { mediaState } from './helpers/mediaState.ts'
 
 // easy introspection
 // only included in dev mode

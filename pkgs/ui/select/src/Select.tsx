@@ -25,16 +25,16 @@ import {
   SelectZIndexContext,
   useSelectContext,
   useSelectItemParentContext,
-} from './context'
-import { SelectContent } from './SelectContent'
-import { SelectInlineImpl } from './SelectImpl'
-import { SelectItem, useSelectItemContext } from './SelectItem'
-import { ITEM_TEXT_NAME, SelectItemText } from './SelectItemText'
-import { SelectScrollDownButton, SelectScrollUpButton } from './SelectScrollButton'
-import { SelectTrigger } from './SelectTrigger'
-import { SelectViewport } from './SelectViewport'
-import type { SelectImplProps, SelectProps, SelectScopedProps } from './types'
-import { useShowSelectSheet } from './useSelectBreakpointActive'
+} from './context.tsx'
+import { SelectContent } from './SelectContent.tsx'
+import { SelectInlineImpl } from './SelectImpl.tsx'
+import { SelectItem, useSelectItemContext } from './SelectItem.tsx'
+import { ITEM_TEXT_NAME, SelectItemText } from './SelectItemText.tsx'
+import { SelectScrollDownButton, SelectScrollUpButton } from './SelectScrollButton.tsx'
+import { SelectTrigger } from './SelectTrigger.tsx'
+import { SelectViewport } from './SelectViewport.tsx'
+import type { SelectImplProps, SelectProps, SelectScopedProps } from './types.tsx'
+import { useShowSelectSheet } from './useSelectBreakpointActive.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * SelectValue

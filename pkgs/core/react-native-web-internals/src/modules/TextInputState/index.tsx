@@ -8,7 +8,7 @@
  * @flow
  */
 
-import { UIManager } from '../UIManager'
+import { UIManager } from '../UIManager/index.tsx'
 
 /**
  * This class is responsible for coordinating the "focused"

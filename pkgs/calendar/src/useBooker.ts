@@ -1,16 +1,16 @@
 // Orchestration hook — the one booking state machine both shells consume.
 
 import { useEffect, useMemo, useState } from 'react'
-import { DEFAULT_API_URL, type Booking, type BookingResponses, type Slot } from './client'
+import { DEFAULT_API_URL, type Booking, type BookingResponses, type Slot } from './client.ts'
 import {
   useAvailableSlots,
   useCreateBooking,
   useEventType,
   type AsyncState,
   type SlotsState,
-} from './hooks'
-import type { EventType } from './client'
-import { addMonths, monthRange, startOfMonth, visitorTimeZone } from './time'
+} from './hooks.ts'
+import type { EventType } from './client.ts'
+import { addMonths, monthRange, startOfMonth, visitorTimeZone } from './time.ts'
 
 export type BookerPhase = 'pick' | 'form' | 'done'
 

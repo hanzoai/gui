@@ -11,7 +11,7 @@ import {
   type BookingResponses,
   type EventType,
   type SlotsByDay,
-} from './client'
+} from './client.ts'
 
 export interface AsyncState<T> {
   data: T | null

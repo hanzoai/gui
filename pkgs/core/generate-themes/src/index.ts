@@ -1,2 +1,2 @@
-export * from './generate-themes'
-export * from './write-generate-themes'
+export * from './generate-themes.ts'
+export * from './write-generate-themes.ts'

@@ -1,8 +1,8 @@
 import { execSync, type ExecSyncOptions } from 'node:child_process'
 import { appendFileSync } from 'node:fs'
-import { createCacheKey, loadCache, saveCache } from './cache'
-import { generateFingerprint } from './fingerprint'
-import type { Platform } from './constants'
+import { createCacheKey, loadCache, saveCache } from './cache.ts'
+import { generateFingerprint } from './fingerprint.ts'
+import type { Platform } from './constants.ts'
 
 export interface RunWithCacheOptions {
   platform: Platform

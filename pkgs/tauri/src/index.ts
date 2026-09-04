@@ -6,8 +6,8 @@
 // controls, global shortcuts, and fs/shell access — all guarded by isTauri() so
 // nothing breaks on the web.
 
-export { isTauri } from './isTauri'
-export { windowControls, useWindowControls } from './window'
-export { registerShortcut, unregisterShortcut, useGlobalShortcut } from './shortcuts'
-export { readTextFile, writeTextFile, openExternal } from './system'
-export { TitleBar, type TitleBarProps } from './TitleBar'
+export { isTauri } from './isTauri.ts'
+export { windowControls, useWindowControls } from './window.ts'
+export { registerShortcut, unregisterShortcut, useGlobalShortcut } from './shortcuts.ts'
+export { readTextFile, writeTextFile, openExternal } from './system.ts'
+export { TitleBar, type TitleBarProps } from './TitleBar.tsx'

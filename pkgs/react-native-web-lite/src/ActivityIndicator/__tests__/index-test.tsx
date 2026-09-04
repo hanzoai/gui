@@ -10,7 +10,7 @@ import { createEventTarget } from 'dom-event-testing-library'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
 
-import ActivityIndicator from '..'
+import ActivityIndicator from '../index.tsx'
 
 describe('components/ActivityIndicator', () => {
   describe('prop "accessibilityLabel"', () => {

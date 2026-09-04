@@ -1,6 +1,6 @@
 import type { Component, JSX, JSXElementConstructor, Ref } from 'react'
 
-import type { GuiComponent } from '../types'
+import type { GuiComponent } from '../types.tsx'
 
 // gets the ref type of any type of react component
 

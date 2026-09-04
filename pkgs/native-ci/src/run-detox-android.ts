@@ -12,9 +12,9 @@
  *   --retries <n>         Number of retries for flaky tests (default: 0)
  */
 
-import { withMetro } from './metro'
-import { parseDetoxArgs, runDetoxTests } from './detox'
-import { waitForDevice, setupAdbReverse, ensureAndroidFolder } from './android'
+import { withMetro } from './metro.ts'
+import { parseDetoxArgs, runDetoxTests } from './detox.ts'
+import { waitForDevice, setupAdbReverse, ensureAndroidFolder } from './android.ts'
 
 const options = parseDetoxArgs('android')
 

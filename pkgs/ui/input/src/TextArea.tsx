@@ -1,6 +1,6 @@
 import { type GetProps, styled } from '@hanzogui/web'
-import { Input } from './Input'
-import { defaultStyles, textAreaSizeVariant } from './shared'
+import { Input } from './Input.tsx'
+import { defaultStyles, textAreaSizeVariant } from './shared.tsx'
 
 /**
  * A web-aligned textarea component (multi-line input).

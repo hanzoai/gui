@@ -1,6 +1,6 @@
-import { applyMaskStateless } from './applyMask'
-import type { CreateMask } from './createThemeTypes'
-import { getThemeInfo } from './themeInfo'
+import { applyMaskStateless } from './applyMask.tsx'
+import type { CreateMask } from './createThemeTypes.tsx'
+import { getThemeInfo } from './themeInfo.tsx'
 
 export const combineMasks = (...masks: CreateMask[]): CreateMask => {
   const mask: CreateMask = {

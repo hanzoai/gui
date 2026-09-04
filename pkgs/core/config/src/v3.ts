@@ -1,9 +1,9 @@
 import { tokens, themes as themesIn } from '@hanzogui/themes/v3-themes'
-import { animations } from './v3-animations'
+import { animations } from './v3-animations.ts'
 import type { CreateGuiProps } from '@hanzogui/web'
 
-import { fonts } from './fonts'
-import { media, mediaQueryDefaultActive } from './media'
+import { fonts } from './fonts.ts'
+import { media, mediaQueryDefaultActive } from './media.ts'
 
 // fix vite - react native uses global which it doesn't provide
 globalThis['global'] ||= globalThis
@@ -85,10 +85,10 @@ export const shorthands = {
   zi: 'zIndex',
 } as const
 
-export { animations } from './v3-animations'
+export { animations } from './v3-animations.ts'
 export { tokens, themes } from '@hanzogui/themes/v3-themes'
-export { fonts } from './fonts'
-export { media, mediaQueryDefaultActive } from './media'
+export { fonts } from './fonts.ts'
+export { media, mediaQueryDefaultActive } from './media.ts'
 
 export const selectionStyles = (theme) =>
   theme.color5

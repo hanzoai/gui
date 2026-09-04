@@ -2,11 +2,11 @@ import { View, ThemeableStack, YStack, styled } from '@hanzo/gui'
 
 export * from '@hanzo/gui'
 export * from '@hanzogui/toast'
-export * from './SandboxHeading'
-export * from './views'
+export * from './SandboxHeading.tsx'
+export * from './views.tsx'
 
 // test breaking exports
-// export * from './TestSolito'
+// export * from './TestSolito.tsx'
 // export * from './TestExpoVectorIcons'
 // export { Image as ExpoImage } from 'expo-image'
 // export * from 'expo-constants'

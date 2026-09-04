@@ -1,12 +1,12 @@
 import { readFileSync } from 'node:fs'
 import esbuild from 'esbuild'
 import * as FS from 'fs-extra'
-import type { GuiPlatform } from '../types'
-import { detectModuleFormat } from './detectModuleFormat'
-import { esbuildAliasPlugin } from './esbuildAliasPlugin'
-import { hasTopLevelAwait } from './hasTopLevelAwait'
-import { resolveWebOrNativeSpecificEntry } from './loadGui'
-import { TsconfigPathsPlugin } from './esbuildTsconfigPaths'
+import type { GuiPlatform } from '../types.ts'
+import { detectModuleFormat } from './detectModuleFormat.ts'
+import { esbuildAliasPlugin } from './esbuildAliasPlugin.ts'
+import { hasTopLevelAwait } from './hasTopLevelAwait.ts'
+import { resolveWebOrNativeSpecificEntry } from './loadGui.ts'
+import { TsconfigPathsPlugin } from './esbuildTsconfigPaths.ts'
 
 export const esbuildLoaderConfig = {
   '.js': 'jsx',

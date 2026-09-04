@@ -1,6 +1,6 @@
 import { mergeIfNotShallowEqual } from '@hanzogui/is-equal-shallow'
-import { getMediaState } from '../hooks/useMedia'
-import type { ComponentSetStateShallow, DisposeFn, AllGroupContexts } from '../types'
+import { getMediaState } from '../hooks/useMedia.tsx'
+import type { ComponentSetStateShallow, DisposeFn, AllGroupContexts } from '../types.tsx'
 
 type SubscribeToContextGroupProps = {
   setStateShallow: ComponentSetStateShallow

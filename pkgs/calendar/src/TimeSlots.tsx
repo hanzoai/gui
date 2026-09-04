@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Button, ScrollView, SizableText, XStack, YStack } from '@hanzo/gui'
-import type { Slot } from './client'
-import { dateFromKey, formatDayLong, formatSlotTime } from './time'
+import type { Slot } from './client.ts'
+import { dateFromKey, formatDayLong, formatSlotTime } from './time.ts'
 
 export interface TimeSlotsProps {
   dayKey: string | null

@@ -1,7 +1,7 @@
 import { basename } from 'node:path'
 
-import type { GuiOptions } from '../types'
-import { getPrefixLogs } from './getPrefixLogs'
+import type { GuiOptions } from '../types.ts'
+import { getPrefixLogs } from './getPrefixLogs.ts'
 
 export function createLogger(sourcePath: string, options: GuiOptions) {
   const shouldLogTiming = options.logTimings ?? true

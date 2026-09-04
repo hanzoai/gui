@@ -1,6 +1,6 @@
 import * as Colors from '@hanzogui/colors/legacy'
 import { createThemes, defaultComponentThemes } from '@hanzogui/theme-builder'
-import { brandRamps } from './brands'
+import { brandRamps } from './brands.ts'
 
 /**
  * This is the default config v4 definitions.

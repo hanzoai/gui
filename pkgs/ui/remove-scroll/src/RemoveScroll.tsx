@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useDisableBodyScroll } from './useDisableScroll'
+import { useDisableBodyScroll } from './useDisableScroll.ts'
 
 export type RemoveScrollProps = {
   enabled?: boolean

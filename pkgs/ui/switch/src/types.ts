@@ -1,7 +1,7 @@
 import type { GetProps, NativeValue, SizeTokens, ViewProps } from '@hanzogui/core'
 import type { SwitchExtraProps as HeadlessSwitchExtraProps } from '@hanzogui/switch-headless'
 import type { SwitchProps as NativeSwitchProps, ViewStyle } from 'react-native'
-import type { SwitchThumb } from './Switch'
+import type { SwitchThumb } from './Switch.tsx'
 
 export type SwitchSharedProps = {
   size?: SizeTokens | number

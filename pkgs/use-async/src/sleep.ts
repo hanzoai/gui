@@ -1,4 +1,4 @@
-import { AbortError } from './errors'
+import { AbortError } from './errors.ts'
 
 export const sleep = async (ms: number, signal?: AbortSignal): Promise<void> => {
   await new Promise((res) => setTimeout(res, ms))

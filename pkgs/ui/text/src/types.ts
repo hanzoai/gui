@@ -1,4 +1,4 @@
-import type { SizableTextProps } from './SizableText'
+import type { SizableTextProps } from './SizableText.tsx'
 
 export type TextContextStyles = {
   color?: SizableTextProps['color']

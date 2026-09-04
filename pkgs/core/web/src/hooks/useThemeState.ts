@@ -8,14 +8,14 @@ import {
   useRef,
   type MutableRefObject,
 } from 'react'
-import { getConfig, getSetting } from '../config'
-import { MISSING_THEME_MESSAGE } from '../constants/constants'
+import { getConfig, getSetting } from '../config.ts'
+import { MISSING_THEME_MESSAGE } from '../constants/constants.ts'
 import type {
   ThemeParsed,
   ThemeProps,
   ThemeState,
   UseThemeWithStateProps,
-} from '../types'
+} from '../types.tsx'
 
 type ID = string
 

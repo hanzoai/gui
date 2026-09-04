@@ -1,5 +1,5 @@
-import { createGlobalState } from './globalState'
-import type { LinearGradientState } from './types'
+import { createGlobalState } from './globalState.ts'
+import type { LinearGradientState } from './types.ts'
 
 const state = createGlobalState<LinearGradientState>(`linear_gradient`, {
   enabled: false,

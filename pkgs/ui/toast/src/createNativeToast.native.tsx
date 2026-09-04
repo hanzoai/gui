@@ -1,5 +1,5 @@
 import { getBurnt } from '@hanzogui/native'
-import type { CreateNativeToastsFn, HideNativeToastsFn } from './types'
+import type { CreateNativeToastsFn, HideNativeToastsFn } from './types.ts'
 
 export const createNativeToast: CreateNativeToastsFn = (
   title,

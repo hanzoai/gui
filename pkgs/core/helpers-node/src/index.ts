@@ -1,3 +1,3 @@
-export * from './readGuiOptions'
-export * from './getGuiDefaultPath'
-export * from './getGuiOptions'
+export * from './readGuiOptions.ts'
+export * from './getGuiDefaultPath.ts'
+export * from './getGuiOptions.ts'

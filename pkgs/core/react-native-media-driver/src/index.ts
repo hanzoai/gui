@@ -1,2 +1,2 @@
-export * from './createMedia'
-export * from './matchMedia'
+export * from './createMedia.ts'
+export * from './matchMedia.ts'

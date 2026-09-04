@@ -10,28 +10,28 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/native/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./v2": {
       "types": "./types/v2.d.ts",
-      "react-native": "./dist/esm/v2.native.js",
-      "browser": "./dist/esm/v2.mjs",
-      "module": "./dist/esm/v2.mjs",
-      "import": "./dist/esm/v2.mjs",
-      "require": "./dist/cjs/v2.cjs",
-      "default": "./dist/esm/v2.mjs"
+      "react-native": "./dist/native/v2.js",
+      "browser": "./dist/esm/v2.js",
+      "module": "./dist/esm/v2.js",
+      "import": "./dist/esm/v2.js",
+      "require": "./dist/cjs/v2.js",
+      "default": "./dist/esm/v2.js"
     }
   },
   "publishConfig": {

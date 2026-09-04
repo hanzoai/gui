@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import createReactDOMStyle from '../compiler/createReactDOMStyle'
+import createReactDOMStyle from '../compiler/createReactDOMStyle.tsx'
 
 const reactNativeStyle = {
   boxShadow: '1px 1px 1px 1px #000',

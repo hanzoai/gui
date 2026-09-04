@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
-import { ThemeSettingContext } from './ThemeSettingContext'
-import type { UseThemeProps } from './UseThemeProps'
+import { ThemeSettingContext } from './ThemeSettingContext.tsx'
+import type { UseThemeProps } from './UseThemeProps.tsx'
 
 /**
  * @deprecated renamed to `useThemeSetting` to avoid confusion with core `useTheme` hook

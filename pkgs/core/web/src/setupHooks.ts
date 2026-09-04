@@ -1,4 +1,4 @@
-import type { GuiComponentStateRef } from './types'
+import type { GuiComponentStateRef } from './types.tsx'
 
 export const hooks: InternalHooks = {}
 

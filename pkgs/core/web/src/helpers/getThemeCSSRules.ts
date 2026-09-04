@@ -1,10 +1,10 @@
 import { simpleHash } from '@hanzogui/helpers'
-import { getSetting } from '../config'
-import { THEME_CLASSNAME_PREFIX } from '../constants/constants'
-import { variableToString } from '../createVariable'
-import type { CreateGuiProps, ThemeParsed, Variable } from '../types'
-import { getOrCreateVariable, getOrCreateMutatedVariable } from './registerCSSVariable'
-import { sortString } from './sortString'
+import { getSetting } from '../config.ts'
+import { THEME_CLASSNAME_PREFIX } from '../constants/constants.ts'
+import { variableToString } from '../createVariable.ts'
+import type { CreateGuiProps, ThemeParsed, Variable } from '../types.tsx'
+import { getOrCreateVariable, getOrCreateMutatedVariable } from './registerCSSVariable.ts'
+import { sortString } from './sortString.ts'
 
 const darkLight = ['dark', 'light']
 const lightDark = ['light', 'dark']

@@ -1,2 +1,2 @@
-export * from './useEvent'
-export * from './useGet'
+export * from './useEvent.ts'
+export * from './useGet.ts'

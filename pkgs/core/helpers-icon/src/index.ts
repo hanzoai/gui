@@ -1,2 +1,2 @@
-export * from './IconProps'
-export * from './themed'
+export * from './IconProps.ts'
+export * from './themed.tsx'

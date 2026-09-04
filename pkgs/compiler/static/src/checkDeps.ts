@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, readdirSync, realpathSync } from 'node:fs'
 import { join, relative } from 'node:path'
-import { CDVC } from './check-dep-versions'
+import { CDVC } from './check-dep-versions.ts'
 
 export enum DEPENDENCY_TYPE {
   dependencies = 'dependencies',

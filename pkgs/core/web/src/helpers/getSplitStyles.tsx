@@ -19,15 +19,15 @@ import {
   validStyles as validStylesView,
 } from '@hanzogui/helpers'
 import React from 'react'
-import { getConfig, getFont, getSetting } from '../config'
-import { isDevTools } from '../constants/isDevTools'
+import { getConfig, getFont, getSetting } from '../config.ts'
+import { isDevTools } from '../constants/isDevTools.ts'
 import {
   getMediaImportanceIfMoreImportant,
   getMediaKey,
   getMediaKeyImportance,
   mediaKeyMatch,
-} from '../hooks/useMedia'
-import { mediaState as globalMediaState, mediaQueryConfig } from './mediaState'
+} from '../hooks/useMedia.tsx'
+import { mediaState as globalMediaState, mediaQueryConfig } from './mediaState.ts'
 import type {
   AllGroupContexts,
   AnimationDriver,
@@ -47,39 +47,39 @@ import type {
   TextStyle,
   ThemeParsed,
   ViewStyleWithPseudos,
-} from '../types'
-import { createMediaStyle } from './createMediaStyle'
-import { fixStyles } from './expandStyles'
-import { getCSSStylesAtomic, getStyleAtomic, styleToCSS } from './getCSSStylesAtomic'
-import { getDefaultProps } from './getDefaultProps'
+} from '../types.tsx'
+import { createMediaStyle } from './createMediaStyle.ts'
+import { fixStyles } from './expandStyles.ts'
+import { getCSSStylesAtomic, getStyleAtomic, styleToCSS } from './getCSSStylesAtomic.ts'
+import { getDefaultProps } from './getDefaultProps.ts'
 import {
   extractValueFromDynamic,
   getDynamicVal,
   getOppositeScheme,
   isColorStyleKey,
-} from './getDynamicVal'
-import { getGroupPropParts } from './getGroupPropParts'
-import { insertStyleRules, shouldInsertStyleRules, updateRules } from './insertStyleRule'
-import { isActivePlatform, getPlatformSpecificityBump } from './isActivePlatform'
-import { isActiveTheme } from './isActiveTheme'
-import { log } from './log'
-import { normalizeValueWithProperty } from './normalizeValueWithProperty'
-import { propMapper } from './propMapper'
+} from './getDynamicVal.ts'
+import { getGroupPropParts } from './getGroupPropParts.ts'
+import { insertStyleRules, shouldInsertStyleRules, updateRules } from './insertStyleRule.tsx'
+import { isActivePlatform, getPlatformSpecificityBump } from './isActivePlatform.ts'
+import { isActiveTheme } from './isActiveTheme.ts'
+import { log } from './log.ts'
+import { normalizeValueWithProperty } from './normalizeValueWithProperty.ts'
+import { propMapper } from './propMapper.ts'
 import {
   type PseudoDescriptorKey,
   pseudoDescriptors,
   pseudoPriorities,
   defaultMediaImportance,
-} from './pseudoDescriptors'
-import { skipProps } from './skipProps'
-import { sortString } from './sortString'
-import { styleOriginalValues } from './styleOriginalValues'
-import { type StyleTokenProvenance, setStyleTokenProvenance } from './styleProvenance'
-import { transformsToString } from './transformsToString'
+} from './pseudoDescriptors.ts'
+import { skipProps } from './skipProps.ts'
+import { sortString } from './sortString.ts'
+import { styleOriginalValues } from './styleOriginalValues.ts'
+import { type StyleTokenProvenance, setStyleTokenProvenance } from './styleProvenance.ts'
+import { transformsToString } from './transformsToString.ts'
 
 export { styleOriginalValues }
-export { getStyleTokenProvenance, STYLE_TOKEN_PROVENANCE_KEY } from './styleProvenance'
-export type { StyleTokenBinding, StyleTokenProvenance } from './styleProvenance'
+export { getStyleTokenProvenance, STYLE_TOKEN_PROVENANCE_KEY } from './styleProvenance.ts'
+export type { StyleTokenBinding, StyleTokenProvenance } from './styleProvenance.ts'
 
 export type SplitStyles = ReturnType<typeof getSplitStyles>
 

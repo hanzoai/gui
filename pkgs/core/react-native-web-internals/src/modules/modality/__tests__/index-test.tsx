@@ -13,7 +13,7 @@ import {
   testWithPointerType,
 } from 'dom-event-testing-library'
 
-import { getActiveModality, getModality, testOnly_resetActiveModality } from '..'
+import { getActiveModality, getModality, testOnly_resetActiveModality } from '../index.tsx'
 
 describeWithPointerEvent('modules/modality', (hasPointerEvent) => {
   let rootNode

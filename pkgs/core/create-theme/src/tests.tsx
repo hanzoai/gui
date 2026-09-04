@@ -1,6 +1,6 @@
-import { applyMask } from './applyMask'
-import { createTheme } from './createTheme'
-import { createStrengthenMask, createWeakenMask } from './masks'
+import { applyMask } from './applyMask.tsx'
+import { createTheme } from './createTheme.tsx'
+import { createStrengthenMask, createWeakenMask } from './masks.tsx'
 
 // --- tests ---
 if (process.env.NODE_ENV === 'development') {

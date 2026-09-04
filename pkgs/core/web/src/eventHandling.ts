@@ -2,7 +2,7 @@
  * Web event handling - maps RN-style events to DOM events
  */
 
-import type { GuiComponentEvents } from './interfaces/GuiComponentEvents'
+import type { GuiComponentEvents } from './interfaces/GuiComponentEvents.tsx'
 
 type EventKeys = keyof GuiComponentEvents
 type EventLikeObject = { [key in EventKeys]?: any }

@@ -4,7 +4,7 @@
  */
 
 import * as React from 'react'
-import type { SwipeDirection } from './ToastProvider'
+import type { SwipeDirection } from './ToastProvider.tsx'
 
 export interface UseAnimatedDragGestureOptions {
   direction: SwipeDirection

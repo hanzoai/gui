@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import propsToAccessibilityComponent from '../propsToAccessibilityComponent'
+import propsToAccessibilityComponent from '../propsToAccessibilityComponent.tsx'
 
 describe('modules/AccessibilityUtil/propsToAccessibilityComponent', () => {
   test('when missing accessibility props"', () => {

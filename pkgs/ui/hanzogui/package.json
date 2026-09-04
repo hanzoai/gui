@@ -32,8 +32,8 @@
   "sideEffects": [
     "setup.*"
   ],
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "bin": {
     "gui-css-check": "./css-check.mjs"
@@ -43,55 +43,55 @@
     "./css-check": "./css-check.mjs",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./react-native-web": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/react-native-web.native.js",
-      "browser": "./dist/esm/react-native-web.mjs",
-      "module": "./dist/esm/react-native-web.mjs",
-      "import": "./dist/esm/react-native-web.mjs",
-      "require": "./dist/cjs/react-native-web.cjs",
-      "default": "./dist/esm/react-native-web.mjs"
+      "react-native": "./dist/esm/react-native-web.js",
+      "browser": "./dist/esm/react-native-web.js",
+      "module": "./dist/esm/react-native-web.js",
+      "import": "./dist/esm/react-native-web.js",
+      "require": "./dist/cjs/react-native-web.js",
+      "default": "./dist/esm/react-native-web.js"
     },
     "./web": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./native": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/native.cjs",
-      "require": "./dist/native.cjs",
-      "default": "./dist/native.cjs"
+      "react-native": "./dist/cjs/native.js",
+      "require": "./dist/cjs/native.js",
+      "default": "./dist/cjs/native.js"
     },
     "./native-test": {
       "types": "./types/index.d.ts",
       "react-native": "./dist/test.native.js",
-      "require": "./dist/test.cjs",
-      "default": "./dist/test.cjs"
+      "require": "./dist/cjs/test.js",
+      "default": "./dist/cjs/test.js"
     },
     "./linear-gradient": {
       "types": "./types/linear-gradient.d.ts",
-      "react-native": "./dist/esm/linear-gradient.native.js",
-      "browser": "./dist/esm/linear-gradient.mjs",
-      "module": "./dist/esm/linear-gradient.mjs",
-      "import": "./dist/esm/linear-gradient.mjs",
-      "require": "./dist/cjs/linear-gradient.cjs",
-      "default": "./dist/esm/linear-gradient.mjs"
+      "react-native": "./dist/esm/linear-gradient.js",
+      "browser": "./dist/esm/linear-gradient.js",
+      "module": "./dist/esm/linear-gradient.js",
+      "import": "./dist/esm/linear-gradient.js",
+      "require": "./dist/cjs/linear-gradient.js",
+      "default": "./dist/esm/linear-gradient.js"
     }
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "hanzogui-build --skip-native",
     "afterBuild": "node bundle-native.mjs",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",

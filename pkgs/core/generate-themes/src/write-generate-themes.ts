@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra'
 
-import type { generateThemes } from './generate-themes'
+import type { generateThemes } from './generate-themes.ts'
 
 export async function writeGeneratedThemes(
   hanzoguiDotDir: string,

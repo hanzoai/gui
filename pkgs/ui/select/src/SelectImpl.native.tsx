@@ -1,4 +1,4 @@
-import type { SelectImplProps } from './types'
+import type { SelectImplProps } from './types.tsx'
 
 /**
  * TODO can just make it a sheet for native

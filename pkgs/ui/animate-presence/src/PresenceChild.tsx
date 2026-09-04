@@ -4,7 +4,7 @@ import type { PresenceContextProps } from '@hanzogui/web'
 import * as React from 'react'
 import { useId } from 'react'
 
-import type { VariantLabels } from './types'
+import type { VariantLabels } from './types.ts'
 
 interface PresenceChildProps {
   children: React.ReactElement<any>

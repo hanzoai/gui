@@ -24,19 +24,19 @@
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "type": "module",
   "sideEffects": false,
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./types": {
       "types": "./types/index.d.ts"
@@ -46,48 +46,48 @@
     },
     "./v3": {
       "types": "./types/v3.d.ts",
-      "react-native": "./dist/esm/v3.native.js",
-      "browser": "./dist/esm/v3.mjs",
-      "module": "./dist/esm/v3.mjs",
-      "import": "./dist/esm/v3.mjs",
-      "require": "./dist/cjs/v3.cjs",
-      "default": "./dist/esm/v3.mjs"
+      "react-native": "./dist/esm/v3.js",
+      "browser": "./dist/esm/v3.js",
+      "module": "./dist/esm/v3.js",
+      "import": "./dist/esm/v3.js",
+      "require": "./dist/cjs/v3.js",
+      "default": "./dist/esm/v3.js"
     },
     "./v3-themes": {
       "types": "./types/v3-themes.d.ts",
-      "react-native": "./dist/esm/v3-themes.native.js",
-      "browser": "./dist/esm/v3-themes.mjs",
-      "module": "./dist/esm/v3-themes.mjs",
-      "import": "./dist/esm/v3-themes.mjs",
-      "require": "./dist/cjs/v3-themes.cjs",
-      "default": "./dist/esm/v3-themes.mjs"
+      "react-native": "./dist/esm/v3-themes.js",
+      "browser": "./dist/esm/v3-themes.js",
+      "module": "./dist/esm/v3-themes.js",
+      "import": "./dist/esm/v3-themes.js",
+      "require": "./dist/cjs/v3-themes.js",
+      "default": "./dist/esm/v3-themes.js"
     },
     "./v4": {
       "types": "./types/v4.d.ts",
-      "react-native": "./dist/esm/v4.native.js",
-      "browser": "./dist/esm/v4.mjs",
-      "module": "./dist/esm/v4.mjs",
-      "import": "./dist/esm/v4.mjs",
-      "require": "./dist/cjs/v4.cjs",
-      "default": "./dist/esm/v4.mjs"
+      "react-native": "./dist/esm/v4.js",
+      "browser": "./dist/esm/v4.js",
+      "module": "./dist/esm/v4.js",
+      "import": "./dist/esm/v4.js",
+      "require": "./dist/cjs/v4.js",
+      "default": "./dist/esm/v4.js"
     },
     "./v5": {
       "types": "./types/v5.d.ts",
-      "react-native": "./dist/esm/v5.native.js",
-      "browser": "./dist/esm/v5.mjs",
-      "module": "./dist/esm/v5.mjs",
-      "import": "./dist/esm/v5.mjs",
-      "require": "./dist/cjs/v5.cjs",
-      "default": "./dist/esm/v5.mjs"
+      "react-native": "./dist/esm/v5.js",
+      "browser": "./dist/esm/v5.js",
+      "module": "./dist/esm/v5.js",
+      "import": "./dist/esm/v5.js",
+      "require": "./dist/cjs/v5.js",
+      "default": "./dist/esm/v5.js"
     },
     "./v5-subtle": {
       "types": "./types/v5-subtle.d.ts",
-      "react-native": "./dist/esm/v5-subtle.native.js",
-      "browser": "./dist/esm/v5-subtle.mjs",
-      "module": "./dist/esm/v5-subtle.mjs",
-      "import": "./dist/esm/v5-subtle.mjs",
-      "require": "./dist/cjs/v5-subtle.cjs",
-      "default": "./dist/esm/v5-subtle.mjs"
+      "react-native": "./dist/esm/v5-subtle.js",
+      "browser": "./dist/esm/v5-subtle.js",
+      "module": "./dist/esm/v5-subtle.js",
+      "import": "./dist/esm/v5-subtle.js",
+      "require": "./dist/cjs/v5-subtle.js",
+      "default": "./dist/esm/v5-subtle.js"
     }
   },
   "publishConfig": {
@@ -102,7 +102,7 @@
     "generate:v4": "hanzogui generate-themes ./src/v4-default.ts ./src/generated-v4.ts",
     "generate:v4-hanzogui": "hanzogui generate-themes ./src/v4-hanzogui.ts ./src/generated-v4-hanzogui.ts",
     "test": "bun run generate",
-    "build": "hanzogui-build",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

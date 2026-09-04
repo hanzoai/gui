@@ -5,7 +5,7 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { $ } from 'bun'
-import { METRO_PORT, DETOX_SERVER_PORT } from './constants'
+import { METRO_PORT, DETOX_SERVER_PORT } from './constants.ts'
 
 /**
  * Wait for Android device/emulator to be ready.

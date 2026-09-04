@@ -1,4 +1,4 @@
-import type { StaticConfig } from './types'
+import type { StaticConfig } from './types.tsx'
 
 const ReactNativeStaticConfigs = new WeakMap<any, Partial<StaticConfig> | null>()
 

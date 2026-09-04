@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
-import { getPortal } from './portalState'
+import { getPortal } from './portalState.ts'
 import type {
   NativePortalProps,
   NativePortalHostProps,
   NativePortalProviderProps,
-} from './types'
+} from './types.ts'
 
 export type { NativePortalProps, NativePortalHostProps, NativePortalProviderProps }
 

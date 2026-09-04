@@ -1,4 +1,4 @@
-import type { PropMappedValue } from '../types'
+import type { PropMappedValue } from '../types.tsx'
 
 // outline style keywords
 const outlineStyles = new Set([

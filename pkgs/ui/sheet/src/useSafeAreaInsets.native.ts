@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SafeAreaInsetsContext as RNSafeAreaInsetsContext } from 'react-native-safe-area-context'
 
-import type { SafeAreaInsets } from './useSafeAreaInsets'
+import type { SafeAreaInsets } from './useSafeAreaInsets.ts'
 
 // the real react-native-safe-area-context insets context, re-typed to the local
 // shape so consumers don't depend on the package's types. exported so the Sheet

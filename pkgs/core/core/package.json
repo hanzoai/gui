@@ -33,56 +33,56 @@
   "sideEffects": [
     "*.css"
   ],
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     "./reset.css": "./reset.css",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/native/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./native": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/native.cjs",
-      "browser": "./dist/native.cjs",
-      "module": "./dist/native.cjs",
-      "import": "./dist/native.cjs",
-      "require": "./dist/native.cjs",
-      "default": "./dist/native.cjs"
+      "react-native": "./dist/cjs/native.js",
+      "browser": "./dist/cjs/native.js",
+      "module": "./dist/cjs/native.js",
+      "import": "./dist/cjs/native.js",
+      "require": "./dist/cjs/native.js",
+      "default": "./dist/cjs/native.js"
     },
     "./native-test": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/test.native.cjs",
-      "browser": "./dist/test.native.cjs",
-      "module": "./dist/test.native.cjs",
-      "import": "./dist/test.native.cjs",
-      "require": "./dist/test.native.cjs",
-      "default": "./dist/test.native.cjs"
+      "react-native": "./dist/cjs/test.native.js",
+      "browser": "./dist/cjs/test.native.js",
+      "module": "./dist/cjs/test.native.js",
+      "import": "./dist/cjs/test.native.js",
+      "require": "./dist/cjs/test.native.js",
+      "default": "./dist/cjs/test.native.js"
     },
     "./inject-styles": {
       "types": "./types/inject-styles.d.ts",
-      "react-native": "./dist/esm/inject-styles.mjs",
-      "browser": "./dist/esm/inject-styles.mjs",
-      "module": "./dist/esm/inject-styles.mjs",
-      "import": "./dist/esm/inject-styles.mjs",
-      "require": "./dist/cjs/inject-styles.cjs",
-      "default": "./dist/cjs/inject-styles.cjs"
+      "react-native": "./dist/esm/inject-styles.js",
+      "browser": "./dist/esm/inject-styles.js",
+      "module": "./dist/esm/inject-styles.js",
+      "import": "./dist/esm/inject-styles.js",
+      "require": "./dist/cjs/inject-styles.js",
+      "default": "./dist/cjs/inject-styles.js"
     },
     "./reactNativeTypes": {
       "types": "./types/reactNativeTypes.d.ts",
-      "react-native": "./dist/esm/reactNativeTypes.native.js",
-      "browser": "./dist/esm/reactNativeTypes.mjs",
-      "module": "./dist/esm/reactNativeTypes.mjs",
-      "import": "./dist/esm/reactNativeTypes.mjs",
-      "require": "./dist/cjs/reactNativeTypes.cjs",
-      "default": "./dist/esm/reactNativeTypes.mjs"
+      "react-native": "./dist/native/reactNativeTypes.js",
+      "browser": "./dist/esm/reactNativeTypes.js",
+      "module": "./dist/esm/reactNativeTypes.js",
+      "import": "./dist/esm/reactNativeTypes.js",
+      "require": "./dist/cjs/reactNativeTypes.js",
+      "default": "./dist/esm/reactNativeTypes.js"
     }
   },
   "publishConfig": {

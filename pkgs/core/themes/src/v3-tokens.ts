@@ -1,4 +1,4 @@
-import { sizeToSpace } from './utils'
+import { sizeToSpace } from './utils.ts'
 
 // --- tokens ---
 

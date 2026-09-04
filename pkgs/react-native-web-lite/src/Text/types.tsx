@@ -8,8 +8,8 @@
  * @flow
  */
 
-import type { ColorValue, GenericStyleProp } from '../types'
-import type { ViewProps, ViewStyle } from '../View/types'
+import type { ColorValue, GenericStyleProp } from '../types.ts'
+import type { ViewProps, ViewStyle } from '../View/types.tsx'
 
 type FontWeightValue =
   | 'normal'

@@ -5,7 +5,7 @@ import type {
   ElementProps,
   FloatingInteractionContext,
   UseListNavigationProps,
-} from './types'
+} from './types.ts'
 import {
   activeElement,
   enqueueFocus,
@@ -18,7 +18,7 @@ import {
   isVirtualClick,
   isVirtualPointerEvent,
   stopEvent,
-} from './utils'
+} from './utils.ts'
 
 const ARROW_UP = 'ArrowUp'
 const ARROW_DOWN = 'ArrowDown'

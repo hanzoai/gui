@@ -1,5 +1,5 @@
-import { createVariables } from './createVariables'
-import type { CreateTokens, Variable } from './types'
+import { createVariables } from './createVariables.ts'
+import type { CreateTokens, Variable } from './types.tsx'
 
 export function createTokens<T extends CreateTokens>(tokens: T): MakeTokens<T> {
   return createVariables(tokens, process.env.GUI_TOKEN_PREFIX ?? 't') as any

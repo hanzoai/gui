@@ -1,5 +1,5 @@
 import { Color, colorString } from '@hanzogui/cli-color'
-import type { GuiOptions } from '../types'
+import type { GuiOptions } from '../types.ts'
 
 export function getPrefixLogs(options?: GuiOptions) {
   return (

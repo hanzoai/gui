@@ -2,8 +2,8 @@ import { type GetProps, View, styled, useTheme } from '@hanzogui/core'
 import { registerFocusable } from '@hanzogui/focusable'
 import { useWebRef } from '@hanzogui/element'
 import React from 'react'
-import { styledBody } from './shared'
-import type { InputExtraProps } from './types'
+import { styledBody } from './shared.tsx'
+import type { InputExtraProps } from './types.ts'
 
 const StyledInput = styled(View, styledBody[0], styledBody[1])
 

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import type { ElementProps, FloatingInteractionContext, UseRoleProps } from './types'
+import type { ElementProps, FloatingInteractionContext, UseRoleProps } from './types.ts'
 
 type RoleValue = NonNullable<UseRoleProps['role']>
 

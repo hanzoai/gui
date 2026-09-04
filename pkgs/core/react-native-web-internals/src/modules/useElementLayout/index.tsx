@@ -3,7 +3,7 @@ import {
   useElementLayout as useGuiElementLayout,
 } from '@hanzogui/use-element-layout'
 import { type RefObject, useEffect, useMemo } from 'react'
-import type { LayoutEvent } from '../../types'
+import type { LayoutEvent } from '../../types.ts'
 
 export function useElementLayout(
   ref: RefObject<any>,

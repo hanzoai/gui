@@ -491,7 +491,7 @@ async function run() {
       if (buildFast) {
         await spawnify(`bun run build`)
       } else {
-        await spawnify(`bun run build:force`)
+        await spawnify(`bun run clean:build && bun run build -- --force`)
       }
       await checkDistDirs()
     }

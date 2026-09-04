@@ -1,4 +1,4 @@
-import { MEDIA } from './constants'
+import { MEDIA } from './constants.tsx'
 
 export const helpers = {}
 // Helpers

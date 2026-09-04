@@ -16,10 +16,10 @@ import {
 } from '@hanzogui/react-native-web-internals'
 import { ImageLoader, getAssetByID } from '@hanzogui/react-native-web-internals'
 
-import { createElement } from '../createElement/index'
-import { PixelRatio } from '../PixelRatio/index'
-import { View } from '../View/index'
-import type { ImageProps } from './types'
+import { createElement } from '../createElement/index.tsx'
+import { PixelRatio } from '../PixelRatio/index.tsx'
+import { View } from '../View/index.tsx'
+import type { ImageProps } from './types.tsx'
 
 export type { ImageProps }
 

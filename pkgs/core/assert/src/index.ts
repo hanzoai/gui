@@ -1,1 +1,1 @@
-export * from './assertions'
+export * from './assertions.ts'

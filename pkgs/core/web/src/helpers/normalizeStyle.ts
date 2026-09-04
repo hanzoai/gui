@@ -1,9 +1,9 @@
-import { expandStyle } from './expandStyle'
-import { fixStyles } from './expandStyles'
-import { isObj } from './isObj'
-import { normalizeValueWithProperty } from './normalizeValueWithProperty'
-import { pseudoDescriptors } from './pseudoDescriptors'
-import { styleOriginalValues } from './styleOriginalValues'
+import { expandStyle } from './expandStyle.ts'
+import { fixStyles } from './expandStyles.ts'
+import { isObj } from './isObj.ts'
+import { normalizeValueWithProperty } from './normalizeValueWithProperty.ts'
+import { pseudoDescriptors } from './pseudoDescriptors.ts'
+import { styleOriginalValues } from './styleOriginalValues.ts'
 
 /**
  * This is what you want to run before Object.assign() a style onto another.

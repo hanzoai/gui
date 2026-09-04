@@ -5,7 +5,7 @@ import { createContextScope } from '@hanzogui/create-context'
 import { withStaticProperties } from '@hanzogui/helpers'
 import { YStack } from '@hanzogui/stacks'
 import React from 'react'
-import { useIndex, useIndexedChildren } from './useIndexedChildren'
+import { useIndex, useIndexedChildren } from './useIndexedChildren.tsx'
 
 interface GroupContextValue {
   vertical: boolean

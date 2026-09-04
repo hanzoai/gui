@@ -6,9 +6,9 @@
 
 import * as React from 'react'
 
-import * as ResponderSystem from './ResponderSystem'
+import * as ResponderSystem from './ResponderSystem.ts'
 
-export * from './utils'
+export * from './utils.ts'
 
 const emptyObject = {}
 

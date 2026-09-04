@@ -1,6 +1,6 @@
 import { simpleHash } from '@hanzogui/simple-hash'
 
-import type { StoreInfo } from './interfaces'
+import type { StoreInfo } from './interfaces.tsx'
 
 export function getStoreUid(Constructor: any, props: string | object | void) {
   return simpleHash(

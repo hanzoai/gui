@@ -14,8 +14,8 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "typesVersions": {
     "*": {
@@ -28,30 +28,30 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/native/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./controller": {
       "types": "./types/controller.d.ts",
-      "react-native": "./dist/esm/controller.native.js",
-      "browser": "./dist/esm/controller.mjs",
-      "module": "./dist/esm/controller.mjs",
-      "import": "./dist/esm/controller.mjs",
-      "require": "./dist/cjs/controller.cjs",
-      "default": "./dist/esm/controller.mjs"
+      "react-native": "./dist/native/controller.js",
+      "browser": "./dist/esm/controller.js",
+      "module": "./dist/esm/controller.js",
+      "import": "./dist/esm/controller.js",
+      "require": "./dist/cjs/controller.js",
+      "default": "./dist/esm/controller.js"
     },
     "./setup-gesture-handler": {
       "types": "./types/setupGestureHandler.d.ts",
-      "react-native": "./dist/esm/setupGestureHandler.native.js",
-      "browser": "./dist/esm/setupGestureHandler.mjs",
-      "module": "./dist/esm/setupGestureHandler.mjs",
-      "import": "./dist/esm/setupGestureHandler.mjs",
-      "require": "./dist/cjs/setupGestureHandler.cjs",
-      "default": "./dist/esm/setupGestureHandler.mjs"
+      "react-native": "./dist/native/setupGestureHandler.js",
+      "browser": "./dist/esm/setupGestureHandler.js",
+      "module": "./dist/esm/setupGestureHandler.js",
+      "import": "./dist/esm/setupGestureHandler.js",
+      "require": "./dist/cjs/setupGestureHandler.js",
+      "default": "./dist/esm/setupGestureHandler.js"
     }
   },
   "publishConfig": {

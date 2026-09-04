@@ -8,7 +8,7 @@
  */
 
 import { getCSSStylesAtomic, type StyleObject } from '@hanzogui/web'
-import { AccessibilityUtil } from '../AccessibilityUtil/index'
+import { AccessibilityUtil } from '../AccessibilityUtil/index.tsx'
 
 const emptyObject = {}
 const hasOwnProperty = Object.prototype.hasOwnProperty

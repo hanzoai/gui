@@ -7,7 +7,7 @@
  * @flow
  */
 
-import type { ColorValue, DimensionValue } from './types'
+import type { ColorValue, DimensionValue } from './types.ts'
 
 type NumberOrString = number | string
 

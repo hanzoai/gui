@@ -10,8 +10,8 @@
  * @noflow
  */
 
-import { unitlessNumbers as isUnitlessNumber } from '../unitlessNumbers/index'
-import { normalizeValueWithProperty } from '../../StyleSheet/compiler/normalizeValueWithProperty'
+import { unitlessNumbers as isUnitlessNumber } from '../unitlessNumbers/index.tsx'
+import { normalizeValueWithProperty } from '../../StyleSheet/compiler/normalizeValueWithProperty.tsx'
 
 /**
  * Convert a value into the proper css writable value. The style name `name`

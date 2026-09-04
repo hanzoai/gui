@@ -11,8 +11,8 @@ import { ArrowUp } from '@hanzogui/lucide-icons-2'
 import { styled, View, type ColorTokens } from '@hanzogui/web'
 import { XStack, YStack } from '@hanzogui/stacks'
 import { TextArea } from '@hanzogui/input'
-import { Txt, useHover, useIsWide, useReveal } from './styles'
-import { c, FONT, HERO_GLOW } from './tokens'
+import { Txt, useHover, useIsWide, useReveal } from './styles.tsx'
+import { c, FONT, HERO_GLOW } from './tokens.ts'
 
 /** An icon component compatible with @hanzogui/lucide-icons-2 (size + color props). */
 export type HeroIcon = ComponentType<{ size?: number; color?: string }>

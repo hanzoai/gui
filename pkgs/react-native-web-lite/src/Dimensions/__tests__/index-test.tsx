@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Dimensions from '..'
+import Dimensions from '../index.tsx'
 
 describe('apis/Dimensions/index.js', () => {
   test('get', () => {

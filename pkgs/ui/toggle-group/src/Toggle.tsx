@@ -3,7 +3,7 @@ import { useControllableState } from '@hanzogui/use-controllable-state'
 import type { GetProps, GuiElement, ViewStyle } from '@hanzogui/web'
 import { styled, View } from '@hanzogui/web'
 import * as React from 'react'
-import { context } from './context'
+import { context } from './context.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * Toggle

@@ -1,7 +1,7 @@
 import type { MediaQueryList } from '@hanzogui/web'
 import { Dimensions } from 'react-native'
 
-import { matchQuery } from './matchQuery'
+import { matchQuery } from './matchQuery.ts'
 
 type Orientation = 'landscape' | 'portrait'
 

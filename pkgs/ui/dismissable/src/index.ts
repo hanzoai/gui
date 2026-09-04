@@ -1,1 +1,1 @@
-export * from './Dismissable'
+export * from './Dismissable.tsx'

@@ -1,7 +1,7 @@
 import type { PresenceContextProps, UsePresenceResult } from '@hanzogui/web'
 import * as React from 'react'
 
-import { PresenceContext } from './PresenceContext'
+import { PresenceContext } from './PresenceContext.tsx'
 
 export function usePresence(): UsePresenceResult {
   const context = React.useContext(PresenceContext)

@@ -16,6 +16,7 @@
  * the code: no Babel, no esbuild, no plugin.
  *
  *   --skip-native   packages with nothing platform-specific
+ *   clean           remove dist and types and stop (clean:build is the same)
  *   --watch         the ESM emit, continuously
  */
 import { spawnSync } from 'node:child_process'
@@ -34,10 +35,16 @@ const emit = (project, extra = []) => {
   if (run.status !== 0) process.exit(run.status ?? 1)
 }
 
+for (const dir of ['dist', 'types']) rmSync(join(cwd, dir), { recursive: true, force: true })
+
+// `clean` and `clean:build` remove the outputs and stop: the workspace runs them
+// over every package at once, and a rebuild in that order would typecheck
+// against declarations a sibling is deleting. The ordered build follows.
+if (args.has('clean') || args.has('clean:build')) process.exit(0)
+
 if (args.has('--watch')) {
   emit('tsconfig.esm.json', ['--watch'])
 } else {
-  for (const dir of ['dist', 'types']) rmSync(join(cwd, dir), { recursive: true, force: true })
 
   emit('tsconfig.esm.json')
 

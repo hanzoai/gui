@@ -410,7 +410,7 @@ const tamaConf = createGui({
 
 export type Conf = typeof tamaConf
 
-declare module 'hanzogui' {
+declare module '@hanzo/gui' {
   interface GuiCustomConfig extends Conf {}
 
   interface TypeOverride {

@@ -1,4 +1,4 @@
-import { Button, Card, H2, Paragraph, Text, Theme, XStack, YStack } from 'hanzogui'
+import { type ThemeName, Button, Card, H2, Paragraph, Text, Theme, XStack, YStack } from '@hanzo/gui'
 
 // Proof surface for the token layer: true-black neutral ramp, one accent per
 // white-label brand (read straight from each brand's generated theme — the
@@ -61,10 +61,7 @@ export function BrandTokensDemo() {
           </Text>
           <XStack gap="$4" flexWrap="wrap">
             {BRANDS.map((b) => (
-              // brand themes come from the host app's config (@hanzogui/themes/v4),
-              // not from the @hanzogui/dev-config this package is typed against
-              // @ts-expect-error
-              <Theme key={b} name={b}>
+              <Theme key={b} name={b as ThemeName}>
                 <Card
                   backgroundColor="$color2"
                   borderWidth={1}

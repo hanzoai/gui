@@ -86,3 +86,5 @@ test-results/
 # Rust build artifacts — never commit; a debug .a is 272MB and GitHub caps at 100MB.
 apps/desktop/src-tauri/target/
 **/src-tauri/target/
+apps/demos/types/**/*.d.ts
+apps/demos/types/**/*.d.ts.map

@@ -8,6 +8,7 @@
     "rewriteRelativeImportExtensions": true,
     "sourceMap": true,
     "inlineSourceMap": false,
+    "paths": {},
     "module": "commonjs",
     "moduleResolution": "bundler",
     "outDir": "dist/cjs",

@@ -1,6 +1,6 @@
 import type { ThemeDefinitions } from '@hanzogui/create-theme'
 import type { masks } from '@hanzogui/theme-builder'
-import { maskOptions } from './templates'
+import { maskOptions } from './templates.tsx'
 
 type Masks = typeof masks
 

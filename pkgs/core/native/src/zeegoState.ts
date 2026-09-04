@@ -1,5 +1,5 @@
-import { createGlobalState } from './globalState'
-import type { ZeegoState } from './types'
+import { createGlobalState } from './globalState.ts'
+import type { ZeegoState } from './types.ts'
 
 const state = createGlobalState<ZeegoState>(`zeego`, {
   enabled: false,

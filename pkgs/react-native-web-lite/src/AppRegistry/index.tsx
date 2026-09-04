@@ -12,7 +12,7 @@
 import type { ComponentType, ReactNode } from 'react'
 import { invariant } from '@hanzogui/react-native-web-internals'
 
-import { renderApplication, getApplication } from './renderApplication'
+import { renderApplication, getApplication } from './renderApplication.tsx'
 
 type AppParams = object
 

@@ -1,1 +1,1 @@
-export * from './useDirection'
+export * from './useDirection.tsx'

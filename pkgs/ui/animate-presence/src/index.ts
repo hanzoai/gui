@@ -1,4 +1,4 @@
-export * from './AnimatePresence'
+export * from './AnimatePresence.tsx'
 export * from '@hanzogui/use-presence'
-export * from './types'
-export * from './PresenceChild'
+export * from './types.ts'
+export * from './PresenceChild.tsx'

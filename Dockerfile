@@ -77,7 +77,7 @@ RUN bun install
 
 # Merge bento dependencies into root package.json and reinstall (only if bento was cloned)
 RUN if [ -d "../bento" ]; then node scripts/with-bento.mjs && bun install; fi
-RUN bun run build:js
+RUN bun run build
 RUN bun run build:app
 
 EXPOSE 3000

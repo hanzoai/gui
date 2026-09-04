@@ -2,7 +2,7 @@ import '@hanzogui/polyfill-dev'
 
 import { MenuPredefined } from '@hanzogui/create-menu'
 
-import { createContextMenu } from './ContextMenu'
+import { createContextMenu } from './ContextMenu.tsx'
 
 export const ContextMenu = createContextMenu({
   Icon: MenuPredefined.MenuIcon,

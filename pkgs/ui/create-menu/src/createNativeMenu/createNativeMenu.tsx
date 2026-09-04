@@ -34,7 +34,7 @@ import type {
   NativeMenuSubProps,
   NativeMenuSubTriggerProps,
   MenuTriggerProps,
-} from './createNativeMenuTypes'
+} from './createNativeMenuTypes.ts'
 
 // zeego module shape (DropdownMenu / ContextMenu both share this)
 type ZeegoMenuModule = {

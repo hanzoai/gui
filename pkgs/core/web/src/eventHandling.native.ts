@@ -6,8 +6,8 @@ import { composeEventHandlers } from '@hanzogui/helpers'
 import { getGestureHandler } from '@hanzogui/native'
 import React, { useRef } from 'react'
 import { Platform, View } from 'react-native'
-import { useMainThreadPressEvents } from './helpers/mainThreadPressEvents'
-import type { StaticConfig, GuiComponentStateRef } from './types'
+import { useMainThreadPressEvents } from './helpers/mainThreadPressEvents.ts'
+import type { StaticConfig, GuiComponentStateRef } from './types.tsx'
 
 const isFabric = !!(globalThis as any).nativeFabricUIManager
 

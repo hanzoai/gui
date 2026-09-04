@@ -12,7 +12,7 @@
  * Menu and ContextMenu native mode.
  */
 
-import { getZeego } from './zeegoState'
+import { getZeego } from './zeegoState.ts'
 
 function setup(): void {
   const g = globalThis as any

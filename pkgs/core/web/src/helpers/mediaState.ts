@@ -1,4 +1,4 @@
-import type { MediaQueries, MediaQueryState } from '../types'
+import type { MediaQueries, MediaQueryState } from '../types.tsx'
 
 export let mediaState: MediaQueryState =
   // development only safeguard

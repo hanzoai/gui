@@ -1,5 +1,5 @@
-import { getConfig } from '../config'
-import type { GenericShorthands } from '../types'
+import { getConfig } from '../config.ts'
+import type { GenericShorthands } from '../types.tsx'
 
 let inverseShorthands: GenericShorthands | null = null
 

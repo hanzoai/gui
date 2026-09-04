@@ -7,7 +7,7 @@ import React from 'react' /**
  * @flow strict
  */
 
-import { isLocaleRTL } from './isLocaleRTL'
+import { isLocaleRTL } from './isLocaleRTL.tsx'
 
 type Locale = string
 type WritingDirection = 'ltr' | 'rtl'

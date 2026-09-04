@@ -7,7 +7,7 @@
  */
 
 import { expectTypeOf, describe, test } from 'vitest'
-import type { ColorTokens, FontColorTokens, GetThemeValueForKey } from './types'
+import type { ColorTokens, FontColorTokens, GetThemeValueForKey } from './types.tsx'
 
 type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 type ColorTokenKey = `color${Digit}${Digit}${Digit}`

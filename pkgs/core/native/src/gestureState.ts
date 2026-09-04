@@ -1,5 +1,5 @@
-import { createGlobalState } from './globalState'
-import type { GestureState } from './types'
+import { createGlobalState } from './globalState.ts'
+import type { GestureState } from './types.ts'
 
 const state = createGlobalState<GestureState>(`gesture`, {
   enabled: false,

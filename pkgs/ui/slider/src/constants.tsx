@@ -1,6 +1,6 @@
 import { createStyledContext, type SizeTokens } from '@hanzogui/core'
 
-import type { Direction, SliderContextValue } from './types'
+import type { Direction, SliderContextValue } from './types.ts'
 
 export const SLIDER_NAME = 'Slider'
 

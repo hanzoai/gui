@@ -1,4 +1,4 @@
-import { defaultOffset } from './defaultOffset'
+import { defaultOffset } from './defaultOffset.ts'
 
 export function normalizeShadow({
   shadowColor,

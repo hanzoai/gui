@@ -6,8 +6,8 @@ import { useLabelContext } from '@hanzogui/label'
 import React, { useMemo } from 'react'
 import type { PressableProps, View, ViewProps } from 'react-native'
 
-import { BubbleInput } from './BubbleInput'
-import { getState, isIndeterminate } from './utils'
+import { BubbleInput } from './BubbleInput.tsx'
+import { getState, isIndeterminate } from './utils.tsx'
 
 export type CheckedState = boolean | 'indeterminate'
 

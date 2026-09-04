@@ -1,4 +1,4 @@
-import type { ValueObject } from './types'
+import type { ValueObject } from './types.tsx'
 
 export interface UseThemeProps {
   /** List of all available theme names */

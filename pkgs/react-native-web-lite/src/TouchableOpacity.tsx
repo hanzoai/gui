@@ -18,7 +18,7 @@ import {
   usePressEvents,
 } from '@hanzogui/react-native-web-internals'
 
-import { View } from './View'
+import { View } from './View/index.tsx'
 
 /**
  * A wrapper for making views respond properly to touches.

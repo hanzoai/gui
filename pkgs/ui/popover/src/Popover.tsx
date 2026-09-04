@@ -52,7 +52,7 @@ import type { YStackProps } from '@hanzogui/stacks'
 import { YStack } from '@hanzogui/stacks'
 import { useControllableState } from '@hanzogui/use-controllable-state'
 import * as React from 'react'
-import { useFloatingContext } from './useFloatingContext'
+import { useFloatingContext } from './useFloatingContext.tsx'
 
 // adapted from radix-ui popover
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { FocusScopeProps } from './types'
+import type { FocusScopeProps } from './types.tsx'
 
 export const FocusScope = React.forwardRef((props: FocusScopeProps, _ref) => {
   return props.children as any

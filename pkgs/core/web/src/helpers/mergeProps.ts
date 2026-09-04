@@ -15,7 +15,7 @@
  *
  */
 
-import { pseudoDescriptors } from './pseudoDescriptors'
+import { pseudoDescriptors } from './pseudoDescriptors.ts'
 
 export type GenericProps = Record<string, any>
 

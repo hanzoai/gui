@@ -1,2 +1,2 @@
-export * from './useCheckbox'
-export * from './utils'
+export * from './useCheckbox.tsx'
+export * from './utils.tsx'

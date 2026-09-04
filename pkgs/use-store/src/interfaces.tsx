@@ -1,4 +1,4 @@
-import type { StoreTracker } from './useStore'
+import type { StoreTracker } from './useStore.tsx'
 
 export type Selector<A = unknown, B = unknown> = (x: A) => B
 

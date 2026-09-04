@@ -1,7 +1,7 @@
 import React from 'react'
 
-import * as Floating from './Floating'
-import type { PopupTriggerMap } from './interactions/PopupTriggerMap'
+import * as Floating from './Floating.tsx'
+import type { PopupTriggerMap } from './interactions/PopupTriggerMap.ts'
 
 export type UseFloatingFn = typeof Floating.useFloating
 

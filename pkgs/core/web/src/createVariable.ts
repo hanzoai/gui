@@ -1,8 +1,8 @@
 import { isWeb } from '@hanzogui/constants'
 import { simpleHash } from '@hanzogui/helpers'
 
-import { getConfig } from './config'
-import type { PxValue, TokenCategories, Variable } from './types'
+import { getConfig } from './config.ts'
+import type { PxValue, TokenCategories, Variable } from './types.tsx'
 
 /**
  * Should rename this to Token

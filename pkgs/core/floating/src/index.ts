@@ -41,7 +41,7 @@ export type {
   UseFloatingData,
   UseFloatingOptions,
   VirtualElement,
-} from './Floating'
+} from './Floating.tsx'
 
 export {
   arrow,
@@ -57,7 +57,7 @@ export {
   platform,
   shift,
   size,
-} from './Floating'
+} from './Floating.tsx'
 
 export {
   useFloating,
@@ -66,36 +66,36 @@ export {
   type UseFloatingProps,
   type UseFloatingFn,
   type UseFloatingOverrideFn,
-} from './useFloating'
+} from './useFloating.tsx'
 
 // raw useFloating without FloatingOverrideContext — use when building
 // override context factories to avoid infinite recursion
-export { useFloating as useFloatingRaw } from './Floating'
+export { useFloating as useFloatingRaw } from './Floating.tsx'
 
 // event emitter for hook coordination
-export { createFloatingEvents } from './interactions/createFloatingEvents'
+export { createFloatingEvents } from './interactions/createFloatingEvents.ts'
 
 // multi-trigger coordination
-export { PopupTriggerMap } from './interactions/PopupTriggerMap'
+export { PopupTriggerMap } from './interactions/PopupTriggerMap.ts'
 
 // interaction hooks
-export { useInteractions } from './interactions/useInteractions'
-export { useHover } from './interactions/useHover'
-export { safePolygon } from './interactions/safePolygon'
-export { useFocus } from './interactions/useFocus'
-export { useRole } from './interactions/useRole'
-export { useClick } from './interactions/useClick'
-export { useListNavigation } from './interactions/useListNavigation'
-export { useTypeahead } from './interactions/useTypeahead'
-export { useInnerOffset } from './interactions/useInnerOffset'
+export { useInteractions } from './interactions/useInteractions.ts'
+export { useHover } from './interactions/useHover.ts'
+export { safePolygon } from './interactions/safePolygon.ts'
+export { useFocus } from './interactions/useFocus.ts'
+export { useRole } from './interactions/useRole.ts'
+export { useClick } from './interactions/useClick.ts'
+export { useListNavigation } from './interactions/useListNavigation.ts'
+export { useTypeahead } from './interactions/useTypeahead.ts'
+export { useInnerOffset } from './interactions/useInnerOffset.ts'
 export {
   FloatingDelayGroup,
   useDelayGroup,
   useDelayGroupContext,
-} from './interactions/useDelayGroup'
+} from './interactions/useDelayGroup.ts'
 
 // middleware
-export { inner } from './middleware/inner'
+export { inner } from './middleware/inner.ts'
 
 // types
 export type {
@@ -113,4 +113,4 @@ export type {
   UseTypeaheadProps,
   UseInnerOffsetProps,
   Delay,
-} from './interactions/types'
+} from './interactions/types.ts'

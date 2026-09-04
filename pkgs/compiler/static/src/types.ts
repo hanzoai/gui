@@ -5,7 +5,7 @@ import type { StyleObject } from '@hanzogui/helpers'
 import type { GuiOptions } from '@hanzogui/types'
 import type { ViewStyle } from 'react-native'
 
-import type { LoadedComponents } from './extractor/bundleConfig'
+import type { LoadedComponents } from './extractor/bundleConfig.ts'
 
 export type GuiPlatform = 'native' | 'web'
 

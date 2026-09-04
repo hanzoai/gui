@@ -1,5 +1,5 @@
 import { getTokenValue, type ViewProps } from '@hanzogui/web'
-import type { PortalProps } from './PortalProps'
+import type { PortalProps } from './PortalProps.tsx'
 
 export const getStackedZIndexProps = (propsIn: PortalProps) => {
   return {

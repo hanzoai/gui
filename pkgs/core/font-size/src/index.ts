@@ -1,1 +1,1 @@
-export * from './getFontSize'
+export * from './getFontSize.ts'

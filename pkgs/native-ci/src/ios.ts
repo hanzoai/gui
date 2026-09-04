@@ -6,8 +6,8 @@ import { existsSync, readFileSync, writeFileSync, mkdirSync, readdirSync } from 
 import { dirname, isAbsolute, join } from 'node:path'
 import { execFileSync, execSync } from 'node:child_process'
 import { $ } from 'bun'
-import { isCI } from './runner'
-import { generateFingerprint } from './fingerprint'
+import { isCI } from './runner.ts'
+import { generateFingerprint } from './fingerprint.ts'
 
 /**
  * Check if any iOS simulator is booted and available for testing.

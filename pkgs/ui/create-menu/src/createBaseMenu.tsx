@@ -36,7 +36,7 @@ import * as React from 'react'
 import { useId } from 'react'
 import type { Image, ImageProps } from 'react-native'
 
-import { MenuPredefined } from './MenuPredefined'
+import { MenuPredefined } from './MenuPredefined.tsx'
 
 type Direction = 'ltr' | 'rtl'
 

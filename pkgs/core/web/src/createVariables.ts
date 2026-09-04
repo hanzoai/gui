@@ -1,7 +1,7 @@
 import { isWeb } from '@hanzogui/constants'
 import { simpleHash } from '@hanzogui/helpers'
-import { createVariable, isVariable } from './createVariable'
-import type { Variable } from './types'
+import { createVariable, isVariable } from './createVariable.ts'
+import type { Variable } from './types.tsx'
 
 type DeepTokenObject<Val extends string | number = any> = {
   [key: string]: Val | DeepTokenObject<Val>

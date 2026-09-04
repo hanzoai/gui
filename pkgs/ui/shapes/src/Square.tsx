@@ -2,7 +2,7 @@ import { ThemeableStack } from '@hanzogui/stacks'
 import type { GetProps } from '@hanzogui/web'
 import { styled } from '@hanzogui/web'
 
-import { getShapeSize } from './getShapeSize'
+import { getShapeSize } from './getShapeSize.tsx'
 
 export const Square = styled(
   ThemeableStack,

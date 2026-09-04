@@ -1,6 +1,6 @@
 /* eslint-env jasmine, jest */
 
-import Linking from '..'
+import Linking from '../index.tsx'
 
 describe('apis/Linking', () => {
   describe('openURL', () => {

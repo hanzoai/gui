@@ -1,6 +1,6 @@
 import { type ThemeProps, Theme } from '@hanzogui/web'
 import type { JSX } from 'react/jsx-runtime'
-import { useTint } from './useTint'
+import { useTint } from './useTint.tsx'
 
 export const ThemeTint = ({
   disable,

@@ -17,7 +17,7 @@ export {
   DEFAULT_KV_TTL_SECONDS,
   type Platform,
   type ExpoManifest,
-} from './constants'
+} from './constants.ts'
 
 // Fingerprint generation
 export {
@@ -25,7 +25,7 @@ export {
   generatePreFingerprintHash,
   type FingerprintOptions,
   type FingerprintResult,
-} from './fingerprint'
+} from './fingerprint.ts'
 
 // Caching utilities
 export {
@@ -38,7 +38,7 @@ export {
   type CacheOptions,
   type RedisKVOptions,
   type LocalCacheOptions,
-} from './cache'
+} from './cache.ts'
 
 // Build runner
 export {
@@ -48,7 +48,7 @@ export {
   isCI,
   type RunWithCacheOptions,
   type RunWithCacheResult,
-} from './runner'
+} from './runner.ts'
 
 // Metro bundler utilities
 export {
@@ -59,7 +59,7 @@ export {
   withMetro,
   type MetroOptions,
   type MetroProcess,
-} from './metro'
+} from './metro.ts'
 
 // Detox test runner utilities
 export {
@@ -67,7 +67,7 @@ export {
   buildDetoxArgs,
   runDetoxTests,
   type DetoxRunnerOptions,
-} from './detox'
+} from './detox.ts'
 
 // Android utilities (disabled but kept for future use)
 export {
@@ -75,10 +75,10 @@ export {
   setupAdbReverse,
   setupAndroidDevice,
   ensureAndroidFolder,
-} from './android'
+} from './android.ts'
 
 // iOS utilities
-export { ensureIOSFolder, ensureIOSApp, cleanupSimulators } from './ios'
+export { ensureIOSFolder, ensureIOSApp, cleanupSimulators } from './ios.ts'
 
 // Dependency management
 export {
@@ -88,4 +88,4 @@ export {
   ensureMaestro,
   printDepsStatus,
   type DepsCheckResult,
-} from './deps'
+} from './deps.ts'

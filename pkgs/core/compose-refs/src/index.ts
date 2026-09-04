@@ -1,1 +1,1 @@
-export * from './compose-refs'
+export * from './compose-refs.tsx'

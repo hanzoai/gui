@@ -7,8 +7,8 @@
 import type {
   ResponderTouchHistoryStore,
   TouchHistory,
-} from './ResponderTouchHistoryStore'
-import { getBoundingClientRect } from './utils'
+} from './ResponderTouchHistoryStore.ts'
+import { getBoundingClientRect } from './utils.ts'
 
 export type ResponderEvent = {
   bubbles: boolean

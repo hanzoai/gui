@@ -1,17 +1,17 @@
 import React from 'react'
 
-import { isEqualSubsetShallow } from './comparators'
-import { configureOpts } from './configureUseStore'
-import { UNWRAP_PROXY, defaultOptions } from './constants'
+import { isEqualSubsetShallow } from './comparators.tsx'
+import { configureOpts } from './configureUseStore.tsx'
+import { UNWRAP_PROXY, defaultOptions } from './constants.tsx'
 import {
   UNWRAP_STORE_INFO,
   cache,
   getStoreDescriptors,
   getStoreUid,
   simpleStr,
-} from './helpers'
-import type { Selector, Store, StoreInfo, UseStoreOptions } from './interfaces'
-import { DebugStores, shouldDebug, useCurrentComponent } from './useStoreDebug'
+} from './helpers.tsx'
+import type { Selector, Store, StoreInfo, UseStoreOptions } from './interfaces.tsx'
+import { DebugStores, shouldDebug, useCurrentComponent } from './useStoreDebug.tsx'
 
 const idFn = (_) => _
 

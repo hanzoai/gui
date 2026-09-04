@@ -4,7 +4,7 @@ import type { CLIResolvedOptions } from '@hanzogui/types'
 import fs from 'fs-extra'
 import { Project } from 'ts-morph'
 
-import { loadGui } from './utils'
+import { loadGui } from './utils.ts'
 
 export async function generateTypes(options: CLIResolvedOptions) {
   const types = await getTypes(options)

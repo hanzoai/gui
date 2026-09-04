@@ -1,14 +1,14 @@
 import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import { ClientOnly } from '@hanzogui/use-did-finish-ssr'
 import React, { useEffect } from 'react'
-import { getSetting } from '../config'
-import { ComponentContext } from '../contexts/ComponentContext'
-import { stopAccumulatingRules } from '../helpers/insertStyleRule'
-import { updateMediaListeners } from '../hooks/useMedia'
-import { resolveAnimationDriver } from '../helpers/resolveAnimationDriver'
-import type { AnimationDriver, GuiProviderProps } from '../types'
-import { GuiRoot } from './GuiRoot'
-import { ThemeProvider } from './ThemeProvider'
+import { getSetting } from '../config.ts'
+import { ComponentContext } from '../contexts/ComponentContext.tsx'
+import { stopAccumulatingRules } from '../helpers/insertStyleRule.tsx'
+import { updateMediaListeners } from '../hooks/useMedia.tsx'
+import { resolveAnimationDriver } from '../helpers/resolveAnimationDriver.ts'
+import type { AnimationDriver, GuiProviderProps } from '../types.tsx'
+import { GuiRoot } from './GuiRoot.tsx'
+import { ThemeProvider } from './ThemeProvider.tsx'
 
 // cache first theme key per config to avoid Object.keys allocation on every render
 let _cachedFirstKey: string | undefined

@@ -16,7 +16,7 @@ import {
   getLoadPromise,
   getGuiOptions,
   ensureFullConfigLoaded,
-} from './loadGui'
+} from './loadGui.ts'
 
 // handle ESM/CJS duality for plugin dependencies - resolve from plugin's location, not user's project
 const _pluginRequire = createRequire(

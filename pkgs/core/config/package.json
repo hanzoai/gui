@@ -34,100 +34,100 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/native/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./reanimated": {
       "types": "./types/index.reanimated.d.ts",
-      "react-native": "./dist/esm/index.reanimated.native.js",
-      "browser": "./dist/esm/index.reanimated.mjs",
-      "module": "./dist/esm/index.reanimated.mjs",
-      "import": "./dist/esm/index.reanimated.mjs",
-      "require": "./dist/cjs/index.reanimated.cjs",
-      "default": "./dist/esm/index.reanimated.mjs"
+      "react-native": "./dist/native/index.reanimated.js",
+      "browser": "./dist/esm/index.reanimated.js",
+      "module": "./dist/esm/index.reanimated.js",
+      "import": "./dist/esm/index.reanimated.js",
+      "require": "./dist/cjs/index.reanimated.js",
+      "default": "./dist/esm/index.reanimated.js"
     },
     "./v3": {
       "types": "./types/v3.d.ts",
-      "react-native": "./dist/esm/v3.native.js",
-      "browser": "./dist/esm/v3.mjs",
-      "module": "./dist/esm/v3.mjs",
-      "import": "./dist/esm/v3.mjs",
-      "require": "./dist/cjs/v3.cjs",
-      "default": "./dist/esm/v3.mjs"
+      "react-native": "./dist/native/v3.js",
+      "browser": "./dist/esm/v3.js",
+      "module": "./dist/esm/v3.js",
+      "import": "./dist/esm/v3.js",
+      "require": "./dist/cjs/v3.js",
+      "default": "./dist/esm/v3.js"
     },
     "./v4": {
       "types": "./types/v4.d.ts",
-      "react-native": "./dist/esm/v4.native.js",
-      "browser": "./dist/esm/v4.mjs",
-      "module": "./dist/esm/v4.mjs",
-      "import": "./dist/esm/v4.mjs",
-      "require": "./dist/cjs/v4.cjs",
-      "default": "./dist/esm/v4.mjs"
+      "react-native": "./dist/native/v4.js",
+      "browser": "./dist/esm/v4.js",
+      "module": "./dist/esm/v4.js",
+      "import": "./dist/esm/v4.js",
+      "require": "./dist/cjs/v4.js",
+      "default": "./dist/esm/v4.js"
     },
     "./v5": {
       "types": "./types/v5.d.ts",
-      "react-native": "./dist/esm/v5.native.js",
-      "browser": "./dist/esm/v5.mjs",
-      "module": "./dist/esm/v5.mjs",
-      "import": "./dist/esm/v5.mjs",
-      "require": "./dist/cjs/v5.cjs",
-      "default": "./dist/esm/v5.mjs"
+      "react-native": "./dist/native/v5.js",
+      "browser": "./dist/esm/v5.js",
+      "module": "./dist/esm/v5.js",
+      "import": "./dist/esm/v5.js",
+      "require": "./dist/cjs/v5.js",
+      "default": "./dist/esm/v5.js"
     },
     "./v5-css": {
       "types": "./types/v5-css.d.ts",
-      "react-native": "./dist/esm/v5-css.native.js",
-      "browser": "./dist/esm/v5-css.mjs",
-      "module": "./dist/esm/v5-css.mjs",
-      "import": "./dist/esm/v5-css.mjs",
-      "require": "./dist/cjs/v5-css.cjs",
-      "default": "./dist/esm/v5-css.mjs"
+      "react-native": "./dist/native/v5-css.js",
+      "browser": "./dist/esm/v5-css.js",
+      "module": "./dist/esm/v5-css.js",
+      "import": "./dist/esm/v5-css.js",
+      "require": "./dist/cjs/v5-css.js",
+      "default": "./dist/esm/v5-css.js"
     },
     "./v5-rn": {
       "types": "./types/v5-rn.d.ts",
-      "react-native": "./dist/esm/v5-rn.native.js",
-      "browser": "./dist/esm/v5-rn.mjs",
-      "module": "./dist/esm/v5-rn.mjs",
-      "import": "./dist/esm/v5-rn.mjs",
-      "require": "./dist/cjs/v5-rn.cjs",
-      "default": "./dist/esm/v5-rn.mjs"
+      "react-native": "./dist/native/v5-rn.js",
+      "browser": "./dist/esm/v5-rn.js",
+      "module": "./dist/esm/v5-rn.js",
+      "import": "./dist/esm/v5-rn.js",
+      "require": "./dist/cjs/v5-rn.js",
+      "default": "./dist/esm/v5-rn.js"
     },
     "./v5-reanimated": {
       "types": "./types/v5-reanimated.d.ts",
-      "react-native": "./dist/esm/v5-reanimated.native.js",
-      "browser": "./dist/esm/v5-reanimated.mjs",
-      "module": "./dist/esm/v5-reanimated.mjs",
-      "import": "./dist/esm/v5-reanimated.mjs",
-      "require": "./dist/cjs/v5-reanimated.cjs",
-      "default": "./dist/esm/v5-reanimated.mjs"
+      "react-native": "./dist/native/v5-reanimated.js",
+      "browser": "./dist/esm/v5-reanimated.js",
+      "module": "./dist/esm/v5-reanimated.js",
+      "import": "./dist/esm/v5-reanimated.js",
+      "require": "./dist/cjs/v5-reanimated.js",
+      "default": "./dist/esm/v5-reanimated.js"
     },
     "./v5-motion": {
       "types": "./types/v5-motion.d.ts",
-      "react-native": "./dist/esm/v5-motion.native.js",
-      "browser": "./dist/esm/v5-motion.mjs",
-      "module": "./dist/esm/v5-motion.mjs",
-      "import": "./dist/esm/v5-motion.mjs",
-      "require": "./dist/cjs/v5-motion.cjs",
-      "default": "./dist/esm/v5-motion.mjs"
+      "react-native": "./dist/native/v5-motion.js",
+      "browser": "./dist/esm/v5-motion.js",
+      "module": "./dist/esm/v5-motion.js",
+      "import": "./dist/esm/v5-motion.js",
+      "require": "./dist/cjs/v5-motion.js",
+      "default": "./dist/esm/v5-motion.js"
     },
     "./v5-subtle": {
       "types": "./types/v5-subtle.d.ts",
-      "react-native": "./dist/esm/v5-subtle.native.js",
-      "browser": "./dist/esm/v5-subtle.mjs",
-      "module": "./dist/esm/v5-subtle.mjs",
-      "import": "./dist/esm/v5-subtle.mjs",
-      "require": "./dist/cjs/v5-subtle.cjs",
-      "default": "./dist/esm/v5-subtle.mjs"
+      "react-native": "./dist/native/v5-subtle.js",
+      "browser": "./dist/esm/v5-subtle.js",
+      "module": "./dist/esm/v5-subtle.js",
+      "import": "./dist/esm/v5-subtle.js",
+      "require": "./dist/cjs/v5-subtle.js",
+      "default": "./dist/esm/v5-subtle.js"
     }
   },
   "publishConfig": {

@@ -9,11 +9,11 @@
   "sideEffects": [
     "*.css"
   ],
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index",
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

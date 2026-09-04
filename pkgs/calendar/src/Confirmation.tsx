@@ -7,10 +7,10 @@ import {
   XStack,
   YStack,
 } from '@hanzo/gui'
-import { DEFAULT_API_URL, type Booking } from './client'
-import { useBooking } from './hooks'
-import { visitorTimeZone } from './time'
-import { formatBookingWhen } from './time'
+import { DEFAULT_API_URL, type Booking } from './client.ts'
+import { useBooking } from './hooks.ts'
+import { visitorTimeZone } from './time.ts'
+import { formatBookingWhen } from './time.ts'
 
 export interface ConfirmationProps {
   /** Provide a booking directly, or a uid to fetch one. */

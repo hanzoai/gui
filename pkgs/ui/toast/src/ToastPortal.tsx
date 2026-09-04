@@ -1,7 +1,7 @@
 import { isWeb } from '@hanzogui/constants'
 import { Portal } from '@hanzogui/portal'
 import type { ReactNode } from 'react'
-import { ReprogapateToastProvider, type ToastProviderContextValue } from './ToastProvider'
+import { ReprogapateToastProvider, type ToastProviderContextValue } from './ToastProvider.tsx'
 
 export function ToastPortal(props: {
   children: ReactNode

@@ -12,8 +12,8 @@ import {
   createMeasureInWindow,
   createMeasureLayout,
 } from '@hanzogui/use-element-layout'
-import type { GenericStyleProp } from '../../types'
-import { useStable } from '../useStable/index'
+import type { GenericStyleProp } from '../../types.ts'
+import { useStable } from '../useStable/index.tsx'
 
 /**
  * Adds non-standard methods to the hode element. This is temporarily until an

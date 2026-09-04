@@ -5,7 +5,7 @@ import type {
   ElementProps,
   FloatingInteractionContext,
   UseInnerOffsetProps,
-} from './types'
+} from './types.ts'
 
 // ported from floating-ui/react/_deprecated-inner.ts useInnerOffset
 // changes the inner middleware's offset upon wheel events to expand the

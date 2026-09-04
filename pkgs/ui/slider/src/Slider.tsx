@@ -33,7 +33,7 @@ import {
   SliderProvider,
   useSliderContext,
   useSliderOrientationContext,
-} from './constants'
+} from './constants.tsx'
 import {
   convertValueToPercentage,
   getClosestValueIndex,
@@ -44,8 +44,8 @@ import {
   hasMinStepsBetweenValues,
   linearScale,
   roundValue,
-} from './helpers'
-import { SliderFrame, SliderImpl } from './SliderImpl'
+} from './helpers.tsx'
+import { SliderFrame, SliderImpl } from './SliderImpl.tsx'
 import type {
   ScopedProps,
   SliderContextValue,
@@ -53,7 +53,7 @@ import type {
   SliderProps,
   SliderTrackProps,
   SliderVerticalProps,
-} from './types'
+} from './types.ts'
 
 const activeSliderMeasureListeners = new Set<Function>()
 

@@ -5,8 +5,8 @@ import { dirname, extname, join, resolve } from 'node:path'
 import type { Binding, NodePath } from '@babel/traverse'
 import * as t from '@babel/types'
 
-import { evaluateAstNode } from './evaluateAstNode'
-import { getSourceModule } from './getSourceModule'
+import { evaluateAstNode } from './evaluateAstNode.ts'
+import { getSourceModule } from './getSourceModule.ts'
 
 // import { fileURLToPath } from 'node:url'
 // // @ts-ignore

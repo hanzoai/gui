@@ -3,8 +3,8 @@ import { normalizeColor, styled, useProps, useTheme } from '@hanzogui/core'
 import { YStack } from '@hanzogui/stacks'
 import type { ViewStyle } from 'react-native'
 
-import type { LinearGradientPoint } from './linear-gradient'
-import { LinearGradient as ExpoLinearGradient } from './linear-gradient'
+import type { LinearGradientPoint } from './linear-gradient.tsx'
+import { LinearGradient as ExpoLinearGradient } from './linear-gradient.tsx'
 
 // taken from expo-linear-gradient
 export type LinearGradientExtraProps = {

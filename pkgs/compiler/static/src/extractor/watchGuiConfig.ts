@@ -1,6 +1,6 @@
 import type { GuiOptions } from '@hanzogui/types'
-import { esbuildWatchFiles, generateThemesAndLog, getOptions } from './loadGui'
-import { regenerateConfig } from './regenerateConfig'
+import { esbuildWatchFiles, generateThemesAndLog, getOptions } from './loadGui.ts'
+import { regenerateConfig } from './regenerateConfig.ts'
 
 let isWatching = false
 

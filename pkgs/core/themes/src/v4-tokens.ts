@@ -1,4 +1,4 @@
-import { sizeToSpace } from './utils'
+import { sizeToSpace } from './utils.ts'
 
 // the same as v3 for now, but duplicated to avoid accidental changes to both
 

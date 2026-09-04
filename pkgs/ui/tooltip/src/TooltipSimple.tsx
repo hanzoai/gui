@@ -3,8 +3,8 @@ import type { SizableStackProps } from '@hanzogui/stacks'
 import { Paragraph } from '@hanzogui/text'
 import * as React from 'react'
 
-import type { TooltipProps } from './Tooltip'
-import { Tooltip } from './Tooltip'
+import type { TooltipProps } from './Tooltip.tsx'
+import { Tooltip } from './Tooltip.tsx'
 
 export type TooltipSimpleProps = TooltipProps & {
   disabled?: boolean

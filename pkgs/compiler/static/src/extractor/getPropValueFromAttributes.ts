@@ -1,7 +1,7 @@
 import generate from '@babel/generator'
 import * as t from '@babel/types'
 
-import { accessSafe } from './accessSafe'
+import { accessSafe } from './accessSafe.ts'
 
 /**
  * getPropValueFromAttributes gets a prop by name from a list of attributes and accounts for potential spread operators.

@@ -1,10 +1,10 @@
 import { createThemeBuilder } from '@hanzogui/theme-builder'
-import { componentThemeDefinitions } from './componentThemeDefinitions'
+import { componentThemeDefinitions } from './componentThemeDefinitions.tsx'
 import { masks } from '@hanzogui/theme-builder'
-import { palettes } from './palettes'
-import { shadows } from './shadows'
-import { maskOptions, templates } from './templates'
-import { darkColors, lightColors } from './tokens'
+import { palettes } from './palettes.tsx'
+import { shadows } from './shadows.tsx'
+import { maskOptions, templates } from './templates.tsx'
+import { darkColors, lightColors } from './tokens.tsx'
 
 const colorThemeDefinition = (colorName: string) => [
   {

@@ -9,8 +9,8 @@
 
 import { canUseDOM } from '@hanzogui/react-native-web-internals'
 
-import type { DisplayMetrics } from '../Dimensions/index'
-import { Dimensions } from '../Dimensions/index'
+import type { DisplayMetrics } from '../Dimensions/index.tsx'
+import { Dimensions } from '../Dimensions/index.tsx'
 
 export const DeviceInfo = {
   Dimensions: {

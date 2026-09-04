@@ -1,8 +1,8 @@
 import { usePrevious } from '@hanzogui/use-previous'
 import * as React from 'react'
 
-import type { CheckedState } from './useCheckbox'
-import { isIndeterminate } from './utils'
+import type { CheckedState } from './useCheckbox.tsx'
+import { isIndeterminate } from './utils.tsx'
 
 export interface BubbleInputProps extends Omit<React.ComponentProps<'input'>, 'checked'> {
   checked: CheckedState

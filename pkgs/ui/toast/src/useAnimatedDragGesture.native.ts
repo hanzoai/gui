@@ -13,7 +13,7 @@ import { getGestureHandler } from '@hanzogui/native'
 import * as React from 'react'
 import type { PanResponderGestureState } from 'react-native'
 import { PanResponder } from 'react-native'
-import type { SwipeDirection } from './ToastProvider'
+import type { SwipeDirection } from './ToastProvider.tsx'
 
 export interface UseAnimatedDragGestureOptions {
   direction: SwipeDirection

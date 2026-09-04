@@ -8,7 +8,7 @@ import {
   skipMask,
 } from '@hanzogui/create-theme'
 
-import { colorTokens, darkColors, lightColors } from './tokens'
+import { colorTokens, darkColors, lightColors } from './tokens.tsx'
 
 type ColorName = keyof typeof colorTokens.dark
 

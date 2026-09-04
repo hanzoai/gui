@@ -8,10 +8,10 @@ import type {
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
 } from 'react'
-import { createComponent } from './createComponent'
-import { mergeVariants } from './helpers/mergeVariants'
-import type { GetRef } from './interfaces/GetRef'
-import { getReactNativeConfig } from './setupReactNative'
+import { createComponent } from './createComponent.tsx'
+import { mergeVariants } from './helpers/mergeVariants.ts'
+import type { GetRef } from './interfaces/GetRef.tsx'
+import { getReactNativeConfig } from './setupReactNative.ts'
 import type {
   GetBaseStyles,
   GetNonStyledProps,
@@ -35,8 +35,8 @@ import type {
   ThemeValueGet,
   VariantDefinitions,
   VariantSpreadFunction,
-} from './types'
-import type { Text } from './views/Text'
+} from './types.tsx'
+import type { Text } from './views/Text.tsx'
 
 type AreVariantsUndefined<Variants> =
   // because we pass in the Generic variants which for some reason has this :)
@@ -454,8 +454,8 @@ function styled<
 // sanity check more complex types:
 
 // import { Paragraph } from '../../text/src/Paragraph'
-// import { Text } from './views/Text'
-// import { getFontSized } from '../../get-font-sized/src'
+// import { Text } from './views/Text.tsx'
+// import { getFontSized } from '../../get-font-sized/src/index.ts'
 // import { SizableText } from '../../text/src/SizableText'
 // const Text1 = styled(Text, {
 //   name: 'SizableText',

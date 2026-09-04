@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { isTauri } from './isTauri'
+import { isTauri } from './isTauri.ts'
 
 // Window controls for a frameless Tauri window (`decorations: false`). Each call
 // dynamically imports the Tauri API so a web bundle never hard-links it, and

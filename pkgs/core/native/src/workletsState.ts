@@ -1,5 +1,5 @@
-import { createGlobalState } from './globalState'
-import type { WorkletsState } from './types'
+import { createGlobalState } from './globalState.ts'
+import type { WorkletsState } from './types.ts'
 
 const state = createGlobalState<WorkletsState>(`worklets`, {
   enabled: false,

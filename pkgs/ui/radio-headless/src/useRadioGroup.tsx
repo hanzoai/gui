@@ -8,8 +8,8 @@ import type { ViewProps } from '@hanzogui/web'
 import type { ReactElement } from 'react'
 import { useContext, useEffect, useRef, useState } from 'react'
 import type { GestureResponderEvent } from 'react-native'
-import { BubbleInput } from './BubbleInput'
-import { getState } from './utils'
+import { BubbleInput } from './BubbleInput.tsx'
+import { getState } from './utils.tsx'
 
 interface UseRadioGroupParams {
   value?: string

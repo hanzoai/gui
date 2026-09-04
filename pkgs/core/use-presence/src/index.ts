@@ -1,2 +1,2 @@
-export { PresenceContext, ResetPresence } from './PresenceContext'
-export { isPresent, useIsPresent, usePresence } from './usePresence'
+export { PresenceContext, ResetPresence } from './PresenceContext.tsx'
+export { isPresent, useIsPresent, usePresence } from './usePresence.ts'

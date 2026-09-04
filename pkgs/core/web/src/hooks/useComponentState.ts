@@ -2,14 +2,14 @@ import { getPlatformDriver, isServer, isWeb } from '@hanzogui/constants'
 import { mergeIfNotShallowEqual } from '@hanzogui/is-equal-shallow'
 import { useDidFinishSSR, useIsClientOnly } from '@hanzogui/use-did-finish-ssr'
 import { useRef, useState } from 'react'
-import { getSetting } from '../config'
+import { getSetting } from '../config.ts'
 import {
   defaultComponentState,
   defaultComponentStateMounted,
   defaultComponentStateShouldEnter,
-} from '../defaultComponentState'
-import { isObj } from '../helpers/isObj'
-import { log } from '../helpers/log'
+} from '../defaultComponentState.tsx'
+import { isObj } from '../helpers/isObj.ts'
+import { log } from '../helpers/log.ts'
 import type {
   ComponentContextI,
   StaticConfig,
@@ -18,8 +18,8 @@ import type {
   GuiInternalConfig,
   TextProps,
   UseAnimationHook,
-} from '../types'
-import type { ViewProps } from '../views/View'
+} from '../types.tsx'
+import type { ViewProps } from '../views/View.tsx'
 
 export const useComponentState = (
   props: ViewProps | TextProps | Record<string, any>,

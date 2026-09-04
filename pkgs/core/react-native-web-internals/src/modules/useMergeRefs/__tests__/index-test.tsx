@@ -9,7 +9,7 @@ import { cleanup, render } from '@testing-library/react'
 import * as React from 'react'
 import { act } from 'react-dom/test-utils'
 
-import useMergeRefs from '..'
+import useMergeRefs from '../index.tsx'
 
 describe('modules/useMergeRefs/index.js', () => {
   function TestComponent({ refs, ...rest }) {

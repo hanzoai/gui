@@ -1,4 +1,4 @@
-import type { CheckedState } from './useCheckbox'
+import type { CheckedState } from './useCheckbox.tsx'
 
 export function isIndeterminate(checked?: CheckedState): checked is 'indeterminate' {
   return checked === 'indeterminate'

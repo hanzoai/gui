@@ -1,1 +1,1 @@
-export * from './useSwitch'
+export * from './useSwitch.tsx'

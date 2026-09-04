@@ -3,7 +3,7 @@ import type {
   NormalizedTransition,
   SpringConfig,
   TransitionPropInput,
-} from './types'
+} from './types.ts'
 
 const SPRING_CONFIG_KEYS: Set<string> = new Set([
   'stiffness',
@@ -82,7 +82,7 @@ export function normalizeTransition(
           exit = value
         } else if (isSpringConfigKey(key) && value !== undefined) {
           // Spring config override: { stiffness: 1000, damping: 70 }
-          springConfig[key] = value as SpringConfig[keyof SpringConfig]
+          Object.assign(springConfig, { [key]: value })
         } else if (value !== undefined) {
           // Property-specific animation: string or config object
           properties[key] = value as string | AnimationConfig
@@ -121,7 +121,7 @@ export function normalizeTransition(
         delay = value
       } else if (isSpringConfigKey(key) && value !== undefined) {
         // Spring config override: { stiffness: 1000, damping: 70 }
-        springConfig[key] = value as SpringConfig[keyof SpringConfig]
+        Object.assign(springConfig, { [key]: value })
       } else if (value !== undefined) {
         // Property-specific animation: string or config object
         properties[key] = value as string | AnimationConfig

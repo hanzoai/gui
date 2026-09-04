@@ -1,6 +1,6 @@
 import type React from 'react'
 
-import type { FocusOutsideEvent, PointerDownOutsideEvent } from './Dismissable'
+import type { FocusOutsideEvent, PointerDownOutsideEvent } from './Dismissable.tsx'
 
 export interface DismissableProps {
   /**

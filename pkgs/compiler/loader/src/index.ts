@@ -1,7 +1,7 @@
-import './polyfills'
+import './polyfills.ts'
 
-import { loader } from './loader'
+import { loader } from './loader.ts'
 
 export default loader
-export * from './GuiPlugin'
-export * from './shouldExclude'
+export * from './GuiPlugin.ts'
+export * from './shouldExclude.ts'

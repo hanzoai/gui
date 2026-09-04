@@ -1,10 +1,10 @@
-import { setConfigFont } from './config'
-import { FONT_DATA_ATTRIBUTE_NAME } from './constants/constants'
-import { createFont } from './createFont'
-import type { DeepVariableObject } from './createVariables'
-import { createVariables } from './createVariables'
-import { registerCSSVariable, variableToCSS } from './helpers/registerCSSVariable'
-import type { GenericFont, Variable } from './types'
+import { setConfigFont } from './config.ts'
+import { FONT_DATA_ATTRIBUTE_NAME } from './constants/constants.ts'
+import { createFont } from './createFont.ts'
+import type { DeepVariableObject } from './createVariables.ts'
+import { createVariables } from './createVariables.ts'
+import { registerCSSVariable, variableToCSS } from './helpers/registerCSSVariable.ts'
+import type { GenericFont, Variable } from './types.tsx'
 
 /**
  * Runtime dynamic insert font

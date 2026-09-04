@@ -19,8 +19,8 @@ const themes = createV5Theme({
 })
 import type { CreateGuiProps } from '@hanzogui/core'
 import { setupDev } from '@hanzogui/core'
-import { bodyFont, headingFont, monoFont, pixelFont } from './fonts'
-import { media, mediaQueryDefaultActive } from './media'
+import { bodyFont, headingFont, monoFont, pixelFont } from './fonts.ts'
+import { media, mediaQueryDefaultActive } from './media.ts'
 
 setupDev({
   visualizer: true,

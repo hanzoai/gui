@@ -1,8 +1,8 @@
 import type { JSX } from 'react/jsx-runtime'
 import type { XStackProps } from '@hanzo/gui'
 import { XStack, YStack } from '@hanzo/gui'
-import { LogoIcon } from './LogoIcon'
-import { LogoWords } from './LogoWords'
+import { LogoIcon } from './LogoIcon.tsx'
+import { LogoWords } from './LogoWords.tsx'
 
 type LogoProps = {
   showWords?: boolean

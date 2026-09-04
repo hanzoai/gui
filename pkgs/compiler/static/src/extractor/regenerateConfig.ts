@@ -4,10 +4,10 @@ import { generateThemes, writeGeneratedThemes } from '@hanzogui/generate-themes'
 import type { GuiOptions } from '@hanzogui/types'
 import * as FS from 'fs-extra'
 
-import { requireGuiCore } from '../helpers/requireGuiCore'
-import type { GuiPlatform } from '../types'
-import type { BundledConfig } from './bundleConfig'
-import { getBundledConfig } from './bundleConfig'
+import { requireGuiCore } from '../helpers/requireGuiCore.ts'
+import type { GuiPlatform } from '../types.ts'
+import type { BundledConfig } from './bundleConfig.ts'
+import { getBundledConfig } from './bundleConfig.ts'
 
 const hanzoguiDir = join(process.cwd(), '.hanzogui')
 const confFile = join(hanzoguiDir, 'hanzogui.config.json')

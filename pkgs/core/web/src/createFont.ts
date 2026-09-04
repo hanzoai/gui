@@ -1,4 +1,4 @@
-import type { FontWeightValues, GenericFont } from './types'
+import type { FontWeightValues, GenericFont } from './types.tsx'
 
 const fontWeights: FontWeightValues[] = [
   '100',

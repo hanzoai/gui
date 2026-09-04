@@ -7,9 +7,9 @@ import esbuild from 'esbuild'
 import * as esbuildWasm from 'esbuild-wasm'
 import * as fsExtra from 'fs-extra'
 
-import { SHOULD_DEBUG } from '../constants'
-import { requireGuiCore } from '../helpers/requireGuiCore'
-import { getNameToPaths, registerRequire } from '../registerRequire'
+import { SHOULD_DEBUG } from '../constants.ts'
+import { requireGuiCore } from '../helpers/requireGuiCore.ts'
+import { getNameToPaths, registerRequire } from '../registerRequire.ts'
 import {
   type GuiProjectInfo,
   getBundledConfig,
@@ -17,13 +17,13 @@ import {
   hasBundledConfigChanged,
   loadComponentsSync,
   writeGuiCSS,
-} from './bundleConfig'
-import { getGuiConfigPathFromOptionsConfig } from './getGuiConfigPathFromOptionsConfig'
+} from './bundleConfig.ts'
+import { getGuiConfigPathFromOptionsConfig } from './getGuiConfigPathFromOptionsConfig.ts'
 import {
   generateGuiThemes,
   regenerateConfig,
   regenerateConfigSync,
-} from './regenerateConfig'
+} from './regenerateConfig.ts'
 
 const getFilledOptions = (propsIn: Partial<GuiOptions>): GuiOptions => ({
   // defaults

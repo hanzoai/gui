@@ -2,8 +2,8 @@ import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import { GuiRoot, useThemeName } from '@hanzogui/web'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
-import { allPortalHosts, portalListeners } from './constants'
-import type { PortalItemProps } from './types'
+import { allPortalHosts, portalListeners } from './constants.ts'
+import type { PortalItemProps } from './types.ts'
 
 export const GorhomPortalItem = (props: PortalItemProps) => {
   const theme = useThemeName()

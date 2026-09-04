@@ -1,6 +1,6 @@
 import type { ColorTokens, TextStyle, GuiElementMethods } from '@hanzogui/web'
 import type { TextInput } from 'react-native'
-import type { InputNativeProps } from './InputNativeProps'
+import type { InputNativeProps } from './InputNativeProps.ts'
 
 /**
  * Extra props that Input adds on top of the base styled component.

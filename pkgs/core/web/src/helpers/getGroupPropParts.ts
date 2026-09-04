@@ -1,5 +1,5 @@
-import { getMedia } from './mediaState'
-import { pseudoPriorities } from './pseudoDescriptors'
+import { getMedia } from './mediaState.ts'
+import { pseudoPriorities } from './pseudoDescriptors.ts'
 
 export type GroupParts = { name: string; pseudo?: string; media?: string }
 

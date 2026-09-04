@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import propsToAriaRole from '../propsToAriaRole'
+import propsToAriaRole from '../propsToAriaRole.tsx'
 
 describe('modules/AccessibilityUtil/propsToAriaRole', () => {
   test('when missing accessibility props', () => {

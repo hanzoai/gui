@@ -5,18 +5,18 @@ import { ScrollView } from '@hanzogui/scroll-view'
 import { useControllableState } from '@hanzogui/use-controllable-state'
 import React, { useEffect, useRef, useState } from 'react'
 import type { ScrollView as RNScrollView } from 'react-native'
-import { useGestureSheetContext } from './GestureSheetContext'
-import { getGestureHandlerState, isGestureHandlerEnabled } from './gestureState'
-import { useSheetContext } from './SheetContext'
-import type { SheetScopedProps } from './types'
-import { useSheetScrollViewGestures } from './useSheetScrollViewGestures'
+import { useGestureSheetContext } from './GestureSheetContext.tsx'
+import { getGestureHandlerState, isGestureHandlerEnabled } from './gestureState.ts'
+import { useSheetContext } from './SheetContext.tsx'
+import type { SheetScopedProps } from './types.tsx'
+import { useSheetScrollViewGestures } from './useSheetScrollViewGestures.ts'
 import {
   getStableLayoutViewportHeight,
   getWebKeyboardBottomInset,
   getWebKeyboardResizeHeight,
   isEditableElement,
   MIN_KEYBOARD_HEIGHT,
-} from './webViewport'
+} from './webViewport.ts'
 
 const SHEET_SCROLL_VIEW_NAME = 'SheetScrollView'
 

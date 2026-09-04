@@ -8,7 +8,7 @@ import {
 import { SizableContext } from '@hanzogui/sizable-context'
 
 import type { FC } from 'react'
-import type { IconProps } from './IconProps'
+import type { IconProps } from './IconProps.ts'
 
 export { SizableContext }
 

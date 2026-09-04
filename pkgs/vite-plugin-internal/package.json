@@ -3,20 +3,19 @@
   "version": "8.3.1",
   "private": true,
   "type": "module",
-  "main": "./dist/cjs/vite.config.js",
+  "main": "./dist/esm/vite.config.js",
   "module": "./dist/esm/vite.config.js",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "react-native": "./dist/esm/vite.config.native.js",
-      "browser": "./dist/esm/vite.config.mjs",
-      "module": "./dist/esm/vite.config.mjs",
-      "import": "./dist/esm/vite.config.mjs",
-      "require": "./dist/cjs/vite.config.cjs"
+      "react-native": "./dist/esm/vite.config.js",
+      "browser": "./dist/esm/vite.config.js",
+      "module": "./dist/esm/vite.config.js",
+      "import": "./dist/esm/vite.config.js"
     }
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

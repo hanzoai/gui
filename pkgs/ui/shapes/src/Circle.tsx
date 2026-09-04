@@ -1,7 +1,7 @@
 import type { GetProps } from '@hanzogui/web'
 import { styled } from '@hanzogui/web'
 
-import { Square } from './Square'
+import { Square } from './Square.tsx'
 
 export const Circle = styled(Square, {
   name: 'Circle',

@@ -1,10 +1,10 @@
-export * from './Slider'
-export { SliderContext } from './constants'
+export * from './Slider.tsx'
+export { SliderContext } from './constants.tsx'
 // for static extract to find, must export
-export { SliderFrame } from './SliderImpl'
+export { SliderFrame } from './SliderImpl.tsx'
 export type {
   SliderProps,
   SliderHorizontalProps,
   SliderVerticalProps,
   SliderTrackProps,
-} from './types'
+} from './types.ts'

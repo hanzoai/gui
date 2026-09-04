@@ -1,9 +1,9 @@
 import { View } from '@hanzogui/core'
 import { getPortal, NativePortal } from '@hanzogui/native'
 import { useStackedZIndex } from '@hanzogui/z-index-stack'
-import { GorhomPortalItem } from './GorhomPortalItem'
-import { getStackedZIndexProps } from './helpers'
-import type { PortalProps } from './PortalProps'
+import { GorhomPortalItem } from './GorhomPortalItem.tsx'
+import { getStackedZIndexProps } from './helpers.ts'
+import type { PortalProps } from './PortalProps.tsx'
 
 export const Portal = (propsIn: PortalProps) => {
   const zIndex = useStackedZIndex(getStackedZIndexProps(propsIn))

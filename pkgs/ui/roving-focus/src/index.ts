@@ -1,1 +1,1 @@
-export * from './RovingFocusGroup'
+export * from './RovingFocusGroup.tsx'

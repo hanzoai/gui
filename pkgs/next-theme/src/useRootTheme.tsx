@@ -1,7 +1,7 @@
 import { useState, type Dispatch, type SetStateAction } from 'react'
 import { isClient } from '@hanzogui/constants'
 
-import type { ColorScheme } from './types'
+import type { ColorScheme } from './types.tsx'
 
 export const useRootTheme = ({ fallback = 'light' }: { fallback?: ColorScheme } = {}): [
   ColorScheme,

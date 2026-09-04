@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { ClientOnlyContext } from './ClientOnly'
+import { ClientOnlyContext } from './ClientOnly.tsx'
 
-export { ClientOnly, ClientOnlyContext } from './ClientOnly'
+export { ClientOnly, ClientOnlyContext } from './ClientOnly.tsx'
 
 export const useIsClientOnly = (): boolean => {
   return React.useContext(ClientOnlyContext)

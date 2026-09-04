@@ -1,7 +1,7 @@
 import type { MediaQueryObject } from '@hanzogui/web'
 import { setupMatchMedia } from '@hanzogui/web'
 
-import { matchMedia } from './matchMedia'
+import { matchMedia } from './matchMedia.ts'
 
 /**
  * @deprecated you no longer need to call createMedia or import @hanzogui/react-native-media-driver at all.

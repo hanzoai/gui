@@ -4,9 +4,9 @@ import type { GuiInternalConfig } from '@hanzogui/core'
 import * as core from '@hanzogui/core'
 import type { ViewStyle } from 'react-native'
 
-import { requireGuiCore } from '../helpers/requireGuiCore'
-import type { StyleObject, GuiOptionsWithFileInfo, Ternary } from '../types'
-import { isPresent, isValidImport } from './extractHelpers'
+import { requireGuiCore } from '../helpers/requireGuiCore.ts'
+import type { StyleObject, GuiOptionsWithFileInfo, Ternary } from '../types.ts'
+import { isPresent, isValidImport } from './extractHelpers.ts'
 
 export function extractMediaStyle(
   props: GuiOptionsWithFileInfo,

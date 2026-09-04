@@ -1,1 +1,1 @@
-export * from './Popper'
+export * from './Popper.tsx'

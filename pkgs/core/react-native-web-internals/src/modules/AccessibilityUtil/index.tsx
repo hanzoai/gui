@@ -7,9 +7,9 @@
  * @flow
  */
 
-import { isDisabled } from './isDisabled'
-import { propsToAccessibilityComponent } from './propsToAccessibilityComponent'
-import { propsToAriaRole } from './propsToAriaRole'
+import { isDisabled } from './isDisabled.tsx'
+import { propsToAccessibilityComponent } from './propsToAccessibilityComponent.tsx'
+import { propsToAriaRole } from './propsToAriaRole.tsx'
 
 export const AccessibilityUtil = {
   isDisabled,

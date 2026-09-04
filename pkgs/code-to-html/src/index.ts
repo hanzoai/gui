@@ -1,11 +1,11 @@
 import { toHtml } from 'hast-util-to-html'
 import rangeParser from 'parse-numeric-range'
 import { refractor } from 'refractor'
-import css from 'refractor/lang/css'
-import tsx from 'refractor/lang/tsx'
+import css from 'refractor/css'
+import tsx from 'refractor/tsx'
 
-import { highlightLine } from './highlightLine'
-import { highlightWord } from './highlightWord'
+import { highlightLine } from './highlightLine.ts'
+import { highlightWord } from './highlightWord.ts'
 
 refractor.register(tsx)
 refractor.register(css)

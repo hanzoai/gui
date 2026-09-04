@@ -1,4 +1,4 @@
-import { isTauri } from './isTauri'
+import { isTauri } from './isTauri.ts'
 
 // Thin fs + shell bridge. Each guards on isTauri() and dynamically imports the
 // Tauri plugin, so the web build stays clean. Off-Tauri, reads/opens reject or

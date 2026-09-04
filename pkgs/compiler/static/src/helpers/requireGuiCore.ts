@@ -1,6 +1,6 @@
 // this allows us to swap between core native and web in the same process:
 
-import type { GuiPlatform } from '../types'
+import type { GuiPlatform } from '../types.ts'
 
 export function requireGuiCore(
   platform: GuiPlatform,

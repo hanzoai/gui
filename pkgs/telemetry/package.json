@@ -10,24 +10,23 @@
     "README.md"
   ],
   "type": "module",
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "sideEffects": false,
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
     }
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build",

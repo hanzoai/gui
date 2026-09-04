@@ -2,13 +2,13 @@ import { AdaptContext, AdaptPortalContents, useAdaptContext } from '@hanzogui/ad
 import { Theme, useThemeName } from '@hanzogui/core'
 import { YStack } from '@hanzogui/stacks'
 
-import { VIEWPORT_NAME } from './constants'
+import { VIEWPORT_NAME } from './constants.tsx'
 import {
   ForwardSelectContext,
   useSelectContext,
   useSelectItemParentContext,
-} from './context'
-import type { SelectViewportProps } from './types'
+} from './context.tsx'
+import type { SelectViewportProps } from './types.tsx'
 
 export const SelectViewport = (props: SelectViewportProps) => {
   const { scope, children } = props

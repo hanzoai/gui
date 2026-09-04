@@ -1,6 +1,6 @@
-import type { ToastT } from './ToastState'
-import type { BurntToastOptions } from './types'
-import { createNativeToast } from './createNativeToast'
+import type { ToastT } from './ToastState.ts'
+import type { BurntToastOptions } from './types.ts'
+import { createNativeToast } from './createNativeToast.tsx'
 
 /**
  * Attempts to dispatch a toast via native platform API (Burnt on mobile, Notification on web).

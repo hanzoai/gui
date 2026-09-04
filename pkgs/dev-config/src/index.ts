@@ -1,2 +1,2 @@
-export * from './hanzogui.dev.config'
-export * from './media'
+export * from './hanzogui.dev.config.ts'
+export * from './media.ts'

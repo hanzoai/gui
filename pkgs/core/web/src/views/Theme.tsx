@@ -1,16 +1,16 @@
 import { isWeb } from '@hanzogui/constants'
 import type { MutableRefObject } from 'react'
 import React, { Children, cloneElement, forwardRef, isValidElement, useRef } from 'react'
-import { getSetting } from '../config'
-import { variableToString } from '../createVariable'
-import { useThemeWithState } from '../hooks/useTheme'
+import { getSetting } from '../config.ts'
+import { variableToString } from '../createVariable.ts'
+import { useThemeWithState } from '../hooks/useTheme.tsx'
 import {
   getThemeState,
   hasThemeUpdatingProps,
   ThemeStateContext,
-} from '../hooks/useThemeState'
-import type { ThemeProps, ThemeState } from '../types'
-import { ThemeDebug } from './ThemeDebug'
+} from '../hooks/useThemeState.ts'
+import type { ThemeProps, ThemeState } from '../types.tsx'
+import { ThemeDebug } from './ThemeDebug.tsx'
 
 type ThemeComponentPropsOnly = ThemeProps & { passThrough?: boolean; contain?: boolean }
 

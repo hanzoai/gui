@@ -7,7 +7,7 @@
 
 import React from 'react'
 
-import AppRegistry from '..'
+import AppRegistry from '../index.tsx'
 
 const NoopComponent = () => React.createElement('div')
 

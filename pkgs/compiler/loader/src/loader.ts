@@ -1,7 +1,7 @@
 import * as StaticWorker from '@hanzogui/static-worker'
 import type { GuiOptions } from '@hanzogui/types'
 import type { LoaderContext } from 'webpack'
-import { requireResolve } from './requireResolve'
+import { requireResolve } from './requireResolve.ts'
 
 const { getPragmaOptions, isExtractable } = StaticWorker
 

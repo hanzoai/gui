@@ -7,8 +7,8 @@
  * @flow
  */
 
-import { isWebColor } from '../isWebColor/index'
-import { processColor } from '../processColor/index'
+import { isWebColor } from '../isWebColor/index.tsx'
+import { processColor } from '../processColor/index.tsx'
 
 export const normalizeColor = (
   color: number | string | null | undefined,

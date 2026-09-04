@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import type { XStackProps } from '@hanzo/gui'
 import { Circle, XStack } from '@hanzo/gui'
 import { WORDMARKS } from '@hanzo/logo/wordmarks'
-import { useTint } from './useTint'
+import { useTint } from './useTint.tsx'
 
 /**
  * The wordmark.

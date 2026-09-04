@@ -1,6 +1,6 @@
 import { styled } from '@hanzogui/web'
-import { Input } from './Input'
-import { defaultStyles, textAreaSizeVariant } from '../shared'
+import { Input } from './Input.tsx'
+import { defaultStyles, textAreaSizeVariant } from '../shared.tsx'
 
 /**
  * @deprecated Use the new TextArea from '@hanzogui/input' instead

@@ -1,4 +1,4 @@
-export * from './useStackedZIndex'
-export * from './StackZIndex'
-export * from './context'
-export type * from './types'
+export * from './useStackedZIndex.tsx'
+export * from './StackZIndex.tsx'
+export * from './context.ts'
+export type * from './types.ts'

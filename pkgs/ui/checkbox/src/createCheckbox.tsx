@@ -19,8 +19,8 @@ import { useGetThemedIcon } from '@hanzogui/component-helpers'
 import { useControllableState } from '@hanzogui/use-controllable-state'
 import React, { useMemo } from 'react'
 
-import { CheckboxFrame, CheckboxIndicatorFrame } from './Checkbox'
-import { CheckboxStyledContext } from './CheckboxStyledContext'
+import { CheckboxFrame, CheckboxIndicatorFrame } from './Checkbox.tsx'
+import { CheckboxStyledContext } from './CheckboxStyledContext.tsx'
 
 type CheckboxExpectingVariantProps = {
   size?: SizeTokens

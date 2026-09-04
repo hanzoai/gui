@@ -34,56 +34,56 @@ export type {
   NativePortalProps,
   NativePortalHostProps,
   NativePortalProviderProps,
-} from './types'
+} from './types.ts'
 
 // portal
-export { getPortal } from './portalState'
-export type { PortalAccessor } from './portalState'
+export { getPortal } from './portalState.ts'
+export type { PortalAccessor } from './portalState.ts'
 
 // gesture handler
-export { getGestureHandler } from './gestureState'
+export { getGestureHandler } from './gestureState.ts'
 export {
   claimExternalPressOwnership as unstable_claimExternalPressOwnership,
   hasExternalPressOwnership as unstable_hasExternalPressOwnership,
   releaseExternalPressOwnership as unstable_releaseExternalPressOwnership,
-} from './gestureState'
+} from './gestureState.ts'
 export type {
   ExternalPressOwnershipToken,
   GestureHandlerAccessor,
   PressGestureConfig,
-} from './gestureState'
+} from './gestureState.ts'
 // NOTE: setupGestureHandler is exported from setup-gesture-handler.ts entry point,
 // not here, to avoid bundler pulling in RNGH require during tree-shaking
-export type { GestureHandlerConfig } from './setup-gesture-handler'
+export type { GestureHandlerConfig } from './setup-gesture-handler.ts'
 
 // worklets
-export { getWorklets } from './workletsState'
-export type { WorkletsAccessor } from './workletsState'
+export { getWorklets } from './workletsState.ts'
+export type { WorkletsAccessor } from './workletsState.ts'
 
 // safe area
-export { getSafeArea } from './safeAreaState'
-export type { SafeAreaAccessor } from './safeAreaState'
+export { getSafeArea } from './safeAreaState.ts'
+export type { SafeAreaAccessor } from './safeAreaState.ts'
 
 // linear gradient
-export { getLinearGradient } from './linearGradientState'
-export type { LinearGradientAccessor } from './linearGradientState'
+export { getLinearGradient } from './linearGradientState.ts'
+export type { LinearGradientAccessor } from './linearGradientState.ts'
 
 // keyboard controller state exports (safe - no side effects)
 export {
   isKeyboardControllerEnabled,
   getKeyboardControllerState,
   setKeyboardControllerState,
-} from './keyboardControllerState'
-export type { KeyboardControllerState } from './keyboardControllerState'
+} from './keyboardControllerState.ts'
+export type { KeyboardControllerState } from './keyboardControllerState.ts'
 
 // zeego (native menus)
-export { getZeego } from './zeegoState'
-export type { ZeegoAccessor } from './zeegoState'
-export { NativeMenuContext } from './nativeMenuContext'
+export { getZeego } from './zeegoState.ts'
+export type { ZeegoAccessor } from './zeegoState.ts'
+export { NativeMenuContext } from './nativeMenuContext.ts'
 
 // burnt (native toasts)
-export { getBurnt } from './burntState'
-export type { BurntAccessor } from './burntState'
+export { getBurnt } from './burntState.ts'
+export type { BurntAccessor } from './burntState.ts'
 
 // components
-export { NativePortal, NativePortalHost, NativePortalProvider } from './components'
+export { NativePortal, NativePortalHost, NativePortalProvider } from './components.tsx'

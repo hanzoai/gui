@@ -9,8 +9,8 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 
 import StyleSheet from '../../StyleSheet/index'
-import View from '../../View'
-import AppRegistry from '..'
+import View from '../../View/index.tsx'
+import AppRegistry from '../index.tsx'
 
 const NoopComponent = () => React.createElement('div')
 

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { preprocess } from '../preprocess'
+import { preprocess } from '../preprocess.tsx'
 
 describe('StyleSheet/preprocess', () => {
   describe('preprocesses multiple shadow styles into a single declaration', () => {

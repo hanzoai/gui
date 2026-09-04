@@ -23,80 +23,80 @@
     "src"
   ],
   "type": "module",
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./without-animated": {
-      "browser": "./dist/esm/without-animated.mjs",
-      "module": "./dist/esm/without-animated.mjs",
-      "import": "./dist/esm/without-animated.mjs",
-      "require": "./dist/cjs/without-animated.cjs"
+      "browser": "./dist/esm/without-animated.js",
+      "module": "./dist/esm/without-animated.js",
+      "import": "./dist/esm/without-animated.js",
+      "require": "./dist/cjs/without-animated.js"
     },
     "./Libraries/Pressability/Pressability": {
-      "browser": "./dist/esm/Libraries/Pressability/Pressability.mjs",
-      "module": "./dist/esm/Libraries/Pressability/Pressability.mjs",
-      "import": "./dist/esm/Libraries/Pressability/Pressability.mjs",
-      "require": "./dist/cjs/Libraries/Pressability/Pressability.cjs"
+      "browser": "./dist/esm/Libraries/Pressability/Pressability.js",
+      "module": "./dist/esm/Libraries/Pressability/Pressability.js",
+      "import": "./dist/esm/Libraries/Pressability/Pressability.js",
+      "require": "./dist/cjs/Libraries/Pressability/Pressability.js"
     },
     "./Libraries/Pressability/usePressability": {
-      "browser": "./dist/esm/Libraries/Pressability/usePressability.mjs",
-      "module": "./dist/esm/Libraries/Pressability/usePressability.mjs",
-      "import": "./dist/esm/Libraries/Pressability/usePressability.mjs",
-      "require": "./dist/cjs/Libraries/Pressability/usePressability.cjs"
+      "browser": "./dist/esm/Libraries/Pressability/usePressability.js",
+      "module": "./dist/esm/Libraries/Pressability/usePressability.js",
+      "import": "./dist/esm/Libraries/Pressability/usePressability.js",
+      "require": "./dist/cjs/Libraries/Pressability/usePressability.js"
     },
     "./Libraries/Utilities/codegenNativeComponent": {
-      "browser": "./dist/esm/codegenNativeComponent.mjs",
-      "module": "./dist/esm/codegenNativeComponent.mjs",
-      "import": "./dist/esm/codegenNativeComponent.mjs",
-      "require": "./dist/cjs/codegenNativeComponent.cjs"
+      "browser": "./dist/esm/codegenNativeComponent.js",
+      "module": "./dist/esm/codegenNativeComponent.js",
+      "import": "./dist/esm/codegenNativeComponent.js",
+      "require": "./dist/cjs/codegenNativeComponent.js"
     },
     "./Libraries/Utilities/codegenNativeCommand": {
-      "browser": "./dist/esm/codegenNativeCommand.mjs",
-      "module": "./dist/esm/codegenNativeCommand.mjs",
-      "import": "./dist/esm/codegenNativeCommand.mjs",
-      "require": "./dist/cjs/codegenNativeCommand.cjs"
+      "browser": "./dist/esm/codegenNativeCommand.js",
+      "module": "./dist/esm/codegenNativeCommand.js",
+      "import": "./dist/esm/codegenNativeCommand.js",
+      "require": "./dist/cjs/codegenNativeCommand.js"
     },
     "./dist/exports/StyleSheet/compiler/createReactDOMStyle": {
-      "browser": "./dist/esm/createReactDOMStyle.mjs",
-      "module": "./dist/esm/createReactDOMStyle.mjs",
-      "import": "./dist/esm/createReactDOMStyle.mjs",
-      "require": "./dist/cjs/createReactDOMStyle.cjs"
+      "browser": "./dist/esm/createReactDOMStyle.js",
+      "module": "./dist/esm/createReactDOMStyle.js",
+      "import": "./dist/esm/createReactDOMStyle.js",
+      "require": "./dist/cjs/createReactDOMStyle.js"
     },
     "./dist/exports/StyleSheet/preprocess": {
-      "browser": "./dist/esm/preprocess.mjs",
-      "module": "./dist/esm/preprocess.mjs",
-      "import": "./dist/esm/preprocess.mjs",
-      "require": "./dist/cjs/preprocess.cjs"
+      "browser": "./dist/esm/preprocess.js",
+      "module": "./dist/esm/preprocess.js",
+      "import": "./dist/esm/preprocess.js",
+      "require": "./dist/cjs/preprocess.js"
     },
     "./dist/modules/*": {
-      "browser": "./dist/esm/modules/*/index.mjs",
-      "module": "./dist/esm/modules/*/index.mjs",
-      "import": "./dist/esm/modules/*/index.mjs",
-      "require": "./dist/cjs/modules/*/index.cjs"
+      "browser": "./dist/esm/modules/*/index.js",
+      "module": "./dist/esm/modules/*/index.js",
+      "import": "./dist/esm/modules/*/index.js",
+      "require": "./dist/cjs/modules/*/index.js"
     },
     "./dist/exports/*": {
-      "browser": "./dist/esm/exports/*/index.mjs",
-      "module": "./dist/esm/exports/*/index.mjs",
-      "import": "./dist/esm/exports/*/index.mjs",
-      "require": "./dist/cjs/exports/*/index.cjs"
+      "browser": "./dist/esm/exports/*/index.js",
+      "module": "./dist/esm/exports/*/index.js",
+      "import": "./dist/esm/exports/*/index.js",
+      "require": "./dist/cjs/exports/*/index.js"
     },
     "./dist/*": {
-      "browser": "./dist/esm/*/index.mjs",
-      "module": "./dist/esm/*/index.mjs",
-      "import": "./dist/esm/*/index.mjs",
-      "require": "./dist/cjs/*/index.cjs"
+      "browser": "./dist/esm/*/index.js",
+      "module": "./dist/esm/*/index.js",
+      "import": "./dist/esm/*/index.js",
+      "require": "./dist/cjs/*/index.js"
     }
   },
   "scripts": {
-    "build": "hanzogui-build --skip-types --skip-native",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch --skip-types --skip-native",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

@@ -8,8 +8,8 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
-import Text from '../../Text'
-import ImageBackground from '..'
+import Text from '../../Text/index.tsx'
+import ImageBackground from '../index.tsx'
 
 function findImage(container) {
   return container.firstChild.firstChild

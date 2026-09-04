@@ -5,7 +5,7 @@ import {
   monthMatrix,
   weekdayLabels,
   type MonthCell,
-} from './time'
+} from './time.ts'
 
 export interface MonthCalendarProps {
   viewDate: Date

@@ -1,4 +1,4 @@
-import type { ThemeProps, ThemeState } from '../types'
+import type { ThemeProps, ThemeState } from '../types.tsx'
 
 export function ThemeDebug({
   themeState,

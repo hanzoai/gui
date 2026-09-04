@@ -1,7 +1,7 @@
-import { getSetting } from '../config'
-import { mediaObjectToString } from './mediaObjectToString'
-import type { IsMediaType, MediaQueries, MediaStyleObject, StyleObject } from '../types'
-import { getGroupPropParts, type GroupParts } from './getGroupPropParts'
+import { getSetting } from '../config.ts'
+import { mediaObjectToString } from './mediaObjectToString.ts'
+import type { IsMediaType, MediaQueries, MediaStyleObject, StyleObject } from '../types.tsx'
+import { getGroupPropParts, type GroupParts } from './getGroupPropParts.ts'
 
 // TODO have this be used by extractMediaStyle in hanzogui static
 // not synced to static/constants for now

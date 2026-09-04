@@ -4,9 +4,9 @@ import { styled, useIsomorphicLayoutEffect } from '@hanzogui/core'
 import { SizableText } from '@hanzogui/text'
 import * as React from 'react'
 
-import { useSelectItemParentContext } from './context'
-import { useSelectItemContext } from './SelectItem'
-import type { SelectScopedProps } from './types'
+import { useSelectItemParentContext } from './context.tsx'
+import { useSelectItemContext } from './SelectItem.tsx'
+import type { SelectScopedProps } from './types.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * SelectItemText

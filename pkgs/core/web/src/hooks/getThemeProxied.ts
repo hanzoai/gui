@@ -1,8 +1,8 @@
 import { supportsDynamicColorIOS } from '@hanzogui/constants'
 import type { MutableRefObject } from 'react'
-import { getConfig, getSetting } from '../config'
-import { getVariable } from '../createVariable'
-import { getDynamicVal } from '../helpers/getDynamicVal'
+import { getConfig, getSetting } from '../config.ts'
+import { getVariable } from '../createVariable.ts'
+import { getDynamicVal } from '../helpers/getDynamicVal.ts'
 import type {
   ThemeParsed,
   ThemeState,
@@ -11,8 +11,8 @@ import type {
   Variable,
   VariableVal,
   VariableValGeneric,
-} from '../types'
-import { doesRootSchemeMatchSystem } from './doesRootSchemeMatchSystem'
+} from '../types.tsx'
+import { doesRootSchemeMatchSystem } from './doesRootSchemeMatchSystem.ts'
 
 export type ThemeProxied = {
   [Key in keyof ThemeParsed | keyof Tokens['color']]: ThemeGettable<

@@ -1,8 +1,8 @@
 import type { Context, ReactNode } from 'react'
 import React from 'react'
-import type { StyledContext } from '../types'
-import { mergeProps } from './mergeProps'
-import { objectIdentityKey } from './objectIdentityKey'
+import type { StyledContext } from '../types.tsx'
+import { mergeProps } from './mergeProps.ts'
+import { objectIdentityKey } from './objectIdentityKey.tsx'
 
 // use const (not function declaration) to prevent esbuild from hoisting
 // above __esm lazy init - function declarations get hoisted before

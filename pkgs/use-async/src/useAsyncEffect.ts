@@ -1,7 +1,7 @@
 // adopted from https://github.com/franciscop/use-async/blob/master/src/index.js
 
 import { useEffect, useLayoutEffect } from 'react'
-import { AbortError } from './errors'
+import { AbortError } from './errors.ts'
 
 const DEBUG_LEVEL = 0 // You can adjust this based on your needs
 

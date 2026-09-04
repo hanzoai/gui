@@ -8,7 +8,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
-import createElement from '..'
+import createElement from '../index.tsx'
 
 function getAttribute(container, attribute) {
   return container.firstChild.getAttribute(attribute)

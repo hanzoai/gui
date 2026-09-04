@@ -1,7 +1,7 @@
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import * as React from 'react'
 import type { TextInput } from 'react-native'
-import type { GuiNativeElement } from './types'
+import type { GuiNativeElement } from './types.ts'
 
 /**
  * Creates a ref for native-only code that properly types to View.

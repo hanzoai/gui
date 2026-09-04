@@ -1,6 +1,6 @@
 import { useComposedRefs } from '@hanzogui/compose-refs'
 import * as React from 'react'
-import type { GuiElement } from './types'
+import type { GuiElement } from './types.ts'
 
 /**
  * Creates a ref for web-only code that properly types to HTMLElement.

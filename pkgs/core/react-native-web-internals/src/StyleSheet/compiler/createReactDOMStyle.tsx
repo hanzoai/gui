@@ -8,8 +8,8 @@
  * @flow
  */
 
-import { canUseDOM } from '../../modules/canUseDOM'
-import { normalizeValueWithProperty } from './normalizeValueWithProperty'
+import { canUseDOM } from '../../modules/canUseDOM.tsx'
+import { normalizeValueWithProperty } from './normalizeValueWithProperty.tsx'
 
 type Style = {
   [K in string]: any

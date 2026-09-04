@@ -1,6 +1,6 @@
 import type { MaskOptions } from '@hanzogui/create-theme'
 
-import { palettes } from './palettes'
+import { palettes } from './palettes.tsx'
 
 const templateColorsSpecific = {
   color1: 1,

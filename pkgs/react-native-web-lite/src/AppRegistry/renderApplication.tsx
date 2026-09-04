@@ -13,8 +13,8 @@ import React from 'react'
 import { StyleSheet } from '@hanzogui/react-native-web-internals'
 import { invariant } from '@hanzogui/react-native-web-internals'
 
-import { renderLegacy, hydrate, hydrateLegacy, render } from '../render/index'
-import { AppContainer } from './AppContainer'
+import { renderLegacy, hydrate, hydrateLegacy, render } from '../render/index.tsx'
+import { AppContainer } from './AppContainer.tsx'
 
 export function renderApplication<Props extends object>(
   RootComponent: ComponentType<Props>,

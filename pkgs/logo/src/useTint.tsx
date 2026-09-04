@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useDidFinishSSR, type ThemeName } from '@hanzo/gui'
-import { getTints, setNextTintFamily, useTints } from './tints'
+import { getTints, setNextTintFamily, useTints } from './tints.tsx'
 
 let current = 3
 let disableTintTheme = false

@@ -8,7 +8,7 @@
 import { render } from '@testing-library/react'
 import * as React from 'react'
 
-import mergeRefs from '..'
+import mergeRefs from '../index.tsx'
 
 describe('modules/mergeRefs', () => {
   test('merges refs of different types', () => {

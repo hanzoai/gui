@@ -17,7 +17,7 @@
  * - Interactive keyboard dismiss on sheet drag
  */
 
-import { setKeyboardControllerState } from './keyboardControllerState'
+import { setKeyboardControllerState } from './keyboardControllerState.ts'
 
 function setup() {
   const g = globalThis as any

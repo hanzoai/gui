@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react'
-import { isHTMLElement, isMouseLikePointerType, isTypeableElement } from './utils'
-import type { ElementProps, FloatingInteractionContext, UseClickProps } from './types'
+import { isHTMLElement, isMouseLikePointerType, isTypeableElement } from './utils.ts'
+import type { ElementProps, FloatingInteractionContext, UseClickProps } from './types.ts'
 
 function isButtonTarget(event: React.KeyboardEvent<Element>) {
   return isHTMLElement(event.target) && event.target.tagName === 'BUTTON'

@@ -4,8 +4,8 @@ import { useConfiguration } from '@hanzogui/core'
 import { useConstant } from '@hanzogui/use-constant'
 import { useControllableState } from '@hanzogui/use-controllable-state'
 
-import type { ScrollBridge, SheetProps } from './types'
-import type { SheetOpenState } from './useSheetOpenState'
+import type { ScrollBridge, SheetProps } from './types.tsx'
+import type { SheetOpenState } from './useSheetOpenState.tsx'
 
 export type SheetContextValue = ReturnType<typeof useSheetProviderProps> & {
   keyboardOccludedHeight: number

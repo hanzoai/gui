@@ -60,7 +60,7 @@ RUN bun install
 RUN node scripts/with-bento.mjs && bun install
 
 # build
-RUN bun run build:js
+RUN bun run build
 RUN bun run build:app
 
 EXPOSE 3000

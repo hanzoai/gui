@@ -1,1 +1,1 @@
-export * from './useControllableState'
+export * from './useControllableState.ts'

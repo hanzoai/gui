@@ -7,9 +7,9 @@
  * @flow
  */
 
-import { getModality } from '../modality/index'
-import { useEvent } from '../useEvent/index'
-import { useLayoutEffectImpl as useLayoutEffect } from '../useLayoutEffect/index'
+import { getModality } from '../modality/index.tsx'
+import { useEvent } from '../useEvent/index.tsx'
+import { useLayoutEffectImpl as useLayoutEffect } from '../useLayoutEffect/index.ts'
 
 /**
  * Types

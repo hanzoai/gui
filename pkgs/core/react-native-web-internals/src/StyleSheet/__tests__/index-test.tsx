@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import StyleSheet from '../index'
+import StyleSheet from '../index.tsx'
 
 describe('StyleSheet', () => {
   // test this first because subsequent 'create' calls will change the snapshot

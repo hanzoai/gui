@@ -1,5 +1,5 @@
-import { createGlobalState } from './globalState'
-import type { SafeAreaState, SafeAreaInsets, SafeAreaFrame } from './types'
+import { createGlobalState } from './globalState.ts'
+import type { SafeAreaState, SafeAreaInsets, SafeAreaFrame } from './types.ts'
 
 const state = createGlobalState<SafeAreaState>(`safe_area`, {
   enabled: false,

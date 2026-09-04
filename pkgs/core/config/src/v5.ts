@@ -24,4 +24,4 @@ export {
   v5Templates,
   type CreateV5ThemeOptions,
 } from '@hanzogui/themes/v5'
-export * from './v5-base'
+export * from './v5-base.ts'

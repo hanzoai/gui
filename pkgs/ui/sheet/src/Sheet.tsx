@@ -1,11 +1,11 @@
 import { styled } from '@hanzogui/core'
 import { XStack, YStack } from '@hanzogui/stacks'
 
-import { SHEET_HANDLE_NAME, SHEET_NAME, SHEET_OVERLAY_NAME } from './constants'
-import { createSheet } from './createSheet'
+import { SHEET_HANDLE_NAME, SHEET_NAME, SHEET_OVERLAY_NAME } from './constants.tsx'
+import { createSheet } from './createSheet.tsx'
 
-export { createSheetScope } from './SheetContext'
-export * from './types'
+export { createSheetScope } from './SheetContext.tsx'
+export * from './types.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * SheetHandle

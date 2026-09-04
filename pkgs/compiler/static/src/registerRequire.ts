@@ -1,8 +1,8 @@
 import { register } from 'esbuild-register/dist/node'
 
-import { esbuildIgnoreFilesRegex } from './extractor/bundle'
-import { requireGuiCore } from './helpers/requireGuiCore'
-import type { GuiPlatform } from './types'
+import { esbuildIgnoreFilesRegex } from './extractor/bundle.ts'
+import { requireGuiCore } from './helpers/requireGuiCore.ts'
+import type { GuiPlatform } from './types.ts'
 
 const nameToPaths = {}
 

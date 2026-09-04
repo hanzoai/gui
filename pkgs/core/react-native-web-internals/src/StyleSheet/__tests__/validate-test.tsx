@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { validate } from '../validate'
+import { validate } from '../validate.tsx'
 
 describe('validate', () => {
   beforeAll(() => {

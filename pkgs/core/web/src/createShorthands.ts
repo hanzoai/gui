@@ -1,4 +1,4 @@
-import type { CreateShorthands } from './types'
+import type { CreateShorthands } from './types.tsx'
 
 // just a type helper util
 

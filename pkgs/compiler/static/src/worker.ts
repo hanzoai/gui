@@ -4,11 +4,11 @@
  */
 
 import type { BabelFileResult } from '@babel/core'
-import { createExtractor } from './extractor/createExtractor'
-import type { ExtractedResponse } from './extractor/extractToClassNames'
-import { extractToClassNames as extractToClassNamesImpl } from './extractor/extractToClassNames'
-import { extractToNative as extractToNativeImpl } from './extractor/extractToNative'
-import type { GuiOptions } from './types'
+import { createExtractor } from './extractor/createExtractor.ts'
+import type { ExtractedResponse } from './extractor/extractToClassNames.ts'
+import { extractToClassNames as extractToClassNamesImpl } from './extractor/extractToClassNames.ts'
+import { extractToNative as extractToNativeImpl } from './extractor/extractToNative.ts'
+import type { GuiOptions } from './types.ts'
 
 // Create extractors lazily to avoid loading unused ones
 let webExtractor: ReturnType<typeof createExtractor> | null = null

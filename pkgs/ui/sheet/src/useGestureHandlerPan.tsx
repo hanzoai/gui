@@ -1,8 +1,8 @@
 import { isWeb } from '@hanzogui/constants'
 import { useCallback, useEffect, useMemo, useRef, type RefObject } from 'react'
-import { getGestureHandlerState, isGestureHandlerEnabled } from './gestureState'
-import { getSheetReleasePosition } from './keyboardAvoidance'
-import type { ScrollBridge, SnapPointsMode } from './types'
+import { getGestureHandlerState, isGestureHandlerEnabled } from './gestureState.ts'
+import { getSheetReleasePosition } from './keyboardAvoidance.ts'
+import type { ScrollBridge, SnapPointsMode } from './types.tsx'
 
 // threshold in pixels for considering sheet "at top" position
 // allows for small measurement variations

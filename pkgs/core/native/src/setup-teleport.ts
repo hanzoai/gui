@@ -12,7 +12,7 @@
  * Falls back to legacy RN shims if teleport is not installed.
  */
 
-import { getPortal } from './portalState'
+import { getPortal } from './portalState.ts'
 
 function setup(): void {
   const g = globalThis as any

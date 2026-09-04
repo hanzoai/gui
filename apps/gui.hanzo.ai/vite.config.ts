@@ -26,7 +26,7 @@ const include = [
   'swr/mutation',
   '@vxrn/mdx-rust/client',
   // core hanzogui packages must be pre-bundled together to avoid duplicate instances
-  'hanzogui',
+  '@hanzo/gui',
   '@hanzogui/core',
   '@hanzogui/web',
   // existing
@@ -56,7 +56,6 @@ const include = [
   '@hanzogui/roving-focus',
   'react-native-safe-area-context',
   '@hookform/resolvers/zod',
-  'react-native-reanimated',
   '@hanzogui/react-native-svg',
   'react-native-gesture-handler',
   '@tanstack/react-table',
@@ -65,6 +64,9 @@ const include = [
 ]
 
 export default {
+  // the runtime asks process.env.GUI_TARGET which platform it is on; a browser
+  // bundle has no process, so the answer is written in here
+  define: { 'process.env.GUI_TARGET': JSON.stringify('web') },
   envPrefix: 'NEXT_PUBLIC_',
 
   server: {
@@ -136,6 +138,10 @@ export default {
   },
 
   plugins: [
+    // the published site names the source each chunk came from. one's build
+    // states sourcemap: false inline for both bundles; a plugin's config hook
+    // merges after that, so this is where the answer holds.
+    { name: 'hanzo:sourcemap', config: () => ({ build: { sourcemap: true } }) },
 
     one({
       // tsconfig `paths` answers "where does the source live" for the type
@@ -176,15 +182,6 @@ export default {
             return contents?.replace(
               'if (route.state === childState)',
               'if (!childState || route.state === childState)'
-            )
-          },
-        },
-        'react-native-reanimated': {
-          'lib/module/createAnimatedComponent/createAnimatedComponent.js': (contents) => {
-            // if not using layout animations, this saves a super expensive repaint that happens often
-            return contents?.replace(
-              `return this._componentDOMRef.getBoundingClientRect();`,
-              'return null;'
             )
           },
         },

@@ -21,7 +21,6 @@ import { TwitterIcon } from '~/features/icons/TwitterIcon'
 import { seasons } from '~/features/site/seasons/SeasonTogglePopover'
 
 import { InstallInput } from './InstallInput'
-import { PromoLinksRow } from './PromoLinksRow'
 import { useHeroHovered } from './useHeroHovered'
 
 export function Hero() {
@@ -97,7 +96,6 @@ const HeroContents = memo(function HeroContents() {
           mx: '$-4',
         }}
       >
-        <PromoLinksRow />
 
         <YStack items="center" gap="$4">
           <HeroH1>

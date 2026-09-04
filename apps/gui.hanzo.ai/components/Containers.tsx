@@ -69,25 +69,3 @@ export const ContainerXL = styled(YStack, {
   variants,
 })
 
-export const ContainerBento = styled(YStack, {
-  mx: 'auto',
-  width: '100%',
-  position: 'relative',
-
-  $gtSm: {
-    px: '$4',
-    maxW: 980,
-  },
-
-  $gtMd: {
-    maxW: 1180,
-  },
-
-  $gtXl: {
-    maxW: 1300,
-  },
-
-  variants,
-
-  z: 100,
-})

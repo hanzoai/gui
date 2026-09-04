@@ -16,11 +16,11 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "default": "./dist/cjs/index.js"
+      "default": "./dist/esm/index.js"
     },
     "./worker": {
       "types": "./types/worker.d.ts",
-      "default": "./dist/cjs/worker.js"
+      "default": "./dist/esm/worker.js"
     },
     "./extractablePath": {
       "types": "./types/extractor/extractablePath.d.ts",
@@ -28,7 +28,7 @@
     },
     "./checkDeps": {
       "types": "./types/checkDeps.d.ts",
-      "default": "./dist/cjs/checkDeps.js"
+      "default": "./dist/esm/checkDeps.js"
     },
     "./loadGui": {
       "types": "./types/extractor/loadGui.d.ts",

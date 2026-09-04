@@ -16,7 +16,6 @@
  * the code: no Babel, no esbuild, no plugin.
  *
  *   --skip-native   packages with nothing platform-specific
- *   --skip-types    packages whose declarations are hand-written or unneeded
  *   --watch         the ESM emit, continuously
  */
 import { spawnSync } from 'node:child_process'
@@ -66,7 +65,12 @@ if (args.has('--watch')) {
       for (const entry of readdirSync(dir, { withFileTypes: true })) {
         const p = join(dir, entry.name)
         if (entry.isDirectory()) walk(p)
-        else if (/\.native\.js(\.map)?$/.test(entry.name)) renameSync(p, p.replace('.native.js', '.js'))
+        else if (entry.name.endsWith('.native.js.map')) renameSync(p, p.replace('.native.js.map', '.js.map'))
+        else if (entry.name.endsWith('.native.js')) {
+          const named = p.replace('.native.js', '.js')
+          writeFileSync(named, readFileSync(p, 'utf8').replace(/sourceMappingURL=(.+)\.native\.js\.map/, 'sourceMappingURL=$1.js.map'))
+          rmSync(p)
+        }
       }
     }
     walk(join(cwd, 'dist/native'))

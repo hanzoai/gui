@@ -19,7 +19,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-native",
+    "build": "mkdir -p dist/esm dist/native && cp src/index.js dist/esm/index.js && cp src/index.native.js dist/native/index.js",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

@@ -1,8 +1,5 @@
-import { existsSync } from 'node:fs'
-import { execSync } from 'node:child_process'
 import { createRequire } from 'node:module'
 import { resolve as pathResolve } from 'node:path'
-import { hanzoguiPlugin, hanzoguiAliases } from '@hanzogui/vite-plugin'
 import { one } from 'one/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import type { UserConfig } from 'vite'
@@ -14,30 +11,6 @@ if (!import.meta.dirname) {
   throw new Error(`Not on Node 22`)
 }
 
-// Check if required build artifacts exist, auto-build if missing
-const vitePluginDist = pathResolve(
-  import.meta.dirname,
-  '../../pkgs/compiler/vite-plugin/dist/esm/index.mjs'
-)
-const staticDist = pathResolve(
-  import.meta.dirname,
-  '../../pkgs/compiler/static/dist/index.cjs'
-)
-
-if (!existsSync(vitePluginDist) || !existsSync(staticDist)) {
-  console.info('')
-  console.info('Building hanzogui packages (dist not found)...')
-  try {
-    execSync('bun run build:js', {
-      cwd: pathResolve(import.meta.dirname, '../..'),
-      stdio: 'inherit',
-    })
-    console.info('Build complete!')
-  } catch (e) {
-    console.error('Build failed. You may need to run `bun run build` from the repo root.')
-    throw e
-  }
-}
 
 // use createRequire instead of import.meta.resolve for bun compatibility in vite config
 const require = createRequire(import.meta.url)
@@ -134,13 +107,6 @@ export default {
         find: 'react-native/Libraries/Core/ReactNativeVersion',
         replacement: resolve('@hanzogui/proxy-worm'),
       },
-
-      ...(process.env.RNW_LITE
-        ? hanzoguiAliases({
-            rnwLite: true,
-            svg: true,
-          })
-        : []),
     ],
 
     dedupe: [
@@ -170,10 +136,6 @@ export default {
   },
 
   plugins: [
-    hanzoguiPlugin({
-      // see hanzogui.build.ts
-      disable: process.env.NODE_ENV !== 'production',
-    }),
 
     one({
       // tsconfig `paths` answers "where does the source live" for the type
@@ -199,9 +161,6 @@ export default {
         },
       },
 
-      react: {
-        compiler: process.env.NODE_ENV === 'production',
-      },
 
       ssr: {
         dedupeSymlinkedModules: true,

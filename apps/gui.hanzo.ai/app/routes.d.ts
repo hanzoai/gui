@@ -19,14 +19,12 @@ declare module 'one' {
         | `/(site)/(blog)/draft`
         | `/(site)/(docs)`
         | `/(site)/blog`
-        | `/(site)/community`
         | `/(site)/draft`
         | `/(site)/privacy`
         | `/(site)/theme`
         | `/(site)/theme/`
         | `/_sitemap`
         | `/blog`
-        | `/community`
         | `/draft`
         | `/privacy`
         | `/reproductions/motion-bug`

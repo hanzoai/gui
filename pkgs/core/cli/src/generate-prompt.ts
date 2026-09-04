@@ -1,5 +1,7 @@
 import { join } from 'node:path'
-import * as FS from 'fs-extra'
+import { existsSync } from 'node:fs'
+import { writeFile } from 'node:fs/promises'
+import { readJSON } from 'fs-extra/esm'
 import type { CLIResolvedOptions } from '@hanzogui/types'
 
 interface GeneratePromptOptions extends CLIResolvedOptions {
@@ -20,20 +22,20 @@ export async function generatePrompt(options: GeneratePromptOptions) {
   // Read the generated config
   const configPath = join(paths.dotDir, 'hanzogui.config.json')
 
-  if (!FS.existsSync(configPath)) {
+  if (!existsSync(configPath)) {
     throw new Error(
       `Config file not found at ${configPath}. Please run 'hanzogui generate' first.`
     )
   }
 
-  const config = await FS.readJSON(configPath)
+  const config = await readJSON(configPath)
 
   // Generate markdown
   const markdown = generateMarkdown(config)
 
   // Write to file
   const outputPath = output || join(process.cwd(), 'hanzogui-prompt.md')
-  await FS.writeFile(outputPath, markdown, 'utf-8')
+  await writeFile(outputPath, markdown, 'utf-8')
 
   console.info(`\n  ✓ Generated prompt file at ${outputPath}\n`)
 }

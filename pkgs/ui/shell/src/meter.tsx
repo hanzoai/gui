@@ -37,7 +37,9 @@ export function Meter({ plan, href }: MeterProps) {
   const { usage } = plan
 
   const name = (
-    <span style={{ fontSize: FS.sm, fontWeight: 600, color: CHROME.fg }}>{plan.name}</span>
+    <span style={{ fontSize: FS.sm, fontWeight: 600, color: CHROME.fg }}>
+      {plan.name}
+    </span>
   )
 
   return (
@@ -51,7 +53,14 @@ export function Meter({ plan, href }: MeterProps) {
         borderBottom: `1px solid ${CHROME.borderSoft}`,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          justifyContent: 'space-between',
+          gap: 8,
+        }}
+      >
         {href ? (
           <a href={href} style={{ textDecoration: 'none' }}>
             {name}

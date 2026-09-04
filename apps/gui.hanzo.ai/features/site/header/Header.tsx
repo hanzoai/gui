@@ -195,7 +195,6 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
             </XStack>
           </XStack>
         </Link>
-
       </XStack>
 
       <View flex={1} />
@@ -588,11 +587,7 @@ const HeaderLinksPopoverContent = React.memo((props: { active: ID | '' }) => {
 const getDocsSectionFromPath = (pathName: string): 'core' | 'ui' | null => {
   if (!pathName || pathName === '/' || pathName === '') return null
   if (pathName.startsWith('/ui/')) return 'ui'
-  if (
-    pathName.startsWith('/docs') ||
-    pathName.startsWith('/blog')
-  )
-    return 'core'
+  if (pathName.startsWith('/docs') || pathName.startsWith('/blog')) return 'core'
   return null
 }
 
@@ -741,7 +736,6 @@ const HeaderMenuMoreContents = () => {
           </YStack>
         </HeadAnchor>
       </Link>
-
 
       <Link asChild href="/blog">
         <HeadAnchor menu>Blog</HeadAnchor>

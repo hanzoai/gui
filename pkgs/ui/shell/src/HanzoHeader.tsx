@@ -436,7 +436,12 @@ export function HanzoHeader({
       current={isHere(s.primaryCTA.href)}
     />
   ) : (
-    <CTA link={s.primaryCTA} variant="filled" current={isHere(s.primaryCTA.href)} host={s.host} />
+    <CTA
+      link={s.primaryCTA}
+      variant="filled"
+      current={isHere(s.primaryCTA.href)}
+      host={s.host}
+    />
   )
 
   // What the header itself can reach, handed to the palette. A control the bar

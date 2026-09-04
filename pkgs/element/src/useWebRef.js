@@ -1,5 +1,5 @@
-import { useComposedRefs } from '@hanzogui/compose-refs';
-import * as React from 'react';
+import { useComposedRefs } from '@hanzogui/compose-refs'
+import * as React from 'react'
 /**
  * Creates a ref for web-only code that properly types to HTMLElement.
  * Useful when you need to access HTMLElement-specific properties (like selectionStart)
@@ -13,8 +13,8 @@ import * as React from 'react';
  * ```
  */
 export function useWebRef(forwardedRef) {
-    const ref = React.useRef(null);
-    const composedRef = useComposedRefs(ref, forwardedRef);
-    return { ref, composedRef };
+  const ref = React.useRef(null)
+  const composedRef = useComposedRefs(ref, forwardedRef)
+  return { ref, composedRef }
 }
 //# sourceMappingURL=useWebRef.js.map

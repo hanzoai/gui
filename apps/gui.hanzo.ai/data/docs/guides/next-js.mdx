@@ -136,8 +136,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 <Notice theme="blue">
-  With React 19, Gui automatically injects runtime styles via style tags. The
-  `outputCSS` file handles themes and tokens that are generated at build time.
+  With React 19, Gui automatically injects runtime styles via style tags. The `outputCSS`
+  file handles themes and tokens that are generated at build time.
 </Notice>
 
 Run `npx hanzogui build` once to generate the initial CSS file, then commit it.
@@ -422,8 +422,8 @@ export default class Document extends NextDocument {
 ```
 
 <Notice theme="blue">
-  Gui automatically injects styles at runtime. You can optionally generate a static
-  CSS file - see the [Static CSS Output](#static-css-output) section.
+  Gui automatically injects styles at runtime. You can optionally generate a static CSS
+  file - see the [Static CSS Output](#static-css-output) section.
 </Notice>
 
 ### pages/\_app.tsx
@@ -570,7 +570,8 @@ You can also have the plugin generate CSS during your Next.js build:
 const hanzoguiPlugin = withGui({
   config: './hanzogui.config.ts',
   components: ['@hanzo/gui'],
-  outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
+  outputCSS:
+    process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
   // faster dev mode, keeps debugging helpers:
   disableExtraction: process.env.NODE_ENV === 'development',
 })
@@ -784,7 +785,8 @@ CLI or the Next.js plugin:
 const hanzoguiPlugin = withGui({
   config: './hanzogui.config.ts',
   components: ['@hanzo/gui'],
-  outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
+  outputCSS:
+    process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
   // faster dev mode, keeps debugging helpers:
   disableExtraction: process.env.NODE_ENV === 'development',
 })
@@ -797,7 +799,7 @@ import '../public/hanzogui.generated.css'
 ```
 
 <Notice theme="green">
-  With React 19, Gui automatically injects runtime styles via style tags on the
-  server. The `outputCSS` file handles themes and tokens generated at build time, so you
-  don't need any `getCSS()` calls in your provider.
+  With React 19, Gui automatically injects runtime styles via style tags on the server.
+  The `outputCSS` file handles themes and tokens generated at build time, so you don't
+  need any `getCSS()` calls in your provider.
 </Notice>

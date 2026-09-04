@@ -30,8 +30,7 @@ export const headingFont = createZenSansFont({
 })
 
 export const bodyFont = createZenSansFont(
-  {
-  },
+  {},
   {
     sizeSize: (size) => Math.round(size * 1.1),
     sizeLineHeight: (size) => Math.round(size * 1.1 + (size > 20 ? 10 : 10)),

@@ -29,6 +29,7 @@ Both leaked credentials are dead; no rotation needed. The anon key currently in
 are now enabled and cover ongoing detection.)
 
 ### ⚠️ A2. Verify / remove the prod `test-user@hanzogui.dev` account
+
 The test-user endpoint previously created this account in the **production**
 Supabase project with a static, source-committed password and Pro entitlements.
 The static password is now removed (see H5), but if the account was ever created
@@ -39,16 +40,17 @@ in prod it still exists. Confirm in Supabase Auth and delete it if present.
 ## What was fixed in this repo
 
 ### hanzogui.dev web app
-| ID | Issue | Fix |
-|----|-------|-----|
-| C1 ✅ | `GET /api/bento/code?userGithubId=` served paid Bento source with no auth (legacy v1 CLI path; trusted a client-supplied id as the user identity) | Removed the unauthenticated branch; the shipped CLI already uses the token-authenticated `/api/bento/cli/v2/code-download`. `app/api/bento/code+api.ts` |
-| C2 ✅ | `POST /api/github/app-hook` was a forgeable webhook stub (no signature verification, logged all headers) | Deleted the dead endpoint. |
-| H1 ✅ | Charge endpoints applied a client-supplied `couponId` without re-validating it applied to the product (free/near-free purchases) | Added `features/stripe/assertValidCoupon.ts` and call it in `create-subscription`, `create-v2-subscription`, `add-team-seats` before any coupon is applied. |
-| H2 ✅ | `/api/validate-coupon` was unauthenticated → coupon-enumeration oracle | Added `ensureAuth`. |
-| H3 ✅ | Team-seat invite minted unlimited active seats and accepted arbitrary `user_id` | Enforced seat capacity vs `total_seats`, dedup of active members, and invitee-exists check. `app/api/team-seat+api.ts` |
-| H4 ✅ | `/api/github/users` returned all users incl. **email** (`select('*')`) and had a PostgREST `.or()` filter injection via comma | Returns only `id, full_name, avatar_url`; name-only `ilike` (or exact-email match if `@` present, never returned); strips comma. UI no longer renders others' emails. `app/api/github/users+api.ts`, `NewAccountModal.tsx` |
-| H4b ✅ | `/api/discord/search-member` let any logged-in user enumerate the whole guild | Gated behind Pro (`ensureAccess`). |
-| H5 ✅ | Hardcoded test-user password (`test-user-password-12345`) usable to sign into prod via Supabase password auth | Generates a fresh random password per run and rotates any existing user's password. `app/api/test-user+api.ts` |
+
+| ID     | Issue                                                                                                                                             | Fix                                                                                                                                                                                                                        |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C1 ✅  | `GET /api/bento/code?userGithubId=` served paid Bento source with no auth (legacy v1 CLI path; trusted a client-supplied id as the user identity) | Removed the unauthenticated branch; the shipped CLI already uses the token-authenticated `/api/bento/cli/v2/code-download`. `app/api/bento/code+api.ts`                                                                    |
+| C2 ✅  | `POST /api/github/app-hook` was a forgeable webhook stub (no signature verification, logged all headers)                                          | Deleted the dead endpoint.                                                                                                                                                                                                 |
+| H1 ✅  | Charge endpoints applied a client-supplied `couponId` without re-validating it applied to the product (free/near-free purchases)                  | Added `features/stripe/assertValidCoupon.ts` and call it in `create-subscription`, `create-v2-subscription`, `add-team-seats` before any coupon is applied.                                                                |
+| H2 ✅  | `/api/validate-coupon` was unauthenticated → coupon-enumeration oracle                                                                            | Added `ensureAuth`.                                                                                                                                                                                                        |
+| H3 ✅  | Team-seat invite minted unlimited active seats and accepted arbitrary `user_id`                                                                   | Enforced seat capacity vs `total_seats`, dedup of active members, and invitee-exists check. `app/api/team-seat+api.ts`                                                                                                     |
+| H4 ✅  | `/api/github/users` returned all users incl. **email** (`select('*')`) and had a PostgREST `.or()` filter injection via comma                     | Returns only `id, full_name, avatar_url`; name-only `ilike` (or exact-email match if `@` present, never returned); strips comma. UI no longer renders others' emails. `app/api/github/users+api.ts`, `NewAccountModal.tsx` |
+| H4b ✅ | `/api/discord/search-member` let any logged-in user enumerate the whole guild                                                                     | Gated behind Pro (`ensureAccess`).                                                                                                                                                                                         |
+| H5 ✅  | Hardcoded test-user password (`test-user-password-12345`) usable to sign into prod via Supabase password auth                                     | Generates a fresh random password per run and rotates any existing user's password. `app/api/test-user+api.ts`                                                                                                             |
 
 Confirmed already-safe during the audit: Stripe webhook signature verification,
 GitHub sponsor webhook constant-time HMAC, subscription cancel/upgrade ownership
@@ -56,6 +58,7 @@ checks, postMessage origin checks, and no server secret inlined into the client
 bundle.
 
 ### CI/CD pipeline
+
 - ✅ **Fork PRs no longer receive secrets.** `test-ios-native.yml` gated the
   `secrets: inherit` build (and its dependent test job) to same-repo refs, so a
   fork PR can no longer exfiltrate `KV_STORE_REDIS_REST_*`.
@@ -70,6 +73,7 @@ bundle.
   SHAs current.
 
 ### Secrets hygiene / scanning
+
 - ✅ `.gitignore`: fixed `.env.test.localp` typo and added key-material globs
   (`*.pem`, `*.key`, `*.p12`, `*.p8`, `*.keystore`, …).
 - Secret scanning is handled by GitHub native secret scanning + push protection
@@ -77,6 +81,7 @@ bundle.
   Action plus full-tree CLI scans weren't worth the cost over native scanning.
 
 ### GitHub project configuration (applied live)
+
 - ✅ Secret scanning + **push protection** enabled (would have blocked the A1 leak).
 - ✅ Dependabot vulnerability alerts + automated security updates enabled.
 - ✅ Private vulnerability reporting enabled; `SECURITY.md` added.
@@ -84,6 +89,7 @@ bundle.
   `main` (org admins retain direct-push via bypass).
 
 ### npm publish
+
 - ✅ Confirmed no published package ships an install/postinstall hook, the
   lockfile is committed, and the interactive release flow supports 2FA/OTP.
 

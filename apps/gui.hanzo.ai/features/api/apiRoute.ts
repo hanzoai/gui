@@ -37,4 +37,3 @@ export function apiRoute(handler: Endpoint) {
     }
   }) satisfies Endpoint
 }
-

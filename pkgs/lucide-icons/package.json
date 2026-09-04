@@ -9,8 +9,8 @@
     "types",
     "dist"
   ],
-  "sideEffects": false,
   "type": "module",
+  "sideEffects": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
@@ -14116,6 +14116,10 @@
     "clean:build": "hanzogui-build clean:build",
     "generate": "node ./bin/build.cjs"
   },
+  "dependencies": {
+    "@hanzogui/core": "workspace:*",
+    "@hanzogui/helpers-icon": "workspace:*"
+  },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
     "camelcase": "^9.0.0",
@@ -14126,10 +14130,6 @@
     "react": "19.2.8",
     "react-native-svg": "^15.15.5",
     "uppercamelcase": "^3.0.0"
-  },
-  "dependencies": {
-    "@hanzogui/core": "workspace:*",
-    "@hanzogui/helpers-icon": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=19.2.8",

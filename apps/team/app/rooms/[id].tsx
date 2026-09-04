@@ -102,7 +102,13 @@ export default function RoomScreen() {
         ) : null}
       </ScrollView>
 
-      <XStack p="$3" gap="$2" borderTopWidth={1} borderColor="$borderColor" items="center">
+      <XStack
+        p="$3"
+        gap="$2"
+        borderTopWidth={1}
+        borderColor="$borderColor"
+        items="center"
+      >
         <Input
           flex={1}
           value={draft}

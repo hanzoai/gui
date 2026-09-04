@@ -46,7 +46,7 @@ mode like anything else:
 That works because the axis is resolved against the mode. It is worth knowing
 why, because the raw CSS does not do this for you: `flex-direction` is **inert**
 under grid, and the two engines invert the same word — flex `row` runs across,
-while grid's `grid-auto-flow: row` fills rows and therefore runs *down*. Written
+while grid's `grid-auto-flow: row` fills rows and therefore runs _down_. Written
 by hand, `display: grid` on a flex row silently lays out vertically. `XStack`
 says the axis in both vocabularies, so it stays horizontal.
 
@@ -98,7 +98,7 @@ tracks at 390px, four at 768px, eight at 1440px.
 
 **This is the one case where the two engines disagree, so it is worth knowing
 exactly where.** They are pixel-identical while every row is full. They part on
-a *partial last row*: flex's `flexGrow` stretches a lone trailing item across
+a _partial last row_: flex's `flexGrow` stretches a lone trailing item across
 the whole width, while grid holds it to its track. Measured with seven items
 over three tracks, only the orphan differs, and only in width — by 328px on a
 480px container.
@@ -213,12 +213,12 @@ and never sees the tracks. One source, both engines, no `$platform` branch.
 
 ### What cannot cross at all
 
-| grid | why flex has no answer |
-| --- | --- |
-| named areas | flex has no second dimension |
-| `gridColumn` / `gridArea` placement | flex cannot place across rows *and* columns |
-| overlapping cells | flex cannot put two children in one cell |
-| `gridAutoFlow="dense"` | nothing to backfill in one dimension |
+| grid                                | why flex has no answer                      |
+| ----------------------------------- | ------------------------------------------- |
+| named areas                         | flex has no second dimension                |
+| `gridColumn` / `gridArea` placement | flex cannot place across rows _and_ columns |
+| overlapping cells                   | flex cannot put two children in one cell    |
+| `gridAutoFlow="dense"`              | nothing to backfill in one dimension        |
 
 These are web-only compositions. Reach for them deliberately and give native its
 own arrangement.

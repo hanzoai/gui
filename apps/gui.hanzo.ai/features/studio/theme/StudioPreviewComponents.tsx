@@ -71,8 +71,7 @@ const components = [
       <UserDropdown />
     </Panel>
   </>,
-  <>
-  </>,
+  <></>,
   <>
     <Panel key="" fileToCopyName="Login">
       <LoginScreen />

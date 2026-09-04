@@ -59,7 +59,11 @@ import {
   isColorStyleKey,
 } from './getDynamicVal.ts'
 import { getGroupPropParts } from './getGroupPropParts.ts'
-import { insertStyleRules, shouldInsertStyleRules, updateRules } from './insertStyleRule.tsx'
+import {
+  insertStyleRules,
+  shouldInsertStyleRules,
+  updateRules,
+} from './insertStyleRule.tsx'
 import { isActivePlatform, getPlatformSpecificityBump } from './isActivePlatform.ts'
 import { isActiveTheme } from './isActiveTheme.ts'
 import { log } from './log.ts'

@@ -42,7 +42,8 @@ export const team = (token: string) => {
 
     /** Say something. Plain text in; the surface wraps it in the client's markup. */
     say: async (id: string, space: string, text: string): Promise<TeamMessage> =>
-      (await api.postTeamRoomsByIdMessages({ id, teamMessageWrite: { space, text } })).data,
+      (await api.postTeamRoomsByIdMessages({ id, teamMessageWrite: { space, text } }))
+        .data,
   }
 }
 

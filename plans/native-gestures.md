@@ -294,9 +294,7 @@ function onChange(absoluteX, absoluteY, translationY) {
 ```json
 {
   "exports": {
-    ".": {
-      /* existing */
-    },
+    ".": {/* existing */},
     "./setup-gesture-handler": {
       "react-native": {
         "types": "./types/setupGestureHandler.d.ts",

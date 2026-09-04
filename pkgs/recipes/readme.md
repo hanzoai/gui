@@ -3,12 +3,7 @@
 Library for reading and installing Hanzo GUI recipes from Hanzo Base.
 
 ```ts
-import {
-  listRecipes,
-  getRecipe,
-  resolveRecipe,
-  installPlan,
-} from '@hanzogui/recipes'
+import { listRecipes, getRecipe, resolveRecipe, installPlan } from '@hanzogui/recipes'
 
 // Anonymous read path (used by @hanzogui/get CLI, website, IDE extensions)
 const recipes = await listRecipes()

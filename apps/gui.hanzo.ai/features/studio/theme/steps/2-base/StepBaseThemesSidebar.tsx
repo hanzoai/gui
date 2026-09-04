@@ -39,8 +39,7 @@ const Contents = ({ themeNameBase }: { themeNameBase: string }) => {
 
   return (
     <>
-      <XStack position="absolute" t="$4" l={30} z={1000} gap="$4" scale={0.75}>
-      </XStack>
+      <XStack position="absolute" t="$4" l={30} z={1000} gap="$4" scale={0.75}></XStack>
 
       <XStack position="absolute" t="$4" r="$4" z={1000}>
         <XStack

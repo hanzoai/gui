@@ -193,15 +193,17 @@ describe('naming the tracks is the author speaking', () => {
   // 7px slivers, on one row. The restatement has to yield here, and it can,
   // because the rest of the style is visible where it happens.
   test('an explicit column list is left alone', () => {
-    expect(classOf(<XStack data-solo display="grid" gridTemplateColumns="repeat(3, 1fr)" />))
-      .not.toContain('_gridAutoFlow')
+    expect(
+      classOf(<XStack data-solo display="grid" gridTemplateColumns="repeat(3, 1fr)" />)
+    ).not.toContain('_gridAutoFlow')
   })
 
   // Named areas are worse than broken under forced column flow — they keep the
   // right geometry and put the wrong children in it.
   test('named areas are left alone', () => {
-    expect(classOf(<XStack data-solo display="grid" gridTemplateAreas={'"a b" "c d"'} />))
-      .not.toContain('_gridAutoFlow')
+    expect(
+      classOf(<XStack data-solo display="grid" gridTemplateAreas={'"a b" "c d"'} />)
+    ).not.toContain('_gridAutoFlow')
   })
 
   for (const [name, props] of [

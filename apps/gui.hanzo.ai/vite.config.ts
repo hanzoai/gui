@@ -11,7 +11,6 @@ if (!import.meta.dirname) {
   throw new Error(`Not on Node 22`)
 }
 
-
 // use createRequire instead of import.meta.resolve for bun compatibility in vite config
 const require = createRequire(import.meta.url)
 const resolve = (path: string) => {
@@ -98,7 +97,6 @@ export default {
         replacement: pathResolve(import.meta.dirname, '.'),
       },
 
-
       // Standard string-based aliases
       {
         find: 'react-native-svg',
@@ -127,13 +125,7 @@ export default {
   },
 
   ssr: {
-    external: [
-      '@vxrn/mdx-rust',
-      'satteri',
-      'satteri-expressive-code',
-      'ws',
-      'postmark',
-    ],
+    external: ['@vxrn/mdx-rust', 'satteri', 'satteri-expressive-code', 'ws', 'postmark'],
     noExternal: true,
   },
 
@@ -167,7 +159,6 @@ export default {
         },
       },
 
-
       ssr: {
         dedupeSymlinkedModules: true,
         autoDepsOptimization: {
@@ -192,12 +183,7 @@ export default {
           config: {
             build: {
               rollupOptions: {
-                external: [
-                  '@discordjs/rest',
-                  '@discordjs/ws',
-                  '@vercel/og',
-                  'zlib-sync',
-                ],
+                external: ['@discordjs/rest', '@discordjs/ws', '@vercel/og', 'zlib-sync'],
               },
             },
           },

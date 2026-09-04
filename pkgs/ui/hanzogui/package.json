@@ -8,6 +8,9 @@
     "url": "git+https://github.com/hanzoai/gui.git",
     "directory": "pkgs/ui/hanzogui"
   },
+  "bin": {
+    "gui-css-check": "./css-check.mjs"
+  },
   "source": "src/index.ts",
   "files": [
     "bundle-native.mjs",
@@ -35,9 +38,6 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
-  "bin": {
-    "gui-css-check": "./css-check.mjs"
-  },
   "exports": {
     "./package.json": "./package.json",
     "./css-check": "./css-check.mjs",

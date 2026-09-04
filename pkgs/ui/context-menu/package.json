@@ -3,12 +3,12 @@
   "version": "8.3.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "source": "src/index.ts",
-  "type": "module",
   "files": [
     "src",
     "types",
     "dist"
   ],
+  "type": "module",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

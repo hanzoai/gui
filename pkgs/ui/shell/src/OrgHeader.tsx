@@ -431,7 +431,11 @@ export function OrgHeader({
               all — so claiming one would be a new key grab, not a port.
             */}
             {hideLauncher ? null : (
-              <HanzoAppLauncher currentApp={currentAppId} apps={apps} quickSwitchKey={false} />
+              <HanzoAppLauncher
+                currentApp={currentAppId}
+                apps={apps}
+                quickSwitchKey={false}
+              />
             )}
           </>
         )}

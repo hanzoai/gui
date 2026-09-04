@@ -19,11 +19,13 @@ import { OrgHeader } from '@hanzogui/shell'
 
 export function App() {
   return (
-    <IamProvider config={{
-      serverUrl: 'https://iam.hanzo.ai',
-      clientId: 'my-app',
-      redirectUri: `${window.location.origin}/auth/callback`,
-    }}>
+    <IamProvider
+      config={{
+        serverUrl: 'https://iam.hanzo.ai',
+        clientId: 'my-app',
+        redirectUri: `${window.location.origin}/auth/callback`,
+      }}
+    >
       <Shell />
     </IamProvider>
   )
@@ -109,20 +111,20 @@ by construction; nothing about it is per-surface.
 
 ```tsx
 <HanzoHeader
-  surface="ai"                          // id · hostname · or a HanzoSurface object
-  productsTaxonomy={HANZO_PRODUCT_CATEGORIES}  // opt into the rich Products menu
-  tryMenu                               // primary action opens the menu
-  auth={{ user, onSignIn, onSignOut }}  // the identity cluster
-  commands={myPages}                    // what ⌘K should also find
+  surface="ai" // id · hostname · or a HanzoSurface object
+  productsTaxonomy={HANZO_PRODUCT_CATEGORIES} // opt into the rich Products menu
+  tryMenu // primary action opens the menu
+  auth={{ user, onSignIn, onSignOut }} // the identity cluster
+  commands={myPages} // what ⌘K should also find
 />
 ```
 
-| Surface | `surface` | secondary nav (its data) | primary pill |
-|---|---|---|---|
-| hanzo.ai | `"ai"` | Models · Agents · Solutions · Developers · Pricing · Enterprise | **Try Hanzo** |
-| hanzo.app | `"app"` | Features · Templates · Pricing · Business | **+ New project** |
-| docs.hanzo.ai | `"docs"` | API · CLI · MCP · SDKs | **Get API key** |
-| console.hanzo.ai | `"console"` | Docs · API · Status | none (signed in) |
+| Surface          | `surface`   | secondary nav (its data)                                        | primary pill      |
+| ---------------- | ----------- | --------------------------------------------------------------- | ----------------- |
+| hanzo.ai         | `"ai"`      | Models · Agents · Solutions · Developers · Pricing · Enterprise | **Try Hanzo**     |
+| hanzo.app        | `"app"`     | Features · Templates · Pricing · Business                       | **+ New project** |
+| docs.hanzo.ai    | `"docs"`    | API · CLI · MCP · SDKs                                          | **Get API key**   |
+| console.hanzo.ai | `"console"` | Docs · API · Status                                             | none (signed in)  |
 
 A surface that owns its nav passes a `HanzoSurface` object instead of an id. The
 LABEL of the primary action is the surface's; its STYLE never varies — one white
@@ -171,11 +173,11 @@ search field: the server filters, sorts and pages; the client only asks.
 
 ```tsx
 <OrgHeader
-  organizations={mine}                    // instant, no round trip
+  organizations={mine} // instant, no round trip
   onOrgSwitch={switchOrg}
   findOrgs={({ q, cursor }) => api.orgs({ q, cursor })}
-  onMasquerade={startMasquerade}          // only reachable for reach rows
-  masquerade={actingAs}                   // renders the persistent sign
+  onMasquerade={startMasquerade} // only reachable for reach rows
+  masquerade={actingAs} // renders the persistent sign
   onMasqueradeStop={stopMasquerade}
 />
 ```

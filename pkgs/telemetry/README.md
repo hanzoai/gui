@@ -36,12 +36,12 @@ re-exports this package unchanged — so an app that already depends on
 whole reason it is safe to turn on for every app at once: **a gui-owned provider
 collects only while nothing else is collecting.**
 
-| The app mounts | Where | What gui does |
-|---|---|---|
-| nothing | — | collects — this is the free case |
+| The app mounts                                | Where               | What gui does                                            |
+| --------------------------------------------- | ------------------- | -------------------------------------------------------- |
+| nothing                                       | —                   | collects — this is the free case                         |
 | `<AnalyticsProvider>` / `<TelemetryProvider>` | above `GuiProvider` | goes inert, and passes the app's client straight through |
-| `<TelemetryProvider>` | below `GuiProvider` | goes inert; the app owns the stream |
-| a second `<GuiProvider>` | anywhere | one client, one stream |
+| `<TelemetryProvider>`                         | below `GuiProvider` | goes inert; the app owns the stream                      |
+| a second `<GuiProvider>`                      | anywhere            | one client, one stream                                   |
 
 Ownership is a claim on a module-scope slot, not a render-time guess, so it
 survives late mounts (a lazy route takes the stream) and unmounts (gui takes it
@@ -49,7 +49,7 @@ back). `owner="app"` is the default for a provider you mount yourself and always
 wins.
 
 **The one shape gui cannot see** is a raw `@hanzo/event` `<AnalyticsProvider>`
-*below* `GuiProvider`: React context does not look down, and unlike
+_below_ `GuiProvider`: React context does not look down, and unlike
 `<TelemetryProvider>` a raw one claims nothing. Those apps pass
 `telemetry={false}` until they drop their own wiring.
 
@@ -64,11 +64,11 @@ POST https://api.hanzo.ai/v1/event   { batch: [Event, …] }
 
 Cloud lenses that single stream into three views:
 
-| Lens | Host | What it shows |
-|---|---|---|
-| Errors | `sentry.hanzo.ai` | exceptions, stacks, session capture |
-| Web analytics | `analytics.hanzo.ai` | pageviews, referrers, campaigns |
-| Product insights | `insights.hanzo.ai` | funnels, notebooks, **`analytics_errors`** |
+| Lens             | Host                 | What it shows                              |
+| ---------------- | -------------------- | ------------------------------------------ |
+| Errors           | `sentry.hanzo.ai`    | exceptions, stacks, session capture        |
+| Web analytics    | `analytics.hanzo.ai` | pageviews, referrers, campaigns            |
+| Product insights | `insights.hanzo.ai`  | funnels, notebooks, **`analytics_errors`** |
 
 Errors land in insights too, so a funnel drop joins to the exception that caused
 it. Those three hosts are **dashboards**. They are never ingest endpoints: there
@@ -101,13 +101,14 @@ is exactly one API host, which is why there is nothing to configure.
   ```tsx
   import { setConsent, useConsent } from '@hanzogui/telemetry'
 
-  const choice = useConsent()          // 'granted' | 'denied' | undefined
-  setConsent('denied')                 // takes effect immediately, everywhere
-  setConsent('unset')                  // forget it; DNT/GPC applies again
+  const choice = useConsent() // 'granted' | 'denied' | undefined
+  setConsent('denied') // takes effect immediately, everywhere
+  setConsent('unset') // forget it; DNT/GPC applies again
   ```
 
   Revocation is prospective: collection stops at once. Events already buffered
   under a live consent may complete their in-flight flush.
+
 - **Input values are withheld** from capture by default. `data-hz-private` on any
   element excludes its whole subtree.
 
@@ -122,7 +123,11 @@ import { track, identify, captureError, EVENTS } from '@hanzogui/telemetry'
 
 identify(user.id)
 track(EVENTS.PLAN_CLICKED, { plan: 'pro' })
-try { risky() } catch (err) { captureError(err, { properties: { where: 'checkout' } }) }
+try {
+  risky()
+} catch (err) {
+  captureError(err, { properties: { where: 'checkout' } })
+}
 ```
 
 ## In components
@@ -130,8 +135,8 @@ try { risky() } catch (err) { captureError(err, { properties: { where: 'checkout
 ```tsx
 import { useTelemetry, useTrack } from '@hanzogui/telemetry'
 
-const t = useTelemetry()          // total: never null, never throws, SSR-safe
-const track = useTrack()          // just the recorder
+const t = useTelemetry() // total: never null, never throws, SSR-safe
+const track = useTrack() // just the recorder
 ```
 
 ## Configuration (all optional)
@@ -139,26 +144,26 @@ const track = useTrack()          // just the recorder
 Environment, read from `process.env` (Next), `import.meta.env` (Vite/Expo), or a
 `window.__HANZO_TELEMETRY__` object for pages with no build step:
 
-| Variable | Default | Meaning |
-|---|---|---|
-| `NEXT_PUBLIC_PUBLISHABLE_KEY` / `VITE_PUBLISHABLE_KEY` / `EXPO_PUBLIC_PUBLISHABLE_KEY` | — | Publishable `pk-…` key — **the one name**, the one KMS carries at `deploy/PUBLISHABLE_KEY` and the one `@hanzo/event` reads. Write-only and safe in a bundle. Without it a beacon is unattributed and the edge refuses it. (The older `…_HANZO_INGEST_KEY` spelling is still read, second, and is being retired.) |
-| `NEXT_PUBLIC_HANZO_API_URL` / `VITE_HANZO_API_URL` | `https://api.hanzo.ai` | The one ingest host. |
-| `NEXT_PUBLIC_HANZO_PRODUCT` / `VITE_HANZO_PRODUCT` | resolved from the runtime, then the hostname | Emitting surface. A Tauri window reports as `desktop` — it serves one bundle from three origins (`tauri://localhost`, `http://tauri.localhost`, the dev server), so the URL is the one thing that cannot name it. |
-| `NEXT_PUBLIC_HANZO_TELEMETRY` / `VITE_HANZO_TELEMETRY` | on | `0`/`false`/`off` is a build-time kill switch. |
+| Variable                                                                               | Default                                      | Meaning                                                                                                                                                                                                                                                                                                           |
+| -------------------------------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_PUBLISHABLE_KEY` / `VITE_PUBLISHABLE_KEY` / `EXPO_PUBLIC_PUBLISHABLE_KEY` | —                                            | Publishable `pk-…` key — **the one name**, the one KMS carries at `deploy/PUBLISHABLE_KEY` and the one `@hanzo/event` reads. Write-only and safe in a bundle. Without it a beacon is unattributed and the edge refuses it. (The older `…_HANZO_INGEST_KEY` spelling is still read, second, and is being retired.) |
+| `NEXT_PUBLIC_HANZO_API_URL` / `VITE_HANZO_API_URL`                                     | `https://api.hanzo.ai`                       | The one ingest host.                                                                                                                                                                                                                                                                                              |
+| `NEXT_PUBLIC_HANZO_PRODUCT` / `VITE_HANZO_PRODUCT`                                     | resolved from the runtime, then the hostname | Emitting surface. A Tauri window reports as `desktop` — it serves one bundle from three origins (`tauri://localhost`, `http://tauri.localhost`, the dev server), so the URL is the one thing that cannot name it.                                                                                                 |
+| `NEXT_PUBLIC_HANZO_TELEMETRY` / `VITE_HANZO_TELEMETRY`                                 | on                                           | `0`/`false`/`off` is a build-time kill switch.                                                                                                                                                                                                                                                                    |
 
 Props, when you want them:
 
 ```tsx
 <TelemetryProvider
-  path={usePathname()}        // drive pageviews from your router
-  product="console"           // override the inferred surface
-  host=""                     // same-origin, cookie-auth apps
-  getToken={() => token}      // bearer-auth apps
-  replay={false}              // no interaction capture
-  errors={false}              // no error capture
-  pageviews={false}           // no pageviews
-  consent="granted"           // your own consent gate decided
-  enabled={false}             // hard kill switch, wins over everything
+  path={usePathname()} // drive pageviews from your router
+  product="console" // override the inferred surface
+  host="" // same-origin, cookie-auth apps
+  getToken={() => token} // bearer-auth apps
+  replay={false} // no interaction capture
+  errors={false} // no error capture
+  pageviews={false} // no pageviews
+  consent="granted" // your own consent gate decided
+  enabled={false} // hard kill switch, wins over everything
   fallback={(err, reset) => <Crash error={err} onReset={reset} />}
 />
 ```

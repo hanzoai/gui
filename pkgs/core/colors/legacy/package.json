@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/colors-legacy-shim",
   "private": true,
-  "//": "Not a real package — it exists ONLY to scope \"type\" for this directory. The parent is \"type\": \"module\", which makes the bare .js CommonJS compat shims here (for metro, which ignores exports maps) parse as ES modules and throw \"require is not defined in ES module scope\"; esbuild-register hit the same wall and broke the theme generator. name/private are required because the root workspace glob (./pkgs/**/*) matches this directory.",
-  "type": "commonjs"
+  "type": "commonjs",
+  "//": "Not a real package — it exists ONLY to scope \"type\" for this directory. The parent is \"type\": \"module\", which makes the bare .js CommonJS compat shims here (for metro, which ignores exports maps) parse as ES modules and throw \"require is not defined in ES module scope\"; esbuild-register hit the same wall and broke the theme generator. name/private are required because the root workspace glob (./pkgs/**/*) matches this directory."
 }

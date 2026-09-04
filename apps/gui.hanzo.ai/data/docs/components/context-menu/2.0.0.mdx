@@ -55,13 +55,16 @@ import '@hanzogui/native/setup-zeego'
 ```
 
 <Notice theme="blue">
-  On native, `ContextMenu.Trigger` coordinates with parent Gui pressables
-  automatically. You should not need extra wrapper views or empty `onPress`
-  handlers just to prevent a parent `pressStyle` from activating.
+  On native, `ContextMenu.Trigger` coordinates with parent Gui pressables automatically.
+  You should not need extra wrapper views or empty `onPress` handlers just to prevent a
+  parent `pressStyle` from activating.
 </Notice>
 
 <Notice theme="yellow">
-  **Expo Router users:** This import must run _before_ `expo-router/entry`. Create an `index.js` at your project root that imports the setup first, then expo-router, and update your `package.json` main field to `"index.js"`. See the [upgrade guide](/docs/guides/how-to-upgrade#expo-router-entry-point) for details.
+  **Expo Router users:** This import must run _before_ `expo-router/entry`. Create an
+  `index.js` at your project root that imports the setup first, then expo-router, and
+  update your `package.json` main field to `"index.js"`. See the [upgrade
+  guide](/docs/guides/how-to-upgrade#expo-router-entry-point) for details.
 </Notice>
 
 ## Anatomy
@@ -158,7 +161,8 @@ Contains every component for the ContextMenu.
       name: 'onOpenChange',
       type: '(open: boolean, event?: { preventDefault: () => void }) => void',
       required: false,
-      description: 'Called when the menu opens or closes. Call event.preventDefault() to cancel and allow the native context menu to show instead.',
+      description:
+        'Called when the menu opens or closes. Call event.preventDefault() to cancel and allow the native context menu to show instead.',
     },
     {
       name: 'onOpenWillChange',
@@ -180,7 +184,8 @@ Contains every component for the ContextMenu.
       type: 'ShiftProps | boolean',
       required: false,
       default: '{ padding: 10 }',
-      description: 'Shifts the menu horizontally to stay within viewport bounds. Pass an object to customize shift behavior (mainAxis, crossAxis, padding).',
+      description:
+        'Shifts the menu horizontally to stay within viewport bounds. Pass an object to customize shift behavior (mainAxis, crossAxis, padding).',
     },
     {
       name: 'allowFlip',

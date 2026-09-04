@@ -4,11 +4,11 @@
   "private": true,
   "main": "src/index.ts",
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@hanzogui/demos": "workspace:*",
     "@hanzogui/lucide-icons-2": "workspace:*",
-    "@hanzogui/toast": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "@hanzogui/toast": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=19.2.8"

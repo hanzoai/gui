@@ -1,7 +1,7 @@
 Image "types of property ''aria-hidden'' are incompatible." improve compat with real img
 
-
 vite 8 monorepo fix:
+
 - added `hanzogui-monorepo-exports-fix` plugin to `@hanzogui/vite-plugin`
 - vite 8 (rolldown) resolves workspace subpath imports to filesystem dirs instead of package.json exports
 - see https://github.com/vitejs/vite/issues/11676 and https://github.com/vitejs/vite/issues/20390

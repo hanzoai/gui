@@ -1,4 +1,14 @@
-import { type ThemeName, Button, Card, H2, Paragraph, Text, Theme, XStack, YStack } from '@hanzo/gui'
+import {
+  type ThemeName,
+  Button,
+  Card,
+  H2,
+  Paragraph,
+  Text,
+  Theme,
+  XStack,
+  YStack,
+} from '@hanzo/gui'
 
 // Proof surface for the token layer: true-black neutral ramp, one accent per
 // white-label brand (read straight from each brand's generated theme — the

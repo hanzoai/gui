@@ -451,10 +451,12 @@ export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.fla
  * `sees(stage)`; a caller reaching for the value named "public" is by definition
  * rendering to a stranger.
  */
-export const HANZO_FLAGSHIP_PUBLIC: HanzoProduct[] = HANZO_FLAGSHIP.filter(sees()).map((p) => ({
-  ...p,
-  href: p.page ?? p.href,
-}))
+export const HANZO_FLAGSHIP_PUBLIC: HanzoProduct[] = HANZO_FLAGSHIP.filter(sees()).map(
+  (p) => ({
+    ...p,
+    href: p.page ?? p.href,
+  })
+)
 
 /* ── Universal "Try Hanzo" menu — the products, identical on every property ── */
 

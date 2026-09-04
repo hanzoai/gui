@@ -30,7 +30,9 @@ export type EntriesType =
   | ReadonlyArray<readonly [PropertyKey, unknown]>
 
 export type DeepWritable<OBJ_T> = { -readonly [P in keyof OBJ_T]: DeepWritable<OBJ_T[P]> }
-export type UnionToIntersection<UNION_T> = // From https://stackoverflow.com/a/50375286
+export type UnionToIntersection<
+  UNION_T,
+> = // From https://stackoverflow.com/a/50375286
   (UNION_T extends any ? (k: UNION_T) => void : never) extends (k: infer I) => void
     ? I
     : never

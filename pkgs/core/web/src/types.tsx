@@ -1443,11 +1443,9 @@ export type GroupMediaKeys =
   | `$group-${MediaQueryKey}-${ParentMediaStates}`
 
 export type WithMediaProps<A> = {
-  [Key in
-    | MediaPropKeys
-    | GroupMediaKeys
-    | ThemeMediaKeys
-    | PlatformMediaKeys]?: Key extends MediaPropKeys
+  [
+    Key in MediaPropKeys | GroupMediaKeys | ThemeMediaKeys | PlatformMediaKeys
+  ]?: Key extends MediaPropKeys
     ? A & {
         // TODO we can support $theme- inside media queries here if we change to ThemeMediaKeys | PlatformMediaKeys
         [Key in PlatformMediaKeys]?: AddWebOnlyStyleProps<A>

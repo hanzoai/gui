@@ -47,7 +47,7 @@ const split = (props: Record<string, any>, C: any = View) =>
     { animationDriver: {}, groups: { state: {} } } as any,
     undefined,
     undefined,
-    true,
+    true
   ) as any
 
 /** What the style actually carries for this property once gui is done with it. */

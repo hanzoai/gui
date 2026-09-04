@@ -173,7 +173,12 @@ describe('the conversion preserves what rendered before', () => {
         />
       </>
     )
-    same(find('was'), find('now'), ['display', 'gridTemplateColumns', 'rowGap', 'columnGap'])
+    same(find('was'), find('now'), [
+      'display',
+      'gridTemplateColumns',
+      'rowGap',
+      'columnGap',
+    ])
     // the old form needed an inline style to say grid at all; the new one does not
     expect(find('now').getAttribute('style')).toBeNull()
     expect(leaked(find('now'))).toEqual([])

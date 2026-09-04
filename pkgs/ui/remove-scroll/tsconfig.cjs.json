@@ -16,12 +16,6 @@
     "declarationMap": false,
     "declarationDir": "dist/cjs/.types"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "src/**/*.test.*",
-    "src/**/__tests__/**",
-    "src/**/*.stories.*"
-  ]
+  "include": ["src"],
+  "exclude": ["src/**/*.test.*", "src/**/__tests__/**", "src/**/*.stories.*"]
 }

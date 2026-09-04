@@ -1,4 +1,4 @@
 import { getBabelPlugin } from '@hanzogui/static-sync'
-import type babel from '@babel/core'
+import type * as babel from '@babel/core'
 
-export default getBabelPlugin() as babel.PluginObj
+export default getBabelPlugin() as babel.PluginObject

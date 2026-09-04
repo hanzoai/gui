@@ -3,7 +3,7 @@ import { LogoIcon } from '@hanzogui/logo'
 
 import { Button, Square, YStack, isWeb } from '@hanzo/gui'
 
-import { useIsIntersecting } from './useOnIntersecting'
+import { useIsIntersecting } from './useOnIntersecting.tsx'
 
 export function AnimationsEnterDemo(props: any) {
   const ref = React.useRef<HTMLElement>(null)

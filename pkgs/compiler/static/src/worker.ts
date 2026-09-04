@@ -3,7 +3,7 @@
  * Used by both piscina (async) and synckit (sync for babel)
  */
 
-import type { BabelFileResult } from '@babel/core'
+import type { FileResult } from '@babel/core'
 import { createExtractor } from './extractor/createExtractor.ts'
 import type { ExtractedResponse } from './extractor/extractToClassNames.ts'
 import { extractToClassNames as extractToClassNamesImpl } from './extractor/extractToClassNames.ts'
@@ -54,7 +54,7 @@ export type WorkerTask = ExtractToClassNamesTask | ExtractToNativeTask | ClearCa
 
 export type WorkerResult =
   | { success: true; data: ExtractedResponse | null }
-  | { success: true; data: BabelFileResult }
+  | { success: true; data: FileResult }
   | { success: false; error: string; stack?: string }
 
 /**

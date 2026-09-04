@@ -792,7 +792,7 @@ type GenericAnimations = {
 //
 // const config = createGui(...)
 // type MyConfig = typeof config
-// declare module 'hanzogui' {
+// declare module '@hanzo/gui' {
 //   export interface GuiCustomConfig extends MyConfig {}
 // }
 // now your whole app/kit should be typed correctly
@@ -3440,10 +3440,11 @@ export type UseAnimationHook = (props: {
   themeName: string
   pseudos: WithPseudoProps<ViewStyle> | null
   stateRef: { current: GuiComponentStateRef }
+  styleState?: GetStyleResult
   onDidAnimate?: any
   delay?: number
 }) => null | {
-  style?: StackStyleBase | StackStyleBase[]
+  style?: object | object[]
   className?: string
   ref?: any
 }

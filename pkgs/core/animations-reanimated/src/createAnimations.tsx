@@ -285,7 +285,7 @@ const buildSnapshot = (
   transforms: Array<Record<string, unknown>>,
   previousKeys: Set<string>,
   lastPainted: Record<string, unknown>
-) => {
+): { value: AnimationSnapshot; painted: Record<string, unknown>; keys: Set<string> } => {
   const snapshotAnimated: Record<string, unknown> = {}
   const snapshotStatics = cloneStyleRecord(statics)
 
@@ -392,13 +392,13 @@ const createReanimatedConfig = (config: TransitionConfig): Record<string, unknow
 /**
  * Apply animation to a value based on config, with optional completion callback
  */
-const applyAnimation = (
-  targetValue: number | string,
+const applyAnimation = <T extends number | string>(
+  targetValue: T,
   config: TransitionConfig,
   callback?: AnimationCallback,
   seedValue?: number | string,
   validateStartAsColor = false
-): number | string => {
+): T => {
   'worklet'
   const delay = config.delay
   const reanimatedConfig = createReanimatedConfig(config)
@@ -695,7 +695,7 @@ function buildTransitionConfig<A extends Record<string, TransitionConfig>>(
   }
 
   if (normalized.config) {
-    base = cloneTransitionConfig({ ...base, ...normalized.config })
+    base = cloneTransitionConfig({ ...base, ...normalized.config } as TransitionConfig)
     // infer type: 'timing' if duration is provided without spring params
     if (
       base.type !== 'timing' &&

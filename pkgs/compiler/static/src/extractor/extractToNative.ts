@@ -1,4 +1,4 @@
-import { type BabelFileResult, transformSync } from '@babel/core'
+import { type FileResult, transformSync } from '@babel/core'
 import generator from '@babel/generator'
 import { declare } from '@babel/helper-plugin-utils'
 import template from '@babel/template'
@@ -31,7 +31,7 @@ export function extractToNative(
   sourceFileName: string,
   sourceCode: string,
   options: GuiOptions
-): BabelFileResult {
+): FileResult {
   const out = transformSync(sourceCode, {
     plugins: [[getBabelPlugin(), options]],
     sourceType: 'module',

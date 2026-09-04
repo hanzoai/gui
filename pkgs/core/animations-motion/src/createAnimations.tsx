@@ -41,7 +41,7 @@ const isServer = typeof window === 'undefined'
 // don't need animations so we return a no-op scope/animate pair.
 function useAnimateSSRSafe() {
   if (isServer) {
-    return [useRef(null), (() => {}) as any] as ReturnType<typeof useAnimate>
+    return [useRef<Element>(null), () => {}] as unknown as ReturnType<typeof useAnimate>
   }
   return useAnimate()
 }

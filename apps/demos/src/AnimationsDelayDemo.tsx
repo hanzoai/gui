@@ -1,7 +1,7 @@
 import React from 'react'
 import { AnimatePresence, Button, Square, XStack, YStack, isWeb } from '@hanzo/gui'
 
-import { useIsIntersecting } from './useOnIntersecting'
+import { useIsIntersecting } from './useOnIntersecting.tsx'
 
 const colors = ['$color9', '$color10', '$color11', '$color12'] as const
 

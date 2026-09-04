@@ -1,4 +1,4 @@
-import { getVariableVariable, isWeb } from '@hanzogui/core'
+import { isVariable, isWeb, type Variable } from '@hanzogui/core'
 import type {
   FontLineHeightTokens,
   FontSizeTokens,
@@ -63,10 +63,7 @@ export const calc = (...valuesAndOperators: (CalcVal | Operator)[]): string | nu
   return res
 }
 
-const convertToVariableOrNumber = (v: any): string => {
-  const varOrVal = getVariableVariable(v)
-  if (typeof varOrVal === 'number') {
-    return `${varOrVal}px`
-  }
-  return varOrVal
+const convertToVariableOrNumber = (v: CalcVal | Operator | Variable): string => {
+  const value = isVariable(v) ? (v.variable ?? v.val) : v
+  return typeof value === 'number' ? `${value}px` : String(value)
 }

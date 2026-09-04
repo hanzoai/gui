@@ -15,7 +15,6 @@ const Control = styled(XStack, {
   cursor: 'pointer',
   hoverStyle: { backgroundColor: '$color4' },
   pressStyle: { backgroundColor: '$color5' },
-  animation: 'quick',
 })
 
 const Glyph = styled(Text, {
@@ -34,7 +33,6 @@ export function TitleBar({ title = '' }: TitleBarProps) {
 
   return (
     <XStack
-      // @ts-expect-error — Tauri drag region is a raw DOM attribute (web/webview)
       data-tauri-drag-region
       height={40}
       alignItems="center"
@@ -49,7 +47,6 @@ export function TitleBar({ title = '' }: TitleBarProps) {
         fontFamily="$body"
         fontSize={13}
         color="$color11"
-        // @ts-expect-error — raw DOM attribute so clicks on the title still drag
         data-tauri-drag-region
       >
         {title}

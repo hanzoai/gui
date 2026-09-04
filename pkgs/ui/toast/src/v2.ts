@@ -27,5 +27,9 @@ export { Toaster } from './Toaster.tsx'
 export type { ToasterProps, ToasterPosition } from './Toaster.tsx'
 
 export type { SwipeDirection } from './ToastProvider.tsx'
-export type { BurntToastOptions, CreateNativeToastOptions, NativeToastRef } from './types.ts'
+export type {
+  BurntToastOptions,
+  CreateNativeToastOptions,
+  NativeToastRef,
+} from './types.ts'
 export { requestNotificationPermission } from './createNativeToast.tsx'

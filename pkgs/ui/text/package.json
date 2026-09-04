@@ -35,8 +35,8 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@hanzogui/get-font-sized": "workspace:*",
     "@hanzogui/component-helpers": "workspace:*",
+    "@hanzogui/get-font-sized": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {

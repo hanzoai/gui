@@ -93,7 +93,7 @@ export function flattenChildren(
     }, [])
 }
 
-export const pickChildren = <Props = any>(
+export const pickChildren = <Props = any,>(
   _children: ReactNode | undefined,
   targetChild: React.ElementType,
   componentNamesToIgnore?: string[]

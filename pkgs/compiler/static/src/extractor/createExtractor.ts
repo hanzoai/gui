@@ -42,7 +42,10 @@ import {
   objToStr,
 } from './extractHelpers.ts'
 import { findTopmostFunction } from './findTopmostFunction.ts'
-import { cleanupBeforeExit, getStaticBindingsForScope } from './getStaticBindingsForScope.ts'
+import {
+  cleanupBeforeExit,
+  getStaticBindingsForScope,
+} from './getStaticBindingsForScope.ts'
 import { literalToAst } from './literalToAst.ts'
 import { loadGui, loadGuiSync } from './loadGui.ts'
 import { logLines } from './logLines.ts'

@@ -200,11 +200,11 @@ The frontends own only authoring syntax, types, parsing, and compiler lowering.
 Each strict DOM component receives exactly one styling language based on its
 import source.
 
-| Import | DOM styling language |
-|---|---|
-| `hanzogui`, `@hanzogui/core` | regular Gui style props |
-| `@hanzogui/tailwind` | Tailwind `className` |
-| `hanzogui/dom`, `@hanzogui/core/dom` | `style()` handles |
+| Import                               | DOM styling language    |
+| ------------------------------------ | ----------------------- |
+| `hanzogui`, `@hanzogui/core`         | regular Gui style props |
+| `@hanzogui/tailwind`                 | Tailwind `className`    |
+| `hanzogui/dom`, `@hanzogui/core/dom` | `style()` handles       |
 
 Examples:
 
@@ -242,29 +242,29 @@ The leading shorthand direction is:
 
 ```tsx
 // CSS defaults fill in property=all, timing=ease, delay=0s, behavior=normal
-transition="200ms"
+transition = '200ms'
 
 // complete CSS shorthand, including per-property transitions
-transition="opacity 150ms ease-out, transform 250ms cubic-bezier(0.2, 0, 0, 1) 50ms"
+transition = 'opacity 150ms ease-out, transform 250ms cubic-bezier(0.2, 0, 0, 1) 50ms'
 ```
 
 The expanded form uses the real web longhands rather than a second
 Gui-specific object:
 
 ```tsx
-transitionProperty="opacity, transform"
-transitionDuration="150ms, 250ms"
-transitionTimingFunction="ease-out, cubic-bezier(0.2, 0, 0, 1)"
-transitionDelay="0ms, 50ms"
-transitionBehavior="normal"
+transitionProperty = 'opacity, transform'
+transitionDuration = '150ms, 250ms'
+transitionTimingFunction = 'ease-out, cubic-bezier(0.2, 0, 0, 1)'
+transitionDelay = '0ms, 50ms'
+transitionBehavior = 'normal'
 ```
 
 Configured animation-driver presets remain useful for springs and shared
 product motion:
 
 ```tsx
-transition="quick"
-transition="bouncy"
+transition = 'quick'
+transition = 'bouncy'
 ```
 
 The parser needs one deterministic resolution rule. The proposed rule is that
@@ -308,11 +308,7 @@ The V3 grammar uses Tailwind candidate suffixes inside each style prop. The
 prop supplies the utility family:
 
 ```tsx
-<View
-  p="4 sm:6"
-  bg="red-500 hover:blue-500 dark:hover:blue-700"
-  w="full md:[42rem]"
-/>
+<View p="4 sm:6" bg="red-500 hover:blue-500 dark:hover:blue-700" w="full md:[42rem]" />
 ```
 
 Conceptually:
@@ -350,13 +346,13 @@ Viewport and container conditions have different spellings:
 
 ```tsx
 // viewport sm plus card hover
-color="muted sm:group-hover/card:foreground"
+color = 'muted sm:group-hover/card:foreground'
 
 // nearest container sm plus parent hover
-color="muted @sm:group-hover:foreground"
+color = 'muted @sm:group-hover:foreground'
 
 // named layout container sm plus named card group hover
-color="muted @sm/layout:group-hover/card:foreground"
+color = 'muted @sm/layout:group-hover/card:foreground'
 ```
 
 The `@` prefix does not mean media in general. Tailwind uses ordinary `sm:`,
@@ -405,9 +401,9 @@ measurement costs.
 Tailwind arbitrary values are the literal escape hatch:
 
 ```tsx
-bg="[linear-gradient(135deg,_#f00,_#00f)]"
-w="[117px] md:[344px]"
-bg="(--my-background)"
+bg = '[linear-gradient(135deg,_#f00,_#00f)]'
+w = '[117px] md:[344px]'
+bg = '(--my-background)'
 ```
 
 Using this exact spelling lets regular and Tailwind Gui share one parser.
@@ -442,10 +438,10 @@ This makes the same configured value read consistently in both frontends:
 
 ```tsx
 // regular Gui
-bg="background hover:background-hover"
+bg = 'background hover:background-hover'
 
 // Tailwind Gui
-className="bg-background hover:bg-background-hover"
+className = 'bg-background hover:bg-background-hover'
 ```
 
 Underlying config storage may still use `$` until the token representation is
@@ -469,8 +465,8 @@ prop. A mismatched candidate is a compiler diagnostic.
 The selected syntax is exact scoped Tailwind:
 
 ```tsx
-bg="red-500 hover:blue-500"
-bg="[linear-gradient(135deg,_#f00,_#00f)]"
+bg = 'red-500 hover:blue-500'
+bg = '[linear-gradient(135deg,_#f00,_#00f)]'
 ```
 
 This removes `$`, uses one parser, and gives arbitrary values one explicit
@@ -499,20 +495,20 @@ but type performance takes priority over exhaustive string validation.
 The earlier condition-call proposal was:
 
 ```tsx
-bg="$red :hover($green) :light($color1/50) :dark:hover($color2/20)"
+bg = '$red :hover($green) :light($color1/50) :dark:hover($color2/20)'
 ```
 
 Compact input may be accepted:
 
 ```tsx
-bg="$red:hover($green):dark:hover($blue)"
+bg = '$red:hover($green):dark:hover($blue)'
 ```
 
 Documentation and formatting always use one space before each conditional
 clause:
 
 ```tsx
-bg="$red :hover($green) :dark:hover($blue)"
+bg = '$red :hover($green) :dark:hover($blue)'
 ```
 
 This is a property-centered conditional program. It reaches a similar
@@ -535,7 +531,7 @@ condition = ":" registered-condition
 Example parse:
 
 ```ts
-[
+;[
   { when: [], value: '$red' },
   { when: ['hover'], value: '$green' },
   { when: ['light'], value: '$color1/50' },
@@ -546,14 +542,14 @@ Example parse:
 A program may omit its base:
 
 ```tsx
-bg=":hover($green)"
+bg = ':hover($green)'
 ```
 
 Empty clauses are invalid:
 
 ```tsx
 // compile error
-bg="$red :hover()"
+bg = '$red :hover()'
 ```
 
 Property values with defined semantics handle clearing. Examples include
@@ -566,11 +562,11 @@ The parser cannot split on colons, whitespace, commas, slashes, or
 parentheses. All appear in valid CSS values:
 
 ```tsx
-background="linear-gradient(to right, red 0%, blue 100%)"
-shadow="0 2px 8px rgb(0 0 0 / 20%) :hover(0 4px 16px rgb(0 0 0 / 30%))"
-backgroundImage="url(https://example.com/a:b)"
-width="calc(100% - var(--sidebar-width))"
-fontFamily="'IBM Plex Sans', sans-serif"
+background = 'linear-gradient(to right, red 0%, blue 100%)'
+shadow = '0 2px 8px rgb(0 0 0 / 20%) :hover(0 4px 16px rgb(0 0 0 / 30%))'
+backgroundImage = 'url(https://example.com/a:b)'
+width = 'calc(100% - var(--sidebar-width))'
+fontFamily = "'IBM Plex Sans', sans-serif"
 ```
 
 Parsing follows CSS component-value rules:
@@ -599,22 +595,22 @@ Initial categories:
 Simple conditions use bare registered names:
 
 ```tsx
-opacity="1 :disabled(0.5)"
-display="flex :sm(grid)"
-bg="$surface :dark($surfaceDark)"
+opacity = '1 :disabled(0.5)'
+display = 'flex :sm(grid)'
+bg = '$surface :dark($surfaceDark)'
 ```
 
 Conditions compose as an AND chain:
 
 ```tsx
-bg="$surface :dark:hover($surfaceDarkHover)"
+bg = '$surface :dark:hover($surfaceDarkHover)'
 ```
 
 Parameterized group or container conditions need one canonical form. The
 condition-call proposal used:
 
 ```tsx
-bg="$surface :group[card]:hover($surfaceHover)"
+bg = '$surface :group[card]:hover($surfaceHover)'
 ```
 
 That spelling does not carry into the property-scoped candidate direction.
@@ -637,7 +633,7 @@ Within one property program, clauses are evaluated left to right. The last
 matching clause wins:
 
 ```tsx
-bg="$red :hover($green) :dark($gray) :dark:hover($blue)"
+bg = '$red :hover($green) :dark($gray) :dark:hover($blue)'
 ```
 
 When dark mode and hover are active, `$blue` wins.
@@ -663,7 +659,7 @@ The `danger` variant removes the earlier hover behavior. Preserving a
 conditional behavior requires restating the complete property program:
 
 ```tsx
-bg="$red :hover($redHover)"
+bg = '$red :hover($redHover)'
 ```
 
 This atomic property replacement is intentional. It makes component props,
@@ -712,13 +708,13 @@ The exact CSS encoding may differ, but these semantics are fixed.
 Gui tokens keep `$`:
 
 ```tsx
-bg="$green"
+bg = '$green'
 ```
 
 Real CSS custom properties retain CSS syntax:
 
 ```tsx
-bg="var(--green)"
+bg = 'var(--green)'
 ```
 
 Bare `--green` is not the token syntax. In CSS, `--green` names a custom
@@ -728,7 +724,7 @@ cross-platform Gui token distinct from a web-only CSS variable.
 Color-token opacity uses:
 
 ```tsx
-bg="$green/50"
+bg = '$green/50'
 ```
 
 Initial rule:
@@ -750,15 +746,15 @@ zIndex={2}
 Conditional values use a string program:
 
 ```tsx
-opacity="0.5 :hover(1)"
-zIndex="2 :focus(3)"
+opacity = '0.5 :hover(1)'
+zIndex = '2 :focus(3)'
 ```
 
 The v4 direction prefers CSS-shaped strings for structured styles:
 
 ```tsx
-transform="scale(1) :hover(scale(1.05))"
-boxShadow="0 2px 8px #0003 :hover(0 4px 16px #0004)"
+transform = 'scale(1) :hover(scale(1.05))'
+boxShadow = '0 2px 8px #0003 :hover(0 4px 16px #0004)'
 ```
 
 React Native object and array values that lack a faithful CSS-shaped
@@ -770,7 +766,7 @@ must not be converted by guesswork.
 Literal programs compile completely:
 
 ```tsx
-bg="$surface :hover($surfaceHover)"
+bg = '$surface :hover($surfaceHover)'
 ```
 
 Dynamic programs require the shared runtime parser unless the surrounding
@@ -817,16 +813,16 @@ Property-scoped candidates and Tailwind classes lower into the same ordered IR:
 
 ```tsx
 // regular Gui
-bg="red hover:green dark:hover:blue"
+bg = 'red hover:green dark:hover:blue'
 
 // Tailwind Gui
-className="bg-red hover:bg-green dark:hover:bg-blue"
+className = 'bg-red hover:bg-green dark:hover:bg-blue'
 ```
 
 Both become:
 
 ```ts
-[
+;[
   { property: 'backgroundColor', when: [], value: '$red' },
   { property: 'backgroundColor', when: ['hover'], value: '$green' },
   { property: 'backgroundColor', when: ['dark', 'hover'], value: '$blue' },
@@ -953,13 +949,13 @@ safe.
 
 The July 2026 comparison found:
 
-| Surface | Concrete style keys |
-|---|---:|
-| Official RSD | 148 |
-| Gui View on web | 244 |
-| Gui Text on web | 263 |
-| Gui View on native | 187 |
-| Gui Text on native | 202 |
+| Surface            | Concrete style keys |
+| ------------------ | ------------------: |
+| Official RSD       |                 148 |
+| Gui View on web    |                 244 |
+| Gui Text on web    |                 263 |
+| Gui View on native |                 187 |
+| Gui Text on native |                 202 |
 
 At that snapshot, Gui covered 139 of RSD's 148 style names on web and 131
 on native. Some apparent gaps were API-shape differences:
@@ -1037,11 +1033,11 @@ Compatibility expands only through concrete fixtures and conformance tests.
 
 Import provenance selects the frontend:
 
-| Binding source | Compiler interpretation |
-|---|---|
-| `hanzogui`, `@hanzogui/core` | DOM plus regular Gui props |
-| `@hanzogui/tailwind` | DOM plus Tailwind candidates |
-| `hanzogui/dom`, `@hanzogui/core/dom` | DOM plus `style()` handles |
+| Binding source                       | Compiler interpretation      |
+| ------------------------------------ | ---------------------------- |
+| `hanzogui`, `@hanzogui/core`         | DOM plus regular Gui props   |
+| `@hanzogui/tailwind`                 | DOM plus Tailwind candidates |
+| `hanzogui/dom`, `@hanzogui/core/dom` | DOM plus `style()` handles   |
 
 All lower to:
 
@@ -1176,12 +1172,12 @@ the module graph was checked for `.native` files.
 
 Corrected `View` results:
 
-| Configuration | Web gzip |
-|---|---:|
-| main `@hanzogui/web` | 24.3 KB |
-| v3-beta as shipped | 43.9 KB |
-| v3-beta with `tailwind-merge` externalized | 35.6 KB |
-| v3-beta with `tailwind-merge` and style grammar externalized | 31.5 KB |
+| Configuration                                                | Web gzip |
+| ------------------------------------------------------------ | -------: |
+| main `@hanzogui/web`                                         |  24.3 KB |
+| v3-beta as shipped                                           |  43.9 KB |
+| v3-beta with `tailwind-merge` externalized                   |  35.6 KB |
+| v3-beta with `tailwind-merge` and style grammar externalized |  31.5 KB |
 
 The v3-beta browser bundle contained zero `.native` modules. It did contain
 the Tailwind pipeline even when Tailwind mode was disabled at runtime.
@@ -1337,10 +1333,10 @@ migratable:
 
 ```tsx
 // current
-bg="$surface"
+bg = '$surface'
 
 // exact scoped-candidate direction
-bg="surface"
+bg = 'surface'
 ```
 
 The compiler resolves each candidate to its actual background contribution. It

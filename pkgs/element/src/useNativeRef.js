@@ -1,5 +1,5 @@
-import { useComposedRefs } from '@hanzogui/compose-refs';
-import * as React from 'react';
+import { useComposedRefs } from '@hanzogui/compose-refs'
+import * as React from 'react'
 /**
  * Creates a ref for native-only code that properly types to View.
  * Returns both ref and composedRef for component usage.
@@ -11,9 +11,9 @@ import * as React from 'react';
  * ```
  */
 export function useNativeRef(forwardedRef) {
-    const ref = React.useRef(null);
-    const composedRef = useComposedRefs(ref, forwardedRef);
-    return { ref, composedRef };
+  const ref = React.useRef(null)
+  const composedRef = useComposedRefs(ref, forwardedRef)
+  return { ref, composedRef }
 }
 /**
  * Creates a ref for native TextInput components.
@@ -26,8 +26,8 @@ export function useNativeRef(forwardedRef) {
  * ```
  */
 export function useNativeInputRef(forwardedRef) {
-    const ref = React.useRef(null);
-    const composedRef = useComposedRefs(ref, forwardedRef);
-    return { ref, composedRef };
+  const ref = React.useRef(null)
+  const composedRef = useComposedRefs(ref, forwardedRef)
+  return { ref, composedRef }
 }
 //# sourceMappingURL=useNativeRef.js.map

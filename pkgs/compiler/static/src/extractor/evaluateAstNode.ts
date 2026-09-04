@@ -21,7 +21,7 @@ export function evaluateAstNode(
   // loop through ObjectExpression keys
   if (t.isObjectExpression(exprNode)) {
     const ret: Record<string, any> = {}
-    for (let idx = -1, len = exprNode.properties.length; ++idx < len; ) {
+    for (let idx = -1, len = exprNode.properties.length; ++idx < len;) {
       const value = exprNode.properties[idx]
 
       if (!t.isObjectProperty(value)) {
@@ -75,7 +75,7 @@ export function evaluateAstNode(
     }
 
     let ret = ''
-    for (let idx = -1, len = exprNode.quasis.length; ++idx < len; ) {
+    for (let idx = -1, len = exprNode.quasis.length; ++idx < len;) {
       const quasi = exprNode.quasis[idx]
       const expr = exprNode.expressions[idx]
       ret += quasi.value.raw

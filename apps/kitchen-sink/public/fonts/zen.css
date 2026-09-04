@@ -1,5 +1,23 @@
 /* The three faces the kit uses, self-hosted from @hanzo/font — one variable
    file per family rather than a weight per request. */
-@font-face{font-family:'Zen';src:url('/fonts/Zen-Variable.woff2') format('woff2-variations');font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:'Zen Mono';src:url('/fonts/ZenMono-Variable.woff2') format('woff2-variations');font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:'Zen Pixel Square';src:url('/fonts/ZenPixel-Square.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face {
+  font-family: 'Zen';
+  src: url('/fonts/Zen-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Zen Mono';
+  src: url('/fonts/ZenMono-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Zen Pixel Square';
+  src: url('/fonts/ZenPixel-Square.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

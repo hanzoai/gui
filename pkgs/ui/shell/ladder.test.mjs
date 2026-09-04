@@ -64,7 +64,10 @@ test('a retired tier keeps its rung', () => {
   // Retiring a tier stops us SELLING it. It does not refund the people already
   // on one, and deleting the rung is how they become free users.
   const plus = rungs().find((r) => r.slug === 'plus')
-  assert.ok(plus, 'plus was removed rather than retired; whoever still holds one now resolves to free')
+  assert.ok(
+    plus,
+    'plus was removed rather than retired; whoever still holds one now resolves to free'
+  )
   assert.equal(plus.retired, true, 'plus is still offered; it is not sold any more')
 })
 
@@ -73,7 +76,11 @@ test('rank is a strict order, and declaration order is that order', () => {
   assert.ok(all.length > 0, 'no rungs parsed — this test is watching nothing')
 
   const ranks = all.map((r) => r.rank)
-  assert.equal(new Set(ranks).size, ranks.length, `two rungs share a rank: ${ranks.join(', ')}`)
+  assert.equal(
+    new Set(ranks).size,
+    ranks.length,
+    `two rungs share a rank: ${ranks.join(', ')}`
+  )
 
   // Gating is `rankOf(tier) >= rankOf(required)`, and the file's own comment says
   // order IS display order. A rung declared out of order gates correctly and

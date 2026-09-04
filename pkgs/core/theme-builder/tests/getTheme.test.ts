@@ -245,14 +245,12 @@ describe('theme-builder getTheme', () => {
       .addThemes({
         light: { template: 'base', palette: 'light' },
       })
-      .getTheme(
-        ({ theme }): MyTheme => ({
-          background: theme.background || '#fff',
-          color: theme.color || '#000',
-          border: '#ccc',
-          elevation: 2,
-        })
-      )
+      .getTheme(({ theme }): MyTheme => ({
+        background: theme.background || '#fff',
+        color: theme.color || '#000',
+        border: '#ccc',
+        elevation: 2,
+      }))
       .build()
 
     // Type assertion to ensure it matches MyTheme

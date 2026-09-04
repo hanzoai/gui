@@ -9,12 +9,12 @@
  * ```
  */
 export function getWebElement(element) {
-    if (!element) {
-        throw new Error('Element is null or undefined');
-    }
-    if (!(element instanceof HTMLElement)) {
-        throw new Error('Element is not an HTMLElement');
-    }
-    return element;
+  if (!element) {
+    throw new Error('Element is null or undefined')
+  }
+  if (!(element instanceof HTMLElement)) {
+    throw new Error('Element is not an HTMLElement')
+  }
+  return element
 }
 //# sourceMappingURL=getWebElement.js.map

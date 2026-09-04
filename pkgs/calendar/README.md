@@ -37,12 +37,12 @@ That's the whole integration. `Booker` fetches the public event type, renders a 
 
 ## Components
 
-| Component        | Purpose                                                                 |
-| ---------------- | ----------------------------------------------------------------------- |
-| `Booker`         | Full scheduling flow: event → month → times → details → confirmation.   |
-| `CalendarEmbed`  | Compact card for a marketing hero — soonest availability inline.        |
-| `Confirmation`   | Booking confirmation card; pass a `booking` or a `uid` to fetch one.    |
-| `EventHeader`, `MonthCalendar`, `TimeSlots`, `BookingForm` | Composable sub-views for a custom flow. |
+| Component                                                  | Purpose                                                               |
+| ---------------------------------------------------------- | --------------------------------------------------------------------- |
+| `Booker`                                                   | Full scheduling flow: event → month → times → details → confirmation. |
+| `CalendarEmbed`                                            | Compact card for a marketing hero — soonest availability inline.      |
+| `Confirmation`                                             | Booking confirmation card; pass a `booking` or a `uid` to fetch one.  |
+| `EventHeader`, `MonthCalendar`, `TimeSlots`, `BookingForm` | Composable sub-views for a custom flow.                               |
 
 ### Props
 

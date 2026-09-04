@@ -1,4 +1,10 @@
-import type { DebugProp, ThemeName, GroupNames, Role, GuiComponentState } from '../types.tsx'
+import type {
+  DebugProp,
+  ThemeName,
+  GroupNames,
+  Role,
+  GuiComponentState,
+} from '../types.tsx'
 
 export type GuiComponentPropsBaseBase = {
   target?: string

@@ -29,7 +29,9 @@ createScopedAnimate() -> scopedAnimate() -> animateSubject() -> animateTarget()
 In `packages/motion-dom/src/animation/interfaces/visual-element-target.ts`, for each CSS property being animated, it gets (or creates) a `MotionValue` and calls:
 
 ```ts
-value.start(animateMotionValue(key, value, valueTarget, valueTransition, visualElement, isHandoff))
+value.start(
+  animateMotionValue(key, value, valueTarget, valueTransition, visualElement, isHandoff)
+)
 ```
 
 ### Step 3: `MotionValue.start()` always stops the previous animation first
@@ -136,9 +138,9 @@ Back in `animateMotionValue()` (`packages/motion-dom/src/animation/interfaces/mo
 
 ```ts
 const options: ValueAnimationOptions = {
-    keyframes: Array.isArray(target) ? target : [null, target],  // null = "read current"
-    velocity: value.getVelocity(),   // <-- uses the velocity set by setWithVelocity()
-    // ...
+  keyframes: Array.isArray(target) ? target : [null, target], // null = "read current"
+  velocity: value.getVelocity(), // <-- uses the velocity set by setWithVelocity()
+  // ...
 }
 ```
 
@@ -146,11 +148,11 @@ Then `KeyframesResolver.readKeyframes()` resolves the `null` first keyframe:
 
 ```ts
 if (unresolvedKeyframes[0] === null) {
-    const currentValue = motionValue?.get()   // <-- reads the mid-flight committed value
-    if (currentValue !== undefined) {
-        unresolvedKeyframes[0] = currentValue
-    }
-    // ...
+  const currentValue = motionValue?.get() // <-- reads the mid-flight committed value
+  if (currentValue !== undefined) {
+    unresolvedKeyframes[0] = currentValue
+  }
+  // ...
 }
 ```
 
@@ -160,13 +162,13 @@ So the new animation runs `[currentMidFlightValue, ..., targetValue]` with the c
 
 ## 2. Specific Commits for Interruption Handling
 
-| Version | Date | What was fixed |
-|---------|------|----------------|
-| `framer-motion@8.1.8` | 2023-01-05 | Sampling of animations with delay/repeat settings when interrupting WAAPI animations |
-| `framer-motion@11.0.2` | 2024-01-23 | Fixed velocity calculations when interrupting WAAPI animations |
-| `framer-motion@11.0.17` | 2024-03-20 | **"Interruption of WAAPI animations now animates from correct value"** — PR #2575 `fix/waapi-interrupt` |
-| `framer-motion@11.0.21` | 2024-03-26 | Fixed interrupting WAAPI **spring** animations specifically (needed to preserve `type`, `ease`, `times` in the resolved object for correct sampling) — commit `db77156de` |
-| `motion@12.24.11` | 2026-01-07 | Fixed transform animation **jumping under CPU load** when rapidly interrupting — added `startedAt` wall-clock timestamp to `NativeAnimationExtended`, uses `time.now()` instead of WAAPI's `currentTime` for sampling — commit `b6841817b` (Claude-generated) |
+| Version                 | Date       | What was fixed                                                                                                                                                                                                                                                |
+| ----------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `framer-motion@8.1.8`   | 2023-01-05 | Sampling of animations with delay/repeat settings when interrupting WAAPI animations                                                                                                                                                                          |
+| `framer-motion@11.0.2`  | 2024-01-23 | Fixed velocity calculations when interrupting WAAPI animations                                                                                                                                                                                                |
+| `framer-motion@11.0.17` | 2024-03-20 | **"Interruption of WAAPI animations now animates from correct value"** — PR #2575 `fix/waapi-interrupt`                                                                                                                                                       |
+| `framer-motion@11.0.21` | 2024-03-26 | Fixed interrupting WAAPI **spring** animations specifically (needed to preserve `type`, `ease`, `times` in the resolved object for correct sampling) — commit `db77156de`                                                                                     |
+| `motion@12.24.11`       | 2026-01-07 | Fixed transform animation **jumping under CPU load** when rapidly interrupting — added `startedAt` wall-clock timestamp to `NativeAnimationExtended`, uses `time.now()` instead of WAAPI's `currentTime` for sampling — commit `b6841817b` (Claude-generated) |
 
 The key PR that established the core fix is `#2575` (merged as commit `3c45b2f79`). The code was later refactored from `AcceleratedAnimation.ts` in framer-motion to the `NativeAnimation`/`NativeAnimationExtended` split in `motion-dom`.
 
@@ -180,21 +182,26 @@ The workaround in `createAnimations.tsx` lines 333–405:
 // WAAPI mid-flight transform interruption workaround
 // [extensive comment explaining the problem and fix]
 
-if (isRunning && refs.current.controls && fixedDiff.transform && (isPopperElement || isEnteringPresenceChild)) {
-    const anims = (refs.current.controls as any).animations
-    if (anims) {
-        for (const anim of anims) {
-            try {
-                const raw = anim?.animation ?? anim
-                raw?.commitStyles?.()  // manually commits styles
-            } catch {}
-        }
+if (
+  isRunning &&
+  refs.current.controls &&
+  fixedDiff.transform &&
+  (isPopperElement || isEnteringPresenceChild)
+) {
+  const anims = (refs.current.controls as any).animations
+  if (anims) {
+    for (const anim of anims) {
+      try {
+        const raw = anim?.animation ?? anim
+        raw?.commitStyles?.() // manually commits styles
+      } catch {}
     }
-    refs.current.controls.cancel()          // cancels the old animation
-    const committedTransform = node.style.transform  // reads committed value
-    if (committedTransform) {
-        fixedDiff.transform = [committedTransform, fixedDiff.transform]  // builds keyframe array
-    }
+  }
+  refs.current.controls.cancel() // cancels the old animation
+  const committedTransform = node.style.transform // reads committed value
+  if (committedTransform) {
+    fixedDiff.transform = [committedTransform, fixedDiff.transform] // builds keyframe array
+  }
 }
 ```
 
@@ -232,6 +239,7 @@ However, there is a timing subtlety: `AsyncMotionValueAnimation` resolves keyfra
 ## 5. The CPU-Load Fix (12.24.11+)
 
 The commit `b6841817b` (January 7, 2026) specifically fixes the case where:
+
 - The main thread is blocked (CPU load)
 - WAAPI's `currentTime` lags behind real elapsed time
 - When interruption sampling uses `currentTime`, it samples the wrong point in the animation
@@ -269,11 +277,11 @@ The workaround's **Part 2** (persisting the final transform after animation comp
 ```ts
 // part 2: persist final transform after animation completes
 if (isPopperElement && !isCurrentlyExiting && fixedDiff.transform) {
-    startedControls.finished.then(() => {
-        if (node.isConnected) {
-            node.style.transform = target
-        }
-    })
+  startedControls.finished.then(() => {
+    if (node.isConnected) {
+      node.style.transform = target
+    }
+  })
 }
 ```
 
@@ -282,6 +290,7 @@ This addresses the WAAPI `fill: "both"` and the fact that when motion finishes a
 ### Migration path
 
 To remove the workaround:
+
 1. Delete lines 333–431 of `createAnimations.tsx` (the entire workaround block, both Part 1 and Part 2)
 2. The `animate(scope.current, fixedDiff, animationOptions)` call remains as-is
 3. Test with the existing animation tests: `TabHoverPositionSmooth.animated.test.tsx`, `TooltipPositionJump.animated.test.tsx`, `PopoverAnimatePosition.animated.test.tsx`, `PopoverHoverable.test.tsx`
@@ -290,6 +299,7 @@ To remove the workaround:
 ### Upstream fix needed?
 
 No upstream fix is needed. Motion already handles this correctly. The mechanism is:
+
 - `NativeAnimation.stop()` commits styles (via `commitStyles()`) or samples velocity (via `NativeAnimationExtended.updateMotionValue()`)
 - `MotionValue.start()` always stops the current animation before starting the new one
 - `KeyframesResolver.readKeyframes()` uses `motionValue.get()` as the starting keyframe when the first keyframe is `null`

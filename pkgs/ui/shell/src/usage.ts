@@ -76,7 +76,9 @@ export function usageOf(r: Rollup | null): PlanUsage | undefined {
     // Trust the server's own remaining when it sent one — it is the figure the
     // gate will enforce — and fall back to the subtraction when it did not.
     const remaining =
-      typeof w.remaining === 'number' && w.remaining >= 0 ? w.remaining : Math.max(0, limit - used)
+      typeof w.remaining === 'number' && w.remaining >= 0
+        ? w.remaining
+        : Math.max(0, limit - used)
 
     if (binding && pct <= binding.usedPct) continue
     binding = {

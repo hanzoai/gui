@@ -2,8 +2,8 @@
   "name": "@hanzogui/desktop",
   "version": "8.0.0",
   "private": true,
+  "description": "Tauri desktop proof shell — renders hanzogui on the true-black theme in a native webview.",
   "type": "module",
-  "description": "Tauri desktop proof shell \u2014 renders hanzogui on the true-black theme in a native webview.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,11 +11,11 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@hanzogui/react-native-web-lite": "workspace:*",
     "@hanzogui/tauri": "workspace:*",
     "@hanzogui/themes": "workspace:*",
-    "@hanzo/gui": "workspace:*",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },

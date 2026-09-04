@@ -6,10 +6,7 @@ import { apiRoute } from '~/features/api/apiRoute'
 export default apiRoute(async (req) => {
   const { ImageResponse } = await import('@vercel/og')
 
-  const [sansRegular, sansBlack] = await Promise.all([
-    sansRegularP,
-    sansBlackP,
-  ])
+  const [sansRegular, sansBlack] = await Promise.all([sansRegularP, sansBlackP])
 
   const { searchParams } = new URL(req.url)
 
@@ -52,9 +49,7 @@ const sansRegularP = fetchAsset(
   new URL(`${getURL()}/fonts/Zen-Regular.ttf`, import.meta.url)
 )
 
-const sansBlackP = fetchAsset(
-  new URL(`${getURL()}/fonts/Zen-Black.ttf`, import.meta.url)
-)
+const sansBlackP = fetchAsset(new URL(`${getURL()}/fonts/Zen-Black.ttf`, import.meta.url))
 
 const logo = fetchAsset(new URL(`${getURL()}/wordmark-white.png`, import.meta.url))
 

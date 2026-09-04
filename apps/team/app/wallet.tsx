@@ -17,7 +17,8 @@ export default function WalletScreen() {
     if (token == null) return
     let live = true
     setState('loading')
-    void billing(token).wallet()
+    void billing(token)
+      .wallet()
       .then((w) => {
         if (live) {
           setWallet(w)

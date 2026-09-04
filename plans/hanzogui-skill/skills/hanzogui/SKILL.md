@@ -21,6 +21,7 @@ npx hanzogui generate-prompt
 ```
 
 This outputs `hanzogui-prompt.md` with the project's specific:
+
 - Design tokens (space, size, radius, color, zIndex)
 - Theme names and hierarchy
 - Available components
@@ -69,6 +70,7 @@ const Card = styled(View, {
 ```
 
 **Key rules:**
+
 - Always use `as const` on variants objects
 - Tokens use `$` prefix: `$4`, `$background`, `$color11`
 - Prop order matters - later props override earlier ones
@@ -83,7 +85,7 @@ import { XStack, YStack, ZStack } from '@hanzo/gui'
 // YStack = flexDirection: 'column'
 // ZStack = position: 'relative' with absolute children
 
-<YStack gap="$4" padding="$4">
+;<YStack gap="$4" padding="$4">
   <XStack justifyContent="space-between" alignItems="center">
     <Text>Label</Text>
     <Button>Action</Button>
@@ -99,7 +101,7 @@ Themes nest and combine hierarchically:
 import { Theme } from '@hanzo/gui'
 
 // base theme
-<Theme name="dark">
+;<Theme name="dark">
   {/* sub-theme */}
   <Theme name="blue">
     {/* uses dark_blue theme */}
@@ -109,11 +111,12 @@ import { Theme } from '@hanzo/gui'
 
 // access theme values
 const theme = useTheme()
-console.log(theme.background.val)  // actual color value
-console.log(theme.color11.val)     // high contrast text
+console.log(theme.background.val) // actual color value
+console.log(theme.color11.val) // high contrast text
 ```
 
 **12-step color scale convention:**
+
 - `$color1-4`: backgrounds (subtle to emphasized)
 - `$color5-6`: borders, separators
 - `$color7-8`: hover/active states
@@ -125,9 +128,9 @@ console.log(theme.color11.val)     // high contrast text
 Use media query props (check your `hanzogui-prompt.md` for actual breakpoint names):
 
 ```tsx
-<YStack
+;<YStack
   padding="$4"
-  $gtSm={{ padding: '$6' }}   // check your config for actual names
+  $gtSm={{ padding: '$6' }} // check your config for actual names
   $gtMd={{ padding: '$8' }}
   flexDirection="column"
   $gtLg={{ flexDirection: 'row' }}
@@ -145,10 +148,10 @@ if (media.gtMd) {
 ```tsx
 import { AnimatePresence } from '@hanzo/gui'
 
-<AnimatePresence>
+;<AnimatePresence>
   {show && (
     <YStack
-      key="modal"  // key required for exit animations
+      key="modal" // key required for exit animations
       animation="quick"
       enterStyle={{ opacity: 0, y: -20 }}
       exitStyle={{ opacity: 0, y: 20 }}
@@ -160,6 +163,7 @@ import { AnimatePresence } from '@hanzo/gui'
 ```
 
 **Animation drivers:**
+
 - `@hanzogui/animations-css` - web only, CSS transitions
 - `@hanzogui/animations-react-native` - native Animated API
 - `@hanzogui/animations-reanimated` - best native performance
@@ -225,7 +229,7 @@ export const Card = withStaticProperties(CardFrame, {
 ```tsx
 import { Dialog, Sheet, Adapt, Button } from '@hanzo/gui'
 
-<Dialog>
+;<Dialog>
   <Dialog.Trigger asChild>
     <Button>Open</Button>
   </Dialog.Trigger>
@@ -268,7 +272,7 @@ import { Dialog, Sheet, Adapt, Button } from '@hanzo/gui'
 ```tsx
 import { Input, Label, YStack, XStack, Button } from '@hanzo/gui'
 
-<YStack gap="$4" padding="$4">
+;<YStack gap="$4" padding="$4">
   <YStack gap="$2">
     <Label htmlFor="email">Email</Label>
     <Input
@@ -333,10 +337,12 @@ const Box = styled(View, {
 
 ```tsx
 // bad - exit animation won't work
-{show && <View exitStyle={{ opacity: 0 }} />}
+{
+  show && <View exitStyle={{ opacity: 0 }} />
+}
 
 // good
-<AnimatePresence>
+;<AnimatePresence>
   {show && <View key="box" exitStyle={{ opacity: 0 }} />}
 </AnimatePresence>
 ```
@@ -368,12 +374,12 @@ const dynamicPadding = isPremium ? '$6' : '$4'
 // bad - CSS driver doesn't support spring physics
 import { createAnimations } from '@hanzogui/animations-css'
 const anims = createAnimations({
-  bouncy: { type: 'spring', damping: 10 }  // won't work
+  bouncy: { type: 'spring', damping: 10 }, // won't work
 })
 
 // good for CSS driver - use easing strings
 const anims = createAnimations({
-  bouncy: 'cubic-bezier(0.68, -0.55, 0.265, 1.55) 300ms'
+  bouncy: 'cubic-bezier(0.68, -0.55, 0.265, 1.55) 300ms',
 })
 ```
 
@@ -389,6 +395,7 @@ The Gui compiler extracts static styles to CSS at build time. For styles to be e
 4. **Use variants** - better than conditional props
 
 Check if extraction is working:
+
 - Look for `data-hanzogui` attributes in dev mode
 - Bundle size should be smaller with compiler enabled
 - Styles should appear as CSS classes, not inline
@@ -402,7 +409,7 @@ import { GetProps, styled, View } from '@hanzogui/core'
 
 const MyComponent = styled(View, {
   variants: {
-    size: { small: {}, large: {} }
+    size: { small: {}, large: {} },
   } as const,
 })
 
@@ -419,16 +426,16 @@ interface ExtendedProps extends MyComponentProps {
 
 ## Quick Reference
 
-| Pattern | Example |
-|---------|---------|
-| Token | `padding="$4"` |
-| Theme value | `backgroundColor="$background"` |
-| Color scale | `color="$color11"` (high contrast text) |
-| Responsive | `$gtSm={{ padding: '$6' }}` |
-| Variant | `<Button size="large" variant="outlined" />` |
-| Animation | `animation="quick" enterStyle={{ opacity: 0 }}` |
-| Theme switch | `<Theme name="dark"><Theme name="blue">` |
-| Compound | `<Card><Card.Title>` with `createStyledContext` |
+| Pattern      | Example                                         |
+| ------------ | ----------------------------------------------- |
+| Token        | `padding="$4"`                                  |
+| Theme value  | `backgroundColor="$background"`                 |
+| Color scale  | `color="$color11"` (high contrast text)         |
+| Responsive   | `$gtSm={{ padding: '$6' }}`                     |
+| Variant      | `<Button size="large" variant="outlined" />`    |
+| Animation    | `animation="quick" enterStyle={{ opacity: 0 }}` |
+| Theme switch | `<Theme name="dark"><Theme name="blue">`        |
+| Compound     | `<Card><Card.Title>` with `createStyledContext` |
 
 ---
 

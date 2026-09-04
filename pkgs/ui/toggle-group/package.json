@@ -34,18 +34,18 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/constants": "workspace:*",
     "@hanzogui/create-context": "workspace:*",
     "@hanzogui/focusable": "workspace:*",
+    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
-    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/roving-focus": "workspace:*",
     "@hanzogui/sizable-context": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-direction": "workspace:*",
-    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {

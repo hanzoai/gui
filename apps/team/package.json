@@ -2,6 +2,8 @@
   "name": "@hanzogui/team",
   "version": "8.3.1",
   "private": true,
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>",
   "type": "module",
   "scripts": {
     "dev": "one dev",
@@ -31,7 +33,5 @@
     "@hanzogui/vite-plugin": "workspace:*",
     "@types/react": "19.2.18",
     "vite": "^8.2.2"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  }
 }

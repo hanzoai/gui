@@ -80,7 +80,11 @@ copy. One line, and it runs on every build:
 For a client-rendered app, point it at the running thing:
 
 ```json
-{ "scripts": { "postbuild": "vite preview --port 8080 & gui-css-check --render http://localhost:8080/" } }
+{
+  "scripts": {
+    "postbuild": "vite preview --port 8080 & gui-css-check --render http://localhost:8080/"
+  }
+}
 ```
 
 `--render` drives a real browser and reads `document.styleSheets`, so it sees
@@ -103,12 +107,12 @@ These are allowed by default because a library provably stamps them as identity
 markers and never styles them — each verified in that library's source, not
 assumed:
 
-| pattern | emitted by |
-| --- | --- |
-| `is_*` | gui, `getSplitStyles.tsx`: `` `is_${componentNameFinal}` `` |
-| `t_sub_theme` | gui, `Theme.tsx`: marks a nested Theme; the `t_*` beside it carries the style |
-| `lucide`, `lucide-*` | lucide-react, `Icon.js` / `createLucideIcon.js` |
-| `__variable_*`, `__className_*` | next/font |
+| pattern                         | emitted by                                                                    |
+| ------------------------------- | ----------------------------------------------------------------------------- |
+| `is_*`                          | gui, `getSplitStyles.tsx`: `` `is_${componentNameFinal}` ``                   |
+| `t_sub_theme`                   | gui, `Theme.tsx`: marks a nested Theme; the `t_*` beside it carries the style |
+| `lucide`, `lucide-*`            | lucide-react, `Icon.js` / `createLucideIcon.js`                               |
+| `__variable_*`, `__className_*` | next/font                                                                     |
 
 ## Its own tests
 

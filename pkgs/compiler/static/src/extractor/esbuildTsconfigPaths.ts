@@ -38,7 +38,8 @@ const matchers = new Map<string, PathsMatcher | null>()
 export function resolveAlias(specifier: string, dir: string): string | null {
   if (!matchers.has(dir)) {
     const tsconfig =
-      getTsconfig(dir, 'tsconfig.json', configs) ?? getTsconfig(dir, 'jsconfig.json', configs)
+      getTsconfig(dir, 'tsconfig.json', configs) ??
+      getTsconfig(dir, 'jsconfig.json', configs)
     matchers.set(dir, tsconfig && createPathsMatcher(tsconfig))
   }
   for (const candidate of matchers.get(dir)?.(specifier) ?? []) {

@@ -9,6 +9,7 @@
     "dist"
   ],
   "type": "module",
+  "sideEffects": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
@@ -34,10 +35,10 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
-    "@react-native/normalize-colors": "^0.87.1",
     "@hanzogui/animation-helpers": "workspace:*",
     "@hanzogui/core": "workspace:*",
-    "@hanzogui/use-presence": "workspace:*"
+    "@hanzogui/use-presence": "workspace:*",
+    "@react-native/normalize-colors": "^0.87.1"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",
@@ -48,6 +49,5 @@
   "peerDependencies": {
     "react": ">=19.2.8",
     "react-native-reanimated": ">=3.0.0"
-  },
-  "sideEffects": false
+  }
 }

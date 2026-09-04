@@ -1,7 +1,14 @@
 {
   "name": "@hanzogui/chrome",
   "version": "8.3.1",
-  "description": "Marketing sections for Hanzo public sites \u2014 HanzoFooter, ChatHero, HanzoWidget. The site HEADER lives in @hanzogui/shell (HanzoHeader); this package no longer ships a nav.",
+  "description": "Marketing sections for Hanzo public sites — HanzoFooter, ChatHero, HanzoWidget. The site HEADER lives in @hanzogui/shell (HanzoHeader); this package no longer ships a nav.",
+  "license": "BSD-3-Clause",
+  "author": "Hanzo AI <dev@hanzo.ai>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanzoai/gui",
+    "directory": "pkgs/ui/chrome"
+  },
   "source": "src/index.ts",
   "files": [
     "src",
@@ -27,6 +34,9 @@
       "default": "./dist/esm/index.js"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
@@ -48,15 +58,5 @@
   "peerDependencies": {
     "react": ">=19.2.8"
   },
-  "module:jsx": "dist/jsx",
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hanzoai/gui",
-    "directory": "pkgs/ui/chrome"
-  },
-  "license": "BSD-3-Clause",
-  "author": "Hanzo AI <dev@hanzo.ai>"
+  "module:jsx": "dist/jsx"
 }

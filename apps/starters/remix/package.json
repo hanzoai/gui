@@ -1,5 +1,6 @@
 {
   "name": "@hanzogui/remix-starter",
+  "version": "8.3.1",
   "private": true,
   "type": "module",
   "sideEffects": false,
@@ -22,9 +23,9 @@
     "react-router": "^7.15.1"
   },
   "devDependencies": {
+    "@hanzogui/vite-plugin": "workspace:*",
     "@react-router/dev": "^7.15.1",
     "@react-router/fs-routes": "^8.3.1",
-    "@hanzogui/vite-plugin": "workspace:*",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
     "typescript": "7.0.2",
@@ -34,6 +35,5 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "packageManager": "bun@1.3.9",
-  "version": "8.3.1"
+  "packageManager": "bun@1.3.9"
 }

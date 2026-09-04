@@ -14,7 +14,10 @@ export { defaultTemplates } from './defaultTemplates.ts'
 /** @deprecated component themes are no longer recommended */
 export { defaultComponentThemes } from './defaultComponentThemes.ts'
 
-export { PALETTE_BACKGROUND_OFFSET, getThemeSuitePalettes } from './getThemeSuitePalettes.ts'
+export {
+  PALETTE_BACKGROUND_OFFSET,
+  getThemeSuitePalettes,
+} from './getThemeSuitePalettes.ts'
 
 // copied from themes to avoid cyclic dep
 export { masks } from './masks.tsx'

@@ -39,7 +39,11 @@ test('both bars — 60 tall, the plane recipe, no hairline; the public bar flush
   }
   // OrgHeader sits over dashboard content, not a hero, so it is the plane at
   // every scroll position — grounded always.
-  assert.match(read('OrgHeader.tsx'), /\.\.\.BAR,/, 'OrgHeader is the plane at every scroll')
+  assert.match(
+    read('OrgHeader.tsx'),
+    /\.\.\.BAR,/,
+    'OrgHeader is the plane at every scroll'
+  )
   // The PUBLIC header is flush over the hero at rest and eases the plane in on
   // scroll (or while a drape is open). The ground is conditional on `grounded`;
   // still never a hairline.
@@ -443,7 +447,11 @@ test('away is a relation to the surface, not the shape of the string', () => {
   // A link to this surface's OWN pages stays in the tab. Testing only for a
   // scheme made every absolute href external, so `https://hanzo.app/new` on
   // hanzo.app opened a second tab and wore an outbound arrow.
-  assert.match(src, /export const outward = \(href: string, host: string\)/, 'outward takes the surface')
+  assert.match(
+    src,
+    /export const outward = \(href: string, host: string\)/,
+    'outward takes the surface'
+  )
   assert.match(src, /new URL\(href\)\.host !== host/, 'and compares hosts')
   // Nothing may ask the question without saying which surface is asking.
   for (const call of src.match(/outward\([^)]*\)/g) ?? []) {

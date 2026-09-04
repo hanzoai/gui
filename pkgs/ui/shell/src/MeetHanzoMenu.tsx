@@ -145,7 +145,11 @@ export function MeetHanzoMenu({
   // since been recognised — and only until they navigated, which is the kind of
   // bug that reproduces for nobody.
   const products = useMemo(
-    () => HANZO_FLAGSHIP.filter(sees(stage)).map((p) => ({ ...p, href: resolve(p.href, p.id) })),
+    () =>
+      HANZO_FLAGSHIP.filter(sees(stage)).map((p) => ({
+        ...p,
+        href: resolve(p.href, p.id),
+      })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [resolveHref, stage]
   )

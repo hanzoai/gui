@@ -25,7 +25,7 @@ export function getPropValueFromAttributes(
 ): t.Expression | null {
   let propIndex = -1
   let jsxAttr: t.JSXAttribute | null = null
-  for (let idx = -1, len = attrs.length; ++idx < len; ) {
+  for (let idx = -1, len = attrs.length; ++idx < len;) {
     const attr = attrs[idx]
     if (t.isJSXAttribute(attr) && attr.name && attr.name.name === propName) {
       propIndex = idx

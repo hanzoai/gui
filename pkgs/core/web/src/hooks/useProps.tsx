@@ -5,7 +5,12 @@ import { ComponentContext } from '../contexts/ComponentContext.tsx'
 import { GroupContext } from '../contexts/GroupContext.tsx'
 import { useSplitStyles } from '../helpers/getSplitStyles.tsx'
 import { subscribeToContextGroup } from '../helpers/subscribeToContextGroup.tsx'
-import type { SplitStyleProps, StaticConfig, ThemeParsed, UseMediaState } from '../types.tsx'
+import type {
+  SplitStyleProps,
+  StaticConfig,
+  ThemeParsed,
+  UseMediaState,
+} from '../types.tsx'
 import type { ViewProps, ViewStyle } from '../views/View.tsx'
 import { View } from '../views/View.tsx'
 import { useComponentState } from './useComponentState.ts'

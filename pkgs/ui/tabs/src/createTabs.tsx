@@ -12,7 +12,11 @@ import { useEvent } from '@hanzogui/web'
 import * as React from 'react'
 import type { LayoutRectangle } from 'react-native'
 import { TabsProvider, useTabsContext } from './StyledContext.tsx'
-import { DefaultTabsContentFrame, DefaultTabsFrame, DefaultTabsTabFrame } from './Tabs.tsx'
+import {
+  DefaultTabsContentFrame,
+  DefaultTabsFrame,
+  DefaultTabsTabFrame,
+} from './Tabs.tsx'
 
 type TabsComponent = (props: { direction: 'horizontal' | 'vertical' } & ViewProps) => any
 type TabComponent = (props: { active?: boolean } & ViewProps) => any

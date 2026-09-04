@@ -35,15 +35,15 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/config-default": "workspace:*",
     "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/get-button-sized": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
-    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/spacer": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/text": "workspace:*",
-    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {

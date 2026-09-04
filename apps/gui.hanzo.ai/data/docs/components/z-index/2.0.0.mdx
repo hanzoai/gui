@@ -26,26 +26,24 @@ Only set `zIndex` when you need to override the automatic stacking. Common cases
 
 ```tsx
 // Only if you need to override automatic stacking
-<Dialog zIndex={200000}>
-  ...
-</Dialog>
+<Dialog zIndex={200000}>...</Dialog>
 ```
 
 ## Component Defaults
 
 All overlay components use the automatic stacking system. Here's where to set `zIndex` if needed:
 
-| Component | Where to set zIndex |
-|-----------|---------------------|
-| [Dialog](/ui/dialog) | `<Dialog zIndex={...}>` |
-| [AlertDialog](/ui/alert-dialog) | `<AlertDialog zIndex={...}>` |
-| [Sheet](/ui/sheet) | `<Sheet zIndex={...}>` |
-| [Select](/ui/select) | `<Select zIndex={...}>` |
-| [Popover](/ui/popover) | `<Popover zIndex={...}>` |
-| [Tooltip](/ui/tooltip) | `<Tooltip zIndex={...}>` |
-| [Menu](/ui/menu) | `<Menu.Portal zIndex={...}>` |
+| Component                       | Where to set zIndex                 |
+| ------------------------------- | ----------------------------------- |
+| [Dialog](/ui/dialog)            | `<Dialog zIndex={...}>`             |
+| [AlertDialog](/ui/alert-dialog) | `<AlertDialog zIndex={...}>`        |
+| [Sheet](/ui/sheet)              | `<Sheet zIndex={...}>`              |
+| [Select](/ui/select)            | `<Select zIndex={...}>`             |
+| [Popover](/ui/popover)          | `<Popover zIndex={...}>`            |
+| [Tooltip](/ui/tooltip)          | `<Tooltip zIndex={...}>`            |
+| [Menu](/ui/menu)                | `<Menu.Portal zIndex={...}>`        |
 | [ContextMenu](/ui/context-menu) | `<ContextMenu.Portal zIndex={...}>` |
-| [Toast](/ui/toast) | Via `ToastViewport` |
+| [Toast](/ui/toast)              | Via `ToastViewport`                 |
 
 ## Stacking Hierarchy
 
@@ -68,9 +66,7 @@ Nested floating elements automatically stack above their parent:
       <Tooltip.Trigger>
         <Button>Hover me</Button>
       </Tooltip.Trigger>
-      <Tooltip.Content>
-        I appear above the dialog!
-      </Tooltip.Content>
+      <Tooltip.Content>I appear above the dialog!</Tooltip.Content>
     </Tooltip>
   </Dialog.Content>
 </Dialog>
@@ -85,6 +81,7 @@ The stacking system uses two mechanisms:
 ### Horizontal Stacking (Siblings)
 
 When multiple overlays open at the same level, each gets an incrementing z-index:
+
 - First dialog: 105001
 - Second dialog: 105002
 - Third dialog: 105003
@@ -92,6 +89,7 @@ When multiple overlays open at the same level, each gets an incrementing z-index
 ### Vertical Stacking (Nested)
 
 When content opens inside another portal, it reads the parent's z-index from context and adds 1:
+
 - Dialog opens at 105001
 - Popover inside dialog: 105002
 - Tooltip inside that popover: 105003

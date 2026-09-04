@@ -46,6 +46,7 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/animate-presence": "workspace:*",
     "@hanzogui/avatar": "workspace:*",
     "@hanzogui/button": "workspace:*",
@@ -55,6 +56,7 @@
     "@hanzogui/config": "workspace:*",
     "@hanzogui/context-menu": "workspace:*",
     "@hanzogui/core": "workspace:*",
+    "@hanzogui/dev-config": "workspace:*",
     "@hanzogui/get-button-sized": "workspace:*",
     "@hanzogui/image": "workspace:*",
     "@hanzogui/input": "workspace:*",
@@ -75,10 +77,8 @@
     "@hanzogui/switch": "workspace:*",
     "@hanzogui/switch-headless": "workspace:*",
     "@hanzogui/tabs": "workspace:*",
-    "@hanzogui/dev-config": "workspace:*",
     "@hanzogui/theme": "workspace:*",
-    "@hanzogui/toast": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "@hanzogui/toast": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

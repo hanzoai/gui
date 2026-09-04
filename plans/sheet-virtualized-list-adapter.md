@@ -34,7 +34,7 @@ The shape is:
 ```ts
 const BottomSheetFlatList = createBottomSheetScrollableComponent(
   SCROLLABLE_TYPE.FLATLIST,
-  AnimatedFlatList,
+  AnimatedFlatList
 )
 ```
 
@@ -116,16 +116,16 @@ function ChatList() {
 `useSheetScrollGesture()` reads `SheetContext.scrollBridge` + `GestureSheetContext.panGestureRef`
 and returns:
 
-| field | purpose |
-| --- | --- |
-| `ref` | call sites attach to the list; internal `scrollTo` for force-lock |
-| `onScroll` | wraps `scrollBridge.y` update + `scrollLockY` enforcement, then calls the user's `onScroll` |
-| `simultaneousHandlers` | `[panGestureRef]` when RNGH is enabled; `undefined` otherwise (caller can spread harmlessly) |
-| `scrollEventThrottle` | `1` (matches `SheetScrollView`) |
-| `bounces` | `false` (otherwise iOS rubber-band fights the sheet pan) |
-| `keyboardShouldPersistTaps` | `'always'` parity with `SheetScrollView` |
-| `onLayout` | reports `parentHeight` to the bridge so `hasScrollableContent` is accurate |
-| `onContentSizeChange` | reports content height the same way |
+| field                       | purpose                                                                                      |
+| --------------------------- | -------------------------------------------------------------------------------------------- |
+| `ref`                       | call sites attach to the list; internal `scrollTo` for force-lock                            |
+| `onScroll`                  | wraps `scrollBridge.y` update + `scrollLockY` enforcement, then calls the user's `onScroll`  |
+| `simultaneousHandlers`      | `[panGestureRef]` when RNGH is enabled; `undefined` otherwise (caller can spread harmlessly) |
+| `scrollEventThrottle`       | `1` (matches `SheetScrollView`)                                                              |
+| `bounces`                   | `false` (otherwise iOS rubber-band fights the sheet pan)                                     |
+| `keyboardShouldPersistTaps` | `'always'` parity with `SheetScrollView`                                                     |
+| `onLayout`                  | reports `parentHeight` to the bridge so `hasScrollableContent` is accurate                   |
+| `onContentSizeChange`       | reports content height the same way                                                          |
 
 The hook MUST also mount an effect that registers `scrollBridge.setHasScrollView(true)` /
 `scrollBridge.setScrollEnabled = …` / `scrollBridge.forceScrollTo = …` on

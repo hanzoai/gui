@@ -512,8 +512,8 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
     id: 'platform',
     title: 'Platform',
     items: [
-      { id: 'models', label: 'Models', href: U.models, glyph: 'layers' },
       { id: 'enso', label: 'Enso', href: U.enso, glyph: 'circle' },
+      { id: 'models', label: 'Models', href: U.models, glyph: 'layers' },
       { id: 'agents', label: 'Managed agents', href: U.agents, glyph: 'cpu' },
       { id: 'mcp', label: 'MCP tools', href: U.mcp, glyph: 'plug' },
       { id: 'dev', label: 'Hanzo Dev', href: U.dev, glyph: 'code' },
@@ -951,8 +951,8 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
     id: 'platform',
     title: 'AI Platform',
     items: [
-      { id: 'models', label: 'Models', href: U.models },
       { id: 'enso', label: 'Enso', href: U.enso },
+      { id: 'models', label: 'Models', href: U.models },
       { id: 'agents', label: 'Managed agents', href: U.agents },
       { id: 'mcp', label: 'MCP tools', href: U.mcp },
       { id: 'api', label: 'API platform', href: U.api },

@@ -1,5 +1,5 @@
 import { LogoWords, setTintFamily, GuiLogo, ThemeTint, useTint } from '@hanzogui/logo'
-import { Check, ExternalLink, Figma, LogIn, Menu } from '@hanzogui/lucide-icons-2'
+import { Check, ExternalLink, Menu } from '@hanzogui/lucide-icons-2'
 import { isTouchable, useGet, useMedia } from '@hanzogui/web'
 import { useFocusEffect, usePathname, useRouter } from 'one'
 import * as React from 'react'
@@ -27,30 +27,18 @@ import {
   type PopoverProps,
 } from '@hanzo/gui'
 import { Link } from '~/components/Link'
-import { useBannerHeight } from '~/components/PromoBanner'
 import { GithubIcon } from '~/features/icons/GithubIcon'
 import { seasons, SeasonTogglePopover } from '~/features/site/seasons/SeasonTogglePopover'
 import { ThemeToggle } from '~/features/site/theme/ThemeToggle'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
-import { useLoginLink } from '../../auth/useLoginLink'
-import { useBentoStore } from '../../bento/BentoStore'
-import { useBentoTheme } from '../../bento/useBentoTheme'
 import { DocsMenuContents } from '../../docs/DocsMenuContents'
 import { useDocsMenu } from '../../docs/useDocsMenu'
-import { AddEvenBrandIcon } from '../../icons/AddEvenBrandIcon'
-import { BentoIcon } from '../../icons/BentoIcon'
-import { TakeoutIcon } from '../../icons/TakeoutIcon'
-import { useUser } from '../../user/useUser'
-import { accountModal } from '../purchase/accountModalStore'
 import { PromoCardTheme } from './PromoCards'
 import { SearchButton } from './SearchButton'
-import { UpgradeToProPopover } from './UpgradeToProPopover'
-import { UserAvatar } from './UserAvatar'
 import type { HeaderProps } from './types'
 
 export function Header(props: HeaderProps) {
   const [isScrolled, setIsScrolled] = React.useState(false)
-  const bannerHeight = useBannerHeight()
 
   if (isClient) {
     React.useEffect(() => {
@@ -84,7 +72,6 @@ export function Header(props: HeaderProps) {
           <XStack
             className={`ease-out all ms300`}
             py="$1.5"
-            y={bannerHeight}
             overflow="hidden"
             contain="paint"
             width="100%"
@@ -95,7 +82,7 @@ export function Header(props: HeaderProps) {
             $sm={{
               rounded: 0,
               borderWidth: 0,
-              y: -1 + (isScrolled ? 0 : bannerHeight),
+              y: -1,
               py: '$2',
             }}
             {...(isScrolled && {
@@ -209,7 +196,6 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
           </XStack>
         </Link>
 
-        <UpgradeToProPopover />
       </XStack>
 
       <View flex={1} />
@@ -281,8 +267,6 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
 const HeaderMenuButton = () => {
   const { open, setOpen } = useDocsMenu()
   const context = React.useContext(SlidingPopoverContext)
-  const userSwr = useUser()
-  const haveUser = !!userSwr.data?.user
 
   return (
     <Popover.Trigger>
@@ -318,7 +302,7 @@ const HeaderMenuButton = () => {
           }}
         >
           <Circle size={34} items="center" justify="center">
-            {haveUser ? <UserAvatar /> : <Menu size={20} />}
+            <Menu size={20} />
           </Circle>
         </Button>
       </SlidingPopoverTarget>
@@ -506,7 +490,6 @@ export const SlidingPopoverTarget = YStack.styleable<{ id: ID }>(
 const order = ['', 'core', 'ui', 'theme', 'menu']
 
 const HeaderLinksPopoverContent = React.memo((props: { active: ID | '' }) => {
-  const { data } = useUser()
   const [active, setActive] = React.useState<ID>(
     props.active === '' ? 'menu' : props.active
   )
@@ -545,7 +528,7 @@ const HeaderLinksPopoverContent = React.memo((props: { active: ID | '' }) => {
     core: Math.min(maxHeight, 1300),
     compiler: 117,
     ui: Math.min(maxHeight, 1300),
-    theme: data?.user ? 300 : 240,
+    theme: 240,
     menu: Math.min(maxHeight, isOnlyShowingMenu ? 1000 : 520),
   }
 
@@ -607,7 +590,6 @@ const getDocsSectionFromPath = (pathName: string): 'core' | 'ui' | null => {
   if (pathName.startsWith('/ui/')) return 'ui'
   if (
     pathName.startsWith('/docs') ||
-    pathName.startsWith('/community') ||
     pathName.startsWith('/blog')
   )
     return 'core'
@@ -629,19 +611,10 @@ const ActivePageDocsMenuContents = () => {
 }
 
 const HeaderMenuContents = (props: { id: ID }) => {
-  const { data } = useUser()
-  const { updateGenerate } = useThemeBuilderStore()
-  const bentoStore = useBentoStore()
-  const themeHistories = data?.themeHistories || []
-  const bentoTheme = useBentoTheme()
   const isOnlyShowingMenu = useMedia().maxMd
   const isMobile = isTouchable && isOnlyShowingMenu
 
   const contents = (() => {
-    /**
-     * When the theme_histories are fetched,
-     * we can apply one of them to Bento components from dropdown
-     */
     if (props.id === 'menu') {
       return (
         <>
@@ -661,85 +634,23 @@ const HeaderMenuContents = (props: { id: ID }) => {
     if (props.id === 'theme') {
       return (
         <YStack flex={1} gap="$2" flexBasis="auto">
-          {!themeHistories.length ? (
-            <>
-              <PromoCardTheme />
-              <Paragraph
-                pointerEvents="none"
-                borderWidth={0.5}
-                bg="$color6"
-                rounded="$5"
-                fontFamily="$mono"
-                size="$4"
-                opacity={0.5}
-                p="$4"
-              >
-                Create themes to preview them across the site.
-                {`\n`}
-                <Link href="/theme" theme="blue" style={{ pointerEvents: 'auto' }}>
-                  Go to Theme Builder →
-                </Link>
-              </Paragraph>
-            </>
-          ) : (
-            <YStack gap="$2">
-              <XStack>
-                <HeadAnchor
-                  menu
-                  items="center"
-                  onPress={() => {
-                    bentoStore.disableCustomTheme = !bentoStore.disableCustomTheme
-                  }}
-                >
-                  <SizableText size="$3" color="$color11" ellipsis>
-                    Enabled
-                  </SizableText>
-
-                  {bentoTheme.enabled ? <Check ml="$2" size={12} /> : null}
-                </HeadAnchor>
-                <HeadAnchor
-                  menu
-                  onPress={() => {
-                    bentoStore.disableTint = !bentoStore.disableTint
-                  }}
-                >
-                  <SizableText size="$3" color="$color11" ellipsis>
-                    Tint
-                  </SizableText>
-
-                  {!bentoStore.disableTint ? <Check ml="$2" size={12} /> : null}
-                </HeadAnchor>
-              </XStack>
-
-              <Separator mb="$3" opacity={0.5} />
-
-              <SizableText size="$3" fontFamily="$mono" px="$4" color="$color9">
-                Recent Themes
-              </SizableText>
-
-              {themeHistories.map((history) => (
-                <HeadAnchor
-                  key={history.id}
-                  menu
-                  onPress={() => updateGenerate(history.theme_data)}
-                >
-                  <XStack items="center" justify="space-between">
-                    <SizableText size="$3" color="$color11" ellipsis>
-                      {history.search_query}
-                    </SizableText>
-                  </XStack>
-                </HeadAnchor>
-              ))}
-
-              {themeHistories.length === 0 && (
-                <YStack p="$4" items="center">
-                  <SizableText size="$2" color="$color9">
-                    {data?.user ? 'No theme history yet' : 'Login to save themes'}
-                  </SizableText>
-                </YStack>
-              )}
-            </YStack>
-          )}
+          <PromoCardTheme />
+          <Paragraph
+            pointerEvents="none"
+            borderWidth={0.5}
+            bg="$color6"
+            rounded="$5"
+            fontFamily="$mono"
+            size="$4"
+            opacity={0.5}
+            p="$4"
+          >
+            Create themes to preview them across the site.
+            {`\n`}
+            <Link href="/theme" theme="blue" style={{ pointerEvents: 'auto' }}>
+              Go to Theme Builder →
+            </Link>
+          </Paragraph>
         </YStack>
       )
     }
@@ -777,10 +688,7 @@ const HeaderMenuContents = (props: { id: ID }) => {
 }
 
 const HeaderMenuMoreContents = () => {
-  const userSwr = useUser()
   const router = useRouter()
-  const { handleLogin } = useLoginLink()
-  const context = React.useContext(SlidingPopoverContext)
 
   const handlePress = (e: any) => {
     e.preventDefault()
@@ -825,101 +733,6 @@ const HeaderMenuMoreContents = () => {
 
       <Separator bg="$color02" opacity={0.25} my="$2" />
 
-      {!userSwr.data?.user && (
-        <HeadAnchor menu onPress={handleLogin}>
-          <span>Login</span>
-          <YStack display={'inline-block' as any} y={2} x={10} self="flex-end">
-            <LogIn color="$color10" size={14} />
-          </YStack>
-        </HeadAnchor>
-      )}
-
-      {userSwr.data?.user && (
-        <HeadAnchor
-          menu
-          onPress={() => {
-            context.close()
-            accountModal.show = true
-          }}
-        >
-          <XStack items="center" justify="center">
-            <span>Account</span>
-            <YStack flex={10} />
-            <YStack display={'inline-block' as any} y={-2} my={-3} self="flex-end">
-              <UserAvatar size={22} />
-            </YStack>
-          </XStack>
-        </HeadAnchor>
-      )}
-
-      <Separator bg="$color02" opacity={0.25} my="$2" />
-
-      <Link asChild href="/takeout">
-        <HeadAnchor menu render="a">
-          <XStack items="center">
-            <span>Takeout</span>
-            <YStack display={'inline-block' as any} x={6} my={-20} opacity={0.8}>
-              <TakeoutIcon scale={0.65} />
-            </YStack>
-          </XStack>
-          <SizableText size="$2" color="$color9">
-            Starter Kit
-          </SizableText>
-        </HeadAnchor>
-      </Link>
-
-      <Link asChild href="/bento">
-        <HeadAnchor menu render="a">
-          <XStack items="center">
-            <span>Bento</span>
-            <YStack
-              ml={3}
-              display={'inline-block' as any}
-              x={6}
-              y={-1}
-              my={-10}
-              opacity={0.8}
-            >
-              <BentoIcon scale={0.65} />
-            </YStack>
-          </XStack>
-          <SizableText size="$2" color="$color9">
-            Copy-paste UI
-          </SizableText>
-        </HeadAnchor>
-      </Link>
-
-      <Link asChild href="https://addeven.com" target="_blank">
-        <HeadAnchor menu render="a">
-          <XStack items="center">
-            <SizableText>Add Even</SizableText>
-            <YStack
-              ml={3}
-              display={'inline-block' as any}
-              x={6}
-              y={-1}
-              my={-10}
-              opacity={0.8}
-            >
-              <AddEvenBrandIcon scale={0.65} />
-            </YStack>
-          </XStack>
-          <SizableText size="$2" color="$color9">
-            Expert Consulting
-          </SizableText>
-        </HeadAnchor>
-      </Link>
-
-      <Separator bg="$color02" opacity={0.25} my="$2" />
-
-      <Link asChild href="/community">
-        <HeadAnchor menu render="a">
-          Community
-        </HeadAnchor>
-      </Link>
-
-      <Separator borderColor="$color02" opacity={0.25} my="$2" />
-
       <Link asChild href="https://github.com/hanzoai/gui">
         <HeadAnchor target="_blank" menu>
           Github{' '}
@@ -929,17 +742,6 @@ const HeaderMenuMoreContents = () => {
         </HeadAnchor>
       </Link>
 
-      <Link
-        asChild
-        href="https://www.figma.com/community/file/1326593766534421119/hanzogui-v1-2-1"
-      >
-        <HeadAnchor target="_blank" menu>
-          Figma{' '}
-          <YStack display={'inline-block' as any} y={2} my={-20} opacity={0.8}>
-            <Figma size={14} />
-          </YStack>
-        </HeadAnchor>
-      </Link>
 
       <Link asChild href="/blog">
         <HeadAnchor menu>Blog</HeadAnchor>

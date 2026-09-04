@@ -934,8 +934,8 @@
       "name": "@hanzogui/cli",
       "version": "8.3.1",
       "bin": {
-        "tama": "dist/esm/cli.js",
         "hanzogui": "dist/esm/cli.js",
+        "tama": "dist/esm/cli.js",
       },
       "dependencies": {
         "@hanzogui/create-theme": "workspace:*",

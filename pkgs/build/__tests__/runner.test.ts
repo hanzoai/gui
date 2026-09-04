@@ -62,6 +62,17 @@ describe('hanzogui-build', () => {
   })
 })
 
+describe('hanzogui-build clean', () => {
+  it('removes the outputs and emits nothing', () => {
+    const dir = copy()
+    build(dir)
+    build(dir, 'clean:build')
+    expect(existsSync(join(dir, 'dist'))).toBe(false)
+    expect(existsSync(join(dir, 'types'))).toBe(false)
+    rmSync(dir, { recursive: true, force: true })
+  })
+})
+
 describe('hanzogui-build --skip-native', () => {
   it('leaves no native output', () => {
     const dir = copy()

@@ -54,6 +54,13 @@ describe('hanzogui-build', () => {
     expect(existsSync(join(dir, 'dist/native/platform.js.map'))).toBe(true)
   })
 
+  it('answers process.env.GUI_TARGET with the platform of each emit', () => {
+    expect(read(dir, 'dist/esm/platform.js')).toContain('"web" === \'web\'')
+    expect(read(dir, 'dist/cjs/platform.js')).toContain('"web" === \'web\'')
+    expect(read(dir, 'dist/native/platform.js')).toContain('"native" === \'native\'')
+    expect(read(dir, 'dist/esm/platform.js')).not.toContain('process.env')
+  })
+
   it('answers each platform through the manifest', async () => {
     const web = await import(join(dir, 'dist/esm/index.js'))
     expect(web.greet('a')).toBe('Hello, a, from web')

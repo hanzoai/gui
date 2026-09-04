@@ -9,6 +9,6 @@ export const config = createGui({
 
 export type Conf = typeof config
 
-declare module 'hanzogui' {
+declare module '@hanzo/gui' {
   interface GuiCustomConfig extends Conf {}
 }

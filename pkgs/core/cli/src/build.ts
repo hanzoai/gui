@@ -7,7 +7,7 @@ import {
 } from '@hanzogui/static'
 import type { CLIResolvedOptions, GuiOptions } from '@hanzogui/types'
 import chokidar from 'chokidar'
-import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'fs-extra'
+import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import MicroMatch from 'micromatch'
 import { basename, dirname, extname, join, relative, resolve } from 'node:path'
 import { tmpdir } from 'node:os'

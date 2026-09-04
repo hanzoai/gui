@@ -2,8 +2,8 @@
   "name": "@hanzogui/cli",
   "version": "8.3.1",
   "bin": {
-    "tama": "dist/cjs/index.js",
-    "hanzogui": "dist/cjs/index.js"
+    "tama": "dist/esm/cli.js",
+    "hanzogui": "dist/esm/cli.js"
   },
   "source": "src/index.ts",
   "files": [
@@ -53,5 +53,14 @@
     "@types/chokidar": "^2.1.7",
     "@types/marked": "^6.0.0",
     "vitest": "^4.1.11"
+  },
+  "type": "module",
+  "module": "dist/esm/index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/esm/index.js"
+    }
   }
 }

@@ -35,6 +35,22 @@ const emit = (project, extra = []) => {
   if (run.status !== 0) process.exit(run.status ?? 1)
 }
 
+// The platform is a property of the emit, not of the host: the runtime asks
+// process.env.GUI_TARGET which one it is on, and each output directory answers
+// with its own literal, so a bundler folds the other platform away and a
+// browser is never asked for a process it does not have.
+const answer = (dir, platform) => {
+  if (!existsSync(dir)) return
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, entry.name)
+    if (entry.isDirectory()) answer(p, platform)
+    else if (entry.name.endsWith('.js')) {
+      const text = readFileSync(p, 'utf8')
+      if (text.includes('process.env.GUI_TARGET')) writeFileSync(p, text.replaceAll('process.env.GUI_TARGET', JSON.stringify(platform)))
+    }
+  }
+}
+
 for (const dir of ['dist', 'types']) rmSync(join(cwd, dir), { recursive: true, force: true })
 
 // `clean` and `clean:build` remove the outputs and stop: the workspace runs them
@@ -47,6 +63,7 @@ if (args.has('--watch')) {
 } else {
 
   emit('tsconfig.esm.json')
+  answer(join(cwd, 'dist/esm'), 'web')
 
   // A package is CommonJS only where its manifest says a `require` reaches it.
   // One that uses import.meta or a top-level await is ESM by nature and states
@@ -57,6 +74,7 @@ if (args.has('--watch')) {
   // output and those are dropped: the ESM pass already published the one copy.
   if (/"require"|dist\/cjs/.test(JSON.stringify(manifest.exports ?? {}) + (manifest.main ?? ''))) {
     emit('tsconfig.cjs.json')
+    answer(join(cwd, 'dist/cjs'), 'web')
     rmSync(join(cwd, 'dist/cjs/.types'), { recursive: true, force: true })
     mkdirSync(join(cwd, 'dist/cjs'), { recursive: true })
     writeFileSync(join(cwd, 'dist/cjs/package.json'), '{ "type": "commonjs" }\n')
@@ -64,6 +82,7 @@ if (args.has('--watch')) {
 
   if (!args.has('--skip-native') && existsSync(join(cwd, 'tsconfig.native.json'))) {
     emit('tsconfig.native.json')
+    answer(join(cwd, 'dist/native'), 'native')
     rmSync(join(cwd, 'dist/native/.types'), { recursive: true, force: true })
     // A `.native` file was written to answer for its sibling on that platform;
     // here it takes the sibling's name, so the import the sibling's callers

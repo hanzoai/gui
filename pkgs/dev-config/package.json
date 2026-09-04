@@ -47,6 +47,7 @@
     "@hanzogui/colors": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@hanzogui/core": "workspace:*",
+    "@hanzogui/font-zen": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",
     "@hanzogui/theme-builder": "workspace:*",
     "@hanzogui/themes": "workspace:*",

@@ -61,7 +61,7 @@ jobs:
     runs-on: [hanzo-build-linux-amd64]
     if: github.event_name == 'push' || github.event.inputs.confirm == 'publish'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 

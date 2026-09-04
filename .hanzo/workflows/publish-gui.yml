@@ -32,7 +32,7 @@ jobs:
     # in-cluster amd64 ARC pool. Pure-JS publish is arch-independent.
     runs-on: [hanzo-build-linux-amd64]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 

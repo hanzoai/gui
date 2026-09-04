@@ -171,7 +171,10 @@
         "@hanzogui/constants": "workspace:*",
         "@hanzogui/core": "workspace:*",
         "@hanzogui/demos": "workspace:*",
+        "@hanzogui/dialog": "workspace:*",
+        "@hanzogui/dismissable": "workspace:*",
         "@hanzogui/get-token": "workspace:*",
+        "@hanzogui/image": "workspace:*",
         "@hanzogui/input": "workspace:*",
         "@hanzogui/lucide-icons-2": "workspace:*",
         "@hanzogui/menu": "workspace:*",
@@ -183,6 +186,7 @@
         "@hanzogui/shorthands": "workspace:*",
         "@hanzogui/theme": "workspace:*",
         "@hanzogui/themes": "workspace:*",
+        "@hanzogui/timer": "workspace:*",
         "@hanzogui/toast": "workspace:*",
         "@hanzogui/web": "workspace:*",
         "@react-native-async-storage/async-storage": "^3.1.1",
@@ -487,7 +491,7 @@
       "name": "bento-get",
       "version": "8.3.1",
       "bin": {
-        "bento-get": "dist/cli.js",
+        "bento-get": "dist/esm/cli.js",
       },
       "dependencies": {
         "@inkjs/ui": "^2.0.0",
@@ -930,8 +934,8 @@
       "name": "@hanzogui/cli",
       "version": "8.3.1",
       "bin": {
-        "tama": "dist/cjs/index.js",
-        "hanzogui": "dist/cjs/index.js",
+        "tama": "dist/esm/cli.js",
+        "hanzogui": "dist/esm/cli.js",
       },
       "dependencies": {
         "@hanzogui/create-theme": "workspace:*",
@@ -1742,6 +1746,7 @@
         "@hanzogui/colors": "workspace:*",
         "@hanzogui/config": "workspace:*",
         "@hanzogui/core": "workspace:*",
+        "@hanzogui/font-zen": "workspace:*",
         "@hanzogui/shorthands": "workspace:*",
         "@hanzogui/theme-builder": "workspace:*",
         "@hanzogui/themes": "workspace:*",

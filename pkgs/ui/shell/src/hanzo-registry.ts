@@ -278,6 +278,7 @@ export const U = {
   careers: 'https://hanzo.ai/careers',
   security: 'https://hanzo.ai/security',
   contact: 'https://hanzo.ai/contact',
+  foundation: 'https://zoo.ngo',
 
   // Account
   /**
@@ -1003,6 +1004,7 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
       { id: 'careers', label: 'Careers', href: U.careers },
       { id: 'enterprise', label: 'Enterprise', href: U.enterprise },
       { id: 'contact', label: 'Contact', href: U.contact },
+      { id: 'foundation', label: 'Foundation', href: U.foundation },
     ],
   },
 ]
@@ -1014,6 +1016,7 @@ export const HANZO_FOOTER_BOTTOM = {
     { id: 'privacy', label: 'Privacy', href: U.privacy },
     { id: 'terms', label: 'Terms', href: U.terms },
     { id: 'cookies', label: 'Cookies', href: U.cookies },
+    { id: 'foundation', label: 'Foundation', href: U.foundation },
   ] as HanzoLink[],
 }
 

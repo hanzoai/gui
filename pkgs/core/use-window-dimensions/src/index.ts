@@ -1,11 +1,11 @@
 import React from 'react'
 import { isWeb } from '@hanzogui/constants'
 
-import { getWindowSize, subscribe } from './helpers'
-import type { WindowSize } from './types'
-import { initialValue } from './initialValue'
+import { getWindowSize, subscribe } from './helpers.ts'
+import type { WindowSize } from './types.ts'
+import { initialValue } from './initialValue.ts'
 
-export { configureInitialWindowDimensions } from './initialValue'
+export { configureInitialWindowDimensions } from './initialValue.ts'
 
 export function useWindowDimensions({
   serverValue = initialValue,

@@ -1,11 +1,11 @@
-import { createSwitch } from './createSwitch'
-import { SwitchFrame, SwitchThumb } from './Switch'
+import { createSwitch } from './createSwitch.tsx'
+import { SwitchFrame, SwitchThumb } from './Switch.tsx'
 
-export * from './createSwitch'
-export * from './StyledContext'
-export * from './Switch'
-export * from './types'
-export { useSwitchNative } from './useSwitchNative'
+export * from './createSwitch.tsx'
+export * from './StyledContext.tsx'
+export * from './Switch.tsx'
+export * from './types.ts'
+export { useSwitchNative } from './useSwitchNative.tsx'
 
 /**
  * @summary A component that displays a switch that can be used to toggle between two states.

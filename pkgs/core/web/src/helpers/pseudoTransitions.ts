@@ -1,4 +1,4 @@
-import type { TransitionProp, PseudoTransitions, GuiComponentState } from '../types'
+import type { TransitionProp, PseudoTransitions, GuiComponentState } from '../types.tsx'
 
 /**
  * Pseudo state for tracking enter/exit transitions

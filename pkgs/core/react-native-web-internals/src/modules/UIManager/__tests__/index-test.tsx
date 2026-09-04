@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import UIManager from '..'
+import UIManager from '../index.tsx'
 
 const createStyledNode = (name = 'div', style = {}) => {
   const root = document.createElement(name)

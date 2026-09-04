@@ -1,4 +1,4 @@
-import { normalizeValueWithProperty } from './normalizeValueWithProperty'
+import { normalizeValueWithProperty } from './normalizeValueWithProperty.ts'
 
 export function transformsToString(transforms: object[]) {
   return transforms

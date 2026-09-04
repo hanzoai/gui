@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react'
 import { SizableText, Spinner, XStack, YStack } from '@hanzo/gui'
-import type { Booking } from './client'
-import { BookingForm } from './BookingForm'
-import { Confirmation } from './Confirmation'
-import { EventHeader } from './EventHeader'
-import { MonthCalendar } from './MonthCalendar'
-import { TimeSlots } from './TimeSlots'
-import { useBooker } from './useBooker'
+import type { Booking } from './client.ts'
+import { BookingForm } from './BookingForm.tsx'
+import { Confirmation } from './Confirmation.tsx'
+import { EventHeader } from './EventHeader.tsx'
+import { MonthCalendar } from './MonthCalendar.tsx'
+import { TimeSlots } from './TimeSlots.tsx'
+import { useBooker } from './useBooker.ts'
 
 export interface BookerProps {
   /** Host username (the calendar owner), e.g. "hanzo". */

@@ -1,7 +1,7 @@
 import { useControllableState } from '@hanzogui/use-controllable-state'
 
-import type { SheetProps } from './types'
-import { useSheetController } from './useSheetController'
+import type { SheetProps } from './types.tsx'
+import { useSheetController } from './useSheetController.tsx'
 
 export const useSheetOpenState = (props: SheetProps) => {
   const { isHidden, controller } = useSheetController()

@@ -1,4 +1,4 @@
-import type { AnimationDriver } from '../types'
+import type { AnimationDriver } from '../types.tsx'
 
 const noAnimationDriver = (method: string): any => {
   console.warn(

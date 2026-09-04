@@ -1,4 +1,4 @@
-import { bezier } from './cubicBezier'
+import { bezier } from './cubicBezier.tsx'
 
 type TransformType = {
   x: number | undefined

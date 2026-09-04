@@ -1,7 +1,7 @@
 import { useRef, type MutableRefObject } from 'react'
-import type { ThemeParsed, ThemeState, UseThemeWithStateProps } from '../types'
-import { getThemeProxied, type ThemeProxied } from './getThemeProxied'
-import { useThemeState } from './useThemeState'
+import type { ThemeParsed, ThemeState, UseThemeWithStateProps } from '../types.tsx'
+import { getThemeProxied, type ThemeProxied } from './getThemeProxied.ts'
+import { useThemeState } from './useThemeState.ts'
 
 const EMPTY = {}
 

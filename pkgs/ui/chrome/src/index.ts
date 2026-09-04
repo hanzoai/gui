@@ -14,17 +14,17 @@
 // zinc-on-black). Presentational and host-agnostic: all content and all effects
 // are injected as props / callbacks.
 
-export { HanzoFooter } from './HanzoFooter'
-export type { HanzoFooterProps } from './HanzoFooter'
+export { HanzoFooter } from './HanzoFooter.tsx'
+export type { HanzoFooterProps } from './HanzoFooter.tsx'
 
-export { ChatHero } from './ChatHero'
-export type { ChatHeroProps, HeroPill, HeroIcon } from './ChatHero'
+export { ChatHero } from './ChatHero.tsx'
+export type { ChatHeroProps, HeroPill, HeroIcon } from './ChatHero.tsx'
 
-export { HanzoWidget } from './HanzoWidget'
-export type { HanzoWidgetProps } from './HanzoWidget'
+export { HanzoWidget } from './HanzoWidget.tsx'
+export type { HanzoWidgetProps } from './HanzoWidget.tsx'
 
-export type { NavItem, NavLink, NavColumn } from './types'
+export type { NavItem, NavLink, NavColumn } from './types.ts'
 
 // Design tokens — the monochrome palette + Zen stack, in case a host wants to
 // match the chrome exactly in its own sections.
-export { palette, c as chromeColors, FONT as CHROME_FONT } from './tokens'
+export { palette, c as chromeColors, FONT as CHROME_FONT } from './tokens.ts'

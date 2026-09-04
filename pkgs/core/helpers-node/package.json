@@ -14,7 +14,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

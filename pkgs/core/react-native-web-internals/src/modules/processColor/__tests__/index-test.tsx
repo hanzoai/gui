@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import processColor from '..'
+import processColor from '../index.tsx'
 
 const platformSpecific = (x) => x
 

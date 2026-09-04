@@ -5,11 +5,11 @@
 
 import type { GuiElement } from '@hanzogui/core'
 import * as React from 'react'
-import { Toast } from './ToastComposable'
-import type { ToastPosition } from './ToastComposable'
-import type { SwipeDirection } from './ToastProvider'
-import type { ExternalToast } from './ToastState'
-import type { BurntToastOptions } from './types'
+import { Toast } from './ToastComposable.tsx'
+import type { ToastPosition } from './ToastComposable.tsx'
+import type { SwipeDirection } from './ToastProvider.tsx'
+import type { ExternalToast } from './ToastState.ts'
+import type { BurntToastOptions } from './types.ts'
 
 export type ToasterPosition = ToastPosition
 

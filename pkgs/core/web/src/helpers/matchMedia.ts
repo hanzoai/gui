@@ -1,4 +1,4 @@
-import type { MatchMedia, MediaQueryList } from '../types'
+import type { MatchMedia, MediaQueryList } from '../types.tsx'
 
 export const matchMedia =
   (typeof window !== 'undefined' && window.matchMedia) || matchMediaFallback

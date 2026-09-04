@@ -1,4 +1,4 @@
-import type { GuiOptions } from './types'
+import type { GuiOptions } from './types.ts'
 
 import net from 'node:net'
 

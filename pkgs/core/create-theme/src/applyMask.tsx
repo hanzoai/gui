@@ -1,7 +1,7 @@
-import { createTheme } from './createTheme'
-import type { CreateMask, GenericTheme, MaskOptions, ThemeMask } from './createThemeTypes'
-import type { ThemeInfo } from './themeInfo'
-import { getThemeInfo, setThemeInfo } from './themeInfo'
+import { createTheme } from './createTheme.tsx'
+import type { CreateMask, GenericTheme, MaskOptions, ThemeMask } from './createThemeTypes.tsx'
+import type { ThemeInfo } from './themeInfo.tsx'
+import { getThemeInfo, setThemeInfo } from './themeInfo.tsx'
 
 export function applyMask<Theme extends GenericTheme | ThemeMask>(
   theme: Theme,

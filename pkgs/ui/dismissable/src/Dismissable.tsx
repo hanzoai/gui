@@ -8,7 +8,7 @@ import { useEvent } from '@hanzogui/use-event'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import type { DismissableBranchProps, DismissableProps } from './DismissableProps'
+import type { DismissableBranchProps, DismissableProps } from './DismissableProps.tsx'
 
 export function dispatchDiscreteCustomEvent<E extends CustomEvent>(
   target: E['target'],

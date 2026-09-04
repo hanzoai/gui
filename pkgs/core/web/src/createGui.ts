@@ -1,21 +1,21 @@
-import { getConfigMaybe, setConfig, setTokens } from './config'
-import type { DeepVariableObject } from './createVariables'
-import { createVariables } from './createVariables'
-import { defaultAnimationDriver } from './helpers/defaultAnimationDriver'
-import { resolveAnimationDriver } from './helpers/resolveAnimationDriver'
+import { getConfigMaybe, setConfig, setTokens } from './config.ts'
+import type { DeepVariableObject } from './createVariables.ts'
+import { createVariables } from './createVariables.ts'
+import { defaultAnimationDriver } from './helpers/defaultAnimationDriver.tsx'
+import { resolveAnimationDriver } from './helpers/resolveAnimationDriver.ts'
 import {
   buildCSSRuleSets,
   createFontCSS,
   createThemeCSS,
   createTokenCSS,
   getCSS as getCSSHelper,
-} from './helpers/createDesignSystem'
-import { scanAllSheets } from './helpers/insertStyleRule'
-import { proxyThemesToParents } from './helpers/proxyThemeToParents'
-import { ensureThemeVariable } from './helpers/themes'
-import { configureMedia } from './hooks/useMedia'
-import { parseFont, registerFontVariables } from './insertFont'
-import { Gui } from './Gui'
+} from './helpers/createDesignSystem.ts'
+import { scanAllSheets } from './helpers/insertStyleRule.tsx'
+import { proxyThemesToParents } from './helpers/proxyThemeToParents.ts'
+import { ensureThemeVariable } from './helpers/themes.ts'
+import { configureMedia } from './hooks/useMedia.tsx'
+import { parseFont, registerFontVariables } from './insertFont.ts'
+import { Gui } from './Gui.ts'
 import type {
   CreateGuiProps,
   DedupedTheme,
@@ -29,7 +29,7 @@ import type {
   TokensMerged,
   TokensParsed,
   Variable,
-} from './types'
+} from './types.tsx'
 
 /**
  * Determines if a token category should have px units added.

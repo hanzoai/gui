@@ -16,21 +16,21 @@ import { Portal } from '@hanzogui/portal'
 import { XStack, YStack } from '@hanzogui/stacks'
 import { SizableText } from '@hanzogui/text'
 import * as React from 'react'
-import type { SwipeDirection } from './ToastProvider'
-import type { ExternalToast, ToastT, ToastToDismiss, ToastType } from './ToastState'
-import { ToastState } from './ToastState'
-import type { BurntToastOptions } from './types'
-import { dispatchNativeToast } from './dispatchNativeToast'
-import { useAnimatedDragGesture } from './useAnimatedDragGesture'
-import { useToastAnimations } from './useToastAnimations'
-import { useReducedMotion } from './useReducedMotion'
+import type { SwipeDirection } from './ToastProvider.tsx'
+import type { ExternalToast, ToastT, ToastToDismiss, ToastType } from './ToastState.ts'
+import { ToastState } from './ToastState.ts'
+import type { BurntToastOptions } from './types.ts'
+import { dispatchNativeToast } from './dispatchNativeToast.ts'
+import { useAnimatedDragGesture } from './useAnimatedDragGesture.ts'
+import { useToastAnimations } from './useToastAnimations.ts'
+import { useReducedMotion } from './useReducedMotion.ts'
 import {
   DefaultCloseIcon,
   ToastActionFrame,
   ToastCloseFrame,
   ToastItemFrame,
   ToastPositionWrapper,
-} from './ToastItemFrame'
+} from './ToastItemFrame.tsx'
 
 // defaults
 const VISIBLE_TOASTS_AMOUNT = 4

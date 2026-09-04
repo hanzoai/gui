@@ -1,4 +1,4 @@
-import { readGuiOptions } from './readGuiOptions'
+import { readGuiOptions } from './readGuiOptions.ts'
 
 export async function getGuiOptions({
   cwd = '.',

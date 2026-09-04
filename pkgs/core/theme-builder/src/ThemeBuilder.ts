@@ -14,7 +14,7 @@ import {
   objectFromEntries,
 } from '@hanzogui/create-theme'
 import type { Narrow } from '@hanzogui/web'
-import type { GetThemeFn } from './types'
+import type { GetThemeFn } from './types.ts'
 
 export type ThemeBuilderInternalState = {
   palettes?: PaletteDefinitions

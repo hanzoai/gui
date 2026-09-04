@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { Touch, TouchEvent } from './types'
-import { isEndish, isMoveish, isStartish } from './types'
+import type { Touch, TouchEvent } from './types.ts'
+import { isEndish, isMoveish, isStartish } from './types.ts'
 
 export class ResponderTouchHistoryStore {
   _touchHistory = {

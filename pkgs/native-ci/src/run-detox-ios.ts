@@ -11,9 +11,9 @@
  *   --retries <n>         Number of retries for flaky tests (default: 0)
  */
 
-import { withMetro } from './metro'
-import { parseDetoxArgs, runDetoxTests } from './detox'
-import { ensureIOSFolder, ensureIOSApp } from './ios'
+import { withMetro } from './metro.ts'
+import { parseDetoxArgs, runDetoxTests } from './detox.ts'
+import { ensureIOSFolder, ensureIOSApp } from './ios.ts'
 
 const options = parseDetoxArgs('ios')
 

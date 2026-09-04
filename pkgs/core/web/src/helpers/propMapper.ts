@@ -1,5 +1,5 @@
 import { isAndroid } from '@hanzogui/constants'
-import { getVariableValue, isVariable } from '../createVariable'
+import { getVariableValue, isVariable } from '../createVariable.ts'
 import type {
   GetStyleState,
   PropMapper,
@@ -8,25 +8,25 @@ import type {
   GuiInternalConfig,
   Variable,
   VariantSpreadFunction,
-} from '../types'
-import { expandStyle } from './expandStyle'
+} from '../types.tsx'
+import { expandStyle } from './expandStyle.ts'
 import {
   getLastFontFamilyToken,
   getTokenForKey,
   resolveVariableValue,
   setLastFontFamilyToken,
-} from './getTokenForKey'
-import { getFontsForLanguage, getVariantExtras } from './getVariantExtras'
-import { isObj } from './isObj'
-import { normalizeStyle } from './normalizeStyle'
-import { parseNativeStyle } from './parseNativeStyle'
-import { pseudoDescriptors } from './pseudoDescriptors'
-import { resolveCompoundTokens } from './resolveCompoundTokens'
-import { isRemValue, resolveRem } from './resolveRem'
-import { skipProps } from './skipProps'
-import { styleOriginalValues } from './styleOriginalValues'
+} from './getTokenForKey.ts'
+import { getFontsForLanguage, getVariantExtras } from './getVariantExtras.tsx'
+import { isObj } from './isObj.ts'
+import { normalizeStyle } from './normalizeStyle.ts'
+import { parseNativeStyle } from './parseNativeStyle.ts'
+import { pseudoDescriptors } from './pseudoDescriptors.ts'
+import { resolveCompoundTokens } from './resolveCompoundTokens.ts'
+import { isRemValue, resolveRem } from './resolveRem.ts'
+import { skipProps } from './skipProps.ts'
+import { styleOriginalValues } from './styleOriginalValues.ts'
 
-export { getTokenForKey } from './getTokenForKey'
+export { getTokenForKey } from './getTokenForKey.ts'
 
 export const propMapper: PropMapper = (key, value, styleState, disabled, map) => {
   if (disabled) {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { DismissableBranchProps, DismissableProps } from './DismissableProps'
+import type { DismissableBranchProps, DismissableProps } from './DismissableProps.tsx'
 
 // stubs for native - dismissable is a web-only concept
 export function dispatchDiscreteCustomEvent<E extends CustomEvent>(

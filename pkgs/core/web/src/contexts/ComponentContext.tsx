@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { createStyledContext } from '../helpers/createStyledContext'
-import type { ComponentContextI } from '../types'
+import { createStyledContext } from '../helpers/createStyledContext.tsx'
+import type { ComponentContextI } from '../types.tsx'
 
 export const ComponentContext = createStyledContext<ComponentContextI>({
   disableSSR: undefined,

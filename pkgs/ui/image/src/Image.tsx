@@ -1,5 +1,5 @@
 import { View, styled } from '@hanzogui/web'
-import type { ImageProps, ImageType } from './types'
+import type { ImageProps, ImageType } from './types.ts'
 
 const StyledImage = styled(View, {
   name: 'Image',

@@ -8,8 +8,8 @@
  * @flow
  */
 
-import { normalizeColor } from './normalizeColor'
-import { normalizeValueWithProperty } from './normalizeValueWithProperty'
+import { normalizeColor } from './normalizeColor.tsx'
+import { normalizeValueWithProperty } from './normalizeValueWithProperty.tsx'
 
 const defaultOffset = { height: 0, width: 0 }
 

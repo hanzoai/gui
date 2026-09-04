@@ -1,0 +1,7 @@
+import React from 'react';
+import type { ReactNode } from 'react';
+import type { SheetControllerContextValue } from './useSheetController.tsx';
+export declare const SheetController: ({ children, onOpenChange: onOpenChangeProp, onAnimationComplete: onAnimationCompleteProp, open, hidden, disableDrag, }: Partial<SheetControllerContextValue> & {
+    children?: ReactNode;
+}) => React.JSX.Element;
+//# sourceMappingURL=SheetController.d.ts.map

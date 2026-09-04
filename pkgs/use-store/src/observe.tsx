@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { isEqualSubsetShallow } from './comparators'
-import { UNWRAP_PROXY } from './constants'
-import type { StoreInfo } from './interfaces'
-import { trackStoresAccess } from './useStore'
+import { isEqualSubsetShallow } from './comparators.tsx'
+import { UNWRAP_PROXY } from './constants.tsx'
+import type { StoreInfo } from './interfaces.tsx'
+import { trackStoresAccess } from './useStore.tsx'
 
 const logUpdate =
   process.env.NODE_ENV === 'development'

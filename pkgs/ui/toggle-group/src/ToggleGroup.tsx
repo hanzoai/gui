@@ -8,9 +8,9 @@ import type { GetProps, GuiElement } from '@hanzogui/web'
 import { createStyledContext, styled, View } from '@hanzogui/web'
 import React from 'react'
 
-import type { ToggleProps } from './Toggle'
-import { Toggle, ToggleFrame } from './Toggle'
-import { context as ToggleContext } from './context'
+import type { ToggleProps } from './Toggle.tsx'
+import { Toggle, ToggleFrame } from './Toggle.tsx'
+import { context as ToggleContext } from './context.tsx'
 
 const TOGGLE_GROUP_NAME = 'ToggleGroup'
 const TOGGLE_GROUP_ITEM_NAME = 'ToggleGroupItem'

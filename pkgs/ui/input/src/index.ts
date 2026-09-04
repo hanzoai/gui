@@ -1,7 +1,7 @@
-export * from './Input'
-export * from './TextArea'
-export { inputSizeVariant, textAreaSizeVariant } from './shared'
-export type { InputExtraProps, InputRef, InputTextContentType } from './types'
+export * from './Input.tsx'
+export * from './TextArea.tsx'
+export { inputSizeVariant, textAreaSizeVariant } from './shared.tsx'
+export type { InputExtraProps, InputRef, InputTextContentType } from './types.ts'
 export type {
   InputNativeProps,
   InputIOSProps,
@@ -9,4 +9,4 @@ export type {
   InputDataDetectorTypes,
   InputReturnKeyType,
   InputKeyboardType,
-} from './InputNativeProps'
+} from './InputNativeProps.ts'

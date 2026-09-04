@@ -10,14 +10,14 @@
 
 import { createAnalytics } from '@hanzo/event'
 import type { Analytics } from '@hanzo/event'
-import { resolveEnabled } from './consent'
-import { isReactNative, productFromHost, resolveEnv, runtimeProduct } from './env'
+import { resolveEnabled } from './consent.ts'
+import { isReactNative, productFromHost, resolveEnv, runtimeProduct } from './env.ts'
 import type {
   Telemetry,
   TelemetryCommerce,
   TelemetryConfig,
   TelemetryErrorContext,
-} from './types'
+} from './types.ts'
 
 /** A DOM — not merely a `window`. React Native defines a global `window` with
  *  no `location`/`document`, and SSR defines neither. This is what gates the

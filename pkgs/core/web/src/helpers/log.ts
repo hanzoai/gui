@@ -1,4 +1,4 @@
-import { _disableMediaTouch } from '../hooks/useMedia'
+import { _disableMediaTouch } from '../hooks/useMedia.tsx'
 
 export function log(...args: any[]) {
   if (process.env.NODE_ENV === 'production') return

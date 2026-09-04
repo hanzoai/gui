@@ -1,7 +1,7 @@
 import type { SizeTokens } from '@hanzogui/web'
 import React from 'react'
 
-import type { TextParentStyles } from './types'
+import type { TextParentStyles } from './types.ts'
 
 type Props = TextParentStyles & {
   children?: React.ReactNode

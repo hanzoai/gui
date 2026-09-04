@@ -3,8 +3,7 @@
   "version": "8.3.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "bin": {
-    "hanzogui-build": "hanzogui-build.js",
-    "teesx": "teesx.sh"
+    "hanzogui-build": "tsgo-build.mjs"
   },
   "publishConfig": {
     "access": "public"
@@ -14,22 +13,6 @@
     "test:web": "bun run test"
   },
   "dependencies": {
-    "@babel/core": "^8.0.1",
-    "@babel/preset-typescript": "^8.0.1",
-    "@swc/core": "^1.16.1",
-    "@hanzogui/babel-plugin-fully-specified": "workspace:*",
-    "@types/fs-extra": "^11.0.4",
-    "baseline-browser-mapping": "^2.11.20",
-    "chokidar": "^5.0.0",
-    "esbuild": "^0.28.2",
-    "esbuild-register": "^3.6.0",
-    "execa": "^10.0.1",
-    "fast-glob": "^3.3.3",
-    "fs-extra": "^11.4.0",
-    "lodash.debounce": "^4.0.8",
-    "oxc-transform": "^0.147.0",
-    "picomatch": "^4.0.7",
-    "rolldown": "^1.2.6",
     "typescript": "7.0.2"
   },
   "peerDependencies": {
@@ -39,8 +22,5 @@
     "babel-plugin-react-compiler": {
       "optional": true
     }
-  },
-  "devDependencies": {
-    "vitest": "^4.1.11"
   }
 }

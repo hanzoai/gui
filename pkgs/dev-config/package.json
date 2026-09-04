@@ -9,32 +9,32 @@
     "motion.cjs"
   ],
   "type": "module",
-  "main": "dist/cjs",
-  "module": "dist/esm",
-  "types": "./src/index.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./src/index.ts",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "types": "./types/index.d.ts",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./motion": {
-      "types": "./src/animations.motion.ts",
-      "browser": "./dist/esm/animations.motion.mjs",
-      "module": "./dist/esm/animations.motion.mjs",
-      "import": "./dist/esm/animations.motion.mjs",
-      "require": "./dist/cjs/animations.motion.cjs"
+      "types": "./types/animations.motion.d.ts",
+      "browser": "./dist/esm/animations.motion.js",
+      "module": "./dist/esm/animations.motion.js",
+      "import": "./dist/esm/animations.motion.js",
+      "require": "./dist/cjs/animations.motion.js"
     }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build --skip-types --skip-native",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --skip-types --skip-native --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

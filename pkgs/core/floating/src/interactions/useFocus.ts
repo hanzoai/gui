@@ -5,7 +5,7 @@ import type {
   FloatingInteractionContext,
   OpenChangeReason,
   UseFocusProps,
-} from './types'
+} from './types.ts'
 import {
   activeElement,
   clearTimeoutIfSet,
@@ -18,7 +18,7 @@ import {
   isSafari,
   isTypeableElement,
   matchesFocusVisible,
-} from './utils'
+} from './utils.ts'
 
 function isMacSafari() {
   return isMac() && isSafari()

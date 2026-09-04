@@ -1,6 +1,6 @@
 import { isClient } from '@hanzogui/constants'
-import { initialValue } from './initialValue'
-import type { WindowSize, WindowSizeListener } from './types'
+import { initialValue } from './initialValue.ts'
+import type { WindowSize, WindowSizeListener } from './types.ts'
 
 let lastSize: WindowSize = initialValue
 let docEl: HTMLElement | null = null

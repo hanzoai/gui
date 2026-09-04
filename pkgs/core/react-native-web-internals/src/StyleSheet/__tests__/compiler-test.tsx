@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { atomic, classic, inline } from '../compiler'
+import { atomic, classic, inline } from '../compiler/index.tsx'
 
 describe('StyleSheet/compile', () => {
   describe('atomic', () => {

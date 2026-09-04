@@ -14,7 +14,7 @@ import { Keyboard, Platform } from 'react-native'
 import type {
   KeyboardControllerSheetOptions,
   KeyboardControllerSheetResult,
-} from './types'
+} from './types.tsx'
 
 // lazy import state accessors
 let isKeyboardControllerEnabled: () => boolean = () => false

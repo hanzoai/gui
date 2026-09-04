@@ -1,1 +1,1 @@
-export * from './Adapt'
+export * from './Adapt.tsx'

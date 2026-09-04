@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { isTauri } from './isTauri'
+import { isTauri } from './isTauri.ts'
 
 // Global (OS-wide) shortcuts via @tauri-apps/plugin-global-shortcut. Off-Tauri
 // these no-op, so a component can register e.g. ⌘K to summon a CommandPalette

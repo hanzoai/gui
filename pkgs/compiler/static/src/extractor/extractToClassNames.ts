@@ -4,21 +4,21 @@ import * as t from '@babel/types'
 import { mergeProps, StyleObjectIdentifier, StyleObjectRules } from '@hanzogui/web'
 import * as path from 'node:path'
 import * as util from 'node:util'
-import { requireGuiCore } from '../helpers/requireGuiCore'
-import type { StyleObject, GuiOptions, Ternary } from '../types'
-import { babelParse } from './babelParse'
-import { isExtractable } from './extractablePath'
-import type { Extractor } from './createExtractor'
-import { createLogger } from './createLogger'
-import { extractMediaStyle } from './extractMediaStyle'
-import { normalizeTernaries } from './normalizeTernaries'
+import { requireGuiCore } from '../helpers/requireGuiCore.ts'
+import type { StyleObject, GuiOptions, Ternary } from '../types.ts'
+import { babelParse } from './babelParse.ts'
+import { isExtractable } from './extractablePath.ts'
+import type { Extractor } from './createExtractor.ts'
+import { createLogger } from './createLogger.ts'
+import { extractMediaStyle } from './extractMediaStyle.ts'
+import { normalizeTernaries } from './normalizeTernaries.ts'
 import {
   forwardFontFamilyName,
   getFontFamilyNameFromProps,
-} from './propsToFontFamilyCache'
-import { timer } from './timer'
-import { BailOptimizationError } from './errors'
-import { concatClassName } from './concatClassName'
+} from './propsToFontFamilyCache.ts'
+import { timer } from './timer.ts'
+import { BailOptimizationError } from './errors.ts'
+import { concatClassName } from './concatClassName.ts'
 
 export type ExtractedResponse = {
   js: string | Buffer

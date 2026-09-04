@@ -12,7 +12,7 @@ import {
   type ContextMenuItemIconProps,
   type ContextMenuSubTriggerProps,
   createNonNativeContextMenu,
-} from './createNonNativeContextMenu'
+} from './createNonNativeContextMenu.tsx'
 
 const COMMON_PARAMS = {
   isRoot: false,
@@ -184,4 +184,4 @@ export type {
   ContextMenuSubProps,
   ContextMenuSubTriggerProps,
   ContextMenuTriggerProps,
-} from './createNonNativeContextMenu'
+} from './createNonNativeContextMenu.tsx'

@@ -9,7 +9,7 @@
     "directory": "pkgs/native-ci"
   },
   "bin": {
-    "native-ci": "dist/cli.mjs"
+    "native-ci": "dist/esm/cli.js"
   },
   "source": "src/index.ts",
   "files": [
@@ -26,9 +26,9 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "browser": "./dist/index.mjs",
-      "module": "./dist/index.mjs",
-      "import": "./dist/index.mjs"
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js"
     }
   },
   "publishConfig": {

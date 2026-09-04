@@ -21,9 +21,9 @@ import {
 } from '@hanzogui/react-native-web-internals'
 import * as React from 'react'
 
-import { useCreateElement } from '../createElement/index'
-import type { PlatformMethods } from '../types'
-import type { ViewProps } from './types'
+import { useCreateElement } from '../createElement/index.tsx'
+import type { PlatformMethods } from '../types.ts'
+import type { ViewProps } from './types.tsx'
 
 const pickProps = (props) => pick(props, forwardPropsListView)
 

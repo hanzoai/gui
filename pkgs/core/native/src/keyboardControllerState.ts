@@ -1,5 +1,5 @@
-import { createGlobalState } from './globalState'
-import type { KeyboardControllerState } from './types'
+import { createGlobalState } from './globalState.ts'
+import type { KeyboardControllerState } from './types.ts'
 
 export type { KeyboardControllerState }
 

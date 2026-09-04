@@ -4,8 +4,8 @@ import type { ListItemProps } from '@hanzogui/list-item'
 import { ListItem } from '@hanzogui/list-item'
 import * as React from 'react'
 
-import { useSelectContext, useSelectItemParentContext } from './context'
-import type { SelectScopedProps } from './types'
+import { useSelectContext, useSelectItemParentContext } from './context.tsx'
+import type { SelectScopedProps } from './types.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * SelectTrigger

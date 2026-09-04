@@ -1,6 +1,6 @@
-import { getSetting } from '../config'
-import { getVariableValue } from '../createVariable'
-import type { GenericFonts, GetStyleState, LanguageContextType } from '../types'
+import { getSetting } from '../config.ts'
+import { getVariableValue } from '../createVariable.ts'
+import type { GenericFonts, GetStyleState, LanguageContextType } from '../types.tsx'
 
 const cache = new WeakMap<GetStyleState, { props: GetStyleState['props']; value: any }>()
 

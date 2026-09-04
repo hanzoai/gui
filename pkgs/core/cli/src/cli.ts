@@ -1,7 +1,7 @@
 import arg from 'arg'
 import chalk from 'chalk'
 
-import { disposeAll, getOptions } from './utils'
+import { disposeAll, getOptions } from './utils.ts'
 
 // exit handlers
 ;['exit', 'SIGINT'].forEach((_) => {

@@ -23,8 +23,8 @@ import type {
   ViewStyle,
 } from 'react-native'
 
-import type { CSSColorNames } from './interfaces/CSSColorNames'
-import type { RNOnlyProps } from './interfaces/RNExclusiveTypes'
+import type { CSSColorNames } from './interfaces/CSSColorNames.tsx'
+import type { RNOnlyProps } from './interfaces/RNExclusiveTypes.ts'
 
 export type SizeKeys =
   | 'width'

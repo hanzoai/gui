@@ -1,7 +1,7 @@
 import { createStyledContext } from '@hanzogui/core'
 import { getPortal } from '@hanzogui/native'
 import { createContext } from 'react'
-import type { SelectContextValue, SelectItemParentContextValue } from './types'
+import type { SelectContextValue, SelectItemParentContextValue } from './types.tsx'
 
 // zIndex flows from root Select prop to SelectContent portal
 export const SelectZIndexContext = createContext<number | undefined>(undefined)

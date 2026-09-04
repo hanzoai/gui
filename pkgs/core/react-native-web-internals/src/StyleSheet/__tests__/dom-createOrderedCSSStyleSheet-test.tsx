@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import createOrderedCSSStyleSheet from '../dom/createOrderedCSSStyleSheet'
+import createOrderedCSSStyleSheet from '../dom/createOrderedCSSStyleSheet.tsx'
 
 const insertStyleElement = () => {
   const element = document.createElement('style')

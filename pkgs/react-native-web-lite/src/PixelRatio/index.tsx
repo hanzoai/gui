@@ -8,7 +8,7 @@
  * @flow
  */
 
-import { Dimensions } from '../Dimensions/index'
+import { Dimensions } from '../Dimensions/index.tsx'
 
 /**
  * PixelRatio gives access to the device pixel density.

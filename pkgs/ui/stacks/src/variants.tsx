@@ -1,4 +1,4 @@
-import { getElevation } from './getElevation'
+import { getElevation } from './getElevation.tsx'
 
 export const elevate = {
   true: (_: boolean, extras: any) => {

@@ -12,7 +12,7 @@
  * native Toast functionality.
  */
 
-import { getBurnt } from './burntState'
+import { getBurnt } from './burntState.ts'
 
 function setup(): void {
   const g = globalThis as any

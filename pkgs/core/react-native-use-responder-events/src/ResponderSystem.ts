@@ -4,9 +4,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { ResponderEvent } from './createResponderEvent'
-import { createResponderEvent } from './createResponderEvent'
-import { ResponderTouchHistoryStore } from './ResponderTouchHistoryStore'
+import type { ResponderEvent } from './createResponderEvent.ts'
+import { createResponderEvent } from './createResponderEvent.ts'
+import { ResponderTouchHistoryStore } from './ResponderTouchHistoryStore.ts'
 import {
   isCancelish,
   isEndish,
@@ -14,8 +14,8 @@ import {
   isScroll,
   isSelectionChange,
   isStartish,
-} from './types'
-import { canUseDOM } from './utils'
+} from './types.ts'
+import { canUseDOM } from './utils.ts'
 import {
   getLowestCommonAncestor,
   getResponderPaths,
@@ -23,7 +23,7 @@ import {
   hasValidSelection,
   isPrimaryPointerDown,
   setResponderId,
-} from './utils'
+} from './utils.ts'
 
 /* ------------ TYPES ------------ */
 

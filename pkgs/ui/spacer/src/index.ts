@@ -1,4 +1,4 @@
-export { spacedChildren } from './spacedChildren'
-export * from './Spacer'
-export * from './Unspaced'
-export type * from './types'
+export { spacedChildren } from './spacedChildren.tsx'
+export * from './Spacer.tsx'
+export * from './Unspaced.tsx'
+export type * from './types.ts'

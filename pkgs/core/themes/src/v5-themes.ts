@@ -19,15 +19,15 @@ import {
   yellowDark,
 } from '@hanzogui/colors'
 import { createThemes, type CreateThemesProps } from '@hanzogui/theme-builder'
-import { opacify } from './opacify'
-import { v5Templates } from './v5-templates'
+import { opacify } from './opacify.ts'
+import { v5Templates } from './v5-templates.ts'
 
 // base theme uses elevated background (like old surface1)
 // this offset aligns getTheme's palette index with that elevation
 export const V5_BG_OFFSET = 6 + 1
 
 // re-export color utilities for users
-export { interpolateColor, opacify } from './opacify'
+export { interpolateColor, opacify } from './opacify.ts'
 
 export const v5ComponentThemes = {
   Button: { template: 'surface2' },

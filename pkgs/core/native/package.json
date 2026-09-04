@@ -30,8 +30,8 @@
     "**/setup-*",
     "**/gesture-handler*"
   ],
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "typesVersions": {
     "*": {
@@ -68,100 +68,100 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./setup-teleport": {
       "types": "./types/setup-teleport.d.ts",
-      "react-native": "./dist/esm/setup-teleport.native.js",
-      "browser": "./dist/esm/setup-teleport.mjs",
-      "module": "./dist/esm/setup-teleport.mjs",
-      "import": "./dist/esm/setup-teleport.mjs",
-      "require": "./dist/cjs/setup-teleport.cjs",
-      "default": "./dist/esm/setup-teleport.mjs"
+      "react-native": "./dist/esm/setup-teleport.js",
+      "browser": "./dist/esm/setup-teleport.js",
+      "module": "./dist/esm/setup-teleport.js",
+      "import": "./dist/esm/setup-teleport.js",
+      "require": "./dist/cjs/setup-teleport.js",
+      "default": "./dist/esm/setup-teleport.js"
     },
     "./setup-gesture-handler": {
       "types": "./types/setup-gesture-handler.d.ts",
-      "react-native": "./dist/esm/setup-gesture-handler.native.js",
-      "browser": "./dist/esm/setup-gesture-handler.mjs",
-      "module": "./dist/esm/setup-gesture-handler.mjs",
-      "import": "./dist/esm/setup-gesture-handler.mjs",
-      "require": "./dist/cjs/setup-gesture-handler.cjs",
-      "default": "./dist/esm/setup-gesture-handler.mjs"
+      "react-native": "./dist/esm/setup-gesture-handler.js",
+      "browser": "./dist/esm/setup-gesture-handler.js",
+      "module": "./dist/esm/setup-gesture-handler.js",
+      "import": "./dist/esm/setup-gesture-handler.js",
+      "require": "./dist/cjs/setup-gesture-handler.js",
+      "default": "./dist/esm/setup-gesture-handler.js"
     },
     "./gesture-handler": {
       "types": "./types/gesture-handler.d.ts",
-      "react-native": "./dist/esm/gesture-handler.native.js",
-      "browser": "./dist/esm/gesture-handler.mjs",
-      "module": "./dist/esm/gesture-handler.mjs",
-      "import": "./dist/esm/gesture-handler.mjs",
-      "require": "./dist/cjs/gesture-handler.cjs",
-      "default": "./dist/esm/gesture-handler.mjs"
+      "react-native": "./dist/esm/gesture-handler.js",
+      "browser": "./dist/esm/gesture-handler.js",
+      "module": "./dist/esm/gesture-handler.js",
+      "import": "./dist/esm/gesture-handler.js",
+      "require": "./dist/cjs/gesture-handler.js",
+      "default": "./dist/esm/gesture-handler.js"
     },
     "./setup-worklets": {
       "types": "./types/setup-worklets.d.ts",
-      "react-native": "./dist/esm/setup-worklets.native.js",
-      "browser": "./dist/esm/setup-worklets.mjs",
-      "module": "./dist/esm/setup-worklets.mjs",
-      "import": "./dist/esm/setup-worklets.mjs",
-      "require": "./dist/cjs/setup-worklets.cjs",
-      "default": "./dist/esm/setup-worklets.mjs"
+      "react-native": "./dist/esm/setup-worklets.js",
+      "browser": "./dist/esm/setup-worklets.js",
+      "module": "./dist/esm/setup-worklets.js",
+      "import": "./dist/esm/setup-worklets.js",
+      "require": "./dist/cjs/setup-worklets.js",
+      "default": "./dist/esm/setup-worklets.js"
     },
     "./setup-safe-area": {
       "types": "./types/setup-safe-area.d.ts",
-      "react-native": "./dist/esm/setup-safe-area.native.js",
-      "browser": "./dist/esm/setup-safe-area.mjs",
-      "module": "./dist/esm/setup-safe-area.mjs",
-      "import": "./dist/esm/setup-safe-area.mjs",
-      "require": "./dist/cjs/setup-safe-area.cjs",
-      "default": "./dist/esm/setup-safe-area.mjs"
+      "react-native": "./dist/esm/setup-safe-area.js",
+      "browser": "./dist/esm/setup-safe-area.js",
+      "module": "./dist/esm/setup-safe-area.js",
+      "import": "./dist/esm/setup-safe-area.js",
+      "require": "./dist/cjs/setup-safe-area.js",
+      "default": "./dist/esm/setup-safe-area.js"
     },
     "./setup-expo-linear-gradient": {
       "types": "./types/setup-expo-linear-gradient.d.ts",
-      "react-native": "./dist/esm/setup-expo-linear-gradient.native.js",
-      "browser": "./dist/esm/setup-expo-linear-gradient.mjs",
-      "module": "./dist/esm/setup-expo-linear-gradient.mjs",
-      "import": "./dist/esm/setup-expo-linear-gradient.mjs",
-      "require": "./dist/cjs/setup-expo-linear-gradient.cjs",
-      "default": "./dist/esm/setup-expo-linear-gradient.mjs"
+      "react-native": "./dist/esm/setup-expo-linear-gradient.js",
+      "browser": "./dist/esm/setup-expo-linear-gradient.js",
+      "module": "./dist/esm/setup-expo-linear-gradient.js",
+      "import": "./dist/esm/setup-expo-linear-gradient.js",
+      "require": "./dist/cjs/setup-expo-linear-gradient.js",
+      "default": "./dist/esm/setup-expo-linear-gradient.js"
     },
     "./setup-keyboard-controller": {
       "types": "./types/setup-keyboard-controller.d.ts",
-      "react-native": "./dist/esm/setup-keyboard-controller.native.js",
-      "browser": "./dist/esm/setup-keyboard-controller.mjs",
-      "module": "./dist/esm/setup-keyboard-controller.mjs",
-      "import": "./dist/esm/setup-keyboard-controller.mjs",
-      "require": "./dist/cjs/setup-keyboard-controller.cjs",
-      "default": "./dist/esm/setup-keyboard-controller.mjs"
+      "react-native": "./dist/esm/setup-keyboard-controller.js",
+      "browser": "./dist/esm/setup-keyboard-controller.js",
+      "module": "./dist/esm/setup-keyboard-controller.js",
+      "import": "./dist/esm/setup-keyboard-controller.js",
+      "require": "./dist/cjs/setup-keyboard-controller.js",
+      "default": "./dist/esm/setup-keyboard-controller.js"
     },
     "./setup-zeego": {
       "types": "./types/setup-zeego.d.ts",
-      "react-native": "./dist/esm/setup-zeego.native.js",
-      "browser": "./dist/esm/setup-zeego.mjs",
-      "module": "./dist/esm/setup-zeego.mjs",
-      "import": "./dist/esm/setup-zeego.mjs",
-      "require": "./dist/cjs/setup-zeego.cjs",
-      "default": "./dist/esm/setup-zeego.mjs"
+      "react-native": "./dist/esm/setup-zeego.js",
+      "browser": "./dist/esm/setup-zeego.js",
+      "module": "./dist/esm/setup-zeego.js",
+      "import": "./dist/esm/setup-zeego.js",
+      "require": "./dist/cjs/setup-zeego.js",
+      "default": "./dist/esm/setup-zeego.js"
     },
     "./setup-burnt": {
       "types": "./types/setup-burnt.d.ts",
-      "react-native": "./dist/esm/setup-burnt.native.js",
-      "browser": "./dist/esm/setup-burnt.mjs",
-      "module": "./dist/esm/setup-burnt.mjs",
-      "import": "./dist/esm/setup-burnt.mjs",
-      "require": "./dist/cjs/setup-burnt.cjs",
-      "default": "./dist/esm/setup-burnt.mjs"
+      "react-native": "./dist/esm/setup-burnt.js",
+      "browser": "./dist/esm/setup-burnt.js",
+      "module": "./dist/esm/setup-burnt.js",
+      "import": "./dist/esm/setup-burnt.js",
+      "require": "./dist/cjs/setup-burnt.js",
+      "default": "./dist/esm/setup-burnt.js"
     }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

@@ -1,4 +1,4 @@
-import type { PropMappedValue } from '../types'
+import type { PropMappedValue } from '../types.tsx'
 
 // border style keywords
 const borderStyles = new Set([

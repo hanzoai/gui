@@ -11,8 +11,8 @@
  */
 
 import { expectTypeOf, describe, test } from 'vitest'
-import { styled, styledHtml } from './styled'
-import type { GetProps } from './types'
+import { styled, styledHtml } from './styled.tsx'
+import type { GetProps } from './types.tsx'
 
 // =============================================================================
 // Test: styled.a() types

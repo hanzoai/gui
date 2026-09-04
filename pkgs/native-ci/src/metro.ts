@@ -14,7 +14,7 @@ import {
   DEFAULT_METRO_WAIT_INTERVAL_MS,
   type Platform,
   type ExpoManifest,
-} from './constants'
+} from './constants.ts'
 
 export interface MetroOptions {
   /** Platform for Expo-Platform header */

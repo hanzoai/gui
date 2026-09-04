@@ -1,7 +1,7 @@
 import type { GetProps } from '@hanzogui/web'
 import { styled } from '@hanzogui/web'
 
-import { Paragraph } from './Paragraph'
+import { Paragraph } from './Paragraph.tsx'
 
 export const Heading = styled(Paragraph, {
   render: 'span',

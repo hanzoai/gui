@@ -1,2 +1,2 @@
-export * from './ToggleGroup'
-export { useToggleGroupItem } from './context'
+export * from './ToggleGroup.tsx'
+export { useToggleGroupItem } from './context.tsx'

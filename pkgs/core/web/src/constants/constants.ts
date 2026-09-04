@@ -1,4 +1,4 @@
-import type { StackStyle } from '../types'
+import type { StackStyle } from '../types.tsx'
 
 export const THEME_NAME_SEPARATOR = '_'
 export const THEME_CLASSNAME_PREFIX = 't_'

@@ -6,7 +6,7 @@
  *
  * @flow
  */
-import { canUseDOM } from '../canUseDOM'
+import { canUseDOM } from '../canUseDOM.tsx'
 
 const _requestIdleCallback = function (cb: Function, options?: object) {
   return setTimeout(() => {

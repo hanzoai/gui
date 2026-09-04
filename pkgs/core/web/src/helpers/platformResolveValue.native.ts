@@ -1,6 +1,6 @@
-import type { GetStyleState, SplitStyleProps } from '../types'
-import { getTokenForKey } from './getTokenForKey'
-import { parseNativeStyle } from './parseNativeStyle'
+import type { GetStyleState, SplitStyleProps } from '../types.tsx'
+import { getTokenForKey } from './getTokenForKey.ts'
+import { parseNativeStyle } from './parseNativeStyle.ts'
 
 // includes the optional `/NN` opacity-modifier suffix ($color9/50) so
 // getTokenForKey receives it and can apply the alpha — without it the token

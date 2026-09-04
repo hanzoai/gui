@@ -5,7 +5,7 @@ export * from '@hanzogui/react-native-use-pressable'
 export { View, Text } from '@hanzogui/web'
 import { View, Text } from '@hanzogui/web'
 
-export * from './Dimensions'
+export * from './Dimensions.ts'
 
 export const Platform = {
   OS: 'web',

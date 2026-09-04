@@ -17,7 +17,7 @@
 // two runtimes are mutually exclusive — no view is ever counted twice.
 
 import { useEffect, useRef } from 'react'
-import { useTelemetry } from './TelemetryProvider'
+import { useTelemetry } from './TelemetryProvider.tsx'
 
 /** The two members of a React Navigation container ref that screen tracking
  *  reads. `addListener('state', …)` returns its own unsubscribe, exactly as

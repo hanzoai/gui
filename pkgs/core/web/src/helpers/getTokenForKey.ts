@@ -1,14 +1,14 @@
 import { tokenCategories } from '@hanzogui/helpers'
-import { getConfig } from '../config'
-import { isVariable } from '../createVariable'
+import { getConfig } from '../config.ts'
+import { isVariable } from '../createVariable.ts'
 import type {
   GetStyleState,
   ResolveVariableAs,
   SplitStyleProps,
   Variable,
-} from '../types'
-import { getFontsForLanguage } from './getVariantExtras'
-import { normalizeColor } from './normalizeColor'
+} from '../types.tsx'
+import { getFontsForLanguage } from './getVariantExtras.tsx'
+import { normalizeColor } from './normalizeColor.ts'
 
 const fontShorthand = {
   fontSize: 'size',

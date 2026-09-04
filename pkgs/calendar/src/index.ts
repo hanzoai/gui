@@ -1,15 +1,15 @@
 // @hanzo/calendar — universal (web + native) booking UI on the Hanzo Calendar
 // backend, built with hanzogui primitives.
 
-export { Booker, type BookerProps } from './Booker'
-export { CalendarEmbed, type CalendarEmbedProps } from './CalendarEmbed'
-export { Confirmation, type ConfirmationProps } from './Confirmation'
+export { Booker, type BookerProps } from './Booker.tsx'
+export { CalendarEmbed, type CalendarEmbedProps } from './CalendarEmbed.tsx'
+export { Confirmation, type ConfirmationProps } from './Confirmation.tsx'
 
 // Composable sub-views (use these to build a custom flow).
-export { EventHeader, type EventHeaderProps } from './EventHeader'
-export { MonthCalendar, type MonthCalendarProps } from './MonthCalendar'
-export { TimeSlots, type TimeSlotsProps } from './TimeSlots'
-export { BookingForm, type BookingFormProps } from './BookingForm'
+export { EventHeader, type EventHeaderProps } from './EventHeader.tsx'
+export { MonthCalendar, type MonthCalendarProps } from './MonthCalendar.tsx'
+export { TimeSlots, type TimeSlotsProps } from './TimeSlots.tsx'
+export { BookingForm, type BookingFormProps } from './BookingForm.tsx'
 
 // Orchestration hook + data hooks.
 export {
@@ -17,7 +17,7 @@ export {
   type UseBookerOptions,
   type BookerModel,
   type BookerPhase,
-} from './useBooker'
+} from './useBooker.ts'
 export {
   useEventType,
   useAvailableSlots,
@@ -28,7 +28,7 @@ export {
   type SlotsState,
   type CreateBookingState,
   type SubmitResult,
-} from './hooks'
+} from './hooks.ts'
 
 // Data plane.
 export {
@@ -50,7 +50,7 @@ export {
   type BookingResponses,
   type CreateBookingInput,
   type SlotsInput,
-} from './client'
+} from './client.ts'
 
 // Time plane (Intl/Date helpers).
 export {
@@ -69,4 +69,4 @@ export {
   sameMonth,
   isBeforeToday,
   type MonthCell,
-} from './time'
+} from './time.ts'

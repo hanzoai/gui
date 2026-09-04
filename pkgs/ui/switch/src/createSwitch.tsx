@@ -9,16 +9,16 @@ import { useSwitch } from '@hanzogui/switch-headless'
 import { useControllableState } from '@hanzogui/use-controllable-state'
 import * as React from 'react'
 import type { LayoutChangeEvent } from 'react-native'
-import { SwitchStyledContext } from './StyledContext'
-import { SwitchFrame as DefaultSwitchFrame, SwitchThumb } from './Switch'
+import { SwitchStyledContext } from './StyledContext.tsx'
+import { SwitchFrame as DefaultSwitchFrame, SwitchThumb } from './Switch.tsx'
 import type {
   SwitchComponent,
   SwitchExtraProps,
   SwitchProps,
   SwitchThumbComponent,
   SwitchThumbProps,
-} from './types'
-import { useSwitchNative } from './useSwitchNative'
+} from './types.ts'
+import { useSwitchNative } from './useSwitchNative.tsx'
 
 export type { SwitchExtraProps, SwitchProps, SwitchThumbProps }
 

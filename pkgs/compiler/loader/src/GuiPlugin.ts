@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import type { Compiler, RuleSetRule } from 'webpack'
 import webpack from 'webpack'
-import { requireResolve } from './requireResolve'
+import { requireResolve } from './requireResolve.ts'
 
 export type PluginOptions = GuiOptions & {
   isServer?: boolean

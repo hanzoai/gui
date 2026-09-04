@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import createDOMProps from '..'
+import createDOMProps from '../index.tsx'
 
 const createProps = (props) => createDOMProps(null, props)
 

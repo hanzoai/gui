@@ -16,8 +16,8 @@ import { readFileSync } from 'node:fs'
 import { basename, dirname, resolve, relative } from 'node:path'
 import type { ViewStyle } from 'react-native'
 
-import { FAILED_EVAL } from '../constants'
-import { requireGuiCore } from '../helpers/requireGuiCore'
+import { FAILED_EVAL } from '../constants.ts'
+import { requireGuiCore } from '../helpers/requireGuiCore.ts'
 import type {
   ExtractedAttr,
   ExtractedAttrStyle,
@@ -26,11 +26,11 @@ import type {
   GuiOptions,
   GuiOptionsWithFileInfo,
   Ternary,
-} from '../types'
-import type { LoadedComponents, GuiProjectInfo } from './bundleConfig'
-import { createEvaluator, createSafeEvaluator } from './createEvaluator'
-import { installedPackageOf } from './extractablePath'
-import { evaluateAstNode } from './evaluateAstNode'
+} from '../types.ts'
+import type { LoadedComponents, GuiProjectInfo } from './bundleConfig.ts'
+import { createEvaluator, createSafeEvaluator } from './createEvaluator.ts'
+import { installedPackageOf } from './extractablePath.ts'
+import { evaluateAstNode } from './evaluateAstNode.ts'
 import {
   attrStr,
   findComponentName,
@@ -40,18 +40,18 @@ import {
   isPresent,
   isValidImport,
   objToStr,
-} from './extractHelpers'
-import { findTopmostFunction } from './findTopmostFunction'
-import { cleanupBeforeExit, getStaticBindingsForScope } from './getStaticBindingsForScope'
-import { literalToAst } from './literalToAst'
-import { loadGui, loadGuiSync } from './loadGui'
-import { logLines } from './logLines'
-import { normalizeTernaries } from './normalizeTernaries'
-import { setPropsToFontFamily } from './propsToFontFamilyCache'
-import { timer } from './timer'
-import { validHTMLAttributes } from './validHTMLAttributes'
-import { BailOptimizationError } from './errors'
-import { probe, resolveAlias } from './esbuildTsconfigPaths'
+} from './extractHelpers.ts'
+import { findTopmostFunction } from './findTopmostFunction.ts'
+import { cleanupBeforeExit, getStaticBindingsForScope } from './getStaticBindingsForScope.ts'
+import { literalToAst } from './literalToAst.ts'
+import { loadGui, loadGuiSync } from './loadGui.ts'
+import { logLines } from './logLines.ts'
+import { normalizeTernaries } from './normalizeTernaries.ts'
+import { setPropsToFontFamily } from './propsToFontFamilyCache.ts'
+import { timer } from './timer.ts'
+import { validHTMLAttributes } from './validHTMLAttributes.ts'
+import { BailOptimizationError } from './errors.ts'
+import { probe, resolveAlias } from './esbuildTsconfigPaths.ts'
 
 const UNTOUCHED_PROPS = {
   key: true,

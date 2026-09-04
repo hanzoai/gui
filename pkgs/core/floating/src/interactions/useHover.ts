@@ -7,14 +7,14 @@ import type {
   FloatingInteractionContext,
   OpenChangeReason,
   UseHoverProps,
-} from './types'
+} from './types.ts'
 import {
   clearTimeoutIfSet,
   contains,
   getDocument,
   isElement,
   isMouseLikePointerType,
-} from './utils'
+} from './utils.ts'
 
 const safePolygonIdentifier = 'data-floating-ui-safe-polygon'
 

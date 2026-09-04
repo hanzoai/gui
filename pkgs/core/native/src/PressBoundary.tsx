@@ -4,7 +4,7 @@ import {
   claimExternalPressOwnership,
   releaseExternalPressOwnership,
   type ExternalPressOwnershipToken,
-} from './gestureState'
+} from './gestureState.ts'
 
 export interface PressBoundaryProps extends ViewProps {
   enabled?: boolean

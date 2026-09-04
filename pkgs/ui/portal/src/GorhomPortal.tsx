@@ -14,7 +14,7 @@ import React, {
   useMemo,
   useReducer,
 } from 'react'
-import { allPortalHosts, portalListeners } from './constants'
+import { allPortalHosts, portalListeners } from './constants.ts'
 
 interface PortalType {
   name: string

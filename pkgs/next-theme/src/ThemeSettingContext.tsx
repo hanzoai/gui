@@ -1,6 +1,6 @@
 import { createContext, type Context } from 'react'
 
-import type { UseThemeProps } from './UseThemeProps'
+import type { UseThemeProps } from './UseThemeProps.tsx'
 
 export const ThemeSettingContext: Context<UseThemeProps> = createContext<UseThemeProps>({
   toggle: () => {},

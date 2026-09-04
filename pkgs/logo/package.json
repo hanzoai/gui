@@ -10,27 +10,27 @@
     "icon"
   ],
   "type": "module",
-  "main": "dist/cjs",
-  "module": "dist/esm",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/index.native.js",
-      "browser": "./dist/esm/index.mjs",
-      "module": "./dist/esm/index.mjs",
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./icon": {
       "types": "./types/LogoIcon.d.ts",
-      "react-native": "./dist/esm/LogoIcon.native.js",
-      "browser": "./dist/esm/LogoIcon.mjs",
-      "module": "./dist/esm/LogoIcon.mjs",
-      "import": "./dist/esm/LogoIcon.mjs",
-      "require": "./dist/cjs/LogoIcon.cjs",
+      "react-native": "./dist/esm/LogoIcon.js",
+      "browser": "./dist/esm/LogoIcon.js",
+      "module": "./dist/esm/LogoIcon.js",
+      "import": "./dist/esm/LogoIcon.js",
+      "require": "./dist/cjs/LogoIcon.js",
       "default": "./dist/cjs/LogoIcon.native.js"
     }
   },
@@ -38,7 +38,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "hanzogui-build",
+    "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

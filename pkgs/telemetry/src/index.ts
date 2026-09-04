@@ -18,10 +18,10 @@ export {
   useTelemetry,
   useTrack,
   useConsent,
-} from './TelemetryProvider'
-export type { TelemetryOwner, TelemetryProviderProps } from './TelemetryProvider'
+} from './TelemetryProvider.tsx'
+export type { TelemetryOwner, TelemetryProviderProps } from './TelemetryProvider.tsx'
 
-export { useAppAnalytics } from './appAnalytics'
+export { useAppAnalytics } from './appAnalytics.ts'
 
 export {
   createTelemetry,
@@ -39,8 +39,8 @@ export {
   captureError,
   captureException,
   flush,
-} from './telemetry'
-export type { ResolvedTelemetry } from './telemetry'
+} from './telemetry.ts'
+export type { ResolvedTelemetry } from './telemetry.ts'
 
 export {
   doNotTrack,
@@ -48,7 +48,7 @@ export {
   setConsent,
   onConsentChange,
   resolveEnabled,
-} from './consent'
+} from './consent.ts'
 
 export {
   productFromHost,
@@ -56,13 +56,13 @@ export {
   isReactNative,
   resolveEnv,
   DEFAULT_HOST,
-} from './env'
-export type { ResolvedEnv, TelemetryGlobal } from './env'
+} from './env.ts'
+export type { ResolvedEnv, TelemetryGlobal } from './env.ts'
 
-export { useRouteTracking } from './useRouteTracking'
-export { useReplay } from './useReplay'
-export { useScreenTracking } from './useScreenTracking'
-export type { NavigationRefLike } from './useScreenTracking'
+export { useRouteTracking } from './useRouteTracking.ts'
+export { useReplay } from './useReplay.ts'
+export { useScreenTracking } from './useScreenTracking.ts'
+export type { NavigationRefLike } from './useScreenTracking.ts'
 
 export type {
   Analytics,
@@ -74,7 +74,7 @@ export type {
   TelemetryConfig,
   TelemetryConsent,
   TelemetryErrorContext,
-} from './types'
+} from './types.ts'
 
 // The shared event + goal vocabulary, so a surface never invents its own names
 // for a signup or a sale. One import for the whole telemetry story.

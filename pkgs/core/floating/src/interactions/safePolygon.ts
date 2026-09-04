@@ -1,5 +1,5 @@
-import type { HandleCloseFn, SafePolygonOptions } from './types'
-import { clearTimeoutIfSet, contains, getTarget } from './utils'
+import type { HandleCloseFn, SafePolygonOptions } from './types.ts'
+import { clearTimeoutIfSet, contains, getTarget } from './utils.ts'
 
 type Point = [number, number]
 type Polygon = Point[]

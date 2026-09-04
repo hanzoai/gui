@@ -1,6 +1,6 @@
 import type { GuiOptions } from '@hanzogui/types'
 
-import { getDefaultGuiConfigPath } from './getGuiDefaultPath'
+import { getDefaultGuiConfigPath } from './getGuiDefaultPath.ts'
 
 export async function getDefaultGuiOptions({
   cwd = '.',

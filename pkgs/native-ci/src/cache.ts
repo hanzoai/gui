@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { DEFAULT_KV_TTL_SECONDS, type Platform } from './constants'
+import { DEFAULT_KV_TTL_SECONDS, type Platform } from './constants.ts'
 
 export interface CacheOptions {
   platform: Platform

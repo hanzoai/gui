@@ -1,4 +1,4 @@
-import type { GenericVariantDefinitions } from '../types'
+import type { GenericVariantDefinitions } from '../types.tsx'
 
 // deep merge variants
 // except for functions which override any parents

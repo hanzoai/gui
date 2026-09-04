@@ -1,10 +1,10 @@
 import { parseToHsla } from 'color2k'
 import type { Template } from '@hanzogui/create-theme'
-import { defaultComponentThemes } from './defaultComponentThemes'
-import { defaultTemplates } from './defaultTemplates'
-import { getThemeSuitePalettes, PALETTE_BACKGROUND_OFFSET } from './getThemeSuitePalettes'
-import { createThemeBuilder, type ThemeBuilder } from './ThemeBuilder'
-import type { BuildPalettes, BuildTemplates } from './types'
+import { defaultComponentThemes } from './defaultComponentThemes.ts'
+import { defaultTemplates } from './defaultTemplates.ts'
+import { getThemeSuitePalettes, PALETTE_BACKGROUND_OFFSET } from './getThemeSuitePalettes.ts'
+import { createThemeBuilder, type ThemeBuilder } from './ThemeBuilder.ts'
+import type { BuildPalettes, BuildTemplates } from './types.ts'
 
 /**
  * GrandChildren theme nesting logic implementation:

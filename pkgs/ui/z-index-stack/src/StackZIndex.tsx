@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { ZIndexHardcodedContext, ZIndexStackContext } from './context'
+import { ZIndexHardcodedContext, ZIndexStackContext } from './context.ts'
 
 export const StackZIndexContext = ({
   children,

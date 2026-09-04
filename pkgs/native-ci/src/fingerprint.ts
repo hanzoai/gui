@@ -2,7 +2,7 @@ import { execSync, type ExecSyncOptions } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { Platform } from './constants'
+import type { Platform } from './constants.ts'
 
 export interface FingerprintOptions {
   platform: Platform

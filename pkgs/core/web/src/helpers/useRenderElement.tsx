@@ -1,8 +1,8 @@
 import type React from 'react'
 import { cloneElement, createElement, isValidElement } from 'react'
 import { composeRefs } from '@hanzogui/compose-refs'
-import type { GuiComponentState } from '../types'
-import { mergeSlotStyleProps } from './mergeSlotStyleProps'
+import type { GuiComponentState } from '../types.tsx'
+import { mergeSlotStyleProps } from './mergeSlotStyleProps.ts'
 
 export type RenderProp<Props = Record<string, any>> =
   | string

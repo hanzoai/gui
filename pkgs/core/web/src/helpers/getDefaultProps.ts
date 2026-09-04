@@ -1,5 +1,5 @@
-import { getConfig } from '../config'
-import type { StaticConfig } from '../types'
+import { getConfig } from '../config.ts'
+import type { StaticConfig } from '../types.tsx'
 
 // merge both default props, styled context props, and default text props
 export const getDefaultProps = (

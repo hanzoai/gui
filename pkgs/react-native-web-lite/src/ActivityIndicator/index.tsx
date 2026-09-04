@@ -11,8 +11,8 @@
 import * as React from 'react'
 import { StyleSheet } from '@hanzogui/react-native-web-internals'
 
-import type { ViewProps } from '../View/index'
-import { View } from '../View/index'
+import type { ViewProps } from '../View/index.tsx'
+import { View } from '../View/index.tsx'
 
 const createSvgCircle = (style) => (
   <circle cx="16" cy="16" fill="none" r="14" strokeWidth="4" style={style} />

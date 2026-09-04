@@ -1,9 +1,9 @@
 import type { GetProps } from '@hanzogui/core'
 import { styled } from '@hanzogui/core'
 
-import { YStack } from './Stacks'
+import { YStack } from './Stacks.tsx'
 
-import { bordered, circular, elevate } from './variants'
+import { bordered, circular, elevate } from './variants.tsx'
 
 const chromelessStyle = {
   backgroundColor: 'transparent',

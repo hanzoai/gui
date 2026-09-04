@@ -8,24 +8,24 @@
  * - Dependency management
  */
 
-import { generateFingerprint, generatePreFingerprintHash } from './fingerprint'
+import { generateFingerprint, generatePreFingerprintHash } from './fingerprint.ts'
 import {
   createCacheKey,
   saveFingerprintToKV,
   getFingerprintFromKV,
   saveCache,
   loadCache,
-} from './cache'
-import { setGitHubOutput, isGitHubActions, isCI } from './runner'
+} from './cache.ts'
+import { setGitHubOutput, isGitHubActions, isCI } from './runner.ts'
 import {
   checkDeps,
   ensureIosDeps,
   ensureAndroidDeps,
   ensureMaestro,
   printDepsStatus,
-} from './deps'
-import { withMetro } from './metro'
-import { parseDetoxArgs, runDetoxTests } from './detox'
+} from './deps.ts'
+import { withMetro } from './metro.ts'
+import { parseDetoxArgs, runDetoxTests } from './detox.ts'
 import {
   ensureIOSFolder,
   ensureIOSApp,
@@ -33,9 +33,9 @@ import {
   ensureAppInstalled,
   getBootedSimulatorUDID,
   getMaestroBundleId,
-} from './ios'
-import { setupAndroidDevice, ensureAndroidFolder } from './android'
-import type { Platform } from './constants'
+} from './ios.ts'
+import { setupAndroidDevice, ensureAndroidFolder } from './android.ts'
+import type { Platform } from './constants.ts'
 import { chmodSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'

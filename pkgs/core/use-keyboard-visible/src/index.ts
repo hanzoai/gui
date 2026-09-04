@@ -1,1 +1,1 @@
-export { useKeyboardVisible } from './useKeyboardVisible'
+export { useKeyboardVisible } from './useKeyboardVisible.ts'

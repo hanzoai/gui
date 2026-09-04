@@ -1,5 +1,5 @@
-import { objectFromEntries, objectKeys } from './helpers'
-import type { BuildTemplates } from './types'
+import { objectFromEntries, objectKeys } from './helpers.ts'
+import type { BuildTemplates } from './types.ts'
 
 const getTemplates = () => {
   const lightTemplates = getBaseTemplates('light')

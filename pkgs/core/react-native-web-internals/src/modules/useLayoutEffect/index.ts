@@ -10,6 +10,6 @@ import React from 'react' /**
  * @flow
  */
 
-import { canUseDOM } from '../canUseDOM'
+import { canUseDOM } from '../canUseDOM.tsx'
 
 export const useLayoutEffectImpl = canUseDOM ? React.useLayoutEffect : React.useEffect

@@ -3,7 +3,7 @@ import { useEvent } from '@hanzogui/web'
 import type { MutableRefObject } from 'react'
 import React from 'react'
 
-import { registerFocusable } from './registerFocusable'
+import { registerFocusable } from './registerFocusable.ts'
 
 type FocusableProps = {
   id?: string

@@ -3,10 +3,10 @@ import type { Shorthands } from '@hanzogui/shorthands/v4'
 import { themes, tokens } from '@hanzogui/themes/v5'
 import type { V5Themes, V5Tokens } from '@hanzogui/themes/v5'
 import type { CreateGuiProps } from '@hanzogui/web'
-import { fonts } from './v5-fonts'
-import type { V5Fonts } from './v5-fonts'
-import { media, mediaQueryDefaultActive } from './v5-media'
-import type { V5Media } from './v5-media'
+import { fonts } from './v5-fonts.ts'
+import type { V5Fonts } from './v5-fonts.ts'
+import { media, mediaQueryDefaultActive } from './v5-media.ts'
+import type { V5Media } from './v5-media.ts'
 
 export { shorthands } from '@hanzogui/shorthands/v4'
 export { createThemes } from '@hanzogui/theme-builder'
@@ -32,10 +32,10 @@ export {
   type V5Themes,
   type V5Tokens,
 } from '@hanzogui/themes/v5'
-export { createSystemFont, fonts } from './v5-fonts'
-export type { V5Fonts } from './v5-fonts'
-export { breakpoints, media, mediaQueryDefaultActive } from './v5-media'
-export type { V5Media } from './v5-media'
+export { createSystemFont, fonts } from './v5-fonts.ts'
+export type { V5Fonts } from './v5-fonts.ts'
+export { breakpoints, media, mediaQueryDefaultActive } from './v5-media.ts'
+export type { V5Media } from './v5-media.ts'
 
 export const selectionStyles = (theme) =>
   theme.color5

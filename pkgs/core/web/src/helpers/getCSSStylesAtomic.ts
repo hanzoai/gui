@@ -5,15 +5,15 @@
 
 import type { StyleObject } from '@hanzogui/helpers'
 import { cssShorthandLonghands, simpleHash } from '@hanzogui/helpers'
-import { getConfigMaybe } from '../config'
-import { isMediaKey } from '../hooks/useMedia'
-import type { GuiInternalConfig, ViewStyleWithPseudos } from '../types'
-import { defaultOffset } from './defaultOffset'
-import { normalizeColor } from './normalizeColor'
-import { normalizeValueWithProperty } from './normalizeValueWithProperty'
-import type { PseudoDescriptor } from './pseudoDescriptors'
-import { pseudoDescriptors } from './pseudoDescriptors'
-import { transformsToString } from './transformsToString'
+import { getConfigMaybe } from '../config.ts'
+import { isMediaKey } from '../hooks/useMedia.tsx'
+import type { GuiInternalConfig, ViewStyleWithPseudos } from '../types.tsx'
+import { defaultOffset } from './defaultOffset.ts'
+import { normalizeColor } from './normalizeColor.ts'
+import { normalizeValueWithProperty } from './normalizeValueWithProperty.ts'
+import type { PseudoDescriptor } from './pseudoDescriptors.ts'
+import { pseudoDescriptors } from './pseudoDescriptors.ts'
+import { transformsToString } from './transformsToString.ts'
 
 // refactor this file away next...
 

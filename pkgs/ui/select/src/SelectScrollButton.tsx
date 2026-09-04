@@ -5,12 +5,12 @@ import { YStack } from '@hanzogui/stacks'
 import * as React from 'react'
 import { flushSync } from 'react-dom'
 
-import { useSelectContext } from './context'
+import { useSelectContext } from './context.tsx'
 import type {
   SelectScopedProps,
   SelectScrollButtonImplProps,
   SelectScrollButtonProps,
-} from './types'
+} from './types.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * SelectScrollUpButton

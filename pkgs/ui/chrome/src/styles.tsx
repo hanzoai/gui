@@ -20,7 +20,7 @@
 import { useEffect, useState, type CSSProperties, type FC } from 'react'
 import { styled, Text, View, type GetProps, type StylableComponent } from '@hanzogui/web'
 import { XStack, YStack } from '@hanzogui/stacks'
-import { c, FONT, LG } from './tokens'
+import { c, FONT, LG } from './tokens.ts'
 
 /* ── hooks ─────────────────────────────────────────────────────────────────── */
 

@@ -1,8 +1,8 @@
 import { styled } from '@hanzogui/core'
 import { getButtonSized } from '@hanzogui/get-button-sized'
 import type { GetProps } from '@hanzogui/web'
-import { ThemeableStack } from './ThemeableStack'
-import { bordered, circular, elevate } from './variants'
+import { ThemeableStack } from './ThemeableStack.tsx'
+import { bordered, circular, elevate } from './variants.tsx'
 
 export const SizableStack = styled(ThemeableStack, {
   name: 'SizableStack',

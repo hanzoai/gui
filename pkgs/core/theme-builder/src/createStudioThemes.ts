@@ -1,9 +1,9 @@
-import { createPalettes, createSimpleThemeBuilder } from './createThemes'
-import { defaultComponentThemes } from './defaultComponentThemes'
-import { defaultTemplates } from './defaultTemplates'
-import { defaultTemplatesStronger } from './defaultTemplatesStronger'
-import { defaultTemplatesStrongest } from './defaultTemplatesStrongest'
-import type { BuildThemeSuiteProps } from './types'
+import { createPalettes, createSimpleThemeBuilder } from './createThemes.ts'
+import { defaultComponentThemes } from './defaultComponentThemes.ts'
+import { defaultTemplates } from './defaultTemplates.ts'
+import { defaultTemplatesStronger } from './defaultTemplatesStronger.ts'
+import { defaultTemplatesStrongest } from './defaultTemplatesStrongest.ts'
+import type { BuildThemeSuiteProps } from './types.ts'
 
 // for studio
 // allows more detailed configuration, used by studio

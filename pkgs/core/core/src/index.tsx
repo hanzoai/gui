@@ -30,9 +30,9 @@ import {
   setupHooks,
   useIsomorphicLayoutEffect,
 } from '@hanzogui/web'
-import { createOptimizedView } from './createOptimizedView'
-import { getBaseViews } from './getBaseViews'
-import type { RNTextProps, RNViewProps } from './reactNativeTypes'
+import { createOptimizedView } from './createOptimizedView.tsx'
+import { getBaseViews } from './getBaseViews.ts'
+import type { RNTextProps, RNViewProps } from './reactNativeTypes.ts'
 
 type GestureEnabledFreezeState = {
   frozen: boolean
@@ -99,7 +99,7 @@ type RNGuiText = GuiComponent<
 
 // fixes issues with TS saying internal type usage is breaking
 // see https://discord.com/channels/909986013848412191/1146150253490348112/1146150253490348112
-export * from './reactNativeTypes'
+export * from './reactNativeTypes.ts'
 
 // adds useElementLayout enable
 export const GuiProvider = (props: GuiProviderProps) => {

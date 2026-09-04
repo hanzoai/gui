@@ -1,2 +1,2 @@
-export * from './FocusScope'
-export * from './FocusScopeController'
+export * from './FocusScope.tsx'
+export * from './FocusScopeController.tsx'

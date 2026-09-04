@@ -1,5 +1,5 @@
-import { createGlobalState } from './globalState'
-import type { NativePortalState } from './types'
+import { createGlobalState } from './globalState.ts'
+import type { NativePortalState } from './types.ts'
 
 const state = createGlobalState<NativePortalState>(`portal`, {
   enabled: false,

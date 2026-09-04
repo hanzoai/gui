@@ -20,7 +20,7 @@ import type {
   TransitionKeys,
   TypeOverride,
   GuiComponentPropsBaseBase,
-} from './types'
+} from './types.tsx'
 
 // =============================================================================
 // Mock types for testing

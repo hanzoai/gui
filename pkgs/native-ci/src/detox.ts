@@ -5,8 +5,8 @@
  */
 
 import { parseArgs } from 'node:util'
-import type { Platform } from './constants'
-import { DETOX_SERVER_PORT } from './constants'
+import type { Platform } from './constants.ts'
+import { DETOX_SERVER_PORT } from './constants.ts'
 
 export interface DetoxRunnerOptions {
   /** Detox configuration name */

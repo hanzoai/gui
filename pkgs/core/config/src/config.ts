@@ -2,8 +2,8 @@ import { shorthands } from '@hanzogui/shorthands'
 import { themes, tokens } from '@hanzogui/themes'
 import type { CreateGuiProps } from '@hanzogui/web'
 
-import { fonts } from './fonts'
-import { media, mediaQueryDefaultActive } from './media'
+import { fonts } from './fonts.ts'
+import { media, mediaQueryDefaultActive } from './media.ts'
 
 export const configWithoutAnimations = {
   themes,

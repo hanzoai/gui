@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { ScrollView as RNScrollView } from 'react-native'
-import type { ScrollBridge } from './types'
+import type { ScrollBridge } from './types.tsx'
 
 type GestureOwner = 'none' | 'pan' | 'scroll'
 

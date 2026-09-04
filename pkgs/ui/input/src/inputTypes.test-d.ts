@@ -20,7 +20,7 @@ import {
   type InputRef,
   TextArea,
   type TextAreaProps,
-} from './index'
+} from './index.ts'
 
 // helper: extract event param type
 type EventParam<T> = T extends (event: infer E) => any ? E : never

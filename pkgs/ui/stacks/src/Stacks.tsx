@@ -1,7 +1,7 @@
 import type { GetProps, SizeTokens } from '@hanzogui/core'
 import { View, styled } from '@hanzogui/core'
 
-import { getElevation } from './getElevation'
+import { getElevation } from './getElevation.tsx'
 
 export interface StackVariants {
   /**

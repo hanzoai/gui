@@ -1,6 +1,6 @@
 import * as t from '@babel/types'
 
-import type { ClassNameObject } from '../types'
+import type { ClassNameObject } from '../types.ts'
 
 type Builder = (
   objects: ClassNameObject[],

@@ -1,9 +1,9 @@
 import { useIsomorphicLayoutEffect } from '@hanzogui/constants'
 import { useId } from 'react'
-import { getSetting } from '../config'
-import { THEME_CLASSNAME_PREFIX } from '../constants/constants'
-import type { ThemeProviderProps } from '../types'
-import { Theme } from './Theme'
+import { getSetting } from '../config.ts'
+import { THEME_CLASSNAME_PREFIX } from '../constants/constants.ts'
+import type { ThemeProviderProps } from '../types.tsx'
+import { Theme } from './Theme.tsx'
 
 export const ThemeProvider = (props: ThemeProviderProps) => {
   'use no memo'

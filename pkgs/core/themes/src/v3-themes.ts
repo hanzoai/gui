@@ -18,8 +18,8 @@ import {
 } from '@hanzogui/colors/legacy'
 import { createThemeBuilder, objectFromEntries } from '@hanzogui/theme-builder'
 import { createTokens } from '@hanzogui/web'
-import { objectKeys, postfixObjKeys } from './utils'
-import { tokens as v3Tokens } from './v3-tokens'
+import { objectKeys, postfixObjKeys } from './utils.ts'
+import { tokens as v3Tokens } from './v3-tokens.ts'
 
 const colorTokens = {
   light: {

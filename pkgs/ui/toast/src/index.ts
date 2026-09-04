@@ -1,3 +1,3 @@
-export * from './Toast'
-export type { SwipeDirection } from './ToastProvider'
-export type { BurntToastOptions, CreateNativeToastOptions, NativeToastRef } from './types'
+export * from './Toast.tsx'
+export type { SwipeDirection } from './ToastProvider.tsx'
+export type { BurntToastOptions, CreateNativeToastOptions, NativeToastRef } from './types.ts'

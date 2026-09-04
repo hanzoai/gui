@@ -6,13 +6,16 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "types": "./types.ts",
+  "types": "./types.d.ts",
   "exports": {
     ".": {
-      "types": "./types.ts"
+      "types": "./types.d.ts"
     }
   },
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "build": "tsc types.ts --declaration --emitDeclarationOnly --declarationMap"
   }
 }

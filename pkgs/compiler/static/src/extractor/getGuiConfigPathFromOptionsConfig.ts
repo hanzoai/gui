@@ -1,7 +1,7 @@
 import { isAbsolute, join } from 'node:path'
 
 import { statSync } from 'node:fs'
-import type { GuiOptions } from '../types'
+import type { GuiOptions } from '../types.ts'
 
 export function getGuiConfigPathFromOptionsConfig(
   config: NonNullable<GuiOptions['config']>

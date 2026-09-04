@@ -12,7 +12,7 @@
  * If not installed, LinearGradient will log a warning on native.
  */
 
-import { getLinearGradient } from './linearGradientState'
+import { getLinearGradient } from './linearGradientState.ts'
 
 function setup(): void {
   const g = globalThis as any

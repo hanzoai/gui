@@ -1,4 +1,4 @@
-import type { MediaQueryObject } from '../types'
+import type { MediaQueryObject } from '../types.tsx'
 
 function camelToHyphen(str: string) {
   return str.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`).toLowerCase()

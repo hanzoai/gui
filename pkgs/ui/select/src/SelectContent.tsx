@@ -10,9 +10,9 @@ import {
   SelectZIndexContext,
   useSelectContext,
   useSelectItemParentContext,
-} from './context'
-import type { SelectContentProps } from './types'
-import { useShowSelectSheet } from './useSelectBreakpointActive'
+} from './context.tsx'
+import type { SelectContentProps } from './types.tsx'
+import { useShowSelectSheet } from './useSelectBreakpointActive.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * SelectContent

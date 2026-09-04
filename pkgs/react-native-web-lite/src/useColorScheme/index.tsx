@@ -10,8 +10,8 @@
 
 import * as React from 'react'
 
-import type { ColorSchemeName } from '../Appearance/index'
-import { Appearance } from '../Appearance/index'
+import type { ColorSchemeName } from '../Appearance/index.tsx'
+import { Appearance } from '../Appearance/index.tsx'
 
 export function useColorScheme(): ColorSchemeName {
   const [colorScheme, setColorScheme] = React.useState(Appearance.getColorScheme())

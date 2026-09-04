@@ -1,5 +1,5 @@
-import type { GetStyleState, SplitStyleProps } from '../types'
-import { platformResolveValue } from './platformResolveValue'
+import type { GetStyleState, SplitStyleProps } from '../types.tsx'
+import { platformResolveValue } from './platformResolveValue.ts'
 
 const compoundKeys: Record<string, boolean> = {
   boxShadow: true,

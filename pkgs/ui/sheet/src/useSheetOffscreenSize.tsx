@@ -1,4 +1,4 @@
-import type { SheetContextValue } from './useSheetProviderProps'
+import type { SheetContextValue } from './useSheetProviderProps.tsx'
 
 export const useSheetOffscreenSize = ({
   snapPoints,

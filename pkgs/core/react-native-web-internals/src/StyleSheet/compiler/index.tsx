@@ -10,9 +10,9 @@
 
 import { simpleHash } from '@hanzogui/simple-hash'
 
-import { createReactDOMStyle } from './createReactDOMStyle'
-import { hyphenateStyleName } from './hyphenateStyleName'
-import { normalizeValueWithProperty } from './normalizeValueWithProperty'
+import { createReactDOMStyle } from './createReactDOMStyle.tsx'
+import { hyphenateStyleName } from './hyphenateStyleName.tsx'
+import { normalizeValueWithProperty } from './normalizeValueWithProperty.tsx'
 
 type Value = object | Array<any> | string | number
 

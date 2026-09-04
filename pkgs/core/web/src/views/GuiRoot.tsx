@@ -1,7 +1,7 @@
 import React from 'react'
-import { getConfig } from '../config'
-import { ThemeName } from '../types'
-import { Theme } from './Theme'
+import { getConfig } from '../config.ts'
+import { ThemeName } from '../types.tsx'
+import { Theme } from './Theme.tsx'
 
 let defaultFontClass = ''
 

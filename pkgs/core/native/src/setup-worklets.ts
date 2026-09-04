@@ -18,7 +18,7 @@
  * @see https://docs.swmansion.com/react-native-worklets/docs/
  */
 
-import { getWorklets } from './workletsState'
+import { getWorklets } from './workletsState.ts'
 
 function setup() {
   const g = globalThis as any

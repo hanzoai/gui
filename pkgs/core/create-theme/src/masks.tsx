@@ -1,6 +1,6 @@
-import type { CreateMask, MaskFunction, MaskOptions } from './createThemeTypes'
-import { objectEntries, objectFromEntries } from './helpers'
-import { isMinusZero } from './isMinusZero'
+import type { CreateMask, MaskFunction, MaskOptions } from './createThemeTypes.tsx'
+import { objectEntries, objectFromEntries } from './helpers.tsx'
+import { isMinusZero } from './isMinusZero.tsx'
 
 export const createMask = <C extends CreateMask | MaskFunction>(
   createMask: C

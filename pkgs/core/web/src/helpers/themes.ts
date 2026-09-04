@@ -1,4 +1,4 @@
-import { createVariable, isVariable } from '../createVariable'
+import { createVariable, isVariable } from '../createVariable.ts'
 
 // mutates, freeze after
 // shared by createGui so extracted here

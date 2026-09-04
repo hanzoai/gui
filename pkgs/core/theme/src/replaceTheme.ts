@@ -1,6 +1,6 @@
 import type { ThemeDefinition } from '@hanzogui/web'
 
-import { _mutateTheme } from './_mutateTheme'
+import { _mutateTheme } from './_mutateTheme.ts'
 
 export function replaceTheme({
   name,

@@ -4,8 +4,8 @@ import { createStyledContext } from '@hanzogui/core'
 import type { ListItemProps } from '@hanzogui/list-item'
 import { ListItem } from '@hanzogui/list-item'
 import * as React from 'react'
-import { useSelectItemParentContext } from './context'
-import type { SelectScopedProps } from './types'
+import { useSelectItemParentContext } from './context.tsx'
+import type { SelectScopedProps } from './types.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * SelectItem

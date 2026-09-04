@@ -1,1 +1,1 @@
-export * from './useResponderEvents'
+export * from './useResponderEvents.ts'

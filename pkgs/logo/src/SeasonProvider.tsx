@@ -1,6 +1,6 @@
 import type React from 'react'
 import { useEffect } from 'react'
-import { setTintFamily, type TintFamily } from './tints'
+import { setTintFamily, type TintFamily } from './tints.tsx'
 
 // inline script that runs before hydration to set season class on html
 // auto-detects season from current date

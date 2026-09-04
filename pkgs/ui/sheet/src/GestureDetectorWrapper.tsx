@@ -1,6 +1,6 @@
 import type React from 'react'
 import { View, type ViewStyle } from 'react-native'
-import { getGestureHandlerState, isGestureHandlerEnabled } from './gestureState'
+import { getGestureHandlerState, isGestureHandlerEnabled } from './gestureState.ts'
 
 interface GestureDetectorWrapperProps {
   gesture: any

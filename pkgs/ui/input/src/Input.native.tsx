@@ -3,8 +3,8 @@ import { TextInput, type TextInputProps as RNTextInputProps } from 'react-native
 import { styled } from '@hanzogui/core'
 import { registerFocusable } from '@hanzogui/focusable'
 import { useNativeInputRef } from '@hanzogui/element'
-import { styledBody } from './shared'
-import type { InputExtraProps } from './types'
+import { styledBody } from './shared.tsx'
+import type { InputExtraProps } from './types.ts'
 
 const StyledInput = styled(TextInput, styledBody[0], styledBody[1])
 

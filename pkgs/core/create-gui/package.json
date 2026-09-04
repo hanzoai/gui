@@ -24,7 +24,7 @@
     "build:test": "bun run build",
     "prerelease": "rimraf ./dist/",
     "prepublish": "bun run build",
-    "build": "hanzogui-build --skip-types --bundle",
+    "build": "bun build src/index.ts --outfile dist/index.cjs --format cjs --target node --packages external",
     "watch": "bun run build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"

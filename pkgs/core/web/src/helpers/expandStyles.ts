@@ -1,5 +1,5 @@
 import { isWeb } from '@hanzogui/constants'
-import { normalizeShadow } from './normalizeShadow'
+import { normalizeShadow } from './normalizeShadow.ts'
 
 export function fixStyles(style: Record<string, any>) {
   if (process.env.GUI_TARGET === 'web') {

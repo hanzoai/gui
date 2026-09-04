@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import type { GuiOptions } from '@hanzogui/types'
 import { pathExists, readJSON } from 'fs-extra'
 
-import { getDefaultGuiOptions } from './getDefaultGuiOptions'
+import { getDefaultGuiOptions } from './getDefaultGuiOptions.ts'
 
 export async function readGuiOptions({ cwd = '.' }: { cwd: string }): Promise<{
   exists: boolean

@@ -5,7 +5,7 @@ import {
 } from '@hanzogui/create-menu'
 import { isWeb, withStaticProperties } from '@hanzogui/web'
 import React from 'react'
-import { DROPDOWN_MENU_CONTEXT, createNonNativeMenu } from './createNonNativeMenu'
+import { DROPDOWN_MENU_CONTEXT, createNonNativeMenu } from './createNonNativeMenu.tsx'
 
 export function createMenu(params: CreateBaseMenuProps) {
   const { Menu: NativeMenuRoot } = createNativeMenu('Menu')

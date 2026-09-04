@@ -1,5 +1,5 @@
 import type React from 'react'
-import type { CreateNativeToastOptions, NativeToastRef } from './types'
+import type { CreateNativeToastOptions, NativeToastRef } from './types.ts'
 
 // counter for generating unique toast ids
 let toastsCounter = 1

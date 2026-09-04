@@ -1,2 +1,2 @@
-export * from './Tooltip'
-export * from './TooltipSimple'
+export * from './Tooltip.tsx'
+export * from './TooltipSimple.tsx'

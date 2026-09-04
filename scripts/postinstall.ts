@@ -11,13 +11,13 @@ if (!existsSync(criticalPackage)) {
   console.info('This may take a few minutes on first run.\n')
 
   try {
-    execSync('bun run build:js', {
+    execSync('bun run build', {
       stdio: 'inherit',
       cwd: process.cwd(),
     })
     console.info('\n✅ Build complete! You can now run `bun run dev`\n')
   } catch (error) {
-    console.error('\n❌ Build failed. Try running `bun run build:js` manually.\n')
+    console.error('\n❌ Build failed. Try running `bun run build` manually.\n')
     process.exit(1)
   }
 }

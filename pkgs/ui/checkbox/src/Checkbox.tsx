@@ -5,7 +5,7 @@ import { getVariableValue, styled } from '@hanzogui/core'
 import { getSize } from '@hanzogui/get-token'
 import { YStack } from '@hanzogui/stacks'
 
-import { CheckboxStyledContext } from './CheckboxStyledContext'
+import { CheckboxStyledContext } from './CheckboxStyledContext.tsx'
 
 /* -------------------------------------------------------------------------------------------------
  * CheckboxIndicator

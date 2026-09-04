@@ -3,7 +3,7 @@ import type {
   CreateThemePalette,
   GenericTheme,
   ThemeMask,
-} from './createThemeTypes'
+} from './createThemeTypes.tsx'
 
 export type ThemeInfo = {
   palette: CreateThemePalette

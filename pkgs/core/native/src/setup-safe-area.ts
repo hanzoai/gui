@@ -22,7 +22,7 @@
  * On web, this is a no-op since CSS env(safe-area-inset-*) values work natively.
  */
 
-import { getSafeArea } from './safeAreaState'
+import { getSafeArea } from './safeAreaState.ts'
 
 function setup() {
   // only run on native

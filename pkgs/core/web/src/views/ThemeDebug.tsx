@@ -1,8 +1,8 @@
 import { useDidFinishSSR } from '@hanzogui/use-did-finish-ssr'
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { getThemeState } from '../hooks/useThemeState'
-import type { ThemeProps, ThemeState } from '../types'
+import { getThemeState } from '../hooks/useThemeState.ts'
+import type { ThemeProps, ThemeState } from '../types.tsx'
 
 let node
 

@@ -1,5 +1,5 @@
 import { YStack } from '@hanzo/gui'
-import { GuiIconSvg } from './GuiLogoSvg'
+import { GuiIconSvg } from './GuiLogoSvg.tsx'
 import type { JSX } from 'react/jsx-runtime'
 
 export const LogoIcon = ({

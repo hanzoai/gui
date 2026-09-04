@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { getConfigMaybe } from './config'
-import { useMedia } from './hooks/useMedia'
-import { useTheme } from './hooks/useTheme'
-import { ThemeStateContext } from './hooks/useThemeState'
+import { getConfigMaybe } from './config.ts'
+import { useMedia } from './hooks/useMedia.tsx'
+import { useTheme } from './hooks/useTheme.tsx'
+import { ThemeStateContext } from './hooks/useThemeState.ts'
 
 /** internal: this is for hanzogui babel plugin usage only */
 

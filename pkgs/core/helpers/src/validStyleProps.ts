@@ -6,7 +6,7 @@ import {
   nonAnimatableWebViewProps,
   webOnlyStylePropsText,
   webOnlyStylePropsView,
-} from './webOnlyStyleProps'
+} from './webOnlyStyleProps.ts'
 
 // generally organizing this so we don't duplicate things so its a bit weird
 

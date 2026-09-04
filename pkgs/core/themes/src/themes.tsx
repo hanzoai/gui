@@ -1,1 +1,1 @@
-export { themes } from './generated-new'
+export { themes } from './generated-new.ts'

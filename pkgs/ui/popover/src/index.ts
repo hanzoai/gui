@@ -1,2 +1,2 @@
-export * from './Popover'
-export * from './useFloatingContext'
+export * from './Popover.tsx'
+export * from './useFloatingContext.tsx'

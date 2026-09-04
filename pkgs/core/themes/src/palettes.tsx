@@ -1,6 +1,6 @@
-import { objectFromEntries, objectKeys } from './helpers'
-import { colorTokens } from './tokens'
-import { brandRamps } from './brands'
+import { objectFromEntries, objectKeys } from './helpers.ts'
+import { colorTokens } from './tokens.tsx'
+import { brandRamps } from './brands.ts'
 
 export const palettes = (() => {
   const lightTransparent = 'rgba(255,255,255,0)'

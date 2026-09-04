@@ -1,4 +1,4 @@
-import type { StaticConfig } from '../types'
+import type { StaticConfig } from '../types.tsx'
 
 export function isGuiComponent<A>(
   comp: A,

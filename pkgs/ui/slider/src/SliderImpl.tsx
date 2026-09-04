@@ -10,8 +10,8 @@ import { YStack } from '@hanzogui/stacks'
 import * as React from 'react'
 import { View } from 'react-native'
 
-import { ARROW_KEYS, PAGE_KEYS, SLIDER_NAME, useSliderContext } from './constants'
-import type { ScopedProps, SliderImplProps } from './types'
+import { ARROW_KEYS, PAGE_KEYS, SLIDER_NAME, useSliderContext } from './constants.tsx'
+import type { ScopedProps, SliderImplProps } from './types.ts'
 
 export const SliderFrame = styled(YStack, {
   position: 'relative',

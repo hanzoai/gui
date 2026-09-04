@@ -32,9 +32,9 @@ import { type ReactNode } from 'react'
 import { Github } from '@hanzogui/lucide-icons-2'
 import { styled, View } from '@hanzogui/web'
 import { XStack, YStack } from '@hanzogui/stacks'
-import { Txt, LinkText, linkable, useHover, useIsWide } from './styles'
-import { c } from './tokens'
-import type { NavColumn } from './types'
+import { Txt, LinkText, linkable, useHover, useIsWide } from './styles.tsx'
+import { c } from './tokens.ts'
+import type { NavColumn } from './types.ts'
 
 export interface HanzoFooterProps {
   /** Footer link columns. */

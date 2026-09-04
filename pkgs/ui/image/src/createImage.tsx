@@ -1,7 +1,7 @@
 import { getTokenValue, styled } from '@hanzogui/web'
 import type { ComponentType } from 'react'
 import type { ImageResizeMode } from 'react-native'
-import type { ImageProps, ImageType } from './types'
+import type { ImageProps, ImageType } from './types.ts'
 
 type GetProps<T> = T extends ComponentType<infer P> ? P : never
 

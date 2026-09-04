@@ -1,5 +1,5 @@
 import type { HTMLProps } from 'react'
-import type { ElementProps } from './types'
+import type { ElementProps } from './types.ts'
 
 // merges prop getters from multiple interaction hooks.
 // event handlers are chained (all run), first non-undefined return value wins.

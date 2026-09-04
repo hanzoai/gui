@@ -4,11 +4,11 @@ import Script from 'next/script'
 import * as React from 'react'
 import { memo, useEffect, useMemo, useState } from 'react'
 
-import { MEDIA, colorSchemes } from './constants'
-import { getSystemTheme, getTheme } from './helpers'
-import { ThemeSettingContext } from './ThemeSettingContext'
-import type { ValueObject } from './types'
-import type { ThemeProviderProps, UseThemeProps } from './UseThemeProps'
+import { MEDIA, colorSchemes } from './constants.tsx'
+import { getSystemTheme, getTheme } from './helpers.tsx'
+import { ThemeSettingContext } from './ThemeSettingContext.tsx'
+import type { ValueObject } from './types.tsx'
+import type { ThemeProviderProps, UseThemeProps } from './UseThemeProps.tsx'
 
 export const NextThemeProvider: React.FunctionComponent<ThemeProviderProps> = memo(
   ({

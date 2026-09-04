@@ -3,9 +3,9 @@ import type {
   CreateThemePalette,
   GenericTheme,
   ThemeMask,
-} from './createThemeTypes'
-import { isMinusZero } from './isMinusZero'
-import { setThemeInfo } from './themeInfo'
+} from './createThemeTypes.tsx'
+import { isMinusZero } from './isMinusZero.tsx'
+import { setThemeInfo } from './themeInfo.tsx'
 
 const identityCache = new Map()
 

@@ -1,7 +1,7 @@
 import { createContextScope } from '@hanzogui/create-context'
 
-import { SHEET_NAME } from './constants'
-import type { SheetContextValue } from './useSheetProviderProps'
+import { SHEET_NAME } from './constants.tsx'
+import type { SheetContextValue } from './useSheetProviderProps.tsx'
 
 export const [createSheetContext, createSheetScope] = createContextScope(SHEET_NAME)
 

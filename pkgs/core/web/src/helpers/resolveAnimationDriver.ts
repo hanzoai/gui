@@ -1,4 +1,4 @@
-import type { AnimationDriver } from '../types'
+import type { AnimationDriver } from '../types.tsx'
 
 /**
  * Resolves a value that might be an AnimationDriver or a multi-driver config object

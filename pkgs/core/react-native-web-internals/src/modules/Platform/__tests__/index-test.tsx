@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Platform from '..'
+import Platform from '../index.tsx'
 
 describe('apis/Platform', () => {
   describe('select', () => {

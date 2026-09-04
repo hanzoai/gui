@@ -1,5 +1,5 @@
-import { createCSSVariable, getVariableValue } from '../createVariable'
-import type { Variable, VariableVal } from '../types'
+import { createCSSVariable, getVariableValue } from '../createVariable.ts'
+import type { Variable, VariableVal } from '../types.tsx'
 
 export const registerCSSVariable = (v: Variable | VariableVal) => {
   if (!process.env.GUI_DID_OUTPUT_CSS) {

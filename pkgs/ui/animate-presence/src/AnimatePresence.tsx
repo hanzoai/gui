@@ -3,9 +3,9 @@ import { useConstant } from '@hanzogui/use-constant'
 import { useForceUpdate } from '@hanzogui/use-force-update'
 import type { FunctionComponent, PropsWithChildren, ReactElement, ReactNode } from 'react'
 import { Children, isValidElement, useContext, useMemo, useRef, useState } from 'react'
-import { LayoutGroupContext } from './LayoutGroupContext'
-import { PresenceChild } from './PresenceChild'
-import type { AnimatePresenceProps } from './types'
+import { LayoutGroupContext } from './LayoutGroupContext.tsx'
+import { PresenceChild } from './PresenceChild.tsx'
+import type { AnimatePresenceProps } from './types.ts'
 
 type ComponentKey = string | number
 

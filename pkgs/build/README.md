@@ -6,6 +6,7 @@ One package, built by the TypeScript compiler alone.
 hanzogui-build                # ESM + declarations, CommonJS, native
 hanzogui-build --skip-native  # a package with nothing platform-specific
 hanzogui-build --watch        # the ESM emit, continuously
+hanzogui-build clean          # remove dist and types (clean:build is the same)
 ```
 
 Three project files in the package describe the three emits, and the compiler

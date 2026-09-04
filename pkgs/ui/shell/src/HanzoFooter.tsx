@@ -114,6 +114,20 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
             borderTop: `1px solid ${CHROME.border}`,
           }}
         >
+          {/* The row reads left to right as the page does: whose it is, what
+              governs it, then the mark closing the column. The mark alone —
+              the name is already set in type in the copyright beside it. */}
+          <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, flexShrink: 0 }}>
+            {HANZO_FOOTER_BOTTOM.copyright}
+          </span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            {HANZO_FOOTER_BOTTOM.links
+              .filter((l) => shown(l.href))
+              .map((link) => (
+                <LegalLink key={link.id} link={link} />
+              ))}
+          </div>
+          <div style={{ flex: 1 }} />
           <a
             href="https://hanzo.ai"
             aria-label="Hanzo"
@@ -125,21 +139,8 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
               flexShrink: 0,
             }}
           >
-            {/* The mark alone. The name is already set in type beside it in the
-                copyright line, so the lockup said "Hanzo" twice on one row. */}
             <HanzoMark size={20} />
           </a>
-          <span style={{ fontSize: FS.sm, color: CHROME.fgMuted, flexShrink: 0 }}>
-            {HANZO_FOOTER_BOTTOM.copyright}
-          </span>
-          <div style={{ flex: 1 }} />
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-            {HANZO_FOOTER_BOTTOM.links
-              .filter((l) => shown(l.href))
-              .map((link) => (
-                <LegalLink key={link.id} link={link} />
-              ))}
-          </div>
         </div>
       </div>
     </footer>

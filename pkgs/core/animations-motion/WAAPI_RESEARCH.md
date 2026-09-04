@@ -20,10 +20,10 @@ When `NativeAnimationExtended.stop()` is called, it runs `updateMotionValue()` w
 
 ## Code Paths in Motion
 
-| Path | Interruption Handling | Works? |
-|------|----------------------|--------|
-| `<motion.div animate={}>` | VisualElement render loop fills the async gap | Yes |
-| `animateMini(element, ...)` | Sync 3-step: stop→commitStyles→read→animate | Yes |
+| Path                                       | Interruption Handling                                     | Works? |
+| ------------------------------------------ | --------------------------------------------------------- | ------ |
+| `<motion.div animate={}>`                  | VisualElement render loop fills the async gap             | Yes    |
+| `animateMini(element, ...)`                | Sync 3-step: stop→commitStyles→read→animate               | Yes    |
 | `animate(element, ...)` via `useAnimate()` | Async DOMKeyframesResolver + updateMotionValue estimation | **No** |
 
 ## Key Files in Motion (~/github/motion)
@@ -38,12 +38,15 @@ When `NativeAnimationExtended.stop()` is called, it runs `updateMotionValue()` w
 ## Our Workaround (in createAnimations.tsx)
 
 ### Part 1: Mid-flight capture
+
 Manually call `commitStyles()` on WAAPI animations (via `(controls as any).animations`) to bake the current rendered value into inline style. Cancel the old animation, read back the committed transform, use it as first keyframe `[committedTransform, newTarget]`.
 
 ### Part 2: Persist on completion
+
 After animation finishes, synchronously write final transform to `node.style.transform`. Prevents flash-back when WAAPI removes the finished animation layer.
 
 ### Why it must reach into internals
+
 - `commitStyles()` is the only way to capture the actual WAAPI-rendered value without causing reflow (unlike `getComputedStyle`)
 - Motion doesn't expose the raw WAAPI `Animation` objects through its public API
 - The `.animations` property on `GroupAnimationWithThen` is technically public but not typed
@@ -51,15 +54,19 @@ After animation finishes, synchronously write final transform to `node.style.tra
 ## What We Tried (and Failed)
 
 ### `flushKeyframeResolvers()` alone (no commitStyles)
+
 Result: 191px jumps. Motion's `updateMotionValue()` JSAnimation estimation fails for CSS transform strings.
 
 ### `flushKeyframeResolvers()` + commitStyles
+
 Result: Still fails. Global flush resolves ALL pending resolvers, interfering with concurrent animations.
 
 ### `frame.render()` for persist-on-completion
+
 Result: Fails. Deferring the inline style write means if a new animation interrupts right after completion, the persisted transform isn't set yet.
 
 ### `void startedControls.state` (triggers flush via getter)
+
 Same as `flushKeyframeResolvers()` — triggers it via `AsyncMotionValueAnimation.get animation()` getter.
 
 ## Suggested Fixes for Motion
@@ -71,6 +78,7 @@ Same as `flushKeyframeResolvers()` — triggers it via `AsyncMotionValueAnimatio
 ## Available Public APIs (for future reference)
 
 From `motion/react`:
+
 - `frame` — motion's rAF-based frameloop (`frame.read`, `frame.render`, etc.)
 - `flushKeyframeResolvers()` — forces sync resolution of all pending resolvers
 - `cancelFrame` — cancels a scheduled frame callback

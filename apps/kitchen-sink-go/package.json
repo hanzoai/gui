@@ -12,6 +12,7 @@
     "test": "./run-native-tests.sh"
   },
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/demos": "workspace:*",
@@ -23,7 +24,6 @@
     "expo": "^57.0.18",
     "expo-font": "^57.0.2",
     "react": "19.2.8",
-    "react-native": "^0.87.1",
-    "@hanzo/gui": "workspace:*"
+    "react-native": "^0.87.1"
   }
 }

@@ -17,7 +17,7 @@ export function normalizeTernaries(ternaries: Ternary[]) {
 
   const ternariesByKey: { [key: string]: Ternary } = {}
 
-  for (let idx = -1, len = ternaries.length; ++idx < len; ) {
+  for (let idx = -1, len = ternaries.length; ++idx < len;) {
     const { test, consequent, alternate, remove, ...rest } = ternaries[idx]
 
     let ternaryTest = test

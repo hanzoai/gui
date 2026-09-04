@@ -256,7 +256,7 @@ export default function App() {
 
 | File                                        | Action                                                |
 | ------------------------------------------- | ----------------------------------------------------- |
-| `@hanzogui/native/gestureState.ts`           | Add `createPressGesture` method                       |
+| `@hanzogui/native/gestureState.ts`          | Add `createPressGesture` method                       |
 | `pkgs/core/web/src/eventHandling.ts`        | Create (web version)                                  |
 | `pkgs/core/web/src/eventHandling.native.ts` | Create (native version)                               |
 | `pkgs/core/web/src/createComponent.tsx`     | Import from eventHandling, remove inline getWebEvents |

@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@babel/preset-react": "^8.0.1",
+    "@hanzogui/loader": "workspace:*",
     "@hanzogui/proxy-worm": "workspace:*",
     "@hanzogui/react-native-svg": "workspace:*",
     "@hanzogui/static": "workspace:*",
@@ -45,7 +46,6 @@
     "esbuild-loader": "^4.5.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.8",
-    "@hanzogui/loader": "workspace:*",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {

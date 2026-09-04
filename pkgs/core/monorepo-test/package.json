@@ -7,12 +7,12 @@
     "name": "Nate Wienert"
   },
   "type": "module",
+  "sideEffects": false,
   "module": "dist/esm",
   "scripts": {
     "test": "vitest --run --config ../../vite-plugin-internal/src/vite.config.ts"
   },
   "devDependencies": {
     "vitest": "^4.1.11"
-  },
-  "sideEffects": false
+  }
 }

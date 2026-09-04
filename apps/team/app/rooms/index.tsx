@@ -18,7 +18,8 @@ export default function RoomsScreen() {
     if (token == null) return
     let live = true
     setState('loading')
-    void team(token).rooms()
+    void team(token)
+      .rooms()
       .then((list) => {
         if (live) {
           setRooms(list)

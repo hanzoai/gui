@@ -70,7 +70,12 @@ test('the nearest bound wins, not the longest period', () => {
 
   // And the reverse ordering, so neither "first" nor "last" can masquerade.
   const v = usageOf({
-    windows: [W('month', 15000, 300), W('hour', 150, 148), W('week', 5000, 900), W('day', 1000, 300)],
+    windows: [
+      W('month', 15000, 300),
+      W('hour', 150, 148),
+      W('week', 5000, 900),
+      W('day', 1000, 300),
+    ],
   })
   assert.equal(v.span, 'hour')
 })

@@ -106,24 +106,22 @@ export const PopperProvider = ({
   // stable wrappers that never change identity — objectIdentityKey in
   // createStyledContext produces the same key across renders, so PopperAnchor
   // instances never re-render from context changes (only from parent re-renders)
-  const [slowContext] = React.useState(
-    (): PopperContextSlowValue => ({
-      refs: context.refs,
-      triggerElements: context.triggerElements,
-      update(...a: []) {
-        fns.current.update(...a)
-      },
-      getReferenceProps(p?: any) {
-        return fns.current.getReferenceProps?.(p)
-      },
-      onHoverReference(e?: any) {
-        ;(fns.current as any).onHoverReference?.(e)
-      },
-      onLeaveReference() {
-        ;(fns.current as any).onLeaveReference?.()
-      },
-    })
-  )
+  const [slowContext] = React.useState((): PopperContextSlowValue => ({
+    refs: context.refs,
+    triggerElements: context.triggerElements,
+    update(...a: []) {
+      fns.current.update(...a)
+    },
+    getReferenceProps(p?: any) {
+      return fns.current.getReferenceProps?.(p)
+    },
+    onHoverReference(e?: any) {
+      ;(fns.current as any).onHoverReference?.(e)
+    },
+    onLeaveReference() {
+      ;(fns.current as any).onLeaveReference?.()
+    },
+  }))
 
   return (
     <PopperProviderFast scope={scope} {...context}>

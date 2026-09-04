@@ -2,7 +2,10 @@ import { parseToHsla } from 'color2k'
 import type { Template } from '@hanzogui/create-theme'
 import { defaultComponentThemes } from './defaultComponentThemes.ts'
 import { defaultTemplates } from './defaultTemplates.ts'
-import { getThemeSuitePalettes, PALETTE_BACKGROUND_OFFSET } from './getThemeSuitePalettes.ts'
+import {
+  getThemeSuitePalettes,
+  PALETTE_BACKGROUND_OFFSET,
+} from './getThemeSuitePalettes.ts'
 import { createThemeBuilder, type ThemeBuilder } from './ThemeBuilder.ts'
 import type { BuildPalettes, BuildTemplates } from './types.ts'
 
@@ -322,12 +325,14 @@ export function createSimpleThemeBuilder<
   ComponentThemes extends SimpleThemesDefinition | false = false,
   GetThemeReturn extends Record<string, string | number> = Record<string, string>,
   FullTheme extends Record<string, string | number> = {
-    [ThemeKey in
-      | keyof Templates['light_base']
-      | keyof Extra['dark']
-      | (HasAccent extends true
-          ? `accent${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12}`
-          : never)]: string
+    [
+      ThemeKey in
+        | keyof Templates['light_base']
+        | keyof Extra['dark']
+        | (HasAccent extends true
+            ? `accent${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12}`
+            : never)
+    ]: string
   },
   ThemeNames extends string =
     | 'light'
@@ -643,12 +648,14 @@ export function createV4ThemeBuilder<
   ComponentThemes extends SimpleThemesDefinition | false = false,
   GetThemeReturn extends Record<string, string | number> = Record<string, string>,
   FullTheme extends Record<string, string | number> = {
-    [ThemeKey in
-      | keyof Templates['light_base']
-      | keyof Extra['dark']
-      | (HasAccent extends true
-          ? `accent${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12}`
-          : never)]: string
+    [
+      ThemeKey in
+        | keyof Templates['light_base']
+        | keyof Extra['dark']
+        | (HasAccent extends true
+            ? `accent${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12}`
+            : never)
+    ]: string
   },
   ThemeNames extends string =
     | 'light'

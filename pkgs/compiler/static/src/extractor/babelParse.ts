@@ -1,7 +1,12 @@
 import * as babelParser from '@babel/parser'
 import type * as t from '@babel/types'
 
-const plugins: babelParser.ParserPlugin[] = ['functionBind', 'jsx', 'decorators-legacy', 'typescript']
+const plugins: babelParser.ParserPlugin[] = [
+  'functionBind',
+  'jsx',
+  'decorators-legacy',
+  'typescript',
+]
 
 export const parserOptions: babelParser.ParserOptions = Object.freeze({
   plugins,

@@ -214,7 +214,11 @@ list items or buttons, while the heavier `Tooltip` and `Tooltip.Content` live
 at the root. It also lets you style all your tooltips consistently in one place.
 
 <Notice>
-  When using a global scoped tooltip, you should set `zIndex` to ensure tooltips appear above dialogs and other portaled content. This is because the global tooltip's portal is mounted outside the stacking context of other portals. Inline tooltips (rendered alongside their trigger) automatically participate in z-index stacking and don't need this.
+  When using a global scoped tooltip, you should set `zIndex` to ensure tooltips appear
+  above dialogs and other portaled content. This is because the global tooltip's portal is
+  mounted outside the stacking context of other portals. Inline tooltips (rendered
+  alongside their trigger) automatically participate in z-index stacking and don't need
+  this.
 </Notice>
 
 ```tsx fileName=_layout.tsx

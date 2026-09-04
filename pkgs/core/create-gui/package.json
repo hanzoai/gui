@@ -41,8 +41,8 @@
     "validate-npm-package-name": "^8.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.62.1",
     "@hanzogui/build": "workspace:*",
+    "@playwright/test": "^1.62.1",
     "@types/node": "26.4.0",
     "@types/opener": "^1.4.3",
     "@types/prompts": "^2.4.9",

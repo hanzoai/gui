@@ -2,14 +2,20 @@
   "name": "@hanzogui/recipes",
   "version": "8.3.1",
   "description": "Hanzo GUI recipe library: read from Base, resolve transitive deps, install into a project.",
+  "homepage": "https://gui.hanzo.ai",
   "license": "BSD-3-Clause",
   "author": "Hanzo AI <dev@hanzo.ai>",
-  "homepage": "https://gui.hanzo.ai",
   "repository": {
     "type": "git",
     "url": "https://github.com/hanzoai/gui.git",
     "directory": "pkgs/recipes"
   },
+  "source": "src/index.ts",
+  "files": [
+    "src/**/*.ts",
+    "!src/**/*.test.ts",
+    "dist"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,12 +25,6 @@
       "import": "./dist/index.js"
     }
   },
-  "source": "src/index.ts",
-  "files": [
-    "src/**/*.ts",
-    "!src/**/*.test.ts",
-    "dist"
-  ],
   "publishConfig": {
     "access": "public"
   },

@@ -80,6 +80,7 @@ brew tap wix/brew && brew install applesimutils
 ```
 
 The `run-detox.sh` script will automatically:
+
 - Run `expo prebuild` if the `ios/` directory doesn't exist
 - Build the Detox framework cache if missing (needed after Xcode updates)
 - Start Metro if not already running

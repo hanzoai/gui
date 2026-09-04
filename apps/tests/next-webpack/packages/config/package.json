@@ -16,11 +16,11 @@
     "watch": "hanzogui-build --skip-types --watch"
   },
   "dependencies": {
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/animations-react-native": "workspace:*",
     "@hanzogui/config": "workspace:*",
     "@hanzogui/shorthands": "workspace:*",
-    "@hanzogui/themes": "workspace:*",
-    "@hanzo/gui": "workspace:*"
+    "@hanzogui/themes": "workspace:*"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*"

@@ -53,11 +53,7 @@ export const TooltipLabelLarge = ({
   }
 
   return (
-    <Link
-      asChild
-      delayNavigate
-      href={href as Href}
-    >
+    <Link asChild delayNavigate href={href as Href}>
       {content}
     </Link>
   )

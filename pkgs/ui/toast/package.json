@@ -13,6 +13,13 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "./types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "v2": [
+        "./types/v2.d.ts"
+      ]
+    }
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -70,12 +77,5 @@
   "peerDependencies": {
     "react": ">=19.2.8"
   },
-  "module:jsx": "dist/jsx",
-  "typesVersions": {
-    "*": {
-      "v2": [
-        "./types/v2.d.ts"
-      ]
-    }
-  }
+  "module:jsx": "dist/jsx"
 }

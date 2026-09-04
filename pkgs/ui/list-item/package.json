@@ -35,13 +35,13 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
+    "@hanzogui/component-helpers": "workspace:*",
+    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/get-font-sized": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
-    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/text": "workspace:*",
-    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {

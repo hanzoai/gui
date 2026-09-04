@@ -20,11 +20,11 @@
     "watch": "hanzogui-build --skip-types --watch"
   },
   "dependencies": {
-    "@my/config": "workspace:^",
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/next-theme": "workspace:*",
     "@hanzogui/toast": "workspace:*",
-    "expo-constants": "^57.0.16",
-    "@hanzo/gui": "workspace:*"
+    "@my/config": "workspace:^",
+    "expo-constants": "^57.0.16"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

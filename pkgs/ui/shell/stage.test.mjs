@@ -38,7 +38,10 @@ test('alpha stays hidden from a customer, beta does not', () => {
   const customer = ids(HANZO_FLAGSHIP.filter(sees('beta')))
   assert.ok(customer.includes('bot'), 'bot is beta — a cleared customer sees it')
   assert.ok(customer.includes('team'), 'team is beta — a cleared customer sees it')
-  assert.ok(!customer.includes('studio'), 'studio is alpha — beta clearance is not enough')
+  assert.ok(
+    !customer.includes('studio'),
+    'studio is alpha — beta clearance is not enough'
+  )
 })
 
 test('staff see the whole family', () => {

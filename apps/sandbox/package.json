@@ -20,7 +20,8 @@
     "android": "one run:android"
   },
   "dependencies": {
-    "@react-native-masked-view/masked-view": "^0.3.2",
+    "@hanzo/font": "^1.9.3",
+    "@hanzo/gui": "workspace:*",
     "@hanzogui/animations-css": "workspace:*",
     "@hanzogui/animations-motion": "workspace:*",
     "@hanzogui/colors": "workspace:*",
@@ -28,6 +29,7 @@
     "@hanzogui/lucide-icons-2": "workspace:*",
     "@hanzogui/react-native-media-driver": "workspace:*",
     "@hanzogui/toast": "workspace:*",
+    "@react-native-masked-view/masked-view": "^0.3.2",
     "@vxrn/color-scheme": "^1.25.8",
     "expo": "^57.0.18",
     "one": "^1.25.8",
@@ -37,14 +39,12 @@
     "react-native-safe-area-context": "^5.9.1",
     "react-native-screens": "^4.27.0",
     "react-native-svg": "^15.15.5",
-    "react-native-web": "^0.21.2",
-    "@hanzo/font": "^1.9.3",
-    "@hanzo/gui": "workspace:*"
+    "react-native-web": "^0.21.2"
   },
   "devDependencies": {
+    "@hanzogui/vite-plugin": "workspace:*",
     "@playwright/test": "^1.62.1",
     "@react-native-community/cli": "^20.2.0",
-    "@hanzogui/vite-plugin": "workspace:*",
     "@types/react": "19.2.18",
     "vite": "^8.2.2",
     "wait-port": "^1.1.0",

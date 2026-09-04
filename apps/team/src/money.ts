@@ -21,7 +21,8 @@ export interface Wallet {
 
 function num(v: unknown): number | undefined {
   if (typeof v === 'number' && Number.isFinite(v)) return v
-  if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v))) return Number(v)
+  if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v)))
+    return Number(v)
   return undefined
 }
 
@@ -29,7 +30,9 @@ function num(v: unknown): number | undefined {
 function usd(record: Record<string, unknown>): number | undefined {
   const atto = record.balance_atto_usd ?? record.balanceAtto ?? record.atto_usd
   if (typeof atto === 'string' && /^-?\d+$/.test(atto)) return Number(BigInt(atto)) / 1e18
-  const dollars = num(record.balance_usd ?? record.balanceUsd ?? record.balance ?? record.credits)
+  const dollars = num(
+    record.balance_usd ?? record.balanceUsd ?? record.balance ?? record.credits
+  )
   if (dollars !== undefined) return dollars
   const cents = num(record.balance_cents ?? record.balanceCents)
   return cents === undefined ? undefined : cents / 100
@@ -44,7 +47,8 @@ export function read(record: Record<string, unknown>): Wallet {
   const period = record.period ?? record.month
   if (typeof period === 'string') usage.push({ label: 'Period', value: period })
   const spent = num(record.spent_usd ?? record.spentUsd ?? record.usage_usd)
-  if (spent !== undefined) usage.push({ label: 'Spent this period', value: `$${spent.toFixed(2)}` })
+  if (spent !== undefined)
+    usage.push({ label: 'Spent this period', value: `$${spent.toFixed(2)}` })
   const requests = num(record.requests ?? record.request_count)
   if (requests !== undefined) usage.push({ label: 'Requests', value: String(requests) })
   const seats = num(record.seats ?? record.seat_count)

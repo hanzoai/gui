@@ -1,7 +1,11 @@
 import { isWeb } from '@hanzogui/constants'
 import type { CreateGuiProps, Variable } from '../types.tsx'
 import { getVariableVariable, isVariable } from '../createVariable.ts'
-import { autoVariables, registerCSSVariable, variableToCSS } from './registerCSSVariable.ts'
+import {
+  autoVariables,
+  registerCSSVariable,
+  variableToCSS,
+} from './registerCSSVariable.ts'
 import { getThemeCSSRules } from './getThemeCSSRules.ts'
 import { getAllRules } from './insertStyleRule.tsx'
 

@@ -89,6 +89,7 @@ tokens: {
 ```
 
 Usage:
+
 ```tsx
 <View padding="$4" borderRadius="$2" />
 ```
@@ -124,6 +125,7 @@ themes: {
 ```
 
 Usage:
+
 ```tsx
 <Theme name="dark">
   <View backgroundColor="$background" />
@@ -175,6 +177,7 @@ fonts: {
 ```
 
 Usage:
+
 ```tsx
 <Text fontFamily="$body" fontSize="$4" />
 ```
@@ -199,12 +202,9 @@ media: {
 ```
 
 Usage:
+
 ```tsx
-<View
-  padding="$4"
-  $gtSm={{ padding: '$6' }}
-  $gtMd={{ padding: '$8' }}
-/>
+<View padding="$4" $gtSm={{ padding: '$6' }} $gtMd={{ padding: '$8' }} />
 ```
 
 ## Shorthands
@@ -227,6 +227,7 @@ shorthands: {
 ```
 
 Usage:
+
 ```tsx
 <View p="$4" bg="$background" br="$2" />
 ```
@@ -272,11 +273,7 @@ import { GuiProvider } from '@hanzo/gui'
 import config from './hanzogui.config'
 
 export default function App() {
-  return (
-    <GuiProvider config={config}>
-      {/* app content */}
-    </GuiProvider>
-  )
+  return <GuiProvider config={config}>{/* app content */}</GuiProvider>
 }
 ```
 

@@ -1,6 +1,7 @@
 {
   "name": "@hanzogui/themes",
   "version": "8.3.1",
+  "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "files": [
     "dist",
     "src",
@@ -21,7 +22,6 @@
     "v5.d.ts",
     "v5"
   ],
-  "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "type": "module",
   "sideEffects": false,
   "main": "dist/cjs/index.js",

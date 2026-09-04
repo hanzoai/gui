@@ -21,7 +21,7 @@ import { describe, expect, it } from 'vitest'
  */
 const SOURCE = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../select/src/SelectTrigger.tsx',
+  '../select/src/SelectTrigger.tsx'
 )
 
 /** The module-scope guard, verbatim from the file — never a copy kept in step by hand. */

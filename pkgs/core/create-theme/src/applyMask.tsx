@@ -1,5 +1,10 @@
 import { createTheme } from './createTheme.tsx'
-import type { CreateMask, GenericTheme, MaskOptions, ThemeMask } from './createThemeTypes.tsx'
+import type {
+  CreateMask,
+  GenericTheme,
+  MaskOptions,
+  ThemeMask,
+} from './createThemeTypes.tsx'
 import type { ThemeInfo } from './themeInfo.tsx'
 import { getThemeInfo, setThemeInfo } from './themeInfo.tsx'
 

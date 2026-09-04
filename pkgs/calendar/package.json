@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/booker",
   "version": "8.3.1",
-  "description": "Universal (web + native) scheduling UI for the Hanzo Calendar \u2014 a Booker, Confirmation, and compact CalendarEmbed built with hanzogui primitives.",
+  "description": "Universal (web + native) scheduling UI for the Hanzo Calendar — a Booker, Confirmation, and compact CalendarEmbed built with hanzogui primitives.",
   "license": "MIT",
   "author": "Hanzo AI <dev@hanzo.ai>",
   "repository": {
@@ -10,6 +10,12 @@
     "directory": "pkgs/calendar"
   },
   "source": "src/index.ts",
+  "files": [
+    "src",
+    "types",
+    "dist",
+    "README.md"
+  ],
   "type": "module",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -27,17 +33,20 @@
       "default": "./dist/esm/index.js"
     }
   },
-  "files": [
-    "src",
-    "types",
-    "dist",
-    "README.md"
-  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "hanzogui-build --skip-native",
     "watch": "hanzogui-build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"
+  },
+  "devDependencies": {
+    "@hanzo/gui": "workspace:*",
+    "@hanzogui/build": "workspace:*",
+    "react": "19.2.8",
+    "react-native": "^0.87.1"
   },
   "peerDependencies": {
     "@hanzo/gui": ">=8.3.1",
@@ -48,14 +57,5 @@
     "react-native": {
       "optional": true
     }
-  },
-  "devDependencies": {
-    "@hanzogui/build": "workspace:*",
-    "@hanzo/gui": "workspace:*",
-    "react": "19.2.8",
-    "react-native": "^0.87.1"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

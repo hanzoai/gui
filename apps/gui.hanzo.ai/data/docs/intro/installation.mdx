@@ -4,8 +4,8 @@ description: Get Gui set up, step by step
 ---
 
 <IntroParagraph>
-  Gui is easy to set up as we've invested into "0-config" installs for all bundlers.
-  That said, it's easy to get lost if you start configuring too many things too early.
+  Gui is easy to set up as we've invested into "0-config" installs for all bundlers. That
+  said, it's easy to get lost if you start configuring too many things too early.
 </IntroParagraph>
 
 Use `npm create hanzogui@latest` to pick one of our starter templates.
@@ -43,18 +43,19 @@ The `hanzogui` package is a superset of core, so anywhere the docs reference
   `react-native` types in the parent project for proper prop typing and
   autocomplete. You can either install `react-native` directly:
 
-  ```bash
-  yarn add react-native
-  ```
+```bash
+yarn add react-native
+```
 
-  Or, if you only want the types:
+Or, if you only want the types:
 
-  ```bash
-  yarn add react-native@0.0.0 @types/react-native
-  ```
+```bash
+yarn add react-native@0.0.0 @types/react-native
+```
 
-  Gui's web runtime is self-contained. In a monorepo, install either option
-  in the parent app or workspace root rather than a leaf package.
+Gui's web runtime is self-contained. In a monorepo, install either option
+in the parent app or workspace root rather than a leaf package.
+
 </Notice>
 
 Next, you'll want to set up your [configuration](/docs/core/configuration) and
@@ -96,7 +97,11 @@ declare module '@hanzogui/core' {
 }
 
 export default () => {
-  return <GuiProvider config={config} defaultTheme="light">{/* your app here */}</GuiProvider>
+  return (
+    <GuiProvider config={config} defaultTheme="light">
+      {/* your app here */}
+    </GuiProvider>
+  )
 }
 ```
 

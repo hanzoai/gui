@@ -96,7 +96,6 @@ const HeroContents = memo(function HeroContents() {
           mx: '$-4',
         }}
       >
-
         <YStack items="center" gap="$4">
           <HeroH1>
             <Span position="relative" color="$accent1">

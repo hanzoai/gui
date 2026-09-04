@@ -1,6 +1,10 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { useEvent } from '@hanzogui/use-event'
-import type { ElementProps, FloatingInteractionContext, UseTypeaheadProps } from './types.ts'
+import type {
+  ElementProps,
+  FloatingInteractionContext,
+  UseTypeaheadProps,
+} from './types.ts'
 import { clearTimeoutIfSet, stopEvent } from './utils.ts'
 
 // typeahead: character buffer matching against list items

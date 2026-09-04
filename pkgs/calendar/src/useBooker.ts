@@ -1,7 +1,12 @@
 // Orchestration hook — the one booking state machine both shells consume.
 
 import { useEffect, useMemo, useState } from 'react'
-import { DEFAULT_API_URL, type Booking, type BookingResponses, type Slot } from './client.ts'
+import {
+  DEFAULT_API_URL,
+  type Booking,
+  type BookingResponses,
+  type Slot,
+} from './client.ts'
 import {
   useAvailableSlots,
   useCreateBooking,

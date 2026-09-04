@@ -7,4 +7,8 @@ export {
   getAnimationConfigsForKeys,
 } from './normalizeTransition.ts'
 
-export type { AnimationConfig, NormalizedTransition, TransitionPropInput } from './types.ts'
+export type {
+  AnimationConfig,
+  NormalizedTransition,
+  TransitionPropInput,
+} from './types.ts'

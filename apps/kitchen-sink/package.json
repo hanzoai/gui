@@ -106,10 +106,10 @@
   "devDependencies": {
     "@babel/core": "^8.0.1",
     "@expo/fingerprint": "^0.20.11",
-    "@playwright/test": "^1.62.1",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.3",
     "@hanzogui/babel-plugin": "workspace:*",
     "@hanzogui/metro-plugin": "workspace:*",
+    "@playwright/test": "^1.62.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.3",
     "@types/jest": "^30.0.0",
     "@types/pngjs": "^6.0.5",
     "babel-plugin-module-resolver": "^5.0.3",

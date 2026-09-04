@@ -36,17 +36,17 @@
     "test:web": "vitest --typecheck --run"
   },
   "dependencies": {
+    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/core": "workspace:*",
     "@hanzogui/element": "workspace:*",
     "@hanzogui/focusable": "workspace:*",
+    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/get-button-sized": "workspace:*",
     "@hanzogui/get-font-sized": "workspace:*",
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
-    "@hanzogui/component-helpers": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/text": "workspace:*",
-    "@hanzogui/font-size": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {

@@ -58,7 +58,7 @@ import { Input } from '@hanzo/gui'
 ```tsx
 import { TextArea } from '@hanzo/gui'
 
-<TextArea placeholder="Long text..." numberOfLines={4} />
+;<TextArea placeholder="Long text..." numberOfLines={4} />
 ```
 
 ### Checkbox
@@ -66,7 +66,7 @@ import { TextArea } from '@hanzo/gui'
 ```tsx
 import { Checkbox } from '@hanzo/gui'
 
-<Checkbox id="terms" checked={checked} onCheckedChange={setChecked}>
+;<Checkbox id="terms" checked={checked} onCheckedChange={setChecked}>
   <Checkbox.Indicator>
     <Check />
   </Checkbox.Indicator>
@@ -78,7 +78,7 @@ import { Checkbox } from '@hanzo/gui'
 ```tsx
 import { Switch } from '@hanzo/gui'
 
-<Switch checked={on} onCheckedChange={setOn}>
+;<Switch checked={on} onCheckedChange={setOn}>
   <Switch.Thumb />
 </Switch>
 ```
@@ -88,7 +88,7 @@ import { Switch } from '@hanzo/gui'
 ```tsx
 import { RadioGroup } from '@hanzo/gui'
 
-<RadioGroup value={value} onValueChange={setValue}>
+;<RadioGroup value={value} onValueChange={setValue}>
   <RadioGroup.Item value="a" id="a">
     <RadioGroup.Indicator />
   </RadioGroup.Item>
@@ -103,7 +103,7 @@ import { RadioGroup } from '@hanzo/gui'
 ```tsx
 import { Slider } from '@hanzo/gui'
 
-<Slider value={[value]} onValueChange={([v]) => setValue(v)} max={100} step={1}>
+;<Slider value={[value]} onValueChange={([v]) => setValue(v)} max={100} step={1}>
   <Slider.Track>
     <Slider.TrackActive />
   </Slider.Track>
@@ -118,7 +118,7 @@ import { Slider } from '@hanzo/gui'
 ```tsx
 import { Dialog } from '@hanzo/gui'
 
-<Dialog open={open} onOpenChange={setOpen}>
+;<Dialog open={open} onOpenChange={setOpen}>
   <Dialog.Trigger asChild>
     <Button>Open</Button>
   </Dialog.Trigger>
@@ -140,7 +140,7 @@ import { Dialog } from '@hanzo/gui'
 ```tsx
 import { Sheet } from '@hanzo/gui'
 
-<Sheet open={open} onOpenChange={setOpen} snapPoints={[80]} dismissOnSnapToBottom>
+;<Sheet open={open} onOpenChange={setOpen} snapPoints={[80]} dismissOnSnapToBottom>
   <Sheet.Overlay />
   <Sheet.Frame padding="$4">
     <Sheet.Handle />
@@ -154,7 +154,7 @@ import { Sheet } from '@hanzo/gui'
 ```tsx
 import { Popover } from '@hanzo/gui'
 
-<Popover>
+;<Popover>
   <Popover.Trigger asChild>
     <Button>Open</Button>
   </Popover.Trigger>
@@ -170,7 +170,7 @@ import { Popover } from '@hanzo/gui'
 ```tsx
 import { Tooltip } from '@hanzo/gui'
 
-<Tooltip>
+;<Tooltip>
   <Tooltip.Trigger>
     <Button>Hover me</Button>
   </Tooltip.Trigger>
@@ -188,10 +188,14 @@ import { Tooltip } from '@hanzo/gui'
 ```tsx
 import { Tabs } from '@hanzo/gui'
 
-<Tabs defaultValue="tab1">
+;<Tabs defaultValue="tab1">
   <Tabs.List>
-    <Tabs.Tab value="tab1"><Text>Tab 1</Text></Tabs.Tab>
-    <Tabs.Tab value="tab2"><Text>Tab 2</Text></Tabs.Tab>
+    <Tabs.Tab value="tab1">
+      <Text>Tab 1</Text>
+    </Tabs.Tab>
+    <Tabs.Tab value="tab2">
+      <Text>Tab 2</Text>
+    </Tabs.Tab>
   </Tabs.List>
   <Tabs.Content value="tab1">{/* content */}</Tabs.Content>
   <Tabs.Content value="tab2">{/* content */}</Tabs.Content>
@@ -203,7 +207,7 @@ import { Tabs } from '@hanzo/gui'
 ```tsx
 import { Select } from '@hanzo/gui'
 
-<Select value={value} onValueChange={setValue}>
+;<Select value={value} onValueChange={setValue}>
   <Select.Trigger>
     <Select.Value placeholder="Select..." />
   </Select.Trigger>
@@ -227,7 +231,7 @@ import { Select } from '@hanzo/gui'
 ```tsx
 import { Card } from '@hanzo/gui'
 
-<Card>
+;<Card>
   <Card.Header>
     <H3>Title</H3>
   </Card.Header>
@@ -245,7 +249,7 @@ import { Card } from '@hanzo/gui'
 ```tsx
 import { Avatar } from '@hanzo/gui'
 
-<Avatar circular size="$6">
+;<Avatar circular size="$6">
   <Avatar.Image src="..." />
   <Avatar.Fallback>AB</Avatar.Fallback>
 </Avatar>
@@ -274,7 +278,7 @@ import { Spinner } from '@hanzo/gui'
 ```tsx
 import { Progress } from '@hanzo/gui'
 
-<Progress value={60}>
+;<Progress value={60}>
   <Progress.Indicator animation="bouncy" />
 </Progress>
 ```
@@ -319,9 +323,7 @@ import { Spacer } from '@hanzo/gui'
 ```tsx
 import { ScrollView } from '@hanzo/gui'
 
-<ScrollView>
-  {/* scrollable content */}
-</ScrollView>
+;<ScrollView>{/* scrollable content */}</ScrollView>
 ```
 
 ### Image
@@ -329,7 +331,7 @@ import { ScrollView } from '@hanzo/gui'
 ```tsx
 import { Image } from '@hanzo/gui'
 
-<Image source={{ uri: '...' }} width={200} height={200} />
+;<Image source={{ uri: '...' }} width={200} height={200} />
 ```
 
 ## Adapt Pattern
@@ -339,7 +341,7 @@ Make components responsive to platform/screen size:
 ```tsx
 import { Adapt, Dialog, Sheet } from '@hanzo/gui'
 
-<Dialog>
+;<Dialog>
   {/* On small touch screens, render as Sheet instead */}
   <Adapt when="sm" platform="touch">
     <Sheet modal>
@@ -350,9 +352,7 @@ import { Adapt, Dialog, Sheet } from '@hanzo/gui'
   </Adapt>
 
   <Dialog.Portal>
-    <Dialog.Content>
-      {/* Dialog content - also used by Adapt.Contents */}
-    </Dialog.Content>
+    <Dialog.Content>{/* Dialog content - also used by Adapt.Contents */}</Dialog.Content>
   </Dialog.Portal>
 </Dialog>
 ```

@@ -140,7 +140,8 @@ For better performance, use the `outputCSS` option in the Gui Vite plugin:
 hanzoguiPlugin({
   config: './hanzogui.config.ts',
   components: ['@hanzo/gui'],
-  outputCSS: process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
+  outputCSS:
+    process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
 })
 ```
 

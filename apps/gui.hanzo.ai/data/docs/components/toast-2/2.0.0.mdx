@@ -62,9 +62,15 @@ function App() {
 ## Anatomy
 
 ```tsx
-<Toast>             {/* Root - context and position */}
-  <Toast.Viewport>  {/* Container with portal */}
-    <Toast.Item>    {/* Individual toast with stacking/drag */}
+<Toast>
+  {' '}
+  {/* Root - context and position */}
+  <Toast.Viewport>
+    {' '}
+    {/* Container with portal */}
+    <Toast.Item>
+      {' '}
+      {/* Individual toast with stacking/drag */}
       <Toast.Title />
       <Toast.Description />
       <Toast.Close />
@@ -100,7 +106,7 @@ toast('Message', {
 // Dismiss
 const id = toast('Hello')
 toast.dismiss(id) // dismiss specific
-toast.dismiss()   // dismiss all
+toast.dismiss() // dismiss all
 ```
 
 ### toast.promise()
@@ -252,6 +258,7 @@ Multiple toasts stack visually. Hover over the stack to expand and see all toast
 ### Swipe to Dismiss
 
 Toasts can be swiped away. The direction is auto-detected based on position:
+
 - **Web:** Left/right positioned toasts swipe toward their edge, center toasts swipe horizontally
 - **Native:** All positions swipe vertically (up/down) to avoid conflicting with iOS/Android navigation back gesture
 
@@ -295,9 +302,7 @@ Each part can be styled independently:
   <Toast.Title color="$blue12" fontWeight="bold">
     {t.title}
   </Toast.Title>
-  <Toast.Description color="$blue11">
-    {t.description}
-  </Toast.Description>
+  <Toast.Description color="$blue11">{t.description}</Toast.Description>
 </Toast.Item>
 ```
 

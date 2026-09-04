@@ -233,9 +233,9 @@ export default () => (
   <Square
     size={100}
     bg="$color5"
-    transition="1000ms"  // slow exit (returning to base)
+    transition="1000ms" // slow exit (returning to base)
     hoverStyle={{
-      transition: '200ms',  // fast enter (going to hover)
+      transition: '200ms', // fast enter (going to hover)
       bg: '$color10',
     }}
   />
@@ -243,6 +243,7 @@ export default () => (
 ```
 
 In this example:
+
 - **Hover enter**: Uses the 200ms transition (snaps quickly to hover state)
 - **Hover exit**: Uses the 1000ms base transition (fades slowly back)
 

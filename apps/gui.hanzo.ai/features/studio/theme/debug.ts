@@ -32,9 +32,7 @@ type ThemeHistoryData = {
     }
     accent: {
       name: 'accent'
-      anchors: Array<{
-        /* 同上 */
-      }>
+      anchors: Array<{/* 同上 */}>
     }
   }
   schemes: {

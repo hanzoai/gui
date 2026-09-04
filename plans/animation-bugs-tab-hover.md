@@ -70,6 +70,7 @@ IntersectionObserver + rAF that reads translateX for ~4 frames
 then detaches. This gives real positions without layout thrashing.
 
 **Files**:
+
 - `pkgs/ui/popover/src/Popover.tsx`
 - `pkgs/ui/popper/src/Popper.tsx`
 - `pkgs/core/animations-motion/src/createAnimations.tsx`
@@ -84,12 +85,14 @@ make this work, it would be the ideal solution for tab hover previews.
 ## Test Plan
 
 Kitchen-sink usecase `TabHoverAnimationCase`:
+
 - Row of 5 tabs with hover triggers
 - Popover with animatePosition
 - AnimatePresence with directional (x) enter/exit
 - Content keyed by active tab
 
 Playwright tests (`TabHoverAnimation.animated.test.tsx`):
+
 1. Direction test: hover tab 1 -> tab 3, verify content slides right
 2. Direction test: hover tab 3 -> tab 1, verify content slides left
 3. Exit completion: hover tab, move away, verify exit completes (no ghosts)

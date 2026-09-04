@@ -4,12 +4,12 @@
 
 Gui supports multiple animation drivers. Choose based on your platform:
 
-| Driver | Package | Best For |
-|--------|---------|----------|
-| CSS | `@hanzogui/animations-css` | Web-only apps, smallest bundle |
-| React Native | `@hanzogui/animations-react-native` | Native apps, basic animations |
-| Reanimated | `@hanzogui/animations-reanimated` | Native apps, best performance |
-| Motion | `@hanzogui/animations-motion` | Cross-platform spring physics |
+| Driver       | Package                             | Best For                       |
+| ------------ | ----------------------------------- | ------------------------------ |
+| CSS          | `@hanzogui/animations-css`          | Web-only apps, smallest bundle |
+| React Native | `@hanzogui/animations-react-native` | Native apps, basic animations  |
+| Reanimated   | `@hanzogui/animations-reanimated`   | Native apps, best performance  |
+| Motion       | `@hanzogui/animations-motion`       | Cross-platform spring physics  |
 
 ## Configuration
 
@@ -76,11 +76,7 @@ const animations = createAnimations({
 ### Basic Animation
 
 ```tsx
-<View
-  animation="medium"
-  opacity={isVisible ? 1 : 0}
-  y={isVisible ? 0 : 10}
-/>
+<View animation="medium" opacity={isVisible ? 1 : 0} y={isVisible ? 0 : 10} />
 ```
 
 ### Enter/Exit Styles
@@ -111,10 +107,10 @@ Exit animations only work inside `AnimatePresence`:
 ```tsx
 import { AnimatePresence } from '@hanzo/gui'
 
-<AnimatePresence>
+;<AnimatePresence>
   {show && (
     <View
-      key="unique-key"  // key is required
+      key="unique-key" // key is required
       animation="medium"
       enterStyle={{ opacity: 0 }}
       exitStyle={{ opacity: 0 }}
@@ -145,6 +141,7 @@ Override animation for specific properties:
 ## Animatable Properties
 
 Common animatable style properties:
+
 - `opacity`
 - `x`, `y` (translateX/Y)
 - `scale`, `scaleX`, `scaleY`
@@ -200,33 +197,19 @@ const AnimatedCard = styled(View, {
 ### Fade In
 
 ```tsx
-<View
-  animation="medium"
-  enterStyle={{ opacity: 0 }}
-  opacity={1}
-/>
+<View animation="medium" enterStyle={{ opacity: 0 }} opacity={1} />
 ```
 
 ### Slide Up
 
 ```tsx
-<View
-  animation="fast"
-  enterStyle={{ opacity: 0, y: 20 }}
-  opacity={1}
-  y={0}
-/>
+<View animation="fast" enterStyle={{ opacity: 0, y: 20 }} opacity={1} y={0} />
 ```
 
 ### Scale In
 
 ```tsx
-<View
-  animation="bouncy"
-  enterStyle={{ opacity: 0, scale: 0.8 }}
-  opacity={1}
-  scale={1}
-/>
+<View animation="bouncy" enterStyle={{ opacity: 0, scale: 0.8 }} opacity={1} scale={1} />
 ```
 
 ### Modal Overlay

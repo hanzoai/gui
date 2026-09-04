@@ -25,7 +25,6 @@ import {
 } from '@hanzo/gui'
 import { ThemeNameEffectNoTheme } from '~/features/site/theme/ThemeNameEffect'
 import { Dialogs } from '~/features/studio/components/Dialogs'
-import { StudioAIBar } from '~/features/studio/theme/StudioAIBar'
 import {
   StudioPreviewComponents,
   StudioPreviewComponentsSkeleton,
@@ -37,7 +36,6 @@ import { lastInserted } from '~/features/studio/theme/updatePreviewTheme'
 import { weakKey } from '~/helpers/weakKey'
 import { type ThemePageProps, themePageStore, ThemePageStore } from './themePageStore'
 import { router, useRouter } from 'one'
-import { useBannerHeight } from '~/components/PromoBanner'
 
 // TO avoid changing the entire React tree we can do this, better perf
 
@@ -84,7 +82,6 @@ export function ThemePage() {
           >
             <PreviewTheme>
               <YStack gap="$6">
-                <StudioAIBar initialTheme={{ themeSuite: props.theme }} />
                 <StudioPreviewComponentsBar
                   scrollView={
                     typeof window !== 'undefined' ? document.documentElement : null
@@ -128,7 +125,6 @@ const ThemeBuilderModal = memo(() => {
   const ref = useRef<GuiElement>(null)
   const [hide, setHide] = useState(false)
   const { gtLg } = useMedia()
-  const bannerHeight = useBannerHeight()
 
   useEffect(() => {
     if (gtLg) {
@@ -139,7 +135,7 @@ const ThemeBuilderModal = memo(() => {
   return (
     <YStack
       position="fixed"
-      t={70 + bannerHeight}
+      t={70}
       r={0}
       b={0}
       width={530}

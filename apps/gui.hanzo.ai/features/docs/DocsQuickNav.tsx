@@ -12,7 +12,6 @@ import {
 } from '@hanzo/gui'
 
 import { Link } from '~/components/Link'
-import { ConsultingButton } from '../site/ConsultingButton'
 
 export type Heading = {
   id: string
@@ -350,12 +349,6 @@ export function DocsQuickNav({ headings = [] }: { headings?: Heading[] }) {
                 })}
               </YStack>
             </ScrollView>
-          </YStack>
-
-          <YStack gap="$2" px="$4">
-            <Link width="100%" href="https://addeven.com" target="_blank">
-              <ConsultingButton />
-            </Link>
           </YStack>
         </YStack>
       </ScrollView>

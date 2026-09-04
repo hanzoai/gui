@@ -2,20 +2,23 @@
   "name": "@hanzogui/types",
   "version": "8.3.1",
   "files": [
-    "types.ts"
+    "types",
+    "dist"
   ],
   "type": "module",
   "sideEffects": false,
-  "types": "./types.d.ts",
+  "types": "./types/index.d.ts",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
-      "types": "./types.d.ts"
+      "types": "./types/index.d.ts",
+      "default": "./dist/esm/index.js"
     }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "tsc types.ts --declaration --emitDeclarationOnly --declarationMap"
+    "build": "hanzogui-build --skip-native"
   }
 }

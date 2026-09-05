@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "composite": false,
+    "incremental": false,
+    "rootDir": "src",
+    "rewriteRelativeImportExtensions": true,
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "paths": {},
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "outDir": "dist/esm",
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "types"
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.*", "src/**/__tests__/**", "src/**/*.stories.*"]
+}

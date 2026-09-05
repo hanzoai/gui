@@ -1,8 +1,12 @@
+import { createRequire } from 'node:module'
 import type { GuiOptions, GuiProjectInfo } from '@hanzogui/static'
 import type { CLIResolvedOptions, CLIUserOptions } from '@hanzogui/types'
 import chalk from 'chalk'
 import fs, { pathExists, readJSON } from 'fs-extra/esm'
 import { join } from 'node:path'
+import { url } from './here.ts'
+
+const require = createRequire(url)
 
 export async function getOptions({
   root = process.cwd(),

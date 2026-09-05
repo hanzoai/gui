@@ -7,23 +7,38 @@
     "name": "Nate Wienert"
   },
   "files": [
-    "dist",
-    "src"
+    "src",
+    "types",
+    "dist"
   ],
   "type": "module",
-  "main": "dist/index.js",
-  "types": "src/index.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "node build.mjs",
-    "watch": "node build.mjs --watch"
+    "build": "hanzogui-build --skip-native",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "vite": "^8.2.2"
   },
   "devDependencies": {
-    "esbuild": "^0.28.2"
+    "@hanzogui/build": "workspace:*"
   }
 }

@@ -11,27 +11,33 @@
     "directory": "pkgs/get"
   },
   "bin": {
-    "hanzo-gui-get": "./dist/cli.js"
+    "hanzo-gui-get": "./dist/esm/cli.js"
   },
   "source": "src/cli.ts",
   "files": [
-    "src/**/*.ts",
-    "!src/**/*.test.ts",
+    "src",
+    "types",
     "dist"
   ],
   "type": "module",
-  "main": "./dist/cli.js",
+  "exports": {
+    "./package.json": "./package.json"
+  },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "bun run build.ts",
-    "clean": "rm -rf dist",
-    "test": "bun test"
+    "build": "hanzogui-build --skip-native",
+    "test": "bun test",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
   },
   "dependencies": {
     "@hanzogui/recipes": "workspace:*",
     "fuse.js": "^7.5.0"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*"
   },
   "engines": {
     "node": ">=20"

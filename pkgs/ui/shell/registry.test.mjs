@@ -18,7 +18,7 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { HANZO_SURFACES } from './dist/hanzo-registry.js'
+import { HANZO_SURFACES } from './dist/esm/hanzo-registry.js'
 
 const place = (href, host) => {
   const { origin, pathname } = new URL(href, `https://${host}`)

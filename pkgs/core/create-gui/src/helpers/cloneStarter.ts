@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
 import chalk from 'chalk'
-import { copy, ensureDir, pathExists, remove } from 'fs-extra'
+import { copy, ensureDir, pathExists, remove } from 'fs-extra/esm'
 import { rimraf } from 'rimraf'
 import type { templates } from '../templates'
 

@@ -8,26 +8,19 @@
  * This package uses synckit to convert async worker calls into synchronous ones.
  */
 
-import type { BabelFileResult } from '@babel/core'
+import type { FileResult } from '@babel/core'
 import type { GuiOptions } from '@hanzogui/types'
 import { createSyncFn } from 'synckit'
-import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
+import { url } from './here.ts'
+
+const require = createRequire(url)
 
 export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
 export type { GuiOptions } from '@hanzogui/types'
 
-// Resolve worker path - works for both CJS and ESM
-const getWorkerPath = () => {
-  // Use the CommonJS .js version which works for synckit
-  if (typeof import.meta !== 'undefined' && import.meta.url) {
-    const workerPath = fileURLToPath(import.meta.resolve('@hanzogui/static/worker'))
-    // Replace .mjs with .js for CommonJS compatibility
-    return workerPath.replace(/\.mjs$/, '.js')
-  }
-
-  // Fallback for CJS
-  return require.resolve('@hanzogui/static/worker').replace(/\.mjs$/, '.js')
-}
+// The worker file, by this package's own resolution of it.
+const getWorkerPath = () => require.resolve('@hanzogui/static/worker')
 
 // Create sync function that calls the worker's runTask function
 const runTaskSync = createSyncFn(getWorkerPath(), {
@@ -88,7 +81,7 @@ export function extractToNativeSync(
   sourceFileName: string,
   sourceCode: string,
   options: GuiOptions
-): BabelFileResult {
+): FileResult {
   const task = {
     type: 'extractToNative',
     sourceFileName,

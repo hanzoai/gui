@@ -8,9 +8,9 @@ import * as t from '@babel/types'
 import { evaluateAstNode } from './evaluateAstNode.ts'
 import { getSourceModule } from './getSourceModule.ts'
 
-// import { fileURLToPath } from 'node:url'
-// // @ts-ignore
-// const __dirname = dirname(fileURLToPath(import.meta.url))
+import { fileURLToPath } from 'node:url'
+import { url } from '../here.ts'
+const extractor = join(dirname(fileURLToPath(url)), 'extractor')
 
 const isLocalImport = (path: string) => path.startsWith('.') || path.startsWith('/')
 
@@ -28,7 +28,7 @@ function resolveImportPath(sourcePath: string, path: string) {
 const cache = new Map()
 const pending = new Map<string, Promise<any>>()
 
-const loadCmd = `${join(__dirname, 'loadFile.js')}`
+const loadCmd = `${join(extractor, 'loadFile.js')}`
 
 let exited = false
 

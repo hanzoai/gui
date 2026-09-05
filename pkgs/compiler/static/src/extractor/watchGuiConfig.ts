@@ -1,6 +1,10 @@
+import { createRequire } from 'node:module'
 import type { GuiOptions } from '@hanzogui/types'
 import { esbuildWatchFiles, generateThemesAndLog, getOptions } from './loadGui.ts'
 import { regenerateConfig } from './regenerateConfig.ts'
+import { url } from '../here.ts'
+
+const require = createRequire(url)
 
 let isWatching = false
 

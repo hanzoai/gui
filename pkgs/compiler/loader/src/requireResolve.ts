@@ -1,4 +1,4 @@
 import { createRequire } from 'node:module'
+import { url } from './here.ts'
 
-export const requireResolve =
-  'url' in import.meta ? createRequire(import.meta.url).resolve : require.resolve
+export const requireResolve = createRequire(url).resolve

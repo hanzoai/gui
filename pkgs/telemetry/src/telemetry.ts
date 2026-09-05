@@ -158,6 +158,10 @@ export function getTelemetry(): Telemetry {
 export function setTelemetry(t: Telemetry | undefined, opts?: { app?: boolean }): void {
   ambient = t
   appOwned = t !== undefined && (opts?.app ?? true)
+  if (t === undefined) {
+    const g = globalThis as unknown as Record<symbol, unknown>
+    delete g[Symbol.for('hanzo.event.clients')]
+  }
   for (const fn of ownerListeners) {
     try {
       fn()

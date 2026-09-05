@@ -23,11 +23,14 @@
     "src"
   ],
   "type": "module",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.js",
       "browser": "./dist/esm/index.js",
       "module": "./dist/esm/index.js",
       "import": "./dist/esm/index.js",
@@ -35,64 +38,94 @@
       "default": "./dist/esm/index.js"
     },
     "./without-animated": {
+      "types": "./types/without-animated.d.ts",
+      "react-native": "./dist/esm/without-animated.js",
       "browser": "./dist/esm/without-animated.js",
       "module": "./dist/esm/without-animated.js",
       "import": "./dist/esm/without-animated.js",
-      "require": "./dist/cjs/without-animated.js"
+      "require": "./dist/cjs/without-animated.js",
+      "default": "./dist/esm/without-animated.js"
     },
     "./Libraries/Pressability/Pressability": {
+      "types": "./types/Libraries/Pressability/Pressability.d.ts",
+      "react-native": "./dist/esm/Libraries/Pressability/Pressability.js",
       "browser": "./dist/esm/Libraries/Pressability/Pressability.js",
       "module": "./dist/esm/Libraries/Pressability/Pressability.js",
       "import": "./dist/esm/Libraries/Pressability/Pressability.js",
-      "require": "./dist/cjs/Libraries/Pressability/Pressability.js"
+      "require": "./dist/cjs/Libraries/Pressability/Pressability.js",
+      "default": "./dist/esm/Libraries/Pressability/Pressability.js"
     },
     "./Libraries/Pressability/usePressability": {
+      "types": "./types/Libraries/Pressability/usePressability.d.ts",
+      "react-native": "./dist/esm/Libraries/Pressability/usePressability.js",
       "browser": "./dist/esm/Libraries/Pressability/usePressability.js",
       "module": "./dist/esm/Libraries/Pressability/usePressability.js",
       "import": "./dist/esm/Libraries/Pressability/usePressability.js",
-      "require": "./dist/cjs/Libraries/Pressability/usePressability.js"
+      "require": "./dist/cjs/Libraries/Pressability/usePressability.js",
+      "default": "./dist/esm/Libraries/Pressability/usePressability.js"
     },
     "./Libraries/Utilities/codegenNativeComponent": {
+      "types": "./types/codegenNativeComponent.d.ts",
+      "react-native": "./dist/esm/codegenNativeComponent.js",
       "browser": "./dist/esm/codegenNativeComponent.js",
       "module": "./dist/esm/codegenNativeComponent.js",
       "import": "./dist/esm/codegenNativeComponent.js",
-      "require": "./dist/cjs/codegenNativeComponent.js"
+      "require": "./dist/cjs/codegenNativeComponent.js",
+      "default": "./dist/esm/codegenNativeComponent.js"
     },
     "./Libraries/Utilities/codegenNativeCommand": {
+      "types": "./types/codegenNativeCommand.d.ts",
+      "react-native": "./dist/esm/codegenNativeCommand.js",
       "browser": "./dist/esm/codegenNativeCommand.js",
       "module": "./dist/esm/codegenNativeCommand.js",
       "import": "./dist/esm/codegenNativeCommand.js",
-      "require": "./dist/cjs/codegenNativeCommand.js"
+      "require": "./dist/cjs/codegenNativeCommand.js",
+      "default": "./dist/esm/codegenNativeCommand.js"
     },
     "./dist/exports/StyleSheet/compiler/createReactDOMStyle": {
+      "types": "./types/createReactDOMStyle.d.ts",
+      "react-native": "./dist/esm/createReactDOMStyle.js",
       "browser": "./dist/esm/createReactDOMStyle.js",
       "module": "./dist/esm/createReactDOMStyle.js",
       "import": "./dist/esm/createReactDOMStyle.js",
-      "require": "./dist/cjs/createReactDOMStyle.js"
+      "require": "./dist/cjs/createReactDOMStyle.js",
+      "default": "./dist/esm/createReactDOMStyle.js"
     },
     "./dist/exports/StyleSheet/preprocess": {
+      "types": "./types/preprocess.d.ts",
+      "react-native": "./dist/esm/preprocess.js",
       "browser": "./dist/esm/preprocess.js",
       "module": "./dist/esm/preprocess.js",
       "import": "./dist/esm/preprocess.js",
-      "require": "./dist/cjs/preprocess.js"
+      "require": "./dist/cjs/preprocess.js",
+      "default": "./dist/esm/preprocess.js"
     },
     "./dist/modules/*": {
+      "types": "./types/modules/*/index.d.ts",
+      "react-native": "./dist/esm/modules/*/index.js",
       "browser": "./dist/esm/modules/*/index.js",
       "module": "./dist/esm/modules/*/index.js",
       "import": "./dist/esm/modules/*/index.js",
-      "require": "./dist/cjs/modules/*/index.js"
+      "require": "./dist/cjs/modules/*/index.js",
+      "default": "./dist/esm/modules/*/index.js"
     },
     "./dist/exports/*": {
+      "types": "./types/exports/*/index.d.ts",
+      "react-native": "./dist/esm/exports/*/index.js",
       "browser": "./dist/esm/exports/*/index.js",
       "module": "./dist/esm/exports/*/index.js",
       "import": "./dist/esm/exports/*/index.js",
-      "require": "./dist/cjs/exports/*/index.js"
+      "require": "./dist/cjs/exports/*/index.js",
+      "default": "./dist/esm/exports/*/index.js"
     },
     "./dist/*": {
+      "types": "./types/*/index.d.ts",
+      "react-native": "./dist/esm/*/index.js",
       "browser": "./dist/esm/*/index.js",
       "module": "./dist/esm/*/index.js",
       "import": "./dist/esm/*/index.js",
-      "require": "./dist/cjs/*/index.js"
+      "require": "./dist/cjs/*/index.js",
+      "default": "./dist/esm/*/index.js"
     }
   },
   "scripts": {

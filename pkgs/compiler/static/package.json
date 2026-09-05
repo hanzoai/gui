@@ -9,30 +9,56 @@
     "types",
     "dist"
   ],
-  "type": "commonjs",
-  "main": "dist",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
       "default": "./dist/esm/index.js"
     },
     "./worker": {
       "types": "./types/worker.d.ts",
+      "react-native": "./dist/esm/worker.js",
+      "browser": "./dist/esm/worker.js",
+      "module": "./dist/esm/worker.js",
+      "import": "./dist/esm/worker.js",
+      "require": "./dist/cjs/worker.js",
       "default": "./dist/esm/worker.js"
     },
     "./extractablePath": {
       "types": "./types/extractor/extractablePath.d.ts",
-      "default": "./dist/extractor/extractablePath.cjs"
+      "react-native": "./dist/esm/extractor/extractablePath.js",
+      "browser": "./dist/esm/extractor/extractablePath.js",
+      "module": "./dist/esm/extractor/extractablePath.js",
+      "import": "./dist/esm/extractor/extractablePath.js",
+      "require": "./dist/cjs/extractor/extractablePath.js",
+      "default": "./dist/esm/extractor/extractablePath.js"
     },
     "./checkDeps": {
       "types": "./types/checkDeps.d.ts",
+      "react-native": "./dist/esm/checkDeps.js",
+      "browser": "./dist/esm/checkDeps.js",
+      "module": "./dist/esm/checkDeps.js",
+      "import": "./dist/esm/checkDeps.js",
+      "require": "./dist/cjs/checkDeps.js",
       "default": "./dist/esm/checkDeps.js"
     },
     "./loadGui": {
       "types": "./types/extractor/loadGui.d.ts",
-      "default": "./dist/extractor/loadGui.cjs"
+      "react-native": "./dist/esm/extractor/loadGui.js",
+      "browser": "./dist/esm/extractor/loadGui.js",
+      "module": "./dist/esm/extractor/loadGui.js",
+      "import": "./dist/esm/extractor/loadGui.js",
+      "require": "./dist/cjs/extractor/loadGui.js",
+      "default": "./dist/esm/extractor/loadGui.js"
     }
   },
   "publishConfig": {

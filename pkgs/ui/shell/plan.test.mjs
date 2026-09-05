@@ -17,7 +17,7 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { usageOf, resetsAt } from './dist/usage.js'
+import { usageOf, resetsAt } from './dist/esm/usage.js'
 
 const W = (span, limit, used, extra = {}) => ({ span, limit, used, ...extra })
 

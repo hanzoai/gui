@@ -17,26 +17,15 @@
     "css-check.mjs",
     "dist",
     "hanzogui.config.ts",
-    "linear-gradient",
-    "native-test.cjs",
-    "native-test.d.ts",
-    "native-test",
-    "native.cjs",
-    "native.d.ts",
-    "native",
-    "react-native-web.cjs",
-    "react-native-web",
     "src",
-    "types",
-    "web.cjs",
-    "web"
+    "types"
   ],
   "type": "module",
   "sideEffects": [
     "setup.*"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
@@ -50,15 +39,6 @@
       "require": "./dist/cjs/index.js",
       "default": "./dist/esm/index.js"
     },
-    "./react-native-web": {
-      "types": "./types/index.d.ts",
-      "react-native": "./dist/esm/react-native-web.js",
-      "browser": "./dist/esm/react-native-web.js",
-      "module": "./dist/esm/react-native-web.js",
-      "import": "./dist/esm/react-native-web.js",
-      "require": "./dist/cjs/react-native-web.js",
-      "default": "./dist/esm/react-native-web.js"
-    },
     "./web": {
       "types": "./types/index.d.ts",
       "react-native": "./dist/esm/index.js",
@@ -67,18 +47,6 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
       "default": "./dist/esm/index.js"
-    },
-    "./native": {
-      "types": "./types/index.d.ts",
-      "react-native": "./dist/cjs/native.js",
-      "require": "./dist/cjs/native.js",
-      "default": "./dist/cjs/native.js"
-    },
-    "./native-test": {
-      "types": "./types/index.d.ts",
-      "react-native": "./dist/test.native.js",
-      "require": "./dist/cjs/test.js",
-      "default": "./dist/cjs/test.js"
     },
     "./linear-gradient": {
       "types": "./types/linear-gradient.d.ts",

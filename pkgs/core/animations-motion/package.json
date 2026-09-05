@@ -12,17 +12,17 @@
   "sideEffects": [
     "polyfill.*"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "types": "./types/index.d.ts",
       "react-native": {
         "types": "./types/index.native.d.ts",
         "default": "./dist/native/index.js"
       },
-      "types": "./types/index.d.ts",
       "browser": "./dist/esm/index.js",
       "module": "./dist/esm/index.js",
       "import": "./dist/esm/index.js",

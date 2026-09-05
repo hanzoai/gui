@@ -1,4 +1,4 @@
-import * as fs from 'fs-extra'
+import { readFile, writeFile } from 'node:fs/promises'
 
 import type { generateThemes } from './generate-themes.ts'
 
@@ -18,10 +18,10 @@ export async function writeGeneratedThemes(
   const newContent = `// @ts-nocheck\n` + generated
 
   // Skip writing if contents are unchanged
-  const existingContent = await fs.readFile(outPath, 'utf-8').catch(() => null)
+  const existingContent = await readFile(outPath, 'utf-8').catch(() => null)
   if (existingContent === newContent) {
     return
   }
 
-  await fs.writeFile(outPath, newContent)
+  await writeFile(outPath, newContent)
 }

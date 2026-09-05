@@ -3,29 +3,37 @@
   "version": "8.3.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "bin": {
-    "create-gui": "run.js"
+    "create-gui": "./dist/esm/index.js"
   },
   "files": [
-    "run.js",
+    "src",
+    "types",
     "dist"
   ],
+  "type": "module",
   "sideEffects": false,
-  "main": "dist/index.cjs",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "start": "./run.js",
-    "//": "disabling for now need to migrate to new stack",
-    "test-disabled": "NODE_ENV=test node -r esbuild-register ../../../node_modules/.bin/playwright test integration.test.ts",
-    "test:debug": "bun run test --debug",
-    "test": "bun run build:test && vitest run",
+    "build": "hanzogui-build --skip-native",
+    "test": "bun run build && vitest run",
     "test:web": "bun run test",
-    "build:test": "bun run build",
-    "prerelease": "rimraf ./dist/",
-    "prepublish": "bun run build",
-    "build": "bun build src/index.ts --outfile dist/index.cjs --format cjs --target node --packages external",
-    "watch": "bun run build --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"
   },

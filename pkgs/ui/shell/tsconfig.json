@@ -1,23 +1,10 @@
 {
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "jsx": "react-jsx",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "./dist",
-    // Explicit since TS6+: tsc no longer infers the common source directory and
-    // fails the build with TS5011, which surfaces only at publish (the prepare
-    // script runs tsc) rather than during `bun run build`.
-    "rootDir": "./src",
-    "types": ["react"]
+    "composite": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "src"
+  ],
+  "references": []
 }

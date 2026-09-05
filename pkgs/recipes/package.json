@@ -12,26 +12,37 @@
   },
   "source": "src/index.ts",
   "files": [
-    "src/**/*.ts",
-    "!src/**/*.test.ts",
+    "src",
+    "types",
     "dist"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "bun run build.ts",
-    "clean": "rm -rf dist",
-    "test": "bun test"
+    "build": "hanzogui-build --skip-native",
+    "test": "bun test",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*"
   },
   "engines": {
     "node": ">=20"

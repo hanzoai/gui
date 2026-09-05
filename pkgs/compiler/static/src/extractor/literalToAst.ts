@@ -8,13 +8,13 @@ export function literalToAst(literal: any): t.Expression {
     case 'function':
       throw new Error('Unsupported')
     case 'number':
-      return t.numericLiteral(literal)
+      return t.valueToNode(literal)
     case 'string':
       return t.stringLiteral(literal)
     case 'boolean':
       return t.booleanLiteral(literal)
     case 'undefined':
-      return t.unaryExpression('void', t.numericLiteral(0), true)
+      return t.unaryExpression('void', t.valueToNode(0), true)
     default:
       if (Array.isArray(literal)) {
         return t.arrayExpression(literal.map(literalToAst))

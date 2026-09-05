@@ -4,6 +4,7 @@ import proxyWorm from '@hanzogui/proxy-worm'
 
 import { esbuildIgnoreFilesRegex } from './extractor/bundle.ts'
 import { requireGuiCore } from './helpers/requireGuiCore.ts'
+import { hookModuleJs, nativeEntry } from './helpers/nativeEntry.ts'
 import type { GuiPlatform } from './types.ts'
 import { url } from './here.ts'
 
@@ -64,7 +65,7 @@ export function registerRequire(
   // already registered
   if (isRegistered) {
     return {
-      hanzoguiRequire: require,
+      hanzoguiRequire: need,
       unregister: () => {},
     }
   }
@@ -87,6 +88,8 @@ export function registerRequire(
       return true
     },
   })
+
+  const unhookJs = hookModuleJs()
 
   // esbuild-register's registerTsconfigPaths replaces Module._resolveFilename
   // but tsconfig paths resolution bypasses Node's package exports
@@ -115,8 +118,15 @@ export function registerRequire(
       return staticExtractionStub
     }
 
-    if (path === 'hanzogui' && platform === 'native') {
-      return og.apply(this, ['hanzogui/native'])
+    // The native pass reads each gui package's react-native entry, which
+    // Node's own conditions never select.
+    if (
+      platform === 'native' &&
+      (path === '@hanzo/gui' || path === 'hanzogui' || path.startsWith('@hanzogui/')) &&
+      !path.includes('/dist/')
+    ) {
+      const file = nativeEntry(path === 'hanzogui' ? '@hanzo/gui' : path)
+      if (file !== path) return og.apply(this, [file])
     }
 
     if (path === '@hanzogui/core') {
@@ -247,7 +257,9 @@ export function registerRequire(
          */
 
         console.warn(
-          `  [hanzogui] skipped "${path}" (set GUI_IGNORE_BUNDLE_ERRORS="${path}" to silence)`
+          `  [hanzogui] skipped "${path}" (set GUI_IGNORE_BUNDLE_ERRORS="${path}" to silence): ${
+            err instanceof Error ? err.message : String(err)
+          }`
         )
       }
 
@@ -265,6 +277,7 @@ export function registerRequire(
         hasWarnedForModules.clear()
       }
 
+      unhookJs()
       unregister()
       isRegistered = false
       Module.prototype.require = og

@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Package.json exports support > should build app package for both web and native targets > native-optimized 1`] = `
-"const __ReactNativeStyleSheet = require('react-native').StyleSheet;
+"const __ReactNativeStyleSheet = need('react-native').StyleSheet;
 const _sheet = __ReactNativeStyleSheet.create({
   "0": {
     "position": "relative",
@@ -149,8 +149,8 @@ const _sheet = __ReactNativeStyleSheet.create({
   }
 });
 import { _withStableStyle } from '@hanzogui/core';
-const __ReactNativeView = require('react-native').View;
-const __ReactNativeText = require('react-native').Text;
+const __ReactNativeView = need('react-native').View;
+const __ReactNativeText = need('react-native').Text;
 import { Adapt, Anchor, Button, type FontSizeTokens, getFontSize, H1, Label, Paragraph, Select, type SelectProps, Separator, Sheet, toast, XStack, YStack } from '@my/ui';
 import { SwitchRouterButton } from '@my/ui/components/SwitchRouterButton';
 import { SwitchThemeButton } from '@my/ui/components/SwitchThemeButton';
@@ -297,12 +297,15 @@ export function HomeScreen({
     href: \`\${linkTarget}/nate\`
   });
   return <_ReactNativeViewStyled0>
-      <_ReactNativeViewStyled1 _expressions={["sm"]}>
+      <XStack position="absolute" width="100%" t="$6" gap="$6" justify="center" flexWrap="wrap" $sm={{
+      position: 'relative',
+      t: 0
+    }}>
         {Platform.OS === 'web' && <>
             <SwitchRouterButton pagesMode={pagesMode} />
             <SwitchThemeButton />
           </>}
-      </_ReactNativeViewStyled1>
+      </XStack>
 
       <SelectDemo />
 
@@ -314,17 +317,17 @@ export function HomeScreen({
         </Button>
       </__ReactNativeView>
       <__ReactNativeView style={_sheet["10"]}>
-        <_ReactNativeTextStyled2>
+        <_ReactNativeTextStyled1>
           Welcome to Gui.
-        </_ReactNativeTextStyled2>
-        <_ReactNativeTextStyled3>
+        </_ReactNativeTextStyled1>
+        <_ReactNativeTextStyled2>
           Here's a basic starter to show navigating from one screen to another.
-        </_ReactNativeTextStyled3>
-        <_ReactNativeViewStyled4 />
-        <_ReactNativeTextStyled5>
+        </_ReactNativeTextStyled2>
+        <_ReactNativeViewStyled3 />
+        <_ReactNativeTextStyled4>
           This screen uses the same code on Next.js and React Native.
-        </_ReactNativeTextStyled5>
-        <_ReactNativeViewStyled6 />
+        </_ReactNativeTextStyled4>
+        <_ReactNativeViewStyled5 />
       </__ReactNativeView>
 
       <Button {...linkProps} theme={'dark'}>
@@ -348,7 +351,7 @@ function SheetDemo() {
         <Sheet.Handle bg="$color8" />
         <Sheet.Frame items="center" justify="center" gap="$10" bg="$color2">
           <__ReactNativeView style={_sheet["16"]}>
-            <_ReactNativeTextStyled7>Made by</_ReactNativeTextStyled7>
+            <_ReactNativeTextStyled6>Made by</_ReactNativeTextStyled6>
             <Anchor color="$blue10" href="https://twitter.com/natebirdman" target="_blank">
               @natebirdman,
             </Anchor>
@@ -370,29 +373,28 @@ function SheetDemo() {
 const _ReactNativeViewStyled0 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["6"], {
   "backgroundColor": theme.background.get()
 }], true, false);
-const _ReactNativeViewStyled1 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["7"], _expressions[0] ? _sheet["8"] : null], false, true);
-const _ReactNativeTextStyled2 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["11"], {
+const _ReactNativeTextStyled1 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["11"], {
   "color": theme.color12.get()
 }], true, false);
-const _ReactNativeTextStyled3 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["12"], {
+const _ReactNativeTextStyled2 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["12"], {
   "color": theme.color10.get()
 }], true, false);
-const _ReactNativeViewStyled4 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["13"], {
-  "borderTopColor": theme.backgroundFocus.get(),
-  "borderRightColor": theme.backgroundFocus.get(),
-  "borderBottomColor": theme.backgroundFocus.get(),
-  "borderLeftColor": theme.backgroundFocus.get()
+const _ReactNativeViewStyled3 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["13"], {
+  "borderTopColor": theme.borderColor.get(),
+  "borderRightColor": theme.borderColor.get(),
+  "borderBottomColor": theme.borderColor.get(),
+  "borderLeftColor": theme.borderColor.get()
 }], true, false);
-const _ReactNativeTextStyled5 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["14"], {
+const _ReactNativeTextStyled4 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["14"], {
   "color": theme.color.get()
 }], true, false);
-const _ReactNativeViewStyled6 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["15"], {
-  "borderTopColor": theme.backgroundFocus.get(),
-  "borderRightColor": theme.backgroundFocus.get(),
-  "borderBottomColor": theme.backgroundFocus.get(),
-  "borderLeftColor": theme.backgroundFocus.get()
+const _ReactNativeViewStyled5 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["15"], {
+  "borderTopColor": theme.borderColor.get(),
+  "borderRightColor": theme.borderColor.get(),
+  "borderBottomColor": theme.borderColor.get(),
+  "borderLeftColor": theme.borderColor.get()
 }], true, false);
-const _ReactNativeTextStyled7 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["17"], {
+const _ReactNativeTextStyled6 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["17"], {
   "color": theme.color.get()
 }], true, false);"
 `;
@@ -446,10 +448,10 @@ exports[`Package.json exports support > should build app package for both web an
 :root ._fs-f-size-4{font-size:var(--f-size-4);}
 :root ._lh-f-lineHeigh112923{line-height:var(--f-lineHeight-4);}
 :root ._col-color10{color:var(--color10);}
-:root ._btc-backgroundF3405682._btc-backgroundF3405682{border-top-color:var(--backgroundFocus);}
-:root ._brc-backgroundF3405682._brc-backgroundF3405682{border-right-color:var(--backgroundFocus);}
-:root ._borderBottomColor-backgroundF3405682._borderBottomColor-backgroundF3405682{border-bottom-color:var(--backgroundFocus);}
-:root ._borderLeftColor-backgroundF3405682._borderLeftColor-backgroundF3405682{border-left-color:var(--backgroundFocus);}
+:root ._btc-borderColor._btc-borderColor{border-top-color:var(--borderColor);}
+:root ._brc-borderColor._brc-borderColor{border-right-color:var(--borderColor);}
+:root ._borderBottomColor-borderColor._borderBottomColor-borderColor{border-bottom-color:var(--borderColor);}
+:root ._borderLeftColor-borderColor._borderLeftColor-borderColor{border-left-color:var(--borderColor);}
 :root ._btw-0px._btw-0px{border-top-width:0px;}
 :root ._brw-0px._brw-0px{border-right-width:0px;}
 :root ._borderBottomWidth-1px._borderBottomWidth-1px{border-bottom-width:1px;}
@@ -468,9 +470,9 @@ exports[`Package.json exports support > should build app package for both web an
 "import "./_screen.css"
 const _cn15 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color _select-auto _ws-normal _text-center";
 const _cn14 = "is_View _pos-relative _fd-row _gap-c-space-2";
-const _cn13 = "is_Separator is_View _btc-backgroundF3405682 _brc-backgroundF3405682 _borderBottomColor-backgroundF3405682 _borderLeftColor-backgroundF3405682 _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
+const _cn13 = "is_Separator is_View _btc-borderColor _brc-borderColor _borderBottomColor-borderColor _borderLeftColor-borderColor _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
 const _cn12 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color _select-auto _ws-normal _text-center";
-const _cn11 = "is_Separator is_View _btc-backgroundF3405682 _brc-backgroundF3405682 _borderBottomColor-backgroundF3405682 _borderLeftColor-backgroundF3405682 _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
+const _cn11 = "is_Separator is_View _btc-borderColor _brc-borderColor _borderBottomColor-borderColor _borderLeftColor-borderColor _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
 const _cn10 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color10 _select-auto _ws-normal _text-center";
 const _cn1 = "is_H1 is_Text font_heading _select-auto _ws-normal _tt-f-transform1451 _ff-f-family _fw-f-weight-10 _ls-f-letterSpa779312653 _fs-f-size-10 _lh-f-lineHeigh3500568 _col-color12 _mt-0px _mr-0px _mb-0px _ml-0px _text-center";
 const _cn0 = "is_View _pos-relative _fd-column _gap-c-space-4";
@@ -702,7 +704,7 @@ function SheetDemo() {
 `;
 
 exports[`Package.json exports support > should recognize imports from path-specific exports during optimization > native-optimized-single 1`] = `
-"const __ReactNativeStyleSheet = require('react-native').StyleSheet;
+"const __ReactNativeStyleSheet = need('react-native').StyleSheet;
 const _sheet = __ReactNativeStyleSheet.create({
   "0": {
     "position": "relative",
@@ -850,8 +852,8 @@ const _sheet = __ReactNativeStyleSheet.create({
   }
 });
 import { _withStableStyle } from '@hanzogui/core';
-const __ReactNativeView = require('react-native').View;
-const __ReactNativeText = require('react-native').Text;
+const __ReactNativeView = need('react-native').View;
+const __ReactNativeText = need('react-native').Text;
 import { Adapt, Anchor, Button, type FontSizeTokens, getFontSize, H1, Label, Paragraph, Select, type SelectProps, Separator, Sheet, toast, XStack, YStack } from '@my/ui';
 import { SwitchRouterButton } from '@my/ui/components/SwitchRouterButton';
 import { SwitchThemeButton } from '@my/ui/components/SwitchThemeButton';
@@ -998,12 +1000,15 @@ export function HomeScreen({
     href: \`\${linkTarget}/nate\`
   });
   return <_ReactNativeViewStyled0>
-      <_ReactNativeViewStyled1 _expressions={["sm"]}>
+      <XStack position="absolute" width="100%" t="$6" gap="$6" justify="center" flexWrap="wrap" $sm={{
+      position: 'relative',
+      t: 0
+    }}>
         {Platform.OS === 'web' && <>
             <SwitchRouterButton pagesMode={pagesMode} />
             <SwitchThemeButton />
           </>}
-      </_ReactNativeViewStyled1>
+      </XStack>
 
       <SelectDemo />
 
@@ -1015,17 +1020,17 @@ export function HomeScreen({
         </Button>
       </__ReactNativeView>
       <__ReactNativeView style={_sheet["10"]}>
-        <_ReactNativeTextStyled2>
+        <_ReactNativeTextStyled1>
           Welcome to Gui.
-        </_ReactNativeTextStyled2>
-        <_ReactNativeTextStyled3>
+        </_ReactNativeTextStyled1>
+        <_ReactNativeTextStyled2>
           Here's a basic starter to show navigating from one screen to another.
-        </_ReactNativeTextStyled3>
-        <_ReactNativeViewStyled4 />
-        <_ReactNativeTextStyled5>
+        </_ReactNativeTextStyled2>
+        <_ReactNativeViewStyled3 />
+        <_ReactNativeTextStyled4>
           This screen uses the same code on Next.js and React Native.
-        </_ReactNativeTextStyled5>
-        <_ReactNativeViewStyled6 />
+        </_ReactNativeTextStyled4>
+        <_ReactNativeViewStyled5 />
       </__ReactNativeView>
 
       <Button {...linkProps} theme={'dark'}>
@@ -1049,7 +1054,7 @@ function SheetDemo() {
         <Sheet.Handle bg="$color8" />
         <Sheet.Frame items="center" justify="center" gap="$10" bg="$color2">
           <__ReactNativeView style={_sheet["16"]}>
-            <_ReactNativeTextStyled7>Made by</_ReactNativeTextStyled7>
+            <_ReactNativeTextStyled6>Made by</_ReactNativeTextStyled6>
             <Anchor color="$blue10" href="https://twitter.com/natebirdman" target="_blank">
               @natebirdman,
             </Anchor>
@@ -1071,29 +1076,28 @@ function SheetDemo() {
 const _ReactNativeViewStyled0 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["6"], {
   "backgroundColor": theme.background.get()
 }], true, false);
-const _ReactNativeViewStyled1 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["7"], _expressions[0] ? _sheet["8"] : null], false, true);
-const _ReactNativeTextStyled2 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["11"], {
+const _ReactNativeTextStyled1 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["11"], {
   "color": theme.color12.get()
 }], true, false);
-const _ReactNativeTextStyled3 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["12"], {
+const _ReactNativeTextStyled2 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["12"], {
   "color": theme.color10.get()
 }], true, false);
-const _ReactNativeViewStyled4 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["13"], {
-  "borderTopColor": theme.backgroundFocus.get(),
-  "borderRightColor": theme.backgroundFocus.get(),
-  "borderBottomColor": theme.backgroundFocus.get(),
-  "borderLeftColor": theme.backgroundFocus.get()
+const _ReactNativeViewStyled3 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["13"], {
+  "borderTopColor": theme.borderColor.get(),
+  "borderRightColor": theme.borderColor.get(),
+  "borderBottomColor": theme.borderColor.get(),
+  "borderLeftColor": theme.borderColor.get()
 }], true, false);
-const _ReactNativeTextStyled5 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["14"], {
+const _ReactNativeTextStyled4 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["14"], {
   "color": theme.color.get()
 }], true, false);
-const _ReactNativeViewStyled6 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["15"], {
-  "borderTopColor": theme.backgroundFocus.get(),
-  "borderRightColor": theme.backgroundFocus.get(),
-  "borderBottomColor": theme.backgroundFocus.get(),
-  "borderLeftColor": theme.backgroundFocus.get()
+const _ReactNativeViewStyled5 = _withStableStyle(__ReactNativeView, (theme, _expressions) => [_sheet["15"], {
+  "borderTopColor": theme.borderColor.get(),
+  "borderRightColor": theme.borderColor.get(),
+  "borderBottomColor": theme.borderColor.get(),
+  "borderLeftColor": theme.borderColor.get()
 }], true, false);
-const _ReactNativeTextStyled7 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["17"], {
+const _ReactNativeTextStyled6 = _withStableStyle(__ReactNativeText, (theme, _expressions) => [_sheet["17"], {
   "color": theme.color.get()
 }], true, false);"
 `;
@@ -1102,9 +1106,9 @@ exports[`Package.json exports support > should recognize imports from path-speci
 "import "./_screen.css"
 const _cn15 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color _select-auto _ws-normal _text-center";
 const _cn14 = "is_View _pos-relative _fd-row _gap-c-space-2";
-const _cn13 = "is_Separator is_View _btc-backgroundF3405682 _brc-backgroundF3405682 _borderBottomColor-backgroundF3405682 _borderLeftColor-backgroundF3405682 _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
+const _cn13 = "is_Separator is_View _btc-borderColor _brc-borderColor _borderBottomColor-borderColor _borderLeftColor-borderColor _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
 const _cn12 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color _select-auto _ws-normal _text-center";
-const _cn11 = "is_Separator is_View _btc-backgroundF3405682 _brc-backgroundF3405682 _borderBottomColor-backgroundF3405682 _borderLeftColor-backgroundF3405682 _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
+const _cn11 = "is_Separator is_View _btc-borderColor _brc-borderColor _borderBottomColor-borderColor _borderLeftColor-borderColor _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
 const _cn10 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color10 _select-auto _ws-normal _text-center";
 const _cn1 = "is_H1 is_Text font_heading _select-auto _ws-normal _tt-f-transform1451 _ff-f-family _fw-f-weight-10 _ls-f-letterSpa779312653 _fs-f-size-10 _lh-f-lineHeigh3500568 _col-color12 _mt-0px _mr-0px _mb-0px _ml-0px _text-center";
 const _cn0 = "is_View _pos-relative _fd-column _gap-c-space-4";

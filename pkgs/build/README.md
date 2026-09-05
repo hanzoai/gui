@@ -1,6 +1,6 @@
 ## @hanzogui/build
 
-One package, built by the TypeScript compiler alone.
+One package, built by the TypeScript compiler alone: `tsgo`, three passes.
 
 ```
 hanzogui-build                # ESM + declarations, CommonJS, native
@@ -9,24 +9,29 @@ hanzogui-build --watch        # the ESM emit, continuously
 hanzogui-build clean          # remove dist and types (clean:build is the same)
 ```
 
-Three project files in the package describe the three emits, and the compiler
-reads exactly one answer per target:
+Every package ships its source and three emits. Three project files describe
+them, and the compiler reads exactly one answer per target:
 
-| project                | writes                                        |
-| ---------------------- | --------------------------------------------- |
-| `tsconfig.esm.json`    | `dist/esm/*.js` and `types/*.d.ts`             |
-| `tsconfig.cjs.json`    | `dist/cjs/*.js`, marked commonjs by its own `package.json` |
-| `tsconfig.native.json` | `dist/native/*.js`, where a `.native` file takes its sibling's name |
+| project                | writes                                                          |
+| ---------------------- | --------------------------------------------------------------- |
+| `tsconfig.esm.json`    | `dist/esm/*.js` and `types/*.d.ts`; the one pass that typechecks |
+| `tsconfig.cjs.json`    | `dist/cjs/*.js`, marked commonjs by its own `package.json`       |
+| `tsconfig.native.json` | `dist/native/*.js`                                              |
 
 Source names every relative import with its extension and the compiler rewrites
 it on emit, so what lands in `dist` is loadable by Node as written. Nothing else
 runs over the code.
 
-A package is CommonJS only where its manifest states a `require` entry; one that
-uses `import.meta` or a top-level `await` has no CommonJS form and states none.
-The native pass runs only where a `tsconfig.native.json` exists, which is where
-`.native.*` sources exist; on that platform the sibling's callers resolve to the
-native file through the same relative import.
+A sibling answers for its file on one target and reaches no other emit:
+`x.cjs.ts` takes x's name in the CommonJS output, `x.native.ts` in the native
+one. A module that needs its own location says `import.meta.url` in `here.ts`
+and `__filename` in `here.cjs.ts`, and everything else imports `url` from
+`./here.ts`. The CommonJS output is parsed as a script afterwards; a file only a
+module could load fails the build by name.
 
-The `exports` map points at what the emits produce: `dist/esm/x.js`,
-`dist/cjs/x.js`, `dist/native/x.js`, `types/x.d.ts`.
+Each emit answers `process.env.GUI_TARGET` with its own literal, `"web"` or
+`"native"`, so a bundler folds the other platform away.
+
+The `exports` map points at what the emits produce: `types/x.d.ts`,
+`dist/esm/x.js`, `dist/cjs/x.js`, and `dist/native/x.js` where the package
+builds native.

@@ -5,9 +5,8 @@ import { join } from 'node:path'
 import chalk from 'chalk'
 import { copy, ensureDir, pathExists, remove } from 'fs-extra/esm'
 import { rimraf } from 'rimraf'
-import type { templates } from '../templates'
-
-const open = require('opener')
+import type { templates } from '../templates.ts'
+import open from 'opener'
 
 const exec = (cmd: string, options?: Parameters<typeof execSync>[1]) => {
   console.info(`$ `, cmd)

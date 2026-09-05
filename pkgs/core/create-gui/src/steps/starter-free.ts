@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-import type { ExtraSteps } from './types'
+import type { ExtraSteps } from './types.ts'
 
 const packageManager = 'bun'
 

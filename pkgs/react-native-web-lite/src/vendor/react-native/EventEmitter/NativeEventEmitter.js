@@ -10,7 +10,7 @@
 'use strict'
 
 import { Platform, invariant } from '@hanzogui/react-native-web-internals'
-import { RCTDeviceEventEmitter } from './RCTDeviceEventEmitter'
+import { RCTDeviceEventEmitter } from './RCTDeviceEventEmitter.js'
 
 /**
  * `NativeEventEmitter` is intended for use by Native Modules to emit events to

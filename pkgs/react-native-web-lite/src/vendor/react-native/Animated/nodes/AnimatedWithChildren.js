@@ -10,8 +10,8 @@
 
 'use strict'
 
-import { AnimatedNode } from './AnimatedNode'
-import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
+import { AnimatedNode } from './AnimatedNode.js'
+import { NativeAnimatedHelper } from '../NativeAnimatedHelper.js'
 
 class AnimatedWithChildren extends AnimatedNode {
   _children

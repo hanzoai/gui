@@ -1,13 +1,13 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
-import { HanzoWordmark } from './mark'
-import { HanzoAppLauncher } from './HanzoAppLauncher'
-import { UserOrgDropdown, type UserOrgDropdownProps } from './UserOrgDropdown'
-import { type HanzoApp } from './hanzo-apps'
-import { ORG_DOMAINS, type HanzoOrg, type HanzoUser } from './types'
-import { BAR, CHROME, CTRL_H, FS, R, Z, control, ghostHover } from './theme'
-import { SPIN, useShellStyles } from './shellStyles'
+import { HanzoWordmark } from './mark.tsx'
+import { HanzoAppLauncher } from './HanzoAppLauncher.tsx'
+import { UserOrgDropdown, type UserOrgDropdownProps } from './UserOrgDropdown.tsx'
+import { type HanzoApp } from './hanzo-apps.tsx'
+import { ORG_DOMAINS, type HanzoOrg, type HanzoUser } from './types.ts'
+import { BAR, CHROME, CTRL_H, FS, R, Z, control, ghostHover } from './theme.ts'
+import { SPIN, useShellStyles } from './shellStyles.ts'
 
 /**
  * One bar, one height. 60 is what the audited hanzo.ai bar measures, and the

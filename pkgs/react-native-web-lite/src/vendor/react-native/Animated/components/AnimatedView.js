@@ -7,8 +7,8 @@
  * @format
  */
 
-import { View } from '../../../../View'
-import { createAnimatedComponent } from '../createAnimatedComponent'
+import { View } from '../../../../View/index.tsx'
+import { createAnimatedComponent } from '../createAnimatedComponent.jsx'
 
 const AnimatedView = createAnimatedComponent(View)
 export { AnimatedView }

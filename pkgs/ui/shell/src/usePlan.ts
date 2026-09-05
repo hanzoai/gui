@@ -28,14 +28,18 @@
  * how one page comes to show two different things under one word.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { getPlanTier } from './hanzo-registry'
-import { FREE_TIER, useEntitlement, type UseEntitlementOptions } from './useEntitlement'
-import { usageOf, type PlanUsage, type Rollup } from './usage'
+import { getPlanTier } from './hanzo-registry.ts'
+import {
+  FREE_TIER,
+  useEntitlement,
+  type UseEntitlementOptions,
+} from './useEntitlement.ts'
+import { usageOf, type PlanUsage, type Rollup } from './usage.ts'
 
 /** Honest resolution state — never guesses a plan. */
 export type PlanState = 'loading' | 'none' | 'plan'
 
-export type { PlanUsage, Rollup } from './usage'
+export type { PlanUsage, Rollup } from './usage.ts'
 
 export interface Plan {
   /** Resolved tier slug — always usable, falls back to free. */

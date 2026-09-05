@@ -10,7 +10,7 @@
 
 'use strict'
 
-import { infoLog } from '../infoLog'
+import { infoLog } from '../infoLog/index.js'
 
 // Handler interface removed
 

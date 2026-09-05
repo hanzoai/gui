@@ -6,8 +6,7 @@
     "src",
     "types",
     "dist",
-    "*.cjs",
-    "icon"
+    "*.cjs"
   ],
   "type": "module",
   "main": "./dist/cjs/index.js",

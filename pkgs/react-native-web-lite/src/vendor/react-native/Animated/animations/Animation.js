@@ -9,7 +9,7 @@
 
 'use strict'
 
-import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
+import { NativeAnimatedHelper } from '../NativeAnimatedHelper.js'
 
 let startNativeAnimationNextId = 1
 

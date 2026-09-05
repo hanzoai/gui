@@ -18,12 +18,12 @@
  * the paywall reads "Included in <tier>" with an Upgrade CTA to the plans surface.
  */
 import React from 'react'
-import { APP_ENTITLEMENTS, HANZO_PLANS, U } from './hanzo-registry'
-import { isEntitled as planEntitles, normalizeTier } from './entitlements'
-import { findHanzoApp } from './hanzo-apps'
-import { useEntitlement } from './useEntitlement'
-import { ACCENT, ACCENT_SOFT, CHROME, FS, R } from './theme'
-import { useShellStyles } from './shellStyles'
+import { APP_ENTITLEMENTS, HANZO_PLANS, U } from './hanzo-registry.ts'
+import { isEntitled as planEntitles, normalizeTier } from './entitlements.ts'
+import { findHanzoApp } from './hanzo-apps.tsx'
+import { useEntitlement } from './useEntitlement.ts'
+import { ACCENT, ACCENT_SOFT, CHROME, FS, R } from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
 
 export interface HanzoAccessGateProps {
   /** The gated app / feature id (matches a `HanzoApp.id` and an `APP_ENTITLEMENTS` key). */

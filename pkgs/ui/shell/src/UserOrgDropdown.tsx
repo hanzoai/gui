@@ -8,9 +8,9 @@
  * runtime dependency, ZERO CSS-framework coupling.
  */
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import type { HanzoUser, HanzoOrg, OrgPage, OrgQuery } from './types'
-import { ORG_DOMAINS } from './types'
-import { UserAvatar } from './UserAvatar'
+import type { HanzoUser, HanzoOrg, OrgPage, OrgQuery } from './types.ts'
+import { ORG_DOMAINS } from './types.ts'
+import { UserAvatar } from './UserAvatar.tsx'
 import {
   CHROME,
   CTRL_H,
@@ -23,10 +23,10 @@ import {
   controlHover,
   ghostHover,
   row,
-} from './theme'
-import { useShellStyles } from './shellStyles'
-import { useMediaQuery } from './useMediaQuery'
-import { Masquerade } from './Masquerade'
+} from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
+import { useMediaQuery } from './useMediaQuery.ts'
+import { Masquerade } from './Masquerade.tsx'
 
 export interface UserOrgDropdownProps {
   user?: HanzoUser

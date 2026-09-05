@@ -1,1 +1,1 @@
-export { default as PanResponder } from '../vendor/react-native/PanResponder/index'
+export { default as PanResponder } from '../vendor/react-native/PanResponder/index.js'

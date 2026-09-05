@@ -32,7 +32,7 @@
  * descendant, including menus rendered within.
  */
 import { useEffect } from 'react'
-import { FOCUS_RING, TAP_H } from './theme'
+import { FOCUS_RING, TAP_H } from './theme.ts'
 
 const STYLE_ID = 'hanzo-shell-styles'
 

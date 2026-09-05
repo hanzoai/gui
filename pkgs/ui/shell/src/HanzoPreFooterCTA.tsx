@@ -14,10 +14,10 @@
  * identical. Self-contained: inline styles + theme.ts tokens.
  */
 import React from 'react'
-import { resolveSurface } from './HanzoHeader'
-import { type HanzoLink, type HanzoSurface } from './hanzo-registry'
-import { CHROME, FS, TAP_H, cta } from './theme'
-import { useShellStyles } from './shellStyles'
+import { resolveSurface } from './HanzoHeader.tsx'
+import { type HanzoLink, type HanzoSurface } from './hanzo-registry.ts'
+import { CHROME, FS, TAP_H, cta } from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
 
 export interface HanzoPreFooterCTAProps {
   /** A `HanzoSurface`, or a surface id / hostname to resolve one. */

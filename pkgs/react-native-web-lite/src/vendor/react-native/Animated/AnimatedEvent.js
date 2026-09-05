@@ -10,12 +10,12 @@
 
 'use strict'
 
-import { AnimatedValue } from './nodes/AnimatedValue'
-import { NativeAnimatedHelper } from './NativeAnimatedHelper'
+import { AnimatedValue } from './nodes/AnimatedValue.js'
+import { NativeAnimatedHelper } from './NativeAnimatedHelper.js'
 
 import { invariant } from '@hanzogui/react-native-web-internals'
 
-import { shouldUseNativeDriver } from './NativeAnimatedHelper'
+import { shouldUseNativeDriver } from './NativeAnimatedHelper.js'
 
 // EventConfig interface removed
 

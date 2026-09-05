@@ -30,11 +30,11 @@
  */
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps'
-import { U } from './hanzo-registry'
-import { isEntitled as planEntitles, normalizeTier } from './entitlements'
-import { useEntitlement } from './useEntitlement'
-import { HanzoWordmark } from './mark'
+import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps.tsx'
+import { U } from './hanzo-registry.ts'
+import { isEntitled as planEntitles, normalizeTier } from './entitlements.ts'
+import { useEntitlement } from './useEntitlement.ts'
+import { HanzoWordmark } from './mark.tsx'
 import {
   ACCENT,
   ACCENT_SOFT,
@@ -47,8 +47,8 @@ import {
   R,
   Z,
   control,
-} from './theme'
-import { useShellStyles } from './shellStyles'
+} from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
 
 const BORDER = CHROME.border
 const FG = CHROME.fg

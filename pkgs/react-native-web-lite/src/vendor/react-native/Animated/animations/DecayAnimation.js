@@ -9,9 +9,9 @@
 
 'use strict'
 
-import { Animation } from './Animation'
+import { Animation } from './Animation.js'
 
-import { shouldUseNativeDriver } from '../NativeAnimatedHelper'
+import { shouldUseNativeDriver } from '../NativeAnimatedHelper.js'
 
 class DecayAnimation extends Animation {
   _startTime

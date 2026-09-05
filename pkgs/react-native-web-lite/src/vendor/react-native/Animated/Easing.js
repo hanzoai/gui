@@ -10,7 +10,7 @@
 
 'use strict'
 
-import { bezier as _bezier } from './bezier'
+import { bezier as _bezier } from './bezier.js'
 
 let ease
 

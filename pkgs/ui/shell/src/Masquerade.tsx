@@ -15,8 +15,8 @@
  * only reports that one is running. See <UserOrgDropdown> for where it begins.
  */
 import React from 'react'
-import { ACCENT, CHROME, CTRL_H, FS, R } from './theme'
-import type { HanzoOrg } from './types'
+import { ACCENT, CHROME, CTRL_H, FS, R } from './theme.ts'
+import type { HanzoOrg } from './types.ts'
 
 export interface MasqueradeProps {
   /** The org being acted as. */

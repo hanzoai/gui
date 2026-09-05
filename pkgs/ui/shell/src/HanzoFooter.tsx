@@ -17,14 +17,14 @@
  * styles + theme.ts tokens, React the only runtime dep — drops into any host.
  */
 import React from 'react'
-import { HanzoMark } from './mark'
+import { HanzoMark } from './mark.tsx'
 import {
   HANZO_FOOTER_BOTTOM,
   HANZO_FOOTER_COLUMNS,
   type HanzoLink,
-} from './hanzo-registry'
-import { ACCENT, CHROME, FG_ON, FS, LABEL, R } from './theme'
-import { useShellStyles } from './shellStyles'
+} from './hanzo-registry.ts'
+import { ACCENT, CHROME, FG_ON, FS, LABEL, R } from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
 
 export interface HanzoFooterProps {
   /** Highlights the current product in the PRODUCTS column (`aria-current`). */

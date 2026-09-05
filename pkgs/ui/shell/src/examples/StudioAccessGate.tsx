@@ -15,9 +15,9 @@
  * resolver so the composition is verifiable without a DOM.
  */
 import React from 'react'
-import { HanzoAccessGate } from '../HanzoAccessGate'
-import { HanzoPlans } from '../HanzoPlans'
-import { isEntitled } from '../entitlements'
+import { HanzoAccessGate } from '../HanzoAccessGate.tsx'
+import { HanzoPlans } from '../HanzoPlans.tsx'
+import { isEntitled } from '../entitlements.ts'
 
 /** The flagship gated app id — Pro-tier per APP_ENTITLEMENTS. */
 export const GATED_APP_ID = 'studio'

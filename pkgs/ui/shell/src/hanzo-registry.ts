@@ -16,7 +16,7 @@
  *   PRODUCT_BOUNDARIES  the one-line "what each product is for"
  */
 
-import type { GlyphName } from './glyph'
+import type { GlyphName } from './glyph.tsx'
 
 /** A plain navigable link. */
 export interface HanzoLink {

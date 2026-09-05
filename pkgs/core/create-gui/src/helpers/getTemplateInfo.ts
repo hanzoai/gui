@@ -1,6 +1,6 @@
 import prompts from 'prompts'
 
-import { templates } from '../templates'
+import { templates } from '../templates.ts'
 
 const validTemplates = templates.map(({ value }) => value).join(', ')
 

@@ -1,11 +1,11 @@
-import type { ExtraSteps } from './steps/types'
+import type { ExtraSteps } from './steps/types.ts'
 
 import chalk from 'chalk'
 
-import expoRouterSteps from './steps/expo-router'
-import remixSteps from './steps/remix'
-import starterFree from './steps/starter-free'
-import takeoutSteps from './steps/takeout'
+import expoRouterSteps from './steps/expo-router.ts'
+import remixSteps from './steps/remix.ts'
+import starterFree from './steps/starter-free.ts'
+import takeoutSteps from './steps/takeout.ts'
 
 export const templates: Array<{
   title: string

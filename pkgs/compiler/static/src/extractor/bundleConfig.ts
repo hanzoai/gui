@@ -6,7 +6,7 @@ import { existsSync, readFileSync, unlinkSync } from 'node:fs'
 import { basename, dirname, extname, join, relative, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
-import { url } from '../here.ts'
+import { load, url } from '../here.ts'
 
 const need = createRequire(url)
 // @ts-ignore why
@@ -432,7 +432,7 @@ export async function bundleConfig(props: GuiOptions) {
     let out: any
     if (configFormat === 'esm') {
       // use file:// URL for proper ESM resolution
-      out = await import(pathToFileURL(configOutPath).href)
+      out = await load(configOutPath)
     } else {
       out = need(configOutPath)
     }
@@ -655,7 +655,7 @@ export async function loadComponentsInner(
         let moduleResult: any
         if (format === 'esm') {
           // use file:// URL for proper ESM resolution
-          moduleResult = await import(pathToFileURL(loadModule).href)
+          moduleResult = await load(loadModule)
         } else {
           moduleResult = need(loadModule)
         }

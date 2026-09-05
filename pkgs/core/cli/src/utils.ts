@@ -6,7 +6,7 @@ import fs, { pathExists, readJSON } from 'fs-extra/esm'
 import { join } from 'node:path'
 import { url } from './here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 export async function getOptions({
   root = process.cwd(),
@@ -41,7 +41,7 @@ export async function getOptions({
 
   let finalOptions: GuiOptions = filledOptions
   if (loadGuiOptions) {
-    const { loadGuiBuildConfigSync } = require('@hanzogui/static/loadGui')
+    const { loadGuiBuildConfigSync } = need('@hanzogui/static/loadGui')
     finalOptions = loadGuiBuildConfigSync(filledOptions)
   }
 
@@ -87,7 +87,7 @@ async function getDefaultGuiConfigPath() {
 export const loadGui = async (
   opts: Partial<GuiOptions>
 ): Promise<GuiProjectInfo | null> => {
-  const { loadGui: loadGuiStatic } = require('@hanzogui/static/loadGui')
+  const { loadGui: loadGuiStatic } = need('@hanzogui/static/loadGui')
   const loaded = await loadGuiStatic({
     components: ['@hanzo/gui'],
     ...opts,

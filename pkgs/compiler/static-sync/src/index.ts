@@ -14,13 +14,13 @@ import { createSyncFn } from 'synckit'
 import { createRequire } from 'node:module'
 import { url } from './here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
 export type { GuiOptions } from '@hanzogui/types'
 
 // The worker file, by this package's own resolution of it.
-const getWorkerPath = () => require.resolve('@hanzogui/static/worker')
+const getWorkerPath = () => need.resolve('@hanzogui/static/worker')
 
 // Create sync function that calls the worker's runTask function
 const runTaskSync = createSyncFn(getWorkerPath(), {
@@ -29,7 +29,7 @@ const runTaskSync = createSyncFn(getWorkerPath(), {
 
 export const getPragmaOptions = (props: { source: string; path: string }) => {
   // This doesn't need worker, just use static directly
-  const { default: Static } = require('@hanzogui/static')
+  const { default: Static } = need('@hanzogui/static')
   return Static.getPragmaOptions(props)
 }
 
@@ -112,6 +112,6 @@ export function extractToNativeSync(
  */
 export function getBabelPlugin() {
   // We need to wrap the babel plugin to use sync extraction
-  const { default: Static } = require('@hanzogui/static')
+  const { default: Static } = need('@hanzogui/static')
   return Static.getBabelPlugin()
 }

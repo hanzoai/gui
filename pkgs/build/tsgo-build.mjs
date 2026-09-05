@@ -105,11 +105,17 @@ const drop = (dir, tags, ext = '.js') => {
 
 // CommonJS is a script. What only a module could load is named here, by file,
 // rather than found by whoever requires it.
+const wrapper = new Set(['require', 'module', 'exports', '__filename', '__dirname'])
 const script = (dir) => {
   for (const p of files(dir)) {
     if (!p.endsWith('.js')) continue
-    const { errors } = parseSync(p, readFileSync(p, 'utf8'), { sourceType: 'script' })
+    const { program, errors } = parseSync(p, readFileSync(p, 'utf8'), { sourceType: 'script' })
     if (errors.length) throw new Error(`${p} is not CommonJS: ${errors[0].message}. Give its source a .cjs.ts sibling.`)
+    for (const node of program.body) {
+      const names = node.type === 'VariableDeclaration' ? node.declarations.map((d) => d.id.name) : [node.id?.name]
+      const taken = names.find((n) => wrapper.has(n))
+      if (taken) throw new Error(`${p} declares ${taken}, which the CommonJS wrapper already provides. Name it something else.`)
+    }
   }
 }
 

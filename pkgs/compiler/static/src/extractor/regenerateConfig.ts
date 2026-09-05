@@ -6,7 +6,7 @@ import type { GuiOptions } from '@hanzogui/types'
 import FS from 'fs-extra'
 import { url } from '../here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 import { requireGuiCore } from '../helpers/requireGuiCore.ts'
 import type { GuiPlatform } from '../types.ts'
@@ -98,7 +98,7 @@ export async function generateGuiThemes(hanzoguiOptions: GuiOptions, force = fal
 }
 
 const resolveRelativePath = (inputPath: string) =>
-  inputPath.startsWith('.') ? join(process.cwd(), inputPath) : require.resolve(inputPath)
+  inputPath.startsWith('.') ? join(process.cwd(), inputPath) : need.resolve(inputPath)
 
 function cloneDeepSafe(x: any, excludeKeys = {}) {
   if (!x) return x

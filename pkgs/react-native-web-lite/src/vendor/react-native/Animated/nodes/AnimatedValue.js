@@ -9,10 +9,10 @@
 
 'use strict'
 
-import { AnimatedInterpolation } from './AnimatedInterpolation'
-import { AnimatedWithChildren } from './AnimatedWithChildren'
+import { AnimatedInterpolation } from './AnimatedInterpolation.jsx'
+import { AnimatedWithChildren } from './AnimatedWithChildren.js'
 import { InteractionManager } from '@hanzogui/react-native-web-internals'
-import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
+import { NativeAnimatedHelper } from '../NativeAnimatedHelper.js'
 
 const NativeAnimatedAPI = NativeAnimatedHelper.API
 

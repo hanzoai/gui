@@ -12,8 +12,8 @@
  * A mark either carries the menu or it does not; that is a prop, not a fork.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { CHROME, FS, LABEL, PANEL, R, Z, ghostHover, row } from './theme'
-import { useShellStyles } from './shellStyles'
+import { CHROME, FS, LABEL, PANEL, R, Z, ghostHover, row } from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
 
 /** The mark's paths, as a standalone document — what "Copy SVG" hands over. */
 const LOGO_SVG =

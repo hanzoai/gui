@@ -10,10 +10,10 @@
 
 'use strict'
 
-import { AnimatedInterpolation } from './AnimatedInterpolation'
-import { AnimatedNode } from './AnimatedNode'
-import { AnimatedValue } from './AnimatedValue'
-import { AnimatedWithChildren } from './AnimatedWithChildren'
+import { AnimatedInterpolation } from './AnimatedInterpolation.jsx'
+import { AnimatedNode } from './AnimatedNode.js'
+import { AnimatedValue } from './AnimatedValue.js'
+import { AnimatedWithChildren } from './AnimatedWithChildren.js'
 
 class AnimatedDivision extends AnimatedWithChildren {
   _a

@@ -30,7 +30,7 @@ export { render } from './render/index.tsx'
 export { NativeModules } from './NativeModules/index.tsx'
 
 // react-native
-export { default as NativeEventEmitter } from './vendor/react-native/EventEmitter/NativeEventEmitter'
+export { default as NativeEventEmitter } from './vendor/react-native/EventEmitter/NativeEventEmitter.js'
 
 // APIs
 export { AccessibilityInfo } from './AccessibilityInfo/index.tsx'
@@ -70,7 +70,7 @@ export { ActivityIndicator } from './ActivityIndicator/index.tsx'
 export { Image } from './Image/index.tsx'
 export { ImageBackground } from './ImageBackground/index.tsx'
 export { KeyboardAvoidingView } from './KeyboardAvoidingView/index.tsx'
-export { Modal } from './Modal/index'
+export { Modal } from './Modal/index.js'
 export { Pressable } from './Pressable/index.tsx'
 export { RefreshControl } from './RefreshControl/index.tsx'
 export { SafeAreaView } from './SafeAreaView/index.tsx'

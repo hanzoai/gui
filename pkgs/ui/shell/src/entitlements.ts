@@ -18,7 +18,7 @@ import {
   HANZO_PLANS,
   getPlanTier,
   type HanzoPlanTier,
-} from './hanzo-registry'
+} from './hanzo-registry.ts'
 
 /** Precomputed slug→rank (built once from HANZO_PLANS). */
 const RANK: Record<string, number> = Object.fromEntries(

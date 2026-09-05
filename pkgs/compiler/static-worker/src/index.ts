@@ -9,9 +9,8 @@
  */
 
 import type { GuiOptions } from '@hanzogui/types'
-import { createRequire } from 'node:module'
 import Piscina from 'piscina'
-import { url } from './here.ts'
+import { worker } from './here.ts'
 
 export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
 export type { GuiOptions } from '@hanzogui/types'
@@ -42,7 +41,7 @@ export const getPragmaOptions = async (props: { source: string; path: string }) 
 }
 
 // The worker file, by this package's own resolution of it.
-const getWorkerPath = () => createRequire(url).resolve('@hanzogui/static/worker')
+const getWorkerPath = () => worker
 
 // Use globalThis to share pool across module instances (Vite environments)
 const POOL_KEY = '__hanzogui_piscina_pool__'

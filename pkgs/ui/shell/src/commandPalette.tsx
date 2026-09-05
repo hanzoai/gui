@@ -26,8 +26,8 @@
  * leaves no room for the pretence.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { CHROME, FG_ON, FS, LABEL, PANEL, R, SCRIM, TAP_H, Z, row } from './theme'
-import { useMediaQuery } from './useMediaQuery'
+import { CHROME, FG_ON, FS, LABEL, PANEL, R, SCRIM, TAP_H, Z, row } from './theme.ts'
+import { useMediaQuery } from './useMediaQuery.ts'
 
 /** The ⌘K / ESC / ↑ / ↓ / ↵ hint keys, one shape for all of them. */
 export const KBD: React.CSSProperties = {

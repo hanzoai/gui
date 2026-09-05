@@ -7,7 +7,7 @@
  */
 
 import { invariant } from '@hanzogui/react-native-web-internals'
-import EventEmitter from '../vendor/react-native/emitter/_EventEmitter'
+import EventEmitter from '../vendor/react-native/emitter/_EventEmitter.js'
 import type { Task } from './TaskQueue.tsx'
 import { TaskQueue } from './TaskQueue.tsx'
 import { requestIdleCallback } from '../modules/requestIdleCallback.ts'

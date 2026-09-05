@@ -11,10 +11,10 @@
  * what a product taxonomy does not.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { HANZO_APPS, type HanzoApp } from './hanzo-apps'
-import { U } from './hanzo-registry'
-import { search, type Match } from './search'
-import { useShellStyles } from './shellStyles'
+import { HANZO_APPS, type HanzoApp } from './hanzo-apps.tsx'
+import { U } from './hanzo-registry.ts'
+import { search, type Match } from './search.ts'
+import { useShellStyles } from './shellStyles.ts'
 import {
   KBD,
   PaletteBar,
@@ -29,7 +29,7 @@ import {
   useAsk,
   useCommandKey,
   usePaletteNav,
-} from './commandPalette'
+} from './commandPalette.tsx'
 
 const LIST_ID = 'hanzo-org-palette-list'
 const rowId = (i: number) => `hanzo-org-palette-row-${i}`

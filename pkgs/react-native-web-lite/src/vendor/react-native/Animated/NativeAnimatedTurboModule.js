@@ -8,7 +8,7 @@
  * @format
  */
 
-import * as TurboModuleRegistry from '../TurboModule/TurboModuleRegistry'
+import * as TurboModuleRegistry from '../TurboModule/TurboModuleRegistry.js'
 
 // Type definitions
 export const EventMapping = {}

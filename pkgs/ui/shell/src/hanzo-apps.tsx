@@ -13,8 +13,8 @@
  * primary cross-app surfaces.
  */
 import React from 'react'
-import { MARKS } from './glyph'
-import { U } from './hanzo-registry'
+import { MARKS } from './glyph.tsx'
+import { U } from './hanzo-registry.ts'
 
 export type HanzoAppCategory = 'Products' | 'Platform' | 'Install' | 'Account'
 

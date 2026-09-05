@@ -10,7 +10,7 @@
 import * as React from 'react'
 import { StyleSheet, canUseDOM } from '@hanzogui/react-native-web-internals'
 
-import { View } from '../View'
+import { View } from '../View/index.tsx'
 
 export const ModalContent = /*#__PURE__*/ React.forwardRef((props, forwardedRef) => {
   const { active, children, onRequestClose, transparent, ...rest } = props

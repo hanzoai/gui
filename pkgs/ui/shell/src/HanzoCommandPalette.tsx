@@ -20,10 +20,10 @@
  * second filled element competing with the header's one white CTA.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { TRY_HANZO_GROUPS, U, type ProductCategory } from './hanzo-registry'
-import { search, type Match } from './search'
-import { CHROME, CTRL_H, FS, TAP_H, control, controlHover, ghostHover } from './theme'
-import { Glyph, type GlyphName } from './glyph'
+import { TRY_HANZO_GROUPS, U, type ProductCategory } from './hanzo-registry.ts'
+import { search, type Match } from './search.ts'
+import { CHROME, CTRL_H, FS, TAP_H, control, controlHover, ghostHover } from './theme.ts'
+import { Glyph, type GlyphName } from './glyph.tsx'
 import {
   KBD,
   PaletteBar,
@@ -37,7 +37,7 @@ import {
   useAsk,
   useCommandKey,
   usePaletteNav,
-} from './commandPalette'
+} from './commandPalette.tsx'
 
 export type HanzoCommandMode = 'filter' | 'ask'
 

@@ -6,7 +6,7 @@
  */
 
 import { InteractionManager } from '@hanzogui/react-native-web-internals'
-import TouchHistoryMath from '../TouchHistoryMath/index'
+import TouchHistoryMath from '../TouchHistoryMath/index.js'
 
 const currentCentroidXOfTouchesChangedAfter =
   TouchHistoryMath.currentCentroidXOfTouchesChangedAfter

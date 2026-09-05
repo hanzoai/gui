@@ -5,22 +5,7 @@
   "files": [
     "dist",
     "src",
-    "types",
-    "v3-themes.cjs",
-    "v3-themes.d.ts",
-    "v3-themes",
-    "v3.cjs",
-    "v3.d.ts",
-    "v3",
-    "v4.cjs",
-    "v4.d.ts",
-    "v4",
-    "v5-subtle.cjs",
-    "v5-subtle.d.ts",
-    "v5-subtle",
-    "v5.cjs",
-    "v5.d.ts",
-    "v5"
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

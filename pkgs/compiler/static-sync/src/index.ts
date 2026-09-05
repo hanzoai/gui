@@ -12,7 +12,7 @@ import type { FileResult } from '@babel/core'
 import type { GuiOptions } from '@hanzogui/types'
 import { createSyncFn } from 'synckit'
 import { createRequire } from 'node:module'
-import { url } from './here.ts'
+import { url, worker } from './here.ts'
 
 const need = createRequire(url)
 
@@ -20,7 +20,7 @@ export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
 export type { GuiOptions } from '@hanzogui/types'
 
 // The worker file, by this package's own resolution of it.
-const getWorkerPath = () => need.resolve('@hanzogui/static/worker')
+const getWorkerPath = () => worker
 
 // Create sync function that calls the worker's runTask function
 const runTaskSync = createSyncFn(getWorkerPath(), {

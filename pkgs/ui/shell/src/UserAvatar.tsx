@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
-import { BeamAvatar } from './BeamAvatar'
+import { BeamAvatar } from './BeamAvatar.tsx'
 
 export interface UserAvatarProps {
   /** Direct image URL (uploaded photo) */

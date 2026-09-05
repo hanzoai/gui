@@ -8,10 +8,10 @@
  * @format
  */
 
-import { AnimatedEvent } from '../AnimatedEvent'
-import { AnimatedNode } from './AnimatedNode'
-import { AnimatedStyle } from './AnimatedStyle'
-import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
+import { AnimatedEvent } from '../AnimatedEvent.js'
+import { AnimatedNode } from './AnimatedNode.js'
+import { AnimatedStyle } from './AnimatedStyle.js'
+import { NativeAnimatedHelper } from '../NativeAnimatedHelper.js'
 
 import { invariant } from '@hanzogui/react-native-web-internals'
 

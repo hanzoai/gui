@@ -18,9 +18,9 @@
  * carries its usual rows, which is what it did before this existed.
  */
 import React from 'react'
-import { CHROME, FS, R } from './theme'
-import type { Plan } from './usePlan'
-import { resetsAt } from './usage'
+import { CHROME, FS, R } from './theme.ts'
+import type { Plan } from './usePlan.ts'
+import { resetsAt } from './usage.ts'
 
 export interface MeterProps {
   /** The resolved plan, from `usePlan()`. */

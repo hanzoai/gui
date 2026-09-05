@@ -9,6 +9,6 @@
  */
 'use strict'
 
-import { EventEmitter } from './_EventEmitter'
+import { EventEmitter } from './_EventEmitter.js'
 export { EventEmitter }
 export default EventEmitter

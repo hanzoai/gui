@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/get",
-  "version": "8.3.1",
+  "version": "8.3.2",
   "description": "CLI installer for Hanzo GUI recipes.",
   "homepage": "https://gui.hanzo.ai",
   "license": "BSD-3-Clause",

@@ -8,7 +8,7 @@ import { pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import { url } from '../here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 // @ts-ignore why
 import { Color, colorLog } from '@hanzogui/cli-color'
 import { type StaticConfig, type GuiInternalConfig } from '@hanzogui/web'
@@ -49,10 +49,10 @@ function getEsbuildStdinLoader(filePath: string): esbuild.Loader {
 
 function resolvePackageEntry(packageName: string, format: 'esm' | 'cjs') {
   if (format === 'cjs') {
-    return require.resolve(packageName)
+    return need.resolve(packageName)
   }
 
-  const packageJsonPath = require.resolve(`${packageName}/package.json`)
+  const packageJsonPath = need.resolve(`${packageName}/package.json`)
   const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'))
   const packageRoot = dirname(packageJsonPath)
   const exportEntry = packageJson.exports?.['.']
@@ -67,7 +67,7 @@ function resolvePackageEntry(packageName: string, format: 'esm' | 'cjs') {
     return join(packageRoot, esmEntry)
   }
 
-  return require.resolve(packageName)
+  return need.resolve(packageName)
 }
 
 function cleanupTempFiles() {
@@ -300,7 +300,7 @@ export async function bundleConfig(props: GuiOptions) {
     // detect format per component module
     const componentFormats: Array<'esm' | 'cjs'> = baseComponents.map((mod) => {
       try {
-        const pkgJson = require.resolve(mod + '/package.json')
+        const pkgJson = need.resolve(mod + '/package.json')
         const pkg = JSON.parse(readFileSync(pkgJson, 'utf-8'))
         return pkg.type === 'module' ? 'esm' : 'cjs'
       } catch {
@@ -414,13 +414,13 @@ export async function bundleConfig(props: GuiOptions) {
     // external requires like @hanzogui/config/v3 that are externalized in the bundled CJS
     if (hasBundledOnce) {
       try {
-        delete require.cache[require.resolve(configOutPath)]
+        delete need.cache[need.resolve(configOutPath)]
       } catch {
         // file may not exist yet
       }
       for (const p of componentOutPaths) {
         try {
-          delete require.cache[require.resolve(p)]
+          delete need.cache[need.resolve(p)]
         } catch {
           // file may not exist yet
         }
@@ -434,7 +434,7 @@ export async function bundleConfig(props: GuiOptions) {
       // use file:// URL for proper ESM resolution
       out = await import(pathToFileURL(configOutPath).href)
     } else {
-      out = require(configOutPath)
+      out = need(configOutPath)
     }
 
     // try and find .config, even if on .default
@@ -657,7 +657,7 @@ export async function loadComponentsInner(
           // use file:// URL for proper ESM resolution
           moduleResult = await import(pathToFileURL(loadModule).href)
         } else {
-          moduleResult = require(loadModule)
+          moduleResult = need(loadModule)
         }
 
         if (!forceExports) {
@@ -804,10 +804,10 @@ export function loadComponentsInnerSync(
         }
 
         if (process.env.DEBUG === 'hanzogui') {
-          console.info(`loadModule`, loadModule, require.resolve(loadModule))
+          console.info(`loadModule`, loadModule, need.resolve(loadModule))
         }
 
-        const moduleResult = require(loadModule)
+        const moduleResult = need(loadModule)
 
         if (!forceExports) {
           setRequireResult(name, moduleResult)

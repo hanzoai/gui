@@ -10,7 +10,7 @@ import { resolveWebOrNativeSpecificEntry } from './loadGui.ts'
 import { TsconfigPathsPlugin } from './esbuildTsconfigPaths.ts'
 import { url } from '../here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 export const esbuildLoaderConfig = {
   '.js': 'jsx',
@@ -215,7 +215,7 @@ function getESBuildConfig(
       {
         name: 'external',
         setup(build) {
-          const proxyWormPath = require.resolve('@hanzogui/proxy-worm')
+          const proxyWormPath = need.resolve('@hanzogui/proxy-worm')
 
           // only externalize @hanzogui/core and @hanzogui/web - these are provided at runtime
           // other @hanzogui/* packages (like @hanzogui/config/v3) must be bundled in to avoid
@@ -282,7 +282,7 @@ function detectEntryFormat(entryPoint: string): esbuild.BuildOptions['format'] {
   }
   // bare module specifier - check package.json type field
   try {
-    const pkgJsonPath = require.resolve(entryPoint + '/package.json')
+    const pkgJsonPath = need.resolve(entryPoint + '/package.json')
     const pkg = JSON.parse(readFileSync(pkgJsonPath, 'utf-8'))
     return pkg.type === 'module' ? 'esm' : 'cjs'
   } catch {

@@ -4,8 +4,8 @@ import { fileURLToPath } from 'node:url'
 import { url } from './here.ts'
 import { resolve, dirname } from 'node:path'
 
-const require = createRequire(url)
-const __dirname = dirname(fileURLToPath(url))
+const need = createRequire(url)
+const here = dirname(fileURLToPath(url))
 
 export interface BundleOptions {
   /**
@@ -66,7 +66,7 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
 
   const resolvePath = (name: string) => {
     try {
-      return require.resolve(name)
+      return need.resolve(name)
     } catch {
       // Fallback for packages that might not be resolvable
       return name
@@ -75,7 +75,7 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
 
   const resolvePackageDir = (name: string) => {
     try {
-      const pkgJson = require.resolve(`${name}/package.json`)
+      const pkgJson = need.resolve(`${name}/package.json`)
       return dirname(pkgJson)
     } catch {
       return name

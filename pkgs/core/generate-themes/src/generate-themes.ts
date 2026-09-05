@@ -3,7 +3,7 @@ import type { ThemeBuilder } from '@hanzogui/theme-builder'
 import { join } from 'node:path'
 import { url } from './here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 type ThemeBuilderInterceptOpts = {
   onComplete: (result: { themeBuilder: ThemeBuilder<any> }) => void
@@ -17,7 +17,7 @@ export async function generateThemes(inputFile: string) {
   if (!didRegisterOnce) {
     didRegisterOnce = true
     // the unregsiter does basically nothing and keeps a process running
-    require('esbuild-register/dist/node').register({
+    need('esbuild-register/dist/node').register({
       hookIgnoreNodeModules: false,
     })
   } else {
@@ -29,7 +29,7 @@ export async function generateThemes(inputFile: string) {
   process.env.GUI_RUN_THEMEBUILDER = '1'
 
   try {
-    const requiredThemes = require(inputFilePath)
+    const requiredThemes = need(inputFilePath)
 
     const themes =
       requiredThemes['default'] ||
@@ -177,7 +177,7 @@ function purgeCache(moduleName) {
   // Traverse the cache looking for the files
   // loaded by the specified module name
   searchCache(moduleName, (mod) => {
-    delete require.cache[mod.id]
+    delete need.cache[mod.id]
   })
 
   // @ts-ignore
@@ -203,12 +203,12 @@ function purgeCache(moduleName) {
  */
 function searchCache(moduleName, callback) {
   // Resolve the module identified by the specified name
-  let mod = require.resolve(moduleName)
+  let mod = need.resolve(moduleName)
 
   // Check if the module has been resolved and found within
   // the cache
   // @ts-ignore
-  if (mod && (mod = require.cache[mod]) !== undefined) {
+  if (mod && (mod = need.cache[mod]) !== undefined) {
     // Recursively go over the results
     ;(function traverse(mod, depth = 0) {
       // avoid recursing too much

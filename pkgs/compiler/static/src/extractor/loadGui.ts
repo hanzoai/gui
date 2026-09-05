@@ -167,7 +167,7 @@ export async function loadGuiBuildConfigAsync(
       // pass process so process.env works in the config
       const module = { exports: {} as any }
       const fn = new Function('module', 'exports', 'require', 'process', result.code)
-      fn(module, module.exports, require, process)
+      fn(module, module.exports, need, process)
 
       const out = module.exports.default || module.exports
       if (!out || typeof out !== 'object') {

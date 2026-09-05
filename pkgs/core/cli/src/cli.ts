@@ -4,7 +4,7 @@ import arg from 'arg'
 import chalk from 'chalk'
 import { url } from './here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 import { disposeAll, getOptions } from './utils.ts'
 
@@ -30,7 +30,7 @@ const COMMAND_MAP = {
       const options = await getOptions({
         debug: flags['--debug'] ? (flags['--verbose'] ? 'verbose' : true) : false,
       })
-      const { checkDeps } = require('@hanzogui/static/checkDeps')
+      const { checkDeps } = need('@hanzogui/static/checkDeps')
       await checkDeps(options.paths.root)
     },
   },
@@ -49,7 +49,7 @@ const COMMAND_MAP = {
         debug: flags['--debug'] ? (flags['--verbose'] ? 'verbose' : true) : false,
         loadGuiOptions: true,
       })
-      const { loadGui } = require('@hanzogui/static/loadGui')
+      const { loadGui } = need('@hanzogui/static/loadGui')
       process.env.GUI_KEEP_THEMES = '1'
       await loadGui({
         ...options.hanzoguiOptions,
@@ -57,8 +57,8 @@ const COMMAND_MAP = {
       })
 
       // also generate prompt to .hanzogui/prompt.md
-      const { generatePrompt } = require('./generate-prompt')
-      const { join } = require('node:path')
+      const { generatePrompt } = need('./generate-prompt')
+      const { join } = need('node:path')
       await generatePrompt({
         ...options,
         output: join(options.paths.dotDir, 'prompt.md'),
@@ -87,7 +87,7 @@ const COMMAND_MAP = {
         options.hanzoguiOptions.outputCSS ||
         './hanzogui.generated.css'
 
-      const { loadGui } = require('@hanzogui/static/loadGui')
+      const { loadGui } = need('@hanzogui/static/loadGui')
       process.env.GUI_KEEP_THEMES = '1'
       await loadGui({
         ...options.hanzoguiOptions,
@@ -119,10 +119,7 @@ const COMMAND_MAP = {
         )
       }
 
-      const {
-        generateThemes,
-        writeGeneratedThemes,
-      } = require('@hanzogui/generate-themes')
+      const { generateThemes, writeGeneratedThemes } = need('@hanzogui/generate-themes')
 
       try {
         const generated = await generateThemes(inPath)
@@ -150,7 +147,7 @@ const COMMAND_MAP = {
     },
     async run() {
       const { _, ...flags } = arg(this.flags)
-      const { installGeneratedPackage } = require('./add')
+      const { installGeneratedPackage } = need('./add')
       const [cmd, type, path] = _
       await installGeneratedPackage(type, path)
     },
@@ -194,7 +191,7 @@ const COMMAND_MAP = {
           : true
         : false
 
-      const { build } = require('./build.cjs')
+      const { build } = need('./build.cjs')
       const options = await getOptions({
         debug,
       })
@@ -226,7 +223,7 @@ const COMMAND_MAP = {
     },
     async run() {
       const { _, ...flags } = arg(this.flags)
-      const { upgrade } = require('./upgrade')
+      const { upgrade } = need('./upgrade')
       await upgrade({
         from: flags['--from'],
         to: flags['--to'],
@@ -247,7 +244,7 @@ const COMMAND_MAP = {
     },
     async run() {
       const { _, ...flags } = arg(this.flags)
-      const { updateTemplate } = require('./update-template')
+      const { updateTemplate } = need('./update-template')
       if (!flags['--template-repo']) {
         throw new Error('--template-repo is required')
       }
@@ -268,7 +265,7 @@ const COMMAND_MAP = {
     },
     async run() {
       const { _, ...flags } = arg(this.flags)
-      const { generatePrompt } = require('./generate-prompt')
+      const { generatePrompt } = need('./generate-prompt')
       const options = await getOptions({
         debug: flags['--debug'] ? true : false,
         loadGuiOptions: true,
@@ -312,7 +309,7 @@ const {
 )
 
 if (flags['--version']) {
-  console.info(require('../package.json').version)
+  console.info(need('../package.json').version)
   process.exit(0)
 }
 

@@ -125,6 +125,15 @@ describe('a package that states no require entry', () => {
   })
 })
 
+describe('a module that declares what the CommonJS wrapper provides', () => {
+  it('fails the CommonJS emit by name', () => {
+    const dir = copy()
+    writeFileSync(join(dir, 'src/index.ts'), 'const require = 1\nexport const r: number = require\n')
+    expect(() => build(dir)).toThrow(/index\.js declares require/)
+    rmSync(dir, { recursive: true, force: true })
+  })
+})
+
 describe('a module only a module could load', () => {
   it('fails the CommonJS emit by name instead of shipping it', () => {
     const dir = copy()

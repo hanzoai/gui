@@ -2,7 +2,7 @@ import { basename, dirname, extname, join, relative, resolve } from 'node:path'
 import { createRequire } from 'node:module'
 import { url } from '../here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 // @ts-ignore why
 import { Color, colorLog } from '@hanzogui/cli-color'
 import type { CLIResolvedOptions, CLIUserOptions, GuiOptions } from '@hanzogui/types'
@@ -215,7 +215,7 @@ export function loadGuiBuildConfigSync(hanzoguiOptions: Partial<GuiOptions> | un
   if (fsExtra.existsSync(buildFilePath)) {
     const registered = registerRequire('web')
     try {
-      const out = require(
+      const out = need(
         buildFilePath[0] === '.' ? join(process.cwd(), buildFilePath) : buildFilePath
       ).default
       if (!out) {
@@ -281,7 +281,7 @@ export function loadGuiSync({
       let hanzoguiConfig: GuiInternalConfig | null = null
       if (propsIn.config) {
         const configPath = getGuiConfigPathFromOptionsConfig(propsIn.config)
-        const exp = require(configPath)
+        const exp = need(configPath)
 
         if (!exp || exp._isProxyWorm) {
           throw new Error(`Got a empty / proxied config!`)
@@ -290,7 +290,7 @@ export function loadGuiSync({
         hanzoguiConfig = (exp['default'] || exp['config'] || exp) as GuiInternalConfig
 
         if (!hanzoguiConfig || !hanzoguiConfig.parsed) {
-          const confPath = require.resolve(configPath)
+          const confPath = need.resolve(configPath)
           throw new Error(`Can't find valid config in ${confPath}:
           
   Be sure you "export default" or "export const config" the config.`)
@@ -406,7 +406,7 @@ export async function getOptions({
 
 export function resolveWebOrNativeSpecificEntry(entry: string, platform?: string) {
   const workspaceRoot = resolve()
-  const resolved = require.resolve(entry, { paths: [workspaceRoot] })
+  const resolved = need.resolve(entry, { paths: [workspaceRoot] })
   const ext = extname(resolved)
   const fileName = basename(resolved).replace(ext, '')
   const target = platform || process.env.GUI_TARGET || 'web'

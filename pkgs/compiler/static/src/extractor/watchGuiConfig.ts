@@ -4,7 +4,7 @@ import { esbuildWatchFiles, generateThemesAndLog, getOptions } from './loadGui.t
 import { regenerateConfig } from './regenerateConfig.ts'
 import { url } from '../here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 let isWatching = false
 
@@ -47,7 +47,7 @@ export async function watchGuiConfig(hanzoguiOptions: GuiOptions) {
   if (themeBuilderInput) {
     let inputPath = themeBuilderInput
     try {
-      inputPath = require.resolve(themeBuilderInput)
+      inputPath = need.resolve(themeBuilderInput)
     } catch {
       // ok
     }

@@ -6,7 +6,7 @@ import { readJSON } from 'fs-extra/esm'
 import type { CLIResolvedOptions } from '@hanzogui/types'
 import { url } from './here.ts'
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 interface GeneratePromptOptions extends CLIResolvedOptions {
   output?: string
@@ -16,7 +16,7 @@ export async function generatePrompt(options: GeneratePromptOptions) {
   const { paths, output } = options
 
   // Regenerate the config first
-  const { loadGui } = require('@hanzogui/static/loadGui')
+  const { loadGui } = need('@hanzogui/static/loadGui')
   process.env.GUI_KEEP_THEMES = '1'
   await loadGui({
     ...options.hanzoguiOptions,

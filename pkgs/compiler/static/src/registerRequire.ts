@@ -11,7 +11,7 @@ const nameToPaths = {}
 
 export const getNameToPaths = () => nameToPaths
 
-const require = createRequire(url)
+const need = createRequire(url)
 
 let isRegistered = false
 let og: any

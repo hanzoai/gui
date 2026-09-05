@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/telemetry",
-  "version": "8.3.2",
+  "version": "8.3.3",
   "description": "Zero-config Hanzo telemetry — one <TelemetryProvider/> wires errors + session capture, pageviews, and product events to the ONE endpoint (POST api.hanzo.ai/v1/event), which lenses them into sentry.hanzo.ai, analytics.hanzo.ai and insights.hanzo.ai. Honors DNT/GPC, consent-aware, SSR-safe, fail-soft.",
   "keywords": [
     "analytics",
@@ -54,8 +54,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@hanzo/event": "^0.3.37",
-    "@hanzo/observe": "^0.1.8"
+    "@hanzo/event": "^0.3.39",
+    "@hanzo/observe": "^0.1.11"
   },
   "devDependencies": {
     "@hanzogui/build": "workspace:*",

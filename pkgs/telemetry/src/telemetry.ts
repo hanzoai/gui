@@ -8,7 +8,7 @@
 // client into the same slot, so React and non-React code emit through ONE
 // instance and one stream.
 
-import { createAnalytics } from '@hanzo/event'
+import { createAnalytics, keyForPage } from '@hanzo/event'
 import type { Analytics } from '@hanzo/event'
 import { resolveEnabled } from './consent.ts'
 import { isReactNative, productFromHost, resolveEnv, runtimeProduct } from './env.ts'
@@ -89,10 +89,27 @@ export function createTelemetry(config: TelemetryConfig = {}): Telemetry {
   const replay = config.replay ?? true
   const pageviews = config.pageviews ?? true
 
+  // A brand's own domain names its org, and an org has exactly one publishable
+  // key, so a surface served from a domain we recognise needs no key configured
+  // at all. Last, so anything stated explicitly still wins.
+  //
+  // Env-only is why so little of the fleet reports: PUBLISHABLE_KEY is a
+  // BUILD-time variable, a static export is built once and served on every
+  // brand, and nobody sets it — hanzo.ai's is commented out in .env.example and
+  // both Zoo sites shipped with none. `keyForPage` returns undefined for a host
+  // no brand claims, which stays the honest answer: report nowhere rather than
+  // file one brand's visitors in another's project.
+  //
+  // Bound once. `describeTelemetry` used to restate this expression to answer
+  // `hasIngestKey`, so the two could disagree about the same client — and they
+  // did the moment this line gained a third source: the client got a key and
+  // the description of it said there was none.
+  const ingestKey = config.ingestKey ?? env.ingestKey ?? keyForPage()
+
   const client: Analytics = createAnalytics({
     host: config.host !== undefined ? config.host : env.host,
     product,
-    ingestKey: config.ingestKey ?? env.ingestKey,
+    ingestKey,
     getToken: config.getToken,
     enabled: permitted,
     // The provider owns pageviews; @hanzo/event owns global error capture.
@@ -124,7 +141,7 @@ export function createTelemetry(config: TelemetryConfig = {}): Telemetry {
     replay,
     errors,
     pageviews,
-    hasIngestKey: Boolean(config.ingestKey ?? env.ingestKey),
+    hasIngestKey: Boolean(ingestKey),
     debug,
   })
 

@@ -825,12 +825,15 @@ function BrandBox({
       e.preventDefault()
       onStepIn()
     },
-    // The bar's own pill, at the bar's own left edge: `control` pads the shape
-    // by 12 and the negative margin hands those 12 back, so the lit pill grows
-    // outward into the gutter while the NAME stays on the page's column.
+    // The bar's own pill, at the bar's own left edge. `control` pads the shape
+    // by 12; handing all 12 back put the NAME itself on the page's column, and
+    // a wordmark is not body text — set in bold beside a hard edge it read as
+    // flush against the window, with the gutter apparently missing. Four are
+    // kept, so the lit pill still grows outward into the gutter and the name
+    // sits a hair inside the column instead of exactly on it.
     style: {
       ...control(open),
-      marginLeft: -12,
+      marginLeft: -4,
       gap: 9,
       // The name of the place is never dim. `control` speaks in brightness and
       // this one control is exempt: it is the only word on the bar that is not

@@ -2,7 +2,7 @@ import { zenMonoFamily, zenSansFamily } from '@hanzogui/font-zen'
 import { shorthands } from '@hanzogui/shorthands'
 import { createFont, createTokens } from '@hanzogui/web'
 import { animations } from './animations.ts'
-import { animations as animationsNative } from './animations.native.ts'
+import { animations as animationsNative } from './animations-native.ts'
 
 // basic fallback theme just to have compiler load in decent tate
 export function getDefaultGuiConfig(platform: 'native' | 'web' = 'web') {

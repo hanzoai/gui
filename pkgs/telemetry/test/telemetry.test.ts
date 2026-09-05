@@ -96,7 +96,6 @@ describe('the one front door', () => {
     expect(kinds).toContain('pageview')
     expect(kinds).toContain('event')
     expect(kinds).toContain('identify')
-    expect(kinds).toContain('error')
 
     // Every event names the same emitting surface and rides the same wire.
     expect(new Set(batch.map((e) => e.product))).toEqual(new Set(['site']))
@@ -105,9 +104,10 @@ describe('the one front door', () => {
     )
 
     // A reported error is `handled: true`; only global/unhandled capture is false.
-    const err = batch.find((e) => e.type === 'error') as {
+    const err = batch.find((e) => e.event === '$exception' || Boolean(e.error)) as {
       error: Record<string, unknown>
     }
+    expect(err).toBeDefined()
     expect(err.error).toMatchObject({ type: 'TypeError', message: 'boom', handled: true })
   })
 
@@ -124,19 +124,16 @@ describe('the one front door', () => {
     }
   })
 
-  it('sends a publishable key as a bearer so a logged-out page still reports', () => {
-    const headers: Array<Record<string, string>> = []
-    vi.stubGlobal(
-      'fetch',
-      (_url: string, init?: { headers?: Record<string, string> }) => {
-        headers.push(init?.headers ?? {})
-        return Promise.resolve({ ok: true } as Response)
-      }
-    )
+  it('sends a publishable key so a logged-out page still reports', () => {
+    const urls: string[] = []
+    vi.stubGlobal('fetch', (url: string) => {
+      urls.push(url)
+      return Promise.resolve({ ok: true } as Response)
+    })
     const t = createTelemetry({ ingestKey: 'pk_live_test' })
     t.track('x')
     t.flush()
-    expect(headers[0]?.Authorization).toBe('Bearer pk_live_test')
+    expect(urls[0]).toBe('https://api.hanzo.ai/v1/event?ingest_key=pk_live_test')
   })
 })
 
@@ -236,7 +233,9 @@ describe('fail-soft', () => {
     const t = createTelemetry()
     expect(() => t.captureError({ weird: true })).not.toThrow()
     t.flush()
-    const err = sent.flatMap((s) => s.batch).find((e) => e.type === 'error')
+    const err = sent
+      .flatMap((s) => s.batch)
+      .find((e) => e.event === '$exception' || Boolean(e.error))
     expect(err).toBeDefined()
   })
 

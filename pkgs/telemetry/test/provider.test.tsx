@@ -132,7 +132,7 @@ describe('<TelemetryProvider/> with no props', () => {
     expect(container.textContent).toBe('sorry')
 
     act(() => getTelemetry().flush())
-    const err = events().find((e) => e.type === 'error') as
+    const err = events().find((e) => e.event === '$exception' || Boolean(e.error)) as
       | { error: Record<string, unknown>; properties: Record<string, unknown> }
       | undefined
     expect(err?.error).toMatchObject({ message: 'render exploded', handled: false })
@@ -178,7 +178,7 @@ describe('<TelemetryProvider/> with no props', () => {
     expect((escaped as Error)?.message).toBe('no fallback exploded')
 
     act(() => getTelemetry().flush())
-    const err = events().find((e) => e.type === 'error') as
+    const err = events().find((e) => e.event === '$exception' || Boolean(e.error)) as
       | { error: Record<string, unknown>; properties: Record<string, unknown> }
       | undefined
     expect(err?.error).toMatchObject({ message: 'no fallback exploded', handled: false })

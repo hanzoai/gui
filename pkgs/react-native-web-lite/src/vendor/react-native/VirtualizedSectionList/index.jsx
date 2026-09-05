@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { VirtualizedList } from '../VirtualizedList'
+import { VirtualizedList } from '../VirtualizedList/index.js'
 import * as React from 'react'
 
 const defaultProps = {

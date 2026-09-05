@@ -7,8 +7,8 @@
  * @format
  */
 
-import { useAnimatedProps } from './useAnimatedProps'
-import { useMergeRefs } from '../Utilities/useMergeRefs'
+import { useAnimatedProps } from './useAnimatedProps.js'
+import { useMergeRefs } from '../Utilities/useMergeRefs.js'
 import * as React from 'react'
 
 /**

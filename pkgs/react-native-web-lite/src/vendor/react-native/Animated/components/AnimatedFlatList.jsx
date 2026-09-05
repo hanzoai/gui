@@ -9,8 +9,8 @@
 
 import * as React from 'react'
 
-import { FlatList as FlatListComponent } from '../../../../FlatList'
-import { createAnimatedComponent } from '../createAnimatedComponent'
+import { FlatList as FlatListComponent } from '../../../../FlatList.tsx'
+import { createAnimatedComponent } from '../createAnimatedComponent.js'
 
 /**
  * @see https://github.com/facebook/react-native/commit/b8c8562

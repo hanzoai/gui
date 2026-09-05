@@ -7,29 +7,12 @@ const { getPragmaOptions, isExtractable } = StaticWorker
 
 Error.stackTraceLimit = Number.POSITIVE_INFINITY
 
-/**
- * webpack takes the css loader as a PATH, and the same source is emitted next
- * to this file as css.cjs by the CJS build and css.mjs by the ESM build.
- *
- * The candidates used to be .cjs / .esm / .js. No build has ever written a
- * `css.esm` or a `css.js`, so from the ESM build all three missed and the last
- * one threw MODULE_NOT_FOUND while the real file, css.mjs, sat beside it. That
- * is the whole reason `withGui()` could not be loaded from a .mjs next.config:
- * static extraction was unreachable and apps fell back to shipping the atomic
- * sheet inline.
- */
-const CSS_LOADER_PATH = ['./css.cjs', './css.mjs'].reduce((found, candidate) => {
-  if (found) return found
-  try {
-    return requireResolve(candidate)
-  } catch {
-    return ''
-  }
-}, '')
+// The css loader is emitted beside this file under the same name in every emit.
+const CSS_LOADER_PATH = requireResolve('./css.js')
 
 if (!CSS_LOADER_PATH) {
   throw new Error(
-    `@hanzogui/loader: no css.cjs or css.mjs beside the loader — this build of the package is incomplete.`
+    `@hanzogui/loader: no css.js beside the loader — this build of the package is incomplete.`
   )
 }
 

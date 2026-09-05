@@ -9,8 +9,8 @@
 
 import * as React from 'react'
 
-import { SectionList as SectionListComponent } from '../../../../SectionList'
-import { createAnimatedComponent } from '../createAnimatedComponent'
+import { SectionList as SectionListComponent } from '../../../../SectionList.tsx'
+import { createAnimatedComponent } from '../createAnimatedComponent.js'
 
 /**
  * @see https://github.com/facebook/react-native/commit/b8c8562

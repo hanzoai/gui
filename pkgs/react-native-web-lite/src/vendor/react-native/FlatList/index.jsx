@@ -8,14 +8,14 @@
  * @format
  */
 
-import { View } from '../../../View'
-import { deepDiffer } from '../deepDiffer'
+import { View } from '../../../View/index.tsx'
+import { deepDiffer } from '../deepDiffer/index.js'
 import { Platform } from '../../../exports/Platform'
 import { invariant, StyleSheet } from '@hanzogui/react-native-web-internals'
 import * as React from 'react'
 
-import { VirtualizedList } from '../VirtualizedList'
-import { keyExtractor as defaultKeyExtractor } from '../VirtualizeUtils'
+import { VirtualizedList } from '../VirtualizedList/index.js'
+import { keyExtractor as defaultKeyExtractor } from '../VirtualizeUtils/index.js'
 
 import memoizeOne from 'memoize-one'
 

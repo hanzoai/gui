@@ -9,8 +9,8 @@
 
 import * as React from 'react'
 
-import { ScrollView as ScrollViewComponent } from '../../../../ScrollView'
-import { createAnimatedComponent } from '../createAnimatedComponent'
+import { ScrollView as ScrollViewComponent } from '../../../../ScrollView/index.tsx'
+import { createAnimatedComponent } from '../createAnimatedComponent.js'
 
 /**
  * @see https://github.com/facebook/react-native/commit/b8c8562

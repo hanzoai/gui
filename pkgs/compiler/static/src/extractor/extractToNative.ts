@@ -54,7 +54,7 @@ export function extractToNative(
 
 export function getBabelPlugin() {
   return declare((api, options: GuiOptions) => {
-    api.assertVersion(7)
+    api.assertVersion('^7.0.0 || ^8.0.0-0')
     return getBabelParseDefinition(options)
   })
 }

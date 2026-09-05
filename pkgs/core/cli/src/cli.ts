@@ -57,7 +57,7 @@ const COMMAND_MAP = {
       })
 
       // also generate prompt to .hanzogui/prompt.md
-      const { generatePrompt } = need('./generate-prompt')
+      const { generatePrompt } = await import('./generate-prompt.ts')
       const { join } = need('node:path')
       await generatePrompt({
         ...options,
@@ -147,7 +147,7 @@ const COMMAND_MAP = {
     },
     async run() {
       const { _, ...flags } = arg(this.flags)
-      const { installGeneratedPackage } = need('./add')
+      const { installGeneratedPackage } = await import('./add.ts')
       const [cmd, type, path] = _
       await installGeneratedPackage(type, path)
     },
@@ -191,7 +191,7 @@ const COMMAND_MAP = {
           : true
         : false
 
-      const { build } = need('./build.cjs')
+      const { build } = await import('./build.ts')
       const options = await getOptions({
         debug,
       })
@@ -223,7 +223,7 @@ const COMMAND_MAP = {
     },
     async run() {
       const { _, ...flags } = arg(this.flags)
-      const { upgrade } = need('./upgrade')
+      const { upgrade } = await import('./upgrade.ts')
       await upgrade({
         from: flags['--from'],
         to: flags['--to'],
@@ -244,7 +244,7 @@ const COMMAND_MAP = {
     },
     async run() {
       const { _, ...flags } = arg(this.flags)
-      const { updateTemplate } = need('./update-template')
+      const { updateTemplate } = await import('./update-template.ts')
       if (!flags['--template-repo']) {
         throw new Error('--template-repo is required')
       }
@@ -265,7 +265,7 @@ const COMMAND_MAP = {
     },
     async run() {
       const { _, ...flags } = arg(this.flags)
-      const { generatePrompt } = need('./generate-prompt')
+      const { generatePrompt } = await import('./generate-prompt.ts')
       const options = await getOptions({
         debug: flags['--debug'] ? true : false,
         loadGuiOptions: true,

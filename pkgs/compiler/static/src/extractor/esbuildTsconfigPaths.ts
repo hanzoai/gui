@@ -37,9 +37,14 @@ const matchers = new Map<string, PathsMatcher | null>()
 /** Maps a specifier through `compilerOptions.paths` of the tsconfig (or jsconfig) nearest `dir` to a source file. */
 export function resolveAlias(specifier: string, dir: string): string | null {
   if (!matchers.has(dir)) {
-    const tsconfig =
-      getTsconfig(dir, 'tsconfig.json', configs) ??
-      getTsconfig(dir, 'jsconfig.json', configs)
+    // A dependency's tsconfig may extend a preset it does not ship; that is
+    // no paths to map, not a reason to fail the bundle.
+    let tsconfig: TsConfigResult | null = null
+    try {
+      tsconfig =
+        getTsconfig(dir, 'tsconfig.json', configs) ??
+        getTsconfig(dir, 'jsconfig.json', configs)
+    } catch {}
     matchers.set(dir, tsconfig && createPathsMatcher(tsconfig))
   }
   for (const candidate of matchers.get(dir)?.(specifier) ?? []) {

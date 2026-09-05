@@ -7,16 +7,16 @@
 
 import { isValidElement } from 'react'
 import { invariant } from '@hanzogui/react-native-web-internals'
-import { ScrollView } from '../../../ScrollView'
-import { RefreshControl } from '../../../RefreshControl'
+import { ScrollView } from '../../../ScrollView/index.tsx'
+import { RefreshControl } from '../../../RefreshControl/index.tsx'
 
-import { Batchinator } from '../Batchinator'
-import { ChildListCollection } from './ChildListCollection'
-import { FillRateHelper } from '../FillRateHelper'
-import { StateSafePureComponent } from './StateSafePureComponent'
-import { ViewabilityHelper } from '../ViewabilityHelper'
-import { CellRenderer } from './VirtualizedListCellRenderer'
-import { VirtualizedListContext } from './VirtualizedListContext'
+import { Batchinator } from '../Batchinator/index.js'
+import { ChildListCollection } from './ChildListCollection.js'
+import { FillRateHelper } from '../FillRateHelper/index.js'
+import { StateSafePureComponent } from './StateSafePureComponent.js'
+import { ViewabilityHelper } from '../ViewabilityHelper.ts'
+import { CellRenderer } from './VirtualizedListCellRenderer.js'
+import { VirtualizedListContext } from './VirtualizedListContext.js'
 
 const __DEV__ = process.env.NODE_ENV !== 'production'
 

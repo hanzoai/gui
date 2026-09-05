@@ -64,8 +64,8 @@ export const ButtonText = styled(Text, {
   userSelect: 'none',
   variants: {
     size: {
-      '...fontSize': (name, { font }) => ({
-        fontSize: font?.size[name],
+      '...fontSize': (name, extras) => ({
+        fontSize: extras.font?.size[name],
       }),
     },
   } as const,

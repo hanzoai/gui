@@ -61,8 +61,8 @@ export const ButtonText = styled(Text, {
 
   variants: {
     size: {
-      '...fontSize': (name, { font }) => ({
-        fontSize: font?.size[name],
+      '...fontSize': (name, extras) => ({
+        fontSize: extras.font?.size[name],
       }),
     },
   } as const,

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/tooltip",
-  "version": "8.3.1",
+  "version": "8.3.2",
   "source": "src/index.tsx",
   "files": [
     "src",

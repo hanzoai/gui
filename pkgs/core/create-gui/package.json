@@ -1,6 +1,6 @@
 {
   "name": "create-gui",
-  "version": "8.3.1",
+  "version": "8.3.2",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "bin": {
     "create-gui": "./dist/esm/index.js"

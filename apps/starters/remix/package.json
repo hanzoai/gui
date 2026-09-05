@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/remix-starter",
-  "version": "8.3.1",
+  "version": "8.3.2",
   "private": true,
   "type": "module",
   "sideEffects": false,

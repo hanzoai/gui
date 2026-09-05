@@ -17,7 +17,7 @@ import { TimingAnimation } from './animations/TimingAnimation.js'
 import { AnimatedAddition } from './nodes/AnimatedAddition.js'
 import { AnimatedDiffClamp } from './nodes/AnimatedDiffClamp.js'
 import { AnimatedDivision } from './nodes/AnimatedDivision.js'
-import { AnimatedInterpolation } from './nodes/AnimatedInterpolation.jsx'
+import { AnimatedInterpolation } from './nodes/AnimatedInterpolation.js'
 import { AnimatedModulo } from './nodes/AnimatedModulo.js'
 import { AnimatedMultiplication } from './nodes/AnimatedMultiplication.js'
 import { AnimatedNode } from './nodes/AnimatedNode.js'
@@ -26,7 +26,7 @@ import { AnimatedTracking } from './nodes/AnimatedTracking.js'
 import { AnimatedValue } from './nodes/AnimatedValue.js'
 import { AnimatedValueXY } from './nodes/AnimatedValueXY.js'
 
-import { createAnimatedComponent } from './createAnimatedComponent.jsx'
+import { createAnimatedComponent } from './createAnimatedComponent.js'
 import { AnimatedColor } from './nodes/AnimatedColor.js'
 
 // CompositeAnimation interface removed

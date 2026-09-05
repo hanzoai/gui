@@ -16,7 +16,7 @@ them, and the compiler reads exactly one answer per target:
 | ---------------------- | --------------------------------------------------------------- |
 | `tsconfig.esm.json`    | `dist/esm/*.js` and `types/*.d.ts`; the one pass that typechecks |
 | `tsconfig.cjs.json`    | `dist/cjs/*.js`, marked commonjs by its own `package.json`       |
-| `tsconfig.native.json` | `dist/native/*.js`, CommonJS as well: Metro and Node both load the bare `require` native sources say |
+| `tsconfig.native.json` | `dist/native/*.js`                                              |
 
 Source names every relative import with its extension and the compiler rewrites
 it on emit, so what lands in `dist` is loadable by Node as written. Nothing else

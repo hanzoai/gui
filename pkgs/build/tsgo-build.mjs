@@ -6,16 +6,15 @@
  * the compiler reads exactly one answer per target:
  *
  *   tsconfig.esm.json     dist/esm/*.js + types/*.d.ts   the one pass that typechecks
- *   tsconfig.cjs.json     dist/cjs/*.js     CommonJS, marked by its own package.json
- *   tsconfig.native.json  dist/native/*.js  CommonJS too: Metro and Node both load a
- *                         bare require there, which is what native sources say
+ *   tsconfig.cjs.json     dist/cjs/*.js   marked commonjs by its own package.json
+ *   tsconfig.native.json  dist/native/*.js
  *
- * A sibling answers for its file where it belongs and reaches no other emit:
- * `x.cjs.ts` takes x's name in both CommonJS outputs, `x.native.ts` in the
- * native one on top of that. That is how a module says `import.meta.url` once
- * and `__filename` once without either syntax leaking into an emit that cannot
- * parse it. Each CommonJS output is parsed as a script afterwards, and a file
- * only a module could load fails the build by name.
+ * A sibling answers for its file on one target and reaches no other emit:
+ * `x.cjs.ts` takes x's name in the CommonJS output, `x.native.ts` in the native
+ * one. That is how a module says `import.meta.url` once and `__filename` once
+ * without either syntax leaking into the emit that cannot parse it. The CommonJS
+ * output is parsed as a script afterwards, and a file only a module could load
+ * fails the build by name.
  *
  * Source names its imports with their extension and the compiler rewrites them
  * on emit, so the output is loadable by Node as written. Nothing else runs over
@@ -153,11 +152,8 @@ if (args.has('--watch')) {
     emit('tsconfig.native.json', ['--noCheck'])
     answer(join(cwd, 'dist/native'), 'native')
     rmSync(join(cwd, 'dist/native/.types'), { recursive: true, force: true })
-    // CommonJS, so the .cjs sibling answers here too; a .native sibling wins.
-    adopt(join(cwd, 'dist/native'), 'cjs')
     adopt(join(cwd, 'dist/native'), 'native')
-    writeFileSync(join(cwd, 'dist/native/package.json'), '{ "type": "commonjs" }\n')
-    script(join(cwd, 'dist/native'))
+    drop(join(cwd, 'dist/native'), ['cjs'])
   }
 
   if (manifest.bin) {

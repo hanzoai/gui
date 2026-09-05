@@ -3,6 +3,7 @@
 import { createRequire } from 'node:module'
 import type { GuiPlatform } from '../types.ts'
 import { url } from '../here.ts'
+import { nativeEntry } from './nativeEntry.ts'
 
 const need = createRequire(url)
 
@@ -21,7 +22,7 @@ export function requireGuiCore(
   process.env.GUI_KEEP_THEMES ||= '1'
 
   const exported = ogRequire(
-    platform === 'native' ? '@hanzogui/core/native' : '@hanzogui/core'
+    platform === 'native' ? nativeEntry('@hanzogui/core') : '@hanzogui/core'
   )
 
   // restore back

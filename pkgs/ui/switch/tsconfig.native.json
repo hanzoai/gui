@@ -9,7 +9,7 @@
     "sourceMap": true,
     "inlineSourceMap": false,
     "paths": {},
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "bundler",
     "outDir": "dist/native",
     "declaration": true,

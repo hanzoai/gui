@@ -6,7 +6,6 @@
     "outDir": "dist/native",
     "declaration": true,
     "declarationDir": "dist/native/.types",
-    "sourceMap": true,
-    "module": "commonjs"
+    "sourceMap": true
   }
 }

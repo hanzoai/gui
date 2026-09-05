@@ -1,54 +1,64 @@
-import "./_screen.css"
-const _cn15 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color _select-auto _ws-normal _text-center";
-const _cn14 = "is_View _pos-relative _fd-row _gap-c-space-2";
-const _cn13 = "is_Separator is_View _btc-borderColor _brc-borderColor _borderBottomColor-borderColor _borderLeftColor-borderColor _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
-const _cn12 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color _select-auto _ws-normal _text-center";
-const _cn11 = "is_Separator is_View _btc-borderColor _brc-borderColor _borderBottomColor-borderColor _borderLeftColor-borderColor _shrink-1 _btw-0px _brw-0px _borderBottomWidth-1px _borderLeftWidth-0px _grow-1 _fb-auto _height-0px _maxH-0px _bbs-solid _bts-solid _bls-solid _brs-solid _tr-translateY-1736186894";
-const _cn10 = "is_Paragraph is_Text font_body _ff-f-family _fw-f-weight-4 _ls-f-letterSpa1360334202 _fs-f-size-4 _lh-f-lineHeigh112923 _col-color10 _select-auto _ws-normal _text-center";
-const _cn1 = "is_H1 is_Text font_heading _select-auto _ws-normal _tt-f-transform1451 _ff-f-family _fw-f-weight-10 _ls-f-letterSpa779312653 _fs-f-size-10 _lh-f-lineHeigh3500568 _col-color12 _mt-0px _mr-0px _mb-0px _ml-0px _text-center";
-const _cn0 = "is_View _pos-relative _fd-column _gap-c-space-4";
-const _cn9 = "is_View _pos-relative _fd-row _gap-c-space-2";
-const _cn8 = "is_View _fd-row _pos-absolute _width-10037 _t-c-space-6 _gap-c-space-6 _justify-center _fwr-wrap _t-_sm_0px _pos-_sm_relative";
-const _cn7 = "is_View _pos-relative _fd-column _grow-1 _shrink-1 _fb-auto _justify-center _items-center _gap-c-space-8 _pt-c-space-4 _pr-c-space-4 _pb-c-space-4 _pl-c-space-4 _bg-background";
-const _cn6 = "is_View _pos-relative _fd-column _z-10";
-const _cn5 = "is_View _fd-column _pos-absolute _r-0px _t-0px _b-0px _items-center _justify-center _width-c-size-4 _pe-none";
-const _cn4 = "is_View _pos-relative _fd-column _z-10";
-const _cn3 = "is_View _pos-relative _fd-row _width-10037 _items-center _gap-c-space-4";
-const _cn2 = "is_View _pos-relative _fd-row _width-10037 _items-center _gap-c-space-4";
-const _cn = "is_View _pos-relative _fd-column _gap-c-space-4";
-import { Adapt, Anchor, Button, type FontSizeTokens, getFontSize, H1, Label, Paragraph, Select, type SelectProps, Separator, Sheet, toast, XStack, YStack } from '@my/ui';
-import { SwitchRouterButton } from '@my/ui/components/SwitchRouterButton';
-import { SwitchThemeButton } from '@my/ui/components/SwitchThemeButton';
-import { LinearGradient } from '@hanzogui/linear-gradient';
-import { Activity, Check, ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2';
-import React, { useState } from 'react';
-import { Platform } from 'react-native';
-import { useLink } from 'solito/navigation';
+import {
+  Adapt,
+  Anchor,
+  Button,
+  type FontSizeTokens,
+  getFontSize,
+  H1,
+  Label,
+  Paragraph,
+  Select,
+  type SelectProps,
+  Separator,
+  Sheet,
+  toast,
+  XStack,
+  YStack,
+} from '@my/ui'
+import { SwitchRouterButton } from '@my/ui/components/SwitchRouterButton'
+import { SwitchThemeButton } from '@my/ui/components/SwitchThemeButton'
+import { LinearGradient } from '@hanzogui/linear-gradient'
+import { Activity, Check, ChevronDown, ChevronUp } from '@hanzogui/lucide-icons-2'
+import React, { useState } from 'react'
+import { Platform } from 'react-native'
+import { useLink } from 'solito/navigation'
+
 export function SelectDemo() {
-  return <div className={_cn}>
-      <div className={_cn2}>
+  return (
+    <YStack gap="$4">
+      <XStack width={'100%'} items="center" gap="$4">
         <Label htmlFor="select-demo-1" flex={1} minW={80}>
           Custom
         </Label>
         <SelectDemoItem id="select-demo-1" />
-      </div>
+      </XStack>
 
-      <div className={_cn3}>
+      <XStack width={'100%'} items="center" gap="$4">
         <Label htmlFor="select-demo-2" flex={1} minW={80}>
           Native
         </Label>
         <SelectDemoItem id="select-demo-2" native />
-      </div>
-    </div>;
+      </XStack>
+    </YStack>
+  )
 }
-export function SelectDemoItem(props: SelectProps & {
-  trigger?: React.ReactNode;
-}) {
-  const [val, setVal] = React.useState('apple');
-  return <Select value={val} onValueChange={setVal} disablePreventBodyScroll zIndex={200000} {...props}>
-      {props?.trigger || <Select.Trigger maxWidth={220} iconAfter={ChevronDown}>
+
+export function SelectDemoItem(props: SelectProps & { trigger?: React.ReactNode }) {
+  const [val, setVal] = React.useState('apple')
+
+  return (
+    <Select
+      value={val}
+      onValueChange={setVal}
+      disablePreventBodyScroll
+      zIndex={200000}
+      {...props}
+    >
+      {props?.trigger || (
+        <Select.Trigger maxWidth={220} iconAfter={ChevronDown}>
           <Select.Value placeholder="Something" />
-        </Select.Trigger>}
+        </Select.Trigger>
+      )}
 
       <Adapt when="maxMd" platform="touch">
         <Sheet native={!!props.native} modal dismissOnSnapToBottom transition="medium">
@@ -57,178 +67,254 @@ export function SelectDemoItem(props: SelectProps & {
               <Adapt.Contents />
             </Sheet.ScrollView>
           </Sheet.Frame>
-          <Sheet.Overlay backgroundColor="$shadowColor" transition="lazy" enterStyle={{
-          opacity: 0
-        }} exitStyle={{
-          opacity: 0
-        }} />
+          <Sheet.Overlay
+            backgroundColor="$shadowColor"
+            transition="lazy"
+            enterStyle={{ opacity: 0 }}
+            exitStyle={{ opacity: 0 }}
+          />
         </Sheet>
       </Adapt>
 
       <Select.Content>
-        <Select.ScrollUpButton items="center" justify="center" position="relative" width="100%" height="$3">
-          <div className={_cn4}>
+        <Select.ScrollUpButton
+          items="center"
+          justify="center"
+          position="relative"
+          width="100%"
+          height="$3"
+        >
+          <YStack z={10}>
             <ChevronUp size={20} />
-          </div>
-          <LinearGradient start={[0, 0]} end={[0, 1]} fullscreen colors={['$background', 'transparent']} />
+          </YStack>
+          <LinearGradient
+            start={[0, 0]}
+            end={[0, 1]}
+            fullscreen
+            colors={['$background', 'transparent']}
+          />
         </Select.ScrollUpButton>
 
         <Select.Viewport
-      // to do animations:
-      // transition="quick"
-      // animateOnly={['transform', 'opacity']}
-      // enterStyle={{ o: 0, y: -10 }}
-      // exitStyle={{ o: 0, y: 10 }}
-      minW={200}>
+          // to do animations:
+          // transition="quick"
+          // animateOnly={['transform', 'opacity']}
+          // enterStyle={{ o: 0, y: -10 }}
+          // exitStyle={{ o: 0, y: 10 }}
+          minW={200}
+        >
           <Select.Group>
             <Select.Label>Fruits</Select.Label>
             {/* for longer lists memoizing these is useful */}
-            {React.useMemo(() => items.map((item, i) => {
-            return <Select.Item index={i} key={item.name} value={item.name.toLowerCase()}>
+            {React.useMemo(
+              () =>
+                items.map((item, i) => {
+                  return (
+                    <Select.Item
+                      index={i}
+                      key={item.name}
+                      value={item.name.toLowerCase()}
+                    >
                       <Select.ItemText>{item.name}</Select.ItemText>
                       <Select.ItemIndicator marginLeft="auto">
                         <Check size={16} />
                       </Select.ItemIndicator>
-                    </Select.Item>;
-          }), [items])}
+                    </Select.Item>
+                  )
+                }),
+              [items]
+            )}
           </Select.Group>
           {/* Native gets an extra icon */}
-          {props.native && <div className={_cn5}>
-              <ChevronDown size={getFontSize(props.size as FontSizeTokens ?? '$true')} />
-            </div>}
+          {props.native && (
+            <YStack
+              position="absolute"
+              r={0}
+              t={0}
+              b={0}
+              items="center"
+              justify="center"
+              width={'$4'}
+              pointerEvents="none"
+            >
+              <ChevronDown
+                size={getFontSize((props.size as FontSizeTokens) ?? '$true')}
+              />
+            </YStack>
+          )}
         </Select.Viewport>
 
-        <Select.ScrollDownButton items="center" justify="center" position="relative" width="100%" height="$3">
-          <div className={_cn6}>
+        <Select.ScrollDownButton
+          items="center"
+          justify="center"
+          position="relative"
+          width="100%"
+          height="$3"
+        >
+          <YStack z={10}>
             <ChevronDown size={20} />
-          </div>
-          <LinearGradient start={[0, 0]} end={[0, 1]} fullscreen colors={['transparent', '$background']} />
+          </YStack>
+          <LinearGradient
+            start={[0, 0]}
+            end={[0, 1]}
+            fullscreen
+            colors={['transparent', '$background']}
+          />
         </Select.ScrollDownButton>
       </Select.Content>
-    </Select>;
+    </Select>
+  )
 }
-const items = [{
-  name: 'Apple'
-}, {
-  name: 'Pear'
-}, {
-  name: 'Blackberry'
-}, {
-  name: 'Peach'
-}, {
-  name: 'Apricot'
-}, {
-  name: 'Melon'
-}, {
-  name: 'Honeydew'
-}, {
-  name: 'Starfruit'
-}, {
-  name: 'Blueberry'
-}, {
-  name: 'Raspberry'
-}, {
-  name: 'Strawberry'
-}, {
-  name: 'Mango'
-}, {
-  name: 'Pineapple'
-}, {
-  name: 'Lime'
-}, {
-  name: 'Lemon'
-}, {
-  name: 'Coconut'
-}, {
-  name: 'Guava'
-}, {
-  name: 'Papaya'
-}, {
-  name: 'Orange'
-}, {
-  name: 'Grape'
-}, {
-  name: 'Jackfruit'
-}, {
-  name: 'Durian'
-}];
-export function HomeScreen({
-  pagesMode = false
-}: {
-  pagesMode?: boolean;
-}) {
-  const linkTarget = pagesMode ? '/pages-example-user' : '/user';
+
+const items = [
+  { name: 'Apple' },
+  { name: 'Pear' },
+  { name: 'Blackberry' },
+  { name: 'Peach' },
+  { name: 'Apricot' },
+  { name: 'Melon' },
+  { name: 'Honeydew' },
+  { name: 'Starfruit' },
+  { name: 'Blueberry' },
+  { name: 'Raspberry' },
+  { name: 'Strawberry' },
+  { name: 'Mango' },
+  { name: 'Pineapple' },
+  { name: 'Lime' },
+  { name: 'Lemon' },
+  { name: 'Coconut' },
+  { name: 'Guava' },
+  { name: 'Papaya' },
+  { name: 'Orange' },
+  { name: 'Grape' },
+  { name: 'Jackfruit' },
+  { name: 'Durian' },
+]
+
+export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
+  const linkTarget = pagesMode ? '/pages-example-user' : '/user'
   const linkProps = useLink({
-    href: `${linkTarget}/nate`
-  });
-  return <div className={_cn7}>
-      <div className={_cn8}>
-        {Platform.OS === 'web' && <>
+    href: `${linkTarget}/nate`,
+  })
+
+  return (
+    <YStack flex={1} justify="center" items="center" gap="$8" p="$4" bg="$background">
+      <XStack
+        position="absolute"
+        width="100%"
+        t="$6"
+        gap="$6"
+        justify="center"
+        flexWrap="wrap"
+        $sm={{ position: 'relative', t: 0 }}
+      >
+        {Platform.OS === 'web' && (
+          <>
             <SwitchRouterButton pagesMode={pagesMode} />
             <SwitchThemeButton />
-          </>}
-      </div>
+          </>
+        )}
+      </XStack>
 
       <SelectDemo />
 
-      <div className={_cn9}>
-        <Button size="$3" iconAfter={<Button.Icon>
+      <XStack gap="$2">
+        <Button
+          size="$3"
+          iconAfter={
+            <Button.Icon>
               <Activity />
-            </Button.Icon>}>
+            </Button.Icon>
+          }
+        >
           <Button.Text>Inverse</Button.Text>
         </Button>
-      </div>
-      <div className={_cn0}>
-        <h1 className={_cn1}>
+      </XStack>
+      <YStack gap="$4">
+        <H1 text="center" color="$color12">
           Welcome to Gui.
-        </h1>
-        <p className={_cn10}>
+        </H1>
+        <Paragraph color="$color10" text="center">
           Here's a basic starter to show navigating from one screen to another.
-        </p>
-        <div className={_cn11} />
-        <p className={_cn12}>
+        </Paragraph>
+        <Separator />
+        <Paragraph text="center">
           This screen uses the same code on Next.js and React Native.
-        </p>
-        <div className={_cn13} />
-      </div>
+        </Paragraph>
+        <Separator />
+      </YStack>
 
       <Button {...linkProps} theme={'dark'}>
         Link to user
       </Button>
 
       <SheetDemo />
-    </div>;
+    </YStack>
+  )
 }
+
 function SheetDemo() {
-  const [open, setOpen] = useState(false);
-  const [position, setPosition] = useState(0);
-  return <>
-      <Button size="$6" icon={open ? ChevronDown : ChevronUp} circular onPress={() => setOpen(x => !x)} />
-      <Sheet modal transition="medium" open={open} onOpenChange={setOpen} snapPoints={[80]} position={position} onPositionChange={setPosition} dismissOnSnapToBottom>
-        <Sheet.Overlay bg="$shadow4" transition="lazy" enterStyle={{
-        opacity: 0
-      }} exitStyle={{
-        opacity: 0
-      }} />
+  const [open, setOpen] = useState(false)
+  const [position, setPosition] = useState(0)
+
+  return (
+    <>
+      <Button
+        size="$6"
+        icon={open ? ChevronDown : ChevronUp}
+        circular
+        onPress={() => setOpen((x) => !x)}
+      />
+      <Sheet
+        modal
+        transition="medium"
+        open={open}
+        onOpenChange={setOpen}
+        snapPoints={[80]}
+        position={position}
+        onPositionChange={setPosition}
+        dismissOnSnapToBottom
+      >
+        <Sheet.Overlay
+          bg="$shadow4"
+          transition="lazy"
+          enterStyle={{ opacity: 0 }}
+          exitStyle={{ opacity: 0 }}
+        />
         <Sheet.Handle bg="$color8" />
         <Sheet.Frame items="center" justify="center" gap="$10" bg="$color2">
-          <div className={_cn14}>
-            <p className={_cn15}>Made by</p>
-            <Anchor color="$blue10" href="https://twitter.com/natebirdman" target="_blank">
+          <XStack gap="$2">
+            <Paragraph text="center">Made by</Paragraph>
+            <Anchor
+              color="$blue10"
+              href="https://twitter.com/natebirdman"
+              target="_blank"
+            >
               @natebirdman,
             </Anchor>
-            <Anchor color="$blue10" href="https://github.com/hanzoai/gui" target="_blank" rel="noreferrer">
+            <Anchor
+              color="$blue10"
+              href="https://github.com/hanzoai/gui"
+              target="_blank"
+              rel="noreferrer"
+            >
               give it a ⭐️
             </Anchor>
-          </div>
+          </XStack>
 
-          <Button size="$6" circular icon={ChevronDown} onPress={() => {
-          setOpen(false);
-          toast('Sheet closed!', {
-            description: 'Just showing how toast works...'
-          });
-        }} />
+          <Button
+            size="$6"
+            circular
+            icon={ChevronDown}
+            onPress={() => {
+              setOpen(false)
+              toast('Sheet closed!', {
+                description: 'Just showing how toast works...',
+              })
+            }}
+          />
         </Sheet.Frame>
       </Sheet>
-    </>;
+    </>
+  )
 }

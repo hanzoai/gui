@@ -7,6 +7,7 @@ import {
 } from '@hanzogui/static'
 import type { CLIResolvedOptions, GuiOptions } from '@hanzogui/types'
 import chokidar from 'chokidar'
+import { globSync } from 'node:fs'
 import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import MicroMatch from 'micromatch'
 import { basename, dirname, extname, join, relative, resolve } from 'node:path'
@@ -108,32 +109,15 @@ export const build = async (
   // Collect all files first
   const allFiles: string[] = []
 
-  // Handle both directory and specific file paths
-  const watchPattern = sourceDir.match(/\.(tsx|jsx)$/)
-    ? sourceDir // Single file
-    : `${sourceDir}/**/*.{tsx,jsx}` // Directory
-
-  await new Promise<void>((res) => {
-    const watcher = chokidar.watch(watchPattern, {
-      ignoreInitial: false,
-    })
-    watcher
-      .on('add', (relativePath) => {
-        const sourcePath = resolve(process.cwd(), relativePath)
-
-        if (options.exclude && MicroMatch.contains(relativePath, options.exclude)) {
-          return
-        }
-        if (options.include && !MicroMatch.contains(relativePath, options.include)) {
-          return
-        }
-
-        allFiles.push(sourcePath)
-      })
-      .on('ready', () => {
-        watcher.close().then(() => res())
-      })
-  })
+  // A single file, or every component file beneath a directory.
+  const found = sourceDir.match(/\.(tsx|jsx)$/)
+    ? [sourceDir]
+    : globSync('**/*.{tsx,jsx}', { cwd: sourceDir }).map((file) => join(sourceDir, file))
+  for (const relativePath of found) {
+    if (options.exclude && MicroMatch.contains(relativePath, options.exclude)) continue
+    if (options.include && !MicroMatch.contains(relativePath, options.include)) continue
+    allFiles.push(resolve(process.cwd(), relativePath))
+  }
 
   // Now determine what to optimize for each file
   const fileToTargets = new Map<string, ('web' | 'native')[]>()

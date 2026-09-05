@@ -6,8 +6,8 @@
     "./packages/*"
   ],
   "scripts": {
-    "test": "vitest run",
-    "test:web": "vitest run",
+    "test": "vitest run; s=$?; bun run test:clean; exit $s",
+    "test:web": "vitest run; s=$?; bun run test:clean; exit $s",
     "test:unit": "vitest run",
     "test:clean": "git checkout packages/app/ && git clean -fd packages/app/"
   },

@@ -18,6 +18,7 @@ import type { ViewStyle } from 'react-native'
 
 import { FAILED_EVAL } from '../constants.ts'
 import { requireGuiCore } from '../helpers/requireGuiCore.ts'
+import { registerRequire } from '../registerRequire.ts'
 import type {
   ExtractedAttr,
   ExtractedAttrStyle,
@@ -26,6 +27,7 @@ import type {
   GuiOptions,
   GuiOptionsWithFileInfo,
   Ternary,
+  GuiPlatform,
 } from '../types.ts'
 import type { LoadedComponents, GuiProjectInfo } from './bundleConfig.ts'
 import { createEvaluator, createSafeEvaluator } from './createEvaluator.ts'
@@ -55,6 +57,17 @@ import { timer } from './timer.ts'
 import { validHTMLAttributes } from './validHTMLAttributes.ts'
 import { BailOptimizationError } from './errors.ts'
 import { probe, resolveAlias } from './esbuildTsconfigPaths.ts'
+
+// The core of a platform, loaded with the extractor's own require in place so
+// the react-native its native emit asks for is the one this process can run.
+const loadGuiCore = (platform: GuiPlatform) => {
+  const { unregister } = registerRequire(platform)
+  try {
+    return requireGuiCore(platform)
+  } finally {
+    unregister()
+  }
+}
 
 const UNTOUCHED_PROPS = {
   key: true,
@@ -294,7 +307,7 @@ export function createExtractor(
       proxyThemeVariables,
       getDefaultProps,
       pseudoDescriptors,
-    } = requireGuiCore(platform)
+    } = loadGuiCore(platform)
 
     let shouldPrintDebug = options.shouldPrintDebug || false
 
@@ -1962,6 +1975,21 @@ export function createExtractor(
             staticConfig.neverFlatten !== true &&
             (staticConfig.neverFlatten === 'jsx' ? hasOnlyStringChildren : true)
           )
+
+          if (shouldPrintDebug === 'verbose') {
+            logger.info(
+              `  flatten? ${originalNodeName} -> ${flatNodeName} ${JSON.stringify({
+                shouldFlatten,
+                shouldDeopt,
+                canFlattenProps,
+                hasSpread,
+                isStyledHOC: staticConfig.isStyledHOC,
+                isHOC: staticConfig.isHOC,
+                isReactNative: staticConfig.isReactNative,
+                neverFlatten: staticConfig.neverFlatten,
+              })}`
+            )
+          }
 
           const usedThemeKeys = new Set<string>()
           // if it accesses any theme values during evaluation

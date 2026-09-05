@@ -10,8 +10,8 @@
     "icon"
   ],
   "type": "module",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
@@ -31,7 +31,7 @@
       "module": "./dist/esm/LogoIcon.js",
       "import": "./dist/esm/LogoIcon.js",
       "require": "./dist/cjs/LogoIcon.js",
-      "default": "./dist/cjs/LogoIcon.native.js"
+      "default": "./dist/esm/LogoIcon.js"
     }
   },
   "publishConfig": {

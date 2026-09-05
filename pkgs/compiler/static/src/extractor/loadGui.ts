@@ -1,11 +1,15 @@
 import { basename, dirname, extname, join, relative, resolve } from 'node:path'
+import { createRequire } from 'node:module'
+import { url } from '../here.ts'
+
+const require = createRequire(url)
 // @ts-ignore why
 import { Color, colorLog } from '@hanzogui/cli-color'
 import type { CLIResolvedOptions, CLIUserOptions, GuiOptions } from '@hanzogui/types'
 import type { GuiInternalConfig } from '@hanzogui/web'
 import esbuild from 'esbuild'
 import * as esbuildWasm from 'esbuild-wasm'
-import * as fsExtra from 'fs-extra'
+import fsExtra from 'fs-extra'
 
 import { SHOULD_DEBUG } from '../constants.ts'
 import { requireGuiCore } from '../helpers/requireGuiCore.ts'

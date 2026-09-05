@@ -11,12 +11,12 @@
     "clean": "one clean",
     "serve": "one serve --port 8081",
     "build": "hanzogui generate-css || true",
-    "build:prod": "one build",
-    "prod": "bun run build:prod && bun run serve",
+    "prod": "bun run build:web && bun run serve",
     "serve:host": "one serve --host 0.0.0.0",
-    "dev-build-prod": "VXRN_DISABLE_PROD_OPTIMIZATION=1 bun run build:prod && bun run serve",
+    "dev-build-prod": "VXRN_DISABLE_PROD_OPTIMIZATION=1 bun run build:web && bun run serve",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build:web": "one build"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.45",

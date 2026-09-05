@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { CLI_NAME } from './constants.js'
 import { red } from './lib/ansi.js'
 

@@ -1,13 +1,20 @@
 {
   "name": "@hanzogui/react-native-svg",
   "version": "8.3.1",
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
   "type": "module",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "react-native": "./dist/esm/index.js",
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/native/index.js",
       "browser": "./dist/esm/index.js",
       "module": "./dist/esm/index.js",
       "import": "./dist/esm/index.js",
@@ -19,8 +26,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "mkdir -p dist/esm dist/native && cp src/index.js dist/esm/index.js && cp src/index.native.js dist/native/index.js",
-    "watch": "hanzogui-build --watch",
+    "build": "hanzogui-build",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"
   },

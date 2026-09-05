@@ -13,7 +13,6 @@
   "source": "src/index.ts",
   "files": [
     "dist",
-    "inject-styles.cjs",
     "inject-styles",
     "reset.css",
     "src",
@@ -23,8 +22,8 @@
   "sideEffects": [
     "*.css"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
@@ -46,12 +45,12 @@
     },
     "./inject-styles": {
       "types": "./types/inject-styles.d.ts",
-      "react-native": "./dist/esm/inject-styles.js",
+      "react-native": "./dist/native/inject-styles.js",
       "browser": "./dist/esm/inject-styles.js",
       "module": "./dist/esm/inject-styles.js",
       "import": "./dist/esm/inject-styles.js",
       "require": "./dist/cjs/inject-styles.js",
-      "default": "./dist/cjs/inject-styles.js"
+      "default": "./dist/esm/inject-styles.js"
     }
   },
   "publishConfig": {

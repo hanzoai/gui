@@ -1,5 +1,9 @@
+import { createRequire } from 'node:module'
 import type { ThemeBuilder } from '@hanzogui/theme-builder'
 import { join } from 'node:path'
+import { url } from './here.ts'
+
+const require = createRequire(url)
 
 type ThemeBuilderInterceptOpts = {
   onComplete: (result: { themeBuilder: ThemeBuilder<any> }) => void

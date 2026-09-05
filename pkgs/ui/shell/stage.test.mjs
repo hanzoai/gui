@@ -21,7 +21,7 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { HANZO_FLAGSHIP, HANZO_FLAGSHIP_PUBLIC, sees } from './dist/hanzo-registry.js'
+import { HANZO_FLAGSHIP, HANZO_FLAGSHIP_PUBLIC, sees } from './dist/esm/hanzo-registry.js'
 
 const ids = (list) => list.map((p) => p.id)
 

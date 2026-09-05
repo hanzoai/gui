@@ -3,7 +3,8 @@
   "author": "Bryan Mishkin",
  */
 
-import { globSync } from 'fast-glob'
+import fg from 'fast-glob'
+const globSync = fg.globSync ?? fg.sync
 import { load } from 'js-yaml'
 import { existsSync, readFileSync } from 'node:fs'
 import { join, relative } from 'node:path'

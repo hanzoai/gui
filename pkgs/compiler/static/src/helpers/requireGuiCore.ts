@@ -1,6 +1,10 @@
 // this allows us to swap between core native and web in the same process:
 
+import { createRequire } from 'node:module'
 import type { GuiPlatform } from '../types.ts'
+import { url } from '../here.ts'
+
+const require = createRequire(url)
 
 export function requireGuiCore(
   platform: GuiPlatform,

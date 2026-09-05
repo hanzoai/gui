@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 import Pastel from 'pastel'
+import { meta } from './here.ts'
 
 const app = new Pastel({
-  importMeta: import.meta,
+  importMeta: meta,
   name: 'bento-get',
 })
 
-await app.run()
+app.run().catch((error) => {
+  console.error(error)
+  process.exit(1)
+})

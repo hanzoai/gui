@@ -89,6 +89,10 @@
     },
     "dev": {
       "cache": false
+    },
+    "build:web": {
+      "dependsOn": ["^build", "build"],
+      "outputs": ["dist/**"]
     }
   }
 }

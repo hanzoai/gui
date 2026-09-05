@@ -1,6 +1,10 @@
 #!/usr/bin/env node
+import { createRequire } from 'node:module'
 import arg from 'arg'
 import chalk from 'chalk'
+import { url } from './here.ts'
+
+const require = createRequire(url)
 
 import { disposeAll, getOptions } from './utils.ts'
 

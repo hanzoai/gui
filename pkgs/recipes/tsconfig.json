@@ -1,6 +1,10 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": { "composite": true },
-  "references": [],
-  "exclude": ["types", "dist", "**/__tests__"]
+  "compilerOptions": {
+    "composite": true
+  },
+  "include": [
+    "src"
+  ],
+  "references": []
 }

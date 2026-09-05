@@ -1,15 +1,17 @@
 import { register } from 'esbuild-register/dist/node'
+import Module, { createRequire } from 'node:module'
+import proxyWorm from '@hanzogui/proxy-worm'
 
 import { esbuildIgnoreFilesRegex } from './extractor/bundle.ts'
 import { requireGuiCore } from './helpers/requireGuiCore.ts'
 import type { GuiPlatform } from './types.ts'
+import { url } from './here.ts'
 
 const nameToPaths = {}
 
 export const getNameToPaths = () => nameToPaths
 
-const Module = require('node:module')
-const proxyWorm = require('@hanzogui/proxy-worm')
+const require = createRequire(url)
 
 let isRegistered = false
 let og: any
@@ -69,7 +71,8 @@ export function registerRequire(
 
   // capture original resolve BEFORE esbuild-register patches it
   // so we can use Node's native exports resolution for @hanzogui packages
-  const originalResolveFilename = Module._resolveFilename
+  const mod = Module as any
+  const originalResolveFilename = mod._resolveFilename
 
   const { unregister } = register({
     hookIgnoreNodeModules: false,
@@ -88,8 +91,8 @@ export function registerRequire(
   // esbuild-register's registerTsconfigPaths replaces Module._resolveFilename
   // but tsconfig paths resolution bypasses Node's package exports
   // we need to restore Node's native resolution for @hanzogui packages
-  const tsconfigPatchedResolve = Module._resolveFilename
-  Module._resolveFilename = function (request: string, ...args: any[]) {
+  const tsconfigPatchedResolve = mod._resolveFilename
+  mod._resolveFilename = function (request: string, ...args: any[]) {
     // for @hanzogui packages, use Node's native resolution (respects exports)
     if (request.startsWith('@hanzogui/')) {
       return originalResolveFilename.call(this, request, ...args)
@@ -99,12 +102,12 @@ export function registerRequire(
   }
 
   if (!og) {
-    og = Module.prototype.require // capture esbuild require
+    og = mod.prototype.require // capture esbuild require
   }
 
   isRegistered = true
 
-  Module.prototype.require = hanzoguiRequire
+  mod.prototype.require = hanzoguiRequire
 
   function hanzoguiRequire(this: any, path: string) {
     const staticExtractionStub = getStaticExtractionStub(path)

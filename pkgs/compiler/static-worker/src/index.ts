@@ -9,8 +9,9 @@
  */
 
 import type { GuiOptions } from '@hanzogui/types'
-import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
 import Piscina from 'piscina'
+import { url } from './here.ts'
 
 export type { ExtractedResponse, GuiProjectInfo } from '@hanzogui/static'
 export type { GuiOptions } from '@hanzogui/types'
@@ -40,19 +41,8 @@ export const getPragmaOptions = async (props: { source: string; path: string }) 
   return Static.getPragmaOptions(props)
 }
 
-// Resolve worker path - works for both CJS and ESM
-const getWorkerPath = () => {
-  // Piscina needs the actual file path, not the module resolution
-  // Use the CommonJS .js version which works for piscina
-  if (typeof import.meta !== 'undefined' && import.meta.url) {
-    const workerPath = fileURLToPath(import.meta.resolve('@hanzogui/static/worker'))
-    // Replace .mjs with .js for CommonJS compatibility
-    return workerPath.replace(/\.mjs$/, '.js')
-  }
-
-  // Fallback for CJS
-  return require.resolve('@hanzogui/static/worker').replace(/\.mjs$/, '.js')
-}
+// The worker file, by this package's own resolution of it.
+const getWorkerPath = () => createRequire(url).resolve('@hanzogui/static/worker')
 
 // Use globalThis to share pool across module instances (Vite environments)
 const POOL_KEY = '__hanzogui_piscina_pool__'

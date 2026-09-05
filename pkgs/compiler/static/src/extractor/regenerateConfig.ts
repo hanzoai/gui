@@ -1,8 +1,12 @@
+import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 
 import { generateThemes, writeGeneratedThemes } from '@hanzogui/generate-themes'
 import type { GuiOptions } from '@hanzogui/types'
-import * as FS from 'fs-extra'
+import FS from 'fs-extra'
+import { url } from '../here.ts'
+
+const require = createRequire(url)
 
 import { requireGuiCore } from '../helpers/requireGuiCore.ts'
 import type { GuiPlatform } from '../types.ts'

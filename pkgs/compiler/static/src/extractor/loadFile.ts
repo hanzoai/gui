@@ -1,3 +1,8 @@
+import { createRequire } from 'node:module'
+import { url } from '../here.ts'
+
+const require = createRequire(url)
+
 process.on('message', (path) => {
   if (typeof path !== 'string') {
     throw new Error(`Not a string: ${path}`)

@@ -17,6 +17,8 @@
 // exactly one API host, so there is exactly one thing to configure, and by
 // default you configure nothing.
 
+import { env } from './here.ts'
+
 const DEFAULT_HOST = 'https://api.hanzo.ai'
 
 // Declared locally rather than pulling @types/node into a browser package: the
@@ -93,13 +95,7 @@ function processEnv(): RawEnv {
 
 function metaEnv(): RawEnv {
   try {
-    // MEMBER form, deliberately. Aliasing a bare `import.meta` first
-    // (`const m = import.meta`) is a parse-time SyntaxError in a CommonJS
-    // consumer: every babel plugin that rewrites `import.meta` for a CJS target
-    // matches only the member expression, so a bare one survives the transform
-    // and takes the whole module down. Jest is the one that finds this.
-    const e = (import.meta as unknown as { env?: Record<string, string | undefined> })
-      ?.env
+    const e = env
     if (!e) return {}
     return {
       apiUrl: first(

@@ -124,8 +124,8 @@ export function hanzoguiAliases(options: AliasOptions = {}): AliasEntry[] {
       path.join(
         rnwlBase,
         options.rnwLite === 'without-animated'
-          ? 'dist/esm/without-animated.mjs'
-          : 'dist/esm/index.mjs'
+          ? 'dist/esm/without-animated.js'
+          : 'dist/esm/index.js'
       )
     )
     aliases.push(
@@ -133,7 +133,7 @@ export function hanzoguiAliases(options: AliasOptions = {}): AliasEntry[] {
         // map deep RNW paths like dist/exports/StyleSheet/preprocess to rnw-lite's flat structure
         // extracts the final path segment (e.g. "preprocess" or "createReactDOMStyle")
         find: /^react-native(?:-web)?\/dist\/(?:exports|modules)\/.*\/([^/]+)$/,
-        replacement: `${normalizePath(rnwlBase)}/dist/esm/$1.mjs`,
+        replacement: `${normalizePath(rnwlBase)}/dist/esm/$1.js`,
       },
       {
         find: /^react-native$/,

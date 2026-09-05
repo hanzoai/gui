@@ -150,8 +150,7 @@ export const AdaptParent = ({ children, Contents, scope, portal }: AdaptParentPr
     childrenStoreRef.current = createAdaptChildrenStore()
   }
 
-  const isTeleport =
-    process.env.GUI_TARGET === 'native' && getPortal().state.type === 'teleport'
+  const isTeleport = !isWeb && getPortal().state.type === 'teleport'
 
   const FinalContents = useMemo(() => {
     if (Contents) {

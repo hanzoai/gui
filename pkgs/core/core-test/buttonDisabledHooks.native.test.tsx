@@ -87,7 +87,7 @@ afterEach(() => {
 describe('styled(Button) disabled hook stability', () => {
   test.each([false, true])(
     'does not throw when disabled toggles inside a forwardRef wrapper (RNGH enabled: %s)',
-    (gestureEnabled) => {
+    async (gestureEnabled) => {
       setGestureHandlerEnabled(gestureEnabled)
 
       const app = (disabled: boolean) => (
@@ -96,10 +96,10 @@ describe('styled(Button) disabled hook stability', () => {
         </GuiProvider>
       )
 
-      const rendered = render(app(false))
+      const rendered = await render(app(false))
 
-      expect(() => {
-        rendered.rerender(app(true))
+      await expect(async () => {
+        await rendered.rerender(app(true))
       }).not.toThrow()
     }
   )

@@ -35,15 +35,15 @@ const bgOf = (tree: any) => {
 }
 
 describe('native portal theme repropagation', () => {
-  test('wrapping in <Theme name={useThemeName()}> preserves DynamicColorIOS (no de-opt)', () => {
-    const baseline = render(
+  test('wrapping in <Theme name={useThemeName()}> preserves DynamicColorIOS (no de-opt)', async () => {
+    const baseline = await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Theme name="light">
           <View backgroundColor="$background" />
         </Theme>
       </GuiProvider>
     )
-    const wrapped = render(
+    const wrapped = await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Theme name="light">
           <PortalItemSim>
@@ -60,10 +60,10 @@ describe('native portal theme repropagation', () => {
     expect(wrappedBg).toEqual({ dynamic: { light: '#fff', dark: '#000' } })
   })
 
-  test('mounting the portal wrapper adds no extra renders', () => {
+  test('mounting the portal wrapper adds no extra renders', async () => {
     portalItemRenders = 0
     innerRenders = 0
-    render(
+    await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Theme name="blue">
           <PortalItemSim>
@@ -76,7 +76,7 @@ describe('native portal theme repropagation', () => {
     expect(innerRenders).toBe(1)
   })
 
-  test('a genuine parent theme-name change propagates into portaled content', () => {
+  test('a genuine parent theme-name change propagates into portaled content', async () => {
     portalItemRenders = 0
     innerRenders = 0
     let setName: (n: string) => void = () => {}
@@ -91,13 +91,15 @@ describe('native portal theme repropagation', () => {
         </Theme>
       )
     }
-    render(
+    await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Harness />
       </GuiProvider>
     )
     expect(innerRenders).toBe(1)
-    act(() => setName('red'))
+    await act(async () => {
+      setName('red')
+    })
     // a real name change reaches the portaled content (correctness): the inner
     // node re-renders exactly once more. scheme swaps (test above) never do.
     expect(innerRenders).toBe(2)

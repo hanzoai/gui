@@ -9,7 +9,7 @@
 
 'use strict'
 
-import { AnimatedInterpolation } from './AnimatedInterpolation.jsx'
+import { AnimatedInterpolation } from './AnimatedInterpolation.js'
 import { AnimatedValue } from './AnimatedValue.js'
 import { AnimatedWithChildren } from './AnimatedWithChildren.js'
 

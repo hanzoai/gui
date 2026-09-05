@@ -12,12 +12,12 @@
 
 import { AnimatedEvent, attachNativeEvent } from './AnimatedEvent.js'
 import { AnimatedImplementation } from './AnimatedImplementation.js'
-import { AnimatedInterpolation } from './nodes/AnimatedInterpolation.jsx'
+import { AnimatedInterpolation } from './nodes/AnimatedInterpolation.js'
 import { AnimatedNode } from './nodes/AnimatedNode.js'
 import { AnimatedValue } from './nodes/AnimatedValue.js'
 import { AnimatedValueXY } from './nodes/AnimatedValueXY.js'
 
-import { createAnimatedComponent } from './createAnimatedComponent.jsx'
+import { createAnimatedComponent } from './createAnimatedComponent.js'
 
 import { AnimatedColor } from './nodes/AnimatedColor.js'
 

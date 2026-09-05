@@ -9,7 +9,7 @@
 
 'use strict'
 
-import { AnimatedInterpolation } from './AnimatedInterpolation.jsx'
+import { AnimatedInterpolation } from './AnimatedInterpolation.js'
 import { AnimatedWithChildren } from './AnimatedWithChildren.js'
 import { InteractionManager } from '@hanzogui/react-native-web-internals'
 import { NativeAnimatedHelper } from '../NativeAnimatedHelper.js'

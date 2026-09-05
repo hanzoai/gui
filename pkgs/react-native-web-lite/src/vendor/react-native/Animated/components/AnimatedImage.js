@@ -10,7 +10,7 @@
 import * as React from 'react'
 
 import { Image } from '../../../../Image/index.tsx'
-import { createAnimatedComponent } from '../createAnimatedComponent.jsx'
+import { createAnimatedComponent } from '../createAnimatedComponent.js'
 
 const AnimatedImage = createAnimatedComponent(Image)
 export { AnimatedImage }

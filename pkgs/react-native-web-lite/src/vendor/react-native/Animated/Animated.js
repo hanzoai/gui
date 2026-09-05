@@ -10,10 +10,10 @@
 import { Platform } from '@hanzogui/react-native-web-internals'
 import { AnimatedImplementation } from './AnimatedImplementation.js'
 import { AnimatedMock } from './AnimatedMock.js'
-import { FlatList } from './components/AnimatedFlatList.jsx'
+import { FlatList } from './components/AnimatedFlatList.js'
 import { AnimatedImage as Image } from './components/AnimatedImage.js'
-import { ScrollView } from './components/AnimatedScrollView.jsx'
-import { SectionList } from './components/AnimatedSectionList.jsx'
+import { ScrollView } from './components/AnimatedScrollView.js'
+import { SectionList } from './components/AnimatedSectionList.js'
 import { AnimatedText as Text } from './components/AnimatedText.js'
 import { AnimatedView as View } from './components/AnimatedView.js'
 

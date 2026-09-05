@@ -8,7 +8,7 @@
  * @format
  */
 
-import { AnimatedInterpolation } from './AnimatedInterpolation.jsx'
+import { AnimatedInterpolation } from './AnimatedInterpolation.js'
 import { AnimatedWithChildren } from './AnimatedWithChildren.js'
 
 class AnimatedDiffClamp extends AnimatedWithChildren {

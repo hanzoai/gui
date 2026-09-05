@@ -8,7 +8,7 @@
  */
 
 import { Text } from '../../../../Text/index.tsx'
-import { createAnimatedComponent } from '../createAnimatedComponent.jsx'
+import { createAnimatedComponent } from '../createAnimatedComponent.js'
 
 const AnimatedText = createAnimatedComponent(Text)
 export { AnimatedText }

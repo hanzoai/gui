@@ -5,5 +5,5 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export { default as VirtualizedList } from './vendor/react-native/VirtualizedList/index.jsx'
-export { VirtualizedList as default } from './vendor/react-native/VirtualizedList/index.jsx'
+export { default as VirtualizedList } from './vendor/react-native/VirtualizedList/index.js'
+export { VirtualizedList as default } from './vendor/react-native/VirtualizedList/index.js'

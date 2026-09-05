@@ -17,7 +17,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
-import { createAnalytics } from '@hanzo/event'
+import { createAnalytics, resetClients } from '@hanzo/event'
 import { AnalyticsProvider } from '@hanzo/event/react'
 import { TelemetryProvider } from '../src/TelemetryProvider'
 import { getTelemetry, setTelemetry } from '../src/telemetry'
@@ -59,6 +59,7 @@ beforeEach(() => {
   installStorage()
   vi.stubGlobal('navigator', {})
   setTelemetry(undefined)
+  resetClients() // each `it` is its own page load
   sent = []
   vi.stubGlobal('fetch', (url: string, init?: { body?: string }) => {
     const body = JSON.parse(init?.body ?? '{"batch":[]}') as {
@@ -185,6 +186,27 @@ describe('owner="gui" — what GuiProvider mounts', () => {
         </TelemetryProvider>
       )
     })
+    flushAll()
+
+    expect(pageviews()).toHaveLength(1)
+  })
+
+  // A React remount is not a new page. The registry that makes "one stream per
+  // page" true is page state, so a provider that discards it on unmount hands
+  // the next mount a client that has never seen this page — and it counts the
+  // view a second time. Nothing about the wire says the two came from different
+  // clients, so the page is simply over-counted, quietly and forever.
+  it('a remount does not restart the page stream', () => {
+    const Page = (): React.ReactNode => (
+      <TelemetryProvider product="app" replay={false}>
+        <p>x</p>
+      </TelemetryProvider>
+    )
+
+    act(() => root.render(<Page />))
+    flushAll()
+    act(() => root.render(<p>between</p>))
+    act(() => root.render(<Page />))
     flushAll()
 
     expect(pageviews()).toHaveLength(1)

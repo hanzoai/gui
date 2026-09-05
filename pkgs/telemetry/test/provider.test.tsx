@@ -7,6 +7,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Component, act, type ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
+import { resetClients } from '@hanzo/event'
 import { TelemetryProvider } from '../src/TelemetryProvider'
 import { getTelemetry, setTelemetry, track } from '../src/telemetry'
 
@@ -45,6 +46,7 @@ beforeEach(() => {
   installStorage()
   vi.stubGlobal('navigator', {})
   setTelemetry(undefined)
+  resetClients() // each `it` is its own page load
   sent = []
   vi.stubGlobal('fetch', (url: string, init?: { body?: string }) => {
     const body = JSON.parse(init?.body ?? '{"batch":[]}') as {

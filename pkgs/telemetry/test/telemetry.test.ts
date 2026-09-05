@@ -14,6 +14,7 @@
 //      well-formed error required.
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { resetClients } from '@hanzo/event'
 import { onConsentChange, setConsent } from '../src/consent'
 import { productFromHost, resolveEnv } from '../src/env'
 import { createTelemetry, setTelemetry } from '../src/telemetry'
@@ -63,6 +64,7 @@ beforeEach(() => {
   installStorage().clear()
   stubNavigator({})
   setTelemetry(undefined)
+  resetClients() // each `it` is its own page load
   captureFetch()
 })
 

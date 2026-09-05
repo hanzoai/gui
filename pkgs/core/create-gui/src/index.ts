@@ -2,9 +2,9 @@
 // inspired by https://github.com/vercel/next.js/blob/0355e5f63f87db489f36db8d814958cb4c2b828b/packages/create-next-app/helpers/examples.ts#L71
 
 import chalk from 'chalk'
-import Commander from 'commander'
+import { Command } from 'commander'
 import { detect } from 'detect-package-manager'
-import { existsSync, readFileSync, writeFileSync } from 'fs-extra'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -33,15 +33,15 @@ function exit() {
 process.on('SIGTERM', exit)
 process.on('SIGINT', exit)
 
-const program = new Commander.Command(packageJson.name)
+const program = new Command(packageJson.name)
   .version(packageJson.version)
-  .arguments('<project-directory>')
+  .arguments('[project-directory]')
   .action((name) => {
     projectPath = name
   })
   .option(`--info`, 'Just shows the setup guide for the starter.')
   .option(
-    `--template <template>, -t <template>`,
+    `-t, --template <template>`,
     'Choose between four or more starter templates.',
     ''
   )
@@ -59,12 +59,13 @@ if (process.argv.includes('--version')) {
   console.info(packageJson.version)
   process.exit(0)
 }
-const info = !!program.info
+const options = program.opts()
+const info = !!options.info
 
 async function run() {
   try {
     if (info) {
-      let template = await getTemplateInfo(program.template)
+      let template = await getTemplateInfo(options.template)
       if (template?.extraSteps) {
         await template.extraSteps({
           isFullClone: false,
@@ -97,7 +98,7 @@ async function run() {
 
     projectPath ||= await getProjectName(projectPath)
 
-    let template = await getTemplateInfo(program.template)
+    let template = await getTemplateInfo(options.template)
 
     if (template.type === 'premium') {
       const didPurchase = (

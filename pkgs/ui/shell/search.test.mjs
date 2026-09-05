@@ -8,7 +8,7 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { score, search } from './dist/search.js'
+import { score, search } from './dist/esm/search.js'
 
 /**
  * The shape the palette indexes — including the HREF, which is load-bearing.

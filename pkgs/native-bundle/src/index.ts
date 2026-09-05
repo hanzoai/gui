@@ -1,9 +1,11 @@
 import { build } from 'vite'
+import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
+import { url } from './here.ts'
 import { resolve, dirname } from 'node:path'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const require = createRequire(url)
+const __dirname = dirname(fileURLToPath(url))
 
 export interface BundleOptions {
   /**
@@ -64,7 +66,7 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
 
   const resolvePath = (name: string) => {
     try {
-      return fileURLToPath(import.meta.resolve(name))
+      return require.resolve(name)
     } catch {
       // Fallback for packages that might not be resolvable
       return name
@@ -73,7 +75,7 @@ export async function bundleNative(options: BundleOptions): Promise<void> {
 
   const resolvePackageDir = (name: string) => {
     try {
-      const pkgJson = fileURLToPath(import.meta.resolve(`${name}/package.json`))
+      const pkgJson = require.resolve(`${name}/package.json`)
       return dirname(pkgJson)
     } catch {
       return name

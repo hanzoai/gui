@@ -5,11 +5,15 @@ import { createHash } from 'node:crypto'
 import { existsSync, readFileSync, unlinkSync } from 'node:fs'
 import { basename, dirname, extname, join, relative, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { createRequire } from 'node:module'
+import { url } from '../here.ts'
+
+const require = createRequire(url)
 // @ts-ignore why
 import { Color, colorLog } from '@hanzogui/cli-color'
 import { type StaticConfig, type GuiInternalConfig } from '@hanzogui/web'
 import esbuild from 'esbuild'
-import * as FS from 'fs-extra'
+import FS from 'fs-extra'
 import { readFile } from 'node:fs/promises'
 import { registerRequire, setRequireResult } from '../registerRequire.ts'
 import type { GuiOptions } from '../types.ts'

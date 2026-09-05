@@ -9,13 +9,10 @@
 # from the FIRST of WORKFLOW_DIRS present in a commit, and `.hanzo/workflows`
 # wins, which is also why `.github/workflows` is dark on Hanzo Git.
 #
-# NO `images:` AND NO `deploy:`. This is a package repo: 199 workspaces
-# published to npm, and the one surface it owns — hanzo.team, from apps/team —
-# is a static export served straight off object storage, which needs neither. The one container
-# it produces — ghcr.io/hanzoai/gui, the gui.hanzo.ai site — is still built by
-# `.hanzo/workflows/build.yml` on a v* tag. Declaring it here too would give one
-# image two builders, and the fold can only be proven by cutting a tag, so it is
-# its own move rather than a rider on this one.
+# NO `images:` AND NO `deploy:`. This is a package repo: its workspaces publish
+# to npm, and the two surfaces it owns, hanzo.team and gui.hanzo.ai, are static
+# exports served straight off object storage by the `sites:` lane below, which
+# needs neither an image nor a pod.
 
 test:
   # bun, at the version package.json already pins. The reusable provisions Go,
@@ -113,22 +110,27 @@ test:
         --filter=@hanzogui/components-test \
         --concurrency=1
 
-# hanzo.team. apps/team is a One SPA and its entire backend is the cloud team
-# surface at api.hanzo.ai/v1/team — rooms, messages, files, roster — so it needs
-# no image and no pod, only an export the ingress can serve. The router that
-# serves it is universe charts/app/values/hanzo/static-sites.yaml `team-static`,
-# with spaMode ON: `one build` writes rooms/:id.html literally, so /rooms/<id>
-# has no file behind it and must fall back to the shell for the client router to
-# resolve it.
+# Two sites off one build, published by the reusable's site lane to the Sites
+# plane, where universe charts/app/values/hanzo/static-sites.yaml routes each:
+#
+#   team   hanzo.team, apps/team. Its entire backend is the cloud team surface at
+#          api.hanzo.ai/v1/team, so it needs no image and no pod. `team-static`
+#          has spaMode ON: `one build` writes rooms/:id.html literally, so
+#          /rooms/<id> has no file behind it and must fall back to the shell for
+#          the client router to resolve it.
+#   gui    gui.hanzo.ai, apps/gui.hanzo.ai, the docs. Every route is a real file
+#          under dist/client, so `gui-static` serves it with spaMode off.
 #
 # `on` is not decoration. It defaults to the empty list, and an unnamed branch
-# publishes NOTHING — a main push would run the build, report success and ship
-# no bytes. Naming main is what makes a merge reach the site.
+# publishes NOTHING. Naming main is what makes a merge reach the sites; the
+# lane reads it from the first entry and applies it to the list.
 #
-# turbo, not the bare script: apps/team imports workspace packages that must be
-# built before it can be, and `one build` alone does not build them.
-site:
-  slug: team
-  dir: apps/team/dist/client
-  on: [main]
-  build: bun turbo run build:web --filter=@hanzogui/team
+# turbo, not the bare script: both apps import workspace packages that must be
+# built before they can be, and `one build` alone does not build them.
+sites:
+  - slug: team
+    dir: apps/team/dist/client
+    on: [main]
+  - slug: gui
+    dir: apps/gui.hanzo.ai/dist/client
+site-build: bun turbo run build:web --filter=@hanzogui/team --filter=@hanzogui/dot-dev

@@ -33,8 +33,8 @@
   "sideEffects": [
     "*.css"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
@@ -50,30 +50,30 @@
     },
     "./native": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/cjs/native.js",
-      "browser": "./dist/cjs/native.js",
-      "module": "./dist/cjs/native.js",
-      "import": "./dist/cjs/native.js",
-      "require": "./dist/cjs/native.js",
-      "default": "./dist/cjs/native.js"
+      "react-native": "./dist/native/index.js",
+      "browser": "./dist/native/index.js",
+      "module": "./dist/native/index.js",
+      "import": "./dist/native/index.js",
+      "require": "./dist/native/index.js",
+      "default": "./dist/native/index.js"
     },
     "./native-test": {
       "types": "./types/index.d.ts",
-      "react-native": "./dist/cjs/test.native.js",
-      "browser": "./dist/cjs/test.native.js",
-      "module": "./dist/cjs/test.native.js",
-      "import": "./dist/cjs/test.native.js",
-      "require": "./dist/cjs/test.native.js",
-      "default": "./dist/cjs/test.native.js"
+      "react-native": "./dist/native/index.js",
+      "browser": "./dist/native/index.js",
+      "module": "./dist/native/index.js",
+      "import": "./dist/native/index.js",
+      "require": "./dist/native/index.js",
+      "default": "./dist/native/index.js"
     },
     "./inject-styles": {
       "types": "./types/inject-styles.d.ts",
-      "react-native": "./dist/esm/inject-styles.js",
+      "react-native": "./dist/native/inject-styles.js",
       "browser": "./dist/esm/inject-styles.js",
       "module": "./dist/esm/inject-styles.js",
       "import": "./dist/esm/inject-styles.js",
       "require": "./dist/cjs/inject-styles.js",
-      "default": "./dist/cjs/inject-styles.js"
+      "default": "./dist/esm/inject-styles.js"
     },
     "./reactNativeTypes": {
       "types": "./types/reactNativeTypes.d.ts",

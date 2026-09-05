@@ -2,17 +2,45 @@
   "name": "@hanzogui/fake-react-native",
   "version": "8.3.1",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
-  "main": "index.js",
-  "module": "index.mjs",
+  "files": [
+    "src",
+    "types",
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
-      "browser": "./index.mjs",
-      "module": "./index.mjs",
-      "import": "./index.mjs",
-      "require": "./index.js"
+      "types": "./types/index.d.ts",
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./idFn": {
+      "types": "./types/idFn.d.ts",
+      "react-native": "./dist/esm/idFn.js",
+      "browser": "./dist/esm/idFn.js",
+      "module": "./dist/esm/idFn.js",
+      "import": "./dist/esm/idFn.js",
+      "require": "./dist/cjs/idFn.js",
+      "default": "./dist/esm/idFn.js"
     }
   },
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "build": "hanzogui-build --skip-native",
+    "clean": "hanzogui-build clean",
+    "clean:build": "hanzogui-build clean:build"
+  },
+  "devDependencies": {
+    "@hanzogui/build": "workspace:*"
   }
 }

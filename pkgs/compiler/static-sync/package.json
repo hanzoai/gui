@@ -8,25 +8,27 @@
     "types",
     "dist"
   ],
-  "type": "commonjs",
-  "main": "dist",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "browser": "./dist/index.cjs",
-      "module": "./dist/index.cjs",
-      "import": "./dist/index.cjs",
-      "require": "./dist/index.cjs"
+      "react-native": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     }
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "bun build src/index.ts --outfile dist/index.cjs --format cjs --target node --packages external",
-    "watch": "bun run build --watch",
+    "build": "hanzogui-build --skip-native",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"
   },

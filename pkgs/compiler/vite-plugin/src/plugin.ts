@@ -7,8 +7,8 @@ import {
 } from '@hanzogui/static-worker'
 import { createHash } from 'node:crypto'
 import { createRequire } from 'node:module'
+import { url } from './here.ts'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import type { Plugin, PluginOption, ResolvedConfig, ViteDevServer } from 'vite'
 import type { Environment } from 'vite'
 import {
@@ -18,10 +18,8 @@ import {
   ensureFullConfigLoaded,
 } from './loadGui.ts'
 
-// handle ESM/CJS duality for plugin dependencies - resolve from plugin's location, not user's project
-const _pluginRequire = createRequire(
-  typeof __filename === 'string' ? __filename : fileURLToPath(import.meta.url)
-)
+// Plugin dependencies resolve from the plugin's own location, not the user's project.
+const _pluginRequire = createRequire(url)
 const resolve = (name: string) => _pluginRequire.resolve(name)
 const normalizePath = (value: string) => value.replace(/\\/g, '/')
 

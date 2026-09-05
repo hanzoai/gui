@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 
-import { pathExists } from 'fs-extra'
+import { pathExists } from 'fs-extra/esm'
 
 let cachedPath = ''
 

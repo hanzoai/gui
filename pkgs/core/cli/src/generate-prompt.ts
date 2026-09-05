@@ -1,8 +1,12 @@
+import { createRequire } from 'node:module'
 import { join } from 'node:path'
 import { existsSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import { readJSON } from 'fs-extra/esm'
 import type { CLIResolvedOptions } from '@hanzogui/types'
+import { url } from './here.ts'
+
+const require = createRequire(url)
 
 interface GeneratePromptOptions extends CLIResolvedOptions {
   output?: string

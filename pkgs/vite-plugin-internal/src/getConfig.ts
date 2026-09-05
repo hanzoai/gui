@@ -3,9 +3,9 @@
 import { createRequire } from 'node:module'
 import { join } from 'node:path'
 import { type Plugin, defineConfig } from 'vite'
+import { url } from './here.ts'
 
-export const requireResolve =
-  'url' in import.meta ? createRequire(import.meta.url).resolve : require.resolve
+export const requireResolve = createRequire(url).resolve
 
 export function getConfig(hanzoguiPlugin: any) {
   const isNative =
@@ -88,10 +88,6 @@ export function getConfig(hanzoguiPlugin: any) {
               resolve: {
                 // 'react-native', breaks because vitest isnt doing .native.js :/
                 conditions: ['react-native', 'require', 'default'],
-                alias: {
-                  '@hanzogui/core': '@hanzogui/core/native-test',
-                  '@hanzogui/web': '@hanzogui/core/native-test',
-                },
                 extensions: nativeExtensions,
               },
 
@@ -125,9 +121,16 @@ export function getConfig(hanzoguiPlugin: any) {
               replacement: '@hanzogui/fake-react-native',
             },
           ]
-        : {
-            'react-native': '@hanzogui/react-native-web-lite',
-          },
+        : [
+            {
+              find: /^react-native$/,
+              replacement: '@hanzogui/react-native-web-lite',
+            },
+            {
+              find: /^react-native\//,
+              replacement: '@hanzogui/react-native-web-lite',
+            },
+          ],
     },
 
     // @ts-ignore

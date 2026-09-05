@@ -1,12 +1,16 @@
 import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import esbuild from 'esbuild'
-import * as FS from 'fs-extra'
+import FS from 'fs-extra'
 import type { GuiPlatform } from '../types.ts'
 import { detectModuleFormat } from './detectModuleFormat.ts'
 import { esbuildAliasPlugin } from './esbuildAliasPlugin.ts'
 import { hasTopLevelAwait } from './hasTopLevelAwait.ts'
 import { resolveWebOrNativeSpecificEntry } from './loadGui.ts'
 import { TsconfigPathsPlugin } from './esbuildTsconfigPaths.ts'
+import { url } from '../here.ts'
+
+const require = createRequire(url)
 
 export const esbuildLoaderConfig = {
   '.js': 'jsx',

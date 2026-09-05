@@ -48,7 +48,8 @@ describe('hanzogui-build', () => {
   it("gives the native file its sibling's name, so the same import reaches it", () => {
     expect(read(dir, 'dist/native/platform.js')).toContain("'native'")
     expect(existsSync(join(dir, 'dist/native/platform.native.js'))).toBe(false)
-    expect(read(dir, 'dist/native/index.js')).toContain("from './platform.js'")
+    expect(read(dir, 'dist/native/index.js')).toContain('require("./platform.js")')
+    expect(JSON.parse(read(dir, 'dist/native/package.json'))).toEqual({ type: 'commonjs' })
     expect(read(dir, 'dist/esm/platform.js')).toContain("'web'")
     expect(read(dir, 'dist/native/platform.js')).toContain('sourceMappingURL=platform.js.map')
     expect(existsSync(join(dir, 'dist/native/platform.js.map'))).toBe(true)
@@ -72,6 +73,7 @@ describe('hanzogui-build', () => {
     expect(read(dir, 'dist/esm/here.js')).toContain('import.meta.url')
     expect(read(dir, 'dist/cjs/here.js')).toContain('__filename')
     expect(read(dir, 'dist/cjs/here.js')).not.toContain('import.meta')
+    expect(read(dir, 'dist/native/here.js')).toContain('__filename')
     for (const p of ['dist/esm/here.cjs.js', 'dist/cjs/here.cjs.js', 'dist/native/here.cjs.js', 'types/here.cjs.d.ts']) {
       expect(existsSync(join(dir, p))).toBe(false)
     }

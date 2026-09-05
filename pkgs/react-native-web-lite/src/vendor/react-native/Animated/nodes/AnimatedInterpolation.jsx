@@ -11,8 +11,8 @@
 
 'use strict'
 
-import { AnimatedWithChildren } from './AnimatedWithChildren'
-import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
+import { AnimatedWithChildren } from './AnimatedWithChildren.js'
+import { NativeAnimatedHelper } from '../NativeAnimatedHelper.js'
 import { normalizeColor, invariant } from '@hanzogui/react-native-web-internals'
 
 const __DEV__ = process.env.NODE_ENV !== 'production'

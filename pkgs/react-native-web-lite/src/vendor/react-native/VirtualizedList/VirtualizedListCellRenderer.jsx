@@ -8,9 +8,9 @@
  * @format
  */
 
-import { View } from '../../../View'
+import { View } from '../../../View/index.tsx'
 import { StyleSheet, invariant } from '@hanzogui/react-native-web-internals'
-import { VirtualizedListCellContextProvider } from './VirtualizedListContext'
+import { VirtualizedListCellContextProvider } from './VirtualizedListContext.js'
 import * as React from 'react'
 
 class CellRenderer extends React.Component {

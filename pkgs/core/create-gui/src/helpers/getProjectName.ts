@@ -3,8 +3,8 @@ import path from 'node:path'
 import chalk from 'chalk'
 import prompts from 'prompts'
 
-import packageJson from '../../package.json'
-import { validateNpmName } from './validateNpmPackage'
+import { validateNpmName } from './validateNpmPackage.ts'
+import { packageJson } from '../manifest.ts'
 
 export const getProjectName = async (projectPath?: string) => {
   if (typeof projectPath === 'string') {

@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-import { rainbowColors } from './rainbowChalk'
+import { rainbowColors } from './rainbowChalk.ts'
 
 export const hanzoguiAsciiArt = `▀█▀ ▄▀█ █▀▄▀█ ▄▀█ █▀▀ █ █ █
  █  █▀█ █ ▀ █ █▀█ █▄█ █▄█ █`

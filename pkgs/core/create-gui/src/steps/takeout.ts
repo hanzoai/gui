@@ -6,8 +6,8 @@ import path from 'node:path'
 import chalk from 'chalk'
 import prompts from 'prompts'
 
-import { takeoutAsciiArt, hanzoguiRainbowAsciiArt } from '../helpers/asciiArts'
-import type { ExtraSteps } from './types'
+import { takeoutAsciiArt, hanzoguiRainbowAsciiArt } from '../helpers/asciiArts.ts'
+import type { ExtraSteps } from './types.ts'
 
 const packageManager = 'bun'
 

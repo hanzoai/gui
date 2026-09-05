@@ -51,7 +51,7 @@ describe.skipIf(unreachable)('create-gui CLI', () => {
     async () => {
       tempDir = temporaryDirectory()
       projectName = 'test-project'
-      const cliPath = path.join(__dirname, '../dist/index.cjs')
+      const cliPath = path.join(__dirname, '../dist/esm/index.js')
       projectPath = path.join(tempDir, projectName)
 
       console.info(`Running: node ${cliPath}`)
@@ -180,7 +180,7 @@ describe.skipIf(unreachable)('create-gui CLI with --template flag', () => {
   beforeAll(async () => {
     tempDir = temporaryDirectory()
     projectName = 'starter-free-project'
-    const cliPath = path.join(__dirname, '../dist/index.cjs')
+    const cliPath = path.join(__dirname, '../dist/esm/index.js')
     projectPath = path.join(tempDir, projectName)
 
     cli = spawn('node', [cliPath, '--template', 'starter-free'], {

@@ -43,5 +43,6 @@ const TextInput2 = styled(GuiInput, {
 } as any)
 
 export function StyledStyleableInputVariant() {
+  // @ts-expect-error the variant is declared behind an any cast, so the prop has no type
   return <TextInput2 id="input" gameplay />
 }

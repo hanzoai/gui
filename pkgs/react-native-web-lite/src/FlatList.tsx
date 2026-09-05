@@ -9,12 +9,12 @@
 import { invariant, Platform } from '@hanzogui/react-native-web-internals'
 import memoizeOne from 'memoize-one'
 import React from 'react'
-import { deepDiffer } from './vendor/react-native/deepDiffer'
+import { deepDiffer } from './vendor/react-native/deepDiffer/index.js'
 import type { ViewabilityConfigCallbackPair } from './vendor/react-native/ViewabilityHelper.ts'
-import type { RenderItemType } from './vendor/react-native/VirtualizedList'
-import { VirtualizedList } from './vendor/react-native/VirtualizedList'
+import type { RenderItemType } from './vendor/react-native/VirtualizedList/index.jsx'
+import { VirtualizedList } from './vendor/react-native/VirtualizedList/index.jsx'
 import type { ViewProps } from './View/index.tsx'
-import { keyExtractor as defaultKeyExtractor } from './vendor/react-native/VirtualizeUtils'
+import { keyExtractor as defaultKeyExtractor } from './vendor/react-native/VirtualizeUtils/index.js'
 import { View } from './View/index.tsx'
 
 type ScrollViewNativeComponent = any

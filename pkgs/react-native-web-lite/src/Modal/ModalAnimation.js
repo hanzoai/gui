@@ -10,7 +10,7 @@
 import * as React from 'react'
 import { StyleSheet } from '@hanzogui/react-native-web-internals'
 
-import { createElement } from '../createElement/index'
+import { createElement } from '../createElement/index.tsx'
 
 var ANIMATION_DURATION = 300
 

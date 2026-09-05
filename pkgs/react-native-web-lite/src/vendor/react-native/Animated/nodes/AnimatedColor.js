@@ -8,10 +8,10 @@
  * @format
  */
 
-import { AnimatedValue } from './AnimatedValue'
-import { AnimatedWithChildren } from './AnimatedWithChildren'
+import { AnimatedValue } from './AnimatedValue.js'
+import { AnimatedWithChildren } from './AnimatedWithChildren.js'
 import { normalizeColor } from '@hanzogui/react-native-web-internals'
-import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
+import { NativeAnimatedHelper } from '../NativeAnimatedHelper.js'
 
 const NativeAnimatedAPI = NativeAnimatedHelper.API
 

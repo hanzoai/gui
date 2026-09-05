@@ -9,12 +9,12 @@
 
 'use strict'
 
-import { Animation } from './Animation'
-import { SpringConfig } from '../SpringConfig'
+import { Animation } from './Animation.js'
+import { SpringConfig } from '../SpringConfig.js'
 
 import { invariant } from '@hanzogui/react-native-web-internals'
 
-import { shouldUseNativeDriver } from '../NativeAnimatedHelper'
+import { shouldUseNativeDriver } from '../NativeAnimatedHelper.js'
 
 class SpringAnimation extends Animation {
   _overshootClamping

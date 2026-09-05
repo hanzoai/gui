@@ -33,10 +33,10 @@
  * chrome, fully keyboard-accessible.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { HanzoWordmark } from './mark'
-import { MeetHanzoMenu } from './MeetHanzoMenu'
-import { TryHanzoMenu } from './TryHanzoMenu'
-import { ProductsMegaMenu } from './ProductsMegaMenu'
+import { HanzoWordmark } from './mark.tsx'
+import { MeetHanzoMenu } from './MeetHanzoMenu.tsx'
+import { TryHanzoMenu } from './TryHanzoMenu.tsx'
+import { ProductsMegaMenu } from './ProductsMegaMenu.tsx'
 import {
   DEFAULT_SURFACE,
   findSurfaceByHost,
@@ -47,7 +47,7 @@ import {
   type HanzoSurface,
   type ProductCategory,
   type Stage,
-} from './hanzo-registry'
+} from './hanzo-registry.ts'
 import {
   CHROME,
   CTRL_H,
@@ -70,18 +70,18 @@ import {
   plane,
   row,
   veil,
-} from './theme'
-import { Glyph, glyphRow, Outlink, type GlyphName } from './glyph'
-import { useIsMobile } from './useMediaQuery'
-import { useShellStyles } from './shellStyles'
-import { useIntent, type Reach } from './intent'
-import { useRove } from './rove'
+} from './theme.ts'
+import { Glyph, glyphRow, Outlink, type GlyphName } from './glyph.tsx'
+import { useIsMobile } from './useMediaQuery.ts'
+import { useShellStyles } from './shellStyles.ts'
+import { useIntent, type Reach } from './intent.ts'
+import { useRove } from './rove.ts'
 import {
   HanzoCommandPalette,
   HanzoCommandTrigger,
   type HanzoCommandEntry,
-} from './HanzoCommandPalette'
-import { HanzoIdentity, type HanzoAuth } from './HanzoIdentity'
+} from './HanzoCommandPalette.tsx'
+import { HanzoIdentity, type HanzoAuth } from './HanzoIdentity.tsx'
 
 const HEADER_H = 60
 /**

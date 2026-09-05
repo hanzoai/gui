@@ -29,16 +29,16 @@ import {
   type HanzoPlanKind,
   type HanzoPlanTier,
   type HanzoPlanTierDef,
-} from './hanzo-registry'
-import { normalizeTier, rankOf } from './entitlements'
+} from './hanzo-registry.ts'
+import { normalizeTier, rankOf } from './entitlements.ts'
 import {
   useEntitlement,
   type Entitlement,
   type UseEntitlementOptions,
-} from './useEntitlement'
-import { findHanzoApp, type HanzoApp } from './hanzo-apps'
-import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, R, SHADOW } from './theme'
-import { useShellStyles } from './shellStyles'
+} from './useEntitlement.ts'
+import { findHanzoApp, type HanzoApp } from './hanzo-apps.tsx'
+import { ACCENT, ACCENT_SOFT, ACCENT_SOFTER, CHROME, FS, R, SHADOW } from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
 
 const {
   panel: PANEL_BG,

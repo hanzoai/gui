@@ -7,11 +7,11 @@
  * @format
  */
 
-import { Easing } from '../Easing'
+import { Easing } from '../Easing.js'
 
-import { Animation } from './Animation'
+import { Animation } from './Animation.js'
 
-import { shouldUseNativeDriver } from '../NativeAnimatedHelper'
+import { shouldUseNativeDriver } from '../NativeAnimatedHelper.js'
 
 let _easeInOut
 function easeInOut() {

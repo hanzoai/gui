@@ -7,8 +7,8 @@
  * the shape handed back: a mega-menu keeps its columns, a palette gets one
  * ordered list.
  */
-import { type ProductCategory } from './hanzo-registry'
-import { score } from './search'
+import { type ProductCategory } from './hanzo-registry.ts'
+import { score } from './search.ts'
 
 /**
  * Narrow the taxonomy to what matches `query`.

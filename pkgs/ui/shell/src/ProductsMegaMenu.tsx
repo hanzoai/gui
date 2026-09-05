@@ -48,7 +48,7 @@
  */
 import React, { useCallback, useState } from 'react'
 import type { PointerEventHandler } from 'react'
-import { type HanzoLink, type ProductCategory } from './hanzo-registry'
+import { type HanzoLink, type ProductCategory } from './hanzo-registry.ts'
 import {
   ACCENT,
   ACCENT_SOFT,
@@ -59,9 +59,9 @@ import {
   R,
   plane,
   veil,
-} from './theme'
-import { useShellStyles } from './shellStyles'
-import { useRove } from './rove'
+} from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
+import { useRove } from './rove.ts'
 
 /**
  * The column count that splits the taxonomy into EQUAL rows, no wider than `max`.

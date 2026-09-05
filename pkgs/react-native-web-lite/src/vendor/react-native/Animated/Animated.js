@@ -8,14 +8,14 @@
  */
 
 import { Platform } from '@hanzogui/react-native-web-internals'
-import { AnimatedImplementation } from './AnimatedImplementation'
-import { AnimatedMock } from './AnimatedMock'
-import { FlatList } from './components/AnimatedFlatList'
-import { AnimatedImage as Image } from './components/AnimatedImage'
-import { ScrollView } from './components/AnimatedScrollView'
-import { SectionList } from './components/AnimatedSectionList'
-import { AnimatedText as Text } from './components/AnimatedText'
-import { AnimatedView as View } from './components/AnimatedView'
+import { AnimatedImplementation } from './AnimatedImplementation.js'
+import { AnimatedMock } from './AnimatedMock.js'
+import { FlatList } from './components/AnimatedFlatList.jsx'
+import { AnimatedImage as Image } from './components/AnimatedImage.js'
+import { ScrollView } from './components/AnimatedScrollView.jsx'
+import { SectionList } from './components/AnimatedSectionList.jsx'
+import { AnimatedText as Text } from './components/AnimatedText.js'
+import { AnimatedView as View } from './components/AnimatedView.js'
 
 const Animated = Platform.isTesting ? AnimatedMock : AnimatedImplementation
 

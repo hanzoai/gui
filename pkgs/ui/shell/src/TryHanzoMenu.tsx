@@ -33,12 +33,12 @@
  */
 import React, { useCallback, useMemo } from 'react'
 import type { PointerEventHandler } from 'react'
-import { TRY_HANZO_GROUPS } from './hanzo-registry'
-import { MARKS } from './glyph'
-import { CHROME, FS, GLASS, LABEL, R, SHADOW, Z, ghostHover, row, veil } from './theme'
-import { useShellStyles } from './shellStyles'
-import { useIsMobile } from './useMediaQuery'
-import { useRove } from './rove'
+import { TRY_HANZO_GROUPS } from './hanzo-registry.ts'
+import { MARKS } from './glyph.tsx'
+import { CHROME, FS, GLASS, LABEL, R, SHADOW, Z, ghostHover, row, veil } from './theme.ts'
+import { useShellStyles } from './shellStyles.ts'
+import { useIsMobile } from './useMediaQuery.ts'
+import { useRove } from './rove.ts'
 
 /** Matches the header's own `padding: 0 16px`, so the card lines up with the bar. */
 const EDGE = 16

@@ -4,11 +4,8 @@
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
-    "controller",
     "dist",
     "next.md",
-    "setup-gesture-handler.cjs",
-    "setup-gesture-handler",
     "src",
     "types"
   ],

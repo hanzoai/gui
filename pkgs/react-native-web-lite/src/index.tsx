@@ -30,11 +30,11 @@ export { NativeModules } from './NativeModules/index.tsx'
 export { render } from './render/index.tsx'
 
 // animated - keep default as these are vendor files
-export { default as Animated } from './vendor/react-native/Animated/Animated'
-export { default as Easing } from './vendor/react-native/Animated/Easing'
+export { default as Animated } from './vendor/react-native/Animated/Animated.js'
+export { default as Easing } from './vendor/react-native/Animated/Easing.js'
 
 // react-native - keep default as these are vendor files
-export { default as NativeEventEmitter } from './vendor/react-native/EventEmitter/NativeEventEmitter'
+export { default as NativeEventEmitter } from './vendor/react-native/EventEmitter/NativeEventEmitter.js'
 
 // APIs
 export { AccessibilityInfo } from './AccessibilityInfo/index.tsx'
@@ -78,7 +78,7 @@ export { Image } from './Image/index.tsx'
 export { ImageBackground } from './ImageBackground/index.tsx'
 export { KeyboardAvoidingView } from './KeyboardAvoidingView/index.tsx'
 export { LogBox } from './LogBox/index.tsx'
-export { Modal } from './Modal/index'
+export { Modal } from './Modal/index.js'
 export { Pressable } from './Pressable/index.tsx'
 export { RefreshControl } from './RefreshControl/index.tsx'
 export { SafeAreaView } from './SafeAreaView/index.tsx'

@@ -22,13 +22,23 @@
  * every width and in every host theme (see `PANEL` in theme.ts).
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { CHROME, FS, PANEL, R, Z, control, controlHover, ghostHover, row } from './theme'
-import { U, type HanzoLink } from './hanzo-registry'
-import type { HanzoUser } from './types'
-import { UserAvatar } from './UserAvatar'
-import { useRove } from './rove'
-import { Meter } from './meter'
-import { usePlan } from './usePlan'
+import {
+  CHROME,
+  FS,
+  PANEL,
+  R,
+  Z,
+  control,
+  controlHover,
+  ghostHover,
+  row,
+} from './theme.ts'
+import { U, type HanzoLink } from './hanzo-registry.ts'
+import type { HanzoUser } from './types.ts'
+import { UserAvatar } from './UserAvatar.tsx'
+import { useRove } from './rove.ts'
+import { Meter } from './meter.tsx'
+import { usePlan } from './usePlan.ts'
 
 /**
  * What the header needs to show who you are — and nothing else. No token, no

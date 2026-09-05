@@ -21,7 +21,7 @@
  * without special-casing the unauthenticated path.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { isEntitled as planEntitles, normalizeTier } from './entitlements'
+import { isEntitled as planEntitles, normalizeTier } from './entitlements.ts'
 
 /** The lowest / fallback tier slug used when no paid subscription resolves. */
 export const FREE_TIER = 'free'

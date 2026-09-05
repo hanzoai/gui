@@ -35,7 +35,7 @@
  * product card and the products drape already follow.
  */
 import React from 'react'
-import { ACCENT_SOFT, CHROME, FS, R } from './theme'
+import { ACCENT_SOFT, CHROME, FS, R } from './theme.ts'
 
 export interface ProductShotPlate {
   /** URL of the plate. */

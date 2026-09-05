@@ -8,9 +8,9 @@
  * @format
  */
 
-import { AnimatedValue } from './AnimatedValue'
-import { AnimatedNode } from './AnimatedNode'
-import { generateNewAnimationId, shouldUseNativeDriver } from '../NativeAnimatedHelper'
+import { AnimatedValue } from './AnimatedValue.js'
+import { AnimatedNode } from './AnimatedNode.js'
+import { generateNewAnimationId, shouldUseNativeDriver } from '../NativeAnimatedHelper.js'
 
 class AnimatedTracking extends AnimatedNode {
   _value

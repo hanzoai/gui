@@ -8,10 +8,10 @@
  * @format
  */
 
-import { AnimatedNode } from './AnimatedNode'
-import { AnimatedTransform } from './AnimatedTransform'
-import { AnimatedWithChildren } from './AnimatedWithChildren'
-import { NativeAnimatedHelper } from '../NativeAnimatedHelper'
+import { AnimatedNode } from './AnimatedNode.js'
+import { AnimatedTransform } from './AnimatedTransform.js'
+import { AnimatedWithChildren } from './AnimatedWithChildren.js'
+import { NativeAnimatedHelper } from '../NativeAnimatedHelper.js'
 
 import { StyleSheet } from '@hanzogui/react-native-web-internals'
 

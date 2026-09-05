@@ -10,16 +10,16 @@
 
 'use strict'
 
-import { AnimatedEvent, attachNativeEvent } from './AnimatedEvent'
-import { AnimatedImplementation } from './AnimatedImplementation'
-import { AnimatedInterpolation } from './nodes/AnimatedInterpolation'
-import { AnimatedNode } from './nodes/AnimatedNode'
-import { AnimatedValue } from './nodes/AnimatedValue'
-import { AnimatedValueXY } from './nodes/AnimatedValueXY'
+import { AnimatedEvent, attachNativeEvent } from './AnimatedEvent.js'
+import { AnimatedImplementation } from './AnimatedImplementation.js'
+import { AnimatedInterpolation } from './nodes/AnimatedInterpolation.jsx'
+import { AnimatedNode } from './nodes/AnimatedNode.js'
+import { AnimatedValue } from './nodes/AnimatedValue.js'
+import { AnimatedValueXY } from './nodes/AnimatedValueXY.js'
 
-import { createAnimatedComponent } from './createAnimatedComponent'
+import { createAnimatedComponent } from './createAnimatedComponent.jsx'
 
-import { AnimatedColor } from './nodes/AnimatedColor'
+import { AnimatedColor } from './nodes/AnimatedColor.js'
 
 /**
  * Animations are a source of flakiness in snapshot testing. This mock replaces

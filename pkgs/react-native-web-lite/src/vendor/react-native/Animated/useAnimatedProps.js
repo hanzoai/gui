@@ -10,10 +10,10 @@
 
 'use strict'
 
-import { AnimatedProps } from './nodes/AnimatedProps'
-import { AnimatedEvent } from './AnimatedEvent'
-import { useRefEffect } from '../Utilities/useRefEffect'
-import { NativeAnimatedHelper } from './NativeAnimatedHelper'
+import { AnimatedProps } from './nodes/AnimatedProps.js'
+import { AnimatedEvent } from './AnimatedEvent.js'
+import { useRefEffect } from '../Utilities/useRefEffect.js'
+import { NativeAnimatedHelper } from './NativeAnimatedHelper.js'
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react'
 
 import { useLayoutEffect } from '@hanzogui/react-native-web-internals'

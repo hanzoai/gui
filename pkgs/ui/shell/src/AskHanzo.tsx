@@ -41,11 +41,11 @@ import {
   controlHover,
   cta,
   ghostHover,
-} from './theme'
-import { MARKS } from './glyph'
-import { U } from './hanzo-registry'
-import type { HanzoAuth } from './HanzoIdentity'
-import { useShellStyles } from './shellStyles'
+} from './theme.ts'
+import { MARKS } from './glyph.tsx'
+import { U } from './hanzo-registry.ts'
+import type { HanzoAuth } from './HanzoIdentity.tsx'
+import { useShellStyles } from './shellStyles.ts'
 
 export interface AskHanzoMessage {
   role: 'user' | 'assistant'

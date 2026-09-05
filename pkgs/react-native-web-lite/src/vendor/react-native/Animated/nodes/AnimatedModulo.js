@@ -8,8 +8,8 @@
  * @format
  */
 
-import { AnimatedInterpolation } from './AnimatedInterpolation'
-import { AnimatedWithChildren } from './AnimatedWithChildren'
+import { AnimatedInterpolation } from './AnimatedInterpolation.jsx'
+import { AnimatedWithChildren } from './AnimatedWithChildren.js'
 
 class AnimatedModulo extends AnimatedWithChildren {
   _a

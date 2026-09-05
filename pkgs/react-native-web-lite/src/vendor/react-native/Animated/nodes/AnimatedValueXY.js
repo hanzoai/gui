@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AnimatedValue } from './AnimatedValue'
-import { AnimatedWithChildren } from './AnimatedWithChildren'
+import { AnimatedValue } from './AnimatedValue.js'
+import { AnimatedWithChildren } from './AnimatedWithChildren.js'
 import { invariant } from '@hanzogui/react-native-web-internals'
 
 let _uniqueId = 1

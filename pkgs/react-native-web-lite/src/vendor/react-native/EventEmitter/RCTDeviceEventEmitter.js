@@ -7,7 +7,7 @@
  * @format
  */
 
-import { EventEmitter } from '../emitter/EventEmitter'
+import { EventEmitter } from '../emitter/EventEmitter.js'
 
 // FIXME: use typed events
 

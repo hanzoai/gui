@@ -1,4 +1,4 @@
-import { startTransition } from './index'
+import { startTransition } from './index.ts'
 
 describe('startTransition', () => {
   it('should call the callback directly if GUI_TARGET is not web', () => {

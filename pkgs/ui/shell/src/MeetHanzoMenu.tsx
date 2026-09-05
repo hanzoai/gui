@@ -48,7 +48,7 @@ import {
   type HanzoLink,
   type HanzoProduct,
   type Stage,
-} from './hanzo-registry'
+} from './hanzo-registry.ts'
 import {
   ACCENT,
   CHROME,
@@ -59,11 +59,11 @@ import {
   plane,
   row,
   veil,
-} from './theme'
-import { Glyph, glyphRow } from './glyph'
-import { useShellStyles } from './shellStyles'
-import { useIsMobile } from './useMediaQuery'
-import { useRove } from './rove'
+} from './theme.ts'
+import { Glyph, glyphRow } from './glyph.tsx'
+import { useShellStyles } from './shellStyles.ts'
+import { useIsMobile } from './useMediaQuery.ts'
+import { useRove } from './rove.ts'
 
 /** The products rail. Wide enough for "Hanzo Studio" + its tagline on one line each. */
 const RAIL = 236

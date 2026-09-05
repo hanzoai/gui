@@ -1,5 +1,4 @@
 import { useStore, useStoreSelector } from '@hanzogui/use-store'
-import { forwardRef } from 'react'
 import type { TabsProps, TabsTabProps } from '@hanzo/gui'
 import { Paragraph, Tabs, XStack, styled, withStaticProperties } from '@hanzo/gui'
 import { type Href, useParams, useRouter } from 'one'
@@ -51,14 +50,13 @@ function TabsComponent(props: TabsProps) {
   )
 }
 
-const Tab = forwardRef(function Tab(props: TabsTabProps, ref) {
+const Tab = (props: TabsTabProps) => {
   const isActive = useStoreSelector(TabsStore, (x) => x.active === props.value)
 
   return (
     <Tabs.Tab
       size="$3"
       flex={1}
-      ref={ref as any}
       px="$5"
       pointerEvents="auto"
       rounded="$5"
@@ -81,7 +79,7 @@ const Tab = forwardRef(function Tab(props: TabsTabProps, ref) {
       <Paragraph size="$3">{props.children}</Paragraph>
     </Tabs.Tab>
   )
-})
+}
 
 const TabsListFrame = styled(XStack, {
   pointerEvents: 'none',

@@ -46,7 +46,9 @@ function exported(file) {
 }
 
 function resolve(module) {
-  for (const ext of ['.ts', '.tsx']) {
+  // A specifier names its file, so the name is tried as written before the
+  // extensions a bare name would take.
+  for (const ext of ['', '.ts', '.tsx']) {
     const file = join(SRC, module + ext)
     if (existsSync(file)) return file
   }

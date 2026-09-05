@@ -8,7 +8,7 @@ const need = createRequire(url)
 
 export function requireGuiCore(
   platform: GuiPlatform,
-  ogRequire: Function = require
+  ogRequire: Function = need
 ): typeof import('@hanzogui/core') {
   if (!platform) {
     throw new Error(`No platform given to requireGuiCore`)

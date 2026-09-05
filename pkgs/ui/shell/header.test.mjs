@@ -335,7 +335,11 @@ test('the two palettes share the frame, and neither redraws it', () => {
   // grew its own scrim, field or row would be a second product wearing ⌘K.
   for (const file of ['HanzoCommandPalette.tsx', 'OrgCommandPalette.tsx']) {
     const src = stripped(read(file))
-    assert.match(src, /from '\.\/commandPalette'/, `${file}: renders the shared frame`)
+    assert.match(
+      src,
+      /from '\.\/commandPalette\.tsx'/,
+      `${file}: renders the shared frame`
+    )
     for (const own of ['PaletteShell', 'PaletteField', 'PaletteRow', 'usePaletteNav']) {
       assert.doesNotMatch(
         src,

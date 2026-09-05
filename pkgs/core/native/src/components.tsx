@@ -19,7 +19,9 @@ export function NativePortal({
   const state = getPortal().state
   if (state.type !== 'teleport') return null
 
-  const { Portal } = (globalThis as any).__hanzogui_teleport
+  const teleport = (globalThis as any).__hanzogui_teleport
+  if (!teleport?.Portal) return null
+  const { Portal } = teleport
   return <Portal hostName={hostName}>{children}</Portal>
 }
 
@@ -31,7 +33,9 @@ export function NativePortalHost({ name }: NativePortalHostProps): ReactNode {
   const state = getPortal().state
   if (state.type !== 'teleport') return null
 
-  const { PortalHost } = (globalThis as any).__hanzogui_teleport
+  const teleport = (globalThis as any).__hanzogui_teleport
+  if (!teleport?.PortalHost) return null
+  const { PortalHost } = teleport
   return <PortalHost name={name} />
 }
 
@@ -43,6 +47,8 @@ export function NativePortalProvider({ children }: NativePortalProviderProps): R
   const state = getPortal().state
   if (state.type !== 'teleport') return <>{children}</>
 
-  const { PortalProvider } = (globalThis as any).__hanzogui_teleport
+  const teleport = (globalThis as any).__hanzogui_teleport
+  if (!teleport?.PortalProvider) return <>{children}</>
+  const { PortalProvider } = teleport
   return <PortalProvider>{children}</PortalProvider>
 }

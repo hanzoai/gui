@@ -35,10 +35,10 @@ afterEach(() => {
 })
 
 describe('gesture handler enabled freeze', () => {
-  test('ignores late disable after GuiProvider mounts', () => {
+  test('ignores late disable after GuiProvider mounts', async () => {
     setGestureHandlerEnabled(true)
 
-    render(
+    await render(
       <GuiProvider config={config} defaultTheme="light">
         <View />
       </GuiProvider>

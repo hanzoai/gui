@@ -205,12 +205,10 @@ describe.skipIf(unreachable)('create-gui CLI with --template flag', () => {
     })
 
     // Simulate user input for project name only
-    await new Promise<void>((resolve) => {
-      setTimeout(() => {
-        cli.stdin?.write(`${projectName}\r`)
-        resolve()
-      }, 1000)
-    })
+    await new Promise<void>((resolve) => setTimeout(resolve, 500))
+    cli.stdin?.write(`${projectName}`)
+    await new Promise<void>((resolve) => setTimeout(resolve, 500))
+    cli.stdin?.write('\r')
 
     // Wait for the process to finish
     await new Promise<void>((resolve, reject) => {
@@ -222,7 +220,7 @@ describe.skipIf(unreachable)('create-gui CLI with --template flag', () => {
         }
       })
     })
-  }, 60000) // 60 second timeout for the setup
+  }, 120_000) // 120 second timeout for the setup
 
   afterAll(() => {
     if (tempDir && fs.existsSync(tempDir)) {

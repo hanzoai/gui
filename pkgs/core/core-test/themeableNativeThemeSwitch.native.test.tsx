@@ -29,15 +29,15 @@ const findBg = (node: any): any => {
   return undefined
 }
 
-test('styleable HOC leaf updates token color on theme switch (native)', () => {
+test('styleable HOC leaf updates token color on theme switch (native)', async () => {
   const ui = (theme: string) => (
     <GuiProvider config={config} defaultTheme={theme}>
       <Custom backgroundColor="$color" width={10} height={10} />
     </GuiProvider>
   )
-  const { rerender, toJSON } = render(ui('light'))
+  const { rerender, toJSON } = await render(ui('light'))
   const before = findBg(toJSON())
-  rerender(ui('dark'))
+  await rerender(ui('dark'))
   const after = findBg(toJSON())
   expect(before).toBeTruthy()
   expect(after).toBeTruthy()

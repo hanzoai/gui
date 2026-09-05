@@ -4,7 +4,7 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const startersDir = path.join(__dirname, '../../../../apps/starters')
-const hanzoguiCliPath = require.resolve('@hanzogui/cli/dist/index.cjs')
+const hanzoguiCliPath = path.resolve(__dirname, '../../cli/dist/esm/cli.js')
 
 describe('expo-router starter', () => {
   const dir = path.join(startersDir, 'expo-router')

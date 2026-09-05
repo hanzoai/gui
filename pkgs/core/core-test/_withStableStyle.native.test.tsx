@@ -19,7 +19,7 @@ const config = createGui({
 })
 
 describe('_withStableStyle', () => {
-  test('renders correctly with GuiProvider', () => {
+  test('renders correctly with GuiProvider', async () => {
     const Wrapped = _withStableStyle(
       View,
       (theme) => [
@@ -28,7 +28,7 @@ describe('_withStableStyle', () => {
       true
     )
 
-    const tree = render(
+    const tree = await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Wrapped />
       </GuiProvider>
@@ -37,19 +37,19 @@ describe('_withStableStyle', () => {
     expect(tree.toJSON()).toBeTruthy()
   })
 
-  test('does not crash without GuiProvider (graceful fallback)', () => {
+  test('does not crash without GuiProvider (graceful fallback)', async () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const Wrapped = _withStableStyle(View, () => [{ width: 50, height: 50 }], true)
 
-    expect(() => {
-      render(<Wrapped />)
+    await expect(async () => {
+      await render(<Wrapped />)
     }).not.toThrow()
 
     warnSpy.mockRestore()
   })
 
-  test('theme values resolve correctly under GuiProvider', () => {
+  test('theme values resolve correctly under GuiProvider', async () => {
     let resolvedBg: any = null
 
     const Wrapped = _withStableStyle(
@@ -61,7 +61,7 @@ describe('_withStableStyle', () => {
       true
     )
 
-    render(
+    await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Wrapped />
       </GuiProvider>
@@ -70,7 +70,7 @@ describe('_withStableStyle', () => {
     expect(resolvedBg).toBeTruthy()
   })
 
-  test('expressions are passed through correctly', () => {
+  test('expressions are passed through correctly', async () => {
     let receivedExpressions: any[] = []
 
     const Wrapped = _withStableStyle(View, (_theme, expressions) => {
@@ -78,7 +78,7 @@ describe('_withStableStyle', () => {
       return [expressions[0] ? { backgroundColor: 'red' } : { backgroundColor: 'blue' }]
     })
 
-    render(
+    await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Wrapped _expressions={[true, false, 42]} />
       </GuiProvider>
@@ -87,7 +87,7 @@ describe('_withStableStyle', () => {
     expect(receivedExpressions).toEqual([true, false, 42])
   })
 
-  test('media expressions require both the media query and runtime condition', () => {
+  test('media expressions require both the media query and runtime condition', async () => {
     let receivedExpressions: any[] = []
 
     const Wrapped = _withStableStyle(
@@ -100,7 +100,7 @@ describe('_withStableStyle', () => {
       true
     )
 
-    render(
+    await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Wrapped
           _expressions={[

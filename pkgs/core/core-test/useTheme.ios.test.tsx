@@ -14,8 +14,8 @@ const config = createGui({
 })
 
 describe('useTheme', () => {
-  test(`nested non-changing scheme with fast scheme change doesn't de-opt`, () => {
-    const tree = render(
+  test(`nested non-changing scheme with fast scheme change doesn't de-opt`, async () => {
+    const tree = await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Theme name="light">
           <View backgroundColor="$background" />
@@ -40,8 +40,8 @@ describe('useTheme', () => {
     `)
   })
 
-  test(`nested fast scheme change de-opts`, () => {
-    const tree = render(
+  test(`nested fast scheme change de-opts`, async () => {
+    const tree = await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Theme name="dark">
           <View backgroundColor="$background" />
@@ -66,8 +66,8 @@ describe('useTheme', () => {
   // inverted vs the light root/OS. it must resolve to the concrete forced value,
   // NOT a DynamicColorIOS pair (which iOS resolves by OS appearance = light, and
   // would show the wrong value — here light_blue doesn't exist, so an empty color).
-  test(`forced sub-scheme keeping parent scheme still de-opts (dark_blue under light root)`, () => {
-    const tree = render(
+  test(`forced sub-scheme keeping parent scheme still de-opts (dark_blue under light root)`, async () => {
+    const tree = await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Theme name="dark">
           <Theme name="blue">
@@ -91,8 +91,8 @@ describe('useTheme', () => {
 
   // double-nesting the same scheme (dark under dark) also has isInverse=false on
   // the inner theme, yet is inverted vs the light root — must de-opt to concrete.
-  test(`re-forcing the same inverted scheme still de-opts (dark under dark under light root)`, () => {
-    const tree = render(
+  test(`re-forcing the same inverted scheme still de-opts (dark under dark under light root)`, async () => {
+    const tree = await render(
       <GuiProvider defaultTheme="light" config={config}>
         <Theme name="dark">
           <Theme name="dark">

@@ -268,8 +268,9 @@ describe('a stack asked for grid keeps its own axis', () => {
     const find = await draw(<YStack id="y" display="grid" />)
     const css = getComputedStyle(find('y'))
     expect(css.display).toBe('grid')
-    // no arm needed: an unset grid-auto-flow already fills one column downward
-    expect(css.gridAutoFlow).toBe('')
+    // no arm needed: an unset grid-auto-flow already fills one column downward,
+    // and jsdom reports the initial value for one that is unset
+    expect(find('y').style.gridAutoFlow).toBe('')
     expect(leaked(find('y'))).toEqual([])
   })
 

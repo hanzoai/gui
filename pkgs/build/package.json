@@ -13,14 +13,7 @@
     "test:web": "bun run test"
   },
   "dependencies": {
-    "typescript": "7.0.2"
-  },
-  "peerDependencies": {
-    "babel-plugin-react-compiler": ">=1"
-  },
-  "peerDependenciesMeta": {
-    "babel-plugin-react-compiler": {
-      "optional": true
-    }
+    "typescript": "7.0.2",
+    "oxc-parser": "0.147.0"
   }
 }

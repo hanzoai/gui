@@ -2,14 +2,19 @@
 /**
  * hanzogui-build — one package, built by the TypeScript compiler alone.
  *
- * Three emits from one source tree, each its own project file so the compiler
- * reads exactly one answer per target:
+ * A package ships its source and three emits, each from its own project file so
+ * the compiler reads exactly one answer per target:
  *
- *   tsconfig.esm.json     dist/esm/*.js   + types/*.d.ts
- *   tsconfig.cjs.json     dist/cjs/*.js   (marked commonjs by its own package.json)
- *   tsconfig.native.json  dist/native/*.js, where a `.native` sibling replaces its
- *                         web file, so the same relative import reaches the
- *                         native implementation without a bundler choosing.
+ *   tsconfig.esm.json     dist/esm/*.js + types/*.d.ts   the one pass that typechecks
+ *   tsconfig.cjs.json     dist/cjs/*.js   marked commonjs by its own package.json
+ *   tsconfig.native.json  dist/native/*.js
+ *
+ * A sibling answers for its file on one target and reaches no other emit:
+ * `x.cjs.ts` takes x's name in the CommonJS output, `x.native.ts` in the native
+ * one. That is how a module says `import.meta.url` once and `__filename` once
+ * without either syntax leaking into the emit that cannot parse it. The CommonJS
+ * output is parsed as a script afterwards, and a file only a module could load
+ * fails the build by name.
  *
  * Source names its imports with their extension and the compiler rewrites them
  * on emit, so the output is loadable by Node as written. Nothing else runs over
@@ -21,8 +26,9 @@
  */
 import { spawnSync } from 'node:child_process'
 import { createRequire } from 'node:module'
-import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs'
+import { chmodSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
+import { parseSync } from 'oxc-parser'
 
 const need = createRequire(import.meta.url)
 const tsc = need(join(dirname(need.resolve('typescript/package.json')), 'lib/getExePath.js')).default()
@@ -35,19 +41,75 @@ const emit = (project, extra = []) => {
   if (run.status !== 0) process.exit(run.status ?? 1)
 }
 
+const files = (dir, out = []) => {
+  if (existsSync(dir))
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const p = join(dir, entry.name)
+      entry.isDirectory() ? files(p, out) : out.push(p)
+    }
+  return out
+}
+
 // The platform is a property of the emit, not of the host: the runtime asks
 // process.env.GUI_TARGET which one it is on, and each output directory answers
 // with its own literal, so a bundler folds the other platform away and a
 // browser is never asked for a process it does not have.
+// The reads of process.env.GUI_TARGET in one file, by span. Only a read: an
+// assignment to it stays a runtime assignment, and the words inside a string
+// are a bundler's define key, not ours.
+const reads = (file, text) => {
+  const { program, errors } = parseSync(file, text, { sourceType: 'unambiguous' })
+  if (errors.length) throw new Error(`${file}: ${errors[0].message}`)
+  const spans = []
+  const walk = (node, parent) => {
+    if (Array.isArray(node)) return node.forEach((n) => walk(n, parent))
+    if (!node || typeof node.type !== 'string') return
+    if (
+      node.type === 'MemberExpression' && !node.computed && node.property.name === 'GUI_TARGET' &&
+      node.object.type === 'MemberExpression' && !node.object.computed && node.object.property.name === 'env' &&
+      node.object.object.type === 'Identifier' && node.object.object.name === 'process' &&
+      !(parent?.type === 'AssignmentExpression' && parent.left === node)
+    ) spans.push([node.start, node.end])
+    for (const key in node) if (key !== 'type' && typeof node[key] === 'object') walk(node[key], node)
+  }
+  walk(program, null)
+  return spans
+}
+
 const answer = (dir, platform) => {
-  if (!existsSync(dir)) return
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    const p = join(dir, entry.name)
-    if (entry.isDirectory()) answer(p, platform)
-    else if (entry.name.endsWith('.js')) {
-      const text = readFileSync(p, 'utf8')
-      if (text.includes('process.env.GUI_TARGET')) writeFileSync(p, text.replaceAll('process.env.GUI_TARGET', JSON.stringify(platform)))
+  for (const p of files(dir)) {
+    if (!p.endsWith('.js')) continue
+    let text = readFileSync(p, 'utf8')
+    if (!text.includes('process.env.GUI_TARGET')) continue
+    for (const [start, end] of reads(p, text).reverse()) text = text.slice(0, start) + JSON.stringify(platform) + text.slice(end)
+    writeFileSync(p, text)
+  }
+}
+
+// `x.<tag>.js` takes x's name, so the import x's callers already make resolves to it.
+const adopt = (dir, tag) => {
+  for (const p of files(dir)) {
+    if (p.endsWith(`.${tag}.js.map`)) renameSync(p, p.replace(`.${tag}.js.map`, '.js.map'))
+    else if (p.endsWith(`.${tag}.js`)) {
+      const map = new RegExp(`sourceMappingURL=(.+)\\.${tag}\\.js\\.map`)
+      writeFileSync(p.replace(`.${tag}.js`, '.js'), readFileSync(p, 'utf8').replace(map, 'sourceMappingURL=$1.js.map'))
+      rmSync(p)
     }
+  }
+}
+
+// A sibling for another target has no place in this emit.
+const drop = (dir, tags, ext = '.js') => {
+  for (const p of files(dir)) if (tags.some((tag) => p.endsWith(`.${tag}${ext}`) || p.endsWith(`.${tag}${ext}.map`))) rmSync(p)
+}
+
+// CommonJS is a script. What only a module could load is named here, by file,
+// rather than found by whoever requires it.
+const script = (dir) => {
+  for (const p of files(dir)) {
+    if (!p.endsWith('.js')) continue
+    const { errors } = parseSync(p, readFileSync(p, 'utf8'), { sourceType: 'script' })
+    if (errors.length) throw new Error(`${p} is not CommonJS: ${errors[0].message}. Give its source a .cjs.ts sibling.`)
   }
 }
 
@@ -61,44 +123,36 @@ if (args.has('clean') || args.has('clean:build')) process.exit(0)
 if (args.has('--watch')) {
   emit('tsconfig.esm.json', ['--watch'])
 } else {
-
   emit('tsconfig.esm.json')
   answer(join(cwd, 'dist/esm'), 'web')
+  drop(join(cwd, 'dist/esm'), ['cjs', 'native'])
+  drop(join(cwd, 'types'), ['cjs'], '.d.ts')
 
-  // A package is CommonJS only where its manifest says a `require` reaches it.
-  // One that uses import.meta or a top-level await is ESM by nature and states
-  // no such entry, so there is nothing to emit for CommonJS.
-  //
-  // A package that asks for isolatedDeclarations cannot emit without
-  // declarations, so the CJS and native passes write theirs beside their
-  // output and those are dropped: the ESM pass already published the one copy.
-  if (/"require"|dist\/cjs/.test(JSON.stringify(manifest.exports ?? {}) + (manifest.main ?? ''))) {
-    emit('tsconfig.cjs.json')
+  // The ESM pass checked the source; the other two only translate it. A package
+  // that asks for isolatedDeclarations cannot emit without declarations, so
+  // those passes write theirs beside their output and the copies are dropped.
+  if (existsSync(join(cwd, 'tsconfig.cjs.json'))) {
+    emit('tsconfig.cjs.json', ['--noCheck'])
     answer(join(cwd, 'dist/cjs'), 'web')
     rmSync(join(cwd, 'dist/cjs/.types'), { recursive: true, force: true })
+    adopt(join(cwd, 'dist/cjs'), 'cjs')
+    drop(join(cwd, 'dist/cjs'), ['native'])
     mkdirSync(join(cwd, 'dist/cjs'), { recursive: true })
     writeFileSync(join(cwd, 'dist/cjs/package.json'), '{ "type": "commonjs" }\n')
+    script(join(cwd, 'dist/cjs'))
   }
 
   if (!args.has('--skip-native') && existsSync(join(cwd, 'tsconfig.native.json'))) {
-    emit('tsconfig.native.json')
+    emit('tsconfig.native.json', ['--noCheck'])
     answer(join(cwd, 'dist/native'), 'native')
     rmSync(join(cwd, 'dist/native/.types'), { recursive: true, force: true })
-    // A `.native` file was written to answer for its sibling on that platform;
-    // here it takes the sibling's name, so the import the sibling's callers
-    // already make resolves to it.
-    const walk = (dir) => {
-      for (const entry of readdirSync(dir, { withFileTypes: true })) {
-        const p = join(dir, entry.name)
-        if (entry.isDirectory()) walk(p)
-        else if (entry.name.endsWith('.native.js.map')) renameSync(p, p.replace('.native.js.map', '.js.map'))
-        else if (entry.name.endsWith('.native.js')) {
-          const named = p.replace('.native.js', '.js')
-          writeFileSync(named, readFileSync(p, 'utf8').replace(/sourceMappingURL=(.+)\.native\.js\.map/, 'sourceMappingURL=$1.js.map'))
-          rmSync(p)
-        }
-      }
+    adopt(join(cwd, 'dist/native'), 'native')
+    drop(join(cwd, 'dist/native'), ['cjs'])
+  }
+
+  if (manifest.bin) {
+    for (const bin of typeof manifest.bin === 'string' ? [manifest.bin] : Object.values(manifest.bin)) {
+      if (existsSync(join(cwd, bin))) chmodSync(join(cwd, bin), 0o755)
     }
-    walk(join(cwd, 'dist/native'))
   }
 }

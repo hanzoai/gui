@@ -61,6 +61,28 @@ describe('hanzogui-build', () => {
     expect(read(dir, 'dist/esm/platform.js')).not.toContain('process.env')
   })
 
+  it('answers only a read; an assignment and a string stay as written', () => {
+    const js = read(dir, 'dist/esm/env.js')
+    expect(js).toContain("process.env.GUI_TARGET = 'web'")
+    expect(js).toContain("'process.env.GUI_TARGET'")
+    expect(js).toContain('const on = "web"')
+  })
+
+  it('lets a .cjs sibling answer for its file in the CommonJS emit alone', () => {
+    expect(read(dir, 'dist/esm/here.js')).toContain('import.meta.url')
+    expect(read(dir, 'dist/cjs/here.js')).toContain('__filename')
+    expect(read(dir, 'dist/cjs/here.js')).not.toContain('import.meta')
+    for (const p of ['dist/esm/here.cjs.js', 'dist/cjs/here.cjs.js', 'dist/native/here.cjs.js', 'types/here.cjs.d.ts']) {
+      expect(existsSync(join(dir, p))).toBe(false)
+    }
+    expect(existsSync(join(dir, 'types/here.d.ts'))).toBe(true)
+  })
+
+  it('keeps each sibling out of the emits it does not answer for', () => {
+    expect(existsSync(join(dir, 'dist/esm/platform.native.js'))).toBe(false)
+    expect(existsSync(join(dir, 'dist/cjs/platform.native.js'))).toBe(false)
+  })
+
   it('answers each platform through the manifest', async () => {
     const web = await import(join(dir, 'dist/esm/index.js'))
     expect(web.greet('a')).toBe('Hello, a, from web')
@@ -90,17 +112,24 @@ describe('hanzogui-build --skip-native', () => {
   })
 })
 
-describe('an ESM-only package', () => {
-  it('states no require entry and gets no CommonJS', () => {
+describe('a package that states no require entry', () => {
+  it('still gets CommonJS, so no manifest decides what a build emits', () => {
     const dir = copy()
     const manifest = JSON.parse(read(dir, 'package.json'))
     delete manifest.main
     delete manifest.exports['.'].require
     writeFileSync(join(dir, 'package.json'), JSON.stringify(manifest))
-    writeFileSync(join(dir, 'src/index.ts'), "export const here: string = import.meta.url\n")
     build(dir)
-    expect(existsSync(join(dir, 'dist/esm/index.js'))).toBe(true)
-    expect(existsSync(join(dir, 'dist/cjs'))).toBe(false)
+    expect(existsSync(join(dir, 'dist/cjs/index.js'))).toBe(true)
+    rmSync(dir, { recursive: true, force: true })
+  })
+})
+
+describe('a module only a module could load', () => {
+  it('fails the CommonJS emit by name instead of shipping it', () => {
+    const dir = copy()
+    writeFileSync(join(dir, 'src/index.ts'), 'export const here: string = import.meta.url\n')
+    expect(() => build(dir)).toThrow(/index\.js is not CommonJS/)
     rmSync(dir, { recursive: true, force: true })
   })
 })

@@ -1013,6 +1013,7 @@ const LinkHeading = ({ id, children, ...props }: { id: string } & XStackProps) =
   <XStack
     render="a"
     data-heading
+    // @ts-expect-error href is an anchor prop the stack type does not carry
     href={`#${id}`}
     id={id}
     data-id={id}

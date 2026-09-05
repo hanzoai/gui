@@ -962,9 +962,6 @@
         "@hanzogui/build": "workspace:*",
       },
     },
-    "pkgs/core/colors/legacy": {
-      "name": "@hanzogui/colors-legacy-shim",
-    },
     "pkgs/core/component-helpers": {
       "name": "@hanzogui/component-helpers",
       "version": "8.3.1",
@@ -4010,8 +4007,6 @@
     "@hanzogui/collection": ["@hanzogui/collection@workspace:pkgs/ui/collection"],
 
     "@hanzogui/colors": ["@hanzogui/colors@workspace:pkgs/core/colors"],
-
-    "@hanzogui/colors-legacy-shim": ["@hanzogui/colors-legacy-shim@workspace:pkgs/core/colors/legacy"],
 
     "@hanzogui/component-helpers": ["@hanzogui/component-helpers@workspace:pkgs/core/component-helpers"],
 

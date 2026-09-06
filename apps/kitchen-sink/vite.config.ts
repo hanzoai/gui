@@ -5,10 +5,10 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   clearScreen: true,
   plugins: [
-    // hanzoguiPlugin({
-    //   components: ['@hanzogui/sandbox-ui', '@hanzo/gui'],
-    //   config: 'src/hanzogui.config.ts',
-    //   optimize: process.env.EXTRACT === '1',
-    // }),
+    hanzoguiPlugin({
+      components: ['@hanzogui/sandbox-ui', '@hanzo/gui'],
+      config: 'src/hanzogui.config.ts',
+      disableExtraction: process.env.DISABLE_EXTRACTION === 'true',
+    }),
   ].filter(Boolean),
 })

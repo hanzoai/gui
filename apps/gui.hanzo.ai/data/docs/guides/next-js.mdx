@@ -330,47 +330,10 @@ export const SwitchThemeButton = () => {
 
 ---
 
-## For Older Versions
-
-The following sections cover setup for older Next.js versions using Webpack
-instead of Turbopack.
-
-### Webpack Plugin
-
-If you aren't using Turbopack, you may want the optional `@hanzogui/next-plugin`,
-which smooths out a few settings. See the
-[compiler install docs](/docs/intro/compiler-install) for more options.
-
-Add `@hanzogui/next-plugin` to your project:
-
-```bash
-yarn add @hanzogui/next-plugin
-```
-
 ## Pages Router
 
-### next.config.js
-
-Set up the optional Gui plugin in `next.config.js`:
-
-```tsx showMore fileName="next.config.js"
-const { withGui } = require('@hanzogui/next-plugin')
-
-module.exports = function (name, { defaultConfig }) {
-  let config = {
-    ...defaultConfig,
-    // ...your configuration
-  }
-  const hanzoguiPlugin = withGui({
-    config: './hanzogui.config.ts',
-    components: ['@hanzo/gui'],
-  })
-  return {
-    ...config,
-    ...hanzoguiPlugin(config),
-  }
-}
-```
+The [Setup](#setup) above applies unchanged; what follows is the Pages Router
+side of the provider and theme code.
 
 ### pages/\_document.tsx
 
@@ -532,12 +495,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 ### Static CSS Output (Pages Router)
 
-You can generate a static CSS file for your themes and tokens. There are two
-ways to do this:
-
-#### Option 1: Using the CLI
-
-The simplest approach is to use the Gui CLI to generate the CSS file:
+Generate a static CSS file for your themes and tokens with the CLI:
 
 ```bash
 npx hanzogui generate
@@ -562,33 +520,12 @@ Then import it in your `_app.tsx`:
 import '../public/hanzogui.generated.css'
 ```
 
-#### Option 2: Using the Next.js Plugin
-
-You can also have the plugin generate CSS during your Next.js build:
-
-```tsx fileName="next.config.js"
-const hanzoguiPlugin = withGui({
-  config: './hanzogui.config.ts',
-  components: ['@hanzo/gui'],
-  outputCSS:
-    process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
-  // faster dev mode, keeps debugging helpers:
-  disableExtraction: process.env.NODE_ENV === 'development',
-})
-```
-
-Then import it in your `_app.tsx`:
-
-```tsx fileName="_app.tsx"
-import '../public/hanzogui.generated.css'
-```
-
 <Notice theme="green">
   With `outputCSS`, you don't need `getCSS()` in your `_document.tsx` - all styles are
   handled by the static CSS file and runtime style injection.
 </Notice>
 
-## App Router (Webpack)
+## App Router
 
 Gui includes Server Components support for the Next.js app directory with
 [`use client`](https://nextjs.org/docs/app/building-your-application/rendering/client-components#using-client-components-in-nextjs)
@@ -598,38 +535,7 @@ Note that `"use client"` components do render on the server, and since Gui
 extracts to CSS statically and uses inline `<style />` tags for non-static
 styling, you get excellent performance out of the box.
 
-### next.config.js
-
-The Gui plugin is optional but helps with compatibility with the rest of the
-React Native ecosystem. It requires CommonJS for now because the optimizing
-compiler uses various resolving features that haven't been ported to ESM yet.
-Rename your `next.config.mjs` to `next.config.js` before adding it:
-
-```tsx fileName="next.config.js"
-const { withGui } = require('@hanzogui/next-plugin')
-
-module.exports = function (name, { defaultConfig }) {
-  let config = {
-    ...defaultConfig,
-    // ...your configuration
-  }
-
-  const hanzoguiPlugin = withGui({
-    config: './hanzogui.config.ts',
-    components: ['@hanzo/gui'],
-    appDir: true,
-  })
-
-  return {
-    ...config,
-    ...hanzoguiPlugin(config),
-  }
-}
-```
-
-<Notice theme="blue">
-  You need to pass the `appDir` boolean to `@hanzogui/next-plugin`.
-</Notice>
+The `next.config.ts` from [Setup](#setup) is all the configuration needed.
 
 ### app/layout.tsx
 
@@ -721,7 +627,7 @@ export default function Home() {
 }
 ```
 
-### Themes (App Router Webpack)
+### Themes (App Router)
 
 We've created a package called `@hanzogui/next-theme` that properly supports SSR
 light/dark themes while respecting user system preferences. It assumes your
@@ -776,23 +682,10 @@ export const NextGuiProvider = ({ children }: { children: ReactNode }) => {
 }
 ```
 
-### Static CSS Output (App Router Webpack)
+### Static CSS Output (App Router)
 
-You can generate a static CSS file for your themes and tokens. Use either the
-CLI or the Next.js plugin:
-
-```tsx fileName="next.config.js"
-const hanzoguiPlugin = withGui({
-  config: './hanzogui.config.ts',
-  components: ['@hanzo/gui'],
-  outputCSS:
-    process.env.NODE_ENV === 'production' ? './public/hanzogui.generated.css' : null,
-  // faster dev mode, keeps debugging helpers:
-  disableExtraction: process.env.NODE_ENV === 'development',
-})
-```
-
-Then link the generated CSS file in your `app/layout.tsx`:
+With `outputCSS` set in `hanzogui.build.ts` (see [Setup](#setup)), `hanzogui build`
+and `npx hanzogui generate` both write the file. Import it in your `app/layout.tsx`:
 
 ```tsx fileName="app/layout.tsx"
 import '../public/hanzogui.generated.css'

@@ -54,6 +54,8 @@ describe('a page with no key configured', () => {
 
   it('yields to a key the app states', () => {
     servedFrom('example.com')
-    expect(describeTelemetry(createTelemetry({ ingestKey: 'pk-stated' }))?.hasIngestKey).toBe(true)
+    expect(
+      describeTelemetry(createTelemetry({ ingestKey: 'pk-stated' }))?.hasIngestKey
+    ).toBe(true)
   })
 })

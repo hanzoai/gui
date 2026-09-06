@@ -37,8 +37,8 @@ options once.
 This file lets the Gui CLI read your config and perform operations like
 generating CSS, pre-compiling components, and verifying optimizations — while
 also sharing that same configuration with whichever bundler plugin you use.
-Without it, you'd need to duplicate options across your metro, babel, vite,
-or webpack configs.
+Without it, you'd need to duplicate options across your metro, babel and vite
+configs.
 
 ```ts fileName="hanzogui.build.ts"
 import type { GuiBuildOptions } from '@hanzo/gui'
@@ -53,12 +53,20 @@ export default {
 } satisfies GuiBuildOptions
 ```
 
+Some notes on the options:
+
+- _importsWhitelist_: Gui takes a conservative approach to partial
+  evaluation, this field whitelists (matching against both .ts and .js) files to
+  allow files that import them to read and use their values during compilation.
+  Typically colors and constants files.
+- _disableExtraction_: Useful for faster developer iteration as your design
+  system hot reloads more reliably.
+
 With this file in place, your bundler plugins can be configured with no options
 at all — they'll pick up everything from `hanzogui.build.ts`:
 
 ```tsx
 // vite: hanzoguiPlugin()
-// webpack: new GuiPlugin()
 // metro: withGui(config)
 // all read from hanzogui.build.ts automatically
 ```
@@ -70,111 +78,6 @@ You can still pass options directly to a plugin, and they'll be merged with
 
 There are plugins for a variety of bundlers, or you can use the `@hanzogui/cli`
 to compile in-place:
-
-### Webpack
-
-```bash
-yarn add hanzogui-loader
-```
-
-We have a full example of a plain Webpack or Vite setup in the simple starter
-accessible through `npm create hanzogui@latest`, which shows a complete
-configuration with more detail.
-
-Add `hanzogui-loader` and set up your `webpack.config.js`.
-
-You can set it up more manually like so:
-
-```js
-const { shouldExclude } = require('@hanzogui/loader')
-
-const hanzoguiOptions = {
-  config: './hanzogui.config.ts',
-  components: ['@hanzo/gui'],
-  importsWhitelist: ['constants.js', 'colors.js'],
-  logTimings: true,
-  disableExtraction: process.env.NODE_ENV === 'development',
-  // optional advanced optimization of styled() definitions within your app itself, not just ones in your components option
-  // default is false
-  enableDynamicEvaluation: false,
-}
-
-module.exports = {
-  resolve: {
-    alias: {
-      // Resolve react-native to react-native-web
-      'react-native$': require.resolve('react-native-web'),
-      // optional, for lighter svg icons on web
-      'react-native-svg': require.resolve('@hanzogui/react-native-svg'),
-    },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.[jt]sx?$/,
-        // you'll likely want to adjust this helper function,
-        // but it serves as a decent start that you can copy/paste from
-        exclude: (path) => shouldExclude(path, __dirname, hanzoguiOptions),
-        use: [
-          // optionally thread-loader for significantly faster compile!
-          'thread-loader',
-
-          // works nicely alongside esbuild
-          {
-            loader: 'esbuild-loader',
-          },
-
-          {
-            loader: '@hanzogui/loader',
-            options: hanzoguiOptions,
-          },
-        ],
-      },
-    ],
-  },
-}
-```
-
-Or you can use the GuiPlugin which automates some of this setup for you.
-If you have a `hanzogui.build.ts`, you can pass no options:
-
-```tsx
-const { GuiPlugin } = require('@hanzogui/loader')
-
-module.exports = {
-  plugins: [
-    // reads from hanzogui.build.ts automatically
-    new GuiPlugin(),
-  ],
-}
-```
-
-Or pass options inline to override:
-
-```tsx
-const { GuiPlugin } = require('@hanzogui/loader')
-
-module.exports = {
-  plugins: [
-    new GuiPlugin({
-      config: './hanzogui.config.ts',
-      components: ['@hanzo/gui'],
-      importsWhitelist: ['constants.js', 'colors.js'],
-      logTimings: true,
-      disableExtraction: process.env.NODE_ENV === 'development',
-    }),
-  ],
-}
-```
-
-Some notes on the options:
-
-- _importsWhitelist_: Gui takes a conservative approach to partial
-  evaluation, this field whitelists (matching against both .ts and .js) files to
-  allow files that import them to read and use their values during compilation.
-  Typically colors and constants files.
-- _disableExtraction_: Useful for faster developer iteration as your design
-  system hot reloads more reliably.
 
 ### Vite
 
@@ -219,36 +122,16 @@ export default defineConfig({
 
 See the [guide](/docs/guides/next-js) for more complete setup.
 
-Next.js with Turbopack (the default) works best with the CLI approach — create a
-`hanzogui.build.ts` and use `hanzogui build` to optimize production builds. No
-bundler plugin needed.
+Next.js runs on Turbopack, which needs no plugin: create a `hanzogui.build.ts`
+and run `hanzogui build` ahead of `next build`.
 
-For older Webpack-based Next.js setups, add `@hanzogui/next-plugin` and configure
-your `next.config.js`:
-
-```js
-const { withGui } = require('@hanzogui/next-plugin')
-
-module.exports = function (name, { defaultConfig }) {
-  const hanzoguiPlugin = withGui({
-    // reads from hanzogui.build.ts automatically, or pass inline:
-    config: './hanzogui.config.ts',
-    components: ['@hanzo/gui'],
-    disableExtraction: process.env.NODE_ENV === 'development',
-    excludeReactNativeWebExports: ['Switch', 'ProgressBar', 'Picker'],
-  })
-  return {
-    ...defaultConfig,
-    ...hanzoguiPlugin(defaultConfig),
+```json fileName="package.json"
+{
+  "scripts": {
+    "build": "hanzogui build --target web ./src -- next build"
   }
 }
 ```
-
-Note: If running into issues, the environment variable `IGNORE_TS_CONFIG_PATHS`
-to "true" can fix issues with Gui being resolved incorrectly.
-
-See the [Next.js Guide](/docs/guides/next-js) for more details on setting up
-your app.
 
 ### Babel / Metro
 

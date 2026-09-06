@@ -275,7 +275,7 @@ let hasLoggedBuild = false
 
 export async function bundleConfig(props: GuiOptions) {
   const bundleKey = getBundleKey(props)
-  // webpack is calling this a ton for no reason
+  // bundlers call this per module, so the answer is cached
   if (
     global.hanzoguiLastBundledConfig &&
     global.hanzoguiLastBundledConfigKey === bundleKey &&

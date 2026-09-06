@@ -257,14 +257,15 @@ export const themes = themesBuilder.build()
 
 Optionally generate themes at build time to reduce bundle size:
 
-```tsx
-// next.config.js
-withGui({
+```ts fileName="hanzogui.build.ts"
+import type { GuiBuildOptions } from '@hanzo/gui'
+
+export default {
   themeBuilder: {
     input: './themes-input.tsx',
     output: './themes.tsx',
   },
-})
+} satisfies GuiBuildOptions
 ```
 
 Or use the CLI: `npx @hanzogui/cli generate-themes ./src/themes-in.ts ./src/themes-out.ts`

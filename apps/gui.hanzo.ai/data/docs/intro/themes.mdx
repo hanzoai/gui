@@ -448,14 +448,16 @@ somewhat advanced optimization and not necessary to do right away.
 import { themes as themesIn } from './your-themes-file'
 
 // We leave this value empty for production client side bundles to save on bundle size.
-// The `@hanzogui/next-plugin` sets GUI_IS_SERVER automatically.
+// The condition must be a constant your bundler folds for the client build:
+// `@hanzogui/vite-plugin` defines `process.env.GUI_IS_CLIENT` there; with
+// another bundler, define it yourself for the client build only.
 // If you pass an empty themes object Gui will try to hydrate by scanning CSS in browser environments.
 // It typically takes low single-digit ms to scan and can save significantly on JS size.
 
 const themes =
-  process.env.GUI_IS_SERVER || process.env.NODE_ENV !== 'production'
-    ? themesIn
-    : ({} as typeof themesIn)
+  process.env.GUI_IS_CLIENT && process.env.NODE_ENV === 'production'
+    ? ({} as typeof themesIn)
+    : themesIn
 
 export const config = createGui({
   themes,

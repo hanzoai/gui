@@ -72,9 +72,6 @@
       "path": "pkgs/compiler/metro-plugin"
     },
     {
-      "path": "pkgs/compiler/next-plugin"
-    },
-    {
       "path": "pkgs/compiler/static-tests"
     },
     {

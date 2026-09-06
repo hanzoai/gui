@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start:one": "one dev",
-    "start:web": "DISABLE_EXTRACTION=true NODE_ENV=development webpack serve",
-    "start:web:prod": "NODE_ENV=production webpack serve",
-    "start:web:extract": "DISABLE_EXTRACTION=false NODE_ENV=development webpack serve",
+    "start:web": "DISABLE_EXTRACTION=true vite --port ${PORT:-9000}",
+    "start:web:prod": "vite preview --port ${PORT:-9000}",
+    "start:web:extract": "EXTRACT=1 vite --port ${PORT:-9000}",
     "start": "EXPO_NO_TELEMETRY=true expo start --dev-client --offline",
     "start:extract": "GUI_OPTIMIZE_NATIVE_VIEWS=1 GUI_ENABLE_DYNAMIC_LOAD=1 bun run start",
     "start:prod": "DISABLE_EXTRACTION=false GUI_ENABLE_DYNAMIC_LOAD=1 expo start --dev-client --offline --no-dev --minify",
@@ -32,7 +32,7 @@
     "detox:build:android": "detox build -c android.emu.debug",
     "detox:run:ios": "./run-detox.sh ios",
     "detox:run:android": "./run-detox.sh android",
-    "prod:web": "NODE_ENV=production webpack --json=dist/compilation-stats.json",
+    "prod:web": "vite build",
     "test:native": "bun run test:native:ios && bun run test:native:maestro",
     "test": "bun run test:web && ./run-native-tests.sh"
   },
@@ -109,22 +109,17 @@
     "@hanzogui/babel-plugin": "workspace:*",
     "@hanzogui/metro-plugin": "workspace:*",
     "@playwright/test": "^1.62.1",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.3",
     "@types/jest": "^30.0.0",
     "@types/pngjs": "^6.0.5",
     "babel-plugin-module-resolver": "^5.0.3",
     "detox": "^20.51.4",
-    "html-webpack-plugin": "^5.6.8",
     "jest": "^30.5.0",
     "mini-css-extract-plugin": "^2.10.2",
     "one": "^1.25.8",
     "pngjs": "^7.0.0",
     "pod-install": "^1.1.0",
     "tilg": "^0.1.1",
-    "ts-jest": "^29.4.12",
-    "webpack": "^5.110.1",
-    "webpack-cli": "^7.2.3",
-    "webpack-dev-server": "^6.0.0"
+    "ts-jest": "^29.4.12"
   },
   "packageManager": "bun@1.3.9"
 }

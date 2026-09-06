@@ -8,21 +8,19 @@
     "access": "public"
   },
   "scripts": {
-    "pretest": "RUN_PRETEST=1 node -r esbuild-register ./tests/lib/preTest.js",
     "test-output": "node -r esbuild-register ./test-output.tsx",
     "test": "bun run test:web",
     "test:all": "bun run test:native && bun run test:web",
-    "test:update": "bun run test:extract:web -- --update && bun run test:babel:native -- --update && bun run test:babel:web -- --update && bun run test:styled:web -- --update && bun run test:flatten:native -- --update && bun run test:webpack -- --update",
+    "test:update": "bun run test:extract:web -- --update && bun run test:babel:native -- --update && bun run test:babel:web -- --update && bun run test:styled:web -- --update && bun run test:flatten:native -- --update",
     "test:run": "INCLUDE_CSS_COLOR_NAMES=1 vitest --retry=2 --config ../../vite-plugin-internal/src/vite.config.cjs.ts --run --dangerouslyIgnoreUnhandledErrors",
     "test:run:web": "DISABLE_NATIVE_TEST=1 bun run test:run --",
     "test:concatClassName": "bun run test:run -- tests/concatClassName.web.test.tsx",
-    "test:webpack": "bun run pretest && bun run test:run -- tests/webpack.test.tsx --reporter=verbose --pool=forks",
     "test:flatten:native": "bun run test:run -- tests/flatten.native.test.tsx",
     "test:babel:native": "bun run test:run -- tests/babel.native.test.tsx",
     "test:babel:web": "bun run test:run -- tests/babel.web.test.tsx",
     "test:extract:web": "bun run test:run:web -- tests/extract.web.test.tsx",
     "test:styled:web": "bun run test:run -- tests/styled.web.test.tsx",
-    "test:web": "bun run test:run:web -- tests/*.web.test.tsx && bun run test:webpack",
+    "test:web": "bun run test:run:web -- tests/*.web.test.tsx",
     "test:native": "bun run test:run -- tests/*.native.test.tsx"
   },
   "devDependencies": {
@@ -35,7 +33,6 @@
     "@types/babel__traverse": "^7.28.0",
     "@types/find-root": "^1.1.4",
     "@types/node": "26.4.0",
-    "@types/webpack": "^5.28.5",
     "babel-loader": "^10.1.1",
     "css-loader": "^7.1.5",
     "dedent": "^1.7.2",
@@ -46,8 +43,7 @@
     "react-test-renderer": "^19.2.8",
     "style-loader": "^4.0.0",
     "typescript": "7.0.2",
-    "vitest": "^4.1.11",
-    "webpack": "^5.110.1"
+    "vitest": "^4.1.11"
   },
   "peerDependencies": {
     "react": ">=19.2.8",

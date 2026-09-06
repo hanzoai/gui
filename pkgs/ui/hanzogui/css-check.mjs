@@ -489,7 +489,7 @@ const KINDS = [
       `      Nothing produced these rules. Exactly one of the two paths has to run:\n` +
       `        · GuiProvider injects at runtime — do NOT set disableInjectCSS, or\n` +
       `        · a compiler plugin extracts them at build time —\n` +
-      `          @hanzogui/next-plugin withGui() / @hanzogui/vite-plugin gui().\n` +
+      `          @hanzogui/vite-plugin hanzoguiPlugin().\n` +
       `      disableInjectCSS with no plugin configured leaves nobody writing it.`,
   },
   {

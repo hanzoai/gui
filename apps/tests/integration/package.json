@@ -10,8 +10,7 @@
     "build:prod": "vite build",
     "preview": "vite preview --host",
     "dev": "NODE_ENV=development vite --host --clearScreen false",
-    "dev:extract": "EXTRACT=1 bun run dev",
-    "prod": "NODE_ENV=production webpack --json=dist/compilation-stats.json"
+    "dev:extract": "EXTRACT=1 bun run dev"
   },
   "dependencies": {
     "@hanzo/gui": "workspace:*",

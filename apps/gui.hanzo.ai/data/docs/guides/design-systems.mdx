@@ -73,11 +73,10 @@ There are a few things to note here:
 - We're using `@hanzogui/build` to build this package, which is a small script
   built around `esbuild` and `typescript` that makes sure you output your
   components _with JSX preserved_.
-- We then set `module:jsx`, which then needs to be added to your webpack
-  `resolve.mainFields`.
-  - The Next.js plugin handles this for you automatically.
-- `sideEffects` field is important, otherwise webpack will remove the generated
-  CSS in production.
+- `module:jsx` points the compiler at that JSX-preserving build; it resolves the
+  field itself, so your bundler needs no configuration for it.
+- `sideEffects` matters: a bundler that tree-shakes would otherwise drop the
+  generated CSS in production.
 
 ## Step 2: Create your design system
 
@@ -130,31 +129,39 @@ export * from './Circle'
 Now in your app, add `@ourapp/components` and `hanzogui` (since we are extending
 it) to your package.json, and update your hanzogui build configuration.
 
-### Webpack
+### hanzogui.build.ts
 
-In your `webpack.config.js`:
+Every plugin and the CLI read this file:
 
-```js
-{
-  loader: '@hanzogui/loader',
-  options: {
-    config: './hanzogui.config.ts',
-    components: ['@ourapp/components', '@hanzo/gui'],
-  },
-}
+```ts fileName="hanzogui.build.ts"
+import type { GuiBuildOptions } from '@hanzo/gui'
+
+export default {
+  config: './hanzogui.config.ts',
+  components: ['@ourapp/components', '@hanzo/gui'],
+} satisfies GuiBuildOptions
+```
+
+### Vite
+
+```ts fileName="vite.config.ts"
+import { hanzoguiPlugin } from '@hanzogui/vite-plugin'
+
+export default defineConfig({
+  plugins: [hanzoguiPlugin()],
+})
 ```
 
 ### Next.js
 
-In your `next.config.js`:
+Turbopack needs no plugin; the CLI optimizes ahead of the build:
 
-```js
-export default withPlugins([
-  withGui({
-    config: './hanzogui.config.ts',
-    components: ['@ourapp/components', '@hanzo/gui'],
-  }),
-])
+```json fileName="package.json"
+{
+  "scripts": {
+    "build": "hanzogui build --target web ./src -- next build"
+  }
+}
 ```
 
 ### React Native

@@ -68,7 +68,7 @@ export default defineConfig({
     command: `PORT=${port} bun run start:web`,
     url: `http://localhost:${port}`,
     reuseExistingServer: !!process.env.REUSE_SERVER,
-    timeout: 120_000, // give webpack more time to start
+    timeout: 120_000, // the dev server compiles on first request
   },
 
   fullyParallel: true,

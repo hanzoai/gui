@@ -2,7 +2,7 @@
  * One place decides which files the compiler may read styles out of.
  *
  * The compiler used to answer this with `sourcePath.includes('node_modules')`,
- * in two places that had to agree by hand — the webpack loader and
+ * in two places that had to agree by hand — the bundler plugin and
  * extractToClassNames. That answer was right about the cost and wrong about
  * the design system: for a *consumer*, `@hanzo/ui` and every `@hanzogui/*`
  * package IS node_modules, so no app could ask the compiler to look at them

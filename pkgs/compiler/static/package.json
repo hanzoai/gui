@@ -114,7 +114,6 @@
     "@types/babel__core": "^7.20.5",
     "@types/find-root": "^1.1.4",
     "@types/node": "26.4.0",
-    "@types/webpack": "^5.28.5",
     "babel-loader": "^10.1.1",
     "esbuild-loader": "^4.5.0",
     "null-loader": "^4.0.1",

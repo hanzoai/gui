@@ -137,10 +137,8 @@ async function runDriver(
 }
 
 async function main() {
-  // start a single shared webpack dev server
-  console.log(
-    `${COLORS.dim}Starting shared webpack dev server on port ${PORT}...${COLORS.reset}`
-  )
+  // start a single shared dev server
+  console.log(`${COLORS.dim}Starting shared dev server on port ${PORT}...${COLORS.reset}`)
   const server = startServer(PORT)
 
   try {

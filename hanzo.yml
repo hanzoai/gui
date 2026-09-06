@@ -113,7 +113,7 @@ test:
 # Two sites off one build, published by the reusable's site lane to the Sites
 # plane, where universe charts/app/values/hanzo/static-sites.yaml routes each:
 #
-#   team   hanzo.team, apps/team. Its entire backend is the cloud team surface at
+#   hanzo-team   hanzo.team, apps/team. Its entire backend is the cloud team surface at
 #          api.hanzo.ai/v1/team, so it needs no image and no pod. `team-static`
 #          has spaMode ON: `one build` writes rooms/:id.html literally, so
 #          /rooms/<id> has no file behind it and must fall back to the shell for
@@ -128,7 +128,7 @@ test:
 # turbo, not the bare script: both apps import workspace packages that must be
 # built before they can be, and `one build` alone does not build them.
 sites:
-  - slug: team
+  - slug: hanzo-team
     dir: apps/team/dist/client
     on: [main]
   - slug: gui

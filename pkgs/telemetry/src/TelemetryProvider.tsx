@@ -38,6 +38,7 @@ import {
   onTelemetryOwnerChange,
   setTelemetry,
 } from './telemetry.ts'
+import { useComponentTracking } from './useComponentTracking.ts'
 import { useReplay } from './useReplay.ts'
 import { useRouteTracking } from './useRouteTracking.ts'
 import type { Telemetry, TelemetryConfig } from './types.ts'
@@ -86,6 +87,7 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
     replay,
     errors,
     pageviews,
+    components,
     redaction,
     debug,
   } = props
@@ -199,6 +201,7 @@ export function TelemetryProvider(props: TelemetryProviderProps): ReactNode {
   const active = telemetry.enabled
   useRouteTracking(telemetry, active && (pageviews ?? true), path)
   useReplay(telemetry, active && (replay ?? true), redactionRef.current)
+  useComponentTracking(telemetry, active && (components ?? true))
 
   return (
     <TelemetryContext.Provider value={telemetry}>

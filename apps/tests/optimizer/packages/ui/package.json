@@ -15,10 +15,6 @@
     ".": "./src/index.tsx",
     "./components/*": "./src/*.tsx"
   },
-  "scripts": {
-    "build": "hanzogui-build --skip-types",
-    "watch": "hanzogui-build --skip-types --watch"
-  },
   "dependencies": {
     "@hanzo/gui": "workspace:*",
     "@hanzogui/next-theme": "workspace:*",

@@ -67,6 +67,11 @@ export interface TelemetryConfig {
   errors?: boolean
   /** Record pageviews, including SPA route changes (default true). */
   pageviews?: boolean
+  /** Attribute clicks to the component that drew them, using the annotations
+   *  the gui compiler already writes — `data-is` / `data-in` / `data-at`
+   *  (default true). Read-only: it adds no markup and changes no behavior, and
+   *  where the compiler did not run the fields are simply absent. */
+  components?: boolean
   /** Privacy policy for interaction capture. Input values are withheld by
    *  default; `data-hz-private` excludes a whole subtree. */
   redaction?: RedactionPolicy

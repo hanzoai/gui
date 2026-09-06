@@ -59,6 +59,7 @@ export {
 } from './env.ts'
 export type { ResolvedEnv, TelemetryGlobal } from './env.ts'
 
+export { useComponentTracking } from './useComponentTracking.ts'
 export { useRouteTracking } from './useRouteTracking.ts'
 export { useReplay } from './useReplay.ts'
 export { useScreenTracking } from './useScreenTracking.ts'

@@ -2,6 +2,7 @@ import { ToastViewport } from '@hanzogui/toast'
 import { lazy, Suspense } from 'react'
 import { LoadProgressBar, Slot, usePathname } from 'one'
 import { Theme, YStack } from '@hanzo/gui'
+import { AppearanceDock } from '~/features/site/AppearanceDock'
 import { Footer } from '~/features/site/Footer'
 import { Header } from '~/features/site/header/Header'
 import { useSiteTheme } from '~/features/site/theme/useSiteTheme'
@@ -16,6 +17,7 @@ export default function SiteLayout() {
 
   const disableNew = isBlog || isStudio
   const hideFooter = isDocs
+  const hideDock = isStudio || path.startsWith('/theme')
 
   const { themeName, enabled } = useSiteTheme()
 
@@ -31,10 +33,11 @@ export default function SiteLayout() {
       <LoadProgressBar />
       <Theme name={customThemeName}>
         <YStack inset={0} position="absolute" bg="$color1" z={-1} pointerEvents="none" />
-        <ThemeNameEffect colorKey="$color1" disableTint={customThemeActive} />
+        <ThemeNameEffect colorKey="$color1" disableTint />
         <Slot />
       </Theme>
       {!hideFooter && <Footer />}
+      {!hideDock && <AppearanceDock />}
       <ToastViewport flexDirection="column-reverse" top="$2" left={0} right={0} />
       <ToastViewport
         multipleToasts

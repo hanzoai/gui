@@ -6,6 +6,7 @@ import * as React from 'react'
 import { useWindowDimensions, type LayoutRectangle } from 'react-native'
 import {
   Adapt,
+  Anchor,
   AnimatePresence,
   Button,
   Circle,
@@ -36,6 +37,15 @@ import { useDocsMenu } from '../../docs/useDocsMenu'
 import { PromoCardTheme } from './PromoCards'
 import { SearchButton } from './SearchButton'
 import type { HeaderProps } from './types'
+
+// 60px, the bar every Hanzo surface wears. LogoWords sizes the mark by
+// `downscale` from 373/3 px wide; its box is 2893.2 by 722 units with the H cap
+// at 710. The cap is set to that of a 24px Zen line (0.71em), so the mark and
+// the word beside it share one cap line.
+const HEADER = 60
+const LINE = 24
+const WORDMARK_HEIGHT = (LINE * 0.71 * 722) / 710
+const WORDMARK_DOWNSCALE = 373 / 3 / ((WORDMARK_HEIGHT * 2893.2) / 722)
 
 export function Header(props: HeaderProps) {
   const [isScrolled, setIsScrolled] = React.useState(false)
@@ -71,7 +81,6 @@ export function Header(props: HeaderProps) {
         <XStack pointerEvents="auto" width="100%" maxW={1200} position="relative">
           <XStack
             className={`ease-out all ms300`}
-            py="$1.5"
             overflow="hidden"
             contain="paint"
             width="100%"
@@ -82,8 +91,6 @@ export function Header(props: HeaderProps) {
             $sm={{
               rounded: 0,
               borderWidth: 0,
-              y: -1,
-              py: '$2',
             }}
             {...(isScrolled && {
               $gtSm: {
@@ -115,7 +122,7 @@ export function Header(props: HeaderProps) {
               bg="$color2"
             />
             <YStack mx="auto" px="$4" width="100%">
-              <ThemeTint>
+              <ThemeTint disable>
                 <HeaderContents floating {...props} />
               </ThemeTint>
             </YStack>
@@ -138,7 +145,7 @@ export function Header(props: HeaderProps) {
           />
         </XStack>
       </XStack>
-      <YStack height={54} width="100%" />
+      <YStack height={HEADER} width="100%" />
     </>
   )
 }
@@ -150,21 +157,26 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
   const isHome = pathname === '/'
 
   return (
-    <XStack
-      items="center"
-      position="relative"
-      render="header"
-      py={props.minimal ? '$4' : props.floating ? 0 : '$2'}
-      z={50000}
-    >
-      <XStack items="center" gap="$4">
+    <XStack items="center" position="relative" render="header" height={HEADER} z={50000}>
+      <XStack items="center" gap="$4" $sm={{ gap: '$2' }}>
         <Link href="/" aria-label="Homepage">
           <XStack
             cursor={isHome ? 'default' : 'pointer'}
-            items="center"
+            items="baseline"
+            gap="$2"
             pointerEvents="auto"
           >
-            <LogoWords />
+            <LogoWords downscale={WORDMARK_DOWNSCALE} />
+            <SizableText
+              fontFamily="$heading"
+              fontSize={LINE}
+              lineHeight={LINE}
+              fontWeight="$1"
+              color="$color12"
+              userSelect="none"
+            >
+              GUI
+            </SizableText>
           </XStack>
         </Link>
 
@@ -215,7 +227,7 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
               Core
             </HeaderLink>
 
-            <HeaderLink id="ui" href="/ui/intro">
+            <HeaderLink id="ui" href="https://ui.hanzo.ai">
               UI
             </HeaderLink>
 
@@ -364,6 +376,15 @@ export const HeaderLink = (props: { id: ID; children: string; href: string }) =>
   const section = getDocsSectionFromPath(pathname)
   const isActive =
     props.id === section || (props.id === 'theme' && pathname.startsWith('/theme'))
+
+  // Another host: a plain anchor, with no menu of this site's pages under it.
+  if (props.href.startsWith('http')) {
+    return (
+      <HeadAnchor href={props.href} $sm={{ display: 'none' }}>
+        {props.children}
+      </HeadAnchor>
+    )
+  }
 
   return (
     <SlidingPopoverTarget id={props.id}>
@@ -681,11 +702,9 @@ const HeaderMenuMoreContents = () => {
           </HeadAnchor>
         </Link>
 
-        <Link asChild href="/ui/intro" onPress={handlePress}>
-          <HeadAnchor menu half>
-            UI
-          </HeadAnchor>
-        </Link>
+        <HeadAnchor href="https://ui.hanzo.ai" menu half>
+          UI
+        </HeadAnchor>
 
         <Link asChild href="/theme" onPress={handlePress}>
           <HeadAnchor menu half>
@@ -759,13 +778,12 @@ const SeasonChooser = () => {
   )
 }
 
-const HeadAnchor = styled(Paragraph, {
-  render: 'a',
-  fontFamily: '$mono',
+const HeadAnchor = styled(Anchor, {
+  size: '$2',
+  fontWeight: '600',
   px: '$4',
   py: '$3',
   cursor: 'pointer',
-  fontSize: 18,
   color: '$color11',
 
   hoverStyle: {

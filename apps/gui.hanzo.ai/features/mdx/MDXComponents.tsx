@@ -83,11 +83,11 @@ const IntroParagraph = ({ children, large, disableUnwrapText, ...props }: any) =
     <Paragraph
       render="p"
       // ff="$mono"
-      size={large ? '$8' : '$7'}
+      size={large ? '$7' : '$6'}
       mb="$4"
       color="$accent1"
       $sm={{
-        size: '$6',
+        size: '$5',
       }}
       {...props}
     >

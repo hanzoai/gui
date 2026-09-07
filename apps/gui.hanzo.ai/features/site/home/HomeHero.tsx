@@ -33,19 +33,19 @@ const HeroSubTitle = memo(() => {
   return (
     <Subtitle>
       <Link asChild href="/docs/intro/introduction">
-        <Tag theme="gray" onMouseEnter={() => setHovered(2)} active={hovered === 2}>
+        <Tag theme="red" onMouseEnter={() => setHovered(2)} active={hovered === 2}>
           styles
         </Tag>
       </Link>{' '}
       ·{' '}
       <Link asChild href="/docs/intro/why-a-compiler">
-        <Tag theme="gray" onMouseEnter={() => setHovered(3)} active={hovered === 3}>
+        <Tag theme="green" onMouseEnter={() => setHovered(3)} active={hovered === 3}>
           optimizing compiler
         </Tag>
       </Link>{' '}
       ·{' '}
       <Link asChild href="/ui/stacks">
-        <Tag theme="gray" onMouseEnter={() => setHovered(4)} active={hovered === 4}>
+        <Tag theme="blue" onMouseEnter={() => setHovered(4)} active={hovered === 4}>
           UI&nbsp;kit
         </Tag>
       </Link>
@@ -289,8 +289,7 @@ const Subtitle = styled(Paragraph, {
   },
 
   $gtLg: {
-    fontSize: 25,
-    lineHeight: 48,
+    size: '$6',
     letterSpacing: -1,
   },
 })
@@ -327,23 +326,24 @@ const Tag = styled(Text, {
   } as const,
 })
 
+// $11 is the ramp's 64px h1; the transform keeps the hero's optical size where
+// it was when the rung sat at 55px.
 const HeroH1 = styled(H1, {
   text: 'center',
   size: '$11',
-  lineHeight: 52,
   maxW: 500,
   maxH: 400,
   position: 'relative',
   $gtSm: {
-    scale: 1.5,
+    scale: 1.3,
     m: '5%',
   },
   $gtMd: {
-    scale: 1.6,
+    scale: 1.4,
     m: '7%',
   },
   $gtLg: {
-    scale: 2,
+    scale: 1.7,
     my: '8%',
   },
 })

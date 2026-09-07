@@ -11,10 +11,17 @@ export const getFontSize = (
   opts?: GetFontSizeOpts
 ): number => {
   const res = getFontSizeVariable(inSize, opts)
-  if (isVariable(res)) {
-    return +res.val
-  }
-  return res ? +res : 16
+  return px(isVariable(res) ? res.val : res) ?? 16
+}
+
+// A size on a design ramp reads `var(--text-base, 14px)`; the number a caller
+// needs is the fallback it carries.
+const px = (val: unknown): number | undefined => {
+  const n =
+    typeof val === 'number'
+      ? val
+      : Number.parseFloat(String(val).match(/(\d*\.?\d+)px/)?.[1] ?? String(val))
+  return Number.isFinite(n) ? n : undefined
 }
 
 export const getFontSizeVariable = (

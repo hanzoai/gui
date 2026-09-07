@@ -9,7 +9,7 @@ import { ToastProvider } from '~/features/studio/ToastProvider'
 export const Providers = (props: { children: any }) => {
   return (
     <InitialPathContext.Provider value={3}>
-      <SchemeProvider>
+      <SchemeProvider defaultScheme="dark">
         <PostHogProvider>
           <SeasonProvider>
             <WebsiteGuiProvider>

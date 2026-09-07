@@ -3029,7 +3029,7 @@
     },
     "pkgs/ui/shell": {
       "name": "@hanzogui/shell",
-      "version": "8.3.4",
+      "version": "8.3.13",
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
       },

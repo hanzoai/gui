@@ -470,16 +470,25 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
  * an id absent from this list sorts to the end rather than disappearing, so
  * adding a product is never silently a decision about where it ranks.
  */
-const FLAGSHIP_ORDER = ['app', 'bot', 'cli', 'cloud', 'dev', 'ide', 'platform', 'team'] as const
+const FLAGSHIP_ORDER = [
+  'app',
+  'bot',
+  'cli',
+  'cloud',
+  'dev',
+  'ide',
+  'platform',
+  'team',
+] as const
 
 const rank = (id: string): number => {
   const i = FLAGSHIP_ORDER.indexOf(id as (typeof FLAGSHIP_ORDER)[number])
   return i === -1 ? FLAGSHIP_ORDER.length : i
 }
 
-export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.flagship).sort(
-  (a, b) => rank(a.id) - rank(b.id),
-)
+export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter(
+  (p) => p.flagship
+).sort((a, b) => rank(a.id) - rank(b.id))
 
 /**
  * The flagships as a PUBLIC menu links them — each pointing at the page that

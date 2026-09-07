@@ -1,4 +1,4 @@
-import { GuiLogo } from '@hanzogui/logo'
+import { GuiLogo, LogoWords } from '@hanzogui/logo'
 import { memo } from 'react'
 import { H4, Paragraph, Spacer, VisuallyHidden, XStack, YStack } from '@hanzo/gui'
 
@@ -22,7 +22,7 @@ export const Footer = memo(() => {
           >
             <Link href="/" aria-label="Homepage">
               <VisuallyHidden>homepage</VisuallyHidden>
-              <GuiLogo showWords downscale={1} />
+              <LogoWords />
             </Link>
             <Paragraph size="$3" opacity={0.25}>
               built with Gui
@@ -119,6 +119,11 @@ export const Footer = memo(() => {
         <Spacer />
         <Spacer />
         <Spacer />
+        <XStack justify="center" pb="$4">
+          <Link href="/" aria-label="Homepage">
+            <GuiLogo downscale={1} />
+          </Link>
+        </XStack>
       </ContainerLarge>
     </YStack>
   )

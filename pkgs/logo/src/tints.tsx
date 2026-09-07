@@ -5,12 +5,10 @@ type ChangeHandler = (next: TintFamily) => void
 
 const listeners = new Set<ChangeHandler>()
 
-// A seasonal ramp of tint stops. These used to be one entry per letter of the
-// old seven-letter wordmark, with index 3 reserved as the neutral notch; the
-// wordmark is Hanzo now and every reader indexes by `tints.length`, so the
-// length is just how many stops the ramp has.
+// A ramp of tint stops; every reader indexes by `tints.length`. The default
+// ramp is monochrome, so the site carries no hue unless a season sets one.
 const familiesValues = {
-  hanzogui: ['yellow', 'yellow', 'yellow', 'gray', 'red', 'green', 'blue'] as ThemeName[],
+  hanzogui: ['gray', 'gray', 'gray', 'gray', 'gray', 'gray', 'gray'] as ThemeName[],
   xmas: ['red', 'green', 'red', 'green', 'red', 'green', 'red'] as ThemeName[],
   easter: [
     'yellow',

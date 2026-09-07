@@ -1,4 +1,4 @@
-import { LogoWords, setTintFamily, GuiLogo, ThemeTint, useTint } from '@hanzogui/logo'
+import { LogoWords, setTintFamily, ThemeTint, useTint } from '@hanzogui/logo'
 import { Check, ExternalLink, Menu } from '@hanzogui/lucide-icons-2'
 import { isTouchable, useGet, useMedia } from '@hanzogui/web'
 import { useFocusEffect, usePathname, useRouter } from 'one'
@@ -28,7 +28,7 @@ import {
 } from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { GithubIcon } from '~/features/icons/GithubIcon'
-import { seasons, SeasonTogglePopover } from '~/features/site/seasons/SeasonTogglePopover'
+import { seasons } from '~/features/site/seasons/SeasonTogglePopover'
 import { ThemeToggle } from '~/features/site/theme/ThemeToggle'
 import { useThemeBuilderStore } from '~/features/studio/theme/store/ThemeBuilderStore'
 import { DocsMenuContents } from '../../docs/DocsMenuContents'
@@ -148,7 +148,6 @@ const tooltipDelay = { open: 0, close: 150 }
 export const HeaderContents = React.memo((props: HeaderProps) => {
   const pathname = usePathname()
   const isHome = pathname === '/'
-  const tint = useTint()
 
   return (
     <XStack
@@ -159,6 +158,16 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
       z={50000}
     >
       <XStack items="center" gap="$4">
+        <Link href="/" aria-label="Homepage">
+          <XStack
+            cursor={isHome ? 'default' : 'pointer'}
+            items="center"
+            pointerEvents="auto"
+          >
+            <LogoWords />
+          </XStack>
+        </Link>
+
         <TooltipGroup delay={tooltipDelay}>
           <XGroup maxH={32} bg="transparent" items="center" size="$4">
             <XGroup.Item>
@@ -198,47 +207,6 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
       </XStack>
 
       <View flex={1} />
-
-      <XStack
-        position="absolute"
-        $md={{
-          opacity: 0,
-          pointerEvents: 'none',
-        }}
-        z={-1}
-        justify="center"
-        fullscreen
-        pointerEvents="none"
-        items="center"
-      >
-        <Link href="/" aria-label="Homepage">
-          <XStack
-            cursor={isHome ? 'default' : 'pointer'}
-            pointerEvents="auto"
-            self="center"
-            gap="$3"
-            ml="$-5"
-            items="center"
-          >
-            <SeasonTogglePopover>
-              <YStack
-                cursor="pointer"
-                opacity={1}
-                {...(isHome && {
-                  onPress(e) {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    tint.setNextTint()
-                  },
-                })}
-              >
-                <GuiLogo downscale={2.6} />
-              </YStack>
-            </SeasonTogglePopover>
-            <LogoWords animated />
-          </XStack>
-        </Link>
-      </XStack>
 
       <XStack height={40} justify="flex-end" pointerEvents="auto" render="nav">
         <XStack items="center" gap="$2">

@@ -339,7 +339,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     // come from HANZO_FLAGSHIP, so Chat was simply not among them. Every Hanzo
     // surface's "Try Hanzo" menu and every command palette offered App, Cloud
     // and Dev and said nothing about the product the estate leads with.
-    flagship: true,
   },
   {
     id: 'app',
@@ -363,7 +362,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     // Studio carries `stage: 'alpha'` and every surface passes the list through
     // `sees(stage)` before drawing it — and dropping the flag instead takes a
     // finished product out of the mega-menu and the footer for everybody.
-    flagship: true,
   },
   {
     id: 'cloud',
@@ -472,7 +470,7 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
  * an id absent from this list sorts to the end rather than disappearing, so
  * adding a product is never silently a decision about where it ranks.
  */
-const FLAGSHIP_ORDER = ['app', 'bot', 'cli', 'dev', 'ide', 'platform', 'team', 'cloud', 'chat'] as const
+const FLAGSHIP_ORDER = ['app', 'bot', 'cli', 'cloud', 'dev', 'ide', 'platform', 'team'] as const
 
 const rank = (id: string): number => {
   const i = FLAGSHIP_ORDER.indexOf(id as (typeof FLAGSHIP_ORDER)[number])

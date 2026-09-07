@@ -95,7 +95,7 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
     id: 'hanzo',
     iam: 'https://hanzo.id',
     billing: 'https://billing.hanzo.ai',
-    console: 'https://console.hanzo.ai',
+    console: 'https://platform.hanzo.ai',
     cloud: 'https://cloud.hanzo.ai',
     chat: 'https://hanzo.chat',
     flow: 'https://flow.hanzo.ai',

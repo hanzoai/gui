@@ -236,6 +236,9 @@ export const U = {
   cloud: 'https://cloud.hanzo.ai',
   dev: 'https://hanzo.ai/dev',
   base: 'https://hanzo.ai/base',
+  // The workbench on the web — the same one the desktop shell wraps. Its own
+  // origin, because it is an application and not a page on the marketing site.
+  ide: 'https://ide.hanzo.ai',
 
   // Platform
   models: 'https://hanzo.ai/models',
@@ -309,6 +312,9 @@ export const PRODUCT_BOUNDARIES: Record<string, string> = {
   bot: 'Distribute agents into channels',
   cloud: 'Operate infrastructure',
   dev: 'Build software from the editor and terminal',
+  ide: 'Open a workspace in the browser',
+  cli: 'Drive every product from a shell',
+  platform: 'Deploy, observe, and operate what you build',
   ai: 'Explain and connect the ecosystem',
 }
 
@@ -383,6 +389,36 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     flagship: true,
   },
   {
+    id: 'ide',
+    glyph: 'code',
+    label: 'Hanzo IDE',
+    href: U.ide,
+    page: `${U.ai}/ide`,
+    tagline: 'The workbench, on the web',
+    boundary: PRODUCT_BOUNDARIES.ide,
+    flagship: true,
+  },
+  {
+    id: 'cli',
+    glyph: 'terminal',
+    label: 'Hanzo CLI',
+    href: U.cli,
+    page: U.cli,
+    tagline: 'Hanzo from a terminal',
+    boundary: PRODUCT_BOUNDARIES.cli,
+    flagship: true,
+  },
+  {
+    id: 'platform',
+    glyph: 'cloud',
+    label: 'Hanzo Platform',
+    href: U.platform,
+    page: `${U.ai}/platform`,
+    tagline: 'Deploy, observe, and operate',
+    boundary: PRODUCT_BOUNDARIES.platform,
+    flagship: true,
+  },
+  {
     id: 'team',
     glyph: 'users',
     label: 'Hanzo Team',
@@ -391,7 +427,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     tagline: 'People and AI together',
     boundary: PRODUCT_BOUNDARIES.team,
     flagship: true,
-    stage: 'beta',
   },
   {
     id: 'bot',
@@ -402,7 +437,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     tagline: 'Publish AI anywhere',
     boundary: PRODUCT_BOUNDARIES.bot,
     flagship: true,
-    stage: 'beta',
   },
   {
     id: 'studio',
@@ -429,7 +463,25 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
  * `sees(stage)` first; the components in this package already do, defaulting to
  * released-only.
  */
-export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.flagship)
+/**
+ * The order a reader meets the doors in, stated here because this is where the
+ * menu's order is decided — HANZO_PRODUCTS is a table of what exists and other
+ * readers of it must not be reordered to move one menu.
+ *
+ * It leads with the App, which is the one surface that carries the others, and
+ * an id absent from this list sorts to the end rather than disappearing, so
+ * adding a product is never silently a decision about where it ranks.
+ */
+const FLAGSHIP_ORDER = ['app', 'bot', 'cli', 'dev', 'ide', 'platform', 'team', 'cloud', 'chat'] as const
+
+const rank = (id: string): number => {
+  const i = FLAGSHIP_ORDER.indexOf(id as (typeof FLAGSHIP_ORDER)[number])
+  return i === -1 ? FLAGSHIP_ORDER.length : i
+}
+
+export const HANZO_FLAGSHIP: HanzoProduct[] = HANZO_PRODUCTS.filter((p) => p.flagship).sort(
+  (a, b) => rank(a.id) - rank(b.id),
+)
 
 /**
  * The flagships as a PUBLIC menu links them — each pointing at the page that

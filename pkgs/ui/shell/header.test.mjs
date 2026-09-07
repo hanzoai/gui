@@ -65,8 +65,8 @@ test('both bars — 60 tall, the plane recipe, no hairline; the public bar flush
   for (const name of ['BAR', 'DRAPE']) {
     assert.match(
       theme,
-      new RegExp(`export const ${name}[^}]*background: CHROME\\.panel`),
-      `${name} stands on the panel ground`
+      new RegExp(`export const ${name}[^}]*\\.\\.\\.GLASS`),
+      `${name} wears the glass`
     )
   }
 })

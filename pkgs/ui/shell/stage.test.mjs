@@ -26,7 +26,16 @@ import { HANZO_FLAGSHIP, HANZO_FLAGSHIP_PUBLIC, sees } from './dist/esm/hanzo-re
 const ids = (list) => list.map((p) => p.id)
 
 test('a stranger is offered the released estate and nothing else', () => {
-  assert.deepEqual(ids(HANZO_FLAGSHIP_PUBLIC), ['chat', 'app', 'base', 'cloud', 'dev'])
+  assert.deepEqual(ids(HANZO_FLAGSHIP_PUBLIC), [
+    'app',
+    'bot',
+    'cli',
+    'cloud',
+    'dev',
+    'ide',
+    'platform',
+    'team',
+  ])
 })
 
 test('an unfinished product never reaches an anonymous menu', () => {

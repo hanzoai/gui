@@ -326,7 +326,9 @@ export const GUTTER = 'clamp(20px, 4vw, 72px)'
  * glass, and the bare page.
  */
 export const DRAPE: CSSProperties = {
-  background: CHROME.panel,
+  // The plane is GLASS: the page shows through it, blurred, so an open menu
+  // reads as a layer over the page rather than a wall in front of it.
+  ...GLASS,
   borderRadius: 0,
   border: 'none',
   boxShadow: 'none',
@@ -352,7 +354,10 @@ export const DRAPE: CSSProperties = {
  * search, the CTA, the composer, popovers, the palette. Three surfaces in the
  * house and no more: this ground, that glass, and the bare page.
  */
-export const BAR: CSSProperties = { background: CHROME.panel }
+// The grounded bar wears the SAME glass as the plane that drops out of it, so
+// the two are one material from the top of the screen to the bottom of an open
+// menu — same ground, same blur, no edge between them.
+export const BAR: CSSProperties = { ...GLASS }
 
 /**
  * The plane's own inset — one figure for every menu that drops out of the bar.

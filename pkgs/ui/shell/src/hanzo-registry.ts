@@ -1297,7 +1297,7 @@ export const HANZO_SURFACES: HanzoSurface[] = [
   },
   {
     id: 'console',
-    host: 'console.hanzo.ai',
+    host: 'platform.hanzo.ai',
     productId: 'console',
     brandName: 'Hanzo Console',
     localNav: [

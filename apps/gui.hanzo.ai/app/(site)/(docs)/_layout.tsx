@@ -11,7 +11,7 @@ export default function DocsLayout() {
 
   return (
     <>
-      <ThemeNameEffect colorKey="$color1" />
+      <ThemeNameEffect colorKey="$color1" disableTint />
       <YStack
         position="absolute"
         inset={0}

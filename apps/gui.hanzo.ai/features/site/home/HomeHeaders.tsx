@@ -37,13 +37,13 @@ export const HomeH3 = styled(H3, {
   color: '$color10',
   self: 'center',
   px: 20,
-  size: '$8',
+  size: '$6',
   opacity: 0.9,
   letterSpacing: -0.5,
   maxW: 720,
 
   $sm: {
-    size: '$6',
+    size: '$5',
     fontWeight: '400',
     color: '$color',
     textTransform: 'none',

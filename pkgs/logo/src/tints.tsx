@@ -5,10 +5,10 @@ type ChangeHandler = (next: TintFamily) => void
 
 const listeners = new Set<ChangeHandler>()
 
-// A ramp of tint stops; every reader indexes by `tints.length`. The default
-// ramp is monochrome, so the site carries no hue unless a season sets one.
+// A ramp of tint stops; every reader indexes by `tints.length`, and index 3
+// is the neutral notch the chrome rests on while the landing sections cycle.
 const familiesValues = {
-  hanzogui: ['gray', 'gray', 'gray', 'gray', 'gray', 'gray', 'gray'] as ThemeName[],
+  hanzogui: ['yellow', 'yellow', 'yellow', 'gray', 'red', 'green', 'blue'] as ThemeName[],
   xmas: ['red', 'green', 'red', 'green', 'red', 'green', 'red'] as ThemeName[],
   easter: [
     'yellow',

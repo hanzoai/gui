@@ -1,7 +1,9 @@
 import '@hanzogui/core/reset.css'
+import '@hanzo/design/styles.css'
 import '~/app.css'
 import '~/hanzogui.generated.css'
 
+import { bootScript } from '@hanzo/appearance/state'
 import { LoadProgressBar, Slot } from 'one'
 import { setupPopper } from '@hanzo/gui'
 import { Providers } from '../components/Providers'
@@ -25,13 +27,30 @@ const fontFaceCss = `
 
 export default function Layout() {
   return (
-    <html lang="en-US">
+    // Dark is the default every Hanzo surface shares. The class is here so the
+    // first paint already carries gui's dark scope; SchemeProvider's own script
+    // corrects it before paint for a reader who chose light.
+    <html lang="en-US" className="t_dark" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
+        />
+        {/* The ground before any stylesheet lands, so no frame paints white. */}
+        <style>{`html{background:#0a0a0a;color-scheme:dark}html.t_light{background:#f7f7f7;color-scheme:light}`}</style>
+        {/* The reader's own type scale, density, face, measure and accent, back
+            on the document before first paint. @hanzo/appearance writes them to
+            storage; this is the half that reads them. */}
+        <script dangerouslySetInnerHTML={{ __html: bootScript() }} />
+        {/* @hanzo/design scopes its light tokens to `html.light` and gui to
+            `t_light`. One theme, two vocabularies: the second is derived from
+            the first, and the observer carries a switch across. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var e=document.documentElement,was;function s(){var l=e.classList.contains('t_light');if(l===was)return;was=l;e.classList.toggle('light',l)}s();new MutationObserver(s).observe(e,{attributes:true,attributeFilter:['class']})})()`,
+          }}
         />
 
         {/* Copied from @hanzo/logo/dist at prebuild — the mark has one home. */}
@@ -40,7 +59,7 @@ export default function Layout() {
         <meta name="docsearch:language" content="en" />
         <meta name="docsearch:version" content="1.0.0,latest" />
         <meta id="theme-color" name="theme-color" />
-        <meta name="color-scheme" content="light dark" />
+        <meta name="color-scheme" content="dark light" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@hanzogui_js" />

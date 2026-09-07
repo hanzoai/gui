@@ -1,0 +1,47 @@
+---
+title: Design system
+description: The four packages every Hanzo surface is set from, and how this site reads them.
+---
+
+Every Hanzo surface is set from the same four packages. Each does one thing, none knows about the others, and this site is what they look like on top of Gui.
+
+#### @hanzo/design
+
+The tokens, as one stylesheet. `@hanzo/design/styles.css` declares the monochrome palette, dark by default, with borders drawn as low-alpha hairlines and surfaces lifted in small steps. It declares the type ramp, `--text-xs` through `--text-9xl`, each rung a `calc()` that multiplies by `--type-scale` and `--type-ratio`, so two numbers on `:root` retune every size on the page. Spacing multiplies by `--density`, measures come from `--container-max`, `--container-prose` and `--container-wide`, and `--font-sans` and `--font-mono` are bound to Zen. It also declares the `@font-face` rules for Zen, so importing the sheet is the whole install.
+
+#### @hanzo/tokens
+
+The same values as data, for code that cannot read a stylesheet: the neutral ladder, radii, spacing, the type sizes, and Zen's weight register. Zen is a variable face with its own optical scale, and the register names where it reads on a screen: `fontWeight.normal` is 497, `medium` is 606, `semibold` 680. `@hanzo/tokens/gui` projects the palette and the two themes into the shape `createGui` takes.
+
+#### @hanzo/appearance
+
+A person's own reading of the system. `<Appearance />` is the panel: text size, scale, scale system, spacing, face, width and accent, each a knob `@hanzo/design` multiplies into a ramp. `bootScript()` is the string a page inlines in `<head>` so the stored preference is on the document before the first paint. The preference lives in `localStorage` under `hanzo.appearance`, and follows a signed-in account across origins.
+
+#### @hanzo/font
+
+Zen, Zen Mono and the Zen Pixel cuts as variable woff2 files, one per family, with the `@font-face` that reaches them.
+
+#### The defaults
+
+Dark first, with light a choice the reader makes. Zen for everything, Zen Mono for code. Body copy at 18px on a 1.6 line, the first heading at 64px and the second at 48px, both at weight 497, and navigation at 13px, weight 600. The chrome — header, footer, the docs — is monochrome; colour belongs to content, and on this site to the demos.
+
+#### How this site consumes them
+
+`app/_layout.tsx` imports `@hanzo/design/styles.css` ahead of the site's own sheet, puts `bootScript()` in `<head>`, and opens with `html.t_dark`. `config/hanzogui.config.ts` lays Gui's `$1` to `$16` on the ramp, so `fontSize="$5"` is `var(--text-xl)` plus a quarter step, 18px at scale one, and `$11` is `var(--text-7xl)`, 64px:
+
+```tsx
+const rung = (name: string, px: number) => `var(--text-${name}, ${px}px)`
+
+const SIZE = {
+  2: rung('sm', 13), // navigation
+  5: between(rung('xl', 17), rung('2xl', 21), 0.25), // body, 18px
+  10: between(rung('5xl', 40), rung('6xl', 52), 2 / 3), // h2, 48px
+  11: rung('7xl', 64), // h1
+}
+```
+
+Heading faces take `fontWeight.normal` from `@hanzo/tokens`. The header wraps its contents in `<ThemeTint disable>` and the docs layouts pass `disableTint` to `ThemeNameEffect`, which is what keeps the chrome grey while the landing page's `TintSection`s cycle through the ramp. The mark in the bottom-right corner of every page opens `<Appearance />`.
+
+#### ui.hanzo.ai
+
+Gui is the framework: the style system, the compiler and the primitives. [ui.hanzo.ai](https://ui.hanzo.ai) is the component library built on it, on these same four packages, and is where a product reaches for a button.

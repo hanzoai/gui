@@ -1,6 +1,6 @@
 import { useTint } from '@hanzogui/logo'
 import { memo, useMemo, useState } from 'react'
-import { AnimatePresence, YStack, isClient } from '@hanzo/gui'
+import { AnimatePresence, YStack, isClient, useMedia } from '@hanzo/gui'
 
 import { useTintSectionIndex } from './TintSection'
 
@@ -46,6 +46,7 @@ export const HomeGlow = memo(() => {
   const [scrollTop, setScrollTop] = useState(0)
   const xs = 400
   const scale = isOnHeroBelow ? 2 : 3
+  const { reduceMotion } = useMedia()
 
   if (isClient) {
     useTintSectionIndex((index) => {
@@ -86,7 +87,7 @@ export const HomeGlow = memo(() => {
       return (
         <YStack
           key={`${i}${tint}${tintAlt}`}
-          transition="superLazy"
+          transition={reduceMotion ? null : 'superLazy'}
           enterStyle={{
             opacity: isOnHeroBelow ? 0.5 : 0,
           }}
@@ -120,7 +121,7 @@ export const HomeGlow = memo(() => {
         </YStack>
       )
     })
-  }, [scale, tint, tints])
+  }, [scale, tint, tints, reduceMotion])
 
   return (
     <YStack

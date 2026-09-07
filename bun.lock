@@ -82,10 +82,15 @@
         "@docsearch/css": "^5.0.4",
         "@docsearch/react": "^5.0.4",
         "@github/mini-throttle": "^2.1.1",
+        "@hanzo/appearance": "0.2.2",
+        "@hanzo/design": "0.5.24",
+        "@hanzo/font": "^1.9.3",
         "@hanzo/gui": "workspace:*",
+        "@hanzo/tokens": "1.0.2",
         "@hanzogui/assert": "workspace:*",
         "@hanzogui/demos": "workspace:*",
         "@hanzogui/dev-config": "workspace:*",
+        "@hanzogui/font-zen": "workspace:*",
         "@hanzogui/get-token": "workspace:*",
         "@hanzogui/logo": "workspace:*",
         "@hanzogui/lucide-icons-2": "workspace:*",
@@ -3918,7 +3923,11 @@
 
     "@github/mini-throttle": ["@github/mini-throttle@2.1.1", "", {}, "sha512-KtOPaB+FiKJ6jcKm9UKyaM5fPURHGf+xcp+b4Mzoi81hOc6M1sIGpMZMAVbNzfa2lW5+RPGKq888Px0j76OZ/A=="],
 
+    "@hanzo/appearance": ["@hanzo/appearance@0.2.2", "", { "dependencies": { "@hanzo/design": "^0.5.17" }, "peerDependencies": { "react": ">=19" } }, "sha512-HsH2wT82EbjHF1zY/TWubUQv7N5tBolVyBtXuQD8I+3E7xQ+Qoy7u79Xz1lw0EVkBESM2dr6VMaPWWThnytzZg=="],
+
     "@hanzo/booker": ["@hanzo/booker@workspace:pkgs/calendar"],
+
+    "@hanzo/design": ["@hanzo/design@0.5.24", "", { "bin": { "hanzo-design-lint": "scripts/lint.mjs" } }, "sha512-eXoD1Q3giJ3TEx2+rtCub/xZX5j4AflWixt3TXsf3dcYrWuChxSVhzRQdDWyibXzPPtn+msCtLX11IvvcHHUzw=="],
 
     "@hanzo/event": ["@hanzo/event@0.3.40", "", { "dependencies": { "@hanzo/events": "0.2.2" }, "peerDependencies": { "react": ">=19.2.8" }, "optionalPeers": ["react"] }, "sha512-D/qmUHbrTZpbShD4CSvKUzeUTjjIu6LSHQHKZNZLtwfd9Fap6gMGo+JZGHX0sxKimtmRnZDMz6aG+LAmUbn3qQ=="],
 
@@ -3931,6 +3940,8 @@
     "@hanzo/logo": ["@hanzo/logo@1.0.26", "", { "peerDependencies": { "react": ">=16.8.0" }, "optionalPeers": ["react"] }, "sha512-acPRsdTD/pfsDLUias989cDZCCg4Q9rCCrlOWVqlAzcN7xyoi3Vl4DjM7Z+feOL5SDPxWY1M0hJn9B1xqGjK4g=="],
 
     "@hanzo/observe": ["@hanzo/observe@0.1.11", "", { "dependencies": { "@hanzo/event": "0.3.39" }, "peerDependencies": { "react": ">=19.2.8" }, "optionalPeers": ["react"] }, "sha512-PsCE+qaZdmXZVtkCJXFoDbTr5jJZuxctAEPOVk8LyvnRxfjPUVGW03Phu6N2OWyLDwyq0g4voySkO2h3tQzmYA=="],
+
+    "@hanzo/tokens": ["@hanzo/tokens@1.0.2", "", {}, "sha512-e4Oz4f+6uSPJKqVrHEpyF4t78sI3hhZzD9mgwuxItS2xaKHFkFk8IHbWAcb91oel4Wdh2uPd7sTU3QawH6lRSA=="],
 
     "@hanzogui/accordion": ["@hanzogui/accordion@workspace:pkgs/ui/accordion"],
 

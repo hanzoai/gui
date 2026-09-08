@@ -1,4 +1,4 @@
-import { ThemeTint, useTint } from '@hanzogui/logo'
+import { NEUTRAL, ThemeTint, useTint } from '@hanzogui/logo'
 import { memo, useEffect, useState } from 'react'
 import type { ColorTokens, ThemeName } from '@hanzo/gui'
 import { YStack, isClient, useDidFinishSSR, useTheme } from '@hanzo/gui'
@@ -16,7 +16,7 @@ export const ThemeNameEffect = memo((props: Props) => {
 
   useEffect(() => {
     if (!props.theme) {
-      Tint.setTintIndex(3)
+      Tint.setTintIndex(NEUTRAL)
     } else {
       Tint.setTintIndex(Tint.tints.findIndex((x) => x === props.theme))
     }

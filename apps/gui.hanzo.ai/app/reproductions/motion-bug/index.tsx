@@ -1,4 +1,4 @@
-import { setTintIndex } from '@hanzogui/logo'
+import { NEUTRAL, setTintIndex } from '@hanzogui/logo'
 import { useEffect } from 'react'
 import { YStack } from '@hanzo/gui'
 import { HeadInfo } from '~/components/HeadInfo'
@@ -16,7 +16,7 @@ import { ThemeNameEffectNoTheme } from '~/features/site/theme/ThemeNameEffect'
 
 export default function MotionBugReproPage() {
   useEffect(() => {
-    setTintIndex(3)
+    setTintIndex(NEUTRAL)
   }, [])
 
   return (

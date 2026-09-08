@@ -5,10 +5,18 @@ type ChangeHandler = (next: TintFamily) => void
 
 const listeners = new Set<ChangeHandler>()
 
-// A ramp of tint stops; every reader indexes by `tints.length`, and index 3
-// is the neutral notch the chrome rests on while the landing sections cycle.
+// A ramp of tint stops; every reader indexes by `tints.length`, and `NEUTRAL`
+// is the notch the chrome rests on while the landing sections cycle.
+//
+// The default sweeps one arc of the wheel — red 358, pink 322, violet 272,
+// then blue 206, teal 173, green 151 — so the stops read as a ramp rather
+// than a bag of hues, and every one is measured against both grounds at its
+// solid step: the dimmest is violet at 3.63:1 on dark and blue at 3.16:1 on
+// light. Yellow and orange are absent from it because neither clears 3:1 on
+// the light ground at any solid step — 2.09 and 2.86 — and yellow over the
+// dark ground is an olive.
 const familiesValues = {
-  hanzogui: ['yellow', 'yellow', 'yellow', 'gray', 'red', 'green', 'blue'] as ThemeName[],
+  hanzogui: ['red', 'pink', 'purple', 'gray', 'blue', 'teal', 'green'] as ThemeName[],
   xmas: ['red', 'green', 'red', 'green', 'red', 'green', 'red'] as ThemeName[],
   easter: [
     'yellow',

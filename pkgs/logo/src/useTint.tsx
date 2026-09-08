@@ -1,10 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useDidFinishSSR, type ThemeName } from '@hanzo/gui'
-import { getTints, setNextTintFamily, useTints } from './tints.tsx'
-
-/** The stop with no sub-theme: the ground as published, and where the mark's
- *  dot sits. Every reader of the ramp asks here rather than writing a 3. */
-export const NEUTRAL = 3
+import { NEUTRAL, STOPS, getTints, setNextTintFamily, useTints } from './tints.tsx'
 
 let current = NEUTRAL
 let disableTintTheme = false
@@ -96,9 +92,14 @@ export const useTint = (
     }
   }, [])
 
-  // null at the neutral notch, so the parent theme is what shows
-  const tint = disabled || index === NEUTRAL ? null : tints[index]
-  const tintAlt = disabled || tintAltIndex === NEUTRAL ? null : tints[tintAltIndex]
+  // A neutral stop names a colour without washing the page, so what shows
+  // under one is the ground as published.
+  const wash = (at: number) => {
+    const name = tints[at]
+    return disabled || !name || STOPS[name]?.neutral ? null : name
+  }
+  const tint = wash(index)
+  const tintAlt = wash(tintAltIndex)
 
   return {
     ...tintsContext,

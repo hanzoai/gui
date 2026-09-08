@@ -1,9 +1,9 @@
-import { onTintChange, setTintIndex, useTints } from '@hanzogui/logo'
+import { STOPS, onTintChange, setTintIndex, useTints } from '@hanzogui/logo'
 import { Moon, Sun } from '@hanzogui/lucide-icons-2'
 import { useIsIntersecting } from '~/hooks/useOnIntersecting'
 import type { SetStateAction } from 'react'
 import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import type { ThemeName } from '@hanzo/gui'
+import type { ColorTokens, ThemeName } from '@hanzo/gui'
 import {
   Circle,
   Theme,
@@ -210,20 +210,29 @@ export const HomeThemes = memo(function HomeThemes() {
 
             <Row aria-label="Accent">
               {themes[0].map((color, i) => (
-                <Theme key={`${String(color)}${i}`} name={color}>
-                  <ActiveCircle
-                    aria-label={String(color)}
-                    isActive={curColorI === i}
-                    onPress={() => {
-                      updateActiveI([i, curShadeI])
-                      setAccent(tints, i)
-                    }}
-                  >
-                    {/* The scheme's own solid step, which is what clears 3:1
-                        against every ground the ramp paints behind it. */}
-                    <Circle size={16} bg="$color10" />
-                  </ActiveCircle>
-                </Theme>
+                <ActiveCircle
+                  key={`${String(color)}${i}`}
+                  aria-label={String(color)}
+                  isActive={curColorI === i}
+                  onPress={() => {
+                    updateActiveI([i, curShadeI])
+                    setAccent(tints, i)
+                  }}
+                >
+                  {/* Only the dot wears the stop. Its rings stay the page's own,
+                      because white and black carry the ground's own ink, and a
+                      ring in it says nothing on the scheme they belong to. */}
+                  <Theme name={color}>
+                    <Circle
+                      size={16}
+                      bg={
+                        `$color${STOPS[String(color)]?.[userScheme.value] ?? 9}` as ColorTokens
+                      }
+                      borderWidth={1}
+                      borderColor="$color"
+                    />
+                  </Theme>
+                </ActiveCircle>
               ))}
             </Row>
           </XStack>

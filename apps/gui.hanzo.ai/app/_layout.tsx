@@ -40,6 +40,15 @@ export default function Layout() {
         />
         {/* The ground before any stylesheet lands, so no frame paints white. */}
         <style>{`html{background:#0a0a0a;color-scheme:dark}html.t_light{background:#f7f7f7;color-scheme:light}`}</style>
+        {/* The site's scheme is dark or light and nothing else. A value stored
+            when there was a third answer is dropped before anything reads it,
+            so the pre-paint script and the app cannot disagree over what it
+            meant; the provider's own default is what fills the gap. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem('vxrn-scheme')==='system')localStorage.removeItem('vxrn-scheme')}catch(e){}`,
+          }}
+        />
         {/* The reader's own type scale, density, face, measure and accent, back
             on the document before first paint. @hanzo/appearance writes them to
             storage; this is the half that reads them. */}
@@ -59,7 +68,11 @@ export default function Layout() {
         <meta name="docsearch:language" content="en" />
         <meta name="docsearch:version" content="1.0.0,latest" />
         <meta id="theme-color" name="theme-color" />
-        <meta name="color-scheme" content="dark light" />
+        {/* Dark, not "dark light": the second form hands the choice back to the
+            OS for the blank frame the browser paints before this document does,
+            which is a white flash on a light machine. `html.t_light` above puts
+            it back for a reader who asked for light. */}
+        <meta name="color-scheme" content="dark" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@hanzogui_js" />

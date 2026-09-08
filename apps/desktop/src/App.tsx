@@ -1,5 +1,5 @@
 import { TitleBar } from '@hanzogui/tauri'
-import { Button, Card, H1, Paragraph, Text, Theme, XStack, YStack } from '@hanzo/gui'
+import { Button, H1, Paragraph, Text, Theme, XStack, YStack } from '@hanzo/gui'
 import type { BrandName } from '@hanzogui/themes'
 
 const brands: BrandName[] = ['hanzo', 'lux', 'zoo', 'pars']
@@ -24,7 +24,8 @@ export function App() {
           </Paragraph>
         </YStack>
 
-        <Card
+        <YStack
+          position="relative"
           backgroundColor="$color2"
           borderColor="$borderColor"
           borderWidth={1}
@@ -50,7 +51,7 @@ export function App() {
               </Theme>
             ))}
           </XStack>
-        </Card>
+        </YStack>
       </YStack>
     </YStack>
   )

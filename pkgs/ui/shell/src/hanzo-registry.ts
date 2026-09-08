@@ -364,15 +364,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     // finished product out of the mega-menu and the footer for everybody.
   },
   {
-    id: 'cloud',
-    glyph: 'cloud',
-    label: 'Hanzo Cloud',
-    href: U.cloud,
-    page: `${U.ai}/cloud`,
-    tagline: 'Run the platform',
-    boundary: PRODUCT_BOUNDARIES.cloud,
-  },
-  {
     id: 'dev',
     glyph: 'code',
     label: 'Hanzo Dev',
@@ -417,15 +408,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     tagline: 'Deploy, observe, and operate',
     boundary: PRODUCT_BOUNDARIES.platform,
     flagship: true,
-  },
-  {
-    id: 'team',
-    glyph: 'users',
-    label: 'Hanzo Team',
-    href: U.team,
-    page: `${U.ai}/team`,
-    tagline: 'People and AI together',
-    boundary: PRODUCT_BOUNDARIES.team,
   },
   {
     id: 'bot',
@@ -580,7 +562,10 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'agents', label: 'Managed agents', href: U.agents, glyph: 'cpu' },
       { id: 'mcp', label: 'MCP tools', href: U.mcp, glyph: 'plug' },
       { id: 'api', label: 'API platform', href: U.api, glyph: 'gateway' },
-      { id: 'cloud', label: 'All cloud products', href: U.cloud, glyph: 'cloud' },
+      { id: 'gateway', label: 'Gateway', href: U.gateway, glyph: 'gateway' },
+      { id: 'keys', label: 'API keys', href: U.keys, glyph: 'plug' },
+      { id: 'base', label: 'Base', href: U.base, glyph: 'layers' },
+      { id: 'status', label: 'Status', href: U.status, glyph: 'pulse' },
     ],
   },
   {
@@ -1012,7 +997,10 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
       { id: 'agents', label: 'Managed agents', href: U.agents },
       { id: 'mcp', label: 'MCP tools', href: U.mcp },
       { id: 'api', label: 'API platform', href: U.api },
-      { id: 'cloud', label: 'All cloud products', href: U.cloud },
+      { id: 'gateway', label: 'Gateway', href: U.gateway },
+      { id: 'keys', label: 'API keys', href: U.keys },
+      { id: 'base', label: 'Base', href: U.base },
+      { id: 'status', label: 'Status', href: U.status },
     ],
   },
   {

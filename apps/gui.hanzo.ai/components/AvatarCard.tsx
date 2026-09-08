@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
-import { Avatar, Card, H5, Paragraph, XStack, YStack } from '@hanzo/gui'
+import { Avatar, H5, Paragraph, XStack, YStack } from '@hanzo/gui'
 import { Link } from '~/components/Link'
 import { ThemeTintAlt } from '@hanzogui/logo'
 
@@ -10,7 +10,10 @@ export function AvatarCard({ title, subtitle, img, link, colorOffset, ...props }
   return (
     <ThemeTintAlt offset={colorOffset}>
       <Link asChild href={link}>
-        <Card
+        <YStack
+          bg="$background"
+          position="relative"
+          rounded="$true"
           render="a"
           transition="quickest"
           flex={1}
@@ -23,7 +26,7 @@ export function AvatarCard({ title, subtitle, img, link, colorOffset, ...props }
           onMouseLeave={() => setHovered(false)}
           {...props}
         >
-          <Card.Header>
+          <YStack z={10} mb="auto" p="$true">
             <XStack justify="space-between">
               <YStack gap="$2.5">
                 <H5 size="$6" color="$color9" fontFamily="$pixel">
@@ -39,12 +42,19 @@ export function AvatarCard({ title, subtitle, img, link, colorOffset, ...props }
                 <Avatar.Fallback bg="$color6" borderColor="$color8" />
               </Avatar>
             </XStack>
-          </Card.Header>
+          </YStack>
 
-          <Card.Footer transition="quicker" x={isHovered ? 5 : 0}>
+          <XStack
+            z={5}
+            mt="auto"
+            mb={0}
+            p="$true"
+            transition="quicker"
+            x={isHovered ? 5 : 0}
+          >
             <ChevronRight size="$1" position="absolute" b="$4" r="$4" color="$color11" />
-          </Card.Footer>
-        </Card>
+          </XStack>
+        </YStack>
       </Link>
     </ThemeTintAlt>
   )

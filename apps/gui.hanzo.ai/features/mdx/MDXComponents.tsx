@@ -16,7 +16,6 @@ import type { ImageProps, XStackProps } from '@hanzo/gui'
 import {
   Adapt,
   Button,
-  Card,
   H1,
   H2,
   H3,
@@ -841,7 +840,10 @@ const componentsIn = {
         <>
           <ThemeTint>
             <Link asChild href="/docs/intro/installation">
-              <Card
+              <YStack
+                bg="$background"
+                position="relative"
+                rounded="$true"
                 render="a"
                 transition="quickest"
                 animateOnly={['transform']}
@@ -851,32 +853,38 @@ const componentsIn = {
                 hoverStyle={{ y: -2, bg: '$backgroundHover' }}
                 pressStyle={{ y: 2, bg: '$color2' }}
               >
-                <Card.Header gap="$2">
+                <YStack z={10} mb="auto" p="$true" gap="$2">
                   <H4 size="$4" color="$color8">
                     Install
                   </H4>
                   <Paragraph size="$6" color="$color9">
                     Set up an app.
                   </Paragraph>
-                </Card.Header>
+                </YStack>
 
-                <Card.Footer>
+                <XStack z={5} mt="auto" mb={0} p="$true">
                   <ChevronRight position="absolute" b="$4" r="$4" color="$color11" />
-                </Card.Footer>
-              </Card>
+                </XStack>
+              </YStack>
             </Link>
 
-            <Card flex={1} flexBasis="auto">
-              <Card.Header gap="$2">
+            <YStack
+              bg="$background"
+              position="relative"
+              rounded="$true"
+              flex={1}
+              flexBasis="auto"
+            >
+              <YStack z={10} mb="auto" p="$true" gap="$2">
                 <H4 size="$4" color="$color9">
                   Quick start
                 </H4>
                 <Paragraph size="$4" color="$color11">
                   Choose from a few starters:
                 </Paragraph>
-              </Card.Header>
+              </YStack>
 
-              <Card.Footer p="$6" pt={0}>
+              <XStack z={5} mt="auto" mb={0} p="$6" pt={0}>
                 <XStack position="relative" items="center" gap="$4" flex={1}>
                   <Code flex={1} bg="$color4" p="$3" rounded="$4" size="$5">
                     npm create hanzogui@latest
@@ -898,8 +906,8 @@ const componentsIn = {
                     Copy
                   </Button>
                 </XStack>
-              </Card.Footer>
-            </Card>
+              </XStack>
+            </YStack>
           </ThemeTint>
         </>
       </XStack>

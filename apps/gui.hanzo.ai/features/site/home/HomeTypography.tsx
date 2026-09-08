@@ -6,7 +6,6 @@ import { memo, useEffect, useRef, useState } from 'react'
 import type { Heading, TextProps } from '@hanzo/gui'
 import {
   Button,
-  Card,
   H1,
   H2,
   H3,
@@ -155,7 +154,9 @@ const OverlayCard = () => {
 
   // {/* TODO elevation not overriding? */}
   return (
-    <Card
+    <YStack
+      bg="$background"
+      position="relative"
       borderWidth={1}
       borderColor="$borderColor"
       rounded="$6"
@@ -184,7 +185,7 @@ const OverlayCard = () => {
           </Button>
         </Link>
       </YStack>
-    </Card>
+    </YStack>
   )
 }
 

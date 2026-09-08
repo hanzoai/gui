@@ -422,7 +422,10 @@ test('the public menu explains; the launcher opens', () => {
 
   // Every flagship has one, and it is a hanzo.ai page — never the app host
   // again under a second name.
-  const flagships = ['chat', 'app', 'team', 'studio', 'bot', 'cloud', 'base']
+  // Cloud and Team are what the platform does rather than products beside it,
+  // so neither is in this list any more and Platform is the page that explains
+  // all three.
+  const flagships = ['chat', 'app', 'studio', 'bot', 'base', 'platform']
   for (const id of flagships) {
     const at = reg.indexOf(`    id: '${id}',`)
     assert.ok(at > 0, `${id} is in the registry`)

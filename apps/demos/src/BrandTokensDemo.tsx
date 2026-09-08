@@ -1,7 +1,6 @@
 import {
   type ThemeName,
   Button,
-  Card,
   H2,
   Paragraph,
   Text,
@@ -72,7 +71,8 @@ export function BrandTokensDemo() {
           <XStack gap="$4" flexWrap="wrap">
             {BRANDS.map((b) => (
               <Theme key={b} name={b as ThemeName}>
-                <Card
+                <YStack
+                  position="relative"
                   backgroundColor="$color2"
                   borderWidth={1}
                   borderColor="$borderColor"
@@ -104,7 +104,7 @@ export function BrandTokensDemo() {
                     </Text>
                   </YStack>
                   <Button>Themed button</Button>
-                </Card>
+                </YStack>
               </Theme>
             ))}
           </XStack>

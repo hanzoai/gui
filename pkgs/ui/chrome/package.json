@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/chrome",
   "version": "8.3.5",
-  "description": "Marketing sections for Hanzo public sites \u2014 HanzoFooter, ChatHero, HanzoWidget. The site HEADER lives in @hanzogui/shell (HanzoHeader); this package no longer ships a nav.",
+  "description": "Marketing sections for Hanzo public sites — HanzoFooter, ChatHero, HanzoWidget. The site HEADER lives in @hanzogui/shell (HanzoHeader); this package no longer ships a nav.",
   "license": "BSD-3-Clause",
   "author": "Hanzo AI <dev@hanzo.ai>",
   "repository": {

@@ -125,7 +125,16 @@ export default {
   },
 
   ssr: {
-    external: ['@vxrn/mdx-rust', 'satteri', 'satteri-expressive-code', 'ws', 'postmark'],
+    // oxc-parser is a native binding, and the API reference calls it on the
+    // server only. Bundling it would ask rolldown for a .node file.
+    external: [
+      '@vxrn/mdx-rust',
+      'satteri',
+      'satteri-expressive-code',
+      'ws',
+      'postmark',
+      'oxc-parser',
+    ],
     noExternal: true,
   },
 

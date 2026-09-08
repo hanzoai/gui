@@ -1,0 +1,12 @@
+---
+title: How the API reference is made
+description: It is read from the declarations each package ships, so it cannot say something the code does not.
+---
+
+Every package here ships a `types/` directory beside its `dist/`: the declarations the TypeScript compiler emitted from the source, which are what your editor reads when it completes a name and what your build reads when it checks a call. The [API reference](/api) is read from those same files at build time.
+
+For each package the reader opens the file its `types` field names, follows every re-export to the file the name is declared in, and quotes the declaration with the comment written above it. Nothing is transcribed by hand, so a renamed export, a changed argument or a new overload arrives on the page in the next build, and a name that no longer exists leaves with it.
+
+Two things end a walk. A package this site documents on its own page is linked instead of copied — `@hanzo/gui` says it carries `@hanzogui/core`, which says it carries `@hanzogui/web` — so a name is quoted once, where it is declared. A package from `node_modules` belongs to whoever publishes it, and the reference names the specifier rather than guessing at its contents.
+
+Two things the declarations decide rather than the page. A prose description appears only where the source carries a doc comment above the declaration, which most exports do not. And a declaration longer than about twelve hundred characters is cut and marked: the emit inlines whole structural types, so a styled component can arrive as four thousand characters of `Omit<...>`, and the entry names the file that holds the rest.

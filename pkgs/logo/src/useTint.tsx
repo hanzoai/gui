@@ -40,7 +40,7 @@ export function getDocsSection(pathname: string): 'compiler' | 'ui' | 'core' | n
     ? 'compiler'
     : pathname.startsWith('/ui/')
       ? 'ui'
-      : pathname.startsWith('/docs/')
+      : pathname.startsWith('/docs/') || pathname.startsWith('/api')
         ? 'core'
         : null
 }

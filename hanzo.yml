@@ -4,7 +4,7 @@
 #
 # WHERE THIS RUNS: git.hanzo.ai, not github.com. `gh api
 # /orgs/hanzoai/actions/runners` returns total_count 0 — GitHub has no runner
-# that answers the `hanzo-build-linux-amd64` label the reusable asks for, so a
+# that answers the `linux-amd64` label the reusable asks for, so a
 # `.github/workflows/cicd.yml` would queue forever. Gitea collects workflows
 # from the FIRST of WORKFLOW_DIRS present in a commit, and `.hanzo/workflows`
 # wins, which is also why `.github/workflows` is dark on Hanzo Git.

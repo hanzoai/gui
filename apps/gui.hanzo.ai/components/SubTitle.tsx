@@ -1,22 +1,4 @@
-import { Fragment } from 'react'
 import { H3 } from '@hanzo/gui'
-
-export const nbspLastWord = (sentence: string) => {
-  if (typeof sentence !== 'string') {
-    return sentence
-  }
-  const titleWords = sentence.split(' ')
-  if (titleWords.length === 1) {
-    return sentence
-  }
-  return titleWords.map((word, i) => {
-    return i === titleWords.length - 1 ? (
-      <Fragment key={i}>&nbsp;{word}</Fragment>
-    ) : (
-      <Fragment key={i}> {word}</Fragment>
-    )
-  })
-}
 
 export const SubTitle = ({ children, ...props }) => {
   if (!children) {
@@ -48,7 +30,7 @@ export const SubTitle = ({ children, ...props }) => {
       }}
       {...props}
     >
-      {nbspLastWord(childText)}
+      {childText}
     </H3>
   )
 }

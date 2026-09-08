@@ -152,6 +152,10 @@ export function Header(props: HeaderProps) {
 
 const tooltipDelay = { open: 0, close: 150 }
 
+// A finger wants 44px, and under sm the pointer is one. The menu button already
+// stands that tall; the toggle, the search and the octocat are given it here.
+const touchTarget = { $sm: { minW: 44, minH: 44 } } as const
+
 export const HeaderContents = React.memo((props: HeaderProps) => {
   const pathname = usePathname()
   const isHome = pathname === '/'
@@ -181,23 +185,25 @@ export const HeaderContents = React.memo((props: HeaderProps) => {
         </Link>
 
         <TooltipGroup delay={tooltipDelay}>
-          <XGroup maxH={32} bg="transparent" items="center" size="$4">
+          <XGroup bg="transparent" items="center" size="$4">
             <XGroup.Item>
-              <ThemeToggle borderWidth={0} chromeless />
+              <ThemeToggle borderWidth={0} chromeless {...touchTarget} />
             </XGroup.Item>
           </XGroup>
         </TooltipGroup>
 
-        <SearchButton size="$2" rounded="$10" elevation="$0.5" />
+        <SearchButton size="$2" rounded="$10" elevation="$0.5" {...touchTarget} />
 
         <Link target="_blank" href="https://github.com/hanzoai/gui">
           <XStack group containerType="normal">
             <XStack
               items="center"
+              justify="center"
               gap="$2"
               p="$2"
               opacity={0.9}
               hoverStyle={{ opacity: 1 }}
+              {...touchTarget}
             >
               <GithubIcon width={22} />
               <>

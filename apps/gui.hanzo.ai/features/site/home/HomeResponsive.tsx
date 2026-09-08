@@ -31,7 +31,7 @@ import {
   useIsomorphicLayoutEffect,
   useMedia,
 } from '@hanzo/gui'
-import { Container, ContainerLarge } from '~/components/Containers'
+import { ContainerLarge } from '~/components/Containers'
 import { useIsIntersecting } from '~/hooks/useOnIntersecting'
 import { useTransitionState } from '~/hooks/useTransitionState'
 import favicon from '~/public/favicon.svg'
@@ -131,6 +131,7 @@ export const HomeResponsive = memo(() => {
   const media = useMedia()
 
   const [smIndex, setSmIndex] = useState(0)
+  const [gutter, setGutter] = useState(0)
   const [width, setWidth] = useState(initialWidth)
   const isSmall = initialWidth + Math.max(0, move) < 680
 
@@ -149,26 +150,27 @@ export const HomeResponsive = memo(() => {
     prevMove.current = 0
   }, [])
 
-  const scale = 0.7 - smIndex * 0.05
+  // The mock is a browser of a fixed width, so under sm it is scaled to the
+  // gutter box it stands in — from that box's left edge, which is where the
+  // heading starts.
+  const fit = media.sm && gutter ? Math.min(1, gutter / width) : 1
 
   return (
     <YStack ref={ref as any} y={0} mt={-80} position="relative">
       <ContainerLarge position="relative">
         <ResponsiveHeader />
         <Spacer size="$6" $sm={{ size: '$0' }} />
-        <YStack height={browserHeight + 80} />
+        <YStack
+          height={(browserHeight + 80) * fit}
+          onLayout={(e) => setGutter(e.nativeEvent.layout.width)}
+        />
         <XStack
           b={-20}
           position="absolute"
           z={1}
           flex={1}
           gap="$1"
-          // mostly keeping this to make sure we get a good ACID test of useMedia().sm
-          {...(media.sm && {
-            scale,
-            x: 150 - width / 2 - (smIndex ? (0.68 - scale) * 920 : 0),
-            y: -40,
-          })}
+          {...(fit !== 1 && { scale: fit, transformOrigin: 'left bottom' })}
         >
           <YStack
             z={2}
@@ -187,21 +189,21 @@ export const HomeResponsive = memo(() => {
             <Safari shouldLoad={hasInteracted} isSmall={isSmall} />
           </YStack>
 
-          <Container z={1} position="absolute">
-            <XStack x={-10} $sm={{ display: 'none' }}>
-              {breakpoints.map((bp, i) => {
-                return (
-                  <Marker
-                    key={i}
-                    onPress={handleMarkerPress}
-                    active={i === 0 ? true : sizeI > i}
-                    name={breakpoints[i].name}
-                    l={breakpoints[i].at}
-                  />
-                )
-              })}
-            </XStack>
-          </Container>
+          {/* The ruler shares the mock's own box, so a marker at 500 stands
+              500px from the edge the mock starts at. */}
+          <XStack position="absolute" t={0} l={0} z={1} $sm={{ display: 'none' }}>
+            {breakpoints.map((bp, i) => {
+              return (
+                <Marker
+                  key={i}
+                  onPress={handleMarkerPress}
+                  active={i === 0 ? true : sizeI > i}
+                  name={bp.name}
+                  l={bp.at}
+                />
+              )
+            })}
+          </XStack>
         </XStack>
 
         <YStack
@@ -304,7 +306,6 @@ const SafariFrame = ({ children, ...props }: YStackProps) => {
       rounded="$4"
       borderColor="$borderColor"
       borderWidth={1}
-      width="99%"
       {...props}
     >
       {useMemo(() => children, [children])}

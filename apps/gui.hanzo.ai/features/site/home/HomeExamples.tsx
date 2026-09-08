@@ -227,6 +227,10 @@ const CodeExamples = memo(({ examples = [], title }: any) => {
             flexBasis="auto"
             height={325}
             maxH={325}
+            // 325 is what makes the two panes match when they stand side by
+            // side. Stacked, they no longer face each other, and a short sample
+            // was holding a tall one's room open under it.
+            $sm={{ height: 'auto' }}
             flex={1}
             language={example.language}
             source={example.code}

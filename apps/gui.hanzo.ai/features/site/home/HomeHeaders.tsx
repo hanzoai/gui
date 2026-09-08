@@ -3,6 +3,10 @@ import { H1, H2, H3, styled } from '@hanzo/gui'
 export const HomeH1 = styled(H1, {
   fontFamily: '$mono',
   className: 'word-break-keep-all',
+  // Balance is how a title avoids a lone last word. Gluing the last two with a
+  // non-breaking space is the other answer, and on a narrow page it made a pair
+  // too long for the measure and the browser split it mid-word instead.
+  '$platform-web': { textWrap: 'balance' },
   size: '$9',
   mb: '$2',
   color: '$color11',

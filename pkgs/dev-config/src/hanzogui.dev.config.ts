@@ -6,17 +6,15 @@ import {
   subtleChildrenThemes,
 } from '@hanzogui/config/v5-subtle'
 
-// Only the accents the site actually shows: the @hanzogui/logo tint ramp
-// (red/pink/purple/gray/blue/teal/green) plus yellow, which the seasonal
-// families and the docs still name. Orange and neutral are left out — an
-// accent carries its color tokens with it (--orange10 and the rest), so each
-// one is render-blocking css, and orange measures 2.86:1 against the light
-// ground at its solid step, under the 3:1 a swatch needs to read at all.
-// Themes-as-js is still stripped to {} on the client below and hydrated from
-// css; component themes stay, since they dedupe to surfaces.
-const { gray, blue, red, yellow, green, purple, teal, pink } = subtleChildrenThemes
+// The accents the site shows: the @hanzogui/logo ramp's six hues plus the grey
+// it rests on. Black and white come with every v5 theme and need no entry here.
+// Teal, pink and neutral have none because nothing names them — an accent
+// carries its own color tokens (--teal10 and the rest), and this stylesheet is
+// render-blocking. Themes-as-js is still stripped to {} on the client below and
+// hydrated from css; component themes stay, since they dedupe to surfaces.
+const { gray, blue, red, yellow, green, orange, purple } = subtleChildrenThemes
 const themes = createV5Theme({
-  childrenThemes: { gray, blue, red, yellow, green, purple, teal, pink },
+  childrenThemes: { gray, blue, red, yellow, green, orange, purple },
 })
 import type { CreateGuiProps } from '@hanzogui/core'
 import { setupDev } from '@hanzogui/core'

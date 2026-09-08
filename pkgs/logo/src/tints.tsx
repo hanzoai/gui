@@ -5,60 +5,98 @@ type ChangeHandler = (next: TintFamily) => void
 
 const listeners = new Set<ChangeHandler>()
 
-// A ramp of tint stops; every reader indexes by `tints.length`, and `NEUTRAL`
-// is the notch the chrome rests on while the landing sections cycle.
-//
-// The default sweeps one arc of the wheel — red 358, pink 322, violet 272,
-// then blue 206, teal 173, green 151 — so the stops read as a ramp rather
-// than a bag of hues, and every one is measured against both grounds at its
-// solid step: the dimmest is violet at 3.63:1 on dark and blue at 3.16:1 on
-// light. Yellow and orange are absent from it because neither clears 3:1 on
-// the light ground at any solid step — 2.09 and 2.86 — and yellow over the
-// dark ground is an olive.
-const familiesValues = {
-  hanzogui: ['red', 'pink', 'purple', 'gray', 'blue', 'teal', 'green'] as ThemeName[],
-  xmas: ['red', 'green', 'red', 'green', 'red', 'green', 'red'] as ThemeName[],
-  easter: [
-    'yellow',
-    'yellow',
-    'yellow',
-    'yellow',
-    'yellow',
-    'yellow',
-    'yellow',
-  ] as ThemeName[],
-  halloween: [
-    'yellow',
-    'gray',
-    'yellow',
-    'gray',
-    'yellow',
-    'gray',
-    'yellow',
-  ] as ThemeName[],
-  valentine: ['red', 'red', 'red', 'red', 'red', 'red', 'red'] as ThemeName[],
-  lunar: ['yellow', 'red', 'red', 'red', 'red', 'red', 'yellow'] as ThemeName[],
-  stpatricks: [
-    'green',
-    'yellow',
-    'green',
-    'yellow',
-    'green',
-    'yellow',
-    'green',
-  ] as ThemeName[],
+/**
+ * What a stop is worth, by name, so every family answers the same way.
+ *
+ * `accent` is the rung a stop STANDS FOR — the colour stored when it is picked,
+ * read under the dark scheme so one value answers for both. Null names no
+ * colour: the middle of the grey scale is how the axis is cleared.
+ *
+ * `dark` and `light` are the rungs that SHOW it. A hue's solid step carries
+ * against every ground the dark scheme paints, but the light ground is close
+ * enough to the warm end of the scale that orange has to come down two rungs to
+ * clear it — 2.6:1 at its solid, 4.0:1 at its eleventh, and still orange.
+ *
+ * Yellow cannot: three to one against a ground that light needs a luminance of
+ * about 0.27, which is exactly where yellow stops being yellow and turns olive
+ * and then brown. So yellow keeps its solid on both schemes and is drawn the way
+ * the ENDS of the scale are drawn — by the ink hairline every dot carries, which
+ * measures 12:1 there. That is the rule the fill and the edge share: the fill is
+ * the colour, and the edge is what makes it a chip rather than a smudge when the
+ * colour and the ground are near neighbours.
+ *
+ * `neutral` is why white, grey and black leave the page ground alone: their
+ * palettes are absolute rather than a wash of the scheme, and a white ground
+ * under the dark scheme's ink is not a tint but a page with its text turned off.
+ */
+export type Stop = {
+  accent: number | null
+  dark: number
+  light: number
+  neutral?: true
 }
 
-type Family = keyof typeof familiesValues
+export const STOPS: Record<string, Stop> = {
+  red: { accent: 9, dark: 9, light: 9 },
+  orange: { accent: 9, dark: 9, light: 11 },
+  yellow: { accent: 9, dark: 9, light: 9 },
+  green: { accent: 9, dark: 9, light: 10 },
+  blue: { accent: 9, dark: 9, light: 10 },
+  purple: { accent: 9, dark: 10, light: 9 },
+  white: { accent: 1, dark: 1, light: 1, neutral: true },
+  gray: { accent: null, dark: 10, light: 10, neutral: true },
+  black: { accent: 1, dark: 1, light: 1, neutral: true },
+}
 
-const DEFAULT_FAMILY: Family = 'hanzogui'
+// Every family is one length, because readers index the ramp by it.
+const LENGTH = 9
 
-const familiesNames = Object.keys(familiesValues) as any as Family[]
+const repeat = (...names: ThemeName[]): ThemeName[] =>
+  Array.from({ length: LENGTH }, (_, i) => names[i % names.length]!)
 
-type Families = { [key in Family]: ThemeName[] }
-const families = familiesValues as Families
+export type TintFamily =
+  | 'hanzogui'
+  | 'xmas'
+  | 'easter'
+  | 'halloween'
+  | 'valentine'
+  | 'lunar'
+  | 'stpatricks'
 
-export type TintFamily = keyof typeof families
+type Families = { [key in TintFamily]: ThemeName[] }
+
+// The default is the spectrum with the scale's ends after it, and the grey it
+// rests on between the warm half and the cool one.
+const familiesValues: Families = {
+  hanzogui: [
+    'red',
+    'orange',
+    'yellow',
+    'gray',
+    'green',
+    'blue',
+    'purple',
+    'white',
+    'black',
+  ] as ThemeName[],
+  xmas: repeat('red', 'green'),
+  easter: repeat('yellow'),
+  halloween: repeat('yellow', 'gray'),
+  valentine: repeat('red'),
+  lunar: ['yellow', ...repeat('red').slice(0, LENGTH - 2), 'yellow'] as ThemeName[],
+  stpatricks: repeat('green', 'yellow'),
+}
+
+/** Where the ramp rests: the stop that names no accent. */
+export const NEUTRAL: number = familiesValues.hanzogui.findIndex(
+  (name) => STOPS[name]?.accent === null
+)
+
+const DEFAULT_FAMILY: TintFamily = 'hanzogui'
+
+const familiesNames = Object.keys(familiesValues) as TintFamily[]
+
+const families = familiesValues
 
 let fam: TintFamily = DEFAULT_FAMILY
 

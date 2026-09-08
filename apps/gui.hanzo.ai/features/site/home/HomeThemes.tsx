@@ -1,11 +1,12 @@
 import { onTintChange, setTintIndex, useTints } from '@hanzogui/logo'
+import { Moon, Sun } from '@hanzogui/lucide-icons-2'
 import { useIsIntersecting } from '~/hooks/useOnIntersecting'
 import type { SetStateAction } from 'react'
 import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { ThemeName } from '@hanzo/gui'
 import {
+  Circle,
   Theme,
-  XGroup,
   XStack,
   YStack,
   debounce,
@@ -16,11 +17,30 @@ import {
 
 import { ActiveCircle } from '~/components/ActiveCircle'
 import { ContainerLarge } from '~/components/Containers'
+import { accentIndex, setAccent } from '~/features/site/theme/accent'
 import { HomeH2, HomeH3 } from './HomeHeaders'
 import { MediaPlayer } from './MediaPlayer'
 import { useUserScheme } from '@vxrn/color-scheme'
 
 type Lock = null | 'shouldAnimate' | 'animate' | 'scroll'
+
+// A pill of round controls, each keeping its own shape. A Group would not do:
+// it zeroes the radius on every connecting side, which is right for segments
+// of one bar and wrong for circles, whose rings come out as slabs.
+const Row = ({ children, ...props }: { children: any; 'aria-label': string }) => (
+  <XStack
+    role="group"
+    gap="$2"
+    p="$2"
+    self="center"
+    rounded="$10"
+    borderWidth={1}
+    borderColor="$borderColor"
+    {...props}
+  >
+    {children}
+  </XStack>
+)
 
 export const HomeThemes = memo(function HomeThemes() {
   const userScheme = useUserScheme()
@@ -75,7 +95,9 @@ export const HomeThemes = memo(function HomeThemes() {
 
   useEffect(() => {
     if (!isIntersecting) return
-    updateActiveI([3, 0])
+    // The stop the person already chose, so a reload lands back on it; the
+    // notch when they have chosen nothing.
+    updateActiveI([accentIndex(tints), 0])
 
     const now = Date.now() // ignore immediate one
     const disposeOnChange = onTintChange((index: number) => {
@@ -170,49 +192,40 @@ export const HomeThemes = memo(function HomeThemes() {
       <YStack my="$8" items="center" justify="center">
         <XStack className="scroll-horizontal no-scrollbar">
           <XStack px="$4" gap="$2">
-            <XGroup
-              borderWidth={1}
-              borderColor="$borderColor"
-              p="$2"
-              rounded="$10"
-              self="center"
-            >
-              {(['light', 'dark'] as const).map((name, i) => {
-                const isActive = userScheme.value === name
+            <Row aria-label="Color scheme">
+              {(['light', 'dark'] as const).map((name) => {
+                const Icon = name === 'dark' ? Moon : Sun
                 return (
-                  <XGroup.Item key={name + i}>
-                    <ActiveCircle
-                      bg={name === 'dark' ? '#000' : '#fff'}
-                      onPress={() => userScheme.set(name)}
-                      isActive={isActive}
-                    />
-                  </XGroup.Item>
+                  <ActiveCircle
+                    key={name}
+                    aria-label={name}
+                    isActive={userScheme.value === name}
+                    onPress={() => userScheme.set(name)}
+                  >
+                    <Icon size={15} color="$color" />
+                  </ActiveCircle>
                 )
               })}
-            </XGroup>
+            </Row>
 
-            <XGroup
-              borderWidth={1}
-              borderColor="$borderColor"
-              p="$2"
-              rounded="$10"
-              self="center"
-            >
-              {themes[0].map((color, i) => {
-                const isActive = curColorI === i
-                return (
-                  <XGroup.Item key={`${String(color)}${i}`}>
-                    <Theme name={color}>
-                      <ActiveCircle
-                        onPress={() => updateActiveI([i, curShadeI])}
-                        isActive={isActive}
-                        bg="$color8"
-                      />
-                    </Theme>
-                  </XGroup.Item>
-                )
-              })}
-            </XGroup>
+            <Row aria-label="Accent">
+              {themes[0].map((color, i) => (
+                <Theme key={`${String(color)}${i}`} name={color}>
+                  <ActiveCircle
+                    aria-label={String(color)}
+                    isActive={curColorI === i}
+                    onPress={() => {
+                      updateActiveI([i, curShadeI])
+                      setAccent(tints, i)
+                    }}
+                  >
+                    {/* The scheme's own solid step, which is what clears 3:1
+                        against every ground the ramp paints behind it. */}
+                    <Circle size={16} bg="$color10" />
+                  </ActiveCircle>
+                </Theme>
+              ))}
+            </Row>
           </XStack>
         </XStack>
 

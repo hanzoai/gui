@@ -1,4 +1,4 @@
-import { getTints, useTint } from '@hanzogui/logo'
+import { NEUTRAL, getTints, useTint } from '@hanzogui/logo'
 import { useEffect, useMemo, useRef } from 'react'
 import type { LayoutRectangle } from 'react-native'
 import type { GetProps } from '@hanzo/gui'
@@ -37,7 +37,7 @@ export const TintSection = ({ children, index, themed, z, ...props }: Props) => 
       })
 
       if (topIndex === index && topIndex !== current) {
-        const tintIndex = topIndex <= 1 ? 3 : topIndex % tints.length
+        const tintIndex = topIndex <= 1 ? NEUTRAL : topIndex % tints.length
         setTintIndex(tintIndex)
         current = index
         listeners.forEach((cb) => cb(topIndex, count))

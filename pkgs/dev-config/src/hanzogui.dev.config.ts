@@ -6,16 +6,17 @@ import {
   subtleChildrenThemes,
 } from '@hanzogui/config/v5-subtle'
 
-// only generate the accent themes the site actually uses: red/green/blue/gray/yellow
-// (the @hanzogui/logo tint family). dropping orange/pink/purple/teal/neutral roughly
-// halves the render-blocking theme css. note: dropping an accent also removes its
-// color tokens (--pink10 etc.), so all $pink/$purple/$orange/$teal/$neutral usages are
-// collapsed to kept colors across the site. component themes are kept (they dedupe to
-// surfaces in css and the site shows them off). themes-as-js is still stripped to {}
-// on the client below and hydrated from css.
-const { gray, blue, red, yellow, green } = subtleChildrenThemes
+// Only the accents the site actually shows: the @hanzogui/logo tint ramp
+// (red/pink/purple/gray/blue/teal/green) plus yellow, which the seasonal
+// families and the docs still name. Orange and neutral are left out — an
+// accent carries its color tokens with it (--orange10 and the rest), so each
+// one is render-blocking css, and orange measures 2.86:1 against the light
+// ground at its solid step, under the 3:1 a swatch needs to read at all.
+// Themes-as-js is still stripped to {} on the client below and hydrated from
+// css; component themes stay, since they dedupe to surfaces.
+const { gray, blue, red, yellow, green, purple, teal, pink } = subtleChildrenThemes
 const themes = createV5Theme({
-  childrenThemes: { gray, blue, red, yellow, green },
+  childrenThemes: { gray, blue, red, yellow, green, purple, teal, pink },
 })
 import type { CreateGuiProps } from '@hanzogui/core'
 import { setupDev } from '@hanzogui/core'

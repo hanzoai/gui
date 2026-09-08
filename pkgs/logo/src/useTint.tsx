@@ -2,7 +2,11 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useDidFinishSSR, type ThemeName } from '@hanzo/gui'
 import { getTints, setNextTintFamily, useTints } from './tints.tsx'
 
-let current = 3
+/** The stop with no sub-theme: the ground as published, and where the mark's
+ *  dot sits. Every reader of the ramp asks here rather than writing a 3. */
+export const NEUTRAL = 3
+
+let current = NEUTRAL
 let disableTintTheme = false
 
 const listeners = new Set<Function>()
@@ -45,7 +49,7 @@ export function getDocsSection(pathname: string): 'compiler' | 'ui' | 'core' | n
         : null
 }
 
-export const InitialPathContext: React.Context<number> = createContext(3)
+export const InitialPathContext: React.Context<number> = createContext(NEUTRAL)
 
 export const useTint = (
   altOffset = -1
@@ -92,9 +96,9 @@ export const useTint = (
     }
   }, [])
 
-  // return null for tint when disabled or at the "none" position (index 3)
-  const tint = disabled || index === 3 ? null : tints[index]
-  const tintAlt = disabled || tintAltIndex === 3 ? null : tints[tintAltIndex]
+  // null at the neutral notch, so the parent theme is what shows
+  const tint = disabled || index === NEUTRAL ? null : tints[index]
+  const tintAlt = disabled || tintAltIndex === NEUTRAL ? null : tints[tintAltIndex]
 
   return {
     ...tintsContext,

@@ -1,4 +1,4 @@
-import { setTintIndex } from '@hanzogui/logo'
+import { NEUTRAL, setTintIndex } from '@hanzogui/logo'
 import { useLoader } from 'one'
 import { useEffect } from 'react'
 import { Button, YStack } from '@hanzo/gui'
@@ -29,7 +29,7 @@ export default function GuiHomePage() {
   const { compilationExamples, animationCode } = useLoader(loader)
 
   useEffect(() => {
-    setTintIndex(3)
+    setTintIndex(NEUTRAL)
   }, [])
 
   if (!compilationExamples) {

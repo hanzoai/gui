@@ -2,9 +2,7 @@
   "name": "@hanzogui/web",
   "version": "8.3.5",
   "license": "MIT",
-  "author": {
-    "name": "Nate Wienert"
-  },
+  "author": "Hanzo AI <dev@hanzo.ai>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hanzoai/gui.git",

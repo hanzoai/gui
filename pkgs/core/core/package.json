@@ -3,9 +3,7 @@
   "version": "8.3.5",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
   "license": "MIT",
-  "author": {
-    "name": "Nate Wienert"
-  },
+  "author": "Hanzo AI <dev@hanzo.ai>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hanzoai/gui.git",

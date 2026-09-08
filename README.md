@@ -55,3 +55,14 @@ The compiler optimizes most and ultimately flattens a majority of styled compone
 To contribute to Gui reference the [contributing guide](https://github.com/hanzoai/gui/blob/main/CONTRIBUTING.md).
 
 To contribute to documentation, see the docs source in `apps/gui.hanzo.ai/data/docs/`.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+## Lineage
+
+Gui is a fork of [Tamagui](https://github.com/tamagui/tamagui) by Nate Wienert.
+It is MIT-licensed, and this repository preserves the upstream `LICENSE` and
+credits it in full in [`NOTICE`](NOTICE), which also lists the packages written
+at Hanzo. Hanzo AI is not affiliated with, sponsored by, or endorsed by Tamagui.

@@ -149,6 +149,11 @@ export function getConfig(hanzoguiPlugin: any) {
       // happy-dom has issues with components-test
       environment: process.env.TEST_ENVIRONMENT || 'happy-dom',
       include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+      // the first extraction in a file starts the compiler: esbuild bundles the
+      // config and every component package, then node requires the result. that
+      // is seconds of real work, once per worker, and it lands inside the first
+      // test rather than beside it
+      testTimeout: 60000,
       // increase teardown timeout to avoid worker cleanup issues
       teardownTimeout: 10000,
     },

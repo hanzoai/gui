@@ -31,6 +31,7 @@ const Row = ({ children, ...props }: { children: any; 'aria-label': string }) =>
   <XStack
     role="group"
     gap="$2"
+    $xs={{ gap: '$1' }}
     p="$2"
     self="center"
     rounded="$10"
@@ -129,6 +130,14 @@ export const HomeThemes = memo(function HomeThemes() {
   const width = 110
   const scale = 0.38
 
+  // Where the row stands for a preview to sit under the demo. Asked of the
+  // layout: an arithmetic copy of the padding and the gap drifts from them, and
+  // it did — by one gap per stop, so the ninth sat a whole card off centre.
+  const stopAt = (node: HTMLElement, index: number) => {
+    const item = node.firstElementChild?.children[index] as HTMLElement | undefined
+    return item ? item.offsetLeft + (item.offsetWidth - node.clientWidth) / 2 : null
+  }
+
   const scrollToIndex = useEvent((index: number, force = false) => {
     const node = scrollView.current
     const lock = getLock()
@@ -136,8 +145,8 @@ export const HomeThemes = memo(function HomeThemes() {
     const isForced = force && (isReadyToAnimate || lock === null)
     const shouldPrevent = !isReadyToAnimate && !isForced
     if (!node || shouldPrevent) return
-    const left = width * index + width / 2
-    if (node.scrollLeft === left) return
+    const left = stopAt(node, index)
+    if (left === null || Math.abs(node.scrollLeft - left) < 1) return
     node.scrollTo({ left, top: 0, behavior: 'smooth' })
   })
 
@@ -193,52 +202,50 @@ export const HomeThemes = memo(function HomeThemes() {
       }, [])}
 
       <YStack my="$8" items="center" justify="center">
-        <XStack className="scroll-horizontal no-scrollbar">
-          <XStack px="$4" gap="$2">
-            <Row aria-label="Color scheme">
-              {(['light', 'dark'] as const).map((name) => {
-                const Icon = name === 'dark' ? Moon : Sun
-                return (
-                  <ActiveCircle
-                    key={name}
-                    aria-label={name}
-                    isActive={userScheme.value === name}
-                    onPress={() => userScheme.set(name)}
-                  >
-                    <Icon size={15} color="$color" />
-                  </ActiveCircle>
-                )
-              })}
-            </Row>
-
-            <Row aria-label="Accent">
-              {themes[0].map((color, i) => (
+        <XStack px="$4" gap="$2" width="100%" justify="center" flexWrap="wrap">
+          <Row aria-label="Color scheme">
+            {(['light', 'dark'] as const).map((name) => {
+              const Icon = name === 'dark' ? Moon : Sun
+              return (
                 <ActiveCircle
-                  key={`${String(color)}${i}`}
-                  aria-label={String(color)}
-                  isActive={curColorI === i}
-                  onPress={() => {
-                    updateActiveI([i, curShadeI])
-                    setAccent(tints, i)
-                  }}
+                  key={name}
+                  aria-label={name}
+                  isActive={userScheme.value === name}
+                  onPress={() => userScheme.set(name)}
                 >
-                  {/* Only the dot wears the stop. Its rings stay the page's own,
+                  <Icon size={15} color="$color" />
+                </ActiveCircle>
+              )
+            })}
+          </Row>
+
+          <Row aria-label="Accent">
+            {themes[0].map((color, i) => (
+              <ActiveCircle
+                key={`${String(color)}${i}`}
+                aria-label={String(color)}
+                isActive={curColorI === i}
+                onPress={() => {
+                  updateActiveI([i, curShadeI])
+                  setAccent(tints, i)
+                }}
+              >
+                {/* Only the dot wears the stop. Its rings stay the page's own,
                       because white and black carry the ground's own ink, and a
                       ring in it says nothing on the scheme they belong to. */}
-                  <Theme name={color}>
-                    <Circle
-                      size={16}
-                      bg={
-                        `$color${STOPS[String(color)]?.[userScheme.value] ?? 9}` as ColorTokens
-                      }
-                      borderWidth={1}
-                      borderColor="$color"
-                    />
-                  </Theme>
-                </ActiveCircle>
-              ))}
-            </Row>
-          </XStack>
+                <Theme name={color}>
+                  <Circle
+                    size={16}
+                    bg={
+                      `$color${STOPS[String(color)]?.[userScheme.value] ?? 9}` as ColorTokens
+                    }
+                    borderWidth={1}
+                    borderColor="$color"
+                  />
+                </Theme>
+              </ActiveCircle>
+            ))}
+          </Row>
         </XStack>
 
         <YStack
@@ -257,14 +264,14 @@ export const HomeThemes = memo(function HomeThemes() {
               if (scrollLock === 'animate' || scrollLock === 'shouldAnimate') {
                 return
               }
-              const scrollX = Math.max(0, e.target.scrollLeft)
-              // Match the formula in scrollToIndex: left = width * index + width / 2
-              const itemI = Math.max(
-                0,
-                Math.min(
-                  Math.round((scrollX - width / 2) / width),
-                  themeCombos.length - 1
-                )
+              const node = e.target as HTMLElement
+              const items = [...node.firstElementChild!.children] as HTMLElement[]
+              const mid = node.scrollLeft + node.clientWidth / 2
+              const off = (el: HTMLElement) =>
+                Math.abs(el.offsetLeft + el.offsetWidth / 2 - mid)
+              const itemI = items.reduce(
+                (best, el, i) => (off(el) < off(items[best]) ? i : best),
+                0
               )
               const [n1, n2] = flatToSplit(itemI)
               const [c1, c2] = activeI
@@ -279,8 +286,7 @@ export const HomeThemes = memo(function HomeThemes() {
               justify="center"
               gap="$5"
               position="relative"
-              px={`calc(50vw + 30px)`}
-              x={-45 - 30}
+              px="50%"
             >
               {useMemo(() => {
                 return themeCombos.map((name, i) => {

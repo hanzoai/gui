@@ -12,7 +12,7 @@ import { useDocsMenu } from '~/features/docs/useDocsMenu'
 import { useIsDocsTinted } from '~/features/docs/docsTint'
 import { components } from '~/features/mdx/MDXComponents'
 import { getOgUrl } from '~/features/site/getOgUrl'
-import { nbspLastWord, SubTitle } from '../../../../components/SubTitle'
+import { SubTitle } from '../../../../components/SubTitle'
 import { HomeH1 } from '../../../../features/site/home/HomeHeaders'
 
 export async function generateStaticParams() {
@@ -104,9 +104,9 @@ export function DocComponentsPage() {
         }}
       />
 
-      <HomeH1>{nbspLastWord(frontmatter.title)}</HomeH1>
+      <HomeH1>{frontmatter.title}</HomeH1>
 
-      <SubTitle>{nbspLastWord(frontmatter.description || '')}</SubTitle>
+      <SubTitle>{frontmatter.description || ''}</SubTitle>
 
       <MDXProvider frontmatter={frontmatter}>
         <DocsThemeTint>

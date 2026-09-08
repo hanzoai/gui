@@ -3,7 +3,7 @@ import { getMDXComponent } from '@vxrn/mdx-rust/client'
 import { useLoader } from 'one'
 import { useMemo } from 'react'
 import { HeadInfo } from '~/components/HeadInfo'
-import { SubTitle, nbspLastWord } from '~/components/SubTitle'
+import { SubTitle } from '~/components/SubTitle'
 import { GuiExamples } from '~/components/GuiExamples'
 import { DocsPageFrame } from '~/features/docs/DocsPageFrame'
 import { useDocsMenu } from '~/features/docs/useDocsMenu'
@@ -68,8 +68,8 @@ export default function DocIntroPage() {
           ],
         }}
       />
-      <HomeH1>{nbspLastWord(frontmatter.title)}</HomeH1>
-      <SubTitle>{nbspLastWord(frontmatter.description || '')}</SubTitle>
+      <HomeH1>{frontmatter.title}</HomeH1>
+      <SubTitle>{frontmatter.description || ''}</SubTitle>
       <ThemeTint>
         <GuiExamples.Provider value={examples}>
           <Component components={components as any} />

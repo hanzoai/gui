@@ -3,7 +3,7 @@ import { getMDXComponent } from '@vxrn/mdx-rust/client'
 import { useMemo } from 'react'
 import { useLoader } from 'one'
 import { HeadInfo } from '~/components/HeadInfo'
-import { SubTitle, nbspLastWord } from '~/components/SubTitle'
+import { SubTitle } from '~/components/SubTitle'
 import { DocsPageFrame } from '~/features/docs/DocsPageFrame'
 import { useDocsMenu } from '~/features/docs/useDocsMenu'
 import { components } from '~/features/mdx/MDXComponents'
@@ -59,8 +59,8 @@ export default function DocGuidesPage() {
           ],
         }}
       />
-      <HomeH1>{nbspLastWord(frontmatter.title)}</HomeH1>
-      <SubTitle>{nbspLastWord(frontmatter.description || '')}</SubTitle>
+      <HomeH1>{frontmatter.title}</HomeH1>
+      <SubTitle>{frontmatter.description || ''}</SubTitle>
       <ThemeTint>
         <Component components={components as any} />
       </ThemeTint>

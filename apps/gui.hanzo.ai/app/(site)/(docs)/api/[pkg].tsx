@@ -3,7 +3,7 @@ import { useLoader } from 'one'
 import { H2, H3, Paragraph, Text, XStack, YStack, styled } from '@hanzo/gui'
 import { HeadInfo } from '~/components/HeadInfo'
 import { Link } from '~/components/Link'
-import { SubTitle, nbspLastWord } from '~/components/SubTitle'
+import { SubTitle } from '~/components/SubTitle'
 import { DocsPageFrame } from '~/features/docs/DocsPageFrame'
 import type { Entry } from '~/api'
 import { id, named, packages } from '~/features/docs/packages'
@@ -50,7 +50,7 @@ export default function ApiPackagePage() {
       />
 
       <HomeH1>{pack.name}</HomeH1>
-      <SubTitle>{nbspLastWord(pack.description ?? '')}</SubTitle>
+      <SubTitle>{pack.description ?? ''}</SubTitle>
 
       <Mono color="$color11">
         {`v${pack.version} · ${pack.entry} · ${values} values · ${pack.entries.length - values} types`}

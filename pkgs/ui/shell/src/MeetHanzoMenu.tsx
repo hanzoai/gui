@@ -213,13 +213,19 @@ export function MeetHanzoMenu({
             display: 'grid',
             // The rail is a fixed track and the pane takes the rest, so the
             // hairline between them lands in the same place at every width.
-            gridTemplateColumns: stacked ? '1fr' : `${RAIL}px minmax(0, 1fr)`,
-            gap: stacked ? 18 : 0,
+            // Narrow, there is no rail: Products is a peer of the link groups
+            // and the four sit two by two, which fills the plane instead of
+            // running one tall column down it with three stubs underneath.
+            gridTemplateColumns: stacked
+              ? 'repeat(2, minmax(0, 1fr))'
+              : `${RAIL}px minmax(0, 1fr)`,
+            gap: stacked ? '18px 24px' : 0,
           }}
         >
           {/* ── Products — one dense column ── */}
           <section
             aria-label="Products"
+            data-hanzo-menu-col=""
             style={{
               paddingRight: stacked ? 0 : 22,
               borderRight: stacked ? undefined : `1px solid ${CHROME.borderSoft}`,
@@ -240,13 +246,14 @@ export function MeetHanzoMenu({
 
           {/* ── Platform / Install / Resources — link columns ── */}
           <div
+            data-hanzo-menu-cols=""
             style={{
-              display: 'grid',
+              display: stacked ? 'contents' : 'grid',
               // Fixed-width tracks, START-aligned: a link column is as wide as
               // its longest label and no wider. Stretching three columns across
               // a 1600px pane is how a dense menu turns back into a poster.
               gridTemplateColumns: stacked
-                ? `repeat(auto-fit, minmax(${COLUMN}px, 1fr))`
+                ? 'minmax(0, 1fr)'
                 : `repeat(${columns.length}, ${COLUMN}px)`,
               justifyContent: 'start',
               alignContent: 'start',
@@ -255,7 +262,7 @@ export function MeetHanzoMenu({
             }}
           >
             {columns.map((group) => (
-              <div key={group.id}>
+              <div key={group.id} data-hanzo-menu-col="">
                 <SectionLabel>{group.title}</SectionLabel>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   {group.items.map((item) => (

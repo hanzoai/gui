@@ -46,7 +46,10 @@ export const HomeThemes = memo(function HomeThemes() {
   const userScheme = useUserScheme()
 
   const tints = useTints().tints as ThemeName[]
-  const themes: (ThemeName | null)[][] = [tints, [null, 'accent']]
+  // ONE preview per stop. The second axis used to carry `accent` beside `null`,
+  // so every colour appeared twice in the row and the strip read as doubled
+  // against a swatch row that names each colour once.
+  const themes: (ThemeName | null)[][] = [tints, [null]]
 
   const themeCombos: string[] = []
   for (let i = 0; i < themes[0].length; i++) {

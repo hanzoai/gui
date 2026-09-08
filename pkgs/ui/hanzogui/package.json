@@ -13,6 +13,7 @@
   },
   "source": "src/index.ts",
   "files": [
+    "NOTICE",
     "bundle-native.mjs",
     "css-check.mjs",
     "dist",

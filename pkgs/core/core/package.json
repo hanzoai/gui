@@ -11,6 +11,7 @@
   },
   "source": "src/index.tsx",
   "files": [
+    "NOTICE",
     "bundle-native.mjs",
     "dist",
     "native-test.d.ts",

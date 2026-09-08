@@ -7,9 +7,10 @@
   },
   "source": "src/index.ts",
   "files": [
+    "NOTICE",
+    "dist",
     "src",
-    "types",
-    "dist"
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

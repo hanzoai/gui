@@ -6,9 +6,10 @@
     "create-gui": "./dist/esm/index.js"
   },
   "files": [
+    "NOTICE",
+    "dist",
     "src",
-    "types",
-    "dist"
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

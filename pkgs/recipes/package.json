@@ -12,9 +12,10 @@
   },
   "source": "src/index.ts",
   "files": [
+    "NOTICE",
+    "dist",
     "src",
-    "types",
-    "dist"
+    "types"
   ],
   "type": "module",
   "main": "./dist/cjs/index.js",

@@ -3,9 +3,10 @@
   "version": "8.3.5",
   "source": "src/index.tsx",
   "files": [
+    "NOTICE",
+    "dist",
     "src",
-    "types",
-    "dist"
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

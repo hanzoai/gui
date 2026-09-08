@@ -26,15 +26,15 @@ import { HANZO_FLAGSHIP, HANZO_FLAGSHIP_PUBLIC, sees } from './dist/esm/hanzo-re
 const ids = (list) => list.map((p) => p.id)
 
 test('a stranger is offered the released estate and nothing else', () => {
+  // Cloud and Team are what the platform does, not products beside it, so
+  // Platform stands for all three and neither of the other two is offered.
   assert.deepEqual(ids(HANZO_FLAGSHIP_PUBLIC), [
     'app',
     'bot',
     'cli',
-    'cloud',
     'dev',
     'ide',
     'platform',
-    'team',
   ])
 })
 
@@ -46,7 +46,10 @@ test('an unfinished product never reaches an anonymous menu', () => {
 test('alpha stays hidden from a customer, beta does not', () => {
   const customer = ids(HANZO_FLAGSHIP.filter(sees('beta')))
   assert.ok(customer.includes('bot'), 'bot is beta — a cleared customer sees it')
-  assert.ok(customer.includes('team'), 'team is beta — a cleared customer sees it')
+  assert.ok(
+    !ids(HANZO_FLAGSHIP).includes('team'),
+    'team is not a product beside the platform'
+  )
   assert.ok(
     !customer.includes('studio'),
     'studio is alpha — beta clearance is not enough'

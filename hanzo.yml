@@ -10,9 +10,9 @@
 # wins, which is also why `.github/workflows` is dark on Hanzo Git.
 #
 # NO `images:` AND NO `deploy:`. This is a package repo: its workspaces publish
-# to npm, and the two surfaces it owns, hanzo.team and gui.hanzo.ai, are static
-# exports served straight off object storage by the `sites:` lane below, which
-# needs neither an image nor a pod.
+# to npm, and the one surface it owns, gui.hanzo.ai, is a static export served
+# straight off object storage by the `site:` lane below, which needs neither an
+# image nor a pod.
 
 test:
   # bun, at the version package.json already pins. The reusable provisions Go,
@@ -110,27 +110,19 @@ test:
         --filter=@hanzogui/components-test \
         --concurrency=1
 
-# Two sites off one build, published by the reusable's site lane to the Sites
-# plane, where universe charts/app/values/hanzo/static-sites.yaml routes each:
-#
-#   hanzo-team   hanzo.team, apps/team. Its entire backend is the cloud team surface at
-#          api.hanzo.ai/v1/team, so it needs no image and no pod. `team-static`
-#          has spaMode ON: `one build` writes rooms/:id.html literally, so
-#          /rooms/<id> has no file behind it and must fall back to the shell for
-#          the client router to resolve it.
-#   gui    gui.hanzo.ai, apps/gui.hanzo.ai, the docs. Every route is a real file
-#          under dist/client, so `gui-static` serves it with spaMode off.
+# gui.hanzo.ai, the docs, from apps/gui.hanzo.ai. The reusable's site lane
+# publishes it to the Sites plane and `gui-static` in universe
+# charts/app/values/hanzo/static-sites.yaml serves it: every route is a real
+# file under dist/client, so that middleware runs with spaMode off.
 #
 # `on` is not decoration. It defaults to the empty list, and an unnamed branch
-# publishes NOTHING. Naming main is what makes a merge reach the sites; the
-# lane reads it from the first entry and applies it to the list.
+# publishes NOTHING — a main push would run the build, report success and ship
+# no bytes. Naming main is what makes a merge reach the site.
 #
-# turbo, not the bare script: both apps import workspace packages that must be
-# built before they can be, and `one build` alone does not build them.
-sites:
-  - slug: hanzo-team
-    dir: apps/team/dist/client
-    on: [main]
-  - slug: gui
-    dir: apps/gui.hanzo.ai/dist/client
-site-build: bun turbo run build:web --filter=@hanzogui/team --filter=@hanzogui/dot-dev
+# turbo, not the bare script: apps/gui.hanzo.ai imports workspace packages that
+# must be built before it can be, and `one build` alone does not build them.
+site:
+  slug: gui
+  dir: apps/gui.hanzo.ai/dist/client
+  on: [main]
+  build: bun turbo run build:web --filter=@hanzogui/dot-dev

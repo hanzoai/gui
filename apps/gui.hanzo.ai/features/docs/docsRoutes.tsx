@@ -1,3 +1,5 @@
+import { packages, route } from './packages'
+
 export const docsRoutes = [
   // top area - always visible, no accordion
   {
@@ -111,6 +113,17 @@ export const docsRoutes = [
       { title: 'create-gui', route: '/docs/guides/create-gui-app' },
       { title: 'Server Rendering', route: '/docs/core/server-rendering' },
       { title: 'Extras', route: '/docs/core/exports' },
+    ],
+  },
+
+  // API reference — one page per package, read from what each one ships
+  {
+    section: 'core',
+    title: 'API reference',
+    pages: [
+      { title: 'How it is made', route: '/docs/intro/api-reference' },
+      { title: 'Packages', route: '/api' },
+      ...packages.map((name) => ({ title: name, route: route(name) })),
     ],
   },
 

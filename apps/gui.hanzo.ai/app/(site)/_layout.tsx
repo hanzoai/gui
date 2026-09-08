@@ -33,7 +33,7 @@ export default function SiteLayout() {
       <LoadProgressBar />
       <Theme name={customThemeName}>
         <YStack inset={0} position="absolute" bg="$color1" z={-1} pointerEvents="none" />
-        <ThemeNameEffect colorKey="$color1" disableTint />
+        <ThemeNameEffect colorKey="$color1" />
         <Slot />
       </Theme>
       {!hideFooter && <Footer />}

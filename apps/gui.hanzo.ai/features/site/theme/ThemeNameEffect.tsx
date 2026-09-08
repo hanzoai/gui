@@ -1,4 +1,4 @@
-import { NEUTRAL, ThemeTint, useTint } from '@hanzogui/logo'
+import { NEUTRAL, useTint } from '@hanzogui/logo'
 import { memo, useEffect, useState } from 'react'
 import type { ColorTokens, ThemeName } from '@hanzo/gui'
 import { YStack, isClient, useDidFinishSSR, useTheme } from '@hanzo/gui'
@@ -6,11 +6,9 @@ import { YStack, isClient, useDidFinishSSR, useTheme } from '@hanzo/gui'
 type Props = {
   colorKey?: ColorTokens
   theme?: ThemeName | null
-  children?: any
-  disableTint?: boolean | number
-  debug?: boolean | 'visualize' | 'verbose'
 }
 
+/** Sets the ramp from a theme name, and paints the ground the page stands on. */
 export const ThemeNameEffect = memo((props: Props) => {
   const Tint = useTint()
 
@@ -22,26 +20,21 @@ export const ThemeNameEffect = memo((props: Props) => {
     }
   }, [props.theme])
 
-  const disable =
-    typeof props.disableTint === 'number'
-      ? Tint.tintIndex === props.disableTint
-      : !!props.disableTint
-
-  return (
-    <ThemeTint debug={props.debug as any} disable={disable}>
-      <ThemeNameEffectNoTheme {...props} />
-      {props.children}
-    </ThemeTint>
-  )
+  return <ThemeNameEffectNoTheme {...props} />
 })
 
-export const ThemeNameEffectNoTheme = ({
-  colorKey = '$color1',
-  theme: ssrTheme,
-}: Props) => {
+/**
+ * The ground, off the neutral scale, whatever tint is in effect.
+ *
+ * A tint names an ACCENT. It belongs to the swatch, the demo and the ink, and
+ * an accent that paints the ground stops being one: a few percent of yellow
+ * across a dark page is olive, and of orange is brown. So this reads its colour
+ * from the theme it is called under rather than from the tint, and the page
+ * stays the same considered dark or light it was while the accent changes.
+ */
+export const ThemeNameEffectNoTheme = ({ colorKey = '$color1' }: Props) => {
   const isHydrated = useDidFinishSSR()
   const theme = useTheme()
-  // const themeName = useThemeName()
   const [isActive, setIsActive] = useState(false)
 
   const color = theme[colorKey]?.val
@@ -58,34 +51,11 @@ export const ThemeNameEffectNoTheme = ({
   return (
     <>
       <YStack
-        id={`theme-name-effect-${ssrTheme}`}
         ref={() => {
           setIsActive(true)
         }}
       />
-      <style>
-        {ssrTheme
-          ? `
-body:has(#theme-name-effect-red) {
-  background: var(--red${colorKey.replace('$color', '')}) !important;
-}
-body:has(#theme-name-effect-green) {
-  background: var(--green${colorKey.replace('$color', '')}) !important;
-}
-body:has(#theme-name-effect-blue) {
-  background: var(--blue${colorKey.replace('$color', '')}) !important;
-}
-  
-
-`
-          : `
-body {
-  background: var(--${colorKey.slice(1)}) !important;
-}
-
-
-`}
-      </style>
+      <style>{`body { background: var(--${colorKey.slice(1)}) !important }`}</style>
     </>
   )
 }

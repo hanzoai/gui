@@ -26,7 +26,7 @@ export default function MotionBugReproPage() {
         description="Reproduction page for motion animation driver bug"
       />
 
-      <ThemeNameEffectNoTheme disableTint={3} colorKey="$color3" />
+      <ThemeNameEffectNoTheme colorKey="$color3" />
 
       <HomeGlow />
       <YStack

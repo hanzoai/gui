@@ -118,25 +118,34 @@ function transformConfig(config: BundledConfig, platform: GuiPlatform) {
 
   const { getVariableValue } = requireGuiCore(platform)
 
-  // ensure we don't mangle anything in the original
-  const next = cloneDeepSafe(config, {
-    validStyles: true,
-  }) as BundledConfig
+  const { themes } = config.hanzoguiConfig
 
-  const { components, nameToPaths, hanzoguiConfig } = next
-  const { themes, tokens } = hanzoguiConfig
+  // ensure we don't mangle anything in the original. themes are held out: every
+  // one of their variables is replaced by its value below, so cloning them
+  // first builds ~300k objects to throw away, and that dominates the cost of a
+  // cold compiler start.
+  const next = cloneDeepSafe(
+    { ...config, hanzoguiConfig: { ...config.hanzoguiConfig, themes: null } },
+    {
+      validStyles: true,
+    }
+  ) as BundledConfig
+
+  const { components, nameToPaths } = next
+  const { tokens } = next.hanzoguiConfig
 
   // reduce down to usable, smaller json
 
   // slim themes, add name
+  const slimThemes: Record<string, any> = {}
   for (const key in themes) {
-    const theme = themes[key]
-    // @ts-ignore
-    theme.id = key
+    const theme = { ...themes[key], id: key }
     for (const tkey in theme) {
       theme[tkey] = getVariableValue(theme[tkey])
     }
+    slimThemes[key] = theme
   }
+  next.hanzoguiConfig.themes = slimThemes
 
   // flatten variables
   for (const key in tokens) {

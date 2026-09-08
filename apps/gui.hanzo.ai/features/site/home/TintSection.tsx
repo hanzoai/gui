@@ -5,17 +5,17 @@ import type { GetProps } from '@hanzo/gui'
 import { XStack, YStack, styled } from '@hanzo/gui'
 import { useOnIntersecting } from '~/hooks/useOnIntersecting'
 
-type Props = SectionProps & { themed?: boolean; index: number }
+type Props = SectionProps & { index: number }
 
 const numIntersectingAtSection = getTints().tints.map((_) => 0)
 
 export const tintSectionDimensions: Record<number, LayoutRectangle> = {}
 
-export const TintSection = ({ children, index, themed, z, ...props }: Props) => {
+export const TintSection = ({ children, index, z, ...props }: Props) => {
   const top = useRef<HTMLElement>(null)
   const bottom = useRef<HTMLElement>(null)
   const mid = useRef<HTMLElement>(null)
-  const { tint, tints, setTintIndex } = useTint()
+  const { tints, setTintIndex } = useTint()
 
   useOnIntersecting(
     useMemo(() => [top, mid, bottom], []),
@@ -90,9 +90,7 @@ export const TintSection = ({ children, index, themed, z, ...props }: Props) => 
           </>
         )
       }, [top, mid, bottom])}
-      <HomeSection theme={(themed ? tint : null) as any} {...props}>
-        {children}
-      </HomeSection>
+      <HomeSection {...props}>{children}</HomeSection>
     </YStack>
   )
 }
@@ -126,6 +124,9 @@ export const HomeSection = styled(YStack, {
 
 type SectionProps = GetProps<typeof HomeSection>
 
+// A raised section. Its surface and its edges are the neutral scale's, like the
+// page ground: a tint is an accent, and an accent spread over a whole section is
+// how yellow became olive and orange became brown.
 export const SectionTinted = ({
   children,
   gradient,
@@ -134,7 +135,6 @@ export const SectionTinted = ({
   noBorderTop,
   ...props
 }: any) => {
-  const { tint } = useTint()
   const childrenMemo = useMemo(() => children, [children])
 
   return (
@@ -144,15 +144,14 @@ export const SectionTinted = ({
       position="relative"
       py="$14"
       elevation="$2"
-      {...(bubble &&
-        tint && {
-          maxW: 1400,
-          rounded: '$6',
-          borderWidth: 1,
-          borderColor: `$${tint}4`,
-          self: 'center',
-          width: '100%',
-        })}
+      {...(bubble && {
+        maxW: 1400,
+        rounded: '$6',
+        borderWidth: 1,
+        borderColor: '$borderColor',
+        self: 'center',
+        width: '100%',
+      })}
       {...props}
     >
       <YStack
@@ -160,11 +159,11 @@ export const SectionTinted = ({
         className="all ease-in ms1000"
         z={-1}
         opacity={0.4}
-        bg={gradient && tint ? (`$${tint}2` as any) : null}
+        bg={gradient ? '$color2' : null}
         {...(!bubble && {
           borderTopWidth: noBorderTop ? 0 : 1,
           borderBottomWidth: 1,
-          borderColor: tint ? (`$${tint}3` as any) : '$borderColor',
+          borderColor: '$borderColor',
         })}
       />
       {childrenMemo}

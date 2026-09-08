@@ -12,22 +12,26 @@ const listeners = new Set<ChangeHandler>()
  * read under the dark scheme so one value answers for both. Null names no
  * colour: the middle of the grey scale is how the axis is cleared.
  *
- * `dark` and `light` are the rungs that SHOW it. A hue's solid step carries
- * against every ground the dark scheme paints, but the light ground is close
- * enough to the warm end of the scale that orange has to come down two rungs to
- * clear it — 2.6:1 at its solid, 4.0:1 at its eleventh, and still orange.
+ * `dark` and `light` are the rungs that SHOW it: the solid step wherever it
+ * clears three to one against the ground, and the next rung that does otherwise.
+ * On the dark ground every stop is its solid. The light ground sits near the
+ * bright end of the scale, so green and blue come down one rung and orange two —
+ * 2.6:1 at its solid against 4.0:1 at its eleventh, and orange still.
  *
- * Yellow cannot: three to one against a ground that light needs a luminance of
- * about 0.27, which is exactly where yellow stops being yellow and turns olive
- * and then brown. So yellow keeps its solid on both schemes and is drawn the way
- * the ENDS of the scale are drawn — by the ink hairline every dot carries, which
- * measures 12:1 there. That is the rule the fill and the edge share: the fill is
+ * Yellow cannot come down: three to one against a ground that light needs a
+ * luminance near 0.27, which is exactly where yellow stops being yellow and goes
+ * olive and then brown. So yellow keeps its solid on both schemes and is drawn
+ * the way the ENDS of the scale are drawn — by the ink hairline every dot
+ * carries, 12:1 there. That is the rule the fill and the edge share: the fill is
  * the colour, and the edge is what makes it a chip rather than a smudge when the
  * colour and the ground are near neighbours.
  *
- * `neutral` is why white, grey and black leave the page ground alone: their
- * palettes are absolute rather than a wash of the scheme, and a white ground
- * under the dark scheme's ink is not a tint but a page with its text turned off.
+ * No stop paints the page ground or a section surface — those are the neutral
+ * scale's on every one of the nine, and a tint that grounds a page is how yellow
+ * became olive. A stop reaches the swatch, the demo, the ink and the stored
+ * accent. `neutral` marks the three whose palettes are absolute rather than a
+ * scheme's: white, grey and black name a colour and theme nothing, since an
+ * absolute palette in an accent's place is the other scheme, not an accent.
  */
 export type Stop = {
   accent: number | null
@@ -42,9 +46,9 @@ export const STOPS: Record<string, Stop> = {
   yellow: { accent: 9, dark: 9, light: 9 },
   green: { accent: 9, dark: 9, light: 10 },
   blue: { accent: 9, dark: 9, light: 10 },
-  purple: { accent: 9, dark: 10, light: 9 },
+  purple: { accent: 9, dark: 9, light: 9 },
   white: { accent: 1, dark: 1, light: 1, neutral: true },
-  gray: { accent: null, dark: 10, light: 10, neutral: true },
+  gray: { accent: null, dark: 9, light: 10, neutral: true },
   black: { accent: 1, dark: 1, light: 1, neutral: true },
 }
 

@@ -2133,25 +2133,6 @@
         "react": ">=19.2.8",
       },
     },
-    "pkgs/ui/card": {
-      "name": "@hanzogui/card",
-      "version": "8.3.5",
-      "dependencies": {
-        "@hanzogui/core": "workspace:*",
-        "@hanzogui/create-context": "workspace:*",
-        "@hanzogui/helpers": "workspace:*",
-        "@hanzogui/stacks": "workspace:*",
-        "@hanzogui/web": "workspace:*",
-      },
-      "devDependencies": {
-        "@hanzogui/build": "workspace:*",
-        "react": "19.2.8",
-        "react-native": "^0.87.1",
-      },
-      "peerDependencies": {
-        "react": ">=19.2.8",
-      },
-    },
     "pkgs/ui/checkbox": {
       "name": "@hanzogui/checkbox",
       "version": "8.3.5",
@@ -2502,7 +2483,6 @@
         "@hanzogui/animate-presence": "workspace:*",
         "@hanzogui/avatar": "workspace:*",
         "@hanzogui/button": "workspace:*",
-        "@hanzogui/card": "workspace:*",
         "@hanzogui/checkbox": "workspace:*",
         "@hanzogui/collapsible": "workspace:*",
         "@hanzogui/component-helpers": "workspace:*",
@@ -3030,7 +3010,7 @@
     },
     "pkgs/ui/shell": {
       "name": "@hanzogui/shell",
-      "version": "8.3.5",
+      "version": "8.3.17",
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
       },
@@ -3977,8 +3957,6 @@
     "@hanzogui/button": ["@hanzogui/button@workspace:pkgs/ui/button"],
 
     "@hanzogui/calc": ["@hanzogui/calc@workspace:pkgs/core/calc"],
-
-    "@hanzogui/card": ["@hanzogui/card@workspace:pkgs/ui/card"],
 
     "@hanzogui/checkbox": ["@hanzogui/checkbox@workspace:pkgs/ui/checkbox"],
 

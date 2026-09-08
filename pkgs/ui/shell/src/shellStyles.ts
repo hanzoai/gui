@@ -101,6 +101,12 @@ const CSS = [
   // and nothing else reaches an inline declaration.
   `@media (min-width:1100px){[data-hanzo-products-grid]{grid-template-columns:repeat(var(--hz-products-cols-mid),minmax(0,1fr))!important}}`,
   `@media (min-width:1400px){[data-hanzo-products-grid]{grid-template-columns:repeat(var(--hz-products-cols-wide),minmax(0,1fr))!important}}`,
+  // The column a reader is IN stays lit and the others step back, so a menu of
+  // four dense columns reads as one at a time. On the container, not the
+  // column, because a column cannot know that a sibling is hovered; and only
+  // where a pointer can hover, so a touch reader is never left dimmed.
+  `@media (hover:hover){[data-hanzo-plane]:has([data-hanzo-menu-col]:hover) [data-hanzo-menu-col]{opacity:0.45;transition:opacity 140ms ease}}`,
+  `@media (hover:hover){[data-hanzo-plane] [data-hanzo-menu-col]:hover{opacity:1}}`,
   `[data-hanzo-shell] button{cursor:pointer}`,
   `[data-hanzo-shell] button:disabled{cursor:default}`,
   `@media (pointer:coarse){[data-hanzo-shell] a,[data-hanzo-shell] button{min-height:${TAP_H}px}}`,

@@ -1,14 +1,17 @@
 import { ThemeTintAlt } from '@hanzogui/logo'
 import { ChevronRight } from '@hanzogui/lucide-icons-2'
 import { useState } from 'react'
-import { Avatar, Card, H5, Paragraph, View, XStack, YStack } from '@hanzo/gui'
+import { Avatar, H5, Paragraph, View, XStack, YStack } from '@hanzo/gui'
 
 export function LogoCard({ title, subtitle, img, icon, link, colorOffset, ...props }) {
   const [isHovered, setHovered] = useState(false)
 
   return (
     <ThemeTintAlt offset={colorOffset}>
-      <Card
+      <YStack
+        bg="$background"
+        position="relative"
+        rounded="$true"
         render="a"
         transition="quickest"
         flex={1}
@@ -23,7 +26,7 @@ export function LogoCard({ title, subtitle, img, icon, link, colorOffset, ...pro
         {...(props as any)}
         href={link}
       >
-        <Card.Header>
+        <YStack z={10} mb="auto" p="$true">
           <XStack justify="space-between">
             <YStack gap="$2.5">
               <H5 size="$6" color="$color9" fontFamily="$pixel">
@@ -52,12 +55,19 @@ export function LogoCard({ title, subtitle, img, icon, link, colorOffset, ...pro
               </Avatar>
             )}
           </XStack>
-        </Card.Header>
+        </YStack>
 
-        <Card.Footer transition="quicker" x={isHovered ? 5 : 0}>
+        <XStack
+          z={5}
+          mt="auto"
+          mb={0}
+          p="$true"
+          transition="quicker"
+          x={isHovered ? 5 : 0}
+        >
           <ChevronRight size="$1" position="absolute" b="$4" r="$4" color="$color11" />
-        </Card.Footer>
-      </Card>
+        </XStack>
+      </YStack>
     </ThemeTintAlt>
   )
 }

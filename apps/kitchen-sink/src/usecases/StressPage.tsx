@@ -18,7 +18,6 @@ import { timer } from '@hanzogui/timer'
 import React from 'react'
 import {
   Button,
-  Card,
   H1,
   H2,
   H3,
@@ -48,7 +47,8 @@ if (shouldProfile) {
 }
 
 // styled components with variants
-const StyledCard = styled(Card, {
+const StyledCard = styled(YStack, {
+  position: 'relative',
   padding: '$4',
   borderRadius: '$4',
   backgroundColor: '$background',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Square, Theme, YStack, Text } from '@hanzo/gui'
+import { Button, Square, Theme, YStack, Text } from '@hanzo/gui'
 
 import { TEST_IDS } from '../constants/test-ids'
 
@@ -8,7 +8,13 @@ export function ThemeChange() {
     <>
       <Inner level={0}>
         <Inner level={1}>
-          <Card width={100} height={100} />
+          <YStack
+            backgroundColor="$background"
+            position="relative"
+            borderRadius="$true"
+            width={100}
+            height={100}
+          />
         </Inner>
       </Inner>
     </>

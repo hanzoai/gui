@@ -371,7 +371,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     page: `${U.ai}/cloud`,
     tagline: 'Run the platform',
     boundary: PRODUCT_BOUNDARIES.cloud,
-    flagship: true,
   },
   {
     id: 'dev',
@@ -410,6 +409,9 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     id: 'platform',
     glyph: 'cloud',
     label: 'Hanzo Platform',
+    // The one door to the console. Cloud and Team are what the platform DOES,
+    // not products beside it, so neither is a flagship and neither carries a
+    // sign-in of its own.
     href: U.platform,
     page: `${U.ai}/platform`,
     tagline: 'Deploy, observe, and operate',
@@ -424,7 +426,6 @@ export const HANZO_PRODUCTS: HanzoProduct[] = [
     page: `${U.ai}/team`,
     tagline: 'People and AI together',
     boundary: PRODUCT_BOUNDARIES.team,
-    flagship: true,
   },
   {
     id: 'bot',

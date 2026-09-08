@@ -2,9 +2,10 @@
   "name": "@hanzogui/react-native-use-responder-events",
   "version": "8.3.5",
   "files": [
+    "NOTICE",
+    "dist",
     "src",
-    "types",
-    "dist"
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

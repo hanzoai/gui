@@ -2,6 +2,7 @@
   "name": "@hanzogui/config",
   "version": "8.3.5",
   "files": [
+    "NOTICE",
     "dist",
     "src",
     "types"

@@ -2,10 +2,11 @@
   "name": "@hanzogui/create-theme",
   "version": "8.3.5",
   "files": [
-    "src",
-    "types",
+    "NOTICE",
     "dist",
-    "theme-builder"
+    "src",
+    "theme-builder",
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

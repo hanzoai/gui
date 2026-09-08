@@ -3,6 +3,7 @@
   "version": "8.3.5",
   "description": "Native setup modules for Gui - portals, gesture handler, worklets, and more",
   "files": [
+    "NOTICE",
     "dist",
     "src",
     "types"

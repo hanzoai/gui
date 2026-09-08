@@ -1,7 +1,7 @@
 {
   "name": "@hanzo/booker",
   "version": "8.3.5",
-  "description": "Universal (web + native) scheduling UI for the Hanzo Calendar — a Booker, Confirmation, and compact CalendarEmbed built with hanzogui primitives.",
+  "description": "Universal (web + native) scheduling UI for the Hanzo Calendar \u2014 a Booker, Confirmation, and compact CalendarEmbed built with hanzogui primitives.",
   "license": "MIT",
   "author": "Hanzo AI <dev@hanzo.ai>",
   "repository": {
@@ -11,10 +11,11 @@
   },
   "source": "src/index.ts",
   "files": [
-    "src",
-    "types",
+    "NOTICE",
+    "README.md",
     "dist",
-    "README.md"
+    "src",
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

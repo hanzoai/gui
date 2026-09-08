@@ -18,9 +18,10 @@
     "directory": "packages/react-native-web-lite"
   },
   "files": [
-    "types",
+    "NOTICE",
     "dist",
-    "src"
+    "src",
+    "types"
   ],
   "type": "module",
   "main": "./dist/cjs/index.js",

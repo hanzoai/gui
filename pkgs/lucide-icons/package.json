@@ -6,9 +6,10 @@
   "license": "MIT",
   "source": "src/index.ts",
   "files": [
-    "types",
+    "NOTICE",
     "dist",
-    "src"
+    "src",
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

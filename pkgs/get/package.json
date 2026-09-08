@@ -15,9 +15,10 @@
   },
   "source": "src/cli.ts",
   "files": [
+    "NOTICE",
+    "dist",
     "src",
-    "types",
-    "dist"
+    "types"
   ],
   "type": "module",
   "exports": {

@@ -2,9 +2,10 @@
   "name": "@hanzogui/react-native-svg",
   "version": "8.3.5",
   "files": [
+    "NOTICE",
+    "dist",
     "src",
-    "types",
-    "dist"
+    "types"
   ],
   "type": "module",
   "main": "./dist/cjs/index.js",

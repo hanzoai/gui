@@ -1,7 +1,7 @@
 {
   "name": "@hanzogui/telemetry",
   "version": "8.3.5",
-  "description": "Zero-config Hanzo telemetry — one <TelemetryProvider/> wires errors + session capture, pageviews, and product events to the ONE endpoint (POST api.hanzo.ai/v1/event), which lenses them into sentry.hanzo.ai, analytics.hanzo.ai and insights.hanzo.ai. Honors DNT/GPC, consent-aware, SSR-safe, fail-soft.",
+  "description": "Zero-config Hanzo telemetry \u2014 one <TelemetryProvider/> wires errors + session capture, pageviews, and product events to the ONE endpoint (POST api.hanzo.ai/v1/event), which lenses them into sentry.hanzo.ai, analytics.hanzo.ai and insights.hanzo.ai. Honors DNT/GPC, consent-aware, SSR-safe, fail-soft.",
   "keywords": [
     "analytics",
     "consent",
@@ -20,10 +20,11 @@
   },
   "source": "src/index.ts",
   "files": [
-    "src",
-    "types",
+    "NOTICE",
+    "README.md",
     "dist",
-    "README.md"
+    "src",
+    "types"
   ],
   "type": "module",
   "sideEffects": false,

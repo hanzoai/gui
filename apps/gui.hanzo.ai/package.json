@@ -28,7 +28,6 @@
     "@hanzo/design": "0.5.24",
     "@hanzo/font": "^1.9.3",
     "@hanzo/gui": "workspace:*",
-    "@hanzo/tokens": "1.0.2",
     "@hanzogui/assert": "workspace:*",
     "@hanzogui/demos": "workspace:*",
     "@hanzogui/dev-config": "workspace:*",

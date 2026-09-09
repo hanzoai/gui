@@ -1,4 +1,4 @@
-import { fontWeight } from '@hanzo/tokens'
+import { PRESETS } from '@hanzo/font/presets'
 import { createFont, createGui } from '@hanzo/gui'
 import { config } from '@hanzogui/dev-config'
 import { zenMonoFamily, zenPixelFamily, zenSansFamily } from '@hanzogui/font-zen'
@@ -92,7 +92,8 @@ const tamaConf = createGui({
   // every CSS duration; this is how a component turns its own driver off.
   media: { ...config.media, reduceMotion: { prefersReducedMotion: 'reduce' } },
   fonts: {
-    heading: face(zenSansFamily, fontWeight.normal),
+    // Zen's own reading weight, off the axis the faces were drawn on.
+    heading: face(zenSansFamily, String(PRESETS.book.wght)),
     body: face(zenSansFamily, '400'),
     mono: face(zenMonoFamily, '400'),
     pixel: face(zenPixelFamily, '500'),

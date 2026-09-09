@@ -86,7 +86,6 @@
         "@hanzo/design": "0.5.24",
         "@hanzo/font": "^1.9.3",
         "@hanzo/gui": "workspace:*",
-        "@hanzo/tokens": "1.0.2",
         "@hanzogui/assert": "workspace:*",
         "@hanzogui/demos": "workspace:*",
         "@hanzogui/dev-config": "workspace:*",
@@ -3921,8 +3920,6 @@
     "@hanzo/logo": ["@hanzo/logo@1.0.26", "", { "peerDependencies": { "react": ">=16.8.0" }, "optionalPeers": ["react"] }, "sha512-acPRsdTD/pfsDLUias989cDZCCg4Q9rCCrlOWVqlAzcN7xyoi3Vl4DjM7Z+feOL5SDPxWY1M0hJn9B1xqGjK4g=="],
 
     "@hanzo/observe": ["@hanzo/observe@0.1.11", "", { "dependencies": { "@hanzo/event": "0.3.39" }, "peerDependencies": { "react": ">=19.2.8" }, "optionalPeers": ["react"] }, "sha512-PsCE+qaZdmXZVtkCJXFoDbTr5jJZuxctAEPOVk8LyvnRxfjPUVGW03Phu6N2OWyLDwyq0g4voySkO2h3tQzmYA=="],
-
-    "@hanzo/tokens": ["@hanzo/tokens@1.0.2", "", {}, "sha512-e4Oz4f+6uSPJKqVrHEpyF4t78sI3hhZzD9mgwuxItS2xaKHFkFk8IHbWAcb91oel4Wdh2uPd7sTU3QawH6lRSA=="],
 
     "@hanzogui/accordion": ["@hanzogui/accordion@workspace:pkgs/ui/accordion"],
 

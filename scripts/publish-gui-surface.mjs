@@ -55,19 +55,57 @@ console.log(
   `Publishing ${targets.length} gui packages (+ @hanzo/gui alias) at their on-disk versions\n`
 )
 
+// `workspace:`, `link:` and `file:` all resolve only inside the monorepo that
+// declares them. Any of the three in a published manifest is a consumer install
+// that dies with ERR_PNPM_WORKSPACE_PKG_NOT_FOUND / EUNSUPPORTEDPROTOCOL, and
+// the version is immutable once it lands — @hanzogui/web@2.0.0 still carries 11
+// of them and nothing can be published to repair it.
+const LOCAL_PROTOCOLS = ['workspace:', 'link:', 'file:']
+const localProtocol = (spec) =>
+  typeof spec === 'string' && LOCAL_PROTOCOLS.find((p) => spec.startsWith(p))
+
+const DEP_FIELDS = [
+  'dependencies',
+  'devDependencies',
+  'peerDependencies',
+  'optionalDependencies',
+]
+
 function rewriteWorkspaceSpecs(deps, name) {
   if (!deps) return
   for (const k of Object.keys(deps)) {
-    const spec = deps[k]
-    if (typeof spec === 'string' && spec.startsWith('workspace:')) {
-      const v = versionMap[k]
-      if (!v)
-        throw new Error(
-          `${name}: dependency ${k} is workspace:* but has no resolvable version`
-        )
-      deps[k] = v
+    const proto = localProtocol(deps[k])
+    if (!proto) continue
+    const v = versionMap[k]
+    if (!v)
+      throw new Error(
+        `${name}: dependency ${k} is ${proto}* but has no resolvable version`
+      )
+    deps[k] = v
+  }
+}
+
+// Read back what npm actually put in the tarball. The rewrite above works on
+// the manifest we wrote, but `npm pack` runs lifecycle scripts (prepack,
+// prepare) that are free to rewrite package.json again — so the only manifest
+// worth asserting on is the one inside the archive we are about to push.
+function assertTarballResolvable(tgz, cwd, name) {
+  const raw = execFileSync('tar', ['-xOzf', tgz, 'package/package.json'], {
+    cwd,
+    maxBuffer: 32 * 1024 * 1024,
+  }).toString()
+  const j = JSON.parse(raw)
+  const offences = []
+  for (const f of DEP_FIELDS) {
+    for (const [k, spec] of Object.entries(j[f] || {})) {
+      const proto = localProtocol(spec)
+      if (proto) offences.push(`${f}.${k} = ${spec}`)
     }
   }
+  if (offences.length)
+    throw new Error(
+      `${name}: tarball carries unresolvable specifiers — ${offences.join(', ')}`
+    )
 }
 
 const published = []
@@ -98,18 +136,14 @@ function publishPackage(srcDir, baseJson, overrideName) {
 
     const j = JSON.parse(fs.readFileSync(path.join(tmp, 'package.json')))
     j.name = name
-    for (const f of [
-      'dependencies',
-      'devDependencies',
-      'peerDependencies',
-      'optionalDependencies',
-    ]) {
+    for (const f of DEP_FIELDS) {
       rewriteWorkspaceSpecs(j[f], name)
     }
     fs.writeFileSync(path.join(tmp, 'package.json'), JSON.stringify(j, null, 2) + '\n')
 
     const packOut = execFileSync('npm', ['pack', '--json'], { cwd: tmp }).toString()
     const tgz = JSON.parse(packOut)[0].filename
+    assertTarballResolvable(tgz, tmp, name)
     execFileSync('npm', ['publish', path.join(tmp, tgz), '--access', 'public'], {
       cwd: tmp,
       stdio: 'inherit',

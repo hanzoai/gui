@@ -23,8 +23,7 @@
     "./pkgs/*/*",
     "./apps/gui.hanzo.ai",
     "./pkgs/ui/*",
-    "./pkgs/ui/*/*",
-    "./apps/team"
+    "./pkgs/ui/*/*"
   ],
   "scripts": {
     "postinstall": "bun ./scripts/postinstall.ts",

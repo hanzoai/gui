@@ -36,7 +36,7 @@ are reproduced below, as that license requires:
 
 Hanzo GUI is a fork of Tamagui, not a product that bundles it. The git history
 in this repository is Tamagui's history continued, and every package in this
-workspace except the ten listed below is Tamagui's work, carried here under the
+workspace except the nine listed below is Tamagui's work, carried here under the
 MIT license above. Renaming those packages into the @hanzogui scope changed what
 they are called, not who wrote them.
 
@@ -50,7 +50,6 @@ Written at Hanzo:
     @hanzogui/get         pkgs/get
     @hanzogui/recipes     pkgs/recipes
     @hanzogui/font-zen    pkgs/core/font-zen
-    @hanzogui/team        apps/team
     @hanzogui/desktop     apps/desktop
 
 This file is the whole of the attribution, and it has to be exact rather than

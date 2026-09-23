@@ -65,11 +65,11 @@ dist/esm, `files` = src, types, dist. Named ESM imports from CommonJS packages
 (`fast-glob`, `fs-extra`) fail under Node's lexer: use the default import or
 `fs-extra/esm`.
 
-## Two sites off one build, no image
+## One site, no image
 
-`hanzo.yml` declares `sites:` (team, gui) with one `site-build`; the reusable's
-site lane publishes each to the Sites plane, routed by universe
-`static-sites.yaml` (`team-static`, `gui-static`). The docs app's export script
-is `build:web` (`one build`), the same name apps/team uses, and the turbo task
-`build:web` depends on `^build` and the package's own `build`. There is no
-Dockerfile and no image lane.
+`hanzo.yml` declares one `site:` lane (slug `gui`); the reusable publishes it to
+the Sites plane, routed by universe `static-sites.yaml` (`gui-static`). The docs
+app's export script is `build:web` (`one build`), and the turbo task `build:web`
+depends on `^build` and the package's own `build`. There is no Dockerfile and no
+image lane. The native Team app that used to live at apps/team is its own repo,
+hanzo-apps/team, with its own site lane.

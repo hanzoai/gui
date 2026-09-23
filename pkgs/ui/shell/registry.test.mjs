@@ -18,7 +18,7 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { HANZO_SURFACES } from './dist/esm/hanzo-registry.js'
+import { HANZO_FOOTER_BOTTOM, HANZO_SURFACES } from './dist/esm/hanzo-registry.js'
 
 const place = (href, host) => {
   const { origin, pathname } = new URL(href, `https://${host}`)
@@ -60,4 +60,20 @@ test('every registered link is an address', () => {
     }
   }
   assert.deepEqual(bad, [], 'these hrefs do not parse')
+})
+
+/**
+ * The legal bar reaches every document a buyer is asked to accept.
+ *
+ * Privacy, Terms and Cookies are three of eleven. The Acceptable Use Policy,
+ * the Data Processing Addendum and the subprocessor register — what a
+ * procurement review asks for first — sat one document deep, reachable only by
+ * finding the link inside the Terms. hanzo.ai/legal is the index of all of
+ * them, and the bar names it.
+ */
+test('the footer legal bar links the legal center', () => {
+  const hrefs = HANZO_FOOTER_BOTTOM.links.map((l) => l.href)
+  for (const want of ['https://hanzo.ai/privacy', 'https://hanzo.ai/terms', 'https://hanzo.ai/legal']) {
+    assert.ok(hrefs.includes(want), `the legal bar is missing ${want}`)
+  }
 })

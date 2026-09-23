@@ -295,10 +295,12 @@ export const U = {
   billing: 'https://billing.hanzo.ai',
   admin: 'https://admin.hanzo.ai',
 
-  // Legal
+  // Legal. `legal` is the index of every document — the AUP, the DPA and the
+  // subprocessor register are there and nowhere else in the chrome.
   privacy: 'https://hanzo.ai/privacy',
   terms: 'https://hanzo.ai/terms',
   cookies: 'https://hanzo.ai/cookies',
+  legal: 'https://hanzo.ai/legal',
 } as const
 
 /* ── Product boundaries — the one-line "what each product is for" ───────────── */
@@ -1058,6 +1060,7 @@ export const HANZO_FOOTER_BOTTOM = {
     { id: 'privacy', label: 'Privacy', href: U.privacy },
     { id: 'terms', label: 'Terms', href: U.terms },
     { id: 'cookies', label: 'Cookies', href: U.cookies },
+    { id: 'legal', label: 'Legal', href: U.legal },
     { id: 'foundation', label: 'Foundation', href: U.foundation },
   ] as HanzoLink[],
 }

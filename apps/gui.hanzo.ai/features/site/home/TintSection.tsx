@@ -48,11 +48,15 @@ export const TintSection = ({ children, index, z, ...props }: Props) => {
     }
   )
 
+  // A section is full-bleed, and its backdrops are not: the hero's grid runs
+  // 500px past its container and the responsive band 1000px. The section clips
+  // them at the page edge, so a backdrop never widens the page.
   return (
     <YStack
       onLayout={(e) => (tintSectionDimensions[index] = e.nativeEvent.layout)}
       z={z}
       position="relative"
+      overflowX="clip"
     >
       {useMemo(() => {
         return (

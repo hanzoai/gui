@@ -28,8 +28,8 @@
  * It is the SAME FULL-BLEED DRAPE the Products mega-menu is: edge-to-edge under
  * the header, no gutters, no radius, no outline box, closed by one hairline —
  * and its content carries the header's own 16px gutter, so the rail sits under
- * the brand mark. Both drapes are the header's own dark glass (`GLASS`)
- * continuing down the page.
+ * the brand mark. Both drapes are the opaque panel (`DRAPE`) the open bar
+ * also wears, continuing down the page.
  *
  * Controlled-open (props `open`/`onClose`/`anchor`) so a header can drive it;
  * also usable standalone. Self-contained: inline styles + theme.ts tokens,

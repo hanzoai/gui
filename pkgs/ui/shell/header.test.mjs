@@ -58,17 +58,29 @@ test('both bars — 60 tall, the plane recipe, no hairline; the public bar flush
     /const grounded = scrolled \|\| menu\.key != null \|\| mobileOpen/,
     'grounded = scrolled, or a drape / mobile sheet open'
   )
-  // And the recipe it spreads is the one the menus wear, which is the whole
-  // point of naming it: a bar and the plane hanging off it are ONE material, so
-  // there is no boundary between them to see.
+  // A bar and the plane hanging off it are ONE material, so there is no
+  // boundary between them to see. That material is the opaque panel, not glass:
+  // every plane is a descendant of the filtered bar, a backdrop root, so a
+  // plane's own blur samples nothing and a translucent plane shows the page
+  // through the menu. The scrolled bar alone is glass, where the blur is real.
   const theme = read('theme.ts')
-  for (const name of ['BAR', 'DRAPE']) {
-    assert.match(
-      theme,
-      new RegExp(`export const ${name}[^}]*\\.\\.\\.GLASS`),
-      `${name} wears the glass`
-    )
-  }
+  assert.match(theme, /export const BAR: CSSProperties = \{ \.\.\.GLASS \}/, 'the scrolled bar wears the glass')
+  assert.match(
+    theme,
+    /export const DRAPE: CSSProperties = \{\s*background: CHROME\.panel,/,
+    'the plane is the opaque panel'
+  )
+  assert.doesNotMatch(
+    theme.slice(theme.indexOf('export const DRAPE'), theme.indexOf('export const BAR:')),
+    /backdropFilter|\.\.\.GLASS/,
+    'the plane carries no filter of its own'
+  )
+  assert.match(
+    theme,
+    /export const BAR_OPEN: CSSProperties = \{ \.\.\.GLASS, background: CHROME\.panel \}/,
+    'an open bar wears the plane ground'
+  )
+  assert.match(pub, /draped \? BAR_OPEN : grounded \? BAR/, 'the bar wears the panel while a plane hangs from it')
 })
 
 test('glass is what a compact control wears, and the recipe is the audited one', () => {

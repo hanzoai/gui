@@ -305,59 +305,34 @@ export const GUTTER = 'clamp(20px, 4vw, 72px)'
  * THE NAVIGATION PLANE — one surface for every primary menu.
  *
  * Full width, no corner radius, no outer box: a menu is the bar CONTINUING down
- * the page, so it has no edges of its own except the light on its top lip. A
- * floating card beside it reads as a different product, which is what a header
- * carrying two drapes and four anchored cards looked like.
+ * the page, so it has no edges of its own except a hairline at its foot.
  *
- * THE BAR'S OWN GLASS, not a black slab. A menu is the bar CONTINUING down the
- * page, so it is made of what the bar is made of — same ground, same 20px blur,
- * same saturation — and the seam between them disappears because there is
- * nothing on either side of it to differ. It was `CHROME.panel`, flat opaque
- * black, which is why hanzo.ai had a stylesheet rule naming two menus by id and
- * painting glass over them; that rule reached those two and left every local
- * nav plane opaque, so one bar answered in two materials.
- *
- * The page behind still recedes — that is `UNDERVEIL`'s job, and it is what
- * keeps a translucent plane legible: everything below is dimmed and thrown out
- * of focus first, so the words on the plane are the only thing in focus.
- *
- * Reserve rounded, bordered chrome for COMPACT controls — search, the CTA, the
- * composer. Three surfaces in the house and no more: this plane, that compact
- * glass, and the bare page.
+ * OPAQUE, because glass cannot work here. Every plane is a descendant of the
+ * bar, and the bar carries `backdrop-filter`, which makes it a BACKDROP ROOT: a
+ * filtered descendant samples only what is painted inside the bar, never the
+ * page. So the plane's own blur saw nothing, its 72% ground let the hero read
+ * straight through the menu, and in WebKit the headline crossed the links on
+ * one line. Legibility never rests on a filter; the ground is the panel.
  */
 export const DRAPE: CSSProperties = {
-  // The plane is GLASS: the page shows through it, blurred, so an open menu
-  // reads as a layer over the page rather than a wall in front of it.
-  ...GLASS,
+  background: CHROME.panel,
   borderRadius: 0,
   border: 'none',
   boxShadow: 'none',
 }
 
 /**
- * THE BAR WEARS THE PLANE. One material from the top of the screen to the
- * bottom of an open menu, so there is no boundary between them to see.
- *
- * This is the resolution of a real disagreement, and both halves of it were
- * right. An opaque plane hanging off a frosted bar draws exactly the seam
- * `GLASS` warns about — that is what made the drapes glass in the first place,
- * and it is a measured objection, not a preference. But the reference this
- * chrome is held to has NO frosted bar: the bar and the menu are one flat
- * ground, which is why the boundary is invisible there.
- *
- * So the answer was never "which surface is opaque" — it is that the two must be
- * the SAME, and the picture chooses which. Making the plane match a frosted bar
- * fixes the seam by giving up the picture; making the bar match the plane fixes
- * it and keeps the picture, at the cost of the bar no longer being see-through.
- *
- * What does NOT change: `GLASS` is still the material of every COMPACT control —
- * search, the CTA, the composer, popovers, the palette. Three surfaces in the
- * house and no more: this ground, that glass, and the bare page.
+ * The bar in motion: glass over the page once it scrolls. Here the blur is
+ * real, because the bar is not inside another filter.
  */
-// The grounded bar wears the SAME glass as the plane that drops out of it, so
-// the two are one material from the top of the screen to the bottom of an open
-// menu — same ground, same blur, no edge between them.
 export const BAR: CSSProperties = { ...GLASS }
+
+/**
+ * The bar while a plane hangs from it: the plane's own opaque ground, so the
+ * two are one material with no seam. The filter stays declared because it is
+ * what makes the bar the containing block every plane is positioned against.
+ */
+export const BAR_OPEN: CSSProperties = { ...GLASS, background: CHROME.panel }
 
 /**
  * The plane's own inset — one figure for every menu that drops out of the bar.
@@ -394,6 +369,7 @@ export function plane(anchor: number): CSSProperties {
     maxHeight: `calc(100dvh - ${anchor}px)`,
     overflowY: 'auto',
     ...DRAPE,
+    borderBottom: `1px solid ${CHROME.border}`,
     boxShadow: SHADOW,
     color: CHROME.fg,
     fontFamily: CHROME.font,
@@ -435,7 +411,10 @@ export function veil(anchor: number): CSSProperties {
  * Also the click-catcher: pointing anywhere in it closes the plane.
  */
 export const UNDERVEIL: CSSProperties = {
-  background: 'rgba(0,0,0,0.4)',
+  // Dark enough to recede on its own: the veil sits inside the bar's backdrop
+  // root, so the blur below reaches the page only where a host renders it
+  // outside one. The dim is what every engine is guaranteed to paint.
+  background: 'rgba(0,0,0,0.6)',
   backdropFilter: 'blur(24px) saturate(1.2)',
   WebkitBackdropFilter: 'blur(24px) saturate(1.2)',
 }

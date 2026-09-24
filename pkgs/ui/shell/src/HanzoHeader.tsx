@@ -54,6 +54,7 @@ import {
   FG_ON,
   FS,
   BAR,
+  BAR_OPEN,
   GUTTER,
   LABEL,
   PANEL,
@@ -409,6 +410,8 @@ export function HanzoHeader({
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
   const grounded = scrolled || menu.key != null || mobileOpen
+  // A plane or the sheet hangs from the bar, so the bar wears the plane's ground.
+  const draped = menu.key != null || mobileOpen
 
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const home = `https://${s.host}`
@@ -533,7 +536,7 @@ export function HanzoHeader({
           // Flush over the hero at rest → the plane eases in on scroll (or while
           // a drape/sheet is open, so an open menu is never a transparent bar
           // over an opaque plane). The recipe it wears is exactly `BAR`.
-          ...(grounded ? BAR : { background: 'transparent' }),
+          ...(draped ? BAR_OPEN : grounded ? BAR : { background: 'transparent' }),
           transition: 'background .3s ease',
           color: CHROME.fg,
           fontFamily: CHROME.font,

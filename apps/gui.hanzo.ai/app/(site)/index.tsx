@@ -111,7 +111,9 @@ export default function GuiHomePage() {
         }}
       />
 
-      <TintSection index={0} p={0}>
+      {/* The hero's grid runs 500px past its container on both sides; the
+          section is full-bleed, so it clips the grid at the page edge. */}
+      <TintSection index={0} p={0} overflowX="clip">
         <Hero />
       </TintSection>
       <HomeHeroBelow />

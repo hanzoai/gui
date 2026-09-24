@@ -67,11 +67,16 @@ export const HomeGlow = memo(() => {
     })
   }, [atHero, tint, tintAlt, tintIndex, tints, reduceMotion])
 
+  // The lamps are wider than a phone and sit off-centre, so the group spans
+  // the page and clips them to it. Left to the root's clip, they widened the
+  // document itself: 960px of layout under a 390px screen.
   return (
     <YStack
       position="absolute"
       t={0}
       l={0}
+      r={0}
+      overflowX="clip"
       pointerEvents="none"
       className="all ease-in-out s1"
       key={0}

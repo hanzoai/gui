@@ -1928,7 +1928,7 @@
       "name": "@hanzogui/telemetry",
       "version": "8.3.5",
       "dependencies": {
-        "@hanzo/event": "^0.3.40",
+        "@hanzo/event": "^0.3.41",
         "@hanzo/observe": "^0.1.11",
       },
       "devDependencies": {
@@ -3341,6 +3341,7 @@
   "overrides": {
     "@discordjs/rest": "2.6.1",
     "@grpc/grpc-js": "1.14.4",
+    "@hanzo/event": "0.3.41",
     "@hono/node-server": "1.19.13",
     "@opentelemetry/auto-instrumentations-node": "0.75.0",
     "@opentelemetry/core": "2.8.0",
@@ -3884,7 +3885,7 @@
 
     "@hanzo/design": ["@hanzo/design@0.5.24", "", { "bin": { "hanzo-design-lint": "scripts/lint.mjs" } }, "sha512-eXoD1Q3giJ3TEx2+rtCub/xZX5j4AflWixt3TXsf3dcYrWuChxSVhzRQdDWyibXzPPtn+msCtLX11IvvcHHUzw=="],
 
-    "@hanzo/event": ["@hanzo/event@0.3.40", "", { "dependencies": { "@hanzo/events": "0.2.2" }, "peerDependencies": { "react": ">=19.2.8" }, "optionalPeers": ["react"] }, "sha512-D/qmUHbrTZpbShD4CSvKUzeUTjjIu6LSHQHKZNZLtwfd9Fap6gMGo+JZGHX0sxKimtmRnZDMz6aG+LAmUbn3qQ=="],
+    "@hanzo/event": ["@hanzo/event@0.3.41", "", { "dependencies": { "@hanzo/events": "0.2.2" }, "peerDependencies": { "react": ">=19.2.8" }, "optionalPeers": ["react"] }, "sha512-xchy5iI06LFJhOwV7VyhFmweyGp5D41DzJNJopP13qZX/jI7K914EZngceI+6cQIU0BPMEEeWFObkZWJDKtG+g=="],
 
     "@hanzo/events": ["@hanzo/events@0.2.2", "", {}, "sha512-jF800OFibLfnuEqMJUpTyLIs4fmezzXFKGGUPAHjK40FrTWsiAb4j3j1N5sbqBLAv5Ty7FA56dOo67Y+kUSqyA=="],
 
@@ -8551,8 +8552,6 @@
     "@expo/require-utils/@babel/core": ["@babel/core@7.29.7", "", { "dependencies": { "@babel/code-frame": "^7.29.7", "@babel/generator": "^7.29.7", "@babel/helper-compilation-targets": "^7.29.7", "@babel/helper-module-transforms": "^7.29.7", "@babel/helpers": "^7.29.7", "@babel/parser": "^7.29.7", "@babel/template": "^7.29.7", "@babel/traverse": "^7.29.7", "@babel/types": "^7.29.7", "@jridgewell/remapping": "^2.3.5", "convert-source-map": "^2.0.0", "debug": "^4.1.0", "gensync": "^1.0.0-beta.2", "json5": "^2.2.3", "semver": "^6.3.1" } }, "sha512-RgHBCvtjbOK2gXSNBNIkNoEc9qoVEtau3hj8gEqKQuL3HZAibKarWFEI3Lfm6EYKkLalOh8eSrj9b+ch9H/VBA=="],
 
     "@expo/xcpretty/chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
-
-    "@hanzo/observe/@hanzo/event": ["@hanzo/event@0.3.39", "", { "dependencies": { "@hanzo/events": "0.2.2" }, "peerDependencies": { "react": ">=19.2.8" }, "optionalPeers": ["react"] }, "sha512-U3A2v3lbQbWFrzwb471FnaoFQVvbMWvPpdI2IipQpl3xyyza7bBbbNeDkREnd/ecixuaXpKZeP+FPSCk1fD8og=="],
 
     "@img/sharp-wasm32/@emnapi/runtime": ["@emnapi/runtime@1.11.3", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-Xz4Tpyki7XyrpbUK1jR1AhdAdaXyhhY4lZ3neLodmhpuWfy2PAQN5B46sAiU4liOXGLkHypn/qU+jvfWSCYYLA=="],
 

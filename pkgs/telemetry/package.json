@@ -55,7 +55,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@hanzo/event": "^0.3.40",
+    "@hanzo/event": "^0.3.41",
     "@hanzo/observe": "^0.1.11"
   },
   "devDependencies": {

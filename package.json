@@ -135,6 +135,7 @@
   "overrides": {
     "@discordjs/rest": "2.6.1",
     "@grpc/grpc-js": "1.14.4",
+    "@hanzo/event": "0.3.41",
     "@hono/node-server": "1.19.13",
     "@opentelemetry/auto-instrumentations-node": "0.75.0",
     "@opentelemetry/core": "2.8.0",

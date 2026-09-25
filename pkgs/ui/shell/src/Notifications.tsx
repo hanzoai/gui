@@ -50,13 +50,22 @@ export interface NotificationsProps {
 
 const INBOX = '/v1/team/inbox'
 
-const REASON: Record<string, string> = {
-  mention: 'Mentioned you',
-  dm: 'Direct message',
-  reply: 'Replied in a thread',
-  comment: 'Commented',
-  assigned: 'Assigned to you',
-}
+/** A Map, not an object: a reason the server names is data, and `__proto__` is a key. */
+const REASON = new Map<string, string>([
+  ['mention', 'Mentioned you'],
+  ['dm', 'Direct message'],
+  ['reply', 'Replied in a thread'],
+  ['comment', 'Commented'],
+  ['assigned', 'Assigned to you'],
+])
+
+/**
+ * An id that is one path segment and nothing more. It is spliced into
+ * `/v1/team/inbox/{id}/…`, and an id of `.` or `..` survives URL encoding and
+ * is then resolved as a segment — `.` would turn "mark this read" into "mark
+ * all read". A notification whose id is not a plain token is not acted on.
+ */
+const SEGMENT = /^[A-Za-z0-9_-]+$/
 
 /** Today a clock, this year a date, before that the year too. */
 function when(ms: number | undefined, now: Date): string {
@@ -118,7 +127,7 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
     setItems((was) => (was ?? []).map((n) => (n.id === id ? { ...n, ...patch } : n)))
 
   const open = async (n: Notice) => {
-    if (!n.read) {
+    if (!n.read && SEGMENT.test(n.id)) {
       touch(n.id, { read: true })
       setUnread((u) => Math.max(0, u - 1))
       try {
@@ -138,6 +147,7 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
   }
 
   const archive = async (n: Notice) => {
+    if (!SEGMENT.test(n.id)) return
     const before = items
     setItems((was) => (was ?? []).filter((x) => x.id !== n.id))
     if (!n.read) setUnread((u) => Math.max(0, u - 1))
@@ -250,13 +260,13 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
                 >
                   <span style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
                     <span style={{ flex: 1, fontWeight: n.read ? 400 : 600 }}>
-                      {REASON[n.reason ?? ''] ?? 'Notification'}
+                      {REASON.get(String(n.reason ?? '')) ?? 'Notification'}
                     </span>
                     <span style={{ flex: 'none', fontSize: 11, color: FRAME.soft }}>
                       {when(n.createdOn, now)}
                     </span>
                   </span>
-                  {n.message?.text ? (
+                  {typeof n.message?.text === 'string' && n.message.text ? (
                     <span
                       style={{
                         color: FRAME.soft,

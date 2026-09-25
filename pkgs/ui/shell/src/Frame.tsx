@@ -43,6 +43,7 @@ import { MARKS } from './glyph.tsx'
 import { HanzoMark } from './mark.tsx'
 import { useFrameStyles } from './shellStyles.ts'
 import { FRAME } from './theme.ts'
+import { useMediaQuery } from './useMediaQuery.ts'
 
 /** One place the rail goes. */
 export interface Section {
@@ -261,7 +262,16 @@ function Grip({
   )
 }
 
-const external = (href: string) => /^https?:\/\//.test(href)
+/**
+ * WHERE A SECTION MAY POINT: a path of this app, or an https address on another
+ * host — nothing else. A protocol-relative `//host`, a `javascript:` or a bare
+ * word would otherwise reach the host's router or an `<a>` as though it were a
+ * place, and a router that prefixes addresses turns `@host` into somebody
+ * else's site.
+ */
+const external = (href: string) => /^https:\/\//i.test(href)
+const internal = (href: string) => /^\/(?![/\\])/.test(href)
+const sound = (href: string) => external(href) || internal(href)
 
 /**
  * A section, as the host's router moves to it — or as a plain link when it
@@ -535,6 +545,13 @@ export function Frame({
   }, [])
 
   const edge = `1px solid ${FRAME.edge}`
+  const doors = sections.filter((section) => sound(section.href))
+  const door = sound(home) ? home : '/'
+  // THE SCOPE IS MOUNTED ONCE: in the bar where there is room for it, at the
+  // top of the sheet on a phone. Drawn in both and hidden in one, it was two
+  // selections and two sets of reads that could disagree. The first render is
+  // the wide form, which is what a prerendered page and a laptop both expect.
+  const narrow = useMediaQuery('(max-width: 767.98px)')
 
   return (
     <Frames.Provider value={state}>
@@ -547,7 +564,7 @@ export function Frame({
         className={className}
       >
         <Rail
-          sections={sections}
+          sections={doors}
           active={active}
           navigate={navigate}
           settings={settings}
@@ -582,7 +599,7 @@ export function Frame({
                 <MARKS.forward size={16} />
               </Control>
             ) : null}
-            {scope ? (
+            {scope && !narrow ? (
               <div
                 data-slot="scope"
                 data-frame-md=""
@@ -673,7 +690,7 @@ export function Frame({
                 }}
               >
                 <a
-                  href={home}
+                  href={door}
                   data-slot="home"
                   aria-label="Hanzo home"
                   title="Home"
@@ -687,7 +704,7 @@ export function Frame({
                     )
                       return
                     e.preventDefault()
-                    navigate(home)
+                    navigate(door)
                   }}
                   style={{
                     display: 'flex',
@@ -707,10 +724,10 @@ export function Frame({
                   </div>
                 ) : null}
               </div>
-              {/* The scope's second home: a phone's bar has no room for it. */}
-              {scope ? (
+              {/* The scope's home on a phone, whose bar has no room for it. */}
+              {scope && narrow ? (
                 <div
-                  data-frame-sm=""
+                  data-slot="scope"
                   style={{ display: 'flex', minWidth: 0, padding: '0 8px 4px' }}
                 >
                   {scope}
@@ -725,7 +742,7 @@ export function Frame({
                   padding: '0 8px 8px',
                 }}
               >
-                {sections.map((section) => (
+                {doors.map((section) => (
                   <Door
                     key={section.id}
                     section={section}

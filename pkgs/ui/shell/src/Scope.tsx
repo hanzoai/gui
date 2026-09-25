@@ -13,6 +13,11 @@
  *
  * An environment list the platform has not given is not invented: with none,
  * no environment control is drawn.
+ *
+ * THE KEYS ARE PER WORKSPACE, NOT PER PERSON. Two people who share a browser
+ * and a workspace would share the last project, so the host clears
+ * `hanzo:scope:*` when the person changes — hanzo.ai and the Hanzo App do, with
+ * every other `hanzo*` key, in `own()`. A host without that sweep must add it.
  */
 import React, { useCallback, useEffect, useState } from 'react'
 import { FRAME, FS } from './theme.ts'

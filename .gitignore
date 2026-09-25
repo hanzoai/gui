@@ -93,3 +93,6 @@ apps/demos/types/**/*.d.ts.map
 CLAUDE.md
 AGENTS.md
 GEMINI.md
+
+# Browser session state a test saved. It holds a live credential.
+.auth/

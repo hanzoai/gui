@@ -246,7 +246,11 @@ import { Frame, Account, Scope, useScope, Beside, useFrame } from '@hanzogui/she
 - **Scope**: project and environment, one resource scope in the bar.
   `useScope(org)` keeps the last project per workspace and restores it on a
   switch, or falls back visibly to All projects; no environment is drawn that
-  the platform did not name.
+  the platform did not name. Its keys (`hanzo:scope:*`) are per workspace, not
+  per person: the host clears them when the person changes, as hanzo.ai and the
+  Hanzo App do for every `hanzo*` key.
+- **Sections** point at a path of the app (`/…`) or an `https://` address on
+  another host, which is drawn as a link. Anything else is not drawn.
 - **Beside**: a room puts content in the column beside it; the frame owns the
   column, the room owns what is in it.
 - **Notifications**: the reader's own (`/v1/team/inbox`), read through the

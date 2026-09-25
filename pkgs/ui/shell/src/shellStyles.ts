@@ -192,7 +192,7 @@ const FRAME_CSS = [
   // The column beside the room exists from 1024px, and so do the controls that
   // open it: a toggle for a column nobody can see is a dead control.
   `@media (max-width:1023.98px){${F}>[data-slot=side],${F} [data-frame-lg]{display:none!important}${F}>[data-slot=panel]{position:absolute;inset:44px 0 0;z-index:var(--z-drawer,20)}}`,
-  `@media (min-width:768px){${F} [data-frame-sm]{display:none!important}${F}>[data-slot=scrim]{display:none}${F}>[data-slot=rail] [data-slot=more]{display:none}${F}[data-sidebar=open]:not([data-strip]){grid-template-columns:0 auto minmax(0,1fr) auto}${F}[data-sidebar=open]:not([data-strip])>[data-slot=rail]{display:none}${F}[data-strip] [data-slot=places-list]{display:none}}`,
+  `@media (min-width:768px){${F}>[data-slot=scrim]{display:none}${F}>[data-slot=rail] [data-slot=more]{display:none}${F}[data-sidebar=open]:not([data-strip]){grid-template-columns:0 auto minmax(0,1fr) auto}${F}[data-sidebar=open]:not([data-strip])>[data-slot=rail]{display:none}${F}[data-strip] [data-slot=places-list]{display:none}}`,
   // A PHONE. The bar, the room, and the rail as the tab bar along the bottom:
   // four sections and More, the rest one press away in the finder. The sidebar
   // is a sheet between the bar and the tab bar, and the words of the search

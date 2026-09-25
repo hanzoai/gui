@@ -176,3 +176,30 @@ test('notifications ask through the host and hold no credential', () => {
   for (const path of ["'/v1/team/inbox'", '/read`', '/archive`'])
     assert.ok(src.includes(path), path)
 })
+
+test('a section points at a path here or an https address elsewhere, and nothing else', () => {
+  const html = render({
+    sections: [
+      ...SECTIONS,
+      { id: 'proto', label: 'Proto', icon: Mark, href: '//evil.example' },
+      { id: 'script', label: 'Script', icon: Mark, href: 'javascript:alert(1)' },
+      { id: 'bare', label: 'Bare', icon: Mark, href: '@evil.example' },
+      { id: 'plain', label: 'Plain', icon: Mark, href: 'http://hanzo.team' },
+    ],
+    home: '//evil.example',
+  })
+  for (const label of ['Proto', 'Script', 'Bare', 'Plain'])
+    assert.doesNotMatch(
+      html,
+      new RegExp(`aria-label="${label}"`),
+      `${label} is not drawn`
+    )
+  assert.match(html, /<a href="\/" data-slot="home"/, 'the mark falls back to this app')
+})
+
+test('a notification is acted on only by a plain id, and its reason is looked up safely', () => {
+  const src = read('Notifications.tsx')
+  assert.match(src, /const SEGMENT = \/\^\[A-Za-z0-9_-\]\+\$\//)
+  assert.match(src, /SEGMENT\.test\(n\.id\)/)
+  assert.match(src, /new Map<string, string>/)
+})

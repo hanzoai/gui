@@ -422,6 +422,47 @@ export const UNDERVEIL: CSSProperties = {
 /** Scrim behind a modal surface. */
 export const SCRIM = 'rgba(0,0,0,0.45)'
 
+/**
+ * THE WORKSPACE FRAME'S INKS — the one ground in this package that follows its
+ * host's theme.
+ *
+ * Everything above is CHROME: a bar or a menu hanging off it, dark in every
+ * theme. The frame is not that. It is the page of a signed-in app — the rail,
+ * the sidebar, the bar over the room and the room itself — and PANEL already
+ * says what a surface inside the page body does: it "follows the theme like
+ * everything else around it". A reader who chose light gets a light workspace.
+ *
+ * So every value is the host's own rung: gui's published theme keys (`--ink`,
+ * `--quiet`, `--soft`, `--edge`, `--hover`, `--raised`) and @hanzo/design's
+ * paper ladder (`--sheet-0/1/2`, `--surface-scrim`), each falling back to its
+ * dark value for a host that publishes none. None of them is a semantic token
+ * the chrome is barred from — the frame reads the same ladder the app's own
+ * components are painted with, which is what lets the two sit side by side as
+ * one surface.
+ */
+export const FRAME = {
+  /** The paper every column is cut from: rail, bar, sidebar, pane. */
+  ground: 'var(--sheet-0, #0a0a0a)',
+  /** The column beside the pane, one rung up. */
+  lifted: 'var(--sheet-1, rgb(38 38 38 / .5))',
+  /** A menu that lifts off the frame. */
+  menu: 'var(--sheet-2, rgb(38 38 38 / .75))',
+  /** Hairlines between columns, and the current row's fill. */
+  edge: 'var(--edge, rgb(255 255 255 / .10))',
+  /** The current row's words. */
+  ink: 'var(--ink, rgb(250 250 250))',
+  /** A row at rest. */
+  quiet: 'var(--quiet, rgb(212 212 212))',
+  /** Secondary words: an email under a name, a count, a note. */
+  soft: 'var(--soft, rgb(163 163 163))',
+  /** Under the pointer. */
+  hover: 'var(--hover, rgb(255 255 255 / .06))',
+  /** Pressed. */
+  raised: 'var(--raised, rgb(255 255 255 / .12))',
+  /** The dim under the phone's sheet. */
+  scrim: 'var(--surface-scrim, rgb(0 0 0 / .5))',
+} as const
+
 /** Dense desktop control height. Touch targets are grown to 44 by shellStyles. */
 export const CTRL_H = 34
 /** Minimum comfortable touch target. */

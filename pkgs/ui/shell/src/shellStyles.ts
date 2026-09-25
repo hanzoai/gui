@@ -31,8 +31,8 @@
  * `data-hanzo-shell=""` on its root; the rules then apply to every focusable
  * descendant, including menus rendered within.
  */
-import { useEffect } from 'react'
-import { FOCUS_RING, TAP_H } from './theme.ts'
+import { useInsertionEffect } from 'react'
+import { FOCUS_RING, FRAME, TAP_H } from './theme.ts'
 
 const STYLE_ID = 'hanzo-shell-styles'
 
@@ -138,17 +138,109 @@ const CSS = [
   `[data-hanzo-shell] .hanzo-door:hover .hanzo-door-mark,[data-hanzo-shell] .hanzo-door:focus-visible .hanzo-door-mark{transform:translateX(2px) scale(1.14)}`,
 ].join('')
 
+/**
+ * THE WORKSPACE FRAME'S LAYOUT — the rules `Frame` cannot state inline.
+ *
+ * A grid, addressed by slot: the rail down the left, the bar across the top,
+ * and under the bar the sidebar (`list`), the room (`pane`) and the column
+ * beside it (`side`, or the `panel` that takes its place). Below 768px the grid
+ * turns: bar, pane, and the rail along the bottom as a tab bar, with the
+ * sidebar a sheet between them. Media queries and `:hover` have no inline
+ * form, which is the only reason these live here.
+ *
+ * EVERY SELECTOR NAMES THE FRAME'S OWN ELEMENTS. The frame's root holds the
+ * whole app, so a rule written against `button` or `a` under it would restyle
+ * every room. Rows, tiles and icon controls carry a `data-frame-*` attribute
+ * and the columns are addressed by slot, one level down.
+ *
+ * The rail is the sidebar SHUT: a laptop with the sidebar open lists the
+ * sections at the sidebar's top, so the rail steps aside — unless the host
+ * asked for the far-left strip (`data-strip`), which stands beside the open
+ * sidebar and carries the sections itself.
+ */
+const F = '[data-hanzo-frame]'
+const FRAME_CSS = [
+  `${F}{display:grid;grid-template-columns:64px auto minmax(0,1fr) auto;grid-template-rows:44px minmax(0,1fr);grid-template-areas:"rail bar bar bar" "rail list pane side";position:relative;width:100%;height:100dvh;overflow:hidden;background:${FRAME.ground};color:${FRAME.ink}}`,
+  `${F}>[data-slot=rail]{grid-area:rail;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;min-width:0;background:${FRAME.ground};border-right:1px solid ${FRAME.edge}}`,
+  `${F}>[data-slot=rail]>[data-slot=places]{grid-row:2;display:grid;grid-auto-rows:max-content;align-content:start;justify-items:center;gap:2px;min-width:0;overflow-y:auto;scrollbar-width:none;padding-top:8px}`,
+  `${F}>[data-slot=rail]>[data-slot=strip]{grid-row:1;display:grid;justify-items:center;padding:8px 0 4px}`,
+  `${F}>[data-slot=rail]>[data-slot=foot]{grid-row:3;display:grid;justify-items:center;padding-bottom:8px}`,
+  `${F}>[data-slot=bar]{grid-area:bar;min-width:0}`,
+  `${F}>[data-slot=list]{grid-area:list;display:flex;min-height:0;z-index:var(--z-drawer,20);background:${FRAME.ground}}`,
+  `${F}>[data-slot=pane]{grid-area:pane}`,
+  `${F}>[data-slot=side],${F}>[data-slot=panel]{grid-area:side;min-height:0}`,
+  `${F}>[data-slot=scrim]{position:absolute;inset:0;z-index:var(--z-scrim,19);border:0;padding:0;background:${FRAME.scrim}}`,
+  // A section is its icon over its label on the rail, its icon beside its label
+  // in the sidebar. `aria-current` is the one state; the pointer is the other.
+  // Unscoped, because the attribute is already the frame's own name and the
+  // account card wears these rows on a page with no frame around it.
+  `[data-frame-tile]{display:grid;place-items:center;align-content:center;gap:2px;width:56px;min-height:44px;padding:4px 0;border:0;border-radius:8px;background:transparent;color:inherit;font:inherit;text-decoration:none;cursor:pointer}`,
+  `[data-frame-tile]>span{font-size:10px;line-height:12px;color:${FRAME.quiet};max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}`,
+  `[data-frame-tile]:hover{background:${FRAME.hover}}`,
+  `[data-frame-tile][aria-current=page]{background:${FRAME.edge}}`,
+  `[data-frame-tile][aria-current=page]>span{color:${FRAME.ink}}`,
+  `[data-frame-row]{display:flex;align-items:center;gap:8px;width:100%;min-width:0;padding:6px 8px;border:0;border-radius:8px;background:transparent;color:${FRAME.quiet};font:inherit;font-size:13px;line-height:18px;text-align:left;text-decoration:none;cursor:pointer}`,
+  `[data-frame-row]>svg{flex-shrink:0;opacity:.7}`,
+  `[data-frame-row]>span{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}`,
+  `[data-frame-row]:hover{background:${FRAME.hover}}`,
+  `[data-frame-row][aria-current=page]{background:${FRAME.edge};color:${FRAME.ink}}`,
+  `[data-frame-icon]{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0;border:0;border-radius:8px;background:transparent;color:inherit;opacity:.7;cursor:pointer}`,
+  `[data-frame-icon]:hover{background:${FRAME.edge};opacity:1}`,
+  `[data-frame-grip]:hover,[data-frame-grip]:focus-visible{background:${FRAME.edge}}`,
+  `${F} [data-slot=find]:hover{background:${FRAME.hover}}`,
+  `:is([data-frame-tile],[data-frame-row],[data-frame-icon],[data-frame-grip]):focus-visible,${F} [data-slot=find]:focus-visible{outline:2px solid ${FOCUS_RING};outline-offset:-2px}`,
+  // The column beside the room exists from 1024px, and so do the controls that
+  // open it: a toggle for a column nobody can see is a dead control.
+  `@media (max-width:1023.98px){${F}>[data-slot=side],${F} [data-frame-lg]{display:none!important}${F}>[data-slot=panel]{position:absolute;inset:44px 0 0;z-index:var(--z-drawer,20)}}`,
+  `@media (min-width:768px){${F} [data-frame-sm]{display:none!important}${F}>[data-slot=scrim]{display:none}${F}>[data-slot=rail] [data-slot=more]{display:none}${F}[data-sidebar=open]:not([data-strip]){grid-template-columns:0 auto minmax(0,1fr) auto}${F}[data-sidebar=open]:not([data-strip])>[data-slot=rail]{display:none}${F}[data-strip] [data-slot=places-list]{display:none}}`,
+  // A PHONE. The bar, the room, and the rail as the tab bar along the bottom:
+  // four sections and More, the rest one press away in the finder. The sidebar
+  // is a sheet between the bar and the tab bar, and the words of the search
+  // give way to its glyph.
+  `@media (max-width:767.98px){${F}{grid-template-columns:minmax(0,1fr);grid-template-rows:44px minmax(0,1fr) calc(56px + env(safe-area-inset-bottom));grid-template-areas:"bar" "pane" "rail"}` +
+    `${F}>[data-slot=rail]{grid-template-rows:none;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding-bottom:env(safe-area-inset-bottom);border-right:0;border-top:1px solid ${FRAME.edge}}` +
+    `${F}>[data-slot=rail]>[data-slot=places]{grid-row:auto;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-auto-rows:auto;justify-items:stretch;overflow:hidden;padding-top:0}` +
+    `${F}>[data-slot=rail]>[data-slot=places]>*{width:auto;min-width:0}` +
+    `${F}>[data-slot=rail]>[data-slot=places]>:nth-child(n+6){display:none}` +
+    `${F}>[data-slot=rail] [data-slot=more]{order:9}` +
+    `${F}>[data-slot=rail]>[data-slot=strip]{display:none}` +
+    `${F}>[data-slot=rail]>[data-slot=foot]{grid-row:auto;padding:0}` +
+    `${F}>[data-slot=list]{position:fixed;top:44px;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom));width:100%}` +
+    `${F}>[data-slot=list]>*{width:100%!important}` +
+    `${F}>[data-slot=scrim]{top:44px;bottom:calc(56px + env(safe-area-inset-bottom))}` +
+    `${F} [data-slot=places-list],${F} [data-frame-md]{display:none!important}` +
+    `${F} [data-slot=find]>:not(svg){display:none!important}${F} [data-slot=find]{justify-content:center}}`,
+].join('')
+
 /** The shell's one animation, for a control that is busy. See rule 6. */
 export const SPIN = 'hanzo-spin 700ms linear infinite'
 
-/** Inject the shell's base stylesheet once (idempotent). */
+/**
+ * Inject the shell's base stylesheet once (idempotent).
+ *
+ * An INSERTION effect, so the rules are in the document before React lays out
+ * the tree that needs them. With a plain effect they landed after the first
+ * paint, and a frame whose grid lives here drew one frame of its columns
+ * stacked in source order before snapping into place.
+ */
 export function useShellStyles(): void {
-  useEffect(() => {
-    if (typeof document === 'undefined') return
-    if (document.getElementById(STYLE_ID)) return
-    const el = document.createElement('style')
-    el.id = STYLE_ID
-    el.textContent = CSS
-    document.head.appendChild(el)
-  }, [])
+  useInsertionEffect(() => inject(STYLE_ID, CSS), [])
+}
+
+/**
+ * The frame's layout, under its own id. A host that mounted another copy of
+ * this package first already holds a `hanzo-shell-styles` element without these
+ * rules, and the once-only check would read it as done.
+ */
+export function useFrameStyles(): void {
+  useInsertionEffect(() => inject('hanzo-frame-styles', FRAME_CSS), [])
+}
+
+function inject(id: string, css: string): void {
+  if (typeof document === 'undefined') return
+  if (document.getElementById(id)) return
+  const el = document.createElement('style')
+  el.id = id
+  el.textContent = css
+  document.head.appendChild(el)
 }

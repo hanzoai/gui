@@ -237,6 +237,76 @@ export const MARKS = {
       <path d="M18 15.5 18.8 17.7 21 18.5l-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" />
     </>
   ),
+  /* The workspace frame's own controls: the sidebar's handle, history, the
+     settings door, and the account menu's rows. */
+  sidebar: svg(
+    <>
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M9 3v18" />
+    </>
+  ),
+  collapse: svg(
+    <>
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M9 3v18" />
+      <path d="m16 15-3-3 3-3" />
+    </>
+  ),
+  back: svg(
+    <>
+      <path d="m12 19-7-7 7-7" />
+      <path d="M19 12H5" />
+    </>
+  ),
+  forward: svg(
+    <>
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
+    </>
+  ),
+  gear: svg(
+    <>
+      <path d="M20 7h-9" />
+      <path d="M14 17H5" />
+      <circle cx="17" cy="17" r="3" />
+      <circle cx="7" cy="7" r="3" />
+    </>
+  ),
+  bell: svg(
+    <>
+      <path d="M10.3 21a2 2 0 0 0 3.4 0" />
+      <path d="M3.3 15.3A1 1 0 0 0 4 17h16a1 1 0 0 0 .7-1.7C19.4 14 18 12.5 18 8A6 6 0 0 0 6 8c0 4.5-1.4 6-2.7 7.3" />
+    </>
+  ),
+  palette: svg(
+    <>
+      <circle cx="13.5" cy="6.5" r="1" />
+      <circle cx="17.5" cy="10.5" r="1" />
+      <circle cx="8.5" cy="7.5" r="1" />
+      <circle cx="6.5" cy="12.5" r="1" />
+      <path d="M12 2a10 10 0 0 0 0 20 1.7 1.7 0 0 0 1.2-2.8 1.6 1.6 0 0 1 1.2-2.8h2A5.6 5.6 0 0 0 22 11c0-5-4.5-9-10-9z" />
+    </>
+  ),
+  exit: svg(
+    <>
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <path d="m16 17 5-5-5-5" />
+      <path d="M21 12H9" />
+    </>
+  ),
+  updown: svg(
+    <>
+      <path d="m7 15 5 5 5-5" />
+      <path d="m7 9 5-5 5 5" />
+    </>
+  ),
+  archive: svg(
+    <>
+      <rect width="20" height="5" x="2" y="3" rx="1" />
+      <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+      <path d="M10 12h4" />
+    </>
+  ),
 } as const
 
 /** Every mark a row or a tile may name. */

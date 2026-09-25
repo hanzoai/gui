@@ -19,6 +19,19 @@ export type {
 export type { HanzoUser, HanzoOrg, OrgDomains, OrgQuery, OrgPage } from './types.ts'
 export { ORG_DOMAINS } from './types.ts'
 
+// ── The workspace frame a signed-in app wears: rail, sidebar, bar, pane ──
+export { Frame, Beside, useFrame } from './Frame.tsx'
+export type { FrameProps, Section, Side, Find } from './Frame.tsx'
+// The account at the foot of the sidebar: Profile, Notifications, Appearance,
+// Security, Sign out — and no balance, which is the workspace's.
+export { Account } from './Account.tsx'
+export type { AccountProps } from './Account.tsx'
+// Project and environment, one scope in the bar, kept per workspace.
+export { Scope, useScope } from './Scope.tsx'
+export type { ScopeProps, ScopeProject } from './Scope.tsx'
+export { Notifications } from './Notifications.tsx'
+export type { NotificationsProps, Notice } from './Notifications.tsx'
+
 // ── Unified Hanzo app-switcher (the 9-dot cross-app launcher) ──
 export { HanzoAppLauncher } from './HanzoAppLauncher.tsx'
 export type { HanzoAppLauncherProps } from './HanzoAppLauncher.tsx'

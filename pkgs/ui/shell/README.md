@@ -203,6 +203,58 @@ or any other inverting token, which is what keeps that true. Get it by MOUNTING
 the component; if you must build a chrome-attached menu we do not ship, spread
 `PANEL` rather than matching a colour by hand.
 
+## The workspace frame (8.3.19+)
+
+`Frame` is the shell a signed-in Hanzo app wears — hanzo.ai and the Hanzo App
+mount the same one, the way claude.ai wears one frame around chat and code.
+
+```tsx
+import { Frame, Account, Scope, useScope, Beside, useFrame } from '@hanzogui/shell'
+
+<Frame
+  sections={[{ id: 'chat', label: 'Chat', icon: MessageSquare, href: '/chat' }, …]}
+  active="chat"
+  navigate={(href) => router.push(href)}
+  back={router.back}
+  forward={router.forward}
+  workspace={<OrgProjectSwitcher … />}          // top of the sidebar: the ONE switcher
+  scope={<Scope projects={…} project={…} onProject={…} environments={…} />} // the bar
+  find={{ label: 'hanzo', open: () => setFinding(true) }}                   // ⌘K too
+  list={<WhatTheSectionHolds />}
+  account={<Account name={…} email={…} onProfile={…} onNotifications={…}
+                    onAppearance={…} onSecurity={…} onSignOut={logout} />}
+  settings={() => showSettings()}
+  side={{ open, close, toggles }}
+>
+  {room}
+</Frame>
+```
+
+- **Rail**: the sections as marks — the sidebar SHUT on a laptop (an explicit,
+  per-device toggle; nothing opens under a passing pointer) and the tab bar
+  along the bottom of a phone, four sections and More.
+- **Strip, opt-in**: pass `strip` (an org's mark) and the rail stands beside
+  the OPEN sidebar with that mark at its head, the way hanzo.team draws it. Off
+  by default: without it there is no far-left strip.
+- **Sidebar**: the workspace switcher at the top, the sections, what the
+  section holds (`list`), the host's rows (`foot`), the account at the foot.
+  Resizable by its edge, and a sheet on a phone. Inside it, `useFrame().pick`
+  puts the sheet away once a row is chosen.
+- **Account**: Profile, Notifications, Appearance, Security, Sign out, in that
+  order, and no balance — credits are the workspace's, under Billing. A row the
+  host gives nowhere to go is not drawn.
+- **Scope**: project and environment, one resource scope in the bar.
+  `useScope(org)` keeps the last project per workspace and restores it on a
+  switch, or falls back visibly to All projects; no environment is drawn that
+  the platform did not name.
+- **Beside**: a room puts content in the column beside it; the frame owns the
+  column, the room owns what is in it.
+- **Notifications**: the reader's own (`/v1/team/inbox`), read through the
+  host's `call` — the package holds no credential.
+
+The frame follows the host's theme (`FRAME` in `theme.ts` reads gui's and
+@hanzo/design's ladder), unlike the chrome, which is dark everywhere.
+
 ## One app list
 
 `HANZO_APPS` is the only app registry. `HanzoAppLauncher` renders it; `OrgHeader`
@@ -224,6 +276,10 @@ it. Pass `apps` to any of the three to override.
 - `OrgCommandPalette`, `OrgCommandItem` — ⌘K palette
 - `HanzoMark`, `HanzoWordmark` — brand mark (`brandMenu` opts into the
   right-click brand menu)
+- `Frame`, `Beside`, `useFrame`, `Section`, `Side`, `Find` — the workspace frame
+- `Account` — the account card and menu at the foot of the sidebar
+- `Scope`, `useScope` — project and environment in the bar
+- `Notifications`, `Notice` — the reader's notifications page
 - `BeamAvatar`, `UserAvatar` — avatars
 - `HANZO_APPS`, `ORG_DOMAINS` — the app registry and the per-org domain map
 - `HanzoApp`, `HanzoUser`, `HanzoOrg`, `OrgDomains` — types

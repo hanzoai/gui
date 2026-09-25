@@ -270,7 +270,8 @@ function Grip({
  * else's site.
  */
 const external = (href: string) => /^https:\/\//i.test(href)
-const internal = (href: string) => /^\/(?![/\\])/.test(href)
+const internal = (href: string) =>
+  /^\/(?![/\\])/.test(href) && !/[\s\u0000-\u001f\\]/.test(href)
 const sound = (href: string) => external(href) || internal(href)
 
 /**

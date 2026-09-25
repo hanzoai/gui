@@ -185,10 +185,12 @@ test('a section points at a path here or an https address elsewhere, and nothing
       { id: 'script', label: 'Script', icon: Mark, href: 'javascript:alert(1)' },
       { id: 'bare', label: 'Bare', icon: Mark, href: '@evil.example' },
       { id: 'plain', label: 'Plain', icon: Mark, href: 'http://hanzo.team' },
+      { id: 'tab', label: 'Tab', icon: Mark, href: '/\t/evil.example' },
+      { id: 'slash', label: 'Slash', icon: Mark, href: '/\\evil.example' },
     ],
     home: '//evil.example',
   })
-  for (const label of ['Proto', 'Script', 'Bare', 'Plain'])
+  for (const label of ['Proto', 'Script', 'Bare', 'Plain', 'Tab', 'Slash'])
     assert.doesNotMatch(
       html,
       new RegExp(`aria-label="${label}"`),

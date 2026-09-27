@@ -54,6 +54,7 @@ That's the whole integration. `Booker` fetches the public event type, renders a 
 - `timeZone?` — visitor IANA zone; defaults to the browser/device zone.
 - `weekStartsOn?` — `0` (Sunday, default) or `1` (Monday).
 - `onBooked?(booking)` — called with the created booking.
+- `prefill?` — `{ name, email, notes }` the details step starts with (`Booker` only).
 
 `Confirmation`:
 

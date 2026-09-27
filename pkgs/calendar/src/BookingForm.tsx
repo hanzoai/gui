@@ -11,6 +11,8 @@ export interface BookingFormProps {
   error?: string | null
   onSubmit: (responses: BookingResponses) => void
   onBack: () => void
+  /** What the form starts with: the attendee a host page already knows. */
+  prefill?: Partial<BookingResponses>
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -24,10 +26,11 @@ export function BookingForm({
   error,
   onSubmit,
   onBack,
+  prefill,
 }: BookingFormProps) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [notes, setNotes] = useState('')
+  const [name, setName] = useState(prefill?.name ?? '')
+  const [email, setEmail] = useState(prefill?.email ?? '')
+  const [notes, setNotes] = useState(prefill?.notes ?? '')
   const [touched, setTouched] = useState(false)
 
   const nameValid = name.trim().length > 0

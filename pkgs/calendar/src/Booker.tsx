@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { SizableText, Spinner, XStack, YStack } from '@hanzo/gui'
-import type { Booking } from './client.ts'
+import type { Booking, BookingResponses } from './client.ts'
 import { BookingForm } from './BookingForm.tsx'
 import { Confirmation } from './Confirmation.tsx'
 import { EventHeader } from './EventHeader.tsx'
@@ -19,6 +19,9 @@ export interface BookerProps {
   timeZone?: string
   weekStartsOn?: 0 | 1
   onBooked?: (booking: Booking) => void
+  /** The attendee's details, when the page that sent them here already has
+   *  them: the details step starts filled in, and stays theirs to change. */
+  prefill?: Partial<BookingResponses>
 }
 
 /** Universal scheduling flow: event → month → times → details → confirmation. */
@@ -73,6 +76,7 @@ export function Booker(props: BookerProps) {
               error={m.error}
               onSubmit={m.submit}
               onBack={m.back}
+              prefill={props.prefill}
             />
           ) : (
             <>

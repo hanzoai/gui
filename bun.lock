@@ -546,7 +546,7 @@
     },
     "pkgs/calendar": {
       "name": "@hanzo/booker",
-      "version": "8.3.5",
+      "version": "8.3.6",
       "devDependencies": {
         "@hanzo/gui": "workspace:*",
         "@hanzogui/build": "workspace:*",
@@ -2984,7 +2984,7 @@
     },
     "pkgs/ui/shell": {
       "name": "@hanzogui/shell",
-      "version": "8.3.17",
+      "version": "8.3.19",
       "devDependencies": {
         "@hanzogui/build": "workspace:*",
       },

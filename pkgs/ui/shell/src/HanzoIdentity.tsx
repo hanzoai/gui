@@ -78,7 +78,15 @@ export interface HanzoIdentityProps {
 }
 
 export function HanzoIdentity({ auth }: HanzoIdentityProps) {
-  const { user, onSignIn, onSignOut, signInHref = U.login, accountHref = U.account, items, label = 'Sign in' } = auth
+  const {
+    user,
+    onSignIn,
+    onSignOut,
+    signInHref = U.login,
+    accountHref = U.account,
+    items,
+    label = 'Sign in',
+  } = auth
 
   if (!user) {
     return (
@@ -103,7 +111,13 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
     )
   }
 
-  return <AccountMenu user={user} items={items ?? defaultItems(accountHref)} onSignOut={onSignOut} />
+  return (
+    <AccountMenu
+      user={user}
+      items={items ?? defaultItems(accountHref)}
+      onSignOut={onSignOut}
+    />
+  )
 }
 
 /* ── The signed-in menu ───────────────────────────────────────────────────── */

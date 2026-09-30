@@ -20,7 +20,9 @@ const files = (dir, ok) =>
 
 test('no identity host in the source, the built output or the docs', () => {
   const all = [...files('src', /\.tsx?$/), ...files('dist', /\.js$/), 'README.md']
-  const hits = all.filter((f) => IDENTITY_HOST.test(fs.readFileSync(path.join(ROOT, f), 'utf8')))
+  const hits = all.filter((f) =>
+    IDENTITY_HOST.test(fs.readFileSync(path.join(ROOT, f), 'utf8'))
+  )
   assert.deepEqual(hits, [])
 })
 

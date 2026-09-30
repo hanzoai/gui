@@ -64,7 +64,11 @@ test('both bars — 60 tall, the plane recipe, no hairline; the public bar flush
   // plane's own blur samples nothing and a translucent plane shows the page
   // through the menu. The scrolled bar alone is glass, where the blur is real.
   const theme = read('theme.ts')
-  assert.match(theme, /export const BAR: CSSProperties = \{ \.\.\.GLASS \}/, 'the scrolled bar wears the glass')
+  assert.match(
+    theme,
+    /export const BAR: CSSProperties = \{ \.\.\.GLASS \}/,
+    'the scrolled bar wears the glass'
+  )
   assert.match(
     theme,
     /export const DRAPE: CSSProperties = \{\s*background: CHROME\.panel,/,
@@ -80,7 +84,11 @@ test('both bars — 60 tall, the plane recipe, no hairline; the public bar flush
     /export const BAR_OPEN: CSSProperties = \{ \.\.\.GLASS, background: CHROME\.panel \}/,
     'an open bar wears the plane ground'
   )
-  assert.match(pub, /draped \? BAR_OPEN : grounded \? BAR/, 'the bar wears the panel while a plane hangs from it')
+  assert.match(
+    pub,
+    /draped \? BAR_OPEN : grounded \? BAR/,
+    'the bar wears the panel while a plane hangs from it'
+  )
 })
 
 test('glass is what a compact control wears, and the recipe is the audited one', () => {
@@ -310,7 +318,11 @@ test('the chat carries no key, and refuses to pretend it can answer', () => {
   assert.match(src, /const canChat = !!\(onSubmit \|\| authToken\)/, 'it knows')
   assert.match(src, /\{canChat \? \(/, 'the composer is gated on it')
   assert.match(src, /\{canChat \? null : \(/, 'and the invitation takes its place')
-  assert.match(src, /auth\?\.signInHref \?\? U\.login/, "the same sign-in route as the header")
+  assert.match(
+    src,
+    /auth\?\.signInHref \?\? U\.login/,
+    'the same sign-in route as the header'
+  )
 })
 
 test('every palette ends the same way — a question is never a dead end', () => {

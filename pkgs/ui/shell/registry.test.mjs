@@ -73,7 +73,11 @@ test('every registered link is an address', () => {
  */
 test('the footer legal bar links the legal center', () => {
   const hrefs = HANZO_FOOTER_BOTTOM.links.map((l) => l.href)
-  for (const want of ['https://hanzo.ai/privacy', 'https://hanzo.ai/terms', 'https://hanzo.ai/legal']) {
+  for (const want of [
+    'https://hanzo.ai/privacy',
+    'https://hanzo.ai/terms',
+    'https://hanzo.ai/legal',
+  ]) {
     assert.ok(hrefs.includes(want), `the legal bar is missing ${want}`)
   }
 })

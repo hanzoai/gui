@@ -53,7 +53,7 @@ describe('useComponentTracking', () => {
       'beforeend',
       `<button data-is="Button" data-in="PricingCard" data-at="pricing.tsx:42">
          <span>Buy</span>
-       </button>`,
+       </button>`
     )
     click(document.querySelector('span')!)
 
@@ -70,7 +70,7 @@ describe('useComponentTracking', () => {
     mount()
     document.body.insertAdjacentHTML(
       'beforeend',
-      `<div data-is="Card" data-at="a.tsx:1"><i id="leaf">x</i></div>`,
+      `<div data-is="Card" data-at="a.tsx:1"><i id="leaf">x</i></div>`
     )
     click(document.getElementById('leaf')!)
 
@@ -81,7 +81,7 @@ describe('useComponentTracking', () => {
     mount()
     document.body.insertAdjacentHTML(
       'beforeend',
-      `<button aria-label="Close dialog" data-is="IconButton" data-at="b.tsx:2">x</button>`,
+      `<button aria-label="Close dialog" data-is="IconButton" data-at="b.tsx:2">x</button>`
     )
     click(document.querySelector('button')!)
 
@@ -92,7 +92,7 @@ describe('useComponentTracking', () => {
     mount()
     document.body.insertAdjacentHTML(
       'beforeend',
-      `<button data-is="B" data-at="c.tsx:3">${'x'.repeat(500)}</button>`,
+      `<button data-is="B" data-at="c.tsx:3">${'x'.repeat(500)}</button>`
     )
     click(document.querySelector('button')!)
 
@@ -111,11 +111,9 @@ describe('useComponentTracking', () => {
     mount()
     document.body.insertAdjacentHTML(
       'beforeend',
-      `<div data-is="Menu" data-at="d.tsx:4"><button id="item">Open</button></div>`,
+      `<div data-is="Menu" data-at="d.tsx:4"><button id="item">Open</button></div>`
     )
-    document
-      .getElementById('item')!
-      .addEventListener('click', (e) => e.stopPropagation())
+    document.getElementById('item')!.addEventListener('click', (e) => e.stopPropagation())
     click(document.getElementById('item')!)
 
     expect(event()).toMatchObject({ component: 'Menu', label: 'Open' })
@@ -125,7 +123,7 @@ describe('useComponentTracking', () => {
     mount(false)
     document.body.insertAdjacentHTML(
       'beforeend',
-      `<button data-is="B" data-at="e.tsx:5">Go</button>`,
+      `<button data-is="B" data-at="e.tsx:5">Go</button>`
     )
     click(document.querySelector('button')!)
 
@@ -136,7 +134,7 @@ describe('useComponentTracking', () => {
     mount()
     document.body.insertAdjacentHTML(
       'beforeend',
-      `<button data-is="B" data-at="f.tsx:6">Go</button>`,
+      `<button data-is="B" data-at="f.tsx:6">Go</button>`
     )
     act(() => root.unmount())
     root = createRoot(container)

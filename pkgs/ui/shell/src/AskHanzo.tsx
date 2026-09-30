@@ -458,7 +458,7 @@ export function AskHanzo({
                 }}
               >
                 <a
-                  href={auth?.signInHref ?? U.id}
+                  href={auth?.signInHref ?? U.login}
                   onClick={
                     auth?.onSignIn
                       ? (e) => {

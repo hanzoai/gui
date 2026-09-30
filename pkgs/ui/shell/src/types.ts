@@ -55,7 +55,6 @@ export type OrgPage = {
 export type OrgDomains = {
   id: string
   // Core
-  iam: string
   billing: string
   console: string
   cloud: string
@@ -93,7 +92,6 @@ export type OrgDomains = {
 export const ORG_DOMAINS: Record<string, OrgDomains> = {
   hanzo: {
     id: 'hanzo',
-    iam: 'https://hanzo.id',
     billing: 'https://billing.hanzo.ai',
     console: 'https://platform.hanzo.ai',
     cloud: 'https://cloud.hanzo.ai',
@@ -123,7 +121,6 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
   },
   lux: {
     id: 'lux',
-    iam: 'https://lux.id',
     billing: 'https://billing.lux.network',
     console: 'https://console.lux.network',
     cloud: 'https://cloud.lux.network',
@@ -153,7 +150,6 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
   },
   zoo: {
     id: 'zoo',
-    iam: 'https://zoo.id',
     billing: 'https://billing.zoo.ngo',
     console: 'https://console.zoo.ngo',
     cloud: 'https://cloud.zoo.network',
@@ -183,7 +179,6 @@ export const ORG_DOMAINS: Record<string, OrgDomains> = {
   },
   pars: {
     id: 'pars',
-    iam: 'https://pars.id',
     billing: 'https://billing.pars.network',
     console: 'https://console.pars.network',
     cloud: 'https://cloud.pars.network',

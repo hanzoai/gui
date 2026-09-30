@@ -310,7 +310,7 @@ test('the chat carries no key, and refuses to pretend it can answer', () => {
   assert.match(src, /const canChat = !!\(onSubmit \|\| authToken\)/, 'it knows')
   assert.match(src, /\{canChat \? \(/, 'the composer is gated on it')
   assert.match(src, /\{canChat \? null : \(/, 'and the invitation takes its place')
-  assert.match(src, /auth\?\.signInHref \?\? U\.id/, 'one provider, the same one')
+  assert.match(src, /auth\?\.signInHref \?\? U\.login/, "the same sign-in route as the header")
 })
 
 test('every palette ends the same way — a question is never a dead end', () => {

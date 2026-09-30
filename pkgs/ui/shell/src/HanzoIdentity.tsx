@@ -4,7 +4,7 @@
  * HanzoIdentity — the header's identity cluster. One action when there is no
  * session; the account menu when there is.
  *
- * Hanzo IAM (hanzo.id) is the ONE identity provider, and this component never
+ * Hanzo IAM is the ONE identity provider, and this component never
  * runs a session of its own. It renders a control and calls back: the host's
  * `@hanzo/iam` client owns the authorization-code + PKCE round trip, the tokens
  * and the refresh. That separation is the point — shared chrome that held a
@@ -52,16 +52,21 @@ export interface HanzoAuth {
   /**
    * Start IAM sign-in — the host's `startLogin()` from `@hanzo/iam`, which runs
    * authorization-code + PKCE-S256 against `/v1/iam/oauth/authorize`. Omit it
-   * and the control is a plain link to the provider.
+   * and the control is a plain link to the site's own `/login`.
    */
   onSignIn?: () => void
-  /** End the session — the host's `logout()`. */
+  /**
+   * End the session — the host's `signOut(iam)` from `@hanzo/ui/auth`: same-site
+   * IAM end-session, then `/login?from=logout`.
+   */
   onSignOut?: () => void
   /**
    * Where the action points before hydration and without JavaScript. Defaults
-   * to the provider itself, so the control is a real link at first paint.
+   * to the site's own `/login`, so the control is a real link at first paint.
    */
   signInHref?: string
+  /** The account page. Defaults to the site's own `/account`. */
+  accountHref?: string
   /** Extra account-menu rows (Billing, Settings, …), above Sign out. */
   items?: HanzoLink[]
   /** Label for the signed-out action. */
@@ -73,7 +78,7 @@ export interface HanzoIdentityProps {
 }
 
 export function HanzoIdentity({ auth }: HanzoIdentityProps) {
-  const { user, onSignIn, onSignOut, signInHref = U.id, items, label = 'Sign in' } = auth
+  const { user, onSignIn, onSignOut, signInHref = U.login, accountHref = U.account, items, label = 'Sign in' } = auth
 
   if (!user) {
     return (
@@ -98,7 +103,7 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
     )
   }
 
-  return <AccountMenu user={user} items={items} onSignOut={onSignOut} />
+  return <AccountMenu user={user} items={items ?? defaultItems(accountHref)} onSignOut={onSignOut} />
 }
 
 /* ── The signed-in menu ───────────────────────────────────────────────────── */
@@ -109,7 +114,7 @@ function AccountMenu({
   onSignOut,
 }: {
   user: HanzoUser
-  items?: HanzoLink[]
+  items: HanzoLink[]
   onSignOut?: () => void
 }) {
   const [open, setOpen] = useState(false)
@@ -190,7 +195,7 @@ function AccountMenu({
 
           <Meter plan={plan} href={U.pricing} />
 
-          {(items ?? DEFAULT_ITEMS).map((item) => (
+          {items.map((item) => (
             <a
               key={item.id}
               href={item.href}
@@ -234,7 +239,7 @@ function AccountMenu({
 }
 
 /** Where an account menu goes when the host names nothing of its own. */
-const DEFAULT_ITEMS: HanzoLink[] = [
-  { id: 'account', label: 'Account', href: U.account },
+const defaultItems = (accountHref: string): HanzoLink[] => [
+  { id: 'account', label: 'Account', href: accountHref },
   { id: 'billing', label: 'Billing', href: U.billing },
 ]

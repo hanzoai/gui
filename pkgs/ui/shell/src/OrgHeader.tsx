@@ -6,6 +6,7 @@ import { HanzoAppLauncher } from './HanzoAppLauncher.tsx'
 import { UserOrgDropdown, type UserOrgDropdownProps } from './UserOrgDropdown.tsx'
 import { type HanzoApp } from './hanzo-apps.tsx'
 import { ORG_DOMAINS, type HanzoOrg, type HanzoUser } from './types.ts'
+import { U } from './hanzo-registry.ts'
 import { BAR, CHROME, CTRL_H, FS, R, Z, control, ghostHover } from './theme.ts'
 import { SPIN, useShellStyles } from './shellStyles.ts'
 
@@ -262,7 +263,9 @@ export interface OrgHeaderProps {
    * app's session — only the seat it sits in.
    */
   account?: React.ReactNode
-  /** Settings URL (defaults to the org's IAM /account). */
+  /** The account page (defaults to the site's own `/account`). */
+  accountHref?: string
+  /** Settings URL (defaults to `accountHref`). */
   settingsHref?: string
   /** Called when the settings cog is clicked (overrides href navigation). */
   onSettingsClick?: () => void
@@ -318,6 +321,7 @@ export function OrgHeader({
   currentOrgId,
   onOrgSwitch,
   onSignOut,
+  accountHref = U.account,
   findOrgs,
   onMasquerade,
   masquerade,
@@ -350,9 +354,9 @@ export function OrgHeader({
     if (onSettingsClick) {
       onSettingsClick()
     } else {
-      window.location.href = settingsHref || `${domains.iam}/account`
+      window.location.href = settingsHref || accountHref
     }
-  }, [onSettingsClick, settingsHref, domains.iam])
+  }, [onSettingsClick, settingsHref, accountHref])
 
   return (
     <header
@@ -393,7 +397,7 @@ export function OrgHeader({
               mark this replaced hardcoded white and so never noticed.
             */}
             <a
-              href={`${domains.iam}/account`}
+              href={accountHref}
               aria-label="Account"
               style={{
                 display: 'inline-flex',
@@ -494,6 +498,7 @@ export function OrgHeader({
             organizations={organizations}
             currentOrgId={currentOrgId}
             onOrgSwitch={onOrgSwitch}
+            accountHref={accountHref}
             onSignOut={onSignOut}
             findOrgs={findOrgs}
             onMasquerade={onMasquerade}

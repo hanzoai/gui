@@ -10,6 +10,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import type { HanzoUser, HanzoOrg, OrgPage, OrgQuery } from './types.ts'
 import { ORG_DOMAINS } from './types.ts'
+import { U } from './hanzo-registry.ts'
 import { UserAvatar } from './UserAvatar.tsx'
 import {
   CHROME,
@@ -35,6 +36,8 @@ export interface UserOrgDropdownProps {
   currentOrgId?: string
   onOrgSwitch?: (orgId: string) => void
   onSignOut?: () => void
+  /** The account page (defaults to the site's own `/account`). */
+  accountHref?: string
   /**
    * Ask the server for organizations — filtered, sorted and paged by it.
    *
@@ -89,6 +92,7 @@ export function UserOrgDropdown({
   currentOrgId,
   onOrgSwitch,
   onSignOut,
+  accountHref = U.account,
   findOrgs,
   onMasquerade,
   masquerade,
@@ -366,7 +370,7 @@ export function UserOrgDropdown({
           <div style={{ padding: 8 }}>
             <a
               role="menuitem"
-              href={`${domains.iam}/account`}
+              href={accountHref}
               onClick={() => setOpen(false)}
               style={link}
               {...ghostHover()}

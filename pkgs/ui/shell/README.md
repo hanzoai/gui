@@ -163,7 +163,7 @@ Anonymous inference needs a SERVER holding the key — never the browser.
 So with no `authToken` and no `onSubmit`, the card does not render a composer
 that would be refused: it shows one sign-in action against the same provider as
 the header. Give it `auth` (the `HanzoAuth` shape the header takes) and that
-action runs the host's IAM login; omit it and the action links to hanzo.id.
+action runs the host's IAM login; omit it and the action links to the site's own `/login`.
 
 ## Org switching, and reaching past your own orgs
 

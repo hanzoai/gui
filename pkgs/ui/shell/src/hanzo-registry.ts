@@ -231,7 +231,7 @@ export const U = {
   // hanzo.bot is the marketing site; the product it sells runs at app.hanzo.bot.
   // Two origins because the product owns a whole one: ~25 top-level routes, its
   // own /v1 API and its own /assets bundle. It signs people in itself (PKCE
-  // against hanzo.id), so a CTA only has to name it.
+  // against IAM), so a CTA only has to name it.
   botApp: 'https://app.hanzo.bot',
   cloud: 'https://cloud.hanzo.ai',
   dev: 'https://hanzo.ai/dev',
@@ -285,13 +285,12 @@ export const U = {
 
   // Account
   /**
-   * Hanzo IAM — the ONE identity provider every surface signs in against.
-   * The shell never mints a session itself: it renders the control and the
-   * host's `@hanzo/iam` client runs the authorization-code + PKCE round trip.
+   * Sign-in and account live on the site that mounts the shell, so these are
+   * site-relative. IAM is reached only through its /v1/iam API, by the host's
+   * client. A host whose account page lives elsewhere passes `accountHref`.
    */
-  id: 'https://hanzo.id',
-  signup: 'https://hanzo.id/signup',
-  account: 'https://hanzo.id/account',
+  login: '/login',
+  account: '/account',
   billing: 'https://billing.hanzo.ai',
   admin: 'https://admin.hanzo.ai',
 
@@ -1185,7 +1184,7 @@ export const HANZO_SURFACES: HanzoSurface[] = [
     preFooter: {
       heading: 'Bring your people and AI coworkers together',
       actions: [
-        { id: 'createorg', label: 'Create organization', href: U.signup },
+        { id: 'createorg', label: 'Create organization', href: U.login },
         { id: 'workspace', label: 'Open workspace', href: U.team },
       ],
     },

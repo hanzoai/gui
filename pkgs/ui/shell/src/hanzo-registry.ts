@@ -246,8 +246,10 @@ export const U = {
   agents: 'https://hanzo.ai/agents',
   mcp: 'https://hanzo.ai/mcp',
   console: 'https://platform.hanzo.ai',
-  keys: 'https://platform.hanzo.ai/keys',
-  gateway: 'https://platform.hanzo.ai/gateway',
+  // The console's API keys page. /keys answers "No such page" there.
+  keys: 'https://platform.hanzo.ai/api-keys',
+  // The page that explains the gateway; the console's gateway is the product itself.
+  gateway: 'https://hanzo.ai/gateway',
   platform: 'https://platform.hanzo.ai',
   api: 'https://hanzo.ai/api',
 
@@ -264,11 +266,6 @@ export const U = {
   cliRef: 'https://docs.hanzo.ai/docs/cli',
   quickstarts: 'https://docs.hanzo.ai/docs/quickstart',
   learn: 'https://hanzo.ai/learn',
-  // Community = the hub for everything built on Hanzo: templates + apps shipped on
-  // hanzo.app + the hanzo-apps GitHub org. Lives on hanzo.app (the builder), which
-  // owns the feed + its moderation. (Replaces the old hanzo.ai/showcase, which was
-  // just the hero chat re-skinned.)
-  community: 'https://hanzo.app/community',
   research: 'https://hanzo.ai/research',
   status: 'https://status.hanzo.ai',
   support: 'https://hanzo.ai/support',
@@ -566,7 +563,6 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'gateway', label: 'Gateway', href: U.gateway, glyph: 'gateway' },
       { id: 'keys', label: 'API keys', href: U.keys, glyph: 'plug' },
       { id: 'base', label: 'Base', href: U.base, glyph: 'layers' },
-      { id: 'status', label: 'Status', href: U.status, glyph: 'pulse' },
     ],
   },
   {
@@ -575,7 +571,6 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
     items: [
       { id: 'desktop', label: 'Desktop app', href: U.desktop, glyph: 'monitor' },
       { id: 'extension', label: 'Browser extension', href: U.extension, glyph: 'puzzle' },
-      { id: 'cli', label: 'Hanzo CLI', href: U.cli, glyph: 'terminal' },
       { id: 'sdks', label: 'SDKs', href: U.sdks, glyph: 'package' },
       { id: 'downloads', label: 'All downloads', href: U.downloads, glyph: 'download' },
     ],
@@ -587,7 +582,6 @@ export const MEET_HANZO_GROUPS: MeetHanzoGroup[] = [
       { id: 'docs', label: 'Documentation', href: U.docs, glyph: 'book' },
       { id: 'quickstarts', label: 'Quickstarts', href: U.quickstarts, glyph: 'rocket' },
       { id: 'learn', label: 'Learn', href: U.learn, glyph: 'cap' },
-      { id: 'community', label: 'Community', href: U.community, glyph: 'users' },
       { id: 'status', label: 'Status', href: U.status, glyph: 'pulse' },
       { id: 'support', label: 'Support', href: U.support, glyph: 'ring' },
     ],
@@ -991,7 +985,7 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     id: 'platform',
-    title: 'AI Platform',
+    title: 'AI platform',
     items: [
       { id: 'enso', label: 'Enso', href: U.enso },
       { id: 'models', label: 'Models', href: U.models },
@@ -999,9 +993,7 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
       { id: 'mcp', label: 'MCP tools', href: U.mcp },
       { id: 'api', label: 'API platform', href: U.api },
       { id: 'gateway', label: 'Gateway', href: U.gateway },
-      { id: 'keys', label: 'API keys', href: U.keys },
       { id: 'base', label: 'Base', href: U.base },
-      { id: 'status', label: 'Status', href: U.status },
     ],
   },
   {
@@ -1010,7 +1002,6 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
     items: [
       { id: 'desktop', label: 'Desktop app', href: U.desktop },
       { id: 'extension', label: 'Browser extension', href: U.extension },
-      { id: 'cli', label: 'Hanzo CLI', href: U.cli },
       { id: 'sdks', label: 'SDKs', href: U.sdks },
       { id: 'downloads', label: 'All downloads', href: U.downloads },
     ],
@@ -1020,10 +1011,10 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
     title: 'Developers',
     items: [
       { id: 'docs', label: 'Documentation', href: U.docs },
-      { id: 'apiRef', label: 'API Reference', href: U.apiRef },
-      { id: 'cliRef', label: 'CLI Reference', href: U.cliRef },
+      { id: 'apiRef', label: 'API reference', href: U.apiRef },
+      { id: 'cliRef', label: 'CLI reference', href: U.cliRef },
       { id: 'github', label: 'GitHub', href: U.github },
-      { id: 'status', label: 'System Status', href: U.status },
+      { id: 'status', label: 'Status', href: U.status },
     ],
   },
   {
@@ -1032,7 +1023,6 @@ export const HANZO_FOOTER_COLUMNS: FooterColumn[] = [
     items: [
       { id: 'quickstarts', label: 'Quickstarts', href: U.quickstarts },
       { id: 'learn', label: 'Learn', href: U.learn },
-      { id: 'community', label: 'Community', href: U.community },
       { id: 'research', label: 'Research', href: U.research },
       { id: 'support', label: 'Support', href: U.support },
     ],
@@ -1060,7 +1050,6 @@ export const HANZO_FOOTER_BOTTOM = {
     { id: 'terms', label: 'Terms', href: U.terms },
     { id: 'cookies', label: 'Cookies', href: U.cookies },
     { id: 'legal', label: 'Legal', href: U.legal },
-    { id: 'foundation', label: 'Foundation', href: U.foundation },
   ] as HanzoLink[],
 }
 

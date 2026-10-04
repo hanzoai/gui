@@ -18,7 +18,7 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { HANZO_FOOTER_BOTTOM, HANZO_SURFACES } from './dist/esm/hanzo-registry.js'
+import { HANZO_FOOTER_BOTTOM, HANZO_FOOTER_COLUMNS, HANZO_SURFACES } from './dist/esm/hanzo-registry.js'
 
 const place = (href, host) => {
   const { origin, pathname } = new URL(href, `https://${host}`)
@@ -80,4 +80,22 @@ test('the footer legal bar links the legal center', () => {
   ]) {
     assert.ok(hrefs.includes(want), `the legal bar is missing ${want}`)
   }
+})
+
+/**
+ * The footer names each destination once, at the page that explains it.
+ *
+ * It listed Hanzo CLI twice, Status and "System Status" for one address,
+ * Foundation in a column and again in the legal bar, and pointed at console
+ * addresses (platform.hanzo.ai/keys answered "No such page") and at
+ * hanzo.app/community, which only redirects to Support.
+ */
+test('the footer names each destination once, on its own host', () => {
+  const all = [...HANZO_FOOTER_COLUMNS.flatMap((c) => c.items), ...HANZO_FOOTER_BOTTOM.links]
+  const seen = new Map()
+  for (const l of all) seen.set(l.href, (seen.get(l.href) ?? 0) + 1)
+  const twice = [...seen].filter(([, n]) => n > 1).map(([h]) => h)
+  assert.deepEqual(twice, [], 'a destination the footer names twice')
+  const away = all.filter((l) => /platform\.hanzo\.ai|hanzo\.app\/community/.test(l.href)).map((l) => l.href)
+  assert.deepEqual(away, [], 'a footer row that sends a reader into the console or a redirect')
 })

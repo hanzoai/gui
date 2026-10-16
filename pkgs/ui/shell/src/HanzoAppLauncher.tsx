@@ -32,8 +32,6 @@ import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 
 import { createPortal } from 'react-dom'
 import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps.tsx'
 import { U } from './hanzo-registry.ts'
-import { isEntitled as planEntitles, normalizeTier } from './entitlements.ts'
-import { useEntitlement } from './useEntitlement.ts'
 import { HanzoWordmark } from './mark.tsx'
 import {
   ACCENT,
@@ -95,23 +93,12 @@ export interface HanzoAppLauncherProps {
   /** Render with the panel already open (storybook / embedding / tests). */
   defaultOpen?: boolean
   /**
-   * Current viewer's plan tier slug. When set, tiles for apps the tier does NOT
-   * grant render LOCKED (dimmed + lock badge, click → `upgradeHref`). Omit to
-   * keep every tile an unconditional link (backward compatible).
-   */
-  userPlan?: string
-  /**
-   * Override the per-app access check (defaults to the registry
-   * `isEntitled(userPlan, appId)`). Pass a resolver — e.g. from a shared
-   * `useEntitlement()` — to gate without also passing `userPlan`.
+   * The caller's per-app access check. A tile whose app it refuses renders
+   * LOCKED (dimmed + lock badge, click → `upgradeHref`). Omitted, every tile is
+   * a plain link: the launcher holds no opinion of its own about who may open
+   * what.
    */
   isEntitled?: (appId: string) => boolean
-  /**
-   * Resolve the viewer's plan HERE via `useEntitlement` and lock tiles above it.
-   * Pass `true` for the default billing endpoint, or `{ endpoint }` to point it
-   * elsewhere. Ignored when `userPlan` or `isEntitled` is supplied.
-   */
-  entitlement?: boolean | { endpoint?: string; fallbackTier?: string }
   /** Where a locked tile sends the viewer to upgrade (default the plans surface). */
   upgradeHref?: string
   /**
@@ -130,30 +117,12 @@ export function HanzoAppLauncher({
   label = 'Hanzo apps',
   size = 18,
   defaultOpen = false,
-  userPlan,
-  isEntitled: providedIsEntitled,
-  entitlement,
+  isEntitled: check,
   upgradeHref = U.pricing,
   trigger,
 }: HanzoAppLauncherProps) {
   useShellStyles()
 
-  // Resolve the viewer's plan ourselves only when asked to AND no check/tier was
-  // supplied; the `enabled` flag keeps the hook a no-op (no fetch) otherwise.
-  const auto = useEntitlement({
-    enabled: !!entitlement && providedIsEntitled == null && userPlan == null,
-    endpoint: typeof entitlement === 'object' ? entitlement.endpoint : undefined,
-    fallbackTier: typeof entitlement === 'object' ? entitlement.fallbackTier : undefined,
-  })
-
-  // The effective access check, or `null` when no entitlement context is provided
-  // (in which case every tile stays an unconditional link — backward compatible).
-  const check = useMemo<((appId: string) => boolean) | null>(() => {
-    if (providedIsEntitled) return providedIsEntitled
-    if (userPlan != null) return (id: string) => planEntitles(id, normalizeTier(userPlan))
-    if (entitlement) return auto.isEntitled
-    return null
-  }, [providedIsEntitled, userPlan, entitlement, auto.isEntitled])
   const [open, setOpen] = useState(defaultOpen)
   const [hover, setHover] = useState(false)
   const [query, setQuery] = useState('')
@@ -324,8 +293,7 @@ export function HanzoAppLauncher({
 
   const Tile = (app: HanzoApp, wide: boolean) => {
     const isCurrent = app.id === currentApp
-    // Locked = an entitlement context is active AND the viewer's tier does not
-    // grant this app. Locked tiles stay real links (keyboard + roving focus),
+    // Locked = the caller passed a check AND it refuses this app. Locked tiles stay real links (keyboard + roving focus),
     // but point at the upgrade surface instead of the app.
     const locked = check ? !check(app.id) : false
     const Icon = app.icon

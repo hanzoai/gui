@@ -18,6 +18,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { usageOf, resetsAt } from './dist/esm/usage.js'
+import { held } from './dist/esm/usePlan.js'
 
 const W = (span, limit, used, extra = {}) => ({ span, limit, used, ...extra })
 
@@ -143,4 +144,30 @@ test('a bound is worth showing whether or not it was paid for', () => {
   assert.ok(u, 'the free rung is bounded and the bound must be readable')
   assert.equal(u.span, 'hour', '9/10 binds before 18/20')
   assert.equal(u.remaining, 1)
+})
+
+test("the held plan is named in the catalog's words", () => {
+  // A subscription row carries its plan's own name. The menu says "Pro" because
+  // the catalog sold "Pro", whatever id the row is filed under.
+  const pro = held({
+    subscriptions: [{ status: 'active', plan: { id: '5WFw8Qvx4Sv', name: 'Pro' } }],
+  })
+  assert.deepEqual(pro, { tier: '5WFw8Qvx4Sv', name: 'Pro', found: true })
+
+  const max = held([{ status: 'trialing', plan: { slug: 'max-5x', name: 'Max 5x' } }])
+  assert.equal(max.name, 'Max 5x')
+  assert.equal(max.tier, 'max-5x')
+
+  // A row that names only an id still shows something true: the id.
+  assert.equal(held({ data: [{ status: 'active', planId: 'team' }] }).name, 'team')
+})
+
+test('only a live row is held', () => {
+  // A canceled or past-due plan must never show as the one the viewer has.
+  const gone = held({
+    subscriptions: [{ status: 'canceled', plan: { id: 'x', name: 'Max 20x' } }],
+  })
+  assert.deepEqual(gone, { tier: 'free', name: 'Free', found: false })
+  assert.equal(held(null).found, false)
+  assert.equal(held({ subscriptions: [{ status: 'active', plan: {} }] }).found, false)
 })

@@ -135,6 +135,33 @@ test('the retired signed-in bars stay retired', () => {
   }
 })
 
+test('the shell keeps no plan list of its own', () => {
+  const all = surface.flatMap((c) => c.specifiers)
+  // The shell carried a static plan ladder that the catalog had outgrown: it
+  // sold rungs nobody sells and named Pro "Dev". Plans are the catalog's
+  // (GET /v1/billing/plans), and the account menu names the held plan by the
+  // subscription row's own words. Nothing here restates them.
+  for (const name of [
+    'HANZO_PLANS',
+    'HANZO_PLAN_TIERS',
+    'APP_ENTITLEMENTS',
+    'getPlanTier',
+    'useEntitlement',
+    'HanzoPlans',
+    'HanzoAccessGate',
+  ]) {
+    assert.ok(!all.includes(name), `${name} is exported again`)
+  }
+  for (const file of [
+    'HanzoPlans',
+    'HanzoAccessGate',
+    'entitlements',
+    'useEntitlement',
+  ]) {
+    assert.equal(resolve(file), null, `${file} is back on disk`)
+  }
+})
+
 test('the one signed-in bar carries the folded-in props', () => {
   const source = readFileSync(join(SRC, 'OrgHeader.tsx'), 'utf8')
   for (const prop of ['search', 'account', 'headerRight', 'currentApp']) {

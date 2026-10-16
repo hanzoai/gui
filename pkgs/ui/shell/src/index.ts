@@ -93,50 +93,15 @@ export type {
   FooterColumn,
 } from './hanzo-registry.ts'
 
-// ── Plan tiers + app entitlements (the plan→apps map + pure resolver) ──
-export {
-  HANZO_PLANS,
-  HANZO_PLAN_TIERS,
-  DEFAULT_PLAN_TIER,
-  UNLIMITED,
-  getPlanTier,
-  APP_ENTITLEMENTS,
-} from './hanzo-registry.ts'
-export type {
-  HanzoPlanKind,
-  HanzoPlanTier,
-  HanzoPlanLimits,
-  HanzoPlanTierDef,
-} from './hanzo-registry.ts'
-export {
-  entitlementFor,
-  isEntitled,
-  requiredTier,
-  rankOf,
-  normalizeTier,
-} from './entitlements.ts'
-
-// ── Cross-ecosystem access layer — entitlement hook, paywall gate, plans ──
-export { useEntitlement, FREE_TIER } from './useEntitlement.ts'
-export type {
-  Entitlement,
-  EntitlementState,
-  UseEntitlementOptions,
-} from './useEntitlement.ts'
-// What plan the viewer holds and how much of it is left — the read half of the
-// same fact `useEntitlement` gates on. The header mounts <Meter> itself, so a
-// surface gets this by mounting the header; these are for a page that wants to
-// show the same standing somewhere of its own.
+// What plan the viewer holds and how much of it is left. The header mounts
+// <Meter> itself, so a surface gets this by mounting the header; these are for a
+// page that wants to show the same standing somewhere of its own.
 export { usePlan } from './usePlan.ts'
 export type { Plan, PlanState, UsePlanOptions } from './usePlan.ts'
 export { usageOf } from './usage.ts'
 export type { PlanUsage, Rollup } from './usage.ts'
 export { Meter } from './meter.tsx'
 export type { MeterProps } from './meter.tsx'
-export { HanzoAccessGate } from './HanzoAccessGate.tsx'
-export type { HanzoAccessGateProps } from './HanzoAccessGate.tsx'
-export { HanzoPlans } from './HanzoPlans.tsx'
-export type { HanzoPlansProps } from './HanzoPlans.tsx'
 
 // ── Reusable public/marketing + signed-in shell components ──
 export { HanzoHeader, resolveSurface } from './HanzoHeader.tsx'

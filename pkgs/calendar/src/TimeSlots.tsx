@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
-import { Button, ScrollView, SizableText, XStack, YStack } from '@hanzo/gui'
+import { ScrollView, SizableText, XStack, YStack } from '@hanzo/gui'
 import type { Slot } from './client.ts'
+import { Press, RING, useRoving } from './press.tsx'
 import { dateFromKey, formatDayLong, formatSlotTime } from './time.ts'
 
 export interface TimeSlotsProps {
@@ -15,7 +16,13 @@ export interface TimeSlotsProps {
   maxHeight?: number
 }
 
-/** Time-slot pills for the selected day, shown in the visitor's time zone. */
+/**
+ * Time-slot pills for the selected day, shown in the visitor's time zone.
+ *
+ * The times are one tab stop: Tab lands on the chosen time (or the first), the
+ * arrow keys step through them in order, Home and End go to the ends, and Enter
+ * or Space books.
+ */
 export function TimeSlots({
   dayKey,
   slots,
@@ -26,6 +33,14 @@ export function TimeSlots({
   compact,
   maxHeight = 360,
 }: TimeSlotsProps) {
+  const roving = useRoving(
+    slots.length,
+    Math.max(
+      slots.findIndex((s) => s.time === selectedIso),
+      0
+    )
+  )
+
   if (!dayKey) {
     return (
       <Column share={!compact}>
@@ -60,27 +75,45 @@ export function TimeSlots({
         </Centered>
       ) : (
         <ScrollView maxHeight={maxHeight} showsVerticalScrollIndicator={false}>
-          <XStack flexWrap="wrap" gap="$2" flexDirection={compact ? 'row' : 'column'}>
-            {slots.map((slot) => {
+          <XStack
+            flexWrap="wrap"
+            gap="$2"
+            flexDirection={compact ? 'row' : 'column'}
+            role="group"
+            aria-label={`Times on ${heading}`}
+          >
+            {slots.map((slot, i) => {
               const active = selectedIso === slot.time
+              const when = formatSlotTime(slot.time, timeZone)
               return (
-                <Button
+                <Press
                   key={slot.time}
-                  size="$3"
+                  {...roving.item(i)}
                   // Chosen is the theme's inverse, as the confirm control is;
                   // otherwise a tile on the same ground as the form's fields.
                   theme={active ? 'accent' : undefined}
+                  alignItems="center"
+                  justifyContent="center"
+                  paddingVertical="$2.5"
+                  paddingHorizontal="$4"
+                  borderRadius="$4"
                   borderWidth={1}
                   borderColor={active ? 'transparent' : '$borderColor'}
-                  backgroundColor={active ? undefined : '$color3'}
+                  backgroundColor={active ? '$background' : '$color3'}
                   hoverStyle={active ? undefined : { borderColor: '$color8' }}
                   pressStyle={active ? undefined : { borderColor: '$color8' }}
+                  // Inside the edge: the list scrolls, and a scroll container
+                  // clips a ring drawn outside its children.
+                  focusVisibleStyle={{ ...RING, outlineOffset: -1 }}
                   onPress={() => onPick(slot.time)}
-                  aria-label={`Book ${formatSlotTime(slot.time, timeZone)}`}
+                  aria-label={`Book ${when}`}
+                  aria-pressed={active}
                   {...(compact ? {} : { alignSelf: 'stretch' })}
                 >
-                  {formatSlotTime(slot.time, timeZone)}
-                </Button>
+                  <SizableText size="$3" color={active ? '$color' : '$color12'}>
+                    {when}
+                  </SizableText>
+                </Press>
               )
             })}
           </XStack>

@@ -7,11 +7,20 @@ export interface EventHeaderProps {
   host: string
   timeZone: string
   compact?: boolean
+  /** The host as people know them ("Hanzo AI"), over the public profile's name,
+   *  which is the booking handle when the backend stores no display name. */
+  hostName?: string
 }
 
 /** Event identity: host, title, duration, timezone, description. */
-export function EventHeader({ event, host, timeZone, compact }: EventHeaderProps) {
-  const name = event.profile?.name || host
+export function EventHeader({
+  event,
+  host,
+  timeZone,
+  compact,
+  hostName,
+}: EventHeaderProps) {
+  const name = hostName || event.profile?.name || host
   const initial = (name?.[0] || 'H').toUpperCase()
   return (
     <YStack gap="$2">

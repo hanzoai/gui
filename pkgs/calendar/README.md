@@ -56,6 +56,7 @@ That's the whole integration. `Booker` fetches the public event type, renders a 
 - `onBooked?(booking)` — called with the created booking.
 - `prefill?` — `{ name, email, notes }` the details step starts with (`Booker` only).
 - `bare?` — draw no card of its own, for a surface that already is one, such as a popup panel (`Booker` only).
+- `hostName?` — the host as people know them ("Hanzo AI"), over the public profile's name.
 
 `Confirmation`:
 

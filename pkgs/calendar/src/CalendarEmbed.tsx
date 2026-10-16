@@ -14,6 +14,8 @@ export interface CalendarEmbedProps {
   timeZone?: string
   weekStartsOn?: 0 | 1
   onBooked?: (booking: Booking) => void
+  /** The host as people know them ("Hanzo AI"), over the profile's name. */
+  hostName?: string
 }
 
 /**
@@ -76,6 +78,7 @@ export function CalendarEmbed(props: CalendarEmbedProps) {
           <EventHeader
             event={m.event.data}
             host={props.host}
+            hostName={props.hostName}
             timeZone={m.timeZone}
             compact
           />

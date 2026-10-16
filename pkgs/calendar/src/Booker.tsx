@@ -25,6 +25,8 @@ export interface BookerProps {
   /** Draw no card of its own, for a surface that already is one (an embed's
    *  popup panel), so the page shows one card rather than a card in a card. */
   bare?: boolean
+  /** The host as people know them ("Hanzo AI"), over the profile's name. */
+  hostName?: string
 }
 
 /** The Booker's own card: the ground under the theme's hairline. */
@@ -72,6 +74,7 @@ export function Booker(props: BookerProps) {
           <EventHeader
             event={m.event.data}
             host={props.host}
+            hostName={props.hostName}
             timeZone={m.timeZone}
             compact={m.phase === 'form'}
           />

@@ -1,6 +1,7 @@
-import { useId, useState, type ReactNode } from 'react'
-import { Button, Input, SizableText, TextArea, XStack, YStack } from '@hanzo/gui'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { Button, Input, Label, SizableText, TextArea, XStack, YStack } from '@hanzo/gui'
 import type { BookingResponses } from './client.ts'
+import { Press, RING } from './press.tsx'
 import { formatBookingWhen } from './time.ts'
 
 export interface BookingFormProps {
@@ -32,6 +33,9 @@ const FIELD = {
   borderColor: '$borderColor',
   color: '$color12',
   placeholderTextColor: '$placeholderColor',
+  // 16px, not the type ladder's 15: iOS Safari zooms the page into any field
+  // whose text is smaller than 16px, and does not zoom back out.
+  fontSize: 16,
 } as const
 
 /** Attendee details form for the chosen slot. */
@@ -49,6 +53,14 @@ export function BookingForm({
   const [email, setEmail] = useState(prefill?.email ?? '')
   const [notes, setNotes] = useState(prefill?.notes ?? '')
   const [touched, setTouched] = useState(false)
+
+  // The step moved: the time that was pressed is gone, so focus goes to this
+  // step's heading rather than to the top of the document. A keyboard user
+  // continues from here, and a screen reader announces the new step.
+  const heading = useRef<HTMLElement>(null)
+  useEffect(() => {
+    heading.current?.focus?.()
+  }, [])
 
   const nameValid = name.trim().length > 0
   const emailValid = EMAIL_RE.test(email.trim())
@@ -69,7 +81,16 @@ export function BookingForm({
       <YStack gap="$1">
         <XStack alignItems="center" gap="$2">
           <BackLink onPress={onBack} />
-          <SizableText size="$5" fontWeight="700" color="$color12">
+          <SizableText
+            ref={heading as never}
+            tabIndex={-1}
+            role="heading"
+            aria-level={2}
+            size="$5"
+            fontWeight="700"
+            color="$color12"
+            outlineStyle="none"
+          >
             Enter details
           </SizableText>
         </XStack>
@@ -81,13 +102,14 @@ export function BookingForm({
       <Field label="Name" invalid={touched && !nameValid} hint="Please enter your name">
         {(a11y) => (
           <Input
-            {...FIELD}
             {...a11y}
             value={name}
             onChangeText={setName}
             placeholder="Your name"
             autoComplete="name"
             size="$4"
+            // After `size`, whose variant writes a 15px font of its own.
+            {...FIELD}
           />
         )}
       </Field>
@@ -99,15 +121,18 @@ export function BookingForm({
       >
         {(a11y) => (
           <Input
-            {...FIELD}
             {...a11y}
             value={email}
             onChangeText={setEmail}
             placeholder="you@company.com"
+            type="email"
+            inputMode="email"
             keyboardType="email-address"
             autoCapitalize="none"
             autoComplete="email"
             size="$4"
+            // After `size`, whose variant writes a 15px font of its own.
+            {...FIELD}
           />
         )}
       </Field>
@@ -115,13 +140,17 @@ export function BookingForm({
       <Field label="Notes" optional>
         {(a11y) => (
           <TextArea
-            {...FIELD}
             {...a11y}
             value={notes}
             onChangeText={setNotes}
             placeholder="Anything that would help prepare?"
             numberOfLines={3}
             size="$4"
+            // After `size`, whose variant writes a 15px font of its own.
+            {...FIELD}
+            // TextArea re-applies its size variant's font over a prop, so the
+            // 16px floor rides the style, which nothing outranks.
+            style={{ fontSize: FIELD.fontSize }}
           />
         )}
       </Field>
@@ -148,6 +177,7 @@ export function BookingForm({
           color="$color11"
           hoverStyle={{ backgroundColor: '$color3' }}
           pressStyle={{ backgroundColor: '$color3' }}
+          focusVisibleStyle={RING}
           onPress={onBack}
           disabled={submitting}
         >
@@ -161,6 +191,7 @@ export function BookingForm({
           borderRadius={PILL}
           paddingHorizontal="$5"
           fontWeight="600"
+          focusVisibleStyle={RING}
           onPress={submit}
           disabled={blocked}
           opacity={blocked ? 0.5 : 1}
@@ -173,11 +204,10 @@ export function BookingForm({
   )
 }
 
-/** What a field's control carries so a screen reader hears what a sighted
- *  person sees: its label (not its placeholder) as its name, whether it is
- *  required, and the hint when it is invalid. */
+/** What a field's control carries: the id its <label> points at, whether it
+ *  is required, and the hint when it is invalid. */
 interface FieldA11y {
-  'aria-labelledby': string
+  id: string
   'aria-required': boolean
   'aria-invalid'?: boolean
   'aria-describedby'?: string
@@ -201,21 +231,29 @@ function Field({
   const id = useId()
   const shown = Boolean(invalid && hint)
   const a11y: FieldA11y = {
-    'aria-labelledby': `${id}-label`,
+    id: `${id}-field`,
     'aria-required': !optional,
     ...(invalid ? { 'aria-invalid': true } : null),
     ...(shown ? { 'aria-describedby': `${id}-hint` } : null),
   }
   return (
     <YStack gap="$1.5">
-      <SizableText id={`${id}-label`} size="$2" color="$color11" fontWeight="600">
+      {/* A real <label for>: it names the field, and a click on it focuses the field. */}
+      <Label
+        unstyled
+        htmlFor={`${id}-field`}
+        size="$2"
+        color="$color11"
+        fontWeight="600"
+        cursor="default"
+      >
         {label}
         {optional ? (
           <SizableText size="$2" color="$color10" fontWeight="400">
             {' · Optional'}
           </SizableText>
         ) : null}
-      </SizableText>
+      </Label>
       {children(a11y)}
       {shown ? (
         <SizableText id={`${id}-hint`} role="alert" size="$1" color="$red10">
@@ -228,22 +266,20 @@ function Field({
 
 function BackLink({ onPress }: { onPress: () => void }) {
   return (
-    <YStack
+    <Press
       width={30}
       height={30}
       alignItems="center"
       justifyContent="center"
       borderRadius="$4"
-      cursor="pointer"
       hoverStyle={{ backgroundColor: '$color4' }}
       pressStyle={{ backgroundColor: '$color6' }}
       onPress={onPress}
-      aria-label="Back"
-      role="button"
+      aria-label="Back to times"
     >
-      <SizableText size="$6" color="$color11">
+      <SizableText size="$6" color="$color11" aria-hidden>
         {'‹'}
       </SizableText>
-    </YStack>
+    </Press>
   )
 }

@@ -18,7 +18,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { usageOf, resetsAt } from './dist/esm/usage.js'
-import { held } from './dist/esm/usePlan.js'
+import { held, resolvePlan } from './dist/esm/usePlan.js'
 
 const W = (span, limit, used, extra = {}) => ({ span, limit, used, ...extra })
 
@@ -146,28 +146,117 @@ test('a bound is worth showing whether or not it was paid for', () => {
   assert.equal(u.remaining, 1)
 })
 
-test("the held plan is named in the catalog's words", () => {
-  // A subscription row carries its plan's own name. The menu says "Pro" because
-  // the catalog sold "Pro", whatever id the row is filed under.
-  const pro = held({
-    subscriptions: [{ status: 'active', plan: { id: '5WFw8Qvx4Sv', name: 'Pro' } }],
+// The catalog as GET /v1/billing/plans serves it, trimmed to what is read.
+const CATALOG = [
+  { slug: 'free', name: 'Free', price: 0 },
+  { slug: 'dev', name: 'Pro', price: 2000 },
+  { slug: 'max-5x', name: 'Max 5x', price: 10000 },
+  { slug: 'max-20x', name: 'Max 20x', price: 20000 },
+  { slug: 'team', name: 'Team', price: 2500 },
+  { slug: 'enterprise', name: 'Enterprise', price: 0, contactSales: true },
+  { slug: 'dns-free', name: 'DNS Free', price: 0 },
+  { slug: 'dns-pro', name: 'DNS Pro', price: 500 },
+]
+
+// One org's subscriptions, as the server lists them: every row the org holds —
+// another member's, DNS, a test bundle, a free one beside paid ones, one opened
+// under a retired name. The menu must never pick from it.
+const ROWS = {
+  subscriptions: [
+    { status: 'active', userId: 'acme/bob', plan: { id: 'sub_bob', name: 'Max 20x' } },
+    { status: 'active', plan: { id: 'sub_dns', name: 'DNS Pro' } },
+    { status: 'trialing', plan: { id: 'sub_test', name: 'Bundle (test)' } },
+    { status: 'active', plan: { id: 'sub_free', name: 'Free' } },
+    { status: 'active', plan: { id: 'sub_old', name: 'Dev' } },
+  ],
+}
+
+function server(routes) {
+  const asked = []
+  const fetchImpl = async (url, init) => {
+    asked.push({ url, headers: init?.headers ?? {} })
+    const body = routes[new URL(url, 'https://site.test').pathname]
+    if (body === undefined) return { ok: false, status: 404, json: async () => ({}) }
+    return { ok: true, status: 200, json: async () => body }
+  }
+  return { fetchImpl, asked }
+}
+
+test('the plan is the one billing serves the payer, named by the catalog', async () => {
+  const s = server({
+    '/v1/billing/tier': { plan: 'max-5x', tier: { displayName: 'Max' } },
+    '/v1/billing/plans': CATALOG,
+    '/v1/billing/subscriptions': ROWS,
   })
-  assert.deepEqual(pro, { tier: '5WFw8Qvx4Sv', name: 'Pro', found: true })
-
-  const max = held([{ status: 'trialing', plan: { slug: 'max-5x', name: 'Max 5x' } }])
-  assert.equal(max.name, 'Max 5x')
-  assert.equal(max.tier, 'max-5x')
-
-  // A row that names only an id still shows something true: the id.
-  assert.equal(held({ data: [{ status: 'active', planId: 'team' }] }).name, 'team')
+  const { held: h } = await resolvePlan(s.fetchImpl)
+  assert.deepEqual(h, { tier: 'max-5x', name: 'Max 5x', paid: true, found: true })
+  // Five org rows, another member's paid one first: none of them is read.
+  assert.ok(
+    s.asked.every((a) => !a.url.includes('/subscriptions')),
+    "the org-wide subscription list must not name the viewer's plan"
+  )
 })
 
-test('only a live row is held', () => {
-  // A canceled or past-due plan must never show as the one the viewer has.
-  const gone = held({
-    subscriptions: [{ status: 'canceled', plan: { id: 'x', name: 'Max 20x' } }],
+test('tier is the catalog slug, never a row id', () => {
+  const h = held({ plan: 'dev', subscription: 'QrSJ2E1VKc8' }, CATALOG)
+  assert.equal(h.tier, 'dev')
+})
+
+test('a retired name is shown as the catalog names the rung now', () => {
+  // Billing maps the retired slug; the catalog row for it says "Pro". A stale
+  // display name on the tier class does not win over the catalog.
+  assert.equal(held({ plan: 'dev', tier: { displayName: 'Dev' } }, CATALOG).name, 'Pro')
+})
+
+test("paid is the catalog's answer: a price, or a contract", () => {
+  assert.equal(held({ plan: 'free' }, CATALOG).paid, false)
+  assert.equal(held({ plan: 'dns-free' }, CATALOG).paid, false)
+  assert.equal(held({ plan: 'max-20x' }, CATALOG).paid, true)
+  // Contact-sales stores price 0 and is not free.
+  assert.equal(held({ plan: 'enterprise' }, CATALOG).paid, true)
+  // Without the catalog, nothing is claimed paid.
+  assert.equal(held({ plan: 'max-20x' }, null).paid, false)
+})
+
+test('free is free even when the org also holds paid rows', async () => {
+  const s = server({
+    '/v1/billing/tier': { plan: 'free' },
+    '/v1/billing/plans': CATALOG,
+    '/v1/billing/subscriptions': ROWS,
   })
-  assert.deepEqual(gone, { tier: 'free', name: 'Free', found: false })
-  assert.equal(held(null).found, false)
-  assert.equal(held({ subscriptions: [{ status: 'active', plan: {} }] }).found, false)
+  const { held: h } = await resolvePlan(s.fetchImpl)
+  assert.deepEqual(h, { tier: 'free', name: 'Free', paid: false, found: true })
+})
+
+test('a slug the catalog does not list is named, never called Free', () => {
+  const pod = held({ plan: 'pod', tier: { displayName: 'Embedded Pod' } }, CATALOG)
+  assert.equal(pod.name, 'Embedded Pod')
+  assert.equal(held({ plan: 'pod' }, []).name, 'pod')
+})
+
+test('an unread or empty tier names nothing', async () => {
+  assert.equal(held(null, CATALOG).found, false)
+  assert.equal(held({ plan: '' }, CATALOG).found, false)
+  const s = server({ '/v1/billing/plans': CATALOG, '/v1/billing/subscriptions': ROWS })
+  const r = await resolvePlan(s.fetchImpl)
+  assert.equal(
+    r.held.found,
+    false,
+    'a refused tier must not fall through to a subscription row'
+  )
+  assert.equal(r.rollup, null)
+})
+
+test('a host on another origin reads the billing origin as its org', async () => {
+  const s = server({ '/v1/billing/tier': { plan: 'team' }, '/v1/billing/plans': CATALOG })
+  const { held: h } = await resolvePlan(s.fetchImpl, 'https://api.hanzo.ai/', {
+    'X-Org-Id': 'acme',
+  })
+  assert.equal(h.name, 'Team')
+  assert.deepEqual(s.asked.map((a) => a.url).sort(), [
+    'https://api.hanzo.ai/v1/billing/plans',
+    'https://api.hanzo.ai/v1/billing/tier',
+    'https://api.hanzo.ai/v1/billing/usage/rollup',
+  ])
+  for (const a of s.asked) assert.equal(a.headers['X-Org-Id'], 'acme')
 })

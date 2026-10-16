@@ -6,11 +6,13 @@
  * The question a subscriber asks after paying is "did that work", so the account
  * menu answers it: the plan's name, and how much of its period is used.
  *
- * Two reads, each in its lane:
- *   - GET /v1/billing/subscriptions names the plan. Only an ACTIVE or TRIALING
- *     row counts — a canceled or past-due one never shows as held. The row
- *     carries the plan's own name, as the catalog sold it ("Pro", "Max 5x"), so
- *     the menu says what the viewer bought in the catalog's words.
+ * Three reads, each in its lane:
+ *   - GET /v1/billing/tier names the plan the PAYER is served as (`plan`, a
+ *     catalog slug, "" with none). Billing resolves it for the org the request
+ *     acts for and maps retired slugs to the rung that replaced them, so this
+ *     never picks a row of its own.
+ *   - GET /v1/billing/plans is the catalog: the slug's display name ("Max 5x")
+ *     and whether the rung is paid (a price, or contact-sales).
  *   - GET /v1/billing/usage/rollup answers how much of it is consumed.
  *
  * USAGE IS ABSENT WHEN IT CANNOT BE MEASURED, never zero. A plan with nothing
@@ -26,11 +28,8 @@
  * the customer buys. Putting the plan's backing on screen in the same unit is
  * how one page comes to show two different things under one word.
  */
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { usageOf, type PlanUsage, type Rollup } from './usage.ts'
-
-/** The plan a viewer holds when no subscription names one. */
-const FREE = 'free'
 
 /** Honest resolution state — never guesses a plan. */
 export type PlanState = 'loading' | 'none' | 'plan'
@@ -38,68 +37,80 @@ export type PlanState = 'loading' | 'none' | 'plan'
 export type { PlanUsage, Rollup } from './usage.ts'
 
 export interface Plan {
-  /** The held plan's id, as the subscription row names it; `free` when none is held. */
+  /** The catalog slug the payer is served as ("max-5x"); `free` when none is held. */
   tier: string
-  /** The held plan's name, as the catalog sold it ("Pro"); `Free` when none is held. */
+  /** The catalog's name for it ("Max 5x"); `Free` when none is held. */
   name: string
   /** Honest resolution state. */
   state: PlanState
   /** Convenience: `state === 'loading'`. */
   loading: boolean
-  /** Whether this is a paid rung — free and an unresolved viewer are not. */
+  /** The catalog prices the rung, or sells it by contract. Free and an unresolved viewer are not paid. */
   paid: boolean
   /** Consumption, when it is genuinely measurable. Absent otherwise. */
   usage?: PlanUsage
-  /** Re-run both reads. */
+  /** Re-run the reads. */
   refresh: () => void
 }
 
 export interface UsePlanOptions {
-  /** Where the held subscriptions are read. Same-origin `/v1` by default. */
-  endpoint?: string
-  /** Where the consumption read lives. Same-origin `/v1` by default. */
-  usageEndpoint?: string
-  /** Extra request headers (e.g. an `Authorization` bearer when not cookie-based). */
+  /**
+   * Origin the `/v1/billing/*` reads go to. Empty (the default) reads the page's
+   * own origin; a host on another origin passes `https://api.hanzo.ai`.
+   */
+  base?: string
+  /**
+   * Request headers — an `Authorization` bearer when the session is not a
+   * cookie, and `X-Org-Id` for the org the viewer has switched to. A change
+   * re-reads.
+   */
   headers?: Record<string, string>
   /** Inject a `fetch` (tests / non-DOM runtimes). Defaults to `window.fetch`. */
   fetchImpl?: typeof fetch
-  /** Gate both reads. When `false` (or SSR) nothing is fetched. Defaults to `true`. */
+  /** Gate every read. When `false` (or SSR) nothing is fetched. Defaults to `true`. */
   enabled?: boolean
 }
 
-/** What a subscriptions payload says the viewer holds. */
-interface Held {
+/** GET /v1/billing/tier, as far as it is read here. */
+export interface TierBody {
+  plan?: string
+  tier?: { displayName?: string }
+}
+
+/** One GET /v1/billing/plans row, as far as it is read here. */
+export interface CatalogPlan {
+  slug: string
+  name?: string
+  price?: number
+  contactSales?: boolean
+}
+
+/** What the viewer holds, named. */
+export interface Held {
   tier: string
   name: string
+  paid: boolean
   found: boolean
 }
 
-const NONE: Held = { tier: FREE, name: 'Free', found: false }
+const NONE: Held = { tier: 'free', name: 'Free', paid: false, found: false }
 
-/** The active or trialing row of a subscriptions payload, read for its plan. */
-export function held(payload: unknown): Held {
-  const rows: unknown = Array.isArray(payload)
-    ? payload
-    : ((payload as { data?: unknown; subscriptions?: unknown } | null)?.data ??
-      (payload as { subscriptions?: unknown } | null)?.subscriptions ??
-      [])
-  if (!Array.isArray(rows)) return NONE
-  const active = rows.find((s) => {
-    const st = (s as { status?: string } | null)?.status
-    return st === 'active' || st === 'trialing'
-  }) as { plan?: unknown; planId?: unknown } | undefined
-  if (!active) return NONE
-  const plan = active.plan
-  const p = (typeof plan === 'object' && plan ? plan : {}) as {
-    slug?: unknown
-    id?: unknown
-    name?: unknown
-  }
-  const text = (v: unknown) => (typeof v === 'string' && v.trim() ? v.trim() : '')
-  const tier = text(plan) || text(p.slug) || text(p.id) || text(active.planId)
-  const name = text(p.name) || tier
-  if (!name) return NONE
-  return { tier: tier || name, name, found: true }
+const text = (v: unknown) => (typeof v === 'string' ? v.trim() : '')
+
+/**
+ * The plan GET /v1/billing/tier serves, named by the catalog. A slug the catalog
+ * does not list keeps the tier's own display name, and then its slug; it is never
+ * shown as Free, because the viewer is served as something.
+ */
+export function held(tier: unknown, plans: unknown): Held {
+  const body = (tier && typeof tier === 'object' ? tier : {}) as TierBody
+  const slug = text(body.plan)
+  if (!slug) return NONE
+  const rows = Array.isArray(plans) ? (plans as CatalogPlan[]) : []
+  const row = rows.find((p) => p && text(p.slug) === slug)
+  const name = text(row?.name) || text(body.tier?.displayName) || slug
+  const paid = !!row && ((row.price ?? 0) > 0 || row.contactSales === true)
+  return { tier: slug, name, paid, found: true }
 }
 
 /** GET a JSON body; a refusal throws. */
@@ -117,84 +128,85 @@ async function read(
   return r.json()
 }
 
+/** A read that cannot be made answers null. */
+const quiet = (p: Promise<unknown>) => p.catch(() => null)
+
+/**
+ * The three reads, made once. The tier read decides WHICH plan; the catalog only
+ * names it. An unreadable tier names nothing: the viewer is shown as holding no
+ * plan, never one they may not have. An unreadable rollup is null, which keeps
+ * `usage` absent rather than reading nothing.
+ */
+export async function resolvePlan(
+  doFetch: typeof fetch,
+  base = '',
+  headers?: Record<string, string>
+): Promise<{ held: Held; rollup: Rollup | null }> {
+  const root = base.replace(/\/+$/, '')
+  const [tier, plans, rollup] = await Promise.all([
+    quiet(read(doFetch, `${root}/v1/billing/tier`, headers)),
+    quiet(read(doFetch, `${root}/v1/billing/plans`, headers)),
+    quiet(read(doFetch, `${root}/v1/billing/usage/rollup`, headers)),
+  ])
+  return { held: held(tier, plans), rollup: rollup as Rollup | null }
+}
+
 export function usePlan(options: UsePlanOptions = {}): Plan {
-  const {
-    endpoint = '/v1/billing/subscriptions',
-    usageEndpoint = '/v1/billing/usage/rollup',
-    headers,
-    fetchImpl,
-    enabled = true,
-  } = options
+  const { base = '', headers, fetchImpl, enabled = true } = options
 
   const [plan, setPlan] = useState<Held>(NONE)
-  const [state, setState] = useState<'loading' | 'none' | 'tier'>(
-    enabled ? 'loading' : 'none'
-  )
   const [rollup, setRollup] = useState<Rollup | null>(null)
+  const [loading, setLoading] = useState(enabled)
   const [nonce, setNonce] = useState(0)
 
   const refresh = useCallback(() => setNonce((n) => n + 1), [])
 
+  // The latest headers and fetch, read when the reading effect runs (this one is
+  // declared first, so it runs first). A host that writes either inline hands
+  // over a new object every render; keyed on identity, the reading effect would
+  // re-read on every render it caused. Headers re-read when their VALUE changes.
+  const latest = useRef({ headers, fetchImpl })
+  useEffect(() => {
+    latest.current = { headers, fetchImpl }
+  })
   const headerKey = headers ? JSON.stringify(headers) : ''
 
   useEffect(() => {
     if (!enabled || typeof window === 'undefined') {
       setPlan(NONE)
-      setState('none')
       setRollup(null)
+      setLoading(false)
       return
     }
     let cancelled = false
-    const doFetch = fetchImpl ?? window.fetch.bind(window)
-    setState('loading')
-    read(doFetch, endpoint, headers)
-      .then((body) => {
-        if (cancelled) return
-        const h = held(body)
-        setPlan(h)
-        setState(h.found ? 'tier' : 'none')
-      })
-      .catch(() => {
-        // Unreadable names no plan: the viewer is shown as holding none, never
-        // as holding one they might not have paid for.
-        if (cancelled) return
-        setPlan(NONE)
-        setState('none')
-      })
-    read(doFetch, usageEndpoint, headers)
-      .then((body) => {
-        if (!cancelled) setRollup(body as Rollup)
-      })
-      .catch(() => {
-        // Unreadable is not empty. Leaving it null keeps `usage` absent, which
-        // renders as no meter rather than as a meter reading nothing.
-        if (!cancelled) setRollup(null)
-      })
+    const { headers: h, fetchImpl: f } = latest.current
+    setLoading(true)
+    resolvePlan(f ?? window.fetch.bind(window), base, h).then((r) => {
+      if (cancelled) return
+      setPlan(r.held)
+      setRollup(r.rollup)
+      setLoading(false)
+    })
     return () => {
       cancelled = true
     }
-    // headerKey stands in for `headers`; the rest are stable props.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endpoint, usageEndpoint, fetchImpl, enabled, nonce, headerKey])
+  }, [base, enabled, nonce, headerKey])
 
   return useMemo(() => {
     const usage = usageOf(rollup)
-    const loading = state === 'loading'
     return {
       tier: plan.tier,
       name: plan.name,
-      // A viewer with no subscription still HOLDS a plan — the free one — and it
-      // is bounded like every other. Reading 'no subscription' as 'nothing to
-      // show' hid the daily limit from exactly the people who reach it, and
-      // they met it as a refusal with no warning. So a measurable reading is
-      // itself a plan: if the ledger answered with a bound, there is something
-      // true to say.
-      state: loading ? 'loading' : state === 'tier' || usage ? 'plan' : 'none',
+      // A viewer with no plan named still HOLDS one — the free one — and it is
+      // bounded like every other. Reading 'no plan' as 'nothing to show' hid the
+      // daily limit from exactly the people who reach it, and they met it as a
+      // refusal with no warning. So a measurable reading is itself a plan: if
+      // the ledger answered with a bound, there is something true to say.
+      state: loading ? 'loading' : plan.found || usage ? 'plan' : 'none',
       loading,
-      paid:
-        state === 'tier' && ![plan.tier, plan.name].some((v) => v.toLowerCase() === FREE),
+      paid: !loading && plan.paid,
       usage,
       refresh,
     }
-  }, [plan, state, rollup, refresh])
+  }, [plan, rollup, loading, refresh])
 }

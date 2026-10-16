@@ -13,7 +13,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { basename, join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), 'src')
@@ -135,31 +135,55 @@ test('the retired signed-in bars stay retired', () => {
   }
 })
 
-test('the shell keeps no plan list of its own', () => {
-  const all = surface.flatMap((c) => c.specifiers)
-  // The shell carried a static plan ladder that the catalog had outgrown: it
-  // sold rungs nobody sells and named Pro "Dev". Plans are the catalog's
-  // (GET /v1/billing/plans), and the account menu names the held plan by the
-  // subscription row's own words. Nothing here restates them.
-  for (const name of [
-    'HANZO_PLANS',
-    'HANZO_PLAN_TIERS',
-    'APP_ENTITLEMENTS',
-    'getPlanTier',
-    'useEntitlement',
-    'HanzoPlans',
-    'HanzoAccessGate',
-  ]) {
-    assert.ok(!all.includes(name), `${name} is exported again`)
+// Every name the static plan ladder exported. Plans are the catalog's
+// (GET /v1/billing/plans) and the held one is billing's (GET /v1/billing/tier).
+const LADDER = [
+  'HANZO_PLANS',
+  'HANZO_PLAN_TIERS',
+  'DEFAULT_PLAN_TIER',
+  'UNLIMITED',
+  'getPlanTier',
+  'APP_ENTITLEMENTS',
+  'HanzoPlanKind',
+  'HanzoPlanTier',
+  'HanzoPlanLimits',
+  'HanzoPlanTierDef',
+  'entitlementFor',
+  'isEntitled',
+  'requiredTier',
+  'rankOf',
+  'normalizeTier',
+  'useEntitlement',
+  'FREE_TIER',
+  'Entitlement',
+  'EntitlementState',
+  'UseEntitlementOptions',
+  'HanzoAccessGate',
+  'HanzoAccessGateProps',
+  'HanzoPlans',
+  'HanzoPlansProps',
+]
+
+test('the shell keeps no plan list of its own', async () => {
+  assert.equal(LADDER.length, 24)
+  const barrelNames = surface.flatMap((c) => c.specifiers)
+  const registryNames = exported(join(SRC, 'hanzo-registry.ts'))
+  // The built entries too: `.` and `./registry` are what a consumer imports.
+  const built = [
+    ...Object.keys(await import('./dist/esm/index.js')),
+    ...Object.keys(await import('./dist/esm/hanzo-registry.js')),
+  ]
+  for (const name of LADDER) {
+    assert.ok(!barrelNames.includes(name), `${name} is exported from the barrel again`)
+    assert.ok(!registryNames.has(name), `${name} is exported from ./registry again`)
+    assert.ok(!built.includes(name), `${name} is in the built output again`)
   }
-  for (const file of [
-    'HanzoPlans',
-    'HanzoAccessGate',
-    'entitlements',
-    'useEntitlement',
-  ]) {
-    assert.equal(resolve(file), null, `${file} is back on disk`)
-  }
+  const gone =
+    /^(HanzoPlans|HanzoAccessGate|StudioAccessGate|entitlements|useEntitlement)\.[cm]?[jt]sx?$/
+  const back = readdirSync(SRC, { recursive: true }).filter((f) =>
+    gone.test(basename(String(f)))
+  )
+  assert.deepEqual(back, [], 'a deleted plan module is back under src/')
 })
 
 test('the one signed-in bar carries the folded-in props', () => {

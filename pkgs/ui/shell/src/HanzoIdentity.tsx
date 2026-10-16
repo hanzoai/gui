@@ -38,7 +38,7 @@ import type { HanzoUser } from './types.ts'
 import { UserAvatar } from './UserAvatar.tsx'
 import { useRove } from './rove.ts'
 import { Meter } from './meter.tsx'
-import { usePlan } from './usePlan.ts'
+import { usePlan, type Plan, type UsePlanOptions } from './usePlan.ts'
 
 /**
  * What the header needs to show who you are — and nothing else. No token, no
@@ -71,6 +71,17 @@ export interface HanzoAuth {
   items?: HanzoLink[]
   /** Label for the signed-out action. */
   label?: string
+  /**
+   * The viewer's plan, already resolved by the host (`usePlan()` higher in the
+   * tree). Given, the menu shows it and reads nothing itself.
+   */
+  plan?: Plan
+  /**
+   * Where the menu reads the plan when `plan` is not given: the billing origin
+   * and the headers (bearer, `X-Org-Id` of the switched-to org). Omitted, it
+   * reads the page's own origin.
+   */
+  billing?: Omit<UsePlanOptions, 'enabled'>
 }
 
 export interface HanzoIdentityProps {
@@ -86,6 +97,8 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
     accountHref = U.account,
     items,
     label = 'Sign in',
+    plan,
+    billing,
   } = auth
 
   if (!user) {
@@ -116,6 +129,8 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
       user={user}
       items={items ?? defaultItems(accountHref)}
       onSignOut={onSignOut}
+      plan={plan}
+      billing={billing}
     />
   )
 }
@@ -126,10 +141,14 @@ function AccountMenu({
   user,
   items,
   onSignOut,
+  plan: given,
+  billing,
 }: {
   user: HanzoUser
   items: HanzoLink[]
   onSignOut?: () => void
+  plan?: Plan
+  billing?: Omit<UsePlanOptions, 'enabled'>
 }) {
   const [open, setOpen] = useState(false)
   const boxRef = useRef<HTMLDivElement>(null)
@@ -137,10 +156,12 @@ function AccountMenu({
   const rove = useRove(open, close, true)
   const name = user.name || user.email || 'Account'
 
-  // Read only while the menu is open. Nobody needs their plan resolved on every
-  // page load of every property, and two billing reads per visit is what the
-  // header would otherwise cost every surface that mounts it.
-  const plan = usePlan({ enabled: open })
+  // Read only while the menu is open, and not at all when the host resolved the
+  // plan. Nobody needs it resolved on every page load of every property, and
+  // three billing reads per visit is what the header would otherwise cost every
+  // surface that mounts it.
+  const read = usePlan({ ...billing, enabled: open && !given })
+  const plan = given ?? read
 
   // A menu anchored to a control closes when the pointer goes elsewhere. Esc is
   // handled by the roving focus the panel already carries.

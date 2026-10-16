@@ -184,7 +184,7 @@ function server(routes) {
 
 test('the plan is the one billing serves the payer, named by the catalog', async () => {
   const s = server({
-    '/v1/billing/tier': { plan: 'max-5x', tier: { displayName: 'Max' } },
+    '/v1/billing/tier': { plan: 'max-5x', tier: { displayName: 'Pro' } },
     '/v1/billing/plans': CATALOG,
     '/v1/billing/subscriptions': ROWS,
   })
@@ -203,9 +203,12 @@ test('tier is the catalog slug, never a row id', () => {
 })
 
 test('a retired name is shown as the catalog names the rung now', () => {
-  // Billing maps the retired slug; the catalog row for it says "Pro". A stale
-  // display name on the tier class does not win over the catalog.
-  assert.equal(held({ plan: 'dev', tier: { displayName: 'Dev' } }, CATALOG).name, 'Pro')
+  // Billing maps the retired slug; the catalog row for it says "Pro". The tier
+  // CLASS beside it ("Starter" here) does not win over the catalog.
+  assert.equal(
+    held({ plan: 'dev', tier: { displayName: 'Starter' } }, CATALOG).name,
+    'Pro'
+  )
 })
 
 test("paid is the catalog's answer: a price, or a contract", () => {
@@ -228,10 +231,13 @@ test('free is free even when the org also holds paid rows', async () => {
   assert.deepEqual(h, { tier: 'free', name: 'Free', paid: false, found: true })
 })
 
-test('a slug the catalog does not list is named, never called Free', () => {
-  const pod = held({ plan: 'pod', tier: { displayName: 'Embedded Pod' } }, CATALOG)
-  assert.equal(pod.name, 'Embedded Pod')
-  assert.equal(held({ plan: 'pod' }, []).name, 'pod')
+test('a slug the catalog does not list is shown as the slug, never as its class', () => {
+  // The tier's displayName names a CLASS: a Max 20x holder is served in class
+  // "Pro". With max-20x missing from the catalog, "Pro" would be a false name.
+  const max = held({ plan: 'max-20x', tier: { displayName: 'Pro' } }, [])
+  assert.deepEqual(max, { tier: 'max-20x', name: 'max-20x', paid: false, found: true })
+  const pod = held({ plan: 'pod', tier: { displayName: 'Enterprise' } }, CATALOG)
+  assert.equal(pod.name, 'pod')
 })
 
 test('an unread or empty tier names nothing', async () => {

@@ -74,7 +74,6 @@ export interface UsePlanOptions {
 /** GET /v1/billing/tier, as far as it is read here. */
 export interface TierBody {
   plan?: string
-  tier?: { displayName?: string }
 }
 
 /** One GET /v1/billing/plans row, as far as it is read here. */
@@ -99,8 +98,8 @@ const text = (v: unknown) => (typeof v === 'string' ? v.trim() : '')
 
 /**
  * The plan GET /v1/billing/tier serves, named by the catalog. A slug the catalog
- * does not list keeps the tier's own display name, and then its slug; it is never
- * shown as Free, because the viewer is served as something.
+ * does not list is shown as the slug. The tier's `displayName` names its CLASS
+ * ("Pro" for every Max rung), so it never names the plan.
  */
 export function held(tier: unknown, plans: unknown): Held {
   const body = (tier && typeof tier === 'object' ? tier : {}) as TierBody
@@ -108,7 +107,7 @@ export function held(tier: unknown, plans: unknown): Held {
   if (!slug) return NONE
   const rows = Array.isArray(plans) ? (plans as CatalogPlan[]) : []
   const row = rows.find((p) => p && text(p.slug) === slug)
-  const name = text(row?.name) || text(body.tier?.displayName) || slug
+  const name = text(row?.name) || slug
   const paid = !!row && ((row.price ?? 0) > 0 || row.contactSales === true)
   return { tier: slug, name, paid, found: true }
 }

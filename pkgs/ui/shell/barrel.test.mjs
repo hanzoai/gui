@@ -173,7 +173,27 @@ test('the shell keeps no plan list of its own', async () => {
     ...Object.keys(await import('./dist/esm/index.js')),
     ...Object.keys(await import('./dist/esm/hanzo-registry.js')),
   ]
+  // The emitted declarations carry the type-only names the runtime keys cannot,
+  // under either side of an `as`.
+  const declared = new Set()
+  for (const file of ['index.d.ts', 'hanzo-registry.d.ts']) {
+    const dts = readFileSync(join(SRC, '..', 'types', file), 'utf8')
+    for (const [, names] of dts.matchAll(/export\s+(?:type\s+)?\{([^}]*)\}/g)) {
+      for (const n of names.split(/[\s,]+/))
+        if (n && n !== 'as' && n !== 'type') declared.add(n)
+    }
+    for (const [, n] of dts.matchAll(
+      /export\s+(?:declare\s+)?(?:const|let|function|class|type|interface|enum)\s+([A-Za-z_$][\w$]*)/g
+    )) {
+      declared.add(n)
+    }
+  }
+  assert.ok(
+    declared.has('OrgCommandItem') && declared.has('HanzoLink'),
+    'the declarations were not read'
+  )
   for (const name of LADDER) {
+    assert.ok(!declared.has(name), `${name} is in the emitted declarations again`)
     assert.ok(!barrelNames.includes(name), `${name} is exported from the barrel again`)
     assert.ok(!registryNames.has(name), `${name} is exported from ./registry again`)
     assert.ok(!built.includes(name), `${name} is in the built output again`)

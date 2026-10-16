@@ -35,6 +35,7 @@ export function Booker(props: BookerProps) {
       borderWidth={1}
       borderRadius="$6"
       padding="$4"
+      $sm={{ padding: '$6' }}
       gap="$4"
       width="100%"
       maxWidth={860}
@@ -89,8 +90,8 @@ export function Booker(props: BookerProps) {
               <XStack
                 gap="$5"
                 flexDirection="column"
-                $sm={{ flexDirection: 'row' }}
-                alignItems="flex-start"
+                alignItems="stretch"
+                $sm={{ flexDirection: 'row', alignItems: 'flex-start' }}
               >
                 <MonthCalendar
                   viewDate={m.viewDate}

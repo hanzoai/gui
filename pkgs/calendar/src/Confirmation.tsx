@@ -79,11 +79,13 @@ export function Confirmation({
         width={52}
         height={52}
         borderRadius={9999}
-        backgroundColor="$green4"
+        backgroundColor="$color3"
+        borderWidth={1}
+        borderColor="$borderColor"
         alignItems="center"
         justifyContent="center"
       >
-        <SizableText size="$8" color="$green11">
+        <SizableText size="$8" color="$color12">
           {'✓'}
         </SizableText>
       </YStack>
@@ -112,7 +114,15 @@ export function Confirmation({
       </Paragraph>
 
       {onDone ? (
-        <Button size="$3" chromeless onPress={onDone} marginTop="$1">
+        <Button
+          size="$3"
+          chromeless
+          borderRadius={9999}
+          color="$color11"
+          hoverStyle={{ backgroundColor: '$color3' }}
+          onPress={onDone}
+          marginTop="$1"
+        >
           Book another time
         </Button>
       ) : null}

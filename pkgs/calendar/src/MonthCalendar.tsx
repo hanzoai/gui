@@ -37,7 +37,10 @@ export function MonthCalendar({
   const labels = weekdayLabels(weekStartsOn)
 
   return (
-    <YStack gap="$2" flex={1} minWidth={260}>
+    // Grows into a row beside the times, at its content height in a column.
+    // `flex={1}` is `flex: 1 1 0%` under a config whose styleCompat is "web",
+    // and a zero basis in an auto-height column collapses the grid to nothing.
+    <YStack gap="$2" flexGrow={1} minWidth={260} $sm={{ flexBasis: 0 }}>
       <XStack alignItems="center" justifyContent="space-between" paddingVertical="$1">
         <NavArrow label="Previous month" disabled={atFirstMonth} onPress={onPrev}>
           {'‹'}
@@ -107,6 +110,9 @@ function DayCell({
 
   return (
     <YStack
+      // The availability dot is placed against the cell; a config whose
+      // default position is static would place it against the page.
+      position="relative"
       flexBasis={0}
       flexGrow={1}
       aspectRatio={1}
@@ -114,12 +120,12 @@ function DayCell({
       justifyContent="center"
       borderRadius="$4"
       borderWidth={1}
-      borderColor={selected ? '$color12' : selectable ? '$color5' : 'transparent'}
-      backgroundColor={selected ? '$color12' : selectable ? '$color2' : 'transparent'}
+      borderColor={selected ? '$color12' : selectable ? '$borderColor' : 'transparent'}
+      backgroundColor={selected ? '$color12' : selectable ? '$color3' : 'transparent'}
       opacity={cell.inMonth ? 1 : 0}
       cursor={selectable ? 'pointer' : 'default'}
-      hoverStyle={selectable && !selected ? { backgroundColor: '$color4' } : undefined}
-      pressStyle={selectable ? { backgroundColor: '$color6' } : undefined}
+      hoverStyle={selectable && !selected ? { borderColor: '$color8' } : undefined}
+      pressStyle={selectable && !selected ? { borderColor: '$color8' } : undefined}
       onPress={selectable ? () => onSelectDay(cell.key) : undefined}
       aria-label={selectable ? `Select ${cell.key}` : undefined}
       role={selectable ? 'button' : undefined}

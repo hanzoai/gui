@@ -17,6 +17,23 @@ export interface BookingFormProps {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+/** A capsule, whatever the control's height. */
+const PILL = 9999
+
+/**
+ * A field: a raised tile under the theme's hairline, the value in the full ink
+ * and the placeholder in the theme's placeholder colour. Named, because gui's
+ * Input sub-theme draws its value a rung below the ink and a field that names
+ * no placeholder colour paints the hint in the value's colour — a sample
+ * placeholder then reads as something typed.
+ */
+const FIELD = {
+  backgroundColor: '$color3',
+  borderColor: '$borderColor',
+  color: '$color12',
+  placeholderTextColor: '$placeholderColor',
+} as const
+
 /** Attendee details form for the chosen slot. */
 export function BookingForm({
   slotIso,
@@ -44,7 +61,7 @@ export function BookingForm({
   }
 
   return (
-    <YStack gap="$3" flex={1} minWidth={240}>
+    <YStack gap="$3" flexGrow={1} minWidth={240}>
       <YStack gap="$1">
         <XStack alignItems="center" gap="$2">
           <BackLink onPress={onBack} />
@@ -57,16 +74,12 @@ export function BookingForm({
         </SizableText>
       </YStack>
 
-      <Field
-        label="Name"
-        required
-        invalid={touched && !nameValid}
-        hint="Please enter your name"
-      >
+      <Field label="Name" invalid={touched && !nameValid} hint="Please enter your name">
         <Input
+          {...FIELD}
           value={name}
           onChangeText={setName}
-          placeholder="Ada Lovelace"
+          placeholder="Your name"
           autoComplete="name"
           size="$4"
         />
@@ -74,14 +87,14 @@ export function BookingForm({
 
       <Field
         label="Email"
-        required
         invalid={touched && !emailValid}
         hint="Please enter a valid email"
       >
         <Input
+          {...FIELD}
           value={email}
           onChangeText={setEmail}
-          placeholder="ada@example.com"
+          placeholder="you@company.com"
           keyboardType="email-address"
           autoCapitalize="none"
           autoComplete="email"
@@ -89,8 +102,9 @@ export function BookingForm({
         />
       </Field>
 
-      <Field label="Notes" hint="Optional">
+      <Field label="Notes" optional>
         <TextArea
+          {...FIELD}
           value={notes}
           onChangeText={setNotes}
           placeholder="Anything that would help prepare?"
@@ -113,13 +127,27 @@ export function BookingForm({
         </YStack>
       ) : null}
 
-      <XStack gap="$2" justifyContent="flex-end" marginTop="$1">
-        <Button size="$4" chromeless onPress={onBack} disabled={submitting}>
-          Back
-        </Button>
+      <XStack gap="$2" justifyContent="flex-end" alignItems="center" marginTop="$1">
         <Button
           size="$4"
-          theme="blue"
+          chromeless
+          borderRadius={PILL}
+          color="$color11"
+          hoverStyle={{ backgroundColor: '$color3' }}
+          pressStyle={{ backgroundColor: '$color3' }}
+          onPress={onBack}
+          disabled={submitting}
+        >
+          Back
+        </Button>
+        {/* The one loud control: the theme's inverse, a white pill on the dark
+            ground and a black one on the light. */}
+        <Button
+          size="$4"
+          theme="accent"
+          borderRadius={PILL}
+          paddingHorizontal="$5"
+          fontWeight="600"
           onPress={submit}
           disabled={submitting || (touched && !valid)}
           opacity={submitting ? 0.7 : 1}
@@ -131,15 +159,17 @@ export function BookingForm({
   )
 }
 
+/** A labelled field. Fields are required unless marked optional, so the one
+ *  optional field says so and the required ones carry no mark. */
 function Field({
   label,
-  required,
+  optional,
   invalid,
   hint,
   children,
 }: {
   label: string
-  required?: boolean
+  optional?: boolean
   invalid?: boolean
   hint?: string
   children: ReactNode
@@ -148,7 +178,11 @@ function Field({
     <YStack gap="$1.5">
       <SizableText size="$2" color="$color11" fontWeight="600">
         {label}
-        {required ? <SizableText color="$red10"> *</SizableText> : null}
+        {optional ? (
+          <SizableText size="$2" color="$color10" fontWeight="400">
+            {' · Optional'}
+          </SizableText>
+        ) : null}
       </SizableText>
       {children}
       {invalid && hint ? (

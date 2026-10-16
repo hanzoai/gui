@@ -28,18 +28,20 @@ export function TimeSlots({
 }: TimeSlotsProps) {
   if (!dayKey) {
     return (
-      <Centered>
-        <SizableText size="$3" color="$color10" textAlign="center">
-          Select a day to see available times.
-        </SizableText>
-      </Centered>
+      <Column>
+        <Centered>
+          <SizableText size="$3" color="$color10" textAlign="center">
+            Select a day to see available times.
+          </SizableText>
+        </Centered>
+      </Column>
     )
   }
 
   const heading = formatDayLong(dateFromKey(dayKey))
 
   return (
-    <YStack gap="$2" flex={1} minWidth={200}>
+    <Column>
       <SizableText size="$4" fontWeight="600" color="$color12">
         {heading}
       </SizableText>
@@ -65,13 +67,14 @@ export function TimeSlots({
                 <Button
                   key={slot.time}
                   size="$3"
-                  theme={active ? 'blue' : undefined}
-                  chromeless={!active}
+                  // Chosen is the theme's inverse, as the confirm control is;
+                  // otherwise a tile on the same ground as the form's fields.
+                  theme={active ? 'accent' : undefined}
                   borderWidth={1}
-                  borderColor={active ? '$color8' : '$color6'}
-                  backgroundColor={active ? undefined : '$color1'}
-                  hoverStyle={{ borderColor: '$color10' }}
-                  pressStyle={{ backgroundColor: '$color4' }}
+                  borderColor={active ? 'transparent' : '$borderColor'}
+                  backgroundColor={active ? undefined : '$color3'}
+                  hoverStyle={active ? undefined : { borderColor: '$color8' }}
+                  pressStyle={active ? undefined : { borderColor: '$color8' }}
                   onPress={() => onPick(slot.time)}
                   aria-label={`Book ${formatSlotTime(slot.time, timeZone)}`}
                   {...(compact ? {} : { alignSelf: 'stretch' })}
@@ -83,6 +86,16 @@ export function TimeSlots({
           </XStack>
         </ScrollView>
       )}
+    </Column>
+  )
+}
+
+/** The times' column: the same share of a row as the month beside it, whether
+ *  or not a day is chosen yet, and its content height in a column. */
+function Column({ children }: { children: ReactNode }) {
+  return (
+    <YStack gap="$2" flexGrow={1} minWidth={200} $sm={{ flexBasis: 0 }}>
+      {children}
     </YStack>
   )
 }
@@ -90,7 +103,7 @@ export function TimeSlots({
 function Centered({ children }: { children: ReactNode }) {
   return (
     <YStack
-      flex={1}
+      flexGrow={1}
       minHeight={120}
       alignItems="center"
       justifyContent="center"

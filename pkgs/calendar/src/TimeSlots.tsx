@@ -28,7 +28,7 @@ export function TimeSlots({
 }: TimeSlotsProps) {
   if (!dayKey) {
     return (
-      <Column>
+      <Column share={!compact}>
         <Centered>
           <SizableText size="$3" color="$color10" textAlign="center">
             Select a day to see available times.
@@ -41,7 +41,7 @@ export function TimeSlots({
   const heading = formatDayLong(dateFromKey(dayKey))
 
   return (
-    <Column>
+    <Column share={!compact}>
       <SizableText size="$4" fontWeight="600" color="$color12">
         {heading}
       </SizableText>
@@ -90,11 +90,17 @@ export function TimeSlots({
   )
 }
 
-/** The times' column: the same share of a row as the month beside it, whether
- *  or not a day is chosen yet, and its content height in a column. */
-function Column({ children }: { children: ReactNode }) {
+/** The times' column. Beside the month (`share`) it takes the same share of
+ *  the row whether or not a day is chosen yet; stacked under a header, as in
+ *  CalendarEmbed, it keeps its content height, which a zero basis would take. */
+function Column({ share, children }: { share: boolean; children: ReactNode }) {
   return (
-    <YStack gap="$2" flexGrow={1} minWidth={200} $sm={{ flexBasis: 0 }}>
+    <YStack
+      gap="$2"
+      flexGrow={1}
+      minWidth={200}
+      $sm={share ? { flexBasis: 0 } : undefined}
+    >
       {children}
     </YStack>
   )

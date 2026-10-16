@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useId, useState, type ReactNode } from 'react'
 import { Button, Input, SizableText, TextArea, XStack, YStack } from '@hanzo/gui'
 import type { BookingResponses } from './client.ts'
 import { formatBookingWhen } from './time.ts'
@@ -54,6 +54,10 @@ export function BookingForm({
   const emailValid = EMAIL_RE.test(email.trim())
   const valid = nameValid && emailValid
 
+  // Blocked while booking, or once a submit has shown what is missing. Its
+  // look is stated, so it reads as unavailable under any host's config.
+  const blocked = Boolean(submitting) || (touched && !valid)
+
   const submit = () => {
     setTouched(true)
     if (!valid || submitting) return
@@ -75,14 +79,17 @@ export function BookingForm({
       </YStack>
 
       <Field label="Name" invalid={touched && !nameValid} hint="Please enter your name">
-        <Input
-          {...FIELD}
-          value={name}
-          onChangeText={setName}
-          placeholder="Your name"
-          autoComplete="name"
-          size="$4"
-        />
+        {(a11y) => (
+          <Input
+            {...FIELD}
+            {...a11y}
+            value={name}
+            onChangeText={setName}
+            placeholder="Your name"
+            autoComplete="name"
+            size="$4"
+          />
+        )}
       </Field>
 
       <Field
@@ -90,27 +97,33 @@ export function BookingForm({
         invalid={touched && !emailValid}
         hint="Please enter a valid email"
       >
-        <Input
-          {...FIELD}
-          value={email}
-          onChangeText={setEmail}
-          placeholder="you@company.com"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoComplete="email"
-          size="$4"
-        />
+        {(a11y) => (
+          <Input
+            {...FIELD}
+            {...a11y}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="you@company.com"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoComplete="email"
+            size="$4"
+          />
+        )}
       </Field>
 
       <Field label="Notes" optional>
-        <TextArea
-          {...FIELD}
-          value={notes}
-          onChangeText={setNotes}
-          placeholder="Anything that would help prepare?"
-          numberOfLines={3}
-          size="$4"
-        />
+        {(a11y) => (
+          <TextArea
+            {...FIELD}
+            {...a11y}
+            value={notes}
+            onChangeText={setNotes}
+            placeholder="Anything that would help prepare?"
+            numberOfLines={3}
+            size="$4"
+          />
+        )}
       </Field>
 
       {error ? (
@@ -149,14 +162,25 @@ export function BookingForm({
           paddingHorizontal="$5"
           fontWeight="600"
           onPress={submit}
-          disabled={submitting || (touched && !valid)}
-          opacity={submitting ? 0.7 : 1}
+          disabled={blocked}
+          opacity={blocked ? 0.5 : 1}
+          cursor={blocked ? 'default' : 'pointer'}
         >
           {submitting ? 'Booking…' : 'Confirm booking'}
         </Button>
       </XStack>
     </YStack>
   )
+}
+
+/** What a field's control carries so a screen reader hears what a sighted
+ *  person sees: its label (not its placeholder) as its name, whether it is
+ *  required, and the hint when it is invalid. */
+interface FieldA11y {
+  'aria-labelledby': string
+  'aria-required': boolean
+  'aria-invalid'?: boolean
+  'aria-describedby'?: string
 }
 
 /** A labelled field. Fields are required unless marked optional, so the one
@@ -172,11 +196,19 @@ function Field({
   optional?: boolean
   invalid?: boolean
   hint?: string
-  children: ReactNode
+  children: (a11y: FieldA11y) => ReactNode
 }) {
+  const id = useId()
+  const shown = Boolean(invalid && hint)
+  const a11y: FieldA11y = {
+    'aria-labelledby': `${id}-label`,
+    'aria-required': !optional,
+    ...(invalid ? { 'aria-invalid': true } : null),
+    ...(shown ? { 'aria-describedby': `${id}-hint` } : null),
+  }
   return (
     <YStack gap="$1.5">
-      <SizableText size="$2" color="$color11" fontWeight="600">
+      <SizableText id={`${id}-label`} size="$2" color="$color11" fontWeight="600">
         {label}
         {optional ? (
           <SizableText size="$2" color="$color10" fontWeight="400">
@@ -184,9 +216,9 @@ function Field({
           </SizableText>
         ) : null}
       </SizableText>
-      {children}
-      {invalid && hint ? (
-        <SizableText size="$1" color="$red10">
+      {children(a11y)}
+      {shown ? (
+        <SizableText id={`${id}-hint`} role="alert" size="$1" color="$red10">
           {hint}
         </SizableText>
       ) : null}

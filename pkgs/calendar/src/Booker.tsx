@@ -22,7 +22,20 @@ export interface BookerProps {
   /** The attendee's details, when the page that sent them here already has
    *  them: the details step starts filled in, and stays theirs to change. */
   prefill?: Partial<BookingResponses>
+  /** Draw no card of its own, for a surface that already is one (an embed's
+   *  popup panel), so the page shows one card rather than a card in a card. */
+  bare?: boolean
 }
+
+/** The Booker's own card: the ground under the theme's hairline. */
+const CARD = {
+  backgroundColor: '$background',
+  borderColor: '$borderColor',
+  borderWidth: 1,
+  borderRadius: '$6',
+  maxWidth: 860,
+  alignSelf: 'center',
+} as const
 
 /** Universal scheduling flow: event → month → times → details → confirmation. */
 export function Booker(props: BookerProps) {
@@ -30,16 +43,11 @@ export function Booker(props: BookerProps) {
 
   return (
     <YStack
-      backgroundColor="$background"
-      borderColor="$borderColor"
-      borderWidth={1}
-      borderRadius="$6"
+      {...(props.bare ? null : CARD)}
       padding="$4"
       $sm={{ padding: '$6' }}
       gap="$4"
       width="100%"
-      maxWidth={860}
-      alignSelf="center"
     >
       {m.event.loading ? (
         <StatePanel>

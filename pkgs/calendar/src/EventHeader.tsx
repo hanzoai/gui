@@ -33,7 +33,7 @@ export function EventHeader({
           alignItems="center"
           justifyContent="center"
         >
-          <SizableText size="$2" color="$color11" fontWeight="600">
+          <SizableText size="$2" color="$color11" fontWeight="600" aria-hidden>
             {initial}
           </SizableText>
         </YStack>
@@ -42,7 +42,13 @@ export function EventHeader({
         </SizableText>
       </XStack>
 
-      <SizableText size={compact ? '$6' : '$8'} fontWeight="700" color="$color12">
+      <SizableText
+        role="heading"
+        aria-level={1}
+        size={compact ? '$6' : '$8'}
+        fontWeight="700"
+        color="$color12"
+      >
         {event.title}
       </SizableText>
 

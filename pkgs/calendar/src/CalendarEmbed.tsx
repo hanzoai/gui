@@ -83,7 +83,7 @@ export function CalendarEmbed(props: CalendarEmbedProps) {
             compact
           />
           {m.conflict ? (
-            <SizableText size="$1" color="$yellow11">
+            <SizableText size="$1" color="$yellow11" role="alert">
               That time was just taken — pick another.
             </SizableText>
           ) : null}

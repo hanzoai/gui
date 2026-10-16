@@ -128,9 +128,9 @@ export function useBooker(opts: UseBookerOptions): BookerModel {
     setPhase('form')
     create.reset()
   }
+  // The chosen time is kept: the times come back with it chosen and focused.
   const back = () => {
     setPhase('pick')
-    setSelectedSlot(null)
     create.reset()
   }
   const reset = () => {

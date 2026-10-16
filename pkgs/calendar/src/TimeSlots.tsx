@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { ScrollView, SizableText, XStack, YStack } from '@hanzo/gui'
 import type { Slot } from './client.ts'
 import { Press, RING, useRoving } from './press.tsx'
@@ -38,8 +38,19 @@ export function TimeSlots({
     Math.max(
       slots.findIndex((s) => s.time === selectedIso),
       0
-    )
+    ),
+    undefined,
+    dayKey
   )
+
+  // Back from the details step, the time that was chosen is shown chosen and
+  // takes focus, rather than leaving the keyboard at the top of the page. Once,
+  // as the list arrives: a later choice is the person's own focus.
+  const restore = Boolean(selectedIso)
+  useEffect(() => {
+    if (restore) roving.focus()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (!dayKey) {
     return (
@@ -94,7 +105,7 @@ export function TimeSlots({
                   theme={active ? 'accent' : undefined}
                   alignItems="center"
                   justifyContent="center"
-                  paddingVertical="$2.5"
+                  paddingVertical="$2"
                   paddingHorizontal="$4"
                   borderRadius="$4"
                   borderWidth={1}
@@ -107,7 +118,7 @@ export function TimeSlots({
                   focusVisibleStyle={{ ...RING, outlineOffset: -1 }}
                   onPress={() => onPick(slot.time)}
                   aria-label={`Book ${when}`}
-                  aria-pressed={active}
+                  aria-current={active || undefined}
                   {...(compact ? {} : { alignSelf: 'stretch' })}
                 >
                   <SizableText size="$3" color={active ? '$color' : '$color12'}>

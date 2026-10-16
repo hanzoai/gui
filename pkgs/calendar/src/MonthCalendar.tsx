@@ -64,7 +64,8 @@ export function MonthCalendar({
       if (key !== 'ArrowUp' && key !== 'ArrowDown') return null
       const j = open.indexOf(week(open[i], key === 'ArrowDown' ? 1 : -1))
       return j === -1 ? null : j
-    }
+    },
+    month
   )
 
   return (
@@ -186,7 +187,9 @@ function DayCell({
       pressStyle={selected ? undefined : { borderColor: '$color8' }}
       onPress={() => onSelectDay(cell.key)}
       aria-label={`${formatDayLong(cell.date)}, times available`}
-      aria-pressed={selected}
+      // The chosen one of the set; pressing it again does not unchoose it, so
+      // it is not a toggle (aria-pressed).
+      aria-current={selected || undefined}
     >
       {number}
       {selected ? null : (

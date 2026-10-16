@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { Button, Input, Label, SizableText, TextArea, XStack, YStack } from '@hanzo/gui'
 import type { BookingResponses } from './client.ts'
-import { Press, RING } from './press.tsx'
+import { Press, RING, RING_FILLED } from './press.tsx'
 import { formatBookingWhen } from './time.ts'
 
 export interface BookingFormProps {
@@ -70,9 +70,18 @@ export function BookingForm({
   // look is stated, so it reads as unavailable under any host's config.
   const blocked = Boolean(submitting) || (touched && !valid)
 
+  // A submit that finds a field missing puts the keyboard in it, rather than on
+  // a Confirm that has just gone unavailable.
+  const nameField = useRef<HTMLElement>(null)
+  const emailField = useRef<HTMLElement>(null)
+
   const submit = () => {
     setTouched(true)
-    if (!valid || submitting) return
+    if (!valid) {
+      ;(nameValid ? emailField : nameField).current?.focus?.()
+      return
+    }
+    if (submitting) return
     onSubmit({ name: name.trim(), email: email.trim(), notes: notes.trim() || undefined })
   }
 
@@ -104,7 +113,10 @@ export function BookingForm({
           <Input
             {...a11y}
             value={name}
+            ref={nameField as never}
             onChangeText={setName}
+            // Return books, as it would in a form; Notes keeps Return for lines.
+            onSubmitEditing={submit}
             placeholder="Your name"
             autoComplete="name"
             size="$4"
@@ -123,7 +135,9 @@ export function BookingForm({
           <Input
             {...a11y}
             value={email}
+            ref={emailField as never}
             onChangeText={setEmail}
+            onSubmitEditing={submit}
             placeholder="you@company.com"
             type="email"
             inputMode="email"
@@ -157,6 +171,7 @@ export function BookingForm({
 
       {error ? (
         <YStack
+          role="alert"
           backgroundColor="$red3"
           borderColor="$red6"
           borderWidth={1}
@@ -191,7 +206,7 @@ export function BookingForm({
           borderRadius={PILL}
           paddingHorizontal="$5"
           fontWeight="600"
-          focusVisibleStyle={RING}
+          focusVisibleStyle={RING_FILLED}
           onPress={submit}
           disabled={blocked}
           opacity={blocked ? 0.5 : 1}
@@ -243,6 +258,9 @@ function Field({
         unstyled
         htmlFor={`${id}-field`}
         size="$2"
+        // Label's size variant leads the line at a button's height (28px);
+        // a label reads at its type's own leading.
+        lineHeight="$2"
         color="$color11"
         fontWeight="600"
         cursor="default"

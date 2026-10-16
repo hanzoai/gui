@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { SizableText, Spinner, XStack, YStack } from '@hanzo/gui'
 import type { Booking, BookingResponses } from './client.ts'
 import { BookingForm } from './BookingForm.tsx'
@@ -151,9 +151,19 @@ function StatePanel({ children }: { children: ReactNode }) {
   )
 }
 
+/** Announced, and given focus: the time the keyboard was on is gone, and focus
+ *  would otherwise fall to the top of the page with nothing said. */
 function JustTakenBanner() {
+  const self = useRef<HTMLElement>(null)
+  useEffect(() => {
+    self.current?.focus?.()
+  }, [])
   return (
     <YStack
+      ref={self as never}
+      role="alert"
+      tabIndex={-1}
+      outlineStyle="none"
       backgroundColor="$yellow3"
       borderColor="$yellow6"
       borderWidth={1}

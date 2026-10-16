@@ -114,8 +114,10 @@ export function TimeSlots({
                   hoverStyle={active ? undefined : { borderColor: '$color8' }}
                   pressStyle={active ? undefined : { borderColor: '$color8' }}
                   // Inside the edge: the list scrolls, and a scroll container
-                  // clips a ring drawn outside its children.
-                  focusVisibleStyle={{ ...RING, outlineOffset: -1 }}
+                  // clips a ring drawn outside its children. On the chosen
+                  // (inverse) tile the ink is the page's colour, so the ring sits
+                  // 2px in from the edge, where the tile's own fill frames it.
+                  focusVisibleStyle={{ ...RING, outlineOffset: active ? -4 : -1 }}
                   onPress={() => onPick(slot.time)}
                   aria-label={`Book ${when}`}
                   aria-current={active || undefined}

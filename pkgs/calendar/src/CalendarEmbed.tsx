@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { SizableText, Spinner, XStack, YStack } from '@hanzo/gui'
 import type { Booking } from './client.ts'
 import { BookingForm } from './BookingForm.tsx'
@@ -82,11 +83,7 @@ export function CalendarEmbed(props: CalendarEmbedProps) {
             timeZone={m.timeZone}
             compact
           />
-          {m.conflict ? (
-            <SizableText size="$1" color="$yellow11" role="alert">
-              That time was just taken — pick another.
-            </SizableText>
-          ) : null}
+          {m.conflict ? <JustTaken /> : null}
           {m.slots.loading && m.availableKeys.size === 0 ? (
             <YStack alignItems="center" padding="$4">
               <Spinner color="$color9" />
@@ -110,5 +107,25 @@ export function CalendarEmbed(props: CalendarEmbedProps) {
         </>
       )}
     </YStack>
+  )
+}
+
+/** Announced, and given focus: the time the keyboard was on is gone. */
+function JustTaken() {
+  const self = useRef<HTMLElement>(null)
+  useEffect(() => {
+    self.current?.focus?.()
+  }, [])
+  return (
+    <SizableText
+      ref={self as never}
+      role="alert"
+      tabIndex={-1}
+      outlineStyle="none"
+      size="$1"
+      color="$yellow11"
+    >
+      That time was just taken — pick another.
+    </SizableText>
   )
 }

@@ -1,5 +1,14 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
-import { Button, Input, Label, SizableText, TextArea, XStack, YStack } from '@hanzo/gui'
+import {
+  Button,
+  Input,
+  isWeb,
+  Label,
+  SizableText,
+  TextArea,
+  XStack,
+  YStack,
+} from '@hanzo/gui'
 import type { BookingResponses } from './client.ts'
 import { Press, RING, RING_FILLED } from './press.tsx'
 import { formatBookingWhen } from './time.ts'
@@ -75,6 +84,23 @@ export function BookingForm({
   const nameField = useRef<HTMLElement>(null)
   const emailField = useRef<HTMLElement>(null)
 
+  // Return books — but not the Return that confirms an IME conversion. gui's web
+  // Input calls onSubmitEditing on any Enter, composing or not, which booked a
+  // half-converted Japanese, Chinese or Korean name; on web the key is read
+  // here, with the composition check, and native keeps its return key.
+  const onReturn = isWeb
+    ? {
+        onKeyDown: (e: {
+          key: string
+          keyCode?: number
+          nativeEvent?: { isComposing?: boolean }
+        }) => {
+          if (e.key !== 'Enter' || e.nativeEvent?.isComposing || e.keyCode === 229) return
+          submit()
+        },
+      }
+    : { onSubmitEditing: () => submit() }
+
   const submit = () => {
     setTouched(true)
     if (!valid) {
@@ -116,7 +142,7 @@ export function BookingForm({
             ref={nameField as never}
             onChangeText={setName}
             // Return books, as it would in a form; Notes keeps Return for lines.
-            onSubmitEditing={submit}
+            {...onReturn}
             placeholder="Your name"
             autoComplete="name"
             size="$4"
@@ -137,7 +163,7 @@ export function BookingForm({
             value={email}
             ref={emailField as never}
             onChangeText={setEmail}
-            onSubmitEditing={submit}
+            {...onReturn}
             placeholder="you@company.com"
             type="email"
             inputMode="email"

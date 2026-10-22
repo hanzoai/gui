@@ -588,6 +588,11 @@ export type ComponentContextI = {
   mediaEmit?: (state: UseMediaState) => void
   mediaEmitListeners?: Set<(state: UseMediaState) => void>
   insets?: { top: number; right: number; bottom: number; left: number } | null
+  /**
+   * The axis of the `tracks` stack this component sits in directly, on web.
+   * A direct child of a vertical one reads `self` across (helpers/tracks.ts).
+   */
+  tracks?: 'x' | 'y' | null
 }
 
 export type GuiComponentStateRef = {
@@ -2709,6 +2714,20 @@ export interface StackNonStyleProps
     GuiComponentPropsBase {
   // we allow either RN or web style props, of course only web css props only works on web
   style?: StyleProp<LooseCombinedObjects<React.CSSProperties, ViewStyle>>
+
+  /**
+   * Lays the children on grid tracks along the stack's axis, sized by the
+   * stack: a CSS track list, one track per child in order.
+   *
+   * On web the stack becomes a grid: an XStack's tracks are its columns, a
+   * YStack's its rows, and `items`, `justify` and a child's `self` keep their
+   * flex meaning. On native it stays flex and each child takes its track as a
+   * flex style (`1fr` is `flex: 1`). The full mapping is helpers/tracks.ts.
+   *
+   * @example <YStack tracks="auto 1fr auto">
+   * @example <XStack tracks="240px 1fr" gap="$4">
+   */
+  tracks?: string
 }
 
 export type StackStyle = WithThemeShorthandsPseudosMedia<StackStyleBase>
@@ -2953,6 +2972,8 @@ export type GetStyleState = {
   pseudoTransitions?: PseudoTransitions | null
   // Resolved animation driver (respects animatedBy prop)
   animationDriver?: AnimationDriver | null
+  // style keys renamed for a vertical `tracks` stack and its direct children (helpers/tracks.ts)
+  renames?: Record<string, string>
 }
 
 export type StyleResolver<Response = PropMappedValue> = (

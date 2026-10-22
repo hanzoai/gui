@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "web": "bun run dev",
-    "test": "node -r esbuild-register ../../../node_modules/.bin/playwright test simple.integration.test.js",
+    "test": "node -r esbuild-register ../../../node_modules/.bin/playwright test simple.integration.test.js tracks.integration.test.js",
     "test:web": "bun run test",
     "build:prod": "vite build",
     "preview": "vite preview --host",

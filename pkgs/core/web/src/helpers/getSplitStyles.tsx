@@ -80,6 +80,7 @@ import { sortString } from './sortString.ts'
 import { styleOriginalValues } from './styleOriginalValues.ts'
 import { type StyleTokenProvenance, setStyleTokenProvenance } from './styleProvenance.ts'
 import { transformsToString } from './transformsToString.ts'
+import { axisOf, gridOf, renamesOf } from './tracks.ts'
 
 export { styleOriginalValues }
 export { getStyleTokenProvenance, STYLE_TOKEN_PROVENANCE_KEY } from './styleProvenance.ts'
@@ -272,6 +273,15 @@ export const getSplitStyles: StyleSplitter = (
     debug,
     // resolved animation driver (respects animatedBy prop)
     animationDriver: driver,
+  }
+
+  // a stack that lays its children on grid tracks (helpers/tracks.ts). an HOC
+  // passes the prop to the component it wraps, which does the work.
+  const tracks =
+    !isHOC && !isText && typeof props.tracks === 'string' ? props.tracks : null
+  const tracksAxis = tracks ? axisOf(props) : null
+  if (process.env.GUI_TARGET === 'web' && !isHOC) {
+    styleState.renames = renamesOf(tracksAxis, componentContext?.tracks)
   }
 
   // only used by compiler
@@ -1215,6 +1225,12 @@ export const getSplitStyles: StyleSplitter = (
   ) {
     // @ts-expect-error
     time`split-styles-propsend`
+  }
+
+  // the grid a tracks stack is, under any of these the author named themselves
+  if (process.env.GUI_TARGET === 'web' && tracks) {
+    const grid = gridOf(tracks, tracksAxis!)
+    for (const key in grid) mergeStyle(styleState, key, grid[key], 0)
   }
 
   // style prop after:

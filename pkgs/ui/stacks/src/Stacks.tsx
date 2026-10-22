@@ -17,6 +17,7 @@ export type YStackProps = Omit<GetProps<typeof YStack>, keyof StackVariants> &
 
 export type XStackProps = YStackProps
 export type ZStackProps = YStackProps
+export type WrapProps = GetProps<typeof Wrap>
 
 export const fullscreenStyle = {
   position: 'absolute',
@@ -36,6 +37,10 @@ const variants = {
 
 /**
  * @summary A view that arranges its children in a vertical line.
+ *
+ * `tracks` lays them on grid tracks the stack sizes instead:
+ * `<YStack tracks="auto 1fr auto">` is a header, a body that fills and a
+ * footer, with no flex prop on any of them. See `tracks` in @hanzogui/web.
  * @see — Docs https://hanzogui.dev/ui/stacks#xstack-ystack-zstack
  */
 export const YStack = styled(View, {
@@ -47,6 +52,9 @@ YStack['displayName'] = 'YStack'
 
 /**
  * @summary A view that arranges its children in a horizontal line.
+ *
+ * `tracks` lays them on grid tracks the stack sizes instead:
+ * `<XStack tracks="240px 1fr">` is a fixed rail and the page beside it.
  * @see — Docs https://hanzogui.dev/ui/stacks#xstack-ystack-zstack
  */
 export const XStack = styled(View, {
@@ -72,3 +80,21 @@ export const ZStack = styled(
 )
 
 ZStack['displayName'] = 'ZStack'
+
+/**
+ * @summary A row that wraps its children onto as many lines as they need, each
+ * at its own content size, spaced by `gap`.
+ *
+ * The one place content-sized wrapping lives. A stack sizes its children on
+ * tracks; what has no tracks — chips, tags, a run of buttons — wraps here, and
+ * a child of a Wrap is the one place a flex prop (`grow`, `shrink`,
+ * `flexBasis`) still means something.
+ *
+ * @example <Wrap gap="$2">{tags.map((t) => <Chip key={t}>{t}</Chip>)}</Wrap>
+ */
+export const Wrap = styled(View, {
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+})
+
+Wrap['displayName'] = 'Wrap'

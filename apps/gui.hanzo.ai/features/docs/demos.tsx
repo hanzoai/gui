@@ -46,6 +46,9 @@ export const ThemeBuilderDemo = lazyDemo(() =>
 export const StacksDemo = lazyDemo(() =>
   import('@hanzogui/demos/demo/StacksDemo').then((x) => x.StacksDemo)
 )
+export const TracksDemo = lazyDemo(() =>
+  import('@hanzogui/demos/demo/TracksDemo').then((x) => x.TracksDemo)
+)
 export const SheetDemo = lazyDemo(() =>
   import('@hanzogui/demos/demo/SheetDemo').then((x) => x.SheetDemo)
 )

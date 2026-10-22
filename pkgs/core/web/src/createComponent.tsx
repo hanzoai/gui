@@ -34,6 +34,7 @@ import {
 import { setElementProps } from './helpers/setElementProps.tsx'
 import { subscribeToContextGroup } from './helpers/subscribeToContextGroup.tsx'
 import { themeable } from './helpers/themeable.tsx'
+import { axisOf, place } from './helpers/tracks.ts'
 import { getStyleTags } from './helpers/wrapStyleTags.tsx'
 import { useComponentState } from './hooks/useComponentState.ts'
 import { setMediaShouldUpdate, useMedia } from './hooks/useMedia.tsx'
@@ -1042,7 +1043,7 @@ export function createComponent<
 
     const {
       asChild,
-      children,
+      children: childrenIn,
       themeShallow,
       spaceDirection: _spaceDirection,
       onPress,
@@ -1067,6 +1068,25 @@ export function createComponent<
       theme: _themeProp,
       ...nonGuiProps
     } = viewPropsIn || {}
+
+    // a tracks stack (helpers/tracks.ts): on native the stack stays flex and
+    // each child takes its track as a flex style; on web its children learn
+    // its axis through ComponentContext, and a direct child clears it for its own
+    const tracksIn = (props as { tracks?: unknown }).tracks
+    const tracks =
+      !isHOC && !isText && !asChild && typeof tracksIn === 'string' ? tracksIn : null
+    const children =
+      process.env.GUI_TARGET === 'native' && tracks
+        ? place(childrenIn, tracks)
+        : childrenIn
+    const childTracks = tracks ? axisOf(props) : null
+    const tracksScope =
+      process.env.GUI_TARGET === 'web' &&
+      !isHOC &&
+      !asChild &&
+      childTracks !== (componentContext.tracks ?? null)
+        ? { tracks: childTracks }
+        : null
 
     // these can ultimately be for DOM, react-native-web views, or animated views
     // so the type is pretty loose
@@ -1696,11 +1716,13 @@ export function createComponent<
 
     if (process.env.NODE_ENV === 'development' && time) time`create-element`
 
-    if ('focusWithinStyle' in propsIn || pseudos?.focusWithinStyle) {
+    const focusWithin = 'focusWithinStyle' in propsIn || !!pseudos?.focusWithinStyle
+    if (focusWithin) {
       content = (
         <ComponentContext.Provider
           {...componentContext}
           setParentFocusState={setStateShallow}
+          {...tracksScope}
         >
           {content}
         </ComponentContext.Provider>
@@ -1714,9 +1736,19 @@ export function createComponent<
     }
 
     // Text components set inText context for children so nested Text can inherit styles
-    if (process.env.GUI_TARGET === 'web' && !asChild && isText && !hasTextAncestor) {
+    const textScope =
+      process.env.GUI_TARGET === 'web' && !asChild && isText && !hasTextAncestor
+    if (textScope) {
       content = (
-        <ComponentContext.Provider {...componentContext} inText={true}>
+        <ComponentContext.Provider {...componentContext} inText={true} {...tracksScope}>
+          {content}
+        </ComponentContext.Provider>
+      )
+    }
+
+    if (tracksScope && !focusWithin && !textScope) {
+      content = (
+        <ComponentContext.Provider {...componentContext} {...tracksScope}>
           {content}
         </ComponentContext.Provider>
       )

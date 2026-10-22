@@ -129,6 +129,25 @@ function hasUntilMeasuredAncestor(path: NodePath<any>, groupName: string): boole
   return false
 }
 
+// A direct child of a `tracks` stack is renamed at runtime from the stack's axis
+// (@hanzogui/web helpers/tracks.ts): `self` reads across inside a vertical one.
+// Static CSS cannot know its parent, so it stays a runtime component.
+function hasTracksParent(path: NodePath<any>): boolean {
+  let current: NodePath<any> | null = path.parentPath
+  while (current) {
+    if (current.isJSXElement()) {
+      return current.node.openingElement.attributes.some(
+        (attr) =>
+          t.isJSXAttribute(attr) &&
+          t.isJSXIdentifier(attr.name) &&
+          attr.name.name === 'tracks'
+      )
+    }
+    current = current.parentPath
+  }
+  return false
+}
+
 export function createExtractor(
   { logger = console, platform = 'web' }: ExtractorOptions = { logger: console }
 ) {
@@ -1126,6 +1145,9 @@ export function createExtractor(
             'animateOnly',
             'animatePresence',
             'disableOptimization',
+            // its grid, its children's flex on native and their alignment are
+            // decided at runtime (@hanzogui/web helpers/tracks.ts)
+            'tracks',
 
             ...(!isTargetingHTML
               ? [
@@ -1186,7 +1208,7 @@ export function createExtractor(
           tm.mark('jsx-element-flattened', !!shouldPrintDebug)
 
           let attrs: ExtractedAttr[] = []
-          let shouldDeopt = false
+          let shouldDeopt = hasTracksParent(traversePath)
           const inlined = new Map<string, any>()
           const variantValues = new Map<string, any>()
           let hasSetOptimized = false

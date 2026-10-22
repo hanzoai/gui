@@ -953,3 +953,32 @@ test('non-static testID with template literal is rewritten to data-testid', asyn
   expect(output?.js?.match(/data-testid=/g)?.length).toBe(1)
   expect(output?.js?.match(/\btestID=/g) ?? []).toHaveLength(0)
 })
+
+test('a tracks stack and its direct children stay on the runtime path', async () => {
+  // the stack's grid, its children's flex on native and their `self` inside a
+  // vertical stack are decided at runtime (@hanzogui/web helpers/tracks.ts), so
+  // none of them may flatten. a grandchild and an element outside still do.
+  const output = await extractForWeb(
+    `
+    import { View } from '@hanzogui/core'
+
+    export function Test() {
+      return (
+        <View>
+          <View tracks="auto 1fr" width={300}>
+            <View alignSelf="center" width={100}>
+              <View data-grandchild width={50} />
+            </View>
+          </View>
+          <View data-outside width={20} />
+        </View>
+      )
+    }
+  `
+  )
+
+  expect(output?.js).toContain('<View tracks="auto 1fr" width={300}>')
+  expect(output?.js).toContain('<View alignSelf="center" width={100}>')
+  expect(output?.js).toMatch(/<div[^>]*data-grandchild/)
+  expect(output?.js).toMatch(/<div[^>]*data-outside/)
+})

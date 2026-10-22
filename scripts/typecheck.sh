@@ -1,18 +1,10 @@
 #!/bin/bash
 
-# TypeScript 7 — tsgo, the native Go compiler — typechecks this repo about 5.6x
-# faster than tsc 5.9 (34.1s -> 6.0s on apps/kitchen-sink) and reports the same
-# diagnostics: 2321 errors at identical file:line:code under both, the only
-# difference being TS2882, which tsc does not implement.
+# TypeScript 7 — the native Go compiler — ships under the stable `typescript`
+# name with `tsc` as its binary, so `tsc` here IS the fast compiler. This script
+# called `tsgo`, the pre-release channel's name for the same binary, which is
+# not installed: every `bun run typecheck` died on "command not found".
 #
-# Declaration EMIT stays on tsc. hanzogui-build drives the TypeScript compiler
-# API programmatically (pkgs/build/hanzogui-build.js `require('typescript')`),
-# and @typescript/native-preview ships a binary rather than that API.
-#
-# Set TYPECHECK_TSC=1 to run the old compiler instead and diff the two.
-compiler=tsgo
-[ -n "$TYPECHECK_TSC" ] && compiler=tsc
-
 # The compiler's status is the verdict, and it is the only one. This used to
 # read the verdict out of the compiler's own prose — `grep -q "error"` over the
 # captured output — which calls anything that fails without writing that word a
@@ -20,7 +12,7 @@ compiler=tsgo
 # found", the grep misses, and the gate reports green having typechecked
 # nothing. Diagnostics now stream as they are produced rather than arriving in
 # one block at the end.
-$compiler -b --preserveWatchOutput tsconfig.build.json "$@"
+tsc -b --preserveWatchOutput tsconfig.build.json "$@"
 status=$?
 
 if [ $status -ne 0 ]; then

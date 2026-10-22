@@ -1,5 +1,29 @@
 # @hanzo/gui — notes for whoever is here next
 
+## Releasing: version here, publish in CI
+
+The train (every public package, `@hanzo/gui` among them) publishes from
+`.github/workflows/publish.yml` on GitHub, never from a laptop:
+
+1. `bun ./scripts/release.ts --minor --skip-publish` (or `--patch`) on main
+   writes the next version into every package.json, runs the checks and tests
+   it is not told to skip, commits `v<version>`, tags it and pushes.
+2. That push runs Publish on a cluster runner (`runs-on: [linux-amd64]`,
+   served by the hanzo-platform app). It asks npm whether `@hanzo/gui`'s
+   version on disk is ahead of `latest`; if so it installs, builds, checks,
+   lints, typechecks, reads `NPM_TOKEN` from KMS (org secrets
+   `KMS_CLIENT_ID`/`KMS_CLIENT_SECRET`, `POST /v1/kms/auth/login` then
+   `GET /v1/kms/secrets/NPM_TOKEN?env=prod`, masked) and publishes with
+   `release.ts --republish --ci`, the one script that rewrites `workspace:*`.
+   Any other push answers "not ahead" in seconds.
+3. A dispatch at the version npm already serves finishes a train that stopped
+   part way; release.ts skips every name@version already on npm.
+
+GitHub Actions is ON for this repo for that reason (it was off, and the
+`publish-gui-all.yml` lane it replaced never ran). The same push also runs
+`cicd.yml`, the hanzo.yml checks. hanzoai/i18n and hanzoai/design publish the
+same way.
+
 ## A targeted publish (`--only`) currently dies in the test gate
 
 `bun ./scripts/release.ts --only @hanzo/gui` fails before it publishes:

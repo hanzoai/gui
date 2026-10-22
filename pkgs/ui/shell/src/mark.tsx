@@ -184,7 +184,7 @@ const MENU_ITEM: React.CSSProperties = {
   background: 'transparent',
   fontSize: FS.sm,
   fontFamily: 'inherit',
-  textAlign: 'left',
+  textAlign: 'start',
 }
 
 const BRAND_LINKS = [

@@ -170,10 +170,12 @@ function getZeroedRadius(isFirst: boolean, isLast: boolean, vertical: boolean) {
       ...(isLast ? null : { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }),
     }
   }
-  // horizontal: zero right radius of non-last items, zero left radius of non-first items
+  // horizontal: zero the inline-end radii of non-last items and the
+  // inline-start radii of non-first items, so the joins sit between the items
+  // in either writing direction
   return {
-    ...(isFirst ? null : { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }),
-    ...(isLast ? null : { borderTopRightRadius: 0, borderBottomRightRadius: 0 }),
+    ...(isFirst ? null : { borderStartStartRadius: 0, borderEndStartRadius: 0 }),
+    ...(isLast ? null : { borderStartEndRadius: 0, borderEndEndRadius: 0 }),
   }
 }
 

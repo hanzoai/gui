@@ -41,6 +41,7 @@
     "@hanzogui/get-token": "workspace:*",
     "@hanzogui/helpers": "workspace:*",
     "@hanzogui/stacks": "workspace:*",
+    "@hanzogui/use-direction": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },
   "devDependencies": {

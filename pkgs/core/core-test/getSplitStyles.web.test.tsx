@@ -764,3 +764,91 @@ describe('getSplitStyles - kebab-case media keys', () => {
     expect(rule).not.toContain(':max')
   })
 })
+
+describe('direction-relative props', () => {
+  const cssOf = (Component: any, props: Record<string, any>) =>
+    Object.values(simplifiedGetSplitStyles(Component, props).rulesToInsert)
+      .flatMap((rule) => rule[StyleObjectRules])
+      .join('\n')
+
+  test.each([
+    ['start', 'inset-inline-start:4px'],
+    ['end', 'inset-inline-end:4px'],
+    ['marginStart', 'margin-inline-start:4px'],
+    ['marginEnd', 'margin-inline-end:4px'],
+    ['paddingStart', 'padding-inline-start:4px'],
+    ['paddingEnd', 'padding-inline-end:4px'],
+    ['borderStartWidth', 'border-inline-start-width:4px'],
+    ['borderEndWidth', 'border-inline-end-width:4px'],
+    ['borderTopStartRadius', 'border-start-start-radius:4px'],
+    ['borderTopEndRadius', 'border-start-end-radius:4px'],
+    ['borderBottomStartRadius', 'border-end-start-radius:4px'],
+    ['borderBottomEndRadius', 'border-end-end-radius:4px'],
+    ['marginInlineStart', 'margin-inline-start:4px'],
+    ['paddingInlineEnd', 'padding-inline-end:4px'],
+    ['insetInlineStart', 'inset-inline-start:4px'],
+    ['borderInlineStartWidth', 'border-inline-start-width:4px'],
+    ['borderStartStartRadius', 'border-start-start-radius:4px'],
+  ])('%s emits %s', (prop, declaration) => {
+    expect(cssOf(View, { [prop]: 4 })).toContain(`{${declaration};}`)
+  })
+
+  test('react-native start/end colors become inline-axis CSS', () => {
+    expect(cssOf(View, { borderStartColor: 'red' })).toContain(
+      'border-inline-start-color:red'
+    )
+    expect(cssOf(View, { borderEndColor: 'red' })).toContain(
+      'border-inline-end-color:red'
+    )
+  })
+
+  test('no emitted declaration names a property CSS does not have', () => {
+    const css = cssOf(View, {
+      start: 1,
+      end: 1,
+      marginStart: 1,
+      marginEnd: 1,
+      paddingStart: 1,
+      paddingEnd: 1,
+      borderStartWidth: 1,
+      borderEndWidth: 1,
+      borderStartColor: 'red',
+      borderEndColor: 'red',
+      borderTopStartRadius: 1,
+      borderTopEndRadius: 1,
+      borderBottomStartRadius: 1,
+      borderBottomEndRadius: 1,
+    })
+    expect(css).not.toMatch(
+      /[{;](start|end|margin-start|margin-end|padding-start|padding-end|border-start-[a-z]+|border-end-[a-z]+|border-(top|bottom)-(start|end)-radius):/
+    )
+  })
+
+  test('text alignment keeps start/end on web', () => {
+    expect(cssOf(Text, { textAlign: 'start' })).toContain('text-align:start')
+    expect(cssOf(Text, { textAlign: 'end' })).toContain('text-align:end')
+  })
+
+  test('inline-axis longhands outrank the physical sides a shorthand expands to', () => {
+    const css = cssOf(View, {
+      paddingHorizontal: 8,
+      paddingInlineEnd: 16,
+      borderRadius: 4,
+      borderStartEndRadius: 0,
+    })
+    // padding-right from paddingHorizontal and padding-inline-end name the same
+    // side in LTR; the logical one carries the doubled class whatever order the
+    // sheet inserted them in
+    expect(css).toMatch(/:root (\.[\w-]+)\1\{padding-inline-end:16px;\}/)
+    expect(css).toMatch(/:root (\.[\w-]+)\1\{border-start-end-radius:0px;\}/)
+    expect(css).toMatch(/:root \.[\w-]+\{padding-right:8px;\}/)
+  })
+
+  test('two-sided inline shorthands split into longhands a later side replaces', () => {
+    const css = cssOf(View, { paddingInline: 8, paddingInlineEnd: 16 })
+    expect(css).toContain('padding-inline-start:8px')
+    expect(css).toContain('padding-inline-end:16px')
+    expect(css).not.toContain('padding-inline:')
+    expect(css).not.toContain('padding-inline-end:8px')
+  })
+})

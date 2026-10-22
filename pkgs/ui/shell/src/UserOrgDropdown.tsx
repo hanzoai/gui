@@ -83,7 +83,7 @@ const ROW_SHAPE: React.CSSProperties = {
   background: 'transparent',
   fontSize: FS.sm,
   fontFamily: 'inherit',
-  textAlign: 'left',
+  textAlign: 'start',
 }
 
 export function UserOrgDropdown({
@@ -246,7 +246,7 @@ export function UserOrgDropdown({
           aria-label="Account"
           style={{
             position: 'absolute',
-            right: 0,
+            insetInlineEnd: 0,
             top: CTRL_H + 10,
             ...PANEL,
             zIndex: Z.popover as unknown as number,

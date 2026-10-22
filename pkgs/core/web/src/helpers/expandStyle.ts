@@ -78,6 +78,19 @@ export function expandStyle(
       return expandFlex(value, styleCompat)
     }
 
+    // react-native's direction-relative names are not CSS: `paddingStart`
+    // hyphenates to `padding-start`, which no browser parses, so the rule was
+    // dropped and the element laid out as if the prop were absent. They land on
+    // the CSS logical property that follows the writing direction.
+    if (key in webInlineNames) {
+      return [[webInlineNames[key], value]]
+    }
+    // two-sided inline shorthands split into the longhands above, so a later
+    // `paddingInlineEnd` replaces one side instead of racing the shorthand
+    if (key in webInlineExpansions) {
+      return webInlineExpansions[key].map((k) => [k, value])
+    }
+
     switch (key) {
       case 'writingDirection': {
         return [['direction', value]]
@@ -163,6 +176,18 @@ export function expandStyle(
           if (parsed) {
             return parsed
           }
+        }
+        return
+      }
+      case 'textAlign': {
+        // react-native has no start/end alignment; its left/right already
+        // swap under RTL (I18nManager.doLeftAndRightSwapInRTL), so they are
+        // the direction-relative values there
+        if (value === 'start') {
+          return [['textAlign', 'left']]
+        }
+        if (value === 'end') {
+          return [['textAlign', 'right']]
         }
         return
       }
@@ -295,6 +320,36 @@ const nativeInlineExpansions: Record<string, string[]> = {
   paddingInline: ['paddingEnd', 'paddingStart'],
   paddingInlineStart: ['paddingStart'],
   paddingInlineEnd: ['paddingEnd'],
-  insetInlineStart: ['left'],
-  insetInlineEnd: ['right'],
+  // start/end follow the layout direction on native; left/right do not
+  insetInline: ['start', 'end'],
+  insetInlineStart: ['start'],
+  insetInlineEnd: ['end'],
+}
+
+// react-native's direction-relative names -> the CSS logical property each one
+// means. Radii read block-then-inline: top-start is start-start.
+const webInlineNames: Record<string, string> = {
+  start: 'insetInlineStart',
+  end: 'insetInlineEnd',
+  marginStart: 'marginInlineStart',
+  marginEnd: 'marginInlineEnd',
+  paddingStart: 'paddingInlineStart',
+  paddingEnd: 'paddingInlineEnd',
+  borderStartColor: 'borderInlineStartColor',
+  borderEndColor: 'borderInlineEndColor',
+  borderStartWidth: 'borderInlineStartWidth',
+  borderEndWidth: 'borderInlineEndWidth',
+  borderTopStartRadius: 'borderStartStartRadius',
+  borderTopEndRadius: 'borderStartEndRadius',
+  borderBottomStartRadius: 'borderEndStartRadius',
+  borderBottomEndRadius: 'borderEndEndRadius',
+}
+
+const webInlineExpansions: Record<string, string[]> = {
+  insetInline: ['insetInlineStart', 'insetInlineEnd'],
+  marginInline: ['marginInlineStart', 'marginInlineEnd'],
+  paddingInline: ['paddingInlineStart', 'paddingInlineEnd'],
+  borderInlineColor: ['borderInlineStartColor', 'borderInlineEndColor'],
+  borderInlineWidth: ['borderInlineStartWidth', 'borderInlineEndWidth'],
+  borderInlineStyle: ['borderInlineStartStyle', 'borderInlineEndStyle'],
 }

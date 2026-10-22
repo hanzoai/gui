@@ -302,7 +302,13 @@ function CategoryTile({
         </p>
       ) : null}
 
-      <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: TEXT_INDENT }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          paddingInlineStart: TEXT_INDENT,
+        }}
+      >
         {category.items.map((item) => (
           <LeafRow
             key={item.id}

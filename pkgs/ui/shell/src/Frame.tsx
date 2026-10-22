@@ -204,7 +204,7 @@ function Grip({
   onShut,
   label,
 }: {
-  side: 'left' | 'right'
+  side: 'start' | 'end'
   store: string
   span: number
   onSpan: (n: number) => void
@@ -212,8 +212,13 @@ function Grip({
   label: string
 }) {
   const held = useRef(0)
-  const wider = side === 'left' ? 'ArrowRight' : 'ArrowLeft'
-  const pull = (x: number) => (side === 'left' ? x - held.current : held.current - x)
+  // The grid follows the writing direction, so a start column sits on the
+  // right under RTL. The pointer speaks in screen x, so the gesture asks the
+  // element which way it reads before it measures anything.
+  const leftOf = (el: Element) =>
+    (side === 'start') !== (getComputedStyle(el).direction === 'rtl')
+  const atLeft = useRef(true)
+  const pull = (x: number) => (atLeft.current ? x - held.current : held.current - x)
   return (
     <div
       role="separator"
@@ -228,14 +233,15 @@ function Grip({
         position: 'absolute',
         top: 0,
         bottom: 0,
-        [side === 'left' ? 'right' : 'left']: 0,
+        [side === 'start' ? 'insetInlineEnd' : 'insetInlineStart']: 0,
         width: 6,
         zIndex: 1,
         cursor: 'col-resize',
       }}
       onPointerDown={(e) => {
         e.currentTarget.setPointerCapture(e.pointerId)
-        held.current = side === 'left' ? e.clientX - span : e.clientX + span
+        atLeft.current = leftOf(e.currentTarget)
+        held.current = atLeft.current ? e.clientX - span : e.clientX + span
       }}
       onPointerMove={(e) => {
         if (!e.currentTarget.hasPointerCapture(e.pointerId)) return
@@ -252,6 +258,7 @@ function Grip({
       onKeyDown={(e) => {
         if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
         e.preventDefault()
+        const wider = leftOf(e.currentTarget) ? 'ArrowRight' : 'ArrowLeft'
         const want = span + (e.key === wider ? 1 : -1) * (e.shiftKey ? 32 : 8)
         if (want < FLOOR) return onShut()
         const put = Math.min(CEIL, want)
@@ -443,7 +450,7 @@ function Search({ find }: { find: Find }) {
       <span
         aria-hidden="true"
         style={{
-          marginLeft: 'auto',
+          marginInlineStart: 'auto',
           display: 'inline-flex',
           alignItems: 'center',
           height: 18,
@@ -666,11 +673,11 @@ export function Frame({
                 padding: 8,
                 boxSizing: 'border-box',
                 background: FRAME.ground,
-                borderRight: edge,
+                borderInlineEnd: edge,
               }}
             >
               <Grip
-                side="left"
+                side="start"
                 store={SPAN}
                 span={span}
                 onSpan={setSpan}
@@ -782,7 +789,7 @@ export function Frame({
             minWidth: 0,
             minHeight: 0,
             background: FRAME.ground,
-            borderLeft: edge,
+            borderInlineStart: edge,
           }}
         >
           <Slot.Provider value={slot}>{children}</Slot.Provider>
@@ -803,11 +810,11 @@ export function Frame({
               flexShrink: 0,
               minHeight: 0,
               background: FRAME.lifted,
-              borderLeft: edge,
+              borderInlineStart: edge,
             }}
           >
             <Grip
-              side="right"
+              side="end"
               store={BESIDE}
               span={beside}
               onSpan={setBeside}

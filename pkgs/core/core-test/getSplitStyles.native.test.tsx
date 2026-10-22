@@ -399,6 +399,28 @@ describe.skip('getSplitStyles - pseudo prop merging', () => {
   })
 })
 
+describe('direction-relative props on native', () => {
+  test('inline insets land on start/end, which follow the layout direction', () => {
+    expect(getSplitStylesFor({ insetInlineStart: 4 }).style).toEqual({ start: 4 })
+    expect(getSplitStylesFor({ insetInlineEnd: 4 }).style).toEqual({ end: 4 })
+    expect(getSplitStylesFor({ insetInline: 4 }).style).toEqual({ start: 4, end: 4 })
+  })
+
+  test('inline margins and paddings land on start/end', () => {
+    expect(getSplitStylesFor({ marginInlineStart: 4 }).style).toEqual({ marginStart: 4 })
+    expect(getSplitStylesFor({ paddingInlineEnd: 4 }).style).toEqual({ paddingEnd: 4 })
+  })
+
+  test('text alignment start/end becomes the left/right react-native swaps under RTL', () => {
+    expect(getSplitStylesFor({ textAlign: 'start' }, Text).style).toEqual({
+      textAlign: 'left',
+    })
+    expect(getSplitStylesFor({ textAlign: 'end' }, Text).style).toEqual({
+      textAlign: 'right',
+    })
+  })
+})
+
 function getSplitStylesFor(
   props: Record<string, any>,
   Component = View,

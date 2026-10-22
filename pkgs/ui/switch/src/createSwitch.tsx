@@ -7,6 +7,7 @@ import {
 } from '@hanzogui/core'
 import { useSwitch } from '@hanzogui/switch-headless'
 import { useControllableState } from '@hanzogui/use-controllable-state'
+import { useDirection } from '@hanzogui/use-direction'
 import * as React from 'react'
 import type { LayoutChangeEvent } from 'react-native'
 import { SwitchStyledContext } from './StyledContext.tsx'
@@ -70,7 +71,9 @@ export function createSwitch<
       const [thumbWidth, setThumbWidth] = React.useState(
         typeof initialWidth === 'number' ? initialWidth : 0
       )
-      const distance = frameWidth - thumbWidth
+      // the thumb starts at the inline start, which is the right edge under
+      // RTL, so it travels the other way there
+      const distance = (frameWidth - thumbWidth) * (useDirection() === 'rtl' ? -1 : 1)
       const x = initialChecked ? (active ? 0 : -distance) : active ? distance : 0
 
       return (

@@ -506,7 +506,10 @@ const SliderThumb = SliderThumbFrame.styleable<SliderThumbExtraProps>(
     const positionalStyles =
       context.orientation === 'horizontal'
         ? {
-            x: (thumbInBoundsOffset - size / 2) * orientation.direction,
+            // thumbInBoundsOffset already carries the direction; only the
+            // centring half-size turns with it. Multiplying the sum pushed the
+            // in-bounds nudge the wrong way under RTL
+            x: thumbInBoundsOffset - (size / 2) * orientation.direction,
             y: -size / 2,
             top: '50%',
             ...(size === 0 && {

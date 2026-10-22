@@ -45,6 +45,12 @@ export * from '@hanzogui/toast'
 export * from '@hanzogui/toggle-group'
 export * from '@hanzogui/tooltip'
 export * from '@hanzogui/use-controllable-state'
+export {
+  DirectionProvider,
+  getDocumentDirection,
+  mirror,
+  useDirection,
+} from '@hanzogui/use-direction'
 export * from '@hanzogui/use-debounce'
 export * from '@hanzogui/use-force-update'
 export * from '@hanzogui/element'

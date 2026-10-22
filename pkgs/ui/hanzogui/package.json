@@ -129,6 +129,7 @@
     "@hanzogui/tooltip": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
     "@hanzogui/use-debounce": "workspace:*",
+    "@hanzogui/use-direction": "workspace:*",
     "@hanzogui/use-force-update": "workspace:*",
     "@hanzogui/use-window-dimensions": "workspace:*",
     "@hanzogui/visually-hidden": "workspace:*",

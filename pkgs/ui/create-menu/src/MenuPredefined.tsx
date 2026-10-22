@@ -93,7 +93,7 @@ const MenuIcon = styled(View, {
         height: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: 'auto',
+        marginInlineStart: 'auto',
       },
     },
   } as const,
@@ -113,7 +113,7 @@ const MenuIndicator = styled(View, {
       false: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 'auto',
+        marginInlineStart: 'auto',
       },
     },
   } as const,

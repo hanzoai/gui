@@ -479,16 +479,16 @@ export function PaletteRow({
         background: 'transparent',
         color: selected ? FG_ON : CHROME.fgMuted,
         fontFamily: 'inherit',
-        textAlign: 'left',
+        textAlign: 'start',
       }}
     >
-      {/* The selection is a lit left edge as well as brighter ink — on a dense
+      {/* The selection is a lit leading edge as well as brighter ink — on a dense
           list, brightness alone is a difference a reader has to hunt for. */}
       <span
         aria-hidden="true"
         style={{
           position: 'absolute',
-          left: 0,
+          insetInlineStart: 0,
           top: 4,
           bottom: 4,
           width: 2,

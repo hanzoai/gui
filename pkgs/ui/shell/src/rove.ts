@@ -92,7 +92,15 @@ export function useRove(open: boolean, close: () => void, autoFocus = true): Rov
     (e: KeyboardEvent) => {
       const els = items()
       const cur = els.indexOf(document.activeElement as HTMLAnchorElement)
-      switch (e.key) {
+      // Under RTL the next item sits to the left, so the arrows trade places.
+      const rtl = getComputedStyle(e.currentTarget as Element).direction === 'rtl'
+      const key =
+        rtl && e.key === 'ArrowLeft'
+          ? 'ArrowRight'
+          : rtl && e.key === 'ArrowRight'
+            ? 'ArrowLeft'
+            : e.key
+      switch (key) {
         case 'ArrowRight':
         case 'ArrowDown':
           e.preventDefault()

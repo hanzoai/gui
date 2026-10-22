@@ -78,8 +78,8 @@ export interface HanzoAppLauncherProps {
   currentApp?: string
   /** Override the app list (defaults to the canonical HANZO_APPS). */
   apps?: HanzoApp[]
-  /** Panel edge alignment relative to the trigger. */
-  align?: 'left' | 'right'
+  /** Which of the trigger's edges the panel lines up with, in reading order. */
+  align?: 'start' | 'end'
   /**
    * Global quick-switch key used with ⌘/Ctrl (default `'k'`). Pass `false` to
    * disable the global listener (e.g. in Console, where ⌘K already opens the
@@ -112,7 +112,7 @@ export interface HanzoAppLauncherProps {
 export function HanzoAppLauncher({
   currentApp,
   apps = HANZO_APPS,
-  align = 'left',
+  align = 'start',
   quickSwitchKey = 'k',
   label = 'Hanzo apps',
   size = 18,
@@ -146,13 +146,16 @@ export function HanzoAppLauncher({
     // Clamp to the far edge first, then to the near one, so a trigger near the
     // end of its axis pulls the panel back on screen instead of off it.
     const edge = Math.max(GAP, window.innerWidth - PANEL_W - GAP)
+    // The panel is fixed to the viewport, so its offset is physical: the start
+    // edge is the left one unless the trigger reads right to left.
+    const rtl = getComputedStyle(triggerRef.current!).direction === 'rtl'
+    const left = (align === 'start') !== rtl
     setAnchor({
       top,
-      left: align === 'left' ? Math.min(Math.max(GAP, r.left), edge) : undefined,
-      right:
-        align === 'right'
-          ? Math.min(Math.max(GAP, window.innerWidth - r.right), edge)
-          : undefined,
+      left: left ? Math.min(Math.max(GAP, r.left), edge) : undefined,
+      right: left
+        ? undefined
+        : Math.min(Math.max(GAP, window.innerWidth - r.right), edge),
       // The panel scrolls internally; it must never run off the bottom edge.
       maxHeight: Math.max(220, window.innerHeight - top - GAP),
     })
@@ -261,13 +264,20 @@ export function HanzoAppLauncher({
         return
       }
       if (cur < 0) return
+      // The grid reads in the document's direction, so the arrow that
+      // points along the line is the one that moves forward.
+      const ahead =
+        getComputedStyle(e.currentTarget).direction === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
       switch (e.key) {
         case 'ArrowRight':
+        case 'ArrowLeft':
+          e.preventDefault()
+          focusTile(cur + (e.key === ahead ? 1 : -1))
+          break
         case 'ArrowDown':
           e.preventDefault()
           focusTile(cur + 1)
           break
-        case 'ArrowLeft':
         case 'ArrowUp':
           e.preventDefault()
           focusTile(cur - 1)
@@ -357,7 +367,7 @@ export function HanzoAppLauncher({
             <span
               style={{
                 position: 'absolute',
-                right: -3,
+                insetInlineEnd: -3,
                 bottom: -3,
                 display: 'flex',
                 alignItems: 'center',
@@ -557,7 +567,7 @@ export function HanzoAppLauncher({
                   >
                     ⌘{quickSwitchKey.toUpperCase()}
                   </kbd>
-                  <span style={{ marginLeft: 6 }}>to switch</span>
+                  <span style={{ marginInlineStart: 6 }}>to switch</span>
                 </div>
               ) : null}
             </div>,

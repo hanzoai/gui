@@ -54,6 +54,9 @@
       "path": "../../core/use-debounce"
     },
     {
+      "path": "../../core/use-direction"
+    },
+    {
       "path": "../../core/use-force-update"
     },
     {

@@ -73,3 +73,33 @@ app's export script is `build:web` (`one build`), and the turbo task `build:web`
 depends on `^build` and the package's own `build`. There is no Dockerfile and no
 image lane. The native Team app that used to live at apps/team is its own repo,
 hanzo-apps/team, with its own site lane.
+
+## Right-to-left: name sides logically
+
+Hosts set `<html dir="rtl">` (via @hanzo/i18n) and every surface renders through
+this repo, so a side named physically is a bug under Arabic, Persian, Hebrew and
+Urdu. Flex rows and grid columns follow `dir` on their own; offsets do not.
+
+- Write `marginInlineStart/End`, `paddingInlineStart/End`, `insetInlineStart/End`,
+  `borderInlineStart*/End*`, `borderStartStartRadius`… and `textAlign: 'start'`.
+  On web they emit CSS logical properties; on native they land on RN's
+  `marginStart`/`start`/… and `textAlign` start/end becomes left/right, which RN
+  swaps under RTL itself.
+- RN's own names (`paddingStart`, `start`, `borderTopStartRadius`) used to emit
+  `padding-start` and `start:` on web — not CSS, silently dropped. `expandStyle`
+  maps them to the logical property now.
+- Inline logical longhands carry the doubled class (`cssShorthandLonghands`), so
+  `paddingInlineEnd` beats the `padding-right` that `padding`/`paddingHorizontal`
+  expand to whatever order the sheet inserted them. A host's PHYSICAL override of
+  a logical side loses the same way: migrate the host, do not re-physicalise.
+- `useDirection()` reads `<html dir>` when no provider or prop says otherwise,
+  and re-renders when it changes. Slider, tabs, menus, roving focus, switch and
+  progress follow it. Native still falls back to 'ltr'.
+- A mark that points along the line (back, forward, send, a drill-in chevron)
+  spreads `mirror` (`data-i18n-mirror`); gui's base sheet and the shell's state
+  `[data-i18n-mirror]:dir(rtl){transform:scaleX(-1)}`, the same declaration
+  @hanzo/i18n's rtl.css uses, so several on one page mirror once. Never on logos,
+  media controls, numbers, code or a chart's time axis.
+- floating-ui already aligns `bottom-start` to the inline start under RTL; never
+  pick `-end` for RTL yourself (Menu did, and flipped it back to the left). Side
+  placements (`left`/`right`) are physical and do need the swap.

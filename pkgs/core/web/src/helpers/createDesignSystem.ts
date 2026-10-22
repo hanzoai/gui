@@ -252,6 +252,7 @@ export function getCSS(
 .is_Text { display: inline; box-sizing: border-box; word-wrap: break-word; white-space: pre-wrap; margin: 0; }
 @scope (.is_Text) to (.is_View) { .is_Text { white-space: inherit; word-wrap: inherit; } }
 ._dsp_contents {display:contents;}
+[data-i18n-mirror]:dir(rtl) {transform:scaleX(-1);}
 ._no_backdrop::backdrop {display: none;}
 .is_Input::selection, .is_TextArea::selection {background-color: var(--t_selectionColor);}
 .is_Input::placeholder, .is_TextArea::placeholder {color: var(--t_placeholderColor);}

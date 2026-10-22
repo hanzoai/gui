@@ -227,6 +227,9 @@ export const SHADOW = '0 24px 60px -16px rgba(0,0,0,0.75)'
  */
 export const SHADOW_LEFT = '-24px 0 60px -16px rgba(0,0,0,0.75)'
 
+/** SHADOW_LEFT for the same drawer under RTL, where it is anchored to the LEFT edge. */
+export const SHADOW_RIGHT = '24px 0 60px -16px rgba(0,0,0,0.75)'
+
 /**
  * The hueless glow where a full-bleed drape meets the header — one soft lift so
  * a black band on a black page still reads as a surface rather than a hole. Both

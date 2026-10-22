@@ -2646,7 +2646,12 @@ export interface StackStyleBase
   extends Omit<ViewStyle, keyof ExtendedBaseProps | 'elevation'>, ExtendedBaseProps {}
 
 export interface TextStylePropsBase
-  extends Omit<RNTextStyle, keyof ExtendedBaseProps>, ExtendedBaseProps {
+  extends Omit<RNTextStyle, keyof ExtendedBaseProps | 'textAlign'>, ExtendedBaseProps {
+  /**
+   * `start` and `end` follow the writing direction: the CSS logical values on
+   * web, and on native the left/right react-native swaps under RTL.
+   */
+  textAlign?: RNTextStyle['textAlign'] | 'start' | 'end'
   ellipsis?: boolean
   numberOfLines?: number
   textDecorationDistance?: number

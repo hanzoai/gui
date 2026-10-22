@@ -95,7 +95,9 @@ describe('logical layout', () => {
     expect(first).toMatch(/border-end-end-radius:\s*0px/)
     expect(last).toMatch(/border-start-start-radius:\s*0px/)
     expect(last).toMatch(/border-end-start-radius:\s*0px/)
-    expect(`${first}\n${last}`).not.toMatch(/border-(top|bottom)-(left|right)-radius:\s*0px/)
+    expect(`${first}\n${last}`).not.toMatch(
+      /border-(top|bottom)-(left|right)-radius:\s*0px/
+    )
   })
 
   it('a list item spaces its icons on their inline sides', () => {

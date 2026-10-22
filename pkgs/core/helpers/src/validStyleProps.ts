@@ -29,6 +29,26 @@ export const cssShorthandLonghands = {
   borderLeftWidth: true,
   borderLeftStyle: true,
   borderLeftColor: true,
+  // inline-axis logical longhands outrank the physical sides that padding,
+  // paddingHorizontal, borderRadius and friends expand to, so a component's
+  // `paddingInlineEnd` beats its own `paddingHorizontal` whichever rule the
+  // sheet happened to insert first
+  borderInlineStartWidth: true,
+  borderInlineStartStyle: true,
+  borderInlineStartColor: true,
+  borderInlineEndWidth: true,
+  borderInlineEndStyle: true,
+  borderInlineEndColor: true,
+  borderStartStartRadius: true,
+  borderStartEndRadius: true,
+  borderEndStartRadius: true,
+  borderEndEndRadius: true,
+  marginInlineStart: true,
+  marginInlineEnd: true,
+  paddingInlineStart: true,
+  paddingInlineEnd: true,
+  insetInlineStart: true,
+  insetInlineEnd: true,
   // outline longhands
   outlineWidth: true,
   outlineStyle: true,

@@ -8,6 +8,7 @@ import { createContextScope } from '@hanzogui/create-context'
 import { getSize } from '@hanzogui/get-token'
 import { withStaticProperties } from '@hanzogui/helpers'
 import { YStack } from '@hanzogui/stacks'
+import { useDirection } from '@hanzogui/use-direction'
 import { useState } from 'react'
 
 const PROGRESS_NAME = 'Progress'
@@ -64,15 +65,18 @@ const ProgressIndicator = ProgressIndicatorFrame.styleable(function ProgressIndi
   // so we divide by 2 to get container-relative positioning:
   // at 0%: x = -100% of element = -200% of container (fully hidden left)
   // at 100%: x = -50% of element = -100% of container (right half visible)
+  // under RTL the indicator sits at the right edge and fills leftward, so
+  // every offset is the mirror image
+  const sign = useDirection() === 'rtl' ? -1 : 1
   let x: string | number
   if (isWeb) {
     // web: use percentage-based translateX for SSR-friendly rendering
     // formula: -100% + (progressRatio * 50%) since translateX % is relative to element width
-    x = `${-100 + progressRatio * 50}%`
+    x = `${sign * (-100 + progressRatio * 50)}%`
   } else {
     // native: use pixel-based transform (RN doesn't support percentage transforms reliably)
     const baseWidth = context.width || 0
-    x = Math.ceil(-baseWidth * (2 - progressRatio))
+    x = sign * Math.ceil(-baseWidth * (2 - progressRatio))
   }
 
   return (

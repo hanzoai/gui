@@ -113,7 +113,7 @@ function SearchField({ placeholder, onClick }: OrgSearch) {
         fontSize: FS.sm,
         fontFamily: 'inherit',
         cursor: 'pointer',
-        textAlign: 'left',
+        textAlign: 'start',
       }}
       onMouseEnter={(e) => {
         ;(e.currentTarget as HTMLElement).style.background = CHROME.hover

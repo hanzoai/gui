@@ -262,7 +262,7 @@ export function Account(props: AccountProps) {
             aria-label="Collapse sidebar"
             title="Collapse sidebar"
             onClick={frame.toggle}
-            style={{ minWidth: 32, minHeight: 32, marginRight: 6 }}
+            style={{ minWidth: 32, minHeight: 32, marginInlineEnd: 6 }}
           >
             <MARKS.collapse size={16} />
           </button>

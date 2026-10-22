@@ -260,8 +260,8 @@ const NativeSelectFrame = styled(YStack, {
         return {
           borderRadius: tokens.radius[val] ?? val,
           minHeight: tokens.size[val],
-          paddingRight: paddingHorizontal + 20,
-          paddingLeft: paddingHorizontal,
+          paddingInlineEnd: paddingHorizontal + 20,
+          paddingInlineStart: paddingHorizontal,
           paddingVertical: getSpace(val, {
             shift: -3,
           }),
@@ -275,7 +275,7 @@ const NativeSelectFrame = styled(YStack, {
         borderColor: '$borderColor',
         userSelect: 'none',
         outlineWidth: 0,
-        paddingRight: 10,
+        paddingInlineEnd: 10,
       },
     },
   } as const,

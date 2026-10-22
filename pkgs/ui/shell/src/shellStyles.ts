@@ -5,7 +5,7 @@
  * inline styles cannot express (`:focus-visible`, `:disabled`, media queries).
  * Everything else in the shell stays inline styles + theme.ts tokens.
  *
- * It carries exactly six house rules, scoped to `[data-hanzo-shell]` roots:
+ * It carries exactly seven house rules, scoped to `[data-hanzo-shell]` roots:
  *   1. a hueless focus ring, replacing Chrome's default BLUE — the one stray hue
  *      on otherwise-monochrome chrome. Stated at normal weight so a component
  *      can still overrule it; see the rule itself.
@@ -26,15 +26,24 @@
  *      `hanzo-card-in` + `hanzo-row-in` are a card dropping out of its trigger
  *      and its rows arriving behind it; `hanzo-plane-in` is a full-bleed menu
  *      lowering out of the bar.
+ *   7. direction. Sides are written as logical properties inline, so they
+ *      follow `dir` with no rule here; what lands here is what CSS has no
+ *      logical form for — a mark that points along the line (`data-i18n-mirror`),
+ *      the door's lean, a corner a card grows from, a shadow's offset.
  *
  * Usage: a top-level shell component calls `useShellStyles()` once and puts
  * `data-hanzo-shell=""` on its root; the rules then apply to every focusable
  * descendant, including menus rendered within.
  */
 import { useInsertionEffect } from 'react'
-import { FOCUS_RING, FRAME, TAP_H } from './theme.ts'
+import { FOCUS_RING, FRAME, SHADOW_LEFT, SHADOW_RIGHT, TAP_H } from './theme.ts'
 
 const STYLE_ID = 'hanzo-shell-styles'
+
+// The same declaration @hanzo/i18n's rtl.css and @hanzo/gui's base sheet state,
+// so any number of them on one page mirror a mark once. `:dir()` rather than
+// `html[dir]`: an LTR island inside an RTL page keeps its arrows.
+const MIRROR = `[data-i18n-mirror]:dir(rtl){transform:scaleX(-1)}`
 
 const CSS = [
   // The house focus treatment, stated once. Deliberately the SAME recipe
@@ -136,12 +145,22 @@ const CSS = [
   `[data-hanzo-shell] .hanzo-door:hover .hanzo-door-go,[data-hanzo-shell] .hanzo-door:focus-visible .hanzo-door-go{opacity:1;transform:none}`,
   `[data-hanzo-shell] .hanzo-door .hanzo-door-mark{transition:transform 160ms cubic-bezier(.2,.9,.3,1.4)}`,
   `[data-hanzo-shell] .hanzo-door:hover .hanzo-door-mark,[data-hanzo-shell] .hanzo-door:focus-visible .hanzo-door-mark{transform:translateX(2px) scale(1.14)}`,
+  // 7. Under RTL the exit is on the left: the arrow arrives from the right
+  // pointing left, and the mark leans the other way.
+  `[data-hanzo-shell] .hanzo-door .hanzo-door-go:dir(rtl){transform:translateX(3px) scaleX(-1)}`,
+  `[data-hanzo-shell] .hanzo-door:hover .hanzo-door-go:dir(rtl),[data-hanzo-shell] .hanzo-door:focus-visible .hanzo-door-go:dir(rtl){transform:scaleX(-1)}`,
+  `[data-hanzo-shell] .hanzo-door:hover .hanzo-door-mark:dir(rtl),[data-hanzo-shell] .hanzo-door:focus-visible .hanzo-door-mark:dir(rtl){transform:translateX(-2px) scale(1.14)}`,
+  MIRROR,
+  `[data-hanzo-edge=corner]{transform-origin:bottom right}[data-hanzo-edge=corner]:dir(rtl){transform-origin:bottom left}`,
+  `[data-hanzo-edge=drawer]{box-shadow:${SHADOW_LEFT}}[data-hanzo-edge=drawer]:dir(rtl){box-shadow:${SHADOW_RIGHT}}`,
 ].join('')
 
 /**
  * THE WORKSPACE FRAME'S LAYOUT — the rules `Frame` cannot state inline.
  *
- * A grid, addressed by slot: the rail down the left, the bar across the top,
+ * A grid, addressed by slot: the rail down the leading edge (the left, or the
+ * right under RTL, since grid columns follow the writing direction), the bar
+ * across the top,
  * and under the bar the sidebar (`list`), the room (`pane`) and the column
  * beside it (`side`, or the `panel` that takes its place). Below 768px the grid
  * turns: bar, pane, and the rail along the bottom as a tab bar, with the
@@ -161,7 +180,7 @@ const CSS = [
 const F = '[data-hanzo-frame]'
 const FRAME_CSS = [
   `${F}{display:grid;grid-template-columns:64px auto minmax(0,1fr) auto;grid-template-rows:44px minmax(0,1fr);grid-template-areas:"rail bar bar bar" "rail list pane side";position:relative;width:100%;height:100dvh;overflow:hidden;background:${FRAME.ground};color:${FRAME.ink}}`,
-  `${F}>[data-slot=rail]{grid-area:rail;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;min-width:0;background:${FRAME.ground};border-right:1px solid ${FRAME.edge}}`,
+  `${F}>[data-slot=rail]{grid-area:rail;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;min-width:0;background:${FRAME.ground};border-inline-end:1px solid ${FRAME.edge}}`,
   `${F}>[data-slot=rail]>[data-slot=places]{grid-row:2;display:grid;grid-auto-rows:max-content;align-content:start;justify-items:center;gap:2px;min-width:0;overflow-y:auto;scrollbar-width:none;padding-top:8px}`,
   `${F}>[data-slot=rail]>[data-slot=strip]{grid-row:1;display:grid;justify-items:center;padding:8px 0 4px}`,
   `${F}>[data-slot=rail]>[data-slot=foot]{grid-row:3;display:grid;justify-items:center;padding-bottom:8px}`,
@@ -179,7 +198,7 @@ const FRAME_CSS = [
   `[data-frame-tile]:hover{background:${FRAME.hover}}`,
   `[data-frame-tile][aria-current=page]{background:${FRAME.edge}}`,
   `[data-frame-tile][aria-current=page]>span{color:${FRAME.ink}}`,
-  `[data-frame-row]{display:flex;align-items:center;gap:8px;width:100%;min-width:0;padding:6px 8px;border:0;border-radius:8px;background:transparent;color:${FRAME.quiet};font:inherit;font-size:13px;line-height:18px;text-align:left;text-decoration:none;cursor:pointer}`,
+  `[data-frame-row]{display:flex;align-items:center;gap:8px;width:100%;min-width:0;padding:6px 8px;border:0;border-radius:8px;background:transparent;color:${FRAME.quiet};font:inherit;font-size:13px;line-height:18px;text-align:start;text-decoration:none;cursor:pointer}`,
   `[data-frame-row]>svg{flex-shrink:0;opacity:.7}`,
   `[data-frame-row]>span{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}`,
   `[data-frame-row]:hover{background:${FRAME.hover}}`,
@@ -198,7 +217,7 @@ const FRAME_CSS = [
   // is a sheet between the bar and the tab bar, and the words of the search
   // give way to its glyph.
   `@media (max-width:767.98px){${F}{grid-template-columns:minmax(0,1fr);grid-template-rows:44px minmax(0,1fr) calc(56px + env(safe-area-inset-bottom));grid-template-areas:"bar" "pane" "rail"}` +
-    `${F}>[data-slot=rail]{grid-template-rows:none;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding-bottom:env(safe-area-inset-bottom);border-right:0;border-top:1px solid ${FRAME.edge}}` +
+    `${F}>[data-slot=rail]{grid-template-rows:none;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding-bottom:env(safe-area-inset-bottom);border-inline-end:0;border-top:1px solid ${FRAME.edge}}` +
     `${F}>[data-slot=rail]>[data-slot=places]{grid-row:auto;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-auto-rows:auto;justify-items:stretch;overflow:hidden;padding-top:0}` +
     `${F}>[data-slot=rail]>[data-slot=places]>*{width:auto;min-width:0}` +
     `${F}>[data-slot=rail]>[data-slot=places]>:nth-child(n+6){display:none}` +
@@ -210,6 +229,7 @@ const FRAME_CSS = [
     `${F}>[data-slot=scrim]{top:44px;bottom:calc(56px + env(safe-area-inset-bottom))}` +
     `${F} [data-slot=places-list],${F} [data-frame-md]{display:none!important}` +
     `${F} [data-slot=find]>:not(svg){display:none!important}${F} [data-slot=find]{justify-content:center}}`,
+  MIRROR,
 ].join('')
 
 /** The shell's one animation, for a control that is busy. See rule 6. */

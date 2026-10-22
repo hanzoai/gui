@@ -23,6 +23,9 @@
       "path": "../../core/use-controllable-state"
     },
     {
+      "path": "../../core/use-direction"
+    },
+    {
       "path": "../../core/use-previous"
     },
     {

@@ -227,8 +227,8 @@ export function MeetHanzoMenu({
             aria-label="Products"
             data-hanzo-menu-col=""
             style={{
-              paddingRight: stacked ? 0 : 22,
-              borderRight: stacked ? undefined : `1px solid ${CHROME.borderSoft}`,
+              paddingInlineEnd: stacked ? 0 : 22,
+              borderInlineEnd: stacked ? undefined : `1px solid ${CHROME.borderSoft}`,
             }}
           >
             <SectionLabel>Products</SectionLabel>
@@ -258,7 +258,7 @@ export function MeetHanzoMenu({
               justifyContent: 'start',
               alignContent: 'start',
               gap: '16px 24px',
-              paddingLeft: stacked ? 0 : 24,
+              paddingInlineStart: stacked ? 0 : 24,
             }}
           >
             {columns.map((group) => (

@@ -128,9 +128,9 @@ export function TryHanzoMenu({
         style={{
           position: 'fixed',
           top: anchor,
-          right: EDGE,
+          insetInlineEnd: EDGE,
           // A phone has no room for a card hanging off one edge, so it spans.
-          left: stacked ? EDGE : undefined,
+          insetInlineStart: stacked ? EDGE : undefined,
           zIndex: Z.modal as unknown as number,
           display: 'flex',
           flexDirection: stacked ? 'column' : 'row',
@@ -223,8 +223,8 @@ export function TryHanzoMenu({
                           aria-hidden
                           className="hanzo-door-go"
                           style={{
-                            marginLeft: 'auto',
-                            paddingLeft: 6,
+                            marginInlineStart: 'auto',
+                            paddingInlineStart: 6,
                             fontSize: FS.xs,
                             color: 'inherit',
                           }}
@@ -238,7 +238,7 @@ export function TryHanzoMenu({
                             display: 'block',
                             /* Clears the 18px rail + its 8px gap so the tagline
                              sits under the LABEL rather than under the mark. */
-                            marginLeft: 26,
+                            marginInlineStart: 26,
                             fontSize: FS.xs,
                             color: CHROME.fgMuted,
                             lineHeight: 1.3,

@@ -77,7 +77,7 @@ const Composer = styled(XStack, {
   borderRadius: 28,
   backgroundColor: c.field,
   padding: 10,
-  paddingLeft: 20,
+  paddingInlineStart: 20,
   shadowColor: '#000',
   shadowOpacity: 0.5,
   shadowRadius: 40,

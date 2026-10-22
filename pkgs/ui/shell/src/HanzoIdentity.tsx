@@ -199,7 +199,7 @@ function AccountMenu({
             ...PANEL,
             position: 'absolute',
             top: 46,
-            right: 0,
+            insetInlineEnd: 0,
             zIndex: Z.dropdown as unknown as number,
             width: 'max-content',
             minWidth: 200,
@@ -254,7 +254,7 @@ function AccountMenu({
               style={{
                 ...row(),
                 width: '100%',
-                textAlign: 'left',
+                textAlign: 'start',
                 border: 'none',
                 borderRadius: R.row,
                 background: 'transparent',

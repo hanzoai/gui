@@ -230,12 +230,12 @@ const ListItemComponent = ListItemFrame.styleable<ListItemExtraProps>(
 
     const iconSpacing = iconSizeNumber * 0.4
     const themedIcon = icon ? (
-      <View marginRight={iconSpacing}>
+      <View marginInlineEnd={iconSpacing}>
         {getIcon(icon, { size: iconSizeNumber, color: iconColor })}
       </View>
     ) : null
     const themedIconAfter = iconAfter ? (
-      <View marginLeft={iconSpacing}>
+      <View marginInlineStart={iconSpacing}>
         {getIcon(iconAfter, { size: iconSizeNumber, color: iconColor })}
       </View>
     ) : null

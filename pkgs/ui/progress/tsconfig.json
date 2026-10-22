@@ -20,6 +20,9 @@
       "path": "../../core/helpers"
     },
     {
+      "path": "../../core/use-direction"
+    },
+    {
       "path": "../stacks"
     }
   ],

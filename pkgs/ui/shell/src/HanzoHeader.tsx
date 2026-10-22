@@ -836,7 +836,7 @@ function BrandBox({
     // sits a hair inside the column instead of exactly on it.
     style: {
       ...control(open),
-      marginLeft: -4,
+      marginInlineStart: -4,
       gap: 9,
       // The name of the place is never dim. `control` speaks in brightness and
       // this one control is exempt: it is the only word on the bar that is not
@@ -1522,7 +1522,7 @@ function MobileSheet({
                   fontSize: FS.base,
                   background: 'transparent',
                   border: 'none',
-                  textAlign: 'left',
+                  textAlign: 'start',
                 }}
                 {...ghostHover(false)}
               >
@@ -1563,8 +1563,12 @@ function MobileSheet({
                     <Glyph name={node.glyph} reserve={anyMark} />
                     {node.label}
                   </span>
-                  <span style={{ transform: 'rotate(-90deg)', display: 'inline-flex' }}>
-                    <Chevron open={false} />
+                  {/* Drill in: the chevron points along the line, so it turns
+                      with it under RTL. The mirror sits outside the rotation. */}
+                  <span data-i18n-mirror="" style={{ display: 'inline-flex' }}>
+                    <span style={{ transform: 'rotate(-90deg)', display: 'inline-flex' }}>
+                      <Chevron open={false} />
+                    </span>
                   </span>
                 </button>
               ) : (
@@ -1676,7 +1680,7 @@ function sheetRow(current: boolean): React.CSSProperties {
     minHeight: TAP_H + 8,
     fontSize: FS.xl,
     fontWeight: 500,
-    textAlign: 'left',
+    textAlign: 'start',
     width: '100%',
   }
 }
@@ -1686,7 +1690,14 @@ function sheetRow(current: boolean): React.CSSProperties {
 /** The way back out of a sheet pane, drawn as the arrow it is. */
 function BackGlyph() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      data-i18n-mirror=""
+    >
       <path
         d="M10 3 5 8l5 5"
         stroke="currentColor"

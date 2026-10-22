@@ -34,7 +34,6 @@ import {
   R,
   SCRIM,
   SHADOW,
-  SHADOW_LEFT,
   TAP_H,
   Z,
   control,
@@ -256,6 +255,7 @@ export function AskHanzo({
             aria-modal={corner ? undefined : 'true'}
             aria-label="Ask Hanzo"
             data-hanzo-shell=""
+            data-hanzo-edge={corner ? 'corner' : 'drawer'}
             style={{
               position: 'fixed',
               zIndex: Z.modal as unknown as number,
@@ -267,7 +267,7 @@ export function AskHanzo({
                 ? {
                     // Anchored to the same corner as the launcher, and never
                     // wider than the phone it opens on.
-                    right: EDGE,
+                    insetInlineEnd: EDGE,
                     bottom: CARD_LIFT,
                     width: `min(380px, calc(100vw - ${EDGE * 2}px))`,
                     // A conversation needs the room; an invitation does not.
@@ -278,17 +278,19 @@ export function AskHanzo({
                       : { maxHeight: `calc(100vh - ${CARD_LIFT + EDGE}px)` }),
                     ...PANEL,
                     overflow: 'hidden',
-                    transformOrigin: 'bottom right',
+                    // transform-origin has no logical keywords: the corner it
+                    // grows from is set by the shell stylesheet per direction
                     animation: 'hanzo-card-in 200ms cubic-bezier(.2,.9,.3,1.1) both',
                   }
                 : {
                     top: 0,
-                    right: 0,
+                    insetInlineEnd: 0,
                     bottom: 0,
                     width: 'min(440px, 100vw)',
                     background: CHROME.panel,
-                    borderLeft: `1px solid ${CHROME.border}`,
-                    boxShadow: SHADOW_LEFT,
+                    borderInlineStart: `1px solid ${CHROME.border}`,
+                    // a shadow's offset is physical: the stylesheet casts it
+                    // toward the page under either direction
                   }),
             }}
           >
@@ -502,7 +504,7 @@ function CornerLauncher({ open, onClick }: { open: boolean; onClick: () => void 
       aria-expanded={open}
       style={{
         position: 'fixed',
-        right: EDGE,
+        insetInlineEnd: EDGE,
         bottom: EDGE,
         zIndex: Z.popover as unknown as number,
         display: 'inline-flex',

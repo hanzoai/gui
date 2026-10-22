@@ -400,8 +400,10 @@ export function createBaseMenu({
 }: CreateBaseMenuProps) {
   const MenuComp = (props: ScopedProps<MenuBaseProps>) => {
     const direction = useDirection(props.dir)
-    // default placement: bottom-start for LTR, bottom-end for RTL
-    const defaultPlacement = direction === 'rtl' ? 'bottom-end' : 'bottom-start'
+    // floating-ui reads the floating element's direction and aligns `-start`
+    // to the inline start on a top/bottom side, so one placement serves both
+    // directions; naming `bottom-end` under RTL flipped it back to the left
+    const defaultPlacement = 'bottom-start'
     const {
       scope = MENU_CONTEXT,
       open = false,

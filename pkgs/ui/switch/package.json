@@ -45,6 +45,7 @@
     "@hanzogui/stacks": "workspace:*",
     "@hanzogui/switch-headless": "workspace:*",
     "@hanzogui/use-controllable-state": "workspace:*",
+    "@hanzogui/use-direction": "workspace:*",
     "@hanzogui/use-previous": "workspace:*",
     "@hanzogui/web": "workspace:*"
   },

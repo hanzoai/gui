@@ -20,10 +20,14 @@
  */
 import React from 'react'
 
-const svg = (children: React.ReactNode) =>
+// A mark that points along the line of text (back, forward, a sidebar drawn on
+// the leading edge) says so, and the shell stylesheet mirrors it under RTL.
+// Logos, media controls and charts never do.
+const svg = (children: React.ReactNode, along = false) =>
   function Mark({ size = 20 }: { size?: number }) {
     return (
       <svg
+        {...(along && { 'data-i18n-mirror': '' })}
         width={size}
         height={size}
         viewBox="0 0 24 24"
@@ -243,26 +247,30 @@ export const MARKS = {
     <>
       <rect width="18" height="18" x="3" y="3" rx="2" />
       <path d="M9 3v18" />
-    </>
+    </>,
+    true
   ),
   collapse: svg(
     <>
       <rect width="18" height="18" x="3" y="3" rx="2" />
       <path d="M9 3v18" />
       <path d="m16 15-3-3 3-3" />
-    </>
+    </>,
+    true
   ),
   back: svg(
     <>
       <path d="m12 19-7-7 7-7" />
       <path d="M19 12H5" />
-    </>
+    </>,
+    true
   ),
   forward: svg(
     <>
       <path d="M5 12h14" />
       <path d="m12 5 7 7-7 7" />
-    </>
+    </>,
+    true
   ),
   gear: svg(
     <>
@@ -395,7 +403,7 @@ export function Outlink() {
       strokeLinejoin="round"
       style={{
         display: 'inline-block',
-        marginLeft: '0.28em',
+        marginInlineStart: '0.28em',
         verticalAlign: 'middle',
         opacity: 0.7,
       }}

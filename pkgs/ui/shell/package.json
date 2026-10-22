@@ -55,6 +55,7 @@
   "scripts": {
     "build": "hanzogui-build --skip-native",
     "test": "bun run build && node --test *.test.mjs",
+    "test:web": "bun run test",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build"
   },

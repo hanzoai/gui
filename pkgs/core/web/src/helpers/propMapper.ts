@@ -29,6 +29,14 @@ import { styleOriginalValues } from './styleOriginalValues.ts'
 export { getTokenForKey } from './getTokenForKey.ts'
 
 export const propMapper: PropMapper = (key, value, styleState, disabled, map) => {
+  // a vertical tracks stack and its direct children read alignment across
+  // (helpers/tracks.ts); every key this call emits passes through the rename
+  const { renames } = styleState
+  if (renames) {
+    const emit = map
+    map = (k, v, o) => emit(renames[k] || k, v, o)
+  }
+
   if (disabled) {
     return map(key, value)
   }

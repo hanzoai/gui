@@ -103,3 +103,39 @@ Urdu. Flex rows and grid columns follow `dir` on their own; offsets do not.
 - floating-ui already aligns `bottom-start` to the inline start under RTL; never
   pick `-end` for RTL yourself (Menu did, and flipped it back to the left). Side
   placements (`left`/`right`) are physical and do need the swap.
+
+## `tracks` and `Wrap`: the stack sizes its children
+
+`tracks` is a View prop (core, `pkgs/core/web/src/helpers/tracks.ts`, typed on
+`StackNonStyleProps`): a CSS track list along the stack's own axis, so the
+children carry no flex props. `Wrap` (`pkgs/ui/stacks`) is the one place
+content-sized wrapping lives. Both opt in; a stack without `tracks` renders
+byte for byte as before. The owner's plan: these primitives (8.4), then a
+codemod per repo with screenshot diffs, then `hanzo-design-lint`'s `flex-prop`
+floor enforced at zero, then the stack default flips to grid in gui 9 only.
+
+- **Web**: `display: grid`; YStack `grid-auto-flow: row` + `grid-template-rows`
+  - `grid-auto-columns: minmax(0, 1fr)`, XStack `column` + `-columns` +
+    `grid-auto-rows: minmax(0, 1fr)`. Merged at importance 0 after the prop
+    loop, so a prop the author names (`display="none"`) wins. The axis is
+    `flexDirection` (row/row-reverse across, else down); no reverse flow.
+- **Alignment keeps its flex meaning.** On a vertical stack grid's axes swap,
+  so propMapper renames every key it emits (`styleState.renames`): on the stack
+  `alignItems→justifyItems`, `justifyContent→alignContent`,
+  `alignContent→justifyContent`; on a direct child `alignSelf→justifySelf`.
+  Renaming the emitted key is what makes it hold in media, pseudo and variant
+  styles. A child learns its parent's axis from `ComponentContext.tracks`,
+  which createComponent provides to a stack's children and every child clears
+  for its own (merged into the focusWithin / inText providers, so the innermost
+  provider still carries both). An HOC and asChild pass it through.
+- **Native** stays flex; createComponent hands each child the track at its
+  position as flex longhands (`place`): `Nfr`→grow N shrink 1 basis 0, a
+  length→grow 0 shrink 0 basis N, anything else→basis auto. Positions run
+  through fragments and skip absolute/fixed children.
+- **The compiler** leaves a tracks stack and its direct children to the
+  runtime (`deoptProps` + `hasTracksParent` in createExtractor).
+- Tests: `pkgs/ui/components-test/Tracks.{web,native}.test.tsx`, the compiler
+  case in `static-tests/tests/babel.web.test.tsx`, and real-browser geometry in
+  `apps/tests/integration/tests/tracks.integration.test.js` (dev and the
+  compiled production build). A spawned server's stdout must be drained there,
+  or the vite plugin's warnings fill the pipe and the server never listens.

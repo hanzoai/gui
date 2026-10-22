@@ -22,6 +22,7 @@
  * every width and in every host theme (see `PANEL` in theme.ts).
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useI18n, type Say } from '@hanzo/i18n/react'
 import {
   CHROME,
   FS,
@@ -69,7 +70,7 @@ export interface HanzoAuth {
   accountHref?: string
   /** Extra account-menu rows (Billing, Settings, …), above Sign out. */
   items?: HanzoLink[]
-  /** Label for the signed-out action. */
+  /** Label for the signed-out action. Defaults to "Sign in". */
   label?: string
   /**
    * The viewer's plan, already resolved by the host (`usePlan()` higher in the
@@ -89,6 +90,7 @@ export interface HanzoIdentityProps {
 }
 
 export function HanzoIdentity({ auth }: HanzoIdentityProps) {
+  const { t } = useI18n()
   const {
     user,
     onSignIn,
@@ -96,7 +98,7 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
     signInHref = U.login,
     accountHref = U.account,
     items,
-    label = 'Sign in',
+    label,
     plan,
     billing,
   } = auth
@@ -119,7 +121,7 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
         }
         {...controlHover()}
       >
-        {label}
+        {label ?? t('Sign in')}
       </a>
     )
   }
@@ -127,7 +129,7 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
   return (
     <AccountMenu
       user={user}
-      items={items ?? defaultItems(accountHref)}
+      items={items ?? defaultItems(accountHref, t)}
       onSignOut={onSignOut}
       plan={plan}
       billing={billing}
@@ -150,11 +152,12 @@ function AccountMenu({
   plan?: Plan
   billing?: Omit<UsePlanOptions, 'enabled'>
 }) {
+  const { t } = useI18n()
   const [open, setOpen] = useState(false)
   const boxRef = useRef<HTMLDivElement>(null)
   const close = useCallback(() => setOpen(false), [])
   const rove = useRove(open, close, true)
-  const name = user.name || user.email || 'Account'
+  const name = user.name || user.email || t('Account')
 
   // Read only while the menu is open, and not at all when the host resolved the
   // plan. Nobody needs it resolved on every page load of every property, and
@@ -190,7 +193,7 @@ function AccountMenu({
       {open ? (
         <div
           role="menu"
-          aria-label="Account"
+          aria-label={t('Account')}
           ref={rove.ref}
           onKeyDown={rove.onKeyDown}
           onFocus={rove.onFocus}
@@ -264,7 +267,7 @@ function AccountMenu({
               }}
               {...ghostHover()}
             >
-              Sign out
+              {t('Sign out')}
             </button>
           ) : null}
         </div>
@@ -274,7 +277,7 @@ function AccountMenu({
 }
 
 /** Where an account menu goes when the host names nothing of its own. */
-const defaultItems = (accountHref: string): HanzoLink[] => [
-  { id: 'account', label: 'Account', href: accountHref },
-  { id: 'billing', label: 'Billing', href: U.billing },
+const defaultItems = (accountHref: string, t: Say): HanzoLink[] => [
+  { id: 'account', label: t('Account'), href: accountHref },
+  { id: 'billing', label: t('Billing'), href: U.billing },
 ]

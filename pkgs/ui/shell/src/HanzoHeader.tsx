@@ -28,11 +28,13 @@
  * used to be a field buried inside the Products mega-menu, which meant the only
  * way to search products was to first open the menu you were trying to skip.
  *
- * Self-contained: inline styles + theme.ts tokens, React the only runtime dep —
- * drops into Next / Vite / vanilla hosts with zero provider/setup. Sticky, dark
- * chrome, fully keyboard-accessible.
+ * Self-contained: inline styles + theme.ts tokens, React and @hanzo/i18n the only
+ * runtime deps — drops into Next / Vite / vanilla hosts with zero provider/setup
+ * (with no I18nProvider every word reads in English). Sticky, dark chrome, fully
+ * keyboard-accessible.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { HanzoWordmark } from './mark.tsx'
 import { MeetHanzoMenu } from './MeetHanzoMenu.tsx'
 import { TryHanzoMenu } from './TryHanzoMenu.tsx'
@@ -304,6 +306,7 @@ export function HanzoHeader({
   className,
 }: HanzoHeaderProps) {
   useShellStyles()
+  const { t } = useI18n()
   const s = resolveSurface(surface)
   // The bar collapses to the sheet when it does not FIT, not at a width someone
   // guessed. Measured on hanzo.ai: the desktop row fits at 1280 and overlaps
@@ -461,13 +464,13 @@ export function HanzoHeader({
         .filter((link): link is HanzoLink => Boolean(link))
         .map((link) => ({
           id: `nav/${link.id}`,
-          title: link.label,
+          title: t(link.label),
           href: link.href,
-          hint: link.hint,
-          group: 'Pages',
+          hint: link.hint ? t(link.hint) : undefined,
+          group: t('Pages'),
           external: outward(link.href, s.host),
         })),
-    [localNav, s.secondaryCTA, s.primaryCTA]
+    [localNav, s.secondaryCTA, s.primaryCTA, t]
   )
 
   const searchIndex = React.useMemo(
@@ -576,7 +579,7 @@ export function HanzoHeader({
             <div style={{ flex: 1 }} />
             {hasSearch ? <HanzoCommandTrigger onOpen={openSearch} compact /> : null}
             <IconButton
-              label={mobileOpen ? 'Close menu' : 'Open menu'}
+              label={mobileOpen ? t('Close menu') : t('Open menu')}
               expanded={mobileOpen}
               onClick={() => {
                 menu.set(null)
@@ -591,7 +594,7 @@ export function HanzoHeader({
             {/* ── Products ⌄ (rich mega-menu) — only when a taxonomy is provided ── */}
             {hasProducts ? (
               <MenuTrigger
-                label={productsLabel}
+                label={t(productsLabel)}
                 open={menu.key === 'products'}
                 reach={menu.trigger('products')}
                 onStepIn={() => menu.set('products')}
@@ -601,7 +604,7 @@ export function HanzoHeader({
 
             {/* ── Local nav ── */}
             <nav
-              aria-label={`${s.brandName} navigation`}
+              aria-label={t('{brand} navigation', { brand: s.brandName })}
               style={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}
             >
               {localNav.map((link) => {
@@ -875,6 +878,7 @@ function NavLink({
   current?: boolean
   dim?: boolean
 }) {
+  const { t } = useI18n()
   // Hover comes from the shared token, not from here. Hand-rolling it is what
   // let this link drift from the trigger beside it (a background lift, and a
   // brightening that stopped short of white).
@@ -884,7 +888,7 @@ function NavLink({
         aria-current="page"
         style={{ ...control(true), fontWeight: 500, ...recede(dim) }}
       >
-        {link.label}
+        {t(link.label)}
       </span>
     )
   }
@@ -894,7 +898,7 @@ function NavLink({
       style={{ ...control(), fontWeight: 500, ...recede(dim) }}
       {...controlHover()}
     >
-      {link.label}
+      {t(link.label)}
     </a>
   )
 }
@@ -952,6 +956,7 @@ function NavMenu({
   current?: boolean
   dim?: boolean
 }) {
+  const { t } = useI18n()
   const { onClick, ...pointer } = reach
   const rove = useRove(open, onClose, autoFocus)
   const panel = `hanzo-nav-${link.id}`
@@ -983,7 +988,7 @@ function NavMenu({
         {...controlHover(open)}
       >
         <Glyph name={link.glyph} />
-        {link.label}
+        {t(link.label)}
         <Chevron open={open} />
       </Trigger>
       {open ? (
@@ -1020,7 +1025,7 @@ function NavMenu({
             id={panel}
             role="dialog"
             data-hanzo-plane=""
-            aria-label={link.label}
+            aria-label={t(link.label)}
             ref={rove.ref}
             onKeyDown={rove.onKeyDown}
             onFocus={rove.onFocus}
@@ -1054,7 +1059,9 @@ function NavMenu({
                     minWidth: 0,
                   }}
                 >
-                  <ColumnTitle>Explore {link.label}</ColumnTitle>
+                  <ColumnTitle>
+                    {t('Explore {label}', { label: t(link.label) })}
+                  </ColumnTitle>
                   {items.map((item) => (
                     <a
                       key={item.id}
@@ -1073,7 +1080,7 @@ function NavMenu({
                       }}
                       {...ghostHover()}
                     >
-                      {item.label}
+                      {t(item.label)}
                       {item.external ? <Outlink /> : null}
                     </a>
                   ))}
@@ -1088,7 +1095,7 @@ function NavMenu({
                       minWidth: 0,
                     }}
                   >
-                    <ColumnTitle>{group.title}</ColumnTitle>
+                    <ColumnTitle>{t(group.title)}</ColumnTitle>
                     {group.items.map((item) => (
                       <a
                         key={item.id}
@@ -1104,7 +1111,7 @@ function NavMenu({
                         }}
                         {...ghostHover()}
                       >
-                        {item.label}
+                        {t(item.label)}
                         {item.external ? <Outlink /> : null}
                       </a>
                     ))}
@@ -1130,7 +1137,7 @@ function NavMenu({
                     >
                       <Glyph name={item.glyph} reserve={anyMark} />
                       <span style={{ minWidth: 0 }}>
-                        {item.label}
+                        {t(item.label)}
                         {item.external ? <Outlink /> : null}
                         {item.hint ? (
                           <span
@@ -1142,7 +1149,7 @@ function NavMenu({
                               color: CHROME.fgDim,
                             }}
                           >
-                            {item.hint}
+                            {t(item.hint)}
                           </span>
                         ) : null}
                       </span>
@@ -1220,6 +1227,7 @@ function CTA({
    */
   align?: 'center' | 'start'
 }) {
+  const { t } = useI18n()
   const filled = variant === 'filled'
   const justify =
     align === 'start'
@@ -1231,7 +1239,7 @@ function CTA({
   if (current) {
     return (
       <span aria-current="page" style={{ ...cta(filled, height), ...justify }}>
-        {link.label}
+        {t(link.label)}
       </span>
     )
   }
@@ -1253,7 +1261,7 @@ function CTA({
         else e.currentTarget.style.color = CHROME.fgMuted
       }}
     >
-      {link.label}
+      {t(link.label)}
       {away ? <Outlink /> : null}
     </a>
   )
@@ -1285,6 +1293,7 @@ function CTATrigger({
   controls: string
   current?: boolean
 }) {
+  const { t } = useI18n()
   const { onClick, ...pointer } = reach
   // On the surface the action names, there is no href to fall back to — so it
   // is a BUTTON, which keeps it focusable and operable while offering nobody a
@@ -1308,7 +1317,7 @@ function CTATrigger({
         onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
         {...pointer}
       >
-        {link.label}
+        {t(link.label)}
         <Chevron open={open} />
       </button>
     )
@@ -1333,7 +1342,7 @@ function CTATrigger({
       onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
       {...pointer}
     >
-      {link.label}
+      {t(link.label)}
       <Chevron open={open} />
     </a>
   )
@@ -1383,6 +1392,7 @@ function MobileSheet({
   top: number
   onClose: () => void
 }) {
+  const { t } = useI18n()
   const hasProducts = !!productsTaxonomy && productsTaxonomy.length > 0
   const localNav = withoutProductsDup(surface.localNav, hasProducts)
   const isHere = (href: string) => here(href, currentHref, surface.host)
@@ -1446,7 +1456,7 @@ function MobileSheet({
       <div
         role="dialog"
         data-hanzo-shell=""
-        aria-label={`${surface.brandName} menu`}
+        aria-label={t('{brand} menu', { brand: surface.brandName })}
         style={{
           ...PANEL,
           position: 'fixed',
@@ -1527,7 +1537,7 @@ function MobileSheet({
                 {...ghostHover(false)}
               >
                 <BackGlyph />
-                {path.length > 1 ? path[path.length - 2]!.label : 'Home'}
+                {path.length > 1 ? t(path[path.length - 2]!.label) : t('Home')}
               </button>
               {/* `LABEL`, like every other head in the chrome. It had its own
                   size and its own ink here, which made the one word naming the
@@ -1535,7 +1545,7 @@ function MobileSheet({
                   rank below the same word in the mega-menu. 12px of inset, not
                   8, because the rows below carry `sheetRow`'s 12px padding and
                   a head has no hover surface to bleed. */}
-              <p style={{ ...LABEL, margin: '10px 12px 2px' }}>{here_.label}</p>
+              <p style={{ ...LABEL, margin: '10px 12px 2px' }}>{t(here_.label)}</p>
             </>
           ) : null}
 
@@ -1561,7 +1571,7 @@ function MobileSheet({
                 >
                   <span style={{ ...glyphRow, alignItems: 'center' }}>
                     <Glyph name={node.glyph} reserve={anyMark} />
-                    {node.label}
+                    {t(node.label)}
                   </span>
                   {/* Drill in: the chevron points along the line, so it turns
                       with it under RTL. The mirror sits outside the rotation. */}
@@ -1585,7 +1595,7 @@ function MobileSheet({
                 >
                   <span style={{ ...glyphRow, alignItems: 'center' }}>
                     <Glyph name={node.glyph} reserve={anyMark} />
-                    {node.label}
+                    {t(node.label)}
                     {/* The marker is the promise that this leaves the surface, and
                       it belongs wherever the row does — the desktop menus have
                       carried it since they were written, so a phone without it

@@ -18,6 +18,8 @@
  * Inside a <Frame> the card carries the sidebar's collapse control beside it.
  */
 import React, { useEffect, useRef, useState, type ReactNode } from 'react'
+import { phrase } from '@hanzo/i18n'
+import { useI18n } from '@hanzo/i18n/react'
 import { useFrame } from './Frame.tsx'
 import { MARKS, type GlyphName } from './glyph.tsx'
 import { useFrameStyles } from './shellStyles.ts'
@@ -56,12 +58,12 @@ interface Row {
 export function rows(props: AccountProps): Row[] {
   const all: (Row | null)[] = [
     props.onProfile
-      ? { id: 'profile', label: 'Profile', glyph: 'user', go: props.onProfile }
+      ? { id: 'profile', label: phrase('Profile'), glyph: 'user', go: props.onProfile }
       : null,
     props.onNotifications
       ? {
           id: 'notifications',
-          label: 'Notifications',
+          label: phrase('Notifications'),
           glyph: 'bell',
           go: props.onNotifications,
         }
@@ -69,20 +71,26 @@ export function rows(props: AccountProps): Row[] {
     props.onAppearance
       ? {
           id: 'appearance',
-          label: 'Appearance',
+          label: phrase('Appearance'),
           glyph: 'palette',
           go: props.onAppearance,
         }
       : null,
     props.onSecurity
-      ? { id: 'security', label: 'Security', glyph: 'shield', go: props.onSecurity }
+      ? {
+          id: 'security',
+          label: phrase('Security'),
+          glyph: 'shield',
+          go: props.onSecurity,
+        }
       : null,
-    { id: 'signout', label: 'Sign out', glyph: 'exit', go: props.onSignOut },
+    { id: 'signout', label: phrase('Sign out'), glyph: 'exit', go: props.onSignOut },
   ]
   return all.filter((r): r is Row => r !== null)
 }
 
 function Item({ row, count, onDone }: { row: Row; count?: number; onDone: () => void }) {
+  const { t } = useI18n()
   const Mark = MARKS[row.glyph]
   return (
     <button
@@ -96,10 +104,10 @@ function Item({ row, count, onDone }: { row: Row; count?: number; onDone: () => 
       style={{ padding: '8px 12px', color: FRAME.ink }}
     >
       <Mark size={15} />
-      <span>{row.label}</span>
+      <span>{t(row.label)}</span>
       {count ? (
         <span
-          aria-label={`${count} unread`}
+          aria-label={t('{n} unread', { n: count })}
           style={{
             flex: 'none',
             minWidth: 18,
@@ -120,6 +128,7 @@ function Item({ row, count, onDone }: { row: Row; count?: number; onDone: () => 
 
 export function Account(props: AccountProps) {
   useFrameStyles()
+  const { t } = useI18n()
   const { name, email, picture, face, unread } = props
   const frame = useFrame()
   const [open, setOpen] = useState(false)
@@ -144,7 +153,7 @@ export function Account(props: AccountProps) {
     }
   }, [open])
 
-  const called = name?.trim() || email || 'You'
+  const called = name?.trim() || email || t('You')
   const list = rows(props)
   const last = list.length - 1
 
@@ -158,7 +167,7 @@ export function Account(props: AccountProps) {
         <div
           ref={menu}
           role="menu"
-          aria-label="Account"
+          aria-label={t('Account')}
           onKeyDown={(e) => {
             if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return
             e.preventDefault()
@@ -209,7 +218,7 @@ export function Account(props: AccountProps) {
         <button
           type="button"
           data-frame-row=""
-          aria-label="Account"
+          aria-label={t('Account')}
           aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -259,8 +268,8 @@ export function Account(props: AccountProps) {
           <button
             type="button"
             data-frame-icon=""
-            aria-label="Collapse sidebar"
-            title="Collapse sidebar"
+            aria-label={t('Collapse sidebar')}
+            title={t('Collapse sidebar')}
             onClick={frame.toggle}
             style={{ minWidth: 32, minHeight: 32, marginInlineEnd: 6 }}
           >

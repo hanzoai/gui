@@ -2988,9 +2988,12 @@
       "name": "@hanzogui/shell",
       "version": "8.4.0",
       "devDependencies": {
+        "@hanzo/i18n": "0.4.0",
         "@hanzogui/build": "workspace:*",
+        "oxc-parser": "0.147.0",
       },
       "peerDependencies": {
+        "@hanzo/i18n": ">=0.4.0",
         "react": ">=19.2.8",
         "react-dom": ">=19.2.8",
       },
@@ -3895,6 +3898,8 @@
     "@hanzo/font": ["@hanzo/font@1.9.3", "", { "peerDependencies": { "next": ">=13.2.0" } }, "sha512-PVCyIFMp/wBVfLsWczVWC3VVxbUzlTDwc/LBRgyT6Fizk09aACq8ByRmbJp0FGKVd1BbUDeekvfv0g1eoj4OvQ=="],
 
     "@hanzo/gui": ["@hanzo/gui@workspace:pkgs/ui/hanzogui"],
+
+    "@hanzo/i18n": ["@hanzo/i18n@0.4.0", "", { "peerDependencies": { "react": ">=18" }, "optionalPeers": ["react"] }, "sha512-NMG+UTRvH3Gef+W8cSFrXpOLrQbe55lDoUbnUcxOt5o/KrgJ9mpo/nMzxm6GlZrDirSEiB5ky/+ZRtMuBVlnfw=="],
 
     "@hanzo/logo": ["@hanzo/logo@1.0.26", "", { "peerDependencies": { "react": ">=16.8.0" }, "optionalPeers": ["react"] }, "sha512-acPRsdTD/pfsDLUias989cDZCCg4Q9rCCrlOWVqlAzcN7xyoi3Vl4DjM7Z+feOL5SDPxWY1M0hJn9B1xqGjK4g=="],
 

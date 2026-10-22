@@ -12,6 +12,8 @@
  * A mark either carries the menu or it does not; that is a prop, not a fork.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { phrase } from '@hanzo/i18n'
+import { useI18n } from '@hanzo/i18n/react'
 import { CHROME, FS, LABEL, PANEL, R, Z, ghostHover, row } from './theme.ts'
 import { useShellStyles } from './shellStyles.ts'
 
@@ -188,14 +190,15 @@ const MENU_ITEM: React.CSSProperties = {
 }
 
 const BRAND_LINKS = [
-  { label: 'Brand Guidelines', href: 'https://hanzo.ai/brand' },
-  { label: 'Press Kit', href: 'https://hanzo.ai/press' },
-  { label: 'Download Logo', href: 'https://hanzo.ai/brand#download' },
+  { label: phrase('Brand Guidelines'), href: 'https://hanzo.ai/brand' },
+  { label: phrase('Press Kit'), href: 'https://hanzo.ai/press' },
+  { label: phrase('Download Logo'), href: 'https://hanzo.ai/brand#download' },
   { label: 'hanzo.ai →', href: 'https://hanzo.ai' },
 ]
 
 function BrandMenu({ x, y, onClose }: { x: number; y: number; onClose: () => void }) {
   useShellStyles()
+  const { t } = useI18n()
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -217,7 +220,7 @@ function BrandMenu({ x, y, onClose }: { x: number; y: number; onClose: () => voi
     <div
       ref={ref}
       role="menu"
-      aria-label="Hanzo brand"
+      aria-label={t('Hanzo brand')}
       data-hanzo-shell=""
       style={{
         position: 'fixed',
@@ -237,7 +240,7 @@ function BrandMenu({ x, y, onClose }: { x: number; y: number; onClose: () => voi
           marginBottom: 4,
         }}
       >
-        <p style={{ ...LABEL, margin: 0 }}>Hanzo brand</p>
+        <p style={{ ...LABEL, margin: 0 }}>{t('Hanzo brand')}</p>
       </div>
       {BRAND_LINKS.map((item) => (
         <a
@@ -250,7 +253,7 @@ function BrandMenu({ x, y, onClose }: { x: number; y: number; onClose: () => voi
           style={MENU_ITEM}
           {...ghostHover()}
         >
-          {item.label}
+          {t(item.label)}
         </a>
       ))}
       <button
@@ -263,7 +266,7 @@ function BrandMenu({ x, y, onClose }: { x: number; y: number; onClose: () => voi
         style={MENU_ITEM}
         {...ghostHover()}
       >
-        Copy SVG
+        {t('Copy SVG')}
       </button>
     </div>
   )

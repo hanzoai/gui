@@ -10,9 +10,10 @@
  * was a shape in one menu and bare text in the next.
  *
  * Inline paths, no icon package: the shell's contract is inline styles + theme
- * tokens with React as the only runtime dep, and it must drop into a Next, Vite
- * or vanilla host with zero setup. One `svg()` helper, one stroke weight, one
- * 24-box, so a mark reads the same at 16px in a row and at 20px in a tile.
+ * tokens with React and @hanzo/i18n as the only runtime deps, and it must drop
+ * into a Next, Vite or vanilla host with zero setup. One `svg()` helper, one
+ * stroke weight, one 24-box, so a mark reads the same at 16px in a row and at
+ * 20px in a tile.
  *
  * A row NAMES its mark (`HanzoLink.glyph`); it never carries an element. The
  * registry is data — a `.ts` module cannot hold a `.tsx` value — and a host that

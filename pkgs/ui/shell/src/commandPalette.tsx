@@ -26,6 +26,8 @@
  * leaves no room for the pretence.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { phrase } from '@hanzo/i18n'
+import { useI18n } from '@hanzo/i18n/react'
 import { CHROME, FG_ON, FS, LABEL, PANEL, R, SCRIM, TAP_H, Z, row } from './theme.ts'
 import { useMediaQuery } from './useMediaQuery.ts'
 
@@ -80,8 +82,13 @@ export function useCommandKey(toggle: () => void): void {
  *
  * `onAsk` is the host taking the question instead: a surface that IS the AI
  * answers in place rather than opening a second copy of itself.
+ *
+ * The sentence and its value, not the finished string: a palette draws it as
+ * `t(...askLabel(question))`, so the words stay here and the language is the
+ * reader's.
  */
-export const askLabel = (question: string) => `Ask AI: ${question}`
+export const askLabel = (question: string) =>
+  [phrase('Ask AI: {question}'), { question }] as const
 
 export function useAsk({
   askHref,
@@ -395,12 +402,13 @@ export function PaletteList({
   id?: string
   children: React.ReactNode
 }) {
+  const { t } = useI18n()
   return (
     <div
       ref={listRef}
       id={id}
       role="listbox"
-      aria-label="Results"
+      aria-label={t('Results')}
       style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '4px 0 6px' }}
     >
       {children}
@@ -602,6 +610,7 @@ function Lit({ text, hits }: { text: string; hits?: number[] }) {
 
 /** The one calm line an empty result set gets. */
 export function PaletteEmpty({ query }: { query: string }) {
+  const { t } = useI18n()
   return (
     <p
       style={{
@@ -612,24 +621,25 @@ export function PaletteEmpty({ query }: { query: string }) {
         color: CHROME.fgDim,
       }}
     >
-      No results for “{query.trim()}”.
+      {t('No results for “{query}”.', { query: query.trim() })}
     </p>
   )
 }
 
 /** The ↑↓ / ↵ / ⌘K hint bar every palette closes with. */
 export function PaletteHints() {
+  const { t } = useI18n()
   return (
     <PaletteBar edge="bottom">
       <span style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <kbd style={KBD}>↑</kbd>
           <kbd style={KBD}>↓</kbd>
-          navigate
+          {t('navigate')}
         </span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <kbd style={KBD}>↵</kbd>
-          select
+          {t('select')}
         </span>
       </span>
       <kbd style={KBD}>⌘K</kbd>

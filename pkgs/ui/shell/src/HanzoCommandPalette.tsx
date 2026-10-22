@@ -20,6 +20,7 @@
  * second filled element competing with the header's one white CTA.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useI18n, type Say } from '@hanzo/i18n/react'
 import { TRY_HANZO_GROUPS, U, type ProductCategory } from './hanzo-registry.ts'
 import { search, type Match } from './search.ts'
 import { CHROME, CTRL_H, FS, TAP_H, control, controlHover, ghostHover } from './theme.ts'
@@ -99,15 +100,21 @@ type Entry = HanzoCommandEntry & { match?: Match; ask?: boolean }
 const LIST_ID = 'hanzo-palette-list'
 const rowId = (i: number) => `hanzo-palette-row-${i}`
 
-/** The products and the downloads, which every Hanzo surface can open. */
-function doors(): HanzoCommandEntry[] {
+/**
+ * The products and the downloads, which every Hanzo surface can open.
+ *
+ * In the reader's language, because what is drawn is what is searched: a row
+ * found by its English name and shown under another would light characters the
+ * reader never typed.
+ */
+function doors(t: Say): HanzoCommandEntry[] {
   return TRY_HANZO_GROUPS.flatMap((group) =>
     group.items.map((item) => ({
       id: `door/${group.id}/${item.id}`,
-      title: item.label,
+      title: t(item.label),
       href: item.href,
-      hint: item.hint,
-      group: group.id === 'install' ? 'Install' : 'Open',
+      hint: item.hint ? t(item.hint) : undefined,
+      group: group.id === 'install' ? t('Install') : t('Open'),
       external: true,
       glyph: item.glyph,
     }))
@@ -115,23 +122,23 @@ function doors(): HanzoCommandEntry[] {
 }
 
 /** The taxonomy, flattened. A category's own page is a record too. */
-function products(categories: ProductCategory[]): HanzoCommandEntry[] {
+function products(categories: ProductCategory[], t: Say): HanzoCommandEntry[] {
   return categories.flatMap((category) => [
     {
       id: `cat/${category.id}`,
-      title: category.label,
+      title: t(category.label),
       href: category.href,
-      hint: category.tagline,
-      group: 'Products',
+      hint: category.tagline ? t(category.tagline) : undefined,
+      group: t('Products'),
       keywords: 'category',
     },
     ...category.items.map((item) => ({
       id: `${category.id}/${item.id}`,
-      title: item.label,
+      title: t(item.label),
       href: item.href,
-      hint: item.hint,
-      group: category.label,
-      keywords: category.label,
+      hint: item.hint ? t(item.hint) : undefined,
+      group: t(category.label),
+      keywords: t(category.label),
       external: /^https?:\/\//.test(item.href),
       glyph: item.glyph,
     })),
@@ -147,6 +154,7 @@ export function HanzoCommandPalette({
   onAsk,
   onNavigate,
 }: HanzoCommandPaletteProps) {
+  const { t } = useI18n()
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
   const open = controlledOpen ?? uncontrolledOpen
   const setOpen = useCallback(
@@ -190,9 +198,9 @@ export function HanzoCommandPalette({
     const at = new Map<string, number>()
     const out: HanzoCommandEntry[] = []
     for (const entry of [
-      ...doors(),
+      ...doors(t),
       ...(commands ?? []),
-      ...products(categories ?? []),
+      ...products(categories ?? [], t),
     ]) {
       const seen = at.get(entry.href)
       if (seen === undefined) {
@@ -203,7 +211,7 @@ export function HanzoCommandPalette({
       }
     }
     return out
-  }, [commands, categories])
+  }, [commands, categories, t])
 
   const question = query.trim()
 
@@ -224,14 +232,14 @@ export function HanzoCommandPalette({
     if (question) {
       hits.push({
         id: 'ask',
-        title: askLabel(question),
+        title: t(...askLabel(question)),
         href: askHref,
-        group: 'Ask',
+        group: t('Ask'),
         ask: true,
       })
     }
     return hits
-  }, [index, query, mode, question, askHref])
+  }, [index, query, mode, question, askHref, t])
 
   const askQuestion = useAsk({ askHref, onAsk, onNavigate, close })
   const ask = useCallback(() => askQuestion(question), [askQuestion, question])
@@ -283,18 +291,18 @@ export function HanzoCommandPalette({
   const anyMark = entries.some((e) => !!e.glyph)
 
   return (
-    <PaletteShell open={open} onClose={close} label="Search Hanzo or ask AI">
+    <PaletteShell open={open} onClose={close} label={t('Search Hanzo or ask AI')}>
       <PaletteBar edge="top">
         <span
           role="tablist"
-          aria-label="Palette mode"
+          aria-label={t('Palette mode')}
           style={{ display: 'flex', gap: 2 }}
         >
           <ModeTab mode="filter" active={mode === 'filter'} onPick={pick}>
-            Filter
+            {t('Filter')}
           </ModeTab>
           <ModeTab mode="ask" active={mode === 'ask'} onPick={pick}>
-            Ask AI
+            {t('Ask AI')}
           </ModeTab>
         </span>
         <kbd style={KBD}>ESC</kbd>
@@ -304,7 +312,7 @@ export function HanzoCommandPalette({
         value={query}
         onChange={setQuery}
         onKeyDown={onKeyDown}
-        placeholder={mode === 'ask' ? 'Ask Hanzo AI anything' : 'Search Hanzo'}
+        placeholder={mode === 'ask' ? t('Ask Hanzo AI anything') : t('Search Hanzo')}
         inputRef={focusField}
         listId={LIST_ID}
         activeId={entries.length ? rowId(cursor) : undefined}
@@ -316,8 +324,8 @@ export function HanzoCommandPalette({
             index={0}
             id={rowId(0)}
             selected
-            title={question ? `Ask AI: ${question}` : 'Ask Hanzo AI'}
-            description={question ? undefined : 'Open a chat and ask anything'}
+            title={question ? t(...askLabel(question)) : t('Ask Hanzo AI')}
+            description={question ? undefined : t('Open a chat and ask anything')}
             onSelect={ask}
             onHover={() => {}}
           />
@@ -417,11 +425,12 @@ export function HanzoCommandTrigger({
    */
   height?: number
 }) {
+  const { t } = useI18n()
   return (
     <button
       type="button"
       onClick={onOpen}
-      aria-label="Search Hanzo or ask AI"
+      aria-label={t('Search Hanzo or ask AI')}
       aria-keyshortcuts="Meta+K Control+K"
       style={{
         ...control(false, height),
@@ -451,7 +460,7 @@ export function HanzoCommandTrigger({
       {compact ? null : (
         <>
           {/* The word, so the control is legible without decoding a glyph. */}
-          <span>Search</span>
+          <span>{t('Search')}</span>
           {/* The chord spoken, not boxed. KBD is a keycap for hints sitting on
               a flat panel; inside a control that already has its own edge it
               would draw a second box within the first. */}

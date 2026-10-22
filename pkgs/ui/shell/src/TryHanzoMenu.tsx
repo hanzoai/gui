@@ -27,12 +27,14 @@
  * own trigger at the right edge and stays the width of its contents. The two
  * shapes are how a reader tells "browse" from "go" before reading a word.
  *
- * Self-contained: inline styles + theme.ts tokens, React the only runtime dep.
+ * Self-contained: inline styles + theme.ts tokens, React and @hanzo/i18n the only
+ * runtime deps.
  * Esc closes and returns focus; ↑/↓/←/→/Home/End rove (see `useRove`), and a
  * hover opens it without stealing the caret (see `useIntent`).
  */
 import React, { useCallback, useMemo } from 'react'
 import type { PointerEventHandler } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { TRY_HANZO_GROUPS } from './hanzo-registry.ts'
 import { MARKS } from './glyph.tsx'
 import { CHROME, FS, GLASS, LABEL, R, SHADOW, Z, ghostHover, row, veil } from './theme.ts'
@@ -88,6 +90,7 @@ export function TryHanzoMenu({
   onPointerLeave,
 }: TryHanzoMenuProps) {
   useShellStyles()
+  const { t } = useI18n()
   const stacked = useIsMobile(STACK_BELOW)
   const close = useCallback(() => onClose?.(), [onClose])
   const rove = useRove(!!open, close, autoFocus)
@@ -112,7 +115,7 @@ export function TryHanzoMenu({
       <div
         id={id}
         role="dialog"
-        aria-label="Try Hanzo"
+        aria-label={t('Try Hanzo')}
         /* The card is a SIBLING of the bar, not a child, so it does not inherit
          the header's marker — and without it none of shellStyles reaches here:
          not the hover rules below, and not the reduced-motion silencer, which
@@ -166,7 +169,7 @@ export function TryHanzoMenu({
           ].map(({ g, w, hints }) =>
             g ? (
               <div key={g.id} style={{ minWidth: 0, width: stacked ? '100%' : w }}>
-                <div style={{ ...LABEL, marginBottom: 4 }}>{g.title}</div>
+                <div style={{ ...LABEL, marginBottom: 4 }}>{t(g.title)}</div>
                 {g.items.map((item) => {
                   const Mark = item.glyph ? MARKS[item.glyph] : undefined
                   const delay = seq++ * CASCADE
@@ -216,7 +219,7 @@ export function TryHanzoMenu({
                         >
                           {Mark ? <Mark size={16} /> : null}
                         </span>
-                        {item.label}
+                        {t(item.label)}
                         {/* Where it goes, said only while the pointer is on it —
                           a row of thirteen permanent arrows is noise. */}
                         <span
@@ -244,7 +247,7 @@ export function TryHanzoMenu({
                             lineHeight: 1.3,
                           }}
                         >
-                          {item.hint}
+                          {t(item.hint)}
                         </span>
                       ) : null}
                     </a>

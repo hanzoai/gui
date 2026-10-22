@@ -37,7 +37,8 @@
  * the category pages.)
  *
  * Controlled-open (`open`/`onClose`/`anchor`) so a header can drive it. Self-
- * contained: inline styles + theme.ts tokens, React the only runtime dep — the
+ * contained: inline styles + theme.ts tokens, React and @hanzo/i18n the only
+ * runtime deps — the
  * glyphs are inlined lucide paths (ISC) rather than a dependency, so this still
  * drops into any host with zero setup. Fully keyboard-accessible: Esc closes and
  * returns focus to the trigger; ↑/↓/←/→/Home/End rove the links (category
@@ -48,6 +49,7 @@
  */
 import React, { useCallback, useState } from 'react'
 import type { PointerEventHandler } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { type HanzoLink, type ProductCategory } from './hanzo-registry.ts'
 import {
   ACCENT,
@@ -122,6 +124,7 @@ export function ProductsMegaMenu({
   onPointerLeave,
 }: ProductsMegaMenuProps) {
   useShellStyles()
+  const { t } = useI18n()
   const close = useCallback(() => onClose?.(), [onClose])
   const rove = useRove(!!open, close, autoFocus)
 
@@ -145,7 +148,7 @@ export function ProductsMegaMenu({
         role="dialog"
         data-hanzo-plane=""
         aria-modal="false"
-        aria-label="Products"
+        aria-label={t('Products')}
         className={className}
         onKeyDown={rove.onKeyDown}
         onFocus={rove.onFocus}
@@ -214,6 +217,7 @@ function CategoryTile({
   currentHref?: string
   onNavigate: () => void
 }) {
+  const { t } = useI18n()
   // Hover lives on the TILE, not on each link, because the whole column lifts
   // together — the glyph, the name and the leaves all brighten as one.
   const [hover, setHover] = useState(false)
@@ -272,13 +276,13 @@ function CategoryTile({
             minWidth: 0,
           }}
         >
-          {category.label}
+          {t(category.label)}
         </span>
       </a>
 
       {category.tagline ? (
         <p
-          title={category.tagline}
+          title={t(category.tagline)}
           style={{
             // ONE text column. The heading sits after the mark, so a tagline and
             // a leaf list starting at the tile's own edge began 40px to its LEFT
@@ -298,7 +302,7 @@ function CategoryTile({
             transition: 'color 140ms ease',
           }}
         >
-          {category.tagline}
+          {t(category.tagline)}
         </p>
       ) : null}
 
@@ -339,6 +343,7 @@ function LeafRow({
   tileLit: boolean
   onNavigate: () => void
 }) {
+  const { t } = useI18n()
   const [hover, setHover] = useState(false)
 
   // Three steps, all colour: dim at rest, one step up while its tile is lit,
@@ -371,7 +376,7 @@ function LeafRow({
         transition: 'color 120ms ease',
       }}
     >
-      {link.label}
+      {t(link.label)}
     </a>
   )
 }
@@ -383,8 +388,8 @@ function LeafRow({
  * a slugged label, then to a neutral grid).
  *
  * These are lucide paths (ISC) inlined rather than imported. The shell's whole
- * premise is that it drops into any host with React as its only runtime
- * dependency — pulling `lucide-react` in for ten static glyphs would trade that
+ * premise is that it drops into any host with React and @hanzo/i18n as its only
+ * runtime dependencies — pulling `lucide-react` in for ten static glyphs would trade that
  * for ~1500 icons the shell never renders.
  */
 const GLYPHS: Record<string, React.ReactNode> = {

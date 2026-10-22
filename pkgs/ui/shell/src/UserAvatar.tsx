@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { BeamAvatar } from './BeamAvatar.tsx'
 
 export interface UserAvatarProps {
@@ -51,6 +52,7 @@ export function UserAvatar({
   colors,
   className,
 }: UserAvatarProps) {
+  const { t } = useI18n()
   const [photoFailed, setPhotoFailed] = useState(false)
   const [gravatarFailed, setGravatarFailed] = useState(false)
   const gravatarUrl = useGravatarUrl(email, size * 2)
@@ -73,7 +75,7 @@ export function UserAvatar({
     return (
       <img
         src={src}
-        alt={name || email || 'avatar'}
+        alt={name || email || t('avatar')}
         className={className}
         style={style}
         onError={() => setPhotoFailed(true)}
@@ -86,7 +88,7 @@ export function UserAvatar({
     return (
       <img
         src={gravatarUrl}
-        alt={name || email || 'avatar'}
+        alt={name || email || t('avatar')}
         className={className}
         style={style}
         onError={() => setGravatarFailed(true)}

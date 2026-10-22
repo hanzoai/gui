@@ -18,9 +18,28 @@
  * carries its usual rows, which is what it did before this existed.
  */
 import React from 'react'
+import { phrase } from '@hanzo/i18n'
+import { useI18n } from '@hanzo/i18n/react'
 import { CHROME, FS, R } from './theme.ts'
 import type { Plan } from './usePlan.ts'
 import { resetsAt } from './usage.ts'
+
+/**
+ * One sentence per span, because the span is a noun inside the sentence and a
+ * language inflects it there. A Map, since the span is the server's word.
+ */
+const REACHED = new Map([
+  ['hour', phrase('hour limit reached')],
+  ['day', phrase('day limit reached')],
+  ['week', phrase('week limit reached')],
+  ['month', phrase('month limit reached')],
+])
+const LEFT = new Map([
+  ['hour', phrase('{n} left this hour')],
+  ['day', phrase('{n} left this day')],
+  ['week', phrase('{n} left this week')],
+  ['month', phrase('{n} left this month')],
+])
 
 export interface MeterProps {
   /** The resolved plan, from `usePlan()`. */
@@ -30,6 +49,7 @@ export interface MeterProps {
 }
 
 export function Meter({ plan, href }: MeterProps) {
+  const { t } = useI18n()
   // Nothing to say yet, or nothing to say at all. A skeleton here would flash on
   // every menu open for a reading most viewers do not have.
   if (plan.loading || plan.state !== 'plan') return null
@@ -80,8 +100,13 @@ export function Meter({ plan, href }: MeterProps) {
                 person can act on; "8% left" needs arithmetic they do not have
                 the denominator for. The bar already carries the proportion. */}
             {usage.over
-              ? `${usage.span} limit reached`
-              : `${usage.remaining.toLocaleString()} left this ${usage.span}`}
+              ? t(REACHED.get(usage.span) ?? phrase('{span} limit reached'), {
+                  span: usage.span,
+                })
+              : t(LEFT.get(usage.span) ?? phrase('{n} left this {span}'), {
+                  n: usage.remaining.toLocaleString(),
+                  span: usage.span,
+                })}
           </span>
         ) : null}
       </div>
@@ -92,7 +117,7 @@ export function Meter({ plan, href }: MeterProps) {
           aria-valuenow={usage.usedPct}
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-label={`${plan.name} usage this period`}
+          aria-label={t('{plan} usage this period', { plan: plan.name })}
           style={{
             height: 3,
             borderRadius: R.pill,
@@ -118,7 +143,7 @@ export function Meter({ plan, href }: MeterProps) {
           {/* Shown only past halfway. Before that the bound is not the reader's
               problem and the line is noise; after it, "clears at 11:00 PM" is
               the whole answer to "what do I do now". */}
-          Clears {resetsAt(usage)}
+          {t('Clears {time}', { time: resetsAt(usage) })}
         </div>
       ) : null}
     </div>

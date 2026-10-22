@@ -14,9 +14,11 @@
  * Everything is DATA from the registry (`HANZO_FOOTER_COLUMNS` +
  * `HANZO_FOOTER_BOTTOM`) so the footer is byte-identical across surfaces; the
  * current product is highlighted in the PRODUCTS column. Self-contained: inline
- * styles + theme.ts tokens, React the only runtime dep — drops into any host.
+ * styles + theme.ts tokens, React and @hanzo/i18n the only runtime deps — drops
+ * into any host.
  */
 import React from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { HanzoMark } from './mark.tsx'
 import {
   HANZO_FOOTER_BOTTOM,
@@ -43,6 +45,7 @@ export interface HanzoFooterProps {
 
 export function HanzoFooter({ currentProductId, className, visible }: HanzoFooterProps) {
   useShellStyles()
+  const { t } = useI18n()
   const shown = (href: string) => (visible ? visible(href) : true)
   const columns = HANZO_FOOTER_COLUMNS.map((col) => ({
     ...col,
@@ -77,8 +80,8 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
           }}
         >
           {columns.map((col) => (
-            <nav key={col.id} aria-label={col.title}>
-              <div style={{ ...LABEL, marginBottom: 14 }}>{col.title}</div>
+            <nav key={col.id} aria-label={t(col.title)}>
+              <div style={{ ...LABEL, marginBottom: 14 }}>{t(col.title)}</div>
               <ul
                 style={{
                   listStyle: 'none',
@@ -150,6 +153,7 @@ export function HanzoFooter({ currentProductId, className, visible }: HanzoFoote
 /* ── Pieces ──────────────────────────────────────────────────────────────── */
 
 function FooterLink({ link, current }: { link: HanzoLink; current: boolean }) {
+  const { t } = useI18n()
   return (
     <a
       href={link.href}
@@ -169,12 +173,13 @@ function FooterLink({ link, current }: { link: HanzoLink; current: boolean }) {
         ;(e.currentTarget as HTMLElement).style.color = current ? ACCENT : CHROME.fgMuted
       }}
     >
-      {link.label}
+      {t(link.label)}
     </a>
   )
 }
 
 function LegalLink({ link }: { link: HanzoLink }) {
+  const { t } = useI18n()
   return (
     <a
       href={link.href}
@@ -195,7 +200,7 @@ function LegalLink({ link }: { link: HanzoLink }) {
         ;(e.currentTarget as HTMLElement).style.color = CHROME.fgMuted
       }}
     >
-      {link.label}
+      {t(link.label)}
     </a>
   )
 }

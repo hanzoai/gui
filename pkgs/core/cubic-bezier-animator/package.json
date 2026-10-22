@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/cubic-bezier-animator",
-  "version": "8.3.5",
+  "version": "8.4.0",
   "source": "src/index.tsx",
   "files": [
     "NOTICE",

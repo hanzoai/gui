@@ -18,11 +18,13 @@
  * deployments pass a short-lived token via `authToken` or, better, own the call
  * entirely with `onSubmit`.
  *
- * Self-contained: inline styles + theme.ts tokens, React the only runtime dep.
+ * Self-contained: inline styles + theme.ts tokens, React and @hanzo/i18n the only
+ * runtime deps.
  * Accessible: real buttons, Esc closes and restores focus, the composer
  * autofocuses on open, the message log is an aria-live region.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import {
   ACCENT,
   ACCENT_SOFT,
@@ -75,7 +77,7 @@ export interface AskHanzoProps {
    * single action as the header's — see <HanzoIdentity>.
    */
   auth?: HanzoAuth
-  /** Composer placeholder. */
+  /** Composer placeholder. Defaults to "Ask Hanzo anything…". */
   placeholder?: string
   /** Fully override the transport — return the assistant reply for a turn. */
   onSubmit?: (message: string, history: AskHanzoMessage[]) => Promise<string>
@@ -86,7 +88,7 @@ export interface AskHanzoProps {
   corner?: boolean
   /** Custom trigger. Defaults to the corner launcher, or an "Ask Hanzo" pill. */
   trigger?: (open: () => void) => React.ReactNode
-  /** Greeting shown before the first turn. */
+  /** Greeting shown before the first turn. Defaults to the product's own. */
   greeting?: string
   className?: string
 }
@@ -109,15 +111,16 @@ export function AskHanzo({
   endpoint = DEFAULT_ENDPOINT,
   model = 'enso-free',
   authToken,
-  placeholder = 'Ask Hanzo anything…',
+  placeholder,
   onSubmit,
   auth,
   corner,
   trigger,
-  greeting = 'Ask about products, models, APIs, or how to get started.',
+  greeting,
   className,
 }: AskHanzoProps) {
   useShellStyles()
+  const { t } = useI18n()
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<AskHanzoMessage[]>([])
   const [draft, setDraft] = useState('')
@@ -206,16 +209,16 @@ export function AskHanzo({
         })
         if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
         const data = await res.json()
-        reply = data?.choices?.[0]?.message?.content ?? '(no response)'
+        reply = data?.choices?.[0]?.message?.content ?? t('(no response)')
       }
       setMessages((m) => [...m, { role: 'assistant', content: reply }])
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong.')
+      setError(err instanceof Error ? err.message : t('Something went wrong.'))
     } finally {
       setBusy(false)
       requestAnimationFrame(() => inputRef.current?.focus())
     }
-  }, [draft, busy, messages, onSubmit, endpoint, authToken, model])
+  }, [draft, busy, messages, onSubmit, endpoint, authToken, model, t])
 
   return (
     <span className={className}>
@@ -231,7 +234,7 @@ export function AskHanzo({
           {...controlHover()}
         >
           <Sparkle />
-          Ask Hanzo
+          {t('Ask Hanzo')}
         </button>
       )}
 
@@ -253,7 +256,7 @@ export function AskHanzo({
             ref={panelRef}
             role="dialog"
             aria-modal={corner ? undefined : 'true'}
-            aria-label="Ask Hanzo"
+            aria-label={t('Ask Hanzo')}
             data-hanzo-shell=""
             data-hanzo-edge={corner ? 'corner' : 'drawer'}
             style={{
@@ -307,12 +310,14 @@ export function AskHanzo({
               }}
             >
               <Sparkle />
-              <strong style={{ fontSize: FS.base, fontWeight: 700 }}>Ask Hanzo</strong>
+              <strong style={{ fontSize: FS.base, fontWeight: 700 }}>
+                {t('Ask Hanzo')}
+              </strong>
               <div style={{ flex: 1 }} />
               <button
                 type="button"
                 onClick={closePanel}
-                aria-label="Close"
+                aria-label={t('Close')}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -352,14 +357,19 @@ export function AskHanzo({
                   }}
                 >
                   {canChat
-                    ? greeting
-                    : 'Sign in and Enso answers questions about products, models, APIs, and how to get started.'}
+                    ? (greeting ??
+                      t('Ask about products, models, APIs, or how to get started.'))
+                    : t(
+                        'Sign in and Enso answers questions about products, models, APIs, and how to get started.'
+                      )}
                 </p>
               ) : (
                 messages.map((m, i) => <Bubble key={i} message={m} />)
               )}
               {busy ? (
-                <div style={{ fontSize: FS.sm, color: CHROME.fgDim }}>Thinking…</div>
+                <div style={{ fontSize: FS.sm, color: CHROME.fgDim }}>
+                  {t('Thinking…')}
+                </div>
               ) : null}
               {error ? (
                 <div
@@ -409,7 +419,7 @@ export function AskHanzo({
                       }
                     }}
                     rows={1}
-                    placeholder={placeholder}
+                    placeholder={placeholder ?? t('Ask Hanzo anything…')}
                     style={{
                       flex: 1,
                       resize: 'none',
@@ -431,7 +441,7 @@ export function AskHanzo({
                     type="button"
                     onClick={() => void send()}
                     disabled={!draft.trim() || busy}
-                    aria-label="Send"
+                    aria-label={t('Send')}
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -473,7 +483,9 @@ export function AskHanzo({
                   onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
                   onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
                 >
-                  {auth?.label ?? 'Sign in'} to chat
+                  {auth?.label
+                    ? t('{action} to chat', { action: auth.label })
+                    : t('Sign in to chat')}
                 </a>
               </div>
             )}
@@ -495,12 +507,13 @@ export function AskHanzo({
  * makes the visitor hunt for the way out.
  */
 function CornerLauncher({ open, onClick }: { open: boolean; onClick: () => void }) {
+  const { t } = useI18n()
   const Enso = MARKS.circle
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={open ? 'Close Enso' : 'Ask Enso'}
+      aria-label={open ? t('Close Enso') : t('Ask Enso')}
       aria-expanded={open}
       style={{
         position: 'fixed',
@@ -579,6 +592,7 @@ function SendGlyph() {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
+      data-i18n-mirror=""
     >
       <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
     </svg>

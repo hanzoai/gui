@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/shell",
-  "version": "8.4.0",
+  "version": "8.4.1",
   "description": "Unified Hanzo shell — Frame (the workspace a signed-in app wears: rail, workspace switcher, account menu), HanzoHeader (the one public bar: Hanzo mega-menu, ⌘K search, the canonical CTA pill, IAM identity), OrgHeader (the signed-in bar), UserOrgDropdown (the one org switcher), Masquerade, AskHanzo (the visitor chat), MeetHanzoMenu, ProductsMegaMenu, HanzoFooter, HanzoPreFooterCTA, HanzoAppLauncher + the canonical surface registry",
   "repository": {
     "type": "git",
@@ -60,9 +60,12 @@
     "clean:build": "hanzogui-build clean:build"
   },
   "devDependencies": {
-    "@hanzogui/build": "workspace:*"
+    "@hanzo/i18n": "0.4.0",
+    "@hanzogui/build": "workspace:*",
+    "oxc-parser": "0.147.0"
   },
   "peerDependencies": {
+    "@hanzo/i18n": ">=0.4.0",
     "react": ">=19.2.8",
     "react-dom": ">=19.2.8"
   }

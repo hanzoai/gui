@@ -271,8 +271,12 @@ test('privilege is the server answer, never a client role check', () => {
 test('a running masquerade is unmistakable, and has a way out', () => {
   const src = read('Masquerade.tsx')
   assert.match(src, /background: ACCENT/, 'the loudest fill in the chrome')
-  assert.match(src, /Acting as \{org\.name\}/, 'it names the org')
-  assert.match(src, /aria-label=\{`Stop acting as \$\{org\.name\}`\}/, 'and it exits')
+  assert.match(src, /t\('Acting as \{org\}', \{ org: org\.name \}\)/, 'it names the org')
+  assert.match(
+    src,
+    /aria-label=\{t\('Stop acting as \{org\}', \{ org: org\.name \}\)\}/,
+    'and it exits'
+  )
   // Mounting the switcher is what puts the sign in the bar — never a copy.
   const switcher = read('UserOrgDropdown.tsx')
   assert.match(switcher, /<Masquerade org=\{masquerade\}/, 'the switcher carries it')

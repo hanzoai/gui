@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/focusable",
-  "version": "8.4.0",
+  "version": "8.4.1",
   "license": "MIT",
   "source": "src/index.ts",
   "files": [

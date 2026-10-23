@@ -4,10 +4,11 @@
  * UserOrgDropdown — the account control at the right edge of OrgHeader:
  * who you are, which org you are acting as, and the way out.
  *
- * Self-contained by design: inline styles + theme.ts tokens, React the only
- * runtime dependency, ZERO CSS-framework coupling.
+ * Self-contained by design: inline styles + theme.ts tokens, React and
+ * @hanzo/i18n the only runtime dependencies, ZERO CSS-framework coupling.
  */
 import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import type { HanzoUser, HanzoOrg, OrgPage, OrgQuery } from './types.ts'
 import { ORG_DOMAINS } from './types.ts'
 import { U } from './hanzo-registry.ts'
@@ -99,6 +100,7 @@ export function UserOrgDropdown({
   onMasqueradeStop,
 }: UserOrgDropdownProps) {
   useShellStyles()
+  const { t } = useI18n()
   // Below 640px the trigger is the avatar alone; the name/email block and its
   // chevron would crowd a phone header. A media query, not an inline style,
   // because that is the one thing `style` cannot express. Stated as max-width
@@ -210,7 +212,7 @@ export function UserOrgDropdown({
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label="Account"
+        aria-label={t('Account')}
         style={{ ...control(open), gap: 8, padding: '0 8px' }}
         {...controlHover(open)}
       >
@@ -243,7 +245,7 @@ export function UserOrgDropdown({
       {open && (
         <div
           role="menu"
-          aria-label="Account"
+          aria-label={t('Account')}
           style={{
             position: 'absolute',
             insetInlineEnd: 0,
@@ -257,7 +259,7 @@ export function UserOrgDropdown({
         >
           {/* Who you are */}
           <div style={{ ...SECTION, padding: '12px 14px' }}>
-            <p style={{ ...LABEL, margin: 0 }}>{user.name || 'User'}</p>
+            <p style={{ ...LABEL, margin: 0 }}>{user.name || t('User')}</p>
             <p style={{ margin: '2px 0 0', fontSize: FS.xs, color: CHROME.fgDim }}>
               {user.email}
             </p>
@@ -281,8 +283,8 @@ export function UserOrgDropdown({
               <input
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Find an organization"
-                aria-label="Find an organization"
+                placeholder={t('Find an organization')}
+                aria-label={t('Find an organization')}
                 style={{
                   width: '100%',
                   height: CTRL_H,
@@ -307,7 +309,7 @@ export function UserOrgDropdown({
               {mine.length > 0 && (
                 <>
                   <p style={{ ...LABEL, margin: 0, padding: '2px 8px 4px' }}>
-                    Organizations
+                    {t('Organizations')}
                   </p>
                   {mine.map((org) => (
                     <OrgRow
@@ -334,14 +336,14 @@ export function UserOrgDropdown({
                       padding: mine.length ? '10px 8px 4px' : '2px 8px 4px',
                     }}
                   >
-                    All organizations
+                    {t('All organizations')}
                   </p>
                   {reach.map((org) => (
                     <OrgRow
                       key={org.id}
                       org={org}
                       current={false}
-                      hint="Act as"
+                      hint={t('Act as')}
                       onPick={() => {
                         onMasquerade?.(org.id)
                         setOpen(false)
@@ -360,7 +362,7 @@ export function UserOrgDropdown({
                     color: CHROME.fgDim,
                   }}
                 >
-                  Searching…
+                  {t('Searching…')}
                 </p>
               )}
             </div>
@@ -375,7 +377,7 @@ export function UserOrgDropdown({
               style={link}
               {...ghostHover()}
             >
-              Account settings
+              {t('Account settings')}
             </a>
             <a
               role="menuitem"
@@ -384,7 +386,7 @@ export function UserOrgDropdown({
               style={link}
               {...ghostHover()}
             >
-              Billing
+              {t('Billing')}
             </a>
             <button
               type="button"
@@ -396,7 +398,7 @@ export function UserOrgDropdown({
               style={{ ...link, color: CHROME.fgDim }}
               {...ghostHover(false, CHROME.fgDim)}
             >
-              Sign out
+              {t('Sign out')}
             </button>
           </div>
         </div>

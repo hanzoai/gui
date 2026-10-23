@@ -33,7 +33,8 @@
  *
  * Controlled-open (props `open`/`onClose`/`anchor`) so a header can drive it;
  * also usable standalone. Self-contained: inline styles + theme.ts tokens,
- * React the only runtime dep — drops into any host with zero setup. Fully
+ * React and @hanzo/i18n the only runtime deps — drops into any host with zero
+ * setup. Fully
  * keyboard-accessible: Esc closes and returns focus to the previously-focused
  * element; ↑/↓/←/→/Home/End rove the items; the current product is highlighted
  * with the accent + `aria-current`. See `useRove` for the focus contract, and
@@ -41,6 +42,7 @@
  */
 import React, { useCallback, useMemo } from 'react'
 import type { PointerEventHandler } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import {
   HANZO_FLAGSHIP,
   MEET_HANZO_GROUPS,
@@ -133,6 +135,7 @@ export function MeetHanzoMenu({
   stage,
 }: MeetHanzoMenuProps) {
   useShellStyles()
+  const { t } = useI18n()
   const stacked = useIsMobile(STACK_BELOW)
   const close = useCallback(() => onClose?.(), [onClose])
   const rove = useRove(!!open, close, autoFocus)
@@ -184,7 +187,7 @@ export function MeetHanzoMenu({
         role="dialog"
         data-hanzo-plane=""
         aria-modal="false"
-        aria-label="Meet Hanzo"
+        aria-label={t('Meet Hanzo')}
         className={className}
         onKeyDown={rove.onKeyDown}
         onFocus={rove.onFocus}
@@ -224,14 +227,14 @@ export function MeetHanzoMenu({
         >
           {/* ── Products — one dense column ── */}
           <section
-            aria-label="Products"
+            aria-label={t('Products')}
             data-hanzo-menu-col=""
             style={{
               paddingInlineEnd: stacked ? 0 : 22,
               borderInlineEnd: stacked ? undefined : `1px solid ${CHROME.borderSoft}`,
             }}
           >
-            <SectionLabel>Products</SectionLabel>
+            <SectionLabel>{t('Products')}</SectionLabel>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {products.map((p) => (
                 <ProductRow
@@ -263,7 +266,7 @@ export function MeetHanzoMenu({
           >
             {columns.map((group) => (
               <div key={group.id} data-hanzo-menu-col="">
-                <SectionLabel>{group.title}</SectionLabel>
+                <SectionLabel>{t(group.title)}</SectionLabel>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   {group.items.map((item) => (
                     <LinkRow
@@ -311,6 +314,7 @@ function ProductRow({
   current: boolean
   onNavigate: () => void
 }) {
+  const { t } = useI18n()
   return (
     <a
       href={product.href}
@@ -339,7 +343,7 @@ function ProductRow({
             color: CHROME.fgDim,
           }}
         >
-          {product.tagline}
+          {t(product.tagline)}
         </span>
       </span>
     </a>
@@ -355,6 +359,7 @@ function LinkRow({
   current: boolean
   onNavigate: () => void
 }) {
+  const { t } = useI18n()
   return (
     <a
       href={link.href}
@@ -364,7 +369,7 @@ function LinkRow({
       {...ghostHover(current)}
     >
       <Glyph name={link.glyph} />
-      {link.label}
+      {t(link.label)}
     </a>
   )
 }

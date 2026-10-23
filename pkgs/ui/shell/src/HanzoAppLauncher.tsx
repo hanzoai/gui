@@ -4,8 +4,8 @@
  * HanzoAppLauncher — the cross-app "9-dot grid" product switcher (Google-apps
  * pattern) shared by every Hanzo surface.
  *
- * Self-contained by design: inline styles + inline SVG, React the only runtime
- * dependency, ZERO CSS-framework coupling — so it drops into any Hanzo app
+ * Self-contained by design: inline styles + inline SVG, React and @hanzo/i18n
+ * the only runtime dependencies, ZERO CSS-framework coupling — so it drops into any Hanzo app
  * (Next 15/16, Vite, React 18/19) and renders identically regardless of the
  * host's Tailwind/Gui/none setup.
  *
@@ -30,6 +30,7 @@
  */
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useI18n } from '@hanzo/i18n/react'
 import { HANZO_APPS, HanzoGridIcon, type HanzoApp } from './hanzo-apps.tsx'
 import { U } from './hanzo-registry.ts'
 import { HanzoWordmark } from './mark.tsx'
@@ -86,7 +87,7 @@ export interface HanzoAppLauncherProps {
    * command palette).
    */
   quickSwitchKey?: string | false
-  /** Accessible label for the trigger. */
+  /** Accessible label for the trigger. Defaults to "Hanzo apps". */
   label?: string
   /** Size of the trigger glyph. */
   size?: number
@@ -114,7 +115,7 @@ export function HanzoAppLauncher({
   apps = HANZO_APPS,
   align = 'start',
   quickSwitchKey = 'k',
-  label = 'Hanzo apps',
+  label,
   size = 18,
   defaultOpen = false,
   isEntitled: check,
@@ -122,6 +123,8 @@ export function HanzoAppLauncher({
   trigger,
 }: HanzoAppLauncherProps) {
   useShellStyles()
+  const { t } = useI18n()
+  const named = label ?? t('Hanzo apps')
 
   const [open, setOpen] = useState(defaultOpen)
   const [hover, setHover] = useState(false)
@@ -229,12 +232,13 @@ export function HanzoAppLauncher({
   const filtering = q.length > 0
   const visible = useMemo(() => {
     if (!filtering) return apps
+    // The words the tiles show are the words searched.
     return apps.filter(
       (a) =>
-        a.label.toLowerCase().includes(q) ||
-        (a.description ?? '').toLowerCase().includes(q)
+        t(a.label).toLowerCase().includes(q) ||
+        (a.description ? t(a.description) : '').toLowerCase().includes(q)
     )
-  }, [apps, filtering, q])
+  }, [apps, filtering, q, t])
 
   // When not filtering, pinned apps get their own prominent row above the grid.
   const pinned = filtering ? [] : visible.filter((a) => a.pinned)
@@ -315,10 +319,13 @@ export function HanzoAppLauncher({
         aria-current={isCurrent ? 'page' : undefined}
         aria-label={
           locked
-            ? `${app.label} — locked, upgrade to unlock`
+            ? t('{app} — locked, upgrade to unlock', { app: t(app.label) })
             : app.description
-              ? `${app.label} — ${app.description}`
-              : app.label
+              ? t('{app} — {description}', {
+                  app: t(app.label),
+                  description: t(app.description),
+                })
+              : t(app.label)
         }
         onClick={() => setOpen(false)}
         style={{
@@ -397,11 +404,11 @@ export function HanzoAppLauncher({
               maxWidth: wide ? undefined : 92,
             }}
           >
-            {app.label}
+            {t(app.label)}
           </span>
           {wide && app.description ? (
             <span style={{ fontSize: FS.xs, color: FG_DIM, lineHeight: 1.25 }}>
-              {app.description}
+              {t(app.description)}
             </span>
           ) : null}
         </span>
@@ -431,8 +438,8 @@ export function HanzoAppLauncher({
         aria-haspopup="true"
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
-        aria-label={label}
-        title={label}
+        aria-label={named}
+        title={named}
         style={{
           ...control(),
           width: trigger ? 'auto' : 34,
@@ -450,7 +457,7 @@ export function HanzoAppLauncher({
               ref={panelRef}
               id={panelId}
               data-hanzo-shell=""
-              aria-label="Hanzo apps"
+              aria-label={t('Hanzo apps')}
               onKeyDown={onPanelKeyDown}
               style={{
                 position: 'fixed',
@@ -478,7 +485,7 @@ export function HanzoAppLauncher({
                 }}
               >
                 <HanzoWordmark size={16} />
-                <span style={LABEL}>Apps</span>
+                <span style={LABEL}>{t('Apps')}</span>
               </div>
 
               {/* Filter */}
@@ -486,8 +493,8 @@ export function HanzoAppLauncher({
                 ref={searchRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Filter apps…"
-                aria-label="Filter apps"
+                placeholder={t('Filter apps…')}
+                aria-label={t('Filter apps')}
                 autoComplete="off"
                 spellCheck={false}
                 style={{
@@ -541,7 +548,7 @@ export function HanzoAppLauncher({
                     fontSize: FS.sm,
                   }}
                 >
-                  No apps match “{query.trim()}”.
+                  {t('No apps match “{query}”.', { query: query.trim() })}
                 </div>
               )}
 
@@ -556,18 +563,25 @@ export function HanzoAppLauncher({
                     fontSize: FS.xs,
                   }}
                 >
-                  <kbd
-                    style={{
-                      fontFamily: 'inherit',
-                      border: `1px solid ${BORDER}`,
-                      borderRadius: R.row,
-                      padding: '1px 6px',
-                      background: CHROME.raised,
-                    }}
-                  >
-                    ⌘{quickSwitchKey.toUpperCase()}
-                  </kbd>
-                  <span style={{ marginInlineStart: 6 }}>to switch</span>
+                  {/* One sentence with the chord inside it, so a language that
+                      puts the key last can. */}
+                  <span>
+                    {t('{key} to switch', {
+                      key: (
+                        <kbd
+                          style={{
+                            fontFamily: 'inherit',
+                            border: `1px solid ${BORDER}`,
+                            borderRadius: R.row,
+                            padding: '1px 6px',
+                            background: CHROME.raised,
+                          }}
+                        >
+                          ⌘{quickSwitchKey.toUpperCase()}
+                        </kbd>
+                      ),
+                    })}
+                  </span>
                 </div>
               ) : null}
             </div>,

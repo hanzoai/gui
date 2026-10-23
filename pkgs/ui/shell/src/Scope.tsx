@@ -20,6 +20,7 @@
  * every other `hanzo*` key, in `own()`. A host without that sweep must add it.
  */
 import React, { useCallback, useEffect, useState } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { FRAME, FS } from './theme.ts'
 
 export interface ScopeProject {
@@ -120,24 +121,25 @@ export function Scope({
   environment,
   onEnvironment,
 }: ScopeProps) {
+  const { t } = useI18n()
   // A kept project the workspace no longer has is not the scope. Shown as All
   // projects until the list says otherwise, rather than as a name nobody can see.
   const known = project !== null && (projects ?? []).some((p) => p.id === project)
   return (
     <div
       role="group"
-      aria-label="Scope"
+      aria-label={t('Scope')}
       style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}
     >
       <select
-        aria-label="Project"
+        aria-label={t('Project')}
         value={known ? (project as string) : ''}
         onChange={(e) => onProject(e.target.value || null)}
         disabled={projects === null}
         style={SELECT}
       >
         <option value="">
-          {projects === null ? 'Reading projects' : 'All projects'}
+          {projects === null ? t('Reading projects') : t('All projects')}
         </option>
         {(projects ?? []).map((p) => (
           <option key={p.id} value={p.id}>
@@ -147,7 +149,7 @@ export function Scope({
       </select>
       {environments.length > 0 && onEnvironment ? (
         <select
-          aria-label="Environment"
+          aria-label={t('Environment')}
           value={
             environment && environments.includes(environment)
               ? environment

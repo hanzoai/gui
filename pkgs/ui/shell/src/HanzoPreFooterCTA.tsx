@@ -14,6 +14,7 @@
  * identical. Self-contained: inline styles + theme.ts tokens.
  */
 import React from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { resolveSurface } from './HanzoHeader.tsx'
 import { type HanzoLink, type HanzoSurface } from './hanzo-registry.ts'
 import { CHROME, FS, TAP_H, cta } from './theme.ts'
@@ -27,6 +28,7 @@ export interface HanzoPreFooterCTAProps {
 
 export function HanzoPreFooterCTA({ surface, className }: HanzoPreFooterCTAProps) {
   useShellStyles()
+  const { t } = useI18n()
   const s = resolveSurface(surface)
   const { heading, actions } = s.preFooter
 
@@ -34,7 +36,7 @@ export function HanzoPreFooterCTA({ surface, className }: HanzoPreFooterCTAProps
     <section
       data-hanzo-shell=""
       className={className}
-      aria-label={heading}
+      aria-label={t(heading)}
       style={{
         borderTop: `1px solid ${CHROME.border}`,
         background: CHROME.bg,
@@ -64,7 +66,7 @@ export function HanzoPreFooterCTA({ surface, className }: HanzoPreFooterCTAProps
             lineHeight: 1.15,
           }}
         >
-          {heading}
+          {t(heading)}
         </h2>
         <div
           style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}
@@ -91,6 +93,7 @@ function ActionButton({
   link: HanzoLink
   variant: 'ghost' | 'filled'
 }) {
+  const { t } = useI18n()
   const filled = variant === 'filled'
   return (
     <a
@@ -105,7 +108,7 @@ function ActionButton({
         else e.currentTarget.style.background = 'transparent'
       }}
     >
-      {link.label}
+      {t(link.label)}
     </a>
   )
 }

@@ -15,6 +15,7 @@
  * only reports that one is running. See <UserOrgDropdown> for where it begins.
  */
 import React from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { ACCENT, CHROME, CTRL_H, FS, R } from './theme.ts'
 import type { HanzoOrg } from './types.ts'
 
@@ -26,6 +27,7 @@ export interface MasqueradeProps {
 }
 
 export function Masquerade({ org, onStop }: MasqueradeProps) {
+  const { t } = useI18n()
   return (
     <div
       data-hanzo-shell=""
@@ -59,13 +61,13 @@ export function Masquerade({ org, onStop }: MasqueradeProps) {
         }}
       >
         {/* Named, not hinted. "Acting as" is the whole state in two words. */}
-        Acting as {org.name}
+        {t('Acting as {org}', { org: org.name })}
       </span>
       {onStop ? (
         <button
           type="button"
           onClick={onStop}
-          aria-label={`Stop acting as ${org.name}`}
+          aria-label={t('Stop acting as {org}', { org: org.name })}
           style={{
             display: 'inline-flex',
             alignItems: 'center',

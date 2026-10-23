@@ -11,6 +11,7 @@
  * what a product taxonomy does not.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useI18n, type Say } from '@hanzo/i18n/react'
 import { HANZO_APPS, type HanzoApp } from './hanzo-apps.tsx'
 import { U } from './hanzo-registry.ts'
 import { search, type Match } from './search.ts'
@@ -82,15 +83,19 @@ export type OrgCommandPaletteProps = {
 type Row = CommandItem & { match?: Match; ask?: boolean }
 
 /** Cross-app navigation, derived from the apps this org can reach. */
-function crossAppCommands(apps: HanzoApp[], currentAppId?: string): CommandItem[] {
+function crossAppCommands(
+  apps: HanzoApp[],
+  t: Say,
+  currentAppId?: string
+): CommandItem[] {
   return apps
     .filter((app) => app.id !== currentAppId)
     .map((app) => ({
       id: `app-${app.id}`,
-      title: app.label,
-      description: app.description,
+      title: t(app.label),
+      description: app.description ? t(app.description) : undefined,
       href: app.href,
-      category: 'Hanzo Apps',
+      category: t('Hanzo Apps'),
       external: true,
       keywords: [app.id, app.label.toLowerCase()],
     }))
@@ -107,6 +112,7 @@ export function OrgCommandPalette({
   onAsk,
 }: OrgCommandPaletteProps) {
   useShellStyles()
+  const { t } = useI18n()
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
   const open = controlledOpen ?? uncontrolledOpen
   const setOpen = useCallback(
@@ -134,7 +140,7 @@ export function OrgCommandPalette({
   // before you know what is in it. Once a query orders rows by how well each
   // answers it, group heads would tear that order apart, so they go.
   const flat = useMemo<Row[]>(() => {
-    const all = [...appCommands, ...crossAppCommands(apps ?? HANZO_APPS, currentAppId)]
+    const all = [...appCommands, ...crossAppCommands(apps ?? HANZO_APPS, t, currentAppId)]
     if (!question) {
       const byCategory = new Map<string, CommandItem[]>()
       for (const cmd of all) {
@@ -153,9 +159,14 @@ export function OrgCommandPalette({
     // Last, always: a command list is finite and a question is not, so the row
     // that hands it to the AI is what keeps an unmatched query from being a
     // dead end. Same label and same behaviour as the public palette's.
-    hits.push({ id: 'ask', title: askLabel(question), category: 'Ask', ask: true })
+    hits.push({
+      id: 'ask',
+      title: t(...askLabel(question)),
+      category: t('Ask'),
+      ask: true,
+    })
     return hits
-  }, [appCommands, apps, currentAppId, query, question])
+  }, [appCommands, apps, currentAppId, query, question, t])
 
   const askQuestion = useAsk({ askHref, onAsk, onNavigate, close })
 
@@ -194,9 +205,9 @@ export function OrgCommandPalette({
   const grouped = !question
 
   return (
-    <PaletteShell open={open} onClose={close} label="Command palette">
+    <PaletteShell open={open} onClose={close} label={t('Command palette')}>
       <PaletteBar edge="top">
-        <span>Commands</span>
+        <span>{t('Commands')}</span>
         <kbd style={KBD}>ESC</kbd>
       </PaletteBar>
 
@@ -204,7 +215,7 @@ export function OrgCommandPalette({
         value={query}
         onChange={setQuery}
         onKeyDown={onKeyDown}
-        placeholder="Search commands"
+        placeholder={t('Search commands')}
         inputRef={focusField}
         listId={LIST_ID}
         activeId={flat.length ? rowId(index) : undefined}

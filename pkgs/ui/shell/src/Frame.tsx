@@ -23,8 +23,8 @@
  * a prop because moving between rooms is the one thing only a host can do, so
  * the same frame mounts under Next, under Vite, or under a test.
  *
- * Self-contained like the rest of this package: React the only runtime
- * dependency, inline styles and theme.ts tokens, and the layout rules inline
+ * Self-contained like the rest of this package: React and @hanzo/i18n the only
+ * runtime dependencies, inline styles and theme.ts tokens, and the layout rules inline
  * styles cannot state in shellStyles.ts.
  */
 import React, {
@@ -39,6 +39,7 @@ import React, {
   type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
+import { useI18n } from '@hanzo/i18n/react'
 import { MARKS } from './glyph.tsx'
 import { HanzoMark } from './mark.tsx'
 import { useFrameStyles } from './shellStyles.ts'
@@ -344,8 +345,9 @@ function Rail({
   /** A phone's tab bar moves the reader while the sheet may be out: put it away. */
   onPick: () => void
 }) {
+  const { t } = useI18n()
   return (
-    <nav data-slot="rail" aria-label="Places">
+    <nav data-slot="rail" aria-label={t('Places')}>
       {strip ? <div data-slot="strip">{strip}</div> : null}
       <div data-slot="places">
         {/* A phone shows four sections and this; a laptop never draws it. */}
@@ -354,12 +356,12 @@ function Rail({
             type="button"
             data-slot="more"
             data-frame-tile=""
-            aria-label="More places"
-            title="More"
+            aria-label={t('More places')}
+            title={t('More')}
             onClick={more}
           >
             <MARKS.search size={18} />
-            <span>More</span>
+            <span>{t('More')}</span>
           </button>
         ) : null}
         {sections.map((section) => (
@@ -378,12 +380,12 @@ function Rail({
           <button
             type="button"
             data-frame-tile=""
-            aria-label="Settings"
-            title="Settings"
+            aria-label={t('Settings')}
+            title={t('Settings')}
             onClick={settings}
           >
             <MARKS.gear size={18} />
-            <span>Settings</span>
+            <span>{t('Settings')}</span>
           </button>
         </div>
       ) : null}
@@ -420,6 +422,7 @@ function Control({
 
 /** The search, as a field-shaped button: the palette is the host's. */
 function Search({ find }: { find: Find }) {
+  const { t } = useI18n()
   return (
     <button
       type="button"
@@ -445,7 +448,7 @@ function Search({ find }: { find: Find }) {
       <span
         style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
       >
-        Search {find.label}
+        {t('Search {label}', { label: find.label })}
       </span>
       <span
         aria-hidden="true"
@@ -491,6 +494,7 @@ export function Frame({
   children,
 }: FrameProps) {
   useFrameStyles()
+  const { t } = useI18n()
   // Open on the first render, which is what a prerendered page and a laptop
   // both expect; the reader's own choice arrives after mount, for the reason
   // `useSpan` reads there. A phone always starts shut: its sidebar is a sheet
@@ -594,16 +598,19 @@ export function Frame({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
-            <Control label={open ? 'Close sidebar' : 'Open sidebar'} onPress={toggle}>
+            <Control
+              label={open ? t('Close sidebar') : t('Open sidebar')}
+              onPress={toggle}
+            >
               <MARKS.sidebar size={16} />
             </Control>
             {back ? (
-              <Control label="Back" onPress={back} wide>
+              <Control label={t('Back')} onPress={back} wide>
                 <MARKS.back size={16} />
               </Control>
             ) : null}
             {forward ? (
-              <Control label="Forward" onPress={forward} wide>
+              <Control label={t('Forward')} onPress={forward} wide>
                 <MARKS.forward size={16} />
               </Control>
             ) : null}
@@ -652,7 +659,7 @@ export function Frame({
           <button
             type="button"
             data-slot="scrim"
-            aria-label="Close sidebar"
+            aria-label={t('Close sidebar')}
             onClick={shut}
           />
         ) : null}
@@ -682,7 +689,7 @@ export function Frame({
                 span={span}
                 onSpan={setSpan}
                 onShut={shut}
-                label="Resize sidebar"
+                label={t('Resize sidebar')}
               />
               {/* THE WORKSPACE LEADS THE SIDEBAR: switching it changes everything
                   below, so it sits above everything below. The account at the
@@ -700,8 +707,8 @@ export function Frame({
                 <a
                   href={door}
                   data-slot="home"
-                  aria-label="Hanzo home"
-                  title="Home"
+                  aria-label={t('Hanzo home')}
+                  title={t('Home')}
                   onClick={(e) => {
                     if (
                       !navigate ||
@@ -764,12 +771,12 @@ export function Frame({
                   <button
                     type="button"
                     data-frame-row=""
-                    aria-label="Settings"
-                    title="Settings"
+                    aria-label={t('Settings')}
+                    title={t('Settings')}
                     onClick={settings}
                   >
                     <MARKS.gear size={16} />
-                    <span>Settings</span>
+                    <span>{t('Settings')}</span>
                   </button>
                 ) : null}
               </div>
@@ -819,7 +826,7 @@ export function Frame({
               span={beside}
               onSpan={setBeside}
               onShut={side.close}
-              label="Resize side panel"
+              label={t('Resize side panel')}
             />
             {/* The column is the landmark; this is the box the room projects
                 into, a container and not a second region. */}

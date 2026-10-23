@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
+import { useI18n } from '@hanzo/i18n/react'
 import { HanzoWordmark } from './mark.tsx'
 import { HanzoAppLauncher } from './HanzoAppLauncher.tsx'
 import { UserOrgDropdown, type UserOrgDropdownProps } from './UserOrgDropdown.tsx'
@@ -338,6 +339,7 @@ export function OrgHeader({
   hideLauncher,
 }: OrgHeaderProps) {
   useShellStyles()
+  const { t } = useI18n()
   const [refreshing, setRefreshing] = useState(false)
 
   // Resolve the current org slug for white-label domain routing.
@@ -398,7 +400,7 @@ export function OrgHeader({
             */}
             <a
               href={accountHref}
-              aria-label="Account"
+              aria-label={t('Account')}
               style={{
                 display: 'inline-flex',
                 flexShrink: 0,
@@ -470,8 +472,8 @@ export function OrgHeader({
             type="button"
             onClick={handleHardRefresh}
             style={ICON_BTN}
-            aria-label="Hard refresh — clear all storage, cookies, cache and reload"
-            title="Hard refresh"
+            aria-label={t('Hard refresh — clear all storage, cookies, cache and reload')}
+            title={t('Hard refresh')}
             {...ghostHover()}
           >
             <HardRefreshIcon spinning={refreshing} />
@@ -484,8 +486,8 @@ export function OrgHeader({
             type="button"
             onClick={handleSettings}
             style={ICON_BTN}
-            aria-label="Settings"
-            title="Settings"
+            aria-label={t('Settings')}
+            title={t('Settings')}
             {...ghostHover()}
           >
             <SettingsIcon />

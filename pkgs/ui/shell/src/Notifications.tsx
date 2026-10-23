@@ -17,6 +17,8 @@
  * that app does.
  */
 import React, { useEffect, useRef, useState } from 'react'
+import { phrase } from '@hanzo/i18n'
+import { useI18n } from '@hanzo/i18n/react'
 import { MARKS } from './glyph.tsx'
 import { useFrameStyles } from './shellStyles.ts'
 import { FRAME, FS } from './theme.ts'
@@ -52,11 +54,11 @@ const INBOX = '/v1/team/inbox'
 
 /** A Map, not an object: a reason the server names is data, and `__proto__` is a key. */
 const REASON = new Map<string, string>([
-  ['mention', 'Mentioned you'],
-  ['dm', 'Direct message'],
-  ['reply', 'Replied in a thread'],
-  ['comment', 'Commented'],
-  ['assigned', 'Assigned to you'],
+  ['mention', phrase('Mentioned you')],
+  ['dm', phrase('Direct message')],
+  ['reply', phrase('Replied in a thread')],
+  ['comment', phrase('Commented')],
+  ['assigned', phrase('Assigned to you')],
 ])
 
 /**
@@ -82,17 +84,18 @@ function when(ms: number | undefined, now: Date): string {
   )
 }
 
-/** A refusal in a sentence: what failed, not a stack. */
+/** A refusal in a sentence: what failed, not a stack. The page draws it through `t`. */
 function say(e: unknown): string {
   const status = (e as { status?: number })?.status
   if (status === 401 || status === 403)
-    return 'Notifications are not open to this session.'
-  return 'Your notifications could not be read just now.'
+    return phrase('Notifications are not open to this session.')
+  return phrase('Your notifications could not be read just now.')
 }
 
 /** The page's body: what the list holds, read and kept. */
 export function Notifications({ call, onOpen }: NotificationsProps) {
   useFrameStyles()
+  const { t } = useI18n()
   const [items, setItems] = useState<Notice[] | null>(null)
   const [unread, setUnread] = useState(0)
   const [wrong, setWrong] = useState<string | null>(null)
@@ -184,12 +187,12 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
   return (
     <section
       data-slot="notifications"
-      aria-label="Notifications"
+      aria-label={t('Notifications')}
       style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 720 }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, minHeight: 32 }}>
         <span style={{ flex: 1, fontSize: FS.base, color: FRAME.soft }}>
-          {items === null ? '' : unread ? `${unread} unread` : 'All read'}
+          {items === null ? '' : unread ? t('{n} unread', { n: unread }) : t('All read')}
         </span>
         {unread > 0 ? (
           <button
@@ -199,23 +202,23 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
             disabled={busy}
             style={{ width: 'auto', color: FRAME.ink }}
           >
-            <span>{busy ? 'Marking' : 'Mark all read'}</span>
+            <span>{busy ? t('Marking') : t('Mark all read')}</span>
           </button>
         ) : null}
       </div>
 
       {wrong ? (
         <p role="alert" style={{ margin: 0, fontSize: FS.base, color: FRAME.ink }}>
-          {wrong}
+          {t(wrong)}
         </p>
       ) : null}
 
       {items === null ? (
         wrong ? null : (
-          note('Reading your notifications.')
+          note(t('Reading your notifications.'))
         )
       ) : items.length === 0 ? (
-        note('Nothing yet. Mentions, direct messages and replies land here.')
+        note(t('Nothing yet. Mentions, direct messages and replies land here.'))
       ) : (
         <ul
           style={{
@@ -240,7 +243,7 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
                 }}
               >
                 <span
-                  aria-label={n.read ? undefined : 'Unread'}
+                  aria-label={n.read ? undefined : t('Unread')}
                   style={{
                     flex: 'none',
                     width: 8,
@@ -260,7 +263,7 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
                 >
                   <span style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
                     <span style={{ flex: 1, fontWeight: n.read ? 400 : 600 }}>
-                      {REASON.get(String(n.reason ?? '')) ?? 'Notification'}
+                      {t(REASON.get(String(n.reason ?? '')) ?? phrase('Notification'))}
                     </span>
                     <span style={{ flex: 'none', fontSize: 11, color: FRAME.soft }}>
                       {when(n.createdOn, now)}
@@ -280,7 +283,7 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
                     </span>
                   ) : (
                     <span style={{ color: FRAME.soft }}>
-                      The message it was about is gone.
+                      {t('The message it was about is gone.')}
                     </span>
                   )}
                 </span>
@@ -288,8 +291,8 @@ export function Notifications({ call, onOpen }: NotificationsProps) {
               <button
                 type="button"
                 data-frame-icon=""
-                aria-label="Archive"
-                title="Archive"
+                aria-label={t('Archive')}
+                title={t('Archive')}
                 onClick={() => void archive(n)}
                 style={{ minWidth: 36, minHeight: 36 }}
               >

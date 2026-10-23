@@ -128,6 +128,21 @@ Urdu. Flex rows and grid columns follow `dir` on their own; offsets do not.
   pick `-end` for RTL yourself (Menu did, and flipped it back to the left). Side
   placements (`left`/`right`) are physical and do need the swap.
 
+## The shell's copy is @hanzo/i18n's
+
+Every string `@hanzogui/shell` draws passes `t()` from `@hanzo/i18n/react`
+(`useI18n`), a required peer so the host's one `I18nProvider` reaches it; with
+no provider `t` answers the English source. Copy written as data — the
+registry, the launcher's apps, a row table — is `phrase()`-marked where it is
+written and drawn through `t()`; a helper that cannot call a hook takes `t`
+(`Say`) or hands back a marked source (`askLabel` returns the sentence and its
+value for `t(...askLabel(question))`). A product's name standing alone (Hanzo
+Chat, Enso, SDKs) is not marked. Host data is drawn as given: palette
+`commands`, Frame `sections`, names, orgs, `find.label`. The palettes search
+what they draw, so their rows are translated before `search` ranks them.
+`i18n.test.mjs` parses the source with oxc and fails on copy that reaches the
+screen without either.
+
 ## `tracks` and `Wrap`: the stack sizes its children
 
 `tracks` is a View prop (core, `pkgs/core/web/src/helpers/tracks.ts`, typed on

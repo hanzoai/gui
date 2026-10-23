@@ -288,6 +288,15 @@ it. Pass `apps` to any of the three to override.
 - `HANZO_APPS`, `ORG_DOMAINS` — the app registry and the per-org domain map
 - `HanzoApp`, `HanzoUser`, `HanzoOrg`, `OrgDomains` — types
 
+## Language
+
+Every word the shell draws goes through `@hanzo/i18n`: mount its
+`I18nProvider` once and the menus, the palette, the frame and the account
+controls read in the reader's language. Without a provider they read in
+English. What a host passes in — a palette command, a section, a person's or an
+org's name — is drawn as given.
+
 ## Peer dependencies
 
 - `react`, `react-dom`
+- `@hanzo/i18n` (>= 0.4.0) — one provider context, the host's

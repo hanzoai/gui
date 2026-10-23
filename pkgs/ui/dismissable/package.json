@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/dismissable",
-  "version": "8.4.1",
+  "version": "8.4.2",
   "source": "src/index.ts",
   "files": [
     "NOTICE",

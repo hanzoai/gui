@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/cli",
-  "version": "8.4.1",
+  "version": "8.4.2",
   "bin": {
     "hanzogui": "dist/esm/cli.js",
     "tama": "dist/esm/cli.js"

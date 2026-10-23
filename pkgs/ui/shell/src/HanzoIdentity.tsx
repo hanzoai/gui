@@ -19,7 +19,9 @@
  * splits one flow in two.
  *
  * The menu is CHROME, not page content: it wears the dark chrome material at
- * every width and in every host theme (see `PANEL` in theme.ts).
+ * every width and in every host theme (see `PANEL` in theme.ts) — unless the
+ * host's bar follows its page's theme, which says so with `ink="page"` and gets
+ * inks that follow it too (`INK_CSS` in shellStyles.ts).
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useI18n, type Say } from '@hanzo/i18n/react'
@@ -38,6 +40,7 @@ import { U, type HanzoLink } from './hanzo-registry.ts'
 import type { HanzoUser } from './types.ts'
 import { UserAvatar } from './UserAvatar.tsx'
 import { useRove } from './rove.ts'
+import { useInkStyles } from './shellStyles.ts'
 import { Meter } from './meter.tsx'
 import { usePlan, type Plan, type UsePlanOptions } from './usePlan.ts'
 
@@ -87,10 +90,18 @@ export interface HanzoAuth {
 
 export interface HanzoIdentityProps {
   auth: HanzoAuth
+  /**
+   * `chrome` (the default): the dark chrome material in every host theme.
+   * `page`: the inks follow the page's theme, for a bar that does — white in
+   * the dark, black in the light, the hairline the theme's own.
+   */
+  ink?: 'chrome' | 'page'
 }
 
-export function HanzoIdentity({ auth }: HanzoIdentityProps) {
+export function HanzoIdentity({ auth, ink = 'chrome' }: HanzoIdentityProps) {
   const { t } = useI18n()
+  useInkStyles()
+  const inked = ink === 'page' ? 'page' : undefined
   const {
     user,
     onSignIn,
@@ -107,6 +118,7 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
     return (
       <a
         href={signInHref}
+        data-hanzo-ink={inked}
         style={control()}
         onClick={
           onSignIn
@@ -128,6 +140,7 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
 
   return (
     <AccountMenu
+      ink={inked}
       user={user}
       items={items ?? defaultItems(accountHref, t)}
       onSignOut={onSignOut}
@@ -140,12 +153,14 @@ export function HanzoIdentity({ auth }: HanzoIdentityProps) {
 /* ── The signed-in menu ───────────────────────────────────────────────────── */
 
 function AccountMenu({
+  ink,
   user,
   items,
   onSignOut,
   plan: given,
   billing,
 }: {
+  ink?: 'page'
   user: HanzoUser
   items: HanzoLink[]
   onSignOut?: () => void
@@ -178,7 +193,11 @@ function AccountMenu({
   }, [open])
 
   return (
-    <div ref={boxRef} style={{ position: 'relative', display: 'inline-flex' }}>
+    <div
+      ref={boxRef}
+      data-hanzo-ink={ink}
+      style={{ position: 'relative', display: 'inline-flex' }}
+    >
       <button
         type="button"
         aria-haspopup="menu"

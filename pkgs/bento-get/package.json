@@ -1,6 +1,6 @@
 {
   "name": "bento-get",
-  "version": "8.4.1",
+  "version": "8.4.2",
   "private": true,
   "license": "MIT",
   "bin": {

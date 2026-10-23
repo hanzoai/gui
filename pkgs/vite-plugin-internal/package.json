@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/vite-plugin-internal",
-  "version": "8.4.1",
+  "version": "8.4.2",
   "private": true,
   "type": "module",
   "main": "./dist/esm/vite.config.js",

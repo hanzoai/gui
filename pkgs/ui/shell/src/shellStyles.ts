@@ -232,6 +232,24 @@ const FRAME_CSS = [
   MIRROR,
 ].join('')
 
+/**
+ * The page's ink, for a control told to follow the host's theme (`ink="page"`).
+ * The chrome paints with `--white-NN` rungs, which @hanzo/design keeps white in
+ * both themes; under `[data-hanzo-ink=page]` the four the account menu reads
+ * follow the `color-scheme` design sets with the theme: design's own white in
+ * the dark, black at the same weights in the light, the dimmest pushed from .45
+ * to .56 because black on white reads fainter than white on black at one alpha
+ * (.56 holds 4.5:1). The hairline is the theme's own `--border`.
+ */
+const page = (dark: number, light: number) =>
+  `light-dark(color-mix(in srgb,var(--pure-black,#000) ${light}%,transparent),color-mix(in srgb,var(--pure-white,#fff) ${dark}%,transparent))`
+export const INK_CSS = `[data-hanzo-ink=page]{--white-92:${page(92, 92)};--white-60:${page(60, 60)};--white-45:${page(45, 56)};--white-10:var(--border,rgb(255 255 255 / .10))}`
+
+/** The page ink's rule, under its own id, so a host holding an older copy of the base sheet still gets it. */
+export function useInkStyles(): void {
+  useInsertionEffect(() => inject('hanzo-ink-styles', INK_CSS), [])
+}
+
 /** The shell's one animation, for a control that is busy. See rule 6. */
 export const SPIN = 'hanzo-spin 700ms linear infinite'
 

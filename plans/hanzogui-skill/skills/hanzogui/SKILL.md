@@ -443,4 +443,4 @@ interface ExtendedProps extends MyComponentProps {
 
 - Docs: https://hanzogui.dev
 - GitHub: https://github.com/hanzoai/gui
-- Discord: https://discord.gg/hanzogui
+- Discord: https://discord.gg/XthHQQj

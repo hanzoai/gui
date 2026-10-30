@@ -118,7 +118,8 @@ const WORDMARK =
   '[data-slot="wordmark"]{font-weight:600;letter-spacing:-0.4px;color:inherit}' +
   '[data-slot="lockup"]{display:inline-flex;align-items:center;gap:8px;color:inherit}'
 /** The rule that sets the name at one size. */
-const sized = (px: number) => `[data-slot="wordmark"][data-size="${px}"]{font-size:${px}px}`
+const sized = (px: number) =>
+  `[data-slot="wordmark"][data-size="${px}"]{font-size:${px}px}`
 
 // Three things, three names, because they were two things under one.
 //

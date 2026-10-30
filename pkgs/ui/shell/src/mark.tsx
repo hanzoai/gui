@@ -103,6 +103,23 @@ export function HanzoMark({
   )
 }
 
+/**
+ * The wordmark's type, as rules rather than an inline style: React hoists a
+ * `<style>` that names an `href` and a `precedence` into the document's head,
+ * once however many wordmarks a page draws, and a server render writes it into
+ * the HTML, so the name has its size before any script runs. 600 is the weight
+ * the drawn wordmark is set in (Zen 600), so the name in the corner and the
+ * name on the brand page are one piece of type; 800 read as a shout. The
+ * tracking tightens as it grows: -0.2 was tuned at 14px and reads loose at
+ * 19px. The size is its own rule per size (`data-size`), written beside it.
+ * The lockup (mark and name side by side) is the same sheet's other rule.
+ */
+const WORDMARK =
+  '[data-slot="wordmark"]{font-weight:600;letter-spacing:-0.4px;color:inherit}' +
+  '[data-slot="lockup"]{display:inline-flex;align-items:center;gap:8px;color:inherit}'
+/** The rule that sets the name at one size. */
+const sized = (px: number) => `[data-slot="wordmark"][data-size="${px}"]{font-size:${px}px}`
+
 // Three things, three names, because they were two things under one.
 //
 // A MARK is the glyph. A WORDMARK is the name set in type. A LOCKUP is the pair.
@@ -128,28 +145,21 @@ export function HanzoWordmark({
   brandMenu?: boolean
 }) {
   const { onContextMenu, node } = useBrandMenu(brandMenu)
+  // 0.86 of the box, not 0.62. The wordmark is the NAME of the place and it was
+  // rendering at 14px beside 15px nav items and 18px sheet rows — the one word on
+  // the bar that should outrank its neighbours was the smallest thing on it,
+  // which is why it read as slightly wrong without looking broken. At size 22
+  // that is ~19px: bigger than the row it leads, which is the only relationship
+  // that has to hold.
+  const px = Math.round(size * 0.86)
   return (
-    <span
-      onContextMenu={onContextMenu}
-      style={{
-        // 0.86 of the box, not 0.62. The wordmark is the NAME of the place and it
-        // was rendering at 14px beside 15px nav items and 18px sheet rows — the
-        // one word on the bar that should outrank its neighbours was the smallest
-        // thing on it, which is why it read as slightly wrong without looking
-        // broken. At size 22 that is now ~19px: bigger than the row it leads,
-        // which is the only relationship that has to hold.
-        fontSize: Math.round(size * 0.86),
-        // 600 — the weight the drawn wordmark is set in (Zen 600), so
-        // the name in the corner and the name on the brand page are one piece
-        // of type. 800 was heavier than anything else the house sets and read
-        // as a shout rather than as a signature.
-        fontWeight: 600,
-        // Tightens as it grows. -0.2 was tuned at 14px; the same absolute
-        // tracking reads loose at 19px, and this is one word set once.
-        letterSpacing: -0.4,
-        color: 'inherit',
-      }}
-    >
+    <span data-slot="wordmark" data-size={px} onContextMenu={onContextMenu}>
+      <style href="hanzo-wordmark" precedence="hanzo-shell">
+        {WORDMARK}
+      </style>
+      <style href={`hanzo-wordmark-${px}`} precedence="hanzo-shell">
+        {sized(px)}
+      </style>
       {label}
       {node}
     </span>
@@ -164,9 +174,10 @@ export function HanzoLockup({
   size?: number
 }) {
   return (
-    <span
-      style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'inherit' }}
-    >
+    <span data-slot="lockup">
+      <style href="hanzo-wordmark" precedence="hanzo-shell">
+        {WORDMARK}
+      </style>
       <HanzoMark size={size} />
       <HanzoWordmark label={label} size={size} />
     </span>

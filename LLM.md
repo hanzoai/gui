@@ -143,6 +143,19 @@ what they draw, so their rows are translated before `search` ranks them.
 `i18n.test.mjs` parses the source with oxc and fails on copy that reaches the
 screen without either.
 
+## The wordmark's type is a rule, not an inline style
+
+`HanzoWordmark` draws `<span data-slot="wordmark" data-size={px}>` and nothing
+inline (hosts ban `style={…}`: hanzo.ai's lint, the owner, 2026-10-29). Its
+600 weight and -0.4px tracking, and its size (0.86 of `size`: 19px at 22, 14px
+at 16), are rules in `<style href precedence="hanzo-shell">` elements React 19
+hoists into the head: one copy a page whatever the count of wordmarks, and in
+a server render's HTML, so the name has its size before any script runs
+(`useShellStyles` inserts on the client only, which is right for focus rings
+and wrong for a word's size at first paint). `HanzoLockup` is `data-slot=
+"lockup"` from the same sheet. `wordmark.test.mjs` holds the markup to no
+`style=` and one copy of each rule.
+
 ## `tracks` and `Wrap`: the stack sizes its children
 
 `tracks` is a View prop (core, `pkgs/core/web/src/helpers/tracks.ts`, typed on

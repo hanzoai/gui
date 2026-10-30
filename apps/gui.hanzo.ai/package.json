@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/dot-dev",
-  "version": "8.4.3",
+  "version": "8.4.4",
   "private": true,
   "type": "module",
   "sideEffects": false,

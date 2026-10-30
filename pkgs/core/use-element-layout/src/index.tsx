@@ -6,6 +6,16 @@ const LayoutDisableKey = new WeakMap<HTMLElement, string>()
 const Nodes = new Set<HTMLElement>()
 const IntersectionState = new WeakMap<HTMLElement, boolean>()
 
+/**
+ * Starts the measurement loop when a node registers. The loop runs only while
+ * some node is registered and stops itself when the last one leaves, so a page
+ * with no `onLayout` on it keeps no frame callback alive: before, the loop began
+ * at module load and asked for every frame forever (measured on hanzo.ai, some
+ * 30 callbacks a second on an idle page). Assigned where the loop is defined,
+ * which is the web only.
+ */
+let wake: () => void = () => {}
+
 // feature flag to enable pre-transform dimension reporting (matches RN behavior)
 // can be set via env var at build time or runtime global for testing
 // see: https://github.com/hanzoai/gui/pull/2329
@@ -209,7 +219,15 @@ if (ENABLE) {
   let skipFrames = BASE_SKIP_FRAMES
   let frameCount = 0
 
+  let running = false
+
   async function layoutOnAnimationFrame() {
+    // nothing registered: stop, and let the next registration start it again
+    if (Nodes.size === 0) {
+      running = false
+      return
+    }
+
     // skip frames based on adaptive rate
     if (frameCount++ % skipFrames !== 0) {
       rAF ? rAF(layoutOnAnimationFrame) : setTimeout(layoutOnAnimationFrame, 16)
@@ -286,7 +304,12 @@ if (ENABLE) {
     rAF ? rAF(layoutOnAnimationFrame) : setTimeout(layoutOnAnimationFrame, 16)
   }
 
-  layoutOnAnimationFrame()
+  wake = () => {
+    if (running) return
+    running = true
+    frameCount = 0
+    layoutOnAnimationFrame()
+  }
 }
 
 export const getElementLayoutEvent = (
@@ -378,6 +401,7 @@ function emitLayoutIfChanged(
 
 function observeLayoutNode(node: HTMLElement, disableKey?: string) {
   Nodes.add(node)
+  wake()
   if (disableKey) {
     LayoutDisableKey.set(node, disableKey)
   } else {

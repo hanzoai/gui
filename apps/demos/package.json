@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/demos",
-  "version": "8.4.2",
+  "version": "8.4.3",
   "source": "demos/src/index.tsx",
   "files": [
     "NOTICE",

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/tooltip",
-  "version": "8.4.2",
+  "version": "8.4.3",
   "source": "src/index.tsx",
   "files": [
     "NOTICE",

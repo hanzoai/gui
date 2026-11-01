@@ -49,6 +49,17 @@ const ENTER = 'hanzo-palette-in 140ms ease-out'
 const TOP = '12vh'
 
 /**
+ * Whether a key press is the palette's ⌘K (Ctrl-K off the Mac), and still the
+ * palette's to answer. A control on the page that answers the chord itself — a
+ * composer's own command list — claims it with `preventDefault` before the press
+ * reaches the document, and a claimed press is left alone, so one press never
+ * opens two lists.
+ */
+export function chorded(e: Pick<KeyboardEvent, 'metaKey' | 'ctrlKey' | 'key' | 'defaultPrevented'>): boolean {
+  return !e.defaultPrevented && (e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')
+}
+
+/**
  * Bind the global ⌘K (Ctrl-K off the Mac) toggle.
  *
  * One binding for every palette: a page that mounted two would have them fight
@@ -57,7 +68,7 @@ const TOP = '12vh'
 export function useCommandKey(toggle: () => void): void {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+      if (chorded(e)) {
         e.preventDefault()
         toggle()
       }

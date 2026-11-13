@@ -35,7 +35,7 @@ export function V5ThemeBuilderOutput() {
         <H3 color="$color11">{'<Theme name="accent">'}</H3>
         <Paragraph size="$2" color="$color11">
           Expected: first square is the base gray background. Second square should be DARK
-          PURPLE (the accent palette inverted). Text below it should be light/readable
+          BLUE (the accent palette inverted). Text below it should be light/readable
           against the accent background.
         </Paragraph>
 
@@ -83,7 +83,7 @@ export function V5ThemeBuilderOutput() {
         <H3 color="$color11">{'<Button theme="accent">'}</H3>
         <Paragraph size="$2" color="$color11">
           Expected: first button is the default gray surface. Second button should have a
-          PURPLE background with light text — visually distinct from the base button.
+          BLUE background with light text — visually distinct from the base button.
         </Paragraph>
 
         <XStack gap="$3">
@@ -108,7 +108,7 @@ export function V5ThemeBuilderOutput() {
       >
         <H3 color="$color11">$accentBackground / $accentColor</H3>
         <Paragraph size="$2" color="$color11">
-          Expected: square should be a DARK PURPLE — same hue as the accent palette. This
+          Expected: square should be a DARK BLUE — same hue as the accent palette. This
           is the raw token, not a theme wrapper.
         </Paragraph>
 
@@ -132,7 +132,7 @@ export function V5ThemeBuilderOutput() {
       >
         <H4>Accent Palette (accent1-12)</H4>
         <Paragraph size="$2" color="$color11">
-          Expected: a gradient of 12 swatches going from dark purple to light purple. If
+          Expected: a gradient of 12 swatches going from dark blue to light blue. If
           these are all gray, the accent palette is broken.
         </Paragraph>
         <XStack gap="$1">

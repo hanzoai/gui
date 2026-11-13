@@ -67,9 +67,9 @@ const BenchTama = () => {
 }
 
 const palette = {
-  purpleLight: '#8C6FF7',
-  purplePrimary: '#5A31F4',
-  purpleDark: '#3F22AB',
+  graphiteLight: '#9A9A9A',
+  graphitePrimary: '#555555',
+  graphiteDark: '#333333',
 
   greenLight: '#56DCBA',
   greenPrimary: '#0ECD9D',
@@ -83,7 +83,7 @@ const theme = {
   colors: {
     red: 'red',
     mainBackground: palette.white,
-    cardPrimaryBackground: palette.purplePrimary,
+    cardPrimaryBackground: palette.graphitePrimary,
   },
   spacing: {
     s: 5,

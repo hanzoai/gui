@@ -18,7 +18,7 @@ const BUTTONS_PER_ROW = 11
 function QuickNavItem({ name, index }: { name: string; index: number }) {
   const linkProps = useLink({ href: `/test/${name}` })
   // alternate colors for visibility
-  const colors = ['#93c5fd', '#86efac', '#fdba74', '#c4b5fd', '#f9a8d4', '#fde047']
+  const colors = ['#93c5fd', '#86efac', '#fdba74', '#d4d4d8', '#f9a8d4', '#fde047']
   const bg = colors[index % colors.length]
 
   return (

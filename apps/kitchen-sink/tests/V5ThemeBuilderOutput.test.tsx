@@ -45,7 +45,7 @@ test('<Theme name="accent"> $background is not gray (has color)', async ({ page 
 
   const styles = await getStyles(accentEl)
 
-  // The generated theme has a purple accent (hue 250). Verify it's not a pure gray.
+  // The generated theme has a blue accent (hue 215). Verify it's not a pure gray.
   // In a gray color, r === g === b. A colored accent will have channel differences.
   const match = styles.backgroundColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/)
   expect(match).toBeTruthy()

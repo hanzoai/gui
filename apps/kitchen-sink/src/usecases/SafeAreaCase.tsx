@@ -93,7 +93,7 @@
 //         paddingBottom="$safeAreaBottom"
 //         paddingLeft="$safeAreaLeft"
 //         paddingRight="$safeAreaRight"
-//         bg="$purple5"
+//         bg="$gray5"
 //         padding="$2"
 //       >
 //         <Text>all safe area tokens combined</Text>

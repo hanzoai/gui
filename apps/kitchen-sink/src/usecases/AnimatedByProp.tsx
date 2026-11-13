@@ -25,7 +25,7 @@ export function AnimatedByProp() {
       <Square
         testID="context-driver"
         size={100}
-        backgroundColor={active ? '$green10' : '$purple10'}
+        backgroundColor={active ? '$green10' : '$gray10'}
         opacity={active ? 1 : 0.5}
         scale={active ? 1.2 : 1}
         transition="bouncy"

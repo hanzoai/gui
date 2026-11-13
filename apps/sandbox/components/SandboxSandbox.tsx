@@ -21,7 +21,7 @@ import { animationsMotion } from '../config/hanzogui/animationMotion'
 import { animationsCSS } from '../config/hanzogui/animationsCSS'
 import { animationsNative } from '../config/hanzogui/animationNative'
 
-const delayColors = ['red', 'green', 'blue', 'purple'] as const
+const delayColors = ['red', 'green', 'blue', 'orange'] as const
 
 /**
  * Reusable delay demo component that works with any animation driver

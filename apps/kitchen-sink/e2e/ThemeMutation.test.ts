@@ -75,7 +75,7 @@ describe('ThemeMutation', () => {
   })
 
   it('should cycle through multiple theme colors', async () => {
-    const colors = ['red', 'blue', 'green', 'purple', 'orange']
+    const colors = ['red', 'blue', 'green', 'orange']
 
     for (let i = 0; i < colors.length; i++) {
       const expectedColor = colors[i]

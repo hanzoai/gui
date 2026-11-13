@@ -33,7 +33,6 @@ export function Inner({
     'blue',
     'orange',
     'green',
-    'purple',
     'pink',
     'red',
     'gray',

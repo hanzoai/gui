@@ -414,7 +414,7 @@ iframe {
 .token.number,
 .token.unit,
 .token.color {
-  color: var(--purple9);
+  color: var(--blue9);
 }
 
 .token.operator {
@@ -479,9 +479,9 @@ iframe {
 }
 
 .highlight-word {
-  --word-bg: var(--purple9);
-  color: var(--purple9);
-  background-color: var(--purple4);
+  --word-bg: var(--blue9);
+  color: var(--blue9);
+  background-color: var(--blue4);
   display: inline-block;
   box-shadow:
     var(--xOffset) 0 0 0 var(--word-bg),
@@ -493,7 +493,7 @@ iframe {
 }
 
 .highlight-word.on {
-  --word-bg: var(--purple7);
+  --word-bg: var(--blue7);
   transition: all 100ms ease;
   cursor: pointer;
 }

@@ -11,7 +11,7 @@ type Stats = {
 
 // deeply nested component tree
 const GRAY_COLORS = ['$gray2', '$gray3', '$gray4', '$gray5', '$gray6', '$gray7'] as const
-const GRID_COLORS = ['$red5', '$green5', '$blue5', '$purple5', '$orange5'] as const
+const GRID_COLORS = ['$red5', '$green5', '$blue5', '$gray5', '$orange5'] as const
 const SIBLING_COLORS = ['$red4', '$green4', '$blue4'] as const
 
 const DeepChild = memo(

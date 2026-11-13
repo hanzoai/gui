@@ -2499,7 +2499,7 @@ function Scenario52_DurationNormalizationInlineConfig() {
             // uses '100ms' base but overrides with duration: 50 (should be 50ms)
             transition={{ default: '100ms', duration: 50 } as any}
             size={40}
-            bg="$purple10"
+            bg="$gray10"
             enterStyle={{ opacity: 0, scale: 0.5 }}
             exitStyle={{ opacity: 0, scale: 0.5 }}
             testID="scenario-52-target"

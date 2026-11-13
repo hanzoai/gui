@@ -5,7 +5,7 @@ import { Square, Text, Theme, YStack, useIsomorphicLayoutEffect } from '@hanzo/g
 
 import { TEST_IDS } from '../constants/test-ids'
 
-const colors = ['red', 'blue', 'green', 'purple', 'orange'] as const
+const colors = ['red', 'blue', 'green', 'orange'] as const
 
 /**
  * Test case for theme mutation with DynamicColorIOS optimization.

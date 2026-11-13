@@ -44,7 +44,7 @@ export function AnimationsWithMediaQueriesCase() {
       {/* Test 2: translateX only */}
       <YStack gap="$2">
         <Text fontWeight="bold">Test 2: TranslateX in media query</Text>
-        <Text fontSize="$2">Base: x=0 (purple), $sm: x=50 (orange)</Text>
+        <Text fontSize="$2">Base: x=0 (gray), $sm: x=50 (orange)</Text>
         <XStack
           height={150}
           bg="$color3"
@@ -64,7 +64,7 @@ export function AnimationsWithMediaQueriesCase() {
             testID="test-translate"
             data-testid="test-translate"
             size={100}
-            bg="$purple10"
+            bg="$gray10"
             x={10}
             transition="quick"
             $sm={{

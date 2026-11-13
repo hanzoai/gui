@@ -12,9 +12,9 @@ import {
 // carries its own color tokens (--teal10 and the rest), and this stylesheet is
 // render-blocking. Themes-as-js is still stripped to {} on the client below and
 // hydrated from css; component themes stay, since they dedupe to surfaces.
-const { gray, blue, red, yellow, green, orange, purple } = subtleChildrenThemes
+const { gray, blue, red, yellow, green, orange } = subtleChildrenThemes
 const themes = createV5Theme({
-  childrenThemes: { gray, blue, red, yellow, green, orange, purple },
+  childrenThemes: { gray, blue, red, yellow, green, orange },
 })
 import type { CreateGuiProps } from '@hanzogui/core'
 import { setupDev } from '@hanzogui/core'

@@ -46,14 +46,13 @@ export const STOPS: Record<string, Stop> = {
   yellow: { accent: 9, dark: 9, light: 9 },
   green: { accent: 9, dark: 9, light: 10 },
   blue: { accent: 9, dark: 9, light: 10 },
-  purple: { accent: 9, dark: 9, light: 9 },
   white: { accent: 1, dark: 1, light: 1, neutral: true },
   gray: { accent: null, dark: 9, light: 10, neutral: true },
   black: { accent: 1, dark: 1, light: 1, neutral: true },
 }
 
 // Every family is one length, because readers index the ramp by it.
-const LENGTH = 9
+const LENGTH = 8
 
 const repeat = (...names: ThemeName[]): ThemeName[] =>
   Array.from({ length: LENGTH }, (_, i) => names[i % names.length]!)
@@ -79,7 +78,6 @@ const familiesValues: Families = {
     'gray',
     'green',
     'blue',
-    'purple',
     'white',
     'black',
   ] as ThemeName[],

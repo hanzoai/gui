@@ -69,7 +69,7 @@ export function PseudoTransitionCase() {
           transition="1000ms"
           pressStyle={{
             transition: '200ms',
-            backgroundColor: '$purple10',
+            backgroundColor: '$gray10',
           }}
         />
       </YStack>
@@ -136,7 +136,7 @@ export function PseudoTransitionCase() {
           tabIndex={0}
           width={100}
           height={100}
-          backgroundColor="$purple10"
+          backgroundColor="$gray10"
           transition="1000ms"
           focusStyle={{
             transition: '200ms',

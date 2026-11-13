@@ -70,7 +70,7 @@ export function PointerEventsCase() {
           left={0}
           width={200}
           height={150}
-          backgroundColor="$purple5"
+          backgroundColor="$gray5"
           opacity={0.5}
           onPress={() => setBoxNoneCounts((c) => ({ ...c, parent: c.parent + 1 }))}
         >

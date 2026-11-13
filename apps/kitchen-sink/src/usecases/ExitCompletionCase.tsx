@@ -618,7 +618,7 @@ function Scenario51_AnimateOnlyExclusion() {
             transition={{ opacity: '100ms', scale: '500ms', default: '500ms' } as any}
             animateOnly={['opacity']}
             size={40}
-            bg="$purple10"
+            bg="$gray10"
             exitStyle={{ opacity: 0, scale: 0.5 }}
             testID="exit-51-target"
             data-testid="exit-51-target"

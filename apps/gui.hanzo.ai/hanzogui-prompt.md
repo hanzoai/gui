@@ -75,7 +75,6 @@ Themes are organized hierarchically and can be combined:
 - neutral
 - orange
 - pink
-- purple
 - red
 - surface1
 - surface2

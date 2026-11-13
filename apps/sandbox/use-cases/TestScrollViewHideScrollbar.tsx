@@ -40,7 +40,7 @@ export function TestScrollViewHideScrollbar() {
         height={120}
       >
         {Array.from({ length: 20 }).map((_, i) => (
-          <View key={i} height={40} bg="$purple5">
+          <View key={i} height={40} bg="$gray5">
             <Text>{i}</Text>
           </View>
         ))}

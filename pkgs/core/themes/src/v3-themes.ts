@@ -9,8 +9,6 @@ import {
   orangeDark,
   pink,
   pinkDark,
-  purple,
-  purpleDark,
   red,
   redDark,
   yellow,
@@ -28,7 +26,6 @@ const colorTokens = {
     green,
     orange,
     pink,
-    purple,
     red,
     yellow,
   },
@@ -38,7 +35,6 @@ const colorTokens = {
     green: greenDark,
     orange: orangeDark,
     pink: pinkDark,
-    purple: purpleDark,
     red: redDark,
     yellow: yellowDark,
   },
@@ -55,7 +51,6 @@ const darkColors = {
   ...colorTokens.dark.green,
   ...colorTokens.dark.orange,
   ...colorTokens.dark.pink,
-  ...colorTokens.dark.purple,
   ...colorTokens.dark.red,
   ...colorTokens.dark.yellow,
 }
@@ -66,7 +61,6 @@ const lightColors = {
   ...colorTokens.light.green,
   ...colorTokens.light.orange,
   ...colorTokens.light.pink,
-  ...colorTokens.light.purple,
   ...colorTokens.light.red,
   ...colorTokens.light.yellow,
 }
@@ -607,10 +601,6 @@ const themeBuilder = createThemeBuilder()
     },
     blue: {
       palette: 'blue',
-      template: 'base',
-    },
-    purple: {
-      palette: 'purple',
       template: 'base',
     },
     pink: {

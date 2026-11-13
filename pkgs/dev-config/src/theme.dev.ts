@@ -362,7 +362,6 @@ const themes = createThemes({
         ...colorsGreen,
         ...Colors.orange,
         ...Colors.pink,
-        ...Colors.purple,
         ...Colors.red,
         ...Colors.yellow,
         ...lightShadows,
@@ -377,7 +376,6 @@ const themes = createThemes({
         ...colorsGreenDark,
         ...Colors.orangeDark,
         ...Colors.pinkDark,
-        ...Colors.purpleDark,
         ...Colors.redDark,
         ...Colors.yellowDark,
         ...darkShadows,
@@ -444,12 +442,6 @@ const themes = createThemes({
       palette: {
         dark: Object.values(colorsGreenDark),
         light: Object.values(colorsGreen),
-      },
-    },
-    purple: {
-      palette: {
-        dark: Object.values(Colors.purpleDark),
-        light: Object.values(Colors.purple),
       },
     },
     pink: {

@@ -4,7 +4,7 @@ import { YStack, XStack, Text, Square, styled } from '@hanzo/gui'
 const StyledBox = styled(YStack, {
   width: 100,
   height: 100,
-  bg: '$purple10',
+  bg: '$gray10',
   scale: 1,
   transformOrigin: 'left top',
 })

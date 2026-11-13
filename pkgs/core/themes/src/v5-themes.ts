@@ -9,8 +9,6 @@ import {
   orangeDark,
   pink,
   pinkDark,
-  purple,
-  purpleDark,
   red,
   redDark,
   teal,
@@ -323,7 +321,6 @@ export const defaultChildrenThemes = {
   green: { light: green, dark: greenDark },
   orange: { light: orange, dark: orangeDark },
   pink: { light: pink, dark: pinkDark },
-  purple: { light: purple, dark: purpleDark },
   teal: { light: teal, dark: tealDark },
   neutral: { light: neutral, dark: neutral },
 }

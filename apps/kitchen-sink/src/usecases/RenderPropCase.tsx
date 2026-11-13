@@ -236,9 +236,9 @@ export function RenderPropCase() {
             />
           )}
           padding="$3"
-          backgroundColor="$purple5"
-          hoverStyle={{ backgroundColor: '$purple7' }}
-          pressStyle={{ backgroundColor: '$purple9' }}
+          backgroundColor="$gray5"
+          hoverStyle={{ backgroundColor: '$gray7' }}
+          pressStyle={{ backgroundColor: '$gray9' }}
         >
           <Text>Function Render with State</Text>
         </View>
@@ -252,8 +252,8 @@ export function RenderPropCase() {
             />
           )}
           padding="$3"
-          backgroundColor="$purple5"
-          pressStyle={{ backgroundColor: '$purple9' }}
+          backgroundColor="$gray5"
+          pressStyle={{ backgroundColor: '$gray9' }}
         >
           <Text testID="function-render-state-text">Function Render with State</Text>
         </View>

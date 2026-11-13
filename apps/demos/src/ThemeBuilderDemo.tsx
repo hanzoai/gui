@@ -73,13 +73,6 @@ function Col(
       <Square
         rounded="$6"
         size="$10"
-        theme={('purple' + subTheme) as ThemeName}
-        bg="$background"
-        {...props}
-      />
-      <Square
-        rounded="$6"
-        size="$10"
         theme={('pink' + subTheme) as ThemeName}
         bg="$background"
         {...props}

@@ -58,9 +58,6 @@ function ButtonCol(props: any) {
       <Button theme={('blue' + subThemeSuffix) as ThemeName} {...buttonProps}>
         Hello
       </Button>
-      <Button theme={('purple' + subThemeSuffix) as ThemeName} {...buttonProps}>
-        Hello
-      </Button>
       <Button theme={('pink' + subThemeSuffix) as ThemeName} {...buttonProps}>
         Hello
       </Button>

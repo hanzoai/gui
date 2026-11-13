@@ -37,7 +37,7 @@ export function MultiDriverAnimation() {
             testID="driver-css"
             animatedBy="css"
             size={80}
-            backgroundColor={active ? '$green10' : '$purple10'}
+            backgroundColor={active ? '$green10' : '$gray10'}
             opacity={active ? 1 : 0.3}
             transition="200ms"
           />

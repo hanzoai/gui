@@ -129,9 +129,9 @@ export function HomeScreen() {
           </YGroup.Item>
           <YGroup.Item>
             <LinkListItem
-              bg="$purple3"
+              bg="$gray3"
               href="/test/ActionsSheetComparison"
-              pressStyle={{ backgroundColor: '$purple4' }}
+              pressStyle={{ backgroundColor: '$gray4' }}
               size="$5"
             >
               🔄 Actions Sheet Comparison

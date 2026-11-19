@@ -11,18 +11,14 @@ import { createLogger } from './createLogger.ts'
 import { isSimpleSpread } from './extractHelpers.ts'
 import { literalToAst } from './literalToAst.ts'
 import { loadGuiBuildConfigSync } from './loadGui.ts'
-import { createRequire } from 'node:module'
-import { url } from '../here.ts'
-
-const need = createRequire(url)
 
 const importNativeView = template(`
-const __ReactNativeView = need('react-native').View;
-const __ReactNativeText = need('react-native').Text;
+const __ReactNativeView = require('react-native').View;
+const __ReactNativeText = require('react-native').Text;
 `)
 
 const importStyleSheet = template(`
-const __ReactNativeStyleSheet = need('react-native').StyleSheet;
+const __ReactNativeStyleSheet = require('react-native').StyleSheet;
 `)
 
 const importWithStyle = template.ast(`import { _withStableStyle } from '@hanzogui/core';`)
@@ -316,7 +312,11 @@ export function getBabelParseDefinition(options: GuiOptions) {
                       expressions.push(expression)
                       addStyleExpression(
                         t.conditionalExpression(
-                          t.identifier(`_expressions[${expressions.length - 1}]`),
+                          t.memberExpression(
+                            t.identifier('_expressions'),
+                            t.numericLiteral(expressions.length - 1),
+                            true
+                          ),
                           consExpr || t.nullLiteral(),
                           altExpr || t.nullLiteral()
                         ),

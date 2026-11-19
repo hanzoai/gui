@@ -121,4 +121,13 @@ site:
   slug: gui
   dir: apps/gui.hanzo.ai/dist/client
   on: [main]
-  build: bun turbo run build:web --filter=@hanzogui/dot-dev
+  build: |
+    set -eu
+    if [ ! -x node_modules/.bin/turbo ]; then
+      ver=$(node -p "require('./package.json').packageManager.split('@')[1]")
+      curl -fsSL https://bun.sh/install | BUN_INSTALL="$HOME/.bun" bash -s "bun-v$ver"
+      export PATH="$HOME/.bun/bin:$PATH"
+      bun install --frozen-lockfile
+      bun install --frozen-lockfile
+    fi
+    NODE_OPTIONS=--max-old-space-size=6144 bun turbo run build:web --filter=@hanzogui/dot-dev

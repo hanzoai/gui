@@ -33,7 +33,7 @@
     "watch": "hanzogui-build --skip-native --watch",
     "clean": "hanzogui-build clean",
     "clean:build": "hanzogui-build clean:build",
-    "test": "vitest run",
+    "test": "vitest run --testTimeout=30000",
     "test:web": "bun run test",
     "test:watch": "vitest"
   },

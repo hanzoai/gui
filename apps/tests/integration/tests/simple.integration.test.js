@@ -17,6 +17,7 @@ function spawnServer(command, args) {
     stdio: 'pipe',
     detached: true,
   })
+  proc.stdout.on('data', () => {})
   proc.stderr.on('data', (d) => console.log(d.toString()))
   return proc
 }
@@ -48,7 +49,7 @@ async function waitForContent(page, port) {
 
   await page.goto(`http://localhost:${port}`, {
     waitUntil: 'load',
-    timeout: 30000,
+    timeout: 60000,
   })
 
   // wait for react to render

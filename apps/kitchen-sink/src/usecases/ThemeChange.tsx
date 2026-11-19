@@ -28,15 +28,7 @@ export function Inner({
   children?: React.ReactNode
   level: number
 }) {
-  const themes = [
-    'yellow',
-    'blue',
-    'orange',
-    'green',
-    'pink',
-    'red',
-    'gray',
-  ] as const
+  const themes = ['yellow', 'blue', 'orange', 'green', 'pink', 'red', 'gray'] as const
   const [themeIndex, setThemeIndex] = React.useState(0)
   const theme = themes[themeIndex]
 

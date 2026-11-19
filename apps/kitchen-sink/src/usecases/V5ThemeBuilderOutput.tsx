@@ -108,8 +108,8 @@ export function V5ThemeBuilderOutput() {
       >
         <H3 color="$color11">$accentBackground / $accentColor</H3>
         <Paragraph size="$2" color="$color11">
-          Expected: square should be a DARK BLUE — same hue as the accent palette. This
-          is the raw token, not a theme wrapper.
+          Expected: square should be a DARK BLUE — same hue as the accent palette. This is
+          the raw token, not a theme wrapper.
         </Paragraph>
 
         <YStack
@@ -132,8 +132,8 @@ export function V5ThemeBuilderOutput() {
       >
         <H4>Accent Palette (accent1-12)</H4>
         <Paragraph size="$2" color="$color11">
-          Expected: a gradient of 12 swatches going from dark blue to light blue. If
-          these are all gray, the accent palette is broken.
+          Expected: a gradient of 12 swatches going from dark blue to light blue. If these
+          are all gray, the accent palette is broken.
         </Paragraph>
         <XStack gap="$1">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) => (

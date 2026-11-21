@@ -1,8 +1,8 @@
 {
   "name": "@hanzogui/use-force-update",
   "version": "8.4.5",
-  "license": "MIT",
   "gitHead": "a49cc7ea6b93ba384e77a4880ae48ac4a5635c14",
+  "license": "MIT",
   "files": [
     "NOTICE",
     "dist",

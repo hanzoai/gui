@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/text-test",
-  "version": "8.4.4",
+  "version": "8.4.5",
   "private": true,
   "type": "module",
   "sideEffects": false,

@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/kitchen-sink",
-  "version": "8.4.4",
+  "version": "8.4.5",
   "private": true,
   "main": "index.js",
   "scripts": {

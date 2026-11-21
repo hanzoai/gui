@@ -1,6 +1,6 @@
 {
   "name": "@hanzogui/sizable-context",
-  "version": "8.4.4",
+  "version": "8.4.5",
   "description": "Sizable context for Gui components",
   "license": "MIT",
   "source": "src/index.ts",

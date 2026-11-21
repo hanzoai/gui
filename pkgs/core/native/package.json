@@ -1,6 +1,7 @@
 {
   "name": "@hanzogui/native",
-  "version": "8.4.4",
+  "version": "8.4.5",
+  "license": "MIT",
   "description": "Native setup modules for Gui - portals, gesture handler, worklets, and more",
   "files": [
     "NOTICE",

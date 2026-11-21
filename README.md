@@ -52,6 +52,8 @@ The compiler optimizes most and ultimately flattens a majority of styled compone
 
 ## Contributing
 
+[![Open in Hanzo](https://hanzo.app/badges/open-in-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/gui&ref=main&action=open) [![Edit with Hanzo](https://hanzo.app/badges/edit-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/gui&ref=main&action=edit) [![Deploy with Hanzo](https://hanzo.app/badges/deploy-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/gui&ref=main&action=deploy)
+
 To contribute to Gui reference the [contributing guide](https://github.com/hanzoai/gui/blob/main/CONTRIBUTING.md).
 
 To contribute to documentation, see the docs source in `apps/gui.hanzo.ai/data/docs/`.

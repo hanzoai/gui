@@ -199,6 +199,18 @@ test('a section points at a path here or an https address elsewhere, and nothing
   assert.match(html, /<a href="\/" data-slot="home"/, 'the mark falls back to this app')
 })
 
+test('the sidebar toggle exposes aria-expanded/aria-controls and native chrome does not duplicate the top bar', () => {
+  const webHtml = render()
+  assert.match(webHtml, /aria-label="Close sidebar" aria-expanded="true" aria-controls="hanzo-frame-sidebar"/)
+  assert.match(webHtml, /id="hanzo-frame-sidebar" data-slot="sidebar"/)
+  const nativeHtml = render({ chrome: 'native' })
+  assert.match(nativeHtml, /data-chrome="native"/)
+  assert.doesNotMatch(nativeHtml, /data-slot="bar"/)
+  const css = read('shellStyles.ts')
+  assert.match(css, /prefers-reduced-motion:reduce/)
+  assert.match(css, /\[data-chrome=native\]/)
+})
+
 test('a notification is acted on only by a plain id, and its reason is looked up safely', () => {
   const src = read('Notifications.tsx')
   assert.match(src, /const SEGMENT = \/\^\[A-Za-z0-9_-\]\+\$\//)

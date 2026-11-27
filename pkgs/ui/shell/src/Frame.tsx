@@ -115,6 +115,13 @@ export interface FrameProps {
   panel?: ReactNode
   /** Stamped `data-hydrated` once the host has settled who is reading. */
   ready?: boolean
+  /**
+   * Host window chrome mode. `'web'` (default) renders the top bar; `'native'`
+   * stamps `data-chrome="native"` and omits the top bar when a native desktop
+   * host (Tauri/macOS/Windows/Linux) owns its own titlebar chrome so controls
+   * and headers are never duplicated.
+   */
+  chrome?: 'web' | 'native'
   /** Passed through to the root. */
   className?: string
   /** The room. */
@@ -399,12 +406,16 @@ function Control({
   onPress,
   children,
   wide,
+  expanded,
+  controls,
 }: {
   label: string
   onPress: () => void
   children: ReactNode
   /** Only from 768px: a phone's own gestures do this, and the bar is narrow. */
   wide?: boolean
+  expanded?: boolean
+  controls?: string
 }) {
   return (
     <button
@@ -412,6 +423,8 @@ function Control({
       data-frame-icon=""
       data-frame-md={wide ? '' : undefined}
       aria-label={label}
+      aria-expanded={expanded}
+      aria-controls={controls}
       title={label}
       onClick={onPress}
     >
@@ -490,6 +503,7 @@ export function Frame({
   side,
   panel,
   ready,
+  chrome = 'web',
   className,
   children,
 }: FrameProps) {
@@ -571,6 +585,7 @@ export function Frame({
         data-hanzo-frame=""
         data-slot="workspace"
         data-sidebar={open ? 'open' : 'shut'}
+        data-chrome={chrome}
         data-strip={strip ? '' : undefined}
         data-hydrated={(ready ?? mounted) ? 'true' : undefined}
         className={className}
@@ -585,6 +600,7 @@ export function Frame({
           onPick={pick}
         />
 
+        {chrome !== 'native' ? (
         <header
           data-slot="bar"
           style={{
@@ -600,6 +616,8 @@ export function Frame({
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
             <Control
               label={open ? t('Close sidebar') : t('Open sidebar')}
+              expanded={open}
+              controls="hanzo-frame-sidebar"
               onPress={toggle}
             >
               <MARKS.sidebar size={16} />
@@ -654,6 +672,7 @@ export function Frame({
             ) : null}
           </div>
         </header>
+        ) : null}
 
         {open ? (
           <button
@@ -667,6 +686,7 @@ export function Frame({
         {open ? (
           <div data-slot="list">
             <div
+              id="hanzo-frame-sidebar"
               data-slot="sidebar"
               style={{
                 position: 'relative',

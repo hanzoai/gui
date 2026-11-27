@@ -180,6 +180,8 @@ const CSS = [
 const F = '[data-hanzo-frame]'
 const FRAME_CSS = [
   `${F}{display:grid;grid-template-columns:64px auto minmax(0,1fr) auto;grid-template-rows:44px minmax(0,1fr);grid-template-areas:"rail bar bar bar" "rail list pane side";position:relative;width:100%;height:100dvh;overflow:hidden;background:${FRAME.ground};color:${FRAME.ink}}`,
+  `${F}[data-chrome=native]{grid-template-rows:minmax(0,1fr);grid-template-areas:"rail list pane side"}`,
+  `@media (prefers-reduced-motion:reduce){${F},${F} *{transition:none!important;animation:none!important}}`,
   `${F}>[data-slot=rail]{grid-area:rail;display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;min-width:0;background:${FRAME.ground};border-inline-end:1px solid ${FRAME.edge}}`,
   `${F}>[data-slot=rail]>[data-slot=places]{grid-row:2;display:grid;grid-auto-rows:max-content;align-content:start;justify-items:center;gap:2px;min-width:0;overflow-y:auto;scrollbar-width:none;padding-top:8px}`,
   `${F}>[data-slot=rail]>[data-slot=strip]{grid-row:1;display:grid;justify-items:center;padding:8px 0 4px}`,

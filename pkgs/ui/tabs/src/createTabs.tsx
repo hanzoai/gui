@@ -52,6 +52,9 @@ export function createTabs<
           orientation={context.orientation}
           dir={context.dir}
           loop={loop}
+          // the selected tab is the single tab stop of the list, so Tab enters
+          // the tablist once and arrows move between tabs (WAI-ARIA tabs pattern)
+          currentTabStopId={makeTriggerId(context.baseId, context.value ?? '')}
           asChild
         >
           <Group
@@ -142,6 +145,7 @@ export function createTabs<
           asChild
           focusable={!disabled}
           active={isSelected}
+          tabStopId={triggerId}
         >
           <TabFrame
             {...(!isWeb && {

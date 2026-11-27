@@ -27,12 +27,14 @@ h6 {
   padding: 0;
 }
 
-li,
-select,
-input,
-button,
-[role='slider'],
-[role='listbox'] {
+/* pointer presses may go without a ring, keyboard focus may not (WCAG 2.4.7):
+   `all: unset` below also drops the user agent outline, so restore one here */
+li:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+[role='slider']:focus:not(:focus-visible),
+[role='listbox']:focus:not(:focus-visible) {
   outline: none;
 }
 
@@ -56,4 +58,10 @@ dialog {
 a.is_Button,
 .is_Anchor:has(.is_Button) {
   text-decoration: none;
+}
+
+/* visible focus indicator for anything reached with a keyboard */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }

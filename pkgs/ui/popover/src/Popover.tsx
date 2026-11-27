@@ -408,19 +408,53 @@ export const PopoverTrigger = React.memo(
         }
       }
 
+      // a trigger rendered without `asChild` is a plain div: it takes no focus
+      // and the browser fires no press for Enter/Space on it, so it was
+      // unreachable and unusable with a keyboard only. a child passed with
+      // `asChild` is usually a Button/Link that already brings its own role and
+      // keyboard activation, so those defaults are left alone.
+      const triggerRole = rest.role ?? (rest.asChild ? undefined : 'button')
+
       const trigger = (
         <View
           aria-expanded={open}
-          // TODO not matching
-          // aria-controls={context.contentId}
           data-state={getState(open)}
           {...rest}
+          role={triggerRole}
+          tabIndex={rest.tabIndex ?? 0}
           // @ts-ignore
           ref={composedTriggerRef}
           onPress={composeEventHandlers(rest.onPress as any, () => {
             if (disablePressTrigger) return
             triggerContext.setActiveTrigger(open ? null : triggerId)
             triggerContext.onOpenToggle()
+          })}
+          {...(isWeb && {
+            onKeyDown: composeEventHandlers((rest as any).onKeyDown, (event) => {
+              if (disablePressTrigger) return
+              if (
+                event.key !== 'Enter' &&
+                event.key !== ' ' &&
+                event.key !== 'Spacebar'
+              ) {
+                return
+              }
+              // native controls already turn Enter/Space into a click, which runs
+              // onPress above; toggling here as well would open and close at once
+              const tag = (event.currentTarget as HTMLElement)?.tagName
+              if (
+                tag === 'BUTTON' ||
+                tag === 'A' ||
+                tag === 'INPUT' ||
+                tag === 'SUMMARY'
+              ) {
+                return
+              }
+              event.preventDefault()
+              activateSelf()
+              triggerContext.setActiveTrigger(open ? null : triggerId)
+              triggerContext.onOpenToggle()
+            }),
           })}
           onMouseEnter={composeEventHandlers(rest.onMouseEnter as any, activateSelf)}
           onPressIn={composeEventHandlers(rest.onPressIn as any, activateSelf)}

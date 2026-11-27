@@ -59,6 +59,16 @@ You can run `bun run sandbox` or `bun run dev` (the hanzogui website).
 
 ### Local Testing Setup
 
+#### Component tests (jsdom, no browser download)
+
+The component suites live in `pkgs/ui/components-test` and run in jsdom:
+
+```bash
+cd pkgs/ui/components-test
+bun run test:web      # *.web.test.tsx, including the accessibility suites
+bun run test:native   # *.native.test.tsx
+```
+
 #### Playwright (web integration tests)
 
 Install browser binaries before first run:

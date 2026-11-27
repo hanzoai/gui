@@ -172,7 +172,9 @@ const RovingFocusGroupItem = React.forwardRef<
       active={active}
     >
       <View
-        tabIndex={focusable ? 0 : -1}
+        // only the current tab stop is in the tab order: arrowing moves the
+        // stop, Tab leaves the group instead of stepping through every item
+        tabIndex={focusable && isCurrentTabStop ? 0 : -1}
         data-orientation={context.orientation}
         {...itemProps}
         ref={forwardedRef}

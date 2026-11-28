@@ -156,6 +156,7 @@ type PopoverContextValue = {
 type PopoverTriggerStateSetter = React.Dispatch<React.SetStateAction<boolean>>
 
 type PopoverTriggerContextValue = {
+  contentId?: string
   triggerRef: React.RefObject<any>
   hasCustomAnchor: boolean
   anchorTo?: Rect
@@ -321,6 +322,7 @@ export const PopoverContextProvider = React.memo(
       >
         <PopoverTriggerContext.Provider
           scope={scope}
+          contentId={contentId}
           triggerRef={triggerRef}
           hasCustomAnchor={hasCustomAnchor}
           anchorTo={anchorTo}
@@ -411,8 +413,7 @@ export const PopoverTrigger = React.memo(
       const trigger = (
         <View
           aria-expanded={open}
-          // TODO not matching
-          // aria-controls={context.contentId}
+          aria-controls={open ? triggerContext.contentId : undefined}
           data-state={getState(open)}
           {...rest}
           // @ts-ignore

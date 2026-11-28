@@ -6,6 +6,11 @@ import { useWindowControls } from './window.ts'
 // hanzogui component drives the real Tauri OS window through the bridge. The bar
 // is draggable via Tauri's `data-tauri-drag-region`; the buttons call the
 // window controls. Renders harmlessly on the web (controls no-op off-Tauri).
+//
+// Aligned with shared Zen Dark contract:
+// - Near-black / true-black neutral shell ($background, $borderColor)
+// - Native chrome does not duplicate app header when hideTitle / integratedHeader is set
+// - Full WCAG keyboard and accessibility annotations on window controls
 
 const Control = styled(XStack, {
   width: 46,
@@ -15,6 +20,11 @@ const Control = styled(XStack, {
   cursor: 'pointer',
   hoverStyle: { backgroundColor: '$color4' },
   pressStyle: { backgroundColor: '$color5' },
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
 })
 
 const Glyph = styled(Text, {
@@ -26,13 +36,18 @@ const Glyph = styled(Text, {
 
 export type TitleBarProps = {
   title?: string
+  hideTitle?: boolean
+  integratedHeader?: boolean
 }
 
-export function TitleBar({ title = '' }: TitleBarProps) {
+export function TitleBar({ title = '', hideTitle = false, integratedHeader = false }: TitleBarProps) {
   const { minimize, toggleMaximize, close } = useWindowControls()
+  const showTitle = !hideTitle && !integratedHeader && Boolean(title)
 
   return (
     <XStack
+      role="banner"
+      aria-label="Window Title Bar"
       data-tauri-drag-region
       height={40}
       alignItems="center"
@@ -41,25 +56,63 @@ export function TitleBar({ title = '' }: TitleBarProps) {
       borderBottomColor="$borderColor"
       userSelect="none"
     >
-      <Text
-        flex={1}
-        paddingLeft="$3"
-        fontFamily="$body"
-        fontSize={13}
-        color="$color11"
-        data-tauri-drag-region
-      >
-        {title}
-      </Text>
+      {showTitle ? (
+        <Text
+          flex={1}
+          paddingLeft="$3"
+          fontFamily="$body"
+          fontSize={13}
+          color="$color11"
+          data-tauri-drag-region
+        >
+          {title}
+        </Text>
+      ) : (
+        <XStack flex={1} data-tauri-drag-region />
+      )}
 
-      <XStack>
-        <Control onPress={() => minimize()}>
+      <XStack role="toolbar" aria-label="Window Controls">
+        <Control
+          role="button"
+          tabIndex={0}
+          aria-label="Minimize Window"
+          onPress={() => minimize()}
+          onKeyDown={(e: any) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              minimize()
+            }
+          }}
+        >
           <Glyph>—</Glyph>
         </Control>
-        <Control onPress={() => toggleMaximize()}>
+        <Control
+          role="button"
+          tabIndex={0}
+          aria-label="Toggle Maximize Window"
+          onPress={() => toggleMaximize()}
+          onKeyDown={(e: any) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              toggleMaximize()
+            }
+          }}
+        >
           <Glyph>▢</Glyph>
         </Control>
-        <Control onPress={() => close()} hoverStyle={{ backgroundColor: '$red9' }}>
+        <Control
+          role="button"
+          tabIndex={0}
+          aria-label="Close Window"
+          onPress={() => close()}
+          hoverStyle={{ backgroundColor: '$red9' }}
+          onKeyDown={(e: any) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              close()
+            }
+          }}
+        >
           <Glyph>✕</Glyph>
         </Control>
       </XStack>

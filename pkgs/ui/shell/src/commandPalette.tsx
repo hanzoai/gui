@@ -158,7 +158,13 @@ export function usePaletteNav(
 
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      const n = count || 1
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        onClose()
+        return
+      }
+      if (count <= 0) return
+      const n = count
       switch (e.key) {
         case 'ArrowDown':
           e.preventDefault()
@@ -179,10 +185,6 @@ export function usePaletteNav(
         case 'Enter':
           e.preventDefault()
           onEnter(index)
-          break
-        case 'Escape':
-          e.preventDefault()
-          onClose()
           break
       }
     },
